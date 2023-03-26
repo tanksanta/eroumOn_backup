@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_power</title>
+    <g id="intro" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="manager_dashboard-copy" transform="translate(-1310.000000, -37.000000)" fill="#fff" fill-rule="nonzero">
+            <path d="M1319.75,46 L1318.25,46 L1318.25,37 L1319.75,37 L1319.75,46 Z M1323.65975,39.0655 L1322.75,40.26475 C1324.988,41.56375 1326.5,43.981 1326.5,46.75 C1326.5,50.8855 1323.1355,54.25 1319,54.25 C1314.8645,54.25 1311.5,50.8855 1311.5,46.75 C1311.5,43.981 1313.012,41.56375 1315.25,40.26475 L1314.34025,39.0655 C1311.7415,40.64275 1310,43.48825 1310,46.75 C1310,51.72025 1314.02975,55.75 1319,55.75 C1323.97025,55.75 1328,51.72025 1328,46.75 C1328,43.48825 1326.2585,40.64275 1323.65975,39.0655 Z" id="icon_power"></path>
+        </g>
+    </g>
+</svg>

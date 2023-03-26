@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="partners.bplc.gds">
+
+	<resultMap type="bplcGdsVO" id="bplcGdsVOListMap" autoMapping="true">
+		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+	</resultMap>
+
+	<sql id="listColumn">
+		bg.unique_id
+		, bg.gds_no
+		, g.gds_ty
+		, g.gds_nm
+		, g.gds_cd
+		, g.pc
+		, g.bnef_pc
+		, g.lend_pc
+		, g.dspy_yn
+		, g.ctgry_no
+		, g.stock_qy
+		, gc1.ctgry_nm
+		, gc1.up_ctgry_no
+		, gc2.ctgry_nm AS up_ctgry_nm
+		, 'THUMB' as thumb_file_ty
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<if test="srchUpCtgryNo > 0">
+			AND gc1.up_ctgry_no = #{srchUpCtgryNo}
+		</if>
+		<if test="srchCtgryNo > 0">
+			AND g.ctgry_no = #{srchCtgryNo}
+		</if>
+		<if test="srchGdsCd !=null and srchGdsCd != ''">
+			AND g.gds_cd LIKE CONCAT(#{srchGdsCd}, '%')
+		</if>
+		<if test="srchGdsNm !=null and srchGdsNm != ''">
+			AND g.gds_nm LIKE CONCAT('%', #{srchGdsNm}, '%')
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND g.use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<!-- bplcUniqueId 사업소 유니크키 필수 -->
+
+	<!-- Define bplc.gds List Query -->
+	<select id="selectBplcGdsListVO" parameterType="java.util.HashMap" resultMap="bplcGdsVOListMap">
+		/* Query ID : bplc.gds.selectBplcGdsListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BPLC_GDS bg
+		    LEFT JOIN GDS g ON g.gds_no = bg.gds_no
+			LEFT JOIN GDS_CTGRY gc1 ON gc1.ctgry_no = g.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE bg.unique_id = #{bplcUniqueId}
+			<include refid="searchConditions" />
+	  	ORDER BY bg.gds_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define bplc.gds Count Query -->
+	<select id="selectBplcGdsCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gds.selectBplcGdsCount */
+		SELECT	COUNT(*)
+		FROM BPLC_GDS bg
+			LEFT JOIN GDS g ON g.gds_no = bg.gds_no
+			LEFT JOIN GDS_CTGRY gc1 ON gc1.ctgry_no = g.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE bg.unique_id = #{bplcUniqueId}
+			<include refid="searchConditions"/>
+	</select>
+
+
+	<select id="selectBplcGdsListAll" parameterType="java.util.HashMap" resultMap="bplcGdsVOListMap">
+		/* Query ID : bplc.gds.selectBplcGdsListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BPLC_GDS bg
+		    LEFT JOIN GDS g ON g.gds_no = bg.gds_no
+			LEFT JOIN GDS_CTGRY gc1 ON gc1.ctgry_no = g.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE bg.unique_id = #{bplcUniqueId}
+			<include refid="searchConditions" />
+	  	ORDER BY bg.gds_no DESC
+	</select>
+
+
+	<insert id="insertBplcGds" parameterType="bplcGdsVO">
+		INSERT INTO BPLC_GDS (
+			unique_id
+			, gds_no
+		) VALUES (
+			#{uniqueId}
+			, #{gdsNo}
+		)
+	</insert>
+
+	<insert id="selectInsertBplcGds" parameterType="java.util.HashMap">
+		INSERT INTO BPLC_GDS(unique_id, gds_no)
+			SELECT b.unique_id, g.gds_no
+			FROM BPLC b, GDS g
+			WHERE b.aprv_ty = #{srchAprvTy}
+				AND g.gds_no = #{srchGdsNo}
+	</insert>
+
+	<insert id="selectInsertGds" parameterType="java.util.HashMap">
+		INSERT INTO BPLC_GDS(unique_id, gds_no)
+			SELECT b.unique_id, g.gds_no
+			FROM BPLC b, GDS g
+			WHERE b.unique_id = #{srchUniqueId}
+	</insert>
+
+	<delete id="deleteBplcGds" parameterType="bplcGdsVO">
+		DELETE FROM BPLC_GDS
+		WHERE unique_id = #{uniqueId}
+		<if test='arrGdsNo != null and arrGdsNo != "" '>
+		  AND gds_no IN
+			<foreach collection="arrGdsNo" item="gdsNo" open="(" separator="," close=")">
+			#{gdsNo}
+			</foreach>
+		</if>
+	</delete>
+
+</mapper>

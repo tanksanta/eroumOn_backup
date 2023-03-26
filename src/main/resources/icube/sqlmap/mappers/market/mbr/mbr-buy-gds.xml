@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.buy.gds">
+
+	<resultMap type="ordrDtlVO" id="ordrDtlListVOMap" autoMapping="true">
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+	</resultMap>
+
+	<sql id="listColumn">
+		 o.ordr_no
+		 , o.ordr_cd
+		 , o.unique_id
+		 , o.ordr_ty
+		 , o.ordr_dt
+		 , o.ordrr_id
+		 , o.ordrr_nm
+		 , o.ordrr_eml
+		 , o.ordrr_telno
+		 , o.ordrr_mbl_telno
+		 , o.ordrr_zip
+		 , o.ordrr_addr
+		 , o.ordrr_daddr
+		 , o.ordrr_memo
+		 , o.recptr_nm
+		 , o.recptr_telno
+		 , o.recptr_mbl_telno
+		 , o.recptr_zip
+		 , o.recptr_addr
+		 , o.recptr_daddr
+
+		 , o.use_mlg
+		 , o.use_point
+
+		 , o.stlm_device
+		 , o.stlm_ty
+		 , o.stlm_amt
+		 , o.stlm_yn
+		 , o.stlm_dt
+
+	     , o.delng_no
+
+	     , o.billing_yn
+	     , o.billing_key
+	     , o.billing_day
+
+	     , o.card_co_nm
+	     , o.card_no
+	     , o.card_aprvno
+	     , o.card_prtc_yn
+
+	     , o.vr_actno
+	     , o.dpst_bank_cd
+	     , o.dpst_bank_nm
+	     , o.dpstr
+	     , o.pyr_nm
+	     , o.dpst_term_dt
+
+		 , o.cashrcipt_yn
+		 , o.cashrcipt_no
+
+		  od.ordr_dtl_no
+		 , od.ordr_no
+		 , od.ordr_dtl_cd
+		 , od.ordr_cd
+		 , od.gds_no
+		 , od.gds_cd
+		 , od.bnef_cd
+		 , od.gds_nm
+		 , od.gds_pc
+		 , od.ordr_pc
+		 , od.ordr_optn_ty
+		 , od.ordr_optn
+		 , od.ordr_optn_pc
+		 , od.ordr_qy
+		 , od.accml_mlg
+		 , od.coupon_no
+		 , od.coupon_cd
+		 , od.coupon_amt
+		 , od.refund_aprvno
+		 , NULLIF(od.recipter_unique_id, '') as recipter_unique_id
+		 , NULLIF(od.bplc_unique_id, '') as bplc_unique_id
+		 , od.stts_ty
+
+		 , od.sndng_dt
+		 , od.dlvy_ty
+		 , od.dlvy_hope_ymd
+		 , od.dlvy_stlm_ty
+		 , od.dlvy_bass_amt
+		 , od.dlvy_adit_amt
+		 , od.dlvy_stts
+		 , od.dlvy_co_no
+		 , od.dlvy_co_nm
+		 , od.dlvy_dt
+		 , od.dlvy_invc_no
+
+		 , od.rfnd_yn
+		 , od.rfnd_bank
+		 , od.rfnd_actno
+		 , od.rfnd_amt
+		 , od.rfnd_dt
+		 , od.rfnd_dpstr
+
+		 , od.reg_unique_id
+		 , od.reg_dt
+		 , od.reg_id
+		 , od.rgtr
+		 , od.mdfcn_unique_id
+		 , od.mdfcn_dt
+		 , od.mdfcn_id
+		 , od.mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+		<if test="ordrSttsTy != null and ordrSttsTy != '' ">
+			AND stts_ty = #{ordrSttsTy}
+		</if>
+		<if test="srchOptnTy != null and srchOptnTy != '' ">
+			AND ordr_optn_ty = #{srchOptnTy}
+		</if>
+		<if test="srchBuyDay != null and srchBuyDay != '' ">
+			AND DATE(NOW()) &lt; DATE_FORMAT(DATE_ADD(o.ordr_dt, INTERVAL #{srchBuyDay} MONTH), '%Y-%m-%d')
+		</if>
+	</sql>
+
+	<select id="selectOrdrMyListVO" parameterType="java.util.HashMap" resultMap="ordrDtlListVOMap">
+		/* Query ID : ordr.selectOrdrMyListVO */
+		SELECT *
+		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY o.ordr_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectOrdrMyCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : ordr.selectOrdrMyCount */
+		SELECT COUNT(*)
+		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+
+</mapper>

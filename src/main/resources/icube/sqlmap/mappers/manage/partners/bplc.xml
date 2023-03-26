@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="partners.bplc">
+
+	<resultMap type="bplcVO" id="bplcVOMap" autoMapping="true" />
+	<resultMap type="ordrDtlVO" id="ordrDtlVOMap" autoMapping="true" >
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+	</resultMap>
+
+	<sql id="listColumn">
+		 unique_id
+		 , bplc_id
+		 , bplc_pswd
+		 , bplc_nm
+		 , telno
+		 , fxno
+		 , bsnm_ceregrt
+		 , bsnm_offcs
+		 , profl_img
+		 , eml
+		 , rprsv_nm
+		 , brno
+		 , rcper_inst_no
+		 , bizcnd
+		 , iem
+		 , zip
+		 , addr
+		 , daddr
+		 , lat
+		 , lot
+		 , bplc_url
+		 , dlvy_zip
+		 , dlvy_addr
+		 , dlvy_daddr
+		 , pic_nm
+		 , pic_telno
+		 , pic_eml
+		 , clcln_bank
+		 , clcln_actno
+		 , clcln_dpstr
+		 , bsn_pic
+		 , cnpt_cd
+		 , taxbil_eml
+
+		 , bsn_hr_bgng
+		 , bsn_hr_end
+		 , hldy
+		 , hldy_etc
+		 , parkng_yn
+		 , intrcn
+		 , bus_drc
+		 , subway_drc
+		 , car_drc
+
+		 , aprv_ty
+		 , aprv_dt
+		 , reject_resn
+		 , use_yn
+		 , rcmdtn_yn
+
+		 , trms_agre_dt
+		 , join_dt
+		 , lgn_failr_cnt
+		 , recent_cntn_dt
+		 , tmpr_pswd_yn
+		 , pswd_chg_dt
+		 , join_cours
+
+		 , mdfcn_unique_id
+		 , mdfcn_dt
+		 , mdfcn_id
+		 , mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchBgngDt !=null and srchBgngDt != ''">
+			AND DATE_FORMAT(join_dt, '%Y-%m-%d') &gt;= #{srchBgngDt}
+		</if>
+		<if test="srchEndDt !=null and srchEndDt != ''">
+			AND DATE_FORMAT(join_dt, '%Y-%m-%d') &lt;= #{srchEndDt}
+		</if>
+		<if test="srchBplcId != null and srchBplcId != '' ">
+			AND bplc_id = #{srchBplcId}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+
+		<if test="srchBplcNm != null and srchBplcNm != '' ">
+			AND bplc_nm like CONCAT ('%',#{srchBplcNm},'%')
+		</if>
+		<if test="srchRprsvNm != null and srchRprsvNm != '' ">
+			AND rprsv_nm like CONCAT ('%',#{srchRprsvNm},'%')
+		</if>
+		<if test="srchBrno != null and srchBrno != '' ">
+			AND brno like CONCAT ('%',#{srchBrno},'%')
+		</if>
+		<if test="srchPicNm != null and srchPicNm != '' ">
+			AND pic_nm like CONCAT ('%',#{srchPicNm},'%')
+		</if>
+		<if test="srchPicTelno != null and srchPicTelno != '' ">
+			AND pic_telno = #{srchPicTelno}
+		</if>
+		<!-- TO-DO : 보완 -->
+		<if test="srchAprvTy != null and srchAprvTy != '' ">
+			AND aprv_ty = #{srchAprvTy}
+		</if>
+		<if test="type != null and type != ''">
+			AND aprv_ty = #{type}
+		</if>
+		<if test="apptype != null and apptype != ''">
+			AND aprv_ty != #{apptype}
+		</if>
+
+		<if test="srchDspyYn != null and srchDspyYn != '' ">
+			AND rcmdtn_yn = #{srchDspyYn}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+
+		<if test="srchSido != null and srchSido != '' ">
+			AND addr like CONCAT('%',#{srchSido},'%')
+		</if>
+		<if test="srchGugun != null and srchGugun != '' ">
+			AND addr like CONCAT('%',#{srchGugun},'%')
+		</if>
+		<if test="rcmdtnYn != null and rcmdtnYn != '' ">
+			AND rcmdtn_yn = #{rcmdtnYn}
+		</if>
+
+		<if test="srchRegUniqueId != null and srchRegUniqueId != '' ">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+	</sql>
+
+	<select id="selectBplcListVO" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+		/* Query ID : bplc.selectBplcListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BPLC
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY unique_id DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectBplcCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bplc.selectBplcCount */
+		SELECT	COUNT(*)
+		FROM	BPLC
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- 최근 구매 -->
+	<select id="recentBplcListVO" parameterType="java.util.HashMap" resultMap="ordrDtlVOMap">
+		/* Query ID : bplc.recentBplcListVO */
+		SELECT DISTINCT
+		 	NULLIF(od.bplc_unique_id, '') as bplc_unique_id
+		FROM ORDR_DTL od
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="recentBplcCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bplc.recentBplcCount */
+		SELECT COUNT(DISTINCT bplc_unique_id)
+		FROM ORDR_DTL od
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectBplc" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+		/* Query ID : bplc.selectBplc */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	BPLC
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<select id="selectBplcByUrl" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+		/* Query ID : partners.bplc.selectBplcByUrl */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BPLC bp
+		WHERE bplc_url = #{bplcUrl}
+	</select>
+
+	<select id="selectBplcIdChk" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : partners.bplc.selectBplcIdChk */
+		SELECT COUNT(*)
+		FROM BPLC
+		WHERE bplc_id = #{bplcId}
+	</select>
+
+	<select id="selectBplcUrl" parameterType="java.util.HashMap" resultType="bplcVO">
+		/* Query ID : bplc.selectBplcUrl */
+		SELECT
+			bplc_url
+		FROM BPLC
+		WHERE unique_id = #{uniqueId}
+		LIMIT 0,1
+	</select>
+
+	<!-- AND bplc_nm = #{bplcNm} 제거 -->
+	<select id="selectBrno" parameterType="java.util.HashMap" resultType="bplcVO">
+		/* Query ID : bplc.selectBrno */
+		SELECT
+		<include refid="listColumn" />
+		FROM BPLC
+		WHERE brno = #{brno}
+			<if test="bplcId != null and bplcId != ''">
+			AND bplc_id = #{bplcId}
+			</if>
+	</select>
+
+	<insert id="insertBplc" parameterType="bplcVO">
+		/* Query ID : bplc.insertBplc */
+		INSERT INTO BPLC (
+			unique_id
+			, bplc_id
+			, bplc_pswd
+			, bplc_nm
+			, telno
+			, fxno
+			, bsnm_ceregrt
+		 	, bsnm_offcs
+		 	, profl_img
+			, eml
+
+			, rprsv_nm
+			, brno
+			, rcper_inst_no
+			, bizcnd
+			, iem
+			, zip
+			, addr
+			, daddr
+			, lat
+			, lot
+			, loc
+			, bplc_url
+			, dlvy_zip
+			, dlvy_addr
+			, dlvy_daddr
+			, pic_nm
+			, pic_telno
+			, pic_eml
+
+			, clcln_bank
+			, clcln_actno
+			, clcln_dpstr
+
+			, bsn_pic
+			, cnpt_cd
+			, taxbil_eml
+			, bsn_hr_bgng
+			, bsn_hr_end
+			, hldy
+			, hldy_etc
+			, parkng_yn
+			, intrcn
+			, bus_drc
+			, subway_drc
+			, car_drc
+
+			, aprv_ty
+			, use_yn
+			, rcmdtn_yn
+			, trms_agre_dt
+
+			, join_dt
+			, lgn_failr_cnt
+			, recent_cntn_dt
+			, tmpr_pswd_yn
+			, pswd_chg_dt
+			, join_cours
+		) VALUES (
+			CONCAT('BPL_', LPAD( FN_NEXT_SEQ('BPLC'), 8, '0'))
+			, #{bplcId, jdbcType=VARCHAR}
+			, #{bplcPswd, jdbcType=VARCHAR}
+			, #{bplcNm, jdbcType=VARCHAR}
+			, #{telno, jdbcType=VARCHAR}
+			, #{fxno, jdbcType=VARCHAR}
+			, #{bsnmCeregrt, jdbcType=VARCHAR}
+		 	, #{bsnmOffcs, jdbcType=VARCHAR}
+		 	, #{proflImg, jdbcType=VARCHAR}
+			, #{eml, jdbcType=VARCHAR}
+
+			, #{rprsvNm, jdbcType=VARCHAR}
+			, #{brno, jdbcType=VARCHAR}
+			, #{rcperInstNo, jdbcType=VARCHAR}
+			, #{bizcnd, jdbcType=VARCHAR}
+			, #{iem, jdbcType=VARCHAR}
+			, #{zip, jdbcType=VARCHAR}
+			, #{addr, jdbcType=VARCHAR}
+			, #{daddr, jdbcType=VARCHAR}
+			, #{lat, jdbcType=VARCHAR}
+			, #{lot, jdbcType=VARCHAR}
+			, ST_GeomFromText(CONCAT('POINT(', #{lot}, ' ', #{lat}, ')'))
+			, #{bplcUrl, jdbcType=VARCHAR}
+			, #{dlvyZip, jdbcType=VARCHAR}
+			, #{dlvyAddr, jdbcType=VARCHAR}
+			, #{dlvyDaddr, jdbcType=VARCHAR}
+			, #{picNm, jdbcType=VARCHAR}
+			, #{picTelno, jdbcType=VARCHAR}
+			, #{picEml, jdbcType=VARCHAR}
+
+			, #{clclnBank, jdbcType=VARCHAR}
+			, #{clclnActno, jdbcType=VARCHAR}
+			, #{clclnDpstr, jdbcType=VARCHAR}
+
+			, #{bsnPic, jdbcType=VARCHAR}
+			, #{cnptCd, jdbcType=VARCHAR}
+			, #{taxbilEml, jdbcType=VARCHAR}
+			, #{bsnHrBgng, jdbcType=VARCHAR}
+			, #{bsnHrEnd, jdbcType=VARCHAR}
+			, #{hldy, jdbcType=VARCHAR}
+			, #{hldyEtc, jdbcType=VARCHAR}
+			, #{parkngYn, jdbcType=VARCHAR}
+			, #{intrcn, jdbcType=VARCHAR}
+			, #{busDrc, jdbcType=VARCHAR}
+			, #{subwayDrc, jdbcType=VARCHAR}
+			, #{carDrc, jdbcType=VARCHAR}
+
+			, #{aprvTy, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{rcmdtnYn, jdbcType=VARCHAR}
+			, SYSDATE()
+
+			, SYSDATE()
+			,#{lgnFailrCnt}
+			, #{recentCntnDt}
+			, #{tmprPswdYn, jdbcType=VARCHAR}
+			, #{pswdChgDt}
+			, #{joinCours}
+		)
+		<selectKey keyProperty="uniqueId" resultType="String" order="AFTER">
+			SELECT unique_id FROM BPLC WHERE bplc_id = #{bplcId}
+		</selectKey>
+	</insert>
+
+	<!-- 파트너 신청관리 -->
+	<update id="updateBplcApp" parameterType="bplcVO">
+		/* Query ID : bplc.updateBplc */
+		UPDATE	 BPLC SET
+			aprv_ty = #{aprvTy}
+			<choose>
+				<when test='aprvTy == "C"'>
+			, aprv_dt = SYSDATE()
+			, reject_resn = null
+				</when>
+				<when test='aprvTy == "R"'>
+			, reject_resn = #{rejectResn}
+				</when>
+			</choose>
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+		    , mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+			, mdfcn_dt = SYSDATE()
+		WHERE	unique_id = #{uniqueId}
+
+	</update>
+
+	<!--파트너 관리-->
+	<update id="updateBplc" parameterType="bplcVO">
+		/* Query ID : bplc.updateBplc */
+		UPDATE	 BPLC SET
+			telno = #{telno}
+			<if test="bplcNm != null and bplcNm != '' ">
+			, bplc_nm = #{bplcNm}
+			</if>
+			<if test="fxno != null and fxno != '' ">
+			, fxno = #{fxno}
+			</if>
+			<if test='(bsnmCeregrt != null and bsnmCeregrt != "") or delBsnmCeregrt == "Y" '>
+			, bsnm_ceregrt = #{bsnmCeregrt, jdbcType=VARCHAR}
+			</if>
+			<if test='(bsnmOffcs != null and bsnmOffcs != "") or delBsnmOffcs == "Y" '>
+		 	, bsnm_offcs = #{bsnmOffcs, jdbcType=VARCHAR}
+		 	</if>
+			<if test='(proflImg != null and proflImg != "") or delProflImg == "Y" '>
+		 	, profl_img = #{proflImg, jdbcType=VARCHAR}
+			</if>
+			<if test="brno != null and brno != '' ">
+			, brno = #{brno}
+			</if>
+			<if test="rcperInstNo != null and rcperInstNo != '' ">
+			, rcper_inst_no = #{rcperInstNo}
+			</if>
+			<if test="rprsvNm != null and rprsvNm != '' ">
+			, rprsv_nm = #{rprsvNm}
+			</if>
+			<if test="bizcnd != null and bizcnd != '' ">
+			, bizcnd = #{bizcnd}
+			</if>
+			<if test="iem != null and iem != '' ">
+			, iem = #{iem}
+			</if>
+			<if test="zip != null and zip != '' ">
+			, zip = #{zip}
+			</if>
+			<if test="addr != null and addr != '' ">
+			, addr = #{addr}
+			</if>
+			<if test="daddr != null and daddr != '' ">
+			, daddr = #{daddr}
+			</if>
+			<if test="lat != null and lat != '' ">
+			, lat = #{lat}
+			</if>
+			<if test="lot != null and lot != '' ">
+			, lot = #{lot}
+			</if>
+			<if test="(lat != null and lat != '') and (lot != null and lot != '') ">
+			, loc = ST_GeomFromText(CONCAT('POINT(', #{lot}, ' ', #{lat}, ')'))
+			</if>
+			<if test="dlvyZip != null and dlvyZip != '' ">
+			, dlvy_zip = #{dlvyZip}
+			</if>
+			<if test="dlvyAddr != null and dlvyAddr != '' ">
+			, dlvy_addr = #{dlvyAddr}
+			</if>
+			<if test="dlvyDaddr != null and dlvyDaddr != '' ">
+			, dlvy_daddr = #{dlvyDaddr}
+			</if>
+			<if test="taxbilEml != null and taxbilEml != '' ">
+			, taxbil_eml = #{taxbilEml}
+			</if>
+			<if test="picNm != null and picNm != '' ">
+			, pic_nm = #{picNm}
+			</if>
+			<if test="picTelno != null and picTelno != '' ">
+			, pic_telno = #{picTelno}
+			</if>
+			<if test="picEml != null and picEml != '' ">
+			, pic_eml = #{picEml}
+			</if>
+
+			<if test="clclnBank != null and clclnBank != '' ">
+			, clcln_bank = #{clclnBank}
+			</if>
+			<if test="clclnActno != null and clclnActno != '' ">
+			, clcln_actno = #{clclnActno}
+			</if>
+			<if test="clclnDpstr != null and clclnDpstr != '' ">
+			, clcln_dpstr = #{clclnDpstr}
+			</if>
+
+			<if test="useYn != null and useYn != '' ">
+			, use_yn = #{useYn}
+			</if>
+			<if test="rcmdtnYn != null and rcmdtnYn != '' ">
+			, rcmdtn_yn = #{rcmdtnYn}
+			</if>
+
+			<if test="bsnHrBgng != null and bsnHrBgng != '' ">
+			, bsn_hr_bgng = #{bsnHrBgng}
+			</if>
+			<if test="bsnHrEnd != null and bsnHrEnd != '' ">
+			, bsn_hr_end = #{bsnHrEnd}
+			</if>
+			<if test="hldy != null and hldy != '' ">
+			, hldy = #{hldy}
+			</if>
+			, hldy_etc = #{hldyEtc}
+			<if test="parkngYn != null and parkngYn != '' ">
+			, parkng_yn = #{parkngYn}
+			</if>
+			<if test="intrcn != null and intrcn != '' ">
+			, intrcn = #{intrcn}
+			</if>
+
+			<if test="busDrc != null and busDrc != '' ">
+			, bus_drc = #{busDrc}
+			</if>
+			<if test="subwayDrc != null and subwayDrc != '' ">
+			, subway_drc = #{subwayDrc}
+			</if>
+			<if test="carDrc != null and carDrc != '' ">
+			, car_drc = #{carDrc}
+			</if>
+
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+		    , mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+			, mdfcn_dt = SYSDATE()
+		WHERE	unique_id = #{uniqueId}
+	</update>
+
+	<!-- 사용자 사업소 계정 활성화 -->
+	<update id="updatePartnersBplc" parameterType="bplcVO">
+		/* Query ID : bplc.updateBplc */
+		UPDATE	 BPLC SET
+			bplc_pswd = #{bplcPswd}
+			, telno = #{telno}
+			, fxno = #{fxno}
+			, profl_img = #{proflImg, jdbcType=VARCHAR}
+			, bplc_url = #{bplcUrl}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+			, dlvy_zip = #{dlvyZip}
+			, dlvy_addr = #{dlvyAddr}
+			, dlvy_daddr = #{dlvyDaddr}
+			, taxbil_eml = #{taxbilEml}
+			, bsnm_ceregrt = #{bsnmCeregrt}
+			, bsnm_offcs = #{bsnmOffcs}
+			, pic_nm = #{picNm}
+			, pic_telno = #{picTelno}
+			, pic_eml = #{picEml}
+			, clcln_bank = #{clclnBank}
+			, clcln_actno = #{clclnActno}
+			, clcln_dpstr = #{clclnDpstr}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 파일 이름 업데이트 -->
+	<update id="updateFilesName" parameterType="bplcVO">
+		/* Query ID : bplc.updateFilesName */
+		UPDATE BPLC SET
+			bsnm_ceregrt = #{bsnmCeregrt}
+			bsnm_offcs = #{bsnmOffcs}
+			profl_img = #{proflImg}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<update id="updateBplcPswd" parameterType="java.util.HashMap">
+		UPDATE BPLC SET
+			bplc_pswd = #{newPswd}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+
+	<!-- 사업소 전체 목록 for kakaoMap -->
+	<select id="selectBplcListAll" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+		/* Query ID : partners.bplc.selectBplcListAll */
+		SELECT
+			<include refid="listColumn"/>
+			<if test="isAllow">
+			, FN_ST_DISTANCE_SPHERE(POINT(#{lot}, #{lat}), LOC) AS dist
+			</if>
+		FROM BPLC
+		WHERE 1=1
+		<choose>
+			<when test="srchMode == 'LOCATION' ">
+			AND addr LIKE CONCAT('%', #{gugun},'%')
+			</when>
+			<when test="srchMode == 'TEXT' ">
+				<if test="srchText !=null and srchText != ''">
+				AND (addr LIKE CONCAT('%', #{srchText},'%') OR bplc_nm LIKE CONCAT('%', #{srchText},'%'))
+				</if>
+			</when>
+			<when test="srchMode == 'RECOMMEND' ">
+				AND rcmdtn_yn = #{rcmdtnYn}
+			</when>
+		</choose>
+			AND aprv_ty = #{srchAprvTy}
+			AND use_yn = #{srchUseYn}
+		<if test="isAllow">
+			AND loc IS NOT NULL
+			<if test="dist > 0">
+			AND FN_ST_DISTANCE_SPHERE(POINT(#{lot}, #{lat}), loc) &lt;= #{dist}
+			</if>
+		</if>
+		ORDER BY
+		<choose>
+			<when test="isAllow">
+			dist ASC, bplc_nm ASC, unique_id ASC
+			</when>
+			<otherwise>
+			bplc_nm ASC, unique_id ASC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 사업소 좌표업데이트: 공간좌표-->
+	<update id="updateBplcGeocode" parameterType="java.util.HashMap">
+		/* Query ID : partners.bplc.updateBplcGeocode */
+		UPDATE BPLC SET
+			lot = #{lot}
+			, lat = #{lat}
+			, loc = ST_GeomFromText(CONCAT('POINT(', #{lot}, ' ', #{lat}, ')'))
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+
+	<!-- 로그인 실패횟수 증가 -->
+	<update id="updateFailedLoginCountUp" parameterType="bplcVO">
+		/* Query ID : partners.bplc.updateFailedLoginCountUp */
+		UPDATE BPLC
+		   SET lgn_failr_cnt = IFNULL(lgn_failr_cnt, 0)+1
+		 WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 로그인 실패횟수 조회 -->
+	<select id="selectFailedLoginCount" parameterType="bplcVO" resultType="int">
+		/* Query ID : partners.bplc.selectFailedLoginCount */
+		SELECT IFNULL(lgn_failr_cnt, 0)
+		  FROM BPLC
+		 WHERE unique_id = #{uniqueId}
+	</select>
+
+	<!-- 로그인 실패횟수 리셋 -->
+	<update id="updateFailedLoginCountReset" parameterType="mngrVO">
+		UPDATE BPLC
+		   SET lgn_failr_cnt = 0
+		 WHERE unique_id = #{uniqueId}
+	</update>
+
+</mapper>

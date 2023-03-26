@@ -1,0 +1,61 @@
+@layer components {
+    .text-primary {
+        @apply text-black1;
+    }
+    
+    .text-secondary {
+        @apply text-gray5;
+    }
+    
+    .text-danger {
+        @apply text-red1;
+    }
+    
+    .text-warning {
+        @apply text-yellow1;
+    }
+    
+    .text-success {
+        @apply text-blue1;
+    }
+    
+    .border-primary {
+        @apply border-black1;
+    }
+    
+    .border-secondary {
+        @apply border-gray5;
+    }
+    
+    .border-danger {
+        @apply border-red1;
+    }
+    
+    .border-warning {
+        @apply border-yellow1;
+    }
+    
+    .border-success {
+        @apply border-blue1;
+    }
+    
+    .bg-primary {
+        @apply bg-black1;
+    }
+    
+    .bg-secondary {
+        @apply bg-gray5;
+    }
+    
+    .bg-danger {
+        @apply bg-red1;
+    }
+    
+    .bg-warning {
+        @apply bg-yellow1;
+    }
+    
+    .bg-success {
+        @apply bg-blue1;
+    }
+}

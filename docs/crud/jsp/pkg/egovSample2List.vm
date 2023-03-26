@@ -1,0 +1,161 @@
+##
+#set($D='$')
+#set($Q='"')
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($defaultVoClassName="${model.entity.pcName}DefaultVO")
+#set($voInstanceName="${model.entity.ccName}VO")
+##
+##
+#set($listPath="/${model.entity.ccName}/${model.entity.pcName}List.do")
+#set($addViewPath="/${model.entity.ccName}/add${model.entity.pcName}View.do")
+#set($addPath="/${model.entity.ccName}/add${model.entity.pcName}.do")
+#set($selectPath="/${model.entity.ccName}/select${model.entity.pcName}.do")
+#set($updatePath="/${model.entity.ccName}/update${model.entity.pcName}.do")
+#set($updateViewPath="/${model.entity.ccName}/update${model.entity.pcName}View.do")
+#set($deletePath="/${model.entity.ccName}/delete${model.entity.pcName}.do")
+##
+#set($listPageName="${model.entity.pcName}List.jsp")
+##
+#set($selectFunctionName="fncSelect${model.entity.pcName}")
+#set($addViewFunctionName="fncAdd${model.entity.pcName}View")
+##
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+				<!-- 검색영역 -->
+				<form id="searchFrm" name="searchFrm" method="get" action="./list">
+				<input type="hidden" name="srchTarget" id="srchTarget" value="${D}{param.srchTarget}" />
+				<input type="hidden" name="srchUseAt" id="srchUseAt" value="${D}{param.srchUseAt }" />
+				<input type="hidden" name="cntPerPage" id="cntPerPage" value="${D}{listVO.cntPerPage}" />
+				<input type="hidden" name="sortBy" id="sortBy" value="${D}{param.sortBy}" />
+					
+#if(${model.primaryKeys} == [])
+    <input type="hidden" name="${model.attributes.get(0).ccName}" />
+#else
+#foreach($attribute in ${model.primaryKeys})
+	<input type="hidden" name="${attribute.ccName}" />
+#end
+#end
+				<fieldset>
+                    <legend class="text-title2">검색</legend>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-43">
+                            <col>
+                            <col class="w-43">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><label for="search-item1">검색</label></th>
+                                <td colspan="3">
+                                    <input type="text" class="form-control w-84" id="search-item1">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <div class="btn-group mt-5">
+                    <button type="submit" class="btn-primary large shadow w-52">검색</button>
+                </div>
+				</form>
+					
+				<p class="text-title2 mt-13">${model.entity.pcName} 목록</p>
+                <table class="table-list">
+                    <colgroup>
+                        #foreach($attribute in $model.attributes)			
+						<col/>				
+						#end
+                    </colgroup>
+                    <thead>
+                        <tr>
+                        	#foreach($attribute in $model.attributes)
+							<th scope="col">${attribute.pcName}</th>
+							#end	
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<c:forEach items="${D}{listVO.listObject}" var="resultList" varStatus="status">
+                    	<c:set var="pageParam" value="curPage=${D}{listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${D}{listVO.urlParam}" />
+                        <tr>
+	#if(${model.primaryKeys} == [])
+	 	#set($linkParams="${model.attributes.get(0).ccName}=<c:out value=${Q}${D}{resultList.${model.attributes.get(0).ccName}}${Q}/>")
+	 	#foreach($attribute in $model.attributes)
+			#if($attribute.ccName == ${model.attributes.get(0).ccName})				
+<td><a href="./form?${linkParams}"><c:out value="${D}{resultList.${attribute.ccName}}"/></a>&nbsp;</td>
+			#else
+<td><c:out value="${D}{resultList.${attribute.ccName}}"/></td>
+			#end
+		#end
+	#else
+	    #set($linkParams="")
+		#set($i=0)
+		#foreach($attribute in $model.primaryKeys)
+		#if($i == 0)
+		  #set($linkParams="${attribute.ccName}=<c:out value=${Q}${D}{resultList.${attribute.ccName}}${Q}/>")
+		#else
+		  #set($linkParams="$linkParams&amp;${attribute.ccName}=<c:out value=${Q}${D}{resultList.${attribute.ccName}}${Q}/>")
+		#end
+		#set($i=$i+1)					
+		#end
+		#foreach($attribute in $model.attributes)
+		#if($attribute.primaryKey == true)				
+<td><a href="./form?${linkParams}"><c:out value="${D}{resultList.${attribute.ccName}}"/></a</td>
+		#else
+<td><c:out value="${D}{resultList.${attribute.ccName}}"/></td>
+		#end
+		#end
+    #end
+                        </tr>
+                        </c:forEach>
+                        <c:if test="${D}{empty listVO.listObject}">
+                        <tr>
+                            <td class="noresult" colspan="10">등록된 데이터가 없습니다.</td>
+                        </tr>
+                        </c:if>
+                    </tbody>
+                </table>
+
+				<div class="pagination mt-7">
+                    <mngr:mngrPaging listVO="${D}{listVO}"/>
+    
+    				<div class="sorting2">
+                        <label for="countPerPage">출력</label>
+                        <select name="countPerPage" id="countPerPage" class="form-control">
+                            <option value="10" ${D}{listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
+							<option value="20" ${D}{listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
+							<option value="30" ${D}{listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
+                        </select>
+                    </div>
+    
+    				<!--
+                    <div class="sorting">
+                        <a href="#" ${D}{listVO.cntPerPage eq '10' ? 'class="active"' : '' }>10</a>
+                        <a href="#" ${D}{listVO.cntPerPage eq '20' ? 'class="active"' : '' }>20</a>
+                        <a href="#" ${D}{listVO.cntPerPage eq '30' ? 'class="active"' : '' }>30</a>
+                    </div>
+                    -->
+    
+                    <div class="counter">총 <strong>${D}{listVO.totalCount}</strong>건, <strong>${D}{listVO.curPage}</strong>/${D}{listVO.totalPage} 페이지</div>
+                </div>
+                
+                <!-- button -->
+                <div class="btn-group right mt-8">
+                    <a href="./form" class="btn-primary large shadow">등록</a>
+                </div>
+                
+
+                <script>
+                $(function(){
+                
+                
+                
+                	// 출력 갯수
+	                $("#countPerPage").on("change", function(){
+						var cntperpage = $("#countPerPage option:selected").val();
+						$("#cntPerPage").val(cntperpage);
+						$("#searchFrm").submit();
+					});
+                });
+                </script>

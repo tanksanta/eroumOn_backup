@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd">
+
+	<mvc:annotation-driven />
+
+    <context:component-scan base-package="icube">
+    	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+    <aop:aspectj-autoproxy/>
+
+    <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="error/error"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.egovframe.rte.fdl.cmmn.exception.EgovBizException">error/error</prop>
+                <prop key="icube.common.framework.exception.CommonErrorException">error/errorMessage</prop>
+                <prop key="icube.common.framework.exception.PageNotFoundException">error/pageNotFound</prop>
+            </props>
+        </property>
+    </bean>
+
+	<context:property-placeholder properties-ref="props" />
+
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	    <property name="order" value="1" />
+	</bean>
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/config/tiles/tiles-def.xml</value>
+            </list>
+        </property>
+    </bean>
+
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="viewResolvers">
+			<list>
+			    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+				    <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+				    <property name="order" value="1" />
+				</bean>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+					<property name="prefix" value="/WEB-INF/jsp/" />
+					<property name="suffix" value=".jsp" />
+					<property name="order" value="2" />
+				</bean>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+					<property name="order" value="3" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+	        <list>
+	            <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	        </list>
+    	</property>
+	</bean>
+
+	<!-- 인터셉터 설정 -->
+    <mvc:interceptors>
+
+    	<!-- 이로움 관리자 인터셉터 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Manager.path']}/**"/>
+    		<mvc:exclude-mapping path="/#{props['Globals.Manager.path']}/login"/>
+    		<mvc:exclude-mapping path="/#{props['Globals.Manager.path']}/loginAction"/>
+        	<bean class="icube.common.interceptor.MngAuthInterceptor" />
+        </mvc:interceptor>
+
+        <!-- 마켓 인터셉터 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Market.path']}/**"/>
+        	<bean class="icube.common.interceptor.MarketInterceptor" />
+        </mvc:interceptor>
+
+        <!-- 파트너스(사업소) 관리자 인터셉터 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Members.path']}/*/mng/**"/>
+        	<bean class="icube.common.interceptor.PartnersInterceptor" />
+        </mvc:interceptor>
+
+        <!-- 그외 > 플래너, 멤버십 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Planner.path']}/**"/>
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/**"/>
+        	<bean class="icube.common.interceptor.MbrAuthInterceptor" />
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+
+    <!-- 스케줄러 
+	<task:scheduler id="jobScheduler" pool-size="10"/>
+	<task:annotation-driven scheduler="jobScheduler"/>
+	-->
+</beans>

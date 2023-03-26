@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>통합회원</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 id="header-logo">
+                <a href="#"><span class="sr-only">이로움</span> 회원</a>
+            </h1>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="회원정보수정.html" class="navigation-link is-active">정보수정</a></li>
+                    <li><a href="회원탈퇴.html" class="navigation-link">회원탈퇴</a></li>
+                </ul>
+            </nav>
+            <ul id="family">
+                <li>
+                    <a href="#" class="family-link1">
+                        <div class="bubble">
+                            <small>시니어 라이프 케어 플랫폼</small>
+                            <strong>"이로움"</strong>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link2">
+                        <div class="bubble">
+                            <strong>이로움 멤버스</strong>
+                            <small>전국 2,432개 업체와 함께합니다</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link3">
+                        <div class="bubble">
+                            <strong><img src="../assets/images/txt-family3.svg" alt="이로움마켓"></strong>
+                            <small>
+                                복지용구 사업소와 수급자 매칭부터<br>
+                                주문, 계약 및 결제까지 한번에!
+                            </small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="container">
+        <header id="page-title">
+            <h2>
+                <span>회원정보수정</span>
+                <small>Member Modify</small>
+            </h2>
+        </header>
+
+        <div id="page-content">
+            <div class="items-center justify-between md:flex">
+                <div class="space-y-1.5">
+                    <p class="text-alert">고객님의 개인정보를 안전하게 취급하며, 회원님의 동의 없이는 회원정보를 공개 및 변경하지 않습니다.</p>
+                    <p class="text-alert">회원님의 개인정보 보호를 위해 비밀번호를 다시 입력해 주세요.</p>
+                </div>
+            </div>
+
+            <form id="pwdChkFrm" name="pwdChkFrm" method="post" action="회원정보수정 정보변경.html" class="member-modify-password" novalidate="novalidate">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="pswd" class="font-bold">비밀번호</label>
+                        <input type="password" class="form-control" name="pswd" id="pswd">
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn-large btn-primary">확인</button>
+            </form>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <p>COPYRIGHT ⓒ <strong>E·ROUM</strong>. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

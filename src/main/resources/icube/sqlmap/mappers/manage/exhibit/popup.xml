@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="popup">
+
+	<resultMap type="popupVO" id="popupVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=pop_no}" select="file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		pop_no
+		, pop_sj
+		, bgng_dt
+		, end_dt
+		, pop_height
+		, pop_width
+		, pop_left
+		, pop_top
+		, pop_ty
+		, one_view_ty
+		, link_url
+		, link_ty
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'POPUP' AS srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND pop_sj like CONCAT('%', #{srchText}, '%')
+		</if>
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND bgng_dt &gt;= #{srchBgngDt} AND end_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND bgng_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND end_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_FORMAT(bgng_dt,'%Y-%m-%d') &lt;= DATE(NOW())
+			AND DATE(NOW()) &lt; DATE_FORMAT(end_dt,'%Y-%m-%d')
+		</if>
+		<if test="srchLinkTy != null and srchLinkTy != '' ">
+			AND link_ty = #{srchLinkTy}
+		</if>
+	</sql>
+
+	<select id="selectPopupListVO" parameterType="java.util.HashMap" resultMap="popupVOMap">
+		/* Query ID : popup.xml > selectPopupListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM POPUP
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY pop_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectPopupCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : popup.xml > selectPopupCount */
+		SELECT	COUNT(*)
+		FROM	POPUP
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectPopup" parameterType="java.util.HashMap" resultMap="popupVOMap">
+		/* Query ID : popup.xml > selectPopup */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	POPUP
+		WHERE  pop_no = #{popNo}
+	</select>
+
+	<select id="selectPopupListAll" parameterType="java.util.HashMap" resultMap="popupVOMap">
+		/* Query ID : popup.xml > selectPopupListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM POPUP
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY pop_no DESC
+	</select>
+
+
+	<insert id="insertPopup" parameterType="popupVO">
+	/* Query ID : popup.xml > insertPopup */
+	INSERT INTO POPUP (
+		pop_sj
+		, bgng_dt
+		, end_dt
+		, pop_height
+		, pop_width
+		, pop_left
+		, pop_top
+		, pop_ty
+		, one_view_ty
+		, link_url
+		, link_ty
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	) VALUES (
+		#{popSj, jdbcType=VARCHAR}
+		, #{bgngDt}
+		, #{endDt}
+		, #{popHeight}
+		, #{popWidth}
+		, #{popLeft}
+		, #{popTop}
+		, #{popTy}
+		, #{oneViewTy, jdbcType=VARCHAR}
+		, #{linkUrl, jdbcType=VARCHAR}
+		, #{linkTy, jdbcType=VARCHAR}
+		, #{useYn, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+	)
+	<selectKey keyProperty="popNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+
+
+	<update id="updatePopup" parameterType="popupVO">
+	/* Query ID : popup.xml > updatePopup */
+		UPDATE POPUP SET
+			pop_sj = #{popSj, jdbcType=VARCHAR}
+			, bgng_dt = #{bgngDt}
+			, end_dt = #{endDt}
+			, pop_height = #{popHeight}
+			, pop_width = #{popWidth}
+			, pop_left = #{popLeft}
+			, pop_top = #{popTop}
+			, pop_ty = #{popTy}
+			, one_view_ty = #{oneViewTy, jdbcType=VARCHAR}
+			, link_url = #{linkUrl, jdbcType=VARCHAR}
+			, link_ty = #{linkTy, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE pop_no = #{popNo}
+	</update>
+
+</mapper>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>planner</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <!-- market -->
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script>
+        $(function() {
+            setTimeout(function() {
+            $('.modalss').trigger('click');
+        },200)
+        })
+    </script>
+</head>
+<body>
+
+    <a href="#exampleModal1" class="btn btn-primary modalss" data-bs-toggle="modal" data-bs-target="#exampleModal1">로그인</a>
+    <a href="#exampleModal2" class="btn btn-color8 btn-small w-61 modalss" data-bs-toggle="modal" data-bs-target="#exampleModal2">컨텐츠</a>
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <button data-bs-dismiss="modal">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-login-desc"><strong>로그인</strong>이 필요한 서비스입니다</p>
+                    <div class="modal-login-form">
+                        <div class="form-group">
+                            <label for="login-item1" class="form-label">아이디</label>
+                            <input type="text" id="login-item1" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-item2" class="form-label">비밀번호</label>
+                            <input type="password" id="login-item2" class="form-input">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-2.5 w-full">로그인</button>
+                    </div>
+                    <div class="modal-login-search">
+                        <a href="#">아이디 찾기</a>
+                        <a href="#">비밀번호 찾기</a>
+                    </div>
+                    <div class="modal-login-join">
+                        <dl>
+                            <dt>아직 회원이 아니신가요?</dt>
+                            <dd>이로움과 함께<br> 새 삶을 누리세요!</dd>
+                        </dl>
+                        <a href="#" class="btn btn-outline-primary">회원가입</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade is-color1" id="exampleModal2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <button data-bs-dismiss="modal">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-project-title">소규모 공동주택 공용시설물 보조금 지원</div>
+                    <div class="modal-project-content">
+                        <a href="#" class="share">공유하기 <i></i></a>
+                        <table>
+                            <colgroup>
+                                <col class="w-14">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">분류</th>
+                                    <td>
+                                        <span class="label">라벨</span>
+                                        <span class="label">라벨</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">지원조건</th>
+                                    <td>65세 이상 기초생활수급자</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">지원방법</th>
+                                    <td>서류접수 및 인터넷 신청</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">지원기간</th>
+                                    <td>
+                                        상시신청<br>
+                                        (2023.02.24 ~ 2023.12.23)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">필요서류</th>
+                                    <td>
+                                        주민등록등본 1부<br>
+                                        가족관계증명서 1부
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">지원금</th>
+                                    <td>240,000 <small>원</small></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">내용</th>
+                                    <td>
+                                        <div class="content">
+                                            - 옥상 공용부분 방수공사 <br>
+                                            - 재해 및 재난 등이 발생할 우려가 큰 위험 시설의 보수 <br>
+                                            - 단지 내 차도 및 보도의 보수 <br>
+                                            - 하수관의 교체ㆍ보수 및 준설 <br>
+                                            - 장애인ㆍ노인ㆍ임산부 등의 편의시설의 설치 및 보수 <br>
+                                            - 지하주차장의 바닥ㆍ벽체 방수공사
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출처</th>
+                                    <td>복지로(<a href="bokjiro.go.kr" target="_blank" class="home">bokjiro.go.kr</a>)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">기관명</th>
+                                    <td>서울시 송파구청</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-banner">
+                        <img src="../assets/images/dummy/img-dummy-banner.png" alt="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-request">자세한 신청방법 보기</a>
+                    <a href="#" class="btn btn-share sm:hidden">공유하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

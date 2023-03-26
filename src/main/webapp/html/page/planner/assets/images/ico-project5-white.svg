@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 3 Copy</title>
+    <g id="pub" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-242.000000, -27.000000)">
+            <g id="Group-3-Copy" transform="translate(242.000000, 27.000000)">
+                <rect id="Rectangle" fill-opacity="0" fill="#DCDCDC" x="0" y="0" width="36" height="36"></rect>
+                <polygon id="Path-5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="3.99163818 14.9140625 17.3251343 7 30.618103 14.9140625 17.3251343 23.0080566"></polygon>
+                <line x1="30.5739136" y1="14.96875" x2="30.5739136" y2="20.96875" id="Line-2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                <circle id="Oval" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" cx="30.5739136" cy="23.46875" r="2"></circle>
+                <path d="M9.19866943,18.46875 C9.19866943,23.1972656 9.19866943,26.1035156 9.19866943,27.1875 C9.19866943,27.9972877 13.3263076,30.2237954 17.4214478,30.1889648 C21.5489585,30.153859 25.6442261,27.8516032 25.6442261,27.1875 C25.6442261,26.3055013 25.6442261,23.3992513 25.6442261,18.46875" id="Path-6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

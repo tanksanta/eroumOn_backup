@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>멤버스</title>
+
+        <!-- common -->
+        <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+
+        <!-- office -->
+        <link rel="stylesheet" href="../../assets/style/partner.min.css">
+        <script src="../../assets/script/common.js"></script>
+    </head>
+    <body>
+        <!-- header -->
+        <header id="header">
+            <div class="container">
+                <h1>
+                    <a href="#">
+                        <img src="../../assets/images/ico-partner-logo.svg" alt="E-ROUM PARTNER">
+                        <span>
+                            당신이 어디에 있든<br>
+                            멤버스가 항상 옆에 있습니다.
+                        </span>
+                    </a>
+                </h1>
+                <a href="#" class="request">멤버스 등록신청</a>
+            </div>
+        </header>
+        <!-- //header -->
+
+        <!-- container -->
+        <main id="container">
+            <h2 class="text-title">
+                이로움 멤버스 <span class="inline-block">등록 신청</span>
+                <small>이로움과 함께 할 멤버를 기다리고 있습니다.</small>
+            </h2>
+
+            <ul class="tabs-list">
+                <li><a href="partner_regist1.html">약관동의</a></li>
+                <li><a href="partner_regist2.html" class="active">정보입력</a></li>
+                <li><a href="partner_regist3.html">신청완료</a></li>
+            </ul>
+
+            <form class="form-container">
+                <fieldset>
+                    <legend>
+                        기본정보
+                        <small>* 표시된 항목은 필수 입력 사항입니다.</small>
+                    </legend>
+                    <div class="form-rows">
+                        <label for="form-item1" class="form-label">아이디 <i>*</i></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="form-item1" placeholder="아이디를 입력하세요.">
+                            <button type="button" class="btn-primary">중복체크</button>
+                        </div>
+                        <p class="form-desc">※ 영문으로 띄어쓰기 없이 6 ~ 15자 영문, 숫자를 조합</p>
+                        <p class="form-desc pass">! 영문으로 띄어쓰기 없이 6 ~ 15자 영문, 숫자를 조합</p>
+                        <p class="form-desc error">! 영문으로 띄어쓰기 없이 6 ~ 15자 영문, 숫자를 조합</p>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-2" class="form-label">비밀번호 <i>*</i></label>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="form-item1-2" placeholder="비밀번호를 입력하세요.">
+                        </div>
+                        <p class="form-desc">영문 8 ~ 15자</p>
+                        <p class="form-desc">특수문자 !, @, #, $, %, ^, &,  * 가능</p>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-3" class="form-label">비밀번호 확인 <i>*</i></label>
+                        <input type="password" class="form-control" id="form-item1-3" placeholder="비밀번호를 다시 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-4" class="form-label">기업명 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item1-4" placeholder="기업명을 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-7" class="form-label">사업소URL <i>*</i></label>
+                        <p class="mb-2">https://www.eroum.com/partners/</p>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="form-item1-7" placeholder="URL은 변경할 수 없으니 신중하게 입력해주세요.">
+                            <button type="button" class="btn-primary">중복체크</button>
+                        </div>
+                        <p class="form-desc error">! 이미 사용중인 URL입니다. 다른 URL을 입력해주세요.</p>
+                    </div>
+                    <div class="form-rows mb-7 xs:mb-8">
+                        <span class="form-label">상호명 <i>*</i></span>
+                        <p class="text-lg mt-0.5 font-bold">(주)이로움사업소</p>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-5" class="form-label">전화번호 <i>*</i></label>
+                        <div class="form-group">
+                            <select name="" id="form-item1-5" class="form-control">
+                                <option value="">010</option>
+                            </select>
+                            <input type="text" class="form-control">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item1-6" class="form-label">팩스번호</label>
+                        <div class="form-group">
+                            <select name="" id="form-item1-6" class="form-control">
+                                <option value="">선택</option>
+                            </select>
+                            <input type="text" class="form-control">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="mt-20 md:mt-24">
+                    <legend>
+                        업체정보
+                        <small>* 표시된 항목은 필수 입력 사항입니다.</small>
+                    </legend>
+                    <div class="form-rows mb-7 xs:mb-8">
+                        <span class="form-label">사업자등록번호 <i>*</i></span>
+                        <p class="text-lg mt-0.5 font-bold">123-34-67890</p>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2" class="form-label">사업자 번호 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2" placeholder="사업자 번호를 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-2" class="form-label">장기요양기관번호 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2-2" placeholder="장기요양기관번호를 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-3" class="form-label">대표자명 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2-3" placeholder="대표자명을 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-4" class="form-label">업태 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2-4" placeholder="업태를 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-5" class="form-label">종목 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2-5" placeholder="종목을 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-6" class="form-label">사업장 주소 <i>*</i></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="우편번호를 입력하세요.">
+                            <button type="button" class="btn-primary">중복체크</button>
+                        </div>
+                        <input type="text" class="form-control mt-2 xs:mt-2.5">
+                        <input type="text" class="form-control mt-2 xs:mt-2.5" id="form-item2-6" placeholder="상세주소를 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-7" class="form-label">배송지 주소 <i>*</i></label>
+                        <div class="mt-3 xs:mt-3.5">
+                            <div class="form-check mr-4 xs:mr-5">
+                                <input class="form-check-input" name="aaa" type="radio" id="check-item2-7-1">
+                                <label class="form-check-label" for="check-item2-7-1">사업장 주소와 동일</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="aaa" type="radio" id="check-item2-7-2">
+                                <label class="form-check-label" for="check-item2-7-2">신규 배송지</label>
+                            </div>
+                        </div>
+                        <div class="form-group mt-2 xs:mt-2.5">
+                            <input type="text" class="form-control" placeholder="우편번호를 입력하세요.">
+                            <button type="button" class="btn-primary">중복체크</button>
+                        </div>
+                        <input type="text" class="form-control mt-2 xs:mt-2.5">
+                        <input type="text" class="form-control mt-2 xs:mt-2.5" id="form-item2-7" placeholder="상세주소를 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-7" class="form-label">세금계산서 수신용 메일 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item2-7" placeholder="이메일을 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-7" class="form-label">사업자등록증 <i>*</i></label>
+                        <div class="form-group">
+                            <a href="#" class="flex-1">Business Registration.jpg</a>
+                            <button class="btn">바로보기</button>
+                        </div>
+                        <div class="form-group form-upload mt-1.5 xs:mt-2">
+                            <input type="text" class="form-control" readonly>
+                            <label class="btn-primary"><input type="file"> 찾아보기</label>
+                        </div>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item2-8" class="form-label">사업자직인 (계약서 날인) <i>*</i></label>
+                        <div class="form-group">
+                            <a href="#" class="flex-1">Business Registration.jpg</a>
+                            <button class="btn">바로보기</button>
+                        </div>
+                        <div class="form-group form-upload mt-1.5 xs:mt-2">
+                            <input type="text" class="form-control" readonly>
+                            <label class="btn-primary"><input type="file"> 찾아보기</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="mt-20 md:mt-24">
+                    <legend>
+                        담당자 정보
+                        <small>* 표시된 항목은 필수 입력 사항입니다.</small>
+                    </legend>
+                    <div class="form-rows">
+                        <label for="form-item3" class="form-label">담당자명 <i>*</i></label>
+                        <input type="text" class="form-control" placeholder="담당자명을 입력하세요.">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item3-2" class="form-label">담당자 연락처 <i>*</i></label>
+                        <div class="form-group">
+                            <select name="" id="form-item3-2" class="form-control">
+                                <option value="">010</option>
+                            </select>
+                            <input type="text" class="form-control">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item3-3" class="form-label">담당자 이메일 <i>*</i></label>
+                        <input type="text" class="form-control" id="form-item3-3" placeholder="이메일을 입력하세요.">
+                    </div>
+                </fieldset>
+                <fieldset class="mt-20 md:mt-24">
+                    <legend>
+                        정산 정보
+                        <small>* 표시된 항목은 필수 입력 사항입니다.</small>
+                    </legend>
+                    <div class="form-rows">
+                        <label for="form-item4" class="form-label">은행 <i>*</i></label>
+                        <select name="" id="form-item4" class="form-control">
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item3-2" class="form-label">계좌번호 <i>*</i></label>
+                        <input type="text" placeholder="번호만 입력하세요" class="form-control" id="form-item3-2">
+                    </div>
+                    <div class="form-rows">
+                        <label for="form-item3-3" class="form-label">예금주명 <i>*</i></label>
+                        <input type="text" placeholder="예금주명을 입력하세요." class="form-control" id="form-item3-2">
+                    </div>
+                </fieldset>
+                <div class="btn-group">
+                    <button type="button" class="btn-cancel large shadow">취소</button>
+                    <button type="submit" class="btn-partner large shadow">등록신청</button>
+                </div>
+            </form>
+        </main>
+        <!-- //container -->
+
+        <!-- footer -->
+        <footer id="footer">
+            <!-- 사이트 정보-->
+            <div class="footer-company">
+                <div class="company">
+                    <h2>(주)티에이치케이컴퍼니</h2>
+                    <p>대표 : 신종호</p>
+                    <div class="numb">
+                        <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                        <p>통신판매신고번호 : 2018-서울강남-04157</p>
+                    </div>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </div>
+                <div class="family">
+                    <dl>
+                        <dt>Family Site</dt>
+                        <dd>
+                            <ul>
+                                <li><a href="#">이로움 파트너스</a></li>
+                                <li><a href="#">이로움 마켓</a></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <!-- //사이트 정보-->
+            
+            <!-- 카피 -->
+            <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+            <!-- //카피 -->
+        </footer>
+        <!-- //footer -->
+    
+        <script src="../../../../core/vendor/twelements/index.min.js"></script>
+    </body>
+</html>

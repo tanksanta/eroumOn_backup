@@ -1,0 +1,69 @@
+@layer components {
+    .tooltip {
+        @apply z-65 tracking-tight border border-black2 rounded bg-[#525252] text-white font-sans whitespace-nowrap shadow-[0px_2px_4px_#00000080];
+        & .tooltip-inner {
+            @apply py-1 px-3.5 rounded-lg bg-[#525252] text-sm;
+        }
+        & .tooltip-arrow {
+            &::before, &::after {
+                @apply content-empty absolute top-0 left-0 w-0 h-0 border-solid;
+            }
+        }
+        &.bs-tooltip-auto[data-popper-placement^=top], &.bs-tooltip-top {
+            & .tooltip-arrow {
+                @apply -bottom-[5px] w-[10px] h-[5px];
+                &::before {
+                    border-width: 5px 5px 0 5px;
+                    border-color: #333 transparent transparent transparent;
+                }
+                &:after {
+                    @apply -mt-px ml-px;
+                    border-width: 4px 4px 0 4px;
+                    border-color: #525252 transparent transparent transparent;
+                }
+            }
+        }
+        &.bs-tooltip-auto[data-popper-placement^=bottom], &.bs-tooltip-bottom {
+            & .tooltip-arrow {
+                @apply -top-[5px] w-[10px] h-[5px];
+                &::before {
+                    border-width: 0 5px 5px 5px;
+                    border-color: transparent transparent #333 transparent;
+                }
+                &:after {
+                    @apply mt-px ml-px;
+                    border-width: 0 4px 4px 4px;
+                    border-color: transparent transparent #525252 transparent;
+                }
+            }
+        }
+        &.bs-tooltip-auto[data-popper-placement^=left], &.bs-tooltip-start {
+            & .tooltip-arrow {
+                @apply -right-[5px] w-[5px] h-[10px];
+                &::before {
+                    border-width: 5px 0 5px 5px;
+                    border-color: transparent transparent transparent #333;
+                }
+                &:after {
+                    @apply mt-px -ml-px;
+                    border-width: 4px 0 4px 4px;
+                    border-color: transparent transparent transparent #525252;
+                }
+            }
+        }
+        &.bs-tooltip-auto[data-popper-placement^=right], &.bs-tooltip-end {
+            & .tooltip-arrow {
+                @apply -left-[5px] w-[5px] h-[10px];
+                &::before {
+                    border-width: 5px 5px 5px 0;
+                    border-color: transparent #333 transparent transparent;
+                }
+                &:after {
+                    @apply mt-px ml-px;
+                    border-width: 4px 4px 4px 0;
+                    border-color: transparent #525252 transparent transparent;
+                }
+            }
+        }
+    }
+}

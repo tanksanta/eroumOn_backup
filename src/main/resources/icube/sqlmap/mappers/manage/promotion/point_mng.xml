@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="point.mng">
+
+	<!-- Define PointMngVO Result Map  -->
+	<resultMap type="pointMngVO" id="pointMngVOMap" autoMapping="true" >
+		<collection property="targetCnt" column="srchPointMngNo=point_mng_no" select="mbr.point.selectMbrPointCount" />
+	</resultMap>
+
+	<!-- Define PointMngVO Column List -->
+	<sql id="listColumn">
+		point_mng_no
+		, point_se
+		, point_cn
+		, point
+		, mngr_memo
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchPointSe != null and srchPointSe != '' ">
+			AND point_se = #{srchPointSe}
+		</if>
+		<if test="srchPointCn != null and srchPointCn != '' ">
+			AND point_cn = #{srchPointCn}
+		</if>
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND reg_dt &gt;= #{srchBgngDt} AND reg_dt &gt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchMngrId != null and srchMngrId !='' ">
+			AND reg_id like CONCAT('%',#{srchMngrId},'%')
+		</if>
+		<if test="srchMngMemo != null and srchMngMemo != '' ">
+			AND mngr_memo like CONCAT('%',#{srchMngMemo},'%')
+		</if>
+	</sql>
+
+	<!-- Define point_mng List Query -->
+	<select id="selectPointMngListVO" parameterType="java.util.HashMap" resultMap="pointMngVOMap">
+		/* Query ID : pointMng.selectPointMngListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM POINT_MNG p
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY point_mng_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define point_mng Count Query -->
+	<select id="selectPointMngCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : pointMng.selectPointMngCount */
+		SELECT	COUNT(*)
+		FROM	POINT_MNG p
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- Define point_mng Detail Query -->
+	<select id="selectPointMng" parameterType="java.util.HashMap" resultMap="pointMngVOMap">
+		/* Query ID : pointMng.selectPointMng */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	POINT_MNG p
+		WHERE  point_mng_no = #{pointMngNo}
+	</select>
+
+	<select id="selectPointMngListAll" parameterType="java.util.HashMap" resultMap="pointMngVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM POINT_MNG p
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY point_mng_no DESC
+	</select>
+
+	<!-- Define point_mng Insert Query -->
+	<insert id="insertPointMng" parameterType="pointMngVO">
+	/* Query ID : pointMng.insertPointMng */
+		INSERT INTO POINT_MNG (
+			 point_se
+			, point_cn
+			, point
+			, mngr_memo
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{pointSe, jdbcType=VARCHAR}
+			, #{pointCn, jdbcType=VARCHAR}
+			, #{point}
+			, #{mngrMemo, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="pointMngNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- Define point_mng Update Query -->
+	<update id="updatePointMng" parameterType="pointMngVO">
+		/* Query ID : pointMng.updatePointMng */
+		UPDATE POINT_MNG SET
+			point_se = #{pointSe, jdbcType=VARCHAR}
+			, point_cn = #{pointCn, jdbcType=VARCHAR}
+			, point = #{point}
+			, mngr_memo = #{mngrMemo, jdbcType=VARCHAR}
+			, reg_unique_id = #{regUniqueId, jdbcType=VARCHAR}
+			, reg_dt = #{regDt}
+			, reg_id = #{regId, jdbcType=VARCHAR}
+			, rgtr = #{rgtr, jdbcType=VARCHAR}
+			WHERE	point_mng_no = #{pointMngNo}
+	</update>
+
+
+
+</mapper>

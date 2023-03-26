@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>기획전</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../../core/vendor/datatables/datatables.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title small white">Management<br> System</h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="dashboard.html" class="menu-item1">대시보드</a></li>
+                <li><a href="#list-items2" class="menu-item2">회원관리</a></li>
+                <li><a href="#list-items3" class="menu-item3">상품관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">주문관리</a></li>
+                <li><a href="#list-items5" class="menu-item5">전시관리</a></li>
+                <li><a href="#list-items11" class="menu-item11 active">프로모션관리</a></li>
+                <li><a href="#list-items7" class="menu-item7">고객상담관리</a></li>
+                <li><a href="#list-items8" class="menu-item8">시스템관리</a></li>
+                <li><a href="#list-items9" class="menu-item9">정산관리</a></li>
+                <li><a href="#list-items10" class="menu-item10">통계관리</a></li>
+            </ul>
+            <div class="list-items" id="list-items2">
+                <p>
+                    회원관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">일반회원관리</a></li>
+                    <li><a href="#">블랙리스트회원관리</a></li>
+                    <li><a href="#">휴면회원관리</a></li>
+                    <li><a href="#">탈퇴회원관리</a></li>
+                    <li><a href="#">SMS 전송 이력</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items3">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">카테고리관리</a></li>
+                    <li><a href="#">상품관리</a></li>
+                    <li><a href="#">상품일괄업로드</a></li>
+                    <li><a href="#">상품재고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">사업소취소요청</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    전시관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">추천상품관리</a></li>
+                    <li><a href="#">테마전시관리</a></li>
+                    <li><a href="#">팝업관리</a></li>
+                    <li><a href="#">광고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items active" id="list-items11">
+                <p>
+                    프로모션관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li class="active"><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">포인트</a></li>
+                    <li><a href="#">마일리지</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">상품후기</a></li>
+                    <li><a href="#">상품Q&amp;A</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items8">
+                <p>
+                    시스템관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">관리자관리</a></li>
+                    <li><a href="#">권한관리</a></li>
+                    <li><a href="#">메뉴관리</a></li>
+                    <li><a href="#">게시판관리</a></li>
+                    <li><a href="#">금지어관리</a></li>
+                    <li><a href="#">업체(사업소)관리</a></li>
+                    <li><a href="#">제조사관리</a></li>
+                    <li><a href="#">배송업체관리</a></li>
+                    <li><a href="#">공통코드관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items9">
+                <p>
+                    정산관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산목록</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items10">
+                <p>
+                    통계관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">매출통계</a></li>
+                    <li><a href="#">회원통계</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="dashboard.html" class="back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1">기획전</h1>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><a href="#">프로모션관리</a></li>
+                        <li><strong>기획전</strong></li>
+                    </ul>
+                </nav>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <form action="#">
+                    <fieldset>
+                        <legend class="text-title2">기획전 검색</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="search-item1">기간</label></th>
+                                    <td>
+                                        <div class="form-group w-84">
+                                            <input type="date" class="form-control flex-1 calendar" id="search-item1">
+                                            <i>~</i>
+                                            <input type="date" class="form-control flex-1 calendar">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="search-item2">기획전명</label></th>
+                                    <td><input type="text" class="form-control w-84" id="search-item2"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="search-item3">상태</label></th>
+                                    <td>
+                                        <div class="form-check-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="aaa" id="search-item3" checked>
+                                                <label class="form-check-label" for="search-item3">전체</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="aaa" id="search-item3-2">
+                                                <label class="form-check-label" for="search-item3-2">노출</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="aaa" id="search-item3-3">
+                                                <label class="form-check-label" for="search-item3-3">미노출</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    
+                    <div class="btn-group mt-5">
+                        <button type="submit" class="btn-primary large shadow w-52">검색</button>
+                    </div>
+                </form>
+
+                <p class="text-title2 mt-13">기획전 목록</p>
+                <table class="table-list">
+                    <colgroup>
+                        <col class="w-25">
+                        <col>
+                        <col class="w-30">
+                        <col class="w-72">
+                        <col class="w-35">
+                        <col class="w-25">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">기획전 명</th>
+                            <th scope="col">기획 상품 수</th>
+                            <th scope="col">노출기간</th>
+                            <th scope="col">등록일</th>
+                            <th scope="col">상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td class="text-left"><a href="기획전 상세.html">기획전명</a></td>
+                            <td>2123</td>
+                            <td>2022-07-01 00:00 ~ 2022-07-02 24:00</td>
+                            <td>2022-01-11</td>
+                            <td>노출</td>
+                        </tr>
+                        <tr>
+                            <td class="noresult" colspan="6">검색조건을 선택 하신 후, 검색해 주세요.</td>
+                        </tr>
+                        <tr>
+                            <td class="noresult" colspan="6">검색조건을 만족하는 결과가 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination mt-7">
+                    <div class="paging">
+                        <a href="#" class="prev">이전</a>
+                        <a href="#" class="page active">1</a>
+                        <a href="#" class="page">2</a>
+                        <a href="#" class="page">3</a>
+                        <a href="#" class="page">4</a>
+                        <a href="#" class="page">5</a>
+                        <a href="#" class="page">6</a>
+                        <a href="#" class="page">7</a>
+                        <a href="#" class="next">다음</a>
+                    </div>
+
+                    <div class="sorting2">
+                        <label for="sort-item">출력</label>
+                        <select name="" id="sort-item" class="form-control">
+                            <option value="">20개</option>
+                        </select>
+                    </div>
+    
+                    <div class="counter">총 <strong>200</strong>건, <strong>1</strong>/60 페이지</div>
+                </div>
+                
+                <div class="btn-group right mt-8">
+                    <a href="기획전 상세.html" class="btn-primary large shadow">등록</a>
+                </div>
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

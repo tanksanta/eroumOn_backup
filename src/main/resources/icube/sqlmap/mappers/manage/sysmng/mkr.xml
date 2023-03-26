@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mkr">
+
+	<resultMap type="mkrVO" id="mkrVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		mkr_no
+		, mkr_nm
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND mkr_nm like CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+
+	</sql>
+
+
+	<select id="selectMkrListVO" parameterType="java.util.HashMap" resultMap="mkrVOMap">
+		/* Query ID : mkr.xml > selectMkrListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MKR
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY mkr_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+
+	<select id="selectMkrCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mkr.xml > selectMkrCount */
+		SELECT	COUNT(*)
+		FROM	MKR
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+
+	<select id="selectMkr" parameterType="java.util.HashMap" resultMap="mkrVOMap">
+		/* Query ID : mkr.xml > selectMkr */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	MKR
+		WHERE  mkr_no = #{mkrNo}
+	</select>
+
+
+	<select id="selectMkrNm" parameterType="java.util.HashMap" resultMap="mkrVOMap">
+		/* Query ID : mkr.xml > selectMkrNm */
+		SELECT
+			<include refid="listColumn" />
+		FROM MKR
+		WHERE mkr_nm like #{mkrNm}
+	</select>
+
+
+	<select id="selectMkrListAll" parameterType="java.util.HashMap" resultMap="mkrVOMap">
+		/* Query ID : mkr.xml > selectMkrListAll */
+		SELECT
+			<include refid="listColumn" />
+		FROM MKR
+		WHERE use_yn = 'Y'
+	</select>
+
+
+	<insert id="insertMkr" parameterType="mkrVO">
+		/* Query ID : mkr.xml > insertMkr */
+		INSERT INTO MKR (
+			mkr_nm
+			, use_yn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{mkrNm, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<update id="updateMkr" parameterType="mkrVO">
+		/* Query ID : mkr.xml > updateMkr */
+		UPDATE  MKR SET
+			mkr_nm = #{mkrNm, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE	mkr_no = #{mkrNo}
+	</update>
+</mapper>

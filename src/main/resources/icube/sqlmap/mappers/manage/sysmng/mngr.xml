@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.mngr">
+
+	<sql id="searchConditions">
+			WHERE 1 = 1
+		<if test="srchUseYn == null or srchUseYn == ''">
+			AND mngr.use_yn = 'Y'
+		</if>
+		<if test="srchUseYn !=null and srchUseYn != ''">
+			AND mngr.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchAuthTy != null and srchAuthTy != ''">
+			AND mngr.authrt_ty = #{srchAuthTy}
+		</if>
+		<if test="srchArrAuthTy != null and srchArrAuthTy != ''">
+			AND mngr.authrt_ty IN
+			<foreach collection="srchArrAuthTy" item="authTy" open="(" separator="," close=")">
+				#{authTy}
+			</foreach>
+		</if>
+		<if test="srchMngrNm != null and srchMngrNm != '' ">
+			AND MNGR.mngr_nm LIKE  CONCAT('%', #{srchMngrNm}, '%')
+		</if>
+		<if test="srchTelno != null and srchTelno != '' ">
+			AND MNGR.telno LIKE  CONCAT('%', #{srchTelno}, '%')
+		</if>
+		<if test="srchText !='' and srchText !=null">
+			<choose>
+				<when test="srchTarget == 'srchMngrId' ">
+				AND UPPER(MNGR.mngr_id) LIKE  CONCAT('%', UPPER(#{srchText}), '%')
+				</when>
+				<when test="srchTarget == 'srchMngrNm' ">
+				AND MNGR.mngr_nm LIKE  CONCAT('%', #{srchText}, '%')
+				</when>
+				<otherwise>
+				AND (UPPER(MNGR.mngr_id) LIKE CONCAT('%', UPPER(#{srchText}), '%') OR MNGR.mngr_nm LIKE  CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
+	<select id="selectCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+			 COUNT(*)
+		FROM MNGR mngr
+		<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectListVO" parameterType="java.util.HashMap" resultType="mngrVO">
+		SELECT
+			  unique_id
+		 	, mngr_id
+		 	, mngr_pswd
+			, mngr_nm
+			, profl_img
+		 	, authrt_ty
+		 	, authrt_no
+		 	, (SELECT tma.authrt_nm FROM MNG_AUTHRT tma WHERE tma.authrt_no = mngr.authrt_no) AS authrt_nm
+		 	, telno
+		 	, eml
+		 	, job_ty
+		 	, recent_lgn_dt
+			, use_yn
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+			, mdfcn_unique_id
+			, mdfcn_id
+			, mdfr
+			, mdfcn_dt
+		FROM MNGR mngr
+		<include refid="searchConditions"/>
+		ORDER BY UNIQUE_ID DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- 관리자 아이디 중복검색 -->
+	<select id="selectMngrIdCheck" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+			  unique_id
+		FROM MNGR
+		WHERE UPPER(MNGR_ID) = UPPER(#{mngrId})
+	</select>
+
+	<select id="selectMngr" parameterType="java.util.HashMap" resultType="mngrVO">
+		SELECT
+			  unique_id
+		 	, mngr_id
+		 	, mngr_pswd
+			, mngr_nm
+			, profl_img
+		 	, mngr.authrt_ty
+		 	, mngr.authrt_no
+		 	,(SELECT tma.authrt_nm FROM MNG_AUTHRT tma WHERE tma.authrt_no = mngr.authrt_no) AS authrt_nm
+			, mngr.use_yn
+			, mngr.telno
+			, mngr.eml
+			, mngr.job_ty
+			, mngr.recent_lgn_dt
+			, mngr.reg_unique_id
+			, mngr.reg_id
+			, mngr.rgtr
+			, mngr.reg_dt
+			, mngr.mdfcn_unique_id
+			, mngr.mdfcn_id
+			, mngr.mdfr
+			, mngr.mdfcn_dt
+			, mngr.dpcn_idnty_cd
+		FROM MNGR mngr
+		WHERE 1=1
+			<if test="srchUseYn == null or srchUseYn == ''">
+			AND mngr.use_yn = 'Y'
+			</if>
+			<if test="srchUseYn != null and srchUseYn != ''">
+			AND mngr.use_yn = #{srchUseYn}
+			</if>
+			<if test="mngrId != null and mngrId != ''">
+			AND UPPER(mngr_id) = UPPER(#{mngrId})
+			</if>
+			<if test="uniqueId != null and uniqueId != ''">
+			AND unique_id = #{uniqueId}
+			</if>
+			<if test="dpcnIdntyCd != null and dpcnIdntyCd != ''">
+			AND dpcn_idnty_cd = #{dpcnIdntyCd}
+			</if>
+	</select>
+
+	<insert id="insertMngr" parameterType="mngrVO">
+		/* Query ID : sysmng.mngr.insertMngr */
+		INSERT INTO MNGR (
+			  unique_id
+		 	, mngr_id
+		 	, mngr_pswd
+			, mngr_nm
+			, profl_img
+		 	, authrt_ty
+			, authrt_no
+			, telno
+			, eml
+			, job_ty
+			, use_yn
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+		) VALUES (
+			CONCAT('MNG_', LPAD( FN_NEXT_SEQ('MNGR'), 8, '0'))
+		 	, #{mngrId, jdbcType=VARCHAR}
+		 	, #{mngrPswd, jdbcType=VARCHAR}
+			, #{mngrNm, jdbcType=VARCHAR}
+			, #{proflImg, jdbcType=VARCHAR}
+		 	, #{authrtTy, jdbcType=VARCHAR}
+			, #{authrtNo, jdbcType=VARCHAR}
+			, #{telno, jdbcType=VARCHAR}
+			, #{eml, jdbcType=VARCHAR}
+			, #{jobTy, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+		<selectKey keyProperty="uniqueId" resultType="String" order="AFTER">
+			SELECT unique_id FROM MNGR WHERE mngr_id = #{mngrId}
+		</selectKey>
+	</insert>
+
+
+	<!-- 관리자정보 업데이트 -->
+	<update id="updateMngr" parameterType="mngrVO">
+		/* Query ID : sysmng.mngr.updateMngr */
+		UPDATE MNGR
+			SET authrt_ty = #{authrtTy, jdbcType=VARCHAR}
+				, authrt_no = #{authrtNo}
+				, mngr_nm = #{mngrNm}
+				, profl_img = #{proflImg, jdbcType=VARCHAR}
+				<if test="mngrPswd != null and mngrPswd != ''">
+				, mngr_pswd = #{mngrPswd, jdbcType=VARCHAR}
+				</if>
+				, telno = #{telno, jdbcType=VARCHAR}
+				, eml = #{eml, jdbcType=VARCHAR}
+				, job_ty = #{jobTy, jdbcType=VARCHAR}
+				, use_yn = #{useYn, jdbcType=VARCHAR}
+				, dpcn_idnty_cd = #{dpcnIdntyCd, jdbcType=VARCHAR}
+
+			    , mdfcn_unique_id = #{mdfcnUniqueId}
+			    , mdfcn_id = #{mdfcnId}
+				, mdfr = #{mdfr}
+				, mdfcn_dt = SYSDATE()
+		WHERE UNIQUE_ID = #{uniqueId}
+	</update>
+
+
+	<select id="selectMenuMngrList" parameterType="java.util.HashMap" resultType="egovMap">
+		/* Query ID : sysmng.mngr.selectMenuMngrList */
+		SELECT
+			TMA.mngr_id,
+			TM.mngr_nm,
+		FROM MNGR_AUTHRT tma, MNGR tm
+		WHERE tma.mngr_id = tm.mngr_id
+		AND tma.menu_no = #{menuNo}
+		AND tm.authrt_ty = #{authrtTy}
+		AND tm.use_yn = #{srchUseYn}
+	</select>
+
+
+	<update id="updateFailedLoginCountUp" parameterType="mngrVO">
+		UPDATE MNGR
+		   SET lgn_failr_cnt = IFNULL(lgn_failr_cnt,0)+1
+		 WHERE mngr_id = #{mngrId}
+	</update>
+
+	<select id="selectFailedLoginCount" parameterType="mngrVO" resultType="int">
+		SELECT IFNULL(lgn_failr_cnt, 0)
+		  FROM MNGR
+		 WHERE mngr_id = #{mngrId}
+	</select>
+
+	<update id="updateFailedLoginCountReset" parameterType="mngrVO">
+		UPDATE MNGR
+		   SET lgn_failr_cnt = 0
+		     , recent_lgn_dt = SYSDATE()
+		 WHERE MNGR_ID = #{mngrId}
+	</update>
+
+	<select id="selectMngrPwCheck" parameterType="java.util.HashMap" resultType="java.lang.String">
+		SELECT DISTINCT mngr_id
+		  FROM MNGR
+		 WHERE UPPER(mngr_id) = UPPER(#{mngrId})
+		   AND mngr_pswd = #{mngrPswd}
+	</select>
+
+	<update id="updateMngrPswd" parameterType="java.util.HashMap">
+		UPDATE MNGR
+		   SET mngr_pswd = #{mngrPswd, jdbcType=VARCHAR}
+		   	 , mdfcn_unique_id = #{mdfcnId, jdbcType=VARCHAR}
+		     , mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		     , mdfr = #{mdfr, jdbcType=VARCHAR}
+		     , mdfcn_dt = SYSDATE()
+		 WHERE mngr_id = #{mngrId}
+	</update>
+
+	<update id="updateMngrProflImg" parameterType="mngrVO">
+		UPDATE MNGR
+		   SET profl_img = #{proflImg, jdbcType=VARCHAR}
+		WHERE mngr_id = #{mngrId}
+	</update>
+
+
+</mapper>

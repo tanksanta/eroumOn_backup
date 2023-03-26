@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event.iem">
+
+	<resultMap type="eventIemVO" id="eventIemVOMap" autoMapping="true" >
+		<collection property="applcnIemCount" column="{eventNo=event_no, chcIemApNo=iem_no}" select="event.applcn.selectEventApplcnCount" />
+	</resultMap>
+
+	<sql id="listColumn">
+		event_no
+		, iem_no
+		, iem_ty
+		, iem_cn
+		, sort_no
+	</sql>
+
+	<insert id="insertEventIem" parameterType="eventIemVO">
+		/* Query ID : event.insertEventIem */
+		INSERT INTO EVENT_IEM (
+				iem_no
+				, iem_ty
+				, event_no
+				, iem_cn
+				, sort_no
+			) VALUES (
+				#{iemNo}
+				, #{iemTy, jdbcType=VARCHAR}
+				, #{eventNo}
+				, #{iemCn, jdbcType=VARCHAR}
+				, #{sortNo}
+			)
+	</insert>
+
+	<delete id="deleteEventItem" parameterType="java.util.HashMap">
+		/* Query ID : event-iem.xml > deleteEventIem */
+		DELETE FROM EVENT_IEM
+		WHERE event_no = #{eventNo}
+	</delete>
+
+	<select id="selectEventIem" parameterType="java.util.HashMap" resultMap="eventIemVOMap" >
+		/* Query ID : event-iem.xml > selectEventIem */
+		SELECT
+		<include refid="listColumn" />
+		FROM EVENT_IEM
+		WHERE event_no = #{eventNo}
+	</select>
+
+<!-- 	<select id="selectIemImgFileNo" parameterType="java.util.HashMap" resultType="int" >
+		SELECT COUNT(*)
+		FROM ATCHFILE
+		WHERE 1=1
+			AND srvc_id = #{srchSrvcId}
+			AND up_no = #{srchUpNo}
+			AND file_ty = #{srchFileTy}
+	</select>-->
+
+</mapper>

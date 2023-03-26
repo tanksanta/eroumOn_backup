@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rcmd">
+
+	<resultMap type="gdsRcmdVO" id="gdsRcmdVOMap" autoMapping="true"  />
+
+	<sql id="listColumn">
+		rcmd_gds_no
+		, gds.gds_no
+		, gds.gds_cd
+		, gds.gds_nm
+		, gc2.ctgry_nm as up_ctgry_nm
+		, gc1.ctgry_nm
+		, gds.use_yn
+		, gds.reg_dt
+		, rcmd_sort_no
+	</sql>
+
+	<select id="selectRcmdList" parameterType="java.util.HashMap" resultMap="gdsRcmdVOMap">
+		/* Query ID : rcmd.xml > selectRcmdList */
+		SELECT
+		<include refid="listColumn" />
+		FROM	GDS_RCMD rcmd
+		LEFT JOIN GDS gds ON rcmd.GDS_NO = gds.GDS_NO
+		LEFT JOIN GDS_CTGRY gc1 ON gds.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		ORDER BY rcmd_sort_no
+	</select>
+
+	<insert id="insertRcmd" parameterType="gdsRcmdVO">
+	/* Query ID : rcmd.xml > insertRcmd */
+		INSERT INTO GDS_RCMD (
+			 gds_no
+			, rcmd_sort_no
+		) VALUES (
+		#{gdsNo}
+		, #{rcmdSortNo}
+		)
+	</insert>
+
+
+	<delete id="deleteRcmd" parameterType="java.util.HashMap">
+		/* Query ID : rcmd.xml.deleteRcmd */
+		DELETE FROM GDS_RCMD
+	</delete>
+
+</mapper>

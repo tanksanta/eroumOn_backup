@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr_mng_info">
+
+	<resultMap type="mbrMngInfoVO" id="mbrMngInfoVOMap" autoMapping="true"  />
+
+	<resultMap type="mbrMngInfoVO" id="mbrMngInfoVOListMap" autoMapping="true"  >
+		<collection property="mbrVO" column="{srchUniqueId=unique_id}" select="mbr.selectMbr" />
+	</resultMap>
+
+	<sql id="listColumn">
+		info.mng_info_no
+		, info.unique_id
+		, info.mng_ty
+		, info.mng_se
+		, info.stop_bgng_ymd
+		, info.stop_end_ymd
+		, info.resn_cd
+		, info.mngr_memo
+		, info.reg_unique_id
+		, info.reg_dt
+		, info.reg_id
+		, info.rgtr
+		, mbr.mbr_id
+		, mbr.mbr_nm
+		, mbr.gender
+		, mbr.mbl_telno
+		, mbr.eml
+	</sql>
+
+	<sql id="oriListColumn">
+		mng_info_no
+		, unique_id
+		, mng_ty
+		, mng_se
+		, stop_bgng_ymd
+		, stop_end_ymd
+		, resn_cd
+		, mngr_memo
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchRegBgng !=null and srchRegBgng != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &gt;= #{srchRegBgng}
+		</if>
+		<if test="srchRegEnd !=null and srchRegEnd != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &lt;= #{srchRegEnd}
+		</if>
+		<if test="srchId != null and srchId != ''">
+			AND mbr_id like CONCAT ('%',#{srchId},'%')
+		</if>
+		<if test="srchName != null and srchName != ''">
+			AND mbr_nm like CONCAT ('%',#{srchName},'%')
+		</if>
+		<if test="srchEml != null and srchEml != ''">
+			AND eml like CONCAT ('%',#{srchEml},'%')
+		</if>
+		<if test="srchMngTy != null and srchMngTy != ''">
+			AND mng_ty = #{srchMngTy}
+		</if>
+		<if test="srchTel != null and srchTel != ''">
+			AND SUBSTRING(mbl_telno,10,4) = #{srchTel}
+		</if>
+		<if test="srchMngSe != null and srchMngSe != ''">
+			AND mng_se = #{srchMngSe}
+		</if>
+		<if test="srchNmngSe != null and srchNmngSe != '' ">
+			AND mng_se != #{srchNmngSe}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND info.unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchGender != null and srchGender != ''">
+			AND gender = #{srchGender}
+		</if>
+		<if test="srchWhdwlBgng !=null and srchWhdwlBgng != ''">
+			AND DATE_FORMAT(whdwl_dt, '%Y-%m-%d') &gt;= #{srchWhdwlBgng}
+		</if>
+		<if test="srchWhdwlEnd !=null and srchWhdwlEnd != ''">
+			AND DATE_FORMAT(whdwl_dt, '%Y-%m-%d') &lt;= #{srchWhdwlEnd}
+		</if>
+		<if test="srchWhdwlResn != null and srchWhdwlResn != ''">
+			AND whdwl_resn = #{srchWhdwlResn}
+		</if>
+		<if test="srchWhdwlTy != null and srchWhdwlTy != ''">
+			AND whdwl_ty = #{srchWhdwlTy}
+		</if>
+		<if test="srchResnCd != null and srchResnCd != '' ">
+			AND resn_cd = #{srchResnCd}
+		</if>
+		<if test="srchLastTelnoOfMbl != null and srchLastTelnoOfMbl != ''">
+			AND REPLACE(mbl_telno,"-","")  like CONCAT('%',#{srchLastTelnoOfMbl},'%' )
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND stop_end_ymd &lt; DATE(NOW())
+		</if>
+	</sql>
+
+	<sql id="searchGroupConditions">
+		<if test="">
+
+		</if>
+	</sql>
+
+
+	<select id="selectMbrMngInfoListVO" parameterType="java.util.HashMap" resultMap="mbrMngInfoVOMap">
+		/* Query ID : mbrMngInfo.selectMbrMngInfoListVO */
+		SELECT *
+		FROM (
+			SELECT
+				<include refid="listColumn" />
+			FROM MBR_MNG_INFO info
+			LEFT JOIN MBR mbr ON info.unique_id = mbr.unique_id
+			WHERE (mng_info_no)
+			IN (SELECT MAX(mng_info_no) AS mng_info_no
+			FROM MBR_MNG_INFO info
+			GROUP BY info.unique_id)
+			ORDER BY info.unique_id) AS a
+			WHERE 1=1
+				<include refid="searchConditions" />
+	  	ORDER BY mng_info_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrMngInfoCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT
+				<include refid="listColumn" />
+			FROM MBR_MNG_INFO info
+			LEFT JOIN MBR mbr ON info.unique_id = mbr.unique_id
+			WHERE (mng_info_no)
+			IN (SELECT MAX(mng_info_no) AS mng_info_no
+			FROM MBR_MNG_INFO info
+			GROUP BY info.unique_id)
+			ORDER BY info.unique_id) AS a
+			WHERE 1=1
+				<include refid="searchConditions" />
+	</select>
+
+	<!-- 최근 관리정보 내역 조회 -->
+	<select id="selectMbrMngInfo" parameterType="java.util.HashMap" resultType="mbrMngInfoVO">
+		/* Query ID : mbrMngInfo.selectMbrMngInfo */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	MBR_MNG_INFO info
+		LEFT JOIN MBR mbr ON mbr.unique_id = info.unique_id
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY mng_info_no DESC
+		LIMIT 1
+	</select>
+
+	<select id="selectMbrMngInfoListAll" parameterType="java.util.HashMap" resultType="mbrMngInfoVO">
+		/* Query ID : mbrMngInfo.selectMbrMngInfoListAll */
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_MNG_INFO info
+		LEFT JOIN MBR mbr ON mbr.unique_id = info.unique_id
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY info.mng_info_no DESC
+	</select>
+
+	<select id="selectMbrMngInfoListBySort" parameterType="java.util.HashMap" resultMap="mbrMngInfoVOListMap">
+		SELECT
+			<include refid="oriListColumn" />
+		FROM (
+			SELECT
+				<include refid="oriListColumn" />
+			FROM MBR_MNG_INFO
+			WHERE (mng_info_no)
+			IN (SELECT MAX(mng_info_no) AS mng_info_no
+			FROM MBR_MNG_INFO
+			GROUP BY unique_id)
+			ORDER BY unique_id) AS a
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertMbrMngInfo" parameterType="mbrMngInfoVO">
+	/* Query ID : mbrMngInfo.insertMbrMngInfo */
+	INSERT INTO MBR_MNG_INFO (
+		unique_id
+		, mng_ty
+		, mng_se
+		, stop_bgng_ymd
+		, stop_end_ymd
+		, resn_cd
+		<if test="mngrMemo != null and mngrMemo != '' ">
+		, mngr_memo
+		</if>
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{uniqueId, jdbcType=VARCHAR}
+		, #{mngTy, jdbcType=VARCHAR}
+		, #{mngSe, jdbcType=VARCHAR}
+		, #{stopBgngYmd}
+		, #{stopEndYmd}
+		, #{resnCd, jdbcType=VARCHAR}
+		<if test="mngrMemo != null and mngrMemo != '' ">
+		, #{mngrMemo, jdbcType=VARCHAR}
+		</if>
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+	)
+	</insert>
+
+	<update id="updateMbrMngInfo" parameterType="mbrMngInfoVO">
+		/* Query ID : mbrMngInfo.updateMbrMngInfo */
+		UPDATE	 MBR_MNG_INFO SET
+			unique_id = #{uniqueId, jdbcType=VARCHAR}
+			, mng_ty = #{mngTy, jdbcType=VARCHAR}
+			, mng_se = #{mngSe, jdbcType=VARCHAR}
+			, stop_bgng_ymd = #{stopBgngYmd}
+			, stop_end_ymd = #{stopEndYmd}
+			, resn_cd = #{resnCd, jdbcType=VARCHAR}
+			, mngr_memo = #{mngrMemo, jdbcType=VARCHAR}
+			WHERE	mng_info_no = #{mngInfoNo}
+	</update>
+
+	<delete id="deleteExitMbr" parameterType="java.util.HashMap">
+		/* Query ID : mbrMngInfo.deleteMbrMngInfo */
+		DELETE FROM MBR_MNG_INFO
+
+		 WHERE unique_id = #{srchUniqueId}
+	</delete>
+
+	<delete id="deleteMbrMngInfo" parameterType="java.util.HashMap">
+		/* Query ID : mbrMngInfo.deleteMbrMngInfo */
+		DELETE FROM MBR_MNG_INFO
+		 WHERE mng_info_no = #{mngInfoNo}
+	</delete>
+
+</mapper>

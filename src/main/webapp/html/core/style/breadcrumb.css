@@ -1,0 +1,20 @@
+@layer components {
+    .breadcrumb {
+        @apply text-xs text-black2;
+        & li {
+            @apply inline-block mr-1;
+            & strong {
+                @apply font-normal;
+            }
+            &::after {
+                content: ">";
+                @apply inline-block ml-1;
+            }
+            &:last-child {
+                &::after {
+                    @apply hidden;
+                }
+            }
+        }
+    }
+}

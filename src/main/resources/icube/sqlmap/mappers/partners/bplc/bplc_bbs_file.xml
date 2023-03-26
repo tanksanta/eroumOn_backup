@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bplc.bbs.file">
+
+	<select id="selectFileList" parameterType="java.util.HashMap" resultType="fileVO">
+		SELECT ntt_no AS up_no
+			, file_no
+			, file_ty
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		FROM BPLC_BBS_ATCHFILE
+	  WHERE ntt_no = #{nttNo}
+	  	  <if test="fileTy != null and fileTy != ''">
+	  	  AND file_ty = #{fileTy}
+	  	  </if>
+	  	  AND use_yn = 'Y'
+	</select>
+
+	<select id="selectFileByFilter" parameterType="java.util.HashMap" resultType="fileVO">
+		SELECT ntt_no AS up_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		FROM BPLC_BBS_ATCHFILE
+	  	WHERE ntt_no = #{upNo}
+	  	  <if test="fileTy != null and fileTy != ''">
+	  	  AND file_ty = #{fileTy}
+	  	  </if>
+	  	  <if test="fileNo != null and fileNo != ''">
+	  	  AND file_no = #{fileNo}
+	  	  </if>
+	  	  AND use_yn = 'Y'
+	</select>
+
+	<insert id="insertFileInfo" parameterType="fileVO">
+		<selectKey keyProperty="maxFileNo" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(file_no), 0) + 1
+			FROM BPLC_BBS_ATCHFILE WHERE ntt_no = #{nttNo} AND bplc_unique_id = #{bplcUniqueId}
+		</selectKey>
+		INSERT INTO BPLC_BBS_ATCHFILE (
+			bplc_unique_id
+			, ntt_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, reg_dt
+			, dwnld_cnt
+			, use_yn
+		) VALUES (
+			#{bplcUniqueId}
+			, #{nttNo}
+			, #{fileTy}
+            <if test="fileNo = null or fileNo = ''">
+            , #{maxFileNo}
+            </if>
+            <if test="fileNo != null and fileNo != ''">
+            , #{fileNo}
+            </if>
+			, #{flpth}
+			, #{orgnlFileNm}
+			, #{strgFileNm}
+			, #{fileExtn}
+			, #{fileSz}
+			, #{fileDc, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{dwnldCnt}
+			, #{useYn}
+		)
+	</insert>
+
+	<update id="updateDwldCo" parameterType="java.util.HashMap">
+		UPDATE BPLC_BBS_ATCHFILE SET
+			dwnld_cnt = dwnld_cnt + 1
+		WHERE ntt_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no = #{fileNo}
+	</update>
+
+	<update id="updateFileDc" parameterType="java.util.HashMap">
+		UPDATE BPLC_BBS_ATCHFILE SET
+			file_dc = #{fileDc}
+		WHERE ntt_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no = #{fileNo}
+	</update>
+
+
+	<update id="deleteFileByNo" parameterType="java.util.HashMap">
+		UPDATE BPLC_BBS_ATCHFILE SET
+			use_yn = 'N'
+		 WHERE ntt_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no IN
+			<foreach collection="fileNo" item="no" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+	</update>
+
+	<update id="deleteFileByUpNo" parameterType="java.util.HashMap">
+		UPDATE BPLC_BBS_ATCHFILE SET
+			use_yn = 'N'
+		 WHERE ntt_no = #{upNo}
+	</update>
+
+	<delete id="deleteFile" parameterType="java.util.HashMap">
+		DELETE FROM BPLC_BBS_ATCHFILE
+		WHERE ntt_no = #{upNo}
+			AND file_no = #{fileNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+	</delete>
+
+</mapper>

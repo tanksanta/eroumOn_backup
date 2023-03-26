@@ -1,0 +1,46 @@
+
+*.iml
+*.log
+target/
+eroumapi/
+eroum/
+version
+HELP.md
+.gradle
+.svn/
+build/
+bin/
+src/node_modules/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### api문서 ###
+
+
+### Eclipse ###
+.settings/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea/
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+src/main/webapp/WEB-INF/classes/

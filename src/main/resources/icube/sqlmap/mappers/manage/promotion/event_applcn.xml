@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event.applcn">
+
+	<resultMap type="eventApplcnVO" id="eventApplcnVOMap" autoMapping="true" >
+		<association property="przwinCount" column="{eventNo=event_no}" select="event.przwin.selectEventPrzwinCount" />
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=event_no, fileTy=thumb_file_ty}" select="file.selectFileByFilter" />
+	</resultMap>
+
+	<sql id="listColumn">
+		app.applcn_no
+		, app.event_no
+		, app.chc_iem_no
+		, app.applct_id
+		, app.applct_nm
+		, app.applct_unique_id
+		, app.applct_telno
+		, app.ip
+		, app.applct_dt
+		, eve.event_nm
+		, eve.bgng_dt
+		, eve.end_dt
+		, eve.prsntn_ymd
+		, 'EVENT' as srvc_id
+		, 'THUMB' AS thumb_file_ty
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND app.applct_dt &gt;= #{srchBgngDt} AND app.applct_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND app.applct_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND app.applct_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="eventNo != null and eventNo != '' ">
+			AND app.event_no = #{eventNo}
+		</if>
+		<!--
+		<if test="(eventNo == null or eventNo == '') ">
+			AND app.event_no = 0
+		</if>
+		 -->
+		<!-- 항목당 응모자 수 -->
+		<if test="chcIemApNo != null and chcIemApNo != '' ">
+			AND app.chc_iem_no = #{chcIemApNo}
+		</if>
+		<if test="iemNo != null and iemNo != '' ">
+			AND app.chc_iem_no = #{iemNo}
+		</if>
+		<if test="uniqueId != null and uniqueId != '' ">
+			AND app.applct_unique_id = #{uniqueId}
+		</if>
+		<if test="srchLastMonth != null and srchLastMonth != '' ">
+			AND app.applct_dt &gt;= (SELECT DATE_ADD(SYSDATE(), INTERVAL -#{srchLastMonth} MONTH))
+		</if>
+		<if test="srchEventNm != null and srchEventNm != '' ">
+			AND eve.event_nm like CONCAT('%' , #{srchEventNm} , '%')
+		</if>
+		<choose>
+			<when test='srchSttus != null and srchSttus == "Y" '>
+				AND eve.bgng_dt &gt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) AND  eve.end_dt &lt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+			</when>
+			<when test='srchSttus != null and srchSttus == "N" '>
+				AND eve.end_dt &lt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+			</when>
+		</choose>
+
+	</sql>
+
+	<select id="selectEventApplcnListVO" parameterType="java.util.HashMap" resultMap="eventApplcnVOMap">
+		/* Query ID : eventApplcn.selectEventApplcnListVO */
+		SELECT
+			<include refid="listColumn" />
+		FROM EVENT_APPLCN app
+		LEFT JOIN EVENT eve ON eve.event_no = app.event_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY app.applct_dt DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectEventApplcnCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : eventApplcn.selectEventApplcnCount */
+		SELECT COUNT(*)
+		FROM EVENT_APPLCN app
+		LEFT JOIN EVENT eve ON eve.event_no = app.event_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="eventApplcnListByIemNo" parameterType="java.util.HashMap" resultMap="eventApplcnVOMap">
+		/* Query ID : eventApplcn.eventApplcnListByIemNo */
+		SELECT
+			app.applcn_no
+			, app.event_no
+			, app.chc_iem_no
+			, app.applct_id
+			, app.applct_nm
+			, app.applct_unique_id
+			, app.applct_telno
+			, app.ip
+			, app.applct_dt
+			, 'EVENT' as srvc_id
+			, 'THUMB' AS thumb_file_ty
+		FROM EVENT_APPLCN app
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectApplcnCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : eventApplcn.selectApplcnCount */
+		SELECT COUNT(*)
+		FROM EVENT_APPLCN app
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectEventApplcn" parameterType="java.util.HashMap"	resultMap="eventApplcnVOMap">
+		/* Query ID : eventApplcn.selectEventApplcn */
+		SELECT
+		<include refid="listColumn" />
+		FROM event_applcn
+		WHERE applcn_no = #{applcnNo}
+	</select>
+
+	<select id="selectApplcnListByMap" parameterType="java.util.HashMap" resultMap="eventApplcnVOMap">
+		/* Query ID : eventApplcn.selectApplcnListByMap */
+		SELECT
+			<include refid="listColumn" />
+		FROM EVENT_APPLCN app
+		LEFT JOIN EVENT eve ON app.event_no = eve.event_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY applct_dt DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<insert id="insertEventApplcn" parameterType="eventApplcnVO">
+	/* Query ID :
+	eventApplcn.insertEventApplcn */
+	INSERT INTO EVENT_APPLCN (
+		event_no
+		, chc_iem_no
+		, applct_id
+		, applct_nm
+		, applct_unique_id
+		, applct_telno
+		, ip
+		, applct_dt
+	) VALUES (
+		#{eventNo}
+		, #{chcIemNo}
+		, #{applctId, jdbcType=VARCHAR}
+		, #{applctNm, jdbcType=VARCHAR}
+		, #{applctUniqueId, jdbcType=VARCHAR}
+		, #{applctTelno, jdbcType=VARCHAR}
+		, #{ip, jdbcType=VARCHAR}
+		, SYSDATE()
+	)
+	</insert>
+
+</mapper>

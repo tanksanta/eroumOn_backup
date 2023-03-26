@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.authrt">
+
+	<sql id="searchConditions">
+		WHERE 1= 1
+		<if test="srchTarget == 'authrtNm' and srchText != ''">
+		AND authrt_nm LIKE CONCAT('%', #{srchText}, '%')
+		</if>
+	</sql>
+
+	<select id="selectMngAuthrtListCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM MNG_AUTHRT
+		<include refid="searchConditions" />
+	</select>
+
+	<select id="selectMngAuthrtList" parameterType="java.util.HashMap" resultType="mngAuthrtVO">
+		SELECT authrt_no
+				, authrt_nm
+				, authrt_ty
+    			, memo
+    			, reg_dt
+		FROM MNG_AUTHRT
+		<include refid="searchConditions" />
+		ORDER BY authrt_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMngAuthrt" parameterType="java.util.HashMap" resultType="mngAuthrtVO">
+		SELECT authrt_no
+				, authrt_nm
+				, authrt_ty
+    			, memo
+    			, reg_dt
+		FROM MNG_AUTHRT
+		WHERE authrt_no = #{authrtNo}
+	</select>
+
+	<insert id="insertMngAuthrt" parameterType="mngAuthrtVO">
+		INSERT INTO MNG_AUTHRT (
+			authrt_nm
+			, authrt_ty
+   			, memo
+   			, reg_dt
+		) VALUES (
+			#{authrtNm}
+			, #{authrtTy}
+   			, #{memo, jdbcType=VARCHAR}
+   			, SYSDATE()
+		)
+		<selectKey resultType="int" keyProperty="authrtNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateMngAuthrt" parameterType="mngAuthrtVO">
+		UPDATE MNG_AUTHRT SET
+			authrt_nm = #{authrtNm}
+			, authrt_ty = #{authrtTy}
+			, memo = #{memo, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+		WHERE authrt_no = #{authrtNo}
+	</update>
+
+	<delete id="deleteMngAuthrt" parameterType="java.util.HashMap">
+		/* Query ID : mng.authrt.deleteMngAuthrt */
+		DELETE FROM MNG_AUTHRT
+		WHERE authrt_no = #{authrtNo}
+	</delete>
+
+	<insert id="insertMngAuthrtMenu" parameterType="mngAuthrtMenuVO">
+		INSERT INTO MNG_AUTHRT_MENU (
+			authrt_no
+			, menu_no
+			, authrt_yn
+			, inq_yn
+			, wrt_yn
+		) VALUES (
+			#{authrtNo}
+			, #{menuNo}
+			, #{authrtYn}
+			, #{inqYn}
+			, #{wrtYn}
+		)
+	</insert>
+
+	<delete id="deleteMngAuthrtMenu" parameterType="java.util.HashMap">
+		DELETE FROM MNG_AUTHRT_MENU
+		 WHERE authrt_no = #{authrtNo}
+	</delete>
+
+	<select id="selectMngAuthrtMenuList" parameterType="java.util.HashMap" resultType="mngAuthrtMenuVO">
+		SELECT authrt_no
+		     , menu_no
+		     , authrt_yn
+		     , inq_yn
+		     , wrt_yn
+		  FROM MNG_AUTHRT_MENU
+		 WHERE authrt_no = #{authrtNo}
+		 ORDER BY menu_no
+	</select>
+
+	<select id="selectMngAuthrtMenuGroup" parameterType="java.util.HashMap" resultType="String">
+		SELECT
+			GROUP_CONCAT(T1.menu_no SEPARATOR ',')
+		FROM (SELECT menu_no FROM MNG_AUTHRT_MENU WHERE authrt_no = #{authrtNo}
+		ORDER BY menu_no) T1
+	</select>
+
+	<!-- 관리자메뉴 권한관리 -->
+	<insert id="insertMngAuthrtMngMenu" parameterType="mngAuthrtMenuVO">
+		INSERT INTO MNG_AUTHRT_MENU (
+			authrt_no
+			, menu_no
+			, authrt_yn
+			, inq_yn
+			, wrt_yn
+		) VALUES (
+			#{authrtNo}
+			, #{menuNo}
+			, #{authrtYn}
+			, #{inqYn}
+			, #{wrtYn}
+		)
+	</insert>
+
+	<delete id="deleteMngAuthrtMngMenu" parameterType="java.util.HashMap">
+		DELETE FROM MNG_AUTHRT_MENU
+		 WHERE authrt_no = #{authrtNo}
+	</delete>
+
+	<select id="selectMngAuthrtListAll" parameterType="java.util.HashMap" resultType="mngAuthrtVO">
+		SELECT authrt_no
+	    		, authrt_nm
+	    		, authrt_ty
+	    		, memo
+	    		, reg_dt
+		  FROM MNG_AUTHRT
+	</select>
+
+</mapper>

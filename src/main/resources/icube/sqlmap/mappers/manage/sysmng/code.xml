@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.code">
+
+	<resultMap type="codeVO" id="codeMap" autoMapping="true">
+	</resultMap>
+
+	<sql id="selectCount">
+	 	( SELECT
+				COUNT(code_id)
+		FROM CODE b
+		WHERE a.code_id = b.upper_code_id )
+		 AS child_count
+	</sql>
+
+	<select id="selectCodeList" parameterType="java.util.HashMap" resultType="codeVO">
+		SELECT code_ty
+				, code_id
+				, upper_code_id
+				, ( SELECT code_nm
+					FROM CODE b
+					WHERE a.upper_code_id = b.code_id ) AS upper_code_nm
+				, code_nm
+				, code_dc
+				, level_no
+				, sort_no
+				, use_yn
+				, <include refid="selectCount"/>
+		FROM CODE a
+		ORDER BY sort_no ASC, code_nm ASC
+	</select>
+
+
+	<select id="selectCodeListByFilter" parameterType="java.util.HashMap" resultType="codeVO">
+		SELECT code_ty
+				, code_id
+				, upper_code_id
+				, ( SELECT code_nm
+					FROM CODE b
+					WHERE a.upper_code_id = b.code_id ) AS upper_code_nm
+				, code_nm
+				, code_dc
+				, level_no
+				, sort_no
+				, use_yn
+				, <include refid="selectCount"/>
+		FROM CODE a
+		WHERE 1 = 1 AND level_no &gt; 1
+		<if test="codeTy != null and codeTy != ''">
+			<![CDATA[  AND code_ty = #{codeTy} ]]>
+		</if>
+		<if test="upperCodeId != null and upperCodeId != ''">
+			<![CDATA[  AND upper_code_id = #{upperCodeId} ]]>
+		</if>
+		ORDER BY SORT_NO ASC, CODE_NM ASC
+	</select>
+
+
+	<select id="selectCode" parameterType="java.util.HashMap" resultMap="codeMap">
+		SELECT code_ty
+				, code_id
+				, upper_code_id
+				, ( SELECT code_nm
+					FROM CODE b
+					WHERE a.upper_code_id = b.code_id ) AS upper_code_nm
+				, code_nm
+				, code_dc
+				, level_no
+				, sort_no
+				, use_yn
+				, <include refid="selectCount"/>
+		FROM CODE a
+	  WHERE code_id = #{codeId}
+	</select>
+
+
+	<insert id="insertCode" parameterType="codeVO">
+		INSERT INTO CODE (
+			code_id
+			, code_ty
+			, upper_code_id
+			, code_nm
+			, code_dc
+			, level_no
+			, sort_no
+			, use_yn
+		) VALUES (
+			#{codeId}
+			, #{codeTy}
+			, #{upperCodeId}
+			, #{codeNm}
+			, #{codeDc, jdbcType=VARCHAR}
+			, #{levelNo}
+			, #{sortNo}
+			, #{useAt}
+		)
+	</insert>
+
+	<update id="updateCode" parameterType="codeVO">
+		UPDATE CODE SET
+				code_id = #{codeId}
+				, upper_code_id = #{upperCodeId}
+				, code_nm = #{codeNm}
+				, code_dc = #{codeDc, jdbcType=VARCHAR}
+				, use_yn = #{useAt}
+		WHERE upper_code_id = #{upperCodeId}
+			AND code_id = #{orgCodeId}
+	</update>
+
+	<delete id="deleteCode" parameterType="java.util.HashMap">
+		DELETE FROM CODE
+		WHERE upper_code_id = #{upperCodeId}
+			AND code_id = #{codeId}
+	</delete>
+
+
+	<update id="updateCodeNm" parameterType="java.util.HashMap">
+		UPDATE CODE
+		   SET code_nm = #{codeNm}
+		 WHERE upper_code_id = #{upperCodeId}
+			AND code_id = #{codeId}
+	</update>
+
+		<update id="updateCodePosition" parameterType="codeVO">
+		UPDATE CODE
+		<trim prefix="SET" suffixOverrides=",">
+		<if test="sortNo != null and sortNo != ''">
+		       SORT_NO = #{sortNo},
+		</if>
+		<if test="upperCodeId != null and upperCodeId != ''">
+		       upper_code_id = #{upperCodeId},
+		</if>
+		</trim>
+		 WHERE code_id = #{codeId}
+	</update>
+
+</mapper>

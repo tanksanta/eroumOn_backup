@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dspy.grp.gds">
+
+	<resultMap type="planngDspyGrpGdsVO" id="planngDspyGrpGdsVOMap" autoMapping="true" >
+		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+		<collection property="regCount" column="{gdsNo=gds_no}" select="dspy.grp.gds.selectRegCount" />
+	</resultMap>
+
+	<insert id="insertGds" parameterType="planngDspyGrpGdsVO">
+	/* Query ID : dspy.grp.gds.insertPlanngDspyGrp */
+		INSERT INTO PLANNG_DSPY_GRP_GDS(
+			planng_dspy_no
+			, grp_no
+			, gds_no
+			, sort_no
+			, gds_cd
+		) VALUES (
+		#{planngDspyNo}
+		, #{grpNo}
+		, #{gdsNo}
+		, #{sortNo}
+		, #{gdsCd}
+	)
+
+	</insert>
+
+	<select id="selectGdsList" parameterType="java.util.HashMap" resultMap="planngDspyGrpGdsVOMap">
+		/* Query ID : dspy.grp.gds.selectGdsList */
+		SELECT
+			p.planng_dspy_no
+			, p.grp_no
+			, p.gds_no
+			, g.gds_cd
+			, g.gds_nm as gds_nm
+		 	, gc2.ctgry_nm as up_ctgry_nm
+			, gc1.ctgry_nm
+			, g.use_yn
+			, g.reg_dt
+			, g.pc
+			, g.soldout_yn
+			, 'THUMB' as thumb_file_ty
+			, p.sort_no
+		FROM PLANNG_DSPY_GRP_GDS p
+		LEFT JOIN GDS g ON p.gds_no = g.gds_no
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE planng_dspy_no = #{planngDspyNo} AND grp_no = #{grpNo}
+		ORDER BY p.sort_no
+	</select>
+
+	<select id="selectGrpGdsListAll" parameterType="java.util.HashMap" resultMap="planngDspyGrpGdsVOMap">
+		/* Query ID : dspy.grp.gds.selectGrpGdsListAll */
+		SELECT
+			gds.planng_dspy_no
+			, grp.grp_no
+			, grp.grp_nm
+			, grp.exhibi_co
+			, grp.sort_no AS grpSortNo
+			, gds.gds_no
+			, g.GDS_CD
+			, g.GDS_NM
+		 	, gc2.ctgry_nm as up_ctgry_nm
+			, gc1.ctgry_nm
+			, g.USE_YN
+			, g.REG_DT
+			, gds.sort_no AS gdsSortNo
+		FROM PLANNG_DSPY_GRP_GDS gds
+		LEFT JOIN PLANNG_DSPY_GRP grp ON grp.grp_no = gds.grp_no
+		LEFT JOIN GDS g ON gds.GDS_NO = g.GDS_NO
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE gds.planng_dspy_no = 59 AND gds.grp_no = 20
+	</select>
+
+	<select id="selectGdsCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : dspy.grp.gds.selectGdsCount */
+		SELECT COUNT(*)
+		FROM PLANNG_DSPY_GRP_GDS
+		WHERE planng_dspy_no = #{planngDspyNo}
+	</select>
+
+	<select id="selectRegCount" parameterType="java.util.HashMap" resultType="planngDspyGrpGdsVO">
+		/* Query ID : dspy.grp.gds.selectRegCount */
+		SELECT COUNT(*)
+			FROM PLANNG_DSPY_GRP_GDS gds
+		LEFT JOIN PLANNG_DSPY dspy
+		ON gds.planng_dspy_no = dspy.PLANNG_DSPY_NO
+		WHERE gds_no = #{gdsNo}
+		GROUP BY dspy.planng_dspy_no
+	</select>
+
+	<delete id="deletePlanngDspyGrpGds" parameterType="java.util.HashMap">
+		/* Query ID : dspy.grp.gds.deletePlanngDspyGrpGds */
+		DELETE FROM PLANNG_DSPY_GRP_GDS
+		WHERE planng_dspy_no = #{planngDspyNo}
+	</delete>
+
+
+</mapper>

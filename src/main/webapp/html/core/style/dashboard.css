@@ -1,0 +1,370 @@
+.introduce-wrapper, .dashboard-wrapper {
+    @apply flex flex-col relative w-full min-h-screen;
+    & .text-copyright {
+        @apply mt-20;
+    }
+}
+
+.introduce-wrapper {
+    & .market-title {
+        @apply pb-35;
+    }
+    & .system-title {
+        @apply -translate-y-1/2;
+        & .user-info {
+            @apply mt-4 text-white;
+            & .name {
+                @apply mr-3;
+                & strong {
+                    @apply text-lg;
+                }
+                & small {
+                    @apply text-sm mt-1;
+                }
+            }
+            & .thum {
+                @apply w-[3.125rem] h-[3.125rem];
+                & + .name {
+                    @apply mr-0 ml-3;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-wrapper {
+    @apply flex-row flex-wrap items-start text-white px-10 mx-auto max-w-[90rem];
+    & .system-title {
+        @apply absolute top-3 left-3;
+    }
+    & .dashboard-today {
+        @apply mt-7.5 mb-17 pl-50 pr-60;
+    }
+    & .dashboard-items {
+        @apply my-6 mx-auto;
+    }
+    & .text-copyright {
+        @apply mt-auto -mx-10;
+        width: calc(100% + theme("spacing[20]"));
+    }
+}
+
+.dashboard-today {
+    @apply flex items-center justify-center w-full tracking-normal;
+    & .date {
+        @apply mr-5 font-serif font-bold text-3xl;
+    }
+    & .weather {
+        @apply flex items-center;
+        & > * {
+            @apply mr-1;
+            &:last-child {
+                @apply mr-0;
+            }
+        }
+        & .loca {
+            @apply text-xs leading-tight text-right font-medium;
+            & small {
+                @apply block text-[0.92em];
+            }
+        }
+        & .temp {
+            @apply font-bold text-[1.3125rem];
+        }
+    }
+}
+
+.dashboard-account {
+    @apply flex items-center absolute top-7 right-7;
+    & > * {
+        @apply ml-1.5;
+    }
+}
+
+.dashboard-items {
+    @apply flex items-center justify-center space-x-8;
+    & a {
+        @apply block text-center text-white text-base press-action;
+        &::before {
+            @apply block content-empty mb-2.5 w-22 h-22 bg-white bg-no-repeat bg-center text-[0.9375rem];
+            border-radius: theme("spacing[4.5]");
+            box-shadow: 0px 2px 4px #00000033;
+        }
+        &.dashboard-item1 {
+            &::before {
+                background-image: url(../images/ico-menu1.svg);
+            }
+        }
+        &.dashboard-item2 {
+            &::before {
+                background-image: url(../images/ico-menu2.svg);
+            }
+        }
+        &.dashboard-item3 {
+            &::before {
+                background-image: url(../images/ico-menu3.svg);
+            }
+        }
+        &.dashboard-item4 {
+            &::before {
+                background-image: url(../images/ico-menu4.svg);
+            }
+        }
+        &.dashboard-item5 {
+            &::before {
+                background-image: url(../images/ico-menu5.svg);
+            }
+        }
+        &.dashboard-item6 {
+            &::before {
+                background-image: url(../images/ico-menu6.svg);
+            }
+        }
+        &.dashboard-item7 {
+            &::before {
+                background-image: url(../images/ico-menu7.svg);
+            }
+        }
+        &.dashboard-item8 {
+            &::before {
+                background-image: url(../images/ico-menu8.svg);
+            }
+        }
+        &.dashboard-item9 {
+            &::before {
+                background-image: url(../images/ico-menu9.svg);
+            }
+        }
+        &.dashboard-item10 {
+            &::before {
+                background-image: url(../images/ico-menu10.svg);
+            }
+        }
+        &.dashboard-item11 {
+            &::before {
+                background-image: url(../images/ico-menu11.svg);
+            }
+        }
+    }
+}
+
+.dashboard-box {
+    @apply flex relative flex-wrap px-5 py-4 leading-none;
+    & h2 {
+        @apply mb-2.5 w-full uppercase font-serif font-black italic;
+        & small {
+            @apply pl-1 font-sans text-xs font-bold not-italic;
+        }
+        & .date {
+            @apply float-right translate-y-3/4 text-xs font-medium not-italic font-serif;
+        }
+    }
+    & .counter {
+        & .num {
+            @apply inline-flex justify-end relative overflow-hidden tracking-wider text-white text-right min-w-[2.2em];
+            background: url(../images/text-num-white.svg) no-repeat left top / 1em;
+            & span {
+                @apply bg-no-repeat block mr-[0.2em] w-[1em] overflow-hidden text-left -indent-96;
+                background-image: url(../images/text-num-white.svg);
+                background-size: inherit;
+                &:last-child {
+                    @apply mr-0;
+                }
+            }
+            &.text-red {
+                & span {
+                    background-image: url(../images/text-num-red.svg);
+                }
+            }
+            &.text-sky {
+                & span {
+                    background-image: url(../images/text-num-sky.svg);
+                }
+            }
+            &.text-blue {
+                & span {
+                    background-image: url(../images/text-num-blue.svg);
+                }
+            }
+            &.text-orange {
+                & span {
+                    background-image: url(../images/text-num-orange.svg);
+                }
+            }
+            &.text-yellow {
+                & span {
+                    background-image: url(../images/text-num-yellow.svg);
+                }
+            }
+        }
+    }
+    &.filter {
+        @apply backdrop-blur-md bg-white/15;
+        border-radius: theme("spacing[6.5]");
+        &::before {
+            @apply content-empty absolute top-0.5 left-0.5 right-0.5 bottom-0.5 border border-white opacity-10;
+            border-radius: theme("spacing[6]");
+        }
+    }
+}
+
+.dashboard-counter {
+    @apply dashboard-box;
+    & h2 {
+        @apply text-2xl;
+    }
+    & .counter {
+        @apply flex-1 text-center mt-1 text-[1.5625rem];
+        & .num {
+            & span {
+                height: 46px;
+                &[data-num="0"] {
+                    background-position: 0 -46px;
+                }
+                &[data-num="1"] {
+                    background-position: 0 -93px;
+                }
+                &[data-num="2"] {
+                    background-position: 0 -140px;
+                }
+                &[data-num="3"] {
+                    background-position: 0 -187px;
+                }
+                &[data-num="4"] {
+                    background-position: 0 -234px;
+                }
+                &[data-num="5"] {
+                    background-position: 0 -281px;
+                }
+                &[data-num="6"] {
+                    background-position: 0 -328px;
+                }
+                &[data-num="7"] {
+                    background-position: 0 -375px;
+                }
+                &[data-num="8"] {
+                    background-position: 0 -422px;
+                }
+                &[data-num="9"] {
+                    background-position: 0 -468px;
+                }
+            }
+        }
+        & small {
+            @apply block mt-2 font-sans font-medium text-xs opacity-60 tracking-normal;
+        }
+    }
+}
+
+.dashboard-table {
+    @apply dashboard-box;
+    & h2 {
+        @apply text-lg font-sans not-italic;
+    }
+    & table {
+        @apply w-full table-fixed text-xs border-separate border-spacing-1;
+        & th, & td {
+            @apply p-2 align-middle text-center;
+            &:last-child {
+                @apply border-r-0;
+            }
+        }
+        & th {
+            @apply rounded bg-black/10 text-white/60 font-normal;
+        }
+        & td {
+            @apply p-0;
+        }
+    }
+    & .counter {
+        @apply text-base;
+        & .num {
+            & span {
+                height: 30px;
+                &[data-num="0"] {
+                    background-position: 0 -29px;
+                }
+                &[data-num="1"] {
+                    background-position: 0 -59px;
+                }
+                &[data-num="2"] {
+                    background-position: 0 -89px;
+                }
+                &[data-num="3"] {
+                    background-position: 0 -119px;
+                }
+                &[data-num="4"] {
+                    background-position: 0 -149px;
+                }
+                &[data-num="5"] {
+                    background-position: 0 -179px;
+                }
+                &[data-num="6"] {
+                    background-position: 0 -209px;
+                }
+                &[data-num="7"] {
+                    background-position: 0 -239px;
+                }
+                &[data-num="8"] {
+                    background-position: 0 -269px;
+                }
+                &[data-num="9"] {
+                    background-position: 0 -299px;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-chart {
+    @apply dashboard-box;
+    & h2 {
+        @apply text-6xl;
+    }
+}
+
+.dashboard-member {
+    @apply dashboard-box text-right;
+    & .counter {
+        @apply mb-5 flex min-w-full justify-end text-4xl;
+        & .num {
+            @apply ml-[0.5em];
+            & span {
+                height: 60px;
+                &[data-num="0"] {
+                    background-position: 0 -60px;
+                }
+                &[data-num="1"] {
+                    background-position: 0 -120px;
+                }
+                &[data-num="2"] {
+                    background-position: 0 -180px;
+                }
+                &[data-num="3"] {
+                    background-position: 0 -240px;
+                }
+                &[data-num="4"] {
+                    background-position: 0 -300px;
+                }
+                &[data-num="5"] {
+                    background-position: 0 -360px;
+                }
+                &[data-num="6"] {
+                    background-position: 0 -420px;
+                }
+                &[data-num="7"] {
+                    background-position: 0 -480px;
+                }
+                &[data-num="8"] {
+                    background-position: 0 -540px;
+                }
+                &[data-num="9"] {
+                    background-position: 0 -600px;
+                }
+            }
+        }
+        &:last-child {
+            @apply mb-0;
+        }
+    }
+}

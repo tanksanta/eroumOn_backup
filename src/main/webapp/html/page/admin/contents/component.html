@@ -1,0 +1,1256 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>component</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../core/vendor/datatables/datatables.min.js"></script>
+
+    <!-- common -->
+    <script src="../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            overflow-x: hidden;
+            background: #fff !important;
+        }
+        #list, #content {
+            overflow: overlay;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        #list::-webkit-scrollbar, #content::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        #list::-webkit-scrollbar-thumb, #content::-webkit-scrollbar-thumb {
+            border-radius: 0.75rem;
+            background-color: #aaa;
+        }
+
+        #list::-webkit-scrollbar-track, #content::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        
+        #list .nav-link {
+            position: relative;
+            margin-bottom: -1px;
+            z-index: 1;
+        }
+
+        #list .active {
+            z-index: 10;
+            transition: all 0.5s ease-in-out;
+            background-color: #60a5fa;
+            border-bottom-color: #60a5fa;
+            color: white;
+        }
+
+        hr {
+            margin: 2rem 0;
+        }
+
+        hr:last-child {
+            display: none;
+        }
+
+        [id*="section"] {
+            min-height: 25vh;
+        }
+    </style>
+</head>
+
+<body class="flex h-screen overflow-hidden">
+    <nav id="list" class="flex-none w-60 h-screen overflow-auto border-r border-gray-300">
+        <ul>
+            <li><a href="#section1" class="nav-link block py-2 px-3 border-b border-gray-300">기본</a></li>
+            <li><a href="#section2" class="nav-link block py-2 px-3 border-b border-gray-300">텍스트</a></li>
+            <li><a href="#section3" class="nav-link block py-2 px-3 border-b border-gray-300">여백</a></li>
+            <li><a href="#section4" class="nav-link block py-2 px-3 border-b border-gray-300">컬러</a></li>
+            <li><a href="#section5" class="nav-link block py-2 px-3 border-b border-gray-300">테이블</a></li>
+            <li><a href="#section7" class="nav-link block py-2 px-3 border-b border-gray-300">페이징</a></li>
+            <li><a href="#section13" class="nav-link block py-2 px-3 border-b border-gray-300">브레드스크럼</a></li>
+            <li><a href="#section14" class="nav-link block py-2 px-3 border-b border-gray-300">아이콘</a></li>
+            <li><a href="#section8" class="nav-link block py-2 px-3 border-b border-gray-300">버튼</a></li>
+            <li><a href="#section9" class="nav-link block py-2 px-3 border-b border-gray-300">폼 컨트롤</a></li>
+            <li><a href="#section10" class="nav-link block py-2 px-3 border-b border-gray-300">뱃지</a></li>
+            <li><a href="#section11" class="nav-link block py-2 px-3 border-b border-gray-300">모달</a></li>
+            <li><a href="#section12" class="nav-link block py-2 px-3 border-b border-gray-300">알람</a></li>
+            <li><a href="#section6" class="nav-link block py-2 px-3 border-b border-gray-300">플러그인</a></li>
+        </ul>
+    </nav>
+    <main id="content" class="flex-1 py-4 px-5 overflow-auto">
+        <div id="section1">
+            <h1 class="text-3xl text-black mb-7">기본</h1>
+            <p>사용 기본 컴포넌트 <a href="https://tailwindcss.com/docs/installation" target="_blank">https://tailwindcss.com/docs/installation</a></p>
+            <p>사용 추가 컴포넌트 <a href="https://tailwind-elements.com/quick-start/" target="_blank">https://tailwind-elements.com/quick-start/</a></p>
+            <p class="font-bold">사용하는 것들 중 변경사항이 큰 항목만 추가함</p>
+            <p class="mt-5 underline text-red-500">nodejs 연결하고 컴파일 할 것</p>
+            <p class="underline text-red-500">tailwind.config.js 확인</p>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section2">
+            <h1 class="text-3xl text-black mb-7">텍스트</h1>
+
+            <p class="text-title1">큰 타이틀</p>
+            
+            <br>
+
+            <p class="text-title2">페이지 타이틀</p>
+            
+            <br><br>
+
+            <p class="text-title3">
+                디스크립션 타이틀
+                <small>member management</small>
+            </p>
+            
+            <hr class="my-4">
+
+            <p class="mb-3">베이스 폰트 시스템 100% (16px) * rem으로 계산</p>
+
+            <div class="leading-none">
+                <p class="text-xs">text-xs(0.75rem) 12px</p>
+                <p class="text-sm">text-sm(0.875rem) 14px</p>
+                <p class="text-base">text-base(1rem) 16px</p>
+                <p class="text-lg">text-lg(1.125rem) 18px</p>
+                <p class="text-xl">text-xl(1.25rem) 20px</p>
+                <p class="text-2xl">text-2xl(1.5rem) 24px</p>
+                <p class="text-3xl">text-3xl(1.875rem) 30px</p>
+                <p class="text-4xl">text-4xl(2.25rem) 36px</p>
+                <p class="text-5xl">text-5xl(3rem) 48px</p>
+                <p class="text-6xl">text-6xl(3.5rem) 56px </p>
+                <p class="text-7xl">text-7xl(4rem) 64px</p>
+                <p class="text-8xl">text-8xl(5rem) 80px</p>
+                <p class="text-9xl">text-9xl(6rem) 96px </p>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section3">
+            <h1 class="text-3xl text-black mb-7">여백</h1>
+            <p>사용법은 기존과 같으나 클래스 접미 숫자에 따른 여백값이 달라짐</p>
+            <p>패딩, 마진, 그리드 갭, 너비 높이, 보더 사이즈 전부 변경함</p>
+
+            <p class="text-xl font-bold mt-3 mb-1">값 리스트</p>
+            <pre class="font-sans -ml-10">
+                px: 1px
+                0: 0
+                0.5: 0.125rem
+                1: 0.25rem
+                1.5: 0.375rem
+                2: 0.5rem
+                2.5: 0.625rem
+                3: 0.75rem
+                3.5: 0.875rem
+                4: 1rem
+                4.5: 1.125rem
+                5: 1.25rem
+                5.5: 1.375rem
+                6: 1.5rem
+                6.5: 1.625rem
+                7: 1.75rem
+                7.5: 1.875rem
+                8: 2rem
+                9: 2.25rem
+                10: 2.5rem
+                11: 2.75rem
+                12: 3rem
+                13: 3.25rem
+                14: 3.5rem
+                15: 3.75rem
+                16: 4rem
+                17: 4.25rem
+                18: 4.5rem
+                19: 4.75rem
+                20: 5rem
+                21: 5.25rem
+                22: 5.5rem
+                23: 5.75rem
+                24: 6rem
+                25: 6.25rem
+                26: 6.5rem
+                27: 6.75rem
+                28: 7rem
+                29: 7.25rem
+                30: 7.5rem
+                31: 7.75rem
+                32: 8rem
+                33: 8.25rem
+                34: 8.5rem
+                35: 8.75rem
+                36: 9rem
+                37: 9.25rem
+                38: 9.5rem
+                39: 9.75rem
+                40: 10rem
+                41: 10.25rem
+                42: 10.5rem
+                43: 10.75rem
+                44: 11rem
+                45: 11.25rem
+                46: 11.5rem
+                47: 11.75rem
+                48: 12rem
+                49: 12.25rem
+                50: 12.5rem
+                51: 12.75rem
+                52: 13rem
+                53: 13.25rem
+                54: 13.5rem
+                55: 13.75rem
+                56: 14rem
+                57: 14.25rem
+                58: 14.5rem
+                59: 14.75rem
+                60: 15rem
+                61: 15.25rem
+                62: 15.5rem
+                63: 15.75rem
+                64: 16rem
+                65: 16.25rem
+                66: 16.5rem
+                67: 16.75rem
+                68: 17rem
+                69: 17.25rem
+                70: 17.5rem
+                71: 17.75rem
+                72: 18rem
+                73: 18.25rem
+                74: 18.5rem
+                75: 18.75rem
+                76: 19rem
+                77: 19.25rem
+                78: 19.5rem
+                79: 19.75rem
+                80: 20rem
+                81: 20.25rem
+                82: 20.5rem
+                83: 20.75rem
+                84: 21rem
+                85: 21.25rem
+                86: 21.5rem
+                87: 21.75rem
+                88: 22rem
+                89: 22.25rem
+                90: 22.5rem
+                91: 22.75rem
+                92: 23rem
+                93: 23.25rem
+                94: 23.5rem
+                95: 23.75rem
+                96: 24rem
+                97: 24.25rem
+                98: 24.5rem
+                99: 24.75rem
+                100: 25rem
+            </pre>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+        
+        <div id="section4">
+            <h1 class="text-3xl text-black mb-7">컬러</h1>
+
+            <div class="bg-neutral-500 p-5 text-center flex justify-around">
+                <p class="inline-block px-2 py1 text-black1"><span class="block w-10 h-10 mx-auto mb-2 bg-black1"></span> #1C1C1C</p>
+                <p class="inline-block px-2 py1 text-black2"><span class="block w-10 h-10 mx-auto mb-2 bg-black2"></span> #333</p>
+                <p class="inline-block px-2 py1 text-gray1"><span class="block w-10 h-10 mx-auto mb-2 bg-gray1"></span> #999</p>
+                <p class="inline-block px-2 py1 text-gray2"><span class="block w-10 h-10 mx-auto mb-2 bg-gray2"></span> #eee</p>
+                <p class="inline-block px-2 py1 text-gray3"><span class="block w-10 h-10 mx-auto mb-2 bg-gray3"></span> #ddd</p>
+                <p class="inline-block px-2 py1 text-gray4"><span class="block w-10 h-10 mx-auto mb-2 bg-gray4"></span> #444</p>
+                <p class="inline-block px-2 py1 text-gray5"><span class="block w-10 h-10 mx-auto mb-2 bg-gray5"></span> #7f7f7f</p>
+                <p class="inline-block px-2 py1 text-red1"><span class="block w-10 h-10 mx-auto mb-2 bg-red1"></span> #DD3C3C</p>
+                <p class="inline-block px-2 py1 text-red2"><span class="block w-10 h-10 mx-auto mb-2 bg-red2"></span> #FFE6E6</p>
+                <p class="inline-block px-2 py1 text-blue1"><span class="block w-10 h-10 mx-auto mb-2 bg-blue1"></span> #3C80B7</p>
+                <p class="inline-block px-2 py1 text-blue2"><span class="block w-10 h-10 mx-auto mb-2 bg-blue2"></span> #E4F1FF</p>
+                <p class="inline-block px-2 py1 text-yellow1"><span class="block w-10 h-10 mx-auto mb-2 bg-yellow1"></span> #F07F00</p>
+                <p class="inline-block px-2 py1 text-yellow2"><span class="block w-10 h-10 mx-auto mb-2 bg-yellow2"></span> #FFFAE6</p>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+        
+        <div id="section5">
+            <h1 class="text-3xl text-black mb-7">테이블</h1>
+
+            <table class="table">
+                <tr>
+                    <th>기본 테이블</th>
+                    <th>기본 테이블</th>
+                    <th>기본 테이블</th>
+                </tr>
+                <tr>
+                    <td>기본 테이블</td>
+                    <td>기본 테이블</td>
+                    <td>기본 테이블</td>
+                </tr>
+            </table>
+            <br>
+            <table class="table-list">
+                <colgroup>
+                    <col class="w-22">
+                    <col>
+                    <col class="w-36">
+                    <col class="w-28">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>123</td>
+                        <td><a href="#" class="subject">글의 제목입니다.</a></td>
+                        <td>작성자</td>
+                        <td>1234</td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>
+                            <a href="#" class="subject">
+                                <i class="ico-reply"></i>
+                                글의 댓글입니다.
+                            </a>
+                        </td>
+                        <td>작성자</td>
+                        <td>1234</td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>
+                            <a href="#" class="subject">
+                                <i class="ico-reply"></i>
+                                글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.글의 댓글입니다.
+                            </a>
+                        </td>
+                        <td>작성자</td>
+                        <td>1234</td>
+                    </tr>
+                    <tr>
+                        <td class="noresult" colspan="4">검색조건을 만족하는 결과가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <table class="table-detail">
+                <colgroup>
+                    <col class="w-40">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th scope="row">기본형 상세 테이블 <sup class="badge-require"></sup></th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section7">
+            <h1 class="text-3xl text-black mb-7">페이징</h1>
+            <div class="pagination">
+                <div class="paging">
+                    <a href="#" class="prev">이전</a>
+                    <a href="#" class="page active">1</a>
+                    <a href="#" class="page">2</a>
+                    <a href="#" class="page">3</a>
+                    <a href="#" class="page">4</a>
+                    <a href="#" class="page">5</a>
+                    <a href="#" class="page">6</a>
+                    <a href="#" class="page">7</a>
+                    <a href="#" class="next">다음</a>
+                </div>
+
+                <div class="sorting">
+                    <a href="#" class="active">20</a>
+                    <a href="#">30</a>
+                    <a href="#">40</a>
+                </div>
+
+                <div class="counter">총 <strong>200</strong>건, <strong>1</strong>/60 페이지</div>
+            </div>
+            <br><br>
+            <div class="pagination">
+                <div class="paging">
+                    <a href="#" class="prev">이전</a>
+                    <a href="#" class="page active">1</a>
+                    <a href="#" class="page">2</a>
+                    <a href="#" class="page">3</a>
+                    <a href="#" class="page">4</a>
+                    <a href="#" class="page">5</a>
+                    <a href="#" class="page">6</a>
+                    <a href="#" class="page">7</a>
+                    <a href="#" class="next">다음</a>
+                </div>
+
+                <div class="sorting2">
+                    <label for="sort-item">출력</label>
+                    <select name="" id="sort-item" class="form-control">
+                        <option value="">20개</option>
+                    </select>
+                </div>
+
+                <div class="counter">총 <strong>200</strong>건, <strong>1</strong>/60 페이지</div>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section13">
+            <h1 class="text-3xl text-black mb-7">브레드스크럼</h1>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="#">회원관리</a></li>
+                    <li><strong>일반회원 관리</strong></li>
+                </ul>
+            </nav>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section14">
+            <h1 class="text-3xl text-black mb-7">아이콘</h1>
+            <div>
+                <i class="ico-reply"></i>
+                <i class="ico-close"></i>
+                <i class="ico-calendar"></i>
+                <i class="ico-external"></i>
+                <i class="ico-download"></i>
+                <i class="ico-file"></i>
+                <i class="ico-member-mo"></i>
+                <i class="ico-member-pc"></i>
+                <i class="ico-loader"></i>
+                <i class="ico-arrow-left"></i>
+                <i class="ico-arrow-right"></i>
+                <i class="ico-arrow-top"></i>
+                <i class="ico-arrow-bottom"></i>
+                <i class="ico-angle-left"></i>
+                <i class="ico-angle-right"></i>
+                <i class="ico-angle-top"></i>
+                <i class="ico-angle-bottom"></i>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section8">
+            <h1 class="text-3xl text-black mb-7">버튼</h1>
+
+            <button class="btn" disabled>기본 버튼</button>
+            <button class="btn shadow">기본 버튼 그림자타입</button>
+            <button class="btn small shadow">작은 버튼</button>
+            <button class="btn tiny shadow">매우 작은 버튼</button>
+            <button class="btn large">
+                기본 큰 버튼
+                <div class="w-full"><img src="../assets/images/img-loader.svg" alt=""></div>
+            </button>
+            <button class="btn xlarge">
+                기본 로그인 버튼
+            </button>
+
+            <br><br>
+
+            <button class="btn-primary">메인 버튼</button>
+            <button class="btn-outline-primary">메인 버튼 아웃라인</button>
+            <button class="btn-primary shadow">메인 버튼 그림자타입</button>
+            <button class="btn-primary large">메인 큰 버튼</button>
+            <button class="btn-primary xlarge">메인 로그인 버튼</button>
+
+            <br><br>
+
+            <button class="btn-secondary">메인 버튼</button>
+            <button class="btn-outline-secondary">메인 버튼 아웃라인</button>
+            <button class="btn-secondary shadow">메인 버튼 그림자타입</button>
+            <button class="btn-secondary large">메인 큰 버튼</button>
+            <button class="btn-secondary xlarge">메인 로그인 버튼</button>
+
+            <br><br>
+
+            <button class="btn-danger">메인 버튼</button>
+            <button class="btn-outline-danger">메인 버튼 아웃라인</button>
+            <button class="btn-danger shadow">메인 버튼 그림자타입</button>
+            <button class="btn-danger large">메인 큰 버튼</button>
+            <button class="btn-danger xlarge">메인 로그인 버튼</button>
+
+            <br><br>
+
+            <button class="btn-warning">메인 버튼</button>
+            <button class="btn-outline-warning">메인 버튼 아웃라인</button>
+            <button class="btn-warning shadow">메인 버튼 그림자타입</button>
+            <button class="btn-warning large">메인 큰 버튼</button>
+            <button class="btn-warning xlarge">메인 로그인 버튼</button>
+
+            <br><br>
+
+            <button class="btn-success">메인 버튼</button>
+            <button class="btn-outline-success">메인 버튼 아웃라인</button>
+            <button class="btn-success shadow">메인 버튼 그림자타입</button>
+            <button class="btn-success large">메인 큰 버튼</button>
+            <button class="btn-success xlarge">메인 로그인 버튼</button>
+
+            <br><br>
+            
+            <button class="btn-primary">메인 버튼 <img src="../assets/images/ico-external-white.svg" alt="" class="ml-2.5 -mr-1.5"></button>
+            <button class="btn">메인 버튼 <img src="../assets/images/ico-external.svg" alt="" class="ml-2.5 -mr-1.5"></button>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section9">
+            <h1 class="text-3xl text-black mb-7">폼 컨트롤</h1>
+
+            <input type="text" class="form-control calendar" placeholder="입력 기본">
+            <input type="time" class="form-control calendar" placeholder="입력 기본">
+            <input type="text" class="form-control" readonly>
+            <input type="text" class="form-control" disabled value="111">
+
+            <input type="text" class="form-control tiny calendar" placeholder="입력 매우작은">
+            <input type="date" class="form-control tiny" placeholder="입력 매우작은">
+            <input type="text" class="form-control small calendar" placeholder="입력 작은">
+            <input type="date" class="form-control small" placeholder="입력 작은">
+
+            <input type="text" class="form-control large" placeholder="입력 기본">
+            <input type="text" class="form-control xlarge">
+
+            <br>
+
+            <input type="date" class="form-control" placeholder="달력">
+
+            <br><br>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check-item1">
+                <label class="form-check-label" for="check-item1">기본 체크</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked id="check-item1a">
+                <label class="form-check-label" for="check-item1a">기본 체크</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="check-item2">
+                <label class="form-check-label" for="check-item2">기본 라디오</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" checked id="check-item233">
+                <label class="form-check-label" for="check-item233">기본 라디오</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="check-item3">
+                <label class="form-check-label" for="check-item3">기본 스위치</label>
+            </div>
+
+            <br>
+
+            <div class="form-check-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item4">
+                    <label class="form-check-label" for="check-item4">전체</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item5">
+                    <label class="form-check-label" for="check-item5">PC</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item6">
+                    <label class="form-check-label" for="check-item6">Mobile</label>
+                </div>
+            </div>
+            
+            <br><br>
+            
+            <select name="" id="ccc" class="form-control">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control tiny">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control small">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control large">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control xlarge">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="bbb" class="form-control" disabled>
+                <option value="">셀렉트박스</option>
+            </select>
+
+            <br><br>
+            
+            <textarea name="" id="aaa" cols="30" rows="10" class="form-control">텍스트 에어리어</textarea>
+
+            <br><br>
+
+            <div class="form-upload">
+                <label for="file-item" class="form-upload-trigger">Choose a file or drop file here</label>
+                <input type="file" class="form-upload-control" id="file-item" name="upload[]" multiple>
+            </div>
+            <div class="form-upload-link">
+                <span class="form-upload-link-name">
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                </span>
+                <a href="#" class="form-upload-link-download">다운로드</a>
+                <a href="#" class="form-upload-link-delete">삭제</a>
+            </div>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section10">
+            <h1 class="text-3xl text-black mb-7">뱃지</h1>
+
+            <span class="badge">base</span>
+            <span class="badge-primary">primary</span>
+            <span class="badge-outline-primary">primary</span>
+            <span class="badge-secondary">secondary</span>
+            <span class="badge-outline-secondary">secondary</span>
+            <span class="badge-danger">Danger</span>
+            <span class="badge-outline-danger">Danger</span>
+            <span class="badge-warning">Warning</span>
+            <span class="badge-outline-warning">Warning</span>
+            <span class="badge-success">Success</span>
+            <span class="badge-outline-success">Success</span>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section11">
+            <h1 class="text-3xl text-black mb-7">모달</h1>
+
+            <a href="#modal-example1" class="btn-primary" data-bs-toggle="modal" data-bs-target="#modal-example1">모달 예시 1</a>
+            <a href="#offcanvas-example1" class="btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvas-example1" >오프캔버스 상 예시</a>
+            <a href="#offcanvas-example1" class="btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvas-example2" >오프캔버스 하 예시</a>
+            <a href="#offcanvas-example1" class="btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvas-example3" >오프캔버스 좌 예시</a>
+            <a href="#offcanvas-example1" class="btn-primary"data-bs-toggle="offcanvas" data-bs-target="#offcanvas-example4" >오프캔버스 우 예시</a>
+
+            <div class="modal fade" id="modal-example1" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p>모달페이지</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn large btn-primary w-36">저장</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas-example1">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvas-example2">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas-example3">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-example4">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section12">
+            <h1 class="text-3xl text-black mb-7">알람</h1>
+            <div class="alert fade show">
+                <p class="moji">:|</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+            <br>
+            <div class="alert large fade show">
+                <p class="moji">:|</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+            <br>
+            <div class="alert alert-primary fade show">
+                <p class="moji">:|</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+            <br>
+            <div class="alert alert-danger fade show">
+                <p class="moji">:(</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+            <br>
+            <div class="alert alert-warning fade show">
+                <p class="moji">:|</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+            <br>
+            <div class="alert alert-success fade show">
+                <p class="moji">:)</p>
+                <p class="text">이미 사용중인 브랜드입니다</p>
+                <button type="button" data-bs-dismiss="alert" aria-label="close">닫기</button>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section6">
+            <h1 class="text-3xl text-black mb-7">플러그인</h1>
+
+            <h2 class="text-2xl text-black mb-3">jqtree</h2>
+            <div id="data" class="list-jqtree"></div>
+            <script>
+                // inline data demo
+                $('#data').jstree({
+                    'core' : {
+                        'data' : [
+                            {
+                                "text" : "공통코드",
+                                    "children" : [
+                                    {
+                                        "text" : "상품관리",
+                                        "children" : [
+                                            {"text" : "구입품목", "icon" : false},
+                                            {"text" : "구입품목", "icon" : "jstree-folder"},
+                                            {"text" : "대여품목", "icon" : "jstree-file"}
+                                        ]
+                                    },
+                                    {
+                                        "text" : "카테고리 관리"
+                                    },
+                                    {
+                                        "text" : "주문관리"
+                                    }
+                                ]
+                            },
+                            {
+                                "text" : "서브뎁스"
+                            },
+                            {
+                                "text" : "공통코드",
+                                    "children" : [
+                                    {
+                                        "text" : "상품관리",
+                                        "children" : [
+                                            {"text" : "구입품목", "icon" : false},
+                                            {"text" : "구입품목", "icon" : "jstree-folder"},
+                                            {"text" : "대여품목", "icon" : "jstree-file"}
+                                        ]
+                                    },
+                                    {
+                                        "text" : "카테고리 관리"
+                                    },
+                                    {
+                                        "text" : "주문관리"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                });
+            </script>
+
+            <h2 class="text-2xl text-black mb-3 mt-5">datatables</h2>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Name</th>
+                        <th colspan="2">HR Information</th>
+                        <th colspan="2">Contact</th>
+                    </tr>
+                    <tr>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Office</th>
+                        <th>Extn.</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">합계</td>
+                        <td></td>
+                        <td>$999,999,999</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Tiger</td>
+                        <td>Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td>Garrett</td>
+                        <td>Winters</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>$170,750</td>
+                    </tr>
+                    <tr>
+                        <td>Ashton</td>
+                        <td>Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>$86,000</td>
+                    </tr>
+                    <tr>
+                        <td>Cedric</td>
+                        <td>Kelly</td>
+                        <td>Senior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>$433,060</td>
+                    </tr>
+                    <tr>
+                        <td>Airi</td>
+                        <td>Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>$162,700</td>
+                    </tr>
+                    <tr>
+                        <td>Brielle</td>
+                        <td>Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>$372,000</td>
+                    </tr>
+                    <tr>
+                        <td>Herrod</td>
+                        <td>Chandler</td>
+                        <td>Sales Assistant</td>
+                        <td>San Francisco</td>
+                        <td>$137,500</td>
+                    </tr>
+                    <tr>
+                        <td>Rhona</td>
+                        <td>Davidson</td>
+                        <td>Integration Specialist</td>
+                        <td>Tokyo</td>
+                        <td>$327,900</td>
+                    </tr>
+                    <tr>
+                        <td>Colleen</td>
+                        <td>Hurst</td>
+                        <td>Javascript Developer</td>
+                        <td>San Francisco</td>
+                        <td>$205,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sonya</td>
+                        <td>Frost</td>
+                        <td>Software Engineer</td>
+                        <td>Edinburgh</td>
+                        <td>$103,600</td>
+                    </tr>
+                    <tr>
+                        <td>Jena</td>
+                        <td>Gaines</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>$90,560</td>
+                    </tr>
+                    <tr>
+                        <td>Quinn</td>
+                        <td>Flynn</td>
+                        <td>Support Lead</td>
+                        <td>Edinburgh</td>
+                        <td>$342,000</td>
+                    </tr>
+                    <tr>
+                        <td>Charde</td>
+                        <td>Marshall</td>
+                        <td>Regional Director</td>
+                        <td>San Francisco</td>
+                        <td>$470,600</td>
+                    </tr>
+                    <tr>
+                        <td>Haley</td>
+                        <td>Kennedy</td>
+                        <td>Senior Marketing Designer</td>
+                        <td>London</td>
+                        <td>$313,500</td>
+                    </tr>
+                    <tr>
+                        <td>Tatyana</td>
+                        <td>Fitzpatrick</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>$385,750</td>
+                    </tr>
+                    <tr>
+                        <td>Michael</td>
+                        <td>Silva</td>
+                        <td>Marketing Designer</td>
+                        <td>London</td>
+                        <td>$198,500</td>
+                    </tr>
+                    <tr>
+                        <td>Paul</td>
+                        <td>Byrd</td>
+                        <td>Chief Financial Officer (CFO)</td>
+                        <td>New York</td>
+                        <td>$725,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gloria</td>
+                        <td>Little</td>
+                        <td>Systems Administrator</td>
+                        <td>New York</td>
+                        <td>$237,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bradley</td>
+                        <td>Greer</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>$132,000</td>
+                    </tr>
+                    <tr>
+                        <td>Dai</td>
+                        <td>Rios</td>
+                        <td>Personnel Lead</td>
+                        <td>Edinburgh</td>
+                        <td>$217,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jenette</td>
+                        <td>Caldwell</td>
+                        <td>Development Lead</td>
+                        <td>New York</td>
+                        <td>$345,000</td>
+                    </tr>
+                    <tr>
+                        <td>Yuri</td>
+                        <td>Berry</td>
+                        <td>Chief Marketing Officer (CMO)</td>
+                        <td>New York</td>
+                        <td>$675,000</td>
+                    </tr>
+                    <tr>
+                        <td>Caesar</td>
+                        <td>Vance</td>
+                        <td>Pre-Sales Support</td>
+                        <td>New York</td>
+                        <td>$106,450</td>
+                    </tr>
+                    <tr>
+                        <td>Doris</td>
+                        <td>Wilder</td>
+                        <td>Sales Assistant</td>
+                        <td>Sydney</td>
+                        <td>$85,600</td>
+                    </tr>
+                    <tr>
+                        <td>Angelica</td>
+                        <td>Ramos</td>
+                        <td>Chief Executive Officer (CEO)</td>
+                        <td>London</td>
+                        <td>$1,200,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin</td>
+                        <td>Joyce</td>
+                        <td>Developer</td>
+                        <td>Edinburgh</td>
+                        <td>$92,575</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer</td>
+                        <td>Chang</td>
+                        <td>Regional Director</td>
+                        <td>Singapore</td>
+                        <td>$357,650</td>
+                    </tr>
+                    <tr>
+                        <td>Brenden</td>
+                        <td>Wagner</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>$206,850</td>
+                    </tr>
+                    <tr>
+                        <td>Fiona</td>
+                        <td>Green</td>
+                        <td>Chief Operating Officer (COO)</td>
+                        <td>San Francisco</td>
+                        <td>$850,000</td>
+                    </tr>
+                    <tr>
+                        <td>Shou</td>
+                        <td>Itou</td>
+                        <td>Regional Marketing</td>
+                        <td>Tokyo</td>
+                        <td>$163,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michelle</td>
+                        <td>House</td>
+                        <td>Integration Specialist</td>
+                        <td>Sydney</td>
+                        <td>$95,400</td>
+                    </tr>
+                    <tr>
+                        <td>Suki</td>
+                        <td>Burks</td>
+                        <td>Developer</td>
+                        <td>London</td>
+                        <td>$114,500</td>
+                    </tr>
+                    <tr>
+                        <td>Prescott</td>
+                        <td>Bartlett</td>
+                        <td>Technical Author</td>
+                        <td>London</td>
+                        <td>$145,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin</td>
+                        <td>Cortez</td>
+                        <td>Team Leader</td>
+                        <td>San Francisco</td>
+                        <td>$235,500</td>
+                    </tr>
+                    <tr>
+                        <td>Martena</td>
+                        <td>Mccray</td>
+                        <td>Post-Sales support</td>
+                        <td>Edinburgh</td>
+                        <td>$324,050</td>
+                    </tr>
+                    <tr>
+                        <td>Unity</td>
+                        <td>Butler</td>
+                        <td>Marketing Designer</td>
+                        <td>San Francisco</td>
+                        <td>$85,675</td>
+                    </tr>
+                    <tr>
+                        <td>Howard</td>
+                        <td>Hatfield</td>
+                        <td>Office Manager</td>
+                        <td>San Francisco</td>
+                        <td>$164,500</td>
+                    </tr>
+                    <tr>
+                        <td>Hope</td>
+                        <td>Fuentes</td>
+                        <td>Secretary</td>
+                        <td>San Francisco</td>
+                        <td>$109,850</td>
+                    </tr>
+                    <tr>
+                        <td>Vivian</td>
+                        <td>Harrell</td>
+                        <td>Financial Controller</td>
+                        <td>San Francisco</td>
+                        <td>$452,500</td>
+                    </tr>
+                    <tr>
+                        <td>Timothy</td>
+                        <td>Mooney</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>$136,200</td>
+                    </tr>
+                    <tr>
+                        <td>Jackson</td>
+                        <td>Bradshaw</td>
+                        <td>Director</td>
+                        <td>New York</td>
+                        <td>$645,750</td>
+                    </tr>
+                    <tr>
+                        <td>Olivia</td>
+                        <td>Liang</td>
+                        <td>Support Engineer</td>
+                        <td>Singapore</td>
+                        <td>$234,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bruno</td>
+                        <td>Nash</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>$163,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sakura</td>
+                        <td>Yamamoto</td>
+                        <td>Support Engineer</td>
+                        <td>Tokyo</td>
+                        <td>$139,575</td>
+                    </tr>
+                    <tr>
+                        <td>Thor</td>
+                        <td>Walton</td>
+                        <td>Developer</td>
+                        <td>New York</td>
+                        <td>$98,540</td>
+                    </tr>
+                    <tr>
+                        <td>Finn</td>
+                        <td>Camacho</td>
+                        <td>Support Engineer</td>
+                        <td>San Francisco</td>
+                        <td>$87,500</td>
+                    </tr>
+                    <tr>
+                        <td>Serge</td>
+                        <td>Baldwin</td>
+                        <td>Data Coordinator</td>
+                        <td>Singapore</td>
+                        <td>$138,575</td>
+                    </tr>
+                    <tr>
+                        <td>Zenaida</td>
+                        <td>Frank</td>
+                        <td>Software Engineer</td>
+                        <td>New York</td>
+                        <td>$125,250</td>
+                    </tr>
+                    <tr>
+                        <td>Zorita</td>
+                        <td>Serrano</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>$115,000</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer</td>
+                        <td>Acosta</td>
+                        <td>Junior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>$75,650</td>
+                    </tr>
+                    <tr>
+                        <td>Cara</td>
+                        <td>Stevens</td>
+                        <td>Sales Assistant</td>
+                        <td>New York</td>
+                        <td>$145,600</td>
+                    </tr>
+                    <tr>
+                        <td>Hermione</td>
+                        <td>Butler</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>$356,250</td>
+                    </tr>
+                    <tr>
+                        <td>Lael</td>
+                        <td>Greer</td>
+                        <td>Systems Administrator</td>
+                        <td>London</td>
+                        <td>$103,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jonas</td>
+                        <td>Alexander</td>
+                        <td>Developer</td>
+                        <td>San Francisco</td>
+                        <td>$86,500</td>
+                    </tr>
+                    <tr>
+                        <td>Shad</td>
+                        <td>Decker</td>
+                        <td>Regional Director</td>
+                        <td>Edinburgh</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michael</td>
+                        <td>Bruce</td>
+                        <td>Javascript Developer</td>
+                        <td>Singapore</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Donna</td>
+                        <td>Snider</td>
+                        <td>Customer Support</td>
+                        <td>New York</td>
+                        <td>$112,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <script>
+                $(function() {
+                    $('#example').DataTable({
+                        // searching: false,
+                        language: dt_lang
+                    });
+                })
+            </script>
+        </div>
+    </main>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

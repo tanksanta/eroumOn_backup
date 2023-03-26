@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dlvy">
+
+	<resultMap type="dlvyCoMngVO" id="dlvyCoMngVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		co_no
+		, dlvy_co_nm
+		, telno_info
+		, dlvy_url
+		, use_yn
+		, dlvy_co_cd
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND dlvy_co_nm like CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+	</sql>
+
+	<select id="selectDlvyCoMngListVO" parameterType="java.util.HashMap" resultMap="dlvyCoMngVOMap">
+		/* Query ID : dlvy.xml > selectDlvyCoMngListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM DLVY_CO_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY co_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectDlvyCoMngCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : dlvy.xml > selectDlvyCoMngCount */
+		SELECT	COUNT(*)
+		FROM	DLVY_CO_MNG
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectDlvyCoMng" parameterType="java.util.HashMap" resultMap="dlvyCoMngVOMap">
+		/* Query ID : dlvy.xml > selectDlvyCoMng */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	DLVY_CO_MNG
+		WHERE  co_no = #{coNo}
+	</select>
+
+	<select id="selectDlvyCoMngNm" parameterType="java.util.HashMap" resultMap="dlvyCoMngVOMap">
+		/* Query ID : dlvy.xml > selectDlvyCoMngNm */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	DLVY_CO_MNG
+		WHERE  dlvy_co_nm = #{nm}
+	</select>
+
+	<insert id="insertDlvyCoMng" parameterType="dlvyCoMngVO">
+	/* Query ID : dlvy.xml > insertDlvyCoMng */
+	INSERT INTO DLVY_CO_MNG (
+		dlvy_co_nm
+		, telno_info
+		, dlvy_url
+		, use_yn
+		, dlvy_co_cd
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{dlvyCoNm, jdbcType=VARCHAR}
+		, #{telnoInfo, jdbcType=VARCHAR}
+		, #{dlvyUrl, jdbcType=VARCHAR}
+		, #{useYn, jdbcType=VARCHAR}
+		, #{dlvyCoCd, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateDlvyCoMng" parameterType="dlvyCoMngVO">
+		/* Query ID : dlvy.xml > updateDlvyCoMng */
+		UPDATE DLVY_CO_MNG SET
+			dlvy_co_nm = #{dlvyCoNm, jdbcType=VARCHAR}
+			, telno_info = #{telnoInfo, jdbcType=VARCHAR}
+			, dlvy_url = #{dlvyUrl, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, dlvy_co_cd = #{dlvyCoCd, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	co_no = #{coNo}
+	</update>
+
+
+	<!-- 전체목록 -->
+	<select id="selectDlvyCoListAll" parameterType="java.util.HashMap" resultMap="dlvyCoMngVOMap">
+		/* Query ID : dlvy.xml > selectDlvyCoListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM DLVY_CO_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY co_no DESC
+	</select>
+
+</mapper>

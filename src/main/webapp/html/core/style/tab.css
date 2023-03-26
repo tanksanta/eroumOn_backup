@@ -1,0 +1,34 @@
+@layer components {
+    .tab-list {
+        @apply flex items-center;
+        & li {
+            @apply mr-1;
+            & a {
+                @apply flex justify-center items-center px-5 h-8 rounded text-sm leading-snug bg-gray2 text-center whitespace-nowrap;
+                &.active {
+                    @apply bg-black1 font-bold text-white px-7 h-10;
+                }
+            }
+            &:last-child {
+                @apply mr-0;
+            }
+        }
+    }
+
+    .tab-full {
+        & li {
+            @apply flex-1;
+        }
+    }
+
+    .tab-sticky {
+        @apply sticky -top-6 py-2 -my-2 z-50 bg-white;
+    }
+
+    .tab-pane {
+        @apply hidden;
+        &.active {
+            @apply block;
+        }
+    }
+}

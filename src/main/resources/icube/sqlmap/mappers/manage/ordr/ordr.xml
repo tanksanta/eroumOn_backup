@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordr">
+
+	<!-- Define OrdrVO Result Map  -->
+	<resultMap type="ordrVO" id="ordrVOMap" autoMapping="true">
+		<collection property="ordrDtlList" 	column="{ordrNo=ordr_no, ordrCd=ordr_cd}" select="ordr.dtl.selectOrdrDtlList" />
+		<collection property="ordrRebillList" 	column="{srchOrdrNo=ordr_no}" select="ordr.rebill.selectOrdrRebillListAll" />
+	</resultMap>
+
+	<resultMap type="ordrDtlVO" id="ordrDtlListVOMap" autoMapping="true">
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
+		<association property="rebillInfo" 	column="{srchOrdrNo=ordr_no}" select="ordr.rebill.selectOrdrRebill" />
+	</resultMap>
+
+	<!-- Define OrdrVO Column List -->
+	<sql id="listColumn">
+		 o.ordr_no
+		 , o.ordr_cd
+		 , o.unique_id
+		 , o.ordr_ty
+		 , o.ordr_dt
+		 , o.ordrr_id
+		 , o.ordrr_nm
+		 , o.ordrr_eml
+		 , o.ordrr_telno
+		 , o.ordrr_mbl_telno
+		 , o.ordrr_zip
+		 , o.ordrr_addr
+		 , o.ordrr_daddr
+		 , o.ordrr_memo
+		 , o.recptr_nm
+		 , o.recptr_telno
+		 , o.recptr_mbl_telno
+		 , o.recptr_zip
+		 , o.recptr_addr
+		 , o.recptr_daddr
+
+		 , o.use_mlg
+		 , o.use_point
+
+		 , o.stlm_device
+		 , o.stlm_ty
+		 , o.stlm_amt
+		 , o.stlm_yn
+		 , o.stlm_dt
+
+	     , o.delng_no
+
+	     , o.billing_yn
+	     , o.billing_key
+	     , o.billing_day
+
+	     , o.card_co_nm
+	     , o.card_no
+	     , o.card_aprvno
+	     , o.card_prtc_yn
+
+	     , o.vr_actno
+	     , o.dpst_bank_cd
+	     , o.dpst_bank_nm
+	     , o.dpstr
+	     , o.pyr_nm
+	     , o.dpst_term_dt
+
+		 , o.cashrcipt_yn
+		 , o.cashrcipt_no
+		 , o.send_sttus
+		 , o.stlm_sttus
+
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<choose>
+			<when test="ordrSttsTy  == 'OR00' "> <!-- 주문/배송 -->
+			AND od1.stts_ty LIKE 'OR%'
+			</when>
+			<when test="ordrSttsTy  == 'OR06' ">
+			AND od1.stts_ty IN ('OR06', 'OR07', 'OR08')
+			</when>
+			<when test="ordrSttsTy  == 'CA01' ">
+			AND od1.stts_ty IN ('CA01', 'CA02', 'CA03')
+			</when>
+			<when test="ordrSttsTy  == 'EX01' ">
+			AND od1.stts_ty LIKE 'EX%'
+			</when>
+			<when test="ordrSttsTy  == 'RE01' ">
+			AND (od1.stts_ty LIKE 'RE%' OR od1.stts_ty LIKE 'RF%')
+			</when>
+			<when test="ordrSttsTy  == 'RF01' ">
+			AND (od1.stts_ty LIKE 'RF%' OR od1.stts_ty = 'RE03')
+			</when>
+			<when test="ordrSttsTy  != 'ALL' ">
+			AND od1.stts_ty = #{ordrSttsTy }
+			</when>
+		</choose>
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND o1.ordr_dt &gt;= #{srchBgngDt} AND o1.ordr_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND o1.ordr_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND o1.ordr_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchOrdrCd != null and srchOrdrCd != '' ">
+			AND o1.ordr_cd like CONCAT ('%',#{srchOrdrCd},'%')
+		</if>
+		<if test="srchStlmDevice != null and srchStlmDevice != '' ">
+			AND stlm_device = #{srchStlmDevice}
+		</if>
+		<if test="srchSttsTy !=null and srchSttsTy != ''">
+			AND od1.stts_ty = #{srchSttsTy }
+		</if>
+		<if test="srchOrdrYmdBgng !=null and srchOrdrYmdBgng != ''">
+			AND DATE_FORMAT(o1.ordr_dt, '%Y-%m-%d') &gt;= #{srchOrdrYmdBgng}
+		</if>
+		<if test="srchOrdrYmdEnd !=null and srchOrdrYmdEnd != ''">
+			AND DATE_FORMAT(o1.ordr_dt, '%Y-%m-%d') &lt;= #{srchOrdrYmdEnd}
+		</if>
+		<if test="srchUniqueId !=null and srchUniqueId != ''">
+			AND o1.unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchOrdrrId !=null and srchOrdrrId != ''">
+			AND o1.ordrr_id LIKE CONCAT('%', #{srchOrdrrId}, '%')
+		</if>
+		<if test="srchOrdrrNm !=null and srchOrdrrNm != ''">
+			AND o1.ordrr_nm LIKE CONCAT('%', #{srchOrdrrNm,} '%')
+		</if>
+		<if test="srchOrdrrTelno !=null and srchOrdrrTelno != ''">
+			AND REPLACE(o1.ordrr_telno, '-', '') LIKE CONCAT('%', REPLACE(#{srchOrdrrTelno}, '-', ''), '%')
+		</if>
+		<if test="srchRecptrNm !=null and srchRecptrNm != ''">
+			AND o1.recptr_nm LIKE CONCAT('%', #{srchRecptrNm}, '%')
+		</if>
+		<if test="srchOrdrTy !=null and srchOrdrTy != ''">
+			AND o1.ordr_ty = #{srchOrdrTy}
+		</if>
+		<if test="srchStlmTy !=null and srchStlmTy != ''">
+			AND o1.stlm_ty = #{srchStlmTy}
+		</if>
+
+		<if test="srchGdsCd !=null and srchGdsCd != ''">
+			AND od1.gds_cd = #{srchGdsCd}
+		</if>
+		<if test="srchGdsNm !=null and srchGdsNm != ''">
+			AND od1.gds_nm LIKE CONCAT('%', #{srchGdsNm}, '%')
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od1.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchRecipterUniqueId !=null and srchRecipterUniqueId != ''">
+			AND od1.recipter_unique_id = #{srchRecipterUniqueId}
+		</if>
+
+		<if test="ordrCd !=null and ordrCd != ''">
+			AND o.ordr_cd = #{ordrCd}
+		</if>
+		<if test="ordrNo !=null and ordrNo != ''">
+			AND o.ordr_no = #{ordrNo}
+		</if>
+		<if test="srchRecipters != '' and srchRecipters != null and srchUniqueId != '' ">
+			AND od1.recipter_unique_id NOT IN (#{srchUniqueId})
+			AND o1.ordr_ty IN ('R', 'L')
+		</if>
+		<if test="srchSendSttus != null and srchSendSttus != '' ">
+			AND send_sttus = #{srchSendSttus}
+		</if>
+		<if test="srchStlmSttus != null and srchStlmSttus != '' ">
+			AND stlm_sttus = #{srchStlmSttus}
+		</if>
+
+
+		<if test="srchIntervalDay != null and srchIntervalDay != '' ">
+			AND DATE(NOW()) &gt; DATE_FORMAT(DATE_ADD(oc.reg_dt, INTERVAL #{srchIntervalDay} DAY), '%Y-%m-%d')
+		</if>
+
+	</sql>
+
+	<!-- Define ordr List Query -->
+	<!-- 주문상태 기준으로 리스트업  -->
+	<select id="selectOrdrListVO" parameterType="java.util.HashMap" resultMap="ordrDtlListVOMap">
+		/* Query ID : ordr.selectOrdrListVO */
+		SELECT
+			<include refid="listColumn"/>
+			 , od.ordr_dtl_cd
+			 , od.ordr_dtl_no
+			 , od.gds_no
+			 , od.gds_cd
+			 , od.bnef_cd
+			 , od.gds_nm
+			 , od.gds_pc
+			 , od.ordr_pc
+			 , od.ordr_optn_ty
+			 , od.ordr_optn
+			 , od.ordr_optn_pc
+			 , od.ordr_qy
+			 , od.accml_mlg
+			 , od.coupon_no
+			 , od.coupon_cd
+			 , od.coupon_amt
+			 , od.refund_aprvno
+			 , NULLIF(od.recipter_unique_id, '') as recipter_unique_id
+			 , NULLIF(od.bplc_unique_id, '') as bplc_unique_id
+		 	 , od.stts_ty
+
+		 	 , od.sndng_dt
+			 , od.dlvy_ty
+			 , od.dlvy_hope_ymd
+			 , od.dlvy_stlm_ty
+			 , od.dlvy_bass_amt
+			 , od.dlvy_adit_amt
+			 , od.dlvy_stts
+			 , od.dlvy_co_no
+			 , od.dlvy_co_nm
+			 , od.dlvy_dt
+			 , od.dlvy_invc_no
+
+		 	 , od.rfnd_yn
+			 , od.rfnd_bank
+			 , od.rfnd_actno
+			 , od.rfnd_amt
+			 , od.rfnd_dt
+			 , od.rfnd_dpstr
+			 , od.reg_unique_id
+			 , od.reg_dt
+			 , od.reg_id
+			 , od.rgtr
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR01', 'OR02', 'OR04', 'OR05') ) AS cancel_btn
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR08') ) AS return_btn
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('OR02', 'OR04', 'CA02') ) AS buy_btn
+		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+		WHERE o.ORDR_NO IN (
+			SELECT * FROM (
+				SELECT DISTINCT(od1.ordr_no)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE 1 = 1
+				<include refid="searchConditions" />
+				ORDER BY od1.ordr_no DESC
+				LIMIT #{startNum}, #{endNumMysql}
+			) t
+		)
+	  	ORDER BY o.ordr_no DESC, od.ordr_dtl_cd ASC, od.ordr_dtl_no ASC
+
+	</select>
+
+	<!-- Define ordr Count Query -->
+	<select id="selectOrdrCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : ordr.selectOrdrCount */
+		SELECT COUNT(DISTINCT(t.ordr_no)) FROM (
+			SELECT od1.ordr_no
+			FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+			WHERE 1 = 1
+			<include refid="searchConditions" />
+		) t
+	</select>
+
+	<!-- Define ordr Detail Query -->
+	<select id="selectOrdr" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		/* Query ID : ordr.selectOrdr */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR o
+		WHERE 1 = 1
+		<if test="ordrCd !=null and ordrCd != ''">
+			AND o.ordr_cd = #{ordrCd}
+		</if>
+		<if test="ordrNo !=null and ordrNo != ''">
+			AND o.ordr_no = #{ordrNo}
+		</if>
+	</select>
+
+	<select id="selectOrdrList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		/* Query ID : ordr.selectOrdrList */
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR o
+		WHERE unique_id = #{srchUniqueId}
+		ORDER BY o.ordr_no DESC
+		LIMIT 5
+	</select>
+
+	<select id="selectOrdrListAll" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR o
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY o.ordr_no
+	</select>
+
+	<select id="selectOrdrSttsList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR o
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 배송정보 변경 -->
+	<update id="updateDlvyInfo" parameterType="java.util.HashMap">
+		/* Query ID : ordr.updateDlvyInfo */
+		UPDATE ORDR
+		   SET recptr_nm = #{recptrNm, jdbcType=VARCHAR}
+			 , recptr_telno = #{recptrTelno, jdbcType=VARCHAR}
+			 , recptr_mbl_telno = #{recptrMblTelno, jdbcType=VARCHAR}
+			 , recptr_zip = #{recptrZip, jdbcType=VARCHAR}
+			 , recptr_addr = #{recptrAddr, jdbcType=VARCHAR}
+			 , recptr_daddr = #{recptrDaddr, jdbcType=VARCHAR}
+			 , ordrr_memo = #{ordrrMemo, jdbcType=VARCHAR}
+		 WHERE ordr_cd = #{ordrCd}
+	</update>
+
+
+	<!-- 결제금액 변경 -->
+	<update id="updateStlmAmt" parameterType="ordrVO">
+		/* Query ID : ordr.updateStlmAmt */
+		UPDATE ORDR
+		   SET stlm_amt = #{stlmAmt}
+		 WHERE ordr_no = #{ordrNo}
+	</update>
+
+	<!-- 결제상태 변경 -->
+	<update id="updateStlmYn" parameterType="ordrVO">
+		/* Query ID : ordr.updateStlmYn */
+		UPDATE ORDR
+		   SET stlm_yn = #{stlmYn}
+		   		, stlm_dt = #{stlmDt}
+		 WHERE ordr_cd = #{ordrCd}
+		   AND delng_no = #{delngNo}
+	</update>
+
+
+	<!-- Define ordr Insert Query -->
+	<insert id="insertOrdr" parameterType="ordrVO">
+		/* Query ID : ordr.insertOrdr */
+		INSERT INTO ORDR (
+			ordr_cd
+			, unique_id
+			, ordr_ty
+			, ordr_dt
+
+			, ordrr_id
+			, ordrr_nm
+			, ordrr_eml
+			, ordrr_telno
+			, ordrr_mbl_telno
+			, ordrr_zip
+			, ordrr_addr
+			, ordrr_daddr
+			, ordrr_memo
+
+			, recptr_nm
+			, recptr_telno
+			, recptr_mbl_telno
+			, recptr_zip
+			, recptr_addr
+			, recptr_daddr
+
+			, use_mlg
+		 	, use_point
+
+			, stlm_device
+			, stlm_ty
+			, stlm_amt
+			, stlm_yn
+			<if test="stlmDt != '' and stlmDt != null ">
+			, stlm_dt
+			</if>
+
+			, delng_no
+			, card_co_nm
+			, card_no
+			, card_aprvno
+
+			, vr_actno
+			, dpst_bank_cd
+			, dpst_bank_nm
+			, dpstr
+			, pyr_nm
+			<if test="dpstTermDt != '' and dpstTermDt != null ">
+			, dpst_term_dt
+			</if>
+
+		) VALUES (
+			#{ordrCd, jdbcType=VARCHAR}
+			, #{uniqueId, jdbcType=VARCHAR}
+			, #{ordrTy, jdbcType=VARCHAR}
+			, SYSDATE()
+
+			, #{ordrrId, jdbcType=VARCHAR}
+			, #{ordrrNm, jdbcType=VARCHAR}
+			, #{ordrrEml, jdbcType=VARCHAR}
+			, #{ordrrTelno, jdbcType=VARCHAR}
+			, #{ordrrMblTelno, jdbcType=VARCHAR}
+			, #{ordrrZip, jdbcType=VARCHAR}
+			, #{ordrrAddr, jdbcType=VARCHAR}
+			, #{ordrrDaddr, jdbcType=VARCHAR}
+			, #{ordrrMemo, jdbcType=VARCHAR}
+
+			, #{recptrNm, jdbcType=VARCHAR}
+			, #{recptrTelno, jdbcType=VARCHAR}
+			, #{recptrMblTelno, jdbcType=VARCHAR}
+			, #{recptrZip, jdbcType=VARCHAR}
+			, #{recptrAddr, jdbcType=VARCHAR}
+			, #{recptrDaddr, jdbcType=VARCHAR}
+
+			, #{useMlg}
+		 	, #{usePoint}
+
+			, #{stlmDevice, jdbcType=VARCHAR}
+			, #{stlmTy, jdbcType=VARCHAR}
+			, #{stlmAmt}
+			, #{stlmYn, jdbcType=VARCHAR}
+
+			<if test="stlmDt != '' and stlmDt != null ">
+			, #{stlmDt, jdbcType=VARCHAR}
+			</if>
+
+			, #{delngNo, jdbcType=VARCHAR}
+			, #{cardCoNm, jdbcType=VARCHAR}
+			, #{cardNo, jdbcType=VARCHAR}
+			, #{cardAprvno, jdbcType=VARCHAR}
+
+			, #{vrActno, jdbcType=VARCHAR}
+			, #{dpstBankCd, jdbcType=VARCHAR}
+			, #{dpstBankNm, jdbcType=VARCHAR}
+			, #{dpstr, jdbcType=VARCHAR}
+			, #{pyrNm, jdbcType=VARCHAR}
+			<if test="dpstTermDt != '' and dpstTermDt != null ">
+			, #{dpstTermDt, jdbcType=VARCHAR}
+			</if>
+		)
+		<selectKey resultType="int" keyProperty="ordrNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- Define ordr 결제정보 업데이트 Query -->
+	<update id="updateOrdr" parameterType="ordrVO">
+		/* Query ID : ordr.updateOrdr */
+		UPDATE	ORDR SET
+			stlm_device = #{stlmDevice, jdbcType=VARCHAR}
+			, stlm_ty = #{stlmTy, jdbcType=VARCHAR}
+			, stlm_amt = #{stlmAmt}
+			, stlm_yn = #{stlmYn, jdbcType=VARCHAR}
+			<if test="stlmDt != '' and stlmDt != null ">
+			, stlm_dt = #{stlmDt, jdbcType=VARCHAR}
+			</if>
+			, delng_no = #{delngNo, jdbcType=VARCHAR}
+			, card_co_nm = #{cardCoNm, jdbcType=VARCHAR}
+			, card_no = #{cardNo, jdbcType=VARCHAR}
+			, card_aprvno = #{cardAprvno, jdbcType=VARCHAR}
+
+			, vr_actno = #{vrActno, jdbcType=VARCHAR}
+			, dpst_bank_cd = #{dpstBankCd, jdbcType=VARCHAR}
+			, dpst_bank_nm = #{dpstBankNm, jdbcType=VARCHAR}
+			, dpstr = #{dpstr, jdbcType=VARCHAR}
+			, pyr_nm = #{pyrNm, jdbcType=VARCHAR}
+			<if test="dpstTermDt != '' and dpstTermDt != null ">
+			, dpst_term_dt = #{dpstTermDt, jdbcType=VARCHAR}
+			</if>
+			, billing_yn = #{billingYn, jdbcType=VARCHAR}
+			, billing_key = #{billingKey, jdbcType=VARCHAR}
+
+		WHERE ordr_no = #{ordrNo} AND ordr_cd = #{ordrCd}
+	</update>
+
+	<update id="updateOrdrByMap" parameterType="java.util.HashMap">
+		UPDATE	ORDR SET
+			send_sttus = #{srchSendSttus}
+			, stlm_sttus = #{srchStlmSttus}
+		WHERE ordr_no = #{ordrNo} AND ordr_cd = #{ordrCd}
+	</update>
+
+
+	<!-- Define ordr Delete Query -->
+	<delete id="deleteOrdr" parameterType="java.util.HashMap">
+		/* Query ID : ordr.deleteOrdr */
+		DELETE FROM ORDR
+		 WHERE ordr_no = #{ordrNo}
+	</delete>
+
+
+	<update id="updateBillingCancel" parameterType="java.util.HashMap">
+		UPDATE ORDR SET
+			billing_yn = 'N'
+			, billing_key = null
+		WHERE ordr_no = #{ordrNo}
+	</update>
+
+
+	<!-- 단계별 카운트 -->
+	<select id="selectSttsTyCnt" parameterType="java.util.HashMap" resultType="egovMap">
+	SELECT
+		(SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR01' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR01 -- 승인대기
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR02' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()) , INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR02 -- 승인완료
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR03' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()) , INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR03 -- 승인반려
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR04' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR04 -- 결제대기
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR05' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR05 -- 결제완료
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR06' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR06 -- 배송준비중
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR07' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR07 -- 배송중
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR08' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR08 -- 배송완료
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'OR09' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(DATE(NOW()), INTERVAL -#{srchDate} MONTH) &lt; DATE_FORMAT(od.reg_dt,'%Y-%m-%d')
+			AND DATE_FORMAT(od.reg_dt,'%Y-%m-%d') &lt; DATE(NOW())
+		</if>
+		) AS OR09 -- 구매확정
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'CA01' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS CA01 -- 취소접수
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'CA02' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS CA02 -- 취소완료
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'RE01' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS RE01 -- 반풉접수
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'RE02' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS RE02 -- 반풉진행중
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'RE03' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS RE03 -- 반풉완료
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'EX01' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS EX01 -- 교환접수
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'EX02' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS EX02 -- 교환진행중
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'EX03' AND ordr_optn_ty = 'BASE'
+		<if test="srchRegUniqueId !=null and srchRegUniqueId != ''">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchBplcUniqueId !=null and srchBplcUniqueId != ''">
+			AND od.bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		) AS EX03 -- 교환완료
+
+	</select>
+
+
+</mapper>

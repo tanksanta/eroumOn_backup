@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon.aplcn.trgt">
+
+	<resultMap type="couponAplcnTrgtVO" id="couponAplcnTrgtVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		aplcn_no
+		, coupon_no
+		, gds_no
+		, gds_cd
+	</sql>
+
+
+
+	<insert id="insertAplcnTrgt" parameterType="couponVO">
+	/* Query ID : coupon.aplcn.trgt.insertAplcnTrgt */
+	INSERT INTO COUPON_APLCN_TRGT (
+		coupon_no
+		, gds_no
+		, gds_cd
+	) VALUES (
+		#{couponNo}
+		, #{gdsNo}
+		, #{gdsCd, jdbcType=VARCHAR}
+	)
+	</insert>
+
+	<select id="selectAplcnTrgtList" parameterType="java.util.HashMap" resultMap="couponAplcnTrgtVOMap">
+		/* Query ID : coupon.aplcn.trgt.selectAplcnTrgtList */
+		SELECT
+			trgt.COUPON_NO
+			,gds.gds_no
+			, gds.gds_cd
+			, gds.gds_nm
+			, gds.pc
+			, gds.use_yn
+		FROM COUPON_APLCN_TRGT trgt
+		LEFT JOIN GDS gds ON trgt.GDS_NO = gds.GDS_NO
+		WHERE trgt.COUPON_NO = #{couponNo}
+	</select>
+
+</mapper>

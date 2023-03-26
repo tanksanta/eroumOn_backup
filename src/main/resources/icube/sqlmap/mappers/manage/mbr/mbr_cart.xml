@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.cart">
+
+	<resultMap type="cartVO" id="cartVOListMap" autoMapping="true">
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
+		<association property="mbrVO" column="{srchUniqueId=recipter_unique_id}" select="mbr.selectMbr" />
+	</resultMap>
+
+	<resultMap type="cartVO" id="cartVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		cart_no
+		, cart_grp_no
+		, cart_ty
+		, gds_no
+		, gds_cd
+		, bnef_cd
+		, gds_nm
+		, gds_pc
+		, ordr_pc
+		, ordr_optn_ty
+		, ordr_optn
+		, ordr_optn_pc
+		, ordr_qy
+		, recipter_unique_id
+		, bplc_unique_id
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND reg_dt &gt;= #{srchBgngDt} AND reg_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchRecipterUniqueId != null and srchRecipterUniqueId != '' ">
+			AND recipter_unique_id = #{srchRecipterUniqueId}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
+
+		<if test="srchCartTy != null and srchCartTy != '' ">
+			<choose>
+				<when test='srchCartTy == "R" '>AND cart_ty IN ('R', 'L')</when>
+				<otherwise>
+					AND cart_ty = #{srchCartTy}
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchGdsNo != null and srchGdsNo != '' ">
+			AND gds_no = #{srchGdsNo}
+		</if>
+		<if test="srchGdsCd != null and srchGdsCd != '' ">
+			AND gds_cd like CONCAT('%',#{srchGdsCd},'%')
+		</if>
+		<if test="srchGdsNm != null and srchGdsNm != '' ">
+			AND gds_nm like CONCAT('%',#{srchGdsNm},'%')
+		</if>
+		<if test="srchOrdrOptn != null and srchOrdrOptn != '' ">
+			AND ordr_optn = #{srchOrdrOptn}
+		</if>
+		<if test="srchOrdrOptn != null and srchOrdrOptn != '' ">
+			AND ordr_optn = #{srchOrdrOptn}
+		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCartGrpNos)">
+			AND cart_grp_no IN
+			<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+				#{srchCartGrpNo}
+			</foreach>
+		</if>
+
+	</sql>
+
+	<select id="selectMbrCartListVO" parameterType="java.util.HashMap" resultMap="cartVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM CART c
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY cart_no ASC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrCartCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM CART c
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectCartListAll" parameterType="java.util.HashMap" resultMap="cartVOListMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM CART c
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY cart_no ASC
+	</select>
+
+
+	<select id="selectCartCount" parameterType="java.util.HashMap" resultType="int">>
+		SELECT COUNT(*)
+		FROM CART c
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<select id="selectCartByFilter" parameterType="java.util.HashMap" resultMap="cartVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM CART c
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<insert id="insertCart" parameterType="cartVO">
+		/* Query ID : cart.insertCart */
+		INSERT INTO CART (
+			 cart_grp_no
+			 , cart_ty
+
+			 , gds_no
+			 , gds_cd
+			 , bnef_cd
+			 , gds_nm
+			 , gds_pc
+
+			 , ordr_pc
+			 , ordr_optn_ty
+			 , ordr_optn
+			 , ordr_optn_pc
+			 , ordr_qy
+
+			 , recipter_unique_id
+			 , bplc_unique_id
+
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+		) VALUES (
+			 <choose>
+				<when test="ordrOptnTy == 'BASE' ">FN_NEXT_AUTO_SEQ('CART')</when>
+				<otherwise>#{cartGrpNo}</otherwise>
+			 </choose>
+			 , #{cartTy}
+
+			 , #{gdsNo}
+			 , #{gdsCd, jdbcType=VARCHAR}
+			 , #{bnefCd, jdbcType=VARCHAR}
+			 , #{gdsNm, jdbcType=VARCHAR}
+			 , #{gdsPc}
+
+			 , #{ordrPc}
+			 , #{ordrOptnTy, jdbcType=VARCHAR}
+			 , #{ordrOptn, jdbcType=VARCHAR}
+			 , #{ordrOptnPc}
+			 , #{ordrQy}
+
+			 , #{recipterUniqueId, jdbcType=VARCHAR}
+			 , #{bplcUniqueId, jdbcType=VARCHAR}
+
+			 , #{regUniqueId, jdbcType=VARCHAR}
+			 , SYSDATE()
+			 , #{regId, jdbcType=VARCHAR}
+			 , #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey resultType="int" keyProperty="cartNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id="deleteCart" parameterType="java.util.HashMap">
+		DELETE FROM CART
+		WHERE 1=1
+		<include refid="searchConditions" />
+	</delete>
+
+
+</mapper>

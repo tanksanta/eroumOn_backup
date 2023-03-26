@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event">
+
+	<resultMap type="eventVO" id="eventVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=event_no, fileTy=thumb_file_ty}" select="file.selectFileByFilter" />
+		<collection property="iemList" column="{srvcId=srvc_id, upNo=event_no, fileTy=img_file_ty}" select="file.selectFileByFilter" />
+		<collection property="applcnCount" column="{eventNo=event_no}" select="event.applcn.selectEventApplcnCount" />
+		<collection property="przwinCount" column="{eventNo=event_no}" select="event.przwin.selectEventPrzwinCount" />
+		<collection property="przwinNo" column="{eventNo=event_no}" select="event.przwin.selectPrzwinNoByEventNo" />
+		<collection property="eventPrzwinVO" column="{eventNo=event_no}" select="event.przwin.selectEventPrzwin" />
+
+	</resultMap>
+
+	<sql id="listColumn">
+		eve.event_no
+		, eve.event_trgt
+		, eve.event_ty
+		, eve.event_nm
+		, eve.event_cn
+		, eve.bgng_dt
+		, eve.end_dt
+		, eve.prsntn_ymd
+		, eve.dspy_yn
+		, eve.reg_unique_id
+		, eve.reg_dt
+		, eve.reg_id
+		, eve.rgtr
+		, eve.mdfcn_unique_id
+		, eve.mdfcn_dt
+		, eve.mdfcn_id
+		, eve.mdfr
+		, 'EVENT' as srvc_id
+		, 'THUMB' AS thumb_file_ty
+		, 'IMG' as img_file_ty
+	</sql>
+
+	<sql id="searchConditions">
+
+		<!-- 검색 -->
+		<if test="srchText != null and srchText != '' ">
+			AND eve.event_nm like CONCAT('%', #{srchText}, '%')
+		</if>
+		<if test="srchEventTy != null and srchEventTy != '' ">
+			AND eve.event_ty = #{srchEventTy}
+		</if>
+		<if test="srchDspyYn != null and srchDspyYn != '' ">
+			AND eve.dspy_yn = #{srchDspyYn}
+		</if>
+
+		<!-- 이벤트 진행 상태 값 -->
+		<if test="eventSttus != null and eventSttus != '' ">
+			<choose>
+				<when test='eventSttus == "play" '>
+					AND  eve.bgng_dt &lt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+					AND  (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) &lt; eve.end_dt
+				</when>
+				<when test='eventSttus == "exit" '>
+					AND eve.end_dt &lt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+				</when>
+				<when test='eventSttus == "finish" '>
+					AND eve.end_dt &lt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+					AND (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) &gt;= eve.prsntn_ymd
+					AND (SELECT COUNT(*) FROM EVENT_PRZWIN ep WHERE ep.event_no = eve.event_no) &gt; 0
+					AND (SELECT dspy_yn FROM EVENT_PRZWIN ep WHERE ep.event_no = eve.event_no) = 'Y'
+				</when>
+				<otherwise>
+					AND eve.bgng_dt &lt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="dspyYn != null and dspyYn != '' ">
+			AND eve.dspy_yn = #{dspyYn}
+		</if>
+
+
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND eve.bgng_dt &gt;= #{srchBgngDt} AND eve.end_dt &gt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND eve.bgng_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND eve.end_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+	</sql>
+
+	<select id="selectEventListVO" parameterType="java.util.HashMap" resultMap="eventVOMap">
+		/* Query ID : event.xml > selectEventListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM EVENT eve
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY event_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectEventCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : event.xml > selectEventCount */
+		SELECT	COUNT(*)
+		FROM	EVENT eve
+		LEFT JOIN EVENT_PRZWIN prz ON eve.event_no = prz.event_no
+		WHERE	1=1
+		<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectEvent" parameterType="java.util.HashMap" resultMap="eventVOMap">
+		/* Query ID : event.xml > selectEvent */
+		SELECT
+			<include refid="listColumn"/>
+		FROM EVENT eve
+		WHERE event_no = #{eventNo}
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertEvent" parameterType="eventVO">
+		/* Query ID : event.xml > insertEvent */
+		INSERT INTO EVENT (
+				event_trgt
+				 , event_ty
+				 , event_nm
+				 , event_cn
+				 , bgng_dt
+				 , end_dt
+				 , prsntn_ymd
+				 , dspy_yn
+				 , reg_unique_id
+				 , reg_dt
+				 , reg_id
+				 , rgtr
+			) VALUES (
+				#{eventTrgt, jdbcType=VARCHAR}
+				, #{eventTy, jdbcType=VARCHAR}
+				, #{eventNm, jdbcType=VARCHAR}
+				, #{eventCn, jdbcType=VARCHAR}
+				, #{bgngDt}
+				, #{endDt}
+				, #{prsntnYmd}
+				, #{dspyYn, jdbcType=VARCHAR}
+				, #{regUniqueId, jdbcType=VARCHAR}
+				, SYSDATE()
+				, #{regId, jdbcType=VARCHAR}
+				, #{rgtr, jdbcType=VARCHAR}
+			)
+			<selectKey keyProperty="eventNo" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>
+	</insert>
+
+	<update id="updateEvent" parameterType="eventVO">
+		/* Query ID : event.xml > updateEvent */
+		UPDATE	 EVENT SET
+			event_trgt = #{eventTrgt, jdbcType=VARCHAR}
+			, event_ty = #{eventTy, jdbcType=VARCHAR}
+			, event_nm = #{eventNm, jdbcType=VARCHAR}
+			, event_cn = #{eventCn, jdbcType=VARCHAR}
+			, bgng_dt = #{bgngDt}
+			, end_dt = #{endDt}
+			, prsntn_ymd = #{prsntnYmd}
+			, dspy_yn = #{dspyYn, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	event_no = #{eventNo}
+	</update>
+
+
+
+</mapper>

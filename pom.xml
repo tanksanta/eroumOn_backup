@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+	<groupId>eroum</groupId>
+	<artifactId>eroum</artifactId>
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<name>eroum</name>
+
+	<properties>
+		<jdk.source>1.8</jdk.source>
+	    <spring.maven.artifact.version>5.3.6</spring.maven.artifact.version>
+        <org.egovframe.rte.version>4.0.0</org.egovframe.rte.version>
+        <tiles.version>3.0.8</tiles.version>
+        <webapp.lib>${basedir}/src/main/webapp/WEB-INF/lib</webapp.lib>
+	</properties>
+
+	<repositories>
+        <repository>
+            <id>mvn2s</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+			<id>egovframe</id>
+			<url>https://maven.egovframe.go.kr/maven/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+    </repositories>
+
+	<dependencies>
+		<dependency>
+		    <groupId>org.egovframe.rte</groupId>
+		    <artifactId>org.egovframe.rte.ptl.mvc</artifactId>
+		    <version>${org.egovframe.rte.version}</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.egovframe.rte</groupId>
+		    <artifactId>org.egovframe.rte.psl.dataaccess</artifactId>
+		    <version>${org.egovframe.rte.version}</version>
+        </dependency>
+        <dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.idgnr</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
+       	<dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.property</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.string</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.crypto</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.excel</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
+
+        <dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+			<version>3.1.0</version>
+		</dependency>
+
+        <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+        </dependency>
+
+        <dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.1.2</version>
+        </dependency>
+
+		<dependency>
+	        <groupId>org.antlr</groupId>
+	        <artifactId>antlr</artifactId>
+	        <version>3.5</version>
+   		</dependency>
+
+   		<!--  java.lang.NoClassDefFoundError 해결 방법 -->
+   		<dependency>
+		   <groupId>org.apache.httpcomponents</groupId>
+		   <artifactId>httpclient</artifactId>
+		   <version>4.5.2</version>
+		   <scope>runtime</scope>
+		</dependency>
+
+		<!-- Apache Commons IO  -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.8.0</version>
+		</dependency>
+
+		<!-- Apache Commons file upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- tiles -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-extras</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-servlet</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-template</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-el</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+
+        <!-- ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.6</version>
+		</dependency>
+
+		<!-- hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator-annotation-processor</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+
+        <!-- dbcp2 -->
+        <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+		<!-- mysql 8
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.22</version>
+		</dependency>
+		-->
+
+		<!-- Maria DB -->
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		    <version>3.0.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+		</dependency>
+
+		<!-- Bcrypt Hash -->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
+
+		<!-- Thumbnail -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.17.0</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>2.17.0</version>
+		</dependency>
+
+		<!-- security -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+
+		<!-- junit5 -->
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.9.1</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.maven.artifact.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.9.1</version>
+		</dependency>
+
+
+		<!-- nice id -->
+		<dependency>
+			<groupId>NiceID.NiceID.Check</groupId>
+			<artifactId>niceid</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${webapp.lib}/NiceID_v1.1.jar</systemPath>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.github.bootpay/backend -->
+		<dependency>
+		    <groupId>io.github.bootpay</groupId>
+		    <artifactId>backend</artifactId>
+		    <version>2.1.4</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.14.9</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+    		<groupId>com.googlecode.json-simple</groupId>
+    		<artifactId>json-simple</artifactId>
+    		<version>1.1.1</version>
+		</dependency>
+
+		<!-- Quartz framework -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<!-- Lucy-xss-servlet-filter -->
+		<dependency>
+			<groupId>com.navercorp.lucy</groupId>
+			<artifactId>lucy-xss-servlet</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.ibm.icu</groupId>
+		    <artifactId>icu4j</artifactId>
+		    <version>72.1</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<directory>${basedir}/target</directory>
+		<finalName>${project.artifactId}</finalName>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

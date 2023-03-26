@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="brand">
+
+	<resultMap type="brandVO" id="brandVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=brand_no}" select="file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		brand_no
+		, brand_nm
+		, qlity_grnte
+		, telno
+		, intrcn
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'BRAND' as srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND brand_nm like CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+	</sql>
+
+	<select id="selectBrandListVO" parameterType="java.util.HashMap" resultMap="brandVOMap">
+		/* Query ID : brand.xml > selectBrandListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BRAND
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY brand_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectBrandCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : brand.xml > selectBrandCount */
+		SELECT	COUNT(*)
+		FROM	BRAND
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+
+	<select id="selectBrand" parameterType="java.util.HashMap" resultMap="brandVOMap">
+		/* Query ID : brand.xml > selectBrand */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	BRAND
+		WHERE  brand_no = #{brandNo}
+	</select>
+
+	<select id="selectBrandNm" parameterType="java.util.HashMap" resultMap="brandVOMap">
+		/* Query ID : brand.xml > selectBrandNm */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	BRAND
+		WHERE  brand_nm = #{brandNm}
+	</select>
+
+	<select id="selectBrandListAll" parameterType="java.util.HashMap" resultMap="brandVOMap">
+		/* Query ID : brand.xml > selectBrandListAll */
+		SELECT
+		<include refid="listColumn" />
+		FROM BRAND
+		WHERE use_yn = 'Y'
+		ORDER BY brand_no DESC
+	</select>
+
+	<insert id="insertBrand" parameterType="brandVO">
+		/* Query ID : brand.xml > insertBrand */
+		INSERT INTO BRAND (
+			brand_nm
+			, qlity_grnte
+			, telno
+			, intrcn
+			, use_yn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{brandNm, jdbcType=VARCHAR}
+			, #{qlityGrnte, jdbcType=VARCHAR}
+			, #{telno, jdbcType=VARCHAR}
+			, #{intrcn, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="brandNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	<update id="updateBrand" parameterType="brandVO">
+		/* Query ID : brand.xml > updateBrand */
+		UPDATE	 BRAND SET
+			brand_nm = #{brandNm, jdbcType=VARCHAR}
+			, qlity_grnte = #{qlityGrnte, jdbcType=VARCHAR}
+			, telno = #{telno, jdbcType=VARCHAR}
+			, intrcn = #{intrcn, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE	brand_no = #{brandNo}
+	</update>
+
+
+</mapper>

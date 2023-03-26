@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.348" height="20" viewBox="0 0 22.348 20">
+  <g id="Oval" transform="translate(3.348 1)" fill="none" stroke="#2f2f2f" stroke-miterlimit="10" stroke-width="1">
+    <circle cx="9" cy="9" r="9" stroke="none"/>
+    <circle cx="9" cy="9" r="9.5" fill="none"/>
+  </g>
+  <g id="Oval-2" data-name="Oval" transform="translate(1 1)" fill="#fff" stroke="#2f2f2f" stroke-miterlimit="10" stroke-width="1">
+    <circle cx="9" cy="9" r="9" stroke="none"/>
+    <circle cx="9" cy="9" r="9.5" fill="none"/>
+  </g>
+  <path id="Shape_Copy" data-name="Shape Copy" d="M2.742,9H1.652V2.177l2.854,4.4,2.833-4.4V9H6.258V5.762L4.506,8.46l-1.764-2.7V9ZM1.009,9H0V0H2.266l2.24,3.454L6.734,0H9V9H7.983V1.079H7.339L4.506,5.519,1.652,1.079H1.009V9Z" transform="translate(5.474 5.5)" fill="#333"/>
+</svg>

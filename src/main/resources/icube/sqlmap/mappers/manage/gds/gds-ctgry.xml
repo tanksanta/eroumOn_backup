@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.ctgry">
+
+	<resultMap type="gdsCtgryVO" id="gdsCtgryMap" autoMapping="true">
+	</resultMap>
+
+	<sql id="selectCount">
+	 	( SELECT
+				COUNT(ctgry_no)
+		FROM GDS_CTGRY gc2
+		WHERE gc.ctgry_no = gc2.up_ctgry_no )
+		 AS child_cnt
+	</sql>
+
+	<select id="selectGdsCtgryList" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
+		SELECT ctgry_no
+			, up_ctgry_no
+			, ( SELECT ctgry_nm
+				FROM GDS_CTGRY gc1
+				WHERE gc.up_ctgry_no = gc1.ctgry_no ) AS up_ctgry_nm
+			, ctgry_nm
+			, ctgry_img
+			, tag
+			, level_no
+			, sort_no
+			, use_yn
+			, <include refid="selectCount"/>
+		FROM GDS_CTGRY gc
+		ORDER BY sort_no ASC, ctgry_nm ASC
+	</select>
+
+
+	<select id="selectGdsCtgryListByFilter" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
+		SELECT
+		 	gc.ctgry_no
+			, gc.up_ctgry_no
+			, ( SELECT ctgry_nm FROM GDS_CTGRY gc1 WHERE gc.up_ctgry_no = gc1.ctgry_no ) AS up_ctgry_nm
+			, gc.ctgry_nm
+			, gc.ctgry_img
+			, gc.tag
+			, gc.sort_no
+			, gc.use_yn
+			, <include refid="selectCount"/>
+			, func.level_no
+		FROM
+			(
+			SELECT FN_HIERARCHY_GDS_CTGRY() AS ctgry_no, @LEVEL_NO AS level_no
+			FROM
+				( SELECT @START_WITH := 0, @ctgry_no := @START_WITH, @LEVEL_NO := 0 ) VARS
+				, GDS_CTGRY
+			WHERE @ctgry_no IS NOT NULL
+			) func LEFT JOIN GDS_CTGRY gc ON gc	.ctgry_no = func.ctgry_no
+		WHERE 1=1
+			<if test="upCtgryNo > -1">
+			AND gc.up_ctgry_no = #{upCtgryNo}
+			</if>
+			<if test="useYn != null and useYn != '' ">
+			AND gc.use_yn = #{useYn}
+			</if>
+	</select>
+
+	<select id="selectGdsCtgry" parameterType="java.util.HashMap" resultMap="gdsCtgryMap">
+		SELECT ctgry_no
+				, up_ctgry_no
+				, ( SELECT ctgry_nm
+					FROM GDS_CTGRY b
+					WHERE gc.up_ctgry_no = b.ctgry_no ) AS up_ctgry_nm
+				, ctgry_nm
+				, ctgry_img
+				, tag
+				, level_no
+				, sort_no
+				, use_yn
+				, <include refid="selectCount"/>
+		FROM GDS_CTGRY gc
+	  WHERE ctgry_no = #{ctgryNo}
+	</select>
+
+
+	<insert id="insertGdsCtgry" parameterType="gdsCtgryVO">
+		INSERT INTO GDS_CTGRY (
+			up_ctgry_no
+			, ctgry_nm
+			, tag
+			, level_no
+			, sort_no
+			, use_yn
+		) VALUES (
+			#{upCtgryNo}
+			, #{ctgryNm}
+			, #{tag, jdbcType=VARCHAR}
+			, #{levelNo}
+			, #{sortNo}
+			, #{useYn}
+		)
+		<selectKey keyProperty="ctgryNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateGdsCtgry" parameterType="gdsCtgryVO">
+		UPDATE GDS_CTGRY SET
+			up_ctgry_no = #{upCtgryNo}
+			, ctgry_nm = #{ctgryNm}
+			, tag = #{tag, jdbcType=VARCHAR}
+			, use_yn = #{useYn}
+		WHERE up_ctgry_no = #{upCtgryNo}
+			AND ctgry_no = #{orgCtgryNo}
+	</update>
+
+	<delete id="deleteGdsCtgry" parameterType="java.util.HashMap">
+		DELETE FROM GDS_CTGRY
+		WHERE up_ctgry_no = #{upCtgryNo}
+			AND ctgry_no = #{ctgryNo}
+	</delete>
+
+
+	<update id="updateGdsCtgryNm" parameterType="java.util.HashMap">
+		UPDATE GDS_CTGRY
+		   SET ctgry_nm = #{ctgryNm}
+		 WHERE up_ctgry_no = #{upCtgryNo}
+			AND ctgry_no = #{ctgryNo}
+	</update>
+
+	<update id="updateGdsCtgryPosition" parameterType="gdsCtgryVO">
+		UPDATE GDS_CTGRY
+		<trim prefix="SET" suffixOverrides=",">
+		<if test="sortNo != null and sortNo != ''">
+		       sort_no = #{sortNo},
+		</if>
+		<if test="upCtgryNo != null and upCtgryNo != ''">
+		       up_ctgry_no = #{upCtgryNo},
+		</if>
+		</trim>
+			, level_no = #{levelNo}
+		 WHERE ctgry_no = #{ctgryNo}
+	</update>
+
+	<update id="updateGdsCtgryImg" parameterType="gdsCtgryVO">
+		UPDATE GDS_CTGRY SET
+			ctgry_img = #{ctgryImg}
+		WHERE up_ctgry_no = #{upCtgryNo} AND ctgry_no = #{orgCtgryNo}
+	</update>
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.rel">
+
+	<resultMap type="gdsRelVO" id="gdsRelVOMap" autoMapping="true" />
+
+	<select id="selectGdsRelList" parameterType="java.util.HashMap" resultMap="gdsRelVOMap">
+		SELECT
+			gr.gds_no
+			, gr.rel_gds_no
+			, gr.sort_no
+
+			, g.gds_ty
+			, g.gds_cd
+			, g.gds_nm
+			, g.pc
+			, g.bnef_pc
+			, g.bnef_pc_15
+			, g.bnef_pc_9
+			, g.bnef_pc_6
+			, g.lend_pc
+			, gi.file_no
+
+			, g.ctgry_no
+			, gc1.ctgry_nm
+			, gc1.up_ctgry_no
+			, gc2.ctgry_nm AS up_ctgry_nm
+
+		FROM GDS_REL gr
+			LEFT JOIN GDS g ON g.gds_no = gr.rel_gds_no
+			LEFT JOIN GDS_IMG gi ON gi.gds_no = gr.rel_gds_no AND gi.file_ty = 'THUMB' AND gi.use_yn = 'Y'
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE gr.gds_no = #{gdsNo}
+		ORDER BY gr.sort_no ASC
+	</select>
+
+
+	<insert id="insertGdsRel" parameterType="gdsRelVO">
+		INSERT INTO GDS_REL (
+			gds_no
+			, rel_gds_no
+			, sort_no
+		) VALUES (
+			#{gdsNo}
+			, #{relGdsNo}
+			, (SELECT IFNULL(COUNT(gds_no), 0) + 1 FROM GDS_REL a WHERE gds_no = #{gdsNo} )
+		)
+	</insert>
+
+	<delete id="deleteGdsRel" parameterType="java.util.HashMap">
+		DELETE FROM GDS_REL
+		WHERE gds_no = #{gdsNo} OR rel_gds_no = #{gdsNo}
+	</delete>
+
+</mapper>

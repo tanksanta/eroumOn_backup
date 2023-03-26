@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.qa">
+
+	<!-- Define GdsQaVO Result Map  -->
+	<resultMap type="gdsQaVO" id="gdsQaVOMap" autoMapping="true" >
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+		<collection property="gdsImgList" column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+	</resultMap>
+
+	<!-- Define GdsQaVO Column List -->
+	<sql id="listColumn">
+		gq.qa_no
+		, gq.gds_no
+		, gq.gds_cd
+		, gds.gds_nm
+		, gq.qestn_cn
+		, gq.secret_yn
+		, gq.use_yn
+		, gq.reg_unique_id
+		, gq.reg_dt
+		, gq.reg_id
+		, gq.rgtr
+		, gq.mdfcn_unique_id
+		, gq.mdfcn_dt
+		, gq.mdfcn_id
+		, gq.mdfr
+		, gq.ans_yn
+		, gq.ans_cn
+		, gq.ans_unique_id
+		, gq.ans_dt
+		, gq.ans_id
+		, gq.answr
+		, (SELECT eml FROM MBR m WHERE gq.reg_unique_id = unique_id) AS eml
+		, 'THUMB' as thumb_file_ty
+	</sql>
+
+	<!-- Define Search Condition-->
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND gq.reg_dt &gt;= #{srchBgngDt} AND gq.reg_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND gq.reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND gq.reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchText != null and srchText != '' ">
+			AND gq.qestn_cn like CONCAT('%', #{srchText}, '%')
+		</if>
+		<if test="srchUseYn == null or srchUseYn == '' ">
+			AND gq.use_yn = 'Y'
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND gq.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchSecretYn != null and srchSecretYn != '' ">
+			AND gq.secret_yn = #{srchSecretYn}
+		</if>
+		<if test="srchAnsYn != null and srchAnsYn != '' ">
+			AND gq.ans_yn = #{srchAnsYn}
+		</if>
+		<if test="srchRgtr != null and srchRgtr != '' ">
+			AND gq.rgtr like CONCAT('%', #{srchRgtr}, '%')
+		</if>
+		<if test="srchRgtrId != null and srchRgtrId != '' ">
+			AND gq.rgtr_id like CONCAT('%', #{srchRgtrId}, '%')
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND gq.reg_unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchRegYmdBgng !=null and srchRegYmdBgng != ''">
+			AND DATE_FORMAT(gq.reg_dt, '%Y-%m-%d') &gt;= #{srchRegYmdBgng}
+		</if>
+		<if test="srchRegYmdEnd !=null and srchRegYmdEnd != ''">
+			AND DATE_FORMAT(gq.reg_dt, '%Y-%m-%d') &lt;= #{srchRegYmdEnd}
+		</if>
+		<if test="srchGdsCd != null and srchGdsCd != '' ">
+			AND gq.gds_cd like CONCAT('%', #{srchGdsCd}, '%')
+		</if>
+		<if test="srchQestnCn != null and srchQestnCn != '' ">
+			AND gq.qestn_cn like CONCAT('%', #{srchQestnCn}, '%')
+		</if>
+		<if test="srchGdsNm != null and srchGdsNm != '' ">
+			AND gds.gds_nm like CONCAT('%', #{srchGdsNm}, '%')
+		</if>
+	</sql>
+
+	<!-- Define GDS_QA List Query -->
+	<select id="selectGdsQaListVO" parameterType="java.util.HashMap" resultMap="gdsQaVOMap">
+		/* Query ID : gdsQa.selectGdsQaListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM GDS_QA gq
+		LEFT JOIN GDS gds ON gds.gds_no = gq.gds_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY gq.qa_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define GDS_QA Count Query -->
+	<select id="selectGdsQaCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gdsQa.selectGdsQaCount */
+		SELECT	COUNT(*)
+		FROM	GDS_QA gq
+		LEFT JOIN GDS gds ON gds.gds_no = gq.gds_no
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- Define GDS_QA Detail Query -->
+	<select id="selectGdsQa" parameterType="java.util.HashMap" resultMap="gdsQaVOMap">
+		/* Query ID : gdsQa.selectGdsQa */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	GDS_QA gq
+		LEFT JOIN GDS gds ON gds.gds_no = gq.gds_no
+		WHERE  qa_no = #{qaNo}
+		ORDER BY qa_no DESC
+	</select>
+
+	<!-- Define GDS_QA Insert Query -->
+	<insert id="insertGdsQa" parameterType="gdsQaVO">
+		/* Query ID : gdsQa.insertGdsQa */
+		INSERT INTO GDS_QA (
+			gds_no
+			 , gds_cd
+			 , qestn_cn
+			 , secret_yn
+			 , use_yn
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+			 , ans_yn
+		) VALUES (
+			#{gdsNo}
+			, #{gdsCd, jdbcType=VARCHAR}
+			, #{qestnCn, jdbcType=VARCHAR}
+			, #{secretYn, jdbcType=VARCHAR}
+			, 'Y'
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, 'N'
+		)
+	</insert>
+
+	<!-- 사용자 수정 -->
+	<update id="updateGdsQa" parameterType="gdsQaVO">
+		/* Query ID : gdsQa.updateGdsQa */
+		UPDATE	GDS_QA SET
+			qestn_cn = #{qestnCn, jdbcType=VARCHAR}
+			, secret_yn = #{secretYn, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE qa_no = #{qaNo}
+	</update>
+
+	<!--  관리자 답변 -->
+	<update id="updateGdsQaAns" parameterType="gdsQaVO">
+		/* Query ID : gdsQa.updateGdsQaAns */
+		UPDATE	GDS_QA SET
+			use_yn = #{useYn}
+			, ans_yn = 'Y'
+			, ans_cn = #{ansCn}
+			, ans_unique_id = #{ansUniqueId}
+			, ans_dt = SYSDATE()
+			, ans_id = #{ansId}
+			, answr = #{answr}
+		WHERE qa_no = #{qaNo}
+	</update>
+
+	<!-- Define GDS_QA Delete Query -->
+	<delete id="deleteGdsQa" parameterType="java.util.HashMap">
+		/* Query ID : gdsQa.deleteGdsQa */
+		DELETE FROM GDS_QA
+		 WHERE qa_no = #{qaNo}
+	</delete>
+
+
+</mapper>

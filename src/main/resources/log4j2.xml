@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n" />
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+
+    	<!-- JDBC Query Loggers -->
+	    <logger name="jdbc.sqltiming" additivity="false">
+	    	 <level value="ERROR"/>
+	    </logger>
+
+		<logger name="jdbc.audit" additivity="false">
+	        <level value="ERROR"/>
+	    </logger>
+
+	    <logger name="jdbc.sqlonly" additivity="false">
+	        <level value="INFO"/>
+	        <appender-ref ref="console"/>
+	    </logger>
+
+	    <logger name="jdbc.resultset" additivity="false">
+	        <level value="ERROR"/>
+	    </logger>
+
+		<logger name="jdbc.resultsettable" additivity="false">
+			<level value="INFO" />
+			<appender-ref ref="console" />
+		</logger>
+
+		<logger name="icube" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="egovframework" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+	    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+	        <appender-ref ref="console" />
+	    </logger>
+	    <logger name="org.springframework.beans" level="DEBUG" additivity="false">
+	        <appender-ref ref="console" />
+	    </logger>
+	    <logger name="org.apache.commons" level="DEBUG" additivity="false">
+	        <!-- <appender-ref ref="console" /> -->
+	    </logger>
+
+        <Root level="DEBUG">
+            <AppenderRef ref="console" />
+        </Root>
+
+    </Loggers>
+
+</Configuration>

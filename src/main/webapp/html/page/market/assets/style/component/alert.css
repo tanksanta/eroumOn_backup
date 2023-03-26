@@ -1,0 +1,53 @@
+@layer components {
+    .alert {
+        @apply flex relative w-[90vw] max-w-[29rem] text-white select-none;
+        &::before {
+            @apply content-empty block relative z-5 mt-1.5 -mr-4.5 w-13 h-13 rounded bg-black2 bg-no-repeat bg-[length:1.125rem,auto] bg-center md:-mr-6 md:w-15 md:h-15 md:bg-[length:1.375rem,auto];
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(147deg, #7F2FAF 0%, #F01366 100%);
+        }
+        & .text {
+            @apply bg-[#454545] py-3 pr-4 pl-7 rounded-l-lg flex-1 leading-tight overflow-hidden md:py-4 md:pr-5 md:pl-10;
+            & small {
+                @apply block text-sm;
+            }
+            & strong {
+                @apply block truncate text-base md:text-lg leading-tight;
+            }
+        }
+        & .close {
+            @apply w-11 bg-[#6a6a6a] rounded-r-lg overflow-hidden -indent-96 bg-no-repeat bg-center bg-[length:0.875rem] bg-[url(../images/ico-close-white.svg)];
+            @apply md:w-[3.125rem] md:bg-[length:1rem];
+        }
+        &.fade {
+            @apply transition-all duration-300 invisible;
+        }
+        &.show {
+            @apply visible;
+        }
+    }
+    .alert-color1 {
+        &::before {
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(110deg, #5BB6F3 0%, #3B6FF5 100%);
+        }
+    }
+    .alert-color2 {
+        &::before {
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(110deg, #EB6565 0%, #ED3284 100%);
+        }
+    }
+    .alert-color3 {
+        &::before {
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(110deg, #F8D61A 0%, #F58D14 100%);
+        }
+    }
+    .alert-color4 {
+        &::before {
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(110deg, #8CCE4F 0%, #4D8F7B 100%);
+        }
+    }
+    .alert-color5 {
+        &::before {
+            background-image: url(../images/ico-bell-white.svg), linear-gradient(180deg, #8F5FEF 0%, #E32ECF 100%);
+        }
+    }
+}

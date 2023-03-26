@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr">
+
+	<resultMap type="mbrVO" id="mbrListVOMap" autoMapping="true" />
+
+	<resultMap type="mbrVO" id="mbrVOMap" autoMapping="true">
+		<association property="recipterInfo" column="{srchUniqueId=unique_id}" select="recipter.selectRecipter" />
+		 <collection property="prtcrList" column="{srchUniqueId=unique_id, srchReqTy=req_ty}" select="mbr.prtcr.selectPrtcrListByUniqueId" />
+	</resultMap>
+
+	<sql id="listColumn">
+		m.unique_id
+		, m.mbr_id
+		, m.mbr_nm
+		, m.pswd
+		, m.gender
+		, m.brdt
+		, m.telno
+		, m.mbl_telno
+		, m.eml
+		, m.zip
+		, m.addr
+		, m.daddr
+		, m.recipter_yn
+		, m.bass_stlm_ty
+		, m.point_acmtl
+		, m.mlg_acmtl
+		, m.mber_sttus
+		, m.mber_grade
+		, m.rcmdtn_id
+		, m.rcmdtn_mbrs_id
+		, m.prvc_vld_pd
+		, m.sms_rcptn_yn
+		, m.eml_rcptn_yn
+		, m.tel_recptn_yn
+		, m.event_recptn_yn
+		, m.profl_img
+		, m.trms_agre_dt
+		, m.itrst_field
+		, m.join_cours
+		, m.join_dt
+		, m.lgn_failr_cnt
+		, m.recent_cntn_dt
+		, m.tmpr_pswd_yn
+		, m.pswd_chg_dt
+		, m.mdfcn_unique_id
+		, m.mdfcn_dt
+		, m.mdfcn_id
+		, m.mdfr
+		, m.whdwl_yn
+		, m.whdwl_dt
+		, m.whdwl_resn
+		, m.whdwl_ty
+		, m.whdwl_etc
+		, 'F' as req_ty
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "ID" '>AND mbr_id like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "NM" '>AND mbr_nm like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "CD" '>AND unique_id like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+					AND (mbr_id like CONCAT('%', #{srchText}, '%') OR mbr_nm like CONCAT('%', #{srchText}, '%') OR unique_id like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchJoinBgng !=null and srchJoinBgng != ''">
+			AND DATE_FORMAT(join_dt, '%Y-%m-%d') &gt;= #{srchJoinBgng}
+		</if>
+		<if test="srchJoinEnd !=null and srchJoinEnd != ''">
+			AND DATE_FORMAT(join_dt, '%Y-%m-%d') &lt;= #{srchJoinEnd}
+		</if>
+
+		<!-- S/ 일단 여기만 컬럼명 맞춰서 수정 -->
+		<if test="srchUniqueId != null and srchUniqueId != ''">
+			AND unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchMbrId != null and srchMbrId != ''">
+			AND mbr_id like CONCAT('%',#{srchMbrId},'%')
+		</if>
+		<if test="srchMbrNm != null and srchMbrNm != ''">
+			AND mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
+		</if>
+		<if test="srchMblTelno != null and srchMblTelno != ''">
+			AND mbl_telno = #{srchMblTelno}
+		</if>
+		<if test="srchDiKey != null and srchDiKey != ''">
+			AND di_key = #{srchDiKey}
+		</if>
+		<if test="srchBrdt != null and srchBrdt != ''">
+			AND DATE_FORMAT(brdt,'%Y%m%d') like CONCAT('%' , #{srchBrdt}, '%')
+		</if>
+		<if test="srchRecipterYn != null and srchRecipterYn != '' ">
+			AND recipter_yn = #{srchRecipterYn}
+		</if>
+		<!-- E/ 일단 여기만 컬럼명 맞춰서 수정 -->
+
+		<if test="srchLastTelnoOfMbl != null and srchLastTelnoOfMbl != ''">
+			AND REPLACE(mbl_telno,"-","")  like CONCAT('%',#{srchLastTelnoOfMbl},'%' )
+		</if>
+
+		 <if test="srchGrade != null and srchGrade!= ''">
+		 	AND
+			<foreach collection="srchGrade" item="result" open="(" close=")" separator="OR">
+			 	 mber_grade = #{result}
+			</foreach>
+		</if>
+		<if test="srchMbrGrade != null and srchMbrGrade != '' ">
+			AND mber_grade = #{srchMbrGrade}
+		</if>
+		<if test="srchMbrSttus != null and srchMbrSttus != '' ">
+			AND mber_sttus = #{srchMbrSttus}
+		</if>
+		<if test="(srchMbrStts == null or srchMbrStts == '' )">
+			AND mber_sttus != "EXIT"
+		</if>
+		<if test="srchMbrStts != null and srchMbrStts != '' ">
+			AND mber_sttus = #{srchMbrStts}
+		</if>
+		<if test="srchEml != null and srchEml != '' ">
+			AND eml = #{srchEml}
+		</if>
+		<if test="srchEmail != null and srchEmail != '' ">
+			AND eml like CONCAT('%',#{srchEmail},'%')
+		</if>
+
+		<if test="srchWhdwlYn != null and srchWhdwlYn != '' ">
+			AND whdwl_yn = #{srchWhdwlYn}
+		</if>
+		<if test="srchWhdwlResn != null and srchWhdwlResn != '' ">
+			AND whdwl_resn = #{srchWhdwlResn}
+		</if>
+		<if test="srchWhdwlTy != null and srchWhdwlTy != '' ">
+			AND whdwl_ty = #{srchWhdwlTy}
+		</if>
+
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND m.whdwl_dt &gt;= #{srchBgngDt} AND m.whdwl_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND m.whdwl_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND m.whdwl_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_FORMAT(brdt,'%m-%d') = DATE_FORMAT(DATE(NOW()),'%m-%d')
+		</if>
+		<if test="srchDrmcDate != null and srchDrmcDate !='' ">
+			AND ABS(DATEDIFF(DATE_FORMAT(RECENT_CNTN_DT,'%Y-%m-%d'),DATE(NOW()))) &gt; #{srchDrmcDate}
+		</if>
+	</sql>
+
+	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
+		/* Query ID : mbr.xml > selectMbrListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR m
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY unique_id DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbr.xml > selectMbrCount */
+		SELECT	COUNT(*)
+		FROM	MBR m
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectMbrListAll" parameterType="java.util.HashMap" resultMap="mbrVOMap">
+		/* Query ID : mbr.xml > selectMbrListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR m
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY unique_id DESC
+	</select>
+
+	<select id="selectMbr" parameterType="java.util.HashMap" resultMap="mbrVOMap">
+		/* Query ID : mbr.xml > selectMbr */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR m
+		WHERE 1 = 1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 추천인 아이디 검색-->
+	<select id="selectMbrIdByOne" parameterType="String" resultType="mbrVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR m
+		WHERE mbr_id = #{rcmdtnId}
+	</select>
+
+	<select id="selectMbrIdChk" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+			  COUNT(*)
+		FROM MBR m
+		WHERE UPPER(mbr_id) = UPPER(#{mbrId})
+	</select>
+
+	<insert id="insertMbr" parameterType="mbrVO">
+	/* Query ID : mbr.xml > insertMbr */
+		INSERT INTO MBR (
+			unique_id
+			, mbr_id
+			, mbr_nm
+			, pswd
+			, gender
+			, brdt
+			, telno
+			, mbl_telno
+			, eml
+			, zip
+			, addr
+			, daddr
+			, di_key
+			, recipter_yn
+			, bass_stlm_ty
+			, point_acmtl
+			, mlg_acmtl
+			, mber_sttus
+			, mber_grade
+			, rcmdtn_id
+			, rcmdtn_mbrs_id
+			, prvc_vld_pd
+			, sms_rcptn_yn
+			, eml_rcptn_yn
+			, tel_recptn_yn
+			, profl_img
+			, trms_agre_dt
+			, itrst_field
+			, join_cours
+			, join_dt
+			, lgn_failr_cnt
+			, recent_cntn_dt
+			, tmpr_pswd_yn
+			, whdwl_yn
+			, whdwl_dt
+			, whdwl_resn
+		) VALUES (
+			CONCAT('MBR_', LPAD( FN_NEXT_SEQ('MBR'), 8, '0'))
+			, #{mbrId, jdbcType=VARCHAR}
+			, #{mbrNm, jdbcType=VARCHAR}
+			, #{pswd, jdbcType=VARCHAR}
+			, #{gender, jdbcType=VARCHAR}
+			, #{brdt}
+			, #{telno, jdbcType=VARCHAR}
+			, #{mblTelno, jdbcType=VARCHAR}
+			, #{eml, jdbcType=VARCHAR}
+			, #{zip, jdbcType=VARCHAR}
+			, #{addr, jdbcType=VARCHAR}
+			, #{daddr, jdbcType=VARCHAR}
+			, #{diKey, jdbcType=VARCHAR}
+			, #{recipterYn, jdbcType=VARCHAR}
+			, #{bassStlmTy, jdbcType=VARCHAR}
+			, #{pointAcmtl}
+			, #{mlgAcmtl}
+			, #{mberSttus, jdbcType=VARCHAR}
+			, #{mberGrade, jdbcType=VARCHAR}
+			, #{rcmdtnId, jdbcType=VARCHAR}
+			, #{rcmdtnMbrsId, jdbcType=VARCHAR}
+			, #{prvcVldPd, jdbcType=VARCHAR}
+			, #{smsRcptnYn, jdbcType=VARCHAR}
+			, #{emlRcptnYn, jdbcType=VARCHAR}
+			, #{telRecptnYn, jdbcType=VARCHAR}
+			, #{proflImg, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{itrstField, jdbcType=VARCHAR}
+			, #{joinCours, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{lgnFailrCnt}
+			, #{recentCntnDt}
+			, #{tmprPswdYn, jdbcType=VARCHAR}
+			, #{whdwlYn, jdbcType=VARCHAR}
+			, #{whdwlDt}
+			, #{whdwlResn, jdbcType=VARCHAR}
+		)
+		<selectKey resultType="String" keyProperty="uniqueId" order="AFTER">
+      		SELECT unique_id FROM MBR WHERE mbr_id = #{mbrId}
+    	</selectKey>
+	</insert>
+
+	<update id="updateMbr" parameterType="mbrVO">
+		/* Query ID : mbr.xml > updateMbr */
+		UPDATE MBR SET
+			mbr_id = #{mbrId, jdbcType=VARCHAR}
+			, mbr_nm = #{mbrNm, jdbcType=VARCHAR}
+			, pswd = #{pswd, jdbcType=VARCHAR}
+			, gender = #{gender, jdbcType=VARCHAR}
+			, brdt = #{brdt}
+			, telno = #{telno, jdbcType=VARCHAR}
+			, mbl_telno = #{mblTelno, jdbcType=VARCHAR}
+			, eml = #{eml, jdbcType=VARCHAR}
+			, zip = #{zip, jdbcType=VARCHAR}
+			, addr = #{addr, jdbcType=VARCHAR}
+			, daddr = #{daddr, jdbcType=VARCHAR}
+			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
+			, bass_stlm_ty = #{bassStlmTy, jdbcType=VARCHAR}
+			, point_acmtl = #{pointAcmtl}
+			, mlg_acmtl = #{mlgAcmtl}
+			, mber_sttus = #{mberSttus, jdbcType=VARCHAR}
+			, mber_grade = #{mberGrade, jdbcType=VARCHAR}
+			, rcmdtn_id = #{rcmdtnId, jdbcType=VARCHAR}
+			, prvc_vld_pd = #{prvcVldPd, jdbcType=VARCHAR}
+			, sms_rcptn_yn = #{smsRcptnYn, jdbcType=VARCHAR}
+			, eml_rcptn_yn = #{emlRcptnYn, jdbcType=VARCHAR}
+			, tel_recptn_yn = #{telRecptnYn, jdbcType=VARCHAR}
+			, profl_img = #{proflImg, jdbcType=VARCHAR}
+			, trms_agre_dt = #{trmsAgreDt}
+			, itrst_field = #{itrstField, jdbcType=VARCHAR}
+			, join_cours = #{joinCours, jdbcType=VARCHAR}
+			, lgn_failr_cnt = #{lgnFailrCnt}
+			, recent_cntn_dt = #{recentCntnDt}
+			, tmpr_pswd_yn = #{tmprPswdYn, jdbcType=VARCHAR}
+			, pswd_chg_dt = #{pswdChgDt}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			, whdwl_yn = #{whdwlYn, jdbcType=VARCHAR}
+			, whdwl_dt = #{whdwlDt}
+			, whdwl_resn = #{whdwlResn, jdbcType=VARCHAR}
+			WHERE	unique_id = #{uniqueId}
+	</update>
+
+	<!-- 마이페이지 정보 수정 -->
+	<update id="updateMbrInfo" parameterType="mbrVO">
+		/* Query ID : mbr.updateMbrInfo */
+		UPDATE MBR SET
+			mbl_telno = #{mblTelno}
+			, eml = #{eml}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+			, rcmdtn_id = #{rcmdtnId}
+			, telno = #{telno}
+			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
+			, prvc_vld_pd = #{prvcVldPd}
+			, sms_rcptn_yn = #{smsRcptnYn}
+			, eml_rcptn_yn = #{emlRcptnYn}
+			, tel_recptn_yn = #{telRecptnYn}
+			, profl_img = #{proflImg}
+			, itrst_field = #{itrstField, jdbcType=VARCHAR}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 회원 상태 전환 -->
+	<update id="updateMberSttus" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			mber_sttus = #{mberSttus}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 선택 정보 수정 -->
+	<update id="updateChoiceYn" parameterType="java.util.HashMap">
+			/* Query ID : mbr.xml > updateChoiceYn */
+		UPDATE MBR SET
+			sms_rcptn_yn = #{smsYn, jdbcType=VARCHAR}
+			, tel_recptn_yn = #{telYn, jdbcType=VARCHAR}
+			, eml_rcptn_yn = #{emlYn, jdbcType=VARCHAR}
+		WHERE unique_id = #{uniqueId, jdbcType=VARCHAR}
+	</update>
+
+	<!-- 유효기간 변경 -->
+	<update id="updatePrvc" parameterType="java.util.HashMap">
+		/* Query ID : mbr.xml > updatePrvc */
+		UPDATE MBR SET
+			prvc_vld_pd = #{prvcVldPd, jdbcType=VARCHAR}
+		WHERE unique_id = #{uniqueId, jdbcType=VARCHAR}
+	</update>
+
+	<!-- 회원 탈퇴 -->
+	<update id="updateExitMbr" parameterType="java.util.HashMap">
+		/* Query ID : mbr.xml > updateExitMbr */
+		UPDATE MBR SET
+			 pswd = NULL
+			, gender = NULL
+			, brdt = NULL
+			, telno = NULL
+			, mbl_telno = NULL
+			, eml = NULL
+			, zip = NULL
+			, addr = NULL
+			, daddr = NULL
+			, bass_stlm_ty = NULL
+			, point_acmtl = NULL
+			, mlg_acmtl = NULL
+			, mber_sttus = "EXIT"
+			, rcmdtn_id = NULL
+			, rcmdtn_mbrs_id = NULL
+			, prvc_vld_pd = NULL
+			, sms_rcptn_yn = NULL
+			, eml_rcptn_yn = NULL
+			, tel_recptn_yn = NULL
+			, profl_img = NULL
+			, trms_agre_dt = NULL
+			, itrst_field = NULL
+			, join_cours = NULL
+			, join_dt = NULL
+			, lgn_failr_cnt = NULL
+			, recent_cntn_dt = NULL
+			, tmpr_pswd_yn = NULL
+			, pswd_chg_dt = NULL
+			, mber_grade = NULL
+			, event_recptn_yn = NULL
+			, mdfcn_unique_id = NULL
+			, mdfcn_dt = NULL
+			, mdfcn_id = NULL
+			, mdfr = NULL
+			, whdwl_yn = "Y"
+			, whdwl_dt = SYSDATE()
+			, whdwl_resn = #{whdwlResn}
+			, whdwl_ty = #{whdwlTy}
+			, whdwl_etc = #{whdwlEtc}
+		WHERE	unique_id = #{srchUniqueId}
+	</update>
+
+	<!-- 회원 휴면계정 -->
+	<update id="updateRlsDrmt" parameterType="java.util.HashMap">
+		/* Query ID : mbr.xml > updateRlsDrmt */
+		UPDATE MBR SET
+			mber_sttus = #{mberSttus}
+			, mdfcn_unique_id = #{srchUniqueId}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+
+	<!-- 회원 비밀번호 업데이트 -->
+	<update id="updateMbrPswd" parameterType="java.util.HashMap">
+		/* Query ID : mbr.xml > updateMbrPswd */
+		UPDATE MBR SET
+			pswd = #{pswd}
+			, pswd_chg_dt = SYSDATE()
+			, mdfcn_unique_id = #{uniqueId}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mbrId}
+			, mdfr = #{mbrNm}
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 로그인 실패횟수 증가 -->
+	<update id="updateFailedLoginCountUp" parameterType="bplcVO">
+		/* Query ID : mbr.updateFailedLoginCountUp */
+		UPDATE MBR
+		   SET lgn_failr_cnt = IFNULL(lgn_failr_cnt, 0)+1
+		 WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 로그인 실패횟수 조회 -->
+	<select id="selectFailedLoginCount" parameterType="bplcVO" resultType="int">
+		/* Query ID : mbr.selectFailedLoginCount */
+		SELECT IFNULL(lgn_failr_cnt, 0)
+		  FROM MBR
+		 WHERE unique_id = #{uniqueId}
+	</select>
+
+	<!-- 로그인 실패횟수 리셋 -->
+	<update id="updateFailedLoginCountReset" parameterType="mngrVO">
+		UPDATE MBR
+		   SET lgn_failr_cnt = 0
+		 WHERE unique_id = #{uniqueId}
+	</update>
+
+	<!-- 최근 접속일시 업데이트 -->
+	<update id="updateRecentDt" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			RECENT_CNTN_DT = SYSDATE()
+		WHERE unique_id = #{uniqueId}
+	</update>
+
+	<select id="selectMbrEtcInfo" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+			IFNULL((SELECT bnef_blce FROM RECIPTER_INFO ri WHERE unique_id = #{srchUniqueId}), 0) AS total_bnef_blce
+			, IFNULL((SELECT mlg_acmtl FROM MBR_MLG mm WHERE unique_id = #{srchUniqueId} ORDER BY mlg_no DESC LIMIT 1), 0) AS total_mlg
+			, IFNULL((SELECT point_acmtl FROM MBR_POINT mp WHERE unique_id = #{srchUniqueId} ORDER BY point_no DESC LIMIT 1), 0) AS total_point
+			, IFNULL((SELECT COUNT(*) FROM COUPON_LST lst WHERE unique_id = #{srchUniqueId} AND use_yn = 'N' AND use_lst_end_ymd &gt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))), 0) AS total_coupon
+			, IFNULL((SELECT COUNT(*) FROM CART WHERE recipter_unique_id = #{srchUniqueId} AND ordr_optn_ty = 'BASE'), 0) AS total_cart
+			, IFNULL((SELECT COUNT(*) FROM WISHLIST WHERE unique_id = #{srchUniqueId}), 0) AS total_wish
+	</select>
+
+	<!-- 생일자 카운트 -->
+	<select id="selectBrdtMbrCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MBR
+		WHERE DATE_FORMAT(brdt,'%m-%d') = DATE_FORMAT(DATE(NOW()),'%m-%d')
+	</select>
+
+	<!-- 전월 누적 결제 금액 -->
+	<select id="selectMbrSumPc" parameterType="java.util.HashMap" resultType="int">
+		SELECT IFNULL(SUM(stlm_amt),0)
+		FROM ORDR
+		WHERE 1=1
+			AND unique_id = #{srchUniqueId}
+			AND DATE_FORMAT(ordr_dt,'%Y-%m') = DATE_FORMAT(DATE_ADD(DATE(NOW()), INTERVAL -1 MONTH),'%Y-%m')
+	</select>
+</mapper>

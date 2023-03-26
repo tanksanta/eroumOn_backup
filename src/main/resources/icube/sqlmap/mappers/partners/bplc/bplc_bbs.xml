@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bplc.bbs">
+
+	<resultMap type="bplcBbsVO" id="bplcBbsVOMap" autoMapping="true" >
+		<collection property="bplcFileList" column="{nttNo=ntt_no}" select="bplc.bbs.file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		bplc_unique_id
+		, ntt_no
+		, ttl
+		, cn
+		, wrtr
+		, wrt_id
+		, wrt_ymd
+		, inqcnt
+		, ntc_yn
+		, use_yn
+		, ip
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'BPLCBBS' AS srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchBbsNm" '>AND ttl like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchBbsCn" '>AND cn like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+					AND (ttl like CONCAT('%', #{srchText}, '%') OR cn like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchBgngDt !=null and srchBgngDt != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &gt;= #{srchBgngDt}
+		</if>
+		<if test="srchEndDt !=null and srchEndDt != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &lt;= #{srchEndDt}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<select id="selectBplcBbsListVO" parameterType="java.util.HashMap" resultMap="bplcBbsVOMap">
+		/* Query ID : bplc.bbs.selectBplcBbsListVO */
+		SELECT
+			<include refid="listColumn" />
+		FROM BPLC_BBS
+		WHERE bplc_unique_id = #{bplcUniqueId}
+			<include refid="searchConditions" />
+		ORDER BY ntc_yn DESC, reg_dt DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectBplcBbsCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bplc.bbs.selectBplcBbsCount */
+		SELECT COUNT(*)
+		FROM BPLC_BBS
+		WHERE bplc_unique_id = #{bplcUniqueId}
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectBplcBbs" parameterType="java.util.HashMap" resultMap="bplcBbsVOMap">
+		/* Query ID : bplc.bbs.selectBplcBbs */
+		SELECT
+			<include refid="listColumn" />
+		FROM BPLC_BBS
+		WHERE bplc_unique_id = #{bplcUniqueId}
+		  AND ntt_no = #{nttNo}
+	</select>
+
+	<insert id="insertBplcBbs" parameterType="bplcBbsVO">
+		/* Query ID : bplc.bbs.insertBplcBbs */
+		INSERT INTO BPLC_BBS (
+			bplc_unique_id
+			, ttl
+			, cn
+			, wrtr
+			, wrt_id
+			, wrt_ymd
+			, inqcnt
+			, ntc_yn
+			, use_yn
+			, ip
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{bplcUniqueId, jdbcType=VARCHAR}
+			, #{ttl, jdbcType=VARCHAR}
+			, #{cn, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, TO_CHAR(SYSDATE(), 'YYYY-MM-DD')
+			, #{inqcnt, jdbcType=VARCHAR}
+			, #{ntcYn, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{ip, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="nttNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateBplcBbs" parameterType="bplcBbsVO">
+		/* Query ID : bplc.bbs.updateBplcBbs */
+		UPDATE BPLC_BBS SET
+			ttl = #{ttl, jdbcType=VARCHAR}
+			, cn = #{cn, jdbcType=VARCHAR}
+			, inqcnt = #{inqcnt}
+			, ntc_yn = #{ntcYn, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, ip = #{ip, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE bplc_unique_id = #{bplcUniqueId}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+	<!-- 조회수 -->
+	<update id="updateInqcnt" parameterType="bplcBbsVO">
+		/* Query ID : bplc.bbs.updateInqcnt */
+		UPDATE BPLC_BBS SET
+			inqcnt = inqcnt + 1
+		WHERE bplc_unique_id = #{bplcUniqueId}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+	<!-- 공지사항 삭제 -->
+	<update id="deleteBbs" parameterType="java.util.HashMap">
+		UPDATE BPLC_BBS SET
+			use_yn = 'N'
+		WHERE bplc_unique_id = #{bplcUniqueId}
+			AND ntt_no = #{nttNo}
+	</update>
+
+</mapper>

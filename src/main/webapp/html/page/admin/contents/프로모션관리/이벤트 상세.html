@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>이벤트</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../../core/vendor/datatables/datatables.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title small white">Management<br> System</h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="dashboard.html" class="menu-item1">대시보드</a></li>
+                <li><a href="#list-items2" class="menu-item2">회원관리</a></li>
+                <li><a href="#list-items3" class="menu-item3">상품관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">주문관리</a></li>
+                <li><a href="#list-items5" class="menu-item5">전시관리</a></li>
+                <li><a href="#list-items11" class="menu-item11 active">프로모션관리</a></li>
+                <li><a href="#list-items7" class="menu-item7">고객상담관리</a></li>
+                <li><a href="#list-items8" class="menu-item8">시스템관리</a></li>
+                <li><a href="#list-items9" class="menu-item9">정산관리</a></li>
+                <li><a href="#list-items10" class="menu-item10">통계관리</a></li>
+            </ul>
+            <div class="list-items" id="list-items2">
+                <p>
+                    회원관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">일반회원관리</a></li>
+                    <li><a href="#">블랙리스트회원관리</a></li>
+                    <li><a href="#">휴면회원관리</a></li>
+                    <li><a href="#">탈퇴회원관리</a></li>
+                    <li><a href="#">SMS 전송 이력</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items3">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">카테고리관리</a></li>
+                    <li><a href="#">상품관리</a></li>
+                    <li><a href="#">상품일괄업로드</a></li>
+                    <li><a href="#">상품재고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">사업소취소요청</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    전시관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">추천상품관리</a></li>
+                    <li><a href="#">테마전시관리</a></li>
+                    <li><a href="#">팝업관리</a></li>
+                    <li><a href="#">광고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items active" id="list-items11">
+                <p>
+                    프로모션관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">기획전</a></li>
+                    <li class="active"><a href="#">이벤트</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">포인트</a></li>
+                    <li><a href="#">마일리지</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">상품후기</a></li>
+                    <li><a href="#">상품Q&amp;A</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items8">
+                <p>
+                    시스템관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">관리자관리</a></li>
+                    <li><a href="#">권한관리</a></li>
+                    <li><a href="#">메뉴관리</a></li>
+                    <li><a href="#">게시판관리</a></li>
+                    <li><a href="#">금지어관리</a></li>
+                    <li><a href="#">업체(사업소)관리</a></li>
+                    <li><a href="#">제조사관리</a></li>
+                    <li><a href="#">배송업체관리</a></li>
+                    <li><a href="#">공통코드관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items9">
+                <p>
+                    정산관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산목록</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items10">
+                <p>
+                    통계관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">매출통계</a></li>
+                    <li><a href="#">회원통계</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="dashboard.html" class="back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1">이벤트</h1>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><a href="#">프로모션관리</a></li>
+                        <li><strong>이벤트</strong></li>
+                    </ul>
+                </nav>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <ul class="nav tab-list">
+                    <li>
+                        <a href="#event-pane1" class="active" data-bs-toggle="pill" data-bs-target="#event-pane1" role="tab" aria-selected="true">이벤트 정보</a>
+                    </li>
+                    <li>
+                        <a href="#event-pane2" data-bs-toggle="pill" data-bs-target="#event-pane2" role="tab" aria-selected="false">응모자 확인</a>
+                    </li>
+                    <li>
+                        <a href="#event-pane3" data-bs-toggle="pill" data-bs-target="#event-pane3" role="tab" aria-selected="false">당첨자 발표</a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-10">
+                    <div class="tab-pane fade show active" id="event-pane1" role="tabpanel">
+                        <form action="#">
+                            <fieldset>
+                                <legend class="text-title2 relative">
+                                    이벤트 수정
+                                    <span class="absolute left-full top-0.5 ml-1 whitespace-nowrap text-sm">
+                                        (<span class="badge-require ml-1 mr-0.5 -translate-y-0.5"></span> 는 필수입력사항입니다.)
+                                    </span>
+                                </legend>
+                                <table class="table-detail">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-1" class="require">이벤트 대상</label></th>
+                                            <td>
+                                                <select name="" id="form-item1-1" class="form-control w-64">
+                                                    <option value="">전체</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-2" class="require">이벤트 명</label></th>
+                                            <td><input type="text" class="form-control w-full" id="form-item1-2"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-3" class="require">기간</label></th>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control w-35 calendar" id="form-item1-3">
+                                                    <input type="time" class="form-control w-35">
+                                                    <i>~</i>
+                                                    <input type="date" class="form-control w-35 calendar">
+                                                    <input type="time" class="form-control w-35">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-4">당첨자 발표일</label></th>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control w-35 calendar" id="form-item1-4">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><span class="require">이벤트 형태</span></th>
+                                            <td>응모형</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-5" class="require">상태</label></th>
+                                            <td>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="form-item1-5" checked>
+                                                        <label class="form-check-label" for="form-item1-5">노출</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="form-item1-5-2">
+                                                        <label class="form-check-label" for="form-item1-5-2">미노출</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item1-6" class="require">목록 이미지</label></th>
+                                            <td>
+                                                <div class="form-group w-full">
+                                                    <input type="file" class="form-control w-2/3" id="form-item1-6">
+                                                    <p class="ml-2">* 1MB 이하의 jpg, gif, png 확장자 등록 가능</p>
+                                                </div>
+                                                <div class="form-group mt-1 w-full">
+                                                    <label for="form-item1-6-2">대체텍스트</label>
+                                                    <input type="text" id="form-item1-6-2" class="form-control flex-1 ml-2">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item5" class="require">이벤트 본문 영역</label></th>
+                                            <td><textarea name="" id="form-item5" cols="30" rows="10" class="form-control w-full"></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">등록일</th>
+                                            <td>2022-06-29 12:20</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+        
+                            <div class="btn-group right mt-8">
+                                <button type="submit" class="btn-primary large shadow">저장</button>
+                                <a href="이벤트.html" class="btn-secondary large shadow">목록</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="event-pane2" role="tabpanel">
+                        <div class="flex">
+                            <p class="text-title2">이벤트명 : 여름 맞이 이벤트 팡팡</p>
+                            <p class="mt-0.5 ml-auto">총 응모자 수 : <strong>600명</strong></p>
+                        </div>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col class="w-57">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">항목1</th>
+                                    <td>10만원 이상 구매</td>
+                                    <th scope="row"><p class="text-center">응모자수</p></th>
+                                    <td><p class="text-center"><a href="#">12345</a></p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">항목2</th>
+                                    <td>10만원 이상 구매</td>
+                                    <th scope="row"><p class="text-center">응모자수</p></th>
+                                    <td><p class="text-center"><a href="#">12345</a></p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">항목3</th>
+                                    <td>10만원 이상 구매</td>
+                                    <th scope="row"><p class="text-center">응모자수</p></th>
+                                    <td><p class="text-center"><a href="#">12345</a></p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-title2 mt-13">응모자 목록</p>
+                        <table class="table-list">
+                            <colgroup>
+                                <col class="w-15">
+                                <col class="w-25">
+                                <col class="w-[15%]">
+                                <col>
+                                <col class="w-35">
+                                <col class="w-35">
+                                <col class="w-45">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox">
+                                        </div>
+                                    </th>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">아이디</th>
+                                    <th scope="col">회원이름</th>
+                                    <th scope="col">휴대폰번호</th>
+                                    <th scope="col">IP</th>
+                                    <th scope="col">응모일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox">
+                                        </div>
+                                    </td>
+                                    <td>1</td>
+                                    <td>userid</td>
+                                    <td>회원이름</td>
+                                    <td>010-1234-1234</td>
+                                    <td>192.168.168.168</td>
+                                    <td>2222-11-11 12:34:56</td>
+                                </tr>
+                                <tr>
+                                    <td class="noresult" colspan="7">응모 내역이 없습니다.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination mt-7">
+                            <div class="paging">
+                                <a href="#" class="prev">이전</a>
+                                <a href="#" class="page active">1</a>
+                                <a href="#" class="page">2</a>
+                                <a href="#" class="page">3</a>
+                                <a href="#" class="page">4</a>
+                                <a href="#" class="page">5</a>
+                                <a href="#" class="page">6</a>
+                                <a href="#" class="page">7</a>
+                                <a href="#" class="next">다음</a>
+                            </div>
+        
+                            <div class="sorting2">
+                                <label for="sort-item">출력</label>
+                                <select name="" id="sort-item" class="form-control">
+                                    <option value="">20개</option>
+                                </select>
+                            </div>
+            
+                            <div class="counter">총 <strong>200</strong>건, <strong>1</strong>/60 페이지</div>
+                        </div>
+
+                        <div class="btn-group right mt-8">
+                            <button type="button" class="btn-primary">엑셀다운로드</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="event-pane3" role="tabpanel">
+                        <form action="#">
+                            <fieldset>
+                                <legend class="text-title2 relative">
+                                    당첨자 발표 등록(or 수정)
+                                    <span class="absolute left-full top-0.5 ml-1 whitespace-nowrap text-sm">
+                                        (<span class="badge-require ml-1 mr-0.5 -translate-y-0.5"></span> 는 필수입력사항입니다.)
+                                    </span>
+                                </legend>
+                                <table class="table-detail">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">이벤트명</th>
+                                            <td colspan="3">이로움 마켓 오픈기념 이벤트</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item3-1" class="require">본문내용</label></th>
+                                            <td colspan="3">
+                                                <textarea name="" id="form-item3-1" class="form-control w-full" cols="30" rows="10"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item3-2">첨부파일</label></th>
+                                            <td colspan="3"><input type="file" class="form-control w-full" id="form-item3-2"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><label for="form-item3-3" class="require">상태</label></th>
+                                            <td>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="form-item3-3" checked>
+                                                        <label class="form-check-label" for="form-item3-3">노출</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="form-item3-3-2">
+                                                        <label class="form-check-label" for="form-item3-3-2">미노출</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">등록일</th>
+                                            <td>2022-08-10 12:11</td>
+                                            <th scope="row">최종수정일</th>
+                                            <td>2022-08-15 13:23</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+
+                            <div class="btn-group mt-8 right">
+                                <button type="submit" class="btn-primary large shadow">저장</button>
+                                <a href="이벤트.html" class="btn-secondary large shadow">목록</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

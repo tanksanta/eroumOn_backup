@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Oval 2</title>
+    <defs>
+        <path d="M79.9966668,66.6672222 L69.9970835,66.6672222 L69.9970835,80 L52.2211575,66.6672222 L26.6655556,66.6672222 L26.6655556,53.3344444 L33.3319445,53.3344444 L33.3319445,60.0008333 L54.441065,60.0008333 L63.3306946,66.6672222 L63.3306946,60.0008333 L73.3302779,60.0008333 L73.3302779,33.3319445 L66.663889,33.3319445 L66.663889,26.6655556 L79.9966668,26.6655556 L79.9966668,66.6672222 Z M59.9975001,46.6680555 L27.7755094,46.6680555 L9.99958335,60.0008333 L9.99958335,46.6680555 L0,46.6680555 L0,0 L59.9975001,0 L59.9975001,46.6680555 Z M29.9987501,33.0552894 L13.3327778,33.0552894 L13.3327778,36.6684721 L29.9987501,36.6684721 L29.9987501,33.0552894 Z M46.6647223,23.3356943 L13.3327778,23.3356943 L13.3327778,26.6688888 L46.6647223,26.6688888 L46.6647223,23.3356943 Z M46.6647223,13.336111 L13.3327778,13.336111 L13.3327778,16.6693054 L46.6647223,16.6693054 L46.6647223,13.336111 Z" id="path-1"></path>
+        <filter x="-37.0%" y="-37.0%" width="174.0%" height="174.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="19" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-37.0%" y="-37.0%" width="174.0%" height="174.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="19" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-37.0%" y="-37.0%" width="174.0%" height="174.0%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="19" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="1:1문의" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="고객센터-1:1문의---작성" transform="translate(-617.000000, -1016.000000)">
+            <g id="Oval" transform="translate(617.000000, 1016.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#3F3F3F" xlink:href="#path-1"></use>
+                <circle fill="#000000" filter="url(#filter-3)" mask="url(#mask-2)" cx="61" cy="-47" r="77"></circle>
+                <circle fill="#FFFFFF" opacity="0.300000012" filter="url(#filter-4)" mask="url(#mask-2)" cx="147" cy="1" r="77"></circle>
+                <circle id="Oval-Copy-2" fill="#000000" filter="url(#filter-5)" mask="url(#mask-2)" cx="30" cy="128" r="77"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

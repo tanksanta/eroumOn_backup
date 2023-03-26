@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>상품관리</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../../core/vendor/datatables/datatables.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title small white">Management<br> System</h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="dashboard.html" class="menu-item1">대시보드</a></li>
+                <li><a href="#list-items2" class="menu-item2">회원관리</a></li>
+                <li><a href="#list-items3" class="menu-item3 active">상품관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">주문관리</a></li>
+                <li><a href="#list-items5" class="menu-item5">전시관리</a></li>
+                <li><a href="#list-items11" class="menu-item11">프로모션관리</a></li>
+                <li><a href="#list-items7" class="menu-item7">고객상담관리</a></li>
+                <li><a href="#list-items8" class="menu-item8">시스템관리</a></li>
+                <li><a href="#list-items9" class="menu-item9">정산관리</a></li>
+                <li><a href="#list-items10" class="menu-item10">통계관리</a></li>
+            </ul>
+            <div class="list-items" id="list-items2">
+                <p>
+                    회원관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">일반회원관리</a></li>
+                    <li><a href="#">블랙리스트회원관리</a></li>
+                    <li><a href="#">휴면회원관리</a></li>
+                    <li><a href="#">탈퇴회원관리</a></li>
+                    <li><a href="#">SMS 전송 이력</a></li>
+                </ul>
+            </div>
+            <div class="list-items active" id="list-items3">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">카테고리관리</a></li>
+                    <li class="active"><a href="#">상품관리</a></li>
+                    <li><a href="#">상품일괄업로드</a></li>
+                    <li><a href="#">상품재고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">사업소취소요청</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    전시관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">추천상품관리</a></li>
+                    <li><a href="#">테마전시관리</a></li>
+                    <li><a href="#">팝업관리</a></li>
+                    <li><a href="#">광고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items11">
+                <p>
+                    프로모션관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">포인트</a></li>
+                    <li><a href="#">마일리지</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">상품후기</a></li>
+                    <li><a href="#">상품Q&amp;A</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items8">
+                <p>
+                    시스템관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">관리자관리</a></li>
+                    <li><a href="#">권한관리</a></li>
+                    <li><a href="#">메뉴관리</a></li>
+                    <li><a href="#">게시판관리</a></li>
+                    <li><a href="#">금지어관리</a></li>
+                    <li><a href="#">업체(사업소)관리</a></li>
+                    <li><a href="#">제조사관리</a></li>
+                    <li><a href="#">배송업체관리</a></li>
+                    <li><a href="#">공통코드관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items9">
+                <p>
+                    정산관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산목록</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items10">
+                <p>
+                    통계관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">매출통계</a></li>
+                    <li><a href="#">회원통계</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="dashboard.html" class="back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container" data-bs-target="#scrollspy" data-bs-offset="130">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1">상품관리</h1>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><a href="#">상품관리</a></li>
+                        <li><strong>상품관리</strong></li>
+                    </ul>
+                </nav>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <ul class="nav tab-list tab-full tab-sticky" id="scollspy">
+                    <li><a href="#section1" role="button" class="nav-link active">기본정보</a></li>
+                    <li><a href="#section2" role="button" class="nav-link">가격/재고/배송비</a></li>
+                    <li><a href="#section3" role="button" class="nav-link">이미지</a></li>
+                    <li><a href="#section4" role="button" class="nav-link">관련상품</a></li>
+                    <li><a href="#section5" role="button" class="nav-link">기타사항</a></li>
+                </ul>
+
+                <form action="#" class="mt-7.5">
+                    <fieldset id="section1">
+                        <legend class="text-title2">기본정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item1">상품구분</label></th>
+                                    <td colspan="3">
+                                        <select name="" id="form-item1" class="form-control w-50">
+                                            <option value="">전체</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-2">카테고리</label></th>
+                                    <td colspan="3">
+                                        <div class="form-group">
+                                            <select name="" id="form-item1-2" class="form-control w-30">
+                                                <option value="">전체</option>
+                                            </select>
+                                            <select name="" class="form-control w-30">
+                                                <option value="">전체</option>
+                                            </select>
+                                            <select name="" class="form-control w-30">
+                                                <option value="">전체</option>
+                                            </select>
+                                            <select name="" class="form-control w-50">
+                                                <option value="">전체</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-3">상품관리코드</label></th>
+                                    <td colspan="3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-70" id="form-item1-3">
+                                            <p class="ml-2">
+                                                상품관리코드는 10자리 숫자로 자동 생성합니다.<br>
+                                                직접 상품관리코드를 입력 시 영문자, 숫자, - 만 입력 가능합니다.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-4">상품명</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-full" id="form-item-1-4"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-5">급여코드</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-70" id="form-item-1-5"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-6">입고예정일 알림</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-70" id="form-item-1-6"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-7">관리자메모</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-full" id="form-item-1-7"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-8">기본설명</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-full" id="form-item-1-8"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-9">재질</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-9"></td>
+                                    <th scope="row"><label for="form-item1-10">중량</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-10"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-11">사이즈상세정보</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-full" id="form-item1-11"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-12">규격</label></th>
+                                    <td colspan="3"><input type="text" class="form-control w-70" id="form-item1-12"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-13">출력순서</label></th>
+                                    <td colspan="3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-25" id="form-item1-13">
+                                            <p class="ml-2">숫자가 작을 수록 상위에 출력되며, 미입력시 자동으로 출력됩니다.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-14">상품태그</label></th>
+                                    <td colspan="3">
+                                        <p class="py-1">상품전시화면에 유형별로 출력할 때 사용합니다. 목록에서 유형별로 정렬할 때 체크된 것이 가장 먼저 출력됩니다.</p>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14" checked>
+                                            <label class="form-check-label" for="form-item1-14">일시품절</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-2">
+                                            <label class="form-check-label" for="form-item1-14-2">일부옵션품절</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-3">
+                                            <label class="form-check-label" for="form-item1-14-3">설치</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-4">
+                                            <label class="form-check-label" for="form-item1-14-4">급여가탈락예정</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-5">
+                                            <label class="form-check-label" for="form-item1-14-5">급여가변동예정</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-6">
+                                            <label class="form-check-label" for="form-item1-14-6">품절</label>
+                                        </div>
+                                        <div class="form-check mr-4">
+                                            <input class="form-check-input" type="checkbox" name="aaa" id="form-item1-14-7">
+                                            <label class="form-check-label" for="form-item1-14-7">출고지연</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-15">제조사</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-15"></td>
+                                    <th scope="row"><label for="form-item1-16">원산지</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-16"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-17">브랜드</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-17"></td>
+                                    <th scope="row"><label for="form-item1-18">모델</label></th>
+                                    <td><input type="text" class="form-control w-70" id="form-item-1-18"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-19">마일리지 사용여부</label></th>
+                                    <td colspan="3">
+                                        <div class="form-check-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="aaa" id="form-item1-19" checked>
+                                                <label class="form-check-label" for="form-item1-19">사용</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="aaa" id="form-item1-19-2">
+                                                <label class="form-check-label" for="form-item1-19-2">미사용</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item1-20">상품설명</label></th>
+                                    <td colspan="3"><textarea name="" id="form-item1-20" cols="30" rows="10" class="form-control w-full"></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset id="section2" class="mt-13">
+                        <legend class="text-title2">가격/재고</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item2">판매가</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item2">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-2">할인가</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-30" id="form-item2-2">
+                                            <span>%</span>
+                                            <input type="text" class="form-control w-50 ml-6">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-3">급여가</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item2-3">
+                                            <span>원</span>
+                                            
+                                            <span class="ml-6 mr-2">15%</span>
+                                            <input type="text" class="form-control w-25">
+                                            <span>원</span>
+                                            
+                                            <span class="ml-6 mr-2">9%</span>
+                                            <input type="text" class="form-control w-25">
+                                            <span>원</span>
+                                            
+                                            <span class="ml-6 mr-2">6%</span>
+                                            <input type="text" class="form-control w-25">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-4">대여가(월)</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item2-4">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-5">대여(내구연한설정)</label></th>
+                                    <td>
+                                        <div class="form-check mt-1">
+                                            <input class="form-check-input" type="checkbox" id="form-item2-5">
+                                            <label class="form-check-label" for="form-item2-5">사용</label>
+                                        </div>
+                                        <div class="form-group w-full">
+                                            <label for="form-item2-5-2" class="mr-2">사용가능햇수</label>
+                                            <input type="text" class="form-control w-25" id="form-item-2-5-2">
+                                            <span>년</span>
+                                        </div>
+                                        <div class="form-group w-full mt-1">
+                                            <label for="form-item2-5-3" class="mr-2">연장대여햇수</label>
+                                            <input type="text" class="form-control w-25" id="form-item-2-5-3">
+                                            <span>년</span>
+                                            <i>/</i>
+                                            <label for="form-item2-5-4" class="mr-2">월 대여금액</label>
+                                            <input type="text" class="form-control w-40" id="form-item-2-5-4">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-6">상품 품절여부</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="form-check-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="bbb" id="form-item2-6" checked>
+                                                    <label class="form-check-label" for="form-item2-6">예</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="bbb" id="form-item2-6-2">
+                                                    <label class="form-check-label" for="form-item2-6-2">아니오</label>
+                                                </div>
+                                            </div>
+                                            <p class="ml-6">잠시 판매를 중단하거나 재고가 없을 경우에 체크해 놓으면 품절상품으로 표시됩니다.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-7">재고통보수량</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-25" id="form-item2-5">
+                                            <span>개</span>
+                                            <p class="ml-6">
+                                                상품의 재고가 통보수량보다 작을 때 쇼핑몰 현황 재고부족상품에 표시됩니다.<br>
+                                                옵션이 있는 상품은 개별 옵션의 통보수량이 적용됩니다.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2=7">상품 옵션설정</label></th>
+                                    <td>
+                                        <p class="py-1">
+                                            옵션항목은 콤마(,) 로 구분하여 여러개를 입력할 수 있습니다. 예시) 라지,미디움,스몰<br>
+                                            옵션명과 옵션항목에 따옴표(', ")는 입력할 수 없습니다.
+                                        </p>
+                                        <div class="form-group mt-3 w-full items-start">
+                                            <div class="flex-1">
+                                                <div class="form-group w-full">
+                                                    <label for="form-item2-7-1" class="w-15">옵션 1</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-7-1">
+                                                    <label for="form-item2-7-2" class="ml-6 w-21">옵션 1 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-7-2">
+                                                </div>
+                                                <div class="form-group w-full mt-1">
+                                                    <label for="form-item2-7-3" class="w-15">옵션 2</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-7-3">
+                                                    <label for="form-item2-7-4" class="ml-6 w-21">옵션 2 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-7-4">
+                                                </div>
+                                                <div class="form-group w-full mt-1">
+                                                    <label for="form-item2-7-5" class="w-15">옵션 3</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-7-5">
+                                                    <label for="form-item2-7-6" class="ml-6 w-21">옵션 3 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-7-6">
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-primary">옵션추가</button>
+                                        </div>
+                                        <div class="text-center mt-3.5">
+                                            <button class="btn-primary shadow" type="button">옵션 목록생성</button>
+                                        </div>
+                                        <table class="table-list mt-5">
+                                            <colgroup>
+                                                <col class="w-15">
+                                                <col>
+                                                <col class="w-1/5">
+                                                <col class="w-1/5">
+                                                <col class="w-1/5">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">옵션</th>
+                                                    <th scope="col">추가금액</th>
+                                                    <th scope="col">재고수량</th>
+                                                    <th scope="col">사용여부</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </td>
+                                                    <td>S</td>
+                                                    <td><input type="text" class="form-control w-full"></td>
+                                                    <td><input type="text" class="form-control w-full"></td>
+                                                    <td>
+                                                        <select name=""  class="form-control w-full">
+                                                            <option value="">사용</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-left mt-3">
+                                            <button class="btn-primary shadow" type="button">선택삭제</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-8">상품 추가옵션</label></th>
+                                    <td>
+                                        <p class="py-1">
+                                            옵션항목은 콤마(,) 로 구분하여 여러개를 입력할 수 있습니다. 예시) 라지,미디움,스몰<br>
+                                            옵션명과 옵션항목에 따옴표(', ")는 입력할 수 없습니다.
+                                        </p>
+                                        <div class="form-group mt-3 w-full items-start">
+                                            <div class="flex-1">
+                                                <div class="form-group w-full">
+                                                    <label for="form-item2-8-1" class="w-15">옵션 1</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-8-1">
+                                                    <label for="form-item2-8-2" class="ml-6 w-21">옵션 1 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-8-2">
+                                                </div>
+                                                <div class="form-group w-full mt-1">
+                                                    <label for="form-item2-8-3" class="w-15">옵션 2</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-8-3">
+                                                    <label for="form-item2-8-4" class="ml-6 w-21">옵션 2 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-8-4">
+                                                </div>
+                                                <div class="form-group w-full mt-1">
+                                                    <label for="form-item2-8-5" class="w-15">옵션 3</label>
+                                                    <input type="text" class="form-control w-50" id="form-item2-8-5">
+                                                    <label for="form-item2-8-6" class="ml-6 w-21">옵션 3 항목</label>
+                                                    <input type="text" class="form-control flex-1" id="form-item2-8-6">
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-primary">옵션추가</button>
+                                        </div>
+                                        <div class="text-center mt-3.5">
+                                            <button class="btn-primary shadow" type="button">옵션 목록생성</button>
+                                        </div>
+                                        <table class="table-list mt-5">
+                                            <colgroup>
+                                                <col class="w-15">
+                                                <col>
+                                                <col class="w-1/5">
+                                                <col class="w-1/5">
+                                                <col class="w-1/5">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">옵션</th>
+                                                    <th scope="col">추가금액</th>
+                                                    <th scope="col">재고수량</th>
+                                                    <th scope="col">사용여부</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </td>
+                                                    <td>S</td>
+                                                    <td><input type="text" class="form-control w-full"></td>
+                                                    <td><input type="text" class="form-control w-full"></td>
+                                                    <td>
+                                                        <select name="" class="form-control w-full">
+                                                            <option value="">사용</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-left mt-3">
+                                            <button class="btn-primary shadow" type="button">선택삭제</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">배송비</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-9">설치</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="" id="form-item2-9" class="form-control w-30">
+                                                <option value="">전체</option>
+                                            </select>
+                                            <span class="ml-6">1개</span>
+                                            <input type="text" class="form-control w-40">
+                                            <span>원(VAT포함)</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-10">배송비 상세조건</label></th>
+                                    <td>
+                                        <p class="py-1">상품의 박스 수량에 따라 배송비가 부과됩니다.</p>
+                                        <div class="form-group">
+                                            <span class="mr-2">1박스 기준</span>
+                                            <input type="text" class="form-control w-25" id="form-item2-10">
+                                            <span>개 마다</span>
+                                            <span class="ml-8 mr-2">배송비</span>
+                                            <input type="text" class="form-control w-40">
+                                            <span>원 부과,</span>
+                                            <span class="ml-8 mr-2">최소수량</span>
+                                            <input type="text" class="form-control w-25">
+                                            <span class="mr-8">개 이하</span>
+                                            <input type="text" class="form-control w-40">
+                                            <span>원 부과</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-11">배송비 유형</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="" id="form-item2-11" class="form-control w-50">
+                                                <option value="">전체</option>
+                                            </select>
+                                            <p class="ml-2">배송비 유형을 선택하면 자동으로 항목이 변환됩니다.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-12">배송비 결제</label></th>
+                                    <td>
+                                        <select name="" id="form-item2-12" class="form-control w-50">
+                                            <option value="">전체</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-13">기본 배송료</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item2-13">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-14">산간지역 추가 배송비</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item2-14">
+                                            <span>원</span>
+                                            <p class="ml-6">도서산간지역 배송 요청 시 배송비용 추가 금액</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset id="section3" class="mt-13">
+                        <legend class="text-title2">이미지</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item3">이미지 1</label></th>
+                                    <td><input type="file" id="form-item3" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-2">이미지 2</label></th>
+                                    <td><input type="file" id="form-item3-2" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-3">이미지 3</label></th>
+                                    <td><input type="file" id="form-item3-3" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-4">이미지 4</label></th>
+                                    <td><input type="file" id="form-item3-4" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-5">이미지 5</label></th>
+                                    <td><input type="file" id="form-item3-5" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-6">이미지 6</label></th>
+                                    <td><input type="file" id="form-item3-6" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-7">이미지 7</label></th>
+                                    <td><input type="file" id="form-item3-7" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-8">이미지 8</label></th>
+                                    <td><input type="file" id="form-item3-8" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-9">이미지 9</label></th>
+                                    <td><input type="file" id="form-item3-9" class="form-control w-full"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item3-10">이미지 10</label></th>
+                                    <td><input type="file" id="form-item3-10" class="form-control w-full"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset id="section4" class="mt-13">
+                        <legend class="text-title2">관련 상품</legend>
+                        <p class="clear-both pt-4">
+                            등록된 전체상품 목록에서 분류를 선택하면 해당 상품 리스트가 연이어 나타납니다.<br>
+                            상품 리스트에서 관련상품으로 추가하시면 선택된 관련상품 목록에 <strong>함께</strong> 추가됩니다.<br>
+                            예를 들어, A 상품에 B 상품을 관련상품으로 등록하면 B 상품에도 A 상품이 관련상품으로 자동 추가되며, 확인 버튼을 누르셔야 정상 반영됩니다.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-5 mt-5">
+                            <div class="border border-gray3">
+                                <p class="text-center py-3 font-medium text-lg">등록된 전체상품 목록</p>
+                                <div class="form-group w-full px-3 mb-3">
+                                    <select name="" class="form-control w-35">
+                                        <option value="">카테고리</option>
+                                    </select>
+                                    <select name="" class="form-control w-35">
+                                        <option value="">전체</option>
+                                    </select>
+                                    <input type="text" class="form-control flex-1 w-20">
+                                    <button class="btn-primary">검색</button>
+                                </div>
+                                <div class="h-73 overflow-auto divide-y divide-gray3 border-t border-gray3">
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">추가</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray3">
+                                <p class="text-center py-3 font-medium text-lg">선택된 전체상품 목록</p>
+                                <div class="h-73 overflow-auto divide-y divide-gray3 border-t border-gray3 mt-13">
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                    <div class="flex items-center py-3 px-4">
+                                        <img src="../../assets/images/temp/bg-dashboard.png" alt="" class="w-12 h-12 rounded-md">
+                                        <strong class="text-base flex-1 mx-2">라이팅 핸들-1</strong>
+                                        <button type="button" class="btn-primary">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="section5" class="mt-13">
+                        <legend class="text-title2">기타사항</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item5">추가상품설명</label></th>
+                                    <td>
+                                        <textarea name="" cols="30" rows="5" class="form-control w-full" id="form-item5"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item5-2">검색엔진 최적화(SEO)</label></th>
+                                    <td>
+                                        <div class="form-group w-full">
+                                            <label for="form-item-5-2" class="w-37">메타태그1(Author)</label>
+                                            <input type="text" class="form-control flex-1" id="form-item5-2">
+                                        </div>
+                                        <div class="form-group w-full mt-1">
+                                            <label for="form-item-5-2-2" class="w-37">메타태그2(Description)</label>
+                                            <input type="text" class="form-control flex-1" id="form-item5-2-2">
+                                        </div>
+                                        <div class="form-group w-full mt-1">
+                                            <label for="form-item-5-2-3" class="w-37">메타태그3(Keywords)</label>
+                                            <input type="text" class="form-control flex-1" id="form-item5-2-3">
+                                        </div>
+                                        <p class="py-1 text-danger">* 키워드는 콤마(,)로 구분해서 입력해주세요.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item5-3">메모</label></th>
+                                    <td>
+                                        <textarea name="" cols="30" rows="5" class="form-control w-full" id="form-item5-3"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <div class="btn-group mt-8 right">
+                        <button type="submit" class="btn-primary large shadow">저장</button>
+                        <a href="상품관리.html" class="btn-secondary large shadow">목록</a>
+                    </div>
+                </form>
+                
+                <script>
+                    let spyTarget = document.getElementById('container');
+                    spyTarget.setAttribute('data-bs-spy', 'scroll');
+                    spyTarget.setAttribute('data-bs-offset', '200');
+                    spyTarget.setAttribute('data-bs-target', '#scrollspy');
+                </script>
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

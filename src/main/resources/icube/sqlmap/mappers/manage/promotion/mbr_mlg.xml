@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.mlg">
+
+	<!-- Define MbrMlgVO Result Map  -->
+	<resultMap type="mbrMlgVO" id="mbrMlgVOMap" autoMapping="true" >
+		<!-- 대상 회원 --><collection property="mbrList" column="srchUniqueId=unique_id" select="mbr.selectMbr" />
+	</resultMap>
+
+	<resultMap type="mbrMlgVO" id="mbrMlgListVOMap" autoMapping="true"  />
+
+
+	<!-- Define MbrMlgVO Column List -->
+	<sql id="listColumn">
+		mlg.mlg_no
+		, mlg.mlg_mng_no
+		, mlg.unique_id
+		, mlg.ordr_cd
+		, mlg.ordr_dtl_cd
+		, mlg.mlg_se
+		, mlg.mlg_cn
+		, mlg.mlg
+		, mlg.use_mlg
+		, mlg.mlg_acmtl
+		, mlg.give_mthd
+		, mlg.reg_unique_id
+		, mlg.reg_dt
+		<if test="srchRegDt != null and srchRegDt != '' ">
+		, DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) AS fmt_dt
+		</if>
+		, mlg.reg_id
+		, mlg.rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) &gt;= #{srchBgngDt} AND DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) &lt;= #{srchEndDt}
+			</when>
+		</choose>
+
+		<if test="srchMlgMngNo != null and srchMlgMngNo != '' ">
+			AND mlg.mlg_mng_no = #{srchMlgMngNo}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND mlg.unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchMlgSe != null and srchMlgSe != '' ">
+			AND mlg.mlg_se = #{srchMlgSe}
+		</if>
+		<if test="srchMlgCn != null and srchMlgCn != '' ">
+			AND mlg.mlg_cn = #{mlgCn}
+		</if>
+		<if test="srchMngrMemo != null and srchMngrMemo != '' ">
+			AND mng.mngr_memo like CONCAT('%',#{srchMngrMemo},'%')
+		</if>
+		<if test="srchOrdrCd != null and srchOrdrCd != '' ">
+			AND mlg.ordr_cd = #{srchOrdrCd}
+		</if>
+		<if test="srchOrdrDtlCd != null and srchOrdrDtlCd != '' ">
+			AND mlg.ordr_dtl_cd = #{srchOrdrDtlCd}
+		</if>
+
+	</sql>
+
+	<select id="selectMbrMlgListVO" parameterType="java.util.HashMap" resultMap="mbrMlgVOMap">
+		/* Query ID : mbrMlg.selectMbrMlgListVO */
+		SELECT
+			<include refid="listColumn"/>
+			, mng.mngr_memo
+		FROM MBR_MLG mlg
+		LEFT JOIN MLG_MNG mng ON mlg.mlg_mng_no = mng.mlg_mng_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY mlg.mlg_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrMlgCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbrMlg.selectMbrMlgCount */
+		SELECT	COUNT(*)
+		FROM	MBR_MLG mlg
+		LEFT JOIN MLG_MNG mng ON mlg.mlg_mng_no = mng.mlg_mng_no
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- 누계 조회
+			LEFT JOIN MLG_MNG mng ON mlg.mlg_mng_no = mng.mlg_mng_no
+	-->
+	<select id="selectMbrMlg" parameterType="java.util.HashMap" resultType="mbrMlgVO">
+		/* Query ID : mbrMlg.selectMbrMlg */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	MBR_MLG mlg
+		WHERE  1=1
+		 	<include refid="searchConditions" />
+		 ORDER BY mlg_no DESC
+		 LIMIT 1
+	</select>
+
+	<!-- 마일리지 총합 -->
+	<select id="selectSumMlgByMlgSe" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbrMlg.selectSumMlgByMlgSe */
+		SELECT SUM(mlg)  AS total
+		FROM MBR_MLG mlg
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectMbrMlgList" parameterType="java.util.HashMap" resultMap="mbrMlgVOMap">
+		/* Query ID : mbrMlg.selectMbrMlgList */
+		SELECT
+			<include refid="listColumn" />
+			, mng.mngr_memo
+		FROM MBR_MLG mlg
+		LEFT JOIN MLG_MNG mng ON mlg.mlg_mng_no = mng.mlg_mng_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY mlg_no DESC
+	</select>
+
+	<!-- 회원 소멸 마일리지 -->
+	<select id="selectMbrDedMlgList" resultMap="mbrMlgListVOMap">
+		SELECT m.mbr_nm, m.eml, TMP.* FROM (
+			SELECT unique_id
+			, SUM(mlg) AS total
+			, (SELECT mlg - use_mlg FROM MBR_MLG ms
+			  WHERE DATE_FORMAT(ms.reg_dt, '%Y-%m-%d') = DATE_ADD(ms.reg_dt , INTERVAL 1 YEAR)
+			  AND ms.mlg > ms.use_mlg
+			  AND ms.UNIQUE_ID = mm.UNIQUE_ID
+			  ORDER BY ms.mlg_no ASC
+			  LIMIT 1) AS ded_mlg
+		FROM MBR_MLG mm
+		GROUP BY unique_id
+		HAVING SUM(mlg) &gt; 0 AND ded_mlg &gt; 0
+		) AS TMP LEFT JOIN MBR m ON m.unique_id = TMP.unique_id
+	</select>
+
+	<insert id="insertMbrMlg" parameterType="mbrMlgVO">
+		/* Query ID : mbrMlg.insertMbrMlg */
+		INSERT INTO MBR_MLG (
+			 unique_id
+			 , mlg_mng_no
+			 , ordr_cd
+			 , ordr_dtl_cd
+			 , mlg_se
+			 , mlg_cn
+			 , mlg
+			 , use_mlg
+			 , mlg_acmtl
+			 , give_mthd
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+		) VALUES (
+			#{uniqueId, jdbcType=VARCHAR}
+			, #{mlgMngNo}
+			, #{ordrCd, jdbcType=VARCHAR}
+			, #{ordrDtlCd, jdbcType=VARCHAR}
+			, #{mlgSe, jdbcType=VARCHAR}
+			, #{mlgCn, jdbcType=VARCHAR}
+			, #{mlg}
+			, 0
+			<if test='mlgSe != null and mlgSe == "A" '>
+			, IFNULL((SELECT mlg_acmtl FROM MBR_MLG mm WHERE mm.unique_id = #{uniqueId} ORDER BY mlg_no DESC LIMIT 1), 0) + #{mlg}
+			</if>
+			<if test='mlgSe != null and mlgSe == "M" '>
+			, IFNULL((SELECT mlg_acmtl FROM MBR_MLG mm WHERE mm.unique_id = #{uniqueId} ORDER BY mlg_no DESC LIMIT 1), 0) - #{mlg}
+			</if>
+			, #{giveMthd, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+</mapper>

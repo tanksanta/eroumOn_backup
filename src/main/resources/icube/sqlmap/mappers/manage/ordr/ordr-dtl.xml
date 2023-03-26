@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordr.dtl">
+
+	<resultMap type="ordrDtlVO" id="ordrDtlVOMap" autoMapping="true">
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
+	</resultMap>
+
+	<resultMap type="ordrDtlVO" id="ordrDtlVOListMap" autoMapping="true" />
+
+
+	<sql id="listColumn">
+		 od.ordr_dtl_no
+		 , od.ordr_no
+		 , od.ordr_dtl_cd
+		 , od.ordr_cd
+		 , od.gds_no
+		 , od.gds_cd
+		 , od.bnef_cd
+		 , od.gds_nm
+		 , od.gds_pc
+		 , od.ordr_pc
+		 , od.ordr_optn_ty
+		 , od.ordr_optn
+		 , od.ordr_optn_pc
+		 , od.ordr_qy
+		 , od.accml_mlg
+		 , od.coupon_no
+		 , od.coupon_cd
+		 , od.coupon_amt
+		 , od.refund_aprvno
+		 , NULLIF(od.recipter_unique_id, '') as recipter_unique_id
+		 , NULLIF(od.bplc_unique_id, '') as bplc_unique_id
+		 , od.stts_ty
+
+		 , od.sndng_dt
+		 , od.dlvy_ty
+		 , od.dlvy_hope_ymd
+		 , od.dlvy_stlm_ty
+		 , od.dlvy_bass_amt
+		 , od.dlvy_adit_amt
+		 , od.dlvy_stts
+		 , od.dlvy_co_no
+		 , od.dlvy_co_nm
+		 , od.dlvy_dt
+		 , od.dlvy_invc_no
+
+		 , od.rfnd_yn
+		 , od.rfnd_bank
+		 , od.rfnd_actno
+		 , od.rfnd_amt
+		 , od.rfnd_dt
+		 , od.rfnd_dpstr
+
+		 , od.reg_unique_id
+		 , od.reg_dt
+		 , od.reg_id
+		 , od.rgtr
+		 , od.mdfcn_unique_id
+		 , od.mdfcn_dt
+		 , od.mdfcn_id
+		 , od.mdfr
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<if test="srchSttsTy !=null and srchSttsTy != ''">
+			AND stts_ty = #{srchSttsTy}
+		</if>
+		<if test="srchExSttsTy != null and srchExSttsTy != '' ">
+			AND stts_ty IN ('OR01', 'OR04', 'EX02', 'RE02')
+		</if>
+		<if test="ordrNo !=null and ordrNo != ''">
+			AND ordr_no = #{ordrNo}
+		</if>
+		<if test="ordrCd !=null and ordrCd != ''">
+			AND od.ordr_cd = #{ordrCd}
+		</if>
+		<if test="ordrDtlCd !=null and ordrDtlCd != ''">
+			AND ordr_dtl_cd = #{ordrDtlCd}
+		</if>
+		<if test="srchOrdrOptnTy !=null and srchOrdrOptnTy != ''">
+			AND ordr_optn_ty = #{srchOrdrOptnTy}
+		</if>
+		<if test="srchRegUniqueId != null and srchRegUniqueId != '' ">
+			AND od.reg_unique_id = #{srchRegUniqueId}
+		</if>
+		<if test="srchGdsCd != null and srchGdsCd != '' ">
+			AND od.gds_cd = #{srchGdsCd}
+		</if>
+		<if test="srchIntervalDay != null and srchIntervalDay != '' ">
+			AND DATE(NOW()) &gt; DATE_FORMAT(DATE_ADD(oc.reg_dt, INTERVAL #{srchIntervalDay} DAY), '%Y-%m-%d')
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE(NOW()) &gt; DATE_FORMAT(o.dpst_term_dt,'%Y-%m-%d')
+		</if>
+		<if test="srchStlmYn != null and srchStlmTy != '' ">
+			AND o.stlm_yn = #{srchStlmYn}
+		</if>
+		<if test="srchStlmTy !=null and srchStlmTy != ''">
+			AND o.stlm_ty = #{srchStlmTy}
+		</if>
+
+	</sql>
+
+
+	<select id="selectOrdrDtlList" parameterType="java.util.HashMap" resultMap="ordrDtlVOMap">
+		/* Query ID : ordr.dtl.selectOrdrDtlList */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT gds_ty FROM GDS g WHERE g.gds_no = od.gds_no) as gds_ty
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR01', 'OR02', 'OR04', 'OR05') ) AS cancel_btn
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR08') ) AS return_btn
+			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('OR02', 'OR04', 'CA02') ) AS buy_btn
+			, (SELECT ordr_ty FROM ORDR o WHERE o.ordr_cd = od.ordr_cd) AS ordr_ty
+		FROM ORDR_DTL od
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY ordr_dtl_cd ASC, ordr_dtl_no ASC
+	</select>
+
+
+	<!-- Define ordr Detail Query -->
+	<select id="selectOrdrDtl" parameterType="java.util.HashMap" resultMap="ordrDtlVOMap">
+		/* Query ID : ordr.dtl.selectOrdrDtl */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT gds_ty FROM GDS g WHERE g.gds_no = od.gds_no) as gds_ty
+		FROM ORDR_DTL od
+		WHERE od.ordr_dtl_no = #{ordrDtlNo}
+	</select>
+
+	<!-- 배송 상태 조회 -->
+	<select id="selectOrdrSttsList" parameterType="java.util.HashMap" resultMap="ordrDtlVOListMap">
+		/* Query ID : ordr.selectOrdrSttsList */
+		SELECT
+			<include refid="listColumn"/>
+			<if test="srchContainer != null and srchContainer !='' ">
+		 	, oc.chg_no
+			, oc.ordr_no
+			, oc.ordr_dtl_no
+			, oc.chg_stts
+			, oc.resn_ty
+			, oc.resn
+			, oc.reg_unique_id
+			, oc.reg_dt
+			, oc.reg_id
+			, oc.rgtr
+			</if>
+		FROM ORDR_DTL od
+		LEFT JOIN ORDR o ON o.ordr_no = od.ordr_no
+		<if test="srchContainer != null and srchContainer !='' ">
+		LEFT JOIN ORDR_CHG_HIST oc ON oc.ordr_no = od.ordr_no AND oc.ordr_dtl_no = od.ordr_dtl_no
+		</if>
+		WHERE 1=1
+			<include refid="searchConditions" />
+		<if test="srchContainer != null and srchContainer != '' ">
+			GROUP BY o.ordr_no
+		</if>
+	</select>
+
+	<!-- 특정 단계 제외 카운트 -->
+	<select id="selectExSttsTyCnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM ORDR_DTL od
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 이전 선택 사업소 -->
+	<select id="selectOrdrDtlHistory" parameterType="java.util.HashMap" resultMap="ordrDtlVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR_DTL od
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY od.ordr_dtl_no DESC
+		LIMIT 1
+	</select>
+
+	<insert id="insertOrdrDtl" parameterType="ordrDtlVO">
+		/* Query ID : ordr.insertOrdr */
+		INSERT INTO ORDR_DTL (
+			 ordr_no
+			 , ordr_dtl_cd
+			 , ordr_cd
+			 , gds_no
+			 , gds_cd
+			 , bnef_cd
+			 , gds_nm
+			 , gds_pc
+			 , ordr_pc
+			 , ordr_optn_ty
+			 , ordr_optn
+			 , ordr_optn_pc
+			 , ordr_qy
+			 , accml_mlg
+			 , coupon_no
+			 , coupon_cd
+			 , coupon_amt
+			 , refund_aprvno
+			 , recipter_unique_id
+			 , bplc_unique_id
+			 , stts_ty
+
+			 , sndng_dt
+			 , dlvy_ty
+			 , dlvy_hope_ymd
+			 , dlvy_stlm_ty
+			 , dlvy_bass_amt
+			 , dlvy_adit_amt
+			 , dlvy_stts
+			 , dlvy_co_no
+			 , dlvy_co_nm
+			 , dlvy_dt
+			 , dlvy_invc_no
+
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+		) VALUES (
+			#{ordrNo}
+			 , #{ordrDtlCd, jdbcType=VARCHAR}
+			 , #{ordrCd, jdbcType=VARCHAR}
+			 , #{gdsNo}
+			 , #{gdsCd, jdbcType=VARCHAR}
+			 , #{bnefCd, jdbcType=VARCHAR}
+			 , #{gdsNm, jdbcType=VARCHAR}
+			 , #{gdsPc}
+			 , #{ordrPc}
+			 , #{ordrOptnTy, jdbcType=VARCHAR}
+			 , #{ordrOptn, jdbcType=VARCHAR}
+			 , #{ordrOptnPc}
+			 , #{ordrQy}
+			 , #{accmlMlg}
+			 , #{couponNo}
+			 , #{couponCd, jdbcType=VARCHAR}
+			 , #{couponAmt}
+			 , #{refundAprvno, jdbcType=VARCHAR}
+
+			 , #{recipterUniqueId, jdbcType=VARCHAR}
+			 , #{bplcUniqueId, jdbcType=VARCHAR}
+			 , #{sttsTy, jdbcType=VARCHAR}
+
+			 , #{sndngDt}
+			 , #{dlvyTy, jdbcType=VARCHAR}
+			 , #{dlvyHopeYmd, jdbcType=VARCHAR}
+			 , #{dlvyStlmTy, jdbcType=VARCHAR}
+			 , #{dlvyBassAmt}
+			 , #{dlvyAditAmt}
+			 , #{dlvyStts, jdbcType=VARCHAR}
+			 , #{dlvyCoNo}
+			 , #{dlvyCoNm, jdbcType=VARCHAR}
+			 , #{dlvyDt}
+			 , #{dlvyInvcNo, jdbcType=VARCHAR}
+
+			 , #{regUniqueId, jdbcType=VARCHAR}
+			 , SYSDATE()
+			 , #{regId, jdbcType=VARCHAR}
+			 , #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey resultType="int" keyProperty="ordrDtlNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- TO-DO -->
+	<update id="updateOrdrDtl" parameterType="ordrDtlVO">
+		UPDATE	ORDR_DTL SET
+			stts_ty = #{sttsTy, jdbcType=VARCHAR}
+		 WHERE	ordr_dtl_no = #{ordrDtlNo}
+	</update>
+
+	<!-- TO-DO -->
+	<delete id="deleteOrdrDtl" parameterType="java.util.HashMap">
+		DELETE FROM ORDR_DTL
+		 WHERE ordr_dtl_no = #{ordrDtlNo}
+	</delete>
+
+	<update id="deleteOrdrDtlByNos" parameterType="java.util.HashMap">
+		DELETE FROM ORDR_DTL
+		 WHERE ordr_dtl_no IN
+			<foreach collection="ordrDtlNos" item="ordrDtlNo" open="(" separator="," close=")">
+				#{ordrDtlNo}
+			</foreach>
+	</update>
+
+
+	<!-- 옵션내용 변경 : mergeOptnChg -->
+	<insert id="mergeOptnChg" parameterType="ordrDtlVO">
+		/* mergeOptnChg */
+		INSERT INTO ORDR_DTL (
+			ordr_dtl_no, ordr_dtl_cd, ordr_no, ordr_cd
+			, gds_no, gds_cd, bnef_Cd, gds_nm, gds_pc
+			, ordr_optn_ty, ordr_optn, ordr_optn_pc, ordr_qy, ordr_pc
+			, recipter_unique_id, bplc_unique_id
+			, stts_ty
+		) VALUES (
+			#{ordrDtlNo}, #{ordrDtlCd, jdbcType=VARCHAR}, #{ordrNo}, #{ordrCd, jdbcType=VARCHAR}
+			, #{gdsNo}, #{gdsCd, jdbcType=VARCHAR}, #{bnefCd, jdbcType=VARCHAR}, #{gdsNm, jdbcType=VARCHAR}, #{gdsPc}
+			, #{ordrOptnTy, jdbcType=VARCHAR}, #{ordrOptn, jdbcType=VARCHAR}, #{ordrOptnPc}, #{ordrQy}, #{ordrPc}
+			, #{recipterUniqueId, jdbcType=VARCHAR}, #{bplcUniqueId, jdbcType=VARCHAR}
+			, #{sttsTy, jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			ordr_optn_ty = #{ordrOptnTy, jdbcType=VARCHAR}
+			, ordr_optn = #{ordrOptn, jdbcType=VARCHAR}
+			, ordr_optn_pc = #{ordrOptnPc}
+			, ordr_qy = #{ordrQy}
+			, ordr_pc = #{ordrPc}
+	</insert>
+
+	<!-- 배송사+송장번호 변경 -> 배송중(OR07)으로 변경 -->
+	<update id="updateDlvyCoInfo" parameterType="ordrDtlVO">
+		UPDATE ORDR_DTL SET
+			dlvy_co_no = #{dlvyCoNo}
+			, dlvy_co_nm = #{dlvyCoNm}
+			, dlvy_invc_no = #{dlvyInvcNo}
+			, stts_ty = 'OR07'
+		WHERE ordr_dtl_cd = #{ordrDtlCd}
+	</update>
+		<!-- WHERE ordr_dtl_no = #{ordrDtlNo} -->
+
+	<!-- 주문상태변경 <-> 배송준비중 -->
+	<update id="updateOrdrConfrm" parameterType="ordrDtlVO">
+		UPDATE ORDR_DTL SET
+			stts_ty = #{sttsTy}
+			<choose>
+				<when test='sndngDt != null or sndngDt != "" '>
+			, sndng_dt = #{sndngDt}
+				</when>
+				<otherwise>
+			, sndng_dt = null
+				</otherwise>
+			</choose>
+		WHERE ordr_no = #{ordrNo}
+		  AND ordr_dtl_cd = #{ordrDtlCd}
+		  AND stts_ty IN ('OR05', 'OR06')
+	</update>
+	<!-- AND ordr_dtl_no = #{ordrDtlNo} -->
+
+	<!-- 주문상태변경 -->
+	<update id="updateOrdrStts" parameterType="ordrDtlVO">
+		UPDATE ORDR_DTL SET
+			stts_ty = #{sttsTy}
+		WHERE ordr_no = #{ordrNo}
+		<if test='ordrDtlNos != null and ordrDtlNos != "" '>
+			AND ordr_dtl_no IN
+			<foreach collection="ordrDtlNos" item="ordrDtlNo" open="(" separator="," close=")">
+				 #{ordrDtlNo}
+			</foreach>
+		</if>
+	</update>
+
+	<!-- API 용 승인 상태 변경 -->
+	<update id="updateBplcSttus" parameterType="java.util.HashMap">
+		UPDATE ORDR_DTL SET
+			stts_ty = #{sttsTy}
+		WHERE
+			ordr_dtl_cd  = #{ordrDtlCd}
+	</update>
+
+
+
+	<!-- 상세주문건 결제대기 > 완료처리 -->
+	<update id="updateOrdrSttsByOrdrCd" parameterType="java.util.HashMap">
+		UPDATE ORDR_DTL SET
+			stts_ty = 'OR05'
+		WHERE ordr_cd = #{ordrCd}
+		  AND stts_ty IN ('OR04')
+	</update>
+
+
+	<!-- 환불정보 입력 rfnd_dt 환불신청일 -> 환불완료일 입력-->
+	<update id="updateOrdrDtlRfndInfo" parameterType="java.util.HashMap">
+		/* Query ID : ordr.updateOrdrUseYn */
+		UPDATE ORDR_DTL
+		   SET rfnd_yn = #{rfndYn, jdbcType=VARCHAR}
+			 , rfnd_bank = #{rfndBank, jdbcType=VARCHAR}
+			 , rfnd_actno = #{rfndActno, jdbcType=VARCHAR}
+			 , rfnd_amt = #{rfndAmt}
+			 , rfnd_dt = SYSDATE()
+			 , rfnd_dpstr = #{rfndDpstr, jdbcType=VARCHAR}
+
+			 , mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			 , mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			 , mdfr = #{mdfr, jdbcType=VARCHAR}
+			 , mdfcn_dt = SYSDATE()
+		 WHERE ordr_no = #{ordrNo}
+		   AND ordr_dtl_no = #{ordrDtlNo}
+	</update>
+
+	<!-- 마지막 상품 조회 -->
+	<select id="selectLastReturn" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+			IF ((SELECT COUNT(*)
+			FROM ORDR_DTL od
+			WHERE 1=1
+			 AND ordr_optn_ty = #{ordrOptnTy}
+			 AND ordr_cd = #{ordrCd}
+			 AND stts_ty = #{sttsTy})
+			 =
+			(SELECT COUNT(*)
+			FROM ORDR_DTL od
+			WHERE 1=1
+			 AND ordr_optn_ty = #{ordrOptnTy}
+			 AND ordr_cd = #{ordrCd}), TRUE, FALSE)
+	</select>
+
+</mapper>

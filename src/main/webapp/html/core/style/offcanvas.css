@@ -1,0 +1,33 @@
+@layer components {
+    .offcanvas {
+        @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;
+        box-shadow: 0px 0px 25px -5px rgba(0,0,0,0.275);
+        & .offcanvas-header {
+            @apply sticky top-0 bg-transparent flex items-center justify-between;
+        }
+        & .offcanvas-body {
+            @apply flex-grow;
+        }
+        &.offcanvas-start {
+            @apply right-auto;
+        }
+        &.offcanvas-top {
+            @apply bottom-auto;
+        }
+        &.offcanvas-end {
+            @apply left-auto;
+        }
+        &.offcanvas-bottom {
+            @apply top-auto;
+        }
+        &.offcanvas-fullpage {
+            @apply w-full h-full duration-500;
+        }
+    }
+
+    .offcanvas-backdrop {
+        &.show {
+            @apply opacity-20;
+        }
+    }
+}

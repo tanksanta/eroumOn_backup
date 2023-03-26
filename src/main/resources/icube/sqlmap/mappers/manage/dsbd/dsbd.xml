@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dsbd">
+
+
+	<!-- 대쉬보드 카운트 맵 -->
+	<select id="selectTotalCount" resultType="egovMap">
+	SELECT
+		<!-- 날짜 -->
+		(SELECT DATE_FORMAT(DATE(NOW()),'%Y-%m-%d %W')) AS date
+		, (SELECT DATE_FORMAT(NOW(),'%m월%d일 %H시%i분') AS now) AS now
+
+		<!-- 주문 현황 -->
+		, IFNULL((SELECT SUM(ordr_pc) FROM ORDR_DTL WHERE stts_ty = 'OR04' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())  ),0) AS sum_or04
+		, (SELECT COUNT(*) FROM ORDR_DTL WHERE stts_ty='OR04' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())) AS cnt_or04
+		, IFNULL((SELECT SUM(ordr_pc) FROM ORDR_DTL WHERE stts_ty = 'OR05' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())),0) AS sum_or05
+		, (SELECT COUNT(*) FROM ORDR_DTL WHERE stts_ty='OR05' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())) AS cnt_or05
+		, IFNULL((SELECT SUM(ordr_pc) FROM ORDR_DTL WHERE stts_ty = 'RF02' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())),0) AS sum_rf02
+		, (SELECT COUNT(*) FROM ORDR_DTL WHERE stts_ty='RF02' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW())) AS cnt_rf02
+
+		<!-- 취소, 교환, 반품, 환불  -->
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'CA01' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(od.mdfcn_dt,'%Y-%m-%d') = DATE(NOW())) AS cancle_ca01
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'EX01' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(od.mdfcn_dt,'%Y-%m-%d') = DATE(NOW())) AS cancle_ex01
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'RE01' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(od.mdfcn_dt,'%Y-%m-%d') = DATE(NOW())) AS cancle_re01
+		, (SELECT COUNT(*) AS cnt FROM ORDR_DTL od WHERE od.stts_ty = 'RF01' AND ordr_optn_ty = 'BASE' AND DATE_FORMAT(od.mdfcn_dt,'%Y-%m-%d') = DATE(NOW())) AS cancle_rf01
+
+		<!-- 상품 판매 현황 -->
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'R' AND soldout_yn != 'Y' AND gds_tag = '' AND use_yn = 'Y') AS r_sold
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'R' AND gds_tag REGEXP 'C' AND use_yn = 'Y') AS r_pause
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'R' AND soldout_yn = 'Y' AND use_yn = 'Y') AS r_soldout
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'R' AND use_yn = 'Y') AS r_total
+
+	   	, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'L' AND soldout_yn != 'Y' AND (gds_tag = '' OR gds_tag = 'D') AND use_yn = 'Y') AS l_sold
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'L' AND gds_tag REGEXP 'C' AND use_yn = 'Y') AS l_pause
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'L' AND soldout_yn = 'Y' AND use_yn = 'Y') AS l_soldout
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'L' AND use_yn = 'Y' ) AS l_total
+
+	   	, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'N' AND soldout_yn != 'Y' AND (gds_tag = '' OR gds_tag = 'D') AND use_yn = 'Y') AS n_sold
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'N' AND gds_tag REGEXP 'C' AND use_yn = 'Y') AS n_pause
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'N' AND soldout_yn = 'Y' AND use_yn = 'Y') AS n_soldout
+		, (SELECT COUNT(*) FROM GDS WHERE gds_ty = 'N' AND use_yn = 'Y' ) AS n_total
+
+		<!-- QnA -->
+		, (SELECT COUNT(*) FROM GDS_QA WHERE ans_yn = 'N' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW()) ) AS qa_no_ans
+		, (SELECT COUNT(*) FROM GDS_QA WHERE ans_yn = 'Y' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW()) ) AS qa_ans
+		, (SELECT COUNT(*) FROM GDS_QA WHERE ans_yn = 'N') AS qa_no_total
+
+		<!-- 1:1문의 -->
+		, (SELECT COUNT(*) FROM MBR_INQRY WHERE ans_yn = 'N' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW()) AND use_yn != 'N') AS inqry_no_ans
+		, (SELECT COUNT(*) FROM MBR_INQRY WHERE ans_yn = 'Y' AND DATE_FORMAT(reg_dt,'%Y-%m-%d') = DATE(NOW()) AND use_yn != 'N') AS inqry_ans
+		, (SELECT COUNT(*) FROM MBR_INQRY WHERE ans_yn = 'N' AND use_yn != 'N' ) AS inqry_no_total
+		<!-- 마켓 회원 -->
+
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE(NOW()) AND recipter_yn = 'N' ) AS new_nor_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE(NOW()) AND recipter_yn = 'Y') AS new_recipter_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'EXIT' AND DATE_FORMAT(whdwl_dt,'%Y-%m-%d') = DATE(NOW()) ) AS new_exit_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'HUMAN' AND DATE_FORMAT(mdfcn_dt,'%Y-%m-%d') = DATE(NOW()) ) AS new_human_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE (mber_sttus = 'NORMAL'  OR mber_sttus = 'BLACK') AND recipter_yn = 'N' ) AS nor_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND recipter_yn = 'Y') AS recipter_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'EXIT' ) AS exit_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'HUMAN' ) AS human_mbr
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus != 'EXIT') AS mber_total
+		, (SELECT COUNT(*) FROM MBR) AS m_total
+
+		<!-- 사업소  -->
+		, (SELECT COUNT(*) FROM BPLC WHERE aprv_ty = 'W') AS bplc_wait
+		, (SELECT COUNT(*) FROM BPLC WHERE aprv_ty = 'R') AS bplc_non
+		, (SELECT COUNT(*) FROM BPLC WHERE use_yn = 'Y') AS bplc_use
+		, (SELECT COUNT(*) FROM BPLC WHERE use_yn = 'N') AS bplc_no
+		, (SELECT COUNT(*) FROM BPLC WHERE aprv_ty != 'R' ) AS bplc_totals
+		, (SELECT COUNT(*) FROM BPLC) AS b_totals
+
+	</select>
+
+	<!-- 차트 데이터 -->
+	<select id="selectChartData" resultType="egovMap">
+		SELECT
+			(SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -9 DAY) AND recipter_yn = 'N') AS m9
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -8 DAY) AND recipter_yn = 'N') AS m8
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -7 DAY) AND recipter_yn = 'N') AS m7
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -6 DAY) AND recipter_yn = 'N') AS m6
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -5 DAY) AND recipter_yn = 'N') AS m5
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -4 DAY) AND recipter_yn = 'N') AS m4
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -3 DAY) AND recipter_yn = 'N') AS m3
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -2 DAY) AND recipter_yn = 'N') AS m2
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -1 DAY) AND recipter_yn = 'N') AS m1
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE(NOW()) AND recipter_yn = 'N') AS m
+
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -9 DAY)) AS bm9
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -8 DAY)) AS bm8
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -7 DAY)) AS bm7
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -6 DAY)) AS bm6
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -5 DAY)) AS bm5
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -4 DAY)) AS bm4
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -3 DAY)) AS bm3
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -2 DAY)) AS bm2
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE_ADD(DATE(NOW()), INTERVAL -1 DAY)) AS bm1
+			, (SELECT COUNT(*) FROM BPLC WHERE DATE_FORMAT(join_dt,'%Y-%m-%d') = DATE(NOW())) AS bm
+	</select>
+
+
+</mapper>

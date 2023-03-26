@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="81" height="81" viewBox="0 0 81 81">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.545"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <path id="Oval_8" data-name="Oval 8" d="M40.5,81A40.511,40.511,0,0,1,24.736,3.183,40.511,40.511,0,0,1,56.264,77.817,40.247,40.247,0,0,1,40.5,81Zm.06-30.679a3.76,3.76,0,1,0,3.76,3.759A3.764,3.764,0,0,0,40.56,50.321ZM37.04,23.36l.64,23.32h5.759l.641-23.32Z" fill="url(#linear-gradient)"/>
+</svg>

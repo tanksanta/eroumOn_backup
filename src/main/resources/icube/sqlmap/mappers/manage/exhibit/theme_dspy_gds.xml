@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="theme.dspy.gds">
+
+	<resultMap type="themeDspyGdsVO" id="themeDspyGdsVOMap" autoMapping="true"  >
+		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+	</resultMap>
+
+	<sql id="listColumn">
+		theme_gds_no
+		theme_dspy_no
+		, gds_no
+		, sort_no
+	</sql>
+
+	<select id="selectGdsList" parameterType="java.util.HashMap" resultMap="themeDspyGdsVOMap">
+		/* Query ID : themeDspy.selectGdsList */
+		SELECT
+			theme_gds_no
+			, theme_dspy_no
+			, gds.gds_no
+			, gds.gds_cd
+			, gds.gds_nm
+			, gc2.ctgry_nm as up_ctgry_nm
+			, gc1.ctgry_nm
+			, gds.use_yn
+			, gds.reg_dt
+			, gds.pc
+			, gds.soldout_yn
+			, 'THUMB' as thumb_file_ty
+			, the.sort_no
+		FROM THEME_DSPY_GDS the
+		LEFT JOIN GDS gds ON gds.GDS_NO = the.GDS_NO
+		LEFT JOIN GDS_CTGRY gc1 ON gds.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE theme_dspy_no = #{themeDspyNo}
+		ORDER BY the.sort_no
+	</select>
+
+	<select id="selectCountGds" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : themeDspy.selectCountGds */
+		SELECT COUNT(*)
+		FROM THEME_DSPY_GDS
+		WHERE theme_dspy_no = #{themeDspyNo}
+	</select>
+
+	<insert id="insertGds" parameterType="themeDspyGdsVO">
+		/* Query ID : themeDspyGds.deleteGds */
+		INSERT INTO THEME_DSPY_GDS (
+		theme_dspy_no
+		, gds_no
+		, sort_no
+		)VALUES(
+		#{themeDspyNo}
+		, #{gdsNo}
+		, #{sortNo}
+		)
+
+	</insert>
+
+	<delete id="deleteGds" parameterType="java.util.HashMap">
+			/* Query ID : themeDspyGds.deleteGds */
+			DELETE FROM THEME_DSPY_GDS
+			WHERE theme_dspy_no = #{themeDspyNo}
+	</delete>
+
+
+</mapper>

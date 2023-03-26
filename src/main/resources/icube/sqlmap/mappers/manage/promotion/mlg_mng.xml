@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mlg.mng">
+
+	<resultMap type="mlgMngVO" id="mlgMngVOMap" autoMapping="true">
+		<!-- 대상인원 --><collection property="targetCnt" column="srchMlgMngNo=mlg_mng_no" select="mbr.mlg.selectMbrMlgCount" />
+	</resultMap>
+
+	<sql id="listColumn">
+		mlg_mng_no
+		, mlg_se
+		, mlg_cn
+		, mlg
+		, mngr_memo
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchMlgMngNo != null and srchMlgMngNo != '' ">
+			AND mlg_mng_no = #{srchMlgMngNo}
+		</if>
+		<if test="srchMlgSe != null and srchMlgSe != '' ">
+			AND mlg_se = #{srchMlgSe}
+		</if>
+		<choose>
+			<when
+				test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND reg_dt &gt;= #{srchBgngDt} AND reg_dt &gt;= #{srchEndDt}
+			</when>
+			<when test='srchBgngDt != null and srchBgngDt != "" '>
+				AND reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchMngMemo != null and srchMngMemo != '' ">
+			AND mngr_memo like CONCAT('%',#{srchMngMemo},'%')
+		</if>
+		<if test="srchMngrId != null and srchMngrId !='' ">
+			AND reg_id like CONCAT('%',#{srchMngrId},'%')
+		</if>
+		<if test="srchMlgCn != null and srchMlgCn != '' ">
+			AND mlg_cn like CONCAT('%',#{srchMlgCn},'%')
+		</if>
+	</sql>
+
+
+	<select id="selectMlgMngListVO" parameterType="java.util.HashMap" resultMap="mlgMngVOMap">
+		/* Query ID : mlgMng.selectMlgMngListVO */
+		SELECT
+			<include refid="listColumn" />
+		FROM MLG_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY mlg_mng_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMlgMngCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mlgMng.selectMlgMngCount */
+		SELECT COUNT(*)
+		FROM MLG_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 마일리지 조회 -->
+	<select id="selectMlgMng" parameterType="java.util.HashMap" resultMap="mlgMngVOMap">
+		/* Query ID : mlgMng.selectMlgMng */
+		SELECT
+			<include refid="listColumn" />
+		FROM MLG_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 마일리지 등록 -->
+	<insert id="insertMlgMng" parameterType="mlgMngVO">
+		/* Query ID : mlgMng.insertMlgMng */
+		INSERT INTO MLG_MNG (
+			mlg_se
+			, mlg_cn
+			, mlg
+			, mngr_memo
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{mlgSe, jdbcType=VARCHAR}
+			, #{mlgCn, jdbcType=VARCHAR}
+			, #{mlg}
+			, #{mngrMemo, jdbcType=VARCHAR}
+			, #{regUniqueId,jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="mlgMngNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<select id="selectMlgMngListAll" parameterType="java.util.HashMap" resultMap="mlgMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MLG_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY mlg_mng_no DESC
+	</select>
+
+</mapper>

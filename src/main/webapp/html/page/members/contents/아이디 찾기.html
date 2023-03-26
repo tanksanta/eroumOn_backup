@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>통합회원</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 id="header-logo">
+                <a href="#"><span class="sr-only">이로움</span> 회원</a>
+            </h1>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="로그인.html" class="navigation-link">로그인</a></li>
+                    <li><a href="회원가입.html" class="navigation-link">회원가입</a></li>
+                </ul>
+            </nav>
+            <ul id="family">
+                <li>
+                    <a href="#" class="family-link1">
+                        <div class="bubble">
+                            <small>시니어 라이프 케어 플랫폼</small>
+                            <strong>"이로움"</strong>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link2">
+                        <div class="bubble">
+                            <strong>이로움 멤버스</strong>
+                            <small>전국 2,432개 업체와 함께합니다</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link3">
+                        <div class="bubble">
+                            <strong><img src="../assets/images/txt-family3.svg" alt="이로움마켓"></strong>
+                            <small>
+                                복지용구 사업소와 수급자 매칭부터<br>
+                                주문, 계약 및 결제까지 한번에!
+                            </small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="container">
+        <header id="page-title">
+            <h2>
+                <span>아이디 찾기</span>
+                <small>Id Search</small>
+            </h2>
+        </header>
+
+        <div id="page-content">
+            <form action="#" class="member-form">
+                <ul class="member-tabs is-equal nav">
+                    <li><a href="#tab-search1" data-bs-toggle="pill" data-bs-target="#tab-search1" class="active">휴대폰 번호로 찾기</a></li>
+                    <li><a href="#tab-search2" data-bs-toggle="pill" data-bs-target="#tab-search2">이메일 주소로 찾기</a></li>
+                </ul>
+                <div class="tab-content">
+                    <fieldset class="tab-pane show active" id="tab-search1">
+                        <div class="search-group">
+                            <label class="form-label" for="search-item1">아이디</label>
+                            <input class="form-control" type="text" id="search-item1">
+                        </div>
+                        <div id="mbrNm-error" class="error text-danger">! 이름은 필수 입력 항목입니다.</div>
+                        <div class="search-group">
+                            <label class="form-label" for="search-item2">휴대폰 번호</label>
+                            <input class="form-control" type="text" id="search-item2">
+                        </div>
+                        <div id="mbrNm-error" class="error text-danger">! 이름은 필수 입력 항목입니다.</div>
+                        <div class="search-button">
+                            <button class="btn btn-primary" type="submit">확인</button>
+                            <button class="btn btn-outline-primary" type="button">취소</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="tab-pane" id="tab-search2">
+                        <div class="search-group">
+                            <label class="form-label" for="search-item3">아이디</label>
+                            <input class="form-control" type="text" id="search-item3">
+                        </div>
+                        <div class="search-group">
+                            <label class="form-label" for="search-item4">이메일 주소</label>
+                            <input class="form-control" type="text" id="search-item4">
+                        </div>
+                        <div class="search-button">
+                            <button class="btn btn-primary" type="submit">확인</button>
+                            <button class="btn btn-outline-primary" type="button">취소</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+
+            <dl class="member-desc">
+                <dl>
+                    <dt><img src="../assets/images/img-main-logo-white.svg" alt="이로움"></dt>
+                    <dd>
+                        <strong>이로움</strong>만의<br>
+                        특별함을 누리세요<br>
+                        <a href="#" class="btn btn-outline-secondary">회원가입하기</a>
+                    </dd>
+                </dl>
+            </dl>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <p>COPYRIGHT ⓒ <strong>E·ROUM</strong>. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

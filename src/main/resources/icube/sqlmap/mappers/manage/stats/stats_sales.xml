@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stats.sales">
+
+	<resultMap type="statsSalesVO" id="statsSalesVOMap" autoMapping="true"  />
+
+	<sql id="searchConditions">
+		<if test="srchOrdrYmdBgng !=null and srchOrdrYmdBgng != ''">
+			AND DATE_FORMAT(o.ordr_dt, '%Y-%m-%d') &gt;= #{srchOrdrYmdBgng}
+		</if>
+		<if test="srchOrdrYmdEnd !=null and srchOrdrYmdEnd != ''">
+			AND DATE_FORMAT(o.ordr_dt, '%Y-%m-%d') &lt;= #{srchOrdrYmdEnd}
+		</if>
+
+		<if test="srchCardCoNm !=null and srchCardCoNm != ''">
+			AND o.card_co_nm = #{srchCardCoNm}
+		</if>
+
+		<if test="srchGdsCd !=null and srchGdsCd != ''">
+			AND g.gds_cd = #{srchGdsCd}
+		</if>
+		<if test="srchGdsNm !=null and srchGdsNm != ''">
+			AND g.gds_nm LIKE CONCAT('%', #{srchGdsNm}, '%')
+		</if>
+		<if test="srchUpCtgryNo > 0">
+			AND gc1.up_ctgry_no = #{srchUpCtgryNo}
+		</if>
+		<if test="srchCtgryNo > 0">
+			AND g.ctgry_no = #{srchCtgryNo}
+		</if>
+
+	</sql>
+
+	<select id="selectPrfmncList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AS ordr_dt
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')  AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt) - o1.USE_MLG - o1.USE_POINT, 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a_sum
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.stlm_yn = 'Y'
+				) AS total_b_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR08', 'OR09') )
+				AND o1.stlm_yn = 'Y'
+				) AS total_c_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')  AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt) - o1.USE_MLG - o1.USE_POINT, 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_re_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt) - o1.USE_MLG - o1.USE_POINT, 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_re_sum
+
+		FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ordr_no = o.ordr_no
+		WHERE od.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+		<include refid="searchConditions" />
+		GROUP BY DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+		ORDER BY ordr_dt ASC
+	</select>
+
+	<select id="selectGoodsList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		-- 판매상품별은 판매금액 매출금액이 > 판매실적의 금액과 맞을수 없음, 입금대기가 노출되지 않아 파악이 어려움
+		SELECT
+			od.gds_cd
+			, g.gds_nm
+			, (SELECT COUNT(*) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.ordr_optn_ty = 'BASE' AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a_sum
+			, (SELECT COUNT(*) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.ordr_optn_ty = 'BASE' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_sum
+			, (SELECT COUNT(*) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.ordr_optn_ty = 'BASE' AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_sum
+			, (SELECT COUNT(*) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.ordr_optn_ty = 'BASE' AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_sum
+			, (SELECT COUNT(*) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.ordr_optn_ty = 'BASE' AND od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_re_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0) FROM ORDR_DTL od1
+				WHERE od1.gds_cd = od.gds_cd AND od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_re_sum
+		FROM
+			ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+			LEFT JOIN GDS g ON od.gds_cd = g.gds_cd
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+			WHERE od.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+			<include refid="searchConditions" />
+		GROUP BY od.gds_cd
+		ORDER BY total_a_sum DESC
+	</select>
+
+
+	<select id="selectTrprList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			gender, age_grp
+			, COUNT(DISTINCT(unique_id)) as buyer_cnt
+			, COUNT(case when ordr_optn_ty = 'BASE' AND stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') then 1 END) AS total_a_cnt
+			, SUM(case when stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') then ordr_pc + dlvy_bass_amt + dlvy_adit_amt ELSE 0 END) AS total_a_sum
+
+			, COUNT(case when ordr_optn_ty = 'BASE' AND stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') then 1 END) AS total_b_cnt
+			, SUM(case when stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') then ordr_pc + dlvy_bass_amt + dlvy_adit_amt ELSE 0 END) AS total_b_sum
+
+			, COUNT(case when ordr_optn_ty = 'BASE' AND stts_ty IN ('OR08', 'OR09') then 1 END) AS total_c_cnt
+			, sum(case when stts_ty IN ('OR08','OR09') then ordr_pc + dlvy_bass_amt + dlvy_adit_amt ELSE 0 END) AS total_c_sum
+
+			, SUM(ordr_qy) AS total_ordr_qy
+
+		FROM (
+			SELECT
+				(SELECT m.GENDER FROM MBR m WHERE m.unique_id = o.unique_id) AS gender
+				, (
+					CASE
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) &lt; 20 THEN '10대'
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) BETWEEN 20 AND 29 THEN '20대'
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) BETWEEN 30 AND 39 THEN '30대'
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) BETWEEN 40 AND 49 THEN '40대'
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) BETWEEN 50 AND 59 THEN '50대'
+						WHEN ROUND(DATEDIFF(DATE(NOW()), (SELECT m.BRDT FROM MBR m WHERE m.unique_id = o.unique_id) ) / 365) BETWEEN 60 AND 69 THEN '60대'
+						ELSE '70대~'
+					END
+				) AS age_grp
+				, od.ordr_pc
+				, od.dlvy_bass_amt
+				, od.dlvy_adit_amt
+				, od.stts_ty
+				, od.ordr_qy
+				, od.ordr_optn_ty
+				, o.unique_id
+			FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ordr_no = o.ordr_no
+			WHERE od.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+			<include refid="searchConditions" />
+		) AS RESULT
+		GROUP BY gender, age_grp
+	</select>
+
+
+
+	<select id="selectPartnerList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			od.bplc_unique_id
+			, (SELECT bplc_nm FROM BPLC b WHERE b.unique_id = od.bplc_unique_id) AS bplc_nm
+			, COUNT(*)
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc+ od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id
+				AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02') ) AS total_a__sum
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc+ od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_sum
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc+ od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id
+				AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_sum
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id AND od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc+ od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.bplc_unique_id = od.bplc_unique_id
+				AND od1.stts_ty IN ('CA01', 'CA02', 'CA03') ) AS total_ca_sum
+			FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ordr_no = o.ordr_no
+			WHERE od.bplc_unique_id IS NOT NULL AND bplc_unique_id != ''
+			<include refid="searchConditions" />
+			GROUP BY od.bplc_unique_id
+			ORDER BY COUNT(*) DESC
+	</select>
+
+
+	<select id="selectMlgList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AS ordr_dt
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+					AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_a_cnt
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ordr_optn_ty = 'BASE'
+					AND o1.use_mlg &gt; 0
+					AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt) , 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.use_mlg &gt; 0
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_sum
+
+			, (SELECT IFNULL(SUM(o1.use_mlg), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.ordr_no = o.ordr_no
+				AND o1.use_mlg &gt; 0 ) AS total_mlg_sum
+
+			, (SELECT IFNULL(SUM(o1.stlm_amt), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.ordr_no = o.ordr_no
+				AND o1.use_mlg &gt; 0 ) AS total_stlm_sum
+
+			, (SELECT IFNULL(SUM(od1.ACCML_MLG) , 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_accml_mlg
+
+		FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ORDR_NO = o.ordr_no
+		WHERE od.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09')
+			AND o.use_mlg &gt; 0
+			<include refid="searchConditions" />
+		GROUP BY DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+		ORDER BY ordr_dt ASC
+	</select>
+
+	<select id="selectPointList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AS ordr_dt
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+					AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_a_cnt
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ordr_optn_ty = 'BASE'
+					AND o1.use_point &gt; 0
+					AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt) , 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.use_point &gt; 0
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_sum
+
+			, (SELECT IFNULL(SUM(o1.use_point), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.ordr_no = o.ordr_no
+				AND o1.use_point &gt; 0 ) AS total_point_sum
+
+			, (SELECT IFNULL(SUM(o1.stlm_amt), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.ordr_no = o.ordr_no
+				AND o1.use_point &gt; 0 ) AS total_stlm_sum
+
+		FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ORDR_NO = o.ordr_no
+		WHERE od.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09')
+			AND o.use_point &gt; 0
+			<include refid="searchConditions" />
+		GROUP BY DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+		ORDER BY ordr_dt ASC
+	</select>
+
+	<select id="selectStlmTyList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AS ordr_dt
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_cnt
+/*
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_b_sum
+*/
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_b_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR08', 'OR09') )
+				) AS total_c_sum
+/*
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND od1.stts_ty IN ('OR08', 'OR09') ) AS total_c_sum
+*/
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.STLM_TY IN ('CARD', 'KAKAOPAY', 'NAVERPAY', 'REBILL', 'PAYCO', 'TOSS')
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_card_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.STLM_TY IN ('CARD', 'KAKAOPAY', 'NAVERPAY', 'REBILL', 'PAYCO', 'TOSS')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_card_sum
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.STLM_TY IN ('BANK')
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_bank_cnt
+
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.STLM_TY  IN ('BANK')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_bank_sum
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.STLM_TY IN ('VBANK')
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_vbank_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.STLM_TY IN ('VBANK')
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_vbank_sum
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.STLM_TY IN ('FREE') AND o1.use_mlg &gt; 0
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_mlg_cnt
+
+			, (SELECT IFNULL(SUM(o1.use_mlg), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.STLM_TY = 'FREE'
+				AND o1.use_mlg &gt; 0
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_mlg_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ORDR_NO = o1.ordr_no
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d') AND od1.ORDR_OPTN_TY = 'BASE'
+				AND o1.STLM_TY IN ('FREE') AND o1.use_mlg &gt; 0
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') ) AS total_point_cnt
+
+			, (SELECT IFNULL(SUM(o1.use_point), 0)
+				FROM ORDR o1
+				WHERE DATE_FORMAT(o1.ordr_dt,'%Y-%m-%d') = DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+				AND o1.STLM_TY = 'FREE'
+				AND o1.use_point &gt; 0
+				AND o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no
+				AND o1.stlm_yn = 'Y' AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				) AS total_point_sum
+
+
+		FROM ORDR_DTL od LEFT JOIN ORDR o ON od.ORDR_NO = o.ordr_no
+		WHERE od.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09')
+		<include refid="searchConditions" />
+		GROUP BY DATE_FORMAT(o.ordr_dt,'%Y-%m-%d')
+
+	</select>
+
+	<select id="selectCardCoList" parameterType="java.util.HashMap" resultMap="statsSalesVOMap">
+		SELECT
+			o.stlm_ty
+			, o.card_co_nm
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+				AND o1.STLM_TY = o.stlm_ty AND o1.card_co_nm = o.card_co_nm
+				) AS total_a_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+				AND o1.STLM_TY = o.stlm_ty AND o1.card_co_nm = o.card_co_nm) AS total_a_sum
+
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09')
+				AND o1.STLM_TY = o.stlm_ty AND o1.card_co_nm = o.card_co_nm) AS total_b_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR05', 'OR06', 'OR07', 'OR08', 'OR09') )
+				AND o1.STLM_TY = o.stlm_ty   AND o1.card_co_nm = o.card_co_nm) AS total_b_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('OR08', 'OR09')
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_c_cnt
+
+			, (SELECT IFNULL(SUM(o1.STLM_AMT), 0)
+				FROM ORDR o1
+				WHERE o1.ordr_no IN (SELECT DISTINCT(ordr_no) FROM ORDR_DTL od1 WHERE od1.ordr_no = o1.ordr_no AND od1.stts_ty IN ('OR08', 'OR09') )
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_c_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('CA01', 'CA02', 'CA03')
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_ca_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.stts_ty IN ('CA01', 'CA02', 'CA03')
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_ca_sum
+
+			, (SELECT COUNT(*)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.ordr_optn_ty = 'BASE'
+				AND od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_re_cnt
+
+			, (SELECT IFNULL(SUM(od1.ordr_pc + od1.dlvy_bass_amt + od1.dlvy_adit_amt), 0)
+				FROM ORDR_DTL od1 LEFT JOIN ORDR o1 ON od1.ordr_no = o1.ordr_no
+				WHERE od1.stts_ty IN ('RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+				AND o1.STLM_TY = o.stlm_ty  AND o1.card_co_nm = o.card_co_nm) AS total_re_sum
+
+
+		FROM
+			ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+			WHERE o.stlm_yn = 'Y' AND o.stlm_ty IN ('CARD', 'KAKAOPAY', 'NAVERPAY', 'REBILL', 'PAYCO', 'TOSS')
+			AND od.stts_ty IN ('OR04', 'OR05', 'OR06', 'OR07', 'OR08', 'OR09', 'CA01', 'CA02', 'RE01', 'RE02', 'RE03', 'RF01', 'RF02')
+			<include refid="searchConditions" />
+		GROUP BY o.stlm_ty, o.card_co_nm
+		ORDER BY total_a_sum DESC
+	</select>
+
+
+	<select id="selectCardCoNmList" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT o.stlm_ty, o.card_co_nm
+		FROM ORDR o
+		WHERE o.stlm_yn = 'Y' AND o.stlm_ty IN ('CARD', 'KAKAOPAY', 'NAVERPAY', 'REBILL', 'PAYCO', 'TOSS')
+		GROUP BY o.stlm_ty, o.card_co_nm
+	</select>
+
+</mapper>

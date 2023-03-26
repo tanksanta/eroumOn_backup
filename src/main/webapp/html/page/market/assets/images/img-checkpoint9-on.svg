@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.628" height="66" viewBox="0 0 28.628 66">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.203" y1="0.102" x2="0.822" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2fd8de"/>
+      <stop offset="0.474" stop-color="#4958e0"/>
+      <stop offset="1" stop-color="#ff4063"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_10_Copy" data-name="Group 10 Copy" transform="translate(0.502 0.5)">
+    <path id="Fill_59" data-name="Fill 59" d="M14.816,61.784V42.643h-2V61.784a3.216,3.216,0,0,1-6.431,0V24.167c-1.24,4.072-1.316,12.262-1.316,12.262A2.507,2.507,0,0,1,2.5,39.061c-2.633,0-2.5-2.719-2.5-2.719C.842,23.576,2.757,19.462,4.468,16.2c1.276-2.438,4.414-2.636,5.305-2.642h8.078c.89.006,4.028.2,5.3,2.642,1.711,3.265,3.627,7.379,4.468,20.145,0,0,.131,2.719-2.5,2.719a2.505,2.505,0,0,1-2.568-2.632s-.077-8.19-1.316-12.262V39.019c0,.037.01.07.01.108V61.784a3.215,3.215,0,1,1-6.43,0ZM8.46,5.352a5.352,5.352,0,1,1,5.351,5.353A5.352,5.352,0,0,1,8.46,5.352Z" fill="none" stroke="#979797" stroke-width="1" stroke-dasharray="2 1"/>
+    <path id="Fill_62" data-name="Fill 62" d="M8.432,10.748H6.457A9.014,9.014,0,0,0,4.684,6.734C3.653,5.5,1.738,5.312.689,5.312c-.416,0-.686.029-.689.03V0H6.161V2.536H8.708V0h6.162V5.342c-.008,0-.282-.03-.689-.03-1.05,0-2.964.185-4,1.422a8.816,8.816,0,0,0-1.754,4.013Z" transform="translate(6.376 32.058)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

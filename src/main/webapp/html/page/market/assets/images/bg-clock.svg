@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="49" viewBox="0 0 49 49">
+  <defs>
+    <clipPath id="clip-path"/>
+  </defs>
+  <g id="Group_10" data-name="Group 10" style="mix-blend-mode: multiply;isolation: isolate">
+    <g id="Group_17" data-name="Group 17">
+      <g id="Oval_3" data-name="Oval 3" transform="translate(0 15)">
+        <g id="Oval_3-2" data-name="Oval 3" clip-path="url(#clip-path)">
+          <circle id="Oval" cx="24.5" cy="24.5" r="24.5" transform="translate(0 -15)" opacity="0.2"/>
+        </g>
+      </g>
+      <g id="Group_6" data-name="Group 6">
+        <circle id="Oval-2" data-name="Oval" cx="24.5" cy="24.5" r="24.5" fill="#fff"/>
+      </g>
+      <g id="Group_31" data-name="Group 31">
+        <circle id="Oval-3" data-name="Oval" cx="24.5" cy="24.5" r="24.5" fill="none"/>
+        <g id="Oval-4" data-name="Oval" transform="translate(1.5 1.5)" fill="none" stroke="#ededed" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 1">
+          <circle cx="23" cy="23" r="23" stroke="none"/>
+          <circle cx="23" cy="23" r="22.5" fill="none"/>
+        </g>
+        <g id="Oval-5" data-name="Oval" transform="translate(1.5 1.5)" fill="none" stroke="#b0b0b0" stroke-miterlimit="10" stroke-width="2" stroke-dasharray="1 11">
+          <circle cx="23" cy="23" r="23" stroke="none"/>
+          <circle cx="23" cy="23" r="22" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

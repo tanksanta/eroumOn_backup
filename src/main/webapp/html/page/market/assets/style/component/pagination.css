@@ -1,0 +1,31 @@
+@layer components {
+    .pagination {
+        @apply mt-9.5;
+        & a {
+            &:active, &.active {
+                @apply border-black2 bg-black2;
+            }
+        }
+        & .sorting {
+            & a {
+                &:active, &.active {
+                    @apply border-black2 bg-black2;
+                }
+            }
+        }
+        & .paging {
+            & a {
+                @apply my-0.5;
+            }
+            & .prev, & .next {
+                @apply w-11 xs:w-12;
+            }
+            & .prev {
+                @apply mr-1.5 xs:mr-3.5;
+            }
+            & .next {
+                @apply ml-1.5 xs:ml-3.5;
+            }
+        }
+    }
+}

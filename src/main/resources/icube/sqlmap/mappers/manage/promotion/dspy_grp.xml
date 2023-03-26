@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dspy.grp">
+
+	<resultMap type="planngDspyGrpVO" id="planngDspyGrpVOMap" autoMapping="true" >
+		<collection property="grpGdsList" column="{planngDspyNo=planng_dspy_no, grpNo=grp_no}" select="dspy.grp.gds.selectGdsList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		planng_dspy_no
+		, grp_no
+		, grp_nm
+		, exhibi_co
+		, sort_no
+	</sql>
+
+
+	<insert id="insertPlanngDspyGrp" parameterType="planngDspyGrpVO">
+	/* Query ID : dspy.grp.insertPlanngDspyGrp */
+		INSERT INTO PLANNG_DSPY_GRP(
+			planng_dspy_no
+			, grp_nm
+			, exhibi_co
+			, sort_no
+		) VALUES (
+		#{planngDspyNo}
+		, #{grpNm}
+		, #{exhibiCo}
+		, #{sortNo}
+	)
+	<selectKey resultType="int" keyProperty="grpNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+
+	<select id="selectPlanngDspyGrp" parameterType="java.util.HashMap" resultType="planngDspyGrpVO">
+		/* Query ID : dspy.grp.selectPlanngDspyGrp */
+		SELECT
+			<include refid="listColumn" />
+		FROM PLANNG_DSPY_GRP
+		WHERE planng_dspy_no = #{planngDspyNo}
+		ORDER BY grp_no DESC
+		LIMIT 0,1
+	</select>
+
+	<select id="selectGrpList" parameterType="java.util.HashMap" resultMap="planngDspyGrpVOMap">
+		/* Query ID : dspy.grp.selectGrpList */
+		SELECT
+			<include refid="listColumn" />
+		FROM PLANNG_DSPY_GRP
+		WHERE planng_dspy_no = #{planningDspyNo}
+		ORDER BY sort_no
+	</select>
+
+	<delete id="deletePlanngDspyGrp" parameterType="java.util.HashMap">
+		/* Query ID : dspy.grp.deletePlanngDspyGrp */
+		DELETE FROM PLANNG_DSPY_GRP
+		WHERE planng_dspy_no = #{planngDspyNo}
+	</delete>
+
+
+</mapper>

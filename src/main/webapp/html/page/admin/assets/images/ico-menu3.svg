@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="40px" viewBox="0 0 37 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_product</title>
+    <g id="intro" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="manager_dashboard" transform="translate(-424.000000, -644.000000)" fill="#1C1C1C">
+            <g id="Group-3" transform="translate(160.000000, 620.000000)">
+                <path d="M281.499271,44.0491646 L281.499271,64 L264,54.6620557 L264,34.9378776 L281.499271,44.0491646 Z M300.666806,54.6620557 L283.165868,63.9983334 L283.165868,44.0524978 L300.666806,35.0462064 L300.666806,54.6620557 Z M289.407061,38.967669 L282.335903,42.6058914 L264.88163,33.5179368 L271.82195,29.7335465 L289.407061,38.967669 Z M299.788509,33.624599 L292.516173,37.366796 L274.923191,28.0413395 L282.332569,24 L299.788509,33.624599 Z" id="icon_product" transform="translate(282.333403, 44.000000) scale(-1, 1) translate(-282.333403, -44.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

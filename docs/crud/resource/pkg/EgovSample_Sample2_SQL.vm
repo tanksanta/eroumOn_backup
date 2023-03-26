@@ -1,0 +1,176 @@
+##
+#set($voPackage="${voPackage}")
+#set($pcClassName="${model.entity.pcName}")
+#set($ccClassName="${model.entity.ccName}")
+#set($lcClassName="${model.entity.lcName}")
+#set($ccClassVO="${model.entity.ccName}VO")
+#set($pcClassVO="${model.entity.pcName}VO")
+#set($ccClassMap="${model.entity.ccName}VOMap")
+##
+##
+#set($vender="$model.vender")
+#set($namespace="$model.entity.pcName")
+#set($resultMapId="${model.entity.ccName}")
+#set($resultMapClass="${voPackage}.${voClassName}")
+##
+##
+#set($selectListCountQueryName="select${model.entity.pcName}Count")
+#set($selectListQueryName="select${model.entity.pcName}ListVO")
+#set($selectQueryName="select${model.entity.pcName}")
+#set($insertQueryName="insert${model.entity.pcName}")
+#set($updateQueryName="update${model.entity.pcName}")
+#set($deleteQueryName="delete${model.entity.pcName}")
+#set($updateUseAtQueryName="update${model.entity.pcName}UseAt")
+#set($updateListUseAtQueryName="update${model.entity.pcName}ListUseAt")
+##
+##
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="$lcClassName">
+
+	<!-- Define $pcClassVO Result Map  -->
+	<resultMap type="$ccClassVO" id="$ccClassMap" autoMapping="true" />
+	
+	<!-- Define $pcClassVO Column List -->
+	<sql id="listColumn">
+#set($i=0)
+#foreach($attribute in $model.attributes)
+		#if($i == 0) ${attribute.lcName}
+#else , ${attribute.lcName}
+	#end
+#set($i=$i+1)
+#end</sql>
+	
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchTtl" '>AND ttl like '%'|| #{srchText} ||'%'</when>
+				<when test='srchTarget != null and srchTarget == "srchRgtr" '>AND rgtr like '%'|| #{srchText} ||'%'</when>
+				<otherwise>
+					AND (ttl like CONCAT('%', #{srchText}, '%') OR rgtr like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchUseAt == null or srchUseAt == '' ">
+			AND use_at = 'Y'
+		</if>
+		<if test="srchUseAt != null and srchUseAt != '' ">
+			AND use_at = #{srchUseAt}
+		</if>
+	</sql>
+
+	<!-- Define ${model.entity.lcName} List Query -->
+	<select id="$selectListQueryName" parameterType="java.util.HashMap" resultMap="$ccClassMap">
+		/* Query ID : $ccClassName.$selectListQueryName */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ${model.entity.lcName}
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY ${model.attributes.get(0).lcName} DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define ${model.entity.lcName} Count Query -->
+	<select id="$selectListCountQueryName" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : $ccClassName.$selectListCountQueryName */
+		SELECT	COUNT(*) 
+		FROM	${model.entity.lcName}
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+	
+	<!-- Define ${model.entity.lcName} Detail Query -->
+	<select id="$selectQueryName" parameterType="java.util.HashMap" resultMap="$ccClassMap">
+		/* Query ID : $ccClassName.$selectQueryName */
+		SELECT	
+			<include refid="listColumn"/>
+		FROM	${model.entity.lcName}
+		WHERE  ${model.attributes.get(0).lcName} = #{${model.attributes.get(0).ccName}}
+	</select>
+
+	<!-- Define ${model.entity.lcName} Insert Query -->
+	<insert id="$insertQueryName" parameterType="$ccClassVO">
+		/* Query ID : $ccClassName.$insertQueryName */
+		INSERT INTO ${model.entity.lcName} (
+#set($i=0)
+#foreach($attribute in $model.attributes)
+	#if($i == 0) ${attribute.lcName}
+#else , ${attribute.lcName}
+	#end
+#set($i=$i+1)
+#end
+		) VALUES (
+#set($i=0)
+	#foreach($attribute in $model.attributes)
+		#set($type = ${attribute.javaType})
+	#if($i == 0)
+		#if($type == "java.lang.String")
+#{${attribute.ccName}, jdbcType=VARCHAR}
+		#elseif($type == "java.sql.Clob")
+#{${attribute.ccName}, jdbcType=VARCHAR}
+		#else
+#{${attribute.ccName}}
+		#end 
+	#else
+		#if($type == "java.lang.String")
+, #{${attribute.ccName}, jdbcType=VARCHAR}
+		#elseif($type == "java.sql.Clob")
+, #{${attribute.ccName}, jdbcType=VARCHAR}
+		#else
+, #{${attribute.ccName}}
+		#end 
+	#end
+
+#set($i=$i+1)
+	#end
+		)
+	</insert>
+
+	<!-- Define ${model.entity.lcName} Update Query -->
+	<update id="$updateQueryName" parameterType="$ccClassVO">
+		/* Query ID : $ccClassName.$updateQueryName */
+		UPDATE	${model.entity.lcName} SET
+#foreach($attribute in $model.attributes)
+	#set($type = ${attribute.javaType})
+	#if($type == "java.lang.String")
+	, ${attribute.lcName} = #{${attribute.ccName}, jdbcType=VARCHAR}
+	#elseif($type == "java.sql.Clob")
+	, ${attribute.lcName} = #{${attribute.ccName}, jdbcType=VARCHAR}
+	#else
+	, ${attribute.lcName} = #{${attribute.ccName}}
+	#end
+#end
+		WHERE	${model.attributes.get(0).lcName} = #{${model.attributes.get(0).ccName}}
+	</update>
+
+	<!-- Define ${model.entity.lcName} Delete Query -->
+	<delete id="$deleteQueryName" parameterType="java.util.HashMap">
+		/* Query ID : $ccClassName.$deleteQueryName */
+		DELETE FROM ${model.entity.lcName}
+		 WHERE ${model.attributes.get(0).lcName} = #{${model.attributes.get(0).ccName}}
+	</delete>
+
+	<!-- Define ${model.entity.lcName} Update Use Y/N Query -->
+	<update id="$updateUseAtQueryName" parameterType="java.util.HashMap">
+		/* Query ID : $ccClassName.$updateUseAtQueryName */
+		UPDATE ${model.entity.lcName}
+		   SET use_at = ${useAt}
+		 WHERE ${model.attributes.get(0).lcName} = #{${model.attributes.get(0).ccName}}
+	</update>
+
+	<!-- Define ${model.entity.lcName} Update Use Y/N for List Query -->
+	<update id="$updateListUseAtQueryName" parameterType="java.util.HashMap">
+		/* Query ID : $ccClassName.$updateListUseAtQueryName */
+		UPDATE ${model.entity.lcName}
+		   SET use_at = #{useAt}
+			, updt_dt = SYSDATE()
+		WHERE ${model.attributes.get(0).lcName} IN
+			<foreach collection="arr${model.attributes.get(0).pcName}" item="${model.attributes.get(0).ccName}" open="(" separator="," close=")">
+				#{${model.attributes.get(0).ccName}}
+			</foreach>
+	</update>
+
+
+</mapper>

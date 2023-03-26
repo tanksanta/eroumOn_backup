@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.prtcr">
+
+	<resultMap type="mbrPrtcrVO" id="mbrPrtcrVOMap" autoMapping="true" >
+	</resultMap>
+
+	<sql id="listColumn">
+		prtcr_mbr_no
+		, unique_id
+		, prtcr_unique_id
+		, dmnd_dt
+		, aprv_dt
+		, req_ty
+		, prtcr_rlt
+		, rlt_etc
+	</sql>
+
+	<sql id="searchPrtcrConditions">
+		<if test="srchPrtcrUniqueId != null and srchPrtcrUniqueId != '' ">
+			AND prtcr_unique_id = #{srchPrtcrUniqueId}
+		</if>
+		<if test="srchOwnUniqueId != null and srchOwnUniqueId != '' ">
+			AND unique_id = #{srchOwnUniqueId}
+		</if>
+		<!-- <if test="">
+			AND req_ty IS NOT NULL;
+		</if> -->
+
+	</sql>
+	<sql id="searchConditions">
+		<if test="srchReqTy != null and srchReqTy != '' ">
+			AND req_ty != #{srchReqTy}
+		</if>
+		<if test="srchReqType != null and srchReqType != '' ">
+			AND req_ty = #{srchReqType}
+		</if>
+		<if test="srchMyUniqueId != null and srchMyUniqueId != '' ">
+			AND (unique_id = #{srchMyUniqueId} OR prtcr_unique_id=#{srchMyUniqueId})
+		</if>
+		<if test="srchPrtcrMbrNo != null and srchPrtcrMbrNo != '' ">
+			AND prtcr_mbr_no = #{srchPrtcrMbrNo}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND prtcr_unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchPrtcrUniqueId != null and srchPrtcrUniqueId != '' ">
+			AND unique_id = #{srchPrtcrUniqueId}
+		</if>
+		<if test="srchApiUniqueId != null and srchApiUniqueId != '' ">
+			AND (unique_id = #{srchApiUniqueId} AND prtcr_unique_id = #{srchApiPrtcr})
+			OR   (unique_id = #{srchApiPrtcr} AND prtcr_unique_id = #{srchApiUniqueId})
+		</if>
+	</sql>
+
+
+
+	<select id="selectPrtcrByMap" parameterType="java.util.HashMap" resultType="mbrPrtcrVO">
+	/* Query ID : mbr.prtcr.selectPrtcrMbrList */
+		SELECT
+			unique_id
+			, mbr_id
+			, mbl_telno
+			, mbr_nm
+			, brdt
+			, profl_img
+			, (SELECT req_ty FROM MBR_PRTCR WHERE 1=1 <include refid="searchPrtcrConditions" />) AS req_ty
+		FROM MBR m
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectPrtcrCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbr.prtcr.selectPrtcrCount */
+		SELECT COUNT(*)
+		FROM MBR_PRTCR
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectPrtcrListByMap" parameterType="java.util.HashMap" resultMap="mbrPrtcrVOMap">
+		/* Query ID : mbr.prtcr.selectPrtcrListAll */
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_PRTCR
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectMbrPrtcr" parameterType="java.util.HashMap" resultType="mbrPrtcrVO">
+		/* Query ID : mbr.prtcr.selectMbrPrtcr */
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_PRTCR
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertPrtcr" parameterType="mbrPrtcrVO">
+		/* Query ID : mbr.prtcr.insertPrtcr */
+		INSERT INTO MBR_PRTCR(
+			unique_id
+			, prtcr_unique_id
+			, dmnd_dt
+			, req_ty
+		)VALUES(
+			#{uniqueId, jdbcType=VARCHAR}
+			, #{prtcrUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{reqTy, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateReqTy" parameterType="mbrPrtcrVO">
+		/* Query ID : mbr.prtcr.updateReqTy */
+		UPDATE MBR_PRTCR SET
+			prtcr_rlt = #{prtcrRlt}
+			<if test='prtcrRlt != null and prtcrRlt != "C" '>
+			, aprv_dt = SYSDATE()
+			</if>
+			<if test="reqTy != null and reqTy != '' ">
+			, req_ty = #{reqTy}
+			</if>
+			<if test="rltEtc != null and rltEtc != '' ">
+			, rlt_etc = #{rltEtc}
+			</if>
+			<if test="(rltEtc == null or rltEtc == '') ">
+			, rlt_etc = null
+			</if>
+		WHERE prtcr_mbr_no = #{prtcrMbrNo}
+	</update>
+
+
+	<delete id="deleteFml" parameterType="java.util.HashMap">
+		/* Query ID : mbr.prtcr.deleteFml */
+		DELETE FROM MBR_PRTCR
+		WHERE
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			unique_id = #{srchUniqueId} AND prtcr_unique_id = #{srchPrtcrUniqueId}
+		</if>
+		<if test="srchMyUniqueId != null and srchMyUniqueId != '' ">
+			(unique_id = #{srchMyUniqueId} OR prtcr_unique_id=#{srchMyUniqueId})
+		</if>
+
+	</delete>
+
+
+	<select id="selectPrtcrListByUniqueId" parameterType="java.util.HashMap" resultType="mbrPrtcrVO">
+		SELECT
+			mp.*,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.unique_id
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.unique_id
+			END) as mbr_unique_id
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.mbr_id
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.mbr_id
+			END) as mbr_id
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.mbr_nm
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.mbr_nm
+			END) as mbr_nm
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.profl_img
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.profl_img
+			END) as profl_img
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.mbl_telno
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.mbl_telno
+			END) as mbl_telno
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.brdt
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.brdt
+			END) as brdt
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN m1.recipter_yn
+				WHEN mp.unique_id != #{srchUniqueId} THEN m2.recipter_yn
+			END) as recipter_yn
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN
+					IFNULL((SELECT mlg_Acmtl FROM MBR_MLG mm WHERE mm.unique_id = m1.unique_id ORDER BY mm.mlg_no DESC LIMIT 1), 0)
+				WHEN mp.unique_id != #{srchUniqueId} THEN
+					IFNULL((SELECT mlg_Acmtl FROM MBR_MLG mm WHERE mm.unique_id = m2.unique_id ORDER BY mm.mlg_no DESC LIMIT 1), 0)
+			END) as mbr_mlg
+			,
+			(CASE
+				WHEN mp.unique_id = #{srchUniqueId} THEN
+					IFNULL((SELECT point_Acmtl FROM MBR_POINT mp WHERE mp.unique_id = m1.unique_id ORDER BY mp.point_no DESC LIMIT 1), 0)
+				WHEN mp.unique_id != #{srchUniqueId} THEN
+					IFNULL((SELECT point_Acmtl FROM MBR_POINT mp WHERE mp.unique_id = m2.unique_id ORDER BY mp.point_no DESC LIMIT 1), 0)
+			END) as mbr_point
+		FROM MBR_PRTCR mp
+			LEFT JOIN MBR m1 ON mp.prtcr_unique_id = m1.unique_id
+			LEFT JOIN MBR m2 ON mp.unique_id = m2.unique_id
+		WHERE (mp.unique_id = #{srchUniqueId} OR mp.prtcr_unique_id = #{srchUniqueId})
+			<if test="srchReqTy != null and srchReqTy != '' ">
+				AND mp.req_ty = #{srchReqTy}
+			</if>
+		ORDER BY aprv_dt ASC
+	</select>
+
+</mapper>

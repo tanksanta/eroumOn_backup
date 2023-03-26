@@ -1,0 +1,109 @@
+@layer components {
+    .label-base {
+        @apply inline-flex relative text-[0.8125rem] leading-none align-middle md:text-sm;
+        & span, & i {
+            @apply relative border-inherit;
+        }
+        & span {
+            @apply block py-1 px-1.5 z-10 rounded border;
+        }
+        & i {
+            @apply z-5 -ml-1.5 flex items-center justify-center pr-px pl-[0.4375rem] rounded-r border border-l-0;
+            & img {
+                @apply mx-px w-2.5;
+            }
+        }
+    }
+
+    .label-primary {
+        @apply label-base border-black2 font-bold;
+        & span {
+            @apply bg-black2 text-white;
+        }
+        & i {
+            @apply bg-white text-black2;
+        }
+    }
+    
+    .label-outline-primary {
+        @apply label-base border-black2;
+        & span {
+            @apply bg-white text-black2;
+        }
+        & i {
+            @apply bg-black2 text-white;
+        }
+    }
+
+    .label-secondary {
+        @apply label-base border-gray1 font-bold;
+        & span {
+            @apply bg-gray1 text-white;
+        }
+        & i {
+            @apply bg-white text-gray1;
+        }
+    }
+    
+    .label-outline-secondary {
+        @apply label-base border-gray1;
+        & span {
+            @apply bg-white text-gray1;
+        }
+        & i {
+            @apply bg-gray1 text-white;
+        }
+    }
+
+    .label-danger {
+        @apply label-base border-[#E92B2B] font-bold;
+        & span {
+            @apply bg-[#E92B2B] text-white;
+        }
+        & i {
+            @apply bg-white text-[#E92B2B];
+        }
+    }
+    
+    .label-outline-danger {
+        @apply label-base border-[#E92B2B];
+        & span {
+            @apply bg-white text-[#E92B2B];
+        }
+        & i {
+            @apply bg-[#E92B2B] text-white;
+        }
+    }
+
+    .label-success {
+        @apply label-base border-blue3 font-bold;
+        & span {
+            @apply bg-blue3 text-white;
+        }
+        & i {
+            @apply bg-white text-blue3;
+        }
+    }
+    
+    .label-outline-success {
+        @apply label-base border-blue3;
+        & span {
+            @apply bg-white text-blue3;
+        }
+        & i {
+            @apply bg-blue3 text-white;
+        }
+    }
+
+    .label-flat, .label-flat-lg, .label-flat-xl {
+        @apply label-base py-1 px-1.5 rounded border border-gray2 bg-gray2 font-serif;
+    }
+    
+    .label-flat-lg {
+        @apply px-2.5 text-[0.9375rem] leading-[1.2];
+    }
+    
+    .label-flat-xl {
+        @apply px-5 py-1.5 text-[0.9375rem] leading-[1.2] font-medium;
+    }
+}

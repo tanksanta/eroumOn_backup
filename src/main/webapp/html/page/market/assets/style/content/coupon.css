@@ -1,0 +1,120 @@
+@layer components {
+    .coupon-item {
+        @apply relative w-46 bg-no-repeat bg-cover font-bold text-white aspect-[1/0.47541] select-none;
+        & .itembox {
+            @apply flex flex-col justify-center items-center ml-[26.22%] p-[6.55%] h-full;
+        }
+        & .info {
+            @apply flex items-center justify-end w-full text-3xl font-serif tracking-tight;
+            & img {
+                @apply ml-[2.75%] -mt-1 h-8.5 mr-auto;
+            }
+            & small {
+                @apply ml-[5.5%] text-xl tracking-normal;
+            }
+        }
+        & .desc, & .desc2 {
+            @apply -mx-[12%] -mt-[0.15em] text-center whitespace-nowrap leading-snug;
+        }
+        & .desc {
+            @apply text-[0.8125rem];
+        }
+        & .desc2 {
+            @apply text-[1.1875rem];
+        }
+        &.is-event {
+            @apply bg-[url(../images/img-coupon1.svg)];
+        }
+        &.is-discount {
+            @apply bg-[url(../images/img-coupon2.svg)];
+        }
+        &.is-delivery {
+            @apply bg-[url(../images/img-coupon3.svg)];
+            & .info {
+                @apply w-full h-9 overflow-hidden bg-no-repeat bg-[url(../images/img-coupon-delivery.svg)] bg-center bg-[length:auto_100%] -indent-[9999em];
+            }
+            &.coupon-item-large {
+                & .info {
+                    @apply h-12;
+                }
+            }
+            &.coupon-item-small {
+                & .info {
+                    @apply h-6.5;
+                }
+            }
+        }
+        &.is-disabled {
+            @apply bg-[url(../images/img-coupon4.png)] pointer-events-none;
+            &.is-delivery {
+                & .info {
+                    @apply bg-[url(../images/img-coupon-delivery2.svg)];
+                }
+            }
+        }
+    }
+
+    .coupon-item-large {
+        @apply w-61;
+        & .info {
+            @apply text-[2.375rem];
+            & img {
+                @apply -mt-1 h-[2.875rem];
+            }
+            & small {
+                @apply text-3xl;
+            }
+        }
+        & .desc {
+            @apply text-lg;
+        }
+        & .desc2 {
+            @apply text-[1.625rem];
+        }
+    }
+
+    .coupon-item-small {
+        @apply w-31;
+        & .info {
+            @apply text-[1.125rem];
+            & img {
+                @apply h-6;
+            }
+            & small {
+                @apply text-sm;
+            }
+        }
+        & .desc {
+            @apply text-[0.5625rem];
+        }
+        & .desc2 {
+            @apply text-[0.8125rem];
+        }
+    }
+
+    .coupon-item-name {
+        @apply text-center text-base font-bold md:text-lg;
+        & strong, & small {
+            @apply block leading-snug text-sm font-serif md:text-[0.9125rem];
+        }
+        & strong {
+            @apply mt-1.5 md:mt-2;
+        }
+        & small {
+            @apply mt-1 font-normal;
+        }
+    }
+    
+    .coupon-item-desc {
+        @apply relative mx-auto px-3 w-37 max-w-full leading-snug text-sm text-center text-gray1 md:px-4 md:w-43 md:text-[0.9125rem] tracking-tight xs:tracking-normal;
+        &::before, &::after {
+            @apply content-empty absolute top-[0.1875rem] bottom-[0.1875rem] w-2 border-y-[0.1875rem] border-gray3 md:border-y-1 md:w-2.5;
+        }
+        &::before {
+            @apply left-0 border-l-[0.1875rem] md:border-l-1;
+        }
+        &::after {
+            @apply right-0 border-r-[0.1875rem] md:border-r-1;
+        }
+    }
+}

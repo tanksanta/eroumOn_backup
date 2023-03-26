@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="49px" height="49px" viewBox="0 0 49 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 31@3x</title>
+    <defs>
+        <path d="M24.5,47.5 C37.2025492,47.5 47.5,37.2025492 47.5,24.5 C47.5,11.7974508 37.2025492,1.5 24.5,1.5 C11.7974508,1.5 1.5,11.7974508 1.5,24.5 C1.5,37.2025492 11.7974508,47.5 24.5,47.5 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="46" height="46" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <path d="M24.5,47.5 C37.2025492,47.5 47.5,37.2025492 47.5,24.5 C47.5,11.7974508 37.2025492,1.5 24.5,1.5 C11.7974508,1.5 1.5,11.7974508 1.5,24.5 C1.5,37.2025492 11.7974508,47.5 24.5,47.5 Z" id="path-3"></path>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="46" height="46" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Market" transform="translate(-1434.000000, -589.000000)">
+            <g id="Group-31" transform="translate(1434.000000, 589.000000)">
+                <circle id="Oval" fill="#FFFFFF" cx="24.5" cy="24.5" r="24.5"></circle>
+                <use id="Oval" stroke="#EDEDED" mask="url(#mask-2)" stroke-width="2" stroke-dasharray="1,1" transform="translate(24.500000, 24.500000) rotate(2.000000) translate(-24.500000, -24.500000) " xlink:href="#path-1"></use>
+                <use id="Oval" stroke="#B0B0B0" mask="url(#mask-4)" stroke-width="4" stroke-dasharray="1,11" transform="translate(24.500000, 24.500000) rotate(2.000000) translate(-24.500000, -24.500000) " xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

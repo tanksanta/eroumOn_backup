@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		">
+
+    <!-- MySqlDB conn -->
+ 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="#{props['Globals.DB.DriverClassName']}"/>
+        <property name="url" value="#{props['Globals.DB.Url']}" />
+        <property name="username" value="#{props['Globals.DB.UserName']}"/>
+        <property name="password" value="#{props['Globals.DB.Password']}"/>
+        <property name="validationQuery" value="SELECT 1"/>
+    </bean>
+    
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL : " />
+			</bean>
+		</property>
+	</bean>
+
+
+</beans>

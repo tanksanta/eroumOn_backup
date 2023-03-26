@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+
+	<select id="selectFileList" parameterType="java.util.HashMap" resultType="fileVO">
+		SELECT srvc_id
+			, up_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		FROM ATCHFILE
+	  WHERE srvc_id = #{srvcId}
+	  	  AND up_no = #{upNo}
+	  	  <if test="fileTy != null and fileTy != ''">
+	  	  AND file_ty = #{fileTy}
+	  	  </if>
+	  	  AND use_yn = 'Y'
+	</select>
+
+	<select id="selectFileByFilter" parameterType="java.util.HashMap" resultType="fileVO">
+		SELECT srvc_id
+			, up_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		FROM ATCHFILE
+	  	WHERE srvc_id = #{srvcId}
+	  	  AND up_no = #{upNo}
+	  	  <if test="fileTy != null and fileTy != ''">
+	  	  AND file_ty = #{fileTy}
+	  	  </if>
+	  	  <if test="fileNo != null and fileNo != ''">
+	  	  AND file_no = #{fileNo}
+	  	  </if>
+	  	  AND use_yn = 'Y'
+	</select>
+
+	<select id="selectFileListAll" parameterType="java.util.HashMap" resultType="fileVO">
+		SELECT srvc_id
+			, up_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		FROM ATCHFILE
+	  	WHERE srvc_id = #{srvcId}
+	  	  AND up_no = #{upNo}
+	  	  <if test="fileTy != null and fileTy != ''">
+	  	  AND file_ty = #{fileTy}
+	  	  </if>
+	  	  <if test="fileNo != null and fileNo != ''">
+	  	  AND file_no = #{fileNo}
+	  	  </if>
+	</select>
+
+	<insert id="insertFileInfo" parameterType="fileVO">
+		<selectKey keyProperty="maxFileNo" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(file_no), 0) + 1
+			FROM ATCHFILE WHERE srvc_id = #{srvcId} AND up_no = #{upNo} AND file_ty = #{fileTy}
+		</selectKey>
+		INSERT INTO ATCHFILE (
+			srvc_id
+			, up_no
+			, file_ty
+			, file_no
+			, flpth
+			, orgnl_file_nm
+			, strg_file_nm
+			, file_extn
+			, file_sz
+			, file_dc
+			, dwnld_cnt
+			, reg_dt
+			, use_yn
+		) VALUES (
+			#{srvcId}
+			, #{upNo}
+			, #{fileTy}
+            <if test="fileNo = null or fileNo = ''">
+            , #{maxFileNo}
+            </if>
+            <if test="fileNo != null and fileNo != ''">
+            , #{fileNo}
+            </if>
+			, #{flpth}
+			, #{orgnlFileNm}
+			, #{strgFileNm}
+			, #{fileExtn}
+			, #{fileSz}
+			, #{fileDc, jdbcType=VARCHAR}
+			, #{dwnldCnt}
+			, SYSDATE()
+			, #{useYn}
+		)
+	</insert>
+
+	<update id="updateDwldCo" parameterType="java.util.HashMap">
+		UPDATE ATCHFILE SET
+			dwnld_cnt = dwnld_cnt + 1
+		WHERE srvc_id = #{srvcId}
+			AND up_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no = #{fileNo}
+	</update>
+
+	<update id="updateFileDc" parameterType="java.util.HashMap">
+		UPDATE ATCHFILE SET
+			file_dc = #{fileDc}
+		WHERE srvc_id = #{srvcId}
+			AND up_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no = #{fileNo}
+	</update>
+
+
+	<update id="deleteFileByNo" parameterType="java.util.HashMap">
+		UPDATE ATCHFILE SET
+			use_yn = 'N'
+		 WHERE srvc_id = #{srvcId}
+			AND up_no = #{upNo}
+			<if test="fileTy != null and fileTy != ''">
+			AND file_ty = #{fileTy}
+			</if>
+			AND file_no IN
+			<foreach collection="fileNo" item="no" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+	</update>
+
+	<update id="deleteFileByUpperNo" parameterType="java.util.HashMap">
+		UPDATE ATCHFILE SET
+			use_yn = 'N'
+		 WHERE srvc_id = #{srvcId}
+			AND up_no = #{upNo}
+	</update>
+
+</mapper>

@@ -1,0 +1,93 @@
+##
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($voClassParam="${model.entity.ccName}VO")
+#set($daoPackage="${daoPackage}")
+#set($daoClassName="${model.entity.pcName}DAO")
+#set($daoName="${model.entity.ccName}DAO")
+#set($daoInstanceName="${model.entity.ccName}DAO")
+#set($servicePackage="${servicePackage}")
+#set($serviceClassName="${model.entity.pcName}Service")
+#set($serviceImplPackage="${implPackage}")
+#set($serviceImplClassName="${model.entity.pcName}ServiceImpl")
+#set($serviceName="${model.entity.ccName}Service")
+#set($classSerialNo="${model.entity.ccName}No")
+##
+##
+#set($createMethodName="create${model.entity.pcName}")
+#set($updateMethodName="update${model.entity.pcName}")
+#set($updateUseListAtMethodName="update${model.entity.pcName}ListUseAt")
+#set($updateUseAtMethodName="update${model.entity.pcName}UseAt")
+#set($deleteMethodName="delete${model.entity.pcName}")
+#set($selectMethodName="retrieve${model.entity.pcName}")
+#set($selectListMethodName="${model.entity.ccName}ListVO")
+##
+##
+package ${serviceImplPackage};
+
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import ${servicePackage}.${serviceClassName};
+#if (${voPackage}=='${voPackage}')
+// Vo 객체에 대한 import 구문
+// import (vo package).${defaultVoClassName};
+// import (vo package).${voClassName};
+#else
+import ${voPackage}.${voClassName};
+#end
+#if (${daoPackage}=='${daoPackage}')
+// Dao 객체에 대한 import 구문
+// import (dao package).${daoClassName};
+#else
+import ${daoPackage}.${daoClassName};
+#end
+import humanframe.core.vo.HumanListVO;
+
+@SuppressWarnings("rawtypes")
+@Service("${serviceName}")
+public class ${serviceImplClassName} extends EgovAbstractServiceImpl implements ${serviceClassName} {
+        
+	@Resource(name="${daoName}")
+	private ${daoClassName} ${daoInstanceName};
+    
+	@Override
+	public HumanListVO $selectListMethodName(HumanListVO listVO) throws Exception {
+		return ${daoInstanceName}.$selectListMethodName(listVO);
+	}
+
+	@Override
+	public $voClassName $selectMethodName(int $classSerialNo) throws Exception {
+		return ${daoInstanceName}.$selectMethodName($classSerialNo);
+	}
+
+	@Override
+	public void $createMethodName($voClassName $voClassParam) throws Exception {
+		${daoInstanceName}.$createMethodName($voClassParam);
+	}
+
+	@Override
+	public void $updateMethodName($voClassName $voClassParam) throws Exception {
+		${daoInstanceName}.$updateMethodName($voClassParam);
+	}
+
+	@Override
+	public void $deleteMethodName(int $classSerialNo) throws Exception {
+		${daoInstanceName}.$deleteMethodName($classSerialNo);
+	}
+
+	@Override
+	public Integer $updateUseAtMethodName(Map paramMap) throws Exception {
+		return ${daoInstanceName}.$updateUseAtMethodName(paramMap);
+	}
+
+	@Override
+	public void $updateUseListAtMethodName(Map paramMap) throws Exception {
+		${daoInstanceName}.$updateUseListAtMethodName(paramMap);
+
+	}
+}

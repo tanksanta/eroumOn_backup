@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event.przwin">
+
+	<resultMap type="eventPrzwinVO" id="eventPrzwinVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=przwin_no}" select="file.selectFileByFilter" />
+	</resultMap>
+
+	<sql id="listColumn">
+		przwin_no
+		, event_no
+		, cn
+		, dspy_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'EVENT_PRZWIN' as srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="eventNo != null and eventNo != '' ">
+			AND event_no = #{eventNo}
+		</if>
+		<if test="przwinNo != null and przwinNo != '' ">
+			AND przwin_no = #{przwinNo}
+		</if>
+	</sql>
+
+	<select id="selectEventPrzwinListVO" parameterType="java.util.HashMap" resultMap="eventPrzwinVOMap">
+		/* Query ID : eventPrzwin.selectEventPrzwinListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM EVENT_PRZWIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY przwin_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- 당첨자 확인 조회 -->
+	<select id="selectEventPrzwinCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : eventPrzwin.selectEventPrzwinCount */
+		SELECT	COUNT(*)
+		FROM	EVENT_PRZWIN
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectEventPrzwin" parameterType="java.util.HashMap" resultMap="eventPrzwinVOMap">
+		/* Query ID : eventPrzwin.selectEventPrzwin */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	EVENT_PRZWIN
+		WHERE  1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectPrzwinNoByEventNo" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : eventPrzwin.selectPrzwinNoByEventNo */
+		SELECT przwin_no
+		FROM EVENT_PRZWIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertEventPrzwin" parameterType="eventPrzwinVO">
+	/* Query ID : eventPrzwin.insertEventPrzwin */
+	INSERT INTO EVENT_PRZWIN (
+		event_no
+		, cn
+		, dspy_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	) VALUES (
+		#{eventNo}
+		, #{cn, jdbcType=VARCHAR}
+		, #{dspyYn, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="przwinNo" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateEventPrzwin" parameterType="eventPrzwinVO">
+	/* Query ID : eventPrzwin.updateEventPrzwin */
+	UPDATE EVENT_PRZWIN SET
+		cn = #{cn, jdbcType=VARCHAR}
+		, dspy_yn = #{dspyYn, jdbcType=VARCHAR}
+		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+		, mdfcn_dt = SYSDATE()
+		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		, mdfr = #{mdfr, jdbcType=VARCHAR}
+	WHERE przwin_no = #{przwinNo}
+	</update>
+
+
+
+</mapper>

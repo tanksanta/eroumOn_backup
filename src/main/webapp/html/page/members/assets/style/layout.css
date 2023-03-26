@@ -1,0 +1,250 @@
+
+html {
+    @apply scrollbars scroll-smooth;
+}
+body {
+    @apply block overflow-x-hidden bg-no-repeat bg-[center_top] text-black2;
+}
+
+#header {
+    @apply fixed z-90 top-0 left-0 right-0 border-b border-b-black2/20 bg-white lg:absolute lg:border-b-0 lg:bg-transparent;
+    & .container {
+        @apply flex items-center relative mx-auto px-5 max-w-[1920px] h-11 md:h-15 lg:px-7.5 lg:h-[5.625rem];
+    }
+}
+
+#header-logo {
+    @apply mr-5 text-sm font-bold md:mr-13 md:text-lg lg:mr-20 lg:text-xl;
+    & a {
+        @apply flex items-center h-8 overflow-hidden -indent-96 md:h-10 md:indent-0 lg:h-12;
+        &::before {
+            @apply content-empty block w-17 h-[0.9375rem] bg-cover bg-[url(../images/img-main-logo.svg)] md:mr-2 md:w-25 md:h-5.5 lg:mr-2 lg:w-[8.375rem] lg:h-7.5;
+        }
+    }
+}
+
+#navigation {
+    @apply flex-1;
+    & ul {
+        @apply flex space-x-5 md:space-x-7 lg:space-x-10;
+    }
+    & .navigation-link {
+        @apply text-sm;
+        &.is-active {
+            @apply font-medium underline underline-offset-0.5;
+        }
+    }
+}
+
+#family {
+    @apply flex;
+    & [class*="family-link"] {
+        @apply block relative w-9 h-10 md:w-10 md:h-11 lg:w-11 lg:h-12;
+        &::before, &::after {
+            @apply content-empty absolute top-0 left-0 block w-full h-full bg-no-repeat bg-center bg-[length:auto_100%] transition-opacity duration-300;
+        }
+        &::after {
+            @apply opacity-0;
+        }
+        &:hover, &:focus {
+            &::before {
+                @apply opacity-0;
+            }
+            &::after {
+                @apply opacity-100;
+            }
+            & .bubble {
+                @apply opacity-100 visible;
+            }
+        }
+        & br {
+            @apply sm-max:hidden;
+        }
+        & .bubble {
+            @apply hidden absolute top-full -left-1/3 -mb-1 p-2.5 w-40 rounded-lg border border-gray1 bg-no-repeat bg-white tracking-tight -translate-x-1/2 shadow-[0px_2px_4px_#00000034] transition-all duration-300 opacity-0 invisible md:block md:w-48;
+            & small {
+                @apply block text-xs leading-tight;
+            }
+            & strong {
+                @apply block text-sm md:text-base;
+            }
+            &::before, &::after {
+                @apply content-empty absolute left-[70%] bottom-full w-0 h-0 border-solid border-transparent -translate-x-1/2;
+            }
+            &::before {
+                @apply border-1.5 border-t-0 border-b-gray1;
+            }
+            &::after {
+                @apply border-[0.3125rem] border-t-0 border-b-white -mb-px;
+            }
+        }
+    }
+    & .family-link1 {
+        &::before {
+            @apply bg-[url(../images/ico-family1.png)];
+        }
+        &::after {
+            @apply bg-[url(../images/ico-family1-on.png)];
+        }
+        & .bubble {
+            @apply bg-[url(../images/bg-family1.svg)] bg-[length:55px] bg-[right_-1.3125rem_center];
+        }
+    }
+    & .family-link2 {
+        &::before {
+            @apply bg-[url(../images/ico-family2.png)];
+        }
+        &::after {
+            @apply bg-[url(../images/ico-family2-on.png)];
+        }
+        & .bubble {
+            @apply bg-[url(../images/bg-family2.png)] bg-[length:55px] bg-[right_center];
+        }
+    }
+    & .family-link3 {
+        @apply -mr-2 lg:-mr-3;
+        &::before {
+            @apply bg-[url(../images/ico-family3.png)];
+        }
+        &::after {
+            @apply bg-[url(../images/ico-family3-on.png)];
+        }
+        & .bubble {
+            @apply left-auto right-0 bg-[url(../images/bg-family3.png)] bg-[length:68px] bg-[right_0.25rem_top_0.5rem] translate-x-2;
+            &::before, &::after {
+                @apply left-[85%];
+            }
+            & strong {
+                @apply pt-1 pb-2.5;
+                & img {
+                    @apply md-max:w-19;
+                }
+            }
+        }
+    }
+}
+
+#container {
+    @apply mx-auto pb-10 px-5 max-w-screen-lg lg:px-7.5;
+}
+
+#page-title {
+    @apply pt-[5.3125rem] md:pt-25 lg:pt-[5.625rem];
+    & h2 {
+        @apply relative mx-auto w-fit text-center leading-snug text-4xl font-bold md:text-6xl lg:text-7xl lg:-translate-y-[calc(50%_-_0.1875em)];
+        & span {
+            @apply block relative;
+            &::before, &::after {
+                @apply content-empty hidden absolute top-1/2 -translate-y-1/2 w-[50vw] h-px bg-black2 opacity-20 lg:block;
+            }
+            &::before {
+                @apply right-full mr-5;
+            }
+            &::after {
+                @apply left-full ml-5;
+            }
+        }
+        & small {
+            @apply block text-[0.2917em];
+        }
+    }
+}
+
+
+#page-content {
+    @apply mt-10;
+}
+
+.is-background {
+    @apply bg-[url(../images/bg-header.png)] bg-[length:auto_19.375rem] md:bg-[length:auto_25.9375rem] lg:bg-[length:auto_32.5rem];
+    & #header {
+        @apply transition-all duration-300 bg-transparent lg-max:border-b-white/20;
+    }
+    & #header-logo {
+        @apply text-white;
+        & a {
+            &::before {
+                @apply bg-[url(../images/img-main-logo-white.svg)];
+            }
+        }
+    }
+    & #navigation {
+        @apply text-white;
+    }
+    & #family {
+        & .family-link1 {
+            &::before {
+                @apply bg-[url(../images/ico-family1-white.png)];
+            }
+        }
+        & .family-link2 {
+            &::before {
+                @apply bg-[url(../images/ico-family2-white.png)];
+            }
+        }
+        & .family-link3 {
+            &::before {
+                @apply bg-[url(../images/ico-family3-white.png)];
+            }
+        }
+    }
+    & #page-title {
+        @apply text-white;
+        & h2 {
+            & span {
+                &::before, &::after {
+                    @apply bg-white;
+                }
+            }
+        }
+    }
+    &.is-scroll {
+        & #header {
+            @apply lg-max:bg-white lg-max:border-b-black2/20;
+        }
+        & #header-logo {
+            @apply lg-max:text-black2;
+            & a {
+                &::before {
+                    @apply lg-max:bg-[url(../images/img-main-logo.svg)];
+                }
+            }
+        }
+        & #navigation {
+            @apply lg-max:text-black2;
+        }
+        & #family {
+            & .family-link1 {
+                &::before {
+                    @apply lg-max:bg-[url(../images/ico-family1.png)];
+                }
+            }
+            & .family-link2 {
+                &::before {
+                    @apply lg-max:bg-[url(../images/ico-family2.png)];
+                }
+            }
+            & .family-link3 {
+                &::before {
+                    @apply lg-max:bg-[url(../images/ico-family3.png)];
+                }
+            }
+        }
+    }
+}
+
+.is-join {
+    & #page-title {
+        @apply sm-max:mx-auto sm-max:max-w-95;
+        & h2 {
+            @apply sm-max:mr-0 sm-max:w-[53%];
+        }
+    }
+}
+
+#footer {
+    @apply py-10 px-5 leading-tight text-xs text-center font-serif lg:py-20;
+    & strong {
+        @apply font-medium;
+    }
+}

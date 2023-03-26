@@ -1,0 +1,277 @@
+##
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($voInstanceName="${model.entity.ccName}VO")
+#set($servicePackage="${servicePackage}")
+#set($serviceClassName="${model.entity.pcName}Service")
+#set($serviceName="${model.entity.ccName}Service")
+#set($serviceInstanceName="${model.entity.ccName}Service")
+#set($controllerPackage="${controllerPackage}")
+#set($controllerClassName="${model.entity.pcName}Controller")
+#set($classSerialNo="${model.entity.ccName}No")
+#set($getSerialNo="${model.entity.pcName}No")
+##
+##
+#set($createMethodName="insert${model.entity.pcName}")
+#set($updateMethodName="update${model.entity.pcName}")
+#set($updateUseListAtMethodName="update${model.entity.pcName}ListUseAt")
+#set($updateUseAtMethodName="update${model.entity.pcName}UseAt")
+#set($deleteMethodName="delete${model.entity.pcName}")
+#set($selectMethodName="select${model.entity.pcName}")
+#set($selectListMethodName="${model.entity.ccName}ListVO")
+##
+##
+#set($updateViewMethodName="update${model.entity.pcName}View")
+#set($addMethodName="add${model.entity.pcName}")
+#set($addViewMethodName="add${model.entity.pcName}View")
+##
+#set($adminPath="/_mng/${model.entity.ccName}")
+#set($listPath="list")
+#set($viewPath="view")
+#set($formPath="form")
+#set($actionPath="action")
+#set($useAtChgPath="useAtChg")
+#set($listActionPath="listAction")
+##
+#set($listView="/manage/${model.entity.lcName}/list")
+#set($formView="/manage/${model.entity.lcName}/form")
+#set($detailView="/manage/${model.entity.lcName}/view")
+##
+##
+package ${controllerPackage};
+
+#if (${servicePackage}=='${servicePackage}')
+// Servoce 객체에 대한 import 구문
+// import (service package).${serviceClassName};
+#else
+import ${servicePackage}.${serviceClassName};
+#end
+#if (${voPackage}=='${voPackage}')
+// Vo 객체에 대한 import 구문
+// import (vo package).${voClassName};
+#else
+import ${voPackage}.${voClassName};
+#end
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.View;
+import org.springframework.web.util.HtmlUtils;
+
+import icube.common.framework.abst.CommonAbstractController;
+import icube.common.framework.view.JavaScript;
+import icube.common.framework.view.JavaScriptView;
+import icube.common.util.CommonUtil;
+import icube.common.values.CRUD;
+import icube.common.values.CodeMap;
+import icube.common.vo.CommonListVO;
+import icube.manage.mngr.biz.MngrSession;
+import icube.manage.sample.biz.SampleService;
+import icube.manage.sample.biz.SampleVO;
+
+@Controller
+@RequestMapping(value="${adminPath}")
+public class ${controllerClassName} extends CommonAbstractController {
+
+	@Resource(name = "${serviceName}")
+	private ${serviceClassName} ${serviceInstanceName};
+	
+	@Autowired
+	private MngrSession mngrSession;
+	
+	// Page Parameter Keys
+	private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"};
+    
+    // 리스트
+	@RequestMapping(value="${listPath}")
+	public String list(
+			HttpServletRequest request
+			, Model model) throws Exception {
+
+		CommonListVO listVO = new CommonListVO(request);
+		listVO = ${serviceInstanceName}.$selectListMethodName(listVO);
+		
+		model.addAttribute("listVO", listVO);
+
+		return "${listView}"; //TO-DO check
+	} 
+
+	// 작성 or 수정
+	@RequestMapping(value="${formPath}")
+	public String form(
+			${voClassName} ${voInstanceName}
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request
+			, Model model) throws Exception{
+
+		int ${classSerialNo} = EgovStringUtil.string2integer((String) reqMap.get("${classSerialNo}"));
+
+		if(${classSerialNo} == 0){
+			${voInstanceName}.setCrud(CRUD.CREATE);
+		}else{
+			${voInstanceName} = ${serviceInstanceName}.${selectMethodName}(${classSerialNo});
+			${voInstanceName}.setCrud(CRUD.UPDATE);
+		}
+
+		//return value
+		model.addAttribute("${voInstanceName}", ${voInstanceName});
+		model.addAttribute("param", reqMap);
+
+		//TO-DO check
+		model.addAttribute("useAtCode", CodeMap.USE_AT);
+
+		return "${formView}"; //TO-DO check
+	}
+
+
+	@RequestMapping(value="action")
+	public View action(
+			${voClassName} ${voInstanceName}
+			, @RequestParam Map<String,Object> reqMap
+			, MultipartHttpServletRequest multiReq
+			, HttpSession session) throws Exception {
+
+		JavaScript javaScript = new JavaScript();
+		String pageParam = HtmlUtils.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
+
+
+		// 관리자정보		
+		${voInstanceName}.setRegUniqueId(mngrSession.getUniqueId());
+		${voInstanceName}.setRegId(mngrSession.getMngrId());
+		${voInstanceName}.setRgtr(mngrSession.getMngrNm());
+		${voInstanceName}.setMdfcnUniqueId(mngrSession.getUniqueId());
+		${voInstanceName}.setMdfcnId(mngrSession.getMngrId());
+		${voInstanceName}.setMdfr(mngrSession.getMngrNm());
+
+		switch (${voInstanceName}.getCrud()) {
+			case CREATE:
+				${serviceInstanceName}.${createMethodName}(${voInstanceName});
+
+				javaScript.setMessage(getMsg("action.complete.insert"));
+				javaScript.setLocation("./list?" + pageParam);
+				break;
+
+			case UPDATE:
+				${serviceInstanceName}.${updateMethodName}(${voInstanceName});
+
+				javaScript.setMessage(getMsg("action.complete.update"));
+				javaScript.setLocation(
+					"./view?${classSerialNo}=" + ${voClassName}.get${getSerialNo}() + ("".equals(pageParam) ? "" : "&" + pageParam));  //TO-DO check pk
+				break;
+
+			case DELETE:
+				${serviceInstanceName}.${deleteMethodName}(${voInstanceName}.get${getSerialNo}()); //TO-DO check pk
+
+				javaScript.setMessage(getMsg("action.complete.delete"));
+				javaScript.setLocation("./list?" + pageParam);
+				break;
+
+			default:
+				break;
+		}
+
+		return new JavaScriptView(javaScript);
+	}
+
+
+	/* 아래의 코드는 필요시에만 사용 */
+	/* 
+	
+	@RequestMapping(value="${viewPath}")
+	public String view(
+			@RequestParam(value="${classSerialNo}", required=true) int ${classSerialNo}	//TO-DO check
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+		${voClassName} ${voInstanceName} = ${serviceInstanceName}.${selectMethodName}(${classSerialNo});
+		
+		if (${voInstanceName} == null) {
+			model.addAttribute("alertMsg", getMsg("alert.author.common"));
+			return "/common/msg";
+		}
+
+		model.addAttribute("${voInstanceName}", ${voInstanceName});
+		model.addAttribute("param", reqMap);
+
+		return "${detailView}"; //TO-DO check
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="useAtChg.json")
+	public Map<String, Object> useAtChg(
+			@RequestParam(value="${classSerialNo}", required=true) String ${classSerialNo}
+			, @RequestParam(value="useAt", required=true) String useAt
+			, @RequestParam Map<String,Object> reqMap) throws Exception {
+			
+		boolean result = false;
+
+		// param
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("${classSerialNo}", ${classSerialNo});
+		paramMap.put("useAt", useAt);
+		
+		//paramMap.put("mdfcnUniqueId", mngrSession.getUniqueId());
+		//paramMap.put("mdfcnId", mngrSession.getMngrId());
+		//paramMap.put("mdfr", mngrSession.getMngrNm());
+
+		// action
+		Integer resultCnt = ${serviceInstanceName}.${updateUseAtMethodName}(paramMap);
+		if(resultCnt == 1){//update success 1 : fail 0
+			result = true;
+		}
+		
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		
+		return resultMap;
+	}
+
+
+	@ResponseBody
+	@RequestMapping("listAction.json")
+	public View listAction(
+			@RequestParam(value="arr${getSerialNo}", required=false) String[] arr${getSerialNo}
+			, @RequestParam(value="useAt", required=true) String useAt
+			, @RequestParam Map<String, Object> reqMap) throws Exception {
+
+		boolean result = false;
+
+		String listUseAt = WebUtil.clearSqlInjection((String) reqMap.get("listUseAt"));
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("arr${getSerialNo}", arr${getSerialNo});
+		paramMap.put("useAt", useAt);
+		
+		//paramMap.put("mdfcnUniqueId", mngrSession.getUniqueId());
+		//paramMap.put("mdfcnId", mngrSession.getMngrId());
+		//paramMap.put("mdfr", mngrSession.getMngrNm());
+
+		int resultCnt = ${serviceInstanceName}.${updateUseListAtMethodName}(paramMap);
+		if (resultCnt > 0) {
+			result = true;
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+
+		return resultMap;
+	}
+	
+	*/
+	
+
+}

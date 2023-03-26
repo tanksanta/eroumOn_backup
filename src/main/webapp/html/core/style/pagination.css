@@ -1,0 +1,65 @@
+@layer components {
+    .pagination {
+        @apply flex items-center flex-wrap;
+        & a {
+            @apply btn mx-0.5 px-0 w-9 h-7.5 rounded overflow-hidden text-sm font-serif;
+            &:hover, &:focus {
+                @apply ring-0 ring-offset-0;
+            }
+            &:active, &.active {
+                @apply border-black1 bg-black1 text-white ring-0 ring-offset-0;
+            }
+        }
+        & .sorting {
+            @apply order-1 flex mr-auto border border-gray1 py-1.5 px-1 rounded-md;
+            & a {
+                @apply bg-gray2 border-gray2;
+                &:hover, &:focus {
+                    @apply border-gray2 bg-gray2;
+                }
+                &:active, &.active {
+                    @apply border-black1 bg-black1 text-white ring-0 ring-offset-0;
+                }
+            }
+        }
+        & .sorting2 {
+            @apply order-1 flex mr-auto items-center;
+            & label {
+                @apply mr-2;
+            }
+            & select {
+                @apply min-w-22;
+            }
+        }
+        & .counter {
+            @apply order-3 ml-auto;
+        }
+        & .paging {
+            @apply order-2 flex mx-auto flex-wrap justify-center;
+            & a {
+                @apply my-1;
+            }
+            & .prev, & .next {
+                @apply block relative mx-3.5 w-12 overflow-hidden -indent-96;
+                &::before {
+                    @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:0.6875rem];
+                    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.448' height='9.485' viewBox='0 0 10.448 9.485'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,10.3.147,6.059a.5.5,0,0,1,.707-.707L4.233,8.732V.5a.5.5,0,1,1,1,0V8.752l3.4-3.4a.5.5,0,0,1,.707.707L5.1,10.3a.5.5,0,0,1-.707,0Z' transform='translate(10.448 0) rotate(90)' fill='%231c1c1c'/%3E%3C/svg%3E");
+                }
+                &:active {
+                    &::before {
+                        background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.448' height='9.485' viewBox='0 0 10.448 9.485'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,10.3.147,6.059a.5.5,0,0,1,.707-.707L4.233,8.732V.5a.5.5,0,1,1,1,0V8.752l3.4-3.4a.5.5,0,0,1,.707.707L5.1,10.3a.5.5,0,0,1-.707,0Z' transform='translate(10.448 0) rotate(90)' fill='%23fff'/%3E%3C/svg%3E");
+                    }
+                }
+            }
+            & .prev {
+                @apply ml-0;
+            }
+            & .next {
+                @apply mr-0;
+                &::before {
+                    @apply rotate-180;
+                }
+            }
+        }
+    }
+}

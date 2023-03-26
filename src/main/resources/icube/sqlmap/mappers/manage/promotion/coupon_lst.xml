@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon.lst">
+
+	<resultMap type="couponLstVO" id="couponLstVOMap" autoMapping="true"  />
+	<resultMap type="couponLstVO" id="couponLstListVOMap" autoMapping="true"  >
+		<collection property="couponInfo" column="{srchCouponNo=coupon_no}" select="coupon.selectCouponInfo" />
+	</resultMap>
+
+	<sql id="listColumn">
+			lst.unique_id
+			, lst.coupon_no
+			, lst.coupon_cd
+			, lst.use_yn
+			, lst.ult_yn
+			, lst.use_lst_bgng_ymd
+			, lst.use_lst_end_ymd
+			, lst.use_dt
+			, od.ordr_cd
+			, mb.mbr_id
+			, mb.mbr_nm
+			, cpn.coupon_nm
+			, cpn.coupon_ty
+			, cpn.issu_bgng_dt
+			, cpn.issu_qy
+			, cpn.use_bgng_ymd
+			, cpn.use_end_ymd
+			, cpn.mumm_ordr_amt
+			, cpn.mxmm_dscnt_amt
+			, cpn.dscnt_ty
+			, cpn.dscnt_amt
+			, cpn.use_psblty_daycnt
+			, cpn.use_pd_ty
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND cpn.use_bgng_ymd &gt;= #{srchBgngDt} AND cpn.use_end_ymd &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND cpn.use_bgng_ymd &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND cpn.use_end_ymd &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="couponNo != null and couponNo != '' ">
+			AND lst.coupon_no = #{couponNo}
+		</if>
+		<if test="uniqueId != null and uniqueId != '' ">
+			AND lst.unique_id = #{uniqueId}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND lst.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchExpiry != null and srchExpiry != '' ">
+			AND cpn.use_end_ymd &lt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+		</if>
+		<if test="srchUseCoupon != null and srchUseCoupon != '' ">
+			AND (cpn.use_end_ymd &gt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) OR lst.use_lst_end_ymd > (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')))
+		</if>
+		<if test="srchCouponNm != null and srchCouponNm != '' ">
+			AND cpn.coupon_nm like CONCAT('%' , #{srchCouponNm} , '%')
+		</if>
+		<if test="srchCouponCd != null and srchCouponCd != '' ">
+			AND lst.coupon_cd like CONCAT('%' , #{srchCouponCd} , '%')
+		</if>
+		<if test="srchCouponTy != null and srchCouponTy != '' ">
+			AND cpn.coupon_ty = #{srchCouponTy}
+		</if>
+	</sql>
+
+	<sql id="searchYmdConditions">
+		<if test="srchUseBgngYmd != null and srchUseBgngYmd != '' ">
+			AND cpn.use_bgng_ymd &lt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+		</if>
+		<if test="srchUseEndYmd != null and srchUseEndYmd != '' ">
+			AND cpn.use_end_ymd &gt;= (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
+		</if>
+	</sql>
+
+	<select id="selectLstListVO" parameterType="java.util.HashMap" resultMap="couponLstVOMap">
+		/* Query ID : coupon.lst.selectCouponLstListVO */
+		SELECT
+			<include refid="listColumn" />
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		LEFT JOIN MBR mb ON lst.unique_id = mb.unique_id
+		LEFT JOIN ORDR_DTL od ON od.coupon_cd = lst.coupon_cd
+		WHERE 1=1
+			<include refid="searchConditions" />
+			<include refid="searchYmdConditions" />
+	  	ORDER BY coupon_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectCountLst" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : coupon.lst.selectCouponCount */
+		SELECT	COUNT(*)
+		FROM	COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		LEFT JOIN MBR mb ON lst.unique_id = mb.unique_id
+		LEFT JOIN ORDR_DTL od ON od.coupon_cd = lst.coupon_cd
+		WHERE 1=1
+			<include refid="searchConditions" />
+			<include refid="searchYmdConditions" />
+	</select>
+
+	<!-- 쿠폰 발급 리스트 -->
+	<select id="selectLstListByMap" parameterType="java.util.HashMap" resultMap="couponLstVOMap">
+		/* Query ID : coupon.lst.selectLstListByMap */
+		SELECT
+			cpn.coupon_no
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		LEFT JOIN MBR mb ON lst.unique_id = mb.unique_id
+		LEFT JOIN ORDR_DTL od ON od.coupon_cd = lst.coupon_cd
+		WHERE 1=1
+			<include refid="searchConditions" />
+		GROUP BY coupon_no
+	</select>
+
+	<!-- 쿠폰 발행 조회 -->
+	<select id="selectTrgtCnt" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : coupon.lst.selectTrgtCnt */
+		SELECT COUNT(*)
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- 해당 쿠폰 발행 리스트 조회 -->
+	<select id="selectCouponIssuList" parameterType="java.util.HashMap" resultType="couponLstVO">
+		/* Query ID : coupon.lst.selectCouponIssuList */
+		SELECT
+			cpn.coupon_no
+			, lst.coupon_cd
+			, cpn.coupon_nm
+			, cpn.use_psblty_daycnt
+			, cpn.use_pd_ty
+			, cpn.issu_bgng_dt
+			, cpn.issu_end_dt
+			, cpn.use_bgng_ymd
+			, cpn.use_end_ymd
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		WHERE cpn.coupon_no = #{couponNo}
+		ORDER BY coupon_no DESC
+	</select>
+
+	<!-- TODO 회원 보유 쿠폰 리스트 통합 수정 -->
+	<select id="selectOwnCouponList" parameterType="java.util.HashMap" resultMap="couponLstListVOMap">
+		SELECT *
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON cpn.coupon_no = lst.coupon_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY cpn.coupon_no DESC
+	</select>
+
+	<!-- 쿠폰 수량 카운트 -->
+	<select id="selectCouponCnt" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : coupon.lst.selectCouponIssuList */
+		SELECT COUNT(*)
+		FROM COUPON_LST lst
+		LEFT JOIN COUPON cpn ON lst.coupon_no = cpn.coupon_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<!--  쿠폰 발행 -->
+	<insert id="insertCouponLst" parameterType="couponLstVO">
+		/* Query ID : coupon.insertCouponLst */
+		INSERT INTO COUPON_LST(
+			unique_id
+			, coupon_no
+			, coupon_cd
+			, use_yn
+			, use_lst_bgng_ymd
+			, use_lst_end_ymd
+			, ult_yn
+		)VALUES(
+			#{uniqueId, jdbcType=VARCHAR}
+			, #{couponNo}
+			, #{couponCd, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			<if test="useDay != null and useDay != '' ">
+			, SYSDATE()
+			</if>
+			<if test="(useDay == null or useDay == '') ">
+			, #{useLstBgngYmd}
+			</if>
+			<if test="useDay != null and useDay != '' ">
+			, DATE_ADD(DATE(NOW()), INTERVAL #{useDay} DAY)
+			</if>
+			<if test="(useDay == null or useDay == '') ">
+			, #{useLstEndYmd}
+			</if>
+			, #{ultYn, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 쿠폰 사용처리 -->
+	<update id="updateCouponUseYn" parameterType="java.util.HashMap">
+		/* Query ID : coupon.updateCouponUseYn */
+		UPDATE COUPON_LST SET
+			use_yn = #{useYn, jdbcType=VARCHAR}
+			, use_dt = SYSDATE()
+		WHERE unique_id = #{uniqueId} AND coupon_no = #{couponNo}
+		<!--<include refid="searchConditions" />  -->
+	</update>
+
+	<!--  쿠폰 사용처리 취소 -->
+	<update id="updateCouponUseYnNull" parameterType="java.util.HashMap">
+		UPDATE COUPON_LST SET
+			use_yn = #{srchUseYn}
+			, use_dt = null
+		WHERE coupon_cd = #{srchCouponCd}
+	</update>
+
+</mapper>

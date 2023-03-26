@@ -1,0 +1,634 @@
+.introduce-wrapper, .dashboard-wrapper {
+    @apply flex flex-col relative w-full min-h-screen;
+    & .text-copyright {
+        @apply mt-20;
+    }
+}
+
+.introduce-wrapper {
+    & .market-title {
+        @apply pb-35;
+    }
+    & .system-title {
+        @apply -translate-y-1/2;
+        & .user-info {
+            @apply mt-4 text-white;
+            & .name {
+                @apply mr-3;
+                & strong {
+                    @apply text-lg;
+                }
+                & small {
+                    @apply text-sm mt-1;
+                }
+            }
+            & .thum {
+                @apply w-[3.125rem] h-[3.125rem];
+                & + .name {
+                    @apply mr-0 ml-3;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-wrapper {
+    @apply flex-col items-start text-white mx-auto;
+    & .header {
+        @apply flex items-start relative py-3 px-10 mx-auto w-full max-w-[85.375rem];
+        & .system-title {
+            @apply -ml-7;
+        }
+        & .dashboard-today {
+            @apply py-4;
+        }
+        & .dashboard-account {
+            @apply flex-none relative top-auto right-auto mt-4 -mr-3;
+        }
+    }
+    & .container {
+        @apply flex flex-wrap gap-x-7.5 gap-y-6 mt-7 mb-20 mx-auto px-10 w-full max-w-[85.375rem];
+        & .box-sizer1 {
+            @apply w-[65.5rem];
+        }
+        & .box-sizer2 {
+            @apply w-52;
+        }
+        & .box-sizer3 {
+            @apply w-[45.5rem];
+        }
+        & .box-sizer4 {
+            @apply w-[33rem];
+        }
+        & .box-sizer5 {
+            @apply w-full;
+        }
+    }
+    & .text-copyright {
+        @apply mt-auto w-full;
+    }
+}
+
+.dashboard-today {
+    @apply flex items-center justify-center w-full tracking-normal;
+    & .date {
+        @apply mr-5 font-serif font-bold text-3xl;
+    }
+    & .weather {
+        @apply flex items-center;
+        & > * {
+            @apply mr-1;
+            &:last-child {
+                @apply mr-0;
+            }
+        }
+        & .loca {
+            @apply text-xs leading-tight text-right font-medium;
+            & small {
+                @apply block text-[0.92em];
+            }
+        }
+        & .temp {
+            @apply font-bold text-[1.3125rem];
+        }
+    }
+}
+
+.dashboard-account {
+    @apply flex items-center absolute top-7 right-7;
+    & > * {
+        @apply ml-1.5;
+        &.btn-menu {
+            @apply ml-1;
+        }
+    }
+}
+
+.dashboard-menu {
+    @apply btn p-0 w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-center bg-no-repeat bg-transparent text-left;
+    background-image: url(../images/ico-dashboard.svg);
+    background-size: theme("spacing[4.5]");
+    &.white {
+        background-image: url(../images/ico-dashboard-white.svg);
+    }
+    &:hover, &:focus, &:active {
+        @apply bg-transparent;
+    }
+}
+
+.dashboard-menu-layer {
+    @apply grid grid-cols-3 absolute z-100 top-full right-3 mt-2.5 py-3 px-4.5 rounded-[1.5rem] bg-white w-[17.0625rem] text-xs leading-tight text-black1 transition-all duration-200 opacity-0 invisible scale-[0.8] origin-top-right;
+    & li {
+        @apply py-2 text-center tracking-wider;
+        & a {
+            @apply block mx-auto w-fit;
+            &:hover {
+                & i {
+                    @apply bg-black1;
+                    &::before {
+                        @apply opacity-0;
+                    }
+                    &::after {
+                        @apply opacity-100;
+                    }
+                }
+            }
+        }
+        & i {
+            @apply block relative mb-1.5 mx-auto w-[3.3125rem] h-[3.3125rem] overflow-hidden rounded-md;
+            &::before, &::after {
+                @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:1.6875rem];
+            }
+            &::after {
+                @apply opacity-0;
+            }
+            &.icon1 {
+                &::before, &::after {
+                    @apply bg-[length:1.8125rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu2.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu2-white.svg)];
+                }
+            }
+            &.icon2 {
+                &::before {
+                    @apply bg-[url(../images/ico-menu3.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu3-white.svg)];
+                }
+            }
+            &.icon3 {
+                &::before, &::after {
+                    @apply bg-[length:1.5625rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu4.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu4-white.svg)];
+                }
+            }
+            &.icon4 {
+                &::before, &::after {
+                    @apply bg-[length:1.75rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu5.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu5-white.svg)];
+                }
+            }
+            &.icon5 {
+                &::before, &::after {
+                    @apply bg-[length:2rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu11.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu11-white.svg)];
+                }
+            }
+            &.icon6 {
+                &::before, &::after {
+                    @apply bg-[length:1.8125rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu7.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu7-white.svg)];
+                }
+            }
+            &.icon7 {
+                &::before {
+                    @apply bg-[url(../images/ico-menu8.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu8-white.svg)];
+                }
+            }
+            &.icon8 {
+                &::before {
+                    @apply bg-[url(../images/ico-menu9.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu9-white.svg)];
+                }
+            }
+            &.icon9 {
+                &::before {
+                    @apply bg-[url(../images/ico-menu10.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu10-white.svg)];
+                }
+            }
+            &.icon10 {
+                &::before, &::after {
+                    @apply bg-[length:1.75rem];
+                }
+                &::before {
+                    @apply bg-[url(../images/ico-menu12.svg)];
+                }
+                &::after {
+                    @apply bg-[url(../images/ico-menu12-white.svg)];
+                }
+            }
+        }
+    }
+    &.is-active {
+        @apply opacity-100 scale-100 visible;
+    }
+}
+
+.dashboard-items {
+    @apply flex items-center justify-center space-x-8;
+    & a {
+        @apply block text-center text-white text-base press-action;
+        &::before {
+            @apply block content-empty mb-2.5 w-22 h-22 bg-white bg-no-repeat bg-center text-[0.9375rem];
+            border-radius: theme("spacing[4.5]");
+            box-shadow: 0px 2px 4px #00000033;
+        }
+        &.dashboard-item1 {
+            &::before {
+                background-image: url(../images/ico-menu1.svg);
+            }
+        }
+        &.dashboard-item2 {
+            &::before {
+                background-image: url(../images/ico-menu2.svg);
+            }
+        }
+        &.dashboard-item3 {
+            &::before {
+                background-image: url(../images/ico-menu3.svg);
+            }
+        }
+        &.dashboard-item4 {
+            &::before {
+                background-image: url(../images/ico-menu4.svg);
+            }
+        }
+        &.dashboard-item5 {
+            &::before {
+                background-image: url(../images/ico-menu5.svg);
+            }
+        }
+        &.dashboard-item6 {
+            &::before {
+                background-image: url(../images/ico-menu6.svg);
+            }
+        }
+        &.dashboard-item7 {
+            &::before {
+                background-image: url(../images/ico-menu7.svg);
+            }
+        }
+        &.dashboard-item8 {
+            &::before {
+                background-image: url(../images/ico-menu8.svg);
+            }
+        }
+        &.dashboard-item9 {
+            &::before {
+                background-image: url(../images/ico-menu9.svg);
+            }
+        }
+        &.dashboard-item10 {
+            &::before {
+                background-image: url(../images/ico-menu10.svg);
+            }
+        }
+        &.dashboard-item11 {
+            &::before {
+                background-image: url(../images/ico-menu11.svg);
+            }
+        }
+        &.dashboard-item12 {
+            &::before {
+                @apply bg-[length:2.5rem];
+                background-image: url(../images/ico-menu12.svg);
+            }
+        }
+    }
+}
+
+.dashboard-box1, .dashboard-box2 {
+    @apply relative px-5 py-4 rounded-[1.625rem] backdrop-blur-lg leading-none;
+    &::before {
+        @apply content-empty absolute -z-5 top-0.5 left-0.5 right-0.5 bottom-0.5 border border-white opacity-10;
+        border-radius: theme("spacing[6]");
+    }
+    & > * {
+        @apply relative z-5;
+    }
+    & h2 {
+        @apply flex items-center flex-wrap mb-1.5 tracking-tight leading-tight;
+        & .desc, & .date {
+            @apply inline-block font-sans text-xs align-middle leading-none not-italic;
+        }
+        & .desc {
+            @apply pl-2 font-bold tracking-tighter;
+        }
+        & .date {
+            @apply ml-auto font-medium;
+        }
+    }
+}
+
+.dashboard-box1 {
+    @apply bg-black/30;
+    & h2 {
+        @apply italic font-serif uppercase font-black text-2xl;
+    }
+}
+
+.dashboard-box2 {
+    @apply bg-white/15;
+    & h2 {
+        @apply text-lg font-bold;
+    }
+}
+
+.dashboard-table {
+    @apply w-full table-fixed text-xs border-separate border-spacing-1;
+    & th, & td {
+        @apply p-0.5 h-5;
+    }
+    & th {
+        & p {
+            @apply flex items-center justify-center h-full text-center rounded py-[0.3125rem] bg-black/10 text-white/60;
+        }
+    }
+    & tbody {
+        & th {
+            & p {
+                @apply py-[0.4375rem];
+            }
+        }
+    }
+}
+
+.dashboard-number {
+    @apply block text-center;
+    & .numb {
+        @apply inline-flex justify-end relative overflow-hidden tracking-wider text-white text-right text-[1.5625rem] bg-no-repeat bg-[url(../images/text-num-white.svg)] bg-left-top bg-[length:1em] leading-none align-top;
+        & span {
+            @apply bg-no-repeat block mr-[0.2em] w-[1em] h-[46px] overflow-hidden bg-[url(../images/text-num-white.svg)] bg-[length:1em] text-left -indent-96;
+            &:last-child {
+                @apply mr-0;
+            }
+            &[data-num="0"] {
+                background-position: 0 -46px;
+            }
+            &[data-num="1"] {
+                background-position: 0 -93px;
+            }
+            &[data-num="2"] {
+                background-position: 0 -140px;
+            }
+            &[data-num="3"] {
+                background-position: 0 -187px;
+            }
+            &[data-num="4"] {
+                background-position: 0 -234px;
+            }
+            &[data-num="5"] {
+                background-position: 0 -281px;
+            }
+            &[data-num="6"] {
+                background-position: 0 -328px;
+            }
+            &[data-num="7"] {
+                background-position: 0 -375px;
+            }
+            &[data-num="8"] {
+                background-position: 0 -422px;
+            }
+            &[data-num="9"] {
+                background-position: 0 -468px;
+            }
+            &.space {
+                @apply ml-[0.4em];
+            }
+        }
+    }
+    & .desc {
+        @apply block mt-2 text-center text-xs font-medium tracking-tight text-white/60;
+    }
+    &.is-red {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-red.svg);
+            }
+        }
+    }
+    &.is-sky {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-sky.svg);
+            }
+        }
+    }
+    &.is-blue {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-blue.svg);
+            }
+        }
+    }
+    &.is-orange {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-orange.svg);
+            }
+        }
+    }
+    &.is-yellow {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-yellow.svg);
+            }
+        }
+    }
+    &.is-green {
+        & .numb {
+            & span {
+                background-image: url(../images/text-num-green.svg);
+            }
+        }
+    }
+    &.is-small {
+        & .numb {
+            @apply text-base;
+            & span {
+                height: 30px;
+                &[data-num="0"] {
+                    background-position: 0 -29px;
+                }
+                &[data-num="1"] {
+                    background-position: 0 -59px;
+                }
+                &[data-num="2"] {
+                    background-position: 0 -89px;
+                }
+                &[data-num="3"] {
+                    background-position: 0 -119px;
+                }
+                &[data-num="4"] {
+                    background-position: 0 -149px;
+                }
+                &[data-num="5"] {
+                    background-position: 0 -179px;
+                }
+                &[data-num="6"] {
+                    background-position: 0 -209px;
+                }
+                &[data-num="7"] {
+                    background-position: 0 -239px;
+                }
+                &[data-num="8"] {
+                    background-position: 0 -269px;
+                }
+                &[data-num="9"] {
+                    background-position: 0 -299px;
+                }
+            }
+        }
+    }
+    &.is-large {
+        & .numb {
+            @apply text-4xl;
+            & span {
+                height: 60px;
+                &[data-num="0"] {
+                    background-position: 0 -60px;
+                }
+                &[data-num="1"] {
+                    background-position: 0 -120px;
+                }
+                &[data-num="2"] {
+                    background-position: 0 -180px;
+                }
+                &[data-num="3"] {
+                    background-position: 0 -240px;
+                }
+                &[data-num="4"] {
+                    background-position: 0 -300px;
+                }
+                &[data-num="5"] {
+                    background-position: 0 -360px;
+                }
+                &[data-num="6"] {
+                    background-position: 0 -420px;
+                }
+                &[data-num="7"] {
+                    background-position: 0 -480px;
+                }
+                &[data-num="8"] {
+                    background-position: 0 -540px;
+                }
+                &[data-num="9"] {
+                    background-position: 0 -600px;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-order {
+    @apply box-sizer1 space-y-6;
+    & .order-status {
+        @apply flex;
+        & dl {
+            @apply flex items-center flex-1;
+            & dt {
+                @apply pt-5 pb-2.5 w-28 rounded bg-black/10 text-center tracking-tight leading-snug text-xs text-white/60;
+                & i {
+                    @apply flex justify-center items-center mb-2 h-8.5;
+                }
+            }
+            & dd {
+                @apply flex-1 pr-5.5 pl-2.5;
+                & .dashboard-number {
+                    @apply flex justify-end mt-2.5 text-right;
+                    & .desc {
+                        @apply ml-1 w-[1em] text-center;
+                    }
+                    &:first-child {
+                        @apply mt-0;
+                    }
+                    &:not(.is-small) {
+                        @apply mr-4;
+                    }
+                }
+            }
+            &:last-child {
+                & dd {
+                    @apply pr-0;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-cancel {
+    @apply dashboard-box1 box-sizer2;
+    & .content {
+        & h2 {
+            @apply mb-5;
+        }
+    }
+    & .dashboard-number {
+        @apply flex mt-4;
+        & .desc {
+            @apply mt-0;
+        }
+        & .numb {
+            @apply ml-auto;
+        }
+    }
+}
+
+.dashboard-current1 {
+    @apply dashboard-box2 box-sizer3;
+}
+
+.dashboard-current2 {
+    @apply dashboard-box2 box-sizer4;
+}
+
+.dashboard-member {
+    @apply mt-5 w-full;
+    & h2 {
+        @apply flex items-center flex-wrap mb-1.5 tracking-tight leading-tight italic font-serif uppercase font-black text-[2.375rem];
+        & .desc, & .date {
+            @apply inline-block font-sans text-xs align-middle leading-none not-italic;
+        }
+        & .desc {
+            @apply pl-2 font-bold tracking-tighter;
+        }
+        & .date {
+            @apply ml-auto font-medium;
+        }
+    }
+    & .member-container {
+        @apply flex items-end justify-end overflow-hidden;
+    }
+    & .member-chart {
+        @apply flex-1 overflow-hidden;
+    }
+    & .member-count {
+        @apply mb-4 ml-3 w-85;
+        & .dashboard-number {
+            @apply mt-3 text-right;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbs.ctgry">
+
+	<resultMap type="bbsCtgryVO" id="bbsCtgryMap">
+		<result property="bbsNo" 		column="bbs_no" />
+		<result property="ctgryNo" 		column="ctgry_no" />
+		<result property="ctgryValue" 	column="ctgry_value" />
+		<result property="ctgryNm" 		column="ctgry_nm" />
+	</resultMap>
+
+	<select id="listCtgry" parameterType="hashmap" resultMap="bbsCtgryMap">
+		SELECT
+			  bbs_no
+			, ctgry_no
+			<choose>
+				<when test="prefix != null">
+				, CONCAT('${prefix}-' , ctgry_no) AS ctgry_value
+				</when>
+				<otherwise>
+				, '' AS ctgry_value
+				</otherwise>
+			</choose>
+			, ctgry_nm
+		FROM BBS_CTGRY
+		WHERE bbs_no = #{bbsNo}
+			AND use_yn = 'Y'
+	</select>
+
+
+	<insert id="insertBbsCtgry" parameterType="bbsCtgryVO">
+		<selectKey keyProperty="ctgryNo" resultType="int" order="BEFORE">
+		SELECT
+			IFNULL(MAX(ctgry_no), 0) + 1
+		FROM BBS_CTGRY
+		WHERE bbs_no = #{bbsNo}
+		</selectKey>
+		INSERT INTO BBS_CTGRY (
+			  bbs_no
+			, ctgry_no
+			, ctgry_nm
+			, use_yn
+		) VALUES (
+			  #{bbsNo}
+			, #{ctgryNo}
+			, #{ctgryNm}
+			, #{useYn}
+		)
+	</insert>
+
+	<update id="updateBbsCtgry" parameterType="bbsCtgryVO">
+		UPDATE BBS_CTGRY SET
+			ctgry_nm = #{ctgryNm}
+			, use_yn = #{useYn}
+		WHERE bbs_no =  #{bbsNo}
+			AND ctgry_no = #{ctgryNo}
+	</update>
+
+
+</mapper>

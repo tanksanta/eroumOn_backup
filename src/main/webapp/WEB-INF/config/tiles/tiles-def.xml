@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- 관리자 템플릿 -->
+	<definition name=".manage_layout" template="/WEB-INF/jsp/manage/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/manage/layout/header.jsp" />
+		<put-attribute name="aside" 	value="/WEB-INF/jsp/manage/layout/aside.jsp" />
+		<put-attribute name="breadcrumb" 	value="/WEB-INF/jsp/manage/layout/breadcrumb.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/manage/layout/footer.jsp" />
+	</definition>
+
+	<!-- 관리자 > 개별페이지 -->
+	<definition name="/manage/login/*" template="/WEB-INF/jsp/manage/login/{1}.jsp" />
+	<definition name="/manage/dashboard/dashboard" template="/WEB-INF/jsp/manage/dashboard/dashboard.jsp" />
+	<definition name="/manage/dashboard/intro" template="/WEB-INF/jsp/manage/dashboard/intro.jsp" />
+
+	<definition name="/manage/gds/gds/include/modal-gds-search" template="/WEB-INF/jsp/manage/gds/gds/include/modal-gds-search.jsp" />
+	<definition name="/manage/*/excel" template="/WEB-INF/jsp/manage/{1}/excel.jsp" />
+	<definition name="/manage/*/*/excel" template="/WEB-INF/jsp/manage/{1}/{2}/excel.jsp" />
+
+	<definition name="/manage/*/include/*" template="/WEB-INF/jsp/manage/{1}/include/{2}.jsp" />
+	<definition name="/manage/*/*/include/*" template="/WEB-INF/jsp/manage/{1}/{2}/include/{3}.jsp" />
+
+	<!-- 관리자 페이지 정의 -->
+	<definition name="/manage/*/*" extends=".manage_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/manage/{1}/{2}.jsp" />
+	</definition>
+	<definition name="/manage/*/*/*" extends=".manage_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/manage/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="/manage/*/*/*/*" extends=".manage_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/manage/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+
+
+	<!-- 마켓 기본 템플릿 -->
+	<definition name=".market_layout" template="/WEB-INF/jsp/market/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/market/layout/header.jsp" />
+		<put-attribute name="navigation" 	value="/WEB-INF/jsp/market/layout/navigation.jsp" />
+		<put-attribute name="aside" 	value="/WEB-INF/jsp/market/layout/aside.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/market/layout/footer.jsp" />
+		<put-attribute name="popup" 	value="/WEB-INF/jsp/market/layout/popup.jsp" />
+		<put-attribute name="newWindow" 	value="/WEB-INF/jsp/market/layout/newWindow.jsp" />
+	</definition>
+
+	<definition name="/market/*/include/*" template="/WEB-INF/jsp/market/{1}/include/{2}.jsp" />
+	<definition name="/market/*/*/include/*" template="/WEB-INF/jsp/market/{1}/{2}/include/{3}.jsp" />
+
+	<definition name="/market/*" extends=".market_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/market/{1}.jsp" />
+	</definition>
+	<definition name="/market/*/*" extends=".market_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/market/{1}/{2}.jsp" />
+	</definition>
+	<definition name="/market/*/*/*" extends=".market_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/market/{1}/{2}/{3}.jsp" />
+	</definition>
+
+
+	<!-- 멤버스 기본 -->
+	<definition name=".members_layout" template="/WEB-INF/jsp/members/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/members/layout/header.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/members/layout/footer.jsp" />
+	</definition>
+	<definition name="/members/*" extends=".members_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/members/{1}.jsp" />
+	</definition>
+	<definition name="/members/introduce" extends=".members_layout">
+		<put-attribute name="header" 	value="" />
+		<put-attribute name="content" 	value="/WEB-INF/jsp/members/introduce.jsp" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/members/layout/footer.jsp" />
+	</definition>
+
+	<!-- 파트너스 > 사업소 > 관리자 order:1 -->
+	<definition name=".bplc_mng_layout" template="/WEB-INF/jsp/members/bplc/mng/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/members/bplc/mng/layout/header.jsp" />
+		<put-attribute name="page-content" 	value="" />
+	</definition>
+	<definition name="/members/bplc/mng/*" extends=".bplc_mng_layout">
+		<put-attribute name="page-content" 	value="/WEB-INF/jsp/members/bplc/mng/{1}.jsp" />
+	</definition>
+	<definition name="/members/bplc/mng/*/*" extends=".bplc_mng_layout">
+		<put-attribute name="page-content" 	value="/WEB-INF/jsp/members/bplc/mng/{1}/{2}.jsp" />
+	</definition>
+
+
+	<!-- 파트너스 > 사업소 order:2 -->
+	<definition name=".bplc_layout" template="/WEB-INF/jsp/members/bplc/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/members/bplc/layout/header.jsp" />
+		<put-attribute name="navigation" 	value="/WEB-INF/jsp/members/bplc/layout/navigation.jsp" />
+		<put-attribute name="aside" 	value="/WEB-INF/jsp/members/bplc/layout/aside.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/members/bplc/layout/footer.jsp" />
+	</definition>
+	<definition name="/members/bplc/*" extends=".bplc_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/members/bplc/{1}.jsp" />
+	</definition>
+	<definition name="/members/bplc/*/*" extends=".bplc_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/members/bplc/{1}/{2}.jsp" />
+	</definition>
+
+
+	<!-- 플래너 -->
+	<definition name=".planner_layout" template="/WEB-INF/jsp/planner/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/planner/layout/header.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/planner/layout/footer.jsp" />
+	</definition>
+	<definition name="/planner/*" extends=".planner_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/{1}.jsp" />
+	</definition>
+
+
+	<!-- 회원(membership) -->
+	<definition name=".membership_layout" template="/WEB-INF/jsp/membership/layout/layout.jsp">
+		<put-attribute name="header" 	value="/WEB-INF/jsp/membership/layout/header.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/membership/layout/footer.jsp" />
+	</definition>
+	<definition name="/membership/*" extends=".membership_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}.jsp" />
+	</definition>
+	<definition name="/membership/*/*" extends=".membership_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}/{2}.jsp" />
+	</definition>
+
+
+</tiles-definitions>

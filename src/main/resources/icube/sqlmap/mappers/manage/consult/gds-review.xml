@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.review">
+
+	<!-- Define GdsReviewVO Result Map  -->
+	<resultMap type="gdsReviewVO" id="gdsReviewVOMap" autoMapping="true">
+		<association property="imgFile" 	column="{srvcId=srvc_id, upNo=gds_reivew_no}" select="file.selectFileByFilter" />
+		<collection property="thumbnailFile" column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+	</resultMap>
+
+	<resultMap type="gdsReviewVO" id="reviewListVOMap" autoMapping="true" >
+		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
+		<association property="boolDt" column="{srchRegUniqueId=reg_unique_id, ordrCd=ordr_cd}" select="gds.review.booleanRegist" />
+		<association property="reviewCnt" column="{srchUniqueId=reg_unique_id, ordrCd=ordr_cd}" select="gds.review.reviewCount" />
+	</resultMap>
+
+	<!-- Define GdsReviewVO Column List -->
+	<sql id="listColumn">
+		 gr.gds_reivew_no
+		 , gr.gds_no
+		 , gr.gds_cd
+		 , gr.ttl
+		 , gr.cn
+		 , gr.img_use_yn
+		 , gr.dgstfn
+		 , gr.use_yn
+		 , gr.dspy_yn
+		 , gr.reg_unique_id
+		 , gr.reg_dt
+		 , gr.reg_id
+		 , gr.rgtr
+		 , gr.mdfcn_unique_id
+		 , gr.mdfcn_dt
+		 , gr.mdfcn_id
+		 , gr.mdfr
+		 , gr.ordr_dtl_no
+		 , gr.ordr_cd
+		 , gr.ordr_no
+		 , gds.gds_nm
+		 , 'REVIEW' AS srvc_id
+		 , 'THUMB' as thumb_file_ty
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND gr.reg_dt &gt;= #{srchBgngDt} AND gr.reg_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND gr.reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND gr.reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchUseYn == null or srchUseYn == '' ">
+			AND gr.use_yn = 'Y'
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND gr.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchDspyYn != null and srchDspyYn != '' ">
+			AND gr.dspy_yn = #{srchDspyYn}
+		</if>
+		<if test="srchGdsNo != null and srchGdsNo != '' ">
+			AND gr.gds_no = #{srchGdsNo}
+		</if>
+		<if test="srchGdsNm != null and srchGdsNm != '' ">
+			AND gds.gds_nm like CONCAT('%', #{srchGdsNm},'%')
+		</if>
+		<if test="srchGdsCd != null and srchGdsCd != '' ">
+			AND gr.gds_cd like CONCAT ('%', #{srchGdsCd}, '%')
+		</if>
+		<if test="srchCn != null and srchCn != '' ">
+			AND gr.cn like CONCAT ('%',#{srchCn},'%')
+		</if>
+		<if test="srchImgUseYn != null and srchImgUseYn != '' ">
+			AND gr.img_use_yn = #{srchImgUseYn}
+		</if>
+		<if test="srchRgtrId != null and srchRgtrId != '' ">
+			AND gr.reg_id = #{srchRgtrId}
+		</if>
+		<if test="srchRgtr != null and srchRgtr != '' ">
+			AND gr.rgtr like CONCAT('%', #{srchRgtr}, '%')
+		</if>
+		<if test="srchRegYmdBgng !=null and srchRegYmdBgng != ''">
+			AND DATE_FORMAT(gr.reg_dt, '%Y-%m-%d') &gt;= #{srchRegYmdBgng}
+		</if>
+		<if test="srchRegYmdEnd !=null and srchRegYmdEnd != ''">
+			AND DATE_FORMAT(gr.reg_dt, '%Y-%m-%d') &lt;= #{srchRegYmdEnd}
+		</if>
+		<if test="srchRegUniqueId != null and srchRegUniqueId != '' ">
+			AND gr.reg_unique_id = #{srchRegUniqueId}
+		</if>
+	</sql>
+
+	<sql id="ordrConditions">
+		<if test="ordrCd != null and ordrCd != '' ">
+			AND ordr_cd = #{ordrCd}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchSttsTy != null and srchSttsTy != '' ">
+			AND od.stts_ty = #{srchSttsTy}
+		</if>
+		<if test="srchDate != null and srchDate != '' ">
+			AND DATE_ADD(reg_dt, INTERVAL #{srchDate} MONTH) &gt; SYSDATE()
+		</if>
+		<if test="srchOrdrOptnTy != null and srchOrdrOptnTy != '' ">
+			AND od.ordr_optn_ty = #{srchOrdrOptnTy}
+		</if>
+	</sql>
+
+	<!-- Define GDS_REVIEW List Query -->
+	<select id="selectGdsReviewListVO" parameterType="java.util.HashMap" resultMap="gdsReviewVOMap">
+		/* Query ID : gdsReview.selectGdsReviewListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM GDS_REVIEW gr
+		LEFT JOIN GDS gds ON gds.gds_no = gr.gds_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY gds_reivew_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define GDS_REVIEW Count Query -->
+	<select id="selectGdsReviewCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gdsReview.selectGdsReviewCount */
+		SELECT	COUNT(*)
+		FROM	GDS_REVIEW gr
+		LEFT JOIN GDS gds ON gds.gds_no = gr.gds_no
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- 사용자 마이페이지 list -->
+	<select id="selectPosbleListAll" parameterType="java.util.HashMap" resultMap="reviewListVOMap">
+	SELECT *
+	FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+	WHERE 1=1
+		 <include refid="ordrConditions" />
+	AND ordr_dtl_no NOT IN (SELECT ordr_dtl_no FROM GDS_REVIEW gr WHERE reg_unique_id = #{srchUniqueId})
+	ORDER BY o.ordr_no DESC
+	</select>
+
+	<!-- gdsReview 독단 카운트 -->
+	<select id="reviewCount" parameterType ="java.util.HashMap" resultType="int">
+		/* Query ID : gdsReview.reviewCount */
+		SELECT COUNT(*)
+		FROM GDS_REVIEW gr
+		WHERE 1=1
+			<include refid="ordrConditions" />
+	</select>
+
+
+	<!-- 리뷰 작성기간 판단 -->
+	<select id="booleanRegist" parameterType="java.util.HashMap" resultType="boolean">
+		SELECT IF(reg_dt &lt; SYSDATE() AND SYSDATE() &lt; DATE_ADD(reg_dt, INTERVAL 6 MONTH), 1, 0) AS wrt_dt
+		FROM ORDR_DTL
+		WHERE 1=1
+			<include refid="ordrConditions" />
+		GROUP BY wrt_dt
+	</select>
+
+	<!-- Define GDS_REVIEW Detail Query -->
+	<select id="selectGdsReview" parameterType="java.util.HashMap" resultMap="gdsReviewVOMap">
+		/* Query ID : gdsReview.selectGdsReview */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT profl_img FROM MBR m WHERE m.unique_id = gr.reg_unique_id) AS profl_img
+		FROM	GDS_REVIEW gr
+		LEFT JOIN GDS gds ON gds.gds_no = gr.gds_no
+		WHERE  gds_reivew_no = #{gdsReivewNo}
+	</select>
+
+	<!-- 작성한 상품 카운트, 작성 가능한 상품 리뷰 카운트 맵 -->
+	<select id="selectPsbleCount" parameterType="java.util.HashMap" resultType="egovMap">
+		/* Query ID : gdsReview.selectPsbleCount */
+	SELECT
+		(	SELECT COUNT(*) FROM GDS_REVIEW gr
+			WHERE REG_UNIQUE_ID = #{srchUniqueId}
+		) AS rg_count,
+
+		(
+			SELECT COUNT(*)
+			FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+			WHERE od.ordr_optn_ty = #{srchOrdrOptnTy}
+			<include refid="ordrConditions" />
+			AND ordr_dtl_no NOT IN (SELECT ordr_dtl_no FROM GDS_REVIEW gr WHERE reg_unique_id = #{srchUniqueId})
+		) AS av_count
+	</select>
+
+	<!-- 작성한 상품 리뷰 -->
+	<select id="selectGdsReviewListAll" parameterType="java.util.HashMap" resultMap="gdsReviewVOMap">
+		/* Query ID : gdsReview.selectGdsReviewListAll */
+		SELECT
+			 gr.gds_reivew_no
+			 , gr.gds_no
+			 , gr.gds_cd
+			 , gr.ttl
+			 , gr.cn
+			 , gr.img_use_yn
+			 , gr.dgstfn
+			 , gr.use_yn
+			 , gr.dspy_yn
+			 , gr.reg_unique_id
+			 , gr.reg_dt
+			 , gr.reg_id
+			 , gr.rgtr
+			 , gr.mdfcn_unique_id
+			 , gr.mdfcn_dt
+			 , gr.mdfcn_id
+			 , gr.mdfr
+			 , gr.ordr_dtl_no
+			 , gr.ordr_cd
+			 , gr.ordr_no
+			 , 'REVIEW' AS srvc_id
+		 	, 'THUMB' as thumb_file_ty
+		FROM GDS_REVIEW gr
+		WHERE 1=1
+			<include refid="ordrConditions" />
+		ORDER BY gr.gds_reivew_no DESC
+	</select>
+
+	<!-- Define GDS_REVIEW Insert Query -->
+	<insert id="insertGdsReview" parameterType="gdsReviewVO">
+		/* Query ID : gdsReview.insertGdsReview */
+		INSERT INTO GDS_REVIEW (
+		 	gds_no
+			, gds_cd
+			, ttl
+			, cn
+			, img_use_yn
+			, dgstfn
+			, use_yn
+			, dspy_yn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+		 	, rgtr
+			, ordr_dtl_no
+			, ordr_cd
+			, ordr_no
+		) VALUES (
+			#{gdsNo}
+			, #{gdsCd, jdbcType=VARCHAR}
+			, #{ttl, jdbcType=VARCHAR}
+			, #{cn, jdbcType=VARCHAR}
+			, #{imgUseYn, jdbcType=VARCHAR}
+			, #{dgstfn}
+			, 'Y'
+			, #{dspyYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, #{ordrDtlNo}
+			, #{ordrCd, jdbcType=VARCHAR}
+			, #{ordrNo}
+		)
+		<selectKey resultType="int" keyProperty="gdsReivewNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- Define GDS_REVIEW Update Query -->
+	<update id="updateGdsReview" parameterType="gdsReviewVO">
+		/* Query ID : gdsReview.updateGdsReview */
+		UPDATE	GDS_REVIEW SET
+
+			cn = #{cn, jdbcType=VARCHAR}
+			, img_use_yn = #{imgUseYn, jdbcType=VARCHAR}
+			, dgstfn = #{dgstfn}
+
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	gds_reivew_no = #{gdsReivewNo}
+	</update>
+
+	<!-- 사용 상태 업데이트 -->
+	<update id="updateUseYn" parameterType="gdsReviewVO">
+		/* Query ID : gdsReview.updateUseYn */
+		UPDATE	GDS_REVIEW SET
+			use_yn = #{useYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE gds_reivew_no = #{gdsReivewNo}
+	</update>
+
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.menu">
+
+	<select id="selectMngMenuList" parameterType="java.util.HashMap" resultType="mngMenuVO">
+		/* Query ID : mng.menu.selectMngMenuList */
+		WITH RECURSIVE re_mng_menu
+		AS (
+			(
+			SELECT menu_no, up_menu_no, menu_nm, menu_url, icon, menu_ty, 1 as level_no, sort_no, use_yn
+			FROM MNG_MENU
+			WHERE up_menu_no = 0
+			)
+			UNION ALL
+			(
+			SELECT p.menu_no, p.up_menu_no, p.menu_nm, p.menu_url, p.icon, p.menu_ty, (1 + re_mng_menu.level_no) as level_no, p.sort_no, p.use_yn
+			FROM MNG_MENU AS p
+			INNER JOIN re_mng_menu
+			ON p.up_menu_no = re_mng_menu.menu_no
+			)
+		)
+		SELECT
+			menu_no
+			, up_menu_no
+			, menu_nm
+			, menu_url
+			, icon
+			, menu_ty
+			, level_no
+			, sort_no
+			, use_yn
+			, (SELECT COUNT(menu_no) FROM MNG_MENU A WHERE A.up_menu_no = re_mng_menu.menu_no) AS child_cnt
+		FROM re_mng_menu
+		<where>
+			<if test="useYn != null and useYn != ''">
+				use_yn = #{useYn}
+			</if>
+		</where>
+		ORDER BY up_menu_no, level_no, sort_no
+	</select>
+
+	<select id="selectChildMngMenuList" parameterType="java.util.HashMap" resultType="mngMenuVO">
+		SELECT menu_no
+				, up_menu_no
+				, menu_nm
+				, menu_url
+				, icon
+				, menu_ty
+				, level_no
+				, sort_no
+				, use_yn
+		  FROM MNG_MENU
+		 WHERE up_menu_no = #{upMenuNo}
+		 ORDER BY sort_no, menu_no
+	</select>
+
+	<select id="selectMngMenuAuthList" parameterType="java.util.HashMap" resultType="mngMenuVO">
+		/* Query ID : mng.menu.selectMngMenuAuthList */
+		WITH RECURSIVE re_mng_menu
+		AS (
+			(
+			SELECT menu_no, up_menu_no, menu_nm, menu_url, icon, menu_ty, 1 as level_no, sort_no, use_yn
+					, CONCAT('/', menu_no) as menu_path
+					, CONCAT('/', menu_nm) as menu_nm_path
+			FROM MNG_MENU
+			WHERE up_menu_no = 0
+			)
+
+			UNION ALL
+			(
+			SELECT p.menu_no, p.up_menu_no, p.menu_nm, p.menu_url, p.icon, p.menu_ty, (1 + re_mng_menu.level_no) as level_no, p.sort_no, p.use_yn
+				, CONCAT(re_mng_menu.menu_path, '/', p.menu_no) AS menu_path
+				, CONCAT(re_mng_menu.menu_nm_path, '/', p.menu_nm) AS menu_nm_path
+			FROM MNG_MENU AS p
+			INNER JOIN re_mng_menu
+			ON p.up_menu_no = re_mng_menu.menu_no
+			)
+		)
+		SELECT
+			re_mng_menu.menu_no
+			, re_mng_menu.up_menu_no
+			, re_mng_menu.menu_nm
+			, re_mng_menu.menu_url
+			, re_mng_menu.icon
+			, re_mng_menu.menu_ty
+			, re_mng_menu.level_no
+			, re_mng_menu.sort_no
+			, re_mng_menu.use_yn
+			, IFNULL(tmam.authrt_yn, 'N') AS authrt_yn
+			, IFNULL(tmam.inq_yn, 'N') AS inq_yn
+			, IFNULL(tmam.wrt_yn, 'N') AS wrt_yn
+			, menu_path
+			, menu_nm_path
+			, (SELECT COUNT(menu_no) FROM MNG_MENU A WHERE A.up_menu_no = re_mng_menu.menu_no) AS child_cnt
+		FROM re_mng_menu
+			LEFT OUTER JOIN MNG_AUTHRT_MENU tmam ON re_mng_menu.menu_no = tmam.menu_no AND tmam.authrt_no = #{authrtNo}
+		WHERE re_mng_menu.use_yn = 'Y'
+	  	<if test="inqYn != null and inqYn != ''">
+	  	AND tmam.inq_yn = #{inqYn}
+	  	</if>
+	  	<if test="authrtYn != null and authrtYn != ''">
+	  	AND tmam.authrt_yn = #{authrtYn}
+	  	</if>
+		ORDER BY up_menu_no, level_no, sort_no
+	</select>
+
+
+	<select id="selectMngMenuAuthListForSuperAdmin" resultType="mngMenuVO">
+		/* Query ID : mng.menu.selectMngMenuAuthListForSuperAdmin */
+		WITH RECURSIVE re_mng_menu
+		AS (
+			(
+			SELECT menu_no, up_menu_no, menu_nm, menu_url, icon, menu_ty, 1 as level_no, sort_no, use_yn
+				, CONCAT('/', menu_no) as menu_path
+				, CONCAT('/', menu_nm) as menu_nm_path
+			FROM MNG_MENU
+			WHERE up_menu_no = 0
+			)
+
+			UNION ALL
+			(
+			SELECT p.menu_no, p.up_menu_no, p.menu_nm, p.menu_url, p.icon, p.menu_ty, (1 + re_mng_menu.level_no) as level_no, p.sort_no, p.use_yn
+				, CONCAT(re_mng_menu.menu_path, '/', p.menu_no) AS menu_path
+				, CONCAT(re_mng_menu.menu_nm_path, '/', p.menu_nm) AS menu_nm_path
+			FROM MNG_MENU AS p
+			INNER JOIN re_mng_menu
+			ON p.up_menu_no = re_mng_menu.menu_no
+			)
+		)
+		SELECT
+			menu_no
+			, up_menu_no
+			, menu_nm
+			, menu_url
+			, icon
+			, menu_ty
+			, level_no
+			, sort_no
+			, use_yn
+			, 'Y' AS authrt_yn
+			, 'Y' AS inq_yn
+			, 'Y' AS wrt_yn
+			, menu_path
+			, menu_nm_path
+			, (SELECT COUNT(menu_no) FROM MNG_MENU A WHERE A.up_menu_no = re_mng_menu.menu_no) AS child_cnt
+		FROM re_mng_menu
+		WHERE re_mng_menu.use_yn = 'Y'
+		ORDER BY up_menu_no, level_no, sort_no
+	</select>
+
+
+	<select id="selectMngMenu" parameterType="java.util.HashMap" resultType="mngMenuVO">
+		/* Query ID : sysmng.menu.selectMngMenu */
+		SELECT menu_no
+			, up_menu_no
+			, ( SELECT menu_nm
+				FROM MNG_MENU b
+				WHERE A.up_menu_no = b.menu_no  ) as up_menu_nm
+			, menu_nm
+			, menu_url
+			, icon
+			, menu_ty
+			, level_no
+			, sort_no
+			, use_yn
+		FROM MNG_MENU A
+		WHERE menu_no = #{menuNo}
+	</select>
+
+	<insert id="insertMngMenu" parameterType="mngMenuVO">
+		/* Query ID : sysmng.menu.insertMngMenu */
+		INSERT INTO MNG_MENU (
+			up_menu_no
+			, menu_nm
+			, menu_url
+			, icon
+			<if test="menuTy != null and menuTy != ''">
+			, menu_ty
+			</if>
+			, level_no
+			, sort_no
+			, use_yn
+		) VALUES (
+			#{upMenuNo}
+			, #{menuNm, jdbcType=VARCHAR}
+			, #{menuUrl, jdbcType=VARCHAR}
+			, #{icon, jdbcType=VARCHAR}
+			<if test="menuTy != null and menuTy != ''">
+			, #{menuTy}
+			</if>
+			, #{levelNo}
+			, #{sortNo}
+			, #{useYn}
+		)
+		<selectKey keyProperty="menuNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateMngMenuPosition" parameterType="mngMenuVO">
+		/* Query ID : sysmng.menu.updateMngMenuPosition */
+		UPDATE MNG_MENU
+		<trim prefix="SET" suffixOverrides=",">
+		<if test="sortNo != null and sortNo != ''">
+		       sort_no = #{sortNo},
+		</if>
+		<if test="upMenuNo != null and upMenuNo != ''">
+		       up_menu_no = ${upMenuNo},
+		</if>
+		</trim>
+		 WHERE menu_no = #{menuNo}
+	</update>
+
+	<update id="updateMngMenu" parameterType="mngMenuVO">
+		/* Query ID : sysmng.menu.updateMngMenu */
+		UPDATE MNG_MENU
+			SET up_menu_no = #{upMenuNo}
+				, menu_nm = #{menuNm}
+				, menu_url = #{menuUrl, jdbcType=VARCHAR}
+		<if test='menuTy == "3" or menuTy == "4"'>
+				, menu_ty = #{menuTy}
+		</if>
+				, icon = #{icon, jdbcType=VARCHAR}
+				, level_no = #{levelNo}
+				, sort_no = #{sortNo}
+				, use_yn = #{useYn}
+		WHERE menu_no = #{menuNo}
+	</update>
+
+	<update id="updateMngMenuNm" parameterType="java.util.HashMap">
+		/* Query ID : sysmng.menu.updateMngMenuNm */
+		UPDATE MNG_MENU
+		   SET menu_nm = #{menuNm}
+		 WHERE menu_no = #{menuNo}
+	</update>
+
+	<delete id="deleteMngMenu" parameterType="java.util.HashMap">
+		/* Query ID : sysmng.menu.deleteMngMenu */
+		DELETE FROM MNG_MENU
+		WHERE menu_no = #{menuNo}
+		AND menu_ty IN ('3', '4')
+	</delete>
+
+	<select id="selectMngMenuExceptList" parameterType="java.util.HashMap" resultType="mngMenuVO">
+		/* Query ID : sysmng.menu.selectMngMenuExceptList */
+		SELECT
+			  menu_no
+			  , up_menu_no
+			  ,	menu_nm
+			  , MENU_TY
+			  , MENU_DIV_yn
+		FROM MNG_MENU
+		WHERE menu_no NOT IN
+		  (
+			  SELECT menu_no
+			  	FROM MNG_MENU
+			CONNECT BY PRIOR menu_no = up_menu_no
+			    START WITH menu_no = #{menuNo}
+		    )
+		ORDER BY sort_no, menu_no
+	</select>
+
+	<select id="selectLowerMenuCheck" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : sysmng.menu.selectLowerMenuCheck */
+		SELECT COUNT(*)
+		  FROM MNG_MENU
+		WHERE menu_no IN
+		(
+		   SELECT menu_no
+		   	 FROM MNG_MENU
+	    CONNECT BY PRIOR menu_no = up_menu_no
+		   	START WITH up_menu_no = #{menuNo}
+		)
+	</select>
+
+	<update id="updateLowerMenuuseYn" parameterType="mngMenuVO">
+		/* Query ID : sysmng.menu.updateLowerMenuuseYn */
+		UPDATE MNG_MENU
+		SET use_yn = #{useYn}
+		WHERE menu_no IN
+		(
+		  SELECT menu_no
+		  FROM MNG_MENU
+		    CONNECT BY PRIOR menu_no = up_menu_no
+		    START WITH up_menu_no = #{menuNo}
+		)
+	</update>
+
+	<update id="updateMenuuseYn" parameterType="mngMenuVO">
+		/* Query ID : sysmng.menu.updateMenuuseYn */
+		UPDATE MNG_MENU
+		SET use_yn = #{useYn}
+		WHERE menu_no = #{menuNo}
+	</update>
+
+	<select id="selectMenuNmFromUrl" parameterType="java.lang.String" resultType="egovMap">
+		/* Query ID : sysmng.menu.selectMenuNmFromUrl */
+		SELECT DIVS, UPPER_menu_nm, menu_nm, menu_url
+		FROM (
+			(SELECT
+				'1' AS DIVS
+				,(SELECT T.menu_nm FROM MNG_MENU T WHERE T.menu_no=TMM.up_menu_no) AS UPPER_menu_nm
+				,TMM.menu_nm
+				,TMM.menu_url
+			FROM MNG_MENU TMM
+			WHERE SUBSTR(TMM.menu_url,1, FN_LAST_INDEX(TMM.menu_url,'/')) = #{srchMenuUrl} )
+			UNION ALL
+			(SELECT
+				'2' AS DIVS
+				,(SELECT T.menu_nm FROM MNG_MENU T WHERE T.menu_no=TMM.up_menu_no) AS UPPER_menu_nm
+				,TMM.menu_nm
+				,TMM.menu_url
+			FROM MNG_MENU TMM
+			WHERE CONCAT(SUBSTR(TMM.menu_url,1, FN_LAST_INDEX(TMM.menu_url,'/')) LIKE #{srchMenuUrl}, '%') )
+			UNION ALL
+			(SELECT
+				'3' AS DIVS
+				,(SELECT T.menu_nm FROM MNG_MENU T WHERE T.menu_no=TMM.up_menu_no) AS up_menu_nm
+				,TMM.menu_nm
+				,TMM.menu_url
+			FROM MNG_MENU TMM
+			WHERE SUBSTR(TMM.menu_url,1, INSTR(TMM.menu_url, '/', (INSTR(TMM.menu_url, '/', (INSTR(TMM.menu_url, '/')+1))+1))) LIKE
+				  CONCAT(SUBSTR(#{srchMenuUrl},1, INSTR(#{srchMenuUrl}, '/', (INSTR(#{srchMenuUrl}, '/', (INSTR(#{srchMenuUrl}, '/')+1))+1))), '%')
+			ORDER BY DIVS ASC, menu_url ASC )
+		) V
+		WHERE ROWNUM=1
+	</select>
+	<select id="selectMenuInfoFromUrl" parameterType="java.lang.String" resultType="mngMenuVO">
+		/* Query ID : sysmng.menu.selectMenuInfoFromUrl */
+        SELECT
+        	(SELECT T.menu_nm FROM MNG_MENU T WHERE T.menu_no = TMM.up_menu_no) AS up_menu_nm
+        	, TMM.menu_nm
+        	, TMM.menu_url
+        	, TMM.menu_no
+	    FROM MNG_MENU TMM
+	   WHERE SUBSTR(TMM.menu_url, 1, FN_LAST_INDEX(TMM.menu_url, '/')) LIKE SUBSTR(#{srchMenuUrl},1,FN_LAST_INDEX(#{srchMenuUrl}, '/'))
+	</select>
+</mapper>

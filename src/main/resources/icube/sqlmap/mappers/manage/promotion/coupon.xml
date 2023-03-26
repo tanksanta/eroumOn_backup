@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon">
+
+	<resultMap type="couponVO" id="couponVOMap" autoMapping="true" >
+		<!-- <collection property="trgtCount" column="{couponNo=coupon_no}" select="coupon.lst.selectTrgtCnt" /> -->
+	</resultMap>
+
+	<resultMap type="couponLstVO" id="couponLstVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		coupon_no
+		, coupon_nm
+		, coupon_ty
+		, issu_bgng_dt
+		, issu_end_dt
+		, use_pd_ty
+		, use_psblty_daycnt
+		, use_bgng_ymd
+		, use_end_ymd
+		, dscnt_ty
+		, dscnt_amt
+		, mumm_ordr_amt
+		, mxmm_dscnt_amt
+		, issu_mbr
+		, issu_mbr_ty
+		, issu_mbr_grad
+		, issu_gds
+		, issu_qy
+		, issu_ty
+		, mngr_memo
+		, stts_ty
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchCouponNo != null and srchCouponNo != '' ">
+			AND coupon_no = #{srchCouponNo}
+		</if>
+		<if test="srchCouponTy != null and srchCouponTy != '' ">
+			AND coupon_ty = #{srchCouponTy}
+		</if>
+		<if test="srchCouponNm != null and srchCouponNm != '' ">
+			AND coupon_nm like CONCAT ('%',#{srchCouponNm},'%')
+		</if>
+		<if test="srchCouponCd != null and srchCouponCd != '' ">
+			AND coupon_cd like CONCAT ('%',#{srchCouponCd},'%')
+		</if>
+		<if test="srchIssuTy != null and srchIssuTy != '' ">
+			AND issu_ty = #{srchIssuTy}
+		</if>
+		<if test="srchSttusTy != null and srchSttusTy != '' ">
+			AND stts_ty = #{srchSttusTy}
+		</if>
+		<if test="srchDt != null and srchDt != '' ">
+			<choose>
+				<when test="srchDt != null and srchDt == 'regDt' ">
+					<!-- 등록일 기간 검색 -->
+					<choose>
+						<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+							AND reg_dt &gt;= #{srchBgngDt} AND DATE_FORMAT(reg_dt,'%Y-%m-%d') &lt;= #{srchEndDt}
+						</when>
+						<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+							AND reg_dt &gt;= #{srchBgngDt}
+						</when>
+						<when test='srchEndDt != null and srchEndDt != "" '>
+							AND DATE_FORMAT(reg_dt,'%Y-%m-%d') &lt;= #{srchEndDt}
+						</when>
+					</choose>
+				</when>
+
+				<when test="srchDt != null and srchDt == 'issuDy' ">
+					<!-- 발급기간 검색 -->
+					<choose>
+						<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+							AND issu_bgng_dt &gt;= #{srchBgngDt} AND DATE_FORMAT(issu_end_dt,'%Y-%m-%d') &lt;= #{srchEndDt}
+						</when>
+						<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+							AND issu_bgng_dt &gt;= #{srchBgngDt}
+						</when>
+						<when test='srchEndDt != null and srchEndDt != "" '>
+							AND DATE_FORMAT(issu_end_dt,'%Y-%m-%d') &lt;= #{srchEndDt}
+						</when>
+						<when test='srchIssuDt != null and srchIssuDt != "" '>
+							AND  (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) &lt; DATE_FORMAT(issu_end_dt,'%Y-%m-%d %H:%i:%s')
+						</when>
+					</choose>
+
+				</when>
+			</choose>
+		</if>
+
+	</sql>
+
+	<select id="selectCouponListVO" parameterType="java.util.HashMap" resultMap="couponVOMap">
+		/* Query ID : coupon.selectCouponListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM COUPON
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY coupon_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectCouponCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : coupon.selectCouponCount */
+		SELECT	COUNT(*)
+		FROM	COUPON
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectCoupon" parameterType="java.util.HashMap" resultMap="couponVOMap">
+		/* Query ID : coupon.selectCoupon */
+		SELECT
+			<include refid="listColumn"/>
+			, (
+				SELECT coupon_cd
+				FROM COUPON_LST
+				WHERE coupon_no = #{couponNo}
+				LIMIT 0,1
+			)AS coupon_cd
+		FROM COUPON
+		WHERE  coupon_no = #{couponNo}
+	</select>
+
+	<select id="selectCouponInfo" parameterType="java.util.HashMap" resultType="couponVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM COUPON
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectCountIssuMbr" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : coupon.selectCountIssuMbr */
+		SELECT COUNT(cpl.coupon_no)
+			FROM COUPON_LST cpl
+			LEFT JOIN COUPON cp ON cp.coupon_no = cpl.coupon_no
+			LEFT JOIN MBR mb ON mb.unique_id = cpl.unique_id
+		WHERE cp.coupon_no = #{couponNo}
+	</select>
+	<insert id="insertCoupon" parameterType="couponVO">
+		/* Query ID : coupon.insertCoupon */
+		INSERT INTO COUPON (
+			coupon_nm
+			, coupon_ty
+			, issu_bgng_dt
+			, issu_end_dt
+			, use_pd_ty
+			, use_psblty_daycnt
+			, use_bgng_ymd
+			, use_end_ymd
+			, dscnt_ty
+			, dscnt_amt
+			, mumm_ordr_amt
+			, mxmm_dscnt_amt
+			, issu_mbr
+			, issu_mbr_ty
+			, issu_mbr_grad
+			, issu_gds
+			, issu_qy
+			, issu_ty
+			, mngr_memo
+			, stts_ty
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{couponNm, jdbcType=VARCHAR}
+			, #{couponTy, jdbcType=VARCHAR}
+			, #{issuBgngDt}
+			, #{issuEndDt}
+			, #{usePdTy, jdbcType=VARCHAR}
+			, #{usePsbltyDaycnt}
+			<if test='usePdTy != null and usePdTy == "ADAY" '>
+			, null
+			</if>
+			<if test='usePdTy != null and usePdTy == "FIX" '>
+			, #{useBgngYmd}
+			</if>
+			<if test='usePdTy != null and usePdTy == "ADAY" '>
+			, null
+			</if>
+			<if test='usePdTy != null and usePdTy == "FIX" '>
+			, #{useEndYmd}
+			</if>
+			, #{dscntTy, jdbcType=VARCHAR}
+			, #{dscntAmt}
+			, #{mummOrdrAmt}
+			, #{mxmmDscntAmt}
+			, #{issuMbr, jdbcType=VARCHAR}
+			, #{issuMbrTy, jdbcType=VARCHAR}
+			, #{issuMbrGrad, jdbcType=VARCHAR}
+			, #{issuGds, jdbcType=VARCHAR}
+			, #{issuQy, jdbcType=VARCHAR}
+			, #{issuTy, jdbcType=VARCHAR}
+			, #{mngrMemo, jdbcType=VARCHAR}
+			, #{sttsTy, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="couponNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateCoupon" parameterType="couponVO">
+		/* Query ID : coupon.updateCoupon */
+		UPDATE	 COUPON SET
+			coupon_nm = #{couponNm, jdbcType=VARCHAR}
+			, mngr_memo = #{mngrMemo, jdbcType=VARCHAR}
+			, stts_ty = #{sttsTy, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt  = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE	coupon_no = #{couponNo}
+	</update>
+
+</mapper>

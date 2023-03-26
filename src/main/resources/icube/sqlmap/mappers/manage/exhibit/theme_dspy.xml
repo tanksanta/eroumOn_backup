@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="theme.dspy">
+
+	<resultMap type="themeDspyVO" id="themeDspyVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=theme_dspy_no}" select="file.selectFileList" />
+		<collection property="gdsCount" column="{themeDspyNo=theme_dspy_no}" select="theme.dspy.gds.selectCountGds" />
+	</resultMap>
+
+
+	<sql id="listColumn">
+		theme_dspy_no
+		, theme_dspy_nm
+		, cn
+		, dspy_yn
+		, rel_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'THEME' AS srvc_id
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND theme_dspy_nm like CONCAT('%',#{srchText},'%')
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND dspy_yn = #{srchYn}
+		</if>
+		<choose>
+			<when
+				test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND reg_dt &gt;= #{srchBgngDt} AND DATE_FORMAT(reg_dt,'%Y-%m-%d') &lt;= #{srchEndDt}
+			</when>
+			<when test='srchBgngDt != null and srchBgngDt != "" '>
+				AND reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+	</sql>
+
+	<select id="selectThemeDspyListVO" parameterType="java.util.HashMap" resultMap="themeDspyVOMap">
+		/* Query ID : themeDspy.selectThemeDspyListVO */
+		SELECT
+		<include refid="listColumn" />
+		FROM THEME_DSPY
+		WHERE 1=1
+		<include refid="searchConditions" />
+		ORDER BY theme_dspy_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectThemeDspyCount"
+		parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : themeDspy.selectThemeDspyCount */
+		SELECT COUNT(*)
+		FROM THEME_DSPY
+		WHERE 1=1
+		<include refid="searchConditions" />
+	</select>
+
+	<select id="selectThemeDspy" parameterType="java.util.HashMap"
+		resultMap="themeDspyVOMap">
+		/* Query ID : themeDspy.selectThemeDspy */
+		SELECT
+		<include refid="listColumn" />
+		FROM THEME_DSPY
+		WHERE theme_dspy_no = #{themeDspyNo}
+	</select>
+
+	<insert id="insertThemeDspy" parameterType="themeDspyVO">
+		/* Query ID : themeDspy.insertThemeDspy */
+		INSERT INTO THEME_DSPY (
+		theme_dspy_nm
+		, cn
+		, dspy_yn
+		, rel_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{themeDspyNm, jdbcType=VARCHAR}
+		, #{cn, jdbcType=VARCHAR}
+		, #{dspyYn, jdbcType=VARCHAR}
+		, #{relYn, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="themeDspyNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateThemeDspy" parameterType="themeDspyVO">
+		/* Query ID :
+		themeDspy.updateThemeDspy */
+		UPDATE THEME_DSPY SET
+		theme_dspy_nm = #{themeDspyNm, jdbcType=VARCHAR}
+		, cn = #{cn, jdbcType=VARCHAR}
+		, dspy_yn = #{dspyYn, jdbcType=VARCHAR}
+		, rel_yn = #{relYn, jdbcType=VARCHAR}
+		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+		, mdfcn_dt = #{mdfcnDt}
+		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE theme_dspy_no = #{themeDspyNo}
+	</update>
+
+
+</mapper>

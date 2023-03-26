@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.gds">
+
+
+	<!-- Define GdsVO Result Map  -->
+	<resultMap type="gdsVO" id="gdsVOListMap" autoMapping="true">
+		<collection property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+		<collection property="regCount" column="{gdsNo=gds_no}" select="dspy.grp.gds.selectRegCount" />
+	</resultMap>
+
+
+	<!-- Define GdsVO Result Map  -->
+	<resultMap type="gdsVO" id="gdsVOMap" autoMapping="true">
+		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+		<collection property="imageFileList" 	column="{upNo=gds_no, fileTy=image_file_ty}" select="gds.file.selectFileList" />
+		<collection property="gdsRelList" 		column="{gdsNo=gds_no}" 					 select="gds.rel.selectGdsRelList" />
+		<collection property="optnList" 		column="{gdsNo=gds_no, optnTy=basic_optn}" 	 select="gds.optn.selectGdsOptnList" />
+		<collection property="aditOptnList" 	column="{gdsNo=gds_no, optnTy=adit_optn}" 	 select="gds.optn.selectGdsOptnList" />
+	</resultMap>
+
+	<!-- Define GdsVO Column List -->
+	<sql id="listColumn">
+		g.gds_no
+		, g.gds_ty
+		, g.ctgry_no
+		, g.gds_nm
+		, g.gds_cd
+		, g.bnef_cd
+		, g.wrhs_ymd_ntcn
+		, g.mngr_memo
+		, g.bass_dc
+		, g.mtrqlt
+		, g.wt
+		, g.size
+		, g.stndrd
+		, g.sort_no
+		, g.gds_tag as gds_tag_val
+		, g.mkr
+		, g.plor
+		, g.brand
+		, g.modl
+		, g.mlg_use_yn
+		, g.mlg_pvsn_yn
+		, g.coupon_use_yn
+		, g.point_use_yn
+		, g.gds_dc
+		, g.pc
+		, g.dscnt_rt
+		, g.dscnt_pc
+		, g.bnef_pc
+		, g.bnef_pc_15
+		, g.bnef_pc_9
+		, g.bnef_pc_6
+		, g.lend_pc
+		, g.lend_dura_yn
+		, g.use_psblty_trm
+		, g.extn_lend_trm
+		, g.extn_lend_pc
+		, g.stock_qy
+		, g.stock_ntcn_qy
+		, g.soldout_yn
+		, g.ntsl_stts_cd
+		, g.optn_ttl
+		, g.adit_optn_ttl
+		, g.ancmnt_ty
+		, g.ancmnt_info
+		, g.dlvy_qy
+		, g.dlvy_bass_amt
+		, g.dlvy_mumm_qy
+		, g.dlvy_mumm_amt
+		, g.dlvy_ct_ty
+		, g.dlvy_ct_stlm
+		, g.dlvy_bass_amt
+		, g.dlvy_adit_amt
+		, g.youtube_url
+		, g.adit_gds_dc
+		, g.seo_author
+		, g.seo_desc
+		, g.seo_keyword
+		, g.memo
+		, g.dspy_yn
+		, g.use_yn
+		, g.reg_unique_id
+		, g.reg_dt
+		, g.reg_id
+		, g.rgtr
+		, g.mdfcn_unique_id
+		, g.mdfcn_dt
+		, g.mdfcn_id
+		, g.mdfr
+		, gc1.ctgry_nm
+		, gc1.up_ctgry_no
+		, gc2.ctgry_nm AS up_ctgry_nm
+		, 'THUMB' as thumb_file_ty
+		, 'IMAGE' as image_file_ty
+		, 'BASE' as basic_optn
+		, 'ADIT' as adit_optn
+	</sql>
+
+	<sql id="optnListColumn">
+		op.gds_optn_no
+		, op.optn_ty
+		, op.optn_nm
+		, op.optn_pc
+		, op.optn_stock_qy
+		, op.use_yn
+	</sql>
+
+
+
+	<!-- Define Search Condition -->
+		<!-- <if test="srchUseYn == null or srchUseYn == ''">
+			AND g.use_yn = 'Y'
+		</if> -->
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchGdsNm" '>AND g.gds_nm like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchGdsCd" '>AND g.gds_cd like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+					AND (g.gds_nm like CONCAT('%', #{srchText}, '%') OR g.gds_cd like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+
+
+		<if test="srchUseYn !=null and srchUseYn != ''">
+			AND g.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchDspyYn !=null and srchDspyYn != ''">
+			AND g.dspy_yn = #{srchDspyYn}
+		</if>
+
+		<if test="srchUpCtgryNo > 0">
+			AND gc1.up_ctgry_no = #{srchUpCtgryNo}
+		</if>
+		<if test="srchCtgryNo > 0">
+			AND g.ctgry_no = #{srchCtgryNo}
+		</if>
+
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCtgryNos)">
+			AND g.ctgry_no IN
+			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+				#{srchCtgryNo}
+			</foreach>
+		</if>
+
+		<if test="srchGdsCd !=null and srchGdsCd != ''">
+			AND g.gds_cd = #{srchGdsCd}
+		</if>
+		<if test="srchBnefCd !=null and srchBnefCd != ''">
+			AND g.bnef_cd = #{srchBnefCd}
+		</if>
+		<if test="searchBnefCd != null and searchBnefCd !=  '' ">
+			AND (bnef_cd != null OR bnef_cd != '')
+		</if>
+		<!-- 관리자용 -->
+		<if test="srchGdsCode !=null and srchGdsCode != ''">
+			AND g.gds_cd like CONCAT('%',#{srchGdsCode},'%')
+		</if>
+		<if test="srchBnefCode !=null and srchBnefCode != ''">
+			AND g.bnef_cd like CONCAT('%',#{srchBnefCode},'%')
+		</if>
+		<if test="srchUseNdspy != null and srchUseNdspy != '' ">
+			AND (op.use_yn = #{srchUseNdspy} OR g.dspy_yn = #{srchUseNdspy})
+		</if>
+		<!-- //관리자용 -->
+		<if test="srchGdsNm !=null and srchGdsNm != ''">
+			AND g.gds_nm LIKE CONCAT('%', #{srchGdsNm}, '%')
+		</if>
+		<if test="srchGdsTy !=null and srchGdsTy != ''">
+			AND g.gds_ty = #{srchGdsTy}
+		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchGdsTys)">
+			AND g.gds_ty IN
+			<foreach collection="srchGdsTys" item="srchGdsTy" open="(" separator="," close=")">
+				#{srchGdsTy}
+			</foreach>
+		</if>
+		<if test="srchGdsTag !=null and srchGdsTag != ''">
+			AND g.gds_tag REGEXP #{srchGdsTag}
+		</if>
+		<if test="srchGdsTagNI != null and srchGdsTagNI != '' ">
+			AND g.gds_tag NOT REGEXP #{srchGdsTagNI}
+		</if>
+		<if test="srchMinPc !=null and srchMinPc != ''">
+			AND g.pc &gt;= #{srchMinPc}
+		</if>
+		<if test="srchMaxPc !=null and srchMaxPc != ''">
+			AND g.pc &lt;= #{srchMaxPc}
+		</if>
+		<if test="gdsNo !=null and gdsNo != ''"><!-- PK -->
+			AND g.gds_no = #{gdsNo}
+		</if>
+
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchGdsCds)">
+			AND g.gds_cd IN
+			<foreach collection="srchGdsCds" item="srchGdsCd" open="(" separator="," close=")">
+				#{srchGdsCd}
+			</foreach>
+		</if>
+	</sql>
+
+
+	<sql id="searchOrdr">
+		<choose>
+			<when test="sortBy == 'FI' and @icube.common.util.StringUtil@isNotEmpty(srchGdsCds)">
+			FIELD(g.gds_cd,
+			<foreach collection="srchGdsCds" item="srchGdsCd" separator=",">
+			#{srchGdsCd}
+			</foreach>
+			) ASC
+			</when>
+			<otherwise>
+			g.sort_no ASC, g.gds_no DESC
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- Define gds List Query -->
+	<select id="selectGdsListVO" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+		/* Query ID : gds.selectGdsListVO */
+		SELECT
+			<include refid="listColumn"/>
+			<if test="uniqueId !=null and uniqueId != '' ">
+			, (SELECT COUNT(*) FROM WISHLIST w WHERE w.gds_no = g.gds_no AND w.unique_id = #{uniqueId}) AS WISH_YN
+			</if>
+		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY
+	  		<include refid="searchOrdr" />
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define gds Count Query -->
+	<select id="selectGdsCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gds.selectGdsCount */
+		SELECT	COUNT(*)
+		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- 상품 재고관리  -->
+	<select id="selectGdsStockListVO" parameterType="java.util.HashMap" resultMap="gdsVOMap">
+		SELECT
+			<include refid="listColumn" />
+			,<include refid="optnListColumn" />
+		FROM GDS g
+		LEFT JOIN GDS_OPTN op ON g.gds_no = op.gds_no
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY g.gds_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectGdsStockCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM GDS g
+		LEFT JOIN GDS_OPTN op ON g.gds_no = op.gds_no
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="gdsStockListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
+		SELECT
+			<include refid="listColumn" />
+			,<include refid="optnListColumn" />
+		FROM GDS g
+		LEFT JOIN GDS_OPTN op ON g.gds_no = op.gds_no
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY g.gds_no DESC
+	</select>
+	<!-- 상품 재고관리//  -->
+
+	<!-- Define gds Detail Query -->
+	<select id="selectGds" parameterType="java.util.HashMap" resultMap="gdsVOMap">
+		/* Query ID : gds.selectGds */
+		SELECT
+			<include refid="listColumn"/>
+			<if test="uniqueId !=null and uniqueId != '' ">
+			, (SELECT COUNT(*) FROM WISHLIST w WHERE w.gds_no = g.gds_no AND w.unique_id = #{uniqueId}) AS WISH_YN
+			</if>
+		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<!-- Define gds Insert Query -->
+	<insert id="insertGds" parameterType="gdsVO">
+		/* Query ID : gds.insertGds */
+		INSERT INTO GDS (
+			 gds_ty
+			 , ctgry_no
+			 , gds_nm
+			 , gds_cd
+			 , bnef_cd
+			 , wrhs_ymd_ntcn
+			 , mngr_memo
+			 , bass_dc
+			 , mtrqlt
+			 , wt
+			 , size
+			 , stndrd
+			 , sort_no
+			 , gds_tag
+			 , mkr
+			 , plor
+			 , brand
+			 , modl
+			 , mlg_use_yn
+			 , mlg_pvsn_yn
+			 , coupon_use_yn
+			 , point_use_yn
+			 , gds_dc
+			 , pc
+			 , dscnt_rt
+			 , dscnt_pc
+			 , bnef_pc
+			 , bnef_pc_15
+			 , bnef_pc_9
+			 , bnef_pc_6
+			 , lend_pc
+			 , lend_dura_yn
+			 , use_psblty_trm
+			 , extn_lend_trm
+			 , extn_lend_pc
+			 , stock_qy
+			 , stock_ntcn_qy
+			 , soldout_yn
+			 , ntsl_stts_cd
+			 , optn_ttl
+			 , adit_optn_ttl
+
+			 , ancmnt_ty
+			 , ancmnt_info
+
+			 , dlvy_qy
+			 , dlvy_amt
+			 , dlvy_mumm_qy
+			 , dlvy_mumm_amt
+			 , dlvy_ct_ty
+			 , dlvy_ct_stlm
+			 , dlvy_bass_amt
+			 , dlvy_adit_amt
+
+			 , youtube_url
+
+			 , adit_gds_dc
+			 , seo_author
+			 , seo_desc
+			 , seo_keyword
+			 , memo
+			 , dspy_yn
+			 , inqcnt
+			 , use_yn
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+		) VALUES (
+			#{gdsTy, jdbcType=VARCHAR}
+			, #{ctgryNo}
+			, #{gdsNm, jdbcType=VARCHAR}
+			,
+			<choose>
+				<when test="gdsCd == null or gdsCd == ''">CONCAT('GDS', LPAD(FN_NEXT_AUTO_SEQ('GDS'), 7,'0'))</when>
+				<otherwise>#{gdsCd, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, #{bnefCd, jdbcType=VARCHAR}
+			, #{wrhsYmdNtcn, jdbcType=VARCHAR}
+			, #{mngrMemo, jdbcType=VARCHAR}
+			, #{bassDc, jdbcType=VARCHAR}
+			, #{mtrqlt, jdbcType=VARCHAR}
+			, #{wt, jdbcType=VARCHAR}
+			, #{size, jdbcType=VARCHAR}
+			, #{stndrd, jdbcType=VARCHAR}
+			, #{sortNo}
+			, #{gdsTagVal, jdbcType=VARCHAR}
+			, #{mkr, jdbcType=VARCHAR}
+			, #{plor, jdbcType=VARCHAR}
+			, #{brand, jdbcType=VARCHAR}
+			, #{modl, jdbcType=VARCHAR}
+			, #{mlgUseYn, jdbcType=VARCHAR}
+			, #{mlgPvsnYn, jdbcType=VARCHAR}
+		 	, #{couponUseYn, jdbcType=VARCHAR}
+		 	, #{pointUseYn, jdbcType=VARCHAR}
+			, #{gdsDc, jdbcType=VARCHAR}
+
+			, #{pc}
+			, #{dscntRt}
+			, #{dscntPc}
+			, #{bnefPc}
+			, #{bnefPc15}
+			, #{bnefPc9}
+			, #{bnefPc6}
+			, #{lendPc}
+			, #{lendDuraYn, jdbcType=VARCHAR}
+			, #{usePsbltyTrm}
+			, #{extnLendTrm}
+			, #{extnLendPc}
+			, #{stockQy}
+			, #{stockNtcnQy}
+			, #{soldoutYn, jdbcType=VARCHAR}
+			, #{ntslSttsCd, jdbcType=VARCHAR}
+			, #{optnTtl, jdbcType=VARCHAR}
+			, #{aditOptnTtl, jdbcType=VARCHAR}
+
+			, #{ancmntTy, jdbcType=VARCHAR}
+			, #{ancmntInfo, jdbcType=VARCHAR}
+
+			, #{dlvyQy}
+			, #{dlvyAmt}
+			, #{dlvyMummQy}
+			, #{dlvyMummAmt}
+			, #{dlvyCtTy, jdbcType=VARCHAR}
+			, #{dlvyCtStlm, jdbcType=VARCHAR}
+			, #{dlvyBassAmt}
+			, #{dlvyAditAmt}
+
+			, #{youtubeUrl}
+
+			, #{aditGdsDc, jdbcType=VARCHAR}
+			, #{seoAuthor, jdbcType=VARCHAR}
+			, #{seoDesc, jdbcType=VARCHAR}
+			, #{seoKeyword, jdbcType=VARCHAR}
+			, #{memo, jdbcType=VARCHAR}
+			, #{dspyYn, jdbcType=VARCHAR}
+			, 0
+			, 'Y'
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey resultType="int" keyProperty="gdsNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- Define gds Update Query -->
+	<update id="updateGds" parameterType="gdsVO">
+		/* Query ID : gds.updateGds */
+		UPDATE GDS SET
+			gds_ty = #{gdsTy, jdbcType=VARCHAR}
+			, ctgry_no = #{ctgryNo}
+			, gds_nm = #{gdsNm, jdbcType=VARCHAR}
+			, gds_cd = #{gdsCd, jdbcType=VARCHAR}
+			, bnef_cd = #{bnefCd, jdbcType=VARCHAR}
+			, wrhs_ymd_ntcn = #{wrhsYmdNtcn, jdbcType=VARCHAR}
+			, mngr_memo = #{mngrMemo, jdbcType=VARCHAR}
+			, bass_dc = #{bassDc, jdbcType=VARCHAR}
+			, mtrqlt = #{mtrqlt, jdbcType=VARCHAR}
+			, wt = #{wt, jdbcType=VARCHAR}
+			, size = #{size, jdbcType=VARCHAR}
+			, stndrd = #{stndrd, jdbcType=VARCHAR}
+			, sort_no = #{sortNo}
+			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
+			, mkr = #{mkr, jdbcType=VARCHAR}
+			, plor = #{plor, jdbcType=VARCHAR}
+			, brand = #{brand, jdbcType=VARCHAR}
+			, modl = #{modl, jdbcType=VARCHAR}
+			, mlg_use_yn = #{mlgUseYn, jdbcType=VARCHAR}
+			, mlg_pvsn_yn = #{mlgPvsnYn, jdbcType=VARCHAR}
+		 	, coupon_use_yn = #{couponUseYn, jdbcType=VARCHAR}
+		 	, point_use_yn = #{pointUseYn, jdbcType=VARCHAR}
+			, gds_dc = #{gdsDc, jdbcType=VARCHAR}
+
+			, pc = #{pc}
+			, dscnt_rt = #{dscntRt}
+			, dscnt_pc = #{dscntPc}
+			, bnef_pc = #{bnefPc}
+			, bnef_pc_15 = #{bnefPc15}
+			, bnef_pc_9 = #{bnefPc9}
+			, bnef_pc_6 = #{bnefPc6}
+			, lend_pc = #{lendPc}
+			, lend_dura_yn = #{lendDuraYn, jdbcType=VARCHAR}
+			, use_psblty_trm = #{usePsbltyTrm}
+			, extn_lend_trm = #{extnLendTrm}
+			, extn_lend_pc = #{extnLendPc}
+
+			, stock_qy = #{stockQy}
+			, stock_ntcn_qy = #{stockNtcnQy}
+			, soldout_yn = #{soldoutYn, jdbcType=VARCHAR}
+			, ntsl_stts_cd = #{ntslSttsCd, jdbcType=VARCHAR}
+
+			, optn_ttl = #{optnTtl, jdbcType=VARCHAR}
+			, adit_optn_ttl = #{aditOptnTtl, jdbcType=VARCHAR}
+
+			, ancmnt_ty = #{ancmntTy, jdbcType=VARCHAR}
+			, ancmnt_info = #{ancmntInfo, jdbcType=VARCHAR}
+
+			, dlvy_qy = #{dlvyQy}
+			, dlvy_bass_amt = #{dlvyBassAmt}
+			, dlvy_mumm_qy = #{dlvyMummQy}
+			, dlvy_mumm_amt = #{dlvyMummAmt}
+			, dlvy_ct_ty = #{dlvyCtTy, jdbcType=VARCHAR}
+			, dlvy_ct_stlm = #{dlvyCtStlm, jdbcType=VARCHAR}
+			, dlvy_bass_amt = #{dlvyBassAmt}
+			, dlvy_adit_amt = #{dlvyAditAmt}
+
+			, youtube_url = #{youtubeUrl}
+
+			, adit_gds_dc = #{aditGdsDc, jdbcType=VARCHAR}
+			, seo_author = #{seoAuthor, jdbcType=VARCHAR}
+			, seo_desc = #{seoDesc, jdbcType=VARCHAR}
+			, seo_keyword = #{seoKeyword, jdbcType=VARCHAR}
+			, memo = #{memo, jdbcType=VARCHAR}
+			, dspy_yn = #{dspyYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE gds_no = #{gdsNo}
+	</update>
+
+	<update id="updateEroumGds" parameterType="java.util.HashMap">
+	UPDATE GDS SET
+		stock_qy = #{stockQy}
+		, use_yn = #{useYn}
+		, soldout_yn = #{soldoutYn}
+		, gds_tag = #{gdsTag}
+	WHERE 1=1
+		AND bnef_cd  = #{srchBnefCd}
+		AND use_yn = #{srchUseYn}
+	</update>
+
+	<!-- Define gds Delete Query -->
+	<delete id="deleteGds" parameterType="java.util.HashMap">
+		/* Query ID : gds.deleteGds */
+		DELETE FROM GDS
+		 WHERE gds_no = #{gdsNo}
+	</delete>
+
+	<!-- 다중 처리 -->
+	<update id="updateGdsListUseYn" parameterType="gdsVO">
+		/* Query ID : gds.updateGdsListUseYn */
+		UPDATE GDS
+		   SET use_yn = #{useYn}
+		   	, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		 WHERE gds_no IN
+		<foreach collection="arrGdsNo" item="gdsNo" open="(" separator="," close=")">
+			#{gdsNo}
+		</foreach>
+	</update>
+
+
+	<select id="selectGdsListAll" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY g.gds_no DESC
+	</select>
+
+
+	<!-- 재고수량 변경 -->
+	<update id="updateGdsStockQy" parameterType="java.util.HashMap">
+		UPDATE GDS SET
+			stock_qy = stock_qy + #{stockQy}
+		WHERE gds_no = #{gdsNo}
+	</update>
+
+	<!-- 상품 노출여부&재고수량 -->
+	<update id="updateGdsUseNStock" parameterType="java.util.HashMap">
+		UPDATE GDS  SET
+			dspy_yn = #{useYn}
+			, stock_qy = #{optnStockQy}
+			, soldout_yn = #{soldoutYn}
+		WHERE gds_no = #{gdsNo}
+	</update>
+
+
+	<!-- 조회수 -->
+	<update id="updateInqcnt" parameterType="gdsVO">
+		UPDATE GDS SET
+			inqcnt = inqcnt + 1
+		WHERE gds_no = #{gdsNo}
+	</update>
+
+</mapper>

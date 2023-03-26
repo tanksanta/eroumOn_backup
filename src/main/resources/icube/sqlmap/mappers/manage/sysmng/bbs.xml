@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbs.ntt">
+
+	<resultMap type="bbsVO" id="bbsMap" autoMapping="true">
+		<collection property="bbsThumbFile" 	column="{upNo=ntt_no, fileTy=thumb_file_ty}" select="bbs.file.selectFileByFilter" />
+		<collection property="bbsFileList" 	column="{upNo=ntt_no, fileTy=file_ty}" select="bbs.file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		tb.ntt_no
+		, tb.bbs_no
+		, tb.ctgry_no
+		, tb.ntt_grp
+		, tb.ntt_ordr
+		, tb.ntt_level
+		, tb.ttl
+		, tb.cn
+		, tb.pswd
+		, tb.wrtr
+		, tb.wrt_id
+		, tb.wrt_ymd
+		, tb.inqcnt
+		, tb.ntc_yn
+		, tb.use_yn
+		, tb.secret_yn
+		, tb.ip
+		, tb.ans_ttl
+		, tb.ans_cn
+		, tb.answr
+		, tb.ans_id
+		, tb.ans_ymd
+		, tb.stts_ty
+
+		, tb.reg_unique_id
+		, tb.reg_id
+		, tb.rgtr
+		, tb.reg_dt
+		, tb.mdfcn_unique_id
+		, tb.mdfcn_id
+		, tb.mdfr
+		, tb.mdfcn_dt
+		, 'ATTACH' as file_ty
+		, 'THUMB' as thumb_file_ty
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchTtl" '>AND ttl like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchWrter" '>AND wrtr like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchWrterId" '>AND wrt_id like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+					AND (ttl like CONCAT('%', #{srchText}, '%')
+						OR wrtr like CONCAT('%', #{srchText}, '%')
+						OR wrt_id like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchUseYn == null or srchUseYn == ''">
+			AND tb.use_yn = 'Y'
+		</if>
+		<if test="srchSttsTy != null and srchSttsTy != '' ">
+			AND tb.stts_ty != #{srchSttsTy}
+		</if>
+		<if test="srchUseYn !=null and srchUseYn != ''">
+			AND tb.use_yn = #{srchUseYn}
+		</if>
+
+		<if test="srchBbsNo !=null and srchBbsNo != ''">
+			AND tb.bbs_no = #{srchBbsNo}
+		</if>
+
+		<if test="srchCtgry != null and srchCtgry != '' ">
+			AND tb.ctgry_no = #{srchCtgry}
+		</if>
+
+		<if test="srchWrterId != null and srchWrterId != '' ">
+			AND tb.wrt_id = #{srchWrterId}
+		</if>
+
+		<if test="srchWrtYmdBgng !=null and srchWrtYmdBgng != ''">
+			AND DATE_FORMAT(tb.wrt_ymd, '%Y-%m-%d') &gt;= #{srchWrtYmdBgng}
+		</if>
+		<if test="srchWrtYmdEnd !=null and srchWrtYmdEnd != ''">
+			AND DATE_FORMAT(tb.wrt_ymd, '%Y-%m-%d') &lt;= #{srchWrtYmdEnd}
+		</if>
+
+	</sql>
+
+
+	<select id="selectNttListVO" parameterType="java.util.HashMap" resultMap="bbsMap">
+		/* Query ID : bbs.ntt.selectNttListVO */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
+			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
+			, tbc.ctgry_nm
+		FROM BBS tb LEFT OUTER JOIN BBS_CTGRY tbc
+			ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY ntc_yn DESC
+   			, IF(ntt_grp = 0, ntt_no, ntt_grp) DESC
+   			, ntt_ordr ASC
+   			, wrt_ymd DESC
+   			, ntt_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+
+	<select id="selectNttCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bbs.ntt.selectNttCount */
+		SELECT COUNT(*)
+		  FROM BBS tb
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<select id="selectNtt" parameterType="java.util.HashMap" resultMap="bbsMap">
+		/* Query ID : bbs.ntt.selectNtt */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
+			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
+			, tbc.ctgry_nm
+		FROM BBS tb LEFT OUTER JOIN BBS_CTGRY tbc
+			ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		WHERE tb.bbs_no = #{bbsNo}
+		  AND tb.ntt_no = #{nttNo}
+	</select>
+
+
+	<insert id="insertNtt" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.insertNtt */
+		INSERT INTO BBS (
+			bbs_no
+			, ctgry_no
+			, ntt_grp
+			, ntt_ordr
+			, ntt_level
+			, ttl
+			, cn
+			<if test="pswd != null and pswd != '' ">
+			, pswd
+			</if>
+			, wrtr
+			, wrt_id
+			, wrt_ymd
+			, inqcnt
+			, ntc_yn
+			, use_yn
+			, secret_yn
+			, ip
+			, stts_ty
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+		) values (
+			#{bbsNo}
+			, #{ctgryNo}
+			,
+			<choose>
+				<when test="nttGrp == 0">FN_NEXT_AUTO_SEQ('BBS')</when>
+				<otherwise>#{nttGrp}</otherwise>
+			</choose>
+			, #{nttOrdr}
+			, #{nttLevel}
+			, #{ttl, jdbcType=VARCHAR}
+			, #{cn, jdbcType=VARCHAR}
+			<if test="pswd != null and pswd != '' ">
+			, #{pswd, jdbcType=VARCHAR}
+			</if>
+			, #{wrtr, jdbcType=VARCHAR}
+			, #{wrtId, jdbcType=VARCHAR}
+			,
+			<choose>
+				<when test="wrtYmd == null">DATE_FORMAT(SYSDATE(), '%Y-%m-%d')</when>
+				<otherwise>#{wrtYmd, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, #{inqcnt}
+			,
+			<choose>
+				<when test="ntcYn == null">'N'</when>
+				<otherwise>#{ntcYn, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, #{useYn, jdbcType=VARCHAR}
+			,
+			<choose>
+				<when test="secretYn == null">'N'</when>
+				<otherwise>#{secretYn, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, #{ip, jdbcType=VARCHAR}
+			, #{sttsTy, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+		<selectKey resultType="int" keyProperty="nttNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateNtt" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.updateNtt */
+		UPDATE BBS SET
+			ctgry_no  = #{ctgryNo}
+			, ttl = #{ttl, jdbcType=VARCHAR}
+			, cn = #{cn, jdbcType=VARCHAR}
+			<if test="pswd != null and pswd != '' ">
+			, pswd = #{pswd, jdbcType=VARCHAR}
+			</if>
+			, wrtr = #{wrtr, jdbcType=VARCHAR}
+			, wrt_id = #{wrtId, jdbcType=VARCHAR}
+			<if test="wrtYmd != null and wrtYmd != '' ">
+			, wrt_ymd = #{wrtYmd, jdbcType=VARCHAR}
+			</if>
+			, ntc_yn =
+			<choose>
+				<when test="ntcYn == null">'N'</when>
+				<otherwise>#{ntcYn, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, secret_yn =
+			<choose>
+				<when test="secretYn == null">'N'</when>
+				<otherwise>#{secretYn, jdbcType=VARCHAR}</otherwise>
+			</choose>
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+
+	</update>
+
+	<update id="updateDelNtt" parameterType="java.util.HashMap">
+		/* Query ID : bbs.ntt.updateDelNtt */
+		UPDATE BBS SET
+			use_yn = 'N'
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+
+	<update id="updateNttOrdr" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.updateNttOrdr */
+		UPDATE BBS SET
+			ntt_ordr = ntt_ordr + 1
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_grp = #{nttGrp}
+		  AND ntt_ordr > #{nttOrdr}
+	</update>
+
+
+	<select id="pswdChk" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bbs.ntt.pswdChk */
+		SELECT COUNT(*)
+		  FROM BBS tb
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+		  AND pswd= #{pswd}
+	</select>
+
+
+	<update id="updateInqcnt" parameterType="java.util.HashMap">
+		/* Query ID : bbs.ntt.updateInqcnt */
+		UPDATE BBS SET
+			inqcnt = inqcnt + 1
+		WHERE ntt_no = #{nttNo}
+	</update>
+
+
+	<update id="updateNttSttsTy" parameterType="java.util.HashMap">
+		/* Query ID : bbs.ntt.updateNttSttusTy */
+		UPDATE BBS SET
+			stts_ty = #{sttsTy}
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+
+	<select id="selectNttPrevNext" parameterType="java.util.HashMap" resultType="egovMap">
+		/* Query ID : bbs.ntt.selectNttPrevNext (답글/비밀글 제외) */
+		(SELECT
+			'PREV' as flag, bbs_no, ntt_no, ctgry_no, ttl, wrt_ymd, wrtr
+		FROM BBS
+		WHERE ntt_no &lt; #{nttNo}
+			AND ntt_level = 0 AND use_yn = 'N' AND secret_yn = 'N' AND stts_ty = 'P'
+		<if test="bbsNo != null and bbsNo != '' ">
+			AND bbs_no = #{bbsNo}
+		</if>
+		ORDER BY wrt_ymd DESC, ntt_no DESC LIMIT 1)
+		  UNION ALL
+		(SELECT
+			'NEXT' as flag, bbs_no, ntt_no, ctgry_no, ttl, wrt_ymd, wrtr
+		FROM BBS
+		WHERE ntt_no &gt; #{nttNo}
+			AND ntt_level = 0 AND use_yn = 'N' AND secret_yn = 'N' AND stts_ty = 'P'
+		<if test="bbsNo != null and bbsNo != '' ">
+			AND bbs_no = #{bbsNo}
+		</if>
+		ORDER BY wrt_ymd ASC, ntt_no ASC LIMIT 1)
+	</select>
+
+
+	<update id="updateAnswer" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.updateAnswer */
+		UPDATE BBS SET
+			ans_ttl = #{ansTtl, jdbcType=VARCHAR}
+			, ans_cn = #{ansCn, jdbcType=VARCHAR}
+			, answr = #{answr, jdbcType=VARCHAR}
+			, ans_id = #{ansId, jdbcType=VARCHAR}
+			, ans_ymd = #{ansYmd, jdbcType=VARCHAR}
+
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+	<update id="updateDelAnswer" parameterType="java.util.HashMap">
+		/* Query ID : bbs.ntt.updateDelAnswer */
+		UPDATE BBS SET
+			ans_ttl = null
+			, ans_cn = null
+			, answr = null
+			, ans_id = null
+			, ans_ymd = null
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+	</update>
+
+
+	<select id="selectAnswerNCnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) FROM BBS WHERE bbs_no = #{bbsNo} AND wrt_id = #{wrtId} AND ans_ttl IS NULL
+	</select>
+
+</mapper>

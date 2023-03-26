@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.273" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffe62a"/>
+      <stop offset="0.459" stop-color="#3cfff2"/>
+      <stop offset="1" stop-color="#ff3fc0"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="0.619" cy="0.619" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff3fc0"/>
+      <stop offset="0.232" stop-color="#ffe62a"/>
+      <stop offset="0.618" stop-color="#3cfff2"/>
+      <stop offset="1" stop-color="#ff3fc0"/>
+    </radialGradient>
+  </defs>
+  <g id="Oval" transform="translate(-142 -91.492)">
+    <path id="Oval-2" data-name="Oval" d="M11,22c6.075,0,11-1.1,11-10.214S17.075,0,11,0,0,2.673,0,11.786,4.925,22,11,22Z" transform="translate(149 99)" fill="url(#linear-gradient)"/>
+    <path id="Oval-3" data-name="Oval" d="M11,22c6.075,0,11-1.1,11-10.214S17.075,0,11,0,0,2.673,0,11.786,4.925,22,11,22Z" transform="translate(149 99)" fill="url(#radial-gradient)"/>
+  </g>
+  <path id="Oval_4" data-name="Oval 4" d="M18,36A18,18,0,0,1,5.272,5.272,18,18,0,0,1,30.728,30.728,17.882,17.882,0,0,1,18,36Zm4.615-11.518-1.339.191.408,2.87,1.341-.189Zm-9.642-10.82-2.348,2.364a6.61,6.61,0,0,0,9.348,9.348l2.35-2.364-1.976-1.975L18,23.4A3.817,3.817,0,0,1,12.6,18l2.349-2.364Zm11.066,9.41-.956.958,2.049,2.051.959-.958Zm.635-1.8-.193,1.341,2.871.409.194-1.341ZM20.7,11.484A3.818,3.818,0,0,1,23.4,18L21.05,20.377l1.974,1.974,2.352-2.377a6.611,6.611,0,0,0-9.349-9.348L13.675,13l1.975,1.975L18,12.6A3.789,3.789,0,0,1,20.7,11.484Zm-.067,2.672a.993.993,0,0,0-.706.292l-5.608,5.608a1,1,0,0,0,0,1.414l.341.342a1,1,0,0,0,1.414,0L21.681,16.2a1,1,0,0,0,0-1.415l-.341-.341A.994.994,0,0,0,20.632,14.156ZM8.645,12.972l-.192,1.342,2.87.409.193-1.34Zm2.219-3.056h0l-.958.958,2.052,2.05.958-.958-2.052-2.05Zm3.451-1.462-1.341.19.41,2.87,1.338-.19Z" fill="#333"/>
+</svg>

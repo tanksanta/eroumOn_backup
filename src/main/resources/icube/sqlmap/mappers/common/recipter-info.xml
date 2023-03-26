@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recipter">
+
+	<resultMap type="recipterInfoVO" id="recipterVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		ri.unique_id
+		, ri.rcper_rcogn_no
+		, ri.rcogn_grad
+		, ri.self_bnd_rt
+		, ri.self_bnd_memo
+		, ri.vld_bgng_ymd
+		, ri.vld_end_ymd
+		, ri.aplcn_bgng_ymd
+		, ri.aplcn_end_ymd
+		, ri.sprt_amt
+		, ri.bnef_blce
+		, ri.reg_dt
+		, ri.mdfcn_dt
+
+		, ri.test_name
+
+		, m.mbr_id
+		, m.mbr_nm
+		, m.profl_img
+		, m.mber_sttus
+		, m.mber_grade
+		, m.mbl_telno
+		, m.gender
+		, m.zip
+		, m.addr
+		, m.daddr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND ri.unique_id = #{srchUniqueId}
+		</if>
+	</sql>
+
+
+	<select id="selectRecipterCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM RECIPTER_INFO ri
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectRecipterListAll" parameterType="java.util.HashMap" resultMap="recipterVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM RECIPTER_INFO ri
+			LEFT JOIN MBR m ON m.unique_id = ri.unique_id AND mber_sttus != 'EXIT'
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY ri.reg_dt DESC
+	</select>
+
+	<select id="selectRecipter" parameterType="java.util.HashMap" resultType="recipterInfoVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM RECIPTER_INFO ri
+			LEFT JOIN MBR m ON m.unique_id = ri.unique_id
+		WHERE ri.unique_id = #{srchUniqueId}
+	</select>
+
+	<insert id="mergeRecipter" parameterType="recipterInfoVO">
+		INSERT INTO RECIPTER_INFO (
+		unique_id
+		, rcper_rcogn_no
+		, rcogn_grad
+		, self_bnd_rt
+		, self_bnd_memo
+		, vld_bgng_ymd
+		, vld_end_ymd
+		, aplcn_bgng_ymd
+		, aplcn_end_ymd
+		, sprt_amt
+		, bnef_blce
+		, reg_dt
+		, test_name
+	) VALUES (
+		#{uniqueId,  jdbcType=VARCHAR}
+		, #{rcperRcognNo, jdbcType=VARCHAR}
+		, #{rcognGrad, jdbcType=VARCHAR}
+		, #{selfBndRt}
+		, #{selfBndMemo, jdbcType=VARCHAR}
+		, #{vldBgngYmd, jdbcType=VARCHAR}
+		, #{vldEndYmd, jdbcType=VARCHAR}
+		, #{aplcnBgngYmd, jdbcType=VARCHAR}
+		, #{aplcnEndYmd, jdbcType=VARCHAR}
+		, #{sprtAmt}
+		, #{bnefBlce}
+		, SYSDATE()
+		, #{testName, jdbcType=VARCHAR}
+	)
+	ON DUPLICATE KEY UPDATE
+		rcper_rcogn_no = #{rcperRcognNo, jdbcType=VARCHAR}
+		, rcogn_grad = #{rcognGrad, jdbcType=VARCHAR}
+		, self_bnd_rt = #{selfBndRt}
+		, self_bnd_memo = #{selfBndMemo, jdbcType=VARCHAR}
+		, vld_bgng_ymd = #{vldBgngYmd, jdbcType=VARCHAR}
+		, vld_end_ymd = #{vldEndYmd, jdbcType=VARCHAR}
+		, aplcn_bgng_ymd = #{aplcnBgngYmd, jdbcType=VARCHAR}
+		, aplcn_end_ymd = #{aplcnEndYmd, jdbcType=VARCHAR}
+		, sprt_amt = #{sprtAmt}
+		, bnef_blce = #{bnefBlce}
+		, mdfcn_dt = SYSDATE()
+		, test_name = #{testName, jdbcType=VARCHAR}
+
+	</insert>
+
+
+	<delete id="deleteRecipter" parameterType="java.util.HashMap">
+		DELETE FROM RECIPTER_INFO
+		WHERE unique_id = #{srchUniqueId}
+	</delete>
+
+
+</mapper>

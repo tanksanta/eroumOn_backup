@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.bbs.setup">
+
+	<resultMap type="bbsSetupVO" id="bbsListMap" autoMapping="true">
+		<result property="nttCnt" 		column="ntt_cnt" />
+	</resultMap>
+
+	<resultMap type="bbsSetupVO" id="bbsSetupMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		  bbs_no
+		, bbs_nm
+		, bbs_ty
+		, use_yn
+		, ctgry_use_yn
+	</sql>
+
+	<sql id="listWhere">
+		<where>
+			<if test="srchText != null and srchText != '' ">
+				AND bbs_nm LIKE CONCAT('%', #{srchText}, '%')
+			</if>
+			<if test="srchBbsTy != null and srchBbsTy != '' ">
+				AND bbs_ty = #{srchBbsTy}
+			</if>
+			<if test="srchUseYn != null and srchUseYn != '' ">
+				AND use_yn = #{srchUseYn}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectBbsSetupCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : sysmng.bbs.setup.selectBbsSetupCount */
+		SELECT COUNT(*)
+  	  	FROM BBS_SETUP
+		<include refid="listWhere"/>
+	</select>
+
+
+	<select id="selectBbsSetupListVO" parameterType="java.util.HashMap" resultMap="bbsListMap">
+		/* Query ID : sysmng.bbs.setup.selectBbsSetupListVO */
+		SELECT bbs_no
+			 , bbs_nm
+			 , bbs_ty
+			 , use_yn
+			 , mbr_authrt_yn
+			 , ctgry_use_yn
+			 , editr_use_yn
+			 , (SELECT COUNT(*) FROM BBS as t WHERE t.bbs_no = bbs.bbs_no AND t.use_yn = 'Y') AS ntt_cnt
+		  FROM BBS_SETUP bbs
+		<include refid="listWhere"/>
+		ORDER BY bbs_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+
+	<select id="selectBbsSetup" parameterType="java.util.HashMap"  resultMap="bbsSetupMap">
+		/* Query ID : sysmng.bbs.setup.selectBbsSetup */
+		SELECT
+			  bbs_no
+			, bbs_nm
+			, bbs_ty
+			, secret_use_yn
+			, editr_use_yn
+			, mbr_authrt_yn
+			, otpt_co
+			, ctgry_use_yn
+			, atchfile_use_yn
+			, atchfile_cnt
+			, atchfile_sz
+			, atchfile_perm_extn AS atchfile_perm_extn_val
+			, thumb_use_yn
+			, pic_sms_yn
+			, pic_sms
+			, pic_eml_yn
+			, pic_eml
+			, use_yn
+		FROM BBS_SETUP bbs
+		WHERE bbs_no = #{bbsNo}
+	</select>
+
+
+	<insert id="insertBbsSetup" parameterType="bbsSetupVO">
+		/* Query ID : sysmng.bbs.setup.insertBbsSetup */
+		INSERT INTO BBS_SETUP (
+			  bbs_nm
+			, bbs_ty
+			, secret_use_yn
+			, editr_use_yn
+			, mbr_authrt_yn
+			, otpt_co
+			, ctgry_use_yn
+			, atchfile_use_yn
+			, atchfile_cnt
+			, atchfile_sz
+			, atchfile_perm_extn
+			, thumb_use_yn
+			, pic_sms_yn
+			, pic_sms
+			, pic_eml_yn
+			, pic_eml
+			, use_yn
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+		) VALUES (
+			#{bbsNm, jdbcType=VARCHAR}
+			, #{bbsTy, jdbcType=VARCHAR}
+			, #{secretUseYn, jdbcType=VARCHAR}
+			, #{editrUseYn, jdbcType=VARCHAR}
+			, #{mbrAuthrtYn, jdbcType=VARCHAR}
+			, #{otptCo}
+			, #{ctgryUseYn, jdbcType=VARCHAR}
+			, #{atchfileUseYn, jdbcType=VARCHAR}
+			, #{atchfileCnt}
+			, #{atchfileSz}
+			, #{atchfilePermExtnVal, jdbcType=VARCHAR}
+			, #{thumbUseYn, jdbcType=VARCHAR}
+			, #{picSmsYn, jdbcType=VARCHAR}
+			, #{picSms, jdbcType=VARCHAR}
+			, #{picEmlYn, jdbcType=VARCHAR}
+			, #{picEml, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+		<selectKey resultType="int" keyProperty="bbsNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	<update id="updateBbsSetup" parameterType="bbsSetupVO">
+		/* Query ID : sysmng.bbs.setup.updateBbsSetup */
+		UPDATE BBS_SETUP SET
+			bbs_nm = #{bbsNm, jdbcType=VARCHAR}
+			, bbs_ty = #{bbsTy, jdbcType=VARCHAR}
+			, secret_use_yn = #{secretUseYn, jdbcType=VARCHAR}
+			, editr_use_yn = #{editrUseYn, jdbcType=VARCHAR}
+			, mbr_authrt_yn = #{mbrAuthrtYn, jdbcType=VARCHAR}
+			, otpt_co = #{otptCo}
+			, ctgry_use_yn = #{ctgryUseYn, jdbcType=VARCHAR}
+			, atchfile_use_yn = #{atchfileUseYn, jdbcType=VARCHAR}
+			, atchfile_cnt = #{atchfileCnt}
+			, atchfile_sz = #{atchfileSz}
+			, atchfile_perm_extn = #{atchfilePermExtnVal, jdbcType=VARCHAR}
+			, thumb_use_yn = #{thumbUseYn, jdbcType=VARCHAR}
+			, pic_sms_yn = #{picSmsYn, jdbcType=VARCHAR}
+			, pic_sms = #{picSms, jdbcType=VARCHAR}
+			, pic_eml_yn = #{picEmlYn, jdbcType=VARCHAR}
+			, pic_eml = #{picEml, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+		WHERE bbs_no = #{bbsNo}
+	</update>
+
+
+	<update id="updateBbsSetupUseYn" parameterType="java.util.HashMap">
+		/* Query ID : sysmng.bbs.setup.updateBbsSetupUseYn */
+		UPDATE BBS_SETUP
+		   SET use_yn = #{useYn}
+		 WHERE bbs_no = #{bbsNo}
+	</update>
+
+<!--
+	<select id="selectAllBbsSetupList" resultType="bbsSetupVO" >
+	/* Query ID : sysmng.bbs.setup.selectAllBbsSetupList */
+		SELECT
+		    bbs_no,
+		    bbs_nm,
+		    bbs_ty
+		FROM BBS_SETUP
+	</select>
+
+ -->
+</mapper>

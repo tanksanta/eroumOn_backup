@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:cache="http://www.springframework.org/schema/cache"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+
+	<!-- cache -->
+	<bean id="icube.ehcache.icubeCommonCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+	    <property name="cacheName" value="icubeCommonCache"/>
+	    <property name="cacheManager"><ref bean="icubeEhCacheManagerFactoryBean"/></property>
+	</bean>
+
+	<bean id="icube.ehcache.icubeCodeCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+	    <property name="cacheName" value="icubeCodeCache"/>
+	    <property name="cacheManager"><ref bean="icubeEhCacheManagerFactoryBean"/></property>
+	</bean>
+
+	<bean id="icube.ehcache.gdsCtgryCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+	    <property name="cacheName" value="gdsCtgryCache"/>
+	    <property name="cacheManager"><ref bean="icubeEhCacheManagerFactoryBean"/></property>
+	</bean>
+
+	<bean id="icubeEhCacheManagerFactoryBean" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    	<property name="configLocation" value="classpath:/icube/spring/ehcache.xml"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inqry">
+
+	<resultMap type="mbrInqryVO" id="mbrInqryVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=inqry_no}" select="file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		inqry_no
+		, inqry_ty
+		, inqry_dtl_ty
+		, ttl
+		, cn
+		, ordr_cd
+		, sms_ans_yn
+		, mbl_telno
+		, eml_ans_yn
+		, eml
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, ans_yn
+		, ans_cn
+		, ans_unique_id
+		, ans_dt
+		, ans_id
+		, answr
+		, use_yn
+		, 'INQRY' AS srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+	<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND reg_dt &gt;= #{srchBgngDt} AND reg_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchRegBgng !=null and srchRegBgng != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &gt;= #{srchRegBgng}
+		</if>
+		<if test="srchRegEnd !=null and srchRegEnd != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &lt;= #{srchRegEnd}
+		</if>
+		<if test="srchName != null and srchName != ''">
+			AND rgtr = #{srchName}
+		</if>
+		<if test="srchId != null and srchId != ''">
+			AND reg_id = #{srchId}
+		</if>
+		<if test="srchInqryTy != null and srchInqryTy != ''">
+			AND inqry_ty = #{srchInqryTy}
+		</if>
+		<if test="srchAns != null and srchAns != ''">
+			AND ans_yn = #{srchAns}
+		</if>
+		<if test="uniqueId != null and uniqueId != ''">
+			AND reg_unique_id = #{uniqueId}
+		</if>
+		<if test="srchTel != null and srchTel != ''">
+			AND SUBSTRING(mbl_telno,10,4) = #{srchTel}
+		</if>
+		<if test="srchInqryTyNo1 != null and srchInqryTyNo1 != ''">
+			AND inqry_ty = #{srchInqryTyNo1}
+			<if test="srchInqryTyNo2 != null and srchInqryTyNo2 !='' ">
+				 AND inqry_dtl_ty = #{srchInqryTyNo2}
+			</if>
+		</if>
+		<if test="srchInqryTyNo2 != null and srchInqryTyNo2 !='' ">
+			AND inqry_dtl_ty = #{srchInqryTyNo2}
+		</if>
+		<if test="srchTtl != null and srchTtl != ''">
+			AND ttl like CONCAT ('%',#{srchTtl},'%')
+		</if>
+		<if test="srchCn != null and srchCn != ''">
+			AND cn like CONCAT ('%',#{srchCn},'%')
+		</if>
+		<if test="srchAnsBgng !=null and srchAnsBgng != ''">
+			AND DATE_FORMAT(ans_dt, '%Y-%m-%d') &gt;= #{srchAnsBgng}
+		</if>
+		<if test="srchAnsEnd !=null and srchAnsEnd != ''">
+			AND DATE_FORMAT(ans_dt, '%Y-%m-%d') &lt;= #{srchAnsEnd}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<select id="selectMbrInqryListVO" parameterType="java.util.HashMap" resultMap="mbrInqryVOMap">
+		/* Query ID : mbrInqry.selectMbrInqryListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_INQRY
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY inqry_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrInqryCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbrInqry.selectMbrInqryCount */
+		SELECT	COUNT(*)
+		FROM	MBR_INQRY
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectMbrInqry" parameterType="java.util.HashMap" resultMap="mbrInqryVOMap">
+		/* Query ID : mbrInqry.selectMbrInqry */
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT mbr_nm FROM MBR WHERE unique_id = reg_unique_id) AS mbr_nm
+		FROM	MBR_INQRY
+		WHERE  inqry_no = #{inqryNo}
+	</select>
+
+	<!-- 문의 등록 -->
+	<insert id="insertMbrInqry" parameterType="mbrInqryVO">
+	/* Query ID : mbrInqry.insertMbrInqry */
+	INSERT INTO MBR_INQRY (
+		inqry_ty
+		, inqry_dtl_ty
+		, ttl
+		, cn
+		, ordr_cd
+		, sms_ans_yn
+		, mbl_telno
+		, eml_ans_yn
+		, eml
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, ans_yn
+		, use_yn
+		) VALUES (
+		#{inqryTy, jdbcType=VARCHAR}
+		, #{inqryDtlTy, jdbcType=VARCHAR}
+		, #{ttl, jdbcType=VARCHAR}
+		, #{cn, jdbcType=VARCHAR}
+		, #{ordrCd, jdbcType=VARCHAR}
+		, #{smsAnsYn, jdbcType=VARCHAR}
+		, #{mblTelno, jdbcType=VARCHAR}
+		, #{emlAnsYn, jdbcType=VARCHAR}
+		, #{eml, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		, #{ansYn, jdbcType=VARCHAR}
+		, #{useYn}
+		)
+		<selectKey keyProperty="inqryNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	<!-- 사용자 문의 업데이트 -->
+	<update id="updateMbrInqry" parameterType="mbrInqryVO">
+		/* Query ID : mbrInqry.updateMbrInqry */
+		UPDATE	 MBR_INQRY SET
+			 inqry_ty = #{inqryTy, jdbcType=VARCHAR}
+			, inqry_dtl_ty = #{inqryDtlTy, jdbcType=VARCHAR}
+			, ttl = #{ttl, jdbcType=VARCHAR}
+			, cn = #{cn, jdbcType=VARCHAR}
+			, ordr_cd = #{ordrCd, jdbcType=VARCHAR}
+			, sms_ans_yn = #{smsAnsYn, jdbcType=VARCHAR}
+			, mbl_telno = #{mblTelno, jdbcType=VARCHAR}
+			, eml_ans_yn = #{emlAnsYn, jdbcType=VARCHAR}
+			, eml = #{eml, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	inqry_no = #{inqryNo}
+	</update>
+
+	<!-- 관리자 답변 업데이트 -->
+	<update id="updateAnsInqry" parameterType="mbrInqryVO">
+		/* Query ID : mbrInqry.updateMbrInqry */
+		UPDATE	 MBR_INQRY SET
+			ans_yn = #{ansYn, jdbcType=VARCHAR}
+			, ans_cn = #{ansCn, jdbcType=VARCHAR}
+			, ans_unique_id = #{ansUniqueId, jdbcType=VARCHAR}
+			, ans_dt = SYSDATE()
+			, ans_id = #{ansId, jdbcType=VARCHAR}
+			, answr = #{answr, jdbcType=VARCHAR}
+		WHERE	inqry_no = #{inqryNo}
+	</update>
+
+	<update id="deleteInqry" parameterType="int">
+		/* Query ID : mbrInqry.deleteInqry */
+		UPDATE MBR_INQRY SET
+			use_yn = 'N'
+		WHERE inqry_no = #{inqryNo}
+	</update>
+
+
+
+</mapper>

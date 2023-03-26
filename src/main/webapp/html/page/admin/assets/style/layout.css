@@ -1,0 +1,234 @@
+/* ::-webkit-scrollbar {
+    @apply w-2 h-2 bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+    @apply rounded-md bg-gray5;
+}
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+} */
+
+body {
+    @apply scrollbars flex-row min-w-[1366px] text-black1 tracking-tight bg-fixed bg-no-repeat bg-black bg-[url(../images/bg-dashboard.jpg)] bg-[position:center_bottom];
+    overflow: overlay;
+}
+
+#header {
+    @apply relative flex flex-col flex-none w-72 h-screen overflow-hidden bg-no-repeat bg-[left_top_right_top];
+    background-image: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), linear-gradient(180deg, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%);
+    background-position: left top, right top;
+    background-size: theme("spacing[17]") 100%, theme("spacing[55]") 100%;
+    & .system-title {
+        @apply flex m-3.5 ml-6.5;
+    }
+    & .back {
+        @apply absolute z-10 bottom-1 left-3 w-11 h-11 overflow-hidden bg-center bg-no-repeat -indent-96 press-action;
+        background-image: url(../images/ico-admin-back.svg);
+    }
+}
+
+#navigation {
+    @apply pl-17 flex-1 overflow-hidden;
+    & .menu-items {
+        @apply absolute top-1/2 left-2 -translate-y-1/2 select-none;
+        & a {
+            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white bg-white leading-none text-center text-[0.6875rem] press-action;
+            &::before {
+                @apply content-empty block mx-auto mb-0.5 w-7 h-7 bg-no-repeat bg-center bg-[length:1.5rem];
+            }
+            &.menu-item1 {
+                &::before {
+                    background-image: url(../images/ico-menu1.svg);
+                }
+            }
+            &.menu-item2 {
+                &::before {
+                    background-image: url(../images/ico-menu2.svg);
+                    
+                }
+            }
+            &.menu-item3 {
+                &::before {
+                    @apply bg-[length:1.375rem];
+                    background-image: url(../images/ico-menu3.svg);
+                }
+            }
+            &.menu-item4 {
+                &::before {
+                    @apply bg-[length:1.25rem];
+                    background-image: url(../images/ico-menu4.svg);
+                }
+            }
+            &.menu-item5 {
+                &::before {
+                    background-image: url(../images/ico-menu5.svg);
+                }
+            }
+            &.menu-item6 {
+                &::before {
+                    @apply bg-[length:1.25rem];
+                    background-image: url(../images/ico-menu6.svg);
+                }
+            }
+            &.menu-item7 {
+                &::before {
+                    background-image: url(../images/ico-menu7.svg);
+                }
+            }
+            &.menu-item8 {
+                &::before {
+                    @apply bg-[length:1.375rem];
+                    background-image: url(../images/ico-menu8.svg);
+                }
+            }
+            &.menu-item9 {
+                &::before {
+                    @apply bg-[length:1.375rem];
+                    background-image: url(../images/ico-menu9.svg);
+                }
+            }
+            &.menu-item10 {
+                &::before {
+                    background-image: url(../images/ico-menu10.svg);
+                }
+            }
+            &.menu-item11 {
+                &::before {
+                    background-image: url(../images/ico-menu11.svg);
+                }
+            }
+            &.menu-item12 {
+                &::before {
+                    @apply bg-[length:1.5rem];
+                    background-image: url(../images/ico-menu12.svg);
+                }
+            }
+            &:active {
+                @apply bg-white/80;
+            } 
+            &.active {
+                @apply bg-transparent text-white;
+                &::after {
+                    @apply content-empty absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-5 bg-white rounded-md;
+                }
+                &.menu-item1 {
+                    &::before {
+                        background-image: url(../images/ico-menu1-white.svg);
+                    }
+                }
+                &.menu-item2 {
+                    &::before {
+                        background-image: url(../images/ico-menu2-white.svg);
+                    }
+                }
+                &.menu-item3 {
+                    &::before {
+                        background-image: url(../images/ico-menu3-white.svg);
+                    }
+                }
+                &.menu-item4 {
+                    &::before {
+                        background-image: url(../images/ico-menu4-white.svg);
+                    }
+                }
+                &.menu-item5 {
+                    &::before {
+                        background-image: url(../images/ico-menu5-white.svg);
+                    }
+                }
+                &.menu-item6 {
+                    &::before {
+                        background-image: url(../images/ico-menu6-white.svg);
+                    }
+                }
+                &.menu-item7 {
+                    &::before {
+                        background-image: url(../images/ico-menu7-white.svg);
+                    }
+                }
+                &.menu-item8 {
+                    &::before {
+                        background-image: url(../images/ico-menu8-white.svg);
+                    }
+                }
+                &.menu-item9 {
+                    &::before {
+                        background-image: url(../images/ico-menu9-white.svg);
+                    }
+                }
+                &.menu-item10 {
+                    &::before {
+                        background-image: url(../images/ico-menu10-white.svg);
+                    }
+                }
+                &.menu-item11 {
+                    &::before {
+                        background-image: url(../images/ico-menu11-white.svg);
+                    }
+                }
+                &.menu-item12 {
+                    &::before {
+                        background-image: url(../images/ico-menu12-white.svg);
+                    }
+                }
+            }
+        }
+    }
+    & .list-items {
+        @apply scrollbars hidden px-2 h-full overflow-auto;
+        & p {
+            @apply sticky-top text-title3 pb-3 bg-gray2;
+        }
+        & > ul {
+            & > li {
+                @apply mt-1 rounded-md bg-white overflow-hidden leading-tight transition-all duration-300;
+                & > a {
+                    @apply block text-sm py-3 px-4.5;
+                }
+                & > ul {
+                    @apply px-5 py-0.5 mx-1.5 mb-1.5 rounded bg-gray2 text-[0.8125rem];
+                    & li {
+                        @apply relative py-1 pl-3;
+                        &::before {
+                            @apply content-empty absolute top-2.5 mt-px left-0 w-1.5 h-px bg-black2;
+                        }
+                    }
+                }
+                &:hover {
+                    @apply bg-gray3;
+                }
+                &.active {
+                    @apply bg-black1 text-white;
+                    & > ul {
+                        @apply bg-white/20;
+                        & li {
+                            &::before {
+                                @apply bg-white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.active {
+            @apply block;
+        }
+    }
+}
+
+#container {
+    @apply scrollbars py-6 px-7 pb-20 flex-1 h-screen overflow-auto bg-white;
+}
+
+#page-header {
+    @apply flex items-center mb-7.5;
+    & .breadcrumb {
+        @apply mt-auto mr-auto ml-3 mb-3;
+    }
+    & .user-info {
+        @apply ml-auto;
+    }
+    & .btn-logout {
+        @apply ml-1.5;
+    }
+}

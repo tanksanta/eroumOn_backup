@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="sqlSession" class="icube.common.db.RefreshableSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="interval" value="1000" />
+		<property name="configLocation" value="classpath:/icube/sqlmap/config/sqlmap-config.xml"/>
+		<property name="mapperLocations">
+            <list>
+                <value>classpath*:/icube/sqlmap/mappers/*.xml</value>
+                <value>classpath*:/icube/sqlmap/mappers/*/*.xml</value>
+                <value>classpath*:/icube/sqlmap/mappers/*/*/*.xml</value>
+            </list>
+        </property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager" >
+        <tx:attributes>
+        	<tx:method name="select*" read-only="true" propagation="NOT_SUPPORTED" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" depends-on="sqlSession">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+
+</beans>

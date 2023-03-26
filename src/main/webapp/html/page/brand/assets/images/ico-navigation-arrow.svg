@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9.604" height="8.707" viewBox="0 0 9.604 8.707">
+  <g id="바로가기화살표" transform="translate(-0.25 -0.146)">
+    <path id="Line" d="M.5.5h9" transform="translate(0 4)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="Line-2" data-name="Line" d="M.5.5l4,4" transform="translate(5)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="Line-3" data-name="Line" d="M.5,4.5l4-4" transform="translate(5 4)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.5"/>
+  </g>
+</svg>

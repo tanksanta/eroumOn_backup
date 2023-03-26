@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dspy">
+
+	<resultMap type="planningDspyVO" id="planningDspyVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=planng_dspy_no}" select="file.selectFileList" />
+		<collection property="gdsCount" column="{planngDspyNo=planng_dspy_no}" select="dspy.grp.gds.selectGdsCount" />
+	</resultMap>
+
+	<sql id="listColumn">
+		planng_dspy_no
+		, planng_dspy_nm
+		, cn
+		, bgng_dt
+		, end_dt
+		, dspy_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'DSPY' AS srvc_id
+	</sql>
+
+
+	<sql id="searchConditions">
+	 	<if test="srchText != null and srchText != '' ">
+			AND planng_dspy_nm like CONCAT('%', #{srchText}, '%')
+		</if>
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND bgng_dt &gt;= #{srchBgngDt} AND end_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND bgng_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND end_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchYn != null and srchYn != '' ">
+			AND dspy_yn = #{srchYn}
+		</if>
+	</sql>
+
+	<select id="selectPdspyListVO" parameterType="java.util.HashMap" resultMap="planningDspyVOMap">
+		/* Query ID : planning.dspy.selectPdspyListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM PLANNG_DSPY
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY planng_dspy_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectPdspyCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : planng.dspy.selectPdspyCount */
+		SELECT	COUNT(*)
+		FROM	PLANNG_DSPY
+		WHERE	1=1
+		<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectPdspy" parameterType="java.util.HashMap" resultMap="planningDspyVOMap">
+		/* Query ID : planng.dspy.selectPdspy */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	PLANNG_DSPY
+		WHERE  planng_dspy_no = #{planngDspyNo}
+	</select>
+
+	<!--  dataTableVO -->
+	<select id="selectDspyListVO" parameterType="java.util.HashMap" resultType="planningDspyVO">
+		/* Query ID : planng.dspy.selectDspyListVO */
+		SELECT
+			gds.gds_no
+			, dspy.planng_dspy_no
+			, dspy.planng_dspy_nm
+			, dspy.dspy_yn
+		FROM PLANNG_DSPY_GRP_GDS gds
+		LEFT JOIN PLANNG_DSPY dspy
+		ON gds.planng_dspy_no = dspy.PLANNG_DSPY_NO
+		WHERE gds.gds_no = #{gdsNo}
+	</select>
+
+	<!--  dataTableVO -->
+	<select id="selectDspyCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : planng.dspy.selectDspyCount */
+		SELECT COUNT(*)
+		FROM PLANNG_DSPY_GRP_GDS gds
+		LEFT JOIN PLANNG_DSPY dspy
+		ON gds.planng_dspy_no = dspy.PLANNG_DSPY_NO
+		WHERE gds.gds_no = #{gdsNo}
+	</select>
+
+	<insert id="insertPdspy" parameterType="planningDspyVO">
+	/* Query ID : planng.dspy.insertPdspy */
+		INSERT INTO PLANNG_DSPY(
+		planng_dspy_nm
+		, cn
+		, bgng_dt
+		, end_dt
+		, dspy_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		 #{planngDspyNm}
+		, #{cn, jdbcType=VARCHAR}
+		, #{bgngDt}
+		, #{endDt}
+		, #{dspyYn, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+	)
+	<selectKey resultType="int" keyProperty="planngDspyNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updatePdspy" parameterType="planningDspyVO">
+		/* Query ID : planning.dspy.updatePdspy */
+		UPDATE PLANNG_DSPY SET
+			planng_dspy_nm = #{planngDspyNm}
+			, cn = #{cn}
+			, bgng_dt = #{bgngDt}
+			, end_dt = #{endDt}
+			, dspy_yn = #{dspyYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+			WHERE	planng_dspy_no = #{planngDspyNo}
+	</update>
+
+</mapper>

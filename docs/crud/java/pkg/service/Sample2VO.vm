@@ -1,0 +1,41 @@
+##
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+##
+##
+package $voPackage;
+
+import java.util.Date;
+
+import org.apache.ibatis.type.Alias;
+
+import icube.common.vo.CommonBaseVO;
+import lombok.Getter;
+import lombok.Setter;
+
+
+
+@Setter
+@Getter
+@Alias("${model.entity.ccName}VO")
+public class ${voClassName} extends CommonBaseVO {
+#set($i=0)	
+#foreach($attribute in $model.attributes)
+    #set($type = ${attribute.javaType})
+    #if($type == "java.math.BigDecimal")
+	#set($type = "int")
+    #elseif($type == "java.lang.String")
+	#set($type = "String")
+    #elseif($type == "java.sql.Clob")
+	#set($type = "String")
+    #elseif($type == "java.sql.Date")
+	#set($type = "Date")
+	#elseif($type == "java.util.Date")
+	#set($type = "Date")
+    #end
+private ${type} ${attribute.ccName};
+#set($i=$i+1)
+#end
+##
+
+}

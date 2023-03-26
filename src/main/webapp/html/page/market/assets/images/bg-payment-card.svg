@@ -1,0 +1,38 @@
+<svg id="Group_5_Copy_8" data-name="Group 5 Copy 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="460" height="287" viewBox="0 0 460 287">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.083" x2="0.987" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f4f4f4"/>
+      <stop offset="0.265" stop-color="#fff"/>
+      <stop offset="1" stop-color="#eee"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <rect id="Mask" width="460" height="287" rx="16" stroke="#707070" stroke-miterlimit="10" stroke-width="1" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-3" x1="1" y1="0.169" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.595" stop-color="#fff" stop-opacity="0.153"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.525"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Bitmap">
+    <rect id="Mask-2" data-name="Mask" width="460" height="287" fill="url(#linear-gradient)"/>
+    <g id="Bitmap-2" data-name="Bitmap" clip-path="url(#clip-path)">
+      <rect id="Rectangle" width="219" height="219" transform="translate(192.644 -79.5) rotate(-45)" fill="#fff"/>
+      <rect id="Rectangle_Copy" data-name="Rectangle Copy" width="94" height="94" transform="translate(281.032 144.112) rotate(-45)" fill="url(#linear-gradient-3)"/>
+      <rect id="Rectangle_Copy_4" data-name="Rectangle Copy 4" width="130" height="130" transform="translate(98.12 144.112) rotate(-45)" fill="url(#linear-gradient-3)"/>
+      <rect id="Rectangle_Copy_5" data-name="Rectangle Copy 5" width="76" height="76" transform="translate(136.304 288.928) rotate(-45)" fill="url(#linear-gradient-3)"/>
+      <rect id="Rectangle_Copy_2" data-name="Rectangle Copy 2" width="94" height="94" transform="translate(414.032 144.112) rotate(-45)" fill="#fff" opacity="0.3"/>
+      <rect id="Rectangle_Copy_3" data-name="Rectangle Copy 3" width="82" height="82" transform="translate(290.517 268.626) rotate(-45)" fill="#fff" opacity="0.3"/>
+      <rect id="Rectangle_Copy_27" data-name="Rectangle Copy 27" width="79" height="79" transform="translate(406.458 268.685) rotate(-45)" fill="url(#linear-gradient-6)"/>
+      <rect id="Rectangle_Copy_8" data-name="Rectangle Copy 8" width="94" height="94" transform="translate(15.032 36.112) rotate(-45)" fill="#fff" opacity="0.3"/>
+      <rect id="Rectangle_Copy_18" data-name="Rectangle Copy 18" width="94" height="94" transform="translate(-114.968 35.112) rotate(-45)" fill="#fff"/>
+      <rect id="Rectangle_Copy_28" data-name="Rectangle Copy 28" width="94" height="94" transform="translate(66.032 -13.888) rotate(-45)" fill="#f5f5f5"/>
+      <rect id="Rectangle_Copy_21" data-name="Rectangle Copy 21" width="36" height="36" transform="translate(32.044 105.099) rotate(-45)" fill="#fff"/>
+      <rect id="Rectangle_Copy_23" data-name="Rectangle Copy 23" width="100" height="100" transform="translate(-64.211 201.354) rotate(-45)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

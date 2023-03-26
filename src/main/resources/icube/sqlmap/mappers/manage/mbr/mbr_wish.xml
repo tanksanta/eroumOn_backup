@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.wish">
+
+	<resultMap type="wishVO" id="wishVOMap" autoMapping="true">
+		<association property="gdsInfo" 	column="{gdsNo=gds_no}" select="gds.gds.selectGds" />
+	</resultMap>
+
+	<sql id="listColumn">
+		w.wishlist_no
+		, w.gds_no
+		, w.unique_id
+
+		, w.reg_unique_id
+		, w.reg_dt
+		, w.reg_id
+		, w.rgtr
+		, g.gds_nm
+		, g.gds_cd
+	</sql>
+
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngWishDt != null and srchBgngWishDt != '' and srchEndWishDt != null and srchEndWishDt != '' ">
+				AND w.reg_dt &gt;= #{srchBgngWishDt} AND w.reg_dt &lt;= #{srchEndWishDt}
+			</when>
+			<when test= 'srchBgngWishDt != null and srchBgngWishDt != "" '>
+				AND w.reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndWishDt != null and srchEndWishDt != "" '>
+				AND w.reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			<!-- AND w.reg_unique_id = #{srchUniqueId} -->
+			AND w.unique_id = #{srchUniqueId}
+		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchWishlistNos)">
+			AND w.wishlist_no IN
+			<foreach collection="srchWishlistNos" item="srchWishlistNo" open="(" separator="," close=")">
+				#{srchWishlistNo}
+			</foreach>
+		</if>
+		<if test="srchGdsCd != null and srchGdsCd != '' ">
+			AND g.gds_cd like CONCAT ('%',#{srchGdsCd},'%')
+		</if>
+		<if test="srchGdsNm != null and srchGdsNm != '' ">
+			AND g.gds_nm like CONCAT ('%',#{srchGdsNm},'%')
+		</if>
+	</sql>
+
+	<select id="selectWishListAll" parameterType="java.util.HashMap" resultMap="wishVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM WISHLIST w
+		LEFT JOIN GDS g ON w.gds_no = g.gds_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY wishlist_no DESC
+	</select>
+
+
+	<select id="selectWishListVO" parameterType="java.util.HashMap" resultMap="wishVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM WISHLIST w
+		LEFT JOIN GDS g ON w.gds_no = g.gds_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY wishlist_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+
+	<select id="selectWishCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM WISHLIST w
+		LEFT JOIN GDS g ON w.gds_no = g.gds_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<select id="selectWish" parameterType="java.util.HashMap" resultMap="wishVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM WISHLIST w
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<insert id="insertWish" parameterType="wishVO">
+		INSERT INTO WISHLIST (
+			 gds_no
+			 , unique_id
+
+			 , reg_unique_id
+			 , reg_dt
+			 , reg_id
+			 , rgtr
+		) VALUES (
+			 #{gdsNo}
+			 , #{uniqueId, jdbcType=VARCHAR}
+
+			 , #{regUniqueId, jdbcType=VARCHAR}
+			 , SYSDATE()
+			 , #{regId, jdbcType=VARCHAR}
+			 , #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<delete id="deleteWish" parameterType="java.util.HashMap">
+		DELETE FROM WISHLIST
+		WHERE 1=1
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchWishlistNos)">
+			AND wishlist_no IN
+			<foreach collection="srchWishlistNos" item="srchWishlistNo" open="(" separator="," close=")">
+				#{srchWishlistNo}
+			</foreach>
+		</if>
+	</delete>
+
+	<delete id="deleteWishByGdsNo" parameterType="wishVO">
+		DELETE FROM WISHLIST
+		WHERE unique_id = #{uniqueId} AND gds_no = #{gdsNo}
+	</delete>
+
+</mapper>

@@ -1,0 +1,73 @@
+##
+#set($D='$')
+#set($voPackage="${servicePackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($voInstanceName="${model.entity.ccName}VO")
+##
+##
+#set($listPath="/${model.entity.ccName}/${model.entity.pcName}List.do")
+#set($addViewPath="/${model.entity.ccName}/add${model.entity.pcName}View.do")
+#set($addPath="/${model.entity.ccName}/add${model.entity.pcName}.do")
+#set($selectPath="/${model.entity.ccName}/select${model.entity.pcName}.do")
+#set($updatePath="/${model.entity.ccName}/update${model.entity.pcName}.do")
+#set($updateViewPath="/${model.entity.ccName}/update${model.entity.pcName}View.do")
+#set($deletePath="/${model.entity.ccName}/delete${model.entity.pcName}.do")
+##
+#set($registerPageName="${model.entity.pcName}Register.jsp")
+##
+#set($selectFunctionName="fncSelect${model.entity.pcName}")
+#set($addViewFunctionName="fncAdd${model.entity.pcName}View")
+##
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+				<form:form name="frm${model.entity.pcName}" id="frm${model.entity.pcName}" modelAttribute="${voInstanceName}" method="post" action="./action" enctype="multipart/form-data">
+					<!-- 검색조건 -->
+					<input type="hidden" name="srchTarget" id="srchTarget" value="${D}{param.srchTarget}" />
+					<input type="hidden" name="srchText" id="srchText" value="${D}{param.srchText}" />
+					<input type="hidden" name="srchUseAt" id="srchUseAt" value="${D}{param.srchUseAt }" />
+					<input type="hidden" name="cntPerPage" id="cntPerPage" value="${D}{param.cntPerPage}" />
+					<input type="hidden" name="curPage" id="curPage" value="${D}{param.curPage}" />
+					
+					<form:hidden path="crud" />
+					<!--TO-DO : PK정의 -->
+					<form:hidden path="no" />
+					
+                    <fieldset>
+                        <legend class="text-title2 relative">
+                        
+							${D}${voInstanceName}.crud eq 'CREATE'?'등록':'수정' }
+
+                            <span class="absolute left-full top-0.5 ml-1 whitespace-nowrap text-sm">
+                                (<span class="badge-require ml-1 mr-0.5 -translate-y-0.5"></span> 는 필수입력사항입니다.)
+                            </span>
+                        </legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+						#foreach($attribute in $model.attributes)
+							<tr>
+								<th scope="row"><label for="${attribute.ccName}" class="require">${attribute.name}</th>
+								<td><form:input path="${attribute.ccName}" class="form-control w-full" /></td>
+							</tr>	
+						#end
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <div class="btn-group right mt-8">
+                        <button type="submit" class="btn-primary large shadow">저장</button>
+                        
+                        <c:set var="pageParam" value="curPage=${D}{param.curPage }&amp;cntPerPage=${D}{param.cntPerPage}&amp;srchTarget=${D}{param.srchTarget}&amp;srchText=${D}{param.srchText}" />
+                        <a href="./list?${D}{pageParam}" class="btn-secondary large shadow">목록</a>
+                    </div>
+                </form:form>
+
+                <script>
+                $(function(){
+                
+                });
+                </script>

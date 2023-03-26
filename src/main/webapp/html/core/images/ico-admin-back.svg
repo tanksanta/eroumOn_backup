@@ -1,0 +1,9 @@
+<svg id="Group_5" data-name="Group 5" xmlns="http://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22">
+  <g id="Rectangle" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="2 2">
+    <rect width="26" height="22" rx="4" stroke="none"/>
+    <rect x="0.5" y="0.5" width="25" height="21" rx="3.5" fill="none"/>
+  </g>
+  <path id="Rectangle_Copy_3" data-name="Rectangle Copy 3" d="M4.389,5.1.147.853A.5.5,0,0,1,.853.147L4.743,4.036,8.632.147a.5.5,0,0,1,.707.707L5.1,5.1a.5.5,0,0,1-.707,0Z" transform="translate(15.121 15.364) rotate(-90)" fill="#fff"/>
+  <rect id="Rectangle-2" data-name="Rectangle" width="14" height="1" rx="0.5" transform="translate(5 10)" fill="#fff"/>
+  <rect id="Rectangle-3" data-name="Rectangle" width="7" height="22" rx="2" fill="#fff"/>
+</svg>

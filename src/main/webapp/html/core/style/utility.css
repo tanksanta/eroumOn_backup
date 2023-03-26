@@ -1,0 +1,52 @@
+@layer components {
+    .scrollbars {
+        @apply overflow-auto;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+            @apply w-4.5 h-4.5;
+        }
+        &::-webkit-scrollbar-thumb {
+            @apply rounded-lg border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300;
+            background-clip: content-box;
+            &:hover {
+                @apply bg-black2;
+            }
+        }
+    }
+
+    #skip-navigation {
+        & li {
+            @apply list-none m-0 p-0;
+        }
+        & a {
+            @apply absolute w-full h-10 leading-10 text-center text-white opacity-0 -top-10 bg-black/70 z-[9999];
+            &:focus {
+                @apply top-0 left-0 opacity-100;
+            }
+        }
+    }    
+}
+
+body {
+    @apply flex flex-col min-h-screen text-sm;
+}
+
+strong {
+    @apply font-bold;
+}
+
+img {
+    @apply select-none;
+}
+
+address, em, i {
+    @apply not-italic;
+}
+
+fieldset {
+    @apply min-w-0;
+}
+
+strong {
+    @apply font-bold;
+}

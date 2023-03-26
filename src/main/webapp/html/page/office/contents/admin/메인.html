@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>메인</title>
+
+    <!-- plugin -->
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/admin.min.css">
+    <script src="../../assets/script/admin.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title"><img src="../../assets/images/img-admin-logo.svg" alt=""></h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="#list-items1" class="menu-item1 active">정보수정</a></li>
+                <li><a href="#list-items2" class="menu-item2">상품관리</a></li>
+                <li><a href="#list-items3" class="menu-item3">주문관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">정산</a></li>
+                <li><a href="#list-items5" class="menu-item5">사업소관리</a></li>
+                <li><a href="#list-items6" class="menu-item6">이로움마켓 공지사항</a></li>
+            </ul>
+            <div class="list-items active" id="list-items1">
+                <p>
+                    정보수정
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정보 변경</a></li>
+                    <li><a href="#">비밀번호 변경</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items2">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">상품관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items3">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">주문 승인대기</a></li>
+                    <li><a href="#">주문 승인완료</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    정산
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    사업소 관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">사업소 안내</a></li>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">오시는길</a></li>
+                    <li><a href="#" class="external">사업소 바로가기</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items6">
+                <p>
+                    이로움마켓 공지사항
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">이로움마켓 공지사항</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="#" class="system-back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1 font-serif font-normal uppercase tracking-tight">Today Report <span class="text-danger text-xl font-normal">2022.07.01.(금)</span></h1>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <h2 class="text-title2">마켓 공지사항</h2>
+                <table class="table-list">
+                    <colgroup>
+                        <col class="w-20">
+                        <col>
+                        <col class="w-35">
+                        <col class="w-32">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12345</td>
+                            <td><a href="공지사항 상세.html" class="subject">[필독] 상품 등록 시 유의사항 공지</a></td>
+                            <td>관리자</td>
+                            <td>2022-02-02</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="grid grid-cols-2 mt-13 gap-13">
+                    <div>
+                        <h2 class="flex items-end justify-between">
+                            <a href="#" class="text-title2">주문/배송 현황</a>
+                            <span class="text-sm text-gray1 mb-1">(최근30일 기준)</span>
+                        </h2>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">파트너스 승인대기</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">파트너스 승인완료</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">입금대기</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">결제완료</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">배송준비중</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">배송중</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">배송완료</th>
+                                    <td>12345</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h2 class="flex items-end justify-between">
+                            <a href="#" class="text-title2">클레임 현황</a>
+                            <span class="text-sm text-gray1 mb-1">(최근30일 기준)</span>
+                        </h2>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">취소접수</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">반품접수</th>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">교환접수</th>
+                                    <td>12345</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

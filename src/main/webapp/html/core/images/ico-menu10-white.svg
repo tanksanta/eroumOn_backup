@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_statistic</title>
+    <g id="intro" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="manager_dashboard" transform="translate(-1192.000000, -644.000000)" fill="#fff" fill-rule="nonzero">
+            <g id="Group-3" transform="translate(90.000000, 620.000000)">
+                <path d="M1134.90667,59.18 C1131.42333,62.13 1126.92333,63.9166667 1122,63.9166667 C1110.955,63.9166667 1102,54.9616667 1102,43.9166667 C1102,33.4333333 1110.07,24.85 1120.33333,24 L1120.33333,44.6066667 L1134.90667,59.18 Z M1123.66667,27.335 C1132.07667,28.1733333 1138.66667,35.2883333 1138.66667,43.9166667 C1138.66667,47.9116667 1137.25,51.5833333 1134.89667,54.4566667 L1137.26333,56.8233333 C1140.21333,53.34 1142,48.84 1142,43.9166667 C1142,33.4333333 1133.93,24.85 1123.66667,24 L1123.66667,27.335 Z" id="icon_statistic"></path>
+            </g>
+        </g>
+    </g>
+</svg>

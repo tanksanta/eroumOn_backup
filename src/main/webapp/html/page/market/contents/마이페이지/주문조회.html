@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>market</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <!-- market -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+    <script src="../../assets/script/order.js"></script>
+</head>
+<body>
+    <!-- access -->
+    <ul id="skip-navigation">
+        <li><a href="#container">본문 바로가기</a></li>
+    </ul>
+    <!-- //access -->
+
+    <!-- header -->
+    <header id="header">
+        <div class="container">
+            <a href="#" class="header-toggle"><img src="../../assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
+            <h1 class="header-logo"><img src="../../assets/images/img-header-logo.svg" alt="이로움 마켓"></h1>
+            <ul class="header-menu">
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </div>
+    </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start header-layer">
+        <div class="offcanvas-header">
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu">레이어 닫기</button>
+            <!-- <div class="logout">
+                로그인 하시고<br>
+                혜택을 받으세요
+            </div> -->
+            <div class="login">
+                <p class="name"><strong>관리자</strong>님</p>
+                <img src="../../assets/images/img-shopbag.png" alt="" class="bags">
+                <p class="rank">
+                    <small>일반회원</small>
+                    <strong><img src="../../assets/images/img-grade1.svg" alt=""></strong>
+                </p>
+            </div>
+        </div>
+        <div class="offcanvas-body">
+            <div class="button">
+                <picture>
+                    <source srcset="../../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
+                    <source srcset="../../assets/images/txt-header-nav.svg"> 
+                    <img src="../../assets/images/txt-header-nav.svg" alt="" />
+                </picture>
+                <a href="#">로그인</a>
+                <a href="#">주문내역</a>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>복지용구</strong>
+                        <small>welfare<br> equipment</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
+                        <ul>
+                            <li class="sub-item is-active"><a href="#">수동휠체어</a></li>
+                            <li class="sub-item"><a href="#">성인용 보행기</a></li>
+                            <li class="sub-item"><a href="#">지팡이</a></li>
+                            <li class="sub-item"><a href="#">안전손잡이</a></li>
+                            <li class="sub-item"><a href="#">경사로</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지매트</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지양말</a></li>
+                            <li class="sub-item"><a href="#">이동욕조</a></li>
+                            <li class="sub-item"><a href="#">목욕의자</a></li>
+                            <li class="sub-item"><a href="#">간이변기</a></li>
+                            <li class="sub-item"><a href="#">이동변기</a></li>
+                            <li class="sub-item"><a href="#">요실금팬티</a></li>
+                            <li class="sub-item"><a href="#">전동침대</a></li>
+                            <li class="sub-item"><a href="#">자세변환용구</a></li>
+                            <li class="sub-item"><a href="#">욕창예방매트리스</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>식품</strong>
+                        <small>food</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>패션</strong>
+                        <small>fashion</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>뷰티</strong>
+                        <small>beauty</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>리빙</strong>
+                        <small>living</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-items">
+                <li class="list-item"><a href="#">Story</a></li>
+                <li class="list-item"><a href="#">기획전</a></li>
+                <li class="list-item"><a href="#">이벤트</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- //header -->
+    
+    <!-- navigation -->
+    <nav id="navigation">
+        <div class="navigation-menu">
+            <button type="button" class="allmenu" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체메뉴</button>
+            <div class="container">
+                <ul>
+                    <li><a href="#">복지용구</a></li>
+                    <li><a href="#">식품</a></li>
+                    <li><a href="#">패션</a></li>
+                    <li><a href="#">뷰티</a></li>
+                    <li class="disabled"><a href="#">리빙</a></li>
+                    <li class="seperate"></li>
+                    <li class="require"><a href="#">Story</a></li>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                </ul>
+            </div>
+            <button type="button" class="toggle">메뉴 펼치기 접기</button>
+        </div>
+        <div class="navigation-search">
+            <button type="button" class="navigation-search-toggle">검색 열기/닫기</button>
+            <div class="navigation-search-layer">
+                <form action="#" class="search">
+                    <fieldset>
+                        <legend>Search</legend>
+                        <input type="search" class="input">
+                        <button type="submit" class="submit">검색</button>
+                        <button type="button" class="closed">닫기</button>
+                    </fieldset>
+                </form>
+                <div class="keyword">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide recent">
+                                <p class="title">최근 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <a href="#" class="name">수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="swiper-slide best">
+                                <p class="title">인기 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <span class="number">1</span>
+                                        <a href="#" class="name">성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">2</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">3</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">4</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">5</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-clock">
+            <span class="hour">12</span>
+            <span class="mins">00</span>
+        </div>
+    </nav>
+    <!-- //navigation -->
+
+    <!-- aside -->
+    <aside id="service">
+        <div class="container">
+            <p class="service-slogan">Easy Equity E-ROUM MARKET</p>
+            <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
+            <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
+            <!-- 장바구니 메세지 스크립트 onload after
+            $('.service-mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
+            $('.service-mycart').removeAttr('title').tooltip('dispose');
+            -->
+            <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
+            <div class="service-compare">
+                <div class="container">
+                    <button type="button" class="service-compare-toggle" data-bs-toggle="tooltip" title="상품비교">최근본상품</button>
+                    <ul class="service-compare-items">
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="service-compare-layer">
+            <div class="header">
+                <p>상품비교</p>
+                <ul>
+                    <li>성인용 보행기</li>
+                    <li>성인용 보행기</li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="content">
+                    <div class="select"></div>
+                    <table>
+                        <tr>
+                            <th scope="row" class="title">
+                                <div class="header">
+                                    <p>상품<br>비교</p>
+                                    <ul>
+                                        <li>성인용 보행기</li>
+                                        <li>성인용 보행기</li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete"></div>
+                                <div class="thumb"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">상품명</div></th>
+                            <td class="items name">
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                            </td>
+                            <td class="items name">TOPRO TROJA 5G</td>
+                            <td class="items name">TOPRO TROJA 5G</td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../../assets/images/img-compare-number4.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">판매가</div></th>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">급여가</div></th>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">재질</div></th>
+                            <td class="items material">알루미늄</td>
+                            <td class="items material">알루미늄</td>
+                            <td class="items material">알루미늄</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">사이즈</div></th>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">중량</div></th>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">규격</div></th>
+                            <td class="items rule">-</td>
+                            <td class="items rule">-</td>
+                            <td class="items rule">-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"></th>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love">찜하기</a>
+                                </div>
+                            </td>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love is-active">찜하기</a>
+                                </div>
+                            </td>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love">찜하기</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="closed">상품 비교 접기</button>
+        </div>
+    </aside>
+    <!-- //aside -->
+
+    <!-- container -->
+
+    <main id="container">
+        <h2 id="page-title">주문/배송조회</h2>
+
+        <div id="page-header">
+            <a href="#" class="page-header-back">이전 페이지 가기</a>
+            <h2 class="page-header-name">마이페이지</h2>
+            <button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+        </div>
+
+        <div id="page-container">
+            <nav id="page-sidenav">
+                <div class="page-sidenav-container">
+                    <div class="page-sidenav-scrollbar">
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑내역</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li class="is-active"><a href="#"><span>주문/배송 조회</span></a></li>
+                                            <li><a href="#"><span>취소/교환/반품 조회</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑혜택</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>쿠폰</span></a></li>
+                                            <li><a href="#"><span>포인트</span></a></li>
+                                            <li><a href="#"><span>마일리지</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑활동</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>참여한 이벤트</span></a></li>
+                                            <li><a href="#"><span>내가 구매한 상품</span></a></li>
+                                            <li><a href="#"><span>상품후기</span></a></li>
+                                            <li><a href="#"><span>상품 Q&amp;A</span></a></li>
+                                            <li><a href="#"><span>1:1 문의</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">회원정보</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>회원정보 수정</span></a></li>
+                                            <li class="require"><a href="#"><span>가족회원 관리</span></a></li>
+                                            <li><a href="#"><span>배송지 관리</span></a></li>
+                                            <li><a href="#"><span>회원 탈퇴</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div id="page-content">
+                <!-- 수급자 -->
+                <ul class="order-sequence">
+                    <li class="seq1">
+                        <p>
+                            사업소<br>
+                            <em>승인대기</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq2">
+                        <p>
+                            사업소<br>
+                            <em>승인완료/반려</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq3">
+                        결제<em>대기</em>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq4">
+                        <p>
+                            결제<em>완료</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq5">
+                        <p>
+                            배송<em>준비중</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq6">
+                        <p>
+                            상품<em>준비완료</em><br>
+                            <em>배송중</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq7">
+                        <p><em>배송완료</em></p>
+                        <strong>1</strong>
+                    </li>
+                </ul>
+                <!-- //수급자 -->
+
+                <!-- 일반 -->
+                <ul class="order-sequence">
+                    <li class="seq3">
+                        결제<em>대기</em>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq4">
+                        <p>
+                            결제<em>완료</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq5">
+                        <p>
+                            배송<em>준비중</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq6">
+                        <p>
+                            상품<em>준비완료</em><br>
+                            <em>배송중</em>
+                        </p>
+                        <strong>1</strong>
+                    </li>
+                    <li class="seq7">
+                        <p><em>배송완료</em></p>
+                        <strong>1</strong>
+                    </li>
+                </ul>
+                <!-- //일반 -->
+
+                <!-- 검색 -->
+                <form class="order-search mt-7.5 md:mt-9">
+                    <p class="search-title">조회기간</p>
+                    <div class="form-check-group search-left">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1">
+                            <label class="form-check-label" for="search-item1">1주일</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-2">
+                            <label class="form-check-label" for="search-item1-2">한 달</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-3">
+                            <label class="form-check-label" for="search-item1-3">6개월</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-4">
+                            <label class="form-check-label" for="search-item1-4">1년</label>
+                        </div>
+                    </div>
+                    <div class="search-right">
+                        <input type="text" class="form-control form-calendar">
+                        <i>-</i>
+                        <input type="text" class="form-control form-calendar">
+                        <button type="submit" class="btn btn-primary">조회</button>
+                    </div>
+                </form>
+                <!-- //검색 -->
+
+                <!-- 목록 -->
+                <div class="mt-12 space-y-6 md:mt-16 md:space-y-7.5">
+                    <p class="box-result">최근 6개월간 주문 내역이 없습니다</p>
+                    
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <dl>
+                                                <dt>배송완료</dt>
+                                                <dd>2022.08.16 14:22</dd>
+                                            </dl>
+                                            <a href="#" class="btn btn-delivery">
+                                                <span class="name">
+                                                    <img src="../../assets/images/ico-delivery.svg" alt="">
+                                                    일반택배
+                                                </span>
+                                                <span class="underline">0629378485</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gray">
+                                                <p class="flex-1">결제대기</p>
+                                                <a href="#" class="btn btn-primary btn-small">결제 진행</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gray">
+                                                <p class="flex-1">결제완료</p>
+                                                <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#productModal1">주문 취소</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gray">
+                                                <p class="flex-1">사업소<br> 승인반려</p>
+                                                <a href="#" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#productModal2">사유확인</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gradient">
+                                                <div class="content">
+                                                    <p class="flex-1">사업소<br> 승인완료</p>
+                                                    <div class="multibtn">
+                                                        <a href="#" class="btn btn-primary btn-small">결제진행</a>
+                                                        <a href="#" class="btn btn-outline-primary btn-small">주문취소</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <a href="#" class="btn btn-primary btn-small">구매확정</a>
+                            <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#productModal3">교환신청</a>
+                            <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#productModal4">반품신청</a>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gradient">
+                                                <div class="content">
+                                                    <p class="flex-1">사업소<br> 승인완료</p>
+                                                    <div class="multibtn">
+                                                        <a href="#" class="btn btn-primary btn-small">결제진행</a>
+                                                        <a href="#" class="btn btn-outline-primary btn-small">주문취소</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-buyer">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <strong>이름</strong>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-count">
+                                        <p><strong>2</strong>개</p>
+                                        <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#countModal">변경</button>
+                                    </div>
+                                    <p class="order-item-price">11,448,400원</p>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <div class="paging">
+                        <a href="#" class="prev">이전</a>
+                        <a href="#" class="page active">1</a>
+                        <a href="#" class="page">2</a>
+                        <a href="#" class="page">3</a>
+                        <a href="#" class="page">4</a>
+                        <a href="#" class="page">5</a>
+                        <a href="#" class="next">다음</a>
+                    </div>
+                </div>
+                <!-- //목록 -->
+
+                <!-- 주의사항 -->
+                <ul class="mt-10 md:mt-12 space-y-1 md:space-y-1.5">
+                    <li class="text-alert">최근 6개월 간 이로움 마켓에서 주문하신 내역 입니다.</li>
+                    <li class="text-alert">[주문번호]를 클릭하시면 주문상세내역 및 배송조회를 확인할 수 있습니다.</li>
+                    <li class="text-alert">주문취소/반품접수/교환접수는 주문상세정보 페이지에서 이용하실 수 있습니다.</li>
+                </ul>
+                <!-- //주의사항 -->
+
+                <!-- 주문/배송 안내 -->
+                <p class="text-lg font-bold mt-18 md:mt-25 md:text-xl">주문/배송 안내</p>
+                <div class="order-delivery-sequence">
+                    <div class="sequence-container">
+                        <dl class="seq1">
+                            <dt>
+                                사업소<br>
+                                <strong>승인대기</strong>
+                            </dt>
+                            <dd>상품주문 후 주문한 사업소에서 주문자 정보 및 계약서 확인을 진행합니다.</dd>
+                        </dl>
+                        <dl class="seq2">
+                            <dt>
+                                사업소<br>
+                                <strong>승인완료/반려</strong>
+                            </dt>
+                            <dd>주문자 정보 및 계약서가 정상적으로 확인 완료 또는 반려 되었습니다.</dd>
+                        </dl>
+                        <dl class="seq3">
+                            <dt>결제<strong>대기</strong></dt>
+                            <dd>입금및 결제가 아직 이뤄지지 않은 단계이며, 3일 이내 미 결제시 자동 주문 취소됩니다.</dd>
+                        </dl>
+                        <dl class="seq4">
+                            <dt>결제<strong>완료</strong></dt>
+                            <dd>카드결제 및 입금확인이 완료되었습니다.</dd>
+                        </dl>
+                        <div class="desc is-gradient"><p>주문취소 / 옵션변경 / 배송지 변경 가능</p></div>
+                    </div>
+                    <div class="sequence-container">
+                        <dl class="seq5">
+                            <dt>배송<strong>준비중</strong></dt>
+                            <dd>고객님께 발송할 상품을 준비하고 있습니다.</dd>
+                        </dl>
+                        <dl class="seq6">
+                            <dt>
+                                상품<strong>준비완료</strong><br>
+                                <strong>배송중</strong>
+                            </dt>
+                            <dd>택배사로 상품이 전달되어 배송이 시작되어 보통 1~2일 이내 도착합니다.</dd>
+                        </dl>
+                        <div class="desc"><p>주문취소 / 옵션변경 / 배송지 변경 <strong class="text-danger">불가능</strong></p></div>
+                    </div>
+                    <div class="sequence-container">
+                        <dl class="seq7">
+                            <dt><strong>배송완료</strong></dt>
+                            <dd>
+                                고객님께 상품이 배송되었습니다.<br>
+                                배송완료 7일 후 자동으로 구매확정 처리됩니다.
+                            </dd>
+                        </dl>
+                        <div class="desc"><p>교환/반품 가능</p></div>
+                    </div>
+                </div>
+                <!-- //주문/배송 안내 -->
+
+                <!-- 취소 상세 -->
+                <br><br><br>
+                <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#cancelModal1">취소 상세정보</a>
+                <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#cancelModal2">교환 상세정보</a>
+                <a href="#" class="btn btn-outline-primary btn-small" data-bs-toggle="modal" data-bs-target="#cancelModal3">반품 상세정보</a>
+                <!-- 취소 상세 -->
+            </div>
+        </div>
+
+        <!-- 주문취소 -->
+        <div class="modal fade" id="productModal1" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">주문취소</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-product">
+                            <div class="order-body">
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                    </div>
+                                    <div class="order-item-content">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div class="count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="price">11,448,400원</p>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-info">
+                                            <div class="payment">
+                                                <dl>
+                                                    <dt>사업소</dt>
+                                                    <dd>행복한 시니어</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>배송비</dt>
+                                                    <dd>3000원</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg font-bold mt-8 mb-2.5 md:mb-3 md:mt-10 md:text-xl">취소사유</p>
+                        <div class="order-reason">
+                            <select name="" class="form-control w-75">
+                                <option value="">취소사유를 알려주세요</option>
+                            </select>
+                            <textarea name="" class="form-control w-full mt-2.5" cols="30" rows="5" placeholder="상세사유를 200자 이내로 입력해주세요"></textarea>
+                        </div>
+
+                        <p class="text-lg font-bold mb-2.5 mt-9 md:mt-12 md:mb-3 md:text-xl">취소 예정 금액 확인</p>
+                        <div class="payment-amount">
+                            <div class="amount-section">
+                                <dl class="price">
+                                    <dt>총 주문금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>상품금액</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>배송비</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <i class="amount-calculator is-plus">+</i>
+                            <!-- <i class="amount-calculator is-minus">-</i> -->
+                            <div class="amount-section">
+                                <dl class="price">
+                                    <dt>총 할인금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>쿠폰할인</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>마일리지 사용</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>포인트 사용</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <i class="amount-calculator is-equal">=</i>
+                            <div class="amount-section is-latest">
+                                <dl class="price">
+                                    <dt>총 결제금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>신용카드 환불금액</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg font-bold mt-18 md:mt-24 md:text-xl">결제수단별 환불안내</p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-30 md:w-40">
+                                <col >
+                            </colgroup>
+                            <tbody>
+                                <tr class="top-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>신용카드</p></th>
+                                    <td>
+                                        <div class="p-2 leading-relaxed space-y-1.5">
+                                            <p><strong>승인취소</strong> : 신용카드 승인취소는 매입(카드사로 결제정보가 넘어가기 전)인 경우에는 취소 승인한 당일 취소됩니다.</p>
+                                            <p>
+                                                <strong>매입취소</strong> : 카드사로 결제정보가 넘어간 후에는 카드사에서 취소처리를 하는데 1~2주 정도 소요 됩니다.<br>
+                                                (카드사별 취소 반영이 차이가 있습니다. 각 카드사 홈페이지에서 확인 가능합니다.)
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>실시간 계좌이체</p></th>
+                                    <td>
+                                        <div class="p-2 leading-relaxed space-y-1.5">
+                                            <p>취소신청 완료 후 익일에 실시간 계좌이체가 진행된 고객님의 계좌로 직접 환불됩니다.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>무통장 입금</p></th>
+                                    <td>
+                                        <div class="p-2 leading-relaxed space-y-1.5">고객님의 취소신청 시 입력된 환불계좌로 2~3일 이내 환불됩니다.</div>
+                                    </td>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //주문취소 -->
+
+        <!-- 사업소 반려 -->
+        <div class="modal fade" id="productModal2" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">승인반려 사유</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-reason">
+                            <div class="result">
+                                <p class="title">승인이 반려되었습니다</p>
+                                <dl>
+                                    <dt>처리일시</dt>
+                                    <dd class="font-serif font-bold">2022-12-12 13:24</dd>
+                                </dl>
+                                <dl>
+                                    <dt>사유</dt>
+                                    <dd>
+                                        금년도 급여비용 초과로 주문 승인이 취소되었습니다<br>
+                                        금년도 급여비용 초과로 주문 승인이 취소되었습니다
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit" data-bs-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //사업소 반려 -->
+
+        <!-- 교환신청 -->
+        <div class="modal fade" id="productModal3" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">교환신청</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-product">
+                            <div class="order-body">
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                    </div>
+                                    <div class="order-item-content">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div class="count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="price">11,448,400원</p>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-info">
+                                            <div class="payment">
+                                                <dl>
+                                                    <dt>사업소</dt>
+                                                    <dd>행복한 시니어</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>배송비</dt>
+                                                    <dd>3000원</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="status">
+                                                <dl>
+                                                    <dt>배송완료</dt>
+                                                    <dd>2022.08.16 14:22</dd>
+                                                </dl>
+                                                <a href="#" class="btn btn-delivery">
+                                                    <span class="name">
+                                                        <img src="../../assets/images/ico-delivery.svg" alt="">
+                                                        일반택배
+                                                    </span>
+                                                    <span class="underline">0629378485</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mt-5.5 md:mt-7 text-alert">주문상품과 동일한 상품/옵션으로 교환 가능하며, 다른 상품(옵션)으로 교환 시에는 <a href="#" class="font-bold underline">고객센터</a> 또는 <a href="#" class="font-bold underline">1:1문의</a> 를 통해 문의해 주시기 바랍니다.</p>
+
+                        <p class="text-lg font-bold mt-8 mb-2.5 md:mb-3 md:mt-10 md:text-xl">교환사유</p>
+                        <div class="order-reason">
+                            <select name="" class="form-control w-75">
+                                <option value="">교환사유를 알려주세요</option>
+                            </select>
+                            <textarea name="" class="form-control w-full mt-2.5" cols="30" rows="5" placeholder="상세사유를 200자 이내로 입력해주세요"></textarea>
+                        </div>
+
+                        <p class="text-lg font-bold mt-18 mb-2 md:mb-2.5 md:mt-24 md:text-xl">교환/반품 이용안내</p>
+                        <p class="text-alert">교환/반품 사유가 구매자 책임인 경우 최초 발송 비용을 포함한 왕복 배송비가 부과될 수 있습니다.</p>
+                        <table class="table-list mt-3 md:mt-4">
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><p class="text-center justify-center">교환/반품비용 <strong>구매자</strong> 부담</p></th>
+                                    <th scope="col"><p class="text-center justify-center">교환/반품비용 <strong>쇼핑몰</strong> 부담</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        - 상품에 이상은 없으나 구매의사 없음<br>
+                                        - 옵션을 잘못 선택함
+                                    </td>
+                                    <td>
+                                        - 상품에 결함이 있음<br>
+                                        - 도착한 상품이 상품상세 정보와 다름
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //교환신청 -->
+
+        <!-- 반품신청 -->
+        <div class="modal fade" id="productModal4" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">반품신청</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-product">
+                            <div class="order-body">
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                    </div>
+                                    <div class="order-item-content">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                <dl class="option">
+                                                    <dt>옵션</dt>
+                                                    <dd>
+                                                        <span class="label-flat">블루</span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div class="count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="price">11,448,400원</p>
+                                        </div>
+                                        <div class="order-item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <p><strong>모던 스타일 스툴</strong></p>
+                                                <p>수량 1개 (+80,000원)</p>
+                                            </div>
+                                        </div>
+                                        <div class="order-item-info">
+                                            <div class="payment">
+                                                <dl>
+                                                    <dt>사업소</dt>
+                                                    <dd>행복한 시니어</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>배송비</dt>
+                                                    <dd>3000원</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="status">
+                                                <dl>
+                                                    <dt>배송완료</dt>
+                                                    <dd>2022.08.16 14:22</dd>
+                                                </dl>
+                                                <a href="#" class="btn btn-delivery">
+                                                    <span class="name">
+                                                        <img src="../../assets/images/ico-delivery.svg" alt="">
+                                                        일반택배
+                                                    </span>
+                                                    <span class="underline">0629378485</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg font-bold mt-8 mb-2.5 md:mb-3 md:mt-10 md:text-xl">반품사유</p>
+                        <div class="order-reason">
+                            <select name="" class="form-control w-75">
+                                <option value="">반품사유를 알려주세요</option>
+                            </select>
+                            <textarea name="" class="form-control w-full mt-2.5" cols="30" rows="5" placeholder="상세사유를 200자 이내로 입력해주세요"></textarea>
+                        </div>
+
+                        <p class="text-lg font-bold mb-2.5 mt-9 md:mt-12 md:mb-3 md:text-xl">환불 예정 금액 확인</p>
+                        <div class="payment-amount">
+                            <div class="amount-section">
+                                <dl class="price">
+                                    <dt>총 주문금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>취소상품 합계</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>취소 배송비 합계</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>주문할인 취소금액</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <i class="amount-calculator is-plus">+</i>
+                            <!-- <i class="amount-calculator is-minus">-</i> -->
+                            <div class="amount-section">
+                                <dl class="price">
+                                    <dt>총 할인금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>배송비 추가금액</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <i class="amount-calculator is-equal">=</i>
+                            <div class="amount-section is-latest">
+                                <dl class="price">
+                                    <dt>총 결제금액</dt>
+                                    <dd><strong>2,778,000</strong> 원</dd>
+                                </dl>
+                                <div class="detail">
+                                    <dl>
+                                        <dt>신용카드 환불금액</dt>
+                                        <dd><strong>2,778,000</strong> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-lg font-bold mt-8 md:mt-10 md:text-xl">
+                            환불계좌
+                            <span class="text-sm text-red3 md:text-base">필수</span>
+                        </p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-30 md:w-40">
+                                <col >
+                            </colgroup>
+                            <tbody>
+                                <tr class="top-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>환불방식</p></th>
+                                    <td><strong>무통장입금</strong></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p><label for="refund-item1">환불은행</label></p></th>
+                                    <td>
+                                        <select name="" id="refund-item1" class="form-control w-45">
+                                            <option value="">은행 선택</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p><label for="refund-item2">계좌번호</label></p></th>
+                                    <td><input type="text" id="refund-item2" class="form-control w-86"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>환불방식</p></th>
+                                    <td><strong>이로미</strong></td>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-lg font-bold mt-18 mb-2 md:mb-2.5 md:mt-24 md:text-xl">교환/반품 이용안내</p>
+                        <p class="text-alert">교환/반품 사유가 구매자 책임인 경우 최초 발송 비용을 포함한 왕복 배송비가 부과될 수 있습니다.</p>
+                        <table class="table-list mt-3 md:mt-4">
+                            <colgroup>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><p class="text-center justify-center">교환/반품비용 <strong>구매자</strong> 부담</p></th>
+                                    <th scope="col"><p class="text-center justify-center">교환/반품비용 <strong>쇼핑몰</strong> 부담</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        - 상품에 이상은 없으나 구매의사 없음<br>
+                                        - 옵션을 잘못 선택함
+                                    </td>
+                                    <td>
+                                        - 상품에 결함이 있음<br>
+                                        - 도착한 상품이 상품상세 정보와 다름
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //반품신청 -->
+
+        <!-- 수량변경 -->
+        <div class="modal fade" id="countModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">옵션/수량 변경</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-quantity-layer">
+                            <div class="order-thumb">
+                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <div class="order-content">
+                                <dl class="code">
+                                    <dt>일반상품</dt>
+                                    <dd>24n29G38Y72a</dd>
+                                </dl>
+                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                <p class="price"><strong>420,000</strong> 원</p>
+                            </div>
+                            <div class="order-option">
+                                <div class="product-option">
+                                    <button class="option-toggle">
+                                        <small>색상</small>
+                                        <strong>원하는 색상을 선택하세요</strong>
+                                    </button>
+                                    <ul class="option-items">
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                        <li><a href="#">블루 [수량:11111개]</a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-option">
+                                    <button class="option-toggle">
+                                        <small>추가상품</small>
+                                        <strong>모던 스타일 스툴 - 80,000원</strong>
+                                    </button>
+                                    <ul class="option-items">
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                        <li><a href="#">모던 스타일 스툴 - 80,000원</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table class="table-list order-list">
+                                <colgroup>
+                                    <col>
+                                    <col class="w-1/4">
+                                    <col class="w-20 md:w-40">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><p>상품/옵션 정보</p></th>
+                                        <th scope="col"><p>상품가격</p></th>
+                                        <th scope="col"><p>수량</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="baseitem">
+                                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="" class="thumb">
+                                                <div class="content">
+                                                    <p class="code">24n29G38Y72a</p>
+                                                    <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                    <dl class="option">
+                                                        <dt>옵션</dt>
+                                                        <dd>
+                                                            <span class="label-flat">옵션</span>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="price"><strong>1,420,000</strong> 원</td>
+                                        <td class="count">
+                                            <p><input type="text" class="form-control"></p>
+                                            <button type="button" class="btn btn-small btn-outline-primary">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="additem">
+                                                <span class="label-outline-primary">
+                                                    <span>추가</span>
+                                                    <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                </span>
+                                                <div class="content">
+                                                    <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="price"><strong>1,420,000</strong> 원</td>
+                                        <td class="count">
+                                            <p><input type="text" class="form-control"></p>
+                                            <button type="button" class="btn btn-small btn-outline-primary">삭제</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //수량변경 -->
+
+        <!-- 취소 상세정보 -->
+        <div class="modal fade" id="cancelModal1" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">취소 상세정보</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-status-layer">
+                            <dl class="status-info status-number">
+                                <dt>주문 번호</dt>
+                                <dd>13245678009123</dd>
+                            </dl>
+                            <dl class="status-info mt-3 md:mt-4">
+                                <dt>주문 일시</dt>
+                                <dd>2022.08.12 12:33:44</dd>
+                            </dl>
+                            <p class="status-cancel mt-4 md:mt-5.5">주문 취소</p>
+                            <div class="order-product mt-6 md:mt-7.5">
+                                <div class="order-body">
+                                    <div class="order-item">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <div class="order-item-content">
+                                            <div class="order-item-group">
+                                                <div class="order-item-base">
+                                                    <p class="code">
+                                                        <span class="label-primary">
+                                                            <span>급여상품</span>
+                                                            <i></i>
+                                                        </span>
+                                                        <u>24n29G38Y72a</u>
+                                                    </p>
+                                                    <div class="product">
+                                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                        <dl class="option">
+                                                            <dt>옵션</dt>
+                                                            <dd>
+                                                                <span class="label-flat">블루</span>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-add">
+                                                    <span class="label-outline-primary">
+                                                        <span>추가</span>
+                                                        <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                    </span>
+                                                    <div class="name">
+                                                        <p><strong>모던 스타일 스툴</strong></p>
+                                                        <p>수량 1개 (+80,000원)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item-count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="order-item-price">11,448,400원</p>
+                                            <div class="order-item-info">
+                                                <div class="payment">
+                                                    <dl>
+                                                        <dt>배송비</dt>
+                                                        <dd>3000원</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <dl class="status-info mt-3.5 md:mt-5">
+                                <dt>취소 일시</dt>
+                                <dd>2022.08.12 12:33:44</dd>
+                            </dl>
+                            <dl class="status-info mt-2 md:mt-3">
+                                <dt>취소 사유</dt>
+                                <dd>
+                                    구매의사 없음
+                                    <p class="desc">구매의사가 없는데 실수로 주문을 넣었네요</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //취소 상세정보 -->
+        
+        <!-- 교환 상세정보 -->
+        <div class="modal fade" id="cancelModal2" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">교환 상세정보</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-status-layer">
+                            <dl class="status-info status-number">
+                                <dt>주문 번호</dt>
+                                <dd>13245678009123</dd>
+                            </dl>
+                            <dl class="status-info mt-3 md:mt-4">
+                                <dt>주문 일시</dt>
+                                <dd>2022.08.12 12:33:44</dd>
+                            </dl>
+                            <ul class="status-steps mt-4 md:mt-5.5">
+                                <li class="seq1"><p>교환<strong>신청</strong></p></li>
+                                <li class="seq2 active"><p>교환 <strong>접수승인</strong></p></li>
+                                <li class="seq3"><p>교환 <strong>진행중</strong></p></li>
+                                <li class="seq4"><p>교환 <strong>완료</strong></p></li>
+                            </ul>
+                            <div class="order-product mt-6 md:mt-7.5">
+                                <div class="order-body">
+                                    <div class="order-item">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <div class="order-item-content">
+                                            <div class="order-item-group">
+                                                <div class="order-item-base">
+                                                    <p class="code">
+                                                        <span class="label-primary">
+                                                            <span>급여상품</span>
+                                                            <i></i>
+                                                        </span>
+                                                        <u>24n29G38Y72a</u>
+                                                    </p>
+                                                    <div class="product">
+                                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                        <dl class="option">
+                                                            <dt>옵션</dt>
+                                                            <dd>
+                                                                <span class="label-flat">블루</span>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-add">
+                                                    <span class="label-outline-primary">
+                                                        <span>추가</span>
+                                                        <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                    </span>
+                                                    <div class="name">
+                                                        <p><strong>모던 스타일 스툴</strong></p>
+                                                        <p>수량 1개 (+80,000원)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item-count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="order-item-price">11,448,400원</p>
+                                            <div class="order-item-info">
+                                                <div class="payment">
+                                                    <dl>
+                                                        <dt>배송비</dt>
+                                                        <dd>3000원</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <dl class="status-info mt-3.5 md:mt-5">
+                                <dt>교환 사유</dt>
+                                <dd>
+                                    상품 하자
+                                    <p class="desc">
+                                        컬러가 상세화면과 너무 다르고 중간중간에 스크레치가 
+                                        많네요 상태 좋은 제품으로 교환해 주세요<br>
+                                        한번만 더 믿어 보겠습니다
+                                    </p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //교환 상세정보 -->
+        
+        <!-- 반품 상세정보 -->
+        <div class="modal fade" id="cancelModal3" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">교환 상세정보</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-status-layer">
+                            <dl class="status-info status-number">
+                                <dt>주문 번호</dt>
+                                <dd>13245678009123</dd>
+                            </dl>
+                            <dl class="status-info mt-3 md:mt-4">
+                                <dt>주문 일시</dt>
+                                <dd>2022.08.12 12:33:44</dd>
+                            </dl>
+                            <ul class="status-steps mt-4 md:mt-5.5">
+                                <li class="seq1"><p>교환<strong>신청</strong></p></li>
+                                <li class="seq2"><p>교환 <strong>접수승인</strong></p></li>
+                                <li class="seq3 active"><p>교환 <strong>진행중</strong></p></li>
+                                <li class="seq4"><p>교환 <strong>완료</strong></p></li>
+                            </ul>
+                            <div class="order-product mt-6 md:mt-7.5">
+                                <div class="order-body">
+                                    <div class="order-item">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <div class="order-item-content">
+                                            <div class="order-item-group">
+                                                <div class="order-item-base">
+                                                    <p class="code">
+                                                        <span class="label-primary">
+                                                            <span>급여상품</span>
+                                                            <i></i>
+                                                        </span>
+                                                        <u>24n29G38Y72a</u>
+                                                    </p>
+                                                    <div class="product">
+                                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                        <dl class="option">
+                                                            <dt>옵션</dt>
+                                                            <dd>
+                                                                <span class="label-flat">블루</span>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-add">
+                                                    <span class="label-outline-primary">
+                                                        <span>추가</span>
+                                                        <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                    </span>
+                                                    <div class="name">
+                                                        <p><strong>모던 스타일 스툴</strong></p>
+                                                        <p>수량 1개 (+80,000원)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item-count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="order-item-price">11,448,400원</p>
+                                            <div class="order-item-info">
+                                                <div class="payment">
+                                                    <dl>
+                                                        <dt>배송비</dt>
+                                                        <dd>3000원</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <dl class="status-info mt-3.5 md:mt-5">
+                                <dt>반품 사유</dt>
+                                <dd>
+                                    상품 하자
+                                    <p class="desc">
+                                        컬러가 상세화면과 너무 다르고 중간중간에 스크레치가 
+                                        많네요 상태 좋은 제품으로 교환해 주세요<br>
+                                        한번만 더 믿어 보겠습니다
+                                    </p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //반품 상세정보 -->
+    </main>
+    <!-- //container -->
+
+    <!-- footer -->
+    <footer id="footer">
+        <!-- 회사 메뉴 -->
+        <nav class="footer-menu">
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">전자금융거래약관</a></li>
+                <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+            </ul>
+        </nav>
+        <!-- //회사 메뉴 -->
+        
+        <!-- 사이트 정보-->
+        <div class="footer-company">
+            <div class="company">
+                <h2>(주)티에이치케이컴퍼니</h2>
+                <p>대표 : 신종호</p>
+                <p>이메일 : <a href="mailto:eroum@thkc.co.kr">eroum@thkc.co.kr</a></p>
+                <div class="numb">
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2018-서울강남-04157</p>
+                </div>
+                <address>
+                    <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                    <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                    <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                </address>
+            </div>
+            <div class="customer">
+                <h2>고객센터</h2>
+                <dl>
+                    <dt>주문안내</dt>
+                    <dd><a href="tel:1588-1312">1588-1312</a></dd>
+                </dl>
+                <dl>
+                    <dt>시스템안내</dt>
+                    <dd><a href="tel:02-830-1312">02-830-1312</a></dd>
+                </dl>
+                <dl>
+                    <dt>운영시간</dt>
+                    <dd>
+                        월~금 (주말 및 공휴일 휴무)<br>
+                        오전 9:00~오후 6:00<br>
+                        점심시간 오후 12시 ~ 1시
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!-- //사이트 정보-->
+        
+        <!-- 카피 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 -->
+    </footer>
+    <!-- //footer -->
+
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

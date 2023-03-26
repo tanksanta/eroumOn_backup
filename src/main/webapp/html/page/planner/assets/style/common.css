@@ -1,0 +1,430 @@
+:root {
+    --key1 : #6E2A85;
+    --key2 : #E63985;
+    --key3 : #BA366B;
+    --key4 : #B76F2C;
+    --key5 : #459199;
+    --key6 : #42A075;
+    --key7 : #619341;
+    --key8 : #5E6755;
+    --key1-gradient  : linear-gradient(142deg, #662E79 0%, #DC4199 100%);
+    --key2-gradient  : linear-gradient(142deg, #CF3B7C 0%, #F69664 100%);
+    --key3-gradient  : linear-gradient(142deg, #B9366B 0%, #E3853C 100%);
+    --key4-gradient  : linear-gradient(142deg, #B46B29 0%, #EBB964 100%);
+    --key5-gradient  : linear-gradient(142deg, #459199 0%, #4FC09E 100%);
+    --key6-gradient  : linear-gradient(142deg, #3F9E77 0%, #73C04F 100%);
+    --key7-gradient  : linear-gradient(142deg, #619442 0%, #C7877A 100%);
+    --key8-gradient  : linear-gradient(142deg, #5E6755 0%, #AC6491 100%);
+    --key1-gradient2 : linear-gradient(104deg, #662E79 0%, #DC4199 100%);
+    --key2-gradient2 : linear-gradient(104deg, #CF3B7C 0%, #F69664 100%);
+    --key3-gradient2 : linear-gradient(104deg, #B9366B 0%, #E3853C 100%);
+    --key4-gradient2 : linear-gradient(104deg, #B46B29 0%, #EBB964 100%);
+    --key5-gradient2 : linear-gradient(104deg, #459199 0%, #4FC09E 100%);
+    --key6-gradient2 : linear-gradient(104deg, #3F9E77 0%, #73C04F 100%);
+    --key7-gradient2 : linear-gradient(104deg, #619442 0%, #C7877A 100%);
+    --key8-gradient2 : linear-gradient(104deg, #5E6755 0%, #AC6491 100%);
+}
+
+@font-face {
+    font-family: 'NanumSquareNeo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    @apply scroll-smooth text-black2;
+    -webkit-overflow-scrolling: touch;
+    font-family: "NanumSquareNeo";
+}
+
+body {
+    @apply text-sm md:text-base;
+}
+
+@layer components {
+    .modal {
+        @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
+        & .modal-dialog {
+            @apply relative pointer-events-none m-0 h-full sm:my-2 sm:h-[calc(100%_-_1rem)] sm:mx-auto;
+            &.modal-lg {
+                max-width: 580px;
+                & .modal-content {
+                    @apply sm:max-h-[60rem];
+                }
+            }
+            &.modal-xl {
+                max-width: 768px;
+            }
+            &.modal-2xl {
+                max-width: 1024px;
+            }
+        }
+        & .modal-content {
+            @apply relative flex flex-col w-full h-full bg-white shadow-none pointer-events-auto sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[51.125rem];
+        }
+        & .modal-header {
+            @apply flex items-center justify-between px-2.5 h-[2.8125rem] sm:px-5 sm:h-15;
+            & [data-bs-dismiss="modal"] {
+                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.125rem] sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
+            }
+        }
+        & .modal-body {
+            @apply px-2.5 py-4 sm:p-5 scroll-smooth;
+            overflow: overlay;
+            -webkit-overflow-scrolling: touch;
+            &::-webkit-scrollbar {
+                @apply w-4.5 h-4.5;
+            }
+            &::-webkit-scrollbar-thumb {
+                @apply rounded-lg border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300;
+                background-clip: content-box;
+            }
+            &:last-child {
+                @apply pb-10;
+            }
+        }
+        & .modal-banner {
+            @apply flex-none -mx-2.5 sm:-mx-5;
+            & img {
+                @apply w-full;
+            }
+        }
+        & .modal-footer {
+            @apply flex items-center justify-center px-5 py-7.5 space-x-3;
+        }
+    }
+
+    .modal-backdrop {
+        @apply bg-black/70;
+        &.show {
+            @apply opacity-100;
+        }
+    }
+
+    .offcanvas {
+        @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;
+        & .offcanvas-header {
+            @apply sticky top-0 bg-transparent flex items-center justify-between px-2.5 h-[2.8125rem] sm:px-5 sm:h-15;
+            & [data-bs-dismiss="offcanvas"] {
+                @apply absolute top-2 right-0.5 -mt-px w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.125rem] sm:top-2.5 sm:right-1 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
+            }
+        }
+        & .offcanvas-body {
+            @apply flex-grow;
+            overflow: overlay;
+            -webkit-overflow-scrolling: touch;
+            &::-webkit-scrollbar {
+                @apply w-4.5 h-4.5;
+            }
+            &::-webkit-scrollbar-thumb {
+                @apply rounded-lg border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300;
+                background-clip: content-box;
+            }
+        }
+        &.offcanvas-start {
+            @apply right-auto w-96;
+        }
+        &.offcanvas-top {
+            @apply bottom-auto h-1/3;
+        }
+        &.offcanvas-end {
+            @apply left-auto w-96;
+        }
+        &.offcanvas-bottom {
+            @apply top-auto h-1/3;
+        }
+        &.offcanvas-fullpage {
+            @apply w-full h-full duration-500;
+        }
+    }
+
+    .offcanvas-backdrop {
+        @apply bg-black/70;
+        &.show {
+            @apply opacity-100;
+        }
+    }
+
+    .form-input {
+        @apply px-4 h-[3.4375rem] rounded-lg bg-gray2;
+    }
+
+    .dropdown {
+        @apply relative;
+    }
+
+    .dropdown-toggle {
+        @apply w-full;
+    }
+
+    .dropdown-menu {
+        @apply hidden -left-px w-full max-h-59 overflow-auto border border-black2 rounded-md bg-white text-black2 translate-y-1 whitespace-normal break-all;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+            @apply w-3 h-3;
+        }
+        &::-webkit-scrollbar-thumb {
+            @apply rounded-lg border-1 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300;
+            background-clip: content-box;
+        }
+        & li {
+            &:first-child {
+                & .dropdown-item {
+                    @apply border-t-0;
+                }
+            }
+        }
+        & .dropdown-item {
+            @apply border-t border-t-[#d8d8d8] block py-2.5 px-4 text-sm leading-snug;
+            &:active {
+                @apply bg-neutral-100;
+            }
+        }
+    }
+
+    .label {
+        @apply inline-flex items-center justify-center px-3 rounded-full h-5.5 bg-gray1 text-[0.8125rem] font-normal text-white;
+        font-variation-settings: "wght" 400;
+        & + .label {
+            @apply mr-0.5;
+            &:last-child {
+                @apply mr-0;
+            }
+        }
+    }
+
+    .label-color1 {
+        background: var(--key1-gradient2);
+    }
+
+    .label-color2 {
+        background: var(--key2-gradient2);
+    }
+
+    .label-color3 {
+        background: var(--key3-gradient2);
+    }
+
+    .label-color4 {
+        background: var(--key4-gradient2);
+    }
+
+    .label-color5 {
+        background: var(--key5-gradient2);
+    }
+
+    .label-color6 {
+        background: var(--key6-gradient2);
+    }
+
+    .label-color7 {
+        background: var(--key7-gradient2);
+    }
+
+    .label-color8 {
+        background: var(--key8-gradient2);
+    }
+
+    .btn {
+        @apply px-4 h-[3.4375rem] border-0 rounded-lg bg-gray1 text-center text-base text-white font-medium ring-0;
+        font-variation-settings: "wght" 500;
+        &:hover, &:focus, &:active {
+            @apply bg-gray1 ring-0;
+        }
+    }
+
+    .btn-small {
+        @apply px-3 h-[2.625rem] rounded-md text-sm;
+    }
+
+    .btn-primary {
+        @apply bg-black2;
+        &:hover, &:focus, &:active {
+            @apply bg-black2;
+        }
+    }
+
+    .btn-outline-primary {
+        @apply border-[0.1875rem] border-black2 bg-white/50 backdrop-blur-sm text-black2;
+        &:hover, &:focus, &:active {
+            @apply border-black2 bg-white/50;
+        }
+        & .btn-small {
+            @apply border-0.5;
+        }
+    }
+
+    .btn-request {
+        @apply rounded-full w-61 h-[2.625rem];
+        &::after {
+            @apply content-empty ml-2.5 w-[0.6875rem] h-2.5 bg-cover bg-[url(../images/ico-window-white.svg)];
+        }
+    }
+
+    .btn-share {
+        @apply relative w-10 h-10 overflow-hidden rounded-full -indent-96;
+        &::after {
+            @apply content-empty absolute top-1/2 left-1/2 w-5 h-5 bg-no-repeat bg-[length:100%] bg-center bg-[url(../images/ico-share-white.svg)] -translate-x-1/2 -translate-y-1/2;
+        }
+    }
+
+    .btn-color1 {
+        background: var(--key1-gradient2);
+    }
+
+    .btn-color2 {
+        background: var(--key2-gradient2);
+    }
+
+    .btn-color3 {
+        background: var(--key3-gradient2);
+    }
+
+    .btn-color4 {
+        background: var(--key4-gradient2);
+    }
+
+    .btn-color5 {
+        background: var(--key5-gradient2);
+    }
+
+    .btn-color6 {
+        background: var(--key6-gradient2);
+    }
+
+    .btn-color7 {
+        background: var(--key7-gradient2);
+    }
+
+    .btn-color8 {
+        background: var(--key8-gradient2);
+    }
+
+    .text-color1 {
+        @apply text-[var(--key1)];
+    }
+
+    .text-color2 {
+        @apply text-[var(--key2)];
+    }
+
+    .text-color3 {
+        @apply text-[var(--key3)];
+    }
+
+    .text-color4 {
+        @apply text-[var(--key4)];
+    }
+
+    .text-color5 {
+        @apply text-[var(--key5)];
+    }
+
+    .text-color6 {
+        @apply text-[var(--key6)];
+    }
+
+    .text-color7 {
+        @apply text-[var(--key7)];
+    }
+
+    .text-color8 {
+        @apply text-[var(--key8)];
+    }
+
+    .text-color1-mask {
+        background: var(--key1-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color2-mask {
+        background: var(--key2-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color3-mask {
+        background: var(--key3-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color4-mask {
+        background: var(--key4-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color5-mask {
+        background: var(--key5-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color6-mask {
+        background: var(--key6-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color7-mask {
+        background: var(--key7-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-color8-mask {
+        background: var(--key8-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+}
+
+
+.box-loading {
+    @apply m-auto p-6 w-fit rounded-lg bg-black2/50 text-xs font-bold text-white backdrop-blur-md;
+    & .icon {
+        @apply relative mx-auto mb-4 w-13 h-13 bg-no-repeat bg-center;
+        background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='24px' height='20px' viewBox='0 0 24 20'%3E%3Cg id='confirm-main' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='loading' transform='translate(-931.000000, -582.000000)' fill='%23FFFFFF'%3E%3Cpath d='M935.933148,592.09981 C939.496282,590.597747 943.890228,591.48578 944.836583,593.053867 C945.220626,593.689906 944.445936,594.851941 943.288303,594.454692 C942.128468,594.057443 941.51884,594.365559 941.023654,594.867347 C940.481151,595.419753 939.919941,597.141899 942.206597,598.095956 C943.960654,598.82883 946.982386,598.756203 949.267942,596.495957 C950.483898,595.295407 950.559826,594.093757 951.147446,593.51384 C952.010169,592.662121 953.13369,592.790869 953.795038,593.566659 C953.950196,593.747127 954.048133,593.949603 954.103153,594.167484 C954.453084,595.551803 952.990637,597.564457 952.078395,598.573535 C951.021999,599.742172 948.419525,601.87147 944.887201,601.993616 C941.352678,602.113561 938.947177,600.520164 937.159007,599.171059 C935.371938,597.824154 933.329573,595.881927 931,596.802972 C931,596.802972 932.350206,593.653592 935.850617,592.137224 C935.879228,592.124019 935.905637,592.111915 935.933148,592.09981 Z M942.795192,582.000498 L943.0406,582.00859 C948.467833,582.296898 948.370996,587.809963 948.370996,587.809963 L948.351189,587.838574 C949.58255,587.850678 953.403181,588.241325 954.068931,592.515326 C953.633167,592.185202 953.120375,591.99373 952.577872,591.970622 C951.814186,591.93981 951.068107,592.244624 950.473884,592.831144 C950.106346,593.19428 949.906071,593.636646 949.694792,594.104321 C949.443898,594.657828 949.184201,595.231143 948.59438,595.814361 C946.684065,597.702669 944.13551,597.862228 942.576226,597.210784 C942.142664,597.030317 941.605662,596.7189 941.514328,596.26443 C941.451605,595.954114 941.608964,595.639396 941.7069,595.540359 C941.939087,595.30377 942.16027,595.081487 942.976776,595.362092 C943.901122,595.67791 944.841975,595.421514 945.431795,594.691941 C945.95009,594.050401 946.041424,593.19428 945.65848,592.558242 C944.254354,590.23197 939.232073,589.835822 935.880218,591.089191 C935.988058,586.596209 938.504701,581.7687 943.0406,582.00859 Z' id='Fill-2471'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        & span {
+            @apply absolute top-0 left-0 w-13 h-13 border-1 rounded-full border-solid border-transparent border-t-gray3;
+            animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            &:nth-child(1) {
+                animation-delay: -0.45s;
+            }
+            &:nth-child(2) {
+                animation-delay: -0.3s;
+            }
+            &:nth-child(3) {
+                animation-delay: -0.15s;
+            }
+        }
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>planner</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+    <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+</head>
+<body>
+    <!-- 페이지 헤더 -->
+    <div id="header">
+        <div class="container">
+            <h1 id="logo"><a href="index.html">이로움 플래너</a></h1>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="index.html">복지 서비스</a></li>
+                    <li><a href="장기요양보험.html">장기요양 서비스</a></li>
+                    <li><a href="고령친화 우수식품.html" class="is-active">고령친화 우수식품</a></li>
+                </ul>
+            </nav>
+
+            <!-- 회원 -->
+            <!-- <div id="account" class="is-login">
+                <p>
+                    <strong>정경석</strong>
+                    64세, 서울 용산구
+                </p>
+                <a href="#" class="btn btn-outline-primary">설정</a>
+                <a href="#" class="btn btn-primary">로그아웃</a>
+            </div> -->
+            <!-- //회원 -->
+
+            <!-- 비회원 -->
+            <div id="account" class="is-nologin">
+                <a href="#modal-login" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-login">로그인</a>
+                <a href="#" class="btn btn-outline-primary">회원가입</a>
+            </div>
+            <!-- //비회원 -->
+
+            <!-- 모바일 메뉴 -->
+            <button id="allmenu-trigger" data-bs-toggle="offcanvas" data-bs-target="#allmenu" aria-controls="allmenu">메뉴</button>
+            <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
+                <div class="offcanvas-header">
+                    <button type="button" data-bs-dismiss="offcanvas">닫기</button>
+                </div>
+                <div class="offcanvas-body">
+                    <!-- 로그인시 표출 -->
+                    <div class="allmenu-user">
+                        <div class="wrapper">
+                            <p class="name">회원명</p>
+                            <p class="info">64세, 서울 용산구</p>
+                            <p class="button">
+                                <a href="#" class="btn btn-small btn-outline-primary">회원정보수정</a>
+                                <a href="#" class="btn btn-small btn-primary">로그아웃</a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- //로그인시 표출 -->
+
+                    <div class="allmenu-list">
+                        <ul>
+                            <li><a href="index.html">복지 서비스</a></li>
+                            <li><a href="장기요양보험.html">장기요양 서비스</a></li>
+                            <li><a href="고령친화 우수식품.html">고령친화 우수식품</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 미로그인시 표출 -->
+                    <div class="allmenu-join">
+                        <dl>
+                            <dt>아직 회원이 아니신가요?</dt>
+                            <dd>이로움과 함께<br> 새 삶을 누리세요!</dd>
+                        </dl>
+                        <div class="button">
+                            <a href="#modal-login" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-login">로그인</a>
+                            <a href="#" class="btn btn-outline-primary">회원가입</a>
+                        </div>
+                    </div>
+                    <!-- //미로그인시 표출 -->
+                    
+                    <a href="#" class="allmenu-market">
+                        <strong>이로움 마켓</strong>
+                        복지용구 사업소와 수급자 매칭부터<br>
+                        주문, 계약 및 결제까지 한번에!
+                    </a>
+                </div>
+            </div>
+            <!-- //모바일 메뉴 -->
+        </div>
+    </div>
+    <!-- //페이지 헤더 -->
+    
+    <main id="container">
+        <!-- 본문 영역 -->
+        <div id="content">
+            <div class="content-market-link is-food">
+                <a href="#"><strong>이로움 마켓</strong> 시니어만을 위한 맞춤 식품은 따로 있습니다</a>
+            </div>
+
+            <h2 class="content-food1">
+                고령친화 우수식품
+                <small>Senior Friendly Foods</small>
+            </h2>
+            
+            <div class="content-food2">
+                <div class="content">
+                    <p>시니어 세대의 입맛을 지켜주는 음식으로 </p>
+                    <p class="bigs">
+                        <strong class="t1">고령자의</strong><br>
+                        <strong class="t1">신체적 특성을</strong><br> 
+                        <strong class="t3">고려해 만든 식품</strong>을
+                    </p>
+                    <p><strong>고령친화 식품</strong>이라고 합니다</p>
+                </div>
+            </div>
+
+            <div class="content-food3">
+                <h3 class="title">
+                    <img src="../assets/images/txt-content-food3.png" alt="고령친화우수식품 로고">
+                    <strong>고령친화우수식품</strong> 표시 (출처 : 농림출산식품부)
+                </h3>
+                <div class="content">
+                    <p>
+                        단순히 부드럽거나 영양 성분이 좋다고 해서 고령친화식품으로 분류되지 않고, <br>
+                        모두 여섯 단계로 이뤄진 지정 절차를 거쳐야 합니다.
+                    </p>
+                    <p>
+                        관련 업체가 지정 신청을 요청하면 농림축산식품부 산하 <br>
+                        <strong>한국식품산업클러스터진흥원</strong>이 적합 여부를 검토합니다.
+                    </p>
+                    <ol>
+                        <li>
+                            노인이 쉽게 <br>
+                            섭취할 수 있는지
+                        </li>
+                        <li>
+                            소화를 편안히 <br>
+                            할 수 있는지
+                        </li>
+                        <li>
+                            영양 성분은 <br>
+                            적절한 지
+                        </li>
+                        <li>
+                            안전하게 <br>
+                            개봉할 수 있는지
+                        </li>
+                        <li>
+                            KS 품질 기준에 <br>
+                            적합한지
+                        </li>
+                    </ol>
+                    <p>
+                        지정 절차에 맞춰 검토하여 심사를 통과하면 <br>
+                        이후부터 <strong>고령친화식품</strong>이란 표현을 쓸 수 있게 됩니다.
+                    </p>
+                    <p>2021년 5월부터 처음으로 시행하여 2022년 현재 <strong>113개의 제품이 지정</strong>됐습니다.</p>
+                </div>
+            </div>
+
+            <div class="content-food4">
+                <div class="container">
+                    <div class="title">
+                        <p class="text1">우수식품의 종류는</p>
+                        <p class="text2"><strong>총 3단계</strong>로</p>
+                        <p class="text3"><span class="color1">물성 <sub>식감을 주는 성분</sub></span>과 <span class="color2">점성 <sub>음식이 흐르는 정도</sub></span>에 따라</p>
+                        <p class="text4">나뉘어집니다.</p>
+                    </div>
+                    <div class="card card1">
+                        <div class="rear"></div>
+                        <div class="front">
+                            <p class="name">
+                                영양 성분을 강화하고 <br>
+                                부드럽고 무른 음식으로 <br>
+                                치아로 섭취 가능한 <br>
+                                <em>“연하식”</em>
+                            </p>
+                            <a href="#" class="link"><strong>연하식 1단계 식품</strong> 바로가기</a>
+                        </div>
+                    </div>
+                    <div class="card card2">
+                        <div class="rear"></div>
+                        <div class="front">
+                            <p class="name">
+                                틀니나 잇몸으로도 <br>
+                                씹기 쉬운 <em>“연화반찬류”</em>
+                            </p>
+                            <a href="#" class="link"><strong>연하반찬류 식품</strong> 바로가기</a>
+                        </div>
+                    </div>
+                    <div class="card card3">
+                        <div class="rear"></div>
+                        <div class="front">
+                            <p class="name">
+                                목 넘기을 부드럽게 만들어 <br>
+                                고령자 사래 걸림 위험을 줄여 <br>
+                                혀로도 식사가 가능한 <br>
+                                <em>“유동식”</em>
+                            </p>
+                            <a href="#" class="link"><strong>유동식 식품</strong> 바로가기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-food5">
+                <h2>
+                    품질기준
+                    <small>고령친화식품 한국산업표준(KS) 품질규격</small>
+                </h2>
+                <div class="hidden md:block">
+                    <table>
+                        <colgroup>
+                            <col class="min-w-25 w-[13.25%]">
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" class="title1"><p><img src="../assets/images/txt-content-food5.png" alt="1단계 치아섭취"></p></th>
+                                <th scope="col" class="title2"><p><img src="../assets/images/txt-content-food5-2.png" alt="2단계 잇몸섭취"></p></th>
+                                <th scope="col" class="title3"><p><img src="../assets/images/txt-content-food5-3.png" alt="3단계 혀로섭취"></p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">경도<br> (N/㎡)</th>
+                                <td>
+                                    <p class="count"><i>500,000</i> 이하</p>
+                                    <p class="count"><i>~ 50,000</i> 초과</p>
+                                </td>
+                                <td>
+                                    <p class="count"><i>50,000</i> 이하</p>
+                                    <p class="count"><i>~ 20,000</i> 초과</p>
+                                </td>
+                                <td>
+                                    <p class="count"><i>~ 50,000</i> 이하</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="desc"><strong>* 경도</strong>(단단한 정도) - 경도 수치가 낮을 수록 식품이 연하고 부드럽습니다.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">영양성분</th>
+                                <td>
+                                    <dl class="labels">
+                                        <dt>단백질</dt>
+                                        <dd><i>6g / 100g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color1">
+                                        <dt>비타민D</dt>
+                                        <dd><i>1.5 μg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼륨</dt>
+                                        <dd><i>80 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                                <td>
+                                    <dl class="labels is-color2">
+                                        <dt>비타민A</dt>
+                                        <dd><i>75 μg RAE / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color3">
+                                        <dt>리보플라빈</dt>
+                                        <dd><i>0.15 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼슘</dt>
+                                        <dd><i>0.35 g / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                                <td>
+                                    <dl class="labels is-color4">
+                                        <dt>비타민C</dt>
+                                        <dd><i>10 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color5">
+                                        <dt>나이아신</dt>
+                                        <dd><i>1.6 mg NE / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color6">
+                                        <dt>식이섬유</dt>
+                                        <dd><i>2.5 g / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="block md:hidden">
+                    <table>
+                        <colgroup>
+                            <col class="w-25">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th colspan="2" scope="col" class="title1"><p><img src="../assets/images/txt-content-food5.png" alt="1단계 치아섭취"></p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">경도<br> (N/㎡)</th>
+                                <td>
+                                    <p class="count"><i>500,000</i> 이하</p>
+                                    <p class="count"><i>~ 50,000</i> 초과</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">영양성분</th>
+                                <td>
+                                    <dl class="labels">
+                                        <dt>단백질</dt>
+                                        <dd><i>6g / 100g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color1">
+                                        <dt>비타민D</dt>
+                                        <dd><i>1.5 μg / 100 g </i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼륨</dt>
+                                        <dd><i>80 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <colgroup>
+                            <col class="w-25">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="title2"><p><img src="../assets/images/txt-content-food5-2.png" alt="2단계 잇몸섭취"></p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">경도<br> (N/㎡)</th>
+                                <td>
+                                    <p class="count"><i>50,000</i> 이하</p>
+                                    <p class="count"><i>~ 20,000</i> 초과</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">영양성분</th>
+                                <td>
+                                    <dl class="labels is-color2">
+                                        <dt>비타민A</dt>
+                                        <dd><i>75 μg RAE / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color3">
+                                        <dt>리보플라빈</dt>
+                                        <dd><i>0.15 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼슘</dt>
+                                        <dd><i>0.35 g / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <colgroup>
+                            <col class="w-25">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="title3"><p><img src="../assets/images/txt-content-food5-3.png" alt="3단계 혀로섭취"></p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">경도<br> (N/㎡)</th>
+                                <td>
+                                    <p class="count"><i>~ 50,000</i> 이하</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">영양성분</th>
+                                <td>
+                                    <dl class="labels is-color4">
+                                        <dt>비타민C</dt>
+                                        <dd><i>10 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color5">
+                                        <dt>나이아신</dt>
+                                        <dd><i>1.6 mg NE / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color6">
+                                        <dt>식이섬유</dt>
+                                        <dd><i>2.5 g / 100 g</i> 이상</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="desc mt-3"><strong>* 경도</strong>(단단한 정도) - 경도 수치가 낮을 수록 식품이 연하고 부드럽습니다.</p>
+                </div>
+            </div>
+            
+            <div class="content-golink">
+                <!-- <a href="#" class="market">
+                    <span class="base"></span>
+                    <span class="expand">
+                        이로움 마켓
+                    </span>
+                </a> -->
+                <a href="#" class="test">이로움<br>테스트</a>
+                <a href="#page-container" class="gotop"><span class="sr-only">위로 이동</span></a>
+            </div>
+        </div>
+        <!-- //본문 영역 -->
+    </main>
+
+    <!-- footer -->
+    <footer id="footer">
+        <div class="footer-link">
+            <!-- 회사 메뉴 -->
+            <nav class="footer-menu">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">전자금융거래약관</a></li>
+                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                </ul>
+            </nav>
+            <!-- //회사 메뉴 -->
+
+            <!-- 패밀리 사이트 -->
+            <dl class="footer-family">
+                <dt>
+                    이로움
+                    <small>패밀리 사이트</small>
+                </dt>
+                <dd>
+                    <ul>
+                        <li>
+                            <a href="#" class="family-link1">
+                                <div class="bubble">
+                                    <small>시니어 라이프 케어 플랫폼</small>
+                                    <strong>"이로움"</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="family-link2">
+                                <div class="bubble">
+                                    <strong>이로움 멤버스</strong>
+                                    <small>전국 2,432개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="family-link3">
+                                <div class="bubble">
+                                    <strong><img src="../assets/images/txt-footer-family3.svg" alt="이로움마켓"></strong>
+                                    <small>
+                                        복지용구 사업소와 수급자 매칭부터<br>
+                                        주문, 계약 및 결제까지 한번에!
+                                    </small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <!-- //패밀리 사이트 -->
+        </div>
+        
+        <hr>
+
+        <div class="footer-center">
+            <!-- 사이트 정보-->
+            <dl class="footer-company">
+                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dd id="footer-collapse" class="collapse">
+                    <p>대표 : 신종호</p>
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2018-서울강남-04157</p>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </dd>
+            </dl>
+            <!-- //사이트 정보-->
+
+            <!-- 고객센터 -->
+            <dl class="footer-customer">
+                <dt>고객센터</dt>
+                <dd>
+                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
+                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
+                </dd>
+                <dd>
+                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                </dd>
+            </dl>
+            <!-- //고객센터 -->
+        </div>
+
+        <hr>
+
+        <!-- 카피 라이트 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 라이트 -->
+    </footer>
+    <!-- //footer -->
+
+    <!-- 로그인 레이어 -->
+    <div class="modal fade" id="modal-login" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <button data-bs-dismiss="modal">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-login-desc"><strong>로그인</strong>이 필요한 서비스입니다</p>
+                    <div class="modal-login-form">
+                        <div class="form-group">
+                            <label for="login-item3" class="form-label">아이디</label>
+                            <input type="text" id="login-item3" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-item4" class="form-label">비밀번호</label>
+                            <input type="password" id="login-item4" class="form-input">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-2.5 w-full">로그인</button>
+                    </div>
+                    <div class="modal-login-search">
+                        <a href="#">아이디 찾기</a>
+                        <a href="#">비밀번호 찾기</a>
+                    </div>
+                    <div class="modal-login-join">
+                        <dl>
+                            <dt>아직 회원이 아니신가요?</dt>
+                            <dd>이로움과 함께<br> 새 삶을 누리세요!</dd>
+                        </dl>
+                        <a href="#" class="btn btn-outline-primary">회원가입</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //로그인 레이어 -->
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

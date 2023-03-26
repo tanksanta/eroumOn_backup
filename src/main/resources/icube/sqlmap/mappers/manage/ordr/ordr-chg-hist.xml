@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordr.chg">
+
+	<resultMap type="ordrChgHistVO" id="ordrChgHistVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		 chg_no
+		 , ordr_no
+		 , ordr_dtl_no
+		 , chg_stts
+		 , resn_ty
+		 , resn
+
+		 , reg_unique_id
+		 , reg_dt
+		 , reg_id
+		 , rgtr
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<if test="ordrNo !=null and ordrNo != ''">
+			AND ordr_no = #{ordrNo}
+		</if>
+		<if test="ordrDtlNo !=null and ordrDtlNo != ''">
+			AND ordr_dtl_no = #{ordrDtlNo}
+		</if>
+		<if test="chgStts !=null and chgStts != ''">
+			<choose>
+				<when test="chgStts == 'CA01' ">
+			AND chg_stts IN ('CA01', 'CA02')
+				</when>
+				<otherwise>
+			AND chg_stts = #{chgStts}
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
+
+	<select id="selectOrdrChgHistListAll" parameterType="java.util.HashMap" resultMap="ordrChgHistVOMap">
+		/* Query ID : ordr.chg.selectOrdrChgHistList */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR_CHG_HIST
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY chg_no DESC
+	</select>
+
+
+	<select id="selectOrdrChgHist" parameterType="java.util.HashMap" resultMap="ordrChgHistVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR_CHG_HIST
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY chg_no DESC
+		LIMIT 1
+	</select>
+
+
+	<insert id="insertOrdrChgHist" parameterType="ordrChgHistVO">
+		/* Query ID : ordr.chg.insertOrdr */
+		INSERT INTO ORDR_CHG_HIST (
+			ordr_no
+			, ordr_dtl_no
+			, chg_stts
+			, resn_ty
+			, resn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{ordrNo}
+			, #{ordrDtlNo}
+			, #{chgStts, jdbcType=VARCHAR}
+			, #{resnTy, jdbcType=VARCHAR}
+			, #{resn, jdbcType=VARCHAR}
+
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<delete id="deleteOrdrChgHist" parameterType="java.util.HashMap">
+		DELETE FROM ORDR_CHG_HIST
+		 WHERE chg_no = #{chgNo}
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,73 @@
+##
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($voClassParam="${model.entity.ccName}VO")
+#set($daoPackage="${daoPackage}")
+#set($daoClassName="${model.entity.pcName}DAO")
+#set($daoName="${model.entity.ccName}DAO")
+#set($daoInstanceName="${model.entity.ccName}DAO")
+#set($classSerialNo="${model.entity.ccName}No")
+#set($mapperId="${model.entity.ccName}")
+#set($mapperSqlId="${model.entity.pcName}")
+##
+##
+#set($createMethodName="insert${model.entity.pcName}")
+#set($updateMethodName="update${model.entity.pcName}")
+#set($updateUseListAtMethodName="update${model.entity.pcName}ListUseAt")
+#set($updateUseAtMethodName="update${model.entity.pcName}UseAt")
+#set($deleteMethodName="delete${model.entity.pcName}")
+#set($selectMethodName="select${model.entity.pcName}")
+#set($selectListMethodName="${model.entity.ccName}ListVO")
+##
+##
+#set($selectListCountQueryName="select${model.entity.pcName}Count")
+#set($selectListQueryName="select${model.entity.pcName}ListVO")
+#set($selectQueryName="select${model.entity.pcName}")
+#set($insertQueryName="insert${model.entity.pcName}")
+#set($updateQueryName="update${model.entity.pcName}")
+#set($deleteQueryName="delete${model.entity.pcName}")
+#set($updateUseAtQueryName="update${model.entity.pcName}UseAt")
+#set($updateListUseAtQueryName="update${model.entity.pcName}ListUseAt")
+##
+##
+package ${daoPackage};
+
+import ${voPackage}.${voClassName};
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import icube.common.framework.abst.CommonAbstractMapper;
+import icube.common.vo.CommonListVO;
+
+@Repository("${daoName}")
+public class ${daoClassName} extends CommonAbstractMapper {
+
+	public CommonListVO $selectListMethodName(CommonListVO listVO) throws Exception {
+		return selectListVO("$mapperId.$selectListCountQueryName", "$mapperId.$selectListQueryName", listVO);
+	}
+
+	public $voClassName $selectMethodName(int $classSerialNo) throws Exception {
+		return ($voClassName)selectOne("$mapperId.$selectQueryName", $classSerialNo);
+	}
+
+	public void $createMethodName($voClassName $voClassParam) throws Exception {
+		insert("$mapperId.$insertQueryName", $voClassParam);
+	}
+
+	public void $updateMethodName($voClassName $voClassParam) throws Exception {
+		update("$mapperId.$updateQueryName", $voClassParam);
+	}
+
+	public void $deleteMethodName(int $classSerialNo) throws Exception {
+		delete("$mapperId.$deleteQueryName", $classSerialNo);
+	}
+
+	public Integer $updateUseAtMethodName(Map<String, Object> paramMap) throws Exception {
+		return update("$mapperId.$updateUseAtQueryName", paramMap);
+	}
+
+	public Integer $updateUseListAtMethodName(Map<String, Object> paramMap) throws Exception {
+		return update("$mapperId.$updateListUseAtQueryName", paramMap);
+	}
+}

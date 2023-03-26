@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>market</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <!-- market -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+    <script src="../../assets/script/order.js"></script>
+</head>
+<body>
+    <!-- access -->
+    <ul id="skip-navigation">
+        <li><a href="#container">본문 바로가기</a></li>
+    </ul>
+    <!-- //access -->
+
+    <!-- header -->
+    <header id="header">
+        <div class="container">
+            <a href="#" class="header-toggle"><img src="../../assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
+            <h1 class="header-logo"><img src="../../assets/images/img-header-logo.svg" alt="이로움 마켓"></h1>
+            <ul class="header-menu">
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </div>
+    </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start header-layer">
+        <div class="offcanvas-header">
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu">레이어 닫기</button>
+            <!-- <div class="logout">
+                로그인 하시고<br>
+                혜택을 받으세요
+            </div> -->
+            <div class="login">
+                <p class="name"><strong>관리자</strong>님</p>
+                <img src="../../assets/images/img-shopbag.png" alt="" class="bags">
+                <p class="rank">
+                    <small>일반회원</small>
+                    <strong><img src="../../assets/images/img-grade1.svg" alt=""></strong>
+                </p>
+            </div>
+        </div>
+        <div class="offcanvas-body">
+            <div class="button">
+                <picture>
+                    <source srcset="../../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
+                    <source srcset="../../assets/images/txt-header-nav.svg"> 
+                    <img src="../../assets/images/txt-header-nav.svg" alt="" />
+                </picture>
+                <a href="#">로그인</a>
+                <a href="#">주문내역</a>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>복지용구</strong>
+                        <small>welfare<br> equipment</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
+                        <ul>
+                            <li class="sub-item is-active"><a href="#">수동휠체어</a></li>
+                            <li class="sub-item"><a href="#">성인용 보행기</a></li>
+                            <li class="sub-item"><a href="#">지팡이</a></li>
+                            <li class="sub-item"><a href="#">안전손잡이</a></li>
+                            <li class="sub-item"><a href="#">경사로</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지매트</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지양말</a></li>
+                            <li class="sub-item"><a href="#">이동욕조</a></li>
+                            <li class="sub-item"><a href="#">목욕의자</a></li>
+                            <li class="sub-item"><a href="#">간이변기</a></li>
+                            <li class="sub-item"><a href="#">이동변기</a></li>
+                            <li class="sub-item"><a href="#">요실금팬티</a></li>
+                            <li class="sub-item"><a href="#">전동침대</a></li>
+                            <li class="sub-item"><a href="#">자세변환용구</a></li>
+                            <li class="sub-item"><a href="#">욕창예방매트리스</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>식품</strong>
+                        <small>food</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>패션</strong>
+                        <small>fashion</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>뷰티</strong>
+                        <small>beauty</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>리빙</strong>
+                        <small>living</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-items">
+                <li class="list-item"><a href="#">Story</a></li>
+                <li class="list-item"><a href="#">기획전</a></li>
+                <li class="list-item"><a href="#">이벤트</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- //header -->
+    
+    <!-- navigation -->
+    <nav id="navigation">
+        <div class="navigation-menu">
+            <button type="button" class="allmenu" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체메뉴</button>
+            <div class="container">
+                <ul>
+                    <li><a href="#">복지용구</a></li>
+                    <li><a href="#">식품</a></li>
+                    <li><a href="#">패션</a></li>
+                    <li><a href="#">뷰티</a></li>
+                    <li class="disabled"><a href="#">리빙</a></li>
+                    <li class="seperate"></li>
+                    <li class="require"><a href="#">Story</a></li>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                </ul>
+            </div>
+            <button type="button" class="toggle">메뉴 펼치기 접기</button>
+        </div>
+        <div class="navigation-search">
+            <button type="button" class="navigation-search-toggle">검색 열기/닫기</button>
+            <div class="navigation-search-layer">
+                <form action="#" class="search">
+                    <fieldset>
+                        <legend>Search</legend>
+                        <input type="search" class="input">
+                        <button type="submit" class="submit">검색</button>
+                        <button type="button" class="closed">닫기</button>
+                    </fieldset>
+                </form>
+                <div class="keyword">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide recent">
+                                <p class="title">최근 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <a href="#" class="name">수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="swiper-slide best">
+                                <p class="title">인기 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <span class="number">1</span>
+                                        <a href="#" class="name">성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">2</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">3</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">4</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">5</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-clock">
+            <span class="hour">12</span>
+            <span class="mins">00</span>
+        </div>
+    </nav>
+    <!-- //navigation -->
+
+    <!-- aside -->
+    <aside id="service">
+        <div class="container">
+            <p class="service-slogan">Easy Equity E-ROUM MARKET</p>
+            <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
+            <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
+            <!-- 장바구니 메세지 스크립트 onload after
+            $('.service-mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
+            $('.service-mycart').removeAttr('title').tooltip('dispose');
+            -->
+            <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
+            <div class="service-compare">
+                <div class="container">
+                    <button type="button" class="service-compare-toggle" data-bs-toggle="tooltip" title="상품비교">최근본상품</button>
+                    <ul class="service-compare-items">
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="service-compare-layer">
+            <div class="header">
+                <p>상품비교</p>
+                <ul>
+                    <li>성인용 보행기</li>
+                    <li>성인용 보행기</li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="content">
+                    <div class="select"></div>
+                    <table>
+                        <tr>
+                            <th scope="row" class="title">
+                                <div class="header">
+                                    <p>상품<br>비교</p>
+                                    <ul>
+                                        <li>성인용 보행기</li>
+                                        <li>성인용 보행기</li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete"></div>
+                                <div class="thumb"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">상품명</div></th>
+                            <td class="items name">
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                                TOPRO TROJA 5G<br>
+                            </td>
+                            <td class="items name">TOPRO TROJA 5G</td>
+                            <td class="items name">TOPRO TROJA 5G</td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../../assets/images/img-compare-number4.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">판매가</div></th>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                            <td class="items cost1">454,000 <small>원</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">급여가</div></th>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                            <td class="items cost2">454,000 <small>원</small></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">재질</div></th>
+                            <td class="items material">알루미늄</td>
+                            <td class="items material">알루미늄</td>
+                            <td class="items material">알루미늄</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">사이즈</div></th>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">폭</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">길이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">높이</th>
+                                        <td>60cm</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">중량</div></th>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="items size">
+                                <table>
+                                    <tr>
+                                        <th scope="row">S</th>
+                                        <td>7.6kg</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">M</th>
+                                        <td>7.8kg</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">규격</div></th>
+                            <td class="items rule">-</td>
+                            <td class="items rule">-</td>
+                            <td class="items rule">-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"></th>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love">찜하기</a>
+                                </div>
+                            </td>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love is-active">찜하기</a>
+                                </div>
+                            </td>
+                            <td class="items">
+                                <div class="button">
+                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
+                                    <a href="#" class="btn btn-love">찜하기</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="closed">상품 비교 접기</button>
+        </div>
+    </aside>
+    <!-- //aside -->
+
+    <!-- container -->
+
+    <main id="container">
+        <h2 id="page-title">주문/배송조회</h2>
+
+        <div id="page-header">
+            <a href="#" class="page-header-back">이전 페이지 가기</a>
+            <h2 class="page-header-name">마이페이지</h2>
+            <button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+        </div>
+
+        <div id="page-container">
+            <nav id="page-sidenav">
+                <div class="page-sidenav-container">
+                    <div class="page-sidenav-scrollbar">
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑내역</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li class="is-active"><a href="#"><span>주문/배송 조회</span></a></li>
+                                            <li><a href="#"><span>취소/교환/반품 조회</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑혜택</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>쿠폰</span></a></li>
+                                            <li><a href="#"><span>포인트</span></a></li>
+                                            <li><a href="#"><span>마일리지</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">쇼핑활동</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>참여한 이벤트</span></a></li>
+                                            <li><a href="#"><span>내가 구매한 상품</span></a></li>
+                                            <li><a href="#"><span>상품후기</span></a></li>
+                                            <li><a href="#"><span>상품 Q&amp;A</span></a></li>
+                                            <li><a href="#"><span>1:1 문의</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-sidenav-group">
+                            <p class="title">회원정보</p>
+                            <div class="scroller">
+                                <div class="direction">
+                                    <div class="content">
+                                        <ul class="menulist">
+                                            <li><a href="#"><span>회원정보 수정</span></a></li>
+                                            <li class="require"><a href="#"><span>가족회원 관리</span></a></li>
+                                            <li><a href="#"><span>배송지 관리</span></a></li>
+                                            <li><a href="#"><span>회원 탈퇴</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div id="page-content">
+                <div class="order-status">
+                    <div class="status-base">
+                        <dl class="number">
+                            <dt>주문 번호</dt>
+                            <dd>13245678009123</dd>
+                        </dl>
+                        <dl>
+                            <dt>주문 일시</dt>
+                            <dd>2022.08.12 12:33:44</dd>
+                        </dl>
+                    </div>
+                    <div class="text-right self-center mt-2 md:mt-0">
+                        <a href="#" class="btn btn-outline-primary w-30 md:w-36">주문 취소</a>
+                    </div>
+                </div>
+
+                <h3 class="text-title mb-3 mt-8 md:mb-4 md:mt-10">상품 정보</h3>
+                <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5">
+                    <div class="order-product">
+                        <div class="order-header">
+                            <dl>
+                                <dt>주문번호</dt>
+                                <dd><strong>EM2953897212</strong></dd>
+                            </dl>
+                            <dl>
+                                <dt>취소일시</dt>
+                                <dd>2022.08.12 14:24:42</dd>
+                            </dl>
+                            <button type="button">삭제</button>
+                        </div>
+                        <div class="order-body">
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-base">
+                                        <p class="code">
+                                            <span class="label-primary">
+                                                <span>급여상품</span>
+                                                <i></i>
+                                            </span>
+                                            <u>24n29G38Y72a</u>
+                                        </p>
+                                        <div class="product">
+                                            <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                            <dl class="option">
+                                                <dt>옵션</dt>
+                                                <dd>
+                                                    <span class="label-flat">블루</span>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="count">
+                                            <p><strong>2</strong>개</p>
+                                            <a href="#" class="btn btn-primary btn-small">변경</a>
+                                        </div>
+                                        <p class="price">11,448,400원</p>
+                                    </div>
+                                    <div class="order-item-add">
+                                        <span class="label-outline-primary">
+                                            <span>추가</span>
+                                            <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                        </span>
+                                        <div class="name">
+                                            <p><strong>모던 스타일 스툴</strong></p>
+                                            <p>수량 1개 (+80,000원)</p>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <div class="payment">
+                                            <dl>
+                                                <dt>사업소</dt>
+                                                <dd>행복한 시니어</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>배송비</dt>
+                                                <dd>3000원</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="status">
+                                            <div class="box-gray">
+                                                <p class="flex-1">결제대기</p>
+                                                <div class="multibtn">
+                                                    <a href="#" class="btn btn-primary btn-small">결제진행</a>
+                                                    <a href="#" class="btn btn-outline-primary btn-small">주문취소</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">결제 정보</h3>
+                <div class="payment-amount">
+                    <div class="amount-section">
+                        <dl class="price">
+                            <dt>총 주문금액</dt>
+                            <dd><strong>2,778,000</strong> 원</dd>
+                        </dl>
+                        <div class="detail">
+                            <dl>
+                                <dt>상품금액</dt>
+                                <dd><strong>2,778,000</strong> 원</dd>
+                            </dl>
+                            <dl>
+                                <dt>배송비</dt>
+                                <dd><strong>2,778,000</strong> 원</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <i class="amount-calculator is-plus">+</i>
+                    <!-- <i class="amount-calculator is-minus">-</i> -->
+                    <div class="amount-section">
+                        <dl class="price">
+                            <dt>총 할인금액</dt>
+                            <dd><strong>2,778,000</strong> 원</dd>
+                        </dl>
+                        <div class="detail">
+                            <dl>
+                                <dt>쿠폰할인</dt>
+                                <dd><strong>2,778,000</strong> 원</dd>
+                            </dl>
+                            <dl>
+                                <dt>마일리지 사용</dt>
+                                <dd><strong>2,778,000</strong> 원</dd>
+                            </dl>
+                            <dl>
+                                <dt>포인트 사용</dt>
+                                <dd><strong>2,778,000</strong> 원</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <i class="amount-calculator is-equal">=</i>
+                    <div class="amount-section is-latest">
+                        <dl class="price">
+                            <dt>총 결제금액</dt>
+                            <dd><strong>2,778,000</strong> 원</dd>
+                        </dl>
+                        <div class="detail">
+                            <dl>
+                                <dt>결제 방법</dt>
+                                <dd><strong>무통장입금</strong></dd>
+                            </dl>
+                            <p class="mt-1 mb-2.5 lg:mt-1.5 lg:mb-3 leading-tight text-right">
+                                입금계좌 : [신한은행] 1234567890<br>
+                                입금만료일 : 2015-10-10 17:00
+                            </p>
+                            <dl>
+                                <dt>결제 일시</dt>
+                                <dd><strong class="text-red3">입금 미확인</strong></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <dl class="amount-mileage">
+                        <dt>적립예정<br> 마일리지</dt>
+                        <dd>
+                            <p class="point">454</p>
+                            <p class="desc">구매확정 시 적립됩니다</p>
+                        </dd>
+                    </dl>
+                </div>
+                <p class="text-alert mt-2.5 md:mt-3.5"><strong>무통장 입금</strong>으로 주문하신 경우, 입금 기한까지 입금하지 않으시면 주문이 자동으로 취소되오니 입금 기한까지 꼭 입금을 해주시기 바랍니다.</p>
+                
+                <div class="md:flex md:space-x-6 lg:space-x-7.5">
+                    <div class="flex-1 mt-18 md:mt-23">
+                        <h3 class="text-title mb-3 md:mb-4">배송지 정보</h3>
+                        <div class="payment-shipping">
+                            <dl class="shipping-name">
+                                <dt>받는사람</dt>
+                                <dd>이로미</dd>
+                            </dl>
+                            <dl class="shipping-call">
+                                <dt>연락처</dt>
+                                <dd>
+                                    <p><a href="tel:010-2732-9721">010-2732-9721</a></p>
+                                    <p class="text-lg"><a href="tel:010-2732-9721">010-2732-9721</a></p>
+                                </dd>
+                            </dl>
+                            <dl class="shipping-addr">
+                                <dt>주소</dt>
+                                <dd>
+                                    <p>42910</p>
+                                    <p class="text-lg">서울특별시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                                </dd>
+                            </dl>
+                            <dl class="shipping-msgs">
+                                <dt>배송메시지</dt>
+                                <dd>안전하게 배송해주세요</dd>
+                            </dl>
+                            <div class="mt-2.5 text-right">
+                                <button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#deliModal">배송지 정보 수정</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 mt-18 md:mt-23">
+                        <h3 class="text-title mb-3 md:mb-4">고객 정보</h3>
+                        <div class="payment-customer customer-grade1">
+                            <dl>
+                                <dt>이름</dt>
+                                <dd>이로미</dd>
+                            </dl>
+                            <dl>
+                                <dt>휴대폰번호</dt>
+                                <dd>010-2732-9721</dd>
+                            </dl>
+                            <dl>
+                                <dt>이메일주소</dt>
+                                <dd>eromi@naver.com</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-24 text-center md:mt-31">
+                    <a href="#" class="btn btn-primary btn-large">주문/배송 조회 목록으로</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 배송지 -->
+        <div class="modal fade" id="deliModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">배송지 목록</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs tabs is-small" id="tabs-tab" role="tablist">
+                            <li class="nav-item" role="presentation"><a href="#tabs-delicont1" class="nav-link tabs-link active" data-bs-toggle="pill" data-bs-target="#tabs-delicont1" role="tab" aria-selected="true">최근 배송지</a></li>
+                            <li class="nav-item" role="presentation"><a href="#tabs-delicont2" class="nav-link tabs-link" data-bs-toggle="pill" data-bs-target="#tabs-delicont2" role="tab" aria-selected="false">나의 주소록</a></li>
+                            <li class="nav-item" role="presentation"><a href="#tabs-delicont3" class="nav-link tabs-link" data-bs-toggle="pill" data-bs-target="#tabs-delicont3" role="tab" aria-selected="false">새로운 주소</a></li>
+                        </ul>
+                        <div class="tab-content mt-3 md:mt-4">
+                            <div class="tab-pane fade show active" id="tabs-delicont1" role="tabpanel">
+                                <p class="text-alert">최근 배송지 중 주문에 사용할 배송지 정보를 선택해 주세요 (최대 5개까지 제공)</p>
+                                <div class="order-delivery mt-3 md:mt-4">
+                                    <dl class="order-name">
+                                        <dt>받는사람</dt>
+                                        <dd>이로미</dd>
+                                    </dl>
+                                    <div class="order-addr">
+                                        <dl>
+                                            <dt>연락처</dt>
+                                            <dd>
+                                                <strong>010-2732-9721</strong>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>주소</dt>
+                                            <dd>
+                                                <address>
+                                                    <strong>42858</strong>
+                                                    <p>서울특별시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>    
+                                                </address>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <label class="order-select">
+                                        <input type="radio" name="">
+                                        <span>선택</span>
+                                    </label>
+                                </div>
+                                <div class="order-delivery mt-3 md:mt-4">
+                                    <dl class="order-name">
+                                        <dt>받는사람</dt>
+                                        <dd>이로미</dd>
+                                    </dl>
+                                    <div class="order-addr">
+                                        <dl>
+                                            <dt>연락처</dt>
+                                            <dd>
+                                                <strong>010-2732-9721</strong>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>주소</dt>
+                                            <dd>
+                                                <address>
+                                                    <strong>42858</strong>
+                                                    <p>서울특별시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>    
+                                                </address>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <label class="order-select">
+                                        <input type="radio" name="">
+                                        <span>선택</span>
+                                    </label>
+                                </div>
+                                <p class="box-result mt-3 md:mt-4">최근 배송지가 없습니다.</p>
+                            </div>
+                            <div class="tab-pane fade" id="tabs-delicont2" role="tabpanel">
+                                <p class="text-alert">최근 배송지 중 주문에 사용할 배송지 정보를 선택해 주세요 (최대 5개까지 제공)</p>
+                                <div class="order-delivery mt-3 md:mt-4">
+                                    <dl class="order-name">
+                                        <dt>받는사람</dt>
+                                        <dd>
+                                            이로미
+                                            <span class="label-outline-primary">
+                                                <span>기본배송지</span>
+                                                <i></i>
+                                            </span>
+                                        </dd>
+                                    </dl>
+                                    <div class="order-addr">
+                                        <dl>
+                                            <dt>연락처</dt>
+                                            <dd>
+                                                <strong>010-2732-9721</strong>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>주소</dt>
+                                            <dd>
+                                                <address>
+                                                    <strong>42858</strong>
+                                                    <p>서울특별시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>    
+                                                </address>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <label class="order-select">
+                                        <input type="radio" name="">
+                                        <span>선택</span>
+                                    </label>
+                                </div>
+                                <div class="order-delivery mt-3 md:mt-4">
+                                    <dl class="order-name">
+                                        <dt>받는사람</dt>
+                                        <dd>이로미</dd>
+                                    </dl>
+                                    <div class="order-addr">
+                                        <dl>
+                                            <dt>연락처</dt>
+                                            <dd>
+                                                <strong>010-2732-9721</strong>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>주소</dt>
+                                            <dd>
+                                                <address>
+                                                    <strong>42858</strong>
+                                                    <p>서울특별시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>    
+                                                </address>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <label class="order-select">
+                                        <input type="radio" name="">
+                                        <span>선택</span>
+                                    </label>
+                                </div>
+                                <p class="box-result mt-3 md:mt-4">나의 배송지가 없습니다.</p>
+                            </div>
+                            <div class="tab-pane fade" id="tabs-delicont3" role="tabpanel">
+                                <table class="table-detail">
+                                    <colgroup>
+                                        <col class="w-22 md:w-40">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr class="top-border">
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-layer-item1"></label>받는 사람</p></th>
+                                            <td>
+                                                <input type="text" class="form-control w-57" id="deli-layer-item1">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-layer-item2"></label>배송지 명</p></th>
+                                            <td>
+                                                <input type="text" class="form-control w-57" id="deli-layer-item2">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-layer-item3"></label>연락처</p></th>
+                                            <td>
+                                                <div class="form-group-tel w-76">
+                                                    <input type="text" class="form-control" id="deli-layer-item3">
+                                                    <i>-</i>
+                                                    <input type="text" class="form-control">
+                                                    <i>-</i>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-layer-item4"></label>추가 연락처</p></th>
+                                            <td>
+                                                <div class="form-group-tel w-76">
+                                                    <select name="" id="" class="form-control" id="deli-layer-item4">
+                                                        <option value="선택"></option>
+                                                    </select>
+                                                    <i>-</i>
+                                                    <input type="text" class="form-control">
+                                                    <i>-</i>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-layer-item5"></label>주소</p></th>
+                                            <td>
+                                                <div class="form-group w-76">
+                                                    <input type="text" class="form-control">
+                                                    <button type="button" class="btn btn-primary" id="deli-layer-item5">우편번호 검색</button>
+                                                </div>
+                                                <input type="text" class="form-control mt-1.5 w-full md:mt-2">
+                                                <input type="text" class="form-control mt-1.5 w-full md:mt-2">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><p><label for="deli-item7"></label>배송 메시지</p></th>
+                                            <td>
+                                                <div class="flex flex-wrap">
+                                                    <select name="" id="deli-item7" class="form-control w-full sm:w-50">
+                                                        <option value="">배송 메시지</option>
+                                                    </select>
+                                                    <input type="text" class="form-control w-full sm:flex-1 mt-1.5 sm:mt-0 sm:ml-2 sm:w-auto">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="bot-border">
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //배송지 -->
+    </main>
+    <!-- //container -->
+
+    <!-- footer -->
+    <footer id="footer">
+        <!-- 회사 메뉴 -->
+        <nav class="footer-menu">
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">전자금융거래약관</a></li>
+                <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+            </ul>
+        </nav>
+        <!-- //회사 메뉴 -->
+        
+        <!-- 사이트 정보-->
+        <div class="footer-company">
+            <div class="company">
+                <h2>(주)티에이치케이컴퍼니</h2>
+                <p>대표 : 신종호</p>
+                <p>이메일 : <a href="mailto:eroum@thkc.co.kr">eroum@thkc.co.kr</a></p>
+                <div class="numb">
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2018-서울강남-04157</p>
+                </div>
+                <address>
+                    <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                    <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                    <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                </address>
+            </div>
+            <div class="customer">
+                <h2>고객센터</h2>
+                <dl>
+                    <dt>주문안내</dt>
+                    <dd><a href="tel:1588-1312">1588-1312</a></dd>
+                </dl>
+                <dl>
+                    <dt>시스템안내</dt>
+                    <dd><a href="tel:02-830-1312">02-830-1312</a></dd>
+                </dl>
+                <dl>
+                    <dt>운영시간</dt>
+                    <dd>
+                        월~금 (주말 및 공휴일 휴무)<br>
+                        오전 9:00~오후 6:00<br>
+                        점심시간 오후 12시 ~ 1시
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!-- //사이트 정보-->
+        
+        <!-- 카피 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 -->
+    </footer>
+    <!-- //footer -->
+
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@layer components {
+    .badge {
+        @apply inline-block border border-gray1 rounded-full text-xs px-3;
+    }
+
+    .badge-primary, .badge-outline-primary {
+        @apply badge border-black1;
+    }
+    
+    .badge-primary {
+        @apply bg-black1 text-white;
+    }
+    
+    .badge-outline-primary {
+        @apply text-black1;
+    }
+    
+    .badge-secondary, .badge-outline-secondary {
+        @apply badge border-gray5;
+    }
+    
+    .badge-secondary {
+        @apply bg-gray5 text-white;
+    }
+    
+    .badge-outline-secondary {
+        @apply text-gray5;
+    }
+    
+    .badge-danger, .badge-outline-danger {
+        @apply badge border-red1;
+    }
+    
+    .badge-danger {
+        @apply bg-red1 text-white;
+    }
+    
+    .badge-outline-danger {
+        @apply text-red1;
+    }
+    
+    .badge-warning, .badge-outline-warning {
+        @apply badge border-yellow1;
+    }
+    
+    .badge-warning {
+        @apply bg-yellow1 text-white;
+    }
+    
+    .badge-outline-warning {
+        @apply text-yellow1;
+    }
+    
+    .badge-success, .badge-outline-success {
+        @apply badge border-blue1;
+    }
+    
+    .badge-success {
+        @apply bg-blue1 text-white;
+    }
+    
+    .badge-outline-success {
+        @apply text-blue1;
+    }
+}

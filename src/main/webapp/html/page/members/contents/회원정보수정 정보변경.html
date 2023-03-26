@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>통합회원</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 id="header-logo">
+                <a href="#"><span class="sr-only">이로움</span> 회원</a>
+            </h1>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="회원정보수정.html" class="navigation-link is-active">정보수정</a></li>
+                    <li><a href="회원탈퇴.html" class="navigation-link">회원탈퇴</a></li>
+                </ul>
+            </nav>
+            <ul id="family">
+                <li>
+                    <a href="#" class="family-link1">
+                        <div class="bubble">
+                            <small>시니어 라이프 케어 플랫폼</small>
+                            <strong>"이로움"</strong>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link2">
+                        <div class="bubble">
+                            <strong>이로움 멤버스</strong>
+                            <small>전국 2,432개 업체와 함께합니다</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link3">
+                        <div class="bubble">
+                            <strong><img src="../assets/images/txt-family3.svg" alt="이로움마켓"></strong>
+                            <small>
+                                복지용구 사업소와 수급자 매칭부터<br>
+                                주문, 계약 및 결제까지 한번에!
+                            </small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="container">
+        <header id="page-title">
+            <h2>
+                <span>회원정보수정</span>
+                <small>Member Modify</small>
+            </h2>
+        </header>
+
+        <div id="page-content">
+            <ul class="tabs">
+	            <li><a href="#" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
+	            <li><a href="#" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+	        </ul>
+            
+            <div class="member-modify mt-11 md:mt-15">
+                <form action="#" class="member-join-content">
+                    <div class="space-y-1 5">
+                        <p class="text-alert">회원님의 정보를 중 변경된 내용이 있는 경우, 아래에서 수정해주세요.</p>
+                        <p class="text-alert">회원정보는 개인정보취급방침에 따라 안전하게 보호됩니다.</p>
+                    </div>
+                    <p class="mt-8 text-title2">기본 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-22 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>이름</p></th>
+                                <td><p class="text-base font-bold md:text-lg">테스트3</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>아이디</p></th>
+                                <td><p class="text-base font-bold md:text-lg">tester3</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>생년월일</p></th>
+                                <td><p class="text-base font-bold md:text-lg">1987년 01월 01일</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>성별</p></th>
+                                <td><p class="text-base font-bold md:text-lg">남성</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>휴대폰 번호</p></th>
+                                <td>
+                                    <input id="mblTelno" name="mblTelno" class="form-control w-full max-w-73" oninput="autoHyphen(this);" type="text" value="010-0000-0022" maxlength="13"><p class="py-1.5 text-sm">전화번호를 입력해주세요</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="eml">이메일<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td><input id="eml" name="eml" class="form-control w-full max-w-73" type="text" value="test3@naver.com" maxlength="50"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="addr">주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td>
+                                    <div class="form-group w-full max-w-73">
+                                        <input id="zip" name="zip" class="form-control w161" type="text" value="46770" maxlength="5"><button type="button" class="btn btn-primary" style="padding: 0 0.75rem;" onclick="f_findAdres('zip', 'addr', 'daddr'); return false;">우편번호 검색</button>
+                                    </div>
+                                    <input id="addr" name="addr" class="form-control mt-1.5 w-full md:mt-2" type="text" value="부산 강서구 거가대로 2659" maxlength="200"><input id="daddr" name="daddr" class="form-control mt-1.5 w-full md:mt-2" type="text" value="그 어디쯤" maxlength="200">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p class="mt-8 text-title2">수급자 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-22 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="content-select py-1.5">
+                                        <div class="form-check">
+                                            <input id="recipterYn0" name="recipterYn" class="form-check-input" type="radio" value="N"><label class="form-check-label" for="recipterYn0">해당없음<small>(일반 회원)</small></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input id="recipterYn1" name="recipterYn" class="form-check-input" type="radio" value="Y" checked="checked"><label class="form-check-label" for="recipterYn1">장기요양등급 수급자<small>(수급자 회원)</small></label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="wrapNm">
+                                <th scope="row"><p><label for="recipter">수급자 성명</label></p></th>
+                                <td><input type="text" class="form-control w-full" id="recipter" name="recipter" maxlength="50" value="테스트3"></td>
+                            </tr>
+                            <tr class="wrapNo">
+                                <th scope="row"><p style="padding-left: 0;"><label for="rcperRcognNo">요양인정번호</label></p></th>
+                                <td>
+                                    <div class="form-group w-full">
+                                        <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+                                        <input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="0000000011">
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- <tr class="wrapGrade">
+                                <th scope="row"><p><label for="rcognGrad">등급선택</label></p></th>
+                                <td>
+                                    <select id="rcognGrad" name="rcognGrad" class="form-control w-full">
+                                        <option value="" class="noneGrade">등급 선택</option>
+                                        <option value="0" >등급 외</option>
+                                        <option value="1" selected="selected">1 등급</option>
+                                        <option value="2" >2 등급</option>
+                                        <option value="3" >3 등급</option>
+                                        <option value="4" >4 등급</option>
+                                        <option value="5" >5 등급</option>
+                                        <option value="6" >6 등급</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="wrapSelf">
+                                <th scope="row"><p style="padding-left: 0;"><label for="join-item2-4">본인부담금율</label></p></th>
+                                <td>
+                                    <select name="selfBndRt" id="selfBndRt" class="form-control w-full">
+                                        <option value="" class="noneGrade">본인부담금율 선택</option>
+                                        <option value="15, 일반대상자" >일반대상자(15%)</option>
+                                        <option value="9, 감경대상자" >감경대상자(9%)</option>
+                                        <option value="6, 감경대상자" selected="selected">감경대상자(6%)</option>
+                                        <option value="6, 의료급여수급권자" >의료급여수급권자(6%)</option>
+                                        <option value="0, 기초생활수급권자" >기초생활수급권자(0%)</option>
+                                    </select>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+
+                    <div class="content-button mt-4">
+                        <button type="button" class="btn btn-primary btn-large flex-1 md:flex-none md:w-73 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
+                        <button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">초기화</button>
+                    </div>
+
+                    <div class="content-recipient mt-9.5" id="wrapInfo">
+                        <div class="title">
+                            <p class="name">
+                                <strong id="searchNm">테스트3</strong> 님의
+                            </p>
+                            <p class="desc">장기요양 정보</p>
+                        </div>
+                        <div class="group1">
+                            <dl class="number">
+                                <dt>장기요양인정번호</dt>
+                                <dd id="searchNo">L0000000011</dd>
+                            </dl>
+                            <dl class="grade">
+                                <dt>등급</dt>
+                                <dd>
+                                    <img id="searchGrade" src="../assets/images/txt-grade-num3.svg">
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="group2">
+                            <dl class="percent">
+                                <dt>본인부담율</dt>
+                                <dd>
+                                    <strong id="searchQlf">6</strong> &nbsp;%
+                                </dd>
+                            </dl>
+                            <dl class="date">
+                                <dt>인정유효기간</dt>
+                                <dd>
+                                    <p id="searchBgngRcgt"></p>
+                                    <p id="searchEndRcgt">~&nbsp;</p>
+                                </dd>
+                            </dl>
+                            <dl class="date">
+                                <dt>적용기간</dt>
+                                <dd>
+                                    <p id="searchBgngApdt"></p>
+                                    <p id="searchEndApdt">~&nbsp;</p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <dl class="price1">
+                            <dt>급여잔액</dt>
+                            <dd>
+                                <strong id="searchRemn">0</strong> &nbsp; 원 <small id="formatKo"></small>
+                            </dd>
+                        </dl>
+                        <dl class="price2">
+                            <dt>사용금액</dt>
+                            <dd>
+                                <strong id="searchUseAmt">0</strong> 원
+                            </dd>
+                        </dl>
+                    </div>
+            
+                    <p class="mt-11 text-title2">선택 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-22 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item-inter1">관심분야</label></p></th>
+                                <td>
+                                    <div class="content-interest">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter1">
+                                            <label class="form-check-label" for="join-item-inter1">지원</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter2">
+                                            <label class="form-check-label" for="join-item-inter2">보호</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter3">
+                                            <label class="form-check-label" for="join-item-inter3">상담</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter4">
+                                            <label class="form-check-label" for="join-item-inter4">보건</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter5">
+                                            <label class="form-check-label" for="join-item-inter5">고용</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter6">
+                                            <label class="form-check-label" for="join-item-inter6">문화</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter7">
+                                            <label class="form-check-label" for="join-item-inter7">주거</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter8">
+                                            <label class="form-check-label" for="join-item-inter8">교육</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>
+                                    <p class="text-sm">
+                                        현재 관심있는 분야를 선택하고<br>
+                                        시니어에게 필요한 복지서비스를 추천받으세요
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="telno">전화번호</label></p></th>
+                                <td>
+                                    <input id="telno" name="telno" class="form-control w-full max-w-73" type="text" value="010-0000-1234" maxlength="13"><p class="text-sm mt-2.5">숫자만 입력해주세요</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3-3">개인정보<br class="xs:hidden"> 유효기간</label></p></th>
+                                <td>
+                                    <div class="form-check-group w-full max-w-73">
+                                        <div class="form-check">
+                                            <input id="prvcVldPd0" name="prvcVldPd" class="form-check-input" type="radio" value="OUT" checked="checked"><label class="form-check-label" for="prvcVldPd0">회원 탈퇴시까지</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input id="prvcVldPd1" name="prvcVldPd" class="form-check-input" type="radio" value="3Y"><label class="form-check-label" for="prvcVldPd1">3년</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input id="prvcVldPd2" name="prvcVldPd" class="form-check-input" type="radio" value="1Y"><label class="form-check-label" for="prvcVldPd2">1년</label>
+                                        </div>
+                                        </div>
+                                    <p class="mt-1.5 text-sm">
+                                        <strong>선택 시</strong>, 장기 미접속시에도 휴면회원으로 전환되지 않고 회원 혜택을 받으실 수 있습니다.
+                                    </p>
+                                    <p class="mt-1.5 text-sm">
+                                        <strong>미선택시</strong>, 개인정보 유효기간은 1년입니다.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3-4">정보수신</label></p></th>
+                                <td>
+                                    <div class="py-1.5 md:py-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="allchk">
+                                            <label class="form-check-label" for="allchk">전체 수신</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-1.5 flex flex-wrap md:mt-2">
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="smsRcptnYn1" name="smsRcptnYn" class="form-check-input" type="checkbox" value="Y" checked="checked"><input type="hidden" name="_smsRcptnYn" value="on"><label class="form-check-label" for="smsRcptnYn1">SMS</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="emlRcptnYn1" name="emlRcptnYn" class="form-check-input" type="checkbox" value="Y" checked="checked"><input type="hidden" name="_emlRcptnYn" value="on"><label class="form-check-label" for="emlRcptnYn1">이메일</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="telRecptnYn1" name="telRecptnYn" class="form-check-input" type="checkbox" value="Y" checked="checked"><input type="hidden" name="_telRecptnYn" value="on"><label class="form-check-label" for="telRecptnYn1">전화</label>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm">이벤트 및 다양한 정보를 받으실 수 있습니다.</p>
+                                    <p class="mt-1.5 text-sm">수신 동의와 상관없이 주문/배송 관련 SMS/메일은 발송 됩니다.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>프로필 사진</p></th>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <div class="w-31 h-31">
+                                                <img src="/comm/PROFL/getFile?fileName=202301160950305481.gif" alt="" class="w-full h-full object-cover" id="profImg">
+                                            </div>
+                                        <div class="form-upload" style="display: none;">
+                                            <label for="uploadFile" class="form-upload-trigger">파일을 선택해주세요</label>
+                                            <input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="delBtn" onclick="f_delProflImg(); return false;">삭제</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                    <div class="content-button mt-20 md:mt-25">
+                        <button type="submit" class="btn btn-primary btn-large sm:w-53 sm-max:flex-1">확인</button>
+                        <a href="/market/mypage" class="btn btn-outline-primary btn-large w-[37.5%] sm:w-37">취소</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <p>COPYRIGHT ⓒ <strong>E·ROUM</strong>. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

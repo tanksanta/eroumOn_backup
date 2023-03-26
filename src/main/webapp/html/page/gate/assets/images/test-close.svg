@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Rectangle 5</title>
+    <g id="test" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-5" transform="translate(-1864.000000, -37.000000)" fill="#FFFFFF">
+            <path d="M1872.5,35 C1873.32843,35 1874,35.6715729 1874,36.5 L1874,44 L1881.5,44 C1882.32843,44 1883,44.6715729 1883,45.5 C1883,46.3284271 1882.32843,47 1881.5,47 L1874,47 L1874,54.5 C1874,55.3284271 1873.32843,56 1872.5,56 C1871.67157,56 1871,55.3284271 1871,54.5 L1871,47 L1863.5,47 C1862.67157,47 1862,46.3284271 1862,45.5 C1862,44.6715729 1862.67157,44 1863.5,44 L1871,44 L1871,36.5 C1871,35.6715729 1871.67157,35 1872.5,35 Z" id="Rectangle-5" transform="translate(1872.500000, 45.500000) rotate(45.000000) translate(-1872.500000, -45.500000) "></path>
+        </g>
+    </g>
+</svg>

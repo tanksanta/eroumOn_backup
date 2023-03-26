@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="#{props['Mail.Host']}" />
+	    <property name="port" value="#{props['Mail.Port']}" />
+	    <property name="username" value="#{props['Mail.Username']}" />
+	    <property name="password" value="#{props['Mail.Password']}" />
+	    <property name="javaMailProperties">
+	        <props>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+	        </props>
+	    </property>
+	</bean>
+
+</beans>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.itrst">
+
+	<resultMap type="itrstVO" id="itrstVOMap" autoMapping="true" >
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+	</resultMap>
+
+	<resultMap type="itrstVO" id="itrstListVOMap" autoMapping="true"  />
+
+
+	<sql id="listColumn">
+		itrst_no
+		, itrst_ty
+		, ctgry_no
+		, bplc_unique_id
+		, reg_unique_id
+		, reg_id
+		, reg_dt
+		, rgtr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchBplcUniqueId != null and srchBplcUniqueId != '' ">
+			AND bplc_unique_id = #{srchBplcUniqueId}
+		</if>
+		<if test="srchItrstTy != null and srchItrstTy != '' ">
+			AND itrst_ty = #{srchItrstTy}
+		</if>
+		<if test="srchCtgryNo != null and srchCtgryNo != '' ">
+			AND ctgry_no = #{srchCtgryNo}
+		</if>
+	</sql>
+
+
+	<select id="selectGdsCtgryList" parameterType="java.util.HashMap" resultMap="itrstListVOMap">
+		SELECT
+			gc.*, rnd.*
+		FROM GDS_CTGRY gc
+		LEFT JOIN
+			(SELECT g.ctgry_no, g.gds_no, gi.FILE_NO
+			FROM GDS g
+			LEFT JOIN GDS_IMG gi ON g.GDS_NO = gi.GDS_NO AND gi.FILE_TY = 'THUMB' AND
+			gi.USE_YN = 'Y'
+			WHERE g.use_yn = 'Y'
+			ORDER BY RAND()
+			) AS rnd
+		ON gc.ctgry_no = rnd.ctgry_no
+		WHERE gc.up_ctgry_no = 2 AND gc.use_yn = 'Y'
+		GROUP BY gc.ctgry_no
+		ORDER BY gc.sort_no ASC;
+	</select>
+
+	<!--  관심사업소, 카테고리 등록 -->
+	<insert id="insertItrst" parameterType="itrstVO">
+		INSERT INTO MBR_ITRST(
+			itrst_ty
+			, ctgry_no
+			, bplc_unique_id
+			, reg_unique_id
+			, reg_id
+			, reg_dt
+			, rgtr
+		)VALUES(
+			#{itrstTy}
+			, #{ctgryNo}
+			, #{bplcUniqueId}
+			, #{regUniqueId}
+			, #{regId}
+			, SYSDATE()
+			, #{rgtr}
+		)
+	</insert>
+
+	<!-- 관심사업소, 카테고리 조회 -->
+	<select id="selectItrstListAll" parameterType="java.util.HashMap" resultMap="itrstVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_ITRST
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY itrst_no DESC
+	</select>
+
+	<!-- 관심사업소, 카테고리 삭제 -->
+	<delete id="deleteItrst" parameterType="java.util.HashMap">
+		DELETE FROM MBR_ITRST
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</delete>
+
+
+</mapper>

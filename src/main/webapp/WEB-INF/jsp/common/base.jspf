@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn"     uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="double-submit" uri="/WEB-INF/tld/double-submit.tld" %>
+<%@ taglib prefix="fnc"  	uri="/WEB-INF/tld/function.tld"%>
+<%@ taglib prefix="mngr"   uri="/WEB-INF/tld/mngr.tld"%>
+<%@ taglib prefix="mngrAuth"   uri="/WEB-INF/tld/mngr-authority.tld"  %>
+<%@ taglib prefix="front"  uri="/WEB-INF/tld/front.tld"%>
+
+<% pageContext.setAttribute("newlineChar", "\n"); %>

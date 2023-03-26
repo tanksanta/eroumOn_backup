@@ -1,0 +1,60 @@
+@layer components {
+    .table-list, .table-detail {
+        @apply table-fixed -mx-1.5 w-[calc(100%_+_0.75rem)] border-separate border-spacing-1.5 leading-tight;
+        & th, & td {
+            @apply p-0 border-0 h-5;
+        }
+        & th {
+            @apply text-[0.8125rem] md:text-sm font-bold tracking-tight;
+            & p {
+                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md md:px-3 md:pb-2.5 md:pt-5;
+            }
+        }
+        & td {
+            @apply px-3 py-2.5 border-t border-t-gray2;
+        }
+        & .top-border, & .bot-border {
+            & td {
+                @apply p-0 h-1 border-t-0 rounded-full bg-gray2;
+            }
+        }
+        & .top-border {
+            & td {
+                &:first-child {
+                    @apply bg-black2;
+                }
+            }
+        }
+    }
+    
+    .table-list {
+        & tr {
+            &:first-child {
+                & td {
+                    @apply border-t-0;
+                }
+            }
+            &.top-border, &.bot-border {
+                & + tr {
+                    & td {
+                        @apply border-t-0;
+                    }
+    
+                }
+            }
+        }
+    }
+    
+    .table-detail {
+        & tr {
+            & th {
+                & p {
+                    @apply items-center justify-end text-right;
+                }
+            }
+            & td {
+                @apply border-t-0 p-0;
+            }
+        }
+    }
+}

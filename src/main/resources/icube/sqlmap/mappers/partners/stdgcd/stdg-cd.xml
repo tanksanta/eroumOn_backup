@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="partners.stdgCd">
+
+	<resultMap type="stdgCdVO" id="stdgCdMap" autoMapping="true" />
+
+	<sql id="searchConditions">
+		<if test="levelNo > 0">
+			AND level_no = #{levelNo}
+		</if>
+		<if test="stdgCd !=null and stdgCd != ''">
+			AND stdg_cd LIKE CONCAT(SUBSTRING(#{stdgCd},1, 2), '%')
+		</if>
+		<if test="ctpvNm !=null and ctpvNm != ''">
+			AND ctpv_nm = #{ctpvNm}
+		</if>
+		<if test="stdgCode != null and stdgCode != '' ">
+			AND stdg_cd = #{stdgCode}
+		</if>
+	</sql>
+
+	<select id="selectStdgCdListAll" parameterType="java.util.HashMap" resultMap="stdgCdMap">
+		SELECT
+			stdg_cd
+			, ctpv_nm
+			, sgg_nm
+			, level_no
+		FROM STDG_CD sc
+		WHERE 1=1
+		<include refid="searchConditions" />
+		ORDER BY ctpv_nm ASC, sgg_nm ASC
+	</select>
+
+	<select id="selectStdgCd" parameterType="java.util.HashMap" resultType="stdgCdVO">
+		SELECT
+			stdg_cd
+			, ctpv_nm
+			, sgg_nm
+			, level_no
+		FROM STDG_CD sc
+		WHERE 1=1
+			 <include refid="searchConditions" />
+	</select>
+</mapper>

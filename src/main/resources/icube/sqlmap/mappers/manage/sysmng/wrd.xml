@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wrd">
+
+	<resultMap type="mngWrdVO" id="mngWrdVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		wrd_no
+		, prhibt_wrd
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			AND prhibt_wrd like CONCAT('%', #{srchText}, '%')
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+	</sql>
+
+	<select id="selectMngWrdListVO" parameterType="java.util.HashMap" resultMap="mngWrdVOMap">
+		/* Query ID : wrd.xml > selectMngWrdListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM PRHIBT_WRD_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY wrd_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+
+	<select id="selectMngWrdListCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : wrd.xml > selectMngWrdCount */
+		SELECT	COUNT(*)
+		FROM	PRHIBT_WRD_MNG
+		WHERE	1=1
+		<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectMngWrd" parameterType="java.util.HashMap" resultMap="mngWrdVOMap">
+		/* Query ID : wrd.xml > selectMngWrd */
+		SELECT
+		<include refid="listColumn"/>
+		FROM PRHIBT_WRD_MNG
+		WHERE  wrd_no = #{wrdNo}
+	</select>
+
+	<select id="selectMngWrdNm" parameterType="java.util.HashMap" resultMap="mngWrdVOMap">
+		/* Query ID : wrd.xml > selectMngWrdNm */
+		SELECT
+		<include refid="listColumn" />
+		FROM PRHIBT_WRD_MNG
+		WHERE prhibt_wrd = #{wrdNm}
+	</select>
+
+
+	<insert id="insertMngWrd" parameterType="mngWrdVO">
+	/* Query ID : wrd.xml > insertMngWrd */
+	INSERT INTO PRHIBT_WRD_MNG (
+		prhibt_wrd
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	) VALUES (
+	#{prhibtWrd, jdbcType=VARCHAR}
+	, #{useYn, jdbcType=VARCHAR}
+	, #{regUniqueId, jdbcType=VARCHAR}
+	, SYSDATE()
+	, #{regId, jdbcType=VARCHAR}
+	, #{rgtr, jdbcType=VARCHAR}
+	)
+	</insert>
+
+
+	<update id="updateMngWrd" parameterType="mngWrdVO">
+		/* Query ID : wrd.xml > updateMngWrd */
+		UPDATE	 PRHIBT_WRD_MNG SET
+			prhibt_wrd = #{prhibtWrd, jdbcType=VARCHAR}
+			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	wrd_no = #{wrdNo}
+	</update>
+
+</mapper>

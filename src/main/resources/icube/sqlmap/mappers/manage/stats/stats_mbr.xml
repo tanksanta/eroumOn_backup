@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stats.mbr">
+
+	<resultMap type="statsMbrVO" id="statsMbrVOMap" autoMapping="true"  />
+
+	<sql id="searchConditions" >
+		<choose>
+			<when test='srchRegDt != null and srchRegDt == "DAY" '>
+				<choose>
+					<when test='srchBgngDt != null and srchBgngDt != "" and srchEndDt != null and srchEndDt != "" '>
+						AND #{srchBgngDt} &lt;= date AND date &lt;= #{srchEndDt}
+					</when>
+					<when test='srchBgngDt != null and srchBgngDt != "" '>
+						AND #{srchBgngDt} &lt;= date
+					</when>
+					<when test='srchEndDt != null and srchEndDt != "" '>
+						AND date &lt;= #{srchEndDt}
+					</when>
+				</choose>
+			</when>
+
+			<when test='srchRegDt != null and srchRegDt == "MONTH" '>
+				<choose>
+					<when test='srchBgngDt != null and srchBgngDt != "" and srchEndDt != null and srchEndDt != "" '>
+						AND DATE_FORMAT(#{srchBgngDt},'%Y-%m') &lt;= date AND date &lt;= DATE_FORMAT(#{srchEndDt},'%Y-%m')
+					</when>
+					<when test='srchBgngDt != null and srchBgngDt != "" '>
+						AND DATE_FORMAT(#{srchBgngDt},'%Y-%m') &lt;= date
+					</when>
+					<when test='srchEndDt != null and srchEndDt != "" '>
+						AND date &lt;= DATE_FORMAT(#{srchEndDt},'%Y-%m')
+					</when>
+				</choose>
+			</when>
+
+			<when test='srchRegDt != null and srchRegDt == "YEAR" '>
+				<choose>
+					<when test='srchBgngDt != null and srchBgngDt != "" and srchEndDt != null and srchEndDt != "" '>
+						AND DATE_FORMAT(#{srchBgngDt},'%Y') &lt;= date AND date &lt;= DATE_FORMAT(#{srchEndDt},'%Y')
+					</when>
+					<when test='srchBgngDt != null and srchBgngDt != "" '>
+						AND DATE_FORMAT(#{srchBgngDt},'%Y') &lt;= date
+					</when>
+					<when test='srchEndDt != null and srchEndDt != "" '>
+						AND date &lt;= DATE_FORMAT(#{srchEndDt},'%Y')
+					</when>
+				</choose>
+			</when>
+		</choose>
+	</sql>
+
+	<sql id="formatConditions">
+		<choose>
+			<when test='srchRegDt != null and srchRegDt == "DAY" '>
+				'%Y-%m-%d'
+			</when>
+			<when test='srchRegDt != null and srchRegDt == "MONTH" '>
+				'%Y-%m'
+			</when>
+			<when test='srchRegDt != null and srchRegDt == "YEAR" '>
+				'%Y'
+			</when>
+			<when test='(srchRegDt == null or srchRegDt == "" )'>
+				'%Y-%m-%d'
+			</when>
+		</choose>
+	</sql>
+
+
+	<select id="selectJoinMap" parameterType="java.util.HashMap" resultType="egovMap">
+		/* Query ID : stats.mbr.selectJoinMap */
+		SELECT
+
+			(SELECT COUNT(*) FROM MBR WHERE RECIPTER_YN = 'N') AS NORMAL,
+			(SELECT COUNT(*) FROM MBR WHERE RECIPTER_YN = 'Y') AS RECIPTER,
+			(SELECT COUNT(*) FROM MBR WHERE mber_sttus != 'EXIT') AS TOTAL
+	</select>
+
+	<select id="selectJoinList" parameterType="java.util.HashMap" resultMap="statsMbrVOMap">
+		/* Query ID : stats.mbr.selectJoinList */
+		SELECT
+		  case
+		    when mber_sttus = 'EXIT' then DATE_FORMAT(whdwl_dt, <include refid="formatConditions" />)
+		    ELSE DATE_FORMAT(join_dt, <include refid="formatConditions" />)
+		  END AS date
+		  , SUM( IF(m.recipter_yn = 'Y', IF(m.mber_sttus = 'EXIT', 1, 0), 0) ) AS rexit
+		  , SUM( IF(m.recipter_yn = 'Y', IF(m.mber_sttus != 'EXIT', 1, 0), 0) ) AS rjoin
+		  , SUM( IF(m.recipter_yn = 'N', IF(m.mber_sttus = 'EXIT', 1, 0), 0) ) AS nexit
+		  , SUM( IF(m.recipter_yn = 'N', IF(m.mber_sttus != 'EXIT', 1, 0), 0) ) AS rjoin
+		  , SUM( IF(m.mber_sttus != 'EXIT', 1, 0) ) AS jtotal
+  		  , SUM( IF(m.mber_sttus = 'EXIT', 1, 0)) AS etotal
+		FROM MBR m
+		GROUP BY date
+		HAVING 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectDrmcMap" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+			(SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'HUMAN') AS drmc_total
+			, (SELECT COUNT(*) FROM MBR WHERE DATE_ADD(DATE_FORMAT(DATE_ADD(RECENT_CNTN_DT,INTERVAL 1 YEAR),'%Y-%m-%d'),INTERVAL -1 MONTH) &lt; DATE(NOW()) AND DATE(NOW()) &lt; DATE_FORMAT(DATE_ADD(RECENT_CNTN_DT,INTERVAL 1 YEAR),'%Y-%m-%d')) AS drmc_ex
+	</select>
+
+	<select id="selectDrmcList" parameterType="java.util.HashMap" resultMap="statsMbrVOMap">
+		/* Query ID : stats.mbr.selectDrmcList */
+		SELECT
+			DATE_FORMAT(m.mdfcn_dt,<include refid="formatConditions" /> ) AS date
+			, SUM( IF(m.mber_sttus = 'HUMAN', 1, 0) ) AS drmc
+			, SUM(IF(DATE_FORMAT(DATE_ADD(DATE_ADD(m.recent_cntn_dt, INTERVAL 1 YEAR),INTERVAL -1 MONTH),<include refid="formatConditions" />) &lt; DATE(DATE_FORMAT(NOW(),<include refid="formatConditions" />)) AND DATE(DATE_FORMAT(NOW(),<include refid="formatConditions" />)) &lt; DATE_FORMAT(DATE_ADD(m.recent_cntn_dt, INTERVAL 1 YEAR),<include refid="formatConditions" />) , 1, 0)) AS wdrmc
+		FROM MBR m
+		GROUP BY date
+		HAVING 1=1 AND 	date != ''
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectGenderList" parameterType="java.util.HashMap" resultMap="statsMbrVOMap">
+		/* Query ID : stats.mbr.selectDrmcList */
+			SELECT DATE_FORMAT(m.join_dt,<include refid="formatConditions" />) AS date
+				, SUM(IF(m.mber_sttus = 'NORMAL',1,0)) AS total
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF( ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_child
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_twenty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_thirty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_forty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_fifty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_sixty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_seventy
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'M', 1, 0), 0)) AS mn_total
+
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_child
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_twenty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_thirty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_forty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_fifty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_sixty
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_seventy
+				, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'W', 1, 0), 0)) AS wm_total
+
+			FROM MBR m
+			GROUP BY date
+			HAVING 1=1 AND date != ''
+		<include refid="searchConditions" />
+	</select>
+
+	<select id="selectGenderMap" parameterType="java.util.HashMap" resultType="egovMap">
+	SELECT
+		(SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL') AS total
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 20 AND gender = 'M') AS mn_child
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 19 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 30 AND gender = 'M') AS mn_twenty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 29 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 40 AND gender = 'M') AS mn_thirty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 39 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 50 AND gender = 'M') AS mn_forty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 49 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 60 AND gender = 'M') AS mn_fifty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 59 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 70 AND gender = 'M') AS mn_sixty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 69 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND gender = 'M') AS mn_seventy
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND gender = 'M') AS mn_total
+
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 20 AND gender = 'W') AS wn_child
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 19 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 30 AND gender = 'W') AS wn_twenty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 29 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 40 AND gender = 'W') AS wn_thirty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 39 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 50 AND gender = 'W') AS wn_forty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 49 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 60 AND gender = 'W') AS wn_fifty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 59 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) &lt; 70 AND gender = 'W') AS wn_sixty
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND 69 &lt; ROUND(DATEDIFF(DATE(NOW()), brdt) / 365) AND gender = 'W') AS wn_seventy
+		, (SELECT COUNT(*) FROM MBR WHERE mber_sttus = 'NORMAL' AND gender = 'W') AS wn_total
+
+	</select>
+
+	<select id="selectCoursList" parameterType="java.util.HashMap" resultMap="statsMbrVOMap">
+		/* Query ID : stats.mbr.selectDrmcList */
+		SELECT join_cours
+			, DATE_FORMAT(m.join_dt,<include refid="formatConditions" />) AS date
+			, SUM(IF(m.mber_sttus = 'NORMAL',1,0)) AS total
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF( ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_child
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_twenty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_thirty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_forty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_fifty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_sixty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_seventy
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'M', 1, 0), 0)) AS mn_total
+
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_child
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_twenty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_thirty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_forty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_fifty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_sixty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_seventy
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'W', 1, 0), 0)) AS wm_total
+
+		FROM MBR m
+		GROUP BY join_cours
+		HAVING 1=1 AND join_cours != ''
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectGradeList" parameterType="java.util.HashMap" resultMap="statsMbrVOMap">
+		/* Query ID : stats.mbr.selectDrmcList */
+		SELECT
+			mber_grade
+			, DATE_FORMAT(m.join_dt,<include refid="formatConditions" />) AS date
+			, SUM(IF(m.mber_sttus = 'NORMAL',1,0)) AS total
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF( ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_child
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_twenty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_thirty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_forty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_fifty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_sixty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'M', 1, 0), 0), 0)) AS mn_seventy
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'M', 1, 0), 0)) AS mn_total
+
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 20, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_child
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(19 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 30, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_twenty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(29 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 40, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_thirty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(39 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 50, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_forty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(49 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 60, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_fifty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(59 &lt; ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) AND ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) &lt; 70, IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_sixty
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(70 &lt;= ROUND(DATEDIFF(DATE(NOW()),m.brdt) / 365) , IF(m.gender = 'W', 1, 0), 0), 0)) AS wm_seventy
+			, SUM(IF(m.mber_sttus = 'NORMAL', IF(m.gender = 'W', 1, 0), 0)) AS wm_total
+
+		FROM MBR m
+		GROUP BY mber_grade
+		HAVING 1=1 AND mber_grade != ''
+			<include refid="searchConditions" />
+	</select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.3.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+			">
+
+	<!-- 관리자 세션 -->
+	<bean id="MngrRequestHolder" class="icube.common.framework.request.RequestHolder" scope="request">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+	<bean id="mngrSession" class="icube.manage.sysmng.mngr.biz.MngrSession" scope="session">
+		<aop:scoped-proxy proxy-target-class="true"/>
+		<property name="request" ref="MngrRequestHolder" />
+	</bean>
+
+	<!-- 사용자 세션 -->
+	<bean id="MbrRequestHolder" class="icube.common.framework.request.RequestHolder" scope="request">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+	<bean id="mbrSession" class="icube.market.mbr.biz.MbrSession" scope="session">
+		<aop:scoped-proxy proxy-target-class="true"/>
+		<property name="request" ref="MbrRequestHolder" />
+	</bean>
+
+	<!-- 파트너스 세션 -->
+	<bean id="PartnersRequestHolder" class="icube.common.framework.request.RequestHolder" scope="request">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+	<bean id="partnersSession" class="icube.members.biz.PartnersSession" scope="session">
+		<aop:scoped-proxy proxy-target-class="true"/>
+		<property name="request" ref="PartnersRequestHolder" />
+	</bean>
+
+</beans>

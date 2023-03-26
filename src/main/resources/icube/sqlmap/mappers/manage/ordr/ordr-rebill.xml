@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordr.rebill">
+
+	<resultMap type="ordrRebillVO" id="ordrRebillVOMap" autoMapping="true" />
+
+	<resultMap type="ordrVO" id="ordrVOMap" autoMapping="true">
+		<collection property="ordrDtlList" 	column="{ordrNo=ordr_no, ordrCd=ordr_cd}" select="ordr.dtl.selectOrdrDtlList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		 rebill_no
+		 , ordr_no
+		 , ordr_cd
+		 , ordr_cnt
+		 , stlm_amt
+		 , stlm_yn
+		 , stlm_dt
+		 , delng_no
+		 , card_co_nm
+		 , card_no
+		 , card_aprvno
+		 , memo
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<if test="srchOrdrNo !=null and srchOrdrNo != ''">
+			AND ordr_no = #{srchOrdrNo}
+		</if>
+		<if test="srchOrdrCd !=null and srchOrdrCd != ''">
+			AND ordr_cd = #{srchOrdrCd}
+		</if>
+		<if test="srchStlmYn !=null and srchStlmYn != ''">
+			AND stlm_yn = #{srchStlmYn}
+		</if>
+	</sql>
+
+	<select id="selectOrdrRebillListVO" parameterType="java.util.HashMap" resultMap="ordrRebillVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR_REBILL
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY rebill_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectOrdrRebillCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT	COUNT(*)
+		FROM ORDR_REBILL
+		WHERE 1=1
+			<include refid="searchConditions"/>
+	</select>
+
+
+	<select id="selectOrdrRebillListAll" parameterType="java.util.HashMap" resultMap="ordrRebillVOMap">
+		/* Query ID : ordr.rebill.selectOrdrRebillListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR_REBILL
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY rebill_no DESC
+	</select>
+
+
+	<select id="selectOrdrRebill" parameterType="java.util.HashMap" resultMap="ordrRebillVOMap">
+		/* Query ID : ordr.rebill.selectOrdrRebill */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ORDR_REBILL
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY rebill_no DESC
+		LIMIT 1
+	</select>
+
+
+	<insert id="insertOrdrRebill" parameterType="ordrRebillVO">
+		/* Query ID : ordr.rebill.insertOrdrRebill */
+		INSERT INTO ORDR_REBILL (
+			 ordr_no
+			 , ordr_cd
+			 , ordr_cnt
+			 , stlm_amt
+			 , stlm_yn
+			 , stlm_dt
+			 , delng_no
+			 , card_co_nm
+			 , card_no
+			 , card_aprvno
+			 , memo
+		) VALUES (
+			#{ordrNo}
+			 , #{ordrCd, jdbcType=VARCHAR}
+			 , (SELECT COUNT(*) FROM ORDR_REBILL or2 WHERE or2.stlm_yn = 'Y' AND or2.ordr_cd = #{ordrCd}) + 1
+			 , #{stlmAmt}
+			 , #{stlmYn, jdbcType=VARCHAR}
+			 , #{stlmDt, jdbcType=VARCHAR}
+			 , #{delngNo, jdbcType=VARCHAR}
+			 , #{cardCoNm, jdbcType=VARCHAR}
+			 , #{cardNo, jdbcType=VARCHAR}
+			 , #{cardAprvno, jdbcType=VARCHAR}
+			 , #{memo, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+
+	<!-- 월 미결제 리스트 -->
+	<select id="selectRebillList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		SELECT
+	 		o.ordr_no
+			 , o.ordr_cd
+			 , o.unique_id
+			 , o.ordr_ty
+			 , o.ordr_dt
+			 , o.ordrr_id
+			 , o.ordrr_nm
+			 , o.ordrr_eml
+			 , o.ordrr_telno
+			 , o.ordrr_mbl_telno
+			 , o.ordrr_zip
+			 , o.ordrr_addr
+			 , o.ordrr_daddr
+			 , o.ordrr_memo
+			 , o.recptr_nm
+			 , o.recptr_telno
+			 , o.recptr_mbl_telno
+			 , o.recptr_zip
+			 , o.recptr_addr
+			 , o.recptr_daddr
+
+			 , o.use_mlg
+			 , o.use_point
+
+			 , o.stlm_device
+			 , o.stlm_ty
+			 , o.stlm_amt
+			 , o.stlm_yn
+			 , o.stlm_dt
+
+		     , o.delng_no
+
+		     , o.billing_yn
+		     , o.billing_key
+		     , o.billing_day
+
+		     , o.card_co_nm
+		     , o.card_no
+		     , o.card_aprvno
+		     , o.card_prtc_yn
+
+		     , o.vr_actno
+		     , o.dpst_bank_cd
+		     , o.dpst_bank_nm
+		     , o.dpstr
+		     , o.pyr_nm
+		     , o.dpst_term_dt
+
+			 , o.cashrcipt_yn
+			 , o.cashrcipt_no
+		FROM ORDR o
+		WHERE o.ordr_ty = 'L'
+		  AND o.billing_yn = 'Y'
+		  AND o.billing_day &lt;= #{srchBillingDay}
+		  AND o.ordr_cd NOT IN (SELECT orb.ordr_cd FROM ORDR_REBILL orb WHERE DATE_FORMAT(orb.stlm_dt, '%Y-%m') = DATE_FORMAT(SYSDATE(), '%Y-%m') AND orb.stlm_yn = 'Y')
+	</select>
+
+
+</mapper>

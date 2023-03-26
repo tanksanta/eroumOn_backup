@@ -1,0 +1,281 @@
+.payment-shipping {
+    @apply relative p-3 pt-4.5 overflow-hidden rounded-[1rem] border border-gray1 leading-tight tracking-tight;
+    & dl {
+        @apply px-3 md:px-4;
+        & dt {
+            @apply text-sm font-medium;
+        }
+        & dd {
+            @apply mt-2.5 space-y-0.5 font-bold font-serif text-xl lg:text-2xl;
+        }
+    }
+    & .shipping-name, & .shipping-call {
+        @apply float-left pt-1.5;
+    }
+    & .shipping-name {
+        @apply w-1/2 md:w-41;
+    }
+    & .shipping-call {
+        @apply w-1/2 md:w-auto;
+    }
+    & .shipping-addr {
+        @apply clear-both float-none pt-2;
+    }
+    & .shipping-msgs {
+        @apply mt-7 pt-3 px-4 pb-12 rounded-md bg-gray2 md:mt-8.5 md:pt-4 md:px-5.5 md:pb-15;
+        & dd {
+            @apply mt-8 text-center font-normal;
+        }
+    }
+}
+
+.payment-refund {
+    @apply justify-between p-3 overflow-hidden rounded-[1rem] border border-gray1 bg-no-repeat bg-[url(../images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem] md:flex;
+    & .refund-method {
+        @apply flex tracking-tight font-medium md:mt-2;
+        & dt {
+            @apply mr-6 text-sm mt-1.5;
+        }
+        & dd {
+            @apply text-[1.375rem] md:text-2xl;
+        }
+    }
+    & .refund-account {
+        @apply mt-4 tracking-tight font-medium md:mt-0 md:flex;
+        & dt {
+            @apply mt-3.5 mr-6 text-sm;
+        }
+        & dd {
+            @apply px-5 pt-2.5 pb-3.5 mt-2.5 w-full rounded-md bg-[#FFC839] md:mt-0 md:px-6 md:pt-3.5 md:pb-4.5 md:w-92;
+        }
+        & .bank {
+            @apply text-base font-bold md:text-lg;
+        }
+        & .code {
+            @apply mt-6.5 text-2xl leading-tight font-bold text-center md:mt-8 md:text-3xl;
+        }
+        & .name {
+            @apply mt-6.5 leading-tight text-right md:mt-8;
+            & strong {
+                @apply text-lg md:text-xl;
+            }
+        }
+    }
+}
+
+.payment-amount {
+    @apply relative p-3 overflow-hidden rounded-[1rem] border border-gray1 text-[0.8125rem] font-bold leading-[1.428] md:flex md:text-sm;
+    & .amount-section {
+        @apply ml-19 flex-1 md:ml-0;
+        & .price {
+            @apply pt-2.5 md:pl-4.5 md:pr-6;
+            & dd {
+                @apply leading-tight text-right mt-3 flex-1 md:mt-4;
+                & strong {
+                    @apply text-[1.375rem] tracking-normal leading-tight align-middle md:text-2xl;
+                }
+            }
+        }
+        & .detail {
+            @apply rounded-md mt-3.5 py-2 px-4 bg-gray2 text-sm md:mt-4.5 md:py-2.5 md:px-5;
+            & dl {
+                @apply flex flex-wrap py-2 md:py-2.5;
+                & dt {
+                    @apply mt-0.5 font-medium flex-none md:w-21;
+                }
+                & dd {
+                    @apply flex-1 pl-2 text-right whitespace-nowrap;
+                    & strong {
+                        @apply tracking-normal leading-tight text-base md:text-lg;
+                    }   
+                }
+            }
+        }
+        &.is-latest {
+            & .price {
+                @apply md:pr-0;
+                & strong {
+                    @apply text-red3;
+                }
+            }
+            & .detail {
+                @apply md:pb-14;
+            }
+        }
+    }
+    & .amount-calculator {
+        @apply btn-icon flex flex-none mt-6 -mx-3 -mb-20 h-20 bg-cover md:h-[6.625rem] md:mb-0 md:-mt-2 md:-ml-6 md:-mr-5;
+        &.is-plus {
+            @apply bg-[url(../images/ico-payment-plus.png)];
+        }
+        &.is-minus {
+            @apply bg-[url(../images/ico-payment-minus.png)];
+        }
+        &.is-equal {
+            @apply bg-[url(../images/ico-payment-equal.png)];
+        }
+    }
+    & .amount-mileage {
+        @apply left-5 bottom-0 flex items-start -mb-3 mt-4 md:mb-0 md:mt-0 md:absolute;
+        & dd {
+            @apply flex flex-col ml-1.5 pb-1.5 pl-17 justify-end bg-no-repeat bg-left-bottom bg-[length:auto_3.5rem] bg-[url(../images/txt-mileage.svg)] md:pb-2 md:pl-20 md:bg-[length:auto_4.25rem];
+        }
+        & .point {
+            @apply flex pr-5.5 w-fit bg-no-repeat bg-[right_center] bg-[url(../images/ico-mileage.svg)] bg-[length:1.125rem] font-serif leading-none text-3xl md:text-5xl;
+        }
+        & .desc {
+            @apply mt-1 font-normal md:mt-2;
+        }
+    }
+}
+
+.payment-customer {
+    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] select-none leading-tight tracking-tight space-y-6.5 ring-px ring-inset ring-[#707070] md:p-7 md:pb-11 md:space-y-8;
+    &::after {
+        @apply content-empty absolute z-5 top-0 left-0 w-full h-full bg-no-repeat bg-[length:auto_2.45rem] bg-[position:right_1.2rem_top_1.4rem] md:bg-[length:auto_3.0625rem] md:bg-[position:right_1.5rem_top_1.75rem];
+    }
+    & dl {
+        @apply relative z-10;
+        & dt {
+            @apply text-sm font-medium opacity-50;
+        }
+        & dd {
+            @apply mt-0.5 font-bold font-serif text-[1.375rem] lg:text-2xl;
+        }
+    }
+    &.customer-grade1 {
+        @apply bg-[#2c2c2c] bg-[url(../images/bg-payment-card2.png)] bg-[length:9.2rem] bg-[position:right_-0.4rem_bottom_-4.2rem] md:bg-[length:11.5rem] md:bg-[position:right_-0.5rem_bottom_-5.25rem] text-white;
+        &::after {
+            @apply bg-[url(../images/img-payment-grade1.svg)] bg-[length:auto_2.65rem] bg-[position:right_1.4rem_top_1.4rem] md:bg-[length:auto_3.3125rem] md:bg-[position:right_1.75rem_top_1.75rem];
+        }
+    }
+    &.customer-grade2 {
+        &::after {
+            @apply bg-[url(../images/img-payment-grade2.svg)];
+        }
+    }
+    &.customer-grade3 {
+        &::after {
+            @apply bg-[url(../images/img-payment-grade3.svg)];
+        }
+        
+    }
+    &.customer-grade4 {
+        &::after {
+            @apply bg-[url(../images/img-payment-grade4.svg)];
+        }
+    }
+    &.customer-grade5 {
+        &::after {
+            @apply bg-[url(../images/img-payment-grade5.svg)];
+        }
+    }
+}
+
+.payment-result {
+    @apply md:flex md:gap-5;
+    & .result-price {
+        @apply flex-1 p-4.5 pb-2.5 bg-[#FFEEEE] rounded-md tracking-tighter;
+        & dl {
+            @apply relative z-5 flex justify-between items-center flex-wrap font-bold leading-tight;
+            & dd {
+                @apply pl-2;
+                & strong {
+                    @apply relative -top-px font-serif text-[1.375rem] tracking-normal align-middle md:text-2xl;
+                }
+            }
+        }
+        & .container {
+            @apply p-2.5 max-w-none rounded bg-white space-y-4;
+        }
+        & .last {
+            @apply block mt-2 text-red3;
+            & dd {
+                @apply text-right text-xl md:text-2xl;
+                & strong {
+                    @apply text-3xl md:text-4xl lg:text-6xl;
+                }
+            }
+        }
+    }
+    & .result-agree {
+        @apply flex flex-col mt-5 leading-snug md:mt-0 md:w-2/5;
+        & dt {
+            @apply font-bold;
+        }
+        & dd {
+            @apply mt-2 p-3 rounded-md bg-gray2 md:mt-2.5 md:p-4.5;
+        }
+        & .form-check {
+            @apply mt-2.5 md:mt-3 md:mb-auto;
+        }
+        & .btn {
+            @apply mt-10 md:mt-13;
+        }
+    }
+}
+
+.payment-sequence {
+    @apply grid grid-cols-2 leading-tight gap-2 md:grid-cols-4 md:gap-2.5;
+    & li {
+        @apply p-3 pb-13 min-h-30 border border-black2 rounded-md bg-no-repeat bg-[left_1rem_bottom_0.5rem] md:p-4 md:pb-16 md:min-h-44;
+        & dl {
+            & dt {
+                @apply text-[1.375rem] md:text-2xl;
+            }
+            & dd {
+                @apply mt-2 text-sm md:mt-2.5 md:text-[0.9375rem];
+            }
+        }
+        &.seq1 {
+            @apply bg-[url(../images/ico-sequence1.svg)] bg-[length:32px] md:bg-[length:40px];
+        }
+        &.seq2 {
+            @apply bg-[url(../images/ico-sequence2.svg)] bg-[length:37px] md:bg-[length:46px];
+        }
+        &.seq3 {
+            @apply bg-[url(../images/ico-sequence3.svg)] bg-[length:43px] md:bg-[length:54px];
+        }
+        &.seq4 {
+            @apply bg-[url(../images/ico-sequence4.svg)] bg-[length:61px] md:bg-[length:76px];
+        }
+        &.seq5 {
+            @apply bg-[url(../images/ico-sequence5.svg)] bg-[length:30px] md:bg-[length:37px];
+        }
+        &.seq6 {
+            @apply bg-[url(../images/ico-sequence6.svg)] bg-[length:38px] md:bg-[length:48px];
+        }
+    }
+}
+
+.modal {
+    & .payment-amount {
+        & .amount-section {
+            @apply flex flex-col;
+            & .price {
+                @apply md:px-0;
+                & dd {
+                    & strong {
+                        @apply text-xl;
+                    }
+                }
+            }
+            & .detail {
+                @apply flex-1 mt-2.5 py-2 px-3 md:mt-3 md:px-4;
+                & dl {
+                    & dt {
+                        @apply w-auto md:w-full;
+                    }
+                    & dd {
+                        & strong {
+                            @apply text-base;
+                        }   
+                    }
+                }
+            }
+        }
+        & .amount-calculator {
+            @apply mt-7 -mx-3 -mb-18 h-18 md:h-[6.25rem] md:mb-0 md:-mt-3 md:-mx-5;
+        }
+    }
+}

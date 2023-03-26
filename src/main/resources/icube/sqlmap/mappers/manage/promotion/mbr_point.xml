@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.point">
+
+	<!-- Define MbrPointVO Result Map  -->
+	<resultMap type="mbrPointVO" id="mbrPointVOMap" autoMapping="true" >
+		<!-- 대상 회원 --><collection property="mbrList" column="srchUniqueId=unique_id" select="mbr.selectMbr" />
+	</resultMap>
+
+	<resultMap type="mbrPointVO" id="pointListVOMap" autoMapping="true"  />
+
+	<!-- Define MbrPointVO Column List -->
+	<sql id="listColumn">
+		p.point_no
+		, p.point_mng_no
+		, p.unique_id
+		, p.ordr_cd
+		, p.ordr_dtl_cd
+		, p.point_se
+		, p.point_cn
+		, p.point
+		, p.point_acmtl
+		, p.give_mthd
+		, p.reg_unique_id
+		, p.reg_dt
+		, p.reg_id
+		, p.rgtr
+	</sql>
+
+	<!-- Define Search Condition -->
+	<sql id="searchConditions">
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND p.reg_dt &gt;= #{srchBgngDt} AND p.reg_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND p.reg_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND p.reg_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+		<if test="srchPointMngNo != null and srchPointMngNo != '' ">
+			AND p.point_mng_no = #{srchPointMngNo}
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchMngrMemo != null and srchMngrMemo != '' ">
+			AND mng.mngr_memo like CONCAT ('%',#{srchMngrMemo},'%')
+		</if>
+		<if test="srchPointSe != null and srchPointSe != '' ">
+			AND p.point_se = #{srchPointSe}
+		</if>
+		<if test="srchPointCn != null and srchPointCn != '' ">
+			AND p.point_cn = #{srchPointCn}
+		</if>
+		<if test="srchOrdrCd != null and srchOrdrCd != '' ">
+			AND ordr_cd = #{srchOrdrCd}
+		</if>
+		<if test="srchOrdrDtlCd != null and srchOrdrDtlCd != '' ">
+			AND ordr_dtl_cd = #{srchOrdrDtlCd}
+		</if>
+
+		<!-- 리스트업 sort -->
+		<if test="srchSortBy != null and srchSortBy != '' ">
+			AND point_se = #{srchSortBy}
+		</if>
+
+	</sql>
+
+	<!-- Define point_acmtl List Query -->
+	<select id="selectMbrPointListVO" parameterType="java.util.HashMap" resultMap="mbrPointVOMap">
+		/* Query ID : mbrPoint.selectMbrPointListVO */
+		SELECT
+			<include refid="listColumn"/>
+			, mng.mngr_memo
+		FROM MBR_POINT p
+		LEFT JOIN POINT_MNG mng ON p.point_mng_no = mng.point_mng_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY p.point_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<!-- Define point_acmtl Count Query -->
+	<select id="selectMbrPointCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbrPoint.selectMbrPointCount */
+		SELECT	COUNT(*)
+		FROM	MBR_POINT p
+		LEFT JOIN POINT_MNG mng ON p.point_mng_no = mng.point_mng_no
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<!-- Define point_acmtl Detail Query -->
+	<!-- 	LEFT JOIN POINT_MNG mng ON p.point_mng_no = mng.point_mng_no -->
+	<select id="selectMbrPoint" parameterType="java.util.HashMap" resultMap="mbrPointVOMap">
+		/* Query ID : mbrPoint.selectMbrPoint */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_POINT p
+		WHERE  1=1
+			<include refid="searchConditions" />
+		ORDER BY point_no DESC
+		LIMIT 1
+	</select>
+
+	<!-- 포인트 총합 -->
+	<select id="selectSumPointByPointSe" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : mbrMlg.selectSumPointByPointSe */
+		SELECT SUM(point)  AS total
+		FROM MBR_POINT p
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<select id="selectMbrPointList" parameterType="java.util.HashMap" resultMap="mbrPointVOMap">
+		/* Query ID : pointMng.selectPointMng */
+		SELECT
+			<include refid="listColumn"/>
+			, mng.mngr_memo
+		FROM MBR_POINT p
+		LEFT JOIN POINT_MNG mng ON p.point_mng_no = mng.point_mng_no
+		WHERE	1=1
+			<include refid="searchConditions" />
+		ORDER BY point_no DESC
+	</select>
+
+	<!-- Define point_acmtl Insert Query -->
+	<insert id="insertMbrPoint" parameterType="mbrPointVO">
+	/* Query ID : mbrPoint.insertMbrPoint */
+	INSERT INTO MBR_POINT (
+		point_mng_no
+		, unique_id
+		, ordr_cd
+		, ordr_dtl_cd
+		, point_se
+		, point_cn
+		, point
+		, point_acmtl
+		, give_mthd
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+	) VALUES (
+		#{pointMngNo}
+		, #{uniqueId, jdbcType=VARCHAR}
+		, #{ordrCd, jdbcType=VARCHAR}
+		, #{ordrDtlCd, jdbcType=VARCHAR}
+		, #{pointSe, jdbcType=VARCHAR}
+		, #{pointCn, jdbcType=VARCHAR}
+		, #{point}
+		<if test='pointSe != null and pointSe == "A" '>
+		, IFNULL((SELECT point_acmtl FROM MBR_POINT mp WHERE mp.unique_id = #{uniqueId} ORDER BY point_no DESC LIMIT 1), 0) + #{point}
+		</if>
+		<if test='pointSe != null and pointSe == "M" '>
+		, IFNULL((SELECT point_acmtl FROM MBR_POINT mp WHERE mp.unique_id = #{uniqueId} ORDER BY point_no DESC LIMIT 1), 0) - #{point}
+		</if>
+		, #{giveMthd, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+</mapper>

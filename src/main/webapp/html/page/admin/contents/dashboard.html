@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>dashboard</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../core/vendor/datatables/datatables.min.js"></script>
+
+    <!-- common -->
+    <script src="../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <div class="header">
+            <h1 class="system-title small white">Management<br> System</h1>
+            <div class="dashboard-today">
+                <p class="date">2023.03.26 Wed 16:42</p>
+                <p class="weather">
+                    <span class="loca">
+                        <small>서울특별시</small>
+                        맑음
+                    </span>
+                    <img src="../assets/images/temp/ico-weather1.svg" alt="">
+                    <strong class="temp">22 <span class="font-normal text-lg">℃</span></strong>
+                </p>
+            </div>
+            <div class="dashboard-account">
+                <div class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>마지막 접속 <span>접속중 6:24:42</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </div>
+                <button class="btn-logout white">로그아웃</button>
+                <button class="dashboard-menu white">메뉴</button>
+                <ul class="dashboard-menu-layer">
+                    <li>
+                        <a href="#">
+                            <i class="icon1"></i>
+                            <span>회원관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon2"></i>
+                            <span>상품관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon3"></i>
+                            <span>주문관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon4"></i>
+                            <span>전시관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon5"></i>
+                            <span>프로모션관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon6"></i>
+                            <span>고객상담관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon7"></i>
+                            <span>시스템관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon8"></i>
+                            <span>정산관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon9"></i>
+                            <span>통계관리</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon10"></i>
+                            <span>파트너관리</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="dashboard-order">
+                <div class="dashboard-box1">
+                    <h2>
+                        order status
+                        <span class="desc">주문 현황</span>
+                        <span class="date">12월 16일 14:26 기준</span>
+                    </h2>
+                    <div class="order-status">
+                        <dl>
+                            <dt>
+                                <i><img src="../assets/images/ico-dashboard-payment1.svg" alt=""></i>
+                                주문
+                            </dt>
+                            <dd>
+                                <div class="dashboard-number is-yellow">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="1">1</span>
+                                    </div>
+                                </div>
+                                <div class="dashboard-number is-small">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="desc">원</div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <i><img src="../assets/images/ico-dashboard-payment2.svg" alt=""></i>
+                                결제
+                            </dt>
+                            <dd>
+                                <div class="dashboard-number">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="1">1</span>
+                                    </div>
+                                </div>
+                                <div class="dashboard-number is-small">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="desc">원</div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <i><img src="../assets/images/ico-dashboard-payment3.svg" alt=""></i>
+                                환불
+                            </dt>
+                            <dd>
+                                <div class="dashboard-number">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="1">1</span>
+                                    </div>
+                                </div>
+                                <div class="dashboard-number is-small">
+                                    <div class="numb">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span class="space"></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="desc">원</div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="dashboard-box1">
+                    <h2>
+                        order process
+                        <span class="desc">주문 과정</span>
+                        <span class="date">최근 1개월 기준</span>
+                    </h2>
+                    <table class="dashboard-table">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="dashboard-number is-yellow">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">승인대기</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">승인완료</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">승인반려</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">결제대기</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number is-yellow">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">결제완료</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">배송준비중</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">배송중</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">배송완료</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dashboard-number is-green">
+                                        <p class="numb">
+                                            <span data-num="1">1</span>
+                                            <span data-num="5">5</span>
+                                        </p>
+                                        <p class="desc">구매확정</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dashboard-cancel">
+                <h2>
+                    cancel
+                    <span class="desc -ml-2">취소 / 교환 / 반품 / 환불 </span>
+                </h2>
+                <div class="dashboard-number is-red">
+                    <p class="desc">취소접수</p>
+                    <p class="numb">
+                        <span data-num="1">1</span>
+                        <span data-num="5">5</span>
+                    </p>
+                </div>
+                <div class="dashboard-number">
+                    <p class="desc">교환접수</p>
+                    <p class="numb">
+                        <span data-num="1">1</span>
+                        <span data-num="5">5</span>
+                    </p>
+                </div>
+                <div class="dashboard-number is-sky">
+                    <p class="desc">반품접수</p>
+                    <p class="numb">
+                        <span data-num="1">1</span>
+                        <span data-num="5">5</span>
+                    </p>
+                </div>
+                <div class="dashboard-number is-red">
+                    <p class="desc">환불접수</p>
+                    <p class="numb">
+                        <span data-num="1">1</span>
+                        <span data-num="5">5</span>
+                    </p>
+                </div>
+            </div>
+            <div class="dashboard-current1">
+                <h2>상품 판매 현황</h2>
+                <table class="dashboard-table">
+                    <colgroup>
+                        <col class="w-25">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"><p>판매중</p></th>
+                            <th scope="col"><p>일시품절</p></th>
+                            <th scope="col"><p>품절</p></th>
+                            <th scope="col"><p>전체</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><p>급여 판매</p></th>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span data-num="1">1</span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p>급여 대여</p></th>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span data-num="1">1</span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p>비급여</p></th>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span data-num="1">1</span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dashboard-current2">
+                <h2>고객상담 현황</h2>
+                <table class="dashboard-table">
+                    <colgroup>
+                        <col class="w-25">
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"><p>미처리</p></th>
+                            <th scope="col"><p>처리완료</p></th>
+                            <th scope="col"><p>누적미처리</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><p>상품 Q&amp;A</p></th>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p>1:1 문의</p></th>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dashboard-current1">
+                <h2>마켓 회원 현황</h2>
+                <table class="dashboard-table">
+                    <colgroup>
+                        <col class="w-25">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"><p>일반</p></th>
+                            <th scope="col"><p>수급자</p></th>
+                            <th scope="col"><p>탈퇴</p></th>
+                            <th scope="col"><p>휴면</p></th>
+                            <th scope="col"><p>전체</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><p>신규</p></th>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p>누적</p></th>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="5">5</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dashboard-current2">
+                <h2>멤버스 현황</h2>
+                <table class="dashboard-table">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"><p>승인대기</p></th>
+                            <th scope="col"><p>미승인</p></th>
+                            <th scope="col"><p>사용</p></th>
+                            <th scope="col"><p>미사용</p></th>
+                            <th scope="col"><p>전체</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="dashboard-number is-small is-yellow">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dashboard-number is-small">
+                                    <p class="numb">
+                                        <span></span>
+                                        <span data-num="1">1</span>
+                                        <span data-num="5">5</span>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dashboard-member">
+                <h2>
+                    market member
+                    <span class="desc">일간 신규회원 수</span>
+                </h2>
+                <div class="member-container">
+                    <div class="member-chart">
+                        <div class="w-full">
+                            <canvas id="chart" style="width: 100%; height: 250px;"></canvas>
+                        </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                        <script>
+        
+                            var ctx         = document.getElementById("chart").getContext("2d"),
+                                gradient1   = ctx.createLinearGradient(0, 0, 0, 300),
+                                gradient2   = ctx.createLinearGradient(0, 0, 0, 300);
+                            
+                            gradient1.addColorStop(0, 'rgb(255, 92, 0)');
+                            gradient1.addColorStop(1, 'rgb(255, 29, 147)');
+                            gradient2.addColorStop(0, 'rgb(29, 185, 255)');
+                            gradient2.addColorStop(1, 'rgb(77, 52, 136)');
+        
+                            var data = {
+                                labels: ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+                                datasets: [
+                                        {
+                                        label: "Dataset #1",
+                                        borderColor: "rgba(0,0,0,0)",
+                                        borderWidth: 2,
+                                        borderRadius: 10,
+                                        barThickness: 8,
+                                        maxBarThickness: 8,
+                                        backgroundColor: gradient1,
+                                        data: [1, 3, 5, 9, 4, 5, 3, 6, 1, 2],
+                                    }, {
+                                        label: "Dataset #2",
+                                        borderColor: "rgba(0,0,0,0)",
+                                        borderWidth: 2,
+                                        borderRadius: 10,
+                                        barThickness: 8,
+                                        maxBarThickness: 8,
+                                        backgroundColor: gradient2,
+                                        data: [3, 6, 1, 5, 9, 1, 5, 2, 3, 4],
+                                    }
+                                ]
+                            };
+                            var options = {
+                                drawBorder: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        backgroundColor: gradient1,
+                                        xAlign: "center",
+                                        yAlign: "bottom",
+                                        titleAlign: "center",
+                                        titleFont: {
+                                            size: 14,
+                                            family: "Roboto"
+                                        },
+                                        bodyFont: {
+                                            size: 14,
+                                            family: "Roboto"
+                                        },
+                                        displayColors: false,
+                                        padding: 8,
+                                        callbacks: {
+                                            title: function() {},
+                                            label: function(tooltipItem) {
+                                                return tooltipItem.formattedValue + '명';
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        min: 0,
+                                        max: 10,
+                                        ticks: {
+                                            family: "roboto",
+                                            size: 20,
+                                            weight: 700,
+                                            color: 'white',
+                                            stepSize: 2
+                                        },
+                                        grid: {
+                                            display: true,
+                                            color: "rgba(216,216,216,0.2)"
+                                        }
+                                    },
+                                    x: {
+                                        ticks: {
+                                            drawBorder: false,
+                                            family: "roboto",
+                                            size: 20,
+                                            weight: 700,
+                                            color: 'white'
+                                        },
+                                        grid: {
+                                            display: true,
+                                            color: "rgba(216,216,216,0.2)"
+                                        }
+                                    }
+                                }
+                            };
+                            new Chart('chart', {
+                                type: 'bar',
+                                options: options,
+                                data: data
+                            });
+                        </script>
+                    </div>
+                    <div class="member-count">
+                        <p class="text-white text-xs text-right font-bold">전체 회원 수</p>
+                        <div class="dashboard-number is-large is-orange">
+                            <div class="numb">
+                                <span></span>
+                                <span></span>
+                                <span data-num="1" class="space">1</span>
+                                <span data-num="3">2</span>
+                                <span data-num="2">3</span>
+                                <span data-num="4" class="space">4</span>
+                                <span data-num="5">5</span>
+                                <span data-num="6">6</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-number is-large is-blue">
+                            <div class="numb">
+                                <span></span>
+                                <span class="space"></span>
+                                <span></span>
+                                <span data-num="2">3</span>
+                                <span data-num="4" class="space">4</span>
+                                <span data-num="5">5</span>
+                                <span data-num="6">6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-copyright">Copyright ⓒEroumMarket All righs reserved.</p>
+    </div>
+    
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bplc.notice">
+
+	<resultMap type="bplcNoticeVO" id="bplcNoticeVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=notice_no}" select="file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		notice_no
+		, ttl
+		, cn
+		, inqcnt
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'NOTICE' AS srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchBbsNm" '>AND ttl like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchBbsCn" '>AND cn like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+					AND (ttl like CONCAT('%', #{srchText}, '%') OR cn like CONCAT('%', #{srchText}, '%'))
+				</otherwise>
+			</choose>
+		</if>
+		<if test="srchBgngDt !=null and srchBgngDt != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &gt;= #{srchBgngDt}
+		</if>
+		<if test="srchEndDt !=null and srchEndDt != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &lt;= #{srchEndDt}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<select id="selectBplcNoticeListVO" parameterType="java.util.HashMap" resultMap="bplcNoticeVOMap">
+		/* Query ID : bplcNotice.selectBplcNoticeListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BPLC_NOTICE
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY notice_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectBplcNoticeCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bplcNotice.selectBplcNoticeCount */
+		SELECT	COUNT(*)
+		FROM	BPLC_NOTICE
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectBplcNotice" parameterType="java.util.HashMap" resultMap="bplcNoticeVOMap">
+		/* Query ID : bplcNotice.selectBplcNotice */
+		SELECT
+			<include refid="listColumn"/>
+		FROM	BPLC_NOTICE
+		WHERE  notice_no = #{noticeNo}
+	</select>
+
+	<insert id="insertBplcNotice" parameterType="bplcNoticeVO">
+	/* Query ID : bplcNotice.insertBplcNotice */
+	INSERT INTO BPLC_NOTICE (
+		ttl
+		, cn
+		, use_yn
+		, inqcnt
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{ttl, jdbcType=VARCHAR}
+		, #{cn, jdbcType=VARCHAR}
+		, #{useYn, jdbcType=VARCHAR}
+		, #{inqcnt, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+	<selectKey keyProperty="noticeNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+
+	<update id="updateBplcNotice" parameterType="bplcNoticeVO">
+	/* Query ID : bplcNotice.updateBplcNotice */
+		UPDATE BPLC_NOTICE SET
+		ttl = #{ttl, jdbcType=VARCHAR}
+		, cn = #{cn, jdbcType=VARCHAR}
+		, inqcnt = #{inqcnt, jdbcType=VARCHAR}
+		, use_yn = #{useYn, jdbcType=VARCHAR}
+		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+		, mdfcn_dt = SYSDATE()
+		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE notice_no = #{noticeNo}
+	</update>
+
+	<!-- 조회수 -->
+	<update id="updateInqcnt" parameterType="bplcNoticeVO">
+		/* Query ID : bplcNotice.updateInqcnt */
+		UPDATE BPLC_NOTICE SET
+			inqcnt = #{inqcnt}
+		WHERE notice_no = #{noticeNo}
+	</update>
+
+
+
+</mapper>

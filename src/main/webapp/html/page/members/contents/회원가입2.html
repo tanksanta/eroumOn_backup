@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>통합회원</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 id="header-logo">
+                <a href="#"><span class="sr-only">이로움</span> 회원</a>
+            </h1>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="로그인.html" class="navigation-link">로그인</a></li>
+                    <li><a href="회원가입.html" class="navigation-link is-active">회원가입</a></li>
+                </ul>
+            </nav>
+            <ul id="family">
+                <li>
+                    <a href="#" class="family-link1">
+                        <div class="bubble">
+                            <small>시니어 라이프 케어 플랫폼</small>
+                            <strong>"이로움"</strong>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link2">
+                        <div class="bubble">
+                            <strong>이로움 멤버스</strong>
+                            <small>전국 2,432개 업체와 함께합니다</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="family-link3">
+                        <div class="bubble">
+                            <strong><img src="../assets/images/txt-family3.svg" alt="이로움마켓"></strong>
+                            <small>
+                                복지용구 사업소와 수급자 매칭부터<br>
+                                주문, 계약 및 결제까지 한번에!
+                            </small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="container">
+        <header id="page-title">
+            <h2>
+                <span>회원가입</span>
+                <small>Member Join</small>
+            </h2>
+        </header>
+
+        <div id="page-content">
+            <div class="member-join">
+                <div class="member-join-sidebar"><p class="text"><span>STEP 1</span></p></div>
+
+                <div class="member-join-step2"><img src="../assets/images/txt-join-number2.svg" alt="STEP 2"></div>
+
+                <form action="회원가입3.html" class="member-join-content">
+                    <ul class="member-tabs mb-5.5 xs:mb-11">
+                        <li><a href="#">약관동의 및 본인인증</a></li>
+                        <li><a href="#" class="active">정보입력</a></li>
+                        <li><a href="#">가입완료</a></li>
+                    </ul>
+
+                    <p class="mt-13 text-title2">기본 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-29 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>이름</p></th>
+                                <td><p class="text-base font-bold md:text-lg">이로미</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>생년월일</p></th>
+                                <td><p class="text-base font-bold md:text-lg">2001년 7월 3일</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>성별</p></th>
+                                <td><p class="text-base font-bold md:text-lg">여성</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p>휴대폰 번호</p></th>
+                                <td><p class="text-base font-bold md:text-lg">010-1234-5678</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="join-item1">아이디<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td><input type="text" class="form-control w-full" id="join-item1"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="join-item1-2">비밀번호<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td><input type="password" class="form-control w-full" id="join-item1-2"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="join-item1-3">비밀번호 확인<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td><input type="password" class="form-control w-full" id="join-item1-3"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="join-item1-4">이메일<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td><input type="text" class="form-control w-full" id="join-item1-4"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="join-item1-5">주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td>
+                                    <div class="form-group w-full">
+                                        <input type="text" class="form-control">
+                                        <button type="button" class="btn btn-primary" style="padding: 0 0.75rem;">우편번호 검색</button>
+                                    </div>
+                                    <input type="text" class="form-control mt-1.5 w-full md:mt-2" id="join-item1-5">
+                                    <input type="text" class="form-control mt-1.5 w-full md:mt-2">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="content-button mt-4">
+                        <button type="submit" class="btn btn-primary btn-large flex-1 md:flex-none md:w-73 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
+                        <button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">취소</button>
+                    </div>
+                    
+                    <div class="content-recipient mt-9.5">
+                        <div class="title">
+                            <p class="name"><strong>홍길동</strong> 님의</p>
+                            <p class="desc">장기요양 정보</p>
+                        </div>
+                        <div class="group1">
+                            <dl class="number">
+                                <dt>장기요양인정번호</dt>
+                                <dd>L1301193848</dd>
+                            </dl>
+                            <dl class="grade">
+                                <dt>등급</dt>
+                                <dd><img src="../assets/images/txt-grade-num3.svg" alt="3"></dd>
+                            </dl>
+                        </div>
+                        <div class="group2">
+                            <dl class="percent">
+                                <dt>본인부담율</dt>
+                                <dd><strong>15</strong> &nbsp; %</dd>
+                            </dl>
+                            <dl class="date">
+                                <dt>인정유효기간</dt>
+                                <dd>
+                                    <p>2021.11.08</p>
+                                    <p>~ 2022.11.07</p>
+                                </dd>
+                            </dl>
+                            <dl class="date">
+                                <dt>적용기간</dt>
+                                <dd>
+                                    <p>2021.11.08</p>
+                                    <p>~ 2022.11.07</p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <dl class="price1">
+                            <dt>급여잔액</dt>
+                            <dd>
+                                <strong>1,020,000</strong> &nbsp; 원
+                                <small>일백이만원</small>
+                            </dd>
+                        </dl>
+                        <dl class="price2">
+                            <dt>사용금액</dt>
+                            <dd><strong>676,000</strong> 원</dd>
+                        </dl>
+
+                        <div class="form-check mt-4 text-base font-bold md:text-lg">
+                            <input class="form-check-input" type="checkbox" id="agree-item">
+                            <label class="form-check-label" for="agree-item">장기요양등급 정보 사용에 동의합니다</label>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-9 text-title2">수급자 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-29 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="content-select py-1.5">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="aaa" id="recipient-item1">
+                                            <label class="form-check-label" for="recipient-item1">해당없음 <small>(일반회원)</small></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="aaa" id="recipient-item2">
+                                            <label class="form-check-label" for="recipient-item2">장기요양등급 수급자 <small>(일반회원)</small></label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p class="mt-9 text-[1.375rem] text-center font-bold md:text-2xl">요양정보 간편조회</p>
+                    <table class="table-detail mt-2">
+                        <colgroup>
+                            <col class="w-29 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><p><label for="join-item2">수급자 성명</label></p></th>
+                                <td><input type="text" class="form-control w-full" id="join-item2"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item2-2">요양인정번호</label></p></th>
+                                <td>
+                                    <div class="form-group w-full">
+                                        <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+                                        <input type="text" class="form-control" id="join-item2-2">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item2-3">등급선택</label></p></th>
+                                <td>
+                                    <select name="" id="" class="form-control w-full">
+                                        <option value="">등급 선택</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item2-4">본인부담금율</label></p></th>
+                                <td>
+                                    <select name="" id="" class="form-control w-full">
+                                        <option value="">본인부담금율</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p class="mt-17 text-title2">선택 정보</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-29 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item-inter1">관심분야</label></p></th>
+                                <td>
+                                    <div class="content-interest">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter1">
+                                            <label class="form-check-label" for="join-item-inter1">지원</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter2">
+                                            <label class="form-check-label" for="join-item-inter2">보호</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter3">
+                                            <label class="form-check-label" for="join-item-inter3">상담</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter4">
+                                            <label class="form-check-label" for="join-item-inter4">보건</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter5">
+                                            <label class="form-check-label" for="join-item-inter5">고용</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter6">
+                                            <label class="form-check-label" for="join-item-inter6">문화</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter7">
+                                            <label class="form-check-label" for="join-item-inter7">주거</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item-inter8">
+                                            <label class="form-check-label" for="join-item-inter8">교육</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>
+                                    <p class="text-sm">
+                                        현재 관심있는 분야를 선택하고<br>
+                                        시니어에게 필요한 복지서비스를 추천받으세요
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3">추천인 아이디</label></p></th>
+                                <td>
+                                    <input type="text" class="form-control w-full" id="join-item3">
+                                    <p class="text-sm mt-2.5">추천인에게 포인트가 제공됩니다.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p style="padding-left: 0;"><label for="join-item3">추천멤버스 아이디</label></p></th>
+                                <td><input type="text" class="form-control w-full" id="join-item3-6"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3-2">전화번호</label></p></th>
+                                <td>
+                                    <input type="text" class="form-control w-full" id="join-item3-2">
+                                    <p class="text-sm mt-2.5">숫자만 입력해주세요</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p style="padding-left: 0;"><label for="join-item3-3">개인정보<br class="xs:hidden"> 유효기간</label></p></th>
+                                <td>
+                                    <div class="form-check-group w-full">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="aaa" id="join-item3-3">
+                                            <label class="form-check-label" for="join-item3-3">회원 탈퇴시까지</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="aaa" id="join-item3-3-2">
+                                            <label class="form-check-label" for="join-item3-3-2">3년</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="aaa" id="join-item3-3-3">
+                                            <label class="form-check-label" for="join-item3-3-3">1년</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3-4">정보수신</label></p></th>
+                                <td>
+                                    <div class="py-1.5 md:py-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="join-item3-4">
+                                            <label class="form-check-label" for="join-item3-4">전체 수신</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-1.5 flex flex-wrap md:mt-2">
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input class="form-check-input" type="checkbox" id="join-item3-4-2">
+                                            <label class="form-check-label" for="join-item3-4-2">SMS</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input class="form-check-input" type="checkbox" id="join-item3-4-3">
+                                            <label class="form-check-label" for="join-item3-4-3">이메일</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input class="form-check-input" type="checkbox" id="join-item3-4-4">
+                                            <label class="form-check-label" for="join-item3-4-4">전화</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="join-item3-5">사진 등록</label></p></th>
+                                <td>
+                                    <div class="relative mb-4 aspect-square overflow-hidden rounded-md">
+                                        <input type="file" class="absolute top-0 left-0 w-full h-full opacity-0">
+                                        <img src="../assets/images/dummy/img-dummy-partners.png" alt="" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="form-upload">
+                                        <label for="join-item3-5" class="form-upload-trigger">파일을 선택하거나<br> 사진을 드래그 해서 등록하세요</label>
+                                        <input type="file" class="form-upload-control" id="join-item3-5" name="upload[]" multiple>
+                                    </div>
+                                    <br>
+                                    <div class="flex">
+                                        <div class="flex-none mr-2 w-35 h-35 overflow-hidden rounded-md">
+                                            <img src="../assets/images/dummy/img-dummy-partners.png" alt="" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="form-upload flex-1 w-[calc(100%_-_9.25rem)]">
+                                            <label for="join-item3-5" class="form-upload-trigger">파일을 선택하거나<br> 사진을 드래그 해서 등록하세요</label>
+                                            <input type="file" class="form-upload-control" id="join-item3-5" name="upload[]" multiple>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="content-button mt-25">
+                        <button type="submit" class="btn btn-primary btn-large flex-1">정보 입력 완료</button>
+                        <button type="button" class="btn btn-outline-primary btn-large w-[37.5%]">취소</button>
+                    </div>
+                </form>
+                
+                <div class="member-join-sidebar is-step2"><p class="text"><span>STEP 3</span></p></div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <p>COPYRIGHT ⓒ <strong>E·ROUM</strong>. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

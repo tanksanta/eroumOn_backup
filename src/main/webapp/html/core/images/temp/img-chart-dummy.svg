@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="898.027" height="271" viewBox="0 0 898.027 271">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff5c00"/>
+      <stop offset="1" stop-color="#ff1d93"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-17" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1db9ff"/>
+      <stop offset="1" stop-color="#4d3488"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-33" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff5c00"/>
+      <stop offset="1" stop-color="#ff3066"/>
+    </linearGradient>
+  </defs>
+  <path id="Line" d="M.5,177.5V.5" transform="translate(38 21)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.5"/>
+  <path id="Line-2" data-name="Line" d="M0,0,846,40" transform="translate(38.5 168.5)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-3" data-name="Line" d="M0,0,846,40" transform="translate(38.5 138.5)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-4" data-name="Line" d="M0,0,846,40" transform="translate(38.5 108.5)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-5" data-name="Line" d="M0,0,846,40" transform="translate(38.5 78.5)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-6" data-name="Line" d="M0,0,846,40" transform="translate(38.5 48.5)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-7" data-name="Line" d="M.5,200.5V.5" transform="translate(88)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line-8" data-name="Line" d="M.5,200.5V.5" transform="translate(138 3)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy" data-name="Line Copy" d="M.5,200.5V.5" transform="translate(188 6)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_2" data-name="Line Copy 2" d="M.5,200.5V.5" transform="translate(238 8)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_3" data-name="Line Copy 3" d="M.5,200.5V.5" transform="translate(288 11)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_4" data-name="Line Copy 4" d="M.5,200.5V.5" transform="translate(388 17)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_5" data-name="Line Copy 5" d="M.5,200.5V.5" transform="translate(488 23)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_6" data-name="Line Copy 6" d="M.5,200.5V.5" transform="translate(538 26)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_7" data-name="Line Copy 7" d="M.5,200.5V.5" transform="translate(638 31)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy-2" data-name="Line Copy" d="M.5,200.5V.5" transform="translate(338 14)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_2-2" data-name="Line Copy 2" d="M.5,200.5V.5" transform="translate(438 19)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_3-2" data-name="Line Copy 3" d="M.5,200.5V.5" transform="translate(588 28)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_4-2" data-name="Line Copy 4" d="M.5,200.5V.5" transform="translate(688 34)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_5-2" data-name="Line Copy 5" d="M.5,200.5V.5" transform="translate(738 36)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_6-2" data-name="Line Copy 6" d="M.5,200.5V.5" transform="translate(788 39)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <path id="Line_Copy_7-2" data-name="Line Copy 7" d="M.5,200.5V.5" transform="translate(838 42)" fill="none" stroke="#707070" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" opacity="0.2"/>
+  <text id="_11" data-name="11" transform="translate(82 227)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">11</tspan></text>
+  <text id="_2023_may" data-name="2023 may" transform="translate(8 224)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">2023 MAY</tspan></text>
+  <text id="_16" data-name="16" transform="translate(329 229)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">16</tspan></text>
+  <text id="_12" data-name="12" transform="translate(129 218)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">12</tspan></text>
+  <text id="_17" data-name="17" transform="translate(379 232)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">17</tspan></text>
+  <text id="_13" data-name="13" transform="translate(179 221)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">13</tspan></text>
+  <text id="_18" data-name="18" transform="translate(429 235)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">18</tspan></text>
+  <text id="_14" data-name="14" transform="translate(229 224)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">14</tspan></text>
+  <text id="_19" data-name="19" transform="translate(479 238)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">19</tspan></text>
+  <text id="_15" data-name="15" transform="translate(279 227)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">15</tspan></text>
+  <text id="_20" data-name="20" transform="translate(529 240)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">20</tspan></text>
+  <text id="_21" data-name="21" transform="translate(579 243)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">21</tspan></text>
+  <text id="_22" data-name="22" transform="translate(629 246)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">22</tspan></text>
+  <text id="_23" data-name="23" transform="translate(679 249)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">23</tspan></text>
+  <text id="_24" data-name="24" transform="translate(729 252)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">24</tspan></text>
+  <text id="_25" data-name="25" transform="translate(779 255)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="3.115" y="11">25</tspan></text>
+  <text id="Today" transform="translate(839 268)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="-16.061" y="0">Today</tspan></text>
+  <path id="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V60a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(82 140)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle-2" data-name="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V68a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(132 135)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle-3" data-name="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V72a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(182 134)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_16" data-name="Rectangle Copy 16" d="M2,0H2A2,2,0,0,1,4,2V63a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(232 146)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_17" data-name="Rectangle Copy 17" d="M2,0H2A2,2,0,0,1,4,2V74a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(282 138)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V86a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(332 129)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-2" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V96a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(382 121)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-3" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V125a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(432 95)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-4" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V185a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(482 38)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-5" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V134a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(532 92)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-6" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V104a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(582 125)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-7" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V76a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(632 155)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-8" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V104a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(682 131)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-9" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V134a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(732 103)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-10" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V164a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(782 76)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle_Copy_18-11" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V134a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(832 109)" fill="url(#linear-gradient)"/>
+  <path id="Rectangle-4" data-name="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V27a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(91 174)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle-5" data-name="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V38a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(141 166)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle-6" data-name="Rectangle" d="M2,0H2A2,2,0,0,1,4,2V24a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(191 182)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_16-2" data-name="Rectangle Copy 16" d="M2,0H2A2,2,0,0,1,4,2V13a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(241 196)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_17-2" data-name="Rectangle Copy 17" d="M2,0H2A2,2,0,0,1,4,2V25a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(291 187)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-12" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V27a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(341 188)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-13" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V114a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(391 104)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-14" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V29a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(441 192)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-15" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V69a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(491 154)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-16" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V78a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(541 148)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-17" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V27a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(591 202)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-18" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V41a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(641 191)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-19" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V37a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(691 198)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-20" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V40a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(741 198)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-21" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V59a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(791 181)" fill="url(#linear-gradient-17)"/>
+  <path id="Rectangle_Copy_18-22" data-name="Rectangle Copy 18" d="M2,0H2A2,2,0,0,1,4,2V37a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V2A2,2,0,0,1,2,0Z" transform="translate(841 206)" fill="url(#linear-gradient-17)"/>
+  <path id="Line-9" data-name="Line" d="M.5.5l859,48" transform="translate(38 198)" fill="none" stroke="#747474" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1"/>
+  <path id="Rectangle-7" data-name="Rectangle" d="M0,6A6,6,0,0,1,6,0H43a6,6,0,0,1,6,6V17a6,6,0,0,1-6,6H30.625L24.5,29l-6.125-6H6a6,6,0,0,1-6-6Z" transform="translate(460 6)" fill="url(#linear-gradient-33)"/>
+  <text id="_1_785" data-name="1,785" transform="translate(483 22)" fill="#fff" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="-17.773" y="0">1,785</tspan></text>
+  <text id="_1_000" data-name="1,000" transform="translate(16 81)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="-15.234" y="0">1,000</tspan></text>
+  <text id="_500" data-name="500" transform="translate(20 141)" fill="#fff" font-size="12" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="-10.327" y="0">500</tspan></text>
+</svg>

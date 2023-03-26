@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- 주문
+	<bean id="ordrScheduler" class="icube.schedule.OrdrPaySchedule"/>
+
+	<bean id="ordrRebilling" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ordrScheduler" />
+		<property name="targetMethod" value="ordrBilling" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="ordrRebillingTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ordrRebilling" />
+		<property name="cronExpression" value="0 0/10 * * * ?" />
+	</bean>
+	-->
+
+
+	<!-- 메일
+	<bean id="mailScheduler" class="icube.schedule.MailSchedule"/>
+
+	<bean id="mailSendJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"  ref="mailScheduler" />
+		<property name="targetMethod" value="mail1" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="mailSendJob" />
+		<property name="cronExpression" value="0 0/10 * * * ?" />
+	</bean>
+
+
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
+		<property name="waitForJobsToCompleteOnShutdown" value="true" />
+		<property name="triggers">
+			<list>
+				<ref bean="ordrRebillingTrigger" />
+			</list>
+		</property>
+	</bean>
+		-->
+
+</beans>

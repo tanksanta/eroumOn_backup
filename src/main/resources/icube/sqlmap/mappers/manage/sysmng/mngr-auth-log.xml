@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.auth.log">
+
+	<sql id="listColumn">
+		log_no
+		, unique_id
+		, mngr_id
+		, mngr_nm
+		, log_ty
+		, log_cn
+		, reg_unique_id
+		, rgtr_id
+		, rgtr
+		, reg_dt
+		, dmnd_ip
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchMngrNm" '>AND mngr_nm LIKE CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchregId" '>AND rgtr_id LIKE CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchrgtr" '>AND rgtr LIKE CONCAT('%', #{srchText}, '%')</when>
+			</choose>
+		</if>
+	</sql>
+
+	<select id="selectMngrAuthLogListVO" parameterType="java.util.HashMap" resultType="mngrAuthLogVO">
+		SELECT
+			<include refid="listColumn"/>
+		  FROM MNGR_AUTHRT_LOG
+		 WHERE 1=1
+			<include refid="searchConditions" />
+	  ORDER BY reg_dt DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMngrAuthLogCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(LOG_NO)
+		  FROM MNGR_AUTHRT_LOG
+		 WHERE 1=1
+		 <include refid="searchConditions" />
+	</select>
+
+	<select id="selectMngrAuthLog" parameterType="int" resultType="mngrAuthLogVO">
+		SELECT <include refid="listColumn"/>
+		  FROM	MNGR_AUTHRT_LOG
+	 	 WHERE  LOG_NO = #{logNo}
+	</select>
+
+	<insert id="insertMngrAuthLog" parameterType="mngrAuthLogVO">
+		 INSERT INTO MNGR_AUTHRT_LOG (
+		 		 unique_id
+			   , mngr_id
+			   , mngr_nm
+			   , log_ty
+			   , log_cn
+			   , reg_unique_id
+			   , reg_id
+			   , rgtr
+	      	   , reg_dt
+	      	   , dmnd_ip
+		  ) VALUES (
+		         #{uniqueId, jdbcType=VARCHAR}
+		       , #{mngrId, jdbcType=VARCHAR}
+		       , #{mngrNm, jdbcType=VARCHAR}
+		       , #{logTy, jdbcType=VARCHAR}
+		       , #{logCn, jdbcType=VARCHAR}
+		       , #{regUniqueId, jdbcType=VARCHAR}
+		       , #{regId, jdbcType=VARCHAR}
+		       , #{rgtr, jdbcType=VARCHAR}
+			   , SYSDATE()
+			   , #{dmndIp, jdbcType=VARCHAR}
+			   )
+		<selectKey resultType="int" keyProperty="logNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateMngrAuthLog" parameterType="mngrAuthLogVO">
+	   UPDATE MNGR_AUTHRT_LOG
+		  SET unique_id    = #{uniqueId, jdbcType=VARCHAR}
+	    	, mngr_id    = #{mngrId, jdbcType=VARCHAR}
+	    	, mngr_nm    = #{mngrNm, jdbcType=VARCHAR}
+	    	, log_ty     = #{logTy, jdbcType=VARCHAR}
+	    	, log_cn    = #{logCn, jdbcType=VARCHAR}
+	    	, reg_unique_id    = #{regUniqueId, jdbcType=VARCHAR}
+	    	, reg_id    = #{regId, jdbcType=VARCHAR}
+			, rgtr    = #{rgtr, jdbcType=VARCHAR}
+			, reg_dt = SYSDATE()
+			, dmnd_ip	 = #{dmndIp, jdbcType=VARCHAR}
+		WHERE log_no = #{logNo}
+	</update>
+
+	<delete id="deleteMngrAuthLog" parameterType="java.util.HashMap">
+		DELETE	FROM MNGR_AUTHRT_LOG
+		 WHERE	log_no = #{logNo}
+	</delete>
+
+</mapper>

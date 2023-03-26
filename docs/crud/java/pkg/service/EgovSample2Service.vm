@@ -1,0 +1,75 @@
+##
+#set($voPackage="${voPackage}")
+#set($voClassName="${model.entity.pcName}VO")
+#set($voClassParam="${model.entity.ccName}VO")
+#set($daoPackage="${daoPackage}")
+#set($daoClassName="${model.entity.pcName}DAO")
+#set($daoName="${model.entity.ccName}DAO")
+#set($daoInstanceName="${model.entity.ccName}DAO")
+#set($servicePackage="${servicePackage}")
+#set($serviceClassName="${model.entity.pcName}Service")
+#set($serviceName="${model.entity.ccName}Service")
+#set($classSerialNo="${model.entity.ccName}No")
+##
+##
+#set($createMethodName="insert${model.entity.pcName}")
+#set($updateMethodName="update${model.entity.pcName}")
+#set($updateUseListAtMethodName="update${model.entity.pcName}ListUseAt")
+#set($updateUseAtMethodName="update${model.entity.pcName}UseAt")
+#set($deleteMethodName="delete${model.entity.pcName}")
+#set($selectMethodName="select${model.entity.pcName}")
+#set($selectListMethodName="${model.entity.ccName}ListVO")
+##
+##
+package $servicePackage;
+
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.vo.CommonListVO;
+
+#if (${voPackage}=='${voPackage}')
+// Vo 객체에 대한 import 구문
+// import (vo package).${voClassName};
+#else
+import ${voPackage}.${voClassName};
+#end
+
+@Service("${serviceName}")
+public class $serviceClassName extends CommonAbstractServiceImpl {
+
+	@Resource(name="${daoName}")
+	private ${daoClassName} ${daoInstanceName};
+	
+	public CommonListVO $selectListMethodName(CommonListVO listVO) throws Exception {
+		return ${daoInstanceName}.$selectListMethodName(listVO);
+	}
+
+	public $voClassName $selectMethodName(int $classSerialNo) throws Exception {
+		return ${daoInstanceName}.$selectMethodName($classSerialNo);
+	}
+
+	public void $createMethodName($voClassName $voClassParam) throws Exception {
+		${daoInstanceName}.$createMethodName($voClassParam);
+	}
+
+	public void $updateMethodName($voClassName $voClassParam) throws Exception {
+		${daoInstanceName}.$updateMethodName($voClassParam);
+	}
+
+	public void $deleteMethodName(int $classSerialNo) throws Exception {
+		${daoInstanceName}.$deleteMethodName($classSerialNo);
+	}
+
+	public Integer $updateUseAtMethodName(Map<String, Object> paramMap) throws Exception {
+		return ${daoInstanceName}.$updateUseAtMethodName(paramMap);
+	}
+
+	public Integer $updateUseListAtMethodName(Map<String, Object> paramMap) throws Exception {
+		return ${daoInstanceName}.$updateUseListAtMethodName(paramMap);
+	}
+}

@@ -1,0 +1,121 @@
+@layer components {
+    .scrollbars-content {
+        @apply scrollbars -mx-1.5;
+        & .table-list, & .table-detail {
+            @apply table-auto mx-0 w-auto min-w-full;
+        }
+    }
+
+    .box-gradient, .box-gray {
+        @apply flex flex-wrap w-fit relative max-w-full p-1 min-h-15 rounded-md align-middle leading-tight font-medium text-center md:min-h-[4.375rem];
+    }
+
+    .box-gradient {
+        &::before {
+            @apply content-empty absolute top-1 left-1 right-1 bottom-1 rounded-md blur-xs;
+            background: linear-gradient(122deg, #F7C825 0%, #24DADE 25%, #746FE5 50%, #C418BC 76%, #FE0146 100%);
+        }
+        & .content {
+            @apply relative flex flex-wrap items-center z-5 px-3.5 py-3 w-full border rounded-md border-black/40 bg-white md:px-5;
+            & > * {
+                @apply mr-1 md:mr-3;
+                &:last-child {
+                    @apply mr-0;
+                }
+            }
+        }
+    }
+    
+    .box-gray {
+        @apply items-center px-3.5 py-4 border rounded-md border-gray2 bg-gray2 md:px-5;
+        & > * {
+            @apply mr-1 md:mr-3;
+            &:last-child {
+                @apply mr-0;
+            }
+        }
+    }
+
+    .box-result {
+        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm md:text-base md:py-13 md:rounded-[1rem];
+        &.is-large {
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem] md:py-29 md:bg-[length:auto_auto];
+        }
+    }
+
+    .box-loading {
+        @apply flex flex-col justify-center items-center w-52 h-30 bg-white text-xs text-gray1 text-center rounded-[1rem];
+        & .icon {
+            @apply relative w-8 h-8;
+            &::before {
+                @apply content-empty absolute top-0 left-0 w-8 h-8 border-1 rounded-full border-transparent border-t-[#ccc];
+                animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            }
+            &::before {
+                animation-delay: -0.45s;
+            }
+            & div {
+                @apply absolute top-0 left-0 w-8 h-8;
+                &::before, &::after {
+                    @apply content-empty absolute top-0 left-0 w-8 h-8 border-1 rounded-full border-transparent border-t-[#ccc];
+                    animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                }
+                &::before {
+                    animation-delay: -0.3s;
+                }
+                &::after {
+                    animation-delay: -0.15s;
+                }
+            }
+        }
+        & .text {
+            @apply mt-2;
+            &::before {
+                @apply content-empty block mb-1.5 h-2.5 bg-no-repeat bg-[length:auto_100%] bg-[center_bottom] bg-[url(../images/txt-eroum-gray.svg)];
+            }
+        }
+    }
+
+    .list-normal {
+        @apply space-y-[0.17em];
+        & li {
+            @apply relative pl-[1em];
+            &::before {
+                @apply absolute top-0 left-0 w-[1em] text-center;
+                content: "-";
+            }
+        }
+    }
+
+    .list-number {
+        @apply space-y-[0.17em];
+        counter-reset: section;
+        & li {
+            @apply relative pl-[1em];
+            &::before {
+                @apply absolute top-0 left-0 w-[1em] text-center;
+                counter-increment: section; 
+                content: counter(section)"."; 
+            }
+        }
+    }
+
+    @keyframes loading {
+        0% {transform: rotate(0deg);}
+        100% {transform: rotate(360deg);}
+    }
+
+    
+    & .error {
+        @apply mt-1 text-[0.8125rem] md:text-sm;
+    }
+}
+
+html {
+    @apply scrollbars scroll-smooth overflow-visible;
+}
+
+body {
+    @apply block relative pt-18 w-screen h-screen max-h-screen text-sm scrollbars scroll-smooth overflow-x-hidden text-black2 lg:pt-25 md:text-base;
+    overflow-y: overlay;
+}

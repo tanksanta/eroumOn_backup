@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="29px" viewBox="0 0 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Oval</title>
+    <defs>
+        <pattern id="pattern-1" width="100%" height="100%" patternUnits="objectBoundingBox">
+            <use xlink:href="#image-2"></use>
+        </pattern>
+        <image id="image-2" width="28" height="28" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAHKADAAQAAAABAAAAHAAAAABkvfSiAAAFC0lEQVRIDV2WTW/bRhCGh5+S7MhIAF0CtMfk2lOvPfRn9P8V/U/NOSgKuEVi15Ilkrt9n5ldyjaT9ZISOc++78wO1fya/s6LdTZbb20y6+fsY5iyDXMynzm/JBs1j8yXN3P5fr23PFtjdQsxzXzuhLPGLOvP0na2dI21OdsieJt03urGNltuG8uNZm7WXw5dxkjZF9tprqNV2O7V0HeAhYjniaNj6ToFaaxxoB5SkLQ0loA2FVpA4AXFmRaoA0pgBQcQ6l6c93m2hqekyhdfoBFECxBsESxJYUB1Q1lcwFCngIIGQLPSUkHYWs997pW9xmGxWoJNUjL3bVl9owcKVN9J/HpcXQhY77mSbXUu9fAaWBQCXWMBbQeHkkeA/SyFym/ksliqZ1zdG0Atnlo0VWVROKlIkrWW3NoAh72XbhS0KNRMQSUVUT2wnSBY6MGpzqlWdorP+I57lN+WhQ15EkpA+dMALrO0eK7Ow0YqWn94cCCFo6Iq6ghWFcW20ZYp0F4LCFjkkaIKoCCttker/bgA9yFghW42WmHrgWdsleUUTK8AwABszjHqPkVpWFlcKFXcDyaFvvXBAKQNxGg1sye1AnvebgI4yA9de5NQ0PGcbfuc1uFAlL1Qh5V16/RjvqyaUiNo7tRzZv3rrFNBdY2gKdlRkNNuVGAqVnnVijfqOLvTYjfHpLG4SroQqquVwNgyDQpxZfQckjEVhKToY3S5xlHqGbjQpcUex7093fb24ZsaoYLePi1297jY/nEWWJaq7QGr+xAQVYz9voXklnJ48aIDWIdnMUutFC9SvG0G29mzbfLZ7t8d7HjTuaLD/WSHfyYHj8rhUDY5xeGdB5AgDvRzVyhg3YD6ECiHw1UdzL4Awd+nwT6kf+3Lj5/t8x8n+/Tl6HbS5Cn7t8GJw2frodN+tMurD0Hw/6o3kJ2wvey/yUf77b/f7Rc7mH3/yexhb3YePa9Ub/J+C8nDlLkqcoVn17QCtCLqFV1AeJv0yiF23qYnO6R7+zT9afbz11j4149m3+6sO20drE7BG0BDVUY5a7hbLEDDi6aWi8/a/IAoGxo7BUMl36ST7fODHZZ7gY9md6qIH/4K6O7Z7PGdyrhAJ0EBzwIL2AjeqCY4921RsuTKOgeqCosyYNv87Fbu04Pd5idXbKOCvX8ICFjesJtdXF9GNWMBGa72qlgb/+K9tKoKC1EX2wErHShVu3yS2rNsljoAKNs/SckQSqkc2s95CnurUqBFrVvqO8+VhY1s/MHtvHjuADKA03txxFvHqAoHepbF5IyD3V1f9ZMWUqEABfZeGttc7cxtxE6AbPoAAuKcRdD2vJIJPGCjoFtByRlFwuG7XItysKCzVAPUPT0VCIhA5I2fU8BqsdAYuMZivsNOB7KbCTjIvo3GdI586f0ZUP3195fAk+7rtCC1HlfozXqFRmU6FLBUAfPF6B7svAJLLoGOGrPUYi31z7G2mJICLUAKWXVVqOC6DoAgnPsI5VFYergGcwWolLUOpSor8AUU+8voyVdVGLAKAcxi4nuaQTQE38ZXaPx6CugslVQkucRacdajqPWfiRXKHNCaz1DOyzlyV+wkCgLiJVeKQ0rZEmyXASBKNfxGJuh6W1RYtXWdeUEVq7EyutALdd5wsUoWV5XAJGFta+QyOILF4Qoj8DWXXPveFJQfWLUTecEogBcNz7Nqz02FakblopEEryprEemR/wEL2/wnewtJoAAAAABJRU5ErkJggg=="></image>
+    </defs>
+    <g id="회원-아버지-링크" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="link-2" transform="translate(-946.000000, -32.000000)" fill="url(#pattern-1)">
+            <g id="Group-25" transform="translate(624.000000, -35.000000)">
+                <g id="Group-35" transform="translate(315.000000, 60.000000)">
+                    <path d="M21,35.5078125 C28.7319865,35.5078125 35,34.1057922 35,22.5078125 C35,10.9098328 28.7319865,7.5078125 21,7.5078125 C13.2680135,7.5078125 7,10.9098328 7,22.5078125 C7,34.1057922 13.2680135,35.5078125 21,35.5078125 Z" id="Oval"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gds.optn">
+
+<resultMap type="gdsOptnVO" id="gdsOptnVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		gds_optn_no
+		, gds_no
+		, optn_ty
+		, optn_nm
+		, optn_pc
+		, optn_stock_qy
+		, use_yn
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="gdsNo !=null and gdsNo != ''">
+		AND gds_no = #{gdsNo}
+		</if>
+		<if test="optnTy !=null and optnTy != ''">
+		AND optn_ty = #{optnTy}
+		</if>
+		<if test="optnVal !=null and optnVal != ''">
+		AND optn_nm LIKE CONCAT(#{optnVal}, '%')
+		</if>
+		<if test="useYn !=null and useYn != ''">
+		AND use_yn = #{useYn}
+		</if>
+		<if test="optnNm != null and optnNm != '' ">
+		AND optn_nm  = #{optnNm}
+		</if>
+		<if test="optnId != null and optnId != '' ">
+		AND REPLACE(REPLACE(optn_nm,"*","")," ","") = #{optnId}
+		</if>
+	</sql>
+
+	<sql id="searchOrder">
+		ORDER BY gds_optn_no ASC
+	</sql>
+
+
+	<select id="selectGdsOptnList" parameterType="java.util.HashMap" resultMap="gdsOptnVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		  FROM GDS_OPTN
+		 WHERE 1=1
+			<include refid="searchConditions" />
+			<include refid="searchOrder" />
+	</select>
+
+	<select id="selectGdsOptn" parameterType="java.util.HashMap" resultType="gdsOptnVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM GDS_OPTN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<insert id="insertGdsOptn" parameterType="gdsOptnVO">
+		INSERT INTO GDS_OPTN (
+			gds_no
+			, optn_ty
+			, optn_nm
+			, optn_pc
+			, optn_stock_qy
+			, use_yn
+		) VALUES (
+			#{gdsNo}
+			, #{optnTy, jdbcType=VARCHAR}
+			, #{optnNm, jdbcType=VARCHAR}
+			, #{optnPc}
+			, #{optnStockQy}
+			, #{useYn, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<update id="updateGdsOptn" parameterType="gdsOptnVO">
+		UPDATE GDS_OPTN SET
+			optn_ty 	= #{optnTy, jdbcType=VARCHAR}
+			, optn_nm 	= #{optnNm, jdbcType=VARCHAR}
+			, optn_pc 	= #{optnPc}
+			, optn_stock_qy = #{optnStockQy}
+			, use_yn	= #{useYn, jdbcType=VARCHAR}
+		WHERE gds_no = #{gdsNo}
+			AND gds_optn_no = #{gdsOptnNo}
+	</update>
+
+
+	<delete id="deleteGdsOptn" parameterType="java.util.HashMap">
+		DELETE FROM GDS_OPTN
+		 WHERE
+		    gds_no = #{gdsNo}
+		 	AND gds_optn_no IN
+		<foreach collection="gdsOptnNos" item="gdsOptnNo" open="(" separator="," close=")">
+			#{gdsOptnNo}
+		</foreach>
+	</delete>
+
+
+	<!-- 재고수량 변경 -->
+	<update id="updateGdsOptnStockQy" parameterType="java.util.HashMap">
+		UPDATE GDS_OPTN SET
+			optn_stock_qy = optn_stock_qy + #{optnStockQy}
+		WHERE gds_no = #{gdsNo}
+		  AND optn_nm = #{optnNm}
+	</update>
+
+	<!-- 이로움1.0 정보로 재고 수량 변경 -->
+	<update id="updateOptnStockQy" parameterType="java.util.HashMap">
+		UPDATE GDS_OPTN SET
+			optn_stock_qy = #{optnStockQy}
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</update>
+
+	<!-- 사용여부&재고수량 -->
+	<update id="updateOptnUseNStock" parameterType="java.util.HashMap">
+		UPDATE GDS_OPTN SET
+			use_yn = #{useYn}
+			, optn_stock_qy = #{optnStockQy}
+		WHERE gds_optn_no = #{gdsOptnNo}
+	</update>
+
+</mapper>

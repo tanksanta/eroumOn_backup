@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.dlvy">
+
+	<resultMap type="dlvyVO" id="dlvyVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		dlvy_mng_no
+		, unique_id
+		, dlvy_nm
+		, nm
+		, zip
+		, addr
+		, daddr
+		, telno
+		, mbl_telno
+		, bass_dlvy_yn
+		, memo
+		, use_yn
+		, reg_dt
+		, mdfcn_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchDlvyMngNo != null and srchDlvyMngNo != '' ">
+			AND dlvy_mng_no = #{srchDlvyMngNo}
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<select id="selectDlvyListAll" parameterType="java.util.HashMap" resultMap="dlvyVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_DLVY_MNG mdm
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY bass_dlvy_yn DESC
+	</select>
+
+	<select id="selectDlvy" parameterType="java.util.HashMap" resultType="dlvyVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_DLVY_MNG mdm
+		WHERE dlvy_mng_no = #{srchDlvyMngNo} and unique_id = #{srchUniqueId}
+	</select>
+
+	<select id="selectBassDlvy" parameterType="java.util.HashMap" resultType="dlvyVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_DLVY_MNG mdm
+		WHERE unique_id = #{srchUniqueId}
+		  AND bass_dlvy_yn = 'Y'
+	</select>
+
+
+	<select id="selectBassCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM MBR_DLVY_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+
+	</select>
+
+	<insert id="insertDlvy" parameterType="dlvyVO">
+		INSERT INTO MBR_DLVY_MNG (
+			unique_id
+			, dlvy_nm
+			, nm
+			, zip
+			, addr
+			, daddr
+			, telno
+			, mbl_telno
+			, bass_dlvy_yn
+			, memo
+			, reg_dt
+			, use_yn
+		) VALUES (
+			#{uniqueId, jdbcType=VARCHAR}
+			, #{dlvyNm, jdbcType=VARCHAR}
+			, #{nm, jdbcType=VARCHAR}
+			, #{zip, jdbcType=VARCHAR}
+			, #{addr, jdbcType=VARCHAR}
+			, #{daddr, jdbcType=VARCHAR}
+			, #{telno, jdbcType=VARCHAR}
+			, #{mblTelno, jdbcType=VARCHAR}
+			, #{bassDlvyYn, jdbcType=VARCHAR}
+			, #{memo, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{useYn, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="dlvyMngNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 회원가입시 기본 배송지 -->
+	<insert id="insertBassDlvy" parameterType="dlvyVO">
+		INSERT INTO MBR_DLVY_MNG (
+			unique_id
+			, dlvy_nm
+			, nm
+			, zip
+			, addr
+			, daddr
+			, telno
+			, mbl_telno
+			, bass_dlvy_yn
+			, memo
+			, reg_dt
+			, use_yn
+		) VALUES (
+			#{uniqueId, jdbcType=VARCHAR}
+			, #{dlvyNm, jdbcType=VARCHAR}
+			, #{nm, jdbcType=VARCHAR}
+			, #{zip, jdbcType=VARCHAR}
+			, #{addr, jdbcType=VARCHAR}
+			, #{daddr, jdbcType=VARCHAR}
+			, #{telno, jdbcType=VARCHAR}
+			, #{mblTelno, jdbcType=VARCHAR}
+			, #{bassDlvyYn, jdbcType=VARCHAR}
+			, #{memo, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{useYn, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateDlvy" parameterType="dlvyVO">
+		/* Query ID : dlvy.xml > updateDlvy */
+		UPDATE MBR_DLVY_MNG SET
+			unique_id = #{uniqueId, jdbcType=VARCHAR}
+			, dlvy_nm =  #{dlvyNm, jdbcType=VARCHAR}
+			, nm =   #{nm, jdbcType=VARCHAR}
+			, zip =   #{zip, jdbcType=VARCHAR}
+			, addr =   #{addr, jdbcType=VARCHAR}
+			, daddr =   #{daddr, jdbcType=VARCHAR}
+			, telno =   #{telno, jdbcType=VARCHAR}
+			, mbl_telno =   #{mblTelno, jdbcType=VARCHAR}
+			, memo =   #{memo, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, use_yn =  #{useYn, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+		WHERE dlvy_mng_no = #{dlvyMngNo} AND unique_id = #{uniqueId}
+	</update>
+
+	<update id="updateBassDlvy" parameterType="java.util.HashMap">
+		/* Query ID : dlvy.xml > updateBassDlvy */
+		UPDATE MBR_DLVY_MNG SET
+			bass_dlvy_yn = #{srchBassDlvyYn}
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</update>
+
+	<update id="deleteDlvy" parameterType="java.util.HashMap">
+		UPDATE MBR_DLVY_MNG SET
+			use_yn = 'N'
+			, bass_dlvy_yn = 'N'
+		WHERE dlvy_mng_no = #{dlvyMngNo} AND unique_id = #{uniqueId}
+	</update>
+
+
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="49px" height="49px" viewBox="0 0 49 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 31@3x</title>
+    <g id="main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Market" transform="translate(-1733.000000, -56.000000)">
+            <g id="Group-14" transform="translate(0.000000, 43.000000)">
+                <g id="Group-31" transform="translate(1733.000000, 13.000000)">
+                    <circle id="Oval" cx="24.5" cy="24.5" r="24.5"></circle>
+                    <path d="M30.3860727,7.4150917 L30.4513268,7.4150917 C30.9969901,7.4150917 31.4419148,7.85252283 31.4511826,8.39810735 L31.75936,26.5402781 L31.75936,26.5402781 L31.4966965,30.4815879 C31.461688,31.0068953 31.0253825,31.4150917 30.4989098,31.4150917 L30.2582039,31.4150917 C29.7797647,31.4150917 29.3683527,31.0762035 29.2767171,30.6066219 L28.4846753,26.5478439 L28.4846753,26.5478439 L29.3873026,8.36550967 C29.4137304,7.83315342 29.8530608,7.4150917 30.3860727,7.4150917 Z" id="Rectangle" fill="#333333" transform="translate(30.122018, 19.415092) rotate(-315.000000) translate(-30.122018, -19.415092) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

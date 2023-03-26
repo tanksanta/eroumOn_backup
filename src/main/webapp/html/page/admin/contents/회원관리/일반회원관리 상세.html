@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>일반회원관리</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../../core/vendor/datatables/datatables.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title small white">Management<br> System</h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="dashboard.html" class="menu-item1">대시보드</a></li>
+                <li><a href="#list-items2" class="menu-item2 active">회원관리</a></li>
+                <li><a href="#list-items3" class="menu-item3">상품관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">주문관리</a></li>
+                <li><a href="#list-items5" class="menu-item5">전시관리</a></li>
+                <li><a href="#list-items11" class="menu-item11">프로모션관리</a></li>
+                <li><a href="#list-items7" class="menu-item7">고객상담관리</a></li>
+                <li><a href="#list-items8" class="menu-item8">시스템관리</a></li>
+                <li><a href="#list-items9" class="menu-item9">정산관리</a></li>
+                <li><a href="#list-items10" class="menu-item10">통계관리</a></li>
+            </ul>
+            <div class="list-items active" id="list-items2">
+                <p>
+                    회원관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li class="active"><a href="#">일반회원관리</a></li>
+                    <li><a href="#">블랙리스트회원관리</a></li>
+                    <li><a href="#">휴면회원관리</a></li>
+                    <li><a href="#">탈퇴회원관리</a></li>
+                    <li><a href="#">SMS 전송 이력</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items3">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">카테고리관리</a></li>
+                    <li><a href="#">상품관리</a></li>
+                    <li><a href="#">상품일괄업로드</a></li>
+                    <li><a href="#">상품재고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">사업소취소요청</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    전시관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">추천상품관리</a></li>
+                    <li><a href="#">테마전시관리</a></li>
+                    <li><a href="#">팝업관리</a></li>
+                    <li><a href="#">광고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items11">
+                <p>
+                    프로모션관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">포인트</a></li>
+                    <li><a href="#">마일리지</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">상품후기</a></li>
+                    <li><a href="#">상품Q&amp;A</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items8">
+                <p>
+                    시스템관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">관리자관리</a></li>
+                    <li><a href="#">권한관리</a></li>
+                    <li><a href="#">메뉴관리</a></li>
+                    <li><a href="#">게시판관리</a></li>
+                    <li><a href="#">금지어관리</a></li>
+                    <li><a href="#">업체(사업소)관리</a></li>
+                    <li><a href="#">제조사관리</a></li>
+                    <li><a href="#">배송업체관리</a></li>
+                    <li><a href="#">공통코드관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items9">
+                <p>
+                    정산관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산목록</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items10">
+                <p>
+                    통계관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">매출통계</a></li>
+                    <li><a href="#">회원통계</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="dashboard.html" class="back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1">일반회원관리</h1>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><a href="#">회원관리</a></li>
+                        <li><strong>일반회원관리</strong></li>
+                    </ul>
+                </nav>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <div class="member-info">
+                    <div class="info">
+                        <span class="thum"></span>
+                        <span class="name">
+                            <strong>회원이름</strong>
+                            <small>din92</small>
+                        </span>
+                    </div>
+                    <p class="grade">PLATINUM</p>
+                    <p class="member">
+                        온라인 회원
+                        <strong>2022.04.24</strong>
+                    </p>
+                    <i class="ico-member-mo type"></i>
+                    <i class="ico-member-pc type"></i>
+                </div>
+                
+                <ul class="tab-list tab-full -mt-6.5 mx-2.5 px-1 rounded-md bg-white">
+                    <li><a href="일반회원관리 상세.html" class="active">회원정보</a></li>
+                    <li><a href="일반회원관리 상세-주문내역.html">주문내역</a></li>
+                    <li><a href="일반회원관리 상세-마일리지.html">마일리지</a></li>
+                    <li><a href="일반회원관리 상세-쿠폰.html">쿠폰</a></li>
+                    <li><a href="일반회원관리 상세-포인트.html">포인트</a></li>
+                    <li><a href="일반회원관리 상세-이벤트.html">이벤트</a></li>
+                    <li><a href="일반회원관리 상세-상품후기.html">상품후기</a></li>
+                    <li><a href="일반회원관리 상세-상품QA.html">상품Q&ampA</a></li>
+                    <li><a href="일반회원관리 상세-문의.html">1:1문의</a></li>
+                    <li><a href="일반회원관리 상세-관심상품.html">관심상품</a></li>
+                </ul>
+
+                <div class="text-right mt-6">
+                    <button type="button" class="btn shadow">임시비밀번호 발송</button>
+                </div>
+                
+                <form action="#" class="mt-2">
+                    <fieldset>
+                        <legend class="text-title2">기본정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">회원분류 / 회원등급</th>
+                                    <td>
+                                        일반회원
+                                        <span class="badge-primary">PLATINUM</span>
+                                    </td>
+                                    <th scope="row">수급자여부</th>
+                                    <td>해당없음(일반회원)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">아이디</th>
+                                    <td>EROUM2022</td>
+                                    <th scope="row">휴대폰 번호</th>
+                                    <td>010-0000-0000</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">이름/생년월일/성별</th>
+                                    <td>홍길동 / 20220701 / 남자</td>
+                                    <th scope="row">가입매체 / 가입일</th>
+                                    <td>PC / 2022-07-05 11:00:00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">이메일</th>
+                                    <td colspan="3">test@test.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">문의유형</th>
+                                    <td colspan="3">12345 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">최근접속일</th>
+                                    <td>2022.07.21 14:00:22</td>
+                                    <th scope="row">최종변경일 / 처리자</th>
+                                    <td>2022.07.21 13:33:25 / manager0932</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">수급자정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">수급자여부</th>
+                                    <td colspan="3">장기요양등급수급자 (2등급)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">선택정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">전화번호</th>
+                                    <td>02-0000-0000</td>
+                                    <th scope="row">추천인 ID</th>
+                                    <td>추천인 ID</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">개인정보 유효기간</th>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">정보수신</th>
+                                    <td colspan="3">
+                                        <div class="flex flex-wrap -mx-2">
+                                            <div class="form-group px-2 my-1 mr-auto">
+                                                <label for="member-item2-1" class="pr-1">SMS 수신</label>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="member-item2-1" checked>
+                                                        <label class="form-check-label" for="member-item2-1">Y</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="aaa" id="member-item2-1-2">
+                                                        <label class="form-check-label" for="member-item2-1-2">N</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group px-2 my-1 mr-auto">
+                                                <label for="member-item2-2" class="pr-1">이메일 수신</label>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="bbb" id="member-item2-2" checked>
+                                                        <label class="form-check-label" for="member-item2-2">Y</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="bbb" id="member-item2-2-2">
+                                                        <label class="form-check-label" for="member-item2-2-2">N</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group px-2 my-1 mr-auto">
+                                                <label for="member-item2-3" class="pr-1">DM(우편)</label>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ccc" id="member-item2-3" checked>
+                                                        <label class="form-check-label" for="member-item2-3">Y</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="cc" id="member-item2-3-2">
+                                                        <label class="form-check-label" for="member-item2-3-2">N</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group px-2 my-1">
+                                                <label for="member-item2-4" class="pr-1">DM(전화)</label>
+                                                <div class="form-check-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ddd" id="member-item2-4" checked>
+                                                        <label class="form-check-label" for="member-item2-4">Y</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ddd" id="member-item2-4-2">
+                                                        <label class="form-check-label" for="member-item2-4-2">N</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="member-item3">사진등록</label></th>
+                                    <td colspan="3">
+                                        <input type="file" class="form-control w-full" id="member-item3">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">관리정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" rowspan="5">관리대상</th>
+                                    <td>
+                                        <div class="form-group w-full">
+                                            <button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas1">경고관리</button>
+                                            <p class="flex-1 mx-2">30일이내 사용후 반품고객</p>
+                                            <button type="button" class="btn shadow ml-auto" data-bs-toggle="modal" data-bs-target="#modal1">변경내역보기</button>
+                                        </div>
+                                    </td>
+                                    <th scope="row">최종변경일/처리자</th>
+                                    <td>2022.07.22 14:22:14 / digh8201</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group w-full">
+                                            <button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas2">블랙리스트관리</button>
+                                            <p class="flex-1 mx-2">
+                                                일시정지 (2015-10-10~2015-12-31)<br>
+                                                사유 : 상습반품고객
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <th scope="row">최종변경일/처리자</th>
+                                    <td>2022.07.22 14:22:14 / digh8201</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group w-full">
+                                            <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas3">직권탈퇴관리</button>
+                                            <p class="flex-1 mx-2">
+                                                직권탈퇴<br>
+                                                사유 : 영리 목적의 홍보 반복
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <th scope="row">최종변경일/처리자</th>
+                                    <td>2022.07.22 14:22:14 / digh8201</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-group">
+                                            <label for="member-item4" class="mr-1">이벤트 당첨자 제외</label>
+                                            <div class="form-check-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="zzz" id="member-item4" checked>
+                                                    <label class="form-check-label" for="member-item4">Y</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="zzz" id="member-item4-2">
+                                                    <label class="form-check-label" for="member-item4-2">N</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">탈퇴정보</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">회원탈퇴사유</th>
+                                    <td>-</td>
+                                    <th scope="row">탈퇴일</th>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <div class="btn-group mt-8">
+                        <button type="submit" class="btn-primary large shadow w-52">저장</button>
+                    </div>
+                </form>
+
+                <!-- 경고관리 -->
+                <div class="offcanvas offcanvas-end w-95" tabindex="-1" id="offcanvas1">
+                    <div class="offcanvas-header">
+                        <p>경고관리</p>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form action="#">
+                            <fieldset>
+                                <label for="modal-item1-1" class="block font-bold mb-2">구분</label>
+                                <div class="form-check-group w-full">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m1" id="modal-item1-1" checked>
+                                        <label class="form-check-label" for="modal-item1-1">1차경고</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m1" id="modal-item1-1-2">
+                                        <label class="form-check-label" for="modal-item1-1-2">2차경고</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m1" id="modal-item1-1-3">
+                                        <label class="form-check-label" for="modal-item1-1-3">3차경고</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m1" id="modal-item1-1-4">
+                                        <label class="form-check-label" for="modal-item1-1-4">해제</label>
+                                    </div>
+                                </div>
+        
+                                <label for="modal-item1-2" class="block font-bold mt-5 mb-2">사유선택</label>
+                                <select name="" id="modal-item1-2" class="form-control w-full">
+                                    <option value="">선택하세요</option>
+                                </select>
+        
+                                <label for="modal-item1-3" class="block font-bold mt-5 mb-2">관리자 메모</label>
+                                <textarea name="" id="modal-item1-3" cols="30" rows="7" class="form-control w-full"></textarea>
+        
+                                <div class="flex mt-6">
+                                    <button type="submit" class="btn-primary large shadow flex-1 mr-2">저장</button>
+                                    <button type="button" class="btn-secondary large shadow w-20">취소</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+                </div>
+                <!-- //경고관리 -->
+
+                <!-- 블랙리스트 관리 -->
+                <div class="offcanvas offcanvas-end w-95" tabindex="-1" id="offcanvas2">
+                    <div class="offcanvas-header">
+                        <p>블랙리스트관리</p>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form action="#">
+                            <fieldset>
+                                <label for="modal-item2-1" class="block font-bold mb-2">구분</label>
+                                <div class="form-check-group w-full whitespace-nowrap">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m2" id="modal-item2-1" checked>
+                                        <label class="form-check-label" for="modal-item2-1">일시정지</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m2" id="modal-item2-1-2">
+                                        <label class="form-check-label" for="modal-item2-1-2">영구정지</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="m2" id="modal-item2-1-3">
+                                        <label class="form-check-label" for="modal-item2-1-3">해제</label>
+                                    </div>
+                                </div>
+                                
+                                <label for="modal-item2-3" class="block font-bold mt-5 mb-2">정지기간</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control flex-1 calendar" id="modal-item2-3">
+                                    <i>~</i>
+                                    <input type="text" class="form-control flex-1 calendar">
+                                </div>
+        
+                                <label for="modal-item2-4" class="block font-bold mt-5 mb-2">사유선택</label>
+                                <select name="" id="modal-item2-4" class="form-control w-full">
+                                    <option value="">선택하세요</option>
+                                </select>
+        
+                                <label for="modal-item2-5" class="block font-bold mt-5 mb-2">관리자 메모</label>
+                                <textarea name="" id="modal-item2-5" cols="30" rows="7" class="form-control w-full"></textarea>
+        
+                                <div class="flex mt-6">
+                                    <button type="submit" class="btn-primary large shadow flex-1 mr-2">저장</button>
+                                    <button type="button" class="btn-secondary large shadow w-20">취소</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+                </div>
+                <!-- //블랙리스트 관리 -->
+
+                <!-- 직권탈퇴 -->
+                <div class="offcanvas offcanvas-end w-95" tabindex="-1" id="offcanvas3">
+                    <div class="offcanvas-header">
+                        <p>직권탈퇴 관리</p>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form action="#">
+                            <fieldset>
+                                <label for="modal-item3-1" class="block font-bold mt-5 mb-2">사유선택</label>
+                                <select name="" id="modal-item3-1" class="form-control w-full">
+                                    <option value="">선택하세요</option>
+                                </select>
+
+                                <label for="modal-item3-2" class="block font-bold mt-5 mb-2">사유입력</label>
+                                <textarea name="" id="modal-item3-2" cols="30" rows="5" class="form-control w-full"></textarea>
+        
+                                <div class="flex mt-6">
+                                    <button type="submit" class="btn-primary large shadow flex-1 mr-2">저장</button>
+                                    <button type="button" class="btn-secondary large shadow w-20">취소</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+                </div>
+                <!-- //직권탈퇴 -->
+                
+                <!-- 경고관리 내역 -->
+                <div class="modal fade" id="modal1" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>변경 내역</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="nav tab-list">
+                                    <li>
+                                        <a href="#modal-pane1" class="active" data-bs-toggle="pill" data-bs-target="#modal-pane1" role="tab" aria-selected="true">경고내역</a>
+                                    </li>
+                                    <li>
+                                        <a href="#modal-pane2" data-bs-toggle="pill" data-bs-target="#modal-pane2" role="tab" aria-selected="false">정지/해제 내역</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content mt-5">
+                                    <div class="tab-pane fade show active" id="modal-pane1" role="tabpanel">
+                                        <table class="table-list">
+                                            <colgroup>
+                                                <col class="w-16">
+                                                <col class="w-22">
+                                                <col class="w-[25%]">
+                                                <col>
+                                                <col class="w-31">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">번호</th>
+                                                    <th scope="col">구분</th>
+                                                    <th scope="col">사유</th>
+                                                    <th scope="col">관리자메모</th>
+                                                    <th scope="col">변경일/처리자명</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>123</td>
+                                                    <td>3차경고</td>
+                                                    <td>무리한손해배상요청고객</td>
+                                                    <td>손배진행</td>
+                                                    <td>
+                                                        2014-02-02<br>
+                                                        14:00:02<br>
+                                                        admin1
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="modal-pane2" role="tabpanel">
+                                        <table class="table-list">
+                                            <colgroup>
+                                                <col class="w-16">
+                                                <col class="w-22">
+                                                <col class="w-[18%]">
+                                                <col>
+                                                <col class="w-28">
+                                                <col class="w-31">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">번호</th>
+                                                    <th scope="col">구분</th>
+                                                    <th scope="col">사유</th>
+                                                    <th scope="col">관리자메모</th>
+                                                    <th scope="col">정지기간</th>
+                                                    <th scope="col">변경일/처리자명</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>123</td>
+                                                    <td>영구</td>
+                                                    <td>무리한손해배상요청고객</td>
+                                                    <td>손배진행</td>
+                                                    <td>
+                                                        2015-10-10 ~<br>
+                                                        2015-12-31
+                                                    </td>
+                                                    <td>
+                                                        2014-02-02<br>
+                                                        14:00:02<br>
+                                                        admin1
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //경고관리 내역 -->
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>
