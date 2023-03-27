@@ -39,6 +39,12 @@
 <script src="/html/core/vendor/rsa/RSA.min.js" /></script>
  <script>
     $(function(){
+    	var ssoResultMsg = '${ssoResultMsg}';
+    	
+    	if (ssoResultMsg) {
+    		alert(ssoResultMsg);
+    	}
+    	
     	const f_rsa_enc = function(v, rpkm, rpke) {
 			let rsa = new RSAKey();
 			rsa.setPublic(rpkm,rpke);

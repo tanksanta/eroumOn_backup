@@ -21,7 +21,6 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class AES256Util {
 
-	/*
 	public static byte[] ivBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
 	public static String AESEncode(String str, String key)	throws java.io.UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException,	IllegalBlockSizeException, BadPaddingException {
@@ -48,6 +47,4 @@ public class AES256Util {
 		}
 		return "";
 	}
-	*/
-
 }
