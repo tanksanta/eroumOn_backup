@@ -52,14 +52,14 @@
                 </div>
                 <div id="map" class="maps-kakao"></div>
             </div>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84e3b82c817022c5d060e45c97dbb61f&libraries=services,clusterer,drawing"></script>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${_kakaoScriptKey}&libraries=services,clusterer,drawing"></script>
 
             <script>
 	        var FindBusinessPlace = (function(){
 
 	        	var srchMode = "LOCATION";
 	        	var sido = "서울특별시";
-	        	var gugun = "중랑구";
+	        	var gugun = "금천구";
 	        	var srchText = "";
 	        	var dist = 0; // meter
 
@@ -75,6 +75,8 @@
 	        		requestAnimationFrame(resizeHandler);
 	        	}, false);
 	        	resizeHandler();
+
+	        	var gpsMsg = "";
 
         		function init(){
 
@@ -119,7 +121,7 @@
 					//검색버튼 이벤트
 					$(".f_srch_location").on("click", function(){
 						srchMode = $(this).data("srchMode");
-						sido = $("#sido").val();
+						sido = $("#sido option:selected").text().substring(0,2);
 						gugun = $("#gugun").val();
 						srchList(true);
 					});
@@ -163,25 +165,30 @@
 	        				switch (e.code) {
 	        					case e.PERMISSION_DENIED:
 	        						console.log("위치정보 검색을 거부했습니다.\n브라우저의 설정에서 위치(GPS) 서비스를 사용으로 변경해주세요.");
+	        						gpsMsg = "위치정보 검색을 거부했습니다.\n브라우저의 설정에서 위치(GPS) 서비스를 사용으로 변경해주세요.";
 	        						break;
 	        					case e.POSITION_UNAVAILABLE:
 	        						console.log("브라우저가 위치정보를 검색하지 못했습니다.");
+	        						gpsMsg = "브라우저가 위치정보를 검색하지 못했습니다.";
 	        						break;
 	        					case e.TIMEOUT:
 	        						console.log("브라우저의 위치 정보 검색 시간이 초과됐습니다.");
+	        						gpsMsg = "브라우저의 위치 정보 검색 시간이 초과됐습니다.";
 	        						break;
 	        					default:
 	        						console.log("위치 정보 검색에 문제가 있습니다.");
+	        						gpsMsg = "위치 정보 검색에 문제가 있습니다.";
 	        				}
 	        				isAllow = false;
-	        				$(".set_position").remove();
+	        				//$(".set_position").remove();
 	        				srchMode = "LOCATION";
 	        				srchList();
 	        			}), { timeout: 1000 });
 	        		} else {
 	        			console.log("사용 중이신 브라우저가 위치(GPS) 기능을 지원하지 않습니다.");
+	        			gpsMsg = "사용 중이신 브라우저가 위치(GPS) 기능을 지원하지 않습니다.";
 	        			isAllow = false;
-	        			$(".set_position").remove();
+	        			//$(".set_position").remove();
         				srchList(($(window).width() < 768) ? false : true);
 	        		}
 	        	}
@@ -395,9 +402,11 @@
 		        		}
 
 		                // 지도를 내위치로
-		                $(".set_position").on("click", function(){
-							map.setCenter(new kakao.maps.LatLng(lat, lot));
-	        				map.setLevel(5)
+		                $(".set_position").one("click", function(){
+							if(isAllow){
+								map.setCenter(new kakao.maps.LatLng(lat, lot));
+		        				map.setLevel(5)
+							}
 						})
 
 		             	// 리스트 클릭시

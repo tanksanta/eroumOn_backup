@@ -153,9 +153,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		session.invalidate();
 
 		javaScript.setMessage("탈퇴처리 되었습니다.");
-		//TODO 플래너로
-		//javaScript.setLocation("/"+plannerPath+"/index");
-		javaScript.setLocation("/"+ marketPath);
+		javaScript.setLocation("/"+plannerPath+"/index");
 
 		return new JavaScriptView(javaScript);
 

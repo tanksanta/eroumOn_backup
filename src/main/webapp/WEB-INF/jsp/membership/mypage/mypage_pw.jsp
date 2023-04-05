@@ -39,19 +39,29 @@
 									<label for="pswd">비밀번호<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
+							<td><form:input type="password" class="form-control w-full" malength="16" path="pswd"/></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
 							<td>
-							<form:input type="password" class="form-control w-full" malength="16" path="pswd"/>
-							<p class="py-1.5 text-sm">
-									띄어쓰기 없이 8~16자 영문,숫자,특수문자를 조합하여 입력해 주세요.<br> (특수문자는 !, @, #, $, %, ^, &amp;, *만 사용 가능)<br> 아이디와 동일한 비밀번호는 사용할 수 없습니다.
-								</p></td>
+								<p class="text-sm">
+									띄어쓰기 없이 8~16자 영문, 숫자, 특수문자를 조합하여 입력해주세요. (특수문자는 !,@,#,$,%,^,&amp;,*만 사용 가능) 아이디와 동일한 비밀번호는 사용 할 수 없습니다.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">
 								<p><label for="pswdCnfm">비밀번호 확인<sup class="text-danger text-base md:text-lg">*</sup></label></p>
 							</th>
+							<td><input type="password" class="form-control w-full" maxlength="16" id="pswdCnfm" name="pswdCnfm"></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
 							<td>
-							<input type="password" class="form-control w-full" maxlength="16" id="pswdCnfm" name="pswdCnfm">
-							<p class="py-1.5 text-sm">비밀번호 확인을 위해 다시 한번 입력해주세요.</p></td>
+								<p class="text-sm">
+									비밀번호 확인을 위해 다시 한번 입력해주세요.
+								</p>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -126,6 +126,9 @@
 		<if test="srchEmail != null and srchEmail != '' ">
 			AND eml like CONCAT('%',#{srchEmail},'%')
 		</if>
+		<if test="srchGender != null and srchGender != '' ">
+			AND gender = #{srchGender}
+		</if>
 
 		<if test="srchWhdwlYn != null and srchWhdwlYn != '' ">
 			AND whdwl_yn = #{srchWhdwlYn}

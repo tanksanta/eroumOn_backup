@@ -20,13 +20,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.Base64Util;
 import icube.manage.gds.gds.biz.GdsService;
+import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnService;
 
 /**
  * 주문 데이터 수신 API
@@ -42,6 +46,9 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
 
+	@Resource(name = "gdsOptnService")
+	private GdsOptnService gdsOptnService;
+
 	@Resource(name = "updateBplcInfoApiService")
 	private UpdateBplcInfoApiService updateBplcInfoApiService;
 
@@ -56,6 +63,7 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "callback.json")
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public Map<String, Object> callback(
 			HttpServletRequest request
 			)throws Exception {
@@ -84,12 +92,12 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 
 		int resultCode = 00;
 		String resultMsg = "success";
-		String failMsg = "";
 
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(sb.toString().replace(" ", ""));
 		JSONObject jsonObj = (JSONObject) obj;
 		//JSONArray jsonArray = new JSONArray();
+		ArrayList<JSONObject> addList = new ArrayList<JSONObject>();
 
 		System.out.println(" ### jsonObj ### " + jsonObj);
 		ArrayList<String> paramList = new ArrayList<String>();
@@ -147,19 +155,23 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 				if(resultCode != 11) {
 					//3. api_div 검증
 					String apiDiv = Base64Util.decoder((String)jsonObj.get("api_div"));
-					if(!apiDiv.equals("order_ent_response")) {
-						resultCode = 12;
-						resultMsg = "API 구분자가 일치하지 않습니다";
-					}else {
+					if(apiDiv.equals("order_ent_response")) {
+						// 승인, 반려 상태 업데이트
 						Map<String, Object> returnMap = new HashMap<String, Object>();
 						returnMap = updateBplcInfoApiService.getBplcSttusInfo(jsonObj);
 						int updateTotal = (Integer)returnMap.get("updateTotal");
-						int failTotal = (Integer)returnMap.get("failTotal");
+
+						addList = (ArrayList) returnMap.get("_array_item");
 
 						resultMsg = updateTotal + " 건 업데이트 완료";
-						failMsg = failTotal + " 건은 주문취소된 건입니다.";
-						System.out.println("####### 주문 취소 건 ###### : " + failMsg + " 건");
-						resultMap.put("cancelMsg", failMsg);
+					}else if(apiDiv.equals("order_status")) {
+						// 상품 출고 상태 업데이트
+						//TODO 주문확정 처리는 어떻게?
+
+
+					}else {
+						resultCode = 12;
+						resultMsg = "API 구분자가 일치하지 않습니다";
 					}
 				}
 			}
@@ -167,12 +179,134 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 
 		resultMap.put("resultMsg", resultMsg);
 		resultMap.put("resultCode", resultCode);
+		resultMap.put("_array_item", addList);
 		return resultMap;
 
 	}
 
+
 	/**
-	 * 송신 API
+	 * 구매 시 이로움1.0 상품 조회
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "info.json")
+	public Map<String, Object> info(
+			HttpServletRequest request
+			, Model model
+			, @RequestParam (value="bnefCd", required=true) String[] bnefCd
+			)throws Exception {
+		ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
+
+		Map<String, Object> itemMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		JSONParser jsonParser = new JSONParser();
+		boolean result = true;
+
+
+		for(String code : bnefCd) {
+
+			// 이로움1.0 상품 조회
+			itemMap.put("ProdPayCode", Base64Util.encoder(code));
+			itemMap.put("item_id", null);
+			itemMap.put("item_opt_id", null);
+			arrayList.add(itemMap);
+
+			String returnJson = updateBplcInfoApiService.selectEroumCareOrdr(arrayList);
+
+			if(EgovStringUtil.isEmpty(returnJson)) {
+				System.out.println("#### info.Json  selectEroumCareOrdr 에러 ### ");
+			}else {
+				Object obj = jsonParser.parse(returnJson);
+				JSONObject jsonObj = (JSONObject)obj;
+				String resultCode = (String)jsonObj.get("code");
+
+				// 이로움1.0에 없을 경우
+				if(!resultCode.equals("200")) {
+					result = false;
+
+					// 상품만 (옵션x)
+					if(resultCode.equals("413")) {
+						paramMap.put("bnefCd", code);
+						paramMap.put("gdsTag", "A");
+						gdsService.updateGdsTag(paramMap);
+					}
+
+				}else {
+					// 이로움1.0에 있을 경우 -> 옵션 검사
+					paramMap.clear();
+					paramMap.put("srchBnefCd", code);
+					paramMap.put("srchUseYn", "Y");
+					paramMap.put("srchDspyYn", "Y");
+					GdsVO gdsVO = gdsService.selectGdsByFilter(paramMap);
+
+					/**
+					 * 상품 옵션 품절처리
+					 * 3월 31일 까지 일부옵션품절 태그 처리
+					 */
+					JSONArray itemArray = (JSONArray)jsonObj.get("_array_item");
+					JSONObject optnInfo = (JSONObject)itemArray.get(0);
+
+					if((JSONArray)optnInfo.get("item_opt_id") != null) {
+						JSONArray optnArray = (JSONArray)optnInfo.get("item_opt_id");
+
+						// 이로움1.5 상품 옵션
+						for(int h=0; h<gdsVO.getOptnList().size(); h++) {
+							String optnNm = gdsVO.getOptnList().get(h).getOptnNm();
+							String cprOptnNm = gdsVO.getOptnList().get(h).getOptnNm().replace("*", Character.toString( (char) 0x1E)).replace(" ", ""); //비교용
+
+							// 이로움1.0 상품 옵션
+							boolean flag = false;
+							for(int i=0; i<optnArray.size(); i++) {
+								JSONObject optn = (JSONObject)optnArray.get(i);
+								String jsonOptnNm = Base64Util.decoder((String)optn.get("io_id"));
+
+								//비교
+								if(cprOptnNm.equals(jsonOptnNm)){
+									flag = true;
+								}
+							}
+
+							// 옵션없을 시 재고0 (품절 처리)
+							if(!flag) {
+								System.out.println("##### "+ optnNm + " : THIS OPTION DOES NOT EXIT IN EROUM1.0.ver   #######");
+								System.out.println("##### SOLD OUT UPDATE START    #######");
+								Map<String, Object> optnMap = new HashMap<String, Object>();
+								optnMap.put("optnNm", optnNm);
+								optnMap.put("gdsNo", gdsVO.getGdsNo());
+								optnMap.put("optnStockQy", 0);
+								gdsOptnService.updateOptnStockQy(optnMap);
+
+								System.out.println("##### SOLD OUT UPDATE END    #######");
+								result = false;
+							}else {
+								System.out.println("##### "+ optnNm + " : THIS GDS HAVE A GDS TAG IN EROUM1.0.ver   #######");
+								if(EgovStringUtil.isNotEmpty((String)optnInfo.get("item_opt_tag"))) {
+									System.out.println("#####    GDS TAG UPDATE START   #######");
+									Map<String, Object> optnMap = new HashMap<String, Object>();
+									optnMap.put("bnefCd", code);
+									optnMap.put("gdsTag", "B");
+									gdsService.updateGdsTag(optnMap);
+									System.out.println("#####    GDS TAG UPDATE END   #######");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
+	/**
+	 * 송신 TEST API
 	 * @param ordrCd
 	 * @return resultMap
 	 * @throws Exception
@@ -187,7 +321,7 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 		Map<String, Object> restMap = new HashMap<String, Object>();
 		ArrayList<JSONObject> tagList = new ArrayList<JSONObject>();
 
-		itemMap.put("order_send_dtl_id", Base64Util.encoder("O30323214318403_1"));
+		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_1"));
 		itemMap.put("item_state", Base64Util.encoder("0"));
 		itemMap.put("item_memo", Base64Util.encoder("사업소 물품 부족."));
 
@@ -195,14 +329,20 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 
 		tagList.add(item_json1);
 
-		/*itemMap.put("order_send_dtl_id", Base64Util.encoder("O30314094332935_2"));
+		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_2"));
 		itemMap.put("item_state", Base64Util.encoder("1"));
 		itemMap.put("item_memo", null);
 		JSONObject item_json2 = new JSONObject(itemMap);
-		tagList.add(item_json2);*/
+		tagList.add(item_json2);
+
+		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_3"));
+		itemMap.put("item_state", Base64Util.encoder("1"));
+		itemMap.put("item_memo", null);
+		JSONObject item_json3 = new JSONObject(itemMap);
+		tagList.add(item_json3);
 
 		restMap.put("order_send_id", null);
-		restMap.put("order_send_id", Base64Util.encoder("O30323214318403"));
+		restMap.put("order_send_id", Base64Util.encoder("O3032709190387"));
 		restMap.put("order_business_id", Base64Util.encoder("466-87-00410"));
 		restMap.put("api_div", Base64Util.encoder("order_ent_response"));
 		restMap.put("_array_item", tagList);

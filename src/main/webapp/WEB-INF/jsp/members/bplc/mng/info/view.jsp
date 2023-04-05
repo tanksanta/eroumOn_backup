@@ -24,7 +24,7 @@
 					</tr>
 					<tr>
 						<th scope="row">멤버스 URL</th>
-						<td>https://www.eroum.co.kr/members/bplc/<strong class="text-success">${bplcVO.bplcUrl}</strong></td>
+						<td>https://www.eroum.co.kr/members/<strong class="text-success">${bplcVO.bplcUrl}</strong></td>
 					</tr>
 					<tr>
 						<th scope="row">기업명</th>

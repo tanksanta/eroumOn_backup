@@ -163,9 +163,6 @@ public class MbrsInfoController extends CommonAbstractController{
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
 
-		//TODO 인터셉터 처리 후 삭제
-		model.addAttribute("_mbrSession", mbrSession);
-
 		return "/membership/mypage/mypage_info";
 	}
 
@@ -274,13 +271,8 @@ public class MbrsInfoController extends CommonAbstractController{
 
 			mbrSession.setMbrInfo(session, mbrSession);
 
-
-
-
 			javaScript.setMessage(getMsg("action.complete.update"));
-			//TODO 플래너로 변경
-			//javaScript.setLocation("/"+ plannerPath + "/index");
-			javaScript.setLocation("/"+ marketPath);
+			javaScript.setLocation("/"+ plannerPath + "/index");
 		}catch(Exception e) {
 			log.debug("MYPAGE UPDATE INFO ERROR");
 			e.printStackTrace();
@@ -307,9 +299,6 @@ public class MbrsInfoController extends CommonAbstractController{
 		if(session.getAttribute("infoStepChk") == null) {
 			return "redirect:/"+ membershipPath +"/mypage/pswd";
 		}
-
-		//TODO 인터셉터 처리 후 삭제
-		model.addAttribute("_mbrSession", mbrSession);
 
 		return "/membership/mypage/mypage_pw";
 	}
@@ -345,9 +334,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrService.updateMbrPswd(mbrVO);
 
 			javaScript.setMessage(getMsg("action.complete.newPswd"));
-			//TODO 플래너로
-			//javaScript.setLocation("/" + plannerPath + "/index");
-			javaScript.setLocation("/" + marketPath);
+			javaScript.setLocation("/" + plannerPath + "/index");
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.debug("MYPAGE PASSWORD CHANGE ERROR");

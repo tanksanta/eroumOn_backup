@@ -89,6 +89,7 @@
 		, g.mdfcn_dt
 		, g.mdfcn_id
 		, g.mdfr
+		, g.temp_yn
 		, gc1.ctgry_nm
 		, gc1.up_ctgry_no
 		, gc2.ctgry_nm AS up_ctgry_nm
@@ -373,6 +374,7 @@
 			 , reg_dt
 			 , reg_id
 			 , rgtr
+			 , temp_yn
 		) VALUES (
 			#{gdsTy, jdbcType=VARCHAR}
 			, #{ctgryNo}
@@ -447,6 +449,7 @@
 			, SYSDATE()
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
+			, #{tempYn, jdbcType=VARCHAR}
 		)
 		<selectKey resultType="int" keyProperty="gdsNo" order="AFTER">
 		SELECT LAST_INSERT_ID()
@@ -526,6 +529,7 @@
 			, mdfcn_dt = SYSDATE()
 			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
 			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			, temp_yn = #{tempYn, jdbcType=VARCHAR}
 		WHERE gds_no = #{gdsNo}
 	</update>
 
@@ -538,6 +542,12 @@
 	WHERE 1=1
 		AND bnef_cd  = #{srchBnefCd}
 		AND use_yn = #{srchUseYn}
+	</update>
+
+	<update id="updateGdsTag" parameterType="java.util.HashMap">
+		UPDATE GDS SET
+			gds_tag = #{gdsTag}
+		WHERE bnef_cd = #{bnefCd}
 	</update>
 
 	<!-- Define gds Delete Query -->

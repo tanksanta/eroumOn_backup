@@ -289,7 +289,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				mbrMlgVO.setMlgCn("32");
 				mbrMlgVO.setGiveMthd("SYS");
 				mbrMlgVO.setMlg(ordrDtlVO.getTotalAccmlMlg());
-				System.out.println("mlg: " + mbrMlgVO.toString());
+				log.debug("mlg: " + mbrMlgVO.toString());
 
 				mbrMlgService.insertMbrMlg(mbrMlgVO);
 			}
@@ -332,7 +332,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					rfndMap.put("rfndActno", ordrDtlVO.getRfndActno());
 					rfndMap.put("rfndDpstr", ordrDtlVO.getRfndDpstr());
 
-					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc()); // 주문취소는 배송전 이니 배송비를 차감하지 않음
+					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc() + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt()); // 주문취소는 배송전 이니 배송비를 차감하지 않음
 
 					rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
 					rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
@@ -383,7 +383,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 			int totalOrdrPc = 0; //전체 상품 주문금액
 			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 취소금액 계산
 				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc();
+				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc() + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt(); // 배송비++
 			}
 
 			int cancelOrdrPc = 0;
@@ -406,10 +406,10 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					HashMap<String, Object> res = bootpayApiService.receiptCancel(ordrVO.getDelngNo(), ordrDtlVO.getRgtr(), (double) cancelOrdrPc);
 
 				    if(res.get("error_code") == null) { //success
-				        System.out.println("receiptCancel success: " + res);
+				        log.debug("receiptCancel success: " + res);
 				        rfndAction = true;
 				    } else {
-				        System.out.println("receiptCancel false: " + res);
+				        log.debug("receiptCancel false: " + res);
 
 				        //기존 취소거래 일수 있음
 				        if("기 취소 거래".equals(res.get("message"))) {
@@ -453,7 +453,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					rfndMap.put("rfndBank", oldOrdrDtlVO.getRfndBank());
 					rfndMap.put("rfndActno", oldOrdrDtlVO.getRfndActno());
 					rfndMap.put("rfndDpstr", oldOrdrDtlVO.getRfndDpstr());
-					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc()); // 주문취소는 배송전 이니 배송비를 차감하지 않음
+					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc() + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt()); // 주문취소는 배송전 이니 배송비를 차감하지 않음
 
 					rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
 					rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
@@ -494,7 +494,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					chgHistVO.setRegId(ordrDtlVO.getRegId());
 					chgHistVO.setRgtr(ordrDtlVO.getRgtr());
 
-					System.out.println("chgHistVO: " + chgHistVO.toString());
+					log.debug("chgHistVO: " + chgHistVO.toString());
 					ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
 					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 END");
 
@@ -542,7 +542,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 						mbrMlgVO.setMlgCn("33"); // 상품 취소
 						mbrMlgVO.setGiveMthd("SYS");
 						mbrMlgVO.setMlg(ordrVO.getUseMlg()); //전체 마일리지 다시 적립
-						System.out.println("mlg: " + mbrMlgVO.toString());
+						log.debug("mlg: " + mbrMlgVO.toString());
 
 						mbrMlgService.insertMbrMlg(mbrMlgVO);
 					}else if(ordrVO.getUseMlg() > 0 && ordrVO.getUseMlg() > (asisStlmAmt - cancelOrdrPc)) { // 사용 마일리지 > 0 && 취소후 잔여 금액이 사용한 마일리지보다 작을경우
@@ -554,7 +554,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 						mbrMlgVO.setMlgCn("33"); // 상품 취소
 						mbrMlgVO.setGiveMthd("SYS");
 						mbrMlgVO.setMlg(ordrVO.getUseMlg() - cancelOrdrPc); // 사용한 마일리지에서 취소된 금액만큼 다시 적립
-						System.out.println("mlg: " + mbrMlgVO.toString());
+						log.debug("mlg: " + mbrMlgVO.toString());
 
 						mbrMlgService.insertMbrMlg(mbrMlgVO);
 					}
@@ -655,7 +655,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				newOrdrDtlVO.setDlvyTy("");
 				newOrdrDtlVO.setDlvyHopeYmd("");
 				newOrdrDtlVO.setDlvyStlmTy("");
-				newOrdrDtlVO.setDlvyBassAmt(0);
+				newOrdrDtlVO.setDlvyBassAmt(0); // 교환 배송비 추가 가능성 있음(니탓? or 내탓?)
 				newOrdrDtlVO.setDlvyAditAmt(0);
 				newOrdrDtlVO.setDlvyCoNo(0);
 				newOrdrDtlVO.setDlvyCoNm("");
@@ -816,7 +816,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 			int totalOrdrPc = 0; //전체 결제금액
 			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 취소금액 계산
 				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc();
+				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc(); // 환불금액 > 배송비를 어떻게 할건지? + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt()
 			}
 
 			int cancelOrdrPc = 0;
@@ -838,11 +838,11 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					HashMap<String, Object> res = bootpayApiService.receiptCancel(ordrVO.getDelngNo(), ordrDtlVO.getRgtr(), (double) cancelOrdrPc);
 
 				    if(res.get("error_code") == null) { //success
-				        System.out.println("receiptCancel success: " + res);
+				        log.debug("receiptCancel success: " + res);
 				        rfndAction = true;
 
 				    } else {
-				        System.out.println("receiptCancel false: " + res);
+				        log.debug("receiptCancel false: " + res);
 				        //기존 취소거래 일수 있음
 				        if("기 취소 거래".equals(res.get("message"))) {
 				        	rfndAction = true;
@@ -881,7 +881,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					rfndMap.put("rfndBank", oldOrdrDtlVO.getRfndBank());
 					rfndMap.put("rfndActno", oldOrdrDtlVO.getRfndActno());
 					rfndMap.put("rfndDpstr", oldOrdrDtlVO.getRfndDpstr());
-					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc()); // 반품완료 > 배송비를 차감??
+					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc()); // 반품완료 > 배송비를 차감?? (니탓 내탓)
 
 					rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
 					rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
@@ -927,7 +927,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 					chgHistVO.setRegId(ordrDtlVO.getRegId());
 					chgHistVO.setRgtr(ordrDtlVO.getRgtr());
 
-					System.out.println("chgHistVO: " + chgHistVO.toString());
+					log.debug("chgHistVO: " + chgHistVO.toString());
 					ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
 					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 END");
 				}
@@ -958,7 +958,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 						mbrMlgVO.setMlgCn("33"); // 상품 취소
 						mbrMlgVO.setGiveMthd("SYS");
 						mbrMlgVO.setMlg(ordrVO.getUseMlg()); //전체 마일리지 다시 적립
-						System.out.println("mlg: " + mbrMlgVO.toString());
+						log.debug("mlg: " + mbrMlgVO.toString());
 
 						mbrMlgService.insertMbrMlg(mbrMlgVO);
 					}else if(ordrVO.getUseMlg() > 0 && ordrVO.getUseMlg() > (asisStlmAmt - cancelOrdrPc)) { // 사용 마일리지 > 0 && 취소후 잔여 금액이 사용한 마일리지보다 작을경우
@@ -970,7 +970,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 						mbrMlgVO.setMlgCn("33"); // 상품 취소
 						mbrMlgVO.setGiveMthd("SYS");
 						mbrMlgVO.setMlg(ordrVO.getUseMlg() - cancelOrdrPc); // 사용한 마일리지에서 취소된 금액만큼 다시 적립
-						System.out.println("mlg: " + mbrMlgVO.toString());
+						log.debug("mlg: " + mbrMlgVO.toString());
 
 						mbrMlgService.insertMbrMlg(mbrMlgVO);
 					}

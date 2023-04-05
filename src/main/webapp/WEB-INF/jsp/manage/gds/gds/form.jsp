@@ -12,6 +12,7 @@
                 <form:form name="frmGds" id="frmGds" modelAttribute="gdsVO" method="post" action="./action" enctype="multipart/form-data" class="mt-7.5 relative">
                 <form:hidden path="crud" />
                 <form:hidden path="gdsNo" />
+                <form:hidden path="tempYn" />
 
                 <%--2023-03-23 더블 서브밋 방지 추가 --%>
                 <double-submit:preventer tokenKey="preventTokenKey" />
@@ -298,7 +299,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><label for="bnefPc">급여가</label></th>
+                                    <th scope="row"><label for="bnefPc">급여가 / 대여가</label></th>
                                     <td>
                                         <div class="form-group">
                                         	<form:input type="number" path="bnefPc" class="form-control w-50 numbercheck" maxlength="10" min="0"/>
@@ -862,6 +863,7 @@
                     </fieldset>
 
                     <div class="btn-group mt-8 right">
+                    	<%--<button type="button" class="btn-success large shadow tempSave">임시저장</button> --%>
                         <button type="submit" class="btn-primary large shadow saveGds">저장</button>
                         <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchCtgryNo=${param.srchCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
 	                    <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
@@ -1307,8 +1309,8 @@
 	                         if(price != "" && price >= 1000){
 		                         var dscnt_price = (price - (price * ( percent / 100 )) );
 		                         console.log("할인금액: " + dscnt_price);
-		                         dscnt_price = Math.round(dscnt_price/1000) * 1000; //100원단위 절사
-		                         console.log("100원단위 절사: " + dscnt_price);
+		                         dscnt_price = Math.round(dscnt_price/100) * 100; //10원단위 절사
+		                         console.log("10원단위 절사: " + dscnt_price);
 	                        	 $('#dscntPc').val(dscnt_price);
 	                        }
                    		});
@@ -1424,6 +1426,7 @@
                     	    		$("#aditOptnTtl").val('');
                     	    	}
                    	            if (confirm('<spring:message code="action.confirm.save"/>')) {
+                   	            	$("#tempYn").val("N");
                    	            	frm.submit();
                    	            	$(".saveGds").attr("disabled", "true");
                    	        	}else{
@@ -1438,6 +1441,12 @@
                     		$(this).addClass('active').parent().siblings().find('.nav-link').removeClass('active');
                     		return false;
                     	})
+
+                    	// 임시 저장 이벤트
+                    	$(".tempSave").on("click",function(){
+                   			$("#tempYn").val("Y");
+                       		$("#frmGds").submit();
+                    	});
                     });
                 </script>
 

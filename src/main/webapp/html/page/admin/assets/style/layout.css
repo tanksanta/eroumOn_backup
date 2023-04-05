@@ -9,7 +9,7 @@
 } */
 
 body {
-    @apply scrollbars flex-row min-w-[1366px] text-black1 tracking-tight bg-fixed bg-no-repeat bg-black bg-[url(../images/bg-dashboard.jpg)] bg-[position:center_bottom];
+    @apply scrollbars flex-row min-w-[1366px] text-black1 tracking-tight bg-fixed bg-no-repeat bg-[url(../images/bg-dashboard.jpg)] bg-[position:center_bottom];
     overflow: overlay;
 }
 

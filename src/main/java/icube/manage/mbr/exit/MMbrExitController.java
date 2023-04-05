@@ -1,5 +1,8 @@
 package icube.manage.mbr.exit;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,5 +67,23 @@ public class MMbrExitController extends CommonAbstractController{
 
 		return result;
 	}
+
+	@RequestMapping("excel")
+	public String excelDownload(HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model)
+			throws Exception {
+
+
+		reqMap.put("srchWhdwlYn", "Y");
+		reqMap.put("srchMbrStts", "EXIT");
+		List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+
+		model.addAttribute("mbrList", mbrList);
+		model.addAttribute("exitTyCode", CodeMap.EXIT_TY);
+		model.addAttribute("authResnCode", CodeMap.AUTH_RESN_CD);
+		model.addAttribute("norResnCode", CodeMap.NOR_RESN_CD);
+
+		return "/manage/mbr/exit/excel";	}
 
 }

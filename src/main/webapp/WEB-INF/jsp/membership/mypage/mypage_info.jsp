@@ -61,9 +61,15 @@
 						</tr>
 						<tr>
 							<th scope="row"><p>휴대폰 번호</p></th>
-								<td>
-								<form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" oninput="autoHyphen(this);"/>
-								<p class="py-1.5 text-sm">전화번호를 입력해주세요</p></td>
+							<td><form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" oninput="autoHyphen(this);"/></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									전화번호를 입력해주세요.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">
@@ -127,7 +133,7 @@
 							<td>
 								<div class="form-group w-full">
 									<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-									<input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
+									<input type="text" class="form-control w400 numbercheck" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
 								</div>
 							</td>
 						</tr>
@@ -241,10 +247,17 @@
 						</tr>
 						<tr>
 							<th scope="row"><p>
-									<label for="telno">전화번호</label>
-								</p></th>
-							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" />
-								<p class="text-sm mt-2.5">숫자만 입력해주세요</p></td>
+								<label for="telno">전화번호</label>
+							</p></th>
+							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" /></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									숫자만 입력해주세요.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p style="padding-left: 0;">
@@ -288,7 +301,7 @@
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn">전화</label>
+										<label class="form-check-label" for="telRecptnYn">휴대폰</label>
 									</div>
 								</div>
 								<p class="mt-2 text-sm">이벤트 및 다양한 정보를 받으실 수 있습니다.</p>

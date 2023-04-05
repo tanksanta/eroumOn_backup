@@ -157,13 +157,20 @@
 
 	<select id="selectMbrMngInfoListAll" parameterType="java.util.HashMap" resultType="mbrMngInfoVO">
 		/* Query ID : mbrMngInfo.selectMbrMngInfoListAll */
-		SELECT
-			<include refid="listColumn" />
-		FROM MBR_MNG_INFO info
-		LEFT JOIN MBR mbr ON mbr.unique_id = info.unique_id
-		WHERE 1=1
-			<include refid="searchConditions" />
-		ORDER BY info.mng_info_no DESC
+		SELECT *
+		FROM (
+			SELECT
+				<include refid="listColumn" />
+			FROM MBR_MNG_INFO info
+			LEFT JOIN MBR mbr ON info.unique_id = mbr.unique_id
+			WHERE (mng_info_no)
+			IN (SELECT MAX(mng_info_no) AS mng_info_no
+			FROM MBR_MNG_INFO info
+			GROUP BY info.unique_id)
+			ORDER BY info.unique_id) AS a
+			WHERE 1=1
+				<include refid="searchConditions" />
+	  	ORDER BY mng_info_no DESC
 	</select>
 
 	<select id="selectMbrMngInfoListBySort" parameterType="java.util.HashMap" resultMap="mbrMngInfoVOListMap">

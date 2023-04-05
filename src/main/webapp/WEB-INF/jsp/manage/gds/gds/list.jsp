@@ -47,6 +47,23 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th scope="row"><label for="srchDspyYn">전시여부</label></th>
+                                <td >
+                                	<div class="form-check-group">
+                                	<div class="form-check">
+                                		<input type="radio" id="srchDspyYn" name="srchDspyYn" value="" class="form-check-input" checked="checked">
+	                                	<label class="form-check-label" for="srchDspyYn">전체</label>
+	                                </div>
+	                                <c:forEach var="dspyYn" items="${dspyYnCode}" varStatus="status">
+	                                	<div class="form-check">
+	                                		<input type="radio" id="srchDspyYn${status.index}" name="srchDspyYn" value="${dspyYn.key}" class="form-check-input" <c:if test="${dspyYn.key eq param.srchDspyYn}">checked="checked"</c:if>>
+	                                		<label class="form-check-label" for="srchDspyYn${status.index}">${dspyYn.value}</label>
+	                                	</div>
+	                                </c:forEach>
+	                                </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th scope="row"><label for="srchGdsNm">상품명</label></th>
                                 <td colspan="3"><input type="text" id="srchGdsNm" name="srchGdsNm" value="${param.srchGdsNm }" class="form-control w-full"></td>
                             </tr>
@@ -87,6 +104,7 @@
 						<col class="w-26">
 						<col class="w-26">
                         <col class="w-23">
+                        <col class="w-24">
                         <col class="w-38">
                     </colgroup>
                     <thead>
@@ -103,6 +121,7 @@
                             <th scope="col">판매가</th>
                             <th scope="col">급여가</th>
                             <th scope="col">전시여부</th>
+                            <th scope="col">상품 태그</th>
                             <th scope="col">등록일</th>
                         </tr>
                     </thead>
@@ -135,6 +154,16 @@
                             <td><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /></td>
                             <td><fmt:formatNumber value="${resultList.bnefPc}" pattern="###,###" /></td>
                             <td>${dspyYnCode[resultList.dspyYn]}</td>
+                            <td>
+                            	<c:if test="${!empty resultList.gdsTagVal}">
+	                            	<c:forEach var="tagList" items="${fn:split(fn:replace(resultList.gdsTagVal,' ',''),',')}">
+	                            		${gdsTagCode[tagList]}
+	                            	</c:forEach>
+                            	</c:if>
+                            	<c:if test="${empty resultList.gdsTagVal}">
+                            		-
+                            	</c:if>
+                            </td>
                             <td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         </tr>
                         </c:forEach>

@@ -18,6 +18,12 @@ function comma(num){
     return str;
 }
 
+// 콤마 제거
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
 $(function() {
     $('#userinfo .close-button').on('click', function() {
         $(window).scrollTop($('#content').offset().top  - $('#header').outerHeight())
@@ -44,6 +50,15 @@ $(function() {
         $(this).closest('.map-select').toggleClass('is-active');
     })
 
+    $('.page-option .desc a').on('click', function() {
+        $('.page-option .desc a, .page-option .option-desc').addClass('is-active');
+        return false;
+    });
+
+    $('.page-option .option-desc .close').on('click', function() {
+        $('.page-option .desc a, .page-option .option-desc').removeClass('is-active');
+    });
+    
     var observer = new MutationObserver(function(mutations) {
         if($(mutations[0].target).hasClass('active')) {
             $('.page-content-items .content-items').masonry({

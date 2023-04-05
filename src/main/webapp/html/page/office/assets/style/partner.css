@@ -82,20 +82,14 @@
 }
 
 body {
-    @apply sm:text-base;
+    @apply scrollbars sm:text-base;
     word-break: keep-all;
     overflow: overlay;
     &::-webkit-scrollbar {
-        @apply w-[7px] h-[7px];
+        @apply w-3 h-3;
     }
     &::-webkit-scrollbar-thumb {
-        @apply rounded-lg bg-[#555];
-        &:hover {
-            @apply bg-black2;
-        }
-    }
-    &::-webkit-scrollbar-track {
-        @apply border-white;
+        @apply rounded-lg border-0.5;
     }
 }
 

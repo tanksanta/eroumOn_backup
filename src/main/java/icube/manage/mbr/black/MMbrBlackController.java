@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
+import icube.manage.mbr.mbr.biz.MbrVO;
 
 @Controller
 @RequestMapping(value="/_mng/mbr/black")
@@ -75,4 +77,22 @@ public class MMbrBlackController extends CommonAbstractController{
 
 		return "/manage/mbr/manage/include/mng_info_modal";
 	}
+
+	 @RequestMapping("excel")
+		public String excelDownload(
+				HttpServletRequest request
+				, @RequestParam Map<String, Object> reqMap
+				, Model model) throws Exception{
+
+			reqMap.put("srchMngTy", "BLACK");
+			reqMap.put("srchNmngSe", "NONE");
+			List<MbrMngInfoVO> mbrList = mbrMngInfoService.selectMbrMngInfoListAll(reqMap);
+
+			model.addAttribute("mbrList", mbrList);
+			model.addAttribute("mngSeCode", CodeMap.MNG_SE_BLACK);
+			model.addAttribute("genderCode", CodeMap.GENDER);
+			model.addAttribute("resnCdCode", CodeMap.BLACK_RESN_CD);
+
+			return "/manage/mbr/black/excel";
+		}
 }

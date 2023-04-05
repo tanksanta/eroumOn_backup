@@ -44,7 +44,6 @@ import icube.manage.promotion.coupon.biz.CouponLstVO;
 import icube.manage.promotion.coupon.biz.CouponService;
 import icube.manage.promotion.coupon.biz.CouponVO;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
-import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.promotion.point.biz.MbrPointVO;
 import icube.market.mbr.biz.MbrSession;
@@ -151,9 +150,9 @@ public class MbrsRegistController extends CommonAbstractController{
 			, Model model)throws Exception {
 
 		// 로그인 체크
-		/*if(mbrSession.isLoginCheck()){
+		if(mbrSession.isLoginCheck()){
 			return  "redirect:/" + plannerPath + "/index"; // TO-DO : 마켓 인덱스 미정
-		}*/
+		}
 
 		return "/membership/regist_step1";
 	}
@@ -178,9 +177,9 @@ public class MbrsRegistController extends CommonAbstractController{
 			, Model model)throws Exception {
 
 		// 로그인 체크
-		/*if(mbrSession.isLoginCheck()){
+		if(mbrSession.isLoginCheck()){
 			return  "redirect:/" + plannerPath + "/index"; // TO-DO : 마켓 인덱스 미정
-		}*/
+		}
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -367,18 +366,18 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		/* 회원 unique_id --> dlvyVO.uniqueId*/
 
-		// 마일리지 적립
+		// 포인트
 		try {
-			MbrMlgVO mbrMlgVO = new MbrMlgVO();
-			mbrMlgVO.setUniqueId(dlvyVO.getUniqueId());
-			mbrMlgVO.setMlgSe("A");
-			mbrMlgVO.setMlgCn("31"); // 회원가입
-			mbrMlgVO.setGiveMthd("SYS");
-			mbrMlgVO.setMlg(300); // 300
+			MbrPointVO mbrPointVO = new MbrPointVO();
+			mbrPointVO.setUniqueId(dlvyVO.getUniqueId());
+			mbrPointVO.setPointSe("A");
+			mbrPointVO.setPointCn("31"); // 회원가입
+			mbrPointVO.setGiveMthd("SYS");
+			mbrPointVO.setPoint(300); // 300
 
-			mbrMlgService.insertMbrMlg(mbrMlgVO);
+			mbrPointService.insertMbrPoint(mbrPointVO);
 		} catch (Exception e) {
-			log.debug("회원가입 마일리지 적립 실패" + e.toString());
+			log.debug("회원가입 포인트 적립 실패" + e.toString());
 		}
 
 
@@ -403,24 +402,26 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 추천인 포인트
 		try {
-			log.debug("@@@@@@@@추천인 아이디 : " + mbrVO.getRcmdtnId());
 			String rcmdtnId = mbrVO.getRcmdtnId();
-			if(rcmdtnId != null) {
-				MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(rcmdtnId);
-				if(mbrRcmdtnVO != null) {
+			String mbrId = mbrVO.getMbrId();
+			if(!mbrId.equals(rcmdtnId)) {
+				if(rcmdtnId != null) {
+					MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(rcmdtnId);
+					if(mbrRcmdtnVO != null) {
 
-					rcmdtnId = mbrRcmdtnVO.getMbrId();
+						rcmdtnId = mbrRcmdtnVO.getMbrId();
 
-					MbrPointVO mbrPointVO = new MbrPointVO();
-					mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
-					mbrPointVO.setPointMngNo(0);
-					mbrPointVO.setPointSe("A");
-					mbrPointVO.setPointCn("03");
-					mbrPointVO.setPoint(500);
-					mbrPointVO.setGiveMthd("SYS");
+						MbrPointVO mbrPointVO = new MbrPointVO();
+						mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
+						mbrPointVO.setPointMngNo(0);
+						mbrPointVO.setPointSe("A");
+						mbrPointVO.setPointCn("03");
+						mbrPointVO.setPoint(500);
+						mbrPointVO.setGiveMthd("SYS");
 
-					mbrPointService.insertMbrPoint(mbrPointVO);
+						mbrPointService.insertMbrPoint(mbrPointVO);
 
+					}
 				}
 			}
 
@@ -428,9 +429,6 @@ public class MbrsRegistController extends CommonAbstractController{
 			e.printStackTrace();
 			log.debug("회원가입 추천인 포인트 지급 실패 : " + e.toString());
 		}
-
-		//TODO 추천인 쿠폰
-
 
 		//임시정보 추가
 		mbrSession.setParms(mbrVO, false);

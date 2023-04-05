@@ -301,7 +301,8 @@ public class OrdrController {
 	 * 급여 주문 > 사업소 요청 (SAVE)
 	 */
 	@RequestMapping(value = "ordrRqstAction")
-	public String ordrRqstAction(OrdrVO ordrVO, @RequestParam(value = "ordrDtlCd", required = true) String ordrDtlCd,
+	public String ordrRqstAction(OrdrVO ordrVO
+			, @RequestParam(value = "ordrDtlCd", required = true) String ordrDtlCd,
 			@RequestParam(value = "gdsNo", required = true) String gdsNo,
 			@RequestParam(value = "gdsCd", required = true) String gdsCd,
 			@RequestParam(value = "bnefCd", required = true) String bnefCd,
@@ -428,7 +429,6 @@ public class OrdrController {
 				arrayList.add(itemMap);
 
 				String returnJson = updateBplcInfoApiService.selectEroumCareOrdr(arrayList);
-				System.out.println("@@@@@@@@@@조회값 : " + returnJson);
 				String itemId = "";
 				if(EgovStringUtil.isNotEmpty(returnJson)) {
 
@@ -436,6 +436,7 @@ public class OrdrController {
 					JSONObject jsonObj = (JSONObject)obj;
 					String status = (String)jsonObj.get("success");
 					if(status.equals("true")) {
+
 					if(EgovStringUtil.isEmpty(ordrDtlVO.getOrdrOptnTy()) || (EgovStringUtil.isNotEmpty(ordrDtlVO.getOrdrOptnTy()) && !ordrDtlVO.getOrdrOptnTy().equals("ADIT"))) {
 						JSONArray arry = (JSONArray)jsonObj.get("_array_item");
 						JSONObject item = (JSONObject) arry.get(0);
@@ -446,7 +447,8 @@ public class OrdrController {
 						gdsInfoMap.put("item_qty", Base64Util.encoder(EgovStringUtil.integer2string(ordrDtlVO.getOrdrQy())));
 						gdsInfoMap.put("order_send_dtl_id", Base64Util.encoder(ordrDtlVO.getOrdrDtlCd()));
 						ordrList.add(gdsInfoMap);
-						}
+					}
+
 					}
 				}
 

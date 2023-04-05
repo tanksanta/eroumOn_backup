@@ -36,5 +36,9 @@
 	<c:if test="${empty listVO.listObject}">
 		<p class="box-result is-large" style="grid-column: 1/-1;">상품 검색 결과가 없습니다.</p>
 	</c:if>
+
+</div>
+<div class="pagination">
+	<front:jsPaging listVO="${listVO}" targetObject="gds-pager" />
 </div>
 

@@ -120,8 +120,25 @@
 		<if test="srchOptnTy != null and srchOptnTy != '' ">
 			AND ordr_optn_ty = #{srchOptnTy}
 		</if>
-		<if test="srchBuyDay != null and srchBuyDay != '' ">
-			AND DATE(NOW()) &lt; DATE_FORMAT(DATE_ADD(o.ordr_dt, INTERVAL #{srchBuyDay} MONTH), '%Y-%m-%d')
+		<choose>
+			<when test='srchDate != null and srchDate == "week"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -7 DAY),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			</when>
+			<when test='srchDate != null and srchDate == "month"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			</when>
+			<when test='srchDate != null and srchDate == "half"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 MONTH),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			</when>
+			<when test='srchDate != null and srchDate == "year"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 YEAR),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			</when>
+			<otherwise>
+				AND DATE_FORMAT(DATE_ADD(o.ordr_dt, INTERVAL -6 MONTH), '%Y-%m-%d') &lt; DATE(NOW())
+			</otherwise>
+		</choose>
+		<if test="srchText != null and srchText != '' ">
+			AND od.gds_nm like concat('%',#{srchText},'%')
 		</if>
 	</sql>
 

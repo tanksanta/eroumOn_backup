@@ -70,7 +70,9 @@ public class updateGdsSchedule extends CommonAbstractController {
 		String JsonData = updateBplcInfoApiService.selectEroumCareOrdr(arrayList);
 
 		// 상품 정보 업데이트
+		System.out.println("##### 전체 상품 업데이트 START ######");
 		updateBplcInfoApiService.updateMarketGdsInfo(JsonData);
+		System.out.println("##### 전체 상품 업데이트 END ######");
 	}
 
 

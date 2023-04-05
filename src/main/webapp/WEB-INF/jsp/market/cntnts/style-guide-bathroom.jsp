@@ -11,9 +11,9 @@
 	        <div class="card-item is-card1">
 	            <div class="item-front">
 	                <div class="front-content">
-	                    <p class="name">안전손잡이</p>
-	                    <p class="part">(변기형 / 알루미늄, 스틸, 실리콘 재질)</p>
-	                    <p class="desc">튼튼하게 균형을 잡아주는 안전손잡이</p>
+	                    <p class="name"> 안전손잡이_변기형</p>
+	                    <p class="part">(변기형, 벽걸이형, 기둥형)</p>
+	                    <p class="desc">신체가 불편하거나, 일어서거나 앉을 때 혈압이 떨어지는 상황에 도움되는 복지용구</p>
 	                    <a href="${_marketPath}/gds/2/list#6" class="link">상품 바로가기 <i></i></a>
 	                </div>
 	            </div>
@@ -46,7 +46,7 @@
 	            <div class="item-front">
 	                <div class="front-content">
 	                    <p class="name">목욕의자</p>
-	                    <p class="desc">넘어지지 않고 안전하게 앉아서 씻을 수 있는 복지용구</p>
+	                    <p class="desc">씻기 불편한 고객의 자세 유지 및 편안한 목욕에 도움되는 복지용구</p>
 	                    <a href="${_marketPath}/gds/2/list#11" class="link">상품 바로가기 <i></i></a>
 	                </div>
 	            </div>
@@ -83,8 +83,8 @@
 	        <div class="card-item is-card3">
 	            <div class="item-front">
 	                <div class="front-content">
-	                    <p class="name">실내 경사로</p>
-	                    <p class="desc">문턱에 발이 걸리거나 쓸리지 않게 하는 복지용구</p>
+	                    <p class="name">경사로(실내)</p>
+	                    <p class="desc">문턱에 발이 걸리는 안전사고를 예방하는 복지용구</p>
 	                    <a href="${_marketPath}/gds/2/list#40" class="link">상품 바로가기 <i></i></a>
 	                </div>
 	            </div>
@@ -120,8 +120,8 @@
 	        <div class="card-item is-card4">
 	            <div class="item-front">
 	                <div class="front-content">
-	                    <p class="name">미끄럼 방지 매트</p>
-	                    <p class="desc">하체 근력이 없는 분들이 미끄러지거나 낙상사고 예방을 위한 복지용구</p>
+	                    <p class="name">미끄럼방지 매트</p>
+	                    <p class="desc">하체 근력이 없거나, 신체기능이 떨어진 고객의 낙상사고 위험을 예방하는 복지용구</p>
 	                    <a href="${_marketPath}/gds/2/list#38" class="link">상품 바로가기 <i></i></a>
 	                </div>
 	            </div>
@@ -159,7 +159,7 @@
 	        });
 	
 	        $('.card-item').on('click', function() {
-	            $(this).addClass('is-active');
+				$(this).addClass('is-active');
 	        });
 	
 	        $('.card-item a').on('click', function(e) {

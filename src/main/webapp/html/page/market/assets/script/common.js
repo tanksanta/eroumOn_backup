@@ -283,7 +283,7 @@ $(function() {
         $('.service-slogan .word').each(function(index) {
             $(this).css('margin-top', index + 'em');
         });
-        
+
         setInterval(function() {
             $('.service-slogan .word').each(function(index) {
                 $(this).addClass('is-animate').css('margin-top', (index - 1) + 'em').one('transitionend webkitTransitionEnd oTransitionEnd', function() {
@@ -297,7 +297,7 @@ $(function() {
             });
         }, 10000);
     }
-    
+
     //개인화 레이어
     var person       = $('.personal-info');
     var personRoot   = person.parent();
@@ -698,6 +698,33 @@ function arrayRemove(arr, value) {
         return ele != value;
     });
 }
+
+// 이로움1.0 상품 조회
+function f_itemChk(params){
+	$.ajax({
+		type : "post",
+		url  : "/eroumcareApi/bplcRecv/info.json",
+		traditional : true,
+		data : {
+			bnefCd : params.get("bnefList")
+			},
+		dataType : 'json'
+	})
+	.done(function(data) {
+		var method = params.get("method");
+		if(data.result){
+			method(params);
+		}else{
+			alert("품절된 상품 또는 상품의 옵션이 존재합니다.");
+			location.reload();
+		}
+	})
+	.fail(function(data, status, err) {
+		console.log(status + ' : 상품 조회 API 중 오류가 발생했습니다.');
+	});
+}
+
+
 
 
 //첨부파일 이미지 제한

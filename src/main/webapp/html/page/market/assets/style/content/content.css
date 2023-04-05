@@ -24,24 +24,24 @@
 }
 
 .checkpoint-navigation {
-    @apply sticky z-15 top-18 -mx-2.5 w-[calc(100%_+_1.25rem)] max-w-[1244px] bg-white lg:mx-auto lg:w-full lg:top-25;
+    @apply sticky z-15 top-18 -mx-2.5 w-[calc(100%_+_1.25rem)] bg-white md:top-25;
     & .container {
-        @apply max-w-none w-auto overflow-auto;
+        @apply max-w-none w-auto overflow-auto overflow-y-visible 2xl:relative 2xl:w-fit 2xl:left-1/2 2xl:-translate-x-1/2;
         &::-webkit-scrollbar {
             @apply w-0 h-0;
         }
     }
     & ul {
-        @apply flex text-[0.625rem] leading-snug text-center tracking-tighter md:text-xs lg:text-sm;
+        @apply flex text-[0.625rem] leading-snug text-center tracking-tighter mx-auto w-fit md:text-xs 2xl:text-sm;
     }
     & li {
-        @apply flex-none mr-0.5 md:mr-1 lg:mr-2;
+        @apply flex-none mr-0.5 lg:mr-1;
         &:last-child {
             @apply mr-0;
         }
     }
     & a {
-        @apply block py-1.5 px-0.5 min-w-19 border border-white rounded md:rounded-md md:py-3.5 md:min-w-22 lg:min-w-26;
+        @apply block py-1.5 px-0.5 min-w-19 border border-white rounded md:rounded-md md:py-3.5 md:w-22 lg:w-26 whitespace-nowrap;
         &::before {
             @apply content-empty block mb-1 h-10 bg-center bg-no-repeat bg-[length:auto_2.25rem] md:mb-1.5 md:h-[3.3rem] md:bg-[length:auto_3rem] lg:mb-2 lg:h-[4.125rem] lg:bg-[length:auto_3.75rem];
         }
@@ -98,6 +98,21 @@
         &.nav-item11 {
             &::before {
                 @apply bg-[url(../images/img-checkpoint11.svg)] bg-[length:auto_0.9rem] md:bg-[length:auto_1.2rem] lg:bg-[length:auto_1.5rem];
+            }
+        }
+        &.nav-item12 {
+            &::before {
+                @apply bg-[url(../images/img-checkpoint12.svg)] bg-[length:auto_0.9rem] md:bg-[length:auto_1.2rem] lg:bg-[length:auto_1.5rem];
+            }
+        }
+        &.nav-item13 {
+            &::before {
+                @apply bg-[url(../images/img-checkpoint13.svg)] bg-[length:auto_1.575rem] md:bg-[length:auto_2.1rem] lg:bg-[length:auto_2.625rem];
+            }
+        }
+        &.nav-item14 {
+            &::before {
+                @apply bg-[url(../images/img-checkpoint14.svg)] bg-[length:auto_2.175rem] md:bg-[length:auto_2.9rem] lg:bg-[length:auto_3.625rem];
             }
         }
         &.active, &.is-active {
@@ -157,6 +172,21 @@
                     @apply bg-[url(../images/img-checkpoint11-on.svg)];
                 }
             }
+            &.nav-item12 {
+                &::before {
+                    @apply bg-[url(../images/img-checkpoint12-on.svg)];
+                }
+            }
+            &.nav-item13 {
+                &::before {
+                    @apply bg-[url(../images/img-checkpoint13-on.svg)];
+                }
+            }
+            &.nav-item14 {
+                &::before {
+                    @apply bg-[url(../images/img-checkpoint14-on.svg)];
+                }
+            }
         }
     }
 }
@@ -176,7 +206,7 @@
 }
 
 .checkpoint-item-date {
-    @apply flex items-center justify-center mt-7 space-x-20 md:mt-7.5 md:space-x-22 leading-none;
+    @apply flex items-center justify-center flex-wrap mt-7 space-x-20 md:mt-7.5 md:space-x-22 leading-none;
     & sup, & sub, & strong {
         @apply inline-block leading-none;
     }
@@ -188,6 +218,12 @@
     }
     & strong {
         @apply font-serif text-4xl leading-tight md:text-[2.5rem] lg:text-7xl;
+    }
+    & .title {
+        @apply text-center w-full mb-3 text-lg md:mb-0 md:w-auto md:text-xl font-black lg:text-2xl;
+        & + p {
+            @apply md-max:ml-0 !important;
+        }
     }
 }
 
@@ -211,6 +247,10 @@
             }
         }
     }
+}
+
+.checkpoint-item-desc {
+    @apply mt-7 text-center md:mt-7.5 md:text-lg lg:text-[1.375rem];
 }
 
 .checkpoint-item-link {
@@ -439,7 +479,7 @@
     & .bathroom-visual {
         @apply relative pt-19 pb-29 -mx-5 px-5 overflow-hidden text-center md:pt-29 md:pb-44 lg:pt-38 lg:pb-58 2xl:pt-48 2xl:pb-73;
         & .slogan {
-            @apply relative z-5 text-xs leading-snug font-serif md:text-sm lg:text-base;
+            @apply relative z-5 text-xs leading-snug font-serif md:text-sm xl:text-base;
             & strong {
                 @apply font-black text-base md:text-xl lg:text-2xl;
             }
@@ -450,9 +490,12 @@
         }
         & .title {
             @apply relative z-5 mt-[0.5em] text-6xl leading-[1.48] font-bold md:text-[3.75rem] lg:text-[5rem] 2xl:text-[6.25rem];
+            & em {
+                @apply xl:tracking-tighter;
+            }
         }
         & .desc {
-            @apply block relative z-5 mt-[0.3em] text-xs leading-snug font-medium md:text-sm lg:text-base 2xl:text-lg;
+            @apply block relative z-5 mt-[0.3em] text-xs leading-snug font-medium md:text-sm xl:text-base 2xl:text-lg;
         }
         & .images {
             @apply absolute top-0 left-0 w-full h-[120%] bg-cover bg-center bg-[url(../images/img-main-visual1.jpg)];
@@ -708,10 +751,11 @@
 .style-guide-livingroom {
     @apply relative;
     & .livingroom-title {
-        @apply absolute z-15 top-14 left-0 right-0 px-5 text-white text-center md:top-[9.335%] 2xl:top-[12.45%];
+        @apply absolute z-15 top-14 left-0 right-0 px-5 text-white text-center md:top-[7%] 2xl:top-[8.75%];
+        text-shadow: 0px 0px 2px #333;
         word-break:keep-all;
         & .slogan {
-            @apply relative z-5 text-xs leading-snug font-serif md:text-sm lg:text-base;
+            @apply relative z-5 text-xs leading-snug font-serif md:text-sm xl:text-base;
             & strong {
                 @apply font-black text-base md:text-xl lg:text-2xl;
             }
@@ -721,14 +765,14 @@
             }
         }
         & .title {
-            @apply relative z-5 mt-[0.2em] text-6xl leading-[1.48] font-bold md:text-[3.75rem] lg:text-[5rem] 2xl:text-[6.25rem];
+            @apply relative z-5 mt-[0.1em] text-6xl leading-[1.48] font-bold md:text-[3.75rem] xl:text-[5rem] 2xl:text-[6.25rem];
             & em {
-                @apply text-[rgba(255,255,255,0.71)];
+                @apply xl:tracking-tighter;
                 -webkit-text-stroke: 1px white;
             }
         }
         & .desc {
-            @apply block relative z-5 mt-[0.3em] text-xs leading-snug font-medium md:text-sm lg:text-base 2xl:text-lg;
+            @apply block relative z-5 mt-[0.2em] text-xs leading-snug font-medium md:text-sm xl:text-base 2xl:text-lg;
         }
     }
     & .livingroom-alert {
@@ -739,24 +783,28 @@
         }
     }
     & .livingroom-visual {
-        @apply w-screen overflow-x-auto overflow-y-hidden min-h-[600px] h-[calc(100vh_-_7.25rem)] md:h-auto md:aspect-[1/0.93375] xl:aspect-[1/0.778125];
+        @apply w-screen overflow-x-auto overflow-y-hidden min-h-[600px];
+        @apply md-max:h-[calc(100vh_-_10.25rem)] !important;
         & .simplebar-wrapper, .simplebar-content-wrapper, .simplebar-content {
             @apply h-full !important;
         }
         & .container {
-            @apply relative w-auto max-w-none min-h-[600px] h-full aspect-[3/2];
+            @apply relative w-auto max-w-none min-h-[600px] h-full;
         }
         & .background {
-            @apply relative z-5 max-w-none  min-h-[600px] h-full;
+            @apply relative z-5 max-w-none min-w-full h-full;
+        }
+        & .dragscroll {
+            @apply overflow-hidden !important;
         }
         & .simplebar-horizontal {
-            @apply right-[6.71875%] left-[6.71875%] bottom-[4.216867469879518%] h-2.5 md-max:hidden;
+            @apply right-[3.359375%] left-[3.359375%] bottom-[4.216867469879518%] lg:right-[6.71875%] lg:left-[6.71875%] h-2.5 md-max:hidden;
             &::before {
                 @apply content-empty absolute top-1/2 left-0 -z-5 w-full h-px bg-[#d8d8d8] -translate-y-1/2;
             }
         }
         & .simplebar-scrollbar {
-            @apply rounded-full bg-white;
+            @apply rounded-full bg-white w-full;
             &::before {
                 @apply hidden;
             }
@@ -805,54 +853,48 @@
             }
         }
         & .object-1 {
-            @apply top-[59.63855421686747%] left-[25.5673360107095%] w-[10.9375%];
+            @apply top-[39.238554%] left-[25.5673360107095%] w-[10.9375%];
             & .name {
-                @apply absolute left-full bottom-full translate-y-[47.862%] translate-x-[-29.347%];
+                @apply absolute left-full bottom-full translate-y-[47.862%] translate-x-[-47.347%] md:translate-x-[-29.347%];
                 & em {
                     @apply text-black2;
                 }
             }
         }
         & .object-2 {
-            @apply top-[62.84739%] left-[48.834003%] w-[12.3203125%];
+            @apply top-[42.74739%] left-[48.834003%] w-[12.3203125%];
             & .name {
                 & em {
                     @apply absolute right-0 bottom-full -translate-x-1/4;
                 }
                 & i {
-                    @apply absolute right-0 bottom-0 translate-y-[32.608%] translate-x-[52.17%];
+                    @apply absolute right-0 bottom-0 translate-y-[32.608%] translate-x-[43.17%] md:translate-x-[52.17%];
                 }
             }
         }
         & .object-3 {
-            @apply top-[66.449%] right-[28.803659%] w-[3.535546875%];
+            @apply top-[48.349%] right-[28.803659%] w-[3.535546875%];
             & .name {
-                @apply absolute top-0 left-0 translate-x-[-67.961%] -translate-y-1/2;
+                @apply absolute top-0 left-0 translate-x-[-57.961%] -translate-y-1/2 md:translate-x-[-67.961%];
             }
         }
         & .object-4 {
-            @apply top-[71.289157%] right-[22.939759%] w-[7.1875%];
+            @apply top-[53.289157%] right-[22.939759%] w-[7.1875%];
             & .name {
                 @apply absolute top-1/2 left-0 translate-x-[-16%] -translate-y-1/2;
             }
         }
     }
     & .livingroom-steps {
-        @apply flex space-x-1 absolute z-20 right-3 bottom-[5.1643%] left-3 md:space-x-0 md:right-[6.71875%] md:left-[6.71875%] md:bottom-[4.216867469879518%];
+        @apply flex space-x-1 absolute z-20 right-3 bottom-[5.1643%] left-3 md:space-x-0 md:right-[3.359375%] md:left-[3.359375%] md:bottom-[4.216867469879518%] lg:right-[6.71875%] lg:left-[6.71875%];
         & .steps {
-            @apply w-1/4 text-[0.8125rem] tracking-tight md:absolute md:pt-2.5 md:-bottom-2.5 md:w-auto md:text-sm lg:text-base xl:-bottom-3 xl:text-xl;
+            @apply w-1/4 text-[0.8125rem] tracking-tight md:absolute md:pt-2.5 md:-bottom-2.5 md:w-auto md:text-sm xl:text-base;
             & a {
                 @apply block bottom-full left-1/2 overflow-hidden border border-white bg-white/5 backdrop-blur-md text-white leading-tight font-bold transition-[background,color,opacity,visibility] duration-300;
-                @apply px-2 py-1 h-12 rounded-lg md:absolute md:py-2 md:px-3 md:w-29 md:h-14 md:rounded-[1rem] md:-translate-x-1/2 md:opacity-0 md:invisible lg:py-3 lg:px-4 lg:w-38 lg:h-18 xl:py-4 xl:px-5 xl:w-[11.875rem] xl:h-21;
+                @apply px-2 py-1 h-12 rounded-lg md:absolute md:py-2 md:px-3 md:w-29 md:h-14 md:rounded-[1rem] md:-translate-x-1/2 xl:py-3 xl:px-4 xl:w-38 xl:h-18;
                 -webkit-backdrop-filter: blur(16px);
                 &::after {
                     @apply opacity-0 content-empty absolute -z-5 bottom-0 right-0 w-full h-full bg-no-repeat bg-white bg-right-bottom bg-[length:63.15789473684211%] transition-[opacity] duration-300;
-                }
-                &.is-active {
-                    @apply text-black2;
-                    &::after {
-                        @apply opacity-100;
-                    }
                 }
             }
             & i {
@@ -862,7 +904,7 @@
                 }
             }
             &:nth-child(1) {
-                @apply left-[36.566808%];
+                @apply left-[36.266808%] lg:left-[36.566808%];
                 & a {
                     &::after {
                         @apply md:bg-[url(../images/bg-content-livingroom1.png)];
@@ -870,24 +912,27 @@
                 }
             }
             &:nth-child(2) {
-                @apply left-[54.98084291187739%];
+                @apply left-[55.88084291187739%] lg:left-[52.98084291187739%];
                 & a {
+                    @apply md:-translate-x-[80%] 2xl:-translate-x-[65%];
                     &::after {
                         @apply md:bg-[url(../images/bg-content-livingroom2.png)];
                     }
                 }
             }
             &:nth-child(3) {
-                @apply left-[62.624521%];
+                @apply left-[65.924521%] lg:left-[62.924521%] xl:left-[62.624521%];
                 & a {
+                    @apply md:-translate-x-[55%] xl:-translate-x-[62%];
                     &::after {
                         @apply md:bg-[url(../images/bg-content-livingroom3.png)];
                     }
                 }
             }
             &:nth-child(4) {
-                @apply left-[69.46444%];
+                @apply left-[73.86444%] lg:left-[70.86444%] xl:left-[67.86444%];
                 & a {
+                    @apply md:translate-x-[-12%];
                     &::after {
                         @apply md:bg-[url(../images/bg-content-livingroom4.png)];
                     }
@@ -895,7 +940,10 @@
             }
             &.is-active {
                 & a {
-                    @apply md:opacity-100 md:visible;
+                    @apply text-black2 z-10;
+                    &::after {
+                        @apply opacity-100;
+                    }
                 }
             }
         }

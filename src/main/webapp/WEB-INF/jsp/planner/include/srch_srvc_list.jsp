@@ -22,12 +22,11 @@
 							</c:choose>
 							</c:set>
                             <div class="content-item">
-                            	<a href="#${resultList.bokjiId}" class="content-body is-color${colorNumber}">
+                            	<a href="#${resultList.bokjiId}" class="content-body is-color${colorNumber}${resultList.availableKeyword?' is-lock':''}">
                                     <div class="content">
                                         <p class="name">${resultList.benefitName}</p>
                                         <p class="type">
                                         	<c:forEach items="${resultList.categoryList}" var="cate" varStatus="s">
-                                        	<%-- ${fn:replace(cate, '#', '')} ${s.last?'':' ∙ '} --%>
                                         	${cate} ${s.last?'':' ∙ '}
                                         	</c:forEach>
                                         </p>

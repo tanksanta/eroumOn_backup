@@ -1,6 +1,9 @@
 package icube.common.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,6 +29,29 @@ public class CommonUtil {
 		}
 
 		return parameter;
+	}
+
+
+	/**
+	 * 나이계산
+	 * birthday = 2000-01-01
+	 */
+	public static String getAge(Date birthday) {
+		 //현재 년도 구하기
+		 Calendar now = Calendar.getInstance(); //년월일시분초
+		 Integer currentYear = now.get(Calendar.YEAR);
+
+		 //태어난년도를 위한 세팅
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy");
+		 String stringBirthYear = format.format(birthday); //년도만받기
+		 //태어난 년도
+		 Integer birthYear = Integer.parseInt(stringBirthYear);
+
+		 // 현재 년도 - 태어난 년도 => 나이 (만나이X)
+	     int age = (currentYear - birthYear +1);
+	     String outputAge = Integer.toString(age);
+
+	 	 return outputAge;
 	}
 
 }

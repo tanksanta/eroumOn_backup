@@ -133,7 +133,7 @@
             & .form-check-input {
                 @apply w-[1.25em] transition duration-200 bg-center;
                 &:focus {
-                    @apply outline-none;
+                    @apply outline-0;
                 }
                 &[type="checkbox"] {
                     @apply rounded-[0.25em];

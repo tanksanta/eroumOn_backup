@@ -43,6 +43,7 @@ public class GdsVO extends CommonBaseVO {
 	private String couponUseYn = "Y"; //쿠폰 사용여부
 	private String pointUseYn = "Y"; //포인트 사용여부
 	private String gdsDc;
+	private String tempYn = "N";
 
 	//가격/재고
 	private int pc; //판매가

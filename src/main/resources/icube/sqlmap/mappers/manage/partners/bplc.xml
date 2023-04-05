@@ -145,7 +145,7 @@
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
-	<select id="selectBplcCount" parameterType="java.util.HashMap" resultType="int">
+	<select id="selectBplcCount" parameterType="java.util.HashMap" resultType="int" flushCache="true" useCache="false">
 		/* Query ID : bplc.selectBplcCount */
 		SELECT	COUNT(*)
 		FROM	BPLC
@@ -217,7 +217,7 @@
 			</if>
 	</select>
 
-	<insert id="insertBplc" parameterType="bplcVO">
+	<insert id="insertBplc" parameterType="bplcVO" flushCache="true">
 		/* Query ID : bplc.insertBplc */
 		INSERT INTO BPLC (
 			unique_id
@@ -344,7 +344,7 @@
 	</insert>
 
 	<!-- 파트너 신청관리 -->
-	<update id="updateBplcApp" parameterType="bplcVO">
+	<update id="updateBplcApp" parameterType="bplcVO" >
 		/* Query ID : bplc.updateBplc */
 		UPDATE	 BPLC SET
 			aprv_ty = #{aprvTy}
@@ -366,7 +366,7 @@
 	</update>
 
 	<!--파트너 관리-->
-	<update id="updateBplc" parameterType="bplcVO">
+	<update id="updateBplc" parameterType="bplcVO" flushCache="true">
 		/* Query ID : bplc.updateBplc */
 		UPDATE	 BPLC SET
 			telno = #{telno}
@@ -492,7 +492,7 @@
 	</update>
 
 	<!-- 사용자 사업소 계정 활성화 -->
-	<update id="updatePartnersBplc" parameterType="bplcVO">
+	<update id="updatePartnersBplc" parameterType="bplcVO" flushCache="true">
 		/* Query ID : bplc.updateBplc */
 		UPDATE	 BPLC SET
 			bplc_pswd = #{bplcPswd}
@@ -547,6 +547,7 @@
 		WHERE 1=1
 		<choose>
 			<when test="srchMode == 'LOCATION' ">
+			AND addr LIKE CONCAT(#{sido},'%')
 			AND addr LIKE CONCAT('%', #{gugun},'%')
 			</when>
 			<when test="srchMode == 'TEXT' ">

@@ -11,22 +11,48 @@
 		<div id="page-content">
 	        <div class="items-center justify-between md:flex">
 	            <div class="space-y-1.5">
-	                <p class="text-alert">내가 구매한 상품을 쉽고 빠르게 확인하실 수 있습니다.</p>                  
+	                <p class="text-alert">내가 구매한 상품을 쉽고 빠르게 확인하실 수 있습니다.</p>
 	                <p class="text-alert">최근 6개월간 구매한 상품 리스트입니다.</p>
 	                <p class="text-alert">현재 품절된 상품인 경우는 바로구매, 장바구니 담기가 안될 수 있습니다.</p>
 	            </div>
 	        </div>
-			
+
+            <form class="order-search mt-12 md:mt-16" id="searchFrm" name="searchFrm" action="./list">
+                <p class="search-title">조회기간</p>
+                <div class="form-check-group search-left">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate0" value="week"  <c:if test="${param.srchDate eq 'week' }">checked="checked"</c:if>>
+                        <label class="form-check-label" for="srchDate0">1주일</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate1" value="month" <c:if test="${param.srchDate eq 'month' }">checked="checked"</c:if>>
+                        <label class="form-check-label" for="srchDate1">한 달</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate2" value="half" <c:if test="${param.srchDate eq 'half' }">checked="checked"</c:if>>
+                        <label class="form-check-label" for="srchDate2">6개월</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate3" value="year" <c:if test="${param.srchDate eq 'year' }">checked="checked"</c:if>>
+                        <label class="form-check-label" for="srchDate3">1년</label>
+                    </div>
+                </div>
+                <div class="search-right">
+                    <input type="text" class="form-control" id="srchText" name="srchText" placeholder="상품명을 입력하세요." value="${param.srchText}"/>
+                    <button type="submit" class="btn btn-primary">조회</button>
+                </div>
+            </form>
+
 			<p class="text-title2 mt-11 md:mt-15">내가 구매한 상품 <strong class="text-danger">${listVO.totalCount}</strong>건</p>
-			
+
            	<div class="mt-4 space-y-4 md:mt-5 md:space-y-5">
 				<c:if test="${empty listVO.listObject}">
 				<div class="box-result is-large">아직 구매하신 상품이 없습니다</div>
 				</c:if>
-			
+
 				<c:forEach var="resultList" items="${listVO.listObject}">
 				<c:if test="${resultList.ordrOptnTy eq 'BASE' }">
-		
+
 				<c:set var="spOrdrOptn" value="${fn:split(resultList.ordrOptn, '*')}" />
 				<div class="order-purchase">
 				    <div class="order-header">
@@ -86,7 +112,7 @@
 				</div>
 				</c:if>
 				</c:forEach>
-	
+
 				<div class="pagination">
 					<front:paging listVO="${listVO}" />
 				</div>

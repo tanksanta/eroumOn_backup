@@ -91,6 +91,11 @@
 		<div class="btn-group mt-5">
 			<button type="submit" class="btn-primary large shadow w-52">검색</button>
 		</div>
+
+		<p class="text-right">
+			<button type="button" class="btn-primary btn-excel">엑셀 다운로드</button>
+		</p>
+
 	</form>
 
 	<p class="text-title2 mt-13">회원 목록(기본리스트)</p>
@@ -225,9 +230,6 @@ $(function(){
 		}
 	}
 
-
-
-
 	var gradeVal = [];
 	for(var i=0; i<5; i++){
 		if($("#srchGrade"+i).is(":checked") ){
@@ -236,14 +238,10 @@ $(function(){
 	}
 	$("#grade").attr("value",gradeVal);
 
-
-
-
-
-
-
-
-
+   	$(".btn-excel").on("click", function(){
+		$("#searchFrm").attr("action","excel").submit();
+		$("#searchFrm").attr("action","list");
+	});
 
 });
 </script>

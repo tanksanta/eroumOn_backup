@@ -148,5 +148,11 @@ $(function() {
 		},
 	});
 
+	// numbercheck(클래스명)으로 숫자 정규식 체크
+	$(document)
+		.on('keyup','.numbercheck',function(){/** 숫자입력만 가능하게 */
+			$(this).val( $(this).val().replace(/[^0-9]/gi,"") );
+	});
+
 
 });

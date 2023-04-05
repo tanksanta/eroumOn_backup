@@ -573,7 +573,7 @@ body {
     & .thumb {
         @apply block relative overflow-hidden rounded-lg aspect-[1/1.26] bg-gray2 bg-no-repeat bg-center bg-[length:45%];
         & img {
-            @apply absolute top-0 left-0 w-full h-full rounded-lg object-cover;
+            @apply absolute top-0 left-0 w-full h-full rounded-lg object-cover mix-blend-darken;
         }
         &.is-empty {
             @apply bg-[url(../images/bg-compare-thumb.svg)];

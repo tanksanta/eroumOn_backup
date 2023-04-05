@@ -1,5 +1,6 @@
 package icube.common.interceptor;
 
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -17,6 +19,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import icube.common.util.CommonUtil;
 import icube.common.values.CodeMap;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.market.mbr.biz.MbrSession;
@@ -50,6 +53,10 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
+
+	@Value("#{props['kakao.Script.key']}")
+	private String kakaoScriptKey;
+
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -91,13 +98,24 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 		// 로그인 확인
 		if(mbrSession.isLoginCheck()) {
+			// 주소
+			if(EgovStringUtil.isNotEmpty(mbrSession.getAddr())) {
+				String[] spAddr = mbrSession.getAddr().split(" ");
+				if(spAddr.length > 1) {
+					String mbrAddr = spAddr[0] + " " + spAddr[1];
+					request.setAttribute("_mbrAddr", mbrAddr);
+					request.setAttribute("_mbrAddr1", spAddr[0]);
+					request.setAttribute("_mbrAddr2", spAddr[1]);
+				}
+			}
 
+			// 나이
+			if(mbrSession.getBrdt() != null) {
+				String mbrAge = CommonUtil.getAge(mbrSession.getBrdt());
+				request.setAttribute("_mbrAge", mbrAge);
+			}
 
 		}
-
-
-		// 회원정보 페이지 체크
-
 
 		// 멤버스(bplc) 카운트
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -120,6 +138,7 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 		// 기타
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
+		request.setAttribute("_kakaoScriptKey", kakaoScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 
 

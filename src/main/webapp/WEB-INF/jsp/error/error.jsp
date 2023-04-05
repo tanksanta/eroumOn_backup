@@ -32,7 +32,7 @@
     </div>
     <div class="flex justify-center gap-2.5 mt-8 md:mt-10">
         <a href="#" onclick="history.back(); return false;" class="btn btn-outline-primary w-40 h-15 rounded-full text-base md:w-56 md:h-[4.375rem] md:text-lg">이전으로 돌아가기</a>
-        <a href="#" class="btn btn-primary w-40 h-15 rounded-full text-base md:w-56 md:h-[4.375rem] md:text-lg">홈으로 이동하기</a>
+        <a href="/" class="btn btn-primary w-40 h-15 rounded-full text-base md:w-56 md:h-[4.375rem] md:text-lg">홈으로 이동하기</a>
     </div>
 
     <svg xmlns="http://www.w3.org/2000/svg" width="583.45" height="54.055" viewBox="0 0 583.45 54.055" class="mx-auto my-27 max-w-full md:my-37">

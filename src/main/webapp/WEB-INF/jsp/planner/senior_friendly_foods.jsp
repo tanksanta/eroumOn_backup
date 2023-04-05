@@ -13,6 +13,7 @@
             </h2>
 
             <div class="content-food2">
+                <div class="background"><div class="images"></div></div>
                 <div class="content">
                     <p>시니어 세대의 입맛을 지켜주는 음식으로 </p>
                     <p class="bigs">
@@ -23,6 +24,15 @@
                     <p><strong>고령친화 식품</strong>이라고 합니다</p>
                 </div>
             </div>
+            <script>
+                $(function() {
+                    $(window).on('scroll', function() {
+                        if($('.content-food2').get(0).getClientRects()[0].y + $('.content-food2').get(0).getClientRects()[0].height > 0) {
+                            $('.content-food2 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.1) + 'px)'});
+                        }
+                    });
+                })
+            </script>
 
             <div class="content-food3">
                 <h3 class="title">
@@ -32,7 +42,8 @@
                 <div class="content">
                     <p>
                         단순히 부드럽거나 영양 성분이 좋다고 해서 고령친화식품으로 분류되지 않고, <br>
-                        모두 여섯 단계로 이뤄진 지정 절차를 거쳐야 합니다.
+                        <strong>식품안전관리인증기준(HACCP)</strong>에 적합하거나<br>
+                        <strong>건강기능식품 품목제조신고를 완료한 업체</strong>에서 생산해야 신청이 가능합니다.
                     </p>
                     <p>
                         관련 업체가 지정 신청을 요청하면 농림축산식품부 산하 <br>
@@ -62,7 +73,7 @@
                     </ol>
                     <p>
                         지정 절차에 맞춰 검토하여 심사를 통과하면 <br>
-                        이후부터 <strong>고령친화식품</strong>이란 표현을 쓸 수 있게 됩니다.
+                        이후부터 <strong>고령친화 우수식품</strong>이란 표현을 쓸 수 있게 됩니다.
                     </p>
                     <p>2021년 5월부터 처음으로 시행하여 2022년 현재 <strong>113개의 제품이 지정</strong>됐습니다.</p>
                 </div>
@@ -80,12 +91,12 @@
                         <div class="rear"></div>
                         <div class="front">
                             <p class="name">
-                                영양 성분을 강화하고 <br>
-                                부드럽고 무른 음식으로 <br>
-                                치아로 섭취 가능한 <br>
+								영양 성분을 강화하고<br> 
+								부드럽고 무른 음식으로<br> 
+								고령자 치아로도 섭취가 편한<br> 
                                 <em>“연하식”</em>
                             </p>
-                            <a href="#" class="link"><strong>연하식 1단계 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연하식 1단계 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card2">
@@ -95,19 +106,19 @@
                                 틀니나 잇몸으로도 <br>
                                 씹기 쉬운 <em>“연화반찬류”</em>
                             </p>
-                            <a href="#" class="link"><strong>연하반찬류 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연화반찬류 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card3">
                         <div class="rear"></div>
                         <div class="front">
                             <p class="name">
-                                목 넘기을 부드럽게 만들어 <br>
-                                고령자 사래 걸림 위험을 줄여 <br>
-                                혀로도 식사가 가능한 <br>
+								죽처럼 부드럽게 만들어<br>
+								고령자 사래 걸림 위험을 줄이고<br> 
+								혀로 식사가 가능한 
                                 <em>“유동식”</em>
                             </p>
-                            <a href="#" class="link"><strong>유동식 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>유동식 식품</strong> 바로가기</a>
                         </div>
                     </div>
                 </div>
@@ -146,7 +157,7 @@
                                     <p class="count"><i>~ 20,000</i> 초과</p>
                                 </td>
                                 <td>
-                                    <p class="count"><i>~ 50,000</i> 이하</p>
+                                    <p class="count"><i>~ 20,000</i> 이하</p>
                                 </td>
                             </tr>
                             <tr>
@@ -322,7 +333,16 @@
                         이로움 마켓
                     </span>
                 </a> -->
-                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">이로움<br>테스트</a>
+                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">
+                    <span class="front">
+                        <small>E·ROUM</small>
+                        <strong>TEST</strong>
+                    </span>
+                    <span class="rear">
+                        <small>장기요양등급</small>
+                        <strong>테스트</strong>
+                    </span>
+                </a>
                 <a href="#page-container" class="gotop"><span class="sr-only">위로 이동</span></a>
             </div>
         </div>

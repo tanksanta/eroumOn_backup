@@ -199,5 +199,13 @@
 		            }
 		        });
 			});
+
+		  //gds-pager
+			$(document).on("click", ".gds-pager a", function(){
+				let pageNo = $(this).data("pageNo");
+				if(pageNo > 0){
+					f_srchGdsList(pageNo);
+				}
+			});
 		});
 		</script>

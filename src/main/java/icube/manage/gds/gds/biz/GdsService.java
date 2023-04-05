@@ -154,4 +154,13 @@ public class GdsService extends CommonAbstractServiceImpl {
 	public void updateInqcnt(GdsVO gdsVO) throws Exception {
 		gdsDAO.updateInqcnt(gdsVO);
 	}
+
+	/**
+	 * 상품 태그 업데이트
+	 * @param paramMap
+	 * @throws Exception
+	 */
+	public void updateGdsTag(Map<String, Object> paramMap) throws Exception {
+		gdsDAO.updateGdsTag(paramMap);
+	}
 }

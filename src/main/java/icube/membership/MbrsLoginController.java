@@ -17,12 +17,15 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.util.CommonUtil;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
@@ -71,9 +74,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			//TODO 플래너로 변경
-			//return  "redirect:/" + plannerPath + "/index";
-			return  "redirect:/" + marketPath;
+			return  "redirect:/" + plannerPath + "/index";
 		}
 
 		//암호화
@@ -92,9 +93,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 		}
 
 		String returnUrl = request.getHeader("REFERER");
-		/*if(returnUrl.contains("info") || returnUrl.contains("action") || returnUrl.contains("Action")) {
-			returnUrl = "/" + memberPath;
-		}*/
+		if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
+			returnUrl = "/" + plannerPath;
+		}
 
 		model.addAttribute("returnUrl", returnUrl);
 
@@ -155,6 +156,10 @@ public class MbrsLoginController extends CommonAbstractController  {
 				}else {
 
 				if (BCrypt.checkpw(loginPasswd, mbrVO.getPswd())) {
+					if((mbrVO.getMberSttus()).equals("HUMAN")) {
+						//휴면 회원
+						javaScript.setLocation("/"+ membershipPath +"/drmt/view?mbrId="+mbrVO.getMbrId());
+					}else {
 
 					mbrSession.setParms(mbrVO, true);
 					if ("Y".equals(mbrVO.getRecipterYn())) {
@@ -186,15 +191,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 					if (EgovStringUtil.isNotEmpty(returnUrl)) {
 						javaScript.setLocation(returnUrl);
 					}else {
-						if((mbrVO.getMberSttus()).equals("HUMAN")) {
-							//휴면 회원
-							javaScript.setLocation("/"+ membershipPath +"/drmt/view");
-						}else {
-							//TODO planner로 변경
-							//javaScript.setLocation("/"+ plannerPath +"/index");
-							javaScript.setLocation("/"+ marketPath);
-						}
+						javaScript.setLocation("/"+plannerPath);
 					}
+				}
 
 				} else {
 					javaScript.setMessage(getMsg("login.fail.password"));
@@ -223,8 +222,127 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		session.invalidate();
 
-		//return "redirect:/membership/index"; //TO-DO : 첫화면으로..
-		return "redirect:/membership/login"; //TO-DO : 첫화면으로..
+		return "redirect:/"+ plannerPath;
+	}
+
+
+
+	/* modal login action > loginAction 복사
+	 * resultCode
+				PAUSE : 일시정지 회원
+				UNLIMIT : 영구정지 회원
+				HUMAN : 휴면회원
+				PASSWORD : 비밀번호x
+				FAIL : XXX
+	*/
+	@ResponseBody
+	@RequestMapping(value="modalLoginAction.json", method=RequestMethod.POST)
+	public Map<String, Object> modalLoginAction(
+			MbrVO mbrVO
+			, @RequestParam(required=true, value="loginId") String loginId
+			, @RequestParam(required=true, value="encPw") String encPw
+			, HttpServletRequest request
+			, HttpServletResponse response
+			, HttpSession session) throws Exception {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		boolean result = false;
+		String resultCode = "FAIL";
+
+		String loginPasswd = "";
+
+		if(null != request.getSession().getAttribute(RSA_MEMBERSHIP_KEY)) {
+			try {
+				loginPasswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.
+			} catch (Exception e) {
+				mbrVO = null;
+			}
+		} else {
+			mbrVO = null;
+		}
+
+		if(EgovStringUtil.isNotEmpty(loginPasswd)) {
+			loginId     = WebUtil.clearSqlInjection(loginId);
+			loginPasswd = WebUtil.clearSqlInjection(loginPasswd);
+
+			mbrVO = mbrService.selectMbrById(loginId);
+
+			if (mbrVO != null) {
+				// 최근 접속 일시 업데이트
+				mbrService.updateRecentDt(mbrVO.getUniqueId());
+
+				// 블랙리스트 회원
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+				MbrMngInfoVO MbrMngInfoVO = mbrMngInfoService.selectMbrMngInfo(paramMap);
+				if(MbrMngInfoVO != null && MbrMngInfoVO.getMngTy().equals("BLACK") && !MbrMngInfoVO.getMngSe().equals("NONE")) {
+					resultCode = MbrMngInfoVO.getMngSe();
+				}else {
+
+					if (BCrypt.checkpw(loginPasswd, mbrVO.getPswd())) {
+
+						mbrSession.setParms(mbrVO, true);
+						if ("Y".equals(mbrVO.getRecipterYn())) {
+							mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
+						} else {
+							RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+							recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
+							recipterInfoVO.setMbrId(mbrVO.getMbrId());
+							recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
+							recipterInfoVO.setProflImg(mbrVO.getProflImg());
+							recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
+							recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
+							mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
+						}
+
+						mbrSession.setMbrInfo(session, mbrSession);
+
+						// 로그인에 성공하면 로그인 실패 횟수를 초기화
+						mbrService.updateFailedLoginCountReset(mbrVO);
+
+						// return page check
+						if((mbrVO.getMberSttus()).equals("HUMAN")) {
+							resultCode = mbrVO.getMberSttus(); //HUMAN
+						}else {
+							resultCode = "SUCCESS";
+						}
+
+						resultMap.put("mbrNm", mbrSession.getMbrNm());
+						resultMap.put("mbrItrst", mbrSession.getItrstField());
+
+						// 주소
+						if(EgovStringUtil.isNotEmpty(mbrSession.getAddr())) {
+							String[] spAddr = mbrSession.getAddr().split(" ");
+							if(spAddr.length > 1) {
+								String mbrAddr = spAddr[0] + " " + spAddr[1];
+								resultMap.put("mbrAddr", mbrAddr);
+								resultMap.put("mbrAddr1", spAddr[0]);
+								resultMap.put("mbrAddr2", spAddr[1]);
+							}
+						}
+
+						// 나이
+						if(mbrSession.getBrdt() != null) {
+							String mbrAge = CommonUtil.getAge(mbrSession.getBrdt());
+							resultMap.put("mbrAge", mbrAge);
+						}
+
+						result = true;
+
+					} else {
+						resultCode = "PASSWORD";
+					}
+				}
+			} else {
+				resultCode = "FAIL";
+			}
+		}
+
+		resultMap.put("result", result);
+		resultMap.put("resultCode", resultCode);
+
+		return resultMap;
+
 	}
 
 

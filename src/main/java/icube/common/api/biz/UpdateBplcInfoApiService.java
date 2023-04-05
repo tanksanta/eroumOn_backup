@@ -32,6 +32,8 @@ import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.ordr.chghist.biz.OrdrChgHistService;
+import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -57,6 +59,9 @@ public class UpdateBplcInfoApiService {
 
 	@Resource(name = "gdsOptnService")
 	private GdsOptnService gdsOptnService;
+
+	@Resource(name = "ordrChgHistService")
+	private OrdrChgHistService ordrChgHistService;
 
 	@Value("#{props['Globals.EroumCare.PrivateKey']}")
 	private String eroumKey;
@@ -136,18 +141,16 @@ public class UpdateBplcInfoApiService {
 					paramMap.put("soldoutYn", "N");
 				}
 				// 상품 태그는 1개만 넘어온다는 가정
-				ArrayList<String> tagList = new ArrayList<String>();
 				if(EgovStringUtil.isNotEmpty(itemOptTag)) {
 					if(itemOptTag.equals("일시품절")) {
-						tagList.add("C");
+						paramMap.put("gdsTag", "C");
 					}else if(itemOptTag.equals("품절")) {
-						tagList.add("A");
+						paramMap.put("gdsTag", "A");
 					}else if(itemOptTag.equals("일부옵션품절")) {
-						tagList.add("B");
+						paramMap.put("gdsTag", "B");
 					}else {
-						tagList.add("D");
+						paramMap.put("gdsTag", "D");
 					}
-					paramMap.put("gdsTag", tagList.toString());
 				}
 
 				System.out.println("#### 상품 정보 업데이트 START #### ");
@@ -247,7 +250,7 @@ public class UpdateBplcInfoApiService {
 					//penNm = ordrDtlVO.getRecipterInfo().getMbrNm();
 					penNm = ordrDtlVO.getRecipterInfo().getTestName();
 					penLtmNum = "L"+ordrDtlVO.getRecipterInfo().getRcperRcognNo();
-					penTel = "010-1234-1234";
+					penTel = ordrDtlVO.getRecipterInfo().getMblTelno();
 					RecipterUniqueId = ordrDtlVO.getRecipterInfo().getUniqueId();
 					penGender = ordrDtlVO.getRecipterInfo().getGender();
 					if(penGender.equals("M")) {
@@ -328,9 +331,9 @@ public class UpdateBplcInfoApiService {
 
 		int result = 0;
 		int updateTotal = 0;
-		int failTotal = 0;
 
 		JSONArray arrayItem = (JSONArray)jsonObj.get("_array_item");
+		ArrayList<JSONObject> addList = new ArrayList<JSONObject>();
 		for(int i=0; i<arrayItem.size(); i++) {
 			JSONObject item = (JSONObject)arrayItem.get(i);
 			System.out.println("### item ### : " + item);
@@ -360,7 +363,6 @@ public class UpdateBplcInfoApiService {
 
 					result = ordrDtlService.updateBplcSttus(paramMap);
 					updateTotal += result;
-					failTotal += 1;
 
 					if(!sttus.equals("1")) {
 						ordrDtlVO.setResn(resn);
@@ -370,12 +372,24 @@ public class UpdateBplcInfoApiService {
 
 					ordrDtlService.insertOrdrSttsChgHist(ordrDtlVO);
 
+				}else {
+					Map<String, Object> cancelMap = new HashMap<String, Object>();
+					cancelMap.put("ordrDtlNo", ordrDtlVO.getOrdrDtlNo());
+					cancelMap.put("chgStts", ordrDtlVO.getSttsTy());
+					OrdrChgHistVO ordrChgHistVO = ordrChgHistService.selectOrdrChgHist(cancelMap);
+
+					cancelMap.clear();
+					cancelMap.put("item_memo", CodeMap.ORDR_CANCEL_TY.get(ordrChgHistVO.getResnTy()));
+					cancelMap.put("order_send_dtl_id", ordrDtlVO.getOrdrDtlCd());
+
+					JSONObject json = new JSONObject(cancelMap);
+					addList.add(json);
 				}
 			}
 		}
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("updateTotal", updateTotal);
-		resultMap.put("failTotal", failTotal);
+		resultMap.put("_array_item", addList);
 		return resultMap;
 
 	}

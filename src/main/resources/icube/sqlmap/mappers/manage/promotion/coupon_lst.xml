@@ -58,7 +58,7 @@
 			AND cpn.use_end_ymd &lt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
 		</if>
 		<if test="srchUseCoupon != null and srchUseCoupon != '' ">
-			AND (cpn.use_end_ymd &gt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')) OR lst.use_lst_end_ymd > (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')))
+			AND lst.use_lst_end_ymd > (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))
 		</if>
 		<if test="srchCouponNm != null and srchCouponNm != '' ">
 			AND cpn.coupon_nm like CONCAT('%' , #{srchCouponNm} , '%')

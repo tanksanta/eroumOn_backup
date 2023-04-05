@@ -53,7 +53,7 @@
                                     <col class="w-15">
                                     <col class="w-25">
                                     <col class="w-32">
-                                    <col class="w-30">
+                                    <col class="w-32">
                                     <col class="w-31">
                                     <col class="w-25">
                                     <col class="w-24">

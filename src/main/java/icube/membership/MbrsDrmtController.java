@@ -48,6 +48,10 @@ public class MbrsDrmtController extends CommonAbstractController {
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
+	@Value("#{props['Globals.Planner.path']}")
+	private String plannerPath;
+
+
 	/**
 	 * 휴면계정 확인
 	 * @param request
@@ -57,13 +61,20 @@ public class MbrsDrmtController extends CommonAbstractController {
 	 */
 	@RequestMapping(value="view")
 	public String view(
-			HttpServletRequest request
+			@RequestParam(value="mbrId", required=true) String mbrId
+			, HttpServletRequest request
 			, Model model
 			)throws Exception {
 
-		Map paramMap = new HashMap();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-		MbrVO mbrVO = mbrService.selectMbr(paramMap);
+		if(mbrSession.isLoginCheck()) {
+			return "redirect:" + "/"+plannerPath;
+		}
+
+		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+
+		if(!mbrVO.getMberSttus().equals("HUMAN")) {
+			return "redirect:" + "/"+plannerPath;
+		}
 
 		model.addAttribute("mbrVO", mbrVO);
 
@@ -84,13 +95,16 @@ public class MbrsDrmtController extends CommonAbstractController {
 			, @RequestParam(value="gender", required=false) String gender
 			, @RequestParam(value="brdt", required=false) String brdt
 			, @RequestParam(value="receiptId", required=false) String receiptId
+			, @RequestParam(value="mbrId", required=false) String mbrId
 			, HttpServletRequest request
 			, Model model
 			)throws Exception {
 
-		Map paramMap = new HashMap();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-		MbrVO mbrVO = mbrService.selectMbr(paramMap);
+		if(mbrSession.isLoginCheck()) {
+			return "redirect:" + "/"+plannerPath;
+		}
+
+		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -140,9 +154,9 @@ public class MbrsDrmtController extends CommonAbstractController {
 	        System.out.println("noMbrVO: " + noMbrVO.toString());
 
 	    	Map newMap = new HashMap();
-	    	newMap.put("srchUniqueId", mbrSession.getUniqueId());
-	    	newMap.put("mdfcnId", mbrSession.getMbrId());
-	    	newMap.put("mdfr", mbrSession.getMbrNm());
+	    	newMap.put("srchUniqueId", mbrVO.getUniqueId());
+	    	newMap.put("mdfcnId", mbrVO.getMbrId());
+	    	newMap.put("mdfr", mbrVO.getMbrNm());
 	    	newMap.put("mberSttus", "NORMAL");
 			mbrService.updateRlsDrmt(newMap);
 

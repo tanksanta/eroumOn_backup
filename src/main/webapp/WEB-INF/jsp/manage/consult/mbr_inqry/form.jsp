@@ -47,6 +47,7 @@
 				<td>
 					<c:forEach var="fileList" items="${mbrInqryVO.fileList}">
 						<a href="/comm/getFile?srvcId=INQRY&amp;upNo=${fileList.upNo}&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm}</a>
+						<a class="form-control" href="/comm/getFile?srvcId=INQRY&amp;upNo=${fileList.upNo}&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" data-lightbox="inqryThumb" data-title="${fileList.orgnlFileNm}">미리보기</a>
 					</c:forEach>
 				</td>
 			</tr>
@@ -109,6 +110,11 @@
 </div>
 <script>
 	$(function(){
+
+		  lightbox.option({
+		      'resizeDuration': 200,
+		      'wrapAround': true
+		    });
 
 		//tinymce editor
 		tinymce.overrideDefaults(baseConfig);

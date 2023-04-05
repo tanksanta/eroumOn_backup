@@ -1,17 +1,21 @@
 package icube.manage.mbr.human;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
-import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 
 /**
  * 관리자 > 회원 > 휴면회원관리
@@ -46,5 +50,20 @@ public class MMbrHumanContoller extends CommonAbstractController{
 		model.addAttribute("gender", CodeMap.GENDER);
 
 		return "/manage/mbr/human/list";
+	}
+
+	@RequestMapping("excel")
+	public String excelDownload(HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model)
+			throws Exception {
+
+		reqMap.put("srchMbrSttus","HUMAN");
+		List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+
+		model.addAttribute("mbrList", mbrList);
+		model.addAttribute("gender", CodeMap.GENDER);
+
+		return "/manage/mbr/human/excel";
 	}
 }

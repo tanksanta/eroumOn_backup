@@ -16,8 +16,8 @@
 	                </c:when>
 	                <c:otherwise>
 	                	<ul>
-							<li><a href="/membership/login" class="navigation-link is-active">로그인</a></li>
-		                    <li><a href="/membership/registStep1" class="navigation-link">회원가입</a></li>
+							<li><a href="${_membershipPath}/login" class="navigation-link is-active">로그인</a></li>
+		                    <li><a href="${_membershipPath}/registStep1" class="navigation-link">회원가입</a></li>
 		                </ul>
 	                </c:otherwise>
                 </c:choose>
@@ -25,7 +25,7 @@
             </nav>
             <ul id="family">
                 <li>
-                    <a href="${_plannerPath}/index" class="family-link1">
+                    <a href="${_plannerPath}" class="family-link1">
                         <div class="bubble">
                             <small>시니어 라이프 케어 플랫폼</small>
                             <strong>"이로움"</strong>
@@ -36,7 +36,8 @@
                     <a href="${_membersPath}" class="family-link2">
                         <div class="bubble">
                             <strong>이로움 멤버스</strong>
-                            <small>전국 2,432개 업체와 함께합니다</small>
+                            <!-- <small>전국 <fmt:formatNumber value="${_bplcCnt}" pattern="###,###" />개 업체와 함께합니다</small> -->
+                            <small>전국 1,600개 업체와 함께합니다</small>
                         </div>
                     </a>
                 </li>

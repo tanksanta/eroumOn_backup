@@ -10,7 +10,7 @@
 
         <div id="page-container">
             <div id="page-content">
-                <div class="order-complate">
+                <!-- div class="order-complate">
                     <div class="container">
                         <p class="text-alerm">배송 진행 사항은 <strong>알림서비스</strong>로 받으세요</p>
                         <picture class="status">
@@ -20,7 +20,7 @@
                         </picture>
                     </div>
                 </div>
-                <br><br>
+                <br><br -->
                 <div class="order-complate2">
                     <div class="container">
                     	<c:set var="bplcCheck" value="" />

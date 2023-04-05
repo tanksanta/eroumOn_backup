@@ -2,7 +2,8 @@
 @layer components {
     .tabs {
         & .tabs-link {
-            @apply h-10 text-sm md:text-base md:h-12 lg:text-lg lg:h-14;
+            @apply h-11 text-sm md:text-base md:h-12 lg:text-lg lg:h-14;
+            word-break: keep-all;
         }
         &.is-small {
             & .tabs-link {
@@ -18,7 +19,7 @@
         @apply w-full border border-gray1 rounded-md bg-white leading-tight text-left;
     }
     & .option-toggle {
-        @apply appearance-none flex flex-wrap py-4 pl-3.5 pr-8 overflow-hidden bg-no-repeat bg-[url(../images/ico-angle-down.svg)] bg-[length:0.625rem] bg-[right_1.125rem_center] md:pr-9 md:py-4.5 md:bg-[right_1.25rem_center];
+        @apply appearance-none flex flex-wrap py-3.5 pl-3.5 pr-8 overflow-hidden bg-no-repeat bg-[url(../images/ico-angle-down.svg)] bg-[length:0.625rem] bg-[right_1.125rem_center] md:pr-9 md:py-4.5 md:bg-[right_1.25rem_center];
         & small {
             @apply pr-2 min-w-16 text-[1em] opacity-50 font-medium md:pr-4 md:min-w-20;
         }
@@ -27,7 +28,7 @@
         }
     }
     & .option-items {
-        @apply hidden absolute z-5 top-full left-0 -mt-3.5 py-2 max-h-[10.5em] scrollbars border-t-0 rounded-t-none md:py-2.5 md:max-h-[11em];
+        @apply hidden absolute z-5 top-full left-0 -mt-3 py-2 max-h-[10.5em] scrollbars border-t-0 rounded-t-none md:py-2.5 md:max-h-[11em];
         & a {
             @apply block py-2 px-3.5 md:py-2.5;
         }
@@ -263,7 +264,15 @@
             }
         }
         & .accordion-body {
-            @apply scrollbars mb-1.5 max-h-52 rounded-md bg-gray2 text-sm md:text-[0.9375rem];
+            @apply scrollbars mb-1.5 max-h-52 rounded-md bg-neutral-100 text-[0.8125rem] leading-snug;
+            & .terms-table {
+                & th, & td {
+                    @apply p-1.5;
+                }
+            }
+            & .terms-list {
+                @apply space-y-0.5;
+            }
         }
     }
     & .content-auth {
@@ -615,5 +624,59 @@
     }
     & .text-alert {
         @apply mt-3 mx-auto w-fit text-left md:mt-4;
+    }
+}
+
+.terms-table {
+    @apply table-fixed w-full border border-gray1 text-gray6;
+    & th, & td {
+        @apply p-1.5 border border-gray1 md:p-2 lg:p-3;
+    }
+    & th {
+        @apply bg-gray2;
+    }
+    & td {
+        @apply bg-white;
+    }
+}
+
+.terms-list {
+    @apply space-y-0.5 md:space-y-1;
+    & > li {
+        @apply relative;
+        & .temrs-list {
+            @apply space-y-px md:space-y-0.5;
+        }
+    }
+    &.is-number {
+        counter-reset: section; 
+        & > li {
+            @apply pl-[1.2em];
+            counter-increment: section;
+            &::before {
+                @apply absolute top-0 left-0;
+                content: counter(section)")";
+            }
+        }
+    }
+    &.is-number2 {
+        counter-reset: section; 
+        & > li {
+            @apply pl-[1.2em];
+            counter-increment: section;
+            &::before {
+                @apply absolute top-0 left-0;
+                content: counter(section)".";
+            }
+        }
+    }
+    &.is-hypen {
+        & > li {
+            @apply pl-[0.9em];
+            &::before {
+                @apply absolute top-0 left-[0.15em];
+                content: '-';
+            }
+        }
     }
 }

@@ -56,8 +56,11 @@
 						<td colspan="3">
 							<select name="srchWhdwlResn" class="form-control w-100" id="srchWhdwlResn">
 								<option value="">전체</option>
-								<c:forEach var="resn" items="${authResnCode}" varStatus="status">
-									<option value="${resn.key }"<c:if test="${param.srchWhdwlResn eq resn.key }">selected="selected"</c:if>>${resn.value }</option>
+								<c:forEach var="norResn" items="${norResnCode}" varStatus="status">
+									<option value="${norResn.key }"<c:if test="${param.srchWhdwlResn eq norResn.key }">selected="selected"</c:if>>${norResn.value }</option>
+								</c:forEach>
+								<c:forEach var="authResn" items="${authResnCode}" varStatus="status">
+									<option value="${authResn.key }"<c:if test="${param.srchWhdwlResn eq authResn.key }">selected="selected"</c:if>>${authResn.value }</option>
 								</c:forEach>
 							</select></td>
 					</tr>
@@ -68,6 +71,10 @@
 		<div class="btn-group mt-5">
 			<button type="submit" class="btn-primary large shadow w-52">검색</button>
 		</div>
+		<p class="text-right">
+			<button type="button" class="btn-primary btn-excel">엑셀 다운로드</button>
+		</p>
+
 	</form>
 
 	<p class="text-title2 mt-13">탈퇴회원 목록</p>
@@ -143,4 +150,11 @@ function f_srchWhdwlSet(ty){
 		$("#srchWhdwlBgng").val(f_getDate(-30));
 	}
 }
+
+$(function(){
+	$(".btn-excel").on("click", function(){
+		$("#searchFrm").attr("action","excel").submit();
+		$("#searchFrm").attr("action","list");
+	});
+});
 </script>

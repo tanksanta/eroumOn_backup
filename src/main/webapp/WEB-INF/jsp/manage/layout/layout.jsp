@@ -9,14 +9,17 @@
     <title>E-ROUM MANAGEMENT SYSTEM</title>
 
     <link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
-    
+
     <!-- plugin -->
     <link rel="stylesheet" href="/html/core/vendor/jstree/dist/themes/default/style.min.css">
     <link rel="stylesheet" href="/html/core/vendor/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/html/page/admin/assets/style/lightbox.min.css">
 
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
     <script src="/html/core/vendor/jquery/jquery-ui.min.js"></script>
     <script src="/html/core/vendor/jquery.validate/jquery.validate.min.js"></script>
+    <script src="/html/page/admin/assets/script/lightbox.min.js"></script>
+
     <script src="/html/core/vendor/jstree/dist/jstree.min.js"></script>
     <script src="/html/core/vendor/datatables/datatables.min.js"></script>
 

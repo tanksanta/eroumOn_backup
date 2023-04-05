@@ -217,17 +217,18 @@ public class MyFamController extends CommonAbstractController {
 			HttpServletRequest request
 			, Model model
 			, @RequestParam(value="mblTelno", required=false) String mblTelno
-			, @RequestParam(value="eml", required=false) String eml
+			//, @RequestParam(value="eml", required=false) String eml
 			) throws Exception {
 		JavaScript javaScript = new JavaScript();
 
 		Map paramMap = new HashMap();
 		paramMap.put("srchMbrSttus", "NORMAL");
-		if(!EgovStringUtil.isNull(mblTelno)) {
+		paramMap.put("srchMblTelno", mblTelno);
+		/*if(!EgovStringUtil.isNull(mblTelno)) {
 			paramMap.put("srchMblTelno", mblTelno);
 		}else {
 			paramMap.put("srchEml", eml);
-		}
+		}*/
 
 		int mbrCount = mbrService.selectMbrCount(paramMap);
 
@@ -241,7 +242,8 @@ public class MyFamController extends CommonAbstractController {
 
 				if(!EgovStringUtil.isNull(mblTelno)) {
 					//TODO 휴대폰 message 전송
-					javaScript.setMessage("문자를 전송했습니다.");
+					//javaScript.setMessage("문자를 전송했습니다.");
+					javaScript.setMessage("가족회원으로 초대하였습니다.");
 					javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
 				}else {
 					/*

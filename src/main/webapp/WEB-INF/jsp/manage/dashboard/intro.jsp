@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/html/page/admin/assets/style/style.min.css">
     <script src="/html/page/admin/assets/script/common.js"></script>
 </head>
-<body>
+<body style="background-color:#111">
     <div class="introduce-wrapper">
         <div class="market-title">eroum market</div>
 

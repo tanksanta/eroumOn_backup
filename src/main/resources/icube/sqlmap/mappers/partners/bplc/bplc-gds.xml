@@ -41,6 +41,9 @@
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND g.use_yn = #{srchUseYn}
 		</if>
+		<if test="srchGdsTy != null and srchGdsTy != '' ">
+			AND g.gds_ty = #{srchGdsTy}
+		</if>
 	</sql>
 
 	<!-- bplcUniqueId 사업소 유니크키 필수 -->

@@ -76,7 +76,7 @@
     & .item-thumb {
         @apply block relative overflow-hidden rounded-lg aspect-[1/1.26] bg-gray2 bg-no-repeat bg-center bg-[length:45%];
         & img {
-            @apply absolute top-0 left-0 w-full h-full object-cover;
+            @apply absolute top-0 left-0 w-full h-full object-cover mix-blend-darken;
         }
         &.is-empty {
             @apply bg-[url(../images/bg-compare-thumb.svg)];
@@ -200,7 +200,7 @@
         & .swiper-slide {
             @apply overflow-hidden rounded-[1.125rem] bg-gray2 aspect-[1/0.755];
             & img {
-                @apply mx-auto h-full object-cover;
+                @apply mx-auto h-full object-cover mix-blend-darken;
             }
             & iframe {
                 @apply w-full h-full object-cover;
@@ -621,7 +621,7 @@
     & .payment-type-select {
         @apply flex gap-2.5 px-5 py-2.5 lg:p-0 lg:pb-3.5;
         & .select-item1, & .select-item2 {
-            @apply flex-1 block relative select-none;
+            @apply flex-1 block relative select-none cursor-pointer;
             & input {
                 @apply absolute w-0 h-0 opacity-0 invisible;
             }
@@ -653,11 +653,19 @@
                 @apply border-black2 bg-black2 text-white lg:bg-black2/10 lg:border-black/0 lg:text-black2;
             }
         }
+        & + [class*="payment-type-content"] {
+            & .payment-button {
+                @apply hidden lg:flex;
+            }
+        }
     }
     & .payment-type-content1, & .payment-type-content2 {
         @apply relative hidden;
         &.is-active {
             @apply block;
+        }
+        & .payment-button {
+            @apply flex;
         }
     }
     & .payment-partners {
@@ -700,7 +708,7 @@
         }
     }
     & .payment-button {
-        @apply hidden flex-wrap gap-2.5 py-3 px-5 bg-white lg:flex lg:px-0;
+        @apply flex flex-wrap gap-2.5 py-3 px-5 bg-white lg:px-0;
         & .btn-trigger {
             @apply transition-none flex-1;
         }
@@ -715,6 +723,7 @@
         & .payment-type-select {
             @apply pt-5 pb-3.5 lg:pt-0;
             & .select-item1, & .select-item2 {
+                @apply cursor-default;
                 & span {
                     @apply bg-black2/10 border-black/0 text-black2;
                 }
@@ -737,17 +746,14 @@
                     }
                 }
             }
+            & + [class*="payment-type-content"] {
+                & .payment-button {
+                    @apply flex;
+                }
+            }
         }
         & .payment-toggle, & .payment-scroller {
             @apply block;
-        }
-        & .payment-button {
-            @apply flex;
-        }
-    }
-    &.is-nologin {
-        & .payment-type-select {
-            @apply hidden;
         }
         & .payment-button {
             @apply flex;

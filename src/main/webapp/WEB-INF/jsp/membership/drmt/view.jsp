@@ -7,9 +7,10 @@
 	</header>
 
 	<div id="page-content">
-		<form id="frmDrmt" name="frmDrmt" action="/membership/drmt/clear" class="member-join-content" method="post" enctype="multipart/form-data">
+		<form:form id="frmDrmt" name="frmDrmt" action="/membership/drmt/clear" method="post" enctype="multipart/form-data" modelAttribute="mbrVO">
 			<input type="hidden" id="receiptId" name="receiptId" value="">
-		</form>
+			<form:hidden path="mbrId" />
+		</form:form>
 		<div class="member-release-title is-glass">
 			<img src="/html/page/members/assets/images/txt-sleep2.svg" alt="회원님의 계정은 휴면상태 입니다.">
 			<p>

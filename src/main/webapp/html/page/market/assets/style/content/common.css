@@ -118,4 +118,10 @@ html {
 body {
     @apply block relative pt-18 w-screen h-screen max-h-screen text-sm scrollbars scroll-smooth overflow-x-hidden text-black2 lg:pt-25 md:text-base;
     overflow-y: overlay;
+    &::-webkit-scrollbar {
+        @apply w-3 h-3;
+    }
+    &::-webkit-scrollbar-thumb {
+        @apply rounded-lg border-0.5;
+    }
 }

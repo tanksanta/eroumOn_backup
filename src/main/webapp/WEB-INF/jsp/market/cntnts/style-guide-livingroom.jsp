@@ -6,7 +6,7 @@
     <div class="style-guide-livingroom">
         <div class="livingroom-title">
             <small class="slogan"><strong>Senior Life Style</strong> by Eroum <i></i> <strong>LIVING ROOM</strong></small>
-            <h2 class="title">편안한 <em>욕실생활</em></h2>
+            <h2 class="title">편안한 <em>거실생활</em></h2>
             <p class="desc">일상생활에서 가장 많이 활동하는 공간으로 이동에 편리함을 주는 복지용구를 소개해드립니다.</p>
         </div>
         <div class="livingroom-alert">
@@ -81,7 +81,10 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="text-title">안전손잡이(벽걸이형)</p>
+                        <p class="text-title">
+                        	안전손잡이_벽걸이형
+							<small class="block text-left">(변기형, 벽걸이형, 기둥형)</small>
+						</p>
                         <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
                     <div class="modal-body">
@@ -94,9 +97,8 @@
                             </p>
                         </div>
                         <p class="desc">
-                            벽이나 화장실 변기, 생활에 필요한 곳에 설치하여 <br>
-                            걷기가 어려운 어르신이 실내 이동시 <br>
-                            낙상을 예방하는 복지용구 급여대한 품목
+                            신체가 불편하거나, 일어서거나 앉을 때<br>
+                            혈압이 떨어지는 상황에 도움되는 복지용구
                         </p>
                         <ul class="thumb">
                             <li><img src="/html/page/market/assets/images/img-content-livingroom1-2.png" alt=""></li>
@@ -114,7 +116,10 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="text-title">성인용 보행기(워커)</p>
+                        <p class="text-title">
+                        	성인용 보행기_워커
+							<small class="block text-left">(실버카, 롤레이터, 워커)</small>
+						</p>
                         <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
                     <div class="modal-body">
@@ -132,9 +137,8 @@
                             </p>
                         </div>
                         <p class="desc">
-                            보행이 불편한 경우 실내외에서<br>
-                            혼자서 이동할 수 있도록 보조하는<br>
-                            복지용구 구입품목
+                            실내용으로 재활 목적을 가진 제품으로<br>
+                            수술 전, 후 도움되는 복지용구
                         </p>
                         <ul class="thumb">
                             <li><img src="/html/page/market/assets/images/img-content-livingroom2-2.png" alt=""></li>
@@ -164,7 +168,10 @@
                                 <sub>개</sub>
                             </p>
                         </div>
-                        <p class="desc">미끄럼방지 사고를 예방하는 복지용구 구입품목</p>
+                        <p class="desc">
+                        	신체 기능 저하로 실내에서<br>
+                        	낙상(넘어지는)을 예방하는 복지용구
+                        </p>
                         <ul class="thumb">
                             <li><img src="/html/page/market/assets/images/img-content-livingroom3-2.png" alt=""></li>
                             <li><img src="/html/page/market/assets/images/img-content-livingroom3-3.png" alt=""></li>
@@ -199,8 +206,8 @@
                             </p>
                         </div>
                         <p class="desc">
-                            보행을 보조하는 품목으로<br>
-                            무게는 가벼울수록 높낮이 조절은 쉬울수록 좋습니다.
+							일반적인 보행이 불편하고<br>
+							실내에서 낙상(넘어지는)을 예방하는 복지용구
                         </p>
                         <ul class="thumb">
                             <li><img src="/html/page/market/assets/images/img-content-livingroom4-2.png" alt=""></li>
@@ -213,81 +220,93 @@
                 </div>
             </div>
         </div>
-
+        
         <script>
             $(function() {
-                $(window).on('load', function() {
-                    var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
-                        autoHide: false
-                    });
-                    var simpleEl  = simpleBar.getScrollElement();
-                    var simpleCl  = false;
-
-                    simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
+                var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
+                    autoHide: false,
+                    forceVisible: true
+                    // classNames: {contentWrapper: 'dragscroll'}
+                });
+                
+                var simpleEl  = simpleBar.getScrollElement();
+                var simpleCl  = false;
+                
+                simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
+                
+                //dragscroll.reset();
+                
+                simpleBar.getScrollElement().addEventListener('scroll', function() {
+                    var cont     = $(this).find('.container').get(0).getClientRects()[0];
+                    var contview = cont.width + cont.x;
+                    var screen   = this.getClientRects()[0].width;
                     
-                    simpleBar.getScrollElement().addEventListener('scroll', function() {
-                        var cont     = $(this).find('.container').get(0).getClientRects()[0];
-                        var contview = cont.width + cont.x;
-                        var screen   = this.getClientRects()[0].width;
-                        
-                        $('.livingroom-visual .object').each(function(index) {
-                            var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
-                            if(temp > 0 && temp < screen) {
-                                $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
-                            } else {
-                                $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
-                            }
-                        });
-                    });
-
-                    $(window).on('resize', function() {
-                        var cont     = $(simpleBar.getScrollElement()).find('.container').get(0).getClientRects()[0];
-                        var contview = cont.width + cont.x;
-                        var screen   = simpleBar.getScrollElement().getClientRects()[0].width;
-                        
-                        $('.livingroom-visual .object').each(function(index) {
-                            var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
-                            if(temp > 0 && temp < screen) {
-                                $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
-                            } else {
-                                $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
-                            }
-                        });
-                    })
-
-                    $('.style-guide-livingroom').on('click touchstart', function() {
-                        $('.livingroom-alert').hide();
-                    });
-
-                    $('.livingroom-visual .object').on('click', function() {
-                        //var id= $(this).attr('href');
-                        //simpleCl = true;
-                        //$('.livingroom-steps .steps a[href="#' + id + '"]').addClass('is-active').parent().addClass('is-active').siblings().removeClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps a').on('click', function() {
-                        simpleCl = true;
-                        $(this).addClass('is-active').parent().addClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps').on('mouseenter', function() {
-                        simpleCl = false;
-                        $(this).addClass('is-active').siblings().removeClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps').on('mouseleave', function() {
-                        if(!simpleCl) {
-                            $(this).removeClass('is-active').siblings().removeClass('is-active');
+                    $('.livingroom-visual .object').each(function(index) {
+                        var temp   = $(this).get(0).getClientRects()[0].x + ($(this).get(0).getClientRects()[0].width);
+                        if(temp > 0 && temp < screen) {
+                            $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
+                        } else {
+                            $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
                         }
                     });
+                });
+                
+                $(window).on('load resize', function() {
+                    var cont     = $(simpleBar.getScrollElement()).find('.container').get(0).getClientRects()[0];
+                    var contview = cont.width + cont.x;
+                    var screen   = simpleBar.getScrollElement().getClientRects()[0].width;
+                    
 
-                    $('.modal button[data-bs-dismiss]').on('click', function() {
-                        simpleCl = false;
-                        var id = $(this).closest('.modal').attr('id');
-                        $('.livingroom-steps .steps a[href="#' + id + '"]').removeClass('is-active').parent().removeClass('is-active');
+                    if($(window).width() > 1280) {
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.5729166666666667);
+                    } else {
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.6875);
+                    }
+
+                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.327272727272727);
+
+                    $('.livingroom-visual .object').each(function(index) {
+                        var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
+                        if(temp > 0 && temp < screen) {
+                            $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
+                        } else {
+                            $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
+                        }
                     });
                 })
-            });
+
+                $('.style-guide-livingroom .dragscroll').on('mousedown touchstart', function() {
+                    $('.livingroom-alert').hide();
+                });
+
+                $('.livingroom-visual .object').on('click', function() {
+                    var id= $(this).attr('href');
+                    simpleCl = true;
+                    $('.livingroom-steps .steps a[href="#' + id + '"]').addClass('is-active').parent().addClass('is-active').siblings().removeClass('is-active');
+                });
+
+                $('.livingroom-steps .steps a').on('click', function() {
+                    simpleCl = true;
+                    $(this).parent().addClass('is-active');
+                });
+
+                $('.livingroom-steps .steps').on('mouseenter', function() {
+                    simpleCl = false;
+                    $(this).addClass('is-active').siblings().removeClass('is-active');
+                });
+
+                $('.livingroom-steps .steps').on('mouseleave', function() {
+                    if(!simpleCl) {
+                        $(this).removeClass('is-active').siblings().removeClass('is-active');
+                    }
+                });
+
+                $('.modal button[data-bs-dismiss]').on('click', function() {
+                    simpleCl = false;
+                    var id = $(this).closest('.modal').attr('id');
+                    $('.livingroom-steps .steps a[href="#' + id + '"]').removeClass('is-active').parent().removeClass('is-active');
+                });
+            })
         </script>
         <style>
             .modal-backdrop.show {

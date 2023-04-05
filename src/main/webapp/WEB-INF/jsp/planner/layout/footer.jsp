@@ -7,9 +7,8 @@
             <nav class="footer-menu">
                 <ul>
                     <li><a href="#">회사소개</a></li>
-                    <li><a href="#">이용약관</a></li>
-                    <li><a href="#">전자금융거래약관</a></li>
-                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                    <li><a href="${_membershipPath}/cntnts/terms" target="_blank">이용약관</a></li>
+                    <li><a href="${_membershipPath}/cntnts/privacy" target="_blank"><strong>개인정보처리방침</strong></a></li>
                 </ul>
             </nav>
             <!-- //회사 메뉴 -->
@@ -34,7 +33,8 @@
                             <a href="${_membersPath}" class="family-link2">
                                 <div class="bubble">
                                     <strong>이로움 멤버스</strong>
-                                    <small>전국 <fmt:formatNumber value="${_bplcCnt}" pattern="###,###" />개 업체와 함께합니다</small>
+                                    <!-- <small>전국 <fmt:formatNumber value="${_bplcCnt}" pattern="###,###" />개 업체와 함께합니다</small> -->
+                                    <small>전국 1,600개 업체와 함께합니다</small>
                                 </div>
                             </a>
                         </li>
@@ -63,7 +63,7 @@
                 <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
                 <dd id="footer-collapse" class="collapse">
                     <p>대표 : 신종호</p>
-                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>사업자등록번호 : 617-86-14330 [<a href="javascript:;" onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=6178614330','communicationViewPopup','width=750,height=700,scrollbars=yes')">사업자정보확인</a>]</p>
                     <p>통신판매신고번호 : 2018-서울강남-04157</p>
                     <address>
                         <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
@@ -91,7 +91,7 @@
         <hr>
 
         <!-- 카피 라이트 -->
-        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All rights reserved</div>
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->

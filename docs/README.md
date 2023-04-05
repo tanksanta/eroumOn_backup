@@ -47,4 +47,5 @@ thkc1301 / ~thkc1301@~
 thkc1300 / ~6thgkfossmkc!~
 
 
-## 카카오(개발 계정 사용중)
+## 카카오
+운영 : thkc@kakao.com / thdeckc01@!

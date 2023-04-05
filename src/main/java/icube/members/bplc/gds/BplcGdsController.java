@@ -109,6 +109,7 @@ public class BplcGdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
 		listVO.setParam("bplcUniqueId", bplcSetupVO.getUniqueId());
 		listVO.setParam("srchUseYn", "Y");
+		listVO.setParam("srchGdsTy", "R");
 		listVO = bplcGdsService.bplcGdsListVO(listVO);
 
 		// 카테고리 정보 S

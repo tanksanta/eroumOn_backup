@@ -53,6 +53,7 @@ public class MyCartController extends CommonAbstractController  {
 		model.addAttribute("nResultList", nResultList);
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 
 		return "/market/mypage/cart/list";
 	}

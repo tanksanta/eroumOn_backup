@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%-- 서비스내용 상세 --%>
-
+	<c:if test="${resultCode eq 'SUCCESS'}">
 	<c:set var="colorNumber"><%-- 카테고리 선택안했을 경우 default --%>
 	<c:choose>
 		<c:when test="${fn:contains(bokjiVO.categoryList, '주거')}">1</c:when>
@@ -29,7 +29,7 @@
                 	<c:if test="${!empty bokjiVO}">
                     <div class="modal-project-title">${bokjiVO.benefitName}</div>
                     <div class="modal-project-content">
-                        <a href="#" class="share f_clip">공유하기 <i></i></a>
+                        <a href="#" class="share f_clip" data-bokji-id="${bokjiVO.bokjiId}">공유하기 <i></i></a>
                         <table>
                             <colgroup>
                                 <col class="w-14">
@@ -130,3 +130,18 @@
         </div>
     </div>
     <!-- //컨텐츠 상세 is-color클래스는 목록과 동일 -->
+    <script>
+    $(function(){
+    	$("#modal-detail").modal("show");
+    });
+    </script>
+    </c:if>
+    <c:if test="${resultCode eq 'LOGIN'}">
+    <div><input type="hidden" id="bokjiId" name="bokjiId" value="${bokjiId}"></div>
+    <script>
+    $(function(){
+    	//alert("로그인이 필요한 컨텐츠 입니다.");
+    	$(".f_login").click();
+    });
+    </script>
+    </c:if>

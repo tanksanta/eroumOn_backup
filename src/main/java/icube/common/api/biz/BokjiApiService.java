@@ -34,13 +34,13 @@ public class BokjiApiService {
 	@Value("#{props['Globals.Bokji.Url']}")
 	private String bokjiDomain;
 
-	//private String BOKJI_DOMAIN = "https://api.bokji24.com"; // Prod
-	//private String BOKJI_DOMAIN = "https://api-dev.bokji24.com"; // Dev
-	//private String DETAIL_URL = bokjiDomain + "/api/partner/v2/search";
-
 	private String BOKJI_TOKEN;
 
-	// list
+	/**
+	 * 복지서비스 목록
+	 * @param CommonListVO
+	 * @return CommonListVO
+	 */
 	public CommonListVO getSrvcList(CommonListVO listVO) throws Exception {
 
 		String searchUrl = bokjiDomain + "/api/partner/v2/search/keyword";
@@ -54,7 +54,7 @@ public class BokjiApiService {
 		int size = listVO.getCntPerPage();
 
 		String accessToken = getToken();
-		System.out.println("getToken : " + accessToken);
+		//System.out.println("getToken : " + accessToken);
 
 		StringBuilder urlBuilder = new StringBuilder(searchUrl);
         urlBuilder.append("?sprName=" + sprName);
@@ -71,7 +71,7 @@ public class BokjiApiService {
         urlBuilder.append("&size=" + size); // 필수, 1~
 
 
-        System.out.println("SEARCH_URL: " + urlBuilder);
+        //System.out.println("SEARCH_URL: " + urlBuilder);
 
 		OkHttpClient client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -96,7 +96,7 @@ public class BokjiApiService {
 		JSONObject resultData = (JSONObject) jsonObject.get("data");
 
 		long total = (long) resultData.get("totalElements");
-		System.out.println(total);
+		//System.out.println(total);
 		listVO.setTotalCount((int) total);
 
 		List list = new ArrayList<>();
@@ -114,7 +114,7 @@ public class BokjiApiService {
 			bokjiServiceVO.setBokjiResource((String)content.get("bokjiResource"));
 			bokjiServiceVO.setCategoryList((List<String>) content.get("category"));
 
-			System.out.println("bokjiServiceVO: " + bokjiServiceVO.toString());
+			//System.out.println("bokjiServiceVO: " + bokjiServiceVO.toString());
 
 			list.add(bokjiServiceVO);
 		}
@@ -125,18 +125,21 @@ public class BokjiApiService {
 	}
 
 
-	// detail
+	/**
+	 * 복지서비스 상세
+	 * @param bokjiId
+	 * @return bokjiServiceVO
+	 */
 	public BokjiServiceVO getSrvcDtl(int bokjiId) throws Exception {
 
 		String searchUrl = bokjiDomain + "/api/partner/v2/search/";
-
 		String accessToken = getToken();
-		System.out.println("getToken : " + accessToken);
+		//System.out.println("getToken : " + accessToken);
 
 		StringBuilder urlBuilder = new StringBuilder(searchUrl);
         urlBuilder.append(bokjiId);
 
-        System.out.println("SEARCH_URL: " + urlBuilder);
+        //System.out.println("SEARCH_URL: " + urlBuilder);
 
 		OkHttpClient client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -176,7 +179,6 @@ public class BokjiApiService {
 		}
 
 		bokjiServiceVO.setAvailableKeyword((boolean) resultData.get("isAvailableKeyword"));
-		//bokjiServiceVO.setCategory((String) resultData.get("category"));
 		bokjiServiceVO.setCategoryList((List<String>) resultData.get("category"));
 
 		bokjiServiceVO.setTotalSupportAmount((String) resultData.get("totalSupportAmount"));
@@ -203,8 +205,141 @@ public class BokjiApiService {
 		return bokjiServiceVO;
 	}
 
+	/**
+	 * 복지시설 목록
+	 * @param CommonListVO
+	 * @return CommonListVO
+	 */
+	public CommonListVO getInstList(CommonListVO listVO) throws Exception {
+
+		String instUrl = bokjiDomain + "/api/partner/v2/distance";
+
+		String sprName = listVO.getParam("sprName");
+		String cityName = listVO.getParam("cityName");
+
+		String lat = listVO.getParam("lat");
+		String lng = listVO.getParam("lng");
+		String distance = listVO.getParam("distance");
+		int page = listVO.getCurPage();
+		int size = listVO.getCntPerPage();
+
+		String accessToken = getToken();
+		//System.out.println("getToken : " + accessToken);
+
+		StringBuilder urlBuilder = new StringBuilder(instUrl);
+
+		urlBuilder.append("?page=" + (page - 1));
+		urlBuilder.append("&size=" + size);
+		if(EgovStringUtil.isNotEmpty(sprName)) {
+			urlBuilder.append("&sprName=" + sprName);
+		}
+		if(EgovStringUtil.isNotEmpty(cityName)) {
+			urlBuilder.append("&cityName=" + cityName);
+		}
+		if(EgovStringUtil.isNotEmpty(lat) && EgovStringUtil.isNotEmpty(lng)) {
+			urlBuilder.append("&lat=" + lat);
+			urlBuilder.append("&lng=" + lng);
+			urlBuilder.append("&distance=" + distance);
+		}
+
+		System.out.println("instUrl: " + urlBuilder);
+
+		OkHttpClient client	= new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		Request request	= new Request.Builder()
+				.url(urlBuilder.toString())
+				.addHeader("accept", "application/json")
+				.addHeader("Authorization", "Bearer " + accessToken)
+				.build();
+
+		Response response = client.newCall(request).execute();
+		String responseStr = response.body().string();
+
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+
+		System.out.println("### JSON ### " + jsonObject.toJSONString());
+
+		JSONObject resultData = (JSONObject) jsonObject.get("data");
+
+		long total = (long) resultData.get("totalElements");
+		listVO.setTotalCount((int) total);
+
+		JSONArray instList = (JSONArray) resultData.get("content");
+
+		List<Map<String, Object>> instListMap =  JsonUtil.getListMapFromJsonArray(instList);
+
+		List list = new ArrayList<>();
+		for(Map<String, Object> inst : instListMap) {
+
+			BokjiProviderVO bokjiProviderVO = new BokjiProviderVO();
+			bokjiProviderVO.setId((int) inst.get("id"));
+			bokjiProviderVO.setInstitutionName((String) inst.get("institutionName"));
+			bokjiProviderVO.setContactNumber((String) inst.get("contactNumber"));
+
+			bokjiProviderVO.setCityName((String) inst.get("cityName"));
+			bokjiProviderVO.setSprName((String) inst.get("sprName"));
+			bokjiProviderVO.setAddress((String) inst.get("address"));
+
+			Map location = (Map) inst.get("location");
+			bokjiProviderVO.setLat((double) location.get("lat"));
+			bokjiProviderVO.setLng((double) location.get("lng"));
+
+			bokjiProviderVO.setDistance((double) inst.get("distance"));
+
+			list.add(bokjiProviderVO);
+		}
+		listVO.setListObject(list);
+
+		return listVO;
+
+	}
+
+	public int getInstCnt(String sprName, String cityName) throws Exception {
+
+		String instCntUrl = bokjiDomain + "/api/partner/v2/distance";
+		String accessToken = getToken();
+
+		StringBuilder urlBuilder = new StringBuilder(instCntUrl);
+		urlBuilder.append("?sprName=" + sprName);
+		if(EgovStringUtil.isNotEmpty(cityName)) {
+			urlBuilder.append("&cityName=" + cityName);
+		}
+
+		OkHttpClient client	= new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		Request request	= new Request.Builder()
+				.url(urlBuilder.toString())
+				.addHeader("accept", "application/json")
+				.addHeader("Authorization", "Bearer " + accessToken)
+				.build();
+
+		Response response = client.newCall(request).execute();
+		String responseStr = response.body().string();
+
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+
+		JSONObject resultData = (JSONObject) jsonObject.get("data");
+
+		int total = (int) resultData.get("count");
+
+		return total;
+	}
 
 
+	/**
+	 * 토큰 발급
+	 * @return accessToken
+	 */
 	public String getToken() throws Exception {
 
 		String signInUrl = bokjiDomain + "/api/auth/partner/signIn";
@@ -215,9 +350,7 @@ public class BokjiApiService {
 			JSONObject json = new JSONObject();
 			json.put("username", bokjiId);
 			json.put("password", bokjiPw);
-
-
-			System.out.println("SIGN_IN_URL" + signInUrl);
+			//System.out.println("SIGN_IN_URL: " + signInUrl);
 
 			// API 호출
 			OkHttpClient client = new OkHttpClient();
@@ -227,9 +360,11 @@ public class BokjiApiService {
 
 			Response response = client.newCall(request).execute();
 			String responseStr = response.body().string();
+			//System.out.println("### responseStr ### " + responseStr);
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+			//System.out.println("### JSON ### " + jsonObject.toJSONString());
 
 			String status = (String) jsonObject.get("state");
 			// 토큰 발급

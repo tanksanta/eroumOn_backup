@@ -292,7 +292,7 @@
 							<dl class="price1">
 								<dt>${gdsVO.gdsTy eq 'R'?'급여가':'대여가(월)'}</dt>
 								<dd>
-									<strong><fmt:formatNumber value="${gdsVO.bnefPc}" pattern="###,###" /></strong> 원
+									<strong><fmt:formatNumber value="${gdsVO.bnefPc}" pattern="###,###" /></strong> 원<c:if test="${gdsVO.usePsbltyTrm > 0}"> / <strong>${gdsVO.usePsbltyTrm}</strong>년</c:if>
 								</dd>
 							</dl>
 							<dl class="price2">
@@ -313,7 +313,7 @@
 											<strong>0</strong>
 										</c:when>
 									</c:choose>
-									원 <a href="#" class="text-question mycost-trigger font-normal text-primary" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom" data-bs-content="- 수급자는 연 한도액 160만원 범위 안에서 제공받음<br>- 복지용구 구매시 공단부담금 + 본인부담금<br>- 연 한도액 초과 시 전액 본인부담<br><br>차상위 감경(9% 본인부담) : 보험료 순위 25% 초과 50%<br>차상위 감경(6% 본인부담) : 보험료 순위 25% 이하<br>기초생활수급자(본인부담금 없이 무료)<a href='#' class='close'>닫기</a>" data-bs-title="본인부담금이란?">본인부담금이란?</a>
+									원 <button type="button" class="text-question mycost-trigger font-normal text-primary" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom" data-bs-content="- 수급자는 연 한도액 160만원 범위 안에서 제공받음<br>- 복지용구 구매시 공단부담금 + 본인부담금<br>- 연 한도액 초과 시 전액 본인부담<br><br>차상위 감경(9% 본인부담) : 보험료 순위 25% 초과 50%<br>차상위 감경(6% 본인부담) : 보험료 순위 25% 이하<br>기초생활수급자(본인부담금 없이 무료)<a href='#' class='close'>닫기</a>" data-bs-title="본인부담금이란?">본인부담금이란?</button>
 								</dd>
 							</dl>
 						</c:when>
@@ -352,6 +352,7 @@
 					<dl>
 						<dt>급여코드</dt>
 						<dd class="text-lg">${gdsVO.bnefCd}</dd>
+						<input type="hidden" id="bnefCd" name="bnefCd" value="${gdsVO.bnefCd}" />
 					</dl>
 					</c:if>
 
@@ -427,7 +428,7 @@
 				<!-- //상품 재원 -->
 
 				<!-- 상품 결제 -->
-				<div class="product-payment<c:if test="${!_mbrSession.loginCheck}"> is-nologin</c:if>">
+				<div class="product-payment">
 					<!-- 상품 결제 토글 모바일 -->
 					<button type="button" class="payment-toggle"></button>
 					<!-- //상품 결제 토글 모바일 -->
@@ -435,30 +436,31 @@
 					<%--from start--%>
 					<form id="frmOrdr" name="frmOrdr" method="post" enctype="multipart/form-data">
 						<!-- 구매 조건 선택 -->
-						<div class="payment-type-select">
-
                        	<c:choose>
 							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
-                            <label for="ordrTy1" class="select-item1">
-                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > <%--R or L--%>
-                                <span>급여 구매</span>
-                            </label>
-                            <label for="ordrTy2" class="select-item2">
-                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
-                                <span>바로 구매</span>
-                            </label>
+							<div class="payment-type-select">
+	                            <label for="ordrTy1" class="select-item1">
+	                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > <%--R or L--%>
+	                                <span>급여 구매</span>
+	                            </label>
+	                            <label for="ordrTy2" class="select-item2">
+	                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
+	                                <span>바로 구매</span>
+	                            </label>
+							</div>
                             </c:when>
                             <c:when test="${gdsVO.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 대여 & 수급자--%>
-                            <label for="ordrTy1" class="select-item1">
-                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
-                                <span>급여 구매</span>
-                            </label>
+							<div class="payment-type-select">
+	                            <label for="ordrTy1" class="select-item1">
+	                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
+	                                <span>급여 구매</span>
+	                            </label>
+	                        </div>
                             </c:when>
 							<c:otherwise> <%-- 비급여 > 판매가 구매 --%>
-								<input type="hidden" name="ordrTy" value="N">
+							<input type="hidden" name="ordrTy" value="N">
 							</c:otherwise>
 						</c:choose>
-						</div>
 						<!-- //구매 조건 선택 -->
 
 						<div class="payment-type-content1 is-active"> <%--고정--%>
@@ -475,6 +477,7 @@
 								<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 	                            <!-- 멤버스 선택 -->
 	                            <div class="payment-partners">
+	                            <!--
 	                            	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
 	                                <p class="text-desc">이로움 멤버스(사업소) 선택 </p>
 
@@ -498,7 +501,25 @@
 	                                </div>
 	                                <p class="text-alert mt-1.5">이 전에 구매하신 멤버스가 기본으로 선택됩니다.</p>
 
-	                                <button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button>
+	                                <button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button>-->
+	                                <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${bplcVO.uniqueId }">
+
+	                             	<div class="product-partners selectPart">
+	                             		<c:if test="${bplcVO.proflImg ne null}">
+	                                    	<img src="/comm/PROFL/getFile?fileName=${bplcVO.proflImg}" alt="" id="pImg">
+	                                    </c:if>
+	                                    <c:if test="${bplcVO.proflImg eq null}">
+	                                    	<img src="/html/page/market/assets/images/partners_default.png" alt="" id="pImg">
+	                                    </c:if>
+	                                    <dl>
+	                                        <dt id="pName">${bplcVO.bplcNm}</dt>
+	                                        <dd class="info">
+	                                            <p class="addr pAddrs">${bplcVO.addr}&nbsp;${bplcVO.daddr}</p>
+	                                            <p class="call"><a href="tel:${bplcVO.telno}" class="pTel">${bplcVO.telno}</a></p>
+	                                        </dd>
+	                                    </dl>
+	                                </div>
+
 	                            </div>
 	                            <!-- //멤버스 선택 -->
 	                            </c:if>
@@ -581,7 +602,7 @@
 							<div class="payment-button">
 								<c:if test="${_mbrSession.loginCheck}">
 									<c:if test="${_mbrSession.recipterYn eq 'Y' }">
-										<button type="button" class="btn btn-danger btn-large btn-trigger f_buy recpBtn">구매신청</button>
+										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
 									<c:if test="${_mbrSession.recipterYn eq 'N' }">
 										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매신청</button>
@@ -630,7 +651,6 @@
 </main>
 
 <script>
-
 var Goods = (function(){
 
 	var gdsPc = ${gdsVO.pc};
@@ -811,7 +831,6 @@ var Goods = (function(){
 			skip = true;
 		}
 
-
 		if(!skip){
 			var html = '';
 				html += '<div class="product-quanitem">';
@@ -954,6 +973,71 @@ var Goods = (function(){
 			);
 	}
 
+	function f_buy(){
+
+		if($(window).outerWidth() < 1041 && !$(this).closest('.product-payment').hasClass('is-active')) {
+            $(this).closest('.product-payment').addClass('is-active');
+        }
+
+		       // 대여상품은 1건씩 주문
+	        if(ordrTy == "L" && $(".product-quanitem").length > 1){
+	        	alert("급여상품의 대여 주문은 한품목의 상품만 주문 가능합니다.");
+	        	return false;
+	        }else if((ordrTy == "R" || ordrTy == "L") && $("#bplcUniqueId").val() == "" ){
+				alert("급여상품은 멤버스(사업소)를 선택해야 합니다.");
+				return false;
+	        // 주문
+	        <c:if test="${empty optnTtl[0]}">
+	        // 옵션이 없는 경우 //|0|10
+	        }else if(${gdsVO.stockQy} < 1){
+				alert("선택하신 상품은 품절입니다.");
+				return false;
+	        </c:if>
+	        }else if($(".product-quanitem").length < 1){
+	        	alert("필수 옵션을 선택하세요");
+	        	return false;
+	        }else{
+		        var actionUrl = "${_marketPath}/ordr/ordrRqst"; //주문확인
+				if(ordrTy == "N"){
+					actionUrl = "${_marketPath}/ordr/ordrPay"; //주문진행
+				}
+	        	$("#frmOrdr").attr("action", actionUrl);
+	        	$("#frmOrdr").submit();
+	        }
+
+    }
+
+	function f_buyClick(){
+		var tagList = [];
+		// 이로움1.0 상품 조회
+
+		if("${gdsVO.gdsTagVal}" != null && "${gdsVO.gdsTagVal}" != ''){
+			var tagVal = "${gdsVO.gdsTagVal}";
+			tagVal = tagVal.replaceAll(' ','').split(',');
+			if(tagVal.indexOf("A") > -1){
+				alert("선택하신 옵션은 품절상태입니다.");
+				skip = true;
+			}else if(tagVal.indexOf("B") > -1){
+				alert("선택하신 옵션은 일부옵션품절상태입니다.");
+				skip = true;
+			}else if(tagVal.indexOf("C") > -1){
+				alert("선택하신 옵션은 일시품절상태입니다.");
+				skip = true;
+			}
+		}else{
+			if($("#bnefCd").val() != null && $("#bnefCd").val() != '' ){
+				tagList.push($("#bnefCd").val());
+
+				let params = new Map();
+				params.set("bnefList",tagList);
+				params.set("method", f_buy);
+				f_itemChk(params);
+			}else{
+				f_buy();
+			}
+		}
+
+	}
 
 	$(function(){
 
@@ -964,8 +1048,14 @@ var Goods = (function(){
 		});
 
 		$(".option-toggle").on("click", function(){
-			$(this).closest('.product-option').toggleClass('is-active');
-			$('.product-option').not($(this).closest('.product-option')).removeClass('is-active');
+			if("${_mbrSession.loginCheck}" == "false"){
+				if(confirm("회원만 사용가능합니다. 로그인하시겠습니까?")){
+					location.href='${_membershipPath}/login?returnUrl=${_curPath}';
+				}
+			}else{
+				$(this).closest('.product-option').toggleClass('is-active');
+				$('.product-option').not($(this).closest('.product-option')).removeClass('is-active');
+			}
 		});
 
 		$("input[name='ordrTy']").on("change", function(){ //구매형태 변경
@@ -1149,36 +1239,9 @@ var Goods = (function(){
 
 		// 구매 버튼
 		$('.payment-button .f_buy').on('click', function() {
-	        if($(window).outerWidth() < 1041 && !$(this).closest('.product-payment').hasClass('is-active')) {
-	            $(this).closest('.product-payment').addClass('is-active');
-	        }
+			f_buyClick();
+		});
 
-	        // 대여상품은 1건씩 주문
-	        if(ordrTy == "L" && $(".product-quanitem").length > 1){
-	        	alert("급여상품의 대여 주문은 한품목의 상품만 주문 가능합니다.");
-	        	return false;
-	        }else if((ordrTy == "R" || ordrTy == "L") && $("#bplcUniqueId").val() == "" ){
-				alert("급여상품은 멤버스(사업소)를 선택해야 합니다.");
-				return false;
-	        // 주문
-	        <c:if test="${empty optnTtl[0]}">
-	        // 옵션이 없는 경우 //|0|10
-	        }else if(${gdsVO.stockQy} < 1){
-				alert("선택하신 상품은 품절입니다.");
-				return false;
-	        </c:if>
-	        }else if($(".product-quanitem").length < 1){
-	        	alert("필수 옵션을 선택하세요");
-	        	return false;
-	        }else{
-		        var actionUrl = "${_marketPath}/ordr/ordrRqst"; //주문확인
-				if(ordrTy == "N"){
-					actionUrl = "${_marketPath}/ordr/ordrPay"; //주문진행
-				}
-	        	$("#frmOrdr").attr("action", actionUrl);
-	        	$("#frmOrdr").submit();
-	        }
-	    });
 
 		// 장바구니 버튼
 		$(".payment-button .f_cart").on("click", function(){

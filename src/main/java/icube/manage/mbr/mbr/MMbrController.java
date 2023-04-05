@@ -819,4 +819,42 @@ public class MMbrController extends CommonAbstractController {
         return "/manage/mbr/manage/favorite";
     }
 
+    @RequestMapping("excel")
+	public String excelDownload(
+			HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+         String[] grade = new String[5];
+         boolean result = false;
+
+         for(int i=0; i < 5; i++) {
+         	if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchGrade"+i))) {
+         		grade[i] = ((String)reqMap.get("srchGrade"+i));
+         	}
+         }
+
+         for(int h=0; h < 5; h++) {
+         	if(EgovStringUtil.isNotEmpty(grade[h])) {
+         		result = true;
+         	}
+         }
+
+         if(result) {
+         	reqMap.put("srchGrade", grade);
+         }
+
+         List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+
+         model.addAttribute("mbrList", mbrList);
+         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
+         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
+         model.addAttribute("family", CodeMap.FAMILY_YN);
+         model.addAttribute("grade", CodeMap.GRADE);
+         model.addAttribute("gender", CodeMap.GENDER);
+
+         return "/manage/mbr/manage/excel";
+	}
+
+
 }

@@ -8,9 +8,19 @@
             </div>
 
             <h2 class="content-insurance1">
+                <span class="background"><span class="images"></span></span>
                 노인장기요양보험
                 <small>Senior Long Term Care</small>
             </h2>
+            <script>
+                $(function() {
+                    $(window).on('scroll', function() {
+                        if($('.content-insurance1').get(0).getClientRects()[0].y + $('.content-insurance1').get(0).getClientRects()[0].height > 0) {
+                            $('.content-insurance1 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.1) + 'px)'});
+                        }
+                    });
+                })
+            </script>
 
             <div class="content-insurance2">
                 <h2 class="title">
@@ -22,7 +32,7 @@
                         <div class="item-front">
                             <div class="front-content">
                                 <p class="benefit">
-                                    <span>BENEFIT</span>
+                                    <span>지원혜택</span>
                                     <em>01</em>
                                 </p>
                                 <p class="name">복지용구 구매/대여 비용 지원</p>
@@ -36,7 +46,7 @@
                         <div class="item-rear">
                             <p>
                                 거동이 불편한 어르신의 생활에<br>
-                                도움드리는 <strong>복지용구 지원</strong>
+                                도움드리는 <strong><span>복지용구 지원</span></strong>
                             </p>
                             <p class="img1"><img src="/html/page/planner/assets/images/img-content-insurance2.png" alt=""></p>
                         </div>
@@ -48,7 +58,7 @@
                         <div class="item-front">
                             <div class="front-content">
                                 <p class="benefit">
-                                    <span>BENEFIT</span>
+                                    <span>지원혜택</span>
                                     <em>02</em>
                                 </p>
                                 <p class="name">돌봄/주야간 보호 서비스 비용 지원</p>
@@ -58,12 +68,12 @@
                         <div class="item-rear">
                             <p>
                                 요양보호사가 생활공간에서<br>
-                                다양한 도움드리는 <strong>재가돌봄 지원</strong>
+                                다양한 도움드리는 <strong><span>재가돌봄 지원</span></strong>
                             </p>
                             <p class="img1"><img src="/html/page/planner/assets/images/img-content-insurance2-2.png" alt=""></p>
                             <p>
                                 또래 사람들과 다양한 활동을 통해<br>
-                                신체 재활을 도와드리는 <strong>주야간 보호 돌봄 지원</strong>
+                                신체 재활을 도와드리는 <strong><span>주야간 보호 돌봄 지원</span></strong>
                             </p>
                             <p class="img2"><img src="/html/page/planner/assets/images/img-content-insurance2-3.png" alt=""></p>
                         </div>
@@ -75,7 +85,7 @@
                         <div class="item-front">
                             <div class="front-content">
                                 <p class="benefit">
-                                    <span>BENEFIT</span>
+                                    <span>지원혜택</span>
                                     <em>03</em>
                                 </p>
                                 <p class="name">시설/요양원 입소 비용 지원</p>
@@ -87,13 +97,13 @@
                             <p>
                                 상당한 장애가 발생하여 도움이 필요한<br>
                                 어르신에게 가정집과 같은 주거여건을 갖춘<br>
-                                <strong>노인요양공동생활가정 지원</strong>
+                                <strong><span>노인요양공동생활가정 지원</span></strong>
                             </p>
                             <p class="img1"><img src="/html/page/planner/assets/images/img-content-insurance2-4.png" alt=""></p>
                             <p>
                                 거동이 불편한 어르신의 식사 관리부터<br>
                                 상시 옆에서 케어가 필요한 서비스를 갖춘<br>
-                                <strong>요양원 지원</strong>
+                                <strong><span>요양원 지원</span></strong>
                             </p>
                             <p class="img2"><img src="/html/page/planner/assets/images/img-content-insurance2-5.png" alt=""></p>
                         </div>
@@ -105,7 +115,7 @@
                         <div class="item-front">
                             <div class="front-content">
                                 <p class="benefit">
-                                    <span>BENEFIT</span>
+                                    <span>지원혜택</span>
                                     <em>04</em>
                                 </p>
                                 <p class="name">수급자 보호자를 위한 비용 지원</p>
@@ -116,8 +126,8 @@
                             <p>
                                 치매 등 어르신 보호에 지친 보호자를 위해<br>
                                 치매 가족 휴가제로 한도액 상관없이<br>
-                                <strong>연간 8일간 주야간 센터 단기보호,</strong><br>
-                                <strong>종일 방문요양(생활공간) 지원</strong>
+                                <strong><span>연간 8일간 주야간 센터 단기보호,</span></strong><br>
+                                <strong><span>종일 방문요양(생활공간) 지원</span></strong>
                             </p>
                             <p class="img1"><img src="/html/page/planner/assets/images/img-content-insurance2-6.png" alt=""></p>
                         </div>
@@ -216,7 +226,16 @@
                         이로움 마켓
                     </span>
                 </a> -->
-                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">이로움<br>테스트</a>
+                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">
+                    <span class="front">
+                        <small>E·ROUM</small>
+                        <strong>TEST</strong>
+                    </span>
+                    <span class="rear">
+                        <small>장기요양등급</small>
+                        <strong>테스트</strong>
+                    </span>
+                </a>
                 <a href="#page-container" class="gotop"><span class="sr-only">위로 이동</span></a>
             </div>
 

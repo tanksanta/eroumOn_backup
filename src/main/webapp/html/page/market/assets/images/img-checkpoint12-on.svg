@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="73.363" height="28.88" viewBox="0 0 73.363 28.88">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.377" y1="0.279" x2="0.714" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2fd8de"/>
+      <stop offset="0.474" stop-color="#4958e0"/>
+      <stop offset="1" stop-color="#ff4063"/>
+    </linearGradient>
+  </defs>
+  <g id="icon-12-active" transform="translate(0.5 0.663)">
+    <path id="Fill_65_Copy" data-name="Fill 65 Copy" d="M53.751,14.361A4.644,4.644,0,1,1,58.393,19,4.645,4.645,0,0,1,53.751,14.361ZM26.2,19,16.685,9,6.342,16.773,3.472,16.6a2.362,2.362,0,0,1-2.147-2.935A7.99,7.99,0,0,1,4.306,9.2L16.685,0l9.679,10H46.338a5.111,5.111,0,0,1,4.235,2.25,4.021,4.021,0,0,1,0,4.5A5.111,5.111,0,0,1,46.338,19Z" transform="translate(4.616)" fill="none" stroke="#979797" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="2 1"/>
+    <path id="Fill_66" data-name="Fill 66" d="M2.295,4.591A2.12,2.12,0,0,1,0,2.3,2.183,2.183,0,0,1,2.295,0H70.068a2.21,2.21,0,0,1,2.295,2.3,2.243,2.243,0,0,1-2.295,2.295Z" transform="translate(0 23.125)" fill="none" stroke="#979797" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="2 1"/>
+    <g id="Path_2" data-name="Path 2">
+      <path id="Path_2-2" data-name="Path 2" d="M22.919,7.852a.5.5,0,0,1-.351.856H.745A.745.745,0,0,1,0,7.963H0a.745.745,0,0,1,.745-.745H3.4a4,4,0,0,0,.809-.083l.434-.09a3.986,3.986,0,0,0,1.526-.671l.788-.569L14.966,0,14.28.5a1,1,0,0,1,1.289.1Z" transform="translate(5.468 12.13)" fill="none"/>
+      <path id="Path_2-3" data-name="Path 2" d="M22.919,7.852a.5.5,0,0,1-.351.856H.745A.745.745,0,0,1,0,7.963H0a.745.745,0,0,1,.745-.745H3.4a4,4,0,0,0,.809-.083l.434-.09a3.986,3.986,0,0,0,1.526-.671l.788-.569L14.966,0,14.28.5a1,1,0,0,1,1.289.1Z" transform="translate(5.468 12.13)" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

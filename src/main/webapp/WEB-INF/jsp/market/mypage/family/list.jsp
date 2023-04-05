@@ -24,10 +24,10 @@
 						<label for="mblTelno" class="form-label">휴대폰 번호</label>
 						<input type="text" id="mblTelno" name="mblTelno" class="form-control" oninput="autoHyphen(this);"/>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="eml" class="form-label">이메일 주소</label>
 						<input type="text" id="eml" name="eml" class="form-control" />
-					</div>
+					</div> -->
 				</div>
 				<button type="submit" class="btn btn-primary">
 					<img src="/html/page/market/assets/images/ico-mypage-family.svg" alt="">

@@ -70,8 +70,15 @@
 									<label for="join-item1">아이디<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
-							<td><form:input class="form-control w-full" path="mbrId" maxlength="15" />
-								<p class="text-sm mt-2.5">영문으로 띄어쓰기 없이 6~15자로 입력해주세요</p></td>
+							<td><form:input class="form-control w-full" path="mbrId" maxlength="15" /></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									영문으로 띄어쓰기 없이 6~15자로 입력해주세요.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">
@@ -79,8 +86,15 @@
 									<label for="join-item1-2">비밀번호<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
-							<td><form:input type="password" class="form-control w-full" path="pswd" />
-								<p class="text-sm mt-2.5">띄어쓰기 없이 8~16자 영문, 숫자, 특수문자를 조합하여 입력해주세요. (특수문자는 !,@,#,$,%,^,&,*만 사용 가능) 아이디와 동일한 비밀번호는 사용 할 수 없습니다.</p></td>
+							<td><form:input type="password" class="form-control w-full" path="pswd" /></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									띄어쓰기 없이 8~16자 영문, 숫자, 특수문자를 조합하여 입력해주세요. (특수문자는 !,@,#,$,%,^,&,*만 사용 가능) 아이디와 동일한 비밀번호는 사용 할 수 없습니다.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">
@@ -88,8 +102,15 @@
 									<label for="join-item1-3">비밀번호 확인<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
-							<td><input type="password" class="form-control w-full" id="pswdConfirm" name="pswdConfirm">
-								<p class="text-sm mt-2.5">비밀번호 확인을 위해 다시 한번 입력해주세요.</p></td>
+							<td><input type="password" class="form-control w-full" id="pswdConfirm" name="pswdConfirm"></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									비밀번호 확인을 위해 다시 한번 입력해주세요.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">
@@ -268,8 +289,15 @@
 							<th scope="row"><p>
 									<label for="rcmdtnId">추천인 아이디</label>
 								</p></th>
-							<td><form:input class="form-control w-full" path="rcmdtnId" maxlength="100" />
-								<p class="text-sm mt-2.5">추천인에게 포인트가 제공됩니다.</p></td>
+							<td><form:input class="form-control w-full" path="rcmdtnId" maxlength="100" /></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									추천인에게 500포인트가 제공됩니다.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p style="padding-left: 0;">
@@ -278,11 +306,26 @@
 							<td><form:input class="form-control w-full" path="rcmdtnMbrsId" maxlength="100" /></td>
 						</tr>
 						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									복지용구 사업소에서 안내 받은 아이디를 입력하세요.
+								</p>
+							</td>
+						</tr>
+						<tr>
 							<th scope="row"><p>
 									<label for="telno">전화번호</label>
 								</p></th>
-							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" />
-								<p class="text-sm mt-2.5">숫자만 입력해주세요</p></td>
+							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" /></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									숫자만 입력해주세요.
+								</p>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p style="padding-left: 0;">
@@ -320,7 +363,7 @@
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn">전화</label>
+										<label class="form-check-label" for="telRecptnYn">휴대폰</label>
 									</div>
 								</div>
 							</td>
@@ -338,6 +381,7 @@
 									<label for="uploadFile" class="form-upload-trigger"> 파일을 선택해주세요. </label>
 									<input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);" multiple>
 								</div>
+								<p class="text-sm">e.g. 5MB 이하</p>
 							</td>
 						</tr>
 					</tbody>

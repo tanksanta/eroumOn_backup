@@ -29,8 +29,24 @@
 
 	<tiles:insertAttribute name="footer"/>
 
+	<div id="modalLogin"></div>
+
 	<script src="/html/core/vendor/twelements/index.min.js"></script>
     <script src="/html/core/vendor/twelements/popper.min.js"></script>
+	<script>
+	$(function(){
+		$(".f_login").on("click", function(e){
+			e.preventDefault();
+			$("#modalLogin").load(
+       			"/planner/modalLogin"
+       			, function(){
+					$("#modal-login").modal("show");
+       			}
+       		);
+
+		});
+	});
+	</script>
 
 </body>
 </html>

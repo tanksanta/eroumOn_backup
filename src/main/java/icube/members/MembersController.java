@@ -76,6 +76,9 @@ public class MembersController extends CommonAbstractController {
 	@Value("#{props['Globals.EroumCare.PrivateKey']}")
 	private String eroumKey;
 
+	@Value("#{props['kakao.Script.key']}")
+	private String kakaoScriptKey;
+
 	private static final String SAVE_ID_COOKIE_ID = "_partnersSaveId_";
 	private static final String RSA_PARTNERS_KEY = "__rsaPartnersKey__";
 
@@ -89,11 +92,16 @@ public class MembersController extends CommonAbstractController {
 		List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
 
 		model.addAttribute("stdgCdList", stdgCdList);
+		model.addAttribute("_kakaoScriptKey", kakaoScriptKey);
 
 		return "/members/bplc_srch";
 	}
 
-	// 사업소 목록
+	//
+	/**
+	 * 사업소 목록
+	 * - plannerController에서도 사용 > 확인 할 것
+	 */
 	@ResponseBody
 	@RequestMapping(value="bplcList.json")
 	public Map<String, Object> bplcList(

@@ -33,7 +33,6 @@ import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
-import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
@@ -261,11 +260,18 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("brandList", brandList);
 
 				//이전 구매내역 사업소 정보
-				Map<String, Object> dtlMap = new HashMap();
+				/*Map<String, Object> dtlMap = new HashMap();
 				dtlMap.put("srchRegUniqueId", mbrSession.getUniqueId());
 				// dtlMap.put("srchGdsCd", gdsCd);
 				OrdrDtlVO ordrDtlVO = ordrDtlService.selectOrdrDtlHistory(dtlMap);
-				model.addAttribute("ordrDtlVO",ordrDtlVO);
+				model.addAttribute("ordrDtlVO",ordrDtlVO);*/
+
+				//2023-03-29 아리아케어 고정으로 변경 이후 변경 예정(임시임)
+				Map<String, Object> bplcMap = new HashMap<String, Object>();
+				bplcMap.put("srchBrno", "466-87-00410");
+				BplcVO bplcVO = bplcService.selectBplc(bplcMap);
+				model.addAttribute("bplcVO", bplcVO);
+
 
 				model.addAttribute("gdsVO", gdsVO);
 
@@ -410,6 +416,7 @@ public class GdsController extends CommonAbstractController {
 			List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
 
 
+			listVO.setParam("srchAprvTy", "C");
 			listVO = bplcService.bplcListVO(listVO);
 
 			model.addAttribute("stdgCdList", stdgCdList);

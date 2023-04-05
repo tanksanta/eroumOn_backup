@@ -42,6 +42,11 @@ body {
     @apply text-sm md:text-base;
 }
 
+strong {
+    @apply font-semibold;
+    font-variation-settings: "wght" 600;
+}
+
 @layer components {
     .modal {
         @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;

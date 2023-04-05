@@ -38,7 +38,6 @@ public class MyBuyGdsController extends CommonAbstractController {
 		listVO.setParam("ordrSttsTy", "OR09");
 		listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
 		listVO.setParam("srchOptnTy", "BASE");
-		listVO.setParam("srchBuyDay", 6);
 		listVO = ordrService.ordrMyListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
