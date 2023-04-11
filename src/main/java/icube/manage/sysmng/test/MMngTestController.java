@@ -18,9 +18,14 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import icube.common.util.ExcelUtil;
 import icube.manage.sysmng.test.biz.MMngTestService;
@@ -186,6 +191,9 @@ public class MMngTestController {
 		return resMap;
 	}
 	
+	/**
+	 * 시스템 관리 > 테스트 관리 > 테스트 엑셀 다운로드
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "excelDownloadAction")
 	public void DownloadExcel(HttpServletResponse response) throws Exception{
@@ -245,7 +253,45 @@ public class MMngTestController {
 		
 		ExcelUtil.writeExcel(response, excelData);
 	}
+		
+	
+	/**
+	 * 시스템 관리 > 테스트 관리 > 테스트 데이터 조회
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "testData.json")
+	public Map<String, String> getTestData(
+		@RequestParam String testNm
+		, Model model)throws Exception {
+		Map<String, String> resMap = new HashMap<String, String>();
+		
+		//Test DB 조회
+		List<Map<String, String>> testList = mMngTestService.selectAllTestMng();
+		
+		Map<String, String> findTest = testList.stream().filter(f -> testNm.equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findTest != null) {
+			String jsonString = findTest.get("data");
 			
+			//JSON Beautifier
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+			JsonNode tree = objectMapper.readTree(jsonString);
+			String prettyJsonString = objectMapper.writeValueAsString(tree);
+			
+			resMap.put("result", "Y");
+			resMap.put("msg", "조회 완료");
+			resMap.put("data", prettyJsonString);
+			return resMap;
+		} else {
+			resMap.put("result", "N");
+			resMap.put("msg", "조회되지 않습니다.");
+			return resMap;
+		}
+	}
 	
 	/**
 	 * 신체기능 영역 json 데이터 리턴
@@ -309,7 +355,6 @@ public class MMngTestController {
 	/**
 	 * cases에 질문이 들어가는 영역 json 데이터 리턴
 	 */
-	@SuppressWarnings("unchecked")
 	private JSONObject getJsonForCasesData(List<List<String>> rowsData, String question) {
 		return getJsonForCasesData(rowsData, question, true);
 	}
