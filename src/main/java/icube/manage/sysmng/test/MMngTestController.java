@@ -1,5 +1,6 @@
 package icube.manage.sysmng.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.json.simple.JSONArray;
@@ -184,6 +186,66 @@ public class MMngTestController {
 		return resMap;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "excelDownloadAction")
+	public void DownloadExcel(HttpServletResponse response) throws Exception{
+		Map<String, List<List<String>>> excelData = new HashMap();
+		
+		//Test DB 조회
+		List<Map<String, String>> testList = mMngTestService.selectAllTestMng();
+		
+		//점수 시트 작성
+		Map<String, String> findScoreTest = testList.stream().filter(f -> "점수".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findScoreTest != null) {
+			List<List<String>> rowsData = getScoreExcelData(findScoreTest.get("data"));
+			excelData.put("점수", rowsData);
+		}
+		
+		//신체기능 시트 작성
+		Map<String, String> findPysicalTest = testList.stream().filter(f -> "신체기능".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findPysicalTest != null) {
+			List<List<String>> rowsData = getPysicalExcelData(findPysicalTest.get("data"));
+			excelData.put("신체기능", rowsData);
+		}
+		
+		//인지기능 시트 작성
+		Map<String, String> findCognitiveTest = testList.stream().filter(f -> "인지기능".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findCognitiveTest != null) {
+			List<List<String>> rowsData = getCasesExcelData(findCognitiveTest.get("data"));
+			excelData.put("인지기능", rowsData);
+		}
+		
+		//행동변화 시트 작성
+		Map<String, String> findBehaviorTest = testList.stream().filter(f -> "행동변화".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findBehaviorTest != null) {
+			List<List<String>> rowsData = getCasesExcelData(findBehaviorTest.get("data"));
+			excelData.put("행동변화", rowsData);
+		}
+		
+		//간호처치 시트 작성
+		Map<String, String> findNurseTest = testList.stream().filter(f -> "간호처치".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findNurseTest != null) {
+			List<List<String>> rowsData = getCasesExcelData(findNurseTest.get("data"));
+			excelData.put("간호처치", rowsData);
+		}
+		
+		//재활 시트 작성
+		Map<String, String> findRehabilitateTest = testList.stream().filter(f -> "재활".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findRehabilitateTest != null) {
+			List<List<String>> rowsData = getRehabilitateExcelData(findRehabilitateTest.get("data"));
+			excelData.put("재활", rowsData);
+		}
+		
+		//질병 시트 작성
+		Map<String, String> findDiseaseTest = testList.stream().filter(f -> "질병".equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findDiseaseTest != null) {
+			List<List<String>> rowsData = getCasesExcelData(findDiseaseTest.get("data"));
+			excelData.put("질병", rowsData);
+		}
+		
+		ExcelUtil.writeExcel(response, excelData);
+	}
+			
 	
 	/**
 	 * 신체기능 영역 json 데이터 리턴
@@ -461,5 +523,169 @@ public class MMngTestController {
 			}
 		}
 		return 0;
+	}
+	
+	/**
+	 * 엑셀 다운로드 시 테이블의 점수 영역 데이터 가져오기
+	 */
+	private List<List<String>> getScoreExcelData(String scoreJsonData) throws Exception {
+		JSONParser parser = new JSONParser();
+		List<List<String>> rowsData = new ArrayList<List<String>>();
+		List<String> headerData = new ArrayList<String>();
+		headerData.add("랭크");
+		headerData.add("최솟값");
+		headerData.add("최대값");
+		rowsData.add(headerData);
+		
+		JSONObject jsonObject = (JSONObject) parser.parse(scoreJsonData);
+		JSONArray rankRanges = (JSONArray) jsonObject.get("rankRanges");
+		for(int i = 0; i < rankRanges.size(); i++) {
+			JSONObject rankRange = (JSONObject) rankRanges.get(i);
+			Long rank = (Long) rankRange.get("rank");
+			Long min = (Long) rankRange.get("min");
+			Long max = (Long) rankRange.get("max");
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add(rank.toString());
+			colsData.add(min != null ? min.toString() : "");
+			colsData.add(max != null ? max.toString() : "");
+			rowsData.add(colsData);
+		}
+		return rowsData;
+	}
+	
+	/**
+	 * 엑셀 다운로드 시 테이블의 신체기능 영역 데이터 가져오기
+	 */
+	private List<List<String>> getPysicalExcelData(String pysicalJsonData) throws Exception {
+		JSONParser parser = new JSONParser();
+		List<List<String>> rowsData = new ArrayList<List<String>>();
+		List<String> questionHeaderData = new ArrayList<String>();
+		questionHeaderData.add("질문");
+		rowsData.add(questionHeaderData);
+		
+		JSONObject jsonObject = (JSONObject) parser.parse(pysicalJsonData);
+		
+		//질문 데이터 추출
+		JSONArray questions = (JSONArray) jsonObject.get("questions");
+		for(int i = 0; i < questions.size(); i++) {
+			JSONObject question = (JSONObject) questions.get(i);
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add((String) question.get("question"));
+			rowsData.add(colsData);
+		}
+		
+		List<String> evaluationHeaderData = new ArrayList<String>();
+		evaluationHeaderData.add("점수");
+		evaluationHeaderData.add("평가점수");
+		rowsData.add(evaluationHeaderData);
+		
+		//평가 데이터 추출
+		JSONArray scoreEvaluations = (JSONArray) jsonObject.get("scoreEvaluations");
+		for(int i = 0; i < scoreEvaluations.size(); i++) {
+			JSONObject scoreEvaluation = (JSONObject) scoreEvaluations.get(i);
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add(((Double) scoreEvaluation.get("score")).toString());
+			colsData.add(((Double) scoreEvaluation.get("evaluation")).toString());
+			rowsData.add(colsData);
+		}
+		return rowsData;
+	}
+	
+	/**
+	 * 엑셀 다운로드 시 테이블의 Cases로 질문 관리하는 데이터 가져오기
+	 */
+	private List<List<String>> getCasesExcelData(String casesJsonData) throws Exception {
+		JSONParser parser = new JSONParser();
+		List<List<String>> rowsData = new ArrayList<List<String>>();
+		List<String> questionHeaderData = new ArrayList<String>();
+		questionHeaderData.add("질문");
+		rowsData.add(questionHeaderData);
+		
+		JSONObject jsonObject = (JSONObject) parser.parse(casesJsonData);
+		
+		//질문 데이터 추출
+		JSONArray questions = (JSONArray) jsonObject.get("questions");
+		if (questions.size() > 0) {
+			JSONObject question = (JSONObject) questions.get(0);
+			JSONArray cases = (JSONArray) question.get("cases");
+			
+			for (int i = 0; i < cases.size(); i++) {
+				JSONObject caseJson = (JSONObject) cases.get(i);
+				Long score = (Long) caseJson.get("score");
+				if (score > 0) {
+					List<String> colsData = new ArrayList<String>();
+					colsData.add((String) caseJson.get("content"));
+					rowsData.add(colsData);
+				}
+			}
+			
+		}
+		
+		List<String> evaluationHeaderData = new ArrayList<String>();
+		evaluationHeaderData.add("점수");
+		evaluationHeaderData.add("평가점수");
+		rowsData.add(evaluationHeaderData);
+		
+		//평가 데이터 추출
+		JSONArray scoreEvaluations = (JSONArray) jsonObject.get("scoreEvaluations");
+		for(int i = 0; i < scoreEvaluations.size(); i++) {
+			JSONObject scoreEvaluation = (JSONObject) scoreEvaluations.get(i);
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add(((Double) scoreEvaluation.get("score")).toString());
+			colsData.add(((Double) scoreEvaluation.get("evaluation")).toString());
+			rowsData.add(colsData);
+		}
+		return rowsData;
+	}
+	
+	/**
+	 * 엑셀 다운로드 시 테이블의 재활 영역 데이터 가져오기
+	 */
+	private List<List<String>> getRehabilitateExcelData(String rehabilitateJsonData) throws Exception {
+		JSONParser parser = new JSONParser();
+		List<List<String>> rowsData = new ArrayList<List<String>>();
+		List<String> questionHeaderData = new ArrayList<String>();
+		questionHeaderData.add("type");
+		questionHeaderData.add("질문");
+		questionHeaderData.add("이미지");
+		rowsData.add(questionHeaderData);
+		
+		JSONObject jsonObject = (JSONObject) parser.parse(rehabilitateJsonData);
+		
+		//질문 데이터 추출
+		JSONArray questions = (JSONArray) jsonObject.get("questions");
+		for(int i = 0; i < questions.size(); i++) {
+			JSONObject question = (JSONObject) questions.get(i);
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add((String) question.get("type"));
+			colsData.add((String) question.get("question"));
+			
+			if (question.containsKey("img")) {
+				colsData.add((String) question.get("img"));
+			}
+			rowsData.add(colsData);
+		}
+		
+		List<String> evaluationHeaderData = new ArrayList<String>();
+		evaluationHeaderData.add("점수");
+		evaluationHeaderData.add("평가점수");
+		rowsData.add(evaluationHeaderData);
+		
+		//평가 데이터 추출
+		JSONArray scoreEvaluations = (JSONArray) jsonObject.get("scoreEvaluations");
+		for(int i = 0; i < scoreEvaluations.size(); i++) {
+			JSONObject scoreEvaluation = (JSONObject) scoreEvaluations.get(i);
+			
+			List<String> colsData = new ArrayList<String>();
+			colsData.add(((Double) scoreEvaluation.get("score")).toString());
+			colsData.add(((Double) scoreEvaluation.get("evaluation")).toString());
+			rowsData.add(colsData);
+		}
+		return rowsData;
 	}
 }

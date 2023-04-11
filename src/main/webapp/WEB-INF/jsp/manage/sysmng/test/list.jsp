@@ -4,7 +4,7 @@
 	<div>
 		<p class="text-right">
 			<button type="button" class="btn-primary btn-excel" data-bs-toggle="modal" data-bs-target="#fileModal">엑셀 업로드</button>
-			<button type="button" class="btn-primary btn-excel">엑셀 다운로드</button>
+			<button type="button" class="btn-primary btn-excel" id="excelDownload">엑셀 다운로드</button>
 		</p>
 	</div>
 
@@ -61,3 +61,11 @@
 	<!-- 엑셀 업로드 모달 추가 -->
 	<c:import url="/_mng/sysmng/test/modalFileUpload" />
 </div>
+
+<script>
+	$(function() {
+		$('#excelDownload').on('click', function() {
+			window.open('/_mng/sysmng/test/excelDownloadAction');
+		});
+	})
+</script>
