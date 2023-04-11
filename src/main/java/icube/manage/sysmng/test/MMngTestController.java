@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,10 +121,54 @@ public class MMngTestController {
 			//점수 Sheet는 제일 마지막에 저장
 			List<List<String>> scoreSheetData = excelData.get("점수");
 			if (scoreSheetData != null) {
+				//위에 영역 저장된 데이터 재조회
+				testList = mMngTestService.selectAllTestMng();
 				
-				Map<String, String> findTest = testList.stream().filter(f -> "점수".equals(f.get("test_nm"))).findFirst().orElse(null);
-				if (findTest == null) {
+				//각 영역 질문지 수
+				int pysicalCnt = getQuestionCount(testList, "신체기능");
+				int cognitiveCnt = getCaseCount(testList, "인지기능", true);
+				int behaviorCnt = getCaseCount(testList, "행동변화", true);
+				int nurseCnt = getCaseCount(testList, "간호처치", true);
+				int rehabilitateCnt = getQuestionCount(testList, "재활");
+				int diseaseCnt = getCaseCount(testList, "질병", false);
+				
+				//점수 JsonData 만들기
+				JSONObject jsonData = new JSONObject();
+				JSONArray rankRanges = new JSONArray();
+				for (int rowIndex = 1; rowIndex < scoreSheetData.size(); rowIndex++) {
+					List<String> row = scoreSheetData.get(rowIndex);
 					
+					JSONObject rankRangeJson = new JSONObject();
+					String rank = row.get(0);
+					String min = row.get(1);
+					String max = null;
+					if (row.size() > 2) {
+						max = row.get(2);
+					}
+					
+					rankRangeJson.put("rank", EgovStringUtil.isNotEmpty(rank) ? (int) Double.parseDouble(rank) : null);
+					rankRangeJson.put("min", EgovStringUtil.isNotEmpty(min) ? (int) Double.parseDouble(min) : null);
+					rankRangeJson.put("max", EgovStringUtil.isNotEmpty(max) ? (int) Double.parseDouble(max) : null);
+					rankRanges.add(rankRangeJson);
+				}
+				jsonData.put("rankRanges", rankRanges);
+				jsonData.put("physicalCount", pysicalCnt);
+				jsonData.put("cognitiveCount", cognitiveCnt);
+				jsonData.put("behaviorCount", behaviorCnt);
+				jsonData.put("nurseCount", nurseCnt);
+				jsonData.put("rehabilitateCount", rehabilitateCnt);
+				jsonData.put("diseaseCount", diseaseCnt);
+				
+				Map<String, String> testVoMap = new HashMap();
+				testVoMap.put("test_nm", "점수");
+				testVoMap.put("data", jsonData.toJSONString());
+				
+				//점수 정보 DB 저장
+				Map<String, String> findScoreTest = testList.stream().filter(f -> "점수".equals(f.get("test_nm"))).findFirst().orElse(null);
+				if (findScoreTest == null) {
+					mMngTestService.insertTestMng(testVoMap);
+				} else {
+					mMngTestService.updateTestMng(testVoMap);
 				}
 			}
 			
@@ -366,5 +410,56 @@ public class MMngTestController {
 		jsonObject.put("questions", questions);
 		jsonObject.put("scoreEvaluations", scoreEvaluations);
 		return jsonObject;
+	}
+	
+	/**
+	 * jsonString 안에 질문지 수 구하기
+	 */
+	private int getQuestionCount (List<Map<String, String>> testList, String testNm) throws Exception {
+		JSONParser parser = new JSONParser();
+		int count = 0;
+		
+		Map<String, String> findPysicalTest = testList.stream().filter(f -> testNm.equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findPysicalTest != null) {
+			String jsonData = findPysicalTest.get("data");
+
+			JSONObject jsonObject = (JSONObject) parser.parse(jsonData);
+			JSONArray questions = (JSONArray) jsonObject.get("questions");
+			for(int i = 0; i < questions.size(); i++) {
+				JSONObject question = (JSONObject) questions.get(i);
+				
+				if ("radio".equals(question.get("type"))) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * jsonString 안에 케이스 수 구하기
+	 */
+	private int getCaseCount (List<Map<String, String>> testList, String testNm, boolean isNoCaseExist) throws Exception {
+		JSONParser parser = new JSONParser();
+		
+		Map<String, String> findCognitiveTest = testList.stream().filter(f -> testNm.equals(f.get("test_nm"))).findFirst().orElse(null);
+		if (findCognitiveTest != null) {
+			String jsonData = findCognitiveTest.get("data");
+
+			JSONObject jsonObject = (JSONObject) parser.parse(jsonData);
+			JSONArray questions = (JSONArray) jsonObject.get("questions");
+			if (questions.size() > 0) {
+				JSONObject question = (JSONObject) questions.get(0);
+				JSONArray cases = (JSONArray) question.get("cases");
+				
+				//해당 증상 없음은 빼고 계산
+				if (isNoCaseExist) {
+					return cases.size() - 1;
+				} else {
+					return cases.size();
+				}
+			}
+		}
+		return 0;
 	}
 }

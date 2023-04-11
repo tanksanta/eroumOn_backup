@@ -52,7 +52,7 @@ public class ExcelUtil {
 					Row row = sheet.getRow(rowNum);
 					if (row != null) {
 						List<String> cellsData = new ArrayList<String>();
-						int cellsCnt = row.getPhysicalNumberOfCells();
+						int cellsCnt = row.getLastCellNum();
 						
 						//cell 순회
 						for (int cellNum = 0; cellNum < cellsCnt; cellNum++) {

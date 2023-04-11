@@ -57,7 +57,7 @@
 				    data: formData,
 				})
 				.done(function(data) {
-					
+					alert(data.msg);
 					
 					$(".btn-close").click();
 				})
