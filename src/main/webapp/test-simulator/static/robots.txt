@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://silver.bokji24.com/sitemap.xml
