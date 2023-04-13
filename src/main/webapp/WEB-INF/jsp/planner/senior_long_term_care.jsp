@@ -204,7 +204,7 @@
                 <div class="cont2">
                     <div class="box">
                         <img src="/html/page/planner/assets/images/img-content-insurance5.png" alt="장기요양예상등급 이로움테스트">
-                        <a href="https://silver.bokji24.com/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
+                        <a href="/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
                     </div>
                 </div>
                 <p class="cont3">장기요양보험 인정 신청은 아래 대표 번호에 자세한 내용을 문의해보시고 지금 바로 신청해보세요.</p>
@@ -226,7 +226,7 @@
                         이로움 마켓
                     </span>
                 </a> -->
-                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">
+                <a href="/find/step2-1" target="_blank" class="test">
                     <span class="front">
                         <small>E·ROUM</small>
                         <strong>TEST</strong>
