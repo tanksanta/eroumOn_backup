@@ -15,7 +15,7 @@
         <li><a role="button" class="nav-link" onclick="navButtonClick(this, '재활')">재활</a></li>
         <li><a role="button" class="nav-link" onclick="navButtonClick(this, '질병')">질병</a></li>
     </ul>
-    <textarea id="dataText" class="w-full border border-black rounded-md" style="height:400px;"></textarea>
+    <textarea id="dataText" class="w-full border border-black rounded-md" style="height:400px;" readonly></textarea>
 	
 	<!-- 엑셀 업로드 모달 추가 -->
 	<c:import url="/_mng/sysmng/test/modalFileUpload" />
