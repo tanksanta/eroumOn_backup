@@ -337,6 +337,13 @@
 		    <artifactId>icu4j</artifactId>
 		    <version>72.1</version>
 		</dependency>
+		
+		<!-- linux build error fix -->
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>8.0</version>
+		</dependency>
 
 	</dependencies>
 
