@@ -605,45 +605,54 @@
 
 		// 선택 정보
 		$(".choiceVal").on("click", function() {
-			if ($(this).is(":checked")) {
-				$(this).attr("value", "Y");
-			} else {
-				$(this).attr("value", "N");
+			if(confirm("변경하시겠습니까?")){
+				if ($(this).is(":checked")) {
+					$(this).attr("value", "Y");
+				} else {
+					$(this).attr("value", "N");
+				}
+				$.ajax({
+					type : "post",
+					url : "choice.json",
+					data : {
+						uniqueId : $("#uniqueId").val(),
+						smsYn : $("#smsRcptnYn").val(),
+						emlYn : $("#emlRcptnYn").val(),
+						telYn : $("#telRecptnYn").val()
+					},
+					dataType : 'json'
+				}).done(function(data) {
+					alert("저장되었습니다.");
+				}).fail(function(data, status, err) {
+					alert("정보변경 중 오류가 발생했습니다.");
+					console.log('error forward : ' + data);
+				});
+			}else{
+				return false;
 			}
-			$.ajax({
-				type : "post",
-				url : "choice.json",
-				data : {
-					uniqueId : $("#uniqueId").val(),
-					smsYn : $("#smsRcptnYn").val(),
-					emlYn : $("#emlRcptnYn").val(),
-					telYn : $("#telRecptnYn").val()
-				},
-				dataType : 'json'
-			}).done(function(data) {
-				alert("저장되었습니다.");
-			}).fail(function(data, status, err) {
-				alert("정보변경 중 오류가 발생했습니다.");
-				console.log('error forward : ' + data);
-			});
+
 		});
 
 		//개인정보 유효기간
 		$(".prvcVal").on("click", function() {
-			$.ajax({
-				type : "post",
-				url : '/_mng/mbr/' + $("#uniqueId").val() + '/prvc.json',
-				data : {
-					uniqueId : $("#uniqueId").val(),
-					prvc : $('input[name=expiration]:checked').val()
-				},
-				dataType : 'json'
-			}).done(function(data) {
-				alert("저장되었습니다.");
-			}).fail(function(data, status, err) {
-				alert("정보변경 중 오류가 발생했습니다.");
-				console.log('error forward : ' + data);
-			});
+			if(confirm("변경하시겠습니까?")){
+				$.ajax({
+					type : "post",
+					url : '/_mng/mbr/' + $("#uniqueId").val() + '/prvc.json',
+					data : {
+						uniqueId : $("#uniqueId").val(),
+						prvc : $('input[name=expiration]:checked').val()
+					},
+					dataType : 'json'
+				}).done(function(data) {
+					alert("저장되었습니다.");
+				}).fail(function(data, status, err) {
+					alert("정보변경 중 오류가 발생했습니다.");
+					console.log('error forward : ' + data);
+				});
+			}else{
+				return false;
+			}
 		});
 
 		 //변경내역

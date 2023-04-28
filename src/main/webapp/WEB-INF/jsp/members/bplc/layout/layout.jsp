@@ -8,9 +8,10 @@
         <title>${bplcSetupVO.bplcNm} | 이로음 멤버스</title>
 
     	<link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
-    
+
         <!-- common -->
         <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
         <!-- office -->
         <link rel="stylesheet" href="/html/page/office/assets/style/home.min.css">

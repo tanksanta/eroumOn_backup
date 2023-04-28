@@ -51,14 +51,14 @@ $(function() {
     })
 
     $('.page-option .desc a').on('click', function() {
-        $('.page-option .desc a, .page-option .option-desc').addClass('is-active');
+        $('.page-option .desc a, .page-option .option-desc').toggleClass('is-active');
         return false;
     });
 
     $('.page-option .option-desc .close').on('click', function() {
         $('.page-option .desc a, .page-option .option-desc').removeClass('is-active');
     });
-    
+
     var observer = new MutationObserver(function(mutations) {
         if($(mutations[0].target).hasClass('active')) {
             $('.page-content-items .content-items').masonry({

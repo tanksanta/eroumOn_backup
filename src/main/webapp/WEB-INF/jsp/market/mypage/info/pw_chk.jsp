@@ -32,7 +32,7 @@
 <script>
 $(function(){
 
-	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
 
 	//유효성 검사
 	$("form[name='pwdChkFrm']").validate({

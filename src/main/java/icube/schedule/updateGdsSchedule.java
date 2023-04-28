@@ -49,7 +49,7 @@ public class updateGdsSchedule extends CommonAbstractController {
 	 * 매일 1회 상품 정보 업데이트
 	 * @throws Exception
 	 */
-	@Scheduled(cron="0 30 3 * * *")
+	@Scheduled(cron="0 30 03 * * *")
 	public void updateGdsInfo() throws Exception {
 		ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
 
@@ -60,12 +60,13 @@ public class updateGdsSchedule extends CommonAbstractController {
 		List<GdsVO> gdsList = gdsService.selectGdsListAll(paramMap);
 
 		for(GdsVO gdsVO : gdsList) {
-			paramMap.clear();
-			paramMap.put("ProdPayCode", Base64Util.encoder(gdsVO.getBnefCd()));
-			paramMap.put("item_id", null);
-			paramMap.put("item_opt_id", null);
-			arrayList.add(paramMap);
+			Map<String, Object> bnefMap = new HashMap<String, Object>();
+			bnefMap.put("ProdPayCode", Base64Util.encoder(gdsVO.getBnefCd()));
+			bnefMap.put("item_id", null);
+			bnefMap.put("item_opt_id", null);
+			arrayList.add(bnefMap);
 		}
+
 		// 상품 정보 조회
 		String JsonData = updateBplcInfoApiService.selectEroumCareOrdr(arrayList);
 

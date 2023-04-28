@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <main id="container">
 	<jsp:include page="../../layout/page_header.jsp">
-		<jsp:param value="이로움 혜택" name="pageTitle" />
+		<jsp:param value="이로움ON 혜택" name="pageTitle" />
 	</jsp:include>
 
 	<div id="page-container">
@@ -9,13 +9,13 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
-            <div class="mypage-profit is-coupon">
+	        <div class="mypage-profit is-coupon">
 	            <div class="profit-infomation">
                 	<div class="title">
-	                    <picture>
-							<img src="/html/page/market/assets/images/txt-mypage-grade-${_mbrSession.mberGrade}.svg" alt="">
-	                    </picture>
-						<p><strong>${_mbrSession.mbrNm}</strong> 님은<br> 현재 <strong>${mberGradeCode[_mbrSession.mberGrade]}</strong> 등급입니다</p>
+                		<p class="name ${_mbrSession.mberGrade eq 'E' ? 'text-grade1' : _mbrSession.mberGrade eq 'B' ? 'text-grade2' : _mbrSession.mberGrade eq 'S' ? 'text-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''}">
+	               			${gradeCode[_mbrSession.mberGrade]}
+                		</p>
+						<p><strong>${_mbrSession.mbrNm}</strong> 님은<br> 현재 <strong>${gradeCode[_mbrSession.mberGrade]}</strong> 등급입니다</p>
                 	</div>
                     <div class="number">
                         <dl>
@@ -42,6 +42,13 @@
 	                            </tr>
 	                        </thead>
 							<tbody>
+								<c:if test="${empty resultList}">
+									<tr>
+										<td colspan="2" style="padding-right: 0; padding-left: 0; border: 0;">
+                    						<p class="box-result">사용할 수 있는 쿠폰이 없습니다.</p>
+					                    </td>
+									</tr>
+								</c:if>
 								<c:forEach var="resultList" items="${resultList}" varStatus="status">
 									<tr>
 										<td>
@@ -73,7 +80,7 @@
 											</div>
 											<div class="coupon-item-desc">
 												<fmt:formatNumber value="${resultList.couponInfo.mummOrdrAmt}" pattern="###,###" />원 이상 구매시
-												<c:if test="${resultList.couponInfo.couponTy ne 'FREE' }">
+												<c:if test="${resultList.couponInfo.couponTy ne 'FREE' && resultList.couponInfo.dscntTy eq 'PRCS' }">
 													<br> 최대 <fmt:formatNumber value="${resultList.couponInfo.mxmmDscntAmt}" pattern="###,###" />원 할인
 												</c:if>
 												<c:if test="${resultList.couponInfo.couponTy eq 'FREE' }">
@@ -83,10 +90,6 @@
 										</td>
 									</tr>
 								</c:forEach>
-								<tr class="bot-border">
-									<td></td>
-									<td></td>
-								</tr>
 							</tbody>
                     	</table>
 	                </div>

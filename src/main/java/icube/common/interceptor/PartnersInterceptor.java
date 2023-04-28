@@ -16,6 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import icube.common.util.DateUtil;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
+import icube.market.mbr.biz.MbrSession;
 import icube.members.biz.PartnersSession;
 
 /**
@@ -34,6 +35,9 @@ public class PartnersInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private PartnersSession partnersSession;
+
+	@Autowired
+	private MbrSession mbrSession;
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
@@ -87,6 +91,7 @@ public class PartnersInterceptor implements HandlerInterceptor {
 
 			request.setAttribute("bplcSetupVO", bplcSetupVO);
 			request.setAttribute("_partnersSession", partnersSession);
+			request.setAttribute("_mbrSession", mbrSession);
 			request.setAttribute("_bplcPath", "/" + membersPath + "/" + bplcSetupVO.getBplcUrl());
 
 			request.setAttribute("_marketPath", "/" + marketPath);

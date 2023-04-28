@@ -142,6 +142,11 @@ public class MLoginController extends CommonAbstractController {
 					mngrService.setMngrSession(mngrVO);
 					mngrService.setMngrCookie(mngrVO, response);
 
+					// 최근 접속일시
+					Map<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("srchUniqueId", mngrVO.getUniqueId());
+					mngrService.updateRecentLgnDt(paramMap);
+
 					// saveId용 쿠키
 					Cookie cookie = new Cookie(SAVE_ID_COOKIE_ID, mngrVO.getMngrId());
 					cookie.setPath("/");

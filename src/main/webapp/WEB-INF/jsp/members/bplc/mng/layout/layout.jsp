@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>이로움 멤버스</title>
+    <title>이로움ON 멤버스</title>
 
     <!-- plugin -->
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>

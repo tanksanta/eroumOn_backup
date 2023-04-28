@@ -169,7 +169,7 @@
 			GROUP BY info.unique_id)
 			ORDER BY info.unique_id) AS a
 			WHERE 1=1
-				<include refid="searchConditions" />
+				AND mng_ty = #{srchMngTy} AND unique_id = #{srchUniqueId}
 	  	ORDER BY mng_info_no DESC
 	</select>
 

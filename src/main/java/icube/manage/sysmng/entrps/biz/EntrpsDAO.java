@@ -1,5 +1,8 @@
 package icube.manage.sysmng.entrps.biz;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import icube.common.framework.abst.CommonAbstractMapper;
@@ -26,6 +29,10 @@ public class EntrpsDAO extends CommonAbstractMapper {
 
 	public void deleteEntrps(int entrpsNo) throws Exception {
 		delete("entrps.deleteEntrps", entrpsNo);
+	}
+
+	public List<EntrpsVO> selectEntrpsListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("entrps.selectEntrpsListAll",paramMap);
 	}
 
 }

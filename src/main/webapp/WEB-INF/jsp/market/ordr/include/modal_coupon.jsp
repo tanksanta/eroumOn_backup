@@ -33,7 +33,7 @@
 								</p>
 							</div>
 							<button type="button" class="order-trigger ${resultList.gdsNo}_${status.index+1}" data-gds-cd = "${resultList.gdsCd}" data-gds-pc = "${resultList.pc}" data-gds-no = "${resultList.gdsNo}" data-dlvy-amt="${resultList.dlvyBassAmt}" data-ordr-idx="${status.index}">
-								<img src="/html/page/market/assets/images/img-coupon.svg" alt="" class="img${resultList.gdsNo}_${status.index+1} default">
+								<img src="" alt="" class="img${resultList.gdsNo}_${status.index+1} default">
 								<span class="img${resultList.gdsNo}_${status.index+1} default">적용할 쿠폰을 선택하세요</span>
 							</button>
 						</div>
@@ -117,9 +117,10 @@
 													</strong>
 												</div>
 												<div class="coupon-item-desc">
-													<fmt:formatNumber value="${cpnList.couponInfo.mummOrdrAmt}" pattern="###,###" />원 이상 구매시<br> 최대
-													<fmt:formatNumber value="${cpnList.couponInfo.mxmmDscntAmt}" pattern="###,###" />
-													원 할인
+													<fmt:formatNumber value="${cpnList.couponInfo.mummOrdrAmt}" pattern="###,###" />원 이상 구매시
+													<c:if test="${cpnList.couponInfo.dscntTy eq 'PRCS' }">
+														<br> 최대<fmt:formatNumber value="${cpnList.couponInfo.mxmmDscntAmt}" pattern="###,###" />원 할인
+													</c:if>
 												</div>
 											</td>
 										</tr>
@@ -305,7 +306,7 @@ $(function(){
 					        	$("#couponAmt_BASE_"+gdsNo+"_"+(ordrIdx+1)).val(amt);
 					        	$("#couponNo_BASE_"+gdsNo+"_"+(ordrIdx+1)).val(cpnNo);
 					        	$("#couponCd_BASE_"+gdsNo+"_"+(ordrIdx+1)).val(cpnCd);
-					        	$("#ordrPc_BASE_"+gdsNo+"_"+(ordrIdx+1)).val($("#plusOrdrPc_BASE_"+gdsNo+"_"+(ordrIdx+1)).val()-amt);
+					        	//$("#ordrPc_BASE_"+gdsNo+"_"+(ordrIdx+1)).val($("#plusOrdrPc_BASE_"+gdsNo+"_"+(ordrIdx+1)).val()-amt);
 
 					        	sumAmt = Number(sumAmt) + Number(amt);
 
@@ -379,6 +380,7 @@ $(function(){
     	f_calStlmAmt();
     	//sumAmt = 0;
     });
+
 });
 </script>
 

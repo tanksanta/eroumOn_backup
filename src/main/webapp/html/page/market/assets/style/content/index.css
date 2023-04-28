@@ -311,7 +311,7 @@ section.main-visual {
                     @apply h-89 rounded-none transition-all duration-500 sm:h-[27.8125rem] md:h-[33.375rem] lg:h-[44.5rem] 2xl:h-[55.625rem];
                 }
                 & .slide-content {
-                    @apply transition-all duration-500;
+                    @apply transition-all duration-500 md:pb-32 lg:pb-38;
                     & .content, & .title, & .desc, & .btn {
                         @apply transition-[margin,bottom,left,padding] duration-500;
                     }
@@ -334,7 +334,7 @@ section.main-visual {
             & .slide-item4 {
                 & .slide-content {
                     & .content {
-                        @apply py-[max(3.65rem,(min(5.795454545454545vw,6.375rem)))];
+                        @apply pb-[max(3.65rem,(min(5.795454545454545vw,6.375rem)))];
                     }
                 }
             }
@@ -377,7 +377,7 @@ section.main-visual {
             & .swiper-main {
                 & .swiper-slide {
                     & .slide-wrapper {
-                        @apply duration-1000 h-[max(22.25rem,calc(100vh_-_7.25rem))] md:h-[max(33.375rem,calc(100vh_-_7.25rem))] lg:h-[max(44.5rem,calc(100vh_-_10.5rem))] 2xl:h-[max(55.625rem,calc(100vh_-_10.5rem))];
+                        @apply duration-1000 min-h-[20rem] h-[calc(100vh_-_7.25rem)] md:min-h-[28rem] md:h-[calc(100vh_-_7.25rem)] lg:min-h-[36.75rem] lg:h-[calc(100vh_-_10.5rem)] 2xl:h-[calc(100vh_-_10.5rem)];
                     }
                 }
                 & .slide-content {
@@ -460,7 +460,7 @@ section.main-check {
                     @apply mt-[1.35em] text-sm font-bold md:text-base lg:text-lg;
                 }
                 & .info {
-                    @apply flex items-center justify-center mt-2 text-base leading-none space-x-18 md:space-x-20 md:justify-start md:text-lg lg:space-x-22 lg:text-xl;
+                    @apply flex items-center justify-center flex-wrap mt-2 text-base leading-none space-x-16 md:space-x-18 md:justify-start md:text-lg lg:space-x-20 lg:text-xl;
                     & sup, & sub, & strong {
                         @apply inline-block leading-none;
                     }
@@ -472,6 +472,21 @@ section.main-check {
                     }
                     & strong {
                         @apply font-serif text-4xl leading-tight md:text-[2.5rem] lg:text-7xl;
+                    }
+                    & .title {
+                        @apply text-center w-full mb-3 text-lg md:mb-0 md:w-auto md:text-xl font-black lg:text-2xl;
+                        & + p {
+                            @apply md-max:ml-0 !important;
+                        }
+                        & ~ p {
+                            @apply lg-range:ml-auto !important;
+                        }
+                    }
+                    & + .info {
+                        @apply md:mt-0;
+                        & + .btn-primary {
+                            @apply mt-3 md:mt-4;
+                        }
                     }
                 }
                 & .btn-primary {

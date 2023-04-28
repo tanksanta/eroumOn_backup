@@ -2,7 +2,7 @@
 
 <main id="container">
 	<h2 class="text-title mb-15 md:mb-23 lg:mb-30">
-		이로움 멤버스 관리자 로그인 <small>이로움 멤버스를 위한 로그인 화면입니다.</small>
+		이로움ON 멤버스 관리자 로그인 <small>이로움ON 멤버스를 위한 로그인 화면입니다.</small>
 	</h2>
 
 	<form class="form-container" id="loginForm" name="loginForm" method="post">

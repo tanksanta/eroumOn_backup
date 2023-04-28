@@ -593,7 +593,6 @@ $(function(){
 
 	$(".f_ordrdtl_optn_chg").on("click", function(){
 		var formData = $("#frmOrdrChg").serialize();
-
 		$.ajax({
 			type : "post",
 			url  : "${_marketPath}/mypage/ordr/optnChgSave.json",

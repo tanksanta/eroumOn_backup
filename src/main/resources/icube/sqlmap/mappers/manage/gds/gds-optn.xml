@@ -11,6 +11,7 @@
 		, optn_nm
 		, optn_pc
 		, optn_stock_qy
+		, optn_item_cd
 		, use_yn
 	</sql>
 
@@ -65,6 +66,7 @@
 			, optn_nm
 			, optn_pc
 			, optn_stock_qy
+			, optn_item_cd
 			, use_yn
 		) VALUES (
 			#{gdsNo}
@@ -72,6 +74,7 @@
 			, #{optnNm, jdbcType=VARCHAR}
 			, #{optnPc}
 			, #{optnStockQy}
+			, #{optnItemCd , jdbcType=VARCHAR}
 			, #{useYn, jdbcType=VARCHAR}
 		)
 	</insert>
@@ -83,6 +86,7 @@
 			, optn_nm 	= #{optnNm, jdbcType=VARCHAR}
 			, optn_pc 	= #{optnPc}
 			, optn_stock_qy = #{optnStockQy}
+			, optn_item_cd = #{optnItemCd , jdbcType=VARCHAR}
 			, use_yn	= #{useYn, jdbcType=VARCHAR}
 		WHERE gds_no = #{gdsNo}
 			AND gds_optn_no = #{gdsOptnNo}

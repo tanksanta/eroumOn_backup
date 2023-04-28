@@ -59,6 +59,9 @@ public class InqryController extends CommonAbstractController{
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
+	@Value("#{props['Globals.Membership.path']}")
+	private String membershipPath;
+
 	/**
 	 * 회원 주문 폼
 	 * @param request
@@ -76,7 +79,7 @@ public class InqryController extends CommonAbstractController{
 			)throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// 회원 휴대폰, 이메일 정보

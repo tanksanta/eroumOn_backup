@@ -29,7 +29,7 @@
     .box-gray {
         @apply items-center px-3.5 py-4 border rounded-md border-gray2 bg-gray2 md:px-5;
         & > * {
-            @apply mr-1 md:mr-3;
+            @apply mr-2 md:mr-3;
             &:last-child {
                 @apply mr-0;
             }
@@ -104,10 +104,19 @@
         0% {transform: rotate(0deg);}
         100% {transform: rotate(360deg);}
     }
-
     
-    & .error {
+    .error {
         @apply mt-1 text-[0.8125rem] md:text-sm;
+    }
+
+    .text-grade1 {
+        @apply text-[#FE9015];
+    }
+    .text-grade2 {
+        @apply text-[#3FA54D];
+    }
+    .text-grade3 {
+        @apply text-[#BF944C];
     }
 }
 

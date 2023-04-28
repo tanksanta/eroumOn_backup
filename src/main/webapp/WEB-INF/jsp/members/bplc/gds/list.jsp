@@ -121,6 +121,25 @@
     	}
 
 		$(function(){
+
+			if($.cookie('members_category') != '' && $.cookie('members_category') != null){
+				//console.log("카테고리 쿠키 : " + $.cookie('members_category'));
+				let ctgrys = $.cookie('members_category');
+				let arrCtgry = ctgrys.split('|');
+				//console.log(arrCtgry);
+
+				$(".product-category dd a").each(function(){
+					if(arrCtgry.includes(String($(this).data("ctgryNo")))){
+						$(this).addClass("is-active")
+					}
+					if($(this).data("ctgryNo") == ''){
+						$(this).removeClass("is-active");
+					}
+				});
+				srchCtgryNos = $.cookie('members_category');
+
+			}
+
 			f_srchGdsList(1); // search
 
 			// 출력 갯수
@@ -137,6 +156,7 @@
 				let ctgryNo = $(this).data("ctgryNo")
 				if(ctgryNo == ""){//전체선택
 					$(".product-category dd a").removeClass("is-active");
+					$.cookie('members_category','');
 					$(this).addClass("is-active");
 				}else{
 					$(".product-category dd a[data-ctgry-no='']").removeClass("is-active");
@@ -152,6 +172,8 @@
 					$(".product-category dd a.is-active").each(function(){
 						srchCtgryNos += (srchCtgryNos==""?$(this).data("ctgryNo"):"|"+$(this).data("ctgryNo"));
 					});
+					// 상품 카테고리 쿠키 생성
+					$.cookie('members_category',srchCtgryNos);
 				}
 				f_srchGdsList(1); // search
 			});
@@ -162,7 +184,9 @@
 				const initCtgryNo = location.href.split("#")[1];
 				if($(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").length > 0){
 					$(".product-category dd a[data-ctgry-no='']").removeClass("is-active");
-					$(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").addClass("is-active");
+					if($.cookie('members_category') == ''){
+						$(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").addClass("is-active");
+					}
 					srchCtgryNos = initCtgryNo;
 				}
 			}

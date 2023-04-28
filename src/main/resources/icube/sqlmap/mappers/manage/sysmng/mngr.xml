@@ -20,10 +20,13 @@
 			</foreach>
 		</if>
 		<if test="srchMngrNm != null and srchMngrNm != '' ">
-			AND MNGR.mngr_nm LIKE  CONCAT('%', #{srchMngrNm}, '%')
+			AND mngr.mngr_nm LIKE  CONCAT('%', #{srchMngrNm}, '%')
 		</if>
 		<if test="srchTelno != null and srchTelno != '' ">
-			AND MNGR.telno LIKE  CONCAT('%', #{srchTelno}, '%')
+			AND mngr.telno LIKE  CONCAT('%', #{srchTelno}, '%')
+		</if>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND mngr.uniqueId = #{srchUniqueId}
 		</if>
 		<if test="srchText !='' and srchText !=null">
 			<choose>
@@ -247,6 +250,14 @@
 		   SET profl_img = #{proflImg, jdbcType=VARCHAR}
 		WHERE mngr_id = #{mngrId}
 	</update>
+
+	<update id="updateRecentLgnDt" parameterType="java.util.HashMap">
+		UPDATE MNGR SET
+			recent_lgn_dt = SYSDATE()
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+
+
 
 
 </mapper>

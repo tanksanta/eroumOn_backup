@@ -82,11 +82,11 @@
             </div>
             <div class="list-items ${fn:indexOf(_curPath, 'mNotice') > -1?'active':''}" id="list-items6">
                 <p>
-                    이로움마켓 공지사항
+                    이로움ON 마켓 공지사항
                     <small> management</small>
                 </p>
                 <ul>
-                    <li ${fn:indexOf(_curPath, 'mNotice') > -1?'class="active"':''}><a href="${_bplcPath}/mng/mNotice/list">이로움마켓 공지사항</a></li>
+                    <li ${fn:indexOf(_curPath, 'mNotice') > -1?'class="active"':''}><a href="${_bplcPath}/mng/mNotice/list">이로움ON 마켓 공지사항</a></li>
                 </ul>
             </div>
         </nav>

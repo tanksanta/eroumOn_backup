@@ -1,5 +1,5 @@
 .personal-info {
-    @apply flex items-center relative z-10 w-fit rounded-full bg-white whitespace-nowrap select-none;
+    @apply flex items-center relative z-10 w-fit rounded-full overflow-hidden bg-white whitespace-nowrap select-none;
     box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
     &[class*="bg-color"] {
         & .personal-detail {
@@ -89,7 +89,7 @@
 }
 
 .personal-user {
-    @apply flex-none relative z-15 flex items-center p-1.5 pl-3 rounded-full bg-white md:p-2 h-14 overflow-hidden tracking-tight text-base md:text-lg leading-tight md:pl-3.5 lg:h-17 lg:text-xl;
+    @apply flex-none relative z-5 flex items-center p-1.5 pl-3 rounded-full bg-white md:p-2 h-14 tracking-tight text-base md:text-lg leading-tight md:pl-3.5 lg:h-17 lg:text-xl;
     & .bags {
         @apply -ml-1 -mr-0.5 mt-3 w-[46px] lg:-ml-3 lg:-mr-2 lg:w-[78px] lg-max:hidden;
         & + .logout {
@@ -97,15 +97,12 @@
         }
     }
     & .rank {
-        @apply ml-3 sm:ml-0 lg-max:hidden;
+        @apply flex-none ml-4;
         & small {
             @apply block text-xs;
         }
         & strong {
-            @apply block -mt-1 min-w-12 font-serif font-black uppercase sm:min-w-18;
-            & img {
-                @apply mt-1 h-5 sm:h-[1.5625rem];
-            }
+            @apply block font-bold;
         }
     }
     & .logout {
@@ -114,7 +111,7 @@
 }
 
 .personal-detail {
-    @apply flex flex-none items-center relative z-10 rounded-r-full w-0 overflow-hidden bg-white pointer-events-none;
+    @apply flex flex-none items-center relative z-10 rounded-r-full w-0 overflow-hidden pointer-events-none;
     & * {
         @apply select-none pointer-events-none;
     }
@@ -127,7 +124,7 @@
 }
 
 .personal-container {
-    @apply flex-none flex items-center relative z-10 p-1.5 md:p-2 h-14 lg:h-17 rounded-full bg-white;
+    @apply flex-none flex items-center relative z-10 p-1.5 md:p-2 h-14 lg:h-17 bg-white rounded-full;
 }
 
 .personal-toggle {
@@ -136,7 +133,7 @@
 }
 
 .personal-famlink {
-    @apply block flex-none relative z-15 mx-2.5 w-6 h-6 rounded-full bg-black2 md:mx-4 lg:mx-5.5 lg:w-7.5 lg:h-7.5;
+    @apply block flex-none relative z-15 mx-2.5 w-6 h-6 rounded-full bg-black2 md:mr-4 md:ml-2 lg:mr-5 lg:ml-2.5 lg:w-7.5 lg:h-7.5;
     &::before, &::after, & .complate {
         @apply content-empty absolute z-5 top-1/2 left-1/2 mt-px ml-[3px] w-5.5 h-5.5 bg-no-repeat bg-center bg-cover -translate-x-1/2 -translate-y-1/2 lg:w-7 lg:h-7;
     }
@@ -166,7 +163,7 @@
         }
     }
     &.is-linked {
-        @apply -mr-1 ml-0;
+        @apply -mr-1 ml-1;
         &::before, &::after {
             @apply mt-[3px] opacity-0;
         }
@@ -211,15 +208,12 @@
         }
     }
     & .rank {
-        @apply flex-none hidden mr-2 min-w-12 sm:min-w-18 md:mr-4 lg:mr-6.5 sm-max:hidden;
+        @apply flex-none ml-4;
         & small {
             @apply block text-xs;
         }
         & strong {
-            @apply block -mt-1 min-w-12 font-serif font-black uppercase sm:min-w-18;
-            & img {
-                @apply mt-1 h-5 sm:h-[1.5625rem];
-            }
+            @apply block font-bold;
         }
     }
     & .cost, & .mileage, & .coupon, & .point {
@@ -256,7 +250,7 @@
         }
     }
     & .link {
-        @apply flex-none btn-icon ml-2.5 h-9 rounded-full border border-black2 lg:h-11 bg-[length:0.875rem] bg-[url(../images/ico-arrow-right.svg)] lg:bg-[length:1rem];
+        @apply flex-none btn-icon h-9 rounded-full border border-black2 lg:h-11 bg-[length:0.875rem] bg-[url(../images/ico-arrow-right.svg)] lg:bg-[length:1rem];
     }
 }
 

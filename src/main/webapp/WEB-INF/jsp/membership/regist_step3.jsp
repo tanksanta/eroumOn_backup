@@ -27,7 +27,7 @@
 			<div class="member-join-content">
 				<ul class="member-tabs mb-5.5 xs:mb-11">
 					<li><span>약관동의 및 본인인증</span></li>
-					<li><span">정보입력</span></li>
+					<li><span>정보입력</span></li>
 					<li><a href="/membership/registStep3" class="active">가입완료</a></li>
 				</ul>
 
@@ -38,7 +38,7 @@
 				<div class="content-complate mt-4">
 					<dl>
 						<dt>
-							이로움 마켓 회원가입이 <strong>정상적으로 완료</strong>되었습니다
+							이로움ON 마켓 회원가입이 <strong>정상적으로 완료</strong>되었습니다
 						</dt>
 						<dd>
 							${noMbrVO.mbrId } <small>(${noMbrVO.recipterYn eq 'Y'?'수급자회원':'일반회원' })</small>

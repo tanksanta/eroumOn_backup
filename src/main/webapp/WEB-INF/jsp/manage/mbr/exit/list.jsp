@@ -105,9 +105,15 @@
 					<td>${resultList.mbrNm }</td>
 					<td><fmt:formatDate value="${resultList.whdwlDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${exitTyCode[resultList.whdwlTy]}</td>
-					<td><c:if test="${resultList.whdwlTy eq 'AUTHEXIT' && resultList.whdwlEtc eq null}">${authResnCode[resultList.whdwlResn]}</c:if>
-					<c:if test="${resultList.whdwlTy eq 'AUTHEXIT' && resultList.whdwlEtc ne null}">${resultList.whdwlEtc}</c:if>
-							<c:if test="${resultList.whdwlTy eq 'NORMAL' }">${norResnCode[resultList.whdwlResn]}</c:if></td>
+					<td>
+						<c:choose>
+							<c:when test=""></c:when>
+							<c:when test="${resultList.whdwlTy eq 'AUTHEXIT' && resultList.whdwlEtc eq null}">${authResnCode[resultList.whdwlResn]}</c:when>
+							<c:when test="${resultList.whdwlTy eq 'AUTHEXIT' && resultList.whdwlEtc ne null}">${resultList.whdwlEtc}</c:when>
+							<c:when test="${resultList.whdwlTy eq 'NORMAL' && resultList.whdwlResn ne 'ETC'}">${norResnCode[resultList.whdwlResn]}</c:when>
+							<c:when test="${resultList.whdwlTy eq 'NORMAL' && resultList.whdwlResn eq 'ETC'}">${resultList.whdwlEtc}</c:when>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty listVO.listObject}">

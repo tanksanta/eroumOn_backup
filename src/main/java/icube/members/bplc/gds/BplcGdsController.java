@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ArrayUtil;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
 import icube.manage.gds.ctgry.biz.GdsCtgryVO;
@@ -28,7 +28,6 @@ import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
-import icube.members.biz.PartnersSession;
 import icube.members.bplc.mng.biz.BplcGdsService;
 
 /**
@@ -56,10 +55,6 @@ public class BplcGdsController extends CommonAbstractController {
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
-
-	@Autowired
-	private PartnersSession partnersSession;
-
 
 	@RequestMapping(value = {"", "list"})
 	public String bplcIndex(
@@ -174,6 +169,7 @@ public class BplcGdsController extends CommonAbstractController {
 		}
 
 		model.addAttribute("listVO", listVO);
+		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 		model.addAttribute("_marketPath", "/"+marketPath);
 		model.addAttribute("upCtgryNo", upCtgryNo);
 

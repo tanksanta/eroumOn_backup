@@ -156,7 +156,16 @@
 
                     <div class="order-product">
                         <div class="order-header">
-                            <dl>
+									<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
+										<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+										<c:if test="${!empty ordrDtl.bplcInfo}">
+											<dl class="large">
+												<dt>멤버스</dt>
+												<dd>${ordrDtl.bplcInfo.bplcNm}</dd>
+											</dl>
+										</c:if>
+									</c:if>
+									<dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
                             </dl>
@@ -240,21 +249,15 @@
                                     <div class="order-item-count">
                                         <p><strong>${ordrQy}</strong>개</p>
                                         <%-- 배송 준비전 --%>
+                                        <%--
                                         <c:if test="${ordrDtl.sttsTy eq 'OR01' || ordrDtl.sttsTy eq 'OR04'}">
                                         <button type="button" class="btn btn-primary btn-small f_optn_chg" data-gds-no="${ordrDtl.gdsNo}" data-dtl-no="${ordrDtl.ordrDtlNo}" data-dtl-cd="${ordrDtl.ordrDtlCd}">변경</button>
                                         </c:if>
+                                         --%>
                                     </div>
                                     <p class="order-item-price"><span class="text-primary"><fmt:formatNumber value="${totalGdsPc}" pattern="###,###" />원</span></p>
                                     <div class="order-item-info">
                                         <div class="payment">
-                                        	<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}"><%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
-                                        	<c:if test="${!empty ordrDtl.bplcInfo}">
-                                            <dl>
-                                                <dt>멤버스</dt>
-                                                <dd>${ordrDtl.bplcInfo.bplcNm }</dd>
-                                            </dl>
-                                            </c:if>
-                                            </c:if>
                                             <dl>
                                                 <dt>배송비</dt>
                                                 <dd>
@@ -262,14 +265,14 @@
                                                 	무료배송
                                                 	</c:if>
                                                 	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
                                                 	</c:if>
                                                 </dd>
                                             </dl>
                                             <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
-                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
                                             </c:if>
                                         </div>
@@ -406,7 +409,16 @@
 
                     <div class="order-product">
                         <div class="order-header">
-                            <dl>
+								<c:if test="${listVO.listObject[status.index+1].ordrTy eq 'R' || listVO.listObject[status.index+1].ordrTy eq 'L'}">
+									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+									<c:if test="${!empty listVO.listObject[status.index+1].bplcInfo}">
+										<dl class="large">
+											<dt>멤버스</dt>
+											<dd>${listVO.listObject[status.index+1].bplcInfo.bplcNm}</dd>
+										</dl>
+									</c:if>
+								</c:if>
+								<dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./view/${listVO.listObject[status.index+1].ordrCd}?${pageParam}">${listVO.listObject[status.index+1].ordrCd}</a></strong></dd>
                             </dl>
@@ -442,7 +454,7 @@
 
                 <!-- 주의사항 -->
                 <ul class="mt-10 md:mt-12 space-y-1 md:space-y-1.5">
-                    <li class="text-alert">최근 6개월 간 이로움 마켓에서 주문하신 내역 입니다.</li>
+                    <li class="text-alert">최근 6개월 간 이로움ON 마켓에서 주문하신 내역 입니다.</li>
                     <li class="text-alert">[주문번호]를 클릭하시면 주문상세내역 및 배송조회를 확인할 수 있습니다.</li>
                     <li class="text-alert">주문취소/반품접수/교환접수는 주문상세정보 페이지에서 이용하실 수 있습니다.</li>
                 </ul>
@@ -510,7 +522,7 @@
                 <%-- 취소 --%><%--
                 <!-- 주의사항 -->
  				<ul class="mt-10 md:mt-12 space-y-1 md:space-y-1.5">
-                    <li class="text-alert">최근 6개월 간 이로움 마켓에서 취소하신 내역 입니다.</li>
+                    <li class="text-alert">최근 6개월 간 이로움ON 마켓에서 취소하신 내역 입니다.</li>
                     <li class="text-alert">
                         주문취소는 주문상세에서 가능합니다.<br>
                         배송준비중일 경우에는 <a href="${_marketPath}/etc/faq/list" class="font-bold underline">고객센터</a> 또는 <a href="${_marketPath}/etc/inqry/form" class="font-bold underline">1:1문의</a>를 통해 취소가 가능하며, 출고여부를 확인후에 취소여부를 안내해 드립니다.
@@ -869,6 +881,18 @@
         			}, function(){
             			$("#return-msg").modal('show');
         			});
+        	});
+
+        	$("form[name='searchFrm']").validate({
+        	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
+        	    submitHandler: function (frm) {
+        	    	if($("#srchOrdrYmdBgng").val() > $("#srchOrdrYmdEnd").val()){
+        	    		alert("기간을 확인해주세요");
+        	    		return false;
+        	    	}else{
+        	    		frm.submit();
+        	    	}
+        	    }
         	});
     	});
     </script>

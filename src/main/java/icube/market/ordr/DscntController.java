@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
-import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.mbr.mbr.biz.MbrPrtcrService;
-import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.coupon.biz.CouponLstVO;
@@ -58,25 +56,14 @@ public class DscntController extends CommonAbstractController {
 			@RequestParam Map<String,Object> reqMap
 			, Model model) throws Exception {
 
-		// 본인
-		model.addAttribute("_mbrSession", mbrSession);
 		Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
 		if(mbrSession.isLoginCheck()) {
 			// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
 			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		}
+
 		model.addAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
-
-		// 가족 회원 마일리지
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-		paramMap.put("srchReqTy", "F");
-
-		List<MbrPrtcrVO> prtcrList = mbrPrtcrService.selectPrtcrListByUniqueId(paramMap);
-		model.addAttribute("prtcrList", prtcrList);
-
-		// 기타
-		model.addAttribute("prtcrRltCode", CodeMap.PRTCR_RLT);
+		model.addAttribute("_mbrSession", mbrSession);
 
 		return "/market/ordr/include/modal_mlg";
 	}
@@ -85,29 +72,17 @@ public class DscntController extends CommonAbstractController {
 	// 포인트
 	@RequestMapping(value="point")
 	public String point(
-			@RequestParam Map<String,Object> reqMap
-			, Model model) throws Exception {
+		@RequestParam Map<String,Object> reqMap
+		, Model model) throws Exception {
 
-
-		// 본인
-		model.addAttribute("_mbrSession", mbrSession);
 		Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
 		if(mbrSession.isLoginCheck()) {
 			// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
 			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		}
+
 		model.addAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
-
-		// 가족 회원 마일리지
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-		paramMap.put("srchReqTy", "F");
-
-		List<MbrPrtcrVO> prtcrList = mbrPrtcrService.selectPrtcrListByUniqueId(paramMap);
-		model.addAttribute("prtcrList", prtcrList);
-
-		// 기타
-		model.addAttribute("prtcrRltCode", CodeMap.PRTCR_RLT);
+		model.addAttribute("_mbrSession", mbrSession);
 
 		return "/market/ordr/include/modal_point";
 	}

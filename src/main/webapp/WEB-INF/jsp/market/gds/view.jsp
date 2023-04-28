@@ -59,17 +59,20 @@
 							<div class="swiper-wrapper">
 								<%--관련상품 loop--%>
 								<c:forEach items="${gdsVO.gdsRelList}" var="gdsRelList" varStatus="status">
+									<c:if test="${gdsRelList.useYn eq 'Y' && gdsRelList.dspyYn eq 'Y'}">
 									<div class="swiper-slide">
 										<div class="product-item">
 											<div class="item-thumb">
-												<c:choose>
-													<c:when test="${gdsRelList.fileNo > 0}">
-														<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsRelList.relGdsNo}&amp;fileTy=THUMB&amp;fileNo=${gdsRelList.fileNo}&amp;thumbYn=Y">
-													</c:when>
-													<c:otherwise>
-														<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-													</c:otherwise>
-												</c:choose>
+												<a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
+													<c:choose>
+														<c:when test="${gdsRelList.fileNo > 0}">
+															<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsRelList.relGdsNo}&amp;fileTy=THUMB&amp;fileNo=${gdsRelList.fileNo}&amp;thumbYn=Y">
+														</c:when>
+														<c:otherwise>
+															<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+														</c:otherwise>
+													</c:choose>
+												</a>
 
                                         	</div>
                                         <a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
@@ -122,14 +125,13 @@
                                         </a>
                                     </div>
                                 </div>
+                                </c:if>
                                 </c:forEach>
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                             <div class="swiper-pagination"></div>
                         </div>
-                        <div class="grid gap-x-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                        </div>
+                        <button type="button" class="swiper-button-prev"><span class="sr-only">이전</span></button>
+                        <button type="button" class="swiper-button-next"><span class="sr-only">다음</span></button>
                     </div>
                     <!-- //관련 상품 -->
                     </c:if>
@@ -138,9 +140,9 @@
 				<div id="prod-tablist" class="product-tablist">
 					<ul class="nav">
 						<li><a class="nav-link active" href="#prod-tabcontent1">상세정보</a></li>
-						<li><a class="nav-link" href="#prod-tabcontent2">상품후기 <span class="reviewCnt2">(0)</span></a></li>
+						<!-- <li><a class="nav-link" href="#prod-tabcontent2">상품후기 <span class="reviewCnt2">(0)</span></a></li> -->
 						<li><a class="nav-link" href="#prod-tabcontent3">상품문의 <span class="qaCnt">(0)</span></a></li>
-						<li><a class="nav-link" href="#prod-tabcontent4">교환/반품/배송정보</a></li>
+						<!-- <li><a class="nav-link" href="#prod-tabcontent4">교환/반품/배송정보</a></li> -->
 					</ul>
 				</div>
 				<!-- //상세 탭 -->
@@ -167,7 +169,7 @@
 				<!-- //상품 정보 -->
 
 				<!-- 상품 후기 -->
-				<div id="prod-tabcontent2" class="product-itemphoto mt-10 md:mt-13">
+				<!--  <div id="prod-tabcontent2" class="product-itemphoto mt-10 md:mt-13">
 					<div class="article-guide">
 						<div class="guide-left">
 							<dl>
@@ -229,7 +231,7 @@
 					<%-- 일반후기 --%>
 					<div id="gdsReview"></div>
 
-				</div>
+				</div> -->
 				<!-- //상품 후기 -->
 
 				<!-- 상품 문의 -->
@@ -248,7 +250,7 @@
 				<!-- //상품 문의 -->
 
 				<!-- 상품 교환정보 -->
-				<div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13"></div>
+				<!-- <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13"></div> -->
 				<!-- //상품 교환정보 -->
 			</div>
 			<!-- //상품 내용 -->
@@ -381,6 +383,7 @@
 					</dl>
 					</c:if>
 
+					<!--
 					<c:if test="${gdsVO.mlgPvsnYn eq 'Y'}"><%-- 마일리지 제공 상품 --%>
 					<dl class="border-top border-bottom">
 						<dt>마일리지</dt>
@@ -398,6 +401,7 @@
 						</dd>
 					</dl>
 					</c:if>
+					 -->
 
 					<dl>
 						<dt>배송 유형</dt>
@@ -477,9 +481,8 @@
 								<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 	                            <!-- 멤버스 선택 -->
 	                            <div class="payment-partners">
-	                            <!--
-	                            	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
-	                                <p class="text-desc">이로움 멤버스(사업소) 선택 </p>
+	                            	<!-- <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
+	                                <p class="text-desc">이로움ON 멤버스(사업소) 선택 </p>
 
 									<div class="box-result noSelect" ${empty ordrDtlVO.bplcInfo ? '' : 'style="display:none;"'}>선택된 멤버스가 없습니다.</div>
 
@@ -501,7 +504,7 @@
 	                                </div>
 	                                <p class="text-alert mt-1.5">이 전에 구매하신 멤버스가 기본으로 선택됩니다.</p>
 
-	                                <button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button>-->
+	                                <button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button> -->
 	                                <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${bplcVO.uniqueId }">
 
 	                             	<div class="product-partners selectPart">
@@ -979,7 +982,7 @@ var Goods = (function(){
             $(this).closest('.product-payment').addClass('is-active');
         }
 
-		       // 대여상품은 1건씩 주문
+	       // 대여상품은 1건씩 주문
 	        if(ordrTy == "L" && $(".product-quanitem").length > 1){
 	        	alert("급여상품의 대여 주문은 한품목의 상품만 주문 가능합니다.");
 	        	return false;
@@ -1009,6 +1012,7 @@ var Goods = (function(){
 
 	function f_buyClick(){
 		var tagList = [];
+		let skip = true;
 		// 이로움1.0 상품 조회
 
 		if("${gdsVO.gdsTagVal}" != null && "${gdsVO.gdsTagVal}" != ''){
@@ -1016,15 +1020,18 @@ var Goods = (function(){
 			tagVal = tagVal.replaceAll(' ','').split(',');
 			if(tagVal.indexOf("A") > -1){
 				alert("선택하신 옵션은 품절상태입니다.");
-				skip = true;
+				skip = false;
 			}else if(tagVal.indexOf("B") > -1){
-				alert("선택하신 옵션은 일부옵션품절상태입니다.");
-				skip = true;
+				//alert("선택하신 옵션은 일부옵션품절상태입니다.");
+				//console.log(skip);
+				//skip = false;
 			}else if(tagVal.indexOf("C") > -1){
 				alert("선택하신 옵션은 일시품절상태입니다.");
-				skip = true;
+				skip = false;
 			}
-		}else{
+		}
+
+		if(skip){
 			if($("#bnefCd").val() != null && $("#bnefCd").val() != '' ){
 				tagList.push($("#bnefCd").val());
 
@@ -1116,7 +1123,8 @@ var Goods = (function(){
 				}
 				pObj.find(".quantity strong").text(qyObj.val());
 			} else {
-				alert("현재 상품의 재고수량은 총 ["+ stockQy +"] 입니다.")
+				alert("현재 상품의 재고수량은 총 ["+ stockQy +"] 입니다.");
+				alert("해당 제품은 총 "+ stockQy +" 개 까지 구매 가능합니다.");
 			}
 
 			f_totalPrice();

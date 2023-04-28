@@ -8,10 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @Alias("couponVO")
+@ToString
 public class CouponVO extends CommonBaseVO {
 	private int couponNo;
 	private String couponCd;

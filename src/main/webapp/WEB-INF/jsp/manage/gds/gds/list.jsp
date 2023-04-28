@@ -31,20 +31,8 @@
                                     </c:forEach>
                                     </select>
                                 </td>
-                                <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
-                                <td>
-                                    <div class="form-group w-84">
-                                        <select name="srchUpCtgryNo" id="srchUpCtgryNo" class="form-control w-32">
-                                            <option value="0">전체</option>
-                                        <c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
-                                        	<option value="${ctgryList.ctgryNo}" ${param.srchUpCtgryNo eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
-                                        </c:forEach>
-                                        </select>
-                                        <select name="srchCtgryNo" id="srchCtgryNo" class="form-control flex-1">
-                                            <option value="0">전체</option>
-                                        </select>
-                                    </div>
-                                </td>
+                                <th scope="row"><label for="srchItemCd">품목코드</label></th>
+                                <td><input type="text" id="srchItemCd" name="srchItemCd" value="${param.srchItemCd}" class="form-control w-84"></td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="srchDspyYn">전시여부</label></th>
@@ -61,6 +49,20 @@
 	                                	</div>
 	                                </c:forEach>
 	                                </div>
+                                </td>
+                                <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
+                                <td>
+                                    <div class="form-group w-84">
+                                        <select name="srchUpCtgryNo" id="srchUpCtgryNo" class="form-control w-32">
+                                            <option value="0">전체</option>
+                                        <c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
+                                        	<option value="${ctgryList.ctgryNo}" ${param.srchUpCtgryNo eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
+                                        </c:forEach>
+                                        </select>
+                                        <select name="srchCtgryNo" id="srchCtgryNo" class="form-control flex-1">
+                                            <option value="0">전체</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -101,6 +103,7 @@
 						<col class="w-30">
                         <col class="w-32">
                         <col>
+                        <col class="w-26">
 						<col class="w-26">
 						<col class="w-26">
                         <col class="w-23">
@@ -118,6 +121,7 @@
                             <th scope="col">이미지</th>
                             <th scope="col">상품코드</th>
                             <th scope="col">상품명</th>
+                            <th scope="col">품목코드</th>
                             <th scope="col">판매가</th>
                             <th scope="col">급여가</th>
                             <th scope="col">전시여부</th>
@@ -151,6 +155,12 @@
                             	<a href="./form?${pageParam}" class="btn-outline-success shadow w-full">${resultList.gdsCd}</a>
                             </td>
                             <td class="text-left"><a href="./form?${pageParam}" >${resultList.gdsNm}</a></td>
+                            <td>
+                            	<c:choose>
+                            		<c:when test="${empty resultList.itemCd}" >-</c:when>
+                            		<c:otherwise>${resultList.itemCd}</c:otherwise>
+                            	</c:choose>
+                            </td>
                             <td><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /></td>
                             <td><fmt:formatNumber value="${resultList.bnefPc}" pattern="###,###" /></td>
                             <td>${dspyYnCode[resultList.dspyYn]}</td>

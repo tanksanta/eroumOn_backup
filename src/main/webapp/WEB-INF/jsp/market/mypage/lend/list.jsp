@@ -62,6 +62,15 @@
 
                     <div class="order-product">
                         <div class="order-header">
+                   			<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
+								<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+								<c:if test="${!empty ordrDtl.bplcInfo}">
+									<dl class="large">
+										<dt>멤버스</dt>
+										<dd>${ordrDtl.bplcInfo.bplcNm}</dd>
+									</dl>
+								</c:if>
+							</c:if>
                             <dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
@@ -199,7 +208,16 @@
 
                     <div class="order-product">
                         <div class="order-header">
-                            <dl>
+								<c:if test="${listVO.listObject[status.index+1].ordrTy eq 'R' || listVO.listObject[status.index+1].ordrTy eq 'L'}">
+									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+									<c:if test="${!empty listVO.listObject[status.index+1].bplcInfo}">
+										<dl class="large">
+											<dt>멤버스</dt>
+											<dd>${listVO.listObject[status.index+1].bplcInfo.bplcNm}</dd>
+										</dl>
+									</c:if>
+								</c:if>
+								<dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./view/${listVO.listObject[status.index+1].ordrCd}?${pageParam}">${listVO.listObject[status.index+1].ordrCd}</a></strong></dd>
                             </dl>

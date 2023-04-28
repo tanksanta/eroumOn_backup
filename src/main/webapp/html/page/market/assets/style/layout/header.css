@@ -13,10 +13,10 @@
     }
 }
 
-.header-layer {
+#allmenu {
     @apply w-full max-w-full bg-transparent shadow-none md:w-[41.5rem] lg:w-[43.5rem];
     & .offcanvas-header {
-        @apply z-5 py-4 px-5 w-full h-18 bg-white md:w-83 lg:w-90 lg:py-5 lg:h-25;
+        @apply z-5 py-4 px-5 w-full h-18 overflow-hidden bg-white md:w-83 lg:w-90 lg:py-5 lg:h-25;
     }
     & .offcanvas-body {
         @apply relative w-full bg-white md:w-83 lg:w-90;
@@ -30,7 +30,7 @@
     & .login {
         @apply flex-1 flex items-center overflow-hidden tracking-tight text-xl leading-tight;
         & .bags {
-            @apply -ml-3 -mr-2 w-[78px];
+            @apply -ml-0.5 mt-2.5 w-[62px] lg:mt-3 lg:w-[78px];
         }
         & .name {
             @apply flex-none;
@@ -38,13 +38,10 @@
         & .rank {
             @apply mt-0.5;
             & small {
-                @apply block text-xs;
+                @apply block text-xs mb-px;
             }
             & strong {
-                @apply block font-serif font-black uppercase;
-                & img {
-                    @apply h-[1.25em];
-                }
+                @apply block font-bold;
             }
         }
     }

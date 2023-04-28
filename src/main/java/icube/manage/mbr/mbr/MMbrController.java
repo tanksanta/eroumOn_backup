@@ -386,14 +386,13 @@ public class MMbrController extends CommonAbstractController {
 					mailForm = mailForm.replace("{rndPswd}", rndPswd);
 
 					// 메일 발송
-					String mailSj = "[EROUM] 임시 비밀번호가 발송되었습니다.";
-					if(EgovStringUtil.equals("real", activeMode)) {
+					String mailSj = "[이로움ON] 임시 비밀번호가 발송되었습니다.";
+					if(!EgovStringUtil.equals("local", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
-						//TODO 메일 수정
 						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
-						result = true;
 					}
+					result = true;
 				} else {
 					log.debug("관리자 임시비밀번호 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
 					resultMap.put("reason", mbrVO.getEml());
@@ -416,9 +415,9 @@ public class MMbrController extends CommonAbstractController {
     @RequestMapping(value="{uniqueId}/manageInfo.json")
     @ResponseBody
     public boolean blackList(
-            @RequestParam Map<String,String> reqMap
+    		@PathVariable String uniqueId
+            , @RequestParam Map<String,String> reqMap
             , HttpServletRequest request
-            , @PathVariable String uniqueId
     		) throws Exception {
 
         boolean result = false;
@@ -532,7 +531,9 @@ public class MMbrController extends CommonAbstractController {
         MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
 
         // 마일리지 종류별 합계
-        Map<String, Integer> typeMap = mbrMlgService.selectAlltypeMlg(uniqueId);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("srchUniqueId", uniqueId);
+        Map<String, Object> mlgMap = mbrMlgService.selectAlltypeMlg(paramMap);
 
         // 마일리지 내역
         CommonListVO listVO = new CommonListVO(request);
@@ -543,7 +544,7 @@ public class MMbrController extends CommonAbstractController {
 
         model.addAttribute("listVO", listVO);
         model.addAttribute("mbrVO", mbrVO);
-        model.addAttribute("typeMap", typeMap);
+        model.addAttribute("mlgMap", mlgMap);
         model.addAttribute("mlgSeCode", CodeMap.POINT_SE);
         model.addAttribute("mlgCnCode", CodeMap.POINT_CN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
@@ -595,17 +596,19 @@ public class MMbrController extends CommonAbstractController {
         MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
 
         // 포인트별 종류별 합계
-        Map<String, Integer> typeMap = mbrPointService.selectAlltypePoint(uniqueId);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("srchUniqueId", uniqueId);
+        Map<String, Object> pointMap = mbrPointService.selectAlltypePoint(paramMap);
 
         // 포인트 내역
         CommonListVO listVO = new CommonListVO(request);
-        listVO.setParam("srchUniqueId", uniqueId);
+        listVO.setParam("srchRegDt", 1);
         listVO = mbrPointService.mbrPointListVO(listVO);
 
 
         model.addAttribute("mbrVO", mbrVO);
         model.addAttribute("listVO", listVO);
-        model.addAttribute("typeMap", typeMap);
+        model.addAttribute("pointMap", pointMap);
         model.addAttribute("pointCnCode", CodeMap.POINT_CN);
         model.addAttribute("pointSeCode", CodeMap.POINT_SE);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);

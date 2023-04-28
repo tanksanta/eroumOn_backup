@@ -105,6 +105,10 @@ public class MngrService extends CommonAbstractServiceImpl {
 		return mngrDAO.updateMngrPswd(mngrVO);
 	}
 
+	public void updateRecentLgnDt(Map<String, Object> paramMap) throws Exception {
+		mngrDAO.updateRecentLgnDt(paramMap);
+	}
+
 	public int getFailedLoginCountWithCountUp(MngrVO mngrVO) {
 		updateFailedLoginCountUp(mngrVO);
 		return selectFailedLoginCount(mngrVO);
@@ -256,5 +260,4 @@ public class MngrService extends CommonAbstractServiceImpl {
 	public void updateMngrProflImg(MngrVO mngrVO) throws Exception {
 		mngrDAO.updateMngrProflImg(mngrVO);
 	}
-
 }

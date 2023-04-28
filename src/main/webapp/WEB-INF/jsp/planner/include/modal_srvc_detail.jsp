@@ -98,7 +98,14 @@
                                 <tr>
                                     <th scope="row">출처</th>
                                     <td>
+                                    	<c:choose>
+                                    		<c:when test="${!empty bokjiVO.refUrl}">
                                     	<a href="${bokjiVO.refUrl}" target="_blank" class="home">${bokjiVO.bokjiResource}</a>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    	${bokjiVO.bokjiResource}
+                                    		</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                 </tr>
                                 </c:if>
@@ -141,7 +148,7 @@
     <script>
     $(function(){
     	//alert("로그인이 필요한 컨텐츠 입니다.");
-    	$(".f_login").click();
+    	$(".f_login:eq(0)").trigger('click');
     });
     </script>
     </c:if>

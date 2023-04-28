@@ -564,6 +564,9 @@ $(function() {
 		highlight:function(element, errorClass, validClass) {
 		    $(element).addClass('is-invalid');
 		},
+		unhighlight: function(element, errorClass, validClass) {
+		    $(element).removeClass('is-invalid');
+		}
 	});
 
 	// 정규식 체크
@@ -712,6 +715,7 @@ function f_itemChk(params){
 	})
 	.done(function(data) {
 		var method = params.get("method");
+		console.log(data.result);
 		if(data.result){
 			method(params);
 		}else{

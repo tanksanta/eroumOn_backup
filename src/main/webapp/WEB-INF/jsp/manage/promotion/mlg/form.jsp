@@ -69,6 +69,7 @@
 					<tr>
 						<th scope="row"><label for="search-item2">마일리지 내역</label></th>
 						<td>
+							<%-- 2023-02-16 : 마일리지 / 포인트 구분을 위해 하드코딩으로 변경 --%>
 							<div class="form-check-group">
 								<div class="form-check">
 									<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn0" value="11"/>
@@ -81,10 +82,6 @@
 								<div class="form-check">
 									<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn2" value="13"/>
 									<label class="form-check-label" for="mlgCn2">상품 반품</label>
-								</div>
-								<div class="form-check">
-									<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn3" value="14"/>
-									<label class="form-check-label" for="mlgCn3">유효기간 만료</label>
 								</div>
 								<div class="form-check">
 									<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn4" value="31"/>
@@ -106,13 +103,6 @@
 									<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn8" value="99"/>
 									<label class="form-check-label" for="mlgCn8">기타</label>
 								</div>
-								<%-- 2023-02-16 : 마일리지 / 포인트 구분을 위해 하드코딩으로 변경 --%>
-								<%--<c:forEach var="mlgCn" items="${mlgCnCode}" varStatus="status">
-									<div class="form-check">
-										<form:radiobutton class="form-check-input" path="mlgCn" id="mlgCn${status.index}" value="${mlgCn.key}" />
-										<label class="form-check-label" for="mlgCn${status.index}">${mlgCn.value}</label>
-									</div>
-								</c:forEach> --%>
 							</div>
 						</td>
 					</tr>
@@ -123,7 +113,7 @@
 					</tr>
 					<tr>
 						<th scope="row"><label for="mlg" class="require">마일리지</label></th>
-						<td><form:input class="form-control w-50" path="mlg" /></td>
+						<td><form:input class="form-control w-50" path="mlg" type="number" min="0"/></td>
 					</tr>
 				</tbody>
 			</table>

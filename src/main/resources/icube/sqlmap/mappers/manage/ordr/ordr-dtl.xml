@@ -149,6 +149,16 @@
 			, oc.reg_id
 			, oc.rgtr
 			</if>
+			, o.ordrr_nm
+			, o.ordrr_id
+			, o.ordr_dt
+			, o.recptr_nm
+			, o.ordr_ty
+			, o.use_point
+			, o.use_mlg
+			, o.stlm_amt
+			, o.stlm_ty
+			, (SELECT bplc_nm FROM BPLC WHERE unique_id = od.bplc_unique_id) AS bplc_nm
 		FROM ORDR_DTL od
 		LEFT JOIN ORDR o ON o.ordr_no = od.ordr_no
 		<if test="srchContainer != null and srchContainer !='' ">
@@ -159,6 +169,7 @@
 		<if test="srchContainer != null and srchContainer != '' ">
 			GROUP BY o.ordr_no
 		</if>
+		ORDER BY ordr_dtl_no DESC
 	</select>
 
 	<!-- 특정 단계 제외 카운트 -->
@@ -401,7 +412,12 @@
 			WHERE 1=1
 			 AND ordr_optn_ty = #{ordrOptnTy}
 			 AND ordr_cd = #{ordrCd}
-			 AND stts_ty = #{sttsTy})
+			 <if test="sttsTy != null and sttsTy != '' ">
+			 	AND stts_ty = #{sttsTy})
+			 </if>
+			 <if test="sttusTy != null and sttusTy != '' ">
+			 	AND stts_ty IN ('CA01', 'CA02'))
+			 </if>
 			 =
 			(SELECT COUNT(*)
 			FROM ORDR_DTL od

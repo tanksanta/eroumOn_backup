@@ -3,13 +3,12 @@
             <div class="personal-info ${_mbrSession.prtcrRecipterIndex > 0?'bg-color'.concat(_mbrSession.prtcrRecipterIndex):''}"">
                 <div class="personal-user">
                     <p class="name"><strong>${_mbrSession.prtcrRecipterInfo.mbrNm}</strong> 님</p>
-                    <img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
-                    <p class="rank">
-                        <small>${_mbrSession.prtcrRecipterYn eq 'Y'?'수급자회원':'일반회원'}</small>
-                    	<strong>
-                    		<img src="/html/page/market/assets/images/img-grade${_mbrSession.prtcrRecipterInfo.mberGrade eq 'P' ? '1' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'V' ? '2' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'G' ? '3' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'R' ? '4' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'S' ? '5' : ''}.svg" alt="">
-                    	</strong>
-                    </p>
+	                <p class="rank">
+	                    <small>${_mbrSession.recipterYn eq 'Y'?'수급자회원':'일반회원'}</small>
+	                    <strong ${_mbrSession.prtcrRecipterInfo.mberGrade eq 'E' ? ' class="text-grade1"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'B' ? ' class="text-grade2"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'S' ? ' class="text-grade3"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'N' ? '' : ''}>
+	               			${gradeCode[_mbrSession.prtcrRecipterInfo.mberGrade]}
+	                	</strong>
+	                </p>
                 </div>
                 <div class="personal-detail personal-onbase is-active">
                     <button type="button" class="personal-famlink">
@@ -94,7 +93,9 @@
                         <c:if test="${_mbrSession.prtcrList.size() < 4 }">
 	                    <a href="${_marketPath }/mypage/fam/list" class="modal-item">
 	                        <div class="label">
-	                            <div class="thumb add"></div>
+	                            <div class="thumb add">
+                               		<span></span>
+                               	</div>
 	                            <div class="name opacity-30">추가</div>
 	                        </div>
 	                    </a>
@@ -144,7 +145,9 @@
                             <c:if test="${_mbrSession.prtcrList.size() < 4 }">
                             <a href="${_marketPath }/mypage/fam/list" class="modal-item">
                                 <div class="label">
-                                    <div class="thumb add"></div>
+                                    <div class="thumb add">
+                                		<span></span>
+                                	</div>
                                     <div class="name opacity-30">추가</div>
                                 </div>
                             </a>

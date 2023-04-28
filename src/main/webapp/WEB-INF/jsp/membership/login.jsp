@@ -15,7 +15,7 @@
 				<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
 				<input type="hidden" id="encPw" name="encPw" value="">
                 <fieldset>
-                    <legend>이로움 계정 로그인</legend>
+                    <legend>이로움ON 계정 로그인</legend>
                     <div class="login-group">
                         <label class="form-label" for="login-item1">아이디</label>
                         <input class="form-control" type="text" id="mbrId" name="mbrId">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="saveId" name="saveId" value="Y">
-                        <label class="form-check-label" for="check-item3">아이디 저장</label>
+                        <label class="form-check-label" for="saveId">아이디 저장</label>
                     </div>
                     <div class="login-link">
                         <a href="/membership/srchId">아이디 찾기</a>
@@ -39,9 +39,9 @@
 
             <dl class="member-desc">
                 <dl>
-                    <dt><img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움"></dt>
+                    <dt><img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움ON"></dt>
                     <dd>
-                        <strong>이로움</strong>만의<br>
+                        <strong>이로움ON</strong>만의<br>
                         특별함을 누리세요<br>
                         <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
                     </dd>

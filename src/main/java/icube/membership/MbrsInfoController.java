@@ -1,6 +1,7 @@
 
 package icube.membership;
 
+import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,19 +17,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
 import com.ibm.icu.text.SimpleDateFormat;
 
+import icube.common.api.biz.BootpayApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.ArrayUtil;
+import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
@@ -51,8 +56,11 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Resource(name = "recipterInfoService")
 	private RecipterInfoService recipterInfoService;
 
-	@Autowired
-	private MbrSession mbrSession;
+	@Resource(name = "bootpayApiService")
+	private BootpayApiService bootpayApiService;
+
+	@Resource(name = "cartService")
+	private CartService cartService;
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
@@ -72,6 +80,11 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Value("#{props['Globals.File.Upload.Dir']}")
 	private String fileUploadDir;
 
+	@Autowired
+	private MbrSession mbrSession;
+
+	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
+
 
 
 	/**
@@ -84,9 +97,19 @@ public class MbrsInfoController extends CommonAbstractController{
 	@RequestMapping(value="list")
 	public String list(
 			HttpServletRequest request
+			, HttpSession session
 			, Model model
 			)throws Exception {
 
+		if(!mbrSession.isLoginCheck()) {
+			return "redirect:/"+ plannerPath;
+		}
+
+		//암호화
+		RSA rsa = RSA.getEncKey();
+		request.setAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
+		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
+		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
 
 		return "/membership/mypage/mypage_confirm";
 	}
@@ -105,29 +128,33 @@ public class MbrsInfoController extends CommonAbstractController{
 			HttpServletRequest request
 			, HttpSession session
 			, Model model
-			, @RequestParam(value="pswd", required=true) String pswd
+			, @RequestParam(value="encPw", required=true) String encPw
+			, @RequestParam(value="returnUrl", required=false) String returnUrl
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		String loginPwd="";
+		String loginPswd="";
 
 		Map paramMap = new HashMap();
 		paramMap.put("srchUniqueId",mbrSession.getUniqueId());
 
 		MbrVO mbrVO = mbrService.selectMbr(paramMap);
 
-		if(EgovStringUtil.isNotEmpty(pswd)) {
-			loginPwd = WebUtil.clearSqlInjection(pswd);
+		if(EgovStringUtil.isNotEmpty(encPw)) {
+			loginPswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.
 		}
 
 		if(mbrVO != null) {
-			if(BCrypt.checkpw(loginPwd, mbrVO.getPswd())) {
-				session.setAttribute("infoStepChk", pswd);
+			if(BCrypt.checkpw(loginPswd, mbrVO.getPswd())) {
+				session.setAttribute("infoStepChk", encPw);
 				session.setMaxInactiveInterval(60*60);
 
-				javaScript.setLocation("/"+ membershipPath + "/mypage/form");
+				if(EgovStringUtil.isNotEmpty(returnUrl)) {
+					javaScript.setLocation("/"+ membershipPath + "/mypage/form?returnUrl="+ returnUrl);
+				}else {
+					javaScript.setLocation("/"+ membershipPath + "/mypage/form");
+				}
 			}else {
-
 				javaScript.setMessage("비밀번호가 일치하지 않습니다.");
 				javaScript.setMethod("window.history.back()");
 			}
@@ -191,6 +218,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			, @RequestParam (value="bnefBlce", required=false) String bnefBlce
 			, @RequestParam (value="itrstField", required=false) String[] itrstFeild
 			, @RequestParam (value="testName", required=false) String testName
+			, @RequestParam (value="returnUrl", required=false) String returnUrl
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
@@ -249,6 +277,12 @@ public class MbrsInfoController extends CommonAbstractController{
 				recipterInfoService.mergeRecipter(recipterInfoVO);
 			}else {
 				recipterInfoService.deleteRecipter(mbrVO.getUniqueId());
+
+				// 급여 장바구니 삭제
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+				paramMap.put("srchCartTy", "R");
+				cartService.deleteCart(paramMap);
 			}
 
 			//수급자 정보 reSetting
@@ -272,7 +306,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrSession.setMbrInfo(session, mbrSession);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
-			javaScript.setLocation("/"+ plannerPath + "/index");
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/"+ plannerPath + "/index");
+			}
+
 		}catch(Exception e) {
 			log.debug("MYPAGE UPDATE INFO ERROR");
 			e.printStackTrace();
@@ -313,6 +352,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	@RequestMapping(value="pwdAction")
 	public View pwdAction(
 			HttpServletRequest request
+			, @RequestParam(value="returnUrl", required=false) String returnUrl
 			, Model model
 			, MbrVO mbrVO
 			) throws Exception {
@@ -334,7 +374,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrService.updateMbrPswd(mbrVO);
 
 			javaScript.setMessage(getMsg("action.complete.newPswd"));
-			javaScript.setLocation("/" + plannerPath + "/index");
+
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + plannerPath + "/index");
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.debug("MYPAGE PASSWORD CHANGE ERROR");
@@ -344,6 +389,36 @@ public class MbrsInfoController extends CommonAbstractController{
 		return new JavaScriptView(javaScript);
 	}
 
+	/**
+	 * 본인인증 조회
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getMbrTelno.json")
+	public Map<String, Object> getMbrTelno (
+		@RequestParam(value="receiptId", required=true) String receiptId
+		, @RequestParam Map<String, Object> reqMap
+		, HttpServletRequest request
+		)throws Exception {
 
+		// 본인인증정보 체크
+		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
+
+		String authData =String.valueOf(res.get("authenticate_data"));
+		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
+
+		HashMap<String, String> authMap = new HashMap<String, String>();
+		for(String auth : spAuthData) {
+			System.out.println("spAuthData: " + auth.trim());
+			String[] spTmp = auth.trim().split("=", 2);
+			authMap.put(spTmp[0], spTmp[1]); //key:value
+		}
+
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("mblTelno", authMap.get("phone"));
+		resultMap.put("diKey", authMap.get("di"));
+		return resultMap;
+	}
 
 }

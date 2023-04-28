@@ -141,10 +141,13 @@ $(function() {
 		onfocusout: false,
 	   	errorElement: 'div',
 		success: function(label){
-			label.closest(".invalid-feedback").remove();
+			label.closest(".is-invalid").remove();
 		},
 		highlight:function(element, errorClass, validClass) {
 		    $(element).addClass('is-invalid');
+		},
+		unhighlight:function(element, errorClass, validClass) {
+		    $(element).removeClass('is-invalid');
 		},
 	});
 

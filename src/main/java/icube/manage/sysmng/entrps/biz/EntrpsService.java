@@ -1,5 +1,8 @@
 package icube.manage.sysmng.entrps.biz;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +30,10 @@ public class EntrpsService extends CommonAbstractServiceImpl {
 
 	public void updateEntrps(EntrpsVO entrpsVO) throws Exception {
 		entrpsDAO.updateEntrps(entrpsVO);
+	}
+
+	public List<EntrpsVO> selectEntrpsListAll(Map<String, Object> paramMap) throws Exception{
+		return entrpsDAO.selectEntrpsListAll(paramMap);
 	}
 
 }

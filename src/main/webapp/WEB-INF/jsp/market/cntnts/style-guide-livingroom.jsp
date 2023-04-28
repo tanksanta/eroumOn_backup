@@ -49,7 +49,7 @@
                 <a href="contentModal4" class="object object-4" data-bs-toggle="modal" data-bs-target="#contentModal4">
                     <img src="/html/page/market/assets/images/img-content-livingroom4.png" alt="" class="photo">
                     <div class="name">
-                        <em>지팡이(실내용)</em>
+                        <em>지팡이</em>
                         <i>
                             <span class="f"></span>
                             <span class="r">view</span>
@@ -72,11 +72,11 @@
                 <i></i>
             </div>
             <div class="steps">
-                <a href="#contentModal4" data-bs-toggle="modal" data-bs-target="#contentModal4">지팡이<br> (실내용)</a>
+                <a href="#contentModal4" data-bs-toggle="modal" data-bs-target="#contentModal4">지팡이<br></a>
                 <i></i>
             </div>
         </div>
-        
+
         <div class="modal fade" tabindex="-1" aria-hidden="true" id="contentModal1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -90,28 +90,29 @@
                     <div class="modal-body">
                         <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom1-1.svg" alt=""></div>
                         <div class="info">
-                            <p>
-                                <sup>급여한도</sup>
-                                <strong>10</strong>
-                                <sub>개</sub>
-                            </p>
+	                        <p>
+	                            <sup>사용연한</sup>
+	                            <strong>&nbsp;</strong>
+	                            <sub style="font-size: 1.2em; bottom: 0.75em; bottom: 0.0875em;">없음</sub>
+	                        </p>
+	                        <p>
+	                            <sup>급여한도</sup>
+	                            <strong>10</strong>
+	                            <sub>개</sub>
+	                        </p>
                         </div>
                         <p class="desc">
                             신체가 불편하거나, 일어서거나 앉을 때<br>
                             혈압이 떨어지는 상황에 도움되는 복지용구
                         </p>
-                        <ul class="thumb">
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom1-2.png" alt=""></li>
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom1-3.png" alt=""></li>
-                        </ul>
                     </div>
                     <div class="modal-footer">
-                        <a href="${_marketPath}/gds/2/list#6" class="btn btn-large btn-primary">복지용구 상품 바로가기</a>
+                        <a href="${_marketPath}/gds/2/list#6" class="btn btn-large btn-primary">복지용구 상품 바로보기</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" tabindex="-1" aria-hidden="true" id="contentModal2">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -126,13 +127,13 @@
                         <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom2-1.svg" alt=""></div>
                         <div class="info">
                             <p>
-                                <sup>사용가능 햇수</sup>
+                                <sup>사용연한</sup>
                                 <strong>5</strong>
                                 <sub>년</sub>
                             </p>
                             <p>
                                 <sup>급여한도</sup>
-                                <strong>1</strong>
+                                <strong>2</strong>
                                 <sub>개</sub>
                             </p>
                         </div>
@@ -140,18 +141,14 @@
                             실내용으로 재활 목적을 가진 제품으로<br>
                             수술 전, 후 도움되는 복지용구
                         </p>
-                        <ul class="thumb">
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom2-2.png" alt=""></li>
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom2-3.png" alt=""></li>
-                        </ul>
                     </div>
                     <div class="modal-footer">
-                        <a href="${_marketPath}/gds/2/list#37" class="btn btn-large btn-primary">복지용구 상품 바로가기</a>
+                        <a href="${_marketPath}/gds/2/list#37" class="btn btn-large btn-primary">복지용구 상품 바로보기</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" tabindex="-1" aria-hidden="true" id="contentModal3">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -162,65 +159,62 @@
                     <div class="modal-body">
                         <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom3-1.svg" alt="" style="height: 80%;"></div>
                         <div class="info">
-                            <p>
-                                <sup>급여한도</sup>
-                                <strong>6</strong>
-                                <sub>개</sub>
-                            </p>
+	                        <p>
+	                            <sup>사용연한</sup>
+	                            <strong>&nbsp;</strong>
+	                            <sub style="font-size: 1.2em; bottom: 0.75em; bottom: 0.0875em;">없음</sub>
+	                        </p>
+	                        <p>
+	                            <sup>급여한도</sup>
+	                            <strong>6</strong>
+	                            <sub>개</sub>
+	                        </p>
                         </div>
                         <p class="desc">
                         	신체 기능 저하로 실내에서<br>
                         	낙상(넘어지는)을 예방하는 복지용구
                         </p>
-                        <ul class="thumb">
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom3-2.png" alt=""></li>
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom3-3.png" alt=""></li>
-                        </ul>
                     </div>
                     <div class="modal-footer">
-                        <a href="${_marketPath}/gds/2/list#5" class="btn btn-large btn-primary">복지용구 상품 바로가기</a>
+                        <a href="${_marketPath}/gds/2/list#5" class="btn btn-large btn-primary">복지용구 상품 바로보기</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" tabindex="-1" aria-hidden="true" id="contentModal4">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p class="text-title">지팡이(실내용)</p>
+                        <p class="text-title">지팡이</p>
                         <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
                     <div class="modal-body">
                         <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom4-1.svg" alt=""></div>
                         <div class="info">
-                            <p>
-                                <sup>사용가능 햇수</sup>
-                                <strong>2</strong>
-                                <sub>년</sub>
-                            </p>
-                            <p>
-                                <sup>급여한도</sup>
-                                <strong>1</strong>
-                                <sub>개</sub>
-                            </p>
+	                        <p>
+	                            <sup>사용연한</sup>
+	                            <strong>2</strong>
+	                            <sub>년</sub>
+	                        </p>
+	                        <p>
+	                            <sup>급여한도</sup>
+	                            <strong>1</strong>
+	                            <sub>개</sub>
+	                        </p>
                         </div>
                         <p class="desc">
 							일반적인 보행이 불편하고<br>
 							실내에서 낙상(넘어지는)을 예방하는 복지용구
                         </p>
-                        <ul class="thumb">
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom4-2.png" alt=""></li>
-                            <li><img src="/html/page/market/assets/images/img-content-livingroom4-3.png" alt=""></li>
-                        </ul>
                     </div>
                     <div class="modal-footer">
-                        <a href="${_marketPath}/gds/2/list#39" class="btn btn-large btn-primary">복지용구 상품 바로가기</a>
+                        <a href="${_marketPath}/gds/2/list#39" class="btn btn-large btn-primary">복지용구 상품 바로보기</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <script>
             $(function() {
                 var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
@@ -228,19 +222,19 @@
                     forceVisible: true
                     // classNames: {contentWrapper: 'dragscroll'}
                 });
-                
+
                 var simpleEl  = simpleBar.getScrollElement();
                 var simpleCl  = false;
-                
+
                 simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
-                
+
                 //dragscroll.reset();
-                
+
                 simpleBar.getScrollElement().addEventListener('scroll', function() {
                     var cont     = $(this).find('.container').get(0).getClientRects()[0];
                     var contview = cont.width + cont.x;
                     var screen   = this.getClientRects()[0].width;
-                    
+
                     $('.livingroom-visual .object').each(function(index) {
                         var temp   = $(this).get(0).getClientRects()[0].x + ($(this).get(0).getClientRects()[0].width);
                         if(temp > 0 && temp < screen) {
@@ -250,20 +244,20 @@
                         }
                     });
                 });
-                
+
                 $(window).on('load resize', function() {
                     var cont     = $(simpleBar.getScrollElement()).find('.container').get(0).getClientRects()[0];
                     var contview = cont.width + cont.x;
                     var screen   = simpleBar.getScrollElement().getClientRects()[0].width;
-                    
+
 
                     if($(window).width() > 1280) {
-                        $('.livingroom-visual').height($(window).outerWidth() * 0.5729166666666667);
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.625);
                     } else {
                         $('.livingroom-visual').height($(window).outerWidth() * 0.6875);
                     }
 
-                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.327272727272727);
+                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.133333333333333);
 
                     $('.livingroom-visual .object').each(function(index) {
                         var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;

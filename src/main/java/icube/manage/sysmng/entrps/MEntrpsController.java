@@ -1,5 +1,7 @@
 package icube.manage.sysmng.entrps;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -129,5 +131,29 @@ public class MEntrpsController extends CommonAbstractController {
 
 		return new JavaScriptView(javaScript);
 	}
+
+	/**
+	 * 엑셀 다운로드
+	 * @param request
+	 * @param model
+	 * @return list
+	 */
+	@RequestMapping(value = "excel")
+	public String excelDownload(
+			HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model
+			) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
+
+		model.addAttribute("entrpsList", entrpsList);
+		model.addAttribute("keyTy", CodeMap.ENTRPS_KEY_TY);
+		model.addAttribute("useYn", CodeMap.USE_YN);
+
+		return "/manage/sysmng/entrps/excel";
+	}
+
 
 }

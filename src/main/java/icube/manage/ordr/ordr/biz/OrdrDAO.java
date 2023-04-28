@@ -63,6 +63,10 @@ public class OrdrDAO extends CommonAbstractMapper {
 		update("ordr.updateBillingCancel", paramMap);
 	}
 
+	public void updateBillingChg(Map<String, Object> paramMap) throws Exception {
+		update("ordr.updateBillingChg",paramMap);
+	}
+
 	public void updateOrdrByMap(Map<String, Object> paramMap) throws Exception {
 		update("ordr.updateOrdrByMap",paramMap);
 	}
@@ -70,6 +74,5 @@ public class OrdrDAO extends CommonAbstractMapper {
 	public List<OrdrVO> selectOrdrListAll(Map<String, Object> paramMap) throws Exception {
 		return selectList("ordr.selectOrdrListAll",paramMap);
 	}
-
 
 }

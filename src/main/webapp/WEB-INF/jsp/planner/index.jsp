@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="userinfo-slogan">
                     <p>편하고 행복한 삶</p>
-                    <img src="/html/page/planner/assets/images/txt-slogan.svg" alt="이로움과 함께 설계하세요">
+                    <img src="/html/page/planner/assets/images/txt-slogan.svg" alt="이로움ON과 함께 설계하세요">
                 </div>
                 <div class="userinfo-box">
                     <div class="userinfo-title">
@@ -24,7 +24,7 @@
                         <div class="user">
                             <p class="name">${_mbrSession.mbrNm}&nbsp;<small>${_mbrAge}세, ${_mbrAddr}</small></p>
                             <p class="button">
-                                <a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>
+                                <a href="${_membershipPath}/mypage/list?returnUrl=/planner" class="btn btn-outline-primary">설정</a>
                                 <a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>
                             </p>
                         </div>
@@ -82,13 +82,13 @@
                     <!-- //미로그인시 -->
                     </c:if>
                     <div class="userinfo-link">
-                        <a href="${_plannerPath }/Senior-Long-Term-Care" class="link-grade">노인장기요양보험</a>
-                        <a href="${_plannerPath }/Senior-Friendly-Foods" class="link-foods">고령친화 우수식품</a>
+                        <a href="${_plannerPath }/cntnts/senior-long-term-care" class="link-grade">노인장기요양보험</a>
+                        <a href="${_plannerPath }/cntnts/senior-friendly-foods" class="link-foods">고령친화 우수식품</a>
                     </div>
                     <div class="userinfo-member">
                         <div class="userinfo-member-market">
-                            <a href="${_marketPath }/index">
-                                <strong>이로움 마켓</strong>
+                            <a href="${_marketPath}/index" target="_blank">
+                                <strong>이로움ON 마켓</strong>
                                 복지용구부터 시니어 생활용품까지 한번에!
                             </a>
                         </div>
@@ -107,7 +107,9 @@
                     복지서비스
                     <span class="desc">
                     	노인복지가 궁금하세요?
-                    	<a href="#"><span class="close">펼쳐보기</span> <span class="open">접기</span></a>
+                    	<a href="#">
+                    		<span class="close">펼쳐보기</span>
+                    		<span class="open">접기</span></a>
                    	</span>
                 </h2>
                 <ul>
@@ -243,7 +245,7 @@
                             <ul class="nav nav-tabs tabs-list" role="tablist">
                                 <li class="nav-item" role="presentation"><a href="#marker-cont1" class="nav-link nav-link-item1 active" data-bs-toggle="pill" data-bs-target="#marker-cont1" role="tab" aria-selected="true">이로움 멤버스</a></li>
                                 <li class="nav-item" role="presentation"><a href="#marker-cont2" class="nav-link nav-link-item2" data-bs-toggle="pill" data-bs-target="#marker-cont2" role="tab" aria-selected="false">재가시설</a></li>
-                                <li class="nav-item" role="presentation"><button type="button" class="nav-link nav-link-item3 set_position" aria-selected="false">현재위치 검색</button></li>
+                                <!-- <li class="nav-item" role="presentation"><button type="button" class="nav-link nav-link-item3 set_position" aria-selected="false">현재위치 검색</button></li> -->
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="marker-cont1" role="tabpanel">
@@ -266,7 +268,6 @@
         <!-- //본문 영역 -->
 
 		<%--상세 --%>
-		<div id="modalSrvcDtl"></div>
 
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${_kakaoScriptKey}&libraries=services,clusterer,drawing"></script>
         <script>
@@ -314,6 +315,28 @@
         	</c:if>
 			<c:if test="${_mbrSession.loginCheck}"><%--로그인 후--%>
 			var sido = "${_mbrAddr1}";
+			if(sido == "충남"){
+				sido = "충청남도";
+    		}else if(sido == "충북"){
+    			sido = "충청북도";
+    		}else if(sido == "경남"){
+    			sido = "경상남도";
+    		}else if(sido == "경북"){
+    			sido = "경상북도";
+    		}else if(sido == "전남"){
+    			sido = "전라남도";
+    		}else if(sido == "전북"){
+    			sido = "전라북도";
+    		}else if(sido == "서울"){
+    			sido = "서울특별시";
+    		}else if(sido == "강원" || sido == "경기"){
+    			sido = sido + "도";
+    		}else if(sido == "광주"){
+    			sido = "광주광역시";
+    		}else if(sido == "대구" || sido == "대전" || sido == "부산" || sido == "울산" || sido == "인천"){
+    			sido = sido + "광역시";
+    		}
+
         	var gugun = "${_mbrAddr2}";
 			</c:if>
 
@@ -335,26 +358,52 @@
         	resizeHandler();
 
         	function init(){
-
+        		$("input[name='category']").prop("checked",false);
 				if($(".select-sido button").first().text() == "-"){
 					<c:if test="${!_mbrSession.loginCheck}"><%--로그인 전--%>
 	        		$(".select-sido button").text(sido);
 	        		$("[data-ctpv-nm='"+ sido +"']").click();
+	        		$("input[name='category']").prop("checked",true);
 	        		</c:if>
-	        		<c:if test="${_mbrSession.loginCheck}"><%--로그인 후--%>
-	        		$(".select-sido ul a:contains('${_mbrAddr1}')").click();
-	        		sido = $(".select-sido ul a:contains('${_mbrAddr1}')").text();
+	        		<c:if test="${_mbrSession.loginCheck}"><%--로그인 후 replace --%>
+	        		$(".select-sido ul a:contains("+sido+")").click();
+	        		 //$(".select-sido ul a:contains(충청남도)").text();
+
+	        		// 회원 관심
+	        		var field = "${_mbrSession.itrstField}";
+        			if(field != "null" && field != ''){
+        				$("input[name='category']").prop("checked",false);
+        				field = field.replaceAll(' ','').split(',');
+    					for(var i=0; i<field.length; i++){
+    						switch(field[i]){
+    							case "1" : $("#opt-item7").prop("checked",true);break;
+    							case "2" : $("#opt-item8").prop("checked",true);break;
+    							case "3" : $("#opt-item6").prop("checked",true);break;
+    							case "4" : $("#opt-item3").prop("checked",true);break;
+    							case "5" : break;
+    							case "6" : $("#opt-item2").prop("checked",true);break;
+    							case "7" : $("#opt-item1").prop("checked",true);break;
+    							case "8" : $("#opt-item5").prop("checked",true);break;
+    						}
+    					}
+        			}
 	        		</c:if>
+	        		var selCheckVal = "";
+					$(":checkbox[name='category']:checked").each(function(){
+						selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
+					});
+					category = selCheckVal;
 					$(".select-gugun button").text(gugun);
 
-        	        f_srchSrvcList(1);
         	        f_srchInstList();
+        	        f_srchSrvcList(1);
 	        	}
 
         		$('.search-tabs a[data-bs-toggle="pill"]').on("click", function(){
 					var targetTab = $(this).data("bsTarget");
 					if(targetTab == "#tabs-cont1"){ //서비스
 						f_srchSrvcList(1);
+						$("#tabs-cont2").removeAttr('style');
 					}else if(targetTab == "#tabs-cont2"){ //지도탭
 						// animation > done까지 kakao지도가 호출되지 않음, display:block 상태로 변경시 호출 가능
 						$("#tabs-cont2").css({"display":"block"});
@@ -371,6 +420,9 @@
             		let bokjiId = spLocation[1];
             		srvcDtl(bokjiId);
             	}
+
+            	// 바로 확인 버튼
+            	$(".close-button").click(function(){$(".srch-srvc").click();});
     		}
 
         	function cntSum(){
@@ -400,13 +452,13 @@
 					alert("시/군/구를 선택해 주세요.");
 				}else{
 					//console.log("search!!!", sido, gugun);
-					f_srchSrvcList(1);
 					f_srchInstList();
+					f_srchSrvcList(1);
 				}
 
 			});
 
-        	function f_srchSrvcList(page){
+        	function f_srchSrvcList(page, pageRefresh = true){
         		if(sido != "" && sido != "-"){ //sido는 필수
         			gugun = gugun.replace("시/군/구", "");
 					var params = {
@@ -416,7 +468,7 @@
 							, gugun:gugun
 							, category:category
 					};
-					console.log(params);
+					//console.log(params);
         			$(".cont-target").load(
 							"/planner/srchSrvcList"
 							, params
@@ -449,9 +501,12 @@
 									    return (className.match(/(^|\s)is-color\S+/g) || []).join(' ');
 									})
 									$(".content-item > .content-body").addClass("is-color" + colorNum);
+								}else {
+									//console.log($("input[name='category']:checked").length);
+									//$("input[name='category']").prop("checked",true);
 								}
-
-								if($('.page-content-paging .flow').is(':empty')) {
+								//console.log(pageRefresh)
+								if(pageRefresh) {
 									var html = '';
 									for(i=1; i<= $('.page-content-items').data("pageTotal"); i++) {
 										if(i === params.curPage) {
@@ -460,9 +515,8 @@
 											html += '<i data-num="' + i + '"></i>'
 										}
 									}
-									$('.page-content-paging .flow').append(html)
+									$('.page-content-paging .flow').removeAttr('style').empty().append(html)
 								}
-
 								cntSum();
 							});
         		}
@@ -476,7 +530,7 @@
         		let pageTotal = $(this).data("pageTotal");
 
         		if(pageNo > 0){
-        			f_srchSrvcList(pageNo);
+        			f_srchSrvcList(pageNo, false);
         		}
 
                 $('.page-content-paging i').removeClass('is-active').filter('[data-num="' + pageNo + '"]').addClass('is-active');
@@ -509,11 +563,18 @@
         	// 카테고리 선택
         	$(document).on("click", ":checkbox[name='category']", function(e){
 				var selCheckVal = "";
+				if($(":checkbox[name='category']:checked").length < 1){
+					$(":checkbox[name='category']").prop("checked",true);
+				}
 				$(":checkbox[name='category']:checked").each(function(){
 					selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 				});
 				category = selCheckVal;
+				console.log("클릭 카테고리 : " + category);
 				f_srchSrvcList(1);
+
+				$(".page-content-paging .flow i").removeClass("is-active");
+				$(".page-content-paging .flow i:first-child").addClass("is-active");
         	});
 
 
@@ -557,13 +618,14 @@
 			$(document).on("click", ".f_clip", function(e){
 				e.preventDefault();
 				let bokjiId = $(this).data("bokjiId");
-				let nowUrl = window.location.href + "#" + bokjiId;
+				let nowUrl = window.location.href.split("#")[0]+ "#" + bokjiId;
 				const shareObject = {
 					title: $(this).parents(".modal").find(".modal-project-title").text()
-					, text: '이로움온'
+					, text: '이로움ON'
 					, url: nowUrl
 				};
 
+				console.log(navigator.userAgent.indexOf("Mozilla"));
 				if (navigator.share) { // Navigator를 지원하는 경우만 실행
 					navigator.share(shareObject).then(() => {
 						// 정상 동작할 경우 실행
@@ -572,9 +634,16 @@
 					})
 				} else { // navigator를 지원하지 않는 경우
 				  	//alert('페이지 공유를 지원하지 않습니다.')
-					navigator.clipboard.writeText(nowUrl).then(res=>{
-						alert("주소가 복사되었습니다!");
-					});
+
+				  	// 사파리 구분
+				  	const agent = navigator.userAgent.toLowerCase();
+					if(agent.indexOf("safari") > -1){
+						shareDialog.classList.add('is-open');
+					}else{
+						navigator.clipboard.writeText(nowUrl).then(res=>{
+							alert("주소가 복사되었습니다!");
+						});
+					}
 				}
 			});
 
@@ -663,31 +732,35 @@
 
         	function addListItem(){
 
-    			if(objData.length > 0){
-    				var html = '';
-    				if(srchMode == "LOCATION"){
-	        			$.each( objData, function( index, item ) {
-							html += '<div class="map-select-item">';
-	        				html += '    <a href="#" class="map-select-link is-members">';
-	        				html += '        <p class="name">'+ item.bplcNm +'</p>';
-	        				html += '    	 <p class="addr">'+ item.addr +' ' + item.daddr  +'</p>';
-	        				html += '        <p class="call">'+ item.telno +'</p>';
-	        				html += '    </a>';
-	        				html += '</div>';
-	        			});
-    				}else if(srchMode == "BOKJI"){
-	        			$.each( objData, function( index, item ) {
-							html += '<div class="map-select-item">';
-	        				html += '    <a href="#" class="map-select-link">';
-	        				html += '        <p class="name">'+ item.institutionName +'</p>';
-	        				html += '    	 <p class="addr">'+ item.address  +'</p>';
-	        				html += '        <p class="call">'+ item.contactNumber +'</p>';
-	        				html += '    </a>';
-	        				html += '</div>';
-	        			});
-    				}
+        		if(objData != null){
+	    			if(objData.length > 0){
+	    				var html = '';
+	    				if(srchMode == "LOCATION"){
+		        			$.each( objData, function( index, item ) {
+								html += '<div class="map-select-item">';
+		        				html += '    <a href="#" class="map-select-link is-members">';
+		        				html += '        <p class="name">'+ item.bplcNm +'</p>';
+		        				html += '    	 <p class="addr">'+ item.addr +' ' + item.daddr  +'</p>';
+		        				html += '        <p class="call">'+ item.telno +'</p>';
+		        				html += '    </a>';
+		        				html += '</div>';
+		        			});
+	    				}else if(srchMode == "BOKJI"){
+		        			$.each( objData, function( index, item ) {
+								html += '<div class="map-select-item">';
+		        				html += '    <a href="#" class="map-select-link">';
+		        				html += '        <p class="name">'+ item.institutionName +'</p>';
+		        				html += '    	 <p class="addr">'+ item.address  +'</p>';
+		        				html += '        <p class="call">'+ item.contactNumber +'</p>';
+		        				html += '    </a>';
+		        				html += '</div>';
+		        			});
+	    				}
+	    			}else{
+	    				html = '<div class="map-select-item">검색 결과가 없습니다.</div>';
+	    			}
     			}else{
-    				html = '<div class="map-select-item">검색 결과가 없습니다.</div>';
+    				$(".instListCnt").text(0);
     			}
 
     			$(".map-select-items").empty() //list 초기화
@@ -717,194 +790,196 @@
         		var centerLat = isMob ? -0.0002 : 0.0005;
         		var centerLng = isMob ? 0 : 0.0015;
 
-        		if(objData.length > 0){
+        		if(objData != null){
 
-	        		$.each( objData, function( index, item ) {
+	        		if(objData.length > 0){
 
-	        			var kminfo = "";
-	        			if(srchMode == "LOCATION"){
-		        			datas = {
-		        				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lot)),
-		        				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lot) - centerLng),
-		        				content: '<div class="map-select-overlay is-members">' +
-				                         '		<div class="name">' +
-				                         '			<strong>'+ item.bplcNm +'</strong>' +
-				                         '			<div class="close overlayClose">닫기</div>' +
-				                         '		</div>' +
-				                         '		<p class="addr">'+ item.addr +' '+ item.daddr  +'</p>' +
-				                         '		<a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>' +
-				                         '</div>',
-		        				title: item.bplcNm
+		        		$.each( objData, function( index, item ) {
+
+		        			var kminfo = "";
+		        			if(srchMode == "LOCATION"){
+			        			datas = {
+			        				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lot)),
+			        				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lot) - centerLng),
+			        				content: '<div class="map-select-overlay is-members">' +
+					                         '		<div class="name">' +
+					                         '			<strong>'+ item.bplcNm +'</strong>' +
+					                         '			<div class="close overlayClose">닫기</div>' +
+					                         '		</div>' +
+					                         '		<p class="addr">'+ item.addr +' '+ item.daddr  +'</p>' +
+					                         '		<a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>' +
+					                         '</div>',
+			        				title: item.bplcNm
+			        			}
+
+		        			}else if(srchMode == "BOKJI"){
+		        				datas = {
+			        				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lng)),
+			        				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lng) - centerLng),
+			        				content: '<div class="map-select-overlay">' +
+					                         '		<div class="name">' +
+					                         '			<strong>'+ item.institutionName +'</strong>' +
+					                         '			<div class="close overlayClose">닫기</div>' +
+					                         '		</div>' +
+					                         '		<p class="addr">'+ item.address  +'</p>' +
+					                         '		<a class="call" href="tel:'+ item.contactNumber +'">'+ item.contactNumber +'</a>' +
+					                         '</div>',
+			        				title: item.institutionName
+				        			}
+		        			}
+		        			positions.push(datas);
+		        		});
+
+		        		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		    			mapOption = {
+		    				center: positions[0].center, // 지도의 중심좌표
+		    				level: level // 지도의 확대 레벨
+		    			};
+
+						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+						// 마커 클러스터러를 생성합니다
+						// 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
+						// 클러스터 마커를 클릭했을 때 클러스터 객체가 포함하는 마커들이 모두 잘 보이도록 지도의 레벨과 영역을 변경합니다
+						// 이 예제에서는 disableClickZoom 값을 true로 설정하여 기본 클릭 동작을 막고
+						// 클러스터 마커를 클릭했을 때 클릭된 클러스터 마커의 위치를 기준으로 지도를 1레벨씩 확대합니다
+						var clusterer = new kakao.maps.MarkerClusterer({
+							map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+							averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+							minLevel: 6, // 클러스터 할 최소 지도 레벨
+							disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+						});
+
+
+						//마커 생성
+		                var imageSrc = '/html/page/planner/assets/images/img-marker-members.svg';
+	                	if(srchMode == "BOKJI"){
+							imageSrc = '/html/page/planner/assets/images/img-marker.svg';
+	                	}
+		                var imageSize = new kakao.maps.Size(34, 42);
+		                var imageOption = {offset: new kakao.maps.Point(16, 46)};
+
+	        			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+		                for (var j = 0; j < positions.length; j ++) {
+
+		        			// 마커를 생성합니다
+		        			var marker = new kakao.maps.Marker({
+		        				map: map, // 마커를 표시할 지도
+		        				position: positions[j].latlng, // 마커를 표시할 위치
+		        				title : positions[j].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		        				image : markerImage, // 마커 이미지
+		        				clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+		        			});
+
+		        			overlay = new kakao.maps.CustomOverlay({
+	                            content: positions[j].content,
+	                            map: map,
+	                            yAnchor: 1.45,
+	                            position: marker.getPosition()
+	                        });
+		        			overlay.setMap(null);
+		        			overlays.push(overlay);
+		        			var idx = overlays.length - 1; // 오버레이, 마커 인덱스
+
+		        			marker.idx = idx; // 마커에 해당하는 오버레이를 index를 저장합니다.
+		        			markers.push(marker); // 생성된 마커를 배열에 담아줍니다.
+
+		        			clusterer.addMarkers(markers); // 생성된 마커를 클러스터에 담아줍니다.
+
+		        			kakao.maps.event.addListener(marker, 'click', function() {
+		        				allOverlayClose();
+
+		        				var idx = this.idx;
+		        				var overlay = overlays[idx]; // 마커에 해당되는 overlay를 열어줍니다.
+		        				overlay.setMap(map, this);
+		        				map.setCenter(positions[idx].center);
+		        				map.setLevel(3)
+		        			});
+
+		        		}
+
+		                // 지도를 내위치로
+		                $(".set_position").on("click", function(){
+		                	if(isAllow){
+								map.setCenter(new kakao.maps.LatLng(lat, lot));
+		        				map.setLevel(3)
+		                	}
+						})
+
+		             	// 리스트 클릭시
+		        		$("div.map-select-item").on('click', function(event, visible) {
+		        			event.preventDefault();
+
+		        			idx = $(this).index();
+		        			allOverlayClose();
+
+		        			var overlay = overlays[idx];
+		        			overlay.setMap(map, markers[idx]);
+
+		        			map.setCenter(positions[idx].center);
+		        			map.setLevel(3);
+
+		        			if($(window).width() < 768) {
+			        			map.panBy(0, -75);
 		        			}
 
-	        			}else if(srchMode == "BOKJI"){
-	        				datas = {
-		        				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lng)),
-		        				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lng) - centerLng),
-		        				content: '<div class="map-select-overlay">' +
-				                         '		<div class="name">' +
-				                         '			<strong>'+ item.institutionName +'</strong>' +
-				                         '			<div class="close overlayClose">닫기</div>' +
-				                         '		</div>' +
-				                         '		<p class="addr">'+ item.address  +'</p>' +
-				                         '		<a class="call" href="tel:'+ item.contactNumber +'">'+ item.contactNumber +'</a>' +
-				                         '</div>',
-		        				title: item.institutionName
-			        			}
-	        			}
-	        			positions.push(datas);
-	        		});
+		        			// is-active
+		        			$(".map-select-link").removeClass("is-active");
+		        			$(this).find("a.map-select-link").addClass("is-active");
 
-	        		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-	    			mapOption = {
-	    				center: positions[0].center, // 지도의 중심좌표
-	    				level: level // 지도의 확대 레벨
-	    			};
+		        			if(!visible && $(window).width() < 768) {
+		        				$('.map-select').removeClass('is-active');
+		        			}
 
-					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		        		});
 
-					// 마커 클러스터러를 생성합니다
-					// 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
-					// 클러스터 마커를 클릭했을 때 클러스터 객체가 포함하는 마커들이 모두 잘 보이도록 지도의 레벨과 영역을 변경합니다
-					// 이 예제에서는 disableClickZoom 값을 true로 설정하여 기본 클릭 동작을 막고
-					// 클러스터 마커를 클릭했을 때 클릭된 클러스터 마커의 위치를 기준으로 지도를 1레벨씩 확대합니다
-					var clusterer = new kakao.maps.MarkerClusterer({
-						map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-						averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-						minLevel: 6, // 클러스터 할 최소 지도 레벨
-						disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
-					});
+		        		$("a.map-select-link").eq(0).trigger('click', {visible: true});
 
+		             	// 모든 Overlay를 닫아줍니다.
+		        		function allOverlayClose() {
+		        			for(var i = 0; i<overlays.length; i++) {
+		        				var overlay = overlays[i];
+		        				overlay.setMap(null);
+		        			}
+		        		}
 
-					//마커 생성
-	                var imageSrc = '/html/page/planner/assets/images/img-marker-members.svg';
-                	if(srchMode == "BOKJI"){
-						imageSrc = '/html/page/planner/assets/images/img-marker.svg';
-                	}
-	                var imageSize = new kakao.maps.Size(34, 42);
-	                var imageOption = {offset: new kakao.maps.Point(16, 46)};
-
-        			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-
-	                for (var j = 0; j < positions.length; j ++) {
-
-	        			// 마커를 생성합니다
-	        			var marker = new kakao.maps.Marker({
-	        				map: map, // 마커를 표시할 지도
-	        				position: positions[j].latlng, // 마커를 표시할 위치
-	        				title : positions[j].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-	        				image : markerImage, // 마커 이미지
-	        				clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-	        			});
-
-	        			overlay = new kakao.maps.CustomOverlay({
-                            content: positions[j].content,
-                            map: map,
-                            yAnchor: 1.45,
-                            position: marker.getPosition()
-                        });
-	        			overlay.setMap(null);
-	        			overlays.push(overlay);
-	        			var idx = overlays.length - 1; // 오버레이, 마커 인덱스
-
-	        			marker.idx = idx; // 마커에 해당하는 오버레이를 index를 저장합니다.
-	        			markers.push(marker); // 생성된 마커를 배열에 담아줍니다.
-
-	        			clusterer.addMarkers(markers); // 생성된 마커를 클러스터에 담아줍니다.
-
-	        			kakao.maps.event.addListener(marker, 'click', function() {
-	        				allOverlayClose();
-
-	        				var idx = this.idx;
-	        				var overlay = overlays[idx]; // 마커에 해당되는 overlay를 열어줍니다.
-	        				overlay.setMap(map, this);
-	        				map.setCenter(positions[idx].center);
-	        				map.setLevel(3)
-	        			});
-
-	        		}
-
-	                // 지도를 내위치로
-	                $(".set_position").on("click", function(){
-	                	if(isAllow){
-							map.setCenter(new kakao.maps.LatLng(lat, lot));
-	        				map.setLevel(3)
-	                	}
-					})
-
-	             	// 리스트 클릭시
-	        		$("div.map-select-item").on('click', function(event, visible) {
-	        			event.preventDefault();
-
-	        			idx = $(this).index();
-	        			allOverlayClose();
-
-	        			var overlay = overlays[idx];
-	        			overlay.setMap(map, markers[idx]);
-
-	        			map.setCenter(positions[idx].center);
-	        			map.setLevel(3);
-
-	        			if($(window).width() < 768) {
-		        			map.panBy(0, -75);
-	        			}
-
-	        			// is-active
-	        			$(".map-select-link").removeClass("is-active");
-	        			$(this).find("a.map-select-link").addClass("is-active");
-
-	        			if(!visible && $(window).width() < 768) {
-	        				$('.map-select').removeClass('is-active');
-	        			}
-
-	        		});
-
-	        		$("a.map-select-link").eq(0).trigger('click', {visible: true});
-
-	             	// 모든 Overlay를 닫아줍니다.
-	        		function allOverlayClose() {
-	        			for(var i = 0; i<overlays.length; i++) {
-	        				var overlay = overlays[i];
-	        				overlay.setMap(null);
-	        			}
-	        		}
-
-	        		$(document).on("click",".overlayClose", function(){
-	        			allOverlayClose();
-	        		});
-
-	        		// 마커 클러스터러에 클릭이벤트를 등록합니다
-	        		// 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
-	        		// 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
-	        		kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-	        			var level = map.getLevel()-1; // 현재 지도 레벨에서 1레벨 확대한 레벨
-	        			map.setLevel(level, {anchor: cluster.getCenter()}); // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
-
-
-	        		});
-
-	        		// 지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-	        		kakao.maps.event.addListener(map, 'center_changed', function() {
-	        			var level = map.getLevel(); // 지도의  레벨을 얻어옵니다
-	        			latlng = map.getCenter(); // 지도의 중심좌표를 얻어옵니다
-						//console.log(level);
-	        			if(level > 6){ // 지도 축소시 오버레이 닫음
+		        		$(document).on("click",".overlayClose", function(){
 		        			allOverlayClose();
-	        			}
-	        		});
+		        		});
 
-        		} else { // result = 0
-        			//console.log("result 0");
-        			// 데이터가 없을 경우
-        			var mapContainer = document.getElementById('map'),
-	    			mapOption = {
-	    				center: new kakao.maps.LatLng(37.6065432383919, 127.092820287004),
-	    				level: 8 // 지도의 확대 레벨
-	    			};
+		        		// 마커 클러스터러에 클릭이벤트를 등록합니다
+		        		// 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
+		        		// 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
+		        		kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+		        			var level = map.getLevel()-1; // 현재 지도 레벨에서 1레벨 확대한 레벨
+		        			map.setLevel(level, {anchor: cluster.getCenter()}); // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
 
-					var map = new kakao.maps.Map(mapContainer, mapOption);
-        		}
 
+		        		});
+
+		        		// 지도가 이동, 확대, 축소로 인해 중심좌표가 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+		        		kakao.maps.event.addListener(map, 'center_changed', function() {
+		        			var level = map.getLevel(); // 지도의  레벨을 얻어옵니다
+		        			latlng = map.getCenter(); // 지도의 중심좌표를 얻어옵니다
+							//console.log(level);
+		        			if(level > 6){ // 지도 축소시 오버레이 닫음
+			        			allOverlayClose();
+		        			}
+		        		});
+
+	        		} else { // result = 0
+	        			//console.log("result 0");
+	        			// 데이터가 없을 경우
+	        			var mapContainer = document.getElementById('map'),
+		    			mapOption = {
+		    				center: new kakao.maps.LatLng(37.6065432383919, 127.092820287004),
+		    				level: 8 // 지도의 확대 레벨
+		    			};
+
+						var map = new kakao.maps.Map(mapContainer, mapOption);
+	        		}
+	        	}
         	}
 
         	function resizeHandler() {
@@ -912,39 +987,6 @@
         		windowHeight = $(window).height();
         		isMob = windowWidth <= 1023;
         	}
-
-        	$(function(){
-
-        		if($(".is-nologin").length < 1){
-        			var field = "${_mbrSession.itrstField}";
-
-        			if(field != "null" && field != ''){
-        				field = field.replaceAll(' ','').split(',');
-    					for(var i=0; i<field.length; i++){
-    						switch(field[i]){
-    							case "1" : $("#opt-item7").prop("checked",true);break;
-    							case "2" : $("#opt-item8").prop("checked",true);break;
-    							case "3" : $("#opt-item6").prop("checked",true);break;
-    							case "4" : $("#opt-item3").prop("checked",true);break;
-    							case "5" : $("#opt-item2").prop("checked",true);break;
-    							case "6" : break;
-    							case "7" : $("#opt-item1").prop("checked",true);break;
-    							case "8" : $("#opt-item5").prop("checked",true);break;
-    						}
-    					}
-        			}else{
-        				$("input[name='category']").prop("checked",true);
-        			}
-
-					$(".non_login").hide();
-					$(".on_login").show();
-        		}else{
-        			$("input[name='category']").prop("checked",true);
-        			$(".non_login").show();
-					$(".on_login").hide();
-        		}
-
-        	});
 
         	init();
         })();

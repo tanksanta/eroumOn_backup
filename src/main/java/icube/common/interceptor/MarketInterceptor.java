@@ -19,6 +19,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
+import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
 import icube.manage.exhibit.popup.biz.PopupService;
 import icube.manage.exhibit.popup.biz.PopupVO;
@@ -129,17 +130,26 @@ public class MarketInterceptor implements HandlerInterceptor {
 			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getPrtcrRecipterInfo().getUniqueId());
 
 			// 마일리지 정보
-			double mileagePercent = 0.1; // RED:0.1%
-			if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
-				mileagePercent = 0.2;
-			}else if(EgovStringUtil.equals("G", mbrSession.getMberGrade())) {
-				mileagePercent = 0.3;
-			}else if(EgovStringUtil.equals("V", mbrSession.getMberGrade())) {
-				mileagePercent = 0.4;
-			}else if(EgovStringUtil.equals("P", mbrSession.getMberGrade())) {
+			double mileagePercent = 0.0; // 신규:0.1%
+			if(EgovStringUtil.equals("N", mbrSession.getMberGrade())) {
+				mileagePercent = 0.0;
+			}else if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
 				mileagePercent = 0.5;
+			}else if(EgovStringUtil.equals("B", mbrSession.getMberGrade())) {
+				mileagePercent = 1.5;
+			}else if(EgovStringUtil.equals("E", mbrSession.getMberGrade())) {
+				mileagePercent = 2.5;
 			}
 			request.setAttribute("_mileagePercent", mileagePercent);
+
+
+			// 채널톡 임시 > TO-DO secretKey 이동
+			String secretKey = "6fb289a7bfb1c9cc83c6310990e122474b40b73f147658f7c285940250958a06";
+			String hash = HMACUtil.encode(mbrSession.getMbrId(), secretKey, "HMACSHA256");
+
+			System.out.println("hash: " + hash);
+			request.setAttribute("_mbrIdHash", hash);
+
 		}
 		request.setAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
 
@@ -154,15 +164,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_gdsCtgryList", gdsCtgryList);
 		request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
 		// 카테고리 정보 E
-
-
-		// 멤버스(bplc) 카운트
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("Y", "srchUseYn"); // 사용중
-		paramMap.put("C", "srchAprvTy"); // 승인
-
-		int bplcCnt = bplcService.selectBplcCnt(paramMap);
-		request.setAttribute("_bplcCnt", bplcCnt);
 
 		// 경로정보
 		request.setAttribute("_marketPath", "/" + marketPath);
@@ -211,5 +212,8 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 		log.debug(" ################################################################## ");
 	}
+
+
+
 
 }

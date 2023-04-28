@@ -12,16 +12,52 @@
 					<c:when test="${!empty resultList.thumbnailFile }">
 						<img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.thumbnailFile.upNo }&amp;fileTy=${resultList.thumbnailFile.fileTy }&amp;fileNo=${resultList.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
 					</c:when>
-					<%-- <c:otherwise>
-							<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-								</c:otherwise> --%>
+					<c:otherwise>
+						<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+					</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="content">
+				<div class="label">
+					<c:if test="${!empty resultList.gdsTagVal}">
+						<span class="${resultList.gdsTagVal eq 'A'?'label-outline-danger':'label-outline-primary' }"> <span>${gdsTagCode[resultList.gdsTagVal]}</span><i></i>
+						</span>
+					</c:if>
+					<c:if test="${empty resultList.gdsTagVal}">
+						<span></span>
+					</c:if>
+				</div>
 				<div class="name">
 					<small>${resultList.ctgryNm}</small> <strong>${resultList.gdsNm}</strong>
 				</div>
 				<div class="cost">
+					<c:choose>
+						<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}">
+							<%--급여(판매)제품--%>
+							<dl class="discount">
+								<dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
+								<dd>
+									<c:choose>
+										<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
+											<fmt:formatNumber value="${resultList.bnefPc15}" pattern="###,###" />
+											<small>원</small>
+										</c:when>
+										<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
+											<fmt:formatNumber value="${resultList.bnefPc9}" pattern="###,###" />
+											<small>원</small>
+										</c:when>
+										<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
+											<fmt:formatNumber value="${resultList.bnefPc6}" pattern="###,###" />
+											<small>원</small>
+										</c:when>
+										<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
+                                    	0<small>원</small>
+										</c:when>
+									</c:choose>
+								</dd>
+							</dl>
+						</c:when>
+					</c:choose>
 					<dl>
 						<dt>판매가</dt>
 						<dd>

@@ -35,7 +35,7 @@
 		                                            	<option value="${ctgryList.ctgryNo}">${ctgryList.ctgryNm}</option>
 		                                                </c:forEach>
                                                     </select>
-                                                    <select name="modalSrchCtgryNo" id="modalSrchCtgryNo" class="form-control w-30">
+                                                    <select name="modalSrchCtgryNo" id="modalSrchCtgryNo" class="form-control w-35">
                                                         <option value="0">중분류선택</option>
                                                     </select>
                                                 </div>

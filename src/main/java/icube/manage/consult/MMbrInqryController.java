@@ -179,11 +179,11 @@ public class MMbrInqryController extends CommonAbstractController {
 				mailForm = mailForm.replace("{name}", "이로움마켓");
 				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
 				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2018-서울강남-04157");
+				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
 
 
 				// 메일 발송
-				String mailSj = "[EROUM] 1:1문의에 대한 답변이 등록되었습니다";
+				String mailSj = "[이로움ON] 1:1문의에 대한 답변이 등록되었습니다";
 				if(EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, inqryVO.getEml(), mailSj, mailForm);
 				}else if(EgovStringUtil.equals("dev", activeMode)) {

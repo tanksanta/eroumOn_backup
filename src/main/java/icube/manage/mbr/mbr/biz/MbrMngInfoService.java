@@ -42,7 +42,6 @@ public class MbrMngInfoService extends CommonAbstractServiceImpl {
 		return mbrMngInfoDAO.selectMbrMngInfo(paramMap);
 	}
 
-	@SuppressWarnings({"unchecked","rawtypes"})
 	public void insertMbrMngInfo(Map<String, String> reqMap) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -78,6 +77,12 @@ public class MbrMngInfoService extends CommonAbstractServiceImpl {
 			paramMap.put("mberSttus", "BLACK");
 			paramMap.put("uniqueId", mbrMngInfoVO.getUniqueId());
 			mbrService.updateMberSttus(paramMap);
+
+			// 포인트, 마일리지 reset
+			paramMap.clear();
+			paramMap.put("srchUniqueId", mbrMngInfoVO.getUniqueId());
+			paramMap.put("mberStts", "BLACK");
+			mbrService.resetMemberShip(paramMap);
 		}
 
 		// 블랙리스트 해제
@@ -86,6 +91,7 @@ public class MbrMngInfoService extends CommonAbstractServiceImpl {
 			paramMap.put("mberSttus", "NORMAL");
 			paramMap.put("uniqueId", mbrMngInfoVO.getUniqueId());
 			mbrService.updateMberSttus(paramMap);
+
 		}
 
 		//직권탈퇴
@@ -96,6 +102,13 @@ public class MbrMngInfoService extends CommonAbstractServiceImpl {
 			paramMap.put("whdwlResn", (String)reqMap.get("resnCd"));
 			paramMap.put("whdwlEtc", (String)reqMap.get("mngrMemo"));
 			paramMap.put("whdwlTy", "AUTHEXIT");
+
+
+			// 포인트, 마일리지 reset
+			paramMap.clear();
+			paramMap.put("srchUniqueId", uniqueId);
+			paramMap.put("mberStts", "EXIT");
+			mbrService.resetMemberShip(paramMap);
 
 			// 회원 정보 삭제
 			mbrDAO.updateExitMbr(paramMap);

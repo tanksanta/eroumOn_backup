@@ -13,7 +13,7 @@
 				<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
 				<input type="hidden" id="encPw" name="encPw" value="">
                     <fieldset>
-                        <legend>이로움 계정 로그인</legend>
+                        <legend>이로움ON 계정 로그인</legend>
                         <div class="login-group">
                             <label class="form-label" for="loginId">아이디</label>
                             <input class="form-control" type="text" id="loginId" name="loginId">
@@ -38,7 +38,7 @@
                     <img src="/html/page/market/assets/images/img-login-desc.png" alt="" class="img">
                     <div class="cont">
                         <p>
-                            이로움만의<br>
+                            이로움ON만의<br>
                             특별함을<br>
                             누리세요
                         </p>

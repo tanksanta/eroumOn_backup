@@ -9,8 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
-import icube.manage.promotion.mlg.biz.MbrMlgVO;
-import icube.manage.promotion.point.biz.MbrPointVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +38,7 @@ public class MbrVO extends CommonBaseVO {
 	private int pointAcmtl;
 	private int mlgAcmtl;
 	private String mberSttus = "NORMAL";
-	private String mberGrade = "R";
+	private String mberGrade = "N";
 	private String rcmdtnId;
 	private String rcmdtnMbrsId;
 	private String prvcVldPd = "1Y";

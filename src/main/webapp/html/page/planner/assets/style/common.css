@@ -155,6 +155,59 @@ strong {
         @apply px-4 h-[3.4375rem] rounded-lg bg-gray2;
     }
 
+    .form-check {
+        @apply inline-block overflow-hidden text-sm leading-normal align-middle md:text-base;
+        & .form-check-input {
+            @apply float-left mt-[0.125em] h-[1.25em] border border-gray1 bg-no-repeat bg-contain bg-white appearance-none cursor-pointer;
+            &:checked {
+                @apply bg-black2 border-black2;
+                & + .form-check-label {
+                    @apply font-bold;
+                }
+            }
+            &[type="radio"] {
+                @apply bg-none shadow-[inset_0_0_0_0.25em_white];
+            }
+        }
+        & .form-check-label {
+            @apply inline-block;
+        }
+        &.form-switch {
+            @apply py-1 pl-9 relative leading-4;
+            & .form-check-input {
+                @apply mt-0 -ml-9 w-7.5 h-4 border-gray2 rounded-full bg-gray2 transition-all duration-300 shadow-sm align-top;
+                background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E);
+                &:checked {
+                    @apply border-black2 bg-black2;
+                    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E);
+                    & + .form-check-label {
+                        @apply text-black2;
+                    }
+                }
+            }
+            & .form-check-label {
+                @apply text-[1em] leading-4 align-top;
+            }
+        }
+        &:not(.form-switch) {
+            & .form-check-input {
+                @apply w-[1.25em] transition duration-200 bg-center;
+                &:focus {
+                    @apply outline-0;
+                }
+                &[type="checkbox"] {
+                    @apply rounded-[0.25em];
+                }
+                &[type="radio"] {
+                    @apply rounded-full;
+                }
+            }
+            & .form-check-label {
+                @apply ml-[0.375em];
+            }
+        }
+    }
+
     .dropdown {
         @apply relative;
     }

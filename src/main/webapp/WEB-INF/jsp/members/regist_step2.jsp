@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <main id="container">
 	<h2 class="text-title">
-		이로움 멤버스 등록 신청 <small>이로움과 함께 할 멤버스를 기다리고 있습니다.</small>
+		이로움ON 멤버스 등록 신청 <small>이로움ON과 함께 할 멤버스를 기다리고 있습니다.</small>
 	</h2>
 
 	<ul class="tabs-list">
@@ -528,7 +528,7 @@ $(function(){
 			clclnDpstr : {required : "! 예금주명은 필수 입력 항목입니다."}
 		},
 	    submitHandler: function (frm) {
-	    	if(confirm("이로움 마켓 멤버스 등록신청 하시겠습니까?")){
+	    	if(confirm("이로움ON 마켓 멤버스 등록신청 하시겠습니까?")){
 	    		frm.submit();
 	    	} else{
 	    		return false;

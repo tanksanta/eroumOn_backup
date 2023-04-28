@@ -15,7 +15,7 @@
 			<img src="/html/page/members/assets/images/txt-sleep2.svg" alt="회원님의 계정은 휴면상태 입니다.">
 			<p>
 				<span class="text-lg md:text-xl">안녕하세요, <strong class="text-xl md:text-2xl">${mbrVO.mbrNm}</strong> 회원님!
-				</span><br> 이로움 마켓을 1년 이상 로그인하지 않아,<br class="md:hidden"> 계정이 휴면 상태로 전환되었습니다.
+				</span><br> 이로움ON 마켓을 1년 이상 로그인하지 않아,<br class="md:hidden"> 계정이 휴면 상태로 전환되었습니다.
 			</p>
 		</div>
 		<div class="member-release-data mt-3 md:mt-4">
@@ -30,7 +30,7 @@
 		</div>
 		<div class="mt-11 flex flex-col items-center md:mt-15">
 			<p class="text-alert">
-				이로움 마켓을 계속 이용하시려면 <strong>[휴면 해제하기]</strong>를 클릭하여 본인인증을 진행해 주세요.
+				이로움ON 마켓을 계속 이용하시려면 <strong>[휴면 해제하기]</strong>를 클릭하여 본인인증을 진행해 주세요.
 			</p>
 			<div class="flex justify-center gap-2 mt-5 w-full text-center md:gap-2.5 md:mt-6">
 				<!-- TODO 플래너로 변경 -->

@@ -234,6 +234,8 @@ public class MyReviewController extends CommonAbstractController {
 			if(!fileMap.get("uploadFile").isEmpty()) {
 				gdsReviewVO.setImgUseYn("Y");
 				mbrPointVO.setPoint(500);
+			}else {
+				gdsReviewVO.setImgUseYn("N");
 			}
 
 			gdsReviewService.insertGdsReview(gdsReviewVO);

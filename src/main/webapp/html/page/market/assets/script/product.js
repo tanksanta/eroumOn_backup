@@ -22,11 +22,11 @@ $(function() {
     });
 
     //상품 목록 더보기
-    $(window).on('load resize', function() {
+    var cateResize = function() {
         var cateItem = $('.product-category a');
         var cateMore = $('.category-moreview');
         
-        if(winSize[0] < 576) {
+        if($(window).outerWidth() < 576) {
             if(cateItem.length < 9) {
                 cateItem.addClass('is-visible');
             } else {
@@ -39,7 +39,7 @@ $(function() {
             cateItem.removeClass('is-visible');
             cateMore.removeClass('is-visible');
         }
-
+		
         cateMore.off('click').on('click', function() {
             var cateWrap = $(this).closest('dd');
             if(cateWrap.hasClass('is-expand')) {
@@ -52,7 +52,11 @@ $(function() {
                 cateWrap.addClass('is-expand').find('a').addClass('is-visible');
             }
         });
-    });
+    };
+    
+    cateResize();
+    
+    $(window).on('load resize', cateResize);
 
     //상품 상세 scrollspy
     $(window).on('load resize', function() {
@@ -78,7 +82,7 @@ $(function() {
         watchSlidesProgress: true
     });
     var productSwiper = new Swiper('.product-slider .product-swiper', {
-        loop: true,
+        loop: false,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -88,18 +92,20 @@ $(function() {
         }
     });
     var goodsSwiper = new Swiper('.product-relgood .product-swiper', {
-        loop: true,
+        loop: false,
         slidesPerView: 4,
         spaceBetween: 16,
         watchSlidesProgress: true,
+        observer: true,
+        observeParents: true,
         breakpoints: {
             0: {
                 slidesPerView: 2,
-                spaceBetween: 16,
+                spaceBetween: 12,
             },
             768: {
                 slidesPerView: 3,
-                spaceBetween: 20,
+                spaceBetween: 16,
             },
             1024: {
                 slidesPerView: 4,
@@ -110,10 +116,23 @@ $(function() {
             clickable: true,
             el: ".swiper-pagination",
         },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+        on: {
+            resize: function() {
+                if(this.slides.length > this.params.slidesPerView) {
+                    $('.product-relgood .swiper-button-prev, .product-relgood .swiper-button-next').show();
+                } else {
+                    $('.product-relgood .swiper-button-prev, .product-relgood .swiper-button-next').hide();
+                }
+            }
         }
+    });
+
+    $('.product-relgood .swiper-button-prev').on('click', function() {
+        goodsSwiper.slidePrev();
+    });
+
+    $('.product-relgood .swiper-button-next').on('click', function() {
+        goodsSwiper.slideNext();
     });
 
     //상품 상세 펼쳐보기

@@ -144,6 +144,12 @@ public class MyWhdwlController extends CommonAbstractController{
 
 		mbrService.updateExitMbr(paramMap);
 
+		// 포인트, 마일리지 reset
+		paramMap.clear();
+		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+		paramMap.put("mberStts", "EXIT");
+		mbrService.resetMemberShip(paramMap);
+
 		paramMap.clear();
 		paramMap.put("srchMyUniqueId", mbrSession.getUniqueId());
 		mbrPrtcrService.deleteFml(paramMap);

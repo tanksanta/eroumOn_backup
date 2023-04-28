@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -60,7 +61,6 @@ public class PlannerController extends CommonAbstractController  {
 			@RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
 			, Model model) throws Exception {
-
 
 		// 행정구역 목록
 		List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
@@ -160,7 +160,7 @@ public class PlannerController extends CommonAbstractController  {
 		return plannerService.srchInst(isAllow, reqMap, request);
 	}
 
-
+/*
 	// 장기요양보험 > Senior-Long-Term-Care
 	@RequestMapping(value="Senior-Long-Term-Care")
 	public String seniorLongTermCare(
@@ -184,7 +184,7 @@ public class PlannerController extends CommonAbstractController  {
 		return "/planner/senior_friendly_foods";
 	}
 
-
+*/
 
 	// planner > login
 	// 레이아웃마다 모달 로그인이 다를수 있다? -> css적용이 다름
@@ -198,6 +198,18 @@ public class PlannerController extends CommonAbstractController  {
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
 
+		}
+
+		Cookie[] cookies=request.getCookies(); // 모든 쿠키 가져오기
+
+		if(cookies != null) {
+			 for (Cookie c : cookies) {
+		            String name = c.getName(); // 쿠키 이름 가져오기
+		            String value = c.getValue(); // 쿠키 값 가져오기
+		           if (name.equals("_membersSaveId_")) {
+		        	   model.addAttribute("saveId", value.toString());
+		            }
+		        }
 		}
 
 		//암호화

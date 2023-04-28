@@ -140,6 +140,7 @@ public class UpdateBplcInfoApiService {
 				}else {
 					paramMap.put("soldoutYn", "N");
 				}
+
 				// 상품 태그는 1개만 넘어온다는 가정
 				if(EgovStringUtil.isNotEmpty(itemOptTag)) {
 					if(itemOptTag.equals("일시품절")) {
@@ -151,6 +152,8 @@ public class UpdateBplcInfoApiService {
 					}else {
 						paramMap.put("gdsTag", "D");
 					}
+				}else {
+					paramMap.put("gdsTag", null);
 				}
 
 				System.out.println("#### 상품 정보 업데이트 START #### ");
@@ -165,7 +168,11 @@ public class UpdateBplcInfoApiService {
 
 
 				// 옵션 배열
-				JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
+				/**
+				 * 2023-04-20
+				 * 옵션은 메뉴얼로 수기 작성 진행
+				 */
+				/*JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
 				if(item_opt_array.size() > 0) {
 
 					for(int h=0; h<item_opt_array.size(); h++) {
@@ -203,7 +210,7 @@ public class UpdateBplcInfoApiService {
 					}
 				}else {
 					System.out.println("#### 상품 옵션 없음 #### ");
-				}
+				}*/
 			}
 		}
 	}
@@ -241,6 +248,7 @@ public class UpdateBplcInfoApiService {
 				String penZip = "";
 				String penAddr = "";
 				String penAddr2 = "";
+				//String businessId = "";
 
 				MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 				Date date = mbrVO.getBrdt();
@@ -253,6 +261,7 @@ public class UpdateBplcInfoApiService {
 					penTel = ordrDtlVO.getRecipterInfo().getMblTelno();
 					RecipterUniqueId = ordrDtlVO.getRecipterInfo().getUniqueId();
 					penGender = ordrDtlVO.getRecipterInfo().getGender();
+					//businessId = ordrDtlVO.getBplcInfo().getBrno();
 					if(penGender.equals("M")) {
 						penGender="남";
 					}else {
@@ -263,8 +272,10 @@ public class UpdateBplcInfoApiService {
 					penAddr = ordrDtlVO.getRecipterInfo().getAddr();
 					penAddr2 = ordrDtlVO.getRecipterInfo().getDaddr();
 					brdt = format.format(date);
+
 				}
 				// 상품 배열 담기
+				//dataMap.put("order_business_id", Base64Util.encoder(businessId));
 				dataMap.put("_array_item", itemList);
 
 				// 수급자 정보

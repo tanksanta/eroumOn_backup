@@ -8,7 +8,7 @@ $(function(){
 		<c:if test="${newList.linkTy eq 'S'}">
 
 		if($.cookie("popup"+${newList.popNo}) != "none"){
-			var popup${newList.popNo} = window.open("/comm/popup/${newList.popNo}", "이로움 팝업${newList.popNo}", "width=${newList.popWidth},height=${newList.popHeight},top=${newList.popTop},left=${newList.popLeft},resizable=no,status=no,location=no,directories=no,toolbar=no,menubar=no,scrollbars=no");
+			var popup${newList.popNo} = window.open("/comm/popup/${newList.popNo}", "이로움ON 팝업${newList.popNo}", "width=${newList.popWidth},height=${newList.popHeight},top=${newList.popTop},left=${newList.popLeft},resizable=no,status=no,location=no,directories=no,toolbar=no,menubar=no,scrollbars=no");
 			popup${newList.popNo}.focus();
 		}
 

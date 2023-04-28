@@ -58,7 +58,7 @@
 							<a href="/members/${resultList.bplcInfo.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a>
                         </dd>
                     </dl>
-                    <button type="button" class="partners-delete delBplc" data-unique-id="${resultList.bplcInfo.uniqueId}">삭제</button>
+                    <button type="button" class="btn-large btn-primary partners-delete delBplc" data-unique-id="${resultList.bplcInfo.uniqueId}">삭제</button>
                 </div>
 				</c:forEach>
             </div>

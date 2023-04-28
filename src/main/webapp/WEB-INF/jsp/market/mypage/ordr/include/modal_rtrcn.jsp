@@ -24,6 +24,7 @@
 		                <c:set var="totalOrdrPc" value="0" />
 		                <c:set var="totalGdsPc" value="0" />
 						<c:set var="dtlIndex" value="0" />
+						<c:set var="viewCount" value="0" />
 
 						<div class="space-y-2.5 md:space-y-5">
 	                	<c:forEach items="${ordrVO.ordrDtlList}" var="ordrDtl" varStatus="status">
@@ -36,6 +37,9 @@
 						<c:set var="ordrQy" value="${ordrDtl.ordrQy }" />
 						<c:set var="totalCouponAmt" value="${ordrDtl.couponAmt}" />
 	                    <div class="order-product" ${(ordrDtl.sttsTy eq 'CA02' || ordrDtl.sttsTy eq 'CA01') ? 'style="display:none;"':''}>
+	                    <c:if test="${ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'CA01'}">
+	                    	<c:set var="viewCount" value="${viewCount + 1}" />
+	                    </c:if>
 
 	                    	<div class="order-header">
 	                            <dl>
@@ -134,13 +138,13 @@
 	                                        	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
 	                                            <dl>
 	                                                <dt>배송비</dt>
-	                                                <dd>${ordrDtl.gdsInfo.dlvyBassAmt}원</dd>
+	                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원</dd>
 	                                            </dl>
 	                                            </c:if>
 	                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
 	                                            <dl>
 	                                                <dt>추가 배송비</dt>
-	                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+	                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
 	                                            </dl>
 	                                            </c:if>
 	                                        </div>
@@ -187,7 +191,7 @@
 	                            </div>
 	                        </div>
 	                        <label class="order-select">
-                                <input type="checkbox" name="ordrDtlCd" value="${ordrDtl.ordrDtlCd}" data-ordr-pc="${sumOrdrPc}" data-dlvy-amt="${ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt}" data-gds-pc="${totalGdsPc}" data-coupon-amt="${totalCouponAmt}" data-use-mlg="${totalUseMlg}" data-use-point="${totalUsePoint}">
+                                <input type="checkbox" name="ordrDtlCd" value="${ordrDtl.ordrDtlCd}" data-ordr-pc="${sumOrdrPc}" data-dlvy-amt="${ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt}" data-gds-pc="${totalGdsPc}" data-use-mlg="${totalUseMlg}" data-use-point="${totalUsePoint}" data-coupon-amt="${ordrDtl.couponAmt }">
                                 <span>선택</span>
                             </label>
 	                    </div>
@@ -410,10 +414,12 @@
                 	let gdsPc = $(this).find('.order-select input').data("gdsPc"); // 해당 상품 금액
                     let dlvyBassAmt = $(this).find('.order-select input').data("dlvyAmt"); // 해당 상품 배송비
                     let couponAmt = $(this).find('.order-select input').data("couponAmt"); // 해당 상품 쿠폰 할인비
-                    let usedMlg = $(this).find('.order-select input').data("useMlg"); // 사용한 마일리지
-                    let usedPoint = $(this).find('.order-select input').data("usePoint"); // 사용한 포인트
+                    let usedMlg = "${ordrVO.useMlg}"; // 사용한 마일리지
+                    let usedPoint = "${ordrVO.usePoint}"; // 사용한 포인트
                     let useMlg = 0;
                     let usePoint = 0;
+
+                    console.log(couponAmt);
 
                     <%--  @@@@ 선택 해제 시 이벤트 @@@@   --%>
                     if($(this).hasClass('is-active')) {
@@ -460,11 +466,13 @@
                         sumGdsPc = sumGdsPc + gdsPc; // 반품 상품 합계
                         sumDlvyAmt = sumDlvyAmt + dlvyBassAmt; // 반품 배송비 합계
                         sumCouponAmt = sumCouponAmt + couponAmt; // 쿠폰 할인 합계
+                        console.log("상품 합계 : " + sumGdsPc);
                         console.log("배송비 합계 : " + sumDlvyAmt);
+                        console.log("쿠폰비 합계 : " + sumCouponAmt);
 
                         // 상품 전체 클릭시 마일리지, 포인트 보임
                         // is-active 아무것도 없을시 1 부터 시작임.
-                        if($(".itemList").length == ($(".is-active").length-1)){
+                        if($(".modal-body .is-active").length == "${viewCount}"){
 
                           	// 마일리지
                             if(usedMlg > 0){
@@ -477,6 +485,7 @@
                          	// 포인트
                             if(usedPoint > 0){
                             	usePoint = usedPoint;
+                            	console.log(usePoint);
                             	$(".totalPointAmt").text("- "+comma(usePoint));
                             }else{
                             	$(".totalPointAmt").text(0);
@@ -485,13 +494,15 @@
 
                         	if(usedMlg > 0){
                         		$(".useMlgView").show();
-                        	}else if(usedPoint > 0){
+                        	}
+                        	if(usedPoint > 0){
                         		$(".usePointView").show();
                         	}
                         }
-                        totalSumPc = (sumGdsPc + sumDlvyAmt) - (usePoint + useMlg + sumCouponAmt); // 반품 상품 총 금액
 
-                        $(".totalSumPc").text(comma(totalSumPc));
+                        totalSumPc = (Number(sumGdsPc) + Number(sumDlvyAmt)) - (Number(usePoint) + Number(useMlg) + Number(sumCouponAmt)); // 반품 상품 총 금액
+
+                        $(".totalSumPc").text(comma(String(totalSumPc)));
                         $(".totalGdsPc").text(comma(sumGdsPc));
 
                      	// 쿠폰 할인
@@ -507,21 +518,8 @@
                         $(".totalDlvyBassAmt").text(comma(sumDlvyAmt)); // 반품 배송비 합계
                         $(".totalRefundAmt").text(comma(totalSumPc)); // 환불 예정 금액
                     }
-
-                    /*<c:if test="${ordrVO.stlmYn eq 'Y'}">
-                    if(totalSumPc >= ${ordrVO.stlmAmt}){ // 결제총액을 넘으면
-
-
-
-                    }else{
-	    				$(".totalCancelAmt").text(comma(totalCancelAmt));
-	    				$(".total-mlg-txt").text(0);
-                    	$(".total-point-txt").text(0);
-                    	$(".sumDscntAmt").text(0);
-                    	$(".sumCancelAmt").text(comma(totalCancelAmt));
-                    }
-    				</c:if>*/
                 }
+
             });
 
 			$(".f_ordr_rtrcn_save").on("click", function(){

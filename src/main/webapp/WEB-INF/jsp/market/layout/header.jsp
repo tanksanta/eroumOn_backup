@@ -3,14 +3,14 @@
     <header id="header">
         <div class="container">
 	        <a href="${_marketPath}" class="header-toggle"><img src="/html/page/market/assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
-	        <h1 class="header-logo"><a href="${_marketPath}"><img src="/html/page/market/assets/images/img-header-logo.svg" alt="이로움 마켓"></a></h1>
+	        <h1 class="header-logo"><a href="${_marketPath}"><img src="/html/page/market/assets/images/img-header-logo.svg" alt="이로움ON 마켓"></a></h1>
 	        <ul class="header-menu">
 	        	<c:if test="${!_mbrSession.loginCheck}">
 	            <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>
 	            <li><a href="${_membershipPath }/registStep1">회원가입</a></li>
 	            </c:if>
 	            <c:if test="${_mbrSession.loginCheck}">
-	            <li><a href="${_membershipPath}/logout">로그아웃</a></li>
+	            <li><a href="${_marketPath}/logout">로그아웃</a></li>
 	            <li><a href="${_marketPath }/mypage/index">마이페이지</a></li>
 	            </c:if>
 	            <li><a href="${_marketPath}/etc/faq/list">고객센터</a></li>
@@ -26,11 +26,10 @@
         <div class="personal-info ${_mbrSession.prtcrRecipterIndex > 0?'bg-color'.concat(_mbrSession.prtcrRecipterIndex):''}">
             <div class="personal-user">
                 <p class="name"><strong>${_mbrSession.prtcrRecipterInfo.mbrNm}</strong> 님</p>
-                <img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
                 <p class="rank">
                     <small>${_mbrSession.prtcrRecipterYn eq 'Y'?'수급자회원':'일반회원'}</small>
-                    <strong>
-                    	<img src="/html/page/market/assets/images/img-grade${_mbrSession.prtcrRecipterInfo.mberGrade eq 'P' ? '1' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'V' ? '2' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'G' ? '3' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'R' ? '4' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'S' ? '5' : ''}.svg" alt="">
+                    <strong ${_mbrSession.prtcrRecipterInfo.mberGrade eq 'E' ? ' class="text-grade1"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'B' ? ' class="text-grade2"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'S' ? ' class="text-grade3"' : _mbrSession.prtcrRecipterInfo.mberGrade eq 'N' ? '' : ''}>
+               			${gradeCode[_mbrSession.prtcrRecipterInfo.mberGrade]}
                 	</strong>
                 </p>
             </div>
@@ -139,10 +138,12 @@
                     </c:if>
                 </form>
                 <div class="modal-footer">
-                    <a href="#disconnect" class="link1 f_fam_disconnect" data-unique-id="${_mbrSession.uniqueId }" data-count="0">
-                        <img src="/html/page/market/assets/images/ico-personal-link-off-white.svg" alt="">
-                        <span>연결해제</span>
-                    </a>
+                	<c:if test="${_mbrSession.uniqueId ne _mbrSession.prtcrRecipterInfo.uniqueId}">
+	                    <a href="#disconnect" class="link1 f_fam_disconnect" data-unique-id="${_mbrSession.uniqueId }" data-count="0">
+	                        <img src="/html/page/market/assets/images/ico-personal-link-off-white.svg" alt="">
+	                        <span>연결해제</span>
+	                    </a>
+                    </c:if>
                     <button type="button" class="connect f_fam_connect">
                         <span>누구와 연결하시겠습니까?</span>
                     </button>

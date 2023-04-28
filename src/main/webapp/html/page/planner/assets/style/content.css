@@ -688,6 +688,9 @@
         &.is-lock {
             & .content {
                 @apply md-max:text-white;
+                &::before {
+                    @apply md-max:opacity-100;
+                }
             }
             &::after {
                 @apply bg-[url(../images/ico-lock-white.svg)] bg-[length:0.8125rem] md:[length:0.875rem] md-max:bg-transparent !important;
@@ -719,7 +722,7 @@
             &.is-lock {
                 & .content {
                     &::before {
-                        @apply bg-[image:var(--key1-gradient)] md-max:opacity-100;
+                        @apply bg-[image:var(--key1-gradient)];
                     }
                 }
             }
@@ -747,6 +750,13 @@
                     }
                 }
             }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key2-gradient)];
+                    }
+                }
+            }
         }
         &.is-color3 {
             & .content {
@@ -768,6 +778,13 @@
                     @apply md:border-[var(--key3)];
                     & .name {
                         @apply md:text-color3-mask;
+                    }
+                }
+            }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key3-gradient)];
                     }
                 }
             }
@@ -795,6 +812,13 @@
                     }
                 }
             }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key4-gradient)];
+                    }
+                }
+            }
         }
         &.is-color5 {
             & .content {
@@ -816,6 +840,13 @@
                     @apply md:border-[var(--key5)];
                     & .name {
                         @apply md:text-color5-mask;
+                    }
+                }
+            }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key5-gradient)];
                     }
                 }
             }
@@ -843,6 +874,13 @@
                     }
                 }
             }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key6-gradient)];
+                    }
+                }
+            }
         }
         &.is-color7 {
             & .content {
@@ -867,6 +905,13 @@
                     }
                 }
             }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key7-gradient)];
+                    }
+                }
+            }
         }
         &.is-color8 {
             & .content {
@@ -888,6 +933,13 @@
                     @apply md:border-[var(--key8)];
                     & .name {
                         @apply md:text-color8-mask;
+                    }
+                }
+            }
+            &.is-lock {
+                & .content {
+                    &::before {
+                        @apply bg-[image:var(--key8-gradient)];
                     }
                 }
             }
@@ -922,7 +974,7 @@
 }
 
 .page-content-paging {
-    @apply mx-auto w-25 overflow-hidden;
+    @apply mx-auto mt-5 w-25 overflow-hidden lg:mt-0;
     & .flow {
         @apply flex items-center transition-[margin] duration-300;
         & i {
@@ -957,9 +1009,6 @@
             @apply flex-none flex w-full space-x-1 bg-white;
             & .nav-item {
                 @apply flex-1;
-                &:last-child {
-                    @apply flex-none;
-                }
             }
             & .nav-link {
                 @apply flex items-center justify-center h-[2.625rem] overflow-hidden rounded-md bg-no-repeat text-[0.8125rem] font-medium lg:justify-start;
@@ -1112,7 +1161,7 @@
 }
 
 .modal-login-join {
-    @apply relative mt-27 mx-auto max-w-[20.625rem];
+    @apply relative mt-23 mx-auto max-w-[20.625rem];
     &::before {
         @apply content-empty absolute right-8 bottom-3 w-[203px] h-[227px] bg-cover bg-[url(../images/bg-login.png)];
     }
@@ -1674,8 +1723,8 @@
             @apply absolute top-0 left-0 w-full h-full bg-no-repeat transition-[box-shadow,transform] duration-500 rounded-[1em] aspect-square bg-white;
             &::before {
                 @apply absolute text-[4.166667em] leading-[1.1] font-bold opacity-10 transition-[opacity] duration-500;
-                counter-increment: section;
-                content: counter(section);
+                /* counter-increment: section;
+                content: counter(section); */
                 font-variation-settings: "wght" 700;
             }
         }
@@ -2281,6 +2330,12 @@
                 @apply absolute top-[5.731832139201638%] left-[31.9284064665127%] right-[33.48729792147806%] bottom-[10.03070624360287%] overflow-hidden;
             }
         }
+        & #qrcode {
+            @apply absolute z-5 left-[51.6743648960739%] right-[37.12471131639723%] top-[63.35721596724667%] bottom-[16.78607983623337%];
+            & img {
+                @apply absolute w-full h-full;
+            }
+        }
     }
     & .cont3 {
         @apply mt-4.5 text-lg font-medium leading-tight md:mt-7.5 md:text-xl;
@@ -2299,6 +2354,157 @@
             & ol {
                 @apply text-base space-y-0.5 md:text-lg;
             }
+        }
+    }
+}
+
+.content-visual {
+    @apply relative z-10 -mt-11 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl md:-mt-5.5 text-white;
+    & h1 {
+        @apply relative z-15 text-[max(1.75rem,(min(4.6875vw,3.75rem)))] leading-[1.1] font-semibold;
+        font-variation-settings: "wght" 600;
+        & em {
+            @apply font-light;
+            font-variation-settings: "wght" 300;
+        }
+        & span {
+            @apply block align-bottom mt-1 font-serif font-light leading-snug text-[max(0.75rem,(min(1.09375vw,0.875rem)))] sm:inline-block sm:mt-0 sm:font-bold;
+            & br {
+                @apply sm-max:hidden;
+            }
+        }
+    }
+    & .nav-tabs {
+        @apply flex relative z-15 mt-[max(1.75rem,(min(5.3125vw,4.25rem)))] text-[max(1.25rem,(min(1.875vw,1.5rem)))];
+        & .nav-link {
+            @apply block min-w-[5.041666666666667em] text-center text-white;
+            &::after {
+                @apply content-empty block mt-[0.375em] h-[0.2916666666666667em];
+            }
+            &.active {
+                @apply font-semibold text-white;
+                font-variation-settings: "wght" 600;
+                &::after {
+                    @apply bg-white;
+                }
+            }
+        }
+    }
+    & .swiper {
+        @apply absolute z-5 top-0 left-1/2 w-screen h-full -translate-x-1/2;
+        & .swiper-slide {
+            @apply bg-cover bg-no-repeat bg-[center_top];
+        }
+    }
+}
+
+.content-company1, .content-company2, .content-company3, .content-company4 {
+    @apply relative mx-auto max-w-screen-xl leading-[1.556] text-[max(0.875rem,(min(1.40625vw,1.125rem)))];
+    word-break: keep-all;
+    & h2 {
+        @apply font-semibold leading-[1.2];
+        font-variation-settings: "wght" 600;
+    }
+}
+
+.content-company1 {
+    @apply mt-[max(2.5rem,(min(4.375vw,3.5rem)))];
+    & h2 {
+        @apply mb-[1.45em] text-[max(1.5rem,(min(2.8125vw,2.25rem)))];
+        & strong {
+            @apply inline-block;
+        }
+    }
+    & p {
+        @apply mt-[1.75em];
+    }
+    & .color {
+        @apply text-[#FF7622];
+    }
+}
+
+.content-company2 {
+    @apply mt-[max(7rem,(min(12.8125vw,10.25rem)))] text-sm lg:text-base 2xl:text-lg;
+    & .content {
+        @apply relative z-5 pb-10 bg-white md:absolute md:left-0 md:right-0 md:top-90 md:px-0 md:mx-0 md:bg-transparent md:text-white lg:top-[32rem] 2xl:top-[40rem];
+        & h2 {
+            @apply mb-[0.52em] text-2xl md:text-[2.125rem] lg:text-[2.625rem] 2xl:text-[3.25rem];
+            & em {
+                @apply font-light;
+                font-variation-settings: "wght" 300;
+            }
+        }
+    }
+    & .visual {
+        @apply block;
+        & img {
+            @apply max-w-none relative left-1/2 -translate-x-1/2 w-[1100px] md:w-[2928px] lg:w-[3904px] 2xl:w-[4880px];
+        }
+    }
+}
+
+.content-company3 {
+    @apply mt-[max(12.25rem,(min(25.625vw,20.5rem)))] pb-[max(1.75rem,(min(7.1875vw,5.75rem)))] border-b border-b-gray3;
+    & h2 {
+        @apply mb-[1.1818em] w-fit text-[max(1.5rem,(min(4.375vw,3.5rem)))];
+        background: linear-gradient(94deg, #FF8D37 0%, #CA5A99 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & p {
+        & strong {
+            @apply text-[1.2222222222em];
+        }
+    }
+    & dl {
+        @apply mt-[max(2rem,(min(5vw,4rem)))];
+        & dt {
+            @apply font-semibold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
+            font-variation-settings: "wght" 600;
+            & span {
+                @apply align-middle text-[1.666666666666667em] opacity-20;
+                &:first-child {
+                    @apply pr-[0.1em] md:pr-[0.25em];
+                }
+                &:last-child {
+                    @apply pl-[0.1em] md:pl-[0.25em]
+                }
+            }
+        }
+        & dd {
+            @apply mt-[max(1.5rem,(min(2.5vw,2rem)))] -mx-1 xs:mx-0;
+            & ul {
+                @apply flex flex-wrap overflow-hidden;
+                & li {
+                    @apply w-[33.33333333333%] px-1 py-[max(0.875rem,(min(1.40625vw,1.125rem)))] xs:mr-[max(2rem,(min(4.0625vw,3.25rem)))] xs:px-0 xs:w-auto;
+                }
+                & img {
+                    @apply mx-auto max-h-[max(2.25rem,(min(4.84375vw,3.875rem)))] mix-blend-luminosity opacity-40 grayscale transition-all duration-500;
+                    &:hover {
+                        @apply opacity-100 grayscale-0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.content-company4 {
+    @apply mt-[max(2.625rem,(min(8.59375vw,6.875rem)))];
+    & h2 {
+        @apply mb-[1.1818em] text-[max(1.875rem,(min(5.15625vw,4.125rem)))] font-serif font-bold;
+    }
+    & p {
+        & a {
+            @apply inline-block align-middle font-serif font-bold text-[1.2222222222em];
+        }
+    }
+    & .link {
+        @apply flex gap-2 md-max:flex-col;
+        & p {
+            @apply mr-auto;
         }
     }
 }

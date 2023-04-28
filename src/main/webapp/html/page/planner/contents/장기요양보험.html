@@ -108,9 +108,19 @@
             </div>
 
             <h2 class="content-insurance1">
+                <span class="background"><span class="images"></span></span>
                 노인장기요양보험
                 <small>Senior Long Term Care</small>
             </h2>
+            <script>
+                $(function() {
+                    $(window).on('scroll', function() {
+                        if($('.content-insurance1').get(0).getClientRects()[0].y + $('.content-insurance1').get(0).getClientRects()[0].height > 0) {
+                            $('.content-insurance1 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.1) + 'px)'});
+                        }
+                    });
+                })
+            </script>
 
             <div class="content-insurance2">
                 <h2 class="title">
@@ -136,7 +146,7 @@
                         <div class="item-rear">
                             <p>
                                 거동이 불편한 어르신의 생활에<br>
-                                도움드리는 <strong>복지용구 지원</strong>
+                                도움드리는 <strong><span>복지용구 지원</span></strong>
                             </p>
                             <p class="img1"><img src="../assets/images/img-content-insurance2.png" alt=""></p>
                         </div>
@@ -158,12 +168,12 @@
                         <div class="item-rear">
                             <p>
                                 요양보호사가 생활공간에서<br>
-                                다양한 도움드리는 <strong>재가돌봄 지원</strong>
+                                다양한 도움드리는 <strong><span>재가돌봄 지원</span></strong>
                             </p>
                             <p class="img1"><img src="../assets/images/img-content-insurance2-2.png" alt=""></p>
                             <p>
                                 또래 사람들과 다양한 활동을 통해<br>
-                                신체 재활을 도와드리는 <strong>주야간 보호 돌봄 지원</strong>
+                                신체 재활을 도와드리는 <strong><span>주야간 보호 돌봄 지원</span></strong>
                             </p>
                             <p class="img2"><img src="../assets/images/img-content-insurance2-3.png" alt=""></p>
                         </div>
@@ -187,13 +197,13 @@
                             <p>
                                 상당한 장애가 발생하여 도움이 필요한<br>
                                 어르신에게 가정집과 같은 주거여건을 갖춘<br>
-                                <strong>노인요양공동생활가정 지원</strong>
+                                <strong><span>노인요양공동생활가정 지원</span></strong>
                             </p>
                             <p class="img1"><img src="../assets/images/img-content-insurance2-4.png" alt=""></p>
                             <p>
                                 거동이 불편한 어르신의 식사 관리부터<br>
                                 상시 옆에서 케어가 필요한 서비스를 갖춘<br>
-                                <strong>요양원 지원</strong>
+                                <strong><span>요양원 지원</span></strong>
                             </p>
                             <p class="img2"><img src="../assets/images/img-content-insurance2-5.png" alt=""></p>
                         </div>
@@ -216,8 +226,8 @@
                             <p>
                                 치매 등 어르신 보호에 지친 보호자를 위해<br>
                                 치매 가족 휴가제로 한도액 상관없이<br>
-                                <strong>연간 8일간 주야간 센터 단기보호,</strong><br>
-                                <strong>종일 방문요양(생활공간) 지원</strong>
+                                <strong><span>연간 8일간 주야간 센터 단기보호,</span></strong><br>
+                                <strong><span>종일 방문요양(생활공간) 지원</span></strong>
                             </p>
                             <p class="img1"><img src="../assets/images/img-content-insurance2-6.png" alt=""></p>
                         </div>
@@ -295,7 +305,12 @@
                     <div class="box">
                         <img src="../assets/images/img-content-insurance5.png" alt="장기요양예상등급 이로움테스트">
                         <a href="https://silver.bokji24.com/find/step2-1"><span class="sr-only">테스트 바로시작</span></a>
+                        <div id="qrcode"></div>
                     </div>
+                    <script src="../../../core/vendor/qrcodejs/qrcode.min.js"></script>
+                    <script>
+                        new QRCode(document.getElementById("qrcode"), "https://silver.bokji24.com/find/step2-1");
+                    </script>
                 </div>
                 <p class="cont3">장기요양보험 인정 신청은 아래 대표 번호에 자세한 내용을 문의해보시고 지금 바로 신청해보세요.</p>
                 <dl class="cont4">

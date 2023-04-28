@@ -135,7 +135,8 @@
     .form-upload {
         @apply w-full text-black2;
         & .form-upload-trigger {
-            @apply mr-0 mb-0 w-full text-sm text-black2;
+            @apply mr-0 mb-0 w-full text-sm text-black2 whitespace-normal;
+            word-break: keep-all;
         }
     }
 

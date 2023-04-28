@@ -99,9 +99,14 @@
 						<c:set var="spOrdrOptn" value="${fn:split(ordrDtl.ordrOptn, '*')}" />
 
 						<c:if test="${ordrDtl.ordrOptnTy eq 'BASE'}">
+							<%-- 주문 취소 건 제외 --%>
+							<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02'}">
 							<c:set var="sumOrdrPc" value="${ordrDtl.ordrPc }" />
+							</c:if>
 							<c:set var="totalGdsPc" value="${ordrDtl.gdsPc * ordrDtl.ordrQy}" />
+							<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02'}">
 							<c:set var="sumGdsPc" value="${totalGdsPc + sumGdsPc}" />
+							</c:if>
 
 							<div class="order-product">
 
@@ -171,10 +176,15 @@
 						</c:if>
 
 						<c:if test="${ordrDtl.ordrOptnTy eq 'ADIT'}">
+							<%-- 주문 취소 건 제외 --%>
+							<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02'}">
 							<c:set var="sumOrdrPc" value="${sumOrdrPc + ordrDtl.ordrPc}" />
+							</c:if>
 							<%-- sumOrdrPc : ${sumOrdrPc} / ${ordrDtl.ordrPc} --%>
 							<c:set var="totalGdsPc" value="${totalGdsPc + (ordrDtl.ordrOptnPc * ordrDtl.ordrQy) }" />
+							<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02'}">
 							<c:set var="sumGdsPc" value="${(ordrDtl.ordrOptnPc * ordrDtl.ordrQy) + sumGdsPc}" />
+							</c:if>
 
 							<div class="order-item-add">
 								<span class="label-outline-primary"> <span>${spOrdrOptn[0]}</span> <i><img src="/html/page/market/assets/images/ico-plus-white.svg" alt=""></i>
@@ -228,14 +238,14 @@
                                                 	무료배송
                                                 	</c:if>
 								<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+								<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
                                                 	</c:if>
 							</dd>
 						</dl>
 						<c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
 							<dl>
 								<dt>추가 배송비</dt>
-								<dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+								<dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
 							</dl>
 						</c:if>
 					</div>
@@ -353,7 +363,9 @@
 	</c:if>
 
 	<%-- 배송비 + 추가배송비 --%>
-	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.gdsInfo.dlvyBassAmt + ordrDtl.gdsInfo.dlvyAditAmt):0)}" />
+	<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'RF02' && ordrDtl.sttsTy ne 'RE03' && ordrDtl.sttsTy ne 'EX03'}">
+		<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt):0)}" />
+	</c:if>
 
 	<c:if test="${ordrDtl.gdsInfo.mlgPvsnYn eq 'Y' && (ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'EX03')}">
 		<%-- 적립예정마일리지 --%>
@@ -366,7 +378,9 @@
 	</c:if>
 
 	<%-- 쿠폰 할인 금액--%>
-	<c:set var="totalCouponAmt" value="${totalCouponAmt + ordrDtl.couponAmt}" />
+	<c:if test="${ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'CA01'}">
+		<c:set var="totalCouponAmt" value="${totalCouponAmt + ordrDtl.couponAmt}" />
+	</c:if>
 	<%-- 적립 마일리지 --%>
 
 	<%-- 배송지 저장 버튼 : 주문 승인대기, 주문 승인완료, 결제대기, 결제완료 --%>
@@ -420,7 +434,7 @@
 				<c:if test="${ordrVO.stlmTy eq 'VBANK'}">
 					<dt>환불 정보</dt>
 					<dd>
-						<p class="bank">${bankTyCode[rfndBank]}</p>
+						<p class="bank">${rfndBank}</p>
 						<p class="code">${rfndActno}</p>
 						<p class="name">${rfndDpstr}</p>
 					</dd>
@@ -469,29 +483,41 @@
 			<!--<i class="amount-calculator is-plus">+</i> -->
 			<i class="amount-calculator is-minus">-</i>
 			<div class="amount-section">
+				<c:set var="totalPoint" value="0" />
+				<c:set var="totalMlg" value="0" />
+				<c:set var="totalDscntAmt" value="0" />
+
+				<c:if test="${ordrVO.stlmAmt ne 0}">
+					<c:set var="totalPoint" value="${ordrVO.useMlg}"/>
+					<c:set var="totalMlg" value="${ordrVO.usePoint}" />
+					<c:set var="totalDscntAmt" value="${totalCouponAmt + ordrVO.useMlg + ordrVO.usePoint}" />
+				</c:if>
+
 				<dl class="price">
 					<dt>총 할인금액</dt>
 					<dd>
-						<strong><fmt:formatNumber value="${totalCouponAmt + ordrVO.useMlg + ordrVO.usePoint}" pattern="###,###" /></strong> 원
+						<strong><fmt:formatNumber value="${totalDscntAmt}" pattern="###,###" /></strong> 원
 					</dd>
 				</dl>
 				<div class="detail">
 					<dl>
 						<dt>쿠폰할인</dt>
 						<dd>
-							<strong><fmt:formatNumber value="${totalCouponAmt}" pattern="###,###" /></strong> 원
+							<strong>
+								<fmt:formatNumber value="${totalCouponAmt}" pattern="###,###" />
+							</strong> 원
 						</dd>
 					</dl>
 					<dl>
 						<dt>마일리지 사용</dt>
 						<dd>
-							<strong><fmt:formatNumber value="${ordrVO.useMlg }" pattern="###,###" /></strong> 원
+							<strong><fmt:formatNumber value="${totalMlg}" pattern="###,###" /></strong> 원
 						</dd>
 					</dl>
 					<dl>
 						<dt>포인트 사용</dt>
 						<dd>
-							<strong><fmt:formatNumber value="${ordrVO.usePoint }" pattern="###,###" /></strong> 원
+							<strong><fmt:formatNumber value="${totalPoint}" pattern="###,###" /></strong> 원
 						</dd>
 					</dl>
 				</div>
@@ -501,7 +527,7 @@
 				<dl class="price">
 					<dt>총 결제금액</dt>
 					<dd>
-						<strong><fmt:formatNumber value="${sumGdsPc + totalDlvyBassAmt - (totalCouponAmt + ordrVO.useMlg + ordrVO.usePoint)}" pattern="###,###" /></strong> 원
+						<strong><fmt:formatNumber value="${sumGdsPc + totalDlvyBassAmt - (totalDscntAmt)}" pattern="###,###" /></strong> 원
 					</dd>
 				</dl>
 				<div class="detail">
@@ -535,6 +561,9 @@
 							<c:when test="${ordrVO.stlmTy eq 'FREE'}">
 	                           			결제금액 없음
 	                           		</c:when>
+	                         <c:when test="${empty ordrVO.stlmTy }">
+
+	                         </c:when>
 							<c:otherwise>
 	                           		신용카드 > ${bassStlmTyCode[ordrVO.stlmTy]}
 	                           		</c:otherwise>
@@ -620,19 +649,16 @@
 		<div class="flex-1 mt-18 md:mt-23">
 			<h3 class="text-title mb-3 md:mb-4">고객 정보</h3>
 			<c:choose>
-				<c:when test="${_mbrSession.mberGrade eq 'P'}">
+				<c:when test="${_mbrSession.mberGrade eq 'E'}">
 					<div class="payment-customer customer-grade1">
 				</c:when>
-				<c:when test="${_mbrSession.mberGrade eq 'V'}">
+				<c:when test="${_mbrSession.mberGrade eq 'B'}">
 					<div class="payment-customer customer-grade2">
 				</c:when>
-				<c:when test="${_mbrSession.mberGrade eq 'G'}">
+				<c:when test="${_mbrSession.mberGrade eq 'S'}">
 					<div class="payment-customer customer-grade3">
 				</c:when>
-				<c:when test="${_mbrSession.mberGrade eq 'S'}">
-					<div class="payment-customer customer-grade5">
-				</c:when>
-				<c:when test="${_mbrSession.mberGrade eq 'R'}">
+				<c:when test="${_mbrSession.mberGrade eq 'N'}">
 					<div class="payment-customer customer-grade4">
 				</c:when>
 				<c:otherwise>

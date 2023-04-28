@@ -7,8 +7,8 @@
             <nav id="navigation">
                 <ul>
                     <li><a href="${_plannerPath}/index" ${isIndex?'class="is-active"':''}>복지 서비스</a></li>
-                    <li><a href="${_plannerPath}/Senior-Long-Term-Care" ${fn:indexOf(_curPath, 'Senior-Long-Term-Care') > -1?'class="is-active"':'' }>노인장기요양보험</a></li>
-                    <li><a href="${_plannerPath}/Senior-Friendly-Foods" ${fn:indexOf(_curPath, 'Senior-Friendly-Foods') > -1?'class="is-active"':'' }>고령친화 우수식품</a></li>
+                    <li><a href="${_plannerPath}/cntnts/senior-long-term-care" ${fn:indexOf(_curPath, 'senior-long-term-care') > -1?'class="is-active"':'' }>노인장기요양보험</a></li>
+                    <li><a href="${_plannerPath}/cntnts/senior-friendly-foods" ${fn:indexOf(_curPath, 'senior-friendly-foods') > -1?'class="is-active"':'' }>고령친화 우수식품</a></li>
                 </ul>
             </nav>
 
@@ -19,7 +19,7 @@
                     <strong>${_mbrSession.mbrNm}</strong>
                     ${_mbrAge}세, ${_mbrAddr}
                 </p>
-                <a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>
+                <a href="${_membershipPath}/mypage/list?returnUrl=/planner" class="btn btn-outline-primary">설정</a>
                 <a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>
             </div>
             <!-- //회원 -->
@@ -59,33 +59,39 @@
                     <div class="allmenu-list">
                         <ul>
                             <li><a href="${_plannerPath}/index">복지 서비스</a></li>
-                            <li><a href="${_plannerPath}/Senior-Long-Term-Care">장기요양 서비스</a></li>
-                            <li><a href="${_plannerPath}/Senior-Friendly-Foods">고령친화 우수식품</a></li>
+                            <li><a href="${_plannerPath}/cntnts/senior-long-term-care">노인장기요양보험</a></li>
+                            <li><a href="${_plannerPath}/cntnts/senior-friendly-foods">고령친화 우수식품</a></li>
                         </ul>
                     </div>
 
                     <!-- 미로그인시 표출 -->
                     <div class="allmenu-join">
                         <dl>
-                            <dt>아직 회원이 아니신가요?</dt>
-                            <dd>이로움과 함께<br> 새 삶을 누리세요!</dd>
+                            <dt>
+                            	<c:if test="${_mbrSession.loginCheck}">이로움ON과 함께하세요</c:if>
+                            	<c:if test="${!_mbrSession.loginCheck}">아직 회원이 아니신가요?</c:if>
+                            </dt>
+                            <dd>이로움ON과 함께<br> 새 삶을 누리세요!</dd>
                         </dl>
-                        <div class="button non_login" >
-                            <%--<a href="#modal-login" class="btn btn-outline-primary f_login" data-bs-toggle="modal" data-bs-target="#modal-login">로그인</a> --%>
+
+                        <%-- 로그인 전 --%>
+                        <div class="button non_login" <c:if test="${_mbrSession.loginCheck}">style="display:none;"</c:if>>
                             <button type=button class="btn btn-outline-primary f_login">로그인</button>
                             <a href="${_membershipPath}/registStep1" class="btn btn-outline-primary">회원가입</a>
                         </div>
-                        <div class="button on_login" style="display:none;">
+                        <%-- 로그인 후 --%>
+                        <div class="button on_login" <c:if test="${!_mbrSession.loginCheck}">style="display:none;"</c:if>>
                         	<a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">회원정보 수정</a>
                            	<a href="${_membershipPath}/logout" class="btn btn-outline-primary">로그아웃</a>
                         </div>
+
+
                     </div>
                     <!-- //미로그인시 표출 -->
 
-                    <a href="${_marketPath }" class="allmenu-market">
-                        <strong>이로움 마켓</strong>
-                        복지용구 사업소와 수급자 매칭부터<br>
-                        주문, 계약 및 결제까지 한번에!
+                    <a href="${_marketPath }" class="allmenu-market" target="_blank">
+	                    <strong>이로움ON 마켓</strong>
+	                    복지용구부터 시니어 생활용품까지 한번에!
                     </a>
                 </div>
             </div>

@@ -437,11 +437,13 @@
 						<th scope="row"><p>급여 판매</p></th>
 						<td>
 							<div class="dashboard-number is-small is-yellow">
-								<p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.rSold}" name="countTy" />
-									</jsp:include>
-								</p>
+								<a href="/_mng/gds/gds/list?srchGdsTy=R&amp;srchDspyYn=Y">
+									<p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.rSold}" name="countTy" />
+										</jsp:include>
+									</p>
+								</a>
 							</div>
 						</td>
 						<td>
@@ -476,11 +478,13 @@
 						<th scope="row"><p>급여 대여</p></th>
 						<td>
 							<div class="dashboard-number is-small is-yellow">
-								<p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.lSold}" name="countTy" />
-									</jsp:include>
-								</p>
+								<a href="/_mng/gds/gds/list?srchGdsTy=L&amp;srchDspyYn=Y">
+									<p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.lSold}" name="countTy" />
+										</jsp:include>
+									</p>
+								</a>
 							</div>
 						</td>
 						<td>
@@ -515,11 +519,13 @@
 						<th scope="row"><p>비급여</p></th>
 						<td>
 							<div class="dashboard-number is-small is-yellow">
-								<p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.nSold}" name="countTy" />
-									</jsp:include>
-								</p>
+								<a href="/_mng/gds/gds/list?srchGdsTy=N&amp;srchDspyYn=Y">
+									<p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.nSold}" name="countTy" />
+										</jsp:include>
+									</p>
+								</a>
 							</div>
 						</td>
 						<td>
@@ -575,11 +581,13 @@
                             <th scope="row"><p>상품 Q&amp;A</p></th>
                             <td>
                                 <div class="dashboard-number is-small is-yellow">
-                                    <p class="numb">
-                                       <jsp:include page="include/countTy.jsp">
-	                                      	<jsp:param value="${dsbdCount.qaNoAns}" name="countTy" />
-	                                    </jsp:include>
-                                    </p>
+                                	<a href="/_mng/consult/gdsQa/list?srchAnsYn=N">
+	                                    <p class="numb">
+	                                       <jsp:include page="include/countTy.jsp">
+		                                      	<jsp:param value="${dsbdCount.qaNoAns}" name="countTy" />
+		                                    </jsp:include>
+	                                    </p>
+                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -605,11 +613,13 @@
                             <th scope="row"><p>1:1 문의</p></th>
                             <td>
                                 <div class="dashboard-number is-small is-yellow">
-                                    <p class="numb">
-                                    	<jsp:include page="include/countTy.jsp">
-	                                      	<jsp:param value="${dsbdCount.inqryNoAns}" name="countTy" />
-	                                    </jsp:include>
-                                    </p>
+                                	<a href="/_mng/consult/mbrInqry/list?srchAns=N">
+	                                    <p class="numb">
+	                                    	<jsp:include page="include/countTy.jsp">
+		                                      	<jsp:param value="${dsbdCount.inqryNoAns}" name="countTy" />
+		                                    </jsp:include>
+	                                    </p>
+                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -756,38 +766,46 @@
                         <tr>
                             <td>
                                 <div class="dashboard-number is-small is-yellow">
+                                    <a href="/_mng/members/bplcApp/list?srchAprvTy=W">
                                     <p class="numb">
 									<jsp:include page="include/countTy.jsp">
 										<jsp:param value="${dsbdCount.bplcWait}" name="countTy" />
 									</jsp:include>
-								</p>
+									</p>
+									</a>
                                 </div>
                             </td>
                             <td>
                                 <div class="dashboard-number is-small">
-                                    <p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.bplcNon}" name="countTy" />
-									</jsp:include>
-								</p>
+                                	<a href="/_mng/members/bplcApp/list?srchAprvTy=R">
+	                                    <p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.bplcNon}" name="countTy" />
+										</jsp:include>
+										</p>
+									</a>
                                 </div>
                             </td>
                             <td>
                                 <div class="dashboard-number is-small">
-                                    <p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.bplcUse}" name="countTy" />
-									</jsp:include>
-								</p>
+                                	<a href="/_mng/members/bplc/list">
+	                                    <p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.bplcUse}" name="countTy" />
+										</jsp:include>
+										</p>
+									</a>
                                 </div>
                             </td>
                             <td>
                                 <div class="dashboard-number is-small">
-                                    <p class="numb">
-									<jsp:include page="include/countTy.jsp">
-										<jsp:param value="${dsbdCount.bplcNo}" name="countTy" />
-									</jsp:include>
-								</p>
+                                	<a href="/_mng/members/bplc/list?srchUseYn=N">
+	                                    <p class="numb">
+										<jsp:include page="include/countTy.jsp">
+											<jsp:param value="${dsbdCount.bplcNo}" name="countTy" />
+										</jsp:include>
+										</p>
+									</a>
                                 </div>
                             </td>
                         </tr>

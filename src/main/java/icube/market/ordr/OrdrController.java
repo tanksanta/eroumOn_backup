@@ -358,7 +358,6 @@ public class OrdrController {
 			ordrVO.setStlmDevice(WebUtil.getDevice(request));
 			ordrVO.setStlmYn("N");// 가상계좌입금일 경우만 N
 
-			// TO-DO : 마일리지/포인트
 			ordrService.insertOrdr(ordrVO);
 
 			// 주문 상세 정보
@@ -876,7 +875,7 @@ public class OrdrController {
 								mailForm = mailForm.replace("{dsptDt}", ordrVO.getDpstTermDt().substring(0, 16)); // 입금기한
 
 								// 메일 발송
-								String mailSj = "[EROUM] 회원님의 주문이 접수 되었습니다.";
+								String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
 								if (EgovStringUtil.equals("real", activeMode)) {
 									mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 								} else if (EgovStringUtil.equals("dev", activeMode)) {
@@ -1037,12 +1036,11 @@ public class OrdrController {
 					mbrMlgVO.setMlgSe("M");
 					mbrMlgVO.setMlgCn("11"); // 상품주문
 					mbrMlgVO.setGiveMthd("SYS");
-					mbrMlgVO.setMlg(EgovStringUtil.string2integer(spVal[1].trim()) * -1);
+					mbrMlgVO.setRgtr("System");
+					mbrMlgVO.setMlg(EgovStringUtil.string2integer(spVal[1].trim()));
 
 					// 내역 등록
 					mbrMlgService.insertMbrMlg(mbrMlgVO);
-
-					// TO-DO : 사용인원별 차감
 				}
 			}
 
@@ -1056,13 +1054,12 @@ public class OrdrController {
 					mbrPointVO.setOrdrCd(ordrVO.getOrdrCd());
 					mbrPointVO.setPointSe("M");
 					mbrPointVO.setPointCn("11"); // 상품주문
+					mbrPointVO.setRgtr("System");
 					mbrPointVO.setGiveMthd("SYS");
-					mbrPointVO.setPoint(EgovStringUtil.string2integer(spVal[1].trim()) * -1);
+					mbrPointVO.setPoint(EgovStringUtil.string2integer(spVal[1].trim()));
 
 					// 내역 등록
 					mbrPointService.insertMbrPoint(mbrPointVO);
-
-					// TO-DO : 사용인원별 차감
 				}
 			}
 
@@ -1106,7 +1103,10 @@ public class OrdrController {
 		dataMap.put("order_send_id", Base64Util.encoder(ordrVO.getOrdrCd()));
 		dataMap.put("ordrNo", ordrVO.getOrdrNo());
 		dataMap.put("dataType", "stlm");
-		updateBplcInfoApiService.putStlmYnSttus(dataMap);
+
+		if(!ordrVO.getOrdrTy().equals("N")) {
+			updateBplcInfoApiService.putStlmYnSttus(dataMap);
+		}
 
 		// 주문완료 이메일
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -1234,7 +1234,7 @@ public class OrdrController {
 				mailForm = mailForm.replace("{dsptDt}", ordrVO.getDpstTermDt().substring(0, 16)); // 입금기한
 
 				// 메일 발송
-				String mailSj = "[EROUM] 회원님의 주문이 접수 되었습니다.";
+				String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
 				if (EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 				} else if (EgovStringUtil.equals("dev", activeMode)) {

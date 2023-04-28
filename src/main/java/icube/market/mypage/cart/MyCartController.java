@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
@@ -183,6 +184,123 @@ public class MyCartController extends CommonAbstractController  {
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
+	// 장바구니 옵션변경 모달
+	@RequestMapping(value="cartOptnModal")
+	public String cartOptnModal(
+			@RequestParam(value="cartGrpNo", required=true) String cartGrpNo
+			, Model model
+			)throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCartGrpNo", EgovStringUtil.string2integer(cartGrpNo));
+		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
+
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+
+		return "/market/mypage/cart/include/modal_optn_chg";
+	}
+
+	/**
+	 * 옵션 항목/수량 변경
+	 */
+	@ResponseBody
+	@RequestMapping(value="optnChgSave.json")
+	public Map<String, Object> optnChgSave(
+			@RequestParam(value="cartNo", required=true) String cartNo
+			, @RequestParam(value="cartGrpNo", required=true) String cartGrpNo
+			, @RequestParam(value="cartTy", required=true) String cartTy
+			, @RequestParam(value="gdsNo", required=true) String gdsNo
+			, @RequestParam(value="gdsCd", required=true) String gdsCd
+			, @RequestParam(value="bnefCd", required=true) String bnefCd
+			, @RequestParam(value="gdsNm", required=true) String gdsNm
+			, @RequestParam(value="gdsPc", required=true) String gdsPc
+
+			, @RequestParam(value="ordrOptnTy", required=true) String ordrOptnTy
+			, @RequestParam(value="ordrOptn", required=true) String ordrOptn
+			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
+			, @RequestParam(value="ordrQy", required=true) String ordrQy
+
+			, @RequestParam(value="recipterUniqueId", required=false) String recipterUniqueId
+			, @RequestParam(value="bplcUniqueId", required=false) String bplcUniqueId
+
+			, @RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request) throws Exception {
+
+		boolean result = false;
+		Integer resultCnt = 0;
+
+		try {
+			for(int i=0;i < cartNo.split(",").length;i++) {
+				CartVO cartVO = new CartVO();
+				cartVO.setCartNo(EgovStringUtil.string2integer(cartNo.split(",")[i]));
+				cartVO.setCartGrpNo(EgovStringUtil.string2integer(cartGrpNo));
+				cartVO.setCartTy(cartTy);
+				cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo));
+				cartVO.setGdsCd(gdsCd);
+				cartVO.setGdsNm(gdsNm);
+				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc));
+				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i]);
+				cartVO.setOrdrOptn(ordrOptn.split(",")[i]);
+				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i]));
+				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
+
+				// 급여코드
+				if(bnefCd.split(",").length > 0) { // bnefCd null일수 있음
+					cartVO.setBnefCd(bnefCd.split(",")[i]);
+				}else {
+					cartVO.setBnefCd("");
+				}
+
+				// 수혜자
+				if(recipterUniqueId.split(",").length > 0) {
+					cartVO.setRecipterUniqueId(recipterUniqueId.split(",")[i]);
+				} else {
+					cartVO.setRecipterUniqueId(null);
+				}
+
+				// 사업소
+				if(bplcUniqueId.split(",").length > 0) {
+					cartVO.setBplcUniqueId(bplcUniqueId.split(",")[i]);
+				} else {
+					cartVO.setBplcUniqueId("");
+				}
+
+				int ordrPc = 0;
+				if(cartVO.getOrdrOptnTy().equals("BASE")) {
+					ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+				}else {
+					ordrPc = cartVO.getOrdrOptnPc() * cartVO.getOrdrQy();
+				}
+				cartVO.setOrdrPc(ordrPc);
+
+				cartVO.setRegUniqueId(mbrSession.getUniqueId());
+				cartVO.setRegId(mbrSession.getMbrId());
+				cartVO.setRgtr(mbrSession.getMbrNm());
+
+				resultCnt += cartService.modifyOptnChg(cartVO);
+
+			}
+
+			// 삭제
+			String delCartNos = WebUtil.clearSqlInjection((String) reqMap.get("delCartNos"));
+			String[] arrDelCartNo = delCartNos.split(",");
+			if(arrDelCartNo.length > 0) {
+				cartService.deleteCartlByNos(arrDelCartNo);
+			}
+
+			result = true;
+
+		} catch (Exception e) {
+			result = false;
 		}
 
 		// result

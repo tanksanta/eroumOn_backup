@@ -33,6 +33,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
+import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -120,28 +121,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	private MbrSession mbrSession;
 
 	/**
-	 * 가입 안내
-	 * @param request
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "regist")
-	public String regist(
-			HttpServletRequest request
-			, Model model) throws Exception {
-
-		// 로그인 체크
-
-		return "/membership/regist";
-	}
-
-	/**
 	 * 본인인증 및 약관동의
-	 * @param request
-	 * @param model
-	 * @return
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "registStep1")
 	public String registStep1(
@@ -151,18 +131,14 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index"; // TO-DO : 마켓 인덱스 미정
+			return  "redirect:/" + plannerPath + "/index";
 		}
 
 		return "/membership/regist_step1";
 	}
 
 	/**
-	 * 정보 입력 (+ 테스트케이스 추가)
-	 * @param request
-	 * @param model
-	 * @return
-	 * @throws Exception
+	 * 정보 입력
 	 */
 	@RequestMapping(value = "registStep2")
 	public String registStep2(
@@ -178,7 +154,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index"; // TO-DO : 마켓 인덱스 미정
+			return  "redirect:/" + plannerPath + "/index";
 		}
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -243,6 +219,19 @@ public class MbrsRegistController extends CommonAbstractController{
 			return "/common/msg";
 		}
 
+		// 재가입 7일 이내 불가
+		paramMap.clear();
+		paramMap.put("srchDiKey", noMbrVO.getDiKey());
+		paramMap.put("srchMbrStts", "EXIT");
+		paramMap.put("srchWhdwlDt", 7);
+		int resultCnt = mbrService.selectMbrCount(paramMap);
+
+		if(resultCnt > 0) {
+			model.addAttribute("alertMsg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
+			return "/common/msg";
+		}
+
+
 		mbrSession.setParms(noMbrVO, false);
 
         session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
@@ -261,12 +250,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	/**
 	 * 회원가입 등록
 	 * @param mbrVO
-	 * @param reqMap
-	 * @param multiReq
-	 * @param session
-	 * @param request
-	 * @return
-	 * @throws Exception
+	 * @param 장기요양정보
 	 */
 	@RequestMapping(value = "action")
 	public View action(
@@ -297,145 +281,140 @@ public class MbrsRegistController extends CommonAbstractController{
 		//가입 매체 구분
 		mbrVO.setJoinCours(WebUtil.getDevice(request));
 
-		//비밀번호 암호화
-		if(EgovStringUtil.isNotEmpty(mbrVO.getPswd())) {
-			String encPswd = BCrypt.hashpw(mbrVO.getPswd(), BCrypt.gensalt());
-			mbrVO.setPswd(encPswd);
-		}
+		// 더블 서브밋 방지
+		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
-		//이미지 등록
-		if (!fileMap.get("uploadFile").isEmpty()) {
-			String profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir), "PROFL");
-			mbrVO.setProflImg(profileImg);
-		}
-
-		MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
-
-		System.out.println("action noMbrVO:" + noMbrVO.toString());
-
-
-		//인증정보 리턴
-		mbrVO.setDiKey(noMbrVO.getDiKey()); //di
-		mbrVO.setMbrNm(noMbrVO.getMbrNm());
-		mbrVO.setMblTelno(noMbrVO.getMblTelno());
-		mbrVO.setGender(noMbrVO.getGender());
-		mbrVO.setBrdt(noMbrVO.getBrdt());
-
-		//정보 등록
-		mbrService.insertMbr(mbrVO);
-
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-		if(mbrVO.getRecipterYn().equals("Y")) {
-			RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-			String uniqueId = mbrVO.getUniqueId();
-			recipterInfoVO.setUniqueId(uniqueId);
-			recipterInfoVO.setRcperRcognNo(rcperRcognNo);
-			recipterInfoVO.setRcognGrad(rcognGrad);
-
-			//String[] selfBnd = selfBndRt.replace(" ", "").split(",");
-
-			//recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBnd[0]));
-			//recipterInfoVO.setSelfBndMemo(selfBnd[1]);
-			recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
-			recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
-			recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
-			recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
-			recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
-			recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
-			recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
-			recipterInfoVO.setTestName(testName);
-
-			recipterInfoService.mergeRecipter(recipterInfoVO);
-		}
-
-		// 기본 배송지 등록
-		DlvyVO dlvyVO = new DlvyVO();
-		dlvyVO.setUniqueId(mbrVO.getUniqueId());
-		dlvyVO.setDlvyNm(mbrVO.getMbrNm());
-		dlvyVO.setNm(mbrVO.getMbrNm());
-		dlvyVO.setZip(mbrVO.getZip());
-		dlvyVO.setAddr(mbrVO.getAddr());
-		dlvyVO.setDaddr(mbrVO.getDaddr());
-		dlvyVO.setTelno(mbrVO.getTelno());
-		dlvyVO.setMblTelno(mbrVO.getMblTelno());
-		dlvyVO.setBassDlvyYn("Y");
-		dlvyVO.setUseYn("Y");
-
-		dlvyService.insertBassDlvy(dlvyVO);
-
-		/* 회원 unique_id --> dlvyVO.uniqueId*/
-
-		// 포인트
-		try {
-			MbrPointVO mbrPointVO = new MbrPointVO();
-			mbrPointVO.setUniqueId(dlvyVO.getUniqueId());
-			mbrPointVO.setPointSe("A");
-			mbrPointVO.setPointCn("31"); // 회원가입
-			mbrPointVO.setGiveMthd("SYS");
-			mbrPointVO.setPoint(300); // 300
-
-			mbrPointService.insertMbrPoint(mbrPointVO);
-		} catch (Exception e) {
-			log.debug("회원가입 포인트 적립 실패" + e.toString());
-		}
-
-
-		// 회원가입 쿠폰
-		try {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("srchCouponTy", "JOIN");
-			int cnt = couponService.selectCouponCount(paramMap);
-			if(cnt > 0) {
-				CouponVO couponVO = couponService.selectCoupon(paramMap);
-				CouponLstVO couponLstVO = new CouponLstVO();
-				couponLstVO.setCouponNo(couponVO.getCouponNo());
-				couponLstVO.setUniqueId(dlvyVO.getUniqueId());
-
-				couponLstService.insertCouponLst(couponLstVO);
-			}else {
-				log.debug("회원 가입 쿠폰 개수 : " + cnt);
+			//비밀번호 암호화
+			if(EgovStringUtil.isNotEmpty(mbrVO.getPswd())) {
+				String encPswd = BCrypt.hashpw(mbrVO.getPswd(), BCrypt.gensalt());
+				mbrVO.setPswd(encPswd);
 			}
-		}catch(Exception e) {
-			log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
-		}
 
-		// 추천인 포인트
-		try {
-			String rcmdtnId = mbrVO.getRcmdtnId();
-			String mbrId = mbrVO.getMbrId();
-			if(!mbrId.equals(rcmdtnId)) {
-				if(rcmdtnId != null) {
-					MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(rcmdtnId);
-					if(mbrRcmdtnVO != null) {
+			//이미지 등록
+			if (!fileMap.get("uploadFile").isEmpty()) {
+				String profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir), "PROFL");
+				mbrVO.setProflImg(profileImg);
+			}
 
-						rcmdtnId = mbrRcmdtnVO.getMbrId();
+			MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
 
-						MbrPointVO mbrPointVO = new MbrPointVO();
-						mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
-						mbrPointVO.setPointMngNo(0);
-						mbrPointVO.setPointSe("A");
-						mbrPointVO.setPointCn("03");
-						mbrPointVO.setPoint(500);
-						mbrPointVO.setGiveMthd("SYS");
+			System.out.println("action noMbrVO:" + noMbrVO.toString());
 
-						mbrPointService.insertMbrPoint(mbrPointVO);
 
+			//인증정보 리턴
+			mbrVO.setDiKey(noMbrVO.getDiKey()); //di
+			mbrVO.setMbrNm(noMbrVO.getMbrNm());
+			mbrVO.setMblTelno(noMbrVO.getMblTelno());
+			mbrVO.setGender(noMbrVO.getGender());
+			mbrVO.setBrdt(noMbrVO.getBrdt());
+
+			//소문자 치환
+			mbrVO.setMbrId(mbrVO.getMbrId().toLowerCase());
+			mbrVO.setRcmdtnId(mbrVO.getRcmdtnId().toLowerCase());
+			mbrVO.setRcmdtnMbrsId(mbrVO.getRcmdtnMbrsId().toLowerCase());
+
+			//정보 등록
+			mbrService.insertMbr(mbrVO);
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+			if(mbrVO.getRecipterYn().equals("Y")) {
+				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+				String uniqueId = mbrVO.getUniqueId();
+
+				recipterInfoVO.setUniqueId(uniqueId);
+				recipterInfoVO.setRcperRcognNo(rcperRcognNo);
+				recipterInfoVO.setRcognGrad(rcognGrad);
+				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
+				recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
+				recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
+				recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
+				recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
+				recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
+				recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
+				recipterInfoVO.setTestName(testName);
+
+				recipterInfoService.mergeRecipter(recipterInfoVO);
+			}
+
+			// 기본 배송지 등록
+			DlvyVO dlvyVO = new DlvyVO();
+			dlvyVO.setUniqueId(mbrVO.getUniqueId());
+			dlvyVO.setDlvyNm(mbrVO.getMbrNm());
+			dlvyVO.setNm(mbrVO.getMbrNm());
+			dlvyVO.setZip(mbrVO.getZip());
+			dlvyVO.setAddr(mbrVO.getAddr());
+			dlvyVO.setDaddr(mbrVO.getDaddr());
+			dlvyVO.setTelno(mbrVO.getTelno());
+			dlvyVO.setMblTelno(mbrVO.getMblTelno());
+			dlvyVO.setBassDlvyYn("Y");
+			dlvyVO.setUseYn("Y");
+
+			dlvyService.insertBassDlvy(dlvyVO);
+
+			/** 2023-04-05 포인트 지급 삭제 **/
+
+			// 회원가입 쿠폰
+			try {
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchCouponTy", "JOIN");
+				paramMap.put("srchSttusTy", "USE");
+				int cnt = couponService.selectCouponCount(paramMap);
+				if(cnt > 0) {
+					CouponVO couponVO = couponService.selectCoupon(paramMap);
+					CouponLstVO couponLstVO = new CouponLstVO();
+					couponLstVO.setCouponNo(couponVO.getCouponNo());
+					couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+
+					if(couponVO.getUsePdTy().equals("ADAY")) {
+						couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+					}
+
+					couponLstService.insertCouponLst(couponLstVO);
+				}else {
+					log.debug("회원 가입 쿠폰 개수 : " + cnt);
+				}
+			}catch(Exception e) {
+				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
+			}
+
+			// 추천인 포인트
+			try {
+				if(EgovStringUtil.isNotEmpty(mbrVO.getRcmdtnId())) {
+					if(!mbrVO.getMbrId().equals(mbrVO.getRcmdtnId())) {
+						MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(mbrVO.getRcmdtnId());
+						if(mbrRcmdtnVO != null) {
+							MbrPointVO mbrPointVO = new MbrPointVO();
+							mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
+							mbrPointVO.setPointMngNo(0);
+							mbrPointVO.setPointSe("A");
+							mbrPointVO.setPointCn("03");
+							mbrPointVO.setPoint(500);
+							mbrPointVO.setRegUniqueId(mbrVO.getUniqueId());
+							mbrPointVO.setRegId(mbrVO.getMbrId());
+							mbrPointVO.setRgtr(mbrVO.getMbrNm());
+							mbrPointVO.setGiveMthd("SYS");
+
+							mbrPointService.insertMbrPoint(mbrPointVO);
+
+						}
 					}
 				}
+
+			}catch(Exception e) {
+				e.printStackTrace();
+				log.debug("회원가입 추천인 포인트 지급 실패 : " + e.toString());
 			}
 
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.debug("회원가입 추천인 포인트 지급 실패 : " + e.toString());
+			//임시정보 추가
+			mbrSession.setParms(mbrVO, false);
+	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
+			session.setMaxInactiveInterval(60*60);
+
+			javaScript.setLocation("/"+membershipPath+"/registStep3");
+		}else {
+			javaScript.setLocation("/"+membershipPath);
 		}
-
-		//임시정보 추가
-		mbrSession.setParms(mbrVO, false);
-        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
-		session.setMaxInactiveInterval(60*60);
-
-		javaScript.setLocation("/"+membershipPath+"/registStep3");
 
 		return new JavaScriptView(javaScript);
 	}
@@ -443,11 +422,6 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	/**
 	 * 가입완료
-	 * @param request
-	 * @param session
-	 * @param model
-	 * @return
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "registStep3")
 	public String registStep3(
@@ -457,7 +431,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index"; // TO-DO : 마켓 인덱스 미정
+			return  "redirect:/" + plannerPath + "/index";
 		}
 
 		MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
@@ -480,12 +454,12 @@ public class MbrsRegistController extends CommonAbstractController{
 				mailForm = mailForm.replace("{name}", "이로움마켓");
 				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
 				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2018-서울강남-04157");
+				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
 
 
 
 				// 메일 발송
-				String mailSj = "[EROUM] 이로움 회원 가입을 축하드립니다.";
+				String mailSj = "[이로움ON] 이로움 회원 가입을 축하드립니다.";
 				if(EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, noMbrVO.getEml(), mailSj, mailForm);
 				}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -500,7 +474,6 @@ public class MbrsRegistController extends CommonAbstractController{
 			log.debug("회원 가입 알림 EMAIL 전송 실패 :: " + e.toString());
 		}
 
-
 		model.addAttribute("noMbrVO", noMbrVO);
 
 		return "/membership/regist_step3";
@@ -508,29 +481,27 @@ public class MbrsRegistController extends CommonAbstractController{
 
 
 	/**
-	 * 아이디 중복 검사
-	 * @param request
-	 * @param model
-	 * @param reqMap
-	 * @return
-	 * @throws Exception
+	 * 추천인 아이디 확인
+	 * @param rcmdtnId
+	 * @return result
 	 */
-	@RequestMapping(value="mbrIdChk.json")
+	@RequestMapping(value="rcmdIdChk.json")
 	@ResponseBody
-	public boolean mbrIdChk(
-			@RequestParam(value="mbrId", required=true) String mbrId
+	public Map<String, Object> mbrIdChk(
+			@RequestParam(value="rcmdtnId", required=true) String rcmdtnId
 			, @RequestParam Map <String,Object> reqMap
 			, HttpServletRequest request
 			, Model model)throws Exception {
 
-		boolean result = true;
+		boolean result = false;
 
-		int rtnCnt = mbrService.selectMbrIdChk(mbrId);
-		if(rtnCnt > 0) {
-			result = false;
+		int mbrCnt = mbrService.selectMbrIdChk(rcmdtnId.toLowerCase());
+		if(mbrCnt > 0) {
+			result = true;
 		}
 
-		return result;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
 	}
-
 }

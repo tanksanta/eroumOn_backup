@@ -460,6 +460,7 @@ public class MCouponController extends CommonAbstractController {
 
 		if(couponTy.equals("BIRTH") || couponTy.equals("JOIN") || couponTy.equals("FIRST")) {
 			paramMap.put("srchCouponTy", couponTy);
+			paramMap.put("srchSttusTy", "USE");
 			int cnt = couponService.selectCouponCount(paramMap);
 			if(cnt < 1) {
 				result = true;

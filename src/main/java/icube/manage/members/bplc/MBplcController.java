@@ -219,25 +219,24 @@ public class MBplcController extends CommonAbstractController {
 			bplcService.updateBplcPswd(uniqueId, encPswd);
 
 			try {
-				if(ValidatorUtil.isEmail(bplcVO.getEml())) {
+				if(ValidatorUtil.isEmail(bplcVO.getPicEml())) {
 					String MAIL_FORM = mailFormFilePath + "mail_sample.html";
 					String mailForm = FileUtil.readFile(MAIL_FORM);
 
 					mailForm = mailForm.replace("{rndPswd}", rndPswd);
 
 					// 메일 발송
-					String mailSj = "[EROUM] 임시비밀번호 안내 이메일 입니다."; //TO-DO : message로 이동
-					if(EgovStringUtil.equals("real", activeMode)) {
-						mailService.sendMail(sendMail, bplcVO.getEml(), mailSj, mailForm);
+					String mailSj = "[이로움ON] 멤버스 임시비밀번호 입니다."; //TO-DO : message로 이동
+					if(!EgovStringUtil.equals("local", activeMode)) {
+						mailService.sendMail(sendMail, bplcVO.getPicEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "kkm@icubesystems.co.kr", mailSj, mailForm); //테스트
+						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
 					}
 
-					resultMap.put("rndPswd", rndPswd);
 					result = true;
 				} else {
-					log.debug("EMAIL 전송 실패 :: 이메일 체크 " + bplcVO.getEml());
-					resultMap.put("reason", bplcVO.getEml());
+					log.debug("EMAIL 전송 실패 :: 이메일 체크 " + bplcVO.getPicEml());
+					resultMap.put("reason", bplcVO.getPicEml());
 				}
 			} catch (Exception e) {
 				log.debug("EMAIL 전송 실패 :: " + e.toString());

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <main id="container">
 	<h2 class="text-title">
-		이로움 멤버스 로그인 정보 찾기 <small>이로움멤버스 관리자 아이디 / 비밀번호를 찾을 수 있습니다.</small>
+		이로움ON 멤버스 로그인 정보 찾기 <small>이로움ON 멤버스 관리자 아이디 / 비밀번호를 찾을 수 있습니다.</small>
 	</h2>
 
 	<ul class="tabs-list">

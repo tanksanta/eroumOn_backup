@@ -34,7 +34,7 @@
 						<th scope="row"><label for="telno" class="require">전화번호</label></th>
 						<td>
 							<div class="form-group w-75">
-								<form:input class="form-control flex-1" path="telno" maxlength="13" />
+								<form:input class="form-control flex-1" path="telno" maxlength="13" oninput="autoHyphen(this);"/>
 							</div>
 						</td>
 					</tr>
@@ -192,6 +192,12 @@ $.getScript( "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js", fu
 });
 }
 
+const autoHyphen = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+}
+
 	$(function() {
 
 		//주소 복사 버튼 체크
@@ -225,7 +231,7 @@ $.getScript( "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js", fu
 
 
 	//정규식
-	var telchk = /^0([0-9]{2})-?([0-9]{3,4})-?([0-9]{4})$/;
+	var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	var numChk = /^[0-9]-?[0-9]/g;
 	var emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 

@@ -172,8 +172,8 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	    return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
 	}
 
-	// 배송완료 처리 (매일 새벽 02시 30분)
-	@Scheduled(cron="0 30 2 * * *")
+	// 배송완료 처리
+	@Scheduled(cron="0 0 1 * * *")
 	public void order08() throws Exception {
 		log.info("########## 배송 완료 처리 START ##########");
 
@@ -213,8 +213,8 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 
-	// 구매확정 처리 (새벽 03시)
-	@Scheduled(cron="0 0 3 * * *")
+	// 구매확정 처리
+	@Scheduled(cron="0 30 1 * * *")
 	public void order09() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
@@ -260,7 +260,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 
 	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
-	@Scheduled(cron="0 0 0 * * *")
+	@Scheduled(cron="0 30 0 * * *")
 	public void cancle02() throws Exception {
 
 		log.info("########## 가상계좌 취소 처리 START ##########");
@@ -420,7 +420,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 					mailForm = mailForm.replace("{dsptDt}", ordrVO.getDpstTermDt().substring(0, 16)); // 입금기한
 
 					// 메일 발송
-					String mailSj = "[EROUM] 회원님의 주문이 자동취소 되었습니다.";
+					String mailSj = "[이로움ON] 회원님의 주문이 자동취소 되었습니다.";
 					if (EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					} else if (EgovStringUtil.equals("dev", activeMode)) {

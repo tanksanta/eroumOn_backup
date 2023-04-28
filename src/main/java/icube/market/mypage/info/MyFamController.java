@@ -235,47 +235,13 @@ public class MyFamController extends CommonAbstractController {
 		if(mbrCount > 1) {
 			javaScript.setMessage("중복된 전화번호가 존재합니다.");
 			javaScript.setMethod("window.history.back()");
+		}else if(EgovStringUtil.equals(mbrSession.getMblTelno(), mblTelno)) {
+			javaScript.setMessage("본인은 초대 할 수 없습니다.");
+			javaScript.setMethod("window.history.back()");
 		}else {
 			MbrVO mbrVO = mbrService.selectMbr(paramMap);
 
 			if(mbrVO != null) {
-
-				if(!EgovStringUtil.isNull(mblTelno)) {
-					//TODO 휴대폰 message 전송
-					//javaScript.setMessage("문자를 전송했습니다.");
-					javaScript.setMessage("가족회원으로 초대하였습니다.");
-					javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
-				}else {
-					/*
-					try {
-						if(ValidatorUtil.isEmail(mbrVO.getEml())) {
-							String MAIL_FORM = mailFormFile;
-							String mailForm = FileUtil.readFile(MAIL_FORM);
-
-							// 메일 발송
-							String mailSj = "[EROUM] 가족 회원으로 당신을 초대합니다."; //TO-DO : message로 이동
-
-							if(EgovStringUtil.equals("real", activeMode)) {
-								mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
-							} else {
-								mailService.sendMail(sendMail, "ogy2658@gmail.com", mailSj, mailForm); //테스트
-							}
-
-						}else {
-							log.debug("EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
-						}
-
-						javaScript.setMessage("이메일을 전송했습니다.");
-						javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
-
-					}catch(Exception e) {
-						e.printStackTrace();
-						log.debug("EMAIL 전송 실패 :: " + e.toString());
-					}*/
-					javaScript.setMessage("이메일을 전송했습니다.");
-					javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
-
-				}
 
 				// 신청
 				MbrPrtcrVO mbrPrtcrVO = new MbrPrtcrVO();
@@ -283,20 +249,60 @@ public class MyFamController extends CommonAbstractController {
 				mbrPrtcrVO.setPrtcrUniqueId(mbrVO.getUniqueId());
 				mbrPrtcrVO.setReqTy("P");
 
-				// 가족회원 수 체크
+				// 본인 가족회원 체크
 				Map params = new HashMap();
 				params.put("srchMyUniqueId", mbrSession.getUniqueId());
 				params.put("srchReqTy", "C");
-
 				int fmlCount = mbrPrtcrService.selectPrtcrCount(params);
 
-				if(fmlCount < 4) {
-					mbrPrtcrService.insertPrtcr(mbrPrtcrVO);
-				}else {
+				// 상대방 가족회원 체크
+				params.clear();
+				params.put("srchMyUniqueId", mbrVO.getUniqueId());
+				int oppoCnt = mbrPrtcrService.selectPrtcrCount(params);
+
+				if(fmlCount > 4){
 					javaScript.setMessage("가족회원은 본인을 포함한 최대 5명 입니다.");
 					javaScript.setMethod("window.history.back()");
+				}else if(oppoCnt >= 5) {
+					javaScript.setMessage("상대방의 가족회원이 최대입니다.");
+					javaScript.setMethod("window.history.back()");
+				}else {
+					mbrPrtcrService.insertPrtcr(mbrPrtcrVO);
+					javaScript.setMessage("가족회원으로 초대하였습니다.");
+					javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
 				}
 
+				/*if(!EgovStringUtil.isNull(mblTelno)) {
+					//TODO 휴대폰 message 전송
+					//javaScript.setMessage("문자를 전송했습니다.");
+
+				}else {
+					try {
+						if(ValidatorUtil.isEmail(mbrVO.getEml())) {
+							String MAIL_FORM = mailFormFile;
+							String mailForm = FileUtil.readFile(MAIL_FORM);
+
+							// 메일 발송
+							String mailSj = "[이로움ON] 가족 회원으로 당신을 초대합니다."; //TO-DO : message로 이동
+
+							if(EgovStringUtil.equals("real", activeMode)) {
+								mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+							} else {
+								mailService.sendMail(sendMail, "ogy2658@gmail.com", mailSj, mailForm); //테스트
+							}
+						}else {
+							log.debug("EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
+						}
+						javaScript.setMessage("이메일을 전송했습니다.");
+						javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
+
+					}catch(Exception e) {
+						e.printStackTrace();
+						log.debug("EMAIL 전송 실패 :: " + e.toString());
+					}
+					javaScript.setMessage("이메일을 전송했습니다.");
+					javaScript.setLocation("/"+ marketPath + "/mypage/fam/list");
+				}*/
 			}else {
 				javaScript.setMessage(getMsg("error.default"));
 				javaScript.setMethod("window.history.back()");

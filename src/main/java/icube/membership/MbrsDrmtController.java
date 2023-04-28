@@ -66,11 +66,11 @@ public class MbrsDrmtController extends CommonAbstractController {
 			, Model model
 			)throws Exception {
 
-		if(mbrSession.isLoginCheck()) {
+		/*if(mbrSession.isLoginCheck()) {
 			return "redirect:" + "/"+plannerPath;
-		}
+		}*/
 
-		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+		MbrVO mbrVO = mbrService.selectMbrIdByOne(mbrId);
 
 		if(!mbrVO.getMberSttus().equals("HUMAN")) {
 			return "redirect:" + "/"+plannerPath;
@@ -104,7 +104,7 @@ public class MbrsDrmtController extends CommonAbstractController {
 			return "redirect:" + "/"+plannerPath;
 		}
 
-		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+		MbrVO mbrVO = mbrService.selectMbrIdByOne(mbrId);
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 

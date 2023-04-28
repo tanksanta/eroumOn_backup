@@ -24,6 +24,7 @@ public class GdsVO extends CommonBaseVO {
 	private String gdsNm; //상품 명
 	private String gdsCd; //상품 코드
 	private String bnefCd; //급여 코드
+	private String itemCd; //품목 코드
 	private String wrhsYmdNtcn; //입고예정일 알림
 	private String mngrMemo; //관리자 메모
 	private String bassDc; //기본설명

@@ -10,10 +10,10 @@
 	<meta name="naver-site-verification" content="${naverSiteVerification}" />
 	</c:if>
 
-    <title>이로움 마켓</title>
+    <title>이로움ON 마켓</title>
 
     <link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
-    
+
     <!-- plugin -->
     <link rel="stylesheet" href="/html/core/vendor/swiperjs/swiper-bundle.css">
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
@@ -77,7 +77,7 @@
 
 	<c:set var="naverAnalytics"><spring:eval expression="@props['Naver.Analytics']"/></c:set>
 	<c:if test="${!empty naverAnalytics}">
-       <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 	<script type="text/javascript">
 	if(!wcs_add) var wcs_add = {};
 	wcs_add["wa"] = "${naverAnalytics}";
@@ -86,5 +86,34 @@
 	}
 	</script>
 	</c:if>
+
+<%-- 기본 채널톡
+	<script>
+	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.")}var ch=function(){ch.c(arguments)};ch.q=[];ch.c=function(args){ch.q.push(args)};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x)}}if(document.readyState==="complete"){l()}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l)}})();
+
+	  ChannelIO('boot', {
+	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
+	  });
+	</script>
+ --%>
+<c:if test="${_activeMode ne 'REAL'}">
+	<script>
+	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.")}var ch=function(){ch.c(arguments)};ch.q=[];ch.c=function(args){ch.q.push(args)};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x)}}if(document.readyState==="complete"){l()}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l)}})();
+
+	  ChannelIO('boot', {
+	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
+	    , "mobileMessengerMode": "newTab"
+	    <c:if test="${!empty _mbrIdHash}">
+	    , "memberHash": "${_mbrIdHash}"
+	    , "profile": {
+	      	"name": "${_mbrSession.mbrNm}"
+	      , "mobileNumber": "${_mbrSession.mblTelno}"
+	      , "email": "${_mbrSession.eml}"
+	    }
+	    </c:if>
+	  });
+	</script>
+</c:if>
+
 </body>
 </html>

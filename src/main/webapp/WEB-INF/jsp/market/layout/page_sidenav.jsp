@@ -10,10 +10,6 @@
                     <input type="hidden" id="srchGdsTag" name="srchGdsTag" value="${param.srchGdsTag}">
                     <input type="hidden" id="srchGdsTagNI" name="srchGdsTagNI" value="${param.srchGdsTagNI}">
                     <input type="hidden" id="srchGdsTys" name="srchGdsTys" value="${param.srchGdsTys}">
-                    <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
-                        <button type="button" class="btn btn-primary flex-1 f_srchBtn">적용</button>
-                        <button type="button" class="btn btn-refresh f_srchGdsFrmReset">새로고침</button>
-                    </div>
                     <div class="page-sidenav-scrollbar">
                         <div class="page-sidenav-group">
                             <p class="title">가격대</p>
@@ -23,7 +19,7 @@
                                         <div>
                                             <label for="srchMinPc" class="block mb-1 text-sm tracking-tight">최소가격</label>
                                             <div class="w-45 relative">
-                                                <input type="text" class="form-control pr-6 h-10 numbercheck" id="srchMinPc" name="srchMinPc" value="${param.srchMinPc}" maxlength="10">
+                                                <input type="text" class="form-control pr-6 h-10 numbercheck" id="srchMinPc" name="srchMinPc" value="${param.srchMinPc}" maxlength="10" onchange="f_toComma(this); return false;">
                                                 <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
                                             </div>
                                         </div>
@@ -32,7 +28,7 @@
                                             <div class="ml-auto">
                                                 <label for="srchMaxPc" class="block mb-1 text-sm tracking-tight">최대가격</label>
                                                 <div class="w-45 relative">
-                                                    <input type="text" class="form-control pr-6 h-10 numbercheck" id="srchMaxPc" name="srchMaxPc" value="${param.srchMaxPc}" maxlength="10">
+                                                    <input type="text" class="form-control pr-6 h-10 numbercheck" id="srchMaxPc" name="srchMaxPc" value="${param.srchMaxPc}" maxlength="10" onchange="f_toComma(this); return false;">
                                                     <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
                                                 </div>
                                             </div>
@@ -41,21 +37,25 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="page-sidenav-group">
-                            <p class="title">판매구분</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content space-y-4">
-                                        <c:forEach items="${_gdsTyCode }" var="gdsTy" varStatus="status">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="gdsTy${status.index}" value="${gdsTy.key}" ${fn:indexOf(param.srchGdsTy, gdsTy.key)>-1?'checked="checked"':''}>
-                                            <label class="form-check-label" for="gdsTy${status.index}">${gdsTy.value}</label>
-                                        </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        <%--카테고리 : 복지용구 일때만 출력 --%>
+                        <c:if test="${fn:indexOf(_curPath,'/gds/2/') > -1}">
+	                        <div class="page-sidenav-group">
+	                            <p class="title">판매구분</p>
+	                            <div class="scroller">
+	                                <div class="direction">
+	                                    <div class="content space-y-4">
+	                                        <c:forEach items="${_gdsTyCode }" var="gdsTy" varStatus="status">
+	                                        <div class="form-check form-switch">
+	                                            <input class="form-check-input" type="checkbox" id="gdsTy${status.index}" value="${gdsTy.key}" ${fn:indexOf(param.srchGdsTy, gdsTy.key)>-1?'checked="checked"':''}>
+	                                            <label class="form-check-label" for="gdsTy${status.index}">${gdsTy.value}</label>
+	                                        </div>
+	                                        </c:forEach>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </c:if>
 
                         <div class="page-sidenav-group">
                             <p class="title">기타</p>
@@ -64,16 +64,16 @@
                                     <div class="content space-y-4">
 
                                         <c:forEach items="${_gdsTagCode }" var="gdsTag" varStatus="status">
-                                        <div class="form-check form-switch">
-                                        	<c:if test="${gdsTag.key eq 'D'}">
-                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="IN">
-                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value}</label>
-                                            </c:if>
-                                            <c:if test="${gdsTag.key ne 'D'}">
-                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="NOTIN">
-                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value} 제외</label>
-                                            </c:if>
-                                        </div>
+                                        <c:if test="${gdsTag.key ne 'D'}" >
+	                                        <div class="form-check form-switch">
+	                                        	<%--<c:if test="${gdsTag.key eq 'D'}">
+	                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="IN">
+	                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value}</label>
+	                                            </c:if> --%>
+	                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="NOTIN">
+	                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value} 제외</label>
+	                                        </div>
+                                        </c:if>
                                         </c:forEach>
                                         <%--
 
@@ -102,6 +102,10 @@
                             </div>
                             <!--  <button type="button" class="moreview">+</button>-->
                         </div>
+                    </div>
+                    <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
+                        <button type="button" class="btn btn-primary flex-1 f_srchBtn">적용</button>
+                        <button type="button" class="btn btn-refresh f_srchGdsFrmReset">새로고침</button>
                     </div>
             	</form>
             </nav>
@@ -146,7 +150,7 @@
                                         <ul class="menulist">
                                             <li ${fn:indexOf(_curPath, '/event/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/event/list"><span>참여한 이벤트</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/buy/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/buy/list"><span>내가 구매한 상품</span></a></li>
-                                            <li ${fn:indexOf(_curPath, '/review/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/review/doList"><span>상품후기</span></a></li>
+                                            <!-- <li ${fn:indexOf(_curPath, '/review/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/review/doList"><span>상품후기</span></a></li> -->
                                             <li ${fn:indexOf(_curPath, '/gdsQna/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/gdsQna/list"><span>상품 Q&amp;A</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/inqry/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/inqry/list"><span>1:1 문의</span></a></li>
                                         </ul>
@@ -160,7 +164,7 @@
                                 <div class="direction">
                                     <div class="content">
                                         <ul class="menulist">
-                                            <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="/membership/mypage/list"><span>회원정보 수정</span></a></li>
+                                            <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="/membership/mypage/list?returnUrl=/market"><span>회원정보 수정</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/fam/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/fam/list"><span>가족회원 관리</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/dlvy/') > -1?'class="is-active"':'' }><a href="${_marketPath }/mypage/dlvy/list"><span>배송지 관리</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/whdwl/') > -1?'class="is-active"':'' }><a href="/membership/whdwl/list"><span>회원 탈퇴</span></a></li>
@@ -200,7 +204,7 @@
 											<li ${fn:indexOf(_curPath, '/faq/') > -1?'class="is-active"':'' }><a href="${_marketPath}/etc/faq/list"><span>자주 묻는 질문</span></a></li>
 											<li ${fn:indexOf(_curPath, '/inqry/') > -1?'class="is-active"':'' }><a href="${_marketPath}/etc/inqry/form"><span>1:1 문의</span></a></li>
 											<li ${fn:indexOf(_curPath, '/ntce/') > -1?'class="is-active"':'' }><a href="${_marketPath}/etc/ntce/list"><span>공지사항</span></a></li>
-											<li ${fn:indexOf(_curPath, '/bnft/') > -1?'class="is-active"':'' }><a href="${_marketPath}/etc/bnft/list"><span>이로움 혜택</span></a></li>
+											<li ${fn:indexOf(_curPath, '/bnft/') > -1?'class="is-active"':'' }><a href="${_marketPath}/etc/bnft/list"><span>이로움ON 혜택</span></a></li>
 										</ul>
 									</div>
 								</div>
@@ -212,3 +216,11 @@
 		</c:when>
 
 </c:choose>
+
+<script>
+
+function f_toComma(obj){
+	obj.value = comma(obj.value);
+}
+
+</script>

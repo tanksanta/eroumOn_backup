@@ -1,30 +1,21 @@
 .checkpoint-title {
-    @apply mx-auto mt-7 mb-4 w-full max-w-[1244px] md:mt-10 md:mb-8 lg:mt-13 lg:mb-12;
-    & .desc {
-        @apply flex justify-center space-x-2 md:space-x-2.5 lg:space-x-3.5;
-        & img {
-            @apply h-[1.0625rem] md:h-5.5 lg:h-7;
+    @apply mx-auto mt-5 mb-4 w-full max-w-[1244px] text-center md:mt-7.5 md:mb-8 lg:mt-10 lg:mb-12;
+    & span {
+        @apply block relative mx-auto w-fit font-bold leading-[1.2] text-2xl md:text-[2.375rem] lg:text-[3.125rem];
+        & em {
+            @apply block text-4xl text-[1.1] md:text-[3.25rem] lg:text-[4.375rem];
+        }
+        & strong {
+            @apply text-[#FF8F15] font-black;
         }
     }
-    & .title {
-        @apply mt-3.5 md:mt-5 lg:mt-7;
-        & span {
-            @apply flex flex-col justify-start relative mx-auto pl-12 w-fit leading-[1.1] text-[2.5rem] text-left md:flex-row md:items-center md:pl-0 md:text-[3.75rem] lg:text-[5rem];
-            & strong {
-                @apply font-black;
-            }
-            & img {
-                @apply absolute left-0 bottom-0.5 w-[2.875rem] md:static md:mr-1 md:ml-8 md:w-20 lg:ml-12 lg:w-29;
-            }
-        }
-        & small {
-            @apply block mt-13 text-center text-sm md:mt-14 md:text-base lg:mt-15 lg:text-lg;
-        }
+    & small {
+        @apply block mt-7 text-center text-sm md:mt-12 md:text-base lg:mt-12 lg:text-lg;
     }
 }
 
 .checkpoint-navigation {
-    @apply sticky z-15 top-18 -mx-2.5 w-[calc(100%_+_1.25rem)] bg-white md:top-25;
+    @apply sticky flex z-15 top-18 -mx-2.5 w-[calc(100%_+_1.25rem)] bg-white md:top-25;
     & .container {
         @apply max-w-none w-auto overflow-auto overflow-y-visible 2xl:relative 2xl:w-fit 2xl:left-1/2 2xl:-translate-x-1/2;
         &::-webkit-scrollbar {
@@ -474,6 +465,16 @@
     }
 }
 
+.checkpoint-img-content {
+    @apply mx-auto max-w-[800px];
+    & .tab {
+        @apply relative;
+        & a {
+            @apply absolute;
+        }
+    }
+}
+
 .style-guide-bathroom {
     @apply px-5 bg-[#F5F5F7];
     & .bathroom-visual {
@@ -505,7 +506,7 @@
     & .bathroom-card {
         @apply grid gap-x-4 gap-y-5 py-10 mx-auto max-w-[1020px] font-bold md:grid-cols-2 md:gap-y-6 md:py-14 lg:py-18 lg:gap-x-5 lg:gap-y-7;
         & .card-item {
-            @apply relative leading-[1.167] break-keep select-none;
+            @apply relative leading-[1.167] break-keep select-none lg:min-h-[600px];
             &.is-active {
                 & .item-front {
                     @apply scale-[0.97];
@@ -531,7 +532,7 @@
             }
         }
         & .item-front {
-            @apply absolute top-0 left-0 px-4 py-6 w-full min-h-full overflow-hidden rounded-[1rem] bg-no-repeat bg-left-bottom bg-white transition-all duration-500 md:px-6 md:py-8 md:rounded-[1.125rem] lg:px-7 lg:py-10 lg:rounded-[1.25rem];
+            @apply px-4 pt-6 pb-3 flex flex-col w-full min-h-full overflow-hidden rounded-[1rem] bg-no-repeat bg-left-bottom bg-white transition-all duration-500 md:px-6 md:pt-8 md:pb-4 md:rounded-[1.125rem] lg:px-7 lg:pt-10 lg:pb-5 lg:rounded-[1.25rem];
             &::before {
                 @apply content-empty absolute top-0 left-0 -z-5 w-full h-full transition-all duration-500 opacity-0 origin-center;
             }
@@ -546,7 +547,7 @@
                 @apply mt-[0.6em] text-lg transition-[opacity,visibility] duration-500 md:text-xl lg:text-2xl;
             }
             & .desc {
-                @apply relative mt-[1.625em] mb-[1.25em] pl-[1.5em] text-[0.9375rem] font-bold transition-[opacity,visibility] duration-500 md:text-lg;
+                @apply relative mt-[1.6em] mb-[1.5em] pl-[1.5em] text-[0.9375rem] font-bold transition-[opacity,visibility] duration-500 md:text-lg;
                 &::before {
                     @apply absolute top-0 left-0 w-[1em];
                     content: "👍🏻";
@@ -586,6 +587,15 @@
                             @apply opacity-100 visible;
                         }
                     }
+                }
+            }
+            & .image {
+                @apply m-auto -mb-2 md:-mb-3.5;
+            }
+            & .btn {
+                @apply flex-none mt-auto -mx-1 md:-mx-2;
+                &:hover, &:focus {
+                    @apply bg-white text-black2;
                 }
             }
         }
@@ -643,17 +653,22 @@
         }
         & .is-card1 {
             & .item-front {
-                @apply bg-[url(../images/img-content-bathroom1.png)] bg-[center_bottom_8.6%] bg-[length:90.8%];
                 &::before {
                     background: linear-gradient(143deg, #82236F 0%, #C24A4A 100%);
                 }
                 & .name {
                     background-image: linear-gradient(100deg, #82236F 0%, #C24A4A 100%);
                 }
+                & .desc {
+                    @apply mb-[1em];
+                }
                 & .link {
                     &::after {
                         background: linear-gradient(143deg, #82236F 0%, #C24A4A 100%);
                     }
+                }
+                & .image {
+                    @apply w-[82.43243243243243%];
                 }
             }
             & .item-toggle {
@@ -669,7 +684,6 @@
         }
         & .is-card2 {
             & .item-front {
-                @apply bg-[url(../images/img-content-bathroom2.png)] bg-[center_bottom_9.4%] bg-[length:94.8%];
                 &::before {
                     background: linear-gradient(147deg, #385CB8 0%, #40A7A7 100%);
                 }
@@ -680,6 +694,9 @@
                     &::after {
                         background: linear-gradient(147deg, #385CB8 0%, #40A7A7 100%);
                     }
+                }
+                & .image {
+                    @apply w-[88.73873873873874%];
                 }
             }
             & .item-toggle {
@@ -695,7 +712,6 @@
         }
         & .is-card3 {
             & .item-front {
-                @apply bg-[url(../images/img-content-bathroom3.png)] bg-[center_bottom_9.2%] bg-[length:100%];
                 &::before {
                     background: linear-gradient(146deg, #1E339B 0%, #B048AD 100%);
                 }
@@ -706,6 +722,9 @@
                     &::after {
                         background: linear-gradient(146deg, #1E339B 0%, #B048AD 100%);
                     }
+                }
+                & .image {
+                    @apply w-[95.4954954954955%];
                 }
             }
             & .item-toggle {
@@ -721,7 +740,6 @@
         }
         & .is-card4 {
             & .item-front {
-                @apply bg-[url(../images/img-content-bathroom4.png)] bg-[center_bottom_12.8%] bg-[length:87.6%];
                 &::before {
                     background: linear-gradient(143deg, #82236F 0%, #C24A4A 100%);
                 }
@@ -732,6 +750,9 @@
                     &::after {
                         background: linear-gradient(143deg, #82236F 0%, #C24A4A 100%);
                     }
+                }
+                & .image {
+                    @apply w-[87.38738738738739%];
                 }
             }
             & .item-toggle {
@@ -853,7 +874,7 @@
             }
         }
         & .object-1 {
-            @apply top-[39.238554%] left-[25.5673360107095%] w-[10.9375%];
+            @apply top-[43.238554%] left-[25.5673360107095%] w-[10.9375%];
             & .name {
                 @apply absolute left-full bottom-full translate-y-[47.862%] translate-x-[-47.347%] md:translate-x-[-29.347%];
                 & em {
@@ -862,7 +883,7 @@
             }
         }
         & .object-2 {
-            @apply top-[42.74739%] left-[48.834003%] w-[12.3203125%];
+            @apply top-[47.14739%] left-[48.834003%] w-[12.3203125%];
             & .name {
                 & em {
                     @apply absolute right-0 bottom-full -translate-x-1/4;
@@ -873,13 +894,13 @@
             }
         }
         & .object-3 {
-            @apply top-[48.349%] right-[28.803659%] w-[3.535546875%];
+            @apply top-[52.149%] right-[28.803659%] w-[3.535546875%];
             & .name {
                 @apply absolute top-0 left-0 translate-x-[-57.961%] -translate-y-1/2 md:translate-x-[-67.961%];
             }
         }
         & .object-4 {
-            @apply top-[53.289157%] right-[22.939759%] w-[7.1875%];
+            @apply top-[55.789157%] right-[22.939759%] w-[7.1875%];
             & .name {
                 @apply absolute top-1/2 left-0 translate-x-[-16%] -translate-y-1/2;
             }

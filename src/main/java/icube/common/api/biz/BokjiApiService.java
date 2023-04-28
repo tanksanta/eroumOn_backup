@@ -71,7 +71,7 @@ public class BokjiApiService {
         urlBuilder.append("&size=" + size); // 필수, 1~
 
 
-        //System.out.println("SEARCH_URL: " + urlBuilder);
+        System.out.println("SEARCH_URL: " + urlBuilder);
 
 		OkHttpClient client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -91,12 +91,14 @@ public class BokjiApiService {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
 
-		//System.out.println("### JSON ### " + jsonObject.toJSONString());
+		System.out.println("### JSON ### " + jsonObject.toJSONString());
 
 		JSONObject resultData = (JSONObject) jsonObject.get("data");
 
 		long total = (long) resultData.get("totalElements");
-		//System.out.println(total);
+		System.out.println(total);
+
+
 		listVO.setTotalCount((int) total);
 
 		List list = new ArrayList<>();
@@ -139,7 +141,7 @@ public class BokjiApiService {
 		StringBuilder urlBuilder = new StringBuilder(searchUrl);
         urlBuilder.append(bokjiId);
 
-        //System.out.println("SEARCH_URL: " + urlBuilder);
+        System.out.println("SEARCH_URL: " + urlBuilder);
 
 		OkHttpClient client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -345,35 +347,33 @@ public class BokjiApiService {
 		String signInUrl = bokjiDomain + "/api/auth/partner/signIn";
 		String accessToken = "";
 
-		if(BOKJI_TOKEN == null) {
-			// 계정 정보
-			JSONObject json = new JSONObject();
-			json.put("username", bokjiId);
-			json.put("password", bokjiPw);
-			//System.out.println("SIGN_IN_URL: " + signInUrl);
+		// 계정 정보
+		JSONObject json = new JSONObject();
+		json.put("username", bokjiId);
+		json.put("password", bokjiPw);
+		//System.out.println("SIGN_IN_URL: " + signInUrl);
 
-			// API 호출
-			OkHttpClient client = new OkHttpClient();
-			Request request = new Request.Builder().url(signInUrl)
-					.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString()))
-					.build();
+		// API 호출
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url(signInUrl)
+				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString()))
+				.build();
 
-			Response response = client.newCall(request).execute();
-			String responseStr = response.body().string();
-			//System.out.println("### responseStr ### " + responseStr);
+		Response response = client.newCall(request).execute();
+		String responseStr = response.body().string();
+		//System.out.println("### responseStr ### " + responseStr);
 
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
-			//System.out.println("### JSON ### " + jsonObject.toJSONString());
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+		//System.out.println("### JSON ### " + jsonObject.toJSONString());
 
-			String status = (String) jsonObject.get("state");
-			// 토큰 발급
-			if (EgovStringUtil.equals("OK", status)) {
-				JSONObject dataObject = (JSONObject) jsonObject.get("data");
-				accessToken = (String) dataObject.get("accessToken");
-			}
-			BOKJI_TOKEN = accessToken;
+		String status = (String) jsonObject.get("state");
+		// 토큰 발급
+		if (EgovStringUtil.equals("OK", status)) {
+			JSONObject dataObject = (JSONObject) jsonObject.get("data");
+			accessToken = (String) dataObject.get("accessToken");
 		}
+		BOKJI_TOKEN = accessToken;
 
 		return BOKJI_TOKEN;
 	}

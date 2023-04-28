@@ -8,13 +8,14 @@
 
 	<div id="page-content">
 		<ul class="tabs">
-			<li><a href="/membership/mypage/form" class="tabs-link"><strong>회원정보</strong> 수정</a></li>
-			<li><a href="/membership/mypage/pswd" class="tabs-link active"><strong>비밀번호</strong> 변경</a></li>
+			<li><a href="/membership/mypage/form?returnUrl=${param.returnUrl}" class="tabs-link"><strong>회원정보</strong> 수정</a></li>
+			<li><a href="/membership/mypage/pswd?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>비밀번호</strong> 변경</a></li>
 		</ul>
 
 		<div class="member-modify is-left mt-11 md:mt-15">
 			<form:form id="pwdFrm" name="pwdFrm" action="/membership/mypage/pwdAction" method="post" modelAttribute="mbrVO" class="member-join-content">
 				<input type="hidden" id="uniqueId" name="uniqueId" value="${_mbrSession.uniqueId}" />
+				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 				<div class="space-y-1 5">
 					<p class="text-alert">회원님의 정보를 중 변경된 내용이 있는 경우, 아래에서 수정해주세요.</p>
 					<p class="text-alert">회원정보는 개인정보취급방침에 따라 안전하게 보호됩니다.</p>
@@ -32,6 +33,7 @@
 						<tr>
 							<th scope="row"><p>아이디</p></th>
 							<td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrId}</p></td>
+							<input type="hidden" name="mbrId" id="mbrId" value="${_mbrSession.mbrId}" />
 						</tr>
 						<tr>
 							<th scope="row">
@@ -80,13 +82,25 @@
 
 	$(function(){
 
-		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+*=*]).*$/;
+
+		$.validator.addMethod("pswdFrmChk", function(value, element, param) {
+			if(value.search(/\s/) != -1){
+				return false;
+			}else{
+				if(value == $("#mbrId").val()){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}, "! 공백 및 아이디와 똑같은 비밀번호는 사용하실 수 없습니다.");
 
 		//유효성 검사
 		$("form#pwdFrm").validate({
 		    ignore: "input[type='text']:hidden",
 		    rules : {
-		    	pswd : {required : true, regex : pswdChk, minlength : 8}
+		    	pswd : {required : true, regex : pswdChk, minlength : 8, pswdFrmChk : true}
 		    	, pswdCnfm : {required : true, equalTo : "#pswd"}
 		    },
 		    messages : {

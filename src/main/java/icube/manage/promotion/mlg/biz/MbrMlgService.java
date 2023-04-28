@@ -1,7 +1,5 @@
 package icube.manage.promotion.mlg.biz;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +13,6 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.mbr.mbr.biz.MbrDAO;
 import icube.manage.mbr.mbr.biz.MbrPrtcrDAO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Service("mbrMlgService")
@@ -92,86 +89,6 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 	}
 
 	/**
-	 * 이용 가능 마일리지
-	 * 이달 소멸 예정 마일리지
-	 * 가족회원 마일리지
-	 * @param uniqueId
-	 * @return resultMap
-	 * @throws Exception
-	 */
-	public Map<String, Object> selectTotalTypeMlg(String uniqueId) throws Exception {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-
-		int availMlg = 0; //이용 가능 마일리지
-		int extTotalMlg = 0; // 소멸 예정 마일리지
-		int fmlMlg = 0; // 가족 회원 마일리지
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUniqueId", uniqueId);
-
-
-		// 마일리지 적립 내역 확인
-		int mlgCount = this.selectMbrMlgCount(paramMap);
-
-		if(mlgCount > 0) {
-			// 이용 가능 마일리지 (최근 누계)
-			MbrMlgVO mbrMlgVO = this.selectMbrMlg(paramMap);
-			if(mbrMlgVO != null) {
-
-			availMlg = mbrMlgVO.getMlgAcmtl();
-
-			// 2. 이달 소멸 예정 마일리지
-			List<MbrMlgVO> mbrMlgList = this.selectMbrMlgList(paramMap);
-				for(int i = 0; i < mbrMlgList.size(); i ++) {
-
-					LocalDate today = LocalDate.now(); //현재 날짜
-					Date regDate = mbrMlgList.get(i).getRegDt();
-					LocalDate localRegDate = new java.sql.Date(regDate.getTime()).toLocalDate(); // 등록날짜
-
-					// 2022-12-14   2023-11-31
-					if(localRegDate.getYear() < today.getYear()) { // true
-						if(((localRegDate.getMonthValue() - (today.getMonthValue() +1 ))) < 0) {
-							extTotalMlg = extTotalMlg + mbrMlgList.get(i).getMlg();
-						}
-					}
-				}
-			}
-		}
-
-		// 3. 가족 회원 마일리지
-		paramMap.put("srchUniqueId", null);
-		paramMap.put("srchMyUniqueId", uniqueId);
-		paramMap.put("srchReqType", "F");
-		List<MbrPrtcrVO> fmlList = mbrPrtcrDAO.selectPrtcrListByMap(paramMap);
-
-		if(fmlList.size() > 0) {
-			paramMap.put("srchUniqueId", uniqueId);
-			for(int i=0; i < fmlList.size(); i ++) {
-				// 자신이 수신한 경우 판별
-				if(fmlList.get(i).getUniqueId().equals(uniqueId)) {
-					paramMap.put("srchUniqueId", fmlList.get(i).getPrtcrUniqueId());
-				}else {
-					paramMap.put("srchUniqueId", fmlList.get(i).getUniqueId());
-				}
-				//TODO 메소드 수정
-				MbrMlgVO mbrMlgVO = mbrMlgDAO.selectMbrMlg(paramMap);
-				int mlg = 0;
-				if(mbrMlgVO != null) {
-					mlg = mbrMlgVO.getMlgAcmtl();
-				}
-
-				fmlMlg = fmlMlg + mlg;
-			}
-		}
-
-		resultMap.put("avail", availMlg);
-		resultMap.put("exitMlg", extTotalMlg);
-		resultMap.put("fmlMlg", fmlMlg);
-
-		return resultMap;
-	}
-
-	/**
 	 * 마일리지 카운트
 	 * @param uniqueId
 	 * @return
@@ -192,82 +109,52 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 	}
 
 	/**
-	 * 마일리지 종류별 합계
+	 * 회원 마일리지 소멸
+	 * 유효기간 : 적립일 기준 2년
 	 * @param uniqueId
-	 * @return 총 마일리지, 총 적립 마일리지, 총 사용 마일리지, 총 소멸 마일리지 Map
 	 * @throws Exception
 	 */
-	@SuppressWarnings({"rawtypes","unchecked"})
-	public Map<String, Integer> selectAlltypeMlg(String uniqueId) throws Exception {
-		Map<String, Integer> resultMap = new HashMap();
-		Map<String, Object> paramMap = new HashMap();
+	public void extinctMbrMlg(String uniqueId) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchTwoYear", 1);
 		paramMap.put("srchUniqueId", uniqueId);
+		Map<String, Object> mlgMap = this.selectAlltypeMlg(paramMap);
 
-		int totalMlg = 0;
-		int totalAddMlg = 0;
-		int totalDecMlg = 0;
-		int totalExtMlg = 0;
+		int totalAccmtMlg = Integer.parseInt(String.valueOf(mlgMap.get("addMlg")));
+		int totalUseMlg = Integer.parseInt(String.valueOf(mlgMap.get("useMlg")));
+		int totalExtMlg = Integer.parseInt(String.valueOf(mlgMap.get("extMlg")));
+		int restMlg = totalAccmtMlg - (totalUseMlg + totalExtMlg);
 
-		int mlgCount = this.selectMbrMlgCount(paramMap); // 내역 카운트
-		paramMap.put("srchMlgSe", "A");
-		int addCount = this.selectMbrMlgCount(paramMap); // 적립 카운트
-		paramMap.put("srchMlgSe", "M");
-		int decCount = this.selectMbrMlgCount(paramMap); // 사용 카운트
-		paramMap.put("srchMlgSe", "E");
-		int extCount = this.selectMbrMlgCount(paramMap); // 소멸 카운트
+		if(totalAccmtMlg - totalUseMlg > 0) {
+			MbrMlgVO mbrMlgVO = new MbrMlgVO();
+			mbrMlgVO.setMlgMngNo(0);
+			mbrMlgVO.setUniqueId(uniqueId);
+			mbrMlgVO.setMlgSe("E");
+			mbrMlgVO.setMlg(restMlg);
+			mbrMlgVO.setMlgCn("15");
+			mbrMlgVO.setMlgAcmtl(0);
+			mbrMlgVO.setRgtr("System");
+			mbrMlgVO.setGiveMthd("SYS");
 
-
-
-		if(mlgCount > 0) {
-			// 1. 총 가용 마일리지
-			paramMap.put("srchMlgSe", null);
-			MbrMlgVO mbrMlgVO = this.selectMbrMlg(paramMap);
-			totalMlg = mbrMlgVO.getMlgAcmtl();
+			try {
+				mbrMlgDAO.extinctMbrMlg(mbrMlgVO);
+			}catch(Exception e) {
+				log.debug("   ###   resetMbrMlg Error   ### : " + e.toString());
+			}
+		}else {
+			log.debug("###  회원 : " + uniqueId + " 소멸 마일리지 없음 ###");
 		}
-
-		if(addCount > 0) {
-			// 2. 총 적립 마일리지
-			paramMap.put("srchMlgSe", "A");
-			totalAddMlg = this.selectSumMlgByMlgSe(paramMap);
-		}
-
-		if(decCount > 0) {
-			// 3. 총 사용 마일리지
-			paramMap.put("srchMlgSe", "M");
-			totalDecMlg = this.selectSumMlgByMlgSe(paramMap);
-		}
-
-		if(extCount > 0) {
-			// 4. 총 소멸 마일리지
-			paramMap.put("srchMlgSe", "E");
-			totalExtMlg = this.selectSumMlgByMlgSe(paramMap);
-		}
-
-		resultMap.put("totalMlg", totalMlg);
-		resultMap.put("totalAddMlg", totalAddMlg);
-		resultMap.put("totalDecMlg", totalDecMlg);
-		resultMap.put("totalExtMlg", totalExtMlg);
-
-		return resultMap;
 	}
 
 	/**
-	 * 마일리지 합계
-	 * @param paramMap
-	 * @return
+	 * 마일리지 종합
+	 * @param uniqueId
+	 * @return mlgMap
 	 * @throws Exception
 	 */
-	public int selectSumMlgByMlgSe(Map<String, Object> paramMap) throws Exception {
-		return mbrMlgDAO.selectSumMlgByMlgSe(paramMap);
-	}
-
-	/**
-	 * 회원 소멸 마일리지
-	 * @return
-	 * @throws Exception
-	 */
-	public List<MbrMlgVO> selectMbrDedMlgList() throws Exception {
-		return mbrMlgDAO.selectMbrDedMlgList();
+	public Map<String, Object> selectAlltypeMlg(Map<String, Object> paramMap) throws Exception {
+		return mbrMlgDAO.selectAlltypeMlg(paramMap);
 	}
 
 }

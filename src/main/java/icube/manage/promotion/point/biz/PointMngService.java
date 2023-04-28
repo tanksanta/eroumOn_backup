@@ -1,5 +1,6 @@
 package icube.manage.promotion.point.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,9 +86,20 @@ public class PointMngService extends CommonAbstractServiceImpl {
 		// 4. 선택 회원
 		for(int i=0; i < arrUniqueId.length; i++) {
 			mbrPointVO.setUniqueId(arrUniqueId[i]);
+
+			// 5. 회원 포인트 검사
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchUniqueId", arrUniqueId[i]);
+			MbrPointVO newPointVO = mbrPointDAO.selectMbrPoint(paramMap);
+
+			// 차감
+			if(mbrPointVO.getPointSe().equals("M")) {
+				if(newPointVO.getPointAcmtl() < mbrPointVO.getPoint()) {
+					mbrPointVO.setPoint(newPointVO.getPointAcmtl());
+				}
+			}
 			mbrPointDAO.insertMbrPoint(mbrPointVO);
 		}
-
 	}
 
 	public List<PointMngVO> selectPointMngListAll(Map<String, Object> paramMap) throws Exception {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <main id="container">
 	<jsp:include page="../../layout/page_header.jsp" >
-		<jsp:param value="이로움 이벤트" name="pageTitle"/>
+		<jsp:param value="이로움ON 이벤트" name="pageTitle"/>
 	</jsp:include>
 
 	<div id="page-container">
@@ -13,7 +13,7 @@
 				<img src="/html/page/market/assets/images/txt-event-eroum.svg" alt="" /> </picture>
 				<img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
 				<p class="desc">
-					즐거움이 함께하는 <br> 이로움 이벤트
+					즐거움이 함께하는 <br> 이로움ON 이벤트
 				</p>
 			</div>
 

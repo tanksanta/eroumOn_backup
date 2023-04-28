@@ -447,7 +447,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td rowspan="2">이로움마켓 공지사항</td>
+			<td rowspan="2">이로움ON 마켓 공지사항</td>
 			<td>목록</td>
 			<td></td>
 			<td><span class="badge-outline-success">1차완료</span></td>

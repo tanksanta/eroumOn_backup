@@ -31,9 +31,14 @@ public class MbrPointDAO extends CommonAbstractMapper {
 		return selectOne("mbr.point.selectMbrPointCount",paramMap);
 	}
 
-	// 포인트 sum
-	public int selectSumPointByPointSe(Map<String, Object> paramMap) throws Exception {
-		return selectOne("mbr.point.selectSumPointByPointSe",paramMap);
+	// 포인트 소멸
+	public void extinctMbrPoint(MbrPointVO mbrPointVO) throws Exception {
+		insert("mbr.point.extinctMbrPoint",mbrPointVO);
+	}
+
+	// 포인트 종합
+	public Map<String, Object> selectAlltypePoint(Map<String, Object> paramMap) throws Exception {
+		return selectOne("mbr.point.selectAlltypePoint",paramMap);
 	}
 
 }

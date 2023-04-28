@@ -114,7 +114,7 @@
 	        <p id="cont-5" class="mt-10 mb-3 text-xl leading-tight font-bold md:mt-12 md:mb-4 md:text-2xl">5. 개인정보의 제3자 제공</p>
 	        <p>회사는 고객님의 개인정보를 회원가입 시 아래와 같이 고지 또는 명시하여 동의 받은 범위 내에서 제3자에게 제공합니다.</p>
 	        <ul class="terms-list is-hypen mt-1 md:mt-1.5">
-	            <li>제공받는 자 : 복지용구 판매 사업소, 상품공급사 [리스트 : 링크]</li>
+	            <li>제공받는 자 : 복지용구 판매 사업소, 상품공급사 <a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup2.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[리스트 : 링크]</a></li>
 	            <li>제공 목적 : 전자 상거래 계약 이행, 상품제공, 장기요양 수급자 확인, 고객상담 등</li>
 	            <li>제공 항목 : 아이디, 이름, 이메일, 휴대폰 번호, 배송지 주소, 수령인 및 연락처, 장기요양인정번호</li>
 	            <li>보유 및 이용기간 : 회원 탈퇴시까지</li>
@@ -171,11 +171,7 @@
 	                    <td>SMS알림</td>
 	                </tr>
 	                <tr>
-	                    <td>공급사 [확인:링크]</td>
-	                    <td>상품 배송</td>
-	                </tr>
-	                <tr>
-	                    <td>제휴사 [확인:링크]</td>
+	                    <td>공급사 <a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[확인 : 링크]</a></td>
 	                    <td>상품 배송</td>
 	                </tr>
 	                <tr>

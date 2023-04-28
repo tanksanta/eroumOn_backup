@@ -32,7 +32,7 @@
 
         <h1 class="system-title">
             Management<br> System
-            <small>이로움마켓 관리 시스템</small>
+            <small>이로움ON 마켓 관리 시스템</small>
         </h1>
 
         <form class="login-form" id="loginForm" method="post">

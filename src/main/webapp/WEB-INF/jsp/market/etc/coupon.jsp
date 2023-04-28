@@ -12,7 +12,7 @@
 					<img src="/html/page/market/assets/images/txt-event-eroum.svg" alt="" /> </picture>
 					<img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
 					<p class="desc">
-						아직 회원이 아니신가요?<br> 이로움 회원이 되시고 편한 삶을 누리세요 <a href="${_marketPath}/login" class="join">회원가입</a>
+						아직 회원이 아니신가요?<br> 이로움ON 회원이 되시고 편한 삶을 누리세요 <a href="${_marketPath}/login" class="join">회원가입</a>
 					</p>
 				</div>
 			</c:if>
@@ -72,11 +72,10 @@
 
 							<small>대상 : <c:if test="${resultList.issuMbr eq 'D'}">
 													<c:if test="${resultList.issuMbrTy eq 'G'}">
-														일반 회원 <c:if test="${resultList.issuMbrGrad eq 'R' }">(등급 : RED)</c:if>
-																	<c:if test="${resultList.issuMbrGrad eq 'S' }">(등급 : SILVER)</c:if>
-																	<c:if test="${resultList.issuMbrGrad eq 'G' }">(등급 : GOLD)</c:if>
-																	<c:if test="${resultList.issuMbrGrad eq 'V' }">(등급 : VIP)</c:if>
-																	<c:if test="${resultList.issuMbrGrad eq 'P' }">(등급 : PLATINUM)</c:if>
+														일반 회원 <c:if test="${resultList.issuMbrGrad eq 'E' }">(등급 : 이로움)</c:if>
+																	<c:if test="${resultList.issuMbrGrad eq 'B' }">(등급 : 반가움)</c:if>
+																	<c:if test="${resultList.issuMbrGrad eq 'S' }">(등급 : 새로움)</c:if>
+																	<c:if test="${resultList.issuMbrGrad eq 'N' }">(등급 : 신규회원)</c:if>
 													</c:if>
 													<c:if test="${resultList.issuMbrTy eq 'R'}">수급자 회원</c:if>
 													<c:if test="${resultList.issuMbrTy eq 'G,R'}">전체 회원</c:if>
@@ -104,7 +103,7 @@
 				쿠폰 <strong class="text-danger">유의사항</strong>
 			</h3>
 			<ul class="mt-4 lg:mt-5 space-y-1 md:space-y-1.5">
-				<li class="text-alert">쿠폰은 이로움마켓 ID당 1회씩 다운로드 및 사용이 가능합니다.</li>
+				<li class="text-alert">쿠폰은 이로움ON 마켓 ID당 1회씩 다운로드 및 사용이 가능합니다.</li>
 				<li class="text-alert">발급받으신 쿠폰은 마이페이지 &gt; 쇼핑혜택 &gt; 쿠폰에서 확인 가능합니다.</li>
 				<li class="text-alert">쿠폰은 적용가능 상품에 한하여 1회만 적용가능합니다. (동일 품목 2대 구매시 1개 상품만 적용)</li>
 				<li class="text-alert">쿠폰은 1주문에 1상품씩 적용 가능합니다.</li>

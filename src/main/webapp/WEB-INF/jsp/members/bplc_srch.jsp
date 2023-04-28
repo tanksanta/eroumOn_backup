@@ -153,6 +153,17 @@
 					});
         		}
 
+        		function f_ariaShow(){
+	        		// 아리아케어만 사업소 보기
+		        	// 사업소 보기 전체 출력 -> 아리아케어만 보이기
+		        	$(".show_members").each(function(){
+		        		console.log($(this).attr("href"));
+		        		if($(this).attr("href") != '/members/ariamart'){
+		        			$(this).hide();
+		        		}
+		        	});
+	        	}
+
 	        	function searchGps() {
 	        		if(navigator.geolocation) {
 	        			navigator.geolocation.getCurrentPosition((function (position) {
@@ -219,9 +230,9 @@
         			.done(function(json) {
     					objData = json.resultList;
     					//console.log(Object.keys(objData).length);
-
     					addListItem(expanded); // 목록 추가
     					kakaoMapDraw(); // 지도 추가
+    					 f_ariaShow();
         			})
         			.fail(function(data, status, err) {
         				console.log(data);
@@ -292,7 +303,6 @@
         			}
 
         			$(".maps-layer-result").css({"cursor":"pointer"});
-
         		}
 
 	        	function kakaoMapDraw(){
@@ -326,7 +336,7 @@
 				                            '		</div>' +
 				                            '		<p class="addr">'+ item.addr +' '+ item.daddr  +'</p>' +
 				                            '		<a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>' +
-				                            '		<a href="/members/'+ item.bplcUrl +'" target="_blank" class="btn-secondary flex mt-4 w-28 h-7 rounded-full mx-auto text-sm">멤버스보기</a>' +
+			                            	'<a href="/members/'+ item.bplcUrl +'" target="_blank" class="btn-secondary flex mt-4 w-28 h-7 rounded-full mx-auto text-sm show_members">멤버스보기</a>' +
 				                            '	</div>' +
 				                            '</div>',
 		        				title: item.bplcNm
@@ -428,6 +438,7 @@
 		        				$('.maps-layer-results:visible').removeClass('show');
 		        				$('.maps-layer-toggle:visible').addClass('collapsed').attr('aria-expanded', 'false');
 		        			}
+		        			f_ariaShow();
 		        		});
 
 		        		$("div.maps-layer-result").eq(0).trigger('click', {visible: true});
@@ -475,7 +486,6 @@
 
 						var map = new kakao.maps.Map(mapContainer, mapOption);
 	        		}
-
 	        	}
 
 	        	function resizeHandler() {
@@ -483,7 +493,6 @@
 	        		windowHeight = $(window).height();
 	        		isMob = windowWidth <= 1023;
 	        	}
-
 				init();
 	        })();
             </script>

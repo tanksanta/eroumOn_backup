@@ -10,7 +10,7 @@
 	<div id="page-content">
 		<div class="member-join-introduce">
 			<div class="title">
-				<img src="/html/page/members/assets/images/txt-join-white.svg" alt="이로움과 함께 삶을 누리세요">
+				<img src="/html/page/members/assets/images/txt-join-white.svg" alt="이로움ON과 함께 삶을 누리세요">
 			</div>
 			<dl class="join1">
 				<dt>본인인증</dt>

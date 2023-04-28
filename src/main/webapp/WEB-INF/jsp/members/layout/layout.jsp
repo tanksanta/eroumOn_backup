@@ -11,7 +11,7 @@
 
     	<link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
     	
-        <title>이로움 멤버스</title>
+        <title>이로움ON 멤버스</title>
 
         <!-- common -->
         <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>

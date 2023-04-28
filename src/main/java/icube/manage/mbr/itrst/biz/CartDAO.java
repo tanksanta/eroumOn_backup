@@ -39,4 +39,12 @@ public class CartDAO extends CommonAbstractMapper {
 		delete("mbr.cart.deleteCart", paramMap);
 	}
 
+	public Integer modifyOptnChg(CartVO cartVO) throws Exception {
+		return insert("mbr.cart.mergeOptnChg",cartVO);
+	}
+
+	public void deleteCartlByNos(Map<String, Object> paramMap) throws Exception {
+		delete("mbr.cart.deleteCartlByNos", paramMap);
+	}
+
 }

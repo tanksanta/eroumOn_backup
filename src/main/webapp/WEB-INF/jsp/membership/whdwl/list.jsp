@@ -9,41 +9,59 @@
 
 	<div id="page-content">
 		<div class="member-release-title">
-			<img src="/html/page/members/assets/images/txt-leave.svg" alt="그동안 이로움 마켓을 이용해 주셔서 감사합니다.">
+			<img src="/html/page/members/assets/images/txt-leave.svg" alt="그동안 이로움ON 마켓을 이용해 주셔서 감사합니다.">
 			<p>
-				이로움 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
+				이로움ON 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
 			</p>
 		</div>
 
 		<div class="member-release-info mt-7 md:mt-8.5">
-			<p class="text-title2">회원탈퇴 안내</p>
-			<p>&nbsp;</p>
-			<p>회원 탈퇴는 본 서비스에 대한 이용 해지를 의미합니다. 자사가 제공하는 광고성 이메일 및 SMS의 경우 회원탈퇴 접수 후 24시간 이내 발송이 중지됩니다.</p>
-			<p>&nbsp;</p>
-			<p class="text-alert">
-				다만 데이터처리상의 이유로, 탈퇴처리가 지연될 수 있습니다.<br> 탈퇴신청 이후 48시간이 지난 후에도 이메일 및 SMS를 받으시는 경우 당사 고객센터(02-830-1301)로 연락 주시기 바랍니다.
-			</p>
-			<p>&nbsp;</p>
-			<ol class="list-number ml-4 sm:ml-9 md:ml-14">
-				<li>회원탈퇴 시 사용하고 계신 아이디는 재사용 및 복구가 불가능합니다.</li>
-				<li>소유하고 있는 마일리지/포인트/쿠폰 등은 자동으로 소멸되며, 재가입하더라도 복구되지 않습니다.</li>
-				<li>주문내역, 위시리스트 등 기타 서비스 이용 내용이 모두 삭제되며, 재가입하더라도 복구되지 않습니다.</li>
-				<li>상품주문 및 취소/교환/반품 처리가 진행중일 경우에는 탈퇴처리가 이루어지지 않습니다.</li>
-				<li>회원 탈퇴 이후 90일 이내에는 재 가입되지 않습니다.</li>
-			</ol>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p class="text-title2">탈퇴회원 정보 보존기간,파기절차 및 시점</p>
-			<p>&nbsp;</p>
 			<p>
-				회원에 대하여 수집한 개인정보는 이로움 마켓 탈퇴 신청이 완료된 이후,<br> 보관기간 및 이용기간에 따라 해당 정보를 지체없이 파기합니다. 파기 절차, 방법, 시점은 다음과 같습니다. 기 바랍니다.
+				${_mbrSession.mbrNm} 회원님 이로움ON 서비스를 이용하시는데 불편함이 있으셨나요?<br>
+				이용 불편 및 각종 문의 사항은 고객센터(<a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a>)로 문의주시면 성심 성의껏 답변 드리겠습니다.
 			</p>
 			<p>&nbsp;</p>
-			<ol class="list-number">
-				<li class="mb-5 md:mb-6">파기절차 및 시점 고객이 서비스 가입 등을 위해 기재한 개인정보는 서비스 해지 등 이용목적이 달성된 후 내부 방침 및 기타 관련 법령에 의한 정보보호 사유(위 개인정보의 보유 및 이용기간 참조)에 따른 보유기간이 경과한 후에 삭제되거나 파기합니다.<br> 주문정보는 교환/반품/환불 및 사후처리(A/S) 등을 위하여 ‘전자상거래등에서의 소비자보호에 관한 법률’에 의거한 개인정보보호정책에 따라 5년간 보관됩니다.<br> 일반적으로 잔존하는 채권-채무 관계가 없는 경우 당사 회원가입시 수집되어 전자적 파일형태로 관리하는 개인정보는 회원 탈퇴 시점에 바로 삭제 됩니다.
-				</li>
-				<li>파기방법 종이에 출력된 개인정보는 분쇄기로 분쇄 또는 소각하거나 화학약품 처리를 하여 용해하여 파기하고, 전자적 파일형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다.</li>
+			<p>&nbsp;</p>
+			<p class="text-title2">[유의사항]</p>
+			<p>&nbsp;</p>
+			<ol class="list-normal ml-2 md:ml-4">
+				<li>자사가 제공하는 광고성 이메일 및 SMS의 경우 회원탈퇴 후 24시간 이내 중지 됩니다.</li>
+				<li>회원탈퇴 시 사용하고 계신 아이디는 재사용 및 복구가 불가능합니다.</li>
+				<li>보유하고 있는 마일리지/포인트/쿠폰 등은 소멸되며, 재가입하더라도 복구되지 않습니다.</li>
+				<li>주문내역 등 서비스 이용 내용은 모두 삭제되며, 재가입하더라도 복구되지 않습니다.</li>
+				<li>상품주문 및 취소/교환/반품 처리가 진행중일 경우에는 탈퇴처리가 이루어지지 않습니다.</li>
+				<li>이로움ON 서비스에서 입력하신 상품문의, 후기 댓글은 삭제 되지 않습니다.</li>
+				<li>회원탈퇴 후 7일 이내에는 재가입 되지 않습니다.</li>
 			</ol>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p class="text-title2">[개인정보 파기]</p>
+			<p>&nbsp;</p>
+			<p>개인정보는 회원 탈퇴 신청이 완료된 이후 즉시 파기됩니다.</p>
+			<p>&nbsp;</p>
+			<p class="text-alert">단, 전자상거래법, 통신비밀보호법 등 관련 법령의 규정에 의하여 아래와 개인정보가 일정 기간 보관됩니다.</p>
+			<p>&nbsp;</p>
+			<table class="terms-table">
+				<tbody>
+					<tr>
+						<td>계약 또는 청약철회 등에 관한 기록</td>
+						<td class="text-center">5년</td>
+					</tr>
+					<tr>
+						<td>대금결제 및 재화 등의 공급에 관한 기록</td>
+						<td class="text-center">5년</td>
+					</tr>
+					<tr>
+						<td>소비자의 불만 또는 분쟁처리에 관한 기록</td>
+						<td class="text-center">3년</td>
+					</tr>
+					<tr>
+						<td>웹사이트 방문 기록</td>
+						<td class="text-center">3개월</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="member-release-data mt-10 md:mt-12">
@@ -78,6 +96,7 @@
 						<label class="form-check-label" for="whdwlCode${status.index}">${whdwlCode.value}</label>
 					</div>
 				</c:forEach>
+				<input type="text"class="form-control" placeholder="회원탈퇴 사유를 입력해주세요." id="whdwlEtc" style="grid-column: 1/-1; display:none;" />
 			</div>
 
 			<div class="flex justify-center space-x-1.5 mt-4 mx-auto md:space-x-2 md:mt-10">
@@ -108,12 +127,8 @@
 									<label for="leave-item" class="pswd">비밀번호</label>&nbsp; <input type="password" class="form-control" id="pswd" name="pswd" placeholder="비밀번호" />
 								</div>
 								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary btn-submit">
-										확인
-										</buttton>
-										<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">
-											취소
-											</buttton>
+									<button type="submit" class="btn btn-primary btn-submit">확인</buttton>
+									<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</buttton>
 								</div>
 							</div>
 						</div>
@@ -126,7 +141,7 @@
 
 <script>
 	$(function(){
-		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
 
 		//배송 상태
 		const ordrSttsCode = {
@@ -182,6 +197,15 @@
 		    }
 		});
 
+		// 기타 사유 이벤트
+		$("input[name='whdwlCode']").on("click",function(){
+			if($("#whdwlCode5").is(":checked")){
+				$("#whdwlEtc").show();
+			}else{
+				$("#whdwlEtc").hide();
+			}
+		});
+
 
 		//유효성 검사
 		$("form[name='lveFrm']").validate({
@@ -202,11 +226,28 @@
 			    }
 			},
 		    submitHandler: function (frm) {
-		    	if(confirm("이로움 마켓 회원에서 정말 탈퇴하시겠습니까?")){
-		    		frm.submit();
-		    	}else{
-		    		return false;
-		    	}
+		    	/*특정 단계 제외 카운트*/
+	   			$.ajax({
+    				type : "post",
+    				url  : "exDlvySttsCnt.json",
+    				dataType : 'json'
+    			})
+    			.done(function(data) {
+    				if(data.result == true){
+    					if(confirm("이로움ON 마켓 회원에서 정말 탈퇴하시겠습니까?")){
+    			    		frm.submit();
+    			    	}else{
+    			    		return false;
+    			    	}
+    				}else{
+    					//alert(ordrSttsCode[data.sttsTy] + " 의외의 단계가 존재합니다.");
+    					alert("주문 건수 중 진행 중인 단계가 존재합니다.");
+    				}
+    			})
+    			.fail(function(data, status, err) {
+    				alert("단계 검사 중 오류가 발생했습니다.");
+    				console.log('error forward : ' + data);
+    			});
 		    }
 		});
 

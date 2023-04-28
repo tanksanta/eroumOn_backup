@@ -15,10 +15,13 @@ import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.ordr.dtl.biz.OrdrDtlService;
+import icube.manage.promotion.mlg.biz.MbrMlgService;
+import icube.manage.promotion.point.biz.MbrPointService;
 
 
 /**
- * 회원휴면처리, 회원등급 조정
+ * 회원 관련 스케줄러
  */
 @EnableScheduling
 @Service("mbrSchedule")
@@ -30,10 +33,19 @@ public class MbrSchedule extends CommonAbstractController {
 	@Resource(name = "mbrMngInfoService")
 	private MbrMngInfoService mbrMngInfoService;
 
+	@Resource(name = "mbrPointService")
+	private MbrPointService mbrPointService;
+
+	@Resource(name = "mbrMlgService")
+	private MbrMlgService mbrMlgService;
+
+	@Resource(name = "ordrDtlService")
+	private OrdrDtlService ordrDtlService;
 
 
-	// 회원휴면처리 (매일 00시 30분)
-	@Scheduled(cron="0 30 0 * * *")
+
+	// 회원휴면처리
+	@Scheduled(cron="0 0 2 * * *")
 	public void sleepMbr() throws Exception {
 		log.info("################## 회원 휴면 처리 START #####################");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -48,6 +60,14 @@ public class MbrSchedule extends CommonAbstractController {
 				paramMap.put("mberSttus", "HUMAN");
 				paramMap.put("uniqueId", mbrVO.getUniqueId());
 				mbrService.updateMberSttus(paramMap);
+
+				//TODO 소멸 포인트, 마일리지에 대한 로그 (관리자 페이지 기획중)
+				// 포인트, 마일리지 reset
+				paramMap.clear();
+				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+				paramMap.put("mberStts", "HUMAN");
+				mbrService.resetMemberShip(paramMap);
+
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -58,8 +78,8 @@ public class MbrSchedule extends CommonAbstractController {
 	}
 
 
-	// 회원등급 조정 (매월 1일 01시 00분)
-	@Scheduled(cron="0 0 1 1 * *")
+	// 회원등급 조정
+	@Scheduled(cron="0 30 2 1 * *")
 	public void transGrade() throws Exception {
 		log.info("################## 회원 등급 조정 START #####################");
 
@@ -71,23 +91,21 @@ public class MbrSchedule extends CommonAbstractController {
 
 			paramMap.clear();
 			paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+
 			int sumPc = mbrService.selectMbrSumPc(paramMap);
 
-			// 전월 누적 결제 금액 50만원 미만 - RED
-			if(sumPc < 500000) {
-				mbrVO.setMberGrade("R");
-			// 전월 누적 결제 금액 50만원 이상 - SILVER
-			}else if(500000 <= sumPc && sumPc < 1500000 ) {
+			// 누적 결제 금액 30만원 미만 - 신규
+			if(sumPc < 300000) {
+				mbrVO.setMberGrade("N");
+			// 누적 결제 금액 30만원 이상 - 새로움
+			}else if(300000 <= sumPc && sumPc < 900000 ) {
 				mbrVO.setMberGrade("S");
-			// 전월 누적 결제 금액 150만원 이상 - GOLD
-			}else if(1500000 <= sumPc && sumPc < 3000000) {
-				mbrVO.setMberGrade("G");
-			// 전월 누적 결제 금액 300만원 이상 - VIP
-			}else if(3000000 <= sumPc && sumPc < 5000000) {
-				mbrVO.setMberGrade("V");
-			// 전월 누적 결제 금액 500만원 이상 - PLATINUM
-			}else if(5000000 <= sumPc) {
-				mbrVO.setMberGrade("P");
+			// 누적 결제 금액 90만원 이상 - 반가움
+			}else if(900000 <= sumPc && sumPc < 3600000) {
+				mbrVO.setMberGrade("B");
+			// 누적 결제 금액 360만원 이상 - 이로움
+			}else if(3600000 <= sumPc) {
+				mbrVO.setMberGrade("E");
 			}
 			mbrService.updateMbr(mbrVO);
 		}
@@ -98,8 +116,8 @@ public class MbrSchedule extends CommonAbstractController {
 
 
 
-	// 블랙리스트 일시정지 회원 해제 (매일 01시 30분)
-	 @Scheduled(cron="0 30 1 * * *")
+	// 블랙리스트 일시정지 회원 해제
+	 @Scheduled(cron="0 0 3 * * *")
 	public void transMbrSttus() throws Exception {
 		log.info("################## 블랙리스트 검사 START #####################");
 
@@ -139,6 +157,31 @@ public class MbrSchedule extends CommonAbstractController {
 		log.info("################## 블랙리스트 검사 END #####################");
 
 	}
+
+	 // 탈퇴회원 DI Key Null
+	 //@Scheduled(cron="0 05 12 * * *")
+	 public void updateDiKey() throws Exception {
+		 log.info("################## 탈퇴 회원 날짜 검사 START #####################");
+
+		 Map<String, Object> paramMap = new HashMap<String, Object>();
+		 paramMap.put("srchMbrStts", "EXIT");
+
+		 List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+
+		 for(MbrVO mbrVO : mbrList) {
+			paramMap.clear();
+			paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+			try {
+				mbrService.updateDiKey(paramMap);
+			}catch(Exception e) {
+				e.printStackTrace();
+				log.info("회원 : " + mbrVO.getMbrNm() + "업데이트 실패 : " + e.toString());
+			}
+		 }
+
+		 log.info("################## 탈퇴 회원 날짜 검사 END #####################");
+
+	 }
 
 
 }

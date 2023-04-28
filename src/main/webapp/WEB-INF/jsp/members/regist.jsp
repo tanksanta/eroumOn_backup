@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <main id="container">
 	<h2 class="text-title">
-		이로움 멤버스 <span class="inline-block">등록 신청</span> <small>이로움과 함께 할 멤버를 기다리고 있습니다.</small>
+		이로움ON 멤버스 <span class="inline-block">등록 신청</span> <small>이로움ON과 함께 할 멤버를 기다리고 있습니다.</small>
 	</h2>
 
 	<ul class="tabs-list">
@@ -75,7 +75,7 @@ $(function(){
 				.done(function(data){
 					console.log(data);
 					if(data.aprvTy == "X"){
-						alert("미등록 멤버스입니다. 이로움 멤버스 신청 화면으로 이동합니다.");
+						alert("미등록 멤버스입니다. 이로움ON 멤버스 신청 화면으로 이동합니다.");
 						frm.submit();
 					}else if(data.aprvTy == "W"){
 						alert("승인 대기 중인 멤버스입니다.");

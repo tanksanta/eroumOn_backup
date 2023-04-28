@@ -113,6 +113,7 @@
             </h2>
             
             <div class="content-food2">
+                <div class="background"><div class="images"></div></div>
                 <div class="content">
                     <p>시니어 세대의 입맛을 지켜주는 음식으로 </p>
                     <p class="bigs">
@@ -122,6 +123,15 @@
                     </p>
                     <p><strong>고령친화 식품</strong>이라고 합니다</p>
                 </div>
+                <script>
+                    $(function() {
+                        $(window).on('scroll', function() {
+                            if($('.content-food2').get(0).getClientRects()[0].y + $('.content-food2').get(0).getClientRects()[0].height > 0) {
+                                $('.content-food2 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.075) + 'px)'});
+                            }
+                        });
+                    })
+                </script>
             </div>
 
             <div class="content-food3">
@@ -185,7 +195,7 @@
                                 치아로 섭취 가능한 <br>
                                 <em>“연하식”</em>
                             </p>
-                            <a href="#" class="link"><strong>연하식 1단계 식품</strong> 바로가기</a>
+                            <a href="#" class="link"><strong>연하식 1단계 식품</strong> <span>바로가기</span></a>
                         </div>
                     </div>
                     <div class="card card2">
@@ -195,7 +205,7 @@
                                 틀니나 잇몸으로도 <br>
                                 씹기 쉬운 <em>“연화반찬류”</em>
                             </p>
-                            <a href="#" class="link"><strong>연하반찬류 식품</strong> 바로가기</a>
+                            <a href="#" class="link"><strong>연하반찬류 식품</strong> <span>바로가기</span></a>
                         </div>
                     </div>
                     <div class="card card3">
@@ -207,7 +217,7 @@
                                 혀로도 식사가 가능한 <br>
                                 <em>“유동식”</em>
                             </p>
-                            <a href="#" class="link"><strong>유동식 식품</strong> 바로가기</a>
+                            <a href="#" class="link"><strong>유동식 식품</strong> <span>바로가기</span></a>
                         </div>
                     </div>
                 </div>
@@ -254,47 +264,51 @@
                             </tr>
                             <tr>
                                 <th scope="row">영양성분</th>
-                                <td>
-                                    <dl class="labels">
-                                        <dt>단백질</dt>
-                                        <dd><i>6g / 100g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color1">
-                                        <dt>비타민D</dt>
-                                        <dd><i>1.5 μg / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels">
-                                        <dt>칼륨</dt>
-                                        <dd><i>80 mg / 100 g</i> 이상</dd>
-                                    </dl>
-                                </td>
-                                <td>
-                                    <dl class="labels is-color2">
-                                        <dt>비타민A</dt>
-                                        <dd><i>75 μg RAE / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color3">
-                                        <dt>리보플라빈</dt>
-                                        <dd><i>0.15 mg / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels">
-                                        <dt>칼슘</dt>
-                                        <dd><i>0.35 g / 100 g</i> 이상</dd>
-                                    </dl>
-                                </td>
-                                <td>
-                                    <dl class="labels is-color4">
-                                        <dt>비타민C</dt>
-                                        <dd><i>10 mg / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color5">
-                                        <dt>나이아신</dt>
-                                        <dd><i>1.6 mg NE / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color6">
-                                        <dt>식이섬유</dt>
-                                        <dd><i>2.5 g / 100 g</i> 이상</dd>
-                                    </dl>
+                                <td colspan="3">
+                                    <div class="grid grid-cols-3 gap-2.5">
+                                        <div>
+                                            <dl class="labels">
+                                                <dt>단백질</dt>
+                                                <dd><i>6g / 100g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels is-color1">
+                                                <dt>비타민D</dt>
+                                                <dd><i>1.5 μg / 100 g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels">
+                                                <dt>칼륨</dt>
+                                                <dd><i>80 mg / 100 g</i> 이상</dd>
+                                            </dl>
+                                        </div>
+                                        <div>
+                                            <dl class="labels is-color2">
+                                                <dt>비타민A</dt>
+                                                <dd><i>75 μg RAE / 100 g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels is-color3">
+                                                <dt>리보플라빈</dt>
+                                                <dd><i>0.15 mg / 100 g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels">
+                                                <dt>칼슘</dt>
+                                                <dd><i>0.35 g / 100 g</i> 이상</dd>
+                                            </dl>
+                                        </div>
+                                        <div>
+                                            <dl class="labels is-color4">
+                                                <dt>비타민C</dt>
+                                                <dd><i>10 mg / 100 g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels is-color5">
+                                                <dt>나이아신</dt>
+                                                <dd><i>1.6 mg NE / 100 g</i> 이상</dd>
+                                            </dl>
+                                            <dl class="labels is-color6">
+                                                <dt>식이섬유</dt>
+                                                <dd><i>2.5 g / 100 g</i> 이상</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -319,23 +333,6 @@
                                     <p class="count"><i>~ 50,000</i> 초과</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">영양성분</th>
-                                <td>
-                                    <dl class="labels">
-                                        <dt>단백질</dt>
-                                        <dd><i>6g / 100g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color1">
-                                        <dt>비타민D</dt>
-                                        <dd><i>1.5 μg / 100 g </i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels">
-                                        <dt>칼륨</dt>
-                                        <dd><i>80 mg / 100 g</i> 이상</dd>
-                                    </dl>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                     <table>
@@ -354,23 +351,6 @@
                                 <td>
                                     <p class="count"><i>50,000</i> 이하</p>
                                     <p class="count"><i>~ 20,000</i> 초과</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">영양성분</th>
-                                <td>
-                                    <dl class="labels is-color2">
-                                        <dt>비타민A</dt>
-                                        <dd><i>75 μg RAE / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels is-color3">
-                                        <dt>리보플라빈</dt>
-                                        <dd><i>0.15 mg / 100 g</i> 이상</dd>
-                                    </dl>
-                                    <dl class="labels">
-                                        <dt>칼슘</dt>
-                                        <dd><i>0.35 g / 100 g</i> 이상</dd>
-                                    </dl>
                                 </td>
                             </tr>
                         </tbody>
@@ -395,6 +375,30 @@
                             <tr>
                                 <th scope="row">영양성분</th>
                                 <td>
+                                    <dl class="labels">
+                                        <dt>단백질</dt>
+                                        <dd><i>6g / 100g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color1">
+                                        <dt>비타민D</dt>
+                                        <dd><i>1.5 μg / 100 g </i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼륨</dt>
+                                        <dd><i>80 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color2">
+                                        <dt>비타민A</dt>
+                                        <dd><i>75 μg RAE / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels is-color3">
+                                        <dt>리보플라빈</dt>
+                                        <dd><i>0.15 mg / 100 g</i> 이상</dd>
+                                    </dl>
+                                    <dl class="labels">
+                                        <dt>칼슘</dt>
+                                        <dd><i>0.35 g / 100 g</i> 이상</dd>
+                                    </dl>
                                     <dl class="labels is-color4">
                                         <dt>비타민C</dt>
                                         <dd><i>10 mg / 100 g</i> 이상</dd>
@@ -422,7 +426,16 @@
                         이로움 마켓
                     </span>
                 </a> -->
-                <a href="#" class="test">이로움<br>테스트</a>
+                <a href="#" class="test">
+                    <span class="front">
+                        <small>E·ROUM</small>
+                        <strong>TEST</strong>
+                    </span>
+                    <span class="rear">
+                        <small>장기요양등급</small>
+                        <strong>테스트</strong>
+                    </span>
+                </a>
                 <a href="#page-container" class="gotop"><span class="sr-only">위로 이동</span></a>
             </div>
         </div>

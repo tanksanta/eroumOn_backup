@@ -32,6 +32,9 @@
     <!-- admin -->
     <link rel="stylesheet" href="/html/page/admin/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>"/>
     <script src="/html/page/admin/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <c:if test="${fn:indexOf(_curPath, '/ordr/') > -1}">
+    <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
+    </c:if>
 </head>
 <body>
 

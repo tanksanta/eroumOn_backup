@@ -26,7 +26,9 @@
                     <div class="myinfo-user">
                         <div class="grade">
                             <div class="image">
-                            	<img src="/html/page/market/assets/images/img-grade${mbrVO.mberGrade eq 'P' ? '1' : mbrVO.mberGrade eq 'V' ? '2' : mbrVO.mberGrade eq 'G' ? '3' : mbrVO.mberGrade eq 'R' ? '4' : mbrVO.mberGrade eq 'S' ? '5' : ''}.svg" alt="">
+                                <strong ${mbrVO.mberGrade eq 'E' ? ' class="text-grade1"' : mbrVO.mberGrade eq 'B' ? ' class="text-grade2"' : mbrVO.mberGrade eq 'S' ? ' class="text-grade3"' : mbrVO.mberGrade eq 'N' ? '' : ''}>
+                                	${gradeCode[mbrVO.mberGrade]}
+                                </strong>
                                 <a href="${_marketPath}/etc/bnft/list" class="btn btn-outline-primary">회원 등급별 혜택</a>
                             </div>
                             <div class="desc">
@@ -90,7 +92,9 @@
                     <div class="myinfo-user">
                         <div class="grade">
                             <div class="image">
-                            	<img src="/html/page/market/assets/images/img-grade${mbrVO.mberGrade eq 'P' ? '1' : mbrVO.mberGrade eq 'V' ? '2' : mbrVO.mberGrade eq 'G' ? '3' : mbrVO.mberGrade eq 'R' ? '4' : mbrVO.mberGrade eq 'S' ? '5' : ''}.svg" alt="">
+                                <strong ${mbrVO.mberGrade eq 'E' ? ' class="text-grade1"' : mbrVO.mberGrade eq 'B' ? ' class="text-grade2"' : mbrVO.mberGrade eq 'S' ? ' class="text-grade3"' : mbrVO.mberGrade eq 'N' ? '' : ''}>
+                                	${gradeCode[mbrVO.mberGrade]}
+                                </strong>
                                 <a href="${_marketPath}/etc/bnft/list" class="btn btn-outline-primary">회원 등급별 혜택</a>
                             </div>
                             <div class="desc">
@@ -334,7 +338,7 @@
 
                     <div class="order-title mt-8 md:mt-18">
                         <h2>가족회원 급여 상품 멤버스 승인 현황</h2>
-                        <a href="#" class="btn btn-more">전체보기</a>
+                        <!-- <a href="#" class="btn btn-more">전체보기</a> -->
                     </div>
 
 					<c:forEach items="${reciptersOrdrList.listObject}" var="ordrDtl" varStatus="status">
@@ -352,6 +356,15 @@
 
                     <div class="order-product mt-3 md:mt-4">
                         <div class="order-header">
+                        <c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
+								<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+								<c:if test="${!empty ordrDtl.bplcInfo}">
+									<dl class="large">
+										<dt>멤버스</dt>
+										<dd>${ordrDtl.bplcInfo.bplcNm}</dd>
+									</dl>
+								</c:if>
+							</c:if>
                             <dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./ordr/view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
@@ -455,14 +468,14 @@
                                                 	무료배송
                                                 	</c:if>
                                                 	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
                                                 	</c:if>
                                                 </dd>
                                             </dl>
                                             <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
-                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
                                             </c:if>
                                         </div>
@@ -598,7 +611,16 @@
 
                     <div class="order-product mt-3 md:mt-4">
                         <div class="order-header">
-                            <dl>
+								<c:if test="${reciptersOrdrList.listObject[status.index+1].ordrTy eq 'R' || reciptersOrdrList.listObject[status.index+1].ordrTy eq 'L'}">
+									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+									<c:if test="${!empty reciptersOrdrList.listObject[status.index+1].bplcInfo}">
+										<dl class="large">
+											<dt>멤버스</dt>
+											<dd>${reciptersOrdrList.listObject[status.index+1].bplcInfo.bplcNm}</dd>
+										</dl>
+									</c:if>
+								</c:if>
+								<dl>
                                 <dt>주문번호</dt>
                                 <dd><strong><a href="./ordr/view/${reciptersOrdrList.listObject[status.index+1].ordrCd}?${pageParam}">${reciptersOrdrList.listObject[status.index+1].ordrCd}</a></strong></dd>
                             </dl>
@@ -659,6 +681,15 @@
 
 	                    <div class="order-product">
 	                        <div class="order-header">
+	                        	<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
+									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+									<c:if test="${!empty ordrDtl.bplcInfo}">
+										<dl class="large">
+											<dt>멤버스</dt>
+											<dd>${ordrDtl.bplcInfo.bplcNm}</dd>
+										</dl>
+									</c:if>
+								</c:if>
 	                            <dl>
 	                                <dt>주문번호</dt>
 	                                <dd><strong><a href="./ordr/view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
@@ -762,14 +793,14 @@
 	                                                	무료배송
 	                                                	</c:if>
 	                                                	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-	                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+	                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
 	                                                	</c:if>
 	                                                </dd>
                                             	</dl>
 	                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
 	                                            <dl>
 	                                                <dt>추가 배송비</dt>
-	                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+	                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
 	                                            </dl>
 	                                            </c:if>
 	                                        </div>
@@ -905,6 +936,15 @@
 
 	                    <div class="order-product">
 	                        <div class="order-header">
+	                        <c:if test="${listVO.listObject[status.index+1].ordrTy eq 'R' || listVO.listObject[status.index+1].ordrTy eq 'L'}">
+									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+									<c:if test="${!empty listVO.listObject[status.index+1].bplcInfo}">
+										<dl class="large">
+											<dt>멤버스</dt>
+											<dd>${listVO.listObject[status.index+1].bplcInfo.bplcNm}</dd>
+										</dl>
+									</c:if>
+								</c:if>
 	                            <dl>
 	                                <dt>주문번호</dt>
 	                                <dd><strong><a href="./ordr/view/${ordrListVO.listObject[status.index+1].ordrCd}?${pageParam}">${ordrListVO.listObject[status.index+1].ordrCd}</a></strong></dd>
@@ -935,7 +975,7 @@
                 <!-- //최근 구매 내역 -->
 
                 <!--  나의 상품 후기 -->
-                <div class="mypage-myinfo-recent">
+                <!-- <div class="mypage-myinfo-recent">
                     <div class="recent-title">
                         <h2>나의 상품 후기</h2>
                         <a href="${_marketPath}/mypage/review/list" class="btn btn-more">전체보기</a>
@@ -958,7 +998,7 @@
 	                        </div>
 	                    </div>
                     </c:forEach>
-                </div>
+                </div> -->
                 <!-- //나의 상품 후기 -->
 
                 <!-- 나의 상품 Q&A -->
@@ -1047,7 +1087,7 @@
 							</div>
 							<div class="item-status">
 								<c:if test="${eventList.prsntnYmd <= getNow && eventList.przwinCount > 0}">
-									<a href="${_marketPath}/etc/event/przwin_view?eventNo=${eventList.eventNo}"><span class="status2">당첨자 보기</span></a>
+									<a href="${_marketPath}/etc/event/przwin_view?eventNo=${eventList.eventNo}" class="status2">당첨자 보기</a>
 								</c:if>
 							</div>
 						</div>

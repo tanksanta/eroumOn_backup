@@ -1,9 +1,6 @@
 package icube.common.interceptor;
 
-import java.text.SimpleDateFormat;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -116,15 +113,6 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 			}
 
 		}
-
-		// 멤버스(bplc) 카운트
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("Y", "srchUseYn"); // 사용중
-		paramMap.put("C", "srchAprvTy"); // 승인
-
-		int bplcCnt = bplcService.selectBplcCnt(paramMap);
-		request.setAttribute("_bplcCnt", bplcCnt);
-
 
 		// 코드
 		request.setAttribute("gradeCode", CodeMap.GRADE);

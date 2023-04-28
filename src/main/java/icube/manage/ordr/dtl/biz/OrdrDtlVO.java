@@ -48,6 +48,7 @@ public class OrdrDtlVO extends OrdrVO {
 	private RecipterInfoVO recipterInfo; //수급자정보
 
 	private String bplcUniqueId; // 사업소 유니크
+	private String bplcNm;
 	private BplcVO bplcInfo; // 사업소정보
 
 	private String sttsTy;

@@ -38,6 +38,7 @@
 				<th scope="col">카테고리2</th>
                 <th scope="col">상품코드</th>
                 <th scope="col">급여코드</th>
+                <th scope="col">품목코드</th>
                 <th scope="col">상품명</th>
                 <th scope="col">관리자메모</th>
                 <th scope="col">기본설명</th>
@@ -74,6 +75,7 @@
                 <td>${result.ctgryNm}</td>
                 <td>${result.gdsCd}</td>
                 <td>${result.bnefCd}</td>
+                <td>${result.itemCd}</td>
                 <td>${result.gdsNm}</td>
                 <td>${result.mngrMemo}</td>
                 <td>${result.bassDc}</td>

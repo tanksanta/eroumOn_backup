@@ -22,10 +22,6 @@ import icube.common.framework.abst.CommonAbstractController;
 @RequestMapping(value="#{props['Globals.Membership.path']}/cntnts")
 public class MbrsCntntsController extends CommonAbstractController {
 
-	@Value("#{props['Globals.Membership.path']}")
-	private String membershipPath;
-
-
 	@RequestMapping(value = "{pageName}")
 	public String MarketIndex(
 			@PathVariable String pageName

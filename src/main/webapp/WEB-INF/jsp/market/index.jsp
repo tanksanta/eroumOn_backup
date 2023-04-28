@@ -22,7 +22,7 @@
         <c:if test="${_mbrSession.uniqueId ne null}">
 	        <section class="main-myinfo">
 	            <h1 class="main-user">
-	                <span class="name">hello <strong>${_mbrSession.mbrNm}</strong> 님</span>
+	                <span class="name">hello <strong><a href="/market/mypage/index">${_mbrSession.mbrNm}</a></strong> 님</span>
 	                	<span class="thumb"><c:if test="${!empty _mbrSession.proflImg}"><img src="/comm/proflImg?fileName=${_mbrSession.proflImg}" alt=""></c:if></span>
 	            </h1>
 	            <div class="main-number">
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="title">
                                         <p>안전한 <em>욕실생활</em></p>
-                                        <small>미끄러운 사고 위험이 높은 공간으로 안전을 예방하는 복지용구를 소개해드립니다.</small>
+                                        <small>미끄러운 사고 위험이 높은 공간으로 안전사고를 예방하는 복지용구를 소개해드립니다.</small>
                                     </div>
                                     <a href="${_marketPath}/cntnts/style-guide-bathroom" class="btn">욕실에 필요한 복지용구 보기</a>
                                 </div>
@@ -109,9 +109,9 @@
                                         <strong>Senior Life Style</strong> by Eroum <i></i> <strong>BEDROOM</strong>
                                     </div>
                                     <div class="title">
-                                        <p>행복한 <em>침실생활</em></p>
+                                        <p>안락한 <em>침실생활</em></p>
                                         <small>
-                                            일상을 마치고 수면과 휴식을 취하는 침실에서 더욱 빛나는 복지용구를 소개해드립니다.
+                                            수면과 휴식을 취하는 공간에서 필요한 복지용구를 소개해드립니다.
                                         </small>
                                     </div>
                                 </div>
@@ -127,8 +127,8 @@
                                         <strong>Senior Life Style</strong> by Eroum <i></i> <strong>OUTDOOR</strong>
                                     </div>
                                     <div class="title">
-                                        <p>활기찬 <em>야외생활</em></p>
-                                        <small>많은 사람들과 함께 불편할 수 있는 야외활동을 보조해주는 복지용구를 소개합니다. </small>
+                                        <p>건강한 <em>야외생활</em></p>
+                                        <small>위험 요소가 많은 야외에서 낙상 및 안전사고를 예방하는 복지용구를 소개해드립니다.</small>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="swiper-arrow">
                 스크롤을 내려보세요
             </div>
@@ -211,13 +211,13 @@
                         visual.slideTo($(this).index());
                     }
                 });
-                
+
                 $(window).on('scroll load', function() {
                     if($(window).scrollTop() > $('#header').outerHeight()) {
                         $('.main-visual.is-nologin').addClass('is-scroll');
                     }
                 });
-                
+
                 $(window).on('scroll', function() {
                     if($('.main-visual').get(0).getClientRects()[0].y + $('.main-visual').get(0).getClientRects()[0].height > 0) {
                         $('.main-visual .slide-img .photo').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.125)+ 'px)'});
@@ -308,7 +308,7 @@
 	                        </div>
 	                        <div class="detail">
 	                            <div class="name">성인용 보행기</div>
-	                            <div class="desc">보행이 불편한 경우 실내∙외에서 혼자서 이동할 수 있도록 보조하는 용품</div>
+	                            <div class="desc">실내, 야외에서 보행이 불편하거나 장시간 걷지 못하는 고객에게 추천합니다.</div>
 	                            <div class="info">
 	                                <p>
 	                                    <sup>사용연한</sup>
@@ -509,7 +509,7 @@
 	                                </p>
 	                                <p>
 	                                    <sup>급여한도</sup>
-	                                    <strong>3</strong>
+	                                    <strong>1</strong>
 	                                    <sub>개</sub>
 	                                </p>
 	                            </div>
@@ -527,7 +527,7 @@
                                 <div class="desc">신체 기능 저하로 실내에서 장시간 같은 자세로 있는 고객에게 추천합니다.</div>
                                 <div class="info">
                                     <p>
-                                        <sup>사용가능 햇수</sup>
+                                        <sup>사용연한</sup>
                                         <strong>&nbsp;</strong>
                                         <sub>없음</sub>
                                     </p>
@@ -574,14 +574,28 @@
                                 <div class="name">경사로</div>
                                 <div class="desc">실내, 야외에서 문턱이나 계단 이동 시 안전사고 예방하기 위한 고객에게 추천합니다.</div>
                                 <div class="info">
+                                    <p class="title">실내(구매)</p>
                                     <p>
-                                        <sup>사용가능 햇수</sup>
+                                        <sup>사용연한</sup>
                                         <strong>2</strong>
                                         <sub>년</sub>
                                     </p>
                                     <p>
                                         <sup>급여한도</sup>
                                         <strong>6</strong>
+                                        <sub>개</sub>
+                                    </p>
+                                </div>
+                                <div class="info">
+                                    <p class="title">야외(대여)</p>
+                                    <p>
+                                        <sup>사용연한</sup>
+                                        <strong>8</strong>
+                                        <sub>년</sub>
+                                    </p>
+                                    <p>
+                                        <sup>급여한도</sup>
+                                        <strong>1</strong>
                                         <sub>개</sub>
                                     </p>
                                 </div>
@@ -639,7 +653,7 @@
                         </dt>
                         <dd>
                             간단한 테스트로<br>
-                            이로움에서 플랜을 제공받으세요
+                            이로움ON에서 플랜을 제공받으세요
                             <a href="https://silver.bokji24.com/find/step2-1" target="_blank">테스트 하기</a>
                         </dd>
                     </dl>
@@ -653,9 +667,9 @@
                     <dl class="partner">
                         <dt>복지용구 멤버스 안내</dt>
                         <dd>
-                        	전국 약 1,600개 <strong>이로움 멤버스</strong>가 여러분 곁에 있습니다.
+                        	전국 약 1,600개 <strong>이로움ON 멤버스</strong>가 여러분 곁에 있습니다.
                             <!-- 전국 <fmt:formatNumber value="${bplcCnt}" pattern="###,###" />개 <strong>이로움 멤버스</strong>가 여러분 곁에 있습니다. -->
-                            <a href="${_partnersPath}"><i></i> 지도로 보기</a>
+                            <a href="${_membersPath}"><i></i> 지도로 보기</a>
                         </dd>
                     </dl>
                 </div>

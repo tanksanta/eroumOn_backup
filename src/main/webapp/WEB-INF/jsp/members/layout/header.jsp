@@ -6,8 +6,8 @@
                     <a href="/<spring:eval expression="@props['Globals.Members.path']"/>/introduce">
                         <img src="/html/page/office/assets/images/ico-partner-logo.svg" alt="E-ROUM MEMBERS">
                         <span>
-                            당신이 어디에 있든<br>
-                            멤버스가 항상 옆에 있습니다.
+                        	항상 당신 곁에<br>
+                        	이로움ON 멤버스가 있겠습니다.
                         </span>
                     </a>
                 </h1>

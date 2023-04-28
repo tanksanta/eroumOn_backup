@@ -12,6 +12,7 @@
 		, g.gds_ty
 		, g.gds_nm
 		, g.gds_cd
+		, g.gds_tag
 		, g.pc
 		, g.bnef_pc
 		, g.lend_pc

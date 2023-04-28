@@ -100,6 +100,11 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		ordrDAO.updateBillingCancel(paramMap);
 	}
 
+	// 빌링키 업데이트
+	public void updateBillingChg(Map<String, Object> paramMap) throws Exception {
+		ordrDAO.updateBillingChg(paramMap);
+	}
+
 	// 이로움1.5 -> 이로움1.0 주문정보 송신 결과 값 업데이트
 	public void updateOrdrByMap(Map<String, Object> paramMap) throws Exception {
 		ordrDAO.updateOrdrByMap(paramMap);
@@ -109,6 +114,5 @@ public class OrdrService extends CommonAbstractServiceImpl {
 	public List<OrdrVO> selectOrdrListAll(Map<String, Object> paramMap) throws Exception {
 		return ordrDAO.selectOrdrListAll(paramMap);
 	}
-
 
 }

@@ -21,6 +21,7 @@ public class BplcGdsVO extends CommonBaseVO {
 	private String gdsNm; //상품 명
 	private String gdsTy; //상품 구분
 	private String gdsCd; //상품 코드
+	private String gdsTag; // 상품 태그
 	private int pc; //판매가
 	private int bnefPc; //급여가
 	private int lendPc; //대여가(월)

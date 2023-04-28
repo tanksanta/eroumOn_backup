@@ -27,7 +27,7 @@
 				</p>
 				<div class="search-button">
 					<button class="btn btn-primary" type="submit">확인</button>
-					<a href="membership/login" class="btn btn-outline-primary">취소</a>
+					<a href="/membership/login" class="btn btn-outline-primary">취소</a>
 				</div>
 			</fieldset>
 		</form>
@@ -37,7 +37,7 @@
 <script>
 $(function(){
 
-	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
 
 	//유효성 검사
 	$("form#pswdChgFrm").validate({

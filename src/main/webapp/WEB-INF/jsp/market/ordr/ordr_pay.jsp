@@ -105,14 +105,14 @@
                                                 	무료배송
                                                 	</c:if>
                                                 	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
                                                 	</c:if>
                                                 </dd>
                                             </dl>
                                             <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
-                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
                                             </c:if>
 
@@ -152,7 +152,7 @@
 
 						<input type="hidden" name="dlvyAditAmt" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0}"> <%--추가 배송비 > 추가옵션일경우 제외 --%>
 
-						<input type="hidden" name="ordrPc" id="ordrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc }"> <%--건별 주문금액--%>
+						<input type="hidden" name="ordrPc" id="ordrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc}"> <%--건별 주문금액--%>
 						<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc }"> <%--건별 주문금액 초기화를 위한 여분--%>
 
 						<input type="hidden" name="couponNo" id="couponNo_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value=""> <%--쿠폰번호 > 쿠폰선택 시점에서 채워줌 --%>
@@ -172,20 +172,17 @@
                 <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">고객 정보</h3>
                 <div class="md:flex md:space-x-6 lg:space-x-7.5">
 					<c:choose>
-						<c:when test="${_mbrSession.mberGrade eq 'P'}">
+						<c:when test="${_mbrSession.mberGrade eq 'E'}">
 							<div class="payment-customer customer-grade1 flex-1">
 						</c:when>
-						<c:when test="${_mbrSession.mberGrade eq 'V'}">
+						<c:when test="${_mbrSession.mberGrade eq 'B'}">
 							<div class="payment-customer customer-grade2 flex-1">
 						</c:when>
-						<c:when test="${_mbrSession.mberGrade eq 'G'}">
+						<c:when test="${_mbrSession.mberGrade eq 'S'}">
 							<div class="payment-customer customer-grade3 flex-1">
 						</c:when>
-						<c:when test="${_mbrSession.mberGrade eq 'R'}">
+						<c:when test="${_mbrSession.mberGrade eq 'N'}">
 							<div class="payment-customer customer-grade4 flex-1">
-						</c:when>
-						<c:when test="${_mbrSession.mberGrade eq 'S'}">
-							<div class="payment-customer customer-grade5 flex-1">
 						</c:when>
 						<c:otherwise>
 							<div class="payment-customer customer-grade4 flex-1">
@@ -247,13 +244,13 @@
                         <tr>
                             <th scope="row"><p><label for="recptrMblTelno"></label>휴대폰번호 <sup class="text-danger text-base md:text-lg">*</sup></p></th>
                             <td>
-                                <form:input class="form-control w-57" path="recptrMblTelno" value="${bassDlvyVO.mblTelno}" />
+                                <form:input class="form-control w-57" path="recptrMblTelno" value="${bassDlvyVO.mblTelno}" oninput="autoHyphen(this);" maxlength="13"/>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row"><p><label for="recptrTelno"></label>전화번호</p></th>
                             <td>
-                                <form:input class="form-control w-57" path="recptrTelno" value="${bassDlvyVO.telno}" />
+                                <form:input class="form-control w-57" path="recptrTelno" value="${bassDlvyVO.telno}" oninput="autoHyphen(this);" maxlength="13"/>
                             </td>
                         </tr>
                         <tr>
@@ -344,7 +341,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-alert is-danger mt-0.5 md:mt-1">포인트 및 마일리지 사용은 두가지 중 하나만 사용 가능합니다</p>
                 </c:if>
 
 
@@ -456,7 +452,7 @@
     		totalCouponAmt = totalCouponAmt.toString().replace(",","");
     	}
 
-    	calStlmAmt = (Number(stlmAmt) + Number(plusDlvyBassAmt) + Number(dlvyAditAmt)) - Number(useMlg) - Number(usePoint);
+    	calStlmAmt = (Number(stlmAmt) + Number(plusDlvyBassAmt) + Number(dlvyAditAmt)) - Number(useMlg) - Number(usePoint) - Number(totalCouponAmt);
 
     	//console.log("calStlmAmt> ", calStlmAmt);
 
@@ -662,48 +658,23 @@
 
     	// 마일리지 모달
     	$(".f_use_mlg").on("click", function(){
-    		let actFlag = false;
-    		if(Number(uncomma($("#usePoint").val())) > 0){
-    			if(confirm("포인트 및 마일리지 사용은 두가지 중 하나만 사용 가능합니다\n사용 포인트를 초기화 합니다.")){
-					//reset
-		    		$("#usePoint").val(0);
-		    		$("input[name='mbrPoint']").remove();
-		    		pointMap.clear();
-		    		f_calStlmAmt();
-		    		actFlag = true;
-    			}
-    		}else{
-    			actFlag = true;
-    		}
-    		if(actFlag){
-	    		$("#use-mlg").load("/comm/dscnt/mlg"
-	    			, function(){
-	    				$("#mlg-modal").modal('show');
-	    			});
-    		}
+
+    		f_calStlmAmt();
+
+	   		$("#use-mlg").load("/comm/dscnt/mlg"
+	   			, function(){
+	   				$("#mlg-modal").modal('show');
+	   			});
     	});
 
     	// 포인트 모달
     	$(".f_use_point").on("click", function(){
-    		let actFlag = false;
-    		if(Number(uncomma($("#useMlg").val())) > 0){
-    			if(confirm("포인트 및 마일리지 사용은 두가지 중 하나만 사용 가능합니다\n사용 마일리지를 초기화 합니다.")){
-					//reset
-		    		$("#useMlg").val(0);
-		    		$("input[name='mbrMlg']").remove();
-		    		mlgMap.clear();
-		    		f_calStlmAmt();
-		    		actFlag = true;
-    			}
-    		}else{
-    			actFlag = true;
-    		}
-    		if(actFlag){
-	    		$("#use-point").load("/comm/dscnt/point"
-	    			, function(){
-	    				$("#point-modal").modal('show');
-	    			});
-    		}
+    		f_calStlmAmt();
+
+    		$("#use-point").load("/comm/dscnt/point"
+    			, function(){
+    				$("#point-modal").modal('show');
+    			});
     	});
 
     	// 쿠폰 모달
@@ -764,6 +735,8 @@
       		$("#btn-reset").click();
       		$(".f_point_reset").click();
       		$(".f_mlg_reset").click();
+      		$("#frmMlg input[name='useMlg']").val(0);
+      		$("#frmPoint input[name='usePoint']").val(0);
       		f_calStlmAmt();
       	});
 
@@ -799,6 +772,7 @@
     	    submitHandler: function (frm) {
     	    	$("#usePoint").val(uncomma($("#usePoint").val()));
     	    	$("#useMlg").val(uncomma($("#useMlg").val()));
+
     	    	f_pay(frm);
     	    	return false;
     	    }

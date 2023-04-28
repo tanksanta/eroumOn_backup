@@ -1,6 +1,6 @@
 /********** 사이트 헤더 **********/
 #header {
-    @apply fixed z-90 top-0 left-0 right-0 transition-[background] duration-300 bg-white lg:relative;
+    @apply fixed z-90 top-0 left-0 right-0 transition-[background] duration-300 bg-white;
     & .container {
         @apply flex items-center relative mx-auto px-2.5 md:px-4 max-w-[1920px] h-[2.8125rem] md:h-15 lg:h-[5.625rem] 2xl:px-20;
     }
@@ -11,7 +11,7 @@
     & a {
         @apply block relative w-full h-full;
         &::before, &::after {
-            @apply content-empty absolute top-0 left-0 w-full h-full bg-cover transition-[opacity,visibility] duration-300;
+            @apply content-empty absolute top-0 left-0 w-full h-full bg-[length:100%] bg-[left_center] transition-[opacity,visibility] duration-300;
         }
         &::before {
             @apply opacity-0 invisible bg-[url(../images/img-main-logo-white.svg)];
@@ -183,9 +183,8 @@
 }
 
 #content {
-    @apply relative mx-auto pt-[2.8125rem] px-4 pb-15 max-w-[1400px] md:pt-15 lg:pt-0 lg:pb-25 lg:px-10;
+    @apply relative mx-auto pt-[2.8125rem] px-4 pb-15 max-w-[1400px] md:pt-15 lg:pt-[5.625rem] lg:pb-25 lg:px-10;
 }
-
 
 /********** 사이트 정보 **********/
 #footer {
@@ -394,7 +393,7 @@
 /********** 메인 플래그 **********/
 .is-index {
     & #header {
-        @apply fixed bg-transparent;
+        @apply bg-transparent;
     }
     & #logo {
         & a {

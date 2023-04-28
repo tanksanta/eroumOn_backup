@@ -70,6 +70,7 @@
 					<tr>
 						<th scope="row"><label for="pointCn">포인트 내역</label></th>
 						<td>
+							<%-- 2023-02-16 : 마일리지 / 포인트 구분을 위해 하드코딩으로 변경 --%>
 							<div class="form-check-group">
 								<div class="form-check">
 									<form:radiobutton class="form-check-input" path="pointCn" id="pointCn0" value="01"/>
@@ -88,10 +89,6 @@
 									<label class="form-check-label" for="pointCn3">적립 취소</label>
 								</div>
 								<div class="form-check">
-									<form:radiobutton class="form-check-input" path="pointCn" id="pointCn4" value="14"/>
-									<label class="form-check-label" for="pointCn4">유효기간 만료</label>
-								</div>
-								<div class="form-check">
 									<form:radiobutton class="form-check-input" path="pointCn" id="pointCn5" value="31"/>
 									<label class="form-check-label" for="pointCn5">회원 가입</label>
 								</div>
@@ -103,13 +100,6 @@
 									<form:radiobutton class="form-check-input" path="pointCn" id="pointCn7" value="99"/>
 									<label class="form-check-label" for="pointCn7">기타</label>
 								</div>
-								<%-- 2023-02-16 : 마일리지 / 포인트 구분을 위해 하드코딩으로 변경 --%>
-								<%--<c:forEach var="pointCn" items="${pointCnCode}" varStatus="status">
-									<div class="form-check">
-										<form:radiobutton class="form-check-input" path="pointCn" id="pointCn${status.index}" value="${pointCn.key}"/>
-										<label class="form-check-label" for="pointCn${status.index}">${pointCn.value}</label>
-									</div>
-								</c:forEach> --%>
 							</div>
 						</td>
 					</tr>
@@ -120,7 +110,7 @@
 					</tr>
 					<tr>
 						<th scope="row"><label for="point" class="require">포인트</label></th>
-						<td><form:input class="form-control w-50" path="point" /></td>
+						<td><form:input class="form-control w-50" path="point" type="number" min="0"/></td>
 					</tr>
 				</tbody>
 			</table>

@@ -246,7 +246,8 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 
 					/**
 					 * 상품 옵션 품절처리
-					 * 3월 31일 까지 일부옵션품절 태그 처리
+					 * 2023-04-11 상품 일부옵션품절 업데이트 x
+					 * 1.0관리자, 1.5관리자 수동 업데이트
 					 */
 					JSONArray itemArray = (JSONArray)jsonObj.get("_array_item");
 					JSONObject optnInfo = (JSONObject)itemArray.get(0);
@@ -281,18 +282,30 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 								optnMap.put("optnStockQy", 0);
 								gdsOptnService.updateOptnStockQy(optnMap);
 
+								/*Map<String, Object> gdsMap = new HashMap<String, Object>();
+								gdsMap.put("bnefCd", code);
+								gdsMap.put("gdsTag", "B");
+								gdsService.updateGdsTag(gdsMap);*/
+
 								System.out.println("##### SOLD OUT UPDATE END    #######");
-								result = false;
+								//result = false;
 							}else {
 								System.out.println("##### "+ optnNm + " : THIS GDS HAVE A GDS TAG IN EROUM1.0.ver   #######");
-								if(EgovStringUtil.isNotEmpty((String)optnInfo.get("item_opt_tag"))) {
+								/*if(EgovStringUtil.isNotEmpty((String)optnInfo.get("item_opt_tag"))) {
 									System.out.println("#####    GDS TAG UPDATE START   #######");
 									Map<String, Object> optnMap = new HashMap<String, Object>();
 									optnMap.put("bnefCd", code);
-									optnMap.put("gdsTag", "B");
+									if(EgovStringUtil.equals("일부옵션품절", (String)optnInfo.get("item_opt_tag"))){
+										optnMap.put("gdsTag", "B");
+									}else if(EgovStringUtil.equals("품절", (String)optnInfo.get("item_opt_tag"))) {
+										optnMap.put("gdsTag", "A");
+									}else {
+										optnMap.put("gdsTag", "C");
+									}
+
 									gdsService.updateGdsTag(optnMap);
 									System.out.println("#####    GDS TAG UPDATE END   #######");
-								}
+								}*/
 							}
 						}
 					}

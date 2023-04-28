@@ -116,11 +116,14 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 			gdsCtgryVO.setCtgryNo(EgovStringUtil.string2integer(sortedCtgryNos[i]));
 			gdsCtgryDAO.updateGdsCtgryPosition(gdsCtgryVO);
 		}
+
+		ehcacheService.removeAllCaches("gdsCtgry");
 	}
 
 
 	public void updateGdsCtgryImg(GdsCtgryVO ctgryVO) throws Exception {
 		gdsCtgryDAO.updateGdsCtgryImg(ctgryVO);
+		ehcacheService.removeAllCaches("gdsCtgry");
 	}
 
 

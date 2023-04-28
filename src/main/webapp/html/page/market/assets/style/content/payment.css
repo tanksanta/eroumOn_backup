@@ -130,9 +130,12 @@
 }
 
 .payment-customer {
-    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] select-none leading-tight tracking-tight space-y-6.5 ring-px ring-inset ring-[#707070] md:p-7 md:pb-11 md:space-y-8;
+    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5 md:p-7 md:pb-11 md:space-y-8;
+    &::before {
+        @apply content-empty absolute top-1 right-2 w-37 h-17 blur-xl rounded-md bg-white sm:top-1.5 sm:right-2.5 sm:w-49 sm:h-23 lg:w-61 lg:h-29;
+    }
     &::after {
-        @apply content-empty absolute z-5 top-0 left-0 w-full h-full bg-no-repeat bg-[length:auto_2.45rem] bg-[position:right_1.2rem_top_1.4rem] md:bg-[length:auto_3.0625rem] md:bg-[position:right_1.5rem_top_1.75rem];
+        @apply absolute top-5 right-4 font-bold text-6xl md:right-6 md:text-[3.125rem] lg:text-[3.75rem];
     }
     & dl {
         @apply relative z-10;
@@ -144,30 +147,26 @@
         }
     }
     &.customer-grade1 {
-        @apply bg-[#2c2c2c] bg-[url(../images/bg-payment-card2.png)] bg-[length:9.2rem] bg-[position:right_-0.4rem_bottom_-4.2rem] md:bg-[length:11.5rem] md:bg-[position:right_-0.5rem_bottom_-5.25rem] text-white;
         &::after {
-            @apply bg-[url(../images/img-payment-grade1.svg)] bg-[length:auto_2.65rem] bg-[position:right_1.4rem_top_1.4rem] md:bg-[length:auto_3.3125rem] md:bg-[position:right_1.75rem_top_1.75rem];
+            @apply text-grade1;
+            content: "이로움";
         }
     }
     &.customer-grade2 {
         &::after {
-            @apply bg-[url(../images/img-payment-grade2.svg)];
+            @apply text-grade2;
+            content: "반가움";
         }
     }
     &.customer-grade3 {
         &::after {
-            @apply bg-[url(../images/img-payment-grade3.svg)];
+            @apply text-grade3;
+            content: "새로움";
         }
-        
     }
     &.customer-grade4 {
         &::after {
-            @apply bg-[url(../images/img-payment-grade4.svg)];
-        }
-    }
-    &.customer-grade5 {
-        &::after {
-            @apply bg-[url(../images/img-payment-grade5.svg)];
+            content: "신규회원";
         }
     }
 }

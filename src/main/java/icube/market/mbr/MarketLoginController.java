@@ -125,7 +125,7 @@ public class MarketLoginController extends CommonAbstractController {
 			loginId     = WebUtil.clearSqlInjection(loginId);
 			loginPasswd = WebUtil.clearSqlInjection(loginPasswd);
 
-			mbrVO = mbrService.selectMbrById(loginId);
+			mbrVO = mbrService.selectMbrIdByOne(loginId);
 
 		if (mbrVO != null) {
 			// 최근 접속 일시 업데이트
@@ -146,44 +146,42 @@ public class MarketLoginController extends CommonAbstractController {
 				}
 			}else {
 
+
 				if (BCrypt.checkpw(loginPasswd, mbrVO.getPswd())) {
-
-					mbrSession.setParms(mbrVO, true);
-					if("Y".equals(mbrVO.getRecipterYn())){
-						mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
+					if((mbrVO.getMberSttus()).equals("HUMAN")) {
+						//휴면 회원
+						javaScript.setLocation("/"+ marketPath +"/drmt/view");
 					}else {
-						RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-						recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-						recipterInfoVO.setMbrId(mbrVO.getMbrId());
-						recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-						recipterInfoVO.setProflImg(mbrVO.getProflImg());
-						recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-						recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-						mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-					}
-
-
-					mbrSession.setMbrInfo(session, mbrSession);
-
-					// saveId용 쿠키
-					Cookie cookie = new Cookie(SAVE_ID_COOKIE_ID, mbrVO.getMbrId());
-					cookie.setPath("/");
-					cookie.setMaxAge("Y".equals(saveId) ? (60 * 60 * 24 * 7) : 0);
-					cookie.setSecure(true);
-					response.addCookie(cookie);
-
-					// 로그인에 성공하면 로그인 실패 횟수를 초기화
-					mbrService.updateFailedLoginCountReset(mbrVO);
-
-					// return page check
-					if(EgovStringUtil.isNotEmpty(returnUrl)) {
-						javaScript.setLocation(returnUrl);
-					}else {
-						if((mbrVO.getMberSttus()).equals("HUMAN")) {
-							//휴면 회원
-							javaScript.setLocation("/"+ marketPath +"/drmt/view");
+						mbrSession.setParms(mbrVO, true);
+						if("Y".equals(mbrVO.getRecipterYn())){
+							mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
 						}else {
-							javaScript.setLocation("/"+ marketPath +"/index");
+							RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+							recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
+							recipterInfoVO.setMbrId(mbrVO.getMbrId());
+							recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
+							recipterInfoVO.setProflImg(mbrVO.getProflImg());
+							recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
+							recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
+							mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
+						}
+
+
+						mbrSession.setMbrInfo(session, mbrSession);
+
+						// saveId용 쿠키
+						Cookie cookie = new Cookie(SAVE_ID_COOKIE_ID, mbrVO.getMbrId());
+						cookie.setPath("/");
+						cookie.setMaxAge("Y".equals(saveId) ? (60 * 60 * 24 * 7) : 0);
+						cookie.setSecure(true);
+						response.addCookie(cookie);
+
+						// 로그인에 성공하면 로그인 실패 횟수를 초기화
+						mbrService.updateFailedLoginCountReset(mbrVO);
+
+						// return page check
+						if(EgovStringUtil.isNotEmpty(returnUrl)) {
+							javaScript.setLocation(returnUrl);
 						}
 					}
 
@@ -195,7 +193,6 @@ public class MarketLoginController extends CommonAbstractController {
 					javaScript.setMessage(getMsg("login.fail.password"));
 					javaScript.setMethod("window.history.back()");
 				}
-
 			}
 		} else {
 			javaScript.setMessage(getMsg("login.fail"));

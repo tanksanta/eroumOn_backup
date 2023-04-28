@@ -134,6 +134,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 			, HttpSession session
 			, Model model
 			, @RequestParam(value="resnCn", required=true) String resnCn
+			, @RequestParam(value="whdwlEtc", required=false) String whdwlEtc
 			)throws Exception {
 
 		JavaScript javaScript = new JavaScript();
@@ -146,6 +147,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		paramMap.clear();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("whdwlResn", resnCn);
+		paramMap.put("whdwlEtc", whdwlEtc);
 		paramMap.put("whdwlTy", "NORMAL");
 
 		mbrService.updateExitMbr(paramMap);

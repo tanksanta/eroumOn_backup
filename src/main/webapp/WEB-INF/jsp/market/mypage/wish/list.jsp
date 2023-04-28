@@ -18,62 +18,66 @@
                 <div class="mb-9 space-y-6 lg:mb-12 md:space-y-7.5">
 
                 	<c:forEach items="${listVO.listObject}" var="wish" varStatus="status">
-
-                    <div class="order-checkitem">
-                        <div class="form-check">
+                    <div class="order-product order-wishlist">
+                        <div class="form-check order-check">
                             <input class="form-check-input" type="checkbox" name="wishlistNo" value="${wish.wishlistNo}">
                         </div>
-                        <div class="order-wishlist">
-                            <div class="order-wish-thumb">
-                                <c:choose>
-									<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
-								<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
-									</c:when>
-									<c:otherwise>
-								<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-									</c:otherwise>
-								</c:choose>
-                            </div>
-                            <div class="order-wish-content">
-                                <button type="button" class="close f_deleteSel" data-wish-no="${wish.wishlistNo}">삭제</button>
-                                <div class="date">
-                                    <small>등록일</small>
-                                    <strong><fmt:formatDate value="${wish.regDt}" pattern="yyyy-MM-dd" /></strong>
+                        <button type="button" class="order-close f_deleteSel" data-wish-no="${wish.wishlistNo}">삭제</button>
+                        <div class="order-body">
+                            <div class="order-item">
+                                <div class="order-item-thumb">
+	                                <c:choose>
+										<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
+									<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
+										</c:when>
+										<c:otherwise>
+									<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+										</c:otherwise>
+									</c:choose>
                                 </div>
-                                <div class="name">
-                                	<c:if test="${wish.gdsInfo.useYn eq 'Y'}">
-                                	<a href="${_marketPath}/gds/${wish.gdsInfo.upCtgryNo}/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
-	                                    <u>${wish.gdsInfo.gdsCd}</u>
-	                                    <strong>${wish.gdsInfo.gdsNm}</strong>
-                                    </a>
-                                    </c:if>
-                                    <c:if test="${wish.gdsInfo.useYn eq 'N'}">
-                                    <a href="#" onclick="alert('판매중지 상품입니다.'); return false;">
-	                                    <u>${wish.gdsInfo.gdsCd}</u>
-	                                    <strong>${wish.gdsInfo.gdsNm}</strong>
-                                    </a>
-                                    </c:if>
-                                </div>
-                                <div class="cost">
-                                    <dl>
-                                        <dt>배송비</dt>
-                                        <dd><strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>판매가</dt>
-                                        <dd><strong><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" /></strong>원</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <c:if test="${wish.gdsInfo.stockQy < 1}">
-                            <div class="order-disable"><p>일시품절<br> 상품입니다</p></div>
-                            </c:if>
-                            <c:if test="${wish.gdsInfo.useYn eq 'N'}">
-                            <div class="order-disable"><p>판매중지<br> 상품입니다</p></div>
-                            </c:if>
-                        </div>
+                                <div class="order-item-content">
+                                    <div class="order-item-group">
+                                        <div class="order-item-base">
+                                            <div class="date">
+                                                <small>등록일</small>
+												<strong><fmt:formatDate value="${wish.regDt}" pattern="yyyy-MM-dd" /></strong>
+                                            </div>
+			                                <div class="name">
+			                                	<c:if test="${wish.gdsInfo.useYn eq 'Y'}">
+			                                	<a href="${_marketPath}/gds/${wish.gdsInfo.upCtgryNo}/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
+				                                    <u>${wish.gdsInfo.gdsCd}</u>
+				                                    <strong>${wish.gdsInfo.gdsNm}</strong>
+			                                    </a>
+			                                    </c:if>
+			                                    <c:if test="${wish.gdsInfo.useYn eq 'N'}">
+			                                    <a href="#" onclick="alert('판매중지 상품입니다.'); return false;">
+				                                    <u>${wish.gdsInfo.gdsCd}</u>
+				                                    <strong>${wish.gdsInfo.gdsNm}</strong>
+			                                    </a>
+			                                    </c:if>
+			                                </div>
+                                            <div class="cost">
+												<dl>
+												    <dt>배송비</dt>
+												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원</dd>
+												</dl>
+												<dl>
+												    <dt>판매가</dt>
+												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" /></strong>원</dd>
+												</dl>
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+                        	</div>
+						</div>
+                        <c:if test="${wish.gdsInfo.stockQy < 1}">
+                        <div class="order-disable"><p>일시품절<br> 상품입니다</p></div>
+                        </c:if>
+                        <c:if test="${wish.gdsInfo.useYn eq 'N'}">
+                        <div class="order-disable"><p>판매중지<br> 상품입니다</p></div>
+                        </c:if>
                     </div>
-
                     </c:forEach>
 
                     <c:if test="${empty listVO.listObject}">
@@ -103,11 +107,9 @@
    	//전체선택
 		$(".f_checkAll").on("click", function(){
 			if(!$(":checkbox[name=wishlistNo]").is(":checked")){
-				$(":checkbox[name=wishlistNo]").prop("checked",true);
-				$(":checkbox[name=wishlistNo]").parents(".order-checkitem").find(".order-wishlist").addClass("is-active");
+				$(":checkbox[name=wishlistNo]").prop("checked",true).closest(".order-wishlist").addClass("is-active");
 			}else{
-				$(":checkbox[name=wishlistNo]").prop("checked",false);
-				$(":checkbox[name=wishlistNo]").parents(".order-checkitem").find(".order-wishlist").removeClass("is-active");
+				$(":checkbox[name=wishlistNo]").prop("checked",false).closest(".order-wishlist").removeClass("is-active");
 			}
 		})
 
@@ -118,9 +120,9 @@
 			$(this).prop("checked",isChecked);
 
 			if(isChecked){
-				$(this).parents(".order-checkitem").find(".order-wishlist").addClass("is-active");
+				$(this).closest(".order-wishlist").addClass("is-active");
 			}else{
-				$(this).parents(".order-checkitem").find(".order-wishlist").removeClass("is-active");
+				$(this).closest(".order-wishlist").removeClass("is-active");
 			}
 		});
 
@@ -176,7 +178,11 @@
 				})
 				.done(function(data) {
 					if(data.result){
-						alert("전체 삭제되었습니다.");
+						if(selTy == "ALL"){
+							alert("전체 삭제되었습니다.");
+						} else {
+							alert("삭제되었습니다.");
+						}
 						location.reload();
 					}else{
 						alert("삭제에 실패하였습니다.");

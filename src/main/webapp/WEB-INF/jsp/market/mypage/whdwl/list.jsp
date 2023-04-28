@@ -10,9 +10,9 @@
 
 
 			<div class="member-release-title">
-				<img src="/html/page/market/assets/images/txt-withdrawal.svg" alt="그동안 이로움 마켓을 이용해 주셔서 감사합니다.">
+				<img src="/html/page/market/assets/images/txt-withdrawal.svg" alt="그동안 이로움ON 마켓을 이용해 주셔서 감사합니다.">
 				<p>
-					이로움 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
+					이로움ON 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
 				</p>
 			</div>
 
@@ -37,7 +37,7 @@
 				<p class="text-title2">탈퇴회원 정보 보존기간,파기절차 및 시점</p>
 				<p>&nbsp;</p>
 				<p>
-					회원에 대하여 수집한 개인정보는 이로움 마켓 탈퇴 신청이 완료된 이후,<br> 보관기간 및 이용기간에 따라 해당 정보를 지체없이 파기합니다. 파기 절차, 방법, 시점은 다음과 같습니다. 기 바랍니다.
+					회원에 대하여 수집한 개인정보는 이로움ON 마켓 탈퇴 신청이 완료된 이후,<br> 보관기간 및 이용기간에 따라 해당 정보를 지체없이 파기합니다. 파기 절차, 방법, 시점은 다음과 같습니다. 기 바랍니다.
 				</p>
 				<p>&nbsp;</p>
 				<ol class="list-number">
@@ -125,7 +125,7 @@
 
 <script>
 	$(function(){
-		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
 
 		//배송 상태
 		const ordrSttsCode = {
@@ -201,7 +201,7 @@
 			    }
 			},
 		    submitHandler: function (frm) {
-		    	if(confirm("이로움 마켓 회원에서 정말 탈퇴하시겠습니까?")){
+		    	if(confirm("이로움ON 마켓 회원에서 정말 탈퇴하시겠습니까?")){
 		    		frm.submit();
 		    	}else{
 		    		return false;

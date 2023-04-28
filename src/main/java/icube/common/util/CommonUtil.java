@@ -47,8 +47,8 @@ public class CommonUtil {
 		 //태어난 년도
 		 Integer birthYear = Integer.parseInt(stringBirthYear);
 
-		 // 현재 년도 - 태어난 년도 => 나이 (만나이X)
-	     int age = (currentYear - birthYear +1);
+		 // 현재 년도 - 태어난 년도 => 나이 (만나이)
+	     int age = (currentYear - birthYear);
 	     String outputAge = Integer.toString(age);
 
 	 	 return outputAge;

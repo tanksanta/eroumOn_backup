@@ -1,5 +1,6 @@
 package icube.manage.mbr.itrst.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,18 @@ public class CartService extends CommonAbstractServiceImpl {
 
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		cartDAO.deleteCart(paramMap);
+	}
+
+	public Integer modifyOptnChg(CartVO cartVO) throws Exception{
+		return cartDAO.modifyOptnChg(cartVO);
+	}
+
+	public void deleteCartlByNos(String[] arrDelCartNo) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cartNos", arrDelCartNo);
+
+		cartDAO.deleteCartlByNos(paramMap);
 	}
 
 }

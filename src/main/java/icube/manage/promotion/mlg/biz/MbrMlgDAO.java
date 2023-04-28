@@ -31,14 +31,14 @@ public class MbrMlgDAO extends CommonAbstractMapper {
 		return selectOne("mbr.mlg.selectMbrMlgCount",paramMap);
 	}
 
-	// 마일리지 sum
-	public int selectSumMlgByMlgSe(Map<String, Object> paramMap) throws Exception {
-		return selectOne("mbr.mlg.selectSumMlgByMlgSe",paramMap);
+	// 회원 마일리지 소멸 처리
+	public void extinctMbrMlg(MbrMlgVO mbrMlgVO) throws Exception {
+		insert("mbr.mlg.extinctMbrMlg",mbrMlgVO);
 	}
 
-	// 회원 소멸 마일리지
-	public List<MbrMlgVO> selectMbrDedMlgList() throws Exception {
-		return selectList("mbr.mlg.selectMbrDedMlgList");
+	// 마일리지 종합
+	public Map<String, Object> selectAlltypeMlg(Map<String, Object> paramMap) throws Exception {
+		return selectOne("mbr.mlg.selectAlltypeMlg", paramMap);
 	}
 
 }

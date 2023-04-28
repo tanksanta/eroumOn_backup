@@ -1,7 +1,5 @@
 package icube.market.mypage.bnef;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +31,6 @@ public class MyMlgController extends CommonAbstractController {
 	/**
 	 * 회원 마일리지 목록
 	 * @param uniqueId
-	 * @return 이용가능 마일리지, 이달 소멸 예정, 가족회원 마일리지 by Map
 	 * @return 적립 && 차감 목록
 	 * @throws Exception
 	 */
@@ -44,9 +41,6 @@ public class MyMlgController extends CommonAbstractController {
 			, @RequestParam(value="type", required=false) String type
 			) throws Exception{
 
-		// 마일리지 정보
-		Map<String, Object> synMap = mbrMlgService.selectTotalTypeMlg(mbrSession.getUniqueId());
-
 		// history
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchMlgSe", type);
@@ -54,7 +48,6 @@ public class MyMlgController extends CommonAbstractController {
 		listVO = mbrMlgService.mbrMlgListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
-		model.addAttribute("synMap", synMap);
 		model.addAttribute("gradeCode", CodeMap.GRADE);
 		model.addAttribute("mlgCnCode", CodeMap.POINT_CN);
 

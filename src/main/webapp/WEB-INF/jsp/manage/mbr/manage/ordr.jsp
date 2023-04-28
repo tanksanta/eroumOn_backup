@@ -159,9 +159,20 @@
 
 	$(function() {
 
+		// 회원 포인트, 마일리지 클릭시 이동
+		if("${param.mbrOrdrCd}" != null && "${param.mbrOrdrCd}" != ''){
+			var ordrCd = "${param.mbrOrdrCd}";
+			$("#ordr-dtl").load("/_mng/ordr/include/ordrDtlView"
+	    			, {ordrCd:ordrCd}
+	    			, function(){
+	            		$("#dtl-modal").addClass('fade').modal('show');
+	    			});
+		}
+
     	//상품상세
     	$(".f_gds_dtl").on("click", function(e){
     		e.preventDefault();
+    		console.log("실행");
     		var ordrCd = $(this).data("ordrCd");
     		$("#ordr-dtl").load("/_mng/ordr/include/ordrDtlView"
     			, {ordrCd:ordrCd}

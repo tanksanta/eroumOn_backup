@@ -19,6 +19,8 @@
 			, g.bnef_pc_9
 			, g.bnef_pc_6
 			, g.lend_pc
+			, g.use_yn
+			, g.dspy_yn
 			, gi.file_no
 
 			, g.ctgry_no

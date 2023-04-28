@@ -1,5 +1,6 @@
 package icube.manage.promotion.point.biz;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
@@ -24,6 +25,7 @@ public class MbrPointVO extends CommonBaseVO {
 	private int point = 0;
 	private int pointAcmtl = 0;;
 	private String giveMthd;
+	private Date fmtDt;
 
 	private String mngrMemo;
 

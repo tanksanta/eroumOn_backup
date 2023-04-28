@@ -14,7 +14,7 @@
 					<p class="text-alert">가족회원은 본인을 포함하여 최대 5명 까지 관리 가능합니다.</p>
 					<p class="text-alert">등록된 가족회원은 관계 설정 및 삭제가 가능합니다.</p>
 					<p class="text-alert">가족회원 초대는 수신인이 승인 또는 거부할 수 있습니다.</p>
-					<p class="text-alert">이로움 마켓에 가입된 회원 대상으로 휴대전화 또는 이메일 주소로 초대 발송이 가능합니다.</p>
+					<p class="text-alert">이로움ON 마켓에 가입된 회원 대상으로 휴대전화 또는 이메일 주소로 초대 발송이 가능합니다.</p>
 				</div>
 			</div>
 
@@ -90,6 +90,7 @@
                             </dl>
                             <dl>
                                 <dt>연락처</dt>
+                                <input type="hidden" name="mblTelnos" value="${familyList.mblTelno}" />
 								<dd>${familyList.mblTelno}</dd>
                             </dl>
                         </div>
@@ -136,6 +137,7 @@
                             </dl>
                             <dl>
                                 <dt>연락처</dt>
+                                <input type="hidden" name="mblTelnos" value="${familyList.mblTelno}" />
 								<dd>${familyList.mblTelno}</dd>
                             </dl>
                         </div>
@@ -257,20 +259,38 @@ $(function(){
    		}
    	});
 
+  //가족회원 체크
+   	$.validator.addMethod("prtcrChk", function(value, element) {
+   		var existFlag = false;
+   		$("input[name='mblTelnos']").each(function(){
+   			console.log($(this).val());
+   			console.log($("#mblTelno").val());
+   			if($(this).val() == $("#mblTelno").val()){
+   				existFlag = true;
+   			}
+   		});
+
+   		if(existFlag){
+   			return false;
+   		}else{
+   			return true;
+   		}
+   	}, "이미 처리된 가족회원입니다.");
+
 	//가족회원 초대장 보내기
 	$("form#infoFrm").validate({
 	    ignore: "input[type='text']:hidden",
 	    rules : {
-	    	mblTelno : {regex : telchk}
+	    	mblTelno : {regex : telchk, required : true, prtcrChk : true}
 	    	, eml : {paramChk : true , regex : emailchk}
 	    },
 	    messages : {
-	    	mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)"}
+	    	mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)", required : "! 휴대폰 번호는 필수 입력 항목입니다."}
 	    	, eml : {paramChk : "! 이메일 또는 휴대폰 번호는 필수 입력 항목입니다." ,regex : "! 이메일 형식이 잘못되었습니다.\n(abc@def.com)"}
 	    },
-	    errorElement:"p",
+	    errorElement:"div",
 	    errorPlacement: function(error, element) {
-		    var group = element.closest('.form-input');
+		    var group = element.closest('.form-group');
 		    if (group.length) {
 		        group.after(error.addClass('text-danger'));
 		    } else {

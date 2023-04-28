@@ -3,7 +3,7 @@
 	<jsp:param value="공지사항" name="pageTitle" />
 </jsp:include>
 <div id="page-content">
-	<p class="p-3 rounded-md bg-gray2">* 이로움마켓 공지사항은 이로움마켓에서 멤버스(사업소)로 전달하는 공지사항입니다.</p>
+	<p class="p-3 rounded-md bg-gray2">* 이로움ON 마켓 공지사항은 이로움ON 마켓에서 멤버스(사업소)로 전달하는 공지사항입니다.</p>
 
 	<p class="text-title2 mt-13">공지사항 상세</p>
 	<table class="table-detail">

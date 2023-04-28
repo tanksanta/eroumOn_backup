@@ -291,7 +291,7 @@
 		FROM ORDR o
 		WHERE 1=1
 			<include refid="searchConditions" />
-		ORDER BY o.ordr_no
+		ORDER BY o.ordr_no DESC
 	</select>
 
 	<select id="selectOrdrSttsList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
@@ -320,8 +320,8 @@
 	<!-- 결제금액 변경 -->
 	<update id="updateStlmAmt" parameterType="ordrVO">
 		/* Query ID : ordr.updateStlmAmt */
-		UPDATE ORDR
-		   SET stlm_amt = #{stlmAmt}
+		UPDATE ORDR SET
+			stlm_amt = #{stlmAmt}
 		 WHERE ordr_no = #{ordrNo}
 	</update>
 
@@ -494,6 +494,15 @@
 		WHERE ordr_no = #{ordrNo}
 	</update>
 
+	<update id="updateBillingChg" parameterType="java.util.HashMap">
+		UPDATE ORDR SET
+			billing_key = #{billingKey}
+			, delng_no = #{delngNo}
+			, card_no = #{cardNo}
+			, card_co_nm = #{cardCoNm}
+			, card_aprvno = #{cardAprvno}
+		WHERE ordr_no = #{ordrNo}
+	</update>
 
 	<!-- 단계별 카운트 -->
 	<select id="selectSttsTyCnt" parameterType="java.util.HashMap" resultType="egovMap">

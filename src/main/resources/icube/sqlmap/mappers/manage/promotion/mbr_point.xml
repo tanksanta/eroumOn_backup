@@ -23,6 +23,9 @@
 		, p.give_mthd
 		, p.reg_unique_id
 		, p.reg_dt
+		<if test="srchRegDt != null and srchRegDt != '' ">
+		, DATE_FORMAT(p.reg_dt,'%Y-12-31 11:59:00') AS fmt_dt
+		</if>
 		, p.reg_id
 		, p.rgtr
 	</sql>
@@ -60,6 +63,9 @@
 		</if>
 		<if test="srchOrdrDtlCd != null and srchOrdrDtlCd != '' ">
 			AND ordr_dtl_cd = #{srchOrdrDtlCd}
+		</if>
+		<if test="srchNowYear != null and srchNowYear != '' ">
+			AND YEAR(reg_dt) = YEAR(NOW())-1
 		</if>
 
 		<!-- 리스트업 sort -->
@@ -106,15 +112,6 @@
 		LIMIT 1
 	</select>
 
-	<!-- 포인트 총합 -->
-	<select id="selectSumPointByPointSe" parameterType="java.util.HashMap" resultType="int">
-		/* Query ID : mbrMlg.selectSumPointByPointSe */
-		SELECT SUM(point)  AS total
-		FROM MBR_POINT p
-		WHERE 1=1
-			<include refid="searchConditions" />
-	</select>
-
 	<select id="selectMbrPointList" parameterType="java.util.HashMap" resultMap="mbrPointVOMap">
 		/* Query ID : pointMng.selectPointMng */
 		SELECT
@@ -127,7 +124,16 @@
 		ORDER BY point_no DESC
 	</select>
 
-	<!-- Define point_acmtl Insert Query -->
+	<!-- 포인트 종합 -->
+	<select id="selectAlltypePoint" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+			IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE point_se = "A" <include refid="searchConditions" />),0) AS add_point
+			, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE point_se = "M" <include refid="searchConditions" />),0) AS use_point
+			, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE point_se = "E" <include refid="searchConditions" />),0) AS ext_point
+			, IFNULL((SELECT point_acmtl FROM MBR_POINT WHERE unique_id = #{srchUniqueId} ORDER BY point_no DESC LIMIT 1 ),0) AS own_point
+	</select>
+
+	<!-- 포인트 적립, 차감 -->
 	<insert id="insertMbrPoint" parameterType="mbrPointVO">
 	/* Query ID : mbrPoint.insertMbrPoint */
 	INSERT INTO MBR_POINT (
@@ -164,6 +170,32 @@
 		, #{regId, jdbcType=VARCHAR}
 		, #{rgtr, jdbcType=VARCHAR}
 		)
+	</insert>
+
+	<!-- 포인트 소멸 -->
+	<insert id="extinctMbrPoint" parameterType="mbrPointVO">
+		INSERT INTO MBR_POINT(
+			point_mng_no
+			, unique_id
+			, point_se
+			, point_cn
+			, point
+			, point_acmtl
+			, give_mthd
+			, rgtr
+			, reg_dt
+		)VALUES(
+			#{pointMngNo}
+			, #{uniqueId, jdbcType=VARCHAR}
+			, #{pointSe, jdbcType=VARCHAR}
+			, #{pointCn, jdbcType=VARCHAR}
+			, #{point}
+			, #{pointAcmtl}
+			, #{giveMthd, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+
 	</insert>
 
 </mapper>

@@ -39,7 +39,7 @@
                     <img src="/html/page/market/assets/images/img-login-desc.png" alt="" class="img">
                     <div class="cont">
                         <p>
-                            이로움만의<br>
+                            이로움ON만의<br>
                             특별함을<br>
                             누리세요
                         </p>

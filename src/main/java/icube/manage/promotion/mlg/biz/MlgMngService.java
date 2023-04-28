@@ -88,6 +88,18 @@ public class MlgMngService extends CommonAbstractServiceImpl {
 		// 4. 선택 회원
 		for(int i=0; i < arrUniqueId.length; i++) {
 			mbrMlgVO.setUniqueId(arrUniqueId[i]);
+
+			// 5. 회원 마일리지 검사
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchUniqueId", arrUniqueId[i]);
+			MbrMlgVO newMlgVO = mbrMlgDAO.selectMbrMlg(paramMap);
+
+			// 차감
+			if(mbrMlgVO.getMlgSe().equals("M")) {
+				if(newMlgVO.getMlgAcmtl() < mbrMlgVO.getMlg()) {
+					mbrMlgVO.setMlg(newMlgVO.getMlgAcmtl());
+				}
+			}
 			mbrMlgDAO.insertMbrMlg(mbrMlgVO);
 		}
 	}

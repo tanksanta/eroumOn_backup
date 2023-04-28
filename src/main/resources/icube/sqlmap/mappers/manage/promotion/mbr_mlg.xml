@@ -26,7 +26,7 @@
 		, mlg.reg_unique_id
 		, mlg.reg_dt
 		<if test="srchRegDt != null and srchRegDt != '' ">
-		, DATE_ADD(mlg.reg_dt, INTERVAL #{srchRegDt} YEAR) AS fmt_dt
+		, DATE_FORMAT(mlg.reg_dt,'%Y-12-31 11:59:00') AS fmt_dt
 		</if>
 		, mlg.reg_id
 		, mlg.rgtr
@@ -55,7 +55,7 @@
 			AND mlg.mlg_se = #{srchMlgSe}
 		</if>
 		<if test="srchMlgCn != null and srchMlgCn != '' ">
-			AND mlg.mlg_cn = #{mlgCn}
+			AND mlg.mlg_cn = #{srchMlgCn}
 		</if>
 		<if test="srchMngrMemo != null and srchMngrMemo != '' ">
 			AND mng.mngr_memo like CONCAT('%',#{srchMngrMemo},'%')
@@ -65,6 +65,9 @@
 		</if>
 		<if test="srchOrdrDtlCd != null and srchOrdrDtlCd != '' ">
 			AND mlg.ordr_dtl_cd = #{srchOrdrDtlCd}
+		</if>
+		<if test="srchTwoYear != null and srchTwoYear != '' ">
+			AND DATEDIFF(NOW(),reg_dt) &gt;= 730
 		</if>
 
 	</sql>
@@ -91,9 +94,6 @@
 			<include refid="searchConditions"/>
 	</select>
 
-	<!-- 누계 조회
-			LEFT JOIN MLG_MNG mng ON mlg.mlg_mng_no = mng.mlg_mng_no
-	-->
 	<select id="selectMbrMlg" parameterType="java.util.HashMap" resultType="mbrMlgVO">
 		/* Query ID : mbrMlg.selectMbrMlg */
 		SELECT
@@ -105,13 +105,13 @@
 		 LIMIT 1
 	</select>
 
-	<!-- 마일리지 총합 -->
-	<select id="selectSumMlgByMlgSe" parameterType="java.util.HashMap" resultType="int">
-		/* Query ID : mbrMlg.selectSumMlgByMlgSe */
-		SELECT SUM(mlg)  AS total
-		FROM MBR_MLG mlg
-		WHERE 1=1
-			<include refid="searchConditions" />
+	<!--  마일리지 종합 -->
+	<select id="selectAlltypeMlg" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+			IFNULL((SELECT SUM(mlg) FROM MBR_MLG mlg WHERE mlg_se = "A" <include refid="searchConditions" /> ),0) AS add_mlg
+			, IFNULL((SELECT SUM(mlg) FROM MBR_MLG mlg WHERE mlg_se = "M" <include refid="searchConditions" />),0) AS use_mlg
+			, IFNULL((SELECT SUM(mlg) FROM MBR_MLG mlg WHERE mlg_se = "E" <include refid="searchConditions" />),0) AS ext_mlg
+			, IFNULL((SELECT mlg_acmtl FROM MBR_MLG mlg WHERE unique_id = #{srchUniqueId} ORDER BY mlg_no DESC LIMIT 1 ),0) AS own_mlg
 	</select>
 
 	<select id="selectMbrMlgList" parameterType="java.util.HashMap" resultMap="mbrMlgVOMap">
@@ -126,23 +126,7 @@
 		ORDER BY mlg_no DESC
 	</select>
 
-	<!-- 회원 소멸 마일리지 -->
-	<select id="selectMbrDedMlgList" resultMap="mbrMlgListVOMap">
-		SELECT m.mbr_nm, m.eml, TMP.* FROM (
-			SELECT unique_id
-			, SUM(mlg) AS total
-			, (SELECT mlg - use_mlg FROM MBR_MLG ms
-			  WHERE DATE_FORMAT(ms.reg_dt, '%Y-%m-%d') = DATE_ADD(ms.reg_dt , INTERVAL 1 YEAR)
-			  AND ms.mlg > ms.use_mlg
-			  AND ms.UNIQUE_ID = mm.UNIQUE_ID
-			  ORDER BY ms.mlg_no ASC
-			  LIMIT 1) AS ded_mlg
-		FROM MBR_MLG mm
-		GROUP BY unique_id
-		HAVING SUM(mlg) &gt; 0 AND ded_mlg &gt; 0
-		) AS TMP LEFT JOIN MBR m ON m.unique_id = TMP.unique_id
-	</select>
-
+	<!-- 마일리지 적립,차감 -->
 	<insert id="insertMbrMlg" parameterType="mbrMlgVO">
 		/* Query ID : mbrMlg.insertMbrMlg */
 		INSERT INTO MBR_MLG (
@@ -182,5 +166,31 @@
 			, #{rgtr, jdbcType=VARCHAR}
 		)
 	</insert>
+
+	<!-- 마일리지 소멸 -->
+	<insert id="extinctMbrMlg" parameterType="mbrMlgVO">
+		INSERT INTO MBR_MLG (
+			 mlg_mng_no
+			 , unique_id
+			 , mlg_se
+			 , mlg_cn
+			 , mlg
+			 , mlg_acmtl
+			 , give_mthd
+			 , rgtr
+			 , reg_dt
+		) VALUES (
+			#{mlgMngNo}
+			, #{uniqueId, jdbcType=VARCHAR}
+			, #{mlgSe, jdbcType=VARCHAR}
+			, #{mlgCn, jdbcType=VARCHAR}
+			, #{mlg}
+			, #{mlgAcmtl}
+			, #{giveMthd, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+	</insert>
+
 
 </mapper>

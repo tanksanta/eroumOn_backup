@@ -2,7 +2,7 @@
 <%pageContext.setAttribute("newLineChar", "\n");%>
 <main id="container">
 	<jsp:include page="../../layout/page_header.jsp">
-		<jsp:param value="이로움 테마전시" name="pageTitle" />
+		<jsp:param value="이로움ON 테마전시" name="pageTitle" />
 	</jsp:include>
 
 	<div id="page-container">
@@ -14,7 +14,7 @@
 				<img src="/html/page/market/assets/images/txt-event-eroum.svg" alt="" /> </picture>
 				<img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
 				<p class="desc">
-					이야기가 있는 <br> 이로움 테마 마켓
+					이야기가 있는 <br> 이로움ON 테마 마켓
 				</p>
 			</div>
 

@@ -680,3 +680,27 @@
         }
     }
 }
+
+.list-normal {
+    @apply space-y-[0.17em];
+    & li {
+        @apply relative pl-[1em];
+        &::before {
+            @apply absolute top-0 left-0 w-[1em] text-center;
+            content: "-";
+        }
+    }
+}
+
+.list-number {
+    @apply space-y-[0.17em];
+    counter-reset: section;
+    & li {
+        @apply relative pl-[1em];
+        &::before {
+            @apply absolute top-0 left-0 w-[1em] text-center;
+            counter-increment: section; 
+            content: counter(section)"."; 
+        }
+    }
+}

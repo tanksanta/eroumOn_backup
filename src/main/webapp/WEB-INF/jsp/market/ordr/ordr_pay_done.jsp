@@ -129,14 +129,14 @@
                                                 	무료배송
                                                 	</c:if>
                                                 	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
                                                 	</c:if>
                                                 </dd>
                                             </dl>
                                             <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
-                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
                                             </c:if>
                                         </div>
@@ -204,20 +204,17 @@
                     <div class="flex-1 mt-18 lg:mt-23">
                         <h3 class="text-title mb-3 lg:mb-4">고객 정보</h3>
                         <c:choose>
-							<c:when test="${_mbrSession.mberGrade eq 'P'}">
+							<c:when test="${_mbrSession.mberGrade eq 'E'}">
 								<div class="payment-customer customer-grade1 flex-1">
 							</c:when>
-							<c:when test="${_mbrSession.mberGrade eq 'V'}">
+							<c:when test="${_mbrSession.mberGrade eq 'B'}">
 								<div class="payment-customer customer-grade2 flex-1">
 							</c:when>
-							<c:when test="${_mbrSession.mberGrade eq 'G'}">
+							<c:when test="${_mbrSession.mberGrade eq 'S'}">
 								<div class="payment-customer customer-grade3 flex-1">
 							</c:when>
-							<c:when test="${_mbrSession.mberGrade eq 'R'}">
+							<c:when test="${_mbrSession.mberGrade eq 'N'}">
 								<div class="payment-customer customer-grade4 flex-1">
-							</c:when>
-							<c:when test="${_mbrSession.mberGrade eq 'S'}">
-								<div class="payment-customer customer-grade5 flex-1">
 							</c:when>
 							<c:otherwise>
 								<div class="payment-customer customer-grade4 flex-1">

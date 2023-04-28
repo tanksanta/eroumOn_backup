@@ -87,6 +87,7 @@
         <!-- 마켓 인터셉터 -->
         <mvc:interceptor>
         	<mvc:mapping path="/#{props['Globals.Market.path']}/**"/>
+        	<mvc:mapping path="/#{props['Globals.Members.path']}/*/gds/**"/>
         	<bean class="icube.common.interceptor.MarketInterceptor" />
         </mvc:interceptor>
 
@@ -106,7 +107,7 @@
     </mvc:interceptors>
 
 
-    <!-- 스케줄러 
+    <!-- 스케줄러
 	<task:scheduler id="jobScheduler" pool-size="10"/>
 	<task:annotation-driven scheduler="jobScheduler"/>
 	-->

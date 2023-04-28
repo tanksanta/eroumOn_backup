@@ -148,7 +148,7 @@ public class PrtcrController extends CommonAbstractController{
 			, @RequestParam (value="mbrId", required=true) String mbrId
 			)throws Exception {
 
-		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+		MbrVO mbrVO = mbrService.selectMbrIdByOne(mbrId);
 
 		model.addAttribute("mbrVO", mbrVO);
 

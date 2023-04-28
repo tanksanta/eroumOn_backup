@@ -10,7 +10,7 @@
 					<div class="container">
 						<div class="card"></div>
 						<div class="text">
-							<small>이로움만의</small> 특별함을<br> 누리세요
+							<small>이로움ON만의</small> 특별함을<br> 누리세요
 						</div>
 					</div>
 					<a href="./registStep1" class="btn btn-primary">회원 가입하기</a>

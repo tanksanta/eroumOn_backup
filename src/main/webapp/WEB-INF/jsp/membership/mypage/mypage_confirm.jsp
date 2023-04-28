@@ -16,6 +16,11 @@
 		</div>
 
 		<form id="pwdChkFrm" name="pwdChkFrm" method="post" action="/membership/mypage/action" class="member-modify-password">
+		<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
+		<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
+		<input type="hidden" id="encPw" name="encPw" value="" />
+
+		<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 			<fieldset>
 				<div class="form-group">
 					<label for="pswd" class="font-bold">비밀번호</label>
@@ -27,10 +32,17 @@
 	</div>
 </main>
 
+<script src="/html/core/vendor/rsa/RSA.min.js" /></script>
 <script>
 $(function(){
 
-	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=*]).*$/;
+
+	var f_rsa_enc = function(v, rpkm, rpke) {
+		let rsa = new RSAKey();
+		rsa.setPublic(rpkm,rpke);
+		return rsa.encrypt(v);
+	}
 
 	//유효성 검사
 	$("form[name='pwdChkFrm']").validate({
@@ -51,6 +63,11 @@ $(function(){
 		    }
 		},
 	    submitHandler: function (frm) {
+	    	var rsaPublicKeyModulus = $("#rsaPublicKeyModulus").val();
+		    var rsaPublicKeyExponent = $("#rsaPublicKeyExponent").val();
+		    var encPassword = f_rsa_enc($("#pswd").val().trim(), rsaPublicKeyModulus, rsaPublicKeyExponent);
+
+	    	$("#encPw").val(encPassword);
     		frm.submit();
 	    }
 	});

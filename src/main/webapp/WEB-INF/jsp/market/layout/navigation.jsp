@@ -98,7 +98,7 @@
             <span class="mins">00</span>
         </div> --%>
     </nav>
-    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start header-layer">
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start">
         <div class="offcanvas-header">
             <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu">레이어 닫기</button>
             <!-- <div class="logout">
@@ -114,8 +114,8 @@
                 <img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
                 <p class="rank">
                     <small>${_mbrSession.recipterYn eq 'Y'?'수급자회원':'일반회원'}</small>
-                    <strong>
-                  		<img src="/html/page/market/assets/images/img-grade${_mbrSession.mberGrade eq 'P' ? '1' : _mbrSession.mberGrade eq 'V' ? '2' : _mbrSession.mberGrade eq 'G' ? '3' : _mbrSession.mberGrade eq 'R' ? '4' : _mbrSession.mberGrade eq 'S' ? '5' : ''}.svg" alt="">
+                    <strong ${_mbrSession.mberGrade eq 'E' ? ' class="text-grade1"' : _mbrSession.mberGrade eq 'B' ? ' class="text-grade2"' : _mbrSession.mberGrade eq 'S' ? ' class="text-grade3"' : _mbrSession.mberGrade eq 'N' ? '' : ''}>
+               			${gradeCode[_mbrSession.mberGrade]}
                 	</strong>
                 </p>
                 </c:if>
@@ -129,19 +129,19 @@
                     <img src="/html/page/market/assets/images/txt-header-nav.svg" alt="" />
                 </picture>
                 <c:if test="${!_mbrSession.loginCheck}">
-                <a href="${_marketPath}/login">로그인</a>
-                <a href="${_marketPath}/mbr/regist">회원가입</a>
+				<a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a>
+				<a href="${_membershipPath }/registStep1">회원가입</a>
                 </c:if>
                 <c:if test="${_mbrSession.loginCheck}">
                 <a href="${_marketPath}/logout">로그아웃</a>
-                <a href="${_marketPath}/mypage/index">마이페이지</a>
+				<a href="${_marketPath }/mypage/index">마이페이지</a>
                 </c:if>
             </div>
             <ul class="menu-items">
             	<c:forEach items="${_gdsCtgryList}" var="ctgry" begin="1" varStatus="status">
             	<c:if test="${ctgry.levelNo == 2}">
                 <li class="menu-item">
-                    <a href="#">
+                    <a href="${_marketPath}/gds/${ctgry.ctgryNo}/list">
                         <strong>${ctgry.ctgryNm}</strong>
                         <!-- <small>welfare<br> equipment</small> -->
                     </a>

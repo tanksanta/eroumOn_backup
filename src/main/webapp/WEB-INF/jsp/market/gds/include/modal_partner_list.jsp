@@ -56,7 +56,7 @@
 	<c:if test="${pageType eq 'recommend' }">
 	<div class="tab-pane" id="recommend">
 
-		<c:if test="${!empty listVO.listObject}"><p class="text-alert">이로움 마켓에서 추천한 멤버스입니다. 멤버스를 선택해 주세요.</p></c:if>
+		<c:if test="${!empty listVO.listObject}"><p class="text-alert">이로움ON 마켓에서 추천한 멤버스입니다. 멤버스를 선택해 주세요.</p></c:if>
 		<c:if test="${empty listVO.listObject}"><div class="box-result">추천 멤버스가 없습니다.</div></c:if>
 
 		<c:forEach var="rcmmd" items="${listVO.listObject}" varStatus="status">

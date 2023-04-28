@@ -51,26 +51,54 @@ var Goods = (function(){
 
 	// 목록
 	function f_srchGdsList(page){
-		var params = {
-				curPage:page
-				, cntPerPage:cntPerPage
-				, srchMinPc:$("#srchMinPc").val()
-				, srchMaxPc:$("#srchMaxPc").val()
-				, srchGdsTys:$("#srchGdsTys").val()
-				, srchGdsTag:$("#srchGdsTag").val()
-				, srchGdsTagNI:$("#srchGdsTagNI").val() //NOT IN
-				, srchCtgryNos:srchCtgryNos
-		};
+		if(uncomma($("#srchMaxPc").val()) != '' && uncomma($("#srchMinPc").val() == '')){
+			$("#srchMinPc").val(0);
+		}
 
-		//console.log("params: ", params);
+		if(uncomma($("#srchMinPc").val()) > uncomma($("#srchMaxPc").val())){
+			alert("최대 가격을 다시 설정해주세요.");
+			$("#srchMaxPc").val(0);
+		}else{
+			var params = {
+					curPage:page
+					, cntPerPage:cntPerPage
+					, srchMinPc:uncomma($("#srchMinPc").val())
+					, srchMaxPc:uncomma($("#srchMaxPc").val())
+					, srchGdsTys:$("#srchGdsTys").val()
+					, srchGdsTag:$("#srchGdsTag").val()
+					, srchGdsTagNI:$("#srchGdsTagNI").val() //NOT IN
+					, srchCtgryNos:srchCtgryNos
+			};
 
-		$("#gds-list-wrap")
-			.load(
-				"${_marketPath}/gds/${upCtgryNo}/srchList"
-				, params
-				, function(obj){
-					$("#gds-list-wrap").fadeIn(200);
+			//console.log("params: ", params);
+
+			$("#gds-list-wrap")
+				.load(
+					"${_marketPath}/gds/${upCtgryNo}/srchList"
+					, params
+					, function(obj){
+						$("#gds-list-wrap").fadeIn(200);
+						$("html").scrollTop(0);
+				});
+		}
+	}
+
+	function f_cookie(){
+		// 쿠키로 카테고리 active
+		let ctgrys = $.cookie('market_category');
+		if(ctgrys != null && ctgrys != ''){
+			let arrCtgry = ctgrys.split('|');
+
+			$(".product-category dd a").each(function(){
+				if(arrCtgry.includes(String($(this).data("ctgryNo")))){
+					$(this).addClass("is-active");
+				}
+				if($(this).data("ctgryNo") == ''){
+					$(this).removeClass("is-active");
+				}
 			});
+		}
+		srchCtgryNos = ctgrys;
 	}
 
 	// 검색버튼
@@ -100,20 +128,32 @@ var Goods = (function(){
 			$(".product-category dd a.is-active").each(function(){
 				srchCtgryNos += (srchCtgryNos==""?$(this).data("ctgryNo"):"|"+$(this).data("ctgryNo"));
 			});
+			// 상품 카테고리 쿠키 생성
+			$.cookie('market_category',srchCtgryNos,{path:'/'});
 		}
 		f_srchGdsList(1); // search
 	});
 
+
 	//init search
 	if(typeof location.href.split("#")[1] != "undefined"){
-		//링크로 카테고로 넘어온 경우 최초에만 실행
-		const initCtgryNo = location.href.split("#")[1];
-		if($(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").length > 0){
-			$(".product-category dd a[data-ctgry-no='']").removeClass("is-active");
-			$(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").addClass("is-active");
-			srchCtgryNos = initCtgryNo;
+		let url = "${_curPath}";
+		url = url.replaceAll('/market/gds/2/','').replaceAll('list','');
+
+		if(url == ''){
+			//링크로 카테고리 넘어온 경우 최초에만 실행
+			const initCtgryNo = location.href.split("#")[1];
+			if($(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").length > 0){
+				$(".product-category dd a[data-ctgry-no='']").removeClass("is-active");
+				$(".product-category dd a[data-ctgry-no='"+ initCtgryNo +"']").addClass("is-active");
+				srchCtgryNos = initCtgryNo;
+			}
+		}else{
+			$(".product-category dd a").removeClass("is-active");
+			f_cookie();
 		}
 	}
+
 	f_srchGdsList(1);
 
 	//상품 목록 마우스 오버

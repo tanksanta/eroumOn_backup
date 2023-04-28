@@ -27,6 +27,7 @@
 		, g.gds_nm
 		, g.gds_cd
 		, g.bnef_cd
+		, g.item_cd
 		, g.wrhs_ymd_ntcn
 		, g.mngr_memo
 		, g.bass_dc
@@ -165,6 +166,9 @@
 		</if>
 		<if test="srchUseNdspy != null and srchUseNdspy != '' ">
 			AND (op.use_yn = #{srchUseNdspy} OR g.dspy_yn = #{srchUseNdspy})
+		</if>
+		<if test="srchItemCd != null and srchItemCd != '' ">
+			AND g.item_cd like CONCAT ('%',#{srchItemCd},'%')
 		</if>
 		<!-- //관리자용 -->
 		<if test="srchGdsNm !=null and srchGdsNm != ''">
@@ -311,6 +315,7 @@
 			 , gds_nm
 			 , gds_cd
 			 , bnef_cd
+			 , item_cd
 			 , wrhs_ymd_ntcn
 			 , mngr_memo
 			 , bass_dc
@@ -385,6 +390,7 @@
 				<otherwise>#{gdsCd, jdbcType=VARCHAR}</otherwise>
 			</choose>
 			, #{bnefCd, jdbcType=VARCHAR}
+			, #{itemCd, jdbcType=VARCHAR}
 			, #{wrhsYmdNtcn, jdbcType=VARCHAR}
 			, #{mngrMemo, jdbcType=VARCHAR}
 			, #{bassDc, jdbcType=VARCHAR}
@@ -464,6 +470,7 @@
 			, ctgry_no = #{ctgryNo}
 			, gds_nm = #{gdsNm, jdbcType=VARCHAR}
 			, gds_cd = #{gdsCd, jdbcType=VARCHAR}
+			, item_cd = #{itemCd, jdbcType=VARCHAR}
 			, bnef_cd = #{bnefCd, jdbcType=VARCHAR}
 			, wrhs_ymd_ntcn = #{wrhsYmdNtcn, jdbcType=VARCHAR}
 			, mngr_memo = #{mngrMemo, jdbcType=VARCHAR}

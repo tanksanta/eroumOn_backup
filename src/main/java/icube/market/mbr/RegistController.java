@@ -471,12 +471,12 @@ public class RegistController extends CommonAbstractController{
 				mailForm = mailForm.replace("{name}", "이로움마켓");
 				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
 				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2018-서울강남-04157");
+				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
 
 
 
 				// 메일 발송
-				String mailSj = "[EROUM] 이로움 회원 가입을 축하드립니다.";
+				String mailSj = "[이로움ON] 이로움 회원 가입을 축하드립니다.";
 				if(EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, noMbrVO.getEml(), mailSj, mailForm);
 				}else if(EgovStringUtil.equals("dev", activeMode)) {

@@ -216,13 +216,14 @@
                 </c:if>
 
                 <div class="mt-13 text-right mb-2">
-                    <button type="button" class="btn-primary">엑셀 다운로드</button>
+                    <button type="button" class="btn-primary btn-excel">엑셀 다운로드</button>
                 </div>
 
                 <p class="text-title2">주문 목록</p>
                 <div class="scroll-table">
                     <table class="table-list">
                         <colgroup>
+                        	<col class="min-w-32 w-30">
                             <col class="min-w-28">
                             <col class="min-w-25 w-25">
                             <col class="min-w-23 w-23">
@@ -239,10 +240,10 @@
                             <col class="min-w-30 w-30">
                             <col class="min-w-30 w-30">
                             <col class="min-w-32">
-                            <col class="min-w-32 w-30">
                         </colgroup>
                         <thead>
                             <tr>
+                            	<th scope="col" rowspan="2">주문상태</th>
                                 <th scope="col" rowspan="2">주문일시</th>
                                 <th scope="col" rowspan="2">주문자</th>
                                 <th scope="col" rowspan="2">수령인</th>
@@ -259,7 +260,6 @@
                                 <th scope="col" rowspan="2">결제금액</th>
                                 <th scope="col" rowspan="2">결제수단</th>
                                 <th scope="col" rowspan="2">멤버스</th>
-                                <th scope="col" rowspan="2">주문상태</th>
                             </tr>
                             <tr>
                                 <th scope="col">쿠폰</th>
@@ -269,8 +269,26 @@
                         </thead>
                         <tbody>
                         	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
-                        	<tr>
-                                <td class="${resultList.ordrCd}">
+			                <tr>
+								<td class="${resultList.ordrDtlCd }"><c:choose>
+										<c:when test="${(resultList.sttsTy eq 'RE03' || resultList.sttsTy eq 'RF01') && resultList.rfndYn eq 'N'}">
+											<%--반품완료+환불미완료 --%>
+											<span class="text-danger">환불접수</span>
+											<br>(반품완료)
+			                                		</c:when>
+										<c:when test="${(resultList.sttsTy eq 'RE03' || resultList.sttsTy eq 'RF02') && resultList.rfndYn eq 'Y'}">
+											<%--반품완료+환불완료 --%>
+											<span class="text-danger">환불완료</span>
+											<br>(반품완료)
+			                                		</c:when>
+										<c:otherwise>
+			                                    ${ordrSttsCode[resultList.sttsTy]}
+			                                		</c:otherwise>
+									</c:choose> <%-- 배송중, 배송완료, 구매확정 --%> <c:if test="${resultList.sttsTy eq 'OR07' || resultList.sttsTy eq 'OR08'}">
+										<br>
+										<a href="#">${resultList.dlvyInvcNo }</a>
+									</c:if></td>
+								<td class="${resultList.ordrCd}">
                                     <a href="#dtl-modal1" class="btn shadow w-full f_gds_dtl" data-ordr-cd="${resultList.ordrCd}" style="height:auto;">
                                         <fmt:formatDate value="${resultList.ordrDt}" pattern="yyyy-MM-dd" /><br>
                                         ${resultList.ordrCd}
@@ -346,25 +364,6 @@
                                 		<c:otherwise>-</c:otherwise>
                                 	</c:choose>
                                 </td>
-                                <td class="${resultList.ordrDtlCd }">
-                                	<c:choose>
-                                		<c:when test="${(resultList.sttsTy eq 'RE03' || resultList.sttsTy eq 'RF01') && resultList.rfndYn eq 'N'}"><%--반품완료+환불미완료 --%>
-                                	<span class="text-danger">환불접수</span><br>(반품완료)
-                                		</c:when>
-                                		<c:when test="${(resultList.sttsTy eq 'RE03' || resultList.sttsTy eq 'RF02') && resultList.rfndYn eq 'Y'}"><%--반품완료+환불완료 --%>
-                                	<span class="text-danger">환불완료</span><br>(반품완료)
-                                		</c:when>
-                                		<c:otherwise>
-                                    ${ordrSttsCode[resultList.sttsTy]}
-                                		</c:otherwise>
-                                	</c:choose>
-
-                                    <%-- 배송중, 배송완료, 구매확정 --%>
-                                    <c:if test="${resultList.sttsTy eq 'OR07' || resultList.sttsTy eq 'OR08'}">
-                                    <br><a href="#">${resultList.dlvyInvcNo }</a>
-                                    </c:if>
-                                </td>
-
                             </tr>
                             </c:forEach>
                             <c:if test="${empty listVO.listObject}">
@@ -440,7 +439,6 @@
                 			});
                 	}
                 	*/
-
 
                 	//상품상세
                 	$(".f_gds_dtl").on("click", function(e){
@@ -554,6 +552,11 @@
 						$("#cntPerPage").val(cntperpage);
 						$("#searchFrm").submit();
 					});
+
+	             	$(".btn-excel").on("click", function(){
+	            		$("#searchFrm").attr("action","excel").submit();
+	            		$("#searchFrm").attr("action","list");
+	            	});
 
                 });
                 </script>

@@ -1,7 +1,5 @@
 package icube.market.mypage.bnef;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,8 +30,7 @@ public class MyPointController extends CommonAbstractController {
 
 	/**
 	 * 회원 포인트 목록
-	 @param uniqueId
-	 * @return 이용가능 마일리지, 이달 소멸 예정, 가족회원 마일리지 by Map
+	 * @param uniqueId
 	 * @return 적립 && 차감 목록
 	 * @throws Exception
 	 */
@@ -44,9 +41,6 @@ public class MyPointController extends CommonAbstractController {
 			, @RequestParam(value="type", required=false) String type
 			) throws Exception {
 
-		// 포인트 정보
-		Map<String, Object> schedMap = mbrPointService.selectTotalTypePoint(mbrSession.getUniqueId());
-
 		// history
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
@@ -54,7 +48,6 @@ public class MyPointController extends CommonAbstractController {
 		listVO = mbrPointService.mbrPointListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
-		model.addAttribute("schedMap", schedMap);
 		model.addAttribute("gradeCode", CodeMap.GRADE);
 		model.addAttribute("pointCnCode", CodeMap.POINT_CN);
 

@@ -40,12 +40,12 @@ kkm : 브랜드 구성이 어떻게 되는지 몰라 레이아웃 작업안함
                                 <i class="hover"></i>
                             </div>
                             <div class="name">
-                                <span class="base">이로움 마켓</span>
+                                <span class="base">이로움ON 마켓</span>
                                 <span class="hover">바로가기</span>
                             </div>
                             <div class="bubble">
                                 <dl>
-                                    <dt><img src="/html/page/brand/assets/images/txt-navigation-item1.svg" alt="이로움 마켓"></dt>
+                                    <dt><img src="/html/page/brand/assets/images/txt-navigation-item1.svg" alt="이로움ON 마켓"></dt>
                                     <dd>
                                         복지용구 멤버스와 수급자 매칭부터<br>
                                         주문, 계약 및 결제까지 한번에!

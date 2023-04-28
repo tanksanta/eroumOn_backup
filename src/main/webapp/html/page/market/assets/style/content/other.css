@@ -317,67 +317,49 @@
 
 /* 혜택 */
 .benefit-infomation {
-    @apply relative items-stretch overflow-hidden pt-3.5 pb-7.5 border border-black2 rounded-[1rem] bg-no-repeat bg-black2 md:pb-8.5;
+    @apply relative items-stretch overflow-hidden pt-4 pb-7.5 border border-black2 rounded-[1rem] bg-no-repeat bg-black2 md:pt-5 md:pb-8.5;
     & .benefit-title {
         @apply px-4 md:px-5;
-        &::before {
-            @apply content-empty block w-full h-2 bg-no-repeat bg-[length:auto_100%] bg-[url(../images/txt-eroum-white.svg)] opacity-45;
-        }
         & img {
-            @apply mt-3 md:w-89;
+            @apply h-2.5;
         }
     }
     & .benefit-container {
-        @apply mt-4.5 rounded-[1rem] bg-white break-all md:mt-7;
+        @apply mt-4 rounded-[1rem] bg-white break-all md:mt-5;
     }
     & .benefit-grade {
-        @apply py-5.5 pb-30 px-4 rounded-t-[1rem] bg-no-repeat bg-[position:right_0.75rem_bottom,left_top] bg-[length:13.5rem,auto] leading-snug sm:pb-5.5 sm:bg-[position:right_0.75rem_center,left_top] md:pt-8.5 md:pb-6 md:pr-23 md:pl-14 md:bg-[position:right_2.25rem_center,left_top] md:bg-[length:auto,auto];
+        @apply pt-6 pb-23 px-4 rounded-t-[1rem] bg-no-repeat bg-[position:right_0.75rem_bottom,left_top] bg-[length:9.6375rem,auto] leading-snug sm:pb-5.5 sm:bg-[position:right_0.75rem_center,left_top] md:py-9.5 md:pr-23 md:pl-14 md:bg-[position:right_2.25rem_center,left_top] md:bg-[length:auto,auto];
         background-image: url(../images/img-benefit.svg), linear-gradient(99deg, rgba(44, 57, 180, 0.1) 0%, rgba(220, 35, 170, 0.1) 46%, rgba(255, 0, 0, 0.1) 81%, rgba(255, 166, 0, 0.1) 100%);
         & img {
-            @apply mb-2.5 w-91 md:mb-4 md:w-[26rem];
+            @apply w-[28.75rem] md:w-[33.125rem];
         }
     }
     & .benefit-grade-item {
-        @apply flex items-center border-b-0.5 border-b-gray2 py-7 px-5 leading-tight sm:px-7 md:py-8.5 md:px-10;
+        @apply flex items-center border-b-0.5 border-b-gray2 py-8 leading-tight text-center md:py-12;
         & dl {
-            @apply flex-1 items-center text-center pr-5 md:flex;
+            @apply flex-1 items-center text-center md:flex;
             & dt, & dd {
-                @apply flex-1 leading-snug;
+                @apply flex-1 px-4 leading-snug md:px-5;
             }
             & dt {
-                @apply font-serif text-xl font-black md:text-2xl;
+                @apply text-xl font-bold md:text-2xl;
+            }
+            & dd {
+                @apply mt-1 md:mt-0;
             }
         }
         & p {
-            @apply font-bold;
-            & span {
-                @apply inline-block;
-                &:last-child {
-                    @apply block md:inline-block;
-                }
-            }
+            @apply px-4 w-[30%] font-bold md:px-5;
+            word-break: keep-all;
             & strong {
                 @apply font-serif text-xl font-black md:text-2xl;
             }
-            & i {
-                @apply inline-block px-1.5 text-base md:text-lg;
-            }
         }
-    }
-    & .benefit-grade-item2 {
-        @apply flex flex-col gap-2.5 mt-2 text-[1.375rem] leading-none text-center md:flex-row md:flex-wrap md:mt-6 md:text-2xl;
-        & li {
-            @apply py-4 border border-black2 rounded-md md:flex-1;
+        &.is-new {
             & dl {
-                @apply flex items-center md:block;
+                @apply flex-none w-[70%] md:flex-1 md:w-auto;
                 & dt {
-                    @apply px-[6.1%] flex-1 font-black whitespace-nowrap sm:px-[12.2%] md:px-0;
-                }
-                & dd {
-                    @apply mt-0.5 pr-[6.1%] font-bold font-serif md:mt-3 sm:pr-[12.2%] md:px-0;
-                    & small {
-                        @apply relative -top-px text-sm md:text-base;
-                    }
+                    @apply md:w-[35%] md:flex-none;
                 }
             }
         }

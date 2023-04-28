@@ -613,15 +613,41 @@
                     </div>
                 </div>
                 
+                <form class="order-search mt-12 md:mt-16">
+                    <p class="search-title">조회기간</p>
+                    <div class="form-check-group search-left">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1">
+                            <label class="form-check-label" for="search-item1">1주일</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-2">
+                            <label class="form-check-label" for="search-item1-2">한 달</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-3">
+                            <label class="form-check-label" for="search-item1-3">6개월</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-4">
+                            <label class="form-check-label" for="search-item1-4">1년</label>
+                        </div>
+                    </div>
+                    <div class="search-right">
+                        <input type="text" class="form-control" placeholder="상품명을 입력하세요.">
+                        <button type="submit" class="btn btn-primary">조회</button>
+                    </div>
+                </form>
+
                 <p class="text-title2 mt-11 md:mt-15">내가 구매한 상품 <strong class="text-danger">12</strong>건</p>
                 <div class="mt-4 space-y-4 md:mt-5 md:space-y-5">
-                    <div class="order-purchase">
+                    <div class="order-product order-purchase"> <!--order-purchase-->
                         <div class="order-header">
                             <dl>
                                 <dt>주문일시</dt>
                                 <dd>2023-01-26</dd>
                             </dl>
-                            <span class="label-outline-danger ml-auto">
+                            <span class="label-outline-danger -mr-3 ml-auto">
                                 <span>품절</span>
                                 <i></i>
                             </span>

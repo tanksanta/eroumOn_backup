@@ -54,14 +54,14 @@
 				<c:if test="${resultList.ordrOptnTy eq 'BASE' }">
 
 				<c:set var="spOrdrOptn" value="${fn:split(resultList.ordrOptn, '*')}" />
-				<div class="order-purchase">
+                <div class="order-product order-purchase">
 				    <div class="order-header">
 				        <dl>
 				            <dt>주문일시</dt>
 				            <dd><fmt:formatDate value="${resultList.ordrDt}" pattern="yyyy-MM-dd" /></dd>
 				        </dl>
 						<c:if test="${resultList.gdsInfo.soldoutYn eq 'Y'}">
-				        <span class="label-outline-danger ml-auto">
+						<span class="label-outline-danger -mr-3 ml-auto">
 				            <span>품절</span>
 				            <i></i>
 				        </span>

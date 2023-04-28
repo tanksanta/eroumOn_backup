@@ -8,14 +8,15 @@
 
 	<div id="page-content">
 		<ul class="tabs">
-			<li><a href="/membership/mypage/form" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
-			<li><a href="/membership/mypage/pswd" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			<li><a href="/membership/mypage/form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
+			<li><a href="/membership/mypage/pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
 		</ul>
 
 		<div class="member-modify mt-11 md:mt-15">
 			<form:form action="/membership/mypage/infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
 				<form:input type="hidden" path="delProflImg" id="delProflImg" name="delProflImg" value="N" />
 				<form:hidden path="proflImg" />
+				<form:hidden path="diKey" />
 
 				<input type="hidden" id="rcognGrad" name="rcognGrad" value="${mbrVO.recipterInfo.rcognGrad}" />
 				<input type="hidden" id="selfBndRt" name="selfBndRt" value="${mbrVO.recipterInfo.selfBndRt}" />
@@ -25,6 +26,7 @@
 				<input type="hidden" id="aplcnEndYmd" name="aplcnEndYmd" value="<fmt:formatDate value="${mbrVO.recipterInfo.aplcnEndYmd}" pattern="yyyy-MM-dd" />" />
 				<input type="hidden" id="sprtAmt" name="sprtAmt" value="${mbrVO.recipterInfo.sprtAmt}" />
 				<input type="hidden" id="bnefBlce" name="bnefBlce" value="${mbrVO.recipterInfo.bnefBlce}" />
+				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 
 				<input type="hidden" id="uniqueId" name="uniqueId" value="${_mbrSession.uniqueId}" />
 
@@ -61,7 +63,12 @@
 						</tr>
 						<tr>
 							<th scope="row"><p>휴대폰 번호</p></th>
-							<td><form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" oninput="autoHyphen(this);"/></td>
+							<td>
+								<div class="form-group w-full">
+									<form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" readonly="true" />
+									<button type="button" class="btn btn-primary" id="mbrTelnoChg">변경</button>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"></th>
@@ -292,16 +299,16 @@
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="smsRcptnYn" value="Y" />
-										<label class="form-check-label" for="smsRcptnYn">SMS</label>
+										<form:checkbox class="form-check-input agree" path="smsRcptnYn" value="Y" />
+										<label class="form-check-label" for="smsRcptnYn1">SMS</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="emlRcptnYn" value="Y" />
-										<label class="form-check-label" for="emlRcptnYn">이메일</label>
+										<form:checkbox class="form-check-input agree" path="emlRcptnYn" value="Y" />
+										<label class="form-check-label" for="emlRcptnYn1">이메일</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn">휴대폰</label>
+										<form:checkbox class="form-check-input agree" path="telRecptnYn" value="Y" />
+										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
 									</div>
 								</div>
 								<p class="mt-2 text-sm">이벤트 및 다양한 정보를 받으실 수 있습니다.</p>
@@ -316,7 +323,11 @@
 										<img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}" alt="" class="w-full h-full object-cover" id="profImg">
 									</div>
 									<div class="form-upload">
-										<label for="uploadFile" class="form-upload-trigger">파일을 선택해주세요</label> <input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);">
+										<label for="uploadFile" class="form-upload-trigger">
+									 		파일을 선택해주세요.<br>
+									 		5MB 이하의 이미지만 첨부가 가능합니다.
+									 	</label>
+										<input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);">
 									</div>
 									<button type="button" class="btn btn-primary" id="delBtn" onclick="f_delProflImg(); return false;">삭제</button>
 								</div>
@@ -361,15 +372,62 @@ function f_delProflImg(){
 	}
 }
 
+// 본인인증
+async function f_cert(){
+	try {
+	    const response = await Bootpay.requestAuthentication({
+	        application_id: "${_bootpayScriptKey}",
+	        pg: '다날',
+	        order_name: '본인인증',
+	        authentication_id: 'CERT00000000001',
+	        extra: { show_close_button: true }
+	    })
+	    switch (response.event) {
+	        case 'done':
+	            //console.log("response.data", response.data);
+
+      			$.ajax({
+      				type : "post",
+      				url  : "getMbrTelno.json",
+      				data : {
+      					receiptId : response.data.receipt_id
+      				},
+      				dataType : 'json'
+      			})
+      			.done(function(data) {
+      				var telno = data.mblTelno;
+      				telno = telno.substring(0,3) + "-" + telno.substring(3,7) + "-" + telno.substring(7,11);
+      				$("#mblTelno").val(telno);
+      				$("#diKey").val(data.diKey);
+      				alert("인증되었습니다.");
+      			})
+      			.fail(function(data, status, err) {
+      				console.log('error forward : ' + data);
+      			});
+
+	            break;
+	    }
+	} catch (e) {
+	    switch (e.event) {
+	        case 'cancel':
+	            console.log(e.message);	// 사용자가 결제창을 닫을때 호출
+	            break
+	        case 'error':
+	            console.log(e.error_code); // 결제 승인 중 오류 발생시 호출
+	            break
+	    }
+	}
+}
+
 $(function(){
 
 	const telchk = /^0([0-9]{2})-?([0-9]{3,4})-?([0-9]{4})$/;
-	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 	// 관심 분야
 	let itemList = "${mbrVO.itrstField}";
 	itemList = itemList.replaceAll(' ','').split(',');
-	for(var i=0; i<7; i++){
+	for(var i=0; i<8; i++){
 		for(var h=0; h<itemList.length; h++){
 			if($("#itrstCode"+i).val() == itemList[h]){
 				$("#itrstCode"+i).prop("checked",true);
@@ -377,15 +435,27 @@ $(function(){
 		}
 	}
 
+	if($(".agree:checked").length == 3){
+		$("#allChk").prop("checked",true);
+	}
+
 	// 한글 변환
 	$(".money").text(viewKorean("${mbrVO.recipterInfo.bnefBlce}"));
 
 	//전체 수신
-	$("#allchk").on("click",function(){
-		if($("#allchk").is(":checked")){
-			$("input[name='smsRcptnYn']").prop("checked",true);
-			$("input[name='emlRcptnYn']").prop("checked",true);
-			$("input[name='telRecptnYn']").prop("checked",true);
+	$("#allChk").on("click",function(){
+		if($("#allChk").is(":checked")){
+			$(".agree").prop("checked",true);
+		}else{
+			$(".agree").prop("checked",false);
+		}
+	});
+
+	$(".agree").on("click",function(){
+		if($(".agree:checked").length == 3){
+			$("#allChk").prop("checked",true);
+		}else{
+			$("#allChk").prop("checked",false);
 		}
 	});
 
@@ -436,6 +506,15 @@ $(function(){
 		$("#noneGrade").val('');
 		$("#selfBndRt").val('');
 		$("#wrapInfo").hide();
+	});
+
+	// 휴대폰 번호 변경
+	$("#mbrTelnoChg").on("click",function(){
+		if(confirm("휴대폰 번호를 변경하시겠습니까?")){
+			f_cert();
+		}else{
+			return false;
+		}
 	});
 
 	//수급자 정보 조회

@@ -75,6 +75,9 @@
 		<if test="srchOrdrOptn != null and srchOrdrOptn != '' ">
 			AND ordr_optn = #{srchOrdrOptn}
 		</if>
+		<if test="srchCartGrpNo != null and srchCartGrpNo != '' ">
+			AND cart_grp_no = #{srchCartGrpNo}
+		</if>
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCartGrpNos)">
 			AND cart_grp_no IN
 			<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
@@ -107,7 +110,7 @@
 		FROM CART c
 		WHERE 1=1
 			<include refid="searchConditions" />
-		ORDER BY cart_no ASC
+		ORDER BY bplc_unique_id
 	</select>
 
 
@@ -190,6 +193,67 @@
 		WHERE 1=1
 		<include refid="searchConditions" />
 	</delete>
+
+	<!-- 옵션내용 변경 : mergeOptnChg -->
+	<insert id="mergeOptnChg" parameterType="cartVO">
+		/* mergeOptnChg */
+		INSERT INTO CART (
+			cart_no
+			, cart_grp_no
+			, cart_ty
+			, gds_no
+			, gds_cd
+			, bnef_cd
+			, gds_nm
+			, gds_pc
+			, ordr_pc
+			, ordr_optn_ty
+			, ordr_optn
+			, ordr_optn_pc
+			, ordr_qy
+			, recipter_unique_id
+			, bplc_unique_id
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{cartNo}
+			, #{cartGrpNo}
+			, #{cartTy, jdbcType=VARCHAR}
+			, #{gdsNo}
+			, #{gdsCd, jdbcType=VARCHAR}
+			, #{bnefCd, jdbcType=VARCHAR}
+			, #{gdsNm, jdbcType=VARCHAR}
+			, #{gdsPc}
+			, #{ordrPc}
+			, #{ordrOptnTy, jdbcType=VARCHAR}
+			, #{ordrOptn, jdbcType=VARCHAR}
+			, #{ordrOptnPc}
+			, #{ordrQy}
+			, #{recipterUniqueId, jdbcType=VARCHAR}
+			, #{bplcUniqueId, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			ordr_pc = #{ordrPc}
+			, ordr_optn_ty = #{ordrOptnTy, jdbcType=VARCHAR}
+			, ordr_optn = #{ordrOptn, jdbcType=VARCHAR}
+			, ordr_optn_pc = #{ordrOptnPc}
+			, ordr_qy = #{ordrQy}
+			, recipter_unique_id = #{recipterUniqueId, jdbcType=VARCHAR}
+	</insert>
+
+	<update id="deleteCartlByNos" parameterType="java.util.HashMap">
+		DELETE FROM CART
+		 WHERE cart_no IN
+			<foreach collection="cartNos" item="cartNo" open="(" separator="," close=")">
+				#{cartNo}
+			</foreach>
+	</update>
 
 
 </mapper>

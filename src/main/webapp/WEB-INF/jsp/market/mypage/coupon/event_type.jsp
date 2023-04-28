@@ -13,7 +13,7 @@
 			</div>
 		</c:when>
 
-		<%-- 일반 정율 --%>
+		<%-- 일반 정액 --%>
 		<c:when test="${(param.eventType eq 'NOR' || param.eventType eq 'GRADE') && param.dscntTy eq 'SEMEN'}">
 			<div class="coupon-item is-discount sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
@@ -26,7 +26,7 @@
 			</div>
 		</c:when>
 
-		<%-- 일반 정액 --%>
+		<%-- 일반 정율 --%>
 		<c:when test="${(param.eventType eq 'NOR' || param.eventType eq 'GRADE') && param.dscntTy eq 'PRCS'}">
 			<div class="coupon-item is-discount sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
@@ -39,7 +39,7 @@
 		</c:when>
 
 		<%-- 생일 정율 --%>
-		<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'PRCS'}">
+		<%--<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'PRCS'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -48,10 +48,10 @@
 					<p class="desc">Happy Birthday!</p>
 				</div>
 			</div>
-		</c:when>
+		</c:when> --%>
 
 		<%-- 생일 정액 --%>
-		<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'SEMEN'}">
+		<%--<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'SEMEN'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -61,7 +61,7 @@
 					<p class="desc">Happy Birthday!</p>
 				</div>
 			</div>
-		</c:when>
+		</c:when> --%>
 
 		<%-- 회원 가입 정율 --%>
 		<c:when test="${param.eventType eq 'JOIN' && param.dscntTy eq 'PRCS'}">
@@ -80,7 +80,7 @@
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
-						${param.dscntAmt}<small>원</small>
+						<fmt:formatNumber value="${param.dscntAmt}" pattern="###,###" /><small>원</small>
 					</div>
 					<p class="desc">가입을 환영합니다</p>
 				</div>
@@ -88,7 +88,7 @@
 		</c:when>
 
 		<%-- 첫구매 정율 --%>
-		<c:when test="${param.eventType eq 'FIRST' && param.dscntTy eq 'PRCS'}">
+		<%--<c:when test="${param.eventType eq 'FIRST' && param.dscntTy eq 'PRCS'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -97,10 +97,10 @@
 					<p class="desc">첫구매 감사쿠폰</p>
 				</div>
 			</div>
-		</c:when>
+		</c:when> --%>
 
 		<%-- 첫구매 정액 --%>
-		<c:when test="${param.eventType eq 'FIRST' && param.dscntTy eq 'SEMEN'}">
+		<%--<c:when test="${param.eventType eq 'FIRST' && param.dscntTy eq 'SEMEN'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -109,7 +109,7 @@
 					<p class="desc">첫구매 감사쿠폰</p>
 				</div>
 			</div>
-		</c:when>
+		</c:when> --%>
 
 
 

@@ -176,6 +176,7 @@ public class MBplcGdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request);
 		String srchUseYn = EgovStringUtil.null2string((String) reqMap.get("srchUseYn"), "Y");
 		listVO.setParam("srchUseYn", srchUseYn);
+		listVO.setParam("srchDspyYn", srchUseYn);
 		listVO.setParam("srchGdsTys", srchGdsTys);
 		listVO = gdsService.gdsListVO(listVO);
 

@@ -14,6 +14,20 @@
                 <form:hidden path="gdsNo" />
                 <form:hidden path="tempYn" />
 
+                <input type="hidden" name="cntPerPage" value="${param.cntPerPage}" />
+                <input type="hidden" name="sortBy" value="${param.sortBy}" />
+                <input type="hidden" name="srchGdsCd" value="${param.srchGdsCode}" />
+                <input type="hidden" name="srchBnefCd" value="${param.srchBnefCode}" />
+                <input type="hidden" name="srchItemCd" value="${param.srchItemCd}" />
+                <input type="hidden" name="srchGdsTy" value="${param.srchGdsTy}" />
+                <input type="hidden" name="srchUpCtgryNo" value="${param.srchUpCtgryNo}" />
+                <input type="hidden" name="srchCtgryNo" value="${param.srchCtgryNo}" />
+                <input type="hidden" name="srchDspyYn" value="${param.srchDspyYn}" />
+                <input type="hidden" name="srchGdsNm" value="${param.srchGdsNm}" />
+                <input type="hidden" name="srchGdsTag" value="${param.srchGdsTag}" />
+                <input type="hidden" name="srchTarget" value="${param.srchTarget}" />
+                <input type="hidden" name="srchText" value="${param.srchText}" />
+
                 <%--2023-03-23 더블 서브밋 방지 추가 --%>
                 <double-submit:preventer tokenKey="preventTokenKey" />
 
@@ -68,6 +82,12 @@
                                                 상품관리코드는 자동 생성됩니다.
                                             </p>
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="itemCd">품목코드</label></th>
+                                    <td colspan="3">
+                                    	<form:input path="itemCd" class="form-control w-70" maxlength="10" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -442,6 +462,7 @@
 	                                                <col class="w-1/5">
 	                                                <col class="w-1/5">
 	                                                <col class="w-1/5">
+	                                                <col class="w-1/5">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -454,6 +475,7 @@
 	                                                    <th scope="col">추가금액</th>
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
+	                                                    <th scope="col">품목코드</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -476,6 +498,7 @@
 					                							<option value="N" ${optnList.useYn eq 'N'?'selected="selected"':'' }>미사용</option>
 					                						</select>
 					                					</td>
+					                					<td><input type="text" name="optnItemCd${status.index}" value="${optnList.optnItemCd}" class="form-control w-full" maxlength="20" /></td>
 					                				</tr>
 	                                                </c:forEach>
 	                                            </tbody>
@@ -551,6 +574,7 @@
 	                                                <col class="w-1/5">
 	                                                <col class="w-1/5">
 	                                                <col class="w-1/5">
+	                                                <col class="w-1/5">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -564,6 +588,7 @@
 	                                                    <th scope="col">추가금액</th>
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
+	                                                    <th scope="col">품목코드</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -589,6 +614,9 @@
 			        	                						<option value="Y" ${aditOptnList.useYn eq 'Y'?'selected="selected"':'' }>사용</option>
 			        	                						<option value="N" ${aditOptnList.useYn eq 'N'?'selected="selected"':'' }>미사용</option>
 			        	                					</select>
+			        	                				</td>
+			        	                				<td>
+			        	                					<input type="text" name="aditOptnItemCd${status.index}" value="${aditOptnList.optnItemCd}" class="form-control w-full" maxlength="20"/>
 			        	                				</td>
 	        	                					</tr>
 	        	                					</c:forEach>
@@ -862,7 +890,7 @@
                         </table>
                     </fieldset>
 
-                    <div class="btn-group mt-8 right">
+                    <div class="btn-group mt-8 right save_btn_grp">
                     	<%--<button type="button" class="btn-success large shadow tempSave">임시저장</button> --%>
                         <button type="submit" class="btn-primary large shadow saveGds">저장</button>
                         <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchCtgryNo=${param.srchCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
@@ -1077,6 +1105,7 @@
 	        	                				html += '			<option value="N">미사용</option>';
 	        	                				html += '		</select>';
 	        	                				html += '	</td>';
+	        	                				html += '	<td><input type="text" name="aditOptnItemCd'+cnt+'" class="form-control w-full" maxlength="20"></td>';
 	        	                				html += '</tr>';
 
 	                							cnt = cnt + 1; //카운트용
@@ -1203,6 +1232,7 @@
 	                				html += '			<option value="N">미사용</option>';
 	                				html += '		</select>';
 	                				html += '	</td>';
+	                				html += '	<td><input type="text" name="optnItemCd'+index+'" class="form-control w-full" maxlength="20"></td>';
 	                				html += '</tr>';
                 				});
 
@@ -1447,6 +1477,7 @@
                    			$("#tempYn").val("Y");
                        		$("#frmGds").submit();
                     	});
+
                     });
                 </script>
 

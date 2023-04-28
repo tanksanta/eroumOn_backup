@@ -3,11 +3,10 @@ package icube.manage.ordr.ordr;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovDateUtil;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,6 @@ import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
 import icube.common.util.ArrayUtil;
-import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.util.ValidatorUtil;
@@ -51,6 +50,9 @@ import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
+import kr.co.bootpay.Bootpay;
+import kr.co.bootpay.model.request.Subscribe;
+import kr.co.bootpay.model.request.User;
 
 /**
  * ordrStts : 주문상태
@@ -95,6 +97,15 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
+
+	@Value("#{props['Bootpay.Script.Key']}")
+	private String bootpayScriptKey;
+
+	@Value("#{props['Bootpay.Private.Key']}")
+	private String bootpayPrivateKey;
+
+	@Value("#{props['Bootpay.Rest.Key']}")
+	private String bootpayRestKey;
 
 	@Autowired
 	private MngrSession mngrSession;
@@ -156,6 +167,7 @@ public class MOrdrController extends CommonAbstractController {
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
 
 		model.addAttribute("ordrVO", ordrVO);
+		model.addAttribute("_bootpayScriptKey", bootpayScriptKey);
 
 		return "/manage/ordr/include/ordr_dtl";
 	}
@@ -433,6 +445,7 @@ public class MOrdrController extends CommonAbstractController {
 			result = true;
 
 			//이메일
+			Date now = new Date();
 			SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 			DecimalFormat numberFormat = new DecimalFormat("###,###");
 
@@ -447,6 +460,9 @@ public class MOrdrController extends CommonAbstractController {
 					mailForm = mailForm.replace("{mbrNm}", ordrVO.getOrdrrNm()); // 주문자
 					mailForm = mailForm.replace("{ordrDt}", formatter.format(ordrVO.getOrdrDt())); // 주문일
 					mailForm = mailForm.replace("{ordrCd}", ordrVO.getOrdrCd()); // 주문번호
+					mailForm = mailForm.replace("{now_year}", formatter.format(now).substring(0, 4)); // 현재 년
+					mailForm = mailForm.replace("{now_month}", formatter.format(now).substring(5, 7)); // 현재 월
+					mailForm = mailForm.replace("{now_day}", formatter.format(now).substring(8, 10)); // 현재 일
 
 					// 상품 정보 Start
 					String last = "";
@@ -569,7 +585,7 @@ public class MOrdrController extends CommonAbstractController {
 
 
 					// 메일 발송
-					String mailSj = "[EROUM] 회원님의 주문이 취소 되었습니다.";
+					String mailSj = "[이로움ON] 회원님의 주문이 취소 되었습니다.";
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -843,7 +859,7 @@ public class MOrdrController extends CommonAbstractController {
 					mailForm = mailForm.replace("{dsptDt}", ordrVO.getDpstTermDt().substring(0, 16)); // 입금기한
 
 					// 메일 발송
-					String mailSj = "[EROUM] 회원님의 주문이 완료 되었습니다.";
+					String mailSj = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -1038,7 +1054,7 @@ public class MOrdrController extends CommonAbstractController {
 					mailForm = mailForm.replace("{addr}", ordrVO.getRecptrAddr() + ordrVO.getRecptrDaddr()); // 주소
 
 					// 메일 발송
-					String mailSj = "[EROUM] 자동 구매확정처리 예정 안내드립니다.";
+					String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -1575,7 +1591,7 @@ public class MOrdrController extends CommonAbstractController {
 
 
 					// 메일 발송
-					String mailSj = "[EROUM] 회원님의 상품 반품이 완료 되었습니다.";
+					String mailSj = "[이로움ON] 회원님의 상품 반품이 완료 되었습니다.";
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -1768,6 +1784,138 @@ public class MOrdrController extends CommonAbstractController {
 		resultMap.put("result", result);
 		return resultMap;
 
+	}
+
+	// 카드변경 모달
+	@RequestMapping(value="include/rebillPayChg")
+	public String rebillPayChg(
+			@RequestParam(value="ordrCd", required=true) String ordrCd
+			, @RequestParam Map<String,Object> reqMap
+			, Model model) throws Exception {
+
+
+		// 주문정보
+		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
+
+		// result
+		model.addAttribute("ordrVO", ordrVO);
+
+		return "/manage/ordr/include/ordr_rebill_chg";
+	}
+
+	// 결제정보 변경
+	/**
+	 * 2023-04-14
+	 * 이니시스 -> 비인증 방식 불가로 홀딩
+	 */
+	@ResponseBody
+	@RequestMapping(value = "rebillPayChg.json")
+	public Map<String, Object> rebillPayChg(
+			@RequestParam(value = "ordrNo", required=true) String ordrNo
+			, @RequestParam(value = "cardNo",required=true) String cardNo
+			, @RequestParam(value = "cardPw",required=true) String cardPw
+			, @RequestParam(value = "expireMonth",required=true) String expireMonth
+			, @RequestParam(value = "expireYear",required=true) String expireYear
+			, @RequestParam(value = "birth",required=true) String birth
+			, @RequestParam Map<String, Object> reqMap
+			, Model model
+			)throws Exception {
+		boolean result = false;
+
+		OrdrVO ordrVO = ordrService.selectOrdrByNo(EgovStringUtil.string2integer(ordrNo));
+
+		Bootpay bootpay = new Bootpay(bootpayRestKey, bootpayPrivateKey);
+		bootpay.getAccessToken();
+
+		Subscribe subscribe = new Subscribe();
+		subscribe.orderName = ordrVO.getOrdrDtlList().get(0).getGdsNm();
+		subscribe.subscriptionId = ordrVO.getOrdrCd();
+		subscribe.pg = "inicis";
+		subscribe.cardNo = cardNo;
+		subscribe.cardPw = cardPw;
+		subscribe.cardExpireMonth = expireMonth; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+		subscribe.cardExpireYear = expireYear; //실제 테스트시에는 *** 마스크처리가 아닌 숫자여야 함
+		subscribe.cardIdentityNo = birth; //생년월일 또는 사업자 등록번호 (- 없이 입력)
+
+
+		subscribe.user = new User();
+		subscribe.user.username = "오근영";
+		subscribe.user.phone = "01033662658";
+
+		String billingKey = "";
+
+		try {
+			   HashMap res = bootpay.getBillingKey(subscribe);
+			   JSONObject json =  new JSONObject(res);
+			   System.out.printf( "JSON: %s", json);
+
+			   if(res.get("error_code") == null) { //success
+			       System.out.println("getBillingKey success: " + res);
+
+			    // 성공 시 빌링키 삭제
+				HashMap<String, Object> oldRes = bootpayApiService.destroyBillingKey(ordrVO.getBillingKey());
+				if(oldRes.get("error_code") == null) { //success
+			       log.debug("destroyBillingKey success: " + oldRes);
+			       ordrService.updateBillingCancel(EgovStringUtil.string2integer(ordrNo));
+				}else {
+					log.debug("destroyBillingKey false: " + oldRes);
+				}
+
+				//빌링키 업데이트
+				JSONObject data =  new JSONObject((JSONObject)json.get("card_data"));
+				billingKey = (String)json.get("billing_key");
+
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("billingKey", billingKey);
+				paramMap.put("cardAprvno", (String)data.get("card_approve_no"));
+				paramMap.put("cardCoNm", (String)data.get("card_company"));
+				paramMap.put("cardNo", cardNo.substring(0, 6) + "*********" + cardNo.substring(15));
+				paramMap.put("delngNo", (String)data.get("receipt_id"));
+				paramMap.put("ordrNo", ordrVO.getOrdrNo());
+				ordrService.updateBillingChg(paramMap);
+
+				result = true;
+
+			   } else {
+			       System.out.println("getBillingKey false: " + res);
+			   }
+			} catch (Exception e) {
+				log.debug(" ###  rebillPayChg fail ### : " + e.toString());
+			   e.printStackTrace();
+			}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
+	/**
+	 * 엑셀 다운로드
+	 * @param ordrStts
+	 * @param model
+	 */
+	@RequestMapping(value="{ordrStts}/excel")
+	public String excelDownload(
+			@PathVariable String ordrStts
+			, HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if(!ordrStts.toUpperCase().equals("ALL")) {
+			paramMap.put("srchSttsTy", ordrStts.toUpperCase());
+		}
+		 List<OrdrDtlVO> ordrDtlList =ordrDtlService.selectOrdrSttsList(paramMap);
+
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
+		model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+
+		model.addAttribute("ordrDtlList", ordrDtlList);
+		model.addAttribute("ordrSttsTy", ordrStts.toUpperCase());
+
+		return "/manage/ordr/excel";
 	}
 
 }

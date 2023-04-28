@@ -201,7 +201,7 @@
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_ordr_dtl_confrm" data-dtl-no="${ordrDtl.ordrDtlNo}" >관리</button>
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'CA01'}"><%-- 취소접수 --%>
-                                        		<button class="btn-primary shadow w-full px-0 f_rtrcn_confm" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="CA02" data-resn-ty="", data-resn="취소완료" data-msg="취소완료 처리하시겠습니까?" >취소완료</button>
+                                        		<button class="btn-primary shadow w-full px-0 f_rtrcn_confm" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="CA02" data-resn-ty="", data-resn="취소완료" data-coupon-amt = "${ordrDtl.couponAmt}" data-msg="취소완료 처리하시겠습니까?" >취소완료</button>
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'OR07'}"><%-- 배송중 --%>
                                         		<button class="btn-primary shadow w-full px-0 f_dlvy_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR08" data-resn-ty="", data-resn="배송완료 확인" data-msg="배송완료 상태로 변경됩니다. 처리하시겠습니까?" >배송완료 처리</button>
@@ -233,7 +233,7 @@
                                         </td>
                                     </tr>
 
-                                    <c:if test="${ordrDtl.sttsTy ne 'CA02'}"> <%-- 취소완료일때 미적용 --%>
+                                    <%--<c:if test="${ordrDtl.sttsTy ne 'CA02'}"> --%> <%-- 취소완료일때 미적용 --%>
                                     	<%-- 배송비 + 추가배송비 --%>
 	                                    <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt}" />
 	                                    <%-- 쿠폰금액 --%>
@@ -243,10 +243,12 @@
 	                                    <c:set var="totalAccmlMlg" value="${totalAccmlMlg + ordrDtl.accmlMlg}" />
 	                                    </c:if>
 	                                    <%-- 주문금액 + 옵션금액 --%>
-	                                    <c:if test="${ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'EX03'}">
+	                                    <c:if test="${ordrDtl.sttsTy ne 'EX03'}">
 	                                    <c:set var="totalOrdrPc" value="${totalOrdrPc + ordrDtl.ordrPc}" />
-	                                    </c:if>
-                                    </c:if>
+	                                </c:if>
+                                    <%--</c:if> --%>
+
+
 
 									<%-- 버튼 제어 S --%>
 
@@ -415,7 +417,11 @@
                                         		</c:otherwise>
                                         	</c:choose>
                                         </td>
-                                        <td><strong><fmt:formatNumber value="${ordrVO.stlmAmt}" pattern="###,###" /></strong></td>
+                                        <td>
+                                        	<strong>
+                                   				<fmt:formatNumber value="${totalOrdrPc}" pattern="###,###" />
+                                        	</strong>
+                                        </td>
                                         <td>
                                         	<%-- 마일리지 + 포인트 + 쿠폰할인가 --%>
                                         	<strong><fmt:formatNumber value="${ordrVO.useMlg + ordrVO.usePoint + totalCouponAmt}" pattern="###,###" /></strong>
@@ -430,12 +436,11 @@
                             <%-- 20230118 : 대여상태(정기결제) 추가 --%>
                             <c:if test="${ordrVO.ordrTy eq 'L' && ordrVO.stlmYn eq 'Y' }">
                             <p class="text-right mt-10" style="margin-bottom: -20px;">
-                            	<c:if test="${ordrVO.billingYn eq 'Y'}">
+                            	<%--<c:if test="${ordrVO.billingYn eq 'Y' }">--%>
+                            	<c:if test="${ordrVO.stlmTy eq 'REBILL'}">
 								<button type="button" class="btn-primary f_rebillCancel">자동결제 해지</button>
 								</c:if>
-								<%--
-								<button type="button" class="btn f_rebillPayChg">결제카드 변경</button>
-								 --%>
+								<!-- <button type="button" class="btn f_rebillPayChg" data-ordr-cd="${ordrVO.ordrCd}">결제카드 변경</button> -->
 							</p>
                             <p class="text-title2">정기결제 <span class="text-success">(${ordrVO.billingDay}일)</span></p>
                             <table class="table-list">
@@ -571,10 +576,10 @@
 
 			                                    	<tr>
 			                                    		<c:choose>
-			                                    			<c:when test="${totalOrdrrPc eq totalRfndAmt && status.last && (ordrVO.usePoint+ordrVO.useMlg+cancleList.couponAmt > 0)}">
+			                                    			<c:when test="${totalOrdrrPc - (ordrVO.usePoint+ordrVO.useMlg+totalRfndCouponAmt) eq totalRfndAmt && status.last && (ordrVO.usePoint+ordrVO.useMlg+cancleList.couponAmt > 0)}">
 			                                    				<td rowspan="4"><fmt:formatDate value="${cancleList.rfndDt}" pattern="yyyy-MM-dd" /></br><fmt:formatDate value="${cancleList.rfndDt}" pattern="HH:mm:ss"/></td>
 			                                    			</c:when>
-			                                    			<c:when test="${totalOrdrrPc eq totalRfndAmt && status.last && fn:length(ordrVO.ordrDtlList) < 2 }">
+			                                    			<c:when test="${totalOrdrrPc - (ordrVO.usePoint+ordrVO.useMlg+totalRfndCouponAmt) eq totalRfndAmt && status.last && fn:length(ordrVO.ordrDtlList) < 2 }">
 			                                    					<td rowspan="${rowspanNumber+3}"><fmt:formatDate value="${cancleList.rfndDt}" pattern="yyyy-MM-dd" /></br><fmt:formatDate value="${cancleList.rfndDt}" pattern="HH:mm:ss"/></td>
 			                                    			</c:when>
 			                                    			<c:otherwise>
@@ -582,35 +587,36 @@
 			                                    			</c:otherwise>
 			                                    		</c:choose>
 			                                    		<td>${cancleList.gdsInfo.gdsNm}</td>
-			                                    		<td><fmt:formatNumber value="${plusRfndAmt}" pattern="###,###" /></td>
-			                                    		<c:if test="${ordrVO.ordrDtlList[status.index-1].rfndActno ne cancleList.rfndActno}">
-				                                    		<td class="text-left" <c:if test="${(ordrVO.ordrDtlList[status.index+1].rfndBank eq cancleList.rfndBank) && (ordrVO.ordrDtlList[status.index+1].rfndActno eq cancleList.rfndActno) && (rowspanNumber ne 0)}">rowspan="${rowspanNumber}"</c:if>>
-				                                    			<c:choose>
-				                                    				<%-- 가상계좌 --%>
-				                                    				<c:when test="${ordrVO.stlmTy eq 'VBANK' || ordrVO.stlmTy eq 'BANK'}">
-				                                    					계좌이체 환불</br>${cancleList.rfndBank}&nbsp;${cancleList.rfndActno}&nbsp;${cancleList.rfndDpstr}
-				                                    				</c:when>
-				                                    				<c:otherwise>
-				                                    					신용카드 승인 취소
-				                                    				</c:otherwise>
-				                                    			</c:choose>
-				                                    		</td>
-			                                    		</c:if>
+			                                    		<td>
+	                                    					<fmt:formatNumber value="${plusRfndAmt}" pattern="###,###" />
+			                                    		</td>
+			                                    		<td class="text-left" >
+			                                    			<c:choose>
+			                                    				<%-- 가상계좌 --%>
+			                                    				<c:when test="${ordrVO.stlmTy eq 'VBANK' || ordrVO.stlmTy eq 'BANK'}">
+			                                    					계좌이체 환불</br>${cancleList.rfndBank}&nbsp;${cancleList.rfndActno}&nbsp;${cancleList.rfndDpstr}
+			                                    				</c:when>
+			                                    				<c:otherwise>
+			                                    					신용카드 승인 취소
+			                                    				</c:otherwise>
+			                                    			</c:choose>
+			                                    		</td>
 			                                    	</tr>
-			                                    	<c:if test="${totalOrdrrPc eq totalRfndAmt && status.last && (ordrVO.usePoint+ordrVO.useMlg+cancleList.couponAmt > 0)}">
+			                                    	<!-- totalOrdrrPc - (ordrVO.usePoint+ordrVO.useMlg+cancleList.couponAmt) eq totalRfndAmt &&  -->
+			                                    	<c:if test="${totalOrdrrPc - (ordrVO.usePoint+ordrVO.useMlg+totalRfndCouponAmt) eq totalRfndAmt && status.last && (ordrVO.usePoint+ordrVO.useMlg+cancleList.couponAmt > 0)}">
 				                                    	<tr>
 				                                    		<td>포인트</td>
-				                                    		<td>${ordrVO.usePoint}</td>
+				                                    		<td><fmt:formatNumber value="${ordrVO.usePoint}" pattern="###,###" /></td>
 				                                    		<td class="text-left">포인트 환원</td>
 				                                    	</tr>
 				                                    	<tr>
 				                                    		<td>마일리지</td>
-				                                    		<td>${ordrVO.useMlg}</td>
+				                                    		<td><fmt:formatNumber value="${ordrVO.useMlg}" pattern="###,###" /></td>
 				                                    		<td class="text-left">마일리지 환원</td>
 				                                    	</tr>
 				                                    	<tr>
 				                                    		<td>쿠폰</td>
-				                                    		<td>${cancleList.couponAmt}</td>
+				                                    		<td><fmt:formatNumber value="${totalRfndCouponAmt}" pattern="###,###" /></td>
 				                                    		<td class="text-left">쿠폰 환원</td>
 				                                    	</tr>
 				                                    	<tr>
@@ -630,12 +636,80 @@
                         </div>
                     </div>
                 </div>
+                <%-- 카드변경 모달 --%>
+                <div id="rebillPayChg"></div>
             </div>
             </form:form>
             <!-- //주문상세내역 -->
 
 
             <script>
+            async function f_pay(frm){
+            	//async
+           		Bootpay.requestSubscription({
+           		    application_id: "${_bootpayScriptKey}",
+           		    pg: '이니시스',
+           		    price: "${ordrVO.stlmAmt}",
+           		    tax_free: 0,
+           		    <c:choose>
+       	    			<c:when test="${ordrVO.ordrDtlList.size()>1}">
+       	    			"order_name": "${ordrVO.ordrDtlList[0].gdsInfo.gdsNm} 외 ${ordrDtlList.size()-1}건",
+       	    			</c:when>
+       	    			<c:otherwise>
+       	    			"order_name": "${ordrVO.ordrDtlList[0].gdsInfo.gdsNm}",
+       	    			</c:otherwise>
+       	    		</c:choose>
+           		    subscription_id: "${ordrVO.ordrCd}",
+           		    user: {
+          	    		    "username": "${ordrVO.ordrrNm}",
+          	    		    "phone": "${ordrVO.ordrrMblTelno}",
+          	    		    "email": "${ordrVO.ordrrEml}"
+          	    		},
+           		    extra: {
+           		        subscription_comment: '매월 '+ "${ordrVO.stlmAmt}" +'원이 결제됩니다',
+           		        subscribe_test_payment: true
+           		    }
+           		}).then(
+           		    function (response) {
+           		        if (response.event === 'done') {
+           		        	console.log(response);
+
+       			            const cardAprvno = response.data.receipt_data.card_data.card_approve_no; //카드 승인번호 => CARD_APRVNO
+       			            const cardCoNm = response.data.receipt_data.card_data.card_company; //카드회사 => CARD_CO_NM
+       			            const cardNo = response.data.receipt_data.card_data.card_no; //카드번호 => CARD_NO
+       			         	const delngNo = response.data.receipt_id; // : 거래번호 => DELNG_NO
+
+       			         	if(confirm("결제 정보를 변경하시겠습니까?")){
+	     						$.ajax({
+	     		       				type : "post",
+	     		       				url  : "/_mng/ordr/rebillPayChg.json",
+	     		       				data : {
+		     		       				cardAprvno : cardAprvno
+	       			            		, cardCoNm : cardCoNm
+	       			            		, cardNo : cardNo
+	       			            		, delngNo : delngNo
+	       			            		, ordrNo : "${ordrVO.ordrNo}"
+	     		       				},
+	     		       				dataType : 'json'
+	     		       			})
+	     		       			.done(function(data) {
+	     		       				if(data.result){
+	     		       					alert("결제정보가 변경되었습니다.");
+	     		       					$(".btn-reload").click();
+	     		       				}
+	     		       			})
+	     		       			.fail(function(data, status, err) {
+	     		       				console.log('정보변경 : error forward : ' + data);
+	     		       			});
+	     					}
+           		        }
+           		    },
+           		    function (error) {
+           		        console.log(error.message)
+           		    }
+           		)
+            }
+
             $(function(){
             	$("#dtl-modal").on("shown.bs.modal", function () {
 
@@ -1144,6 +1218,18 @@
 		       			});
 					}
 
+				});
+
+				// 결제카드 변경
+				$(".f_rebillPayChg").on("click",function(){
+					//f_pay();
+					const ordrCd = $(this).data("ordrCd");
+
+					$("#rebillPayChg").load("/_mng/ordr/include/rebillPayChg",
+          				{ordrCd : ordrCd
+               			}, function(){
+               				$("#ordr-rebill-chg-modal").modal("show");
+               			});
 				});
 
 				// rowspan

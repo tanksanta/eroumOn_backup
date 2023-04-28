@@ -69,4 +69,8 @@ public class MngrDAO extends CommonAbstractMapper {
 	public void updateMngrProflImg(MngrVO mngrVO) throws Exception {
 		update("sysmng.mngr.updateMngrProflImg", mngrVO);
 	}
+
+	public void updateRecentLgnDt(Map<String, Object> paramMap) throws Exception {
+		update("sysmng.mngr.updateRecentLgnDt",paramMap);
+	}
 }

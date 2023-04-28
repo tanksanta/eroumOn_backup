@@ -2,7 +2,6 @@ package icube.manage.gds.rel.biz;
 
 import org.apache.ibatis.type.Alias;
 
-import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +18,9 @@ public class GdsRelVO {
 	private String gdsTy;
 	private String gdsCd;
 	private String gdsNm;
+	private String useYn;
+	private String dspyYn;
+
 	private int pc;
 	private int bnefPc;
 	private int bnefPc15; //15%

@@ -86,7 +86,7 @@ public class MGdsController extends CommonAbstractController {
 
 	// Page Parameter Keys
 	private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"
-			, "srchUpCtgryNo", "srchCtgryNo", "srchGdsCd", "srchBnefCd", "srchGdsNm", "srchGdsTy", "srchGdsTag"};
+			, "srchUpCtgryNo", "srchCtgryNo", "srchGdsCd", "srchBnefCd", "srchGdsNm", "srchGdsTy", "srchGdsTag", "srchItemCd"};
 
 	@RequestMapping(value="list")
 	public String list(
@@ -316,6 +316,7 @@ public class MGdsController extends CommonAbstractController {
 				int optnPc = EgovStringUtil.string2integer((String) reqMap.get("optnPc" + optnRow), 0);
 				int optnStockQy = EgovStringUtil.string2integer((String) reqMap.get("optnStockQy" + optnRow), 0);
 				String useYn = (String) reqMap.get("optUseYn" + optnRow);
+				String optnItemCd = (String) reqMap.get("optnItemCd" + optnRow);
 
 				if(EgovStringUtil.isNotEmpty(optnNm)) {
 					GdsOptnVO optnVO = new GdsOptnVO();
@@ -325,6 +326,7 @@ public class MGdsController extends CommonAbstractController {
 					optnVO.setOptnNm(optnNm);
 					optnVO.setOptnPc(optnPc);
 					optnVO.setOptnStockQy(optnStockQy);
+					optnVO.setOptnItemCd(optnItemCd);
 					optnVO.setUseYn(useYn);
 
 					optnItemList.add(optnVO);
@@ -342,6 +344,7 @@ public class MGdsController extends CommonAbstractController {
 				int optnPc = EgovStringUtil.string2integer((String) reqMap.get("aditOptnPc" + optnRow), 0);
 				int optnStockQy = EgovStringUtil.string2integer((String) reqMap.get("aditOptnStockQy" + optnRow), 0);
 				String useYn = (String) reqMap.get("aditOptUseYn" + optnRow);
+				String optnItemCd = (String) reqMap.get("aditOptnItemCd" + optnRow);
 
 				if(EgovStringUtil.isNotEmpty(optnNm)) {
 					GdsOptnVO optnVO = new GdsOptnVO();
@@ -351,6 +354,7 @@ public class MGdsController extends CommonAbstractController {
 					optnVO.setOptnNm(optnNm);
 					optnVO.setOptnPc(optnPc);
 					optnVO.setOptnStockQy(optnStockQy);
+					optnVO.setOptnItemCd(optnItemCd);
 					optnVO.setUseYn(useYn);
 
 					aditOptnItemList.add(optnVO);

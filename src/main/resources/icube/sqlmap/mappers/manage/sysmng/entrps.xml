@@ -62,9 +62,19 @@
 			<include refid="listColumn"/>
 		FROM ENTRPS
 		WHERE 1=1
-		<include refid="searchConditions" />
+			<include refid="searchConditions" />
 	  	ORDER BY entrps_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectEntrpsListAll" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
+		/* Query ID : entrps.xml > selectEntrpsListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ENTRPS
+		WHERE 1=1
+		 	<include refid="searchConditions" />
+		ORDER BY entrps_no DESC
 	</select>
 
 	<select id="selectEntrpsCount" parameterType="java.util.HashMap" resultType="int">

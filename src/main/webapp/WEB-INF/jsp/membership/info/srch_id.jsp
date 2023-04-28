@@ -31,7 +31,7 @@
 					</div>
 					<div class="search-button">
 						<button class="btn btn-primary" type="submit">확인</button>
-						<button class="btn btn-outline-primary" type="button">취소</button>
+						<a href="/membership/login" class="btn btn-outline-primary">취소</a>
 					</div>
 				</fieldset>
 			</div>
@@ -40,11 +40,11 @@
 		<dl class="member-desc">
 			<dl>
 				<dt>
-					<img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움">
+					<img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움ON">
 				</dt>
 				<dd>
-					<strong>이로움</strong>만의<br> 특별함을 누리세요<br>
-					<a href="/membership/regist" class="btn btn-outline-secondary">회원가입하기</a>
+					<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>
+                    <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
 				</dd>
 			</dl>
 		</dl>

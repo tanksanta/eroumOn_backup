@@ -136,7 +136,7 @@
                                         <td><fmt:formatNumber value="${ordrVO.useMlg}" pattern="###,###" /></td>
                                         <td><fmt:formatNumber value="${ordrVO.usePoint}" pattern="###,###" /></td>
                                         <td><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###" /></td>
-                                        <td><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></td>
+                                        <td><fmt:formatNumber value="${ordrVO.stlmAmt}" pattern="###,###" /></td>
                                         <td>${bassStlmTyCode[ordrVO.stlmTy]}</td>
                                     </tr>
                                 </tbody>
@@ -255,14 +255,14 @@
                                 	<c:if test="${ordrVO.useMlg > 0}">
                                     <tr>
                                         <td>마일리지</td>
-                                        <td class="text-right">${ordrVO.useMlg}</td>
+                                        <td class="text-right"><fmt:formatNumber value="${ordrVO.useMlg}" pattern="###,###" /></td>
                                         <td class="text-left">마일리지 환원</td>
                                     </tr>
                                     </c:if>
 									<c:if test="${ordrVO.usePoint > 0}">
                                     <tr>
-                                        <td>마일리지</td>
-                                        <td class="text-right">${ordrVO.usePoint}</td>
+                                        <td>포인트</td>
+                                        <td class="text-right"><fmt:formatNumber value="${ordrVO.usePoint}" pattern="###,###" /></td>
                                         <td class="text-left">포인트 환원</td>
                                     </tr>
                                     </c:if>

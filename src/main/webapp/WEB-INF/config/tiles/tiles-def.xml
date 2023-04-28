@@ -113,6 +113,9 @@
 	<definition name="/planner/*" extends=".planner_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/{1}.jsp" />
 	</definition>
+	<definition name="/planner/cntnts/*" extends=".planner_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/cntnts/{1}.jsp" />
+	</definition>
 
 
 	<!-- 회원(membership) -->

@@ -36,6 +36,7 @@
 		, m.tel_recptn_yn
 		, m.event_recptn_yn
 		, m.profl_img
+		, m.di_key
 		, m.trms_agre_dt
 		, m.itrst_field
 		, m.join_cours
@@ -111,6 +112,8 @@
 		<if test="srchMbrGrade != null and srchMbrGrade != '' ">
 			AND mber_grade = #{srchMbrGrade}
 		</if>
+
+		<!--  탈퇴 회원이 아닌 조건이 디폴트로 하기 위함 -->
 		<if test="srchMbrSttus != null and srchMbrSttus != '' ">
 			AND mber_sttus = #{srchMbrSttus}
 		</if>
@@ -120,6 +123,9 @@
 		<if test="srchMbrStts != null and srchMbrStts != '' ">
 			AND mber_sttus = #{srchMbrStts}
 		</if>
+		<!-- -->
+
+
 		<if test="srchEml != null and srchEml != '' ">
 			AND eml = #{srchEml}
 		</if>
@@ -158,6 +164,13 @@
 		<if test="srchDrmcDate != null and srchDrmcDate !='' ">
 			AND ABS(DATEDIFF(DATE_FORMAT(RECENT_CNTN_DT,'%Y-%m-%d'),DATE(NOW()))) &gt; #{srchDrmcDate}
 		</if>
+		<if test="srchWhdwlDt != null and srchWhdwlDt != '' ">
+			AND DATEDIFF(NOW(),whdwl_dt) &lt; #{srchWhdwlDt}
+		</if>
+		<if test="srchReWhdwlDt != null and srchReWhdwlDt != '' ">
+			AND DATEDIFF(NOW(),whdwl_dt) &gt;= #{srchWhdwlDt}
+		</if>
+
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
@@ -199,7 +212,7 @@
 	</select>
 
 	<!-- 추천인 아이디 검색-->
-	<select id="selectMbrIdByOne" parameterType="String" resultType="mbrVO">
+	<select id="selectMbrIdByOne" parameterType="String" resultMap="mbrVOMap">
 		SELECT
 			<include refid="listColumn"/>
 		FROM MBR m
@@ -207,10 +220,9 @@
 	</select>
 
 	<select id="selectMbrIdChk" parameterType="java.util.HashMap" resultType="int">
-		SELECT
-			  COUNT(*)
+		SELECT COUNT(*)
 		FROM MBR m
-		WHERE UPPER(mbr_id) = UPPER(#{mbrId})
+		WHERE mbr_id = #{mbrId}
 	</select>
 
 	<insert id="insertMbr" parameterType="mbrVO">
@@ -349,6 +361,7 @@
 			, daddr = #{daddr}
 			, rcmdtn_id = #{rcmdtnId}
 			, telno = #{telno}
+			, di_key = #{diKey}
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, prvc_vld_pd = #{prvcVldPd}
 			, sms_rcptn_yn = #{smsRcptnYn}
@@ -485,6 +498,13 @@
 		WHERE unique_id = #{uniqueId}
 	</update>
 
+	<!-- 본인인증 키 업데이트 -->
+	<update id="updateDiKey" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			di_key = NULL
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+
 	<select id="selectMbrEtcInfo" parameterType="java.util.HashMap" resultType="egovMap">
 		SELECT
 			IFNULL((SELECT bnef_blce FROM RECIPTER_INFO ri WHERE unique_id = #{srchUniqueId}), 0) AS total_bnef_blce
@@ -508,6 +528,18 @@
 		FROM ORDR
 		WHERE 1=1
 			AND unique_id = #{srchUniqueId}
-			AND DATE_FORMAT(ordr_dt,'%Y-%m') = DATE_FORMAT(DATE_ADD(DATE(NOW()), INTERVAL -1 MONTH),'%Y-%m')
+			<!-- AND DATE_FORMAT(ordr_dt,'%Y-%m') = DATE_FORMAT(DATE_ADD(DATE(NOW()), INTERVAL -1 MONTH),'%Y-%m') -->
+	</select>
+
+	<select id="selectOwnAccmt" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT
+		IFNULL((SELECT point_acmtl FROM MBR_POINT WHERE unique_id = #{srchUniqueId} ORDER BY point_no DESC LIMIT 1),0) AS point_acmtl
+		, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE unique_id = #{srchUniqueId} AND YEAR(reg_dt) = YEAR(NOW()) AND point_se = 'A'),0) AS total_point
+		, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE unique_id = #{srchUniqueId} AND YEAR(reg_dt) = YEAR(NOW()) AND point_se = 'M'),0) AS use_point
+		, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE unique_id = #{srchUniqueId} AND YEAR(reg_dt) = YEAR(NOW()) AND point_se = 'E'),0) AS ext_point
+		, IFNULL((SELECT mlg_acmtl FROM MBR_MLG WHERE unique_id = #{srchUniqueId} ORDER BY mlg_no DESC LIMIT 1),0) AS mlg_acmtl
+		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'A'),0) AS total_mlg
+		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'M'),0) AS use_mlg
+		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'E'),0) AS ext_mlg
 	</select>
 </mapper>

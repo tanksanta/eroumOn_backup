@@ -5,10 +5,11 @@
  --%>
 
                 <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10 xl:gap-y-12 xl:grid-cols-4">
+                	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
 
-                    <a href="${_marketPath}/gds/${resultList.upCtgryNo}/${resultList.ctgryNo}/${resultList.gdsCd}"  class="product-item">
+                    <a href="${_marketPath}/gds/${resultList.upCtgryNo}/${resultList.ctgryNo}/${resultList.gdsCd}"  class="product-item" data-up-ctgry="${resultList.upCtgryNo}" data-ctgry-no="${resultList.ctgryNo}" data-gds-cd="${resultList.gdsCd}">
                         <div class="item-thumb">
                             <c:choose>
 								<c:when test="${!empty resultList.thumbnailFile }">
@@ -22,9 +23,9 @@
                         <div class="item-content">
                             <div class="label">
 								<c:if test="${resultList.gdsTy ne 'N'}"> <%--급여제품만--%>
-                                <span class="label-primary">
+                                <!-- <span class="label-primary">
                                     <span>급여가</span><i></i>
-                                </span>
+                                </span> -->
 								</c:if>
 								<c:if test="${!empty resultList.gdsTag}">
 									<c:forEach items="${resultList.gdsTag}" var="tag">
@@ -42,7 +43,7 @@
                             	<c:choose>
                             		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> <%--급여(판매)제품--%>
                             	<dl class="discount">
-                                    <dt>${resultList.gdsTy eq 'R'?'급여가':'대여가(월)'}</dt>
+                                    <dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
                                     <dd>
                                     	<c:choose>
                                     		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
@@ -88,7 +89,7 @@
                                 <%-- <button type="button" class="btn btn-cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button> --%>
                             </div>
                             <c:if test="${!empty resultList.wrhsYmdNtcn}">
-                            <p class="soldout">입고 예정 일정 : ${resultList.wrhsYmdNtcn}</p>
+                            <p class="soldout">${resultList.wrhsYmdNtcn}</p>
                             </c:if>
                         </div>
                     </a>

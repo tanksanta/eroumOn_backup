@@ -28,6 +28,9 @@
 				<input type="hidden" id="sprtAmt" name="sprtAmt" value="" />
 				<input type="hidden" id="bnefBlce" name="bnefBlce" value="" />
 				<input type="hidden" id="rcognGrad" name="rcognGrad" value="" />
+				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
+
+				<double-submit:preventer tokenKey="preventTokenKey" />
 
 				<ul class="member-tabs mb-5.5 xs:mb-11">
 					<li><span>약관동의 및 본인인증</span></li>
@@ -76,7 +79,7 @@
 							<th scope="row"></th>
 							<td>
 								<p class="text-sm">
-									영문으로 띄어쓰기 없이 6~15자로 입력해주세요.
+									6~15자 영문,숫자를 조합하여 입력해 주세요.
 								</p>
 							</td>
 						</tr>
@@ -86,7 +89,7 @@
 									<label for="join-item1-2">비밀번호<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
-							<td><form:input type="password" class="form-control w-full" path="pswd" /></td>
+							<td><form:input type="password" class="form-control w-full" path="pswd" maxlength="16"/></td>
 						</tr>
 						<tr>
 							<th scope="row"></th>
@@ -102,7 +105,7 @@
 									<label for="join-item1-3">비밀번호 확인<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p>
 							</th>
-							<td><input type="password" class="form-control w-full" id="pswdConfirm" name="pswdConfirm"></td>
+							<td><input type="password" class="form-control w-full" id="pswdConfirm" name="pswdConfirm" maxlength="16"></td>
 						</tr>
 						<tr>
 							<th scope="row"></th>
@@ -181,7 +184,7 @@
 					</tbody>
 				</table>
 				<div class="content-button mt-4">
-					<button type="button" class="btn btn-primary btn-large flex-1 md:flex-none md:w-73 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
+					<button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
 					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">초기화</button>
 				</div>
 				</br>
@@ -289,7 +292,7 @@
 							<th scope="row"><p>
 									<label for="rcmdtnId">추천인 아이디</label>
 								</p></th>
-							<td><form:input class="form-control w-full" path="rcmdtnId" maxlength="100" /></td>
+							<td><form:input class="form-control w-full" path="rcmdtnId" maxlength="15" /></td>
 						</tr>
 						<tr>
 							<th scope="row"></th>
@@ -354,23 +357,23 @@
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="smsRcptnYn" value="Y" />
-										<label class="form-check-label" for="smsRcptnYn">SMS</label>
+										<form:checkbox class="form-check-input agree" path="smsRcptnYn" value="Y" />
+										<label class="form-check-label" for="smsRcptnYn1">SMS</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="emlRcptnYn" value="Y" />
-										<label class="form-check-label" for="emlRcptnYn">이메일</label>
+										<form:checkbox class="form-check-input agree" path="emlRcptnYn" value="Y" />
+										<label class="form-check-label" for="emlRcptnYn1">이메일</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
-										<form:checkbox class="form-check-input" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn">휴대폰</label>
+										<form:checkbox class="form-check-input agree" path="telRecptnYn" value="Y" />
+										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
 									</div>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p>
-									<label for="join-item3-5">사진 등록</label>
+									<label for="join-item3-5">프로필 사진</label>
 								</p></th>
 							<td>
 								<div class="relative mb-4 aspect-square overflow-hidden rounded-md" style="display: none;">
@@ -378,10 +381,12 @@
 								</div>
 
 								<div class="form-upload">
-									<label for="uploadFile" class="form-upload-trigger"> 파일을 선택해주세요. </label>
+									<label for="uploadFile" class="form-upload-trigger">
+									 	파일을 선택해주세요.<br>
+									 	5MB 이하의 이미지만 첨부가 가능합니다.
+									 </label>
 									<input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);" multiple>
 								</div>
-								<p class="text-sm">e.g. 5MB 이하</p>
 							</td>
 						</tr>
 					</tbody>
@@ -419,8 +424,8 @@ function setImageFromFile(input, expression) {
 $(function(){
 
 	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
-	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+*=*]).*$/;
+	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	const rcperChk = /^([0-9]{1}-[0-9]{5}-[0-9]{5})$/;
 
@@ -445,7 +450,15 @@ $(function(){
 
 	//전체 수신
 	$("#allChk").on("click",function(){
-		$("#allChk").is(":checked") ? $("#smsRcptnYn1,#emlRcptnYn1,#telRecptnYn1").prop("checked",true) : $("#smsRcptnYn1,#emlRcptnYn1,#telRecptnYn1").prop("checked",false)
+		$("#allChk").is(":checked") ? $(".agree").prop("checked",true) : $(".agree").prop("checked",false)
+	});
+
+	$(".agree").on("click",function(){
+		if($(".agree:checked").length == 3){
+			$("#allChk").prop("checked",true);
+		}else{
+			$("#allChk").prop("checked",false);
+		}
 	});
 
 	//초기화
@@ -498,60 +511,81 @@ $(function(){
 
 	//수급자 정보 조회
 	$(".f_recipterCheck").on("click", function(){
-	$.ajax({
-		type : "post",
-		url  : "/common/recipter/getRecipterInfo.json",
-		data : {
-			//mbrNm:'${noMbrVO.mbrNm}'
-			mbrNm:$("#recipter").val()
-			, rcperRcognNo:$("#rcperRcognNo").val()
-		},
-		dataType : 'json'
-	})
-	.done(function(json) {
-		if(json.result){
-			$("#wrapInfo").show();
+		$.ajax({
+			type : "post",
+			url  : "/common/recipter/getRecipterInfo.json",
+			data : {
+				//mbrNm:'${noMbrVO.mbrNm}'
+				mbrNm:$("#recipter").val()
+				, rcperRcognNo:$("#rcperRcognNo").val()
+			},
+			dataType : 'json'
+		})
+		.done(function(json) {
+			if(json.result){
+				$("#wrapInfo").show();
 
 
-			$("#searchNm").text($("#recipter").val());
-			$("#searchNo").text("L"+$("#rcperRcognNo").val());
+				$("#searchNm").text($("#recipter").val());
+				$("#searchNo").text("L"+$("#rcperRcognNo").val());
 
 
-			let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
-			$("#searchQlf").text(penPayRate);
+				let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
+				$("#searchQlf").text(penPayRate);
 
 
-			$("#searchGrade").attr("src", "/html/page/market/assets/images/content2/num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
-			$("#searchBgngRcgt").html((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-			$("#searchEndRcgt").html("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-			$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
-			$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-			$("#searchRemn").text(comma(json.infoMap.REMN_AMT))
-			$("#formatKo").text(viewKorean(json.infoMap.REMN_AMT))
-			$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
+				$("#searchGrade").attr("src", "/html/page/market/assets/images/content2/num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
+				$("#searchBgngRcgt").html((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
+				$("#searchEndRcgt").html("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
+				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
+				$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+				$("#searchRemn").text(comma(json.infoMap.REMN_AMT))
+				$("#formatKo").text(viewKorean(json.infoMap.REMN_AMT))
+				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
 
-			$("#rcperRcognNo").val($("#rcperRcognNo").val());
-			$("#rcognGrad").val(json.infoMap.LTC_RCGT_GRADE_CD);
-			$("#selfBndRt").val(Number(penPayRate));
-			$("#vldBgngYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-			$("#vldEndYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-			$("#aplcnBgngYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_FR_DT)));
-			$("#aplcnEndYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_TO_DT)));
-			$("#sprtAmt").val(Number(json.infoMap.LMT_AMT));
-			$("#bnefBlce").val(Number(json.infoMap.REMN_AMT));
-
-
+				$("#rcperRcognNo").val($("#rcperRcognNo").val());
+				$("#rcognGrad").val(json.infoMap.LTC_RCGT_GRADE_CD);
+				$("#selfBndRt").val(Number(penPayRate));
+				$("#vldBgngYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
+				$("#vldEndYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
+				$("#aplcnBgngYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_FR_DT)));
+				$("#aplcnEndYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_TO_DT)));
+				$("#sprtAmt").val(Number(json.infoMap.LMT_AMT));
+				$("#bnefBlce").val(Number(json.infoMap.REMN_AMT));
 
 
-		}else{
-			alert("조회된 데이터가 없습니다.");
-		}
 
-	})
-	.fail(function(data, status, err) {
-		console.log('error forward : ' + data);
+
+			}else{
+				alert("조회된 데이터가 없습니다.");
+			}
+
+		})
+		.fail(function(data, status, err) {
+			console.log('error forward : ' + data);
+		});
 	});
-});
+
+	// 추천인 아이디 검사
+	$("#rcmdtnId").on("focusout",function(){
+		$.ajax({
+			type : "post",
+			url  : "/membership/rcmdIdChk.json",
+			data : {
+				rcmdtnId : $("#rcmdtnId").val()
+			},
+			dataType : 'json'
+		})
+		.done(function(data) {
+			if(!data.result){
+				alert("등록된 추천인 아이디가 없습니다. 정확한 추천인 아이디를 입력해 주세요.");
+				$("#rcmdtnId").val('');
+			}
+		})
+		.fail(function(data, status, err) {
+			console.log(data);
+		});
+	});
 
 
 
@@ -567,21 +601,41 @@ $(function(){
 		}else{
 			return true;
 		}
-	}, "형식이 올바르지 않습니다.");
+	}, "! 형식이 올바르지 않습니다.");
+
+	$.validator.addMethod("notEqual", function(value, element, param) {
+		  if($("#mbrId").val() === $("#rcmdtnId").val()){
+			  return false;
+		  }else{
+			  return true;
+		  }
+	}, "! 본인 아이디는 추천 할 수 없습니다.");
+
+	$.validator.addMethod("pswdFrmChk", function(value, element, param) {
+		if(value.search(/\s/) != -1){
+			return false;
+		}else{
+			if(value == $("#mbrId").val()){
+				return false;
+			}else{
+				return true;
+			}
+		}
+	}, "! 공백 및 아이디와 똑같은 비밀번호는 사용하실 수 없습니다.");
 
 	//유효성
 	$("form#frmReg").validate({
 	    ignore: "input[type='text']:hidden",
 	    rules : {
 	    	mbrId : {required : true , regex : idchk, remote:"/market/mbr/mbrIdChk.json"}
-	    	, pswd : {required : true, regex : pswdChk, minlength : 8}
+	    	, pswd : {required : true, regex : pswdChk, minlength : 8, pswdFrmChk : true}
 	    	, pswdConfirm : {required : true, equalTo : "#pswd", regex : pswdChk, minlength : 8}
 			, eml : {required : true, regex : emailchk}
 			, zip : {required : true, }
 			, addr : {required : true}
 			, daddr : {required : true}
 			/*, recipter : {equalTo : "${noMbrVO.mbrNm}"}*/
-			, rcmdtnId : {regex : idchk}
+			, rcmdtnId : {regex : idchk, notEqual : "#mbrId"}
 			, telno : {regex : telchk}
 			, agreeItem : {agreeChk : true}
 			, recipter : {repChk : true}
@@ -590,7 +644,7 @@ $(function(){
 			//, selfBndRt : {selfChk : true}
 	    },
 	    messages : {
-	    	mbrId : {required : "! 아이디를 입력해 주세요" , regex : "! 영문으로 띄어쓰기 없이 6~15자  영문,숫자를 조합하여 입력해 주세요.", remote:"! 사용할수 없는 아이디 입니다"}
+	    	mbrId : {required : "! 아이디를 입력해 주세요" , regex : "! 6~15자 영문,숫자를 조합하여 입력해 주세요.", remote:"! 사용할수 없는 아이디 입니다"}
 	    	, pswd : {required : "! 비밀번호는 필수 입력 항목입니다.", minlength : "! 비밀번호는 최소 8자리 입니다."}
 	    	, pswdConfirm : {required : "! 비밀번호 확인은 필수 입력 항목입니다.", equalTo : "! 비밀번호가 같지 않습니다.", regex : "! 비밀번호는 영문자, 숫자, 특수문자 조합을 입력해야 합니다.", minlength : "! 비밀번호는 최소 8 자리입니다." }
 			, eml : {required : "! 이메일은 필수 입력 항목입니다.", regex : "! 이메일 형식이 잘못되었습니다.\n(abc@def.com)"}

@@ -661,9 +661,9 @@ public class MyDtlsController extends CommonAbstractController {
 		}
 
 		int selfBndRt = oldOrdrVO.getOrdrDtlList().get(0).getRecipterInfo().getSelfBndRt();  // 본인부담율
-		int stlmAmt = oldOrdrVO.getStlmAmt();  // 결제 금액
+		//int stlmAmt = oldOrdrVO.getStlmAmt();  // 결제 금액
 
-		if(selfBndRt == 0 || stlmAmt == 0) {
+		if(selfBndRt == 0 /*|| stlmAmt == 0*/) {
 			oldOrdrVO.setStlmYn("Y");
 
 			if("L".equals(oldOrdrVO.getOrdrTy())) {
@@ -685,7 +685,6 @@ public class MyDtlsController extends CommonAbstractController {
 				ordrRebillService.insertOrdrRebill(ordrRebillVO);
 			}
 		}else if("L".equals(oldOrdrVO.getOrdrTy())) { //대여
-
 			try {
 				HashMap<String, Object> res = bootpayApiService.lookupBillingKey(ordrVO.getDelngNo());
 				JSONObject json =  new JSONObject(res);
@@ -757,6 +756,7 @@ public class MyDtlsController extends CommonAbstractController {
 		oldOrdrVO.setStlmAmt(ordrVO.getStlmAmt()); //결제금액
 		oldOrdrVO.setStlmDevice(WebUtil.getDevice(request));
 		oldOrdrVO.setStlmTy(ordrVO.getStlmTy().toUpperCase());
+		log.debug("@@@@@@@@@@@ ordrVO : " + oldOrdrVO.getBillingKey());
 
 		ordrService.updateOrdr(oldOrdrVO);
 

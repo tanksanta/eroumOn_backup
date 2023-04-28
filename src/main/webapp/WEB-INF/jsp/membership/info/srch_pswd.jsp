@@ -10,7 +10,7 @@
 	<div id="page-content">
             <form action="srchPswdAction" class="member-form" id="srchPswdFrm" name="srchPswdFrm" method="post">
 			<fieldset>
-				<legend>아이디, 이름으로 찾기</legend>
+				<legend>아이디로 찾기</legend>
 				<div class="search-group">
 					<label class="form-label" for="mbrId">아이디</label>
 					<input class="form-control" type="text" id="mbrId" name="mbrId" maxlength="50">
@@ -39,11 +39,11 @@
 		<dl class="member-desc">
 			<dl>
 				<dt>
-					<img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움">
+					<img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움ON">
 				</dt>
 				<dd>
-					<strong>이로움</strong>만의<br> 특별함을 누리세요<br>
-					<a href="/membership/regist" class="btn btn-outline-secondary">회원가입하기</a>
+					<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>
+                    <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
 				</dd>
 			</dl>
 		</dl>

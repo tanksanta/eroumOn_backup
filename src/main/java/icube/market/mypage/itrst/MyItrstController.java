@@ -159,6 +159,7 @@ public class MyItrstController extends CommonAbstractController{
 		listVO.setParam("srchGugun", gugun);
 		listVO.setParam("srchBplcNm", srchText);
 		listVO.setParam("srchAprvTy", "C");
+		listVO.setParam("srchUseYn", "Y");
 		listVO = bplcService.bplcListVO(listVO);
 
 		model.addAttribute("listVO", listVO);

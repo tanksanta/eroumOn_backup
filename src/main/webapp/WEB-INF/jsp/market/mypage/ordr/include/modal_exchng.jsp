@@ -121,14 +121,14 @@
 	                                                	무료배송
 	                                                	</c:if>
 	                                                	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-	                                                	${ordrDtl.gdsInfo.dlvyBassAmt}원
+	                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
 	                                                	</c:if>
 	                                                </dd>
 	                                            </dl>
 	                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
 	                                            <dl>
 	                                                <dt>추가 배송비</dt>
-	                                                <dd>${ordrDtl.gdsInfo.dlvyAditAmt}원</dd>
+	                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
 	                                            </dl>
 	                                            </c:if>
 	                                        </div>

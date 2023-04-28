@@ -328,8 +328,8 @@ public class CodeMap{
 		private static final long serialVersionUID = 133507148448669305L;
 		{
 			put("NOR", "일반");
-			put("BIRTH", "생일");
-			put("FIRST", "첫구매");
+			//put("BIRTH", "생일");
+			//put("FIRST", "첫구매");
 			put("GRADE", "회원등급");
 			put("JOIN", "회원가입");
 			put("FREE", "무료배송");
@@ -391,9 +391,11 @@ public class CodeMap{
 		}
 	};
 
-	// 2023-02-16 INSERT 하드코딩으로 변경
-	//포인트, 마일리지 내역
-	// 2자리로 변경 0> 관리자, 1> 차감, 2>적립
+	/**
+	 * 포인트, 마일리지 내역
+	 * 2023-02-16 INSERT 하드코딩으로 변경
+	 * 2자리로 변경 0> 관리자, 1> 차감, 2>적립
+	 */
 	public static final HashMap<String, String> POINT_CN = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 6185912987117339822L;
 		{
@@ -405,11 +407,15 @@ public class CodeMap{
 			// 차감
 			put("11", "상품 주문");
 			put("12", "적립 취소"); //적립금 취소
-			put("13", "상품 반품"); //적립금 취소
-			put("14", "유효기간 만료");
+			put("13", "상품 반품");
+
+			// 소멸
+			put("15", "유효기간 만료");
+			put("16", "휴면회원 소멸");
+			put("17", "블랙회원 소멸");
+			put("18", "탈퇴회원 소멸");
 
 			// 적립
-			put("31", "회원 가입");
 			put("32", "구매 확정");
 			put("33", "상품 취소");
 			put("34", "상품 반품");
@@ -517,11 +523,10 @@ public class CodeMap{
 	public static final HashMap<String, String> GRADE= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -6800855150709202987L;
 		{
-			put("P","PLATINUM");
-			put("V","VIP");
-			put("G","GOLD");
-			put("S","SILVER");
-			put("R","RED");
+			put("E","이로움"); //이로움
+			put("B","반가움"); //반가움
+			put("S","새로움"); //새로움
+			put("N","신규회원"); //신규회원
 		}
 	};
 
@@ -747,52 +752,55 @@ public class CodeMap{
 	public static final HashMap<String, String> BANK_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 7279164911113594958L;
 		{
-			put("2","한국산업은행");
+			put("KB","KDB산업은행");
 			put("3","기업은행");
 			put("4","국민은행");
-			put("5","하나은행 (구 외환)");
 			put("6","국민은행 (구 주택)");
+			put("5","하나은행 (구 외환)");
 			put("7","수협중앙회");
 			put("11","농협중앙회");
-			put("12","단위농협");
-			put("16","축협중앙회");
+			put("13","지역농축협");
 			put("20","우리은행");
-			put("21","구)조흥은행");
-			put("22","상업은행");
-			put("23","SC제일은행");
-			put("24","한일은행");
-			put("25","서울은행");
 			put("26","구)신한은행");
+			put("88","신한(통합)은행");
+			put("23","SC제일은행");
 			put("27","한국씨티은행 (구 한미)");
+			put("53","한국씨티은행");
 			put("31","대구은행");
 			put("32","부산은행");
 			put("34","광주은행");
 			put("35","제주은행");
 			put("37","전북은행");
-			put("38","강원은행");
 			put("39","경남은행");
-			put("41","비씨카드");
 			put("45","새마을금고");
+			put("SH","신협중앙회");
+			put("64","산림조합");
+			put("71","우체국");
+			put("89","케이뱅크");
+			put("90","카카오뱅크");
+			put("92","토스뱅크");
+			put("12","단위농협");
+			put("16","축협중앙회");
+			put("21","구)조흥은행");
+			put("22","상업은행");
+			put("24","한일은행");
+			put("25","서울은행");
+			put("38","강원은행");
+			put("41","비씨카드");
 			put("48","신용협동조합중앙회");
 			put("50","상호저축은행");
-			put("53","한국씨티은행");
 			put("54","홍콩상하이은행");
+			put("2","한국산업은행");
 			put("55","도이치은행");
 			put("56","ABN암로");
 			put("57","JP모건");
 			put("59","미쓰비시도쿄은행");
 			put("60","BOA(Bank of America)");
-			put("64","산림조합");
 			put("70","신안상호저축은행");
-			put("71","우체국");
 			put("81","하나은행");
 			put("83","평화은행");
 			put("87","신세계");
-			put("88","신한(통합)은행");
-			put("89","케이뱅크");
-			put("90","카카오뱅크");
 			put("91","네이버포인트");
-			put("92","토스뱅크");
 			put("93","토스머니");
 			put("94","SSG머니");
 			put("96","엘포인트");

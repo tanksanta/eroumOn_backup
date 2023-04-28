@@ -134,7 +134,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 			mbrId     = WebUtil.clearSqlInjection(mbrId);
 			loginPasswd = WebUtil.clearSqlInjection(loginPasswd);
 
-			mbrVO = mbrService.selectMbrById(mbrId);
+			mbrVO = mbrService.selectMbrIdByOne(mbrId.toLowerCase());
 
 			if (mbrVO != null) {
 				// 최근 접속 일시 업데이트
@@ -239,11 +239,13 @@ public class MbrsLoginController extends CommonAbstractController  {
 	@RequestMapping(value="modalLoginAction.json", method=RequestMethod.POST)
 	public Map<String, Object> modalLoginAction(
 			MbrVO mbrVO
+			, @RequestParam(defaultValue="N", required=false) String saveId
 			, @RequestParam(required=true, value="loginId") String loginId
 			, @RequestParam(required=true, value="encPw") String encPw
 			, HttpServletRequest request
 			, HttpServletResponse response
-			, HttpSession session) throws Exception {
+			, HttpSession session
+			) throws Exception {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		boolean result = false;
@@ -265,7 +267,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 			loginId     = WebUtil.clearSqlInjection(loginId);
 			loginPasswd = WebUtil.clearSqlInjection(loginPasswd);
 
-			mbrVO = mbrService.selectMbrById(loginId);
+			mbrVO = mbrService.selectMbrIdByOne(loginId);
 
 			if (mbrVO != null) {
 				// 최근 접속 일시 업데이트
@@ -281,54 +283,61 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 					if (BCrypt.checkpw(loginPasswd, mbrVO.getPswd())) {
 
-						mbrSession.setParms(mbrVO, true);
-						if ("Y".equals(mbrVO.getRecipterYn())) {
-							mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-						} else {
-							RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-							recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-							recipterInfoVO.setMbrId(mbrVO.getMbrId());
-							recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-							recipterInfoVO.setProflImg(mbrVO.getProflImg());
-							recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-							recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-							mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-						}
-
-						mbrSession.setMbrInfo(session, mbrSession);
-
-						// 로그인에 성공하면 로그인 실패 횟수를 초기화
-						mbrService.updateFailedLoginCountReset(mbrVO);
-
 						// return page check
 						if((mbrVO.getMberSttus()).equals("HUMAN")) {
 							resultCode = mbrVO.getMberSttus(); //HUMAN
+							resultMap.put("mbrId", mbrVO.getMbrId());
 						}else {
 							resultCode = "SUCCESS";
-						}
 
-						resultMap.put("mbrNm", mbrSession.getMbrNm());
-						resultMap.put("mbrItrst", mbrSession.getItrstField());
-
-						// 주소
-						if(EgovStringUtil.isNotEmpty(mbrSession.getAddr())) {
-							String[] spAddr = mbrSession.getAddr().split(" ");
-							if(spAddr.length > 1) {
-								String mbrAddr = spAddr[0] + " " + spAddr[1];
-								resultMap.put("mbrAddr", mbrAddr);
-								resultMap.put("mbrAddr1", spAddr[0]);
-								resultMap.put("mbrAddr2", spAddr[1]);
+							mbrSession.setParms(mbrVO, true);
+							if ("Y".equals(mbrVO.getRecipterYn())) {
+								mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
+							} else {
+								RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+								recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
+								recipterInfoVO.setMbrId(mbrVO.getMbrId());
+								recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
+								recipterInfoVO.setProflImg(mbrVO.getProflImg());
+								recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
+								recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
+								mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
 							}
+
+							mbrSession.setMbrInfo(session, mbrSession);
+
+							// 로그인에 성공하면 로그인 실패 횟수를 초기화
+							mbrService.updateFailedLoginCountReset(mbrVO);
+
+							resultMap.put("mbrNm", mbrSession.getMbrNm());
+							resultMap.put("mbrItrst", mbrSession.getItrstField());
+
+							// 주소
+							if(EgovStringUtil.isNotEmpty(mbrSession.getAddr())) {
+								String[] spAddr = mbrSession.getAddr().split(" ");
+								if(spAddr.length > 1) {
+									String mbrAddr = spAddr[0] + " " + spAddr[1];
+									resultMap.put("mbrAddr", mbrAddr);
+									resultMap.put("mbrAddr1", spAddr[0]);
+									resultMap.put("mbrAddr2", spAddr[1]);
+								}
+							}
+
+							// 나이
+							if(mbrSession.getBrdt() != null) {
+								String mbrAge = CommonUtil.getAge(mbrSession.getBrdt());
+								resultMap.put("mbrAge", mbrAge);
+							}
+
+							result = true;
+
+							// saveId용 쿠키
+							Cookie cookie = new Cookie(SAVE_ID_COOKIE_ID, mbrVO.getMbrId());
+							cookie.setPath("/");
+							cookie.setMaxAge("Y".equals(saveId) ? (60 * 60 * 24 * 7) : 0);
+							cookie.setSecure(true);
+							response.addCookie(cookie);
 						}
-
-						// 나이
-						if(mbrSession.getBrdt() != null) {
-							String mbrAge = CommonUtil.getAge(mbrSession.getBrdt());
-							resultMap.put("mbrAge", mbrAge);
-						}
-
-						result = true;
-
 					} else {
 						resultCode = "PASSWORD";
 					}

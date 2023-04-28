@@ -205,6 +205,7 @@
                 <h2>
                     <small>나를 위한</small>
                     복지서비스
+                    <span class="desc">노인복지가 궁금하세요? <a href="#"><span class="close">펼쳐보기</span> <span class="open">접기</span></a></span>
                 </h2>
                 <ul>
                     <li class="option-item7">
@@ -256,6 +257,15 @@
                         </label>
                     </li>
                 </ul>
+                
+                <div class="option-desc">
+                    <div class="content">
+                        <img src="../assets/images/img-welfare-content1.jpg" alt="">
+                        <img src="../assets/images/img-welfare-content2.jpg" alt="">
+                        <img src="../assets/images/img-welfare-content3.jpg" alt="">
+                    </div>
+                    <button type="button" class="close">닫기</button>
+                </div>
             </div>
             <!-- //서비스 셀렉트 -->
 
@@ -318,7 +328,7 @@
 
             <div class="page-content tab-content">
                 <!-- 서비스 본문(복지제도) -->
-                <div class="tab-pane fade show active" id="tabs-cont1" role="tabpanel">
+                <div class="tab-pane fade" id="tabs-cont1" role="tabpanel">
                     <div class="page-content-items">
                         <div class="content-items">
                             <div class="content-sizer"></div>
@@ -401,16 +411,61 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="page-content-paging">
+                            <div class="flow">
+                                <i data-num="1" class="is-active"></i>
+                                <i data-num="2"></i>
+                                <i data-num="3"></i>
+                                <i data-num="4"></i>
+                                <i data-num="5"></i>
+                                <i data-num="6"></i>
+                                <i data-num="7"></i>
+                                <i data-num="8"></i>
+                                <i data-num="9"></i>
+                                <i data-num="10"></i>
+                                <i data-num="11"></i>
+                                <i data-num="12"></i>
+                                <i data-num="13"></i>
+                                <i data-num="14"></i>
+                                <i data-num="15"></i>
+                            </div>
+                        </div>
                         <div class="content-button">
                             <button type="button" class="content-prev"><span>이전 페이지</span> <i></i></button>
                             <button type="button" class="content-next"><span>다음 페이지</span> <i></i></button>
                         </div>
+                        <script>
+                            $(function() {
+                                var page = 1;
+                                var pageT = 15
+                                $('.content-next').on('click', function() {
+                                    page = (page + 1 > pageT) ? pageT : page + 1;
+                                    $('.page-content-paging i').removeClass('is-active')
+                                    $('.page-content-paging i[data-num="' + page + '"]').addClass('is-active');
+                                    if(page > 3 && page <= pageT-2) {
+                                        var a = (page - 3) * 20;
+                                        $('.page-content-paging .flow').css('margin-left', -a);
+                                    }
+                                })
+                                $('.content-prev').on('click', function() {
+                                    page = (page - 1 >= 1) ? page - 1 : 1;
+                                    $('.page-content-paging i').removeClass('is-active')
+                                    $('.page-content-paging i[data-num="' + page + '"]').addClass('is-active');
+                                    console.log(page)
+                                    if(page > 2) {
+                                        var a = (page - 3) * 20;
+                                        console.log(page - 3)
+                                        $('.page-content-paging .flow').css('margin-left', -a);
+                                    }
+                                })
+                            })
+                        </script>
                     </div>
                 </div>
                 <!-- //서비스 본문(복지제도) -->
 
                 <!-- 서비스 본문(복지시설) -->
-                <div class="tab-pane fade" id="tabs-cont2" role="tabpanel">
+                <div class="tab-pane fade show active" id="tabs-cont2" role="tabpanel">
                     <div class="page-content-map">
                         <div id="map" class="map-area"></div>
                         <div class="map-select">
@@ -420,12 +475,12 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item" role="presentation"><a href="#marker-cont1" class="nav-link nav-link-item1 active" data-bs-toggle="pill" data-bs-target="#marker-cont1" role="tab" aria-selected="true">이로움 멤버스</a></li>
                                 <li class="nav-item" role="presentation"><a href="#marker-cont2" class="nav-link nav-link-item2" data-bs-toggle="pill" data-bs-target="#marker-cont2" role="tab" aria-selected="false">재가시설</a></li>
-                                <li class="nav-item" role="presentation"><button type="button" class="nav-link nav-link-item3" aria-selected="false">현재위치 검색</button></li>
+                                <!-- <li class="nav-item" role="presentation"><button type="button" class="nav-link nav-link-item3" aria-selected="false">현재위치 검색</button></li> -->
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="marker-cont1" role="tabpanel">
                                     <!-- 멤버스 -->
-                                    <div class="map-select-items">
+                                    <div class="map-select-items is-member">
                                         <div class="map-select-item">
                                             <a href="#" class="map-select-link is-members">
                                                 <p class="name">새마음 복지용품</p>
@@ -571,7 +626,7 @@
                         });
 
                         //마커 생성
-                        var imageSrc    = '../assets/images/img-marker.svg', //파트너스 img-marker-members.svg
+                        var imageSrc    = '../assets/images/img-marker-members.svg', //파트너스 img-marker-members.svg
                             imageSize   = new kakao.maps.Size(34, 42),
                             imageOption = {offset: new kakao.maps.Point(16, 46)};
 
@@ -823,7 +878,11 @@
                             <label for="login-item4" class="form-label">비밀번호</label>
                             <input type="password" id="login-item4" class="form-input">
                         </div>
-                        <button type="button" class="btn btn-primary mt-2.5 w-full">로그인</button>
+                        <div class="form-check mt-3">
+                        	<input class="form-check-input" type="checkbox" id="saveId" name="saveId" value="Y">
+                        	<label class="form-check-label" for="saveId">아이디 저장</label>
+                    	</div>
+                        <button type="button" class="btn btn-primary mt-3 w-full">로그인</button>
                     </div>
                     <div class="modal-login-search">
                         <a href="#">아이디 찾기</a>

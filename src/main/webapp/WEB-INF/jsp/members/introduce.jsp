@@ -12,7 +12,7 @@
 		</div>
 		<div class="container">
 			<h1 class="title">
-				항상 당신 곁에<br> 이로움 멤버스가 있겠습니다.
+				항상 당신 곁에<br> 이로움ON 멤버스가 있겠습니다.
 			</h1>
 			<p class="desc">
 				전국 약 1,600개 멤버스가 늘 당신과 함께합니다.<br>

@@ -372,23 +372,29 @@ $(function(){
 
 	//임시 비밀번호 발급
 	$(".f_sendRndPwd").on("click", function(){
-		$.ajax({
-			type : "post",
-			url  : "sendRndPswd.json",
-			data : {
-				uniqueId:'${bplcVO.uniqueId}'
-			},
-			dataType : 'json'
-		})
-		.done(function(data) {
-			if(data.result){
-				alert(data.rndPswd);
-			}
-		})
-		.fail(function(data, status, err) {
-			//console.log('f_dlvy_save : error forward : ' + data);
-			alert(data.reason);
-		});
+		if(confirm($("#picEml").val() + " 해당 이메일로 이메일을 발송하시겠습니까?")){
+			$.ajax({
+				type : "post",
+				url  : "sendRndPswd.json",
+				data : {
+					uniqueId:'${bplcVO.uniqueId}'
+				},
+				dataType : 'json'
+			})
+			.done(function(data) {
+				if(data.result){
+					alert("임시비밀번호가 담당자 이메일로 발송되었습니다.");
+				}else{
+					console.log("fail");
+				}
+			})
+			.fail(function(data, status, err) {
+				//console.log('f_dlvy_save : error forward : ' + data);
+				alert(data.reason);
+			});
+		}else{
+			return false;
+		}
 	});
 
 	var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
