@@ -8,12 +8,14 @@ import java.util.StringJoiner;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +30,7 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.ArrayUtil;
 import icube.common.util.CommonUtil;
+import icube.common.util.HtmlUtil;
 import icube.common.util.MapUtil;
 import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
@@ -105,6 +108,7 @@ public class MGdsController extends CommonAbstractController {
 		model.addAttribute("gdsCtgryList", gdsCtgryList);
 
 		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
+		model.addAttribute("useYnCode", CodeMap.USE_YN);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 
@@ -229,6 +233,7 @@ public class MGdsController extends CommonAbstractController {
 			gdsVO.setMdfcnUniqueId(mngrSession.getUniqueId());
 			gdsVO.setMdfcnId(mngrSession.getMngrId());
 			gdsVO.setMdfr(mngrSession.getMngrNm());
+			gdsVO.setTempYn((String)reqMap.get("tempYn"));
 
 			Map<String, MultipartFile> fileMap = multiReq.getFileMap();
 
@@ -454,5 +459,106 @@ public class MGdsController extends CommonAbstractController {
 		model.addAttribute("resultList", resultList);
 
 		return "/manage/gds/gds/excel";
+	}
+
+	/**
+	 * 미리보기
+	 * @param upCtgryNo
+	 * @param ctgryNo
+	 * @param gdsCd
+	 * @return preview
+	 */
+	@RequestMapping(value = "{upCtgryNo}/{ctgryNo}/{gdsCd}")
+	public String preview(
+		@PathVariable int upCtgryNo // 카테고리 1
+		, @PathVariable int ctgryNo // 카테고리 2
+		, @PathVariable String gdsCd // 상품 코드
+		, @RequestParam Map<String,Object> reqMap
+		, HttpServletRequest request
+		, HttpServletResponse response
+		, HttpSession session
+		, Model model
+			)throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchTempYn", "Y"); //임시저장 고정
+		paramMap.put("srchGdsCd", gdsCd); //상품 코드
+
+		GdsVO gdsVO = gdsService.selectGdsByFilter(paramMap);
+
+		if(gdsVO != null) {
+
+			// 조회수 증가
+			gdsService.updateInqcnt(gdsVO);
+
+			// 상품옵션 set
+			List<String> optnVal1 = new ArrayList<String>()
+					, optnVal2 = new ArrayList<String>()
+					, optnVal3 = new ArrayList<String>();
+			for(GdsOptnVO gdsoOtnVO : gdsVO.getOptnList()) {
+				String[] optnVal = gdsoOtnVO.getOptnNm().split("[*]");
+				//log.debug("optnVal.length" + optnVal.length);
+				if(optnVal.length > 0 && !ArrayUtil.isContainsInList(optnVal1, optnVal[0].trim())) {
+					optnVal1.add(optnVal[0].trim());
+				}
+				if(optnVal.length > 1 && !ArrayUtil.isContainsInList(optnVal2, optnVal[1].trim())) {
+					optnVal2.add(optnVal[1].trim());
+				}
+				if(optnVal.length > 2 && !ArrayUtil.isContainsInList(optnVal3, optnVal[2].trim())) {
+					optnVal3.add(optnVal[2].trim());
+				}
+			}
+			String optnVal1Str = optnVal1.toString().replace("[", "").replace("]", "").replace(", ", ",");
+			String optnVal2Str = optnVal2.toString().replace("[", "").replace("]", "").replace(", ", ",");
+			String optnVal3Str = optnVal3.toString().replace("[", "").replace("]", "").replace(", ", ",");
+
+			StringJoiner joiner = new StringJoiner("|");
+			if(EgovStringUtil.isNotEmpty(optnVal1Str)) {
+				joiner.add(optnVal1Str); }
+			if(EgovStringUtil.isNotEmpty(optnVal2Str)) {
+				joiner.add(optnVal2Str); }
+			if(EgovStringUtil.isNotEmpty(optnVal3Str)) {
+				joiner.add(optnVal3Str); }
+			gdsVO.setOptnVal(joiner.toString());
+
+			// checkbox
+			if(EgovStringUtil.isNotEmpty(gdsVO.getGdsTagVal())) {
+				gdsVO.setGdsTag(ArrayUtil.stringToArray(gdsVO.getGdsTagVal()));
+			}
+
+			// youtube image
+			gdsVO.setYoutubeImg(HtmlUtil.getYoutubeId(gdsVO.getYoutubeUrl()));
+
+			//제조사 호출
+			List<MkrVO> mkrList = mkrService.selectMkrListAll();
+			model.addAttribute("mkrList", mkrList);
+
+			//브랜드 호출
+			List<BrandVO> brandList = brandService.selectBrandListAll();
+			model.addAttribute("brandList", brandList);
+
+			List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(-1, "Y");
+			Map<Integer, String> gdsCtgryListMap = gdsCtgryService.selectGdsCtgryListToMap(-1);
+			model.addAttribute("_gdsCtgryList", gdsCtgryList);
+			model.addAttribute("_gdsCtgryListMap", gdsCtgryListMap);
+
+			model.addAttribute("gdsVO", gdsVO);
+
+			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+			model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
+			model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
+			model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
+			model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
+
+			model.addAttribute("upCtgryNo", upCtgryNo);
+			model.addAttribute("ctgryNo", ctgryNo);
+			model.addAttribute("param", reqMap);
+
+		}else {
+			model.addAttribute("alertMsg", "임시저장 하지 않은 상품입니다.");
+			return "/common/msg";
+		}
+
+		return "/manage/gds/gds/include/view";
 	}
 }

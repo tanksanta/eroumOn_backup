@@ -130,8 +130,14 @@
 		<if test="srchUseYn !=null and srchUseYn != ''">
 			AND g.use_yn = #{srchUseYn}
 		</if>
+		<if test="srchTempYn != null and srchTempYn != '' ">
+			AND g.temp_yn = #{srchTempYn}
+		</if>
 		<if test="srchDspyYn !=null and srchDspyYn != ''">
 			AND g.dspy_yn = #{srchDspyYn}
+		</if>
+		<if test="srchTempYn != null and srchTempYn != '' ">
+			AND g.temp_yn = #{srchTempYn}
 		</if>
 
 		<if test="srchUpCtgryNo > 0">

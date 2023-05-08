@@ -248,7 +248,7 @@
             &::after {
                 @apply border-0.5 border-black2;
             }
-        } 
+        }
     }
 }
 
@@ -286,7 +286,7 @@
         @apply relative z-25 flex text-center space-x-1 leading-snug md:space-x-2;
         /* justify-between */
         & li {
-            @apply flex-none pt-4 pb-2 min-w-[25%];
+            @apply flex-none pt-4 pb-2 min-w-[33.33333333333333333%];
             & a {
                 @apply block text-gray1 px-2;
                 & span {
@@ -495,7 +495,7 @@
             &::after {
                 @apply content-empty absolute top-0 left-0 right-0 bottom-0 rounded-md border-0.5 border-black2;
             }
-        } 
+        }
     }
 }
 
@@ -1016,13 +1016,13 @@
     }
     & ol {
         @apply grid grid-cols-1 gap-2.5 mt-2.5 xs:grid-cols-2;
-        counter-reset: section;    
+        counter-reset: section;
         & li {
             @apply relative pt-2.5 pb-14 px-3 border border-black2 rounded-md md:pt-3 md:pb-16 md:px-3.5;
             &::before {
                 @apply absolute left-3 right-3 -bottom-0.5 bg-no-repeat bg-[left_1.875rem_bottom_0.625rem] leading-tight font-serif font-bold text-6xl md:bg-[left_2.375rem_bottom_0.75rem] md:left-3.5 md:text-[2.875rem];
-                counter-increment: section;  
-                content: counter(section); 
+                counter-increment: section;
+                content: counter(section);
             }
             &.seq1 {
                 &::before {

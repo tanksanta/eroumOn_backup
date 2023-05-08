@@ -70,7 +70,7 @@
 			AND stts_ty = #{srchSttsTy}
 		</if>
 		<if test="srchExSttsTy != null and srchExSttsTy != '' ">
-			AND stts_ty IN ('OR01', 'OR04', 'EX02', 'RE02')
+			AND stts_ty IN ('OR01','OR02', 'OR04', 'OR05', 'OR06', 'OR07', 'CA01', 'EX01','EX02', 'RE01', 'RE02', 'RF01')
 		</if>
 		<if test="ordrNo !=null and ordrNo != ''">
 			AND ordr_no = #{ordrNo}
@@ -102,7 +102,9 @@
 		<if test="srchStlmTy !=null and srchStlmTy != ''">
 			AND o.stlm_ty = #{srchStlmTy}
 		</if>
-
+		<if test="srchBplcUniqueId != null and srchBplcUniqueId != '' ">
+			AND bplc_unique_id = #{srchBplcUniqueId}
+		</if>
 	</sql>
 
 

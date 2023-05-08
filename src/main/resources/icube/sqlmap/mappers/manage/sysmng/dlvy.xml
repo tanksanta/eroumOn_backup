@@ -25,8 +25,8 @@
 		<if test="srchText != null and srchText != '' ">
 			AND dlvy_co_nm like CONCAT ('%',#{srchText},'%')
 		</if>
-		<if test="srchYn != null and srchYn != '' ">
-			AND use_yn = #{srchYn}
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
 		</if>
 	</sql>
 

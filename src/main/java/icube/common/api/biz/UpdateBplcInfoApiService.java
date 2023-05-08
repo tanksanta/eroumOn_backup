@@ -27,7 +27,6 @@ import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
-import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -69,6 +68,8 @@ public class UpdateBplcInfoApiService {
 	@Value("#{props['Globals.EroumCare.path']}")
 	private String urlPath;
 
+	JSONParser jsonParser = new JSONParser();
+
 	/**
 	 * 주문 정보 1.5 -> 1.0 급여 상품 정보 요청
 	 * item_info
@@ -95,7 +96,6 @@ public class UpdateBplcInfoApiService {
 	 * @param ordrDtlVO
 	 */
 	public void updateMarketGdsInfo(String JsonData) throws Exception {
-		JSONParser jsonParser = new JSONParser();
 		Object obj = jsonParser.parse(JsonData);
 		JSONObject jsonObj = (JSONObject)obj;
 
@@ -154,6 +154,16 @@ public class UpdateBplcInfoApiService {
 					}
 				}else {
 					paramMap.put("gdsTag", null);
+
+					// 태그 x 처리 시 재고 9999 처리
+					if(EgovStringUtil.isNotEmpty(gdsVO.getGdsTagVal()) && gdsVO.getGdsTagVal().equals("B")) {
+						Map<String, Object> stockMap = new HashMap<String, Object>();
+						stockMap.put("gdsNo", gdsVO.getGdsNo());
+						stockMap.put("srchOptnStockQy", 1);
+						stockMap.put("optnStockQy", 9999);
+						stockMap.put("srchUseYn", "Y");
+						gdsOptnService.updateOptnStockQy(stockMap);
+					}
 				}
 
 				System.out.println("#### 상품 정보 업데이트 START #### ");
@@ -483,24 +493,13 @@ public class UpdateBplcInfoApiService {
 			jsonData = this.urlConnect(paramMap);
 			result = true;
 
-			JSONParser jsonParser = new JSONParser();
 			Object obj = jsonParser.parse(jsonData);
 			JSONObject json = (JSONObject)obj;
 
 			String code = (String)json.get("code");
 			String msg = (String)json.get("message");
 
-			Map<String, Object> updMap = new HashMap<String, Object>();
-			updMap.put("ordrNo", ordrVO.getOrdrNo());
-			updMap.put("ordrCd", ordrVO.getOrdrCd());
-			updMap.put("srchSendSttus", "Y");
-
-			if(code.equals("200")) {
-				updMap.put("srchStlmSttus", "Y");
-			}else {
-				updMap.put("srchStlmSttus", "N");
-			}
-			ordrService.updateOrdrByMap(updMap);
+			ordrService.updateOrdrByMap(ordrVO, jsonData, "ordrStlm");
 
 			resultCode = code;
 			resultMsg = msg;
@@ -518,7 +517,50 @@ public class UpdateBplcInfoApiService {
 
 	}
 
+	/**
+	 * 1.0 조회 상품 List up
+	 * @param ordrDtlVO
+	 * @return ordrList
+	 * @throws Exception
+	 */
+	public Map<String, Object> confirmOrdrRqst (OrdrDtlVO ordrDtlVO) throws Exception {
 
+		ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
+		Map<String, Object> itemMap = new HashMap<String, Object>();
+
+		Map<String, Object> gdsInfoMap = new HashMap<String, Object>();
+		itemMap.put("ProdPayCode", Base64Util.encoder(ordrDtlVO.getGdsInfo().getBnefCd()));
+		itemMap.put("item_id", null);
+		itemMap.put("item_opt_id", null);
+		arrayList.add(itemMap);
+
+		String returnJson = this.selectEroumCareOrdr(arrayList);
+		String itemId = "";
+
+		if(EgovStringUtil.isNotEmpty(returnJson)) {
+			Object obj = jsonParser.parse(returnJson);
+			JSONObject jsonObj = (JSONObject)obj;
+			String status = (String)jsonObj.get("success");
+
+			if(status.equals("true")) {
+				if(EgovStringUtil.isEmpty(ordrDtlVO.getOrdrOptnTy()) || (EgovStringUtil.isNotEmpty(ordrDtlVO.getOrdrOptnTy()) && !ordrDtlVO.getOrdrOptnTy().equals("ADIT"))) {
+					JSONArray arry = (JSONArray)jsonObj.get("_array_item");
+					JSONObject item = (JSONObject) arry.get(0);
+
+					itemId = (String)item.get("item_id");
+					gdsInfoMap.put("item_id", itemId);
+					gdsInfoMap.put("ProdPayCode", Base64Util.encoder(ordrDtlVO.getGdsInfo().getBnefCd()));
+					gdsInfoMap.put("item_qty", Base64Util.encoder(EgovStringUtil.integer2string(ordrDtlVO.getOrdrQy())));
+					gdsInfoMap.put("order_send_dtl_id", Base64Util.encoder(ordrDtlVO.getOrdrDtlCd()));
+
+					if(EgovStringUtil.isNotEmpty(ordrDtlVO.getOrdrOptn())) {
+						gdsInfoMap.put("item_opt_id", Base64Util.encoder(ordrDtlVO.getOrdrOptn().replace("*", Character.toString( (char) 0x1E)).replace(" ", "")));
+					}
+				}
+			}
+		}
+		return gdsInfoMap;
+	}
 
 	// URL Connect
 	public String urlConnect(Map<String, Object> dataMap)throws Exception {

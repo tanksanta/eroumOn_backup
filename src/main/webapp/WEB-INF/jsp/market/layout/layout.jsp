@@ -10,6 +10,13 @@
 	<meta name="naver-site-verification" content="${naverSiteVerification}" />
 	</c:if>
 
+	<!-- open graph -->
+    <meta property="og:url" content="https://eroum.co.kr${_curPath}" >
+    <meta property="og:type" content="website" >
+    <meta property="og:image" content="https://eroum.co.kr/html/page/market/assets/images/og_img.png" >
+    <meta property="og:title" content="이로움ON MARKET" >
+    <meta property="og:description" content="이로움ON MARKET" >
+
     <title>이로움ON 마켓</title>
 
     <link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">

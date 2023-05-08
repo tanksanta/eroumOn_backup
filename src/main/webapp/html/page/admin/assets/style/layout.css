@@ -217,7 +217,7 @@ body {
 }
 
 #container {
-    @apply scrollbars py-6 px-7 pb-20 flex-1 h-screen overflow-auto bg-white;
+    @apply scrollbars py-6 px-7 pb-0 flex-1 h-screen overflow-auto bg-white;
 }
 
 #page-header {
@@ -231,4 +231,8 @@ body {
     & .btn-logout {
         @apply ml-1.5;
     }
+}
+
+#page-content {
+    @apply pb-20;
 }

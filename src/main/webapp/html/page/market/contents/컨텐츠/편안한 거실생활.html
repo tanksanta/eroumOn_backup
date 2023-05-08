@@ -331,7 +331,6 @@
     <main id="container" class="relative" style="padding-bottom: 0;">
         <link rel="stylesheet" href="../../../../core/vendor/simplebars/simplebar.css">
         <script src="../../../../core/vendor/simplebars/simplebar.min.js"></script>
-        <script src="../../../../core/vendor/dragscroll/dragscroll.js"></script>
         <div class="style-guide-livingroom">
             <div class="livingroom-title">
                 <small class="slogan"><strong>Senior Life Style</strong> by Eroum <i></i> <strong>LIVING ROOM</strong></small>
@@ -550,19 +549,19 @@
                 var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
                     autoHide: false,
                     forceVisible: true
-                    // classNames: {contentWrapper: 'dragscroll'}
                 });
                 
                 var simpleEl  = simpleBar.getScrollElement();
                 var simpleCl  = false;
                 
                 simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
-                
-                
-                simpleBar.getScrollElement().addEventListener('load', function() {
-                    console.log("-0-")
-                });
 
+                horizonScroll($(simpleEl));
+
+                setTimeout(function() {
+                    $('.livingroom-visual .object').addClass('is-visible');
+                }, 50);
+                
                 simpleBar.getScrollElement().addEventListener('scroll', function() {
                     var cont     = $(this).find('.container').get(0).getClientRects()[0];
                     var contview = cont.width + cont.x;
@@ -585,12 +584,12 @@
                     
 
                     if($(window).width() > 1280) {
-                        $('.livingroom-visual').height($(window).outerWidth() * 0.5729166666666667);
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.625);
                     } else {
                         $('.livingroom-visual').height($(window).outerWidth() * 0.6875);
                     }
 
-                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.327272727272727);
+                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.133333333333333);
 
                     $('.livingroom-visual .object').each(function(index) {
                         var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
@@ -602,7 +601,7 @@
                     });
                 })
 
-                $('.style-guide-livingroom .dragscroll').on('mousedown touchstart', function() {
+                $('.style-guide-livingroom').on('mousedown touchstart', function() {
                     $('.livingroom-alert').hide();
                 });
 

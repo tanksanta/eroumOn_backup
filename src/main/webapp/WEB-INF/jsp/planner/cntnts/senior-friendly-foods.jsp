@@ -90,12 +90,12 @@
                         <div class="rear"></div>
                         <div class="front">
                             <p class="name">
-								영양 성분을 강화하고<br> 
-								부드럽고 무른 음식으로<br> 
-								고령자 치아로도 섭취가 편한<br> 
+								영양 성분을 강화하고<br>
+								부드럽고 무른 음식으로<br>
+								고령자 치아로도 섭취가 편한<br>
                                 <em>“연하식”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연하식 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/48/list" class="link" target="_blank"><strong>연하식 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card2">
@@ -105,7 +105,7 @@
                                 틀니나 잇몸으로도 <br>
                                 씹기 쉬운 <em>“연화반찬류”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연화반찬류 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/48/list" class="link" target="_blank"><strong>연화반찬류 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card3">
@@ -113,11 +113,11 @@
                         <div class="front">
                             <p class="name">
 								죽처럼 부드럽게 만들어<br>
-								고령자 사래 걸림 위험을 줄이고<br> 
-								혀로 식사가 가능한 
+								고령자 사래 걸림 위험을 줄이고<br>
+								혀로 식사가 가능한
                                 <em>“유동식”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>유동식 식품</strong> 바로가기</a>
+                            <a href="${_marketPath}/gds/34/48/list" class="link" target="_blank"><strong>유동식 식품</strong> 바로가기</a>
                         </div>
                     </div>
                 </div>

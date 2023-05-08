@@ -12,7 +12,6 @@
                 <form:form name="frmGds" id="frmGds" modelAttribute="gdsVO" method="post" action="./action" enctype="multipart/form-data" class="mt-7.5 relative">
                 <form:hidden path="crud" />
                 <form:hidden path="gdsNo" />
-                <form:hidden path="tempYn" />
 
                 <input type="hidden" name="cntPerPage" value="${param.cntPerPage}" />
                 <input type="hidden" name="sortBy" value="${param.sortBy}" />
@@ -27,6 +26,7 @@
                 <input type="hidden" name="srchGdsTag" value="${param.srchGdsTag}" />
                 <input type="hidden" name="srchTarget" value="${param.srchTarget}" />
                 <input type="hidden" name="srchText" value="${param.srchText}" />
+                <input type="hidden" name="tempYn" value="${gdsVO.tempYn}" />
 
                 <%--2023-03-23 더블 서브밋 방지 추가 --%>
                 <double-submit:preventer tokenKey="preventTokenKey" />
@@ -890,8 +890,11 @@
                         </table>
                     </fieldset>
 
-                    <div class="btn-group mt-8 right save_btn_grp">
-                    	<%--<button type="button" class="btn-success large shadow tempSave">임시저장</button> --%>
+                    <div class="btn-group sticky right !mt-4 save_btn_grp">
+                    	<c:if test="${gdsVO.tempYn eq 'Y'}">
+                    		<a href="/_mng/gds/gds/${gdsVO.upCtgryNo}/${gdsVO.ctgryNo}/${gdsVO.gdsCd}" target="_blank" class="btn-warning large shadow show-detail">미리보기</a>
+						</c:if>
+                    	<button type="button" class="btn-success large shadow tempSave">임시저장</button>
                         <button type="submit" class="btn-primary large shadow saveGds">저장</button>
                         <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchCtgryNo=${param.srchCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
 	                    <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
@@ -1144,6 +1147,7 @@
 
 
                     $(function(){
+                    	var tempFlag = false;
 
                     	// 추가옵션
                     	// 추가 옵션항목 체크박스
@@ -1455,13 +1459,22 @@
                     	    	if($("#aditOptnTtl0").val() == ''){
                     	    		$("#aditOptnTtl").val('');
                     	    	}
-                   	            if (confirm('<spring:message code="action.confirm.save"/>')) {
-                   	            	$("#tempYn").val("N");
-                   	            	frm.submit();
-                   	            	$(".saveGds").attr("disabled", "true");
-                   	        	}else{
-                   	        		return false;
-                   	        	}
+                    	    	if(tempFlag){
+                    	    		if(confirm("임시 저장하시겠습니까?")){
+                    	    			frm.submit();
+                       	            	$(".saveGds").attr("disabled", "true");
+                    	    		}else{
+                    	    			return false;
+                    	    		}
+                    	    	}else{
+                    	    		if (confirm('<spring:message code="action.confirm.save"/>')) {
+                    	            	$("input[name='tempYn']").val("N");
+                       	            	frm.submit();
+                       	            	$(".saveGds").attr("disabled", "true");
+                       	        	}else{
+                       	        		return false;
+                       	        	}
+                    	    	}
                     	    }
                     	});
 
@@ -1474,7 +1487,8 @@
 
                     	// 임시 저장 이벤트
                     	$(".tempSave").on("click",function(){
-                   			$("#tempYn").val("Y");
+                    		tempFlag = true;
+                   			$("input[name='tempYn']").val("Y");
                        		$("#frmGds").submit();
                     	});
 

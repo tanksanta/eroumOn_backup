@@ -378,4 +378,38 @@ public class BokjiApiService {
 		return BOKJI_TOKEN;
 	}
 
+
+	// 전체 개수 조회
+	public int getBokjisCnt(String apiUrl) throws Exception {
+
+		String bokjisUrl = bokjiDomain + apiUrl;
+
+		String token = this.getToken();
+
+		StringBuilder urlBuilder = new StringBuilder(bokjisUrl);
+
+		OkHttpClient client	= new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		Request request	= new Request.Builder()
+				.url(urlBuilder.toString())
+				.addHeader("accept", "application/json")
+				.addHeader("Authorization", "Bearer " + token)
+				.build();
+
+		Response response = client.newCall(request).execute();
+		String responseStr = response.body().string();
+
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+
+		JSONObject resultData = (JSONObject) jsonObject.get("data");
+		int count = Integer.parseInt(String.valueOf(resultData.get("count")));
+
+		return count;
+	}
+
 }

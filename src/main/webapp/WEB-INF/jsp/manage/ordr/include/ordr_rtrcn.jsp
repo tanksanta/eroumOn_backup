@@ -50,7 +50,7 @@
                                     	<td class="${ordrDtl.ordrDtlCd}">
                                     		<c:if test="${ordrDtl.sttsTy eq 'OR01' || ordrDtl.sttsTy eq 'OR02' || ordrDtl.sttsTy eq 'OR03' || ordrDtl.sttsTy eq 'OR04' || ordrDtl.sttsTy eq 'OR05' || ordrDtl.sttsTy eq 'OR06' || ordrDtl.sttsTy eq 'OR07'}">
                                     		<div class="form-check">
-												<input class="form-check-input" type="checkbox" name="ordrDtlCds" value="${ordrDtl.ordrDtlCd}" data-ordr-pc="${ordrDtl.ordrPc}">
+												<input class="form-check-input" type="checkbox" name="ordrDtlCds" value="${ordrDtl.ordrDtlCd}" data-ordr-pc="${ordrDtl.ordrPc}" data-dlvy-bass="${ordrDtl.dlvyBassAmt}" data-dlvy-adit="${ordrDtl.dlvyAditAmt}" data-stts-ty="${ordrDtl.sttsTy}">
 											</div>
 											</c:if>
                                     	</td>
@@ -237,7 +237,7 @@
                                     <c:when test="${ordrVO.stlmTy eq 'CARD'}">
 									<tr>
                                         <td>신용카드(ISP)</td>
-                                        <td class="text-right"><span class="totalCancelAmt">${totalOrdrPc + totalDlvyBassAmt}</span>원</td>
+                                        <td class="text-right"><span class="totalCancelAmt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></span>원</td>
                                         <td class="text-left">신용카드 승인취소 (${ordrVO.cardCoNm})</td>
                                     </tr>
                                     </c:when>
@@ -245,7 +245,7 @@
                                     <!-- 계좌이체 -->
                                     	<tr>
                                     		<td>계좌이체</br>(PG입금 계좌)</td>
-	                                       <td class="text-right"><span class="totalCancelAmt">${totalOrdrPc + totalDlvyBassAmt}</span>원</td>
+	                                       <td class="text-right"><span class="totalCancelAmt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></span>원</td>
 	                                       <td class="text-left">실시간 계좌이체 환불 (${ordrDtl.rfndBank} / ${ordrDtl.rfndActno} / ${ordrVO.ordrrNm })</td>
                                  		</tr>
                                     </c:when>
@@ -307,28 +307,54 @@
 
 				let totalCancelAmt = 0;
             	$("#ordrRtrcnTable th :checkbox").click(function(){
+            		if($("#ordrRtrcnTable td :checkbox").length > 0){
+            			totalCancelAmt = 0;
+            		}
+
     				let isChecked = $(this).is(":checked");
     				$("#ordrRtrcnTable td :checkbox").prop("checked",isChecked);
     				if(isChecked){
     					$("#ordrRtrcnTable td :checkbox:checked").each(function(){
     						let ordrPc = $(this).data("ordrPc");
-    						totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc);
+    						let dlvyBassAmt = $(this).data("dlvyBass");
+    						let dlvyAditAmt = $(this).data("dlvyAdit");
+    						let sttsTy = $(this).data("sttsTy");
+
+    						if(sttsTy == "OR01" || sttsTy == "OR02" || sttsTy == "OR03" || sttsTy == "OR04" || sttsTy == "OR05"){
+    							totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc) + Number(dlvyBassAmt) + Number(dlvyAditAmt);
+    						}else{
+    							totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc);
+    						}
+
     					});
     				}else{
     					totalCancelAmt = 0;
     				}
-    				$(".totalCancelAmt").text(totalCancelAmt);
+    				$(".totalCancelAmt").text(comma(totalCancelAmt));
     			});
+
             	$("#ordrRtrcnTable td :checkbox").click(function(){
             		let isChecked = $(this).is(":checked");
             		let ordrPc = $(this).data("ordrPc");
+            		let dlvyBassAmt = $(this).data("dlvyBass");
+            		let dlvyAditAmt = $(this).data("dlvyAdit");
+            		let sttsTy = $(this).data("sttsTy");
+
             		if(isChecked){
-            			totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc);
+            			if(sttsTy == "OR01" || sttsTy == "OR02" || sttsTy == "OR03" || sttsTy == "OR04" || sttsTy == "OR05"){
+            				totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc) + Number(dlvyBassAmt) + Number(dlvyAditAmt);
+            			}else{
+            				totalCancelAmt = Number(totalCancelAmt) + Number(ordrPc);
+            			}
             		}else{
-            			totalCancelAmt = Number(totalCancelAmt) - Number(ordrPc);
+            			if(sttsTy == "OR01" || sttsTy == "OR02" || sttsTy == "OR03" || sttsTy == "OR04" || sttsTy == "OR05"){
+            				totalCancelAmt = Number(totalCancelAmt) - Number(ordrPc) - Number(dlvyBassAmt) - Number(dlvyAditAmt);
+            			}else{
+            				totalCancelAmt = Number(totalCancelAmt) - Number(ordrPc);
+            			}
             		}
             		console.log("totalCancelAmt: ", totalCancelAmt);
-					$(".totalCancelAmt").text(totalCancelAmt);
+					$(".totalCancelAmt").text(comma(totalCancelAmt));
             	});
 
 

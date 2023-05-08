@@ -50,6 +50,37 @@
 	                                </c:forEach>
 	                                </div>
                                 </td>
+                                <th scope="row">임시여부</th>
+                                <td >
+                                	<div class="form-check-group">
+                                	<div class="form-check">
+                                		<input type="radio" id="srchTempYn" name="srchTempYn" value="" class="form-check-input" checked="checked">
+	                                	<label class="form-check-label" for="srchTempYn">전체</label>
+	                                </div>
+	                                <c:forEach var="tempYn" items="${useYnCode}" varStatus="status">
+	                                	<div class="form-check">
+	                                		<input type="radio" id="srchTempYn${status.index}" name="srchTempYn" value="${tempYn.key}" class="form-check-input" <c:if test="${tempYn.key eq param.srchTempYn}">checked="checked"</c:if>>
+	                                		<label class="form-check-label" for="srchTempYn${status.index}">${tempYn.value}</label>
+	                                	</div>
+	                                </c:forEach>
+	                                </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="srchGdsNm">상품명</label></th>
+                                <td colspan="3"><input type="text" id="srchGdsNm" name="srchGdsNm" value="${param.srchGdsNm }" class="form-control w-full"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="gdsTag1">상품태그</label></th>
+                                <td>
+	                                <input type="hidden" id="srchGdsTag" name="srchGdsTag" value="${param.srchGdsTag}">
+	                            	<c:forEach items="${gdsTagCode}" var="iem" varStatus="status">
+	                                    <div class="form-check mr-4">
+	                                    	<input type="checkbox" class="form-check-input" name="gdsTag" id="gdsTag${status.index}" value="${iem.key}" ${fn:indexOf(param.srchGdsTag, iem.key)>-1?'checked="checked"':''}>
+	                                        <label class="form-check-label" for="gdsTag${status.index}">${iem.value}</label>
+	                                    </div>
+	                                </c:forEach>
+                                </td>
                                 <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
                                 <td>
                                     <div class="form-group w-84">
@@ -63,22 +94,6 @@
                                             <option value="0">전체</option>
                                         </select>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><label for="srchGdsNm">상품명</label></th>
-                                <td colspan="3"><input type="text" id="srchGdsNm" name="srchGdsNm" value="${param.srchGdsNm }" class="form-control w-full"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><label for="gdsTag1">상품태그</label></th>
-                                <td colspan="3">
-                                <input type="hidden" id="srchGdsTag" name="srchGdsTag" value="${param.srchGdsTag}">
-                            	<c:forEach items="${gdsTagCode}" var="iem" varStatus="status">
-                                    <div class="form-check mr-4">
-                                    	<input type="checkbox" class="form-check-input" name="gdsTag" id="gdsTag${status.index}" value="${iem.key}" ${fn:indexOf(param.srchGdsTag, iem.key)>-1?'checked="checked"':''}>
-                                        <label class="form-check-label" for="gdsTag${status.index}">${iem.value}</label>
-                                    </div>
-                                </c:forEach>
                                 </td>
                             </tr>
                         </tbody>
@@ -107,6 +122,7 @@
 						<col class="w-26">
 						<col class="w-26">
                         <col class="w-23">
+                        <col class="w-23">
                         <col class="w-24">
                         <col class="w-38">
                     </colgroup>
@@ -125,6 +141,7 @@
                             <th scope="col">판매가</th>
                             <th scope="col">급여가</th>
                             <th scope="col">전시여부</th>
+                            <th scope="col">임시여부</th>
                             <th scope="col">상품 태그</th>
                             <th scope="col">등록일</th>
                         </tr>
@@ -164,6 +181,7 @@
                             <td><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /></td>
                             <td><fmt:formatNumber value="${resultList.bnefPc}" pattern="###,###" /></td>
                             <td>${dspyYnCode[resultList.dspyYn]}</td>
+                            <td>${useYnCode[resultList.tempYn]}</td>
                             <td>
                             	<c:if test="${!empty resultList.gdsTagVal}">
 	                            	<c:forEach var="tagList" items="${fn:split(fn:replace(resultList.gdsTagVal,' ',''),',')}">

@@ -544,7 +544,7 @@
 	                           		${ordrVO.cardCoNm}&nbsp;${ordrVO.cardNo}
 	                           		</c:when>
 							<c:when test="${ordrVO.stlmTy eq 'VBANK'}">
-										[${ordrVO.dpstBankNm}] ${ordrVO.vrActno}<br>
+										[${ordrVO.dpstBankNm}] ${ordrVO.vrActno}&nbsp;<span class="actno" style="display:none;">복사하기</span><br>
 										예금주 : ${ordrVO.dpstr}<br>
 								<c:if test="${ordrVO.stlmYn eq 'N'}">
 										결제만료일 : ${fn:substring(ordrVO.dpstTermDt, 0, 16)}<br>
@@ -814,6 +814,8 @@
 	<div id="use-mlg"></div>
 	<!-- //마일리지사용 -->
 
+	<!-- 계좌번호 클립보드 복사 -->
+	<input type="hidden" name="copy_actno" id="copy_actno" value="${ordrVO.vrActno}" />
 </main>
 
 
@@ -1058,6 +1060,11 @@
 
     }
 
+    // 모바일 체크
+    function Mobile(){
+		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	}
+
 
     $(function(){
     	//옵션변경 모달
@@ -1087,6 +1094,24 @@
     		});
     	});
 
+    	// 복사하기
+   	    if (Mobile()){// 모바일일 경우
+   	    	$(".actno").show();
+   	        $(".actno").css("text-decoration","underline");
+   	    }
+
+    	$(".actno").on("click",function(){
+    		if (Mobile()){// 모바일일 경우
+    			$("#copy_actno").attr("type","text");
+    			$("#copy_actno").select();
+    			var copy = document.execCommand('copy');
+    			$("#copy_actno").attr("type","hidden");
+
+    			if(copy){
+    				alert("계좌번호가 복사되었습니다.");
+    			}
+    		}
+    	});
 
     	<c:if test="${ordrCancelBtn}">
     	$(".f_ordr_rtrcn").css({"display":""})

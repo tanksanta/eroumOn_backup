@@ -36,11 +36,11 @@ section.main-notice {
 }
 
 section.main-myinfo {
-    @apply mt-0 pt-15 pb-8.5 overflow-visible md:pb-8.5 md:pt-22 xl:pt-[7.125rem] xl:pb-14;
+    @apply mt-0 pt-15 pb-7 overflow-visible md:pb-8.5 md:pt-22 xl:pt-[7.125rem] xl:pb-14;
     & .main-user {
         @apply flex items-center;
         & .name {
-            @apply text-[1.875rem] font-serif font-thin sm:text-5xl lg:text-[2.625rem];
+            @apply text-3xl font-serif font-thin sm:text-5xl lg:text-[2.625rem];
             & strong {
                 @apply pr-[0.15em] pl-[0.2em] font-sans font-bold;
             }
@@ -54,34 +54,34 @@ section.main-myinfo {
         }
     }
     & .main-number {
-        @apply inline-grid gap-2.5 grid-cols-3 max-w-full mt-3.5 sm:gap-3 sm:mt-4 md:grid-cols-5 lg:mt-4.5;
+        @apply inline-grid gap-2.5 grid-cols-3 max-w-full mt-2.5 sm:gap-3 sm:mt-4 md:grid-cols-5 lg:mt-4.5;
         & dl {
-            @apply relative max-w-full p-2.5 pr-1.5 pl-10 w-[6.875rem] rounded-lg bg-no-repeat leading-tight sm:p-3.5 sm:pr-2.5 sm:pl-13 sm:w-35 sm:rounded-[1rem] lg:p-4 lg:pr-3 lg:pl-18 lg:w-[10.625rem] lg:rounded-[1.125rem];
+            @apply relative max-w-full p-1.5 pt-2 pl-10 w-[6.875rem] rounded-lg bg-no-repeat leading-tight sm:p-3.5 sm:pr-2.5 sm:pl-13 sm:w-35 sm:rounded-[1rem] lg:p-4 lg:pr-3 lg:pl-18 lg:w-[10.625rem] lg:rounded-[1.125rem];
             box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
             & dt {
                 @apply text-[0.6875rem] text-center sm:text-xs;
             }
             & dd {
-                @apply mt-0.5 font-serif font-bold text-center text-lg sm:mt-1 sm:text-xl lg:mt-2 lg:text-2xl;
+                @apply mt-0.5 font-serif font-bold text-center text-base sm:mt-1 sm:text-xl lg:mt-2 lg:text-2xl;
             }
             &.recent {
-                @apply bg-[length:1.6875rem] bg-[position:left_0.875rem_center] sm:bg-[position:left_1.3125rem_center] sm:bg-[length:2.1875rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.625rem];
+                @apply bg-[length:1.6875rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.3125rem_center] sm:bg-[length:2.1875rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.625rem];
                 background-image: url(../images/ico-attent-equal.svg);
             }
             &.cart {
-                @apply bg-[length:2rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.25rem_center] sm:bg-[length:2.5rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.875rem];
+                @apply bg-[length:2rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.25rem_center] sm:bg-[length:2.5rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.875rem];
                 background-image: url(../images/ico-cart.svg);
             }
             &.mileage {
-                @apply bg-[length:1.5rem] bg-[position:left_0.875rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.875rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2.25rem];
+                @apply bg-[length:1.5rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.875rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2.25rem];
                 background-image: url(../images/txt-mileage.svg);
             }
             &.point {
-                @apply bg-[length:1.0625rem] bg-[position:left_1.125rem_center] sm:bg-[position:left_1.75rem_center] sm:bg-[length:1.375rem] lg:bg-[position:left_2.375rem_center] lg:bg-[length:1.625rem];
+                @apply bg-[length:1.0625rem] bg-[position:left_1rem_center] sm:bg-[position:left_1.75rem_center] sm:bg-[length:1.375rem] lg:bg-[position:left_2.375rem_center] lg:bg-[length:1.625rem];
                 background-image: url(../images/txt-point.svg);
             }
             &.coupon {
-                @apply bg-[length:1.3125rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.625rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2rem];
+                @apply bg-[length:1.3125rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.625rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2rem];
                 background-image: url(../images/txt-coupon.svg);
             }
             &.mileage, &.point, &.coupon {

@@ -67,6 +67,17 @@ public class PlannerController extends CommonAbstractController  {
 		model.addAttribute("stdgCdList", stdgCdList);
 		model.addAttribute("isIndex", true);
 
+		// 복지 제도 개수
+		String bokjisUrl = "/api/partner/v2/bokjis/count";
+		String prvdUrl = "/api/partner/v2/providers/count";
+
+		int bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
+		int prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+
+		int total = bokjisCnt + prvdCnt;
+
+		model.addAttribute("total", total);
+
 		return "/planner/index";
 	}
 

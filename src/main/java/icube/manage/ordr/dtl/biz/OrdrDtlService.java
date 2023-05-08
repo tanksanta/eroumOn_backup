@@ -20,6 +20,7 @@ import icube.manage.ordr.chghist.biz.OrdrChgHistService;
 import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
+import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
@@ -43,9 +44,6 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	@Resource(name="ordrService")
 	private OrdrService ordrService;
 
-	@Resource(name = "ordrChgHistService")
-	private OrdrChgHistService ordrChgHistService;
-
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
 
@@ -57,6 +55,12 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 	@Resource(name="mbrPointService")
 	private MbrPointService mbrPointService;
+
+	@Resource(name = "couponLstService")
+	private CouponLstService couponLstService;
+
+	@Resource(name = "ordrChgHistService")
+	private OrdrChgHistService ordrChgHistService;
 
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
@@ -1170,6 +1174,79 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 */
 	public Integer updateBplcSttus(Map<String, Object> paramMap) throws Exception {
 		return ordrDtlDAO.updateBplcSttus(paramMap);
+	}
+
+	/**
+	 * 주문 취소 && 쿠폰 환급 통합
+	 * @param ordrNo
+	 * @param ordrDtlVO
+	 * @param ordrDtlNos
+	 * @return resultMap
+	 */
+	public Integer updateCA02AndReturnCoupon(int ordrNo, OrdrDtlVO ordrDtlVO, String[] ordrDtlNos) throws Exception {
+		Integer resultCnt = this.updateOrdrCA02(ordrDtlVO);
+
+		//쿠폰 사용 처리 취소
+		for(String ordrDtlNo : ordrDtlNos) {
+			OrdrDtlVO ordrrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
+			String couponCd = ordrrDtlVO.getCouponCd();
+
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchUseYn", "N");
+			paramMap.put("srchCouponCd", couponCd);
+
+			couponLstService.updateCouponUseYnNull(paramMap);
+		}
+
+		return resultCnt;
+	}
+
+	/**
+	 * 주문 확정 && 히스토리 변경 통합
+	 * @param ordrDtlVO
+	 * @throws Exception
+	 */
+	public void updateOrdr0506AndOrdrChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
+
+		Integer resultCnt = this.updateOrdrOR05OR06(ordrDtlVO);
+
+		if(resultCnt > 1){
+			String resn = "주문확정";
+			if("OR05".equals(ordrDtlVO.getSttsTy())) {
+				resn = "주문확정 취소";
+			}
+			ordrChgHistService.insertOrdrSttsChgHist(ordrDtlVO.getOrdrNo(), ordrDtlVO.getOrdrDtlNo(), "", resn, ordrDtlVO.getSttsTy());
+		}
+	}
+
+	/**
+	 * 결제완료, 대기 업데이트 && 히스토리 기록
+	 * @param oldOrdrVO
+	 * @throws Exception
+	 */
+	public void updateOrdrDtlAndInsertChgHist(OrdrVO oldOrdrVO) throws Exception {
+
+		ordrService.updateOrdr(oldOrdrVO);
+
+		for(OrdrDtlVO ordrDtlVO : oldOrdrVO.getOrdrDtlList()) {
+			if("OR02".equals(ordrDtlVO.getSttsTy())) { //승인완료건만
+				String resn = "";
+				if(EgovStringUtil.equals("Y", oldOrdrVO.getStlmYn())) {
+					ordrDtlVO.setSttsTy("OR05");
+					resn = "결제완료";
+				}else {
+					ordrDtlVO.setSttsTy("OR04");
+					resn = "결제대기";
+				}
+
+				this.updateOrdrDtl(ordrDtlVO);
+
+				// 히스토리 기록
+				ordrDtlVO.setResn(resn);
+				this.insertOrdrSttsChgHist(ordrDtlVO);
+			}
+		}
+
 	}
 
 }

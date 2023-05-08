@@ -333,7 +333,7 @@
                                     </c:if>
                                 </td>
                                 <td><fmt:formatNumber value="${resultList.ordrQy}" pattern="###,###" /></td>
-                                <td class="text-right"><fmt:formatNumber value="${resultList.ordrPc }" pattern="###,###" /></td>
+                                <td class="text-right ${resultList.ordrDtlCd}" ><fmt:formatNumber value="${resultList.ordrPc }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrDtlCd}"><fmt:formatNumber value="${resultList.couponAmt }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.useMlg }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.usePoint }" pattern="###,###" /></td>

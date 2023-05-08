@@ -33,7 +33,6 @@ import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
-import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
@@ -163,6 +162,7 @@ public class GdsController extends CommonAbstractController {
 		listVO.setParam("srchUpCtgryNo", upCtgryNo); //1depth
 		listVO.setParam("srchCtgryNos", srchCtgryNos); //2depth
 		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
+		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
 			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
@@ -188,7 +188,6 @@ public class GdsController extends CommonAbstractController {
 	 * 상품 상세
 	 */
 	@RequestMapping(value = "{upCtgryNo}/{ctgryNo}/{gdsCd}")
-	@SuppressWarnings("rawtypes")
 	public String view(
 			@PathVariable int upCtgryNo // 카테고리 1
 			, @PathVariable int ctgryNo // 카테고리 2

@@ -63,6 +63,7 @@ public class MBplcGdsController extends CommonAbstractController {
 
 		//목록
 		CommonListVO listVO = new CommonListVO(request);
+		listVO.setParam("srchTempYn", "N");
 		listVO.setParam("bplcUniqueId", partnersSession.getUniqueId());
 		listVO = bplcGdsService.bplcGdsListVO(listVO);
 

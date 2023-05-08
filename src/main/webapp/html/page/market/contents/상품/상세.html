@@ -701,51 +701,11 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="item-thumb">
-                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
-                                        </div>
-                                        <a href="#" class="item-content">
-                                            <div class="name">
-                                                <small>성인용보행기</small>
-                                                <strong>살졸 카본 롤레이터</strong>
-                                            </div>
-                                            <div class="cost">
-                                                <dl>
-                                                    <dt>판매가</dt>
-                                                    <dd>66,300<small>원</small></dd>
-                                                </dl>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="item-thumb">
-                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
-                                        </div>
-                                        <a href="#" class="item-content">
-                                            <div class="name">
-                                                <small>성인용보행기</small>
-                                                <strong>살졸 카본 롤레이터</strong>
-                                            </div>
-                                            <div class="cost">
-                                                <dl>
-                                                    <dt>판매가</dt>
-                                                    <dd>66,300<small>원</small></dd>
-                                                </dl>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                             <div class="swiper-pagination"></div>
                         </div>
-                        <div class="grid gap-x-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                        </div>
+                        <button type="button" class="swiper-button-prev"><span class="sr-only">이전</span></button>
+                        <button type="button" class="swiper-button-next"><span class="sr-only">다음</span></button>
                     </div>
                     <!-- //관련 상품 -->
 
@@ -753,6 +713,7 @@
                     <div id="prod-tablist" class="product-tablist">
                         <ul class="nav">
                             <li><a class="nav-link active" href="#prod-tabcontent1">상세정보</a></li>
+                            <li><a class="nav-link" href="#prod-tabcontent4">배송/교환/반품정보</a></li>
                             <li><a class="nav-link" href="#prod-tabcontent3">상품문의 <span>(5)</span></a></li>
                         </ul>
                     </div>
@@ -838,6 +799,123 @@
                         </table>
                     </div>
                     <!-- //상품 정보 -->
+
+                    <!-- 상품 배송/교환/반품정보 -->
+                    <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13">
+                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">배송</p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="min-w-19 w-[16%]">
+                                <col class="min-w-19 w-[14%]">
+                                <col >
+                            </colgroup>
+                            <thead>
+                                <tr class="top-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">상품</p></th>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">배송비</p></th>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">내용</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(급여구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                    <td rowspan="3">
+                                        <ul class="list-normal">
+                                            <li>주문 마감 시간 이전 결제완료 건에 한해 당일 출고 됩니다. (주말, 공휴일 제외)</li>
+                                            <li>주문마감시간 : 오전 11시 전 결제건</li>
+                                            <li>배송준비중 상태일 경우, 포장 및 발송 작업이 완료되어 주문 취소가 불가능합니다.</li>
+                                            <li>출고일 다음날로부터 1~3일 이내 수령 가능하지만 택배사 사정으로 지연될 수 있어 수령일 지정은 불가능합니다.</li>
+                                            <li>주소 및 전화번호를 잘 못 기재한 경우 반송비는 구매자 부담이니 한번 더 확인해주세요.</li>
+                                            <li>1:1 문의를 통한 주문 상품 변경, 취소, 반품, 교환은 불가능합니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(일반구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">교환/반품 일반사항</p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="min-w-19 w-[16%]">
+                                <col class="min-w-19 w-[14%]">
+                                <col >
+                            </colgroup>
+                            <tbody>
+                                <tr class="top-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" colspan="2"><p>공통</p></th>
+                                    <td>
+                                        <ul class="list-normal">
+                                            <li>수령 후 7일 이내에만 교환, 반품, 환불이 가능합니다.</li>
+                                            <li>제품 불량 및 오배송 등 판매자 과실로 인한 반품 및 교환은 판매자가 배송비를 부담합니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="2"><p>무료<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td rowspan="2">
+                                        <ul class="list-normal">
+                                            <li>물품의 내용이 표시/광고의 내용과 다르거나 계약 내용과 차이가 있는 경우 물품을 수령한 날로부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환 및 반품이 가능합니다.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td>
+                                        <ul class="list-normal">
+                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br> (일반구매)</p></th>
+                                    <td>
+                                        <ul class="list-normal">
+                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <td>
+                                        <ul class="list-normal">
+                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- //상품 배송/교환/반품정보  -->
 
                     <!-- 상품 후기 -->
                     <div id="prod-tabcontent2" class="product-itemphoto mt-10 md:mt-13">
@@ -1061,11 +1139,6 @@
                         </div>
                     </div>
                     <!-- //상품 문의 -->
-
-                    <!-- 상품 교환정보 -->
-                    <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13">
-                    </div>
-                    <!-- //상품 교환정보 -->
                 </div>
                 <!-- //상품 내용 -->
 

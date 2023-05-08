@@ -42,6 +42,9 @@
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND g.use_yn = #{srchUseYn}
 		</if>
+		<if test="srchTempYn != null and srchTempYn != '' ">
+			AND g.temp_yn = #{srchTempYn}
+		</if>
 		<if test="srchGdsTy != null and srchGdsTy != '' ">
 			AND g.gds_ty = #{srchGdsTy}
 		</if>

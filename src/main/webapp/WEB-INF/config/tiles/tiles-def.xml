@@ -59,7 +59,6 @@
 		<put-attribute name="content" 	value="/WEB-INF/jsp/market/{1}/{2}/{3}.jsp" />
 	</definition>
 
-
 	<!-- 멤버스 기본 -->
 	<definition name=".members_layout" template="/WEB-INF/jsp/members/layout/layout.jsp">
 		<put-attribute name="header" 	value="/WEB-INF/jsp/members/layout/header.jsp" />

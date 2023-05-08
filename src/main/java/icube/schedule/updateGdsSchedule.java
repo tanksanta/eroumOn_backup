@@ -139,22 +139,7 @@ public class updateGdsSchedule extends CommonAbstractController {
 
 			// 1.5 -> 1.0 주문정보 송신
 			String returnData = updateBplcInfoApiService.putEroumOrdrInfo(ordrVO.getOrdrCd(), itemList);
-
-			System.out.println("@@@@@@@@@@ 송신결과값 : " + returnData);
-			Object obj = jsonParser.parse(returnData);
-			JSONObject jsonObj = (JSONObject)obj;
-			System.out.println("@@@@@@@@@@ 송신결과 상태 : " + (String)jsonObj.get("success"));
-			String status = (String)jsonObj.get("success");
-			Map<String, Object> sttusMap = new HashMap<String, Object>();
-			sttusMap.put("ordrNo", ordrVO.getOrdrNo());
-			sttusMap.put("ordrCd", ordrVO.getOrdrCd());
-			if(status.equals("true")) {
-				sttusMap.put("srchSendSttus", "Y");
-			}else {
-				sttusMap.put("srchSendSttus", "N");
-			}
-			ordrService.updateOrdrByMap(sttusMap);
-
+			ordrService.updateOrdrByMap(ordrVO, returnData, "ordrSend");
 			}
 		}
 

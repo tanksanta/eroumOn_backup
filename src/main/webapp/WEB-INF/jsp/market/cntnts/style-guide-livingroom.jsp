@@ -88,7 +88,7 @@
                         <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
                     <div class="modal-body">
-                        <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom1-1.svg" alt=""></div>
+                        <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom2-1.svg" alt=""></div>
                         <div class="info">
 	                        <p>
 	                            <sup>사용연한</sup>
@@ -124,7 +124,7 @@
                         <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
                     <div class="modal-body">
-                        <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom2-1.svg" alt=""></div>
+                        <div class="logo"><img src="/html/page/market/assets/images/img-content-livingroom1-1.svg" alt=""></div>
                         <div class="info">
                             <p>
                                 <sup>사용연한</sup>
@@ -220,7 +220,6 @@
                 var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
                     autoHide: false,
                     forceVisible: true
-                    // classNames: {contentWrapper: 'dragscroll'}
                 });
 
                 var simpleEl  = simpleBar.getScrollElement();
@@ -228,8 +227,12 @@
 
                 simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
 
-                //dragscroll.reset();
+                horizonScroll($(simpleEl));
 
+                $(window).on('load', function() {
+                	$('.livingroom-visual .object').addClass('is-visible');
+                });
+                
                 simpleBar.getScrollElement().addEventListener('scroll', function() {
                     var cont     = $(this).find('.container').get(0).getClientRects()[0];
                     var contview = cont.width + cont.x;
@@ -269,7 +272,7 @@
                     });
                 })
 
-                $('.style-guide-livingroom .dragscroll').on('mousedown touchstart', function() {
+                $('.style-guide-livingroom').on('mousedown touchstart', function() {
                     $('.livingroom-alert').hide();
                 });
 

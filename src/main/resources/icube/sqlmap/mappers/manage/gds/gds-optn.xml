@@ -17,22 +17,28 @@
 
 	<sql id="searchConditions">
 		<if test="gdsNo !=null and gdsNo != ''">
-		AND gds_no = #{gdsNo}
+			AND gds_no = #{gdsNo}
 		</if>
 		<if test="optnTy !=null and optnTy != ''">
-		AND optn_ty = #{optnTy}
+			AND optn_ty = #{optnTy}
 		</if>
 		<if test="optnVal !=null and optnVal != ''">
-		AND optn_nm LIKE CONCAT(#{optnVal}, '%')
+			AND optn_nm LIKE CONCAT(#{optnVal}, '%')
 		</if>
 		<if test="useYn !=null and useYn != ''">
-		AND use_yn = #{useYn}
+			AND use_yn = #{useYn}
 		</if>
 		<if test="optnNm != null and optnNm != '' ">
-		AND optn_nm  = #{optnNm}
+			AND optn_nm  = #{optnNm}
+		</if>
+		<if test="srchOptnStockQy != null and srchOptnStockQy != '' ">
+			AND optn_stock_qy = 0
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
 		</if>
 		<if test="optnId != null and optnId != '' ">
-		AND REPLACE(REPLACE(optn_nm,"*","")," ","") = #{optnId}
+			AND REPLACE(REPLACE(optn_nm,"*","")," ","") = #{optnId}
 		</if>
 	</sql>
 

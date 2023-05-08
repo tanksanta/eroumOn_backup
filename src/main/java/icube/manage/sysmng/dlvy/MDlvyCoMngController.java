@@ -37,7 +37,7 @@ public class MDlvyCoMngController extends CommonAbstractController {
 	@Autowired
 	private MngrSession mngrSession;
 
-	private static String[] targetParams = {"curPage", "cntPerPage", "srchText", "sortBy", "srchYn"};
+	private static String[] targetParams = {"curPage", "cntPerPage", "srchText", "sortBy", "srchUseYn"};
 
     /**
      * 시스템 관리 > 배송 업체 관리 > 리스트

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.WebUtil;
@@ -73,6 +74,9 @@ public class MyDtlsController extends CommonAbstractController {
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
 
+	@Resource(name = "mailFormService")
+	private MailFormService mailFormService;
+
 	@Resource(name="ordrRebillService")
 	private OrdrRebillService ordrRebillService;
 
@@ -104,7 +108,7 @@ public class MyDtlsController extends CommonAbstractController {
 
 		paramMap.clear();
 		paramMap = new HashMap<String, Object>();
-		paramMap.put("srchYn", "Y"); // TO-DO : srchYn -> srchUseYn
+		paramMap.put("srchUseYn", "Y");
 		List<DlvyCoMngVO> dlvyCoList = dlvyCoMngService.selectDlvyCoListAll(paramMap);
 		model.addAttribute("dlvyCoList", dlvyCoList);
 
@@ -119,12 +123,9 @@ public class MyDtlsController extends CommonAbstractController {
 
 	@RequestMapping(value="view/{ordrCd}")
 	public String view(
-			//@RequestParam(value="ordrCd", required=true) String ordrCd
 			@PathVariable String ordrCd
 			, HttpServletRequest request
 			, Model model) throws Exception {
-
-
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
 
 		if(ordrVO == null) {
@@ -133,7 +134,7 @@ public class MyDtlsController extends CommonAbstractController {
 		}
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchYn", "Y"); // TO-DO : srchYn -> srchUseYn
+		paramMap.put("srchUseYn", "Y");
 		List<DlvyCoMngVO> dlvyCoList = dlvyCoMngService.selectDlvyCoListAll(paramMap);
 		model.addAttribute("dlvyCoList", dlvyCoList);
 
@@ -228,7 +229,6 @@ public class MyDtlsController extends CommonAbstractController {
 
 		Integer resultCnt = 0;
 
-
 		if("VBANK".equals(oldOrdrVO.getStlmTy()) && "Y".equals(oldOrdrVO.getStlmYn())) { //가상계좌 + 결제완료 = 취소접수
 			ordrDtlVO.setSttsTy("CA01"); // 취소접수
 			resultCnt = ordrDtlService.updateOrdrCA01(ordrDtlVO);
@@ -254,7 +254,6 @@ public class MyDtlsController extends CommonAbstractController {
 
 				if((boolean)returnMap.get("result")) {
 					if(!EgovStringUtil.equals((String)returnMap.get("resultCode"), "200")) {
-						System.out.println("###### 통신 결과 ##### : " + (String)returnMap.get("resultMsg"));
 						ordrDtlVO.setSttsTy("CA01");
 						ordrDtlService.updateOrdrCA01(ordrDtlVO);
 					}
@@ -546,7 +545,6 @@ public class MyDtlsController extends CommonAbstractController {
 		// 주문정보
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
 
-
 		// result
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("gradeCode", CodeMap.GRADE);
@@ -576,7 +574,6 @@ public class MyDtlsController extends CommonAbstractController {
 			, @RequestParam(value="rfndBank", required=false) String rfndBank // 환불 은행
 			, @RequestParam(value="rfndActno", required=false) String rfndActno // 환불 계좌
 			, @RequestParam(value="rfndDpstr", required=false) String rfndDpstr // 환불계좌 예금주
-			//, @RequestParam(value="rfndAmt", required=false ) int rfndAmt // 환불금액
 			, @RequestParam Map<String,Object> reqMap) throws Exception {
 
 		boolean result = false;
@@ -661,9 +658,8 @@ public class MyDtlsController extends CommonAbstractController {
 		}
 
 		int selfBndRt = oldOrdrVO.getOrdrDtlList().get(0).getRecipterInfo().getSelfBndRt();  // 본인부담율
-		//int stlmAmt = oldOrdrVO.getStlmAmt();  // 결제 금액
 
-		if(selfBndRt == 0 /*|| stlmAmt == 0*/) {
+		if(selfBndRt == 0) {
 			oldOrdrVO.setStlmYn("Y");
 
 			if("L".equals(oldOrdrVO.getOrdrTy())) {
@@ -756,29 +752,14 @@ public class MyDtlsController extends CommonAbstractController {
 		oldOrdrVO.setStlmAmt(ordrVO.getStlmAmt()); //결제금액
 		oldOrdrVO.setStlmDevice(WebUtil.getDevice(request));
 		oldOrdrVO.setStlmTy(ordrVO.getStlmTy().toUpperCase());
-		log.debug("@@@@@@@@@@@ ordrVO : " + oldOrdrVO.getBillingKey());
 
-		ordrService.updateOrdr(oldOrdrVO);
+		ordrDtlService.updateOrdrDtlAndInsertChgHist(oldOrdrVO);
 
-		for(OrdrDtlVO ordrDtlVO : oldOrdrVO.getOrdrDtlList()) {
-			if("OR02".equals(ordrDtlVO.getSttsTy())) { //승인완료건만
-				String resn = "";
-				if(EgovStringUtil.equals("Y", oldOrdrVO.getStlmYn())) {
-					ordrDtlVO.setSttsTy("OR05");
-					resn = "결제완료";
-				}else {
-					ordrDtlVO.setSttsTy("OR04");
-					resn = "결제대기";
-				}
+		ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
 
-				ordrDtlService.updateOrdrDtl(ordrDtlVO);
-
-				// 히스토리 기록
-				ordrDtlVO.setResn(resn);
-				ordrDtlService.insertOrdrSttsChgHist(ordrDtlVO);
-			}
-
-		}
+		String mailHtml = "mail_ordr.html";
+		String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
+		mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 
 		return "redirect:/"+ marketPath +"/ordr/ordrPayDone/"+ordrVO.getOrdrCd();
 	}

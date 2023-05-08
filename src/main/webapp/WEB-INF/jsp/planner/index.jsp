@@ -32,7 +32,7 @@
                             <strong>내게 <em>딱</em> 맞는</strong><br>
                             <strong>복지서비스<span>를</span> 한 곳<span>에</span>…</strong>
                         </div>
-                        <p class="count"><strong class="totalCnt">0</strong> 건</p>
+                        <p class="count"><strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong> 건</p>
                         <div class="scroll">
                             <a href="#page" class="close-button">바로 확인하세요</a>
                             <div>
@@ -53,18 +53,18 @@
                             <small>대한민국 모든 <strong>시니어를 위한 복지서비스</strong></small>
                             <strong>한 곳</strong>에 모아서…
                         </p>
-                        <p class="count"><strong class="totalCnt">0</strong> 건</p>
+                        <p class="count"><strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong> 건</p>
                         <div class="dropbox">
-                            <div class="dropdown select-sido">
-                                <button class="dropdown-toggle" type="button" id="area-toggle1" data-bs-toggle="dropdown" aria-expanded="false">-</button>
+                            <div class="dropdown select-top-sido">
+                                <button class="dropdown-toggle" type="button" id="area-toggle1" data-bs-toggle="dropdown" aria-expanded="false">선택하세요</button>
                                 <ul class="dropdown-menu" aria-labelledby="area-toggle1">
                                 	<c:forEach items="${stdgCdList}" var="stdg">
 		                            <li><a class="dropdown-item" href="#" data-stdg-cd="${stdg.stdgCd}" data-ctpv-nm="${stdg.ctpvNm}">${stdg.ctpvNm}</a></li>
 		                            </c:forEach>
                                 </ul>
                             </div>
-                            <div class="dropdown select-gugun">
-                                <button class="dropdown-toggle" type="button" id="area-toggle2" data-bs-toggle="dropdown" aria-expanded="false">-</button>
+                            <div class="dropdown select-top-gugun">
+                                <button class="dropdown-toggle" type="button" id="area-toggle2" data-bs-toggle="dropdown" aria-expanded="false">선택하세요</button>
                                 <ul class="dropdown-menu" aria-labelledby="area-toggle2">
                                 </ul>
                             </div>
@@ -359,10 +359,15 @@
 
         	function init(){
         		$("input[name='category']").prop("checked",false);
-				if($(".select-sido button").first().text() == "-"){
+        		<c:if test="${!_mbrSession.loginCheck}">
+				if($(".select-top-sido button").text() == "선택하세요"){
+				</c:if>
+				<c:if test="${_mbrSession.loginCheck}">
+				if($(".select-top-sido button").text() != "선택하세요"){
+				</c:if>
 					<c:if test="${!_mbrSession.loginCheck}"><%--로그인 전--%>
 	        		$(".select-sido button").text(sido);
-	        		$("[data-ctpv-nm='"+ sido +"']").click();
+	        		//$("[data-ctpv-nm='"+ sido +"']").click();
 	        		$("input[name='category']").prop("checked",true);
 	        		</c:if>
 	        		<c:if test="${_mbrSession.loginCheck}"><%--로그인 후 replace --%>
@@ -388,6 +393,7 @@
     					}
         			}
 	        		</c:if>
+
 	        		var selCheckVal = "";
 					$(":checkbox[name='category']:checked").each(function(){
 						selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
@@ -422,14 +428,37 @@
             	}
 
             	// 바로 확인 버튼
-            	$(".close-button").click(function(){$(".srch-srvc").click();});
+            	$(".close-button").click(function(){
+
+            		if($(".user").length < 1){
+	            		<c:if test="${!_mbrSession.loginCheck}">
+		    				if($(".select-top-sido button").text() == "선택하세요"){
+		    					alert("시/도 를 선택하세요");
+		    					return false;
+		    				}else if($(".select-top-gugun button").text() == "시/군/구"){
+		    					alert("시/군/구를 선택해 주세요.");
+		    				}else{
+			            		var sido = $(".select-top-sido button").text();
+			    				$(".select-sido button").text(sido);
+
+			    				var gugun = $(".select-top-gugun button").text();
+			    				$(".select-gugun button").text(gugun);
+
+			            		//$(".select-sido").text($(".select-top-sido").text());
+			            		//$(".select-gugun").text($(".select-top-gugun").text());
+			            		$(".srch-srvc").click();
+		    				}
+	    				</c:if>
+            		}
+
+            	});
     		}
 
-        	function cntSum(){
+        	/*function cntSum(){
         		var sum = Number(uncomma($(".srvcListCnt").text()))
         				+ Number(uncomma($(".instListCnt").text()));
         		$(".totalCnt").text(comma(sum));
-        	}
+        	}*/
 
 
     		//지도 > 탭 이벤트
@@ -459,7 +488,7 @@
 			});
 
         	function f_srchSrvcList(page, pageRefresh = true){
-        		if(sido != "" && sido != "-"){ //sido는 필수
+        		if(sido != "" && sido != "선택하세요"){ //sido는 필수
         			gugun = gugun.replace("시/군/구", "");
 					var params = {
 							curPage:page
@@ -517,7 +546,7 @@
 									}
 									$('.page-content-paging .flow').removeAttr('style').empty().append(html)
 								}
-								cntSum();
+								//cntSum();
 							});
         		}
 			}
@@ -612,6 +641,45 @@
 				var stdgCd = $(this).data("stdgCd");
 				var stdgNm = $(this).text();
 				$(".select-gugun button").text(stdgNm);
+
+			});
+
+	      	// 시/군/구 검색
+			$(document).on("click", ".select-top-sido ul a", function(e){
+				e.preventDefault();
+				var stdgCd = $(this).data("stdgCd");
+				var stdgNm = $(this).text();
+
+				$(".select-top-sido button").text(stdgNm);
+				$(".select-top-gugun button").text("시/군/구");
+				$(".select-top-gugun ul li").remove();
+
+			   	if(stdgCd != ""){
+            		$.ajax({
+        				type : "post",
+        				url  : "${_membersPath}/stdgCd/stdgCdList.json",
+        				data : {stdgCd:stdgCd},
+        				dataType : 'json'
+        			})
+        			.done(function(data) {
+        				if(data.result){
+	       					$.each(data.result, function(index, item){
+       							$(".select-top-gugun ul").append("<li><a class=\"dropdown-item\" href=\"#\" data-stdg-cd=\""+ stdgCd +"\" data-sgg-nm=\""+ item.sggNm +"\">"+ item.sggNm +"</a></li>");
+	       	                });
+        				}
+        			})
+        			.fail(function(data, status, err) {
+        				console.log('지역호출 error forward : ' + data);
+        			});
+            	}
+
+			});
+
+			$(document).on("click", ".select-top-gugun ul a", function(e){
+				e.preventDefault();
+				var stdgCd = $(this).data("stdgCd");
+				var stdgNm = $(this).text();
+				$(".select-top-gugun button").text(stdgNm);
 			});
 
 
@@ -630,7 +698,7 @@
 					navigator.share(shareObject).then(() => {
 						// 정상 동작할 경우 실행
 					}).catch((error) => {
-						alert('에러가 발생했습니다.')
+						//alert('에러가 발생했습니다.')
 					})
 				} else { // navigator를 지원하지 않는 경우
 				  	//alert('페이지 공유를 지원하지 않습니다.')
@@ -686,7 +754,7 @@
 
         	function f_srchInstList(){
 
-        		if(sido != "" && sido != "-"){ //sido는 필수
+        		if(sido != "" && sido != "선택하세요"){ //sido는 필수
         			gugun = gugun.replace("시/군/구", "");
 
 	        		if(isAllow){	// GPS허용
@@ -722,7 +790,7 @@
 						addListItem();
 						kakaoMapDraw();
 
-						cntSum();
+						//cntSum();
 	    			})
 	    			.fail(function(data, status, err) {
 	    				console.log(data);

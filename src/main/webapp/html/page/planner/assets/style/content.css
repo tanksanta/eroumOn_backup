@@ -2332,7 +2332,7 @@
         }
         & #qrcode {
             @apply absolute z-5 left-[51.6743648960739%] right-[37.12471131639723%] top-[63.35721596724667%] bottom-[16.78607983623337%];
-            & img {
+            & img, & canvas {
                 @apply absolute w-full h-full;
             }
         }

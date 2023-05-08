@@ -197,7 +197,7 @@
 	                           		<c:when test="${ordrVO.stlmTy eq 'BANK'}">
 	                           		<tr>
                                         <td>계좌이체</br>(PG입금 계좌)</td>
-                                        <td class="text-right"><span class="totalCancelAmt">${totalOrdrPc + totalDlvyBassAmt}</span>원</td>
+                                        <td class="text-right"><span class="totalCancelAmt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></span>원</td>
 	                                    <td class="text-left">실시간 계좌이체 환불 (${ordrDtl.rfndBank} / ${ordrDtl.rfndActno} / ${ordrVO.ordrrNm })</td>
                                     </tr>
                                     </c:when>

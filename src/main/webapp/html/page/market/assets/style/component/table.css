@@ -56,5 +56,14 @@
                 @apply border-t-0 p-0;
             }
         }
+        & thead {
+            & tr {
+                & th {
+                    & p {
+                        @apply text-center justify-center py-3 md:py-3.5;
+                    }
+                }
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
 	<form:hidden path="coNo" />
 
 		<input type="hidden" name="srchText" id="srchText" value="${param.srchText}" />
-		<input type="hidden" name="srchYn" id="srchYn" value="${param.srchYn}" />
+		<input type="hidden" name="srchUseYn" id="srchUseYn" value="${param.srchUseYn}" />
 		<input type="hidden" name="cntPerPage" id="cntPerPage" value="${param.cntPerPage}" />
 		<input type="hidden" name="curPage" id="curPage" value="${param.curPage}" />
 
@@ -58,7 +58,7 @@
 			</table>
 		</fieldset>
 
-		<c:set var="pageParam" value="curPage=${param.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}&cntPerPage=${param.cntPerPage}&srchText=${param.srchText}&srchYn=${param.srchYn}" />
+		<c:set var="pageParam" value="curPage=${param.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}&cntPerPage=${param.cntPerPage}&srchText=${param.srchText}&srchUseYn=${param.srchUseYn}" />
 		<div class="btn-group right mt-8">
 			<button type="submit" class="btn-primary large shadow">저장</button>
 			<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>

@@ -831,7 +831,7 @@
             }
         }
         & .object {
-            @apply absolute z-10;
+            @apply absolute z-10 opacity-0 invisible;
             & .photo {
                 @apply w-full max-w-none;
             }
@@ -871,6 +871,9 @@
                         @apply opacity-100 visible;
                     }
                 }
+            }
+            &.is-visible {
+                @apply opacity-100 visible;
             }
         }
         & .object-1 {

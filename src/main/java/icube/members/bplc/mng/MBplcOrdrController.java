@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.util.WebUtil;
@@ -66,6 +67,9 @@ public class MBplcOrdrController extends CommonAbstractController  {
 
 	@Resource(name = "gdsOptnService")
 	private GdsOptnService gdsOptnService;
+
+	@Resource(name = "mailFormService")
+	private MailFormService mailFormService;
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
@@ -115,7 +119,7 @@ public class MBplcOrdrController extends CommonAbstractController  {
 
 		// 택배사
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchYn", "Y"); // TO-DO : srchYn -> srchUseYn
+		paramMap.put("srchUseYn", "Y");
 		List<DlvyCoMngVO> dlvyCoList = dlvyCoMngService.selectDlvyCoListAll(paramMap);
 		model.addAttribute("dlvyCoList", dlvyCoList);
 
@@ -395,22 +399,19 @@ public class MBplcOrdrController extends CommonAbstractController  {
 		ordrDtlVO.setRegId(partnersSession.getPartnersId());
 		ordrDtlVO.setRgtr(partnersSession.getPartnersNm());
 
-		Integer resultCnt = ordrDtlService.updateOrdrCA02(ordrDtlVO);
+		int resultCnt = ordrDtlService.updateCA02AndReturnCoupon(ordrNo, ordrDtlVO, ordrDtlNos);
+
 		if(resultCnt == 1){
 			result = true;
+
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+
+			String mailSj = "[이로움ON] 회원님의 주문이 취소 되었습니다.";
+			String mailHtml = "mail_ordr_rfnd.html";
+			mailFormService.makeMailForm(ordrVO, ordrDtlVO, mailHtml, mailSj);
+
 		}
 
-		//쿠폰 사용 처리 취소
-		for(String ordrDtlNo : ordrDtlNos) {
-			OrdrDtlVO ordrrDtlVO = ordrDtlService.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
-			String couponCd = ordrrDtlVO.getCouponCd();
-
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("srchUseYn", "N");
-			paramMap.put("srchCouponCd", couponCd);
-
-			couponLstService.updateCouponUseYnNull(paramMap);
-		}
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
@@ -521,20 +522,23 @@ public class MBplcOrdrController extends CommonAbstractController  {
 				ordrDtlVO.setSndngDt(null);
 			}
 
-			Integer resultCnt = ordrDtlService.updateOrdrOR05OR06(ordrDtlVO);
-
-			if(resultCnt == 1){
-				String resn = "주문확정";
-				if("OR05".equals(ordrDtlVO.getSttsTy())) {
-					resn = "주문확정 취소";
-				}
-				ordrChgHistService.insertOrdrSttsChgHist(ordrDtlVO.getOrdrNo(), ordrDtlVO.getOrdrDtlNo(), "", resn, ordrDtlVO.getSttsTy());
+			try {
+				ordrDtlService.updateOrdr0506AndOrdrChgHist(ordrDtlVO);
 				totalResultCnt += 1;
+			}catch(Exception e) {
+				e.printStackTrace();
+				log.debug("updateOrdr0506AndOrdrChgHist Error : " + e.toString());
 			}
 		}
 
 		if(totalResultCnt == dtLCdList.length){
 			result = true;
+
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+
+			String mailHtml = "mail_ordr_confirm.html";
+			String mailSj = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
+			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 		}
 
 		// result
@@ -624,6 +628,12 @@ public class MBplcOrdrController extends CommonAbstractController  {
 
 		if(resultCnt == 1){
 			result = true;
+
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+
+			String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
+			String mailHtml = "mail_ordr_auto.html";
+			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 		}
 
 		// result
@@ -683,14 +693,8 @@ public class MBplcOrdrController extends CommonAbstractController  {
 	public String ordrExchng(
 			@RequestParam(value="ordrNo", required=true) int ordrNo
 			, @RequestParam(value="ordrDtlCd", required=true) String ordrDtlCd
-			//@RequestParam(value="ordrDtlNo", required=true) String ordrDtlNo
-			//, @RequestParam(value="gdsNo", required=true) int gdsNo
 			, @RequestParam Map<String,Object> reqMap
 			, Model model) throws Exception {
-
-		// 상품정보
-		//OrdrDtlVO ordrDtlVO = ordrDtlService.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
-		//model.addAttribute("ordrDtlVO", ordrDtlVO);
 
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
 		model.addAttribute("ordrDtlList", ordrDtlList);
@@ -964,6 +968,9 @@ public class MBplcOrdrController extends CommonAbstractController  {
 			@RequestParam(value="ordrNo", required=true) int ordrNo
 			, @RequestParam(value="ordrDtlCd", required=true) String ordrDtlCd
 			, @RequestParam(value="resn", required=true) String resn
+			, @RequestParam(value="rfndBank", required=false) String rRfndBank
+			, @RequestParam(value="rfndActno", required=false) String rfndActno
+			, @RequestParam(value="rfndDpstr", required=false) String rfndDpstr
 			, @RequestParam Map<String,Object> reqMap) throws Exception {
 
 		boolean result = false;
@@ -985,11 +992,20 @@ public class MBplcOrdrController extends CommonAbstractController  {
 		ordrDtlVO.setRegUniqueId(partnersSession.getUniqueId());
 		ordrDtlVO.setRegId(partnersSession.getPartnersId());
 		ordrDtlVO.setRgtr(partnersSession.getPartnersNm());
+		ordrDtlVO.setRfndBank(rRfndBank);
+		ordrDtlVO.setRfndActno(rfndActno);
+		ordrDtlVO.setRfndDpstr(rfndDpstr);
 
 		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO);
 
 		if(resultCnt == 1){
 			result = true;
+
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+
+			String mailSj = "[이로움ON] 회원님의 상품 반품이 완료 되었습니다.";
+			String mailHtml = "mail_ordr_return.html";
+			mailFormService.makeMailForm(ordrVO, ordrDtlVO, mailHtml, mailSj);
 		}
 
 		// result
@@ -1109,7 +1125,7 @@ public class MBplcOrdrController extends CommonAbstractController  {
 			, Model model) throws Exception {
 
 
-		// 상품정
+		// 상품정보
 		OrdrDtlVO ordrDtlVO = ordrDtlService.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
 		model.addAttribute("ordrDtlVO", ordrDtlVO);
 
@@ -1167,7 +1183,36 @@ public class MBplcOrdrController extends CommonAbstractController  {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
-
 	}
+
+	/**
+	 * 엑셀 다운로드
+	 * @param ordrStts
+	 * @param model
+
+	@RequestMapping(value="{ordrStts}/excel")
+	public String excelDownload(
+			@PathVariable String ordrStts
+			, HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchBplcUniqueId", partnersSession.getUniqueId());
+		if(!ordrStts.toUpperCase().equals("ALL")) {
+			paramMap.put("srchSttsTy", ordrStts.toUpperCase());
+		}
+		 List<OrdrDtlVO> ordrDtlList =ordrDtlService.selectOrdrSttsList(paramMap);
+
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
+		model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+
+		model.addAttribute("ordrDtlList", ordrDtlList);
+		model.addAttribute("ordrSttsTy", ordrStts.toUpperCase());
+
+		return "/members/bplc/mng/ordr/excel";
+	}*/
 
 }

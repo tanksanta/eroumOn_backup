@@ -88,6 +88,9 @@
                 @apply min-w-35;
             }
         }
+        &.sticky {
+            @apply bottom-0 z-50 py-4 bg-white -my-4;
+        }
     }
 
     .offcanvas {
