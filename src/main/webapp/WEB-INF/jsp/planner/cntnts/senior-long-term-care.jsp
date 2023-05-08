@@ -222,7 +222,7 @@
                         이로움ON 마켓
                     </span>
                 </a> -->
-                <a href="https://silver.bokji24.com/find/step2-1" target="_blank" class="test">
+                <a href="/find/step2-1" target="_blank" class="test">
                     <span class="front">
                         <small>E·ROUM</small>
                         <strong>TEST</strong>
