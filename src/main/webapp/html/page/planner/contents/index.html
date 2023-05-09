@@ -672,6 +672,7 @@
                 <!-- //서비스 본문(복지시설) -->
             </div>
         </div>
+
         <!-- //본문 영역 -->
     </main>
 
@@ -772,87 +773,90 @@
     <!-- //footer -->
 
     <!-- 컨텐츠 상세 is-color클래스는 목록과 동일 -->
-    <div class="modal fade is-color2" id="modal-detail" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
-                    <button data-bs-dismiss="modal">모달 닫기</button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-project-title">소규모 공동주택 공용시설물 보조금 지원</div>
-                    <div class="modal-project-content">
-                        <a href="#" class="share">공유하기 <i></i></a>
-                        <table>
-                            <colgroup>
-                                <col class="w-14">
-                                <col>
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">분류</th>
-                                    <td>
-                                        <span class="label">라벨</span>
-                                        <span class="label">라벨</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">지원조건</th>
-                                    <td>65세 이상 기초생활수급자</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">지원방법</th>
-                                    <td>서류접수 및 인터넷 신청</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">지원기간</th>
-                                    <td>
-                                        상시신청<br>
-                                        (2023.02.24 ~ 2023.12.23)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">필요서류</th>
-                                    <td>
-                                        주민등록등본 1부<br>
-                                        가족관계증명서 1부
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">지원금</th>
-                                    <td>240,000 <small>원</small></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">내용</th>
-                                    <td>
-                                        <div class="content">
-                                            - 옥상 공용부분 방수공사 <br>
-                                            - 재해 및 재난 등이 발생할 우려가 큰 위험 시설의 보수 <br>
-                                            - 단지 내 차도 및 보도의 보수 <br>
-                                            - 하수관의 교체ㆍ보수 및 준설 <br>
-                                            - 장애인ㆍ노인ㆍ임산부 등의 편의시설의 설치 및 보수 <br>
-                                            - 지하주차장의 바닥ㆍ벽체 방수공사
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">출처</th>
-                                    <td>복지로(<a href="bokjiro.go.kr" target="_blank" class="home">bokjiro.go.kr</a>)</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">기관명</th>
-                                    <td>서울시 송파구청</td>
-                                </tr>
-                            </tbody>
-                        </table>
+    
+    <div id="modalSrvcDtl">
+        <div class="modal fade is-color2" id="modal-detail" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
                     </div>
-                    <div class="modal-banner">
-                        <img src="../assets/images/dummy/img-dummy-banner.png" alt="">
+                    <div class="modal-body">
+                        <div class="modal-project-title">소규모 공동주택 공용시설물 보조금 지원</div>
+                        <div class="modal-project-content">
+                            <a href="#" class="share">공유하기 <i></i></a>
+                            <table>
+                                <colgroup>
+                                    <col class="w-14">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">분류</th>
+                                        <td>
+                                            <span class="label">라벨</span>
+                                            <span class="label">라벨</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원조건</th>
+                                        <td>65세 이상 기초생활수급자</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원방법</th>
+                                        <td>서류접수 및 인터넷 신청</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원기간</th>
+                                        <td>
+                                            상시신청<br>
+                                            (2023.02.24 ~ 2023.12.23)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">필요서류</th>
+                                        <td>
+                                            주민등록등본 1부<br>
+                                            가족관계증명서 1부
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원금</th>
+                                        <td>240,000 <small>원</small></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">내용</th>
+                                        <td>
+                                            <div class="content">
+                                                - 옥상 공용부분 방수공사 <br>
+                                                - 재해 및 재난 등이 발생할 우려가 큰 위험 시설의 보수 <br>
+                                                - 단지 내 차도 및 보도의 보수 <br>
+                                                - 하수관의 교체ㆍ보수 및 준설 <br>
+                                                - 장애인ㆍ노인ㆍ임산부 등의 편의시설의 설치 및 보수 <br>
+                                                - 지하주차장의 바닥ㆍ벽체 방수공사
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출처</th>
+                                        <td>복지로(<a href="bokjiro.go.kr" target="_blank" class="home">bokjiro.go.kr</a>)</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">기관명</th>
+                                        <td>서울시 송파구청</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-banner">
+                            <img src="../assets/images/dummy/img-dummy-banner.png" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-request">자세한 신청방법 보기</a>
-                    <a href="#" class="btn btn-share sm:hidden">공유하기</a>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-request">자세한 신청방법 보기</a>
+                        <a href="#" class="btn btn-share sm:hidden">공유하기</a>
+                    </div>
                 </div>
             </div>
         </div>

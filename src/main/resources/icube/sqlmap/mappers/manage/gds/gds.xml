@@ -74,8 +74,14 @@
 		, g.dlvy_ct_stlm
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
+		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
+		, g.dc_cmmn
+		, g.dc_free_salary
+		, g.dc_pchrg_salary
+		, g.dc_pchrg_salary_gnrl
+		, g.dc_pchrg_gnrl
 		, g.seo_author
 		, g.seo_desc
 		, g.seo_keyword
@@ -370,10 +376,16 @@
 			 , dlvy_ct_stlm
 			 , dlvy_bass_amt
 			 , dlvy_adit_amt
+			 , dlvy_dc
 
 			 , youtube_url
 
 			 , adit_gds_dc
+			 , dc_cmmn
+			 , dc_free_salary
+			 , dc_pchrg_salary
+			 , dc_pchrg_salary_gnrl
+			 , dc_pchrg_gnrl
 			 , seo_author
 			 , seo_desc
 			 , seo_keyword
@@ -446,10 +458,16 @@
 			, #{dlvyCtStlm, jdbcType=VARCHAR}
 			, #{dlvyBassAmt}
 			, #{dlvyAditAmt}
+			, #{dlvyDc, jdbcType=VARCHAR}
 
 			, #{youtubeUrl}
 
 			, #{aditGdsDc, jdbcType=VARCHAR}
+			, #{dcCmmn, jdbcType=VARCHAR}
+			, #{dcFreeSalary, jdbcType=VARCHAR}
+			, #{dcPchrgSalary, jdbcType=VARCHAR}
+			, #{dcPchrgSalaryGnrl, jdbcType=VARCHAR}
+			, #{dcPchrgGnrl, jdbcType=VARCHAR}
 			, #{seoAuthor, jdbcType=VARCHAR}
 			, #{seoDesc, jdbcType=VARCHAR}
 			, #{seoKeyword, jdbcType=VARCHAR}
@@ -529,10 +547,16 @@
 			, dlvy_ct_stlm = #{dlvyCtStlm, jdbcType=VARCHAR}
 			, dlvy_bass_amt = #{dlvyBassAmt}
 			, dlvy_adit_amt = #{dlvyAditAmt}
+			, dlvy_dc = #{dlvyDc}
 
 			, youtube_url = #{youtubeUrl}
 
 			, adit_gds_dc = #{aditGdsDc, jdbcType=VARCHAR}
+			, dc_cmmn = #{dcCmmn, jdbcType=VARCHAR}
+			, dc_free_salary = #{dcFreeSalary, jdbcType=VARCHAR}
+			, dc_pchrg_salary = #{dcPchrgSalary, jdbcType=VARCHAR}
+			, dc_pchrg_salary_gnrl = #{dcPchrgSalaryGnrl, jdbcType=VARCHAR}
+			, dc_pchrg_gnrl = #{dcPchrgGnrl, jdbcType=VARCHAR}
 			, seo_author = #{seoAuthor, jdbcType=VARCHAR}
 			, seo_desc = #{seoDesc, jdbcType=VARCHAR}
 			, seo_keyword = #{seoKeyword, jdbcType=VARCHAR}

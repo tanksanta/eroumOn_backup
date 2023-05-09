@@ -9,15 +9,9 @@
 #logo {
     @apply flex-none relative w-[4.1875rem] h-[0.9375rem] overflow-hidden -indent-96 md:w-[6.3125rem] md:h-5.5 lg:w-[8.375rem] lg:h-7.5 2xl:-ml-10;
     & a {
-        @apply block relative w-full h-full;
+        @apply block relative w-full h-full before:opacity-0 before:invisible before:bg-[url(../images/img-main-logo-white.svg)] after:bg-[url(../images/img-main-logo-color.svg)];
         &::before, &::after {
             @apply content-empty absolute top-0 left-0 w-full h-full bg-[length:100%] bg-[left_center] transition-[opacity,visibility] duration-300;
-        }
-        &::before {
-            @apply opacity-0 invisible bg-[url(../images/img-main-logo-white.svg)];
-        }
-        &::after {
-            @apply bg-[url(../images/img-main-logo-color.svg)];
         }
     }
 }
@@ -29,17 +23,9 @@
         & li {
             @apply mr-5.5 xl:mr-9;
             & a {
-                @apply flex items-center justify-center relative px-3 h-13 font-medium transition-[color] duration-300;
-                font-variation-settings: "wght" 500;
-                &::after {
-                    @apply content-empty absolute left-2 w-0 bottom-3.5 h-px bg-black2 transition-[width] duration-300;
-                }
-                &:hover, &.is-active {
-                    @apply font-semibold;
-                    font-variation-settings: "wght" 600;
-                    &::after {
-                        @apply w-[calc(100%_-_1rem)];
-                    }
+                @apply flex items-center justify-center relative px-3 h-13 font-bold transition-[color] duration-300 after:content-empty after:absolute after:left-2 after:w-0 after:bottom-3.5 after:h-px after:bg-black2 after:transition-[width] after:duration-300 hover:font-extrabold hover:after:w-[calc(100%_-_1rem)];
+                &.is-active {
+                    @apply font-extrabold after:w-[calc(100%_-_1rem)];
                 }
             }
         }
@@ -66,15 +52,9 @@
 }
 
 #allmenu-trigger {
-    @apply absolute top-1/2 right-0.5 w-8 h-8 overflow-hidden -indent-96 -translate-y-1/2 md:w-11 md:h-11 lg:hidden;   
+    @apply absolute top-1/2 right-0.5 w-8 h-8 overflow-hidden -indent-96 -translate-y-1/2 md:w-11 md:h-11 lg:hidden before:opacity-0 before:invisible before:bg-[url(../images/ico-menu-white.svg)] after:bg-[url(../images/ico-menu.svg)];   
     &::before, &::after {
         @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:0.75rem] transition-[opacity,visibility] duration-300 md:bg-[length:0.875rem];
-    }
-    &::before {
-        @apply opacity-0 invisible bg-[url(../images/ico-menu-white.svg)];
-    }
-    &::after {
-        @apply bg-[url(../images/ico-menu.svg)];
     }
 }
 
@@ -87,22 +67,15 @@
         @apply px-6 pb-7.5 bg-white overflow-x-hidden;
     }
     & .allmenu-user {
-        @apply relative -mx-6 px-6 pt-11 pb-16 leading-snug;
+        @apply relative -mx-6 px-6 pt-11 pb-16 leading-snug before:top-3.5 before:right-[63.35%] before:w-76 before:h-[16.4375rem] after:top-5 after:left-[56%] after:w-[26.75rem] after:h-[23.125rem];
         &::before, &::after {
             @apply content-empty absolute bg-cover bg-[url(../images/img-main-logo-sub.svg)] opacity-10;
-        }
-        &::before {
-            @apply top-3.5 right-[63.35%] w-76 h-[16.4375rem];
-        }
-        &::after {
-            @apply top-5 left-[56%] w-[26.75rem] h-[23.125rem];
         }
         & .wrapper {
             @apply mx-auto w-fit;
         }
         & .name {
-            @apply text-5xl font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply text-5xl font-extrabold;
         }
         & .info {
             @apply text-base;
@@ -120,14 +93,10 @@
     & .allmenu-list {
         @apply relative z-5 -mx-6 pt-2.5 px-6 bg-white;
         & li {
-            @apply border-t border-t-gray2;
-            &:first-child {
-                @apply border-t-0;
-            }
+            @apply border-t border-t-gray2 first:border-t-0;
         }
         & a {
-            @apply flex items-center h-19 text-2xl font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply flex items-center h-19 text-2xl font-extrabold;
             &::before {
                 @apply content-empty mr-1.5 w-6 h-5 bg-[length:auto_100%] bg-[url(../images/img-main-logo-sub.svg)];
             }
@@ -137,32 +106,24 @@
         }
     }
     & .allmenu-join {
-        @apply relative mt-17 mx-auto;
-        &::before {
-            @apply content-empty absolute right-8 bottom-3 w-[203px] h-[227px] bg-cover bg-[url(../images/bg-login.png)];
-        }
+        @apply relative mt-17 mx-auto before:content-empty before:absolute before:right-8 before:bottom-3 before:w-[203px] before:h-[227px] before:bg-cover before:bg-[url(../images/bg-login.png)];
         & dl {
             @apply relative z-10 pr-[8.375rem] text-right text-base leading-tight;
             & dd {
-                @apply mt-5 font-semibold;
-                font-variation-settings: "wght" 600;
+                @apply mt-5 font-extrabold;
             }
         }
         & .button {
             @apply flex space-x-2 relative z-10 mt-7.5;
             & .btn {
-                @apply w-[41.67%];
-                &:first-child {
-                    @apply flex-1;
-                }
+                @apply w-[41.67%] first:flex-1;
             }
         }
     }
     & .allmenu-market {
         @apply block mt-5 p-5.5 h-40 rounded-[1rem] bg-gray2 bg-no-repeat bg-[url(../images/img-market.png)] bg-[right_0.25rem_bottom_0.25rem] bg-[length:6.5rem] leading-tight text-sm;
         & strong {
-            @apply block mb-2 text-2xl leading-none font-medium;
-            font-variation-settings: "wght" 500;
+            @apply block mb-2 text-2xl leading-none font-bold;
         }
     }
 }
@@ -397,22 +358,14 @@
     }
     & #logo {
         & a {
-            &::before {
-                @apply opacity-100 visible;
-            }
-            &::after {
-                @apply opacity-0 invisible;
-            }
+            @apply before:opacity-100 before:visible after:opacity-0 after:invisible;
         }
     }
     & #navigation {
         & ul {
             & li {
                 & a {
-                    @apply text-white;
-                    &::after {
-                        @apply bg-white;
-                    }
+                    @apply text-white after:bg-white;
                 }
             }
         }
@@ -432,12 +385,7 @@
         }
     }
     & #allmenu-trigger {
-        &::before {
-            @apply opacity-100 visible;
-        }
-        &::after {
-            @apply opacity-0 invisible;
-        }
+        @apply before:opacity-100 before:visible after:opacity-0 after:invisible;
     }
     & #content {
         @apply pt-11 md:pt-5.5;
@@ -448,22 +396,14 @@
         }
         & #logo {
             & a {
-                &::before {
-                    @apply opacity-0 invisible;
-                }
-                &::after {
-                    @apply opacity-100 visible;
-                }
+                @apply before:opacity-0 before:invisible after:opacity-100 after:visible;
             }
         }
         & #navigation {
             & ul {
                 & li {
                     & a {
-                        @apply text-black2;
-                        &::after {
-                            @apply bg-black2;
-                        }
+                        @apply text-black2 after:bg-black2;
                     }
                 }
             }
@@ -482,12 +422,7 @@
             }
         }
         & #allmenu-trigger {
-            &::before {
-                @apply opacity-0 invisible;
-            }
-            &::after {
-                @apply opacity-100 visible;
-            }
+            @apply before:opacity-0 before:invisible after:opacity-100 after:visible;
         }
     }
 }

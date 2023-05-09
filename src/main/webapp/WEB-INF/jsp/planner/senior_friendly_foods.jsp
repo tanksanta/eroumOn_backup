@@ -83,9 +83,9 @@
                 <div class="container">
                     <div class="title">
                         <p class="text1">우수식품의 종류는</p>
-                        <p class="text2"><strong>총 3단계</strong>로</p>
-                        <p class="text3"><span class="color1">물성 <sub>식감을 주는 성분</sub></span>과 <span class="color2">점성 <sub>음식이 흐르는 정도</sub></span>에 따라</p>
-                        <p class="text4">나뉘어집니다.</p>
+                        <p class="text2"><span class="color1">물성 <sub>식감을 주는 성분</sub></span>과 <span class="color2">점성 <sub>음식이 흐르는 정도</sub></span>에 따라</p>
+                        <p class="text3">나뉘어집니다.</p>
+                        <a href="${_marketPath}/gds/34/list#48" class="link"><strong>고령친화 우수식품</strong> <span>보러가기</span></a>
                     </div>
                     <div class="card card1">
                         <div class="rear"></div>
@@ -96,7 +96,6 @@
 								고령자 치아로도 섭취가 편한<br> 
                                 <em>“연하식”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연하식 1단계 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card2">
@@ -106,7 +105,6 @@
                                 틀니나 잇몸으로도 <br>
                                 씹기 쉬운 <em>“연화반찬류”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>연화반찬류 식품</strong> 바로가기</a>
                         </div>
                     </div>
                     <div class="card card3">
@@ -118,7 +116,6 @@
 								혀로 식사가 가능한 
                                 <em>“유동식”</em>
                             </p>
-                            <a href="${_marketPath}/gds/34/list#48" class="link" target="_blank"><strong>유동식 식품</strong> 바로가기</a>
                         </div>
                     </div>
                 </div>

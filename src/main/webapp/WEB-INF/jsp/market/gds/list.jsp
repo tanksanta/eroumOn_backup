@@ -115,7 +115,7 @@ var Goods = (function(){
 			$(".product-category dd a").removeClass("is-active");
 			$(this).addClass("is-active");
 		}else{
-			$(".product-category dd a[data-ctgry-no='']").removeClass("is-active");
+			$(".product-category dd a").removeClass("is-active");
 			if($(this).hasClass("is-active")){
 				$(this).removeClass("is-active");
 			}else{

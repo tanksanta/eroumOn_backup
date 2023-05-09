@@ -1,19 +1,3 @@
-/********** 추가폰트 **********/
-@font-face {
-    font-family: 'BMKIRANGHAERANG';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMKIRANGHAERANG.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'BMHANNAPro';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 /********** 회원정보 **********/
 .userinfo-slogan {
     @apply flex-1 relative z-5 mt-60 mr-10 self-start text-white leading-snug text-5xl lg-max:hidden;
@@ -35,20 +19,16 @@
 }
 
 .userinfo-count {
-    @apply mt-9 pt-5 px-5.5 pb-2.5 rounded-[1rem] text-white lg:mt-6;
-    background: linear-gradient(159deg, #4E9758 0%, #51A548 100%);
+    @apply mt-9 pt-5 px-5.5 pb-2.5 rounded-[1rem] bg-[linear-gradient(159deg,_#4E9758_0%,_#51A548_100%)] text-white lg:mt-6;
     & .title {
-        @apply text-lg font-semibold leading-none;
-        font-variation-settings: "wght" 600;
+        @apply text-lg font-extrabold leading-none;
     } 
     & .user {
         @apply -mt-8 py-4 px-5 rounded-lg border border-[#439277] bg-white text-black2 lg:-mt-9;
         & .name {
-            @apply text-xl font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply text-xl font-extrabold;
             & small {
                 @apply text-sm font-normal;
-                font-variation-settings: "wght" 400;
             }
         }
         & .button {
@@ -71,42 +51,32 @@
         @apply mt-2.5 leading-[1.15] text-2xl;
         & em {
             @apply inline-block relative pl-1 pr-3 pb-1.5 align-bottom text-[#FFCC1A];
-            &::before, &::after {
-                @apply content-empty block;
-            }
             &::before {
-                @apply mx-auto mb-1.5 w-2 h-2 rounded-full bg-[#FFCC1A];
+                @apply content-empty block mx-auto mb-1.5 w-2 h-2 rounded-full bg-[#FFCC1A];
             }
             &::after {
-                @apply absolute left-3 -ml-px bottom-px w-7.5 h-5.5 bg-no-repeat bg-center bg-[length:auto_100%];
+                @apply content-empty block absolute left-3 -ml-px bottom-px w-7.5 h-5.5 bg-no-repeat bg-center bg-[length:auto_100%];
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29.106' height='22' viewBox='0 0 29.106 22'%3E%3Cpath id='Path_22' data-name='Path 22' d='M9.7,22,29.106,0,9.7,17.207,0,11Z' fill='%23ffcc1a'/%3E%3C/svg%3E%0A");
             }
         }
         & span {
             @apply font-normal;
-            font-variation-settings: "wght" 400;
         }
     }
     & .dropbox {
         @apply flex space-x-2.5 mt-5;
         & .dropdown {
-            @apply w-[47.73%];
-            &:first-child {
-                @apply flex-1;
-            }
+            @apply w-[47.73%] first:flex-1;
         }
         & .dropdown-toggle {
-            @apply px-3 h-[3.125rem] rounded-md bg-white bg-no-repeat bg-[right_0.75rem_center] text-xl font-semibold text-left text-[#4F9D52] sm:px-4 sm:bg-[right_1rem_center] lg:px-5;
+            @apply px-3 h-[3.125rem] rounded-md bg-white bg-no-repeat bg-[right_0.75rem_center] text-xl font-extrabold text-left text-[#4F9D52] sm:px-4 sm:bg-[right_1rem_center] lg:px-5;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6.845' height='4.548' viewBox='0 0 6.845 4.548'%3E%3Cpath id='Triangle' d='M4.025-.763a1,1,0,0,0,1.45,0L7.9-3.311A1,1,0,0,0,7.171-5H2.329A1,1,0,0,0,1.6-3.311Z' transform='translate(-1.327 5)' fill='%23333' opacity='0.5'/%3E%3C/svg%3E%0A");
-            font-variation-settings: "wght" 600;
         }
     }
     & .count {
         @apply mt-2.5 text-right leading-none text-sm font-normal;
-        font-variation-settings: "wght" 400;
         & strong {
-            @apply inline-block text-[3.375rem] font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply inline-block text-[3.375rem] font-extrabold;
         }
     }
     & .scroll {
@@ -146,8 +116,7 @@
 .userinfo-link {
     @apply flex items-center mt-3.5 space-x-3.5 text-white;
     & a {
-        @apply flex-1 relative p-5.5 px-4 h-[5.625rem] rounded-[1rem] text-lg leading-none font-medium;
-        font-variation-settings: "wght" 500;
+        @apply flex-1 relative p-5.5 px-4 h-[5.625rem] rounded-[1rem] text-lg leading-none font-bold;
         &::after {
             @apply content-empty absolute right-2.5 bottom-2.5 w-6 h-6 rounded-full bg-no-repeat bg-center bg-white/90 bg-[length:0.625rem];
         }
@@ -169,14 +138,11 @@
 .userinfo-member {
     @apply relative mt-5;
     & .userinfo-member-market {
-        &::before {
-            @apply content-empty block mb-6 h-[3px] rounded-full bg-gray2;
-        }
+        @apply before:content-empty before:block before:mb-6 before:h-[3px] before:rounded-full before:bg-gray2;
         & a {
             @apply block p-5.5 rounded-[1rem] h-[8.625rem] bg-gray2 bg-no-repeat bg-[url(../images/img-market.png)] bg-[right_0.25rem_bottom_0.25rem] bg-[length:6.5rem] leading-tight text-sm;
             & strong {
-                @apply block mb-2 text-2xl leading-none font-medium;
-                font-variation-settings: "wght" 500;
+                @apply block mb-2 text-2xl leading-none font-bold;
             }
         }
     }
@@ -196,17 +162,13 @@
                 }
             }
             & dd {
-                @apply mt-9.5 text-lg font-semibold;
-                font-variation-settings: "wght" 600;
+                @apply mt-9.5 text-lg font-extrabold;
             }
         }
         & .button {
             @apply flex space-x-2 relative z-10 mt-8.5;
             & .btn {
-                @apply w-[41.67%];
-                &:first-child {
-                    @apply flex-1;
-                }
+                @apply w-[41.67%] first:flex-1;
             }
         }
     }
@@ -225,15 +187,13 @@
             @apply w-full;
         }
         & .login-title {
-            @apply mb-11 text-sm font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply mb-11 text-sm font-extrabold;
         }
         & .login-close {
             @apply absolute top-1 right-1 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.125rem] -indent-96;
         }
         & .login-search {
-            @apply flex mt-4 text-sm font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply flex mt-4 text-sm font-extrabold;
             & a {
                 @apply mr-auto pr-3.5 bg-no-repeat bg-[url(../images/ico-login-arrow.svg)] bg-right-center;
             }
@@ -249,11 +209,9 @@
 .page-option {
     @apply flex items-end flex-wrap z-25 mt-8 md:relative md:mt-10 lg:mt-12 md:flex-nowrap;
     & h2 {
-        @apply flex-none relative mb-3 pl-14 text-[1.875rem] leading-snug font-bold md:mr-3 md:pl-4 md:-mb-1 md:text-[2.625rem] lg:mr-4 lg:pl-5.5 lg:text-[3.75rem] w-full md:w-auto md-max:hidden;
-        font-variation-settings: "wght" 700;
+        @apply flex-none relative mb-3 pl-14 text-[1.875rem] leading-snug font-black md:mr-3 md:pl-4 md:-mb-1 md:text-[2.625rem] lg:mr-4 lg:pl-5.5 lg:text-[3.75rem] w-full md:w-auto md-max:hidden;
         & small {
             @apply block text-base leading-none font-normal md:text-lg lg:text-[1.375rem];
-            font-variation-settings: "wght" 400;
         }
         &::before {
             @apply content-empty absolute top-1.5 left-0 w-12 h-[2.625rem] bg-cover bg-[url(../images/img-main-logo-sub.svg)] md:top-3 md:-left-14 md:w-16 md:h-14 lg:top-4 lg:-left-20 lg:w-21 lg:h-[4.5625rem];
@@ -262,7 +220,6 @@
             @apply flex items-center text-sm md:text-base;
             & a {
                 @apply inline-flex ml-1 justify-center items-center leading-none font-normal w-15 h-4.5 text-[0.625rem] border border-black2 rounded-full md:w-19 md:h-5.5 md:text-xs;
-                font-variation-settings: "wght" 400;
                 & .open {
                     @apply hidden;
                 }
@@ -281,7 +238,7 @@
     & ul {
         @apply flex-1 flex justify-end;
         & li {
-            @apply flex-1 flex items-end mr-1 h-14 text-[0.6875rem] md:h-16 md:text-xs lg:h-18 lg:text-[0.8125rem];
+            @apply flex-1 flex items-end mr-1 h-14 text-[0.6875rem] last:mr-0 md:h-16 md:text-xs lg:h-18 lg:text-[0.8125rem];
             & label {
                 @apply block relative w-full cursor-pointer;
                 & input {
@@ -311,25 +268,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key1-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key1)] md-max:bg-[#6E2A85]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project1-on.svg)];
-                                }
+                                @apply text-[var(--key1)] md-max:bg-[#6E2A85]/10 before:bg-[url(../images/ico-project1-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#6E2A85]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project1.svg)];
-                        }
+                        @apply border-b-[#6E2A85]/10 before:bg-[url(../images/ico-project1.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key1)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project1-on.svg)];
-                            }
+                            @apply text-[var(--key1)] before:bg-[url(../images/ico-project1-on.svg)];
                         }
                     }
                 }
@@ -340,25 +288,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key2-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key2)] md-max:bg-[#E63985]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project2-on.svg)];
-                                }
+                                @apply text-[var(--key2)] md-max:bg-[#E63985]/10 before:bg-[url(../images/ico-project2-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#E63985]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project2.svg)];
-                        }
+                        @apply border-b-[#E63985]/10 before:bg-[url(../images/ico-project2.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key2)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project2-on.svg)];
-                            }
+                            @apply text-[var(--key2)] before:bg-[url(../images/ico-project2-on.svg)];
                         }
                     }
                 }
@@ -369,25 +308,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key3-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key3)] md-max:bg-[#BA366B]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project3-on.svg)];
-                                }
+                                @apply text-[var(--key3)] md-max:bg-[#BA366B]/10 before:bg-[url(../images/ico-project3-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#BA366B]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project3.svg)];
-                        }
+                        @apply border-b-[#BA366B]/10 before:bg-[url(../images/ico-project3.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key3)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project3-on.svg)];
-                            }
+                            @apply text-[var(--key3)] before:bg-[url(../images/ico-project3-on.svg)];
                         }
                     }
                 }
@@ -398,25 +328,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key4-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key4)] md-max:bg-[#B76F2C]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project4-on.svg)];
-                                }
+                                @apply text-[var(--key4)] md-max:bg-[#B76F2C]/10 before:bg-[url(../images/ico-project4-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#B76F2C]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project4.svg)];
-                        }
+                        @apply border-b-[#B76F2C]/10 before:bg-[url(../images/ico-project4.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key4)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project4-on.svg)];
-                            }
+                            @apply text-[var(--key4)] before:bg-[url(../images/ico-project4-on.svg)];
                         }
                     }
                 }
@@ -427,25 +348,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key5-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key5)] md-max:bg-[#459199]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project5-on.svg)];
-                                }
+                                @apply text-[var(--key5)] md-max:bg-[#459199]/10 before:bg-[url(../images/ico-project5-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#459199]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project5.svg)];
-                        }
+                        @apply border-b-[#459199]/10 before:bg-[url(../images/ico-project5.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key5)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project5-on.svg)];
-                            }
+                            @apply text-[var(--key5)] before:bg-[url(../images/ico-project5-on.svg)];
                         }
                     }
                 }
@@ -456,25 +368,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key6-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key6)] md-max:bg-[#42A075]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project6-on.svg)];
-                                }
+                                @apply text-[var(--key6)] md-max:bg-[#42A075]/10 before:bg-[url(../images/ico-project6-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#42A075]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project6.svg)];
-                        }
+                        @apply border-b-[#42A075]/10 before:bg-[url(../images/ico-project6.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key6)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project6-on.svg)];
-                            }
+                            @apply text-[var(--key6)] before:bg-[url(../images/ico-project6-on.svg)];
                         }
                     }
                 }
@@ -485,25 +388,16 @@
                         background-image: url(../images/ico-check-white.svg), var(--key7-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key7)] md-max:bg-[#619341]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project7-on.svg)];
-                                }
+                                @apply text-[var(--key7)] md-max:bg-[#619341]/10 before:bg-[url(../images/ico-project7-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#619341]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project7.svg)];
-                        }
+                        @apply border-b-[#619341]/10 before:bg-[url(../images/ico-project7.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key7)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project7-on.svg)];
-                            }
+                            @apply text-[var(--key7)] before:bg-[url(../images/ico-project7-on.svg)];
                         }
                     }
                 }
@@ -514,31 +408,19 @@
                         background-image: url(../images/ico-check-white.svg), var(--key8-gradient);
                         &:checked {
                             & + span {
-                                @apply text-[var(--key8)] md-max:bg-[#5E6755]/10;
-                                &::before {
-                                    @apply bg-[url(../images/ico-project8-on.svg)];
-                                }
+                                @apply text-[var(--key8)] md-max:bg-[#5E6755]/10 before:bg-[url(../images/ico-project8-on.svg)];
                             }
                         }
                     }
                     & span {
-                        @apply border-b-[#5E6755]/10;
-                        &::before {
-                            @apply bg-[url(../images/ico-project8.svg)];
-                        }
+                        @apply border-b-[#5E6755]/10 before:bg-[url(../images/ico-project8.svg)];
                     }
                     &:hover {
                         & span {
-                            @apply text-[var(--key8)];
-                            &::before {
-                                @apply bg-[url(../images/ico-project8-on.svg)];
-                            }
+                            @apply text-[var(--key8)] before:bg-[url(../images/ico-project8-on.svg)];
                         }
                     }
                 }
-            }
-            &:last-child {
-                @apply mr-0;
             }
         }
     }
@@ -594,15 +476,11 @@
         & .nav {
             @apply flex space-x-5 md:space-x-7.5 lg:space-x-11 xl:space-x-[3.625rem];
             & li {
-                @apply md-max:flex-none;
-                &:first-child {
-                    @apply md-max:flex-1;
-                }
+                @apply md-max:flex-none first:md-max:flex-1;
             }
         }
         & .nav-link {
-            @apply block relative border-b border-b-black2/30 pb-1 text-black2/30 leading-[1.3333] font-semibold text-center lg:min-w-31 xl:min-w-[13.625rem];
-            font-variation-settings: "wght" 600;
+            @apply block relative border-b border-b-black2/30 pb-1 text-black2/30 leading-[1.3333] font-extrabold text-center lg:min-w-31 xl:min-w-[13.625rem];
             & span {
                 @apply inline-block pt-1.5 align-top text-xs md:pt-2 md:pr-2 md:text-[0.8125rem] lg:text-lg lg:pt-2.5 lg:pr-2.5 xl:text-2xl;
             }
@@ -610,8 +488,7 @@
                 @apply inline-block text-5xl md:text-[2.625rem] lg:text-[3.25rem] xl:text-[3.75rem];
             }
             & small {
-                @apply text-xs font-medium md:pl-0.5 lg:pl-1 lg:text-base xl:text-xl;
-                font-variation-settings: "wght" 500;
+                @apply text-xs font-bold md:pl-0.5 lg:pl-1 lg:text-base xl:text-xl;
             }
             & i {
                 @apply absolute top-full left-1/2 w-6 hidden bg-white -translate-x-1/2 -translate-y-1/2 lg:w-8 xl:w-9.5;
@@ -623,8 +500,8 @@
                 @apply content-empty hidden absolute left-3 bottom-0 w-[1.9375rem] h-5 bg-no-repeat bg-[length:100%] bg-[url(../images/img-main-logo-sub.svg)] opacity-10 lg:w-9.5 lg:h-[1.5625rem] xl:w-[2.875rem] xl:h-7.5;
             }
             &.active {
-                @apply text-black2 border-b-black2;
-                &::before, & i {
+                @apply text-black2 border-b-black2 before:block;
+                & i {
                     @apply block;
                 }
             }
@@ -655,15 +532,13 @@
                 @apply content-empty absolute -z-5 top-0 left-0 w-full h-full opacity-10 transition-opacity duration-300 md:opacity-0;
             }
             & .name {
-                @apply text-lg font-semibold md:text-2xl;
-                font-variation-settings: "wght" 600;
+                @apply text-lg font-extrabold md:text-2xl;
             }
             & .type {
                 @apply mt-2 md:mt-3.5;
             }
             & .part {
-                @apply absolute left-4 bottom-3.5 flex items-center font-semibold md:left-5.5 md:right-3.5 md:bottom-2.5;
-                font-variation-settings: "wght" 600;
+                @apply absolute left-4 bottom-3.5 flex items-center font-extrabold md:left-5.5 md:right-3.5 md:bottom-2.5;
                 &::after {
                     @apply content-empty hidden ml-auto w-9 aspect-square bg-cover transition-opacity duration-300 opacity-0 md:block;
                 }
@@ -674,14 +549,9 @@
         }
         &:hover {
             & .content {
-                @apply md:-translate-y-6;
-                &::before {
-                    @apply md:opacity-5;
-                }
+                @apply md:-translate-y-6 before:md:opacity-5;
                 & .part {
-                    &::after {
-                        @apply opacity-100;
-                    }
+                    @apply after:opacity-100;
                 }
             }
         }
@@ -697,18 +567,12 @@
             }
         }
         &.is-color1 {
+            @apply after:md-max:bg-[var(--key1)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key1)];
-                }
+                @apply before:bg-[var(--key1)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project1-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project1-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key1)];
             }
             &:hover {
                 @apply md:bg-[var(--key1)];
@@ -721,25 +585,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key1-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key1-gradient)];
                 }
             }
         }
         &.is-color2 {
+            @apply after:md-max:bg-[var(--key2)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key2)];
-                }
+                @apply before:bg-[var(--key2)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project2-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project2-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key2)];
             }
             &:hover {
                 @apply md:bg-[var(--key2)];
@@ -752,25 +608,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key2-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key2-gradient)];
                 }
             }
         }
         &.is-color3 {
+            @apply after:md-max:bg-[var(--key3)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key3)];
-                }
+                @apply before:bg-[var(--key3)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project3-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project3-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key3)];
             }
             &:hover {
                 @apply md:bg-[var(--key3)];
@@ -783,25 +631,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key3-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key3-gradient)];
                 }
             }
         }
         &.is-color4 {
+            @apply after:md-max:bg-[var(--key4)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key4)];
-                }
+                @apply before:bg-[var(--key4)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project4-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project4-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key4)];
             }
             &:hover {
                 @apply md:bg-[var(--key4)];
@@ -814,25 +654,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key4-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key4-gradient)];
                 }
             }
         }
         &.is-color5 {
+            @apply after:md-max:bg-[var(--key5)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key5)];
-                }
+                @apply before:bg-[var(--key5)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project5-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project5-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key5)];
             }
             &:hover {
                 @apply md:bg-[var(--key5)];
@@ -845,25 +677,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key5-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key5-gradient)];
                 }
             }
         }
         &.is-color6 {
+            @apply after:md-max:bg-[var(--key6)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key6)];
-                }
+                @apply before:bg-[var(--key6)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project6-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project6-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key6)];
             }
             &:hover {
                 @apply md:bg-[var(--key6)];
@@ -876,25 +700,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key6-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key6-gradient)];
                 }
             }
         }
         &.is-color7 {
+            @apply after:md-max:bg-[var(--key7)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key7)];
-                }
+                @apply before:bg-[var(--key7)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project7-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project7-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key7)];
             }
             &:hover {
                 @apply md:bg-[var(--key7)];
@@ -907,25 +723,17 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key7-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key7-gradient)];
                 }
             }
         }
         &.is-color8 {
+            @apply after:md-max:bg-[var(--key8)];
             & .content {
-                &::before {
-                    @apply bg-[var(--key8)];
-                }
+                @apply before:bg-[var(--key8)];
                 & .part {
-                    &::after {
-                        @apply bg-[url(../images/ico-project8-on.svg)];
-                    }
+                    @apply after:bg-[url(../images/ico-project8-on.svg)];
                 }
-            }
-            &::after {
-                @apply md-max:bg-[var(--key8)];
             }
             &:hover {
                 @apply md:bg-[var(--key8)];
@@ -938,9 +746,7 @@
             }
             &.is-lock {
                 & .content {
-                    &::before {
-                        @apply bg-[image:var(--key8-gradient)];
-                    }
+                    @apply before:bg-[image:var(--key8-gradient)];
                 }
             }
         }
@@ -949,8 +755,7 @@
         @apply flex lg-max:space-x-2;
     }
     & .content-prev, & .content-next {
-        @apply inline-flex items-center justify-center flex-1 h-13 border border-gray1 rounded-md text-sm font-semibold lg:absolute lg:z-30 lg:top-1/2 lg:w-22 lg:h-22 lg:rounded-full lg:border-0 lg:-translate-y-1/2;
-        font-variation-settings: "wght" 600;
+        @apply inline-flex items-center justify-center flex-1 h-13 border border-gray1 rounded-md text-sm font-extrabold lg:absolute lg:z-30 lg:top-1/2 lg:w-22 lg:h-22 lg:rounded-full lg:border-0 lg:-translate-y-1/2;
         & span {
             @apply lg:sr-only;
         }
@@ -983,9 +788,7 @@
                 @apply content-empty absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full origin-center scale-[0.6] rounded-full border-0.5 border-black2 bg-black2 transition-all duration-300;
             }
             &.is-active {
-                &::before {
-                    @apply scale-100 bg-white;
-                }
+                @apply before:scale-100 before:bg-white;
             }
         }
     }
@@ -1011,32 +814,19 @@
                 @apply flex-1;
             }
             & .nav-link {
-                @apply flex items-center justify-center h-[2.625rem] overflow-hidden rounded-md bg-no-repeat text-[0.8125rem] font-medium lg:justify-start;
-                font-variation-settings: "wght" 500;
+                @apply flex items-center justify-center h-[2.625rem] overflow-hidden rounded-md bg-no-repeat text-[0.8125rem] font-bold lg:justify-start before:content-empty before:mr-2 before:bg-cover;
             }
             & .nav-link-item1 {
-                @apply text-[#1CB4B2] lg:pl-2.5;
+                @apply text-[#1CB4B2] lg:pl-2.5 before:w-5.5 before:h-5 before:bg-[url(../images/ico-map-nav1.svg)];
                 background: linear-gradient(108deg, rgba(34, 255, 104, 0.1) 0%, rgba(37, 200, 252, 0.1) 100%, rgba(252, 37, 117, 0.1) 100%);
-                &::before {
-                    @apply content-empty mr-2 w-5.5 h-5 bg-cover bg-[url(../images/ico-map-nav1.svg)];
-                }
                 &.active {
-                    @apply bg-[#1fbca9] text-white;
-                    &::before {
-                        @apply bg-[url(../images/ico-map-nav1-white.svg)];
-                    }
+                    @apply bg-[#1fbca9] text-white before:bg-[url(../images/ico-map-nav1-white.svg)];
                 }
             }
             & .nav-link-item2 {
-                @apply bg-black2/5 text-black2 lg:pl-5;
-                &::before {
-                    @apply content-empty mr-2 w-6.5 h-7 bg-cover bg-[url(../images/ico-map-nav2.svg)];
-                }
+                @apply bg-black2/5 text-black2 lg:pl-5 before:w-6.5 before:h-7 before:bg-[url(../images/ico-map-nav2.svg)];
                 &.active {
-                    @apply bg-black2 text-white;
-                    &::before {
-                        @apply bg-[url(../images/ico-map-nav2-white.svg)];
-                    }
+                    @apply bg-black2 text-white before:bg-[url(../images/ico-map-nav2-white.svg)];
                 }
             }
             & .nav-link-item3 {
@@ -1063,23 +853,17 @@
         &.is-active {
             @apply h-[calc(100%_-_2.5rem)] lg:h-auto;
             & .resizer {
-                &::after {
-                    @apply rotate-0;
-                }
+                @apply after:rotate-0;
             }
         }
     }
     & .map-select-item {
-        @apply py-1 border-b border-b-gray2;
-        &:last-child {
-            @apply border-b-0;
-        }
+        @apply py-1 border-b border-b-gray2 last:border-b-0;
     }
     & .map-select-link {
         @apply flex flex-col justify-center relative px-4 py-2.5 min-h-21 rounded-md text-xs leading-[1.125];
         & .name {
-            @apply text-base;
-            font-variation-settings: "wght" 600;
+            @apply text-base font-extrabold;
         }
         & .addr, & .call {
             @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
@@ -1091,10 +875,7 @@
             @apply mt-1.5 bg-[url(../images/ico-call.svg)];
         }
         &.is-active {
-            @apply bg-black2 text-white;
-            &::before {
-                @apply bg-[url(../images/img-marker-white.svg)] text-black2;
-            }
+            @apply bg-black2 text-white before:bg-[url(../images/img-marker-white.svg)] before:text-black2;
             & .addr {
                 @apply bg-[url(../images/ico-location-white.svg)];
             }
@@ -1111,8 +892,7 @@
     & .map-select-overlay {
         @apply relative w-49 px-3 py-2.5 border border-black2 bg-white rounded-md whitespace-normal text-xs leading-[1.125] -translate-y-1.5;
         & .name {
-            @apply pr-3 text-base;
-            font-variation-settings: "wght" 600;
+            @apply pr-3 text-base font-extrabold;
         }
         & .addr, & .call {
             @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
@@ -1153,8 +933,7 @@
 }
 
 .modal-login-search {
-    @apply flex mt-4 mx-auto max-w-[20.625rem] text-sm font-semibold;
-    font-variation-settings: "wght" 600;
+    @apply flex mt-4 mx-auto max-w-[20.625rem] text-sm font-extrabold;
     & a {
         @apply mr-auto pr-3.5 bg-no-repeat bg-[url(../images/ico-angle.svg)] bg-right-center underline underline-offset-1;
     }
@@ -1168,8 +947,7 @@
     & dl {
         @apply relative z-10 pr-[8.375rem] text-right text-base leading-tight;
         & dd {
-            @apply mt-5 font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply mt-5 font-extrabold;
         }
     }
     & .btn {
@@ -1180,8 +958,7 @@
 
 /********** 모달 상세정보 **********/
 .modal-project-title {
-    @apply relative mb-8 pl-14 text-2xl leading-[1.1] font-semibold;
-    font-variation-settings: "wght" 600;
+    @apply relative mb-8 pl-14 text-2xl leading-[1.1] font-extrabold;
     &::before {
         @apply content-empty absolute top-1/2 left-0 -mt-0.5 bg-cover w-12 h-12 -translate-y-1/2;
     }
@@ -1192,12 +969,10 @@
     & table {
         @apply table-fixed w-full;
         & th {
-            @apply py-[0.5625rem] px-0.5 text-xs align-top font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply py-[0.5625rem] px-0.5 text-xs align-top font-extrabold;
         }
         & td {
-            @apply px-0.5 py-2 text-sm font-semibold;
-            font-variation-settings: "wght" 600;
+            @apply px-0.5 py-2 text-sm font-extrabold;
             & small {
                 @apply text-[0.8125rem];
             }
@@ -1205,14 +980,12 @@
     }
     & .content {
         @apply p-4 bg-neutral-100 text-[0.8125rem] font-normal rounded-lg sm:p-5;
-        font-variation-settings: "wght" 400;
     }
     & .home {
         @apply pl-3.5 bg-no-repeat bg-[left_top_0.3125rem] bg-[url(../images/ico-home.svg)] border-b border-black2;
     }
     & .share {
-        @apply absolute top-1 right-2 hidden items-center text-xs font-semibold sm:inline-flex;
-        font-variation-settings: "wght" 600;
+        @apply absolute top-1 right-2 hidden items-center text-xs font-extrabold sm:inline-flex;
         & i {
             @apply block relative ml-1 w-7.5 h-7.5 rounded-full;
             &::after {
@@ -1227,14 +1000,12 @@
 .modal {
     &.is-color1 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project1-on.svg)];
             background: var(--key1-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project1-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1250,14 +1021,12 @@
     }
     &.is-color2 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project2-on.svg)];
             background: var(--key2-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project2-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1273,14 +1042,12 @@
     }
     &.is-color3 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project3-on.svg)];
             background: var(--key3-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project3-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1296,14 +1063,12 @@
     }
     &.is-color4 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project4-on.svg)];
             background: var(--key4-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project4-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1319,14 +1084,12 @@
     }
     &.is-color5 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project5-on.svg)];
             background: var(--key5-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project5-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1342,14 +1105,12 @@
     }
     &.is-color6 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project6-on.svg)];
             background: var(--key6-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project6-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1365,14 +1126,12 @@
     }
     &.is-color7 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project7-on.svg)];
             background: var(--key7-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent;
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project7-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1388,14 +1147,12 @@
     }
     &.is-color8 {
         & .modal-project-title {
+            @apply before:bg-[url(../images/ico-project8-on.svg)];
             background: var(--key8-gradient2);
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent;
             -moz-text-fill-color: transparent;
-            &::before {
-                @apply bg-[url(../images/ico-project8-on.svg)];
-            }
         }
         & .modal-project-content {
             & .share {
@@ -1414,10 +1171,7 @@
 
 /********** 컨텐츠 페이지 **********/
 .content-market-link {
-    @apply relative text-[0.6875rem] text-white -mx-3 md:text-xs;
-    &::before {
-        @apply content-empty absolute top-0 left-1/2 w-screen h-full -translate-x-1/2 bg-black2;
-    }
+    @apply relative text-[0.6875rem] text-white -mx-3 md:text-xs before:content-empty before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:-translate-x-1/2 before:bg-black2;
     & a {
         @apply block relative z-5 mx-auto py-3 pr-7.5 pl-6.5 w-fit leading-tight md:py-4 md:pr-10 md:pl-7;
         &::before, &::after {
@@ -1436,9 +1190,7 @@
         }
     }
     &.is-food {
-        &::before {
-            background: linear-gradient(269deg, #BB7F66 0%, #FCB13C 100%);
-        }
+        @apply before:bg-[linear-gradient(269deg,_#BB7F66_0%,_#FCB13C_100%)];
         & a {
             &::after {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='27' height='27' viewBox='0 0 27 27'%3E%3Ccircle id='Oval' cx='13.5' cy='13.5' r='13.5' fill='%23fff'/%3E%3Cg id='Group_7' data-name='Group 7' transform='translate(7 9)'%3E%3Cpath id='Line_5' data-name='Line 5' d='M.5.5h11' transform='translate(0 4)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-2' data-name='Line 5' d='M.5.5l4,4' transform='translate(7)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-3' data-name='Line 5' d='M.5,4.5l4-4' transform='translate(7 4)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E%0A");
@@ -1446,9 +1198,7 @@
         }
     }
     &.is-insurance {
-        &::before {
-            background: linear-gradient(269deg, #EE7575 0%, #6540A7 100%);
-        }
+        @apply before:bg-[linear-gradient(269deg,_#EE7575_0%,_#6540A7_100%)];
         & a {
             &::after {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='27' height='27' viewBox='0 0 27 27'%3E%3Ccircle id='Oval' cx='13.5' cy='13.5' r='13.5' fill='%23fff'/%3E%3Cpath id='Line_5' data-name='Line 5' d='M.5.5h11' transform='translate(7 13)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-2' data-name='Line 5' d='M.5.5l4,4' transform='translate(14 9)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-3' data-name='Line 5' d='M.5,4.5l4-4' transform='translate(14 13)' fill='none' stroke='%23af5d8d' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3C/svg%3E%0A");
@@ -1474,8 +1224,7 @@
                 @apply block w-8 h-8 md:w-11 md:h-11 lg:w-15 lg:h-15 bg-no-repeat bg-center bg-[url(../images/ico-market.png)] bg-[length:auto_2.75rem] opacity-100 visible md:bg-[length:auto_4rem] lg:bg-[length:auto_5.25rem];
             }
             &.expand {
-                @apply flex items-center justify-end w-26 text-xs lg:text-sm font-semibold text-white md:w-[7.5625rem] lg:w-[10.0625rem];
-                font-variation-settings: "wght" 600;
+                @apply flex items-center justify-end w-26 text-xs lg:text-sm font-extrabold text-white md:w-[7.5625rem] lg:w-[10.0625rem];
                 &::after {
                     @apply content-empty block ml-1.5 w-8 h-8 bg-no-repeat bg-center bg-white rounded-full bg-[url(../images/ico-market-on.png)] bg-[length:auto_2rem] md:ml-2 md:w-11 md:h-11 md:bg-[length:auto_3.125rem] lg:ml-2.5 lg:w-15 lg:h-15 lg:bg-[length:auto_4.25rem];
                 }
@@ -1494,8 +1243,7 @@
         }
     }
     & .test {
-        @apply flex items-center justify-center relative text-center leading-tight text-white font-medium;
-        font-variation-settings: "wght" 500;
+        @apply flex items-center justify-center relative text-center leading-tight text-white font-bold;
         & .front, .rear {
             @apply flex flex-col items-center justify-center w-full h-full whitespace-nowrap scale-[0.6] origin-center transition-[opacity,visibility] duration-700 md:scale-[0.8] lg:scale-100;
             & small {
@@ -1526,8 +1274,7 @@
 }
 
 .content-title {
-    @apply relative z-5 pt-[max(4.125rem,(min(10.5769vw,6.875rem)))] text-center leading-[1.1] font-bold text-[max(2.5rem,(min(5.7692vw,3.75rem)))];
-    font-variation-settings: "wght" 700;
+    @apply relative z-5 pt-[max(4.125rem,(min(10.5769vw,6.875rem)))] text-center leading-[1.1] font-black text-[max(2.5rem,(min(5.7692vw,3.75rem)))];
     &::before {
         @apply content-empty absolute -z-5 top-0 left-1/2 w-screen h-full bg-no-repeat bg-[length:auto_100%] bg-[center_bottom] -translate-x-1/2;
     }
@@ -1537,20 +1284,15 @@
 }
 
 .content-food1 {
-    @apply content-title pb-[max(16.5rem,(min(42.3076vw,27.5rem)))];
-    &::before {
-        @apply bg-[url(../images/bg-content-food1.png)];
-    }
+    @apply content-title pb-[max(16.5rem,(min(42.3076vw,27.5rem)))] before:bg-[url(../images/bg-content-food1.png)];
 }
 
 .content-food2 {
     @apply relative pt-[max(12.25rem,(min(31.3461vw,20.375rem)))] pb-[max(7.125rem,(min(18.0769vw,11.75rem)))] text-center xs:text-left;
     & .content {
-        @apply relative z-5 mx-auto w-fit font-medium leading-[1.1] text-[#B3762D] text-[max(1.125rem,(min(2.3076vw,1.5rem)))] xs:mr-0 xs:pr-[2em];
-        font-variation-settings: "wght" 500;
+        @apply relative z-5 mx-auto w-fit font-bold leading-[1.1] text-[#B3762D] text-[max(1.125rem,(min(2.3076vw,1.5rem)))] xs:mr-0 xs:pr-[2em];
         & strong {
-            @apply text-[#744321] font-bold;
-            font-variation-settings: "wght" 700;
+            @apply text-[#744321] font-black;
         }
         & .bigs {
             @apply relative mt-[.875em] mb-[0.375em] mx-auto w-fit leading-[1.1] text-left font-["BMHANNAPro"] xs:m-0 xs:mt-[0.175em];
@@ -1560,31 +1302,23 @@
                     @apply content-empty absolute -z-5 bottom-0 -left-[0.1em] -right-[0.1em] bg-no-repeat bg-cover;
                 }
                 &.t1 {
-                    &::before {
-                        @apply h-[0.5em] bg-[url(../images/bg-content-food2-2.svg)];
-                    }
+                    @apply before:h-[0.5em] before:bg-[url(../images/bg-content-food2-2.svg)];
                 }
                 &.t2 {
-                    &::before {
-                        @apply h-[0.603448275862069em] bg-[url(../images/bg-content-food2-3.svg)];
-                    }
+                    @apply before:h-[0.603448275862069em] before:bg-[url(../images/bg-content-food2-3.svg)];
                 }
                 &.t3 {
-                    &::before {
-                        @apply h-[0.6724137931034483em] bg-[url(../images/bg-content-food2-4.svg)];
-                    }
+                    @apply before:h-[0.6724137931034483em] before:bg-[url(../images/bg-content-food2-4.svg)];
                 }
             }
             &::before, &::after {
-                @apply absolute font-["BMKIRANGHAERANG"] leading-none text-white text-[max(12rem,(min(28.8461vw,18.75rem)))]
+                @apply absolute font-["BMKIRANGHAERANG"] leading-none text-white text-[max(12rem,(min(28.8461vw,18.75rem)))];
             }
             &::before {
-                @apply -top-[0.1875em] -left-[0.285em];
-                content: "“";
+                @apply content-["“"] -top-[0.1875em] -left-[0.285em];
             }
             &::after {
-                @apply top-[0.175em] -right-[0.1875em];
-                content: "”";
+                @apply content-["”"] top-[0.175em] -right-[0.1875em];
             }
         }
     }
@@ -1608,17 +1342,13 @@
     & .content {
         @apply mt-7.5 mx-auto w-fit text-base leading-snug md:m-0 md:text-lg lg:text-xl;
         & p {
-            @apply mt-[1.4em];
-            &:first-child {
-                @apply mt-0;
-            }
+            @apply mt-[1.4em] last:mt-0;
         }
         & ol {
             @apply grid grid-cols-3 gap-2.5 mt-[2.4em] max-w-[38.75rem];
             counter-reset: section;
             & li {
-                @apply relative p-[0.9em] pb-[2.1875em] overflow-hidden rounded-[0.8em] leading-tight font-bold break-keep;
-                font-variation-settings: "wght" 700;
+                @apply relative p-[0.9em] pb-[2.1875em] overflow-hidden rounded-[0.8em] leading-tight font-black break-keep;
                 &::before {
                     @apply absolute right-[0.3em] -bottom-[0.2em] text-[2em] text-white leading-[1.1];
                     counter-increment: section;
@@ -1628,24 +1358,19 @@
                     @apply hidden xs:inline;
                 }
                 &:nth-child(1) {
-                    @apply text-[#927737];
-                    background: linear-gradient(107deg, #fcf4e0 0%, #f7e2e7 100%);
+                    @apply text-[#927737] bg-[linear-gradient(107deg,_#fcf4e0_0%,_#f7e2e7_100%)];
                 }
                 &:nth-child(2) {
-                    @apply text-[#7F416D];
-                    background: linear-gradient(107deg, #f7e2e7 0%, #e9d9ee 100%);
+                    @apply text-[#7F416D] bg-[linear-gradient(107deg,_#f7e2e7_0%,_#e9d9ee_100%)];
                 }
                 &:nth-child(3) {
-                    @apply text-[#455288];
-                    background: linear-gradient(107deg, #e9d9ee 0%, #d0d8f4 100%);
+                    @apply text-[#455288] bg-[linear-gradient(107deg,_#e9d9ee_0%,_#d0d8f4_100%)];
                 }
                 &:nth-child(4) {
-                    @apply text-[#886143];
-                    background: linear-gradient(107deg, #fcf4e0 0%, #f7e2e7 100%);
+                    @apply text-[#886143] bg-[linear-gradient(107deg,_#fcf4e0_0%,_#f7e2e7_100%)];
                 }
                 &:nth-child(5) {
-                    @apply text-[#70397F];
-                    background: linear-gradient(107deg, #f7e2e7 0%, #e9d9ee 100%);
+                    @apply text-[#70397F] bg-[linear-gradient(107deg,_#f7e2e7_0%,_#e9d9ee_100%)];
                 }
             }
         }
@@ -1653,26 +1378,12 @@
 }
 
 .content-food4 {
-    @apply relative pt-[max(2.25rem,(min(5.7692vw,3.75rem)))] pb-[max(2.875rem,(min(7.5vw,4.875rem)))];
-    counter-reset: section;
-    &::before {
-        @apply content-empty absolute top-0 bottom-0 left-1/2 w-screen -translate-x-1/2 bg-neutral-100;
-    }
+    @apply relative pt-[max(2.25rem,(min(5.7692vw,3.75rem)))] pb-[max(2.875rem,(min(7.5vw,4.875rem)))] before:content-empty before:absolute before:top-0 before:bottom-0 before:left-1/2 before:w-screen before:-translate-x-1/2 before:bg-neutral-100;
     & .container {
         @apply grid gap-3 relative z-5 mx-auto max-w-[1020px] md:grid-cols-2 md:gap-4 lg:gap-5;
     }
     & .title {
-        @apply flex flex-col py-3 justify-center items-center text-center leading-[1.1] font-semibold text-[max(1.5rem,(min(3.4615vw,2.25rem)))] md:order-2;
-        font-variation-settings: "wght" 600;
-        & strong {
-            @apply inline-block text-[1.33333333333em] font-bold;
-            font-variation-settings: "wght" 700;
-            background: linear-gradient(99deg, #FF1818 0%, #FFAB46 100%);
-            -webkit-background-clip: text;
-            -moz-background-clip: text;
-            -webkit-text-fill-color: transparent; 
-            -moz-text-fill-color: transparent;
-        }
+        @apply flex flex-col py-3 justify-center items-center text-center leading-[1.1] font-extrabold text-[max(1.5rem,(min(3.4615vw,2.25rem)))] md:order-2;
         & span {
             @apply relative;
             & sub {
@@ -1681,14 +1392,10 @@
         }
         & .text2 {
             @apply mt-[0.55em];
-        }
-        & .text3 {
-            @apply mt-[0.77em];
             & span {
                 @apply inline-block relative;
                 & sub {
-                    @apply absolute top-full bottom-auto mt-[0.45em] py-[0.275em] px-[0.58em] rounded-full leading-none text-[0.3888888888888889em] text-white whitespace-nowrap font-medium;
-                    font-variation-settings: "wght" 500;
+                    @apply absolute top-full bottom-auto mt-[0.45em] py-[0.275em] px-[0.58em] rounded-full leading-none text-[0.3888888888888889em] text-white whitespace-nowrap font-bold;
                     &::before {
                         @apply content-empty absolute bottom-full w-0 h-0 border-solid border-0 border-transparent;
                     }
@@ -1696,55 +1403,24 @@
                 &.color1 {
                     @apply text-[#5A88C0];
                     & sub {
-                        @apply right-[0.2em] rounded-tr-none bg-[#5A88C0];
-                        &::before {
-                            @apply right-0 border-b-[0.57em] border-l-[0.7em] border-b-[#5A88C0];
-                        }
+                        @apply right-[0.2em] rounded-tr-none bg-[#5A88C0] before:right-0 before:border-b-[0.57em] before:border-l-[0.7em] before:border-b-[#5A88C0];
                     }
                 }
                 &.color2 {
                     @apply text-[#489428];
                     & sub {
-                        @apply left-[0.2em] rounded-tl-none bg-[#489428];
-                        &::before {
-                            @apply left-0 border-t-[0.57em] border-l-[0.7em] border-l-[#489428];
-                        }
+                        @apply left-[0.2em] rounded-tl-none bg-[#489428] before:left-0 before:border-t-[0.57em] before:border-l-[0.7em] before:border-l-[#489428];
                     }
                 }
             }
         }
-        & .text4 {
+        & .text3 {
             @apply mt-[1.28em];
         }
-    }
-    & .card {
-        @apply relative aspect-square text-[max(1.125rem,(min(2.3076vw,1.5rem)))] leading-[1.167];
-        & .rear {
-            @apply absolute top-0 left-0 w-full h-full bg-no-repeat transition-[box-shadow,transform] duration-500 rounded-[1em] aspect-square bg-white;
-            &::before {
-                @apply absolute text-[4.166667em] leading-[1.1] font-bold opacity-10 transition-[opacity] duration-500;
-                /* counter-increment: section;
-                content: counter(section); */
-                font-variation-settings: "wght" 700;
-            }
-        }
-        & .front {
-            @apply relative z-5 py-[1.5em] px-[1.625em] h-full transition-[padding,transform] duration-500 font-bold bg-no-repeat;
-            font-variation-settings: "wght" 700;
-        }
-        & .name {
-            & em {
-                @apply relative;
-                &::after {
-                    @apply content-empty absolute -z-5 bottom-0 left-0 w-full h-[0.25em];
-                }
-            }
-        }
         & .link {
-            @apply flex items-end mt-4 py-2.5 px-4 w-fit rounded-full text-xs font-medium text-white transition-colors duration-300 md:mt-5 md:py-3 md:px-5 md:text-[0.8125rem];
-            font-variation-settings: "wght" 500;
+            @apply flex items-end mt-4 py-2.5 px-4 w-fit rounded-full bg-[#F19187] text-sm font-bold text-white transition-colors duration-300 hover:bg-black2 md:mt-5 md:py-3 md:px-5 md:text-base;
             & strong {
-                @apply mr-1 text-sm md:text-base;
+                @apply mr-1 text-base md:text-xl;
             }
             & span {
                 @apply leading-[1.1];
@@ -1754,81 +1430,53 @@
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12.207' height='9.414' viewBox='0 0 12.207 9.414'%3E%3Cg id='Group_7' data-name='Group 7' transform='translate(0 0.207)'%3E%3Cpath id='Line_5' data-name='Line 5' d='M.5.5h11' transform='translate(0 4)' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-2' data-name='Line 5' d='M.5.5l4,4' transform='translate(7)' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Line_5-3' data-name='Line 5' d='M.5,4.5l4-4' transform='translate(7 4)' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E%0A");
             }
         }
-        &:hover {
-            @apply z-5;
-            & .rear {
-                @apply scale-[0.956] origin-center shadow-[_36px_34px_43px_#00000019];
-                &::before {
-                    @apply opacity-100;
-                }
+    }
+    & .card {
+        @apply relative aspect-square text-[max(1.125rem,(min(2.3076vw,1.5rem)))] leading-[1.167];
+        & .rear {
+            @apply absolute top-0 left-0 w-full h-full bg-no-repeat transition-[box-shadow,transform] duration-500 rounded-[1em] aspect-square bg-white;
+            &::before {
+                @apply absolute text-[4.166667em] leading-[1.1] font-black opacity-10 transition-[opacity] duration-500;
             }
-            & .front {
-                @apply pt-[1.65em];
+        }
+        & .front {
+            @apply relative z-5 py-[1.5em] px-[1.625em] h-full transition-[padding,transform] duration-500 font-black bg-no-repeat;
+        }
+        & .name {
+            & em {
+                @apply relative after:content-empty after:absolute after:-z-5 after:bottom-0 after:left-0 after:w-full after:h-[0.25em];
             }
         }
         &.card1 {
             @apply md:order-1;
             & .rear {
-                @apply bg-[url(../images/bg-content-food4.png)] bg-[length:43.6%] bg-[left_1.792em_bottom_1.35em];
-                &::before {
-                    @apply bottom-[0.25em] right-[0.375em];
-                }
+                @apply bg-[url(../images/bg-content-food4.png)] bg-[length:50.2%] bg-[left_1.792em_bottom_1.35em] before:bottom-[0.25em] before:right-[0.375em];
             }
             & .name {
                 & em {
-                    &::after {
-                        @apply bg-[#F62F1D]/40;
-                    }
-                }
-            }
-            & .link {
-                @apply bg-[#F19187];
-                &:hover {
-                    @apply bg-black2;
+                    @apply after:bg-[#F62F1D]/50;
                 }
             }
         }
         &.card2 {
             @apply md:order-3;
             & .rear {
-                @apply bg-[url(../images/bg-content-food4-2.png)] bg-[length:71%] bg-[left_0.75em_bottom];
-                &::before {
-                    @apply top-[0.25em] right-[0.25em];
-                }
+                @apply bg-[url(../images/bg-content-food4-2.png)] bg-[length:91.4%] bg-[left_0.75em_bottom] before:top-[0.25em] before:right-[0.25em];
             }
             & .name {
                 & em {
-                    &::after {
-                        @apply bg-[#EB9452]/50;
-                    }
-                }
-            }
-            & .link {
-                @apply bg-[#EB9452];
-                &:hover {
-                    @apply bg-black2;
+                    @apply after:bg-[#EB9452]/50;
                 }
             }
         }
         &.card3 {
             @apply text-right md:order-4;
             & .rear {
-                @apply bg-[url(../images/bg-content-food4-3.png)] bg-[length:45%] bg-[left_1.792em_bottom_1.35em];
-                &::before {
-                    @apply top-[0.25em] left-[0.25em];
-                }
+                @apply bg-[url(../images/bg-content-food4-3.png)] bg-[length:54.8%] bg-[left_1.792em_bottom_1.35em] before:top-[0.25em] before:left-[0.25em];
             }
             & .name {
                 & em {
-                    &::after {
-                        @apply bg-[#F7BF3F]/70;
-                    }
-                }
-            }
-            & .link {
-                @apply ml-auto bg-[#F7BF3F];
-                &:hover {
-                    @apply bg-black2;
+                    @apply after:bg-[#F7BF3F]/70;
                 }
             }
         }
@@ -1838,8 +1486,7 @@
 .content-food5 {
     @apply mt-[max(2.75rem,(min(6.923vw,4.5rem)))] mx-auto max-w-screen-lg;
     & h2 {
-        @apply text-center text-[max(2.375rem,(min(4.6153vw,3rem)))] leading-[1.1] font-bold;
-        font-variation-settings: "wght" 700;
+        @apply text-center text-[max(2.375rem,(min(4.6153vw,3rem)))] leading-[1.1] font-black;
         & small {
             @apply block mt-[1.4285em] ml-2 text-xs text-left leading-tight font-normal md:ml-3 md:text-sm;
         }
@@ -1850,8 +1497,7 @@
             @apply p-3 border-0 bg-neutral-100 rounded-md;
         }
         & th {
-            @apply text-[0.9375rem] font-bold text-center md:text-lg;
-            font-variation-settings: "wght" 700;
+            @apply text-[0.9375rem] font-black text-center md:text-lg;
         }
         & thead {
             & th {
@@ -1866,8 +1512,7 @@
         }
         & tbody {
             & td {
-                @apply text-[0.8125rem] font-medium leading-tight text-center md:text-sm;
-                font-variation-settings: "wght" 500;
+                @apply text-[0.8125rem] font-bold leading-tight text-center md:text-sm;
                 & i {
                     @apply font-serif italic font-black align-middle;
                 }
@@ -1897,8 +1542,7 @@
     & .labels {
         @apply flex items-center text-left xs-max:block;
         & dt {
-            @apply flex-none text-[0.8125rem] mr-1.5 py-1.5 px-2 w-fit rounded bg-[#E1E1E1] font-bold md:mr-2 md:px-2.5 md:py-2 md:rounded-md md:text-base;
-            font-variation-settings: "wght" 700;
+            @apply flex-none text-[0.8125rem] mr-1.5 py-1.5 px-2 w-fit rounded bg-[#E1E1E1] font-black md:mr-2 md:px-2.5 md:py-2 md:rounded-md md:text-base;
         }
         & dd {
             @apply leading-tight xs-max:mt-1;
@@ -1961,16 +1605,11 @@
 }
 
 .content-insurance2 {
-    @apply relative py-[max(1.375rem,(min(3.5vw,2.25rem)))];
-    &::before {
-        @apply content-empty absolute top-0 left-1/2 w-screen h-full bg-[#F5F5F3] -translate-x-1/2;
-    }
+    @apply relative py-[max(1.375rem,(min(3.5vw,2.25rem)))] before:content-empty before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-[#F5F5F3] before:-translate-x-1/2;
     & .title {
-        @apply relative z-5 leading-tight font-bold text-[max(2rem,(min(4.0384vw,2.625rem)))] text-center;
-        font-variation-settings: "wght" 700;
+        @apply relative z-5 leading-tight font-black text-[max(2rem,(min(4.0384vw,2.625rem)))] text-center;
         & small {
-            @apply block leading-snug text-[0.66666em] font-medium;
-            font-variation-settings: "wght" 500;
+            @apply block leading-snug text-[0.66666em] font-bold;
         }
     }
     & .link {
@@ -1997,10 +1636,7 @@
         @apply relative aspect-square leading-[1.167] break-keep select-none;
         &.is-active {
             & .item-front {
-                @apply scale-95;
-                &::before {
-                    @apply opacity-100 visible;
-                }
+                @apply scale-95 before:opacity-100 before:visible;
                 & .benefit, & .name , & .desc, & .summary, & .market {
                     @apply opacity-0 invisible;
                 }
@@ -2042,12 +1678,10 @@
             }
         }
         & .name {
-            @apply mt-[0.2857em] text-[max(1.25rem,(min(2.6923vw,1.75rem)))] font-bold transition-all duration-500;
-            font-variation-settings: "wght" 700;
+            @apply mt-[0.2857em] text-[max(1.25rem,(min(2.6923vw,1.75rem)))] font-black transition-all duration-500;
         }
         & .desc {
-            @apply w-fit mt-[1.215em] text-[max(1.25rem,(min(2.6923vw,1.75rem)))] font-bold transition-all duration-500;
-            font-variation-settings: "wght" 700;
+            @apply w-fit mt-[1.215em] text-[max(1.25rem,(min(2.6923vw,1.75rem)))] font-black transition-all duration-500;
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
@@ -2078,23 +1712,17 @@
     & .is-card1 {
         @apply transition-all duration-500;
         & .item-front {
-            @apply bg-[url(../images/bg-content-insurance2.png)] bg-[left_66.2374%] bg-[length:58.6275%];
-            &::before {
-                background: linear-gradient(114deg, #FC7929 0%, #BBDC2E 100%);
-            }
+            @apply bg-[url(../images/bg-content-insurance2.png)] bg-[left_66.2374%] bg-[length:58.6275%] before:bg-[linear-gradient(114deg,_#FC7929_0%,_#BBDC2E_100%)];
             & .benefit {
                 & span {
-                    background-image: linear-gradient(96deg, #FB7A29 0%, #C7C92D 100%);
+                    @apply bg-[linear-gradient(96deg,_#FB7A29_0%,_#C7C92D_100%)];
                 }
                 & em {
-                    @apply ml-[1.2857em] text-[#C7C92D];
-                    &::before {
-                        @apply w-[1.083333333333333em] bg-[#C7C92D];
-                    }
+                    @apply ml-[1.2857em] text-[#C7C92D] before:w-[1.083333333333333em] before:bg-[#C7C92D];
                 }
             }
             & .desc {
-                background-image: linear-gradient(96deg, #FB7A29 0%, #C7C92D 100%);
+                @apply bg-[linear-gradient(96deg,_#FB7A29_0%,_#C7C92D_100%)];
             }
             & .market {
                 @apply block absolute z-20 bottom-4 left-4 pl-12 text-xs leading-tight transition-all duration-500 md:bottom-5 md:left-6.5 md:pl-[4.125rem] md:text-[0.8125rem] lg:text-sm;
@@ -2117,23 +1745,17 @@
     }
     & .is-card2 {
         & .item-front {
-            @apply bg-[url(../images/bg-content-insurance2-2.png)] bg-[length:48.8235%];
-            &::before {
-                background: linear-gradient(134deg, #1EC33A 0%, #0B8DB3 100%);
-            }
+            @apply bg-[url(../images/bg-content-insurance2-2.png)] bg-[length:48.8235%] before:bg-[linear-gradient(134deg,_#1EC33A_0%,_#0B8DB3_100%)];
             & .benefit {
                 & span {
-                    background-image: linear-gradient(96deg, #29FB4E 0%, #2DC2C1 100%);
+                    @apply bg-[linear-gradient(96deg,_#29FB4E_0%,_#2DC2C1_100%)];
                 }
                 & em {
-                    @apply ml-[1.857em] text-[#2DC2C1];
-                    &::before {
-                        @apply w-[1.5em] bg-[#2DC2C1];
-                    }
+                    @apply ml-[1.857em] text-[#2DC2C1] before:w-[1.5em] before:bg-[#2DC2C1];
                 }
             }
             & .desc {
-                background-image: linear-gradient(96deg, #29FB4E 0%, #2DC2C1 100%);
+                @apply bg-[linear-gradient(96deg,_#29FB4E_0%,_#2DC2C1_100%)];
             }
         }
         & .item-rear {
@@ -2153,23 +1775,17 @@
     }
     & .is-card3 {
         & .item-front {
-            @apply bg-[url(../images/bg-content-insurance2-3.png)] bg-[length:75.6863%];
-            &::before {
-                background: linear-gradient(114deg, #A34CDD 0%, #C14D61 100%);
-            }
+            @apply bg-[url(../images/bg-content-insurance2-3.png)] bg-[length:75.6863%] before:bg-[linear-gradient(114deg,_#A34CDD_0%,_#C14D61_100%)];
             & .benefit {
                 & span {
-                    background-image: linear-gradient(98deg, #A34CDC 0%, #BB4D78 100%);
+                    @apply bg-[linear-gradient(98deg,_#A34CDC_0%,_#BB4D78_100%)];
                 }
                 & em {
-                    @apply ml-[3.892857em] text-[#BB4D78];
-                    &::before {
-                        @apply w-[3.5714285em] bg-[#BB4D78];
-                    }
+                    @apply ml-[3.892857em] text-[#BB4D78] before:w-[3.5714285em] before:bg-[#BB4D78];
                 }
             }
             & .desc {
-                background-image: linear-gradient(98deg, #A34CDC 0%, #BB4D78 100%);
+                @apply bg-[linear-gradient(98deg,_#A34CDC_0%,_#BB4D78_100%)];
             }
         }
         & .item-rear {
@@ -2189,23 +1805,17 @@
     }
     & .is-card4 {
         & .item-front {
-            @apply bg-[url(../images/bg-content-insurance2-4.png)] bg-center bg-cover;
-            &::before {
-                background: linear-gradient(114deg, #DD4C5C 0%, #404040 100%);
-            }
+            @apply bg-[url(../images/bg-content-insurance2-4.png)] bg-center bg-cover before:bg-[linear-gradient(114deg,_#DD4C5C_0%,_#404040_100%)];
             & .benefit {
                 & span {
-                    background-image: linear-gradient(94deg, #DD4C5C 0%, #854646 100%);
+                    @apply bg-[linear-gradient(94deg,_#DD4C5C_0%,_#854646_100%)];
                 }
                 & em {
-                    @apply ml-[4.892857em] text-[#424242];
-                    &::before {
-                        @apply w-[4.5714285em] bg-[#424242];
-                    }
+                    @apply ml-[4.892857em] text-[#424242] before:w-[4.5714285em] before:bg-[#424242];
                 }
             }
             & .desc {
-                background-image: linear-gradient(94deg, #DD4C5C 0%, #854646 100%);
+                @apply bg-[linear-gradient(94deg,_#DD4C5C_0%,_#854646_100%)];
             }
         }
         & .item-rear {
@@ -2225,8 +1835,7 @@
         @apply relative mx-auto items-start md:flex md:w-auto max-w-[1080px];
     }
     & .title {
-        @apply flex-none relative mb-[1em] font-bold leading-[1.1] text-[max(1.875rem,(min(3.8461vw,2.5rem)))] md:mr-[1em] md:mb-0;
-        font-variation-settings: "wght" 700;
+        @apply flex-none relative mb-[1em] font-black leading-[1.1] text-[max(1.875rem,(min(3.8461vw,2.5rem)))] md:mr-[1em] md:mb-0;
         & img {
             @apply hidden absolute -top-[2em] translate-x-1/2 right-0 w-[9.8em] max-w-none md:top-full sm:block sm:translate-x-1/4 md:mt-[0.4em] md:translate-x-0;
         }
@@ -2235,8 +1844,7 @@
         @apply relative z-5 flex-1 text-[max(1rem,(min(1.923vw,1.25rem)))];
     }
     & .summary {
-        @apply relative z-5 mt-[max(2.75rem,(min(6.73vw,4.375rem)))] leading-tight text-center font-semibold text-[max(1.25rem,(min(2.6923vw,1.75rem)))];
-        font-variation-settings: "wght" 600;
+        @apply relative z-5 mt-[max(2.75rem,(min(6.73vw,4.375rem)))] leading-tight text-center font-extrabold text-[max(1.25rem,(min(2.6923vw,1.75rem)))];
         background: linear-gradient(93deg, #FF8B34 0%, #2D9C19 100%);
         -webkit-background-clip: text;
         -moz-background-clip: text;
@@ -2253,18 +1861,16 @@
     & .title {
         @apply relative z-5 mx-auto w-fit text-center text-[max(2.25rem,(min(4.6153vw,3rem)))] md:pr-[0.8333333333333333em] md:mx-0 md:w-1/2 md:text-right;
         & strong {
-            @apply block leading-[1.135] font-bold;
-            font-variation-settings: "wght" 700;
+            @apply block leading-[1.135] font-black;
         }
         & small {
             @apply block mt-[0.5em] text-[0.4166666666666667em] leading-[1.2] whitespace-nowrap md:absolute md:top-1/2 md:left-full md:mt-0 md:-ml-[0.5em] md:-translate-y-1/2 md:text-left;
         }
     }
     & .step {
-        @apply relative z-5 mt-[1.4375em] mx-auto w-fit text-[max(1.375rem,(min(3.0769vw,2rem)))] text-right font-bold md:mx-0 md:pr-[1.25em] md:w-1/2;
-        font-variation-settings: "wght" 700;
+        @apply relative z-5 mt-[1.4375em] mx-auto w-fit text-[max(1.375rem,(min(3.0769vw,2rem)))] text-right font-black md:mx-0 md:pr-[1.25em] md:w-1/2;
         & li {
-            @apply flex items-center justify-end relative mb-[1.5em];
+            @apply flex items-center justify-end relative mb-[1.5em] last:mb-0 last:before:hidden;
             &::before {
                 @apply content-empty absolute top-full right-0 w-[1.625em] h-[1.5em] bg-no-repeat bg-center bg-[url(../images/ico-content-insurance4-arrow.svg)] bg-[length:0.78125em];
             }
@@ -2272,40 +1878,22 @@
                 @apply content-empty block ml-[0.25em] w-[1.625em] h-[1.625em] bg-no-repeat bg-cover;
             }
             &:nth-child(1) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4.svg)];
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4.svg)];
             }
             &:nth-child(2) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4-2.svg)];
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4-2.svg)];
             }
             &:nth-child(3) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4-3.svg)];
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4-3.svg)];
             }
             &:nth-child(4) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4-4.svg)];
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4-4.svg)];
             }
             &:nth-child(5) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4-5.svg)];
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4-5.svg)];
             }
             &:nth-child(6) {
-                &::after {
-                    @apply bg-[url(../images/ico-content-insurance4-6.svg)];
-                }
-            }
-            &:last-child {
-                @apply mb-0;
-                &::before {
-                    @apply hidden;
-                }
+                @apply after:bg-[url(../images/ico-content-insurance4-6.svg)];
             }
         }
     }
@@ -2338,8 +1926,7 @@
         }
     }
     & .cont3 {
-        @apply mt-4.5 text-lg font-medium leading-tight md:mt-7.5 md:text-xl;
-        font-variation-settings: "wght" 500;
+        @apply mt-4.5 text-lg font-bold leading-tight md:mt-7.5 md:text-xl;
     }
     & .cont4 {
         @apply mt-6 md:flex md:items-center md:mt-9.5;
@@ -2361,11 +1948,9 @@
 .content-visual {
     @apply relative z-10 -mt-11 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl md:-mt-5.5 text-white;
     & h1 {
-        @apply relative z-15 text-[max(1.75rem,(min(4.6875vw,3.75rem)))] leading-[1.1] font-semibold;
-        font-variation-settings: "wght" 600;
+        @apply relative z-15 text-[max(1.75rem,(min(4.6875vw,3.75rem)))] leading-[1.1] font-extrabold;
         & em {
             @apply font-light;
-            font-variation-settings: "wght" 300;
         }
         & span {
             @apply block align-bottom mt-1 font-serif font-light leading-snug text-[max(0.75rem,(min(1.09375vw,0.875rem)))] sm:inline-block sm:mt-0 sm:font-bold;
@@ -2377,16 +1962,9 @@
     & .nav-tabs {
         @apply flex relative z-15 mt-[max(1.75rem,(min(5.3125vw,4.25rem)))] text-[max(1.25rem,(min(1.875vw,1.5rem)))];
         & .nav-link {
-            @apply block min-w-[5.041666666666667em] text-center text-white;
-            &::after {
-                @apply content-empty block mt-[0.375em] h-[0.2916666666666667em];
-            }
+            @apply block min-w-[5.041666666666667em] text-center text-white after:content-empty after:block after:mt-[0.375em] after:h-[0.2916666666666667em];
             &.active {
-                @apply font-semibold text-white;
-                font-variation-settings: "wght" 600;
-                &::after {
-                    @apply bg-white;
-                }
+                @apply font-extrabold text-white after:bg-white;
             }
         }
     }
@@ -2402,8 +1980,7 @@
     @apply relative mx-auto max-w-screen-xl leading-[1.556] text-[max(0.875rem,(min(1.40625vw,1.125rem)))];
     word-break: keep-all;
     & h2 {
-        @apply font-semibold leading-[1.2];
-        font-variation-settings: "wght" 600;
+        @apply font-extrabold leading-[1.2];
     }
 }
 
@@ -2431,7 +2008,6 @@
             @apply mb-[0.52em] text-2xl md:text-[2.125rem] lg:text-[2.625rem] 2xl:text-[3.25rem];
             & em {
                 @apply font-light;
-                font-variation-settings: "wght" 300;
             }
         }
     }
@@ -2461,8 +2037,7 @@
     & dl {
         @apply mt-[max(2rem,(min(5vw,4rem)))];
         & dt {
-            @apply font-semibold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
-            font-variation-settings: "wght" 600;
+            @apply font-extrabold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
             & span {
                 @apply align-middle text-[1.666666666666667em] opacity-20;
                 &:first-child {

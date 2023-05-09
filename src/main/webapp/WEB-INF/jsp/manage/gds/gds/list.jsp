@@ -168,8 +168,9 @@
 									</c:otherwise>
 								</c:choose>
                             </td>
-                            <td>
-                            	<a href="./form?${pageParam}" class="btn-outline-success shadow w-full">${resultList.gdsCd}</a>
+                            <td class="gds_cd_view">
+                            	<a href="./form?${pageParam}" class="btn-outline-success shadow w-full gds_cd_a">${resultList.gdsCd}</a>
+                            	<span class="gds_cd_span" style="display:none;">${resultList.gdsCd}</span>
                             </td>
                             <td class="text-left"><a href="./form?${pageParam}" >${resultList.gdsNm}</a></td>
                             <td>
@@ -332,6 +333,20 @@
 	            	    	}
 	            		}
 	            		return;
+	            	});
+
+	            	$(".gds_cd_view").on("mouseenter",function(){
+	            		var obj = $(this).find(".gds_cd_a");
+	            		setTimeout(function(){
+		            		obj.hide();
+		            		obj.siblings(".gds_cd_span").show();
+	            		}, 1000);
+	            	});
+
+	            	$(".gds_cd_view").on("mouseleave",function(){
+	            		var obj = $(this).find(".gds_cd_a");
+	            		obj.show();
+	            		obj.siblings(".gds_cd_span").hide();
 	            	});
 
                 });

@@ -4,9 +4,10 @@
                     <li><a href="#section1" role="button" class="nav-link active">기본정보</a></li>
                     <li><a href="#section2" role="button" class="nav-link">상품요약정보</a></li>
                     <li><a href="#section3" role="button" class="nav-link">가격/재고/배송비</a></li>
-                    <li><a href="#section4" role="button" class="nav-link">이미지</a></li>
-                    <li><a href="#section5" role="button" class="nav-link">관련상품</a></li>
-                    <li><a href="#section6" role="button" class="nav-link">기타사항</a></li>
+                    <li><a href="#section4" role="button" class="nav-link">배송/교환/반품</a></li>
+                    <li><a href="#section5" role="button" class="nav-link">이미지</a></li>
+                    <li><a href="#section6" role="button" class="nav-link">관련상품</a></li>
+                    <li><a href="#section7" role="button" class="nav-link">기타사항</a></li>
                 </ul>
 
                 <form:form name="frmGds" id="frmGds" modelAttribute="gdsVO" method="post" action="./action" enctype="multipart/form-data" class="mt-7.5 relative">
@@ -77,7 +78,8 @@
                                     <th scope="row"><label for="gdsCd" class="require">상품관리코드</label></th>
                                     <td colspan="3">
                                         <div class="form-group">
-                                            <form:input path="gdsCd" class="form-control w-70" maxlength="10" readonly="true" />
+                                        	${gdsVO.gdsCd}
+                                            <form:hidden path="gdsCd" class="form-control w-70" maxlength="10" readonly="true" />
                                             <p class="ml-2">
                                                 상품관리코드는 자동 생성됩니다.
                                             </p>
@@ -632,6 +634,7 @@
                         </table>
                     </fieldset>
 
+
                     <fieldset class="mt-13">
                         <legend class="text-title2">배송비</legend>
                         <table class="table-detail">
@@ -688,7 +691,104 @@
                         </table>
                     </fieldset>
 
+                    <!-- 배송/교환/반품 -->
                     <fieldset id="section4" class="mt-13">
+                    	<legend class="text-title2">배송</legend>
+                    	<table class="table-detail">
+                    		<colgroup>
+                                <col class="w-35">
+                                <col class="w-35">
+                                <col >
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">상품</th>
+                                    <th scope="col">배송비</th>
+                                    <th scope="col">내용</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(급여구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                    <td rowspan="3">
+                                        <form:textarea path="dlvyDc" class="form-control w-full" cols="30" rows="5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(일반구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                    	</table>
+
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                    	<legend class="text-title2">
+                    		교환/반품
+                    	</legend>
+                    	<table class="table-detail">
+                            <colgroup>
+                                <col class="w-35">
+                                <col class="w-35">
+                                <col >
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" colspan="2"><p>공통</p></th>
+                                    <td>
+                                        <form:textarea path="dcCmmn" class="form-control w-full" cols="30" rows="5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="2"><p>무료<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td rowspan="2">
+                                        <form:textarea path="dcFreeSalary" class="form-control w-full" cols="30" rows="5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td>
+                                        <form:textarea path="dcPchrgSalary" class="form-control w-full" cols="30" rows="5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br> (일반구매)</p></th>
+                                    <td>
+                                        <form:textarea path="dcPchrgSalaryGnrl" class="form-control w-full" cols="30" rows="5" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <td>
+                                        <form:textarea path="dcPchrgGnrl" class="form-control w-full" cols="30" rows="2" />
+                                    </td>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <!-- 배송/교환/반품 -->
+
+                    <fieldset id="section5" class="mt-13">
                         <legend class="text-title2">
                         	상품 이미지
                         	<span class="absolute left-full top-1 ml-2 whitespace-nowrap text-sm">
@@ -762,7 +862,7 @@
                         </table>
                     </fieldset>
 
-                    <fieldset id="section5" class="mt-13">
+                    <fieldset id="section6" class="mt-13">
                         <legend class="text-title2">관련 상품</legend>
 						<table class="table-detail mb-5">
                             <colgroup>
@@ -848,7 +948,7 @@
 
                     </fieldset>
 
-                    <fieldset id="section6" class="mt-13">
+                    <fieldset id="section7" class="mt-13">
                         <legend class="text-title2">기타사항</legend>
                         <table class="table-detail">
                             <colgroup>
@@ -1318,7 +1418,7 @@
 
                     	//tinymce editor
                    		tinymce.overrideDefaults(baseConfig);
-                   		tinymce.init({selector:"#gdsDc, #aditGdsDc, #memo"});
+                   		tinymce.init({selector:"#gdsDc, #aditGdsDc, #memo, #dlvyDc, #dcCmmn, #dcFreeSalary, #dcPchrgSalary, #dcPchrgSalaryGnrl, #dcPchrgGnrl"});
 
                    		//배송비 유형
                    		$("#dlvyCtTy").on("change", function(){
@@ -1491,6 +1591,7 @@
                    			$("input[name='tempYn']").val("Y");
                        		$("#frmGds").submit();
                     	});
+
 
                     });
                 </script>

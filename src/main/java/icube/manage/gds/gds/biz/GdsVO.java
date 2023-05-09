@@ -79,6 +79,7 @@ public class GdsVO extends CommonBaseVO {
 	private String dlvyCtStlm;
 	private int dlvyBassAmt = 0;
 	private int dlvyAditAmt = 0;
+	private String dlvyDc;
 
 	//상품 이미지
 	private FileVO thumbnailFile; //대표(썸네일) 이미지
@@ -88,6 +89,11 @@ public class GdsVO extends CommonBaseVO {
 
 	//기타사항
 	private String aditGdsDc;
+	private String dcCmmn;
+	private String dcFreeSalary;
+	private String dcPchrgSalary;
+	private String dcPchrgSalaryGnrl;
+	private String dcPchrgGnrl;
 	private String seoAuthor;
 	private String seoDesc;
 	private String seoKeyword;

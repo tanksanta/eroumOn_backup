@@ -141,8 +141,8 @@
 					<ul class="nav">
 						<li><a class="nav-link active" href="#prod-tabcontent1">상세정보</a></li>
 						<!-- <li><a class="nav-link" href="#prod-tabcontent2">상품후기 <span class="reviewCnt2">(0)</span></a></li> -->
+						<li><a class="nav-link" href="#prod-tabcontent4">배송/교환/반품정보</a></li>
 						<li><a class="nav-link" href="#prod-tabcontent3">상품문의 <span class="qaCnt">(0)</span></a></li>
-						<!-- <li><a class="nav-link" href="#prod-tabcontent4">교환/반품/배송정보</a></li> -->
 					</ul>
 				</div>
 				<!-- //상세 탭 -->
@@ -167,6 +167,99 @@
 
 				</div>
 				<!-- //상품 정보 -->
+
+				   <!-- 상품 배송/교환/반품정보 -->
+                    <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13">
+                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">배송</p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="min-w-19 w-[16%]">
+                                <col class="min-w-19 w-[14%]">
+                                <col >
+                            </colgroup>
+                            <thead>
+                                <tr class="top-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">상품</p></th>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">배송비</p></th>
+                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">내용</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(급여구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                    <td rowspan="3">${gdsVO.dlvyDc}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br>(일반구매)</p></th>
+                                    <th scope="row"><p>무료</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">교환/반품 일반사항</p>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="min-w-19 w-[16%]">
+                                <col class="min-w-19 w-[14%]">
+                                <col >
+                            </colgroup>
+                            <tbody>
+                                <tr class="top-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" colspan="2"><p>공통</p></th>
+                                    <td>${gdsVO.dcCmmn}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="2"><p>무료<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td rowspan="2">${gdsVO.dcFreeSalary}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                </tr>
+                                <tr>
+                                    <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
+                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
+                                    <td>
+                                        ${gdsVO.dcPchrgSalary}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>복지용구<br> (일반구매)</p></th>
+                                    <td>
+                                        ${gdsVO.dcPchrgSalaryGnrl}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <td>
+                                        ${gdsVO.dcPchrgGnrl}
+                                    </td>
+                                </tr>
+                                <tr class="bot-border">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- //상품 배송/교환/반품정보  -->
 
 				<!-- 상품 후기 -->
 				<!--  <div id="prod-tabcontent2" class="product-itemphoto mt-10 md:mt-13">

@@ -33,7 +33,4 @@ public class PlannerCntntsController extends CommonAbstractController {
 
 		return "/planner/cntnts/" + pageName;
 	}
-
-
-
 }

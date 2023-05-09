@@ -25,13 +25,6 @@
     --key8-gradient2 : linear-gradient(104deg, #5E6755 0%, #AC6491 100%);
 }
 
-@font-face {
-    font-family: 'NanumSquareNeo';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
 html, body {
     @apply scroll-smooth text-black2;
     -webkit-overflow-scrolling: touch;
@@ -43,8 +36,7 @@ body {
 }
 
 strong {
-    @apply font-semibold;
-    font-variation-settings: "wght" 600;
+    @apply font-extrabold;
 }
 
 @layer components {
@@ -234,21 +226,14 @@ strong {
             }
         }
         & .dropdown-item {
-            @apply border-t border-t-[#d8d8d8] block py-2.5 px-4 text-sm leading-snug;
-            &:active {
-                @apply bg-neutral-100;
-            }
+            @apply border-t border-t-[#d8d8d8] block py-2.5 px-4 text-sm leading-snug active:bg-neutral-100;
         }
     }
 
     .label {
         @apply inline-flex items-center justify-center px-3 rounded-full h-5.5 bg-gray1 text-[0.8125rem] font-normal text-white;
-        font-variation-settings: "wght" 400;
         & + .label {
-            @apply mr-0.5;
-            &:last-child {
-                @apply mr-0;
-            }
+            @apply mr-0.5 last:mr-0;
         }
     }
 
@@ -285,8 +270,7 @@ strong {
     }
 
     .btn {
-        @apply px-4 h-[3.4375rem] border-0 rounded-lg bg-gray1 text-center text-base text-white font-medium ring-0;
-        font-variation-settings: "wght" 500;
+        @apply px-4 h-[3.4375rem] border-0 rounded-lg bg-gray1 text-center text-base text-white font-bold ring-0;
         &:hover, &:focus, &:active {
             @apply bg-gray1 ring-0;
         }
