@@ -40,4 +40,18 @@
 		WHERE trgt.COUPON_NO = #{couponNo}
 	</select>
 
+	<select id="selectAplcnTrgtByMap" parameterType="java.util.HashMap" resultMap="couponAplcnTrgtVOMap">
+		/* Query ID : coupon.aplcn.trgt.selectAplcnTrgtByMap */
+		SELECT
+			trgt.COUPON_NO
+			,gds.gds_no
+			, gds.gds_cd
+			, gds.gds_nm
+			, gds.pc
+			, gds.use_yn
+		FROM COUPON_APLCN_TRGT trgt
+		LEFT JOIN GDS gds ON trgt.GDS_NO = gds.GDS_NO
+		WHERE trgt.COUPON_NO = #{srchCouponNo}
+		and trgt.GDS_NO = #{srchGdsNo}
+	</select>
 </mapper>
