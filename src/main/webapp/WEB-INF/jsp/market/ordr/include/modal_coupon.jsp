@@ -94,6 +94,7 @@
 												<input type="hidden" name="usePsbltyDaycnt" value="${cpnList.couponInfo.usePsbltyDaycnt}" />
 												<input type="hidden" name="mummOrdrAmt" value="${cpnList.couponInfo.mummOrdrAmt}" />
 												<input type="hidden" name="mxmmDscntAmt" value="${cpnList.couponInfo.mxmmDscntAmt}" />
+												<input type="hidden" name="issuMbr" value="${cpnList.couponInfo.issuMbr}" />
 												<input type="hidden" name="issuMbrTy" value="${cpnList.couponInfo.issuMbrTy}" />
 
 												<button type="button" class="use_coupon">이 쿠폰 사용하기</button>
@@ -208,6 +209,7 @@ $(function(){
     	var mummOrdrAmt = $(this).siblings("input[name='mummOrdrAmt']").val();
     	var mxmmDscntAmt = $(this).siblings("input[name='mxmmDscntAmt']").val();
     	var couponTy = $(this).siblings("input[name='cpnTy']").val();
+    	var issuMbr = $(this).siblings("input[name='issuMbr']").val();
     	var mbrTy = "${mbrSession.recipterYn}";
 
     	if(mbrTy == "Y"){
@@ -240,7 +242,9 @@ $(function(){
 			if(data.result != true){
 				alert("해당 상품에 사용 할 수 없는 쿠폰입니다.");
 			}else{
-				if(issuMbrTy[0] != mbrTy && issuMbrTy[1] != mbrTy){
+				// 개별회원이 아닐 경우만 수급자 여부 검사
+				if(issuMbr != 'I' &&
+						issuMbrTy[0] != mbrTy && issuMbrTy[1] != mbrTy){
 					alert("회원님은 이 쿠폰을 사용하실 수 없습니다.");
 				}else{
 			    	if(Number(gdsPc) < amt){

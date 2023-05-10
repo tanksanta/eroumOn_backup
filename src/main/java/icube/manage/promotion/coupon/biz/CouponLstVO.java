@@ -39,6 +39,7 @@ public class CouponLstVO extends CommonBaseVO {
 	private int issuQy;
 	private int mummOrdrAmt;
 	private int mxmmDscntAmt;
+	private String issuMbr;
 	private String dscntTy;
 	private int dscntAmt;
 
