@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
+import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailFormService;
 import icube.common.util.Base64Util;
 import icube.common.util.DateUtil;
@@ -45,11 +46,10 @@ import icube.manage.promotion.point.biz.MbrPointService;
 import icube.market.mbr.biz.MbrSession;
 import icube.market.mypage.info.biz.DlvyService;
 import icube.market.mypage.info.biz.DlvyVO;
-import jdk.internal.org.jline.utils.Log;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
-public class OrdrController {
+public class OrdrController extends CommonAbstractController {
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
@@ -338,7 +338,7 @@ public class OrdrController {
 
 				}catch(Exception e) {
 					e.printStackTrace();
-					Log.debug("ordrRqstAction Error : " + e.toString());
+					log.debug("ordrRqstAction Error : " + e.toString());
 				}
 			}
 
