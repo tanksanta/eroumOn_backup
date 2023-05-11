@@ -39,7 +39,7 @@
 		<dl class="member-desc">
 			<dl>
 				<dt>
-					<img src="/html/page/members/assets/images/img-main-logo-white.svg" alt="이로움ON">
+					<img src="/html/core/images/img-brand-logo-white.svg" alt="이로움ON">
 				</dt>
 				<dd>
 					<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>

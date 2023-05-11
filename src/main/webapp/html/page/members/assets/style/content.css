@@ -2,12 +2,29 @@
 @layer components {
     .tabs {
         & .tabs-link {
-            @apply h-11 text-sm md:text-base md:h-12 lg:text-lg lg:h-14;
-            word-break: keep-all;
+            @apply h-11 text-sm break-keep md:text-base md:h-12 lg:text-lg lg:h-14;
         }
         &.is-small {
             & .tabs-link {
                 @apply h-8.5 text-xs md:h-9.5 md:text-sm lg:h-11 lg:text-base;
+            }
+        }
+    }
+
+    .list-normal {
+        @apply space-y-[0.17em];
+        & li {
+            @apply relative pl-[1em] content-["-"] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
+        }
+    }
+    
+    .list-number {
+        @apply space-y-[0.17em];
+        counter-reset: section;
+        & li {
+            @apply relative pl-[1em] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center before:content-[counter(section)"."];
+            &::before {
+                counter-increment: section;
             }
         }
     }
@@ -50,22 +67,13 @@
 
 /* 회원 탭 */
 .member-tabs {
-    @apply flex relative justify-between;
-    &::before {
-        @apply content-empty absolute left-0 right-0 bottom-px h-px bg-gray1;
-    }
+    @apply flex relative justify-between before:content-empty before:absolute before:left-0 before:right-0 before:bottom-px before:h-px before:bg-gray1;
     & li {
         @apply relative;
         & a, & span {
-            @apply block text-base md:text-lg;
-            &::after {
-                @apply content-empty block mt-1.5 h-[3px] rounded-full bg-transparent;
-            }
+            @apply block text-base md:text-lg after:content-empty after:block after:mt-1.5 after:h-[3px] after:rounded-full after:bg-transparent;
             &.active {
-                @apply font-bold;
-                &::after {
-                    @apply bg-black2;
-                }
+                @apply font-bold after:bg-black2;
             }
         }
     }
@@ -117,10 +125,7 @@
         }
     }
     & .search-group {
-        @apply items-start sm:flex sm:mt-1.5 sm:px-7.5;
-        &:first-child {
-            @apply mt-8 sm:mt-10;
-        }
+        @apply items-start sm:flex sm:mt-1.5 sm:px-7.5 first:mt-8 first:sm:mt-10;
     }
     & .search-auth {
         @apply flex items-center mt-6 mb-5 sm:mt-11 sm:mb-6 sm:px-7.5;
@@ -190,15 +195,9 @@
 
 /* 회원 가입 */
 .member-join {
-    @apply relative mx-auto max-w-[36.5rem] xs:flex;
-    &::before {
-        @apply content-empty hidden absolute -z-5 bottom-0 h-[306px] bg-right-bottom bg-[length:auto_100%] lg:h-[408px] xs:block;
-    }
+    @apply relative mx-auto max-w-[36.5rem] xs:flex before:content-empty before:hidden before:absolute before:-z-5 before:bottom-0 before:h-[306px] before:bg-right-bottom before:bg-[length:auto_100%] before:lg:h-[408px] before:xs:block;
     & > * {
-        @apply xs:-mr-5;
-        &:last-child {
-            @apply mr-0;
-        }
+        @apply xs:-mr-5 last:mr-0;
     }
 }
 
@@ -258,10 +257,7 @@
             }
         }
         & .accordion-button {
-            @apply absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-no-repeat bg-[right_0.25rem_center] bg-[url(../images/ico-plus.svg)] bg-[length:0.875rem] shadow-none -indent-[999em];
-            &[aria-expanded="true"] {
-                @apply bg-[url(../images/ico-minus.svg)];
-            }
+            @apply absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-no-repeat bg-[right_0.25rem_center] bg-[url(../images/ico-plus.svg)] bg-[length:0.875rem] shadow-none -indent-[999em] aria-expanded:bg-[url(../images/ico-minus.svg)];
         }
         & .accordion-body {
             @apply scrollbars mb-1.5 max-h-52 rounded-md bg-neutral-100 text-[0.8125rem] leading-snug;
@@ -318,14 +314,12 @@
             }
         }
         & .title {
+            @apply after:content-empty after:block after:mt-1.5 after:h-[3px] after:rounded-md after:bg-white/30;
             & .name {
                 @apply text-3xl leading-tight font-thin;
             }
             & .desc {
                 @apply mt-0.5 text-[2.875rem] leading-[1.1] font-bold tracking-tighter;
-            }
-            &::after {
-                @apply content-empty block mt-1.5 h-[3px] rounded-md bg-white/30;
             }
         }
         & .group1 {
@@ -335,8 +329,7 @@
             @apply grid gap-2.5 grid-cols-[34%_auto] mt-2.5;
         }
         & .number {
-            @apply text-white tracking-tight break-all;
-            background: linear-gradient(138deg, rgba(249, 85, 54, 0.8) 0%, rgba(255, 132, 25, 0.8) 100%);
+            @apply text-white tracking-tight break-all bg-[linear-gradient(138deg,_rgba(249,85,54,0.8)_0%,_rgba(255,132,25,0.8)_100%)];
             & dd {
                 @apply mt-2 text-left text-2xl tracking-tighter font-medium sm:text-3xl;
             }
@@ -365,13 +358,7 @@
             & dd {
                 @apply mt-1 text-[0.9375rem];
                 & p {
-                    @apply mx-auto w-4/5 max-w-full sm:w-2/3 xs-max:w-auto;
-                    &:first-child {
-                        @apply text-left;
-                    }
-                    &:last-child {
-                        @apply text-right;
-                    }
+                    @apply mx-auto w-4/5 max-w-full first:text-left last:text-right sm:w-2/3 xs-max:w-auto;
                 }
             }
         }
@@ -406,8 +393,7 @@
                 }
             }
             & .form-check-label {
-                @apply ml-0 py-4 px-2 w-full min-h-full border border-black2 opacity-50 rounded-md text-base font-bold leading-tight text-center md:text-lg;
-                word-break: keep-all;
+                @apply ml-0 py-4 px-2 w-full min-h-full border border-black2 opacity-50 rounded-md text-base font-bold leading-tight break-keep text-center md:text-lg;
                 & small {
                     @apply block text-sm font-normal md:text-[0.9375rem];
                 }
@@ -422,18 +408,13 @@
                 @apply absolute opacity-0 w-0 h-0 overflow-hidden;
                 &:checked {
                     & + .form-check-label {
-                        @apply bg-black2 text-white;
-                        &::before {
-                            @apply opacity-100 transition-all duration-200;
-                        }
+                        @apply bg-black2 text-white before:opacity-100 before:transition-all before:duration-200;
                     }
                 }
             }
             & .form-check-label {
-                @apply flex items-center justify-center m-0 h-[2.625rem] border border-black2 rounded-md text-center transition-colors duration-200 md:h-12;
-                &::before {
-                    @apply content-empty absolute top-1/2 left-[1em] w-[1.25em] h-[1.25em] bg-cover bg-[url(../images/ico-check.svg)] -translate-y-1/2 opacity-0;
-                }
+                @apply flex items-center justify-center m-0 h-[2.625rem] border border-black2 rounded-md text-center transition-colors duration-200 md:h-12
+                       before:content-empty before:absolute before:top-1/2 before:left-[1em] before:w-[1.25em] before:h-[1.25em] before:bg-cover before:bg-[url(../images/ico-check.svg)] before:-translate-y-1/2 before:opacity-0;
             }
         }
     }
@@ -459,11 +440,9 @@
         }
     }
     & .content-benefit {
-        @apply relative mt-8 -mx-5 pr-5 pl-48 py-8 rounded-b-[1.25rem] leading-tight text-sm xs:-mb-10 sm:-mx-10 sm:pl-60 sm:pr-10 md:text-[0.9375rem];
+        @apply relative mt-8 -mx-5 pr-5 pl-48 py-8 rounded-b-[1.25rem] leading-tight text-sm xs:-mb-10 sm:-mx-10 sm:pl-60 sm:pr-10 md:text-[0.9375rem]
+               before:content-empty before:absolute before:top-1/2 before:left-5 before:mr-4 before:w-39 before:bg-cover before:bg-[url(../images/img-join-benefit.png)] before:aspect-[1/0.414168] before:-translate-y-1/2 before:sm:left-10 before:md:mr-5 before:md:w-45;
         background: linear-gradient(106deg, rgba(255, 210, 210, 0.2) 0%, rgba(241, 200, 145, 0.2) 54%, rgba(145, 241, 202, 0.2) 100%);
-        &::before {
-            @apply content-empty absolute top-1/2 left-5 sm:left-10 mr-4 w-39 bg-cover bg-[url(../images/img-join-benefit.png)] aspect-[1/0.414168] -translate-y-1/2 md:mr-5 md:w-45;
-        }
         & strong {
             @apply block w-fit pr-4 bg-no-repeat bg-[right_top_0.4em] bg-[url(../images/ico-angle.svg)] bg-[length:0.35em] text-lg md:text-xl;
         }
@@ -482,12 +461,10 @@
 .member-join-introduce {
     @apply mx-auto max-w-95 aspect-square sm:max-w-[31.5rem] md:max-w-[42.5rem] lg:max-w-[52.4375rem];
     & .title {
-        @apply flex items-start;
+        @apply flex items-start
+               before:content-empty before:block before:flex-none before:-mt-[30%] before:w-2/5 before:bg-cover before:bg-[url(../images/bg-card.png)] before:aspect-[1/2.0723] before:sm:w-60 before:md:w-80 before:lg:w-100;
         & img {
             @apply ml-[7%] w-[53%] sm:ml-8 sm:pt-5 sm:w-56 md:ml-9 md:pt-9 md:w-[20.15rem] lg:pt-20 lg:w-[25.1875rem];
-        }
-        &::before {
-            @apply content-empty block flex-none -mt-[30%] w-2/5 bg-cover bg-[url(../images/bg-card.png)] aspect-[1/2.0723] sm:w-60 md:w-80 lg:w-100;
         }
     }
     & .join1, & .join2 {
@@ -586,33 +563,22 @@
 
 /* 회원정보수정 */
 .member-modify {
-    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%] md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0;
-    &::before, &::after {
-        @apply content-empty absolute;
-    }
-    &::before {
-        @apply top-7 left-4.5 w-15 h-[31.75rem] bg-[url(../images/txt-membership.svg)] bg-cover lg:top-8.5 lg:left-5.5 lg:w-[75px] lg:h-[635px] md-max:top-9 md-max:right-6.5 md-max:w-[16.125rem] md-max:h-7.5 md-max:bg-[url(../images/txt-membership-mo.svg)];
-    }
-    &::after {
-        @apply hidden top-0 bottom-0 right-0 w-1/2 bg-gray1 md:block;
-    }
+    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%] md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0
+           before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover before:lg:top-8.5 before:lg:left-5.5 before:lg:w-[75px] before:lg:h-[635px] before:md-max:top-9 before:md-max:right-6.5 before:md-max:w-[16.125rem] before:md-max:h-7.5 before:md-max:bg-[url(../images/txt-membership-mo.svg)]
+           after:content-empty after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1 after:md:block;
     & .member-join-content {
         @apply relative z-10 py-7.5 px-5 border md:px-8.5 md:pb-11;
     }
     &.is-left {
-        @apply md-max:-ml-5 md-max:pl-5 md-max:pr-0 md-max:mr-auto;
-        &::before {
-            @apply md-max:left-6.5 md-max:right-auto;
-        }
+        @apply md-max:-ml-5 md-max:pl-5 md-max:pr-0 md-max:mr-auto before:md-max:left-6.5 before:md-max:right-auto;
     }
 }
 
 .member-modify-password {
     @apply mt-5 text-center md:mt-6;
     & fieldset {
-        @apply -mx-5 py-12 px-5 md:mx-0 md:py-15 md:rounded-[1rem];
-        background-image: linear-gradient(98deg, rgba(21, 132, 185, 0.1) 0%, rgba(119, 13, 172, 0.1) 29%, rgba(184, 13, 13, 0.1) 54%, rgba(229, 162, 10, 0.1) 77%, rgba(67, 168, 0, 0.1) 100%);
-    }
+        @apply -mx-5 py-12 px-5 md:mx-0 md:py-15 md:rounded-[1rem] bg-[linear-gradient(98deg,_rgba(21,132,185,0.1)_0%,_rgba(119,13,172,0.1)_29%,_rgba(184,13,13,0.1)_54%,_rgba(229,162,10,0.1)_77%,_rgba(67,168,0,0.1)_100%)];
+}
     & .form-group {
         @apply w-full max-w-80 md:max-w-100 xs-max:max-w-75;
         & .form-control {
@@ -651,56 +617,20 @@
     &.is-number {
         counter-reset: section; 
         & > li {
-            @apply pl-[1.2em];
+            @apply pl-[1.2em] before:absolute before:top-0 before:left-0 before:content-[counter(section)")"];
             counter-increment: section;
-            &::before {
-                @apply absolute top-0 left-0;
-                content: counter(section)")";
-            }
         }
     }
     &.is-number2 {
         counter-reset: section; 
         & > li {
-            @apply pl-[1.2em];
+            @apply pl-[1.2em] before:absolute before:top-0 before:left-0 before:content-[counter(section)"."];
             counter-increment: section;
-            &::before {
-                @apply absolute top-0 left-0;
-                content: counter(section)".";
-            }
         }
     }
     &.is-hypen {
         & > li {
-            @apply pl-[0.9em];
-            &::before {
-                @apply absolute top-0 left-[0.15em];
-                content: '-';
-            }
-        }
-    }
-}
-
-.list-normal {
-    @apply space-y-[0.17em];
-    & li {
-        @apply relative pl-[1em];
-        &::before {
-            @apply absolute top-0 left-0 w-[1em] text-center;
-            content: "-";
-        }
-    }
-}
-
-.list-number {
-    @apply space-y-[0.17em];
-    counter-reset: section;
-    & li {
-        @apply relative pl-[1em];
-        &::before {
-            @apply absolute top-0 left-0 w-[1em] text-center;
-            counter-increment: section; 
-            content: counter(section)"."; 
+            @apply pl-[0.9em] before:content-["-"] before:absolute before:top-0 before:left-[0.15em];
         }
     }
 }

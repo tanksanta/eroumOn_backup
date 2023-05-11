@@ -18,36 +18,34 @@
 <body>
     <header id="header">
         <div class="container">
-            <h1 id="header-logo">
-                <a href="#"><span class="sr-only">이로움</span> 회원</a>
-            </h1>
+            <h1 id="logo" class="global-logo"><a href="#"><span>회원</span></a></h1>
             <nav id="navigation">
                 <ul>
-                    <li><a href="로그인.html" class="navigation-link is-active">로그인</a></li>
+                    <li><a href="로그인.html" class="navigation-link">로그인</a></li>
                     <li><a href="회원가입.html" class="navigation-link">회원가입</a></li>
                 </ul>
             </nav>
-            <ul id="family">
+            <ul id="family" class="global-link is-bottom">
                 <li>
-                    <a href="#" class="family-link1">
+                    <a href="#" class="link-item1">
                         <div class="bubble">
                             <small>시니어 라이프 케어 플랫폼</small>
-                            "이로움"
+                            <strong>"이로움ON"</strong>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="family-link2">
+                    <a href="#" class="link-item2">
                         <div class="bubble">
-                            이로움 멤버스
+                            <strong>이로움ON 멤버스</strong>
                             <small>전국 2,432개 업체와 함께합니다</small>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="family-link3">
+                    <a href="#" class="link-item3">
                         <div class="bubble">
-                            <img src="../assets/images/txt-family3.svg" alt="이로움마켓">
+                            <strong><img src="/html/core/images/txt-brand-link3.svg" alt="이로움ON 마켓"></strong>
                             <small>
                                 복지용구 사업소와 수급자 매칭부터<br>
                                 주문, 계약 및 결제까지 한번에!
@@ -564,14 +562,6 @@
                     이 약관은 2023년 04월 01일부터 시행합니다.
                 </p>
 	        </div>
-            <script>
-                $(function () {
-                    //공용 옵션박스
-                    $('.product-option .option-toggle').on('click', function() {
-                        $(this).closest('.product-option').toggleClass('is-active');
-                    })
-                })
-            </script>
         </div>
     </main>
 

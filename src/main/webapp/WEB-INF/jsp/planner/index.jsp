@@ -219,14 +219,10 @@
                 <!-- 서비스 본문(복지제도) -->
                 <div class="tab-pane fade show active" id="tabs-cont1" role="tabpanel">
                 	<div class="cont-target">
-	                	<div style="margin:5vh 0;">
-						    <div class="box-loading">
-						        <div class="icon">
-						            <span></span><span></span><span></span>
-						        </div>
-						        <p class="text">데이터를 불러오는 중입니다.</p>
-						    </div>
-						</div>
+				        <div class="progress-loading is-dark">
+				            <div class="icon"><span></span><span></span><span></span></div>
+				            <p class="text">데이터를 불러오는 중입니다.</p>
+				        </div>
                 	</div>
                     <div class="page-content-paging">
                         <div class="flow"></div>
@@ -298,7 +294,7 @@
 	    							})
 	    							$("#modal-detail").addClass("is-color" + colorNum);
 	    						}
-	    						$('.box-loading').remove();
+	    						$('.progress-loading').remove();
 	            			}
 	            		);
 
@@ -585,7 +581,7 @@
         	$(document).on("click", ".content-item a", function(e){
         		e.preventDefault();
         		let bokjiId = $(this).attr("href").replace("#", "");
-				$('body').append('<div class="box-loading" style="position: fixed; top:50%; left:50%; transform: translate(-50%,-50%); z-index: 6666;"><div class="icon"><span></span><span></span><span></span></div><p class="text">데이터를 불러오는 중입니다.</p></div>')
+				$('body').append('<div class="progress-loading is-dark"><div class="icon"><span></span><span></span><span></span></div><p class="text">데이터를 불러오는 중입니다.</p></div>')
 				srvcDtl(bokjiId);
         	});
 

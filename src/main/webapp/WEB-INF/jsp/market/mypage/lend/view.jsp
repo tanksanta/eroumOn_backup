@@ -24,10 +24,10 @@
 
 			<h3 class="text-title mt-9 md:mt-13 lg:mt-17">결제내역</h3>
 			<div id="rebill-list-wrap">
-                 <div class="box-loading mx-auto">
-                     <div class="icon"><div></div></div>
-                     <p class="text">결제정보를 불러오는 중입니다.</p>
-                 </div>
+		        <div class="progress-loading is-static">
+		            <div class="icon"><span></span><span></span><span></span></div>
+					<p class="text">결제정보를 불러오는 중입니다.</p>
+		        </div>
 			</div>
 		</div>
 	</div>

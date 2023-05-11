@@ -339,14 +339,12 @@
 				<!-- 상품 문의 -->
 				<div id="prod-tabcontent3" class="product-itemrequest mt-10 md:mt-13">
 					<div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10 xl:gap-y-12 xl:grid-cols-4">
-						<div class="col-span-2 md:col-span-3 xl:col-span-4">
-							<div class="box-loading mx-auto">
-								<div class="icon">
-									<div></div>
-								</div>
+	                    <div class="col-span-2 md:col-span-3 xl:col-span-4">
+					        <div class="progress-loading is-static">
+					            <div class="icon"><span></span><span></span><span></span></div>
 								<p class="text">상품문의 데이터를 불러오는 중입니다.</p>
-							</div>
-						</div>
+					        </div>
+	                    </div>
 					</div>
 				</div>
 				<!-- //상품 문의 -->

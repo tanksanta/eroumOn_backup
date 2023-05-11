@@ -126,6 +126,11 @@ $(function() {
             $('body').removeClass('is-scroll');
         }
     });
+    
+    //공용 옵션박스
+    $('.product-option .option-toggle').on('click', function() {
+        $(this).closest('.product-option').toggleClass('is-active');
+    });
 
     // 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
