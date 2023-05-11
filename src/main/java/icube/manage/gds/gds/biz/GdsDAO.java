@@ -71,4 +71,8 @@ public class GdsDAO extends CommonAbstractMapper {
 		update("gds.gds.updateGdsTag",paramMap);
 	}
 
+	public Integer updateGdsTags(Map<String, Object> paramMap) throws Exception {
+		return update("gds.gds.updateGdsTags",paramMap);
+	}
+
 }

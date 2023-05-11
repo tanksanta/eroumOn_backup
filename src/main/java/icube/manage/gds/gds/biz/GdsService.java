@@ -163,4 +163,21 @@ public class GdsService extends CommonAbstractServiceImpl {
 	public void updateGdsTag(Map<String, Object> paramMap) throws Exception {
 		gdsDAO.updateGdsTag(paramMap);
 	}
+
+	public Integer updateGdsTags(Map<String, Object> paramMap) throws Exception {
+		return gdsDAO.updateGdsTags(paramMap);
+	}
+
+	public int updateGdsTagAll(List<Integer> arrGdsNo) throws Exception {
+		int resultCnt = 0;
+
+		for(int gdsNo : arrGdsNo) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("gdsNo", gdsNo);
+			paramMap.put("gdsTag", "A");
+			resultCnt += this.updateGdsTags(paramMap);
+		}
+
+		return resultCnt;
+	}
 }

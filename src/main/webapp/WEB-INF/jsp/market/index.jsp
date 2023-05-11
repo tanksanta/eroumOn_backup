@@ -114,6 +114,7 @@
                                             수면과 휴식을 취하는 공간에서 필요한 복지용구를 소개해드립니다.
                                         </small>
                                     </div>
+                                    <a href="${_marketPath}/cntnts/style-guide-bedroom" class="btn">침실에 필요한 복지용구 보기</a>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +129,9 @@
                                     </div>
                                     <div class="title">
                                         <p>건강한 <em>야외생활</em></p>
-                                        <small>위험 요소가 많은 야외에서 낙상 및 안전사고를 예방하는 복지용구를 소개해드립니다.</small>
+                                        <small>많은 사람들과 함께 불편할 수 있는 야외활동을 보조해주는 복지용구를 소개합니다.</small>
                                     </div>
+                                    <a href="${_marketPath}/cntnts/style-guide-outdoor" class="btn">야외생활에 필요한 복지용구 보기</a>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +167,8 @@
                             <small>Bedroom</small>
                         </span>
                         <span class="rear">
-                            <strong>준비중입니다.</strong>
+                            <strong>침실</strong>
+                            <small>Bedroom</small>
                         </span>
                     </div>
                     <div class="swiper-slide slide-item4">
@@ -174,7 +177,8 @@
                             <small>Outdoor</small>
                         </span>
                         <span class="rear">
-                            <strong>준비중입니다.</strong>
+                            <strong>야외</strong>
+                            <small>Outdoor</small>
                         </span>
                     </div>
                 </div>

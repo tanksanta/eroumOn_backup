@@ -121,6 +121,15 @@
                                                     <dt>판매가</dt>
                                     				<dd><fmt:formatNumber value="${gdsRelList.pc}" pattern="###,###" /><small>원</small></dd>
                                                 </dl>
+                                                <c:if test="${gdsVO.dscntRt > 0}">
+													<dl class="price2">
+														<dt>할인가</dt>
+														<dd>
+															<em>${gdsVO.dscntRt}%</em>
+															<strong><fmt:formatNumber value="${gdsVO.dscntPc}" pattern="###,###" /></strong> 원
+														</dd>
+													</dl>
+												</c:if>
                                             </div>
                                         </a>
                                     </div>
@@ -381,9 +390,18 @@
 							<dl class="price1">
 								<dt>판매가</dt>
 								<dd>
-									<strong><fmt:formatNumber value="${gdsVO.pc}" pattern="###,###" /></strong> 원
+									<strong <c:if test="${gdsVO.dscntRt > 0}">style="text-decoration : line-through"</c:if>><fmt:formatNumber value="${gdsVO.pc}" pattern="###,###" /></strong> 원
 								</dd>
 							</dl>
+							<c:if test="${gdsVO.dscntRt > 0}">
+								<dl class="price2">
+									<dt>할인가</dt>
+									<dd>
+										<em>${gdsVO.dscntRt}%</em>
+										<strong><fmt:formatNumber value="${gdsVO.dscntPc}" pattern="###,###" /></strong> 원
+									</dd>
+								</dl>
+							</c:if>
 							<dl class="price1">
 								<dt>${gdsVO.gdsTy eq 'R'?'급여가':'대여가(월)'}</dt>
 								<dd>
@@ -432,10 +450,19 @@
 						<c:otherwise>
 							<dl class="price2">
 								<dt>판매가</dt>
-								<dd>
-									<strong><fmt:formatNumber value="${gdsVO.pc}" pattern="###,###" /></strong> 원
+								<dd <c:if test="${gdsVO.dscntRt > 0}">style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
+									<strong <c:if test="${gdsVO.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${gdsVO.pc}" pattern="###,###" /></strong> 원
 								</dd>
 							</dl>
+							<c:if test="${gdsVO.dscntRt > 0}">
+								<dl class="price2">
+									<dt>할인가</dt>
+									<dd>
+										<em>${gdsVO.dscntRt}%</em>
+										<strong><fmt:formatNumber value="${gdsVO.dscntPc}" pattern="###,###" /></strong> 원
+									</dd>
+								</dl>
+							</c:if>
 						</c:otherwise>
 					</c:choose>
 
@@ -1183,7 +1210,11 @@ var Goods = (function(){
 			//	gdsPc = ${gdsVO.lendPc};
 			//	$(".payment-partners, .payment-guide").show();
 			}else{
-				gdsPc = ${gdsVO.pc};
+				if(${gdsVO.dscntRt} > 0){
+					gdsPc = ${gdsVO.dscntPc}
+				}else{
+					gdsPc = ${gdsVO.pc};
+				}
 				$(".payment-partners, .payment-guide").hide();
 				$(".recpBtn").removeClass("btn-danger").addClass("btn-primary");
 			}

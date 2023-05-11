@@ -581,10 +581,19 @@
 		AND use_yn = #{srchUseYn}
 	</update>
 
+	<!-- TODO : 통합 -->
 	<update id="updateGdsTag" parameterType="java.util.HashMap">
 		UPDATE GDS SET
 			gds_tag = #{gdsTag}
 		WHERE bnef_cd = #{bnefCd}
+	</update>
+
+	<!-- TODO : 통합 -->
+	<update id="updateGdsTags" parameterType="java.util.HashMap">
+		UPDATE GDS g SET
+			gds_tag = #{gdsTag}
+		WHERE 1=1
+		<include refid="searchConditions" />
 	</update>
 
 	<!-- Define gds Delete Query -->

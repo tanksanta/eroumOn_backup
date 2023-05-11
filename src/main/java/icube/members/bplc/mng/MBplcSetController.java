@@ -227,7 +227,7 @@ public class MBplcSetController extends CommonAbstractController {
 			fileService.creatFileInfo(fileMap, bbsVO.getNttNo(), "BPLCBBS", reqMap);
 
 			javaScript.setMessage(getMsg("action.complete.insert"));
-			javaScript.setLocation("/"+membersPath+"/"+bplcUrl+"/mng/set/ntceForm?nttNo=" + bbsVO.getNttNo()+"&"+pageParam);
+			javaScript.setLocation("/"+membersPath+"/"+bplcUrl+"/mng/set/ntceList?nttNo=" + bbsVO.getNttNo()+"&"+pageParam);
 			break;
 
 		case UPDATE:
@@ -246,7 +246,7 @@ public class MBplcSetController extends CommonAbstractController {
 			bplcBbsService.updateBplcBbs(bbsVO);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
-			javaScript.setLocation("/"+membersPath+"/"+bplcUrl+"/mng/set/ntceForm?nttNo=" + bbsVO.getNttNo()+"&"+pageParam);
+			javaScript.setLocation("/"+membersPath+"/"+bplcUrl+"/mng/set/ntceList?nttNo=" + bbsVO.getNttNo()+"&"+pageParam);
 			break;
 
 		case DELETE:

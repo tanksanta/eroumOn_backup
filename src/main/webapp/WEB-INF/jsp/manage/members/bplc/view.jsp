@@ -148,7 +148,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="bsnmOffcs" class="require">사업자 직인</th>
+					<th scope="row"><label for="bsnmOffcs">사업자 직인</th>
 					<td><c:if test="${!empty bplcVO.bsnmOffcs}">
 							<div class="form-group" style="display: flex;">
 								<a href="/comm/OFFCS/getFile?fileName=${bplcVO.bsnmOffcs}">${bplcVO.bsnmOffcs}</a>&nbsp;&nbsp;

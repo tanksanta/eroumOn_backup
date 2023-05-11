@@ -168,9 +168,8 @@
 									</c:otherwise>
 								</c:choose>
                             </td>
-                            <td class="gds_cd_view">
-                            	<a href="./form?${pageParam}" class="btn-outline-success shadow w-full gds_cd_a">${resultList.gdsCd}</a>
-                            	<span class="gds_cd_span" style="display:none;">${resultList.gdsCd}</span>
+                            <td>
+                            	<a href="./form?${pageParam}">${resultList.gdsCd}</a>
                             </td>
                             <td class="text-left"><a href="./form?${pageParam}" >${resultList.gdsNm}</a></td>
                             <td>
@@ -222,12 +221,86 @@
                 <!-- button -->
                 <div class="btn-group right mt-8">
                     <button type="button" class="btn-primary large shadow float-left f_useYn">선택삭제</button>
-                    <a href="#" onclick="alert('준비중입니다.');return false;" class="btn-secondary large shadow">상품일괄등록</a>
+                    <button type="button" class="btn-secondary large shadow f_all_read" data-bs-toggle="modal" data-bs-target="#fileModal">상품일괄등록</button>
+                    <!-- <a href="#" onclick="alert('준비중입니다.');return false;" class="btn-secondary large shadow">상품일괄등록</a>-->
+                    <button type="button" class="btn-success large shadow f_all_sold">일괄품절</button>
                     <a href="./form" class="btn-primary large shadow">상품등록</a>
                 </div>
 
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
+				<!-- 후에 다운받아서 처리, 확장자 3개 테스트 -->
+				<!-- 파일업로드 -->
+				<div class="modal fade" id="fileModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<p>파일업로드</p>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="#">
+									<fieldset>
+										<legend>업로드할 파일을 등록해주세요</legend>
+										<table class="table-detail mt-3">
+											<colgroup>
+												<col class="w-34">
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<th scope="row"><label for="excelAttach">파일선택</label></th>
+													<td><input type="file" id="excelAttach" name="excelAttach" class="form-control w-full" onchange="readExcel();" onchange="fileCheck(this);"></td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="btn-group mt-5">
+											<button type="button" class="btn-primary large shadow w-26" id="excelBtn">등록</button>
+											<a href="/comm/SAMPLE/getFile?fileName=sample.xlsx" class="btn-secondary large shadow">샘플다운로드</a>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //파일업로드 -->
+
 
                 <script>
+
+              	//엑셀 파싱
+               function readExcel() {
+                    let input = event.target;
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        let data = reader.result;
+                        let workBook = XLSX.read(data, { type: 'binary' });
+                        workBook.SheetNames.forEach(function (sheetName) {
+                            console.log('SheetName: ' + sheetName);
+                            let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                            let jsonRow = JSON.stringify(rows);
+                            console.log("row : " + rows);
+                            console.log(JSON.stringify(rows));
+
+                            $.ajax({
+                				type : "post",
+                				url  : "/_mng/gds/gds/insertBatchGds.json",
+                				data : {gdsList : jsonRow},
+                				dataType : 'json'
+                			})
+                			.done(function(data) {
+
+                			})
+                			.fail(function(data, status, err) {
+                				alert("상품 일괄 처리 중 오류가 발생했습니다.");
+                				console.log('error forward : ' + data);
+                			});
+
+                        })
+                    };
+                    reader.readAsBinaryString(input.files[0]);
+                }
+
                 $(function(){
 
                 	//상품 카테고리
@@ -335,19 +408,41 @@
 	            		return;
 	            	});
 
-	            	$(".gds_cd_view").on("mouseenter",function(){
-	            		var obj = $(this).find(".gds_cd_a");
-	            		setTimeout(function(){
-		            		obj.hide();
-		            		obj.siblings(".gds_cd_span").show();
-	            		}, 1000);
+	            	$(".f_all_sold").on("click",function(){
+	            		var chkedLen = $("input[name='arrGdsNo']:checked").length;
+	            		if(chkedLen < 1){
+	            			alert("상품을 선택해주세요.");
+	            		}else{
+	            			var arrGdsNos = [];
+
+	            			$("input[name='arrGdsNo']:checked").each(function(){
+	            				arrGdsNos.push($(this).val());
+	            				console.log(arrGdsNos);
+	            			});
+
+	            			$.ajax({
+        						type : "post",
+        						url  : "modifyAllSold.json",
+        						data : {arrGdsNo: arrGdsNos},
+        						dataType : 'json',
+        						traditional : true
+        					})
+        					.done(function(data) {
+        						if(data.resultCnt=== chkedLen){
+        							alert("처리 되었습니다.");
+        							location.reload();
+        						}else{
+        							alert("처리중 오류가 발생하였습니다.");
+        						}
+        					})
+        					.fail(function(data, status, err) {
+        						alert("처리중 오류가 발생하였습니다.");
+        						console.log('error forward : ' + data);
+        					});
+	            		}
 	            	});
 
-	            	$(".gds_cd_view").on("mouseleave",function(){
-	            		var obj = $(this).find(".gds_cd_a");
-	            		obj.show();
-	            		obj.siblings(".gds_cd_span").hide();
-	            	});
+
 
                 });
                 </script>

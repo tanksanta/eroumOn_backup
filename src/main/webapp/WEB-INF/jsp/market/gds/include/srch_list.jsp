@@ -40,6 +40,16 @@
                                 <strong>${resultList.gdsNm }</strong>
                             </div>
                             <div class="cost">
+                                <dl <c:if test="${resultList.dscntRt > 0 && _mbrSession.recipterYn eq 'N'}"> style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
+                                    <dt>판매가</dt>
+                                    <dd <c:if test="${resultList.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /><small>원</small></dd>
+                                </dl>
+                                <c:if test="${resultList.dscntRt > 0}">
+	                                <dl>
+	                                    <dt>할인가</dt>
+	                                    <dd><fmt:formatNumber value="${resultList.dscntPc}" pattern="###,###" /><small>원</small></dd>
+	                                </dl>
+                                </c:if>
                             	<c:choose>
                             		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> <%--급여(판매)제품--%>
                             	<dl class="discount">
@@ -74,10 +84,6 @@
                             		</c:when>
                             		 --%>
                             	</c:choose>
-                                <dl>
-                                    <dt>판매가</dt>
-                                    <dd><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /><small>원</small></dd>
-                                </dl>
                             </div>
                         </div>
                         <div class="item-layer">

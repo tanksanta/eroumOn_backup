@@ -114,7 +114,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="bsnmOffcs" class="require">사업자직인(계약서 날인)</th>
+						<th scope="row"><label for="bsnmOffcs">사업자직인(계약서 날인)</th>
 						<td><c:if test="${!empty bplcVO.bsnmOffcs}">
 								<div class="form-group" style="display: flex;">
 									<a href="/comm/OFFCS/getFile?fileName=${bplcVO.bsnmOffcs}">${bplcVO.bsnmOffcs}</a>&nbsp;&nbsp;
@@ -274,7 +274,6 @@ const autoHyphen = (target) => {
 	    	dlvyAddr : {required : true},
 	    	dlbyDaddr : {required : true},
 	    	taxbilEml : {required : true, regex : emailchk},
-	    	bsnmOffcs1 : {filechk : true},
 	    	picNm : {required : true},
 	    	picTelno : {required : true, regex : telchk},
 	    	picEml : {required : true, regex : emailchk}

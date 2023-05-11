@@ -1,12 +1,10 @@
 section[class*="main-"] {
     @apply mt-2.5 mx-auto px-5 max-w-[1920px] overflow-hidden leading-tight tracking-tight md:mt-7.5 xl:mt-[3.125rem] 2xl:px-20;
     & .container {
-        @apply relative px-5 max-w-full rounded-lg bg-no-repeat bg-center bg-cover lg:rounded-[1.25rem];
-        word-break: keep-all;
+        @apply relative px-5 max-w-full rounded-lg bg-no-repeat bg-center bg-cover lg:rounded-[1.25rem] break-keep;
     }
     & .main-link {
-        @apply press-action flex items-center justify-center relative mx-auto pl-4 pr-10 pb-px min-w-32 w-fit h-8.5 overflow-hidden rounded-full bg-no-repeat bg-white text-xs text-black2 md:pl-6 md:pr-14 md:min-w-45 md:h-11 md:text-[0.9375rem];
-        @apply duration-[0.4s];
+        @apply press-action flex items-center justify-center relative mx-auto pl-4 pr-10 pb-px min-w-32 w-fit h-8.5 overflow-hidden rounded-full bg-no-repeat bg-white text-xs text-black2 duration-[0.4s] md:pl-6 md:pr-14 md:min-w-45 md:h-11 md:text-[0.9375rem];
     }
 }
 
@@ -65,24 +63,19 @@ section.main-myinfo {
                 @apply mt-0.5 font-serif font-bold text-center text-base sm:mt-1 sm:text-xl lg:mt-2 lg:text-2xl;
             }
             &.recent {
-                @apply bg-[length:1.6875rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.3125rem_center] sm:bg-[length:2.1875rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.625rem];
-                background-image: url(../images/ico-attent-equal.svg);
+                @apply bg-[url(../images/ico-attent-equal.svg)] bg-[length:1.6875rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.3125rem_center] sm:bg-[length:2.1875rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.625rem];
             }
             &.cart {
-                @apply bg-[length:2rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.25rem_center] sm:bg-[length:2.5rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.875rem];
-                background-image: url(../images/ico-cart.svg);
+                @apply bg-[url(../images/ico-cart.svg)] bg-[length:2rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.25rem_center] sm:bg-[length:2.5rem] lg:bg-[position:left_1.75rem_center] lg:bg-[length:2.875rem];
             }
             &.mileage {
-                @apply bg-[length:1.5rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.875rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2.25rem];
-                background-image: url(../images/txt-mileage.svg);
+                @apply bg-[url(../images/txt-mileage.svg)] bg-[length:1.5rem] bg-[position:left_0.75rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.875rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2.25rem];
             }
             &.point {
-                @apply bg-[length:1.0625rem] bg-[position:left_1rem_center] sm:bg-[position:left_1.75rem_center] sm:bg-[length:1.375rem] lg:bg-[position:left_2.375rem_center] lg:bg-[length:1.625rem];
-                background-image: url(../images/txt-point.svg);
+                @apply bg-[url(../images/txt-point.svg)] bg-[length:1.0625rem] bg-[position:left_1rem_center] sm:bg-[position:left_1.75rem_center] sm:bg-[length:1.375rem] lg:bg-[position:left_2.375rem_center] lg:bg-[length:1.625rem];
             }
             &.coupon {
-                @apply bg-[length:1.3125rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.625rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2rem];
-                background-image: url(../images/txt-coupon.svg);
+                @apply bg-[url(../images/txt-coupon.svg)] bg-[length:1.3125rem] bg-[position:left_0.625rem_center] sm:bg-[position:left_1.375rem_center] sm:bg-[length:1.625rem] lg:bg-[position:left_2rem_center] lg:bg-[length:2rem];
             }
             &.mileage, &.point, &.coupon {
                 @apply z-5 md-max:row-start-2;
@@ -94,7 +87,7 @@ section.main-myinfo {
 section.main-visual {
     @apply relative mt-0;
     & .swiper-main {
-        word-break: keep-all;
+        @apply break-keep;
         & .swiper-slide {
             @apply relative;
             & .slide-wrapper {
@@ -136,7 +129,7 @@ section.main-visual {
                     }
                 }
                 & .btn {
-                    @apply mt-[2em] py-[0.8em] px-[2.136em] h-auto rounded-full text-[0.8125rem] border-white bg-white text-black2 md:text-sm xl:mt-[2.625em] xl:py-[1em] xl:px-[2.67em] xl:text-base 2xl:text-lg;
+                    @apply mt-[2em] py-[0.8em] px-[2.136em] w-fit h-auto rounded-full text-[0.8125rem] border-white bg-white text-black2 md:text-sm xl:mt-[2.625em] xl:py-[1em] xl:px-[2.67em] xl:text-base 2xl:text-lg;
                 }
             }
         }
@@ -188,6 +181,9 @@ section.main-visual {
                 & .content {
                     @apply pt-[max(2.25rem,(min(5.227vw,5.75rem)))] text-center;
                 }
+                & .btn {
+                    @apply flex-none mx-auto border-black2 bg-black2 text-white md:mx-0;
+                }
             }
         }
         & .slide-item4 {
@@ -197,9 +193,17 @@ section.main-visual {
                 }
             }
             & .slide-content {
-                @apply text-white;
+                @apply flex flex-col justify-end text-white;
                 & .content {
-                    @apply flex flex-col justify-center text-center py-[max(2.25rem,(min(5.227vw,5.75rem)))] md:text-left md:justify-start md:py-5 md:translate-y-1/2 md:ml-[45%] xl:ml-[50%];
+                    @apply flex flex-col justify-center text-center py-[max(2.25rem,(min(5.227vw,5.75rem)))] min-h-0 md:text-left md:justify-start md:ml-[45%] xl:ml-[50%];
+                }
+                & .title {
+                    & p {
+                        @apply whitespace-nowrap;
+                    }
+                }
+                & .btn {
+                    @apply flex-none mx-auto md:mx-0;
                 }
             }
         }
@@ -217,12 +221,9 @@ section.main-visual {
                     }
                 }
                 &.rear {
-                    @apply absolute z-10 top-0 left-0 opacity-0 invisible;
+                    @apply absolute z-10 top-0 left-0 opacity-0 invisible after:-z-5;
                     &::before, &::after {
                         @apply content-empty absolute -z-10 top-0 left-0 w-full h-full rounded bg-center bg-cover md:rounded-md;
-                    }
-                    &::after {
-                        @apply -z-5;
                     }
                     & small {
                         @apply opacity-60;
@@ -238,9 +239,7 @@ section.main-visual {
             &.slide-item1, &.slide-item2, &.slide-item3, &.slide-item4 {
                 & span {
                     &.rear {
-                        &::after {
-                            @apply bg-[#4D4D57]/70;
-                        }
+                        @apply after:bg-[#4D4D57]/70;
                         & strong, & small {
                             @apply text-white;
                         }
@@ -250,36 +249,28 @@ section.main-visual {
             &.slide-item1 {
                 & span {
                     &.rear {
-                        &::before {
-                            @apply bg-[url(../images/img-main-visual1.jpg)];
-                        }
+                        @apply before:bg-[url(../images/img-main-visual1.jpg)];
                     }
                 }
             }
             &.slide-item2 {
                 & span {
                     &.rear {
-                        &::before {
-                            @apply bg-[url(../images/img-main-visual2.jpg)];
-                        }
+                        @apply before:bg-[url(../images/img-main-visual2.jpg)];
                     }
                 }
             }
             &.slide-item3 {
                 & span {
                     &.rear {
-                        &::before {
-                            @apply bg-[url(../images/img-main-visual3.jpg)];
-                        }
+                        @apply before:bg-[url(../images/img-main-visual3.jpg)];
                     }
                 }
             }
             &.slide-item4 {
                 & span {
                     &.rear {
-                        &::before {
-                            @apply bg-[url(../images/img-main-visual4.jpg)];
-                        }
+                        @apply before:bg-[url(../images/img-main-visual4.jpg)];
                     }
                 }
             }
@@ -312,7 +303,7 @@ section.main-visual {
                 }
                 & .slide-content {
                     @apply transition-all duration-500 md:pb-32 lg:pb-38;
-                    & .content, & .title, & .desc, & .btn {
+                    & .content, & .title, & .desc {
                         @apply transition-[margin,bottom,left,padding] duration-500;
                     }
                 }
@@ -417,7 +408,7 @@ section.main-check {
     & .main-title {
         @apply text-center text-[1.625rem] break-keep leading-[1.1] tracking-tighter md:text-[2.75rem] xl:text-[3.25rem] 2xl:text-[3.75rem] font-bold;
         & strong {
-            background: linear-gradient(100deg, #FF1B1B 0%, #FFCC12 70%, #4DBC44 100%);
+            @apply bg-[linear-gradient(100deg,_#FF1B1B_0%,_#FFCC12_70%,_#4DBC44_100%)];
             -webkit-background-clip: text;
             -moz-background-clip: text;
             -webkit-text-fill-color: transparent; 
@@ -435,22 +426,19 @@ section.main-check {
         & .content {
             @apply flex items-center justify-center md-max:flex-col;
             & .thumb {
-                @apply relative w-full max-w-[23.5rem] aspect-[1/0.85287] sm:w-[45.1%] sm:max-w-[29.25rem];
+                @apply relative w-full max-w-[23.5rem] aspect-[1/0.85287] sm:w-[45.1%] sm:max-w-[29.25rem]
+                       before:content-empty before:absolute before:bottom-0 before:left-1/2 before:w-[118.976%] before:h-full before:bg-[center_bottom] before:bg-no-repeat before:-translate-x-1/2 before:bg-[length:200%] before:bg-[url(../images/bg-main-check.png)];
                 & .img {
                     @apply relative z-5 w-full h-full overflow-hidden;
                     & img {
                         @apply absolute top-0 left-0 w-full object-fill;
                     }
                 }
-                &::before {
-                    @apply content-empty absolute bottom-0 left-1/2 w-[118.976%] h-full bg-[center_bottom] bg-no-repeat -translate-x-1/2 bg-[length:200%] bg-[url(../images/bg-main-check.png)];
-                }
             }
             & .detail {
                 @apply flex-1 mt-5 md:mt-0 md:ml-5;
                 & .name {
-                    @apply mx-auto w-fit leading-tight text-3xl font-bold md:mx-0 md:text-4xl lg:text-5xl;
-                    background: linear-gradient(98deg, #3838B4 0%, #EE1153 48%, #FE921B 100%);
+                    @apply mx-auto w-fit bg-[linear-gradient(98deg,_#3838B4_0%,_#EE1153_48%,_#FE921B_100%)] leading-tight text-3xl font-bold md:mx-0 md:text-4xl lg:text-5xl;
                     -webkit-background-clip: text;
                     -moz-background-clip: text;
                     -webkit-text-fill-color: transparent; 
@@ -476,10 +464,10 @@ section.main-check {
                     & .title {
                         @apply text-center w-full mb-3 text-lg md:mb-0 md:w-auto md:text-xl font-black lg:text-2xl;
                         & + p {
-                            @apply md-max:ml-0 !important;
+                            @apply md-max:!ml-0;
                         }
                         & ~ p {
-                            @apply lg-range:ml-auto !important;
+                            @apply lg-range:!ml-auto;
                         }
                     }
                     & + .info {
@@ -490,10 +478,8 @@ section.main-check {
                     }
                 }
                 & .btn-primary {
-                    @apply flex w-fit justify-start mt-5 pl-4.5 pr-5.5 h-9 mx-auto rounded-full text-[0.8125rem] md:mt-8 md:mx-0 md:pr-7 md:pl-6 md:h-11 md:text-[0.9375rem] lg:mt-10;
-                    &::after {
-                        @apply content-empty ml-2.5 w-1 h-2 bg-[url(../images/ico-angle-right-white.svg)] bg-cover md:ml-3.5 md:w-1.5 md:h-2.5;
-                    }
+                    @apply flex w-fit justify-start mt-5 pl-4.5 pr-5.5 h-9 mx-auto rounded-full text-[0.8125rem] md:mt-8 md:mx-0 md:pr-7 md:pl-6 md:h-11 md:text-[0.9375rem] lg:mt-10
+                           after:content-empty after:ml-2.5 after:w-1 after:h-2 after:bg-[url(../images/ico-angle-right-white.svg)] after:bg-cover after:md:ml-3.5 after:md:w-1.5 after:md:h-2.5;
                 }
             }
         }
@@ -539,9 +525,6 @@ section.main-movie {
         }
         & .main-video {
             @apply -mt-11 sm:-mt-12 md:-mt-14 xl:-mt-15 2xl:-mt-17;
-            &::before {
-                /* @apply content-empty absolute bottom-full right-0 -mb-11 w-[7.5875rem] bg-cover bg-[url(../images/bg-main-video2.png)] aspect-[1/1.08] xs:right-[2.45%] sm:-mb-12 sm:w-[8.5875rem] md:-mb-14 md:w-[11.45rem] xl:-mb-15 xl:w-[12.75rem] 2xl:-mb-17 2xl:w-[14.3125rem]; */
-            }
         }
     }
     & .main-title {
@@ -554,25 +537,11 @@ section.main-movie {
         }
     }
     & .main-link {
-        @apply justify-start mt-3 mx-0 font-bold tracking-tight;
-        &::before, &::after {
-            @apply content-empty absolute top-1/2 right-4 w-5 h-5 bg-no-repeat bg-center bg-[length:100%] transition-opacity duration-[0.4s] -translate-y-1/2 md:right-6 md:w-6 md:h-6;
-        }
-        &::before {
-            @apply bg-[url(../images/ico-index-youtube.svg)];
-        }
-        &::after {
-            @apply opacity-0 bg-[url(../images/ico-index-youtube-on.svg)];
-        }
-        &:hover, &:active {
-            @apply bg-[#EE3434] text-white;
-            &::before {
-                @apply opacity-0;
-            }
-            &::after {
-                @apply opacity-100;
-            }
-        }
+        @apply justify-start mt-3 mx-0 font-bold -tracking-tight
+               before:content-empty before:absolute before:top-1/2 before:right-4 before:w-5 before:h-5 before:bg-[url(../images/ico-index-youtube.svg)] before:bg-no-repeat before:bg-center before:bg-[length:100%] before:transition-opacity before:duration-[0.4s] before:-translate-y-1/2 before:md:right-6 before:md:w-6 before:md:h-6
+               after:content-empty after:absolute after:top-1/2 after:right-4 after:w-5 after:h-5 after:bg-[url(../images/ico-index-youtube-on.svg)] after:bg-no-repeat after:bg-center after:bg-[length:100%] after:transition-opacity after:duration-[0.4s] after:-translate-y-1/2 after:opacity-0 after:md:right-6 after:md:w-6 after:md:h-6
+               hover:bg-[#EE3434] hover:text-white hover:before:opacity-0 hover:after:opacity-100
+               active:bg-[#EE3434] active:text-white active:before:opacity-0 active:after:opacity-100;
     }
     & .main-video {
         @apply flex-none relative mt-6 ml-auto w-full h-auto rounded-lg aspect-[16/10.415] md:max-w-[35.875rem] md:mt-9 md:rounded-[1rem] 2xl:mt-12;
@@ -584,12 +553,8 @@ section.main-movie {
 
 section.main-guide {
     & .container {
-        @apply relative pt-[3.125rem] px-0 bg-no-repeat bg-[#ddc9a4] md:pt-16 md:pb-9.5 xl:pt-25 xl:pb-15 
-        bg-[url(../images/bg-index-guide2.jpg)] bg-left-top bg-[length:100%]
-        md:bg-[url(../images/bg-index-guide2-2.jpg)] lg:bg-[url(../images/bg-index-guide2-3.jpg)] xl:bg-cover xl:bg-[url(../images/bg-index-guide.jpg)];
-        &::before {
-            @apply content-empty absolute top-3 right-[0.9375rem] w-[4.1875rem] h-[0.9375rem] bg-no-repeat bg-[url(../images/img-index-guide.svg)] bg-cover md:top-5 md:right-5.5 md:w-[6.3125rem] md:h-5.5 xl:top-7.5 xl:right-9.5 xl:w-[8.375rem] xl:h-7.5;
-        }
+        @apply relative pt-[3.125rem] px-0 bg-[url(../images/bg-index-guide2.jpg)] bg-left-top bg-[length:100%] bg-no-repeat bg-[#ddc9a4] md:pt-16 md:pb-9.5 xl:pt-25 xl:pb-15 md:bg-[url(../images/bg-index-guide2-2.jpg)] lg:bg-[url(../images/bg-index-guide2-3.jpg)] xl:bg-cover xl:bg-[url(../images/bg-index-guide.jpg)]
+        before:content-empty before:absolute before:top-3 before:right-[0.9375rem] before:w-[4.1875rem] before:h-[0.9375rem] before:bg-[url(../images/img-index-guide.svg)] before:bg-cover before:md:top-5 before:md:right-5.5 before:md:w-[6.3125rem] before:md:h-5.5 before:xl:top-7.5 before:xl:right-9.5 before:xl:w-[8.375rem] before:xl:h-7.5;
     }
     & .main-title {
         @apply pr-4 pl-[35.65%] text-xl font-light -tracking-widest md:pr-5 md:pl-[36.1%] md:text-5xl xl:pr-5 xl:text-[3.125rem];
@@ -608,108 +573,50 @@ section.main-guide {
                 @apply mt-1 text-[0.8125rem] md:mt-3 md:text-base;
             }
             & a {
-                @apply press-action flex items-center relative overflow-hidden rounded-full border border-gray1 bg-white mt-2 px-3.5 w-31 h-7.5 text-[0.8125rem] font-medium md:mt-10 md:px-5.5 md:w-38 md:h-9.5 md:text-[0.9375rem];
-                &::before, &::after {
-                    @apply content-empty absolute top-1/2 bg-no-repeat bg-center bg-[length:100%] transition-opacity duration-[0.4s] -translate-y-1/2;
-                }
+                @apply press-action flex items-center relative overflow-hidden rounded-full border border-gray1 bg-white mt-2 px-3.5 w-31 h-7.5 text-[0.8125rem] font-medium md:mt-10 md:px-5.5 md:w-38 md:h-9.5 md:text-[0.9375rem]
+                       before:content-empty before:absolute before:top-1/2 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:transition-opacity before:duration-[0.4s] before:-translate-y-1/2
+                       after:content-empty after:absolute after:top-1/2 after:bg-no-repeat after:bg-center after:bg-[length:100%] after:transition-opacity after:duration-[0.4s] after:-translate-y-1/2;
             }
         }
         & .grade {
-            @apply relative z-5 row-span-2 bg-white/50 md-max:bg-[url(../images/bg-index-guide4.jpg)] md-max:bg-[center_top] md-max:bg-cover md-max:overflow-visible md-max:rounded-b-none;
-            &::before {
-                @apply content-empty absolute right-5 -bottom-5 w-[11.1875rem] aspect-[1/1.03546] bg-cover bg-[url(../images/bg-index-guide3.png)] md:-bottom-7.5 md:w-[73.056%];
-            }
+            @apply relative z-5 row-span-2 bg-white/50 md-max:bg-[url(../images/bg-index-guide4.jpg)] md-max:bg-[center_top] md-max:bg-cover md-max:overflow-visible md-max:rounded-b-none
+                   before:content-empty before:absolute before:right-5 before:-bottom-5 before:w-[11.1875rem] before:aspect-[1/1.03546] before:bg-cover before:bg-[url(../images/bg-index-guide3.png)] before:md:-bottom-7.5 before:md:w-[73.056%];
             & > * {
                 @apply relative z-5;
             }
             & a {
-                @apply w-30 border-black2 bg-black2 text-white md:w-[9.125rem] ;
-                &::before, &::after {
-                    @apply mt-px right-[0.9375rem] w-3.5 h-3.5 md:right-6 md:w-4 md:h-4;
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-index-guide1.svg)];
-                }
-                &::after {
-                    @apply opacity-0 bg-[url(../images/ico-index-guide1-on.svg)];
-                }
-                &:hover, &:active {
-                    @apply border-gray1 bg-white text-black2;
-                    &::before {
-                        @apply opacity-0;
-                    }
-                    &::after {
-                        @apply opacity-100;
-                    }
-                }
+                @apply w-30 border-black2 bg-black2 text-white md:w-[9.125rem]
+                       before:mt-px before:right-[0.9375rem] before:w-3.5 before:h-3.5 before:bg-[url(../images/ico-index-guide1.svg)] before:md:right-6 before:md:w-4 before:md:h-4
+                       after:mt-px after:right-[0.9375rem] after:w-3.5 after:h-3.5 after:bg-[url(../images/ico-index-guide1-on.svg)] after:opacity-0 after:md:right-6 after:md:w-4 after:md:h-4
+                       hover:border-gray1 hover:bg-white hover:text-black2 hover:before:opacity-0 hover:after:opacity-100
+                       active:border-gray1 active:bg-white active:text-black2 active:before:opacity-0 active:after:opacity-100;
             }
         }
         & .payment {
             @apply bg-white xl:max-w-[26.75rem] md-max:rounded-none;
             & a {
-                &::before, &::after {
-                    @apply right-3 w-3 h-3 md:right-4 md:w-4.5 md:h-4.5;
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-index-guide2.svg)];
-                }
-                &::after {
-                    @apply opacity-0 bg-[url(../images/ico-index-guide2-on.svg)];
-                }
-                &:hover, &:active {
-                    @apply bg-black2 text-white;
-                    &::before {
-                        @apply opacity-0;
-                    }
-                    &::after {
-                        @apply opacity-100;
-                    }
-                }
+                @apply before:right-3 before:w-3 before:h-3 before:bg-[url(../images/ico-index-guide2.svg)] before:md:right-4 before:md:w-4.5 before:md:h-4.5
+                       after:right-3 after:w-3 after:h-3 after:bg-[url(../images/ico-index-guide2-on.svg)] after:opacity-0 after:md:right-4 after:md:w-4.5 after:md:h-4.5
+                       hover:bg-white hover:text-white hover:before:opacity-0 hover:after:opacity-100
+                       active:bg-white active:text-white active:before:opacity-0 active:after:opacity-100;
             }
         }
         & .partner {
-            @apply relative col-start-2 bg-white/90 md-max:bg-[url(../images/bg-index-guide4.jpg)] md-max:bg-[center_bottom] md-max:bg-cover md-max:rounded-t-none;
-            &::before {
-                @apply content-empty right-6.5 bottom-0 bg-[url(../images/bg-index-guide3.svg)] bg-[length:75px] md:right-13 md:bg-[length:auto];
-            }
+            @apply relative col-start-2 bg-white/90 md-max:bg-[url(../images/bg-index-guide4.jpg)] md-max:bg-[center_bottom] md-max:bg-cover md-max:rounded-t-none
+                   before:content-empty before:right-6.5 before:bottom-0 before:bg-[url(../images/bg-index-guide3.svg)] before:bg-[length:75px] before:md:right-13 before:md:bg-[length:auto];
             & a {
-                @apply pl-7 md:pl-8.5;
-                &::before, &::after {
-                    @apply right-3 w-3 h-3 md:right-4 md:w-4.5 md:h-4.5;
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-index-guide2.svg)];
-                }
-                &::after {
-                    @apply opacity-0 bg-[url(../images/ico-index-guide2-on.svg)];
-                }
+                @apply pl-7 md:pl-8.5
+                       before:right-3 before:w-3 before:h-3 before:md:right-4 before:md:w-4.5 before:md:h-4.5 before:bg-[url(../images/ico-index-guide2.svg)]
+                       after:right-3 after:w-3 after:h-3 after:md:right-4 after:md:w-4.5 after:md:h-4.5 after:opacity-0 after:bg-[url(../images/ico-index-guide2-on.svg)];
                 & i {
-                    @apply absolute top-1/2 left-2.5 w-3 h-4.5 -translate-y-1/2 md:left-3.5 md:w-3.5 md:h-5;
-                    &::before, &::after {
-                        @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:100%];
-                    }
-                    &::before {
-                        @apply bg-[url(../images/ico-index-guide3.svg)];
-                    }
-                    &::after {
-                        @apply opacity-0 bg-[url(../images/ico-index-guide3-on.svg)];
-                    }
+                    @apply absolute top-1/2 left-2.5 w-3 h-4.5 -translate-y-1/2 md:left-3.5 md:w-3.5 md:h-5 before:bg-[url(../images/ico-index-guide3.svg)] after:opacity-0 after:bg-[url(../images/ico-index-guide3-on.svg)]
+                           before:content-empty before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-no-repeat before:bg-center before:bg-[length:100%]
+                           after:content-empty after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-no-repeat after:bg-center after:bg-[length:100%];
                 }
                 &:hover, &:active {
-                    @apply border-[#4CB7C5] bg-[#4CB7C5] text-white;
+                    @apply border-[#4CB7C5] bg-[#4CB7C5] text-white before:opacity-0 after:opacity-100;
                     & i {
-                        &::before {
-                            @apply opacity-0;
-                        }
-                        &::after {
-                            @apply opacity-100;
-                        }
-                    }
-                    &::before {
-                        @apply opacity-0;
-                    }
-                    &::after {
-                        @apply opacity-100;
+                        @apply before:opacity-0 after:opacity-100;
                     }
                 }
             }

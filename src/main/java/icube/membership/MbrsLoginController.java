@@ -137,6 +137,12 @@ public class MbrsLoginController extends CommonAbstractController  {
 			mbrVO = mbrService.selectMbrIdByOne(mbrId.toLowerCase());
 
 			if (mbrVO != null) {
+
+				if(mbrVO.getMberSttus().equals("EXIT")) {
+					javaScript.setMessage("탈퇴한 회원입니다.");
+					javaScript.setMethod("window.history.back()");
+				}else {
+
 				// 최근 접속 일시 업데이트
 				mbrService.updateRecentDt(mbrVO.getUniqueId());
 
@@ -200,6 +206,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 					javaScript.setMethod("window.history.back()");
 				}
 				}
+			}
 			} else {
 				javaScript.setMessage(getMsg("login.fail"));
 				javaScript.setMethod("window.history.back()");

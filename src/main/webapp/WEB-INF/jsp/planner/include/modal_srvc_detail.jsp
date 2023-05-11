@@ -131,7 +131,7 @@
                 	<c:if test="${!empty bokjiVO.refUrl}">
                     <a href="${bokjiVO.refUrl}" target="_blank" class="btn btn-request">자세한 신청방법 보기</a>
                     </c:if>
-                    <a href="#" class="btn btn-share sm:hidden f_clip">공유하기</a>
+                    <a href="#" class="btn btn-share sm:hidden f_clip" data-bokji-id="${bokjiVO.bokjiId}">공유하기</a>
                 </div>
             </div>
         </div>

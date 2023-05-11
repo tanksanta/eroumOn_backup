@@ -546,78 +546,93 @@
 
         <script>
             $(function() {
-                $(window).on('load', function() {
-                    var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
-                        autoHide: false
-                    });
-                    var simpleEl  = simpleBar.getScrollElement();
-                    var simpleCl  = false;
+                var simpleBar = new SimpleBar($('.livingroom-visual')[0],{
+                    autoHide: false,
+                    forceVisible: true
+                });
+                
+                var simpleEl  = simpleBar.getScrollElement();
+                var simpleCl  = false;
+                
+                simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
 
-                    simpleEl.scrollLeft = (simpleEl.querySelector('.container').getClientRects()[0].width - simpleEl.getClientRects()[0].width) / 2;
+                horizonScroll($(simpleEl));
+
+                setTimeout(function() {
+                    $('.livingroom-visual .object').addClass('is-visible');
+                }, 50);
+                
+                simpleBar.getScrollElement().addEventListener('scroll', function() {
+                    var cont     = $(this).find('.container').get(0).getClientRects()[0];
+                    var contview = cont.width + cont.x;
+                    var screen   = this.getClientRects()[0].width;
                     
-                    simpleBar.getScrollElement().addEventListener('scroll', function() {
-                        var cont     = $(this).find('.container').get(0).getClientRects()[0];
-                        var contview = cont.width + cont.x;
-                        var screen   = this.getClientRects()[0].width;
-                        
-                        $('.livingroom-visual .object').each(function(index) {
-                            var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
-                            if(temp > 0 && temp < screen) {
-                                $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
-                            } else {
-                                $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
-                            }
-                        });
-                    });
-
-                    $(window).on('resize', function() {
-                        var cont     = $(simpleBar.getScrollElement()).find('.container').get(0).getClientRects()[0];
-                        var contview = cont.width + cont.x;
-                        var screen   = simpleBar.getScrollElement().getClientRects()[0].width;
-                        
-                        $('.livingroom-visual .object').each(function(index) {
-                            var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
-                            if(temp > 0 && temp < screen) {
-                                $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
-                            } else {
-                                $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
-                            }
-                        });
-                    })
-
-                    $('.style-guide-livingroom').on('click touchstart', function() {
-                        $('.livingroom-alert').hide();
-                    });
-
-                    $('.livingroom-visual .object').on('click', function() {
-                        var id= $(this).attr('href');
-                        simpleCl = true;
-                        $('.livingroom-steps .steps a[href="#' + id + '"]').addClass('is-active').parent().addClass('is-active').siblings().removeClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps a').on('click', function() {
-                        simpleCl = true;
-                        $(this).addClass('is-active').parent().addClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps').on('mouseenter', function() {
-                        simpleCl = false;
-                        $(this).addClass('is-active').siblings().removeClass('is-active');
-                    });
-
-                    $('.livingroom-steps .steps').on('mouseleave', function() {
-                        if(!simpleCl) {
-                            $(this).removeClass('is-active').siblings().removeClass('is-active');
+                    $('.livingroom-visual .object').each(function(index) {
+                        var temp   = $(this).get(0).getClientRects()[0].x + ($(this).get(0).getClientRects()[0].width);
+                        if(temp > 0 && temp < screen) {
+                            $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
+                        } else {
+                            $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
                         }
                     });
+                });
+                
+                $(window).on('load resize', function() {
+                    var cont     = $(simpleBar.getScrollElement()).find('.container').get(0).getClientRects()[0];
+                    var contview = cont.width + cont.x;
+                    var screen   = simpleBar.getScrollElement().getClientRects()[0].width;
+                    
 
-                    $('.modal button[data-bs-dismiss]').on('click', function() {
-                        simpleCl = false;
-                        var id = $(this).closest('.modal').attr('id');
-                        $('.livingroom-steps .steps a[href="#' + id + '"]').removeClass('is-active').parent().removeClass('is-active');
+                    if($(window).width() > 1280) {
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.625);
+                    } else {
+                        $('.livingroom-visual').height($(window).outerWidth() * 0.6875);
+                    }
+
+                    $('.livingroom-visual .container').width($('.livingroom-visual').height() * 2.133333333333333);
+
+                    $('.livingroom-visual .object').each(function(index) {
+                        var temp   = $(this).get(0).getClientRects()[0].x + $(this).get(0).getClientRects()[0].width + 10;
+                        if(temp > 0 && temp < screen) {
+                            $('.livingroom-steps .steps').eq(index).find('i').addClass('is-active');
+                        } else {
+                            $('.livingroom-steps .steps').eq(index).find('i').removeClass('is-active');
+                        }
                     });
                 })
-            });
+
+                $('.style-guide-livingroom').on('mousedown touchstart', function() {
+                    $('.livingroom-alert').hide();
+                });
+
+                $('.livingroom-visual .object').on('click', function() {
+                    var id= $(this).attr('href');
+                    simpleCl = true;
+                    $('.livingroom-steps .steps a[href="#' + id + '"]').addClass('is-active').parent().addClass('is-active').siblings().removeClass('is-active');
+                });
+
+                $('.livingroom-steps .steps a').on('click', function() {
+                    simpleCl = true;
+                    $(this).parent().addClass('is-active');
+                });
+
+                $('.livingroom-steps .steps').on('mouseenter', function() {
+                    simpleCl = false;
+                    $(this).addClass('is-active').siblings().removeClass('is-active');
+                });
+
+                $('.livingroom-steps .steps').on('mouseleave', function() {
+                    if(!simpleCl) {
+                        $(this).removeClass('is-active').siblings().removeClass('is-active');
+                    }
+                });
+
+                $('.modal button[data-bs-dismiss]').on('click', function() {
+                    simpleCl = false;
+                    var id = $(this).closest('.modal').attr('id');
+                    $('.livingroom-steps .steps a[href="#' + id + '"]').removeClass('is-active').parent().removeClass('is-active');
+                });
+            })
         </script>
         <style>
             .modal-backdrop.show {

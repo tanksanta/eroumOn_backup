@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -560,5 +563,51 @@ public class MGdsController extends CommonAbstractController {
 		}
 
 		return "/manage/gds/gds/include/view";
+	}
+
+
+	@RequestMapping(value = "modifyAllSold.json")
+	@ResponseBody
+	private Map<String, Object> modifyAllSold(
+			@RequestParam(value="arrGdsNo", required=true) List<Integer> arrGdsNo
+			, HttpServletRequest request
+			, Model model
+			)throws Exception {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		int resultCnt = 0;
+
+		try {
+			resultCnt = gdsService.updateGdsTagAll(arrGdsNo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			log.debug("modifyAllSold Error : " + e.toString());
+		}
+
+		resultMap.put("resultCnt", resultCnt);
+		return resultMap ;
+	}
+
+	@RequestMapping(value = "insertBatchGds.json")
+	@ResponseBody
+	public Map<String, Object> insertBatchGds(
+			@RequestParam(value = "gdsList", required=true) String gdsList
+			, HttpServletRequest request
+			, Model model
+			)throws Exception {
+
+		JSONParser jsonParser = new JSONParser();
+		Object obj = jsonParser.parse(gdsList);
+		JSONArray jsonArr = (JSONArray)obj;
+
+		log.debug("@@@@@@@@@ gdsList : " + jsonArr.toJSONString());
+
+		for(Object data : jsonArr) {
+			JSONObject jsonObj = (JSONObject)data;
+			log.debug("@@@@@@@@@ jsonObj : " + jsonObj.toJSONString());
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		return resultMap;
 	}
 }
