@@ -210,6 +210,9 @@
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_gds_exchng" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-ordr-no="${ordrDtl.ordrNo}">교환</button>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_ordr_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR09" data-resn-ty="", data-resn="상품 구매확정" data-msg="마일리지가 적립됩니다.구매확정 처리하시겠습니까?" >구매확정 처리</button>
                                         		</c:when>
+                                        		<c:when test="${ordrDtl.sttsTy eq 'OR09'}"><%-- 구매확정 --%>
+                                        		<button type="button" class="btn-primary shadow w-full px-0 f_gds_exchng" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-ordr-no="${ordrDtl.ordrNo}">교환</button>
+                                        		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'EX01'}"><%-- 교환접수 --%>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_exchng_confm" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="EX02" data-resn-ty="", data-resn="교환접수 승인" data-msg="교환접수승인 처리하시겠습니까?" >교환접수 승인</button>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_dlvy_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR08" data-resn-ty="", data-resn="교환접수 반려 > 배송완료 단계로 변경" data-msg="교환불가 처리하시면 배송완료 상태로 변경됩니다. 처리하시겠습니까?" >교환불가</button>
@@ -272,6 +275,10 @@
 									<c:if test="${ordrDtl.sttsTy eq 'OR08'}">
 										<c:set var="ordrDvlyDoneBtn" value="true" />
 									</c:if>
+									<%-- 구매확정 --%>
+									<c:if test="${ordrDtl.sttsTy eq 'OR09'}">
+										<c:set var="ordrDoneBtn" value="true" />
+									</c:if>
 									<%-- 환불정보 --%>
 									<c:if test="${ordrDtl.sttsTy eq 'CA01' || ordrDtl.sttsTy eq 'CA02' || ordrDtl.sttsTy eq 'RF01' || ordrDtl.sttsTy eq 'RF02'}">
 										<c:set var="ordrRfndBtn" value="true" />
@@ -293,8 +300,8 @@
                             	<%-- 배송준비중 -> 결제완료 버튼 --%>
                             	<button type="button" class="btn-primary shadow f_ordr_confrm" data-stts-ty="OR05" data-ordr-cd="${ordrVO.ordrCd}">주문확정취소</button>
                             	</c:if>
-                            	<%-- 배송완료 -> 반품버튼 --%>
-                            	<c:if test="${ordrDvlyDoneBtn}">
+                            	<%-- 배송완료, 구매확정 -> 반품버튼 --%>
+                            	<c:if test="${ordrDvlyDoneBtn || ordrDoneBtn}">
                             	<button type="button" class="btn-primary shadow w-22 f_gds_return" data-ordr-cd="${ordrVO.ordrCd}">반품</button>
                             	</c:if>
 
