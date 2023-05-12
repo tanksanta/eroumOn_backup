@@ -79,7 +79,7 @@ public class PlannerController extends CommonAbstractController  {
 
 			model.addAttribute("total", total);
 		} catch (Exception ex) {
-			log.debug("복지24 api 오류 메세지: " + ex.getMessage());
+			log.debug("============== 복지24 api 오류 메세지: " + ex.getMessage(), ex);
 		}
 
 
