@@ -52,7 +52,7 @@
                                 	<c:forEach items="${ordrVO.ordrDtlList}" var="ordrDtl" varStatus="status">
                                     <tr>
                                     	<td class="${ordrDtl.ordrDtlCd}">
-                                    		<c:if test="${fn:startsWith(ordrDtl.sttsTy, 'OR') && !fn:startsWith(ordrDtl.sttsTy, 'OR09')}">
+                                    		<c:if test="${fn:startsWith(ordrDtl.sttsTy, 'OR')}">
                                     		<div class="form-check">
 												<input class="form-check-input" type="checkbox" name="ordrDtlCds" value="${ordrDtl.ordrDtlCd}" data-ordr-pc="${ordrDtl.ordrPc}">
 											</div>
