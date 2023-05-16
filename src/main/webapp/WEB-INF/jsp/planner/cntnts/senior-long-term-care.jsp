@@ -195,7 +195,7 @@
                 <div class="cont2">
                     <div class="box">
                         <img src="/html/page/planner/assets/images/img-content-insurance5.png" alt="장기요양예상등급 이로움테스트">
-                        <a href="https://eroum.co.kr/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
+                        <a href="/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
                         <div id="qrcode"></div>
                     </div>
                     <script src="/html/core/vendor/qrcodejs/qrcode.min.js"></script>
@@ -250,11 +250,11 @@
                         e.stopPropagation();
                         $(this).closest('.card-item').toggleClass('is-active');
                     })
-
+                    
                     $('.card-item a').on('click', function(e) {
                         e.stopPropagation();
                     })
-
+                    
                     $(window).on('scroll', function() {
                         if($('.content-insurance1').get(0).getClientRects()[0].y + $('.content-insurance1').get(0).getClientRects()[0].height > 0) {
                             $('.content-insurance1 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.1) + 'px)'});
