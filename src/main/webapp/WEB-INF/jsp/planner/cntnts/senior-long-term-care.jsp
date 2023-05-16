@@ -195,7 +195,7 @@
                 <div class="cont2">
                     <div class="box">
                         <img src="/html/page/planner/assets/images/img-content-insurance5.png" alt="장기요양예상등급 이로움테스트">
-                        <a href="https://silver.bokji24.com/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
+                        <a href="/find/step2-1" target="_blank"><span class="sr-only">테스트 바로시작</span></a>
                         <div id="qrcode"></div>
                     </div>
                     <script src="/html/core/vendor/qrcodejs/qrcode.min.js"></script>
