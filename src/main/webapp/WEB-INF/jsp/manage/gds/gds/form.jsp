@@ -854,7 +854,7 @@
 								<td>
 									<div class="form-group">
 										<form:input path="youtubeUrl" class="form-control w-100" maxlength="250" />
-										<p class="ml-2">유튜브에 등록하신 동영상URL을 입력해 주세요</p>
+										<p class="ml-2">유튜브에 등록하신 동영상URL을 입력해 주세요 (예시 : https://www.youtube.com/embed/{영상번호})</p>
 									</div>
 								</td>
 							</tr>
