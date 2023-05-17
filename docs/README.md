@@ -49,3 +49,9 @@ thkc1300 / ~6thgkfossmkc!~
 
 ## 카카오
 운영 : thkc@kakao.com / thdeckc01@!
+
+
+## 채널톡
+https://channel.io/ko
+crm@thkc.co.kr / ~thkc1234!!~
+
