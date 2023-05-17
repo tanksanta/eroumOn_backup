@@ -4,82 +4,72 @@
     }
 
     .ico-reply {
-        @apply ico-base w-[0.5625rem] h-2.5;
-        background-image: url(../images/ico-reply.svg);
+        @apply ico-base w-[0.5625rem] h-2.5 bg-[url(../images/ico-reply.svg)];
         &.white {
-            background-image: url(../images/ico-reply-white.svg);
+            @apply bg-[url(../images/ico-reply-white.svg)];
         }
     }
 
     .ico-close {
-        @apply ico-base w-[0.5625rem] h-[0.5625rem];
-        background-image: url(../images/ico-close.svg);
+        @apply ico-base w-[0.5625rem] h-[0.5625rem] bg-[url(../images/ico-close.svg)];
         &.white {
-            background-image: url(../images/ico-close-white.svg);
+            @apply bg-[url(../images/ico-close-white.svg)];
         }
     }
 
     .ico-calendar {
-        @apply ico-base w-4 h-4;
-        background-image: url(../images/ico-calendar.svg);
+        @apply ico-base w-4 h-4 bg-[url(../images/ico-calendar.svg)];
         &.white {
-            background-image: url(../images/ico-calendar-white.svg);
+            @apply bg-[url(../images/ico-calendar-white.svg)];
         }
     }
 
     .ico-external {
-        @apply ico-base w-[0.9375rem] h-[0.9375rem];
-        background-image: url(../images/ico-external.svg);
+        @apply ico-base w-[0.9375rem] h-[0.9375rem] bg-[url(../images/ico-external.svg)];
         &.white {
-            background-image: url(../images/ico-external-white.svg);
+            @apply bg-[url(../images/ico-external-white.svg)];
         }
     }
 
     .ico-download {
-        @apply ico-base w-[0.8125rem] h-[0.6875rem];
-        background-image: url(../images/ico-download.svg);
+        @apply ico-base w-[0.8125rem] h-[0.6875rem] bg-[url(../images/ico-download.svg)];
         &.white {
-            background-image: url(../images/ico-download-white.svg);
+            @apply bg-[url(../images/ico-download-white.svg)];
         }
     }
 
     .ico-file {
-        @apply ico-base w-[0.8125rem] h-[0.9375rem];
-        background-image: url(../images/ico-file.svg);
+        @apply ico-base w-[0.8125rem] h-[0.9375rem] bg-[url(../images/ico-file.svg)];
         &.white {
-            background-image: url(../images/ico-file-white.svg);
+            @apply bg-[url(../images/ico-file-white.svg)];
         }
     }
 
     .ico-member-mo {
-        @apply ico-base w-[1.0625rem] h-8;
-        background-image: url(../images/ico-member-mo.svg);
+        @apply ico-base w-[1.0625rem] h-8 bg-[url(../images/ico-member-mo.svg)];
         &.white {
-            background-image: url(../images/ico-member-mo-white.svg);
+            @apply bg-[url(../images/ico-member-mo-white.svg)];
         }
     }
 
     .ico-member-pc {
-        @apply ico-base w-9 h-[1.8125rem];
-        background-image: url(../images/ico-member-pc.svg);
+        @apply ico-base w-9 h-[1.8125rem] bg-[url(../images/ico-member-pc.svg)];
         &.white {
-            background-image: url(../images/ico-member-pc-white.svg);
+            @apply bg-[url(../images/ico-member-pc-white.svg)];
         }
     }
 
     .ico-loader {
-        @apply ico-base w-[3.375rem] h-2;
-        background-image: url(../images/img-loader.svg);
+        @apply ico-base w-[3.375rem] h-2 bg-[url(../images/img-loader.svg)];
         &.white {
-            background-image: url(../images/img-loader-white.svg);
+            @apply bg-[url(../images/img-loader-white.svg)];
         }
     }
 
     .ico-arrow-left {
-        @apply ico-base w-[0.6875rem] h-2.5;
-        background-image: url(../images/ico-nav-arrow.svg);
+        @apply ico-base w-[0.6875rem] h-2.5 bg-[url(../images/ico-nav-arrow.svg)];
         &.white {
-            background-image: url(../images/ico-nav-arrow-white.svg);
+            @apply bg-[url(../images/ico-nav-arrow-white.svg)];
         }
     }
 
@@ -96,10 +86,9 @@
     }
 
     .ico-angle-bottom {
-        @apply ico-base w-2.5 h-1.5;
-        background-image: url(../images/ico-select-arrow.svg);
+        @apply ico-base w-2.5 h-1.5 bg-[url(../images/ico-select-arrow.svg)];
         &.white {
-            background-image: url(../images/ico-select-arrow-white.svg);
+            @apply bg-[url(../images/ico-select-arrow-white.svg)];
         }
     }
 

@@ -145,6 +145,11 @@
                     <!-- //관련 상품 -->
                     </c:if>
 
+
+               <!-- 가격 배너 -->
+               <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div>
+               <!-- //가격 배너 -->
+               
 				<!-- 상세 탭 -->
 				<div id="prod-tablist" class="product-tablist">
 					<ul class="nav">

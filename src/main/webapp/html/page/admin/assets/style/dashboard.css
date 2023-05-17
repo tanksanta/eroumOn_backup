@@ -77,10 +77,7 @@
     & .weather {
         @apply flex items-center;
         & > * {
-            @apply mr-1;
-            &:last-child {
-                @apply mr-0;
-            }
+            @apply mr-1 last:mr-0;
         }
         & .loca {
             @apply text-xs leading-tight text-right font-medium;
@@ -105,14 +102,9 @@
 }
 
 .dashboard-menu {
-    @apply btn p-0 w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-center bg-no-repeat bg-transparent text-left;
-    background-image: url(../images/ico-dashboard.svg);
-    background-size: theme("spacing[4.5]");
+    @apply btn p-0 w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-center bg-no-repeat bg-transparent bg-[url(../images/ico-dashboard.svg)] bg-[length:theme("spacing[4.5]")] text-left hover:bg-transparent focus:bg-transparent active:bg-transparent;
     &.white {
-        background-image: url(../images/ico-dashboard-white.svg);
-    }
-    &:hover, &:focus, &:active {
-        @apply bg-transparent;
+        @apply bg-[url(../images/ico-dashboard-white.svg)];
     }
 }
 
@@ -124,121 +116,43 @@
             @apply block mx-auto w-fit;
             &:hover {
                 & i {
-                    @apply bg-black1;
-                    &::before {
-                        @apply opacity-0;
-                    }
-                    &::after {
-                        @apply opacity-100;
-                    }
+                    @apply bg-black1 before:opacity-0 after:opacity-100;
                 }
             }
         }
         & i {
-            @apply block relative mb-1.5 mx-auto w-[3.3125rem] h-[3.3125rem] overflow-hidden rounded-md;
-            &::before, &::after {
-                @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:1.6875rem];
-            }
-            &::after {
-                @apply opacity-0;
-            }
+            @apply block relative mb-1.5 mx-auto w-[3.3125rem] h-[3.3125rem] overflow-hidden rounded-md
+                   before:content-empty before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-no-repeat before:bg-center before:bg-[length:1.6875rem]
+                   after:content-empty after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-no-repeat after:bg-center after:bg-[length:1.6875rem] after:opacity-0;
             &.icon1 {
-                &::before, &::after {
-                    @apply bg-[length:1.8125rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu2.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu2-white.svg)];
-                }
+                @apply before:bg-[length:1.8125rem] before:bg-[url(../images/ico-menu2.svg)] after:bg-[length:1.8125rem] after:bg-[url(../images/ico-menu2-white.svg)];
             }
             &.icon2 {
-                &::before {
-                    @apply bg-[url(../images/ico-menu3.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu3-white.svg)];
-                }
+                @apply before:bg-[url(../images/ico-menu3.svg)] after:bg-[url(../images/ico-menu3-white.svg)];
             }
             &.icon3 {
-                &::before, &::after {
-                    @apply bg-[length:1.5625rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu4.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu4-white.svg)];
-                }
+                @apply before:bg-[length:1.5625rem] before:bg-[url(../images/ico-menu4.svg)] after:bg-[length:1.5625rem] after:bg-[url(../images/ico-menu4-white.svg)];
             }
             &.icon4 {
-                &::before, &::after {
-                    @apply bg-[length:1.75rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu5.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu5-white.svg)];
-                }
+                @apply before:bg-[length:1.75rem] before:bg-[url(../images/ico-menu5.svg)] after:bg-[length:1.75rem] after:bg-[url(../images/ico-menu5-white.svg)];
             }
             &.icon5 {
-                &::before, &::after {
-                    @apply bg-[length:2rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu11.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu11-white.svg)];
-                }
+                @apply before:bg-[length:2rem] before:bg-[url(../images/ico-menu11.svg)] after:bg-[length:2rem] after:bg-[url(../images/ico-menu11-white.svg)];
             }
             &.icon6 {
-                &::before, &::after {
-                    @apply bg-[length:1.8125rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu7.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu7-white.svg)];
-                }
+                @apply before:bg-[length:1.8125rem] before:bg-[url(../images/ico-menu7.svg)] after:bg-[length:1.8125rem] after:bg-[url(../images/ico-menu7-white.svg)];
             }
             &.icon7 {
-                &::before {
-                    @apply bg-[url(../images/ico-menu8.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu8-white.svg)];
-                }
+                @apply before:bg-[url(../images/ico-menu8.svg)] after:bg-[url(../images/ico-menu8-white.svg)];
             }
             &.icon8 {
-                &::before {
-                    @apply bg-[url(../images/ico-menu9.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu9-white.svg)];
-                }
+                @apply before:bg-[url(../images/ico-menu9.svg)] after:bg-[url(../images/ico-menu9-white.svg)];
             }
             &.icon9 {
-                &::before {
-                    @apply bg-[url(../images/ico-menu10.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu10-white.svg)];
-                }
+                @apply before:bg-[url(../images/ico-menu10.svg)] after:bg-[url(../images/ico-menu10-white.svg)];
             }
             &.icon10 {
-                &::before, &::after {
-                    @apply bg-[length:1.75rem];
-                }
-                &::before {
-                    @apply bg-[url(../images/ico-menu12.svg)];
-                }
-                &::after {
-                    @apply bg-[url(../images/ico-menu12-white.svg)];
-                }
+                @apply before:bg-[length:1.75rem] before:bg-[url(../images/ico-menu12.svg)] after:bg-[length:1.75rem] after:bg-[url(../images/ico-menu12-white.svg)];
             }
         }
     }
@@ -252,70 +166,43 @@
     & a {
         @apply block text-center text-white text-base press-action;
         &::before {
-            @apply block content-empty mb-2.5 w-22 h-22 bg-white bg-no-repeat bg-center text-[0.9375rem];
-            border-radius: theme("spacing[4.5]");
-            box-shadow: 0px 2px 4px #00000033;
+            @apply block content-empty mb-2.5 w-22 h-22 bg-white bg-no-repeat bg-center text-[0.9375rem] rounded-[theme("spacing[4.5]")] shadow-[0px_2px_4px_#00000033];
         }
         &.dashboard-item1 {
-            &::before {
-                background-image: url(../images/ico-menu1.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu1.svg)];
         }
         &.dashboard-item2 {
-            &::before {
-                background-image: url(../images/ico-menu2.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu2.svg)];
         }
         &.dashboard-item3 {
-            &::before {
-                background-image: url(../images/ico-menu3.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu3.svg)];
         }
         &.dashboard-item4 {
-            &::before {
-                background-image: url(../images/ico-menu4.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu4.svg)];
         }
         &.dashboard-item5 {
-            &::before {
-                background-image: url(../images/ico-menu5.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu5.svg)];
         }
         &.dashboard-item6 {
-            &::before {
-                background-image: url(../images/ico-menu6.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu6.svg)];
         }
         &.dashboard-item7 {
-            &::before {
-                background-image: url(../images/ico-menu7.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu7.svg)];
         }
         &.dashboard-item8 {
-            &::before {
-                background-image: url(../images/ico-menu8.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu8.svg)];
         }
         &.dashboard-item9 {
-            &::before {
-                background-image: url(../images/ico-menu9.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu9.svg)];
         }
         &.dashboard-item10 {
-            &::before {
-                background-image: url(../images/ico-menu10.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu10.svg)];
         }
         &.dashboard-item11 {
-            &::before {
-                background-image: url(../images/ico-menu11.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu11.svg)];
         }
         &.dashboard-item12 {
-            &::before {
-                @apply bg-[length:2.5rem];
-                background-image: url(../images/ico-menu12.svg);
-            }
+            @apply before:bg-[url(../images/ico-menu12.svg)] before:bg-[length:2.5rem];
         }
     }
 }
@@ -323,9 +210,7 @@
 .dashboard-box1, .dashboard-box2 {
     @apply relative px-5 py-4 rounded-[1.625rem] backdrop-blur-lg leading-none;
     &::before {
-        @apply content-empty absolute -z-5 top-0.5 left-0.5 right-0.5 bottom-0.5 border border-white opacity-10;
-        border-radius: theme("spacing[6]");
-    }
+        @apply content-empty absolute -z-5 top-0.5 left-0.5 right-0.5 bottom-0.5 border border-white opacity-10 rounded-[theme("spacing[6]")];    }
     & > * {
         @apply relative z-5;
     }
@@ -381,39 +266,36 @@
     & .numb {
         @apply inline-flex justify-end relative overflow-hidden tracking-wider text-white text-right text-[1.5625rem] bg-no-repeat bg-[url(../images/text-num-white.svg)] bg-left-top bg-[length:1em] leading-none align-top;
         & span {
-            @apply bg-no-repeat block mr-[0.2em] w-[1em] h-[46px] overflow-hidden bg-[url(../images/text-num-white.svg)] bg-[length:1em] text-left -indent-96;
-            &:last-child {
-                @apply mr-0;
-            }
+            @apply bg-no-repeat block mr-[0.2em] w-[1em] h-[46px] overflow-hidden bg-[url(../images/text-num-white.svg)] bg-[length:1em] text-left -indent-96 last:mr-0;
             &[data-num="0"] {
-                background-position: 0 -46px;
+                @apply bg-[position:0_-46px];
             }
             &[data-num="1"] {
-                background-position: 0 -93px;
+                @apply bg-[position:0_-93px];
             }
             &[data-num="2"] {
-                background-position: 0 -140px;
+                @apply bg-[position:0_-140px];
             }
             &[data-num="3"] {
-                background-position: 0 -187px;
+                @apply bg-[position:0_-187px];
             }
             &[data-num="4"] {
-                background-position: 0 -234px;
+                @apply bg-[position:0_-234px];
             }
             &[data-num="5"] {
-                background-position: 0 -281px;
+                @apply bg-[position:0_-281px];
             }
             &[data-num="6"] {
-                background-position: 0 -328px;
+                @apply bg-[position:0_-328px];
             }
             &[data-num="7"] {
-                background-position: 0 -375px;
+                @apply bg-[position:0_-375px];
             }
             &[data-num="8"] {
-                background-position: 0 -422px;
+                @apply bg-[position:0_-422px];
             }
             &[data-num="9"] {
-                background-position: 0 -468px;
+                @apply bg-[position:0_-468px];
             }
             &.space {
                 @apply ml-[0.4em];
@@ -426,42 +308,42 @@
     &.is-red {
         & .numb {
             & span {
-                background-image: url(../images/text-num-red.svg);
+                @apply bg-[url(../images/text-num-red.svg)];
             }
         }
     }
     &.is-sky {
         & .numb {
             & span {
-                background-image: url(../images/text-num-sky.svg);
+                @apply bg-[url(../images/text-num-sky.svg)];
             }
         }
     }
     &.is-blue {
         & .numb {
             & span {
-                background-image: url(../images/text-num-blue.svg);
+                @apply bg-[url(../images/text-num-blue.svg)];
             }
         }
     }
     &.is-orange {
         & .numb {
             & span {
-                background-image: url(../images/text-num-orange.svg);
+                @apply bg-[url(../images/text-num-orange.svg)];
             }
         }
     }
     &.is-yellow {
         & .numb {
             & span {
-                background-image: url(../images/text-num-yellow.svg);
+                @apply bg-[url(../images/text-num-yellow.svg)];
             }
         }
     }
     &.is-green {
         & .numb {
             & span {
-                background-image: url(../images/text-num-green.svg);
+                @apply bg-[url(../images/text-num-green.svg)];
             }
         }
     }
@@ -469,36 +351,36 @@
         & .numb {
             @apply text-base;
             & span {
-                height: 30px;
+                @apply h-[30px];
                 &[data-num="0"] {
-                    background-position: 0 -29px;
+                    @apply bg-[position:0_-29px];
                 }
                 &[data-num="1"] {
-                    background-position: 0 -59px;
+                    @apply bg-[position:0_-59px];
                 }
                 &[data-num="2"] {
-                    background-position: 0 -89px;
+                    @apply bg-[position:0_-89px];
                 }
                 &[data-num="3"] {
-                    background-position: 0 -119px;
+                    @apply bg-[position:0_-119px];
                 }
                 &[data-num="4"] {
-                    background-position: 0 -149px;
+                    @apply bg-[position:0_-149px];
                 }
                 &[data-num="5"] {
-                    background-position: 0 -179px;
+                    @apply bg-[position:0_-179px];
                 }
                 &[data-num="6"] {
-                    background-position: 0 -209px;
+                    @apply bg-[position:0_-209px];
                 }
                 &[data-num="7"] {
-                    background-position: 0 -239px;
+                    @apply bg-[position:0_-239px];
                 }
                 &[data-num="8"] {
-                    background-position: 0 -269px;
+                    @apply bg-[position:0_-269px];
                 }
                 &[data-num="9"] {
-                    background-position: 0 -299px;
+                    @apply bg-[position:0_-299px];
                 }
             }
         }
@@ -507,36 +389,36 @@
         & .numb {
             @apply text-4xl;
             & span {
-                height: 60px;
+                @apply h-[60px];
                 &[data-num="0"] {
-                    background-position: 0 -60px;
+                    @apply bg-[position:0_-60px];
                 }
                 &[data-num="1"] {
-                    background-position: 0 -120px;
+                    @apply bg-[position:0_-120px];
                 }
                 &[data-num="2"] {
-                    background-position: 0 -180px;
+                    @apply bg-[position:0_-180px];
                 }
                 &[data-num="3"] {
-                    background-position: 0 -240px;
+                    @apply bg-[position:0_-240px];
                 }
                 &[data-num="4"] {
-                    background-position: 0 -300px;
+                    @apply bg-[position:0_-300px];
                 }
                 &[data-num="5"] {
-                    background-position: 0 -360px;
+                    @apply bg-[position:0_-360px];
                 }
                 &[data-num="6"] {
-                    background-position: 0 -420px;
+                    @apply bg-[position:0_-420px];
                 }
                 &[data-num="7"] {
-                    background-position: 0 -480px;
+                    @apply bg-[position:0_-480px];
                 }
                 &[data-num="8"] {
-                    background-position: 0 -540px;
+                    @apply bg-[position:0_-540px];
                 }
                 &[data-num="9"] {
-                    background-position: 0 -600px;
+                    @apply bg-[position:0_-600px];
                 }
             }
         }
@@ -558,12 +440,9 @@
             & dd {
                 @apply flex-1 pr-5.5 pl-2.5;
                 & .dashboard-number {
-                    @apply flex justify-end mt-2.5 text-right;
+                    @apply flex justify-end mt-2.5 text-right first:mt-0;
                     & .desc {
                         @apply ml-1 w-[1em] text-center;
-                    }
-                    &:first-child {
-                        @apply mt-0;
                     }
                     &:not(.is-small) {
                         @apply mr-4;

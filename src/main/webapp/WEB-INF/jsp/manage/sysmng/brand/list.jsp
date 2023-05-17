@@ -21,11 +21,13 @@
 						<td>
 							<div class="form-check-group">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="srchYn" id="search-item3" value="" checked> <label class="form-check-label" for="search-item3">전체</label>
+									<input class="form-check-input" type="radio" name="srchYn" id="search-item3" value="" checked>
+									<label class="form-check-label" for="search-item3">전체</label>
 								</div>
 								<c:forEach var="yn" items="${useYn}">
 									<div class="form-check">
-										<input type="radio" value="${yn.key}" id="${yn.value}" name="srchYn" class="form-check-input" <c:if test="${yn.key eq param.srchYn}">checked="checked"</c:if>> <label class="form-check-label" for="${yn.value}">${yn.value}</label>
+										<input type="radio" value="${yn.key}" id="${yn.value}" name="srchYn" class="form-check-input" <c:if test="${yn.key eq param.srchYn}">checked="checked"</c:if>>
+										<label class="form-check-label" for="${yn.value}">${yn.value}</label>
 									</div>
 								</c:forEach>
 							</div>

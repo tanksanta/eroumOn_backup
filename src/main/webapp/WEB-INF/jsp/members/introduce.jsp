@@ -2,8 +2,16 @@
 <main id="container">
 	<div class="intro-jumbotron">
 		<div class="header">
-			<h1 class="logo">
-				<a href="/<spring:eval expression="@props['Globals.Members.path']"/>/introduce"><img src="/html/page/office/assets/images/ico-partner-logo.svg" alt=""></a>
+			<h1 id="logo" class="global-logo is-style2 is-white">
+				<a href="/<spring:eval expression="@props['Globals.Members.path']"/>/introduce">
+					<span>
+					    멤버스
+					    <small>
+					        당신이 어디에 있든<br>
+					        사업소가 항상 옆에 있습니다.
+					    </small>
+					</span>
+				</a>
 			</h1>
 			<ul class="link">
 				<li><a href="./login">멤버스 로그인</a></li>

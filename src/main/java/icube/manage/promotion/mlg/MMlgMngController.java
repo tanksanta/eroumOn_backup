@@ -44,9 +44,6 @@ public class MMlgMngController extends CommonAbstractController {
 	@Autowired
 	private MngrSession mngrSession;
 
-	//private static String[] targetParams = {"curPage", "cntPerPage", "sortBy", "srchMlgSe","srchMlgCn","srchMngrMemo","srchBgngDt","srchEndDt"};
-
-
     /**
      * 마일리지 리스트
      * @param request
@@ -132,8 +129,6 @@ public class MMlgMngController extends CommonAbstractController {
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		//String pageParam = HtmlUtils.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
-
 
 		// 관리자정보
 		mlgMngVO.setRegUniqueId(mngrSession.getUniqueId());
@@ -187,7 +182,6 @@ public class MMlgMngController extends CommonAbstractController {
 		// 1. 대상 정보
 		MlgMngVO mlgMngVO = mlgMngService.selectMlgMng(mlgMngNo);
 
-
 		// 2. 대상 회원 정보
 		Map<String, Object> paramMap = new HashMap();
 		paramMap.put("srchMlgMngNo", mlgMngNo);
@@ -196,8 +190,6 @@ public class MMlgMngController extends CommonAbstractController {
 
 		resultMap.put("pointMng", mlgMngVO);
 		resultMap.put("mbrList", mbrList);
-
-
 
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("pointCnCode", CodeMap.POINT_CN);

@@ -78,10 +78,7 @@ public class PlannerInqryController extends CommonAbstractController {
 				if(EgovStringUtil.equals(inqryTy, "마켓입점")) {
 					putEml = "bizmarket@thkc.co.kr";
 				}
-
-				//mailService.sendMail(cntntsEml, putEml, mailSj, mailForm);
-				//TODO 수신자 바꾸기
-				mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm);
+				mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 
 				javaScript.setMessage(getMsg("action.complete.insert"));
 

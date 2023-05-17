@@ -19,7 +19,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="text-title"><img src="/html/page/planner/assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
                     <button data-bs-dismiss="modal">모달 닫기</button>
                 </div>
                 <div class="modal-body">

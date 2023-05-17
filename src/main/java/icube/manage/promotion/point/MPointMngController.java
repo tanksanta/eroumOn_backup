@@ -40,8 +40,6 @@ public class MPointMngController extends CommonAbstractController {
 	@Autowired
 	private MngrSession mngrSession;
 
-	//private static String[] targetParams = {"curPage", "cntPerPage", "srchPointSe", "srchPointCn", "sortBy","srchBgngDt","srchEndDt","srchMngrMemo","srchMbrId"};
-
     /**
      * 포인트 리스트
      * @param request
@@ -127,8 +125,6 @@ public class MPointMngController extends CommonAbstractController {
 			, HttpSession session) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		//String pageParam = HtmlUtils.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
-
 
 		// 관리자정보
 		pointMngVO.setRegUniqueId(mngrSession.getUniqueId());
@@ -196,8 +192,6 @@ public class MPointMngController extends CommonAbstractController {
 
 		return "/manage/promotion/include/mbr-target-modal";
 	}
-
-
 
 
 }

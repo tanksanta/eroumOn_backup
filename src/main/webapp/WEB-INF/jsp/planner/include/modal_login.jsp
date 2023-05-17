@@ -6,7 +6,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="text-title"><img src="/html/page/planner/assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
                     <button data-bs-dismiss="modal">모달 닫기</button>
                 </div>
                 <div class="modal-body">
@@ -84,120 +84,125 @@
 			})
 			.done(function(data) {
 				console.log(data.resultCode);
-				if(data.resultCode != "HUMAN"){
-					if(data.result){
-						$(".userinfo-count .title, .userinfo-count .desc, .userinfo-count .dropbox").remove();
-						var html ="";
-						html += '<div class="user">';
-						html += '    <p class="name">'+ data.mbrNm +' <small>'+ data.mbrAge +'세, '+ data.mbrAddr +'</small></p>';
-						html += '    <p class="button">';
-						html += '        <a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>';
-						html += '        <a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>';
-						html += '    </p>';
-						html += '</div>';
-						html += '<div class="desc2">';
-						html += '    <strong>내게 <em>딱</em> 맞는</strong><br>';
-						html += '    <strong>복지서비스<span>를</span> 한 곳<span>에</span>…</strong>';
-						html += '</div>';
+				if(data.resultCode == "PSWD LOCK"){
+					alert("비밀번호를 5회 이상 틀렸습니다. \n비밀번호 찾기 화면으로 이동합니다.");
+					location.href = "/membership/srchPswd";
+				}else{
+					if(data.resultCode != "HUMAN"){
+						if(data.result){
+							$(".userinfo-count .title, .userinfo-count .desc, .userinfo-count .dropbox").remove();
+							var html ="";
+							html += '<div class="user">';
+							html += '    <p class="name">'+ data.mbrNm +' <small>'+ data.mbrAge +'세, '+ data.mbrAddr +'</small></p>';
+							html += '    <p class="button">';
+							html += '        <a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>';
+							html += '        <a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>';
+							html += '    </p>';
+							html += '</div>';
+							html += '<div class="desc2">';
+							html += '    <strong>내게 <em>딱</em> 맞는</strong><br>';
+							html += '    <strong>복지서비스<span>를</span> 한 곳<span>에</span>…</strong>';
+							html += '</div>';
 
-						// index
-						$(".userinfo-count").prepend(html);
+							// index
+							$(".userinfo-count").prepend(html);
 
-						// mobile menu
-						$(".allmenu-join dt").text("이로움ON과 함께하세요");
-						//$(".allmenu-join .non_login").css({"display":"none"});
-						//$(".allmenu-join .on_login").css({"display":"block"});
+							// mobile menu
+							$(".allmenu-join dt").text("이로움ON과 함께하세요");
+							//$(".allmenu-join .non_login").css({"display":"none"});
+							//$(".allmenu-join .on_login").css({"display":"block"});
 
-						var addr1 = data.mbrAddr1;
-						if(addr1 == "충남"){
-							addr1 = "충청남도";
-			    		}else if(addr1 == "충북"){
-			    			addr1 = "충청북도";
-			    		}else if(addr1 == "경남"){
-			    			addr1 = "경상남도";
-			    		}else if(addr1 == "경북"){
-			    			addr1 = "경상북도";
-			    		}else if(addr1 == "전남"){
-			    			addr1 = "전라남도";
-			    		}else if(addr1 == "전북"){
-			    			addr1 = "전라북도";
-			    		}else if(addr1 == "서울"){
-			    			addr1 = "서울특별시";
-			    		}else if(addr1 == "강원" || addr1 == "경기"){
-			    			addr1 = addr1 + "도";
-			    		}else if(addr1 == "광주"){
-			    			addr1 = "광주광역시";
-			    		}else if(addr1 == "대구" || addr1 == "대전" || addr1 == "부산" || addr1 == "울산" || addr1 == "인천"){
-			    			addr1 = addr1 + "광역시";
-			    			console.log(addr1);
-			    		}
-						$(".select-sido ul a:contains('"+ addr1 +"')").click();
-						$(".select-sido button").text(addr1);
-						setTimeout(function(){
-							$(".select-gugun button").text(data.mbrAddr2);
-							$("button.srch-srvc").click();
-						}, 100);
+							var addr1 = data.mbrAddr1;
+							if(addr1 == "충남"){
+								addr1 = "충청남도";
+				    		}else if(addr1 == "충북"){
+				    			addr1 = "충청북도";
+				    		}else if(addr1 == "경남"){
+				    			addr1 = "경상남도";
+				    		}else if(addr1 == "경북"){
+				    			addr1 = "경상북도";
+				    		}else if(addr1 == "전남"){
+				    			addr1 = "전라남도";
+				    		}else if(addr1 == "전북"){
+				    			addr1 = "전라북도";
+				    		}else if(addr1 == "서울"){
+				    			addr1 = "서울특별시";
+				    		}else if(addr1 == "강원" || addr1 == "경기"){
+				    			addr1 = addr1 + "도";
+				    		}else if(addr1 == "광주"){
+				    			addr1 = "광주광역시";
+				    		}else if(addr1 == "대구" || addr1 == "대전" || addr1 == "부산" || addr1 == "울산" || addr1 == "인천"){
+				    			addr1 = addr1 + "광역시";
+				    			console.log(addr1);
+				    		}
+							$(".select-sido ul a:contains('"+ addr1 +"')").click();
+							$(".select-sido button").text(addr1);
+							setTimeout(function(){
+								$(".select-gugun button").text(data.mbrAddr2);
+								$("button.srch-srvc").click();
+							}, 100);
 
-						var html2 = "";
-						html2 += '';
-						html2 += '<p>';
-						html2 += '    <strong>'+ data.mbrNm +'</strong>';
-						html2 += '    '+ data.mbrAge +'세, '+ data.mbrAddr;
-						html2 += '</p>';
-						html2 += '<a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>';
-						html2 += '<a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>';
+							var html2 = "";
+							html2 += '';
+							html2 += '<p>';
+							html2 += '    <strong>'+ data.mbrNm +'</strong>';
+							html2 += '    '+ data.mbrAge +'세, '+ data.mbrAddr;
+							html2 += '</p>';
+							html2 += '<a href="${_membershipPath}/mypage/list" class="btn btn-outline-primary">설정</a>';
+							html2 += '<a href="${_membershipPath}/logout" class="btn btn-primary">로그아웃</a>';
 
-						$("#account").removeClass('is-nologin').addClass('is-login').html(html2);
+							$("#account").removeClass('is-nologin').addClass('is-login').html(html2);
 
-						$("#modal-login").modal("hide");
-						$("#mobileClsBtn").click();
+							$("#modal-login").modal("hide");
+							$("#mobileClsBtn").click();
 
-						if($("#bokjiId").val() > 0){
-							srvcDtl($("#bokjiId").val());
-						}
-
-						$("input[name='category']").prop("checked",false);
-
-						// 회원 관심 카테고리
-						var field = (data.mbrItrst).replaceAll(' ','').split(',');
-						var selCheckVal = "";
-						console.log("필드 : " + field);
-						if(field != "null"){
-							for(var i=0; i<field.length; i++){
-								switch(field[i]){
-									case "1" : $("#opt-item7").prop("checked",true);break;
-									case "2" : $("#opt-item8").prop("checked",true);break;
-									case "3" : $("#opt-item6").prop("checked",true);break;
-									case "4" : $("#opt-item3").prop("checked",true);break;
-									case "5" : break;
-									case "6" : $("#opt-item2").prop("checked",true);break;
-									case "7" : $("#opt-item1").prop("checked",true);break;
-									case "8" : $("#opt-item5").prop("checked",true);break;
-
-								}
+							if($("#bokjiId").val() > 0){
+								srvcDtl($("#bokjiId").val());
 							}
 
+							$("input[name='category']").prop("checked",false);
+
+							// 회원 관심 카테고리
+							var field = (data.mbrItrst).replaceAll(' ','').split(',');
+							var selCheckVal = "";
+							console.log("필드 : " + field);
+							if(field != "null"){
+								for(var i=0; i<field.length; i++){
+									switch(field[i]){
+										case "1" : $("#opt-item7").prop("checked",true);break;
+										case "2" : $("#opt-item8").prop("checked",true);break;
+										case "3" : $("#opt-item6").prop("checked",true);break;
+										case "4" : $("#opt-item3").prop("checked",true);break;
+										case "5" : break;
+										case "6" : $("#opt-item2").prop("checked",true);break;
+										case "7" : $("#opt-item1").prop("checked",true);break;
+										case "8" : $("#opt-item5").prop("checked",true);break;
+
+									}
+								}
+
+							}else{
+								//console.log("모두 체크");
+								$("input[name='category']").prop("checked",true);
+							}
+
+							$(".non_login").hide();
+							$(".on_login").show();
+
 						}else{
-							//console.log("모두 체크");
-							$("input[name='category']").prop("checked",true);
+							console.log(data.resultCode);
+							if(data.resultCode == "PAUSE"){
+								alert("일시정지된 회원입니다.");
+							}else if(data.resultCode == "UNLIMIT"){
+								alert("영구정지된 회원입니다.");
+							}else{
+								alert("로그인 정보가 올바르지 않습니다.");
+							}
 						}
-
-						$(".non_login").hide();
-						$(".on_login").show();
-
 					}else{
-						console.log(data.resultCode);
-						if(data.resultCode == "PAUSE"){
-							alert("일시정지된 회원입니다.");
-						}else if(data.resultCode == "UNLIMIT"){
-							alert("영구정지된 회원입니다.");
-						}else{
-							alert("로그인 정보가 올바르지 않습니다.");
-						}
+						alert("휴면 회원입니다.");
+						location.href="${_membershipPath}" + "/drmt/view?mbrId="+data.mbrId;
 					}
-				}else{
-					alert("휴면 회원입니다.");
-					location.href="${_membershipPath}" + "/drmt/view?mbrId="+data.mbrId;
 				}
 			})
 			.fail(function(data, status, err) {

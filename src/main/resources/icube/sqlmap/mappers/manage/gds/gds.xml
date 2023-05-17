@@ -182,6 +182,9 @@
 		<if test="srchItemCd != null and srchItemCd != '' ">
 			AND g.item_cd like CONCAT ('%',#{srchItemCd},'%')
 		</if>
+		<if test="srchTrimGdsNm != null and srchTrimGdsNm != '' ">
+			AND REPLACE(g.gds_nm,' ','') = #{srchTrimGdsNm}
+		</if>
 		<!-- //관리자용 -->
 		<if test="srchGdsNm !=null and srchGdsNm != ''">
 			AND g.gds_nm LIKE CONCAT('%', #{srchGdsNm}, '%')
@@ -418,9 +421,9 @@
 			, #{stndrd, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
-			, #{mkr, jdbcType=VARCHAR}
+			, #{mkr}
 			, #{plor, jdbcType=VARCHAR}
-			, #{brand, jdbcType=VARCHAR}
+			, #{brand}
 			, #{modl, jdbcType=VARCHAR}
 			, #{mlgUseYn, jdbcType=VARCHAR}
 			, #{mlgPvsnYn, jdbcType=VARCHAR}
@@ -505,9 +508,9 @@
 			, stndrd = #{stndrd, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
-			, mkr = #{mkr, jdbcType=VARCHAR}
+			, mkr = #{mkr}
 			, plor = #{plor, jdbcType=VARCHAR}
-			, brand = #{brand, jdbcType=VARCHAR}
+			, brand = #{brand}
 			, modl = #{modl, jdbcType=VARCHAR}
 			, mlg_use_yn = #{mlgUseYn, jdbcType=VARCHAR}
 			, mlg_pvsn_yn = #{mlgPvsnYn, jdbcType=VARCHAR}

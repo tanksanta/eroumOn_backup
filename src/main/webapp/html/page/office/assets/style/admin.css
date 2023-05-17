@@ -7,11 +7,8 @@
     }
 
     .text-title2 {
-        @apply inline-block text-lg tracking-tighter leading-snug font-normal -mb-px align-top relative z-20;
-        &::after {
-            @apply content-empty block w-full rounded-md bg-black1;
-            height: 0.1875rem;
-        }
+        @apply inline-block text-lg tracking-tighter leading-snug font-normal -mb-px align-top relative z-20
+               after:content-empty after:block after:w-full after:rounded-md after:bg-black1 after:h-[0.1875rem];
         &legend {
             @apply float-left;
         }
@@ -29,25 +26,14 @@
     }
     
     .require {
-        @apply relative;
-        &::after {
-            @apply content-empty absolute -top-0 -right-2 -mr-px w-1.5 h-1.5 rounded-full bg-red1;
-        }
+        @apply relative after:content-empty after:absolute after:-top-0 after:-right-2 after:-mr-px after:w-1.5 after:h-1.5 after:rounded-full after:bg-red1;
     }
 
     .btn-logout {
-        @apply btn w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-black1 bg-center bg-no-repeat text-left;
-        background-image: url(../images/ico-admin-power-white.svg);
-        background-size: theme("spacing[4.5]");
+        @apply btn w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-black1 bg-center bg-no-repeat bg-[url(../images/ico-admin-power-white.svg)] bg-[length:theme("spacing[4.5]")] text-left
+               hover:bg-black1 hover:ring-0 hover:ring-offset-0 focus:bg-black1 focus:ring-0 focus:ring-offset-0 active:bg-black1 active:ring-0 active:ring-offset-0;
         &.white {
-            @apply bg-white;
-            background-image: url(../images/ico-power.svg);
-            &:hover, &:focus, &:active {
-                @apply bg-white;
-            }
-        }
-        &:hover, &:focus, &:active {
-            @apply bg-black1 ring-0 ring-offset-0;
+            @apply bg-white bg-[url(../images/ico-power.svg)] hover:bg-white focus:bg-white active:bg-white;
         }
     }
     
@@ -61,19 +47,13 @@
     .form-group {
         @apply inline-flex items-center max-w-full flex-wrap leading-tight;
         & > * {
-            @apply ml-1;
-            &:first-child {
-                @apply ml-0;
-            }
+            @apply ml-1 first:ml-0;
         }
         & > i {
             @apply flex-none min-w-4 text-center;
         }
         & .w-full {
-            @apply mt-1;
-            &:first-child {
-                @apply mt-0;
-            }
+            @apply mt-1 first:mt-0;
         }
     }
     
@@ -142,65 +122,35 @@
     }
 
     .btn-save, .btn-outline-save {
-        @apply btn border-[#742ee7];
-        &:focus {
-            @apply border-[#742ee7] ring-[#8995a9]/20;
-        }
+        @apply btn border-[#742ee7] focus:border-[#742ee7] focus:ring-[#8995a9]/20;
     }
     
     .btn-save {
-        @apply bg-[#742ee7] text-white;
-        &:hover, &:focus {
-            @apply bg-[#742ee7]/80;
-        }
-        &:active {
-            @apply bg-[#742ee7];
-        }
+        @apply bg-[#742ee7] text-white hover:bg-[#742ee7]/80 focus:bg-[#742ee7]/80 active:bg-[#742ee7];
     }
     
     .btn-outline-save {
-        @apply text-[#742ee7];
-        &:hover, &:focus {
-            @apply bg-[#742ee7]/10;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-[#742ee7] hover:bg-[#742ee7]/10 focus:bg-[#742ee7]/10 active:bg-white;
     }
     
     .btn-cancel, .btn-outline-cancel {
-        @apply btn border-[#8995a9];
-        &:focus {
-            @apply border-[#8995a9];
-        }
+        @apply btn border-[#8995a9] focus:border-[#8995a9];
     }
     
     .btn-cancel {
-        @apply bg-[#8995a9] text-white;
-        &:hover, &:focus {
-            @apply bg-[#8995a9]/80;
-        }
-        &:active {
-            @apply bg-[#8995a9];
-        }
+        @apply bg-[#8995a9] text-white hover:bg-[#8995a9]/80 focus:bg-[#8995a9]/80 active:bg-[#8995a9];
     }
     
     .btn-outline-cancel {
-        @apply text-[#8995a9];
-        &:hover, &:focus {
-            @apply bg-[#8995a9]/10;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-[#8995a9] hover:bg-[#8995a9]/10 focus:bg-[#8995a9]/10 active:bg-white;
     }
     
     .form-check {
         &.form-switch {
             & .form-check-input {
+                @apply checked:border-[#742ee7] checked:bg-[#742ee7];
                 background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23742ee7'/%3E%3C/svg%3E);
                 &:checked {
-                    @apply border-[#742ee7] bg-[#742ee7];
                     & + .form-check-label {
                         @apply text-[#742ee7];
                     }
@@ -225,7 +175,7 @@
             }
         }
         &.offcanvas-top, &.offcanvas-bottom {
-            max-height: calc(100% - 1.25rem);
+            @apply max-h-[calc(100%_-_1.25rem)];
             & .offcanvas-close {
                 @apply left-1/2 -translate-x-1/2 w-24 h-5;
             }
@@ -246,7 +196,7 @@
             }
         }
         &.offcanvas-start, &.offcanvas-end {
-            max-width: calc(100% - 1.25rem);
+            @apply max-w-[calc(100%_-_1.25rem)];
             & .offcanvas-close {
                 @apply top-1/2 -translate-y-1/2 w-5 h-24;
             }
@@ -254,19 +204,13 @@
         &.offcanvas-start {
             @apply border-r-1;
             & .offcanvas-close {
-                @apply left-full rounded-r-md;
-                &::before {
-                    @apply rotate-90;
-                }
+                @apply left-full rounded-r-md before:rotate-90;
             }
         }
         &.offcanvas-end {
             @apply border-l-1;
             & .offcanvas-close {
-                @apply right-full rounded-l-md;
-                &::before {
-                    @apply -rotate-90;
-                }
+                @apply right-full rounded-l-md before:-rotate-90;
             }
         }
     }
@@ -292,7 +236,7 @@
         & thead {
             & tr {
                 & th {
-                    @apply border-b-1 border-r-1 border-solid border-white bg-gray2 font-bold rounded-xl text-center;
+                    @apply border-b-1 border-r-1 border-solid border-white bg-gray2 font-bold rounded-xl text-center last:border-r-0;
                     &.sorting, &.sorting_asc, &.sorting_desc {
                         &::before, &::after {
                             @apply content-empty opacity-20 scale-90 inline-block bg-no-repeat overflow-hidden -indent-96 text-left bg-[length:100%_100%] w-2.5 h-1.5;
@@ -306,17 +250,10 @@
                         }
                     }
                     &.sorting_asc {
-                        &::before {
-                            @apply opacity-70;
-                        }
+                        @apply before:opacity-70;
                     }
                     &.sorting_desc {
-                        &::after {
-                            @apply opacity-70;
-                        }
-                    }
-                    &:last-child {
-                        @apply border-r-0;
+                        @apply after:opacity-70;
                     }
                 }
             }
@@ -344,27 +281,24 @@
     & .dataTables_paginate {
         @apply flex items-center flex-wrap py-1.5 mx-auto float-none w-fit mt-5.5;
         & .paginate_button {
-            @apply btn mx-0.5 p-0 w-9 h-7.5 rounded overflow-hidden text-black1 bg-white !important;
+            @apply btn !mx-0.5 !p-0 !w-9 !h-7.5 !rounded !overflow-hidden !text-black1 !bg-white;
             &:hover, &:focus {
-                @apply border-gray1 bg-gray2 bg-none text-black1 !important;
+                @apply !border-gray1 !bg-gray2 !bg-none !text-black1;
             }
             &:focus {
-                @apply border-black1 ring-black1/20 !important;
+                @apply !border-black1 !ring-black1/20;
             }
             &:active {
-                @apply bg-black1 text-white !important;
+                @apply !bg-black1 !text-white;
             }
             &.current {
-                @apply text-white bg-black1 border-black1 pointer-events-none !important;
-                &:hover, &:focus, &:active {
-                    @apply text-white !important;
-                }
+                @apply !text-white !bg-black1 !border-black1 !pointer-events-none focus:!text-white hover:!text-white active:!text-white;
             }
             &.disabled {
-                @apply pointer-events-none !important;
+                @apply !pointer-events-none;
             }
             &.previous, &.next {
-                @apply border-gray1 relative mx-3.5 w-12 -indent-96 !important;
+                @apply !border-gray1 !relative !mx-3.5 !w-12 !-indent-96;
                 &::before {
                     @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:0.6875rem];
                     background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.448' height='9.485' viewBox='0 0 10.448 9.485'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,10.3.147,6.059a.5.5,0,0,1,.707-.707L4.233,8.732V.5a.5.5,0,1,1,1,0V8.752l3.4-3.4a.5.5,0,0,1,.707.707L5.1,10.3a.5.5,0,0,1-.707,0Z' transform='translate(10.448 0) rotate(90)' fill='%231c1c1c'/%3E%3C/svg%3E");
@@ -376,9 +310,7 @@
                 }
             }
             &.next {
-                &::before {
-                    @apply rotate-180;
-                }
+                @apply before:rotate-180;
             }
         }
     }
@@ -396,7 +328,7 @@
         @apply mb-4;
         & input {
             @apply form-control ml-2 w-50 outline-none;
-            &::-webkit-search-cancel-button{
+            &::-webkit-search-cancel-button {
                 @apply appearance-none m-0 -mr-2 w-4 h-4 bg-no-repeat bg-center bg-[length:0.5rem] cursor-pointer;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E");
             }
@@ -415,14 +347,12 @@
 }
 
 body {
-    @apply text-black1 tracking-tight flex-row;
-    min-width: 1366px;
+    @apply flex-row min-w-[1366px] text-black1 tracking-tight;
     overflow: overlay;
 }
 
 #header {
-    @apply relative flex flex-col flex-none w-72 h-screen overflow-hidden;
-    background-image: linear-gradient(0deg, #742EE7 0%, #5291DC 100%);
+    @apply relative flex flex-col flex-none w-72 h-screen overflow-hidden bg-[linear-gradient(0deg,_#742EE7_0%,_#5291DC_100%)];
     & .system-title {
         @apply flex py-7.5 pl-19;
         & img {
@@ -430,8 +360,7 @@ body {
         }
     }
     & .system-back {
-        @apply absolute z-10 bottom-1 left-1.5 w-11 h-11 overflow-hidden bg-center bg-no-repeat -indent-96 press-action;
-        background-image: url(../images/ico-admin-back.svg);
+        @apply absolute z-10 bottom-1 left-1.5 w-11 h-11 overflow-hidden bg-center bg-no-repeat bg-[url(../images/ico-admin-back.svg)] -indent-96 press-action;
     }
 }
 
@@ -440,77 +369,45 @@ body {
     & .menu-items {
         @apply absolute top-36 left-2 select-none;
         & a {
-            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white/20 bg-white/20 leading-none text-center text-[0.6875rem] text-white press-action;
-            &::before {
-                @apply content-empty block mx-auto mb-0.5 w-7 h-7 bg-no-repeat bg-center bg-[length:1.5rem];
-            }
+            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white/20 bg-white/20 leading-none text-center text-[0.6875rem] text-white press-action active:border-white/50 active:bg-white/50
+                   before:content-empty before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
             &.menu-item1 {
-                &::before {
-                    background-image: url(../images/ico-admin-menu1.svg);
-                }
+                @apply before:bg-[url(../images/ico-admin-menu1.svg)];
             }
             &.menu-item2 {
-                &::before {
-                    @apply bg-[length:1.375rem];
-                    background-image: url(../images/ico-admin-menu2.svg);
-                }
+                @apply before:bg-[url(../images/ico-admin-menu2.svg)] before:bg-[length:1.375rem];
             }
             &.menu-item3 {
-                &::before {
-                    @apply bg-[length:1.375rem];
-                    background-image: url(../images/ico-admin-menu3.svg);
-                }
+                @apply before:bg-[url(../images/ico-admin-menu3.svg)] before:bg-[length:1.375rem];
             }
             &.menu-item4 {
-                &::before {
-                    background-image: url(../images/ico-admin-menu4.svg);
-                }
+                @apply before:bg-[url(../images/ico-admin-menu4.svg)];
             }
             &.menu-item5 {
-                &::before {
-                    background-image: url(../images/ico-admin-menu5.svg);
-                }
+                @apply before:bg-[url(../images/ico-admin-menu5.svg)];
             }
             &.menu-item6 {
-                &::before {
-                    @apply bg-[length:1.25rem];
-                    background-image: url(../images/ico-admin-menu6.svg);
-                }
-            }
-            &:active {
-                @apply border-white/50 bg-white/50;
+                @apply before:bg-[url(../images/ico-admin-menu6.svg)] before:bg-[length:1.25rem];
             }
             &.active {
                 @apply border-white bg-white text-[#5E6FE0];
                 &.menu-item1 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu1-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu1-active.svg)];
                 }
                 &.menu-item2 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu2-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu2-active.svg)];
                 }
                 &.menu-item3 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu3-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu3-active.svg)];
                 }
                 &.menu-item4 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu4-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu4-active.svg)];
                 }
                 &.menu-item5 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu5-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu5-active.svg)];
                 }
                 &.menu-item6 {
-                    &::before {
-                        background-image: url(../images/ico-admin-menu6-active.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-admin-menu6-active.svg)];
                 }
             }
         }
@@ -527,24 +424,16 @@ body {
             & > li {
                 @apply mt-1;
                 & > a {
-                    @apply flex items-center text-sm py-3 px-4.5 rounded-md bg-white/20 leading-tight transition-all duration-300 font-medium text-white;
+                    @apply flex items-center text-sm py-3 px-4.5 rounded-md bg-white/20 leading-tight transition-all duration-300 font-medium text-white hover:bg-white/50;
                     &.external {
-                        &::after {
-                            @apply content-empty inline-block ml-1.5 w-3 h-3 bg-cover bg-no-repeat transition-all duration-300;
-                            background-image: url(../images/ico-admin-external.svg);
-                        }
-                    }
-                    &:hover {
-                        @apply bg-white/50;
+                        @apply after:content-empty after:inline-block after:ml-1.5 after:w-3 after:h-3 after:bg-cover after:bg-no-repeat after:bg-[url(../images/ico-admin-external.svg)] after:transition-all after:duration-300;
                     }
                 }
                 &.active {
                     & > a {
                         @apply bg-white text-[#1E2F43];
                         &.external {
-                            &::after {
-                                background-image: url(../images/ico-admin-external-active.svg);
-                            }
+                            @apply after:bg-[url(../images/ico-admin-external-active.svg)];
                         }
                     }
                 }

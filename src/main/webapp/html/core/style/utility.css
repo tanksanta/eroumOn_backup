@@ -50,10 +50,10 @@ strong {
     .global-logo {
         @apply w-fit text-lg font-bold tracking-tight leading-none md:text-2xl lg:text-[1.875rem];
         & a {
-            @apply flex items-center py-2 before:w-22 before:h-4 before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-cover before:md:w-30 before:md:h-6 before:lg:w-37 before:lg:h-7.5;
+            @apply flex items-center py-2 before:w-22 before:h-4 before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-cover before:md:w-30 before:md:h-6 before:lg:w-37 before:lg:h-7.5;
         }
         & span {
-            @apply hidden ml-1 md:block md:ml-2;
+            @apply hidden ml-1.5 md:block md:ml-2;
         }
         &.is-white {
             @apply text-white;
@@ -63,7 +63,7 @@ strong {
         }
         &.is-style2 {
             & a {
-                @apply before:w-[3.625rem] before:bg-[url(/html/core/images/img-brand-logo2.svg)] before:md:w-[6.8125rem];
+                @apply before:w-[3.625rem] before:bg-[url(/html/core/images/img-brand-logo2.svg)] md:before:w-22 before:lg:w-[6.8125rem];
             }
             &.is-white {
                 & a {
@@ -116,7 +116,7 @@ strong {
                 & strong {
                     @apply pt-1 pb-2.5;
                     & img {
-                        @apply md-max:w-19;
+                        @apply w-19 md:w-24;
                     }
                 }
             }
@@ -164,7 +164,7 @@ strong {
             }
             & .global-link {
                 & [class*="link-item"] {
-                    @apply w-12 h-13 md:w-13 md:h-14 lg:w-14 lg:h-15;
+                    @apply mr-1 w-10 h-13 md:h-14 lg:w-11 lg:h-15;
                 }
                 & .link-item1, & .link-item2 {
                     & .bubble {

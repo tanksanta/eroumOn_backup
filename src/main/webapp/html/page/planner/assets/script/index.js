@@ -82,11 +82,21 @@ $(function() {
         }
     });
 
+	if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
+	    $('body').addClass('is-scroll');
+	    if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
+	} else {
+	    $('body').removeClass('is-scroll');
+	    if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
+	}
+
     $(window).on('scroll load', function() {
         if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
             $('body').addClass('is-scroll');
+            if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
         } else {
             $('body').removeClass('is-scroll');
+            if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
         }
     });
 });

@@ -23,8 +23,8 @@ public class GdsDAO extends CommonAbstractMapper {
 		return (GdsVO)selectOne("gds.gds.selectGds", paramMap);
 	}
 
-	public void insertGds(GdsVO gdsVO) throws Exception {
-		insert("gds.gds.insertGds", gdsVO);
+	public Integer insertGds(GdsVO gdsVO) throws Exception {
+		return insert("gds.gds.insertGds", gdsVO);
 	}
 
 	public void updateGds(GdsVO gdsVO) throws Exception {

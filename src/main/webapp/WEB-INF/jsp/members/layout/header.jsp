@@ -2,12 +2,14 @@
 
 		<header id="header">
             <div class="container">
-                <h1>
+                <h1 id="logo" class="global-logo is-style2 is-white">
                     <a href="/<spring:eval expression="@props['Globals.Members.path']"/>/introduce">
-                        <img src="/html/page/office/assets/images/ico-partner-logo.svg" alt="E-ROUM MEMBERS">
                         <span>
-                        	항상 당신 곁에<br>
-                        	이로움ON 멤버스가 있겠습니다.
+                            멤버스
+                            <small>
+                                당신이 어디에 있든<br>
+                                사업소가 항상 옆에 있습니다.
+                            </small>
                         </span>
                     </a>
                 </h1>

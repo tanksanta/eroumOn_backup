@@ -26,32 +26,23 @@
             & > .jstree-children {
                 @apply ml-[0.35em];
                 & > .jstree-node {
-                    @apply ml-0;
-                    &:first-child {
-                        @apply pt-1.5;
-                    }
+                    @apply ml-0 first:pt-1.5;
                 }
             }
         }
         & .jstree-icon {
-            @apply bg-no-repeat bg-center w-[1.5385em] h-[1.5385em];
-            background-size: 1em;
-            background-image: url(../images/ico-folder-close.svg);
+            @apply bg-no-repeat bg-center bg-[url(../images/ico-folder-close.svg)] bg-[length:1em] w-[1.5385em] h-[1.5385em];
             &.jstree-folder {
-                background-image: url(../images/ico-folder-close.svg);
+                @apply bg-[url(../images/ico-folder-close.svg)];
             }
             &.jstree-file {
-                background-image: url(../images/ico-file.svg);
-                background-size: 0.8em;
+                @apply bg-[url(../images/ico-file.svg)] bg-[length:0.8em];
             }
             &.jstree-themeicon-hidden {
                 @apply inline-block w-0 overflow-hidden;
             }
             &.jstree-checkbox {
-                @apply transition-all duration-200 border border border-gray1 rounded-sm bg-white;
-                margin: 0.2em 0.2em 0 0;
-                width: 1.15em;
-                height: 1.15em;
+                @apply m-0 mt-[0.2em] mr-[0.2em] w-[1.15em] h-[1.15em] transition-all duration-200 border border-gray1 rounded-sm bg-white;
                 background-image: none !important;
                 & + .jstree-icon {
                     @apply mr-0;
@@ -69,9 +60,9 @@
             &[aria-expanded="true"] {
                 @apply font-bold;
                 & .jstree-icon {
-                    background-image: url(../images/ico-folder-open.svg);
+                    @apply bg-[url(../images/ico-folder-open.svg)];
                     &.jstree-folder {
-                        background-image: url(../images/ico-folder-open.svg);
+                        @apply bg-[url(../images/ico-folder-open.svg)];
                     }
                 }
             }
@@ -94,8 +85,7 @@
 }
 
 .vakata-context li > a:hover, .vakata-context .vakata-context-hover > a {
-    @apply bg-blue2;
-    box-shadow: 0 0 2px theme("colors.blue1");
+    @apply bg-blue2 shadow-[0_0_2px_theme("colors.blue1")];
 }
 
 .vakata-context .vakata-context-separator > a, .vakata-context .vakata-context-separator > a:hover {
@@ -121,30 +111,16 @@
         & thead {
             & tr {
                 & th {
-                    @apply border-b-1 border-r-1 border-solid border-white bg-gray2 font-bold rounded-xl text-center;
+                    @apply border-b-1 border-r-1 border-solid border-white bg-gray2 font-bold rounded-xl text-center last:border-r-0;
                     &.sorting, &.sorting_asc, &.sorting_desc {
-                        &::before, &::after {
-                            @apply content-empty opacity-20 scale-90;
-                        }
-                        &::before {
-                            @apply ico-angle-top -translate-y-[3px];
-                        }
-                        &::after {
-                            @apply ico-angle-bottom translate-y-[3px];
-                        }
+                        @apply before:ico-angle-top before:content-empty before:opacity-20 before:scale-90 before:-translate-y-[3px]
+                               after:ico-angle-bottom after:content-empty after:opacity-20 after:scale-90 after:translate-y-[3px];
                     }
                     &.sorting_asc {
-                        &::before {
-                            @apply opacity-70;
-                        }
+                        @apply before:opacity-70;
                     }
                     &.sorting_desc {
-                        &::after {
-                            @apply opacity-70;
-                        }
-                    }
-                    &:last-child {
-                        @apply border-r-0;
+                        @apply after:opacity-70;
                     }
                 }
             }
@@ -152,7 +128,7 @@
         & tbody {
             & tr {
                 & th, & td {
-                    @apply bg-white shadow-none !important;
+                    @apply !bg-white !shadow-none;
                 }
                 &:first-child {
                     & th, & td {
@@ -172,29 +148,20 @@
     & .dataTables_paginate {
         @apply flex items-center flex-wrap py-1.5 mx-auto float-none w-fit mt-5.5;
         & .paginate_button {
-            @apply btn mx-0.5 p-0 w-9 h-7.5 rounded overflow-hidden text-black1 bg-white !important;
-            &:hover, &:focus {
-                @apply border-gray1 bg-gray2 bg-none text-black1 !important;
-            }
-            &:focus {
-                @apply border-black1 ring-black1/20 !important;
-            }
-            &:active {
-                @apply bg-black1 text-white !important;
-            }
+            @apply btn !mx-0.5 !p-0 !w-9 !h-7.5 !rounded !overflow-hidden !text-black1 !bg-white
+                   hover:!border-gray1 hover:!bg-gray2 hover:!bg-none hover:!text-black1
+                   focus:!border-black1 focus:!bg-gray2 focus:!bg-none focus:!text-black1 focus:!ring-black1/20
+                   active:!bg-black1 active:!text-white;
             &.current {
-                @apply text-white bg-black1 border-black1 pointer-events-none !important;
-                &:hover, &:focus, &:active {
-                    @apply text-white !important;
-                }
+                @apply !text-white !border-black1 !bg-black1 !pointer-events-none hover:!text-white focus:!text-white active:!text-white;
             }
             &.disabled {
-                @apply pointer-events-none !important;
+                @apply !pointer-events-none;
             }
             &.previous, &.next {
-                @apply border-gray1 relative mx-3.5 w-12 -indent-96 !important;
+                @apply !border-gray1 !relative !mx-3.5 !w-12 !-indent-96
+                          before:content-empty before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-no-repeat before:bg-center before:bg-[length:0.6875rem];
                 &::before {
-                    @apply content-empty absolute top-0 left-0 w-full h-full bg-no-repeat bg-center bg-[length:0.6875rem];
                     background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.448' height='9.485' viewBox='0 0 10.448 9.485'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,10.3.147,6.059a.5.5,0,0,1,.707-.707L4.233,8.732V.5a.5.5,0,1,1,1,0V8.752l3.4-3.4a.5.5,0,0,1,.707.707L5.1,10.3a.5.5,0,0,1-.707,0Z' transform='translate(10.448 0) rotate(90)' fill='%231c1c1c'/%3E%3C/svg%3E");
                 }
                 &:active {
@@ -204,9 +171,7 @@
                 }
             }
             &.next {
-                &::before {
-                    @apply rotate-180;
-                }
+                @apply before:rotate-180;
             }
         }
     }
@@ -224,7 +189,7 @@
         @apply mb-4;
         & input {
             @apply form-control ml-2 w-50 outline-none;
-            &::-webkit-search-cancel-button{
+            &::-webkit-search-cancel-button {
                 @apply appearance-none m-0 -mr-2 w-4 h-4 bg-no-repeat bg-center bg-[length:0.5rem] cursor-pointer;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E");
             }

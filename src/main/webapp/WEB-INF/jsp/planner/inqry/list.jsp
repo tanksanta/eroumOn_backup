@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<head>
-	<link rel="stylesheet" href="/html/page/members/assets/style/style.min.css">
-</head>
 <main id="container">
-	<header id="page-title">
-		<h2>
-			<span>제휴 / 입점문의</span>
-		</h2>
-	</header>
-
 	<div id="page-content">
-		<form id="inqryFrm" name="inqryFrm" action="./action" class="member-join-content !border-0 !py-0 mx-auto max-w-screen-md" method="post" enctype="multipart/form-data">
+		<header class="inqry-title">
+			<h2>
+				<span>제휴 / 입점문의</span>
+			</h2>
+		</header>
+
+		<form id="inqryFrm" name="inqryFrm" action="./action" class="inqry-content" style="margin: 0 auto; max-width:768px;" method="post" enctype="multipart/form-data">
 			<p class="text-title2">문의유형</p>
 			<table class="table-detail">
 				<colgroup>

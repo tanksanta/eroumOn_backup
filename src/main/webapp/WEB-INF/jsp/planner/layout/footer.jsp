@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<!-- footer -->
-    <footer id="footer">
+    <footer id="footer" class="global-footer">
         <div class="footer-link">
             <!-- 회사 메뉴 -->
             <nav class="footer-menu">
@@ -16,12 +16,9 @@
 
             <!-- 패밀리 사이트 -->
             <dl class="footer-family">
-                <dt>
-                    이로움ON
-                    <small>패밀리 사이트</small>
-                </dt>
+                <dt>패밀리 사이트</dt>
                 <dd>
-                    <ul>
+                    <ul class="global-link">
                        <%--  <li>
                             <a href="${_plannerPath}" class="family-link1">
                                 <div class="bubble">
@@ -31,7 +28,7 @@
                             </a>
                         </li> --%>
                         <li>
-                            <a href="${_membersPath}" class="family-link2">
+                            <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
                                 <div class="bubble">
                                     <strong>이로움ON 멤버스</strong>
                                     <small>전국 1,600개 업체와 함께합니다</small>
@@ -39,9 +36,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${_marketPath}" class="family-link3">
+                            <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
                                 <div class="bubble">
-                                    <strong><img src="/html/page/planner/assets/images/txt-footer-family3.svg" alt="이로움ON 마켓"></strong>
+                                    <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
                                     <small>복지용구부터 시니어 생활용품까지 한번에!</small>
                                 </div>
                             </a>

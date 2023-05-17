@@ -679,7 +679,7 @@
        			            const cardNo = response.data.receipt_data.card_data.card_no; //카드번호 => CARD_NO
        			         	const delngNo = response.data.receipt_id; // : 거래번호 => DELNG_NO
 
-       			         	if(confirm("결제 정보를 변경하시겠습니까?")){
+       			         	/*if(confirm("결제 정보를 변경하시겠습니까?")){
 	     						$.ajax({
 	     		       				type : "post",
 	     		       				url  : "/_mng/ordr/rebillPayChg.json",
@@ -701,7 +701,7 @@
 	     		       			.fail(function(data, status, err) {
 	     		       				console.log('정보변경 : error forward : ' + data);
 	     		       			});
-	     					}
+	     					}*/
            		        }
            		    },
            		    function (error) {

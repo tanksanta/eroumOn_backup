@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="10.5" height="6.5" viewBox="0 0 10.5 6.5">
-  <g id="Group_6" data-name="Group 6" transform="translate(0.75 0.25)">
-    <path id="Line_4" data-name="Line 4" d="M0,.5H9" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-    <path id="Line_4-2" data-name="Line 4" d="M0,.5H9" transform="translate(0 5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-  </g>
+<svg id="Group_8" data-name="Group 8" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
+  <rect id="Rectangle" width="16" height="3" rx="1.5" fill="#fff"/>
+  <rect id="Rectangle_Copy" data-name="Rectangle Copy" width="16" height="3" rx="1.5" transform="translate(0 6)" fill="#fff"/>
+  <rect id="Rectangle_Copy_2" data-name="Rectangle Copy 2" width="16" height="3" rx="1.5" transform="translate(0 12)" fill="#fff"/>
 </svg>

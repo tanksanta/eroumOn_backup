@@ -53,7 +53,7 @@ public class MMkrController extends CommonAbstractController {
 		listVO = mkrService.mkrListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
-		model.addAttribute("useYn", CodeMap.USE_YN);
+		model.addAttribute("useYnCode", CodeMap.USE_YN);
 
 		return "/manage/sysmng/mkr/list";
 	}

@@ -71,17 +71,19 @@ public class PlannerController extends CommonAbstractController  {
 		String bokjisUrl = "/api/partner/v2/bokjis/count";
 		String prvdUrl = "/api/partner/v2/providers/count";
 
-		try {
-			int bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
-			int prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+		int bokjisCnt = 0;
+		int prvdCnt = 0;
 
-			int total = bokjisCnt + prvdCnt;
-
-			model.addAttribute("total", total);
-		} catch (Exception ex) {
-			log.debug("============== 복지24 api 오류 메세지: " + ex.getMessage(), ex);
+		try {// 첫화면 부터 에러나지 않도록..
+			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
+			prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+		}catch(Exception e) {
+			log.debug(e.getMessage());
 		}
 
+		int total = bokjisCnt + prvdCnt;
+
+		model.addAttribute("total", total);
 
 		return "/planner/index";
 	}

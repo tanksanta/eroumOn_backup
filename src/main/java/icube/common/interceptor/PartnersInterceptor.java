@@ -39,6 +39,9 @@ public class PartnersInterceptor implements HandlerInterceptor {
 	@Autowired
 	private MbrSession mbrSession;
 
+	@Value("#{props['Bootpay.Script.Key']}")
+	private String bootpayScriptKey;
+
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
@@ -101,6 +104,9 @@ public class PartnersInterceptor implements HandlerInterceptor {
 
 			// 오늘 날짜
 			request.setAttribute("_today", DateUtil.getToday("yyyy.MM.dd.") +"("+ DateUtil.getDayOfWeek()+")");
+
+			// 기타
+			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 
 		} else {
 			// 로그인 필요

@@ -150,8 +150,8 @@ body {
         & a {
             @apply block relative mr-25 pl-6 max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-left lg:py-0.5 lg:pl-8 xl:inline-block xl:mr-0 xl:whitespace-normal xl:text-clip 2xl:pl-11;
             &::before {
-                @apply content-empty absolute left-0 top-0 rounded bg-[length:0.5rem] bg-no-repeat bg-center bg-[#103263] bg-[url(../images/img-header-logo.svg)];
-                @apply w-5 h-5 lg:top-px lg:w-6.5 lg:h-6.5 lg:bg-[length:0.625rem] lg:rounded-md 2xl:top-0 2xl:w-8 2xl:h-8 2xl:rounded-[0.625rem] 2xl:bg-[length:auto];
+                @apply content-empty absolute left-0 top-0 rounded bg-[length:0.5rem] bg-no-repeat bg-center bg-[#103263] bg-[url(../images/img-header-logo.svg)] 
+                       w-5 h-5 lg:top-px lg:w-6.5 lg:h-6.5 lg:bg-[length:0.625rem] lg:rounded-md 2xl:top-0 2xl:w-8 2xl:h-8 2xl:rounded-[0.625rem] 2xl:bg-[length:auto];
             }
 
         }
@@ -169,46 +169,32 @@ body {
     & .tel, & .map, & .park, & .time, & .rest {
         @apply mt-1 lg:mt-2 text-black text-left leading-relaxed;
         & a {
-            @apply items-start break-all;
-            &::before {
-                @apply content-empty mt-0.5 mr-2 bg-no-repeat bg-center flex-none w-4 h-4.5 bg-[length:auto_1rem] lg:w-5 lg:h-5.5 lg:bg-[length:auto_1.25rem];
-            }
+            @apply items-start break-all
+                   before:content-empty before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem] before:lg:w-5 before:lg:h-5.5 before:lg:bg-[length:auto_1.25rem];
         }
     }
     & .park, & .time, & .rest {
-        @apply flex items-start break-all;
-        &::before {
-            @apply content-empty mt-0.5 mr-2 bg-no-repeat bg-center flex-none w-4 h-4.5 bg-[length:auto_1rem] lg:w-5 lg:h-5.5 lg:bg-[length:auto_1.25rem];
-        }
+        @apply flex items-start break-all
+               before:content-empty before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem] before:lg:w-5 before:lg:h-5.5 before:lg:bg-[length:auto_1.25rem];
     }
     & .tel {
         & a {
-            &::before {
-                @apply bg-[url(../images/ico-tel.svg)];
-            }
+            @apply before:bg-[url(../images/ico-tel.svg)];
         }
     }
     & .time {
-        &::before {
-            @apply bg-[url(../images/ico-timer.svg)];
-        }
+        @apply before:bg-[url(../images/ico-timer.svg)];
     }
     & .park {
-        &::before {
-            @apply bg-[url(../images/ico-parking.svg)];
-        }
+        @apply before:bg-[url(../images/ico-parking.svg)];
     }
     & .rest {
-        &::before {
-            @apply -mt-px w-4.5 h-4.5 bg-[url(../images/ico-rest.svg)] bg-[length:auto_1.125rem] lg:w-5.5 lg:h-5.5 lg:bg-[length:auto_1.375rem];
-        }
+        @apply before:-mt-px before:w-4.5 before:h-4.5 before:bg-[url(../images/ico-rest.svg)] before:bg-[length:auto_1.125rem] before:lg:w-5.5 before:lg:h-5.5 before:lg:bg-[length:auto_1.375rem];
     }
     & .map {
         @apply mt-4 lg:mt-5;
         & a {
-            &::before {
-                @apply bg-[url(../images/ico-map.svg)] bg-[length:auto_1.125rem] lg:bg-[length:auto_1.375rem];
-            }
+            @apply before:bg-[url(../images/ico-map.svg)] before:bg-[length:auto_1.125rem] before:lg:bg-[length:auto_1.375rem];
         }
     }
     & .desc {
@@ -217,7 +203,7 @@ body {
     & .notice {
         @apply mt-4 xl:mt-7 2xl:mt-10;
         & li {
-            @apply mt-1.5;
+            @apply mt-1.5 first:mt-0;
             & a {
                 @apply flex items-center whitespace-nowrap text-[#666];
                 & span {
@@ -226,9 +212,6 @@ body {
                 & em {
                     @apply mt-[0.25em] leading-none font-serif;
                 }
-            }
-            &:first-child {
-                @apply mt-0;
             }
         }
     }
@@ -246,7 +229,7 @@ body {
         & a {
             @apply bg-white block rounded-md overflow-hidden;
             & img {
-                @apply mx-auto h-20 lg:mx-0 lg:h-25;
+                @apply mx-auto h-20 lg:h-25 2xl:mx-0;
             }
         }
     }
@@ -262,11 +245,13 @@ body {
 }
 
 #navigation {
-    @apply sticky z-50 top-15 left-0 pb-0.5 overflow-y-hidden overflow-x-auto bg-white font-medium whitespace-nowrap text-sm lg:top-19 xl:top-0 lg:text-base xl:static xl:text-lg;
+    @apply sticky z-50 top-15 left-0 pb-0.5 overflow-y-hidden overflow-x-auto bg-white font-medium whitespace-nowrap text-sm lg:top-19 xl:top-0 lg:text-base xl:static xl:text-lg
+           after:content-empty after:block after:sticky after:-z-10 after:left-0 after:top-0 after:-mt-0.5 after:w-full after:h-px after:bg-gray3;
     & ul {
-        @apply flex items-center xl:pt-6 xl:px-15 2xl:pt-7 2xl:px-30;
+        @apply flex items-center xl:pt-6 xl:px-15 2xl:pt-7 2xl:px-30
+               after:flex-none after:content-["_"] after:w-5 after:h-full after:opacity-0 after:select-none after:pointer-events-none after:xl:hidden;
         & li {
-            @apply ml-7 border-b-0.5 border-transparent lg:border-b-[0.1875rem] xl:ml-2 xl:border-b-1;
+            @apply ml-7 border-b-0.5 border-transparent lg:border-b-[0.1875rem] xl:ml-2 xl:border-b-1 first:ml-5 first:xl:-ml-4;
             & a {
                 @apply block pt-2 pb-2.5 lg:px-2.5 xl:py-3 xl:px-4;
             }
@@ -276,13 +261,6 @@ body {
             &.separate {
                 @apply hidden flex-none -mt-1 ml-4 mr-2 w-0.5 h-3.5 bg-black xl:block 2xl:ml-5 2xl:mr-3;
             }
-            &:first-child {
-                @apply ml-5 xl:-ml-4;
-            }
-        }
-        &::after {
-            @apply w-5 h-full flex-none opacity-0 select-none pointer-events-none xl:hidden;
-            content: "_";
         }
     }
     &::-webkit-scrollbar {
@@ -290,9 +268,6 @@ body {
     }
     &::-webkit-scrollbar-thumb, &::-webkit-scrollbar-track {
         @apply bg-transparent;
-    }
-    &::after {
-        @apply content-empty block sticky -z-10 left-0 top-0 -mt-0.5 w-full h-px bg-gray3;
     }
 }
 
@@ -332,10 +307,7 @@ body {
             @apply flex items-center flex-1 mx-5 mb-2.5 py-px overflow-hidden border rounded-full border-black2 lg:mx-7 xl:m-0 xl:flex-none xl:w-51;
         }
         & input {
-            @apply flex-1 pl-4 min-w-0 h-10 leading-10 ring-0 outline-none bg-transparent xl:h-8 xl:leading-8;
-            &::placeholder {
-                @apply text-sm text-gray1;
-            }
+            @apply flex-1 pl-4 min-w-0 h-10 leading-10 ring-0 outline-none bg-transparent xl:h-8 xl:leading-8 placeholder:text-sm placeholder:text-gray1;
         }
         & button {
             @apply mr-1 ml-0.5;
@@ -351,10 +323,7 @@ body {
     @apply pt-17 pb-6.5 bg-[#f4f6f7] bg-[url(../images/img-footer-logo.svg)] bg-no-repeat bg-[length:5.375rem] bg-[center_top_1.5rem] leading-tight text-gray4 text-center text-xs
            lg:text-sm xl:pt-4.5 xl:pb-7.5 xl:px-47 xl:bg-[left_3.75rem_top_1.375rem] xl:bg-[length:6.5rem] xl:text-left 2xl:pr-62 2xl:pl-66 2xl:bg-[left_7.5rem_top_1.375rem] 2xl:bg-[length:7.375rem];
     & > * {
-        @apply mt-1;
-        &:first-child {
-            @apply mt-0 pt-0;
-        }
+        @apply mt-1 first:mt-0;
     }
     & h2 {
         @apply text-sm lg:text-base;
@@ -379,42 +348,26 @@ body {
 
 /* 찾아오시는 길 */
 .cont-location {
-    @apply block mt-8 pb-8 border-b border-gray3 items-start md:flex md:mt-13 md:pb-0 md:border-b-0;
+    @apply block mt-8 pb-8 border-b border-gray3 items-start md:flex md:mt-13 md:pb-0 md:border-b-0 last:border-b-0;
     & dt {
-        @apply flex-none flex items-center relative font-medium mb-2.5 pl-9 text-black2 text-base lg:text-lg md:w-42 md:mt-1 md:mr-6 md:pl-10 lg:w-52 lg:mt-1.5 lg:mr-9 lg:pl-12;
-        &::before, &::after {
-            @apply content-empty absolute;
-        }
-        &::before {
-            @apply top-px left-0 w-6 h-6 bg-no-repeat bg-center bg-[length:100%] lg:-top-0.5 lg:w-7.5 lg:h-7.5;
-        }
-        &::after {
-            @apply hidden top-1/2 right-0 w-px h-4 -translate-y-1/2 bg-gray3 md:block lg:h-4.5;
-        }
+        @apply flex-none flex items-center relative font-medium mb-2.5 pl-9 text-black2 text-base lg:text-lg md:w-42 md:mt-1 md:mr-6 md:pl-10 lg:w-52 lg:mt-1.5 lg:mr-9 lg:pl-12
+               before:content-empty before:absolute before:top-px before:left-0 before:w-6 before:h-6 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:lg:-top-0.5 before:lg:w-7.5 before:lg:h-7.5
+               after:hidden after:top-1/2 after:right-0 after:w-px after:h-4 after:-translate-y-1/2 after:bg-gray3 after:md:block after:lg:h-4.5;
     }
     &.car {
         & dt {
-            &::before {
-                @apply bg-[url(../images/ico-car.svg)];
-            }
+            @apply before:bg-[url(../images/ico-car.svg)];
         }
     }
     &.bus {
         & dt {
-            &::before {
-                @apply bg-[url(../images/ico-bus.svg)];
-            }
+            @apply before:bg-[url(../images/ico-bus.svg)];
         }
     }
     &.metro {
         & dt {
-            &::before {
-                @apply bg-[url(../images/ico-metro.svg)];
-            }
+            @apply before:bg-[url(../images/ico-metro.svg)];
         }
-    }
-    &:last-child {
-        @apply border-b-0;
     }
 }
 
@@ -426,9 +379,8 @@ body {
         @apply block sm:flex items-start relative;
     }
     & .name {
-        @apply font-medium truncate text-black2;
+        @apply font-medium truncate text-black2 sm-max:!max-h-[2.5em] sm-max:!whitespace-normal;
         @screen sm-max {
-            @apply max-h-[2.5em] whitespace-normal !important;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
@@ -445,8 +397,7 @@ body {
 }
 
 .board-list-thumb {
-    @apply board-list;
-    @apply divide-y-0 sm:divide-y;
+    @apply board-list !divide-y-0 sm:!divide-y;
     & li {
         @apply pt-6 pb-0 sm:py-9 lg:py-13;
         & .thumb {
@@ -606,17 +557,14 @@ body {
             }
         }
         & .category-moreview {
-            @apply hidden border-gray1 bg-white text-sm;
-            &::before {
-                @apply content-empty block mr-1.5 w-3 h-3 bg-cover bg-no-repeat bg-[url(../images/ico-plus.svg)];
-            }
+            @apply hidden border-gray1 bg-white text-sm 
+                   before:content-empty before:block before:mr-1.5 before:w-3 before:h-3 before:bg-cover before:bg-no-repeat before:bg-[url(../images/ico-plus.svg)];
             &.is-visible {
                 @apply inline-flex;
             }
         }
     }
 }
-
 
 .product-count {
     @apply mb-2.5 text-sm md:mb-3.5 md:text-base lg:text-lg;

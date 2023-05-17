@@ -282,6 +282,7 @@ public class MbrsSrchController extends CommonAbstractController{
 			mbrVO.setPswd(encPswd);
 
 			mbrService.updateMbrPswd(mbrVO);
+			mbrService.updateFailedLoginCountReset(mbrVO);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
 			javaScript.setLocation("/"+membershipPath+"/login");

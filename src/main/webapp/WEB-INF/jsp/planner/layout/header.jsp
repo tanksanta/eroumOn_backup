@@ -3,7 +3,7 @@
 	<!-- 페이지 헤더 -->
     <div id="header">
         <div class="container">
-            <h1 id="logo"><a href="${_plannerPath}">EROUM</a></h1>
+            <h1 id="logo" class="global-logo ${isIndex?'is-white':''}"><a href="${_plannerPath}"><span>시니어 세대 이로움을 켜다</span></a></h1>
             <nav id="navigation">
                 <ul>
                     <li><a href="${_plannerPath}/index" ${isIndex?'class="is-active"':''}>복지 서비스</a></li>
