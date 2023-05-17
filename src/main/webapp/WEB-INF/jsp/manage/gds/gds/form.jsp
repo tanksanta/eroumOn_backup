@@ -300,6 +300,15 @@
                                 <col>
                             </colgroup>
                             <tbody>
+                            	<tr>
+                                    <th scope="row"><label for="supPc" class="require">공급가</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                        	<form:input type="number" path="supPc" class="form-control w-50 numbercheck" maxlength="10" min="0"/>
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th scope="row"><label for="pc">판매가</label></th>
                                     <td>
@@ -1544,6 +1553,7 @@
                     	    	, ctgryNo   : { required : true, min:1}
                     	    	, gdsNm		: { required : true}
                     	    	, ancmntTy	: { required : true}
+                    	    	, supPc     : { required : true}
                     	    	, thumbFile : { required : function(element){ return $("#thumbFileDiv").css("display") == "block"; }}
                     	    	//, wt		: { required : true}
                     	    },
@@ -1552,6 +1562,7 @@
                     	    	, ctgryNo 	: { required : "카테고리를 선택하세요", min:"카테고리를 선택하세요"}
                     	    	, gdsNm 	: { required : "상품명을 입력하세요"}
                     	    	, ancmntTy 	: { required : "상품요약(고시)정보를 선택하세요."}
+                    	    	, supPc     : { required : "공급가를 입력하세요"}
                     	    	, thumbFile : { required : "대표이미지는 필수 선택 항목 입니다."}
                     	    	//, wt	 	: { required : "중량을 입력하세요"}
                     	    },
