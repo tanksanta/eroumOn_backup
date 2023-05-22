@@ -2,8 +2,7 @@
 
     <header id="header">
         <div class="container">
-	        <a href="${_marketPath}" class="header-toggle"><img src="/html/page/market/assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
-	        <h1 class="header-logo"><a href="${_marketPath}"><img src="/html/page/market/assets/images/img-header-logo.svg" alt="이로움ON 마켓"></a></h1>
+	        <h1 class="global-logo is-style2"><a href="${_marketPath}"><span>마켓</span></a></h1>
 	        <ul class="header-menu">
 	        	<c:if test="${!_mbrSession.loginCheck}">
 	            <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>

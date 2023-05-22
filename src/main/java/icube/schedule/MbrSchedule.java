@@ -96,18 +96,18 @@ public class MbrSchedule extends CommonAbstractController {
 
 			// 누적 결제 금액 30만원 미만 - 신규
 			if(sumPc < 300000) {
-				mbrVO.setMberGrade("N");
+				paramMap.put("mberGrade", "N");
 			// 누적 결제 금액 30만원 이상 - 새로움
 			}else if(300000 <= sumPc && sumPc < 900000 ) {
-				mbrVO.setMberGrade("S");
+				paramMap.put("mberGrade", "S");
 			// 누적 결제 금액 90만원 이상 - 반가움
 			}else if(900000 <= sumPc && sumPc < 3600000) {
-				mbrVO.setMberGrade("B");
+				paramMap.put("mberGrade", "B");
 			// 누적 결제 금액 360만원 이상 - 이로움
 			}else if(3600000 <= sumPc) {
-				mbrVO.setMberGrade("E");
+				paramMap.put("mberGrade", "E");
 			}
-			mbrService.updateMbr(mbrVO);
+			mbrService.updateMberGrade(paramMap);
 		}
 
 		log.info("################## 회원 등급 조정 END #####################");

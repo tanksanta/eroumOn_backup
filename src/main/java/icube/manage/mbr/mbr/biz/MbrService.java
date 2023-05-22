@@ -285,6 +285,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 	}
 
 	/**
+	 * 회원 등급 업데이트
+	 * @param paramMap
+	 * @throws Exception
+	 */
+	public Integer updateMberGrade(Map<String, Object> paramMap) throws Exception {
+		return mbrDAO.updateMberGrade(paramMap);
+	}
+
+	/**
 	 * 회원 전환시 포인트, 마일리지 소멸
 	 * @param uniqueId
 	 * @param mberStts

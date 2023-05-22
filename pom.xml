@@ -212,6 +212,13 @@
 			<version>0.4</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
 		<!-- Thumbnail -->
 		<dependency>
 		    <groupId>net.coobird</groupId>
@@ -337,7 +344,7 @@
 		    <artifactId>icu4j</artifactId>
 		    <version>72.1</version>
 		</dependency>
-		
+
 		<!-- linux build error fix -->
 		<dependency>
 		    <groupId>javax</groupId>

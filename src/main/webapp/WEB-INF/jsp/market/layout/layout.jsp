@@ -110,6 +110,8 @@
 	  ChannelIO('boot', {
 	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
 	    , "mobileMessengerMode": "newTab"
+		, "customLauncherSelector": ".channelTalk"
+		, "hideChannelButtonOnBoot": true
 	    <c:if test="${!empty _mbrIdHash}">
 	    , "memberHash": "${_mbrIdHash}"
 	    , "profile": {
