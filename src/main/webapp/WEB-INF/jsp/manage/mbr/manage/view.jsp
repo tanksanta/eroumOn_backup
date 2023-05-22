@@ -18,7 +18,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row">회원분류 / 회원등급</th>
+						<th scope="row">회원분류</th>
 						<td class="recipterVal">${recipter[mbrVO.recipterYn]}</td>
 
 						<th scope="row">회원등급</th>
