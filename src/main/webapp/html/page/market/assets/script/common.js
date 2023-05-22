@@ -281,17 +281,15 @@ $(function() {
     //상단 슬로건
     if($('.service-slogan').length > 0) {
         $('.service-slogan .word').each(function(index) {
-            $(this).css('margin-top', index + 'em');
+            $(this).css('margin-top', ($(this).height() * index));
         });
-
+        
         setInterval(function() {
             $('.service-slogan .word').each(function(index) {
-                $(this).addClass('is-animate').css('margin-top', (index - 1) + 'em').one('transitionend webkitTransitionEnd oTransitionEnd', function() {
+                $(this).addClass('is-animate').css('margin-top', ($(this).height() * (index - 1))).one('transitionend webkitTransitionEnd oTransitionEnd', function() {
+                    $(this).removeClass('is-animate');
                     if((index - 1) === -1) {
-                        $(this).find('p').removeClass('is-animate');
-                        $(this).css('margin-top', '1em').detach().appendTo($('.service-slogan'));
-                    } else {
-                        $(this).find('p').addClass('is-animate');
+                        $(this).detach().appendTo($('.service-slogan')).css('margin-top', ($(this).height() * $(this).index()));
                     }
                 });
             });
@@ -527,7 +525,7 @@ $(function() {
     });
 
     //퀵메뉴
-    $('#quick button').on('click', function() {
+    $('#quick .moveTop').on('click', function() {
         $(window).scrollTop(0);
     });
 

@@ -76,6 +76,11 @@ $(function() {
         });
     }
 
+    //퀵메뉴
+    $('#quick .moveTop').on('click', function() {
+        $(window).scrollTop(0);
+    });
+
     $(window).on('resize load', function() {
         if($('#userinfo').length > 0) {
             $('#account.is-nologin').attr('style', '--margin:' + ($(window).outerWidth() - ($('.userinfo-box').offset().left + $('.userinfo-box').outerWidth() + 10)) + 'px');
@@ -97,6 +102,12 @@ $(function() {
         } else {
             $('body').removeClass('is-scroll');
             if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
+        }
+        
+        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
+            $('#quick').addClass('is-active');
+        } else {
+            $('#quick').removeClass('is-active');
         }
     });
 });
