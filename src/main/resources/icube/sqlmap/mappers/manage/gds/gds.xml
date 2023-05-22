@@ -46,6 +46,7 @@
 		, g.coupon_use_yn
 		, g.point_use_yn
 		, g.gds_dc
+		, g.sup_pc
 		, g.pc
 		, g.dscnt_rt
 		, g.dscnt_pc
@@ -346,6 +347,7 @@
 			 , coupon_use_yn
 			 , point_use_yn
 			 , gds_dc
+			 , sup_pc
 			 , pc
 			 , dscnt_rt
 			 , dscnt_pc
@@ -428,6 +430,7 @@
 		 	, #{pointUseYn, jdbcType=VARCHAR}
 			, #{gdsDc, jdbcType=VARCHAR}
 
+			, #{supPc}
 			, #{pc}
 			, #{dscntRt}
 			, #{dscntPc}
@@ -515,6 +518,7 @@
 		 	, point_use_yn = #{pointUseYn, jdbcType=VARCHAR}
 			, gds_dc = #{gdsDc, jdbcType=VARCHAR}
 
+			, sup_pc = #{supPc}
 			, pc = #{pc}
 			, dscnt_rt = #{dscntRt}
 			, dscnt_pc = #{dscntPc}

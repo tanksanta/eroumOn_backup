@@ -47,6 +47,7 @@ public class GdsVO extends CommonBaseVO {
 	private String tempYn = "N";
 
 	//가격/재고
+	private int supPc; //공급가
 	private int pc; //판매가
 	private int dscntRt; //할인율
 	private int dscntPc; //할인가
