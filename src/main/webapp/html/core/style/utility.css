@@ -50,10 +50,10 @@ strong {
     .global-logo {
         @apply w-fit text-lg font-bold tracking-tight leading-none md:text-2xl lg:text-[1.875rem];
         & a {
-            @apply flex items-center py-2 before:w-22 before:h-4 before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-cover before:md:w-30 before:md:h-6 before:lg:w-37 before:lg:h-7.5;
+            @apply flex items-center py-2 before:w-22 before:h-4 before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-cover before:md:w-30 before:md:h-6 before:lg:w-37 before:lg:h-7.5;
         }
         & span {
-            @apply hidden ml-1 md:block md:ml-2;
+            @apply hidden ml-1.5 md:block md:ml-2;
         }
         &.is-white {
             @apply text-white;
@@ -63,7 +63,7 @@ strong {
         }
         &.is-style2 {
             & a {
-                @apply before:w-[3.625rem] before:bg-[url(/html/core/images/img-brand-logo2.svg)] before:md:w-[6.8125rem];
+                @apply before:w-[3.625rem] before:bg-[url(/html/core/images/img-brand-logo2.svg)] md:before:w-22 before:lg:w-[6.8125rem];
             }
             &.is-white {
                 & a {
@@ -116,7 +116,7 @@ strong {
                 & strong {
                     @apply pt-1 pb-2.5;
                     & img {
-                        @apply md-max:w-19;
+                        @apply w-19 md:w-24;
                     }
                 }
             }
@@ -163,18 +163,22 @@ strong {
                 @apply -ml-2 md:ml-0;
             }
             & .global-link {
+                & li {
+                    &:last-child {
+                        & [class*="link-item"] {
+                            & .bubble {
+                                @apply md:left-auto md:right-0 md:translate-x-0 2xl:right-auto 2xl:-left-1/4 2xl:-translate-x-1/2
+                                    before:md:left-[88%] before:2xl:left-[67%] after:md:left-[88%] after:2xl:left-[67%];
+                            }
+                        }
+                    }
+                }
                 & [class*="link-item"] {
-                    @apply w-12 h-13 md:w-13 md:h-14 lg:w-14 lg:h-15;
+                    @apply mr-1 w-10 h-13 md:h-14 lg:w-11 lg:h-15;
                 }
                 & .link-item1, & .link-item2 {
                     & .bubble {
                         @apply md:-left-1/3 2xl:left-1/2 before:md:left-[70%] before:2xl:left-1/2 after:md:left-[70%] after:2xl:left-1/2;
-                    }
-                }
-                & .link-item3 {
-                    & .bubble {
-                        @apply md:left-auto md:right-0 md:translate-x-0 2xl:right-auto 2xl:-left-1/4 2xl:-translate-x-1/2
-                               before:md:left-[88%] before:2xl:left-[67%] after:md:left-[88%] after:2xl:left-[67%];
                     }
                 }
             }
@@ -256,6 +260,26 @@ strong {
         }
         &.is-dark {
             @apply bg-black2/50 text-white backdrop-blur-md;
+        }
+    }
+
+    .global-quick {
+        @apply fixed z-40 bottom-8 right-4 space-y-2 md:right-5 md:bottom-[3.125rem] md:space-y-2.5;
+        & a, & button {
+            @apply flex relative w-10 h-10 overflow-hidden rounded-xl bg-no-repeat bg-center bg-black2 -indent-96 opacity-0 invisible translate-y-[calc(100%_+_0.5rem)] duration-500 transition-[opacity,transform,visibility] md:w-15 md:h-15 md:rounded-[1.25rem];
+            &.moveTop {
+                @apply bg-[length:35%] bg-[url(/html/core/images/ico-quick-arrow.svg)];
+            }
+            &.channelTalk {
+                @apply z-5 bg-[#FD8106] bg-[length:73.33333333333333%] bg-[url(/html/core/images/ico-quick-channel.svg)] translate-y-0 opacity-100 visible;
+            }
+        }
+        &.is-active {
+            & button {
+                &.moveTop {
+                    @apply translate-y-0 opacity-100 visible;
+                }
+            }
         }
     }
 

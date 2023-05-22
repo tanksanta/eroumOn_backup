@@ -22,6 +22,10 @@ public class GdsCtgryDAO extends CommonAbstractMapper {
 		return selectOne("gds.ctgry.selectGdsCtgry", reqMap);
 	}
 
+	public GdsCtgryVO selectGdsCtgryNo(Map<String, Object> paramMap) throws Exception {
+		return selectOne("gds.ctgry.selectGdsCtgryNo",paramMap);
+	}
+
 	public void insertGdsCtgry(GdsCtgryVO gdsCtgryVO) throws Exception {
 		insert("gds.ctgry.insertGdsCtgry", gdsCtgryVO);
 	}
@@ -45,5 +49,4 @@ public class GdsCtgryDAO extends CommonAbstractMapper {
 	public void updateGdsCtgryImg(GdsCtgryVO ctgryVO) throws Exception {
 		update("gds.ctgry.updateGdsCtgryImg",ctgryVO);
 	}
-
 }

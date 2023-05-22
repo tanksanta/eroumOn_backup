@@ -2,15 +2,20 @@
 #header {
     @apply fixed top-0 left-0 z-80 w-full bg-white;
     & .container {
-        @apply flex items-center relative mx-auto p-4 w-full max-w-[1920px] lg:py-5;
+        @apply flex items-center relative mx-auto px-4 py-2 w-full max-w-[1920px] md:py-3 lg:py-5;
     }
 }
 
-.header-toggle {
-    @apply btn-icon mr-2 h-10 bg-cover bg-black2 rounded lg:mr-4 lg:h-15 lg:rounded-md;
-    & img {
-        @apply w-full h-full;
+.global-logo {
+    & a {
+        & span {
+            @apply block;
+        }
     }
+}
+
+.header-menu {
+    @apply ml-auto hidden items-center text-lg font-medium space-x-10 lg:flex;
 }
 
 #allmenu {
@@ -123,17 +128,6 @@
     }
 }
 
-.header-logo {
-    @apply text-2xl tracking-tight font-normal leading-none lg:text-5xl;
-    & img {
-        @apply h-6 lg:h-9;
-    }
-}
-
-.header-menu {
-    @apply ml-auto hidden items-center text-lg font-medium space-x-10 lg:flex;
-}
-
 
 /* navigation */
 #navigation {
@@ -155,34 +149,21 @@
             & li {
                 @apply mx-3.5 lg:mx-5.5;
                 & a {
-                    @apply relative px-0.5;
-                    &::before {
-                        @apply content-empty absolute bottom-0 left-0 w-0 h-0.5 bg-black2 lg:-bottom-1;
-                    }
-                    &:hover {
-                        &::before {
-                            @apply w-full;
-                        }
-                    }
+                    @apply relative px-0.5 before:content-empty before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-black2 before:transition-all before:lg:-bottom-1.5 hover:before:w-full;
                 }
                 &.seperate {
                     @apply flex-none relative mx-3 h-3.5 w-0.5 bg-black2 rounded-full lg:mx-5 lg:h-4;
                 }
                 &.disabled {
-                    @apply opacity-30;
+                    @apply opacity-30 before:!w-0;
                 }
                 &.active {
                     & a {
-                        &::before {
-                            @apply w-full;
-                        }
+                        @apply before:w-full;
                     }
                 }
                 &.require {
-                    @apply relative;
-                    &::after {
-                        @apply content-empty absolute top-0.5 -right-1.5 w-1.5 h-1.5 rounded-full bg-[#F11818] lg:top-1;
-                    }
+                    @apply relative after:content-empty after:absolute after:top-0.5 after:-right-1.5 after:w-1.5 after:h-1.5 after:rounded-full after:bg-[#F11818] after:lg:top-1;
                 }
             }
         }
@@ -194,10 +175,8 @@
         }
     }
     & .toggle {
-        @apply hidden flex-none relative w-8 h-full overflow-hidden -indent-96;
-        &::after {
-            @apply content-empty absolute top-1/2 left-1/2 w-1.5 h-3.5 bg-no-repeat bg-center bg-[url(../images/ico-navigation-arrow.svg)] bg-[length:100%] -translate-x-1/2 -translate-y-1/2;
-        }
+        @apply hidden flex-none relative w-8 h-full overflow-hidden -indent-96
+               after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-1.5 after:h-3.5 after:bg-no-repeat after:bg-center after:bg-[url(../images/ico-navigation-arrow.svg)] after:bg-[length:100%] after:-translate-x-1/2 after:-translate-y-1/2;
     }
     &.is-animate {
         & .container {
@@ -206,16 +185,12 @@
             }
         }
         & .toggle {
-            &::after {
-                @apply transition-all duration-500;
-            }
+            @apply after:transition-all after:duration-500;
         }
     }
     &.is-hidden {
         & .toggle {
-            &::after {
-                @apply rotate-180;
-            }
+            @apply after:rotate-180;
         }
     }
 }
@@ -225,7 +200,7 @@
 }
 
 .navigation-search-toggle {
-    @apply btn-icon fixed z-85 top-4 right-2 h-10 bg-[length:1rem] bg-[url(../images/ico-navigation-search.svg)] md:right-16 lg:relative lg:z-5 lg:top-auto lg:right-auto lg:h-12 lg:bg-[length:1.5rem];
+    @apply btn-icon fixed z-85 top-1 right-2 h-10 bg-[length:1rem] bg-[url(../images/ico-navigation-search.svg)] md:top-3 md:right-16 lg:relative lg:z-5 lg:top-auto lg:right-auto lg:h-12 lg:bg-[length:1.5rem];
     &.is-active {
         @apply lg-max:bg-[url(../images/ico-close.svg)];
     }
@@ -294,7 +269,7 @@
 }
 
 .navigation-clock {
-    @apply hidden fixed z-85 top-4 right-5 ml-4 w-10 h-10 rounded-full bg-no-repeat bg-cover bg-[url(../images/bg-navigation-clock.svg)] md:flex lg:relative lg:z-5 lg:top-auto lg:right-auto lg:w-12 lg:h-12;
+    @apply hidden fixed z-85 top-1 right-2 ml-4 w-10 h-10 rounded-full bg-no-repeat bg-cover bg-[url(../images/bg-navigation-clock.svg)] md:flex md:top-2.5 md:right-5 lg:relative lg:z-5 lg:top-auto lg:right-auto lg:w-12 lg:h-12;
     box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
     & span {
         @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full w-0.5 overflow-hidden bg-no-repeat bg-[length:100%_100%] -indent-96 origin-[center_bottom] lg:w-[3px];
@@ -311,13 +286,13 @@
 /* my service */
 #service {
     & > .container {
-        @apply flex items-center mx-auto px-5 pt-1 pb-4 max-w-[1920px] lg:py-5 xl:py-7.5 2xl:px-20;
+        @apply flex items-center flex-wrap mx-auto px-5 pt-1 pb-4 max-w-[1920px] lg:py-5 xl:py-7.5 2xl:px-20;
     }
 }
 
 .service-slogan {
     /* @apply block mr-2 w-[166px] h-[38px] overflow-hidden -indent-[9999px] bg-no-repeat bg-left-top bg-cover bg-[url(../images/txt-mycart-slogan-mobile.svg)] sm:w-[264px] sm:h-[60px] md:w-[572px] md:h-[42px] md:bg-[length:100%] md:bg-[url(../images/txt-mycart-slogan.svg)] xl:w-[794px] xl:h-[58px] 2xl:w-[864px] 2xl:h-[63px]; */
-    @apply block h-[1em] overflow-hidden relative mr-3 text-[1.75rem] sm:text-[2.25rem] leading-none tracking-tight font-bold md:mr-4 md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.75rem] lg:mr-5;
+    @apply flex-none block mr-1.5 h-[2.1em] text-[1.5rem] overflow-hidden relative sm:mr-4 sm:h-[1.05em] sm:text-[2.25rem] leading-[1.05] tracking-tight font-bold md:mr-4 md:text-[2.75rem] lg:text-[3rem] xl:text-[3.75rem] lg:mr-5;
     & p {
         background-image: linear-gradient(105deg, rgba(21,132,185,0.15) 0%, rgba(119,13,172,0.15) 14.6%, rgba(184,13,13,0.15) 27.3%, rgba(67,168,0,0.15) 38.3%, rgba(184,13,13,0.15) 72.7%, rgba(119,13,172,0.15) 85.4%, rgba(21,132,185,0.15) 100%);
         background-size: 200% auto;
@@ -330,10 +305,10 @@
             @apply inline-block align-bottom sm:inline-block;
         }
         & span {
-            @apply w-[6em] xs:w-[9em];
+            @apply w-[6em] sm:w-[9em];
         }
         & small {
-            @apply mt-1.5 font-serif text-sm sm:text-lg md:text-[1.375rem] lg:text-[1.625rem] xl:text-[1.875rem] tracking-normal font-black;
+            @apply mt-1.5 font-serif text-sm sm:inline-block sm:text-lg md:text-[1.375rem] lg:text-[1.625rem] xl:text-[1.875rem] tracking-normal font-black;
         }
         &.is-animate {
             animation: text 10s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -341,7 +316,7 @@
     }
     & .word {
         &.is-animate {
-            @apply transition-[margin,transition,opacity,visibility] duration-1000;
+            @apply transition-[margin,transform,opacity,visibility] duration-1000;
         }
     }
 }
@@ -605,6 +580,21 @@
     }
     &.is-active {
         @apply block;
+    }
+}
+
+.service-join {
+    @apply hidden w-full relative leading-tight ml-5 pl-5 flex-1 lg:block before:content-empty before:absolute before:top-1/2 before:left-0 before:w-px before:h-[80%] before:bg-gray2 before:-translate-y-1/2;
+    & em {
+        @apply font-black;
+        background: linear-gradient(270deg, rgba(255,138,51,1) 0%, rgba(255,51,0,1) 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+        & span {
+            @apply font-serif text-[1.25em];
+        }
     }
 }
 

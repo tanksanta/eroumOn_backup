@@ -222,7 +222,6 @@
                 <div class="btn-group right mt-8">
                     <button type="button" class="btn-primary large shadow float-left f_useYn">선택삭제</button>
                     <button type="button" class="btn-secondary large shadow f_all_read" data-bs-toggle="modal" data-bs-target="#fileModal">상품일괄등록</button>
-                    <!-- <a href="#" onclick="alert('준비중입니다.');return false;" class="btn-secondary large shadow">상품일괄등록</a>-->
                     <button type="button" class="btn-success large shadow f_all_sold">일괄품절</button>
                     <a href="./form" class="btn-primary large shadow">상품등록</a>
                 </div>
@@ -249,13 +248,21 @@
 											<tbody>
 												<tr>
 													<th scope="row"><label for="excelAttach">파일선택</label></th>
-													<td><input type="file" id="excelAttach" name="excelAttach" class="form-control w-full" onchange="readExcel();" onchange="fileCheck(this);"></td>
+													<td>
+														<input type="file" id="excelAttach" name="excelAttach" class="form-control w-full" onchange="readExcel();" onchange="fileCheck(this);">
+														<i class="ico-loader loading-file" style="display:none;"></i>
+													</td>
+												</tr>
+												<tr class="fail_view" style="display:none;">
+													<th scope="row">실패건수</th>
+													<td class="fail_list"></td>
 												</tr>
 											</tbody>
 										</table>
 										<div class="btn-group mt-5">
-											<button type="button" class="btn-primary large shadow w-26" id="excelBtn">등록</button>
-											<a href="/comm/SAMPLE/getFile?fileName=sample.xlsx" class="btn-secondary large shadow">샘플다운로드</a>
+											<button type="button" class="btn-primary large shadow w-26" id="excelBtn" style="display:none;">등록</button>
+											<button type="button" class="btn-success large shadow w-26" id="excelCnfm" style="display:none;">확인</button>
+											<a href="/comm/SAMPLE/getFile?fileName=excel_sample.xlsx" class="btn-secondary large shadow">샘플다운로드</a>
 										</div>
 									</fieldset>
 								</form>
@@ -269,33 +276,51 @@
                 <script>
 
               	//엑셀 파싱
+              	const regExp = /[\{\}\[\]\/?;:|*~`!^\_+<>@\#$%&\\\=\'\"]/g;
+              	let excelData;
+
                function readExcel() {
                     let input = event.target;
                     let reader = new FileReader();
+                    $("#excelAttach").hide();
+                    $(".loading-file").show();
+
                     reader.onload = function () {
                         let data = reader.result;
                         let workBook = XLSX.read(data, { type: 'binary' });
                         workBook.SheetNames.forEach(function (sheetName) {
                             console.log('SheetName: ' + sheetName);
-                            let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
-                            let jsonRow = JSON.stringify(rows);
-                            console.log("row : " + rows);
-                            console.log(JSON.stringify(rows));
+                            if(sheetName == "상품일괄등록"){
+                                let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                                let jsonRow = JSON.stringify(rows);
 
-                            $.ajax({
-                				type : "post",
-                				url  : "/_mng/gds/gds/insertBatchGds.json",
-                				data : {gdsList : jsonRow},
-                				dataType : 'json'
-                			})
-                			.done(function(data) {
+                                //console.log(JSON.stringify(rows[0]));
 
-                			})
-                			.fail(function(data, status, err) {
-                				alert("상품 일괄 처리 중 오류가 발생했습니다.");
-                				console.log('error forward : ' + data);
-                			});
+                                let actFlag = false;
+                                let errorPlace = "";
+                                let errorCnt = 0;
+                                for(var i=0; i<rows.length; i++){
+                                	$.each(rows[i], function(key, value){
+                                    	if(regExp.test(value)){
+                                    		console.log((i+2)+"행 특수문자가 포함된 값 : " + value);
+                                    		actFlag = true;
+                                    		errorCnt += 1;
+                                    	}
+                                    });
+                                	errorPlace += (i+1)+"행 " + errorCnt + " 건 \n";
+                                }
 
+                                if(actFlag){
+                                	alert("특수문자가 포함된 값이 존재합니다. \n" + errorPlace);
+                                	console.log(errorPlace);
+                                }else{
+                                	$(".loading-file").hide();
+                                	$("#excelAttach, #excelBtn").show();
+                                	excelData = jsonRow;
+                                }
+                            }else{
+                            	return false;
+                            }
                         })
                     };
                     reader.readAsBinaryString(input.files[0]);
@@ -442,7 +467,41 @@
 	            		}
 	            	});
 
+	            	$("#excelBtn").on("click",function(){
+	            		if(confirm("등록하시겠습니까?")){
+	            			  $.ajax({
+                    				type : "post",
+                    				url  : "/_mng/gds/gds/insertBatchGds.json",
+                    				data : {gdsList : excelData},
+                    				dataType : 'json'
+                    			})
+                    			.done(function(data) {
+                    				$(".fail_view").show();
+                    				var msgMap = data.msgMap;
+                    				msgMap = msgMap.replaceAll('{','').replaceAll('}','');
+                    				var arrMsg = msgMap.split(',');
+                    				var html = "";
+                    				for(var i=0; i<arrMsg.length; i++){
+                    					html += arrMsg[i].replaceAll('=',' : ') + '<br>';
+                    				}
 
+                    				$(".fail_list").append(html);
 
+                    				$("#excelCnfm").show();
+                    				$("#excelBtn").hide();
+                    			})
+                    			.fail(function(data, status, err) {
+                    				alert("상품 일괄 처리 중 오류가 발생했습니다.");
+                    				console.log('error forward : ' + data);
+                    			});
+	            		}else{
+	            			return false;
+	            		}
+	            	});
+
+	            	$("#excelCnfm").on("click",function(){
+	            		$(".btn-close").click();
+	            		location.reload();
+	            	});
                 });
                 </script>

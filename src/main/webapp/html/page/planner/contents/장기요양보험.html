@@ -20,31 +20,31 @@
     <!-- 페이지 헤더 -->
     <div id="header">
         <div class="container">
-            <h1 id="logo"><a href="index.html">이로움 플래너</a></h1>
+            <h1 id="logo" class="global-logo"><a href="#"><span class="sr-only">이로움 플래너</span></a></h1>
             <nav id="navigation">
                 <ul>
-                    <li><a href="index.html">복지 서비스</a></li>
-                    <li><a href="장기요양보험.html" class="is-active">장기요양 서비스</a></li>
+                    <li><a href="index.html" class="is-active">복지 서비스</a></li>
+                    <li><a href="장기요양보험.html">장기요양 서비스</a></li>
                     <li><a href="고령친화 우수식품.html">고령친화 우수식품</a></li>
                 </ul>
             </nav>
 
             <!-- 회원 -->
-            <div id="account" class="is-login">
+            <!-- <div id="account" class="is-login">
                 <p>
                     <strong>정경석</strong>
                     64세, 서울 용산구
                 </p>
                 <a href="#" class="btn btn-outline-primary">설정</a>
                 <a href="#" class="btn btn-primary">로그아웃</a>
-            </div>
+            </div> -->
             <!-- //회원 -->
 
             <!-- 비회원 -->
-            <!-- <div id="account" class="is-nologin">
+            <div id="account" class="is-nologin">
                 <a href="#modal-login" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-login">로그인</a>
                 <a href="#" class="btn btn-outline-primary">회원가입</a>
-            </div> -->
+            </div>
             <!-- //비회원 -->
 
             <!-- 모바일 메뉴 -->
@@ -357,7 +357,7 @@
     </main>
 
     <!-- footer -->
-    <footer id="footer">
+    <footer id="footer" class="global-footer">
         <div class="footer-link">
             <!-- 회사 메뉴 -->
             <nav class="footer-menu">
@@ -372,32 +372,29 @@
 
             <!-- 패밀리 사이트 -->
             <dl class="footer-family">
-                <dt>
-                    이로움
-                    <small>패밀리 사이트</small>
-                </dt>
+                <dt>패밀리 사이트</dt>
                 <dd>
-                    <ul>
+                    <ul class="global-link">
                         <li>
-                            <a href="#" class="family-link1">
+                            <a href="#" class="link-item1">
                                 <div class="bubble">
                                     <small>시니어 라이프 케어 플랫폼</small>
-                                    <strong>"이로움"</strong>
+                                    <strong>"이로움ON"</strong>
                                 </div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="family-link2">
+                            <a href="#" class="link-item2">
                                 <div class="bubble">
-                                    <strong>이로움 멤버스</strong>
+                                    <strong>이로움ON 멤버스</strong>
                                     <small>전국 2,432개 업체와 함께합니다</small>
                                 </div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="family-link3">
+                            <a href="#" class="link-item3">
                                 <div class="bubble">
-                                    <strong><img src="../assets/images/txt-footer-family3.svg" alt="이로움마켓"></strong>
+                                    <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
                                     <small>
                                         복지용구 사업소와 수급자 매칭부터<br>
                                         주문, 계약 및 결제까지 한번에!
@@ -457,7 +454,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="text-title"><img src="../assets/images/img-main-logo.svg" alt="eroum"></p>
+                    <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
                     <button data-bs-dismiss="modal">모달 닫기</button>
                 </div>
                 <div class="modal-body">

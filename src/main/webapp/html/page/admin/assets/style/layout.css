@@ -22,8 +22,7 @@ body {
         @apply flex m-3.5 ml-6.5;
     }
     & .back {
-        @apply absolute z-10 bottom-1 left-3 w-11 h-11 overflow-hidden bg-center bg-no-repeat -indent-96 press-action;
-        background-image: url(../images/ico-admin-back.svg);
+        @apply absolute z-10 bottom-1 left-3 w-11 h-11 overflow-hidden bg-center bg-no-repeat bg-[url(../images/ico-admin-back.svg)] -indent-96 press-action;
     }
 }
 
@@ -32,144 +31,82 @@ body {
     & .menu-items {
         @apply absolute top-1/2 left-2 -translate-y-1/2 select-none;
         & a {
-            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white bg-white leading-none text-center text-[0.6875rem] press-action;
-            &::before {
-                @apply content-empty block mx-auto mb-0.5 w-7 h-7 bg-no-repeat bg-center bg-[length:1.5rem];
-            }
+            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white bg-white leading-none text-center text-[0.6875rem] press-action active:bg-white/80
+                   before:content-empty before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
             &.menu-item1 {
-                &::before {
-                    background-image: url(../images/ico-menu1.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu1.svg)];
             }
             &.menu-item2 {
-                &::before {
-                    background-image: url(../images/ico-menu2.svg);
-                    
-                }
+                @apply before:bg-[url(../images/ico-menu2.svg)];
             }
             &.menu-item3 {
-                &::before {
-                    @apply bg-[length:1.375rem];
-                    background-image: url(../images/ico-menu3.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu3.svg)] before:bg-[length:1.375rem];
             }
             &.menu-item4 {
-                &::before {
-                    @apply bg-[length:1.25rem];
-                    background-image: url(../images/ico-menu4.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu4.svg)] before:bg-[length:1.25rem];
             }
             &.menu-item5 {
-                &::before {
-                    background-image: url(../images/ico-menu5.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu5.svg)];
             }
             &.menu-item6 {
-                &::before {
-                    @apply bg-[length:1.25rem];
-                    background-image: url(../images/ico-menu6.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu6.svg)] before:bg-[length:1.25rem];
             }
             &.menu-item7 {
-                &::before {
-                    background-image: url(../images/ico-menu7.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu7.svg)];
             }
             &.menu-item8 {
-                &::before {
-                    @apply bg-[length:1.375rem];
-                    background-image: url(../images/ico-menu8.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu8.svg)] before:bg-[length:1.375rem];
             }
             &.menu-item9 {
-                &::before {
-                    @apply bg-[length:1.375rem];
-                    background-image: url(../images/ico-menu9.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu9.svg)] before:bg-[length:1.375rem];
             }
             &.menu-item10 {
-                &::before {
-                    background-image: url(../images/ico-menu10.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu10.svg)];
             }
             &.menu-item11 {
-                &::before {
-                    background-image: url(../images/ico-menu11.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu11.svg)];
             }
             &.menu-item12 {
-                &::before {
-                    @apply bg-[length:1.5rem];
-                    background-image: url(../images/ico-menu12.svg);
-                }
+                @apply before:bg-[url(../images/ico-menu12.svg)] before:bg-[length:1.5rem];
             }
-            &:active {
-                @apply bg-white/80;
-            } 
             &.active {
-                @apply bg-transparent text-white;
-                &::after {
-                    @apply content-empty absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-5 bg-white rounded-md;
-                }
+                @apply bg-transparent text-white
+                       after:content-empty after:absolute after:top-1/2 after:-right-1 after:-translate-y-1/2 after:w-2 after:h-5 after:bg-white after:rounded-md;
                 &.menu-item1 {
-                    &::before {
-                        background-image: url(../images/ico-menu1-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu1-white.svg)];
                 }
                 &.menu-item2 {
-                    &::before {
-                        background-image: url(../images/ico-menu2-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu2-white.svg)];
                 }
                 &.menu-item3 {
-                    &::before {
-                        background-image: url(../images/ico-menu3-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu3-white.svg)];
                 }
                 &.menu-item4 {
-                    &::before {
-                        background-image: url(../images/ico-menu4-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu4-white.svg)];
                 }
                 &.menu-item5 {
-                    &::before {
-                        background-image: url(../images/ico-menu5-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu5-white.svg)];
                 }
                 &.menu-item6 {
-                    &::before {
-                        background-image: url(../images/ico-menu6-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu6-white.svg)];
                 }
                 &.menu-item7 {
-                    &::before {
-                        background-image: url(../images/ico-menu7-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu7-white.svg)];
                 }
                 &.menu-item8 {
-                    &::before {
-                        background-image: url(../images/ico-menu8-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu8-white.svg)];
                 }
                 &.menu-item9 {
-                    &::before {
-                        background-image: url(../images/ico-menu9-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu9-white.svg)];
                 }
                 &.menu-item10 {
-                    &::before {
-                        background-image: url(../images/ico-menu10-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu10-white.svg)];
                 }
                 &.menu-item11 {
-                    &::before {
-                        background-image: url(../images/ico-menu11-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu11-white.svg)];
                 }
                 &.menu-item12 {
-                    &::before {
-                        background-image: url(../images/ico-menu12-white.svg);
-                    }
+                    @apply before:bg-[url(../images/ico-menu12-white.svg)];
                 }
             }
         }
@@ -181,30 +118,23 @@ body {
         }
         & > ul {
             & > li {
-                @apply mt-1 rounded-md bg-white overflow-hidden leading-tight transition-all duration-300;
+                @apply mt-1 rounded-md bg-white overflow-hidden leading-tight transition-all duration-300 hover:bg-gray3;
                 & > a {
                     @apply block text-sm py-3 px-4.5;
                 }
                 & > ul {
                     @apply px-5 py-0.5 mx-1.5 mb-1.5 rounded bg-gray2 text-[0.8125rem];
                     & li {
-                        @apply relative py-1 pl-3;
-                        &::before {
-                            @apply content-empty absolute top-2.5 mt-px left-0 w-1.5 h-px bg-black2;
-                        }
+                        @apply relative py-1 pl-3
+                               before:content-empty before:absolute before:top-2.5 before:mt-px before:left-0 before:w-1.5 before:h-px before:bg-black2;
                     }
-                }
-                &:hover {
-                    @apply bg-gray3;
                 }
                 &.active {
                     @apply bg-black1 text-white;
                     & > ul {
                         @apply bg-white/20;
                         & li {
-                            &::before {
-                                @apply bg-white;
-                            }
+                            @apply before:bg-white;
                         }
                     }
                 }

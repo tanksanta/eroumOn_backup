@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
     <!-- quick -->
-    <div id="quick">
-        <button type="button">위로 이동</button>
+    <div id="quick" class="global-quick">
+        <button type="button" class="moveTop">위로 이동</button>
+        <button type="button" class="channelTalk">위로 이동</button>
     </div>
     <!-- //quick -->
 
-	<footer id="footer">
+    <footer id="footer" class="global-footer">
         <div class="footer-link">
             <!-- 회사 메뉴 -->
             <nav class="footer-menu">
@@ -22,14 +22,11 @@
 
             <!-- 패밀리 사이트 -->
             <dl class="footer-family">
-                <dt>
-                    이로움ON
-                    <small>패밀리 사이트</small>
-                </dt>
+                <dt>패밀리 사이트</dt>
                 <dd>
-                    <ul>
+                    <ul class="global-link">
                         <li>
-                            <a href="${_plannerPath}" target="_blank" title="새창열림" class="family-link1">
+                            <a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
                                 <div class="bubble">
                                     <small>시니어 라이프 케어 플랫폼</small>
                                     <strong>"이로움ON"</strong>
@@ -37,7 +34,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${_membersPath}" target="_blank" title="새창열림" class="family-link2">
+                            <a href="${_membersPath}" target="_blank" title="새창열림" class="link-item2">
                                 <div class="bubble">
                                     <strong>이로움ON 멤버스</strong>
                                     <small>전국 <fmt:formatNumber value="1600" pattern="###,###" />개 업체와 함께합니다</small>

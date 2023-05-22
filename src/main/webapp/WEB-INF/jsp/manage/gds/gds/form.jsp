@@ -10,7 +10,7 @@
                     <li><a href="#section7" role="button" class="nav-link">기타사항</a></li>
                 </ul>
 
-                <form:form name="frmGds" id="frmGds" modelAttribute="gdsVO" method="post" action="./action" enctype="multipart/form-data" class="mt-7.5 relative">
+				<form:form name="frmGds" id="frmGds" modelAttribute="gdsVO" method="post" action="./action" enctype="multipart/form-data" class="mt-7.5 relative">
                 <form:hidden path="crud" />
                 <form:hidden path="gdsNo" />
 
@@ -159,7 +159,7 @@
                                     <th scope="row"><label for="mkr">제조사</label></th>
                                     <td>
                                     	<form:select path="mkr" class="form-control w-70">
-                                    		<form:option value="" label="선택" />
+                                    		<form:option value="0" label="선택" />
                                     		<c:forEach items="${mkrList}" var="mkr" varStatus="status">
                                             	<form:option value="${mkr.mkrNo}" label="${mkr.mkrNm}" />
                                                 </c:forEach>
@@ -175,7 +175,7 @@
                                     <th scope="row"><label for="brand">브랜드</label></th>
                                     <td>
                                         <form:select path="brand" class="form-control w-70">
-                                    		<form:option value="" label="선택" />
+                                    		<form:option value="0" label="선택" />
                                     		<c:forEach items="${brandList}" var="brand" varStatus="status">
                                            	<form:option value="${brand.brandNo}" label="${brand.brandNm}" />
                                             </c:forEach>
@@ -702,7 +702,7 @@
 
                     <!-- 배송/교환/반품 -->
                     <fieldset id="section4" class="mt-13">
-                    	<legend class="text-title2">배송</legend>
+                    	<legend class="text-title2">배송 일반사항</legend>
                     	<table class="table-detail">
                     		<colgroup>
                                 <col class="w-35">
@@ -713,7 +713,7 @@
                                 <tr>
                                     <th scope="col">상품</th>
                                     <th scope="col">배송비</th>
-                                    <th scope="col">내용</th>
+                                    <th scope="col"><center>내용</center></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -743,7 +743,7 @@
 
                     <fieldset class="mt-13">
                     	<legend class="text-title2">
-                    		교환/반품
+                    		교환/반품 일반사항
                     	</legend>
                     	<table class="table-detail">
                             <colgroup>
@@ -1592,6 +1592,7 @@
                     	//탭 클릭 이벤트
                     	$('.nav-link').on('click', function() {
                     		$('#container').scrollTop(($('#container').scrollTop() + $($(this).attr('href')).offset().top) - 180);
+                    		$(this).addClass('active')
                     		$(this).addClass('active').parent().siblings().find('.nav-link').removeClass('active');
                     		return false;
                     	})

@@ -53,6 +53,9 @@ public class MGdsQaController extends CommonAbstractController {
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String testUser;
+
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
@@ -184,12 +187,10 @@ public class MGdsQaController extends CommonAbstractController {
 
 				// 메일 발송
 				String mailSj = "[이로움ON] 상품문의에 대한 답변이 등록되었습니다";
-				if(EgovStringUtil.equals("real", activeMode)) {
+				if(!EgovStringUtil.equals("local", activeMode)) {
 					mailService.sendMail(sendMail, qaVO.getEml(), mailSj, mailForm);
-				}else if(EgovStringUtil.equals("dev", activeMode)) {
-					mailService.sendMail(sendMail, qaVO.getEml(), mailSj, mailForm);
-				} else {
-					mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+				}else {
+					mailService.sendMail(sendMail, testUser, mailSj, mailForm); //테스트
 				}
 			} else {
 				log.debug("관리자 상품 QnA 답변 알림 EMAIL 전송 실패 :: 이메일 체크 " + qaVO.getEml());

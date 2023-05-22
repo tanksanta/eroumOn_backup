@@ -250,11 +250,11 @@
                         e.stopPropagation();
                         $(this).closest('.card-item').toggleClass('is-active');
                     })
-                    
+
                     $('.card-item a').on('click', function(e) {
                         e.stopPropagation();
                     })
-                    
+
                     $(window).on('scroll', function() {
                         if($('.content-insurance1').get(0).getClientRects()[0].y + $('.content-insurance1').get(0).getClientRects()[0].height > 0) {
                             $('.content-insurance1 .images').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.1) + 'px)'});

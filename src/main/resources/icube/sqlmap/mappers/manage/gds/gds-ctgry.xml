@@ -13,6 +13,12 @@
 		 AS child_cnt
 	</sql>
 
+	<sql id="searchConditions">
+		<if test="srchCtgryNm != null and srchCtgryNm != '' ">
+			AND ctgry_nm = #{srchCtgryNm}
+		</if>
+	</sql>
+
 	<select id="selectGdsCtgryList" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
 		SELECT ctgry_no
 			, up_ctgry_no
@@ -75,6 +81,23 @@
 				, <include refid="selectCount"/>
 		FROM GDS_CTGRY gc
 	  WHERE ctgry_no = #{ctgryNo}
+	</select>
+
+	<select id="selectGdsCtgryNo" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
+		SELECT ctgry_no
+				, up_ctgry_no
+				, ( SELECT ctgry_nm
+					FROM GDS_CTGRY b
+					WHERE gc.up_ctgry_no = b.ctgry_no ) AS up_ctgry_nm
+				, ctgry_nm
+				, ctgry_img
+				, tag
+				, level_no
+				, sort_no
+				, use_yn
+		FROM GDS_CTGRY gc
+	  	WHERE 1=1
+	  		<include refid="searchConditions" />
 	</select>
 
 

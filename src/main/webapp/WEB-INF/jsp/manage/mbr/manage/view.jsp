@@ -18,29 +18,43 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row">회원분류 / 회원등급</th>
-						<td class="recipterVal">${recipter[mbrVO.recipterYn]}&nbsp;&nbsp; <span class="badge-primary">${mberGrade[mbrVO.mberGrade]}</span>
+						<th scope="row">회원분류</th>
+						<td class="recipterVal">${recipter[mbrVO.recipterYn]}</td>
+
+						<th scope="row">회원등급</th>
+						<td>
+							<select name="mbrGrade" id="mbrGrade" class="form-control w-45" <c:if test="${_mngrSession.authrtTy ne '1'}">readonly=true</c:if>>
+								<c:forEach var="grade" items="${mberGrade}">
+									<option value="${grade.key}" <c:if test="${grade.key eq mbrVO.mberGrade}">selected="selected"</c:if>>${grade.value}</option>
+								</c:forEach>
+							</select>
+							<c:if test="${_mngrSession.authrtTy eq '1'}">
+								<button type="button" class="btn-small btn-primary f_chg_grade">변경</button>
+							</c:if>
 						</td>
-						<th scope="row">가족회원 여부</th>
-						<td>${fmlCount > 0 ? '가족회원' : '일반회원' }</td>
 					</tr>
 					<tr>
 						<th scope="row">아이디</th>
 						<td>${mbrVO.mbrId}</td>
-						<th scope="row">휴대폰 번호</th>
-						<td>${mbrVO.mblTelno}</td>
+
+						<th scope="row">가족회원 여부</th>
+						<td>${fmlCount > 0 ? '가족회원' : '일반회원' }</td>
 					</tr>
 					<tr>
 						<th scope="row">이름/생년월일/성별</th>
 						<td class="nameVal">${mbrVO.mbrNm }/ <fmt:formatDate value="${mbrVO.brdt }" pattern="yyyy-MM-dd" /> / ${gender[mbrVO.gender] }
-						</td>
 
-						<th scope="row">가입매체 / 가입일</th>
-						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<th scope="row">휴대폰 번호</th>
+						<td>${mbrVO.mblTelno}</td>
+					</td>
+
 					</tr>
 					<tr>
 						<th scope="row">이메일</th>
-						<td colspan="3">${mbrVO.eml }</td>
+						<td>${mbrVO.eml }</td>
+
+						<th scope="row">가입매체 / 가입일</th>
+						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 					<tr>
 						<th scope="row">주소</th>
@@ -684,6 +698,33 @@
 					alert("이메일발송 중 오류가 발생했습니다.");
 					console.log('error forward : ' + data);
 				});
+		 });
+
+		 // 회원 등급
+		 $(".f_chg_grade").on("click",function(){
+			 let mbrGrade = "${mbrVO.mberGrade}";
+
+			 if(confirm("회원 등급을 변경하시겠습니까?")){
+				 $.ajax({
+					type : "post",
+					url : '/_mng/mbr/' + $("#uniqueId").val() + '/chgGrade.json',
+					data : {
+						mberGrade : $("#mbrGrade").val()
+					},
+					dataType : 'json'
+				}).done(function(data) {
+					if(data.result){
+						alert("변경되었습니다.");
+					}else{
+						alert("회원 등급 처리 중 오류가 발생하였습니다.");
+					}
+				}).fail(function(data, status, err) {
+					console.log('error forward : ' + data);
+				});
+			 }else{
+				 $("#mbrGrade").val(mbrGrade);
+				 return false;
+			 }
 		 });
 
 	});

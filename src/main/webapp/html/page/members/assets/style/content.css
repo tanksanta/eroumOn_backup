@@ -174,9 +174,9 @@
 .member-desc {
     @apply relative pt-6 pb-7.5 rounded-b-[1.25rem] bg-[url(../images/bg-login-banner.jpg)] bg-center bg-cover text-white sm:mx-auto sm:pt-7.5 sm:pb-9 sm:max-w-[35.5rem];
     & dl {
-        @apply relative w-fit pt-5 mx-auto pl-[7.125rem] xs:ml-[12.56%] xs:mr-0 sm:pt-7 sm:pl-[9.625rem];
+        @apply relative w-fit pt-5 mx-auto pl-[6.875rem] xs:ml-[12.56%] xs:mr-0 sm:pt-7 sm:pl-[9.375rem];
         &::before {
-            @apply content-empty absolute top-0 left-0 w-[6.125rem] h-[12.625rem] bg-cover bg-[url(../images/bg-card.png)] sm:w-[7.625rem] sm:h-63;
+            @apply content-empty absolute top-0 left-0 w-[5.875rem] h-[12.625rem] bg-cover bg-[url(../images/bg-card.png)] sm:w-[7.375rem] sm:h-63;
         }
         & dt {
             & img {
@@ -507,7 +507,7 @@
 
 /* 휴면계정/탈퇴 */
 .member-release-title {
-    @apply pt-38 px-4 pb-12 rounded-[1rem] bg-white bg-no-repeat bg-[url(../images/img-shopbag.png),linear-gradient(110deg,rgba(21,132,185,0.08)0%,rgba(119,13,172,0.08)29%,rgba(184,13,13,0.08)54%,rgba(229,162,10,0.08)77%,rgba(67,168,0,0.08)100%)] bg-[length:126px,auto] bg-[position:center_top_0.75rem,left_top] text-center md:pt-49 md:pb-14 md:bg-[length:158px,auto];
+    @apply pt-38 px-4 pb-12 rounded-[1rem] bg-white bg-no-repeat bg-[url(/html/core/images/img-market-bag.png),linear-gradient(110deg,rgba(21,132,185,0.08)0%,rgba(119,13,172,0.08)29%,rgba(184,13,13,0.08)54%,rgba(229,162,10,0.08)77%,rgba(67,168,0,0.08)100%)] bg-[length:126px,auto] bg-[position:center_top_0.75rem,left_top] text-center md:pt-49 md:pb-14 md:bg-[length:158px,auto];
     & img {
         @apply mx-auto w-77 md:w-[27.75rem];
     }

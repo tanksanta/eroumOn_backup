@@ -141,6 +141,7 @@
                 		tree.open_all();
                 	}
                 };
+
                 const f_close_tree = function() {
                 	let tree = $("#ctgryTree").jstree(true);
                 	let allId = [].concat(tree.get_node('#').children_d);
@@ -150,10 +151,12 @@
                 	allId.splice(0, 1);
                 	tree.close_node(allId);
                 };
+
                 const f_hide_block = function() {
                 	$(".tree-content fieldset").unblock();
 
                 }
+
                 const f_show_block = function() {
                 	$(".tree-content fieldset").block({
                 		message: '<div class="blockui"><span>카테고리를 선택하여 정보를 수정하세요.</span></div>',
@@ -191,7 +194,7 @@
                 	            "themes" : { "responsive": false},
                 	            "ui" : {"select_limit" : 1},
                 	            "check_callback" : function(operation, node, node_parent, node_pos, more) {
-                	            	//console.log(operation, node, node_parent, node_pos, more);
+                	            	//console.log("@@ : " + operation, node, node_parent, node_pos, more);
                 	            	if(operation === 'move_node') {
                                     	if(node_parent.id === "#"){return false;} // 최상위 레벨로 이동 금지
                                     	if(node.state.disabled){return false;} // 비활성 상태 이동 금지
@@ -200,7 +203,7 @@
                 						if(node_parent.parents.length==1&&(node.children.length!=node.children_d.length)){return false;}
                                     }
                                     if(operation==="create_node") {
-                						if(node_parent.parents.length>2){return false;} // 메뉴는 3depth까지만(3depth 메뉴 아래에는 생성 안됨)
+                						if(node_parent.parents.length>4){return false;} // 메뉴는 3depth까지만(3depth 메뉴 아래에는 생성 안됨)
                                     }
                                 	return true;
                 	            },
@@ -268,7 +271,7 @@
                 								"separator_after":false,
                 								"label": '카테고리 삭제',
                 								"_disabled": function(obj) {
-                									return ($node.children_d.length > 0) ? true : false;
+                									return ($node.children_d.length > 2) ? true : false; // 카테고리 삭제 depth
                 								},
                 								"action": function(obj) {
                 									$.ajax({
@@ -278,7 +281,7 @@
                 										dataType: 'json'
                 									})
                 									.done(function(json){
-                										if(json.result=="Y") {
+                										if(json.result) {
                 											alert(json.msg);
                 										} else {
                 											alert("카테고리 삭제 중 오류가 발생하였습니다.");
@@ -297,8 +300,8 @@
                 								}
                 							}
                 						};
-                					if($node.children.length>0){delete ctxMenu.Delete;}
-                					if($node.parents.length>2){delete ctxMenu.Create;}
+                					if($node.children.length>1){delete ctxMenu.Delete;}
+                					if($node.parents.length>4){delete ctxMenu.Create;} //새 카테고리 만들기 depth
                 					return ctxMenu;
                 				}
                 			},

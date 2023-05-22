@@ -50,12 +50,9 @@
                                 티에이치케이컴퍼니는 편안하고 건강한 시니어 라이프를 위해 <br class="sm-max:hidden">
                                 2023년 4월 시니어 라이프 케어 플랫폼 ‘<strong>이로움ON</strong>’으로 새로운 시장 혁신을 만들어 갑니다.
                             </p>
+                            <p><img src="/html/page/planner/assets/images/img-company3.png" alt=""></p>
                         </div>
-                        <picture class="visual">
-                            <source srcset="/html/page/planner/assets/images/img-company3-mo.jpg" media="(max-width: 767px)">
-                            <source srcset="/html/page/planner/assets/images/img-company3.jpg">
-                            <img src="/html/page/planner/assets/images/img-company3.jpg" alt="" />
-                        </picture>
+                        <img src="/html/page/planner/assets/images/bg-company3.png" alt="" class="visual">
                     </div>
                     <div class="content-company3">
                         <h2>시니어 맞춤 상품 큐레이션</h2>
@@ -117,12 +114,9 @@
                                 티에이치케이컴퍼니는 편안하고 건강한 시니어 라이프를 위해 <br class="sm-max:hidden">
                                 2023년 4월 시니어 라이프 케어 플랫폼 ‘<strong>이로움ON</strong>’으로 새로운 시장 혁신을 만들어 갑니다.
                             </p>
+                            <p><img src="/html/page/planner/assets/images/img-company3.png" alt=""></p>
                         </div>
-                        <picture class="visual">
-                            <source srcset="/html/page/planner/assets/images/img-company3-mo.jpg" media="(max-width: 767px)">
-                            <source srcset="/html/page/planner/assets/images/img-company3.jpg">
-                            <img src="/html/page/planner/assets/images/img-company3.jpg" alt="" />
-                        </picture>
+                        <img src="/html/page/planner/assets/images/bg-company3.png" alt="" class="visual">
                     </div>
                     <div class="content-company3">
                         <h2>시니어 맞춤 상품 큐레이션</h2>

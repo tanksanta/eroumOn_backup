@@ -1,7 +1,5 @@
-
 .market-title {
-    @apply mx-auto uppercase font-serif text-white font-black leading-none text-center w-full bg-white py-23;
-    font-size: min(max(96px, 10vw), 140px);
+    @apply mx-auto uppercase font-serif text-white font-black leading-none text-center w-full bg-white py-23 text-[min(max(96px,10vw),140px)];
     text-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.2) 48px 100px 32px;
 }
 

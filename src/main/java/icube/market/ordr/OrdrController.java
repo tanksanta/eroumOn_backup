@@ -49,7 +49,7 @@ import icube.market.mypage.info.biz.DlvyVO;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
-public class OrdrController extends CommonAbstractController {
+public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;

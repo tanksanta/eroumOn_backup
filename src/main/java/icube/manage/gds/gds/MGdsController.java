@@ -39,6 +39,7 @@ import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
+import icube.common.values.StaticValues;
 import icube.common.vo.CommonListVO;
 import icube.common.vo.DataTablesVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
@@ -47,14 +48,12 @@ import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
-import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 import icube.manage.sysmng.mngr.biz.MngrVO;
-import icube.members.bplc.mng.biz.BplcGdsService;
 
 /**
  * 관리자 > 상품관리 > 상품관리
@@ -80,12 +79,6 @@ public class MGdsController extends CommonAbstractController {
 
 	@Resource(name = "fileService")
 	private FileService fileService;
-
-	@Resource(name = "bplcGdsService")
-	private BplcGdsService bplcGdsService;
-
-	@Resource(name = "bplcService")
-	private BplcService bplcService;
 
 	@Autowired
 	private MngrSession mngrSession;
@@ -132,6 +125,14 @@ public class MGdsController extends CommonAbstractController {
 
 		if(gdsNo == 0){
 			gdsVO.setCrud(CRUD.CREATE);
+
+			// 설명
+			gdsVO.setDlvyDc(StaticValues.DLVY_DC);
+			gdsVO.setDcCmmn(StaticValues.DC_CMMN);
+			gdsVO.setDcFreeSalary(StaticValues.DC_FREE_SALARY);
+			gdsVO.setDcPchrgSalary(StaticValues.DC_PCHRG_SALARY);
+			gdsVO.setDcPchrgSalaryGnrl(StaticValues.DC_PCHRG_SALARY_GNRL);
+			gdsVO.setDcPchrgGnrl(StaticValues.DC_PCHRG_GNRL);
 		}else{
 			gdsVO = gdsService.selectGds(gdsNo);
 
@@ -242,23 +243,8 @@ public class MGdsController extends CommonAbstractController {
 
 			switch (gdsVO.getCrud()) {
 				case CREATE:
-					gdsService.insertGds(gdsVO);
 
-					fileService.creatFileInfo(fileMap, gdsVO.getGdsNo(), "GDS");
-
-					//사업소 상품 등록
-					int resultCnt = 0;
-					if(!gdsVO.getGdsTy().equals("N")) {
-						Map<String, Object> paramMap = new HashMap<String, Object>();
-						paramMap.put("srchAprvTy", "C");
-						//paramMap.put("srchUseYn", "Y");
-						paramMap.put("srchGdsNo", gdsVO.getGdsNo());
-
-						// select insert query
-						resultCnt += bplcGdsService.selectInsertBplcGds(paramMap);
-
-						System.out.println("###### " + resultCnt + " 개의 사업소에 등록 완료 ########");
-					}
+					gdsService.insertGdsAndBplc(gdsVO, fileMap);
 
 					javaScript.setMessage(getMsg("action.complete.insert"));
 					javaScript.setLocation("./list?" + pageParam);
@@ -300,13 +286,6 @@ public class MGdsController extends CommonAbstractController {
 					javaScript.setMessage(getMsg("action.complete.update"));
 					javaScript.setLocation(
 						"./form?gdsNo=" + gdsVO.getGdsNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
-					break;
-
-				case DELETE:
-					//gdsService.deleteGds(gdsVO.getGdsNo());
-
-					javaScript.setMessage(getMsg("action.complete.delete"));
-					javaScript.setLocation("./list?" + pageParam);
 					break;
 
 				default:
@@ -566,6 +545,12 @@ public class MGdsController extends CommonAbstractController {
 	}
 
 
+	/**
+	 * 상품 일괄 품절 처리
+	 * @param arrGdsNo
+	 * @return resultMap
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "modifyAllSold.json")
 	@ResponseBody
 	private Map<String, Object> modifyAllSold(
@@ -588,6 +573,12 @@ public class MGdsController extends CommonAbstractController {
 		return resultMap ;
 	}
 
+	/**
+	 * 상품 일괄 등록
+	 * @param gdsList
+	 * @return resultMap
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "insertBatchGds.json")
 	@ResponseBody
 	public Map<String, Object> insertBatchGds(
@@ -596,18 +587,40 @@ public class MGdsController extends CommonAbstractController {
 			, Model model
 			)throws Exception {
 
+		Map<String, Object> msgMap = new HashMap<String, Object>();
+
 		JSONParser jsonParser = new JSONParser();
 		Object obj = jsonParser.parse(gdsList);
 		JSONArray jsonArr = (JSONArray)obj;
-
-		log.debug("@@@@@@@@@ gdsList : " + jsonArr.toJSONString());
+		int resultCnt = 0;
 
 		for(Object data : jsonArr) {
 			JSONObject jsonObj = (JSONObject)data;
-			log.debug("@@@@@@@@@ jsonObj : " + jsonObj.toJSONString());
+			log.debug("###  jsonObj  ### : " + jsonObj.toJSONString());
+
+			// 중복검사
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			String gdsNm = String.valueOf(jsonObj.get("상품_명"));
+			paramMap.put("srchTrimGdsNm", gdsNm.trim());
+			int dupCnt = gdsService.selectGdsCnt(paramMap);
+
+			if(dupCnt > 0) {
+				msgMap.put(String.valueOf(jsonObj.get("상품_명")), "중복 상품");
+			}else {
+				try {
+					Map<String, Object> returnMap = gdsService.setParamAndInsert(jsonObj);
+					resultCnt += (Integer)returnMap.get("resultCnt");
+				}catch(Exception e) {
+					e.printStackTrace();
+					msgMap.put(String.valueOf(jsonObj.get("상품_명")), e.getMessage());
+				}
+			}
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("msgMap", msgMap.toString());
+		resultMap.put("resultCnt", resultCnt);
+		resultMap.put("totalCnt", jsonArr.size());
 		return resultMap;
 	}
 }

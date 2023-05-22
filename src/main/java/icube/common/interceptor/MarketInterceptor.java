@@ -132,13 +132,13 @@ public class MarketInterceptor implements HandlerInterceptor {
 			// 마일리지 정보
 			double mileagePercent = 0.0; // 신규:0.1%
 			if(EgovStringUtil.equals("N", mbrSession.getMberGrade())) {
-				mileagePercent = 0.0;
+				mileagePercent = 0;
 			}else if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
-				mileagePercent = 0.5;
+				mileagePercent = 050;
 			}else if(EgovStringUtil.equals("B", mbrSession.getMberGrade())) {
-				mileagePercent = 1.5;
+				mileagePercent = 150;
 			}else if(EgovStringUtil.equals("E", mbrSession.getMberGrade())) {
-				mileagePercent = 2.5;
+				mileagePercent = 250;
 			}
 			request.setAttribute("_mileagePercent", mileagePercent);
 

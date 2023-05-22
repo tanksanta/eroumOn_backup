@@ -27,7 +27,8 @@
 						</table>
 						<div class="btn-group mt-5">
 							<button type="button" class="btn-primary large shadow w-26" id="excelBtn">등록</button>
-							<a href="/comm/SAMPLE/getFile?fileName=sample.xlsx" class="btn-secondary large shadow">샘플다운로드</a>
+							<!-- <a href="/comm/SAMPLE/getFile?fileName=sample.xlsx" class="btn-secondary large shadow">샘플다운로드</a> -->
+							<a href="#" onclick="alert('점검중입니다.');return false;" class="btn-secondary large shadow">샘플다운로드</a>
 						</div>
 					</fieldset>
 				</form>

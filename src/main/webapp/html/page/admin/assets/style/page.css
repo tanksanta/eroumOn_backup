@@ -4,11 +4,7 @@
     }
 
     .text-title2 {
-        @apply inline-block text-lg tracking-tighter leading-snug font-normal -mb-px align-top relative z-20;
-        &::after {
-            @apply content-empty block w-full rounded-md bg-black1;
-            height: 0.1875rem;
-        }
+        @apply inline-block relative z-20 text-lg tracking-tighter leading-snug font-normal -mb-px align-top after:content-empty after:block after:w-full after:rounded-md after:bg-black1 after:h-[0.1875rem];
         &legend {
             @apply float-left;
         }
@@ -26,25 +22,14 @@
     }
     
     .require {
-        @apply relative;
-        &::after {
-            @apply content-empty absolute -top-0 -right-2 -mr-px w-1.5 h-1.5 rounded-full bg-red1;
-        }
+        @apply relative after:content-empty after:absolute after:-top-0 after:-right-2 after:-mr-px after:w-1.5 after:h-1.5 after:rounded-full after:bg-red1;
     }
 
     .btn-logout {
-        @apply btn p-0 w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-black1 bg-center bg-no-repeat text-left;
-        background-image: url(../images/ico-power-white.svg);
-        background-size: theme("spacing[4.5]");
+        @apply btn p-0 w-10 h-10 overflow-hidden -indent-20 rounded-full border-0 bg-black1 bg-center bg-no-repeat text-left bg-[url(../images/ico-power-white.svg)] bg-[length:theme("spacing[4.5]")]
+               hover:bg-black1 hover:ring-0 hover:ring-offset-0 focus:bg-black1 focus:ring-0 focus:ring-offset-0 active:bg-black1 active:ring-0 active:ring-offset-0;
         &.white {
-            @apply bg-white;
-            background-image: url(../images/ico-power.svg);
-            &:hover, &:focus, &:active {
-                @apply bg-white;
-            }
-        }
-        &:hover, &:focus, &:active {
-            @apply bg-black1 ring-0 ring-offset-0;
+            @apply bg-white bg-[url(../images/ico-power.svg)] hover:bg-white focus:bg-white active:bg-white;
         }
     }
     
@@ -58,19 +43,13 @@
     .form-group {
         @apply inline-flex items-center max-w-full flex-wrap leading-tight;
         & > * {
-            @apply ml-1;
-            &:first-child {
-                @apply ml-0;
-            }
+            @apply ml-1 first:ml-0;
         }
         & > i {
             @apply flex-none min-w-4 text-center;
         }
         & .w-full {
-            @apply mt-1;
-            &:first-child {
-                @apply mt-0;
-            }
+            @apply mt-1 first:mt-0;
         }
     }
     
@@ -109,7 +88,7 @@
             }
         }
         &.offcanvas-top, &.offcanvas-bottom {
-            max-height: calc(100% - 1.25rem);
+            @apply max-h-[calc(100%_-_1.25rem)];
             & .offcanvas-close {
                 @apply left-1/2 -translate-x-1/2 w-24 h-5;
             }
@@ -117,10 +96,7 @@
         &.offcanvas-top {
             @apply border-b-1;
             & .offcanvas-close {
-                @apply top-full rounded-b-md;
-                &::before {
-                    @apply rotate-180;
-                }
+                @apply top-full rounded-b-md before:rotate-180;
             }
         }
         &.offcanvas-bottom {
@@ -130,7 +106,7 @@
             }
         }
         &.offcanvas-start, &.offcanvas-end {
-            max-width: calc(100% - 1.25rem);
+            @apply max-w-[calc(100%_-_1.25rem)];
             & .offcanvas-close {
                 @apply top-1/2 -translate-y-1/2 w-5 h-24;
             }
@@ -138,19 +114,13 @@
         &.offcanvas-start {
             @apply border-r-1;
             & .offcanvas-close {
-                @apply left-full rounded-r-md;
-                &::before {
-                    @apply rotate-90;
-                }
+                @apply left-full rounded-r-md before:rotate-90;
             }
         }
         &.offcanvas-end {
             @apply border-l-1;
             & .offcanvas-close {
-                @apply right-full rounded-l-md;
-                &::before {
-                    @apply -rotate-90;
-                }
+                @apply right-full rounded-l-md before:-rotate-90;
             }
         }
     }
@@ -163,29 +133,16 @@
 }
 
 .system-title {
-    @apply relative inline-flex flex-col justify-center mx-auto pl-34 min-h-29 uppercase font-serif font-bold;
-    font-size: 2.875rem;
-    line-height: 0.92;
-    &::before {
-        @apply block absolute top-1/2 left-0 -translate-y-1/2 content-empty w-29 h-29 rounded-2xl bg-black1 bg-no-repeat bg-center;
-        background-image: url(../images/img-eroum-logo-white.svg);
-        background-size: theme("spacing[16]");
-    }
+    @apply relative inline-flex flex-col justify-center mx-auto pl-34 min-h-29 uppercase font-serif font-bold text-[2.875rem] leading-[0.92]
+           before:content-empty before:block before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:w-29 before:h-29 before:rounded-2xl before:bg-black1 before:bg-no-repeat before:bg-center before:bg-[url(../images/img-eroum-logo-white.svg)] before:bg-[length:theme("spacing[16]")];
     & small {
         @apply block mt-1 text-base font-bold font-sans;
     }
     &.white {
-        &::before {
-            @apply bg-white;
-            background-image: url(../images/img-eroum-logo.svg);
-        }
+        @apply before:bg-white before:bg-[url(../images/img-eroum-logo.svg)];
     }
     &.small {
-        @apply pl-22 min-h-20 text-title3 leading-none font-black;
-        &::before {
-            @apply w-20 h-20 rounded-xl;
-            background-size: theme("spacing[13]");
-        }
+        @apply pl-22 min-h-20 text-title3 leading-none font-black before:w-20 before:h-20 before:rounded-xl before:bg-[length:theme("spacing[13]")];
     }
 }
 
@@ -228,10 +185,7 @@
     & form {
         @apply flex-1 flex flex-col;
         & fieldset {
-            @apply mb-8;
-            &:last-child {
-                @apply mb-0;
-            }
+            @apply mb-8 last:mb-0;
         }
         & .btn-group {
             @apply mt-auto;
@@ -242,8 +196,7 @@
 .member-info {
     @apply flex items-center pl-4 pr-5 pt-3 pb-8 rounded-lg bg-gray2 space-x-2;
     & .grade {
-        @apply mr-6 font-serif font-black leading-none tracking-normal;
-        font-size: theme("spacing[8]");
+        @apply mr-6 font-serif font-black leading-none tracking-normal text-[theme("spacing[8]")];
     }
     & .member {
         @apply text-sm font-medium text-right leading-tight;
@@ -255,8 +208,7 @@
         @apply user-info flex-1;
         & .name {
             & strong {
-                @apply inline font-sans font-bold;
-                font-size: theme("spacing[8]");
+                @apply inline font-sans font-bold text-[theme("spacing[8]")];
             }
             & small {
                 @apply inline text-sm ml-1 font-serif;

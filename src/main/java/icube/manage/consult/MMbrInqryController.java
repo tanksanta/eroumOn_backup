@@ -55,6 +55,9 @@ public class MMbrInqryController extends CommonAbstractController {
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String testUser;
+
 	@Autowired
 	private MngrSession mngrSession;
 
@@ -66,7 +69,6 @@ public class MMbrInqryController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		CommonListVO listVO = new CommonListVO(request);
-		//TO-DO 관리자 리스트업 체크
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrInqryService.mbrInqryListVO(listVO);
 
@@ -184,12 +186,10 @@ public class MMbrInqryController extends CommonAbstractController {
 
 				// 메일 발송
 				String mailSj = "[이로움ON] 1:1문의에 대한 답변이 등록되었습니다";
-				if(EgovStringUtil.equals("real", activeMode)) {
-					mailService.sendMail(sendMail, inqryVO.getEml(), mailSj, mailForm);
-				}else if(EgovStringUtil.equals("dev", activeMode)) {
+				if(!EgovStringUtil.equals("local", activeMode)) {
 					mailService.sendMail(sendMail, inqryVO.getEml(), mailSj, mailForm);
 				}else {
-					mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+					mailService.sendMail(sendMail, testUser, mailSj, mailForm); //테스트
 				}
 			} else {
 				log.debug("관리자 1:1 문의 답변 알림 EMAIL 전송 실패 :: 이메일 체크 " + inqryVO.getEml());

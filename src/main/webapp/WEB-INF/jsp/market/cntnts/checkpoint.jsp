@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <main id="container">
 	<div id="page-container">
         <h2 class="checkpoint-title">

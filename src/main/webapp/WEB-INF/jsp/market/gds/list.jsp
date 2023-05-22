@@ -191,6 +191,7 @@ var Goods = (function(){
 		$("#srchMinPc, #srchMaxPc, #srchGdsTags, #srchGdsTys").val("");
 		$(":checkbox[id*='gdsTag']").prop("checked", false);
 		$(":checkbox[id*='gdsTy']").prop("checked", false);
+		$("#srchGdsTagNI").val("");
 		f_srchGdsList(1);
 	});
 

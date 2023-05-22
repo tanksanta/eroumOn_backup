@@ -83,6 +83,10 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 		return gdsCtgryDAO.selectGdsCtgry(paramMap);
 	}
 
+	public GdsCtgryVO selectGdsCtgryNo(Map<String, Object> paramMap) throws Exception{
+		return gdsCtgryDAO.selectGdsCtgryNo(paramMap);
+	}
+
 	public void insertGdsCtgry(GdsCtgryVO gdsCtgryVO) throws Exception {
 
 		gdsCtgryDAO.insertGdsCtgry(gdsCtgryVO);
@@ -125,6 +129,5 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 		gdsCtgryDAO.updateGdsCtgryImg(ctgryVO);
 		ehcacheService.removeAllCaches("gdsCtgry");
 	}
-
 
 }

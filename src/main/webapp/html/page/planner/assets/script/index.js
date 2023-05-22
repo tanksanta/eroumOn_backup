@@ -76,17 +76,38 @@ $(function() {
         });
     }
 
+    //퀵메뉴
+    $('#quick .moveTop').on('click', function() {
+        $(window).scrollTop(0);
+    });
+
     $(window).on('resize load', function() {
         if($('#userinfo').length > 0) {
             $('#account.is-nologin').attr('style', '--margin:' + ($(window).outerWidth() - ($('.userinfo-box').offset().left + $('.userinfo-box').outerWidth() + 10)) + 'px');
         }
     });
 
+	if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
+	    $('body').addClass('is-scroll');
+	    if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
+	} else {
+	    $('body').removeClass('is-scroll');
+	    if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
+	}
+
     $(window).on('scroll load', function() {
         if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
             $('body').addClass('is-scroll');
+            if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
         } else {
             $('body').removeClass('is-scroll');
+            if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
+        }
+        
+        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
+            $('#quick').addClass('is-active');
+        } else {
+            $('#quick').removeClass('is-active');
         }
     });
 });

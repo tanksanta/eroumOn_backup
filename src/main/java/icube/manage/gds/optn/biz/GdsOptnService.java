@@ -31,8 +31,6 @@ public class GdsOptnService extends CommonAbstractServiceImpl {
 		}
 	}
 
-
-
 	public void deleteGdsOptn(int gdsNo, String[] gdsOptnNos) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();

@@ -20,6 +20,10 @@
                     <%-- 최근본상품 리스트업 script 확인 --%>
                 <%--</div>
             </div> --%>
+            <p class="service-join">
+                <strong>회원 가입</strong>하고<br>
+                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
+            </p>
         </div>
         <div class="service-compare-layer">
         </div>
