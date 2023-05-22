@@ -348,7 +348,6 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("authResnCd", CodeMap.AUTH_RESN_CD);
         model.addAttribute("norResnCd", CodeMap.NOR_RESN_CD);
         model.addAttribute("recipter", CodeMap.RECIPTER_YN);
-        model.addAttribute("mberGradeCode", CodeMap.GRADE);
 
         return "/manage/mbr/manage/view";
     }
@@ -858,6 +857,38 @@ public class MMbrController extends CommonAbstractController {
 
          return "/manage/mbr/manage/excel";
 	}
+
+    @RequestMapping(value = "{uniqueId}/chgGrade.json")
+    public Map<String, Object> chgGrade(
+    		@PathVariable String uniqueId
+    		, @RequestParam(value = "mberGrade", required=true) String mberGrade
+    		, HttpServletRequest request
+    		, Model model
+    		)throws Exception{
+    	Map<String, Object> paramMap = new HashMap<String, Object>();
+
+    	boolean result = false;
+
+    	try {
+    		paramMap.put("srchUniqueId", uniqueId);
+    		paramMap.put("mberGrade", mberGrade);
+    		int resultCnt = mbrService.updateMberGrade(paramMap);
+
+    		if(resultCnt > 0) {
+    			result = true;
+    		}else {
+    			log.debug("chgGrade.json Not Update");
+    		}
+
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		log.debug("chgGrade.json Error : " + e.getMessage());
+    	}
+
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	resultMap.put("result", result);
+    	return resultMap;
+    }
 
 
 }

@@ -124,4 +124,8 @@ public class MbrDAO extends CommonAbstractMapper {
 		update("mbr.updateDiKey",paramMap);
 	}
 
+	public Integer updateMberGrade(Map<String, Object> paramMap) throws Exception {
+		return update("mbr.updateMberGrade", paramMap);
+	}
+
 }
