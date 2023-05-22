@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+    <!-- quick -->
+    <div id="quick" class="global-quick">
+        <button type="button" class="moveTop">위로 이동</button>
+		<a href="/find/step2-1" target="_blank" class="test">
+            <span class="front">
+                <small>E·ROUM</small>
+                <strong>TEST</strong>
+            </span>
+            <span class="rear">
+                <small>장기요양등급</small>
+                <strong>테스트</strong>
+            </span>
+        </a>
+    </div>
+    <!-- //quick -->
+
 	<!-- footer -->
     <footer id="footer" class="global-footer">
         <div class="footer-link">

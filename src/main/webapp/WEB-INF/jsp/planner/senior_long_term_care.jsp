@@ -219,26 +219,6 @@
                 </dl>
             </div>
 
-            <div class="content-golink">
-                <!-- <a href="#" class="market">
-                    <span class="base"></span>
-                    <span class="expand">
-                        이로움 마켓
-                    </span>
-                </a> -->
-                <a href="/find/step2-1" target="_blank" class="test">
-                    <span class="front">
-                        <small>E·ROUM</small>
-                        <strong>TEST</strong>
-                    </span>
-                    <span class="rear">
-                        <small>장기요양등급</small>
-                        <strong>테스트</strong>
-                    </span>
-                </a>
-                <a href="#page-container" class="gotop"><span class="sr-only">위로 이동</span></a>
-            </div>
-
             <script>
                 $(function() {
                     if(Math.round(Math.random()) > 0) {
