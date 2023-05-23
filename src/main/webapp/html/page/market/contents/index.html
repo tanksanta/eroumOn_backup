@@ -28,8 +28,7 @@
     <!-- header -->
     <header id="header">
         <div class="container">
-            <a href="#" class="header-toggle"><img src="../assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
-            <h1 class="header-logo"><img src="../assets/images/img-header-logo.svg" alt="이로움 마켓"></h1>
+            <h1 class="header-logo global-logo is-style2"><a href="#"><span>마켓</span></a></h1>
             <ul class="header-menu">
                 <li><a href="#">로그인</a></li>
                 <li><a href="#">회원가입</a></li>
@@ -329,10 +328,12 @@
     <!-- //navigation -->
 
     <!-- aside -->
-    <aside id="service" style="display: none">
+    <aside id="service">
         <div class="container">
             <div class="service-slogan">
-                <p><span>SENIOR LIFE STYLE</span> <small>by E·ROUM</small></p>
+                <div class="word"><p><span>SENIOR LIFE STYLE</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프 스타일</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프</span> <small>by E·ROUM</small></p></div>
             </div>
             <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
             <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
@@ -364,6 +365,10 @@
                     </ul>
                 </div>
             </div> -->
+            <p class="service-join">
+                <strong>회원 가입</strong>하고<br>
+                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
+            </p>
         </div>
         <div class="service-compare-layer">
             <div class="header">
@@ -1339,13 +1344,14 @@
     <!-- //container -->
 
     <!-- quick -->
-    <div id="quick">
-        <button type="button">위로 이동</button>
+    <div id="quick" class="global-quick">
+        <button type="button" class="moveTop">위로 이동</button>
+        <button type="button" class="channelTalk">위로 이동</button>
     </div>
     <!-- //quick -->
 
     <!-- footer -->
-    <footer id="footer">
+    <footer id="footer" class="global-footer">
         <div class="footer-link">
             <!-- 회사 메뉴 -->
             <nav class="footer-menu">
@@ -1360,36 +1366,22 @@
 
             <!-- 패밀리 사이트 -->
             <dl class="footer-family">
-                <dt>
-                    이로움
-                    <small>패밀리 사이트</small>
-                </dt>
+                <dt>패밀리 사이트</dt>
                 <dd>
-                    <ul>
+                    <ul class="global-link">
                         <li>
-                            <a href="#" class="family-link1">
+                            <a href="#" class="link-item1">
                                 <div class="bubble">
                                     <small>시니어 라이프 케어 플랫폼</small>
-                                    <strong>"이로움"</strong>
+                                    <strong>"이로움ON"</strong>
                                 </div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="family-link2">
+                            <a href="#" class="link-item2">
                                 <div class="bubble">
-                                    <strong>이로움 멤버스</strong>
+                                    <strong>이로움ON 멤버스</strong>
                                     <small>전국 2,432개 업체와 함께합니다</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="family-link3">
-                                <div class="bubble">
-                                    <strong><img src="../assets/images/txt-footer-family3.svg" alt="이로움마켓"></strong>
-                                    <small>
-                                        복지용구 사업소와 수급자 매칭부터<br>
-                                        주문, 계약 및 결제까지 한번에!
-                                    </small>
                                 </div>
                             </a>
                         </li>
