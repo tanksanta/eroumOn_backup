@@ -70,7 +70,7 @@
 	                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="IN">
 	                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value}</label>
 	                                            </c:if> --%>
-	                                            <input class="form-check-input" type="checkbox" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="NOTIN">
+	                                            <input class="form-check-input" type="checkbox" name="gdsEtc" id="gdsTag${status.index}" value="${gdsTag.key}" ${fn:indexOf(param.srchGdsTag, gdsTag.key)>-1?'checked="checked"':''} data-inc="NOTIN">
 	                                            <label class="form-check-label" for="gdsTag${status.index}">${gdsTag.value} 제외</label>
 	                                        </div>
                                         </c:if>
