@@ -6,8 +6,8 @@
 			<!-- 회사 메뉴 -->
 			<nav class="footer-menu">
 			    <ul>
-					<li><a href="${_plannerPath}/cntnts/company">회사소개</a></li>
-					<li><a href="${_plannerPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
+					<li><a href="/planner/cntnts/company">회사소개</a></li>
+					<li><a href="/planner/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
 			    </ul>
 			</nav>
 			<!-- //회사 메뉴 -->
@@ -62,7 +62,7 @@
 
 
 		<hr>
-		
+
 		<!-- 카피 라이트 -->
 		<div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
 		<!-- //카피 라이트 -->
