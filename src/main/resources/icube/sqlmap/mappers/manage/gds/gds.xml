@@ -203,7 +203,7 @@
 			AND g.gds_tag REGEXP #{srchGdsTag}
 		</if>
 		<if test="srchGdsTagNI != null and srchGdsTagNI != '' ">
-			AND g.gds_tag NOT REGEXP #{srchGdsTagNI} OR g.gds_tag is null
+			AND (g.gds_tag NOT REGEXP #{srchGdsTagNI} OR g.gds_tag is null)
 		</if>
 		<if test="srchMinPc !=null and srchMinPc != ''">
 			AND g.pc &gt;= #{srchMinPc}
