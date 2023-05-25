@@ -155,7 +155,7 @@
 					alert("마일리지는 3,000원 이상부터 사용 가능합니다.");
 				}else if(totalMlg > 50000){
 					alert("1회 최대 사용한도는 50,000원 입니다.");
-				}else if(totalMlg > stlmAmt) {
+				}else if((totalMlg + totalPoint) > stlmAmt) {
 					alert("결제금액("+ comma(stlmAmt) +") 보다 많은 마일리지를 입력하셨습니다.");
 				}else{
 					$(".payment-result .total-mlg-txt").text(comma(totalMlg + totalPoint));
