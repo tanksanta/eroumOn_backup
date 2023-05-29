@@ -21,8 +21,8 @@
                 <%--</div>
             </div> --%>
             <p class="service-join">
-                <strong>회원 가입</strong>하고<br>
-                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
+                <strong>회원가입</strong>하고 <em>제품가 최소 <span>85%</span></em> <strong>지원받으세요!</strong><br>
+                <small>* 장기요양 급여 등급에 따라 지원율은 달라질 수 있음</small>
             </p>
         </div>
         <div class="service-compare-layer">

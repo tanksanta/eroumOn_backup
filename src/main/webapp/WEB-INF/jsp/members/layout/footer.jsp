@@ -6,8 +6,8 @@
 			<!-- 회사 메뉴 -->
 			<nav class="footer-menu">
 			    <ul>
-					<li><a href="${_plannerPath}/cntnts/company">회사소개</a></li>
-					<li><a href="${_plannerPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
+					<li><a href="/planner/cntnts/company">회사소개</a></li>
+					<li><a href="/planner/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
 			    </ul>
 			</nav>
 			<!-- //회사 메뉴 -->
@@ -18,7 +18,7 @@
 			    <dd>
 					<ul class="global-link">
 						<li>
-							<a href="${_plannerPath}" class="link-item1" target="_blank" title="새창열림">
+							<a href="/planner" class="link-item1" target="_blank" title="새창열림">
 							    <div class="bubble">
 							        <small>시니어 라이프 케어 플랫폼</small>
 							        <strong>"이로움ON"</strong>
@@ -26,7 +26,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
+							<a href="/market" class="link-item3" target="_blank" title="새창열림">
 							    <div class="bubble">
                                     <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
 							       	<small>복지용구부터 시니어 생활용품까지 한번에!</small>
@@ -62,7 +62,7 @@
 
 
 		<hr>
-		
+
 		<!-- 카피 라이트 -->
 		<div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
 		<!-- //카피 라이트 -->

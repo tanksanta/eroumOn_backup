@@ -151,7 +151,7 @@
 					alert("포인트는 3,000원 이상부터 사용 가능합니다.");
 				}else if(totalPoint > 50000){
 					alert("1회 최대 사용한도는 50,000원 입니다.");
-				}else if(totalPoint > stlmAmt) {
+				}else if((totalPoint + totalMlg) > stlmAmt) {
 					alert("결제금액("+ comma(stlmAmt) +") 보다 많은 포인트를 입력하셨습니다.");
 				}else{
 					$(".payment-result .total-mlg-txt").text(comma(totalPoint + totalMlg));
