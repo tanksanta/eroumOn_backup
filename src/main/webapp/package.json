@@ -1,0 +1,40 @@
+{
+    "name": "eroum",
+    "version": "1.0.0",
+    "main": "",
+    "scripts": {
+        "build-core"    : "postcss ./html/core/style/style.css -o ./html/core/style/style.min.css --watch --poll",
+        "build-admin"   : "postcss ./html/page/admin/assets/style/style.css -o ./html/page/admin/assets/style/style.min.css --watch --poll",
+        "build-market"  : "postcss ./html/page/market/assets/style/style.css -o ./html/page/market/assets/style/style.min.css --watch --poll",
+        "build-office1" : "postcss ./html/page/office/assets/style/home.css -o ./html/page/office/assets/style/home.min.css --watch --poll",
+        "build-office2" : "postcss ./html/page/office/assets/style/partner.css -o ./html/page/office/assets/style/partner.min.css --watch --poll",
+        "build-office3" : "postcss ./html/page/office/assets/style/admin.css -o ./html/page/office/assets/style/admin.min.css --watch --poll",
+        "build-brand"   : "postcss ./html/page/brand/assets/style/style.css -o ./html/page/brand/assets/style/style.min.css --watch --poll",
+        "build-planner" : "postcss ./html/page/planner/assets/style/style.css -o ./html/page/planner/assets/style/style.min.css --watch --poll",
+        "build-members" : "postcss ./html/page/members/assets/style/style.css -o ./html/page/members/assets/style/style.min.css --watch --poll",
+        "build": "npm-run-all --parallel build-core build-admin build-market build-office1 build-office2 build-office3 build-brand build-planner build-members"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "browserslist": [
+        "last 3 version",
+        "Chrome >= 59",
+        "ie 11",
+        "not ie <= 10"
+    ],
+    "devDependencies": {
+        "autoprefixer": "^10.4.13",
+        "cssnano": "^5.1.14",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.21",
+        "postcss-cli": "^10.1.0",
+        "postcss-easings": "^3.0.1",
+        "postcss-import": "^15.1.0",
+        "postcss-mixins": "^9.0.4",
+        "postcss-nesting": "^11.1.0",
+        "tailwindcss": "^3.2.6",
+        "tw-elements": "^1.0.0-alpha13"
+    }
+}

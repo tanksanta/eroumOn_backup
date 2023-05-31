@@ -1,7 +1,7 @@
 module.exports = {
     content: [
-        './core/*.{html,js}',
-        './page/**/*.{html,js}',
+        './html/core/*.{html,js}',
+        './html/page/**/*.{html,js}',
         './node_modules/tw-elements/dist/js/**/*.js'
     ],
 
