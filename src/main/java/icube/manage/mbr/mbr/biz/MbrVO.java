@@ -66,6 +66,9 @@ public class MbrVO extends CommonBaseVO {
 	private String reqTy;
 	private String delProflImg;
 
+	private String naverToken;
+	private String kakaoToken;
+
 	// 첨부파일 체크
 	private List<FileVO> fileList;
 

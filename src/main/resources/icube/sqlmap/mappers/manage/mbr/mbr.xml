@@ -37,6 +37,8 @@
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.di_key
+		, m.naver_token
+		, m.kakao_token
 		, m.trms_agre_dt
 		, m.itrst_field
 		, m.join_cours
@@ -171,6 +173,13 @@
 			AND DATEDIFF(NOW(),whdwl_dt) &gt;= #{srchWhdwlDt}
 		</if>
 
+		<if test="srchNaverToken != null and srchNaverToken != '' ">
+			AND m.naver_token = #{srchNaverToken}
+		</if>
+		<if test="srchKakaoToken != null and srchKakaoToken != '' ">
+			AND m.kakao_token = #{srchKakaoToken}
+		</if>
+
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
@@ -241,6 +250,8 @@
 			, addr
 			, daddr
 			, di_key
+			, naver_token
+			, kakao_token
 			, recipter_yn
 			, bass_stlm_ty
 			, point_acmtl
@@ -278,6 +289,8 @@
 			, #{addr, jdbcType=VARCHAR}
 			, #{daddr, jdbcType=VARCHAR}
 			, #{diKey, jdbcType=VARCHAR}
+			, #{naverToken, jdbcType=VARCHAR}
+			, #{kakaoToken, jdbcType=VARCHAR}
 			, #{recipterYn, jdbcType=VARCHAR}
 			, #{bassStlmTy, jdbcType=VARCHAR}
 			, #{pointAcmtl}
