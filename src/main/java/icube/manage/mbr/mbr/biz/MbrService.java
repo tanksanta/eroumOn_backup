@@ -344,5 +344,4 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrPointDAO.extinctMbrPoint(mbrPointVO);
 		mbrMlgDAO.extinctMbrMlg(mbrMlgVO);
 		}
-
 }

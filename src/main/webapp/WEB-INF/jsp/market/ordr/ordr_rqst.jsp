@@ -6,8 +6,6 @@
 			<jsp:param value="상품 주문" name="pageTitle"/>
 		</jsp:include>
 
-		<jsp:include page="./include/personal_info.jsp" />
-
 		<form:form modelAttribute="ordrVO"  name="frmOrdr" id="frmOrdr" method="post" action="./ordrRqstAction" enctype="multipart/form-data">
 		<form:hidden path="ordrTy" />
 		<form:hidden path="ordrCd" />

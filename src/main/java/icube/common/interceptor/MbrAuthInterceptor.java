@@ -51,7 +51,7 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
-	@Value("#{props['kakao.Script.key']}")
+	@Value("#{props['Kakao.Script.key']}")
 	private String kakaoScriptKey;
 
 

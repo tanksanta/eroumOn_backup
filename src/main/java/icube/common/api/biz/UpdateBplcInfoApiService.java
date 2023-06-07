@@ -243,7 +243,7 @@ public class UpdateBplcInfoApiService {
 				dataMap.put("API_Div", Base64Util.encoder("order_pen_first"));
 				dataMap.put("order_send_id", Base64Util.encoder(ordrVO.getOrdrCd()));
 				//dataMap.put("order_business_id", Base64Util.encoder("466-87-00410")); //TODO 아리아케어 사업자 번호로 하드코딩 -> 변경 예정
-				dataMap.put("order_business_id", Base64Util.encoder("321-64-51984")); //TODO 아리아케어 사업자 번호로 하드코딩 -> 변경 예정
+				dataMap.put("order_business_id", Base64Util.encoder("321-64-51984"));
 
 				String RecipterUniqueId = "";
 				String penNm = "";

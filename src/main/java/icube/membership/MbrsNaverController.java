@@ -29,6 +29,15 @@ public class MbrsNaverController extends CommonAbstractController{
 	@Resource(name = "naverApiService")
 	private NaverApiService naverApiService;
 
+	@RequestMapping(value = "/get")
+	public View get() throws Exception {
+		JavaScript javaScript = new JavaScript();
+		String getUrl = naverApiService.getUrl();
+
+		javaScript.setLocation(getUrl);
+		return new JavaScriptView(javaScript);
+	}
+
 	@RequestMapping(value = "/auth")
 	public View auth(
 			HttpServletRequest request

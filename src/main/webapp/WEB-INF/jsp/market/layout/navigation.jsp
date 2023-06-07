@@ -11,11 +11,11 @@
                     <li<c:if test="${fn:indexOf(_curPath, url) > -1}"> class="active"</c:if>><a href="${_marketPath}/gds/${ctgry.ctgryNo}/list">${ctgry.ctgryNm}</a></li>
                     </c:if>
                 	</c:forEach>
-                    <!-- <li class="seperate"></li>
+                    <li class="seperate"></li>
                     <li<c:if test="${fn:indexOf(_curPath, '/story/list') > -1}"> class="active"</c:if>><a href="${_marketPath}/etc/story/list">스토리</a></li>
                     <li<c:if test="${fn:indexOf(_curPath, '/dspy/list') > -1}"> class="active"</c:if>><a href="${_marketPath}/etc/dspy/list">기획전</a></li>
                     <li<c:if test="${fn:indexOf(_curPath, '/event/list') > -1}"> class="active"</c:if>><a href="${_marketPath}/etc/event/list?sortVal=all">이벤트</a></li>
-                    <li<c:if test="${fn:indexOf(_curPath, '/coupon/list') > -1}"> class="active"</c:if>><a href="${_marketPath}/etc/coupon/list">쿠폰존</a></li> -->
+                    <li<c:if test="${fn:indexOf(_curPath, '/coupon/list') > -1}"> class="active"</c:if>><a href="${_marketPath}/etc/coupon/list">쿠폰존</a></li>
                 </ul>
             </div>
             <button type="button" class="toggle">메뉴 펼치기 접기</button>
@@ -162,9 +162,10 @@
                 </c:forEach>
             </ul>
             <ul class="list-items">
-                <%--<li class="list-item"><a href="${_marketPath}/etc/story/list">스토리</a></li>
+                <li class="list-item"><a href="${_marketPath}/etc/story/list">스토리</a></li>
                 <li class="list-item"><a href="${_marketPath}/etc/dspy/list">기획전</a></li>
-                <li class="list-item"><a href="${_marketPath}/etc/event/list?sortVal=all">이벤트</a></li> --%>
+                <li class="list-item"><a href="${_marketPath}/etc/event/list?sortVal=all">이벤트</a></li>
+                <li class="list-item"><a href="${_marketPath}/etc/coupon/list">쿠폰존</a></li>
                 <li class="list-item"><a href="${_marketPath}/etc/faq/list">고객센터</a></li>
             </ul>
         </div>

@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
+import icube.market.mypage.info.biz.DlvyVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -66,22 +67,16 @@ public class MbrVO extends CommonBaseVO {
 	private String reqTy;
 	private String delProflImg;
 
-	private String naverToken;
-	private String kakaoToken;
+	private String naverAppId;
+	private String kakaoAppId;
+	private String kakaoAccessToken;
 
 	// 첨부파일 체크
 	private List<FileVO> fileList;
 
 	//RecipterInfoVO
 	private RecipterInfoVO recipterInfo;
-
-	//mbrPrtcrVO
-	private List<MbrPrtcrVO> prtcrList;
-
-	//mbrPointVO
-	//private MbrPointVO mbrPointVO;
-
-	//mbrMlgVO
-	//private MbrMlgVO mbrMlgVO;
+	private List<DlvyVO> dlvyList;
+	private boolean easyCheck;
 
 }

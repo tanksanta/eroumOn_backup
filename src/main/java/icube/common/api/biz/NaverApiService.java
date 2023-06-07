@@ -58,6 +58,24 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	@Autowired
 	private MbrSession mbrSession;
 
+	/**
+	 * 인가 발급 URL
+	 * @return URL
+	 * @throws Exception
+	 */
+	public String getUrl() throws Exception {
+		StringBuffer sb = new StringBuffer();
+		sb.append("https://nid.naver.com/oauth2.0/authorize?client_id=" + NaverClientId);
+		sb.append("&response_type=code&redirect_uri=" + NaverRedirectUrl);
+		return sb.toString();
+	}
+
+	/**
+	 * 로그인 및 회원가입 처리
+	 * @param paramMap
+	 * @return result
+	 * @throws Exception
+	 */
 	public boolean mbrAction(Map<String, Object> paramMap) throws Exception {
 		boolean result = false;
 
@@ -68,21 +86,29 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			keyMap.put("accessToken", (String)resultMap.get("accessToken"));
 		}
 
+		MbrVO proflInfo = this.getMbrProfl(keyMap);
+
 		paramMap.clear();
-		paramMap.put("srchNaverToken", (String)keyMap.get("refreshToken"));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
+		paramMap.put("srchBirth", format.format(proflInfo.getBrdt()));
+    	paramMap.put("srchMbrName", proflInfo.getMbrNm());
 		MbrVO mbrVO = mbrService.selectMbr(paramMap);
 
 		if(mbrVO != null) {
+			paramMap.clear();
+			paramMap.put("srchNaverAppId", (String)keyMap.get("refreshToken"));
+			paramMap.put("srchUniqueId", mbrVO.getUniqueId());
 			mbrSession.setParms(mbrVO, true);
 			result = true;
 		}else {
-			MbrVO proflInfo = this.getMbrProfl(keyMap);
+			//MbrVO proflInfo = this.getMbrProfl(keyMap);
 
 			// 배송 정보 조회
 			// DlvyVO dlvyInfo = this.getMbrDlvy(keyMap);
 
-			mbrService.insertMbr(proflInfo);
-			mbrSession.setParms(proflInfo, true);
+			//mbrService.insertMbr(proflInfo);
+			//mbrSession.setParms(proflInfo, true);
 		}
 		//TODO 요양정보 SET
 		//TODO 주소 처리 -> planner 리스트 로딩
@@ -298,6 +324,9 @@ public class NaverApiService extends CommonAbstractServiceImpl{
         	JsonElement mbrElement = element.getAsJsonObject().get("response");
         	JsonElement mbrInfo = JsonParser.parseString(mbrElement.toString());
 
+        	log.debug("@@@ 네이버  : " + mbrInfo);
+
+        	String appId = mbrInfo.getAsJsonObject().get("id").getAsString();
         	String gender = mbrInfo.getAsJsonObject().get("gender").getAsString();
 
             String email = mbrInfo.getAsJsonObject().get("email").getAsString();
@@ -320,7 +349,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             proflVO.setMblTelno(phone);
             proflVO.setMbrNm(UnicodeUtil.codeToString(name));
             proflVO.setBrdt(birth);
-            proflVO.setNaverToken((String)eleMap.get("refreshToken"));
+            proflVO.setNaverAppId(appId);
             proflVO.setMbrId(email);
 
             System.out.println(proflVO.toString());
@@ -331,4 +360,5 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 		return proflVO;
 	}
+
 }
