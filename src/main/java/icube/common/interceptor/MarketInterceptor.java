@@ -186,7 +186,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		//코드
 		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
 		request.setAttribute("_gdsTyCode", CodeMap.GDS_TY);
-		request.setAttribute("_prtcrRltCode", CodeMap.PRTCR_RLT);
 
 		//기타
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);

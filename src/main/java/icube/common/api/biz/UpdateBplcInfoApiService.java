@@ -27,8 +27,6 @@ import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
-import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
@@ -46,9 +44,6 @@ public class UpdateBplcInfoApiService {
 
 	@Resource(name = "ordrDtlService")
 	private OrdrDtlService ordrDtlService;
-
-	@Resource(name = "mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
@@ -308,20 +303,13 @@ public class UpdateBplcInfoApiService {
 				}else {
 					paramMap.put("srchApiUniqueId", ordrVO.getUniqueId());
 					paramMap.put("srchApiPrtcr", RecipterUniqueId);
-					MbrPrtcrVO mbrPrtcrVO = mbrPrtcrService.selectMbrPrtcr(paramMap);
 
 					dataMap.put("order_zip", Base64Util.encoder(ordrVO.getOrdrrZip()));
 					dataMap.put("order_addr", Base64Util.encoder(ordrVO.getOrdrrAddr()));
 					dataMap.put("order_addr2", Base64Util.encoder(ordrVO.getOrdrrDaddr()));
 					dataMap.put("order_birth", Base64Util.encoder(brdt));
 
-					if(mbrPrtcrVO.getPrtcrRlt().equals("F") || mbrPrtcrVO.getPrtcrRlt().equals("M") || mbrPrtcrVO.getPrtcrRlt().equals("C")) {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(1)));
-					}else if(mbrPrtcrVO.getPrtcrRlt().equals("R")) {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(2)));
-					}else {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(3)));
-					}
+					dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(3)));
 				}
 
 				dataMap.put("delivery_nm", Base64Util.encoder(ordrVO.getRecptrNm()));

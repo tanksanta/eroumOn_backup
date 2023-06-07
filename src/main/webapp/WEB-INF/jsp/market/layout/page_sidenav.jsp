@@ -165,7 +165,6 @@
                                     <div class="content">
                                         <ul class="menulist">
                                             <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="/membership/mypage/list?returnUrl=/market"><span>회원정보 수정</span></a></li>
-                                            <li ${fn:indexOf(_curPath, '/fam/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/fam/list"><span>가족회원 관리</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/dlvy/') > -1?'class="is-active"':'' }><a href="${_marketPath }/mypage/dlvy/list"><span>배송지 관리</span></a></li>
                                             <li ${fn:indexOf(_curPath, '/whdwl/') > -1?'class="is-active"':'' }><a href="/membership/whdwl/list"><span>회원 탈퇴</span></a></li>
                                         </ul>

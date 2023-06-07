@@ -35,10 +35,7 @@
 					</tr>
 					<tr>
 						<th scope="row">아이디</th>
-						<td>${mbrVO.mbrId}</td>
-
-						<th scope="row">가족회원 여부</th>
-						<td>${fmlCount > 0 ? '가족회원' : '일반회원' }</td>
+						<td colspan="2">${mbrVO.mbrId}</td>
 					</tr>
 					<tr>
 						<th scope="row">이름/생년월일/성별</th>

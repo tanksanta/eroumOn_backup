@@ -26,7 +26,6 @@ import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.GdsQaService;
 import icube.manage.consult.biz.GdsReviewService;
 import icube.manage.consult.biz.GdsReviewVO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
@@ -53,9 +52,6 @@ public class MypageIndexController extends CommonAbstractController {
 
 	@Resource(name = "recipterInfoService")
 	private RecipterInfoService recipterInfoService;
-
-	@Resource(name="mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name="eventApplcnService")
 	private EventApplcnService eventApplcnService;
@@ -131,21 +127,6 @@ public class MypageIndexController extends CommonAbstractController {
 		mlgPointMap.put("point", point);
 		mlgPointMap.put("mlg", mlg);
 
-
-		// 가족 회원
-		Map famParamMap = new HashMap();
-		famParamMap.put("srchMyUniqueId",mbrSession.getUniqueId());
-		famParamMap.put("srchReqType", "F");
-		int famCount = mbrPrtcrService.selectPrtcrCount(famParamMap);
-
-		famParamMap.put("srchUniqueId",mbrSession.getUniqueId());
-		famParamMap.put("srchReqType", "P");
-		int newCount = mbrPrtcrService.selectPrtcrCount(famParamMap);
-
-		famParamMap.put("famCount", famCount);
-		famParamMap.put("newCount", newCount);
-
-
 		// 나의 상품 후기
 		CommonListVO reviewListVO = new CommonListVO(request, 1, 2);
 		reviewListVO.setParam("srchRegUniqueId", mbrSession.getUniqueId());
@@ -192,22 +173,11 @@ public class MypageIndexController extends CommonAbstractController {
 		ordrListVO = ordrService.ordrListVO(ordrListVO);
 		model.addAttribute("ordrListVO", ordrListVO);
 
-		// 나를 제외한 가족회원 급여 상품 주문건 전체
-		CommonListVO reciptersOrdrList = new CommonListVO(request, 1, 10);
-		reciptersOrdrList.setParam("srchUniqueId", mbrSession.getUniqueId());
-		reciptersOrdrList.setParam("ordrSttsTy", "ALL");
-		reciptersOrdrList.setParam("srchRecipters", "Y");
-		reciptersOrdrList = ordrService.ordrListVO(reciptersOrdrList);
-		model.addAttribute("reciptersOrdrList", reciptersOrdrList);
-
 		// 주문 E
-
-
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("ownCouponCnt", OwnCouponCnt);
 		model.addAttribute("mlgPointMap", mlgPointMap);
 
-		model.addAttribute("famMap", famParamMap);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("qaList", gdsQaListVO);
 		model.addAttribute("reviewList", reviewListVO);

@@ -33,7 +33,6 @@ import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
@@ -64,9 +63,6 @@ public class RegistController extends CommonAbstractController{
 
 	@Resource(name = "fileService")
 	private FileService fileService;
-
-	@Resource(name = "mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name = "recipterInfoService")
 	private RecipterInfoService recipterInfoService;

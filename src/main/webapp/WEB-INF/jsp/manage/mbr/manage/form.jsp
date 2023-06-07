@@ -44,17 +44,6 @@
 										</c:forEach>
 									</div>
 								</td>
-                                    <th scope="row">가족회원 여부</th>
-                                    <td>
-									<div class="form-check-group">
-										<c:forEach var="family" items="${yn}" varStatus="status">
-											<div class="form-check">
-												<form:radiobutton value="${family.key}" path="" id="item${status.index}" class="form-check-input" />
-												<label class="form-check-label" for="item${status.index}">${family.value}</label>
-											</div>
-										</c:forEach>
-									</div>
-								</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">아이디</th>

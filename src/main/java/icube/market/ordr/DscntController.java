@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.coupon.biz.CouponLstVO;
@@ -33,9 +32,6 @@ public class DscntController extends CommonAbstractController {
 
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
-
-	@Resource(name="mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;

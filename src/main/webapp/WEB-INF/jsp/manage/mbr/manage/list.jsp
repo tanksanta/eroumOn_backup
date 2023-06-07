@@ -56,20 +56,6 @@
 								</c:forEach>
 							</div>
 						</td>
-						<%-- <th scope="row"><label for="">가족회원여부</label></th>
-						<td>
-							<div class="form-check-group w-84">
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="srchFamily" id="search-item4" value="" checked="checked">
-									<label class="form-check-label" for="search-item4">전체</label>
-								</div>
-								<c:forEach var="family" items="${family}" varStatus="status">
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="srchFamily" id="srchFamily${status.index}" value="${family.key}" <c:if test="${family.key eq param.srchFamily }">checked="checked"</c:if>> <label class="form-check-label" for="srchFamily${status.index}">${family.value }</label>
-									</div>
-								</c:forEach>
-							</div>
-						</td> --%>
 					</tr>
 					<tr>
 						<th scope="row"><label for="srchGrade">회원등급</label></th>

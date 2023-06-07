@@ -6,7 +6,6 @@
 
 	<resultMap type="mbrVO" id="mbrVOMap" autoMapping="true">
 		<association property="recipterInfo" column="{srchUniqueId=unique_id}" select="recipter.selectRecipter" />
-		 <collection property="prtcrList" column="{srchUniqueId=unique_id, srchReqTy=req_ty}" select="mbr.prtcr.selectPrtcrListByUniqueId" />
 	</resultMap>
 
 	<sql id="listColumn">
@@ -37,8 +36,8 @@
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.di_key
-		, m.naver_token
-		, m.kakao_token
+		, m.naver_app_id
+		, m.kakao_app_id
 		, m.trms_agre_dt
 		, m.itrst_field
 		, m.join_cours
@@ -87,6 +86,9 @@
 		<if test="srchMbrNm != null and srchMbrNm != ''">
 			AND mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
 		</if>
+		<if test="srchMbrName != null and srchMbrName != '' ">
+			AND mbr_nm = #{srchMbrName}
+		</if>
 		<if test="srchMblTelno != null and srchMblTelno != ''">
 			AND mbl_telno = #{srchMblTelno}
 		</if>
@@ -95,6 +97,9 @@
 		</if>
 		<if test="srchBrdt != null and srchBrdt != ''">
 			AND DATE_FORMAT(brdt,'%Y%m%d') like CONCAT('%' , #{srchBrdt}, '%')
+		</if>
+		<if test="srchBirth != null and srchBirth != '' ">
+			AND brdt = #{srchBirth}
 		</if>
 		<if test="srchRecipterYn != null and srchRecipterYn != '' ">
 			AND recipter_yn = #{srchRecipterYn}
@@ -173,11 +178,11 @@
 			AND DATEDIFF(NOW(),whdwl_dt) &gt;= #{srchWhdwlDt}
 		</if>
 
-		<if test="srchNaverToken != null and srchNaverToken != '' ">
-			AND m.naver_token = #{srchNaverToken}
+		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
+			AND m.naver_token = #{srchNaverAppId}
 		</if>
-		<if test="srchKakaoToken != null and srchKakaoToken != '' ">
-			AND m.kakao_token = #{srchKakaoToken}
+		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
+			AND m.kakao_token = #{srchKakaoAppId}
 		</if>
 
 	</sql>
