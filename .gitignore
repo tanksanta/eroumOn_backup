@@ -44,3 +44,4 @@ out/
 ### VS Code ###
 .vscode/
 src/main/webapp/WEB-INF/classes/
+src/main/webapp/node_modules
