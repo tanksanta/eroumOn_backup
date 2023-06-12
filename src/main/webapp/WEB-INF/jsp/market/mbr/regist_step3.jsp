@@ -48,7 +48,6 @@
 
 						<div class="content-button mt-6 sm:mt-20">
 							<a href="${_marketPath}/login" class="btn btn-primary btn-large flex-1">로그인</a>
-							<a href="${_marketPath}/fml/app?sortBy=none&amp;returnUrl=${_marketPath}/fml/app?sortBy=none" class="btn btn-outline-primary btn-large flex-1">가족회원 등록</a>
 						</div>
 
 						<a href="${_marketPath}/etc/bnft/list">

@@ -82,7 +82,6 @@
                             <button type="button" class="toggle showRecipter">수급자 정보 펼치기/접기</button>
                         </div>
                         <div class="button">
-                            <a href="${_marketPath}/mypage/fam/list" class="btn btn-outline-primary">가족회원 (${famMap.famCount})</a>
                             <form id="upfile" name="upfile" method="get" enctype="multipart/form-data"><input type="file" id="proflImg" name="proflImg" style="display:none;"/></form>
                             <label class="btn btn-primary" for="proflImg">편집</label>
                         </div>
