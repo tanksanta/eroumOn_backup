@@ -235,16 +235,22 @@ public class MyDtlsController extends CommonAbstractController {
 		// 부분 취소는 1.5 내부 처리
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 
+		// 주문승인상태 또는 취소상태인지를 검사
+		boolean isSttsTyOR02 = true;
+		
 		//이미 주문 취소된 상품 + 현재 취소 하려는 상품 리스트
 		List<String> tmpOrdrDtlNos = ordrDtlCdList;
 		for(OrdrDtlVO ordrDtlInfo : ordrDtlList) {
 			if ("CA02".equals(ordrDtlInfo.getSttsTy()) && !tmpOrdrDtlNos.contains(ordrDtlInfo.getOrdrDtlCd())) {
 				tmpOrdrDtlNos.add(ordrDtlInfo.getOrdrDtlCd());
 			}
+			if ("OR01".equals(ordrDtlInfo.getSttsTy()) || "OR05".equals(ordrDtlInfo.getSttsTy())) {
+				isSttsTyOR02 = false;
+			}
 		};
 		
 		// 전체 취소 일때
-		if(tmpOrdrDtlNos.size() == ordrDtlList.size()) {
+		if(isSttsTyOR02 && tmpOrdrDtlNos.size() == ordrDtlList.size()) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("ordrNo", ordrNo);
 			paramMap.put("resnTy", resnTy);
