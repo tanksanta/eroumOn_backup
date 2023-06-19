@@ -72,6 +72,10 @@ public class OrdrService extends CommonAbstractServiceImpl {
 
 	@Autowired
 	private MbrSession mbrSession;
+	
+	@Resource(name = "ordrService")
+	private OrdrService ordrService;
+	
 
 	JSONParser jsonParser = new JSONParser();
 
@@ -432,4 +436,41 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		return ordrDAO.selectOrdrListAll(paramMap);
 	}
 
+	// 급여 주문 정보 저장 및 이로움1.0 사업소에 주문
+	public List<OrdrDtlVO> insertOrdrForRecipter(OrdrVO ordrVO
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request) throws Exception {
+		
+		List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
+
+		ArrayList<Map<String, Object>> ordrList = new ArrayList<>();
+
+		if(!ordrVO.getOrdrTy().equals("N") && ordrDtlList.size() > 0) {
+
+			for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
+				Map<String, Object> gdsInfoMap = updateBplcInfoApiService.confirmOrdrRqst(ordrDtlVO);
+				ordrList.add(gdsInfoMap);
+			}
+			
+			// 1.5 -> 1.0 주문정보 송신
+			String returnData = updateBplcInfoApiService.putEroumOrdrInfo(ordrVO.getOrdrCd(), ordrList);
+
+			// -- start : 1.0 사업소 주문에 실패한 경우 --
+			if (EgovStringUtil.isEmpty(returnData)) {
+				throw new Exception("사업소 주문에 문제가 발생하였습니다.");
+			}
+			Object obj = jsonParser.parse(returnData);
+			JSONObject jsonObj = (JSONObject)obj;
+			String code = (String)jsonObj.get("code");
+			if (!"200".equals(code)) {
+				throw new Exception((String)jsonObj.get("message"));
+			}
+			// -- end : 1.0 사업소 주문에 실패한 경우 --
+			
+			// 송신 상태 업데이트
+			ordrService.updateOrdrByMap(ordrVO, returnData, "ordrSend");
+		}
+		
+		return ordrDtlList;
+	}
 }
