@@ -719,14 +719,14 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(급여구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
                                     <td rowspan="3">
                                         <form:textarea path="dlvyDc" class="form-control w-full" cols="30" rows="5" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(일반구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>일반상품</p></th>
