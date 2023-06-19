@@ -63,7 +63,7 @@
                                 <em><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd" /></em>
                             </p>
                             <p class="name">
-							<c:if test="${empty resultList.ordrCd}">${pointCnCode[resultList.pointCn]}</c:if>
+							<c:if test="${empty resultList.ordrCd}">${pointCnCode[resultList.pointCn]}</c:if><c:if test="${empty resultList.ordrCd && !empty resultList.mngrMemo}">(${resultList.mngrMemo})</c:if>
 							<c:if test="${!empty resultList.ordrCd}"><a href="/market/mypage/ordr/view/${resultList.ordrCd}?curPage=1" style="text-decoration : underline;">${resultList.ordrCd}</a></c:if>
 							</p>
 	                        <p class="count">
