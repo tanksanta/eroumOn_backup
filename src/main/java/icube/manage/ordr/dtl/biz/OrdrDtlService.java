@@ -306,6 +306,57 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 		return result;
 	}
+	
+	/**
+	 * 구매확정 취소(OR09 -> OR08)
+	 */
+	public int updateCancelOrdrOR09(OrdrDtlVO ordrDtlVO) throws Exception {
+		int result = 0;
+
+		try {
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
+	
+			log.debug("STEP.1 : 주문상태 변경(구매확정) START");
+			ordrDtlDAO.updateOrdrStts(ordrDtlVO);
+	
+			log.debug("STEP.2 : 주문상태 변경 내역 기록 START : " + ordrDtlVO.getSttsTy());
+			if(ordrDtlVO.getOrdrDtlNos() != null) {
+				for(String dtlno : ordrDtlVO.getOrdrDtlNos()) {
+					ordrDtlVO.setOrdrDtlNo(EgovStringUtil.string2integer(dtlno));
+					insertOrdrSttsChgHist(ordrDtlVO);
+				}
+			}else {
+				insertOrdrSttsChgHist(ordrDtlVO);
+			}
+	
+			log.debug("STEP.2 : 주문상태 변경 내역 기록 END");
+			
+			// 적립된 마일리지 차감
+			log.debug("STEP.3 : 마일리지 차감 START : " + ordrDtlVO.getTotalAccmlMlg()); // 1건
+			if(ordrDtlVO.getTotalAccmlMlg() > 0) {
+				log.debug("STEP.3-1 : 마일리지 내역 기록 ");
+				MbrMlgVO mbrMlgVO = new MbrMlgVO();
+				mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
+				//mbrMlgVO.setOrdrNo(ordrVO.getOrdrNo());
+				mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
+				mbrMlgVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
+				mbrMlgVO.setMlgSe("M");
+				mbrMlgVO.setMlgCn("32");
+				mbrMlgVO.setGiveMthd("SYS");
+				mbrMlgVO.setMlg(ordrDtlVO.getTotalAccmlMlg());
+				log.debug("mlg: " + mbrMlgVO.toString());
+	
+				mbrMlgService.insertMbrMlg(mbrMlgVO);
+			}
+			log.debug("STEP.3 : 마일리지 차감 END");
+			
+			result = 1;
+		} catch (Exception e) {
+			log.debug("FAIL : 상태변경 실패 [" + e.getMessage() + "]");
+		}
+
+		return result;
+	}
 
 
 	/**
@@ -1217,6 +1268,18 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 			}
 			ordrChgHistService.insertOrdrSttsChgHist(ordrDtlVO.getOrdrNo(), ordrDtlVO.getOrdrDtlNo(), "", resn, ordrDtlVO.getSttsTy());
 		}
+	}
+	
+	/**
+	 * 배송중 -> 배송준비중 && 히스토리 변경 통합
+	 * @param ordrDtlVO
+	 * @throws Exception
+	 */
+	public void updateOrdr06AndOrdrChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
+		
+		ordrDtlDAO.updateDlvyPreparing(ordrDtlVO);
+		
+		ordrChgHistService.insertOrdrSttsChgHist(ordrDtlVO.getOrdrNo(), ordrDtlVO.getOrdrDtlNo(), "", "배송중 취소", "OR06");
 	}
 
 	/**
