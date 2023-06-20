@@ -50,6 +50,8 @@ import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -71,6 +73,9 @@ public class MGdsController extends CommonAbstractController {
 	@Resource(name = "gdsOptnService")
 	private GdsOptnService gdsOptnService;
 
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
+	
 	@Resource(name = "mkrService")
 	private MkrService mkrService;
 
@@ -178,6 +183,10 @@ public class MGdsController extends CommonAbstractController {
 		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(1);
 		model.addAttribute("gdsCtgryList", gdsCtgryList);
 
+		//입점업체 호출
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
+		model.addAttribute("entrpsList", entrpsList);
+		
 		//제조사 호출
 		List<MkrVO> mkrList = mkrService.selectMkrListAll();
 		model.addAttribute("mkrList", mkrList);
