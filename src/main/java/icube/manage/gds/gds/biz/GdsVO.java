@@ -35,6 +35,7 @@ public class GdsVO extends CommonBaseVO {
 	private int sortNo = 100;
 	private String[] gdsTag;
 	private String gdsTagVal; //DB저장용
+	private int entrpsNo; //입점업체
 	private int mkr; //제조사
 	private String plor; //원산지
 	private int brand; //브랜드

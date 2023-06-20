@@ -37,6 +37,7 @@
 		, g.stndrd
 		, g.sort_no
 		, g.gds_tag as gds_tag_val
+		, g.entrps_no
 		, g.mkr
 		, g.plor
 		, g.brand
@@ -341,6 +342,7 @@
 			 , stndrd
 			 , sort_no
 			 , gds_tag
+			 , entrps_no
 			 , mkr
 			 , plor
 			 , brand
@@ -423,6 +425,7 @@
 			, #{stndrd, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
+			, #{entrpsNo}
 			, #{mkr}
 			, #{plor, jdbcType=VARCHAR}
 			, #{brand}
@@ -511,6 +514,7 @@
 			, stndrd = #{stndrd, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
+			, entrps_no = #{entrpsNo}
 			, mkr = #{mkr}
 			, plor = #{plor, jdbcType=VARCHAR}
 			, brand = #{brand}
