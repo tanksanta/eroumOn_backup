@@ -30,6 +30,8 @@ public class OrdrDtlVO extends OrdrVO {
 	private String bnefCd;
 	private String gdsNm;
 	private int gdsPc = 0; // 상품가격 (주문시점)
+	private Integer entrpsNo; // 입점업체 NO
+	private String entrpsNm;  // 입점업체명
 	private int ordrPc = 0; // 주문가격 (상품가격 + 옵션가격)
 	private String ordrOptnTy;
 	private String ordrOptn;

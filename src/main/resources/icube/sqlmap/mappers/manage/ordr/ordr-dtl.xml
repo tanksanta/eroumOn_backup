@@ -204,6 +204,8 @@
 			 , bnef_cd
 			 , gds_nm
 			 , gds_pc
+			 , entrps_no
+			 , entrps_nm
 			 , ordr_pc
 			 , ordr_optn_ty
 			 , ordr_optn
@@ -243,6 +245,8 @@
 			 , #{bnefCd, jdbcType=VARCHAR}
 			 , #{gdsNm, jdbcType=VARCHAR}
 			 , #{gdsPc}
+			 , #{entrpsNo}
+			 , #{entrpsNm, jdbcType=VARCHAR}
 			 , #{ordrPc}
 			 , #{ordrOptnTy, jdbcType=VARCHAR}
 			 , #{ordrOptn, jdbcType=VARCHAR}
