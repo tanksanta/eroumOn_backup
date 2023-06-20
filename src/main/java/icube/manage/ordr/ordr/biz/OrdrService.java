@@ -35,6 +35,8 @@ import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.promotion.point.biz.MbrPointVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Service("ordrService")
@@ -70,6 +72,9 @@ public class OrdrService extends CommonAbstractServiceImpl {
 	@Resource(name = "updateBplcInfoApiService")
 	private UpdateBplcInfoApiService updateBplcInfoApiService;
 
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -202,10 +207,21 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			ordrDtlVO.setOrdrNo(ordrVO.getOrdrNo());
 			ordrDtlVO.setOrdrCd(ordrVO.getOrdrCd());
 			ordrDtlVO.setOrdrDtlCd(ordrDtlCd.split(",")[i].trim());
-			ordrDtlVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+			
+			int dtlGdsNo = EgovStringUtil.string2integer(gdsNo.split(",")[i].trim());
+			//상품에 대한 입점업체정보 조회
+			EntrpsVO entrpsVO = entrpsService.selectEntrpsByGdsNo(dtlGdsNo);
+			
+			ordrDtlVO.setGdsNo(dtlGdsNo);
 			ordrDtlVO.setGdsCd(gdsCd.split(",")[i].trim());
 			ordrDtlVO.setGdsNm(gdsNm.split(",")[i].trim());
 			ordrDtlVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+			if (entrpsVO != null) {
+				ordrDtlVO.setEntrpsNo(entrpsVO.getEntrpsNo());
+			}
+			if (entrpsVO != null) {
+				ordrDtlVO.setEntrpsNm(entrpsVO.getEntrpsNm());
+			}
 			ordrDtlVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			ordrDtlVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
