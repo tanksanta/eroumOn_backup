@@ -16,6 +16,8 @@
 		 , od.ordr_no
 		 , od.ordr_dtl_cd
 		 , od.ordr_cd
+		 , od.entrps_no
+		 , od.entrps_nm
 		 , od.gds_no
 		 , od.gds_cd
 		 , od.bnef_cd
