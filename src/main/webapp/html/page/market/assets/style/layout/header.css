@@ -584,7 +584,7 @@
 }
 
 .service-join {
-    @apply hidden w-full relative leading-none ml-5 pl-5 flex-1 lg:block before:content-empty before:absolute before:top-1/2 before:left-0 before:w-px before:h-[80%] before:bg-gray2 before:-translate-y-1/2;
+    @apply hidden w-full relative leading-tight ml-5 pl-5 flex-1 lg:block before:content-empty before:absolute before:top-1/2 before:left-0 before:w-px before:h-[80%] before:bg-gray2 before:-translate-y-1/2;
     & em {
         @apply font-black;
         background: linear-gradient(270deg, rgba(255,138,51,1) 0%, rgba(255,51,0,1) 100%);
@@ -595,9 +595,6 @@
         & span {
             @apply font-serif text-[1.25em];
         }
-    }
-    & small {
-        @apply text-xs text-gray1;
     }
 }
 

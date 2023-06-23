@@ -1,0 +1,17 @@
+@import url('//fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900');
+@import url('//cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css');
+@import url('//cdn.jsdelivr.net/npm/@noonnu/bmkiranghaerang@0.1.0/index.min.css');
+@import url('//cdn.jsdelivr.net/npm/@noonnu/bmhanna-pro@0.1.0/index.min.css');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* component core */
+@import "../../../../core/style/utility.css";
+@import "../../../../core/style/button.css";
+@import "../../../../core/style/form.css";
+
+@import "common.css";
+@import "layout.css";
+@import "content.css"; 
