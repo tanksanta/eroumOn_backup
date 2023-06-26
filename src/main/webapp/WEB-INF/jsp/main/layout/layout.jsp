@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title></title>
+    <title>이로움ON</title>
+
+   	<link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
 
     <!-- plugin -->
     <link rel="stylesheet" href="/html/core/vendor/swiperjs/swiper-bundle.css">

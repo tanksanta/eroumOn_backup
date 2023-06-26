@@ -91,7 +91,7 @@
 }
 
 #container {
-    @apply relative pt-13 overflow-x-hidden md:pt-17 lg:pt-21;
+    @apply relative pt-13 pb-15 overflow-x-hidden md:pt-17 md:pb-20 lg:pt-21 lg:pb-25;
 }
 
 #subject {
@@ -128,8 +128,7 @@
 }
 
 #content {
-    @apply relative mx-auto px-5 pb-15 max-w-[1360px] md:px-7 md:pb-20 lg:pb-25 lg:px-10;
-    /* pt-[2.8125rem] md:pt-15 lg:pt-[5.625rem] */
+    @apply relative mx-auto px-5 max-w-[1360px] md:px-7 lg:px-10;
 }
 
 .is-index {

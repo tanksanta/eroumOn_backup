@@ -1,42 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- quick -->
+<div id="quick" class="global-quick">
+	<button type="button" class="moveTop">위로 이동</button>
+</div>
+<!-- //quick -->
+
+
 <!-- footer -->
 <footer id="footer" class="global-footer">
 	<div class="footer-link">
 		<!-- 회사 메뉴 -->
 		<nav class="footer-menu">
 			<ul>
-				<li><a href="#">회사소개</a></li>
-				<li><a href="#">이용약관</a></li>
-				<li><a href="#">전자금융거래약관</a></li>
-				<li><a href="#"><strong>개인정보보호방침</strong></a></li>
+	            <li><a href="${_plannerPath}/cntnts/company">회사소개</a></li>
+	            <li><a href="${_membershipPath}/cntnts/terms" target="_blank">이용약관</a></li>
+	            <li><a href="${_membershipPath}/cntnts/privacy" target="_blank"><strong>개인정보처리방침</strong></a></li>
+	            <li><a href="${_plannerPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
 			</ul>
 		</nav>
 		<!-- //회사 메뉴 -->
 
 		<!-- 패밀리 사이트 -->
-		<dl class="footer-family">
-			<dt>패밀리 사이트</dt>
-			<dd>
-				<ul class="global-link">
-					<li><a href="#" class="link-item1">
-							<div class="bubble">
-								<small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
-							</div>
-					</a></li>
-					<li><a href="#" class="link-item2">
-							<div class="bubble">
-								<strong>이로움ON 멤버스</strong> <small>전국 2,432개 업체와 함께합니다</small>
-							</div>
-					</a></li>
-					<li><a href="#" class="link-item3">
-							<div class="bubble">
-								<strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong> <small> 복지용구 사업소와 수급자 매칭부터<br> 주문, 계약 및 결제까지 한번에!
-								</small>
-							</div>
-					</a></li>
-				</ul>
-			</dd>
-		</dl>
+		<div class="footer-family">
+			<dl>
+				<dt>슈퍼시니어</dt>
+				<dd>
+					<ul class="global-link">
+						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+					</ul>
+				</dd>
+			</dl>
+			<dl>
+				<dt>패밀리 사이트</dt>
+				<dd>
+					<ul class="global-link">
+                        <li>
+                            <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
+                                <div class="bubble">
+                                    <strong>이로움ON 멤버스</strong>
+                                    <small>전국 1,600개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
+                                <div class="bubble">
+                                    <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                                    <small>복지용구부터 시니어 생활용품까지 한번에!</small>
+                                </div>
+                            </a>
+                        </li>
+					</ul>
+				</dd>
+			</dl>
+		</div>
 		<!-- //패밀리 사이트 -->
 	</div>
 
