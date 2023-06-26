@@ -44,6 +44,9 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
@@ -122,6 +125,7 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 		request.setAttribute("_marketPath", "/" + marketPath);
 		request.setAttribute("_membersPath", "/" + membersPath);
 		request.setAttribute("_plannerPath", "/" + plannerPath);
+		request.setAttribute("_mainPath", "/" + mainPath);
 		request.setAttribute("_curPath", curPath);
 
 		// 기타
