@@ -872,10 +872,14 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 			}
 
 			int cancelOrdrPc = 0;
-			if(ordrVO.getStlmAmt() != totalOrdrPc) { //취소금액 = 결제금액이 같으면 전체 취소
+			if(ordrVO.getStlmAmt() < totalOrdrPc) { // 결제금액 < 상품별 주문금액(합) = 할인(쿠폰,마일리지,포인트) 취소 필요
+				cancelOrdrPc = ordrVO.getStlmAmt();
+			}else if(ordrVO.getStlmAmt() > totalOrdrPc) { // 결제금액 > 취소금액 = 부분취소
 				cancelOrdrPc = totalOrdrPc;
+			}else if(ordrVO.getStlmAmt() == totalOrdrPc) { // 취소금액 = 결제금액이 같으면 전체 취소
+				cancelOrdrPc = ordrVO.getStlmAmt();
 			}
-
+			
 			log.debug("STEP.3 : 주문결제 상태 확인 START >> " + ordrVO.getStlmTy() + "/" + ordrVO.getStlmYn());
 			boolean rfndAction = false;
 			//if("Y".equals(ordrVO.getStlmYn()) || "VBANK".equals(ordrVO.getStlmTy())){ // 결제완료 상태 or 가상계좌 발급 상태
@@ -898,9 +902,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				        //기존 취소거래 일수 있음
 				        if("기 취소 거래".equals(res.get("message"))) {
 				        	rfndAction = true;
+				        } else if ("RC_ALREADY_CANCELLED".equals(res.get("error_code"))) {
+				        	rfndAction = true;
 				        }
-
 				    }
+				    
+				    // PG 취소 후 남은 취소 금액은 point or mlg로 반환받음
+				    cancelOrdrPc = totalOrdrPc - cancelOrdrPc;
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
@@ -913,6 +921,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				log.debug("STEP.3-2 : 가상계좌 결제 취소 END");
 
 			} else if("FREE".equals(ordrVO.getStlmTy())) { //마일리지 & 포인트로만 결제하는 경우 FREE로 생성되며 취소처리 하여야 함
+				cancelOrdrPc = totalOrdrPc;
 				rfndAction = true;
 			} else {
 				log.debug("STEP.3-2 : 결제 전 취소 없음");
@@ -923,6 +932,9 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				log.debug("STEP.3-3 : 주문상태 > 전체 결제금액 조정");
 				if (!"FREE".equals(ordrVO.getStlmTy())) { //FREE 인 경우는 결제금액을 변경하지 않음
 					int stlmAmt = ordrVO.getStlmAmt() - totalOrdrPc; //전체금액 - 주문금액
+					if (stlmAmt < 0) { // 마일리지 또는 포인트가 포함된 경우 결제금액이 마이너스가 될 수 있음
+						stlmAmt = 0;
+					}
 					ordrVO.setStlmAmt(stlmAmt);
 					ordrService.updateStlmAmt(ordrVO);
 				}
@@ -1007,7 +1019,8 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 				// RE03은 고려하지도 않고 있어서 제대로 동작하지 않음
 				//int lastObj = this.selectLastReturn(paramMap);
 
-				//if(lastObj == 1) {
+				//반환해야할 취소 금액이 있는 경우
+				if(cancelOrdrPc > 0) {
 					if(ordrVO.getUseMlg() > 0 && asisStlmAmt == cancelOrdrPc) { // 사용 마일리지 > 0 && 전체 금액 > 전체 마일리지 환원
 						MbrMlgVO mbrMlgVO = new MbrMlgVO();
 						mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
@@ -1057,7 +1070,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 						mbrPointService.insertMbrPoint(mbrPointVO);
 					}
-				//}
+				}
 				log.debug("STEP.5 : 마일리지, 포인트 환원 END");
 			}
 
