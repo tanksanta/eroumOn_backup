@@ -395,6 +395,7 @@
 						selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 					});
 					category = selCheckVal;
+					console.log("asd: "+ category);
 					$(".select-gugun button").text(gugun);
 
         	        f_srchInstList();

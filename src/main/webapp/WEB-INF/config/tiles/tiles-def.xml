@@ -140,12 +140,14 @@
 		<put-attribute name="content" 	value="" />
 		<put-attribute name="footer" 	value="/WEB-INF/jsp/main/layout/footer.jsp" />
 	</definition>
+	<definition name="/main/include/*" template="/WEB-INF/jsp/main/include/{1}.jsp" />
 	<definition name="/main/*" extends=".main_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/main/{1}.jsp" />
 	</definition>
 	<definition name="/main/*/*" extends=".main_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/main/{1}/{2}.jsp" />
 	</definition>
+
 
 
 </tiles-definitions>
