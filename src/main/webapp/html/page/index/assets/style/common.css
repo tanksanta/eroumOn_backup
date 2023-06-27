@@ -446,38 +446,6 @@ strong {
         @apply bg-[#3074FF];
     }
 
-    .label-color1 {
-        background: var(--key1-gradient2);
-    }
-
-    .label-color2 {
-        background: var(--key2-gradient2);
-    }
-
-    .label-color3 {
-        background: var(--key3-gradient2);
-    }
-
-    .label-color4 {
-        background: var(--key4-gradient2);
-    }
-
-    .label-color5 {
-        background: var(--key5-gradient2);
-    }
-
-    .label-color6 {
-        background: var(--key6-gradient2);
-    }
-
-    .label-color7 {
-        background: var(--key7-gradient2);
-    }
-
-    .label-color8 {
-        background: var(--key8-gradient2);
-    }
-
     .btn {
         @apply px-3 h-10 border-0.5 rounded-md text-sm text-center font-bold ring-0 md:px-4 md:h-11 md:text-base hover:bg-white hover:ring-0 focus:bg-white focus:ring-0 active:bg-white active:ring-0;
     }
@@ -567,38 +535,6 @@ strong {
         @apply border-[#04C75B] bg-[#04C75B] text-white hover:!border-[#04C75B] hover:!bg-white hover:!text-[#04C75B] focus:border-[#04C75B] focus:bg-[#04C75B] focus:text-white active:border-[#04C75B] active:bg-white active:text-[#04C75B];
     }
 
-    .btn-color1 {
-        background: var(--key1-gradient2);
-    }
-
-    .btn-color2 {
-        background: var(--key2-gradient2);
-    }
-
-    .btn-color3 {
-        background: var(--key3-gradient2);
-    }
-
-    .btn-color4 {
-        background: var(--key4-gradient2);
-    }
-
-    .btn-color5 {
-        background: var(--key5-gradient2);
-    }
-
-    .btn-color6 {
-        background: var(--key6-gradient2);
-    }
-
-    .btn-color7 {
-        background: var(--key7-gradient2);
-    }
-
-    .btn-color8 {
-        background: var(--key8-gradient2);
-    }
-
     .text-scroll {
         @apply text-xs text-center font-medium md:text-sm lg:text-base after:content-empty after:block after:mx-auto after:mt-1 after:w-4 after:h-1.5 after:bg-cover after:bg-[url(../images/ico-scroll-arrow.svg)] after:md:mt-1.5 after:md:w-7 after:md:h-2.5 after:lg:mt-2 after:lg:w-8.5 after:lg:h-3;
         &.is-white {
@@ -642,101 +578,5 @@ strong {
     
     .text-success {
         @apply text-blue3;
-    }
-
-    .text-color1 {
-        @apply text-[var(--key1)];
-    }
-
-    .text-color2 {
-        @apply text-[var(--key2)];
-    }
-
-    .text-color3 {
-        @apply text-[var(--key3)];
-    }
-
-    .text-color4 {
-        @apply text-[var(--key4)];
-    }
-
-    .text-color5 {
-        @apply text-[var(--key5)];
-    }
-
-    .text-color6 {
-        @apply text-[var(--key6)];
-    }
-
-    .text-color7 {
-        @apply text-[var(--key7)];
-    }
-
-    .text-color8 {
-        @apply text-[var(--key8)];
-    }
-
-    .text-color1-mask {
-        background: var(--key1-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color2-mask {
-        background: var(--key2-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color3-mask {
-        background: var(--key3-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color4-mask {
-        background: var(--key4-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color5-mask {
-        background: var(--key5-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color6-mask {
-        background: var(--key6-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color7-mask {
-        background: var(--key7-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
-    }
-
-    .text-color8-mask {
-        background: var(--key8-gradient2);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
     }
 }

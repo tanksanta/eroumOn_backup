@@ -1,0 +1,861 @@
+@layer components {
+    .btn-welfare-color1 {
+        background: var(--key1-gradient2);
+    }
+
+    .btn-welfare-color2 {
+        background: var(--key2-gradient2);
+    }
+
+    .btn-welfare-color3 {
+        background: var(--key3-gradient2);
+    }
+
+    .btn-welfare-color4 {
+        background: var(--key4-gradient2);
+    }
+
+    .btn-welfare-color5 {
+        background: var(--key5-gradient2);
+    }
+
+    .btn-welfare-color6 {
+        background: var(--key6-gradient2);
+    }
+
+    .btn-welfare-color7 {
+        background: var(--key7-gradient2);
+    }
+
+    .btn-welfare-color8 {
+        background: var(--key8-gradient2);
+    }
+
+    .label-welfare-color1 {
+        background: var(--key1-gradient2);
+    }
+
+    .label-welfare-color2 {
+        background: var(--key2-gradient2);
+    }
+
+    .label-welfare-color3 {
+        background: var(--key3-gradient2);
+    }
+
+    .label-welfare-color4 {
+        background: var(--key4-gradient2);
+    }
+
+    .label-welfare-color5 {
+        background: var(--key5-gradient2);
+    }
+
+    .label-welfare-color6 {
+        background: var(--key6-gradient2);
+    }
+
+    .label-welfare-color7 {
+        background: var(--key7-gradient2);
+    }
+
+    .label-welfare-color8 {
+        background: var(--key8-gradient2);
+    }
+
+    .text-welfare-color1 {
+        @apply text-[var(--key1)];
+    }
+
+    .text-welfare-color2 {
+        @apply text-[var(--key2)];
+    }
+
+    .text-welfare-color3 {
+        @apply text-[var(--key3)];
+    }
+
+    .text-welfare-color4 {
+        @apply text-[var(--key4)];
+    }
+
+    .text-welfare-color5 {
+        @apply text-[var(--key5)];
+    }
+
+    .text-welfare-color6 {
+        @apply text-[var(--key6)];
+    }
+
+    .text-welfare-color7 {
+        @apply text-[var(--key7)];
+    }
+
+    .text-welfare-color8 {
+        @apply text-[var(--key8)];
+    }
+
+    .text-welfare-color1-mask {
+        background: var(--key1-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color2-mask {
+        background: var(--key2-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color3-mask {
+        background: var(--key3-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color4-mask {
+        background: var(--key4-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color5-mask {
+        background: var(--key5-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color6-mask {
+        background: var(--key6-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color7-mask {
+        background: var(--key7-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+
+    .text-welfare-color8-mask {
+        background: var(--key8-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+}
+
+
+/* 복지서비스 안내 */
+.welfare-service-toggle {
+    @apply inline-flex relative -top-px ml-1 justify-center items-center leading-none font-normal px-[0.9em] h-[1.69em] text-[0.8125rem] border border-black2 rounded-full;
+    & .open {
+        @apply hidden;
+    }
+    &.is-active {
+        @apply bg-black2 text-white;
+        & .close {
+            @apply hidden;
+        }
+        & .open {
+            @apply block;
+        }
+    }
+}
+
+.welfare-service-desc {
+    @apply hidden absolute z-45 top-0 left-5 right-5 -mt-9 p-4 pr-0 h-2/3 border border-gray1 rounded-md bg-white md:right-7 md:left-7 md:-mt-13 md:pr-4 md:h-auto lg:left-10 lg:right-10 lg:-mt-17;
+    & .content {
+        @apply flex scrollbars flex-col h-full overflow-auto gap-3.5 md:h-auto md:flex-row md:items-start;
+        & img {
+            @apply w-full md:flex-1 md:w-[30%];
+        }
+    }
+    & .close {
+        @apply absolute top-0 right-0 w-11 h-11 overflow-hidden rounded-full bg-black2 bg-no-repeat bg-center bg-[length:38.2%] -indent-96 -translate-y-[64.85%] translate-x-[30.85%] lg:w-14 lg:h-14 lg:-translate-y-[17.85%] lg:translate-x-[42.85%];
+        background-image: url("data:image/svg+xml,%3Csvg width='17px' height='17px' viewBox='0 0 17 17' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3ERectangle 9%3C/title%3E%3Cg id='이로움메인' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='이로움메인-노인복지on' transform='translate(-1610.000000, -981.000000)' fill='%23FFFFFF'%3E%3Cg id='Group-30' transform='translate(252.000000, 933.000000)'%3E%3Cg id='Group-22' transform='translate(1339.000000, 29.000000)'%3E%3Cpath d='M27.5,17 C28.3284271,17 29,17.6715729 29,18.5 L29,26 L36.5,26 C37.3284271,26 38,26.6715729 38,27.5 C38,28.3284271 37.3284271,29 36.5,29 L29,29 L29,36.5 C29,37.3284271 28.3284271,38 27.5,38 C26.6715729,38 26,37.3284271 26,36.5 L26,29 L18.5,29 C17.6715729,29 17,28.3284271 17,27.5 C17,26.6715729 17.6715729,26 18.5,26 L26,26 L26,18.5 C26,17.6715729 26.6715729,17 27.5,17 Z' id='Rectangle-9' transform='translate(27.500000, 27.500000) rotate(45.000000) translate(-27.500000, -27.500000) '%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    &.is-active {
+        @apply block;
+    }
+}
+
+/* 복지서비스 검색 */
+.welfare-service-search {
+    @apply mx-auto mb-14 max-w-[28.5rem] md:mb-19 lg:mb-23;
+    & fieldset {
+        @apply flex gap-1 w-full;
+        & .form-control {
+            @apply flex-1;
+        }
+        & .btn {
+            @apply px-0 w-[30.26%];
+        }
+    }
+}
+
+/* 복지서비스 메뉴 */
+.welfare-service-menu {
+    @apply items-center relative mb-10 min-h-10 md:mb-14 lg:flex lg:mb-18;
+    & .count {
+        @apply text-base leading-none md:mr-7 lg:mr-9;
+        & strong {
+            @apply text-3xl md:text-5xl lg:text-[2.625rem];
+        }
+    }
+    & .nav {
+        @apply flex-1 grid relative gap-1.5 mt-4 grid-cols-4 md:grid-cols-8 lg:grid-cols-8 lg:mt-0 lg:mr-9 lg:pr-9 lg:before:content-empty lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:w-px lg:before:h-8.5 lg:before:bg-gray1 lg:before:-translate-y-1/2;
+        & .nav-link {
+            @apply flex items-center justify-center p-2 h-10 rounded-md bg-gray2 text-center;
+            &.is-active {
+                @apply bg-black2 text-white;
+            }
+        }
+    }
+    & .btn {
+        @apply absolute -top-1.5 right-0 ml-auto min-w-32 text-sm md:-top-0.5 md:min-w-40 md:text-base lg:static;
+    }
+}
+
+/* 복지서비스 카드 */
+.welfare-service-item {
+    @apply hidden relative;
+    & .service-content {
+        & .content-sizer {
+            @apply w-[calc(50%_-_0.375rem)] md:w-[calc(33.3333333333%_-_0.625rem)] lg:w-[calc(25%_-_0.9375rem)];
+        }
+        & .content-gutter {
+            @apply w-3 md:w-[0.9375rem] lg:w-5;
+        }
+        & .content-item {
+            @apply block relative mb-4 w-[calc(50%_-_0.375rem)] rounded-[1rem] md:mb-6 md:w-[calc(33.3333333333%_-_0.625rem)] md:h-[14.0625rem] md:transition-colors md:duration-300 lg:mb-9 lg:w-[calc(25%_-_0.9375rem)]
+                   after:content-empty after:block after:absolute after:right-3 after:bottom-3 after:z-15 after:w-5 after:h-5 after:rounded-full after:bg-center after:bg-no-repeat after:bg-[url(../images/ico-plus-white.svg)] after:bg-[length:0.625rem] after:md:static after:md:-mt-6 after:md:w-auto after:md:h-6 after:md:rounded-[1rem] after:md:bg-[length:0.875rem];
+            & .content {
+                @apply relative z-10 pt-5 pb-21 px-4 overflow-hidden md:h-[14.0625rem] rounded-[1rem] bg-white leading-[1.15] text-[0.8125rem] md:py-6 md:px-5.5 md:border md:border-gray1 md:transition-[transform,border] md:duration-300
+                       before:content-empty before:absolute before:-z-5 before:top-0 before:left-0 before:w-full before:h-full before:opacity-10 before:transition-opacity before:duration-300 before:md:opacity-0;
+                & .name {
+                    @apply text-lg font-bold md:text-2xl;
+                }
+                & .type {
+                    @apply mt-2 md:mt-3.5;
+                }
+                & .part {
+                    @apply absolute left-4 bottom-3.5 flex items-center font-bold md:left-5.5 md:right-3.5 md:bottom-2.5
+                           after:content-empty after:hidden after:ml-auto after:w-9 after:aspect-square after:bg-cover after:transition-opacity after:duration-300 after:opacity-0 after:md:block;
+                }
+            }
+            &:hover {
+                & .content {
+                    @apply md:-translate-y-6 before:md:opacity-5;
+                    & .part {
+                        @apply after:opacity-100;
+                    }
+                }
+            }
+            &.is-lock {
+                @apply after:bg-[url(../images/ico-lock-white.svg)] after:bg-[length:0.8125rem] after:md:[length:0.875rem] after:md-max:!bg-transparent;
+                & .content {
+                    @apply md-max:text-white before:md-max:opacity-100;
+                }
+            }
+            &.is-color1 {
+                @apply after:md-max:bg-[var(--key1)];
+                & .content {
+                    @apply before:bg-[var(--key1)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category1-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key1)];
+                    & .content {
+                        @apply md:border-[var(--key1)];
+                        & .name {
+                            @apply md:text-welfare-color1-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key1-gradient)];
+                    }
+                }
+            }
+            &.is-color2 {
+                @apply after:md-max:bg-[var(--key2)];
+                & .content {
+                    @apply before:bg-[var(--key2)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category2-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key2)];
+                    & .content {
+                        @apply md:border-[var(--key2)];
+                        & .name {
+                            @apply md:text-welfare-color2-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key2-gradient)];
+                    }
+                }
+            }
+            &.is-color3 {
+                @apply after:md-max:bg-[var(--key3)];
+                & .content {
+                    @apply before:bg-[var(--key3)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category3-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key3)];
+                    & .content {
+                        @apply md:border-[var(--key3)];
+                        & .name {
+                            @apply md:text-welfare-color3-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key3-gradient)];
+                    }
+                }
+            }
+            &.is-color4 {
+                @apply after:md-max:bg-[var(--key4)];
+                & .content {
+                    @apply before:bg-[var(--key4)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category4-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key4)];
+                    & .content {
+                        @apply md:border-[var(--key4)];
+                        & .name {
+                            @apply md:text-welfare-color4-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key4-gradient)];
+                    }
+                }
+            }
+            &.is-color5 {
+                @apply after:md-max:bg-[var(--key5)];
+                & .content {
+                    @apply before:bg-[var(--key5)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category5-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key5)];
+                    & .content {
+                        @apply md:border-[var(--key5)];
+                        & .name {
+                            @apply md:text-welfare-color5-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key5-gradient)];
+                    }
+                }
+            }
+            &.is-color6 {
+                @apply after:md-max:bg-[var(--key6)];
+                & .content {
+                    @apply before:bg-[var(--key6)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category6-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key6)];
+                    & .content {
+                        @apply md:border-[var(--key6)];
+                        & .name {
+                            @apply md:text-welfare-color6-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key6-gradient)];
+                    }
+                }
+            }
+            &.is-color7 {
+                @apply after:md-max:bg-[var(--key7)];
+                & .content {
+                    @apply before:bg-[var(--key7)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category7-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key7)];
+                    & .content {
+                        @apply md:border-[var(--key7)];
+                        & .name {
+                            @apply md:text-welfare-color7-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key7-gradient)];
+                    }
+                }
+            }
+            &.is-color8 {
+                @apply after:md-max:bg-[var(--key8)];
+                & .content {
+                    @apply before:bg-[var(--key8)];
+                    & .part {
+                        @apply after:bg-[url(../images/ico-welfare-category8-on.svg)];
+                    }
+                }
+                &:hover {
+                    @apply md:bg-[var(--key8)];
+                    & .content {
+                        @apply md:border-[var(--key8)];
+                        & .name {
+                            @apply md:text-welfare-color8-mask;
+                        }
+                    }
+                }
+                &.is-lock {
+                    & .content {
+                        @apply before:bg-[image:var(--key8-gradient)];
+                    }
+                }
+            }
+        }
+    }
+    & .service-paging {
+        @apply mx-auto mt-5 w-25 overflow-hidden lg:mt-0;
+        & .paging-flow {
+            @apply flex items-center transition-[margin] duration-300;
+            & i {
+                @apply flex-none relative block mx-0.5 w-4 h-4 origin-top-center
+                       before:content-empty before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:origin-center before:scale-[0.6] before:rounded-full before:border-0.5 before:border-black2 before:bg-black2 before:transition-all before:duration-300;
+                &.is-active {
+                    @apply before:scale-100 before:bg-white;
+                }
+            }
+        }
+    }
+    & .service-button {
+        @apply flex lg-max:space-x-2 lg-max:mt-5;
+        & .button-prev, & .button-next {
+            @apply inline-flex items-center justify-center flex-1 h-13 border border-gray1 rounded-md text-sm font-bold lg:absolute lg:z-30 lg:top-1/2 lg:w-22 lg:h-22 lg:rounded-full lg:border-0 lg:-translate-y-1/2;
+            & span {
+                @apply lg:sr-only;
+            }
+        }
+        & .button-prev {
+            @apply lg:right-full lg:-mr-13 2xl:mr-[3.125vw]
+                   before:content-empty before:block before:mx-2 before:w-6 before:h-6 before:rounded-full before:bg-no-repeat before:bg-center before:bg-[length:0.625rem] before:bg-[url(../images/ico-arrow-white.svg)] before:bg-black2 before:rotate-90 before:lg:m-0 before:lg:w-full before:lg:h-full before:lg:bg-[length:2rem] before:lg:bg-[url(../images/ico-arrow-thin-white.svg)] before:lg:-rotate-180;
+        }
+        & .button-next {
+            @apply lg:left-full lg:-ml-13 2xl:ml-[3.125vw]
+                   after:content-empty after:block after:mx-2 after:w-6 after:h-6 after:rounded-full after:bg-no-repeat after:bg-center after:bg-[length:0.625rem] after:bg-[url(../images/ico-arrow-white.svg)] after:bg-black2 after:-rotate-90 after:lg:m-0 after:lg:w-full after:lg:h-full after:lg:bg-[length:2rem] after:lg:bg-[url(../images/ico-arrow-thin-white.svg)] after:lg:rotate-0;
+        }
+    }
+    &.is-active {
+        @apply block;
+    }
+}
+
+/* 복지서비스 지도 */
+.welfare-service-map {
+    @apply hidden relative -mt-9 rounded-[1rem] md:-mt-11 lg:-mt-15;
+    & .service-area {
+        @apply relative z-5 aspect-[1/1.14] bg-neutral-200 md:aspect-[1/0.81385] lg:aspect-[1/0.4877];
+    }
+    & .service-select {
+        @apply absolute z-10 flex flex-col left-2 right-2 bottom-2 p-2 min-h-[4.125rem] h-21 max-h-[calc(100%_-_2.5rem)] transition-[height] duration-300 lg:top-2 lg:w-80 rounded-lg bg-white lg:max-h-[calc(100%_-_1rem)] lg:h-auto lg:min-h-[calc(100%_-_1rem)] lg:transition-none;
+        & .toggle {
+            @apply relative -mt-2 w-full h-8 bg-white bg-no-repeat bg-center bg-[length:1.5rem] rotate-180 lg:hidden;
+            background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23.458' height='8'%3E%3Cpath data-name='Rectangle 8' d='m22.172.115-10.443 6.03L1.286.115A.857.857 0 0 0 .115.428.857.857 0 0 0 .428 1.6l10.725 6.191a.86.86 0 0 0 .576.209.861.861 0 0 0 .577-.209L23.029 1.6a.857.857 0 0 0 .314-1.171A.857.857 0 0 0 22.6 0a.852.852 0 0 0-.428.115Z' fill='%23333'/%3E%3C/svg%3E);
+        }
+        & .nav {
+            @apply flex-none flex w-full space-x-1 bg-white;
+            & .nav-item {
+                @apply flex-1;
+            }
+            & .nav-link {
+                @apply flex items-center justify-center h-[2.625rem] overflow-hidden rounded-md bg-no-repeat text-[0.8125rem] font-bold lg:justify-start before:content-empty before:mr-2 before:bg-cover;
+            }
+            & .nav-link-item1 {
+                @apply text-[#1CB4B2] lg:pl-2.5 before:w-5.5 before:h-5 before:bg-[url(../images/ico-welfare-select1.svg)];
+                background: linear-gradient(108deg, rgba(34, 255, 104, 0.1) 0%, rgba(37, 200, 252, 0.1) 100%, rgba(252, 37, 117, 0.1) 100%);
+                &.active {
+                    @apply bg-[#1fbca9] text-white before:bg-[url(../images/ico-welfare-select1-white.svg)];
+                }
+            }
+            & .nav-link-item2 {
+                @apply bg-black2/5 text-black2 lg:pl-5 before:w-6.5 before:h-7 before:bg-[url(../images/ico-welfare-select2.svg)];
+                &.active {
+                    @apply bg-black2 text-white before:bg-[url(../images/ico-welfare-select2-white.svg)];
+                }
+            }
+            & .nav-link-item3 {
+                @apply w-[2.625rem] rounded-md border border-gray3 bg-center bg-[url(../images/ico-welfare-select3.svg)] -indent-96;
+                &.acitve {
+                    @apply bg-black2 bg-[url(../images/ico-welfare-select3-active.svg)];
+                }
+            }
+        }
+        & .tab {
+            @apply flex-1 flex flex-col py-0.5 overflow-hidden;
+            & .tab-pane {
+                @apply pr-1 h-full overflow-auto;
+                -webkit-overflow-scrolling: touch;
+                &::-webkit-scrollbar {
+                    @apply w-4.5 h-4.5;
+                }
+                &::-webkit-scrollbar-thumb {
+                    @apply rounded-lg bg-clip-content border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300;
+                }
+            }
+        }
+        &.is-active {
+            @apply h-[calc(100%_-_2.5rem)] lg:h-auto;
+            & .toggle {
+                @apply rotate-0;
+            }
+        }
+    }
+    & .service-item {
+        @apply flex flex-col justify-center relative px-5 py-2.5 min-h-21 rounded-md border-b border-b-gray2 text-xs leading-[1.125] last:border-b-0;
+        & .name {
+            @apply text-base font-bold;
+        }
+        & .addr, & .call {
+            @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
+        }
+        & .addr {
+            @apply mt-2.5 bg-[url(../images/ico-location.svg)];
+        }
+        & .call {
+            @apply mt-1.5 bg-[url(../images/ico-call.svg)];
+        }
+        &.is-active {
+            @apply bg-black2 text-white before:bg-[url(../images/img-marker-white.svg)] before:text-black2;
+            & .addr {
+                @apply bg-[url(../images/ico-location-white.svg)];
+            }
+            & .call {
+                @apply bg-[url(../images/ico-call-white.svg)];
+            }
+        }
+        &.is-members {
+            &.is-active {
+                @apply bg-[#1fbca9];
+            }
+        }
+    }
+    & .service-overlay {
+        @apply relative w-55 px-3 py-2.5 border border-black2 bg-white rounded-md whitespace-normal text-xs leading-[1.125] -translate-y-1.5;
+        & .name {
+            @apply pr-3 text-base font-bold;
+        }
+        & .addr, & .call {
+            @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
+        }
+        & .addr {
+            @apply mt-2.5 bg-[url(../images/ico-location.svg)];
+        }
+        & .call {
+            @apply block mt-1.5 bg-[url(../images/ico-call.svg)];
+        }
+        & .close {
+            @apply absolute top-1.5 right-1 w-6 h-6 overflow-hidden bg-no-repeat bg-center bg-[length:1.25rem] bg-[url(../images/ico-close.svg)] -indent-96;
+        }
+        &.is-members {
+            @apply border-[#1fbca9];
+        }
+    }
+    &.is-active {
+        @apply block;
+    }
+}
+
+/* 복지서비스 모달 */
+.modal-detail-title {
+    @apply relative mb-8 pl-14 text-2xl leading-[1.1] font-bold
+           before:content-empty before:absolute before:top-1/2 before:left-0 before:-mt-0.5 before:bg-cover before:w-12 before:h-12 before:-translate-y-1/2;
+}
+
+.modal-detail-content {
+    @apply relative;
+    & table {
+        @apply table-fixed w-full;
+        & th {
+            @apply py-[0.5625rem] px-0.5 text-xs align-top font-bold;
+        }
+        & td {
+            @apply px-0.5 py-2 text-sm font-bold;
+            & small {
+                @apply text-[0.8125rem];
+            }
+        }
+    }
+    & .content {
+        @apply p-4 bg-neutral-100 text-[0.8125rem] font-normal rounded-lg sm:p-5;
+    }
+    & .home {
+        @apply pl-4 bg-no-repeat bg-[left_top_0.0625rem] bg-[length:0.875rem] bg-[url(../images/ico-home.svg)] border-b border-black2;
+    }
+    & .share {
+        @apply absolute top-1 right-2 hidden items-center text-xs font-bold sm:inline-flex;
+        & i {
+            @apply block relative ml-1 w-7.5 h-7.5 rounded-full
+                after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-4 after:h-4 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(../images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
+        }
+    }
+}
+
+.is-color1 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category1-on.svg)];
+        background: var(--key1-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key1)];
+            & i {
+                background: var(--key1-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key1-gradient2);
+    } 
+}
+
+.is-color2 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category2-on.svg)];
+        background: var(--key2-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key2)];
+            & i {
+                background: var(--key2-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key2-gradient2);
+    }
+}
+
+.is-color3 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category3-on.svg)];
+        background: var(--key3-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key3)];
+            & i {
+                background: var(--key3-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key3-gradient2);
+    }
+}
+
+.is-color4 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category4-on.svg)];
+        background: var(--key4-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key4)];
+            & i {
+                background: var(--key4-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key4-gradient2);
+    }
+}
+
+.is-color5 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category5-on.svg)];
+        background: var(--key5-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key5)];
+            & i {
+                background: var(--key5-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key5-gradient2);
+    }
+}
+
+.is-color6 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category6-on.svg)];
+        background: var(--key6-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key6)];
+            & i {
+                background: var(--key6-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key6-gradient2);
+    }
+}
+
+.is-color7 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category7-on.svg)];
+        background: var(--key7-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key7)];
+            & i {
+                background: var(--key7-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key7-gradient2);
+    }
+}
+
+.is-color8 {
+    & .modal-detail-title {
+        @apply before:bg-[url(../images/ico-welfare-category8-on.svg)];
+        background: var(--key8-gradient2);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+    }
+    & .modal-detail-content {
+        & .share {
+            @apply text-[var(--key8)];
+            & i {
+                background: var(--key8-gradient2);
+            }
+        }
+    }
+    & .label, & .btn {
+        background: var(--key8-gradient2);
+    }
+}
+
+
+/* 로그인 모달 */
+.modal-login-desc {
+    @apply -mx-2.5 -mt-4 py-10 text-center sm:-mx-5 sm:-mt-5 text-2xl bg-[linear-gradient(104deg,_rgba(16,123,255,0.08)_0%,_rgba(255,0,63,0.08)_45%,_rgba(255,237,0,0.08)_100%)];
+}
+
+.modal-login-form {
+    @apply mt-10 mx-auto max-w-[20.625rem];
+    & .form-group {
+        @apply mt-3 w-full xs-max:flex-wrap first:mt-0;
+    }
+    & .form-label {
+        @apply flex-none block mb-1 w-[4em] text-sm text-gray1 leading-tight;
+    }
+    & .form-control {
+        @apply px-4 w-full h-[3.4375rem] rounded-lg bg-gray2 xs-max:flex-none;
+    }
+}
+
+.modal-login-search {
+    @apply flex mt-4 mx-auto max-w-[20.625rem] text-sm font-bold;
+    & a {
+        @apply mr-auto pr-3.5 bg-no-repeat bg-[url(../images/ico-angle.svg)] bg-right-center underline underline-offset-1;
+    }
+}
+
+.modal-login-join {
+    @apply relative mt-23 mx-auto max-w-[20.625rem]
+        before:content-empty before:absolute before:right-8 before:bottom-3 before:w-[203px] before:h-[227px] before:bg-cover before:bg-[url(../images/bg-login.png)];
+    & dl {
+        @apply relative z-10 pr-[8.375rem] text-right text-base leading-tight;
+        & dd {
+            @apply mt-5 font-bold;
+        }
+    }
+    & .btn {
+        @apply relative z-10 mt-7.5 w-full;
+    }
+}
