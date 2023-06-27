@@ -232,9 +232,9 @@ public class MyDtlsController extends CommonAbstractController {
 		if("VBANK".equals(oldOrdrVO.getStlmTy()) && "Y".equals(oldOrdrVO.getStlmYn())) { //가상계좌 + 결제완료 = 취소접수
 			ordrDtlVO.setSttsTy("CA01"); // 취소접수
 			resultCnt = ordrDtlService.updateOrdrCA01(ordrDtlVO);
-		}else { // 카드, 계좌이체
+		} else { // 카드, 계좌이체
 			ordrDtlVO.setSttsTy("CA02"); // 취소승인
-			resultCnt = ordrDtlService.updateOrdrCA02(ordrDtlVO);
+			resultCnt = ordrDtlService.updateCA02AndReturnCoupon(ordrNo, ordrDtlVO, ordrDtlNos);
 		}
 
 		// 주문 상태 전달

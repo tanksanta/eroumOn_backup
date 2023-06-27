@@ -645,8 +645,24 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateOrdrRE03(OrdrDtlVO ordrDtlVO) throws Exception {
-		return CancelOrdrDtl(ordrDtlVO);
+	public int updateOrdrRE03(OrdrDtlVO ordrDtlVO, String[] ordrDtlNos) throws Exception {
+		int resultCtn = CancelOrdrDtl(ordrDtlVO);
+		
+		//쿠폰 사용 처리 취소
+		for(String ordrDtlNo : ordrDtlNos) {
+			OrdrDtlVO ordrrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
+			String couponCd = ordrrDtlVO.getCouponCd();
+
+			if (EgovStringUtil.isNotEmpty(couponCd)) {
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchUseYn", "N");
+				paramMap.put("srchCouponCd", couponCd);
+
+				couponLstService.updateCouponUseYnNull(paramMap);
+			}
+		}
+		
+		return resultCtn;
 	}
 
 
@@ -830,11 +846,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 			OrdrDtlVO ordrrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(ordrDtlNo));
 			String couponCd = ordrrDtlVO.getCouponCd();
 
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("srchUseYn", "N");
-			paramMap.put("srchCouponCd", couponCd);
+			if (EgovStringUtil.isNotEmpty(couponCd)) {
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchUseYn", "N");
+				paramMap.put("srchCouponCd", couponCd);
 
-			couponLstService.updateCouponUseYnNull(paramMap);
+				couponLstService.updateCouponUseYnNull(paramMap);
+			}
 		}
 
 		return resultCnt;
