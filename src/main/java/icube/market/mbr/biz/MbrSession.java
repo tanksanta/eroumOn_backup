@@ -63,6 +63,7 @@ public class MbrSession extends MbrVO implements Serializable {
 		setProflImg(mbrVO.getProflImg());
 		setMberGrade(mbrVO.getMberGrade());
 		setItrstField(mbrVO.getItrstField());
+		setJoinTy(mbrVO.getJoinTy());
 
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보

@@ -253,7 +253,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchMblTelno", mbrVO.getMblTelno());
 		paramMap.put("srchBirth", formatter.format(mbrVO.getBrdt()));
-		paramMap.put("srchMbrStts", "EXIT");
+		paramMap.put("srchMbrStts", "NORMAL");
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 		
 		if(mbrList.size() > 0) {
@@ -276,6 +276,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 						if(EgovStringUtil.equals("BLACK", sttus)) {
 							mbrTy = 8; // 블랙
 						}else if(EgovStringUtil.equals("HUMAN", sttus)) {
+							mbrSession.setMbrId(mbrId);
 							mbrTy = 9; // 휴면
 						}else if(EgovStringUtil.equals("EXIT", sttus) && drmtCnt > 0) {
 							mbrTy = 10; // 탈퇴
@@ -293,7 +294,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 							}
 							mbrTy = 2;
 						}
-						mbrSession.setMbrId(mbrId);
+						
 					}
 					return mbrTy; // 카카오 로그인
 					

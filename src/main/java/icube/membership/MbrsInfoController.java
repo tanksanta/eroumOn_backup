@@ -104,6 +104,13 @@ public class MbrsInfoController extends CommonAbstractController{
 		if(!mbrSession.isLoginCheck()) {
 			return "redirect:/"+ plannerPath;
 		}
+		
+		if(!mbrSession.getJoinTy().equals("E")) {
+			session.setAttribute("infoStepChk", "EASYLOGIN");
+			session.setMaxInactiveInterval(60*60);
+			
+			return "redirect:/"+ membershipPath + "/mypage/form";
+		}
 
 		//암호화
 		RSA rsa = RSA.getEncKey();
@@ -334,6 +341,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			, Model model
 			, MbrVO mbrVO
 			)throws Exception {
+		
+		// 간편 회원 체크
+		if(!mbrSession.getJoinTy().equals("E")) {
+			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 변경을 이용하실 수 없습니다.");
+			return "/common/msg";
+		}
 
 		if(session.getAttribute("infoStepChk") == null) {
 			return "redirect:/"+ membershipPath +"/mypage/pswd";

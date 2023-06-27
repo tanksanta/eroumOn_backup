@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -49,12 +51,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	@Value("#{props['Naver.Profl.Url']}")
 	private String NaverProflUrl;
 
-	@Value("#{props['Naver.Dlvy.Url']}")
-	private String NaverDlvyUrl;
-
-	@Value("#{props['Naver.Token.Check']}")
-	private String NaverTokenCheck;
-
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -65,19 +61,26 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	 */
 	public String getUrl() throws Exception {
 		StringBuffer sb = new StringBuffer();
-		sb.append("https://nid.naver.com/oauth2.0/authorize?client_id=" + NaverClientId);
-		sb.append("&response_type=code&redirect_uri=" + NaverRedirectUrl);
+		sb.append("https://nid.naver.com/oauth2.0/authorize?response_type=code");
+		sb.append("&client_id=");
+		sb.append(NaverClientId);
+		sb.append("&redirect_uri=");
+		sb.append(NaverRedirectUrl);
+		sb.append("&state=");
+		sb.append(URLEncoder.encode("icube","UTF-8"));
+		
 		return sb.toString();
 	}
-
+	
+	
 	/**
 	 * 로그인 및 회원가입 처리
 	 * @param paramMap
 	 * @return result
 	 * @throws Exception
 	 */
-	public boolean mbrAction(Map<String, Object> paramMap) throws Exception {
-		boolean result = false;
+	public Integer mbrAction(Map<String, Object> paramMap) throws Exception {
+		int resultCnt = 0;
 
 		Map<String, Object> keyMap = this.getToken(paramMap);
 		Map<String, Object> resultMap = this.tokenCheck(keyMap);
@@ -86,33 +89,57 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			keyMap.put("accessToken", (String)resultMap.get("accessToken"));
 		}
 
-		MbrVO proflInfo = this.getMbrProfl(keyMap);
-
+		MbrVO proflInfo = getMbrProfl(keyMap);
+		
 		paramMap.clear();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
 		paramMap.put("srchBirth", format.format(proflInfo.getBrdt()));
-    	paramMap.put("srchMbrName", proflInfo.getMbrNm());
-		MbrVO mbrVO = mbrService.selectMbr(paramMap);
+		paramMap.put("srchMbrStts", "NORMAL");
+		
+		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
-		if(mbrVO != null) {
-			paramMap.clear();
-			paramMap.put("srchNaverAppId", (String)keyMap.get("refreshToken"));
-			paramMap.put("srchUniqueId", mbrVO.getUniqueId());
-			mbrSession.setParms(mbrVO, true);
-			result = true;
+		if(mbrList.size() < 1) {
+			mbrService.insertMbr(proflInfo);
+			
+			mbrSession.setParms(proflInfo, true);
+			
+			resultCnt = 1; // 회원가입
+		}else if(mbrList.size() > 1) {
+			resultCnt = 5; // 동일 정보 2건 이상
 		}else {
-			//MbrVO proflInfo = this.getMbrProfl(keyMap);
-
-			// 배송 정보 조회
-			// DlvyVO dlvyInfo = this.getMbrDlvy(keyMap);
-
-			//mbrService.insertMbr(proflInfo);
-			//mbrSession.setParms(proflInfo, true);
+			resultCnt = 3; // 로그인
+			
+			if(mbrList.get(0).getJoinTy().equals("E")) {
+				resultCnt = 4; // 이로움 회원가입
+			}else if(mbrList.get(0).getJoinTy().equals("K")) {
+				resultCnt = 2; // 카카오 회원 가입
+			}else {
+				Map<String, Object> drmtMap = new HashMap<String, Object>();
+				drmtMap.put("srchNaverAppId", mbrList.get(0).getNaverAppId());
+				drmtMap.put("srchMbrStts", "EXIT");
+				drmtMap.put("srchWhdwlDt", 7);
+				int drmtCnt = mbrService.selectMbrCount(paramMap);
+				
+				if(mbrList.get(0).getMberSttus().equals("BLACK")) {
+					resultCnt = 8;
+				}else if(mbrList.get(0).getMberSttus().equals("HUMAN")) {
+					resultCnt = 9;
+					mbrSession.setMbrId(mbrList.get(0).getMbrId());
+				}else if(mbrList.get(0).getMberSttus().equals("EXIT") && drmtCnt > 0) {
+					resultCnt = 10;
+				}else {
+					// 로그인
+					mbrSession.setParms(mbrList.get(0), true);
+					
+					if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
+						mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
+					}
+					
+				}
+			}
 		}
-		//TODO 요양정보 SET
-		//TODO 주소 처리 -> planner 리스트 로딩
-		return result;
+		return resultCnt;
 	}
 
 	/**
@@ -131,12 +158,13 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 			HttpURLConnection conn = this.getHeader(NaverTokenUrl, null);
 
-			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
 			paramMap.put("type", "getToken");
 			StringBuffer sb = this.setStr(paramMap);
+			
 			bufferedWriter.write(sb.toString());
 			bufferedWriter.flush();
-
+			
 			Map<String, Object> eleMap = this.getResponse(conn, paramMap);
 			JsonElement element = (JsonElement)eleMap.get("element");
 
@@ -144,6 +172,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
 			bufferedWriter.close();
+			
 
 			resultMap.put("accessToken", accessToken);
 			resultMap.put("refreshToken", refreshToken);
@@ -171,7 +200,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		String header = "Bearer " + accessToken;
 
 		try {
-			HttpURLConnection con = this.getHeader(NaverTokenCheck, header);
+			HttpURLConnection con = this.getHeader(NaverTokenUrl, header);
 			this.getResponse(con, keyMap);
 			result = true;
 		}catch(Exception e) {
@@ -213,6 +242,9 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		String type = (String) paramMap.get("type");
 		String code = (String) paramMap.get("code");
 		String state = (String) paramMap.get("state");
+		if(EgovStringUtil.isEmpty(state)) {
+			state = null;
+		}
 		String refreshToken = (String) paramMap.get("refreshToken");
 
 		StringBuffer sb = new StringBuffer();
@@ -221,8 +253,8 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		case"getToken":
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=" + NaverClientId);
-			sb.append("&client_secret=" + NaverClientSecret);
-			sb.append("&redirect_uri=" + NaverRedirectUrl);
+			sb.append("&client_secret=" + URLEncoder.encode(NaverClientSecret, "UTF-8"));
+			sb.append("&redirect_uri=" + URLEncoder.encode(NaverRedirectUrl, "UTF-8"));
 			sb.append("&code=" + code);
 			sb.append("&state=" + state);
 
@@ -247,7 +279,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	 * @throws Exception
 	 */
 	private Map<String, Object> getResponse(HttpURLConnection con, Map<String, Object> keyMap) throws Exception{
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 		StringBuilder result = new StringBuilder();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -304,7 +336,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		eleMap.put("refreshToken", refreshToken);
 
 		proflVO = this.setProflVO(eleMap);
-
+		
 		return proflVO;
 	}
 
@@ -323,8 +355,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
         if(resultCode.equals("00")) {
         	JsonElement mbrElement = element.getAsJsonObject().get("response");
         	JsonElement mbrInfo = JsonParser.parseString(mbrElement.toString());
-
-        	log.debug("@@@ 네이버  : " + mbrInfo);
 
         	String appId = mbrInfo.getAsJsonObject().get("id").getAsString();
         	String gender = mbrInfo.getAsJsonObject().get("gender").getAsString();
@@ -349,8 +379,9 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             proflVO.setMblTelno(phone);
             proflVO.setMbrNm(UnicodeUtil.codeToString(name));
             proflVO.setBrdt(birth);
+            proflVO.setJoinTy("N");
             proflVO.setNaverAppId(appId);
-            proflVO.setMbrId(email);
+            proflVO.setMbrId(appId+"@N");
 
             System.out.println(proflVO.toString());
 

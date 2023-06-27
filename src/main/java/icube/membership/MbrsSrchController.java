@@ -46,8 +46,11 @@ public class MbrsSrchController extends CommonAbstractController{
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
-	@Value("#{props['Globals.planner.path']}")
+	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Globals.Nonmember.session.key']}")
 	private String NONMEMBER_SESSION_KEY;
@@ -64,6 +67,12 @@ public class MbrsSrchController extends CommonAbstractController{
 			HttpServletRequest request
 			, Model model
 			)throws Exception {
+		
+		// 간편 회원 체크
+		if(!mbrSession.getJoinTy().equals("E")) {
+			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 찾기를 이용하실 수 없습니다.");
+			return "/common/msg";
+		}
 
 		return "/membership/info/srch_id";
 	}
@@ -158,9 +167,9 @@ public class MbrsSrchController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
-
+		
 		return "/membership/info/srch_pswd";
 	}
 
@@ -245,7 +254,7 @@ public class MbrsSrchController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
 
 		MbrVO mbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
