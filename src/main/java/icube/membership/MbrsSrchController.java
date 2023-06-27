@@ -67,12 +67,6 @@ public class MbrsSrchController extends CommonAbstractController{
 			HttpServletRequest request
 			, Model model
 			)throws Exception {
-		
-		// 간편 회원 체크
-		if(!mbrSession.getJoinTy().equals("E")) {
-			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 찾기를 이용하실 수 없습니다.");
-			return "/common/msg";
-		}
 
 		return "/membership/info/srch_id";
 	}
@@ -294,7 +288,7 @@ public class MbrsSrchController extends CommonAbstractController{
 			mbrService.updateFailedLoginCountReset(mbrVO);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
-			javaScript.setLocation("/"+membershipPath+"/login");
+			javaScript.setLocation("/"+ mainPath +"/login");
 		}
 
 		return new JavaScriptView(javaScript);

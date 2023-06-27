@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,10 +54,13 @@ public class MbrsNaverController extends CommonAbstractController{
 		javaScript.setLocation(getUrl);
 		return new JavaScriptView(javaScript);
 	}
+	
+	
 
 	@RequestMapping(value = "/auth")
 	public View auth(
 			HttpServletRequest request
+			, HttpSession session
 			, Model model
 			, @RequestParam(value = "code", required=true) String code
 			, @RequestParam(value = "state", required=false) String state
@@ -67,7 +71,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		paramMap.put("code", code);
 		paramMap.put("state", state);
 
-		int resultCnt = naverApiService.mbrAction(paramMap);
+		int resultCnt = naverApiService.mbrAction(paramMap, session);
 
 		if(resultCnt == 0) {// 오류
 			javaScript.setMessage(getMsg("fail.common.network"));

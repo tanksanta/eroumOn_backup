@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 	@RequestMapping(value = "/getToken")
 	public View getKakaoUserInfo(
 			HttpServletRequest request
+			, HttpSession session
 			, Model model
 			, @RequestParam(value="code", required=true) String code
 			)throws Exception {
@@ -69,7 +71,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int resultCnt = 0;
 
-		resultMap = kakaoApiService.mbrAction(code);
+		resultMap = kakaoApiService.mbrAction(code, session);
 		resultCnt = (Integer)resultMap.get("result");
 
 		if(resultCnt == 0) {// 오류

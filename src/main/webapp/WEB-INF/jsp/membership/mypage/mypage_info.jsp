@@ -59,7 +59,15 @@
                             <td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrNm}</p></td>
 						</tr>
 						<tr>
-							<th scope="row"><p>아이디</p></th>
+							<th scope="row">
+								<c:set var="joinTy">
+								<c:choose>
+									<c:when test="${_mbrSession.joinTy eq 'K'}">카카오</c:when>
+									<c:when test="${_mbrSession.joinTy eq 'N'}">네이버</c:when>
+								</c:choose>
+								</c:set>
+								<p>${joinTy} 아이디</p>
+							</th>
 							<td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrId}</p></td>
 						</tr>
 						<tr>

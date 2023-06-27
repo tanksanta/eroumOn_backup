@@ -2,7 +2,7 @@
 
     <header id="header">
         <div class="container">
-	        <h1 class="global-logo is-style2"><a href="${_marketPath}"><span>마켓</span></a></h1>
+	        <h1 class="global-logo is-style2"><a href="${_mainPath}"><span>마켓</span></a></h1>
 	        <ul class="header-menu">
 	        	<c:if test="${!_mbrSession.loginCheck}">
 	            <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>

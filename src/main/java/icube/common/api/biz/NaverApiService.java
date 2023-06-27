@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.UnicodeUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.market.mbr.biz.MbrSession;
 
 
@@ -79,7 +81,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public Integer mbrAction(Map<String, Object> paramMap) throws Exception {
+	public Integer mbrAction(Map<String, Object> paramMap, HttpSession session) throws Exception {
 		int resultCnt = 0;
 
 		Map<String, Object> keyMap = this.getToken(paramMap);
@@ -134,7 +136,17 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 					
 					if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 						mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
+					}else {
+						RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+						recipterInfoVO.setUniqueId(mbrList.get(0).getUniqueId());
+						recipterInfoVO.setMbrId(mbrList.get(0).getMbrId());
+						recipterInfoVO.setMbrNm(mbrList.get(0).getMbrNm());
+						recipterInfoVO.setProflImg(mbrList.get(0).getProflImg());
+						recipterInfoVO.setMberSttus(mbrList.get(0).getMberSttus());
+						recipterInfoVO.setMberGrade(mbrList.get(0).getMberGrade());
+						mbrSession.setPrtcrRecipter(recipterInfoVO, mbrList.get(0).getRecipterYn(), 0);
 					}
+					mbrSession.setMbrInfo(session, mbrSession);
 					
 				}
 			}

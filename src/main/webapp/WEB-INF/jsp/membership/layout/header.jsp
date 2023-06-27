@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
+                    <a href="${_mainPath}" class="link-item2" target="_blank" title="새창열림">
                         <div class="bubble">
                             <strong>이로움ON 멤버스</strong>
                             <small>전국 1,600개 업체와 함께합니다</small>

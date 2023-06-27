@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import com.google.gson.JsonParser;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.market.mypage.info.biz.DlvyService;
 import icube.market.mypage.info.biz.DlvyVO;
@@ -95,10 +97,10 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public Map<String, Object> mbrAction(String code) throws Exception {
+	public Map<String, Object> mbrAction(String code, HttpSession session) throws Exception {
 		int result = 0;
 
-		result = getToken(code);
+		result = getToken(code, session);
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
@@ -111,7 +113,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public Integer getToken(String code) throws Exception {
+	public Integer getToken(String code, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		String accessToken = "";
@@ -155,7 +157,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			resultMap.put("accessToken", accessToken);
 			resultMap.put("refreshToken", refreshToken);
 		}
-			return getUserInfo(resultMap);
+			return getUserInfo(resultMap, session);
 	}
 
 	/**
@@ -164,7 +166,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public Integer getUserInfo(Map<String, Object> keyMap) throws Exception {
+	public Integer getUserInfo(Map<String, Object> keyMap, HttpSession session) throws Exception {
 
 		String accessToken = (String) keyMap.get("accessToken");
 
@@ -187,7 +189,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         jsonObj.addProperty("accessToken", accessToken);
         element = JsonParser.parseString(jsonObj.toString());
         
-        return setUserInfo(element);
+        return setUserInfo(element, session);
 	}
 
 	/**
@@ -196,14 +198,12 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	private Integer setUserInfo(JsonElement element) throws Exception {
+	private Integer setUserInfo(JsonElement element, HttpSession session) throws Exception {
 		MbrVO mbrVO = new MbrVO();
 		mbrVO.setKakaoAccessToken(element.getAsJsonObject().get("accessToken").getAsString());
 
 		JsonElement info = element.getAsJsonObject().get("kakao_account");
 		
-		log.debug("@@@@@@@@ : " + info.toString());
-
 		boolean genderFlag = info.getAsJsonObject().get("has_gender").getAsBoolean();
 		boolean emailFlag = info.getAsJsonObject().get("has_email").getAsBoolean();
 		boolean birthDayFlag = info.getAsJsonObject().get("has_birthday").getAsBoolean();
@@ -291,7 +291,17 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 							
 							if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 								mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
+							}else {
+								RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+								recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
+								recipterInfoVO.setMbrId(mbrVO.getMbrId());
+								recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
+								recipterInfoVO.setProflImg(mbrVO.getProflImg());
+								recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
+								recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
+								mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
 							}
+							mbrSession.setMbrInfo(session, mbrSession);
 							mbrTy = 2;
 						}
 						

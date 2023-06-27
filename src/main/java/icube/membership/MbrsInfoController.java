@@ -65,11 +65,11 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
-	@Value("#{props['Globals.Planner.path']}")
-	private String plannerPath;
-
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Globals.Nonmember.session.key']}")
 	private String NONMEMBER_SESSION_KEY;
@@ -102,7 +102,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			)throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
-			return "redirect:/"+ plannerPath;
+			return "redirect:/"+ mainPath;
 		}
 		
 		if(!mbrSession.getJoinTy().equals("E")) {
@@ -316,7 +316,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
-				javaScript.setLocation("/"+ plannerPath + "/index");
+				javaScript.setLocation("/"+ mainPath + "/index");
 			}
 
 		}catch(Exception e) {
@@ -391,7 +391,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
-				javaScript.setLocation("/" + plannerPath + "/index");
+				javaScript.setLocation("/" + mainPath + "/index");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

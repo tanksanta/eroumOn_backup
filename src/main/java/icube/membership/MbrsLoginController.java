@@ -96,10 +96,12 @@ public class MbrsLoginController extends CommonAbstractController  {
 		}
 
 		String returnUrl = request.getHeader("REFERER");
-		if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
-			returnUrl = "/" + mainPath;
+		if(EgovStringUtil.isNotEmpty(returnUrl)) {
+			if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
+				returnUrl = "/" + mainPath;
+			}
 		}
-
+		
 		model.addAttribute("returnUrl", returnUrl);
 
 
@@ -203,7 +205,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 									if (EgovStringUtil.isNotEmpty(returnUrl)) {
 										javaScript.setLocation(returnUrl);
 									} else {
-										javaScript.setLocation("/" + plannerPath);
+										javaScript.setLocation("/" + mainPath);
 									}
 								}
 

@@ -50,7 +50,8 @@
             <select name="" class="form-control">
                 <option value="">금천구</option>
             </select>
-            <button type="submit" class="btn">바로 확인</button>
+            <!-- <button type="submit" class="btn">바로 확인</button> -->
+            <a class="btn" href="${_mainPath}/searchBokji">바로 확인</a>
         </form>
     </div>
 </div>
