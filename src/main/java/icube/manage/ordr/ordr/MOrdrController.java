@@ -1091,7 +1091,7 @@ public class MOrdrController extends CommonAbstractController {
 		ordrDtlVO.setRfndBank(rRfndBank);
 		ordrDtlVO.setRfndActno(rfndActno);
 		ordrDtlVO.setRfndDpstr(rfndDpstr);
-		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO);
+		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO, ordrDtlNos);
 
 		if(resultCnt == 1){
 			result = true;
