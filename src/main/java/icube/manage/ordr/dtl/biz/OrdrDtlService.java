@@ -435,218 +435,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public int updateOrdrCA02(OrdrDtlVO ordrDtlVO) throws Exception {
-		int result = 0;
-		try {
-			log.debug("STEP.1 : 전체 주문상태 호출");
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
-
-			int asisStlmAmt = ordrVO.getStlmAmt(); //이전 결제금액
-
-			Map<String, Object> rfndMap = new HashMap<String, Object>();
-			String resn = "";
-
-			log.debug("STEP.2 : 주문취소 금액 계산 START >> "+ ordrVO.getStlmTy());
-
-			int totalOrdrPc = 0; //전체 상품 주문금액
-			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 취소금액 계산
-				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc() + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt(); // 배송비++
-			}
-
-			int cancelOrdrPc = 0;
-			boolean partFlag = false;
-			if(asisStlmAmt < totalOrdrPc) { // 결제금액 < 상품별 주문금액(합) = 할인(쿠폰,마일리지,포인트) 취소 필요
-				cancelOrdrPc = asisStlmAmt;
-			}else if(asisStlmAmt > totalOrdrPc) { // 결제금액 > 취소금액 = 부분취소
-				cancelOrdrPc = totalOrdrPc;
-				partFlag = true;
-			}else if(asisStlmAmt == totalOrdrPc) { // 취소금액 = 결제금액이 같으면 전체 취소
-				cancelOrdrPc = asisStlmAmt;
-			}
-
-			log.debug("STEP.3 : 주문결제 상태 확인 START >> " + ordrVO.getStlmTy() + "/" + ordrVO.getStlmYn());
-			boolean rfndAction = false;
-			if(("CARD".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
-					|| ("BANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
-					|| ("VBANK".equals(ordrVO.getStlmTy()) && "N".equals(ordrVO.getStlmYn()))){ // (카드/계좌이체) 결제완료 상태 or 가상계좌 발급(결제x) 상태
-
-				log.debug("STEP.3-1 : PG취소 START >> 금액 : " + totalOrdrPc);
-				try {
-					HashMap<String, Object> res = bootpayApiService.receiptCancel(ordrVO.getDelngNo(), ordrDtlVO.getRgtr(), (double) cancelOrdrPc);
-
-				    if(res.get("error_code") == null) { //success
-				        log.debug("receiptCancel success: " + res);
-				        rfndAction = true;
-				    } else {
-				        log.debug("receiptCancel false: " + res);
-
-				        //기존 취소거래 일수 있음
-				        if("기 취소 거래".equals(res.get("message"))) {
-				        	rfndAction = true;
-				        }
-				    }
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-
-				log.debug("STEP.3-1 : PG취소 END");
-
-			} else if("VBANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn())){ // 가상계좌 결제o 상태 -> CMS특약이 있어야 취소 가능
-				log.debug("STEP.3-2 : 가상계좌 결제 취소 START");
-				rfndAction = true;
-				log.debug("STEP.3-2 : 가상계좌 결제 취소 END");
-			} else {
-				log.debug("STEP.3-2 : 결제 전 취소 START");
-				rfndAction = true;
-				log.debug("STEP.3-2 : 결제 전 취소 END");
-			}
-
-
-			if(rfndAction) { //취소가 정상적으로 된경우
-				if(asisStlmAmt > 0) { //결제 취소
-					log.debug("STEP.3-3 : 주문상태 > 전체 결제금액 조정");
-
-					int stlmAmt = asisStlmAmt - cancelOrdrPc; //전체금액 - 주문금액
-
-					ordrVO.setStlmAmt(stlmAmt);
-					ordrService.updateStlmAmt(ordrVO);
-				}
-				//rfndMap.put("rfndYn", "Y"); //즉시 환불완료 >> PG연동 RE03에 포함
-
-				log.debug("STEP.3-4 : 주문상태 상세정보 loop > 환불정보 업데이트");
-
-				for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 주문상세 처리
-					OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-
-					rfndMap.put("ordrNo", ordrDtlVO.getOrdrNo());
-					rfndMap.put("ordrDtlNo", oldOrdrDtlVO.getOrdrDtlNo());
-					rfndMap.put("rfndBank", oldOrdrDtlVO.getRfndBank());
-					rfndMap.put("rfndActno", oldOrdrDtlVO.getRfndActno());
-					rfndMap.put("rfndDpstr", oldOrdrDtlVO.getRfndDpstr());
-
-					// 전체 취소 판별
-					// 주문취소는 배송전 이니 배송비를 차감하지 않음
-					if(partFlag) {
-						rfndMap.put("rfndAmt", cancelOrdrPc - oldOrdrDtlVO.getCouponAmt());
-					}else {
-						rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc() + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt() - oldOrdrDtlVO.getCouponAmt() - ordrVO.getUseMlg() - ordrVO.getUsePoint());
-					}
-
-					rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
-					rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
-					rfndMap.put("mdfr", ordrDtlVO.getRgtr());
-					ordrDtlDAO.updateOrdrDtlRfndInfo(rfndMap);
-
-
-					log.debug("STEP.3-5 : 상품 재고 업데이트 START");
-					Map<String, Object> stockQyPlus = new HashMap<String, Object>();
-					if(EgovStringUtil.isNotEmpty(oldOrdrDtlVO.getOrdrOptn())){
-						log.debug("STEP.3-5-1 : 옵션 있음");
-						stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
-						stockQyPlus.put("optnNm", oldOrdrDtlVO.getOrdrOptn());
-						stockQyPlus.put("optnStockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
-						gdsOptnService.updateGdsOptnStockQy(stockQyPlus);
-					}else {
-						log.debug("STEP.3-5-1 : 옵션 없음");
-						stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
-						stockQyPlus.put("stockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
-						gdsService.updateGdsStockQy(stockQyPlus);
-					}
-					log.debug("STEP.3-5 : 상품 재고 업데이트 END");
-
-
-					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 START : " + ordrDtlVO.getSttsTy());
-					if(EgovStringUtil.isNotEmpty(ordrVO.getStlmTy())) {
-						resn = "\n주문취소:["+ CodeMap.BASS_STLM_TY.get(ordrVO.getStlmTy()) +":"+ cancelOrdrPc +"원]";
-					}
-
-					OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
-					chgHistVO.setOrdrNo(oldOrdrDtlVO.getOrdrNo());
-					chgHistVO.setOrdrDtlNo(oldOrdrDtlVO.getOrdrDtlNo());
-					chgHistVO.setChgStts(ordrDtlVO.getSttsTy());
-					chgHistVO.setResnTy(ordrDtlVO.getResnTy());
-					chgHistVO.setResn(ordrDtlVO.getResn().concat(resn));
-
-					chgHistVO.setRegUniqueId(ordrDtlVO.getRegUniqueId());
-					chgHistVO.setRegId(ordrDtlVO.getRegId());
-					chgHistVO.setRgtr(ordrDtlVO.getRgtr());
-
-					log.debug("chgHistVO: " + chgHistVO.toString());
-					ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
-					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 END");
-
-
-					log.debug("STEP.3-7 : 적립마일리지 취소 START" + ordrDtlVO.getAccmlMlg());
-
-					if(asisStlmAmt > 0 && ordrDtlVO.getAccmlMlg() > 0 ) { //결제금액이 있을경우 적립취소, 결제금액이 없으면 결제전 취소
-						// 적립마일리지 취소
-						MbrMlgVO mbrMlgVO = new MbrMlgVO();
-						mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
-						mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
-						mbrMlgVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-						mbrMlgVO.setMlgSe("M"); // 차감
-						mbrMlgVO.setMlgCn("12"); // 상품 취소
-						mbrMlgVO.setGiveMthd("SYS");
-						mbrMlgVO.setMlg(ordrDtlVO.getAccmlMlg() * -1);
-
-						mbrMlgService.insertMbrMlg(mbrMlgVO);
-					}
-					log.debug("STEP.3-7 : 적립마일리지 취소 기록 END");
-				}
-
-				log.debug("STEP.4 : 주문상태 변경(취소완료 or 반품완료) START");
-				ordrDtlDAO.updateOrdrStts(ordrDtlVO);
-				log.debug("STEP.4 : 주문결제 상태 확인 END");
-
-				log.debug("STEP.5 : 마일리지, 포인트 환원 START");
-				// 상품이 주문의 마지막 판별을 위하여 STEP4와 순서를 바꿈.
-
-
-				// 주문건의 마지막 건수 일때 포인트, 마일리지 환급
-				if(ordrVO.getStlmAmt() == 0) {
-
-					// 포인트
-					int usePoint = ordrVO.getUsePoint();
-
-					if(usePoint > 0) {
-						MbrPointVO mbrPointVO = new MbrPointVO();
-						mbrPointVO.setPointMngNo(0);
-						mbrPointVO.setUniqueId(ordrVO.getUniqueId());
-						mbrPointVO.setPointSe("A");
-						mbrPointVO.setPointCn("33");
-						mbrPointVO.setPoint(usePoint);
-						mbrPointVO.setRgtr("System");
-						mbrPointVO.setGiveMthd("SYS");
-
-						mbrPointService.insertMbrPoint(mbrPointVO);
-					}
-
-					// 마일리지
-					int useMlg = ordrVO.getUseMlg();
-
-					if(useMlg > 0) {
-						MbrMlgVO mbrMlgVO = new MbrMlgVO();
-						mbrMlgVO.setMlgMngNo(0);
-						mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
-						mbrMlgVO.setMlgSe("A");
-						mbrMlgVO.setMlgCn("33");
-						mbrMlgVO.setMlg(useMlg);
-						mbrMlgVO.setGiveMthd("SYS");
-						mbrMlgVO.setRgtr("System");
-
-						mbrMlgService.insertMbrMlg(mbrMlgVO);
-					}
-
-				}
-				log.debug("STEP.5 : 마일리지, 포인트 환원 END");
-			}
-
-			result = 1;
-		} catch (Exception e) {
-			log.debug("FAIL : 상태변경 실패 [" + e.getMessage() + "]");
-		}
-
-		return result;
+		return CancelOrdrDtl(ordrDtlVO);
 	}
 
 	/**
@@ -857,228 +646,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public int updateOrdrRE03(OrdrDtlVO ordrDtlVO) throws Exception {
-		int result = 0;
-		try {
-			log.debug("STEP.1 : 전체 주문상태 호출");
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
-			Map<String, Object> rfndMap = new HashMap<String, Object>();
-			String resn = "";
-
-			log.debug("STEP.2 : 주문취소 금액 계산 START >> "+ ordrVO.getStlmTy());
-			int totalOrdrPc = 0; //전체 결제금액
-			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 취소금액 계산
-				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-				totalOrdrPc  += oldOrdrDtlVO.getOrdrPc(); // 환불금액 > 배송비를 어떻게 할건지? + oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt()
-			}
-
-			int cancelOrdrPc = 0;
-			if(ordrVO.getStlmAmt() < totalOrdrPc) { // 결제금액 < 상품별 주문금액(합) = 할인(쿠폰,마일리지,포인트) 취소 필요
-				cancelOrdrPc = ordrVO.getStlmAmt();
-			}else if(ordrVO.getStlmAmt() > totalOrdrPc) { // 결제금액 > 취소금액 = 부분취소
-				cancelOrdrPc = totalOrdrPc;
-			}else if(ordrVO.getStlmAmt() == totalOrdrPc) { // 취소금액 = 결제금액이 같으면 전체 취소
-				cancelOrdrPc = ordrVO.getStlmAmt();
-			}
-			
-			log.debug("STEP.3 : 주문결제 상태 확인 START >> " + ordrVO.getStlmTy() + "/" + ordrVO.getStlmYn());
-			boolean rfndAction = false;
-			//if("Y".equals(ordrVO.getStlmYn()) || "VBANK".equals(ordrVO.getStlmTy())){ // 결제완료 상태 or 가상계좌 발급 상태
-			//if("Y".equals(ordrVO.getStlmYn()) || ("VBANK".equals(ordrVO.getStlmTy()) && "N".equals(ordrVO.getStlmYn()))){ // (카드/계좌이체) 결제완료 상태 or 가상계좌 발급(결제x) 상태
-			if(("CARD".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
-					|| ("BANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
-					|| ("VBANK".equals(ordrVO.getStlmTy()) && "N".equals(ordrVO.getStlmYn()))){ // (카드/계좌이체) 결제완료 상태 or 가상계좌 발급(결제x) 상태
-
-				log.debug("STEP.3-1 : PG취소 START >> 금액 : " + totalOrdrPc);
-				try {
-
-					HashMap<String, Object> res = bootpayApiService.receiptCancel(ordrVO.getDelngNo(), ordrDtlVO.getRgtr(), (double) cancelOrdrPc);
-
-				    if(res.get("error_code") == null) { //success
-				        log.debug("receiptCancel success: " + res);
-				        rfndAction = true;
-
-				    } else {
-				        log.debug("receiptCancel false: " + res);
-				        //기존 취소거래 일수 있음
-				        if("기 취소 거래".equals(res.get("message"))) {
-				        	rfndAction = true;
-				        } else if ("RC_ALREADY_CANCELLED".equals(res.get("error_code"))) {
-				        	rfndAction = true;
-				        }
-				    }
-				    
-				    // PG 취소 후 남은 취소 금액은 point or mlg로 반환받음
-				    cancelOrdrPc = totalOrdrPc - cancelOrdrPc;
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-
-				log.debug("STEP.3-1 : PG취소 END");
-
-			} else if("VBANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn())){ // 가상계좌 결제o 상태 -> CMS특약이 있어야 취소 가능
-				log.debug("STEP.3-2 : 가상계좌 결제 취소 START");
-				rfndAction = true;
-				log.debug("STEP.3-2 : 가상계좌 결제 취소 END");
-
-			} else if("FREE".equals(ordrVO.getStlmTy())) { //마일리지 & 포인트로만 결제하는 경우 FREE로 생성되며 취소처리 하여야 함
-				cancelOrdrPc = totalOrdrPc;
-				rfndAction = true;
-			} else {
-				log.debug("STEP.3-2 : 결제 전 취소 없음");
-			}
-
-
-			if(rfndAction) { //취소가 정상적으로 된경우
-				log.debug("STEP.3-3 : 주문상태 > 전체 결제금액 조정");
-				if (!"FREE".equals(ordrVO.getStlmTy())) { //FREE 인 경우는 결제금액을 변경하지 않음
-					int stlmAmt = ordrVO.getStlmAmt() - totalOrdrPc; //전체금액 - 주문금액
-					if (stlmAmt < 0) { // 마일리지 또는 포인트가 포함된 경우 결제금액이 마이너스가 될 수 있음
-						stlmAmt = 0;
-					}
-					ordrVO.setStlmAmt(stlmAmt);
-					ordrService.updateStlmAmt(ordrVO);
-				}
-				rfndMap.put("rfndYn", "Y"); //즉시 환불완료
-
-				log.debug("STEP.3-4 : 주문상태 상세정보 loop > 환불정보 업데이트");
-				for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 주문상세 처리
-					OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno));//주문취소는 N건
-
-					rfndMap.put("ordrNo", ordrDtlVO.getOrdrNo());
-					rfndMap.put("ordrDtlNo", oldOrdrDtlVO.getOrdrDtlNo());
-					rfndMap.put("rfndBank", oldOrdrDtlVO.getRfndBank());
-					rfndMap.put("rfndActno", oldOrdrDtlVO.getRfndActno());
-					rfndMap.put("rfndDpstr", oldOrdrDtlVO.getRfndDpstr());
-					rfndMap.put("rfndAmt", oldOrdrDtlVO.getOrdrPc()); // 반품완료 > 배송비를 차감?? (니탓 내탓)
-
-					rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
-					rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
-					rfndMap.put("mdfr", ordrDtlVO.getRgtr());
-					ordrDtlDAO.updateOrdrDtlRfndInfo(rfndMap);
-
-
-					log.debug("STEP.3-5 : 상품 재고 업데이트 START");
-
-					Map<String, Object> stockQyPlus = new HashMap<String, Object>();
-					if(EgovStringUtil.isNotEmpty(oldOrdrDtlVO.getOrdrOptn())){
-						log.debug("STEP.3-5-1 : 옵션 있음");
-						stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
-						stockQyPlus.put("optnNm", oldOrdrDtlVO.getOrdrOptn());
-						stockQyPlus.put("optnStockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
-						gdsOptnService.updateGdsOptnStockQy(stockQyPlus);
-					}else {
-						log.debug("STEP.3-5-1 : 옵션 없음");
-						stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
-						stockQyPlus.put("stockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
-						gdsService.updateGdsStockQy(stockQyPlus);
-					}
-
-
-					log.debug("STEP.3-5 : 상품 재고 업데이트 END");
-
-
-					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 START : " + ordrDtlVO.getSttsTy());
-					if(ordrVO.getStlmTy().equals("CARD")) {
-						resn = "\n반품완료 : [신용카드 승인 취소]";
-					} else if (ordrVO.getStlmTy().equals("FREE")) {
-						resn = "\n반품완료 : [마일리지, 포인트 결제 취소]";
-					} else {
-						resn = "\n반품완료 : [계좌이체(" +ordrDtlVO.getRfndBank() +" : "+ ordrDtlVO.getRfndActno()+") : "+ totalOrdrPc +"원]";
-					}
-
-					OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
-					chgHistVO.setOrdrNo(oldOrdrDtlVO.getOrdrNo());
-					chgHistVO.setOrdrDtlNo(oldOrdrDtlVO.getOrdrDtlNo());
-					chgHistVO.setChgStts(ordrDtlVO.getSttsTy());
-					chgHistVO.setResnTy(ordrDtlVO.getResnTy());
-					chgHistVO.setResn(ordrDtlVO.getResn().concat(resn));
-
-					chgHistVO.setRegUniqueId(ordrDtlVO.getRegUniqueId());
-					chgHistVO.setRegId(ordrDtlVO.getRegId());
-					chgHistVO.setRgtr(ordrDtlVO.getRgtr());
-
-					log.debug("chgHistVO: " + chgHistVO.toString());
-					ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
-					log.debug("STEP.3-6 : 주문상태 변경 내역 기록 END");
-				}
-
-				log.debug("STEP.4 : 주문상태 변경(반품완료) START");
-				ordrDtlDAO.updateOrdrStts(ordrDtlVO);
-				log.debug("STEP.4 : 주문결제 상태 확인 END");
-
-				log.debug("STEP.5 : 마일리지, 포인트 환원 START");
-				// 상품이 주문의 마지막 판별을 위하여 STEP4와 순서를 바꿈.
-
-
-				int asisStlmAmt = ordrVO.getStlmAmt(); //이전 결제금액
-
-				//Map<String, Object> paramMap = new HashMap<String, Object>();
-				//paramMap.put("ordrOptnTy", "BASE");
-				//paramMap.put("ordrCd", ordrVO.getOrdrCd());
-				//paramMap.put("sttsTy", "CA02");
-				// RE03은 고려하지도 않고 있어서 제대로 동작하지 않음
-				//int lastObj = this.selectLastReturn(paramMap);
-
-				//반환해야할 취소 금액이 있는 경우
-				if(cancelOrdrPc > 0) {
-					if(ordrVO.getUseMlg() > 0 && asisStlmAmt == cancelOrdrPc) { // 사용 마일리지 > 0 && 전체 금액 > 전체 마일리지 환원
-						MbrMlgVO mbrMlgVO = new MbrMlgVO();
-						mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
-						mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
-						mbrMlgVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-						mbrMlgVO.setMlgSe("A"); // 적립
-						mbrMlgVO.setMlgCn("33"); // 상품 취소
-						mbrMlgVO.setGiveMthd("SYS");
-						mbrMlgVO.setMlg(ordrVO.getUseMlg()); //전체 마일리지 다시 적립
-						log.debug("mlg: " + mbrMlgVO.toString());
-
-						mbrMlgService.insertMbrMlg(mbrMlgVO);
-					}else if(ordrVO.getUseMlg() > 0 && ordrVO.getUseMlg() > (asisStlmAmt - cancelOrdrPc)) { // 사용 마일리지 > 0 && 취소후 잔여 금액이 사용한 마일리지보다 작을경우
-						MbrMlgVO mbrMlgVO = new MbrMlgVO();
-						mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
-						mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
-						mbrMlgVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-						mbrMlgVO.setMlgSe("A"); // 적립
-						mbrMlgVO.setMlgCn("33"); // 상품 취소
-						mbrMlgVO.setGiveMthd("SYS");
-						mbrMlgVO.setMlg(cancelOrdrPc); // 사용한 마일리지에서 취소된 금액만큼 다시 적립
-						log.debug("mlg: " + mbrMlgVO.toString());
-
-						mbrMlgService.insertMbrMlg(mbrMlgVO);
-					}
-
-					if(ordrVO.getUsePoint() > 0 && asisStlmAmt == cancelOrdrPc) { // 사용 포인트 > 0 && 전체 금액 > 전체 포인트 환원
-						MbrPointVO mbrPointVO = new MbrPointVO();
-						mbrPointVO.setUniqueId(ordrVO.getUniqueId());
-						mbrPointVO.setOrdrCd(ordrVO.getOrdrCd());
-						mbrPointVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-						mbrPointVO.setPointSe("A"); // 적립
-						mbrPointVO.setPointCn("33"); // 상품 취소
-						mbrPointVO.setGiveMthd("SYS");
-						mbrPointVO.setPoint(ordrVO.getUsePoint()); //전체 포인트 다시 적립
-
-						mbrPointService.insertMbrPoint(mbrPointVO);
-					}else if(ordrVO.getUsePoint() > 0 && ordrVO.getUsePoint() > (asisStlmAmt - cancelOrdrPc)) { // 사용 포인트 > 0 && 취소후 잔여 금액이 사용한 포인트보다 작을경우
-						MbrPointVO mbrPointVO = new MbrPointVO();
-						mbrPointVO.setUniqueId(ordrVO.getUniqueId());
-						mbrPointVO.setOrdrCd(ordrVO.getOrdrCd());
-						mbrPointVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-						mbrPointVO.setPointSe("A"); // 적립
-						mbrPointVO.setPointCn("33"); // 상품 취소
-						mbrPointVO.setGiveMthd("SYS");
-						mbrPointVO.setPoint(cancelOrdrPc); // 사용한 마일리지에서 취소된 금액만큼 다시 적립
-
-						mbrPointService.insertMbrPoint(mbrPointVO);
-					}
-				}
-				log.debug("STEP.5 : 마일리지, 포인트 환원 END");
-			}
-
-			result = 1;
-		} catch (Exception e) {
-			log.debug("FAIL : 상태변경 실패 [" + e.getMessage() + "]");
-		}
-		return result;
+		return CancelOrdrDtl(ordrDtlVO);
 	}
 
 
@@ -1332,4 +900,286 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 	}
 
+	/**
+	 * 주문취소, 반품완료 시 사용(결제 취소 및 결제 이전 상황으로 복원)
+	 * @param ordrDtlVO
+	 */
+	private int CancelOrdrDtl(OrdrDtlVO ordrDtlVO) {
+		int result = 0;
+		try {
+			log.debug("STEP.1 : 전체 주문상태 호출");
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
+			int asisStlmAmt = ordrVO.getStlmAmt(); //이전 결제금액
+
+			
+			log.debug("STEP.2 : 주문취소 금액 계산 START >> "+ ordrVO.getStlmTy());
+
+			int totalOrdrPc = 0; //환불 받을 전체 상품 주문금액
+			int totalDlvyPc = 0; //환불 받을 전체 배송비
+			
+			// 취소금액 계산
+			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { 
+				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno)); //주문취소는 N건
+				totalOrdrPc += oldOrdrDtlVO.getOrdrPc();
+				
+				//결제완료, 배송준비중은 배송비 환불 (배솧비는 배송중 이후에는 환불 받을 수 없다.)
+				if ("OR05".equals(oldOrdrDtlVO.getSttsTy()) || "OR06".equals(oldOrdrDtlVO.getSttsTy())) {
+					totalDlvyPc += oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt();
+				}
+			}
+			
+			
+			//전체 환불 금액(상품 가격 + 배송비)
+			int totalCancelPc = totalOrdrPc + totalDlvyPc;
+			//pg사 취소 요청 금액
+			int requestCancelPriceForPG = 0;
+			//pg사 취소 후 남은 환불 금액
+			int remindCancelPc = 0;
+			if(asisStlmAmt >= totalCancelPc) {  // 결제금액이 취소할 금액보다 많거나 같은 경우는 전체 금액 PG사 취소 요청
+				requestCancelPriceForPG = totalCancelPc;
+			} else { // 결재금액이 취소할 금액보다 적은 경우 결재금액 만큼만 PG사 취소 요청
+				requestCancelPriceForPG = asisStlmAmt;
+				remindCancelPc = totalCancelPc - requestCancelPriceForPG;
+			}
+			
+			
+
+			log.debug("STEP.3 : 주문결제 상태 확인 START >> " + ordrVO.getStlmTy() + "/" + ordrVO.getStlmYn());
+			boolean rfndAction = false;
+			
+			//PG에 취소 요청할 필요가 없는 경우(전부 마일리지 or 포인트 결제인 경우)
+			if (requestCancelPriceForPG == 0) {
+				log.debug("PG사에 취소할 결제금액이 없음");
+			} else if(("CARD".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
+					|| ("BANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn()))
+					|| ("VBANK".equals(ordrVO.getStlmTy()) && "N".equals(ordrVO.getStlmYn()))){ // (카드/계좌이체) 결제완료 상태 or 가상계좌 발급(결제x) 상태
+
+				log.debug("STEP.3-1 : PG취소 START >> 금액 : " + totalOrdrPc);
+				try {
+					HashMap<String, Object> res = bootpayApiService.receiptCancel(ordrVO.getDelngNo(), ordrDtlVO.getRgtr(), (double) requestCancelPriceForPG);
+
+				    if(res.get("error_code") == null) { //success
+				        log.debug("receiptCancel success: " + res);
+				        rfndAction = true;
+				    } else {
+				        log.debug("receiptCancel false: " + res);
+
+				        //기존 취소거래 일수 있음
+				        if("기 취소 거래".equals(res.get("message"))) {
+				        	rfndAction = true;
+				        }
+				    }
+				} catch (Exception e) {
+				    log.error("====PG사 결제 취소 오류====", e);
+				}
+
+				log.debug("STEP.3-1 : PG취소 END");
+
+			} else if("VBANK".equals(ordrVO.getStlmTy()) && "Y".equals(ordrVO.getStlmYn())){ // 가상계좌 결제o 상태 -> CMS특약이 있어야 취소 가능
+				log.debug("STEP.3-2 : 가상계좌 결제 취소 START");
+				rfndAction = true;
+				log.debug("STEP.3-2 : 가상계좌 결제 취소 END");
+			} else {
+				log.debug("STEP.3-2 : 결제 취소 없음");
+			}
+
+			
+			//결제 취소가 된 경우 결제금액을 차감
+			if(rfndAction && asisStlmAmt > 0) {
+				log.debug("STEP.3-3 : 주문상태 > 전체 결제금액 조정");
+				
+				int stlmAmt = asisStlmAmt - requestCancelPriceForPG; //전체결제금액 - PG사 취소 금액
+				ordrVO.setStlmAmt(stlmAmt);
+				ordrService.updateStlmAmt(ordrVO);
+			}
+			
+				
+			log.debug("STEP.3-4 : 주문상태 상세정보 loop > 환불정보 업데이트");
+
+			for(String dtlno : ordrDtlVO.getOrdrDtlNos()) { // 주문상세 처리
+				OrdrDtlVO oldOrdrDtlVO = this.selectOrdrDtl(EgovStringUtil.string2integer(dtlno)); //주문취소는 N건
+
+				Map<String, Object> rfndMap = new HashMap<String, Object>();
+				String resn = "";
+				
+				rfndMap.put("ordrNo", ordrDtlVO.getOrdrNo());
+				rfndMap.put("ordrDtlNo", oldOrdrDtlVO.getOrdrDtlNo());
+				rfndMap.put("rfndBank", oldOrdrDtlVO.getRfndBank());
+				rfndMap.put("rfndActno", oldOrdrDtlVO.getRfndActno());
+				rfndMap.put("rfndDpstr", oldOrdrDtlVO.getRfndDpstr());
+				rfndMap.put("rfndYn", "Y");
+
+				
+				int totalRfndAmt = oldOrdrDtlVO.getOrdrPc();
+				//결제완료, 배송준비중은 배송비까지 환불 금액에 추가
+				if ("OR05".equals(oldOrdrDtlVO.getSttsTy()) || "OR06".equals(oldOrdrDtlVO.getSttsTy())) {
+					totalRfndAmt += oldOrdrDtlVO.getDlvyBassAmt() + oldOrdrDtlVO.getDlvyAditAmt();
+				}
+				
+				//각 상품별 PG사 환불금액 입력
+				if (requestCancelPriceForPG >= totalRfndAmt) {
+					rfndMap.put("rfndAmt", totalRfndAmt);
+					requestCancelPriceForPG -= totalRfndAmt;
+				} else {
+					rfndMap.put("rfndAmt", requestCancelPriceForPG);
+					requestCancelPriceForPG = 0;
+				}
+				
+				rfndMap.put("mdfcnUniqueId", ordrDtlVO.getRegUniqueId());
+				rfndMap.put("mdfcn_id", ordrDtlVO.getRegId());
+				rfndMap.put("mdfr", ordrDtlVO.getRgtr());
+				ordrDtlDAO.updateOrdrDtlRfndInfo(rfndMap);
+
+
+				log.debug("STEP.3-5 : 상품 재고 업데이트 START");
+				Map<String, Object> stockQyPlus = new HashMap<String, Object>();
+				if(EgovStringUtil.isNotEmpty(oldOrdrDtlVO.getOrdrOptn())){
+					log.debug("STEP.3-5-1 : 옵션 있음");
+					stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
+					stockQyPlus.put("optnNm", oldOrdrDtlVO.getOrdrOptn());
+					stockQyPlus.put("optnStockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
+					gdsOptnService.updateGdsOptnStockQy(stockQyPlus);
+				}else {
+					log.debug("STEP.3-5-1 : 옵션 없음");
+					stockQyPlus.put("gdsNo", oldOrdrDtlVO.getGdsNo());
+					stockQyPlus.put("stockQy", oldOrdrDtlVO.getOrdrQy()); // 증가
+					gdsService.updateGdsStockQy(stockQyPlus);
+				}
+				log.debug("STEP.3-5 : 상품 재고 업데이트 END");
+
+
+				log.debug("STEP.3-6 : 주문상태 변경 내역 기록 START : " + ordrDtlVO.getSttsTy());
+				//기본은 CA02 주문취소
+				if(EgovStringUtil.isNotEmpty(ordrVO.getStlmTy())) {
+					resn = "\n주문취소:["+ CodeMap.BASS_STLM_TY.get(ordrVO.getStlmTy()) +":"+ totalRfndAmt +"원]";
+				}
+				
+				//RE03 반품완료 인경우
+				if ("RE03".equals(ordrDtlVO.getSttsTy())) {
+					if(ordrVO.getStlmTy().equals("CARD")) {
+						resn = "\n반품완료 : [신용카드 승인 취소]";
+					} else if (ordrVO.getStlmTy().equals("FREE")) {
+						resn = "\n반품완료 : [마일리지, 포인트 결제 취소]";
+					} else {
+						resn = "\n반품완료 : [계좌이체(" +ordrDtlVO.getRfndBank() +" : "+ ordrDtlVO.getRfndActno()+") : "+ totalOrdrPc +"원]";
+					}
+				}
+				
+
+				OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
+				chgHistVO.setOrdrNo(oldOrdrDtlVO.getOrdrNo());
+				chgHistVO.setOrdrDtlNo(oldOrdrDtlVO.getOrdrDtlNo());
+				chgHistVO.setChgStts(ordrDtlVO.getSttsTy());
+				chgHistVO.setResnTy(ordrDtlVO.getResnTy());
+				chgHistVO.setResn(ordrDtlVO.getResn().concat(resn));
+
+				chgHistVO.setRegUniqueId(ordrDtlVO.getRegUniqueId());
+				chgHistVO.setRegId(ordrDtlVO.getRegId());
+				chgHistVO.setRgtr(ordrDtlVO.getRgtr());
+
+				log.debug("chgHistVO: " + chgHistVO.toString());
+				ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
+				log.debug("STEP.3-6 : 주문상태 변경 내역 기록 END");
+
+
+				log.debug("STEP.3-7 : 적립마일리지 취소 START" + ordrDtlVO.getAccmlMlg());
+
+				//구매확정 시 마일리지가 쌓이므로 구매확정 상태확인하여 적립 마일리지 취소 처리
+				if("OR09".equals(oldOrdrDtlVO.getSttsTy()) && ordrDtlVO.getAccmlMlg() > 0) {
+					// 적립마일리지 취소
+					MbrMlgVO mbrMlgVO = new MbrMlgVO();
+					mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
+					mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
+					mbrMlgVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
+					mbrMlgVO.setMlgSe("M"); // 차감
+					mbrMlgVO.setMlgCn("12"); // 상품 취소
+					mbrMlgVO.setGiveMthd("SYS");
+					mbrMlgVO.setMlg(ordrDtlVO.getAccmlMlg());
+
+					mbrMlgService.insertMbrMlg(mbrMlgVO);
+				}
+				log.debug("STEP.3-7 : 적립마일리지 취소 기록 END");
+			}
+
+			
+			log.debug("STEP.4 : 주문상태 변경(취소완료 or 반품완료) START");
+			ordrDtlDAO.updateOrdrStts(ordrDtlVO);
+			log.debug("STEP.4 : 주문결제 상태 확인 END");
+
+			
+			log.debug("STEP.5 : 마일리지, 포인트 환원 START");
+
+			// PG 결제 취소 후 환불해야할 금액이 남는다면 포인트 환원
+			if(remindCancelPc > 0) {
+				// 사용 포인트
+				int usePoint = ordrVO.getUsePoint();
+				
+				if(usePoint > 0) {
+					// 환불 포인트 계산
+					int returnPoint = 0;
+					if (remindCancelPc > usePoint) {
+						returnPoint = usePoint;
+						remindCancelPc -= usePoint;
+					} else {
+						returnPoint = remindCancelPc;
+						remindCancelPc = 0;
+					}
+					
+					MbrPointVO mbrPointVO = new MbrPointVO();
+					mbrPointVO.setPointMngNo(0);
+					mbrPointVO.setUniqueId(ordrVO.getUniqueId());
+					mbrPointVO.setPointSe("A");
+					mbrPointVO.setPointCn("33");
+					mbrPointVO.setPoint(returnPoint);
+					mbrPointVO.setRgtr("System");
+					mbrPointVO.setGiveMthd("SYS");
+
+					mbrPointService.insertMbrPoint(mbrPointVO);
+					
+					//사용 포인트 업데이트
+					ordrVO.setUsePoint(usePoint - returnPoint);
+					ordrService.updateUsePoint(ordrVO);
+				}
+			}
+			//PG 결제 취소 후 환불해야할 금액이 남는다면 마일리지 환원
+			if(remindCancelPc > 0) {
+				// 사용 마일리지
+				int useMlg = ordrVO.getUseMlg();
+
+				if(useMlg > 0) {
+					// 환불 마일리지 계산
+					int returnMlg = 0;
+					if (remindCancelPc > useMlg) {
+						returnMlg = useMlg;
+						remindCancelPc -= useMlg;
+					} else {
+						returnMlg = remindCancelPc;
+						remindCancelPc = 0;
+					}
+					
+					MbrMlgVO mbrMlgVO = new MbrMlgVO();
+					mbrMlgVO.setMlgMngNo(0);
+					mbrMlgVO.setUniqueId(ordrVO.getUniqueId());
+					mbrMlgVO.setMlgSe("A");
+					mbrMlgVO.setMlgCn("33");
+					mbrMlgVO.setMlg(returnMlg);
+					mbrMlgVO.setGiveMthd("SYS");
+					mbrMlgVO.setRgtr("System");
+
+					mbrMlgService.insertMbrMlg(mbrMlgVO);
+					
+					//사용 마일리지 업데이트
+					ordrVO.setUseMlg(useMlg - returnMlg);
+					ordrService.updateUseMlg(ordrVO);
+				}
+			}
+			log.debug("STEP.5 : 마일리지, 포인트 환원 END");
+
+			result = 1;
+		} catch (Exception e) {
+			log.debug("FAIL : 상태변경 실패 [" + e.getMessage() + "]");
+		}
+
+		return result;
+	}
 }
