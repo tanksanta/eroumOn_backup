@@ -45,3 +45,4 @@ out/
 .vscode/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/node_modules
+src/test/java/icube/TilkoTest.java
