@@ -285,7 +285,7 @@ $(function(){
 	}
 	
 	category = selCheckVal;
-	console.log("카테고리 : " + category);
+	//console.log("카테고리 : " + category);
 	
 	f_srchInstList();
     f_srchSrvcList(1);

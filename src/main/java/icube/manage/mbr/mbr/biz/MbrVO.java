@@ -70,13 +70,13 @@ public class MbrVO extends CommonBaseVO {
 	private String naverAppId;
 	private String kakaoAppId;
 	private String kakaoAccessToken;
+	
+	private String joinTy = "E"; // 가입 구분
 
 	// 첨부파일 체크
 	private List<FileVO> fileList;
 
-	//RecipterInfoVO
-	private RecipterInfoVO recipterInfo;
-	private List<DlvyVO> dlvyList;
-	private boolean easyCheck;
+	private RecipterInfoVO recipterInfo; //RecipterInfoVO
+	private DlvyVO dlvyInfo;
 
 }

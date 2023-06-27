@@ -529,7 +529,7 @@ public class CodeMap{
 		{
 			put("NORMAL","일반");
 			put("BLACK","블랙리스트");
-			put("HUMAN","휴먼");
+			put("HUMAN","휴면");
 			put("EXIT","탈퇴");
 		}
 	};

@@ -60,6 +60,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	private static final String SAVE_ID_COOKIE_ID = "_membersSaveId_";
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
@@ -74,7 +77,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
 
 		//암호화
@@ -94,7 +97,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		String returnUrl = request.getHeader("REFERER");
 		if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
-			returnUrl = "/" + plannerPath;
+			returnUrl = "/" + mainPath;
 		}
 
 		model.addAttribute("returnUrl", returnUrl);
@@ -235,7 +238,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		session.invalidate();
 
-		return "redirect:/"+ plannerPath;
+		return "redirect:/"+ mainPath;
 	}
 
 

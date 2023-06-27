@@ -17,6 +17,7 @@
 				<form:input type="hidden" path="delProflImg" id="delProflImg" name="delProflImg" value="N" />
 				<form:hidden path="proflImg" />
 				<form:hidden path="diKey" />
+				<form:hidden path="joinTy" />
 
 				<input type="hidden" id="rcognGrad" name="rcognGrad" value="${mbrVO.recipterInfo.rcognGrad}" />
 				<input type="hidden" id="selfBndRt" name="selfBndRt" value="${mbrVO.recipterInfo.selfBndRt}" />

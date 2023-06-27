@@ -276,6 +276,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		//가입 매체 구분
 		mbrVO.setJoinCours(WebUtil.getDevice(request));
+		mbrVO.setJoinTy("E"); //이로움 가입
 
 		// 더블 서브밋 방지
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {

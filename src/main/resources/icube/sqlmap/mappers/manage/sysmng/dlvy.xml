@@ -89,7 +89,7 @@
 		, #{rgtr, jdbcType=VARCHAR}
 		)
 	</insert>
-
+	
 	<update id="updateDlvyCoMng" parameterType="dlvyCoMngVO">
 		/* Query ID : dlvy.xml > updateDlvyCoMng */
 		UPDATE DLVY_CO_MNG SET

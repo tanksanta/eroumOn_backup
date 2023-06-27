@@ -46,4 +46,8 @@ public class DlvyDAO extends CommonAbstractMapper {
 		insert("mbr.dlvy.insertBassDlvy",dlvyVO);
 	}
 
+	public void updateKakaoDlvy(DlvyVO dlvyVO) throws Exception {
+		update("mbr.dlvy.updateKakaoDlvy",dlvyVO);
+	}
+
 }

@@ -41,6 +41,7 @@
 		, m.trms_agre_dt
 		, m.itrst_field
 		, m.join_cours
+		, m.join_ty
 		, m.join_dt
 		, m.lgn_failr_cnt
 		, m.recent_cntn_dt
@@ -255,8 +256,8 @@
 			, addr
 			, daddr
 			, di_key
-			, naver_token
-			, kakao_token
+			, naver_app_id
+			, kakao_app_id
 			, recipter_yn
 			, bass_stlm_ty
 			, point_acmtl
@@ -273,6 +274,7 @@
 			, trms_agre_dt
 			, itrst_field
 			, join_cours
+			, join_ty
 			, join_dt
 			, lgn_failr_cnt
 			, recent_cntn_dt
@@ -294,8 +296,8 @@
 			, #{addr, jdbcType=VARCHAR}
 			, #{daddr, jdbcType=VARCHAR}
 			, #{diKey, jdbcType=VARCHAR}
-			, #{naverToken, jdbcType=VARCHAR}
-			, #{kakaoToken, jdbcType=VARCHAR}
+			, #{naverAppId, jdbcType=VARCHAR}
+			, #{kakaoAppId, jdbcType=VARCHAR}
 			, #{recipterYn, jdbcType=VARCHAR}
 			, #{bassStlmTy, jdbcType=VARCHAR}
 			, #{pointAcmtl}
@@ -312,6 +314,7 @@
 			, SYSDATE()
 			, #{itrstField, jdbcType=VARCHAR}
 			, #{joinCours, jdbcType=VARCHAR}
+			, #{joinTy, jdbcType=VARCHAR}
 			, SYSDATE()
 			, #{lgnFailrCnt}
 			, #{recentCntnDt}
@@ -354,6 +357,7 @@
 			, trms_agre_dt = #{trmsAgreDt}
 			, itrst_field = #{itrstField, jdbcType=VARCHAR}
 			, join_cours = #{joinCours, jdbcType=VARCHAR}
+			, join_ty = #{joinTy, jdbcType=VARCHAR}
 			, lgn_failr_cnt = #{lgnFailrCnt}
 			, recent_cntn_dt = #{recentCntnDt}
 			, tmpr_pswd_yn = #{tmprPswdYn, jdbcType=VARCHAR}
@@ -528,7 +532,14 @@
 			mber_grade = #{mberGrade}
 		WHERE unique_id = #{srchUniqueId}
 	</update>
-
+	
+	<update id="updateKaKaoInfo" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			mbl_telno = #{mblTelno}
+			, eml = #{eml}
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+	
 	<select id="selectMbrEtcInfo" parameterType="java.util.HashMap" resultType="egovMap">
 		SELECT
 			IFNULL((SELECT bnef_blce FROM RECIPTER_INFO ri WHERE unique_id = #{srchUniqueId}), 0) AS total_bnef_blce

@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
 <div class="main-visual">
     <div class="swiper">
         <div class="swiper-wrapper">
@@ -187,5 +185,5 @@
             observer.observe(e);
         }, this);
         })
-    })
+    });
 </script>

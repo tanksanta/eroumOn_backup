@@ -98,7 +98,7 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-
+	
 	<!-- 회원가입시 기본 배송지 -->
 	<insert id="insertBassDlvy" parameterType="dlvyVO">
 		INSERT INTO MBR_DLVY_MNG (
@@ -144,7 +144,6 @@
 			, memo =   #{memo, jdbcType=VARCHAR}
 			, mdfcn_dt = SYSDATE()
 			, use_yn =  #{useYn, jdbcType=VARCHAR}
-			, mdfcn_dt = SYSDATE()
 		WHERE dlvy_mng_no = #{dlvyMngNo} AND unique_id = #{uniqueId}
 	</update>
 
@@ -155,7 +154,7 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</update>
-
+	
 	<update id="deleteDlvy" parameterType="java.util.HashMap">
 		UPDATE MBR_DLVY_MNG SET
 			use_yn = 'N'
