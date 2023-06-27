@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="page2-visual">
+
+<div id="visual" class="is-page2">
     <h2 class="title">
         <small>부모님의 생활을 한층 편하게</small>
         복지용구가 일상생활에서<br>
@@ -8,41 +9,39 @@
     <p class="text-scroll is-white">아래에서 더 자세히 알아보세요</p>
 </div>
 
-<div class="page2-category">
-    <div class="swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category1.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category2.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category3.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category4.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category5.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category6.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category7.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category8.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category9.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category10.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category11.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category12.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category13.png" alt=""></div>
-            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category14.png" alt=""></div>
-        </div>
-    </div>
-</div>
+<div id="content">
+	<div class="page2-slider">
+	    <div class="swiper">
+	        <div class="swiper-wrapper">
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></div>
+	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></div>
+	        </div>
+	    </div>
+	</div>
 
-<div class="page2-title">
-    <h2><em class="img">욕실</em><span class="out">에서도</span> <em class="text-primary2">안전하게</em></h2>
-    <p>
-        집안에서도, 집밖에서도<br>
-        불편함을 편함으로 해결해 드릴게요
-    </p>
-</div>
+	<div class="page2-title">
+	    <h2><em class="img">욕실</em><span class="out">에서도</span> <em class="text-primary2">안전하게</em></h2>
+	    <p>
+	        집안에서도, 집밖에서도<br>
+	        불편함을 편함으로 해결해 드릴게요
+	    </p>
+	</div>
 
-<div class="page2-content">
-    <div class="content-item">
-        <div class="image">
-            <img src="/html/page/index/assets/images/img-page2-content1.png" alt="">
-        </div>
-        <div class="content">
+    <div class="page2-content1">
+        <img src="/html/page/index/assets/images/img-page2-content1.png" alt="" class="img">
+        <div class="box">
             <dl>
                 <dt>안전한 욕실생활</dt>
                 <dd>
@@ -53,12 +52,10 @@
             <a href="/main/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
-    
-    <div class="content-item">
-        <div class="image">
-            <img src="/html/page/index/assets/images/img-page2-content2.png" alt="">
-        </div>
-        <div class="content">
+
+    <div class="page2-content2">
+        <img src="/html/page/index/assets/images/img-page2-content2.png" alt="" class="img">
+        <div class="box">
             <dl>
                 <dt>편안한 거실생활</dt>
                 <dd>
@@ -69,16 +66,14 @@
             <a href="/main/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
-    
-    <div class="content-item">
-        <div class="image">
-            <img src="/html/page/index/assets/images/img-page2-content3.png" alt="">
-        </div>
-        <div class="content">
+
+    <div class="page2-content3">
+        <img src="/html/page/index/assets/images/img-page2-content3.png" alt="" class="img">
+        <div class="box">
             <dl>
                 <dt>안락한 침실생활</dt>
                 <dd>
-                    수면과 휴식을 취하는 공간에서 필요한<br> 
+                    수면과 휴식을 취하는 공간에서 필요한<br>
                     복지용구를 소개합니다.
                 </dd>
             </dl>
@@ -86,11 +81,9 @@
         </div>
     </div>
     
-    <div class="content-item">
-        <div class="image">
-            <img src="/html/page/index/assets/images/img-page2-content4.png" alt="">
-        </div>
-        <div class="content">
+    <div class="page2-content4">
+        <img src="/html/page/index/assets/images/img-page2-content4.png" alt="" class="img">
+        <div class="box">
             <dl>
                 <dt>건강한 야외생활</dt>
                 <dd>

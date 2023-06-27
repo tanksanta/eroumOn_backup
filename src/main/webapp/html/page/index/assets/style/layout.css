@@ -134,7 +134,7 @@
 #visual {
     @apply relative min-h-[580px] h-[75vh] max-h-[626px] bg-cover bg-[center] md:h-[684px] md:max-h-none md:bg-[center_top] lg:h-[760px];
     & .title {
-        @apply leading-tight font-bold text-2xl md:text-5xl lg:text-7xl;
+        @apply absolute leading-tight font-bold text-2xl whitespace-nowrap md:text-5xl lg:text-7xl;
         & small {
             @apply block mb-3.5 text-sm md:mb-4.5 md:text-base lg:mb-6 lg:text-lg;
         }
@@ -143,9 +143,9 @@
         @apply absolute left-1/2 bottom-3 -translate-x-1/2;
     }
     &.is-page1 {
-        @apply pt-89 bg-[url(../images/bg-page1-visual-m.jpg)] md:pt-49 md:bg-[url(../images/bg-page1-visual.jpg)] lg:pt-55;
+        @apply bg-[url(../images/bg-page1-visual-m.jpg)] md:bg-[url(../images/bg-page1-visual.jpg)];
         & .title {
-            @apply ml-auto w-fit pr-[10.94147582697201%] sm:ml-[33.58778625954198%] sm:pr-5 md:ml-[55.05208333333333%] lg:text-[2.625rem];
+            @apply bottom-[20.44728434504792%] right-[10.94147582697201%] md:top-49 md:bottom-auto md:right-auto md:pr-5 md:left-[55.05208333333333%] lg:top-55 lg:text-[2.625rem];
             & small {
                 @apply text-gray6;
             }
@@ -159,6 +159,25 @@
             & img {
                 @apply absolute right-0 top-0 translate-x-[60%] -translate-y-[52%] w-7 md:w-7.5 lg:w-8.5;
             }
+        }
+    }
+    &.is-page2 {
+        @apply bg-[url(../images/bg-page2-visual-m.jpg)] md:bg-[url(../images/bg-page2-visual.jpg)];
+        & .title {
+            @apply top-[10.06389776357827%] left-1/2 -translate-x-1/2 md:top-[19.45945945945946%] md:-translate-x-[23.22%];
+            & em {
+                @apply inline-block relative -top-[0.1em] mr-6 text-4xl leading-none font-extrabold text-[#FF8300] align-middle  md:text-[2.625rem] lg:-top-[0.15em] lg:text-[3.25rem];
+                &::after {
+                    @apply content-empty absolute top-full -right-5 -mt-4.5 w-12 h-9 bg-cover md:-right-4.5 lg:-right-4;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48.229' height='35.438' viewBox='0 0 48.229 35.438'%3E%3Cpath id='Path_3' data-name='Path 3' d='M0,15.854,20.953,26.36,48.229,0,21.953,35.438Z' fill='%23ff8200'/%3E%3C/svg%3E%0A");
+                }
+            }
+        }
+    }
+    &.is-page3 {
+        @apply bg-[url(../images/bg-page3-visual-m.jpg)] md:bg-[url(../images/bg-page3-visual.jpg)];
+        & .title {
+            @apply top-[13.09904153354633%] left-1/2 text-white -translate-x-1/2 md:top-[24.86486486486486%] md:text-left md:-translate-x-[7.729468599033816%] xl:-translate-x-[5.152979066022544%];
         }
     }
 }

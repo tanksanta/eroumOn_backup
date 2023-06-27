@@ -22,7 +22,7 @@
 <!-- header -->
 <header id="header">
 	<h1 id="logo" class="global-logo">
-		<a href="#"><em>이로움ON</em></a>
+		<a href="/main"><em>이로움ON</em></a>
 	</h1>
 	<nav id="navigation">
 		<ul>

@@ -9,6 +9,12 @@ $(function() {
             $(window).scrollTop(0);
         });
 
+        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
+            $('#quick').addClass('is-active');
+        } else {
+            $('#quick').removeClass('is-active');
+        }
+        
         if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
             $('body').addClass('is-scroll');
             if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
