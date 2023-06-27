@@ -371,6 +371,15 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		ordrDAO.updateStlmAmt(ordrVO);
 	}
 
+	//사용 마일리지 수정
+	public void updateUseMlg (OrdrVO ordrVO) throws Exception {
+		ordrDAO.updateUseMlg(ordrVO);
+	}
+	
+	//사용 포인트 수정
+	public void updateUsePoint (OrdrVO ordrVO) throws Exception {
+		ordrDAO.updateUsePoint(ordrVO);
+	}
 
 	// 단계별 카운트
 	public Map<String, Integer> selectSttsTyCnt(Map<String, Object> paramMap) throws Exception {
