@@ -1,5 +1,6 @@
 package icube.main.biz;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.api.biz.BokjiApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
@@ -66,6 +68,20 @@ public class MainService extends CommonAbstractServiceImpl {
 		resultMap.put("instCnt", bokjiInstCnt);
 
 		return resultMap;
+	}
+
+	public List<String> replaceItemList(List<String> ownList) throws Exception {
+		List<String> replaceList = new ArrayList<String>();
+		
+		for(Map.Entry<String, String>entry : CodeMap.RECIPTER_ITEM.entrySet()) {
+			int idx = 0;
+			if(entry.getValue().equals(ownList.get(idx))) {
+				replaceList.add(entry.getKey());
+			}
+			idx += 1;
+		}
+		
+		return replaceList;
 	}
 
 
