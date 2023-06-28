@@ -804,12 +804,21 @@ public class MyDtlsController extends CommonAbstractController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ordrNo", ordrNo);
 		paramMap.put("ordrDtlNo", ordrDtlNo);
-		paramMap.put("chgStts", "CA01");
+		paramMap.put("chgStts", "OR03");
 
-		OrdrChgHistVO ordrChgHistVO = ordrChgHistService.selectOrdrChgHist(paramMap);
+		OrdrChgHistVO ordrChgHistVOForOR03 = ordrChgHistService.selectOrdrChgHist(paramMap);
 
-		model.addAttribute("ordrChgHistVO", ordrChgHistVO);
-
+		//사업소에서 반려된 상품인 경우 반려 이력으로 반환
+		if (ordrChgHistVOForOR03 != null) {
+			model.addAttribute("ordrChgHistVO", ordrChgHistVOForOR03);
+		} else {
+			paramMap.put("chgStts", "CA01");
+			
+			OrdrChgHistVO ordrChgHistVO = ordrChgHistService.selectOrdrChgHist(paramMap);
+			
+			model.addAttribute("ordrChgHistVO", ordrChgHistVO);
+		}
+		
 
 		// 취소상품 정보
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
