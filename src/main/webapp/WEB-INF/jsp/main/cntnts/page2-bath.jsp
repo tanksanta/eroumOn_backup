@@ -11,7 +11,7 @@
 </header>
 
 <div id="content">
-    <div class="page2-content-detail is-bath">
+    <div class="page2-content-detail is-detail1">
 		<h2 class="title">안전한 욕실생활</h2>
 		<p class="desc">
 		    미끄러운 사고 위험이 높은 공간으로<br>

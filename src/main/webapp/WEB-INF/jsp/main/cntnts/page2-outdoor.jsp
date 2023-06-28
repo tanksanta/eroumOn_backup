@@ -11,7 +11,7 @@
 </header>
 
 <div id="content">
-    <div class="page2-content-detail is-bath">
+    <div class="page2-content-detail is-detail4">
 		<h2 class="title">건강한 아외생활</h2>
 		<p class="desc">
 			많은 사람들과 함께 불편할 수 있는<br>

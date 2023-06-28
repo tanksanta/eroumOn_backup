@@ -500,39 +500,104 @@
 }
 
 
+/* 제3자 정보제공 */
+.provide-form {
+    @apply mx-auto max-w-[800px];
+    & .form-agree {
+        @apply text-lg font-bold
+               md:text-xl
+               lg:text-2xl;
+        & .form-check-input {
+            @apply !rounded-full
+                   checked:border-[#3074FF] checked:bg-[#3074FF];
+        }
+    }
+    & .form-fieldset {
+        @apply relative mt-2 py-13 px-5 rounded-md bg-neutral-100
+               md:py-18 md:px-8;
+        & legend {
+            @apply absolute top-4 left-4 text-base font-bold leading-normal
+                   md:top-7 md:left-8 md:text-lg;
+        }
+        & dl {
+            @apply flex mb-2 md:mb-2.5;
+            & dt {
+                @apply pt-[0.5em] pr-1 w-[5.5em];
+            }
+            & dd {
+                @apply flex-1 flex flex-col gap-1.5;
+            }
+        }
+        & p {
+            @apply relative mt-3.5 pt-4 pl-[1.25em] border-t border-t-gray3
+                   before:content-["※"] before:absolute before:top-4 before:left-0
+                   md:mt-4.5 md:pt-5
+                   before:md:top-4.5;
+
+        }
+    }
+    & .form-submit {
+        @apply flex gap-1.5 mt-8 mx-auto min-w-70 w-[48.5%] max-w-97
+               md:mt-11 md:gap-2;
+        & [type="submit"] {
+            @apply flex-1;
+        }
+        & [type="button"] {
+            @apply w-[38.96%];
+        }
+    }
+}
+
+
 /* 노인장기요양보험 */
 .page1-induction {
-    @apply w-fit mt-5 mx-auto pb-3 px-6.5 text-center bg-no-repeat bg-left-bottom bg-[length:1.6875rem] md:mt-8 lg:mt-11;
+    @apply w-fit mt-5 mx-auto pb-3 px-6.5 text-center bg-no-repeat bg-left-bottom bg-[length:1.6875rem]
+           md:mt-8 lg:mt-11;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28.211' height='27.397' viewBox='0 0 28.211 27.397'%3E%3Cg id='Group_7' data-name='Group 7' transform='translate(0.499 0.462)'%3E%3Cpath id='Path_3' data-name='Path 3' d='M5.592,0C3.5,5.206,2.935,10.788,6.933,14.658c2.388,2.311,5.708-1.176,6.012-3.012s-.621-4.538-3.8-4.406S-1.007,11.1.123,23.673' transform='translate(17.095 0) rotate(39)' fill='none' stroke='%23979797' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Path_6' data-name='Path 6' d='M0,8.638,1.863,0' transform='matrix(0.966, -0.259, 0.259, 0.966, 0, 10.699)' fill='none' stroke='%23979797' stroke-miterlimit='10' stroke-width='1'/%3E%3Cpath id='Path_7' data-name='Path 7' d='M0,0,9.334,2.949' transform='matrix(0.966, -0.259, 0.259, 0.966, 0.978, 18.368)' fill='none' stroke='%23979797' stroke-miterlimit='10' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E%0A");
 }
 
 .page1-title {
-    @apply text-center leading-tight font-bold text-2xl md:text-5xl lg:text-[2.625rem];
+    @apply text-center leading-tight font-bold text-2xl
+           md:text-5xl
+           lg:text-[2.625rem];
 }
 
 .page1-content1 {
-    @apply mt-22 md:mt-33 lg:mt-44;
+    @apply mt-22
+           md:mt-33
+           lg:mt-44;
     & .content {
-        @apply flex flex-col mt-7 mx-auto w-fit text-center md:flex-row md:items-center md:mt-10 md:text-left lg:mt-13;
+        @apply flex flex-col mt-7 mx-auto w-fit text-center
+               md:flex-row md:items-center md:mt-10 md:text-left
+               lg:mt-13;
     }
     & img {
-        @apply mx-auto mb-2.5 w-20 md:mr-13 md:mb-0 md:w-32 lg:mr-19 lg:w-44;
+        @apply mx-auto mb-2.5 w-20
+               md:mr-13 md:mb-0 md:w-32
+               lg:mr-19 lg:w-44;
     }
     & blockquote {
-        @apply mx-auto w-fit leading-snug text-base font-bold md:text-xl lg:text-2xl;
+        @apply mx-auto w-fit leading-snug text-base font-bold
+               md:text-xl
+               lg:text-2xl;
     }
     & small {
-        @apply block mt-2.5 text-sm font-normal md:text-base;
+        @apply block mt-2.5 text-sm font-normal
+               md:text-base;
     }
 }
 
 .page1-content2 {
-    @apply mt-26 md:mt-40 lg:mt-54;
+    @apply mt-26
+           md:mt-40
+           lg:mt-54;
     & .nav {
-        @apply grid gap-1 grid-cols-6 md:gap-2.5;
+        @apply grid gap-1 grid-cols-6
+               md:gap-2.5;
     }
     & .nav-item {
-        @apply block py-2 px-1 text-center rounded border border-gray2 bg-gray2 md:p-3 md:rounded-md;
+        @apply block py-2 px-1 text-center rounded border border-gray2 bg-gray2
+               md:p-3 md:rounded-md;
         &.active {
             @apply bg-[#3074FF] text-white;
         }
@@ -541,47 +606,73 @@
         @apply lg:flex lg:justify-between;
     }
     & .box {
-        @apply flex-1 mt-13 md:mt-17 lg:pr-[9.25%];
+        @apply flex-1 mt-13
+               md:mt-17
+               lg:pr-[9.25%];
         & h4 {
-            @apply leading-tight font-bold text-[1.375rem] md:text-3xl lg:text-4xl;
+            @apply leading-tight font-bold text-[1.375rem]
+                   md:text-3xl
+                   lg:text-4xl;
         }
         & small {
-            @apply block mb-3 text-sm text-[#3074FF] md:text-base lg:text-lg;
+            @apply block mb-3 text-sm text-[#3074FF]
+                   md:text-base
+                   lg:text-lg;
         }
         & span {
-            @apply block mt-1.5 text-lg font-medium md:mt-2.5 md:text-xl lg:mt-4 lg:text-[1.375rem];
+            @apply block mt-1.5 text-lg font-medium
+                   md:mt-2.5 md:text-xl
+                   lg:mt-4 lg:text-[1.375rem];
         }
         & ul {
-            @apply mt-2 mb-3.5 p-3 rounded-md bg-[#3074FF]/10 text-sm font-bold leading-snug md:mt-4.5 md:mb-5 md:py-3.5 md:px-4 md:rounded-lg md:text-base lg:my-7 lg:max-w-[500px] lg:py-4 lg:px-5 lg:text-lg;
+            @apply mt-2 mb-3.5 p-3 rounded-md bg-[#3074FF]/10 text-sm font-bold leading-snug
+                   md:mt-4.5 md:mb-5 md:py-3.5 md:px-4 md:rounded-lg md:text-base
+                   lg:my-7 lg:max-w-[500px] lg:py-4 lg:px-5 lg:text-lg;
             & li {
-                @apply mt-[0.5556em] pl-[1.11111em] bg-no-repeat bg-[left_top_0.5em] bg-[length:0.777em] first:mt-0;
+                @apply mt-[0.5556em] pl-[1.11111em] bg-no-repeat bg-[left_top_0.5em] bg-[length:0.777em]
+                first:mt-0;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13.604' height='10.144' viewBox='0 0 13.604 10.144'%3E%3Cpath id='Path' d='M0,4.761l5.444,5.382,8.16-8.1L11.558,0,5.444,5.982l-3.291-3.4Z' fill='%23407ce4'/%3E%3C/svg%3E%0A");
             }
         }
         & p {
-            @apply relative pl-[1.25em] before:content-["※"] before:absolute before:top-0 before:left-0;
+            @apply relative pl-[1.25em]
+                   before:content-["※"] before:absolute before:top-0 before:left-0;
         }
     }
     & .img {
-        @apply mt-4.5 mx-auto h-63 md:h-89 lg:mx-0 lg:h-[28.5625rem];
+        @apply mt-4.5 mx-auto h-63
+               md:h-89
+               lg:mx-0 lg:h-[28.5625rem];
     }
 }
 
 .page1-content3 {
-    @apply mt-31 md:mt-46 lg:mt-61;
+    @apply mt-31
+           md:mt-46
+           lg:mt-61;
     & .content {
-        @apply mb-16 last:mb-0 md:flex md:items-center md:gap-[4.419299743808711%] md:mb-11 lg:gap-[5.892399658411614%];
+        @apply mb-16
+               md:flex md:items-center md:gap-[4.419299743808711%] md:mb-11
+               lg:gap-[5.892399658411614%]
+               last:mb-0;
     }
     & .box {
-        @apply flex-1 mt-5 md:mt-0;
+        @apply flex-1 mt-5
+               md:mt-0;
         & h4 {
-            @apply leading-tight font-bold text-[1.375rem] md:text-3xl lg:text-4xl;
+            @apply leading-tight font-bold text-[1.375rem]
+                   md:text-3xl
+                   lg:text-4xl;
         }
         & small {
-            @apply block mt-2.5 text-base font-normal md:mt-3 md:text-lg lg:mt-3.5 lg:text-xl;
+            @apply block mt-2.5 text-base font-normal
+                   md:mt-3 md:text-lg
+                   lg:mt-3.5 lg:text-xl;
         }
         & p {
-            @apply mt-1.5 md:mt-2.5 lg:mt-3.5;
+            @apply mt-1.5
+                   md:mt-2.5
+                   lg:mt-3.5;
         }
     }
     & .img {
@@ -598,9 +689,13 @@
 }
 
 .page1-content4 {
-    @apply mt-41 md:mt-64 lg:mt-87;
+    @apply mt-41
+           md:mt-64
+           lg:mt-87;
     & .nav {
-        @apply grid gap-1 grid-cols-6 md:gap-3 mb-9 md:mb-16 lg:gap-5.5 lg:mb-23;
+        @apply grid gap-1 grid-cols-6
+               md:gap-3 mb-9 md:mb-16
+               lg:gap-5.5 lg:mb-23;
     }
     & [class*="nav-item"] {
         @apply block mx-auto pt-[111.1111111111111%] max-w-[974px] overflow-hidden bg-cover -indent-96 text-[0] leading-none;
@@ -645,14 +740,19 @@
         @apply relative;
     }
     & .grade {
-        @apply flex flex-col gap-6 leading-tight text-center text-lg font-bold md:flex-row md:items-center md:justify-center md:gap-[3.757%] md:text-[1.375rem] lg:text-2xl;
+        @apply flex flex-col gap-6 leading-tight text-center text-lg font-bold
+               md:flex-row md:items-center md:justify-center md:gap-[3.757%] md:text-[1.375rem]
+               lg:text-2xl;
         & h4 {
-            @apply flex items-center justify-center pl-[52.40793201133144%] aspect-[1/0.4447592067988669] md:pl-0 md:aspect-auto; 
+            @apply flex items-center justify-center pl-[52.40793201133144%] aspect-[1/0.4447592067988669]
+                   md:pl-0 md:aspect-auto; 
             & span {
-                @apply block mx-auto px-3.5 py-2.5 w-fit rounded-md bg-[#FFECEC] md:mx-0 md:px-5.5 lg:px-7.5;
+                @apply block mx-auto px-3.5 py-2.5 w-fit rounded-md bg-[#FFECEC]
+                       md:mx-0 md:px-5.5 lg:px-7.5;
             }
             & small {
-                @apply block text-[0.8125rem] font-medium md:text-sm;
+                @apply block text-[0.8125rem] font-medium
+                       md:text-sm;
             }
         }
         & p {
@@ -662,17 +762,24 @@
         }
     }
     & .content {
-        @apply mt-4.5 border-t border-t-gray1/20 md:flex md:items-start md:gap-[4.099060631938514%] md:mt-11 md:pt-0 md:border-t-0 lg:gap-[5.465414175918019%] lg:mt-14;
+        @apply mt-4.5 border-t border-t-gray1/20
+               md:flex md:items-start md:gap-[4.099060631938514%] md:mt-11 md:pt-0 md:border-t-0
+               lg:gap-[5.465414175918019%] lg:mt-14;
         & .img {
-            @apply flex-none absolute top-0 left-0 w-[52.40793201133144%] md:static md:w-[32.1947%];
+            @apply flex-none absolute top-0 left-0 w-[52.40793201133144%]
+                   md:static md:w-[32.1947%];
         }
         & .box {
-            @apply flex-1 pt-4.5 text-lg leading-snug font-light md:text-[1.375rem] lg:text-2xl;
+            @apply flex-1 pt-4.5 text-lg leading-snug font-light
+                   md:text-[1.375rem]
+                   lg:text-2xl;
             & p {
                 @apply mb-[1em];
             }
             & ul {
-                @apply mt-6 text-base leading-tight space-y-[1em] md:mt-6.5 md:pt-6.5 md:border-t md:border-t-gray1/20 md:text-lg lg:mt-10 lg:pt-10 lg:text-xl;
+                @apply mt-6 text-base leading-tight space-y-[1em]
+                       md:mt-6.5 md:pt-6.5 md:border-t md:border-t-gray1/20 md:text-lg
+                       lg:mt-10 lg:pt-10 lg:text-xl;
                 & li {
                     @apply relative pl-[1.4em] bg-no-repeat bg-[length:0.9em] bg-[left_top_0.25em] bg-[url(../images/ico-alert.svg)];
                 }
@@ -682,30 +789,41 @@
 }
 
 .page1-content5 {
-    @apply mt-31 px-3 rounded-md bg-neutral-100 text-lg tracking-tight leading-tight font-light md:mt-46 md:text-[1.375rem] lg:mt-61 lg:text-2xl;
+    @apply mt-31 px-3 rounded-md bg-neutral-100 text-lg tracking-tight leading-tight font-light
+           md:mt-46 md:text-[1.375rem]
+           lg:mt-61 lg:text-2xl;
     & div {
-        @apply relative pt-3 pb-10 pl-27 w-fit max-w-full h-28 mx-auto md:py-7 md:pl-47 md:h-auto lg:py-9.5 lg:pl-66 lg:h-45;
+        @apply relative pt-3 pb-10 pl-27 w-fit max-w-full h-28 mx-auto
+               md:py-7 md:pl-47 md:h-auto
+               lg:py-9.5 lg:pl-66 lg:h-45;
     }
     & img {
-        @apply absolute -top-7.5 left-0 w-24 md:-top-15 md:w-43 lg:top-auto lg:w-58 md:bottom-0;
+        @apply absolute -top-7.5 left-0 w-24
+               md:-top-15 md:bottom-0 md:w-43
+               lg:top-auto lg:w-58;
     }
     & br {
         @apply lg:hidden;
     }
     & .btn {
-        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] border-[#3366DD] bg-[#3366DD] text-base text-white md:static md:mt-5 md:translate-x-0 md:translate-y-0;
+        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] border-[#3366DD] bg-[#3366DD] text-base text-white
+               md:static md:mt-5 md:translate-x-0 md:translate-y-0;
     }
 }
 
 
 /* 복지용구 알아보기 */
 .page2-slider {
-    @apply relative left-1/2 w-screen -translate-x-1/2 mt-8.5 md:mt-18 lg:mt-[6.875rem];
+    @apply relative left-1/2 w-screen -translate-x-1/2 mt-8.5
+           md:mt-18
+           lg:mt-[6.875rem];
     & .swiper-wrapper {
         transition-timing-function: linear;
     }
     & .swiper-slide {
-        @apply w-[5.875rem] md:w-33 lg:w-[10.625rem];
+        @apply w-[5.875rem]
+               md:w-33
+               lg:w-[10.625rem];
         & img {
             @apply w-full h-full object-cover;
         }
@@ -713,37 +831,55 @@
 }
 
 .page2-title {
-    @apply mt-22 text-center md:mt-45 lg:mt-68;
+    @apply mt-22 text-center
+           md:mt-45
+           lg:mt-68;
     & h2 {
-        @apply text-5xl font-bold md:text-[3.375rem] lg:text-[4.625rem];
+        @apply text-5xl font-bold
+               md:text-[3.375rem]
+               lg:text-[4.625rem];
         & .out {
             @apply text-transparent;
             -webkit-text-stroke: 1px #333;
         }
     }
     & p {
-        @apply mt-7.5 text-lg font-bold md:mt-9 md:text-xl lg:mt-12 lg:text-2xl;
+        @apply mt-7.5 text-lg font-bold
+               md:mt-9 md:text-xl
+               lg:mt-12 lg:text-2xl;
     }
 }
 
 .page2-content1, .page2-content2, .page2-content3, .page2-content4 {
-    @apply mt-15 md:flex md:items-center md:mt-20 lg:mt-25;
+    @apply mt-15
+           md:flex md:items-center md:mt-20
+           lg:mt-25;
     & .img {
-        @apply order-1 md:w-[56.41025641025641%];
+        @apply order-1
+               md:w-[56.41025641025641%];
     }
     & .box {
-        @apply order-2 flex-1 md:pl-[7.179487179487179%] lg:pl-[8.974358974358974%];
+        @apply order-2 flex-1
+               md:pl-[7.179487179487179%]
+               lg:pl-[8.974358974358974%];
         & dl {
-            @apply my-5 md:mt-0 md:mb-7 lg:mb-9;
+            @apply my-5
+                   md:mt-0 md:mb-7
+                   lg:mb-9;
             & dt {
-                @apply text-2xl font-bold leading-tight md:text-5xl lg:text-7xl;
+                @apply text-2xl font-bold leading-tight
+                       md:text-5xl
+                       lg:text-7xl;
             }
             & dd {
-                @apply mt-3 text-sm leading-snug md:mt-5 md:text-base lg:mt-7 lg:text-lg;
+                @apply mt-3 text-sm leading-snug
+                       md:mt-5 md:text-base
+                       lg:mt-7 lg:text-lg;
             }
         }
         & .btn {
-            @apply w-55 md:w-63;
+            @apply w-55
+                   md:w-63;
         }
     }
 }
@@ -753,7 +889,8 @@
         @apply order-2;
     }
     & .box {
-        @apply order-1 md:pl-0 md:pr-[7.179487179487179%] lg:pr-[8.974358974358974%];
+        @apply order-1
+               md:pl-0 md:pr-[7.179487179487179%] lg:pr-[8.974358974358974%];
     }
 }
 
@@ -835,45 +972,72 @@
                    xl:h-23;
         }
     }
-    &.is-bath {
-        @apply bg-[url(../images/img-page2-content1.png)];
+    &.is-detail1 {
+        @apply bg-[url(../images/bg-page2-detail1-m.jpg)] md:bg-[url(../images/bg-page2-detail1.jpg)];
+    }
+    &.is-detail2 {
+        @apply bg-[url(../images/bg-page2-detail2-m.jpg)] md:bg-[url(../images/bg-page2-detail2.jpg)];
+        & .title, & .desc {
+            @apply md-max:text-white;
+        }
+    }
+    &.is-detail3 {
+        @apply bg-[url(../images/bg-page2-detail3-m.jpg)] md:bg-[url(../images/bg-page2-detail3.jpg)];
+    }
+    &.is-detail4 {
+        @apply bg-[url(../images/bg-page2-detail4-m.jpg)] md:bg-[url(../images/bg-page2-detail4.jpg)];
     }
 }
 
 
 /* 복지용구 선택 */
 .page3-content-container {
-    @apply mx-auto w-fit md:w-auto;
+    @apply mx-auto w-fit
+           md:w-auto;
 }
 
 .page3-content1, .page3-content2, .page3-content3 {
     @apply relative;
     & h3 {
-        @apply text-2xl font-bold leading-tight md:text-[1.875rem] lg:text-5xl;
+        @apply text-2xl font-bold leading-tight 
+               md:text-[1.875rem]
+               lg:text-5xl;
     }
 }
 
 .page3-content1 {
-    @apply relative mt-24 text-base md:text-xl md:mt-42 lg:mt-61 lg:text-[1.375rem];
+    @apply relative mt-24 text-base
+           md:mt-42 md:text-xl
+           lg:mt-61 lg:text-[1.375rem];
     & small {
         @apply text-[1em];
     }
     & h3 {
-        @apply mt-8 font-normal md:mt-10 lg:mt-13;
+        @apply mt-8 font-normal
+               md:mt-10
+               lg:mt-13;
     }
     & p {
-        @apply mt-8 font-medium md:mt-9.5 lg:mt-11;
+        @apply mt-8 font-medium
+               md:mt-9.5
+               lg:mt-11;
     }
     & img {
-        @apply absolute w-50 -top-12 left-43 md:-top-32 md:right-[4.53125%] md:left-auto md:w-91 lg:-top-47 lg:w-[32.75rem];
+        @apply absolute w-50 -top-12 left-43
+               md:-top-32 md:right-[4.53125%] md:left-auto md:w-91
+               lg:-top-47 lg:w-[32.75rem];
     }
     & .btn {
-        @apply mt-5 w-55 shadow-[8px_10px_17px_#0000001A] md:mt-4 md:w-65 lg:mt-3;
+        @apply mt-5 w-55 shadow-[8px_10px_17px_#0000001A]
+               md:mt-4 md:w-65
+               lg:mt-3;
     }
 }
 
 .page3-content2 {
-    @apply mt-27 md:mt-46 lg:mt-65;
+    @apply mt-27
+           md:mt-46
+           lg:mt-65;
     & h3 {
         @apply text-center;
         & strong {
@@ -881,10 +1045,13 @@
         }
     }
     & small {
-        @apply block mt-2 text-base text-center md:text-xl lg:text-2xl;
+        @apply block mt-2 text-base text-center
+               md:text-xl
+               lg:text-2xl;
     }
     & picture {
-        @apply block mx-auto w-full max-w-88 md:max-w-none;
+        @apply block mx-auto w-full max-w-88
+               md:max-w-none;
     }
 }
 

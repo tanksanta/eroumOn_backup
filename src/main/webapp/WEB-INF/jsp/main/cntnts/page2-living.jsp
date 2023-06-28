@@ -11,7 +11,7 @@
 </header>
 
 <div id="content">
-    <div class="page2-content-detail is-bath">
+    <div class="page2-content-detail is-detail2">
 		<h2 class="title">편안한 거실생활</h2>
 		<p class="desc">
 			일상생활에서 가장 많이 활동하는 공간으로<br>

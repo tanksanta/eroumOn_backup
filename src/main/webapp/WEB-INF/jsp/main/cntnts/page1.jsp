@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="visual" class="is-page1">
+	<img src="/html/page/index/assets/images/img-page1-visual-obj1.png" alt="" class="object1">
+	<img src="/html/page/index/assets/images/img-page1-visual-obj2.png" alt="" class="object2">
     <h2 class="title">
         <small>신청방법부터 등급별 혜택까지</small>
         어르신 요양,<br>

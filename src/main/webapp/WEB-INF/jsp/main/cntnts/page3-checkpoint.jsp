@@ -9,7 +9,7 @@
         </ul>
     </nav>
     <h2 class="subject">
-        나에게 맞는 복지용구 선택법 <img src="/html/page/index/assets/images/img-subject5.png" alt="">
+        나에게 맞는 복지용구 선택법 <img src="/html/page/index/assets/images/ico-subject5.png" alt="">
         <small>복지용구 품목별 체크사항을 알려드릴게요</small>
     </h2>
 </header>

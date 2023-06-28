@@ -9,7 +9,7 @@
         </ul>
     </nav>
     <h2 class="subject">
-        복지용구 FAQ <img src="/html/page/index/assets/images/img-subject4.png" alt="">
+        복지용구 FAQ <img src="/html/page/index/assets/images/ico-subject4.png" alt="">
     </h2>
 </header>
 

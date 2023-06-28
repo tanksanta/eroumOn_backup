@@ -11,7 +11,7 @@
 </header>
 
 <div id="content">
-    <div class="page2-content-detail is-bath">
+    <div class="page2-content-detail is-detail3">
 		<h2 class="title">안락한 침실생활</h2>
 		<p class="desc">
 			수면과 휴식을 취하는 공간에서 필요한 복지용구를 소개해드립니다.

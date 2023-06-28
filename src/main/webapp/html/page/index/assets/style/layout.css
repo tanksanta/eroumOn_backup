@@ -1,23 +1,27 @@
 #notice, #notice-mobile {
-    @apply flex bg-white w-full min-h-13 md:min-h-17 lg:min-h-21;
+    @apply flex bg-white w-full min-h-13
+           md:min-h-17
+           lg:min-h-21;
     & .notice-banner1, & .notice-banner2 {
-        @apply flex flex-wrap items-center gap-1.5 p-2.5 leading-snug text-[0.8125rem] lg:text-sm lg:leading-normal;
+        @apply flex flex-wrap items-center gap-1.5 p-2.5 leading-snug text-[0.8125rem]
+               lg:text-sm lg:leading-normal;
         & dl {
             @apply flex-none;
             & dt {
-                @apply mb-0.5 font-bold text-[0.9375rem] lg:text-base;
+                @apply mb-0.5 font-bold text-[0.9375rem]
+                       lg:text-base;
             }
         }
         & a {
-            @apply block py-1.5 px-3 w-fit rounded-full bg-no-repeat bg-[length:auto_1rem] text-white lg:py-2 lg:px-3.5 lg:bg-[length:auto_1.25rem];
+            @apply block py-1.5 px-3 w-fit rounded-full bg-no-repeat bg-[length:auto_1rem] text-white
+                   lg:py-2 lg:px-3.5 lg:bg-[length:auto_1.25rem];
         }
     }
     & .notice-banner1 {
         @apply bg-[#3366DD]/10;
-        & dl {
-        }
         & a {
-            @apply pl-7.5 bg-[#3366DD] bg-[url(../images/ico-notice-menu1.svg)] bg-[left_0.5rem_center] lg:pl-9 lg:bg-[left_0.625rem_center];
+            @apply pl-7.5 bg-[#3366DD] bg-[url(../images/ico-notice-menu1.svg)] bg-[left_0.5rem_center]
+                   lg:pl-9 lg:bg-[left_0.625rem_center];
         }
         & em {
             @apply text-[#3366DD];
@@ -26,13 +30,15 @@
     & .notice-banner2 {
         @apply bg-[#EE9869]/10;
         & a {
-            @apply pl-9 bg-[#EE6969] bg-[url(../images/ico-notice-menu2.svg)] bg-[left_0.8rem_center] lg:pl-[2.875rem] lg:bg-[left_1rem_center];
+            @apply pl-9 bg-[#EE6969] bg-[url(../images/ico-notice-menu2.svg)] bg-[left_0.8rem_center]
+                   lg:pl-[2.875rem] lg:bg-[left_1rem_center];
         }
     }
 }
 
 #notice {
-    @apply fixed top-0 left-0 z-[9999] transition-transform duration-300 ease-out -translate-y-full lg-max:hidden;
+    @apply fixed top-0 left-0 z-[9999] transition-transform duration-300 ease-out -translate-y-full
+           lg-max:hidden;
     & .notice-banner1, & .notice-banner2 {
         @apply w-1/2;
     }
@@ -64,21 +70,32 @@
 }
 
 #header {
-    @apply fixed z-[1020] top-0 left-1/2 -translate-x-1/2 flex items-center mx-auto px-5 w-full max-w-[1360px] h-13 before:content-empty before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:border-b before:border-b-[#ccc] before:-translate-x-1/2 before:transition-[background] before:duration-300 md:px-7 md:h-17 lg:px-10 lg:h-21;
+    @apply fixed z-[1020] top-0 left-1/2 -translate-x-1/2 flex items-center mx-auto px-5 w-full max-w-[1360px] h-13
+           before:content-empty before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:border-b before:border-b-[#ccc] before:-translate-x-1/2 before:transition-[background] before:duration-300
+           md:px-7 md:h-17
+           lg:px-10 lg:h-21;
 }
 
 #logo {
     @apply relative z-5 mr-auto;
+    & a {
+        @apply flex-col items-end
+               after:mt-[4px] after:w-[96px] after:h-[8px] after:bg-no-repeat after:bg-[auto_100%] after:bg-right-top after:bg-[url(../images/img-header-logo.svg)]
+               after:md:mt-[5px] after:md:w-[120px] after:md:h-[9px]
+               after:lg:mt-[6px] after:lg:w-[148px] after:lg:h-[10px];
+    }
 }
 
 #navigation {
     @apply relative z-5;
     & ul {
-        @apply flex items-center gap-1.5 lg:gap-4.5;
+        @apply flex items-center gap-1.5
+               lg:gap-4.5;
         & li {
             @apply last:lg-max:hidden;
             & a {
-                @apply block py-2 px-4 rounded leading-snug text-[0.8125rem] lg:rounded-md lg:text-sm lg:leading-normal lg:px-2 lg:py-2.5 lg-max:bg-gray2;
+                @apply block py-2 px-4 rounded leading-snug text-[0.8125rem] lg:rounded-md
+                       lg:text-sm lg:leading-normal lg:px-2 lg:py-2.5 lg-max:bg-gray2;
                 &.join {
                     @apply lg-max:bg-[#3074FF] lg-max:text-white;
                 }
@@ -91,17 +108,26 @@
 }
 
 #container {
-    @apply relative pt-13 pb-15 overflow-x-hidden md:pt-17 md:pb-20 lg:pt-21 lg:pb-25;
+    @apply relative pt-13 pb-15 overflow-x-hidden
+           md:pt-17 md:pb-20
+           lg:pt-21 lg:pb-25;
 }
 
 #subject {
-    @apply mx-auto mb-11 px-5 max-w-[1360px] md:mb-15 md:px-7 lg:mb-19 lg:px-10;
+    @apply mx-auto mb-11 px-5 max-w-[1360px]
+           md:mb-15 md:px-7
+           lg:mb-19 lg:px-10;
     & .breadcrumb {
-        @apply relative text-gray6 text-[0.8125rem] tracking-tight lg:text-sm;
+        @apply relative text-gray6 text-[0.8125rem] tracking-tight
+               before:content-empty before:box-content before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:border-b before:border-b-gray2 before:bg-white before:-translate-x-1/2
+               lg:text-sm;
         & ul {
             @apply relative z-5 flex items-center py-3 lg:py-3.5;
             & li {
-                @apply relative pr-3.5 mr-2 before:content-empty before:absolute before:top-1/2 before:right-0 before:-mt-px before:-translate-y-1/2 before:w-[7px] before:h-[7px] before:bg-cover before:bg-right-center before:bg-[url(../images/ico-breadcrumb-arrow.svg)] lg:pr-4 lg:mr-3 last:pr-0 last:mr-0 last:before:hidden;
+                @apply relative pr-3.5 mr-2
+                       before:content-empty before:absolute before:top-1/2 before:right-0 before:-mt-px before:-translate-y-1/2 before:w-[7px] before:h-[7px] before:bg-cover before:bg-right-center before:bg-[url(../images/ico-breadcrumb-arrow.svg)]
+                       lg:pr-4 lg:mr-3
+                       last:pr-0 last:mr-0 last:before:hidden;
                 & a {
                     @apply block overflow-hidden bg-no-repeat;
                 }
@@ -112,52 +138,90 @@
                 }
             }
         }
-        &::before {
-            @apply content-empty box-content absolute top-0 left-1/2 w-screen h-full border-b border-b-gray2 bg-white -translate-x-1/2;
-        }
     }
     & .subject {
-        @apply mt-[1.375em] text-center text-4xl font-bold leading-snug md:text-6xl lg:text-7xl;
+        @apply mt-[1.375em] text-center text-4xl font-bold leading-snug
+               md:text-6xl
+               lg:text-7xl;
         & img {
-            @apply inline-block align-middle h-7 -translate-y-[10%] md:h-8.5 md:-translate-y-[15%] lg:h-10;
+            @apply inline-block align-middle h-7 -translate-y-[10%]
+                   md:h-8.5 md:-translate-y-[15%]
+                   lg:h-10;
         }
         & small {
-            @apply block mt-[1em] text-sm font-normal md:text-base lg:text-lg;
+            @apply block mt-[1em] text-sm font-normal
+                   md:text-base
+                   lg:text-lg;
         }
     }
 }
 
 #content {
-    @apply relative mx-auto px-5 max-w-screen-xl md:px-7 lg:px-10;
+    @apply relative mx-auto px-5 max-w-screen-xl
+           md:px-7
+           lg:px-10;
 }
 
 #visual {
-    @apply relative min-h-[580px] h-[75vh] max-h-[626px] bg-cover bg-[center] md:h-[684px] md:max-h-none md:bg-[center_top] lg:h-[760px];
+    @apply relative bg-blue-200 min-h-[580px] h-[calc(100vh-3.25rem)] bg-cover bg-[center_top]
+           md:min-h-[684px] md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
+           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px]
+           xl:!max-h-[1366px];
     & .title {
-        @apply absolute leading-tight font-bold text-2xl whitespace-nowrap md:text-5xl lg:text-7xl;
+        @apply absolute leading-tight font-bold text-2xl
+               md:text-5xl
+               lg:text-7xl;
         & small {
-            @apply block mb-3.5 text-sm md:mb-4.5 md:text-base lg:mb-6 lg:text-lg;
+            @apply block mb-3.5 text-sm
+                   md:mb-4.5 md:text-base
+                   lg:mb-6 lg:text-lg;
         }
+    }
+    & [class*="object"] {
+        @apply absolute opacity-0 ease-out transition-[transform,opacity] duration-[600ms] translate-y-5
+               md:duration-700 md:translate-y-10;
     }
     & .text-scroll {
         @apply absolute left-1/2 bottom-3 -translate-x-1/2;
     }
+    &.is-active {
+        & [class*="object"] {
+            @apply !opacity-100 !translate-y-0;
+        }
+    }
     &.is-page1 {
-        @apply bg-[url(../images/bg-page1-visual-m.jpg)] md:bg-[url(../images/bg-page1-visual.jpg)];
-        & .title {
-            @apply bottom-[20.44728434504792%] right-[10.94147582697201%] md:top-49 md:bottom-auto md:right-auto md:pr-5 md:left-[55.05208333333333%] lg:top-55 lg:text-[2.625rem];
-            & small {
-                @apply text-gray6;
+        @apply bg-[url(../images/bg-page1-visual-m.jpg)]
+               md:bg-[url(../images/bg-page1-visual.jpg)];
+        &.is-page1 {
+            & .title {
+                @apply bottom-[12.73885350318471%] right-[10.94147582697201%]
+                       md:top-1/2 md:bottom-auto md:right-auto md:pr-5 md:left-[55.05208333333333%] md:-translate-y-[55%]
+                       lg:text-[2.625rem];
+                & small {
+                    @apply text-gray6;
+                }
+                & em {
+                    @apply block w-fit relative text-3xl bg-gradient-to-r to-[#0953CD] from-[#3047ff]
+                           md:text-[2.375rem]
+                           lg:text-7xl;
+                    -webkit-background-clip: text;
+                    -moz-background-clip: text;
+                    -webkit-text-fill-color: transparent; 
+                    -moz-text-fill-color: transparent;
+                }
+                & img {
+                    @apply absolute right-0 top-0 translate-x-[60%] -translate-y-[52%] w-7
+                           md:w-7.5 lg:w-8.5;
+                }
             }
-            & em {
-                @apply block w-fit relative text-3xl bg-gradient-to-r to-[#0953CD] from-[#3047ff] md:text-[2.375rem] lg:text-7xl;
-                -webkit-background-clip: text;
-                -moz-background-clip: text;
-                -webkit-text-fill-color: transparent; 
-                -moz-text-fill-color: transparent;
+            & .object1 {
+                @apply top-[38.21656050955414%] right-[1.272264631043257%] h-[14.39339690197114%] max-h-[91px]
+                       md:top-[27.02702702702703%] md:right-1/2 md:h-[27.16216216216217%] md:max-h-none
+                       xl:mr-[13.28125vw] xl:-translate-x-[75%];
             }
-            & img {
-                @apply absolute right-0 top-0 translate-x-[60%] -translate-y-[52%] w-7 md:w-7.5 lg:w-8.5;
+            & .object2 {
+                @apply top-[7.165605095541401%] left-[8.396946564885496%] h-[15.01680820948337%] delay-300 max-h-[95px]
+                       md:top-[62.83783783783784%] md:left-auto md:right-1/2 md:mr-[13.28125vw] md:h-[26.21621621621621%] md:max-h-none;
             }
         }
     }
@@ -175,9 +239,29 @@
         }
     }
     &.is-page3 {
-        @apply bg-[url(../images/bg-page3-visual-m.jpg)] md:bg-[url(../images/bg-page3-visual.jpg)];
+        @apply bg-[url(../images/bg-page3-visual-m.jpg)] bg-center
+               md:bg-[url(../images/bg-page3-visual.jpg)];
         & .title {
-            @apply top-[13.09904153354633%] left-1/2 text-white -translate-x-1/2 md:top-[24.86486486486486%] md:text-left md:-translate-x-[7.729468599033816%] xl:-translate-x-[5.152979066022544%];
+            @apply z-5 top-[13.09904153354633%] left-1/2 text-white -translate-x-1/2 md:top-[24.86486486486486%] md:text-left md:-translate-x-[7.729468599033816%] xl:-translate-x-[5.152979066022544%];
+        }
+        & [class*="object"] {
+            @apply top-0 left-0 w-full h-full bg-cover bg-center;
+        }
+        & .object1 {
+            @apply bg-[url(../images/img-page3-visual-obj1-m.png)]
+                   md:bg-[url(../images/img-page3-visual-obj1.png)];
+        }
+        & .object2 {
+            @apply bg-[url(../images/img-page3-visual-obj2-m.png)] delay-300
+                   md:bg-[url(../images/img-page3-visual-obj2.png)];
+        }
+        & .object3 {
+            @apply bg-[url(../images/img-page3-visual-obj3-m.png)] delay-700
+                   md:bg-[url(../images/img-page3-visual-obj3.png)];
+        }
+        & .object4 {
+            @apply bg-[url(../images/img-page3-visual-obj4-m.png)] delay-1000
+                   md:bg-[url(../images/img-page3-visual-obj4.png)];
         }
     }
 }
@@ -209,7 +293,8 @@
             & ul {
                 & li {
                     & a {
-                        @apply lg:text-black2 lg-max:bg-gray2;
+                        @apply lg:text-black2
+                               lg-max:bg-gray2;
                         &.join {
                             @apply lg-max:bg-[#3074FF] lg-max:text-white;
                         }
