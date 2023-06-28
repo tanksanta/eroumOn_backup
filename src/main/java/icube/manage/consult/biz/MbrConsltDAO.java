@@ -1,0 +1,22 @@
+package icube.manage.consult.biz;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import icube.common.framework.abst.CommonAbstractMapper;
+import icube.common.vo.CommonListVO;
+
+@Repository("mbrConsltDAO")
+public class MbrConsltDAO extends CommonAbstractMapper {
+
+	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
+		return selectListVO("conslt.selectMbrConsltCount","conslt.selectMbrConsltListVO",listVO);
+	}
+
+	public Integer updateUseYn(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.updateUseYn", paramMap);
+	}
+
+	
+}
