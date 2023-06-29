@@ -1,39 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <div class="main-visual">
+    <div class="image">
+        <picture class="background">
+            <source srcset="/html/page/index/assets/images/bg-main-visual-m.jpg" media="(max-width: 768px)"> 
+            <source srcset="/html/page/index/assets/images/bg-main-visual.jpg"> 
+            <img src="/html/page/index/assets/images/bg-main-visual.jpg" alt="">
+        </picture>
+        <img src="/html/page/index/assets/images/img-main-visual-obj1.png" alt="" class="object1">
+        <img src="/html/page/index/assets/images/img-main-visual-obj2.png" alt="" class="object2">
+        <img src="/html/page/index/assets/images/img-main-visual-obj3.png" alt="" class="object3">
+    </div>
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide main-slide1">
-                <div class="image">
-                    <img src="/html/page/index/assets/images/img-main-slide1.png" alt="" class="object1">
-                    <img src="/html/page/index/assets/images/img-main-slide2.png" alt="" class="object2">
-                    <img src="/html/page/index/assets/images/img-main-slide3.png" alt="" class="object3">
-                </div>
-                <div class="context">
-                    <p class="title">
-                        최대 2,500만원 복지혜택,<br>
-                        <strong>65세 이상이라면 바로 신청하세요</strong>
-                    </p>
-                    <p class="desc">등급별 지원 혜택이 달라요!</p>
-                    <a href="#" class="btn btn-primary3 is-arrow">내 인정등급 확인하기</a>
-                </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    최대 2,500만원 복지혜택,<br>
+                    <strong>65세 이상이라면 바로 신청하세요</strong>
+                </p>
+                <p class="desc">등급별 지원 혜택이 달라요!</p>
+                <a href="#" class="btn btn-primary3 is-arrow">내 인정등급 확인하기</a>
             </div>
-            <div class="swiper-slide main-slide1">
-                <div class="image">
-                    <img src="/html/page/index/assets/images/img-main-slide1.png" alt="" class="object1">
-                    <img src="/html/page/index/assets/images/img-main-slide2.png" alt="" class="object2">
-                    <img src="/html/page/index/assets/images/img-main-slide3.png" alt="" class="object3">
-                </div>
-                <div class="context">
-                    <p class="title">
-                        최대 2,500만원 복지혜택,<br>
-                        <strong>65세 이상이라면 바로 신청하세요</strong>
-                    </p>
-                    <p class="desc">등급별 지원 혜택이 달라요!</p>
-                    <a href="#" class="btn btn-primary3 is-arrow">내 인정등급 확인하기</a>
-                </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    65세 미만이라도,<br>
+                    <strong>등급 인정 확률이 높아요</strong>
+                </p>
+                <p class="desc">
+                    타인 도움 없이 생활이 불가능한 어르신<br>
+                    노인성 질환을 앓고 있는 어르신<br>
+                    치매 증상으로 불편한 어르신
+                </p>
+                <a href="#" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
+            </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    <strong>어르신을 위한 복지,</strong><br>
+                    놓치지 말고 누리세요
+                </p>
+                <p class="desc">등급을 받으시면 다양한 요양 용품, 서비스가 제공되요</p>
+                <a href="#" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
             </div>
         </div>
-        <div class="swiper-pagination"></div>
     </div>
     <p class="text-scroll is-white">아래에서 더 자세히 알아보세요</p>
 </div>
@@ -80,8 +88,8 @@
     <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">슈퍼<br>시니어</a></li>
 </ul>
 
-<div class="main-content">
-    <div class="content-item1">
+<div class="main-content-wrapper">
+    <div class="main-content1">
         <div class="image">
             <div class="object1"></div>
             <div class="object2"></div>
@@ -94,11 +102,11 @@
             </h2>
             <p>우리 부모님은<br> 지원대상일까요?</p>
             <p>어떤 요양 서비스와 용품이<br> 제공될까요?</p>
-            <a href="/main/cntnts/page1" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+            <a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
         </div>
     </div>
     
-    <div class="content-item2">
+    <div class="main-content2">
         <div class="image">
             <div class="object1"></div>
         </div>
@@ -110,11 +118,11 @@
             </h2>
             <p>불편한 거동, 낙상 사고 등의 걱정을</p>
             <p>복지용구로 덜으실 수 있어요</p>
-            <a href="/main/cntnts/page2" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
         </div>
     </div>
     
-    <div class="content-item3">
+    <div class="main-content3">
         <div class="image">
             <div class="object1"></div>
             <div class="object2"></div>
@@ -127,7 +135,7 @@
             </h2>
             <p>높은 금액의 복지용구,</p>
             <p>혜택받는 방법과<br> 고르는 법을 알려드려요</p>
-            <a href="/main/cntnts/page3" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+            <a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
         </div>
     </div>
 </div>
@@ -156,22 +164,15 @@
             var swiper = new Swiper(".swiper", {
                 slidesPerView: 1,
                 loop: true,
-                pagination: {
-                    el: ".swiper-pagination",
+                effect: "fade",
+                speed: 1000,
+                allowTouchMove: false,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
                 },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                }, on: {
-                    slideChangeTransitionEnd: function() {
-                        [].slice.call(this.slides).forEach((e, i) => {
-                            if(i == this.activeIndex) {
-                                e.classList.add('is-active');
-                            } else {
-                                e.classList.remove('is-active');
-                            }
-                        });
-                    }
+                fadeEffect: {
+                    crossFade: true
                 }
             });
 

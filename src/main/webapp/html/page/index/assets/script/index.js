@@ -1,7 +1,7 @@
 $(function() {
     $(window).on('load', function() {
         setTimeout(function() {
-            $('#visual').addClass('is-active');
+            $('.main-visual, #visual').addClass('is-active');
         }, 200)
 
         $('#quick .moveTop').on('click', function() {
@@ -29,8 +29,6 @@ $(function() {
         }
     });
     $(window).on('load scroll resize', function() {
-        var visualheight = ($(window).outerWidth() < 768 && $(window).height() > 700) ? 700 : $(window).outerHeight() - $('#header').outerHeight();
-
-        $('#visual').css({'max-height': visualheight});
+        $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
     })
 })

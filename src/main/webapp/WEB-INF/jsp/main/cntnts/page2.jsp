@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="visual" class="is-page2">
+    <div class="image">
+        <picture class="background">
+            <source srcset="/html/page/index/assets/images/bg-page2-visual-m.jpg" media="(max-width: 768px)"> 
+            <source srcset="/html/page/index/assets/images/bg-page2-visual.jpg"> 
+            <img src="/html/page/index/assets/images/bg-page2-visual.jpg" alt="">
+        </picture>
+        <img src="/html/page/index/assets/images/img-page2-visual-obj1.png" alt="" class="object1">
+        <img src="/html/page/index/assets/images/img-page2-visual-obj2.png" alt="" class="object2">
+        <img src="/html/page/index/assets/images/img-page2-visual-obj3.png" alt="" class="object3">
+        <img src="/html/page/index/assets/images/img-page2-visual-obj4.png" alt="" class="object4">
+        <img src="/html/page/index/assets/images/img-page2-visual-obj5.png" alt="" class="object5">
+    </div>
     <h2 class="title">
         <small>부모님의 생활을 한층 편하게</small>
         복지용구가 일상생활에서<br>
@@ -49,7 +61,7 @@
                     안전사고를 예방하는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="/main/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
 
@@ -63,7 +75,7 @@
                     이동에 편리함을 주는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="/main/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
 
@@ -77,7 +89,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="/main/cntnts/page2-bed" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
     
@@ -91,7 +103,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="/main/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
         </div>
     </div>
 </div>

@@ -1,30 +1,3 @@
-:root {
-    --key1 : #6E2A85;
-    --key2 : #E63985;
-    --key3 : #BA366B;
-    --key4 : #B76F2C;
-    --key5 : #459199;
-    --key6 : #42A075;
-    --key7 : #619341;
-    --key8 : #5E6755;
-    --key1-gradient  : linear-gradient(142deg, #662E79 0%, #DC4199 100%);
-    --key2-gradient  : linear-gradient(142deg, #CF3B7C 0%, #F69664 100%);
-    --key3-gradient  : linear-gradient(142deg, #B9366B 0%, #E3853C 100%);
-    --key4-gradient  : linear-gradient(142deg, #B46B29 0%, #EBB964 100%);
-    --key5-gradient  : linear-gradient(142deg, #459199 0%, #4FC09E 100%);
-    --key6-gradient  : linear-gradient(142deg, #3F9E77 0%, #73C04F 100%);
-    --key7-gradient  : linear-gradient(142deg, #619442 0%, #C7877A 100%);
-    --key8-gradient  : linear-gradient(142deg, #5E6755 0%, #AC6491 100%);
-    --key1-gradient2 : linear-gradient(104deg, #662E79 0%, #DC4199 100%);
-    --key2-gradient2 : linear-gradient(104deg, #CF3B7C 0%, #F69664 100%);
-    --key3-gradient2 : linear-gradient(104deg, #B9366B 0%, #E3853C 100%);
-    --key4-gradient2 : linear-gradient(104deg, #B46B29 0%, #EBB964 100%);
-    --key5-gradient2 : linear-gradient(104deg, #459199 0%, #4FC09E 100%);
-    --key6-gradient2 : linear-gradient(104deg, #3F9E77 0%, #73C04F 100%);
-    --key7-gradient2 : linear-gradient(104deg, #619442 0%, #C7877A 100%);
-    --key8-gradient2 : linear-gradient(104deg, #5E6755 0%, #AC6491 100%);
-}
-
 html, body {
     @apply scroll-smooth text-black2 break-keep;
     -webkit-overflow-scrolling: touch;
@@ -32,11 +5,8 @@ html, body {
 }
 
 body {
-    @apply overflow-x-hidden;
-}
-
-body {
-    @apply text-sm md:text-base;
+    @apply text-sm overflow-x-hidden
+           md:text-base;
 }
 
 strong {
@@ -339,11 +309,14 @@ strong {
     }
     
     .form-check-group {
-        @apply pt-0 px-1 pb-1 md:px-1.5 md:pb-1.5;
+        @apply pt-0 px-1 pb-1
+               md:px-1.5 md:pb-1.5;
         & .form-check {
-            @apply mt-1 md:mt-1.5 md:mr-1.5;
+            @apply mt-1
+                   md:mt-1.5 md:mr-1.5;
             & .form-check-label {
-                @apply px-2 min-w-0 h-8 leading-8 md:px-3.5 md:h-8.5 md:leading-[2.125rem];
+                @apply px-2 min-w-0 h-8 leading-8
+                       md:px-3.5 md:h-8.5 md:leading-[2.125rem];
             }
         }
     }
@@ -380,12 +353,15 @@ strong {
             @apply min-w-0 w-15 flex-1;
         }
         & .btn {
-            @apply px-4 md:px-5;
+            @apply px-4
+                   md:px-5;
             &.btn-small {
-                @apply px-3 md:px-4;
+                @apply px-3
+                       md:px-4;
             }
             &.btn-small {
-                @apply px-5 md:px-8;
+                @apply px-5
+                       md:px-8;
             }
         }
     }
@@ -444,7 +420,8 @@ strong {
     .label {
         @apply inline-flex items-center justify-center px-3 rounded-full h-5.5 bg-gray1 text-[0.8125rem] font-normal text-white;
         & + .label {
-            @apply mr-0.5 last:mr-0;
+            @apply mr-0.5
+                   last:mr-0;
         }
     }
 
@@ -461,24 +438,33 @@ strong {
     }
 
     .btn {
-        @apply px-3 h-10 border-0.5 rounded-md text-sm text-center font-bold ring-0 md:px-4 md:h-11 md:text-base hover:bg-white hover:ring-0 focus:bg-white focus:ring-0 active:bg-white active:ring-0;
+        @apply px-3 h-10 border-0.5 rounded-md text-sm text-center font-bold ring-0
+               md:px-4 md:h-11 md:text-base
+               hover:bg-white hover:ring-0
+               focus:bg-white focus:ring-0
+               active:bg-white active:ring-0;
     }
     
     .btn-small {
-        @apply rounded border-px px-2 h-9 text-[0.8125rem] md:px-3 md:h-10 md:text-sm;
+        @apply rounded border-px px-2 h-9 text-[0.8125rem]
+               md:px-3 md:h-10 md:text-sm;
     }
 
     .btn-large {
-        @apply px-4 h-[3.125rem] text-base md:px-5 md:h-[3.375rem] md:text-lg;
+        @apply px-4 h-[3.125rem] text-base
+               md:px-5 md:h-[3.375rem] md:text-lg;
     }
 
     .btn-large2 {
-        @apply px-7.5 h-[3.125rem] text-sm md:px-9.5 md:h-15 md:text-base;
+        @apply px-7.5 h-[3.125rem] text-sm
+               md:px-9.5 md:h-15 md:text-base;
     }
 
     .btn-primary, .btn-outline-primary, .btn-primary2, .btn-outline-primary2, .btn-primary3, .btn-outline-primary3 {
         &.is-arrow {
-            @apply justify-between after:content-empty after:block after:relative after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:transition-all after:duration-500 md:after:ml-5 md:after:w-3.5 md:after:h-3;
+            @apply justify-between
+                   after:content-empty after:block after:relative after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:transition-all after:duration-500
+                   md:after:ml-5 md:after:w-3.5 md:after:h-3;
         }
         &.btn-large {
             &.is-arrow {
@@ -487,47 +473,72 @@ strong {
         }
         &.btn-small {
             &.is-arrow {
-                @apply after:ml-2.5 after:w-3 after:h-2.5 md:after:ml-4;
+                @apply after:ml-2.5 after:w-3 after:h-2.5
+                       md:after:ml-4;
             }
         }
     }
+
     .btn-primary {
-        @apply border-black2 bg-black2 text-white hover:!border-black2 hover:!bg-white hover:!text-black2 focus:border-black2 focus:bg-black2 focus:text-white active:border-black2 active:bg-white active:text-black2;
+        @apply border-black2 bg-black2 text-white 
+               hover:!border-black2 hover:!bg-white hover:!text-black2 
+               focus:border-black2 focus:bg-black2 focus:text-white 
+               active:border-black2 active:bg-white active:text-black2;
         &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)] hover:after:bg-[url(../images/ico-button-arrow.svg)];
+            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow.svg)];
         }
     }
 
     .btn-outline-primary {
-        @apply border-black2 bg-white text-black2 hover:border-black2 hover:!bg-black2 hover:!text-white focus:border-black2 focus:bg-white focus:text-black2 active:border-black2 active:bg-black2 active:text-white;
+        @apply border-black2 bg-white text-black2
+               hover:border-black2 hover:!bg-black2 hover:!text-white
+               focus:border-black2 focus:bg-white focus:text-black2
+               active:border-black2 active:bg-black2 active:text-white;
         &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow.svg)] hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
+            @apply after:bg-[url(../images/ico-button-arrow.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
         }
     }
 
     .btn-primary2 {
-        @apply border-[#FF8300] bg-[#FF8300] text-white hover:!border-[#FF8300] hover:!bg-white hover:!text-[#FF8300] focus:border-[#FF8300] focus:bg-[#FF8300] focus:text-white active:border-[#FF8300] active:bg-white active:text-[#FF8300];
+        @apply border-[#FF8300] bg-[#FF8300] text-white
+               hover:!border-[#FF8300] hover:!bg-white hover:!text-[#FF8300]
+               focus:border-[#FF8300] focus:bg-[#FF8300] focus:text-white
+               active:border-[#FF8300] active:bg-white active:text-[#FF8300];
         &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)] hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
+            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
         }
     }
 
     .btn-outline-primary2 {
-        @apply border-[#FF8300] bg-white text-[#FF8300] hover:border-[#FF8300] hover:!bg-[#FF8300] hover:!text-white focus:border-[#FF8300] focus:bg-white focus:text-[#FF8300] active:border-[#FF8300] active:bg-[#FF8300] active:text-white;
+        @apply border-[#FF8300] bg-white text-[#FF8300]
+               hover:border-[#FF8300] hover:!bg-[#FF8300] hover:!text-white
+               focus:border-[#FF8300] focus:bg-white focus:text-[#FF8300]
+               active:border-[#FF8300] active:bg-[#FF8300] active:text-white;
         &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-orange.svg)] hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
+            @apply after:bg-[url(../images/ico-button-arrow-orange.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
         }
     }
 
     .btn-primary3 {
-        @apply border-[#3074FF] bg-[#3074FF] text-white hover:!border-[#3074FF] hover:!bg-white hover:!text-[#3074FF] focus:border-[#3074FF] focus:bg-[#3074FF] focus:text-white active:border-[#3074FF] active:bg-white active:text-[#3074FF];
+        @apply border-[#3074FF] bg-[#3074FF] text-white
+               hover:!border-[#3074FF] hover:!bg-white hover:!text-[#3074FF]
+               focus:border-[#3074FF] focus:bg-[#3074FF] focus:text-white
+               active:border-[#3074FF] active:bg-white active:text-[#3074FF];
         &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)] hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
+            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
         }
     }
 
     .btn-outline-primary3 {
-        @apply border-[#3074FF] bg-white text-[#3074FF] hover:border-[#3074FF] hover:!bg-[#3074FF] hover:!text-white focus:border-[#3074FF] focus:bg-white focus:text-[#3074FF] active:border-[#3074FF] active:bg-[#3074FF] active:text-white;
+        @apply border-[#3074FF] bg-white text-[#3074FF]
+               hover:border-[#3074FF] hover:!bg-[#3074FF] hover:!text-white
+               focus:border-[#3074FF] focus:bg-white focus:text-[#3074FF]
+               active:border-[#3074FF] active:bg-[#3074FF] active:text-white;
         &.is-arrow {
             @apply after:bg-[url(../images/ico-button-arrow-blue.svg)]
                    hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
@@ -542,22 +553,6 @@ strong {
     .btn-share {
         @apply relative w-10 h-10 overflow-hidden rounded-full border-0 -indent-96
                after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(../images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
-    }
-
-    .btn-kakao, .btn-naver {
-        @apply py-0
-               before:content-empty before:mr-1 before:w-[46px] before:h-full before:bg-no-repeat before:bg-cover before:bg-center
-               before:md:w-[50px];
-    }
-
-    .btn-kakao {
-        @apply !border-[#ffe000] !bg-[#ffe000]
-               before:bg-[url(../images/ico-kakao.png)];
-    }
-    
-    .btn-naver {
-        @apply !border-[#04C75B] !bg-[#04C75B] !text-white
-               before:bg-[url(../images/ico-naver.png)];
     }
 
     .text-scroll {

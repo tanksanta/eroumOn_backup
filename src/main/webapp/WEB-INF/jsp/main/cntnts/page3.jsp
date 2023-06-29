@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div id="visual" class="is-page3">
+    <div class="image">
+        <picture class="background">
+            <source srcset="/html/page/index/assets/images/bg-page3-visual-m.jpg" media="(max-width: 768px)"> 
+            <source srcset="/html/page/index/assets/images/bg-page3-visual.jpg"> 
+            <img src="/html/page/index/assets/images/bg-page3-visual.jpg" alt="">
+        </picture>
+        <img src="/html/page/index/assets/images/img-page3-visual-obj1.png" alt="" class="object1">
+        <img src="/html/page/index/assets/images/img-page3-visual-obj2.png" alt="" class="object2">
+        <img src="/html/page/index/assets/images/img-page3-visual-obj3.png" alt="" class="object3">
+        <img src="/html/page/index/assets/images/img-page3-visual-obj4.png" alt="" class="object4">
+    </div>
     <h2 class="title">
         <small>똑똑하게 복지용구 선택하기</small>
         복지용구,<br> 
@@ -43,12 +54,12 @@
             <div>
                 <h3>복지용구 FAQ</h3>
                 <img src="/html/page/index/assets/images/img-page3-content3.png" alt="">
-                <a href="/main/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 is-arrow">바로가기</a>
+                <a href="${_mainPath}/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 is-arrow">바로가기</a>
             </div>
             <div>
                 <h3>복지용구 체크포인트</h3>
                 <img src="/html/page/index/assets/images/img-page3-content3-2.png" alt="">
-                <a href="/main/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 is-arrow">바로가기</a>
+                <a href="${_mainPath}/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 is-arrow">바로가기</a>
             </div>
         </div>
     </div>

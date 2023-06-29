@@ -288,6 +288,23 @@ strong {
             @apply bg-black2/50 text-white backdrop-blur-md;
         }
     }
+    
+    .btn-kakao, .btn-naver {
+        @apply !py-0 !px-4 !h-[3.125rem] !text-base !font-bold
+               md:!px-5 md:!h-[3.375rem] md:!text-lg
+               before:content-empty before:mr-1 before:w-[46px] before:h-full before:bg-no-repeat before:bg-cover before:bg-center
+               before:md:w-[50px];
+    }
+    
+    .btn-kakao {
+        @apply !border-[#ffe000] !bg-[#ffe000]
+               before:bg-[url(/html/core/images/ico-kakao.png)];
+    }
+    
+    .btn-naver {
+        @apply !border-[#04C75B] !bg-[#04C75B] !text-white
+               before:bg-[url(/html/core/images/ico-naver.png)];
+    }
 
     @keyframes loading {
         0% {transform: rotate(0deg);}

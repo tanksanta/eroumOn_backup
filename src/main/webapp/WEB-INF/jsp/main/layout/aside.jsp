@@ -17,7 +17,7 @@
 			<dt>부모님 맞춤 제품이 필요하세요?</dt>
 			<dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
 		</dl>
-		<a href="#">지금 둘러보기</a>
+        <a href="${_marketPath}/index">지금 둘러보기</a>
 	</div>
 </aside>
 <!-- //notice -->
