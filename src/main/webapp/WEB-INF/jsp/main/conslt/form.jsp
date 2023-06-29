@@ -33,7 +33,7 @@
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
-					<input type="text" id="mblTelno" name="mblTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="15" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if>/>
+					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="15" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if>/>
 				</dd>
 			</dl>
 			<dl>
@@ -145,7 +145,7 @@ $(function(){
 		},
 		messages : {
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
-			mblTelno : {required : "연락처는 필수 입력 항목입니다."},
+			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
 			age : {required : "만 나이는 필수 입력 항목입니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},

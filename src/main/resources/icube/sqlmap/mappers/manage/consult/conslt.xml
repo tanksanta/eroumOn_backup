@@ -90,7 +90,7 @@
 		    , rgtr	
 		)VALUES(
 			#{mbrNm}
-			, #{mblTelno}
+			, #{mbrTelno}
 			, #{age}
 			, #{zip}
 			, #{addr}
