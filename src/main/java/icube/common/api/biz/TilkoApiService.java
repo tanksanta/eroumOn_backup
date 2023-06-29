@@ -347,6 +347,7 @@ public class TilkoApiService {
 		    	 infoMap.put("ownLendList", null);
 		     }
 	     }
+	     
 	     List<String> allItem = new ArrayList<String>();
 	     for(Map.Entry<String, String> entry : CodeMap.RECIPTER_ITEM.entrySet()) {
 	    	 allItem.add(entry.getValue());

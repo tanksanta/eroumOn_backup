@@ -303,13 +303,21 @@ function comma(num){
    			     	<c:if test="${empty _mbrSession.uniqueId}">
    			     		$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
    			     	</c:if>
+   			     	
    			     	<c:if test="${!empty _mbrSession.uniqueId}">
-   			     		$("select[name='select-gugun'] option").each(function(){
-   			     			if($(this).text() == "${_mbrAddr2}"){
-   			     				$(this).prop("selected",true);
-   			     			}
-   			     			
-   			     		});
+	   			       	if("${_mbrAddr2}" == ''){
+	   			    		$("select[name='select-gugun'] option").each(function(){
+	   			    			if($(this).val() == "1154500000"){
+	   			    				$(this).prop("selected",true);
+	   			    			}
+	   			    		});
+	   			       	}else{
+		   			     	$("select[name='select-gugun'] option").each(function(){
+	   			    			if($(this).text() == "${_mbrAddr2}"){
+	   			    				$(this).prop("selected",true);
+	   			    			}
+	   			    		});
+	   			       	}
    			     	</c:if>
     			})
     			.fail(function(data, status, err) {
@@ -318,8 +326,14 @@ function comma(num){
         	}
 
     	});
-        
-       	$("select[name='select-sido']").trigger("change");
-    	
+        if("${_mbrSession.uniqueId}" != '' && "${_mbrAddr1}" == ''){
+        	$("select[name='select-sido'] option").each(function(){
+    			if($(this).val() == "1100000000"){
+    				$(this).prop("selected",true);
+    			}
+    		});
+        }
+       $("select[name='select-sido']").trigger("change");
+
     });
 </script>

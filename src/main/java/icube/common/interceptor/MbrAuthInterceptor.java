@@ -103,9 +103,9 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 				String[] spAddr = mbrSession.getAddr().split(" ");
 				if(spAddr.length > 1) {
 					String mbrAddr = spAddr[0] + " " + spAddr[1];
-					request.setAttribute("_mbrAddr", mbrAddr);
-					request.setAttribute("_mbrAddr1", spAddr[0]);
-					request.setAttribute("_mbrAddr2", spAddr[1]);
+					request.setAttribute("_mbrAddr", mbrAddr.trim());
+					request.setAttribute("_mbrAddr1", spAddr[0].trim());
+					request.setAttribute("_mbrAddr2", spAddr[1].trim());
 				}
 			}
 
