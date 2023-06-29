@@ -123,7 +123,8 @@ public class GdsVO extends CommonBaseVO {
 	private String aditOptnVal;
 	private String optnNm;
 	private String optnTy;
-	private String optnStockQy;
+	private String optnItemCd;
+	private int optnStockQy;
 	private int gdsOptnNo;
 
 	private List<GdsOptnVO> optnList;

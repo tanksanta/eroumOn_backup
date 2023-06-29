@@ -112,6 +112,7 @@
 		op.gds_optn_no
 		, op.optn_ty
 		, op.optn_nm
+		, op.optn_item_cd
 		, op.optn_pc
 		, op.optn_stock_qy
 		, op.use_yn
@@ -634,6 +635,20 @@
 		SELECT
 			<include refid="listColumn"/>
 		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY g.gds_no DESC
+	</select>
+	
+	<!-- 상품 엑셀다운로드 -->
+	<select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+		SELECT
+			<include refid="listColumn"/>
+			,<include refid="optnListColumn" />
+		FROM GDS g
+			LEFT JOIN GDS_OPTN op on g.gds_no = op.gds_no
 			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
 			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
 		WHERE 1=1

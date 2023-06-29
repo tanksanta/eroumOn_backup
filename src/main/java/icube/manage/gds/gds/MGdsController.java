@@ -439,7 +439,15 @@ public class MGdsController extends CommonAbstractController {
 			, Model model) throws Exception{
 
 		reqMap.put("srchUseYn", "Y");
-		List<GdsVO> resultList = gdsService.selectGdsListAll(reqMap);
+		List<GdsVO> resultList = gdsService.selectGdsWithOptnListAll(reqMap);
+		for(GdsVO gdsVo : resultList) {
+			//옵션 상품은 경우
+			if (gdsVo.getGdsOptnNo() > 0) {
+				gdsVo.setItemCd(gdsVo.getOptnItemCd());
+				gdsVo.setGdsNm(gdsVo.getGdsNm() + "(" + gdsVo.getOptnNm() + ")");
+				gdsVo.setStockQy(gdsVo.getOptnStockQy());
+			}
+		}
 
 		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
