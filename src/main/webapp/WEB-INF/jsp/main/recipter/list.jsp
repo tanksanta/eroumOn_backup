@@ -20,22 +20,26 @@
                 <div class="field">
                     <dl>
                         <dt><label for="recipter">이름</label></dt>
-                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="이간난"></dd>
+                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value=""></dd>
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
-                        <dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="1612104758"></dd>
+                        <dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value=""></dd>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
             </fieldset>
         </form>
 
-        <div class="careinfo-myinfo recipter_view" ><!-- style="display:none;" -->
-            <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) 님의 요양정보</p>
+        <div class="careinfo-myinfo recipter_view" style="display:none;">
+            <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
             <div class="myinfo-wrapper">
                 <div class="myinfo-box1">
-                    <p class="name" ><span class="searchNm">이로미</span>님 <a href="/membership/mypage/list">정보수정</a></p>
+                    <p class="name" ><span class="searchNm">이로미</span>&nbsp; 님
+                    	<c:if test="${_mbrSession.loginCheck}"> 
+                    		<a href="/membership/mypage/list">정보수정</a>
+                    	</c:if>
+                    </p>
                     <dl class="numb">
                         <dt class="desc">요양인정번호</dt>
                         <dd class="searchNo">L123456789</dd>
@@ -81,66 +85,21 @@
         </div>
     </div>
     
-    <%-- 판매 급여 품복 개수 --%>
-   	<input type="hidden" id="saleMobileToilet" value="" /><!-- //이동변기 -->
-	<input type="hidden" id="saleBathChair" value="" /> <!-- //목욕의자 -->
-	<input type="hidden" id="saleWalkerForAdults" value="" /><!-- // 성인용보행기 -->
-	<input type="hidden" id="saleSafetyHandle" value="" /> <!-- //안전손잡이 -->
-	<input type="hidden" id="saleAntiSlipProduct" value="" /> <!-- 	//미끄럼 방지용품 -->
-	<input type="hidden" id="salePortableToilet" value="" /> <!-- //간이변기 -->
-	<input type="hidden" id="saleCane" value="" /> 		<!-- //지팡이 -->
-	<input type="hidden" id="saleCushion" value="" /> 			<!-- 	//욕창예방방석 -->
-	<input type="hidden" id="saleChangeTool" value="" /> 		<!-- 	//자세변환용구 -->
-	<input type="hidden" id="salePanties" value="" />  				<!-- //요실금팬티 -->
-	<input type="hidden" id="saleInRunway" value="" /> 			<!-- //실내용 경사로 -->
-	<input type="hidden" id="saleWheelchair" value="" /> 		<!-- 	//수동휠체어 -->
-	<input type="hidden" id="saleelectricBed" value="" /> 			<!-- //전동침대 -->
-	<input type="hidden" id="saleManualBed" value="" /> 		<!-- 	//수동침대 -->
-	<input type="hidden" id="saleBathtub" value="" /> 			<!-- 	//이동욕조 -->
-	<input type="hidden" id="saleBathLift" value="" /> 				<!-- //목욕리프트 -->
-	<input type="hidden" id="saleDetector" value="" />				<!-- //배회감지기 -->
-	<input type="hidden" id="saleOutRunway" value="" />		<!-- 	//경사로 -->
-	<input type="hidden" id="saleMattress" value="" />			<!-- 	//욕창예방 매트리스 -->
-    <%-- 판매 급여 품복 개수// --%>
-    
-    <%-- 대여 급여 품복 개수 --%>
-    <input type="hidden" id="lendMobileToilet" value="" /><!-- //이동변기 -->
-	<input type="hidden" id="lendBathChair" value="" /> <!-- //목욕의자 -->
-	<input type="hidden" id="lendWalkerForAdults" value="" /><!-- // 성인용보행기 -->
-	<input type="hidden" id="lendSafetyHandle" value="" /> <!-- //안전손잡이 -->
-	<input type="hidden" id="lendAntiSlipProduct" value="" /> <!-- 	//미끄럼 방지용품 -->
-	<input type="hidden" id="lendPortableToilet" value="" /> <!-- //간이변기 -->
-	<input type="hidden" id="lendCane" value="" /> 		<!-- //지팡이 -->
-	<input type="hidden" id="lendCushion" value="" /> 			<!-- 	//욕창예방방석 -->
-	<input type="hidden" id="lendChangeTool" value="" /> 		<!-- 	//자세변환용구 -->
-	<input type="hidden" id="lendPanties" value="" />  				<!-- //요실금팬티 -->
-	<input type="hidden" id="lendInRunway" value="" /> 			<!-- //실내용 경사로 -->
-	<input type="hidden" id="lendWheelchair" value="" /> 		<!-- 	//수동휠체어 -->
-	<input type="hidden" id="lendElectricBed" value="" /> 			<!-- //전동침대 -->
-	<input type="hidden" id="lendManualBed" value="" /> 		<!-- 	//수동침대 -->
-	<input type="hidden" id="lendBathtub" value="" /> 			<!-- 	//이동욕조 -->
-	<input type="hidden" id="lendBathLift" value="" /> 				<!-- //목욕리프트 -->
-	<input type="hidden" id="lendDetector" value="" />				<!-- //배회감지기 -->
-	<input type="hidden" id="lendOutRunway" value="" />		<!-- 	//경사로 -->
-	<input type="hidden" id="lendMattress" value="" />			<!-- 	//욕창예방 매트리스 -->
-    <%-- 대여 급여 품복 개수// --%>
-    
-
-    <div class="careinfo-status recipter_view" ><!-- style="display:none;" -->
+    <div class="careinfo-status recipter_view" style="display:none;">
         <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
         <div class="status-swiper">
             <div class="swiper">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper own_view">
                     <div class="swiper-slide swiper-item1">
                         <strong>성인용 보행기</strong>
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finwalkerForAdults">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buywalkerForAdults" >${apiVO.walkerForAdults}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item2">
@@ -148,11 +107,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finwheelchair">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buywheelchair">${apiVO.wheelchair}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item3">
@@ -160,11 +119,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="fincane">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buycane">${apiVO.cane}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item4">
@@ -172,26 +131,26 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finsafetyHandle">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buysafetyHandle">${apiVO.safetyHandle}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item5">
-                        <strong>미끄럼방지 매트</strong>
+                        <strong>미끄럼방지 용품</strong>
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finantiSlipProduct">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buyantiSlipProduct">${apiVO.antiSlipProduct}</dd>
                         </dl>
                     </div>
-                    <div class="swiper-slide swiper-item6">
+                    <!-- <div class="swiper-slide swiper-item6">
                         <strong>미끄럼방지 양말</strong>
                         <i></i>
                         <dl>
@@ -202,17 +161,17 @@
                             <dt>구매가능</dt>
                             <dd>0</dd>
                         </dl>
-                    </div>
+                    </div> -->
                     <div class="swiper-slide swiper-item7">
                         <strong>욕창예방 매트리스</strong>
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finmattress">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buymattress">${apiVO.mattress}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item8">
@@ -220,11 +179,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="fincushion">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buycushion">${apiVO.cushion}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item9">
@@ -232,11 +191,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finchangeTool">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buychangeTool">${apiVO.changeTool}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item10">
@@ -244,11 +203,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finpanties">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buypanties">${apiVO.panties}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item11">
@@ -256,11 +215,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finbathChair">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buybathChair">${apiVO.bathChair}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item12">
@@ -268,11 +227,11 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finmobileToilet">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buymobileToilet">${apiVO.mobileToilet}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item13">
@@ -280,23 +239,35 @@
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finportableToilet">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buyportableToilet">${apiVO.portableToilet}</dd>
                         </dl>
                     </div>
                     <div class="swiper-slide swiper-item14">
-                        <strong>경사로</strong>
+                        <strong>경사로(실외용)</strong>
                         <i></i>
                         <dl>
                             <dt>계약완료</dt>
-                            <dd>1</dd>
+                            <dd class="finoutRunway">0</dd>
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd>0</dd>
+                            <dd class="buyoutRunway">${apiVO.outRunway}</dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide swiper-item15">
+                        <strong>경사로(실내용)</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="fininRunway">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="inoutRunway">${apiVO.inRunway}</dd>
                         </dl>
                     </div>
                 </div>
@@ -323,18 +294,6 @@
                     </tr>
                 </thead>
                 <tbody class="sale_return">
-                    <tr>
-                        <td>1</td>
-                        <td class="subject">수동휠체어</td>
-                        <td>1개</td>
-                        <td>1개</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="subject">수동휠체어</td>
-                        <td>1개</td>
-                        <td>1개</td>
-                    </tr>
                 </tbody>
             </table>
 
@@ -354,19 +313,7 @@
                         <th scope="col">구매가능</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="subject">수동휠체어</td>
-                        <td>1개</td>
-                        <td>1개</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="subject">수동휠체어</td>
-                        <td>1개</td>
-                        <td>1개</td>
-                    </tr>
+                <tbody  class="lend_return">
                 </tbody>
             </table>
         </div>
@@ -476,6 +423,13 @@ $(function() {
     
    // 기능
     $(".f_recipterCheck").on("click", function(){
+    	let name = $("#recipter").val();
+    	let no = $("#rcperRcognNo").val();
+    	
+    	if(name == '' || no == '' ){
+    		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
+    	}else{
+    		
 		$.ajax({
 			type : "post",
 			url  : "/common/recipter/getRecipterInfo.json",
@@ -487,8 +441,6 @@ $(function() {
 		})
 		.done(function(json) {
 			if(json.result){
-				//$(".recipter_view").show();
-				
 				let usePercent = 0;
 				let setPercent = 100;
 				if(Number(json.infoMap.USE_AMT) != 0){
@@ -514,45 +466,132 @@ $(function() {
 				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
 				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
 				
+				let allList = new Array();
+				
 				let saleList = new Array();
 				let lendList = new Array();
 				
 				let ownSaleList = new Array();
 				let ownLendList = new Array();
 				
-				if(json.infoMap.saleList != '' && json.infoMap.saleList != ''){
+				if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
 					saleList = json.infoMap.saleList
 				}
-				if(json.infoMap.lendList != '' && json.infoMap.lendList != ''){
+				if(json.infoMap.lendList != '' && json.infoMap.lendList != null){
 					lendList = json.infoMap.lendList
 				}
-				if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != ''){
+				if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != null){
 					ownSaleList = json.infoMap.ownSaleList
 				}
-				if(json.infoMap.ownLendList != '' && json.infoMap.ownLendList != ''){
+				if(json.infoMap.ownLendList != '' && json.infoMap.ownLendList != null){
 					ownLendList = json.infoMap.ownLendList
 				}
-				console.log("sale : " + saleList);
-				console.log("lend : " + lendList);
-				console.log("ownSale : " + ownSaleList);
-				console.log("ownLend : " + ownLendList);
+				if(json.infoMap.allList != '' && json.infoMap.allList != null){
+					allList = json.infoMap.allList;
+				}
 				
+				// 고유 보유 개수
+				let apiMap = new Map();
+				
+				let vo = "${apiVO}";
+				vo = vo.replaceAll("TilkoApiVO(","").replaceAll(")","").replaceAll(" ","").split(",");
+				
+				for(let v=0; v<vo.length; v++){
+					let obj = vo[v].split("=");
+					apiMap.set(obj[0],obj[1]);
+				}
+				
+				// 전체 고유 개수
+				if(allList.length > 0){
+					for(let i=0; i<allList.length; i++){
+						$(".fin"+allList[i]).text(0);
+						$(".buy"+allList[i]).text(apiMap.get(allList[i]));
+					}
+				}
+				
+				let CodeMap = new Map();
+				let code = "${apiCode}";
+				code = code.replaceAll("{","").replaceAll("}","").replaceAll(" ","").split(",");
+				
+				for(let v=0; v<code.length; v++){
+					let str = code[v];
+					str = str.split("=");
+					CodeMap.set(str[1], str[0]);
+				}
+
+				// 판매 급여 품목
+				$(".sale_return").empty();
 				if(saleList.length > 0){
 					for(let i=0; i<saleList.length; i++){
+						let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
 						let html = "";
 						html +='   <tr>';
-						html +='    <td>1</td>';
-						html +=' <td class="subject">수동휠체어</td>';
-						html +=' <td>1개</td>';
-						html +='<td>1개</td>';
+						html +='    <td>'+(i+1)+'</td>';
+						html +=' <td class="subject">'+CodeMap.get(saleList[i])+'</td>';
+						html +=' <td class="fin'+saleList[i]+'">0</td>';
+						html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
 						html +='</tr>';
 						$(".sale_return").append(html);
 					}
+				}else{
+					let html = "";
+					html +='   <tr>';
+					html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
+					html +='</tr>';
+					$(".sale_return").append(html);
+				}
 					
-					
+				
+				
+				// 대여 급여 품목
+				$(".lend_return").empty();
+				if(lendList.length > 0){
+					for(let i=0; i<lendList.length; i++){
+						let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
+						let html = "";
+						html +='   <tr>';
+						html +='    <td>'+(i+1)+'</td>';
+						html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
+						html +=' <td class="fin'+lendList[i]+'">0</td>';
+						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
+						html +='</tr>';
+						$(".lend_return").append(html);
+					}
+				}else{
+					let html = "";
+					html +='   <tr>';
+					html +='    <td class="colspan=4">검색된 데이터가 없습니다.</td>';
+					html +='   </tr>';
+					$(".lend_return").append(html);
 				}
 				
-
+				
+				// 보유 현황 카운트 - 판매
+				if(ownSaleList.length > 0){
+					for(let i=0; i<ownSaleList.length; i++){
+						let finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
+						let buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
+						$(".fin"+ownSaleList[i]).text(finCnt+1);
+						
+						if(buyCnt > 0){
+							$(".buy"+ownSaleList[i]).text(buyCnt-1);	
+						}
+					}	
+				}
+				// 보유 현황 카운트 - 대여
+				if(ownLendList.length > 0){
+					for(let i=0; i<ownLendList.length; i++){
+						let finCnt = Number($(".sale_return .fin"+ownLendList[i]).text());
+						let buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
+						$(".fin"+ownLendList[i]).text(fintCnt + 1);
+						
+						if(buyCnt > 0){
+							$(".buy"+ownLendList[i]).text(buyCnt-1);	
+						}
+						
+					}	
+				}
+				$(".recipter_view").show();
 			}else{
 				alert("조회된 데이터가 없습니다.");
 			}
@@ -561,6 +600,7 @@ $(function() {
 		.fail(function(data, status, err) {
 			console.log('error forward : ' + data);
 		});
+    }
 	});
 })
 </script>

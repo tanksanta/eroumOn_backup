@@ -75,7 +75,6 @@ public class TilkoApiService {
 
 		// RSA Public Key 조회
 		String rsaPublicKey		= getPublicKey();
-		//System.out.println("rsaPublicKey: " + rsaPublicKey);
 
 
 		// AES Secret Key 및 IV 생성
@@ -87,7 +86,6 @@ public class TilkoApiService {
 
 		// AES Key를 RSA Public Key로 암호화
 		String aesCipherKey	= rsaEncrypt(rsaPublicKey, aesKey);
-		//System.out.println("aesCipherKey: " + aesCipherKey);
 
 		// API URL 설정
 		String url = apiHost + url_recipientContractDetail;
@@ -169,7 +167,6 @@ public class TilkoApiService {
 		        	String sbaCd = (String) welToolTgt.get("SBA_CD");
 		        	int selfBndRt  = 0;
 
-		        	//TO-DO : 본인부담율 계산
 		        	//let penPayRate = rep_info['REDUCE_NM'] == '일반' ? '15%': rep_info['REDUCE_NM'] == '기초' ? '0%' : rep_info['REDUCE_NM'] == '의료급여' ? '6%': (rep_info['SBA_CD'].split('(')[1].substr(0, rep_info['SBA_CD'].split('(')[1].length-1));
 		        	if( reduceNm.equals("일반") ) {
 		        		selfBndRt = 15;
@@ -267,8 +264,6 @@ public class TilkoApiService {
 
         jsonObject = new JSONObject((Map<String, Object>) obj);
 
-        System.out.println("@@@ re: " + jsonObject);
-        
         JSONObject dsPayPsblObj = (JSONObject) jsonObject.get("Result");
         JSONArray ds_payPsbl1 = new JSONArray();
         JSONArray ds_payPsblLnd1 = new JSONArray();
@@ -298,10 +293,6 @@ public class TilkoApiService {
             infoMap.put("lendList", null);
         }
         
-        
-        System.out.println("@@@ infoMap : " + infoMap.toString());
-        
-        
         // 계약 리스트 API 호출
         url = apiHost + url_recipientContractHistory;
         json.remove("Col");
@@ -329,19 +320,17 @@ public class TilkoApiService {
 	     obj = jsonParser.parse(responseStr);
 	
 	     jsonObject = new JSONObject((Map<String, Object>) obj);
-	     System.out.println("@@@ re23232: " + jsonObject);
 	     
 	     JSONObject Ds_result = (JSONObject) jsonObject.get("Result");
-	     String returnResult = (String) Ds_result.get("ds_result");
-	     
-	     System.out.println("@@@ : " + returnResult);
-	     
-	     if(EgovStringUtil.isNotEmpty(returnResult)) {
-	    	 List<String> ownSaleList = new ArrayList<String>();
-		     List<String> ownLendList = new ArrayList<String>();
-		     if(Ds_result != null) {
-		    	 JSONArray arr_Ds_result = (JSONArray) jsonObject.get("Result");
-		    	 List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(arr_Ds_result);
+	     if(Ds_result != null) {
+	    	 
+		     JSONArray returnResult = (JSONArray) Ds_result.get("ds_result");
+		     
+		     if(returnResult != null) {
+		    	 List<String> ownSaleList = new ArrayList<String>();
+			     List<String> ownLendList = new ArrayList<String>();
+			     
+		    	 List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
 			     for(Map<String, Object> dsResult : Ds_resultMap) {
 			    	 String itemNm = (String) dsResult.get("PROD_NM");
 			    	 String recipterTy = (String) dsResult.get("WLR_MTHD_CD");
@@ -353,11 +342,17 @@ public class TilkoApiService {
 			     }
 			     infoMap.put("ownSaleList", ownSaleList);
 			     infoMap.put("ownLendList", ownLendList);
+		     }else {
+		    	 infoMap.put("ownSaleList", null);
+		    	 infoMap.put("ownLendList", null);
 		     }
-	     }else {
-	    	 infoMap.put("ownSaleList", null);
-	    	 infoMap.put("ownLendList", null);
 	     }
+	     List<String> allItem = new ArrayList<String>();
+	     for(Map.Entry<String, String> entry : CodeMap.RECIPTER_ITEM.entrySet()) {
+	    	 allItem.add(entry.getValue());
+	     }
+	     
+	     infoMap.put("allList", allItem);
 	    
 	    return returnMap;
 	}

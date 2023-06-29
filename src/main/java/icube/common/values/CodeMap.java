@@ -909,14 +909,14 @@ public class CodeMap{
 			put("욕창예방방석", "cushion");
 			put("자세변환용구", "changeTool");
 			put("요실금팬티", "panties");
-			put("실내용 경사로", "inRunway");
+			put("경사로(실내용)", "inRunway");
 			put("수동휠체어", "wheelchair");
 			put("전동침대", "electricBed");
 			put("수동침대", "manualBed");
 			put("이동욕조", "bathtub");
 			put("목욕리프트", "bathLift");
 			put("배회감지기", "detector");
-			put("경사로", "outRunway");
+			put("경사로(실외용)", "outRunway");
 			put("욕창예방 매트리스", "mattress");
 		}
 	};

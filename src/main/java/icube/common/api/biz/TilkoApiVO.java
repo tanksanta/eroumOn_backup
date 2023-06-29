@@ -14,7 +14,7 @@ public class TilkoApiVO {
 
 	private int mobileToilet = 1;			//이동변기
 	private int bathChair = 1;			//목욕의자
-	private int walkerForAdults = 2;	// 성인용보행기
+	private int walkerForAdults = 2;	//성인용보행기
 	private int safetyHandle = 10;		//안전손잡이
 	private int antiSlipProduct = 11; 	//미끄럼 방지용품
 	private int portableToilet = 2;		//간이변기
