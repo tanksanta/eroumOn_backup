@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -70,6 +71,8 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int resultCnt = 0;
+		
+		String returnUrl = (String)session.getAttribute("returnUrl");
 
 		resultMap = kakaoApiService.mbrAction(code, session);
 		resultCnt = (Integer)resultMap.get("result");
@@ -81,12 +84,23 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 			
 			javaScript.setMessage("회원가입이 완료되었습니다.");
-			javaScript.setLocation("/" + mainPath);
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
+			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 2) {// 카카오 로그인
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 			
-			javaScript.setLocation("/" + mainPath);
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
+			session.removeAttribute("returnUrl");
+			
 		}else if(resultCnt == 3) {// 네이버
 			javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + mainPath + "/login");

@@ -132,4 +132,8 @@ public class MbrDAO extends CommonAbstractMapper {
 		update("mbr.updateKaKaoInfo", paramMap);
 	}
 
+	public Integer updateMbrAddr(Map<String, Object> paramMap) throws Exception {
+		return update("mbr.updateMbrAddr", paramMap);
+	}
+
 }

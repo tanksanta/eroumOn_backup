@@ -20,6 +20,8 @@
     <!-- plugin -->
     <link rel="stylesheet" href="/html/core/vendor/swiperjs/swiper-bundle.css">
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/html/core/vendor/jquery.validate/jquery.validate.min.js"></script>
+    
     <script src="/html/core/vendor/swiperjs/swiper-bundle.min.js"></script>
     <script src="/html/core/vendor/masonry/masonry.pkgd.min.js"></script>
 

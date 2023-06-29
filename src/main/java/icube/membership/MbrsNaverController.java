@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -54,8 +55,6 @@ public class MbrsNaverController extends CommonAbstractController{
 		javaScript.setLocation(getUrl);
 		return new JavaScriptView(javaScript);
 	}
-	
-	
 
 	@RequestMapping(value = "/auth")
 	public View auth(
@@ -72,6 +71,8 @@ public class MbrsNaverController extends CommonAbstractController{
 		paramMap.put("state", state);
 
 		int resultCnt = naverApiService.mbrAction(paramMap, session);
+		
+		String returnUrl = (String)session.getAttribute("returnUrl");
 
 		if(resultCnt == 0) {// 오류
 			javaScript.setMessage(getMsg("fail.common.network"));
@@ -80,14 +81,25 @@ public class MbrsNaverController extends CommonAbstractController{
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 			
 			javaScript.setMessage("회원가입이 완료되었습니다.");
-			javaScript.setLocation("/" + mainPath);
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
+			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 2) {// 카카오 로그인
 			javaScript.setMessage("카카오 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + mainPath + "/login");
 		}else if(resultCnt == 3) {// 네이버
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			javaScript.setLocation("/" + mainPath);
+			
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
+			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 4) {// 이로움
 			javaScript.setMessage("이로움 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + membershipPath + "/login");

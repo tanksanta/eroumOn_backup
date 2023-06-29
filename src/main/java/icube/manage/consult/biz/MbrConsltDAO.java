@@ -18,5 +18,12 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 		return update("conslt.updateUseYn", paramMap);
 	}
 
+	public MbrConsltVO selectMbrConslt(Map<String, Object> paramMap) throws Exception {
+		return selectOne("conslt.selectMbrConslt",paramMap);
+	}
+
+	public Integer insertMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
+		return insert("conslt.insertMbrConslt",mbrConsltVO);
+	}
 	
 }

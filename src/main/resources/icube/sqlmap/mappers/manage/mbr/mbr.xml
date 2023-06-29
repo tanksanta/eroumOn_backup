@@ -540,6 +540,16 @@
 		WHERE unique_id = #{srchUniqueId}
 	</update>
 	
+	<update id="updateMbrAddr" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			mbr_nm = #{mbrNm}
+			, mbl_telno = #{mblTelno}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+		WHERE unique_id = #{uniqueId}
+	</update>
+	
 	<select id="selectMbrEtcInfo" parameterType="java.util.HashMap" resultType="egovMap">
 		SELECT
 			IFNULL((SELECT bnef_blce FROM RECIPTER_INFO ri WHERE unique_id = #{srchUniqueId}), 0) AS total_bnef_blce

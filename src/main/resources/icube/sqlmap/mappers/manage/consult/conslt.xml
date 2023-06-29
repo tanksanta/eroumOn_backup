@@ -66,6 +66,42 @@
 			use_yn = #{useYn}
 		WHERE conslt_no = #{consltNo}
 	</update>
+	
+	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultType="mbrConsltVO">
+		SELECT 
+			<include refid="listColumn" />
+		FROM MBR_CONSLT
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+	
+	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
+		INSERT INTO MBR_CONSLT(
+			mbr_nm
+			, mbr_telno
+			, age
+			, zip
+			, addr
+			, daddr
+			, use_yn
+			, reg_unique_id
+		    , reg_dt
+		    , reg_id
+		    , rgtr	
+		)VALUES(
+			#{mbrNm}
+			, #{mblTelno}
+			, #{age}
+			, #{zip}
+			, #{addr}
+			, #{daddr}
+			, #{useYn}
+			, #{regUniqueId}
+		    , SYSDATE()
+		    , #{regId}
+		    , #{rgtr}
+		)
+	</insert>
 
 	
 

@@ -359,4 +359,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 	}
 
+	public Integer updateMbrAddr(Map<String, Object> paramMap) throws Exception {
+		return mbrDAO.updateMbrAddr(paramMap);
+	}
+
 }
