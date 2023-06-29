@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,6 @@ import icube.common.api.biz.BokjiServiceVO;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.vo.CommonListVO;
 import icube.main.biz.MainService;
-import icube.market.mbr.biz.MbrSession;
 import icube.members.stdg.biz.StdgCdService;
 import icube.members.stdg.biz.StdgCdVO;
 
@@ -41,14 +39,36 @@ public class MainController extends CommonAbstractController  {
 	@Resource(name="bokjiService")
 	private BokjiApiService bokjiService;
 	
-	@Autowired
-	private MbrSession mbrSession;
+	/*@Autowired
+	private MbrSession mbrSession;*/
 	
 	@RequestMapping(value = {"","index"})
 	public String list(
 		HttpServletRequest request
 		, Model model
 			) throws Exception {
+		
+		// 행정구역 목록
+		List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
+		model.addAttribute("stdgCdList", stdgCdList);
+		
+		// 복지 제도 개수
+		String bokjisUrl = "/api/partner/v2/bokjis/count";
+		String prvdUrl = "/api/partner/v2/providers/count";
+
+		int bokjisCnt = 0;
+		int prvdCnt = 0;
+
+		try {// 첫화면 부터 에러나지 않도록..
+			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
+			prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+		}catch(Exception e) {
+			log.debug(e.getMessage());
+		}
+
+		int total = bokjisCnt + prvdCnt;
+
+		model.addAttribute("total", total);
 		
 		return "/main/main";
 	}

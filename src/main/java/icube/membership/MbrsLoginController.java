@@ -72,6 +72,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 	public String login(
 			HttpServletRequest request
 			, @RequestParam Map<String,Object> reqMap
+			, @RequestParam (value = "returnUrl", required=false) String returnUrl
 			, HttpSession session
 			, Model model) throws Exception {
 
@@ -95,7 +96,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 			}
 		}
 
-		String returnUrl = request.getHeader("REFERER");
+		//String returnUrl = request.getHeader("REFERER");
 		if(EgovStringUtil.isNotEmpty(returnUrl)) {
 			if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
 				returnUrl = "/" + mainPath;
@@ -103,7 +104,6 @@ public class MbrsLoginController extends CommonAbstractController  {
 		}
 		
 		model.addAttribute("returnUrl", returnUrl);
-
 
 		return "/membership/login";
 	}

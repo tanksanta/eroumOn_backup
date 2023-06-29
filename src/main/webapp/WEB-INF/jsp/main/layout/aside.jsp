@@ -10,14 +10,20 @@
 				올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요
 			</dd>
 		</dl>
-		<a href="#">남은 금액 보기</a>
+		<c:set var="chgUrl">
+			<c:choose>
+				<c:when test="${_mbrSession.loginCheck}">${_mainPath}/recipter/list</c:when>
+				<c:otherwise>${_mainPath}/login?returnUrl=${_mainPath}/recipter/list</c:otherwise>
+			</c:choose>
+		</c:set>
+		<a href="${chgUrl}">남은 금액보기</a>
 	</div>
 	<div class="notice-banner2">
 		<dl>
 			<dt>부모님 맞춤 제품이 필요하세요?</dt>
 			<dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
 		</dl>
-        <a href="${_marketPath}/index">지금 둘러보기</a>
+		<a href="${_marketPath}/index">지금 둘러보기</a>
 	</div>
 </aside>
 <!-- //notice -->
