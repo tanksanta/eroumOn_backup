@@ -39,10 +39,7 @@
 				<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}+광역시" /></c:if>
 				
 				<c:forEach var="stdg" items="${stdgCdList}">
-					<option value="${stdg.stdgCd}" 
-						<c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if>
-						<c:if test="${_mbrSession.loginCheck && _mbrAddr1 }"></c:if>
-					>${stdg.ctpvNm}</option>
+					<option value="${stdg.stdgCd}" <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if><c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr }">selected="selected"</c:if>>${stdg.ctpvNm}</option>
 				</c:forEach>
 			</select>
 			<select name="select-gugun" class="form-control">
@@ -54,7 +51,7 @@
 
 	<nav class="welfare-service-menu">
 		<p class="count">
-			<strong><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
+			<strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
 		</p>
 		<ul class="nav">
 			<li class="nav-item"><a href="#" class="nav-link cate_all" >전체</a></li>
@@ -226,10 +223,6 @@ $(function(){
 	var cntPerPage = 8;
 	var category = "";
 
-	<c:if test="${!_mbrSession.loginCheck}">
-	$("select[name='select-gugun'] option").text('금천구');
-	</c:if>
-	
 	var srchMode = "LOCATION";
 	var dist = 0; // meter
 
@@ -269,6 +262,7 @@ $(function(){
 			}
 		}
 	</c:if>
+	
 	<c:if test="${!_mbrSession.loginCheck}">
 	$(".cate_all").addClass("is-active");
 	</c:if>
@@ -286,9 +280,6 @@ $(function(){
 	
 	category = selCheckVal;
 	//console.log("카테고리 : " + category);
-	
-	f_srchInstList();
-    f_srchSrvcList(1);
 	
   	// 시/군/구 검색
 	$(document).on("change", "select[name='select-sido']", function(e){
@@ -309,6 +300,26 @@ $(function(){
    					$.each(data.result, function(index, item){ 
 							$("select[name='select-gugun']").append('<option value='+item.stdgCd+'>'+item.sggNm+'</option>');
    	                });
+   					
+   					/*let uniqueId = "${_mbrSession.uniqueId}";
+   			        console.log(uniqueId == '');
+   			        if(uniqueId ==''){
+   			        	$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+   			        	
+   			        	$("button.srch-srvc").click();
+   			        }*/
+   					<c:if test="${empty _mbrSession.uniqueId}">
+			     		$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+			     	</c:if>
+			     	<c:if test="${!empty _mbrSession.uniqueId}">
+			     		$("select[name='select-gugun'] option").each(function(){
+			     			if($(this).text() == "${_mbrAddr2}"){
+			     				$(this).prop("selected",true);
+			     			}
+			     			
+			     		});
+			     	</c:if>
+			     	$("button.srch-srvc").click();
 				}
 			})
 			.fail(function(data, status, err) {
@@ -335,12 +346,9 @@ $(function(){
 		sido = $("select[name='select-sido'] option:selected").text();
 		gugun = $("select[name='select-gugun'] option:selected").text();
 		
-		if(gugun == "금천구"){
-			alert("시/군/구를 선택해 주세요.");
-		}else{
-			f_srchInstList();
-			f_srchSrvcList(1);
-		}
+		
+		f_srchInstList();
+		f_srchSrvcList(1);
 
 	});
 	
@@ -520,16 +528,17 @@ function f_srchInstList(){
 			dataType : 'json'
 		})
 		.done(function(json) {
-			var instCnt = "";
+			var instCnt = Number(json.bplcCnt);
+			var bplcCnt = Number(json.instCnt);
+			bplcObj = json.bplcList;
+			instObj = json.instList;
 			if(srchMode == "LOCATION"){
-				objData = json.bplcList;
-				instCnt = Number(json.bplcCnt)
+				$(".instListCnt").text(comma(instCnt));
 			}else{
-				objData = json.instList;
-				instCnt = Number(json.instCnt);
+				$(".instListCnt").text(comma(bplcCnt));
 			}
-			 
-			$(".instListCnt").text(comma(instCnt));
+			
+			$(".totalCnt").text(comma(instCnt + bplcCnt));
 
 			addListItem();
 			kakaoMapDraw();
@@ -783,9 +792,7 @@ function kakaoMapDraw(){
 	}
 }
 
-
-
-
+$("select[name='select-sido']").trigger("change");
 
 });
 </script>

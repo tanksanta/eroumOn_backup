@@ -74,8 +74,8 @@
 				</c:forEach>
 			</select>
             <select name="select-gugun" class="form-control">
-                <c:if test="${!_mbrSession.loginCheck}"><option value="">금천구</option></c:if>
-                <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>
+                <!--<c:if test="${!_mbrSession.loginCheck}"><option value="">금천구</option></c:if>
+                <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>-->
             </select>
             <!-- <button type="submit" class="btn">바로 확인</button> -->
             <a class="btn" href="${_mainPath}/searchBokji">바로 확인</a>
@@ -300,6 +300,17 @@ function comma(num){
     							$("select[name='select-gugun']").append('<option value='+item.stdgCd+'>'+item.sggNm+'</option>');
        	                });
     				}
+   			     	<c:if test="${empty _mbrSession.uniqueId}">
+   			     		$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+   			     	</c:if>
+   			     	<c:if test="${!empty _mbrSession.uniqueId}">
+   			     		$("select[name='select-gugun'] option").each(function(){
+   			     			if($(this).text() == "${_mbrAddr2}"){
+   			     				$(this).prop("selected",true);
+   			     			}
+   			     			
+   			     		});
+   			     	</c:if>
     			})
     			.fail(function(data, status, err) {
     				console.log('지역호출 error forward : ' + data);
@@ -308,10 +319,7 @@ function comma(num){
 
     	});
         
-        let uniqueId = "${_mbrSession.uniqueId}";
-        if(uniqueId !='' && uniqueId != null){
-        	$("select[name='select-sido']").trigger("change");
-        }
+       	$("select[name='select-sido']").trigger("change");
     	
     });
 </script>
