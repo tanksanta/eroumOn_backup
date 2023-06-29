@@ -438,6 +438,7 @@ public class MGdsController extends CommonAbstractController {
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
+		reqMap.put("srchUseYn", "Y");
 		List<GdsVO> resultList = gdsService.selectGdsListAll(reqMap);
 
 		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
