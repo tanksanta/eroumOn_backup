@@ -34,9 +34,9 @@
 				<c:if test="${_mbrAddr1 eq '전남'}"><c:set var="addr" value="전라남도" /></c:if>
 				<c:if test="${_mbrAddr1 eq '전북'}"><c:set var="addr" value="전라북도" /></c:if>
 				<c:if test="${_mbrAddr1 eq '서울'}"><c:set var="addr" value="서울특별시" /></c:if>
-				<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}+도" /></c:if>
+				<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
 				<c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
-				<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}+광역시" /></c:if>
+				<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}광역시" /></c:if>
 				
 				<c:forEach var="stdg" items="${stdgCdList}">
 					<option value="${stdg.stdgCd}" <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if><c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr }">selected="selected"</c:if>>${stdg.ctpvNm}</option>
@@ -319,6 +319,14 @@ $(function(){
 			     			
 			     		});
 			     	</c:if>
+			     	if("${param.selectGugun}" != '' && "${param.selectGugun}"){
+			     		console.log("${pararm.selectGugun}");
+			     		$("select[name='select-gugun'] option").each(function(){
+			     			if($(this).val() == "${param.selectGugun}"){
+			     				$(this).prop("selected",true);
+			     			}
+			     		});
+			     	}
 			     	$("button.srch-srvc").click();
 				}
 			})
@@ -790,6 +798,13 @@ function kakaoMapDraw(){
 			var map = new kakao.maps.Map(mapContainer, mapOption);
 		}
 	}
+}
+if("${param.selectSido}" != '' && "${param.selectSido}"){
+	$("select[name='select-sido'] option").each(function(){
+		if($(this).val() == "${param.selectSido}"){
+			$(this).prop("selected",true);
+		}
+	});
 }
 
 $("select[name='select-sido']").trigger("change");

@@ -59,12 +59,12 @@
 		<c:if test="${_mbrAddr1 eq '전남'}"><c:set var="addr" value="전라남도" /></c:if>
 		<c:if test="${_mbrAddr1 eq '전북'}"><c:set var="addr" value="전라북도" /></c:if>
 		<c:if test="${_mbrAddr1 eq '서울'}"><c:set var="addr" value="서울특별시" /></c:if>
-		<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}+도" /></c:if>
+		<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
 		<c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
 		<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}+광역시" /></c:if>
 				
 				
-        <div class="form">
+        <form class="form" action="${_mainPath}/searchBokji" id="bokjiFrm" name="bokjiFrm" method="get">
         	<select name="select-sido" class="form-control">
 	            <c:forEach var="stdg" items="${stdgCdList}">
 					<option value="${stdg.stdgCd}" 
@@ -77,9 +77,9 @@
                 <!--<c:if test="${!_mbrSession.loginCheck}"><option value="">금천구</option></c:if>
                 <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>-->
             </select>
-            <!-- <button type="submit" class="btn">바로 확인</button> -->
-            <a class="btn" href="${_mainPath}/searchBokji">바로 확인</a>
-        </div>
+            <button type="submit" class="btn">바로 확인</button>
+            <%-- <a class="btn" href="${_mainPath}/searchBokji?sido=${addr}&amp;gugun=${}">바로 확인</a> --%>
+        </form>
     </div>
 </div>
 
@@ -334,6 +334,15 @@ function comma(num){
     		});
         }
        $("select[name='select-sido']").trigger("change");
+       
+   	$("form[name='bokjiFrm']").validate({
+	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
+	    submitHandler: function (frm) {
+	    	$("select[name='select-sido']").attr("name","selectSido");
+	    	$("select[name='select-gugun']").attr("name","selectGugun");
+	    	frm.submit();
+	    }
+	});
 
     });
 </script>
