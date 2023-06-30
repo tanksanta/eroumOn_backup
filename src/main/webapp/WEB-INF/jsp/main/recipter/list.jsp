@@ -6,10 +6,26 @@
             <li>요양정보 간편조회</li>
         </ul>
     </nav>
-    <h2 class="subject">
-        요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-        <small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
-    </h2>
+    <c:choose>
+    	<c:when test="${param.pageType eq 'money' }">
+    		<h2 class="subject">
+	        	남은 금액 조회하기 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
+	        	<small>남은 금액을 조회 할 수 있습니다.</small>
+	    	</h2>
+    	</c:when>
+    	<c:when test="${param.pageType eq 'info'}">
+    		<h2 class="subject">
+	     	   요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
+	        	<small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
+	    	</h2>
+    	</c:when>
+    	<c:otherwise>
+    		<h2 class="subject">
+	     	   요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
+	           <small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
+	    	</h2>
+    	</c:otherwise>
+    </c:choose>
 </header>
 
 <div id="content">
@@ -31,7 +47,7 @@
             </fieldset>
         </form>
 
-        <div class="careinfo-myinfo recipter_view" style="display:none;">
+        <div class="careinfo-myinfo recipter_view">
             <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
             <div class="myinfo-wrapper">
                 <div class="myinfo-box1">
@@ -85,7 +101,7 @@
         </div>
     </div>
     
-    <div class="careinfo-status recipter_view" style="display:none;">
+    <div class="careinfo-status recipter_view">
         <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
         <div class="status-swiper">
             <div class="swiper">
@@ -541,6 +557,17 @@ $(function() {
     
    // 기능
     $(".f_recipterCheck").on("click", function(){
+    	if("${_mbrSession.loginCheck}" == "false"){
+    		if("${pararm.pageType}" == "money"){
+    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=money";	
+    		}else if("${pararm.pageType}" == "info"){
+    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=info";
+    		}else{
+    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=info";
+    		}
+    		
+    	}else{
+    		
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val();
     	
@@ -724,6 +751,7 @@ $(function() {
 		.fail(function(data, status, err) {
 			console.log('error forward : ' + data);
 		});
+    }
     }
 	});
 })

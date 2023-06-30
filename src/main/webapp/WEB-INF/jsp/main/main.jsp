@@ -101,9 +101,9 @@
 </div>
 
 <ul class="main-link">
-    <li class="link-item1"><a href="#">노인복지<br> 정보</a></li>
+    <li class="link-item1"><a href="${_mainPath}/searchBokji">노인복지<br> 정보</a></li>
     <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">노인복지<br> 테스트</a></li>
-    <li class="link-item3"><a href="/market/index" target="_blank">복지용구<br> 구매</a></li>
+    <li class="link-item3"><a href="/${_marketPath}/index" target="_blank">복지용구<br> 구매</a></li>
     <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">슈퍼<br>시니어</a></li>
 </ul>
 

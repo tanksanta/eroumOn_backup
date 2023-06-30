@@ -7,13 +7,7 @@
 			<dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
 			<dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
 		</dl>
-		<c:set var="chgUrl">
-			<c:choose>
-				<c:when test="${_mbrSession.loginCheck}">${_mainPath}/recipter/list</c:when>
-				<c:otherwise>${_mainPath}/login?returnUrl=${_mainPath}/recipter/list</c:otherwise>
-			</c:choose>
-		</c:set>
-		<a href="${chgUrl}">남은 금액보기</a>
+		<a href="${_mainPath}/recipter/list?pageType=money">남은 금액보기</a>
 	</div>
 	<div class="notice-banner2">
 		<dl>
@@ -45,13 +39,7 @@
 			</c:choose>
 			
 			<li>
-				<c:set var="chgUrl" >
-					<c:choose>
-						<c:when test="${_mbrSession.loginCheck}">${_mainPath}/recipter/list</c:when>
-						<c:otherwise>${_mainPath}/login?returnUrl=${_mainPath}/recipter/list</c:otherwise>
-					</c:choose>
-				</c:set>
-				<a href="${chgUrl}" class="cost">남은 금액보기</a>
+				<a href="${_mainPath}/recipter/list?pageType=money" class="cost">남은 금액보기</a>
 			</li>
 		</ul>
 	</nav>

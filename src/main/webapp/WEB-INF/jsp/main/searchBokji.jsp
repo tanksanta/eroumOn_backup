@@ -53,8 +53,8 @@
 		<p class="count">
 			<strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
 		</p>
-		<ul class="nav">
-			<li class="nav-item"><a href="#" class="nav-link cate_all" >전체</a></li>
+		<ul class="nav" id="category_view">
+			<li class="nav-item"><a href="#" class="nav-link cate_all is-active" >전체</a></li>
 			<li class="nav-item"><a href="#" class="nav-link cate1 cate" data-cate-nm="지원">지원</a></li>
 			<li class="nav-item"><a href="#" class="nav-link cate2 cate" data-cate-nm="보호">보호</a></li>
 			<li class="nav-item"><a href="#" class="nav-link cate3 cate" data-cate-nm="상담">상담</a></li>
@@ -76,8 +76,8 @@
 				<p class="text">데이터를 불러오는 중입니다.</p>
 			</div>
 		</div>
-		<div class="page-content-paging">
-			<div class="flow"></div>
+		<div class="service-paging">
+			<div class="paging-flow"></div>
 		</div>
 	</div>
 	<!-- //서비스 본문(복지제도) -->
@@ -243,7 +243,7 @@ $(function(){
 	var gugun = $("select[name='select-gugun'] option:selected").text();
 	
 	// 회원 관심
-	<c:if test="${_mbrSession.loginCheck}">
+	/*<c:if test="${_mbrSession.loginCheck}">
 	$(".cate_all").removeClass("is-active");
 		var field = "${_mbrSession.itrstField}";
 		if(field != "null" && field != ''){
@@ -265,10 +265,10 @@ $(function(){
 	
 	<c:if test="${!_mbrSession.loginCheck}">
 	$(".cate_all").addClass("is-active");
-	</c:if>
+	</c:if>*/
 	
 	var selCheckVal = "";
-	if($(".cate_all").hasClass("is-active")){
+	/*if($(".cate_all").hasClass("is-active")){
 		$(".cate").each(function(){
 			selCheckVal += (selCheckVal==""?$(this).data("cateNm"):"|"+$(this).data("cateNm"));
 		});	
@@ -276,7 +276,7 @@ $(function(){
 		$(".cate is-active").each(function(){
 			selCheckVal += (selCheckVal==""?$(this).data("cateNm"):"|"+$(this).data("cateNm"));
 		});	
-	}
+	}*/
 	
 	category = selCheckVal;
 	//console.log("카테고리 : " + category);
@@ -360,6 +360,23 @@ $(function(){
 
 	});
 	
+	// 카테고리 선택
+	/*$(document).on("click", ":checkbox[name='cate']", function(e){
+		var selCheckVal = "";
+		if($(":checkbox[name='cate']:checked").length < 1){
+			$(":checkbox[name='cate']").prop("checked",true);
+		}
+		$(":checkbox[name='cate']:checked").each(function(){
+			selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
+		});
+		category = selCheckVal;
+		console.log("클릭 카테고리 : " + category);
+		f_srchSrvcList(1);
+
+		$(".page-content-paging .flow i").removeClass("is-active");
+		$(".page-content-paging .flow i:first-child").addClass("is-active");
+	});*/
+	
 	$(document).on("click", ".content-item", function(e){
 		e.preventDefault();
 		let bokjiId = $(this).attr("href").replace("#", "");
@@ -431,8 +448,8 @@ $(function(){
 
 	
 function f_srchSrvcList(page, pageRefresh = true){
-	if(sido != "" && sido != "선택"){ //sido는 필수
-		gugun = gugun.replace("시/군/구", "");
+	if(sido != "" && sido != null){ //sido는 필수
+		//gugun = gugun.replace("시/군/구", "");
 		var params = {
 				curPage:page
 				, cntPerPage:cntPerPage
@@ -446,7 +463,7 @@ function f_srchSrvcList(page, pageRefresh = true){
 				, params
 				, function(obj){
 
-					$(".srvcListCnt").text(comma($("#srvcListCnt").val()));
+					//$(".instListCnt").text(comma($("#instListCnt").val()));
 
 					$('.page-content-items .content-items').masonry({
 				        itemSelector: '.content-item',
@@ -458,7 +475,7 @@ function f_srchSrvcList(page, pageRefresh = true){
 					// 선택된 카테고리가 있을경우
 					if(category.length > 0){ // designer 요청사항
 						var colorNum = 0;
-						var firstSelCheckVal = $(":checkbox[name='category']:checked").first().val();
+						var firstSelCheckVal = $("#category_view a").first().val();
 						switch (firstSelCheckVal){
 						  case "주거" :  colorNum = 1;break;
 						  case "문화" :  colorNum = 2;break;
@@ -480,14 +497,14 @@ function f_srchSrvcList(page, pageRefresh = true){
 					//console.log(pageRefresh)
 					if(pageRefresh) {
 						var html = '';
-						for(i=1; i<= $('.page-content-items').data("pageTotal"); i++) {
+						for(i=1; i<= $('.service-content').data("pageTotal"); i++) {
 							if(i === params.curPage) {
 								html += '<i class="is-active" data-num="' + i + '"></i>'
 							}else {
 								html += '<i data-num="' + i + '"></i>'
 							}
 						}
-						$('.page-content-paging .flow').removeAttr('style').empty().append(html)
+						$('.service-paging .paging-flow').removeAttr('style').empty().append(html)
 					}
 					//cntSum();
 				});
@@ -808,6 +825,33 @@ if("${param.selectSido}" != '' && "${param.selectSido}"){
 }
 
 $("select[name='select-sido']").trigger("change");
+
+//paging 생성
+$(document).on("click", "button.srvc-pager", function(e){
+	e.preventDefault();
+	let pageNo = $(this).data("pageNo");
+	let pageTotal = $(this).data("pageTotal");
+
+	if(pageNo > 0){
+		f_srchSrvcList(pageNo, false);
+	}
+
+    $('.service-paging i').removeClass('is-active').filter('[data-num="' + pageNo + '"]').addClass('is-active');
+
+	//이전
+	if($(this).hasClass('button-prev')) {
+        if(pageNo > 2) {
+            $('.service-paging .flow').css('margin-left', -((pageNo - 3) * 20));
+        }
+	}
+
+	//다음
+	if($(this).hasClass('button-next')) {
+        if(pageNo > 3 && pageNo <= pageTotal-2) {
+            $('.service-paging .flow').css('margin-left', -((pageNo - 3) * 20));
+        }
+	}
+});
 
 });
 </script>

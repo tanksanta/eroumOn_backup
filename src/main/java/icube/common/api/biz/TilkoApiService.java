@@ -144,9 +144,9 @@ public class TilkoApiService {
 	        JSONArray toolPayLmtList = (JSONArray) resultData.get("ds_toolPayLmtList");
 	        JSONArray welToolTgtHistList = (JSONArray) resultData.get("ds_welToolTgtHistList");
 
-	        System.out.println(welToolTgtList); // 인정기간 외
-	        System.out.println(toolPayLmtList); // 적용기간 사용금액/제한금액/급여잔액
-	        System.out.println("@@ : " + welToolTgtHistList);// 히스토리
+	        //System.out.println(welToolTgtList); // 인정기간 외
+	        //System.out.println(toolPayLmtList); // 적용기간 사용금액/제한금액/급여잔액
+	        //System.out.println("@@ : " + welToolTgtHistList);// 히스토리
 
 	        if(welToolTgtList != null) {
 	        	result = true;

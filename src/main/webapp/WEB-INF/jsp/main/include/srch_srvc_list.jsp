@@ -34,14 +34,14 @@
 				<div class="status"></div>
 			</a>
 		</c:forEach>
-		<div class="content-button">
+		<div class="service-button">
 			<c:if test="${listVO.curPage > 1}">
-				<button type="button" class="content-prev srvc-pager" data-page-no="${listVO.curPage - 1}" data-page-total="${listVO.totalPage}">
+				<button type="button" class="button-prev srvc-pager" data-page-no="${listVO.curPage - 1}" data-page-total="${listVO.totalPage}">
 					<span>이전 페이지</span> <i></i>
 				</button>
 			</c:if>
 			<c:if test="${listVO.curPage < listVO.totalPage}">
-				<button type="button" class="content-next srvc-pager" data-page-no="${listVO.curPage + 1}" data-page-total="${listVO.totalPage}">
+				<button type="button" class="button-next srvc-pager" data-page-no="${listVO.curPage + 1}" data-page-total="${listVO.totalPage}">
 					<span>다음 페이지</span> <i></i>
 				</button>
 			</c:if>
