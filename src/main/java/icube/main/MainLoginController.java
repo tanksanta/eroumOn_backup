@@ -35,6 +35,8 @@ public class MainLoginController extends CommonAbstractController{
 		, HttpSession session
 		, Model model
 		, @RequestParam(value = "returnUrl", required=false) String returnUrl
+		, @RequestParam(value = "recipter", required=false) String recipter
+		, @RequestParam(value = "rcperRcognNo", required=false) String rcperRcognNo
 			) throws Exception {
 		
 		if(mbrSession.isLoginCheck()) {
@@ -43,6 +45,14 @@ public class MainLoginController extends CommonAbstractController{
 		
 		if(EgovStringUtil.isNotEmpty(returnUrl)) {
 			session.setAttribute("returnUrl", returnUrl);
+		}
+		
+		if(EgovStringUtil.isNotEmpty(recipter)) {
+			session.setAttribute("recipter", recipter);
+		}
+		
+		if(EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+			session.setAttribute("rcperRcognNo", rcperRcognNo);
 		}
 		
 		return "/main/login";

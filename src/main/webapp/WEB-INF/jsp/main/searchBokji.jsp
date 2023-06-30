@@ -54,12 +54,6 @@
 			<strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
 		</p>
 		<ul class="nav" id="category_view">
-			<li class="option-item4">
-				<label for="opt-item4">
-					<input type="checkbox" name="category" value="전체" id="opt-item4">
-					<span>전체</span>
-				</label>
-			</li>
 			<li class="option-item7">
 				<label for="opt-item7">
 					<input type="checkbox" name="category" value="지원" id="opt-item7">
@@ -283,43 +277,40 @@ $(function(){
 	var gugun = $("select[name='select-gugun'] option:selected").text();
 	
 	// 회원 관심
-	/*<c:if test="${_mbrSession.loginCheck}">
-	$(".cate_all").removeClass("is-active");
+	<c:if test="${_mbrSession.loginCheck}">
+	$("checkbox input[name='category']").prop("checked",false);
 		var field = "${_mbrSession.itrstField}";
 		if(field != "null" && field != ''){
 			field = field.replaceAll(' ','').split(',');
 			for(var i=0; i<field.length; i++){
 				switch(field[i]){
-					case "1" : $(".cate1").addClass("is-active");break;
-					case "2" : $(".cate2").addClass("is-active");break;
-					case "3" : $(".cate3").addClass("is-active");break;
-					case "4" : $(".cate4").addClass("is-active");break;
+					case "1" : $("#opt-item7").prop("checked",true);break;
+					case "2" : $("#opt-item8").prop("checked",true);break;
+					case "3" : $("#opt-item6").prop("checked",true);break;
+					case "4" : $("#opt-item3").prop("checked",true);break;
 					case "5" : break;
-					case "6" : $(".cate6").addClass("is-active");break;
-					case "7" : $(".cate7").addClass("is-active");break;
-					case "8" : $(".cate8").addClass("is-active");break;
+					case "6" : $("#opt-item2").prop("checked",true);break;
+					case "7" : $("#opt-item1").prop("checked",true);break;
+					case "8" : $("#opt-item5").prop("checked",true);break;
 				}
 			}
 		}
 	</c:if>
 	
 	<c:if test="${!_mbrSession.loginCheck}">
-	$(".cate_all").addClass("is-active");
-	</c:if>*/
+	$("checkbox input[name='category']").prop("checked",true);
+	</c:if>
 	
 	var selCheckVal = "";
-	/*if($(".cate_all").hasClass("is-active")){
-		$(".cate").each(function(){
-			selCheckVal += (selCheckVal==""?$(this).data("cateNm"):"|"+$(this).data("cateNm"));
-		});	
-	}else{
-		$(".cate is-active").each(function(){
-			selCheckVal += (selCheckVal==""?$(this).data("cateNm"):"|"+$(this).data("cateNm"));
-		});	
-	}*/
-	
+	$(":checkbox[name='category']:checked").each(function(){
+		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
+	});
 	category = selCheckVal;
-	//console.log("카테고리 : " + category);
+	console.log("asd: "+ category);
+	//$(".select-gugun button").text(gugun);
+
+    f_srchInstList();
+    f_srchSrvcList(1);
 	
   	// 시/군/구 검색
 	$(document).on("change", "select[name='select-sido']", function(e){
@@ -401,21 +392,22 @@ $(function(){
 	});
 	
 	// 카테고리 선택
-	/*$(document).on("click", ":checkbox[name='cate']", function(e){
+	$(document).on("click", ":checkbox[name='category']", function(e){
 		var selCheckVal = "";
-		if($(":checkbox[name='cate']:checked").length < 1){
-			$(":checkbox[name='cate']").prop("checked",true);
+		if($(":checkbox[name='category']:checked").length < 1){
+			$(":checkbox[name='category']").prop("checked",true);
 		}
-		$(":checkbox[name='cate']:checked").each(function(){
+		$(":checkbox[name='category']:checked").each(function(){
 			selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 		});
 		category = selCheckVal;
 		console.log("클릭 카테고리 : " + category);
 		f_srchSrvcList(1);
 
-		$(".page-content-paging .flow i").removeClass("is-active");
-		$(".page-content-paging .flow i:first-child").addClass("is-active");
-	});*/
+		$(".service-paging .flow i").removeClass("is-active");
+		$(".service .flow i:first-child").addClass("is-active");
+	});
+
 	
 	$(document).on("click", ".content-item", function(e){
 		e.preventDefault();

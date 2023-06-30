@@ -2,6 +2,7 @@ package icube.main;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class MainRecipterController extends CommonAbstractController{
 	@RequestMapping(value = "list")
 	public String list(
 		HttpServletRequest request
+		, HttpSession session
 		, Model model
 			)throws Exception {
 		
@@ -34,6 +36,8 @@ public class MainRecipterController extends CommonAbstractController{
 		
 		model.addAttribute("apiVO",apiVO);
 		model.addAttribute("apiCode", CodeMap.RECIPTER_ITEM);
+		model.addAttribute("recipter", (String)session.getAttribute("recipter"));
+		model.addAttribute("rcperRcognNo", (String)session.getAttribute("rcperRcognNo"));
 		
 		return "/main/recipter/list";
 	}

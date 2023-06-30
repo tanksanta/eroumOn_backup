@@ -113,7 +113,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 	public View action(
 			MbrVO mbrVO
 			, @RequestParam(defaultValue="N", required=false) String saveId
-			, @RequestParam(required=false) String returnUrl
+			, @RequestParam(value = "returnUrl", required=false) String returnUrl
 			, @RequestParam(required=true, value="mbrId") String mbrId
 			, @RequestParam(required=true, value="encPw") String encPw
 			, HttpServletRequest request
@@ -122,7 +122,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		JavaScript javaScript = new JavaScript();
 		String loginPasswd = "";
-
+		
 		if(null != request.getSession().getAttribute(RSA_MEMBERSHIP_KEY)) {
 			try {
 				loginPasswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.

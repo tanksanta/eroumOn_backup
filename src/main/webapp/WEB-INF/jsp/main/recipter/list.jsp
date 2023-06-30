@@ -20,18 +20,18 @@
                 <div class="field">
                     <dl>
                         <dt><label for="recipter">이름</label></dt>
-                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value=""></dd>
+                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="${recipter}"></dd>
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
-                        <dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value=""></dd>
+                        <dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="${rcperRcognNo}"></dd>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
             </fieldset>
         </form>
 
-        <div class="careinfo-mask">
+        <div class="careinfo-mask <c:if test="${_mbrSession.loginCheck && !empty recipter && !empty rcperRcognNo}">is-active</c:if>">
             <div class="careinfo-myinfo recipter_view">
                 <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
                 <div class="myinfo-wrapper">
@@ -545,7 +545,7 @@ $(function() {
    // 기능
     $(".f_recipterCheck").on("click", function(){
     	if("${_mbrSession.loginCheck}" == "false"){
-   			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&amp;headerType=info";
+   			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
     	}else{
     		
     	let name = $("#recipter").val();
