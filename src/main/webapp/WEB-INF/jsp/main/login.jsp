@@ -12,8 +12,8 @@
 	</nav>
 	<h2 class="subject">
 		<c:choose>
-				<c:when test="${param.headerType eq 'money'}">내 남은 금액 확인</c:when>
-				<c:when test="${param.headerType eq 'info' }">요양정보 간편조회</c:when>
+				<c:when test="${param.headerType eq 'money'}">내 남은 금액 확인 <img src="/html/page/index/assets/images/ico-subject3.png" alt=""></c:when>
+				<c:when test="${param.headerType eq 'info' }">요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject8.png" alt=""></c:when>
 				<c:otherwise>로그인</c:otherwise>
 			</c:choose>
 		<small> 3초만에 빠른 회원가입으로<br> 남은 혜택을 확인하세요

@@ -52,37 +52,38 @@
                         </dl>
                     </div>
                     <div class="myinfo-box2">
-                        <p class="desc">잔여급여</p>
-                        <p class="cost"><strong id="searchRemn">1,250,000</strong>원</p>
-                        <dl class="used1">
-                            <dt class="desc">사용</dt>
-                            <dd class="percent">
-                                <div class="track">
-                                    <div class="bar" id="useAmtBar" style="width: 25%;"></div>
-                            </div>
-                            <div class="won" id="searchUseAmt">350,000원</div>
-                        </dd>
-                    </dl>
-                    <dl class="used2">
-                        <dt class="desc">총 급여</dt>
-                        <dd class="percent">
-                            <div class="track">
-                                <div class="bar" id="setAmtBar" style="width: 75%;"></div>
-                            </div>
-                            <div class="won" id="searchLimit">1,600,000원</div>
-                        </dd>
-                    </dl>
-                </div>
-                <div class="myinfo-box3">
-                    <p class="desc">인정등급</p>
-                    <p class="cost"><strong id="searchGrade">15</strong>등급</p>
-                    <p class="desc">제품가 최소 85% 지원</p>
-                </div>
-                <div class="myinfo-box4">
-                    <p class="name">본인부담율</p>
-                    <p class="cost"><strong id="searchQlf">15</strong>%</p>
-                    <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
-                </div>
+	                        <p class="desc">잔여급여</p>
+	                        <p class="cost"><strong id="searchRemn">1,250,000</strong>원</p>
+	                        <dl class="used1">
+	                            <dt class="desc">사용</dt>
+	                            <dd class="percent">
+	                                <div class="track">
+	                                    <div class="bar" id="useAmtBar" style="width: 25%;"></div>
+	                            </div>
+	                            <div class="won" id="searchUseAmt">350,000원</div>
+	                        </dd>
+	                    </dl>
+	                    <dl class="used2">
+	                        <dt class="desc">총 급여</dt>
+	                        <dd class="percent">
+	                            <div class="track">
+	                                <div class="bar" id="setAmtBar" style="width: 75%;"></div>
+	                            </div>
+	                            <div class="won" id="searchLimit">1,600,000원</div>
+	                        </dd>
+	                    </dl>
+	                </div>
+	                <div class="myinfo-box3">
+	                    <p class="desc">인정등급</p>
+	                    <p class="cost"><strong id="searchGrade">15</strong>등급</p>
+	                    <p class="desc">제품가 최소 85% 지원</p>
+	                </div>
+	                <div class="myinfo-box4">
+	                    <p class="name">본인부담율</p>
+	                    <p class="cost"><strong id="searchQlf">15</strong>%</p>
+	                    <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
+	                </div>
+	        	</div>
             </div>
         
             <div class="careinfo-status recipter_view">

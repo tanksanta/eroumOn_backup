@@ -54,14 +54,54 @@
 			<strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
 		</p>
 		<ul class="nav" id="category_view">
-			<li class="nav-item"><a href="#" class="nav-link cate_all is-active" >전체</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate1 cate" data-cate-nm="지원">지원</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate2 cate" data-cate-nm="보호">보호</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate3 cate" data-cate-nm="상담">상담</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate4 cate" data-cate-nm="보건">보건</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate6 cate" data-cate-nm="문화">문화</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate7 cate" data-cate-nm="주거">주거</a></li>
-			<li class="nav-item"><a href="#" class="nav-link cate8 cate" data-cate-nm="교육">교육</a></li>
+			<li class="option-item4">
+				<label for="opt-item4">
+					<input type="checkbox" name="category" value="전체" id="opt-item4">
+					<span>전체</span>
+				</label>
+			</li>
+			<li class="option-item7">
+				<label for="opt-item7">
+					<input type="checkbox" name="category" value="지원" id="opt-item7">
+					<span>지원</span>
+				</label>
+			</li>
+			<li class="option-item8">
+				<label for="opt-item8">
+					<input type="checkbox" name="category" value="보호" id="opt-item8">
+					<span>보호</span>
+				</label>
+			</li>
+			<li class="option-item6">
+				<label for="opt-item6">
+					<input type="checkbox" name="category" value="상담" id="opt-item6">
+					<span>상담</span>
+				</label>
+			</li>
+			<li class="option-item3">
+				<label for="opt-item3">
+					<input type="checkbox" name="category" value="보건" id="opt-item3">
+					<span>보건</span>
+				</label>
+			</li>
+			<li class="option-item2">
+				<label for="opt-item2">
+					<input type="checkbox" name="category" value="문화" id="opt-item2">
+					<span>문화</span>
+				</label>
+			</li>
+			<li class="option-item1">
+				<label for="opt-item1">
+					<input type="checkbox" name="category" value="주거" id="opt-item1">
+					<span>주거</span>
+				</label>
+			</li>
+			<li class="option-item5">
+				<label for="opt-item5">
+					<input type="checkbox" name="category" value="교육" id="opt-item5">
+					<span>교육</span>
+				</label>
+			</li>
 		</ul>
 		<a href="#" class="btn btn-small btn-outline-primary">복지시설 <span class="instListCnt">0</span>곳</a>
 	</nav>
