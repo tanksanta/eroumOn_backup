@@ -1,9 +1,8 @@
 /* 메인 비쥬얼 */
 .main-visual {
-    @apply relative min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden bg-cover bg-[center_top] leading-tight text-white
-           md:min-h-[684px] md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
-           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px]
-           xl:!max-h-[1366px];
+    @apply relative min-h-[600px] h-[calc(100vh-3.25rem)] max-h-[768px] overflow-hidden bg-cover bg-[center_top] leading-tight text-white
+           md:min-h-[684px] md:h-[calc(100vh-4.25rem)] md:max-h-[820px]
+           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:max-h-[1024px];
     & .image {
         @apply absolute top-0 left-1/2 min-w-[100vw] h-full -translate-x-1/2
                sm:h-auto

@@ -246,7 +246,7 @@
                             <dd class="buyportableToilet">${apiVO.portableToilet}</dd>
                         </dl>
                     </div>
-                    <div class="swiper-slide swiper-item14">
+                    <div class="swiper-slide swiper-item15">
                         <strong>경사로(실외용)</strong>
                         <i></i>
                         <dl>
@@ -258,7 +258,7 @@
                             <dd class="buyoutRunway">${apiVO.outRunway}</dd>
                         </dl>
                     </div>
-                    <div class="swiper-slide swiper-item15">
+                    <div class="swiper-slide swiper-item14">
                         <strong>경사로(실내용)</strong>
                         <i></i>
                         <dl>
@@ -270,8 +270,6 @@
                             <dd class="buyinRunway">${apiVO.inRunway}</dd>
                         </dl>
                     </div>
-                    
-                    
                     <div class="swiper-slide swiper-item16">
                         <strong>전동침대</strong>
                         <i></i>
@@ -332,9 +330,6 @@
                             <dd class="buydetector">${apiVO.detector}</dd>
                         </dl>
                     </div>
-                    
-                    
-                    
                 </div>
             </div>
             <div class="swiper-button-prev"></div>

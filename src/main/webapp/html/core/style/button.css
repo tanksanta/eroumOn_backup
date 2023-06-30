@@ -1,28 +1,19 @@
 /* button */
 @layer components {
     .press-action {
-        @apply transition-[transform,background-color,background-image,border] duration-300 cursor-pointer select-none;
-        &:active {
-            transform: scale(0.98) translateY(2px);
-        }
+        @apply transition-[transform,background-color,background-image,border] duration-300 cursor-pointer select-none
+               active:scale-[0.98] active:translate-y-0.5;
     }
     
     .btn {
-        @apply press-action inline-flex flex-wrap justify-center items-center relative py-0.5 px-4.5 h-9 overflow-hidden border border-gray1 rounded-md bg-white text-center leading-none font-medium text-sm align-middle;
-        &:hover, &:focus {
-            @apply bg-gray2;
-        }
-        &:focus {
-            @apply border-gray4 ring-0.5 ring-offset-0 ring-gray4/20;
-        }
-        &:active {
-            @apply border-gray1 bg-white shadow-none;
-        }
+        @apply press-action inline-flex flex-wrap justify-center items-center relative py-0.5 px-4.5 h-9 overflow-hidden border border-gray1 rounded-md bg-white text-center leading-none font-medium text-sm align-middle
+               hover:bg-gray2
+               focus:border-gray4 focus:bg-gray2 focus:ring-0.5 focus:ring-offset-0 focus:ring-gray4/20
+               active:border-gray1 active:bg-white active:shadow-none
+               disabled:!cursor-none disabled:!pointer-events-none disabled:!border-[#ccc] disabled:!bg-[#ccc] disabled:!text-white;
         &.shadow {
-            box-shadow: 0px 0.154em 0.154em #00000027;
-            &:active {
-                box-shadow: none !important;
-            }
+            @apply shadow-[0px_0.154em_0.154em_#00000027]
+                   active:!shadow-none;
         }
         &.large {
             @apply h-12 text-base px-6 font-bold;
@@ -39,140 +30,103 @@
         & img[src*="-loader"] {
             @apply mx-auto;
         }
-        &:disabled, &.disabled {
-            @apply cursor-none pointer-events-none border-[#ccc] bg-[#ccc] text-white !important;
+        &.disabled {
+            @apply !cursor-none !pointer-events-none !border-[#ccc] !bg-[#ccc] !text-white;
         }
     }
 
     .btn-primary, .btn-outline-primary {
-        @apply btn border-black1;
-        &:focus {
-            @apply border-black1 ring-black1/20;
-        }
+        @apply btn border-black1
+               focus:border-black1 focus:ring-black1/20;
     }
     
     .btn-primary {
-        @apply bg-black1 text-white;
-        &:hover, &:focus {
-            @apply bg-gray4;
-        }
-        &:active {
-            @apply bg-black1;
-        }
+        @apply bg-black1 text-white
+               hover:bg-gray4
+               focus:bg-gray4
+               active:bg-black1;
     }
     
     .btn-outline-primary {
-        @apply text-black;
-        &:hover, &:focus {
-            @apply bg-black1/10;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-black
+               hover:bg-black1/10
+               focus:bg-black1/10
+               active:bg-white;
     }
     
     .btn-secondary, .btn-outline-secondary {
-        @apply btn border-gray5;
-        &:focus {
-            @apply border-gray5;
-        }
+        @apply btn border-gray5
+               focus:border-gray5;
     }
     
     .btn-secondary {
-        @apply bg-gray5 text-white;
-        &:hover, &:focus, &:active {
-            @apply bg-gray5;
-        }
+        @apply bg-gray5 text-white
+               hover:bg-gray5
+               focus:bg-gray5
+               active:bg-gray5;
     }
     
     .btn-outline-secondary {
-        @apply text-gray5;
-        &:hover, &:focus {
-            @apply bg-gray5/10;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-gray5
+               hover:bg-gray5/10
+               focus:bg-gray5/10
+               active:bg-white;
     }
     
     .btn-danger, .btn-outline-danger {
-        @apply btn border-red1;
-        &:focus {
-            @apply border-red1 ring-red1/20;
-        }
+        @apply btn border-red1
+               focus:border-red1 focus:ring-red1/20;
     }
     
     .btn-danger {
-        @apply bg-red1 text-white;
-        &:hover, &:focus {
-            @apply bg-red1/80;
-        }
-        &:active {
-            @apply bg-red1;
-        }
+        @apply bg-red1 text-white
+               hover:bg-red1/80
+               focus:bg-red1/80
+               active:bg-red1;
     }
     
     .btn-outline-danger {
-        @apply text-red1;
-        &:hover, &:focus {
-            @apply bg-red2;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-red1
+               hover:bg-red2
+               focus:bg-red2
+               active:bg-white;
     }
     
     .btn-warning, .btn-outline-warning {
-        @apply btn border-yellow1;
-        &:focus {
-            @apply border-yellow1 ring-yellow1/20;
-        }
+        @apply btn border-yellow1
+               focus:border-yellow1 focus:ring-yellow1/20;
     }
     
     .btn-warning {
-        @apply bg-yellow1 text-white;
-        &:hover, &:focus {
-            @apply bg-yellow1/80;
-        }
-        &:active {
-            @apply bg-yellow1;
-        }
+        @apply bg-yellow1 text-white
+               hover:bg-yellow1/80
+               focus:bg-yellow1/80
+               active:bg-yellow1;
     }
     
     .btn-outline-warning {
-        @apply btn border-yellow1 text-yellow1;
-        &:hover, &:focus {
-            @apply bg-yellow2;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-yellow1
+               hover:bg-yellow2
+               focus:bg-yellow2
+               active:bg-white;
     }
     
     .btn-success, .btn-outline-success {
-        @apply btn border-blue1;
-        &:focus {
-            @apply border-blue1 ring-blue1/20;
-        }
+        @apply btn border-blue1
+               focus:border-blue1 focus:ring-blue1/20;
     }
     
     .btn-success {
-        @apply bg-blue1 text-white;
-        &:hover, &:focus {
-            @apply bg-blue1/80;
-        }
-        &:active {
-            @apply bg-blue1;
-        }
+        @apply bg-blue1 text-white
+               hover:bg-blue1/80
+               focus:bg-blue1/80
+               active:bg-blue1;
     }
     
     .btn-outline-success {
-        @apply text-blue1;
-        &:hover, &:focus {
-            @apply bg-blue2;
-        }
-        &:active {
-            @apply bg-white;
-        }
+        @apply text-blue1
+               hover:bg-blue2
+               focus:bg-blue2
+               active:bg-white;
     }
 }

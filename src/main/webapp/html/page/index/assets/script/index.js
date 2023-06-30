@@ -28,7 +28,4 @@ $(function() {
             if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
         }
     });
-    $(window).on('load scroll resize', function() {
-        $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
-    })
 })

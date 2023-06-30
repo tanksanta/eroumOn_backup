@@ -416,6 +416,36 @@
                 @apply bg-[url(../images/img-checkpoint14.png)];
             }
         }
+        & .swiper-item15 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint15.png)];
+            }
+        }
+        & .swiper-item16 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint16.png)];
+            }
+        }
+        & .swiper-item17 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint17.png)];
+            }
+        }
+        & .swiper-item18 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint18.png)];
+            }
+        }
+        & .swiper-item19 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint19.png)];
+            }
+        }
+        & .swiper-item20 {
+            & i {
+                @apply bg-[url(../images/img-checkpoint20.png)];
+            }
+        }
         & .swiper-button-prev, & .swiper-button-next {
             @apply mt-0 top-1/2 w-8 h-8 rounded-full border border-gray2 bg-white shadow-md -translate-y-1/2 opacity-100 md:w-10 md:h-10;
             &::after {
