@@ -555,12 +555,12 @@ function f_srchInstList(){
 		.done(function(json) {
 			var instCnt = Number(json.bplcCnt);
 			var bplcCnt = Number(json.instCnt);
-			bplcObj = json.bplcList;
-			instObj = json.instList;
 			if(srchMode == "LOCATION"){
 				$(".instListCnt").text(comma(instCnt));
+				objData = json.bplcList;
 			}else{
 				$(".instListCnt").text(comma(bplcCnt));
+				objData = json.instList;
 			}
 			
 			$(".totalCnt").text(comma(instCnt + bplcCnt));
@@ -580,6 +580,7 @@ function addListItem(){
 
 	if(objData != null){
 		if(objData.length > 0){
+			console.log("맵 실행");
 			var html = '';
 			if(srchMode == "LOCATION"){
     			$.each( objData, function( index, item ) {
