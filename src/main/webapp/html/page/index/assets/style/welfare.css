@@ -266,10 +266,18 @@
                md:grid-cols-8
                lg:grid-cols-8 lg:mt-0 lg:mr-9 lg:pr-9
                lg:before:content-empty lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:w-px lg:before:h-8.5 lg:before:bg-gray1 lg:before:-translate-y-1/2;
-        & .nav-link {
-            @apply flex items-center justify-center p-2 h-10 rounded-md bg-gray2 text-center;
-            &.is-active {
-                @apply bg-black2 text-white;
+        & label {
+            @apply block cursor-pointer select-none;
+            & input {
+                @apply appearance-none absolute w-0 h-0 opacity-0;
+                &:checked {
+                    & + span {
+                        @apply bg-black2 text-white;
+                    }
+                }
+            }
+            & span {
+                @apply flex items-center justify-center p-2 h-10 rounded-md bg-gray2 text-center;
             }
         }
     }

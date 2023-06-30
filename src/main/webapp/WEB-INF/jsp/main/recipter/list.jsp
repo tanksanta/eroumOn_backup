@@ -31,393 +31,395 @@
             </fieldset>
         </form>
 
-        <div class="careinfo-myinfo recipter_view">
-            <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
-            <div class="myinfo-wrapper">
-                <div class="myinfo-box1">
-                    <p class="name" ><span class="searchNm">이로미</span>&nbsp; 님
-                    	<c:if test="${_mbrSession.loginCheck}"> 
-                    		<a href="/membership/mypage/list">정보수정</a>
-                    	</c:if>
-                    </p>
-                    <dl class="numb">
-                        <dt class="desc">요양인정번호</dt>
-                        <dd class="searchNo">L123456789</dd>
+        <div class="careinfo-mask">
+            <div class="careinfo-myinfo recipter_view">
+                <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
+                <div class="myinfo-wrapper">
+                    <div class="myinfo-box1">
+                        <p class="name" ><span class="searchNm">이로미</span>&nbsp; 님
+                            <c:if test="${_mbrSession.loginCheck}"> 
+                                <a href="/membership/mypage/list">정보수정</a>
+                            </c:if>
+                        </p>
+                        <dl class="numb">
+                            <dt class="desc">요양인정번호</dt>
+                            <dd class="searchNo">L123456789</dd>
+                        </dl>
+                        <dl class="date">
+                            <dt class="desc">인정 유효기간</dt>
+                            <dd id="searchRcgt">2023년 1월 1일 ~2023년 12월 31일</span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="myinfo-box2">
+                        <p class="desc">잔여급여</p>
+                        <p class="cost"><strong id="searchRemn">1,250,000</strong>원</p>
+                        <dl class="used1">
+                            <dt class="desc">사용</dt>
+                            <dd class="percent">
+                                <div class="track">
+                                    <div class="bar" id="useAmtBar" style="width: 25%;"></div>
+                            </div>
+                            <div class="won" id="searchUseAmt">350,000원</div>
+                        </dd>
                     </dl>
-                    <dl class="date">
-                        <dt class="desc">인정 유효기간</dt>
-                        <dd id="searchRcgt">2023년 1월 1일 ~2023년 12월 31일</span>
+                    <dl class="used2">
+                        <dt class="desc">총 급여</dt>
+                        <dd class="percent">
+                            <div class="track">
+                                <div class="bar" id="setAmtBar" style="width: 75%;"></div>
+                            </div>
+                            <div class="won" id="searchLimit">1,600,000원</div>
                         </dd>
                     </dl>
                 </div>
-                <div class="myinfo-box2">
-                    <p class="desc">잔여급여</p>
-                    <p class="cost"><strong id="searchRemn">1,250,000</strong>원</p>
-                    <dl class="used1">
-                        <dt class="desc">사용</dt>
-                        <dd class="percent">
-                            <div class="track">
-                                <div class="bar" id="useAmtBar" style="width: 25%;"></div>
-                        </div>
-                        <div class="won" id="searchUseAmt">350,000원</div>
-                    </dd>
-                </dl>
-                <dl class="used2">
-                    <dt class="desc">총 급여</dt>
-                    <dd class="percent">
-                        <div class="track">
-                            <div class="bar" id="setAmtBar" style="width: 75%;"></div>
-                        </div>
-                        <div class="won" id="searchLimit">1,600,000원</div>
-                    </dd>
-                </dl>
-            </div>
-            <div class="myinfo-box3">
-                <p class="desc">인정등급</p>
-                <p class="cost"><strong id="searchGrade">15</strong>등급</p>
-                <p class="desc">제품가 최소 85% 지원</p>
-            </div>
-            <div class="myinfo-box4">
-                <p class="name">본인부담율</p>
-                <p class="cost"><strong id="searchQlf">15</strong>%</p>
-                <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="careinfo-status recipter_view">
-        <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
-        <div class="status-swiper">
-            <div class="swiper">
-                <div class="swiper-wrapper own_view">
-                    <div class="swiper-slide swiper-item1">
-                        <strong>성인용 보행기</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finwalkerForAdults">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buywalkerForAdults" >${apiVO.walkerForAdults}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item2">
-                        <strong>수동휠체어</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finwheelchair">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buywheelchair">${apiVO.wheelchair}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item3">
-                        <strong>지팡이</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="fincane">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buycane">${apiVO.cane}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item4">
-                        <strong>안전손잡이</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finsafetyHandle">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buysafetyHandle">${apiVO.safetyHandle}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item5">
-                        <strong>미끄럼방지 용품</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finantiSlipProduct">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buyantiSlipProduct">${apiVO.antiSlipProduct}</dd>
-                        </dl>
-                    </div>
-                    <!-- <div class="swiper-slide swiper-item6">
-                        <strong>미끄럼방지 양말</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd>1</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd>0</dd>
-                        </dl>
-                    </div> -->
-                    <div class="swiper-slide swiper-item7">
-                        <strong>욕창예방 매트리스</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finmattress">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buymattress">${apiVO.mattress}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item8">
-                        <strong>욕창예방 방석</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="fincushion">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buycushion">${apiVO.cushion}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item9">
-                        <strong>자세변환용구</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finchangeTool">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buychangeTool">${apiVO.changeTool}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item10">
-                        <strong>요실금 팬티</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finpanties">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buypanties">${apiVO.panties}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item11">
-                        <strong>목욕의자</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finbathChair">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buybathChair">${apiVO.bathChair}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item12">
-                        <strong>이동변기</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finmobileToilet">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buymobileToilet">${apiVO.mobileToilet}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item13">
-                        <strong>간이변기</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finportableToilet">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buyportableToilet">${apiVO.portableToilet}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item15">
-                        <strong>경사로(실외용)</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finoutRunway">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buyoutRunway">${apiVO.outRunway}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item14">
-                        <strong>경사로(실내용)</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="fininRunway">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buyinRunway">${apiVO.inRunway}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item16">
-                        <strong>전동침대</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finelectricBed">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buyelectricBed">${apiVO.electricBed}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item17">
-                        <strong>수동침대</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finmanualBed">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buymanualBed">${apiVO.manualBed}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item18">
-                        <strong>이동욕조</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finbathtub">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buybathtub">${apiVO.bathtub}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item19">
-                        <strong>목욕리프트</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="finbathLift">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buybathLift">${apiVO.bathLift}</dd>
-                        </dl>
-                    </div>
-                    <div class="swiper-slide swiper-item20">
-                        <strong>배회감지기</strong>
-                        <i></i>
-                        <dl>
-                            <dt>계약완료</dt>
-                            <dd class="findetector">0</dd>
-                        </dl>
-                        <dl>
-                            <dt>구매가능</dt>
-                            <dd class="buydetector">${apiVO.detector}</dd>
-                        </dl>
-                    </div>
+                <div class="myinfo-box3">
+                    <p class="desc">인정등급</p>
+                    <p class="cost"><strong id="searchGrade">15</strong>등급</p>
+                    <p class="desc">제품가 최소 85% 지원</p>
+                </div>
+                <div class="myinfo-box4">
+                    <p class="name">본인부담율</p>
+                    <p class="cost"><strong id="searchQlf">15</strong>%</p>
+                    <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
                 </div>
             </div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        </div>
-
-        <div class="collapse" id="collapse-agree1">
-            <p class="status-title">판매 급여 품목</p>
-            <table class="status-table">
-                <colgroup>
-                    <col class="min-w-10 w-[15%]">
-                    <col>
-                    <col class="min-w-16 w-1/5">
-                    <col class="min-w-16 w-1/5">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">품목명</th>
-                        <th scope="col">계약완료</th>
-                        <th scope="col">구매가능</th>
-                    </tr>
-                </thead>
-                <tbody class="sale_return">
-                </tbody>
-            </table>
-
-            <p class="status-title">대여 급여 품목</p>
-            <table class="status-table">
-                <colgroup>
-                    <col class="min-w-10 w-[15%]">
-                    <col>
-                    <col class="min-w-16 w-1/5">
-                    <col class="min-w-16 w-1/5">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">품목명</th>
-                        <th scope="col">계약완료</th>
-                        <th scope="col">구매가능</th>
-                    </tr>
-                </thead>
-                <tbody  class="lend_return">
-                </tbody>
-            </table>
-        </div>
-
-        <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
-    </div>&nbsp;&nbsp;
-
-    <div class="market-banner">
-        <strong>
-            부모님 맞춤 제품이 필요하세요?
-            <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
-        </strong>
-        <a href="#">지금둘러보기</a>
-    </div>
-
-    <div class="careinfo-content">
-        <div class="content-item1">
-            <dl>
-                <dt>신청방법부터<br> 등급별 혜택까지</dt>
-                <dd>노인장기요양보험,<br> 차근차근 배워보세요</dd>
-            </dl>
-            <div>
-                <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
-                <a href="#" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+        
+            <div class="careinfo-status recipter_view">
+                <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
+                <div class="status-swiper">
+                    <div class="swiper">
+                        <div class="swiper-wrapper own_view">
+                            <div class="swiper-slide swiper-item1">
+                                <strong>성인용 보행기</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finwalkerForAdults">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buywalkerForAdults" >${apiVO.walkerForAdults}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item2">
+                                <strong>수동휠체어</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finwheelchair">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buywheelchair">${apiVO.wheelchair}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item3">
+                                <strong>지팡이</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="fincane">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buycane">${apiVO.cane}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item4">
+                                <strong>안전손잡이</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finsafetyHandle">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buysafetyHandle">${apiVO.safetyHandle}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item5">
+                                <strong>미끄럼방지 용품</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finantiSlipProduct">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buyantiSlipProduct">${apiVO.antiSlipProduct}</dd>
+                                </dl>
+                            </div>
+                            <!-- <div class="swiper-slide swiper-item6">
+                                <strong>미끄럼방지 양말</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd>1</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div> -->
+                            <div class="swiper-slide swiper-item7">
+                                <strong>욕창예방 매트리스</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finmattress">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buymattress">${apiVO.mattress}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item8">
+                                <strong>욕창예방 방석</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="fincushion">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buycushion">${apiVO.cushion}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item9">
+                                <strong>자세변환용구</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finchangeTool">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buychangeTool">${apiVO.changeTool}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item10">
+                                <strong>요실금 팬티</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finpanties">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buypanties">${apiVO.panties}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item11">
+                                <strong>목욕의자</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finbathChair">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buybathChair">${apiVO.bathChair}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item12">
+                                <strong>이동변기</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finmobileToilet">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buymobileToilet">${apiVO.mobileToilet}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item13">
+                                <strong>간이변기</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finportableToilet">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buyportableToilet">${apiVO.portableToilet}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item15">
+                                <strong>경사로(실외용)</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finoutRunway">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buyoutRunway">${apiVO.outRunway}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item14">
+                                <strong>경사로(실내용)</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="fininRunway">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buyinRunway">${apiVO.inRunway}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item16">
+                                <strong>전동침대</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finelectricBed">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buyelectricBed">${apiVO.electricBed}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item17">
+                                <strong>수동침대</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finmanualBed">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buymanualBed">${apiVO.manualBed}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item18">
+                                <strong>이동욕조</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finbathtub">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buybathtub">${apiVO.bathtub}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item19">
+                                <strong>목욕리프트</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="finbathLift">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buybathLift">${apiVO.bathLift}</dd>
+                                </dl>
+                            </div>
+                            <div class="swiper-slide swiper-item20">
+                                <strong>배회감지기</strong>
+                                <i></i>
+                                <dl>
+                                    <dt>계약완료</dt>
+                                    <dd class="findetector">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>구매가능</dt>
+                                    <dd class="buydetector">${apiVO.detector}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+        
+                <div class="collapse" id="collapse-agree1">
+                    <p class="status-title">판매 급여 품목</p>
+                    <table class="status-table">
+                        <colgroup>
+                            <col class="min-w-10 w-[15%]">
+                            <col>
+                            <col class="min-w-16 w-1/5">
+                            <col class="min-w-16 w-1/5">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">품목명</th>
+                                <th scope="col">계약완료</th>
+                                <th scope="col">구매가능</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_return">
+                        </tbody>
+                    </table>
+        
+                    <p class="status-title">대여 급여 품목</p>
+                    <table class="status-table">
+                        <colgroup>
+                            <col class="min-w-10 w-[15%]">
+                            <col>
+                            <col class="min-w-16 w-1/5">
+                            <col class="min-w-16 w-1/5">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">품목명</th>
+                                <th scope="col">계약완료</th>
+                                <th scope="col">구매가능</th>
+                            </tr>
+                        </thead>
+                        <tbody  class="lend_return">
+                        </tbody>
+                    </table>
+                </div>
+        
+                <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
             </div>
         </div>
-        <div class="content-item2">
-            <dl>
-                <dt>부모님의 생활을<br> 한층 편하게</dt>
-                <dd>삶의 질을 높여주는<br> 복지용구, 소개해드릴게요</dd>
-            </dl>
-            <div>
-                <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
-                <a href="#" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
-            </div>
+    
+        <div class="market-banner">
+            <strong>
+                부모님 맞춤 제품이 필요하세요?
+                <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
+            </strong>
+            <a href="#">지금둘러보기</a>
         </div>
-        <div class="content-item3">
-            <dl>
-                <dt>똑똑하게<br> 복지용구 선택하기</dt>
-                <dd>부모님을 위한 복지용구,<br> 아무거나 고를 순 없어요</dd>
-            </dl>
-            <div>
-                <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
-                <a href="#" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+    
+        <div class="careinfo-content">
+            <div class="content-item1">
+                <dl>
+                    <dt>신청방법부터<br> 등급별 혜택까지</dt>
+                    <dd>노인장기요양보험,<br> 차근차근 배워보세요</dd>
+                </dl>
+                <div>
+                    <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
+                    <a href="#" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+                </div>
+            </div>
+            <div class="content-item2">
+                <dl>
+                    <dt>부모님의 생활을<br> 한층 편하게</dt>
+                    <dd>삶의 질을 높여주는<br> 복지용구, 소개해드릴게요</dd>
+                </dl>
+                <div>
+                    <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
+                    <a href="#" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
+                </div>
+            </div>
+            <div class="content-item3">
+                <dl>
+                    <dt>똑똑하게<br> 복지용구 선택하기</dt>
+                    <dd>부모님을 위한 복지용구,<br> 아무거나 고를 순 없어요</dd>
+                </dl>
+                <div>
+                    <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
+                    <a href="#" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+                </div>
             </div>
         </div>
     </div>
@@ -719,7 +721,7 @@ $(function() {
 						
 					}	
 				}
-				$(".recipter_view").show();
+                $('.careinfo-mask').addClass('is-active');
 			}else{
 				alert("조회된 데이터가 없습니다.");
 			}

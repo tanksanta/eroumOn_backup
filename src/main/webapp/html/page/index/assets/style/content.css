@@ -533,6 +533,19 @@
     }
 }
 
+.careinfo-mask {
+    &:not(.is-active) {
+        @apply relative
+               after:content-empty after:absolute after:z-20 after:-top-9 after:-left-9 after:-right-9 after:-bottom-9 after:backdrop-blur;
+        & * {
+            @apply pointer-events-none select-none;
+        }
+        & .swiper-button-prev, & .swiper-button-next {
+            @apply hidden;
+        }
+    }
+}
+
 
 /* 제3자 정보제공 */
 .provide-form {
@@ -579,6 +592,119 @@
         & [type="button"] {
             @apply w-[38.96%];
         }
+    }
+}
+
+.provide-complate {
+    @apply relative mx-auto w-[155px] h-[155px] rounded-full bg-[#EAF1FF] origin-center -my-8 scale-[0.6]
+           md:-my-4 md:scale-[0.8]
+           lg:my-0 lg:scale-100;
+    /* @apply relative mx-auto w-23 h-23 rounded-full bg-[#EAF1FF]
+    md:w-31 md:h-31
+    lg:w-39 lg:h-39; */
+    & .wrapper {
+        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-[#3074FF] -translate-y-1/2 -translate-x-1/2;
+        & svg {
+            @apply absolute top-1/2 left-1/2 -translate-y-1/2 translate-x-1/2 scale-100 opacity-0;
+        }
+    }
+    & .object1 {
+        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        transform: rotate(45deg) translate(-50%,-50%);
+    }
+    & .object2 {
+        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        transform: rotate(-45deg);
+    }
+    & .object3 {
+        @apply absolute top-1/2 left-1/2 w-0 h-0 rounded-full bg-white;
+        transform: translate(-50%,-50%);
+    }
+    &.animate1 {
+        & svg {
+            @apply translate-x-full translate-y-[150%] opacity-100 scale-[0.2];
+            animation: ani-airplane 1s ease-out;
+        }
+    }
+    &.animate2 {
+        & .object1 {
+            @apply w-[30px] origin-left;
+            transform: rotate(45deg) translate(-50%,-50%);
+            animation: ani-ls 1s ease-out;
+        }
+        & .object2 {
+            @apply w-[50px] origin-left;
+            transform: rotate(-45deg);
+            animation: ani-ll 0.5s;
+        }
+        & .object3 {
+            @apply w-4/5 h-4/5;
+            animation: ani-circle 1s ease;
+        }
+    }
+}
+
+@keyframes ani-airplane {
+    0% {
+        transform: translate(-50%,-50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%,-50%) scale(1);
+    }
+    60% {
+        transform: translate(-60%,-40%) scale(1.1);
+    }
+    100% {
+        transform: translate(100%,-150%) scale(0.2);
+    }
+}
+
+@keyframes ani-circle {
+    0% {
+        width:0;
+        height:0;
+    }
+    20% {
+        width:80%;
+        height:80%;
+    }
+}
+
+@keyframes ani-ls {
+    0% {
+        width: 30px;
+        transform: rotate(45deg) translate(-300%,-50%);
+    }
+    30% {
+        width: 20px;
+        transform: rotate(45deg) translate(-10%,-50%);
+    }
+    50% {
+        width: 30px;
+        transform: rotate(45deg) translate(-50%,-50%);
+    }
+    100% {
+        width: 30px;
+        transform: rotate(45deg) translate(-50%,-50%);
+    }
+}
+
+@keyframes ani-ll {
+    0% {
+        width: 0;
+        transform: rotate(-45deg);
+    }
+    60% {
+        width: 0;
+        transform: rotate(-45deg);
+    }
+    95% {
+        width: 55px;
+        transform: rotate(-45deg);
+    }
+    100% {
+        width: 50px;
+        transform: rotate(-45deg);
     }
 }
 
