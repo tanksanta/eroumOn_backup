@@ -3,11 +3,20 @@
 	<nav class="breadcrumb">
 		<ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
-			<li>로그인</li>
+			<c:choose>
+				<c:when test="${param.headerType eq 'money'}"><li>내 남은 금액 확인</li></c:when>
+				<c:when test="${param.headerType eq 'info' }"><li>요양정보 간편조회</li></c:when>
+				<c:otherwise><li>로그인</li></c:otherwise>
+			</c:choose>
 		</ul>
 	</nav>
 	<h2 class="subject">
-		로그인 <small> 3초만에 빠른 회원가입으로<br> 남은 혜택을 확인하세요
+		<c:choose>
+				<c:when test="${param.headerType eq 'money'}">내 남은 금액 확인</c:when>
+				<c:when test="${param.headerType eq 'info' }">요양정보 간편조회</c:when>
+				<c:otherwise>로그인</c:otherwise>
+			</c:choose>
+		<small> 3초만에 빠른 회원가입으로<br> 남은 혜택을 확인하세요
 		</small>
 	</h2>
 </header>

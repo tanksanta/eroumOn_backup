@@ -6,26 +6,10 @@
             <li>요양정보 간편조회</li>
         </ul>
     </nav>
-    <c:choose>
-    	<c:when test="${param.pageType eq 'money' }">
-    		<h2 class="subject">
-	        	남은 금액 조회하기 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-	        	<small>남은 금액을 조회 할 수 있습니다.</small>
-	    	</h2>
-    	</c:when>
-    	<c:when test="${param.pageType eq 'info'}">
-    		<h2 class="subject">
-	     	   요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-	        	<small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
-	    	</h2>
-    	</c:when>
-    	<c:otherwise>
-    		<h2 class="subject">
-	     	   요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-	           <small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
-	    	</h2>
-    	</c:otherwise>
-    </c:choose>
+	<h2 class="subject">
+		요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
+		<small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
+	</h2>
 </header>
 
 <div id="content">
@@ -558,14 +542,7 @@ $(function() {
    // 기능
     $(".f_recipterCheck").on("click", function(){
     	if("${_mbrSession.loginCheck}" == "false"){
-    		if("${pararm.pageType}" == "money"){
-    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=money";	
-    		}else if("${pararm.pageType}" == "info"){
-    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=info";
-    		}else{
-    			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list?pageType=info";
-    		}
-    		
+   			window.location.href = "${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&amp;headerType=info";
     	}else{
     		
     	let name = $("#recipter").val();

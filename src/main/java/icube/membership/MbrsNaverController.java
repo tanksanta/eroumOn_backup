@@ -94,7 +94,6 @@ public class MbrsNaverController extends CommonAbstractController{
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 			
-			log.debug("@@@@@@@ 네이버 컨트롤러 : " + returnUrl);
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
