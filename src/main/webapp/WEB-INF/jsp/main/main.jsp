@@ -19,7 +19,7 @@
                     <strong>65세 이상이라면 바로 신청하세요</strong>
                 </p>
                 <p class="desc">등급별 지원 혜택이 달라요!</p>
-                <a href="#" class="btn btn-primary3 is-arrow">내 인정등급 확인하기</a>
+                <a href="${_mainPath}/recipter/list" class="btn btn-primary3 is-arrow">내 인정등급 확인하기</a>
             </div>
             <div class="swiper-slide">
                 <p class="title">
@@ -31,7 +31,7 @@
                     노인성 질환을 앓고 있는 어르신<br>
                     치매 증상으로 불편한 어르신
                 </p>
-                <a href="#" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
             </div>
             <div class="swiper-slide">
                 <p class="title">
@@ -39,7 +39,7 @@
                     놓치지 말고 누리세요
                 </p>
                 <p class="desc">등급을 받으시면 다양한 요양 용품, 서비스가 제공되요</p>
-                <a href="#" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 is-arrow">지금 등급 확인하기</a>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
 
 <ul class="main-link">
     <li class="link-item1"><a href="#">노인복지<br> 정보</a></li>
-    <li class="link-item2"><a href="/find/step2-1" target="_blank">노인복지<br> 테스트</a></li>
+    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">노인복지<br> 테스트</a></li>
     <li class="link-item3"><a href="/market/index" target="_blank">복지용구<br> 구매</a></li>
     <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">슈퍼<br>시니어</a></li>
 </ul>

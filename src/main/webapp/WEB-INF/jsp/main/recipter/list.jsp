@@ -267,9 +267,74 @@
                         </dl>
                         <dl>
                             <dt>구매가능</dt>
-                            <dd class="inoutRunway">${apiVO.inRunway}</dd>
+                            <dd class="buyinRunway">${apiVO.inRunway}</dd>
                         </dl>
                     </div>
+                    
+                    
+                    <div class="swiper-slide swiper-item16">
+                        <strong>전동침대</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="finelectricBed">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="buyelectricBed">${apiVO.electricBed}</dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide swiper-item17">
+                        <strong>수동침대</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="finmanualBed">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="buymanualBed">${apiVO.manualBed}</dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide swiper-item18">
+                        <strong>이동욕조</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="finbathtub">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="buybathtub">${apiVO.bathtub}</dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide swiper-item19">
+                        <strong>목욕리프트</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="finbathLift">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="buybathLift">${apiVO.bathLift}</dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide swiper-item20">
+                        <strong>배회감지기</strong>
+                        <i></i>
+                        <dl>
+                            <dt>계약완료</dt>
+                            <dd class="findetector">0</dd>
+                        </dl>
+                        <dl>
+                            <dt>구매가능</dt>
+                            <dd class="buydetector">${apiVO.detector}</dd>
+                        </dl>
+                    </div>
+                    
+                    
+                    
                 </div>
             </div>
             <div class="swiper-button-prev"></div>
@@ -404,6 +469,64 @@ function f_dateFormat(value){
 	return yyyy+'-'+mm+'-'+dd;
 }
 
+function f_replaceLink (str){
+	let link = 0;
+	
+	switch(str){
+	case "walkerForAdults":
+		link = 1;
+		break;
+	case "wheelchair":
+		link = 2;
+		break;
+	case "cane":
+		link = 3;
+		break;
+	case "safetyHandle":
+		link = 4;
+		break;
+	case "antiSlipProduct":
+		link = 5;
+		break;
+	case "antiSlipProduct":
+		link = 6;
+		break;
+	case "mattress":
+		link = 7;
+		break;
+	case "cushion":
+		link = 8;
+		break;
+	case "changeTool":
+		link = 9;
+		break;
+	case "panties":
+		link = 10;
+		break;
+	case "bathChair":
+		link = 11;
+		break;
+	case "mobileToilet":
+		link = 12;
+		break;
+	case "portableToilet":
+		link = 13;
+		break;
+	case "outRunway":
+		link = 14;
+		break;
+	case "inRunway":
+		link = 14;
+		break;
+	default:
+		link = 0;
+		break;
+	}
+	
+	
+	return link;
+}
+
 $(function() {
     var swiper = new Swiper(".swiper", {
         slidesPerView : 'auto',
@@ -527,7 +650,7 @@ $(function() {
 						let html = "";
 						html +='   <tr>';
 						html +='    <td>'+(i+1)+'</td>';
-						html +=' <td class="subject">'+CodeMap.get(saleList[i])+'</td>';
+						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
 						html +=' <td class="fin'+saleList[i]+'">0</td>';
 						html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
 						html +='</tr>';
@@ -551,7 +674,13 @@ $(function() {
 						let html = "";
 						html +='   <tr>';
 						html +='    <td>'+(i+1)+'</td>';
-						html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
+						if(f_replaceLink(lendList[i]) == 0){
+							html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
+						}else{
+							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';		
+						}
+						
+						
 						html +=' <td class="fin'+lendList[i]+'">0</td>';
 						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
 						html +='</tr>';

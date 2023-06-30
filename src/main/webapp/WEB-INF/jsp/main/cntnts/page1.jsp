@@ -342,7 +342,7 @@
             <img src="/html/page/index/assets/images/img-page1-content5.png">
             <strong class="text-primary3">이로움 테스트</strong>로<br>
             <strong>예상등급을 확인</strong>할 수 있어요!
-            <a href="/find/step2-1" class="btn" target="_blank">테스트 시작하기</a>
+            <a href="https://www.eroum.co.kr/find/step2-1" class="btn" target="_blank">테스트 시작하기</a>
         </div>
     </div>
 </div>
