@@ -599,9 +599,6 @@
     @apply relative mx-auto w-[155px] h-[155px] rounded-full bg-[#EAF1FF] origin-center -my-8 scale-[0.6]
            md:-my-4 md:scale-[0.8]
            lg:my-0 lg:scale-100;
-    /* @apply relative mx-auto w-23 h-23 rounded-full bg-[#EAF1FF]
-    md:w-31 md:h-31
-    lg:w-39 lg:h-39; */
     & .wrapper {
         @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-[#3074FF] -translate-y-1/2 -translate-x-1/2;
         & svg {
