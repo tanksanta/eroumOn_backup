@@ -1,36 +1,45 @@
 /* 메인 비쥬얼 */
 .main-visual {
-    @apply relative min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden bg-cover bg-center bg-[url(../images/visual/bg-main-visual-m.jpg)] leading-tight text-white
-           md:min-h-[642px] md:h-[calc(100vh-4.25rem)] md:!max-h-[820px] md:bg-[url(../images/visual/bg-main-visual.jpg)] md:bg-[60%_center]
-           lg:min-h-[700px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[1024px] lg:bg-center;
-    & [class*="object"] {
-        @apply absolute top-0 left-0 w-full h-full transition-[opacity,transform,box-shadow] bg-cover bg-center duration-500 opacity-0 translate-y-4
-               md:translate-y-7 md:bg-[60%_center]
-               lg:bg-[55%_center]
-               xl:bg-center;
-    }
-    & .object1 {
-        @apply bg-[url(../images/visual/img-main-visual-obj1-m.png)]
-               md:bg-[url(../images/visual/img-main-visual-obj1.png)];
-    }
-    & .object2 {
-        @apply bg-[url(../images/visual/img-main-visual-obj2-m.png)] delay-200
-               md:bg-[url(../images/visual/img-main-visual-obj2.png)];
-    }
-    & .object3 {
-        @apply bg-[url(../images/visual/img-main-visual-obj3-m.png)] delay-500
-               md:bg-[url(../images/visual/img-main-visual-obj3.png)];
+    @apply relative min-h-[600px] h-[calc(100vh-3.25rem)] max-h-[768px] overflow-hidden bg-cover bg-[center_top] leading-tight text-white
+           md:min-h-[684px] md:h-[calc(100vh-4.25rem)] md:max-h-[820px]
+           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:max-h-[1024px];
+    & .image {
+        @apply absolute top-0 left-1/2 min-w-[100vw] h-full -translate-x-1/2
+               sm:h-auto
+               md:h-full;
+        & .background {
+            & img {
+                @apply max-w-none min-w-full h-full
+                       sm:h-auto
+                       md:min-h-full;
+            }
+        }
+        & [class*="object"] {
+            @apply absolute transition-[opacity,transform,box-shadow] select-none duration-500 opacity-0 translate-y-[20%];
+        }
+        & .object1 {
+            @apply top-[29.77707006369427%] left-[83.71501272264631%] w-[12.21374045801527%]
+                   md:top-[36.62162162162162%] md:left-[74.73958333333333%] md:w-[5.520833333333333%];
+        }
+        & .object2 {
+            @apply top-[37.26114649681529%] left-[35.36895674300254%] w-[26.97201017811705%] delay-200
+                   md:top-[12.7027027027027%] md:left-[71.30208333333333%] md:w-[10.46875%];
+        }
+        & .object3 {
+            @apply top-[53.34394904458599%] left-[43.25699745547074%] w-[11.95928753180662%] delay-500
+                   md:top-[49.59459459459459%] md:left-[56.25%] md:w-[4.166666666666667%];
+        }
     }
     & .swiper {
         @apply max-w-screen-xl h-full;
     }
     & .swiper-slide {
         @apply flex flex-col pt-[max(3.625rem,9.235668789808917%)] px-5 pb-15
-               md:justify-center md:px-7
+               md:pt-[22.83783783783784%] md:px-7
                lg:px-10;
         & .title {
             @apply text-3xl
-                   md:text-5xl md:-mt-4
+                   md:text-5xl
                    lg:text-7xl;
         }
         & .desc, & .desc2 {
@@ -54,8 +63,10 @@
                lg:bottom-32;
     }
     &.is-active {
-        & [class*="object"] {
-            @apply opacity-100 translate-y-0;
+        & .image {
+            & [class*="object"] {
+                @apply opacity-100 translate-y-0;
+            }
         }
     }
 }
