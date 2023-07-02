@@ -734,6 +734,11 @@ $(function() {
     }
     }
 	});
+		
+	if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){
+		
+		$(".f_recipterCheck").click();
+	}
 })
 </script>
 </div>

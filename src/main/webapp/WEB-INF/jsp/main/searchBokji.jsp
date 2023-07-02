@@ -306,7 +306,6 @@ $(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 	});
 	category = selCheckVal;
-	console.log("asd: "+ category);
 	//$(".select-gugun button").text(gugun);
 
     f_srchInstList();
@@ -351,7 +350,6 @@ $(function(){
 			     		});
 			     	</c:if>
 			     	if("${param.selectGugun}" != '' && "${param.selectGugun}"){
-			     		console.log("${pararm.selectGugun}");
 			     		$("select[name='select-gugun'] option").each(function(){
 			     			if($(this).val() == "${param.selectGugun}"){
 			     				$(this).prop("selected",true);
@@ -401,7 +399,6 @@ $(function(){
 			selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 		});
 		category = selCheckVal;
-		console.log("클릭 카테고리 : " + category);
 		f_srchSrvcList(1);
 
 		$(".service-paging .flow i").removeClass("is-active");
@@ -495,7 +492,7 @@ function f_srchSrvcList(page, pageRefresh = true){
 				, params
 				, function(obj){
 
-					//$(".instListCnt").text(comma($("#instListCnt").val()));
+					$(".totalCnt").text(comma($("#srvcListCnt").val()));	
 
 					$('.page-content-items .content-items').masonry({
 				        itemSelector: '.content-item',
@@ -595,7 +592,7 @@ function f_srchInstList(){
 				objData = json.instList;
 			}
 			
-			$(".totalCnt").text(comma(instCnt + bplcCnt));
+			//$(".totalCnt").text(comma(instCnt + bplcCnt));
 
 			addListItem();
 			kakaoMapDraw();
@@ -612,7 +609,6 @@ function addListItem(){
 
 	if(objData != null){
 		if(objData.length > 0){
-			console.log("맵 실행");
 			var html = '';
 			if(srchMode == "LOCATION"){
     			$.each( objData, function( index, item ) {
