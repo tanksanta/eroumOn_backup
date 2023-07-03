@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="banner.mng">
+
+	<resultMap type="bnnrMngVO" id="bnnrMngVOMap" autoMapping="true" >
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=banner_no}" select="file.selectFileList" />
+	</resultMap>
+
+	<sql id="listColumn">
+		banner_no
+		, banner_nm
+		, use_yn
+		, banner_ty
+		, link_ty
+		, link_url
+		, sort_no
+		, rdcnt
+		, bgng_dt
+		, end_dt
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'BANNER' AS srvc_id
+	</sql>
+
+	<sql id="searchConditions">
+
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+		<if test="srchBannerNm != null and srchBannerNm != '' ">
+			AND banner_nm like CONCAT('%', #{srchBannerNm}, '%')
+		</if>
+		<if test="srchBannerTy != null and srchBannerTy != '' ">
+			AND banner_ty = #{srchBannerTy}
+		</if>
+
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND bgng_dt &gt;= #{srchBgngDt} AND end_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND bgng_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND end_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+
+	</sql>
+
+
+	<select id="selectBnnrMngListVO" parameterType="java.util.HashMap" resultMap="bnnrMngVOMap">
+		/* Query ID : banner.mng.selectBnnrMngListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM BNNER_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY banner_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectBnnrMngCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : banner.mng.selectAdverMngCount */
+		SELECT	COUNT(*)
+		FROM	 BNNER_MNG
+		WHERE	1=1
+			<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectBnnrMng" parameterType="java.util.HashMap" resultMap="bnnrMngVOMap">
+		/* Query ID : banner.mng.selectAdverMng */
+		SELECT
+			<include refid="listColumn"/>
+		FROM  BNNER_MNG
+		WHERE  banner_no = #{bannerNo}
+	</select>
+
+	<insert id="insertBnnrMng" parameterType="bnnrMngVO">
+	/* Query ID : banner.mng.insertBnnrMng */
+	INSERT INTO BNNER_MNG (
+		banner_nm
+		, use_yn
+		, link_ty
+		, banner_ty
+		, link_url
+		, bgng_dt
+		, end_dt
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{bannerNm, jdbcType=VARCHAR}
+		, #{useYn, jdbcType=VARCHAR}
+		, #{linkTy, jdbcType=VARCHAR}
+		, #{bannerTy, jdbcType=VARCHAR}
+		, #{linkUrl, jdbcType=VARCHAR}
+		, #{bgngDt}
+		, #{endDt}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="bannerNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+
+	<update id="updateBnnrMng" parameterType="bnnrMngVO">
+		UPDATE BNNER_MNG SET
+		banner_nm = #{bannerNm, jdbcType=VARCHAR}
+		, use_yn = #{useYn, jdbcType=VARCHAR}
+		, link_ty = #{linkTy, jdbcType=VARCHAR}
+		, banner_ty = #{bannerTy, jdbcType=VARCHAR}
+		, link_url = #{linkUrl, jdbcType=VARCHAR}
+		, bgng_dt = #{bgngDt}
+		, end_dt = #{endDt}
+		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+		, mdfcn_dt = SYSDATE()
+		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE banner_no = #{bannerNo}
+	</update>
+
+	<update id="updateBnnrUseYn" parameterType="java.util.HashMap">
+	UPDATE BNNER_MNG SET
+		use_yn = #{useYn}
+	WHERE banner_no = #{srchBannerNo}
+	</update>
+
+	<update id="updateSortNo" parameterType="java.util.HashMap">
+	UPDATE BNNER_MNG SET
+		sort_no = #{sortNo}
+	WHERE banner_no = #{srchBannerNo}
+	</update>
+
+
+</mapper>

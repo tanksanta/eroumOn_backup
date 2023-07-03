@@ -1,4 +1,4 @@
-package icube.manage.exhibit.ad.biz;
+package icube.manage.exhibit.banner.biz;
 
 import java.util.Date;
 import java.util.List;
@@ -13,21 +13,22 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Alias("adverMngVO")
-public class AdverMngVO extends CommonBaseVO {
-	private int adverNo;
-	private String adverNm;
-	private String adverArea;
-	private String linkTy;
-	private String linkUrl;
+@Alias("bnnrMngVO")
+public class BnnrMngVO extends CommonBaseVO {
+	private int bannerNo;
+	private String bannerNm;
+	private String bannerTy = "M";
+	private String linkTy = "P";
+	private String linkUrl = "#";
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date bgngDt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDt;
 	private String bgngTime;
 	private String endTime;
+	private int sortNo;
+	private int rdcnt;
 
-
-	//fileVO
+	// fileVO
 	private List<FileVO> fileList;
 }

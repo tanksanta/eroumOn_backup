@@ -408,18 +408,18 @@ public class CodeMap{
 	public static final HashMap<String, String> POPUP_LINK_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("N", "없음");
 			put("P", "현재창");
 			put("S", "새창열림");
+			put("N", "없음");
 		}
 	};
 
-	//광고관리 > 광고 영역
-	public static final HashMap<String, String> ADVER_AREA = new LinkedHashMap<String, String>() {
+	//배너 관리 > 배너 유형
+	public static final HashMap<String, String> BANNER_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 133507148448669305L;
 		{
-			put("1", "임의 코드 1");
-			put("2", "임의 코드 2");
+			put("M", "메인 배너"); //main
+			put("S", "띠 배너"); // sub
 		}
 	};
 
@@ -505,7 +505,7 @@ public class CodeMap{
 			put("W","여성");
 		}
 	};
-	
+
 	//기본 결제 유형
 	public static final HashMap<String, String> BASS_STLM_TY= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 133507148448669305L;
@@ -522,7 +522,7 @@ public class CodeMap{
 
 		}
 	};
-	
+
 	//회원 상태
 	public static final HashMap<String, String> MBER_STTUS= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -4815197362551668220L;
@@ -569,7 +569,7 @@ public class CodeMap{
 			put("NONE","해제");
 		}
 	};
-	
+
 	//블랙리스트 구분
 	public static final HashMap<String, String> MNG_SE_BLACK= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 5045970347033574329L;
@@ -894,7 +894,7 @@ public class CodeMap{
 			put("8","교육");
 		}
 	};
-	
+
 	// 품목
 	public static final HashMap<String, String> RECIPTER_ITEM= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -6250081480521394189L;
