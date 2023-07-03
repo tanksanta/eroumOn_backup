@@ -31,4 +31,7 @@
 			<c:if test="${fn:indexOf(_curPath, 'banner/list') > -1}">
 				<p>※ 메인 화면의 띠 배너와 메인 배너를 설정하는 페이지 입니다.</p>
 			</c:if>
+			<c:if test="${fn:indexOf(_curPath, 'usermenu/form') > -1}">
+				<p>※ 메인 화면의 상단 메뉴를 설정하는 페이지입니다. 카테고리는 카테고리 관리에서 설정 할 수 있습니다.</p>
+			</c:if>
 			<!-- //page header -->
