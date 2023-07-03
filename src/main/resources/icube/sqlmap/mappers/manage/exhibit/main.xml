@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+
+	<resultMap type="mainMngVO" id="mainMngVOMap" autoMapping="true" >
+	</resultMap>
+
+
+	<sql id="listColumn">
+		main_no
+		, sort_no
+		, thema_ty
+		, sj
+		, rdcnt
+		, icon
+		, link_url
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchThemaTy != null and srchThemaTy != '' ">
+			AND thema_ty = #{srchThemaTy}
+		</if>
+		<if test="srchText != null and srchText != '' ">
+			AND LIKE CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+	</sql>
+
+	<select id="selectMainMngListVO" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY main_no, sort_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMainMngCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<update id="updateMainUseYn" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			use_yn = #{useYn}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<update id="updateMainSortNo" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<!-- <select id="selectThemeDspy" parameterType="java.util.HashMap"
+		resultMap="themeDspyVOMap">
+		/* Query ID : themeDspy.selectThemeDspy */
+		SELECT
+		<include refid="listColumn" />
+		FROM THEME_DSPY
+		WHERE theme_dspy_no = #{themeDspyNo}
+	</select>
+
+	<insert id="insertThemeDspy" parameterType="themeDspyVO">
+		/* Query ID : themeDspy.insertThemeDspy */
+		INSERT INTO THEME_DSPY (
+		theme_dspy_nm
+		, cn
+		, dspy_yn
+		, rel_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{themeDspyNm, jdbcType=VARCHAR}
+		, #{cn, jdbcType=VARCHAR}
+		, #{dspyYn, jdbcType=VARCHAR}
+		, #{relYn, jdbcType=VARCHAR}
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="themeDspyNo" order="AFTER" resultType="int">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateThemeDspy" parameterType="themeDspyVO">
+		/* Query ID :
+		themeDspy.updateThemeDspy */
+		UPDATE THEME_DSPY SET
+		theme_dspy_nm = #{themeDspyNm, jdbcType=VARCHAR}
+		, cn = #{cn, jdbcType=VARCHAR}
+		, dspy_yn = #{dspyYn, jdbcType=VARCHAR}
+		, rel_yn = #{relYn, jdbcType=VARCHAR}
+		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+		, mdfcn_dt = #{mdfcnDt}
+		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+		, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE theme_dspy_no = #{themeDspyNo}
+	</update> -->
+
+
+</mapper>

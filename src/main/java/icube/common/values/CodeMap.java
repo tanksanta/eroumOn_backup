@@ -423,6 +423,16 @@ public class CodeMap{
 		}
 	};
 
+	//배너 관리 > 배너 유형
+	public static final HashMap<String, String> MAIN_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 1605787430187989116L;
+		{
+			put("G", "상품노출형"); //gds
+			put("B", "배너형"); // banner
+			put("H", "배너하프형"); // half
+		}
+	};
+
 	/**
 	 * 시스템관리 > 입점업체 관리
 	 */
