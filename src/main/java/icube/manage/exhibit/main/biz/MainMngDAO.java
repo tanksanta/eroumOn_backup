@@ -22,4 +22,12 @@ public class MainMngDAO extends CommonAbstractMapper {
 		return update("main.updateMainSortNo",paramMap);
 	}
 
+	public MainMngVO selectMainMng(Map<String, Object> paramMap) throws Exception {
+		return selectOne("main.selectMainMng",paramMap);
+	}
+
+	public void insertMainMng(MainMngVO mainMngVO) {
+		insert("main.insertMainMng",mainMngVO);
+	}
+
 }

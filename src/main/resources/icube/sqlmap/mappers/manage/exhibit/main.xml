@@ -3,6 +3,10 @@
 <mapper namespace="main">
 
 	<resultMap type="mainMngVO" id="mainMngVOMap" autoMapping="true" >
+		<collection property="halfFileList" column="{srvcId=item_half_id, upNo=main_no, fileTy=item_half_id}" select="file.selectFileList" />
+		<collection property="pcImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_pc_id}" select="file.selectFileList" />
+		<collection property="mobileImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_mobile_id}" select="file.selectFileList" />
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=main_no}" select="file.selectFileList" />
 	</resultMap>
 
 
@@ -23,6 +27,11 @@
 		, mdfcn_dt
 		, mdfcn_id
 		, mdfr
+		, 'MAIN' AS srvc_main_id
+		, 'ICON' AS srvc_id
+		, 'PC' AS item_pc_id
+		, 'MOBILE' AS item_mobile_id
+		, 'HALF' AS item_half_id
 	</sql>
 
 
@@ -36,6 +45,9 @@
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND use_yn = #{srchUseYn}
 		</if>
+		<if test="srchMainNo != null and srchMainNo != '' ">
+			AND main_no = #{srchMainNo}
+		</if>
 	</sql>
 
 	<select id="selectMainMngListVO" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
@@ -44,7 +56,7 @@
 		FROM MNG_MAIN
 		WHERE 1=1
 			<include refid="searchConditions" />
-		ORDER BY main_no, sort_no DESC
+		ORDER BY thema_ty, sort_no DESC
 		LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
@@ -67,42 +79,45 @@
 		WHERE main_no = #{mainNo}
 	</update>
 
-	<!-- <select id="selectThemeDspy" parameterType="java.util.HashMap"
-		resultMap="themeDspyVOMap">
-		/* Query ID : themeDspy.selectThemeDspy */
+	<select id="selectMainMng" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
 		SELECT
-		<include refid="listColumn" />
-		FROM THEME_DSPY
-		WHERE theme_dspy_no = #{themeDspyNo}
+			<include refid="listColumn" />
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
 	</select>
 
-	<insert id="insertThemeDspy" parameterType="themeDspyVO">
-		/* Query ID : themeDspy.insertThemeDspy */
-		INSERT INTO THEME_DSPY (
-		theme_dspy_nm
-		, cn
-		, dspy_yn
-		, rel_yn
-		, reg_unique_id
-		, reg_dt
-		, reg_id
-		, rgtr
+
+	<insert id="insertMainMng" parameterType="mainMngVO">
+		INSERT INTO MNG_MAIN (
+			sort_no
+			, thema_ty
+			, sj
+			, rdcnt
+			, link_url
+			, use_yn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
 		) VALUES (
-		#{themeDspyNm, jdbcType=VARCHAR}
-		, #{cn, jdbcType=VARCHAR}
-		, #{dspyYn, jdbcType=VARCHAR}
-		, #{relYn, jdbcType=VARCHAR}
-		, #{regUniqueId, jdbcType=VARCHAR}
-		, SYSDATE()
-		, #{regId, jdbcType=VARCHAR}
-		, #{rgtr, jdbcType=VARCHAR}
+			#{sortNo}
+			, #{themaTy, jdbcType=VARCHAR}
+			, #{sj, jdbcType=VARCHAR}
+			, #{rdcnt}
+			, #{linkUrl, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
 		)
-		<selectKey keyProperty="themeDspyNo" order="AFTER" resultType="int">
-		SELECT LAST_INSERT_ID()
+		<selectKey keyProperty="mainNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
 
-	<update id="updateThemeDspy" parameterType="themeDspyVO">
+	<!-- <update id="updateThemeDspy" parameterType="themeDspyVO">
 		/* Query ID :
 		themeDspy.updateThemeDspy */
 		UPDATE THEME_DSPY SET

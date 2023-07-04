@@ -1,7 +1,10 @@
 package icube.manage.exhibit.main.biz;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
+import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +16,14 @@ public class MainMngVO extends CommonBaseVO {
 
 	private int mainNo;
 	private int sortNo;
-	private String themaTy;
+	private String themaTy = "G";
 	private String sj;
 	private int rdcnt;
 	private String icon;
-	private String linkUrl;
+	private String linkUrl = "#";
 
+	private List<FileVO> pcImgFileList;
+	private List<FileVO> mobileImgFileList;
+	private List<FileVO> halfFileList;
+	private List<FileVO> fileList;
 }
