@@ -66,4 +66,9 @@ public class MainMngService extends CommonAbstractServiceImpl {
 
 	}
 
+	public void updateMainMng(MainMngVO mainMngVO)throws Exception {
+		mainMngDAO.updateMainMng(mainMngVO);
+		
+	}
+
 }

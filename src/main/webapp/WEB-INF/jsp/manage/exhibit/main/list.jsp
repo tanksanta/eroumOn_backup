@@ -114,7 +114,7 @@
 			</c:forEach>
 			<c:if test="${empty listVO.listObject}">
 				<tr>
-					<td class="noresult" colspan="7">검색조건을 만족하는 결과가 없습니다.</td>
+					<td class="noresult" colspan="8">검색조건을 만족하는 결과가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

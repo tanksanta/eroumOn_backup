@@ -26,8 +26,12 @@ public class MainMngDAO extends CommonAbstractMapper {
 		return selectOne("main.selectMainMng",paramMap);
 	}
 
-	public void insertMainMng(MainMngVO mainMngVO) {
+	public void insertMainMng(MainMngVO mainMngVO) throws Exception {
 		insert("main.insertMainMng",mainMngVO);
+	}
+
+	public void updateMainMng(MainMngVO mainMngVO) throws Exception {
+		update("main.updateMainMng",mainMngVO);
 	}
 
 }

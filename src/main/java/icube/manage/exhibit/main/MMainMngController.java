@@ -25,6 +25,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
+import icube.common.util.WebUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -125,33 +126,27 @@ public class MMainMngController extends CommonAbstractController{
 		switch(mainMngVO.getCrud()) {
 		case CREATE:
 			mainMngService.insertMainMng(mainMngVO);
-			String srvc = "";
 
-			switch(mainMngVO.getThemaTy()) {
-			case"G":
-				 // 첨부파일
-				srvc = "MAIN";
-
-				// 상품 등록
+			// 상품 등록
+			if(mainMngVO.getThemaTy().equals("G")) {
 				mainMngService.insertMainGds(mainMngVO, reqMap);
-				break;
-			case"B":
-				srvc = "MAIN";
-				break;
-			case"H":
-				srvc = "HALF";
-				break;
-			default:
-				srvc = "ATTACH";
-				break;
 			}
-			fileService.creatFileInfo(fileMap, mainMngVO.getMainNo(), srvc, reqMap);
+			
+			fileService.creatFileInfo(fileMap, mainMngVO.getMainNo(), "MAIN", reqMap);
 
 			javaScript.setMessage(getMsg("action.complete.insert"));
 			javaScript.setLocation("./list?" + pageParam);
 
 			break;
 		case UPDATE:
+			mainMngService.updateMainMng(mainMngVO);
+			
+			// 첨부파일 삭제
+			String delAttachFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachFileNo"));
+			String[] arrDelAttachFile = delAttachFileNo.split(",");
+			if (!EgovStringUtil.isEmpty(arrDelAttachFile[0]))
+				fileService.deleteFilebyNo(arrDelAttachFile, mainMngVO.getMainNo(), "MAIN", "ATTACH");
+			
 			break;
 		default:
 			javaScript.setMessage(getMsg("action.complete.insert"));

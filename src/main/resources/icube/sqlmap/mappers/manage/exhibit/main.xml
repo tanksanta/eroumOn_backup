@@ -117,20 +117,20 @@
 		</selectKey>
 	</insert>
 
-	<!-- <update id="updateThemeDspy" parameterType="themeDspyVO">
-		/* Query ID :
-		themeDspy.updateThemeDspy */
-		UPDATE THEME_DSPY SET
-		theme_dspy_nm = #{themeDspyNm, jdbcType=VARCHAR}
-		, cn = #{cn, jdbcType=VARCHAR}
-		, dspy_yn = #{dspyYn, jdbcType=VARCHAR}
-		, rel_yn = #{relYn, jdbcType=VARCHAR}
-		, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
-		, mdfcn_dt = #{mdfcnDt}
-		, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
-		, mdfr = #{mdfr, jdbcType=VARCHAR}
-		WHERE theme_dspy_no = #{themeDspyNo}
-	</update> -->
+	<update id="updateMainMng" parameterType="mainMngVO">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+			, thema_ty = #{themaTy}
+			, sj = #{sj}
+			, rdcnt = #{rdcnt}
+			, link_url = #{linkUrl}
+			, use_yn = #{useYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+			, mdfcn_dt = #{mdfcnDt}
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+		WHERE main_no = #{mainNo}
+	</update>
 
 
 </mapper>
