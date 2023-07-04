@@ -1,17 +1,15 @@
 @layer components {
     /******************** input ********************/
     .form-control {
-        @apply px-3 h-[2.625rem] text-black2 md:px-4 md:h-12;
-        &:focus {
-            @apply border-black2 ring-0.5 ring-offset-0 ring-gray2 outline-0;
-        }
-        &::placeholder {
-            @apply text-black2/20;
-        }
+        @apply px-3 h-[2.625rem] text-black2
+               placeholder:text-black2/20
+               focus:border-black2 focus:ring-0.5 focus:ring-offset-0 focus:ring-gray2 focus:outline-0
+               md:px-4 md:h-12;
         &[type="date"], &[type="time"] {
-            @apply pr-5 bg-[length:1rem] bg-[right_0.875rem_center] md:pr-6 md:bg-[length:1.25rem] md:bg-[right_1rem_center];
+            @apply pr-5 bg-[length:1rem] bg-[right_0.875rem_center]
+                   md:pr-6 md:bg-[length:1.25rem] md:bg-[right_1rem_center];
             &::-webkit-inner-spin-button, &::-webkit-calendar-picker-indicator {
-                @apply md:-mr-0.5 md:w-5 md:h-5;
+                @apply md:w-5 md:h-5 md:-mr-0.5;
             }
         }
         &select {
@@ -23,21 +21,25 @@
             @apply p-3.5;
         }
         & ~ .btn {
-            @apply h-10 md:h-[2.875rem];
+            @apply h-10
+                   md:h-[2.875rem];
         }
     }
 
     .form-calendar {
-        @apply pr-9 bg-no-repeat bg-[length:1rem] bg-[right_0.875rem_center] md:pr-10 md:bg-[length:1.25rem] md:bg-[right_1rem_center];
+        @apply pr-9 bg-no-repeat bg-[length:1rem] bg-[right_0.875rem_center]
+               md:pr-10 md:bg-[length:1.25rem] md:bg-[right_1rem_center];
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath id='icon_calendar' d='M20,20H0V2H2V3A2,2,0,1,0,6,3V2h8V3a2,2,0,1,0,4,0V2h2V20h0ZM2,18H18V8H2Zm11-2V14h2v2ZM9,16V14h2v2ZM5,16V14H7v2Zm8-4V10h2v2ZM9,12V10h2v2ZM5,12V10H7v2ZM15,3V1a1,1,0,0,1,2,0V3a1,1,0,0,1-2,0ZM3,3V1A1,1,0,0,1,5,1V3A1,1,0,0,1,3,3Z' fill='%23333'/%3E%3C/svg%3E%0A");
     }
 
     .form-small {
         @apply rounded px-3 h-8 md:h-9;
         &[type="date"] {
-            @apply pr-4 bg-[length:0.875rem] bg-[right_0.5rem_center] md:pr-5 md:bg-[length:1rem] md:bg-[right_0.75rem_center];
+            @apply pr-4 bg-[length:0.875rem] bg-[right_0.5rem_center]
+                   md:pr-5 md:bg-[length:1rem] md:bg-[right_0.75rem_center];
             &::-webkit-inner-spin-button, &::-webkit-calendar-picker-indicator {
-                @apply -mr-1.5 w-3.5 h-3.5 md:-mr-0.5 md:w-4 md:h-4;
+                @apply -mr-1.5 w-3.5 h-3.5
+                       md:-mr-0.5 md:w-4 md:h-4;
             }
         }
         &[type="file"] {
@@ -47,7 +49,8 @@
             }
         }
         &.form-calendar {
-            @apply pr-7 bg-[length:0.875rem] bg-[right_0.5rem_center] md:pr-8 md:bg-[length:1rem] md:bg-[right_0.75rem_center];
+            @apply pr-7 bg-[length:0.875rem] bg-[right_0.5rem_center]
+                   md:pr-8 md:bg-[length:1rem] md:bg-[right_0.75rem_center];
         }
         &textarea {
             @apply p-2.5;
@@ -56,26 +59,30 @@
             @apply pr-7 bg-[length:0.5rem] bg-[right_0.75rem_center];
         }
         & ~ .btn {
-            @apply h-7.5 md:h-8.5;
+            @apply h-7.5
+                   md:h-8.5;
         }
     }
 
     .form-large {
-        @apply px-5 h-[3.125rem] text-base md:px-6 md:h-[4.375rem] md:text-lg;
+        @apply px-5 h-[3.125rem] text-base
+               md:px-6 md:h-[4.375rem] md:text-lg;
         &[type="date"] {
-            @apply pr-6 bg-[length:1.25rem] bg-[right_0.875rem_center] md:pr-7 md:bg-[length:1.5rem] md:bg-[right_1rem_center];
+            @apply pr-6 bg-[length:1.25rem] bg-[right_0.875rem_center]
+                   md:pr-7 md:bg-[length:1.5rem] md:bg-[right_1rem_center];
             &::-webkit-inner-spin-button, &::-webkit-calendar-picker-indicator {
                 @apply -mr-2 w-5 h-5 md:-mr-2.5 md:w-6 md:h-6;
             }
         }
         &[type="file"] {
-            @apply pl-31 pt-5.5;
+            @apply pt-5.5 pl-31;
             &::file-selector-button {
                 @apply w-30;
             }
         }
         &.form-calendar {
-            @apply pr-11 bg-[length:1.25rem] bg-[right_0.875rem_center] md:pr-12 md:bg-[length:1.5rem] md:bg-[right_1rem_center];
+            @apply pr-11 bg-[length:1.25rem] bg-[right_0.875rem_center]
+                   md:pr-12 md:bg-[length:1.5rem] md:bg-[right_1rem_center];
         }
         &textarea {
             @apply p-5;
@@ -84,7 +91,8 @@
             @apply pr-9 bg-[length:0.75rem] bg-[right_1rem_center];
         }
         & ~ .btn {
-            @apply h-13 md:h-17;
+            @apply h-13
+                   md:h-17;
         }
     }
     
@@ -92,9 +100,7 @@
     .form-check {
         @apply md:text-base;
         & .form-check-input {
-            &:checked {
-                @apply bg-black2 border-black2;
-            }
+            @apply checked:bg-black2 checked:border-black2;
         }
         &.form-switch {
             @apply py-1 pl-9 relative leading-4;
@@ -121,11 +127,14 @@
     }
     
     .form-check-group {
-        @apply pt-0 px-1 pb-1 md:px-1.5 md:pb-1.5;
+        @apply pt-0 px-1 pb-1
+               md:px-1.5 md:pb-1.5;
         & .form-check {
-            @apply mt-1 md:mt-1.5 md:mr-1.5;
+            @apply mt-1
+                   md:mt-1.5 md:mr-1.5;
             & .form-check-label {
-                @apply px-2 min-w-0 h-8 leading-8 md:px-3.5 md:h-8.5 md:leading-[2.125rem];
+                @apply px-2 min-w-0 h-8 leading-8
+                       md:px-3.5 md:h-8.5 md:leading-[2.125rem];
             }
         }
     }
@@ -135,8 +144,7 @@
     .form-upload {
         @apply w-full text-black2;
         & .form-upload-trigger {
-            @apply mr-0 mb-0 w-full text-sm text-black2 whitespace-normal;
-            word-break: keep-all;
+            @apply mr-0 mb-0 w-full text-sm text-black2 whitespace-normal break-keep;
         }
     }
 
@@ -160,21 +168,23 @@
     .form-group {
         @apply inline-flex items-center max-w-full align-middle;
         & > * {
-            @apply mr-1.5 md:mr-2;
-            &:last-child {
-                @apply mr-0;
-            }
+            @apply mr-1.5
+                   md:mr-2
+                   last:mr-0;
         }
         & .form-control {
             @apply min-w-0 w-15 flex-1;
         }
         & .btn {
-            @apply px-4 md:px-5;
+            @apply px-4
+                   md:px-5;
             &.btn-small {
-                @apply px-3 md:px-4;
+                @apply px-3
+                       md:px-4;
             }
             &.btn-small {
-                @apply px-5 md:px-8;
+                @apply px-5 
+                       md:px-8;
             }
         }
     }
@@ -182,12 +192,11 @@
     .form-group-tel {
         @apply form-group;
         & .form-control {
-            &:first-child {
-                @apply flex-initial w-[30%];
-            }
+            @apply first:flex-initial first:w-[30%];
         }
         & i {
-            @apply hidden sm:block;
+            @apply hidden
+                   sm:block;
         }
     }
 }

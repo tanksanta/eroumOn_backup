@@ -17,7 +17,7 @@
     <script src="../../assets/script/common.js"></script>
     <script src="../../assets/script/product.js"></script>
 </head>
-<body class="is-banner">
+<body>
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
@@ -26,117 +26,677 @@
 
     <!-- header -->
     <header id="header">
-        <!-- banner -->
-        <aside id="banner">
-            <div class="container">
-                <img src="/html/page/market/assets/images/dummy/img-dummy-notice.jpg" alt="">
-                <button type="button">
-                    <span class="sr-only">닫기</span>
-                </button>
-            </div>
-        </aside>
-        <script>
-            $('#banner button').on('click', function() {
-                $('body').removeClass('is-banner');
-            })
-        </script>
-        <!-- //banner -->
-
-        <!-- header logo -->
-        <div id="utility">
-            <h1 class="global-logo"><a href="#"><em>이로움 ON</em></a></h1>
-            <ul class="utility-menu">
+        <div class="container">
+            <h1 class="header-logo global-logo is-style2"><a href="#"><span>마켓</span></a></h1>
+            <ul class="header-menu">
                 <li><a href="#">로그인</a></li>
                 <li><a href="#">회원가입</a></li>
                 <li><a href="#">고객센터</a></li>
             </ul>
         </div>
-        <!-- //header logo -->
+    </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start header-layer">
+        <div class="offcanvas-header">
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu">레이어 닫기</button>
+            <!-- <div class="logout">
+                로그인 하시고<br>
+                혜택을 받으세요
+            </div> -->
+            <div class="login">
+                <p class="name"><strong>관리자</strong>님</p>
+                <img src="../assets/images/img-shopbag.png" alt="" class="bags">
+                <p class="rank">
+                    <small>일반회원</small>
+                    <strong><img src="../assets/images/img-grade1.svg" alt=""></strong>
+                </p>
+            </div>
+        </div>
+        <div class="offcanvas-body">
+            <div class="button">
+                <picture>
+                    <source srcset="../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
+                    <source srcset="../assets/images/txt-header-nav.svg"> 
+                    <img src="../assets/images/txt-header-nav.svg" alt="" />
+                </picture>
+                <a href="#">로그인</a>
+                <a href="#">주문내역</a>
+            </div>
+            <ul class="menu-items">
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>복지용구</strong>
+                        <small>welfare<br> equipment</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
+                        <ul>
+                            <li class="sub-item is-active"><a href="#">수동휠체어</a></li>
+                            <li class="sub-item"><a href="#">성인용 보행기</a></li>
+                            <li class="sub-item"><a href="#">지팡이</a></li>
+                            <li class="sub-item"><a href="#">안전손잡이</a></li>
+                            <li class="sub-item"><a href="#">경사로</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지매트</a></li>
+                            <li class="sub-item"><a href="#">미끄럼방지양말</a></li>
+                            <li class="sub-item"><a href="#">이동욕조</a></li>
+                            <li class="sub-item"><a href="#">목욕의자</a></li>
+                            <li class="sub-item"><a href="#">간이변기</a></li>
+                            <li class="sub-item"><a href="#">이동변기</a></li>
+                            <li class="sub-item"><a href="#">요실금팬티</a></li>
+                            <li class="sub-item"><a href="#">전동침대</a></li>
+                            <li class="sub-item"><a href="#">자세변환용구</a></li>
+                            <li class="sub-item"><a href="#">욕창예방매트리스</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>식품</strong>
+                        <small>food</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>패션</strong>
+                        <small>fashion</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>뷰티</strong>
+                        <small>beauty</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <strong>리빙</strong>
+                        <small>living</small>
+                    </a>
+                    <div class="sub-items">
+                        <p><img src="../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
+                        <ul>
+                            <li class="sub-item"><a href="#">과일</a></li>
+                            <li class="sub-item"><a href="#">채소</a></li>
+                            <li class="sub-item"><a href="#">곡물</a></li>
+                            <li class="sub-item"><a href="#">건과/견과</a></li>
+                            <li class="sub-item"><a href="#">축산</a></li>
+                            <li class="sub-item"><a href="#">수산</a></li>
+                            <li class="sub-item"><a href="#">김치</a></li>
+                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
+                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                            <li class="sub-item"><a href="#">전통식품</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-items">
+                <li class="list-item"><a href="#">Story</a></li>
+                <li class="list-item"><a href="#">기획전</a></li>
+                <li class="list-item"><a href="#">이벤트</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- //header -->
     
-        <!-- navigation -->
-        <nav id="navigation">
+    <!-- navigation -->
+    <nav id="navigation">
+        <div class="navigation-menu">
+            <button type="button" class="allmenu" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체메뉴</button>
             <div class="container">
-                <button type="button" class="navigation-allmenu">
-                    <i></i>
-                    <span>전체 카테고리</span>
-                </button>
-                <div class="navigation-submenu">
-                    <ul>
-                        <li><a href="#">기획전</a></li>
-                        <li><a href="#">이벤트</a></li>
-                        <li><a href="#">고령친화 우수식품</a></li>
-                        <li><a href="#">스토리</a></li>
-                    </ul>
-                </div>
-                <div class="navigation-search">
-                    <button class="search-toggle">검색 펼치기 접기</button>
-                    <form action="" class="search-form">
-                        <div class="form-field">
-                            <legend>통합검색</legend>
-                            <input type="text" placeholder="검색어를 입력하세요">
-                            <button type="submit">검색</button>
-                        </div>
-                        <div class="form-current">
-                            <p class="current-title">최근 검색어 <a href="#">전체삭제</a></p>
-                            <div class="current-items">
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="current-item">
-                                    <a href="#">실버카</a>
-                                    <button type="button">삭제</button>
-                                </div>
-                            </div>
-                            <div class="current-option">
-                                <div class="form-check form-switch option-switch">
-                                    <input class="form-check-input" type="checkbox" id="search-save">
-                                    <label class="form-check-label" for="search-save">검색어 저장 끄기</label>
-                                </div>
-                                <button type="button" class="option-close">닫기</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <ul class="navigation-util">
-                    <li><a href="#" class="util-item1">마이페이지</a></li>
-                    <li><a href="#" class="util-item2">찜한상품</a></li>
-                    <li><a href="#" class="util-item3">장바구니</a></li>
+                <ul>
+                    <li><a href="#">복지용구</a></li>
+                    <li><a href="#">식품</a></li>
+                    <li><a href="#">패션</a></li>
+                    <li><a href="#">뷰티</a></li>
+                    <li class="disabled"><a href="#">리빙</a></li>
+                    <li class="seperate"></li>
+                    <li class="require"><a href="#">Story</a></li>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
                 </ul>
             </div>
-        </nav>
-        <!-- //navigation -->
-    </header>
-    <!-- //header -->
+            <button type="button" class="toggle">메뉴 펼치기 접기</button>
+        </div>
+        <div class="navigation-search">
+            <button type="button" class="navigation-search-toggle">검색 열기/닫기</button>
+            <div class="navigation-search-layer">
+                <form action="#" class="search">
+                    <fieldset>
+                        <legend>Search</legend>
+                        <input type="search" class="input">
+                        <button type="submit" class="submit">검색</button>
+                        <button type="button" class="closed">닫기</button>
+                    </fieldset>
+                </form>
+                <div class="keyword">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide recent">
+                                <p class="title">최근 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <a href="#" class="name">수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="name">수동휠체어</a>
+                                        <a href="#" class="delete">삭제</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="swiper-slide best">
+                                <p class="title">인기 검색어</p>
+                                <ul class="result">
+                                    <li>
+                                        <span class="number">1</span>
+                                        <a href="#" class="name">성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">2</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">3</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">4</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                    <li>
+                                        <span class="number">5</span>
+                                        <a href="#" class="name">성인용 보행기</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-clock">
+            <span class="hour">12</span>
+            <span class="mins">00</span>
+        </div>
+    </nav>
+    <!-- //navigation -->
+
+    <!-- aside -->
+    <aside id="service">
+        <div class="container">
+            <div class="service-slogan">
+                <div class="word"><p><span>SENIOR LIFE STYLE</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프 스타일</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프</span> <small>by E·ROUM</small></p></div>
+            </div>
+            <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
+            <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
+            <!-- 장바구니 메세지 스크립트 onload after
+            $('.service-mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
+            $('.service-mycart').removeAttr('title').tooltip('dispose');
+            -->
+            <!-- <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
+            <div class="service-compare">
+                <div class="container">
+                    <button type="button" class="service-compare-toggle" data-bs-toggle="tooltip" title="상품비교">최근본상품</button>
+                    <ul class="service-compare-items">
+                        <li>
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                        <li>
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            <button type="button">닫기</button>
+                        </li>
+                    </ul>
+                </div>
+            </div> -->
+            <p class="service-join">
+                <strong>회원 가입</strong>하고<br>
+                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
+            </p>
+        </div>
+        <div class="service-compare-layer">
+            <div class="header">
+                <p>상품비교</p>
+                <ul>
+                    <li>성인용 보행기</li>
+                    <li>성인용 보행기</li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="content">
+                    <div class="select"></div>
+                    <table>
+                        <tr>
+                            <th scope="row" class="title">
+                                <div class="header">
+                                    <p>상품<br>비교</p>
+                                    <ul>
+                                        <li>성인용 보행기</li>
+                                        <li>성인용 보행기</li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"><img src="../assets/images/dummy/img-dummy-product.png" alt=""></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete">
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="thumb"></div>
+                            </td>
+                            <td class="items">
+                                <div class="delete"></div>
+                                <div class="thumb"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">상품명</div></th>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number1.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number2.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number3.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number4.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">판매가</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">급여가</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">재질</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">사이즈</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">중량</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"><div class="sheader">규격</div></th>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="title"></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="closed">상품 비교 접기</button>
+        </div>
+        <div class="service-recent-layer">
+            <div class="container">
+                <div class="header">
+                    <p class="name">쇼핑 <small>히스토리</small></p>
+                    <p class="desc">최근 본 제품을 확인할 수 있습니다</p>
+                </div>
+                <div class="items">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <button type="button" class="closed">쇼핑 히스토리 접기</button>
+        </div>
+    </aside>
+    <!-- //aside -->
 
     <!-- container -->
+
     <main id="container" class="is-product">
         <div id="page-header">
+            <a href="#" class="page-header-back">이전 페이지 가기</a>
+            <!-- <h2 class="page-header-name">복지용구</h2> -->
             <ul class="page-header-breadcrumb">
-                <li><a href="#">복지용구</a></li>
-                <li><a href="#">복지용구</a></li>
-                <li><a href="#">복지용구</a></li>
-                <li><a href="#">복지용구</a></li>
+                <li>
+                    <a href="#">복지용구</a>
+                    <ul>
+                        <li><a href="#">복지용구</a></li>
+                        <li><a href="#">복지용구</a></li>
+                        <li><a href="#">복지용구</a></li>
+                        <li><a href="#">복지용구</a></li>
+                        <li><a href="#">복지용구</a></li>
+                    </ul>
+                </li>
             </ul>
-            <h2 class="page-header-name"><a href="#">복지용구</a></h2>
+            <h2 class="page-header-name"><a href="#">복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구 복지용구</a></h2>
         </div>
-
 
         <div id="page-container">
             <div class="product-detail">
@@ -149,6 +709,21 @@
                                 <div class="swiper-slide">
                                     <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
                                 </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/FDOOc7oX23Y" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -156,6 +731,21 @@
                         <div class="swiper product-swiper-thumb">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="swiper-slide is-video">
                                     <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
                                 </div>
                             </div>
@@ -247,24 +837,61 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="swiper-slide">
+                                    <div class="product-item">
+                                        <div class="item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <a href="#" class="item-content">
+                                            <div class="name">
+                                                <small>성인용보행기</small>
+                                                <strong>살졸 카본 롤레이터</strong>
+                                            </div>
+                                            <div class="cost">
+                                                <dl>
+                                                    <dt>판매가</dt>
+                                                    <dd>66,300<small>원</small></dd>
+                                                </dl>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-item">
+                                        <div class="item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <a href="#" class="item-content">
+                                            <div class="name">
+                                                <small>성인용보행기</small>
+                                                <strong>살졸 카본 롤레이터</strong>
+                                            </div>
+                                            <div class="cost">
+                                                <dl>
+                                                    <dt>판매가</dt>
+                                                    <dd>66,300<small>원</small></dd>
+                                                </dl>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                             <div class="swiper-pagination"></div>
                         </div>
-                        <button type="button" class="swiper-button-prev"><span class="sr-only">이전</span></button>
-                        <button type="button" class="swiper-button-next"><span class="sr-only">다음</span></button>
+                        <div class="grid gap-x-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                        </div>
                     </div>
                     <!-- //관련 상품 -->
-
-                    <!-- 가격 배너 -->
-                    <div class="my-12 my:mt-16"><img src="../../assets/images/img-product-banner2.jpg" alt=""></div>
-                    <!-- //가격 배너 -->
 
                     <!-- 상세 탭 -->
                     <div id="prod-tablist" class="product-tablist">
                         <ul class="nav">
                             <li><a class="nav-link active" href="#prod-tabcontent1">상세정보</a></li>
-                            <li><a class="nav-link" href="#prod-tabcontent4">배송/교환/반품정보</a></li>
+                            <li><a class="nav-link" href="#prod-tabcontent2">상품후기 <span>(5)</span></a></li>
                             <li><a class="nav-link" href="#prod-tabcontent3">상품문의 <span>(5)</span></a></li>
+                            <li><a class="nav-link" href="#prod-tabcontent4">교환/반품/배송정보</a></li>
                         </ul>
                     </div>
                     <!-- //상세 탭 -->
@@ -349,123 +976,6 @@
                         </table>
                     </div>
                     <!-- //상품 정보 -->
-
-                    <!-- 상품 배송/교환/반품정보 -->
-                    <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13">
-                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">배송</p>
-                        <table class="table-detail">
-                            <colgroup>
-                                <col class="min-w-19 w-[16%]">
-                                <col class="min-w-19 w-[14%]">
-                                <col >
-                            </colgroup>
-                            <thead>
-                                <tr class="top-border">
-                                    <td colspan="2"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">상품</p></th>
-                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">배송비</p></th>
-                                    <th scope="col"><p class="!text-center !justify-center !py-2.5 md:!py-3.5">내용</p></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row"><p>복지용구<br>(급여구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
-                                    <td rowspan="3">
-                                        <ul class="list-normal">
-                                            <li>주문 마감 시간 이전 결제완료 건에 한해 당일 출고 됩니다. (주말, 공휴일 제외)</li>
-                                            <li>주문마감시간 : 오전 11시 전 결제건</li>
-                                            <li>배송준비중 상태일 경우, 포장 및 발송 작업이 완료되어 주문 취소가 불가능합니다.</li>
-                                            <li>출고일 다음날로부터 1~3일 이내 수령 가능하지만 택배사 사정으로 지연될 수 있어 수령일 지정은 불가능합니다.</li>
-                                            <li>주소 및 전화번호를 잘 못 기재한 경우 반송비는 구매자 부담이니 한번 더 확인해주세요.</li>
-                                            <li>1:1 문의를 통한 주문 상품 변경, 취소, 반품, 교환은 불가능합니다.</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><p>복지용구<br>(일반구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><p>일반상품</p></th>
-                                    <th scope="row"><p>상품별 상이</p></th>
-                                </tr>
-                                <tr class="bot-border">
-                                    <td colspan="2"></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <p class="mt-8 mb-3 text-base font-bold md:mb-4 md:mt-12 md:text-lg">교환/반품 일반사항</p>
-                        <table class="table-detail">
-                            <colgroup>
-                                <col class="min-w-19 w-[16%]">
-                                <col class="min-w-19 w-[14%]">
-                                <col >
-                            </colgroup>
-                            <tbody>
-                                <tr class="top-border">
-                                    <td colspan="2"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" colspan="2"><p>공통</p></th>
-                                    <td>
-                                        <ul class="list-normal">
-                                            <li>수령 후 7일 이내에만 교환, 반품, 환불이 가능합니다.</li>
-                                            <li>제품 불량 및 오배송 등 판매자 과실로 인한 반품 및 교환은 판매자가 배송비를 부담합니다.</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="rowgroup" rowspan="2"><p>무료<br> 교환/반품</p></th>
-                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
-                                    <td rowspan="2">
-                                        <ul class="list-normal">
-                                            <li>물품의 내용이 표시/광고의 내용과 다르거나 계약 내용과 차이가 있는 경우 물품을 수령한 날로부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환 및 반품이 가능합니다.</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
-                                </tr>
-                                <tr>
-                                    <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
-                                    <th scope="row"><p>복지용구<br> (급여구매)</p></th>
-                                    <td>
-                                        <ul class="list-normal">
-                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><p>복지용구<br> (일반구매)</p></th>
-                                    <td>
-                                        <ul class="list-normal">
-                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
-                                    <td>
-                                        <ul class="list-normal">
-                                            <li>구매자 단순 변심은 상품 수령 후 7일 이내 가능 합니다. (구매자 반품 배송비 부담)</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr class="bot-border">
-                                    <td colspan="2"></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- //상품 배송/교환/반품정보  -->
 
                     <!-- 상품 후기 -->
                     <div id="prod-tabcontent2" class="product-itemphoto mt-10 md:mt-13">
@@ -689,6 +1199,11 @@
                         </div>
                     </div>
                     <!-- //상품 문의 -->
+
+                    <!-- 상품 교환정보 -->
+                    <div id="prod-tabcontent4" class="product-itemship mt-10 lg:mt-13">
+                    </div>
+                    <!-- //상품 교환정보 -->
                 </div>
                 <!-- //상품 내용 -->
 
@@ -723,75 +1238,77 @@
 
                     <!-- 상품 재원 -->
                     <div class="product-resource">
-                        <dl class="price1">
-                            <dt>판매가</dt>
-                            <dd><strong>720,000</strong> 원</dd>
-                        </dl>
-                        <dl class="price1">
-                            <dt>급여가</dt>
-                            <dd><strong>663,000</strong> 원</dd>
-                        </dl>
-                        <dl class="price2">
-                            <dt>본인부담금</dt>
-                            <dd>
-                                <em>15%</em>
-                                <strong>99,450</strong> 원
-                                <a href="#" class="text-question mycost-trigger font-normal text-primary" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
-                                    data-bs-content="- 수급자는 연 한도액 160만원 범위 안에서 제공받음<br>- 복지용구 구매시 공단부담금 + 본인부담금<br>- 연 한도액 초과 시 전액 본인부담<br><br>차상위 감경(9% 본인부담) : 보험료 순위 25% 초과 50%<br>차상위 감경(6% 본인부담) : 보험료 순위 25% 이하<br>기초생활수급자(본인부담금 없이 무료)<a href='#' class='close'>닫기</a>"
-                                    data-bs-title="본인부담금이란?">본인부담금이란?</a>
-                            </dd>
-                        </dl>
-                        <dl class="border-top">
-                            <dt>상품코드</dt>
-                            <dd>24n29G38Y72a</dd>
-                        </dl>
-                        <dl class="border-top">
-                            <dt>재질</dt>
-                            <dd>목재, 우레탄, PP</dd>
-                        </dl>
-                        <dl>
-                            <dt>사이즈</dt>
-                            <dd>47(폭)x55(길이)x85/88/91(높이)㎝</dd>
-                        </dl>
-                        <dl>
-                            <dt>중량</dt>
-                            <dd>16.2kg</dd>
-                        </dl>
-                        <dl class="border-top">
-                            <dt>마일리지</dt>
-                            <dd><img src="../../assets/images/ico-mileage.svg" alt=""> 3,920 마일리지 적립</dd>
-                        </dl>
-                        <dl class="border-top">
-                            <dt>배송기간</dt>
-                            <dd>업무일 기준 3일</dd>
-                        </dl>
-                        <dl>
-                            <dt>배송비</dt>
-                            <dd>무료</dd>
-                        </dl>
-                        <dl>
-                            <dt>배송방법</dt>
-                            <dd>직배송</dd>
-                        </dl>
+                        <div>
+                            <dl class="price1">
+                                <dt>판매가</dt>
+                                <dd><strong>720,000</strong> 원</dd>
+                            </dl>
+                            <dl class="price1">
+                                <dt>급여가</dt>
+                                <dd><strong>663,000</strong> 원</dd>
+                            </dl>
+                            <dl class="price2">
+                                <dt>본인부담금</dt>
+                                <dd>
+                                    <em>15%</em>
+                                    <strong>99,450</strong> 원
+                                    <a href="#" class="text-question mycost-trigger font-normal text-primary" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+                                        data-bs-content="- 수급자는 연 한도액 160만원 범위 안에서 제공받음<br>- 복지용구 구매시 공단부담금 + 본인부담금<br>- 연 한도액 초과 시 전액 본인부담<br><br>차상위 감경(9% 본인부담) : 보험료 순위 25% 초과 50%<br>차상위 감경(6% 본인부담) : 보험료 순위 25% 이하<br>기초생활수급자(본인부담금 없이 무료)<a href='#' class='close'>닫기</a>"
+                                        data-bs-title="본인부담금이란?">본인부담금이란?</a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl>
+                                <dt>상품코드</dt>
+                                <dd>24n29G38Y72a</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl>
+                                <dt>재질</dt>
+                                <dd>목재, 우레탄, PP</dd>
+                            </dl>
+                            <dl>
+                                <dt>사이즈</dt>
+                                <dd>47(폭)x55(길이)x85/88/91(높이)㎝</dd>
+                            </dl>
+                            <dl>
+                                <dt>중량</dt>
+                                <dd>16.2kg</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl>
+                                <dt>마일리지</dt>
+                                <dd><img src="../../assets/images/ico-mileage.svg" alt=""> 3,920 마일리지 적립</dd>
+                            </dl>
+                        </div>
+                        <div>
+                            <dl>
+                                <dt>배송기간</dt>
+                                <dd>업무일 기준 3일</dd>
+                            </dl>
+                            <dl>
+                                <dt>배송비</dt>
+                                <dd>무료</dd>
+                            </dl>
+                            <dl>
+                                <dt>배송방법</dt>
+                                <dd>직배송</dd>
+                            </dl>
+                        </div>
                     </div>
                     <!-- //상품 재원 -->
 
                     <!-- 상품 결제 -->
-                    <div class="product-payment">
+                    <div class="product-payment is-nologin">
                         <!-- 상품 결제 토글 모바일 -->
                         <button type="button" class="payment-toggle"></button>
                         <!-- //상품 결제 토글 모바일 -->
                     
                         <!-- 구매 조건 선택 -->
                         <div class="payment-type-select">
-                            <label for="paytype1" class="select-item1">
-                                <input type="radio" name="ttt" value="" id="paytype1" data-target=".payment-type-content1" checked>
-                                <span>급여 구매</span>
-                            </label>
-                            <label for="paytype2" class="select-item2">
-                                <input type="radio" name="ttt" value="" id="paytype2" data-target=".payment-type-content2">
-                                <span>바로 구매</span>
-                            </label>
                         </div>
                         <!-- //구매 조건 선택 -->
                         
@@ -1477,13 +1994,6 @@
     </main>
     <!-- //container -->
 
-    <!-- quick -->
-    <div id="quick" class="global-quick">
-        <button type="button" class="moveTop">위로 이동</button>
-        <button type="button" class="channelTalk">위로 이동</button>
-    </div>
-    <!-- //quick -->
-
     <!-- footer -->
     <footer id="footer" class="global-footer">
         <div class="footer-link">
@@ -1499,50 +2009,29 @@
             <!-- //회사 메뉴 -->
 
             <!-- 패밀리 사이트 -->
-            <div class="footer-family">
-                <dl>
-                    <dt>슈퍼시니어</dt>
-                    <dd>
-                        <ul class="global-link">
-                            <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
-                        </ul>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>패밀리 사이트</dt>
-                    <dd>
-                        <ul class="global-link">
-                            <li>
-                                <a href="#" class="link-item1">
-                                    <div class="bubble">
-                                        <small>시니어 라이프 케어 플랫폼</small>
-                                        <strong>"이로움ON"</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="link-item2">
-                                    <div class="bubble">
-                                        <strong>이로움ON 멤버스</strong>
-                                        <small>전국 2,432개 업체와 함께합니다</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="link-item3">
-                                    <div class="bubble">
-                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
-                                        <small>
-                                            복지용구 사업소와 수급자 매칭부터<br>
-                                            주문, 계약 및 결제까지 한번에!
-                                        </small>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
-            </div>
+            <dl class="footer-family">
+                <dt>패밀리 사이트</dt>
+                <dd>
+                    <ul class="global-link">
+                        <li>
+                            <a href="#" class="link-item1">
+                                <div class="bubble">
+                                    <small>시니어 라이프 케어 플랫폼</small>
+                                    <strong>"이로움ON"</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="link-item2">
+                                <div class="bubble">
+                                    <strong>이로움ON 멤버스</strong>
+                                    <small>전국 2,432개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
             <!-- //패밀리 사이트 -->
         </div>
         
@@ -1586,21 +2075,6 @@
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
-
-    <!-- 공지 레이어 배너 -->
-    <div class="notice-layer">
-        <div class="layer-content">
-            <img src="../../assets/images/dummy/img-dummy-detail-content.png" alt="">
-        </div>
-        <div class="layer-footer">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="check-close">
-                <label class="form-check-label" for="check-close">1일동안 보지 않음</label>
-            </div>
-            <button type="button" class="layer-close">닫기</button>
-        </div>
-    </div>
-    <!-- //공지 레이어 배너 -->
 
     <script src="../../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../../core/vendor/twelements/popper.min.js"></script>

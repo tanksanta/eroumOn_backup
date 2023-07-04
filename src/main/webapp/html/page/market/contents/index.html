@@ -15,8 +15,7 @@
     <!-- market -->
     <link rel="stylesheet" href="../assets/style/style.min.css">
     <script src="../assets/script/common.js"></script>
-    <style>
-    </style>
+    <script src="../assets/script/product.js"></script>
 </head>
 <body>
     <!-- access -->
@@ -27,1319 +26,599 @@
 
     <!-- header -->
     <header id="header">
-        <div class="container">
-            <h1 class="header-logo global-logo is-style2"><a href="#"><span>마켓</span></a></h1>
-            <ul class="header-menu">
+        <!-- banner -->
+        <aside id="banner">
+            <div class="container">
+                <img src="/html/page/market/assets/images/dummy/img-dummy-notice.jpg" alt="">
+                <button type="button">
+                    <span class="sr-only">닫기</span>
+                </button>
+            </div>
+        </aside>
+        <script>
+            $('#banner button').on('click', function() {
+                $('body').removeClass('is-banner');
+            })
+        </script>
+        <!-- //banner -->
+
+        <!-- header logo -->
+        <div id="utility">
+            <h1 class="global-logo"><a href="#"><em>이로움 ON</em></a></h1>
+            <ul class="utility-menu">
                 <li><a href="#">로그인</a></li>
                 <li><a href="#">회원가입</a></li>
                 <li><a href="#">고객센터</a></li>
             </ul>
         </div>
-    </header>
-    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-start header-layer">
-        <div class="offcanvas-header">
-            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu">레이어 닫기</button>
-            <!-- <div class="logout">
-                로그인 하시고<br>
-                혜택을 받으세요
-            </div> -->
-            <div class="login">
-                <p class="name"><strong>관리자</strong>님</p>
-                <img src="../assets/images/img-shopbag.png" alt="" class="bags">
-                <p class="rank">
-                    <small>일반회원</small>
-                    <strong><img src="../assets/images/img-grade1.svg" alt=""></strong>
-                </p>
-            </div>
-        </div>
-        <div class="offcanvas-body">
-            <div class="button">
-                <picture>
-                    <source srcset="../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
-                    <source srcset="../assets/images/txt-header-nav.svg"> 
-                    <img src="../assets/images/txt-header-nav.svg" alt="" />
-                </picture>
-                <a href="#">로그인</a>
-                <a href="#">주문내역</a>
-            </div>
-            <ul class="menu-items">
-                <li class="menu-item">
-                    <a href="#">
-                        <strong>복지용구</strong>
-                        <small>welfare<br> equipment</small>
-                    </a>
-                    <div class="sub-items">
-                        <p><img src="../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
-                        <ul>
-                            <li class="sub-item is-active"><a href="#">수동휠체어</a></li>
-                            <li class="sub-item"><a href="#">성인용 보행기</a></li>
-                            <li class="sub-item"><a href="#">지팡이</a></li>
-                            <li class="sub-item"><a href="#">안전손잡이</a></li>
-                            <li class="sub-item"><a href="#">경사로</a></li>
-                            <li class="sub-item"><a href="#">미끄럼방지매트</a></li>
-                            <li class="sub-item"><a href="#">미끄럼방지양말</a></li>
-                            <li class="sub-item"><a href="#">이동욕조</a></li>
-                            <li class="sub-item"><a href="#">목욕의자</a></li>
-                            <li class="sub-item"><a href="#">간이변기</a></li>
-                            <li class="sub-item"><a href="#">이동변기</a></li>
-                            <li class="sub-item"><a href="#">요실금팬티</a></li>
-                            <li class="sub-item"><a href="#">전동침대</a></li>
-                            <li class="sub-item"><a href="#">자세변환용구</a></li>
-                            <li class="sub-item"><a href="#">욕창예방매트리스</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                            <li class="sub-item"><a href="#">욕창예방방석</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a href="#">
-                        <strong>식품</strong>
-                        <small>food</small>
-                    </a>
-                    <div class="sub-items">
-                        <p><img src="../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
-                        <ul>
-                            <li class="sub-item"><a href="#">과일</a></li>
-                            <li class="sub-item"><a href="#">채소</a></li>
-                            <li class="sub-item"><a href="#">곡물</a></li>
-                            <li class="sub-item"><a href="#">건과/견과</a></li>
-                            <li class="sub-item"><a href="#">축산</a></li>
-                            <li class="sub-item"><a href="#">수산</a></li>
-                            <li class="sub-item"><a href="#">김치</a></li>
-                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
-                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a href="#">
-                        <strong>패션</strong>
-                        <small>fashion</small>
-                    </a>
-                    <div class="sub-items">
-                        <p><img src="../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
-                        <ul>
-                            <li class="sub-item"><a href="#">과일</a></li>
-                            <li class="sub-item"><a href="#">채소</a></li>
-                            <li class="sub-item"><a href="#">곡물</a></li>
-                            <li class="sub-item"><a href="#">건과/견과</a></li>
-                            <li class="sub-item"><a href="#">축산</a></li>
-                            <li class="sub-item"><a href="#">수산</a></li>
-                            <li class="sub-item"><a href="#">김치</a></li>
-                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
-                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a href="#">
-                        <strong>뷰티</strong>
-                        <small>beauty</small>
-                    </a>
-                    <div class="sub-items">
-                        <p><img src="../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
-                        <ul>
-                            <li class="sub-item"><a href="#">과일</a></li>
-                            <li class="sub-item"><a href="#">채소</a></li>
-                            <li class="sub-item"><a href="#">곡물</a></li>
-                            <li class="sub-item"><a href="#">건과/견과</a></li>
-                            <li class="sub-item"><a href="#">축산</a></li>
-                            <li class="sub-item"><a href="#">수산</a></li>
-                            <li class="sub-item"><a href="#">김치</a></li>
-                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
-                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a href="#">
-                        <strong>리빙</strong>
-                        <small>living</small>
-                    </a>
-                    <div class="sub-items">
-                        <p><img src="../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
-                        <ul>
-                            <li class="sub-item"><a href="#">과일</a></li>
-                            <li class="sub-item"><a href="#">채소</a></li>
-                            <li class="sub-item"><a href="#">곡물</a></li>
-                            <li class="sub-item"><a href="#">건과/견과</a></li>
-                            <li class="sub-item"><a href="#">축산</a></li>
-                            <li class="sub-item"><a href="#">수산</a></li>
-                            <li class="sub-item"><a href="#">김치</a></li>
-                            <li class="sub-item"><a href="#">반찬/젓갈</a></li>
-                            <li class="sub-item"><a href="#">밀키트/쿠킹박스</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                            <li class="sub-item"><a href="#">전통식품</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <ul class="list-items">
-                <li class="list-item"><a href="#">Story</a></li>
-                <li class="list-item"><a href="#">기획전</a></li>
-                <li class="list-item"><a href="#">이벤트</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- //header -->
+        <!-- //header logo -->
     
-    <!-- navigation -->
-    <nav id="navigation">
-        <div class="navigation-menu">
-            <button type="button" class="allmenu" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체메뉴</button>
+        <!-- navigation -->
+        <nav id="navigation">
             <div class="container">
-                <ul>
-                    <li><a href="#">복지용구</a></li>
-                    <li><a href="#">식품</a></li>
-                    <li><a href="#">패션</a></li>
-                    <li><a href="#">뷰티</a></li>
-                    <li class="disabled"><a href="#">리빙</a></li>
-                    <li class="seperate"></li>
-                    <li class="require"><a href="#">Story</a></li>
-                    <li><a href="#">기획전</a></li>
-                    <li><a href="#">이벤트</a></li>
-                </ul>
-            </div>
-            <button type="button" class="toggle">메뉴 펼치기 접기</button>
-        </div>
-        <div class="navigation-search">
-            <button type="button" class="navigation-search-toggle">검색 열기/닫기</button>
-            <div class="navigation-search-layer">
-                <form action="#" class="search">
-                    <fieldset>
-                        <legend>Search</legend>
-                        <input type="search" class="input">
-                        <button type="submit" class="submit">검색</button>
-                        <button type="button" class="closed">닫기</button>
-                    </fieldset>
-                </form>
-                <div class="keyword">
-                    <div class="swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide recent">
-                                <p class="title">최근 검색어</p>
-                                <ul class="result">
-                                    <li>
-                                        <a href="#" class="name">수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어 수동휠체어</a>
-                                        <a href="#" class="delete">삭제</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="name">수동휠체어</a>
-                                        <a href="#" class="delete">삭제</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="name">수동휠체어</a>
-                                        <a href="#" class="delete">삭제</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="name">수동휠체어</a>
-                                        <a href="#" class="delete">삭제</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="name">수동휠체어</a>
-                                        <a href="#" class="delete">삭제</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="swiper-slide best">
-                                <p class="title">인기 검색어</p>
-                                <ul class="result">
-                                    <li>
-                                        <span class="number">1</span>
-                                        <a href="#" class="name">성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기 성인용 보행기</a>
-                                    </li>
-                                    <li>
-                                        <span class="number">2</span>
-                                        <a href="#" class="name">성인용 보행기</a>
-                                    </li>
-                                    <li>
-                                        <span class="number">3</span>
-                                        <a href="#" class="name">성인용 보행기</a>
-                                    </li>
-                                    <li>
-                                        <span class="number">4</span>
-                                        <a href="#" class="name">성인용 보행기</a>
-                                    </li>
-                                    <li>
-                                        <span class="number">5</span>
-                                        <a href="#" class="name">성인용 보행기</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="navigation-clock">
-            <span class="hour">12</span>
-            <span class="mins">00</span>
-        </div>
-    </nav>
-    <!-- //navigation -->
-
-    <!-- aside -->
-    <aside id="service">
-        <div class="container">
-            <div class="service-slogan">
-                <div class="word"><p><span>SENIOR LIFE STYLE</span> <small>by E·ROUM</small></p></div>
-                <div class="word"><p><span>시니어 라이프 스타일</span> <small>by E·ROUM</small></p></div>
-                <div class="word"><p><span>시니어 라이프</span> <small>by E·ROUM</small></p></div>
-            </div>
-            <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
-            <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
-            <!-- 장바구니 메세지 스크립트 onload after
-            $('.service-mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
-            $('.service-mycart').removeAttr('title').tooltip('dispose');
-            -->
-            <!-- <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
-            <div class="service-compare">
-                <div class="container">
-                    <button type="button" class="service-compare-toggle" data-bs-toggle="tooltip" title="상품비교">최근본상품</button>
-                    <ul class="service-compare-items">
-                        <li>
-                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                            <button type="button">닫기</button>
-                        </li>
-                        <li>
-                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                            <button type="button">닫기</button>
-                        </li>
-                        <li>
-                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                            <button type="button">닫기</button>
-                        </li>
-                        <li>
-                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                            <button type="button">닫기</button>
-                        </li>
+                <button type="button" class="navigation-allmenu">
+                    <i></i>
+                    <span>전체 카테고리</span>
+                </button>
+                <div class="navigation-submenu">
+                    <ul>
+                        <li><a href="#">기획전</a></li>
+                        <li><a href="#">이벤트</a></li>
+                        <li><a href="#">고령친화 우수식품</a></li>
+                        <li><a href="#">스토리</a></li>
                     </ul>
                 </div>
-            </div> -->
-            <p class="service-join">
-                <strong>회원 가입</strong>하고<br>
-                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
-            </p>
-        </div>
-        <div class="service-compare-layer">
-            <div class="header">
-                <p>상품비교</p>
-                <ul>
-                    <li>성인용 보행기</li>
-                    <li>성인용 보행기</li>
+                <div class="navigation-search">
+                    <button type="button" class="search-toggle">검색 펼치기 접기</button>
+                    <form action="" class="search-form">
+                        <div class="form-field">
+                            <legend>통합검색</legend>
+                            <input type="text" placeholder="검색어를 입력하세요">
+                            <button type="submit">검색</button>
+                        </div>
+                        <div class="form-current">
+                            <p class="current-title">최근 검색어 <a href="#">전체삭제</a></p>
+                            <div class="current-items">
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                            </div>
+                            <div class="current-option">
+                                <div class="form-check form-switch option-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-save">
+                                    <label class="form-check-label" for="search-save">검색어 저장 끄기</label>
+                                </div>
+                                <button type="button" class="option-close">닫기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navigation-util">
+                    <li><a href="#" class="util-item1">마이페이지</a></li>
+                    <li><a href="#" class="util-item2">찜한상품</a></li>
+                    <li><a href="#" class="util-item3">장바구니</a></li>
                 </ul>
             </div>
-            <div class="container">
-                <div class="content">
-                    <div class="select"></div>
-                    <table>
-                        <tr>
-                            <th scope="row" class="title">
-                                <div class="header">
-                                    <p>상품<br>비교</p>
-                                    <ul>
-                                        <li>성인용 보행기</li>
-                                        <li>성인용 보행기</li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <td class="items">
-                                <div class="delete">
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="thumb"><img src="../assets/images/dummy/img-dummy-product.png" alt=""></div>
-                            </td>
-                            <td class="items">
-                                <div class="delete">
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="thumb"></div>
-                            </td>
-                            <td class="items">
-                                <div class="delete">
-                                    <button type="button">삭제</button>
-                                </div>
-                                <div class="thumb"></div>
-                            </td>
-                            <td class="items">
-                                <div class="delete"></div>
-                                <div class="thumb"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">상품명</div></th>
-                            <td class="items" rowspan="7">
-                                <div class="empty">
-                                    <img src="../assets/images/img-compare-number1.svg" alt="">
-                                    <p>
-                                        상품비교는<br>
-                                        같은 카테고리내에서<br>
-                                        최대 4개까지<br> 
-                                        가능합니다.
-                                    </p>
-                                </div>
-                            </td>
-                            <td class="items" rowspan="7">
-                                <div class="empty">
-                                    <img src="../assets/images/img-compare-number2.svg" alt="">
-                                    <p>
-                                        상품비교는<br>
-                                        같은 카테고리내에서<br>
-                                        최대 4개까지<br> 
-                                        가능합니다.
-                                    </p>
-                                </div>
-                            </td>
-                            <td class="items" rowspan="7">
-                                <div class="empty">
-                                    <img src="../assets/images/img-compare-number3.svg" alt="">
-                                    <p>
-                                        상품비교는<br>
-                                        같은 카테고리내에서<br>
-                                        최대 4개까지<br> 
-                                        가능합니다.
-                                    </p>
-                                </div>
-                            </td>
-                            <td class="items" rowspan="7">
-                                <div class="empty">
-                                    <img src="../assets/images/img-compare-number4.svg" alt="">
-                                    <p>
-                                        상품비교는<br>
-                                        같은 카테고리내에서<br>
-                                        최대 4개까지<br> 
-                                        가능합니다.
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">판매가</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">급여가</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">재질</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">사이즈</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">중량</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"><div class="sheader">규격</div></th>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="title"></th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <button type="button" class="closed">상품 비교 접기</button>
-        </div>
-        <div class="service-recent-layer">
-            <div class="container">
-                <div class="header">
-                    <p class="name">쇼핑 <small>히스토리</small></p>
-                    <p class="desc">최근 본 제품을 확인할 수 있습니다</p>
-                </div>
-                <div class="items">
-                    <div class="swiper">
-                        <div class="swiper-wrapper">
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                            <a href="#" class="swiper-slide">
-                                <div class="thumb">
-                                </div>
-                                <div class="name">
-                                    <small>성인용보행기</small>
-                                    TOPRO TROJA 5G NSBS-LS4475
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-            </div>
-            <button type="button" class="closed">쇼핑 히스토리 접기</button>
-        </div>
-    </aside>
-    <!-- //aside -->
+        </nav>
+        <!-- //navigation -->
+    </header>
+    <!-- //header -->
 
     <!-- container -->
-    <main id="container" class="relative">
-        <section class="main-notice">
-            <div class="container">
-                <h2 class="main-title">notice</h2>
-                <ul class="main-items">
-                    <li>
-                        <a href="#" class="main-item">
-                            <span>공지사항입니다 공지사항입니다 공지사항입니다 공지사항입니다 공지사항입니다</span>
-                            <small>2023-01-01</small>
+    <main id="container">
+        <div class="main-visual">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="#">
+                            <picture>
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual-m.jpg" media="(max-width: 768px)"> <!-- mobile url -->
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg"> <!-- pc url -->
+                                <img src="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg" alt=""> <!-- pc url -->
+                            </picture>
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        
-        <section class="main-myinfo">
-            <h1 class="main-user">
-                <span class="name">hello <strong>원빈</strong> 님</span>
-                <span class="thumb"><img src="../assets/images/dummy/img-dummy-partners.png" alt=""></span>
-            </h1>
-            <div class="main-number">
-                <dl class="recent">
-                    <dt>관심상품</dt>
-                    <dd>55</dd>
-                </dl>
-                <dl class="cart">
-                    <dt>장바구니</dt>
-                    <dd>55</dd>
-                </dl>
-                <dl class="mileage">
-                    <dt>마일리지</dt>
-                    <dd>15,500</dd>
-                </dl>
-                <dl class="point">
-                    <dt>포인트</dt>
-                    <dd>15,500</dd>
-                </dl>
-                <dl class="coupon">
-                    <dt>보유쿠폰</dt>
-                    <dd>15,500</dd>
-                </dl>
-            </div>
-        </section>
-        
-        <section class="main-visual">
-            <div class="swiper swiper-main">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide slide-item1">
-                        <div class="slide-wrapper">
-                            <div class="slide-img"><div class="photo"></div></div>
-                            <div class="slide-content">
-                                <div class="content">
-                                    <div class="slogan">
-                                        <strong>Senior Life Style</strong> by Eroum <i></i> <strong>BATHROOM</strong>
-                                    </div>
-                                    <div class="title">
-                                        <p>안전한 <em>욕실생활</em></p>
-                                        <small>미끄러운 사고 위험이 높은 공간으로 안전을 예방하는 복지용구를 소개해드립니다.</small>
-                                    </div>
-                                    <a href="#" class="btn">욕실에 필요한 복지용구 보기</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="swiper-slide slide-item2">
-                        <div class="slide-wrapper">
-                            <div class="slide-img"><div class="photo"></div></div>
-                            <div class="slide-content">
-                                <div class="content">
-                                    <div class="slogan">
-                                        <strong>Senior Life Style</strong> by Eroum <i></i> <strong>LIVING ROOM</strong>
-                                    </div>
-                                    <div class="title">
-                                        <p>편안한 <em>거실생활</em></p>
-                                        <small>
-                                            일상생활에서 가장 많이 활동하는 공간으로<br>
-                                            이동에 편리함을 주는 복지용구를 소개해드립니다.
-                                        </small>
-                                    </div>
-                                    <a href="#" class="btn">거실에 필요한 복지용구 보기</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="swiper-slide">
+                        <a href="#">
+                            <picture>
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual-m.jpg" media="(max-width: 768px)"> <!-- mobile url -->
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg"> <!-- pc url -->
+                                <img src="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg" alt=""> <!-- pc url -->
+                            </picture>
+                        </a>
                     </div>
-                    <div class="swiper-slide slide-item3">
-                        <div class="slide-wrapper">
-                            <div class="slide-img"><div class="photo"></div></div>
-                            <div class="slide-content">
-                                <div class="content">
-                                    <div class="slogan">Senior Life Style by Eroum      
-                                        <strong>Senior Life Style</strong> by Eroum <i></i> <strong>BEDROOM</strong>
-                                    </div>
-                                    <div class="title">
-                                        <p>편안한 <em>침실생활</em></p>
-                                        <small>
-                                            일상을 마치고 수면과 휴식을 취하는 침실에서 더욱 빛나는 복지용구를 소개해드립니다.
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide slide-item4">
-                        <div class="slide-wrapper">
-                            <div class="slide-img"><div class="photo"></div></div>
-                            <div class="slide-content">
-                                <div class="content">
-                                    <div class="slogan">
-                                        <strong>Senior Life Style</strong> by Eroum <i></i> <strong>OUTDOOR</strong>
-                                    </div>
-                                    <div class="title">
-                                        <p>편안한 <em>야외생활</em></p>
-                                        <small>많은 사람들과 함께 불편할 수 있는 야외활동을 보조해주는 복지용구를 소개합니다. </small>
-                                    </div>
-                                    <a href="#" class="btn">욕실에 필요한 복지용구 보기</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="swiper-slide">
+                        <a href="#">
+                            <picture>
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual-m.jpg" media="(max-width: 768px)"> <!-- mobile url -->
+                                <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg"> <!-- pc url -->
+                                <img src="/html/page/market/assets/images/dummy/img-dummy-main-visual.jpg" alt=""> <!-- pc url -->
+                            </picture>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="swiper swiper-paging">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide slide-item1">
-                        <span class="front">
-                            <strong>욕실</strong>
-                            <small>Bathroom</small>
-                        </span>
-                        <span class="rear">
-                            <strong>욕실</strong>
-                            <small>Bathroom</small>
-                        </span>
+            <div class="swiper-control">
+                <div class="swiper-control-container">
+                    <div class="swiper-button">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-toggle"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
-                    <div class="swiper-slide slide-item2">
-                        <span class="front">
-                            <strong>거실</strong>
-                            <small>Bathroom</small>
-                        </span>
-                        <span class="rear">
-                            <strong>거실</strong>
-                            <small>Bathroom</small>
-                        </span>
-                    </div>
-                    <div class="swiper-slide slide-item3">
-                        <span class="front">
-                            <strong>침실</strong>
-                            <small>Bedroom</small>
-                        </span>
-                        <span class="rear">
-                            <strong>준비중입니다.</strong>
-                        </span>
-                    </div>
-                    <div class="swiper-slide slide-item4">
-                        <span class="front">
-                            <strong>야외</strong>
-                            <small>Outdoor</small>
-                        </span>
-                        <span class="rear">
-                            <strong>준비중입니다.</strong>
-                        </span>
-                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
-            <div class="swiper-arrow">
-                스크롤을 내려보세요
-            </div>
-            <script>
-                var paging = new Swiper(".main-visual .swiper-paging", {
-                    spaceBetween: 6,
-                    slidesPerView: 4,
-                    freeMode: true,
-                    watchSlidesProgress: true,
-                });
+        </div>
 
-                var visual = new Swiper(".main-visual .swiper-main", {
+        <div class="main-product">
+            <h2 class="title">
+                <img src="/html/page/market/assets/images/ico-main-product1.png" alt="">
+                오늘의 쇼핑 제안
+            </h2>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl class="hypen">
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                    <dl class="discount">
+                                        <dt>오늘의 특가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <div class="main-banner1">
+            <div class="left">
+                <a href="#">
+                    <picture>
+                        <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png" media="(max-width: 768px)"> <!-- mobile url -->
+                        <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png"> <!-- pc url -->
+                        <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png" alt=""> <!-- pc url -->
+                    </picture>
+                </a>
+            </div>
+            <div class="right">
+                <a href="#">
+                    <picture>
+                        <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" media="(max-width: 768px)"> <!-- mobile url -->
+                        <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png"> <!-- pc url -->
+                        <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" alt=""> <!-- pc url -->
+                    </picture>
+                </a>
+            </div>
+        </div>
+
+        <div class="main-product">
+            <h2 class="title">
+                <img src="/html/page/market/assets/images/ico-main-product2.png" alt="">
+                좋아할만한 카테고리 상품
+            </h2>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl class="hypen">
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                    <dl class="discount">
+                                        <dt>오늘의 특가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <div class="main-banner2">
+            <a href="#">
+                <picture>
+                    <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png" media="(max-width: 768px)"> <!-- mobile url -->
+                    <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png"> <!-- pc url -->
+                    <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png" alt=""> <!-- pc url -->
+                </picture>
+            </a>
+        </div>
+
+        <div class="main-product">
+            <h2 class="title">
+                <img src="/html/page/market/assets/images/ico-main-product3.png" alt="">
+                오늘의 판매 특가
+            </h2>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl class="hypen">
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                    <dl class="discount">
+                                        <dt>오늘의 특가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-item">
+                            <div class="item-thumb">
+                                <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                            </div>
+                            <a href="#" class="item-content">
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    <strong>살졸 카본 롤레이터</strong>
+                                </div>
+                                <div class="cost">
+                                    <dl>
+                                        <dt>판매가</dt>
+                                        <dd>66,300<small>원</small></dd>
+                                    </dl>
+                                </div>
+                            </a>
+                            <div class="item-layer">
+                                <div class="mx-auto mb-2.5">
+                                    <button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+                                    <button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                    <button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded', (e) => {
+                var visual = new Swiper('.main-visual .swiper', {
                     loop: true,
                     slidesPerView: 1,
-                    spaceBetween: 20,
-                    // autoplay: {
-                    //     delay: 6000,
-                    //     disableOnInteraction: false,
-                    // },
-                    thumbs: {
-                        swiper: paging,
-                    }
+                    spaceBetween: 0,
+                    speed: 1000,
+                    autoplay: {
+                        delay: 6000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.main-visual .swiper-pagination',
+                        type: 'fraction',
+                    },
+                    navigation: {
+                        nextEl: '.main-visual .swiper-button-next',
+                        prevEl: '.main-visual .swiper-button-prev',
+                    },
                 });
 
-                $('.swiper-paging button').on('click', function() {
-                    $(this).addClass('is-active').siblings().removeClass('is-active');
-                    if($('.swiper .slide-item' + ($(this).index() + 1)).length > 0) {
-                        visual.slideTo($(this).index());
+                $(".swiper-button-toggle").click(function() {
+                    if($(this).hasClass('is-pause')) {
+                        $(this).removeClass('is-pause');
+                        visual.autoplay.start();
+                    } else {
+                        $(this).addClass('is-pause');
+                        visual.autoplay.stop();
                     }
                 });
                 
-                $(window).on('scroll load', function() {
-                    if($(window).scrollTop() > $('#header').outerHeight()) {
-                        $('.main-visual.is-nologin').addClass('is-scroll');
-                    }
+                [].slice.call(document.querySelectorAll('.main-product')).forEach((el) => {
+                    new Swiper(el.querySelector('.swiper'), {
+                        loop: true,
+                        slidesPerView: 'auto',
+                        spaceBetween: 10,
+                        navigation: {
+                            nextEl: el.querySelector('.swiper-button-next'),
+                            prevEl: el.querySelector('.swiper-button-prev')
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 'auto',
+                                spaceBetween: 15,
+                            },
+                            1280: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            }
+                        }
+                    });
                 });
-                
-                $(window).on('scroll', function() {
-                    if($('.main-visual').get(0).getClientRects()[0].y + $('.main-visual').get(0).getClientRects()[0].height > 0) {
-                        $('.main-visual .slide-img .photo').css({'transform': 'translateY(' + ($(window).scrollTop() * -0.125)+ 'px)'});
-                    }
-                });
-            </script>
-        </section>
-        
-        <section class="main-check">
-            <div class="container">
-                <h2 class="main-title">
-                    <strong>나에게 맞는 </strong>복지용구 선택의 기준
-                    <small>구매 전 <em>복지용구 품목별 체크사항</em>을 알아보세요</small>
-                </h2>
-                <div class="checkpoint-navigation">
-                    <div class="container">
-                        <ul class="nav nav-tabs">
-                            <li><a href="#check-content3" data-bs-toggle="pill" data-bs-target="#check-content3" role="tab" class="nav-item3 active">성인용 보행기</a></li>
-                            <li><a href="#check-content10" data-bs-toggle="pill" data-bs-target="#check-content10" role="tab" class="nav-item10">수동휠체어</a></li>
-                            <li><a href="#check-content7" data-bs-toggle="pill" data-bs-target="#check-content7" role="tab" class="nav-item7">지팡이</a></li>
-                            <li><a href="#check-content4" data-bs-toggle="pill" data-bs-target="#check-content4" role="tab" class="nav-item4">안전손잡이</a></li>
-                            <li><a href="#check-content5" data-bs-toggle="pill" data-bs-target="#check-content5" role="tab" class="nav-item5">미끄럼방지 매트</a></li>
-                            <li><a href="#check-content6" data-bs-toggle="pill" data-bs-target="#check-content6" role="tab" class="nav-item6">미끄럼방지 양말</a></li>
-                            <li><a href="#check-content11" data-bs-toggle="pill" data-bs-target="#check-content11" role="tab" class="nav-item11">욕창예방 매트리스</a></li>
-                            <li><a href="#check-content8" data-bs-toggle="pill" data-bs-target="#check-content8" role="tab" class="nav-item8">욕창예방 방석</a></li>
-                            <li><a href="#check-content12" data-bs-toggle="pill" data-bs-target="#check-content12" role="tab" class="nav-item12">자세변환용구</a></li>
-                            <li><a href="#check-content9" data-bs-toggle="pill" data-bs-target="#check-content9" role="tab" class="nav-item9">요실금 팬티</a></li>
-                            <li><a href="#check-content2" data-bs-toggle="pill" data-bs-target="#check-content2" role="tab" class="nav-item2">목욕의자</a></li>
-                            <li><a href="#check-content1" data-bs-toggle="pill" data-bs-target="#check-content1" role="tab" class="nav-item1">이동변기</a></li>
-                            <li><a href="#check-content13" data-bs-toggle="pill" data-bs-target="#check-content13" role="tab" class="nav-item13">간이변기</a></li>
-                            <li><a href="#check-content14" data-bs-toggle="pill" data-bs-target="#check-content14" role="tab" class="nav-item14">경사로</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="main-content tab-content">
-                    <div id="check-content1" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item1.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">이동변기</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>5</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content2" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item2.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">목욕의자</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>5</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content3" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item3.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">성인용보행기</div>
-                                <div class="desc">보행이 불편한 경우 실내∙외에서 혼자서 이동할 수 있도록 보조하는 용품</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>5</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>4</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content4" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item4.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">성인용보행기</div>
-                                <div class="desc">보행이 불편한 경우 실내∙외에서 혼자서 이동할 수 있도록 보조하는 용품</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>10</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content5" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item5.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">미끄럼방지매트</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>5</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content6" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item6.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">미끄럼방지양말</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>6</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content7" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item7.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">지팡이</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>2</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content8" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item8.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">욕창예방방석</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>3</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content9" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item9.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">요실금팬티</div>
-                                <div class="desc">요실금 팬티는 일반 팬티와 동일한 디자인, 다양한 사이즈 선택이 가능합니다.</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>4</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content10" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item10.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">수동휠체어</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>5</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content11" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item11.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">욕창예방매트리스</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>3</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>3</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <div id="check-content12" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item12.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">자세변환용구</div>
-                                <div class="desc">신체 기능 저하로 실내에서 장시간 같은 자세로 있는 고객에게 추천합니다.</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용가능 햇수</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>5</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content13" class="tab-pane fade">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item13.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">간이변기</div>
-                                <div class="desc">실내 화장실 이용이 불편하신 고객에게 추천합니다.</div>
-                                <div class="info">
-                                    <p>
-                                        <sup>사용연한</sup>
-                                        <strong>&nbsp;</strong>
-                                        <sub>없음</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>2</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="check-content14" class="tab-pane fade show active">
-                        <div class="content">
-                            <div class="thumb">
-                                <p class="img"><img src="../assets/images/img-main-check-item14.png" alt=""></p>
-                            </div>
-                            <div class="detail">
-                                <div class="name">경사로</div>
-                                <div class="desc">실내, 야외에서 문턱이나 계단 이동 시 안전사고 예방하기 위한 고객에게 추천합니다.</div>
-                                <div class="info">
-                                    <p class="title">실내(구매)</p>
-                                    <p>
-                                        <sup>사용연한</sup>
-                                        <strong>2</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>6</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <div class="info">
-                                    <p class="title">야외(대여)</p>
-                                    <p>
-                                        <sup>사용연한</sup>
-                                        <strong>8</strong>
-                                        <sub>년</sub>
-                                    </p>
-                                    <p>
-                                        <sup>급여한도</sup>
-                                        <strong>1</strong>
-                                        <sub>개</sub>
-                                    </p>
-                                </div>
-                                <a href="#" class="btn btn-primary">자세히 알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                $(function() {
-                    horizonScroll($('.checkpoint-navigation .container'));
-                })
-            </script>
-        </section>
-        
-        <section class="main-movie">
-            <div class="container">
-                <div class="left-movie">
-                    <h2 class="main-title">
-                        <strong>영상으로 보는</strong> 복지용구
-                        <a href="https://www.youtube.com/@e-roum9433/videos" target="_blank" class="main-link">전체 영상 목록</a>
-                    </h2>
-                    <div class="main-video">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/TtPCu-IhNo4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="right-movie">
-                    <h2 class="main-title">
-                        <strong>
-                            알아두면 쓸모있는 <br>
-                            시니어 잡학사전
-                        </strong>
-                        <img src="../assets/images/bg-main-video2.png" alt="">
-                    </h2>
-                    <div class="main-video">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/sGDPTjFFvs4" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="main-guide">
-            <div class="container">
-                <h2 class="main-title">
-                    복지용구를<br class="xl:hidden"> <strong>장기요양 급여로 이용</strong>하려면 <br>
-                    어떻게 해야 하나요?
-                </h2>
-                <div class="main-content">
-                    <dl class="grade">
-                        <dt>
-                            장기요양<br>
-                            예상등급 확인
-                        </dt>
-                        <dd>
-                            간단한 테스트로<br>
-                            이로움에서 플랜을 제공받으세요
-                            <a href="https://silver.bokji24.com/find/step2-1" target="_blank">테스트 하기</a>
-                        </dd>
-                    </dl>
-                    <dl class="payment">
-                        <dt>복지용구 급여이용 안내</dt>
-                        <dd>
-                            구입/대여에서 본인부담금 계산까지
-                            <a href="#" href="#modal-content" data-bs-toggle="modal" data-bs-target="#modal-content">자세히 보기</a>
-                        </dd>
-                    </dl>
-                    <dl class="partner">
-                        <dt>복지용구 사업소 안내</dt>
-                        <dd>
-                            전국 2,432개 <strong>이로움 멤버스</strong>가 여러분 곁에 있습니다.
-                            <a href="#"><i></i> 지도로 보기</a>
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="modal fade" id="modal-content" tabindex="-1">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close">닫기</button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="../assets/images/img-index-guide-content.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            });
+        </script>
     </main>
     <!-- //container -->
 
@@ -1365,29 +644,50 @@
             <!-- //회사 메뉴 -->
 
             <!-- 패밀리 사이트 -->
-            <dl class="footer-family">
-                <dt>패밀리 사이트</dt>
-                <dd>
-                    <ul class="global-link">
-                        <li>
-                            <a href="#" class="link-item1">
-                                <div class="bubble">
-                                    <small>시니어 라이프 케어 플랫폼</small>
-                                    <strong>"이로움ON"</strong>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-item2">
-                                <div class="bubble">
-                                    <strong>이로움ON 멤버스</strong>
-                                    <small>전국 2,432개 업체와 함께합니다</small>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
+            <div class="footer-family">
+                <dl>
+                    <dt>슈퍼시니어</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>패밀리 사이트</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li>
+                                <a href="#" class="link-item1">
+                                    <div class="bubble">
+                                        <small>시니어 라이프 케어 플랫폼</small>
+                                        <strong>"이로움ON"</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item2">
+                                    <div class="bubble">
+                                        <strong>이로움ON 멤버스</strong>
+                                        <small>전국 2,432개 업체와 함께합니다</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item3">
+                                    <div class="bubble">
+                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                                        <small>
+                                            복지용구 사업소와 수급자 매칭부터<br>
+                                            주문, 계약 및 결제까지 한번에!
+                                        </small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
             <!-- //패밀리 사이트 -->
         </div>
         
@@ -1431,6 +731,21 @@
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
+
+    <!-- 공지 레이어 배너 -->
+    <div class="notice-layer">
+        <div class="layer-content">
+            <img src="../assets/images/dummy/img-dummy-detail-content.png" alt="">
+        </div>
+        <div class="layer-footer">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check-close">
+                <label class="form-check-label" for="check-close">1일동안 보지 않음</label>
+            </div>
+            <button type="button" class="layer-close">닫기</button>
+        </div>
+    </div>
+    <!-- //공지 레이어 배너 -->
 
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../core/vendor/twelements/popper.min.js"></script>

@@ -26,7 +26,7 @@ $(function() {
         var cateItem = $('.product-category a');
         var cateMore = $('.category-moreview');
         
-        if($(window).outerWidth() < 576) {
+        if($(window).outerWidth() < 768) {
             if(cateItem.length < 9) {
                 cateItem.addClass('is-visible');
             } else {
@@ -179,40 +179,6 @@ $(function() {
         }
     });
 
-    //상단 상품 비교
-    $(document).on('mouseenter', '.service-compare-items li', function() {
-        $(this).addClass('is-active').siblings().removeClass('is-active');
-    }).on('mouseleave', '.service-compare-items li', function() {
-        $(this).removeClass('is-active');
-    });
-
-	$(document).on("click", ".service-compare-layer .closed", function(){
-		$('.service-compare-toggle, .service-compare-layer').removeClass('is-active');
-	});
-
-	$(document).on('mouseenter mouseleave', '.service-compare-layer td', function(e) {
-        var index = $(this).index() - 1;
-        var layer = $('.service-compare-layer');
-        var lastH = 0;
-
-        if(e.type === 'mouseenter') {
-            layer.find('tr').each(function(idx) {
-                if (idx == layer.find('tr').length -1) {
-                    lastH = $(this).outerHeight() + 4;
-                }
-                $(this).find('td').removeClass('is-active').eq(index).addClass('is-active');
-            });
-
-            layer.find('.select').css({'left' : $(this).position().left, 'height': 'calc(100% - ' + lastH + 'px)'}).show();
-        } else {
-            layer.find('tr').each(function() {
-                $(this).find('td').eq(index).removeClass('is-active');
-            });
-
-            layer.find('.select').hide();
-        }
-    });
-
 	$(document).on("click", ".f_compare", function(e){
 		e.stopPropagation();
         e.preventDefault();
@@ -266,15 +232,6 @@ $(function() {
 		f_compareSet();
 		if($('.service-compare-layer').hasClass("is-active")){
 			f_compareCall();
-		}
-	});
-
-	// 상품비교 호출
-	$(".service-compare-toggle").on("click", function(){
-		if(!$(this).hasClass("is-active")){
-			f_compareCall();
-		}else{
-			$('.service-compare-toggle, .service-compare-layer').removeClass('is-active');
 		}
 	});
 
