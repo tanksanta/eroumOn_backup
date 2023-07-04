@@ -15,7 +15,7 @@ body {
 
 /* banner */
 #banner {
-    @apply hidden -mt-11 bg-[#485EB2] leading-[1.16] text-center font-medium text-white
+    @apply hidden -mt-[3.125rem] bg-[#485EB2] leading-[1.16] text-center font-medium text-white
            md:-mt-14;
     & .container {
         @apply relative mx-auto px-4 max-w-screen-xl
@@ -23,7 +23,7 @@ body {
                xl:px-10;
     }
     & img {
-        @apply mx-auto h-11 md:h-14;
+        @apply mx-auto h-[3.125rem] md:h-14;
     }
     & button {
         @apply absolute top-1/2 right-4 w-5 h-5 rounded-full bg-white/20 bg-no-repeat bg-center bg-[length:74%] bg-[url(../images/ico-close2-white.svg)] -translate-y-1/2
@@ -34,7 +34,7 @@ body {
 
 /* header */
 #header {
-    @apply relative top-0 left-0 z-80 w-full min-h-19 bg-white
+    @apply relative top-0 left-0 z-80 w-full min-h-20 bg-white
            md:min-h-[6.1875rem]
            lg:min-h-[7.625rem];
 }
@@ -67,8 +67,7 @@ body {
                xl:px-10;
     }
     & .navigation-allmenu {
-        @apply flex items-center gap-3 py-2.5
-               md:py-3;
+        @apply flex items-center gap-3 py-3;
         & i {
             @apply block w-4.5 h-3.5 bg-no-repeat bg-cover bg-center bg-[url(../images/ico-navigation-menu.svg)];
         }
@@ -98,8 +97,7 @@ body {
                    last:mr-0;
         }
         & a {
-            @apply block py-2.5 px-2
-                   md:py-3;
+            @apply block py-3 px-2;
         }
     }
     & .navigation-search {
@@ -168,7 +166,7 @@ body {
         @apply block mt-0;
     }
     & #header {
-        @apply min-h-30
+        @apply min-h-31
                md:min-h-[9.6875rem]
                lg:min-h-[11.1875rem];
     }
