@@ -37,7 +37,7 @@
 				<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
 				<c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
 				<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}광역시" /></c:if>
-				
+
 				<c:forEach var="stdg" items="${stdgCdList}">
 					<option value="${stdg.stdgCd}" <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if><c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr }">selected="selected"</c:if>>${stdg.ctpvNm}</option>
 				</c:forEach>
@@ -97,7 +97,7 @@
 				</label>
 			</li>
 		</ul>
-		<a href="#" class="btn btn-small btn-outline-primary">복지시설 <span class="instListCnt">0</span>곳</a>
+		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span>곳</a>
 	</nav>
 
 	<!-- 서비스 본문(복지제도) -->
@@ -133,7 +133,7 @@
 					<div class="map-select-items is-member">
 					<!-- 멤버스 -->
 					</div>
-					
+
 				</div>
 				<div class="tab-pane fade" id="marker-cont2" role="tabpanel">
 					<div class="map-select-items">
@@ -150,33 +150,6 @@
       $(function() {
           var page = 1;
           var pageT = 15;
-
-          $('.welfare-service-menu .btn').on('click', function() {
-              if($('.welfare-service-item').hasClass('is-active')) {
-                  $('.welfare-service-item').removeClass('is-active');
-                  $('.welfare-service-map').addClass('is-active');
-                  $('.welfare-service-menu .nav').addClass('!hidden');
-                  //$('.welfare-service-menu .count').html('<strong>42</strong>곳'); //카운트
-                  //$('.welfare-service-menu .btn').text('서비스 1272건'); //카운트
-              } else {
-                  $('.welfare-service-item').addClass('is-active');
-                  $('.welfare-service-map').removeClass('is-active');
-                  $('.welfare-service-menu .nav').removeClass('!hidden');
-                  //$('.welfare-service-menu .count').html('<strong>1272</strong>건'); //카운트
-                  //$('.welfare-service-menu .btn').text('복지시설 42곳'); //카운트
-              }
-          })
-
-          $('.welfare-service-toggle').on('click', function() {
-              $('.welfare-service-toggle, .welfare-service-desc').addClass('is-active');
-              return false;
-          });
-
-          $('.welfare-service-desc .close').on('click', function() {
-              $('.welfare-service-toggle, .welfare-service-desc').removeClass('is-active');
-          });
-
-      
       //아이템 선택
       $('.service-select .select-item').on('click', function() {
           $(this).toggleClass('is-active');
@@ -192,7 +165,7 @@
       });
 
       //지도 생성
-      var map = new kakao.maps.Map(document.getElementById('map'), { 
+      var map = new kakao.maps.Map(document.getElementById('map'), {
           center: new kakao.maps.LatLng(33.450701, 126.570667),
           level: 3
       });
@@ -203,7 +176,7 @@
           imageOption = {offset: new kakao.maps.Point(16, 46)};
 
       var markerImage     = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-          markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+          markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
 
       var marker = new kakao.maps.Marker({
           position : markerPosition,
@@ -213,15 +186,15 @@
       marker.setMap(map);
 
       //맵 오버레이 파트너스일경우 is-members 추가
-      var ovContent = '<div class="service-overlay is-members">' + 
+      var ovContent = '<div class="service-overlay is-members">' +
                       '<div class="name">' +
-                      '<strong>트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점</strong>' + 
-                      '<div class="close" onclick="closeOverlay()">닫기</div>' + 
-                      '</div>' + 
-                      '<p class="addr">서울특별시 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366</p>' + 
-                      '<a class="call" href="tel:02-2423-6331">02-2423-6331</a>' + 
+                      '<strong>트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점</strong>' +
+                      '<div class="close" onclick="closeOverlay()">닫기</div>' +
+                      '</div>' +
+                      '<p class="addr">서울특별시 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366</p>' +
+                      '<a class="call" href="tel:02-2423-6331">02-2423-6331</a>' +
                       '</div>';
-  
+
       overlay = new kakao.maps.CustomOverlay({
           content: ovContent,
           map: map,
@@ -252,7 +225,7 @@ function resizeHandler() {
 }
 
 $(function(){
-	
+
 	var curPage = 1;
 	var cntPerPage = 8;
 	var category = "";
@@ -272,10 +245,41 @@ $(function(){
 		requestAnimationFrame(resizeHandler);
 	}, false);
 	resizeHandler();
-	
+
+
+    $('.welfare-service-menu .btn').on('click', function() {
+        if($('.welfare-service-item').hasClass('is-active')) {
+            $('.welfare-service-item').removeClass('is-active');
+            $('.welfare-service-map').addClass('is-active');
+            $('.welfare-service-menu .nav').addClass('!hidden');
+            $('.welfare-service-menu .totalCnt').text($(".instListCnt").text().replaceAll("복지시설 : ",""));
+            $(".instListCnt").text("복지제도 : " + comma($("#srvcListCnt").val()));
+
+            //$('.welfare-service-menu .count').html('<strong>42</strong>곳'); //카운트
+            //$('.welfare-service-menu .btn').text('서비스 1272건'); //카운트
+        } else {
+            $('.welfare-service-item').addClass('is-active');
+            $('.welfare-service-map').removeClass('is-active');
+            $('.welfare-service-menu .nav').removeClass('!hidden');
+            $('.welfare-service-menu .totalCnt').text(comma($("#srvcListCnt").val()));
+            f_srchInstList();
+            //$('.welfare-service-menu .count').html('<strong>1272</strong>건'); //카운트
+            //$('.welfare-service-menu .btn').text('복지시설 42곳'); //카운트
+        }
+    })
+
+    $('.welfare-service-toggle').on('click', function() {
+        $('.welfare-service-toggle, .welfare-service-desc').addClass('is-active');
+        return false;
+    });
+
+    $('.welfare-service-desc .close').on('click', function() {
+        $('.welfare-service-toggle, .welfare-service-desc').removeClass('is-active');
+    });
+
 	var sido = $("select[name='select-sido'] option:selected").text();
 	var gugun = $("select[name='select-gugun'] option:selected").text();
-	
+
 	// 회원 관심
 	<c:if test="${_mbrSession.loginCheck}">
 	$("checkbox input[name='category']").prop("checked",false);
@@ -296,11 +300,11 @@ $(function(){
 			}
 		}
 	</c:if>
-	
+
 	<c:if test="${!_mbrSession.loginCheck}">
-	$("checkbox input[name='category']").prop("checked",true);
+	$("input[name='category']").prop("checked",true);
 	</c:if>
-	
+
 	var selCheckVal = "";
 	$(":checkbox[name='category']:checked").each(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
@@ -310,7 +314,7 @@ $(function(){
 
     f_srchInstList();
     f_srchSrvcList(1);
-	
+
   	// 시/군/구 검색
 	$(document).on("change", "select[name='select-sido']", function(e){
 		e.preventDefault();
@@ -327,15 +331,15 @@ $(function(){
 			.done(function(data) {
 				if(data.result){
 					$("select[name='select-gugun']").empty();
-   					$.each(data.result, function(index, item){ 
+   					$.each(data.result, function(index, item){
 							$("select[name='select-gugun']").append('<option value='+item.stdgCd+'>'+item.sggNm+'</option>');
    	                });
-   					
+
    					/*let uniqueId = "${_mbrSession.uniqueId}";
    			        console.log(uniqueId == '');
    			        if(uniqueId ==''){
    			        	$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
-   			        	
+
    			        	$("button.srch-srvc").click();
    			        }*/
    					<c:if test="${empty _mbrSession.uniqueId}">
@@ -346,7 +350,7 @@ $(function(){
 			     			if($(this).text() == "${_mbrAddr2}"){
 			     				$(this).prop("selected",true);
 			     			}
-			     			
+
 			     		});
 			     	</c:if>
 			     	if("${param.selectGugun}" != '' && "${param.selectGugun}"){
@@ -365,7 +369,7 @@ $(function(){
     	}
 
 	});
-  	
+
 	//지도 > 탭 이벤트
 	$(document).on('click', '.service-select a[data-bs-toggle="pill"]', function(){
 		var targetTab = $(this).data("bsTarget");
@@ -376,19 +380,19 @@ $(function(){
 		}
 		f_srchInstList();
 	});
-  	
+
 	$(document).on("click", "button.srch-srvc", function(e){
 		e.preventDefault();
-		
+
 		sido = $("select[name='select-sido'] option:selected").text();
 		gugun = $("select[name='select-gugun'] option:selected").text();
-		
-		
+
+
 		f_srchInstList();
 		f_srchSrvcList(1);
 
 	});
-	
+
 	// 카테고리 선택
 	$(document).on("click", ":checkbox[name='category']", function(e){
 		var selCheckVal = "";
@@ -405,14 +409,14 @@ $(function(){
 		$(".service .flow i:first-child").addClass("is-active");
 	});
 
-	
+
 	$(document).on("click", ".content-item", function(e){
 		e.preventDefault();
 		let bokjiId = $(this).attr("href").replace("#", "");
 		$('body').append('<div class="progress-loading is-dark"><div class="icon"><span></span><span></span><span></span></div><p class="text">데이터를 불러오는 중입니다.</p></div>')
 		srvcDtl(bokjiId);
 	});
-	
+
 	$(document).on("click", ".f_clip", function(e){
 		e.preventDefault();
 		let bokjiId = $(this).data("bokjiId");
@@ -444,7 +448,7 @@ $(function(){
 			}
 		}
 	});
-	
+
     function srvcDtl(bokjiId){
 		if(bokjiId > 0){
 			$("#modalSrvcDtl").load(
@@ -475,7 +479,7 @@ $(function(){
 		}
 	}
 
-	
+
 function f_srchSrvcList(page, pageRefresh = true){
 	if(sido != "" && sido != null){ //sido는 필수
 		//gugun = gugun.replace("시/군/구", "");
@@ -492,7 +496,7 @@ function f_srchSrvcList(page, pageRefresh = true){
 				, params
 				, function(obj){
 
-					$(".totalCnt").text(comma($("#srvcListCnt").val()));	
+					$(".totalCnt").text(comma($("#srvcListCnt").val()));
 
 					$('.page-content-items .content-items').masonry({
 				        itemSelector: '.content-item',
@@ -585,13 +589,12 @@ function f_srchInstList(){
 			var instCnt = Number(json.bplcCnt);
 			var bplcCnt = Number(json.instCnt);
 			if(srchMode == "LOCATION"){
-				$(".instListCnt").text(comma(instCnt));
 				objData = json.bplcList;
 			}else{
-				$(".instListCnt").text(comma(bplcCnt));
 				objData = json.instList;
 			}
-			
+			$(".instListCnt").text("복지시설 : " + comma(instCnt + bplcCnt));
+			//$(".totalCnt").text(comma(instCnt + bplcCnt));
 			//$(".totalCnt").text(comma(instCnt + bplcCnt));
 
 			addListItem();
@@ -790,7 +793,7 @@ function kakaoMapDraw(){
     			// is-active
     			$(".service-item").removeClass("is-active");
     			$(this).addClass("is-active");
-    			
+
 
     			if(!visible && $(window).width() < 768) {
     				$('.service-select').removeClass('is-active');
