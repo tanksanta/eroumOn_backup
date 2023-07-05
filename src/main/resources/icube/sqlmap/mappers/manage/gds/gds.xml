@@ -643,7 +643,7 @@
 	</select>
 	
 	<!-- 상품 엑셀다운로드 -->
-	<select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+	<select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
 		SELECT
 			<include refid="listColumn"/>
 			,<include refid="optnListColumn" />

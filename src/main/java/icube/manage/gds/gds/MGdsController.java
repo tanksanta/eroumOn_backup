@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import javax.annotation.Resource;
@@ -446,6 +447,25 @@ public class MGdsController extends CommonAbstractController {
 				gdsVo.setItemCd(gdsVo.getOptnItemCd());
 				gdsVo.setGdsNm(gdsVo.getGdsNm() + "(" + gdsVo.getOptnNm() + ")");
 				gdsVo.setStockQy(gdsVo.getOptnStockQy());
+				
+				//옵션의 사용여부 구하기
+				String useYn = "";
+				if ("BASE".equalsIgnoreCase(gdsVo.getOptnTy())) {
+					List<GdsOptnVO> optnList = gdsVo.getOptnList();
+					Optional<GdsOptnVO> result = optnList.stream().filter(f -> f.getGdsOptnNo() == gdsVo.getGdsOptnNo()).findAny();
+					GdsOptnVO optn = result.orElse(null);
+					if (optn != null) {
+						useYn = optn.getUseYn();
+					}
+				} else {
+					List<GdsOptnVO> aditOptnList = gdsVo.getAditOptnList();
+					Optional<GdsOptnVO> result = aditOptnList.stream().filter(f -> f.getGdsOptnNo() == gdsVo.getGdsOptnNo()).findAny();
+					GdsOptnVO optn = result.orElse(null);
+					if (optn != null) {
+						useYn = optn.getUseYn();
+					}
+				}
+				gdsVo.setUseYn(useYn);
 			}
 		}
 
