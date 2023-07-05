@@ -26,7 +26,7 @@
                 국가에서 지원하는 착한 제도로,<br>
                 <strong class="text-primary2">65세 이상</strong> 또는 <strong class="text-primary3 underline">노인성 질병</strong>을 앓는<br>
                 65세 미만 어르신이 지원받으실 수 있어요
-                <small>※ 노인성 질환이란? <a href="#" class="text-primary3 underline font-bold">이곳을 클릭</a>해 알아보세요!</small>
+                <small>※ 노인성 질병이란? <a href="https://www.longtermcare.or.kr/npbs/e/b/201/npeb201p02.web" target="_blank" class="text-primary3 underline font-bold">이곳을 클릭</a>해 알아보세요!</small>
             </blockquote>
         </div>
     </div>
@@ -57,7 +57,7 @@
                             <li>대리인 신분증과 대리인 지정서 (대리인이 신청할 때)</li>
                         </ul>
                         <p>자세한 서류 상담은 국민건강보험공단에서 가능해요. (1577-1000 발신자 부담)</p>
-                        <p>신청전, 치매 검사 이력 또는 병원 진료 이력이 있어야 해요.</p>
+                        <p>신청 전, 치매 검사 이력 또는 병원 진료 이력이 있어야 해요.</p>
                     </div>
                     <img src="/html/page/index/assets/images/img-page1-content2.png" alt="" class="img">
                 </div>
@@ -70,7 +70,7 @@
                             등급 인정 신청
                         </h4>
                         <ul>
-                            <li><a href="#" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
+                            <li><a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
                             <li>인정 등급 신청까지 한 번에 하실 수 있어요!</li>
                         </ul>
                         <p>
@@ -107,15 +107,13 @@
                         <h4>
                             <small>네 번째</small>
                             의사 소견서 제출
-                            <span>본인과 대리인 모두 신청가능해요</span>
+                            <span>국민건강보험공단 지정 병원에서 발급받아요.</span>
                         </h4>
                         <ul>
-                            <li>어르신 신분증</li>
-                            <li>장기요양인정신청서</li>
-                            <li>대리인 신분증과 대리인 지정서 (대리인이 신청할 때)</li>
+                            <li>정확한 소견을 위해 어르신과 함께 방문해주세요.</li>
                         </ul>
                         <p>어르신 상태에 따라 제출이 생략될 수도 있어요.</p>
-                        <p>인근 지정 병원은 여기를 눌러 확인하실 수 있어요.</p>
+                        <p>인근 지정 병원은 <a href="https://www.longtermcare.or.kr/npbs/e/b/201/selectDodEduCpetMdcAdminList" target="_blank" class="text-primary3 underline">여기</a>를 눌러 확인하실 수 있어요.</p>
                     </div>
                     <img src="/html/page/index/assets/images/img-page1-content2-4.png" alt="" class="img">
                 </div>
@@ -234,7 +232,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4.png" class="img">
                     <div class="box">
-                        <p>월 <strong>188만원</strong> 내에서 <strong>방문 요양보호사</strong>를 신청할 수 있어요.</p>
+                        <p>월 <strong>188만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -275,7 +273,6 @@
                         <ul>
                             <li><strong>3~4등급 어르신</strong>도 조건에 부합하면, 방문 요양보호사 요청 대신 <strong>시설에 모실 수 있어요.</strong></li>
                             <li>시설에 모시는 어르신은 <strong>복지용구를 신청할 수 없어요.</strong></li>
-                            <li>자세한 내용은 <strong>국민건강보험공단</strong> 및 <strong>장기요양기관</strong>과 상담하실 수 있어요.</li>
                         </ul>
                     </div>
                 </div>

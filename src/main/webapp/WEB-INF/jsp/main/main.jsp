@@ -41,7 +41,7 @@
 
 <div class="main-welfare">
     <div class="container">
-        <p class="desc">시니어를 위한 <strong>복지서비스</strong><br> <strong>한 곳에 모아서!</strong></p>
+        <p class="desc">어르신 맞춤 <strong>복지서비스,</strong><br> <strong>한 곳에서 편하게!</strong></p>
         <p class="count"><strong class="totalCount"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건 </p>
         
         <c:set var="addr" value="" />
@@ -95,10 +95,10 @@
 </div>
 
 <ul class="main-link">
-    <li class="link-item1"><a href="${_mainPath}/searchBokji">노인복지<br> 정보</a></li>
-    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">노인복지<br> 테스트</a></li>
-    <li class="link-item3"><a href="${_marketPath}/index" target="_blank">복지용구<br> 구매</a></li>
-    <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">슈퍼<br>시니어</a></li>
+    <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
+    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
+    <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
+    <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li>
 </ul>
 
 <div class="main-content-wrapper">

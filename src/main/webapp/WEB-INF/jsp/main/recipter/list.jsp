@@ -2,13 +2,13 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="#">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li>요양정보 간편조회</li>
         </ul>
     </nav>
 	<h2 class="subject">
 		요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-		<small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
+		<small>수급자명, 요양인정번호를 입력하면 조회하실 수 있어요.</small>
 	</h2>
 </header>
 
@@ -388,7 +388,7 @@
                 부모님 맞춤 제품이 필요하세요?
                 <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
             </strong>
-            <a href="#">지금둘러보기</a>
+			<a href="${_marketPath}">지금둘러보기</a>
         </div>
     
         <div class="careinfo-content">
@@ -399,7 +399,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
-                    <a href="#" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
                 </div>
             </div>
             <div class="content-item2">
@@ -409,7 +409,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
-                    <a href="#" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
+					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
                 </div>
             </div>
             <div class="content-item3">
@@ -419,7 +419,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
-                    <a href="#" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
                 </div>
             </div>
         </div>
@@ -539,7 +539,7 @@ $(function() {
     });
     
     $('.status-toggle').on('click', function() {
-        $(this).toggleClass('is-active').prev('.status-list').toggleClass('hidden');
+        $(this).toggleClass('is-active').text(($(this).hasClass('is-active')) ? '상세닫기' : '상세열기').prev('.status-list').toggleClass('hidden');
     })
     
    // 기능
@@ -691,7 +691,7 @@ $(function() {
 				}else{
 					let html = "";
 					html +='   <tr>';
-					html +='    <td class="colspan=4">검색된 데이터가 없습니다.</td>';
+					html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
 					html +='   </tr>';
 					$(".lend_return").append(html);
 				}

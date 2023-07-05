@@ -91,19 +91,25 @@ strong {
             &.modal-lg {
                 @apply max-w-[580px];
                 & .modal-content {
-                    @apply sm:max-h-[60rem];
+                    @apply sm:max-h-[50rem];
                 }
             }
             &.modal-xl {
                 @apply max-w-[768px];
+                & .modal-content {
+                    @apply sm:max-h-[55rem];
+                }
             }
             &.modal-2xl {
                 @apply max-w-[1024px];
+                & .modal-content {
+                    @apply sm:max-h-[60rem];
+                }
             }
         }
         & .modal-content {
             @apply relative flex flex-col w-full h-full bg-white shadow-none pointer-events-auto
-                   sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[51.125rem];
+                   sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[41.125rem];
         }
         & .modal-header {
             @apply flex items-center justify-between px-2.5 h-[2.8125rem]

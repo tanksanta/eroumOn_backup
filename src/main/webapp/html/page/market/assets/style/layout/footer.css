@@ -1,5 +1,0 @@
-#footer {
-    & .footer-link, & .footer-center {
-        @apply max-w-screen-xl;
-    }
-}

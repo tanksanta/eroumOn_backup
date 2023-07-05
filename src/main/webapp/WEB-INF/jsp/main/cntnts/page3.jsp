@@ -27,7 +27,7 @@
                     인정등급 대상자라면 <br class="md:hidden">
                     <strong class="text-primary3">누구나 동일</strong>
                 </h3>
-                <p class="desc">인정등급이 궁금하시면 지금 바로 해보세요!</p>
+                <p class="desc">예상 인정 등급을 바로 확인해 보세요!</p>
                 <a href="${_mainPath}/recipter/list?pageType=info" class="btn btn-large2 btn-primary3 is-arrow">내 인정등급 확인하기</a>
             </div>
             <img src="/html/page/index/assets/images/img-page3-content1.png" alt="" class="img">
@@ -50,7 +50,7 @@
                 <a href="${_mainPath}/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 is-arrow">바로가기</a>
             </div>
             <div>
-                <h3>복지용구 체크포인트</h3>
+                <h3>복지용구 선택 방법</h3>
                 <img src="/html/page/index/assets/images/img-page3-content3-2.png" alt="">
                 <a href="${_mainPath}/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 is-arrow">바로가기</a>
             </div>

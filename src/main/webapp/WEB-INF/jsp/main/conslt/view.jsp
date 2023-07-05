@@ -43,8 +43,8 @@
         </script>
 
 		<div class="market-banner mt-28 md:mt-47">
-			<strong> 부모님 맞춤 제품이 필요하세요? <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
-			</strong> <a href="${_marketPath}">지금둘러보기</a>
+			<strong> 부모님 맞춤 제품이 필요하세요? <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small></strong>
+			<a href="${_marketPath}">지금둘러보기</a>
 		</div>
 
 		<div class="careinfo-content">
@@ -59,7 +59,7 @@
 				</dl>
 				<div>
 					<img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
-					<a href="#" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
 				</div>
 			</div>
 			<div class="content-item2">
@@ -73,7 +73,7 @@
 				</dl>
 				<div>
 					<img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
-					<a href="#" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
+					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
 				</div>
 			</div>
 			<div class="content-item3">
@@ -87,7 +87,7 @@
 				</dl>
 				<div>
 					<img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
-					<a href="#" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
 				</div>
 			</div>
 		</div>

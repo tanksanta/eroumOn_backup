@@ -3,7 +3,7 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page2">복지용구 활용</a></li>
             <li>침실</li>
         </ul>
@@ -14,7 +14,7 @@
     <div class="page2-content-detail is-detail3">
 		<h2 class="title">안락한 침실생활</h2>
 		<p class="desc">
-			수면과 휴식을 취하는 공간에서 필요한 복지용구를 소개해드립니다.
+			수면과 휴식을 취하는 공간에서 필요한 복지용구를 소개해 드릴게요.
 		</p>
 		<ul class="nav">
 	        <li><a href="${_mainPath}/cntnts/page2-bath">욕실</a></li>

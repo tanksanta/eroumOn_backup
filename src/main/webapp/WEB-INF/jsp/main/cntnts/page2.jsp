@@ -9,7 +9,7 @@
     <h2 class="title">
         <small>부모님의 생활을 한층 편하게</small>
         복지용구가 일상생활에서<br>
-        <em>꼭</em>필요한 이유
+        <img src="/html/page/index/assets/images/txt-page2-visual.png" alt="꼭"> 필요한 이유
     </h2>
     <p class="text-scroll is-white">아래에서 더 자세히 알아보세요</p>
 </div>
