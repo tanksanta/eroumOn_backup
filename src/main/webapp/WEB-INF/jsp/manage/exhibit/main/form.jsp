@@ -32,7 +32,7 @@
 							</form:select>
 						</td>
 					</tr>
-					<tr class="gds_view" <c:if test="${mainMngVO.themaTy ne 'G' }">style="display:none;"</c:if>>
+					<tr>
 						<th scope="row"><label for="sj" class="require">주제명</label></th>
 						<td>
 							<form:input class="form-control w-full" path="sj" value="${mainMngVO.sj}"/>
@@ -56,7 +56,7 @@
 									<div class="row" id="attachFileInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.fileList) }">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptAttach">
-												<input type="file" class="form-control w-2/3" id="attachFile${status.index}" name="attachFile${status.index}" onchange="fileCheck(this);" />
+												<input type="file" class="form-control w-2/3" id="attachFile${status.index}" name="attachFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 									</div>
@@ -84,6 +84,7 @@
 						<th><label for="telno">상품 선택</label></th>
 						<td>
 							<button type="button" class="btn btn-primary f_srchGds" data-bs-toggle="modal" data-bs-target="#gdsModal">상품 선택</button>
+							<input type="hidden" name="choose_item" value="" />
 						</td>
 					</tr>
 					<tr class="view_banner" <c:if test="${mainMngVO.themaTy ne 'B' }">style="display:none;"</c:if>>
@@ -98,8 +99,8 @@
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
 									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
-										<label for="updtAttachPcFileDc${fileList.fileNo}"">대체텍스트</label>
-										<input type="text" class="form-control flex-1 ml-2" id="updtAttachPcFileDc${fileList.fileNo}" name="updtAttachPcFileDc${fileList.fileNo}" value="${fileList.fileDc}" maxlength="200" data-update-dc>
+										<label for="updtAttachPcFileDc"">대체텍스트</label>
+										<input type="text" class="form-control flex-1 ml-2" id="updtAttachPcFileDc${fileList.fileNo}" name="updtAttachPcFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
 									</div>
 								</div>
 							</c:forEach>
@@ -110,13 +111,13 @@
 									<div class="row" id="attachFilePcInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.pcImgFileList)}">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptPcAttach">
-												<input type="file" class="form-control w-2/3" id="attachPcFile${status.index}" name="pcFile${status.index}" onchange="fileCheck(this);" />
+												<input type="file" class="form-control w-2/3" id="attachPcFile${status.index}" name="pcFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group mt-1 w-full">
-												<label for="updtAttachPcFileDc${fileList.fileNo}"">대체텍스트</label>
-												<input type="text" class="form-control flex-1 ml-2" id="attachPcFileDc${status.index}" name="attachPcFileDc${status.index}" maxlength="200">
+												<label for="pcFileDc${fileList.fileNo}"">대체텍스트</label>
+												<input type="text" class="form-control flex-1 ml-2" id="pcFileDc${status.index}" name="pcFileDc${status.index}" maxlength="200">
 											</div>
 										</div>
 									</div>
@@ -136,8 +137,8 @@
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
 									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
-										<label for="updtAttachFileDc${fileList.fileNo}"">대체텍스트</label>
-										<input type="text" class="form-control flex-1 ml-2" id="updtAttachMobileFileDc${fileList.fileNo}" name="updtAttachMobileFileDc${fileList.fileNo}" value="${fileList.fileDc}" maxlength="200" data-update-dc>
+										<label for="updtMobileFileDc${fileList.fileNo}"">대체텍스트</label>
+										<input type="text" class="form-control flex-1 ml-2" id="updtMobileFileDc${fileList.fileNo}" name="updtMobileFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
 									</div>
 								</div>
 							</c:forEach>
@@ -148,13 +149,13 @@
 									<div class="row" id="attachFileMobileInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.mobileImgFileList)}">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptMobileAttach">
-												<input type="file" class="form-control w-2/3" id="attachMobileFile${status.index}" name="mobileFile${status.index}" onchange="fileCheck(this);" />
+												<input type="file" class="form-control w-2/3" id="mobileFile${status.index}" name="mobileFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group mt-1 w-full">
-												<label for="updtAttachMobileFileDc${fileList.fileNo}"">대체텍스트</label>
-												<input type="text" class="form-control flex-1 ml-2" id="attachMobileFileDc${status.index}" name="attachMobileFileDc${status.index}" maxlength="200">
+												<label for="mobileFileDc${fileList.fileNo}"">대체텍스트</label>
+												<input type="text" class="form-control flex-1 ml-2" id="mobileFileDc${status.index}" name="mobileFileDc${status.index}" maxlength="200">
 											</div>
 										</div>
 									</div>
@@ -174,8 +175,8 @@
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
 									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'HALF', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
-										<label for="updtAttachFileDc${fileList.fileNo}"">대체텍스트</label>
-										<input type="text" class="form-control flex-1 ml-2" id="updtAttachHalfFileDc${fileList.fileNo}" name="updtAttachMobileFileDc${fileList.fileNo}" value="${fileList.fileDc}" maxlength="200" data-update-dc>
+										<label for="updtHalfFileDc${fileList.fileNo}"">대체텍스트</label>
+										<input type="text" class="form-control flex-1 ml-2" id="updtHalfFileDc${fileList.fileNo}" name="updtHlafFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
 									</div>
 								</div>
 							</c:forEach>
@@ -186,13 +187,13 @@
 									<div class="row" id="attachFileHalfInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.halfFileList)}">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptHalfAttach">
-												<input type="file" class="form-control w-2/3" id="attachHalfFile${status.index}" name="HalfFile${status.index}" onchange="fileCheck(this);" />
+												<input type="file" class="form-control w-2/3" id="attachHalfFile${status.index}" name="halfFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group mt-1 w-full">
-												<label for="updtAttachHalfFileDc${fileList.fileNo}"">대체텍스트</label>
-												<input type="text" class="form-control flex-1 ml-2" id="attachHalfFileDc${status.index}" name="attachHalfFileDc${status.index}" maxlength="200">
+												<label for="halfFileDc${fileList.fileNo}"">대체텍스트</label>
+												<input type="text" class="form-control flex-1 ml-2" id="halfFileDc${status.index}" name="halfFileDc${status.index}" maxlength="200">
 											</div>
 										</div>
 									</div>
@@ -396,9 +397,43 @@ function f_modalGdsSearch_callback(gdsNos){
 	$(".btn-close").click();
 }
 
+//첨부파일 이미지 제한
+function fileChk(obj) {
+
+	if(obj.value != ""){
+
+		/* 첨부파일 확장자 체크*/
+		var atchLmttArr = new Array();
+		atchLmttArr.push("jpg");
+		atchLmttArr.push("png");
+		atchLmttArr.push("gif");
+
+		var file = obj.value;
+		var fileExt = file.substring(file.lastIndexOf('.') + 1, file.length).toLowerCase();
+		var isFileExt = false;
+
+		for (var i = 0; i < atchLmttArr.length; i++) {
+			if (atchLmttArr[i] == fileExt) {
+				isFileExt = true;
+				break;
+			}
+		}
+
+		if (!isFileExt) {
+			alert("<spring:message code='errors.ext.limit' arguments='" + atchLmttArr + "' />");
+			obj.value = "";
+			return false;
+		}
+	}
+};
+
 $(function(){
 	// 상품검색 모달
 	$(".f_srchGds").on("click", function(){
+		if($(".selectView .noresult").length < 1){
+   			$("input[name='choose_item']").siblings(".invalid-feedback").remove();
+   		}
+
 		if ( !$.fn.dataTable.isDataTable('#gdsDataTable') ) { //데이터 테이블이 있으면x
  			GdsDataTable.init();
  		}
@@ -414,20 +449,30 @@ $(function(){
 	});
 
    	$("#themaTy").on("change", function(){
+   		$("input[type='file']").val(null);
+   		$("input[type='text']").val(null);
+   		$("#linkUrl").val("#");
+   		$(".selectView").empty();
+   		$(".selectView").append('<tr><td colspan="6" class="noresult">등록된 관련상품이 없습니다.</td></tr>');
 
    		if($(this).val() == "G"){
    			$(".view_banner").hide();
+   			$(".view_half").hide();
    			$(".gds_view").show();
-   			$("#linkUrl").val("#");
    		}else if($(this).val() == "B"){
    			$(".view_banner").show();
    			$(".gds_view").hide();
-   			$("#sj").val(null);
    		}else{
    			$(".view_banner").hide();
    			$(".gds_view").hide();
 			$(".view_half").show();
-			$("#sj").val(null);
+   		}
+   	});
+
+   	$("#attachFile0").on("change",function(){
+   		if($(this).val() != ''){
+   			$(this).removeClass("is-invalid");
+   	   		$(this).siblings(".invalid-feedback").remove();
    		}
    	});
 
@@ -444,12 +489,37 @@ $(function(){
     $("form#mainFrm").validate({
     ignore: "input[type='text']:hidden",
     rules : {
-    	cn : { required : true}
+    	cn : { required : true},
     },
     messages : {
     	cn : { required : "내용은 필수 입력 항목입니다."}
     },
     submitHandler: function (frm) {
+    	if($("#themaTy").val() == "G"){
+			if($("#attachFile0").val() == ''){
+				alert("배너 이미지를 선택해주세요");
+				return false;
+			}
+			if($(".selectView .noresult").length > 0){
+				alert("상품을 선택해주세요.");
+				return false;
+			}
+		}else if($("#themaTy").val() == "B"){
+			if($("#attachPcFile0").val() == ''){
+				alert("PC 배너 이미지를 선택해주세요");
+				return false;
+			}else if($("#mobileFile0").val() == ''){
+				alert("Mobile 배너 이미지를 선택해주세요");
+				return false;
+			}
+		}else {
+			if($("#attachHalfFile0").val() == ''){
+				alert("하프 배너 이미지를 선택해주세요");
+				return false;
+			}
+		}
+
+
     	if(confirm("저장하시겠습니까?")){
     		frm.submit();
     	}else{

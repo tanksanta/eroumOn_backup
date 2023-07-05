@@ -3,7 +3,8 @@
 <mapper namespace="banner.mng">
 
 	<resultMap type="bnnrMngVO" id="bnnrMngVOMap" autoMapping="true" >
-		<collection property="fileList" column="{srvcId=srvc_id, upNo=banner_no}" select="file.selectFileList" />
+		<collection property="mobilefileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_mobile_id}" select="file.selectFileList" />
+		<collection property="pcfileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_pc_id}" select="file.selectFileList" />
 	</resultMap>
 
 	<sql id="listColumn">
@@ -26,6 +27,8 @@
 		, mdfcn_id
 		, mdfr
 		, 'BANNER' AS srvc_id
+		, 'MOBILE' AS item_mobile_id
+		, 'PC' AS item_pc_id
 	</sql>
 
 	<sql id="searchConditions">
@@ -38,6 +41,9 @@
 		</if>
 		<if test="srchBannerTy != null and srchBannerTy != '' ">
 			AND banner_ty = #{srchBannerTy}
+		</if>
+		<if test="srchNowDate != null and srchNowDate != '' ">
+			AND bgng_dt &lt;= now() AND end_dt &gt;= now()
 		</if>
 
 		<choose>
@@ -80,6 +86,15 @@
 			<include refid="listColumn"/>
 		FROM  BNNER_MNG
 		WHERE  banner_no = #{bannerNo}
+	</select>
+
+	<select id="selectBnnrMngList" parameterType="java.util.HashMap" resultMap="bnnrMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM BNNER_MNG
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY sort_no
 	</select>
 
 	<insert id="insertBnnrMng" parameterType="bnnrMngVO">

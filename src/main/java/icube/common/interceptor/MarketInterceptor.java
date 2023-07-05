@@ -27,6 +27,8 @@ import icube.manage.gds.ctgry.biz.GdsCtgryService;
 import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.sysmng.menu.biz.MngMenuVO;
+import icube.manage.sysmng.usermenu.biz.MngUserMenuService;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -49,6 +51,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
 
+	@Resource(name = "mngUserMenuService")
+	private MngUserMenuService mngUserMenuService;
+
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
 
@@ -66,7 +71,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
-	
+
 	@Value("#{props['Talk.Secret.key']}")
 	private String talkSecretKey;
 
@@ -165,6 +170,13 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_gdsCtgryList", gdsCtgryList);
 		request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
 		// 카테고리 정보 E
+
+		// 사용자 메뉴 S
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("useYn", "Y");
+		List<MngMenuVO> userMenuList = mngUserMenuService.selectMngMenuList(paramMap);
+		request.setAttribute("_userMenuList", userMenuList);
+		// 사용자 메뉴 E
 
 		// 경로정보
 		request.setAttribute("_marketPath", "/" + marketPath);

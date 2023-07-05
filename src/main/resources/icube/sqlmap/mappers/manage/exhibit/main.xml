@@ -3,10 +3,10 @@
 <mapper namespace="main">
 
 	<resultMap type="mainMngVO" id="mainMngVOMap" autoMapping="true" >
-		<collection property="halfFileList" column="{srvcId=item_half_id, upNo=main_no, fileTy=item_half_id}" select="file.selectFileList" />
+		<collection property="halfFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_half_id}" select="file.selectFileList" />
 		<collection property="pcImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_pc_id}" select="file.selectFileList" />
 		<collection property="mobileImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_mobile_id}" select="file.selectFileList" />
-		<collection property="fileList" column="{srvcId=srvc_id, upNo=main_no}" select="file.selectFileList" />
+		<collection property="fileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_attach_id}" select="file.selectFileList" />
 	</resultMap>
 
 
@@ -32,6 +32,7 @@
 		, 'PC' AS item_pc_id
 		, 'MOBILE' AS item_mobile_id
 		, 'HALF' AS item_half_id
+		, 'ATTACH' AS item_attach_id
 	</sql>
 
 

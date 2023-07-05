@@ -1,6 +1,7 @@
 package icube.manage.exhibit.banner.biz;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -41,5 +42,9 @@ public class BnnrMngService extends CommonAbstractServiceImpl {
 
 	public Integer updateSortNo(Map<String, Object> paramMap) throws Exception {
 		return bnnrMngDAO.updateSortNo(paramMap);
+	}
+
+	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
+		return bnnrMngDAO.selectBnnrMngList(paramMap);
 	}
 }
