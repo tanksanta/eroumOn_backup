@@ -6,8 +6,6 @@
 			<jsp:param value="주문 완료" name="pageTitle"/>
 		</jsp:include>
 
-		<jsp:include page="./include/personal_info.jsp" />
-
         <div id="page-container">
             <div id="page-content">
                 <!-- div class="order-complate">

@@ -46,8 +46,11 @@ public class MbrsSrchController extends CommonAbstractController{
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
-	@Value("#{props['Globals.planner.path']}")
+	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Globals.Nonmember.session.key']}")
 	private String NONMEMBER_SESSION_KEY;
@@ -158,9 +161,9 @@ public class MbrsSrchController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
-
+		
 		return "/membership/info/srch_pswd";
 	}
 
@@ -245,7 +248,7 @@ public class MbrsSrchController extends CommonAbstractController{
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
 
 		MbrVO mbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
@@ -285,7 +288,7 @@ public class MbrsSrchController extends CommonAbstractController{
 			mbrService.updateFailedLoginCountReset(mbrVO);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
-			javaScript.setLocation("/"+membershipPath+"/login");
+			javaScript.setLocation("/"+ mainPath +"/login");
 		}
 
 		return new JavaScriptView(javaScript);

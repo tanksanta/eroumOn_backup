@@ -61,6 +61,7 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 	 * @param JSON
 	 * @return resultMap
 	 */
+	/*
 	@ResponseBody
 	@RequestMapping(value = "callback.json")
 	@SuppressWarnings({"unchecked","rawtypes"})
@@ -182,7 +183,7 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 		resultMap.put("_array_item", addList);
 		return resultMap;
 
-	}
+	}*/
 
 
 	/**
@@ -318,73 +319,4 @@ public class UpdateBplcInfoApiController extends CommonAbstractController{
 		return resultMap;
 	}
 
-	/**
-	 * 송신 TEST API
-	 * @param ordrCd
-	 * @return resultMap
-	 * @throws Exception
-	 */
-	@ResponseBody
-	@RequestMapping(value = "call.json")
-	public void call(
-			HttpServletRequest request
-			)throws Exception {
-
-		Map<String, Object> itemMap = new HashMap<String, Object>();
-		Map<String, Object> restMap = new HashMap<String, Object>();
-		ArrayList<JSONObject> tagList = new ArrayList<JSONObject>();
-
-		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_1"));
-		itemMap.put("item_state", Base64Util.encoder("0"));
-		itemMap.put("item_memo", Base64Util.encoder("사업소 물품 부족."));
-
-		JSONObject item_json1 = new JSONObject(itemMap);
-
-		tagList.add(item_json1);
-
-		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_2"));
-		itemMap.put("item_state", Base64Util.encoder("1"));
-		itemMap.put("item_memo", null);
-		JSONObject item_json2 = new JSONObject(itemMap);
-		tagList.add(item_json2);
-
-		itemMap.put("order_send_dtl_id", Base64Util.encoder("O3032709190387_3"));
-		itemMap.put("item_state", Base64Util.encoder("1"));
-		itemMap.put("item_memo", null);
-		JSONObject item_json3 = new JSONObject(itemMap);
-		tagList.add(item_json3);
-
-		restMap.put("order_send_id", null);
-		restMap.put("order_send_id", Base64Util.encoder("O3032709190387"));
-		restMap.put("order_business_id", Base64Util.encoder("466-87-00410"));
-		restMap.put("api_div", Base64Util.encoder("order_ent_response"));
-		restMap.put("_array_item", tagList);
-
-		JSONObject json = new JSONObject(restMap);
-		String jsonData = json.toJSONString();
-		StringBuilder urlBuilder = new StringBuilder("http://localhost:80/eroumcareApi/bplcRecv/callback.json");
-
-		URL url = new URL(urlBuilder.toString()); // url화
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // url 연결 객체 생성
-        conn.setRequestMethod("POST"); 		// 요청 방식
-        conn.setRequestProperty("Content-type", "application/json"); // data를 json으로 전달
-        conn.setRequestProperty("Accept", "application/json"); // data를 json으로 수신
-        conn.setRequestProperty("eroum_api_key", "f9793511dea35edee3181513b640a928644025a66e5bccdac8836cfadb875856");
-
-        conn.setDoOutput(true); 			// output으로 stream으로 전달
-        conn.setUseCaches(false); 			// 캐싱데이터 수신x
-        conn.setDefaultUseCaches(false); 	// 캐싱데이터 디폴트 값 설정x
-
-
-        System.out.println("post jsonData: " + jsonData);
-
-        try(OutputStream os = conn.getOutputStream()) {
-            byte[] input = jsonData.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        String jsons2 = IOUtils.toString(conn.getInputStream(), StandardCharsets.UTF_8);
-		System.out.println(" ### 수신 데이터 ### " + jsons2);
-
-	}
 }

@@ -50,7 +50,6 @@ import icube.manage.mbr.itrst.biz.WishService;
 import icube.manage.mbr.itrst.biz.WishVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -79,9 +78,6 @@ public class MMbrController extends CommonAbstractController {
 
     @Resource(name = "mbrMngInfoService")
     private MbrMngInfoService mbrMngInfoService;
-
-    @Resource(name = "mbrPrtcrService")
-    private MbrPrtcrService mbrPrtcrService;
 
     @Resource(name = "couponLstService")
     private CouponLstService couponService;
@@ -165,7 +161,6 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("listVO", listVO);
         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
-        model.addAttribute("family", CodeMap.FAMILY_YN);
         model.addAttribute("grade", CodeMap.GRADE);
         model.addAttribute("gender", CodeMap.GENDER);
 
@@ -324,15 +319,6 @@ public class MMbrController extends CommonAbstractController {
         MbrMngInfoVO authInfoVO = mbrMngInfoService.selectMbrMngInfo(infoMap);
         mngMap.put("auth", authInfoVO);
 
-        // 가족회원 여부
-        Map<String, Object> paramMap = new HashMap();
-        paramMap.put("srchMyUniqueId", uniqueId);
-        paramMap.put("srchReqType", "F");
-        int fmlCount = mbrPrtcrService.selectPrtcrCount(paramMap);
-
-
-
-        model.addAttribute("fmlCount", fmlCount);
         model.addAttribute("mbrVO", mbrVO);
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
@@ -852,7 +838,6 @@ public class MMbrController extends CommonAbstractController {
          model.addAttribute("mbrList", mbrList);
          model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
          model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
-         model.addAttribute("family", CodeMap.FAMILY_YN);
          model.addAttribute("grade", CodeMap.GRADE);
          model.addAttribute("gender", CodeMap.GENDER);
 

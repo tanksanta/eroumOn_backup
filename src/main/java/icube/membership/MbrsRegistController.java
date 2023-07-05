@@ -35,7 +35,6 @@ import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
@@ -65,9 +64,6 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	@Resource(name = "fileService")
 	private FileService fileService;
-
-	@Resource(name = "mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name = "recipterInfoService")
 	private RecipterInfoService recipterInfoService;
@@ -156,9 +152,8 @@ public class MbrsRegistController extends CommonAbstractController{
 		if(mbrSession.isLoginCheck()){
 			return  "redirect:/" + plannerPath + "/index";
 		}
-
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
+		
 		MbrVO noMbrVO = new MbrVO();
 		if(EgovStringUtil.isNotEmpty(mbrNm) && EgovStringUtil.isNotEmpty(mblTelno)) {
 
@@ -212,10 +207,17 @@ public class MbrsRegistController extends CommonAbstractController{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchMbrNm", noMbrVO.getMbrNm());
 		paramMap.put("srchMblTelno", noMbrVO.getMblTelno());
+		paramMap.put("srchMbrStts", "NORMAL");
 
 		MbrVO findMbrVO = mbrService.selectMbr(paramMap);
 		if(findMbrVO != null) {
-			model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
+			if(findMbrVO.getJoinTy().equals("N")) {
+				model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
+			}else if(findMbrVO.getJoinTy().equals("K")) {
+				model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
+			}else {
+				model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
+			}
 			return "/common/msg";
 		}
 
@@ -280,6 +282,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		//가입 매체 구분
 		mbrVO.setJoinCours(WebUtil.getDevice(request));
+		mbrVO.setJoinTy("E"); //이로움 가입
 
 		// 더블 서브밋 방지
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {

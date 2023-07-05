@@ -60,6 +60,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	private static final String SAVE_ID_COOKIE_ID = "_membersSaveId_";
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
@@ -69,12 +72,13 @@ public class MbrsLoginController extends CommonAbstractController  {
 	public String login(
 			HttpServletRequest request
 			, @RequestParam Map<String,Object> reqMap
+			, @RequestParam (value = "returnUrl", required=false) String returnUrl
 			, HttpSession session
 			, Model model) throws Exception {
 
 		// 로그인 체크
 		if(mbrSession.isLoginCheck()){
-			return  "redirect:/" + plannerPath + "/index";
+			return  "redirect:/" + mainPath + "/index";
 		}
 
 		//암호화
@@ -92,13 +96,14 @@ public class MbrsLoginController extends CommonAbstractController  {
 			}
 		}
 
-		String returnUrl = request.getHeader("REFERER");
-		if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
-			returnUrl = "/" + plannerPath;
+		//String returnUrl = request.getHeader("REFERER");
+		if(EgovStringUtil.isNotEmpty(returnUrl)) {
+			if(returnUrl.contains("srch") || returnUrl.contains("action") || returnUrl.contains("Action")) {
+				returnUrl = "/" + mainPath;
+			}
 		}
-
+		
 		model.addAttribute("returnUrl", returnUrl);
-
 
 		return "/membership/login";
 	}
@@ -108,7 +113,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 	public View action(
 			MbrVO mbrVO
 			, @RequestParam(defaultValue="N", required=false) String saveId
-			, @RequestParam(required=false) String returnUrl
+			, @RequestParam(value = "returnUrl", required=false) String returnUrl
 			, @RequestParam(required=true, value="mbrId") String mbrId
 			, @RequestParam(required=true, value="encPw") String encPw
 			, HttpServletRequest request
@@ -117,7 +122,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		JavaScript javaScript = new JavaScript();
 		String loginPasswd = "";
-
+		
 		if(null != request.getSession().getAttribute(RSA_MEMBERSHIP_KEY)) {
 			try {
 				loginPasswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.
@@ -200,7 +205,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 									if (EgovStringUtil.isNotEmpty(returnUrl)) {
 										javaScript.setLocation(returnUrl);
 									} else {
-										javaScript.setLocation("/" + plannerPath);
+										javaScript.setLocation("/" + mainPath);
 									}
 								}
 
@@ -235,7 +240,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		session.invalidate();
 
-		return "redirect:/"+ plannerPath;
+		return "redirect:/"+ mainPath;
 	}
 
 

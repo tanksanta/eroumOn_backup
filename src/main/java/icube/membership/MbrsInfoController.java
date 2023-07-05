@@ -65,11 +65,11 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
-	@Value("#{props['Globals.Planner.path']}")
-	private String plannerPath;
-
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Globals.Nonmember.session.key']}")
 	private String NONMEMBER_SESSION_KEY;
@@ -102,7 +102,14 @@ public class MbrsInfoController extends CommonAbstractController{
 			)throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
-			return "redirect:/"+ plannerPath;
+			return "redirect:/"+ mainPath;
+		}
+		
+		if(!mbrSession.getJoinTy().equals("E")) {
+			session.setAttribute("infoStepChk", "EASYLOGIN");
+			session.setMaxInactiveInterval(60*60);
+			
+			return "redirect:/"+ membershipPath + "/mypage/form";
 		}
 
 		//암호화
@@ -309,7 +316,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
-				javaScript.setLocation("/"+ plannerPath + "/index");
+				javaScript.setLocation("/"+ mainPath + "/index");
 			}
 
 		}catch(Exception e) {
@@ -334,6 +341,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			, Model model
 			, MbrVO mbrVO
 			)throws Exception {
+		
+		// 간편 회원 체크
+		if(!mbrSession.getJoinTy().equals("E")) {
+			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 변경을 이용하실 수 없습니다.");
+			return "/common/msg";
+		}
 
 		if(session.getAttribute("infoStepChk") == null) {
 			return "redirect:/"+ membershipPath +"/mypage/pswd";
@@ -378,7 +391,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
-				javaScript.setLocation("/" + plannerPath + "/index");
+				javaScript.setLocation("/" + mainPath + "/index");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -25,6 +25,7 @@ public class MngMenuVO extends CommonBaseVO implements Serializable {
 	private int levelNo = 1;
 	private int sortNo = 1;
 	private String useYn;
+	private int linkTy;
 
 	private String authrtYn = "N"; // 통합 권한
 

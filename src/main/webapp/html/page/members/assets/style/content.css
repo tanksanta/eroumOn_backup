@@ -1,12 +1,15 @@
-
 @layer components {
     .tabs {
         & .tabs-link {
-            @apply h-11 text-sm break-keep md:text-base md:h-12 lg:text-lg lg:h-14;
+            @apply h-11 text-sm break-keep
+                   md:h-12 md:text-base
+                   lg:h-14 lg:text-lg;
         }
         &.is-small {
             & .tabs-link {
-                @apply h-8.5 text-xs md:h-9.5 md:text-sm lg:h-11 lg:text-base;
+                @apply h-8.5 text-xs
+                       md:h-9.5 md:text-sm
+                       lg:h-11 lg:text-base;
             }
         }
     }
@@ -14,7 +17,8 @@
     .list-normal {
         @apply space-y-[0.17em];
         & li {
-            @apply relative pl-[1em] content-["-"] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
+            @apply relative pl-[1em]
+                   before:content-["-"] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
         }
     }
     
@@ -22,7 +26,8 @@
         @apply space-y-[0.17em];
         counter-reset: section;
         & li {
-            @apply relative pl-[1em] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center before:content-[counter(section)"."];
+            @apply relative pl-[1em]
+                   before:content-[counter(section)"."] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
             &::before {
                 counter-increment: section;
             }
@@ -30,24 +35,31 @@
     }
 }
 
+
+/* 옵션 */
 .product-option {
-    @apply relative text-sm md:text-base;
+    @apply relative text-sm
+           md:text-base;
     & .option-toggle, & .option-items {
         @apply w-full border border-gray1 rounded-md bg-white leading-tight text-left;
     }
     & .option-toggle {
-        @apply appearance-none flex flex-wrap py-3.5 pl-3.5 pr-8 overflow-hidden bg-no-repeat bg-[url(../images/ico-angle-down.svg)] bg-[length:0.625rem] bg-[right_1.125rem_center] md:pr-9 md:py-4.5 md:bg-[right_1.25rem_center];
+        @apply appearance-none flex flex-wrap py-3.5 pl-3.5 pr-8 overflow-hidden bg-no-repeat bg-[url(../images/ico-angle-down.svg)] bg-[length:0.625rem] bg-[right_1.125rem_center]
+               md:pr-9 md:py-4.5 md:bg-[right_1.25rem_center];
         & small {
-            @apply pr-2 min-w-16 text-[1em] opacity-50 font-medium md:pr-4 md:min-w-20;
+            @apply pr-2 min-w-16 text-[1em] opacity-50 font-medium
+                   md:pr-4 md:min-w-20;
         }
         & strong {
             @apply flex-1 truncate;
         }
     }
     & .option-items {
-        @apply hidden absolute z-5 top-full left-0 -mt-3 py-2 max-h-[10.5em] scrollbars border-t-0 rounded-t-none md:py-2.5 md:max-h-[11em];
+        @apply hidden absolute z-5 top-full left-0 -mt-3 py-2 max-h-[10.5em] scrollbars border-t-0 rounded-t-none
+               md:py-2.5 md:max-h-[11em];
         & a {
-            @apply block py-2 px-3.5 md:py-2.5;
+            @apply block py-2 px-3.5
+                   md:py-2.5;
         }
     }
     &.is-active {
@@ -65,15 +77,20 @@
     }
 }
 
+
 /* 회원 탭 */
 .member-tabs {
-    @apply flex relative justify-between before:content-empty before:absolute before:left-0 before:right-0 before:bottom-px before:h-px before:bg-gray1;
+    @apply flex relative justify-between
+           before:content-empty before:absolute before:left-0 before:right-0 before:bottom-px before:h-px before:bg-gray1;
     & li {
         @apply relative;
         & a, & span {
-            @apply block text-base md:text-lg after:content-empty after:block after:mt-1.5 after:h-[3px] after:rounded-full after:bg-transparent;
+            @apply block text-base
+                   after:content-empty after:block after:mt-1.5 after:h-[3px] after:rounded-full after:bg-transparent
+                   md:text-lg;
             &.active {
-                @apply font-bold after:bg-black2;
+                @apply font-bold
+                       after:bg-black2;
             }
         }
     }
@@ -87,68 +104,93 @@
 
 /* 로그인 아이디찾기 */
 .member-form {
-    @apply mx-auto pb-5 sm:max-w-[35.5rem] sm:pb-7.5;
+    @apply mx-auto pb-5
+           sm:max-w-[31.75rem] sm:pb-7.5;
     &.is-noborder {
         @apply border-b-0;
     }
     & fieldset {
         @apply w-full;
         & legend {
-            @apply py-2 w-full border-b border-gray1 leading-snug text-[1.375rem] font-bold sm:py-2.5 sm:text-2xl;
+            @apply py-2 w-full border-b border-gray1 leading-snug text-[1.375rem] font-bold
+                   sm:py-2.5 sm:text-2xl;
             & + .search-group {
-                @apply mt-8 sm:mt-10;
+                @apply mt-8
+                       sm:mt-10;
             }
         }
     }
     & .form-label {
-        @apply flex items-center mb-1.5 text-[0.9375rem] font-medium sm:float-left sm:mb-2.5 sm:w-25 sm:h-[3.125rem] sm:text-base;
+        @apply flex items-center mb-1.5 text-[0.9375rem] font-medium
+               sm:float-left sm:mb-2.5 sm:w-25 sm:h-[3.125rem] sm:text-base;
     }
     & .form-control {
-        @apply mb-2.5 w-full h-[3.125rem] text-[0.9375rem] sm:float-left sm:w-[calc(100%_-_6.25rem)] sm:text-base;
+        @apply mb-2.5 w-full h-[3.125rem] text-[0.9375rem]
+               sm:float-left sm:w-[calc(100%_-_6.25rem)] sm:text-base;
     }
     & .form-check {
-        @apply mt-3.5 sm:mt-1.5 sm:ml-29;
+        @apply mt-3.5
+               sm:mt-1.5 sm:ml-29;
     }
     & .login-link {
-        @apply flex mt-4 pt-3 border-t border-gray1 sm:mt-6 sm:pt-5 sm:ml-29;
-        & a {
-            @apply mr-auto pr-[0.5625rem] text-sm font-medium bg-no-repeat bg-[url(../images/ico-angle-right.svg)] bg-right-center bg-[length:0.3125rem] sm:text-[0.9375rem];
+        @apply flex items-center mt-4 pt-3 border-t border-gray1
+               sm:mt-6 sm:pt-5 sm:ml-29;
+        & .link {
+            @apply flex-none ml-6 pr-[0.5625rem] text-sm font-medium
+                   sm:ml-9 sm:text-[0.9375rem]
+                   first:ml-0;
+        }
+        & .btn {
+            @apply ml-auto w-[7.5em] h-9
+                   md:w-[9em] md:h-[2.625rem];
         }
     }
     & .login-submit {
-        @apply static top-0 right-0 bottom-2.5 mt-1.5 w-full h-15 text-base font-bold sm:absolute sm:mt-0 sm:w-36 sm:h-[6.875rem];
+        @apply static top-0 right-0 bottom-2.5 mt-1.5 w-full h-15 text-base font-bold
+               sm:absolute sm:mt-0 sm:w-36 sm:h-[6.875rem];
     }
     & .login-group {
-        @apply relative overflow-hidden mt-4 sm:mt-7.5 sm:pr-39 sm:pl-4;
+        @apply relative overflow-hidden mt-4
+               sm:mt-7.5 sm:pr-39 sm:pl-4;
         & .error {
-            @apply relative pl-0 sm:-top-2 sm:m-0 sm:pl-25 sm:pr-0 sm:clear-both;
+            @apply relative pl-0
+                   sm:-top-2 sm:m-0 sm:pl-25 sm:pr-0 sm:clear-both;
         }
     }
     & .search-group {
-        @apply items-start sm:flex sm:mt-1.5 sm:px-7.5 first:mt-8 first:sm:mt-10;
+        @apply items-start
+               sm:flex sm:mt-1.5 sm:px-7.5
+               first:mt-8 first:sm:mt-10;
     }
     & .search-auth {
-        @apply flex items-center mt-6 mb-5 sm:mt-11 sm:mb-6 sm:px-7.5;
+        @apply flex items-center mt-6 mb-5
+               sm:mt-11 sm:mb-6 sm:px-7.5;
         & img {
-            @apply flex-none w-18 mr-4 sm:mr-5.5 sm:w-20;
+            @apply flex-none w-18 mr-4
+                   sm:mr-5.5 sm:w-20;
         }
         & dl {
             @apply flex-1 leading-tight;
             & dt {
-                @apply text-base font-bold sm:text-lg;
+                @apply text-base font-bold
+                       sm:text-lg;
             }
             & dd {
-                @apply mt-2 text-[0.9375rem] sm:text-base;
+                @apply mt-2 text-[0.9375rem]
+                       sm:text-base;
             }
         }
     }
     & .search-desc {
-        @apply -mt-0.5 text-[0.8125rem] pb-2.5 leading-tight sm:text-sm sm:pl-[8.125rem] sm:pr-7.5;
+        @apply -mt-0.5 text-[0.8125rem] pb-2.5 leading-tight
+               sm:text-sm sm:pl-[8.125rem] sm:pr-7.5;
     }
     & .search-button {
-        @apply flex flex-wrap gap-2 mt-1.5 sm:mt-8.5 sm:gap-2.5 sm:pl-[8.125rem] sm:pr-7.5;
+        @apply flex flex-wrap gap-2 mt-1.5
+               sm:mt-8.5 sm:gap-2.5 sm:pl-[8.125rem] sm:pr-7.5;
         & .btn {
-            @apply relative w-full h-15 text-base font-bold sm:w-35 sm:h-[4.375rem] sm:text-lg;
+            @apply relative w-full h-15 text-base font-bold
+                   sm:w-35 sm:h-[4.375rem] sm:text-lg;
         }
         & .btn-primary {
             @apply sm:flex-1;
@@ -161,32 +203,59 @@
         }
     }
     & .search-result {
-        @apply mt-14 mb-16 text-center text-[0.9375rem] sm:mt-16 sm:mb-18 sm:text-base;
+        @apply mt-14 mb-16 text-center text-[0.9375rem]
+               sm:mt-16 sm:mb-18 sm:text-base;
         & strong {
-            @apply font-serif text-3xl sm:text-[1.875rem];
+            @apply font-serif text-3xl
+                   sm:text-[1.875rem];
         }
     }
     & .error {
-        @apply -mt-2 mb-2.5 sm:ml-25 sm:px-7.5;
+        @apply -mt-2 mb-2.5
+               sm:ml-25 sm:px-7.5;
+    }
+}
+
+.member-social {
+    @apply flex flex-col mt-11 mx-auto
+           sm:flex-row sm:mt-14 sm:max-w-[31.75rem];
+    & dt {
+        @apply mb-2.5 text-lg font-bold
+               sm:mt-2.5 sm:mb-0 sm:mr-5 sm:text-xl;
+    }
+    & dd {
+        @apply flex-1;
+        & .btn {
+            @apply mt-2.5
+                   sm:mt-3
+                   first:mt-0;
+        }
     }
 }
 
 .member-desc {
-    @apply relative pt-6 pb-7.5 rounded-b-[1.25rem] bg-[url(../images/bg-login-banner.jpg)] bg-center bg-cover text-white sm:mx-auto sm:pt-7.5 sm:pb-9 sm:max-w-[35.5rem];
+    @apply relative pt-6 pb-7.5 rounded-b-[1.25rem] bg-[url(../images/bg-login-banner.jpg)] bg-center bg-cover text-white
+           sm:mx-auto sm:pt-7.5 sm:pb-9 sm:max-w-[35.5rem];
     & dl {
-        @apply relative w-fit pt-5 mx-auto pl-[6.875rem] xs:ml-[12.56%] xs:mr-0 sm:pt-7 sm:pl-[9.375rem];
+        @apply relative w-fit pt-5 mx-auto pl-[6.875rem]
+               xs:ml-[12.56%] xs:mr-0
+               sm:pt-7 sm:pl-[9.375rem];
         &::before {
-            @apply content-empty absolute top-0 left-0 w-[5.875rem] h-[12.625rem] bg-cover bg-[url(../images/bg-card.png)] sm:w-[7.375rem] sm:h-63;
+            @apply content-empty absolute top-0 left-0 w-[5.875rem] h-[12.625rem] bg-cover bg-[url(../images/bg-card.png)]
+                   sm:w-[7.375rem] sm:h-63;
         }
         & dt {
             & img {
-                @apply h-4 sm:h-5;
+                @apply h-4
+                       sm:h-5;
             }
         }
         & dd {
-            @apply mt-3 text-[1.375rem] leading-snug sm:mt-4 sm:text-2xl;
+            @apply mt-3 text-[1.375rem] leading-snug
+                   sm:mt-4 sm:text-2xl;
             & a {
-                @apply justify-start mt-2 px-5 w-34 h-9.5 bg-[url(../images/ico-angle.svg)] bg-no-repeat bg-[right_1rem_center] bg-[length:0.3125rem] text-left sm:px-6 sm:w-39 sm:h-11 sm:bg-[length:0.375rem] sm:bg-[right_1.125rem_center];
+                @apply justify-start mt-2 px-5 w-34 h-9.5 bg-[url(../images/ico-angle.svg)] bg-no-repeat bg-[right_1rem_center] bg-[length:0.3125rem] text-left
+                       sm:px-6 sm:w-39 sm:h-11 sm:bg-[length:0.375rem] sm:bg-[right_1.125rem_center];
             }
         }
     }
@@ -195,40 +264,51 @@
 
 /* 회원 가입 */
 .member-join {
-    @apply relative mx-auto max-w-[36.5rem] xs:flex before:content-empty before:hidden before:absolute before:-z-5 before:bottom-0 before:h-[306px] before:bg-right-bottom before:bg-[length:auto_100%] before:lg:h-[408px] before:xs:block;
+    @apply relative mx-auto max-w-[36.5rem]
+           before:content-empty before:hidden before:absolute before:-z-5 before:bottom-0 before:h-[306px] before:bg-right-bottom before:bg-[length:auto_100%]
+           xs:flex
+           xs:before:block;
     & > * {
-        @apply xs:-mr-5 last:mr-0;
+        @apply xs:-mr-5
+               last:mr-0;
     }
 }
 
 .member-join-step1, .member-join-step2, .member-join-step3 {
-    @apply hidden absolute -z-5 bottom-0 xs:block;
+    @apply hidden absolute -z-5 bottom-0
+           xs:block;
     & img {
-        @apply max-w-none scale-75 lg:scale-100;
+        @apply max-w-none scale-75
+               lg:scale-100;
     }
 }
 
 .member-join-step1 {
-    @apply right-full mr-6.5 lg:mr-13;
+    @apply right-full mr-6.5
+           lg:mr-13;
     & img {
         @apply origin-bottom-right;
     }
 }
 
 .member-join-step2, .member-join-step3 {
-    @apply left-full -ml-6 lg:-ml-12;
+    @apply left-full -ml-6
+           lg:-ml-12;
     & img {
         @apply origin-bottom-left;
     }
 }
 
 .member-join-sidebar {
-    @apply relative z-5 w-16 pr-5 rounded-l-[1.25rem] bg-black2 xs:block sm:w-17;
+    @apply relative z-5 w-16 pr-5 rounded-l-[1.25rem] bg-black2
+           xs:block
+           sm:w-17;
     & .text {
         @apply relative h-full bg-no-repeat bg-[center_top_3.125rem] select-none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath id='Shape' d='M8.749,19.607c-1.784-1.254-1.4-1.135-3.612-1.128H5.132a2.112,2.112,0,0,1-2.019-1.414c-.676-2.025-.444-1.711-2.232-2.952A2.015,2.015,0,0,1,0,12.46a1.964,1.964,0,0,1,.106-.635C.8,9.81.8,10.2.106,8.175A1.968,1.968,0,0,1,0,7.54,2.011,2.011,0,0,1,.881,5.888c1.787-1.24,1.554-.927,2.231-2.954A2.114,2.114,0,0,1,5.131,1.52h.005c2.207.007,1.815.135,3.612-1.128a2.192,2.192,0,0,1,2.5,0c1.784,1.255,1.4,1.136,3.612,1.129h.005a2.115,2.115,0,0,1,2.021,1.414c.676,2.021.438,1.709,2.232,2.953A2.01,2.01,0,0,1,20,7.538a1.949,1.949,0,0,1-.105.636c-.689,2.014-.693,1.627,0,3.65a1.948,1.948,0,0,1,.105.635,2.017,2.017,0,0,1-.878,1.652c-1.795,1.243-1.556.931-2.232,2.953a2.117,2.117,0,0,1-2.021,1.414h-.005c-2.213-.007-1.828-.125-3.612,1.128a2.19,2.19,0,0,1-2.5,0Z' fill='%23fff'/%3E%3C/svg%3E%0A");
         & span {
-            @apply absolute top-[min(50%,_29rem)] left-1/2 -rotate-90 -translate-x-1/2 -translate-y-1/2 font-serif font-bold text-2xl whitespace-nowrap text-white/50 sm:text-[1.625rem];
+            @apply absolute top-[min(50%,_29rem)] left-1/2 -rotate-90 -translate-x-1/2 -translate-y-1/2 font-serif font-bold text-2xl whitespace-nowrap text-white/50
+                   sm:text-[1.625rem];
         }
     }
     &.is-step2 {
@@ -237,7 +317,9 @@
 }
 
 .member-join-content {
-    @apply relative z-10 flex-1 px-5 border-black2 rounded-[1.25rem] bg-white tracking-tight sm:px-10 xs:py-10 xs:border xs-max:px-0;xxxxxxx
+    @apply relative z-10 flex-1 px-5 border-black2 rounded-[1.25rem] bg-white tracking-tight
+           sm:px-10 xs:py-10 xs:border
+           xs-max:px-0;
     & .form-check-group {
         & .form-check {
             & .form-check-label {
@@ -257,7 +339,8 @@
             }
         }
         & .accordion-button {
-            @apply absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-no-repeat bg-[right_0.25rem_center] bg-[url(../images/ico-plus.svg)] bg-[length:0.875rem] shadow-none -indent-[999em] aria-expanded:bg-[url(../images/ico-minus.svg)];
+            @apply absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-no-repeat bg-[right_0.25rem_center] bg-[url(../images/ico-plus.svg)] bg-[length:0.875rem] shadow-none -indent-[999em]
+                   aria-expanded:bg-[url(../images/ico-minus.svg)];
         }
         & .accordion-body {
             @apply scrollbars mb-1.5 max-h-52 rounded-md bg-neutral-100 text-[0.8125rem] leading-snug;
@@ -274,7 +357,8 @@
     & .content-auth {
         @apply flex-1;
         & dt {
-            @apply text-[1.375rem] font-bold leading-tight md:text-2xl;
+            @apply text-[1.375rem] font-bold leading-tight
+                   md:text-2xl;
         }
         & dd {
             @apply mt-1.5;
@@ -283,12 +367,14 @@
     & .content-auth-phone {
         @apply flex items-center;
         & img {
-            @apply flex-none w-18 mr-5 sm:mr-7 sm:w-20;
+            @apply flex-none w-18 mr-5
+                   sm:mr-7 sm:w-20;
         }
         & dl {
             @apply flex-1 leading-tight;
             & dt {
-                @apply text-base font-bold md:text-lg;
+                @apply text-base font-bold
+                       md:text-lg;
             }
             & dd {
                 @apply mt-2;
@@ -296,7 +382,8 @@
         }
     }
     & .content-recipient {
-        @apply pt-11 px-5 pb-6 overflow-hidden border border-gray1 rounded-[1.25rem] bg-no-repeat bg-[right_1.25rem_top_1.125rem] bg-[#777]/10 backdrop-blur-md sm:pt-13 sm:pb-7 sm:px-6;
+        @apply pt-11 px-5 pb-6 overflow-hidden border border-gray1 rounded-[1.25rem] bg-no-repeat bg-[right_1.25rem_top_1.125rem] bg-[#777]/10 backdrop-blur-md
+               sm:pt-13 sm:pb-7 sm:px-6;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='131.903' height='10' viewBox='0 0 131.903 10'%3E%3Cpath id='Shape' d='M104.684,9.575a3.23,3.23,0,0,1-1.444-1.163,3.029,3.029,0,0,1-.484-1.7h2.353a1.5,1.5,0,0,0,.4,1.153,1.912,1.912,0,0,0,1.314.371,1.513,1.513,0,0,0,.919-.25.828.828,0,0,0,.338-.706.964.964,0,0,0-.365-.8,4.535,4.535,0,0,0-1.28-.595,12.343,12.343,0,0,1-1.5-.595,2.836,2.836,0,0,1-1.892-2.553,2.291,2.291,0,0,1,.472-1.427,3.046,3.046,0,0,1,1.334-.962A5.185,5.185,0,0,1,106.794,0a4.54,4.54,0,0,1,1.881.374,2.976,2.976,0,0,1,1.294,1.067,2.787,2.787,0,0,1,.461,1.58h-2.339a1.176,1.176,0,0,0-.365-.923,1.423,1.423,0,0,0-.986-.328,1.605,1.605,0,0,0-.993.277.852.852,0,0,0-.364.706.858.858,0,0,0,.4.679,5.069,5.069,0,0,0,1.41.628,8.633,8.633,0,0,1,1.658.7,2.786,2.786,0,0,1,1.578,2.507,2.378,2.378,0,0,1-.962,2.006,4.286,4.286,0,0,1-2.641.728A5.232,5.232,0,0,1,104.684,9.575Zm-78.773-.5a3.291,3.291,0,0,1-1.042-2.526V.134h2.36V6.6q.039,1.6,1.483,1.6a1.437,1.437,0,0,0,1.1-.4,1.876,1.876,0,0,0,.374-1.3V.134h2.346V6.5a3.658,3.658,0,0,1-.462,1.875,2.986,2.986,0,0,1-1.323,1.207A4.665,4.665,0,0,1,28.712,10,4.03,4.03,0,0,1,25.911,9.077Zm-8.289.351a3.9,3.9,0,0,1-1.5-1.634,5.6,5.6,0,0,1-.565-2.44V4.806a5.79,5.79,0,0,1,.525-2.524,3.916,3.916,0,0,1,1.5-1.688A4.451,4.451,0,0,1,22.02.589a3.976,3.976,0,0,1,1.508,1.674,5.631,5.631,0,0,1,.544,2.49V5.2a5.768,5.768,0,0,1-.527,2.52,3.924,3.924,0,0,1-1.5,1.688A4.2,4.2,0,0,1,19.828,10,4.262,4.262,0,0,1,17.622,9.428Zm.328-4.943-.006.715a4.223,4.223,0,0,0,.474,2.2,1.65,1.65,0,0,0,2.781.013,4.126,4.126,0,0,0,.488-2.173V4.793a4.115,4.115,0,0,0-.485-2.2,1.561,1.561,0,0,0-1.387-.752C18.644,1.838,18.015,2.729,17.95,4.486ZM96.859,9.868H94.514V.134h3.83A4.291,4.291,0,0,1,101.051.9a2.618,2.618,0,0,1,.976,2.173,3.185,3.185,0,0,1-.411,1.685,2.929,2.929,0,0,1-1.286,1.083l2.032,3.924v.1l-2.514,0L98.13,6.431H96.86V9.867h0Zm0-5.248h1.484a1.343,1.343,0,0,0,1.006-.351,1.361,1.361,0,0,0,.337-.979,1.376,1.376,0,0,0-.341-.986,1.325,1.325,0,0,0-1-.357H96.86ZM9.626,9.868H7.28V.134h3.83A4.291,4.291,0,0,1,13.818.9a2.618,2.618,0,0,1,.976,2.173,3.185,3.185,0,0,1-.411,1.685A2.929,2.929,0,0,1,13.1,5.843l2.032,3.924v.1l-2.514,0L10.9,6.431H9.626V9.867h0Zm0-5.248h1.484a1.343,1.343,0,0,0,1.006-.351,1.361,1.361,0,0,0,.338-.979,1.376,1.376,0,0,0-.341-.986,1.325,1.325,0,0,0-1-.357H9.626ZM124.242,9.867V.134h3.884a4.53,4.53,0,0,1,1.975.41,3.1,3.1,0,0,1,1.33,1.17,3.2,3.2,0,0,1,.472,1.722,2.818,2.818,0,0,1-1.02,2.276,4.231,4.231,0,0,1-2.8.852h-1.5v3.3Zm-3.59,0V.134h2.339V9.867Zm-3.6,0V5.8H113.6V9.867h-2.346V.134H113.6V4h3.456V.134h2.333V9.867Zm-29.822,0V.134h6.718V1.945H89.58V4h3.69V5.742H89.58V8.061h4.358V9.867Zm-8.45,0V.134h3.5a4.973,4.973,0,0,1,2.858.689,2.3,2.3,0,0,1,.979,2,2.323,2.323,0,0,1-.348,1.29,2.039,2.039,0,0,1-1.022.789,2.051,2.051,0,0,1,1.17.748,2.185,2.185,0,0,1,.408,1.337,2.591,2.591,0,0,1-.905,2.149,4.337,4.337,0,0,1-2.685.732Zm2.346-1.8h1.537a1.474,1.474,0,0,0,.977-.291,1.025,1.025,0,0,0,.34-.819,1.082,1.082,0,0,0-1.21-1.223H81.13Zm0-3.871h1.223a1.749,1.749,0,0,0,1.1-.281,1,1,0,0,0,.328-.808,1.043,1.043,0,0,0-.355-.886,1.9,1.9,0,0,0-1.143-.271H81.13ZM75.32,9.867V7.593l.228-4.652L73.194,9.867H71.644l-2.36-6.932.228,4.658V9.867H67.165V.134h3.082L72.419,6.9,74.585.134h3.088V9.867Zm-15.435,0V.134H66.6V1.945H62.231V4h3.69V5.742h-3.69V8.061h4.358V9.867Zm-3.463,0V7.593l.227-4.652L54.3,9.867H52.745l-2.36-6.932.227,4.658V9.867H48.266V.134h3.082L53.52,6.9,55.687.134h3.088V9.867Zm-14.647,0V7.593L42,2.941,39.649,9.867H38.1l-2.36-6.932.228,4.658V9.867H33.619V.134H36.7L38.874,6.9,41.039.134h3.088V9.867ZM0,9.867V.134H6.718V1.945H2.346V4h3.69V5.742H2.346V8.061H6.7V9.867Z' fill='%23fff'/%3E%3C/svg%3E%0A");
         & dl {
             @apply px-3 py-2.5 rounded-md bg-white/60 leading-tight;
@@ -309,7 +396,8 @@
                     @apply align-middle;
                 }
                 & small {
-                    @apply block -mt-0.5 text-sm md:text-base;
+                    @apply block -mt-0.5 text-sm
+                           md:text-base;
                 }
             }
         }
@@ -323,7 +411,8 @@
             }
         }
         & .group1 {
-            @apply grid gap-2.5 grid-cols-[auto_6rem] mt-4.5 xs:grid-cols-[auto_7.25rem];
+            @apply grid gap-2.5 grid-cols-[auto_6rem] mt-4.5
+                   xs:grid-cols-[auto_7.25rem];
         }
         & .group2 {
             @apply grid gap-2.5 grid-cols-[34%_auto] mt-2.5;
@@ -331,17 +420,20 @@
         & .number {
             @apply text-white tracking-tight break-all bg-[linear-gradient(138deg,_rgba(249,85,54,0.8)_0%,_rgba(255,132,25,0.8)_100%)];
             & dd {
-                @apply mt-2 text-left text-2xl tracking-tighter font-medium sm:text-3xl;
+                @apply mt-2 text-left text-2xl tracking-tighter font-medium
+                       sm:text-3xl;
             }
         }
         & .grade {
             @apply flex px-1 pb-0 justify-center bg-transparent;
             & dt {
-                @apply mt-2 mr-2 font-bold xs:mr-3;
+                @apply mt-2 mr-2 font-bold
+                       xs:mr-3;
             }
             & dd {
                 & img {
-                    @apply w-13 xs:w-14;
+                    @apply w-13
+                           xs:w-14;
                 }
             }
         }
@@ -350,7 +442,8 @@
             & dd {
                 @apply mt-auto -mx-3;
                 & strong {
-                    @apply inline-block text-[2.875rem] italic tracking-tighter sm:text-[3.375rem];
+                    @apply inline-block text-[2.875rem] italic tracking-tighter
+                           sm:text-[3.375rem];
                 }
             }
         }
@@ -358,7 +451,11 @@
             & dd {
                 @apply mt-1 text-[0.9375rem];
                 & p {
-                    @apply mx-auto w-4/5 max-w-full first:text-left last:text-right sm:w-2/3 xs-max:w-auto;
+                    @apply mx-auto w-4/5 max-w-full
+                           sm:w-2/3
+                           xs-max:w-auto
+                           first:text-left
+                           last:text-right;
                 }
             }
         }
@@ -367,7 +464,8 @@
             & dd {
                 @apply mt-1.5;
                 & strong {
-                    @apply italic text-5xl tracking-tighter sm:text-[2.625rem];
+                    @apply italic text-5xl tracking-tighter
+                           sm:text-[2.625rem];
                 }
             }
         }
@@ -376,7 +474,8 @@
             & dd {
                 @apply -mt-1 text-right text-base;
                 & strong {
-                    @apply text-2xl align-middle sm:text-3xl;
+                    @apply text-2xl align-middle
+                           sm:text-3xl;
                 }
             }
         }
@@ -393,9 +492,11 @@
                 }
             }
             & .form-check-label {
-                @apply ml-0 py-4 px-2 w-full min-h-full border border-black2 opacity-50 rounded-md text-base font-bold leading-tight break-keep text-center md:text-lg;
+                @apply ml-0 py-4 px-2 w-full min-h-full border border-black2 opacity-50 rounded-md text-base font-bold leading-tight break-keep text-center
+                       md:text-lg;
                 & small {
-                    @apply block text-sm font-normal md:text-[0.9375rem];
+                    @apply block text-sm font-normal
+                           md:text-[0.9375rem];
                 }
             }
         }
@@ -408,43 +509,58 @@
                 @apply absolute opacity-0 w-0 h-0 overflow-hidden;
                 &:checked {
                     & + .form-check-label {
-                        @apply bg-black2 text-white before:opacity-100 before:transition-all before:duration-200;
+                        @apply bg-black2 text-white
+                               before:opacity-100 before:transition-all before:duration-200;
                     }
                 }
             }
             & .form-check-label {
-                @apply flex items-center justify-center m-0 h-[2.625rem] border border-black2 rounded-md text-center transition-colors duration-200 md:h-12
-                       before:content-empty before:absolute before:top-1/2 before:left-[1em] before:w-[1.25em] before:h-[1.25em] before:bg-cover before:bg-[url(../images/ico-check.svg)] before:-translate-y-1/2 before:opacity-0;
+                @apply flex items-center justify-center m-0 h-[2.625rem] border border-black2 rounded-md text-center transition-colors duration-200
+                       before:content-empty before:absolute before:top-1/2 before:left-[1em] before:w-[1.25em] before:h-[1.25em] before:bg-cover before:bg-[url(../images/ico-check.svg)] before:-translate-y-1/2 before:opacity-0
+                       md:h-12;
             }
         }
     }
     & .content-button {
-        @apply flex justify-center space-x-2 sm:space-x-2.5;
+        @apply flex justify-center space-x-2
+               sm:space-x-2.5;
     }
     & .content-complate {
         & dl {
-            @apply pt-5.5 pb-10 -mx-5 px-4 text-center bg-no-repeat bg-[position:center_bottom,left_top] bg-[length:auto_28px,auto] sm:-mx-10 sm:px-7 sm:pt-6.5 sm:pb-12 md:bg-[length:auto_30px,auto];
+            @apply pt-5.5 pb-10 -mx-5 px-4 text-center bg-no-repeat bg-[position:center_bottom,left_top] bg-[length:auto_28px,auto]
+                   sm:-mx-10 sm:px-7 sm:pt-6.5 sm:pb-12
+                   md:bg-[length:auto_30px,auto];
             background-image: url(../images/txt-eroum-white.svg), linear-gradient(105deg, rgba(44, 57, 180, 0.1) 0%, rgba(220, 35, 170, 0.1) 46%, rgba(255, 0, 0, 0.1) 100%);
             & dt {
-                @apply text-base md:text-lg;
+                @apply text-base
+                       md:text-lg;
             }
             & dd {
-                @apply mt-4.5 text-2xl leading-tight font-bold md:text-[1.875rem];
+                @apply mt-4.5 text-2xl leading-tight font-bold
+                       md:text-[1.875rem];
                 & small {
-                    @apply text-sm font-normal md:text-base;
+                    @apply text-sm font-normal
+                           md:text-base;
                 }
             }
         }
         & p {
-            @apply mt-5.5 text-sm leading-tight md:text-[0.9375rem];
+            @apply mt-5.5 text-sm leading-tight
+                   md:text-[0.9375rem];
         }
     }
     & .content-benefit {
-        @apply relative mt-8 -mx-5 pr-5 pl-48 py-8 rounded-b-[1.25rem] leading-tight text-sm xs:-mb-10 sm:-mx-10 sm:pl-60 sm:pr-10 md:text-[0.9375rem]
-               before:content-empty before:absolute before:top-1/2 before:left-5 before:mr-4 before:w-39 before:bg-cover before:bg-[url(../images/img-join-benefit.png)] before:aspect-[1/0.414168] before:-translate-y-1/2 before:sm:left-10 before:md:mr-5 before:md:w-45;
+        @apply relative mt-8 -mx-5 pr-5 pl-48 py-8 rounded-b-[1.25rem] leading-tight text-sm
+               xs:-mb-10
+               before:content-empty before:absolute before:top-1/2 before:left-5 before:mr-4 before:w-39 before:bg-cover before:bg-[url(../images/img-join-benefit.png)] before:aspect-[1/0.414168] before:-translate-y-1/2
+               sm:-mx-10 sm:pl-60 sm:pr-10
+               sm:before:left-10
+               md:text-[0.9375rem]
+               md:before:mr-5 md:before:w-45;
         background: linear-gradient(106deg, rgba(255, 210, 210, 0.2) 0%, rgba(241, 200, 145, 0.2) 54%, rgba(145, 241, 202, 0.2) 100%);
         & strong {
-            @apply block w-fit pr-4 bg-no-repeat bg-[right_top_0.4em] bg-[url(../images/ico-angle.svg)] bg-[length:0.35em] text-lg md:text-xl;
+            @apply block w-fit pr-4 bg-no-repeat bg-[right_top_0.4em] bg-[url(../images/ico-angle.svg)] bg-[length:0.35em] text-lg
+                   md:text-xl;
         }
     }
     & ~ .member-join-sidebar {
@@ -459,33 +575,50 @@
 }
 
 .member-join-introduce {
-    @apply mx-auto max-w-95 aspect-square sm:max-w-[31.5rem] md:max-w-[42.5rem] lg:max-w-[52.4375rem];
+    @apply mx-auto max-w-95 aspect-square
+           sm:max-w-[31.5rem]
+           md:max-w-[42.5rem]
+           lg:max-w-[52.4375rem];
     & .title {
         @apply flex items-start
-               before:content-empty before:block before:flex-none before:-mt-[30%] before:w-2/5 before:bg-cover before:bg-[url(../images/bg-card.png)] before:aspect-[1/2.0723] before:sm:w-60 before:md:w-80 before:lg:w-100;
+               before:content-empty before:block before:flex-none before:-mt-[30%] before:w-2/5 before:bg-cover before:bg-[url(../images/bg-card.png)] before:aspect-[1/2.0723]
+               sm:before:w-60
+               md:before:w-80
+               lg:before:w-100;
         & img {
-            @apply ml-[7%] w-[53%] sm:ml-8 sm:pt-5 sm:w-56 md:ml-9 md:pt-9 md:w-[20.15rem] lg:pt-20 lg:w-[25.1875rem];
+            @apply ml-[7%] w-[53%]
+                   sm:ml-8 sm:pt-5 sm:w-56
+                   md:ml-9 md:pt-9 md:w-[20.15rem]
+                   lg:pt-20 lg:w-[25.1875rem];
         }
     }
     & .join1, & .join2 {
-        @apply mt-7 sm:mt-8 sm:ml-70 sm:max-w-81 md:mt-9 md:ml-91 lg:ml-[27.5rem];
+        @apply mt-7
+               sm:mt-8 sm:ml-70 sm:max-w-81
+               md:mt-9 md:ml-91
+               lg:ml-[27.5rem];
         & dt {
             @apply mb-1.5 font-bold;
         }
         & dd {
-            @apply space-y-2.5 md:space-y-3;
+            @apply space-y-2.5
+                   md:space-y-3;
             & .btn {
-                @apply flex px-4 md:px-5;
+                @apply flex px-4
+                       md:px-5;
             }
         }
     }
     & .join1 {
-        @apply sm:-mt-[21.625rem] md:-mt-[27.25rem] lg:-mt-[31.25rem];
+        @apply sm:-mt-[21.625rem]
+               md:-mt-[27.25rem]
+               lg:-mt-[31.25rem];
     }
     & .join2 {
         & dd {
             & .btn {
-                @apply pl-19 border-[#ccc] bg-no-repeat bg-[left_0.875rem_center] bg-[length:2.75rem] md:pl-25 md:bg-[left_1.125rem_center] md:bg-[length:3.875rem];
+                @apply pl-19 border-[#ccc] bg-no-repeat bg-[left_0.875rem_center] bg-[length:2.75rem]
+                       md:pl-25 md:bg-[left_1.125rem_center] md:bg-[length:3.875rem];
             }
             & .btn-kakao {
                 @apply bg-[url(../images/img-join-simple1.png)];
@@ -507,12 +640,15 @@
 
 /* 휴면계정/탈퇴 */
 .member-release-title {
-    @apply pt-38 px-4 pb-12 rounded-[1rem] bg-white bg-no-repeat bg-[url(/html/core/images/img-market-bag.png),linear-gradient(110deg,rgba(21,132,185,0.08)0%,rgba(119,13,172,0.08)29%,rgba(184,13,13,0.08)54%,rgba(229,162,10,0.08)77%,rgba(67,168,0,0.08)100%)] bg-[length:126px,auto] bg-[position:center_top_0.75rem,left_top] text-center md:pt-49 md:pb-14 md:bg-[length:158px,auto];
+    @apply pt-38 px-4 pb-12 rounded-[1rem] bg-white bg-no-repeat bg-[url(/html/core/images/img-market-bag.png),linear-gradient(110deg,rgba(21,132,185,0.08)0%,rgba(119,13,172,0.08)29%,rgba(184,13,13,0.08)54%,rgba(229,162,10,0.08)77%,rgba(67,168,0,0.08)100%)] bg-[length:126px,auto] bg-[position:center_top_0.75rem,left_top] text-center
+           md:pt-49 md:pb-14 md:bg-[length:158px,auto];
     & img {
-        @apply mx-auto w-77 md:w-[27.75rem];
+        @apply mx-auto w-77
+               md:w-[27.75rem];
     }
     & p {
-        @apply mt-7 md:mt-10;
+        @apply mt-7
+               md:mt-10;
     }
     & br {
         @apply leading-snug;
@@ -523,20 +659,26 @@
 }
 
 .member-release-info {
-    @apply px-5.5 py-6.5 rounded-[1rem] bg-gray2 md:px-7.5 md:py-8.5;
+    @apply px-5.5 py-6.5 rounded-[1rem] bg-gray2
+           md:px-7.5 md:py-8.5;
 }
 
 .member-release-data {
-    @apply flex flex-wrap gap-2.5 p-3 border border-gray1 rounded-[1rem] leading-tight md:gap-3 md:p-4;
+    @apply flex flex-wrap gap-2.5 p-3 border border-gray1 rounded-[1rem] leading-tight
+           md:gap-3 md:p-4;
     & dl {
-        @apply py-2.5 px-3 w-full rounded-md bg-gray2 md:flex-1 md:px-4 md:py-3;
+        @apply py-2.5 px-3 w-full rounded-md bg-gray2
+               md:flex-1 md:px-4 md:py-3;
         & dt {
-            @apply text-[0.8125rem] font-medium md:text-sm;   
+            @apply text-[0.8125rem] font-medium
+                   md:text-sm;   
         }
         & dd {
-            @apply mt-1.5 text-right text-[1.375rem] font-bold md:mt-4.5 md:text-2xl;
+            @apply mt-1.5 text-right text-[1.375rem] font-bold
+                   md:mt-4.5 md:text-2xl;
             & small {
-                @apply text-base md:text-lg;
+                @apply text-base
+                       md:text-lg;
             }
             & img {
                 @apply inline-block relative -top-px ml-0.5 w-[1em];
@@ -546,57 +688,75 @@
 }
 
 .member-release-check {
-    @apply grid grid-cols-2 gap-y-4.5 p-4.5 border border-gray1 rounded-[1rem] sm:grid-cols-3 md:grid-cols-4 md:gap-y-5.5 md:p-5.5;
+    @apply grid grid-cols-2 gap-y-4.5 p-4.5 border border-gray1 rounded-[1rem]
+           sm:grid-cols-3
+           md:grid-cols-4 md:gap-y-5.5 md:p-5.5;
 }
 
 .member-release-reason {
     @apply flex items-center justify-center -mx-5 px-5 py-12;
     background: linear-gradient(99deg, rgba(21,132,185,0.08) 0%, rgba(119,13,172,0.08) 29%, rgba(184,13,13,0.08) 54%, rgba(229,162,10,0.08) 77%, rgba(67,168,0,0.08) 100%);
     & .form-label {
-        @apply flex-none mr-2.5 font-bold md:mr-4;
+        @apply flex-none mr-2.5 font-bold
+               md:mr-4;
     }
     & .form-control {
-        @apply w-57 md:w-74;
+        @apply w-57
+               md:w-74;
     }
 }
 
 
 /* 회원정보수정 */
 .member-modify {
-    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%] md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0
-           before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover before:lg:top-8.5 before:lg:left-5.5 before:lg:w-[75px] before:lg:h-[635px] before:md-max:top-9 before:md-max:right-6.5 before:md-max:w-[16.125rem] before:md-max:h-7.5 before:md-max:bg-[url(../images/txt-membership-mo.svg)]
-           after:content-empty after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1 after:md:block;
+    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%]
+           before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover
+           after:content-empty after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1
+           after:md:block
+           lg:before:top-8.5 lg:before:left-5.5 lg:before:w-[75px] lg:before:h-[635px]
+           md-max:before:top-9 md-max:before:right-6.5 md-max:before:w-[16.125rem] md-max:before:h-7.5 md-max:before:bg-[url(../images/txt-membership-mo.svg)]
+           md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0;
     & .member-join-content {
-        @apply relative z-10 py-7.5 px-5 border md:px-8.5 md:pb-11;
+        @apply relative z-10 py-7.5 px-5 border
+               md:px-8.5 md:pb-11;
     }
     &.is-left {
-        @apply md-max:-ml-5 md-max:pl-5 md-max:pr-0 md-max:mr-auto before:md-max:left-6.5 before:md-max:right-auto;
+        @apply md-max:-ml-5 md-max:pl-5 md-max:pr-0 md-max:mr-auto
+               md-max:before:left-6.5 md-max:before:right-auto;
     }
 }
 
 .member-modify-password {
-    @apply mt-5 text-center md:mt-6;
+    @apply mt-5 text-center
+           md:mt-6;
     & fieldset {
-        @apply -mx-5 py-12 px-5 md:mx-0 md:py-15 md:rounded-[1rem] bg-[linear-gradient(98deg,_rgba(21,132,185,0.1)_0%,_rgba(119,13,172,0.1)_29%,_rgba(184,13,13,0.1)_54%,_rgba(229,162,10,0.1)_77%,_rgba(67,168,0,0.1)_100%)];
-}
+        @apply -mx-5 py-12 px-5 bg-[linear-gradient(98deg,_rgba(21,132,185,0.1)_0%,_rgba(119,13,172,0.1)_29%,_rgba(184,13,13,0.1)_54%,_rgba(229,162,10,0.1)_77%,_rgba(67,168,0,0.1)_100%)]
+               md:mx-0 md:py-15 md:rounded-[1rem];
+    }
     & .form-group {
-        @apply w-full max-w-80 md:max-w-100 xs-max:max-w-75;
+        @apply w-full max-w-80
+               md:max-w-100
+               xs-max:max-w-75;
         & .form-control {
             @apply ml-3 md:ml-5;
         }
     }
     & .btn-primary {
-        @apply mt-10 w-36 md:mt-14 md:w-40;
+        @apply mt-10 w-36
+               md:mt-14 md:w-40;
     }
     & .text-alert {
-        @apply mt-3 mx-auto w-fit text-left md:mt-4;
+        @apply mt-3 mx-auto w-fit text-left
+               md:mt-4;
     }
 }
 
 .terms-table {
     @apply table-fixed w-full border border-gray1 text-gray6;
     & th, & td {
-        @apply p-1.5 border border-gray1 md:p-2 lg:p-3;
+        @apply p-1.5 border border-gray1
+               md:p-2
+               lg:p-3;
     }
     & th {
         @apply bg-gray2;
@@ -607,30 +767,35 @@
 }
 
 .terms-list {
-    @apply space-y-0.5 md:space-y-1;
+    @apply space-y-0.5
+           md:space-y-1;
     & > li {
         @apply relative;
         & .temrs-list {
-            @apply space-y-px md:space-y-0.5;
+            @apply space-y-px
+                   md:space-y-0.5;
         }
     }
     &.is-number {
         counter-reset: section; 
         & > li {
-            @apply pl-[1.2em] before:absolute before:top-0 before:left-0 before:content-[counter(section)")"];
+            @apply pl-[1.2em]
+                   before:content-[counter(section)")"] before:absolute before:top-0 before:left-0;
             counter-increment: section;
         }
     }
     &.is-number2 {
         counter-reset: section; 
         & > li {
-            @apply pl-[1.2em] before:absolute before:top-0 before:left-0 before:content-[counter(section)"."];
+            @apply pl-[1.2em]
+                   before:content-[counter(section)"."] before:absolute before:top-0 before:left-0;
             counter-increment: section;
         }
     }
     &.is-hypen {
         & > li {
-            @apply pl-[0.9em] before:content-["-"] before:absolute before:top-0 before:left-[0.15em];
+            @apply pl-[0.9em]
+                   before:content-["-"] before:absolute before:top-0 before:left-[0.15em];
         }
     }
 }

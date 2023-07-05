@@ -28,16 +28,23 @@
                                         <tr>
                                             <th scope="row"><label for="search-item3">카테고리</label></th>
                                             <td>
-                                                <div class="form-group w-full">
+                                                <div class="form-group w-full select_view">
                                                     <select name="modalSrchUpCtgryNo" id="modalSrchUpCtgryNo" class="form-control w-30">
                                                         <option value="0">대분류선택</option>
                                                         <c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
 		                                            	<option value="${ctgryList.ctgryNo}">${ctgryList.ctgryNm}</option>
 		                                                </c:forEach>
                                                     </select>
-                                                    <select name="modalSrchCtgryNo" id="modalSrchCtgryNo" class="form-control w-35">
+                                                    <select name="modalSrchCtgryNo" id="modalSrchCtgryNo" class="form-control w-30">
                                                         <option value="0">중분류선택</option>
                                                     </select>
+                                                    <select name="modalSrchCtgryNo1" id="modalSrchCtgryNo1" class="form-control w-30">
+                                                        <option value="0">소분류선택</option>
+                                                    </select>
+                                                    <select name="modalSrchCtgryNo2" id="modalSrchCtgryNo2" class="form-control w-30">
+                                                        <option value="0">선택</option>
+                                                    </select>
+                                                    <button type="button" class="btn btn-primary" id="ctgry_reset">초기화</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -224,7 +231,7 @@ $(function(){
 	//상품 카테고리
 	$("#modalSrchUpCtgryNo").on("change", function(){
 		$("#modalSrchCtgryNo").empty();
-		$("#modalSrchCtgryNo").append("<option value='0'>선택</option>");
+		$("#modalSrchCtgryNo").append("<option value='0'>중분류선택</option>");
 
 		let modalSrchUpCtgryNoVal = $(this).val();
 		if(modalSrchUpCtgryNoVal > 0){ //값이 있을경우만..
@@ -245,6 +252,61 @@ $(function(){
 			});
 		}
 	}).trigger("change");
+
+	$("#modalSrchCtgryNo").on("change", function(){
+		$("#modalSrchCtgryNo1").empty();
+		$("#modalSrchCtgryNo1").append("<option value='0'>소분류선택</option>");
+
+		let modalSrchCtgryNoVal = $(this).val();
+		if(modalSrchCtgryNoVal > 0){ //값이 있을경우만..
+			$.ajax({
+				type : "post",
+				url  : "/_mng/gds/ctgry/getGdsCtgryListByFilter.json",
+				data : {upCtgryNo:modalSrchCtgryNoVal},
+				dataType : 'json'
+			})
+			.done(function(data) {
+				for(key in data){
+					$("#modalSrchCtgryNo1").append("<option value='"+ key +"'>"+ data[key] +"</option>");
+				}
+			})
+			.fail(function(data, status, err) {
+				alert("카테고리 호출중 오류가 발생했습니다.");
+				console.log('error forward : ' + data);
+			});
+		}
+	}).trigger("change");
+
+	$("#modalSrchCtgryNo1").on("change", function(){
+		$("#modalSrchCtgryNo2").empty();
+		$("#modalSrchCtgryNo2").append("<option value='0'>선택</option>");
+
+		let modalSrchCtgryNoVal = $(this).val();
+		if(modalSrchCtgryNoVal > 0){ //값이 있을경우만..
+			$.ajax({
+				type : "post",
+				url  : "/_mng/gds/ctgry/getGdsCtgryListByFilter.json",
+				data : {upCtgryNo:modalSrchCtgryNoVal},
+				dataType : 'json'
+			})
+			.done(function(data) {
+				for(key in data){
+					$("#modalSrchCtgryNo2").append("<option value='"+ key +"'>"+ data[key] +"</option>");
+				}
+			})
+			.fail(function(data, status, err) {
+				alert("카테고리 호출중 오류가 발생했습니다.");
+				console.log('error forward : ' + data);
+			});
+		}
+	}).trigger("change");
+
+	$("#ctgry_reset").on("click",function(){
+		$("#modalSrchUpCtgryNo option[value=0]").prop("selected",true);
+		$("#modalSrchCtgryNo option[value=0]").prop("selected",true);
+		$("#modalSrchCtgryNo1 option[value=0]").prop("selected",true);
+		$("#modalSrchCtgryNo2 option[value=0]").prop("selected",true);
+	});
 
 });
 </script>

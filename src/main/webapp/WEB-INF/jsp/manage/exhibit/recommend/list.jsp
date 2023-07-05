@@ -44,7 +44,7 @@
 						</td>
 						<td><a href="#">${resultList.gdsCd}</a></td>
 						<td class="text-left">${resultList.gdsNm }</td>
-						<td class="text-left">${resultList.upCtgryNm } &nbsp;&gt;&nbsp;${resultList.ctgryNm }</td>
+						<td class="text-left">${resultList.upCtgryNm } &nbsp;&gt;&nbsp;${resultList.ctgryNm}</td>
 						<td>${dspyYnCode[resultList.useYn]}</td>
 						<td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd" /></td>
 						<td class="draggable" style="cursor: pointer;">

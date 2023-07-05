@@ -20,7 +20,6 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.values.CodeMap;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
@@ -51,9 +50,6 @@ public class MbrsWhdwlController extends CommonAbstractController{
 
 	@Resource(name = "couponLstService")
 	private CouponLstService couponLstService;
-
-	@Resource(name = "mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
@@ -140,11 +136,6 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 
 		Map paramMap = new HashMap();
-		paramMap.put("srchMyUniqueId", mbrSession.getUniqueId());
-
-		mbrPrtcrService.deleteFml(paramMap);
-
-		paramMap.clear();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("whdwlResn", resnCn);
 		paramMap.put("whdwlEtc", whdwlEtc);

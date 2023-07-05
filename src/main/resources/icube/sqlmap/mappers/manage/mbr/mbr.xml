@@ -6,7 +6,6 @@
 
 	<resultMap type="mbrVO" id="mbrVOMap" autoMapping="true">
 		<association property="recipterInfo" column="{srchUniqueId=unique_id}" select="recipter.selectRecipter" />
-		 <collection property="prtcrList" column="{srchUniqueId=unique_id, srchReqTy=req_ty}" select="mbr.prtcr.selectPrtcrListByUniqueId" />
 	</resultMap>
 
 	<sql id="listColumn">
@@ -37,9 +36,12 @@
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.di_key
+		, m.naver_app_id
+		, m.kakao_app_id
 		, m.trms_agre_dt
 		, m.itrst_field
 		, m.join_cours
+		, m.join_ty
 		, m.join_dt
 		, m.lgn_failr_cnt
 		, m.recent_cntn_dt
@@ -85,6 +87,9 @@
 		<if test="srchMbrNm != null and srchMbrNm != ''">
 			AND mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
 		</if>
+		<if test="srchMbrName != null and srchMbrName != '' ">
+			AND mbr_nm = #{srchMbrName}
+		</if>
 		<if test="srchMblTelno != null and srchMblTelno != ''">
 			AND mbl_telno = #{srchMblTelno}
 		</if>
@@ -93,6 +98,9 @@
 		</if>
 		<if test="srchBrdt != null and srchBrdt != ''">
 			AND DATE_FORMAT(brdt,'%Y%m%d') like CONCAT('%' , #{srchBrdt}, '%')
+		</if>
+		<if test="srchBirth != null and srchBirth != '' ">
+			AND brdt = #{srchBirth}
 		</if>
 		<if test="srchRecipterYn != null and srchRecipterYn != '' ">
 			AND recipter_yn = #{srchRecipterYn}
@@ -171,6 +179,13 @@
 			AND DATEDIFF(NOW(),whdwl_dt) &gt;= #{srchWhdwlDt}
 		</if>
 
+		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
+			AND m.naver_token = #{srchNaverAppId}
+		</if>
+		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
+			AND m.kakao_token = #{srchKakaoAppId}
+		</if>
+
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
@@ -241,6 +256,8 @@
 			, addr
 			, daddr
 			, di_key
+			, naver_app_id
+			, kakao_app_id
 			, recipter_yn
 			, bass_stlm_ty
 			, point_acmtl
@@ -257,6 +274,7 @@
 			, trms_agre_dt
 			, itrst_field
 			, join_cours
+			, join_ty
 			, join_dt
 			, lgn_failr_cnt
 			, recent_cntn_dt
@@ -278,6 +296,8 @@
 			, #{addr, jdbcType=VARCHAR}
 			, #{daddr, jdbcType=VARCHAR}
 			, #{diKey, jdbcType=VARCHAR}
+			, #{naverAppId, jdbcType=VARCHAR}
+			, #{kakaoAppId, jdbcType=VARCHAR}
 			, #{recipterYn, jdbcType=VARCHAR}
 			, #{bassStlmTy, jdbcType=VARCHAR}
 			, #{pointAcmtl}
@@ -294,6 +314,7 @@
 			, SYSDATE()
 			, #{itrstField, jdbcType=VARCHAR}
 			, #{joinCours, jdbcType=VARCHAR}
+			, #{joinTy, jdbcType=VARCHAR}
 			, SYSDATE()
 			, #{lgnFailrCnt}
 			, #{recentCntnDt}
@@ -336,6 +357,7 @@
 			, trms_agre_dt = #{trmsAgreDt}
 			, itrst_field = #{itrstField, jdbcType=VARCHAR}
 			, join_cours = #{joinCours, jdbcType=VARCHAR}
+			, join_ty = #{joinTy, jdbcType=VARCHAR}
 			, lgn_failr_cnt = #{lgnFailrCnt}
 			, recent_cntn_dt = #{recentCntnDt}
 			, tmpr_pswd_yn = #{tmprPswdYn, jdbcType=VARCHAR}
@@ -510,7 +532,24 @@
 			mber_grade = #{mberGrade}
 		WHERE unique_id = #{srchUniqueId}
 	</update>
-
+	
+	<update id="updateKaKaoInfo" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			mbl_telno = #{mblTelno}
+			, eml = #{eml}
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+	
+	<update id="updateMbrAddr" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			mbr_nm = #{mbrNm}
+			, mbl_telno = #{mblTelno}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+		WHERE unique_id = #{uniqueId}
+	</update>
+	
 	<select id="selectMbrEtcInfo" parameterType="java.util.HashMap" resultType="egovMap">
 		SELECT
 			IFNULL((SELECT bnef_blce FROM RECIPTER_INFO ri WHERE unique_id = #{srchUniqueId}), 0) AS total_bnef_blce

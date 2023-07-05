@@ -132,6 +132,22 @@
 	<definition name="/membership/*/*" extends=".membership_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}/{2}.jsp" />
 	</definition>
+	
+	<!-- 메인(main) -->
+	<definition name=".main_layout" template="/WEB-INF/jsp/main/layout/layout.jsp">
+		<put-attribute name="aside" 	value="/WEB-INF/jsp/main/layout/aside.jsp" />
+		<put-attribute name="header" 	value="/WEB-INF/jsp/main/layout/header.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/main/layout/footer.jsp" />
+	</definition>
+	<definition name="/main/include/*" template="/WEB-INF/jsp/main/include/{1}.jsp" />
+	<definition name="/main/*" extends=".main_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/main/{1}.jsp" />
+	</definition>
+	<definition name="/main/*/*" extends=".main_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/main/{1}/{2}.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>

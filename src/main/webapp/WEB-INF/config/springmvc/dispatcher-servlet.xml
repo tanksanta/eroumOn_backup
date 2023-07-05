@@ -101,6 +101,7 @@
         <mvc:interceptor>
         	<mvc:mapping path="/#{props['Globals.Planner.path']}/**"/>
         	<mvc:mapping path="/#{props['Globals.Membership.path']}/**"/>
+        	<mvc:mapping path="/#{props['Globals.Main.path']}/**"/>
         	<bean class="icube.common.interceptor.MbrAuthInterceptor" />
         </mvc:interceptor>
 

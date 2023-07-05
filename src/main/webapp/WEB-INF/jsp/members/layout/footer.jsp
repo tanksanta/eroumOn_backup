@@ -6,36 +6,46 @@
 			<!-- 회사 메뉴 -->
 			<nav class="footer-menu">
 			    <ul>
-					<li><a href="/planner/cntnts/company">회사소개</a></li>
-					<li><a href="/planner/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
+	            	<li><a href="${_mainPath}/cntnts/company">회사소개</a></li>
+					<li><a href="${_mainPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
 			    </ul>
 			</nav>
 			<!-- //회사 메뉴 -->
 
 			<!-- 패밀리 사이트 -->
-			<dl class="footer-family">
-			    <dt>패밀리 사이트</dt>
-			    <dd>
-					<ul class="global-link">
-						<li>
-							<a href="/planner" class="link-item1" target="_blank" title="새창열림">
-							    <div class="bubble">
-							        <small>시니어 라이프 케어 플랫폼</small>
-							        <strong>"이로움ON"</strong>
-							    </div>
-							</a>
-						</li>
-						<li>
-							<a href="/market" class="link-item3" target="_blank" title="새창열림">
-							    <div class="bubble">
-                                    <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
-							       	<small>복지용구부터 시니어 생활용품까지 한번에!</small>
-							    </div>
-							</a>
-						</li>
-					</ul>
-			    </dd>
-			</dl>
+			<div class="footer-family">
+				<dl>
+					<dt>슈퍼시니어</dt>
+					<dd>
+						<ul class="global-link">
+							<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl>
+				    <dt>패밀리 사이트</dt>
+				    <dd>
+						<ul class="global-link">
+							<li>
+								<a href="/planner" class="link-item1" target="_blank" title="새창열림">
+								    <div class="bubble">
+								        <small>시니어 라이프 케어 플랫폼</small>
+								        <strong>"이로움ON"</strong>
+								    </div>
+								</a>
+							</li>
+							<li>
+								<a href="/market" class="link-item3" target="_blank" title="새창열림">
+								    <div class="bubble">
+	                                    <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+								       	<small>복지용구부터 시니어 생활용품까지 한번에!</small>
+								    </div>
+								</a>
+							</li>
+						</ul>
+				    </dd>
+				</dl>
+			</div>
 			<!-- //패밀리 사이트 -->
 		</div>
 

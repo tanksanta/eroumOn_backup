@@ -5,10 +5,12 @@ import org.apache.ibatis.type.Alias;
 import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @Alias("dlvyVO")
+@ToString
 public class DlvyVO extends CommonBaseVO {
 	private int dlvyMngNo;
 	private String uniqueId;

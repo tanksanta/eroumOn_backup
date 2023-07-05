@@ -5,9 +5,11 @@
             @apply p-0 border-0 h-5;
         }
         & th {
-            @apply text-[0.8125rem] md:text-sm font-bold tracking-tight;
+            @apply text-[0.8125rem] font-bold tracking-tight
+                   md:text-sm;
             & p {
-                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md md:px-3 md:pb-2.5 md:pt-5;
+                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md
+                       md:pt-5 md:px-3 md:pb-2.5;
             }
         }
         & td {
@@ -20,9 +22,7 @@
         }
         & .top-border {
             & td {
-                &:first-child {
-                    @apply bg-black2;
-                }
+                @apply first:bg-black2;
             }
         }
     }
@@ -60,7 +60,8 @@
             & tr {
                 & th {
                     & p {
-                        @apply text-center justify-center py-3 md:py-3.5;
+                        @apply text-center justify-center py-3
+                               md:py-3.5;
                     }
                 }
             }

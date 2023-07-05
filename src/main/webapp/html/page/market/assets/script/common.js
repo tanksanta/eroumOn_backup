@@ -28,17 +28,6 @@ var horizonScroll = function(element) {
     });
 };
 
-var navClock = function() {
-    var now  = new Date();
-    var hour = now.getHours();
-    var mins = now.getMinutes();
-
-    $('.navigation-clock .hour').text(hour + '시').css({'--tw-rotate' : ((hour / 12) * 360) + 'deg'});
-    $('.navigation-clock .mins').text(mins + '분').css({'--tw-rotate' : ((mins / 60) * 360) + 'deg'});
-};
-
-
-
 $(function() {
 /*
 	var keys = "";
@@ -122,13 +111,6 @@ $(function() {
         $(this).toggleClass('is-active');
     })
 
-    //공용 옵션박스
-    /*
-    $('.product-option .option-toggle').on('click', function() {
-        $(this).closest('.product-option').toggleClass('is-active');
-    })
-    */
-
     // 팝업 닫기
     $(".cls-popup-btn").on("click",function(){
     	var popNo = $(this).data("popNo");
@@ -141,329 +123,8 @@ $(function() {
 		}
     });
 
-
-    //상단 시계
-    setInterval(navClock, 1000);
-    navClock();
-
-
     //상단 네비 스크롤
-    horizonScroll($('.navigation-menu .container'));
-
-
-    //상단 네비 폴딩
-    // $('.navigation-menu .toggle').on('click', function() {
-    //     var mSpace  = 0;
-    //     var target = $('.navigation-menu');
-
-    //     target.find('li').each(function() {
-    //         mSpace = mSpace + $(this).outerWidth(true);
-    //         if($(this).hasClass('seperate')) {
-    //             return false;
-    //         }
-    //     })
-
-    //     target.find('ul').one('transitionend webkitTransitionEnd oTransitionEnd', function() {
-    //         target.removeClass('is-animate');
-    //     })
-
-    //     if(target.hasClass('is-hidden')) {
-    //         target.addClass('is-animate').removeClass('is-hidden').find('ul').removeAttr('style');
-    //     } else {
-    //         target.addClass('is-animate').addClass('is-hidden').find('ul').css({'margin-left' : -mSpace});
-    //     }
-    // });
-
-    $('.header-layer .menu-item > a').on('click', function() {
-        $(this).parent().toggleClass('is-active').siblings().removeClass('is-active');
-    });
-
-    //상단 전체 검색
-    $('.navigation-search-toggle, .navigation-search-layer .closed').on('click', function() {
-        var layer   = $('.navigation-search-layer');
-        var trigger = $('.navigation-search-toggle');
-
-        layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
-            $(this).removeClass('is-animate');
-        });
-
-        if(layer.hasClass('is-active')) {
-            $('body').removeClass('overflow-hidden');
-            layer.addClass('is-animate').removeClass('is-active');
-            trigger.removeClass('is-active');
-        } else {
-            $('body').addClass('overflow-hidden');
-            layer.addClass('is-animate').addClass('is-active');
-            trigger.addClass('is-active');
-        }
-    });
-
-    $('.navigation-search-layer').on('click', function(e) {
-        var layer   = $('.navigation-search-layer');
-        var trigger = $('.navigation-search-toggle');
-
-        layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
-            $(this).removeClass('is-animate');
-        });
-
-        if(e.target === $(this).get(0)) {
-            $('body').toggleClass('overflow-hidden');
-            layer.addClass('is-animate').removeClass('is-active');
-            trigger.removeClass('is-active');
-        }
-    })
-
-    var swiper = new Swiper(".navigation-search-layer .swiper", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        breakpoints: {
-            768 : {
-                slidesPerView: "auto"
-            }
-        }
-    });
-
-    //상단 상품 비교
-    /* product.js로 이동
-    $('.service-compare-items li').on('mouseenter', function() {
-        $(this).addClass('is-active').siblings().removeClass('is-active');
-    }).on('mouseleave', function() {
-        $(this).removeClass('is-active');
-    });
-
-    $('.service-compare-toggle, .service-compare-layer .closed').on('click', function() {
-        $('.service-compare-toggle, .service-compare-layer').toggleClass('is-active');
-    });
-
-    $('.service-compare-layer td').on('mouseenter mouseleave', function(e) {
-        var index = $(this).index() - 1;
-        var layer = $('.service-compare-layer');
-
-        if(e.type === 'mouseenter') {
-            layer.find('tr').each(function() {
-                $(this).find('td').removeClass('is-active').eq(index).addClass('is-active');
-            });
-
-            layer.find('.select').css({'left' : $(this).position().left}).show();
-        } else {
-            layer.find('tr').each(function() {
-                $(this).find('td').eq(index).removeClass('is-active');
-            });
-
-            layer.find('.select').hide();
-        }
-    });
-    */
-
-    //상단 쇼핑 히스토리
-    var swiper2 = new Swiper(".service-recent-layer .swiper", {
-        slidesPerView: "auto",
-        spaceBetween: 16,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-            768 : {
-                spaceBetween: 28
-            },
-            1280 : {
-                spaceBetween: 40
-            }
-        }
-    });
-
-    $('.service-recent, .service-recent-layer .closed').on('click', function() {
-        $('.service-recent, .service-recent-layer').toggleClass('is-active');
-        return false;
-    });
-
-    //상단 슬로건
-    if($('.service-slogan').length > 0) {
-        $('.service-slogan .word').each(function(index) {
-            $(this).css('margin-top', ($(this).height() * index));
-        });
-        
-        setInterval(function() {
-            $('.service-slogan .word').each(function(index) {
-                $(this).addClass('is-animate').css('margin-top', ($(this).height() * (index - 1))).one('transitionend webkitTransitionEnd oTransitionEnd', function() {
-                    $(this).removeClass('is-animate');
-                    if((index - 1) === -1) {
-                        $(this).detach().appendTo($('.service-slogan')).css('margin-top', ($(this).height() * $(this).index()));
-                    }
-                });
-            });
-        }, 10000);
-    }
-
-    //개인화 레이어
-    var person       = $('.personal-info');
-    var personRoot   = person.parent();
-    var personUser   = person.find('.personal-user');
-    var personBody   = person.find('.personal-detail');
-    var personLink   = person.find('.personal-famlink');
-    var personCart   = person.find('.personal-famcart');
-    var personTop    = person.find('.personal-toggle');
-    var personLayer  = $('.personal-layer');
-    var personLayer2 = $('.personal-layer2');
-    var personInit   = function() {
-        person.removeAttr('style');
-        personUser.attr('data-width', personUser.outerWidth(true));
-        personBody.each(function() {
-            var temp = 0;
-            $(this).find('> *').each(function() { temp = temp + $(this).outerWidth(true); });
-            $(this).attr('data-width', temp);
-        });
-
-        if(person.is('[class*="bg-color"]')) {
-            personLink.addClass('is-linked');
-        } else {
-            personLink.removeClass('is-linked');
-        }
-
-        if(personRoot.attr('id') === 'personal') {
-            personRoot.addClass('is-active').css({'margin-left' : -(personRoot.outerWidth()/2)});
-        }
-    }
-
-    personInit();
-
-    personLink.on('click', function() {
-        var link = personBody.filter('.personal-onlink');
-
-        $('body').addClass('overflow-hidden');
-
-        if(personRoot.attr('id') === 'personal') {
-            var link = personBody.filter('.personal-onlink');
-
-            personBody.removeClass('is-active').filter('.personal-onlink').addClass('is-active');
-
-            person.removeClass('is-noshadow');
-            personLayer.addClass('is-active');
-            personLayer2.removeClass('is-active');
-
-            personRoot.addClass('is-active').css({'margin-left' : -(link.position().left + parseInt(link.find('.personal-container').css('padding-left').replace('px','')) + (link.find('.icon').width()/2))});
-        }
-
-        if(personRoot.attr('id') === 'page-personal') {
-            var scrollTop = personRoot.get(0).getBoundingClientRect().top - $('#header').outerHeight();
-            var topSize   = personRoot.get(0).getBoundingClientRect().top + personRoot.outerHeight() + 8;
-
-            if(scrollTop !== 0) {
-                $(window).scrollTop($(window).scrollTop() + scrollTop);
-                setTimeout(function() {
-                    topSize = personRoot.get(0).getBoundingClientRect().top + personRoot.outerHeight() + 8;
-
-                    personBody.removeClass('is-active').filter('.personal-onlink').addClass('is-active');
-                    personLayer.css({'top': topSize}).addClass('is-active');
-                    personLayer2.removeClass('is-active');
-                    person.removeClass('is-noshadow').addClass('is-active').css({'left' : -((link.offset().left - ($(window).width()/2)) + (parseInt(link.find('.personal-container').css('padding-left').replace('px','')) + link.find('.icon').width()/2))});
-                }, 500);
-            }
-
-            if(scrollTop == 0) {
-                personBody.removeClass('is-active').filter('.personal-onlink').addClass('is-active');
-                personLayer.css({'top': topSize}).addClass('is-active');
-                personLayer2.removeClass('is-active');
-                person.removeClass('is-noshadow').addClass('is-active').css({'left' : -((link.offset().left - ($(window).width()/2)) + (parseInt(link.find('.personal-container').css('padding-left').replace('px','')) + link.find('.icon').width()/2))});
-            }
-        }
-    });
-
-    personTop.on('click', function() {
-        $(window).scrollTop(0);
-        return false;
-    });
-
-    personLayer.find('.modal-item input').on('change', function() {
-        if($(this).is(':checked')) {
-            var color = 'personal-info bg-color' + ($(this).closest('.modal-item').index() + 1);
-            person.attr('class', color);
-        }
-    })
-
-    personLayer.find('.modal-footer .link1').on('click', function() {
-        $(this).closest('.modal-content').find('.modal-item .input').prop('checked', false);
-        person.attr('class', 'personal-info');
-        return false;
-    });
-
-    /* .connect */
-    personLayer.find('.modal-footer ').on('click', function() {
-    	if($(".bg-color*").length > 0){
-	    	$('body').removeClass('overflow-hidden');
-	        personBody.removeClass('is-active').filter('.personal-onbase').addClass('is-active');
-	        personLayer.removeClass('is-active');
-
-	        if(person.is('[class*="bg-color"]')) {
-	            personLink.addClass('is-linked');
-	        } else {
-	            personLink.removeClass('is-linked');
-	        }
-	        personInit();
-    	}
-    });
-
-    personCart.on('click', function() {
-        $('body').addClass('overflow-hidden');
-
-        if(personRoot.attr('id') === 'personal') {
-            personLayer2.addClass('is-active');
-            person.addClass('is-noshadow');
-        }
-
-        if(personRoot.attr('id') === 'page-personal') {
-            var scrollTop = personRoot.get(0).getBoundingClientRect().top - $('#header').outerHeight();
-            var topSize   = personRoot.get(0).getBoundingClientRect().top + (personRoot.outerHeight() * 0.55);
-
-            if(scrollTop !== 0) {
-                $(window).scrollTop($(window).scrollTop() + scrollTop);
-                setTimeout(function() {
-                    topSize = personRoot.get(0).getBoundingClientRect().top + (personRoot.outerHeight()/2);
-
-                    personBody.removeClass('is-active').filter('.personal-onbase').addClass('is-active');
-                    personLayer.removeClass('is-active');
-                    personLayer2.css({'top': topSize}).addClass('is-active');
-                    person.addClass('is-noshadow');
-                }, 500);
-            }
-
-            if(scrollTop == 0) {
-                personBody.removeClass('is-active').filter('.personal-onbase').addClass('is-active');
-                personLayer.removeClass('is-active');
-                personLayer2.css({'top': topSize}).addClass('is-active');
-                person.addClass('is-noshadow');
-            }
-        }
-    });
-
-
-    personLayer2.find('.modal-footer .btn-outline-primary').on('click', function() {
-        $('body').removeClass('overflow-hidden');
-        personLayer2.removeClass('is-active');
-        person.removeClass('is-noshadow');
-    });
-
-    $(window).on('scroll', function() {
-        if(personRoot.attr('id') === 'personal') {
-            var targetH = $('#header').outerHeight(true) + $('#navigation').outerHeight(true) + $('#service').outerHeight(true);
-            if($(this).scrollTop() >= targetH) {
-                personBody.removeClass('is-active').filter('.personal-oncart').addClass('is-active');
-            } else {
-                personBody.removeClass('is-active').filter('.personal-onbase').addClass('is-active');
-            }
-        }
-        personInit();
-    });
-
-    $(window).on('load resize', function() {
-        personBody.removeClass('is-active').filter('.personal-onbase').addClass('is-active');
-        personLayer.removeClass('is-active');
-        personLayer2.removeClass('is-active');
-        person.removeClass('is-noshadow');
-
-        personInit();
-    });
+    horizonScroll($('.navigation-submenu ul'));
 
 
     //사이드 메뉴 토글
@@ -483,7 +144,7 @@ $(function() {
             layer.addClass('is-animate').removeClass('is-active');
         } else {
             if(pheader.get(0).getBoundingClientRect().top > pheader.css('top').replace('px', '')) {
-                $(window).scrollTop($(window).scrollTop() + 1 + pheader.get(0).getBoundingClientRect().top - pheader.css('top').replace('px', ''));
+                $(window).scrollTop($(window).scrollTop() + pheader.get(0).getBoundingClientRect().top - ($('#navigation').outerHeight()));
                 setTimeout(() => {
                     body.addClass('overflow-hidden');
                     button.addClass('is-active');
@@ -518,18 +179,18 @@ $(function() {
         $(this).closest('.page-sidenav-group').toggleClass('is-active');
     });
 
-    //타이틀 브래드스크럼 토글
-    $('.page-header-breadcrumb > li > a').on('click', function() {
-        $(this).parent().toggleClass('is-active').siblings().removeClass('is-active');
-        return false;
-    });
-
     //퀵메뉴
     $('#quick .moveTop').on('click', function() {
         $(window).scrollTop(0);
     });
 
-    $(window).on('load scroll', function() {
+    $(window).on('load scroll resize', function() {
+		if($(window).scrollTop() > $('#header').outerHeight() - ($('#navigation').outerHeight() + 3)) {
+			$('body').addClass('is-scroll');
+		} else {
+			$('body').removeClass('is-scroll');
+		}
+
         if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
             $('#quick').addClass('is-active');
         } else {

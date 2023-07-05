@@ -27,8 +27,7 @@
     <!-- header -->
     <header id="header">
         <div class="container">
-            <a href="#" class="header-toggle"><img src="../../assets/images/btn-header-toggle.svg" alt="마켓 로고"></a>
-            <h1 class="header-logo"><img src="../../assets/images/img-header-logo.svg" alt="이로움 마켓"></h1>
+            <h1 class="header-logo global-logo is-style2"><a href="#"><span>마켓</span></a></h1>
             <ul class="header-menu">
                 <li><a href="#">로그인</a></li>
                 <li><a href="#">회원가입</a></li>
@@ -45,19 +44,19 @@
             </div> -->
             <div class="login">
                 <p class="name"><strong>관리자</strong>님</p>
-                <img src="../../assets/images/img-shopbag.png" alt="" class="bags">
+                <img src="../assets/images/img-shopbag.png" alt="" class="bags">
                 <p class="rank">
                     <small>일반회원</small>
-                    <strong><img src="../../assets/images/img-grade1.svg" alt=""></strong>
+                    <strong><img src="../assets/images/img-grade1.svg" alt=""></strong>
                 </p>
             </div>
         </div>
         <div class="offcanvas-body">
             <div class="button">
                 <picture>
-                    <source srcset="../../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
-                    <source srcset="../../assets/images/txt-header-nav.svg"> 
-                    <img src="../../assets/images/txt-header-nav.svg" alt="" />
+                    <source srcset="../assets/images/txt-header-nav-mobile.svg" media="(max-width: 1024px)"> 
+                    <source srcset="../assets/images/txt-header-nav.svg"> 
+                    <img src="../assets/images/txt-header-nav.svg" alt="" />
                 </picture>
                 <a href="#">로그인</a>
                 <a href="#">주문내역</a>
@@ -69,7 +68,7 @@
                         <small>welfare<br> equipment</small>
                     </a>
                     <div class="sub-items">
-                        <p><img src="../../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
+                        <p><img src="../assets/images/txt-header-nav-menu1.svg" alt="welfare equipment"></p>
                         <ul>
                             <li class="sub-item is-active"><a href="#">수동휠체어</a></li>
                             <li class="sub-item"><a href="#">성인용 보행기</a></li>
@@ -107,7 +106,7 @@
                         <small>food</small>
                     </a>
                     <div class="sub-items">
-                        <p><img src="../../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
+                        <p><img src="../assets/images/txt-header-nav-menu2.svg" alt="food"></p>
                         <ul>
                             <li class="sub-item"><a href="#">과일</a></li>
                             <li class="sub-item"><a href="#">채소</a></li>
@@ -128,7 +127,7 @@
                         <small>fashion</small>
                     </a>
                     <div class="sub-items">
-                        <p><img src="../../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
+                        <p><img src="../assets/images/txt-header-nav-menu3.svg" alt="fashion"></p>
                         <ul>
                             <li class="sub-item"><a href="#">과일</a></li>
                             <li class="sub-item"><a href="#">채소</a></li>
@@ -149,7 +148,7 @@
                         <small>beauty</small>
                     </a>
                     <div class="sub-items">
-                        <p><img src="../../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
+                        <p><img src="../assets/images/txt-header-nav-menu4.svg" alt="beauty"></p>
                         <ul>
                             <li class="sub-item"><a href="#">과일</a></li>
                             <li class="sub-item"><a href="#">채소</a></li>
@@ -170,7 +169,7 @@
                         <small>living</small>
                     </a>
                     <div class="sub-items">
-                        <p><img src="../../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
+                        <p><img src="../assets/images/txt-header-nav-menu5.svg" alt="living"></p>
                         <ul>
                             <li class="sub-item"><a href="#">과일</a></li>
                             <li class="sub-item"><a href="#">채소</a></li>
@@ -330,37 +329,45 @@
     <!-- aside -->
     <aside id="service">
         <div class="container">
-            <p class="service-slogan">Easy Equity E-ROUM MARKET</p>
+            <div class="service-slogan">
+                <div class="word"><p><span>SENIOR LIFE STYLE</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프 스타일</span> <small>by E·ROUM</small></p></div>
+                <div class="word"><p><span>시니어 라이프</span> <small>by E·ROUM</small></p></div>
+            </div>
             <a href="#" class="service-interest"><span>관심상품</span> <i>2</i></a>
             <a href="#" class="service-mycart"><span>장바구니</span> <i>3</i></a>
             <!-- 장바구니 메세지 스크립트 onload after
             $('.service-mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
             $('.service-mycart').removeAttr('title').tooltip('dispose');
             -->
-            <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
+            <!-- <a href="#" class="service-recent"><span>최근본상품</span> <i>4</i></a>
             <div class="service-compare">
                 <div class="container">
                     <button type="button" class="service-compare-toggle" data-bs-toggle="tooltip" title="상품비교">최근본상품</button>
                     <ul class="service-compare-items">
                         <li>
-                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
                             <button type="button">닫기</button>
                         </li>
                         <li>
-                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
                             <button type="button">닫기</button>
                         </li>
                         <li>
-                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
                             <button type="button">닫기</button>
                         </li>
                         <li>
-                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                            <img src="../assets/images/dummy/img-dummy-product.png" alt="">
                             <button type="button">닫기</button>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
+            <p class="service-join">
+                <strong>회원 가입</strong>하고<br>
+                <em>제품가의 <span>15% ~ 0%</span></em> <strong>본인부담금</strong>만 <strong>결제</strong>하세요
+            </p>
         </div>
         <div class="service-compare-layer">
             <div class="header">
@@ -388,7 +395,7 @@
                                 <div class="delete">
                                     <button type="button">삭제</button>
                                 </div>
-                                <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
+                                <div class="thumb"><img src="../assets/images/dummy/img-dummy-product.png" alt=""></div>
                             </td>
                             <td class="items">
                                 <div class="delete">
@@ -409,17 +416,42 @@
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">상품명</div></th>
-                            <td class="items name">
-                                TOPRO TROJA 5G<br>
-                                TOPRO TROJA 5G<br>
-                                TOPRO TROJA 5G<br>
-                                TOPRO TROJA 5G<br>
-                            </td>
-                            <td class="items name">TOPRO TROJA 5G</td>
-                            <td class="items name">TOPRO TROJA 5G</td>
                             <td class="items" rowspan="7">
                                 <div class="empty">
-                                    <img src="../../assets/images/img-compare-number4.svg" alt="">
+                                    <img src="../assets/images/img-compare-number1.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number2.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number3.svg" alt="">
+                                    <p>
+                                        상품비교는<br>
+                                        같은 카테고리내에서<br>
+                                        최대 4개까지<br> 
+                                        가능합니다.
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="items" rowspan="7">
+                                <div class="empty">
+                                    <img src="../assets/images/img-compare-number4.svg" alt="">
                                     <p>
                                         상품비교는<br>
                                         같은 카테고리내에서<br>
@@ -431,149 +463,221 @@
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">판매가</div></th>
-                            <td class="items cost1">454,000 <small>원</small></td>
-                            <td class="items cost1">454,000 <small>원</small></td>
-                            <td class="items cost1">454,000 <small>원</small></td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">급여가</div></th>
-                            <td class="items cost2">454,000 <small>원</small></td>
-                            <td class="items cost2">454,000 <small>원</small></td>
-                            <td class="items cost2">454,000 <small>원</small></td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">재질</div></th>
-                            <td class="items material">알루미늄</td>
-                            <td class="items material">알루미늄</td>
-                            <td class="items material">알루미늄</td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">사이즈</div></th>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">폭</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">길이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">높이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">폭</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">길이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">높이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">폭</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">길이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">높이</th>
-                                        <td>60cm</td>
-                                    </tr>
-                                </table>
-                            </td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">중량</div></th>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">S</th>
-                                        <td>7.6kg</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">M</th>
-                                        <td>7.8kg</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">S</th>
-                                        <td>7.6kg</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">M</th>
-                                        <td>7.8kg</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="items size">
-                                <table>
-                                    <tr>
-                                        <th scope="row">S</th>
-                                        <td>7.6kg</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">M</th>
-                                        <td>7.8kg</td>
-                                    </tr>
-                                </table>
-                            </td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"><div class="sheader">규격</div></th>
-                            <td class="items rule">-</td>
-                            <td class="items rule">-</td>
-                            <td class="items rule">-</td>
                         </tr>
                         <tr>
                             <th scope="row" class="title"></th>
-                            <td class="items">
-                                <div class="button">
-                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
-                                    <a href="#" class="btn btn-love">찜하기</a>
-                                </div>
-                            </td>
-                            <td class="items">
-                                <div class="button">
-                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
-                                    <a href="#" class="btn btn-love is-active">찜하기</a>
-                                </div>
-                            </td>
-                            <td class="items">
-                                <div class="button">
-                                    <a href="#" class="btn btn-outline-primary">장바구니 담기</a>
-                                    <a href="#" class="btn btn-love">찜하기</a>
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
             <button type="button" class="closed">상품 비교 접기</button>
         </div>
+        <div class="service-recent-layer">
+            <div class="container">
+                <div class="header">
+                    <p class="name">쇼핑 <small>히스토리</small></p>
+                    <p class="desc">최근 본 제품을 확인할 수 있습니다</p>
+                </div>
+                <div class="items">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                    <img src="../assets/images/dummy/img-dummy-product.png" alt="">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                            <a href="#" class="swiper-slide">
+                                <div class="thumb">
+                                </div>
+                                <div class="name">
+                                    <small>성인용보행기</small>
+                                    TOPRO TROJA 5G NSBS-LS4475
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <button type="button" class="closed">쇼핑 히스토리 접기</button>
+        </div>
     </aside>
     <!-- //aside -->
 
     <!-- container -->
-
     <main id="container">
         <h2 id="page-title">주문/배송조회</h2>
 
@@ -2434,59 +2538,84 @@
     <!-- //container -->
 
     <!-- footer -->
-    <footer id="footer">
-        <!-- 회사 메뉴 -->
-        <nav class="footer-menu">
-            <ul>
-                <li><a href="#">회사소개</a></li>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">전자금융거래약관</a></li>
-                <li><a href="#"><strong>개인정보보호방침</strong></a></li>
-            </ul>
-        </nav>
-        <!-- //회사 메뉴 -->
+    <footer id="footer" class="global-footer">
+        <div class="footer-link">
+            <!-- 회사 메뉴 -->
+            <nav class="footer-menu">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">전자금융거래약관</a></li>
+                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                </ul>
+            </nav>
+            <!-- //회사 메뉴 -->
+
+            <!-- 패밀리 사이트 -->
+            <dl class="footer-family">
+                <dt>패밀리 사이트</dt>
+                <dd>
+                    <ul class="global-link">
+                        <li>
+                            <a href="#" class="link-item1">
+                                <div class="bubble">
+                                    <small>시니어 라이프 케어 플랫폼</small>
+                                    <strong>"이로움ON"</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="link-item2">
+                                <div class="bubble">
+                                    <strong>이로움ON 멤버스</strong>
+                                    <small>전국 2,432개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <!-- //패밀리 사이트 -->
+        </div>
         
-        <!-- 사이트 정보-->
-        <div class="footer-company">
-            <div class="company">
-                <h2>(주)티에이치케이컴퍼니</h2>
-                <p>대표 : 신종호</p>
-                <p>이메일 : <a href="mailto:eroum@thkc.co.kr">eroum@thkc.co.kr</a></p>
-                <div class="numb">
+        <hr>
+
+        <div class="footer-center">
+            <!-- 사이트 정보-->
+            <dl class="footer-company">
+                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dd id="footer-collapse" class="collapse">
+                    <p>대표 : 신종호</p>
                     <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
                     <p>통신판매신고번호 : 2018-서울강남-04157</p>
-                </div>
-                <address>
-                    <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
-                    <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
-                    <p>물류센터 : 인천광역시 서구 이든1로 21</p>
-                </address>
-            </div>
-            <div class="customer">
-                <h2>고객센터</h2>
-                <dl>
-                    <dt>주문안내</dt>
-                    <dd><a href="tel:1588-1312">1588-1312</a></dd>
-                </dl>
-                <dl>
-                    <dt>시스템안내</dt>
-                    <dd><a href="tel:02-830-1312">02-830-1312</a></dd>
-                </dl>
-                <dl>
-                    <dt>운영시간</dt>
-                    <dd>
-                        월~금 (주말 및 공휴일 휴무)<br>
-                        오전 9:00~오후 6:00<br>
-                        점심시간 오후 12시 ~ 1시
-                    </dd>
-                </dl>
-            </div>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </dd>
+            </dl>
+            <!-- //사이트 정보-->
+
+            <!-- 고객센터 -->
+            <dl class="footer-customer">
+                <dt>고객센터</dt>
+                <dd>
+                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
+                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
+                </dd>
+                <dd>
+                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                </dd>
+            </dl>
+            <!-- //고객센터 -->
         </div>
-        <!-- //사이트 정보-->
-        
-        <!-- 카피 -->
+
+        <hr>
+
+        <!-- 카피 라이트 -->
         <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
-        <!-- //카피 -->
+        <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
 

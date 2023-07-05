@@ -1,169 +1,179 @@
 /* button */
 @layer components {
     .btn {
-        @apply px-4 h-[2.625rem] text-[0.9375rem] leading-tight md:px-5 md:h-12 md:text-base;
-        word-break: keep-all;
-        &:hover, &:focus {
-            @apply outline-0 bg-gray2;
-        }
-        &:focus {
-            @apply border-gray1 ring-gray2;
-        }
-        &:active {
-            @apply outline-0 border-gray1 bg-white ring-gray2;
-        }
+        @apply px-4 h-[2.625rem] text-[0.9375rem] leading-tight break-keep
+               hover:outline-0 hover:bg-gray2
+               focus:outline-0 focus:border-gray1 focus:bg-gray2 focus:ring-gray2
+               active:outline-0 active:border-gray1 active:bg-white active:ring-gray2
+               disabled:!border-gray2 disabled:!bg-gray2 disabled:!text-gray1
+               md:px-5 md:h-12 md:text-base;
         &.btn-small {
-            @apply rounded px-3.5 h-8 text-sm md:px-5 md:h-9 md:text-[0.9375rem];
+            @apply rounded px-3.5 h-8 text-sm
+                   md:px-5 md:h-9 md:text-[0.9375rem];
         }
         &.btn-large {
-            @apply px-6 h-[3.125rem] text-base md:px-9 md:h-[4.375rem] md:text-lg;
+            @apply px-6 h-[3.125rem] text-base
+                   md:px-9 md:h-[4.375rem] md:text-lg;
         }
-        &:disabled, &.disabled {
-            @apply border-gray2 bg-gray2 text-gray1 !important;
+        &.disabled {
+            @apply !border-gray2 !bg-gray2 !text-gray1;
         }
     }
 
     .btn-small {
-        @apply rounded px-3.5 h-8 text-sm md:px-5 md:h-9 md:text-[0.9375rem];
+        @apply rounded px-3.5 h-8 text-sm
+               md:px-5 md:h-9 md:text-[0.9375rem];
     }
 
     .btn-large {
-        @apply px-6 h-[3.125rem] text-base md:px-9 md:h-[4.375rem] md:text-lg;
+        @apply px-6 h-[3.125rem] text-base
+               md:px-9 md:h-[4.375rem] md:text-lg;
     }
 
     .btn-primary, .btn-outline-primary {
-        @apply border-black2;
-        &:hover, &:focus, &:active {
-            @apply border-black2 ring-black2/10;
-        }
+        @apply border-black2
+               hover:border-black2 hover:ring-black2/10
+               focus:border-black2 focus:ring-black2/10
+               active:border-black2 active:ring-black2/10;
     }
 
     .btn-primary {
-        @apply bg-black2 text-white;
-        &:hover, &:focus, &:active {
-            @apply bg-black2;
-        }
+        @apply bg-black2 text-white
+               hover:bg-black2
+               focus:bg-black2
+               active:bg-black2;
     }
 
     .btn-outline-primary {
-        @apply bg-white text-black2;
-        &:hover, &:focus, &:active {
-            @apply bg-white;
-        }
+        @apply bg-white text-black2
+               hover:bg-white
+               focus:bg-white
+               active:bg-white;
     }
 
     .btn-secondary, .btn-outline-secondary {
-        @apply border-gray1 text-black2;
-        &:hover, &:focus, &:active {
-            @apply border-gray1;
-        }
+        @apply border-gray1 text-black2
+               hover:border-gray1
+               focus:border-gray1
+               active:border-gray1;
     }
 
     .btn-secondary {
-        @apply border-gray2 bg-gray2;
-        &:hover, &:focus, &:active {
-            @apply border-gray2 bg-gray2;
-        }
+        @apply border-gray2 bg-gray2
+               hover:border-gray2 hover:bg-gray2
+               focus:border-gray2 focus:bg-gray2
+               active:border-gray2 active:bg-gray2;
     }
 
     .btn-outline-secondary {
-        @apply bg-white;
-        &:hover, &:focus, &:active {
-            @apply bg-white;
-        }
+        @apply bg-white
+               hover:bg-white
+               focus:bg-white
+               active:bg-white;
     }
 
     .btn-danger, .btn-outline-danger {
-        @apply border-red3;
-        &:hover, &:focus, &:active {
-            @apply border-red3 ring-red3/10;
-        }
+        @apply border-red3
+               hover:border-red3 hover:ring-red3/10
+               focus:border-red3 focus:ring-red3/10
+               active:border-red3 active:ring-red3/10;
     }
 
     .btn-danger {
-        @apply bg-red3 text-white;
-        &:hover, &:focus, &:active {
-            @apply bg-red3;
-        }
+        @apply bg-red3 text-white
+               hover:bg-red3
+               focus:bg-red3
+               active:bg-red3;
     }
 
     .btn-outline-danger {
-        @apply bg-white text-red3;
-        &:hover, &:focus, &:active {
-            @apply bg-white;
-        }
+        @apply bg-white text-red3
+               hover:bg-white
+               focus:bg-white
+               active:bg-white;
     }
 
     .btn-success, .btn-outline-success {
-        @apply border-blue3;
-        &:hover, &:focus, &:active {
-            @apply border-blue3 ring-blue3/10;
-        }
+        @apply border-blue3
+               hover:border-blue3 hover:ring-blue3/10
+               focus:border-blue3 focus:ring-blue3/10
+               active:border-blue3 active:ring-blue3/10;
     }
 
     .btn-success {
-        @apply bg-blue3 text-white;
-        &:hover, &:focus, &:active {
-            @apply bg-blue3;
-        }
+        @apply bg-blue3 text-white
+               hover:bg-blue3
+               focus:bg-blue3
+               active:bg-blue3;
     }
 
     .btn-outline-success {
-        @apply bg-white text-blue3;
-        &:hover, &:focus, &:active {
-            @apply bg-white;
-        }
+        @apply bg-white text-blue3
+               hover:bg-white
+               focus:bg-white
+               active:bg-white;
     }
     
     .btn-icon {
         @apply p-0 overflow-hidden bg-no-repeat bg-center -indent-96 w-auto aspect-[1/1];
         &.btn-small {
-            @apply p-0 h-8 md:h-9;
+            @apply p-0 h-8
+                   md:h-9;
         }
         &.btn-large {
-            @apply p-0 h-[3.125rem] md:h-[4.375rem];
+            @apply p-0 h-[3.125rem]
+                       md:h-[4.375rem];
         }
     }
     
     .btn-refresh {
-        @apply btn-primary btn-icon bg-[length:1rem] md:bg-[length:1.125rem] bg-[url(../images/ico-refresh-white.svg)];
+        @apply btn-primary btn-icon bg-[length:1rem] bg-[url(../images/ico-refresh-white.svg)]
+               md:bg-[length:1.125rem];
         &.is-reverse {
-            @apply bg-[url(../images/ico-refresh.svg)] bg-white text-black2;
-            &:hover, &:focus, &:active {
-                @apply bg-white;
-            }
+            @apply bg-[url(../images/ico-refresh.svg)] bg-white text-black2
+                   hover:bg-white
+                   focus:bg-white
+                   active:bg-white;
         }
         &.btn-small {
-            @apply bg-[length:0.75rem] md:bg-[length:0.875rem];
+            @apply bg-[length:0.75rem]
+                   md:bg-[length:0.875rem];
         }
         &.btn-large {
-            @apply bg-[length:1.625rem] md:bg-[length:2rem];
+            @apply bg-[length:1.625rem]
+                   md:bg-[length:2rem];
         }
     }
     
     .btn-coupon, .btn-mileage, .btn-point, .btn-refresh2 {
-        @apply btn-primary pl-9 bg-no-repeat bg-[length:auto_1.25rem] md:pl-12 md:bg-[length:auto_1.5rem];
+        @apply btn-primary pl-9 bg-no-repeat bg-[length:auto_1.25rem]
+               md:pl-12 md:bg-[length:auto_1.5rem];
         &.is-reverse {
-            @apply bg-white text-black2;
-            &:hover, &:focus, &:active {
-                @apply bg-white;
-            }
+            @apply bg-white text-black2
+                   hover:bg-white
+                   focus:bg-white
+                   active:bg-white;
         }
         &.btn-small {
-            @apply pl-6 bg-[length:auto_1rem] md:pl-8 md:bg-[length:auto_1.125rem];
+            @apply pl-6 bg-[length:auto_1rem]
+                   md:pl-8 md:bg-[length:auto_1.125rem];
         }
         &.btn-large {
-            @apply pl-11 bg-[length:auto_1.625rem] md:pl-16 md:bg-[length:auto_1.75rem];
+            @apply pl-11 bg-[length:auto_1.625rem]
+                   md:pl-16 md:bg-[length:auto_1.75rem];
         }
     }
 
     .btn-refresh2 {
-        @apply bg-[url(../images/ico-refresh-white.svg)] bg-[left_0.75rem_center] bg-[length:1rem] md:bg-[left_1rem_center] md:bg-[length:1.125rem];
+        @apply bg-[url(../images/ico-refresh-white.svg)] bg-[left_0.75rem_center] bg-[length:1rem]
+               md:bg-[left_1rem_center] md:bg-[length:1.125rem];
         &.btn-small {
-            @apply bg-[left_0.375rem_center] bg-[length:0.875rem] md:bg-[left_0.625rem_center] md:bg-[length:1rem];
+            @apply bg-[left_0.375rem_center] bg-[length:0.875rem]
+                   md:bg-[left_0.625rem_center] md:bg-[length:1rem];
         }
         &.btn-large {
-            @apply bg-[left_0.75rem_center] bg-[length:1.625rem] md:bg-[left_1.125rem_center] md:bg-[length:2rem];
+            @apply bg-[left_0.75rem_center] bg-[length:1.625rem]
+                   md:bg-[left_1.125rem_center] md:bg-[length:2rem];
         }
         &.is-reverse {
             @apply bg-[url(../images/ico-refresh.svg)];
@@ -171,12 +181,15 @@
     }
 
     .btn-coupon {
-        @apply bg-[url(../images/txt-coupon-white.svg)] bg-[left_0.625rem_center] md:bg-[left_0.875rem_center];
+        @apply bg-[url(../images/txt-coupon-white.svg)] bg-[left_0.625rem_center]
+               md:bg-[left_0.875rem_center];
         &.btn-small {
-            @apply bg-[left_0.5rem_center] md:bg-[left_0.625rem_center];
+            @apply bg-[left_0.5rem_center]
+                   md:bg-[left_0.625rem_center];
         }
         &.btn-large {
-            @apply bg-[left_0.875rem_center] md:bg-[left_1.5rem_center];
+            @apply bg-[left_0.875rem_center]
+                   md:bg-[left_1.5rem_center];
         }
         &.is-reverse {
             @apply bg-[url(../images/txt-coupon.svg)];
@@ -184,12 +197,15 @@
     }
     
     .btn-mileage {
-        @apply bg-[url(../images/txt-mileage-white.svg)] bg-[left_0.5625rem_center] md:bg-[left_0.75rem_center];
+        @apply bg-[url(../images/txt-mileage-white.svg)] bg-[left_0.5625rem_center]
+               md:bg-[left_0.75rem_center];
         &.btn-small {
-            @apply bg-[left_0.375rem_center] md:bg-[left_0.55rem_center];
+            @apply bg-[left_0.375rem_center]
+                   md:bg-[left_0.55rem_center];
         }
         &.btn-large {
-            @apply bg-[left_0.75rem_center] md:bg-[left_1.375rem_center];
+            @apply bg-[left_0.75rem_center]
+                   md:bg-[left_1.375rem_center];
         }
         &.is-reverse {
             @apply bg-[url(../images/txt-mileage.svg)];
@@ -197,12 +213,15 @@
     }
 
     .btn-point {
-        @apply bg-[url(../images/txt-point-white.svg)] bg-[left_0.8125rem_center] md:bg-[left_1.125rem_center];
+        @apply bg-[url(../images/txt-point-white.svg)] bg-[left_0.8125rem_center]
+               md:bg-[left_1.125rem_center];
         &.btn-small {
-            @apply bg-[left_0.625rem_center] md:bg-[left_0.75rem_center];
+            @apply bg-[left_0.625rem_center]
+                   md:bg-[left_0.75rem_center];
         }
         &.btn-large {
-            @apply bg-[left_1rem_center] md:bg-[left_1.625rem_center];
+            @apply bg-[left_1rem_center]
+                   md:bg-[left_1.625rem_center];
         }
         &.is-reverse {
             @apply bg-[url(../images/txt-point.svg)];
@@ -210,41 +229,50 @@
     }
 
     .btn-love {
-        @apply btn-icon btn-outline-danger bg-[url(../images/ico-attent-plus-red.svg)] bg-[length:1.25rem] md:bg-[length:1.5rem];
+        @apply btn-icon btn-outline-danger bg-[url(../images/ico-attent-plus-red.svg)] bg-[length:1.25rem]
+               md:bg-[length:1.5rem];
         &.is-active {
-            @apply bg-red3 bg-[url(../images/ico-attent-minus-white.svg)] !important;
+            @apply !bg-red3 !bg-[url(../images/ico-attent-minus-white.svg)];
         }
         &.btn-small {
-            @apply bg-[length:0.875rem] md:bg-[length:1rem];
+            @apply bg-[length:0.875rem]
+                   md:bg-[length:1rem];
         }
         &.btn-large {
-            @apply bg-[length:1.875rem] md:bg-[length:2.25rem];
+            @apply bg-[length:1.875rem]
+                   md:bg-[length:2.25rem];
         }
     }
 
     .btn-compare {
-        @apply btn-icon btn-outline-primary bg-[url(../images/ico-compare2.svg)] bg-[length:1.25rem] md:bg-[length:1.5rem];
+        @apply btn-icon btn-outline-primary bg-[url(../images/ico-compare2.svg)] bg-[length:1.25rem]
+               md:bg-[length:1.5rem];
         &.is-active {
             @apply bg-black2 bg-[url(../images/ico-compare2-white.svg)];
         }
         &.btn-small {
-            @apply bg-[length:0.875rem] md:bg-[length:1rem];
+            @apply bg-[length:0.875rem]
+                   md:bg-[length:1rem];
         }
         &.btn-large {
-            @apply bg-[length:1.875rem] md:bg-[length:2.25rem];
+            @apply bg-[length:1.875rem]
+                   md:bg-[length:2.25rem];
         }
     }
 
     .btn-cart {
-        @apply btn-icon btn-outline-primary bg-[url(../images/ico-cart.svg)] bg-[length:1.375rem] md:bg-[length:1.625rem];
+        @apply btn-icon btn-outline-primary bg-[url(../images/ico-cart.svg)] bg-[length:1.375rem]
+               md:bg-[length:1.625rem];
         &.is-active {
             @apply bg-black2 bg-[url(../images/ico-cart-white.svg)];
         }
         &.btn-small {
-            @apply bg-[length:1rem] md:bg-[length:1.125rem];
+            @apply bg-[length:1rem]
+                   md:bg-[length:1.125rem];
         }
         &.btn-large {
-            @apply bg-[length:2rem] md:bg-[length:2.375rem];
+            @apply bg-[length:2rem]
+                   md:bg-[length:2.375rem];
         }
     }
 
@@ -268,12 +296,15 @@
     }
     
     .btn-payment {
-        @apply btn-primary border-0 bg-no-repeat bg-[url(../images/bg-payment.svg)] pl-10 pr-4 md:pr-6 md:pl-12 bg-[length:2.5rem] bg-[left_-0.25rem_top_0.625rem] md:bg-[left_-0.25rem_top_1rem] md:bg-[length:3rem];
+        @apply btn-primary border-0 bg-no-repeat bg-[url(../images/bg-payment.svg)] pl-10 pr-4
+               md:pr-6 md:pl-12 bg-[length:2.5rem] bg-[left_-0.25rem_top_0.625rem] md:bg-[left_-0.25rem_top_1rem] md:bg-[length:3rem];
         &.btn-small {
-            @apply pr-3 pl-7 md:pr-4 md:pl-8 bg-[left_-0.25rem_top_0.75rem] bg-[length:1.75rem] md:bg-[left_-0.25rem_top_0.75rem] md:bg-[length:2rem];
+            @apply pr-3 pl-7 md:pr-4 md:pl-8 bg-[left_-0.25rem_top_0.75rem] bg-[length:1.75rem]
+                   md:bg-[left_-0.25rem_top_0.75rem] md:bg-[length:2rem];
         }
         &.btn-large {
-            @apply px-15 bg-[left_-0.375rem_top_1rem] bg-[length:3.75rem] md:bg-[left_-0.375rem_top_1.5rem] md:bg-[length:4.375rem];
+            @apply px-15 bg-[left_-0.375rem_top_1rem] bg-[length:3.75rem]
+                   md:bg-[left_-0.375rem_top_1.5rem] md:bg-[length:4.375rem];
         }
     }
 
@@ -293,24 +324,28 @@
     }
 
     .btn-more {
-        @apply btn-icon btn-outline-primary h-5 rounded-full bg-[url(../images/ico-angle-right.svg)] bg-[length:0.375rem] md:h-5.5;
+        @apply btn-icon btn-outline-primary h-5 rounded-full bg-[url(../images/ico-angle-right.svg)] bg-[length:0.375rem]
+               md:h-5.5;
     }
 
     .btn-more2 {
-        @apply btn-primary py-0 pr-5 pl-2.5 h-5 rounded-full bg-no-repeat bg-[url(../images/ico-angle-right-white.svg)] bg-[length:0.375rem] bg-[right_0.5rem_center] text-[0.8125rem];
-        @apply md:pr-6 md:pl-3 md:h-5.5 md:text-sm md:bg-[right_0.625rem_center];
+        @apply btn-primary py-0 pr-5 pl-2.5 h-5 rounded-full bg-no-repeat bg-[url(../images/ico-angle-right-white.svg)] bg-[length:0.375rem] bg-[right_0.5rem_center] text-[0.8125rem]
+               md:pr-6 md:pl-3 md:h-5.5 md:text-sm md:bg-[right_0.625rem_center];
     }
 
     .btn-fold {
-        @apply btn-primary py-0 w-34 h-5 rounded-full text-[0.8125rem] md:w-38 md:h-5.5 md:text-sm;
+        @apply btn-primary py-0 w-34 h-5 rounded-full text-[0.8125rem]
+               md:w-38 md:h-5.5 md:text-sm;
     }
     
     .btn-delivery {
-        @apply btn-outline-primary flex-col px-2.5 h-[3.125rem] space-y-0.5 text-sm font-medium md:px-3.5 md:py-2.5 md:h-[4.375rem] md:text-[0.9375rem] md:space-y-1.5;
+        @apply btn-outline-primary flex-col px-2.5 h-[3.125rem] space-y-0.5 text-sm font-medium
+               md:py-2.5 md:px-3.5 md:h-[4.375rem] md:text-[0.9375rem] md:space-y-1.5;
         & .name {
             @apply flex items-center;
             & img {
-                @apply mr-1 scale-75 md:mr-1.5 md:scale-100;
+                @apply mr-1 scale-75
+                       md:mr-1.5 md:scale-100;
             }
         }
     }

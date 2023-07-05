@@ -2,18 +2,11 @@
     .breadcrumb {
         @apply text-xs text-black2;
         & li {
-            @apply inline-block mr-1;
+            @apply inline-block mr-1
+                   after:content-[">"] after:inline-block after:ml-1
+                   last:after:hidden;
             & strong {
                 @apply font-normal;
-            }
-            &::after {
-                content: ">";
-                @apply inline-block ml-1;
-            }
-            &:last-child {
-                &::after {
-                    @apply hidden;
-                }
             }
         }
     }

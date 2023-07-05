@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.gds">
+
+	<resultMap type="mainGdsMngVO" id="mainGdsMngVOMap" autoMapping="true" >
+		<association property="gdsInfo" column="{gdsNo=gds_no}" select="gds.gds.selectGds" />
+		<association property="gdsCtgry" column="{gdsNo=gds_no}" select="main.gds.selectMainGdsCtgryList"/>
+	</resultMap>
+
+	<resultMap type="gdsCtgryVO" id="gdsCtgryVO" autoMapping="true"  />
+
+
+	<sql id="listColumn">
+		main_no
+		, sort_no
+		, gds_no
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchMainNo != null and srchMainNo != '' ">
+			AND main_no = #{srchMainNo}
+		</if>
+	</sql>
+
+	<insert id="insertMainGdsMng" parameterType="mainGdsMngVO">
+		INSERT INTO MNG_MAIN_GDS(
+			main_no
+			, sort_no
+			, gds_no
+		)VALUES(
+			#{mainNo}
+			, #{sortNo}
+			, #{gdsNo}
+		)
+	</insert>
+
+	<select id="selectMainGdsMngList" parameterType="java.util.HashMap" resultMap="mainGdsMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MNG_MAIN_GDS
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY sort_no
+	</select>
+
+	<select id="selectMainGdsCtgryList" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
+		SELECT
+			m.gds_no
+			, gc2.ctgry_nm as up_ctgry_nm
+			, gc1.ctgry_nm
+		FROM MNG_MAIN_GDS m
+		LEFT JOIN GDS gds ON m.gds_no = gds.gds_no
+		LEFT JOIN GDS_CTGRY gc1 ON gds.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE m.gds_no = #{gdsNo}
+	</select>
+
+</mapper>

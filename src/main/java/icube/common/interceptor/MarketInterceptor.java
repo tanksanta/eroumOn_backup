@@ -66,6 +66,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
+	
+	@Value("#{props['Talk.Secret.key']}")
+	private String talkSecretKey;
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
@@ -142,9 +145,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 			}
 			request.setAttribute("_mileagePercent", mileagePercent);
 
-
-			// 채널톡 임시 > TO-DO secretKey 이동
-			String secretKey = "6fb289a7bfb1c9cc83c6310990e122474b40b73f147658f7c285940250958a06";
+			String secretKey = talkSecretKey;
 			String hash = HMACUtil.encode(mbrSession.getMbrId(), secretKey, "HMACSHA256");
 
 			System.out.println("hash: " + hash);
@@ -186,7 +187,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		//코드
 		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
 		request.setAttribute("_gdsTyCode", CodeMap.GDS_TY);
-		request.setAttribute("_prtcrRltCode", CodeMap.PRTCR_RLT);
 
 		//기타
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);

@@ -22,6 +22,7 @@
 
             </nav>
             <ul id="family" class="global-link is-bottom">
+				<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
                 <li>
                     <a href="${_plannerPath}" class="link-item1" target="_blank" title="새창열림">
                         <div class="bubble">
@@ -31,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
+                    <a href="${_mainPath}" class="link-item2" target="_blank" title="새창열림">
                         <div class="bubble">
                             <strong>이로움ON 멤버스</strong>
                             <small>전국 1,600개 업체와 함께합니다</small>
