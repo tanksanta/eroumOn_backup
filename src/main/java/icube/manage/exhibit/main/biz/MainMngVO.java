@@ -15,7 +15,7 @@ import lombok.Setter;
 public class MainMngVO extends CommonBaseVO {
 
 	private int mainNo;
-	private int sortNo;
+	private int sortNo = 1;
 	private String themaTy = "G";
 	private String sj;
 	private int rdcnt;
