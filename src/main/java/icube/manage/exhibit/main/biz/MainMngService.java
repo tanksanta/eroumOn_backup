@@ -1,6 +1,7 @@
 package icube.manage.exhibit.main.biz;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -69,6 +70,10 @@ public class MainMngService extends CommonAbstractServiceImpl {
 	public void updateMainMng(MainMngVO mainMngVO)throws Exception {
 		mainMngDAO.updateMainMng(mainMngVO);
 		
+	}
+
+	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
+		return mainMngDAO.selectMainMngList(paramMap);
 	}
 
 }

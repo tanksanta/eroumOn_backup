@@ -87,6 +87,15 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
+	
+	<select id="selectMainMngList" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY thema_ty, sort_no DESC
+	</select>
 
 
 	<insert id="insertMainMng" parameterType="mainMngVO">

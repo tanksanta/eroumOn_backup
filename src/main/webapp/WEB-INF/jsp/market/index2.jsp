@@ -7,13 +7,14 @@
 				<div class="swiper-slide">
 					<a href="${resultList.linkUrl}">
 						<picture>
-							<!--<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-visual-m.jpg" media="(max-width: 768px)">
-							 mobile url-->
-							<c:forEach var="fileList" items="${resultList.pcfileList}" varStatus="stts">
+							<c:forEach var="fileList" items="${resultList.mobilefileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" media="(max-width: 768px)">
+							</c:forEach>
+							 
+							<c:forEach var="fileList" items="${resultList.pcfileList}" varStatus="stts">
+								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">
 								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" alt="">
 							</c:forEach>
-							<!-- pc url -->
 						</picture>
 					</a>
 				</div>
@@ -160,22 +161,26 @@
 </div>
 
 <div class="main-banner1">
-	<div class="left">
-		<a href="#"> <picture>
-			<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png" media="(max-width: 768px)">
-			<!-- mobile url -->
-			<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png">
-			<!-- pc url --> <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner1.png" alt=""> <!-- pc url --> </picture>
-		</a>
-	</div>
-	<div class="right">
+	<c:forEach var="resultList" items="${mainMngList }" varStatus="status">
+		<c:if test="${resultList.themaTy eq 'H' }">
+		<div <c:if test="${resultList.sortNo eq 1}">class="left"</c:if><c:if test="${resultList.sortNo eq 2}">class="right"</c:if>>
+			<a href="${resultList.linkUrl}"> <picture>
+				<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
+				<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
+			</a>
+		</div>
+		</c:if>
+	</c:forEach>
+	
+	
+	<!-- <div class="right">
 		<a href="#"> <picture>
 			<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" media="(max-width: 768px)">
 			<!-- mobile url -->
-			<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png">
-			<!-- pc url --> <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" alt=""> <!-- pc url --> </picture>
+			<!-- <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png">
+			<!-- pc url  <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" alt=""> <!-- pc url  </picture>
 		</a>
-	</div>
+	</div> -->
 </div>
 
 <div class="main-product">

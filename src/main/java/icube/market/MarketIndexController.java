@@ -19,6 +19,8 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.vo.CommonListVO;
 import icube.manage.exhibit.banner.biz.BnnrMngService;
 import icube.manage.exhibit.banner.biz.BnnrMngVO;
+import icube.manage.exhibit.main.biz.MainMngService;
+import icube.manage.exhibit.main.biz.MainMngVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.members.bplc.biz.BplcService;
@@ -42,6 +44,9 @@ public class MarketIndexController extends CommonAbstractController {
 
 	@Resource(name = "bnnrMngService")
 	private BnnrMngService bnnrMngService;
+	
+	@Resource(name = "mainMngService")
+	private MainMngService mainMngService;
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
@@ -66,13 +71,18 @@ public class MarketIndexController extends CommonAbstractController {
 		model.addAttribute("listVO", listVO);*/
 
 		// 메인, 띠 배너 리스트
-
 		Map<String, Object> bannerMap = new HashMap<String, Object>();
 		bannerMap.put("srchUseYn", "Y");
 		bannerMap.put("srchNowDate", 1);
 		bannerMap.put("srchBannerTy", "M");
 		List<BnnrMngVO> mainBannerList = bnnrMngService.selectBnnrMngList(bannerMap);
 		model.addAttribute("mainBannerList", mainBannerList);
+		
+		bannerMap.remove("srchNowDate");
+		bannerMap.remove("srchBannerTy");
+		List<MainMngVO> mainMngList = mainMngService.selectMainMngList(bannerMap);
+		model.addAttribute("mainMngList", mainMngList);
+		
 
 		// 사업소 카운트
 		Map<String, Object> paramMap = new HashMap<String, Object>();
