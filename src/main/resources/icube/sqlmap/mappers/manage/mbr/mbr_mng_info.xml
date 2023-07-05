@@ -100,13 +100,6 @@
 		</if>
 	</sql>
 
-	<sql id="searchGroupConditions">
-		<if test="">
-
-		</if>
-	</sql>
-
-
 	<select id="selectMbrMngInfoListVO" parameterType="java.util.HashMap" resultMap="mbrMngInfoVOMap">
 		/* Query ID : mbrMngInfo.selectMbrMngInfoListVO */
 		SELECT *

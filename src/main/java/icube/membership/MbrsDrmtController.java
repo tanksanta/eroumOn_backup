@@ -105,70 +105,77 @@ public class MbrsDrmtController extends CommonAbstractController {
 		}
 
 		MbrVO mbrVO = mbrService.selectMbrIdByOne(mbrId);
-
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-		MbrVO noMbrVO = new MbrVO();
-		if(EgovStringUtil.isNotEmpty(mbrNm) && EgovStringUtil.isNotEmpty(mblTelno)) {
-
-	        Date sBrdt = formatter.parse(DateUtil.convertDate(brdt, "yyyy-MM-dd"));
-
-			noMbrVO.setMbrNm(mbrNm);
-			noMbrVO.setMblTelno(mblTelno);
-			noMbrVO.setGender(gender);
-			noMbrVO.setBrdt(sBrdt);
-
-		}else if(EgovStringUtil.isNotEmpty(receiptId)) {
-			// 본인인증정보 체크
-			HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-			String authData =String.valueOf(res.get("authenticate_data"));
-			String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-			HashMap<String, String> authMap = new HashMap<String, String>();
-			for(String auth : spAuthData) {
-				System.out.println("spAuthData: " + auth.trim());
-				String[] spTmp = auth.trim().split("=", 2);
-				authMap.put(spTmp[0], spTmp[1]); //key:value
-			}
-			/*
-			 !참고:부트페이 제공문서와 결과 값이 다름
-			      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
-
-			 */
-	        Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
-	        mblTelno = authMap.get("phone");
-	        gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
-	        if(EgovStringUtil.equals("1.0", gender)) {
-	        	gender = "M";
-	        }else {
-	        	gender = "W";
-	        }
-
-	        noMbrVO.setDiKey(authMap.get("di"));
-	        noMbrVO.setMbrNm(authMap.get("name"));
-	        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
-	        noMbrVO.setGender(gender);
-	        noMbrVO.setBrdt(sBrdt);
-
-	        System.out.println("noMbrVO: " + noMbrVO.toString());
-
+		
+		if(!mbrVO.getJoinTy().equals("E")) {
 	    	Map newMap = new HashMap();
 	    	newMap.put("srchUniqueId", mbrVO.getUniqueId());
 	    	newMap.put("mdfcnId", mbrVO.getMbrId());
 	    	newMap.put("mdfr", mbrVO.getMbrNm());
 	    	newMap.put("mberSttus", "NORMAL");
 			mbrService.updateRlsDrmt(newMap);
-
-			mbrSession.setLoginCheck(false);
 		}else {
-			model.addAttribute("alertMsg", "잘못된 방법으로 접근하였습니다.");
-			return "/common/msg";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+			MbrVO noMbrVO = new MbrVO();
+			if(EgovStringUtil.isNotEmpty(mbrNm) && EgovStringUtil.isNotEmpty(mblTelno)) {
+
+		        Date sBrdt = formatter.parse(DateUtil.convertDate(brdt, "yyyy-MM-dd"));
+
+				noMbrVO.setMbrNm(mbrNm);
+				noMbrVO.setMblTelno(mblTelno);
+				noMbrVO.setGender(gender);
+				noMbrVO.setBrdt(sBrdt);
+
+			}else if(EgovStringUtil.isNotEmpty(receiptId)) {
+				// 본인인증정보 체크
+				HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
+
+				String authData =String.valueOf(res.get("authenticate_data"));
+				String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
+
+				HashMap<String, String> authMap = new HashMap<String, String>();
+				for(String auth : spAuthData) {
+					System.out.println("spAuthData: " + auth.trim());
+					String[] spTmp = auth.trim().split("=", 2);
+					authMap.put(spTmp[0], spTmp[1]); //key:value
+				}
+				/*
+				 !참고:부트페이 제공문서와 결과 값이 다름
+				      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
+
+				 */
+		        Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
+		        mblTelno = authMap.get("phone");
+		        gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
+		        if(EgovStringUtil.equals("1.0", gender)) {
+		        	gender = "M";
+		        }else {
+		        	gender = "W";
+		        }
+
+		        noMbrVO.setDiKey(authMap.get("di"));
+		        noMbrVO.setMbrNm(authMap.get("name"));
+		        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
+		        noMbrVO.setGender(gender);
+		        noMbrVO.setBrdt(sBrdt);
+
+		        System.out.println("noMbrVO: " + noMbrVO.toString());
+
+		    	Map newMap = new HashMap();
+		    	newMap.put("srchUniqueId", mbrVO.getUniqueId());
+		    	newMap.put("mdfcnId", mbrVO.getMbrId());
+		    	newMap.put("mdfr", mbrVO.getMbrNm());
+		    	newMap.put("mberSttus", "NORMAL");
+				mbrService.updateRlsDrmt(newMap);
+
+				mbrSession.setLoginCheck(false);
+			}else {
+				model.addAttribute("alertMsg", "잘못된 방법으로 접근하였습니다.");
+				return "/common/msg";
+			}
 		}
 
-
 		model.addAttribute("mbrVO", mbrVO);
-
 
 		return "/membership/drmt/clear";
 	}

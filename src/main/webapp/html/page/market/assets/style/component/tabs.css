@@ -1,25 +1,33 @@
 @layer components {
     .tabs {
-        @apply flex flex-wrap gap-1.5 md:gap-2 lg:gap-2.5 tracking-tight;
-        word-break: keep-all;
+        @apply flex flex-wrap gap-1.5 tracking-tight break-keep
+               md:gap-2
+               lg:gap-2.5;
         & li {
             @apply flex-1;
         }
         & .tabs-link {
-            @apply flex items-center justify-center border-0.5 px-2 py-1 h-[3.125rem] border-gray2 rounded-md bg-gray2 text-black2 text-center leading-[1.1] text-base break-all md:text-lg md:h-15 lg:text-xl lg:h-[4.375rem];
+            @apply flex items-center justify-center border-0.5 px-2 py-1 h-[3.125rem] border-gray2 rounded-md bg-gray2 text-black2 text-center leading-[1.1] text-base break-all
+                   md:h-15 md:text-lg
+                   lg:h-[4.375rem] lg:text-xl;
             &.active {
                 @apply bg-white border-black2 text-black2 font-bold;
             }
         }
         &.is-small {
-            @apply gap-1 md:gap-1.5 lg:gap-2;
+            @apply gap-1
+                   md:gap-1.5
+                   lg:gap-2;
             & .tabs-link {
-                @apply px-0 h-10 text-sm md:px-3.5 md:h-[3.125rem] md:text-base lg:h-[3.125rem] lg:text-base;
+                @apply px-0 h-10 text-sm
+                       md:px-3.5 md:h-[3.125rem] md:text-base
+                       lg:h-[3.125rem] lg:text-base;
             }
         }
         &.is-cols-3 {
             & li {
-                @apply flex-none w-[calc(33.333333333333333%_-_4px)] md:flex-1;
+                @apply flex-none w-[calc(33.333333333333333%_-_4px)]
+                       md:flex-1;
             }
             &.is-small {
                 & li {
@@ -29,7 +37,8 @@
         }
         &.is-cols-4 {
             & li {
-                @apply flex-none w-[calc(25%_-_4.5px)] md:flex-1;
+                @apply flex-none w-[calc(25%_-_4.5px)]
+                       md:flex-1;
             }
             &.is-small {
                 & li {
@@ -39,7 +48,8 @@
         }
         &.is-cols-5 {
             & li {
-                @apply flex-none w-[calc(20%_-_4.8px)] md:flex-1;
+                @apply flex-none w-[calc(20%_-_4.8px)]
+                       md:flex-1;
             }
             &.is-small {
                 & li {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
 	// 첫화면 이로움on
-	response.sendRedirect("/planner/index");
+	response.sendRedirect("/main/index");
 %>
 <!DOCTYPE HTML>
 <html>

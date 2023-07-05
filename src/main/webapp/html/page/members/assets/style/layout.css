@@ -1,4 +1,3 @@
-
 html {
     @apply scrollbars scroll-smooth;
     overflow: overlay;
@@ -15,23 +14,31 @@ body {
 }
 
 #header {
-    @apply fixed z-90 top-0 left-0 right-0 border-b border-b-black2/20 bg-white lg:absolute lg:border-b-0 lg:bg-transparent;
+    @apply fixed z-90 top-0 left-0 right-0 border-b border-b-black2/20 bg-white
+           lg:absolute lg:border-b-0 lg:bg-transparent;
     & .container {
-        @apply flex items-center relative mx-auto px-5 max-w-[1920px] h-11 md:h-15 lg:px-7.5 lg:h-[5.625rem];
+        @apply flex items-center relative mx-auto px-5 max-w-[1920px] h-11
+               md:h-15
+               lg:px-7.5 lg:h-[5.625rem];
     }
 }
 
 #logo {
-    @apply mr-5 md:mr-13 lg:mr-20;
+    @apply mr-5
+           md:mr-13
+           lg:mr-20;
 }
 
 #navigation {
-    @apply flex-1;
+    @apply flex-1 whitespace-nowrap;
     & ul {
-        @apply flex space-x-5 md:space-x-7 lg:space-x-10;
+        @apply flex space-x-3.5
+               md:space-x-7
+               lg:space-x-10;
     }
     & .navigation-link {
-        @apply text-sm;
+        @apply text-[0.8125rem]
+               md:text-sm;
         &.is-active {
             @apply font-medium underline underline-offset-0.5;
         }
@@ -39,9 +46,15 @@ body {
 }
 
 #family {
+    & [class*="link-item"] {
+        @apply xs-max:w-8;
+    }
+    
     & .link-item1, & .link-item2 {
         & .bubble {
-            @apply -left-1/3 before:left-[70%] after:left-[70%];
+            @apply -left-1/3
+                   before:left-[70%]
+                   after:left-[70%];
         }
     }
     & .link-item3 {
@@ -53,17 +66,23 @@ body {
 }
 
 #container {
-    @apply mx-auto pb-10 px-5 max-w-screen-lg lg:px-7.5;
+    @apply mx-auto pb-10 px-5 max-w-screen-lg
+           lg:px-7.5;
 }
 
 #page-title {
-    @apply pt-[5.3125rem] md:pt-25 lg:pt-[5.625rem];
+    @apply pt-[5.3125rem]
+           md:pt-25
+           lg:pt-[5.625rem];
     & h2 {
-        @apply relative mx-auto w-fit text-center leading-snug text-4xl font-bold md:text-6xl lg:text-7xl lg:-translate-y-[calc(50%_-_0.1875em)];
+        @apply relative mx-auto w-fit text-center leading-snug text-4xl font-bold
+               md:text-6xl
+               lg:text-7xl lg:-translate-y-[calc(50%_-_0.1875em)];
         & span {
             @apply block relative
                    before:content-empty before:hidden before:absolute before:top-1/2 before:right-full before:mr-5 before:w-[50vw] before:h-px before:bg-black2 before:opacity-20 before:-translate-y-1/2 before:lg:block
-                   after:content-empty after:hidden after:absolute after:top-1/2 after:left-full after:ml-5 after:w-[50vw] after:h-px after:bg-black2 after:opacity-20 after:-translate-y-1/2 after:lg:block;
+                   after:content-empty after:hidden after:absolute after:top-1/2 after:left-full after:ml-5 after:w-[50vw] after:h-px after:bg-black2 after:opacity-20 after:-translate-y-1/2
+                   lg:after:block;
         }
         & small {
             @apply block text-[0.2917em];
@@ -76,7 +95,8 @@ body {
 }
 
 #footer {
-    @apply py-10 px-5 leading-tight text-xs text-center font-serif lg:py-20;
+    @apply py-10 px-5 leading-tight text-xs text-center font-serif
+           lg:py-20;
     & strong {
         @apply font-medium;
     }

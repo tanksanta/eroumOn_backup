@@ -4,7 +4,8 @@
 @layer components {
     /* 라벨 */
     .label-base {
-        @apply inline-flex relative text-[0.8125rem] leading-none align-middle md:text-sm;
+        @apply inline-flex relative text-[0.8125rem] leading-none align-middle
+               md:text-sm;
         & span, & i {
             @apply relative border-inherit;
         }
@@ -113,13 +114,16 @@
 
     /* 버튼 */
     .btn {
-        @apply rounded-none text-black2 px-4 text-sm lg:px-5 lg:text-base;
+        @apply rounded-none text-black2 px-4 text-sm
+        lg:px-5 lg:text-base;
     }
 
     .box-result {
-        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm md:text-base md:py-13 md:rounded-[1rem];
+        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
+               lg:text-base lg:py-13 lg:rounded-[1rem];
         &.is-large {
-            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem] md:py-29 md:bg-[length:auto_auto];
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+                   lg:py-29 lg:bg-[length:auto_auto];
         }
     }
 }
@@ -130,52 +134,71 @@ html {
 
 
 body {
-    @apply relative pl-0 text-[#545454] lg:text-base xl:pl-80 2xl:pl-100;
+    @apply relative pl-0 text-[#545454]
+           lg:text-base
+           xl:pl-80
+           2xl:pl-100;
 }
 
 
 #header {
-    @apply flex flex-col sticky z-60 top-0 left-0 w-full bg-white leading-tight text-left xl:absolute xl:w-80 xl:min-h-screen xl:h-full xl:bg-[#f4f6f7] xl:text-center 2xl:w-100;
+    @apply flex flex-col sticky z-60 top-0 left-0 w-full bg-white leading-tight text-left
+           xl:absolute xl:w-80 xl:min-h-screen xl:h-full xl:bg-[#f4f6f7] xl:text-center
+           2xl:w-100;
     & dl {
-        @apply border-t py-4 2xl:py-5;
+        @apply border-t py-4
+               2xl:py-5;
         & dt {
-            @apply font-medium pt-0 pb-4 text-base lg:pt-1.5 lg:pb-5 lg:text-lg 2xl:pt-3 2xl:pb-6 2xl:text-[1.375rem];
+            @apply font-medium pt-0 pb-4 text-base
+                   lg:pt-1.5 lg:pb-5 lg:text-lg
+                   2xl:pt-3 2xl:pb-6 2xl:text-[1.375rem];
         }
     }
     & a {
         @apply inline-flex items-center align-top;
     }
     & .logo {
-        @apply flex-none leading-none font-medium p-5 text-xl lg:py-6 lg:px-7 lg:text-2xl 2xl:p-10 2xl:pb-7 2xl:text-3xl;
+        @apply flex-none leading-none font-medium p-5 text-xl
+               lg:py-6 lg:px-7 lg:text-2xl
+               2xl:p-10 2xl:pb-7 2xl:text-3xl;
         & a {
-            @apply block relative mr-25 pl-6 max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-left lg:py-0.5 lg:pl-8 xl:inline-block xl:mr-0 xl:whitespace-normal xl:text-clip 2xl:pl-11;
-            &::before {
-                @apply content-empty absolute left-0 top-0 rounded bg-[length:0.5rem] bg-no-repeat bg-center bg-[#103263] bg-[url(../images/img-header-logo.svg)] 
-                       w-5 h-5 lg:top-px lg:w-6.5 lg:h-6.5 lg:bg-[length:0.625rem] lg:rounded-md 2xl:top-0 2xl:w-8 2xl:h-8 2xl:rounded-[0.625rem] 2xl:bg-[length:auto];
-            }
-
+            @apply block relative mr-25 pl-6 max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-left
+                   before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:rounded before:bg-[length:0.5rem] before:bg-no-repeat before:bg-center before:bg-[#103263] before:bg-[url(../images/img-header-logo.svg)] 
+                   lg:py-0.5 lg:pl-8
+                   lg:before:top-px lg:before:w-6.5 lg:before:h-6.5 lg:before:bg-[length:0.625rem] lg:before:rounded-md
+                   xl:inline-block xl:mr-0 xl:whitespace-normal xl:text-clip
+                   2xl:pl-11
+                   2xl:before:top-0 2xl:before:w-8 2xl:before:h-8 2xl:before:rounded-[0.625rem] 2xl:before:bg-[length:auto];
         }
     }
     & .infomation {
         @apply flex-1 fixed top-15 left-0 px-5 w-full overflow-auto h-[calc(100%_-_3.75rem)] bg-white opacity-0 invisible
-               lg:top-18 lg:px-7 xl:static xl:h-[calc(100%_-_4.5rem)] xl:bg-inherit xl:opacity-100 xl:visible 2xl:px-10;
+               lg:top-18 lg:px-7
+               xl:static xl:h-[calc(100%_-_4.5rem)] xl:bg-inherit xl:opacity-100 xl:visible
+               2xl:px-10;
     }
     & .infomation-close {
-        @apply hidden absolute z-10 top-3.5 right-3 w-8 h-8 overflow-hidden -indent-96 align-top bg-center bg-no-repeat bg-[length:0.875rem] bg-[url(../images/ico-close.svg)] lg:top-5 lg:right-4.5;
+        @apply hidden absolute z-10 top-3.5 right-3 w-8 h-8 overflow-hidden -indent-96 align-top bg-center bg-no-repeat bg-[length:0.875rem] bg-[url(../images/ico-close.svg)]
+               lg:top-5 lg:right-4.5;
     }
     & .photo {
-        @apply w-23 h-23 rounded-[23.92%] bg-neutral-400 lg:w-29 lg:h-29 xl:mx-auto xl:rounded-full 2xl:w-34 2xl:h-34;
+        @apply w-23 h-23 rounded-[23.92%] bg-neutral-400
+               lg:w-29 lg:h-29
+               xl:mx-auto xl:rounded-full
+               2xl:w-34 2xl:h-34;
     }
     & .tel, & .map, & .park, & .time, & .rest {
         @apply mt-1 lg:mt-2 text-black text-left leading-relaxed;
         & a {
             @apply items-start break-all
-                   before:content-empty before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem] before:lg:w-5 before:lg:h-5.5 before:lg:bg-[length:auto_1.25rem];
+                   before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem]
+                   lg:before:w-5 lg:before:h-5.5 lg:before:bg-[length:auto_1.25rem];
         }
     }
     & .park, & .time, & .rest {
         @apply flex items-start break-all
-               before:content-empty before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem] before:lg:w-5 before:lg:h-5.5 before:lg:bg-[length:auto_1.25rem];
+               before:mt-0.5 before:mr-2 before:bg-no-repeat before:bg-center before:flex-none before:w-4 before:h-4.5 before:bg-[length:auto_1rem]
+               lg:before:w-5 lg:before:h-5.5 lg:before:bg-[length:auto_1.25rem];
     }
     & .tel {
         & a {
@@ -189,21 +212,29 @@ body {
         @apply before:bg-[url(../images/ico-parking.svg)];
     }
     & .rest {
-        @apply before:-mt-px before:w-4.5 before:h-4.5 before:bg-[url(../images/ico-rest.svg)] before:bg-[length:auto_1.125rem] before:lg:w-5.5 before:lg:h-5.5 before:lg:bg-[length:auto_1.375rem];
+        @apply before:-mt-px before:w-4.5 before:h-4.5 before:bg-[url(../images/ico-rest.svg)] before:bg-[length:auto_1.125rem]
+               lg:before:w-5.5 lg:before:h-5.5 lg:before:bg-[length:auto_1.375rem];
     }
     & .map {
-        @apply mt-4 lg:mt-5;
+        @apply mt-4
+               lg:mt-5;
         & a {
-            @apply before:bg-[url(../images/ico-map.svg)] before:bg-[length:auto_1.125rem] before:lg:bg-[length:auto_1.375rem];
+            @apply before:bg-[url(../images/ico-map.svg)] before:bg-[length:auto_1.125rem]
+                   lg:before:bg-[length:auto_1.375rem];
         }
     }
     & .desc {
-        @apply mt-5 leading-snug text-[#666] text-left lg:mt-6.5 2xl:mt-8;
+        @apply mt-5 leading-snug text-[#666] text-left
+               lg:mt-6.5
+               2xl:mt-8;
     }
     & .notice {
-        @apply mt-4 xl:mt-7 2xl:mt-10;
+        @apply mt-4
+               xl:mt-7
+               2xl:mt-10;
         & li {
-            @apply mt-1.5 first:mt-0;
+            @apply mt-1.5
+                   first:mt-0;
             & a {
                 @apply flex items-center whitespace-nowrap text-[#666];
                 & span {
@@ -216,7 +247,10 @@ body {
         }
     }
     & .banner {
-        @apply grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-1 xl:gap-2.5;
+        @apply grid gap-5 grid-cols-1
+               sm:grid-cols-2
+               md:grid-cols-3
+               xl:grid-cols-1 xl:gap-2.5;
         & a {
             @apply block rounded-md overflow-hidden;
             & img {
@@ -225,11 +259,15 @@ body {
         }
     }
     & .banner2 {
-        @apply grid gap-3 grid-cols-2 mt-4 lg:grid-cols-1 xl:mt-7 2xl:mt-10 2xl:grid-cols-2;
+        @apply grid gap-3 grid-cols-2 mt-4
+               lg:grid-cols-1 xl:mt-7
+               2xl:grid-cols-2 2xl:mt-10;
         & a {
             @apply bg-white block rounded-md overflow-hidden;
             & img {
-                @apply mx-auto h-20 lg:h-25 2xl:mx-0;
+                @apply mx-auto h-20
+                       lg:h-25
+                       2xl:mx-0;
             }
         }
     }
@@ -245,21 +283,31 @@ body {
 }
 
 #navigation {
-    @apply sticky z-50 top-15 left-0 pb-0.5 overflow-y-hidden overflow-x-auto bg-white font-medium whitespace-nowrap text-sm lg:top-19 xl:top-0 lg:text-base xl:static xl:text-lg
-           after:content-empty after:block after:sticky after:-z-10 after:left-0 after:top-0 after:-mt-0.5 after:w-full after:h-px after:bg-gray3;
+    @apply sticky z-50 top-15 left-0 pb-0.5 overflow-y-hidden overflow-x-auto bg-white font-medium whitespace-nowrap text-sm
+           lg:top-19 lg:text-base
+           xl:static xl:top-0 xl:text-lg
+           after:block after:sticky after:-z-10 after:left-0 after:top-0 after:-mt-0.5 after:w-full after:h-px after:bg-gray3;
     & ul {
         @apply flex items-center xl:pt-6 xl:px-15 2xl:pt-7 2xl:px-30
-               after:flex-none after:content-["_"] after:w-5 after:h-full after:opacity-0 after:select-none after:pointer-events-none after:xl:hidden;
+               after:flex-none after:content-["_"] after:w-5 after:h-full after:opacity-0 after:select-none after:pointer-events-none
+               xl:after:hidden;
         & li {
-            @apply ml-7 border-b-0.5 border-transparent lg:border-b-[0.1875rem] xl:ml-2 xl:border-b-1 first:ml-5 first:xl:-ml-4;
+            @apply ml-7 border-b-0.5 border-transparent
+                   lg:border-b-[0.1875rem] xl:ml-2 xl:border-b-1
+                   first:ml-5
+                   xl:first:-ml-4;
             & a {
-                @apply block pt-2 pb-2.5 lg:px-2.5 xl:py-3 xl:px-4;
+                @apply block pt-2 pb-2.5
+                       lg:px-2.5
+                       xl:py-3 xl:px-4;
             }
             &.active {
                 @apply border-black;
             }
             &.separate {
-                @apply hidden flex-none -mt-1 ml-4 mr-2 w-0.5 h-3.5 bg-black xl:block 2xl:ml-5 2xl:mr-3;
+                @apply hidden flex-none -mt-1 ml-4 mr-2 w-0.5 h-3.5 bg-black
+                       xl:block
+                       2xl:ml-5 2xl:mr-3;
             }
         }
     }
@@ -272,17 +320,22 @@ body {
 }
 
 #utility {
-    @apply fixed z-70 top-3.5 right-5 -mr-2 lg:top-5 lg:right-7 xl:absolute xl:top-8 2xl:top-9 2xl:right-30;
+    @apply fixed z-70 top-3.5 right-5 -mr-2
+           lg:top-5 lg:right-7
+           xl:absolute xl:top-8
+           2xl:top-9 2xl:right-30;
     & ul, & li {
         @apply flex items-center relative;
     }
     & li {
-        @apply ml-0.5 xl:ml-0;
+        @apply ml-0.5
+               xl:ml-0;
     }
     & a, & button {
         @apply inline-block w-8 h-8 overflow-hidden bg-no-repeat bg-center -indent-96 align-top bg-[length:18px];
         &.toggle {
-            @apply bg-[url(../images/ico-search.svg)] xl:hidden;
+            @apply bg-[url(../images/ico-search.svg)]
+                   xl:hidden;
             &[aria-expanded="true"] {
                 @apply bg-[length:16px];
                 background-image: url("data:image/svg+xml,%3Csvg id='Group_3' data-name='Group 3' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14' height='14' viewBox='0 0 14 14'%3E%3Cdefs%3E%3CclipPath id='clip-path'%3E%3Cpath id='Clip_2' data-name='Clip 2' d='M0,0H14V14H0Z' fill='none'/%3E%3C/clipPath%3E%3C/defs%3E%3Cpath id='Clip_2-2' data-name='Clip 2' d='M0,0H14V14H0Z' fill='none'/%3E%3Cg id='Group_3-2' data-name='Group 3' clip-path='url(%23clip-path)'%3E%3Cpath id='Fill_1' data-name='Fill 1' d='M8.7,7.747,7.929,7,8.7,6.25l5.072-4.972a.74.74,0,0,0,0-1.059A.768.768,0,0,0,13.238,0h0A.767.767,0,0,0,12.7.219L7,5.806,1.3.219a.774.774,0,0,0-1.079,0,.74.74,0,0,0,0,1.059L5.3,6.252,6.071,7,5.3,7.749.223,12.721a.74.74,0,0,0,0,1.059.771.771,0,0,0,1.079,0L7,8.193l5.7,5.587a.771.771,0,0,0,1.079,0,.74.74,0,0,0,0-1.059Z' transform='translate(0)'/%3E%3C/g%3E%3C/svg%3E%0A");
@@ -299,15 +352,21 @@ body {
         }
     }
     & form {
-        @apply fixed top-14 right-0 left-0 mr-0 transition-none animate-none bg-white lg:top-18 xl:static xl:block xl:mr-2.5;
+        @apply fixed top-14 right-0 left-0 mr-0 transition-none animate-none bg-white
+               lg:top-18
+               xl:static xl:block xl:mr-2.5;
         & legend {
             @apply sr-only;
         }
         & fieldset {
-            @apply flex items-center flex-1 mx-5 mb-2.5 py-px overflow-hidden border rounded-full border-black2 lg:mx-7 xl:m-0 xl:flex-none xl:w-51;
+            @apply flex items-center flex-1 mx-5 mb-2.5 py-px overflow-hidden border rounded-full border-black2
+                   lg:mx-7
+                   xl:flex-none xl:m-0 xl:w-51;
         }
         & input {
-            @apply flex-1 pl-4 min-w-0 h-10 leading-10 ring-0 outline-none bg-transparent xl:h-8 xl:leading-8 placeholder:text-sm placeholder:text-gray1;
+            @apply flex-1 pl-4 min-w-0 h-10 leading-10 ring-0 outline-none bg-transparent
+                   placeholder:text-sm placeholder:text-gray1
+                   xl:h-8 xl:leading-8;
         }
         & button {
             @apply mr-1 ml-0.5;
@@ -316,17 +375,24 @@ body {
 }
 
 #container {
-    @apply relative z-40 flex-1 px-5 pt-4 pb-15 lg:pt-7 lg:px-7 xl:px-15 xl:pt-10 2xl:px-30 2xl:pt-14 2xl:pb-20;
+    @apply relative z-40 flex-1 px-5 pt-4 pb-15
+           lg:pt-7 lg:px-7
+           xl:px-15 xl:pt-10
+           2xl:px-30 2xl:pt-14 2xl:pb-20;
 }
 
 #footer {
     @apply pt-17 pb-6.5 bg-[#f4f6f7] bg-[url(../images/img-footer-logo.svg)] bg-no-repeat bg-[length:5.375rem] bg-[center_top_1.5rem] leading-tight text-gray4 text-center text-xs
-           lg:text-sm xl:pt-4.5 xl:pb-7.5 xl:px-47 xl:bg-[left_3.75rem_top_1.375rem] xl:bg-[length:6.5rem] xl:text-left 2xl:pr-62 2xl:pl-66 2xl:bg-[left_7.5rem_top_1.375rem] 2xl:bg-[length:7.375rem];
+           lg:text-sm
+           xl:pt-4.5 xl:pb-7.5 xl:px-47 xl:bg-[left_3.75rem_top_1.375rem] xl:bg-[length:6.5rem] xl:text-left
+           2xl:pr-62 2xl:pl-66 2xl:bg-[left_7.5rem_top_1.375rem] 2xl:bg-[length:7.375rem];
     & > * {
-        @apply mt-1 first:mt-0;
+        @apply mt-1
+               first:mt-0;
     }
     & h2 {
-        @apply text-sm lg:text-base;
+        @apply text-sm
+               lg:text-base;
     }
     & address {
         @apply mt-2;
@@ -339,7 +405,9 @@ body {
 
 /* 페이지 타이틀 */
 .page-title {
-    @apply mb-5.5 pb-1.5 border-b border-gray4 font-medium text-lg leading-snug text-black lg:border-b-0.5 lg:text-xl xl:pb-2.5 xl:text-[1.375rem];
+    @apply mb-5.5 pb-1.5 border-b border-gray4 font-medium text-lg leading-snug text-black
+           lg:border-b-0.5 lg:text-xl
+           xl:pb-2.5 xl:text-[1.375rem];
     & + .board-list-thumb, & + .board-list-notice {
         @apply -mt-5.5;
     }
@@ -348,11 +416,17 @@ body {
 
 /* 찾아오시는 길 */
 .cont-location {
-    @apply block mt-8 pb-8 border-b border-gray3 items-start md:flex md:mt-13 md:pb-0 md:border-b-0 last:border-b-0;
+    @apply block mt-8 pb-8 border-b border-gray3 items-start
+           md:flex md:mt-13 md:pb-0 md:border-b-0 last:border-b-0;
     & dt {
-        @apply flex-none flex items-center relative font-medium mb-2.5 pl-9 text-black2 text-base lg:text-lg md:w-42 md:mt-1 md:mr-6 md:pl-10 lg:w-52 lg:mt-1.5 lg:mr-9 lg:pl-12
-               before:content-empty before:absolute before:top-px before:left-0 before:w-6 before:h-6 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:lg:-top-0.5 before:lg:w-7.5 before:lg:h-7.5
-               after:hidden after:top-1/2 after:right-0 after:w-px after:h-4 after:-translate-y-1/2 after:bg-gray3 after:md:block after:lg:h-4.5;
+        @apply flex-none flex items-center relative font-medium mb-2.5 pl-9 text-black2 text-base
+               before:absolute before:top-px before:left-0 before:w-6 before:h-6 before:bg-no-repeat before:bg-center before:bg-[length:100%]
+               after:hidden after:top-1/2 after:right-0 after:w-px after:h-4 after:-translate-y-1/2 after:bg-gray3
+               md:mt-1 md:mr-6 md:pl-10 md:w-42
+               md:after:block
+               lg:mt-1.5 lg:mr-9 lg:pl-12 lg:w-52 lg:text-lg
+               lg:before:-top-0.5 lg:before:w-7.5 lg:before:h-7.5
+               lg:after:h-4.5;
     }
     &.car {
         & dt {
@@ -376,10 +450,13 @@ body {
 .board-list {
     @apply leading-tight text-gray1 divide-y divide-gray3 border-b border-gray3;
     & a {
-        @apply block sm:flex items-start relative;
+        @apply block items-start relative
+               sm:flex;
     }
     & .name {
-        @apply font-medium truncate text-black2 sm-max:!max-h-[2.5em] sm-max:!whitespace-normal;
+        @apply font-medium truncate text-black2
+               sm-max:!max-h-[2.5em]
+               sm-max:!whitespace-normal;
         @screen sm-max {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -392,32 +469,45 @@ body {
         -webkit-box-orient: vertical;
     }
     & .time {
-        @apply flex flex-wrap font-serif leading-none text-xs md:text-sm;
+        @apply flex flex-wrap font-serif leading-none text-xs
+               md:text-sm;
     }
 }
 
 .board-list-thumb {
-    @apply board-list !divide-y-0 sm:!divide-y;
+    @apply board-list !divide-y-0
+           sm:!divide-y;
     & li {
-        @apply pt-6 pb-0 sm:py-9 lg:py-13;
+        @apply pt-6 pb-0
+               sm:py-9
+               lg:py-13;
         & .thumb {
-            @apply mr-0 w-full flex-none sm:mr-6 sm:w-52 lg:mr-7 lg:w-60;
+            @apply mr-0 w-full flex-none
+                   sm:mr-6 sm:w-52
+                   lg:mr-7 lg:w-60;
             & img {
                 @apply w-full object-cover;
             }
         }
         & .content {
-            @apply flex-1 mt-2.5 sm:-mt-1 overflow-hidden;
+            @apply flex-1 mt-2.5 overflow-hidden
+                   sm:-mt-1;
         }
         & .name {
-            @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+            @apply text-base
+                   sm:text-lg
+                   md:text-xl
+                   lg:text-2xl;
         }
         & .cont {
-            @apply mt-3 h-[3.75em] sm-max:hidden;
+            @apply mt-3 h-[3.75em]
+                   sm-max:hidden;
             -webkit-line-clamp: 3;
         }
         & .time {
-            @apply mt-2.5 space-x-2.5 sm:space-x-4 sm:mt-5.5 lg:mt-6.5 lg:space-x-7;
+            @apply mt-2.5 space-x-2.5
+                   sm:mt-5.5 sm:space-x-4
+                   lg:mt-6.5 lg:space-x-7;
         }
     }
 }
@@ -425,38 +515,54 @@ body {
 .board-list-notice {
     @apply board-list;
     & a {
-        @apply items-center py-5.5 pl-8.5 sm:pl-0;
+        @apply items-center py-5.5 pl-8.5
+               sm:pl-0;
         & .numb {
-            @apply absolute sm:static top-5.5 left-0 flex-none font-serif text-gray1 text-center text-base w-8.5 md:w-12 md:text-lg lg:w-17 lg:text-xl;
+            @apply absolute sm:static top-5.5 left-0 flex-none font-serif text-gray1 text-center text-base w-8.5
+                   md:w-12 md:text-lg
+                   lg:w-17 lg:text-xl;
             & img {
-                @apply mx-auto w-4 md:w-5 xl:w-[1.5625rem];
+                @apply mx-auto w-4
+                       md:w-5
+                       xl:w-[1.5625rem];
             }
         }
         & .name {
-            @apply mr-0 sm:mr-3;
+            @apply mr-0
+                   sm:mr-3;
         }
         & .time {
-            @apply flex-none space-x-3.5 mt-1.5 sm:mt-0;
+            @apply flex-none mt-1.5 space-x-3.5
+                   sm:mt-0;
         }
     }
 }
 
 .board-more {
-    @apply btn flex mx-auto w-fit rounded-full font-serif text-gray4 mt-10 md:mt-12 xl:mt-15 py-2 px-8 md:px-9 h-auto leading-snug;
+    @apply btn flex mx-auto w-fit rounded-full font-serif text-gray4 mt-10 py-2 px-8 h-auto leading-snug
+           md:mt-12 md:px-9
+           xl:mt-15;
     & strong {
-        @apply font-medium pl-5 lg:pl-8;
+        @apply font-medium pl-5
+               lg:pl-8;
     }
 }
 
 
 /* 게시판 상세 */
 .board-detail {
-    @apply mt-5.5 md:mt-7 lg:mt-9;
+    @apply mt-5.5
+           md:mt-7
+           lg:mt-9;
     & .name {
-        @apply font-medium text-black2 leading-tight text-2xl lg:text-3xl xl:text-4xl;
+        @apply font-medium text-black2 leading-tight text-2xl
+               lg:text-3xl
+               xl:text-4xl;
     }
     & .info {
-        @apply flex items-center mt-1.5 text-sm font-serif text-gray1 space-x-5 md:mt-3 xl:mt-4.5;
+        @apply flex items-center mt-1.5 text-sm font-serif text-gray1 space-x-5
+               md:mt-3
+               xl:mt-4.5;
         & p {
             @apply inline-flex items-center;
             & > * {
@@ -465,15 +571,20 @@ body {
         }
     }
     & .cont {
-        @apply leading-[1.75] border-b border-gray3 py-4.5 md:py-7 xl:py-9.5;
+        @apply leading-[1.75] border-b border-gray3 py-4.5
+               md:py-7
+               xl:py-9.5;
     }
     & .file {
-        @apply flex py-3.5 border-b border-gray3 text-sm leading-tight font-medium font-serif md:px-4.5 md:py-5 md:text-[0.9375rem];
+        @apply flex py-3.5 border-b border-gray3 text-sm leading-tight font-medium font-serif
+               md:py-5 md:px-4.5 md:text-[0.9375rem];
         & dt {
-            @apply flex-none mr-4 md:mr-6;
+            @apply flex-none mr-4
+                   md:mr-6;
         }
         & dd {
-            @apply space-y-1 md:space-y-1.5;
+            @apply space-y-1
+                   md:space-y-1.5;
             & a {
                 @apply block underline;
             }
@@ -509,7 +620,8 @@ body {
             @apply mt-1.5 text-black2;
         }
         & .write {
-            @apply mt-3 -ml-18 sm:ml-0;
+            @apply mt-3 -ml-18
+                   sm:ml-0;
         }
     }
     & .write {
@@ -528,24 +640,18 @@ body {
 
 
 /* 상품 목록 */
-.product-category, .product-tags {
+.product-category {
     @apply flex items-start;
     & dt {
-        @apply flex-none mt-1.5 w-25 font-bold font-serif;
+        @apply flex-none hidden mt-1.5 w-25 font-bold font-serif
+               md:block;
     }
     & dd {
-        @apply flex-1;
-    }
-}
-
-.product-category {
-    & dt {
-        @apply hidden sm:block;
-    }
-    & dd {
-        @apply grid grid-cols-4 gap-1.5 sm:block;
+        @apply flex-1 grid grid-cols-4 gap-1.5
+               md:block;
         & a, & button {
-            @apply hidden items-center justify-center px-0.5 min-h-10 rounded border border-transparent bg-gray2 tracking-tighter text-center leading-[1.15] align-top sm:inline-flex sm:mb-1.5 md:mb-2 sm:px-2.5 sm:min-h-9 sm:bg-white sm:text-[1.0625rem];
+            @apply hidden items-center justify-center px-0.5 min-h-10 rounded border border-transparent bg-gray2 tracking-tighter text-center leading-[1.15] align-top
+                   md:inline-flex md:mb-2 md:px-2.5 md:min-h-9 md:bg-white md:text-[1.0625rem];
             &.is-visible {
                 @apply inline-flex;
             }
@@ -553,11 +659,11 @@ body {
                 @apply bg-black2 border-black2 font-medium text-white;
             }
             &.is-dashed {
-                @apply sm:border-gray1 sm:border-dashed;
+                @apply md:border-gray1 md:border-dashed;
             }
         }
         & .category-moreview {
-            @apply hidden border-gray1 bg-white text-sm 
+            @apply hidden border-gray1 bg-white text-sm
                    before:content-empty before:block before:mr-1.5 before:w-3 before:h-3 before:bg-cover before:bg-no-repeat before:bg-[url(../images/ico-plus.svg)];
             &.is-visible {
                 @apply inline-flex;
@@ -567,11 +673,17 @@ body {
 }
 
 .product-count {
-    @apply mb-2.5 text-sm md:mb-3.5 md:text-base lg:text-lg;
+    @apply mb-2.5 text-sm
+           md:mb-3.5 md:text-base
+           lg:text-lg;
 }
 
 .product-items {
-    @apply grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 sm:grid-cols-3 md:gap-y-10 lg:gap-y-12 lg:grid-cols-4;
+    @apply grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13
+           sm:grid-cols-3
+           md:gap-y-10
+           lg:gap-y-12
+           lg:grid-cols-4;
     @media (min-width: 1750px) {
         @apply grid-cols-5;
     }
@@ -589,29 +701,34 @@ body {
 .product-item {
     @apply block relative;
     & .thumb {
-        @apply block relative overflow-hidden rounded-lg aspect-[1/1.26] border border-gray3 bg-no-repeat bg-center bg-[length:45%];
+        @apply block relative overflow-hidden rounded-lg border border-gray3 bg-no-repeat bg-center bg-[length:45%] aspect-square;
         & img {
-            @apply absolute top-0 left-0 w-full h-full rounded-lg object-cover;
+            @apply absolute top-0 left-0 w-full h-full object-cover;
         }
         &.is-empty {
             @apply bg-[url(../images/bg-compare-thumb.svg)];
         }
     }
     & .content {
-        @apply block mt-2.5 md:mt-3;
+        @apply block mt-2.5
+               md:mt-3;
         & .label {
-            @apply min-h-[1.5625rem] md:min-h-6.5;
+            @apply min-h-[1.5625rem]
+                   md:min-h-6.5;
             & > * {
                 @apply mb-0.5 align-top;
             }
         }
         & .name {
-            @apply mt-1 leading-[1.45] md:mt-2;
+            @apply mt-1 leading-[1.45]
+                   md:mt-2;
             & small {
-                @apply block text-sm;
+                @apply block text-xs
+                       md:text-sm;
             }
             & strong {
-                @apply block font-medium overflow-hidden h-[2.5em] mb-[0.4em] leading-tight text-base md:text-lg;
+                @apply block font-medium overflow-hidden min-h-[2em] max-h-[2.5em] mb-[0.4em] leading-tight text-base
+                       md:text-lg;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
@@ -620,25 +737,26 @@ body {
         & .cost {
             @apply flex flex-wrap whitespace-nowrap;
             & dl {
-                @apply mr-3 md:mr-6;
+                @apply mr-3
+                       md:mr-6;
                 & dt {
                     @apply text-xs leading-snug;
                 }
                 & dd {
-                    @apply -mt-0.5 text-lg font-bold font-serif leading-tight md:text-xl;
+                    @apply -mt-0.5 text-lg font-bold font-serif leading-tight
+                           md:text-xl;
                     & small {
                         @apply text-[1em] align-middle;
                     }
                 }
                 &.discount {
                     @apply text-[#F62020];
-                    & + dl {
-                        & dd {
-                            @apply text-base mt-px;
-                            & small {
-                                @apply text-sm;
-                            }
-                        }
+                }
+                &.hypen {
+                    @apply hidden text-black2/50
+                           sm:block;
+                    & dd {
+                        @apply line-through;
                     }
                 }
             }
@@ -646,7 +764,8 @@ body {
     }
     & .cart {
         @apply absolute right-0 bottom-0 w-8 h-8 overflow-hidden -indent-96 rounded-tl-[1rem] bg-white bg-[url(../images/ico-cart.svg)] bg-no-repeat bg-center bg-[length:0.8125rem,auto]
-               md:w-11 md:h-11 md:rounded-tl-[1.5rem] md:bg-[length:1.25rem,auto] xl:w-14 xl:h-14 xl:rounded-tl-[2rem] xl:bg-[length:1.5rem,auto];
+               md:w-11 md:h-11 md:rounded-tl-[1.5rem] md:bg-[length:1.25rem,auto]
+               xl:w-14 xl:h-14 xl:rounded-tl-[2rem] xl:bg-[length:1.5rem,auto];
         &.active {
             @apply bg-[url(../images/ico-cart-white.svg),linear-gradient(139deg,#7332E7_0%,#5886DE_100%)];
         }

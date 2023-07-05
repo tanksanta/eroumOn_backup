@@ -17,7 +17,6 @@
 							<c:if test="${mbrVO.proflImg ne null && mbrVO.proflImg ne ''}"><img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}" alt="" id="uploadFile" ></c:if>
                         </div>
                         <div class="button">
-                            <a href="${_marketPath}/mypage/fam/list" class="btn btn-outline-primary">가족회원 (${famMap.famCount})</a>
                             <form id="upfile" name="upfile" method="get" enctype="multipart/form-data"><input type="file" id="proflImg" name="proflImg" style="display:none;"/></form>
                             <label class="btn btn-primary" for="proflImg">편집</label>
                         </div>
@@ -83,7 +82,6 @@
                             <button type="button" class="toggle showRecipter">수급자 정보 펼치기/접기</button>
                         </div>
                         <div class="button">
-                            <a href="${_marketPath}/mypage/fam/list" class="btn btn-outline-primary">가족회원 (${famMap.famCount})</a>
                             <form id="upfile" name="upfile" method="get" enctype="multipart/form-data"><input type="file" id="proflImg" name="proflImg" style="display:none;"/></form>
                             <label class="btn btn-primary" for="proflImg">편집</label>
                         </div>
@@ -203,15 +201,6 @@
                 </div>
                 <!-- //수급자 회원정보 -->
                 </c:if>
-
-
-				<%-- 가족회원(나포함) 수급자 없으면 --%>
-				<c:set var="prtcrRecipterYn" value="${_mbrSession.prtcrRecipterYn}" />
-				<c:forEach items="${_mbrSession.prtcrList}" var="prtcrList">
-				<c:if test="${prtcrList.recipterYn eq 'Y'}">
-					<c:set var="prtcrRecipterYn" value="Y" />
-				</c:if>
-				</c:forEach>
 
 				<!-- 최근 구매 내역 -->
                 <div class="mypage-myinfo-recent">

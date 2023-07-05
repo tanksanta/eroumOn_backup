@@ -11,16 +11,12 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.mbr.mbr.biz.MbrDAO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrDAO;
 
 @Service("mbrPointService")
 public class MbrPointService extends CommonAbstractServiceImpl {
 
 	@Resource(name="mbrPointDAO")
 	private MbrPointDAO mbrPointDAO;
-
-	@Resource(name="mbrPrtcrDAO")
-	private MbrPrtcrDAO mbrPrtcrDAO;
 
 	@Resource(name="mbrDAO")
 	private MbrDAO mbrDAO;

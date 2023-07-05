@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 5 Copy</title>
+    <g id="pub" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-188.000000, -27.000000)">
+            <g id="Group-5-Copy" transform="translate(188.000000, 27.000000)">
+                <rect id="Rectangle" fill-opacity="0" fill="#DCDCDC" x="0" y="0" width="36" height="36"></rect>
+                <path d="M14.56604,10.5870361 L14.56604,9.30627441 C14.6192627,8.4354248 15.0913493,8 15.9822998,8 C16.8732503,8 18.3202718,8 20.3233643,8 C21.2886963,8.05562337 21.7713623,8.49104818 21.7713623,9.30627441 C21.7713623,10.1215007 21.7713623,10.5484212 21.7713623,10.5870361" id="Path-9" stroke="#333333" stroke-width="1.5"></path>
+                <polyline id="Path-10" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="15.3613813 19.7570765 6.5 18.4526367 6.5 10.4804077 29.9916382 10.4804077 29.9916382 18.4526367 21.1021987 19.7343769"></polyline>
+                <rect id="Rectangle" stroke="#333333" stroke-width="1.5" stroke-linejoin="round" x="16.2376709" y="17.4556885" width="4" height="5"></rect>
+                <polyline id="Path-11" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="7.54919434 18.6641235 7.54919434 27.8823242 11.4765015 27.8823242"></polyline>
+                <polyline id="Path-12" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="29.0354004 18.6641235 29.0354004 27.8823242 9.71859741 27.8823242"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

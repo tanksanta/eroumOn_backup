@@ -27,8 +27,6 @@ import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
-import icube.manage.mbr.mbr.biz.MbrPrtcrService;
-import icube.manage.mbr.mbr.biz.MbrPrtcrVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
@@ -46,9 +44,6 @@ public class UpdateBplcInfoApiService {
 
 	@Resource(name = "ordrDtlService")
 	private OrdrDtlService ordrDtlService;
-
-	@Resource(name = "mbrPrtcrService")
-	private MbrPrtcrService mbrPrtcrService;
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
@@ -248,7 +243,7 @@ public class UpdateBplcInfoApiService {
 				dataMap.put("API_Div", Base64Util.encoder("order_pen_first"));
 				dataMap.put("order_send_id", Base64Util.encoder(ordrVO.getOrdrCd()));
 				//dataMap.put("order_business_id", Base64Util.encoder("466-87-00410")); //TODO 아리아케어 사업자 번호로 하드코딩 -> 변경 예정
-				dataMap.put("order_business_id", Base64Util.encoder("321-64-51984")); //TODO 아리아케어 사업자 번호로 하드코딩 -> 변경 예정
+				dataMap.put("order_business_id", Base64Util.encoder("321-64-51984"));
 
 				String RecipterUniqueId = "";
 				String penNm = "";
@@ -308,20 +303,13 @@ public class UpdateBplcInfoApiService {
 				}else {
 					paramMap.put("srchApiUniqueId", ordrVO.getUniqueId());
 					paramMap.put("srchApiPrtcr", RecipterUniqueId);
-					MbrPrtcrVO mbrPrtcrVO = mbrPrtcrService.selectMbrPrtcr(paramMap);
 
 					dataMap.put("order_zip", Base64Util.encoder(ordrVO.getOrdrrZip()));
 					dataMap.put("order_addr", Base64Util.encoder(ordrVO.getOrdrrAddr()));
 					dataMap.put("order_addr2", Base64Util.encoder(ordrVO.getOrdrrDaddr()));
 					dataMap.put("order_birth", Base64Util.encoder(brdt));
 
-					if(mbrPrtcrVO.getPrtcrRlt().equals("F") || mbrPrtcrVO.getPrtcrRlt().equals("M") || mbrPrtcrVO.getPrtcrRlt().equals("C")) {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(1)));
-					}else if(mbrPrtcrVO.getPrtcrRlt().equals("R")) {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(2)));
-					}else {
-						dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(3)));
-					}
+					dataMap.put("relation_code", Base64Util.encoder(EgovStringUtil.integer2string(3)));
 				}
 
 				dataMap.put("delivery_nm", Base64Util.encoder(ordrVO.getRecptrNm()));

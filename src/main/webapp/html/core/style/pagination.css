@@ -2,22 +2,22 @@
     .pagination {
         @apply flex items-center flex-wrap;
         & a {
-            @apply btn mx-0.5 px-0 w-9 h-7.5 rounded overflow-hidden text-sm font-serif;
-            &:hover, &:focus {
-                @apply ring-0 ring-offset-0;
-            }
-            &:active, &.active {
+            @apply btn mx-0.5 px-0 w-9 h-7.5 rounded overflow-hidden text-sm font-serif
+                   hover:ring-0 hover:ring-offset-0
+                   focus:ring-0 focus:ring-offset-0
+                   active:border-black1 active:bg-black1 active:text-white active:ring-0 active:ring-offset-0;
+            &.active {
                 @apply border-black1 bg-black1 text-white ring-0 ring-offset-0;
             }
         }
         & .sorting {
             @apply order-1 flex mr-auto border border-gray1 py-1.5 px-1 rounded-md;
             & a {
-                @apply bg-gray2 border-gray2;
-                &:hover, &:focus {
-                    @apply border-gray2 bg-gray2;
-                }
-                &:active, &.active {
+                @apply bg-gray2 border-gray2
+                       hover:border-gray2 hover:bg-gray2
+                       focus:border-gray2 focus:bg-gray2
+                       active:border-black1 active:bg-black1 active:text-white active:ring-0 active:ring-offset-0;
+                &.active {
                     @apply border-black1 bg-black1 text-white ring-0 ring-offset-0;
                 }
             }
@@ -55,10 +55,7 @@
                 @apply ml-0;
             }
             & .next {
-                @apply mr-0;
-                &::before {
-                    @apply rotate-180;
-                }
+                @apply mr-0 before:rotate-180;
             }
         }
     }

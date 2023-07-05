@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45.08" height="44.394" viewBox="0 0 45.08 44.394">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4451ff"/>
+      <stop offset="1" stop-color="#5bffc7"/>
+    </linearGradient>
+  </defs>
+  <path id="Oval_Copy_10" data-name="Oval Copy 10" d="M19.169,31S33.686,20.39,33.686,6.328,16.843,9.451,16.843,9.451,0,0,0,9.306,19.169,31,19.169,31Z" transform="matrix(0.799, 0.602, -0.602, 0.799, 18.656, -0.636)" fill="url(#linear-gradient)"/>
+</svg>

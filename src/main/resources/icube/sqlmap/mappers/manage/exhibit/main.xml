@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+
+	<resultMap type="mainMngVO" id="mainMngVOMap" autoMapping="true" >
+		<collection property="halfFileList" column="{srvcId=item_half_id, upNo=main_no, fileTy=item_half_id}" select="file.selectFileList" />
+		<collection property="pcImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_pc_id}" select="file.selectFileList" />
+		<collection property="mobileImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_mobile_id}" select="file.selectFileList" />
+		<collection property="fileList" column="{srvcId=srvc_id, upNo=main_no}" select="file.selectFileList" />
+	</resultMap>
+
+
+	<sql id="listColumn">
+		main_no
+		, sort_no
+		, thema_ty
+		, sj
+		, rdcnt
+		, icon
+		, link_url
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+		, 'MAIN' AS srvc_main_id
+		, 'ICON' AS srvc_id
+		, 'PC' AS item_pc_id
+		, 'MOBILE' AS item_mobile_id
+		, 'HALF' AS item_half_id
+	</sql>
+
+
+	<sql id="searchConditions">
+		<if test="srchThemaTy != null and srchThemaTy != '' ">
+			AND thema_ty = #{srchThemaTy}
+		</if>
+		<if test="srchText != null and srchText != '' ">
+			AND LIKE CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND use_yn = #{srchUseYn}
+		</if>
+		<if test="srchMainNo != null and srchMainNo != '' ">
+			AND main_no = #{srchMainNo}
+		</if>
+	</sql>
+
+	<select id="selectMainMngListVO" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY thema_ty, sort_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMainMngCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<update id="updateMainUseYn" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			use_yn = #{useYn}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<update id="updateMainSortNo" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<select id="selectMainMng" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MNG_MAIN
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+
+	<insert id="insertMainMng" parameterType="mainMngVO">
+		INSERT INTO MNG_MAIN (
+			sort_no
+			, thema_ty
+			, sj
+			, rdcnt
+			, link_url
+			, use_yn
+			, reg_unique_id
+			, reg_dt
+			, reg_id
+			, rgtr
+		) VALUES (
+			#{sortNo}
+			, #{themaTy, jdbcType=VARCHAR}
+			, #{sj, jdbcType=VARCHAR}
+			, #{rdcnt}
+			, #{linkUrl, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, SYSDATE()
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="mainNo" order="AFTER" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateMainMng" parameterType="mainMngVO">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+			, thema_ty = #{themaTy}
+			, sj = #{sj}
+			, rdcnt = #{rdcnt}
+			, link_url = #{linkUrl}
+			, use_yn = #{useYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+			, mdfcn_dt = #{mdfcnDt}
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+		WHERE main_no = #{mainNo}
+	</update>
+
+
+</mapper>

@@ -231,18 +231,6 @@ public class CodeMap{
 		}
 	};
 
-	//판매 상태 코드
-	/*
-	public static final HashMap<String, String> NTSL_STTS_CD = new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = 8702672833703697983L;
-		{
-			put("SALE", "판매중");
-			put("UNSOLD", "미판매");
-			put("SOLDOUT", "품절");
-		}
-	};
-	*/
-
 	/**
 	 * 사업장 코드맵
 	 */
@@ -301,17 +289,6 @@ public class CodeMap{
 		}
 	};
 
-	//기획전 진열 개수
-	/*
-	public static final HashMap<String, String> EXHIBI_CO = new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = 8417147404015267574L;
-		{
-			put("4", "4열");
-			put("3", "3열");
-			put("2", "2열");
-		}
-	};
-	*/
 
 	//발급 방식
 	public static final HashMap<String, String> ISSU_TY = new LinkedHashMap<String, String>() {
@@ -328,8 +305,6 @@ public class CodeMap{
 		private static final long serialVersionUID = 133507148448669305L;
 		{
 			put("NOR", "일반");
-			//put("BIRTH", "생일");
-			//put("FIRST", "첫구매");
 			put("GRADE", "회원등급");
 			put("JOIN", "회원가입");
 			put("FREE", "무료배송");
@@ -433,18 +408,28 @@ public class CodeMap{
 	public static final HashMap<String, String> POPUP_LINK_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put("N", "없음");
 			put("P", "현재창");
 			put("S", "새창열림");
+			put("N", "없음");
 		}
 	};
 
-	//광고관리 > 광고 영역
-	public static final HashMap<String, String> ADVER_AREA = new LinkedHashMap<String, String>() {
+	//배너 관리 > 배너 유형
+	public static final HashMap<String, String> BANNER_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 133507148448669305L;
 		{
-			put("1", "임의 코드 1");
-			put("2", "임의 코드 2");
+			put("M", "메인 배너"); //main
+			put("S", "띠 배너"); // sub
+		}
+	};
+
+	//배너 관리 > 배너 유형
+	public static final HashMap<String, String> MAIN_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 1605787430187989116L;
+		{
+			put("G", "상품노출형"); //gds
+			put("B", "배너형"); // banner
+			put("H", "배너하프형"); // half
 		}
 	};
 
@@ -511,14 +496,6 @@ public class CodeMap{
 		}
 	};
 
-	// 가족회원여부
-	public static final HashMap<String, String> FAMILY_YN= new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = -5211512645157307510L;
-		{
-			put("Y","가족회원");
-			put("N","해당없음");
-		}
-	};
 	//회원 등급
 	public static final HashMap<String, String> GRADE= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -6800855150709202987L;
@@ -538,6 +515,7 @@ public class CodeMap{
 			put("W","여성");
 		}
 	};
+
 	//기본 결제 유형
 	public static final HashMap<String, String> BASS_STLM_TY= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 133507148448669305L;
@@ -554,39 +532,17 @@ public class CodeMap{
 
 		}
 	};
+
 	//회원 상태
 	public static final HashMap<String, String> MBER_STTUS= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -4815197362551668220L;
 		{
 			put("NORMAL","일반");
 			put("BLACK","블랙리스트");
-			put("HUMAN","휴먼");
+			put("HUMAN","휴면");
 			put("EXIT","탈퇴");
 		}
 	};
-	//가족회원 진행 상태
-	public static final HashMap<String, String> REQ_TY= new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = -8798560289347641945L;
-		{
-			put("P","진행중");
-			put("C","취소");
-			put("F","완료");
-		}
-	};
-
-	//가족 회원 관계
-	//TODO 이로움 데이터로 추후 수정
-	public static final HashMap<String, String> PRTCR_RLT= new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = 7609899973961707504L;
-		{
-			put("F","아버지");
-			put("M","어머니");
-			put("C","자녀");
-			put("R","친척");
-			put("E","기타");
-		}
-	};
-
 
 	//가입 경로
 	public static final HashMap<String, String> JOIN_COURS= new LinkedHashMap<String, String>() {
@@ -623,6 +579,7 @@ public class CodeMap{
 			put("NONE","해제");
 		}
 	};
+
 	//블랙리스트 구분
 	public static final HashMap<String, String> MNG_SE_BLACK= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 5045970347033574329L;
@@ -945,6 +902,32 @@ public class CodeMap{
 			put("6","문화");
 			put("7","주거");
 			put("8","교육");
+		}
+	};
+
+	// 품목
+	public static final HashMap<String, String> RECIPTER_ITEM= new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -6250081480521394189L;
+		{
+			put("이동변기", "mobileToilet");
+			put("목욕의자", "bathChair");
+			put("성인용보행기", "walkerForAdults");
+			put("안전손잡이", "safetyHandle");
+			put("미끄럼 방지용품", "antiSlipProduct");
+			put("간이변기", "portableToilet");
+			put("지팡이", "cane");
+			put("욕창예방방석", "cushion");
+			put("자세변환용구", "changeTool");
+			put("요실금팬티", "panties");
+			put("경사로(실내용)", "inRunway");
+			put("수동휠체어", "wheelchair");
+			put("전동침대", "electricBed");
+			put("수동침대", "manualBed");
+			put("이동욕조", "bathtub");
+			put("목욕리프트", "bathLift");
+			put("배회감지기", "detector");
+			put("경사로(실외용)", "outRunway");
+			put("욕창예방 매트리스", "mattress");
 		}
 	};
 

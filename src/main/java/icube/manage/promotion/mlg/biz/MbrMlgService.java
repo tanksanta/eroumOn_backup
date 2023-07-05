@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.mbr.mbr.biz.MbrDAO;
-import icube.manage.mbr.mbr.biz.MbrPrtcrDAO;
 import icube.market.mbr.biz.MbrSession;
 
 @Service("mbrMlgService")
@@ -24,12 +23,8 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 	@Resource(name="mbrDAO")
 	private MbrDAO mbrDAO;
 
-	@Resource(name="mbrPrtcrDAO")
-	private MbrPrtcrDAO mbrPrtcrDAO;
-
 	@Autowired
 	private MbrSession mbrSession;
-	//TODO scheduler 소멸 포인트
 
 	public CommonListVO mbrMlgListVO(CommonListVO listVO) throws Exception {
 		return mbrMlgDAO.mbrMlgListVO(listVO);

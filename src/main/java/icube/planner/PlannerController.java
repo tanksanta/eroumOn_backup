@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,12 @@ public class PlannerController extends CommonAbstractController  {
 
 	@Autowired
 	private MbrSession mbrSession;
+
+	@Value("#{props['Naver.Client.Id']}")
+	private String NaverCliendId;
+
+	@Value("#{props['Naver.Redirect.Url']}")
+	private String NaverRedirectUrl;
 
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 
@@ -235,6 +242,9 @@ public class PlannerController extends CommonAbstractController  {
 		request.setAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
 		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
 		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
+
+		model.addAttribute("NaverCliendId", NaverCliendId);
+		model.addAttribute("NaverRedirectUrl", NaverRedirectUrl);
 
 		return "/planner/include/modal_login";
 	}

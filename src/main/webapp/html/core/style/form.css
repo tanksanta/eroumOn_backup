@@ -1,16 +1,11 @@
 @layer components {
     /******************** input ********************/
     .form-control {
-        @apply px-4 min-w-5 max-w-full h-10 rounded-md border border-solid border-gray1 bg-white transition-[transform,background-color,background-image,border] duration-300 text-sm text-black1 align-middle;
-        &:focus {
-            @apply border-black1;
-            box-shadow: 0px 0.1428em 0.1428em #00000027;
-        }
-        &::placeholder {
-            @apply font-medium text-black1/20;
-        }
+        @apply px-4 min-w-5 max-w-full h-10 rounded-md border border-solid border-gray1 bg-white transition-[transform,background-color,background-image,border] duration-300 text-sm text-black1 align-middle
+               focus:border-black1 focus:shadow-[0px_0.1428em_0.1428em_#00000027]
+               placeholder:font-medium placeholder:text-black1/20;
         &[readonly], &:disabled, &[disabled] {
-            @apply cursor-none pointer-events-none bg-gray2 border-gray1 text-gray1 !important;
+            @apply !cursor-none !pointer-events-none !bg-gray2 !border-gray1 !text-gray1;
         }
         &[type="date"], &[type="time"], &.calendar, &.timer {
             @apply appearance-none pr-5 bg-no-repeat bg-[length:1rem] bg-[right_0.875rem_center];
@@ -44,10 +39,8 @@
             @apply h-9.5;
         }
         &.large, &.xlarge {
-            @apply text-base;
-            &::placeholder {
-                @apply text-sm;
-            }
+            @apply text-base
+                   placeholder:text-sm;
             &[type="date"], &[type="time"], &.calendar, &.timer {
                 @apply pr-6 bg-[length:1.25rem] bg-[right_0.875rem_center];
                 &::-webkit-inner-spin-button, &::-webkit-calendar-picker-indicator {
@@ -131,10 +124,8 @@
         }
         &:not(.form-switch) {
             & .form-check-input {
-                @apply w-[1.25em] transition duration-200 bg-center;
-                &:focus {
-                    @apply outline-0;
-                }
+                @apply w-[1.25em] transition duration-200 bg-center
+                       focus:outline-0;
                 &[type="checkbox"] {
                     @apply rounded-[0.25em];
                 }
@@ -151,7 +142,7 @@
     .form-check-group {
         @apply inline-flex p-1.5 max-w-full border border-gray1 rounded-md bg-white select-none;
         & .form-check {
-            @apply flex-1 relative mr-1 overflow-visible;
+            @apply flex-1 relative mr-1 overflow-visible last:mr-0;
             & .form-check-input {
                 @apply sr-only;
                 &:checked {
@@ -167,9 +158,6 @@
                 & .form-check-label {
                     @apply m-0 !important;
                 }
-            }
-            &:last-child {
-                @apply mr-0;
             }
         }
     }

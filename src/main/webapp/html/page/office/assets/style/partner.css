@@ -11,13 +11,17 @@
 @layer components {
     /******************** input ********************/
     .form-control {
-        @apply border-[#dedede] outline-none w-full px-3 xs:px-4 h-11 xs:h-12 rounded-lg placeholder:text-gray1 xs:rounded-xl xs:text-base;
+        @apply border-[#dedede] outline-none w-full px-3 h-11 rounded-lg
+               placeholder:text-gray1
+               xs:px-4 xs:h-12 xs:rounded-xl xs:text-base;
         &select {
-            @apply bg-white appearance-none pr-4 xs:pr-5 bg-[right_1rem_top_0.75rem] xs:bg-[right_1.25rem_top_0.875rem] bg-[length:0.75rem_auto] xs:bg-[length:0.875rem_auto];
+            @apply bg-white appearance-none pr-4 bg-[right_1rem_top_0.75rem] bg-[length:0.75rem_auto]
+            xs:pr-5 xs:bg-[length:0.875rem_auto] xs:bg-[right_1.25rem_top_0.875rem];
             background-image: url("data:image/svg+xml,%3Csvg id='Group_Copy_5' data-name='Group Copy 5' xmlns='http://www.w3.org/2000/svg' width='14.142' height='14.142' viewBox='0 0 14.142 14.142'%3E%3Cpath id='Combined_Shape' data-name='Combined Shape' d='M1,10A1,1,0,0,1,0,9V1A1,1,0,0,1,2,1V8H9a1,1,0,0,1,0,2Z' transform='translate(0 7.071) rotate(-45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
         &.large {
-            @apply rounded-full h-13 xs:h-15 text-base xs:text-lg;
+            @apply rounded-full h-13 text-base
+                   xs:h-15 xs:text-lg;
         }
     }
 
@@ -40,28 +44,29 @@
 
     /******************** button ********************/
     .btn {
-        @apply px-4 xs:px-5 min-w-20 xs:min-w-25 h-11 xs:h-12 rounded-lg xs:rounded-xl xs:text-base;
+        @apply px-4 min-w-20 h-11 rounded-lg
+               xs:px-5 xs:min-w-25 xs:h-12 xs:rounded-xl xs:text-base;
         &.large {
-            @apply h-13 xs:h-15 text-base xs:text-lg rounded-full min-w-38 xs:min-w-[11.875rem];
+            @apply h-13 text-base rounded-full min-w-38
+                   xs:h-15 xs:text-lg xs:min-w-[11.875rem];
         }
         &.shadow {
-            box-shadow: 0.11111111em 0.33333333em 0.5em #0000003E;
+            @apply shadow-[0.11111111em_0.33333333em_0.5em_#0000003E];
         }
     }
     
     .btn-cancel {
-        @apply btn bg-white border-white text-[#ABABAB];
-        &:hover, &:focus, &:active {
-            @apply border-0 bg-white;
-        }
+        @apply btn bg-white border-white text-[#ABABAB]
+               hover:border-0 hover:bg-white
+               focus:border-0 focus:bg-white
+               active:border-0 active:bg-white;
     }
 
     .btn-partner {
-        @apply btn bg-no-repeat text-white;
-        background-image: linear-gradient(100deg, #7232E7 0%, #538FDD 100%);
-        &:hover, &:focus, &:active {
-            @apply border-0;
-        }
+        @apply btn bg-no-repeat bg-[linear-gradient(100deg,_#7232E7_0%,_#538FDD_100%)] text-white
+               hover:border-0
+               focus:border-0
+               active:border-0;
     }
     
     /******************** color ********************/
@@ -79,7 +84,8 @@
 }
 
 body {
-    @apply scrollbars break-keep sm:text-base;
+    @apply scrollbars break-keep
+           sm:text-base;
     overflow: overlay;
     &::-webkit-scrollbar {
         @apply w-3 h-3;
@@ -90,12 +96,13 @@ body {
 }
 
 #header {
-    @apply relative top-0 z-60 px-5 bg-no-repeat leading-tight text-white h-15 text-sm shadow-[-2px_1px_5px_#00000030] md:h-18 md:text-base lg:h-21;
-    background-image: linear-gradient(90deg, #742DE7 0%, #5195DC 100%);
+    @apply relative top-0 z-60 bg-no-repeat bg-[linear-gradient(90deg,_#742DE7_0%,_#5195DC_100%)] leading-tight text-white h-15 text-sm shadow-[-2px_1px_5px_#00000030]
+           md:h-18 md:text-base lg:h-21;
     & .container {
-        @apply flex items-center justify-between relative mx-auto h-full max-w-screen-xl;
+        @apply flex items-center justify-between relative mx-auto px-5 h-full max-w-screen-xl;
         & .request {
-            @apply py-1.5 px-4 md:py-2 md:px-5.5 border border-white rounded-full;
+            @apply py-1.5 px-4 border border-white rounded-full
+                   md:py-2 md:px-5.5;
         }
     }
 }
@@ -106,43 +113,60 @@ body {
             @apply flex items-center leading-tight;
         }
         & small {
-            @apply hidden ml-2 text-[0.8125rem] leading-tight sm:block font-normal md:text-base;
+            @apply hidden ml-2 text-[0.8125rem] leading-tight sm:block font-normal
+                   md:text-base;
         }
     }
 }
 
 #container {
-    @apply flex-1 px-5 pb-25 pt-13 xs:pt-16 xs:pb-31;
+    @apply flex-1 px-5 pb-25 pt-13
+           xs:pt-16 xs:pb-31;
 }
 
 #footer {
+    & .footer-link, & .footer-center {
+        @apply max-w-screen-xl;
+    }
+    & .footer-link, & .footer-center {
+        @apply !px-4;
+    }
+    & .footer-family {
+        @apply lg:right-4;
+    }
 }
 
 .text-title {
-    @apply leading-[1.15] font-normal text-center text-black text-[1.875rem] xs:text-4xl md:text-5xl;
+    @apply leading-[1.15] font-normal text-center text-black text-[1.875rem]
+           xs:text-4xl
+           md:text-5xl;
     & small {
-        @apply block leading-snug mt-1.5 xs:mt-2 text-sm xs:text-base;
+        @apply block leading-snug mt-1.5 text-sm
+               xs:mt-2 xs:text-base;
     }
 }
 
 .text-complate {
-    @apply text-center leading-[1.45] text-xl xs:text-2xl md:text-[1.625rem];
+    @apply text-center leading-[1.45] text-xl
+           xs:text-2xl
+           md:text-[1.625rem];
     & em {
         @apply text-success not-italic;
     }
     & small {
-        @apply block mt-2.5 xs:mt-3 text-base xs:text-lg;
+        @apply block mt-2.5 text-base
+               xs:mt-3 xs:text-lg;
     }
 }
 
 .tabs-list {
     @apply flex relative mx-auto max-w-[540px] mt-13 xs:mt-16
-           after:content-empty after:absolute after:z-5 after:bottom-0 after:left-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
+           after:absolute after:z-5 after:bottom-0 after:left-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
     & li {
         @apply relative z-10 flex-1 text-center;
         & a {
             @apply block relative h-full font-medium leading-[1.45] text-gray1 text-lg xs:text-xl pt-1.5 xs:pt-3 pb-[calc(0.375rem_+_3px)] xs:pb-[calc(0.75rem_+_5px)]
-                   after:content-empty after:block after:absolute after:left-0 after:bottom-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
+                   after:block after:absolute after:left-0 after:bottom-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
             &.active {
                 @apply text-black2 after:bg-black2;
             }
@@ -152,12 +176,15 @@ body {
 
 .term-agree {
     & dt {
-        @apply font-medium leading-[1.45] text-base xs:text-lg;
+        @apply font-medium leading-[1.45] text-base
+               xs:text-lg;
     }
     & dd {
-        @apply border border-[#DEDEDE] text-gray1 mt-1 xs:mt-1.5 py-4 xs:py-5 px-1.5 xs:px-2;
+        @apply border border-[#DEDEDE] text-gray1 mt-1 py-4 px-1.5
+               xs:mt-1.5 xs:py-5 xs:px-2;
         & > div {
-            @apply overflow-auto scroll-smooth aspect-[16/6.6] px-2.5 xs:px-3;
+            @apply overflow-auto scroll-smooth aspect-[16/6.6] px-2.5
+                   xs:px-3;
             -webkit-overflow-scrolling: touch;
             &::-webkit-scrollbar {
                 @apply w-1.5 h-1.5 bg-transparent;
@@ -173,35 +200,44 @@ body {
 }
 
 .form-container {
-    @apply mx-auto max-w-[480px] mt-10 xs:mt-13;
+    @apply mx-auto max-w-[480px] mt-10
+           xs:mt-13;
     & legend {
-        @apply pb-1 border-black1 font-medium w-full leading-[1.15] border-b xs:border-b-0.5 mb-6 xs:mb-8.5 text-base xs:text-lg;
+        @apply pb-1 border-black1 font-medium w-full leading-[1.15] border-b mb-6 text-base
+               xs:mb-8.5 xs:border-b-0.5 xs:text-lg;
         & small {
-            @apply font-normal text-success text-xs xs:text-sm;
+            @apply font-normal text-success text-xs
+                   xs:text-sm;
         }
     }
 }
 
 .form-rows {
-    @apply mb-5 xs:mb-6 last:mb-0;
+    @apply mb-5
+           xs:mb-6
+           last:mb-0;
 }
 
 .form-group {
-    @apply flex items-center flex-wrap space-x-2 xs:space-x-2.5;
+    @apply flex items-center flex-wrap space-x-2
+           xs:space-x-2.5;
     & .form-control {
         @apply flex-1 w-auto;
     }
 }
 
 .form-label {
-    @apply inline-block mb-1.5 font-medium leading-[1.45] text-base xs:text-lg;
+    @apply inline-block mb-1.5 font-medium leading-[1.45] text-base
+           xs:text-lg;
     & i {
         @apply text-success;
     }
 }
 
 .form-desc {
-    @apply text-gray1 bg-no-repeat mt-2 xs:mt-2.5 bg-[left_0.1rem_top_0.375rem] bg-[length:0.75rem] xs:bg-[length:0.875rem] first:mt-0;
+    @apply text-gray1 bg-no-repeat mt-2 bg-[left_0.1rem_top_0.375rem] bg-[length:0.75rem]
+           xs:mt-2.5 xs:bg-[length:0.875rem]
+           first:mt-0;
     & + .form-desc {
         @apply mt-1;
     }
@@ -228,9 +264,11 @@ body {
 }
 
 .btn-group {
-    @apply flex justify-center mt-9 xs:mt-11 space-x-2 xs:space-x-2.5;
+    @apply flex justify-center mt-9 space-x-2
+           xs:mt-11 xs:space-x-2.5;
     & [class*="btn"] {
-        @apply flex-shrink min-w-0 w-38 xs:w-[11.875rem];
+        @apply flex-shrink min-w-0 w-38
+               xs:w-[11.875rem];
     }
 }
 
@@ -304,7 +342,8 @@ body {
 }
 
 #maps-container {
-    @apply flex-1 flex flex-col min-h-[calc(100vh_-_3.25rem)] md:min-h-[calc(100vh_-_5.25rem)];
+    @apply flex-1 flex flex-col min-h-[calc(100vh_-_3.25rem)]
+           md:min-h-[calc(100vh_-_5.25rem)];
 }
 
 .maps-content {
@@ -316,7 +355,9 @@ body {
 }
 
 .maps-kakao-overlay {
-    @apply cursor-default;
+    @apply cursor-default
+           before:block before:absolute before:z-10 before:bottom-0.5 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-0 before:border-solid before:border-t-[16px] before:border-x-[14px] before:border-b-0 before:border-transparent before:border-t-white
+           after:block after:relative after:z-5 after:-mt-px after:mx-auto after:w-0 after:h-0 after:border-solid after:border-t-[17px] after:border-x-[15px] after:border-b-0 after:border-transparent after:border-t-gray1;
     & .content {
         @apply p-6.5 pt-7.5 w-75 rounded-[1rem] bg-white shadow-[4px_3px_6px_#00000055] text-sm text-black2 whitespace-normal break-all;
         & .name {
@@ -338,23 +379,11 @@ body {
             @apply absolute top-2 right-2.5 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 cursor-pointer opacity-50 bg-[url(../images/ico-close.svg)];
         }
     }
-    &::before, &::after {
-        @apply block w-0 h-0 border-solid content-empty;
-    }
-    &::before {
-        @apply absolute z-10 bottom-0.5 left-1/2 -translate-x-1/2;
-        border-width: 16px 14px 0 14px;
-        border-color: #fff transparent transparent transparent;
-    }
-    &::after {
-        @apply relative z-5 -mt-px mx-auto;
-        border-width: 17px 15px 0 15px;
-        border-color: #999 transparent transparent transparent;
-    }
 }
 
 .maps-layer {
-    @apply flex flex-col absolute top-0 z-10 max-h-[calc(100%_-_7.5rem)] overflow-hidden bg-white md:top-7 left-0 md:left-[5.5%] w-full md:w-[34.375rem] pt-2 md:pt-5 px-5 md:px-9 rounded-t-none rounded-[1rem] md:rounded-t-[1rem] shadow-[6px_9px_19px_#0000005A];
+    @apply flex flex-col absolute z-10 top-0 left-0 w-full max-h-[calc(100%_-_7.5rem)] overflow-hidden bg-white pt-2 px-5 rounded-t-none rounded-[1rem] shadow-[6px_9px_19px_#0000005A]
+           md:top-7 md:pt-5 md:px-9 md:left-[5.5%] md:w-[34.375rem] md:rounded-t-[1rem];
     & .tabs-list {
         @apply flex-none mt-0 w-full max-w-full;
     }
@@ -372,13 +401,16 @@ body {
 .maps-layer-search {
     @apply flex-none flex flex-wrap relative z-20 space-x-2;
     & .form-control {
-        @apply flex-1 h-9 xs:h-10;
+        @apply flex-1 h-9
+               xs:h-10;
         &select {
-            @apply pr-4 xs:pr-5 bg-[right_1rem_top_0.75rem] bg-[length:0.75rem_auto];
+            @apply pr-4 bg-[right_1rem_top_0.75rem] bg-[length:0.75rem_auto]
+                   xs:pr-5;
         }
     }
     & [class*="btn"] {
-        @apply min-w-0 p-0 w-9 h-9 xs:w-10 xs:h-10 overflow-hidden rounded-full bg-no-repeat bg-center -indent-96;
+        @apply min-w-0 p-0 w-9 h-9 overflow-hidden rounded-full bg-no-repeat bg-center -indent-96
+               xs:w-10 xs:h-10;
     }
     & .btn-primary {
         @apply bg-[url(../images/ico-search-white.svg)];
@@ -389,7 +421,8 @@ body {
 }
 
 .maps-layer-results {
-    @apply max-h-full overflow-auto scroll-smooth space-y-5.5 xs:space-y-6.5 duration-700 pr-2 mt-5 xs:mt-6.5;
+    @apply max-h-full overflow-auto scroll-smooth space-y-5.5 xs:space-y-6.5 duration-700 pr-2 mt-5
+           xs:mt-6.5;
     -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
         @apply w-4.5 h-2 bg-transparent;
@@ -403,25 +436,29 @@ body {
 }
 
 .maps-layer-result {
-    @apply bg-no-repeat bg-[url(../images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 xs:pl-11 bg-[length:1.25rem] xs:bg-[length:auto];
+    @apply bg-no-repeat bg-[url(../images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 bg-[length:1.25rem]
+           xs:pl-11 xs:bg-[length:auto];
     & .name {
         @apply flex items-start justify-between;
         & strong {
-            @apply text-black text-base xs:text-lg;
+            @apply text-black text-base
+                   xs:text-lg;
         }
         & span {
             @apply font-serif mt-0.5 ml-4 text-gray1;
         }
     }
     & .call {
-        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(../images/ico-tel-gray.svg)] xs:bg-[length:auto];
+        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(../images/ico-tel-gray.svg)]
+               xs:bg-[length:auto];
     }
 }
 
 .maps-layer-recommend {
     @apply flex items-center;
     & .noimg {
-        @apply block relative mr-3 w-20 h-20 sm:mr-5.5 sm:w-25 sm:h-25 rounded-full bg-no-repeat bg-center bg-[#8FCBDD];
+        @apply block relative mr-3 w-20 h-20 rounded-full bg-no-repeat bg-center bg-[#8FCBDD]
+               sm:mr-5.5 sm:w-25 sm:h-25;
         &::before {
             @apply content-empty absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-[length:100%] bg-no-repeat bg-center -translate-x-1/2 -translate-y-1/2 opacity-65;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45' viewBox='0 0 45 45'%3E%3Cpath id='Shape' d='M1.875,45V18.75H43.125V45H1.875ZM27.138,27.877V38.542a1.934,1.934,0,0,0,.4,1.329,1.323,1.323,0,0,0,1.022.443,1.359,1.359,0,0,0,1.06-.443,1.953,1.953,0,0,0,.4-1.329V26.307a1.539,1.539,0,0,0-.527-1.365,2.529,2.529,0,0,0-1.424-.354H27.1a3.715,3.715,0,0,0-1.271.158,1.069,1.069,0,0,0-.585.57,8.914,8.914,0,0,0-.433,1.339L22.56,35.124l-2.246-8.469a9.045,9.045,0,0,0-.432-1.339,1.068,1.068,0,0,0-.586-.57,3.715,3.715,0,0,0-1.271-.158h-.97a2.533,2.533,0,0,0-1.424.354,1.539,1.539,0,0,0-.527,1.365V38.542a1.938,1.938,0,0,0,.4,1.335,1.453,1.453,0,0,0,2.084-.005,1.953,1.953,0,0,0,.4-1.329V27.868l2.479,9.851c.08.307.164.62.248.933a3.449,3.449,0,0,0,.332.817,1.7,1.7,0,0,0,.59.607,1.726,1.726,0,0,0,.928.238,1.655,1.655,0,0,0,1.139-.369,1.947,1.947,0,0,0,.564-.817c.1-.3.236-.777.4-1.409l2.477-9.842ZM37.5,11.25V9.191L32.087,0h3.776L45,9.32v2.057A3.735,3.735,0,0,1,41.25,15,3.846,3.846,0,0,1,37.5,11.25Zm-9.375,0V9.191L26.365,0h3.643l5.613,9.379v2.058A3.682,3.682,0,0,1,31.875,15,3.846,3.846,0,0,1,28.125,11.25Zm-9.375,0V9.191L20.714,0h3.571L26.25,9.187v2.059a3.75,3.75,0,1,1-7.5,0Zm-9.374.128V9.32L14.992,0h3.643l-1.76,9.32V11.38a3.752,3.752,0,0,1-7.5,0ZM0,11.378V9.32L9.139,0h3.775L7.5,9.32V11.38a3.752,3.752,0,0,1-7.5,0Z' fill='%23fff'/%3E%3C/svg%3E%0A");
@@ -440,12 +477,14 @@ body {
         }
     }
     & img {
-        @apply mr-3 w-20 h-20 sm:mr-5.5 sm:w-25 sm:h-25 rounded-full object-cover;
+        @apply mr-3 w-20 h-20 rounded-full object-cover
+               sm:mr-5.5 sm:w-25 sm:h-25;
     }
     & .partner {
         @apply flex-1;
         & .name {
-            @apply text-base sm:text-lg font-medium;
+            @apply text-base font-medium
+                   sm:text-lg;
         }
         & .addr {
             @apply text-gray6;
@@ -454,6 +493,8 @@ body {
 }
 
 .maps-layer-toggle {
-    @apply flex-none sticky bottom-0 left-0 w-full bg-white overflow-hidden -indent-[999em] h-12 aria-expanded:before:rotate-180 sm:h-16
-           before:content-empty before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(../images/ico-map-arrow.svg)];
+    @apply flex-none sticky bottom-0 left-0 w-full bg-white overflow-hidden -indent-[999em] h-12
+           before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(../images/ico-map-arrow.svg)]       
+           sm:h-16
+           aria-expanded:before:rotate-180;
 }

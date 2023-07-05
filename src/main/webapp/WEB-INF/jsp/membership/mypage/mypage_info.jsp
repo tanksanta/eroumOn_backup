@@ -9,7 +9,15 @@
 	<div id="page-content">
 		<ul class="tabs">
 			<li><a href="/membership/mypage/form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
-			<li><a href="/membership/mypage/pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			
+			<c:set var="changeUrl" value="" />
+			<c:choose>
+				<c:when test="${_mbrSession.joinTy eq 'E'}"><c:set var="changeUrl" value="/membership/mypage/pswd?returnUrl=${param.returnUrl}" /></c:when>
+				<c:when test="${_mbrSession.joinTy eq 'N' }"><c:set var="changeUrl" value="https://www.naver.com"/></c:when>
+				<c:otherwise><c:set var="changeUrl" value="https://cs.kakao.com/search?query=계정비밀번호%20변경" /></c:otherwise>
+			</c:choose>
+			<li><a href="${changeUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			
 		</ul>
 
 		<div class="member-modify mt-11 md:mt-15">
@@ -17,6 +25,7 @@
 				<form:input type="hidden" path="delProflImg" id="delProflImg" name="delProflImg" value="N" />
 				<form:hidden path="proflImg" />
 				<form:hidden path="diKey" />
+				<form:hidden path="joinTy" />
 
 				<input type="hidden" id="rcognGrad" name="rcognGrad" value="${mbrVO.recipterInfo.rcognGrad}" />
 				<input type="hidden" id="selfBndRt" name="selfBndRt" value="${mbrVO.recipterInfo.selfBndRt}" />
@@ -50,7 +59,15 @@
                             <td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrNm}</p></td>
 						</tr>
 						<tr>
-							<th scope="row"><p>아이디</p></th>
+							<th scope="row">
+								<c:set var="joinTy">
+								<c:choose>
+									<c:when test="${_mbrSession.joinTy eq 'K'}">카카오</c:when>
+									<c:when test="${_mbrSession.joinTy eq 'N'}">네이버</c:when>
+								</c:choose>
+								</c:set>
+								<p>${joinTy} 아이디</p>
+							</th>
 							<td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrId}</p></td>
 						</tr>
 						<tr>

@@ -31,23 +31,20 @@
                         <label class="form-check-label" for="saveId">아이디 저장</label>
                     </div>
                     <div class="login-link">
-                        <a href="/membership/srchId">아이디 찾기</a>
-                        <a href="/membership/srchPswd">비밀번호 찾기</a>
+                        <a href="/membership/srchId" class="link">아이디 찾기</a>
+                        <a href="/membership/srchPswd" class="link">비밀번호 찾기</a>
+                        <a href="/membership/registStep1" class="btn btn-small">회원가입</a>
                     </div>
                 </fieldset>
             </form>
 
-			<dl class="member-desc">
-				<dl>
-					<dt>
-						<img src="/html/core/images/img-brand-logo-white.svg" alt="이로움ON">
-					</dt>
-					<dd>
-						<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>
-	                    <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
-					</dd>
-				</dl>
-			</dl>
+            <dl class="member-social">
+                <dt>간편 로그인</dt>
+                <dd>
+                    <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">카카오 로그인</a>
+                    <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">네이버 로그인</a>
+                </dd>
+            </dl>
         </div>
     </main>
     <script src="/html/core/vendor/rsa/RSA.min.js" /></script>

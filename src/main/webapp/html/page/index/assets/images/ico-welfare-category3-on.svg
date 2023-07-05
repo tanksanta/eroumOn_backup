@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 3 Copy 5</title>
+    <g id="pub" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-138.000000, -82.000000)">
+            <g id="Group-3-Copy-5" transform="translate(138.000000, 82.000000)">
+                <rect id="Rectangle" fill-opacity="0" fill="#DCDCDC" x="0" y="0" width="36" height="36"></rect>
+                <path d="M24.5,7.75 C25.6736051,7.75 26.7361051,8.22569745 27.5052038,8.99479618 C28.2743025,9.76389491 28.75,10.8263949 28.75,12 L28.75,25 C28.75,26.1736051 28.2743025,27.2361051 27.5052038,28.0052038 C26.7361051,28.7743025 25.6736051,29.25 24.5,29.25 L11.5,29.25 C10.3263949,29.25 9.26389491,28.7743025 8.49479618,28.0052038 C7.72569745,27.2361051 7.25,26.1736051 7.25,25 L7.25,12 C7.25,10.8263949 7.72569745,9.76389491 8.49479618,8.99479618 C9.26389491,8.22569745 10.3263949,7.75 11.5,7.75 Z" id="Rectangle" stroke="#BD4D7A" stroke-width="1.5"></path>
+                <path d="M19.25,12.25 L19.5,16.75 L23.25,16.75 L23.5,20 L19.5,20.25 L19.5,24.5 L16.25,24.75 L16,20.25 L12.25,20.25 L12,17 L16,16.75 L16,12.5 L19.25,12.25 Z" id="Rectangle-2" stroke="#BD4D7A" stroke-width="1.5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

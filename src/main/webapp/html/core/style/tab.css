@@ -2,15 +2,13 @@
     .tab-list {
         @apply flex items-center;
         & li {
-            @apply mr-1;
+            @apply mr-1
+                   last:mr-0;
             & a {
                 @apply flex justify-center items-center px-5 h-8 rounded text-sm leading-snug bg-gray2 text-center whitespace-nowrap;
                 &.active {
                     @apply bg-black1 font-bold text-white px-7 h-10;
                 }
-            }
-            &:last-child {
-                @apply mr-0;
             }
         }
     }

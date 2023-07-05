@@ -81,9 +81,12 @@ public class MarketLoginController extends CommonAbstractController {
 		}
 
 		String returnUrl = request.getHeader("REFERER");
-		if(returnUrl.contains("info") || returnUrl.contains("action") || returnUrl.contains("Action")) {
-			returnUrl = "/" + marketPath;
+		if(EgovStringUtil.isNotEmpty(returnUrl)) {
+			if(returnUrl.contains("info") || returnUrl.contains("action") || returnUrl.contains("Action")) {
+				returnUrl = "/" + marketPath;
+			}
 		}
+		
 
 		model.addAttribute("returnUrl", returnUrl);
 

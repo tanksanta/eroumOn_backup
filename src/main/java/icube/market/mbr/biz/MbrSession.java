@@ -27,7 +27,7 @@ public class MbrSession extends MbrVO implements Serializable {
 	private String prtcrRecipterYn = "N";
 	private int prtcrRecipterIndex = 0;
 	private RecipterInfoVO prtcrRecipterInfo;
-
+	
 
 	@Setter(AccessLevel.NONE)
 	@Value("#{props['Globals.Member.session.key']}")
@@ -63,11 +63,10 @@ public class MbrSession extends MbrVO implements Serializable {
 		setProflImg(mbrVO.getProflImg());
 		setMberGrade(mbrVO.getMberGrade());
 		setItrstField(mbrVO.getItrstField());
+		setJoinTy(mbrVO.getJoinTy());
 
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
-
-		setPrtcrList(mbrVO.getPrtcrList()); // 보호자 정보
 
 		setLoginCheck(loginCheck);
 	}
@@ -78,7 +77,4 @@ public class MbrSession extends MbrVO implements Serializable {
 		setPrtcrRecipterInfo(recipterInfoVO);
 		setPrtcrRecipterIndex(index);
 	}
-
-
-
 }

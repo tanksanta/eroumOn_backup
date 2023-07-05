@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.TilkoApiService;
+import icube.main.biz.MainService;
 
 @Controller
 @RequestMapping(value = "/common/recipter")
@@ -18,6 +19,9 @@ public class TilkoApiController {
 
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
+	
+	@Resource(name = "mainService")
+	private MainService mainService;
 
 	@ResponseBody
 	@RequestMapping(value="getRecipterInfo.json", method=RequestMethod.POST)
@@ -26,13 +30,12 @@ public class TilkoApiController {
 			, @RequestParam(value="rcperRcognNo", required=true) String rcperRcognNo
 			) throws Exception {
 
-		boolean result = false;
-
 		Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
 
 		System.out.println("returnMap: " + returnMap.toString());
-
+		
         return returnMap;
 	}
+
 
 }

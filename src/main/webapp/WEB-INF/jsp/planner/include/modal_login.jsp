@@ -30,6 +30,8 @@
                         	<label class="form-check-label" for="saveId">아이디 저장</label>
                     	</div>
                         <button type=button class="btn btn-primary mt-4 w-full f_loginSubmit">로그인</button>
+                        <%-- <a href="${_membershipPath}/naver/get" class="btn btn-success mt-4 w-full">네이버 로그인</a>
+                        <a href="${_membershipPath}/kakao/auth" class="btn btn-success mt-4 w-full">카카오 로그인</a> --%>
 
                     </div>
                     </form>
