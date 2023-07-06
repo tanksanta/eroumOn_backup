@@ -130,4 +130,22 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 		ehcacheService.removeAllCaches("gdsCtgry");
 	}
 
+
+	public GdsCtgryVO findRootCategory(List<GdsCtgryVO> dataList) {
+        for (GdsCtgryVO category : dataList) {
+            if (category.getUpCtgryNo() == 0) {
+                return category;
+            }
+        }
+        return null;
+    }
+
+	public void printCategoryTree(GdsCtgryVO category, String prefix) {
+        System.out.println(prefix + "|_" + category.getCtgryNm());
+        List<GdsCtgryVO> children = category.getChildList();
+        for (GdsCtgryVO child : children) {
+            printCategoryTree(child, prefix + "   ");
+        }
+    }
+
 }

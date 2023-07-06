@@ -1,5 +1,6 @@
 package icube.common.interceptor;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -174,6 +175,14 @@ public class MarketInterceptor implements HandlerInterceptor {
 		Map<Integer, String> gdsCtgryListMap = gdsCtgryService.selectGdsCtgryListToMap(-1);
 		request.setAttribute("_gdsCtgryList", gdsCtgryList);
 		request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
+
+		// 상품카테고리 tree(vo < list<vo>)구조로 변경
+		GdsCtgryVO rootCategory = gdsCtgryService.findRootCategory(gdsCtgryList);
+		rootCategory.setChildList(new ArrayList<>()); // childList 초기화
+		rootCategory.buildChildList(gdsCtgryList);
+		request.setAttribute("_gnbCtgry", rootCategory);
+
+
 		// 카테고리 정보 E
 
 		// 사용자 메뉴 S
@@ -237,8 +246,5 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 		log.debug(" ################################################################## ");
 	}
-
-
-
 
 }

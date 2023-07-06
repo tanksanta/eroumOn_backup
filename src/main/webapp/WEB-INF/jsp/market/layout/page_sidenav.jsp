@@ -3,13 +3,21 @@
 	상품, 마이페이지 등 nav 체크
  --%>
 		<c:choose>
+
  			<%-- 상품목록 --%>
 			<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 &&  fn:indexOf(_curPath, '/list') > -1}">
-			<nav id="page-sidenav">
-				<form id="srchGdsFrm" name="srchGdsFrm" method="get" class="page-sidenav-container">
+			<nav id="page-sidenav" class="is-active">
+				<div class="page-sidenav-container">
+				<form id="srchGdsFrm" name="srchGdsFrm" method="get" >
                     <input type="hidden" id="srchGdsTag" name="srchGdsTag" value="${param.srchGdsTag}">
                     <input type="hidden" id="srchGdsTagNI" name="srchGdsTagNI" value="${param.srchGdsTagNI}">
                     <input type="hidden" id="srchGdsTys" name="srchGdsTys" value="${param.srchGdsTys}">
+
+                    <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
+                        <button type="button" class="btn btn-primary flex-1 f_srchBtn">적용</button>
+                        <button type="button" class="btn btn-refresh f_srchGdsFrmReset">새로고침</button>
+                    </div>
+
                     <div class="page-sidenav-scrollbar">
                         <div class="page-sidenav-group">
                             <p class="title">가격대</p>
@@ -103,13 +111,12 @@
                             <!--  <button type="button" class="moreview">+</button>-->
                         </div>
                     </div>
-                    <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
-                        <button type="button" class="btn btn-primary flex-1 f_srchBtn">적용</button>
-                        <button type="button" class="btn btn-refresh f_srchGdsFrmReset">새로고침</button>
-                    </div>
+
             	</form>
+            	</div>
             </nav>
  			</c:when>
+
  			<%-- 마이페이지 --%>
  			<c:when test="${fn:indexOf(_curPath, '/mypage/') > -1}">
 			<nav id="page-sidenav">
