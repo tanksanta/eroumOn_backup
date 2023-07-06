@@ -199,7 +199,7 @@ $(function(){
 
 		if(confirm("저장하시겠습니까?")){
 			$("input[name='item_child']").each(function(){
-				arrSort.push($(this).data("mainNo")+"|"+$(this).val());
+				arrSort.push($(this).data("mainNo") + "/" + $(this).val());
 			});
 			console.log(arrSort);
 

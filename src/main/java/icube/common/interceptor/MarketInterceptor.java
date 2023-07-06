@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
+import icube.manage.exhibit.main.biz.MainMngService;
+import icube.manage.exhibit.main.biz.MainMngVO;
 import icube.manage.exhibit.popup.biz.PopupService;
 import icube.manage.exhibit.popup.biz.PopupVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
@@ -53,6 +55,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 	@Resource(name = "mngUserMenuService")
 	private MngUserMenuService mngUserMenuService;
+
+	@Resource(name = "mainMngService")
+	private MainMngService mainMngService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -177,6 +182,14 @@ public class MarketInterceptor implements HandlerInterceptor {
 		List<MngMenuVO> userMenuList = mngUserMenuService.selectMngMenuList(paramMap);
 		request.setAttribute("_userMenuList", userMenuList);
 		// 사용자 메뉴 E
+
+		// 띠 배너 S
+		Map<String, Object> bannerMap = new HashMap<String, Object>();
+		bannerMap.put("srchUseYn", "Y");
+		bannerMap.put("srchBannerTy", "S");
+		List<MainMngVO> bannerList = mainMngService.selectMainMngList(paramMap);
+		request.setAttribute("_bannerList", bannerList);
+		// 띠 배너 E
 
 		// 경로정보
 		request.setAttribute("_marketPath", "/" + marketPath);

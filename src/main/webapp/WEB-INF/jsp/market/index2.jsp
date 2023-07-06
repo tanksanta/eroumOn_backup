@@ -5,18 +5,18 @@
 		<div class="swiper-wrapper">
 			<c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
-					<a href="${resultList.linkUrl}">
+					<c:if test="${resultList.linkTy ne 'N' }"><a href="${resultList.linkUrl}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>></c:if>
 						<picture>
 							<c:forEach var="fileList" items="${resultList.mobilefileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" media="(max-width: 768px)">
 							</c:forEach>
-							 
+
 							<c:forEach var="fileList" items="${resultList.pcfileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">
 								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" alt="">
 							</c:forEach>
 						</picture>
-					</a>
+					<c:if test="${resultList.linkTy ne 'N' }"></a></c:if>
 				</div>
 			</c:forEach>
 
@@ -34,415 +34,199 @@
 	</div>
 </div>
 
+<c:forEach var="gdsMainList" items="${mainMngList}" >
+<c:if test="${gdsMainList.themaTy eq 'G' && gdsMainList.sortNo eq 1}">
 <div class="main-product">
 	<h2 class="title">
-		<img src="/html/page/market/assets/images/ico-main-product1.png" alt=""> 오늘의 쇼핑 제안
+		<c:forEach var="fileList" items="${gdsMainList.fileList}">
+			<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=ATTACH&amp;fileNo=${fileList.fileNo }" alt="">
+		 </c:forEach>
+		${gdsMainList.sj}
 	</h2>
 	<div class="swiper">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
+
+			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
+				<div class="swiper-slide">
+					<div class="product-item">
+						<div class="item-thumb">
+							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
+							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl class="hypen">
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-							<dl class="discount">
-								<dt>오늘의 특가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+						<a href="${gdsMainList.linkUrl}" class="item-content">
+							<div class="name">
+								<small>${resultList.gdsCtgry.ctgryNm}</small>
+								<strong>${resultList.gdsInfo.gdsNm}</strong>
+							</div>
+							<div class="cost">
+								<dl>
+									<dt>판매가</dt>
+									<dd>
+										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
+										<small>원</small>
+									</dd>
+								</dl>
+							</div>
+						</a>
+						<div class="item-layer">
+							<div class="mx-auto mb-2.5">
+								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
 	</div>
 	<div class="swiper-button-prev"></div>
 	<div class="swiper-button-next"></div>
 </div>
+</c:if>
+</c:forEach>
 
 <div class="main-banner1">
-	<c:forEach var="resultList" items="${mainMngList }" varStatus="status">
+	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'H' }">
-		<div <c:if test="${resultList.sortNo eq 1}">class="left"</c:if><c:if test="${resultList.sortNo eq 2}">class="right"</c:if>>
-			<a href="${resultList.linkUrl}"> <picture>
-				<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
-				<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
-			</a>
-		</div>
+			<div <c:if test="${resultList.sortNo eq 1}">class="left"</c:if><c:if test="${resultList.sortNo eq 2}">class="right"</c:if>>
+				<a href="${resultList.linkUrl}"> <picture>
+					<c:forEach var="fileList" items="${resultList.halfFileList}">
+						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
+						<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
+					</c:forEach>
+				</a>
+			</div>
 		</c:if>
 	</c:forEach>
-	
-	
-	<!-- <div class="right">
-		<a href="#"> <picture>
-			<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" media="(max-width: 768px)">
-			<!-- mobile url -->
-			<!-- <source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png">
-			<!-- pc url  <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner2.png" alt=""> <!-- pc url  </picture>
-		</a>
-	</div> -->
+
 </div>
 
+<c:forEach var="gdsMainList" items="${mainMngList}" >
+<c:if test="${gdsMainList.themaTy eq 'G' && gdsMainList.sortNo eq 2}">
 <div class="main-product">
 	<h2 class="title">
-		<img src="/html/page/market/assets/images/ico-main-product2.png" alt=""> 좋아할만한 카테고리 상품
+		<c:forEach var="fileList" items="${gdsMainList.fileList}">
+			<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=ATTACH&amp;fileNo=${fileList.fileNo }" alt="">
+		 </c:forEach>
+		${gdsMainList.sj}
 	</h2>
 	<div class="swiper">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
+
+			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
+				<div class="swiper-slide">
+					<div class="product-item">
+						<div class="item-thumb">
+							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
+							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl class="hypen">
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-							<dl class="discount">
-								<dt>오늘의 특가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+						<a href="${gdsMainList.linkUrl}" class="item-content">
+							<div class="name">
+								<small>${resultList.gdsCtgry.ctgryNm}</small>
+								<strong>${resultList.gdsInfo.gdsNm}</strong>
+							</div>
+							<div class="cost">
+								<dl>
+									<dt>판매가</dt>
+									<dd>
+										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
+										<small>원</small>
+									</dd>
+								</dl>
+							</div>
+						</a>
+						<div class="item-layer">
+							<div class="mx-auto mb-2.5">
+								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
 	</div>
 	<div class="swiper-button-prev"></div>
 	<div class="swiper-button-next"></div>
 </div>
+</c:if>
+</c:forEach>
 
 <div class="main-banner2">
-	<a href="#"> <picture>
-		<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png" media="(max-width: 768px)">
-		<!-- mobile url -->
-		<source srcset="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png">
-		<!-- pc url --> <img src="/html/page/market/assets/images/dummy/img-dummy-main-banner3.png" alt=""> <!-- pc url --> </picture>
-	</a>
+	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
+		<c:if test="${resultList.themaTy eq 'B'}">
+			<a href="${resultList.linkUrl}">
+				<picture>
+					<c:forEach var="mobileFileList" items="${resultList.mobileImgFileList}">
+						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${mobileFileList.upNo }&amp;fileTy=MOBILE&amp;fileNo=${mobileFileList.fileNo }" media="(max-width: 768px)">
+					</c:forEach>
+
+					<c:forEach var="pcFileList" items="${resultList.pcImgFileList}">
+						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${pcFileList.upNo }&amp;fileTy=PC&amp;fileNo=${pcFileList.fileNo }">
+						<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${pcFileList.upNo }&amp;fileTy=PC&amp;fileNo=${pcFileList.fileNo }" alt=""> <!-- pc url -->
+					</c:forEach>
+				</picture>
+			</a>
+		</c:if>
+	</c:forEach>
 </div>
 
+<c:forEach var="gdsMainList" items="${mainMngList}" >
+<c:if test="${gdsMainList.themaTy eq 'G' && gdsMainList.sortNo eq 3}">
 <div class="main-product">
 	<h2 class="title">
-		<img src="/html/page/market/assets/images/ico-main-product3.png" alt=""> 오늘의 판매 특가
+		<c:forEach var="fileList" items="${gdsMainList.fileList}">
+			<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=ATTACH&amp;fileNo=${fileList.fileNo }" alt="">
+		 </c:forEach>
+		${gdsMainList.sj}
 	</h2>
 	<div class="swiper">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
+
+			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
+				<div class="swiper-slide">
+					<div class="product-item">
+						<div class="item-thumb">
+							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
+							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl class="hypen">
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-							<dl class="discount">
-								<dt>오늘의 특가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+						<a href="${gdsMainList.linkUrl}" class="item-content">
+							<div class="name">
+								<small>${resultList.gdsCtgry.ctgryNm}</small>
+								<strong>${resultList.gdsInfo.gdsNm}</strong>
+							</div>
+							<div class="cost">
+								<dl>
+									<dt>판매가</dt>
+									<dd>
+										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
+										<small>원</small>
+									</dd>
+								</dl>
+							</div>
+						</a>
+						<div class="item-layer">
+							<div class="mx-auto mb-2.5">
+								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
+								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="swiper-slide">
-				<div class="product-item">
-					<div class="item-thumb">
-						<img src="/html/page/market/assets/images/dummy/img-dummy-product.png" alt="">
-					</div>
-					<a href="#" class="item-content">
-						<div class="name">
-							<small>성인용보행기</small> <strong>살졸 카본 롤레이터</strong>
-						</div>
-						<div class="cost">
-							<dl>
-								<dt>판매가</dt>
-								<dd>
-									66,300<small>원</small>
-								</dd>
-							</dl>
-						</div>
-					</a>
-					<div class="item-layer">
-						<div class="mx-auto mb-2.5">
-							<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-							<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-							<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
+
 		</div>
 	</div>
 	<div class="swiper-button-prev"></div>
 	<div class="swiper-button-next"></div>
 </div>
+</c:if>
+</c:forEach>
 
 <script>
             window.addEventListener('DOMContentLoaded', (e) => {

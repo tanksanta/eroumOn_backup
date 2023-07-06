@@ -240,8 +240,8 @@ public class MMainMngController extends CommonAbstractController{
 
 		String[] sortNoList = sortNos.replace(" ", "").split(",");
 		for(String item : sortNoList) {
-			int mainNo = EgovStringUtil.string2integer(item.split("|")[0]);
-			int sortNo = EgovStringUtil.string2integer(item.split("|")[2]);
+			int mainNo = EgovStringUtil.string2integer(item.split("/")[0]);
+			int sortNo = EgovStringUtil.string2integer(item.split("/")[1]);
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("mainNo", mainNo);

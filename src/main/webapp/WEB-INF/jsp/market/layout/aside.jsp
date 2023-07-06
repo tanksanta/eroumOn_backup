@@ -31,14 +31,16 @@
     </c:when>
     <c:otherwise>
   	  <!-- banner -->
-        <aside id="banner">
-            <div class="container">
-                <img src="/html/page/market/assets/images/dummy/img-dummy-notice.jpg" alt="">
-                <button type="button">
-                    <span class="sr-only">닫기</span>
-                </button>
-            </div>
-        </aside>
+  	  	<%-- <c:forEach var="banner" items="${_bannerList}"> --%>
+	        <aside id="banner">
+	            <div class="container">
+	                <img src="/html/page/market/assets/images/dummy/img-dummy-notice.jpg" alt="">
+	                <button type="button">
+	                    <span class="sr-only">닫기</span>
+	                </button>
+	            </div>
+	        </aside>
+        <%-- </c:forEach> --%>
         <script>
             $('#banner button').on('click', function() {
                 $('body').removeClass('is-banner');

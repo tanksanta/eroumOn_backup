@@ -36,11 +36,11 @@
                                         <td>
                                             <div class="form-check-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="linkTy" id="linkTy1" value="1" disabled>
+                                                    <input class="form-check-input" type="radio" name="linkTy" id="linkTy1" value="P" disabled>
                                                     <label class="form-check-label" for="linkTy1">현재창</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="linkTy" id="linkTy2" value="2" disabled>
+                                                    <input class="form-check-input" type="radio" name="linkTy" id="linkTy2" value="S" disabled>
                                                     <label class="form-check-label" for="linkTy2">새창</label>
                                                 </div>
                                             </div>
@@ -136,13 +136,12 @@
                 		dataType : 'json'
                 	})
                 	.done(function(json){
-                 		console.log(json);
+                 		console.log(json.linkTy);
                 		$("#mng_menu_setting_form").find("input[name=crud]").val("UPDATE");
                 		$("#mng_menu_setting_form").find("input[name=menuNo]").val(json.menuNo);
                 		$("#mng_menu_setting_form").find("input[name=menuNm]").val(json.menuNm);
                 		$("#mng_menu_setting_form").find("input[name=upMenuNo]").val(json.upMenuNo);
                 		$("#mng_menu_setting_form").find("input[name=menuUrl]").val(json.menuUrl);
-                		$("#mng_menu_setting_form").find("input[name=linkTy]").val(json.linkTy);
                 		$("#mng_menu_setting_form").find("input:radio[name=linkTy][value="+json.linkTy+"]").prop('checked', true);
                 		$("#mng_menu_setting_form").find("input[name=sortNo]").val(json.sortNo);
                 		$("#mng_menu_setting_form").find("input:radio[name=useYn][value="+json.useYn+"]").prop('checked', true);
@@ -400,6 +399,7 @@
 									sortNo : sort_no,
 									menuNm : obj.node.text,
 									useYn : 'Y',
+									linkTy : 'P',
 									menuUrl : '#',
 									icon : '',
 									id : obj.node.id
@@ -563,7 +563,7 @@
             		f_mng_menu_form_reset("reset");
             		return false;
             	});
-            	$("#mng_menu_setting_form input[name=menuTy]").on("propertychange change keyup paste input", function(){
+            	/*$("#mng_menu_setting_form input[name=menuTy]").on("propertychange change keyup paste input", function(){
             		if("3"==$("#mng_menu_setting_form input[name=menuTy]:checked").val()) {
             			$("#mng_menu_setting_form input#menuUrl").prop("disabled",false).prop("readonly",true).val("#f");
             		} else if ("4"==$("#mng_menu_setting_form input[name=menuTy]:checked").val()) {
@@ -574,6 +574,6 @@
             			}
             			$("#mng_menu_setting_form input#menuUrl").prop("disabled",false).prop("readonly",false);
             		}
-            	});
+            	});*/
 
                 </script>

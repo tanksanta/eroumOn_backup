@@ -26,4 +26,6 @@ public class MainMngVO extends CommonBaseVO {
 	private List<FileVO> mobileImgFileList;
 	private List<FileVO> halfFileList;
 	private List<FileVO> fileList;
+
+	private List<MainGdsMngVO> gdsList;
 }

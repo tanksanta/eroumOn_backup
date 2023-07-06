@@ -208,8 +208,8 @@ public class MBnnrMngController extends CommonAbstractController {
 
 		String[] arrSortNo = sortNos.replace(" ","").split(",");
 		for(String item : arrSortNo) {
-			int bannerNo = EgovStringUtil.string2integer(item.split("|")[0]);
-			int sortNo = EgovStringUtil.string2integer(item.split("|")[2]);
+			int bannerNo = EgovStringUtil.string2integer(item.split("/")[0]);
+			int sortNo = EgovStringUtil.string2integer(item.split("/")[1]);
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("srchBannerNo", bannerNo);

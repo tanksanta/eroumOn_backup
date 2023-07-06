@@ -7,6 +7,8 @@
 		<collection property="pcImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_pc_id}" select="file.selectFileList" />
 		<collection property="mobileImgFileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_mobile_id}" select="file.selectFileList" />
 		<collection property="fileList" column="{srvcId=srvc_main_id, upNo=main_no, fileTy=item_attach_id}" select="file.selectFileList" />
+
+		<collection property="gdsList" column="srchMainNo=main_no" select="main.gds.selectMainGdsMngList" />
 	</resultMap>
 
 
@@ -87,7 +89,7 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
-	
+
 	<select id="selectMainMngList" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
 		SELECT
 			<include refid="listColumn" />

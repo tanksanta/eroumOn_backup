@@ -7,7 +7,7 @@
 		<div class="navigation-submenu">
 			<ul>
 				<c:forEach var="userMenu" items="${_userMenuList}" varStatus="status" begin="1">
-					<li><a href="${userMenu.menuUrl}">${userMenu.menuNm}</a></li>
+					<li><a href="${userMenu.menuUrl}" <c:if test="${userMenu.linkTy eq 'S'}">target="_blank"</c:if>>${userMenu.menuNm}</a></li>
 				</c:forEach>
 				<!-- <li><a href="#">기획전</a></li>
 				<li><a href="#">이벤트</a></li>
@@ -15,7 +15,7 @@
 				<li><a href="#">스토리</a></li> -->
 			</ul>
 		</div>
-		<div class="navigation-search">
+		<!-- <div class="navigation-search">
 			<button type="button" class="search-toggle">검색 펼치기 접기</button>
 			<form action="" class="search-form">
 				<div class="form-field">
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 			</form>
-		</div>
+		</div> -->
 		<ul class="navigation-util">
 			<li><a href="${_marketPath }/mypage/index" class="util-item1">마이페이지</a></li>
 			<li><a href="${_marketPath}/mypage/wish/list" class="util-item2">찜한상품</a></li>
