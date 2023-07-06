@@ -8,7 +8,13 @@
 	<%-- 상품 목록 --%>
 	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1}">
 		<div id="page-header">
-			<a href="/market" class="page-header-back">이전 페이지 가기</a>
+			<!-- <a href="/market" class="page-header-back">이전 페이지 가기</a> -->
+            <ul class="page-header-breadcrumb">
+				<li>
+					<a href="#">${_gdsCtgryListMap[upCtgryNo]}</a>
+				</li>
+			</ul>
+
 			<h2 class="page-header-name">
 				<a href="${_marketPath}/gds/${upCtgryNo}/list">${_gdsCtgryListMap[upCtgryNo]}</a>
 			</h2>
