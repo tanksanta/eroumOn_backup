@@ -2,7 +2,7 @@
 
     <header id="header">
         <div class="container">
-            <h1 id="logo" class="global-logo"><a href="/membership/login"><span>회원</span></a></h1>
+            <h1 id="logo" class="global-logo"><a href="${_mainPath}/index"><em>회원</em></a></h1>
             <nav id="navigation">
             	<c:choose>
 	            	<c:when test="${_mbrSession.loginCheck}">
@@ -23,7 +23,7 @@
             </nav>
             <ul id="family" class="global-link is-bottom">
 				<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
-                <li>
+                <!--li>
                     <a href="${_plannerPath}" class="link-item1" target="_blank" title="새창열림">
                         <div class="bubble">
                             <small>시니어 라이프 케어 플랫폼</small>
@@ -38,7 +38,7 @@
                             <small>전국 1,600개 업체와 함께합니다</small>
                         </div>
                     </a>
-                </li>
+                </li -->
                 <li>
                     <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
                         <div class="bubble">

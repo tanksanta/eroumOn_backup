@@ -399,7 +399,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
-					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow">쉽게 알아보기</a>
+					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow"><strong>쉽게 알아보기</strong></a>
                 </div>
             </div>
             <div class="content-item2">
@@ -409,7 +409,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
-					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow">복지용구 알아보기</a>
+					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow"><strong>복지용구 알아보기</strong></a>
                 </div>
             </div>
             <div class="content-item3">
@@ -419,7 +419,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
-					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow">복지용구 선택하기</a>
+					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow"><strong>복지용구 선택하기</strong></a>
                 </div>
             </div>
         </div>

@@ -1,7 +1,11 @@
 $(function() {
+    $('.notice-close').on('click', function() {
+        $(this).closest('aside').addClass('is-closed');
+    })
+
     $(window).on('load', function() {
         setTimeout(function() {
-            $('.main-visual, #visual').addClass('is-active');
+            $('#visual').addClass('is-active');
         }, 200)
 
         $('#quick .moveTop').on('click', function() {
@@ -10,9 +14,15 @@ $(function() {
     })
 
     $(window).on('scroll load', function() {
-        $('#notice').prop('class',function (i,v) {
-            return ($(window).scrollTop() > 60) ? 'is-active' : '';
-        });
+        if($(window).scrollTop() > 60) {
+            $('#notice').addClass('is-active');
+        } else {
+            $('#notice').removeClass('is-active');
+        }
+
+        if($(window).scrollTop() === 0 && $('#notice').hasClass('is-closed')) {
+            $('#notice').removeClass('is-closed');
+        }
 
         if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
             $('#quick').addClass('is-active');
@@ -28,6 +38,7 @@ $(function() {
             if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
         }
     });
+
     $(window).on('load scroll resize', function() {
         $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
     })

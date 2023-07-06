@@ -10,7 +10,7 @@
         복지용구,<br> 
         어떻게 합리적으로 선택할까요?
     </h2>
-    <p class="text-scroll is-white">아래에서 더 자세히 알아보세요</p>
+    <p class="text-scroll is-white"><i></i> 아래에서 더 자세히 알아보세요</p>
 </div>
 
 <div id="content">
@@ -28,7 +28,7 @@
                     <strong class="text-primary3">누구나 동일</strong>
                 </h3>
                 <p class="desc">예상 인정 등급을 바로 확인해 보세요!</p>
-                <a href="${_mainPath}/recipter/list?pageType=info" class="btn btn-large2 btn-primary3 is-arrow">내 인정등급 확인하기</a>
+                <a href="${_mainPath}/recipter/list?pageType=info" class="btn btn-large2 btn-primary3 is-arrow"><strong>내 인정등급 확인하기</strong></a>
             </div>
             <img src="/html/page/index/assets/images/img-page3-content1.png" alt="" class="img">
         </div>
@@ -47,12 +47,12 @@
             <div>
                 <h3>복지용구 FAQ</h3>
                 <img src="/html/page/index/assets/images/img-page3-content3.png" alt="">
-                <a href="${_mainPath}/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 is-arrow">바로가기</a>
+                <a href="${_mainPath}/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 is-arrow"><strong>바로가기</strong></a>
             </div>
             <div>
                 <h3>복지용구 선택 방법</h3>
                 <img src="/html/page/index/assets/images/img-page3-content3-2.png" alt="">
-                <a href="${_mainPath}/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 is-arrow">바로가기</a>
+                <a href="${_mainPath}/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 is-arrow"><strong>바로가기</strong></a>
             </div>
         </div>
     </div>

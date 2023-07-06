@@ -11,7 +11,7 @@
         모두에게 <span class="text-primary2">이로움</span>,<br>
         <em>노인장기요양보험 <img src="/html/page/index/assets/images/ico-page1-visual.svg" alt=""></em>
     </h2>
-    <p class="text-scroll">아래에서 더 자세히 알아보세요</p>
+    <p class="text-scroll"><i></i> 아래에서 더 자세히 알아보세요</p>
 </div>
 
 <div id="content">

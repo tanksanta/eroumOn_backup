@@ -3,8 +3,8 @@
            md:min-h-17
            lg:min-h-21;
     & .notice-banner1, & .notice-banner2 {
-        @apply flex flex-wrap items-center gap-1.5 p-2.5 leading-snug text-[0.8125rem]
-               lg:text-sm lg:leading-normal;
+        @apply flex flex-wrap items-center gap-2 p-2.5 leading-snug text-[0.8125rem]
+               lg:gap-5 lg:text-sm lg:leading-normal;
         & dl {
             @apply flex-none;
             & dt {
@@ -18,7 +18,6 @@
         }
     }
     & .notice-banner1 {
-        @apply bg-[#3366DD]/10;
         & a {
             @apply pl-7.5 bg-[#3366DD] bg-[url(../images/ico-notice-menu1.svg)] bg-[left_0.5rem_center]
                    lg:pl-9 lg:bg-[left_0.625rem_center];
@@ -28,7 +27,6 @@
         }
     }
     & .notice-banner2 {
-        @apply bg-[#EE9869]/10;
         & a {
             @apply pl-9 bg-[#EE6969] bg-[url(../images/ico-notice-menu2.svg)] bg-[left_0.8rem_center]
                    lg:pl-[2.875rem] lg:bg-[left_1rem_center];
@@ -37,19 +35,36 @@
 }
 
 #notice {
-    @apply fixed top-0 left-0 z-[250] transition-transform duration-300 ease-out -translate-y-full
+    @apply fixed top-0 left-0 z-[250] overflow-hidden transition-transform duration-300 ease-out -translate-y-full
            lg-max:hidden;
+    & .container {
+        @apply flex relative mx-auto px-5 max-w-[1360px] min-h-13
+               md:px-7 md:min-h-17
+               lg:px-10 lg:min-h-21;
+    }
     & .notice-banner1, & .notice-banner2 {
-        @apply w-1/2;
+        @apply relative w-1/2
+               before:absolute before:top-0 before:w-[50vw] before:h-full before:bg-inherit;
+        & dt, & dd {
+            @apply relative z-5;
+        }
     }
     &.is-active {
         @apply translate-y-0;
     }
+    &.is-closed {
+        @apply !-translate-y-full;
+    }
     & .notice-banner1 {
-        @apply justify-end pr-[5.46875%];
+        @apply justify-end pr-[5.46875%]
+               before:right-0 before:bg-[#3366DD]/10;
     }
     & .notice-banner2 {
-        @apply pl-[5.46875%];
+        @apply pl-[5.46875%]
+               before:left-0 before:bg-[#EE9869]/10;
+    }
+    & .notice-close {
+        @apply absolute top-1/2 right-0 overflow-hidden w-9 h-9 rounded-full bg-cover bg-[url(../images/ico-close.svg)] -indent-96 -translate-y-1/2;
     }
 }
 
@@ -62,18 +77,18 @@
         }
     }
     & .notice-banner1 {
-        @apply rounded-t-md;
+        @apply rounded-t-md bg-[#3366DD]/10;
     }
     & .notice-banner2 {
-        @apply rounded-b-md;
+        @apply rounded-b-md bg-[#EE9869]/10;
     }
 }
 
 #header {
     @apply fixed z-[200] top-0 left-1/2 -translate-x-1/2 flex items-center mx-auto px-5 w-full max-w-[1360px] h-13
-           before:content-empty before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:border-b before:border-b-[#ccc] before:-translate-x-1/2 before:transition-[background,border] before:duration-300
+           before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:border-b before:border-b-[#ccc] before:-translate-x-1/2 before:transition-[background,border] before:duration-300
            md:px-7 md:h-17
-           lg:px-10 lg:h-21;
+           lg:relative lg:left-0 lg:translate-x-0 lg:px-10 lg:h-21;
 }
 
 #logo {
@@ -90,12 +105,13 @@
     @apply relative z-5;
     & ul {
         @apply flex items-center gap-1.5
-               lg:gap-4.5;
+               lg:gap-2.5;
         & li {
             @apply last:lg-max:hidden;
             & a {
-                @apply block py-2 px-4 rounded leading-snug text-[0.8125rem] lg:rounded-md
-                       lg:text-sm lg:leading-normal lg:px-2 lg:py-2.5 lg-max:bg-gray2;
+                @apply block relative py-2 px-4 rounded leading-snug text-[0.8125rem] transition-shadow duration-300 lg:rounded-md
+                       lg:text-sm lg:leading-normal lg:px-3 lg:py-2.5 lg-max:bg-gray2
+                       hover:shadow-[inset_10px_10px_100px_200px_rgba(0,0,0,0.15)];
                 &.join {
                     @apply lg-max:bg-[#3074FF] lg-max:text-white;
                 }
@@ -110,7 +126,7 @@
 #container {
     @apply relative pt-13 pb-15 overflow-x-hidden
            md:pt-17 md:pb-20
-           lg:pt-21 lg:pb-25;
+           lg:pt-0 lg:pb-25;
 }
 
 #subject {

@@ -23,16 +23,7 @@
             <!-- 패밀리 사이트 -->
 			<div class="footer-family">
 				<dl>
-					<dt>슈퍼시니어</dt>
-					<dd>
-						<ul class="global-link">
-							<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4">
-							<span class="sr-only">슈퍼시니어</span></a></li>
-						</ul>
-					</dd>
-				</dl>
-				<dl>
-	                <dt>패밀리 사이트</dt>
+					<dt class="sr-only">패밀리 사이트</dt>
 	                <dd>
 	                    <ul class="global-link">
 	                        <li>
@@ -43,14 +34,14 @@
 	                                </div>
 	                            </a>
 	                        </li>
-	                        <li>
+	                        <!-- li>
 	                            <a href="${_membersPath}" target="_blank" title="새창열림" class="link-item2">
 	                                <div class="bubble">
 	                                    <strong>이로움ON 멤버스</strong>
 	                                    <small>전국 <fmt:formatNumber value="1600" pattern="###,###" />개 업체와 함께합니다</small>
 	                                </div>
 	                            </a>
-	                        </li>
+	                        </li> -->
 	                         <li>
                                 <a href="#" class="link-item3">
                                     <div class="bubble">
