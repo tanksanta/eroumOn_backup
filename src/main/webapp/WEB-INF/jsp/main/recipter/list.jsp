@@ -24,7 +24,7 @@
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
-                        <dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="${rcperRcognNo}"></dd>
+                        <strong>L</strong>&nbsp;<dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="${rcperRcognNo}" maxlength="10"></dd>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
@@ -37,7 +37,7 @@
                 <div class="myinfo-wrapper">
                     <div class="myinfo-box1">
                         <p class="name" ><span class="searchNm">이로미</span>&nbsp; 님
-                            <c:if test="${_mbrSession.loginCheck}"> 
+                            <c:if test="${_mbrSession.loginCheck}">
                                 <a href="/membership/mypage/list">정보수정</a>
                             </c:if>
                         </p>
@@ -85,7 +85,7 @@
 	                </div>
 	        	</div>
             </div>
-        
+
             <div class="careinfo-status recipter_view">
                 <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
                 <div class="status-swiper">
@@ -336,7 +336,7 @@
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
-        
+
                 <div class="collapse" id="collapse-agree1">
                     <p class="status-title">판매 급여 품목</p>
                     <table class="status-table">
@@ -357,7 +357,7 @@
                         <tbody class="sale_return">
                         </tbody>
                     </table>
-        
+
                     <p class="status-title">대여 급여 품목</p>
                     <table class="status-table">
                         <colgroup>
@@ -378,11 +378,11 @@
                         </tbody>
                     </table>
                 </div>
-        
+
                 <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
             </div>
         </div>
-    
+
         <div class="market-banner">
             <strong>
                 부모님 맞춤 제품이 필요하세요?
@@ -390,7 +390,7 @@
             </strong>
 			<a href="${_marketPath}">지금둘러보기</a>
         </div>
-    
+
         <div class="careinfo-content">
             <div class="content-item1">
                 <dl>
@@ -469,7 +469,7 @@ function f_dateFormat(value){
 
 function f_replaceLink (str){
 	let link = 0;
-	
+
 	switch(str){
 	case "walkerForAdults":
 		link = 1;
@@ -520,12 +520,21 @@ function f_replaceLink (str){
 		link = 0;
 		break;
 	}
-	
-	
+
+
 	return link;
 }
 
+function f_onlyNumber (str){
+	let regExp = /[^0-9]/g;
+	let regExp2 = /[a-zA-z]/g;
+	str = str.replace(regExp, "").replace(regExp2,"");
+	return str;
+}
+
 $(function() {
+	let regExp = /[^0-9 a-zA-Z!@#$%^&*()-_]/g;
+
     var swiper = new Swiper(".swiper", {
         slidesPerView : 'auto',
         spaceBetween : 10,
@@ -537,24 +546,31 @@ $(function() {
             spaceBetween : 12,
         },
     });
-    
+
     $('.status-toggle').on('click', function() {
         $(this).toggleClass('is-active').text(($(this).hasClass('is-active')) ? '상세닫기' : '상세열기').prev('.status-list').toggleClass('hidden');
     })
-    
+
+    $("#rcperRcognNo").on("keyup",function(){
+		if(!regExp.test($(this).val())){
+			$(this).val(f_onlyNumber($(this).val()));
+
+		}
+    });
+
    // 기능
     $(".f_recipterCheck").on("click", function(){
     	if("${_mbrSession.loginCheck}" == "false"){
    			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
     	}else{
-    		
+
     	let name = $("#recipter").val();
-    	let no = $("#rcperRcognNo").val();
-    	
+    	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
+
     	if(name == '' || no == '' ){
     		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
     	}else{
-    		
+
 		$.ajax({
 			type : "post",
 			url  : "/common/recipter/getRecipterInfo.json",
@@ -587,18 +603,18 @@ $(function() {
 				$("#searchRemn").text(comma(json.infoMap.REMN_AMT));
 				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
 				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원")
-				
+
 				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
 				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
-				
+
 				let allList = new Array();
-				
+
 				let saleList = new Array();
 				let lendList = new Array();
-				
+
 				let ownSaleList = new Array();
 				let ownLendList = new Array();
-				
+
 				if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
 					saleList = json.infoMap.saleList
 				}
@@ -614,18 +630,18 @@ $(function() {
 				if(json.infoMap.allList != '' && json.infoMap.allList != null){
 					allList = json.infoMap.allList;
 				}
-				
+
 				// 고유 보유 개수
 				let apiMap = new Map();
-				
+
 				let vo = "${apiVO}";
 				vo = vo.replaceAll("TilkoApiVO(","").replaceAll(")","").replaceAll(" ","").split(",");
-				
+
 				for(let v=0; v<vo.length; v++){
 					let obj = vo[v].split("=");
 					apiMap.set(obj[0],obj[1]);
 				}
-				
+
 				// 전체 고유 개수
 				if(allList.length > 0){
 					for(let i=0; i<allList.length; i++){
@@ -633,11 +649,11 @@ $(function() {
 						$(".buy"+allList[i]).text(apiMap.get(allList[i]));
 					}
 				}
-				
+
 				let CodeMap = new Map();
 				let code = "${apiCode}";
 				code = code.replaceAll("{","").replaceAll("}","").replaceAll(" ","").split(",");
-				
+
 				for(let v=0; v<code.length; v++){
 					let str = code[v];
 					str = str.split("=");
@@ -665,9 +681,9 @@ $(function() {
 					html +='</tr>';
 					$(".sale_return").append(html);
 				}
-					
-				
-				
+
+
+
 				// 대여 급여 품목
 				$(".lend_return").empty();
 				if(lendList.length > 0){
@@ -679,10 +695,10 @@ $(function() {
 						if(f_replaceLink(lendList[i]) == 0){
 							html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
 						}else{
-							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';		
+							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';
 						}
-						
-						
+
+
 						html +=' <td class="fin'+lendList[i]+'">0</td>';
 						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
 						html +='</tr>';
@@ -695,19 +711,19 @@ $(function() {
 					html +='   </tr>';
 					$(".lend_return").append(html);
 				}
-				
-				
+
+
 				// 보유 현황 카운트 - 판매
 				if(ownSaleList.length > 0){
 					for(let i=0; i<ownSaleList.length; i++){
 						let finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
 						let buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
 						$(".fin"+ownSaleList[i]).text(finCnt+1);
-						
+
 						if(buyCnt > 0){
-							$(".buy"+ownSaleList[i]).text(buyCnt-1);	
+							$(".buy"+ownSaleList[i]).text(buyCnt-1);
 						}
-					}	
+					}
 				}
 				// 보유 현황 카운트 - 대여
 				if(ownLendList.length > 0){
@@ -715,12 +731,12 @@ $(function() {
 						let finCnt = Number($(".sale_return .fin"+ownLendList[i]).text());
 						let buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
 						$(".fin"+ownLendList[i]).text(fintCnt + 1);
-						
+
 						if(buyCnt > 0){
-							$(".buy"+ownLendList[i]).text(buyCnt-1);	
+							$(".buy"+ownLendList[i]).text(buyCnt-1);
 						}
-						
-					}	
+
+					}
 				}
                 $('.careinfo-mask').addClass('is-active');
 			}else{
@@ -734,9 +750,9 @@ $(function() {
     }
     }
 	});
-		
+
 	if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){
-		
+
 		$(".f_recipterCheck").click();
 	}
 })

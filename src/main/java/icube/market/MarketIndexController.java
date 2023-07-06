@@ -44,7 +44,7 @@ public class MarketIndexController extends CommonAbstractController {
 
 	@Resource(name = "bnnrMngService")
 	private BnnrMngService bnnrMngService;
-	
+
 	@Resource(name = "mainMngService")
 	private MainMngService mainMngService;
 
@@ -77,12 +77,12 @@ public class MarketIndexController extends CommonAbstractController {
 		bannerMap.put("srchBannerTy", "M");
 		List<BnnrMngVO> mainBannerList = bnnrMngService.selectBnnrMngList(bannerMap);
 		model.addAttribute("mainBannerList", mainBannerList);
-		
+
 		bannerMap.remove("srchNowDate");
 		bannerMap.remove("srchBannerTy");
 		List<MainMngVO> mainMngList = mainMngService.selectMainMngList(bannerMap);
 		model.addAttribute("mainMngList", mainMngList);
-		
+
 
 		// 사업소 카운트
 		Map<String, Object> paramMap = new HashMap<String, Object>();

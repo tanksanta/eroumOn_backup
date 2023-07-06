@@ -46,7 +46,7 @@
 							<c:forEach var="fileList" items="${mainMngVO.fileList}" varStatus="status">
 								<div id="attachFileViewDiv${fileList.fileNo}">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'ICON', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary icon-delete-flag" onclick="delFile('${fileList.fileNo}', 'ICON', '${status.index}'); return false;"> 삭제</a>
 								</div>
 							</c:forEach>
 
@@ -91,13 +91,13 @@
 						<th class="text-center">
 							<label for="" class="require">배너 이미지(PC)</label><br />
 							※ 이미지 권장 사이즈<br />
-							(000px * 000px)
+							(1200px * 150px)
 						</th>
 						<td>
 							<c:forEach var="fileList" items="${mainMngVO.pcImgFileList}" varStatus="status">
 								<div id="attachFilePcViewDiv${fileList.fileNo}" class="">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary banner-delete-flag" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
 										<label for="updtAttachPcFileDc"">대체텍스트</label>
 										<input type="text" class="form-control flex-1 ml-2" id="updtAttachPcFileDc${fileList.fileNo}" name="updtAttachPcFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
@@ -129,13 +129,13 @@
 						<th class="text-center">
 							<label for="" class="require">배너 이미지(모바일)</label><br />
 							※ 이미지 권장 사이즈<br />
-							(000px * 000px)
+							(800px * 150px)
 						</th>
 						<td>
 							<c:forEach var="fileList" items="${mainMngVO.mobileImgFileList }" varStatus="status">
 								<div id="attachMobileFileViewDiv${fileList.fileNo}" class="">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary banner-delete-flag" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
 										<label for="updtMobileFileDc${fileList.fileNo}"">대체텍스트</label>
 										<input type="text" class="form-control flex-1 ml-2" id="updtMobileFileDc${fileList.fileNo}" name="updtMobileFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
@@ -167,13 +167,13 @@
 						<th class="text-center">
 							<label for="" class="require">배너 이미지</label><br />
 							※ 이미지 권장 사이즈<br />
-							(000px * 000px)
+							(590px * 100px)
 						</th>
 						<td>
 							<c:forEach var="fileList" items="${mainMngVO.halfFileList}" varStatus="status">
 								<div id="attachHalfFileViewDiv${fileList.fileNo}" class="">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'HALF', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary half-delete-flag" onclick="delFile('${fileList.fileNo}', 'HALF', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
 										<label for="updtHalfFileDc${fileList.fileNo}"">대체텍스트</label>
 										<input type="text" class="form-control flex-1 ml-2" id="updtHalfFileDc${fileList.fileNo}" name="updtHlafFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
@@ -201,7 +201,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr class="view_banner view_half" <c:if test="${mainMngVO.themaTy eq 'G' }">style="display:none;"</c:if>>
+					<tr class="view_banner view_half" <c:if test="${mainMngVO.themaTy eq 'G' }">style="display:none;"</c:if> id="linkUrlView">
 						<th><label for="" class="require">배너 링크 주소</label></th>
 						<td>
 							<form:input class="form-control w-full" path="linkUrl" />
@@ -461,7 +461,9 @@ $(function(){
    			$(".gds_view").show();
    		}else if($(this).val() == "B"){
    			$(".view_banner").show();
+   			$(".view_half").hide();
    			$(".gds_view").hide();
+   			$("#linkUrlView").show();
    		}else{
    			$(".view_banner").hide();
    			$(".gds_view").hide();
@@ -489,42 +491,74 @@ $(function(){
     $("form#mainFrm").validate({
     ignore: "input[type='text']:hidden",
     rules : {
-    	cn : { required : true},
+    	sj : { required : true},
     },
     messages : {
-    	cn : { required : "내용은 필수 입력 항목입니다."}
+    	sj : { required : "주제명은 필수 입력 항목입니다."}
     },
     submitHandler: function (frm) {
+    	let returnFlag = false;
+
     	if($("#themaTy").val() == "G"){
-			if($("#attachFile0").val() == ''){
-				alert("배너 이미지를 선택해주세요");
-				return false;
-			}
-			if($(".selectView .noresult").length > 0){
-				alert("상품을 선택해주세요.");
-				return false;
-			}
+    		if("${mainMngVO.crud}" != "UPDATE"){
+    			if($("#attachFile0").val() == ''){
+    				alert("주제명 아이콘을 선택해주세요");
+    				returnFlag = false;
+    			}
+    			if($(".selectView .noresult").length > 0){
+    				alert("상품을 선택해주세요.");
+    				returnFlag = false;
+    			}
+    		}else{
+    			if($(".icon-delete-flag").length > 0){
+    				returnFlag =  true;
+    			}else{
+    				alert("주제명 아이콘을 선택해주세요");
+    				returnFlag = false;
+    			}
+    		}
 		}else if($("#themaTy").val() == "B"){
-			if($("#attachPcFile0").val() == ''){
-				alert("PC 배너 이미지를 선택해주세요");
-				return false;
-			}else if($("#mobileFile0").val() == ''){
-				alert("Mobile 배너 이미지를 선택해주세요");
-				return false;
+
+			if("${mainMngVO.crud}" != "UPDATE"){
+				 if($("#attachPcFile0").val() == ''){
+					alert("PC 배너 이미지를 선택해주세요");
+					returnFlag = false;
+				}else if($("#mobileFile0").val() == ''){
+					alert("Mobile 배너 이미지를 선택해주세요");
+					returnFlag = false;
+				}
+			}else{
+
+				if($(".banner-delete-flag").length < 2){
+					alert("배너 이미지를 선택해주세요");
+					returnFlag = false;
+    			}
 			}
+
 		}else {
-			if($("#attachHalfFile0").val() == ''){
-				alert("하프 배너 이미지를 선택해주세요");
-				return false;
+			if("${mainMngVO.crud}" != "UPDATE"){
+				if($("#attachHalfFile0").val() == ''){
+					alert("하프 배너 이미지를 선택해주세요");
+					returnFlag = false;
+				}
+			}else{
+				if($(".half-delete-flag").length > 0){
+					returnFlag = true;
+    			}else{
+    				alert("하프 배너 이미지를 선택해주세요");
+    				returnFlag = false;
+    			}
 			}
 		}
 
-
-    	if(confirm("저장하시겠습니까?")){
-    		frm.submit();
-    	}else{
-    		return false;
+    	if(returnFlag){
+    		if(confirm("저장하시겠습니까?")){
+        		//frm.submit();
+        	}else{
+        		return false;
+        	}
     	}
+
     }
 
     });

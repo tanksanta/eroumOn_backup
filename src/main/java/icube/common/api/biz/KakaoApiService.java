@@ -60,7 +60,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 	@Autowired
 	private MbrSession mbrSession;
-	
+
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	// 0 : 오류
@@ -74,8 +74,8 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	// 8 : 블랙리스트
 	// 9 : 휴면
 	// 10: 탈퇴
-	
-	
+
+
 	/**
 	 * 인가 코드 발급
 	 * @return authUrl
@@ -188,7 +188,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         JsonObject jsonObj = element.getAsJsonObject();
         jsonObj.addProperty("accessToken", accessToken);
         element = JsonParser.parseString(jsonObj.toString());
-        
+
         return setUserInfo(element, session);
 	}
 
@@ -203,7 +203,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		mbrVO.setKakaoAccessToken(element.getAsJsonObject().get("accessToken").getAsString());
 
 		JsonElement info = element.getAsJsonObject().get("kakao_account");
-		
+
 		boolean genderFlag = info.getAsJsonObject().get("has_gender").getAsBoolean();
 		boolean emailFlag = info.getAsJsonObject().get("has_email").getAsBoolean();
 		boolean birthDayFlag = info.getAsJsonObject().get("has_birthday").getAsBoolean();
@@ -243,36 +243,36 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			Date birthDate = formatter.parse(sb.toString().trim());
 			mbrVO.setBrdt(birthDate);
 		}
-		
+
 		String name = info.getAsJsonObject().get("name").getAsString();
 		if(EgovStringUtil.isNotEmpty(name)) {
 			mbrVO.setMbrNm(name);
 		}
-		
+
 		// 기존 회원가입 여부
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchMblTelno", mbrVO.getMblTelno());
 		paramMap.put("srchBirth", formatter.format(mbrVO.getBrdt()));
 		paramMap.put("srchMbrStts", "NORMAL");
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
-		
+
 		if(mbrList.size() > 0) {
 			if(mbrList.size() > 1) {
 				return 5; // 가입정보 2개 이상
 			}else {
 				if(EgovStringUtil.equals(mbrList.get(0).getJoinTy(), "K")) {
 					int mbrTy = 0;
-					
+
 					if(mbrList.get(0).getMberSttus() != null) {
 						String sttus = mbrList.get(0).getMberSttus();
 						String mbrId = mbrList.get(0).getMbrId();
-						
+
 						Map<String, Object> drmtMap = new HashMap<String, Object>();
 						drmtMap.put("srchKakaoAppId", mbrVO.getKakaoAppId());
 						drmtMap.put("srchMbrStts", "EXIT");
 						drmtMap.put("srchWhdwlDt", 7);
 						int drmtCnt = mbrService.selectMbrCount(paramMap);
-						
+
 						if(EgovStringUtil.equals("BLACK", sttus)) {
 							mbrTy = 8; // 블랙
 						}else if(EgovStringUtil.equals("HUMAN", sttus)) {
@@ -282,13 +282,13 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 							mbrTy = 10; // 탈퇴
 						}else {
 							mbrVO.setUniqueId(mbrList.get(0).getUniqueId());
-							
+
 							if(EgovStringUtil.isNotEmpty(mbrVO.getEml()) && EgovStringUtil.isNotEmpty(mbrVO.getMblTelno())) {
 								mbrService.updateKaKaoInfo(mbrVO);
 							}
-							
+
 							mbrSession.setParms(mbrList.get(0), true);
-							
+
 							if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 								mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
 							}else {
@@ -304,10 +304,10 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 							mbrSession.setMbrInfo(session, mbrSession);
 							mbrTy = 2;
 						}
-						
+
 					}
 					return mbrTy; // 카카오 로그인
-					
+
 				}else if(EgovStringUtil.equals(mbrList.get(0).getJoinTy(), "N")){
 					return 3; // 네이버 회원가입
 				}else {
@@ -319,10 +319,10 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			mbrVO.setMbrId(appId+"@K");
 			mbrVO.setJoinTy("K");
 			mbrVO.setKakaoAppId(appId);
-			
+
 			return setUserDlvy(mbrVO);
 		}
-	
+
 	}
 
 	/**
@@ -338,9 +338,9 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		//3. 배송지 정보 SET
 		//4. 생일, 전화번호로 회원 판별
 		int resultCnt = 0;
-		
+
 		try {
-			
+
 			URL url = new URL(dlvyUrl);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setRequestMethod("GET");
@@ -357,18 +357,18 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	        JsonElement element = JsonParser.parseString(result.toString());
 
 	        JsonElement dlvyInfo = element.getAsJsonObject().get("shipping_addresses");
-	        
-	        if(EgovStringUtil.isEmpty(dlvyInfo.toString())) {
-	        	
+
+	        if(dlvyInfo == null) {
+
 	        	insertUserInfo(mbrVO);
-	        	
+
 	        	resultCnt = 6;
 	        }else {
 	        	 JsonArray addresses = dlvyInfo.getAsJsonArray();
 	        	 DlvyVO dlvyVO = new DlvyVO();
-	        	 
+
 	 	        for(JsonElement address : addresses) {
-	 	        	
+
 	 	        	boolean defaultYn = address.getAsJsonObject().get("default").getAsBoolean();
 
 	 	        	String zip = address.getAsJsonObject().get("zone_number").getAsString();
@@ -398,10 +398,10 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 	        	}
 
 	 	        }
-	 	        
+
 				mbrVO.setDlvyInfo(dlvyVO);
  				insertUserInfo(mbrVO);
- 				
+
 	 	        resultCnt = 7;
 	        }
 
@@ -423,9 +423,11 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
      	mbrService.insertMbr(mbrVO);
 
      	DlvyVO dlvyVO = mbrVO.getDlvyInfo();
-     	dlvyVO.setUniqueId(mbrVO.getUniqueId());
-		dlvyService.insertBassDlvy(dlvyVO);
-     	
+     	if(dlvyVO != null) {
+     		dlvyVO.setUniqueId(mbrVO.getUniqueId());
+    		dlvyService.insertBassDlvy(dlvyVO);
+     	}
+
         mbrSession.setParms(mbrVO, true);
 	}
 

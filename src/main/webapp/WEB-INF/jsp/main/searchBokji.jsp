@@ -370,6 +370,11 @@ $(function(){
 
 	});
 
+	$(document).on("change", "select[name='select-gugun']", function(e){
+		e.preventDefault();
+		$("button.srch-srvc").click();
+  	});
+
 	//지도 > 탭 이벤트
 	$(document).on('click', '.service-select a[data-bs-toggle="pill"]', function(){
 		var targetTab = $(this).data("bsTarget");

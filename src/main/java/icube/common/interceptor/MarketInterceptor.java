@@ -22,8 +22,8 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
-import icube.manage.exhibit.main.biz.MainMngService;
-import icube.manage.exhibit.main.biz.MainMngVO;
+import icube.manage.exhibit.banner.biz.BnnrMngService;
+import icube.manage.exhibit.banner.biz.BnnrMngVO;
 import icube.manage.exhibit.popup.biz.PopupService;
 import icube.manage.exhibit.popup.biz.PopupVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
@@ -57,8 +57,8 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Resource(name = "mngUserMenuService")
 	private MngUserMenuService mngUserMenuService;
 
-	@Resource(name = "mainMngService")
-	private MainMngService mainMngService;
+	@Resource(name = "bnnrMngService")
+	private BnnrMngService bnnrMngService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -195,8 +195,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 		// 띠 배너 S
 		Map<String, Object> bannerMap = new HashMap<String, Object>();
 		bannerMap.put("srchUseYn", "Y");
+		bannerMap.put("srchNowDate", "1");
 		bannerMap.put("srchBannerTy", "S");
-		List<MainMngVO> bannerList = mainMngService.selectMainMngList(paramMap);
+		List<BnnrMngVO> bannerList = bnnrMngService.selectBnnrMngList(bannerMap);
 		request.setAttribute("_bannerList", bannerList);
 		// 띠 배너 E
 

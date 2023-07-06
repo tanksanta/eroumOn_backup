@@ -44,7 +44,7 @@
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     </c:if>
 </head>
-<body>
+<body <c:if test="${fn:length(_bannerList) > 0}">class="is-banner"</c:if>>
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>

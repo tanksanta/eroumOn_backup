@@ -3,8 +3,8 @@
 <mapper namespace="banner.mng">
 
 	<resultMap type="bnnrMngVO" id="bnnrMngVOMap" autoMapping="true" >
-		<collection property="mobilefileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_mobile_id}" select="file.selectFileList" />
-		<collection property="pcfileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_pc_id}" select="file.selectFileList" />
+		<collection property="mobileFileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_mobile_id}" select="file.selectFileList" />
+		<collection property="pcFileList" column="{srvcId=srvc_id, upNo=banner_no, fileTy=item_pc_id}" select="file.selectFileList" />
 	</resultMap>
 
 	<sql id="listColumn">

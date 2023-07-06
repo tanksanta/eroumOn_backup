@@ -7,11 +7,11 @@
 				<div class="swiper-slide">
 					<c:if test="${resultList.linkTy ne 'N' }"><a href="${resultList.linkUrl}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>></c:if>
 						<picture>
-							<c:forEach var="fileList" items="${resultList.mobilefileList}" varStatus="stts">
+							<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" media="(max-width: 768px)">
 							</c:forEach>
 
-							<c:forEach var="fileList" items="${resultList.pcfileList}" varStatus="stts">
+							<c:forEach var="fileList" items="${resultList.pcFileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">
 								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" alt="">
 							</c:forEach>
@@ -51,7 +51,7 @@
 					<div class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
-							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
+							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
 						<a href="${gdsMainList.linkUrl}" class="item-content">
 							<div class="name">
@@ -120,7 +120,7 @@
 					<div class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
-							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
+							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
 						<a href="${gdsMainList.linkUrl}" class="item-content">
 							<div class="name">
@@ -192,7 +192,7 @@
 					<div class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
-							<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
+							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
 						<a href="${gdsMainList.linkUrl}" class="item-content">
 							<div class="name">
