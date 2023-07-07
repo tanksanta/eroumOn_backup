@@ -97,7 +97,7 @@
 							<c:forEach var="fileList" items="${mainMngVO.pcImgFileList}" varStatus="status">
 								<div id="attachFilePcViewDiv${fileList.fileNo}" class="">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary banner-delete-flag" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary pc-delete-flag" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
 										<label for="updtAttachPcFileDc"">대체텍스트</label>
 										<input type="text" class="form-control flex-1 ml-2" id="updtAttachPcFileDc${fileList.fileNo}" name="updtAttachPcFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
@@ -111,7 +111,7 @@
 									<div class="row" id="attachFilePcInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.pcImgFileList)}">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptPcAttach">
-												<input type="file" class="form-control w-2/3" id="attachPcFile${status.index}" name="pcFile${status.index}" onchange="fileChk(this);" />
+												<input type="file" class="form-control w-2/3" id="pcFile${status.index}" name="pcFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 										<div class="col-12">
@@ -135,7 +135,7 @@
 							<c:forEach var="fileList" items="${mainMngVO.mobileImgFileList }" varStatus="status">
 								<div id="attachMobileFileViewDiv${fileList.fileNo}" class="">
 									<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-									<a href="#delFile" class="btn-secondary banner-delete-flag" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
+									<a href="#delFile" class="btn-secondary mobile-delete-flag" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
 										<label for="updtMobileFileDc${fileList.fileNo}"">대체텍스트</label>
 										<input type="text" class="form-control flex-1 ml-2" id="updtMobileFileDc${fileList.fileNo}" name="updtMobileFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
@@ -187,7 +187,7 @@
 									<div class="row" id="attachFileHalfInputDiv${status.index}" <c:if test="${status.index < fn:length(mainMngVO.halfFileList)}">style="display:none;"</c:if>>
 										<div class="col-12">
 											<div class="custom-file" id="uptHalfAttach">
-												<input type="file" class="form-control w-2/3" id="attachHalfFile${status.index}" name="halfFile${status.index}" onchange="fileChk(this);" />
+												<input type="file" class="form-control w-2/3" id="halfFile${status.index}" name="halfFile${status.index}" onchange="fileChk(this);" />
 											</div>
 										</div>
 										<div class="col-12">
@@ -430,9 +430,7 @@ function fileChk(obj) {
 $(function(){
 	// 상품검색 모달
 	$(".f_srchGds").on("click", function(){
-		if($(".selectView .noresult").length < 1){
-   			$("input[name='choose_item']").siblings(".invalid-feedback").remove();
-   		}
+		$(this).siblings(".invalid-feedback").remove();
 
 		if ( !$.fn.dataTable.isDataTable('#gdsDataTable') ) { //데이터 테이블이 있으면x
  			GdsDataTable.init();
@@ -471,7 +469,7 @@ $(function(){
    		}
    	});
 
-   	$("#attachFile0").on("change",function(){
+   	$("#attachFile0, #pcFile0, #mobileFile0, #halfFile0").on("change",function(){
    		if($(this).val() != ''){
    			$(this).removeClass("is-invalid");
    	   		$(this).siblings(".invalid-feedback").remove();
@@ -486,6 +484,7 @@ $(function(){
 			$(".selectView").append('<tr><td colspan="6" class="noresult">등록된 관련상품이 없습니다.</td></tr>');
 		}
 	});
+
 
 	$.validator.addMethod("iconCheck", function(value,element){
 		if($("#themaTy").val() == "G"){
@@ -507,12 +506,89 @@ $(function(){
 		}
 	}, "주제명 아이콘은 필수 입력 항목입니다.");
 
+	$.validator.addMethod("pcCheck", function(value,element){
+		if($("#themaTy").val() == "B"){
+			if("${mainMngVO.crud}" != "UPDATE"){
+				if($("#pcFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}else{
+				if($(".pc-delete-flag").length < 1 && $("#pcFile0").val() == ''){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}else{
+			return true;
+		}
+	}, "배너 이미지(PC)는 필수 입력 항목입니다.");
+
+	$.validator.addMethod("mobileCheck", function(value,element){
+		if($("#themaTy").val() == "B"){
+			if("${mainMngVO.crud}" != "UPDATE"){
+				if($("#mobileFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}else{
+				if($(".mobile-delete-flag").length < 1 && $("#mobileFile0").val() == ''){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}else{
+			return true;
+		}
+	}, "배너 이미지(모바일)는 필수 입력 항목입니다.");
+
+	$.validator.addMethod("halfCheck", function(value,element){
+		if($("#themaTy").val() == "H"){
+			if("${mainMngVO.crud}" != "UPDATE"){
+				if($("#halfFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}else{
+				if($(".half-delete-flag").length < 1 && $("#halfFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}else{
+			return true;
+		}
+	}, "배너 이미지는 필수 입력 항목입니다.");
+
+	$.validator.addMethod("gdsCheck", function(value,element){
+		if($("#themaTy").val() == "G"){
+			if($(".noresult").length > 0){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return true;
+		}
+	}, "상품 선택은 필수 선택 항목입니다.");
+
+
   //유효성 검사
     $("form#mainFrm").validate({
     ignore: "input[type='text']:hidden",
     rules : {
     	sj : { required : true}
     	, attachFile0 : {iconCheck : true}
+    	, choose_item : {gdsCheck : true}
+    	, pcFile0 : {pcCheck : true}
+    	, mobileFile0 : {mobileCheck : true}
+    	, halfFile0 : {halfCheck : true}
     },
     messages : {
     	sj : { required : "주제명은 필수 입력 항목입니다."}

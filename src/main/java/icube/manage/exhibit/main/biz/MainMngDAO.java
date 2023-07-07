@@ -15,6 +15,14 @@ public class MainMngDAO extends CommonAbstractMapper {
 		return selectListVO("main.selectMainMngCount", "main.selectMainMngListVO", listVO);
 	}
 
+	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
+		return selectList("main.selectMainMngList",paramMap);
+	}
+
+	public MainMngVO selectMainMng(Map<String, Object> paramMap) throws Exception {
+		return selectOne("main.selectMainMng",paramMap);
+	}
+
 	public Integer updateMainUseYn(Map<String, Object>paramMap) throws Exception {
 		return update("main.updateMainUseYn",paramMap);
 	}
@@ -23,20 +31,16 @@ public class MainMngDAO extends CommonAbstractMapper {
 		return update("main.updateMainSortNo",paramMap);
 	}
 
-	public MainMngVO selectMainMng(Map<String, Object> paramMap) throws Exception {
-		return selectOne("main.selectMainMng",paramMap);
+	public Integer updateMainMng(MainMngVO mainMngVO) throws Exception {
+		return update("main.updateMainMng",mainMngVO);
+	}
+
+	public Integer updateMainRdcnt(Map<String, Object> paramMap) throws Exception {
+		return update("main.updateMainRdcnt", paramMap);
 	}
 
 	public void insertMainMng(MainMngVO mainMngVO) throws Exception {
 		insert("main.insertMainMng",mainMngVO);
-	}
-
-	public void updateMainMng(MainMngVO mainMngVO) throws Exception {
-		update("main.updateMainMng",mainMngVO);
-	}
-
-	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
-		return selectList("main.selectMainMngList",paramMap);
 	}
 
 }

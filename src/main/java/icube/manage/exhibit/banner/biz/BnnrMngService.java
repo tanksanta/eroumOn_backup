@@ -21,12 +21,12 @@ public class BnnrMngService extends CommonAbstractServiceImpl {
 		return bnnrMngDAO.bnnrMngListVO(listVO);
 	}
 
-	public BnnrMngVO selectBnnrMng(int bnnrMngNo) throws Exception {
-		return bnnrMngDAO.selectBnnrMng(bnnrMngNo);
+	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
+		return bnnrMngDAO.selectBnnrMngList(paramMap);
 	}
 
-	public void insertBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
-		bnnrMngDAO.insertBnnrMng(bnnrMngVO);
+	public BnnrMngVO selectBnnrMng(int bnnrMngNo) throws Exception {
+		return bnnrMngDAO.selectBnnrMng(bnnrMngNo);
 	}
 
 	public void updateBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
@@ -44,7 +44,11 @@ public class BnnrMngService extends CommonAbstractServiceImpl {
 		return bnnrMngDAO.updateSortNo(paramMap);
 	}
 
-	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
-		return bnnrMngDAO.selectBnnrMngList(paramMap);
+	public Integer updateBnnrRdcnt(Map<String, Object> paramMap) throws Exception {
+		return bnnrMngDAO.updateBnnrRdcnt(paramMap);
+	}
+
+	public void insertBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
+		bnnrMngDAO.insertBnnrMng(bnnrMngVO);
 	}
 }

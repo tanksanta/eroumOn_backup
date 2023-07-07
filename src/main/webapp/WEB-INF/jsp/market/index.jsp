@@ -5,7 +5,7 @@
 		<div class="swiper-wrapper">
 			<c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
-					<c:if test="${resultList.linkTy ne 'N' }"><a href="${resultList.linkUrl}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>></c:if>
+					<c:if test="${resultList.linkTy ne 'N' }"><a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>></c:if>
 						<picture>
 							<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" media="(max-width: 768px)">
@@ -91,7 +91,7 @@
 	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'H' }">
 			<div <c:if test="${resultList.sortNo eq 1}">class="left"</c:if><c:if test="${resultList.sortNo eq 2}">class="right"</c:if>>
-				<a href="${resultList.linkUrl}"> <picture>
+				<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}"> <picture>
 					<c:forEach var="fileList" items="${resultList.halfFileList}">
 						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
 						<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
@@ -159,7 +159,7 @@
 <div class="main-banner2">
 	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'B'}">
-			<a href="${resultList.linkUrl}">
+			<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}">
 				<picture>
 					<c:forEach var="mobileFileList" items="${resultList.mobileImgFileList}">
 						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${mobileFileList.upNo }&amp;fileTy=MOBILE&amp;fileNo=${mobileFileList.fileNo }" media="(max-width: 768px)">

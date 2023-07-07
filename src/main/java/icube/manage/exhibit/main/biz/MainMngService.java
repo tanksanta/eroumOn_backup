@@ -25,6 +25,20 @@ public class MainMngService extends CommonAbstractServiceImpl {
 		return mainMngDAO.mainMngListVO(listVO);
 	}
 
+	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
+		return mainMngDAO.selectMainMngList(paramMap);
+	}
+
+	public MainMngVO selectMainMng(int mainNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchMainNo", mainNo);
+		return selectMainMng(paramMap);
+	}
+
+	public MainMngVO selectMainMng(Map<String, Object> paramMap) throws Exception {
+		return mainMngDAO.selectMainMng(paramMap);
+	}
+
 	public Integer updateMainUseYn(int mainNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mainNo", mainNo);
@@ -36,14 +50,12 @@ public class MainMngService extends CommonAbstractServiceImpl {
 		return mainMngDAO.updateMainSortNo(paramMap);
 	}
 
-	public MainMngVO selectMainMng(int mainNo) throws Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMainNo", mainNo);
-		return selectMainMng(paramMap);
+	public Integer updateMainMng(MainMngVO mainMngVO)throws Exception {
+		return mainMngDAO.updateMainMng(mainMngVO);
 	}
 
-	public MainMngVO selectMainMng(Map<String, Object> paramMap) throws Exception {
-		return mainMngDAO.selectMainMng(paramMap);
+	public Integer updateMainRdcnt(Map<String, Object> paramMap) throws Exception {
+		return mainMngDAO.updateMainRdcnt(paramMap);
 	}
 
 	public void insertMainMng(MainMngVO mainMngVO) throws Exception {
@@ -66,14 +78,4 @@ public class MainMngService extends CommonAbstractServiceImpl {
 		}
 
 	}
-
-	public void updateMainMng(MainMngVO mainMngVO)throws Exception {
-		mainMngDAO.updateMainMng(mainMngVO);
-		
-	}
-
-	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
-		return mainMngDAO.selectMainMngList(paramMap);
-	}
-
 }
