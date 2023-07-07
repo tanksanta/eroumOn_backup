@@ -30,6 +30,14 @@
 			</dl>
 			<dl>
 				<dt>
+					<label for="mbrNm">성별</label>
+				</dt>
+				<dd>
+					<input type="text" id="gender" name="gender" class="form-control w-full xs:max-w-50" value=""  maxlength="2"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
@@ -38,20 +46,10 @@
 			</dl>
 			<dl>
 				<dt>
-					<label for="age">만나이</label>
+					<label for="age">생년월일</label>
 				</dt>
 				<dd>
-					<%--<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set>
-
-					<c:set var="age" value="" />
-					<c:if test="${!empty _mbrSession.brdt}">
-						<c:set var="age">
-							<fmt:formatDate value="${_mbrSession.brdt}" pattern="yyyy" />
-						</c:set>
-					</c:if>
-					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="${year - age}" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>--%>
-					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="" maxlengh="2"/>
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${_mbrSession.brdt}" maxlengh="8"/>
 				</dd>
 			</dl>
 			<dl>

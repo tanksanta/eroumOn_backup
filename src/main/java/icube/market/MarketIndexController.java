@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
-import icube.common.vo.CommonListVO;
 import icube.manage.exhibit.banner.biz.BnnrMngService;
 import icube.manage.exhibit.banner.biz.BnnrMngVO;
 import icube.manage.exhibit.main.biz.MainMngService;
@@ -59,17 +58,6 @@ public class MarketIndexController extends CommonAbstractController {
 			, HttpSession session
 			, Model model) throws Exception {
 
-		CommonListVO listVO = new CommonListVO(request, 1, 1);
-
-/*
-		// 공지사항 1번
-		listVO.setParam("srchBbsNo", 1);
-		// 블라인드 상태
-		listVO.setParam("srchSttsTy", "C");
-		//listVO.setParam("endNumMysql", 1); //TODO 임시 1개
-		listVO = bbsService.selectNttListVO(listVO);
-		model.addAttribute("listVO", listVO);*/
-
 		// 메인, 띠 배너 리스트
 		Map<String, Object> bannerMap = new HashMap<String, Object>();
 		bannerMap.put("srchUseYn", "Y");
@@ -91,12 +79,7 @@ public class MarketIndexController extends CommonAbstractController {
 
 		model.addAttribute("bplcCnt", bplcCnt);
 
-		return "/market/index2";
+		return "/market/index";
 	}
-
-	/*@RequestMapping(value = {"", "index"})
-	public String list()throws Exception {
-		return "/market/index2";
-	}*/
 
 }
