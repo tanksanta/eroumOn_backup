@@ -511,9 +511,6 @@ strong {
         }
     }
     
-    [class*="btn-outline-primary"] {
-    }
-    
     .btn-primary {
         @apply !border-black2 bg-black2
                hover:!text-black2 

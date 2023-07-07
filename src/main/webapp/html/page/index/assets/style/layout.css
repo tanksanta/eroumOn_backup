@@ -327,7 +327,8 @@
 
 .is-index {
     & #header {
-        @apply before:bg-transparent before:border-b-transparent;
+        @apply before:bg-transparent before:border-b-transparent
+               lg:fixed lg:top-0 lg:left-1/2 lg:w-full lg:-translate-x-1/2;
     }
     & #logo {
         & a {
