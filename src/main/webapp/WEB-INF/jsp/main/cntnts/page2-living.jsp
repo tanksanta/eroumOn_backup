@@ -3,7 +3,7 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page2">복지용구 활용</a></li>
             <li>거실</li>
         </ul>
@@ -15,7 +15,7 @@
 		<h2 class="title">편안한 거실생활</h2>
 		<p class="desc">
 			일상생활에서 가장 많이 활동하는 공간으로<br>
-			이동에 편리함을 주는 복지용구를 소개해드립니다.
+			이동에 편리함을 주는 복지용구를 소개해 드릴게요.
 		</p>
 		<ul class="nav">
 	        <li><a href="${_mainPath}/cntnts/page2-bath">욕실</a></li>

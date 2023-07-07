@@ -230,6 +230,7 @@
                             <col class="min-w-23 w-23">
                             <col class="min-w-20 w-20">
                             <col class="min-w-30">
+                            <col class="min-w-20 w-20">
                             <col class="min-w-30 w-30">
                             <col class="min-w-20 w-20">
                             <col class="min-w-25 w-25">
@@ -250,6 +251,7 @@
                                 <th scope="col" rowspan="2">상품구분</th>
                                 <%-- loop area S --%>
                                 <th scope="col" rowspan="2">상품번호</th>
+                                <th scope="col" rowspan="2">입점업체</th>
                                 <th scope="col" rowspan="2">상품명/옵션</th>
                                 <th scope="col" rowspan="2">상품가격</th>
                                 <th scope="col" rowspan="2">수량</th>
@@ -308,6 +310,11 @@
                                 		${resultList.gdsCd}
                                 	</a>
                                 </td>
+                                
+                                <td>
+                                	${resultList.entrpsNm}
+                                </td>
+                                
                                 <td class="text-left">
                                 	<c:if test="${resultList.ordrOptnTy eq 'ADIT' }"><%--추가상품--%>
                                     <i class="ico-reply"></i>
@@ -537,7 +544,6 @@
                 	$('.table-list tbody').mergeClassRowspan(2);
                 	$('.table-list tbody').mergeClassRowspan(3);
                 	$('.table-list tbody').mergeClassRowspan(4);
-                	$('.table-list tbody').mergeClassRowspan(9);
                 	$('.table-list tbody').mergeClassRowspan(10);
                 	$('.table-list tbody').mergeClassRowspan(11);
                 	$('.table-list tbody').mergeClassRowspan(12);
@@ -545,6 +551,7 @@
                 	$('.table-list tbody').mergeClassRowspan(14);
                 	$('.table-list tbody').mergeClassRowspan(15);
                 	$('.table-list tbody').mergeClassRowspan(16);
+                	$('.table-list tbody').mergeClassRowspan(17);
 
                 	// 출력 갯수
 	                $("#countPerPage").on("change", function(){

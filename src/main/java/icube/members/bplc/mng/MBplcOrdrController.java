@@ -996,7 +996,7 @@ public class MBplcOrdrController extends CommonAbstractController  {
 		ordrDtlVO.setRfndActno(rfndActno);
 		ordrDtlVO.setRfndDpstr(rfndDpstr);
 
-		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO);
+		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO, ordrDtlNos);
 
 		if(resultCnt == 1){
 			result = true;

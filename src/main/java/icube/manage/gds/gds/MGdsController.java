@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import javax.annotation.Resource;
@@ -50,6 +51,8 @@ import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -71,6 +74,9 @@ public class MGdsController extends CommonAbstractController {
 	@Resource(name = "gdsOptnService")
 	private GdsOptnService gdsOptnService;
 
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
+	
 	@Resource(name = "mkrService")
 	private MkrService mkrService;
 
@@ -178,6 +184,10 @@ public class MGdsController extends CommonAbstractController {
 		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(1);
 		model.addAttribute("gdsCtgryList", gdsCtgryList);
 
+		//입점업체 호출
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
+		model.addAttribute("entrpsList", entrpsList);
+		
 		//제조사 호출
 		List<MkrVO> mkrList = mkrService.selectMkrListAll();
 		model.addAttribute("mkrList", mkrList);
@@ -429,7 +439,35 @@ public class MGdsController extends CommonAbstractController {
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-		List<GdsVO> resultList = gdsService.selectGdsListAll(reqMap);
+		reqMap.put("srchUseYn", "Y");
+		List<GdsVO> resultList = gdsService.selectGdsWithOptnListAll(reqMap);
+		for(GdsVO gdsVo : resultList) {
+			//옵션 상품은 경우
+			if (gdsVo.getGdsOptnNo() > 0) {
+				gdsVo.setItemCd(gdsVo.getOptnItemCd());
+				gdsVo.setGdsNm(gdsVo.getGdsNm() + "(" + gdsVo.getOptnNm() + ")");
+				gdsVo.setStockQy(gdsVo.getOptnStockQy());
+				
+				//옵션의 사용여부 구하기
+				String useYn = "";
+				if ("BASE".equalsIgnoreCase(gdsVo.getOptnTy())) {
+					List<GdsOptnVO> optnList = gdsVo.getOptnList();
+					Optional<GdsOptnVO> result = optnList.stream().filter(f -> f.getGdsOptnNo() == gdsVo.getGdsOptnNo()).findAny();
+					GdsOptnVO optn = result.orElse(null);
+					if (optn != null) {
+						useYn = optn.getUseYn();
+					}
+				} else {
+					List<GdsOptnVO> aditOptnList = gdsVo.getAditOptnList();
+					Optional<GdsOptnVO> result = aditOptnList.stream().filter(f -> f.getGdsOptnNo() == gdsVo.getGdsOptnNo()).findAny();
+					GdsOptnVO optn = result.orElse(null);
+					if (optn != null) {
+						useYn = optn.getUseYn();
+					}
+				}
+				gdsVo.setUseYn(useYn);
+			}
+		}
 
 		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);

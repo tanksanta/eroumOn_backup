@@ -12,11 +12,11 @@ import icube.manage.sysmng.menu.biz.MngMenuVO;
 @Repository("mngUserMenuDAO")
 public class MngUserMenuDAO extends CommonAbstractMapper {
 
-	public List selectMngMenuList() throws Exception {
+	public List<MngMenuVO> selectMngMenuList() throws Exception {
 		return selectList("sysmng.user.menu.selectMngMenuList");
 	}
 
-	public List selectMngMenuList(Map<String, Object> paramMap) throws Exception {
+	public List<MngMenuVO> selectMngMenuList(Map<String, Object> paramMap) throws Exception {
 		return selectList("sysmng.user.menu.selectMngMenuList", paramMap);
 	}
 

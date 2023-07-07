@@ -588,6 +588,7 @@ public class MMbrController extends CommonAbstractController {
         // 포인트 내역
         CommonListVO listVO = new CommonListVO(request);
         listVO.setParam("srchRegDt", 1);
+        listVO.setParam("srchUniqueId", uniqueId);
         listVO = mbrPointService.mbrPointListVO(listVO);
 
 

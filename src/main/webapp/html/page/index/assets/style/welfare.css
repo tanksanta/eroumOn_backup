@@ -291,7 +291,8 @@
 
 /* 복지서비스 카드 */
 .welfare-service-item {
-    @apply hidden relative;
+    @apply hidden relative pb-25
+           lg:pb-0;
     & .service-content {
         & .content-sizer {
             @apply w-[calc(50%_-_0.375rem)]
@@ -545,7 +546,7 @@
     }
     & .service-button {
         @apply flex
-               lg-max:space-x-2 lg-max:mt-5;
+               lg-max:absolute lg-max:left-0 lg-max:right-0 lg-max:-bottom-30 lg-max:space-x-2;
         & .button-prev, & .button-next {
             @apply inline-flex items-center justify-center flex-1 h-13 border border-gray1 rounded-md text-sm font-bold
                    lg:absolute lg:z-30 lg:top-1/2 lg:w-22 lg:h-22 lg:rounded-full lg:border-0 lg:-translate-y-1/2;

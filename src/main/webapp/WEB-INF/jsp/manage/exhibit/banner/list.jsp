@@ -214,7 +214,7 @@ $(function(){
 			let arrSortNo = [];
 
 			$("input[name='item_sort']").each(function(){
-				arrSortNo.push($(this).data("bannerNo")+"|"+$(this).val());
+				arrSortNo.push($(this).data("bannerNo")+"/"+$(this).val());
 			});
 
 			$.ajax({

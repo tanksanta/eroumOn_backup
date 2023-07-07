@@ -2,12 +2,12 @@
 <header id="subject">
 	<nav class="breadcrumb">
 		<ul>
-			<li class="home"><a href="#">홈</a></li>
-			<li>나를 위한 복지서비스</li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
+			<li>어르신 맞춤 복지서비스</li>
 		</ul>
 	</nav>
 	<h2 class="subject">
-		나를 위한 복지서비스 <img src="/html/page/index/assets/images/ico-subject1.png" alt="">
+		어르신 맞춤 복지서비스 <img src="/html/page/index/assets/images/ico-subject1.png" alt="">
 		<small>노인복지가 궁금하세요? <a href="#" class="welfare-service-toggle">펼쳐보기</a></small>
 	</h2>
 </header>
@@ -370,6 +370,11 @@ $(function(){
 
 	});
 
+	$(document).on("change", "select[name='select-gugun']", function(e){
+		e.preventDefault();
+		$("button.srch-srvc").click();
+  	});
+
 	//지도 > 탭 이벤트
 	$(document).on('click', '.service-select a[data-bs-toggle="pill"]', function(){
 		var targetTab = $(this).data("bsTarget");
@@ -405,8 +410,8 @@ $(function(){
 		category = selCheckVal;
 		f_srchSrvcList(1);
 
-		$(".service-paging .flow i").removeClass("is-active");
-		$(".service .flow i:first-child").addClass("is-active");
+		$(".service-paging .paging-flow i").removeClass("is-active");
+		$(".service-paging .paging-flow i:first-child").addClass("is-active");
 	});
 
 
@@ -872,15 +877,15 @@ $(document).on("click", "button.srvc-pager", function(e){
 
 	//이전
 	if($(this).hasClass('button-prev')) {
-        if(pageNo > 2) {
-            $('.service-paging .flow').css('margin-left', -((pageNo - 3) * 20));
+        if(pageNo > 2 && pageNo <= pageTotal-2) {
+            $('.service-paging .paging-flow').css('margin-left', -((pageNo - 3) * 20));
         }
 	}
 
 	//다음
 	if($(this).hasClass('button-next')) {
         if(pageNo > 3 && pageNo <= pageTotal-2) {
-            $('.service-paging .flow').css('margin-left', -((pageNo - 3) * 20));
+            $('.service-paging .paging-flow').css('margin-left', -((pageNo - 3) * 20));
         }
 	}
 });

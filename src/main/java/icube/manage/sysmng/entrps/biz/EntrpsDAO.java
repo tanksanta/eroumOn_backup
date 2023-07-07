@@ -1,5 +1,6 @@
 package icube.manage.sysmng.entrps.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,12 @@ public class EntrpsDAO extends CommonAbstractMapper {
 
 	public EntrpsVO selectEntrps(int entrpsNo) throws Exception {
 		return (EntrpsVO)selectOne("entrps.selectEntrps", entrpsNo);
+	}
+	
+	public EntrpsVO selectEntrpsByGdsNo(int gdsNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchGdsNo", gdsNo);
+		return (EntrpsVO)selectOne("entrps.selectEntrpsByGdsNo", paramMap);
 	}
 
 	public void insertEntrps(EntrpsVO entrpsVO) throws Exception {

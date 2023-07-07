@@ -36,6 +36,17 @@
 
 
 	<!-- 마켓 기본 템플릿 -->
+	<!--
+	<definition name=".market_layout" template="/WEB-INF/jsp/market/layout/layout.jsp">
+		<put-attribute name="aside" 	value="/WEB-INF/jsp/market/layout/aside.jsp" />
+		<put-attribute name="navigation" 	value="/WEB-INF/jsp/market/layout/navigation.jsp" />
+		<put-attribute name="content" 	value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/jsp/market/layout/footer.jsp" />
+		<put-attribute name="popup" 	value="/WEB-INF/jsp/market/layout/popup.jsp" />
+		<put-attribute name="newWindow" 	value="/WEB-INF/jsp/market/layout/newWindow.jsp" />
+	</definition>
+	-->
+
 	<definition name=".market_layout" template="/WEB-INF/jsp/market/layout/layout.jsp">
 		<put-attribute name="header" 	value="/WEB-INF/jsp/market/layout/header.jsp" />
 		<put-attribute name="navigation" 	value="/WEB-INF/jsp/market/layout/navigation.jsp" />
@@ -132,7 +143,7 @@
 	<definition name="/membership/*/*" extends=".membership_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}/{2}.jsp" />
 	</definition>
-	
+
 	<!-- 메인(main) -->
 	<definition name=".main_layout" template="/WEB-INF/jsp/main/layout/layout.jsp">
 		<put-attribute name="aside" 	value="/WEB-INF/jsp/main/layout/aside.jsp" />

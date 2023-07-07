@@ -3,14 +3,14 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page3">복지용구 정보</a></li>
-            <li>복지용구 선택법</li>
+            <li>복지용구 선택 방법</li>
         </ul>
     </nav>
     <h2 class="subject">
-        나에게 맞는 복지용구 선택법 <img src="/html/page/index/assets/images/ico-subject5.png" alt="">
-        <small>복지용구 품목별 체크사항을 알려드릴게요</small>
+        복지용구 선택 방법 <img src="/html/page/index/assets/images/ico-subject5.png" alt="">
+        <small>복잡한 복지용구 선택,  품목별 고려 사항을 확인하면 쉬워요</small>
     </h2>
 </header>
 
@@ -694,7 +694,7 @@
             if (window.location.hash) {
                 var hash = "#" + window.location.hash.replace(/^#/,'');
                 if($(hash).length > 0) {
-                    var container = $('.tab');
+                    var container = $('.page3-checkpoint');
 
                     $('.nav-item[href="' + hash + '"]').addClass('active').parent().siblings().each(function() {
                         $(this).find('.nav-item').removeClass('active');
@@ -712,7 +712,7 @@
             }
 
             $('.nav-item').on('click', function() {
-                var container = $('.tab');
+                var container = $('.page3-checkpoint');
 
                 $($(this).attr('href')).one('transitionend', function() {
                     $(window).scrollTop((container.offset().top - parseInt(container.css('margin-top').replace('px', ''))) - ($('#header').outerHeight()));

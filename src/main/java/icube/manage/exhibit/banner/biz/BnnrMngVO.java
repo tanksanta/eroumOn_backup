@@ -30,5 +30,6 @@ public class BnnrMngVO extends CommonBaseVO {
 	private int rdcnt;
 
 	// fileVO
-	private List<FileVO> fileList;
+	private List<FileVO> mobileFileList;
+	private List<FileVO> pcFileList;
 }

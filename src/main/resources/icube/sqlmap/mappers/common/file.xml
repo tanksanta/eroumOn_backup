@@ -161,4 +161,11 @@
 			AND up_no = #{upNo}
 	</update>
 
+	<delete id="deleteFileReal" parameterType="java.util.HashMap">
+		DELETE FROM ATCHFILE
+		WHERE srvc_id = #{srvcId}
+			AND up_no = #{upNo}
+			AND file_ty = #{fileTy}
+	</delete>
+
 </mapper>

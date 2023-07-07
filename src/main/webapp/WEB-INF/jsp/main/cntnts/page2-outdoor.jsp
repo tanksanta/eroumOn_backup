@@ -3,7 +3,7 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page2">복지용구 활용</a></li>
             <li>야외</li>
         </ul>
@@ -14,8 +14,8 @@
     <div class="page2-content-detail is-detail4">
 		<h2 class="title">건강한 아외생활</h2>
 		<p class="desc">
-			많은 사람들과 함께 불편할 수 있는<br>
-			야외활동을 보조해주는 복지용구를 소개합니다.
+			건강하고 안정적인 야외활동을 위한<br>
+			복지용구를 소개해 드릴게요.
 		</p>
 		<ul class="nav">
 	        <li><a href="${_mainPath}/cntnts/page2-bath">욕실</a></li>

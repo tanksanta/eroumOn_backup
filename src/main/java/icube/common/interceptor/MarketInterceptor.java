@@ -1,5 +1,6 @@
 package icube.common.interceptor;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +22,16 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
+import icube.manage.exhibit.banner.biz.BnnrMngService;
+import icube.manage.exhibit.banner.biz.BnnrMngVO;
 import icube.manage.exhibit.popup.biz.PopupService;
 import icube.manage.exhibit.popup.biz.PopupVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
 import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.sysmng.menu.biz.MngMenuVO;
+import icube.manage.sysmng.usermenu.biz.MngUserMenuService;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -49,6 +54,12 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
 
+	@Resource(name = "mngUserMenuService")
+	private MngUserMenuService mngUserMenuService;
+
+	@Resource(name = "bnnrMngService")
+	private BnnrMngService bnnrMngService;
+
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
 
@@ -64,9 +75,12 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
 
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
+
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
-	
+
 	@Value("#{props['Talk.Secret.key']}")
 	private String talkSecretKey;
 
@@ -164,13 +178,36 @@ public class MarketInterceptor implements HandlerInterceptor {
 		Map<Integer, String> gdsCtgryListMap = gdsCtgryService.selectGdsCtgryListToMap(-1);
 		request.setAttribute("_gdsCtgryList", gdsCtgryList);
 		request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
+
+		// 상품카테고리 tree(vo < list<vo>)구조로 변경
+		GdsCtgryVO rootCategory = gdsCtgryService.findRootCategory(gdsCtgryList);
+		rootCategory.setChildList(new ArrayList<>()); // childList 초기화
+		rootCategory.buildChildList(gdsCtgryList);
+		request.setAttribute("_gnbCtgry", rootCategory);
 		// 카테고리 정보 E
+
+		// 사용자 메뉴 S
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("useYn", "Y");
+		List<MngMenuVO> userMenuList = mngUserMenuService.selectMngMenuList(paramMap);
+		request.setAttribute("_userMenuList", userMenuList);
+		// 사용자 메뉴 E
+
+		// 띠 배너 S
+		Map<String, Object> bannerMap = new HashMap<String, Object>();
+		bannerMap.put("srchUseYn", "Y");
+		bannerMap.put("srchNowDate", "1");
+		bannerMap.put("srchBannerTy", "S");
+		List<BnnrMngVO> bannerList = bnnrMngService.selectBnnrMngList(bannerMap);
+		request.setAttribute("_bannerList", bannerList);
+		// 띠 배너 E
 
 		// 경로정보
 		request.setAttribute("_marketPath", "/" + marketPath);
 		request.setAttribute("_membersPath", "/" + membersPath);
 		request.setAttribute("_membershipPath", "/" + membershipPath);
 		request.setAttribute("_plannerPath", "/" + plannerPath);
+		request.setAttribute("_mainPath", mainPath);
 
 		request.setAttribute("_curPath", curPath);
 
@@ -212,8 +249,5 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 		log.debug(" ################################################################## ");
 	}
-
-
-
 
 }

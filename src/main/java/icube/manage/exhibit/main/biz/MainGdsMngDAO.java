@@ -18,7 +18,9 @@ public class MainGdsMngDAO extends CommonAbstractMapper {
 		return selectList("main.gds.selectMainGdsMngList",paramMap);
 	}
 
-
+	public void deleteMainGdsMng(int mainNo) throws Exception {
+		delete("main.gds.deleteMainGdsMng",mainNo);
+	}
 
 
 }

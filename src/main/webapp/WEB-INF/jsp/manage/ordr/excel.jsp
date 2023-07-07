@@ -43,6 +43,7 @@ table th, td {
 			<col class="min-w-23 w-23">
 			<col class="min-w-20 w-20">
 			<col class="min-w-30">
+			<col class="min-w-20 w-20">
 			<col class="min-w-30 w-30">
 			<col class="min-w-20 w-20">
 			<col class="min-w-25 w-25">
@@ -63,6 +64,7 @@ table th, td {
 				<th scope="col" rowspan="2">상품구분</th>
 				<%-- loop area S --%>
 				<th scope="col" rowspan="2">상품번호</th>
+				<th scope="col" rowspan="2">입점업체</th>
 				<th scope="col" rowspan="2">상품명/옵션</th>
 				<th scope="col" rowspan="2">상품가격</th>
 				<th scope="col" rowspan="2">수량</th>
@@ -89,6 +91,7 @@ table th, td {
 					<td class="${resultList.ordrCd}">${resultList.recptrNm}</td>
 					<td class="${resultList.ordrDtlCd}">${gdsTyCode[resultList.ordrTy]}</td>
 					<td class="${resultList.ordrDtlCd }">${resultList.gdsCd}</td>
+					<td>${resultList.entrpsNm}</td>
 					<td class="text-left"><c:if test="${resultList.ordrOptnTy eq 'ADIT' }">
 							<%--추가상품--%>
 							<i class="ico-reply"></i>
@@ -154,7 +157,7 @@ table th, td {
 			</c:forEach>
 			<c:if test="${empty ordrDtlList}">
 				<tr>
-					<td class="noresult" colspan="17">주문내역이 없습니다.</td>
+					<td class="noresult" colspan="18">주문내역이 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

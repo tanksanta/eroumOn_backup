@@ -26,6 +26,10 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                            	<th>입점업체명</th>
+                            	<td><input type="text" id="srchEntrpsNm" name="srchEntrpsNm" value="${param.srchEntrpsNm}" class="form-control"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </fieldset>

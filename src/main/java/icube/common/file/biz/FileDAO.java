@@ -69,6 +69,8 @@ public class FileDAO extends CommonAbstractMapper {
 			update("gds.file.deleteFileByNo", fileMap);
 		} else if(srvcId.startsWith("BPLC")) {
 			update("bplc.bbs.file.deleteFileByNo", fileMap);
+		}else if((srvcId.startsWith("MAIN") || srvcId.startsWith("BANNER"))) {
+			delete("file.deleteFileReal",fileMap);
 		}else {
 			update("file.deleteFileByNo", fileMap);
 		}

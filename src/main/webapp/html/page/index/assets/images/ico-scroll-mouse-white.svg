@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="22px" viewBox="0 0 14 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="visual" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="main-copy-2" transform="translate(-838, -668)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="iconmonstr-mouse-6" transform="translate(838, 668)">
+                <path d="M7,1 C10.6049805,1 12.9453125,3.50842285 12.9453125,7.05273437 L13,15 C13,18.5759277 10.6030273,21.0000245 7,21.0000245 C3.39697266,21.0000245 1,18.7211914 1,15 L1,7 C1,3.24084473 3.39501953,1 7,1 Z M7,0 C2.582,0 0,2.582 0,7 L0,15 C0,19.418 2.582,22 7,22 C11.418,22 14,19.418 14,15 L14,7 C14,2.582 11.418,0 7,0 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

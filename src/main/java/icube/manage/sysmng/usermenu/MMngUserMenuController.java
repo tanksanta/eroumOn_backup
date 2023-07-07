@@ -33,7 +33,7 @@ public class MMngUserMenuController extends CommonAbstractController {
 			, Model model) throws Exception{
 
 		model.addAttribute("useYnCode", CodeMap.USE_YN);
-		model.addAttribute("mngMenuTyCode", CodeMap.MNG_MENU_TY);
+		model.addAttribute("linkTyCode", CodeMap.POPUP_LINK_TY);
 
 		return "/manage/sysmng/usermenu/form";
 	}

@@ -45,7 +45,8 @@
         & .btn {
             @apply mt-2.5 px-7.5 w-full h-13
                    md:mt-3.5 md:w-63 md:h-15
-                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2;
+                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2
+                   hover:px-5.5;
         }
     }
     & .text-scroll {
@@ -60,7 +61,6 @@
     }
 }
 
-
 /* 메인 복지서비스 */
 .main-welfare {
     @apply relative z-5 mt-5 mx-auto px-5 max-w-screen-xl
@@ -68,7 +68,7 @@
            lg:-mt-29 lg:px-10;
     & .container {
         @apply flex flex-wrap items-center mx-auto p-2.5 max-w-screen-lg rounded-md bg-gray2 leading-tight
-               md:py-4.5 md:px-5 md:rounded-[1.25rem] md:bg-[#eae6e2];
+               md:py-4.5 md:px-5 md:rounded-[1.25rem] md:bg-white/70 md:backdrop-blur-[10px] md:shadow-[0px_0px_20px_rgba(0,0,0,0.1)];
     }
     & .desc {
         @apply flex-none leading-tight;
@@ -103,17 +103,18 @@
 
 /* 메인 페이지 링크 */
 .main-link {
-    @apply grid grid-cols-4 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
+    @apply grid grid-cols-3 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
            md:mt-7 md:px-7
            lg:gap-0 lg:mt-16 lg:px-10;
     & [class*="link-item"] {
         @apply relative font-medium leading-[1.14285]
                lg:before:content-empty lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:w-px lg:before:h-7.5 lg:before:bg-gray1 lg:before:-translate-y-1/2 lg:last:before:hidden;
         & a {
-            @apply flex p-2.5 h-21 rounded-md bg-neutral-100
+            @apply flex p-2.5 h-21 rounded-md bg-neutral-100 transition-[color] duration-200
+                   before:absolute before:right-2.5 before:bottom-3 before:w-5 before:h-5.5 before:bg-[length:auto_100%] before:bg-center before:bg-no-repeat before:transition-all before:duration-200
                    lg:items-center lg:justify-center lg:h-auto lg:bg-transparent
-                   before:content-empty before:absolute before:right-2.5 before:bottom-3 before:w-5 before:h-5.5 before:bg-[length:auto_100%] before:bg-center before:bg-no-repeat
-                   lg:before:static lg:before:mr-5 lg:before:w-6 lg:before:h-7;
+                   lg:before:static lg:before:mr-5 lg:before:w-6 lg:before:h-7
+                   hover:text-[#FF8300];
         }
         & br {
             @apply md:hidden;
@@ -121,22 +122,26 @@
     }
     & .link-item1 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link1.svg)];
+            @apply before:bg-[url(../images/ico-main-link1.svg)]
+                   hover:before:bg-[url(../images/ico-main-link1-on.svg)];
         }
     }
     & .link-item2 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link2.svg)];
+            @apply before:bg-[url(../images/ico-main-link2.svg)]
+                   hover:before:bg-[url(../images/ico-main-link2-on.svg)];
         }
     }
     & .link-item3 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link3.svg)];
+            @apply before:bg-[url(../images/ico-main-link3.svg)]
+                   hover:before:bg-[url(../images/ico-main-link3-on.svg)];
         }
     }
     & .link-item4 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link4.svg)];
+            @apply before:bg-[url(../images/ico-main-link4.svg)]
+                   hover:before:bg-[url(../images/ico-main-link4-on.svg)];
         }
     }
 }
@@ -170,7 +175,8 @@
     & .image {
         @apply absolute bg-no-repeat bg-cover;
         & [class*="object"] {
-            @apply absolute bg-no-repeat bg-cover transition-[transform,opacity] ease-out duration-500 translate-y-5 opacity-0 md:translate-y-10;
+            @apply absolute bg-no-repeat bg-cover transition-[transform,opacity] ease-out duration-500 translate-y-5 opacity-0
+                   md:translate-y-10;
         }
         & .object2 {
             @apply delay-300;
@@ -180,11 +186,15 @@
         }
     }
     & .box {
-        @apply relative z-5 w-fit px-0 text-base leading-snug md:px-4 md:text-lg;
+        @apply relative z-5 w-fit px-0 text-base leading-snug
+               md:px-4 md:text-lg;
         & h2 {
-            @apply mb-8 leading-tight text-4xl font-bold tracking-tighter md:mb-5.5 md:text-6xl lg:text-7xl;
+            @apply mb-8 leading-tight text-4xl font-bold tracking-tighter
+                   md:mb-5.5 md:text-6xl
+                   lg:text-7xl;
             & small {
-                @apply mb-3 md:mb-5.5;
+                @apply mb-3
+                       md:mb-5.5;
             }
         }
         & p {
@@ -193,11 +203,16 @@
             }
         }
         & small {
-            @apply block text-lg font-normal tracking-normal leading-tight md:text-xl lg:text-2xl;
+            @apply block text-lg font-normal tracking-normal leading-tight
+                   md:text-xl
+                   lg:text-2xl;
         }
     }
     & .btn {
-        @apply mt-8 px-9 w-58 h-[3.125rem] shadow-[8px_10px_17px_#0000001A] md:mt-13 md:px-10 md:w-63 md:h-15;
+        @apply mt-8 px-9 w-58 h-[3.125rem] shadow-[8px_10px_17px_#0000001A]
+               md:mt-13 md:px-10 md:w-63 md:h-15
+               hover:px-7
+               hover:md:px-8;
     }
     &.is-active {
         & .image {

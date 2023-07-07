@@ -20,11 +20,11 @@ public class MngUserMenuService extends CommonAbstractServiceImpl {
 	private MngUserMenuDAO mngUserMenuDAO;
 
 
-	public List selectMngMenuList() throws Exception {
+	public List<MngMenuVO> selectMngMenuList() throws Exception {
 		return mngUserMenuDAO.selectMngMenuList();
 	}
 
-	public List selectMngMenuList(Map<String, Object> paramMap) throws Exception {
+	public List<MngMenuVO> selectMngMenuList(Map<String, Object> paramMap) throws Exception {
 		return mngUserMenuDAO.selectMngMenuList(paramMap);
 	}
 
