@@ -64,7 +64,7 @@
                                 <em><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd" /></em>
                             </p>
                             <p class="name">
-								<c:if test="${empty resultList.ordrCd}">${mlgCnCode[resultList.mlgCn]}</c:if>
+								<c:if test="${empty resultList.ordrCd}">${mlgCnCode[resultList.mlgCn]}</c:if><c:if test="${empty resultList.ordrCd && resultList.mlgCn eq '99'  && !empty resultList.mngrMemo}">(${resultList.mngrMemo})</c:if>
 								<c:if test="${!empty resultList.ordrCd}">${resultList.ordrCd}</c:if>
 							</p>
                             <p class="count">

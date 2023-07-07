@@ -49,6 +49,10 @@ public class OrdrDtlDAO extends CommonAbstractMapper {
 	public void updateOrdrConfrm(OrdrDtlVO ordrDtlVO) throws Exception {
 		update("ordr.dtl.updateOrdrConfrm", ordrDtlVO);
 	}
+	
+	public void updateDlvyPreparing(OrdrDtlVO ordrDtlVO) throws Exception {
+		update("ordr.dtl.updateDlvyPreparing", ordrDtlVO);
+	}
 
 	// 주문상태변경
 	public Integer updateOrdrStts(OrdrDtlVO ordrDtlVO) throws Exception {

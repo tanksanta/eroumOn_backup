@@ -36,31 +36,9 @@ public class MClclnController extends CommonAbstractController {
 			@RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
 			, Model model) throws Exception {
-
-
-		String srchOrdrYmdBgng = (String) reqMap.get("srchOrdrYmdBgng");
-		if(EgovStringUtil.isEmpty(srchOrdrYmdBgng)) {
-			srchOrdrYmdBgng = DateUtil.getCurrentDateTime("yyyy-MM-dd");
-		}
-		String srchOrdrYmdEnd = (String) reqMap.get("srchOrdrYmdEnd");
-		if(EgovStringUtil.isEmpty(srchOrdrYmdEnd)) {
-			srchOrdrYmdEnd = DateUtil.getCurrentDateTime("yyyy-MM-dd");
-		}
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchOrdrYmdBgng", srchOrdrYmdBgng);
-		paramMap.put("srchOrdrYmdEnd", srchOrdrYmdEnd);
-
-		List<OrdrDtlVO> resultList = clclnService.selectOrdrList(paramMap);
-
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
-		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
-
-		model.addAttribute("ordrList", resultList);
-
-		model.addAttribute("srchOrdrYmdBgng", srchOrdrYmdBgng);
-		model.addAttribute("srchOrdrYmdEnd", srchOrdrYmdEnd);
+		
+		// 마켓 정산 정보 조회
+		srchMarketClcln(reqMap, model);
 
 		return "/manage/clcln/market_list";
 	}
@@ -72,30 +50,8 @@ public class MClclnController extends CommonAbstractController {
 			, HttpServletRequest request
 			, Model model) throws Exception {
 
-
-		String srchOrdrYmdBgng = (String) reqMap.get("srchOrdrYmdBgng");
-		if(EgovStringUtil.isEmpty(srchOrdrYmdBgng)) {
-			srchOrdrYmdBgng = DateUtil.getCurrentDateTime("yyyy-MM-dd");
-		}
-		String srchOrdrYmdEnd = (String) reqMap.get("srchOrdrYmdEnd");
-		if(EgovStringUtil.isEmpty(srchOrdrYmdEnd)) {
-			srchOrdrYmdEnd = DateUtil.getCurrentDateTime("yyyy-MM-dd");
-		}
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchOrdrYmdBgng", srchOrdrYmdBgng);
-		paramMap.put("srchOrdrYmdEnd", srchOrdrYmdEnd);
-
-		List<OrdrDtlVO> resultList = clclnService.selectOrdrList(paramMap);
-
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
-		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
-
-		model.addAttribute("ordrList", resultList);
-
-		model.addAttribute("srchOrdrYmdBgng", srchOrdrYmdBgng);
-		model.addAttribute("srchOrdrYmdEnd", srchOrdrYmdEnd);
+		// 마켓 정산 정보 조회
+		srchMarketClcln(reqMap, model);
 
 		return "/manage/clcln/include/market_excel";
 	}
@@ -173,4 +129,37 @@ public class MClclnController extends CommonAbstractController {
 		return "/manage/clcln/bplc_list";
 	}
 
+	/**
+	 * 마켓 정산 조회가 엑셀다운로드 로직이 같으므로 별도 함수 구현
+	 */
+	private void srchMarketClcln(Map<String, Object> reqMap, Model model) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		String srchOrdrYmdBgng = (String) reqMap.get("srchOrdrYmdBgng");
+		if(EgovStringUtil.isEmpty(srchOrdrYmdBgng)) {
+			srchOrdrYmdBgng = DateUtil.getCurrentDateTime("yyyy-MM-dd");
+		}
+		String srchOrdrYmdEnd = (String) reqMap.get("srchOrdrYmdEnd");
+		if(EgovStringUtil.isEmpty(srchOrdrYmdEnd)) {
+			srchOrdrYmdEnd = DateUtil.getCurrentDateTime("yyyy-MM-dd");
+		}
+		String srchEntrpsNm = (String) reqMap.get("srchEntrpsNm");
+		if(EgovStringUtil.isNotEmpty(srchEntrpsNm)) {
+			paramMap.put("srchEntrpsNm", srchEntrpsNm);
+		}
+		
+		paramMap.put("srchOrdrYmdBgng", srchOrdrYmdBgng);
+		paramMap.put("srchOrdrYmdEnd", srchOrdrYmdEnd);
+
+		List<OrdrDtlVO> resultList = clclnService.selectOrdrList(paramMap);
+
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
+
+		model.addAttribute("ordrList", resultList);
+
+		model.addAttribute("srchOrdrYmdBgng", srchOrdrYmdBgng);
+		model.addAttribute("srchOrdrYmdEnd", srchOrdrYmdEnd);
+	}
 }

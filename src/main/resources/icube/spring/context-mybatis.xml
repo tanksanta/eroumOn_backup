@@ -32,6 +32,8 @@
 			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
 			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+			
+			<tx:method name="selectOrdrByCd" read-only="true" propagation="SUPPORTS" />
         </tx:attributes>
     </tx:advice>
 

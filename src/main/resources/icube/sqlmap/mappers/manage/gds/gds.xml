@@ -37,6 +37,7 @@
 		, g.stndrd
 		, g.sort_no
 		, g.gds_tag as gds_tag_val
+		, g.entrps_no
 		, g.mkr
 		, g.plor
 		, g.brand
@@ -111,6 +112,7 @@
 		op.gds_optn_no
 		, op.optn_ty
 		, op.optn_nm
+		, op.optn_item_cd
 		, op.optn_pc
 		, op.optn_stock_qy
 		, op.use_yn
@@ -341,6 +343,7 @@
 			 , stndrd
 			 , sort_no
 			 , gds_tag
+			 , entrps_no
 			 , mkr
 			 , plor
 			 , brand
@@ -423,6 +426,7 @@
 			, #{stndrd, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
+			, #{entrpsNo}
 			, #{mkr}
 			, #{plor, jdbcType=VARCHAR}
 			, #{brand}
@@ -511,6 +515,7 @@
 			, stndrd = #{stndrd, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
+			, entrps_no = #{entrpsNo}
 			, mkr = #{mkr}
 			, plor = #{plor, jdbcType=VARCHAR}
 			, brand = #{brand}
@@ -630,6 +635,20 @@
 		SELECT
 			<include refid="listColumn"/>
 		FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY g.gds_no DESC
+	</select>
+	
+	<!-- 상품 엑셀다운로드 -->
+	<select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
+		SELECT
+			<include refid="listColumn"/>
+			,<include refid="optnListColumn" />
+		FROM GDS g
+			LEFT JOIN GDS_OPTN op on g.gds_no = op.gds_no
 			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
 			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
 		WHERE 1=1
