@@ -45,7 +45,8 @@
         & .btn {
             @apply mt-2.5 px-7.5 w-full h-13
                    md:mt-3.5 md:w-63 md:h-15
-                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2;
+                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2
+                   hover:px-5.5;
         }
     }
     & .text-scroll {
@@ -102,7 +103,7 @@
 
 /* 메인 페이지 링크 */
 .main-link {
-    @apply grid grid-cols-4 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
+    @apply grid grid-cols-3 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
            md:mt-7 md:px-7
            lg:gap-0 lg:mt-16 lg:px-10;
     & [class*="link-item"] {

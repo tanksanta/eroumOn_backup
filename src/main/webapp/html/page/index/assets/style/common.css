@@ -500,24 +500,15 @@ strong {
         }
     }
     
-    [class*="btn-primary"] {
-        @apply text-white
-               hover:!bg-white 
-               focus:text-white
-               active:bg-white;
-        &.btn-arrow {
-            @apply before:bg-white
-                   after:bg-[url(../images/ico-button-arrow-white.svg)];
-        }
-    }
-    
     .btn-primary {
-        @apply !border-black2 bg-black2
-               hover:!text-black2 
-               focus:bg-black2 
-               active:text-black2;
+        @apply !border-black2 bg-black2 text-white
+               hover:!bg-white hover:!text-black2 
+               focus:bg-black2 focus:text-white 
+               active:bg-white active:text-black2;
         &.btn-arrow {
             @apply !bg-black2
+                   before:bg-white
+                   after:bg-[url(../images/ico-button-arrow-white.svg)]
                    hover:after:bg-[url(../images/ico-button-arrow.svg)];
         }
     }
@@ -543,12 +534,14 @@ strong {
     }
     
     .btn-primary2 {
-        @apply !border-[#FF8300] bg-[#FF8300]
-               hover:!text-[#FF8300] 
-               focus:bg-[#FF8300]
-               active:text-[#FF8300];
+        @apply !border-[#FF8300] bg-[#FF8300] text-white
+               hover:!bg-white hover:!text-[#FF8300] 
+               focus:bg-[#FF8300] focus:text-white 
+               active:bg-white active:text-[#FF8300];
         &.btn-arrow {
             @apply !bg-[#FF8300]
+                   before:bg-white
+                   after:bg-[url(../images/ico-button-arrow-white.svg)]
                    hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
         }
     }
@@ -574,12 +567,14 @@ strong {
     }
     
     .btn-primary3 {
-        @apply !border-[#3074FF] bg-[#3074FF]
-               hover:!text-[#3074FF] 
-               focus:bg-[#3074FF]
-               active:text-[#3074FF];
+        @apply !border-[#3074FF] bg-[#3074FF] text-white
+               hover:!bg-white hover:!text-[#3074FF] 
+               focus:bg-[#3074FF] focus:text-white 
+               active:bg-white active:text-[#3074FF];
         &.btn-arrow {
             @apply !bg-[#3074FF]
+                   before:bg-white
+                   after:bg-[url(../images/ico-button-arrow-white.svg)]
                    hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
         }
     }
