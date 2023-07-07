@@ -964,7 +964,7 @@
         @apply lg:hidden;
     }
     & .btn {
-        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] border-[#3366DD] bg-[#3366DD] text-base text-white
+        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] !border-[#3366DD] !bg-[#3366DD] text-base text-white
                md:static md:mt-5 md:translate-x-0 md:translate-y-0;
     }
 }

@@ -67,7 +67,7 @@
            lg:-mt-29 lg:px-10;
     & .container {
         @apply flex flex-wrap items-center mx-auto p-2.5 max-w-screen-lg rounded-md bg-gray2 leading-tight
-               md:py-4.5 md:px-5 md:rounded-[1.25rem] md:bg-[#eae6e2];
+               md:py-4.5 md:px-5 md:rounded-[1.25rem] md:bg-white/70 md:backdrop-blur-[10px] md:shadow-[0px_0px_20px_rgba(0,0,0,0.1)];
     }
     & .desc {
         @apply flex-none leading-tight;
