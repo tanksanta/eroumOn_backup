@@ -9,29 +9,30 @@
     <h2 class="title">
         <small>부모님의 생활을 한층 편하게</small>
         복지용구가 일상생활에서<br>
-        <em>꼭</em>필요한 이유
+        <img src="/html/page/index/assets/images/txt-page2-visual.png" alt="꼭"> 필요한 이유
     </h2>
-    <p class="text-scroll is-white">아래에서 더 자세히 알아보세요</p>
+    <p class="text-scroll is-white"><i></i> 아래에서 더 자세히 알아보세요</p>
 </div>
 
 <div id="content">
+	<h3 class="page2-slider-title">복지용구 선택방법 확인하기</h3>
 	<div class="page2-slider">
 	    <div class="swiper">
 	        <div class="swiper-wrapper">
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></div>
-	            <div class="swiper-slide"><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont1"><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont2"><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont3"><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont4"><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont5"><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont6"><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont7"><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont8"><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont9"><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont10"><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont11"><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont12"><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont13"><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont14"><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></a></div>
 	        </div>
 	    </div>
 	</div>
@@ -54,7 +55,7 @@
                     안전사고를 예방하는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 
@@ -68,7 +69,7 @@
                     이동에 편리함을 주는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 
@@ -82,7 +83,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
     
@@ -96,7 +97,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary is-arrow">복지용구 알아보기</a>
+            <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 </div>
@@ -118,6 +119,14 @@
             1024: {
                 spaceBetween: 20,
             },
+        });
+        
+        $('.swiper').on('mouseover', function() {
+            swiper.autoplay.stop();
+        });
+
+        $('.swiper').on('mouseout', function() {
+            swiper.autoplay.start();
         });
     });
 </script>

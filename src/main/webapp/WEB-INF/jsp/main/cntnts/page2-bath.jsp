@@ -3,7 +3,7 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page2">복지용구 활용</a></li>
             <li>욕실</li>
         </ul>

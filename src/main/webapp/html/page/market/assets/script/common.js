@@ -126,6 +126,55 @@ $(function() {
     //상단 네비 스크롤
     horizonScroll($('.navigation-submenu ul'));
 
+	//상단 전체메뉴 이벤트
+	$('.navigation-allmenu-toggle').on('click', function() {
+		if($(window).outerWidth() < 1041) {
+			if($(this).hasClass('is-active')) {
+				$('html, body').removeClass('overflow-hidden');
+			} else {
+				$('html, body').addClass('overflow-hidden');
+			}
+		}
+		$(this).toggleClass('is-active').next('.navigation-allmenu').toggleClass('is-active');
+	});
+
+	$('[class*="allmenu-item"]').on('mouseenter mouseleave', function(e) {
+		var el = $(this);
+		if($(window).outerWidth() > 1040) {
+			if(e.type === 'mouseenter') {
+				el.addClass('is-active').find('> [class*="allmenu-group"]').addClass('is-active');
+			} else {
+				el.removeClass('is-active').find('*').removeClass('is-active');
+			}
+		}
+	});
+
+	$('[class*="allmenu-item"] a').on('click', function() {
+		var el = $(this).parent();
+		if($(window).outerWidth() < 1041 && $(this).next('[class*="allmenu-group"]').length > 0) {
+			if(!el.hasClass('is-active')) {
+				el.addClass('is-active').find('> [class*="allmenu-group"]').addClass('is-active');
+				el.siblings().removeClass('is-active').find('*').removeClass('is-active');
+			} else {
+				el.removeClass('is-active').find('> [class*="allmenu-group"]').removeClass('is-active');
+			}
+			return false;
+		} else {
+			return true;
+		}
+	});
+
+	$(window).on('resize load', function() {
+		if($(window).outerWidth() > 1040) {
+			$('.navigation-allmenu, [class*="allmenu-group"]').height($(window).width() * 0.2604166666666667);
+		} else {
+			$('.navigation-allmenu').height($(window).height() - ($('#navigation').height() + $('#navigation').get(0).getClientRects()[0].y + 1));
+			$('[class*="allmenu-group"]').height($(window).height() - ($('#navigation').height() + $('#navigation').get(0).getClientRects()[0].y + 47));
+		}
+		
+		$('html, body').removeClass('overflow-hidden');
+		$('.navigation-allmenu-toggle, .navigation-allmenu, .navigation-allmenu *').removeClass('is-active');
+	})
 
     //사이드 메뉴 토글
     $('.page-sidenav-toggle').on('click', function() {

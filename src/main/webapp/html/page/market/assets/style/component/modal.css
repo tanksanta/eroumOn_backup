@@ -2,14 +2,12 @@
     /******************** modal ********************/
     .modal {
         & .modal-dialog {
-            @apply items-start max-w-[755px] m-0 min-h-full bg-white
-                   md:items-center md:my-7 md:mx-auto md:min-h-[calc(100%_-_3.5rem)] md:bg-transparent;
+            @apply items-start max-w-[755px] m-0 min-h-full bg-white md:items-center md:bg-transparent md:my-7 md:mx-auto md:min-h-[calc(100%_-_3.5rem)];
             &.modal-dialog-centered {
                 @apply md-max:flex-col;
             }
             &.modal-lg, &.modal-xl, &.modal-2xl {
-                @apply max-w-full
-                       md:m-0 md:min-h-full md:bg-white;
+                @apply max-w-full md:m-0 md:min-h-full md:bg-white;
                 & .modal-content {
                     @apply md:max-h-screen;
                 }
@@ -27,19 +25,17 @@
                 }
             }
             &.modal-2xl {
-                @apply xl:min-h-[calc(100%_-_3.5rem)]
-                       2xl:max-w-[1520px] 2xl:my-7 2xl:mx-auto 2xl:bg-transparent;
+                @apply 2xl:max-w-[1520px] 2xl:my-7 2xl:mx-auto 2xl:bg-transparent xl:min-h-[calc(100%_-_3.5rem)];
                 & .modal-content {
                     @apply 2xl:max-h-[calc(100vh_-_3.5rem)] 2xl-max:min-h-screen;
                 }
             }
         }
         & .modal-content {
-            @apply flex flex-col relative p-0 pr-9 max-h-full rounded-[1rem] bg-white shadow-none pointer-events-auto
-                   before:block before:z-5 before:absolute before:top-0 before:left-0 before:bottom-0 before:right-9 before:rounded-r-[1rem] before:bg-white
-                   md:max-h-[calc(100vh_-_3.5rem)] md:pr-14
-                   md:before:hidden md:before:right-14
-                   md-max:flex-1 md-max:basis-0 md-max:min-h-full;
+            @apply flex flex-col relative p-0 pr-9 max-h-full rounded-[1rem] bg-white shadow-none pointer-events-auto md:max-h-[calc(100vh_-_3.5rem)] md:pr-14 md-max:flex-1 md-max:basis-0 md-max:min-h-full;
+            &::before {
+                @apply block content-empty z-5 absolute top-0 left-0 bottom-0 right-9 rounded-r-[1rem] bg-white md:hidden md:right-14;
+            }
         }
         & .modal-header, & .modal-body, & .modal-footer {
             @apply relative z-10 px-5 rounded-none bg-white text-black2;
@@ -48,34 +44,30 @@
             @apply flex items-center justify-center py-3 rounded-t-[1rem] text-center;
         }
         & .modal-body {
-            @apply pt-3 pb-5 flex-initial
-                   md:min-h-[450px]
-                   last:rounded-b-[1rem]
-                   md:last:pb-7;
+            @apply pt-3 pb-5 flex-initial md:min-h-[450px];
+            &:last-child {
+                @apply rounded-b-[1rem] md:pb-7;
+            }
         }
         & .modal-footer {
-            @apply flex items-center justify-center pt-6 pb-4.5 space-x-1.5 rounded-b-[1rem]
-                   md:space-x-2 md:pb-7;
+            @apply flex items-center justify-center pt-6 pb-4.5 space-x-1.5 rounded-b-[1rem] md:space-x-2 md:pb-7;
             & .btn {
                 &.btn-submit {
-                    @apply w-46 flex-1
-                           xs:flex-none;
+                    @apply w-46 flex-1 xs:flex-none;
                 }
                 &.btn-cancel {
-                    @apply flex-none w-23
-                           md:w-27;
+                    @apply flex-none w-23 md:w-27;
                 }
             }
         }
         & .modal-footer-gradient {
-            @apply px-0 bg-[linear-gradient(102deg,_#FFF9EF_0%,_#FAFFF2_38%,_#FFF5FD_100%)];
+            @apply px-0;
+            background: linear-gradient(102deg, #FFF9EF 0%, #FAFFF2 38%, #FFF5FD 100%);
         }
         & .modal-close {
-            @apply absolute top-0 right-0 bottom-0 pl-4 py-2 w-13 rounded-r-[1rem] bg-black2 bg-no-repeat bg-[length:1rem] bg-[right_0.625rem_bottom_1.125rem] bg-[url(../images/txt-modal-close.svg)]
-                   md:w-18 md:bg-[length:1.25rem] md:bg-[right_1.125rem_bottom_1.25rem];
+            @apply absolute top-0 right-0 bottom-0 pl-4 py-2 w-13 rounded-r-[1rem] bg-black2 bg-no-repeat bg-[length:1rem] bg-[right_0.625rem_bottom_1.125rem] bg-[url(../images/txt-modal-close.svg)] md:w-18 md:bg-[length:1.25rem] md:bg-[right_1.125rem_bottom_1.25rem];
             & [data-bs-dismiss="modal"] {
-                @apply btn-icon h-9 bg-[url(../images/ico-close-white.svg)] bg-[length:0.875rem]
-                       md:h-14 md:bg-[length:1rem];
+                @apply btn-icon h-9 bg-[url(../images/ico-close-white.svg)] bg-[length:0.875rem] md:h-14 md:bg-[length:1rem];
             }
         }
     }

@@ -107,6 +107,9 @@ public class MbrsRegistController extends CommonAbstractController{
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
 
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
+
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
@@ -153,7 +156,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			return  "redirect:/" + plannerPath + "/index";
 		}
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		MbrVO noMbrVO = new MbrVO();
 		if(EgovStringUtil.isNotEmpty(mbrNm) && EgovStringUtil.isNotEmpty(mblTelno)) {
 
@@ -218,6 +221,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			}else {
 				model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
 			}
+			model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
 			return "/common/msg";
 		}
 

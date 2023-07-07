@@ -26,7 +26,6 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
-import icube.common.util.StringUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
@@ -136,27 +135,32 @@ public class MBnnrMngController extends CommonAbstractController {
 				break;
 
 			case UPDATE:
+				bnnrMngService.updateBnnrMng(bnnrMngVO);
 
-				// 첨부파일 수정
-				String delAttachFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachFileNo"));
-				String[] arrDelAttachFile = delAttachFileNo.split(",");
-				if (!EgovStringUtil.isEmpty(arrDelAttachFile[0])) {
-					fileService.deleteFilebyNo(arrDelAttachFile, bnnrMngVO.getBannerNo(), "BANNER", "ATTACH");
+				// PC 수정
+				String delMobileFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delMobileFileNo"));
+				String[] arrDelMobileFile = delMobileFileNo.split(",");
+				if (!EgovStringUtil.isEmpty(arrDelMobileFile[0])) {
+					fileService.deleteFilebyNo(arrDelMobileFile, bnnrMngVO.getBannerNo(), "BANNER", "MOBILE");
+				}
+
+				// 모바일 수정
+				String delPcFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delPcFileNo"));
+				String[] arrDelPcFile = delPcFileNo.split(",");
+				if (!EgovStringUtil.isEmpty(arrDelPcFile[0])) {
+					fileService.deleteFilebyNo(arrDelPcFile, bnnrMngVO.getBannerNo(), "BANNER", "PC");
 				}
 
 				fileService.creatFileInfo(fileMap, bnnrMngVO.getBannerNo(), "BANNER", reqMap);
 
-				bnnrMngService.updateBnnrMng(bnnrMngVO);
+				String updtPcFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtPcFileDc"));
+				if(EgovStringUtil.isNotEmpty(updtPcFileDc)) {
+					fileService.updateFileDc("BANNER", bnnrMngVO.getBannerNo(), 1,"PC", updtPcFileDc);
+				}
 
-				String updtImgFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtImgFileDc"));
-
-				if (!"".equals(updtImgFileDc)) {
-					String[] arrUptImgFileDc = updtImgFileDc.split(",");
-					for (String uptImgFileDcNm : arrUptImgFileDc) {
-						String[] uptImgFileElm = uptImgFileDcNm.split("FileDc");
-						fileService.updateFileDc("BANNER", bnnrMngVO.getBannerNo(), StringUtil.nvl(uptImgFileElm[1], 0),
-							"ATTACH", (String) reqMap.get(uptImgFileDcNm));
-					}
+				String updtMobileFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtMobileFileDc"));
+				if(EgovStringUtil.isNotEmpty(updtMobileFileDc)) {
+					fileService.updateFileDc("BANNER", bnnrMngVO.getBannerNo(), 1,"MOBILE", updtMobileFileDc);
 				}
 
 				javaScript.setMessage(getMsg("action.complete.update"));
@@ -204,8 +208,8 @@ public class MBnnrMngController extends CommonAbstractController {
 
 		String[] arrSortNo = sortNos.replace(" ","").split(",");
 		for(String item : arrSortNo) {
-			int bannerNo = EgovStringUtil.string2integer(item.split("|")[0]);
-			int sortNo = EgovStringUtil.string2integer(item.split("|")[2]);
+			int bannerNo = EgovStringUtil.string2integer(item.split("/")[0]);
+			int sortNo = EgovStringUtil.string2integer(item.split("/")[1]);
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("srchBannerNo", bannerNo);

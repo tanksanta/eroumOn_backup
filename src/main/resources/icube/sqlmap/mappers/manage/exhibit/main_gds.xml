@@ -56,4 +56,9 @@
 		WHERE m.gds_no = #{gdsNo}
 	</select>
 
+	<delete id="deleteMainGdsMng" parameterType="int">
+		DELETE FROM MNG_MAIN_GDS
+		WHERE main_no = #{mainNo}
+	</delete>
+
 </mapper>

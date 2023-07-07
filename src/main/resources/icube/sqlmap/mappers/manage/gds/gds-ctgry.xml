@@ -49,6 +49,7 @@
 			, gc.use_yn
 			, <include refid="selectCount"/>
 			, func.level_no
+			, FN_CTGRY_PATH(gc.ctgry_no) as ctgry_path
 		FROM
 			(
 			SELECT FN_HIERARCHY_GDS_CTGRY() AS ctgry_no, @LEVEL_NO AS level_no

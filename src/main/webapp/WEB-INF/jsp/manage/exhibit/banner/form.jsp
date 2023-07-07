@@ -10,8 +10,9 @@
 	<input type="hidden" name="srchEndDt" id="srchEndDt" value="${param.srchEndDt}" />
 	<input type="hidden" name="cntPerPage" id="cntPerPage" value="${param.cntPerPage}" />
 	<input type="hidden" name="curPage" id="curPage" value="${param.curPage}" />
-	<input type="hidden" id="delAttachFileNo" name="delAttachFileNo" value="" />
-	<input type="hidden" id="updtImgFileDc" name="updtImgFileDc" value="" />
+
+	<input type="hidden" id="delMobileFileNo" name="delMobileFileNo" value="" />
+	<input type="hidden" id="delPcFileNo" name="delPcFileNo" value="" />
 
 	<fieldset>
 		<legend class="text-title2 relative">
@@ -60,43 +61,77 @@
 					<td>
 						<form:select path="bannerTy" id="bannerTy" name="bannerTy" class="form-control w-30">
 							<c:forEach var="bannerTy" items="${bannerTyCode}" varStatus="status">
-								<option value="${bannerTy.key}">${bannerTy.value}</option>
+								<option value="${bannerTy.key}" <c:if test="${bannerTy.key eq bnnrMngVO.bannerTy}">selected="selected"</c:if>>${bannerTy.value}</option>
 							</c:forEach>
 						</form:select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="form-item7" class="require">배너이미지</label></th>
-					<td><c:forEach var="fileList" items="${bnnrMngVO.fileList }" varStatus="status">
-							<div id="attachFileViewDiv${fileList.fileNo}" class="">
+					<th scope="row"><label for="form-item7" class="require">배너 이미지(PC)</label></th>
+					<td><c:forEach var="fileList" items="${bnnrMngVO.pcFileList }" varStatus="status">
+							<div id="pcFileViewDiv${fileList.fileNo}" class="">
 								<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
-								 <a href="#delFile" class="btn-secondary" onclick="delFile('${fileList.fileNo}', 'ATTACH', '${status.index}'); return false;"> 삭제</a>
+								 <a href="#delFile" class="btn-secondary pc-delete-flag" onclick="delFile('${fileList.fileNo}', 'PC', '${status.index}'); return false;"> 삭제</a>
 									<div class="form-group mt-1 w-full">
-										<label for="updtAttachFileDc${fileList.fileNo}"">대체텍스트</label>
-										<input type="text" class="form-control flex-1 ml-2" id="updtAttachFileDc${fileList.fileNo}" name="updtAttachFileDc${fileList.fileNo}" value="${fileList.fileDc}" maxlength="200" data-update-dc>
+										<label for="updtPcFileDc${fileList.fileNo}"">대체텍스트</label>
+										<input type="text" class="form-control flex-1 ml-2" id="updtPcFileDc${fileList.fileNo}" name="updtPcFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
 									</div>
 							</div>
 						</c:forEach>
 
-						<div id="attachFileDiv">
+						<div id="pcFileDiv">
 							<c:forEach begin="0" end="0" varStatus="status">
 								<!-- 첨부파일 갯수 -->
-								<div class="row" id="attachFileInputDiv${status.index}" <c:if test="${status.index < fn:length(bnnrMngVO.fileList) }">style="display:none;"</c:if>>
+								<div class="row" id="pcFileInputDiv${status.index}" <c:if test="${status.index < fn:length(bnnrMngVO.pcFileList) }">style="display:none;"</c:if>>
 									<div class="col-12">
-										<div class="custom-file" id="uptAttach">
-											<input type="file" class="form-control w-2/3" id="attachFile${status.index}" name="attachFile${status.index}" onchange="fileCheck(this);" />
+										<div class="custom-file" id="uptPc">
+											<input type="file" class="form-control w-2/3" id="pcFile${status.index}" name="pcFile${status.index}" onchange="fileCheck(this);" />
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group mt-1 w-full">
-											<label for="updtAttachFileDc${fileList.fileNo}"">대체텍스트</label>
-											<input type="text" class="form-control flex-1 ml-2" id="attachFileDc${status.index}" name="attachFileDc${status.index}"  maxlength="200">
+											<label for="updtPcFileDc${fileList.fileNo}"">대체텍스트</label>
+											<input type="text" class="form-control flex-1 ml-2" id="pcFileDc${status.index}" name="pcFileDc${status.index}"  maxlength="200">
 										</div>
 									</div>
 								</div>
 							</c:forEach>
 						</div>
-						<p>※ 이미지 권장 사이즈 (띠 배너 000px * 000px, 메인 배너 000px * 000px)</p>
+						<p>※ 이미지 권장 사이즈 (띠 배너 1200px * 55px, 메인 배너 1920px * 500px)</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="form-item7" >배너 이미지(모바일)</label></th>
+					<td><c:forEach var="fileList" items="${bnnrMngVO.mobileFileList }" varStatus="status">
+							<div id="mobileFileViewDiv${fileList.fileNo}" class="">
+								<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
+								 <a href="#delFile" class="btn-secondary mobile-delete-flag" onclick="delFile('${fileList.fileNo}', 'MOBILE', '${status.index}'); return false;"> 삭제</a>
+									<div class="form-group mt-1 w-full">
+										<label for="updtMobileFileDc${fileList.fileNo}"">대체텍스트</label>
+										<input type="text" class="form-control flex-1 ml-2" id="updtMobileFileDc${fileList.fileNo}" name="updtMobileFileDc" value="${fileList.fileDc}" maxlength="200" data-update-dc>
+									</div>
+							</div>
+						</c:forEach>
+
+						<div id="mobileFileDiv">
+							<c:forEach begin="0" end="0" varStatus="status">
+								<!-- 첨부파일 갯수 -->
+								<div class="row" id="mobileFileInputDiv${status.index}" <c:if test="${status.index < fn:length(bnnrMngVO.mobileFileList) }">style="display:none;"</c:if>>
+									<div class="col-12">
+										<div class="custom-file" id="uptMobile">
+											<input type="file" class="form-control w-2/3" id="mobileFile${status.index}" name="mobileFile${status.index}" onchange="fileCheck(this);" />
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group mt-1 w-full">
+											<label for="updtMobileFileDc${fileList.fileNo}"">대체텍스트</label>
+											<input type="text" class="form-control flex-1 ml-2" id="mobileFileDc${status.index}" name="mobileFileDc${status.index}"  maxlength="200">
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+						<p class="mobileText">※ 이미지 권장 사이즈 (띠 배너 800px * 100px, 메인 배너 800px * 800px)</p>
 					</td>
 				</tr>
 				<tr>
@@ -126,21 +161,6 @@
 	</div>
 </form:form>
 <script>
-//파일 삭제
-function delFile(fileNo, type, spanNo){
-	if(confirm("삭제하시겠습니까?")){
-		if(type == "ATTACH"){
-			if($("#delAttachFileNo").val()==""){
-				$("#delAttachFileNo").val(fileNo);
-			}else{
-				$("#delAttachFileNo").val($("#delAttachFileNo").val()+","+fileNo);
-			}
-			$("#attachFileViewDiv"+fileNo).remove();
-			$("#attachFileInputDiv"+spanNo).show();
-		}
-	}
-}
-
 //첨부파일 이미지 제한
 function fileCheck(obj) {
 
@@ -171,7 +191,48 @@ function fileCheck(obj) {
 	}
 };
 
+function delFile(fileNo, type, spanNo){
+	if(confirm("삭제하시겠습니까?")){
+
+		if(type == "PC"){
+			if($("#delPcFileNo").val() == ""){
+				$("#delPcFileNo").val(fileNo);
+			}else{
+				$("#delPcFileNo").val($("#delPcFileNo").val()+","+fileNo);
+			}
+			$("#pcFileViewDiv"+fileNo).remove();
+			$("#pcFileInputDiv"+spanNo).show();
+		}else if(type=="MOBILE"){
+			if($("#delMobileFileNo").val() == ""){
+				$("#delMobileFileNo").val(fileNo);
+			}else{
+				$("#delMobileFileNo").val($("#delMobileFileNo").val()+","+fileNo);
+			}
+			$("#mobileFileViewDiv"+fileNo).remove();
+			$("#mobileFileInputDiv"+spanNo).show();
+		}
+	}
+}
+
 $(function(){
+
+	$("#bannerTy").on("change",function(){
+		let mobileTextMsg = "※ 모바일 띠배너 비 권장";
+		let pcTextMsg = "※ 이미지 권장 사이즈 (띠 배너 1920px * 500px, 메인 배너 800px * 800px)";
+
+		if($("#bannerTy").val() == "S"){
+			$(".mobileText").text(mobileTextMsg);
+		}else{
+			$(".mobileText").text(pcTextMsg);
+		}
+	});
+
+	$("#pcFile0, #mobileFile0").on("change",function(){
+		if($(this).val() != '' ){
+			$(this).removeClass("is-invalid");
+			$(this).siblings(".invalid-feedback").remove();
+		}
+	});
 
 	//날짜 시작일 < 마감일 체크
 	$.validator.addMethod("SizeValidate", function(value,element){
@@ -203,18 +264,49 @@ $(function(){
 	// 첨부파일 검사 메소드
 	$.validator.addMethod("filechk", function(value,element){
 		if($("#crud").val() == "UPDATE"){
-			if($("#attachFileInputDiv0").attr("style") != ''){
+			if($("#pcFileInputDiv0").attr("style") != ''){
 				return true;
 			}else{
-				if($("#attachFile0").val() == ''){
+				if($("#pcFile0").val() == ''){
 					return false;
 				}else{
 					return true;
 				}
 			}
 		}else{
-			if($("#attachFile0").val() == ''){
+			if($("#pcFile0").val() == ''){
 				return false;
+			}else{
+				return true;
+			}
+		}
+	}, "파일은 필수 입력 항목입니다.");
+
+	// 첨부파일 검사 메소드
+	$.validator.addMethod("mobileFilechk", function(value,element){
+		let bannerTy = $("#bannerTy").val();
+
+		// 메인 배너는 모바일 필수
+		// 띠 배너는 모바일 필수 x
+		// 업데이트 때에 삭제 버튼이 있으면 통과 없으면 실패
+
+		if("${bnnrMngVO.crud}" == "UPDATE"){
+			if(bannerTy == "M"){
+				if($(".mobile-delete-flag").length > 0 || $("#mobileFile0").val() != ''){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return true;
+			}
+		}else{
+			if(bannerTy == "M"){
+				if($("#mobileFile0").val() != ''){
+					return true;
+				}else{
+					return false;
+				}
 			}else{
 				return true;
 			}
@@ -227,7 +319,8 @@ $(function(){
 	    	bannerNm : { required : true},
 	    	bgngDt : { dtValidate : true, SizeValidate : true},
 	    	linkUrl : {required : true},
-	    	attachFile0 : {filechk : true},
+	    	pcFile0 : {filechk : true},
+	    	mobileFile0 : {mobileFilechk : true}
 	    },
 	    messages : {
 	    	bannerNm : { required : "제목은 필수 입력 항목 입니다."},

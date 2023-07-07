@@ -131,7 +131,7 @@ public class MMainMngController extends CommonAbstractController{
 			if(mainMngVO.getThemaTy().equals("G")) {
 				mainMngService.insertMainGds(mainMngVO, reqMap);
 			}
-			
+
 			fileService.creatFileInfo(fileMap, mainMngVO.getMainNo(), "MAIN", reqMap);
 
 			javaScript.setMessage(getMsg("action.complete.insert"));
@@ -140,13 +140,63 @@ public class MMainMngController extends CommonAbstractController{
 			break;
 		case UPDATE:
 			mainMngService.updateMainMng(mainMngVO);
-			
-			// 첨부파일 삭제
+
+			/*상품 노출형*/
 			String delAttachFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachFileNo"));
 			String[] arrDelAttachFile = delAttachFileNo.split(",");
 			if (!EgovStringUtil.isEmpty(arrDelAttachFile[0]))
 				fileService.deleteFilebyNo(arrDelAttachFile, mainMngVO.getMainNo(), "MAIN", "ATTACH");
-			
+
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("gdsNo"))){
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("mainNo", mainMngVO.getMainNo());
+				paramMap.put("gdsNos", (String)reqMap.get("gdsNo"));
+				mainGdsMngService.updateMainGdsMng(paramMap);
+			}
+			/*상품 노출형// */
+
+			/*배너형PC*/
+			String delAttachPcFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachPcFileNo"));
+			String[] arrDelAttachPcFile = delAttachPcFileNo.split(",");
+			if (!EgovStringUtil.isEmpty(arrDelAttachPcFile[0]))
+				fileService.deleteFilebyNo(arrDelAttachPcFile, mainMngVO.getMainNo(), "MAIN", "PC");
+
+			/*배너형 모바일*/
+			String delAttachMobileFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachMobileFileNo"));
+			String[] arrDelAttachMobileFile = delAttachMobileFileNo.split(",");
+			if (!EgovStringUtil.isEmpty(arrDelAttachMobileFile[0]))
+				fileService.deleteFilebyNo(arrDelAttachMobileFile, mainMngVO.getMainNo(), "MAIN", "MOBILE");
+
+			/*배너하프형 모바일*/
+			String delAttachHalfFileNo = WebUtil.clearSqlInjection((String) reqMap.get("delAttachHalfFileNo"));
+			String[] arrDelAttachHalfFile = delAttachHalfFileNo.split(",");
+			if (!EgovStringUtil.isEmpty(arrDelAttachHalfFile[0]))
+				fileService.deleteFilebyNo(arrDelAttachHalfFile, mainMngVO.getMainNo(), "MAIN", "HALF");
+
+			fileService.creatFileInfo(fileMap, mainMngVO.getMainNo(), "MAIN", reqMap);
+
+			/* 대체 텍스트 배너형 PC */
+			String updtImgFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtAttachPcFileDc"));
+			if(EgovStringUtil.isNotEmpty(updtImgFileDc)) {
+				fileService.updateFileDc("MAIN", mainMngVO.getMainNo(), 1, "PC", updtImgFileDc);
+			}
+
+			/* 대체 텍스트 배너형 MOBILE */
+			String updtImgMobileFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtMobileFileDc"));
+			if(EgovStringUtil.isNotEmpty(updtImgFileDc)) {
+				fileService.updateFileDc("MAIN", mainMngVO.getMainNo(), 1, "MOBILE", updtImgMobileFileDc);
+			}
+
+			/* 대체 텍스트 배너형 HALF */
+			String updtImgHalfFileDc = WebUtil.clearSqlInjection((String) reqMap.get("updtHlafFileDc"));
+			if(EgovStringUtil.isNotEmpty(updtImgFileDc)) {
+				fileService.updateFileDc("MAIN", mainMngVO.getMainNo(), 1, "HALF", updtImgHalfFileDc);
+			}
+
+
+			javaScript.setMessage(getMsg("action.complete.update"));
+			javaScript.setLocation("./list?" + pageParam);
+
 			break;
 		default:
 			javaScript.setMessage(getMsg("action.complete.insert"));
@@ -190,8 +240,8 @@ public class MMainMngController extends CommonAbstractController{
 
 		String[] sortNoList = sortNos.replace(" ", "").split(",");
 		for(String item : sortNoList) {
-			int mainNo = EgovStringUtil.string2integer(item.split("|")[0]);
-			int sortNo = EgovStringUtil.string2integer(item.split("|")[2]);
+			int mainNo = EgovStringUtil.string2integer(item.split("/")[0]);
+			int sortNo = EgovStringUtil.string2integer(item.split("/")[1]);
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("mainNo", mainNo);

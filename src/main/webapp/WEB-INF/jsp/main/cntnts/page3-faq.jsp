@@ -3,7 +3,7 @@
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
-            <li class="home"><a href="${_mainPath}">홈</a></li>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
             <li><a href="${_mainPath}/cntnts/page3">복지용구 정보</a></li>
             <li>복지용구 FAQ</li>
         </ul>
@@ -56,7 +56,13 @@
 		            <small>(구입 시 장기요양인정서, 표준이용계획서, 복지용구 급여확인서 서류 필수)</small>
 	        </dd>
 	        </dl>
-			<a href="/members" target="_blank" class="btn btn-large2 btn-primary3">내 주변 복지용구 사업소 찾기</a>
+			<a href="#" target="_blank" class="btn alert-temp btn-large2 btn-primary3">내 주변 복지용구 사업소 찾기</a>
+			<script>
+				$('.alert-temp').on('click', function() {
+					alert('서비스 준비 중입니다');
+					return false;
+				})
+			</script>
 	    </div>
 	    <img src="/html/page/index/assets/images/img-faq-content3.png" alt="" class="img">
 	</div>

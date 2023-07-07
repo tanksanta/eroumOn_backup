@@ -15,7 +15,7 @@ import lombok.Setter;
 public class MainMngVO extends CommonBaseVO {
 
 	private int mainNo;
-	private int sortNo;
+	private int sortNo = 1;
 	private String themaTy = "G";
 	private String sj;
 	private int rdcnt;
@@ -26,4 +26,6 @@ public class MainMngVO extends CommonBaseVO {
 	private List<FileVO> mobileImgFileList;
 	private List<FileVO> halfFileList;
 	private List<FileVO> fileList;
+
+	private List<MainGdsMngVO> gdsList;
 }

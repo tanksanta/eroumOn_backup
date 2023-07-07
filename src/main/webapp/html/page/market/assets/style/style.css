@@ -31,14 +31,16 @@
 /* layout */
 @import "layout/header.css";
 @import "layout/container.css";
-@import "layout/footer.css";
 
 /* content */
 @import "content/common.css";
 @import "content/product.css";
+@import "content/personal.css";
 @import "content/coupon.css";
 @import "content/order.css";
 @import "content/payment.css";
+@import "content/member.css";
 @import "content/mypage.css";
 @import "content/other.css";
 @import "content/index.css";
+@import "content/content.css";

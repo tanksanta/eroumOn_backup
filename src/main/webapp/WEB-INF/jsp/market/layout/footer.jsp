@@ -21,51 +21,41 @@
             <!-- //회사 메뉴 -->
 
             <!-- 패밀리 사이트 -->
-			<div class="footer-family">
-				<dl>
-					<dt>슈퍼시니어</dt>
-					<dd>
-						<ul class="global-link">
-							<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
-						</ul>
-					</dd>
-				</dl>
-				<dl>
-	                <dt>패밀리 사이트</dt>
-	                <dd>
-	                    <ul class="global-link">
-	                        <li>
-	                            <a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
-	                                <div class="bubble">
-	                                    <small>시니어 라이프 케어 플랫폼</small>
-	                                    <strong>"이로움ON"</strong>
-	                                </div>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="${_membersPath}" target="_blank" title="새창열림" class="link-item2">
-	                                <div class="bubble">
-	                                    <strong>이로움ON 멤버스</strong>
-	                                    <small>전국 <fmt:formatNumber value="1600" pattern="###,###" />개 업체와 함께합니다</small>
-	                                </div>
-	                            </a>
-	                        </li>
-	                        <!--
-	                        <li>
-	                            <a href="/market" target="_blank" title="새창열림" class="family-link3">
-	                                <div class="bubble">
-	                                    <strong><img src="/html/page/market/assets/images/txt-footer-family3.svg" alt="이로움ON 마켓"></strong>
-	                                    <small>
-	                                        복지용구 사업소와 수급자 매칭부터<br>
-	                                        주문, 계약 및 결제까지 한번에!
-	                                    </small>
-	                                </div>
-	                            </a>
-	                        </li>
-	                        -->
-	                    </ul>
-                	</dd>
-                </dl>
+            <dl class="footer-family">
+                <dt>패밀리 사이트</dt>
+                <dd>
+                    <ul class="global-link">
+                        <li>
+                            <a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
+                                <div class="bubble">
+                                    <small>시니어 라이프 케어 플랫폼</small>
+                                    <strong>"이로움ON"</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${_membersPath}" target="_blank" title="새창열림" class="link-item2">
+                                <div class="bubble">
+                                    <strong>이로움ON 멤버스</strong>
+                                    <small>전국 <fmt:formatNumber value="1600" pattern="###,###" />개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                        <!--
+                        <li>
+                            <a href="/market" target="_blank" title="새창열림" class="family-link3">
+                                <div class="bubble">
+                                    <strong><img src="/html/page/market/assets/images/txt-footer-family3.svg" alt="이로움ON 마켓"></strong>
+                                    <small>
+                                        복지용구 사업소와 수급자 매칭부터<br>
+                                        주문, 계약 및 결제까지 한번에!
+                                    </small>
+                                </div>
+                            </a>
+                        </li>
+                        -->
+                    </ul>
+                </dd>
             </dl>
             <!-- //패밀리 사이트 -->
         </div>
@@ -103,7 +93,26 @@
         <div class="footer-copyright">Copyright ⓒ<strong>이로움ON</strong> All rights reserved</div>
         <!-- //카피 -->
     </footer>
+	<style type="text/css">
+		.footer-link, .footer-center {
+			padding-left: 1rem;
+			 padding-right: 1rem;
+			   max-width: 1920px;
+		}
 
+		@media screen and (min-width:1040px) {
+		    .footer-link, .footer-center {
+		        padding-left: 1.25rem;
+		        padding-right: 1.25rem;
+		    }
+		}
+		@media screen and (min-width:1560px) {
+		    .footer-link, .footer-center {
+		        padding-left: 5rem;
+		        padding-right: 5rem;
+		    }
+		}
+	</style>
     <script>
     	// 사업자 정보 조회
 		function f_searchBrnoInfo(brno) {

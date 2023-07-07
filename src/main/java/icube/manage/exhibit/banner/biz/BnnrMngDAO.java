@@ -1,5 +1,6 @@
 package icube.manage.exhibit.banner.biz;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,9 @@ public class BnnrMngDAO extends CommonAbstractMapper {
 
 	public Integer updateSortNo(Map<String, Object> paramMap) throws Exception {
 		return update("banner.mng.updateSortNo",paramMap);
+	}
+
+	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
+		return selectList("banner.mng.selectBnnrMngList",paramMap);
 	}
 }

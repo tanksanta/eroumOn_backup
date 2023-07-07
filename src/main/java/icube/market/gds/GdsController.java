@@ -26,6 +26,7 @@ import icube.common.util.ArrayUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.gds.ctgry.biz.GdsCtgryService;
 import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
@@ -77,6 +78,9 @@ public class GdsController extends CommonAbstractController {
 	@Resource(name = "stdgCdService")
 	private StdgCdService stdgCdService;
 
+	@Resource(name = "gdsCtgryService")
+	private GdsCtgryService gdsCtgryService;
+
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
@@ -123,6 +127,10 @@ public class GdsController extends CommonAbstractController {
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model) throws Exception {
+
+		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+		model.addAttribute("curCtgryVO", currentCategory);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);
 		model.addAttribute("ctgryNo", ctgryNo.orElse(0));
@@ -284,6 +292,11 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("upCtgryNo", upCtgryNo);
 				model.addAttribute("ctgryNo", ctgryNo);
 				model.addAttribute("param", reqMap);
+
+
+				List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+				GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
+				model.addAttribute("curCtgryVO", currentCategory);
 
 			} else {
 				model.addAttribute("alertMsg", getMsg("goods.sale.stop"));

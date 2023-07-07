@@ -13,7 +13,7 @@
 <div id="content">
 	<form:form class="provide-form" id="consltFrm" name="consltFrm" modelAttribute="mbrConsltVO" action="./action">
 	<form:hidden path="consltNo" />
-	
+
 		<div class="form-check form-agree">
 			<input class="form-check-input" type="checkbox" name="agreeBtn" id="agreeBtn" value="Y">
 			<label class="form-check-label" for="agreeBtn">동의합니다</label>
@@ -30,6 +30,14 @@
 			</dl>
 			<dl>
 				<dt>
+					<label for="mbrNm">성별</label>
+				</dt>
+				<dd>
+					<input type="text" id="gender" name="gender" class="form-control w-full xs:max-w-50" value=""  maxlength="2"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
@@ -38,19 +46,10 @@
 			</dl>
 			<dl>
 				<dt>
-					<label for="age">만나이</label>
+					<label for="age">생년월일</label>
 				</dt>
 				<dd>
-					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set>
-					
-					<c:set var="age" value="" />
-					<c:if test="${!empty _mbrSession.brdt}">
-						<c:set var="age">
-							<fmt:formatDate value="${_mbrSession.brdt}" pattern="yyyy" />
-						</c:set>
-					</c:if>
-					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="${year - age}" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${_mbrSession.brdt}" maxlengh="8"/>
 				</dd>
 			</dl>
 			<dl>
@@ -98,9 +97,10 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 
 
 $(function(){
-	
+
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
-	
+	const numberCheck = /[0-9]/g;
+
 	// 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
 		if(value != ''){
@@ -109,7 +109,7 @@ $(function(){
 			return true;
 		}
 	}, "형식이 올바르지 않습니다.");
-	
+
 	$.validator.setDefaults({
 		onfocusout: false,
 	   	errorElement: 'div',
@@ -131,14 +131,14 @@ $(function(){
 		    $(element).removeClass('is-invalid');
 		}
 	});
-	
+
 	//유효성 검사
 	$("form#consltFrm").validate({
 		ignore: "input[type='text']:hidden",
 		rules: {
 			mbrNm : {required : true},
 			mblTelno : {required : true, regex : telchk},
-			age : {required : true},
+			age : {required : true, maxlength : 2, regex : numberCheck},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
@@ -146,14 +146,14 @@ $(function(){
 		messages : {
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
 			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
-			age : {required : "만 나이는 필수 입력 항목입니다."},
+			age : {required : "만 나이는 필수 입력 항목입니다.", maxlength : "2자리만 입력가능한 항목입니다.", regex : "숫자만 입력 가능합니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}
 		},
 	    submitHandler: function (frm) {
 	    	let agreeFlag = $("#agreeBtn").is(":checked");
-	    	
+
 	    	if(!agreeFlag){
 	    		alert("개인정보 제3자 제공에 동의바랍니다.");
 	    		return false;
@@ -167,6 +167,6 @@ $(function(){
 	    }
 
 	});
-	
+
 });
 </script>

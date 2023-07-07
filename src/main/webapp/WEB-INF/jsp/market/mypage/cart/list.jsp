@@ -6,8 +6,6 @@
 		<jsp:param value="장바구니" name="pageTitle" />
 	</jsp:include>
 
-	<jsp:include page="../../ordr/include/personal_info.jsp" />
-
 	<div id="page-container">
 		<div id="page-content">
 			<c:if test="${_mbrSession.recipterYn eq 'Y' || _mbrSession.prtcrRecipterYn eq 'Y'}">

@@ -510,7 +510,8 @@
             @apply mx-7 md:mx-auto;
         }
         & .btn {
-            @apply flex-none absolute top-1/2 right-0 -translate-y-1/2 w-45 h-9 font-medium text-[0.8125rem] md:relative md:top-auto md:translate-y-0 md:justify-center md:w-full md:h-[2.875rem];
+            @apply flex-none absolute top-1/2 right-0 -translate-y-1/2 w-45 h-9 font-medium text-[0.8125rem]
+                   md:relative md:top-auto md:translate-y-0 md:justify-center md:w-full md:h-[2.875rem];
         }
     }
     & .content-item1 {
@@ -963,34 +964,54 @@
         @apply lg:hidden;
     }
     & .btn {
-        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] border-[#3366DD] bg-[#3366DD] text-base text-white
+        @apply flex absolute bottom-0 left-1/2 w-59 -translate-x-1/2 translate-y-1/2 h-[3.125rem] !border-[#3366DD] !bg-[#3366DD] text-base text-white
                md:static md:mt-5 md:translate-x-0 md:translate-y-0;
     }
 }
 
 
 /* 복지용구 알아보기 */
+.page2-slider-title {
+    @apply mt-8.5 text-center leading-tight font-bold text-2xl
+           md:mt-18 md:text-5xl
+           lg:mt-[6.875rem] lg:text-[2.625rem];
+}
+
 .page2-slider {
-    @apply relative left-1/2 w-screen -translate-x-1/2 mt-8.5
-           md:mt-18
-           lg:mt-[6.875rem];
+    @apply relative left-1/2 w-screen -translate-x-1/2
+           md:mt-3
+           lg:mt-6;
     & .swiper-wrapper {
         transition-timing-function: linear;
     }
     & .swiper-slide {
-        @apply w-[5.875rem]
+        @apply py-5 w-[5.875rem] transition-[width,transform] duration-300
                md:w-33
                lg:w-[10.625rem];
+        & a {
+            @apply block mx-auto w-[5.875rem] rounded-lg transition-[transform,box-shadow] duration-300
+                   md:w-33 md:rounded-2xl
+                   lg:w-[10.625rem] lg:rounded-[18px];
+        }
         & img {
             @apply w-full h-full object-cover;
+        }
+        &:hover {
+            @apply w-[6.625rem]
+                   md:w-37
+                   lg:w-[12.125rem];
+            & a {
+                @apply scale-110 shadow-[6px_8px_13px_#0000001A]
+                       md:shadow-[8px_10px_17px_#0000001A];
+            }
         }
     }
 }
 
 .page2-title {
-    @apply mt-22 text-center
-           md:mt-45
-           lg:mt-68;
+    @apply mt-17 text-center
+           md:mt-40
+           lg:mt-63;
     & h2 {
         @apply text-5xl font-bold
                md:text-[3.375rem]
@@ -1233,8 +1254,10 @@
         & .btn {
             @apply mt-3 w-55 justify-center
                    md:mt-0 md:w-70
-                   after:ml-9.5
-                   md:after:ml-14;
+                   after:ml-9
+                   md:after:ml-14
+                   hover:after:ml-13
+                   md:hover:after:ml-18;
         }
         &:nth-child(odd) {
             & img {

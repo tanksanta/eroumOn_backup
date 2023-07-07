@@ -1,5 +1,6 @@
 package icube.manage.exhibit.main.biz;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,10 @@ public class MainMngDAO extends CommonAbstractMapper {
 
 	public void updateMainMng(MainMngVO mainMngVO) throws Exception {
 		update("main.updateMainMng",mainMngVO);
+	}
+
+	public List<MainMngVO> selectMainMngList(Map<String, Object> paramMap) throws Exception {
+		return selectList("main.selectMainMngList",paramMap);
 	}
 
 }
