@@ -5,35 +5,64 @@
             @apply py-1 px-3.5 rounded-lg bg-[#525252] text-sm;
         }
         & .tooltip-arrow {
-            @apply before:absolute before:top-0 before:left-0 before:w-0 before:h-0 before:border-solid
-                   after:absolute after:top-0 after:left-0 after:w-0 after:h-0 after:border-solid;
+            &::before, &::after {
+                @apply content-empty absolute top-0 left-0 w-0 h-0 border-solid;
+            }
         }
         &.bs-tooltip-auto[data-popper-placement^=top], &.bs-tooltip-top {
             & .tooltip-arrow {
-                @apply -bottom-[5px] w-[10px] h-[5px]
-                       before:border-[5px] before:border-b-0 before:border-transparent before:border-t-black2
-                       after:-mt-px after:ml-px after:border-[4px] after:border-b-0 after:border-transparent after:border-t-[#525252];
+                @apply -bottom-[5px] w-[10px] h-[5px];
+                &::before {
+                    border-width: 5px 5px 0 5px;
+                    border-color: #333 transparent transparent transparent;
+                }
+                &:after {
+                    @apply -mt-px ml-px;
+                    border-width: 4px 4px 0 4px;
+                    border-color: #525252 transparent transparent transparent;
+                }
             }
         }
         &.bs-tooltip-auto[data-popper-placement^=bottom], &.bs-tooltip-bottom {
             & .tooltip-arrow {
-                @apply -top-[5px] w-[10px] h-[5px]
-                       before:border-[5px] before:border-t-0 before:border-transparent before:border-b-black2
-                       after:mt-px after:ml-px after:border-[4px] after:border-t-0 after:border-transparent after:border-b-[#525252];
+                @apply -top-[5px] w-[10px] h-[5px];
+                &::before {
+                    border-width: 0 5px 5px 5px;
+                    border-color: transparent transparent #333 transparent;
+                }
+                &:after {
+                    @apply mt-px ml-px;
+                    border-width: 0 4px 4px 4px;
+                    border-color: transparent transparent #525252 transparent;
+                }
             }
         }
         &.bs-tooltip-auto[data-popper-placement^=left], &.bs-tooltip-start {
             & .tooltip-arrow {
-                @apply -right-[5px] w-[5px] h-[10px]
-                       before:border-[5px] before:border-r-0 before:border-transparent before:border-l-black2
-                       after:mt-px after:-ml-px after:border-[4px] after:border-r-0 after:border-transparent after:border-l-[#525252];
+                @apply -right-[5px] w-[5px] h-[10px];
+                &::before {
+                    border-width: 5px 0 5px 5px;
+                    border-color: transparent transparent transparent #333;
+                }
+                &:after {
+                    @apply mt-px -ml-px;
+                    border-width: 4px 0 4px 4px;
+                    border-color: transparent transparent transparent #525252;
+                }
             }
         }
         &.bs-tooltip-auto[data-popper-placement^=right], &.bs-tooltip-end {
             & .tooltip-arrow {
-                @apply -left-[5px] w-[5px] h-[10px]
-                       before:border-[5px] before:border-l-0 before:border-transparent before:border-r-black2
-                       after:mt-px after:ml-px after:border-[4px] after:border-l-0 after:border-transparent after:border-r-[#525252];
+                @apply -left-[5px] w-[5px] h-[10px];
+                &::before {
+                    border-width: 5px 5px 5px 0;
+                    border-color: transparent #333 transparent transparent;
+                }
+                &:after {
+                    @apply mt-px ml-px;
+                    border-width: 4px 4px 4px 0;
+                    border-color: transparent #525252 transparent transparent;
+                }
             }
         }
     }
