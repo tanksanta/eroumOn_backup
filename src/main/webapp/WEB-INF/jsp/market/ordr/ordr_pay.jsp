@@ -201,7 +201,7 @@
                     </div>
                     <div class="flex-1 pt-2 space-y-2 md:space-y-3.5">
                         <p class="text-alert">
-                            고객정보로 주문과 관련된 SMS와 이메일이 발송됩니다.<br>
+                            고객정보로 주문과 관련된 이메일이 발송됩니다.<br>
                             정확한 정보인지 확인해 주세요.
                         </p>
                         <p class="text-alert">회원정보 수정은 마이페이지에서 가능합니다.</p>
