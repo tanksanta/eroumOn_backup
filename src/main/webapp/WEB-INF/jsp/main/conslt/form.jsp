@@ -30,14 +30,6 @@
 			</dl>
 			<dl>
 				<dt>
-					<label for="mbrNm">성별</label>
-				</dt>
-				<dd>
-					<input type="text" id="gender" name="gender" class="form-control w-full xs:max-w-50" value=""  maxlength="2"/>
-				</dd>
-			</dl>
-			<dl>
-				<dt>
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
@@ -46,10 +38,10 @@
 			</dl>
 			<dl>
 				<dt>
-					<label for="age">생년월일</label>
+					<label for="age">만나이</label>
 				</dt>
 				<dd>
-					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${_mbrSession.brdt}" maxlengh="8"/>
+					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>
 				</dd>
 			</dl>
 			<dl>
@@ -99,7 +91,6 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 $(function(){
 
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
-	const numberCheck = /[0-9]/g;
 
 	// 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
@@ -138,15 +129,15 @@ $(function(){
 		rules: {
 			mbrNm : {required : true},
 			mblTelno : {required : true, regex : telchk},
-			age : {required : true, maxlength : 2, regex : numberCheck},
+			age : {required : true},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
 		},
 		messages : {
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
-			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
-			age : {required : "만 나이는 필수 입력 항목입니다.", maxlength : "2자리만 입력가능한 항목입니다.", regex : "숫자만 입력 가능합니다."},
+			mblTelno : {required : "연락처는 필수 입력 항목입니다."},
+			age : {required : "만 나이는 필수 입력 항목입니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}
