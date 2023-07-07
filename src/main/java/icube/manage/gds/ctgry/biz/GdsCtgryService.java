@@ -140,6 +140,15 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
         return null;
     }
 
+	public GdsCtgryVO findChildCategory(List<GdsCtgryVO> dataList, int ctgryNo) {
+        for (GdsCtgryVO category : dataList) {
+            if (category.getCtgryNo() == ctgryNo) {
+                return category;
+            }
+        }
+        return null;
+    }
+
 	public void printCategoryTree(GdsCtgryVO category, String prefix) {
         System.out.println(prefix + "|_" + category.getCtgryNm());
         List<GdsCtgryVO> children = category.getChildList();

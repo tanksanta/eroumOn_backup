@@ -26,6 +26,8 @@ public class GdsCtgryVO extends CommonBaseVO {
 
 	private int childCnt = 0;
 
+	private String ctgryPath;
+
 	private List<GdsCtgryVO> childList;
 
 	public GdsCtgryVO() {
