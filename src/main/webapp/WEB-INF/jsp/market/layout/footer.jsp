@@ -12,10 +12,10 @@
             <!-- 회사 메뉴 -->
             <nav class="footer-menu">
                 <ul>
-                    <li><a href="${_plannerPath}/cntnts/company">회사소개</a></li>
+                    <li><a href="${_mainPath}/cntnts/company">회사소개</a></li>
                     <li><a href="${_membershipPath}/cntnts/terms" target="_blank">이용약관</a></li>
                     <li><a href="${_membershipPath}/cntnts/privacy" target="_blank"><strong>개인정보처리방침</strong></a></li>
-                    <li><a href="${_plannerPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
+                    <li><a href="${_mainPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
                 </ul>
             </nav>
             <!-- //회사 메뉴 -->
@@ -93,7 +93,26 @@
         <div class="footer-copyright">Copyright ⓒ<strong>이로움ON</strong> All rights reserved</div>
         <!-- //카피 -->
     </footer>
+	<style type="text/css">
+		.footer-link, .footer-center {
+			padding-left: 1rem;
+			 padding-right: 1rem;
+			   max-width: 1920px;
+		}
 
+		@media screen and (min-width:1040px) {
+		    .footer-link, .footer-center {
+		        padding-left: 1.25rem;
+		        padding-right: 1.25rem;
+		    }
+		}
+		@media screen and (min-width:1560px) {
+		    .footer-link, .footer-center {
+		        padding-left: 5rem;
+		        padding-right: 5rem;
+		    }
+		}
+	</style>
     <script>
     	// 사업자 정보 조회
 		function f_searchBrnoInfo(brno) {
