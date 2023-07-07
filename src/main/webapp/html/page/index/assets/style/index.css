@@ -45,7 +45,8 @@
         & .btn {
             @apply mt-2.5 px-7.5 w-full h-13
                    md:mt-3.5 md:w-63 md:h-15
-                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2;
+                   md-max:justify-center md-max:after:absolute md-max:after:top-1/2 md-max:after:right-7.5 md-max:after:-translate-y-1/2
+                   hover:px-5.5;
         }
     }
     & .text-scroll {

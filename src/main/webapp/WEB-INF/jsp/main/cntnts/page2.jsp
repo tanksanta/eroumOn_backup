@@ -55,7 +55,7 @@
                     안전사고를 예방하는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 
@@ -69,7 +69,7 @@
                     이동에 편리함을 주는 복지용구를 소개합니다. 
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
     
@@ -97,7 +97,7 @@
                     복지용구를 소개합니다.
                 </dd>
             </dl>
-            <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary is-arrow"><strong>복지용구 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
 </div>

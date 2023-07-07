@@ -25,7 +25,7 @@
                     <strong><span class="t-obj"></span>65세 이상이라면 바로 신청하세요</strong>
                 </p>
                 <p class="desc"><span>등급별 지원 혜택이 달라요!</span></p>
-                <a href="${_mainPath}/recipter/list" class="btn btn-primary3 btn-outline-none is-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
             <div class="swiper-slide">
@@ -38,7 +38,7 @@
                     <span><span class="t-obj"></span>노인성 질환을 앓고 있는 어르신</span>
                     <span><span class="t-obj"></span>치매 증상으로 불편한 어르신</span>
                 </p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none is-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
             <div class="swiper-slide">
@@ -47,7 +47,7 @@
                     <strong>놓치지 말고 누리세요</strong>
                 </p>
                 <p class="desc"><span>등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none is-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
         </div>
@@ -138,7 +138,7 @@
             </h2>
             <p>우리 부모님은<br> 지원대상일까요?</p>
             <p>어떤 요양 서비스와 용품이<br> 제공될까요?</p>
-            <a href="${_mainPath}/cntnts/page1" class="btn btn-large2 btn-outline-primary2 is-arrow"><strong>쉽게 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page1" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>쉽게 알아보기</strong></a>
         </div>
     </div>
     
@@ -154,7 +154,7 @@
             </h2>
             <p>불편한 거동, 낙상 사고 등의 걱정을</p>
             <p>복지용구로 덜으실 수 있어요</p>
-            <a href="${_mainPath}/cntnts/page2" class="btn btn-large2 btn-outline-primary3 is-arrow"><strong>복지용구 알아보기</strong></a>
+            <a href="${_mainPath}/cntnts/page2" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
     
@@ -171,7 +171,7 @@
             </h2>
             <p>높은 금액의 복지용구,</p>
             <p>혜택받는 방법과<br> 고르는 법을 알려드려요</p>
-            <a href="${_mainPath}/cntnts/page3" class="btn btn-large2 btn-outline-primary2 is-arrow"><strong>복지용구 선택하기</strong></a>
+            <a href="${_mainPath}/cntnts/page3" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
         </div>
     </div>
 </div>
@@ -349,24 +349,6 @@ function comma(num){
         
         .main-visual .swiper {overflow: visible;}
     }
-    
-    .btn {transition: 0.5s ease-in-out;}
-    .btn::before {content:'';position: absolute;left: -500px;width:400px;height:400px;transform: rotate(-35deg);transition: 1s ease;top: -90px; z-index: 0;}
-    .btn:hover::before {left: -50px;}
-    .btn-outline-primary2::before {background: #FF8300;}
-    .btn-outline-primary3::before {background: #3073FE;}
-    .btn-outline-primary4::before {background: #333;}
-    .btn-outline-primary4 {border-color: #333;}
-    .btn strong {position: relative; z-index: 1;}
-    [class*=btn-outline]:hover {color:#fff}
-
-    .btn-outline-none::before {background: #fff;}
-    .btn-outline-none:hover {background-color: #3073FE !important;}
-    .btn-outline-primary2:hover,
-    .btn-outline-primary3:hover,
-    .btn-outline-primary4:hover {background-color: #fff !important;}
-    .main-content1 .btn:hover, .main-content2 .btn:hover, .main-content3 .btn:hover {padding-left:2rem;padding-right:2rem;}
-
 
     .phone {position: absolute;left: 50%;margin-left: calc(440px);top:100%;transform: translate(-50%,-50%);width:380px;height:727px;background: url(/html/page/index/assets/images/visual2/frame-iphone.png) no-repeat 50% / 100%; z-index: 0; opacity: 0;}
     .phone .mask {position: absolute;left: 46px;top: 70px;width: 265px;height: 576px;overflow: hidden;border-radius: 36px;background-color: #FF8300;}
@@ -598,42 +580,7 @@ $(function() {
         })
 
 
-
-
-
-
-        $('#quick .moveTop').on('click', function() {
-            $(window).scrollTop(0);
-        });
     })
-
-    $(window).on('scroll load', function() {
-        $('#notice').prop('class',function (i,v) {
-            return ($(window).scrollTop() > 60) ? 'is-active' : '';
-        });
-
-        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
-            $('#quick').addClass('is-active');
-        } else {
-            $('#quick').removeClass('is-active');
-        }
-        
-        if($(this).scrollTop() > $('#header').outerHeight() * 1.25) {
-            $('body').addClass('is-scroll');
-            if($('body').hasClass('is-index')) $('#logo').removeClass('is-white');
-        } else {
-            $('body').removeClass('is-scroll');
-            if($('body').hasClass('is-index')) $('#logo').addClass('is-white');
-        }
-    });
-    $(window).on('load scroll resize', function() {
-        //$('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
-
-
-        
-        
-    })
-
 })
 
 

@@ -460,8 +460,8 @@ strong {
     }
 
     .btn-large {
-        @apply px-4 h-[3.125rem] text-sm
-               md:px-5 md:h-[3.375rem] md:text-base;
+        @apply px-5 h-[3.125rem] text-sm
+               md:px-6 md:h-[3.375rem] md:text-base;
     }
 
     .btn-large2 {
@@ -469,212 +469,143 @@ strong {
                md:px-9.5 md:h-15 md:text-base;
     }
 
-    .btn-primary, .btn-outline-primary, .btn-primary2, .btn-outline-primary2, .btn-primary3, .btn-outline-primary3 {
-        &.is-arrow {
-            @apply justify-between
-                   after:content-empty after:block after:relative after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:transition-all after:duration-500
-                   md:after:ml-5 md:after:w-3.5 md:after:h-3;
+    .btn-arrow {
+        @apply min-w-[7em] justify-between transition-[transform,background-color,background-image,border,padding] duration-300 ease-in-out !bg-white
+               before:absolute before:-top-[20%] before:-left-[200%] before:w-[158.75%] before:pt-[158.75%] before:bg-gray2 before:transition-all before:duration-700 before:-translate-y-[15.5%] before:-rotate-[35deg] before:ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
+               after:block after:relative after:z-5 after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:bg-[url(../images/ico-button-arrow.svg)] after:transition-all after:duration-300
+               md:after:ml-5 md:after:w-3.5 md:after:h-3
+               hover:px-2
+               hover:after:ml-8
+               hover:before:-left-[12.5%]
+               hover:md:px-3;
+        &.btn-large, &.btn-large2 {
+            @apply min-w-[10em] duration-[400ms,500ms,500ms,500ms,500ms,500ms]
+                   before:duration-[900ms]
+                   after:ml-5 after:w-3.5 after:h-3 after:duration-500
+                   hover:after:ml-10;
         }
         &.btn-large {
-            &.is-arrow {
-                @apply after:w-3.5 after:h-3;
-            }
+            @apply hover:px-4.5
+                   hover:md:px-5.5;
+        }
+        &.btn-large2 {
+                @apply hover:px-5.5
+                       hover:md:px-7.5;
         }
         &.btn-small {
-            &.is-arrow {
-                @apply after:ml-2.5 after:w-3 after:h-2.5
-                       md:after:ml-4;
-            }
+            @apply after:ml-3
+                   hover:px-1.5
+                   hover:after:ml-6
+                   hover:md:px-2.5;
         }
     }
-
+    
+    [class*="btn-primary"] {
+        @apply text-white
+               hover:!bg-white 
+               focus:text-white
+               active:bg-white;
+        &.btn-arrow {
+            @apply before:bg-white
+                   after:bg-[url(../images/ico-button-arrow-white.svg)];
+        }
+    }
+    
+    [class*="btn-outline-primary"] {
+    }
+    
     .btn-primary {
-        @apply border-black2 bg-black2 text-white 
-               hover:!border-black2 hover:!bg-white hover:!text-black2 
-               focus:border-black2 focus:bg-black2 focus:text-white 
-               active:border-black2 active:bg-white active:text-black2;
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
+        @apply !border-black2 bg-black2
+               hover:!text-black2 
+               focus:bg-black2 
+               active:text-black2;
+        &.btn-arrow {
+            @apply !bg-black2
                    hover:after:bg-[url(../images/ico-button-arrow.svg)];
         }
     }
-
-    .btn-outline-primary {
-        @apply border-black2 bg-white text-black2
-               hover:border-black2 hover:!bg-black2 hover:!text-white
-               focus:border-black2 focus:bg-white focus:text-black2
-               active:border-black2 active:bg-black2 active:text-white;
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
-        }
-    }
-
-    .btn-primary2 {
-        @apply border-[#FF8300] bg-[#FF8300] text-white
-               hover:!border-[#FF8300] hover:!bg-white hover:!text-[#FF8300]
-               focus:border-[#FF8300] focus:bg-[#FF8300] focus:text-white
-               active:border-[#FF8300] active:bg-white active:text-[#FF8300];
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
-        }
-    }
-
-    .btn-outline-primary2 {
-        @apply border-[#FF8300] bg-white text-[#FF8300]
-               hover:border-[#FF8300] hover:!bg-[#FF8300] hover:!text-white
-               focus:border-[#FF8300] focus:bg-white focus:text-[#FF8300]
-               active:border-[#FF8300] active:bg-[#FF8300] active:text-white;
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-orange.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
-        }
-    }
-
-    .btn-primary3 {
-        @apply border-[#3074FF] bg-[#3074FF] text-white
-               hover:!border-[#3074FF] hover:!bg-white hover:!text-[#3074FF]
-               focus:border-[#3074FF] focus:bg-[#3074FF] focus:text-white
-               active:border-[#3074FF] active:bg-white active:text-[#3074FF];
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
-        }
-    }
-
-    .btn-outline-primary3 {
-        @apply border-[#3074FF] bg-white text-[#3074FF]
-               hover:border-[#3074FF] hover:!bg-[#3074FF] hover:!text-white
-               focus:border-[#3074FF] focus:bg-white focus:text-[#3074FF]
-               active:border-[#3074FF] active:bg-[#3074FF] active:text-white;
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-blue.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
-        }
-    }
-
-    /* .btn-primary, .btn-outline-primary, .btn-primary2, .btn-outline-primary2, .btn-primary3, .btn-outline-primary3 {
-        &.is-arrow {
-            @apply min-w-[7em] justify-between transition-[transform,background-color,background-image,border,padding] duration-300 ease-in-out
-                   before:absolute before:top-1/2 before:-left-[500px] before:w-[400px] before:h-[400px] before:transition-all before:duration-[600ms] before:-rotate-[35deg] before:-translate-y-1/2
-                   after:block after:relative after:z-5 after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:transition-all after:duration-300
-                   md:after:ml-5 md:after:w-3.5 md:after:h-3
-                   hover:px-2
-                   hover:after:ml-7
-                   hover:before:-left-[50px]
-                   hover:md:px-3;
-        }
-        &.btn-large, &.btn-large2 {
-            &.is-arrow {
-                @apply duration-500
-                       before:duration-1000
-                       after:w-3.5 after:h-3 after:duration-500;
-            }
-        }
-        &.btn-large {
-            &.is-arrow {
-                @apply hover:px-3
-                       hover:md:px-4;
-            }
-        }
-        &.btn-large2 {
-            &.is-arrow {
-                @apply hover:px-5.5
-                       hover:md:px-7.5;
-            }
-        }
-        &.btn-small {
-            &.is-arrow {
-                @apply after:ml-2.5 after:w-3 after:h-2.5
-                       hover:px-1.5
-                       hover:after:ml-5
-                       hover:md:px-2.5;
-            }
-        }
-    }
-
-    .btn-primary {
-        @apply !border-black2 bg-black2 text-white 
-               hover:!bg-white hover:!text-black2 
-               focus:bg-black2 focus:text-white 
-               active:bg-white active:text-black2;
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:!bg-black2 md-max:hover:!text-white
-                   md-max:active:bg-black2 md-max:active:text-white
-                   md:hover:after:bg-[url(../images/ico-button-arrow.svg)];
-        }
-    }
-
+    
     .btn-outline-primary {
         @apply !border-black2 bg-white text-black2
                hover:!bg-black2 hover:!text-white
                focus:bg-white focus:text-black2
                active:bg-black2 active:text-white;
-        &.is-arrow {
-            @apply before:bg-black2
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:!bg-black2 md-max:!text-white
-                   md:after:bg-[url(../images/ico-button-arrow.svg)]
-                   md:hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
+        &.btn-arrow {
+            @apply !bg-white
+                   before:bg-black2
+                   after:bg-[url(../images/ico-button-arrow.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:!bg-black2 md-max:text-white
+                   md-max:before:bg-white
+                   md-max:hover:!text-black2 
+                   md-max:focus:bg-black2 md-max:focus:text-white
+                   md-max:active:text-black2
+                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(../images/ico-button-arrow.svg)];
         }
     }
-
+    
     .btn-primary2 {
-        @apply !border-[#FF8300] bg-[#FF8300] text-white 
-               hover:!bg-white hover:!text-[#FF8300] 
-               focus:bg-[#FF8300] focus:text-white 
-               active:bg-white active:text-[#FF8300];
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:!bg-[#FF8300] md-max:hover:!text-white
-                   md-max:active:bg-[#FF8300] md-max:active:text-white
-                   md:hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
+        @apply !border-[#FF8300] bg-[#FF8300]
+               hover:!text-[#FF8300] 
+               focus:bg-[#FF8300]
+               active:text-[#FF8300];
+        &.btn-arrow {
+            @apply !bg-[#FF8300]
+                   hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
         }
     }
-
+    
     .btn-outline-primary2 {
         @apply !border-[#FF8300] bg-white text-[#FF8300]
                hover:!bg-[#FF8300] hover:!text-white
                focus:bg-white focus:text-[#FF8300]
                active:bg-[#FF8300] active:text-white;
-        &.is-arrow {
-            @apply before:bg-[#FF8300]
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:!bg-[#FF8300] md-max:!text-white
-                   md:after:bg-[url(../images/ico-button-arrow-orange.svg)]
-                   md:hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
+        &.btn-arrow {
+            @apply !bg-white
+                   before:bg-[#FF8300]
+                   after:bg-[url(../images/ico-button-arrow-orange.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:!bg-[#FF8300] md-max:text-white
+                   md-max:before:bg-white
+                   md-max:hover:!text-[#FF8300] 
+                   md-max:focus:bg-[#FF8300] md-max:focus:text-white
+                   md-max:active:text-[#FF8300]
+                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
         }
     }
-
+    
     .btn-primary3 {
-        @apply !border-[#3074FF] bg-[#3074FF] text-white 
-               hover:!bg-white hover:!text-[#3074FF] 
-               focus:bg-[#3074FF] focus:text-white 
-               active:bg-white active:text-[#3074FF];
-        &.is-arrow {
-            @apply after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:!bg-[#3074FF] md-max:hover:!text-white
-                   md-max:active:bg-[#3074FF] md-max:active:text-white
-                   md:hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
+        @apply !border-[#3074FF] bg-[#3074FF]
+               hover:!text-[#3074FF] 
+               focus:bg-[#3074FF]
+               active:text-[#3074FF];
+        &.btn-arrow {
+            @apply !bg-[#3074FF]
+                   hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
         }
     }
-
+    
     .btn-outline-primary3 {
         @apply !border-[#3074FF] bg-white text-[#3074FF]
                hover:!bg-[#3074FF] hover:!text-white
                focus:bg-white focus:text-[#3074FF]
                active:bg-[#3074FF] active:text-white;
-        &.is-arrow {
-            @apply before:bg-[#3074FF]
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:!bg-[#3074FF] md-max:!text-white
-                   md:after:bg-[url(../images/ico-button-arrow-blue.svg)]
-                   md:hover:!bg-white
-                   md:hover:after:bg-[url(../images/ico-button-arrow-white.svg)];
+        &.btn-arrow {
+            @apply !bg-white
+                   before:bg-[#3074FF]
+                   after:bg-[url(../images/ico-button-arrow-blue.svg)]
+                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:!bg-[#3074FF] md-max:text-white
+                   md-max:before:bg-white
+                   md-max:hover:!text-[#3074FF] 
+                   md-max:focus:bg-[#3074FF] md-max:focus:text-white
+                   md-max:active:text-[#3074FF]
+                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
         }
-    } */
+    }
 
     .btn-request {
         @apply rounded-full border-0 w-61 h-[2.625rem] text-white

@@ -40,6 +40,6 @@ $(function() {
     });
 
     $(window).on('load scroll resize', function() {
-        $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
+        $('#visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
     })
 })

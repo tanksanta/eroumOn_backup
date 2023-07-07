@@ -982,10 +982,10 @@
            md:mt-3
            lg:mt-6;
     & .swiper-wrapper {
-        transition-timing-function: linear;
+        @apply ease-linear;
     }
     & .swiper-slide {
-        @apply py-5 w-[5.875rem] transition-[width,transform] duration-300
+        @apply pt-5 pb-15 w-[5.875rem] transition-[width,transform] duration-300
                md:w-33
                lg:w-[10.625rem];
         & a {
@@ -1009,9 +1009,9 @@
 }
 
 .page2-title {
-    @apply mt-17 text-center
-           md:mt-40
-           lg:mt-63;
+    @apply mt-7 text-center
+           md:mt-30
+           lg:mt-53;
     & h2 {
         @apply text-5xl font-bold
                md:text-[3.375rem]
