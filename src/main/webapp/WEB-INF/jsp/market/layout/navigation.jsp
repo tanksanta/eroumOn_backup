@@ -4,13 +4,21 @@
 		<button type="button" class="navigation-allmenu-toggle">
 			<i></i> <span>전체 카테고리</span>
 		</button>
-		<div class="navigation-allmenu is-active">
+		<div class="navigation-allmenu">
 			<div class="allmenu-group">
 				<ul>
 
 					<c:forEach items="${_gnbCtgry.childList}" var="ctgry">
 						<%-- 1depth --%>
-						<li class="allmenu-item <c:if test="${not empty ctgry.childList}">is-depth</c:if>"><a href="${_marketPath}/gds/${ctgry.ctgryNo}/list"> <i><img src="/html/page/market/assets/images/ico-navigation-menu1.png" alt=""></i> ${ctgry.ctgryNm }
+						<li class="allmenu-item <c:if test="${not empty ctgry.childList}">is-depth</c:if>"><a href="${_marketPath}/gds/${ctgry.ctgryNo}/list">
+						<c:set var="imgNumber">
+							<c:choose>
+								<c:when test="${ctgry.ctgryNo eq 2}">1</c:when>
+								<c:when test="${ctgry.ctgryNo eq 34}">2</c:when>
+								<c:otherwise>3</c:otherwise>
+							</c:choose>
+						</c:set>
+						<i><img src="/html/page/market/assets/images/ico-navigation-menu${imgNumber}.png" alt=""></i> ${ctgry.ctgryNm }
 						</a> <c:if test="${not empty ctgry.childList}">
 								<div class="allmenu-group2">
 									<%-- 2depth --%>

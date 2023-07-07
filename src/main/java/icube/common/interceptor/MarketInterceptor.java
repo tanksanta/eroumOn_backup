@@ -181,8 +181,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		rootCategory.setChildList(new ArrayList<>()); // childList 초기화
 		rootCategory.buildChildList(gdsCtgryList);
 		request.setAttribute("_gnbCtgry", rootCategory);
-
-
 		// 카테고리 정보 E
 
 		// 사용자 메뉴 S
