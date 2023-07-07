@@ -20,9 +20,9 @@ $(function() {
             $('#notice').removeClass('is-active');
         }
 
-        if($(window).scrollTop() === 0 && $('#notice').hasClass('is-closed')) {
-            $('#notice').removeClass('is-closed');
-        }
+        // if($(window).scrollTop() === 0 && $('#notice').hasClass('is-closed')) {
+        //     $('#notice').removeClass('is-closed');
+        // }
 
         if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
             $('#quick').addClass('is-active');
@@ -40,6 +40,6 @@ $(function() {
     });
 
     $(window).on('load scroll resize', function() {
-        $('#visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
+        $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
     })
 })

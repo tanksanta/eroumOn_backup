@@ -121,7 +121,7 @@
     <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
     <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
     <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
-    <li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li>
+    <!-- li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li -->
 </ul>
 
 <div class="main-content-wrapper">
@@ -581,6 +581,7 @@ $(function() {
 
 
     })
+
 })
 
 

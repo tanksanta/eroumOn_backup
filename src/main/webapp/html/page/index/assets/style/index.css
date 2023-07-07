@@ -103,7 +103,7 @@
 
 /* 메인 페이지 링크 */
 .main-link {
-    @apply grid grid-cols-4 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
+    @apply grid grid-cols-3 gap-1 mx-auto mt-5 px-5 max-w-screen-xl
            md:mt-7 md:px-7
            lg:gap-0 lg:mt-16 lg:px-10;
     & [class*="link-item"] {
