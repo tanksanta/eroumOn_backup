@@ -487,78 +487,42 @@ $(function(){
 		}
 	});
 
+	$.validator.addMethod("iconCheck", function(value,element){
+		if($("#themaTy").val() == "G"){
+			if("${mainMngVO.crud}" != "UPDATE"){
+				if($("#attachFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}else{
+				if($(".icon-delete-flag").length < 1 && $("#attachFile0").val() == ""){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}else{
+			return true;
+		}
+	}, "주제명 아이콘은 필수 입력 항목입니다.");
+
   //유효성 검사
     $("form#mainFrm").validate({
     ignore: "input[type='text']:hidden",
     rules : {
-    	sj : { required : true},
+    	sj : { required : true}
+    	, attachFile0 : {iconCheck : true}
     },
     messages : {
     	sj : { required : "주제명은 필수 입력 항목입니다."}
     },
     submitHandler: function (frm) {
-    	let returnFlag = false;
-
-    	if($("#themaTy").val() == "G"){
-    		if("${mainMngVO.crud}" != "UPDATE"){
-    			if($("#attachFile0").val() == ''){
-    				alert("주제명 아이콘을 선택해주세요");
-    				returnFlag = false;
-    			}
-    			if($(".selectView .noresult").length > 0){
-    				alert("상품을 선택해주세요.");
-    				returnFlag = false;
-    			}
-    		}else{
-    			if($(".icon-delete-flag").length > 0){
-    				returnFlag =  true;
-    			}else{
-    				alert("주제명 아이콘을 선택해주세요");
-    				returnFlag = false;
-    			}
-    		}
-		}else if($("#themaTy").val() == "B"){
-
-			if("${mainMngVO.crud}" != "UPDATE"){
-				 if($("#attachPcFile0").val() == ''){
-					alert("PC 배너 이미지를 선택해주세요");
-					returnFlag = false;
-				}else if($("#mobileFile0").val() == ''){
-					alert("Mobile 배너 이미지를 선택해주세요");
-					returnFlag = false;
-				}
-			}else{
-
-				if($(".banner-delete-flag").length < 2){
-					alert("배너 이미지를 선택해주세요");
-					returnFlag = false;
-    			}
-			}
-
-		}else {
-			if("${mainMngVO.crud}" != "UPDATE"){
-				if($("#attachHalfFile0").val() == ''){
-					alert("하프 배너 이미지를 선택해주세요");
-					returnFlag = false;
-				}
-			}else{
-				if($(".half-delete-flag").length > 0){
-					returnFlag = true;
-    			}else{
-    				alert("하프 배너 이미지를 선택해주세요");
-    				returnFlag = false;
-    			}
-			}
-		}
-
-    	if(returnFlag){
-    		if(confirm("저장하시겠습니까?")){
-        		//frm.submit();
-        	}else{
-        		return false;
-        	}
-    	}
-
+   		if(confirm("저장하시겠습니까?")){
+       		//frm.submit();
+       	}else{
+       		return false;
+       	}
     }
 
     });
