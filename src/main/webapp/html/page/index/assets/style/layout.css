@@ -13,7 +13,7 @@
             }
         }
         & a {
-            @apply block py-1.5 px-3 w-fit rounded-full bg-no-repeat bg-[length:auto_1rem] text-white
+            @apply block relative z-5 py-1.5 px-3 w-fit rounded-full bg-no-repeat bg-[length:auto_1rem] text-white
                    lg:py-2 lg:px-3.5 lg:bg-[length:auto_1.25rem];
         }
     }
@@ -45,7 +45,7 @@
     & .notice-banner1, & .notice-banner2 {
         @apply relative w-1/2
                before:absolute before:top-0 before:w-[50vw] before:h-full before:bg-inherit;
-        & dt, & dd {
+        & dl, & dt, & dd {
             @apply relative z-5;
         }
     }
@@ -64,7 +64,7 @@
                before:left-0 before:bg-[#EE9869]/10;
     }
     & .notice-close {
-        @apply absolute top-1/2 right-0 overflow-hidden w-9 h-9 rounded-full bg-cover bg-[url(../images/ico-close.svg)] -indent-96 -translate-y-1/2;
+        @apply absolute z-10 top-1/2 right-0 overflow-hidden w-9 h-9 rounded-full bg-white bg-no-repeat bg-center bg-[length:50%] bg-[url(../images/ico-close.svg)] -indent-96 -translate-y-1/2 opacity-70;
     }
 }
 
@@ -111,7 +111,7 @@
             & a {
                 @apply block relative py-2 px-4 rounded leading-snug text-[0.8125rem] transition-shadow duration-300 lg:rounded-md
                        lg:text-sm lg:leading-normal lg:px-3 lg:py-2.5 lg-max:bg-gray2
-                       hover:shadow-[inset_10px_10px_100px_200px_rgba(0,0,0,0.15)];
+                       hover:shadow-[inset_10px_10px_100px_200px_rgba(0,0,0,0.1)];
                 &.join {
                     @apply lg-max:bg-[#3074FF] lg-max:text-white;
                 }

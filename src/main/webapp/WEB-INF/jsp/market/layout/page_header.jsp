@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <c:if test="${!empty param.pageTitle}">
 	<h2 id="page-title">${param.pageTitle}</h2>
 </c:if>

@@ -687,8 +687,8 @@ strong {
     }
 
     .text-scroll {
-        @apply text-sm text-center font-medium
-               md:text-base
+        @apply text-sm text-center font-medium opacity-70
+               md:text-base md:opacity-100
                after:block after:mx-auto after:mt-1 after:w-4 after:h-1.5 after:bg-cover after:bg-[url(../images/ico-scroll-arrow.svg)]
                md:after:hidden md:after:mt-1.5 md:after:w-7 md:after:h-2.5
                lg:after:mt-2 lg:after:w-8.5 lg:after:h-3;
@@ -696,7 +696,7 @@ strong {
             @apply hidden relative -top-0.5 mr-0.5 w-3.5 h-5.5 bg-center bg-no-repeat bg-[url(../images/ico-scroll-mouse.svg)] align-middle
                    md:inline-block;
             &::before {
-                @apply content-empty absolute top-[5px] left-1/2 w-[2px] h-[4px] rounded-[1px] bg-white -translate-x-1/2;
+                @apply content-empty absolute top-[5px] left-1/2 w-[2px] h-[4px] rounded-[1px] bg-black2 -translate-x-1/2;
                 animation: mousewheelmotion 2s ease infinite;
             }
         }
@@ -705,6 +705,9 @@ strong {
                    after:bg-[url(../images/ico-scroll-arrow-white.svg)];
             & i {
                 @apply bg-[url(../images/ico-scroll-mouse-white.svg)];
+                &::before {
+                    @apply bg-white;
+                }
             }
         }
     }

@@ -267,8 +267,8 @@
             .main-visual .swiper-slide {padding: max(1.625rem,9.235668789808917%) 2.25rem 3.75rem}
             
             
-            .object1,
-            .object2 {max-width: 1800px; left:50% !important;--tw-translate-x:-50%; }
+            .main-visual .object1,
+            .main-visual .object2 {max-width: 1800px; left:50% !important;--tw-translate-x:-50%; }
             
             .slide-1.phone img {margin-left:0;}
             .slide-2.phone img {margin-left:-265px;}
@@ -286,8 +286,8 @@
             .slide-3.phone div.obj-3-group span:nth-child(3) {transition: 1.5s ease; transition-delay: 2.8s; opacity: 1; margin-top: 0;}
             .slide-3.phone div.obj-3-group span:nth-child(4) {transition: 1.5s ease; transition-delay: 3.0s; opacity: 1; margin-top: 0;}
             
-            .object1.hide,.object2.hide {opacity: 0; transition-delay: 0s; background-position: center 45% !important;}
-            .object1,.object2  {z-index: 1;}
+            .main-visual .object1.hide, .main-visual .object2.hide {opacity: 0; transition-delay: 0s; background-position: center 45% !important;}
+            .main-visual .object1, .main-visual .object2  {z-index: 1;}
             .swiper-slide {position: absolute;}
             .swiper-slide:nth-child(1) {opacity: 0; z-index: 0;}
             .swiper-slide:nth-child(2) {opacity: 0; z-index: 0;}
@@ -480,10 +480,17 @@
         
         
         
-        
-                $('#quick .moveTop').on('click', function() {
-                    $(window).scrollTop(0);
+    
+                //object visible
+                [].slice.call(document.querySelectorAll('[class*="main-content"] .image')).forEach((e) => {
+                var observer = new IntersectionObserver((entries) => {
+                    observerCallback(entries, observer);
+                }, {
+                    threshold: 0.8
                 });
+
+                observer.observe(e);
+            }, this);
             })
         
             $(window).on('scroll load', function() {
@@ -512,7 +519,6 @@
                 
                 
             })
-        
         })
         
         
