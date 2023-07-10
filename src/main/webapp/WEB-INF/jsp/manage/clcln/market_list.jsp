@@ -60,8 +60,10 @@
                             <col class="min-w-25 w-25">
                             <col class="min-w-23 w-23">
                             <col class="min-w-20 w-20"> 
-                            <col class="min-w-25 w-25"> <!-- 공급가 --> 
-                            <col class="min-w-30 w-30">
+                            <col class="min-w-25 w-25"> <!-- 공급가 -->
+                            <col class="min-w-25 w-25"> 
+                            <col class="min-w-30 w-25">
+                            <col class="min-w-30 w-25">
                             <col class="min-w-20 w-20">
                             <col class="min-w-25 w-25">
                             <col class="min-w-25 w-25">
@@ -90,7 +92,9 @@
                                 <th scope="col" rowspan="2">상품가격</th>
                                 <th scope="col" rowspan="2">수량</th>
                                 <th scope="col" rowspan="2">공급가</th>
+                                <th scope="col" rowspan="2">공급가합계</th>
                                 <th scope="col" rowspan="2">판매가</th>
+                                <th scope="col" rowspan="2">판매가합계</th>
                                 <th scope="colgroup" colspan="3">할인금액</th>
                                 <%-- loop area E --%>
                                 <th scope="col" rowspan="2">배송비</th>
@@ -111,6 +115,8 @@
 
                         	<c:if test="${!empty ordrList}">
                         	<c:set var="totalStlmAmt" value="0" />
+                        	<c:set var="accGdsSupPc" value="0" />
+                        	<c:set var="accOrdrPc" value="0" />
                         	<c:forEach items="${ordrList}" var="resultList" varStatus="status">
                         	<tr>
                                 <td class="${resultList.ordrCd}">
@@ -168,10 +174,19 @@
 
                                 <td><fmt:formatNumber value="${resultList.ordrQy}" pattern="###,###" /></td>
                                 <td class="text-right"><fmt:formatNumber value="${resultList.gdsSupPc }" pattern="###,###" /></td>
+                                <td class="text-right">
+                                	<c:set var="accGdsSupPc" value="${accGdsSupPc + resultList.gdsSupPc}" />
+                                	<fmt:formatNumber value="${accGdsSupPc }" pattern="###,###" />
+                                </td>
                                 <td class="text-right"><fmt:formatNumber value="${resultList.ordrPc }" pattern="###,###" /></td>
+                                <td class="text-right">
+                                	<c:set var="accOrdrPc" value="${accOrdrPc + resultList.ordrPc }" />
+                                	<fmt:formatNumber value="${accOrdrPc }" pattern="###,###" />
+                                </td>
                                 <td class="text-right ${resultList.ordrDtlCd}"><fmt:formatNumber value="${resultList.couponAmt }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.useMlg }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.usePoint }" pattern="###,###" /></td>
+
 
                                 <td class="text-right ${resultList.ordrDtlCd}">
                                 	<fmt:formatNumber value="${resultList.dlvyBassAmt}" pattern="###,###" />
@@ -179,7 +194,6 @@
                                 	<br>(+<fmt:formatNumber value="${resultList.dlvyAditAmt}" pattern="###,###" />)
                                 	</c:if>
                                 </td>
-
                                 <td class="text-right ${resultList.ordrCd}">
 									<fmt:formatNumber value="${resultList.stlmAmt}" pattern="###,###" />
                                 </td>
@@ -224,7 +238,7 @@
 
                             </c:forEach>
 	                        <tr class="total">
-	                        	<td colspan="18">총 합계</td>
+	                        	<td colspan="20">총 합계</td>
 	                        	<td colspan="6"><fmt:formatNumber value="${totalStlmAmt}" pattern="###,###" /></td>
 	                        </tr>
 	                        </c:if>
@@ -281,10 +295,10 @@
                 	$('.table-list tbody').mergeClassRowspan(4);
                 	$('.table-list tbody').mergeClassRowspan(9);
 
-                	$('.table-list tbody').mergeClassRowspan(15);
-                	$('.table-list tbody').mergeClassRowspan(16);
                 	$('.table-list tbody').mergeClassRowspan(17);
                 	$('.table-list tbody').mergeClassRowspan(18);
+                	$('.table-list tbody').mergeClassRowspan(19);
+                	$('.table-list tbody').mergeClassRowspan(20);
 
                 	$(".table-list tbody tr td:hidden").remove();
 
