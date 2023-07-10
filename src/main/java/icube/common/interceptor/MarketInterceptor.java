@@ -79,6 +79,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
 
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
+
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
 
@@ -208,6 +211,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_membersPath", "/" + membersPath);
 		request.setAttribute("_membershipPath", "/" + membershipPath);
 		request.setAttribute("_plannerPath", "/" + plannerPath);
+		request.setAttribute("_mainPath", "/" + mainPath);
 
 		request.setAttribute("_curPath", curPath);
 
