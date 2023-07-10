@@ -224,6 +224,7 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			ordrDtlVO.setGdsCd(gdsCd.split(",")[i].trim());
 			ordrDtlVO.setGdsNm(gdsNm.split(",")[i].trim());
 			ordrDtlVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+			ordrDtlVO.setGdsSupPc(gdsVO.getSupPc());
 			if (entrpsVO != null) {
 				ordrDtlVO.setEntrpsNo(entrpsVO.getEntrpsNo());
 			}
