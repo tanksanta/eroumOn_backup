@@ -8,14 +8,18 @@
 	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1}">
 		<div id="page-header">
             <ul class="page-header-breadcrumb">
-            	<c:set var="breadcrumb" value="${curCtgryVO.ctgryPath.split(' > ')}" />
-            	<c:forEach items="${breadcrumb}" varStatus="status">
-				<li><a href="#">${breadcrumb[status.index]}</a></li>
+
+            	<c:set var="breadcrumb" value="${curCurrentVO.ctgryPath.split(' > ')}" />
+            	<c:forEach items="${breadcrumb}" varStatus="status" begin="1">
+					<li><a href="#">${breadcrumb[status.index]}</a></li>
             	</c:forEach>
 			</ul>
-			<h2 class="page-header-name">
-				<a href="${_marketPath}/gds/${upCtgryNo}/list">${_gdsCtgryListMap[upCtgryNo]}</a>
-			</h2>
+			<div class="page-header-title">
+				<a href="#" class="back">이전 페이지 가기</a>
+				<h2 class="subject">
+					<a href="${_marketPath}/gds/${upCtgryNo}/list">${_gdsCtgryListMap[upCtgryNo]}</a>
+				</h2>
+			</div>
 			<button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
 		</div>
 	</c:when>

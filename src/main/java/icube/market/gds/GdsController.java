@@ -118,10 +118,13 @@ public class GdsController extends CommonAbstractController {
 	 * @param upCtgryNo
 	 * @param ctgryNo
 	 */
-	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo}/list"})
+	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo1}/list"
+			, "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/list", "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/{ctgryNo3}/list"})
 	public String list(
 			@PathVariable int upCtgryNo // 카테고리 1
-			, @PathVariable(required = false) Optional<Integer> ctgryNo // 카테고리 2
+			, @PathVariable(required = false) Optional<Integer> ctgryNo1 // 카테고리 2
+			, @PathVariable(required = false) Optional<Integer> ctgryNo2 // 카테고리 3
+			, @PathVariable(required = false) Optional<Integer> ctgryNo3 // 카테고리 4
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
 			, HttpServletResponse response
@@ -130,11 +133,28 @@ public class GdsController extends CommonAbstractController {
 
 		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
 		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
-		log.debug("@@@@@@@@ : " + currentCategory.toString());
+		GdsCtgryVO currentVO = new GdsCtgryVO();
+		for(GdsCtgryVO childVO : currentCategory.getChildList()) {
+			if(ctgryNo3.orElse(0) > 0) {
+				if(childVO.getCtgryNo() == ctgryNo3.orElse(0)) {
+					currentVO = childVO;
+				}
+			}else if(ctgryNo2.orElse(0) > 0) {
+				if(childVO.getCtgryNo() == ctgryNo2.orElse(0)) {
+					currentVO = childVO;
+				}
+			}else if(ctgryNo1.orElse(0) > 0) {
+				if(childVO.getCtgryNo() == ctgryNo1.orElse(0)) {
+					currentVO = childVO;
+				}
+			}
+		}
+
 		model.addAttribute("curCtgryVO", currentCategory);
+		model.addAttribute("curCurrentVO", currentVO);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);
-		model.addAttribute("ctgryNo", ctgryNo.orElse(0));
+		model.addAttribute("ctgryNo", ctgryNo1.orElse(0));
 
 		return "/market/gds/list";
 	}

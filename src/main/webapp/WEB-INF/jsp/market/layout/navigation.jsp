@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <nav id="navigation">
 	<div class="container">
-		<button type="button" class="navigation-allmenu-toggle">
+		<div class="navigation-allmenu">
+		<button type="button" class="allmenu-toggle">
 			<i></i> <span>전체 카테고리</span>
 		</button>
-		<div class="navigation-allmenu">
+		<div class="allmenu-list">
 			<div class="allmenu-group">
 				<ul>
 
@@ -29,7 +30,7 @@
 														<%-- 3depth --%>
 														<ul>
 															<c:forEach items="${ctgry2.childList}" var="ctgry3">
-																<li class="allmenu-item3"><a href="${_marketPath}/gds/${ctgry3.ctgryNo}/list">${ctgry3.ctgryNm}</a></li>
+																<li class="allmenu-item3"><a href="${_marketPath}/gds/${ctgry.ctgryNo}/${ctgry2.ctgryNo}/${ctgry3.ctgryNo}/list">${ctgry3.ctgryNm}</a></li>
 															</c:forEach>
 														</ul>
 													</div>
@@ -52,6 +53,7 @@
 				</c:if>
 				<a href="${_marketPath}/etc/faq/list">고객센터</a>
 			</div>
+		</div>
 		</div>
 		<div class="navigation-submenu">
 			<ul>
