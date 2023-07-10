@@ -463,32 +463,82 @@
 
 
 /* 통합검색 */
-.total-search {
-    @apply mt-8 px-5
-           md:mt-10;
-    & .search-field {
-        @apply flex mx-auto w-[35.25rem] max-w-full;
-        & legend {
-            @apply sr-only;
-        }
-        & .input {
-            @apply flex-1 relative z-10 pl-12 min-w-0 h-12 rounded-md border border-black2 bg-no-repeat bg-[url(../images/ico-navigation-search.svg)] bg-[left_1rem_center] bg-[length:1rem] outline-none ring-0
-                   md:pl-16 md:h-15 md:bg-[left_1.25rem_center] md:bg-[length:1.5rem];
-            &::-webkit-search-cancel-button {
-                @apply appearance-none mr-3 ml-1 w-5 h-5 bg-no-repeat opacity-30 bg-center bg-[url(../images/ico-close.svg)] bg-[length:0.875rem] md:mr-4 md:ml-2;
+.search-header {
+    & .page-header-title {
+        @apply mt-3
+               md:mt-4.5
+               lg:mt-6;
+        & .subject {
+            @apply pb-1 pl-11 text-left text-xl font-medium
+                   md:pl-14 md:text-2xl
+                   lg:p-0;
+            & strong {
+                @apply text-[#1D45D5];
             }
         }
-        & .submit {
-            @apply flex-none relative z-10 ml-1.5 w-22 h-12 rounded-md bg-black2 text-base text-white
-                   md:w-26 md:h-15 md:text-lg
-                   lg:w-30;
+    }
+}
+
+.search-container {
+    @apply mx-auto px-4 max-w-screen-xl
+           lg:px-7
+           xl:px-10;
+}
+
+.search-option {
+    @apply mt-3 mb-6 border-t border-t-gray1
+           md:mt-4 md:mb-9.5
+           lg:mb-13;
+    & .form-group {
+        @apply flex items-start border-b border-b-gray3 font-bold text-[0.8125rem]
+               md:text-sm;
+        & dt {
+            @apply py-3 px-1.5 w-21 border border-transparent
+                   md:pt-3.5 md:px-2.5 md:w-41;
+        }
+        & dd {
+            @apply flex-1 flex flex-wrap items-start gap-1.5 p-2;
         }
     }
-    & .search-desc {
-        @apply mt-3 text-base text-center text-gray1
-               md:mt-4 md:text-lg;
-        & strong {
-            @apply font-medium text-black1;
+    & .form-check {
+        & .form-check-input {
+            @apply absolute w-0 h-0 overflow-hidden opacity-0;
+            &:checked {
+                & + .form-check-label {
+                    @apply border-black2 font-bold text-black2;
+                }
+            }
         }
+        & .form-check-label {
+            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal
+                   md:py-1.5 md:px-4;
+        }
+    }
+    & .btn {
+        @apply w-35
+               md:w-50 md:h-15;
+    }
+}
+
+.search-count {
+    @apply flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium
+           md:mb-5 md:text-sm;
+    & .form-control {
+        @apply w-28 h-9 bg-neutral-100
+               md:w-42;
+    }
+}
+
+.search-grid {
+    @apply grid grid-cols-2 gap-x-3 gap-y-6 mt-2.5
+           md:grid-cols-3 md:gap-x-4 md:gap-y-13 md:mt-4
+           lg:grid-cols-4 lg:gap-x-5 lg:gap-y-20 lg:mt-5;
+}
+
+.search-result {
+    @apply box-result text-base
+           md:text-lg;
+    & strong {
+        @apply text-[#1D45D5];
     }
 }

@@ -319,7 +319,7 @@ strong {
     }
 
     .progress-loading {
-        @apply fixed z-[9999] top-1/2 left-1/2 p-6 w-fit rounded-lg shadow-lg border border-gray3 text-xs font-medium text-gray1 -translate-x-1/2 -translate-y-1/2;
+        @apply fixed z-[9999] top-1/2 left-1/2 p-6 w-fit rounded-lg shadow-lg border border-gray3 bg-white/50 text-xs font-medium text-gray1 -translate-x-1/2 -translate-y-1/2;
         & .icon {
             @apply relative mx-auto mb-4 w-13 h-13 bg-no-repeat bg-center;
             & span {

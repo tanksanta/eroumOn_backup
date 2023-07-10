@@ -45,21 +45,22 @@ body {
     @apply flex items-start relative mx-auto px-4 max-w-screen-xl
            lg:px-7
            xl:px-10;
-    & .global-logo {
-        & a {
-            @apply pt-2 pb-1.5
-                   md:pt-4 md:pb-2.5
-                   lg:pt-7 lg:pb-4;
-        }
-    }
-    & .utility-menu {
-        @apply hidden gap-5 absolute right-0 leading-tight text-sm text-gray1
-               md:top-3
-               lg:right-7
-               lg:flex xl:right-10;
+}
+
+.global-logo {
+    & a {
+        @apply pt-2.5 pb-2
+               md:pt-4 md:pb-2.5
+               lg:pt-7 lg:pb-4;
     }
 }
 
+.utility-menu {
+    @apply hidden gap-5 absolute right-0 leading-tight text-sm text-gray1
+           md:top-3
+           lg:right-7
+           lg:flex xl:right-10;
+}
 
 /* navigation */
 #navigation {
@@ -72,30 +73,35 @@ body {
     }
 }
 
-.navigation-allmenu-toggle {
-    @apply flex items-center gap-3 py-3;
-    & i {
-        @apply block mt-px w-4.5 h-4.5 bg-no-repeat bg-[length:100%] bg-center bg-[url(../images/ico-navigation-menu.svg)];
-    }
-    & span {
-        @apply hidden lg:block;
-    }
-    &.is-active {
+.navigation-allmenu {
+    @apply flex items-center;
+    & .allmenu-toggle {
+        @apply flex items-center py-3 px-4 -mx-4;
         & i {
-            @apply bg-[length:1rem] bg-[url(../images/ico-navigation-close.svg)];
+            @apply block mt-px w-4 h-4 bg-no-repeat bg-[length:100%] bg-center bg-[url(../images/ico-navigation-menu.svg)]
+                   md:w-4.5 md:h-4.5;
+        }
+        & span {
+            @apply sr-only
+                   lg:not-sr-only lg:ml-3;
+        }
+        &.is-active {
+            & i {
+                @apply bg-[length:0.875rem] bg-[url(../images/ico-navigation-close.svg)]
+                       md:bg-[length:1rem];
+            }
         }
     }
-}
-
-.navigation-allmenu {
-    @apply hidden absolute top-full mt-px left-0 w-full bg-white
-           lg:left-7 lg:w-auto lg:min-h-[31.25rem] lg:max-h-[46.875rem]
-           xl:left-10;
-    &.is-active {
-        @apply block;
-    }
-    & ul {
-        @apply scrollbars h-full overflow-y-auto;
+    & .allmenu-list {
+        @apply hidden absolute top-full mt-px left-0 w-full bg-white
+               lg:left-7 lg:w-auto lg:min-h-[31.25rem] lg:max-h-[46.875rem]
+               xl:left-10;
+        &.is-active {
+            @apply block;
+        }
+        & ul {
+            @apply scrollbars h-full overflow-y-auto;
+        }
     }
     & [class*="allmenu-group"] {
         @apply hidden space-y-px border-gray3
@@ -110,16 +116,17 @@ body {
     }
     & .allmenu-group2 {
         @apply absolute top-0 left-40 w-[calc(100%-10rem)] shadow-[inset_5px_0px_0px_0px_#f5f5f5] 
-               lg:left-full lg:-ml-px lg:w-[250px] lg:border-r;
+               lg:left-full lg:-ml-px lg:w-[250px] lg:border-x;
     }
     & .allmenu-group3 {
-        @apply lg:absolute lg:top-0 lg:left-full lg:-ml-px lg:w-[250px] lg:border-r lg:shadow-[inset_5px_0px_0px_0px_#f5f5f5]
+        @apply lg:absolute lg:top-0 lg:left-full lg:-ml-px lg:w-[250px] lg:border-x lg:shadow-[inset_5px_0px_0px_0px_#f5f5f5]
                lg-max:py-2.5 lg-max:!h-auto;
     
     }
     & [class*="allmenu-item"] {
         & > a {
-            @apply flex items-center relative h-[3.125rem] text-[0.9375rem] font-medium;
+            @apply flex items-center relative pl-6 h-[3.125rem] text-[0.9375rem] font-medium
+                   lg:pl-5;
         }
         &.is-depth {
             & > a {
@@ -143,7 +150,7 @@ body {
     }
     & .allmenu-item {
         & > a {
-            @apply text-base
+            @apply pl-0 text-base
                    lg-max:h-15;
             & i {
                 @apply flex items-center justify-center w-12 h-full;
@@ -159,11 +166,6 @@ body {
                        lg:pr-7
                        lg:after:right-4.5;
             }
-        }
-    }
-    & .allmenu-item2 {
-        & > a {
-            @apply pl-6 lg:pl-5;
         }
     }
     & .allmenu-item3 {
@@ -209,47 +211,93 @@ body {
 }
 
 .navigation-search {
-    @apply absolute top-0 right-1
-           md:right-1.5
-           lg:block lg:-top-7 lg:right-45 lg:w-60
-           xl:right-47 xl:w-70;
     & .search-toggle {
-        @apply w-[2.8125rem] h-[2.8125rem] overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-navigation-search.svg)] bg-[length:1rem] -indent-96
-               md:w-12 md:h-12 md:bg-[length:1.25rem]
+        @apply absolute top-0 right-1 w-[2.8125rem] h-[2.8125rem] overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-navigation-search.svg)] bg-[length:1rem] -indent-96
+               md:w-12 md:h-12 md:bg-[length:1.125rem]
                lg:hidden;
+        &.is-active {
+            @apply bg-[length:0.875rem] bg-[url(../images/ico-navigation-close.svg)]
+                   md:[length:1rem];
+        }
     }
     & .search-form {
-        @apply hidden relative lg:!block;
+        @apply hidden absolute top-full mt-px left-0 w-full bg-white
+               lg:!block lg:absolute lg:-top-7 lg:left-auto lg:right-45 lg:mt-0 lg:w-60 lg:!h-auto
+               xl:w-70;
+        &.is-active {
+            @apply flex flex-col;
+        }
     }
     & .form-field {
-        @apply flex border-b border-b-black2;
+        @apply flex px-4 py-6.5 border-b border-b-gray1/20
+               lg:p-0 lg:border-b-black2;
         & legend {
             @apply sr-only;
         }
         & input {
-            @apply flex-1 min-w-0 h-7.5 text-[0.9375rem];
+            @apply flex-1 min-w-0 px-4.5 h-9 rounded-full bg-gray2 text-[0.9375rem] outline-none
+                   lg:px-0 lg:h-7.5 lg:rounded-none lg:bg-white;
         }
         & button[type="Submit"] {
-            @apply w-7.5 h-7.5 overflow-hidden bg-no-repeat bg-center bg-[length:60%] bg-[url(../images/ico-navigation-search.svg)] -indent-96;
+            @apply overflow-hidden bg-no-repeat bg-center ml-1 w-9 h-9 bg-[length:55.555555%] bg-[url(../images/ico-navigation-search.svg)] -indent-96
+                   placeholder:text-black2/30
+                   lg:ml-0 lg:w-7.5 lg:h-7.5 lg:bg-[length:60%]
+                   lg:placeholder:text-black2;
         }
     }
     & .form-current {
-        @apply hidden scrollbars flex-1
-               lg:shadow-[0px_4px_8px_#00000033];
+        @apply flex-1 flex flex-col bg-white pt-4.5 px-4 leading-tight text-sm
+               lg:hidden lg:-mx-4 lg:rounded-md lg:shadow-[0px_4px_8px_#00000033];
+        &.is-active {
+            @apply flex
+                   lg:block;
+        }
     }
     & .current-title {
-        @apply flex items-center justify-between px-4 py-3.5 pb-1.5 text-sm font-bold;
-        & a {
+        @apply flex items-center justify-between mb-2;
+        & button {
             @apply font-normal text-[0.8125rem] text-gray1 underline;
         }
     }
     & .current-items {
-        @apply flex flex-col overflow-auto;
+        @apply flex-1 flex flex-col overflow-x-hidden overflow-y-auto
+               lg:overflow-visible;
+    }
+    & .current-item {
+        @apply flex items-center justify-between;
+        & a {
+            @apply flex-shrink text-base font-medium py-1.5
+                   hover:underline;
+        }
+        & button {
+            @apply block -mr-3 w-8 h-8 overflow-hidden bg-[url(../images/ico-navigation-close.svg)] bg-[center_top_calc(50%+1px)] bg-no-repeat bg-[length:0.5rem] opacity-50 -indent-96;
+        }
+    }
+    & .current-option {
+        @apply flex items-center justify-between mt-2 -mx-4 px-4 border-t border-t-gray1/20;
+        & .form-switch {
+            @apply pl-[1.5em];
+            & .form-check-input {
+                @apply mt-[0.1428em] -ml-[1.5em] w-[1.285em] h-[0.857em] rounded-md;
+                &:checked {
+                    @apply border-[#8c8c8c] bg-[#8c8c8c];
+                    & + .form-check-label {
+                        @apply text-gray1 font-medium;
+                    }
+                }
+            }
+            & .form-check-label {
+                @apply text-gray1 font-medium;
+            }
+        }
+        & .option-close {
+            @apply py-2.5 px-3 font-medium bg-[url(../images/ico-navigation-close.svg)] bg-[right_top_calc(50%+1px)] bg-no-repeat bg-[length:0.5rem] opacity-50;
+        }
     }
 }
 
 .navigation-util {
-    @apply flex absolute -top-8 gap-1 right-3
+    @apply flex absolute -top-8.5 gap-1 right-3
            md:gap-1.5 md:-top-11
            lg:-top-8 lg:right-7
            xl:right-10;

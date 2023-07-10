@@ -31,32 +31,36 @@
            xl:px-10;
 }
 
-.page-header-name {
-    @apply font-bold truncate text-center leading-tight text-2xl
-           md:text-[1.875rem] 
-           lg:flex-1 lg:text-left lg:text-5xl;
-    & small {
-        @apply font-serif text-lg tracking-tight align-middle lg:text-xl;
-    }
-}
-
 .page-header-breadcrumb {
-    @apply flex flex-wrap leading-tight gap-[0.5em] text-xs md:text-[0.8125rem];
+    @apply flex flex-wrap gap-[0.5em] mb-3 leading-tight text-xs
+           md:text-[0.8125rem];
     & li {
         @apply relative pr-[0.9em]
                last:pr-0       
                last:after:hidden;
         &::after {
-            @apply content-empty absolute top-1/2 right-0 w-[0.3846em] h-[0.3846em] bg-no-repeat bg-cover bg-center -translate-y-1/2;
+            @apply content-empty absolute top-1/2 right-0 w-[0.5em] h-[0.5em] bg-no-repeat bg-cover bg-center -translate-y-1/2;
             background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='7.072' height='7.072' viewBox='0 0 7.072 7.072'%3E%3Cg id='Rectangle_2' data-name='Rectangle 2' transform='translate(7.072 3.536) rotate(135)' fill='%23d8d8d8' stroke-miterlimit='10'%3E%3Cpath d='M 0.5004000067710876 4.500400066375732 C 0.4999600350856781 4.500400066375732 0.4997600317001343 4.500370025634766 0.4997500479221344 4.500370025634766 L 0.4999000430107117 2.100388050079346 L 0.4999000430107117 4.5 L 0.5004000067710876 4.500400066375732 Z' stroke='none'/%3E%3Cpath d='M 0.5004000067710876 5.000400066375732 C 0.2241000384092331 5.000400066375732 3.318786667705353e-08 4.776299953460693 3.318786667705353e-08 4.5 L 3.318786667705353e-08 0.5004000067710876 C 3.318786667705353e-08 0.2241000384092331 0.2241000384092331 3.318786667705353e-08 0.5004000067710876 3.318786667705353e-08 L 4.5 3.318786667705353e-08 C 4.776299953460693 3.318786667705353e-08 5.000400066375732 0.2241000384092331 5.000400066375732 0.5004000067710876 C 5.000400066375732 0.7758000493049622 4.776299953460693 0.9999000430107117 4.5 0.9999000430107117 L 0.9999000430107117 0.9999000430107117 L 0.9999000430107117 4.5 C 0.9999000430107117 4.776299953460693 0.7758000493049622 5.000400066375732 0.5004000067710876 5.000400066375732 Z' stroke='none' fill='%23979797'/%3E%3C/g%3E%3C/svg%3E");
         }
     }
-    & + .page-header-name {
-        @apply mt-1.5
-               md:mt-2.5;
-    }
 }
 
+.page-header-title {
+    @apply relative;
+    & .back {
+        @apply btn-icon absolute left-0 bottom-0 flex flex-none overflow-hidden h-7.5 border border-black2 rounded-md bg-[length:0.375rem] bg-[url(../images/ico-angle-left.svg)] -indent-96
+               md:h-9.5 md:bg-[length:0.5rem]
+               lg:hidden lg:h-12 lg:bg-[length:0.75rem];
+    }
+    & .subject {
+        @apply font-bold truncate text-center leading-tight text-2xl
+               md:text-[1.875rem] 
+               lg:flex-1 lg:text-left lg:text-5xl;
+        & small {
+            @apply font-serif text-lg tracking-tight align-middle lg:text-xl;
+        }
+    }
+}
 
 /* page container */
 #page-container {
@@ -107,10 +111,12 @@
     }
     & .scroller {
         @apply relative
-               before:absolute before:top-0 before:left-1.5 before:w-px before:h-full before:bg-gray1;
+               before:hidden before:absolute before:top-0 before:left-1.5 before:w-px before:h-full before:bg-gray1
+               lg:before:block;
     }
     & .direction {
-        @apply scrollbars relative overflow-x-visible overflow-y-scroll max-h-80;
+        @apply scrollbars relative overflow-visible
+               lg:overflow-x-visible lg:overflow-y-scroll lg:max-h-80;
         direction: rtl;
         &::-webkit-scrollbar {
             @apply w-[0.8125rem] h-[0.8125rem];
@@ -120,14 +126,16 @@
         }
     }
     & .content {
-        @apply pl-3;
+        @apply pl-0
+               lg:pl-3;
         direction: ltr;
     }
     & .menulist {
         @apply flex flex-wrap gap-2.5
                lg:gap-3;
         & li {
-            @apply w-full;
+            @apply w-[calc(50%_-_5px)]
+                   lg:w-full;
             & a {
                 @apply flex items-start relative border py-3 px-3 border-gray1 rounded-md tracking-tight
                        after:hidden after:mt-2.5 after:ml-2 after:flex-1 after:h-1 after:bg-black2 after:rounded-full
@@ -177,37 +185,15 @@
 }
 
 #container {
-    &:not(.is-product) {
-        & .page-sidenav-group {
-            & .scroller {
-                @apply lg-max:before:hidden;
-            }
-            & .direction {
-                @apply lg-max:overflow-visible lg-max:max-h-[none];
-            }
-            & .content {
-                @apply lg-max:pl-0;
-            }
-            & .menulist {
-                & li {
-                    @apply w-[calc(50%_-_5px)]
-                           lg:w-full;
-                }
-            }
-        }
-    }
     &.is-product {
         & #page-container {
             @apply mt-0;
         }
-        & .page-header-name {
-            @apply text-left;
-        }
         & .page-sidenav-toggle {
-            @apply absolute bottom-2 right-4 mt-0 w-10 h-10 rounded-md bg-white bg-[length:1rem] bg-[url(../images/ico-product-search-toggle.svg)]
+            @apply absolute bottom-3 right-4 mt-0 w-7.5 h-7.5 rounded-md bg-white bg-[length:0.75rem] bg-[url(../images/ico-product-search-toggle.svg)]
                    after:hidden
-                   md:w-13 md:h-13 md:bg-[length:1.25rem]
-                   lg:right-7 lg:h-[3.875rem] lg:bg-[length:1.5rem];
+                   md:w-9.5 md:h-9.5 md:bg-[length:1rem]
+                   lg:right-7 lg:w-12 lg:h-12 lg:bg-[length:1.25rem];
             &.is-active {
                 @apply bg-black2 bg-[url(../images/ico-close-white.svg)];
             }
@@ -218,8 +204,17 @@
         & .page-sidenav-group {
             @apply pb-5 border-b border-gray2 text-base
                    first:pt-5;
+            & .scroller {
+                @apply before:block;
+            }
+            & .direction {
+                @apply overflow-x-visible overflow-y-scroll max-h-80;
+            }
             & .title {
                 @apply mb-5.5 text-lg text-gray1;
+            }
+            & .content {
+                @apply pl-3;
             }
         }
     }

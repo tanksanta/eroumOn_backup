@@ -98,14 +98,14 @@
     
     /******************** checkbox ********************/
     .form-check {
-        @apply md:text-base;
+        @apply text-[1em];
         & .form-check-input {
             @apply checked:bg-black2 checked:border-black2;
         }
         &.form-switch {
-            @apply py-1 pl-9 relative leading-4;
+            @apply py-[0.25em] pl-[2.25em] relative leading-[1em];
             & .form-check-input {
-                @apply mt-0 -ml-9 w-7.5 h-4 border-[#dedede] rounded-full bg-[#dedede] transition-all duration-300 shadow-sm align-top;
+                @apply mt-0 -ml-[2.25em] w-[1.875em] h-[1em] border-[#dedede] rounded-full bg-[#dedede] transition-all duration-300 shadow-sm align-top;
                 background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E);
                 &:checked {
                     @apply border-black2 bg-black2;
@@ -115,7 +115,7 @@
                 }
             }
             & .form-check-label {
-                @apply text-[1em] leading-4 align-top;
+                @apply text-[1em] leading-[1em] align-top;
             }
         }
         &.form-large, &.form-small {
