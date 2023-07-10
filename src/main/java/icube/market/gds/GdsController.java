@@ -130,6 +130,7 @@ public class GdsController extends CommonAbstractController {
 
 		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
 		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+		log.debug("@@@@@@@@ : " + currentCategory.toString());
 		model.addAttribute("curCtgryVO", currentCategory);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);

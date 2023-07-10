@@ -59,7 +59,7 @@
 
         <!-- header logo -->
         <div id="utility">
-            <h1 class="global-logo"><a href="#"><em>이로움 ON</em></a></h1>
+            <h1 class="global-logo"><a href="/market"><em>이로움 ON</em></a></h1>
             <ul class="utility-menu">
             	<c:if test="${!_mbrSession.loginCheck}">
 	                <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>

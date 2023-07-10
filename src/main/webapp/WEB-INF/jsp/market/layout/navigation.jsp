@@ -24,7 +24,7 @@
 									<%-- 2depth --%>
 									<ul>
 										<c:forEach items="${ctgry.childList}" var="ctgry2">
-											<li class="allmenu-item2 <c:if test="${not empty ctgry2.childList}">is-depth</c:if>"><a href="${_marketPath}/gds/${ctgry2.ctgryNo}/list">${ctgry2.ctgryNm }</a> <c:if test="${not empty ctgry2.childList}">
+											<li class="allmenu-item2 <c:if test="${not empty ctgry2.childList}">is-depth</c:if>"><a href="${_marketPath}/gds/${ctgry.ctgryNo}/${ctgry2.ctgryNo}/list">${ctgry2.ctgryNm }</a> <c:if test="${not empty ctgry2.childList}">
 													<div class="allmenu-group3">
 														<%-- 3depth --%>
 														<ul>

@@ -8,10 +8,12 @@ import org.apache.ibatis.type.Alias;
 import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Alias("gdsCtgryVO")
+@ToString
 public class GdsCtgryVO extends CommonBaseVO {
 
 	private int ctgryNo;

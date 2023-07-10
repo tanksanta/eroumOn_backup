@@ -50,8 +50,11 @@
 	                                    <dd><fmt:formatNumber value="${resultList.dscntPc}" pattern="###,###" /><small>원</small></dd>
 	                                </dl>
                                 </c:if>
-                            	<c:choose>
-                            		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> <%--급여(판매)제품--%>
+
+                                <%-- 본인 부담금 출력 시 대여는 똑같이 주석 처리 --%>
+
+                            	<%-- <c:choose>
+                            		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> 급여(판매)제품
                             	<dl class="discount">
                                     <dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
                                     <dd>
@@ -72,8 +75,8 @@
                                     </dd>
                                 </dl>
                             		</c:when>
-                            		<%--급여(대여)제품--%>
-                            		<%--
+                            		급여(대여)제품
+
                             		<c:when test="${resultList.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y'}">
 								<dl class="discount">
                                     <dt>대여가(월)</dt>
@@ -82,8 +85,8 @@
                                     </dd>
                                 </dl>
                             		</c:when>
-                            		 --%>
-                            	</c:choose>
+
+                            	</c:choose> --%>
                             </div>
                         </div>
                         <div class="item-layer">
