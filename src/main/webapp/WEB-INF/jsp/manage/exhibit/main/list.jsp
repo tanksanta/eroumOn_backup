@@ -99,13 +99,7 @@
 					</td>
 					<td>${mainTyCode[resultList.themaTy]}</td>
 					<td>
-						<a href="./form?mainNo=${resultList.mainNo}">
-							<c:choose>
-								<c:when test="${resultList.themaTy eq 'G'}">${resultList.sj}</c:when>
-								<c:when test="${resultList.themaTy eq 'H'}">배너 하프형입니다.</c:when>
-								<c:otherwise>배너형입니다.</c:otherwise>
-							</c:choose>
-						</a>
+						<a href="./form?mainNo=${resultList.mainNo}">${resultList.sj}</a>
 					</td>
 					<td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${useYnCode[resultList.useYn]}</td>

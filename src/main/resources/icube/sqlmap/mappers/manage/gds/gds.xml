@@ -13,6 +13,7 @@
 	<!-- Define GdsVO Result Map  -->
 	<resultMap type="gdsVO" id="gdsVOMap" autoMapping="true">
 		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+		<association property="gdsCtgryPath" column="{ctgryNo=ctgry_no, gdsNo=gds_no}" select="gds.ctgry.selectGdsCtgryPath" />
 		<collection property="imageFileList" 	column="{upNo=gds_no, fileTy=image_file_ty}" select="gds.file.selectFileList" />
 		<collection property="gdsRelList" 		column="{gdsNo=gds_no}" 					 select="gds.rel.selectGdsRelList" />
 		<collection property="optnList" 		column="{gdsNo=gds_no, optnTy=basic_optn}" 	 select="gds.optn.selectGdsOptnList" />

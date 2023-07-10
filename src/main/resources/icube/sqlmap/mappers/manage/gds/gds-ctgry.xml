@@ -57,7 +57,7 @@
 				( SELECT @START_WITH := 0, @ctgry_no := @START_WITH, @LEVEL_NO := 0 ) VARS
 				, GDS_CTGRY
 			WHERE @ctgry_no IS NOT NULL
-			) func LEFT JOIN GDS_CTGRY gc ON gc	.ctgry_no = func.ctgry_no
+			) func LEFT JOIN GDS_CTGRY gc ON gc.ctgry_no = func.ctgry_no
 		WHERE 1=1
 			<if test="upCtgryNo > -1">
 			AND gc.up_ctgry_no = #{upCtgryNo}
@@ -101,6 +101,13 @@
 	  		<include refid="searchConditions" />
 	</select>
 
+	<select id="selectGdsCtgryPath" parameterType="java.util.HashMap" resultType="String">
+		SELECT
+			FN_CTGRY_PATH(#{ctgryNo}) as ctgry_path
+		FROM GDS_CTGRY gc
+		LEFT JOIN GDS g ON gc.ctgry_no = g.ctgry_no
+		WHERE g.gds_no = #{gdsNo}
+	</select>
 
 	<insert id="insertGdsCtgry" parameterType="gdsCtgryVO">
 		INSERT INTO GDS_CTGRY (

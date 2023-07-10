@@ -4,7 +4,7 @@
 검색
  --%>
 
-                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10 xl:gap-y-12 xl:grid-cols-4">
+                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10">
                 	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
@@ -90,7 +90,7 @@
                             <div class="mx-auto mb-2.5">
                                 <!-- <button type="button" class="btn btn-compare f_compare" data-gds-no="${resultList.gdsNo}" data-gds-cd="${resultList.gdsCd}" data-ctgry-no="${resultList.ctgryNo}" data-gds-file="${resultList.thumbnailFile.fileNo}" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button> -->
                                 <c:if test="${_mbrSession.loginCheck}">
-                                <button type="button" class="btn btn-love f_wish ${resultList.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsNo}" data-wish-yn="${resultList.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                	<button type="button" class="btn btn-love f_wish ${resultList.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsNo}" data-wish-yn="${resultList.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
                                 </c:if>
                                 <%-- <button type="button" class="btn btn-cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button> --%>
                             </div>
@@ -101,7 +101,7 @@
                     </a>
                     </c:forEach>
                     <c:if test="${empty listVO.listObject}">
-					<p class="box-result is-large" style="grid-column: 1/-1;">상품 검색 결과가 없습니다.</p>
+					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
                     </c:if>
                 </div>
                 <div class="pagination">

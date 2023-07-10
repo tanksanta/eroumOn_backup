@@ -51,9 +51,11 @@
 					<div class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
-							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
+
+								<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
+							</a>
 						</div>
-						<a href="${gdsMainList.linkUrl}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -70,9 +72,9 @@
 						</a>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
-								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+								<c:if test="${_mbrSession.loginCheck}">
+                                	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                </c:if>
 							</div>
 						</div>
 					</div>
@@ -122,7 +124,7 @@
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${gdsMainList.linkUrl}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -139,9 +141,9 @@
 						</a>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
-								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+								<c:if test="${_mbrSession.loginCheck}">
+                                	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                </c:if>
 							</div>
 						</div>
 					</div>
@@ -194,7 +196,7 @@
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${gdsMainList.linkUrl}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -211,9 +213,9 @@
 						</a>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
-								<button type="button" class="btn btn-compare" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button>
-								<button type="button" class="btn btn-love" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-								<button type="button" class="btn btn-cart" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+								<c:if test="${_mbrSession.loginCheck}">
+                                	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                </c:if>
 							</div>
 						</div>
 					</div>

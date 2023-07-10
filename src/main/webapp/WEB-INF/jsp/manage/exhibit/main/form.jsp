@@ -250,12 +250,14 @@
 							</td>
 							<td><a href="#">${resultList.gdsInfo.gdsCd}</a></td>
 							<td class="text-left">${resultList.gdsInfo.gdsNm }</td>
-							<td>
+							<!-- <td>
 								${resultList.gdsCtgry.upCtgryNm}
 								<c:if test="${!empty resultList.gdsCtgry.ctgryNm}">
 								> ${resultList.gdsCtgry.ctgryNm}
 								</c:if>
 							</td>
+							 -->
+							 <td>${resultList.gdsInfo.gdsCtgryPath}</td>
 							<td>${useYnCode[resultList.gdsInfo.useYn]}</td>
 							<td class="draggable" style="cursor: pointer;">
 								<button type="button" class="btn-warning tiny" data-click-val="${status.index +1}">
@@ -384,7 +386,8 @@ function f_modalGdsSearch_callback(gdsNos){
 		html += '</td>';
 		html += '<td><a href="#">'+gdsJson.gdsCd+'</a></td>';
 		html += '<td class="text-left">'+gdsJson.gdsNm+'</td>';
-		html += '<td class="text-left">'+gdsJson.upCtgryNm+' &gt; '+gdsJson.ctgryNm+'</td>';
+		/* html += '<td class="text-left">'+gdsJson.upCtgryNm+' &gt; '+gdsJson.ctgryNm+'</td>'; */
+		html += '<td class="text-left">'+gdsJson.ctgryPath+'</td>';
 		html += '<td>'+dspyYnCode[gdsJson.useYn]+'</td>';
         html += '    <td class="draggable" style="cursor:pointer;">';
         html += '	 	<button type="button" class="btn-warning tiny"><i class="fa fa-arrow-down-up-across-line"></i></button>';
@@ -595,7 +598,7 @@ $(function(){
     },
     submitHandler: function (frm) {
    		if(confirm("저장하시겠습니까?")){
-       		//frm.submit();
+       		frm.submit();
        	}else{
        		return false;
        	}

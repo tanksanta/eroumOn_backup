@@ -57,20 +57,29 @@
                                     </td>
                                 </tr>
                                 <tr>
+
                                     <th scope="row"><label for="form-item1-2" class="require">카테고리</label></th>
                                     <td colspan="3">
                                         <div class="form-group">
+                                        	<form:hidden path="ctgryNo" />
+                                			<c:set var="path" value="${fn:split(fn:replace(gdsVO.gdsCtgryPath,' ',''),'>')}" />
 
-                                            <form:select path="upCtgryNo" class="form-control w-50">
-                                                <form:option value="0" label="선택" />
+                                            <select id="ctgryNo1" name="ctgryNo1" class="form-control w-50">
+                                                <option value="0" label="선택" />
                                             	<c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
-                                            	<form:option value="${ctgryList.ctgryNo}" label="${ctgryList.ctgryNm}" />
+                                            		<option value="${ctgryList.ctgryNo}" label="${ctgryList.ctgryNm}" <c:if test="${ctgryList.ctgryNm eq path[1]}">selected="selected"</c:if>/>
                                                 </c:forEach>
-                                            </form:select>
+                                            </select>
 
-                                            <form:select path="ctgryNo" class="form-control w-50">
-                                                <form:option value="0" label="선택" />
-                                            </form:select>
+                                            <select id="ctgryNo2" name="ctgryNo2" class="form-control w-50">
+                                                <option value="0" label="선택" />
+                                            </select>
+                                            <select id="ctgryNo3" name="ctgryNo3" class="form-control w-50">
+                                                <option value="0" label="선택" />
+                                            </select>
+                                            <select id="ctgryNo4" name="ctgryNo4" class="form-control w-50">
+                                                <option value="0" label="선택" />
+                                            </select>
                                         </div>
                                     </td>
                                 </tr>
@@ -1022,6 +1031,39 @@
                     spyTarget.setAttribute('data-bs-offset', '200');
                     spyTarget.setAttribute('data-bs-target', '#scrollspy');
 
+                    function f_setGdsCtgryNo(){
+                    	if($("#ctgryNo4").val() != 0){
+                    		$("#ctgryNo").val($("#ctgryNo4").val());
+
+                    	}else if($("#ctgryNo3").val() != 0){
+                    		$("#ctgryNo").val($("#ctgryNo3").val());
+                    	}else if(($("#ctgryNo2").val() != 0)){
+                    		$("#ctgryNo").val($("#ctgryNo2").val());
+                    	}else{
+                    		$("#ctgryNo").val($("#ctgryNo1").val());
+                    	}
+                    }
+
+                    function f_selectedOpt (obj){
+                    	let ctNum = obj.attr("id").replace("ctgryNo","");
+
+                 		$("#ctgryNo"+ctNum+ " option").each(function(){
+							if(ctNum == 2){
+								if($(this).text() == "${path[2]}"){
+									$(this).prop("selected",true);
+								}
+							}else if(ctNum ==3 ){
+								if($(this).text() == "${path[3]}"){
+									$(this).prop("selected",true);
+								}
+							}else{
+								if($(this).text() == "${path[4]}"){
+									$(this).prop("selected",true);
+								}
+							}
+                		});
+                    }
+
                     function f_fileCheck(obj) {
                 		if(obj.value != ""){
                 			/* 첨부파일 확장자 체크*/
@@ -1499,36 +1541,39 @@
                    		});
 
 						//상품 카테고리
-						$("#upCtgryNo").on("change", function(){
-							const ctgryNoVal = "${gdsVO.ctgryNo}";
+						$("#ctgryNo1, #ctgryNo2, #ctgryNo3").on("change", function(){
+							let sectionNo = $(this).attr("name").replaceAll("ctgryNo","");
+							let ctgryNoVal = $(this).val();
 
-							$("#ctgryNo").empty();
-							$("#ctgryNo").append("<option value='0'>선택</option>");
+							 $("#ctgryNo"+(Number(sectionNo)+1)).empty();
+							 $("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='0'>선택</option>");
 
-							let upCtgryNoVal = $(this).val();
-							if(upCtgryNoVal > 0){ //값이 있을경우만..
+							if(ctgryNoVal > 0){ //값이 있을경우만..
 								$.ajax({
 									type : "post",
 									url  : "../ctgry/getGdsCtgryListByFilter.json",
-									data : {upCtgryNo:upCtgryNoVal},
+									data : {upCtgryNo:ctgryNoVal},
 									dataType : 'json'
 								})
 								.done(function(data) {
 									for(key in data){
 										if(ctgryNoVal == key){
-											$("#ctgryNo").append("<option value='"+ key +"' selected='selected'>"+ data[key] +"</option>");
+											$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"' selected='selected'>"+ data[key] +"</option>");
 										}else{
-											$("#ctgryNo").append("<option value='"+ key +"'>"+ data[key] +"</option>");
+											$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"'>"+ data[key] +"</option>");
 										}
 									}
+
+									// 카테고리 번호 적용
+									f_selectedOpt($("#ctgryNo"+(Number(sectionNo)+1)));
+									f_setGdsCtgryNo();
 								})
 								.fail(function(data, status, err) {
 									alert("카테고리 호출중 오류가 발생했습니다.");
 									console.log('error forward : ' + data);
 								});
 							}
-						}).trigger("change");
-
+ 						}).trigger("change");
 
 						// 상품검색 모달
 						$(".f_srchGds").on("click", function(){
