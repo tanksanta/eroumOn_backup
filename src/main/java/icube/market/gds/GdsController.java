@@ -132,29 +132,27 @@ public class GdsController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
-		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
-		GdsCtgryVO currentVO = new GdsCtgryVO();
-		for(GdsCtgryVO childVO : currentCategory.getChildList()) {
-			if(ctgryNo3.orElse(0) > 0) {
-				if(childVO.getCtgryNo() == ctgryNo3.orElse(0)) {
-					currentVO = childVO;
-				}
-			}else if(ctgryNo2.orElse(0) > 0) {
-				if(childVO.getCtgryNo() == ctgryNo2.orElse(0)) {
-					currentVO = childVO;
-				}
-			}else if(ctgryNo1.orElse(0) > 0) {
-				if(childVO.getCtgryNo() == ctgryNo1.orElse(0)) {
-					currentVO = childVO;
-				}
-			}
+		GdsCtgryVO currentCategory = new GdsCtgryVO();
+		int ctgryNo = 0;
+
+		if(ctgryNo3.orElse(0) > 0) {
+			ctgryNo = ctgryNo3.orElse(0);
+		}else if(ctgryNo2.orElse(0) > 0) {
+			ctgryNo = ctgryNo2.orElse(0);
+		}else if(ctgryNo1.orElse(0) > 0) {
+			ctgryNo = ctgryNo1.orElse(0);
+		}else {
+			ctgryNo = upCtgryNo;
 		}
 
+		currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
+
 		model.addAttribute("curCtgryVO", currentCategory);
-		model.addAttribute("curCurrentVO", currentVO);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);
-		model.addAttribute("ctgryNo", ctgryNo1.orElse(0));
+		model.addAttribute("ctgryNo1", ctgryNo1.orElse(0));
+		model.addAttribute("ctgryNo2", ctgryNo2.orElse(0));
+		model.addAttribute("ctgryNo3", ctgryNo3.orElse(0));
 
 		return "/market/gds/list";
 	}
@@ -210,6 +208,31 @@ public class GdsController extends CommonAbstractController {
 		model.addAttribute("upCtgryNo", upCtgryNo);
 
 		return "/market/gds/include/srch_list";
+	}
+
+	@RequestMapping(value = "srchCtrgy")
+	public String srchCtgry(
+			@RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request
+			, Model model
+			)throws Exception {
+
+		String ctgryNo = "";
+		GdsCtgryVO gdsCtgryVO = new GdsCtgryVO();
+		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+
+		if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"))) {
+			ctgryNo = (String)reqMap.get("ctgryNo");
+		}
+
+		if(EgovStringUtil.string2integer(ctgryNo) > 0) {
+			gdsCtgryVO = gdsCtgryService.findChildCategory(gdsCtgryList, EgovStringUtil.string2integer(ctgryNo));
+		}
+
+		model.addAttribute("childList", gdsCtgryVO.getChildList());
+		model.addAttribute("paramMap", reqMap);
+
+		return "/market/gds/include/srch_ctgry";
 	}
 
 
