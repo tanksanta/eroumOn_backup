@@ -1,20 +1,20 @@
 /* 메인 비쥬얼 */
 .main-visual {
-    @apply relative w-full min-h-[642px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white
+    @apply relative w-full min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white
            md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
-           lg:min-h-[750px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[1024px] lg:bg-center;
+           lg:min-h-[750px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px] lg:bg-center
+           xl:!max-h-[1024px];
     & .object {
-        @apply absolute z-20 top-1/2 -right-full w-[670px] h-[670px] bg-cover bg-[url(../images/visual/img-main-visual-phone.png)] scale-100 origin-[right_center] translate-x-[10%] duration-1500 transition-[opacity,top,right] opacity-0 -translate-y-1/2
-               md:top-full md:right-10
-               lg:right-41
-               2xl-range:!scale-100
-               lg-range:!scale-[0.725]
-               md-max:!scale-[0.55];
+        @apply absolute z-20 top-1/2 -right-full w-[670px] h-[670px] bg-cover bg-[url(../images/visual/img-main-visual-phone.png)] scale-100 origin-[right_center] translate-x-[10%] duration-1500 transition-[opacity,top,right] opacity-0 -translate-y-1/2 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
+               md:top-full md:right-15
+               lg:right-25
+               xl:right-41
+               xs-max:top-[46.5%];
         &.is-init {
-            @apply right-[11.633587786259542vw] opacity-100
-                   sm:right-[11.633587786259542vw]
-                   md:right-10
-                   lg:right-41
+            @apply right-[17.633587786259542vw] opacity-100
+                   md:right-15
+                   lg:right-25
+                   xl:right-41
                    md:top-[55%];
         }
         & .object-content {
@@ -43,17 +43,17 @@
                     }
                 }
             }
-            &.scene1 {
+            &.is-scene1 {
                 & .wrapper {
                     @apply translate-x-0;
                 }
             }
-            &.scene2 {
+            &.is-scene2 {
                 & .wrapper {
                     @apply -translate-x-[33.333333333334%];
                 }
             }
-            &.scene3 {
+            &.is-scene3 {
                 & .wrapper {
                     @apply -translate-x-[66.666666666667%];
                     & .objects-1, & .objects-2, & .objects-3, & .objects-4 {
@@ -62,10 +62,10 @@
                 }
             }
         }
-        & [class*="object-group"] {
+        & .object-group {
             @apply absolute top-0 left-0 w-full h-full;
             & [class*="object"] {
-                @apply absolute top-0 left-0 w-full h-full bg-cover duration-1000 translate-y-4 opacity-0;
+                @apply absolute top-0 left-0 w-full h-full bg-cover transition-[transform,opacity] duration-1000 translate-y-4 opacity-0;
                 &:nth-child(2) {
                     @apply delay-200;
                 }
@@ -75,44 +75,34 @@
                     @apply opacity-100 translate-y-0;
                 }
             }
-            &.is-prevent {
-                @apply hidden;
+            &.is-scene1 {
+                & .object1 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj1-1-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj1-1.png)];
+                }
+                & .object2 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj1-2-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj1-2.png)];
+                }
             }
-        }
-        & .object-group1 {
-            & .object1 {
-                @apply bg-[url(../images/visual/img-main-visual-obj1-1-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj1-1.png)];
+            &.is-scene2 {
+                & .object1 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj2-1-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj2-1.png)];
+                }
+                & .object2 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj2-2-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj2-2.png)];
+                }
             }
-            & .object2 {
-                @apply bg-[url(../images/visual/img-main-visual-obj1-2-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj1-2.png)];
-            }
-        }
-        & .object-group2 {
-            & .object1 {
-                @apply bg-[url(../images/visual/img-main-visual-obj2-1-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj2-1.png)];
-            }
-            & .object2 {
-                @apply bg-[url(../images/visual/img-main-visual-obj2-2-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj2-2.png)];
-            }
-        }
-        & .object-group3 {
-            & .object1 {
-                @apply bg-[url(../images/visual/img-main-visual-obj3-1-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj3-1.png)];
-            }
-            & .object2 {
-                @apply bg-[url(../images/visual/img-main-visual-obj3-2-m.png)]
-                       md:bg-[url(../images/visual/img-main-visual-obj3-2.png)];
-            }
-            &.is-active {
-                & .object3 {
-                    & .object3-1, & .object3-2, & .object3-3, & .object3-4 {
-                        @apply opacity-100 translate-y-0;
-                    }
+            &.is-scene3 {
+                & .object1 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj3-1-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj3-1.png)];
+                }
+                & .object2 {
+                    @apply bg-[url(../images/visual/img-main-visual-obj3-2-m.png)]
+                           md:bg-[url(../images/visual/img-main-visual-obj3-2.png)];
                 }
             }
         }
@@ -157,8 +147,8 @@
                before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-cover before:bg-center before:-translate-x-1/2
                lg:pb-30;
         & .content {
-            @apply flex flex-col relative z-20 mx-auto py-15 px-5 max-w-screen-xl h-full
-                   md:justify-center md:px-7
+            @apply flex flex-col relative z-20 mx-auto pt-8 pb-15 px-5 max-w-screen-xl h-full
+                   md:justify-center md:py-15 md:px-7
                    lg:px-10;
             &.is-active {
                 & .ani-text {
@@ -204,13 +194,15 @@
                md:before:bg-[url(../images/visual/bg-main-visual-1.jpg)];
         & .title {
             & strong {
-                @apply lg-max:max-w-[62vw]
-                       md-max:max-w-[50vw];
+                @apply max-w-[52vw]
+                       md:max-w-[62vw]
+                       xl:max-w-none;
             }
             & .ani-obj {
                 @apply inline-block relative w-[50px] h-[50px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_39px]
                        before:absolute before:-top-1/2 before:left-0 before:w-0 before:h-[80px] before:bg-no-repeat before:bg-[url(../images/visual/ico-main-visual-1-obj2.png)] before:bg-left-center before:bg-[length:auto_78px] before:transition-all before:duration-300 before:ease-out before:delay-1500
-                       md-max:absolute md-max:top-[10px] md-max:-right-[20vw];
+                       md-max:absolute md-max:top-[10px] md-max:-right-[25vw]
+                       xs-max:!top-[5px] xs-max:!-right-[27vw];
             }
         }
         & .content {
@@ -299,7 +291,7 @@
         }
     }
     & .text-scroll {
-        @apply absolute z-15 bottom-3 left-1/2 -translate-x-1/2
+        @apply absolute z-15 bottom-2.5 left-1/2 -translate-x-1/2
                md:bottom-4
                lg:bottom-32;
     }

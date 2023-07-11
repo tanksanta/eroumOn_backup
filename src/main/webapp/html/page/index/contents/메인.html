@@ -45,14 +45,82 @@
             <a href="#"><em>이로움ON</em></a>
         </h1>
         <nav id="navigation">
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="#">이로움 서비스</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">요양정보 간편조회</a></li>
+                            <li class="nav-sub-item"><a href="#">인정 등급 예상 테스트</a></li>
+                            <li class="nav-sub-item"><a href="#">복지정보 서비스</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#">시니어 길잡이</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">노인장기요양보험제도</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 알아보기</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 선택하기</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="utility">
             <ul>
                 <li><a href="#">로그인</a></li>
                 <!-- <li><a href="#">로그아웃</a></li> -->
                 <li><a href="#" class="join">회원가입</a></li>
                 <li><a href="#" class="cost">남은 금액보기</a></li>
             </ul>
-        </nav>
+        </div>
+        <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴 열기/닫기</button>
     </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
+        <div class="offcanvas-header">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+            </ul>
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="user-info">
+                <div class="thumb"></div>
+                <div class="name">
+                    김정래
+                    <small>님</small>
+                    <img src="/html/core/images/ico-kakao.png" alt="">
+                    <!-- 소셜 아이콘
+                    <img src="/html/core/images/ico-naver.png" alt="">
+                    -->
+                </div>
+                <a href="#" class="logout">로그아웃</a>
+            </div>
+            <dl class="menu-item1">
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">요양정보 간편조회</a></li>
+                        <li><a href="#">인정 등급 예상 테스트</a></li>
+                        <li><a href="#">복지정보 서비스</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item2">
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 시니어 길잡이</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">노인장기요양보험제도</a></li>
+                        <li><a href="#">복지용구 알아보기</a></li>
+                        <li><a href="#">복지용구 선택하기</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
     <!-- //header -->
     
     <main id="container">
@@ -66,7 +134,7 @@
                                 <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
                             </p>
                             <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
-                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                            <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
                         </div>
                     </div>
                     <div class="swiper-slide slide-item2" data-slide-number="2">
@@ -80,7 +148,7 @@
                                 <span class="ani-text"><span class="ani-obj"></span>노인성 질환을 앓고 있는 어르신</span>
                                 <span class="ani-text"><span class="ani-obj"></span>치매 증상으로 불편한 어르신</span>
                             </p>
-                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                            <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                         </div>
                     </div>
                     <div class="swiper-slide slide-item3" data-slide-number="3">
@@ -90,7 +158,7 @@
                                 <strong class="ani-text">놓치지 말고 누리세요</strong>
                             </p>
                             <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                            <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                         </div>
                     </div>
                 </div>
@@ -109,15 +177,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="object-group1">
-                        <div class="object1"></div>
-                        <div class="object2"></div>
-                    </div>
-                    <div class="object-group2">
-                        <div class="object1"></div>
-                        <div class="object2"></div>
-                    </div>
-                    <div class="object-group3">
+                    <div class="object-group">
                         <div class="object1"></div>
                         <div class="object2"></div>
                     </div>
@@ -261,30 +321,23 @@
                         beforeInit: function(swiper) {
                             $('.main-visual .object').addClass('is-init');
                         },
-                        slideChangeTransitionStart: function(swiper) {
-                            var activeIndex = this.activeIndex;
-                            $('.swiper-button-prev, .swiper-button-next').css({'pointer-events' : 'none'});
-                            $('.main-visual [class*="object-group"]').removeClass('is-animate is-active');
-                            $('.main-visual .object-content').prop('class', 'object-content scene' + this.slides[activeIndex].dataset.slideNumber);
+                        slideChange: function(swiper) {
+                            $('.main-visual .object-group').removeClass('is-active');
+                            $('.main-visual .object-content').prop('class', 'object-content is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber);
                         },
                         slideChangeTransitionEnd: function(swiper) {
-                            var activeIndex = this.activeIndex;
-                            $(this.slides).each(function(i) {
-                                if(i === activeIndex) {
-                                    var numb = $(this).attr('data-slide-number');
-                                    
-                                    $('.main-visual [class*="object-group"]').removeClass('is-animate is-active');
-                                    $('.main-visual .object-group' + numb).addClass('is-animate');
-
-                                    $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
-                                        $('.main-visual .object-group' + numb).addClass('is-active').last().one('transitionend animationend',function() {
-                                            $('.swiper-button-prev, .swiper-button-next').removeAttr('style');
+                            $('.object').on('transitionend',function() {
+                                $(swiper.slides).each(function(i) {
+                                    if(i === swiper.activeIndex) {
+                                        var numb = $(this).attr('data-slide-number');
+                                        $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
+                                            $('.main-visual .object-group').prop('class', 'object-group is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber + ' is-active');
                                         });
-                                    });
-                                } else {
-                                    $(this).find('.content').removeClass('is-active');
-                                }
-                            })
+                                    } else {
+                                        $(this).find('.content').removeClass('is-active').find('.ani-text, .ani-obj').off('transitionend animationend');
+                                    }
+                                });
+                            });
                         }
                     }
                 });
@@ -301,15 +354,22 @@
                 }, this);
 
                 $(window).on('load resize', function() {
-                    var pageBtn = $('.main-visual .content.is-active .btn');
-                    var pagePos = $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 22) + parseInt(pageBtn.css('margin-top').replace('px', ''))) + 'px';
+                    var pageBtn = $('.main-visual .swiper-slide-active .btn');
+                    var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
                     
-                    $('.swiper .object').css({
-                        '--tw-scale-x' : ($('.main-visual').height()/748 > 1.2) ? 1.2 : $('.main-visual').height()/748,
-                        '--tw-scale-y' : ($('.main-visual').height()/748 > 1.2) ? 1.2 : $('.main-visual').height()/748
-                    });
-
-                    swiper.pagination.el.style.bottom = pagePos;
+                    $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+                    
+                    if($(window).outerWidth() > 768) {
+                        $('.swiper .object').css({
+                            '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                            '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                        });
+                    }else {
+                        $('.swiper .object').css({
+                            '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                            '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                        });
+                    }
                 })
             })
         </script>
