@@ -42,7 +42,7 @@
 					<li><a href="${_membershipPath}/logout">로그아웃</a></li>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<li>
 				<a href="${_mainPath}/recipter/list" class="cost">남은 금액보기</a>
 			</li>
@@ -52,26 +52,38 @@
 </header>
 
 <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
-    <div class="offcanvas-header">
-        <ul>
-            <li><a href="#">로그인</a></li>
-            <li><a href="#">회원가입</a></li>
-        </ul>
-        <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
-    </div>
+	<c:if test="${!_mbrSession.loginCheck}">
+	    <div class="offcanvas-header">
+	        <ul>
+	            <li><a href="${_membershipPath}/login?returnUrl=/main">로그인</a></li>
+	            <li><a href="${_membershipPath}/registStep1">회원가입</a></li>
+	        </ul>
+	        <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+	    </div>
+    </c:if>
     <div class="offcanvas-body">
-        <div class="user-info">
-            <div class="thumb"></div>
-            <div class="name">
-                김정래
-                <small>님</small>
-                <img src="/html/core/images/ico-kakao.png" alt="">
-                <!-- 소셜 아이콘
-                <img src="/html/core/images/ico-naver.png" alt="">
-                -->
-            </div>
-            <a href="#" class="logout">로그아웃</a>
-        </div>
+    	<c:if test="${_mbrSession.loginCheck}">
+	        <div class="user-info">
+	            <div class="thumb"></div>
+	            <div class="name">
+	                ${_mbrSession.mbrNm}
+	                <small>님</small>
+	                <c:choose>
+	                	<c:when test="${_mbrSession.joinTy eq 'K'}">
+	                		<img src="/html/core/images/ico-kakao.png" alt="">
+	                	</c:when>
+	                	<c:when test="${_mbrSession.joinTy eq 'N' }">
+	                		<img src="/html/core/images/ico-naver.png" alt="">
+	                	</c:when>
+	                	<c:otherwise>
+
+	                	</c:otherwise>
+	                </c:choose>
+	            </div>
+	            <a href="${_membershipPath}/logout" class="logout">로그아웃</a>
+	        </div>
+        </c:if>
+
         <dl class="menu-item1">
             <dt><a href="${_mainPath}/recipter/list"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
             <dd>
