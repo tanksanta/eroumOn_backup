@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<header id="subject">
+    <nav class="breadcrumb">
+        <ul>
+			<li class="home"><a href="${_mainPath}">홈</a></li>
+            <li>시니어 길잡이</li>
+            <li>복지용구 알아보기</li>
+        </ul>
+    </nav>
+</header>
+
 <div id="visual" class="is-page2">
     <div class="object1"></div>
     <div class="object2"></div>

@@ -44,7 +44,7 @@
     & .item-thumb {
         @apply block relative overflow-hidden rounded-lg border border-gray3 bg-no-repeat bg-center bg-[length:45%] aspect-square;
         & img {
-            @apply absolute top-0 left-0 w-full h-full object-cover;
+            @apply absolute top-0 left-0 w-full h-full object-cover object-top origin-center transition-transform duration-300 ease-in;
         }
         &.is-empty {
             @apply bg-[url(../images/bg-compare-thumb.svg)];
@@ -129,6 +129,11 @@
         }
     }
     &.is-hover {
+        & .item-thumb {
+            & img {
+                @apply scale-[1.1];
+            }
+        }
         & .item-layer {
             & .btn {
                 @apply opacity-100 visible;
