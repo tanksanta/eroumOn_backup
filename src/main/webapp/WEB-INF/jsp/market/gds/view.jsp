@@ -1445,6 +1445,7 @@ var Goods = (function(){
 
 	    // TODO : 급여 구매 신청 시 제거
 	    $("#ordrTy2").click();
+	    $("#ordrTy2").hide();
 	});
 
 })();
