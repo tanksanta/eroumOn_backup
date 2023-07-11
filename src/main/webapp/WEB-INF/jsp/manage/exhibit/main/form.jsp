@@ -63,6 +63,7 @@
 								</c:forEach>
 							</div>
 							<p>※ 1MB 이하의 jpg.gif.png 확장자 등록 가능</p>
+							<p>※ 이미지 최적화 사이즈 70px * 52px</p>
 						</td>
 					</tr>
 					<tr>
