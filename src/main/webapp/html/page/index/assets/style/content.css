@@ -1016,6 +1016,16 @@
         @apply text-5xl font-bold
                md:text-[3.375rem]
                lg:text-[4.625rem];
+        & .img {
+            @apply inline-flex align-top relative w-[2em] h-[1.5em] overflow-hidden;
+            & i {
+                @apply flex relative top-0 leading-[1.5em];
+            }
+            & span {
+                @apply inline-flex flex-col relative top-0 h-[7.5675em];
+                animation: pagetitle2ani 12s infinite;
+            }
+        }
         & .out {
             @apply text-transparent;
             -webkit-text-stroke: 1px #333;
@@ -1026,6 +1036,19 @@
                md:mt-9 md:text-xl
                lg:mt-12 lg:text-2xl;
     }
+}
+
+@keyframes pagetitle2ani {
+    0% {top:0rem;}
+    8% {top:-7rem;}
+    25% {top:-7rem;}
+    33% {top:-14rem;}
+    50% {top:-14rem;}
+    58% {top:-21rem;}
+    75% {top:-21rem;}
+    83% {top:-28rem;}
+    99.9% {top:-28rem;}
+    100% {top:0rem;}
 }
 
 .page2-content1, .page2-content2, .page2-content3, .page2-content4 {

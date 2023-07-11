@@ -48,7 +48,11 @@
 	</div>
 
 	<div class="page2-title">
-	    <h2><em class="img">욕실</em><span class="out">에서도</span> <em class="text-primary2">안전하게</em></h2>
+        <h2>
+            <em class="img">
+                <span><i>야외</i><i>욕실</i><i>침실</i><i>거실</i><i>야외</i></span>
+            </em><span class="out">에서도</span> <em class="text-primary2">안전하게</em>
+        </h2>
 	    <p>
 	        집안에서도, 집밖에서도<br>
 	        불편함을 편함으로 해결해 드릴게요
