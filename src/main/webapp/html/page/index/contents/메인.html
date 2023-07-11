@@ -59,17 +59,17 @@
         <div class="main-visual">
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide slide-item3">
+                    <div class="swiper-slide slide-item1" data-slide-number="1">
                         <div class="content">
                             <p class="title">
-                                <span class="ani-text">어르신을 위한 복지,<span class="ani-obj"></span></span>
-                                <strong class="ani-text">놓치지 말고 누리세요</strong>
+                                <span class="ani-text">최대 2,500만원 복지혜택,</span>
+                                <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
                             </p>
-                            <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                            <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
+                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
                         </div>
                     </div>
-                    <div class="swiper-slide slide-item2">
+                    <div class="swiper-slide slide-item2" data-slide-number="2">
                         <div class="content">
                             <p class="title">
                                 <span class="ani-text">65세 미만이라도,</span>
@@ -83,20 +83,45 @@
                             <a href="#" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                         </div>
                     </div>
-                    <div class="swiper-slide slide-item1">
+                    <div class="swiper-slide slide-item3" data-slide-number="3">
                         <div class="content">
                             <p class="title">
-                                <span class="ani-text">최대 2,500만원 복지혜택,</span>
-                                <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
+                                <span class="ani-text">어르신을 위한 복지,<span class="ani-obj"></span></span>
+                                <strong class="ani-text">놓치지 말고 누리세요</strong>
                             </p>
-                            <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
-                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                            <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
+                            <a href="#" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-pagination"></div>
+                <div class="object">
+                    <div class="object-content">
+                        <div class="wrapper">
+                            <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.png" alt="">
+                            <div class="objects">
+                                <div class="objects-1"></div>
+                                <div class="objects-2"></div>
+                                <div class="objects-3"></div>
+                                <div class="objects-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="object-group1">
+                        <div class="object1"></div>
+                        <div class="object2"></div>
+                    </div>
+                    <div class="object-group2">
+                        <div class="object1"></div>
+                        <div class="object2"></div>
+                    </div>
+                    <div class="object-group3">
+                        <div class="object1"></div>
+                        <div class="object2"></div>
+                    </div>
+                </div>
             </div>
             <p class="text-scroll is-white"><i></i> 아래에서 더 자세히 알아보세요</p>
         </div>
@@ -215,6 +240,8 @@
 
             $(function() {
                 //main visual
+                var evTimer = null;
+                
                 var swiper = new Swiper(".main-visual .swiper", {
                     slidesPerView: 1,
                     loop: true,
@@ -227,21 +254,35 @@
                         nextEl: '.main-visual .swiper-button-next',
                         prevEl: '.main-visual .swiper-button-prev',
                     },
-                    // autoplay: {
-                    //     delay: 6000,
-                    //     disableOnInteraction: false,
-                    // },
                     fadeEffect: {
                         crossFade: true
                     },
                     on: {
+                        beforeInit: function(swiper) {
+                            $('.main-visual .object').addClass('is-init');
+                        },
+                        slideChangeTransitionStart: function(swiper) {
+                            var activeIndex = this.activeIndex;
+                            $('.swiper-button-prev, .swiper-button-next').css({'pointer-events' : 'none'});
+                            $('.main-visual [class*="object-group"]').removeClass('is-animate is-active');
+                            $('.main-visual .object-content').prop('class', 'object-content scene' + this.slides[activeIndex].dataset.slideNumber);
+                        },
                         slideChangeTransitionEnd: function(swiper) {
                             var activeIndex = this.activeIndex;
-                            this.slides.forEach((e, i) => {
+                            $(this.slides).each(function(i) {
                                 if(i === activeIndex) {
-                                    e.querySelector('.content').classList.add('is-active');
+                                    var numb = $(this).attr('data-slide-number');
+                                    
+                                    $('.main-visual [class*="object-group"]').removeClass('is-animate is-active');
+                                    $('.main-visual .object-group' + numb).addClass('is-animate');
+
+                                    $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
+                                        $('.main-visual .object-group' + numb).addClass('is-active').last().one('transitionend animationend',function() {
+                                            $('.swiper-button-prev, .swiper-button-next').removeAttr('style');
+                                        });
+                                    });
                                 } else {
-                                    e.querySelector('.content').classList.remove('is-active');
+                                    $(this).find('.content').removeClass('is-active');
                                 }
                             })
                         }
@@ -263,6 +304,11 @@
                     var pageBtn = $('.main-visual .content.is-active .btn');
                     var pagePos = $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 22) + parseInt(pageBtn.css('margin-top').replace('px', ''))) + 'px';
                     
+                    $('.swiper .object').css({
+                        '--tw-scale-x' : ($('.main-visual').height()/748 > 1.2) ? 1.2 : $('.main-visual').height()/748,
+                        '--tw-scale-y' : ($('.main-visual').height()/748 > 1.2) ? 1.2 : $('.main-visual').height()/748
+                    });
+
                     swiper.pagination.el.style.bottom = pagePos;
                 })
             })

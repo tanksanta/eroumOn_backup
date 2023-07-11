@@ -85,14 +85,14 @@
 }
 
 #header {
-    @apply fixed z-[200] top-0 left-1/2 -translate-x-1/2 flex items-center mx-auto px-5 w-full max-w-[1360px] h-13
+    @apply fixed z-[200] top-0 left-1/2 -translate-x-1/2 flex items-start mx-auto px-5 w-full max-w-[1360px] h-13
            before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:border-b before:border-b-[#ccc] before:-translate-x-1/2 before:transition-[background,border] before:duration-300
            md:px-7 md:h-17
            lg:relative lg:left-0 lg:translate-x-0 lg:px-10 lg:h-21;
 }
 
 #logo {
-    @apply relative z-5 mr-auto;
+    @apply relative z-5 self-center;
     & a {
         @apply flex-col items-end
                after:mt-[4px] after:w-[96px] after:h-[8px] after:bg-no-repeat after:bg-[auto_100%] after:bg-right-top after:bg-[url(../images/img-header-logo.svg)]
@@ -102,7 +102,50 @@
 }
 
 #navigation {
-    @apply relative z-5;
+    @apply flex-none hidden relative z-15 ml-22 h-21 text-[0.9375rem]
+           before:absolute before:top-21 before:left-1/2 before:w-[150vw] before:h-0 before:bg-white before:shadow-[0px_4px_4px_0px_rgba(0,0,0,0.1)] before:-translate-x-1/2 before:transition-[height] before:duration-300
+           lg:flex;
+    & .nav-items {
+        @apply flex-none flex gap-17 relative z-5;
+        & a {
+            @apply flex items-center relative w-fit
+                   before:absolute before:left-0 before:w-0 before:transition-[width] before:duration-300 before:ease-out;
+        }
+        & .is-hover {
+            & > a {
+                @apply !font-bold
+                       before:!w-full;
+            }
+        }
+    }
+    & .nav-item {
+        & > a {
+            @apply h-21 text-lg font-medium
+                   before:bottom-0 before:h-1 before:bg-[#3074FF];
+        }
+    }
+    & .nav-sub-items {
+        @apply h-0 overflow-hidden transition-[height] duration-300;
+        & ul {
+            @apply pt-6 pb-7 space-y-1;
+        }
+    }
+    & .nav-sub-item {
+        & > a {
+            @apply h-8
+                   before:bottom-1 before:h-px before:bg-gray1;
+        }
+    }
+    &.is-hover {
+        @apply before:h-37;
+        & .nav-sub-items {
+            @apply h-37;
+        }
+    }
+}
+
+#utility {
+    @apply self-center relative z-5 ml-auto;
     & ul {
         @apply flex items-center gap-1.5
                lg:gap-2.5;
@@ -123,6 +166,83 @@
     }
 }
 
+#allmenu-toggle {
+    @apply self-center relative z-5 -mr-2 ml-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-allmenu.svg)] -indent-96
+           lg:hidden;
+}
+
+#allmenu {
+    @apply w-full h-full;
+    & .offcanvas-header {
+        @apply px-5 h-13 border-b border-b-gray1/10
+               md:px-7 md:h-17;
+        & ul {
+            @apply flex items-center gap-[1.285em] font-medium;
+        }
+        & button {
+            @apply -mr-2.5 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625em] -indent-96;
+        }
+    }
+    & .offcanvas-body {
+        @apply py-3.5 px-5 text-[0.9375rem]
+               md:px-7 md:text-base;
+    }
+    & .user-info {
+        @apply mb-16 flex items-center leading-tight;
+        & .thumb {
+            @apply mr-1.5 w-9 h-9 rounded-full bg-[#dbdbdb] bg-[url(../images/ico-allmenu3.svg)] bg-[center_top_calc(50%-1px)] bg-no-repeat bg-[length:55.56%]
+                   md:w-10 md:h-10;
+        }
+        & .name {
+            @apply flex items-baseline font-bold text-lg
+                   md:text-xl;
+            & small {
+                @apply ml-0.5 text-[0.83333em];
+            }
+            & img {
+                @apply relative top-[3px] ml-1 w-[1em];
+            }
+        }
+        & .logout {
+            @apply mt-[0.385em] ml-auto text-[0.8125rem] text-gray1
+                   md:text-[0.9375rem];
+        }
+    }
+    & [class*="menu-item"] {
+        @apply mt-9 md:mt-10;
+        & dt {
+            @apply text-lg font-bold leading-tight
+                   md:text-xl;
+            & a {
+                @apply flex items-center gap-1;
+                & img {
+                    @apply w-[1.1111111em];
+                }
+            }
+        }
+        & dd {
+            @apply mt-[0.8em] py-2 px-3.5 rounded-md tracking-tight;
+            & ul {
+                @apply grid grid-cols-2;
+            }
+            & a {
+                @apply block py-3 px-1 font-medium;
+            }
+        }
+    }
+    & .menu-item1 {
+        @apply mt-4.5 md:mt-5;
+        & dd {
+            @apply bg-[#F1F9FB];
+        }
+    }
+    & .menu-item2 {
+        & dd {
+            @apply bg-[#FEF9F7];
+        }
+    }
+}
+
 #container {
     @apply relative pt-13 pb-15 overflow-x-hidden
            md:pt-17 md:pb-20
@@ -138,10 +258,10 @@
                before:content-empty before:box-content before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:border-b before:border-b-gray2 before:bg-white before:-translate-x-1/2
                lg:text-sm;
         & ul {
-            @apply relative z-5 flex items-center py-3 lg:py-3.5;
+            @apply relative z-5 flex items-center flex-wrap py-3 lg:py-3.5;
             & li {
-                @apply relative pr-3.5 mr-2
-                       before:content-empty before:absolute before:top-1/2 before:right-0 before:-mt-px before:-translate-y-1/2 before:w-[7px] before:h-[7px] before:bg-cover before:bg-right-center before:bg-[url(../images/ico-breadcrumb-arrow.svg)]
+                @apply relative pr-3.5 mr-2 whitespace-nowrap
+                       before:absolute before:top-1/2 before:right-0 before:-mt-px before:-translate-y-1/2 before:w-[7px] before:h-[7px] before:bg-cover before:bg-right-center before:bg-[url(../images/ico-breadcrumb-arrow.svg)]
                        lg:pr-4 lg:mr-3
                        last:pr-0 last:mr-0 last:before:hidden;
                 & a {
@@ -330,12 +450,12 @@
         @apply before:bg-transparent before:border-b-transparent
                lg:fixed lg:top-0 lg:left-1/2 lg:w-full lg:-translate-x-1/2;
     }
-    & #logo {
+    & #logo {`
         & a {
             @apply after:bg-[url(../images/img-header-logo-white.svg)];
         }
     }
-    & #navigation {
+    & #utility {
         & ul {
             & li {
                 & a {
@@ -361,7 +481,7 @@
                 @apply after:bg-[url(../images/img-header-logo.svg)];
             }
         }
-        & #navigation {
+        & #utility {
             & ul {
                 & li {
                     & a {

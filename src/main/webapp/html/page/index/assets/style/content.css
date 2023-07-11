@@ -19,7 +19,7 @@
 
 /* 회사소개 */
 .company-visual {
-    @apply relative z-10 -mt-13 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl text-white md:-mt-17 lg:-mt-21;
+    @apply relative z-10 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl text-white;
     font-family: "NanumSquareNeo";
     & h1 {
         @apply relative z-15 text-[max(1.75rem,(min(4.6875vw,3.75rem)))] leading-[1.1] font-extrabold;

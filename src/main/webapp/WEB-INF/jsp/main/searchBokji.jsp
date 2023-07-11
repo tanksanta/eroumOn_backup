@@ -3,7 +3,8 @@
 	<nav class="breadcrumb">
 		<ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
-			<li>어르신 맞춤 복지서비스</li>
+			<li>이로움 서비스</li>
+			<li>복지정보 서비스</li>
 		</ul>
 	</nav>
 	<h2 class="subject">

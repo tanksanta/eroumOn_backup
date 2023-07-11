@@ -4,7 +4,8 @@
     <nav class="breadcrumb">
         <ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
-            <li><a href="${_mainPath}/cntnts/page3">복지용구 정보</a></li>
+            <li>시니어 길잡이</li>
+            <li><a href="${_mainPath}/cntnts/page3">복지용구 선택하기</a></li>
             <li>복지용구 FAQ</li>
         </ul>
     </nav>

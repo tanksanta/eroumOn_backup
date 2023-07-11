@@ -1,13 +1,127 @@
 /* 메인 비쥬얼 */
 .main-visual {
-    @apply relative w-full min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white bg-blue-200
-           md:min-h-[642px] md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
-           lg:min-h-[700px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[1024px] lg:bg-center;
+    @apply relative w-full min-h-[642px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white
+           md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
+           lg:min-h-[750px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[1024px] lg:bg-center;
+    & .object {
+        @apply absolute z-20 top-1/2 -right-full w-[670px] h-[670px] bg-cover bg-[url(../images/visual/img-main-visual-phone.png)] scale-100 origin-[right_center] translate-x-[10%] duration-1500 transition-[opacity,top,right] opacity-0 -translate-y-1/2
+               md:top-full md:right-10
+               lg:right-41
+               2xl-range:!scale-100
+               lg-range:!scale-[0.725]
+               md-max:!scale-[0.55];
+        &.is-init {
+            @apply right-[11.633587786259542vw] opacity-100
+                   sm:right-[11.633587786259542vw]
+                   md:right-10
+                   lg:right-41
+                   md:top-[55%];
+        }
+        & .object-content {
+            @apply relative mt-[23px] ml-[338px] w-[265px] h-[576px] overflow-hidden rounded-[36px];
+            & .wrapper {
+                @apply inline-block relative h-full transition-transform duration-500;
+                & img {
+                    @apply max-w-none h-full;
+                }
+                & .objects {
+                    @apply absolute top-[320px] w-full h-[244px] overflow-hidden duration-[0ms] opacity-100;
+                    & .objects-1, & .objects-2, & .objects-3, & .objects-4 {
+                        @apply absolute w-[117px] h-[117px] bg-cover transition-[transform,opacity] duration-1500 translate-y-[100px] opacity-0;
+                    }
+                    & .objects-1 {
+                        @apply top-0 right-[138px] delay-[3.4s] bg-[url(../images/visual/img-main-visual-obj3-3.png)];
+                    }
+                    & .objects-2 {
+                        @apply top-0 right-[11px] delay-[3.6s] bg-[url(../images/visual/img-main-visual-obj3-4.png)];
+                    }
+                    & .objects-3 {
+                        @apply top-[127px] right-[138px] delay-[3.8s] bg-[url(../images/visual/img-main-visual-obj3-5.png)];
+                    }
+                    & .objects-4 {
+                        @apply top-[127px] right-[11px] delay-[4s] bg-[url(../images/visual/img-main-visual-obj3-6.png)];
+                    }
+                }
+            }
+            &.scene1 {
+                & .wrapper {
+                    @apply translate-x-0;
+                }
+            }
+            &.scene2 {
+                & .wrapper {
+                    @apply -translate-x-[33.333333333334%];
+                }
+            }
+            &.scene3 {
+                & .wrapper {
+                    @apply -translate-x-[66.666666666667%];
+                    & .objects-1, & .objects-2, & .objects-3, & .objects-4 {
+                        @apply translate-y-0 opacity-100;
+                    }
+                }
+            }
+        }
+        & [class*="object-group"] {
+            @apply absolute top-0 left-0 w-full h-full;
+            & [class*="object"] {
+                @apply absolute top-0 left-0 w-full h-full bg-cover duration-1000 translate-y-4 opacity-0;
+                &:nth-child(2) {
+                    @apply delay-200;
+                }
+            }
+            &.is-active {
+                & [class*="object"] {
+                    @apply opacity-100 translate-y-0;
+                }
+            }
+            &.is-prevent {
+                @apply hidden;
+            }
+        }
+        & .object-group1 {
+            & .object1 {
+                @apply bg-[url(../images/visual/img-main-visual-obj1-1-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj1-1.png)];
+            }
+            & .object2 {
+                @apply bg-[url(../images/visual/img-main-visual-obj1-2-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj1-2.png)];
+            }
+        }
+        & .object-group2 {
+            & .object1 {
+                @apply bg-[url(../images/visual/img-main-visual-obj2-1-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj2-1.png)];
+            }
+            & .object2 {
+                @apply bg-[url(../images/visual/img-main-visual-obj2-2-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj2-2.png)];
+            }
+        }
+        & .object-group3 {
+            & .object1 {
+                @apply bg-[url(../images/visual/img-main-visual-obj3-1-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj3-1.png)];
+            }
+            & .object2 {
+                @apply bg-[url(../images/visual/img-main-visual-obj3-2-m.png)]
+                       md:bg-[url(../images/visual/img-main-visual-obj3-2.png)];
+            }
+            &.is-active {
+                & .object3 {
+                    & .object3-1, & .object3-2, & .object3-3, & .object3-4 {
+                        @apply opacity-100 translate-y-0;
+                    }
+                }
+            }
+        }
+    }
     & .swiper {
         @apply max-w-screen-2xl h-full overflow-visible;
     }
     & .swiper-button-prev, & .swiper-button-next {
-        @apply hidden top-1/2 m-0 -translate-y-1/2
+        @apply hidden top-1/2 m-0 z-25 -translate-y-1/2
                after:hidden
                hover:before:!opacity-100
                md:block md:w-20 md:h-40
@@ -18,12 +132,12 @@
         }
     }
     & .swiper-button-prev {
-        @apply -left-4 rotate-180
+        @apply -left-4.5 rotate-180
                xl:left-4
                xl:hover:before:left-5;
     }
     & .swiper-button-next {
-        @apply -right-4
+        @apply -right-4.5
                xl:right-4
                xl:hover:before:left-5;
     }
@@ -90,7 +204,8 @@
                md:before:bg-[url(../images/visual/bg-main-visual-1.jpg)];
         & .title {
             & strong {
-                @apply md-max:max-w-[50vw];
+                @apply lg-max:max-w-[62vw]
+                       md-max:max-w-[50vw];
             }
             & .ani-obj {
                 @apply inline-block relative w-[50px] h-[50px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_39px]
