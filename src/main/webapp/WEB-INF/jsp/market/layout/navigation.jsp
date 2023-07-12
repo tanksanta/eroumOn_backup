@@ -67,7 +67,13 @@
 				<form action="${_marketPath}/search/total" class="search-form">
 					<div class="form-field">
 						<legend>통합검색</legend>
-						<input type="text" placeholder="검색어를 입력하세요" name="srchKwd" id="srchKwd" >
+						<c:set var="paramKwd" >
+							<c:choose>
+								<c:when test="${!empty param.srchKwd }">${param.srchKwd}</c:when>
+								<c:when test="${!empty param.srchNonKwd }">${param.srchNonKwd}</c:when>
+							</c:choose>
+						</c:set>
+						<input type="text" placeholder="검색어를 입력하세요" name="srchKwd" id="srchKwd" value="${paramKwd}" />
 						<button type="submit">검색</button>
 					</div>
 					<div class="form-current">
