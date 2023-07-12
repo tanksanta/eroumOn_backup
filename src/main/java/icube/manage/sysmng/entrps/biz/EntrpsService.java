@@ -23,6 +23,10 @@ public class EntrpsService extends CommonAbstractServiceImpl {
 	public EntrpsVO selectEntrps(int entrpsNo) throws Exception {
 		return entrpsDAO.selectEntrps(entrpsNo);
 	}
+	
+	public EntrpsVO selectEntrpsByGdsNo(int gdsNo) throws Exception {
+		return entrpsDAO.selectEntrpsByGdsNo(gdsNo);
+	}
 
 	public void insertEntrps(EntrpsVO entrpsVO) throws Exception {
 		entrpsDAO.insertEntrps(entrpsVO);

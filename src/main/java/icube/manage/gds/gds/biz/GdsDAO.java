@@ -46,6 +46,10 @@ public class GdsDAO extends CommonAbstractMapper {
 	public List<GdsVO> selectGdsListAll(Map<String, Object> paramMap) throws Exception {
 		return selectList("gds.gds.selectGdsListAll", paramMap);
 	}
+	
+	public List<GdsVO> selectGdsWithOptnListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("gds.gds.selectGdsWithOptnListAll", paramMap);
+	}
 
 	public void updateGdsStockQy(Map<String, Object> stockQyPlus) throws Exception {
 		selectList("gds.gds.updateGdsStockQy", stockQyPlus);

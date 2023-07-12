@@ -42,6 +42,14 @@ public class OrdrDAO extends CommonAbstractMapper {
 	public void updateStlmAmt(OrdrVO ordrVO) throws Exception {
 		update("ordr.updateStlmAmt", ordrVO);
 	}
+	
+	public void updateUseMlg(OrdrVO ordrVO) throws Exception {
+		update("ordr.updateUseMlg", ordrVO);
+	}
+	
+	public void updateUsePoint(OrdrVO ordrVO) throws Exception {
+		update("ordr.updateUsePoint", ordrVO);
+	}
 
 	public Map<String, Integer> selectSttsTyCnt(Map<String, Object> paramMap) throws Exception {
 		return selectOne("ordr.selectSttsTyCnt", paramMap);

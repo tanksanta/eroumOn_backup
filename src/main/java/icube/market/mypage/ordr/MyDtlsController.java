@@ -2,6 +2,7 @@ package icube.market.mypage.ordr;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -195,23 +196,15 @@ public class MyDtlsController extends CommonAbstractController {
 			, @RequestParam Map<String,Object> reqMap) throws Exception {
 
 		boolean result = false;
-		boolean or02 = true;
 
+		List<String> ordrDtlCdList = new ArrayList<String>(Arrays.asList(ordrDtlCds)); //취소할 상품 CD
 		OrdrVO oldOrdrVO = ordrService.selectOrdrByNo(ordrNo); //주문정보
-
-		// 주문 상세코드로 주문 상세번호를 가져온 뒤 처리
-		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
-		for(String ordrDtlCd : ordrDtlCds) {
-			List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
-			for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
-				if(ordrDtlVO.getSttsTy().equals("OR01") || ordrDtlVO.getSttsTy().equals("OR05")) {
-					or02 = false;
-				}
-				tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
-			}
-		}
-
-		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
+		
+		//주문에 관련된 전체 상품정보
+		List<OrdrDtlVO> ordrDtlList = oldOrdrVO.getOrdrDtlList();
+		String[] ordrDtlNos = ordrDtlList.stream().filter(f -> ordrDtlCdList.contains(f.getOrdrDtlCd()))
+												  .map(m -> String.valueOf(m.getOrdrDtlNo()))
+												  .toArray(String[]::new);
 
 		OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
 		ordrDtlVO.setOrdrNo(ordrNo);
@@ -232,9 +225,9 @@ public class MyDtlsController extends CommonAbstractController {
 		if("VBANK".equals(oldOrdrVO.getStlmTy()) && "Y".equals(oldOrdrVO.getStlmYn())) { //가상계좌 + 결제완료 = 취소접수
 			ordrDtlVO.setSttsTy("CA01"); // 취소접수
 			resultCnt = ordrDtlService.updateOrdrCA01(ordrDtlVO);
-		}else { // 카드, 계좌이체
+		} else { // 카드, 계좌이체
 			ordrDtlVO.setSttsTy("CA02"); // 취소승인
-			resultCnt = ordrDtlService.updateOrdrCA02(ordrDtlVO);
+			resultCnt = ordrDtlService.updateCA02AndReturnCoupon(ordrNo, ordrDtlVO, ordrDtlNos);
 		}
 
 		// 주문 상태 전달
@@ -242,31 +235,41 @@ public class MyDtlsController extends CommonAbstractController {
 		// 부분 취소는 1.5 내부 처리
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 
-		List<OrdrDtlVO> ordrDtlList = oldOrdrVO.getOrdrDtlList();
+		// 주문승인상태 또는 취소상태인지를 검사
+		boolean isSttsTyOR02 = true;
+		
+		//이미 주문 취소된 상품 + 현재 취소 하려는 상품 리스트
+		List<String> tmpOrdrDtlNos = ordrDtlCdList;
+		for(OrdrDtlVO ordrDtlInfo : ordrDtlList) {
+			if ("CA02".equals(ordrDtlInfo.getSttsTy()) && !tmpOrdrDtlNos.contains(ordrDtlInfo.getOrdrDtlCd())) {
+				tmpOrdrDtlNos.add(ordrDtlInfo.getOrdrDtlCd());
+			}
+			if ("OR01".equals(ordrDtlInfo.getSttsTy()) || "OR05".equals(ordrDtlInfo.getSttsTy())) {
+				isSttsTyOR02 = false;
+			}
+		};
+		
 		// 전체 취소 일때
-		if(tmpOrdrDtlNos.size() == ordrDtlList.size()) {
-			if(or02) {
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("ordrNo", ordrNo);
-				paramMap.put("resnTy", resnTy);
-				paramMap.put("dataType", "cancel");
-				returnMap = updateBplcInfoApiService.putStlmYnSttus(paramMap);
+		if(isSttsTyOR02 && tmpOrdrDtlNos.size() == ordrDtlList.size()) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("ordrNo", ordrNo);
+			paramMap.put("resnTy", resnTy);
+			paramMap.put("dataType", "cancel");
+			returnMap = updateBplcInfoApiService.putStlmYnSttus(paramMap);
 
-				if((boolean)returnMap.get("result")) {
-					if(!EgovStringUtil.equals((String)returnMap.get("resultCode"), "200")) {
-						ordrDtlVO.setSttsTy("CA01");
-						ordrDtlService.updateOrdrCA01(ordrDtlVO);
-					}
-				}else {
-					System.out.println("###### 결제 API 통신 실패 ##### : " + (String)returnMap.get("resultMsg"));
+			if((boolean)returnMap.get("result")) {
+				if(!EgovStringUtil.equals((String)returnMap.get("resultCode"), "200")) {
+					ordrDtlVO.setSttsTy("CA01");
+					ordrDtlService.updateOrdrCA01(ordrDtlVO);
 				}
+			}else {
+				System.out.println("###### 결제 API 통신 실패 ##### : " + (String)returnMap.get("resultMsg"));
 			}
 		}
 
 		if(resultCnt == 1){
 			result = true;
 		}
-
 
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -801,12 +804,21 @@ public class MyDtlsController extends CommonAbstractController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ordrNo", ordrNo);
 		paramMap.put("ordrDtlNo", ordrDtlNo);
-		paramMap.put("chgStts", "CA01");
+		paramMap.put("chgStts", "OR03");
 
-		OrdrChgHistVO ordrChgHistVO = ordrChgHistService.selectOrdrChgHist(paramMap);
+		OrdrChgHistVO ordrChgHistVOForOR03 = ordrChgHistService.selectOrdrChgHist(paramMap);
 
-		model.addAttribute("ordrChgHistVO", ordrChgHistVO);
-
+		//사업소에서 반려된 상품인 경우 반려 이력으로 반환
+		if (ordrChgHistVOForOR03 != null) {
+			model.addAttribute("ordrChgHistVO", ordrChgHistVOForOR03);
+		} else {
+			paramMap.put("chgStts", "CA01");
+			
+			OrdrChgHistVO ordrChgHistVO = ordrChgHistService.selectOrdrChgHist(paramMap);
+			
+			model.addAttribute("ordrChgHistVO", ordrChgHistVO);
+		}
+		
 
 		// 취소상품 정보
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);

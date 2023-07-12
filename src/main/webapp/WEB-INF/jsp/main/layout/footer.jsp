@@ -17,7 +17,7 @@
 	            <li><a href="${_mainPath}/cntnts/company">회사소개</a></li>
 	            <li><a href="${_membershipPath}/cntnts/terms" target="_blank">이용약관</a></li>
 	            <li><a href="${_membershipPath}/cntnts/privacy" target="_blank"><strong>개인정보처리방침</strong></a></li>
-	            <li><a href="${_mainPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
+	            <li><a href="${_plannerPath}/inqry/list" target="_blank"><strong>제휴/입점 문의</strong></a></li>
 			</ul>
 		</nav>
 		<!-- //회사 메뉴 -->
@@ -36,7 +36,7 @@
                                 </div>
                             </a>
                         </li> -->
-                        
+
 						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
                         <li>
                             <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">

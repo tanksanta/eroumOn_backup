@@ -31,8 +31,6 @@
     <!-- market -->
     <link rel="stylesheet" href="/html/page/market/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>">
     <script src="/html/page/market/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-    <script src="/html/page/market/assets/script/product.js"></script>
-
     <c:if test="${fn:indexOf(_curPath, '/gds/') > -1}">
     <script src="/html/page/market/assets/script/product.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     </c:if>
@@ -44,40 +42,24 @@
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     </c:if>
 </head>
-<body <c:if test="${fn:length(_bannerList) > 0}">class="is-banner"</c:if>>
+<body>
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
     </ul>
     <!-- //access -->
 
-	<header id="header">
+	<!-- header -->
+    <tiles:insertAttribute name="header"/>
+    <!-- //header -->
 
-		<!-- aside -->
-	    <tiles:insertAttribute name="aside"/>
-	    <!-- //aside -->
+    <!-- navigation -->
+    <tiles:insertAttribute name="navigation"/>
+    <!-- //navigation -->
 
-        <!-- header logo -->
-        <div id="utility">
-            <h1 class="global-logo"><a href="/market"><em>이로움 ON</em></a></h1>
-            <ul class="utility-menu">
-            	<c:if test="${!_mbrSession.loginCheck}">
-	                <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>
-	            	<li><a href="${_membershipPath }/registStep1">회원가입</a></li>
-                </c:if>
-                <c:if test="${_mbrSession.loginCheck}">
-                	<li><a href="${_membershipPath}/logout">로그아웃</a></li>
-                </c:if>
-                <li><a href="${_marketPath}/etc/faq/list">고객센터</a></li>
-            </ul>
-        </div>
-        <!-- //header logo -->
-
-        <!-- navigation -->
-	    <tiles:insertAttribute name="navigation"/>
-	    <!-- //navigation -->
-
-    </header>
+    <!-- aside -->
+    <tiles:insertAttribute name="aside"/>
+    <!-- //aside -->
 
     <!-- container -->
 	<tiles:insertAttribute name="content"/>

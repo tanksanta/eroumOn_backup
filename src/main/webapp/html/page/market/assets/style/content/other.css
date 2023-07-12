@@ -1,14 +1,10 @@
 /* Q&A */
 .tabs.tabs-question {
     & li {
-        @apply flex-none w-[calc(25%_-_4.5px)]
-               md:w-[calc(16.66666666666667%_-_6.666666666666667px)]
-               lg:w-[calc(16.66666666666667%_-_8.333333333333333px)];
+        @apply flex-none w-[calc(25%_-_4.5px)] md:w-[calc(16.66666666666667%_-_6.666666666666667px)] lg:w-[calc(16.66666666666667%_-_8.333333333333333px)];
     }
     & .tabs-link {
-        @apply h-10 text-sm
-               md:h-13 md:text-base
-               lg:h-15 lg:text-lg;
+        @apply h-10 text-sm md:text-base md:h-13 lg:text-lg lg:h-15;
     }
 }
 
@@ -21,19 +17,21 @@
         @apply relative pb-1 rounded-lg bg-white md:pb-2 md:rounded-[1rem];
     }
     & .accordion-header {
-        @apply block relative py-3 pr-10 pl-4 text-sm leading-snug
-               after:absolute after:top-[3.375rem] after:right-5 after:w-3.5 after:h-[0.4375rem] after:bg-no-repeat after:bg-[length:100%_auto] after:bg-center after:bg-[url(../images/ico-angle-down.svg)] after:transition-all after:duration-300
-               aria-expanded:after:-rotate-180
-               md:py-3.5 md:pr-12 md:pl-5 md:text-base
-               md:after:top-[3.625rem] md:after:right-6 md:after:w-5 md:after:h-2.5;
+        @apply block relative py-3 pr-10 pl-4 text-sm leading-snug md:py-3.5 md:pr-12 md:pl-5 md:text-base;
+        &::after {
+            @apply content-empty absolute top-[3.375rem] right-5 w-3.5 h-[0.4375rem] bg-no-repeat bg-[length:100%_auto] bg-center bg-[url(../images/ico-angle-down.svg)] transition-all duration-300 md:top-[3.625rem] md:right-6 md:w-5 md:h-2.5;
+        }
         & strong {
-            @apply block mt-3.5 text-base leading-normal
-                   md:mt-3.5 md:text-lg;
+            @apply block mt-3.5 text-base leading-normal md:mt-3.5 md:text-lg;
+        }
+        &[aria-expanded="true"] {
+            &::after {
+                @apply -rotate-180;
+            }
         }
     }
     & .accordion-body {
-        @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(../images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem]
-               md:py-3.5 md:pr-5 md:pl-24 md:bg-[left_2rem_top_1rem];
+        @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(../images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem] md:py-3.5 md:pr-5 md:pl-24 md:bg-[left_2rem_top_1rem];
     }
 }
 
@@ -55,19 +53,15 @@
             }
         }
         & td {
-            @apply pb-1 text-[0.8125rem] text-center
-                   md:text-sm;
+            @apply pb-1 text-[0.8125rem] text-center md:text-sm;
             & .name {
-                @apply text-base font-bold text-left leading-snug
-                       md:text-lg;
+                @apply text-base font-bold text-left leading-snug md:text-lg;
             }
             & .date {
-                @apply text-[0.8125rem] font-serif text-left leading-snug
-                       md:text-sm;
+                @apply text-[0.8125rem] font-serif text-left leading-snug md:text-sm;
             }
             & .desc {
-                @apply mt-1.5 max-h-[5.5em] overflow-hidden text-ellipsis text-sm text-gray1 text-left leading-snug
-                       md:mt-2 md:text-[0.9375rem];
+                @apply mt-1.5 max-h-[5.5em] overflow-hidden text-ellipsis text-sm text-gray1 text-left leading-snug md:mt-2 md:text-[0.9375rem];
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 3;
@@ -79,57 +73,53 @@
 .board-detail {
     @apply leading-snug;
     & .detail-header {
-        @apply flex flex-wrap items-center p-3.5 rounded-md bg-gray2
-               md:p-5 md:pt-4 md:rounded-[1rem];
+        @apply flex flex-wrap items-center p-3.5 rounded-md bg-gray2 md:p-5 md:pt-4 md:rounded-[1rem];
         & .name {
             @apply w-full overflow-hidden;
             & small, & strong {
                 @apply block truncate;
             }
             & strong {
-                @apply text-lg font-bold
-                       md:text-2xl;
+                @apply text-lg font-bold md:text-2xl;
             }
             & small {
-                @apply mt-1.5 text-sm font-serif
-                       md:mt-2 md:text-[0.9375rem];
+                @apply mt-1.5 text-sm font-serif md:mt-2 md:text-[0.9375rem];
             }
         }
         & .date {
-            @apply mt-1.5 text-sm font-serif
-                   md:mt-2 md:text-[0.9375rem];
+            @apply mt-1.5 text-sm font-serif md:mt-2 md:text-[0.9375rem];
             & p {
-                @apply relative align-top
-                       before:content-["/"] before:hidden before:absolute before:top-0 before:left-0 before:pr-1 before:w-4 before:text-center
-                       xs:inline-block xs:pl-6
-                       xs:before:block xs:before:w-6
-                       first:pl-0
-                       first:before:hidden;
+                @apply relative align-top xs:inline-block xs:pl-6;
+                &::before {
+                    @apply hidden absolute top-0 left-0 pr-1 w-4 text-center xs:block xs:w-6;
+                    content:"/";
+                }
                 & strong {
-                    @apply font-medium pr-1
-                           xs:pr-1.5;
+                    @apply font-medium pr-1 xs:pr-1.5;
+                }
+                &:first-child {
+                    @apply pl-0;
+                    &::before {
+                        @apply hidden;
+                    }
                 }
             }
         }
     }
     & .detail-body {
-        @apply py-5.5 px-3.5 border-b border-gray2
-               md:py-7 md:px-5;
+        @apply py-5.5 px-3.5 border-b border-gray2 md:py-7 md:px-5;
     }
     & .detail-file {
-        @apply flex items-start border-b border-gray2 p-3.5 leading-snug text-sm
-               md:p-5 md:text-[0.9375rem];
+        @apply flex items-start border-b border-gray2 p-3.5 leading-snug text-sm md:p-5 md:text-[0.9375rem];
         & dt {
-            @apply flex-none
-                   mr-3.5 md:mr-6;
+            @apply flex-none mr-3.5 md:mr-6;
         }
         & dd {
             @apply flex-1;
         }
     }
     & .detail-golist {
-        @apply btn btn-large btn-outline-primary flex mt-12 mx-auto text-center min-w-30 w-fit
-               md:min-w-39 md:mt-17;
+        @apply btn btn-large btn-outline-primary flex mt-12 mx-auto text-center min-w-30 w-fit md:min-w-39 md:mt-17;
     }
     &.is-event {
         & .detail-body {
@@ -147,35 +137,27 @@
 
 /* 이벤트 */
 .event-slogan {
-    @apply flex items-center justify-center px-4 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight
-           shadow-[rgba(200,200,200,0.2)_3px_10px_5px,_rgba(200,200,200,0.2)_5px_20px_10px,_rgba(200,200,200,0.2)_8px_32px_16px,_rgba(200,200,200,0.2)_24px_64px_32px,_rgba(200,200,200,0.15)_48px_100px_32px]
-           sm:w-fit sm:px-9
-           md:px-12 md:w-[730px] md:text-xl;
+    @apply flex items-center justify-center px-4 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight sm:w-fit sm:px-9 md:px-12 md:w-[730px] md:text-xl;
+    box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
     & .bags {
         @apply mt-2.5 -ml-1.5 w-[78px];
     }
     & .desc {
         & br {
-            @apply inline
-                   sm:hidden;
+            @apply inline sm:hidden;
         }
     }
     &.is-coupon {
-        @apply relative font-bold text-sm w-full
-               xs:w-fit
-               md:text-lg;
+        @apply relative font-bold text-sm w-full md:text-lg xs:w-fit;
         & .desc {
-            @apply flex-1 pr-30
-                   lg:pr-35
-                   xs-max:pr-0 xs-max:text-[0.8125rem];
+            @apply flex-1 pr-30 lg:pr-35 xs-max:pr-0 xs-max:text-[0.8125rem];
             & br {
                 @apply sm:inline;
             }
         }
         & .join {
-            @apply flex items-center absolute top-1/2 right-3 pl-4.5 pr-9 w-fit h-9.5 rounded-full border-0.5 border-black2 bg-white bg-no-repeat bg-[right_0.75rem_center] bg-[length:0.875rem] bg-[url(../images/ico-arrow-right.svg)] text-left text-sm -translate-y-1/2
-                   md:pl-6.5 md:pr-11 md:h-11 md:text-base md:bg-[right_0.875rem_center] md:bg-[length:1rem]
-                   xs-max:translate-y-12;
+            @apply flex items-center absolute top-1/2 right-3 pl-4.5 pr-9 w-fit h-9.5 rounded-full border-0.5 border-black2 bg-white bg-no-repeat bg-[right_0.75rem_center] bg-[length:0.875rem] bg-[url(../images/ico-arrow-right.svg)] text-left text-sm -translate-y-1/2;
+            @apply md:pl-6.5 md:pr-11 md:h-11 md:text-base md:bg-[right_0.875rem_center] md:bg-[length:1rem] xs-max:translate-y-12;
         }
     }
 }
@@ -183,35 +165,30 @@
 .event-item {
     @apply block;
     & .thumb {
-        @apply block overflow-hidden rounded-[1rem] aspect-[1/0.652]
-               md:rounded-[1.375rem];
+        @apply block overflow-hidden rounded-[1rem] aspect-[1/0.652] md:rounded-[1.375rem];
         & img {
             @apply w-full h-full object-cover;
         }
     }
     & .content {
-        @apply flex mt-2.5
-               md:mt-4;
+        @apply flex mt-2.5 md:mt-4;
     }
     & .text {
         @apply flex-1 py-1 overflow-hidden leading-snug;
         & small, & strong {
-            @apply block truncate;
+            @apply truncate block;
         }
         & small {
-            @apply -mb-0.5 font-serif text-sm
-                   md:text-[0.9375rem];
+            @apply -mb-0.5 font-serif text-sm md:text-[0.9375rem];
         }
         & strong {
-            @apply text-title2;
+            @apply text-lg md:text-xl;
         }
     }
     & .status {
-        @apply flex-none flex gap-x-1
-               ml-1;
+        @apply flex-none flex gap-x-1 ml-1;
         & span {
-            @apply flex items-center px-3 h-full font-bold rounded-md bg-black2 text-white 
-                   md:px-4;
+            @apply flex items-center px-3 h-full font-bold rounded-md bg-black2 text-white md:px-4;
             &.inactive {
                 @apply bg-gray2 text-black2;
             }
@@ -222,16 +199,13 @@
 .story-item {
     @apply block;
     & .thumb {
-        @apply block h-70 overflow-hidden rounded-[1rem]
-               md:h-auto md:rounded-[1.375rem];
+        @apply block h-70 overflow-hidden rounded-[1rem] md:h-auto md:rounded-[1.375rem];
         & img {
-            @apply max-w-none h-full
-                   md:w-full md:max-w-full;
+            @apply max-w-none h-full md:w-full md:max-w-full;
         }
     }
     & .content {
-        @apply flex mt-2
-               md:mt-4;
+        @apply flex mt-2 md:mt-4;
     }
     & .text {
         @apply flex-1 py-1 overflow-hidden leading-snug;
@@ -239,12 +213,10 @@
             @apply truncate block;
         }
         & small {
-            @apply -mb-0.5 font-serif text-sm
-                   md:text-[0.9375rem];
+            @apply -mb-0.5 font-serif text-sm md:text-[0.9375rem];
         }
         & strong {
-            @apply text-xl
-                   md:text-2xl;
+            @apply text-[1.375rem] md:text-2xl;
         }
     }
 }
@@ -252,40 +224,35 @@
 .event-title {
     @apply mt-2 leading-snug text-center md:mt-8;
     & small {
-        @apply block uppercase font-serif text-[0.8125rem] font-light tracking-[0.166em]
-               after:block after:mt-3 after:mx-auto after:w-8 after:h-0.5 after:bg-black2;
+        @apply block uppercase font-serif text-[0.8125rem] font-light tracking-[0.166em];
+        &::after {
+            @apply content-empty block mt-3 mx-auto w-8 h-0.5 bg-black2;
+        }
     }
     & strong {
-        @apply text-title2 block mt-3
-               md:mt-5;
+        @apply block mt-3 text-lg md:mt-5 md:text-xl;
     }
 }
 
 .event-apply {
-    @apply mt-10 text-center leading-snug
-           md:mt-15;
+    @apply mt-10 text-center leading-snug md:mt-15;
     & .apply-name {
-        @apply leading-tight font-bold text-5xl
-               md:text-[2.625rem];
+        @apply leading-tight font-bold text-5xl md:text-[2.625rem];
         & small {
-            @apply block mt-px font-normal text-xl
-                   md:text-2xl;
+            @apply block font-normal mt-px text-xl md:text-2xl;
         }
     }
     & .apply-desc {
-        @apply block mt-6 text-base text-gray1
-               md:mt-12 md:text-lg;
+        @apply block mt-6 text-base text-gray1 md:mt-12 md:text-lg;
         & img {
             @apply inline-block;
         }
     }
     & .apply-submit {
-        @apply btn btn-large btn-primary flex mt-6.5 mx-auto px-0 min-w-45 w-fit
-               md:mt-12 md:min-w-53;
+        @apply btn btn-large btn-primary flex mt-6.5 mx-auto px-0 min-w-45 w-fit md:min-w-53 md:mt-12;
     }
     & .apply-items {
-        @apply mt-7 space-y-5 select-none
-               md:mt-8 md:space-y-6;
+        @apply mt-7 space-y-5 select-none md:mt-8 md:space-y-6;
         & .form-check {
             @apply flex items-center overflow-hidden leading-snug font-bold text-[1.375rem];
             & .form-check-input {
@@ -301,14 +268,15 @@
                     & + .form-check-label {
                         @apply border-black2 bg-white;
                         & .thumb {
-                            @apply after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:border-[0.1875rem] after:rounded-md after:border-black2;
+                            &::after {
+                                @apply content-empty absolute top-0 left-0 right-0 bottom-0 border-[0.1875rem] rounded-md border-black2;
+                            }
                         }
                     }
                 }
             }
             & .form-check-label {
-                @apply ml-5 w-full rounded-md px-3.5 py-2.5 border-0.5 border-gray2 bg-gray2 text-left text-xl
-                       md:ml-7.5 md:px-4 md:py-3 md:text-2xl;
+                @apply ml-5 w-full rounded-md px-3.5 py-2.5 border-0.5 border-gray2 bg-gray2 text-left text-[1.375rem] md:ml-7.5 md:px-4 md:py-3 md:text-2xl xs-max:text-xl;
                 & .thumb {
                     @apply relative rounded-md overflow-hidden;
                 }
@@ -317,14 +285,11 @@
     }
     &.is-images {
         & .apply-items {
-            @apply flex flex-wrap gap-x-5 gap-y-10 space-y-0
-                   sm:justify-center sm:gap-x-3 sm:gap-y-20;
+            @apply flex flex-wrap gap-x-5 gap-y-10 space-y-0 sm:justify-center sm:gap-x-3 sm:gap-y-20;
             & .form-check {
-                @apply flex-col w-[calc(50%_-_0.625rem)]
-                       sm:w-[calc(33.333333333333333333%_-_0.5rem)];
+                @apply flex-col w-[calc(50%_-_0.625rem)] sm:w-[calc(33.333333333333333333%_-_0.5rem)];
                 & .form-check-input {
-                    @apply order-2 mt-3.5
-                           sm:mt-5;
+                    @apply order-2 mt-3.5 sm:mt-5;
                 }
                 & .form-check-label {
                     @apply relative order-1 rounded-md ml-0 p-0 border-0;
@@ -335,8 +300,7 @@
                         }
                     }
                     & .label {
-                        @apply absolute right-3.5 bottom-3.5 left-3.5
-                               md:right-4 md:bottom-4 md:left-4;
+                        @apply absolute bottom-3.5 left-3.5 right-3.5 md:bottom-4 md:left-4 md:right-4;
                         & span {
                             @apply block mx-auto px-1.5 py-px w-fit max-w-full max-h-[2.75em] overflow-hidden bg-black2 text-white text-ellipsis;
                             display: -webkit-box;
@@ -353,60 +317,47 @@
 
 /* 혜택 */
 .benefit-infomation {
-    @apply relative items-stretch overflow-hidden pt-4 pb-7.5 border border-black2 rounded-[1rem] bg-no-repeat bg-black2
-           md:pt-5 md:pb-8.5;
+    @apply relative items-stretch overflow-hidden pt-4 pb-7.5 border border-black2 rounded-[1rem] bg-no-repeat bg-black2 md:pt-5 md:pb-8.5;
     & .benefit-title {
-        @apply px-4
-               md:px-5;
+        @apply px-4 md:px-5;
         & img {
             @apply h-2.5;
         }
     }
     & .benefit-container {
-        @apply mt-4 rounded-[1rem] bg-white break-all
-               md:mt-5;
+        @apply mt-4 rounded-[1rem] bg-white break-all md:mt-5;
     }
     & .benefit-grade {
-        @apply pt-6 pb-23 px-4 rounded-t-[1rem] bg-no-repeat bg-[position:right_0.75rem_bottom,left_top] bg-[length:9.6375rem,auto] leading-snug
-               bg-[url(../images/img-benefit.svg),_linear-gradient(99deg,_rgba(44,57,180,0.1)_0%,_rgba(220,35,170,0.1)_46%,_rgba(255,0,0,0.1)_81%,_rgba(255,166,0,0.1)_100%)]
-               sm:pb-5.5 sm:bg-[position:right_0.75rem_center,left_top]
-               md:py-9.5 md:pr-23 md:pl-14 md:bg-[position:right_2.25rem_center,left_top] md:bg-[length:auto,auto];
+        @apply pt-6 pb-23 px-4 rounded-t-[1rem] bg-no-repeat bg-[position:right_0.75rem_bottom,left_top] bg-[length:9.6375rem,auto] leading-snug sm:pb-5.5 sm:bg-[position:right_0.75rem_center,left_top] md:py-9.5 md:pr-23 md:pl-14 md:bg-[position:right_2.25rem_center,left_top] md:bg-[length:auto,auto];
+        background-image: url(../images/img-benefit.svg), linear-gradient(99deg, rgba(44, 57, 180, 0.1) 0%, rgba(220, 35, 170, 0.1) 46%, rgba(255, 0, 0, 0.1) 81%, rgba(255, 166, 0, 0.1) 100%);
         & img {
-            @apply w-[28.75rem]
-                   md:w-[33.125rem];
+            @apply w-[28.75rem] md:w-[33.125rem];
         }
     }
     & .benefit-grade-item {
-        @apply flex items-center border-b-0.5 border-b-gray2 py-8 leading-tight text-center
-               md:py-12;
+        @apply flex items-center border-b-0.5 border-b-gray2 py-8 leading-tight text-center md:py-12;
         & dl {
-            @apply flex-1 items-center text-center
-                   md:flex;
+            @apply flex-1 items-center text-center md:flex;
             & dt, & dd {
-                @apply flex-1 px-4 leading-snug
-                       md:px-5;
+                @apply flex-1 px-4 leading-snug md:px-5;
             }
             & dt {
-                @apply text-xl font-bold
-                       md:text-2xl;
+                @apply text-xl font-bold md:text-2xl;
             }
             & dd {
-                @apply mt-1
-                       md:mt-0;
+                @apply mt-1 md:mt-0;
             }
         }
         & p {
-            @apply px-4 w-[30%] break-keep font-bold
-                   md:px-5;
+            @apply px-4 w-[30%] font-bold md:px-5;
+            word-break: keep-all;
             & strong {
-                @apply font-serif text-xl font-black
-                       md:text-2xl;
+                @apply font-serif text-xl font-black md:text-2xl;
             }
         }
         &.is-new {
             & dl {
-                @apply flex-none w-[70%]
-                       md:flex-1 md:w-auto;
+                @apply flex-none w-[70%] md:flex-1 md:w-auto;
                 & dt {
                     @apply md:w-[35%] md:flex-none;
                 }
@@ -418,96 +369,67 @@
 
 /* 쿠폰존 */
 .couponzone-items {
-    @apply grid grid-cols-2 gap-y-5 mt-15 -mx-2.5
-           sm:grid-cols-3 sm:gap-y-8 sm:mx-0
-           md:gap-x-1.5 md:gap-y-16 md:mt-30;
+    @apply grid grid-cols-2 mt-15 -mx-2.5 gap-y-5 sm:gap-y-8 sm:mx-0 sm:grid-cols-3 md:gap-x-1.5 md:gap-y-16 md:mt-30;
 }
 
 .couponzone-item {
-    @apply p-6 px-2.5 rounded-[1rem] transition-all duration-300 text-center
-           hover:bg-neutral-100
-           sm:px-6
-           md:p-7 md:px-7;
+    @apply p-6 px-2.5 rounded-[1rem] transition-all duration-300 text-center sm:px-6 md:p-7 md:px-7;
     & .coupon-item {
         @apply mx-auto;
     }
     & .coupon-item-name {
-        @apply mt-6
-               md:mt-7;
+        @apply mt-6 md:mt-7;
     }
     & .coupon-item-desc {
-        @apply mt-5
-               md:mt-6;
+        @apply mt-5 md:mt-6;
     }
     & .btn {
-        @apply mt-7 max-w-45 w-full h-[2.625rem] border-gray1 bg-white font-bold text-base
-               after:ml-2 after:w-4 after:h-4 after:bg-no-repeat after:bg-center after:bg-[length:100%] after:transition-all after:duration-300
-               hover:bg-black2 hover:border-black2 hover:text-white
-               focus:bg-black2 focus:border-black2 focus:text-white
-               disabled:!border-gray2 disabled:!bg-gray2 disabled:!text-gray1 disabled:!pointer-events-none
-               disabled:after:!hidden
-               md:mt-10 md:h-[3.375rem] md:text-lg
-               md:after:w-5 md:after:h-5
-               lg:max-w-60
-               xs-max:max-w-35;
+        @apply mt-7 max-w-45 w-full h-[2.625rem] border-gray1 bg-white font-bold text-base lg:max-w-60 md:mt-10 md:text-lg md:h-[3.375rem] xs-max:max-w-35;
         &::after {
+            @apply content-empty ml-2 w-4 h-4 bg-no-repeat bg-center bg-[length:100%] transition-all duration-300 md:w-5 md:h-5;
             background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='16' viewBox='0 0 20 16'%3E%3Cpath id='Rectangle_2' data-name='Rectangle 2' d='M0,16V12H2v2H18V12h2v4ZM5.06,7.426,8,7.4V0h4V7.426h3L10,12Z' fill='%231c1c1c'/%3E%3C/svg%3E");
         }
         &:hover, &:focus {
+            @apply bg-black2 border-black2 text-white;
             &::after {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='16' viewBox='0 0 20 16'%3E%3Cpath id='Rectangle_2_Copy_3' data-name='Rectangle 2 Copy 3' d='M0,16V12H2v2H18V12h2v4ZM5.06,7.426,8,7.4V0h4V7.426h3L10,12Z' fill='%23fff'/%3E%3C/svg%3E%0A");
             }
         }
+        &:disabled {
+            @apply border-gray2 bg-gray2 text-gray1 pointer-events-none !important;
+            &:after {
+                @apply hidden !important;
+            }
+        }
+    }
+    &:hover {
+        @apply bg-neutral-100;
     }
 }
 
 
 /* 통합검색 */
-.search-header {
-    & .page-header-title {
-        @apply mt-3
-               md:mt-4.5
-               lg:mt-6;
-        & .subject {
-            @apply pb-1 pl-11 text-left text-xl font-medium
-                   md:pl-14 md:text-2xl
-                   lg:p-0;
-            & strong {
-                @apply text-[#1D45D5];
+.total-search {
+    @apply mt-8 px-5 md:mt-10;
+    & .search-field {
+        @apply flex mx-auto w-[35.25rem] max-w-full;
+        & legend {
+            @apply sr-only;
+        }
+        & .input {
+            @apply flex-1 relative z-10 pl-12 min-w-0 h-12 rounded-md border border-black2 bg-no-repeat bg-[url(../images/ico-navigation-search.svg)] bg-[left_1rem_center] bg-[length:1rem] outline-none ring-0 md:pl-16 md:h-15 md:bg-[left_1.25rem_center] md:bg-[length:1.5rem];
+            &::-webkit-search-cancel-button {
+                @apply appearance-none mr-3 ml-1 w-5 h-5 bg-no-repeat opacity-30 bg-center bg-[url(../images/ico-close.svg)] bg-[length:0.875rem] md:mr-4 md:ml-2;
             }
         }
-    }
-}
-
-.search-container {
-    @apply mx-auto px-4 max-w-screen-xl
-           lg:px-7
-           xl:px-10;
-}
-
-.search-option {
-    @apply mt-3 mb-6 border-t border-t-gray1
-           md:mt-4 md:mb-9.5
-           lg:mb-13;
-    & .form-group {
-        @apply flex items-start border-b border-b-gray3 font-bold text-[0.8125rem]
-               md:text-sm;
-        & dt {
-            @apply py-3 px-1.5 w-21 border border-transparent
-                   md:pt-3.5 md:px-2.5 md:w-41;
-        }
-        & dd {
-            @apply flex-1 flex flex-wrap items-start gap-1.5 p-2;
+        & .submit {
+            @apply flex-none relative z-10 ml-1.5 w-22 h-12 rounded-md bg-black2 text-base text-white md:w-26 md:h-15 md:text-lg lg:w-30;
         }
     }
-    & .form-check {
-        & .form-check-input {
-            @apply absolute w-0 h-0 overflow-hidden opacity-0;
-            &:checked {
-                & + .form-check-label {
-                    @apply border-black2 font-bold text-black2;
-                }
-            }
+    & .search-desc {
+        @apply mt-3 text-base text-center text-gray1 md:mt-4 md:text-lg;
+        & strong {
+            @apply font-medium text-black1;
         }
         & .form-check-label {
             @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal
