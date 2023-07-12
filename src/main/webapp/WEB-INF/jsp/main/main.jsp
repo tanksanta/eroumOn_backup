@@ -3,39 +3,36 @@
 <div class="main-visual">
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide slide-item1" data-slide-number="1">
-                <div class="content">
-                    <p class="title">
-                        <span class="ani-text">최대 2,500만원 복지혜택,</span>
-                        <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
-                    </p>
-                    <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
-                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
-                </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    <span>최대 2,500만원 복지혜택,</span><br>
+                    <strong><span class="t-obj"></span>65세 이상이라면 바로 신청하세요</strong>
+                </p>
+                <p class="desc"><span>등급별 지원 혜택이 달라요!</span></p>
+                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <div class="timeline"></div>
             </div>
-            <div class="swiper-slide slide-item2" data-slide-number="2">
-                <div class="content">
-                    <p class="title">
-                        <span class="ani-text">65세 미만이라도,</span>
-                        <strong class="ani-text">등급 인정 확률이 높아요<span class="ani-obj"></span></strong>
-                    </p>
-                    <p class="desc">
-                        <span class="ani-text"><span class="ani-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
-                        <span class="ani-text"><span class="ani-obj"></span>노인성 질환을 앓고 있는 어르신</span>
-                        <span class="ani-text"><span class="ani-obj"></span>치매 증상으로 불편한 어르신</span>
-                    </p>
-                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    <span>65세 미만이라도,</span><br>
+                    <strong>등급 인정 확률이 높아요<span class="t-obj"></span></strong>
+                </p>
+                <p class="desc">
+                    <span><span class="t-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
+                    <span><span class="t-obj"></span>노인성 질환을 앓고 있는 어르신</span>
+                    <span><span class="t-obj"></span>치매 증상으로 불편한 어르신</span>
+                </p>
+                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <div class="timeline"></div>
             </div>
-            <div class="swiper-slide slide-item3" data-slide-number="3">
-                <div class="content">
-                    <p class="title">
-                        <span class="ani-text">어르신을 위한 복지,<span class="ani-obj"></span></span>
-                        <strong class="ani-text">놓치지 말고 누리세요</strong>
-                    </p>
-                    <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                </div>
+            <div class="swiper-slide">
+                <p class="title">
+                    <span>어르신을 위한 복지,<span class="t-obj"></span></span><br>
+                    <strong>놓치지 말고 누리세요</strong>
+                </p>
+                <p class="desc"><span>등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
+                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <div class="timeline"></div>
             </div>
         </div>
         <div class="swiper-button-prev"></div>
@@ -116,6 +113,13 @@
         <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
     </div>
 </div>
+
+<ul class="main-link">
+    <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
+    <li class="link-item2"><a href="/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
+    <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
+    <!-- li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li -->
+</ul>
 
 <div class="main-content-wrapper">
     <div class="main-content1">

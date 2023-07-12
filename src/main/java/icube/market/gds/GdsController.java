@@ -37,6 +37,8 @@ import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
+import icube.manage.sysmng.code.biz.CodeService;
+import icube.manage.sysmng.code.biz.CodeVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.market.mbr.biz.MbrSession;
@@ -81,6 +83,9 @@ public class GdsController extends CommonAbstractController {
 	@Resource(name = "gdsCtgryService")
 	private GdsCtgryService gdsCtgryService;
 
+	@Resource(name = "codeService")
+	private CodeService codeService;
+	
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
@@ -206,6 +211,14 @@ public class GdsController extends CommonAbstractController {
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("upCtgryNo", upCtgryNo);
+		
+		//급여모드 비활성화(급여가 노출X)
+		CodeVO codeVO = codeService.selectCode("00", "MODE001");
+		if (codeVO == null) {
+			model.addAttribute("insuranceMode", false);
+		} else {
+			model.addAttribute("insuranceMode", "Y".equalsIgnoreCase(codeVO.getCdNm()));
+		}
 
 		return "/market/gds/include/srch_list";
 	}
@@ -345,6 +358,13 @@ public class GdsController extends CommonAbstractController {
 				GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
 				model.addAttribute("curCtgryVO", currentCategory);
 
+				//급여모드 비활성화(급여가 노출X)
+				CodeVO codeVO = codeService.selectCode("00", "MODE001");
+				if (codeVO == null) {
+					model.addAttribute("insuranceMode", false);
+				} else {
+					model.addAttribute("insuranceMode", "Y".equalsIgnoreCase(codeVO.getCdNm()));
+				}
 			} else {
 				model.addAttribute("alertMsg", getMsg("goods.sale.stop"));
 				return "/common/msg";
