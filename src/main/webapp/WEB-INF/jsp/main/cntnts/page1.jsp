@@ -80,7 +80,7 @@
                             등급 인정 신청
                         </h4>
                         <ul>
-                            <li><a href="/find/step2-1" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
+                            <li><a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
                             <li>인정 등급 신청까지 한 번에 하실 수 있어요!</li>
                         </ul>
                         <p>
@@ -342,7 +342,7 @@
             <img src="/html/page/index/assets/images/img-page1-content5.png">
             <strong class="text-primary3">이로움 테스트</strong>로<br>
             <strong>예상등급을 확인</strong>할 수 있어요!
-            <a href="/find/step2-1" class="btn" target="_blank">테스트 시작하기</a>
+            <a href="https://www.eroum.co.kr/find/step2-1" class="btn" target="_blank">테스트 시작하기</a>
         </div>
     </div>
 </div>

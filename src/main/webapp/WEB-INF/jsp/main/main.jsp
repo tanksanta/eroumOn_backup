@@ -9,7 +9,7 @@
                     <strong><span class="t-obj"></span>65세 이상이라면 바로 신청하세요</strong>
                 </p>
                 <p class="desc"><span>등급별 지원 혜택이 달라요!</span></p>
-                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
             <div class="swiper-slide">
@@ -22,7 +22,7 @@
                     <span><span class="t-obj"></span>노인성 질환을 앓고 있는 어르신</span>
                     <span><span class="t-obj"></span>치매 증상으로 불편한 어르신</span>
                 </p>
-                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
             <div class="swiper-slide">
@@ -31,7 +31,7 @@
                     <strong>놓치지 말고 누리세요</strong>
                 </p>
                 <p class="desc"><span>등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                <a href="/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 <div class="timeline"></div>
             </div>
         </div>
@@ -116,7 +116,7 @@
 
 <ul class="main-link">
     <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
-    <li class="link-item2"><a href="/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
+    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
     <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
     <!-- li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li -->
 </ul>
