@@ -11,7 +11,7 @@
             <div id="page-content">
                 <dl class="product-category">
                     <!-- <dt>상품분류</dt> -->
-                   	<div id="ctgry_list"></div>
+                   	<dd id="ctgry_list" class="ctgry_view"></dd>
                 </dl>
 
 				<%-- 상품 목록 wrap --%>

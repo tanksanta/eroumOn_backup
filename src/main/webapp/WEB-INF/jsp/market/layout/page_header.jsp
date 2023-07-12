@@ -35,7 +35,7 @@
 
 			</ul>
 			<div class="page-header-title">
-				<a href="#" class="back">이전 페이지 가기</a>
+				<a href="${_marketPath}" class="back">이전 페이지 가기</a>
 				<h2 class="subject">
 					<c:forEach var="path" items="${breadcrumb}" varStatus="status">
 						<c:if test="${status.last}">
@@ -76,11 +76,10 @@
     			<%-- 링크 가공// --%>
 					<li><a href="${linkUrl}">${breadcrumb[status.index]}</a></li>
             	</c:forEach>
-
-
 			</ul>
+
 			<div class="page-header-title">
-				<a href="#" class="back">이전 페이지 가기</a>
+				<a href="${linkUrl}" class="back">이전 페이지 가기</a>
 				<h2 class="subject">
 					<c:forEach var="path" items="${breadcrumb}" varStatus="status">
 						<c:if test="${status.last}">
@@ -89,7 +88,6 @@
 					</c:forEach>
 				</h2>
 			</div>
-			<button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
 		</div>
 	</c:when>
 

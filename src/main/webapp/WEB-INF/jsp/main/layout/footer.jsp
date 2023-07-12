@@ -7,7 +7,6 @@
 </div>
 <!-- //quick -->
 
-
 <!-- footer -->
 <footer id="footer" class="global-footer">
 	<div class="footer-link">

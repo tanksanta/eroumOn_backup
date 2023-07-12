@@ -5,7 +5,7 @@
 		<c:choose>
 
  			<%-- 상품목록 --%>
-			<c:when test="${fn:indexOf(_curPath, '/gds/') > -1}">
+			<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1}">
 			<nav id="page-sidenav">
 				<div class="page-sidenav-container">
 				<form id="srchGdsFrm" name="srchGdsFrm" method="get" >

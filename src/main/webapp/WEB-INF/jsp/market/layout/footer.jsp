@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!-- quick -->
 <div id="quick" class="global-quick">
 	<button type="button" class="moveTop">위로 이동</button>
@@ -6,6 +7,7 @@
 </div>
 <!-- //quick -->
 
+<!-- footer -->
 <footer id="footer" class="global-footer">
 	<div class="footer-link">
 		<!-- 회사 메뉴 -->
@@ -25,6 +27,7 @@
 				<dt class="sr-only">패밀리 사이트</dt>
 				<dd>
 					<ul class="global-link">
+						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
 						<li><a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
 								<div class="bubble">
 									<small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
@@ -38,21 +41,21 @@
 	                                </div>
 	                            </a>
 	                        </li> -->
-						<li><a href="#" class="link-item3">
+						<!-- li><a href="#" class="link-item3">
 								<div class="bubble">
 									<strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
 									<small> 복지용구 사업소와 수급자 매칭부터<br> 주문, 계약 및 결제까지 한번에!</small>
 								</div>
-						</a></li>
+						</a></li -->
 					</ul>
 				</dd>
 			</dl>
-			</dl>
 			<!-- //패밀리 사이트 -->
 		</div>
-
-		<hr>
-		<div class="footer-center">
+	</div>
+	
+	<hr>
+	<div class="footer-center">
 			<!-- 사이트 정보-->
 			<dl class="footer-company">
 				<dt>
@@ -93,14 +96,15 @@
 			<!-- //고객센터 -->
 		</div>
 
-		<hr>
+	<hr>
 
-		<!-- 카피 -->
-		<div class="footer-copyright">
-			Copyright ⓒ<strong>이로움ON</strong> All rights reserved
-		</div>
-		<!-- //카피 -->
+	<!-- 카피 -->
+	<div class="footer-copyright">
+		Copyright ⓒ<strong>이로움ON</strong> All rights reserved
+	</div>
+	<!-- //카피 -->
 </footer>
+<!-- //footer -->
 
 <script>
 // 사업자 정보 조회
