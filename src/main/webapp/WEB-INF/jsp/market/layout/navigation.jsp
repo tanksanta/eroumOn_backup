@@ -62,7 +62,7 @@
 				</c:forEach>
 			</ul>
 		</div>
-		<!-- <div class="navigation-search">
+		<div class="navigation-search">
 			<button type="button" class="search-toggle">검색 펼치기 접기</button>
 			<form action="" class="search-form">
 				<div class="form-field">
@@ -75,7 +75,13 @@
 						최근 검색어 <a href="#">전체삭제</a>
 					</p>
 					<div class="current-items">
+						<c:forEach items="${_cookieKwdList}" var="kwd" end="6">
 						<div class="current-item">
+							<a href="/market/search/total?srchKwd=${kwd}">${kwd}</a>
+							<button type="button" class="deleteKwd">삭제</button>
+						</div>
+						</c:forEach>
+						<!-- <div class="current-item">
 							<a href="#">실버카</a>
 							<button type="button">삭제</button>
 						</div>
@@ -94,11 +100,7 @@
 						<div class="current-item">
 							<a href="#">실버카</a>
 							<button type="button">삭제</button>
-						</div>
-						<div class="current-item">
-							<a href="#">실버카</a>
-							<button type="button">삭제</button>
-						</div>
+						</div> -->
 					</div>
 					<div class="current-option">
 						<div class="form-check form-switch option-switch">
@@ -108,7 +110,7 @@
 					</div>
 				</div>
 			</form>
-		</div> -->
+		</div>
 		<ul class="navigation-util">
 			<li><a href="${_marketPath}/mypage/index" class="util-item1">마이페이지</a></li>
 			<li><a href="${_marketPath}/mypage/wish/list" class="util-item2">찜한상품</a></li>

@@ -34,6 +34,7 @@ import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.sysmng.menu.biz.MngMenuVO;
 import icube.manage.sysmng.usermenu.biz.MngUserMenuService;
 import icube.market.mbr.biz.MbrSession;
+import icube.market.srch.biz.SrchKwdCookieHandler;
 
 /**
  * 마켓 인터셉터
@@ -238,6 +239,12 @@ public class MarketInterceptor implements HandlerInterceptor {
 			rdcntMap.put("srchMainNo", EgovStringUtil.string2integer(rdcntMain));
 			mainMngService.updateMainRdcnt(rdcntMap);
 		}
+
+		// 검색어 쿠키 호출
+		String srchKwd = request.getParameter("srchKwd");
+		SrchKwdCookieHandler.setKwdList(request, response, srchKwd);
+		List<String> cookieKwdList = SrchKwdCookieHandler.getKwdListByCookie(request, response);
+		request.setAttribute("_cookieKwdList", cookieKwdList);
 
 		//코드
 		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
