@@ -249,6 +249,7 @@ $(function(){
 
 
     $('.welfare-service-menu .btn').on('click', function() {
+    	$(".srch-srvc").click();
         if($('.welfare-service-item').hasClass('is-active')) {
             $('.welfare-service-item').removeClass('is-active');
             $('.welfare-service-map').addClass('is-active');
