@@ -247,8 +247,14 @@ public class OrdrService extends CommonAbstractServiceImpl {
 				ordrDtlVO.setBnefCd("");
 			}
 
-			if(EgovStringUtil.isNotEmpty(ordrOptn)) {
-				ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+			
+			String ordrDtlOptnNm = "";
+			if (EgovStringUtil.isNotEmpty(ordrOptn)) {
+				ordrDtlOptnNm = ordrOptn.split(",")[i].trim();
+			}
+			
+			if (EgovStringUtil.isNotEmpty(ordrDtlOptnNm)) {
+				ordrDtlVO.setOrdrOptn(ordrDtlOptnNm);
 				
 				//옵션이면 옵션 품목코드 입력
 				GdsOptnVO optn = null;
