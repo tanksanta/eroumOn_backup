@@ -113,8 +113,7 @@
         }
         & .is-hover {
             & > a {
-                @apply !font-bold
-                       before:!w-full;
+                @apply before:!w-full;
             }
         }
     }
@@ -134,6 +133,11 @@
         & > a {
             @apply h-8
                    before:bottom-1 before:h-px before:bg-gray1;
+        }
+        &.is-hover {
+            & > a {
+                @apply !font-bold;
+            }
         }
     }
     &.is-hover {

@@ -478,11 +478,17 @@ strong {
                hover:after:ml-8
                hover:before:-left-[16%]
                hover:md:px-3;
+        & strong {
+            @apply duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1.0)];
+        }
         &.btn-large, &.btn-large2 {
             @apply min-w-[10em] duration-[400ms,500ms,500ms,500ms,500ms,500ms]
-                   before:duration-[900ms]
+                   before:duration-1000
                    after:ml-5 after:w-3.5 after:h-3 after:duration-500
                    hover:after:ml-10;
+            & strong {
+                @apply duration-1000;
+            }
         }
         &.btn-large {
             @apply hover:px-4.5
@@ -677,6 +683,14 @@ strong {
     
     .text-success {
         @apply text-blue3;
+    }
+    
+    .btn-kakao {
+        @apply hover:!bg-[#ffe000] hover:!text-black2;
+    }
+    
+    .btn-naver {
+        @apply hover:!bg-[#04C75B] hover:!text-white;
     }
 }
 

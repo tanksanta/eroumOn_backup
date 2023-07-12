@@ -1,6 +1,6 @@
 /* 메인 비쥬얼 */
 .main-visual {
-    @apply relative w-full min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white
+    @apply relative w-full min-h-[560px] h-[calc(100vh-3.25rem)] overflow-hidden leading-tight text-white landscape:min-h-[600px]
            md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
            lg:min-h-[750px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px] lg:bg-center
            xl:!max-h-[1024px];
@@ -194,22 +194,25 @@
                md:before:bg-[url(../images/visual/bg-main-visual-1.jpg)];
         & .title {
             & strong {
-                @apply max-w-[52vw]
-                       md:max-w-[62vw]
+                @apply max-w-[62vw]
                        xl:max-w-none;
             }
             & .ani-obj {
-                @apply inline-block relative w-[50px] h-[50px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_39px]
-                       before:absolute before:-top-1/2 before:left-0 before:w-0 before:h-[80px] before:bg-no-repeat before:bg-[url(../images/visual/ico-main-visual-1-obj2.png)] before:bg-left-center before:bg-[length:auto_78px] before:transition-all before:duration-300 before:ease-out before:delay-1500
-                       md-max:absolute md-max:top-[10px] md-max:-right-[25vw]
-                       xs-max:!top-[5px] xs-max:!-right-[27vw];
+                @apply inline-block relative w-[30px] h-[30px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_23px]
+                       before:absolute before:-top-1/2 before:left-0 before:w-0 before:h-[48px] before:bg-no-repeat before:bg-[url(../images/visual/ico-main-visual-1-obj2.png)] before:bg-left-center before:bg-[length:auto_47px] before:transition-all before:duration-300 before:ease-out before:delay-1500
+                       md:w-[40px] md:h-[40px] md:bg-[length:auto_31px]
+                       md:before:h-[64px] md:before:bg-[length:auto_62px]
+                       lg:w-[50px] lg:h-[50px] lg:bg-[length:auto_39px]
+                       lg:before:h-[80px] lg:before:bg-[length:auto_78px];
             }
         }
         & .content {
             &.is-active {
                 & .title {
                     & .ani-obj {
-                        @apply before:w-[92px];
+                        @apply before:w-[55px]
+                               md:before:w-[74px]
+                               lg:before:w-[92px];
                     }
                 }
             }

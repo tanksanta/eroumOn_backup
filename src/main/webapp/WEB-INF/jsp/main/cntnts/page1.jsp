@@ -59,7 +59,7 @@
                         <h4>
                             <small>첫 번째</small>
                             신청 서류 준비
-                            <span>본인과 대리인 모두 신청가능해요</span>
+                            <span>본인과 대리인 모두 신청가능해요.</span>
                         </h4>
                         <ul>
                             <li>어르신 신분증</li>
@@ -98,7 +98,7 @@
                         <h4>
                             <small>세 번째</small>
                             어르신 건강 상태 심사
-                            <span>담당 심사 직원이 가정에 방문해요</span>
+                            <span>담당 심사 직원이 가정에 방문해요.</span>
                         </h4>
                         <ul>
                             <li>
@@ -140,7 +140,7 @@
                             </span>
                         </h4>
                         <ul>
-                            <li>인정서를 포함한 관련 서류도 보내드려요</li>
+                            <li>인정서를 포함한 관련 서류도 보내드려요.</li>
                         </ul>
                     </div>
                     <img src="/html/page/index/assets/images/img-page1-content2-5.png" alt="" class="img">
@@ -152,11 +152,11 @@
                         <h4>
                             <small>여섯 번째</small>
                             장기요양보험 이용
-                            <span>등급에 따른 지원 혜택을 누리실 수 있어요</span>
+                            <span>등급에 따른 지원 혜택을 누리실 수 있어요.</span>
                         </h4>
                         <ul>
-                            <li>장기요양기관을 선택하신 후, 혜택 이용이 가능해요</li>
-                            <li>기관과 계약을 체결하고, 자세한 상담을 받아보세요</li>
+                            <li>장기요양기관을 선택하신 후, 혜택 이용이 가능해요.</li>
+                            <li>기관과 계약을 체결하고, 자세한 상담을 받아보세요.</li>
                         </ul>
                     </div>
                     <img src="/html/page/index/assets/images/img-page1-content2-6.png" alt="" class="img">
@@ -216,7 +216,7 @@
         <div class="content">
             <img src="/html/page/index/assets/images/img-page1-content3-6.png" class="img">
             <div class="box">
-                <h4>15%~6%의 본인부담금이 있어요.<br> 기초생활수급자는 전액 지원돼요.</h4>
+                <h4>15%~6%의 본인부담금이 있어요<br> 기초생활수급자는 전액 지원돼요</h4>
                 <small class="text-primary3">#본인부담금</small>
             </div>
         </div>
@@ -340,9 +340,8 @@
     <div class="page1-content5">
         <div>
             <img src="/html/page/index/assets/images/img-page1-content5.png">
-            <strong class="text-primary3">이로움 테스트</strong>로<br>
-            <strong>예상등급을 확인</strong>할 수 있어요!
-            <a href="https://www.eroum.co.kr/find/step2-1" class="btn" target="_blank">테스트 시작하기</a>
+            <strong>예상 인정 등급을 확인해 보세요!</strong>
+            <a href="https://www.eroum.co.kr/find/step2-1" class="btn" target="_blank">지금 등급 확인하기​</a>
         </div>
     </div>
 </div>

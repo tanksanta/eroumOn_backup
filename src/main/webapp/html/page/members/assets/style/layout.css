@@ -17,7 +17,7 @@ body {
     @apply fixed z-90 top-0 left-0 right-0 border-b border-b-black2/20 bg-white
            lg:absolute lg:border-b-0 lg:bg-transparent;
     & .container {
-        @apply flex items-center relative mx-auto px-5 max-w-[1920px] h-11
+        @apply flex items-center relative mx-auto px-5 max-w-screen-xl h-11
                md:h-15
                lg:px-7.5 lg:h-[5.625rem];
     }

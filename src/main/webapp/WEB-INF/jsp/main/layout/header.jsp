@@ -44,7 +44,7 @@
 			</c:choose>
 
 			<li>
-				<a href="${_mainPath}/recipter/list" class="cost">남은 금액보기</a>
+				<a href="${_mainPath}/recipter/list" class="cost">남은 혜택보기​</a>
 			</li>
 		</ul>
 	</div>
