@@ -730,7 +730,7 @@ $(function() {
 					for(let i=0; i<ownLendList.length; i++){
 						let finCnt = Number($(".sale_return .fin"+ownLendList[i]).text());
 						let buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-						$(".fin"+ownLendList[i]).text(fintCnt + 1);
+						$(".fin"+ownLendList[i]).text(finCnt + 1);
 
 						if(buyCnt > 0){
 							$(".buy"+ownLendList[i]).text(buyCnt-1);
