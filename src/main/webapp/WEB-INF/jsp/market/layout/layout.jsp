@@ -33,9 +33,6 @@
     <script src="/html/page/market/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/page/market/assets/script/product.js"></script>
 
-    <c:if test="${fn:indexOf(_curPath, '/gds/') > -1}">
-    <script src="/html/page/market/assets/script/product.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-    </c:if>
     <c:if test="${fn:indexOf(_curPath, '/ordr/') > -1}">
     <script src="/html/page/market/assets/script/order.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
