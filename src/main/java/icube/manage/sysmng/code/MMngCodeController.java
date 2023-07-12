@@ -128,8 +128,8 @@ public class MMngCodeController  extends CommonAbstractController {
 			, HttpServletRequest request) throws Exception {
 
 		CodeVO codeVO = new CodeVO();
-		codeVO.setCodeId(codeId);
-		codeVO.setUpperCodeId(upperCodeId);
+		codeVO.setCdId(codeId);
+		codeVO.setUpCdId(upperCodeId);
 		codeVO.setSortNo(sortNo);
 
 		boolean ok = false;
