@@ -48,14 +48,12 @@
 
 			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
 				<div class="swiper-slide">
-					<div class="product-item">
+					<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
-
-								<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
-							</a>
+							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<div class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -69,7 +67,7 @@
 									</dd>
 								</dl>
 							</div>
-						</a>
+						</div>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
@@ -77,7 +75,7 @@
                                 </c:if>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</c:forEach>
 
@@ -119,12 +117,12 @@
 
 			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
 				<div class="swiper-slide">
-					<div class="product-item">
+					<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<div class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -138,7 +136,7 @@
 									</dd>
 								</dl>
 							</div>
-						</a>
+						</div>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
@@ -146,7 +144,7 @@
                                 </c:if>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</c:forEach>
 
@@ -191,12 +189,12 @@
 
 			<c:forEach var="resultList" items="${gdsMainList.gdsList}">
 				<div class="swiper-slide">
-					<div class="product-item">
+					<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="product-item">
 						<div class="item-thumb">
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<div class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -210,15 +208,15 @@
 									</dd>
 								</dl>
 							</div>
-						</a>
+						</div>
 						<div class="item-layer">
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
-                                	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-                                </c:if>
+	                               	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+	                               </c:if>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</c:forEach>
 
@@ -231,57 +229,57 @@
 </c:forEach>
 
 <script>
-            window.addEventListener('DOMContentLoaded', (e) => {
-                var visual = new Swiper('.main-visual .swiper', {
-                    loop: true,
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                    speed: 1000,
-                    autoplay: {
-                        delay: 6000,
-                        disableOnInteraction: false,
-                    },
-                    pagination: {
-                        el: '.main-visual .swiper-pagination',
-                        type: 'fraction',
-                    },
-                    navigation: {
-                        nextEl: '.main-visual .swiper-button-next',
-                        prevEl: '.main-visual .swiper-button-prev',
-                    },
-                });
+window.addEventListener('DOMContentLoaded', (e) => {
+    var visual = new Swiper('.main-visual .swiper', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 1000,
+        autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.main-visual .swiper-pagination',
+            type: 'fraction',
+        },
+        navigation: {
+            nextEl: '.main-visual .swiper-button-next',
+            prevEl: '.main-visual .swiper-button-prev',
+        },
+    });
 
-                $(".swiper-button-toggle").click(function() {
-                    if($(this).hasClass('is-pause')) {
-                        $(this).removeClass('is-pause');
-                        visual.autoplay.start();
-                    } else {
-                        $(this).addClass('is-pause');
-                        visual.autoplay.stop();
-                    }
-                });
+    $(".swiper-button-toggle").click(function() {
+        if($(this).hasClass('is-pause')) {
+            $(this).removeClass('is-pause');
+            visual.autoplay.start();
+        } else {
+            $(this).addClass('is-pause');
+            visual.autoplay.stop();
+        }
+    });
 
-                [].slice.call(document.querySelectorAll('.main-product')).forEach((el) => {
-                    new Swiper(el.querySelector('.swiper'), {
-                        loop: true,
-                        slidesPerView: 'auto',
-                        spaceBetween: 10,
-                        navigation: {
-                            nextEl: el.querySelector('.swiper-button-next'),
-                            prevEl: el.querySelector('.swiper-button-prev')
-                        },
-                        breakpoints: {
-                            768: {
-                                slidesPerView: 'auto',
-                                spaceBetween: 15,
-                            },
-                            1280: {
-                                slidesPerView: 4,
-                                spaceBetween: 20,
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
+    [].slice.call(document.querySelectorAll('.main-product')).forEach((el) => {
+        new Swiper(el.querySelector('.swiper'), {
+            loop: true,
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev')
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 15,
+                },
+                1280: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                }
+            }
+        });
+    });
+});
+</script>
 </main>

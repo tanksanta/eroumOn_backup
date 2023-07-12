@@ -119,7 +119,7 @@
                    focus:bg-[url(../images/ico-cart-white.svg)];
         }
         & .btn-love {
-            @apply !border-red3 bg-[url(../images/ico-attent-plus.svg)]
+            @apply bg-[url(../images/ico-attent-plus.svg)]
                    hover:bg-[url(../images/ico-attent-plus-white.svg)]
                    focus:bg-[url(../images/ico-attent-plus-white.svg)];
         }
