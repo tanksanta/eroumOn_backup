@@ -28,7 +28,7 @@ public class PlanngDspyGrpGdsVO {
 	private String upCtgryNm;
 	private int pc;
 	private String soldoutYn;
-
+	private int ctgryNo;
 
 
 	private List<PlanngDspyGrpGdsVO> regCount;

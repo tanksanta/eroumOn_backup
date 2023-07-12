@@ -33,7 +33,7 @@
 							<img src="/comm/getImage?srvcId=GDS&amp;upNo=${fileList.upNo}&amp;fileTy=THUMB&amp;fileNo=${fileList.fileNo}" alt="">
 						</c:forEach>
 					</div>
-					<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsCd}" target="_blank">
+					<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsCd}" target="_blank">
 						<div class="item-product">
 							<p class="code">${resultList.gdsCd}</p>
 							<p class="name">${resultList.gdsNm}</p>

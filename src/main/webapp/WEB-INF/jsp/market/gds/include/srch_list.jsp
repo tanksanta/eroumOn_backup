@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%--
 검색
  --%>
-
                 <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10">
                 	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
 
-                    <a href="${_marketPath}/gds/${resultList.upCtgryNo}/${resultList.ctgryNo}/${resultList.gdsCd}"  class="product-item" data-up-ctgry="${resultList.upCtgryNo}" data-ctgry-no="${resultList.ctgryNo}" data-gds-cd="${resultList.gdsCd}">
+                    <a href="${_marketPath}/gds/${resultList.ctgryNo}/${resultList.gdsCd}"  class="product-item" data-up-ctgry="${resultList.upCtgryNo}" data-ctgry-no="${resultList.ctgryNo}" data-gds-cd="${resultList.gdsCd}">
                         <div class="item-thumb">
                             <c:choose>
 								<c:when test="${!empty resultList.thumbnailFile }">

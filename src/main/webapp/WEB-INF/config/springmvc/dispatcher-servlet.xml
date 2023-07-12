@@ -99,7 +99,6 @@
 
         <!-- 그외 > 플래너, 멤버십 -->
         <mvc:interceptor>
-        	<mvc:mapping path="/#{props['Globals.Planner.path']}/**"/>
         	<mvc:mapping path="/#{props['Globals.Membership.path']}/**"/>
         	<mvc:mapping path="/#{props['Globals.Main.path']}/**"/>
         	<bean class="icube.common.interceptor.MbrAuthInterceptor" />

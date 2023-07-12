@@ -88,7 +88,7 @@
 							<div class="order-item-thumb">
 								<c:choose>
 									<c:when test="${!empty ordrDtl.gdsInfo.thumbnailFile }">
-										<a href="${_marketPath}/gds/2/${ordrDtl.gdsInfo.gdsNo}/${ordrDtl.gdsInfo.gdsCd}" target="_blank"><img src="/comm/getImage?srvcId=GDS&amp;upNo=${ordrDtl.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${ordrDtl.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${ordrDtl.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt=""></a>
+										<a href="${_marketPath}/gds/${ordrDtl.gdsInfo.ctgryNo}/${ordrDtl.gdsInfo.gdsCd}" target="_blank"><img src="/comm/getImage?srvcId=GDS&amp;upNo=${ordrDtl.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${ordrDtl.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${ordrDtl.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt=""></a>
 									</c:when>
 									<c:otherwise>
 										<img src="/html/page/market/assets/images/noimg.jpg" alt="">

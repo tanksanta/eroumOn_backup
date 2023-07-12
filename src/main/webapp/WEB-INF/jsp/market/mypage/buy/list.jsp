@@ -72,7 +72,7 @@
 				            <div class="order-item-thumb">
 							<c:choose>
 								<c:when test="${!empty resultList.gdsInfo.thumbnailFile}">
-								<a href="${_marketPath}/gds/2/${resultList.gdsInfo.gdsNo}/${resultList.gdsInfo.gdsCd}"><img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${resultList.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${resultList.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt=""></a>
+								<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}"><img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${resultList.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${resultList.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt=""></a>
 								</c:when>
 								<c:otherwise>
 								<img src="/html/page/market/assets/images/noimg.jpg" alt="">
@@ -83,7 +83,7 @@
 				                <div class="order-item-group">
 				                    <div class="order-item-base">
 				                        <p class="code">
-											<a href="${_marketPath}/gds/2/${resultList.gdsInfo.gdsNo}/${resultList.gdsInfo.gdsCd}"><u>${resultList.gdsInfo.gdsCd}</u></a>
+											<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}"><u>${resultList.gdsInfo.gdsCd}</u></a>
 				                        </p>
 				                        <div class="product">
 											<p class="name">${resultList.gdsInfo.gdsNm}</p>

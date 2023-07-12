@@ -5,7 +5,7 @@
 
 <c:choose>
 	<%-- 상품 목록 --%>
-	<c:when test="${(fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1) || (fn:indexOf(_curPath, '/gds/') > -1 && !empty gdsVO)}">
+	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1 }">
 		<div id="page-header">
             <ul class="page-header-breadcrumb">
             	<c:set var="linkUrl" value="" />
@@ -48,14 +48,49 @@
 		</div>
 	</c:when>
 
-	<%-- 마이페이지 --%>
-	<c:when test="${fn:indexOf(_curPath, '/mypage/') > -1}">
-		<c:if test="${fn:indexOf(_curPath, '/cart/') < 0 && fn:indexOf(_curPath, '/wish/') < 0}">
+	<%-- 상품 상세 --%>
+	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && !empty gdsVO}">
 		<div id="page-header">
-			<a href="${_marketPath}/mypage/index"><h2 class="page-header-name">마이페이지</h2></a>
+            <ul class="page-header-breadcrumb">
+            	<c:set var="linkUrl" value="" />
+            	<c:set var="breadcrumb" value="${gdsVO.gdsCtgryPath.split(' > ')}" />
+            	<c:set var="ctgryNoPath" value="${noPath.split(' > ')}" />
+            	<li><a href="${_marketPath}">홈</a></li>
+            	<c:forEach items="${breadcrumb}" varStatus="status" begin="1">
+            	<%-- 링크 가공 --%>
+   				<c:choose>
+   					<c:when test="${status.index eq 1 }">
+   						<c:set var="linkUrl" value="${_marketPath}/gds/${ctgryNoPath[1]}/list"/>
+   					</c:when>
+   					<c:when test="${status.index eq 2 }">
+   						<c:set var="linkUrl" value="${_marketPath}/gds/${ctgryNoPath[1]}/${ctgryNoPath[2]}/list"/>
+   					</c:when>
+   					<c:when test="${status.index eq 3 }">
+   						<c:set var="linkUrl" value="${_marketPath}/gds/${ctgryNoPath[1]}/${ctgryNoPath[2]}/${ctgryNoPath[3]}/list"/>
+   					</c:when>
+   					<c:otherwise>
+   						<c:set var="linkUrl" value="${_marketPath}/gds/${ctgryNoPath[1]}/${ctgryNoPath[2]}/${ctgryNoPath[3]}/${ctgryNoPath[4]}/list" />
+   					</c:otherwise>
+   				</c:choose>
+
+    			<%-- 링크 가공// --%>
+					<li><a href="${linkUrl}">${breadcrumb[status.index]}</a></li>
+            	</c:forEach>
+
+
+			</ul>
+			<div class="page-header-title">
+				<a href="#" class="back">이전 페이지 가기</a>
+				<h2 class="subject">
+					<c:forEach var="path" items="${breadcrumb}" varStatus="status">
+						<c:if test="${status.last}">
+							${breadcrumb[status.index]}
+						</c:if>
+					</c:forEach>
+				</h2>
+			</div>
 			<button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
 		</div>
-		</c:if>
 	</c:when>
 
 	<%-- 고객센터 --%>

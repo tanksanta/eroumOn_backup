@@ -39,12 +39,12 @@
 
 						<c:forEach var="gdsList" items="${item.grpGdsList}" varStatus="stts">
 							<div class="product-item">
-								<a href="${_marketPath}/gds/2/${gdsList.gdsNo}/${gdsList.gdsCd}">
+								<a href="${_marketPath}/gds/${gdsList.ctgryNo}/${gdsList.gdsCd}">
 									<div class="item-thumb">
 										<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsList.thumbnailFile.upNo}&amp;fileTy=${gdsList.thumbnailFile.fileTy}&amp;fileNo=${gdsList.thumbnailFile.fileNo}&amp;thumbYn=Y" />
 									</div>
 								</a>
-								<a href="${_marketPath}/gds/2/${gdsList.gdsNo}/${gdsList.gdsCd}" class="item-content">
+								<a href="${_marketPath}/gds/${gdsList.ctgryNo}/${gdsList.gdsCd}" class="item-content">
 									<div class="label">
 										<span class="label-primary"> <span>급여가</span> <i></i>
 										</span> <span class="label-outline-primary"> <span>직배송</span> <i></i>

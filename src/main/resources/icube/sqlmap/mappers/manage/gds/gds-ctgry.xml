@@ -109,6 +109,13 @@
 		WHERE g.gds_no = #{gdsNo}
 	</select>
 
+	<select id="selectGdsCtgryNoPath" parameterType="java.util.HashMap" resultType="String">
+		SELECT
+			FN_CTGRY_NO_PATH(#{srchCtgryNo}) as ctgry_no_path
+		FROM GDS
+		GROUP BY ctgry_no_path
+	</select>
+
 	<insert id="insertGdsCtgry" parameterType="gdsCtgryVO">
 		INSERT INTO GDS_CTGRY (
 			up_ctgry_no

@@ -239,10 +239,9 @@ public class GdsController extends CommonAbstractController {
 	/**
 	 * 상품 상세
 	 */
-	@RequestMapping(value = "{upCtgryNo}/{ctgryNo}/{gdsCd}")
+	@RequestMapping(value = "{ctgryNo}/{gdsCd}")
 	public String view(
-			@PathVariable int upCtgryNo // 카테고리 1
-			, @PathVariable int ctgryNo // 카테고리 2
+			@PathVariable int ctgryNo // 해당 상품의 카테고리 번호
 			, @PathVariable String gdsCd // 상품 코드
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
@@ -324,6 +323,11 @@ public class GdsController extends CommonAbstractController {
 				BplcVO bplcVO = bplcService.selectBplc(bplcMap);
 				model.addAttribute("bplcVO", bplcVO);
 
+				Map<String, Object> pathMap = new HashMap<String, Object>();
+				pathMap.put("srchCtgryNo", ctgryNo);
+				String noPath = gdsCtgryService.selectGdsCtgryNoPath(pathMap);
+				model.addAttribute("noPath", noPath);
+
 
 				model.addAttribute("gdsVO", gdsVO);
 
@@ -333,7 +337,6 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
 				model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
 
-				model.addAttribute("upCtgryNo", upCtgryNo);
 				model.addAttribute("ctgryNo", ctgryNo);
 				model.addAttribute("param", reqMap);
 

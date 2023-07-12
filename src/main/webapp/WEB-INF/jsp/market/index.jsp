@@ -55,7 +55,7 @@
 								<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 							</a>
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -124,7 +124,7 @@
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
@@ -196,7 +196,7 @@
 							<c:set var="fileList" value="${resultList.gdsInfo.thumbnailFile}" />
 							<img src="/comm/getFile?srvcId=GDS&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy}&amp;fileNo=${fileList.fileNo }" alt="">
 						</div>
-						<a href="${_marketPath}/gds/${resultList.gdsInfo.upCtgryNo}/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
+						<a href="${_marketPath}/gds/${resultList.gdsInfo.ctgryNo}/${resultList.gdsInfo.gdsCd}?rdcntMain=${resultList.mainNo}" class="item-content">
 							<div class="name">
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
