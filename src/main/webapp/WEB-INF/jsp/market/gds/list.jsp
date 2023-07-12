@@ -10,8 +10,16 @@
 
             <div id="page-content">
                 <dl class="product-category">
-                    <!-- <dt>상품분류</dt> -->
-                   	<div id="ctgry_list"></div>
+                    <dt>상품분류</dt>
+                    <dd>
+                        <a href="#" ${ctgryNo>0?'':'class="is-active"' } data-ctgry-no="">전체</a>
+						<c:forEach items="${_gdsCtgryList}" var="ctgry" varStatus="status">
+							<c:if test="${ctgry.upCtgryNo eq upCtgryNo}">
+								<a href="#${ctgry.ctgryNo}" data-ctgry-no="${ctgry.ctgryNo}" ${ctgryNo>0 && ctgry.ctgryNo eq ctgryNo?'class="is-active"':'' }>${ctgry.ctgryNm}</a>
+							</c:if>
+                        </c:forEach>
+                        <button type="button" class="category-moreview">더보기</button>
+                    </dd>
                 </dl>
 
 				<%-- 상품 목록 wrap --%>
@@ -73,40 +81,6 @@ var Goods = (function(){
 						$("html").scrollTop(0);
 				});
 		}
-	}
-
-	function f_srchGdsCtgry(){
-		let lastNo = 0;
-		let upCtgryNo = "${upCtgryNo}";
-		let ctgryNo1 = "${ctgryNo1}";
-		let ctgryNo2 = "${ctgryNo2}";
-		let ctgryNo3 = "${ctgryNo3}";
-
-		if(Number(ctgryNo3) > 0){
-			lastNo = Number(ctgryNo3);
-		}else if(Number(ctgryNo2) > 0){
-			lastNo = Number(ctgryNo2);
-		}else if(Number(ctgryNo1) > 0){
-			lastNo = Number(ctgryNo1);
-		}else{
-			lastNo = Number(upCtgryNo);
-		}
-
-		var params = {
-				upCtgryNo : upCtgryNo
-				, ctgryNo1 : ctgryNo1
-				, ctgryNo2 : ctgryNo2
-				, ctgryNo3 : ctgryNo3
-				, ctgryNo : lastNo
-		};
-
-		 $("#ctgry_list").load(
-			"${_marketPath}/gds/srchCtrgy"
-			, params
-			, function(obj){
-				$(".ctgry_view").fadeIn(200);
-				$("html").scrollTop(0);
-		});
 	}
 
 	function f_cookie(){
@@ -181,7 +155,6 @@ var Goods = (function(){
 	}
 
 	f_srchGdsList(1);
-	f_srchGdsCtgry();
 
 	//상품 목록 마우스 오버
     $(document).on('mouseenter', '.product-item .item-layer', function() {

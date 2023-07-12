@@ -123,13 +123,10 @@ public class GdsController extends CommonAbstractController {
 	 * @param upCtgryNo
 	 * @param ctgryNo
 	 */
-	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo1}/list"
-			, "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/list", "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/{ctgryNo3}/list"})
+	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo}/list"})
 	public String list(
 			@PathVariable int upCtgryNo // 카테고리 1
-			, @PathVariable(required = false) Optional<Integer> ctgryNo1 // 카테고리 2
-			, @PathVariable(required = false) Optional<Integer> ctgryNo2 // 카테고리 3
-			, @PathVariable(required = false) Optional<Integer> ctgryNo3 // 카테고리 4
+			, @PathVariable(required = false) Optional<Integer> ctgryNo // 카테고리 2
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
 			, HttpServletResponse response
@@ -137,27 +134,11 @@ public class GdsController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
-		GdsCtgryVO currentCategory = new GdsCtgryVO();
-		int ctgryNo = 0;
-
-		if(ctgryNo3.orElse(0) > 0) {
-			ctgryNo = ctgryNo3.orElse(0);
-		}else if(ctgryNo2.orElse(0) > 0) {
-			ctgryNo = ctgryNo2.orElse(0);
-		}else if(ctgryNo1.orElse(0) > 0) {
-			ctgryNo = ctgryNo1.orElse(0);
-		}else {
-			ctgryNo = upCtgryNo;
-		}
-
-		currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
-
+		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
 		model.addAttribute("curCtgryVO", currentCategory);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);
-		model.addAttribute("ctgryNo1", ctgryNo1.orElse(0));
-		model.addAttribute("ctgryNo2", ctgryNo2.orElse(0));
-		model.addAttribute("ctgryNo3", ctgryNo3.orElse(0));
+		model.addAttribute("ctgryNo", ctgryNo.orElse(0));
 
 		return "/market/gds/list";
 	}
@@ -223,38 +204,14 @@ public class GdsController extends CommonAbstractController {
 		return "/market/gds/include/srch_list";
 	}
 
-	@RequestMapping(value = "srchCtrgy")
-	public String srchCtgry(
-			@RequestParam Map<String, Object> reqMap
-			, HttpServletRequest request
-			, Model model
-			)throws Exception {
-
-		String ctgryNo = "";
-		GdsCtgryVO gdsCtgryVO = new GdsCtgryVO();
-		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
-
-		if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"))) {
-			ctgryNo = (String)reqMap.get("ctgryNo");
-		}
-
-		if(EgovStringUtil.string2integer(ctgryNo) > 0) {
-			gdsCtgryVO = gdsCtgryService.findChildCategory(gdsCtgryList, EgovStringUtil.string2integer(ctgryNo));
-		}
-
-		model.addAttribute("childList", gdsCtgryVO.getChildList());
-		model.addAttribute("paramMap", reqMap);
-
-		return "/market/gds/include/srch_ctgry";
-	}
-
 
 	/**
 	 * 상품 상세
 	 */
-	@RequestMapping(value = "{ctgryNo}/{gdsCd}")
+	@RequestMapping(value = "{upCtgryNo}/{ctgryNo}/{gdsCd}")
 	public String view(
-			@PathVariable int ctgryNo // 해당 상품의 카테고리 번호
+			@PathVariable int upCtgryNo // 카테고리 1
+			, @PathVariable int ctgryNo // 카테고리 2
 			, @PathVariable String gdsCd // 상품 코드
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
@@ -336,11 +293,6 @@ public class GdsController extends CommonAbstractController {
 				BplcVO bplcVO = bplcService.selectBplc(bplcMap);
 				model.addAttribute("bplcVO", bplcVO);
 
-				Map<String, Object> pathMap = new HashMap<String, Object>();
-				pathMap.put("srchCtgryNo", ctgryNo);
-				String noPath = gdsCtgryService.selectGdsCtgryNoPath(pathMap);
-				model.addAttribute("noPath", noPath);
-
 
 				model.addAttribute("gdsVO", gdsVO);
 
@@ -350,6 +302,7 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
 				model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
 
+				model.addAttribute("upCtgryNo", upCtgryNo);
 				model.addAttribute("ctgryNo", ctgryNo);
 				model.addAttribute("param", reqMap);
 
