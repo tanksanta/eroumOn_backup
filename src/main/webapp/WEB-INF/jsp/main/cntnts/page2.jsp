@@ -65,8 +65,8 @@
             <dl>
                 <dt>안전한 욕실생활</dt>
                 <dd>
-                    미끄러운 사고 위험이 높은 공간으로<br> 
-                    안전사고를 예방하는 복지용구를 소개합니다. 
+					사고 위험이 높은 욕실 공간,<br>
+					안전을 위한 복지용구를 만나보세요.​
                 </dd>
             </dl>
             <a href="${_mainPath}/cntnts/page2-bath" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
@@ -79,8 +79,8 @@
             <dl>
                 <dt>편안한 거실생활</dt>
                 <dd>
-                    일상생활에서 가장 많이 활동하는 공간으로<br>
-                    이동에 편리함을 주는 복지용구를 소개합니다. 
+					가장 많이 활동하는 거실 공간,<br>
+					편리한 이동을 위한 복지용구를 만나보세요.​
                 </dd>
             </dl>
             <a href="${_mainPath}/cntnts/page2-living" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>
@@ -107,8 +107,8 @@
             <dl>
                 <dt>건강한 야외생활</dt>
                 <dd>
-                    많은 도움이 필요한 야외활동을 보조해주는<br>
-                    복지용구를 소개합니다.
+					건강한 활동을 위한 야외 공간,<br>
+					활력을 위한 복지용구를 만나보세요.
                 </dd>
             </dl>
             <a href="${_mainPath}/cntnts/page2-outdoor" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>

@@ -3,6 +3,7 @@
 <!-- quick -->
 <div id="quick" class="global-quick">
 	<button type="button" class="moveTop">위로 이동</button>
+	<button type="button" class="channelTalk">위로 이동</button>
 </div>
 <!-- //quick -->
 

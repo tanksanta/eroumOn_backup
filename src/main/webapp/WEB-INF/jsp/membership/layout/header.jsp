@@ -8,7 +8,7 @@
 	            	<c:when test="${_mbrSession.loginCheck}">
 		                <ul>
 		                    <li><a href="${_membershipPath}/logout" class="navigation-link">로그아웃</a></li>
-		                    <li><a href="${_membershipPath}/mypage/list" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/mypage/list') > -1}">is-active</c:if>">회원정보 수정</a></li>
+		                    <li><a href="${_membershipPath}/mypage/list" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/mypage/') > -1}">is-active</c:if>">회원정보 수정</a></li>
 		                    <li><a href="${_membershipPath}/whdwl/list" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/whdwl/list') > -1}">is-active</c:if>">회원탈퇴</a></li>
 		                </ul>
 	                </c:when>
@@ -16,13 +16,15 @@
 	                	<ul>
 							<li><a href="${_membershipPath}/login" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/login') > -1}">is-active</c:if>">로그인</a></li>
 		                    <li><a href="${_membershipPath}/registStep1" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/registStep') > -1}">is-active</c:if>">회원가입</a></li>
+		                    <!-- li><a href="${_membershipPath}/mypage/form" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/mypage/') > -1}">is-active</c:if>">내 정보 관리</a></li -->
+		                    
 		                </ul>
 	                </c:otherwise>
                 </c:choose>
 
             </nav>
             <ul id="family" class="global-link is-bottom">
-				<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+				<!-- li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li -->
                 <!--li>
                     <a href="${_plannerPath}" class="link-item1" target="_blank" title="새창열림">
                         <div class="bubble">

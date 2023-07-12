@@ -22,7 +22,7 @@
 
 								<label for="inqryTy1">
 									<input type="radio" name="inqryTy" id="inqryTy1" value="market">
-									<span>사업제휴</span>
+									<span>마켓입점</span>
 								</label>
 							</div>
 						</td>

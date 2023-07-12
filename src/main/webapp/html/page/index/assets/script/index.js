@@ -1,3 +1,6 @@
+var winSize = null;
+var resize  = false;
+
 $(function() {
     //공지 닫기
     $('.notice-close').on('click', function() {
@@ -62,7 +65,12 @@ $(function() {
         }
     });
 
-    $(window).on('load scroll resize', function() {
-        $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
+    $(window).on('load resize', function(e) {
+        resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
+        winSize = [$(window).outerWidth(), $(window).outerHeight()];
+        
+        if(e.type === 'load' || (e.type === 'resize' && resize)) {
+            $('.main-visual, #visual').css({'max-height': $(window).outerHeight() - $('#header').outerHeight()});
+        }
     })
 })

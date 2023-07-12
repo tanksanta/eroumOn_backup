@@ -694,18 +694,24 @@
         $(function() {
             if (window.location.hash) {
                 var hash = "#" + window.location.hash.replace(/^#/,'');
+                
                 if($(hash).length > 0) {
                     var container = $('.page3-checkpoint');
+                    var target    = (hash.match('-sub') === null) ? hash : '#' + $(hash).closest('.tab-pane').attr('id')
 
-                    $('.nav-item[href="' + hash + '"]').addClass('active').parent().siblings().each(function() {
+                    $('.nav-item[href="' + target + '"]').addClass('active').parent().siblings().each(function() {
                         $(this).find('.nav-item').removeClass('active');
                     });
 
-                    $('.tab-pane').removeClass('show active').filter(hash).addClass('show active');
+                    $('.tab-pane').removeClass('show active').filter(target).addClass('show active');
+
+                    if(hash.match('-sub') !== null) {
+                         $(hash).addClass('block').removeClass('hidden').siblings('div').addClass('hidden').removeClass('block');
+                    }
 
                     $(window).scrollTop(0).one('load', function() {
                         $(this).scrollTop((container.offset().top - parseInt(container.css('margin-top').replace('px', ''))) - ($('#header').outerHeight()));
-                    })
+                    });
                 }
             } else {
                 $('.nav-item[href="#check-cont1"]').addClass('active');

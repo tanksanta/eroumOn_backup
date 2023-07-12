@@ -120,6 +120,12 @@ function fileCheck(obj) {
 
 $(function() {
     $(window).on('scroll load', function() {
+        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
+            $('#quick').addClass('is-active');
+        } else {
+            $('#quick').removeClass('is-active');
+        }
+
         if($(this).scrollTop() > $('#header').outerHeight()) {
             $('body').addClass('is-scroll');
         } else {
@@ -127,6 +133,11 @@ $(function() {
         }
     });
     
+    //퀵메뉴 닫기
+    $('#quick .moveTop').on('click', function() {
+        $(window).scrollTop(0);
+    });
+
     //공용 옵션박스
     $('.product-option .option-toggle').on('click', function() {
         $(this).closest('.product-option').toggleClass('is-active');

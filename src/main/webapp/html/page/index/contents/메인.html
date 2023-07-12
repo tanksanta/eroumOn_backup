@@ -186,6 +186,8 @@
             <p class="text-scroll is-white"><i></i> 아래에서 더 자세히 알아보세요</p>
         </div>
 
+        <div id="abs"></div>
+
         <div class="main-welfare">
             <div class="container">
                 <p class="desc">시니어를 위한 <strong>복지서비스</strong><br> <strong>한 곳에 모아서!</strong></p>
@@ -299,10 +301,7 @@
             };
 
             $(function() {
-                //main visual
-                var evTimer = null;
-                
-                var swiper = new Swiper(".main-visual .swiper", {
+                var swiper  = new Swiper(".main-visual .swiper", {
                     slidesPerView: 1,
                     loop: true,
                     effect: "fade",
@@ -341,7 +340,9 @@
                         }
                     }
                 });
-                
+                var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+                var pageBtn = null;
+
                 //object visible
                 [].slice.call(document.querySelectorAll('[class*="main-content"] .image')).forEach((e) => {
                     var observer = new IntersectionObserver((entries) => {
@@ -353,24 +354,39 @@
                     observer.observe(e);
                 }, this);
 
-                $(window).on('load resize', function() {
-                    var pageBtn = $('.main-visual .swiper-slide-active .btn');
-                    var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-                    
-                    $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
-                    
-                    if($(window).outerWidth() > 768) {
-                        $('.swiper .object').css({
-                            '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                            '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-                        });
-                    }else {
-                        $('.swiper .object').css({
-                            '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                            '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-                        });
+
+                if($(window).outerWidth() > 768) {
+                    $('.swiper .object').css({
+                        '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                        '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                    });
+                } else {
+                    $('.swiper .object').css({
+                        '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                        '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                    });
+                }
+
+                $(window).on('load resize', function(e) {
+                    pageBtn = $('.main-visual .swiper-slide-active .btn');
+                    slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+
+                    if(e.type === 'load' || (e.type === 'resize' && resize)) {
+                        $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+                        
+                        if($(window).outerWidth() > 768) {
+                            $('.swiper .object').css({
+                                '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                                '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                            });
+                        } else {
+                            $('.swiper .object').css({
+                                '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                                '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                            });
+                        }
                     }
-                })
+                });
             })
         </script>
     </main>

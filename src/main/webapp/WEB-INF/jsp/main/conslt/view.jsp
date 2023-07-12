@@ -43,8 +43,11 @@
         </script>
 
 		<div class="market-banner mt-28 md:mt-47">
-			<strong> 부모님 맞춤 제품이 필요하세요? <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small></strong>
-			<a href="${_marketPath}">지금둘러보기</a>
+	        <strong>
+	            부모님 맞춤 상품이 필요하세요?​
+	            <small>복지용구부터 시니어 생활용품까지 한 번에</small>
+	        </strong>
+			<a href="${_marketPath}">지금 둘러보기</a>
 		</div>
 
 		<div class="careinfo-content">

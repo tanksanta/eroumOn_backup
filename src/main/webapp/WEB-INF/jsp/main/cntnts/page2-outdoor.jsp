@@ -13,10 +13,10 @@
 
 <div id="content">
     <div class="page2-content-detail is-detail4">
-		<h2 class="title">건강한 아외생활</h2>
+		<h2 class="title">건강한 야외생활</h2>
 		<p class="desc">
-			건강하고 안정적인 야외활동을 위한<br>
-			복지용구를 소개해 드릴게요.
+			건강한 활동을 위한 야외 공간,<br>
+			활력을 위한 복지용구를 만나보세요.
 		</p>
 		<ul class="nav">
 	        <li><a href="${_mainPath}/cntnts/page2-bath">욕실</a></li>
