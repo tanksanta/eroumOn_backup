@@ -215,6 +215,11 @@
 		<if test="gdsNo !=null and gdsNo != ''"><!-- PK -->
 			AND g.gds_no = #{gdsNo}
 		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchKwd)">
+			<foreach collection="srchKwd" item="kwd" separator=" " >
+				AND g.gds_nm LIKE CONCAT ('%',#{kwd},'%')
+			</foreach> 
+		</if>
 
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchGdsCds)">
 			AND g.gds_cd IN

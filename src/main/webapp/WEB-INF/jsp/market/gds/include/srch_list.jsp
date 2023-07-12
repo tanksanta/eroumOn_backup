@@ -2,7 +2,9 @@
 <%--
 검색
  --%>
-                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10">
+                <c:if test="${fn:indexOf(_curPath,'/search/total') ne -1}">
+                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10  ${fn:indexOf(_curPath,'/search/total') ne -1 }" >
+                </c:if>
                 	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
@@ -104,7 +106,9 @@
                     <c:if test="${empty listVO.listObject}">
 					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
                     </c:if>
+                <c:if test="${fn:indexOf(_curPath,'/search/total') ne -1 }">    
                 </div>
+                </c:if>
                 <div class="pagination">
                 	<front:jsPaging listVO="${listVO}" targetObject="gds-pager" />
                 </div>
