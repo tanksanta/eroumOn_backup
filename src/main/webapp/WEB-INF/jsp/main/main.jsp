@@ -3,36 +3,39 @@
 <div class="main-visual">
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>최대 2,500만원 복지혜택,</span><br>
-                    <strong><span class="t-obj"></span>65세 이상이라면 바로 신청하세요</strong>
-                </p>
-                <p class="desc"><span>등급별 지원 혜택이 달라요!</span></p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item1" data-slide-number="1">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">최대 2,500만원 복지혜택,</span>
+                        <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
+                    </p>
+                    <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>65세 미만이라도,</span><br>
-                    <strong>등급 인정 확률이 높아요<span class="t-obj"></span></strong>
-                </p>
-                <p class="desc">
-                    <span><span class="t-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
-                    <span><span class="t-obj"></span>노인성 질환을 앓고 있는 어르신</span>
-                    <span><span class="t-obj"></span>치매 증상으로 불편한 어르신</span>
-                </p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item2" data-slide-number="2">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">65세 미만이라도,</span>
+                        <strong class="ani-text">등급 인정 확률이 높아요<span class="ani-obj"></span></strong>
+                    </p>
+                    <p class="desc">
+                        <span class="ani-text"><span class="ani-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
+                        <span class="ani-text"><span class="ani-obj"></span>노인성 질환을 앓고 있는 어르신</span>
+                        <span class="ani-text"><span class="ani-obj"></span>치매 증상으로 불편한 어르신</span>
+                    </p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>어르신을 위한 복지,<span class="t-obj"></span></span><br>
-                    <strong>놓치지 말고 누리세요</strong>
-                </p>
-                <p class="desc"><span>등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item3" data-slide-number="3">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">어르신을 위한 복지,<span class="ani-obj"></span></span>
+                        <strong class="ani-text">놓치지 말고 누리세요</strong>
+                    </p>
+                    <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                </div>
             </div>
         </div>
         <div class="swiper-button-prev"></div>
@@ -102,24 +105,17 @@
             <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
             <dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
         </dl>
-		<a href="${_mainPath}/recipter/list">남은 혜택보기​</a>
+		<a href="${_mainPath}/recipter/list">남은 금액보기</a>
 
 	</div>
     <div class="notice-banner2">
         <dl>
-            <dt>부모님 맞춤 상품이 필요하세요?</dt>
-            <dd>복지용구부터 시니어 생활용품까지 한 번에</dd>
+            <dt>부모님 맞춤 제품이 필요하세요?</dt>
+            <dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
         </dl>
         <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
     </div>
 </div>
-
-<ul class="main-link">
-    <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
-    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
-    <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
-    <!-- li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li -->
-</ul>
 
 <div class="main-content-wrapper">
     <div class="main-content1">
@@ -150,7 +146,7 @@
                 <em class="text-primary3">복지용구, 소개해 드릴게요</em>
             </h2>
             <p>불편한 거동, 낙상 사고 등의 걱정을</p>
-            <p>복지용구로 더실 수 있어요.</p>
+            <p>복지용구로 덜으실 수 있어요</p>
             <a href="${_mainPath}/cntnts/page2" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
@@ -167,7 +163,7 @@
                 아무거나 고를 순 없어요
             </h2>
             <p>높은 금액의 복지용구,</p>
-            <p>혜택받는 방법과<br> 고르는 법을 알려드릴게요.</p>
+            <p>혜택받는 방법과<br> 고르는 법을 알려드려요</p>
             <a href="${_mainPath}/cntnts/page3" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
         </div>
     </div>
@@ -176,10 +172,10 @@
 <div class="main-banner">
     <div class="market-banner">
         <strong>
-            부모님 맞춤 상품이 필요하세요?​
-            <small>복지용구부터 시니어 생활용품까지 한 번에</small>
+            부모님 맞춤 제품이 필요하세요?
+            <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
         </strong>
-        <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
+        <a href="${_marketPath}/index" target="_blank">지금둘러보기</a>
     </div>
 </div>
 
@@ -345,6 +341,9 @@ function comma(num){
     };
 
     $(function() {
+        //main visual
+        var evTimer = null;
+        
         var swiper = new Swiper(".main-visual .swiper", {
             slidesPerView: 1,
             loop: true,
@@ -400,38 +399,22 @@ function comma(num){
             observer.observe(e);
         }, this);
 
-        slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-
-        if($(window).outerWidth() > 768) {
-            $('.swiper .object').css({
-                '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-            });
-        } else {
-            $('.swiper .object').css({
-                '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-            });
-        }
-
-        $(window).on('load resize', function(e) {
-            pageBtn = $('.main-visual .swiper-slide-active .btn');
-            slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-
-            if(e.type === 'load' || (e.type === 'resize' && resize)) {
-                $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
-                
-                if($(window).outerWidth() > 768) {
-                    $('.swiper .object').css({
-                        '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                        '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-                    });
-                } else {
-                    $('.swiper .object').css({
-                        '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                        '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-                    });
-                }
+        $(window).on('load resize', function() {
+            var pageBtn = $('.main-visual .swiper-slide-active .btn');
+            var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+            
+            $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+            
+            if($(window).outerWidth() > 768) {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                    '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                });
+            }else {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                    '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                });
             }
         })
     })
