@@ -149,9 +149,9 @@
 		 LEFT JOIN GDS g ON od.gds_no = g.gds_no
 		 LEFT JOIN BPLC b ON od.bplc_unique_id = b.unique_id
 		WHERE od.bplc_unique_id IS NOT NULL AND bplc_unique_id != ''
-		  AND od.stts_ty IN ('OR09')
+		  AND od.stts_ty IN ('OR07', 'OR08', 'OR09')
 		  AND o.ordr_ty IN ('R', 'L')
-		  AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR09') ) &lt; 1
+		  AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR07', 'OR08', 'OR09') ) &lt; 1
 		  <include refid="searchConditions" />
 		GROUP BY od.bplc_unique_id
 	</select>

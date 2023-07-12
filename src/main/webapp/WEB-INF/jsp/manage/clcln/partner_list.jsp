@@ -55,7 +55,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">업체명</th>
-                                <th scope="col">구매확정 건수</th>
+                                <th scope="col">배송처리 건수</th>
                                 <th scope="col">주문금액</th>
                                 <th scope="col">배송비</th>
                                 <th scope="col">정산금액</th>
