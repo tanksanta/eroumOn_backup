@@ -322,7 +322,7 @@ function comma(num){
         }
        $("select[name='select-sido']").trigger("change");
        
-   	$("form[name='bokjiFrm']").validate({
+   	$("form[name='bokjiFrm']").validate({ 
 	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
 	    submitHandler: function (frm) {
 	    	$("select[name='select-sido']").attr("name","selectSido");
