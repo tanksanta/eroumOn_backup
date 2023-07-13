@@ -15,7 +15,7 @@
 </header>
 
 <div id="content">
-	<div class="page3-question1">
+	<div class="page3-question1"> 
 	    <dl class="box">
 	        <dt>
 	            <small class="text-primary2">자주하는 질문</small>

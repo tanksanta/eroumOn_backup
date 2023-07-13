@@ -43,7 +43,7 @@
             <img src="/html/page/index/assets/images/img-page3-content1.png" alt="" class="img">
         </div>
         
-        <div class="page3-content2">
+        <div class="page3-content2"> 
             <h3>단, <strong>100%</strong> 지원되지 않아요</h3>
             <small><strong>본인부담금</strong>과 <strong>본인부담율</strong>을 꼭 확인하세요.</small>
             <picture>

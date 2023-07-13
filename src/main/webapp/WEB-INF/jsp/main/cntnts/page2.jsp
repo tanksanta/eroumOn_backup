@@ -93,8 +93,8 @@
             <dl>
                 <dt>안락한 침실생활</dt>
                 <dd>
-                    수면과 휴식을 취하는 공간에서 필요한<br>
-                    복지용구를 소개합니다.
+					편안한 수면을 위한 침실 공간,<br>
+					휴식을 위한 복지용구를 만나보세요.​
                 </dd>
             </dl>
             <a href="${_mainPath}/cntnts/page2-bed" class="btn btn-large btn-outline-primary btn-arrow"><strong>복지용구 알아보기</strong></a>

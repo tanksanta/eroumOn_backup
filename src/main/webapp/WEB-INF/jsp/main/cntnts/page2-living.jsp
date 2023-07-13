@@ -13,7 +13,7 @@
 
 <div id="content">
     <div class="page2-content-detail is-detail2">
-		<h2 class="title">편안한 거실생활</h2>
+		<h2 class="title">편안한 거실생활</h2> 
 		<p class="desc">
 			가장 많이 활동하는 거실 공간,<br>
 			편리한 이동을 위한 복지용구를 만나보세요.​
