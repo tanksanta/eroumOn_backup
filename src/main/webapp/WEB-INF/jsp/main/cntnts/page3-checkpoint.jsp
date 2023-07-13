@@ -16,7 +16,7 @@
 </header>
 
 
-<div id="content">
+<div id="content"> 
 	<div class="page3-checkpoint">
 	    <ul class="nav">
 	        <li><a href="#check-cont1" data-bs-toggle="pill" data-bs-target="#check-cont1" role="tab" class="nav-item">성인용 보행기</a></li>

@@ -13,7 +13,7 @@
 
 <div id="content">
     <div class="page2-content-detail is-detail1">
-		<h2 class="title">안전한 욕실생활</h2>
+		<h2 class="title">안전한 욕실생활</h2> 
 		<p class="desc">
 			사고 위험이 높은 욕실 공간,<br>
 			안전을 위한 복지용구를 만나보세요.
