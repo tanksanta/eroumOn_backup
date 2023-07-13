@@ -62,6 +62,12 @@
                             	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
                             </dd>
                         </dl>
+                        <dl class="date">
+                            <dt class="desc">적용기간</dt>
+                            <dd id="searchBgngApdt">
+                            	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
+                            </dd>
+                        </dl>
                     </div>
                     <div class="myinfo-box2">
 	                        <p class="desc">잔여급여</p>
@@ -572,16 +578,16 @@ $(function() {
 
    // 기능
     $(".f_recipterCheck").on("click", function(){
-    	if("${_mbrSession.loginCheck}" == "false"){
-   			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
-    	}else{
 
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
-
+    	
     	if(name == '' || no == '' ){
     		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
     	}else{
+    		if("${_mbrSession.loginCheck}" == "false"){
+       			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
+        	}else{
 
 		$.ajax({
 			type : "post",
@@ -610,19 +616,23 @@ $(function() {
 				$(".searchNo").text("L"+$("#rcperRcognNo").val());
 				$("#searchGrade").text(json.infoMap.LTC_RCGT_GRADE_CD);
 				$("#searchRcgt").html(json.infoMap.RCGT_EDA_DT);
-				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
-				$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				$("#searchRemn").text(comma(json.infoMap.REMN_AMT));
+				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)) + " ~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+				//$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+				$("#searchRemn").text(comma(json.infoMap.LMT_AMT - json.infoMap.USE_AMT));
 				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
-				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원")
+				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원");
+			
 
+		
 				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
 				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
 
 				let allList = new Array();
 
 				let saleList = new Array();
+				let saleNonList = new Array();
 				let lendList = new Array();
+				let lendNonList = new Array();
 
 				let ownSaleList = new Array();
 				let ownLendList = new Array();
@@ -630,8 +640,14 @@ $(function() {
 				if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
 					saleList = json.infoMap.saleList
 				}
+				if(json.infoMap.saleNonList != '' && json.infoMap.saleNonList != null){
+					saleNonList = json.infoMap.saleNonList
+				}
 				if(json.infoMap.lendList != '' && json.infoMap.lendList != null){
 					lendList = json.infoMap.lendList
+				}
+				if(json.infoMap.lendNonList != '' && json.infoMap.lendNonList != null){
+					lendNonList = json.infoMap.lendNonList
 				}
 				if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != null){
 					ownSaleList = json.infoMap.ownSaleList
@@ -679,10 +695,21 @@ $(function() {
 						let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
 						let html = "";
 						html +='   <tr>';
-						html +='    <td>'+(i+1)+'</td>';
+						html +='    <td class="sale_index">'+(i+1)+'</td>';
 						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
 						html +=' <td class="fin'+saleList[i]+'">0</td>';
 						html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
+						html +='</tr>';
+						$(".sale_return").append(html);
+					}
+					
+					for(let i=0; i<saleNonList.length; i++){
+						let html = "";
+						html +='   <tr>';
+						html +='    <td class="sale_index">'+($(".sale_index").length+1)+'</td>';
+						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleNonList[i])+'" target=_blank>'+CodeMap.get(saleNonList[i])+'(판매 불가)</a></td>';
+						html +=' <td class="fin'+saleNonList[i]+'">해당없음</td>';
+						html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".sale_return").append(html);
 					}
@@ -703,7 +730,7 @@ $(function() {
 						let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
 						let html = "";
 						html +='   <tr>';
-						html +='    <td>'+(i+1)+'</td>';
+						html +='    <td class="lend_index">'+($(".lend_index").length+1)+'</td>';
 						if(f_replaceLink(lendList[i]) == 0){
 							html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
 						}else{
@@ -713,6 +740,21 @@ $(function() {
 
 						html +=' <td class="fin'+lendList[i]+'">0</td>';
 						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
+						html +='</tr>';
+						$(".lend_return").append(html);
+					}
+					for(let i=0; i<lendNonList.length; i++){
+						let html = "";
+						html +='   <tr>';
+						html +='    <td class="lend_index>'+(i+1)+'</td>';
+						if(f_replaceLink(lendNonList[i]) == 0){
+							html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
+						}else{
+							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendNonList[i])+'" target=_blank>'+CodeMap.get(lendNonList[i])+'(대여 불가)</a></td>';
+						}
+
+						html +=' <td class="fin'+lendNonList[i]+'">해당없음</td>';
+						html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".lend_return").append(html);
 					}
@@ -728,26 +770,44 @@ $(function() {
 				// 보유 현황 카운트 - 판매
 				if(ownSaleList.length > 0){
 					for(let i=0; i<ownSaleList.length; i++){
-						let finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
-						let buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
-						$(".fin"+ownSaleList[i]).text(finCnt+1);
+						let finCnt = 0;
+						let buyCnt = 0;
+						
+						if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
+							finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
+							buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
+							$(".fin"+ownSaleList[i]).text(finCnt+1);	
+						}else{
+							$(".fin"+ownSaleList[i]).text(1);	
+						}
 
 						if(buyCnt > 0){
 							$(".buy"+ownSaleList[i]).text(buyCnt-1);
+						}else{
+							$(".buy"+ownSaleList[i]).text(0);
 						}
 					}
 				}
+				
 				// 보유 현황 카운트 - 대여
 				if(ownLendList.length > 0){
 					for(let i=0; i<ownLendList.length; i++){
-						let finCnt = Number($(".sale_return .fin"+ownLendList[i]).text());
-						let buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-						$(".fin"+ownLendList[i]).text(fintCnt + 1);
-
-						if(buyCnt > 0){
-							$(".buy"+ownLendList[i]).text(buyCnt-1);
+						let finCnt = 0;
+						let buyCnt = 0;
+						
+						if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
+							finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
+							buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
+							$(".fin"+ownLendList[i]).text(finCnt + 1);	
+						}else{
+							$(".fin"+ownLendList[i]).text(1);
 						}
 
+						if(buyCnt > 0){
+							$(".buy"+ownLendList[i]).text(buyCnt -1);
+						}else{
+							$(".buy"+ownLendList[i]).text(0);
+						}
 					}
 				}
                 $('.careinfo-mask').addClass('is-active');
@@ -760,7 +820,7 @@ $(function() {
 			console.log('error forward : ' + data);
 		});
     }
-    }
+    	}
 	});
 
 	if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){
