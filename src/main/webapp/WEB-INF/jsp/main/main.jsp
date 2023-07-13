@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <p class="text-scroll is-white"><i></i> 아래에서 더 자세히 알아보세요</p>
+    <p class="text-scroll is-white"><i></i> 자세히 보기</p>
 </div>
 
 <div class="main-welfare">
