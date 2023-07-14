@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.util.DateUtil;
 import icube.common.util.JsonUtil;
-import icube.common.values.CodeMap;
+import icube.main.biz.ItemMap;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -143,10 +143,12 @@ public class TilkoApiService {
 	        JSONArray welToolTgtList = (JSONArray) resultData.get("ds_welToolTgtList");
 	        JSONArray toolPayLmtList = (JSONArray) resultData.get("ds_toolPayLmtList");
 	        JSONArray welToolTgtHistList = (JSONArray) resultData.get("ds_welToolTgtHistList");
+	        //JSONArray ctrHistTotalList = (JSONArray) resultData.get("ds_ctrHistTotalList");
 
-	        //System.out.println(welToolTgtList); // 인정기간 외
-	        //System.out.println(toolPayLmtList); // 적용기간 사용금액/제한금액/급여잔액
-	        //System.out.println("@@ : " + welToolTgtHistList);// 히스토리
+	        //System.out.println("@@ 1: " + welToolTgtList); // 수급자 정보 
+	        //System.out.println("@@ 2: " + toolPayLmtList); // 적용기간 사용금액/제한금액/급여잔액
+	        //System.out.println("@@ 3: " + welToolTgtHistList);// 인정유효기간
+	        //System.out.println("@@ 3-1: " + ctrHistTotalList);// 계약이력 
 
 	        if(welToolTgtList != null) {
 	        	result = true;
@@ -154,13 +156,13 @@ public class TilkoApiService {
 		        List<Map<String, Object>> welToolTgtListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtList);
 		        for(Map<String, Object> welToolTgt : welToolTgtListMap) {
 
-		        	System.out.println("LTC_MGMT_NO" + welToolTgt.get("LTC_MGMT_NO")); // 요양번호
-		        	System.out.println("LTC_RCGT_GRADE_CD" + welToolTgt.get("LTC_RCGT_GRADE_CD")); // 등급
-		        	System.out.println("QLF_TYPE" + welToolTgt.get("QLF_TYPE")); //본인부담율
-		        	System.out.println("RCGT_EDA_DT" + welToolTgt.get("RCGT_EDA_DT")); // 인정유효기간
+		        	//System.out.println("LTC_MGMT_NO" + welToolTgt.get("LTC_MGMT_NO")); // 요양번호
+		        	//System.out.println("LTC_RCGT_GRADE_CD" + welToolTgt.get("LTC_RCGT_GRADE_CD")); // 등급
+		        	//System.out.println("QLF_TYPE" + welToolTgt.get("QLF_TYPE")); //본인부담율
+		        	//System.out.println("RCGT_EDA_DT" + welToolTgt.get("RCGT_EDA_DT")); // 인정유효기간
 
-		        	System.out.println("REDUCE_NM" + welToolTgt.get("REDUCE_NM")); // 대상자 구분
-		        	System.out.println("SBA_CD" + welToolTgt.get("SBA_CD")); // 대상자 구분 경감율
+		        	//System.out.println("REDUCE_NM" + welToolTgt.get("REDUCE_NM")); // 대상자 구분
+		        	//System.out.println("SBA_CD" + welToolTgt.get("SBA_CD")); // 대상자 구분 경감율
 
 
 		        	String reduceNm = (String) welToolTgt.get("REDUCE_NM");
@@ -213,6 +215,7 @@ public class TilkoApiService {
 					}
 
 		        	if(diffStDt > 0 && diffEdDt < 0) {
+			        	
 			        	System.out.println("APDT_FR_DT" + toolPayLmt.get("APDT_FR_DT")); // 적용기간 시작
 			        	System.out.println("APDT_TO_DT" + toolPayLmt.get("APDT_TO_DT")); // 적용기간 종료
 			        	System.out.println("REMN_AMT" + toolPayLmt.get("REMN_AMT")); // 급여잔액
@@ -265,32 +268,58 @@ public class TilkoApiService {
         jsonObject = new JSONObject((Map<String, Object>) obj);
 
         JSONObject dsPayPsblObj = (JSONObject) jsonObject.get("Result");
+        
+       //System.out.println("@@ 4 : " + dsPayPsblObj);
         JSONArray ds_payPsbl1 = new JSONArray();
         JSONArray ds_payPsblLnd1 = new JSONArray();
+        
+        JSONArray ds_payPsbl2 = new JSONArray();
+        JSONArray ds_payPsblLnd2 = new JSONArray();
         
         if(dsPayPsblObj != null) {
         	ds_payPsbl1 = (JSONArray) dsPayPsblObj.get("ds_payPsbl1");
             ds_payPsblLnd1 = (JSONArray) dsPayPsblObj.get("ds_payPsblLnd1");
             
-            // 판매 급여 품목
+            ds_payPsbl2 = (JSONArray) dsPayPsblObj.get("ds_payPsbl2");
+            ds_payPsblLnd2 = (JSONArray) dsPayPsblObj.get("ds_payPsblLnd2");
+            
+            // 판매 급여 품목(가능 )
             List<Map<String, Object>> ds_payPsbl1Map =  JsonUtil.getListMapFromJsonArray(ds_payPsbl1);
-            // 대여 급여 품목
+            // 대여 급여 품목(가능 )
             List<Map<String, Object>> ds_payPsblLnd1Map =  JsonUtil.getListMapFromJsonArray(ds_payPsblLnd1);
+            
+            // 판매 급여 품목(불가능 )
+            List<Map<String, Object>> ds_payPsbl2Map =  JsonUtil.getListMapFromJsonArray(ds_payPsbl2);
+            // 대여 급여 품목(불가능 )
+            List<Map<String, Object>> ds_payPsblLnd2Map =  JsonUtil.getListMapFromJsonArray(ds_payPsblLnd2);
             
             List<String> saleList = new ArrayList<String>();
             List<String> lendList = new ArrayList<String>();
+            
+            List<String> saleNonList = new ArrayList<String>();
+            List<String> lendNonList = new ArrayList<String>();
             for(Map<String, Object> saleMap : ds_payPsbl1Map) {
-            	saleList.add(CodeMap.RECIPTER_ITEM.get((String) saleMap.get("WIM_ITM_CD")));
+            	saleList.add(ItemMap.RECIPTER_ITEM.get((String) saleMap.get("WIM_ITM_CD")));
             }
             for(Map<String, Object>lendMap : ds_payPsblLnd1Map) {
-            	lendList.add(CodeMap.RECIPTER_ITEM.get((String) lendMap.get("WIM_ITM_CD")));
+            	lendList.add(ItemMap.RECIPTER_ITEM.get((String) lendMap.get("WIM_ITM_CD")));
+            }
+            
+            for(Map<String, Object> saleNonMap : ds_payPsbl2Map) {
+            	saleNonList.add(ItemMap.RECIPTER_ITEM.get((String) saleNonMap.get("WIM_ITM_CD")));
+            }
+            for(Map<String, Object>lendNonMap : ds_payPsblLnd2Map) {
+            	lendNonList.add(ItemMap.RECIPTER_ITEM.get((String) lendNonMap.get("WIM_ITM_CD")));
             }
             
             infoMap.put("saleList", saleList);
             infoMap.put("lendList", lendList);
+            
+            infoMap.put("saleNonList", saleNonList);
+            infoMap.put("lendNonList", lendNonList);
         }else {
-        	infoMap.put("saleList", null);
-            infoMap.put("lendList", null);
+        	infoMap.put("saleNonList", null);
+            infoMap.put("lendNonList", null);
         }
         
         // 계약 리스트 API 호출
@@ -299,7 +328,6 @@ public class TilkoApiService {
         json.remove("name");
         json.put("StartDate", infoMap.get("APDT_FR_DT"));
         json.put("EndDate", infoMap.get("APDT_TO_DT"));
-        
         
 		client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -322,6 +350,7 @@ public class TilkoApiService {
 	     jsonObject = new JSONObject((Map<String, Object>) obj);
 	     
 	     JSONObject Ds_result = (JSONObject) jsonObject.get("Result");
+	     System.out.println("@@ 5 : " + Ds_result);
 	     if(Ds_result != null) {
 	    	 
 		     JSONArray returnResult = (JSONArray) Ds_result.get("ds_result");
@@ -330,16 +359,33 @@ public class TilkoApiService {
 		    	 List<String> ownSaleList = new ArrayList<String>();
 			     List<String> ownLendList = new ArrayList<String>();
 			     
-		    	 List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
+			     int useAmt = 0;
+			     List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
 			     for(Map<String, Object> dsResult : Ds_resultMap) {
-			    	 String itemNm = (String) dsResult.get("PROD_NM");
+			        
+					 String itemNm = (String) dsResult.get("PROD_NM");
 			    	 String recipterTy = (String) dsResult.get("WLR_MTHD_CD");
-			    	 if(recipterTy.equals("판매")) {
-			    		 ownSaleList.add(CodeMap.RECIPTER_ITEM.get(itemNm));
-			    	 }else {
-			    		 ownLendList.add(CodeMap.RECIPTER_ITEM.get(itemNm));
+			    	 String cnclYn = (String) dsResult.get("CNCL_YN");
+			    	 
+			    	 int totAmt = EgovStringUtil.string2integer((String) dsResult.get("TOT_AMT"));
+			    	 
+			    	 // 사용 금액 적용
+			    	 if(!EgovStringUtil.equals("취소",cnclYn)) {
+			    		// 변경, 연장, 정상 금액 포함
+			    		 if(totAmt > 0) {
+			    			 useAmt += totAmt;
+			    		 }
+			    		 
+			    		 if(recipterTy.equals("판매")) {
+				    		 ownSaleList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
+				    	 }else {
+				    		 ownLendList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
+				    	 }
 			    	 }
+			    	 
 			     }
+			     infoMap.put("USE_AMT",  useAmt);
+			     useAmt = 0;
 			     infoMap.put("ownSaleList", ownSaleList);
 			     infoMap.put("ownLendList", ownLendList);
 		     }else {
@@ -349,7 +395,7 @@ public class TilkoApiService {
 	     }
 	     
 	     List<String> allItem = new ArrayList<String>();
-	     for(Map.Entry<String, String> entry : CodeMap.RECIPTER_ITEM.entrySet()) {
+	     for(Map.Entry<String, String> entry : ItemMap.RECIPTER_ITEM.entrySet()) {
 	    	 allItem.add(entry.getValue());
 	     }
 	     

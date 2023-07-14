@@ -25,7 +25,7 @@
                     @apply max-w-none h-full;
                 }
                 & .objects {
-                    @apply absolute top-[320px] w-full h-[244px] overflow-hidden duration-[0ms] opacity-100;
+                    @apply absolute top-[320px] w-full h-[256px] overflow-hidden duration-[0ms] opacity-100;
                     & .objects-1, & .objects-2, & .objects-3, & .objects-4 {
                         @apply absolute w-[117px] h-[117px] bg-cover transition-[transform,opacity] duration-1500 translate-y-[100px] opacity-0;
                     }

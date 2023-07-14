@@ -1006,7 +1006,7 @@
                 @apply flex relative top-0 leading-[1.5em];
             }
             & span {
-                @apply inline-flex flex-col relative top-0 h-[7.5675em];
+                @apply inline-flex flex-col relative top-0 h-[7.5em];
                 animation: pagetitle2 12s infinite;
             }
         }
@@ -1405,28 +1405,28 @@
         top: 0;
     }
     8% {
-        top: -7rem;
+        top: -1.5em;
     }
     25% {
-        top: -7rem;
+        top: -1.5em;
     }
     33% {
-        top: -14rem;
+        top: -3em;
     }
     50% {
-        top: -14rem;
+        top: -3em;
     }
     58% {
-        top: -21rem;
+        top: -4.5em;
     }
     75% {
-        top: -21rem;
+        top: -4.5em;
     }
     83% {
-        top: -28rem;
+        top: -6em;
     }
     99.9% {
-        top: -28rem;
+        top: -6em;
     }
     100% {
         top: 0;

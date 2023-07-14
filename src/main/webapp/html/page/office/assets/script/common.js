@@ -66,6 +66,11 @@ $(function() {
         slider.scrollLeft(scrollLeft - walk);
     });
 
+    //퀵메뉴 닫기
+    $('#quick .moveTop').on('click', function() {
+        $(window).scrollTop(0);
+    });
+
       //상품 목록 더보기
     $(window).on('load resize', function() {
         var cateItem = $('.product-category a');
@@ -99,6 +104,13 @@ $(function() {
         });
     });
 
+    $(window).on('scroll load', function() {
+        if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
+            $('#quick').addClass('is-active');
+        } else {
+            $('#quick').removeClass('is-active');
+        }
+    });
 
     //mobile introduce
     $('#header .logo a').on('click', function(e) {

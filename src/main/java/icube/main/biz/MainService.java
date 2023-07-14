@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import icube.common.api.biz.BokjiApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
-import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
@@ -73,7 +72,7 @@ public class MainService extends CommonAbstractServiceImpl {
 	public List<String> replaceItemList(List<String> ownList) throws Exception {
 		List<String> replaceList = new ArrayList<String>();
 		
-		for(Map.Entry<String, String>entry : CodeMap.RECIPTER_ITEM.entrySet()) {
+		for(Map.Entry<String, String>entry : ItemMap.RECIPTER_ITEM.entrySet()) {
 			int idx = 0;
 			if(entry.getValue().equals(ownList.get(idx))) {
 				replaceList.add(entry.getKey());
