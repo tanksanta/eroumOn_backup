@@ -105,13 +105,13 @@
             <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
             <dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
         </dl>
-		<a href="${_mainPath}/recipter/list">남은 금액보기</a>
+		<a href="${_mainPath}/recipter/list">남은 혜택보기​</a>
 
 	</div>
     <div class="notice-banner2">
         <dl>
-            <dt>부모님 맞춤 제품이 필요하세요?</dt>
-            <dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
+            <dt>부모님 맞춤 상품이 필요하세요?</dt>
+            <dd>복지용구부터 시니어 생활용품까지 한 번에</dd>
         </dl>
         <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
     </div>
@@ -146,7 +146,7 @@
                 <em class="text-primary3">복지용구, 소개해 드릴게요</em>
             </h2>
             <p>불편한 거동, 낙상 사고 등의 걱정을</p>
-            <p>복지용구로 덜으실 수 있어요</p>
+            <p>복지용구로 더실 수 있어요.</p>
             <a href="${_mainPath}/cntnts/page2" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>복지용구 알아보기</strong></a>
         </div>
     </div>
@@ -163,7 +163,7 @@
                 아무거나 고를 순 없어요
             </h2>
             <p>높은 금액의 복지용구,</p>
-            <p>혜택받는 방법과<br> 고르는 법을 알려드려요</p>
+            <p>혜택받는 방법과<br> 고르는 법을 알려드릴게요.</p>
             <a href="${_mainPath}/cntnts/page3" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
         </div>
     </div>
@@ -172,10 +172,10 @@
 <div class="main-banner">
     <div class="market-banner">
         <strong>
-            부모님 맞춤 제품이 필요하세요?
-            <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
+            부모님 맞춤 상품이 필요하세요?​
+            <small>복지용구부터 시니어 생활용품까지 한 번에</small>
         </strong>
-        <a href="${_marketPath}/index" target="_blank">지금둘러보기</a>
+        <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
     </div>
 </div>
 
@@ -341,9 +341,6 @@ function comma(num){
     };
 
     $(function() {
-        //main visual
-        var evTimer = null;
-        
         var swiper = new Swiper(".main-visual .swiper", {
             slidesPerView: 1,
             loop: true,
@@ -399,22 +396,38 @@ function comma(num){
             observer.observe(e);
         }, this);
 
-        $(window).on('load resize', function() {
-            var pageBtn = $('.main-visual .swiper-slide-active .btn');
-            var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-            
-            $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
-            
-            if($(window).outerWidth() > 768) {
-                $('.swiper .object').css({
-                    '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                    '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-                });
-            }else {
-                $('.swiper .object').css({
-                    '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                    '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-                });
+        slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+
+        if($(window).outerWidth() > 768) {
+            $('.swiper .object').css({
+                '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+            });
+        } else {
+            $('.swiper .object').css({
+                '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+            });
+        }
+
+        $(window).on('load resize', function(e) {
+            pageBtn = $('.main-visual .swiper-slide-active .btn');
+            slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+
+            if(e.type === 'load' || (e.type === 'resize' && resize)) {
+                $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+                
+                if($(window).outerWidth() > 768) {
+                    $('.swiper .object').css({
+                        '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                        '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                    });
+                } else {
+                    $('.swiper .object').css({
+                        '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                        '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                    });
+                }
             }
         })
     })
