@@ -579,6 +579,8 @@ $(function() {
    // 기능
     $(".f_recipterCheck").on("click", function(){
 
+    	$(".careinfo-mask").removeClass("is-active");
+    	$("#collapse-agree1").removeClass("show");
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
     	
@@ -746,7 +748,7 @@ $(function() {
 					for(let i=0; i<lendNonList.length; i++){
 						let html = "";
 						html +='   <tr>';
-						html +='    <td class="lend_index>'+(i+1)+'</td>';
+						html +='    <td class="lend_index">'+(i+1)+'</td>';
 						if(f_replaceLink(lendNonList[i]) == 0){
 							html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
 						}else{

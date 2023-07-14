@@ -21,9 +21,10 @@
 	            <c:if test="${empty listVO.listObject}">
 		            <div class="search-result is-large">
 		                <p>검색하신
-		                	<c:if test="${!empty param.srchKwd}">
-		                		<strong>‘${param.srchKwd}’</strong>
-		                	</c:if>
+		                	<c:choose>
+		                		<c:when test="${!empty param.srchKwd}"><strong>${pararm.srchKwd}</strong></c:when>
+		                		<c:when test="${!empty param.srchNonKwd}"><strong>${pararm.srchNonKwd}</strong></c:when>
+		                	</c:choose>
 		                	 에 대한 상품검색 결과가 없습니다.</p>
 		            </div>
 	            </c:if>

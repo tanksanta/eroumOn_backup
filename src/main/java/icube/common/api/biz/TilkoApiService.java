@@ -350,7 +350,7 @@ public class TilkoApiService {
 	     jsonObject = new JSONObject((Map<String, Object>) obj);
 	     
 	     JSONObject Ds_result = (JSONObject) jsonObject.get("Result");
-	     //System.out.println("@@ 5 : " + Ds_result);
+	     System.out.println("@@ 5 : " + Ds_result);
 	     if(Ds_result != null) {
 	    	 
 		     JSONArray returnResult = (JSONArray) Ds_result.get("ds_result");
@@ -375,12 +375,12 @@ public class TilkoApiService {
 			    		 if(totAmt > 0) {
 			    			 useAmt += totAmt;
 			    		 }
-			    	 }
-			    	 
-			    	 if(recipterTy.equals("판매")) {
-			    		 ownSaleList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
-			    	 }else {
-			    		 ownLendList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
+			    		 
+			    		 if(recipterTy.equals("판매")) {
+				    		 ownSaleList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
+				    	 }else {
+				    		 ownLendList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
+				    	 }
 			    	 }
 			    	 
 			     }
