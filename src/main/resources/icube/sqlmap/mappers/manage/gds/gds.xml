@@ -36,6 +36,7 @@
 		, g.wt
 		, g.size
 		, g.stndrd
+		, g.keyword
 		, g.sort_no
 		, g.gds_tag as gds_tag_val
 		, g.mkr
@@ -228,6 +229,14 @@
 			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
 				gc1.ctgry_nm LIKE CONCAT ('%',#{kwd},'%')
 			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				(g.brand IN (SELECT brand_no FROM BRAND b WHERE b.brand_nm LIKE CONCAT ('%',#{kwd},'%')))
+			</foreach>
+			OR
+				<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+					  g.bnef_cd = #{kwd}
+				</foreach>
 			)
 		</if>
 
@@ -364,6 +373,7 @@
 			 , wt
 			 , size
 			 , stndrd
+			 , keyword
 			 , sort_no
 			 , gds_tag
 			 , mkr
@@ -446,6 +456,7 @@
 			, #{wt, jdbcType=VARCHAR}
 			, #{size, jdbcType=VARCHAR}
 			, #{stndrd, jdbcType=VARCHAR}
+			, #{keyword, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
 			, #{mkr}
@@ -534,6 +545,7 @@
 			, wt = #{wt, jdbcType=VARCHAR}
 			, size = #{size, jdbcType=VARCHAR}
 			, stndrd = #{stndrd, jdbcType=VARCHAR}
+			, keyword = #{keyword, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
 			, mkr = #{mkr}
