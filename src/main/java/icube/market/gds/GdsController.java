@@ -170,7 +170,6 @@ public class GdsController extends CommonAbstractController {
 			, HttpSession session
 			, Model model) throws Exception {
 
-
 		int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
 		int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
 		String[] srchCtgryNos = {};

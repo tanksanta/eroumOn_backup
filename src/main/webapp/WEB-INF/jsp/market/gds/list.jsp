@@ -39,7 +39,25 @@ var Goods = (function(){
 	var srchGdsTag;
 	var srchMinPc;
 	var srchMaxPc;
-	var srchCtgryNos = "${ctgryNo>0?ctgryNo:''}";
+	var srchCtgryNos = "";
+	var srchUpCtgryNos = "";
+
+	if("${ctgryNo3}" > 0){
+		srchCtgryNos = "${ctgryNo3}";
+		srchUpCtgryNos = "${ctgryNo2}";
+	}else if("${ctgryNo2}" > 0){
+		srchCtgryNos = "${ctgryNo2}";
+		srchUpCtgryNos = "${ctgryNo1}";
+	}else if("${ctgryNo1}" > 0){
+		srchCtgryNos = "${ctgryNo1}";
+		srchUpCtgryNos = "${upCtgryNo}";
+	}else if("${upCtgryNo}" > 0){
+		srchUpCtgryNos = "${upCtgryNo}";
+		//srchCtgryNos = "${upCtgryNo}";
+	}else {
+		srchCtgryNos = "${ctgryNo}";
+		srchUpCtgryNos = "${upCtgryNo}";
+	}
 
 	// 목록
 	function f_srchGdsList(page){
@@ -66,7 +84,7 @@ var Goods = (function(){
 
 			$("#gds-list-wrap")
 				.load(
-					"${_marketPath}/gds/${upCtgryNo}/srchList"
+					'${_marketPath}/gds/'+srchUpCtgryNos+'/srchList'
 					, params
 					, function(obj){
 						$("#gds-list-wrap").fadeIn(200);
