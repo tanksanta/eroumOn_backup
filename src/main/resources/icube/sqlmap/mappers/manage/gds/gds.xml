@@ -13,6 +13,7 @@
 	<!-- Define GdsVO Result Map  -->
 	<resultMap type="gdsVO" id="gdsVOMap" autoMapping="true">
 		<association property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
+		<association property="gdsCtgryPath" column="{ctgryNo=ctgry_no, gdsNo=gds_no}" select="gds.ctgry.selectGdsCtgryPath" />
 		<collection property="imageFileList" 	column="{upNo=gds_no, fileTy=image_file_ty}" select="gds.file.selectFileList" />
 		<collection property="gdsRelList" 		column="{gdsNo=gds_no}" 					 select="gds.rel.selectGdsRelList" />
 		<collection property="optnList" 		column="{gdsNo=gds_no, optnTy=basic_optn}" 	 select="gds.optn.selectGdsOptnList" />
@@ -216,6 +217,21 @@
 		<if test="gdsNo !=null and gdsNo != ''"><!-- PK -->
 			AND g.gds_no = #{gdsNo}
 		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchKwd)">
+			AND (
+			<foreach collection="srchKwd" item="kwd" separator=" AND " open="(" close=")">
+				g.gds_nm LIKE CONCAT ('%',#{kwd},'%')
+			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				g.keyword LIKE CONCAT ('%',#{kwd},'%')
+			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				gc1.ctgry_nm LIKE CONCAT ('%',#{kwd},'%')
+			</foreach>
+			)
+		</if>
 
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchGdsCds)">
 			AND g.gds_cd IN
@@ -234,6 +250,15 @@
 			#{srchGdsCd}
 			</foreach>
 			) ASC
+			</when>
+			<when test="sortBy == 'SORT_NO'">
+			g.soldout_yn ASC, g.sort_no ASC, g.gds_no DESC
+			</when>
+			<when test="sortBy == 'PC_ASC'">
+			g.soldout_yn ASC, g.pc ASC, g.sort_no ASC, g.gds_no DESC
+			</when>
+			<when test="sortBy == 'PC_DESC'">
+			g.soldout_yn ASC, g.pc DESC, g.sort_no ASC, g.gds_no DESC
 			</when>
 			<otherwise>
 			g.sort_no ASC, g.gds_no DESC
@@ -680,5 +705,28 @@
 			inqcnt = inqcnt + 1
 		WHERE gds_no = #{gdsNo}
 	</update>
+
+
+	<!-- 검색상품 기준 카테고리 그룹 -->
+	<select id="selectGdsCtgryGrp" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT gc1.ctgry_no, gc1.ctgry_nm
+			FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		WHERE 1=1
+		<include refid="searchConditions" />
+		GROUP BY gc1.ctgry_nm
+		ORDER BY gc1.sort_no ASC
+	</select>
+
+	<!-- 검색상품 기준 급여/비급여 그룹 -->
+	<select id="selectGdsTyGrp" parameterType="java.util.HashMap" resultType="egovMap">
+		SELECT g.gds_ty
+			FROM GDS g
+			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		WHERE 1=1
+		<include refid="searchConditions" />
+		GROUP BY g.gds_ty
+		ORDER BY FIELD(g.gds_ty, 'R', 'L', 'N') ASC
+	</select>
 
 </mapper>

@@ -658,7 +658,7 @@
                         <dd>
                             간단한 테스트로<br>
                             이로움ON에서 플랜을 제공받으세요
-                            <a href="/find/step2-1" target="_blank">테스트 하기</a>
+                            <a href="https://www.eroum.co.kr/find/step2-1" target="_blank">테스트 하기</a>
                         </dd>
                     </dl>
                     <dl class="payment">

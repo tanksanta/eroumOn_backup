@@ -18,7 +18,7 @@ public class MainMngVO extends CommonBaseVO {
 	private int sortNo = 1;
 	private String themaTy = "G";
 	private String sj;
-	private int rdcnt;
+	private int rdcnt = 0;;
 	private String icon;
 	private String linkUrl = "#";
 

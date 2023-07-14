@@ -431,5 +431,36 @@
         & strong {
             @apply font-medium text-black1;
         }
+        & .form-check-label {
+            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal
+                   md:py-1.5 md:px-4;
+        }
+    }
+    & .btn {
+        @apply w-35
+               md:w-50 md:h-15;
+    }
+}
+
+.search-count {
+    @apply flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium
+           md:mb-5 md:text-sm;
+    & .form-control {
+        @apply w-28 h-9 bg-neutral-100
+               md:w-42;
+    }
+}
+
+.search-grid {
+    @apply grid grid-cols-2 gap-x-3 gap-y-6 mt-2.5
+           md:grid-cols-3 md:gap-x-4 md:gap-y-13 md:mt-4
+           lg:grid-cols-4 lg:gap-x-5 lg:gap-y-20 lg:mt-5;
+}
+
+.search-result {
+    @apply box-result text-base
+           md:text-lg;
+    & strong {
+        @apply text-[#1D45D5];
     }
 }

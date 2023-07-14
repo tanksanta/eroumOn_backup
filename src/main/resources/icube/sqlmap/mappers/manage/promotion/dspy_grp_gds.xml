@@ -35,6 +35,7 @@
 			, g.gds_nm as gds_nm
 		 	, gc2.ctgry_nm as up_ctgry_nm
 			, gc1.ctgry_nm
+			, g.ctgry_no
 			, g.use_yn
 			, g.reg_dt
 			, g.pc

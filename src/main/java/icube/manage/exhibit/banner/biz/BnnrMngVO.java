@@ -26,8 +26,8 @@ public class BnnrMngVO extends CommonBaseVO {
 	private Date endDt;
 	private String bgngTime;
 	private String endTime;
-	private int sortNo;
-	private int rdcnt;
+	private int sortNo = 1;
+	private int rdcnt = 0;
 
 	// fileVO
 	private List<FileVO> mobileFileList;

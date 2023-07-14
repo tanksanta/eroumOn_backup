@@ -6,7 +6,7 @@
 
 <c:choose>
 	<%-- 상품 목록 --%>
-	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1}">
+	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && fn:indexOf(_curPath, '/list') > -1 }">
 		<div id="page-header">
 			<a href="/market" class="page-header-back">이전 페이지 가기</a>
 			<h2 class="page-header-name">
@@ -15,6 +15,7 @@
 			<button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
 		</div>
 	</c:when>
+
 	<%-- 상품 상세 --%>
 	<c:when test="${fn:indexOf(_curPath, '/gds/') > -1 && !empty gdsVO}">
 		<div id="page-header">

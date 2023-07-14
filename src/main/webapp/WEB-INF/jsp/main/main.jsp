@@ -1,65 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="main-visual">
-    <div class="object1"></div>
-    <div class="object2"></div>
-    <div class="back1"></div>
-    <div class="back2"></div>
-    <div class="back3"></div>
-    <div class="phone">
-        <div class="mask">
-            <div class="obj-3-group">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <img src="/html/page/index/assets/images/visual2/phone-img.png" alt="">
-        </div>
-    </div>
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>최대 2,500만원 복지혜택,</span><br>
-                    <strong><span class="t-obj"></span>65세 이상이라면 바로 신청하세요</strong>
-                </p>
-                <p class="desc"><span>등급별 지원 혜택이 달라요!</span></p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item1" data-slide-number="1">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">최대 2,500만원 복지혜택,</span>
+                        <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
+                    </p>
+                    <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>65세 미만이라도,</span><br>
-                    <strong>등급 인정 확률이 높아요<span class="t-obj"></span></strong>
-                </p>
-                <p class="desc">
-                    <span><span class="t-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
-                    <span><span class="t-obj"></span>노인성 질환을 앓고 있는 어르신</span>
-                    <span><span class="t-obj"></span>치매 증상으로 불편한 어르신</span>
-                </p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item2" data-slide-number="2">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">65세 미만이라도,</span>
+                        <strong class="ani-text">등급 인정 확률이 높아요<span class="ani-obj"></span></strong>
+                    </p>
+                    <p class="desc">
+                        <span class="ani-text"><span class="ani-obj"></span>타인 도움 없이 생활이 불가능한 어르신</span>
+                        <span class="ani-text"><span class="ani-obj"></span>노인성 질환을 앓고 있는 어르신</span>
+                        <span class="ani-text"><span class="ani-obj"></span>치매 증상으로 불편한 어르신</span>
+                    </p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                </div>
             </div>
-            <div class="swiper-slide">
-                <p class="title">
-                    <span>어르신을 위한 복지,<span class="t-obj"></span></span><br>
-                    <strong>놓치지 말고 누리세요</strong>
-                </p>
-                <p class="desc"><span>등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                <a href="https://www.eroum.co.kr/find/step2-1" class="btn btn-primary3 btn-outline-none btn-arrow"><strong>지금 등급 확인하기</strong></a>
-                <div class="timeline"></div>
+            <div class="swiper-slide slide-item3" data-slide-number="3">
+                <div class="content">
+                    <p class="title">
+                        <span class="ani-text">어르신을 위한 복지,<span class="ani-obj"></span></span>
+                        <strong class="ani-text">놓치지 말고 누리세요</strong>
+                    </p>
+                    <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
+                    <a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                </div>
             </div>
         </div>
-        <div class="slide-nav">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination"></div>
+        <div class="object">
+            <div class="object-content">
+                <div class="wrapper">
+                    <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.png" alt="">
+                    <div class="objects">
+                        <div class="objects-1"></div>
+                        <div class="objects-2"></div>
+                        <div class="objects-3"></div>
+                        <div class="objects-4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="object-group">
+                <div class="object1"></div>
+                <div class="object2"></div>
+            </div>
         </div>
-        <div class="slide-prev"></div>
-        <div class="slide-next"></div>
     </div>
-    <p class="text-scroll is-white"><span class="mouse"></span>아래에서 더 자세히 알아보세요</p>
+    <p class="text-scroll is-white"><i></i> 자세히 보기</p>
 </div>
 
 <div class="main-welfare">
@@ -116,13 +116,6 @@
         <a href="${_marketPath}/index" target="_blank">지금 둘러보기</a>
     </div>
 </div>
-
-<ul class="main-link">
-    <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
-    <li class="link-item2"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급<br> 테스트</a></li>
-    <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
-    <!-- li class="link-item4"><a href="//www.youtube.com/@Super_Senior" target="_blank">유튜브<br> 채널</a></li -->
-</ul>
 
 <div class="main-content-wrapper">
     <div class="main-content1">
@@ -329,7 +322,7 @@ function comma(num){
         }
        $("select[name='select-sido']").trigger("change");
        
-   	$("form[name='bokjiFrm']").validate({
+   	$("form[name='bokjiFrm']").validate({ 
 	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
 	    submitHandler: function (frm) {
 	    	$("select[name='select-sido']").attr("name","selectSido");
@@ -339,250 +332,90 @@ function comma(num){
 	});
 
     });
-</script>
 
+    //object visible check
+    var observerCallback = (entries, observer, header) => {
+        if(entries[0].isIntersecting) {
+            entries[0].target.parentNode.classList.add('is-active');
+        }
+    };
 
-
-<style>
-    @media screen and (min-width:768px){
-        .main-visual {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-1.png); max-height: 740px; transition: 0.5s background-image;}
+    $(function() {
+        //main visual
+        var evTimer = null;
         
-        .main-visual .swiper {overflow: visible;}
-    }
-
-    .phone {position: absolute;left: 50%;margin-left: calc(440px);top:100%;transform: translate(-50%,-50%);width:380px;height:727px;background: url(/html/page/index/assets/images/visual2/frame-iphone.png) no-repeat 50% / 100%; z-index: 0; opacity: 0;}
-    .phone .mask {position: absolute;left: 46px;top: 70px;width: 265px;height: 576px;overflow: hidden;border-radius: 36px;background-color: #FF8300;}
-    .phone .mask img {height:576px; width:795px; max-width: none; transition: 0.5s ease;}
-    .is-active.phone {top: 53%;transition: 1.5s ease;opacity: 1;}
-
-    .main-visual .back1,
-    .main-visual .back2,
-    .main-visual .back3 {position: absolute; left:0; width:100%; height:105%; top:0; z-index: 0; background-repeat: no-repeat; background-size: cover; opacity: 0; transition: 1s ease; background-position: center bottom;} 
-    .main-visual .back1 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-1.png);}
-    .main-visual .back2 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-2.png);}
-    .main-visual .back3 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-3.png);}
-    .main-visual .back1 {opacity: 1;}
-    .main-visual.slide-1 .back1,
-    .main-visual.slide-2 .back2,
-    .main-visual.slide-3 .back3 {opacity: 1;}
-    
-    
-    .main-visual .swiper-slide {padding: max(1.625rem,9.235668789808917%) 2.25rem 3.75rem}
-    
-    
-    .main-visual .object1,
-    .main-visual .object2 {max-width: 1800px; left:50% !important;--tw-translate-x:-50%; }
-    
-    .slide-1.phone img {margin-left:0;}
-    .slide-2.phone img {margin-left:-265px;}
-    .slide-3.phone img {margin-left:-530px;}
-    div.obj-3-group {opacity: 0;}
-    .slide-3.phone div.obj-3-group {position: absolute; left:10px; width:calc(100% - 20px); top:52%; height:50%; opacity: 1;}
-    .phone div.obj-3-group span {position: absolute; width:115px; height:115px; background-position: 0 0; background-size: cover; background-repeat: no-repeat;}
-    .phone div.obj-3-group span:nth-child(1) {left:0; top:0; background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-3.png); opacity: 0; margin-top:100px;}
-    .phone div.obj-3-group span:nth-child(2) {left:calc(50% + 5px); top:0; background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-4.png); opacity: 0; margin-top:150px;}
-    .phone div.obj-3-group span:nth-child(3) {left:0; top:125px; background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-5.png); opacity: 0; margin-top:200px;}
-    .phone div.obj-3-group span:nth-child(4) {left:calc(50% + 5px); top:125px; background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-6.png); opacity: 0; margin-top:250px;}
-    
-    .slide-3.phone div.obj-3-group span:nth-child(1) {transition: 1.5s ease; transition-delay: 2.4s; opacity: 1; margin-top: 0;}
-    .slide-3.phone div.obj-3-group span:nth-child(2) {transition: 1.5s ease; transition-delay: 2.6s; opacity: 1; margin-top: 0;}
-    .slide-3.phone div.obj-3-group span:nth-child(3) {transition: 1.5s ease; transition-delay: 2.8s; opacity: 1; margin-top: 0;}
-    .slide-3.phone div.obj-3-group span:nth-child(4) {transition: 1.5s ease; transition-delay: 3.0s; opacity: 1; margin-top: 0;}
-    
-    .main-visual .object1.hide,.main-visual .object2.hide {opacity: 0; transition-delay: 0s; background-position: center 45% !important;}
-    .main-visual .object1,.main-visual .object2  {z-index: 1;}
-    .swiper-slide {position: absolute;}
-    .swiper-slide:nth-child(1) {opacity: 0; z-index: 0;}
-    .swiper-slide:nth-child(2) {opacity: 0; z-index: 0;}
-    .swiper-slide:nth-child(3) {opacity: 0; z-index: 0;}
-    .main-visual .swiper-slide .btn {opacity: 0;}
-    .main-visual.slide-1 .swiper-slide .btn,
-    .main-visual.slide-2 .swiper-slide .btn,
-    .main-visual.slide-3 .swiper-slide .btn {opacity: 1; transition: 1s ease;}
-    
-    .main-visual {max-height: 748px !important;}
-    .main-visual [class*=object] {transition-duration: 1s;}
-    .swiper-slide.ani {opacity: 1;z-index: 2; margin-top:-100px;}
-    .swiper-slide .title span,
-    .swiper-slide .title strong,
-    .swiper-slide .desc span {opacity: 0; top:1rem; position: relative;text-shadow: 0 2px 6px rgba(0,0,0,0.1);}
-    .swiper-slide:nth-child(1) .desc span,
-    .swiper-slide:nth-child(3) .desc span {padding-top:50px;}
-    .swiper-slide .desc span {display: block;}
-    .swiper-slide .desc {height: 6rem;}
-    .swiper-slide:nth-child(2) .desc span:nth-child(1) {transition-delay: 1.5s;}
-    .swiper-slide:nth-child(2) .desc span:nth-child(2) {transition-delay: 1.8s;}
-    .swiper-slide:nth-child(2) .desc span:nth-child(3) {transition-delay: 2.1s;}
-    .swiper-slide.ani .title span {opacity: 1; top:0; transition: 1s ease; }
-    .swiper-slide.ani .title strong {opacity: 1; top:0; transition: 1s ease;transition-delay: 0.5s; }
-    .swiper-slide.ani .desc span {opacity: 1; top:0;  transition: 1s ease; transition-delay: 1.5s;}
-    .swiper-slide .timeline {position: absolute; left:0; bottom:0; width:100%; height:2px;}
-    .swiper-slide .timeline::after {content:''; position: absolute; left:0; width:0; height:0; top:0; background-color: #fff;}
-    .swiper-slide.ani .timeline::after {width:100%; transition: 10s linear;}
-    
-    .main-visual.slide-1 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj1-1.png);}
-    .main-visual.slide-1 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj1-2.png);}
-    .main-visual.slide-2 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj2-1.png);}
-    .main-visual.slide-2 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj2-2.png);}
-    .main-visual.slide-3 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-1.png);}
-    .main-visual.slide-3 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-2.png);}
-    
-    .swiper-slide:nth-child(1) .title .t-obj {width:50px; height:50px; display: inline-block; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj1-1.png) no-repeat center bottom / auto 39px; position: relative;}
-    .swiper-slide:nth-child(1) .title .t-obj::before {content:''; position: absolute; left:0; top:-50%; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj1-2.png) no-repeat left center / auto 78px; width:0; height:80px; }
-    .swiper-slide.ani:nth-child(1) .title .t-obj::before {transition: 0.3s ease-out; transition-delay: 1.5s; width:92px;}
-    
-    .swiper-slide:nth-child(2) .title .t-obj {width:60px; height:50px; display: inline-block; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj2-1.png) no-repeat center bottom / auto 51px; position: relative; left:10px; top:30px; opacity: 0; transform: scale(0.5);}
-    .swiper-slide.ani:nth-child(2) .title .t-obj {transition: 0.5s ease; transition-delay: 1.5s; top:10px; opacity: 1; transform: scale(1);}
-    
-    .swiper-slide:nth-child(2) .desc span .t-obj {display: inline-block; position: relative; width:20px; height:20px; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj2-2.png) no-repeat center bottom / auto 19px; margin-right:5px;}
-    .swiper-slide:nth-child(2) .desc span .t-obj::before {content:''; position: absolute; left:2px; top:-5px; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj2-3.png) no-repeat left center / auto 25px; width:0; height:25px; }
-    .swiper-slide.ani:nth-child(2) .desc span .t-obj::before {transition: 0.3s ease-out; width:25px;}
-    .swiper-slide.ani:nth-child(2) .desc span:nth-child(1) .t-obj::before {transition-delay: 3.5s;}
-    .swiper-slide.ani:nth-child(2) .desc span:nth-child(2) .t-obj::before {transition-delay: 3.8s;}
-    .swiper-slide.ani:nth-child(2) .desc span:nth-child(3) .t-obj::before {transition-delay: 4.1s;}
-    
-    .swiper-slide:nth-child(3) .title span {font-weight: bold;}
-    .swiper-slide:nth-child(3) .title strong {font-weight: normal;}
-    .swiper-slide:nth-child(3) .title span .t-obj {position: absolute; width:40px; height:0px; transform: rotate(-30deg) translate(-24px,-8px);}
-    .swiper-slide:nth-child(3) .title span .t-obj::before {content:''; position: absolute; left:0; bottom:-1px; width:34px; height:21px; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj3-1.png) no-repeat 0 bottom / 100% 100%; transform-origin: bottom;}
-    .swiper-slide:nth-child(3) .title span .t-obj::after {content:''; position: absolute; left:0; top:0px; width:40px; height:9px; background: url(/html/page/index/assets/images/visual2/main-visual-title-obj3-2.png) no-repeat 0 bottom / 100% 100%; transform-origin: top;}
-    .swiper-slide:nth-child(3) .title span .t-obj::before {animation: b-fly-left 5s ease infinite;}
-    .swiper-slide:nth-child(3) .title span .t-obj::after {animation: b-fly-right 6.5s ease infinite;}
-    .slide-prev,.slide-next {position: absolute; top:50%; transform: translateY(-50%); width:100px; height:200px;z-index: 999; cursor: pointer;}
-    .slide-prev {left:-50px;}
-    .slide-next {right:-50px;}
-    .slide-next::before,.slide-prev::before {content:'';position: absolute; width:100%; height:100%; background: url(/html/page/index/assets/images/visual2/slide-arrow.svg) no-repeat center center / 40px auto;transition: 0.5s ease;left:0; opacity: 0.5;}
-    .slide-prev::before {transform: rotate(180deg);}
-    .slide-prev:hover::before {transition: 0.5s ease; left:-20px; opacity: 1;}
-    .slide-next:hover::before {transition: 0.5s ease; left:20px; opacity: 1;}
-    .slide-nav {position: absolute; left:0; bottom:220px; height:6px; display: flex; padding-left:2.5rem;}
-    .slide-nav span {display:flex; width:6px; height:6px; border-radius: 3px; background-color:rgba(255,255,255,0.5); transition: 0.5s ease; margin-right:4px;}
-    .slide-nav.s1 span:nth-child(1),
-    .slide-nav.s2 span:nth-child(2),
-    .slide-nav.s3 span:nth-child(3) {width:36px;background-color:rgba(255,255,255,1)}
-    .text-scroll.is-white {font-weight: normal; font-size: 0.875rem; height: 22px; line-height: 22px;}
-    .text-scroll.is-white:after {background-image: url(/html/page/index/assets/images/visual2/ico-scroll-arrow-white.svg); background-position: 50%; background-size: 80%; background-repeat: no-repeat;}
-    .text-scroll.is-white:after {display: none;}
-    .text-scroll.is-white span.mouse {position: absolute; left:-20px;height:22px; width:14px; overflow: hidden; background: url(/html/page/index/assets/images/visual2/mouse.svg) no-repeat 0 0 / 100%; }
-    .text-scroll.is-white span.mouse::before {content:'';position: absolute; left:50%; transform: translateX(-50%); width:2px; border-radius: 1px; background-color: #fff; height:4px; top:5px;}
-    .text-scroll.is-white span.mouse::before {animation: mousewheelmotion 2s ease infinite;}
-    @keyframes mousewheelmotion {
-        30% {top:5px; height:4px; opacity: 1;}
-        50% {top:5px; height:10px; opacity: 1;}
-        60% {top:10px; height:5px; opacity: 0.5;}
-        70% {top:11px; height:4px; opacity: 0;}
-        85% {top: 5px; height: 4px; opacity: 0;}
-        100% {top: 5px; height: 4px; opacity: 1;}
-    }
-    
-    @media screen and (min-width:1040px){
-        .main-link [class*=link-item] a:hover {color:#FF8300; transition: 0.2s ease;} 
-        .main-link [class*=link-item] a,
-        .main-link [class*=link-item] a::before {transition: 0.2s ease;}
-    }
-    .main-link .link-item1 a:hover::before {transition: 0.2s ease; background-image: url(/html/page/index/assets/images/visual2/ico-main-link1-ov.svg);}
-    .main-link .link-item2 a:hover::before {transition: 0.2s ease; background-image: url(/html/page/index/assets/images/visual2/ico-main-link2-ov.svg);}
-    .main-link .link-item3 a:hover::before {transition: 0.2s ease; background-image: url(/html/page/index/assets/images/visual2/ico-main-link3-ov.svg);}
-    .main-link .link-item4 a:hover::before {transition: 0.2s ease; background-image: url(/html/page/index/assets/images/visual2/ico-main-link4-ov.svg);}
-    
-    
-    @keyframes b-fly-left {
-        0% {transform: scaleY(1);}
-        30% {transform: scaleY(0.2);}
-        70% {transform: scaleY(0.9);}
-        80% {transform: scaleY(0.7);}
-        100% {transform: scaleY(1);}
-    }
-    @keyframes b-fly-right {
-        0% {transform: scaleY(1);}
-        60% {transform: scaleY(0.6);}
-        90% {transform: scaleY(1.2);}
-        100% {transform: scaleY(1);}
-    }
-    
-    @media screen and (max-width:768px){
-        .main-visual .back1 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-1-m.png);}
-        .main-visual .back2 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-2-m.png);}
-        .main-visual .back3 {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-3-m.png);}
-        .swiper-slide:nth-child(2) .desc span .t-obj {top:2px;}
-        .main-visual {background-image: url(/html/page/index/assets/images/visual2/bg-main-visual-m.png);}
-        .swiper-slide.ani .desc {padding-top:1rem;}
-        .swiper-slide.ani {margin-top:0px;}
-        .swiper-slide:nth-child(1) .title .t-obj {transform: scale(1);position: absolute;right: -20vw;top: 10px;}
-        .swiper-slide:nth-child(1) .title strong {display: block; max-width: 50vw;}
-        .swiper-slide:nth-child(2) .title strong {transform: translateY(55px); position: absolute;}
-        .swiper-slide:nth-child(3) .title span .t-obj {transform: rotate(-30deg) translate(-17px,-9px) scale(0.8);}
-        .main-visual.slide-1 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj1-1-m.png);}
-        .main-visual.slide-1 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj1-2-m.png);}
-        .main-visual.slide-1 .object3 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj1-3-m.png);}
-        .main-visual.slide-2 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj2-1-m.png);}
-        .main-visual.slide-2 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj2-2-m.png);}
-        .main-visual.slide-2 .object3 {background-image: none;}
-        .main-visual.slide-3 .object1 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-1-m.png);}
-        .main-visual.slide-3 .object2 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-2-m.png);}
-        .main-visual.slide-3 .object3 {background-image: url(/html/page/index/assets/images/visual2/img-main-visual-obj3-3-m.png);}
-        .slide-nav {left: 50%;bottom: 47px;transform: translateX(-50%) scale(0.7); padding-left:0;}
-        .main-visual .text-scroll {opacity: 0.7;}
-        .text-scroll.is-white {height:auto}
-        .text-scroll.is-white:after {background-size: 100%; display: block;}
-        .text-scroll.is-white span.mouse {display: none;}
-        .phone {transform: translate(-50%,-57%) scale(0.57);margin-left: calc(50vw);top:53%;}
-        .is-active.phone {margin-left: calc(24vw); transition: 1.5s ease; opacity: 1;}
-        .main-visual .swiper-slide:nth-child(3) .desc span {padding-top:30px;}
-    
-    }
-</style>
-<script>
-// 추가 //
-function mainslide(e) {
-    AA = e;
-    $('.slide-nav').removeClass('s1 s2 s3').addClass('s'+AA);
-    $('.main-visual .object1,.main-visual .object2').addClass('hide');
-    $('.phone').removeClass('slide-1 slide-2 slide-3').addClass('slide-'+AA);  
-    setTimeout(function(){
-        $('.main-visual').removeClass('slide-1 slide-2 slide-3').addClass('slide-'+AA);                
-    },1000)
-    $('.main-visual').removeClass('is-active');
-    $('.swiper-slide').removeClass('ani');
-    $('.swiper-slide:nth-child('+AA+')').addClass('ani');
-}
-
-$(function() {
-    $(window).on('load', function() {
-        setTimeout(function() {
-            $('#visual,.phone').addClass('is-active'); // 수정
-        }, 200)
-
-        // 추가 //
-        var slideNum = 1;
-        $('.phone').one('transitionend animationend',function(){ 
-            mainslide(slideNum)
-        })
+        var swiper = new Swiper(".main-visual .swiper", {
+            slidesPerView: 1,
+            loop: true,
+            effect: "fade",
+            speed: 1000,
+            pagination: {
+                el: '.main-visual .swiper-pagination',
+            },
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.main-visual .swiper-button-next',
+                prevEl: '.main-visual .swiper-button-prev',
+            },
+            fadeEffect: {
+                crossFade: true
+            },
+            on: {
+                beforeInit: function(swiper) {
+                    $('.main-visual .object').addClass('is-init');
+                },
+                slideChange: function(swiper) {
+                    $('.main-visual .object-group').removeClass('is-active');
+                    $('.main-visual .object-content').prop('class', 'object-content is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber);
+                },
+                slideChangeTransitionEnd: function(swiper) {
+                    $('.object').on('transitionend',function() {
+                        $(swiper.slides).each(function(i) {
+                            if(i === swiper.activeIndex) {
+                                var numb = $(this).attr('data-slide-number');
+                                $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
+                                    $('.main-visual .object-group').prop('class', 'object-group is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber + ' is-active');
+                                });
+                            } else {
+                                $(this).find('.content').removeClass('is-active').find('.ani-text, .ani-obj').off('transitionend animationend');
+                            }
+                        });
+                    });
+                }
+            }
+        });
         
-        $('.swiper-slide .desc span').on('transitionend animationend',function(){ 
-            $('.main-visual > .object1,.main-visual > .object2').removeClass('hide');
-            $('.main-visual').addClass('is-active');
-        })
-        $('.swiper-slide .timeline').on('transitionend animationend',function(){
-            slideNum ++;
-            if (slideNum > 3){slideNum = 1;}
-            mainslide(slideNum);
-        })
-        $('.swiper .slide-prev').on('click',function(){
-            slideNum --;
-            if (slideNum < 1){slideNum = 3;}
-            mainslide(slideNum);
-        })
-        $('.swiper .slide-next').on('click',function(){
-            slideNum ++;
-            if (slideNum > 3){slideNum = 1;}
-            mainslide(slideNum);
-        })
+        //object visible
+        [].slice.call(document.querySelectorAll('[class*="main-content"] .image')).forEach((e) => {
+            var observer = new IntersectionObserver((entries) => {
+                observerCallback(entries, observer);
+            }, {
+                threshold: 0.8
+            });
 
+            observer.observe(e);
+        }, this);
 
+        $(window).on('load resize', function() {
+            var pageBtn = $('.main-visual .swiper-slide-active .btn');
+            var slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+            
+            $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 1040 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+            
+            if($(window).outerWidth() > 768) {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                    '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                });
+            }else {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                    '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                });
+            }
+        })
     })
-
-})
-
-
 </script>

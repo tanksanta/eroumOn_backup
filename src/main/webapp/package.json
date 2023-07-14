@@ -9,11 +9,9 @@
         "build-office1" : "postcss ./html/page/office/assets/style/home.css -o ./html/page/office/assets/style/home.min.css --watch --poll",
         "build-office2" : "postcss ./html/page/office/assets/style/partner.css -o ./html/page/office/assets/style/partner.min.css --watch --poll",
         "build-office3" : "postcss ./html/page/office/assets/style/admin.css -o ./html/page/office/assets/style/admin.min.css --watch --poll",
-        "build-brand"   : "postcss ./html/page/brand/assets/style/style.css -o ./html/page/brand/assets/style/style.min.css --watch --poll",
-        "build-planner" : "postcss ./html/page/planner/assets/style/style.css -o ./html/page/planner/assets/style/style.min.css --watch --poll",
         "build-members" : "postcss ./html/page/members/assets/style/style.css -o ./html/page/members/assets/style/style.min.css --watch --poll",
         "build-index"   : "postcss ./html/page/index/assets/style/style.css -o ./html/page/index/assets/style/style.min.css --watch --poll",
-        "build": "npm-run-all --parallel build-core build-admin build-market build-office1 build-office2 build-office3 build-brand build-planner build-members build-index"
+        "build": "npm-run-all --parallel build-core build-admin build-market build-office1 build-office2 build-office3 build-members build-index"
     },
     "keywords": [],
     "author": "",

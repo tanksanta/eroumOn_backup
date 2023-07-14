@@ -128,6 +128,12 @@
     }
 }
 
+.utility-menu {
+    @apply hidden gap-5 absolute right-0 leading-tight text-sm text-gray1
+           md:top-3
+           lg:right-7
+           lg:flex xl:right-10;
+}
 
 /* navigation */
 #navigation {

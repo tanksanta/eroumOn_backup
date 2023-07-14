@@ -24,6 +24,7 @@ import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
 import icube.manage.exhibit.banner.biz.BnnrMngService;
 import icube.manage.exhibit.banner.biz.BnnrMngVO;
+import icube.manage.exhibit.main.biz.MainMngService;
 import icube.manage.exhibit.popup.biz.PopupService;
 import icube.manage.exhibit.popup.biz.PopupVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
@@ -33,6 +34,7 @@ import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.sysmng.menu.biz.MngMenuVO;
 import icube.manage.sysmng.usermenu.biz.MngUserMenuService;
 import icube.market.mbr.biz.MbrSession;
+import icube.market.srch.biz.SrchKwdCookieHandler;
 
 /**
  * 마켓 인터셉터
@@ -59,6 +61,9 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 	@Resource(name = "bnnrMngService")
 	private BnnrMngService bnnrMngService;
+
+	@Resource(name = "mainMngService")
+	private MainMngService mainMngService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -207,8 +212,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_membersPath", "/" + membersPath);
 		request.setAttribute("_membershipPath", "/" + membershipPath);
 		request.setAttribute("_plannerPath", "/" + plannerPath);
-		request.setAttribute("_mainPath", mainPath);
-
+		request.setAttribute("_mainPath", "/" + mainPath);
 		request.setAttribute("_curPath", curPath);
 
 		// 팝업
@@ -219,7 +223,27 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 		request.setAttribute("_popupList", popupList);
 
-		// 마켓정보
+		// 배너 조회수 증가
+		String rdcntBanner = request.getParameter("rdcntBanner");
+		if(rdcntBanner != null) {
+			Map<String, Object> rdcntMap = new HashMap<String, Object>();
+			rdcntMap.put("srchBannerNo", EgovStringUtil.string2integer(rdcntBanner));
+			bnnrMngService.updateBnnrRdcnt(rdcntMap);
+		}
+
+		// 메인 배너 조회수 증가
+		String rdcntMain = request.getParameter("rdcntMain");
+		if(rdcntMain != null) {
+			Map<String, Object> rdcntMap = new HashMap<String, Object>();
+			rdcntMap.put("srchMainNo", EgovStringUtil.string2integer(rdcntMain));
+			mainMngService.updateMainRdcnt(rdcntMap);
+		}
+
+		// 검색어 쿠키 호출
+		String srchKwd = request.getParameter("srchKwd");
+		SrchKwdCookieHandler.setKwdList(request, response, srchKwd);
+		List<String> cookieKwdList = SrchKwdCookieHandler.getKwdListByCookie(request, response);
+		request.setAttribute("_cookieKwdList", cookieKwdList);
 
 		//코드
 		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);

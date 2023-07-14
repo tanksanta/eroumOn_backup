@@ -83,14 +83,23 @@
                                 </td>
                                 <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
                                 <td>
-                                    <div class="form-group w-84">
-                                        <select name="srchUpCtgryNo" id="srchUpCtgryNo" class="form-control w-32">
+                                	<input type="hidden" id="srchCtgryNo" name="srchCtgryNo" value="${param.srchCtgryNo}" />
+
+                                    <div class="form-group w-full">
+                                        <select name="ctgryNo1" id="ctgryNo1" class="form-control w-32">
                                             <option value="0">전체</option>
                                         <c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
-                                        	<option value="${ctgryList.ctgryNo}" ${param.srchUpCtgryNo eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
+                                        	<option value="${ctgryList.ctgryNo}" ${param.ctgryNo1 eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
                                         </c:forEach>
+
                                         </select>
-                                        <select name="srchCtgryNo" id="srchCtgryNo" class="form-control flex-1">
+                                        <select name="ctgryNo2" id="ctgryNo2" class="form-control w-32">
+                                            <option value="0">전체</option>
+                                        </select>
+                                        <select name="ctgryNo3" id="ctgryNo3" class="form-control w-32">
+                                            <option value="0">전체</option>
+                                        </select>
+                                        <select name="ctgryNo4" id="ctgryNo4" class="form-control w-32">
                                             <option value="0">전체</option>
                                         </select>
                                     </div>
@@ -197,7 +206,7 @@
                         </c:forEach>
                         <c:if test="${empty listVO.listObject}">
                         <tr>
-                            <td class="noresult" colspan="10">검색조건을 만족하는 결과가 없습니다.</td>
+                            <td class="noresult" colspan="12">검색조건을 만족하는 결과가 없습니다.</td>
                         </tr>
                         </c:if>
                     </tbody>
@@ -326,32 +335,62 @@
                     reader.readAsBinaryString(input.files[0]);
                 }
 
+               function f_selectedOpt(obj){
+            	   let ctNum = obj.attr("id").replaceAll("ctgryNo","");
+
+            	   if(ctNum == 1){
+            		   let seNum = Number("${param.ctgryNo2}");
+            		   $("#ctgryNo2 option").each(function(){
+            			   if(seNum == $(this).val()){
+            				   $(this).prop("selected",true).trigger("change");
+            			   }
+            		   });
+            	   }else if(ctNum == 2){
+            		   let seNum = Number("${param.ctgryNo3}");
+            		   $("#ctgryNo3 option").each(function(){
+            			   if(seNum == $(this).val()){
+            				   $(this).prop("selected",true).trigger("change");
+            			   }
+            		   });
+            	   }else if(ctNum == 2){
+            		   let seNum = Number("${param.ctgryNo4}");
+            		   $("#ctgryNo4 option").each(function(){
+            			   if(seNum == $(this).val()){
+            				   $(this).prop("selected",true);
+            			   }
+            		   });
+            	   }
+
+
+               }
+
                 $(function(){
 
                 	//상품 카테고리
-                	$("#srchUpCtgryNo").on("change", function(){
+                	$("#ctgryNo1, #ctgryNo2, #ctgryNo3").on("change", function(){
+                		let sectionNo = $(this).attr("id").replaceAll("ctgryNo","");
+                		let ctgryVal = $(this).val();
 
-                		const ctgryNoVal = "${param.srchCtgryNo}";
+                		$("#ctgryNo"+(Number(sectionNo)+1)).empty();
+                		$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='0'>전체</option>");
 
-                		$("#srchCtgryNo").empty();
-                		$("#srchCtgryNo").append("<option value='0'>전체</option>");
-
-                		let srchUpCtgryNoVal = $(this).val();
-                		if(srchUpCtgryNoVal > 0){ //값이 있을경우만..
+                		if(ctgryVal > 0){ //값이 있을경우만..
                 			$.ajax({
                 				type : "post",
                 				url  : "/_mng/gds/ctgry/getGdsCtgryListByFilter.json",
-                				data : {upCtgryNo:srchUpCtgryNoVal},
+                				data : {upCtgryNo:ctgryVal},
                 				dataType : 'json'
                 			})
                 			.done(function(data) {
                 				for(key in data){
-                					if(ctgryNoVal == key){
-										$("#srchCtgryNo").append("<option value='"+ key +"' selected='selected'>"+ data[key] +"</option>");
+                					if(ctgryVal == key){
+                						$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"' selected='selected'>"+ data[key] +"</option>");
 									}else{
-										$("#srchCtgryNo").append("<option value='"+ key +"'>"+ data[key] +"</option>");
+										$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"'>"+ data[key] +"</option>");
 									}
                 				}
+                				$("#srchCtgryNo").val($("#ctgryNo"+Number(sectionNo)).val());
+                				f_selectedOpt($("#ctgryNo"+Number(sectionNo)));
                 			})
                 			.fail(function(data, status, err) {
                 				alert("카테고리 호출중 오류가 발생했습니다.");
@@ -359,6 +398,7 @@
                 			});
                 		}
                 	}).trigger("change");
+
 
 
                 	// 상품태그 checkbox

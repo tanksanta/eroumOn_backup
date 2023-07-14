@@ -70,18 +70,6 @@
 			<include refid="searchConditions" />
 	</select>
 
-	<update id="updateMainUseYn" parameterType="java.util.HashMap">
-		UPDATE MNG_MAIN SET
-			use_yn = #{useYn}
-		WHERE main_no = #{mainNo}
-	</update>
-
-	<update id="updateMainSortNo" parameterType="java.util.HashMap">
-		UPDATE MNG_MAIN SET
-			sort_no = #{sortNo}
-		WHERE main_no = #{mainNo}
-	</update>
-
 	<select id="selectMainMng" parameterType="java.util.HashMap" resultMap="mainMngVOMap">
 		SELECT
 			<include refid="listColumn" />
@@ -99,6 +87,39 @@
 		ORDER BY thema_ty, sort_no DESC
 	</select>
 
+	<update id="updateMainMng" parameterType="mainMngVO">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+			, thema_ty = #{themaTy}
+			, sj = #{sj}
+			, rdcnt = #{rdcnt}
+			, link_url = #{linkUrl}
+			, use_yn = #{useYn}
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+			, mdfcn_dt = #{mdfcnDt}
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+		WHERE main_no = #{mainNo}
+	</update>
+
+
+	<update id="updateMainUseYn" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			use_yn = #{useYn}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<update id="updateMainSortNo" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			sort_no = #{sortNo}
+		WHERE main_no = #{mainNo}
+	</update>
+
+	<update id="updateMainRdcnt" parameterType="java.util.HashMap">
+		UPDATE MNG_MAIN SET
+			rdcnt = rdcnt +1
+		WHERE main_no = #{srchMainNo}
+	</update>
 
 	<insert id="insertMainMng" parameterType="mainMngVO">
 		INSERT INTO MNG_MAIN (
@@ -128,21 +149,5 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-
-	<update id="updateMainMng" parameterType="mainMngVO">
-		UPDATE MNG_MAIN SET
-			sort_no = #{sortNo}
-			, thema_ty = #{themaTy}
-			, sj = #{sj}
-			, rdcnt = #{rdcnt}
-			, link_url = #{linkUrl}
-			, use_yn = #{useYn}
-			, mdfcn_unique_id = #{mdfcnUniqueId}
-			, mdfcn_dt = #{mdfcnDt}
-			, mdfcn_id = #{mdfcnId}
-			, mdfr = #{mdfr}
-		WHERE main_no = #{mainNo}
-	</update>
-
 
 </mapper>

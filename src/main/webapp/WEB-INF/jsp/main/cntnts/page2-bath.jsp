@@ -4,7 +4,8 @@
     <nav class="breadcrumb">
         <ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
-            <li><a href="${_mainPath}/cntnts/page2">복지용구 활용</a></li>
+            <li>시니어 길잡이</li>
+            <li><a href="${_mainPath}/cntnts/page2">복지용구 알아보기</a></li>
             <li>욕실</li>
         </ul>
     </nav>
@@ -12,10 +13,10 @@
 
 <div id="content">
     <div class="page2-content-detail is-detail1">
-		<h2 class="title">안전한 욕실생활</h2>
+		<h2 class="title">안전한 욕실생활</h2> 
 		<p class="desc">
-		    미끄러운 사고 위험이 높은 공간으로<br>
-		    안전사고를 예방하는 복지용구를 소개해 드릴게요
+			사고 위험이 높은 욕실 공간,<br>
+			안전을 위한 복지용구를 만나보세요.
 		</p>
 		<ul class="nav">
 	        <li><a href="${_mainPath}/cntnts/page2-bath" class="is-active">욕실</a></li>

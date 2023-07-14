@@ -115,6 +115,7 @@ public class GdsVO extends CommonBaseVO {
 	private String upCtgryNm;
 	private int ctgryNo = 0; //카테고리
 	private String ctgryNm;
+	private String gdsCtgryPath;
 
 	//옵션
 	private String optnTtl;//옵션제목

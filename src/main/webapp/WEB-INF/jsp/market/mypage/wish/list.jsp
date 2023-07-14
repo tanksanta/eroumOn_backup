@@ -44,7 +44,7 @@
                                             </div>
 			                                <div class="name">
 			                                	<c:if test="${wish.gdsInfo.useYn eq 'Y'}">
-			                                	<a href="${_marketPath}/gds/${wish.gdsInfo.upCtgryNo}/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
+			                                	<a href="${_marketPath}/gds/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
 				                                    <u>${wish.gdsInfo.gdsCd}</u>
 				                                    <strong>${wish.gdsInfo.gdsNm}</strong>
 			                                    </a>

@@ -15,16 +15,16 @@ public class BnnrMngDAO extends CommonAbstractMapper {
 		return selectListVO("banner.mng.selectBnnrMngCount", "banner.mng.selectBnnrMngListVO", listVO);
 	}
 
+	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
+		return selectList("banner.mng.selectBnnrMngList",paramMap);
+	}
+
 	public BnnrMngVO selectBnnrMng(int bnnrMngNo) throws Exception {
 		return (BnnrMngVO)selectOne("banner.mng.selectBnnrMng", bnnrMngNo);
 	}
 
-	public void insertBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
-		insert("banner.mng.insertBnnrMng", bnnrMngVO);
-	}
-
-	public void updateBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
-		update("banner.mng.updateBnnrMng", bnnrMngVO);
+	public Integer updateBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
+		return update("banner.mng.updateBnnrMng", bnnrMngVO);
 	}
 
 	public Integer updateBnnrUseYn(Map<String, Object> paramMap) throws Exception {
@@ -35,7 +35,12 @@ public class BnnrMngDAO extends CommonAbstractMapper {
 		return update("banner.mng.updateSortNo",paramMap);
 	}
 
-	public List<BnnrMngVO> selectBnnrMngList(Map<String, Object> paramMap) throws Exception {
-		return selectList("banner.mng.selectBnnrMngList",paramMap);
+	public Integer updateBnnrRdcnt(Map<String, Object> paramMap) throws Exception {
+		return update("banner.mng.updateBnnrRdcnt",paramMap);
 	}
+
+	public void insertBnnrMng(BnnrMngVO bnnrMngVO) throws Exception {
+		insert("banner.mng.insertBnnrMng", bnnrMngVO);
+	}
+
 }

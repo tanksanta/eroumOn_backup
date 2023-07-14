@@ -79,7 +79,7 @@ public class InqryController extends CommonAbstractController{
 			)throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
-			return "redirect:/" + membershipPath + "/login";
+			return "redirect:/" + membershipPath + "/login?returnUrl=/market/etc/inqry/form";
 		}
 
 		// 회원 휴대폰, 이메일 정보

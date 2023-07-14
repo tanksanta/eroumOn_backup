@@ -73,7 +73,6 @@
 														</c:otherwise>
 													</c:choose>
 												</a>
-
                                         	</div>
                                         <a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
                                             <div class="name">
@@ -81,38 +80,38 @@
                                                 <strong>${gdsRelList.gdsNm}</strong>
                                             </div>
                                             <div class="cost">
-                                            	<c:if test="${_mbrSession.loginCheck}">
+                                            	<c:if test="${insuranceMode && _mbrSession.loginCheck}">
                                             	<c:choose>
 				                            		<c:when test="${gdsRelList.gdsTy eq 'R' || gdsRelList.gdsTy eq 'L'}"> <%--급여(판매)제품--%>
-				                            	<dl class="discount">
-				                                    <dt>급여가</dt>
-				                                    <dd>
-				                                    	<c:choose>
-					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
-					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc15}" pattern="###,###" /><small>원</small>
-					                                 		</c:when>
-					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
-					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc9}" pattern="###,###" /><small>원</small>
-					                                 		</c:when>
-					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
-					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc6}" pattern="###,###" /><small>원</small>
-					                                 		</c:when>
-					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
-					                                	0<small>원</small>
-					                                 		</c:when>
-					                                 	</c:choose>
-				                                    </dd>
-				                                </dl>
+						                            	<dl class="discount">
+						                                    <dt>급여가</dt>
+						                                    <dd>
+						                                    	<c:choose>
+							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
+							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc15}" pattern="###,###" /><small>원</small>
+							                                 		</c:when>
+							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
+							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc9}" pattern="###,###" /><small>원</small>
+							                                 		</c:when>
+							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
+							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc6}" pattern="###,###" /><small>원</small>
+							                                 		</c:when>
+							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
+							                                	0<small>원</small>
+							                                 		</c:when>
+							                                 	</c:choose>
+						                                    </dd>
+						                                </dl>
 				                            		</c:when>
 				                            		<%--급여(대여)제품--%>
 				                            		<%--
 				                            		<c:when test="${gdsRelList.gdsTy eq 'L'}">
-												<dl class="discount">
-				                                    <dt>대여가(월)</dt>
-				                                    <dd>
-				                                    	<fmt:formatNumber value="${gdsRelList.lendPc}" pattern="###,###" /><small>원</small>
-				                                    </dd>
-				                                </dl>
+														<dl class="discount">
+						                                    <dt>대여가(월)</dt>
+						                                    <dd>
+						                                    	<fmt:formatNumber value="${gdsRelList.lendPc}" pattern="###,###" /><small>원</small>
+						                                    </dd>
+						                                </dl>
 				                            		</c:when>
 				                            		 --%>
 				                            	</c:choose>
@@ -149,7 +148,7 @@
                <!-- 가격 배너 -->
                <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div>
                <!-- //가격 배너 -->
-               
+
 				<!-- 상세 탭 -->
 				<div id="prod-tablist" class="product-tablist">
 					<ul class="nav">
@@ -381,14 +380,13 @@
 						</c:if>
 						<strong>${gdsVO.gdsNm}</strong>
 					</div>
-
 				</div>
 				<!-- //상품 이름 -->
 
 				<!-- 상품 재원 -->
 				<div class="product-resource">
 					<c:choose>
-						<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+						<c:when test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 							<%--급여상품(판매)--%>
 							<dl class="price1">
 								<dt>판매가</dt>
@@ -405,7 +403,7 @@
 									</dd>
 								</dl>
 							</c:if>
-							<dl class="price1">
+							<%-- <dl class="price1">
 								<dt>${gdsVO.gdsTy eq 'R'?'급여가':'대여가(월)'}</dt>
 								<dd>
 									<strong><fmt:formatNumber value="${gdsVO.bnefPc}" pattern="###,###" /></strong> 원<c:if test="${gdsVO.usePsbltyTrm > 0}"> / <strong>${gdsVO.usePsbltyTrm}</strong>년</c:if>
@@ -431,7 +429,7 @@
 									</c:choose>
 									원 <button type="button" class="text-question mycost-trigger font-normal text-primary" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom" data-bs-content="- 수급자는 연 한도액 160만원 범위 안에서 제공받음<br>- 복지용구 구매시 공단부담금 + 본인부담금<br>- 연 한도액 초과 시 전액 본인부담<br><br>차상위 감경(9% 본인부담) : 보험료 순위 25% 초과 50%<br>차상위 감경(6% 본인부담) : 보험료 순위 25% 이하<br>기초생활수급자(본인부담금 없이 무료)<a href='#' class='close'>닫기</a>" data-bs-title="본인부담금이란?">본인부담금이란?</button>
 								</dd>
-							</dl>
+							</dl> --%>
 						</c:when>
 						<%--급여상품(대여)--%>
 						<%--
@@ -473,13 +471,13 @@
 						<dt>상품코드</dt>
 						<dd class="text-lg">${gdsVO.gdsCd}</dd>
 					</dl>
-					<c:if test="${!empty gdsVO.bnefCd}">
+					<%-- <c:if test="${!empty gdsVO.bnefCd}">
 					<dl>
 						<dt>급여코드</dt>
 						<dd class="text-lg">${gdsVO.bnefCd}</dd>
 						<input type="hidden" id="bnefCd" name="bnefCd" value="${gdsVO.bnefCd}" />
 					</dl>
-					</c:if>
+					</c:if> --%>
 
 					<c:if test="${!empty gdsVO.mtrqlt}">
 					<dl>
@@ -564,28 +562,28 @@
 					<form id="frmOrdr" name="frmOrdr" method="post" enctype="multipart/form-data">
 						<!-- 구매 조건 선택 -->
                        	<c:choose>
-							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
-							<div class="payment-type-select">
-	                            <label for="ordrTy1" class="select-item1">
-	                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > <%--R or L--%>
-	                                <span>급여 구매</span>
-	                            </label>
-	                            <label for="ordrTy2" class="select-item2">
-	                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
-	                                <span>바로 구매</span>
-	                            </label>
-							</div>
+							<c:when test="${insuranceMode && gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
+								<div class="payment-type-select">
+		                            <label for="ordrTy1" class="select-item1">
+		                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > <%--R or L--%>
+		                                <span>급여 구매</span>
+		                            </label>
+		                            <label for="ordrTy2" class="select-item2">
+		                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
+		                                <span>바로 구매</span>
+		                            </label>
+								</div>
                             </c:when>
-                            <c:when test="${gdsVO.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 대여 & 수급자--%>
-							<div class="payment-type-select">
-	                            <label for="ordrTy1" class="select-item1">
-	                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
-	                                <span>급여 구매</span>
-	                            </label>
-	                        </div>
+                            <c:when test="${insuranceMode && gdsVO.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 대여 & 수급자--%>
+								<div class="payment-type-select">
+		                            <label for="ordrTy1" class="select-item1">
+		                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
+		                                <span>급여 구매</span>
+		                            </label>
+		                        </div>
                             </c:when>
 							<c:otherwise> <%-- 비급여 > 판매가 구매 --%>
-							<input type="hidden" name="ordrTy" value="N">
+								<input type="hidden" name="ordrTy" value="N">
 							</c:otherwise>
 						</c:choose>
 						<!-- //구매 조건 선택 -->
@@ -593,15 +591,15 @@
 						<div class="payment-type-content1 is-active"> <%--고정--%>
 
 	                        <div class="payment-scroller">
-	                            <c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
-		                        <div class="space-y-1 payment-guide">
-		                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
-		                            <p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
-		                        </div>
+	                            <c:if test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+			                        <div class="space-y-1 payment-guide">
+			                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
+			                            <p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
+			                        </div>
 	                            </c:if>
 
 								<%-- 급여상품일 경우만 선택 --%>
-								<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+								<c:if test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 	                            <!-- 멤버스 선택 -->
 	                            <div class="payment-partners">
 	                            	<!-- <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
@@ -727,12 +725,12 @@
 							<!-- 구매 버튼 -->
 							<div class="payment-button">
 								<c:if test="${_mbrSession.loginCheck}">
-									<c:if test="${_mbrSession.recipterYn eq 'Y' }">
+									<%-- <c:if test="${_mbrSession.recipterYn eq 'Y' }">
 										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
-									<c:if test="${_mbrSession.recipterYn eq 'N' }">
+									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
 										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매신청</button>
-									</c:if>
+									<%-- </c:if> --%>
 									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
 								</c:if>
@@ -1443,6 +1441,9 @@ var Goods = (function(){
 	    html += '<tr class="bot-border"><td></td><td></td></tr>';
 	    $("#ancmntTable tbody").append(html);
 
+	    // TODO : 급여 구매 신청 시 제거
+	    $("#ordrTy2").click();
+	    $("#ordrTy2").hide();
 	});
 
 })();

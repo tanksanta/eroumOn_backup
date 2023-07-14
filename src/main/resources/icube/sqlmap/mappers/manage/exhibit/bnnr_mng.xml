@@ -157,5 +157,10 @@
 	WHERE banner_no = #{srchBannerNo}
 	</update>
 
+	<update id="updateBnnrRdcnt" parameterType="java.util.HashMap">
+	UPDATE BNNER_MNG SET
+		rdcnt = rdcnt +1
+	WHERE banner_no = #{srchBannerNo}
+	</update>
 
 </mapper>

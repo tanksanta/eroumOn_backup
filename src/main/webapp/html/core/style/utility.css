@@ -319,7 +319,7 @@ strong {
     }
 
     .progress-loading {
-        @apply fixed z-[9999] top-1/2 left-1/2 p-6 w-fit rounded-lg shadow-lg border border-gray3 text-xs font-medium text-gray1 -translate-x-1/2 -translate-y-1/2;
+        @apply fixed z-[9999] top-1/2 left-1/2 p-6 w-fit rounded-lg shadow-lg border border-gray3 bg-white/50 text-xs font-medium text-gray1 -translate-x-1/2 -translate-y-1/2;
         & .icon {
             @apply relative mx-auto mb-4 w-13 h-13 bg-no-repeat bg-center;
             & span {
@@ -342,23 +342,6 @@ strong {
         &.is-dark {
             @apply bg-black2/50 text-white backdrop-blur-md;
         }
-    }
-    
-    .btn-kakao, .btn-naver {
-        @apply !py-0 !px-4 !h-[3.125rem] !text-base !font-bold
-               before:mr-1 before:w-[46px] before:h-full before:bg-no-repeat before:bg-cover before:bg-center
-               md:!px-5 md:!h-[3.375rem] md:!text-lg
-               md:before:w-[50px];
-    }
-    
-    .btn-kakao {
-        @apply !border-[#ffe000] !bg-[#ffe000]
-               before:bg-[url(/html/core/images/ico-kakao.png)];
-    }
-    
-    .btn-naver {
-        @apply !border-[#04C75B] !bg-[#04C75B] !text-white
-               before:bg-[url(/html/core/images/ico-naver.png)];
     }
 
     @keyframes loading {

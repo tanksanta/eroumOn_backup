@@ -4,7 +4,6 @@
 
 	<resultMap type="mainGdsMngVO" id="mainGdsMngVOMap" autoMapping="true" >
 		<association property="gdsInfo" column="{gdsNo=gds_no}" select="gds.gds.selectGds" />
-		<association property="gdsCtgry" column="{gdsNo=gds_no}" select="main.gds.selectMainGdsCtgryList"/>
 	</resultMap>
 
 	<resultMap type="gdsCtgryVO" id="gdsCtgryVO" autoMapping="true"  />

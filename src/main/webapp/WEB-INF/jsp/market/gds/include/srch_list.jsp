@@ -13,25 +13,25 @@
                         <div class="item-thumb">
                             <c:choose>
 								<c:when test="${!empty resultList.thumbnailFile }">
-							<img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.thumbnailFile.upNo }&amp;fileTy=${resultList.thumbnailFile.fileTy }&amp;fileNo=${resultList.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
+									<img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.thumbnailFile.upNo }&amp;fileTy=${resultList.thumbnailFile.fileTy }&amp;fileNo=${resultList.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
 								</c:when>
 								<%-- <c:otherwise>
-							<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+									<img src="/html/page/market/assets/images/noimg.jpg" alt="">
 								</c:otherwise> --%>
 							</c:choose>
                         </div>
                         <div class="item-content">
                             <div class="label">
 								<c:if test="${resultList.gdsTy ne 'N'}"> <%--급여제품만--%>
-                                <!-- <span class="label-primary">
-                                    <span>급여가</span><i></i>
-                                </span> -->
+	                                <!-- <span class="label-primary">
+	                                    <span>급여가</span><i></i>
+	                                </span> -->
 								</c:if>
 								<c:if test="${!empty resultList.gdsTag}">
 									<c:forEach items="${resultList.gdsTag}" var="tag">
-								<span class="${tag eq 'A'?'label-outline-danger':'label-outline-primary' }">
-                                    <span>${_gdsTagCode[tag]}</span><i></i>
-                                </span>
+										<span class="${tag eq 'A'?'label-outline-danger':'label-outline-primary' }">
+		                                    <span>${_gdsTagCode[tag]}</span><i></i>
+		                                </span>
                                 	</c:forEach>
                                 </c:if>
                             </div>
@@ -40,49 +40,67 @@
                                 <strong>${resultList.gdsNm }</strong>
                             </div>
                             <div class="cost">
-                                <dl <c:if test="${resultList.dscntRt > 0 && _mbrSession.recipterYn eq 'N'}"> style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
-                                    <dt>판매가</dt>
-                                    <dd <c:if test="${resultList.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /><small>원</small></dd>
-                                </dl>
-                                <c:if test="${resultList.dscntRt > 0}">
-	                                <dl>
-	                                    <dt>할인가</dt>
-	                                    <dd><fmt:formatNumber value="${resultList.dscntPc}" pattern="###,###" /><small>원</small></dd>
-	                                </dl>
-                                </c:if>
                             	<c:choose>
-                            		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> <%--급여(판매)제품--%>
-                            	<dl class="discount">
-                                    <dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
-                                    <dd>
-                                    	<c:choose>
-                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
-                                    	<fmt:formatNumber value="${resultList.bnefPc15}" pattern="###,###" /><small>원</small>
-                                    		</c:when>
-                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
-                                    	<fmt:formatNumber value="${resultList.bnefPc9}" pattern="###,###" /><small>원</small>
-                                    		</c:when>
-                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
-                                    	<fmt:formatNumber value="${resultList.bnefPc6}" pattern="###,###" /><small>원</small>
-                                    		</c:when>
-                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
-                                    	0<small>원</small>
-                                    		</c:when>
-                                    	</c:choose>
-                                    </dd>
-                                </dl>
+                            		<c:when test="${insuranceMode}">
+                            			<!-- 급여모드(급여가 확인 가능)  -->
+                            			<dl <c:if test="${resultList.dscntRt > 0 && _mbrSession.recipterYn eq 'N'}"> style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
+		                                    <dt>판매가</dt>
+		                                    <dd <c:if test="${resultList.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /><small>원</small></dd>
+		                                </dl>
+		                                <c:if test="${resultList.dscntRt > 0}">
+			                                <dl>
+			                                    <dt>할인가</dt>
+			                                    <dd><fmt:formatNumber value="${resultList.dscntPc}" pattern="###,###" /><small>원</small></dd>
+			                                </dl>
+		                                </c:if>
+		                            	<c:choose>
+		                            		<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}"> <%--급여(판매)제품--%>
+				                            	<dl class="discount">
+				                                    <dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
+				                                    <dd>
+				                                    	<c:choose>
+				                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
+				                                    			<fmt:formatNumber value="${resultList.bnefPc15}" pattern="###,###" /><small>원</small>
+				                                    		</c:when>
+				                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
+				                                    			<fmt:formatNumber value="${resultList.bnefPc9}" pattern="###,###" /><small>원</small>
+				                                    		</c:when>
+				                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
+				                                    			<fmt:formatNumber value="${resultList.bnefPc6}" pattern="###,###" /><small>원</small>
+				                                    		</c:when>
+				                                    		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
+				                                    			0<small>원</small>
+				                                    		</c:when>
+				                                    	</c:choose>
+				                                    </dd>
+				                                </dl>
+		                            		</c:when>
+		                            		<%--급여(대여)제품--%>
+		                            		<%--
+		                            		<c:when test="${resultList.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y'}">
+												<dl class="discount">
+		                                    	<dt>대여가(월)</dt>
+			                                    <dd>
+			                                    	<fmt:formatNumber value="${resultList.lendPc}" pattern="###,###" /><small>원</small>
+			                                    </dd>
+		                                		</dl>			
+		                            		</c:when>
+		                            		 --%>
+		                            	</c:choose>
                             		</c:when>
-                            		<%--급여(대여)제품--%>
-                            		<%--
-                            		<c:when test="${resultList.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y'}">
-								<dl class="discount">
-                                    <dt>대여가(월)</dt>
-                                    <dd>
-                                    	<fmt:formatNumber value="${resultList.lendPc}" pattern="###,###" /><small>원</small>
-                                    </dd>
-                                </dl>
-                            		</c:when>
-                            		 --%>
+                            		<c:otherwise>
+                            			<!-- 비급여 모드(급여가를 노출하지 않는다.) -->
+        								<dl <c:if test="${resultList.dscntRt > 0 && _mbrSession.recipterYn eq 'N'}"> style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
+		                                    <dt>판매가</dt>
+		                                    <dd <c:if test="${resultList.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /><small>원</small></dd>
+		                                </dl>
+		                                <c:if test="${resultList.dscntRt > 0}">
+			                                <dl>
+			                                    <dt>할인가</dt>
+			                                    <dd><fmt:formatNumber value="${resultList.dscntPc}" pattern="###,###" /><small>원</small></dd>
+			                                </dl>
+		                                </c:if>
+    								</c:otherwise>
                             	</c:choose>
                             </div>
                         </div>

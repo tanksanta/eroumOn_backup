@@ -49,4 +49,8 @@ public class GdsCtgryDAO extends CommonAbstractMapper {
 	public void updateGdsCtgryImg(GdsCtgryVO ctgryVO) throws Exception {
 		update("gds.ctgry.updateGdsCtgryImg",ctgryVO);
 	}
+
+	public String selectGdsCtgryNoPath(Map<String, Object> paramMap) throws Exception {
+		return selectOne("gds.ctgry.selectGdsCtgryNoPath",paramMap);
+	}
 }

@@ -349,4 +349,13 @@ public class GdsService extends CommonAbstractServiceImpl {
 			System.out.println("###### " + resultCnt + " 개의 사업소에 등록 완료 ########");
 		}
 	}
+
+	// TotalSearch용
+	public List<String> selectGdsCtgryGrp(Map<String, Object> paramMap) throws Exception {
+		return gdsDAO.selectGdsCtgryGrp(paramMap);
+	}
+
+	public List<String> selectGdsTyGrp(Map<String, Object> paramMap) throws Exception {
+		return gdsDAO.selectGdsTyGrp(paramMap);
+	}
 }

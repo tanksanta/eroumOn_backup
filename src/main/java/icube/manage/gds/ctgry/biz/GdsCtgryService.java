@@ -157,4 +157,9 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
         }
     }
 
+
+	public String selectGdsCtgryNoPath(Map<String, Object> paramMap) throws Exception {
+		return gdsCtgryDAO.selectGdsCtgryNoPath(paramMap);
+	}
+
 }

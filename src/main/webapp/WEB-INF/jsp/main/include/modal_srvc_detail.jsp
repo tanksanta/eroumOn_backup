@@ -117,11 +117,13 @@
                         </table>
                     </div>
                     <c:if test="${bokjiVO.availableKeyword}">
+                    <!-- 
                     <div class="modal-banner">
                     	<a href="${_marketPath}/index" target="_blank">
                         <img src="/html/page/planner/assets/images/dummy/img-dummy-banner.png" alt="">
                         </a>
                     </div>
+                    -->
                     </c:if>
 
                     </c:if>

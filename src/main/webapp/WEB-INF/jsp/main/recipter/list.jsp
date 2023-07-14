@@ -3,6 +3,7 @@
     <nav class="breadcrumb">
         <ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
+			<li>이로움 서비스</li>
             <li>요양정보 간편조회</li>
         </ul>
     </nav>
@@ -32,55 +33,72 @@
         </form>
 
         <div class="careinfo-mask <c:if test="${_mbrSession.loginCheck && !empty recipter && !empty rcperRcognNo}">is-active</c:if>">
+        
+			<c:if test="${_mbrSession.loginCheck == false}">
+        	<div class="careinfo-layer">
+                <strong>요양정보간편조회가 궁금하시다면</strong>
+                <button type="button" class="btn btn-large f_recipterCheck">간편 로그인/회원가입</button>
+            </div>
+			</c:if>
+            
             <div class="careinfo-myinfo recipter_view">
-                <p class="careinfo-title"><span class="searchNm">이로미</span>(<span class="searchNo">123456789</span>) &nbsp;님의 요양정보</p>
+                <p class="careinfo-title">
+                	<span class="blurring"><span class="searchNm"><span class="mask"></span>이로미</span>(<span class="searchNo">123456789</span>)</span> &nbsp;님의 요양정보
+                	</p>
                 <div class="myinfo-wrapper">
                     <div class="myinfo-box1">
-                        <p class="name" ><span class="searchNm">이로미</span>&nbsp; 님
+                        <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
                             <c:if test="${_mbrSession.loginCheck}">
                                 <a href="/membership/mypage/list">정보수정</a>
                             </c:if>
                         </p>
                         <dl class="numb">
                             <dt class="desc">요양인정번호</dt>
-                            <dd class="searchNo">L123456789</dd>
+                            <dd class="searchNo"><span class="blurring2"><span class="mask"></span>L123456789</span></dd>
                         </dl>
                         <dl class="date">
                             <dt class="desc">인정 유효기간</dt>
-                            <dd id="searchRcgt">2023년 1월 1일 ~2023년 12월 31일</span>
+                            <dd id="searchRcgt">
+                            	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
+                            </dd>
+                        </dl>
+                        <dl class="date">
+                            <dt class="desc">적용기간</dt>
+                            <dd id="searchBgngApdt">
+                            	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
                             </dd>
                         </dl>
                     </div>
                     <div class="myinfo-box2">
 	                        <p class="desc">잔여급여</p>
-	                        <p class="cost"><strong id="searchRemn">1,250,000</strong>원</p>
+	                        <p class="cost"><span class="blurring2"><span class="mask"></span><strong id="searchRemn">1,250,000</strong>원</span></p>
 	                        <dl class="used1">
 	                            <dt class="desc">사용</dt>
 	                            <dd class="percent">
 	                                <div class="track">
-	                                    <div class="bar" id="useAmtBar" style="width: 25%;"></div>
+	                                    <div class="bar" id="useAmtBar" style="width: 0%;"></div>
 	                            </div>
-	                            <div class="won" id="searchUseAmt">350,000원</div>
+	                            <div class="won" id="searchUseAmt"><span class="blurring2"><span class="mask"></span>350,000원</span></div>
 	                        </dd>
 	                    </dl>
 	                    <dl class="used2">
 	                        <dt class="desc">총 급여</dt>
 	                        <dd class="percent">
 	                            <div class="track">
-	                                <div class="bar" id="setAmtBar" style="width: 75%;"></div>
+	                                <div class="bar" id="setAmtBar" style="width: 0%;"></div>
 	                            </div>
-	                            <div class="won" id="searchLimit">1,600,000원</div>
+	                            <div class="won" id="searchLimit"><span class="blurring2"><span class="mask"></span>1,600,000원</span></div>
 	                        </dd>
 	                    </dl>
 	                </div>
 	                <div class="myinfo-box3">
 	                    <p class="desc">인정등급</p>
-	                    <p class="cost"><strong id="searchGrade">15</strong>등급</p>
+	                    <p class="cost"><span class="blurring"><span class="mask"></span><strong id="searchGrade">15</strong></span>등급</p>
 	                    <p class="desc">제품가 최소 85% 지원</p>
 	                </div>
 	                <div class="myinfo-box4">
 	                    <p class="name">본인부담율</p>
-	                    <p class="cost"><strong id="searchQlf">15</strong>%</p>
+	                    <p class="cost"><span class="blurring"><span class="mask"></span><strong id="searchQlf">15</strong></span>%</p>
 	                    <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
 	                </div>
 	        	</div>
@@ -96,11 +114,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finwalkerForAdults">0</dd>
+                                    <dd class="finwalkerForAdults"><span class="blurring"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buywalkerForAdults" >${apiVO.walkerForAdults}</dd>
+                                    <dd class="buywalkerForAdults" ><span class="blurring2"><span class="mask"></span>${apiVO.walkerForAdults}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item2">
@@ -108,11 +126,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finwheelchair">0</dd>
+                                    <dd class="finwheelchair"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buywheelchair">${apiVO.wheelchair}</dd>
+                                    <dd class="buywheelchair"><span class="blurring2"><span class="mask"></span>${apiVO.wheelchair}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item3">
@@ -120,11 +138,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fincane">0</dd>
+                                    <dd class="fincane"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buycane">${apiVO.cane}</dd>
+                                    <dd class="buycane"><span class="blurring2"><span class="mask"></span>${apiVO.cane}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item4">
@@ -132,11 +150,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finsafetyHandle">0</dd>
+                                    <dd class="finsafetyHandle"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buysafetyHandle">${apiVO.safetyHandle}</dd>
+                                    <dd class="buysafetyHandle"><span class="blurring2"><span class="mask"></span>${apiVO.safetyHandle}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item5">
@@ -144,11 +162,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finantiSlipProduct">0</dd>
+                                    <dd class="finantiSlipProduct"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buyantiSlipProduct">${apiVO.antiSlipProduct}</dd>
+                                    <dd class="buyantiSlipProduct"><span class="blurring2"><span class="mask"></span>${apiVO.antiSlipProduct}</span></dd>
                                 </dl>
                             </div>
                             <!-- <div class="swiper-slide swiper-item6">
@@ -168,11 +186,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmattress">0</dd>
+                                    <dd class="finmattress"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buymattress">${apiVO.mattress}</dd>
+                                    <dd class="buymattress"><span class="blurring2"><span class="mask"></span>${apiVO.mattress}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item8">
@@ -180,11 +198,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fincushion">0</dd>
+                                    <dd class="fincushion"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buycushion">${apiVO.cushion}</dd>
+                                    <dd class="buycushion"><span class="blurring2"><span class="mask"></span>${apiVO.cushion}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item9">
@@ -192,11 +210,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finchangeTool">0</dd>
+                                    <dd class="finchangeTool"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buychangeTool">${apiVO.changeTool}</dd>
+                                    <dd class="buychangeTool"><span class="blurring2"><span class="mask"></span>${apiVO.changeTool}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item10">
@@ -204,11 +222,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finpanties">0</dd>
+                                    <dd class="finpanties"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buypanties">${apiVO.panties}</dd>
+                                    <dd class="buypanties"><span class="blurring2"><span class="mask"></span>${apiVO.panties}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item11">
@@ -216,11 +234,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathChair">0</dd>
+                                    <dd class="finbathChair"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buybathChair">${apiVO.bathChair}</dd>
+                                    <dd class="buybathChair"><span class="blurring2"><span class="mask"></span>${apiVO.bathChair}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item12">
@@ -228,11 +246,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmobileToilet">0</dd>
+                                    <dd class="finmobileToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buymobileToilet">${apiVO.mobileToilet}</dd>
+                                    <dd class="buymobileToilet"><span class="blurring2"><span class="mask"></span>${apiVO.mobileToilet}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item13">
@@ -240,11 +258,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finportableToilet">0</dd>
+                                    <dd class="finportableToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buyportableToilet">${apiVO.portableToilet}</dd>
+                                    <dd class="buyportableToilet"><span class="blurring2"><span class="mask"></span>${apiVO.portableToilet}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item15">
@@ -252,11 +270,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finoutRunway">0</dd>
+                                    <dd class="finoutRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buyoutRunway">${apiVO.outRunway}</dd>
+                                    <dd class="buyoutRunway"><span class="blurring2"><span class="mask"></span>${apiVO.outRunway}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item14">
@@ -264,11 +282,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fininRunway">0</dd>
+                                    <dd class="fininRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buyinRunway">${apiVO.inRunway}</dd>
+                                    <dd class="buyinRunway"><span class="blurring2"><span class="mask"></span>${apiVO.inRunway}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item16">
@@ -276,11 +294,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finelectricBed">0</dd>
+                                    <dd class="finelectricBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buyelectricBed">${apiVO.electricBed}</dd>
+                                    <dd class="buyelectricBed"><span class="blurring2"><span class="mask"></span>${apiVO.electricBed}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item17">
@@ -288,11 +306,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmanualBed">0</dd>
+                                    <dd class="finmanualBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buymanualBed">${apiVO.manualBed}</dd>
+                                    <dd class="buymanualBed"><span class="blurring2"><span class="mask"></span>${apiVO.manualBed}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item18">
@@ -300,11 +318,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathtub">0</dd>
+                                    <dd class="finbathtub"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buybathtub">${apiVO.bathtub}</dd>
+                                    <dd class="buybathtub"><span class="blurring2"><span class="mask"></span>${apiVO.bathtub}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item19">
@@ -312,11 +330,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathLift">0</dd>
+                                    <dd class="finbathLift"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buybathLift">${apiVO.bathLift}</dd>
+                                    <dd class="buybathLift"><span class="blurring2"><span class="mask"></span>${apiVO.bathLift}</span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item20">
@@ -324,11 +342,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="findetector">0</dd>
+                                    <dd class="findetector"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매가능</dt>
-                                    <dd class="buydetector">${apiVO.detector}</dd>
+                                    <dd class="buydetector"><span class="blurring2"><span class="mask"></span>${apiVO.detector}</span></dd>
                                 </dl>
                             </div>
                         </div>
@@ -385,10 +403,10 @@
 
         <div class="market-banner">
             <strong>
-                부모님 맞춤 제품이 필요하세요?
-                <small>편안한 일상생활 & 미식을 책임지는 쇼핑몰</small>
+                부모님 맞춤 상품이 필요하세요?​
+                <small>복지용구부터 시니어 생활용품까지 한 번에</small>
             </strong>
-			<a href="${_marketPath}">지금둘러보기</a>
+			<a href="${_marketPath}">지금 둘러보기</a>
         </div>
 
         <div class="careinfo-content">
@@ -399,7 +417,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
-					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 is-arrow"><strong>쉽게 알아보기</strong></a>
+					<a href="${_mainPath}/cntnts/page1" class="btn btn-outline-primary2 btn-arrow"><strong>쉽게 알아보기</strong></a>
                 </div>
             </div>
             <div class="content-item2">
@@ -409,7 +427,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
-					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 is-arrow"><strong>복지용구 알아보기</strong></a>
+					<a href="${_mainPath}/cntnts/page2" class="btn btn-outline-primary3 btn-arrow"><strong>복지용구 알아보기</strong></a>
                 </div>
             </div>
             <div class="content-item3">
@@ -419,7 +437,7 @@
                 </dl>
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
-					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 is-arrow"><strong>복지용구 선택하기</strong></a>
+					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
                 </div>
             </div>
         </div>
@@ -560,16 +578,18 @@ $(function() {
 
    // 기능
     $(".f_recipterCheck").on("click", function(){
-    	if("${_mbrSession.loginCheck}" == "false"){
-   			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
-    	}else{
 
+    	$(".careinfo-mask").removeClass("is-active");
+    	$("#collapse-agree1").removeClass("show");
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
-
+    	
     	if(name == '' || no == '' ){
     		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
     	}else{
+    		if("${_mbrSession.loginCheck}" == "false"){
+       			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
+        	}else{
 
 		$.ajax({
 			type : "post",
@@ -598,19 +618,23 @@ $(function() {
 				$(".searchNo").text("L"+$("#rcperRcognNo").val());
 				$("#searchGrade").text(json.infoMap.LTC_RCGT_GRADE_CD);
 				$("#searchRcgt").html(json.infoMap.RCGT_EDA_DT);
-				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
-				$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				$("#searchRemn").text(comma(json.infoMap.REMN_AMT));
+				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)) + " ~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+				//$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+				$("#searchRemn").text(comma(json.infoMap.LMT_AMT - json.infoMap.USE_AMT));
 				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
-				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원")
+				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원");
+			
 
+		
 				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
 				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
 
 				let allList = new Array();
 
 				let saleList = new Array();
+				let saleNonList = new Array();
 				let lendList = new Array();
+				let lendNonList = new Array();
 
 				let ownSaleList = new Array();
 				let ownLendList = new Array();
@@ -618,8 +642,14 @@ $(function() {
 				if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
 					saleList = json.infoMap.saleList
 				}
+				if(json.infoMap.saleNonList != '' && json.infoMap.saleNonList != null){
+					saleNonList = json.infoMap.saleNonList
+				}
 				if(json.infoMap.lendList != '' && json.infoMap.lendList != null){
 					lendList = json.infoMap.lendList
+				}
+				if(json.infoMap.lendNonList != '' && json.infoMap.lendNonList != null){
+					lendNonList = json.infoMap.lendNonList
 				}
 				if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != null){
 					ownSaleList = json.infoMap.ownSaleList
@@ -667,10 +697,21 @@ $(function() {
 						let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
 						let html = "";
 						html +='   <tr>';
-						html +='    <td>'+(i+1)+'</td>';
+						html +='    <td class="sale_index">'+(i+1)+'</td>';
 						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
 						html +=' <td class="fin'+saleList[i]+'">0</td>';
 						html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
+						html +='</tr>';
+						$(".sale_return").append(html);
+					}
+					
+					for(let i=0; i<saleNonList.length; i++){
+						let html = "";
+						html +='   <tr>';
+						html +='    <td class="sale_index">'+($(".sale_index").length+1)+'</td>';
+						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleNonList[i])+'" target=_blank>'+CodeMap.get(saleNonList[i])+'(판매 불가)</a></td>';
+						html +=' <td class="fin'+saleNonList[i]+'">해당없음</td>';
+						html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".sale_return").append(html);
 					}
@@ -691,7 +732,7 @@ $(function() {
 						let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
 						let html = "";
 						html +='   <tr>';
-						html +='    <td>'+(i+1)+'</td>';
+						html +='    <td class="lend_index">'+($(".lend_index").length+1)+'</td>';
 						if(f_replaceLink(lendList[i]) == 0){
 							html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
 						}else{
@@ -701,6 +742,21 @@ $(function() {
 
 						html +=' <td class="fin'+lendList[i]+'">0</td>';
 						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
+						html +='</tr>';
+						$(".lend_return").append(html);
+					}
+					for(let i=0; i<lendNonList.length; i++){
+						let html = "";
+						html +='   <tr>';
+						html +='    <td class="lend_index">'+(i+1)+'</td>';
+						if(f_replaceLink(lendNonList[i]) == 0){
+							html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
+						}else{
+							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendNonList[i])+'" target=_blank>'+CodeMap.get(lendNonList[i])+'(대여 불가)</a></td>';
+						}
+
+						html +=' <td class="fin'+lendNonList[i]+'">해당없음</td>';
+						html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".lend_return").append(html);
 					}
@@ -716,26 +772,44 @@ $(function() {
 				// 보유 현황 카운트 - 판매
 				if(ownSaleList.length > 0){
 					for(let i=0; i<ownSaleList.length; i++){
-						let finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
-						let buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
-						$(".fin"+ownSaleList[i]).text(finCnt+1);
+						let finCnt = 0;
+						let buyCnt = 0;
+						
+						if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
+							finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
+							buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
+							$(".fin"+ownSaleList[i]).text(finCnt+1);	
+						}else{
+							$(".fin"+ownSaleList[i]).text(1);	
+						}
 
 						if(buyCnt > 0){
 							$(".buy"+ownSaleList[i]).text(buyCnt-1);
+						}else{
+							$(".buy"+ownSaleList[i]).text(0);
 						}
 					}
 				}
+				
 				// 보유 현황 카운트 - 대여
 				if(ownLendList.length > 0){
 					for(let i=0; i<ownLendList.length; i++){
-						let finCnt = Number($(".sale_return .fin"+ownLendList[i]).text());
-						let buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-						$(".fin"+ownLendList[i]).text(fintCnt + 1);
-
-						if(buyCnt > 0){
-							$(".buy"+ownLendList[i]).text(buyCnt-1);
+						let finCnt = 0;
+						let buyCnt = 0;
+						
+						if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
+							finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
+							buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
+							$(".fin"+ownLendList[i]).text(finCnt + 1);	
+						}else{
+							$(".fin"+ownLendList[i]).text(1);
 						}
 
+						if(buyCnt > 0){
+							$(".buy"+ownLendList[i]).text(buyCnt -1);
+						}else{
+							$(".buy"+ownLendList[i]).text(0);
+						}
 					}
 				}
                 $('.careinfo-mask').addClass('is-active');
@@ -748,7 +822,7 @@ $(function() {
 			console.log('error forward : ' + data);
 		});
     }
-    }
+    	}
 	});
 
 	if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){

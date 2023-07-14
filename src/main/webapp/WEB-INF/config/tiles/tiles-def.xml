@@ -113,24 +113,6 @@
 		<put-attribute name="content" 	value="/WEB-INF/jsp/members/bplc/{1}/{2}.jsp" />
 	</definition>
 
-
-	<!-- 플래너 -->
-	<definition name=".planner_layout" template="/WEB-INF/jsp/planner/layout/layout.jsp">
-		<put-attribute name="header" 	value="/WEB-INF/jsp/planner/layout/header.jsp" />
-		<put-attribute name="content" 	value="" />
-		<put-attribute name="footer" 	value="/WEB-INF/jsp/planner/layout/footer.jsp" />
-	</definition>
-	<definition name="/planner/*" extends=".planner_layout">
-		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/{1}.jsp" />
-	</definition>
-	<definition name="/planner/cntnts/*" extends=".planner_layout">
-		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/cntnts/{1}.jsp" />
-	</definition>
-	<definition name="/planner/inqry/*" extends=".planner_layout">
-		<put-attribute name="content" 	value="/WEB-INF/jsp/planner/inqry/{1}.jsp" />
-	</definition>
-
-
 	<!-- 회원(membership) -->
 	<definition name=".membership_layout" template="/WEB-INF/jsp/membership/layout/layout.jsp">
 		<put-attribute name="header" 	value="/WEB-INF/jsp/membership/layout/header.jsp" />
@@ -147,6 +129,7 @@
 	<!-- 메인(main) -->
 	<definition name=".main_layout" template="/WEB-INF/jsp/main/layout/layout.jsp">
 		<put-attribute name="aside" 	value="/WEB-INF/jsp/main/layout/aside.jsp" />
+		<put-attribute name="breadcrumb" 	value="/WEB-INF/jsp/main/layout/breadcrumb.jsp" />
 		<put-attribute name="header" 	value="/WEB-INF/jsp/main/layout/header.jsp" />
 		<put-attribute name="content" 	value="" />
 		<put-attribute name="footer" 	value="/WEB-INF/jsp/main/layout/footer.jsp" />

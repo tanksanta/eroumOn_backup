@@ -27,6 +27,7 @@ import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
@@ -213,13 +214,17 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			ordrDtlVO.setOrdrDtlCd(ordrDtlCd.split(",")[i].trim());
 			
 			int dtlGdsNo = EgovStringUtil.string2integer(gdsNo.split(",")[i].trim());
-			//상품에 대한 입점업체정보 조회
+			
+			// 상품 정보
+			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+			// 상품에 대한 입점업체정보 조회
 			EntrpsVO entrpsVO = entrpsService.selectEntrpsByGdsNo(dtlGdsNo);
 			
 			ordrDtlVO.setGdsNo(dtlGdsNo);
 			ordrDtlVO.setGdsCd(gdsCd.split(",")[i].trim());
 			ordrDtlVO.setGdsNm(gdsNm.split(",")[i].trim());
 			ordrDtlVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+			ordrDtlVO.setGdsSupPc(gdsVO.getSupPc());
 			if (entrpsVO != null) {
 				ordrDtlVO.setEntrpsNo(entrpsVO.getEntrpsNo());
 			}
@@ -242,8 +247,30 @@ public class OrdrService extends CommonAbstractServiceImpl {
 				ordrDtlVO.setBnefCd("");
 			}
 
-			if(EgovStringUtil.isNotEmpty(ordrOptn)) {
-				ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+			
+			String ordrDtlOptnNm = "";
+			if (EgovStringUtil.isNotEmpty(ordrOptn)) {
+				ordrDtlOptnNm = ordrOptn.split(",")[i].trim();
+			}
+			
+			if (EgovStringUtil.isNotEmpty(ordrDtlOptnNm)) {
+				ordrDtlVO.setOrdrOptn(ordrDtlOptnNm);
+				
+				//옵션이면 옵션 품목코드 입력
+				GdsOptnVO optn = null;
+				if ("BASE".equals(ordrDtlVO.getOrdrOptnTy())) {
+					optn = gdsVO.getOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				} else {
+					optn = gdsVO.getAditOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				}
+				
+				if (optn != null) {
+					ordrDtlVO.setOptnItemCd(optn.getOptnItemCd());
+				}
+			}
+			//옵션이 아니면 상품 품목코드 입력
+			else {
+				ordrDtlVO.setGdsItemCd(gdsVO.getItemCd());
 			}
 
 			if(EgovStringUtil.isNotEmpty(accmlMlg)) {
@@ -294,8 +321,6 @@ public class OrdrService extends CommonAbstractServiceImpl {
 				ordrDtlVO.setSttsTy("OR01");
 			}
 
-			// 상품 정보
-			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
 			ordrDtlVO.setGdsInfo(gdsVO);
 			ordrDtlService.insertOrdrDtl(ordrDtlVO);
 

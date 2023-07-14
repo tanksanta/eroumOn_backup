@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import icube.common.api.biz.TilkoApiVO;
 import icube.common.framework.abst.CommonAbstractController;
-import icube.common.values.CodeMap;
+import icube.main.biz.ItemMap;
 import icube.main.biz.MainService;
 
 /**
@@ -35,7 +35,7 @@ public class MainRecipterController extends CommonAbstractController{
 		TilkoApiVO apiVO = new TilkoApiVO();
 		
 		model.addAttribute("apiVO",apiVO);
-		model.addAttribute("apiCode", CodeMap.RECIPTER_ITEM);
+		model.addAttribute("apiCode", ItemMap.RECIPTER_ITEM);
 		model.addAttribute("recipter", (String)session.getAttribute("recipter"));
 		model.addAttribute("rcperRcognNo", (String)session.getAttribute("rcperRcognNo"));
 		
