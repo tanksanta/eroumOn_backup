@@ -1,6 +1,7 @@
 package icube.market.srch;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ArrayUtil;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
@@ -29,7 +31,7 @@ import icube.market.mbr.biz.MbrSession;
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/search")
 public class SrchController extends CommonAbstractController {
-	
+
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
 
@@ -39,54 +41,74 @@ public class SrchController extends CommonAbstractController {
 	// 검색 컨테이너 호출
 	@RequestMapping(value = {"index", "total"})
 	public String search(
-			@RequestParam(required=false, value="srchKwd") String srchKwd
+			@RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
 			, HttpServletResponse response
 			, Model model) throws Exception {
 
-		CommonListVO listVO = new CommonListVO(request);
-		
+		//TODO : 카테고리 그룹핑 결과
+		String[] srchKwd = {};
+		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
+			String kwd = (String) reqMap.get("srchKwd");
+			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+		}
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("curPage", "1");
-		paramMap.put("cntPerPage", "12");
+		paramMap.put("srchUseYn", "Y"); // 사용중
+		paramMap.put("srchDspyYn", "Y"); // 전시중
+		paramMap.put("srchTempYn", "N"); // 임시저장 여부
 		paramMap.put("srchKwd", srchKwd);
-		listVO = srchListVO(request, paramMap);
-		
-		model.addAttribute("listVO", listVO);
+		List<String> resultCtgryGrpList = gdsService.selectGdsCtgryGrp(paramMap);
+		List<String> resultGdsTyGrpList = gdsService.selectGdsTyGrp(paramMap);
+
+		model.addAttribute("resultCtgryGrpList", resultCtgryGrpList);
+		model.addAttribute("resultGdsTyGrpList", resultGdsTyGrpList);
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 
 		return "/market/srch/total";
 	}
 
-
-
-	// 상품 검색
-	public CommonListVO srchListVO(
-			HttpServletRequest request
-			, Map<String, Object> reqMap
-			)throws Exception {
-		
-		CommonListVO listVO = new CommonListVO(request);
+	// 상품 리스트
+	@RequestMapping(value = "srchList")
+	public String srchList(
+			@RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request
+			, Model model)throws Exception {
 
 		int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
 		int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
-		
-		listVO.setParam("curPage", curPage);
-		listVO.setParam("cntPerPage", cntPerPage);
-		listVO.setParam("srchUseYn", "Y");
-		listVO.setParam("srchDspyYn", "Y");
-		listVO.setParam("srchTempYn", "N");
-		
+		String sortBy = EgovStringUtil.null2string((String) reqMap.get("sortBy"), "");
+
+		String[] srchCtgryNos = {};
+		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchCtgryNos"))) {
+			srchCtgryNos = EgovStringUtil.getStringArray((String) reqMap.get("srchCtgryNos"), "|");
+		}
+
+		String[] srchGdsTys = {};
+		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchGdsTys"))) {
+			srchGdsTys = EgovStringUtil.getStringArray((String) reqMap.get("srchGdsTys"), "|");
+		}
+
+		String[] srchKwd = {};
+		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
+			String kwd = (String) reqMap.get("srchKwd");
+			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+		}
+
+		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
+		listVO.setParam("srchUseYn", "Y"); // 사용중
+		listVO.setParam("srchDspyYn", "Y"); // 전시중
+		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
+		listVO.setParam("srchCtgryNos", srchCtgryNos); // LAST 카테고리
+		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
+		listVO.setParam("sortBy", sortBy);  // 정렬 순서
+
+		listVO.setParam("srchKwd", srchKwd); // 키워드
+
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
 			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
 		}
-		
-		String [] srchKwd = {};
-		if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchKwd"))) {
-			String kwd = (String)reqMap.get("srchKwd");
-			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
-			listVO.setParam("srchKwd", srchKwd);
-		}
-		
+
 		listVO = gdsService.gdsListVO(listVO);
 
 		for(Object o : listVO.getListObject()) { // 상품태그 처리
@@ -95,24 +117,13 @@ public class SrchController extends CommonAbstractController {
 				temp.setGdsTag(ArrayUtil.stringToArray(temp.getGdsTagVal()));
 			}
 		}
-		
-		return listVO;
-	}
-	
-	// 상품 리스트
-	@RequestMapping(value = "srchList")
-	public String srchList(
-			HttpServletRequest request
-			, Model model
-			, @RequestParam Map<String, Object>reqMap
-			)throws Exception {
-	
-		CommonListVO listVO = srchListVO(request, reqMap);
-		
+
 		model.addAttribute("listVO", listVO);
-		
+		model.addAttribute("isSrchPage", true); // 검색페이지
+		model.addAttribute("srchOrdr", sortBy);
+
+
 		return "/market/gds/include/srch_list";
 	}
-
 
 }

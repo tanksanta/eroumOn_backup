@@ -2,9 +2,34 @@
 <%--
 검색
  --%>
-                <c:if test="${fn:indexOf(_curPath,'/search/total') ne -1}">
-                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10  ${fn:indexOf(_curPath,'/search/total') ne -1 }" >
+                <c:if test="${!isSrchPage}">
+                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10" >
+                	<c:if test="${empty listVO.listObject}">
+					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
+                    </c:if>
                 </c:if>
+				<c:if test="${isSrchPage}">
+				<div class="search-count">
+	                <p>총 <strong class="text-danger">${listVO.totalCount}</strong>개의 상품이 있습니다.</p>
+	                <select id="srchOrdr" name="srchOrdr" class="form-control form-small">
+	                    <option value="SORT_NO" ${srchOrdr eq 'SORT_NO' || empty srchOrdr?'selected="selected"':'' }>신상품 순</option>
+	                    <option value="PC_ASC" ${srchOrdr eq 'PC_ASC'?'selected="selected"':'' }>낮은가격 순</option>
+	                    <option value="PC_DESC" ${srchOrdr eq 'PC_DESC'?'selected="selected"':'' }>높은가격 순</option>
+	                </select>
+	            </div>
+
+	            <c:if test="${empty listVO.listObject}">
+		            <div class="search-result is-large">
+		                <p>검색하신
+		                	<c:if test="${!empty param.srchKwd}">
+		                		<strong>‘${param.srchKwd}’</strong>
+		                	</c:if>
+		                	 에 대한 상품검색 결과가 없습니다.</p>
+		            </div>
+	            </c:if>
+
+				<div class="search-grid">
+				</c:if>
                 	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
@@ -103,12 +128,7 @@
                         </div>
                     </a>
                     </c:forEach>
-                    <c:if test="${empty listVO.listObject}">
-					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
-                    </c:if>
-                <c:if test="${fn:indexOf(_curPath,'/search/total') ne -1 }">    
                 </div>
-                </c:if>
                 <div class="pagination">
                 	<front:jsPaging listVO="${listVO}" targetObject="gds-pager" />
                 </div>
