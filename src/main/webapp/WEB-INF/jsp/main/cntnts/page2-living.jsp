@@ -37,10 +37,10 @@
 	        <div class="card-item5">
 	            <img src="/html/page/index/assets/images/img-checkpoint1.png" alt="">
 	            <dl>
-	                <dt>성인용 보행기</dt>
+	                <dt>성인용 보행기(워커)</dt>
 	                <dd>실내용으로 재활 목적을 가진 제품으로 수술 전, 후 도움되는 복지용구</dd>
 	            </dl>
-	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont1" class="check">구매전 체크사항을 꼭! 확인하세요</a>
+	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont1-sub3" class="check">구매전 체크사항을 꼭! 확인하세요</a>
 	            <a href="/market/gds/2/list#37" class="button"><span>제품 보기</span></a>
 	        </div>
 	        <div class="card-item6">

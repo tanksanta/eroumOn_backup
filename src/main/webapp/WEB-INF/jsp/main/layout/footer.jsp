@@ -7,7 +7,6 @@
 </div>
 <!-- //quick -->
 
-
 <!-- footer -->
 <footer id="footer" class="global-footer">
 	<div class="footer-link">
@@ -64,7 +63,7 @@
 			<dd id="footer-collapse" class="collapse">
 				<p>대표 : 신종호</p>
 				<p>
-					사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]
+					사업자등록번호 : 617-86-14330 [<a href="javascript:;" onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=6178614330','communicationViewPopup','width=750,height=700,scrollbars=yes')">사업자정보확인</a>]
 				</p>
 				<p>통신판매신고번호 : 2018-서울강남-04157</p>
 				<address>
@@ -105,3 +104,11 @@
 	<!-- //카피 라이트 -->
 </footer>
 <!-- //footer -->
+
+<script>
+// 사업자 정보 조회
+function f_searchBrnoInfo(brno) {
+	var url = "http://www.ftc.go.kr/bizCommPop.do?wrkr_no="+ brno;
+	window.open(url, "bizCommPop","width=750, height=700;");
+}
+</script>

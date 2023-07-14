@@ -83,16 +83,13 @@
     }
 }
 
+html, body {
+    @apply scroll-smooth;
+}
+
 body {
-    @apply scrollbars break-keep
+    @apply break-keep
            sm:text-base;
-    overflow: overlay;
-    &::-webkit-scrollbar {
-        @apply w-3 h-3;
-    }
-    &::-webkit-scrollbar-thumb {
-        @apply rounded-lg border-0.5;
-    }
 }
 
 #header {
