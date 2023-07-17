@@ -14,12 +14,12 @@
     <div class="object1"></div>
     <div class="object2"></div>
     <h2 class="title">
-        <small>신청방법부터 등급별 혜택까지</small>
-        어르신 요양,<br>
-        혼자 고민하지 마세요!
-        <br><br>
-        모두에게 <span class="text-primary2">이로움</span>,<br>
-        <em>노인장기요양보험 <img src="/html/page/index/assets/images/ico-page1-visual.svg" alt=""></em>
+		<span class="animate"><small>신청방법부터 등급별 혜택까지</small></span>
+		<span class="animate2">어르신 요양,</span>
+		<span class="animate3">혼자 고민하지 마세요!</span>
+		<br>
+		<span class="animate4">모두에게 <span class="text-primary2">이로움</span>,</span>
+		<span class="animate5"><em>노인장기요양보험 <img src="/html/page/index/assets/images/ico-page1-visual.svg" alt=""></em></span>
     </h2>
     <p class="text-scroll"><i></i> 자세히 보기</p>
 </div>
