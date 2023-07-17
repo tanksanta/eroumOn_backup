@@ -296,9 +296,12 @@ body {
            lg:-top-8 lg:right-7
            xl:right-10;
     & [class*="util-item"] {
-        @apply block w-8 h-8 overflow-hidden bg-no-repeat bg-center -indent-96
+        @apply block relative w-8 h-8 bg-no-repeat bg-center
                md:w-9 md:h-9
                lg:w-10 lg:h-10;
+        & i {
+            @apply absolute -top-1 -right-1 py-0.5 px-1.5 rounded-full bg-[#FF3838] leading-none text-xs font-serif text-white font-bold md:text-[0.8125rem];
+        }
     }
     & .util-item1 {
         @apply bg-[length:65%] bg-[url(../images/ico-user.svg)];

@@ -84,9 +84,9 @@ $(function() {
 			}
 		}
 
-		$(this).toggleClass('is-active').next('.allmenu-list').toggleClass('is-active').find('*').removeClass('is-active');
+		$(this).toggleClass('is-active').next().toggleClass('is-active').find('*').removeClass('is-active');
 	});
-	
+
 	$('[class*="allmenu-item"] a').on('mouseenter mouseleave click', function(e) {
 		var el = $(this).parent();
 
@@ -104,11 +104,27 @@ $(function() {
 			el.addClass('is-active').find('> [class*="allmenu-group"]').addClass('is-active');
 			el.siblings().removeClass('is-active').find('*').removeClass('is-active');
 		} else if(e.type === 'mouseleave' && $(window).outerWidth() > 1040) {
-			if(!$(this).hasClass('is-depth')) {
-				el.removeClass('is-active');
-			}
+			if(!el.hasClass('is-depth')) el.removeClass('is-active');
 		}
 	});
+
+	$('.allmenu-list').on('mouseleave', function(e) {
+		if($(window).outerWidth() > 1040) {
+			$(this).find('*').removeClass('is-active');
+		}
+	});
+
+	$('[class*="allmenu-group"] > ul').on('mousemove', function(e) {
+		if(e.target === $(this).get(0) && $(window).outerWidth() > 1040) {
+			$(this).find('*').removeClass('is-active');
+		}
+	})
+
+	$(document).on('click', function(e) {
+		if($(window).outerWidth() > 1040 && $(e.target).closest('.navigation-allmenu').length === 0) {
+			$('.navigation-allmenu *').removeClass('is-active');
+		}
+	})
 
 	//통합검색
 	$('.navigation-search .search-form input').on('focus', function() {

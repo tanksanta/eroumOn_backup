@@ -346,9 +346,10 @@
 }
 
 #visual {
-    @apply relative min-h-[600px] h-[calc(100vh-3.25rem)] overflow-hidden bg-cover bg-[center_top]
-           md:min-h-[684px] md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
-           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[1024px];
+    @apply relative min-h-[560px] h-[calc(100vh-3.25rem)] overflow-hidden bg-cover bg-[center_top] landscape:min-h-[600px]
+           md:h-[calc(100vh-4.25rem)] md:!max-h-[820px]
+           lg:min-h-[740px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px]
+           xl:!max-h-[1024px];
     & .title {
         @apply absolute leading-tight font-bold text-2xl whitespace-nowrap
                md:text-5xl md:whitespace-normal
