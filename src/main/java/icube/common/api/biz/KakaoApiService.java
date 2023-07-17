@@ -320,7 +320,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			mbrVO.setJoinTy("K");
 			mbrVO.setKakaoAppId(appId);
 
-			return setUserDlvy(mbrVO);
+			return setUserDlvy(mbrVO, session);
 		}
 
 	}
@@ -331,8 +331,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	private Integer setUserDlvy(MbrVO mbrVO) throws Exception  {
-
+	private Integer setUserDlvy(MbrVO mbrVO, HttpSession session) throws Exception  {
 		//1. 엑세스 토큰을 이용한 발급
 		//2. 주소 정보 SET
 		//3. 배송지 정보 SET
@@ -360,7 +359,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 	        if(dlvyInfo == null) {
 
-	        	insertUserInfo(mbrVO);
+	        	insertUserInfo(mbrVO, session);
 
 	        	resultCnt = 6;
 	        }else {
@@ -400,7 +399,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 	        }
 
 				mbrVO.setDlvyInfo(dlvyVO);
- 				insertUserInfo(mbrVO);
+ 				insertUserInfo(mbrVO, session);
 
 	 	        resultCnt = 7;
 	        }
@@ -418,7 +417,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	private void insertUserInfo(MbrVO mbrVO) throws Exception {
+	private void insertUserInfo(MbrVO mbrVO, HttpSession session) throws Exception {
 
      	mbrService.insertMbr(mbrVO);
 
@@ -429,6 +428,20 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
      	}
 
         mbrSession.setParms(mbrVO, true);
+        if(EgovStringUtil.equals(mbrVO.getRecipterYn(), "Y")) {
+			mbrSession.setRecipterInfo(mbrVO.getRecipterInfo());
+		}else {
+			RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+			recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
+			recipterInfoVO.setMbrId(mbrVO.getMbrId());
+			recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
+			recipterInfoVO.setProflImg(mbrVO.getProflImg());
+			recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
+			recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
+			mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
+		}
+		mbrSession.setMbrInfo(session, mbrSession);
+
 	}
 
 }

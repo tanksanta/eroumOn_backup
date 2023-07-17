@@ -216,6 +216,9 @@
 		<if test="gdsNo !=null and gdsNo != ''"><!-- PK -->
 			AND g.gds_no = #{gdsNo}
 		</if>
+		<if test="srchAllCtgryNo != null and srchAllCtgryNo != '' ">
+			AND (g.ctgry_no = #{srchAllCtgryNo} or gc2.ctgry_no = #{srchAllCtgryNo})
+		</if>
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchKwd)">
 			AND (
 			<foreach collection="srchKwd" item="kwd" separator=" AND " open="(" close=")">

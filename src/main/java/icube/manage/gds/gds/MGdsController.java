@@ -85,7 +85,7 @@ public class MGdsController extends CommonAbstractController {
 
 	// Page Parameter Keys
 	private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"
-			, "srchUpCtgryNo", "srchCtgryNo", "srchGdsCd", "srchBnefCd", "srchGdsNm", "srchGdsTy", "srchGdsTag", "srchItemCd"};
+			, "srchUpCtgryNo", "srchAllCtgryNo", "srchGdsCd", "srchBnefCd", "srchGdsNm", "srchGdsTy", "srchGdsTag", "srchItemCd"};
 
 	@RequestMapping(value="list")
 	public String list(

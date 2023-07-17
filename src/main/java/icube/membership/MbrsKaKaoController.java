@@ -37,13 +37,13 @@ public class MbrsKaKaoController extends CommonAbstractController{
 
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
-	
+
 	@Autowired
 	private MbrSession mbrSession;
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
-	
+
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
@@ -71,9 +71,8 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int resultCnt = 0;
-		
-		String returnUrl = (String)session.getAttribute("returnUrl");
 
+		String returnUrl = (String)session.getAttribute("returnUrl");
 		resultMap = kakaoApiService.mbrAction(code, session);
 		resultCnt = (Integer)resultMap.get("result");
 
@@ -82,7 +81,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setLocation("/" + mainPath + "/login");
 		}else if(resultCnt == 1){//성공
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			
+
 			javaScript.setMessage("회원가입이 완료되었습니다.");
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
@@ -93,14 +92,13 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		}else if(resultCnt == 2) {// 카카오 로그인
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
 				javaScript.setLocation("/" + mainPath);
 			}
 			session.removeAttribute("returnUrl");
-			
+
 		}else if(resultCnt == 3) {// 네이버
 			javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + mainPath + "/login");
@@ -112,7 +110,11 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setLocation("/" + mainPath);
 		}else if(resultCnt == 6 || resultCnt == 7) {// 등록 완료
 			javaScript.setMessage("간편 회원가입이 완료되었습니다.");
-			javaScript.setLocation("/" + mainPath);
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
 		}else if(resultCnt == 8) {
 			javaScript.setMessage("일시 정지된 회원입니다. 관리자에게 문의바랍니다.");
 			javaScript.setLocation("/" + mainPath);
@@ -123,7 +125,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setMessage("탈퇴한 회원입니다. 탈퇴일로부터 7일 후 재가입 가능합니다.");
 			javaScript.setLocation("/" + mainPath);
 		}
-		
+
 		return new JavaScriptView(javaScript);
 	}
 }

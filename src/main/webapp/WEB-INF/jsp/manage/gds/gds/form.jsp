@@ -21,7 +21,7 @@
                 <input type="hidden" name="srchItemCd" value="${param.srchItemCd}" />
                 <input type="hidden" name="srchGdsTy" value="${param.srchGdsTy}" />
                 <input type="hidden" name="srchUpCtgryNo" value="${param.srchUpCtgryNo}" />
-                <input type="hidden" name="srchCtgryNo" value="${param.srchCtgryNo}" />
+                <input type="hidden" name="srchAllCtgryNo" value="${param.srchAllCtgryNo}" />
                 <input type="hidden" name="srchDspyYn" value="${param.srchDspyYn}" />
                 <input type="hidden" name="srchGdsNm" value="${param.srchGdsNm}" />
                 <input type="hidden" name="srchGdsTag" value="${param.srchGdsTag}" />
@@ -1018,7 +1018,7 @@
 						</c:if>
                     	<button type="button" class="btn-success large shadow tempSave">임시저장</button>
                         <button type="submit" class="btn-primary large shadow saveGds">저장</button>
-                        <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchCtgryNo=${param.srchCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
+                        <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchAllCtgryNo=${param.srchAllCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
 	                    <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
                 </form:form>
@@ -1038,7 +1038,6 @@
                     function f_setGdsCtgryNo(){
                     	if($("#ctgryNo4").val() != 0){
                     		$("#ctgryNo").val($("#ctgryNo4").val());
-
                     	}else if($("#ctgryNo3").val() != 0){
                     		$("#ctgryNo").val($("#ctgryNo3").val());
                     	}else if(($("#ctgryNo2").val() != 0)){
@@ -1054,15 +1053,15 @@
                  		$("#ctgryNo"+ctNum+ " option").each(function(){
 							if(ctNum == 2){
 								if($(this).text() == "${path[2]}"){
-									$(this).prop("selected",true);
+									$(this).prop("selected",true).trigger("change");
 								}
 							}else if(ctNum ==3 ){
 								if($(this).text() == "${path[3]}"){
-									$(this).prop("selected",true);
+									$(this).prop("selected",true).trigger("change");
 								}
 							}else{
 								if($(this).text() == "${path[4]}"){
-									$(this).prop("selected",true);
+									$(this).prop("selected",true).trigger("change");
 								}
 							}
                 		});

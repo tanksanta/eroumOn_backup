@@ -145,7 +145,7 @@
 								</div>
 							</c:forEach>
 						</div>
-						<form:input class="form-control w-full mt-1" path="linkUrl" maxlength="50" />
+						<form:input class="form-control w-full mt-1" path="linkUrl" maxlength="250" />
 					</td>
 				</tr>
 			</tbody>
@@ -160,6 +160,7 @@
 		<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
 	</div>
 </form:form>
+
 <script>
 //첨부파일 이미지 제한
 function fileCheck(obj) {

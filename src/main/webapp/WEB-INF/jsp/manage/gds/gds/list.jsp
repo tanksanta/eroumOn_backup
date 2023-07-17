@@ -83,7 +83,7 @@
                                 </td>
                                 <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
                                 <td>
-                                	<input type="hidden" id="srchCtgryNo" name="srchCtgryNo" value="${param.srchCtgryNo}" />
+                                	<input type="hidden" id="srchAllCtgryNo" name="srchAllCtgryNo" value="${param.srchAllCtgryNo}" />
 
                                     <div class="form-group w-full">
                                         <select name="ctgryNo1" id="ctgryNo1" class="form-control w-32">
@@ -389,8 +389,10 @@
 										$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"'>"+ data[key] +"</option>");
 									}
                 				}
-                				$("#srchCtgryNo").val($("#ctgryNo"+Number(sectionNo)).val());
+                				$("#srchAllCtgryNo").val($("#ctgryNo"+Number(sectionNo)).val());
                 				f_selectedOpt($("#ctgryNo"+Number(sectionNo)));
+
+
                 			})
                 			.fail(function(data, status, err) {
                 				alert("카테고리 호출중 오류가 발생했습니다.");
