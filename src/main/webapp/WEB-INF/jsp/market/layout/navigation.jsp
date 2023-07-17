@@ -101,9 +101,21 @@
 		
 		</div>
 		<ul class="navigation-util">
-			<li><a href="${_marketPath}/mypage/index" class="util-item1">마이페이지</a></li>
-			<li><a href="${_marketPath}/mypage/wish/list" class="util-item2">찜한상품</a></li>
-			<li><a href="${_marketPath}/mypage/cart/list" class="util-item3">장바구니</a></li>
+			<li>
+				<a href="${_marketPath}/mypage/index" class="util-item1">
+					<span class="sr-only">마이페이지</span>
+				</a>
+			</li>
+			<li>
+				<a href="${_marketPath}/mypage/wish/list" class="util-item2">
+					<span class="sr-only">마이페이지</span>
+				</a>
+			</li>
+			<li>
+				<a href="${_marketPath}/mypage/cart/list" class="util-item3">
+					<span class="sr-only">마이페이지</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 </nav>
