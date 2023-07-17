@@ -114,6 +114,8 @@
 		</tbody>
 	</table>
 
+	<p class="text-red-500">※ 노출순서 유의사항: ’배너 하프형’은 2개가 한쌍으로 함께 전시되어야 합니다.</p>
+	<p class="text-red-500">※ 전시리스트는 최대 5열까지 사용하는 것을 권장합니다.</p>
 	<p>※ 주제명을 클릭하면 상세/수정 페이지로 이동합니다.</p>
 	<p>※ 메인 노출 순서에 숫자 입력후 노출 순서 저장 버튼을 눌러야 저장됩니다.</p>
 	<div class="pagination mt-7">
@@ -218,6 +220,12 @@ $(function(){
   			});
 		}else{
 			return false;
+		}
+	});
+
+	$("input[name='item_child']").on("focusout",function(){
+		if($(this).val() == ''){
+			$(this).val(100);
 		}
 	});
 });
