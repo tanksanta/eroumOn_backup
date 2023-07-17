@@ -210,6 +210,7 @@ $(function(){
   			})
   			.done(function(data) {
   				if(data.result){
+  					alert("저장되었습니다.");
 					location.reload();
   				}else{
   					alert("노출 순서 변경 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
