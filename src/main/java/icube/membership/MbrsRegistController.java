@@ -119,6 +119,17 @@ public class MbrsRegistController extends CommonAbstractController{
 	@Autowired
 	private MbrSession mbrSession;
 
+
+	@RequestMapping(value = "regist")
+	public String registStep(
+			HttpServletRequest request
+			, Model model
+			) throws Exception {
+
+		return "/membership/regist";
+	}
+
+
 	/**
 	 * 본인인증 및 약관동의
 	 */
