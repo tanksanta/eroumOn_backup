@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,10 @@ public class MainConsltController extends CommonAbstractController{
 		/*mbrConsltVO.setRegId(mbrSession.getMbrId());
 		mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
 		mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());*/
+
+		if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
+			mbrConsltVO.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));
+		}
 
 		int insertCnt = mbrConsltService.insertMbrConslt(mbrConsltVO);
 
