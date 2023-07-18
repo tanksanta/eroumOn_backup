@@ -77,7 +77,12 @@
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 			<c:set var="now" value="<%=new java.util.Date()%>" />
 			<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set>
+			<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="MMdd" /></c:set>
+
 			<c:set var="brdt" value="${fn:substring(resultList.brdt,'0','4') }"> </c:set>
+			<c:if test="${nowDate >  fn:substring(resultList.brdt,'4','6')}">
+				<c:set var="brdt" value="${brdt - 1 }" />
+			</c:if>
 			<tr>
 				<td>
 					<div class="form-check">
