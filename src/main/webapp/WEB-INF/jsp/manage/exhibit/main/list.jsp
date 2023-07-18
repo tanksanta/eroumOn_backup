@@ -31,13 +31,13 @@
 						<td>
 							<div class="form-check-group">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="srchYn" id="search-item3" value="" checked>
-									<label class="form-check-label" for="search-item3">전체</label>
+									<input class="form-check-input" type="radio" name="srchUseYn" id="srchUseYn" value="" checked>
+									<label class="form-check-label" for="srchUseYn">전체</label>
 								</div>
-								<c:forEach var="yn" items="${useYnCode}">
+								<c:forEach var="yn" items="${useYnCode}" varStatus="status">
 									<div class="form-check">
-										<input type="radio" value="${yn.key}" id="${yn.value}" name="srchYn" class="form-check-input" <c:if test="${yn.key eq param.srchYn}">checked="checked"</c:if>>
-										<label class="form-check-label" for="${yn.value}">${yn.value}</label>
+										<input type="radio" value="${yn.key}" id="srchUseYn${status.index}" name="srchUseYn" class="form-check-input" <c:if test="${yn.key eq param.srchUseYn}">checked="checked"</c:if>>
+										<label class="form-check-label" for="srchUseYn${status.index}">${yn.value}</label>
 									</div>
 								</c:forEach>
 							</div>
@@ -52,7 +52,7 @@
 		</div>
 	</form>
 
-	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchYn=${param.srchYn}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
+	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchUseYn=${param.srchUseYn}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
 	<p class="text-title2 mt-13">메인 목록<br />
 	<btn class="btn btn-library" type="button" id="choose_delete">선택 삭제</btn>
 	<btn class="btn btn-library" type="button" id="sort_save">노출순서 저장</btn>
