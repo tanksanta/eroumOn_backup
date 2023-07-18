@@ -618,10 +618,10 @@
         & dl {
             @apply flex mb-2 md:mb-2.5;
             & dt {
-                @apply pt-[0.5em] pr-1 w-[5.5em];
+                @apply flex flex-wrap items-center pr-1 w-[5.5em] h-10 md:h-11;
             }
             & dd {
-                @apply flex-1 flex flex-col gap-1.5;
+                @apply flex-1 flex items-center flex-wrap gap-1.5;
             }
         }
         & p {

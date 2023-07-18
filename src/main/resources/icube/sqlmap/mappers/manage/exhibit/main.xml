@@ -59,7 +59,7 @@
 		FROM MNG_MAIN
 		WHERE 1=1
 			<include refid="searchConditions" />
-		ORDER BY thema_ty, sort_no DESC
+		ORDER BY sort_no, thema_ty, reg_dt DESC
 		LIMIT #{startNum}, #{endNumMysql}
 	</select>
 

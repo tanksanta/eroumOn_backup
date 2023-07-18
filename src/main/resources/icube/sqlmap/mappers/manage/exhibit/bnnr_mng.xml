@@ -16,6 +16,7 @@
 		, link_url
 		, sort_no
 		, rdcnt
+		, use_yn
 		, bgng_dt
 		, end_dt
 		, reg_unique_id

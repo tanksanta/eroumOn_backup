@@ -14,7 +14,7 @@
                 <div class="nav-sub-items">
                     <ul>
                         <li class="nav-sub-item"><a href="${_mainPath}/recipter/list">요양정보 간편조회</a></li>
-                        <li class="nav-sub-item"><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
+                        <li class="nav-sub-item"><a href="/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
                         <li class="nav-sub-item"><a href="${_mainPath}/searchBokji">복지정보 서비스</a></li>
                     </ul>
                 </div>
@@ -36,7 +36,7 @@
 			<c:choose>
 				<c:when test="${!_mbrSession.loginCheck}">
 					<li><a href="${_membershipPath}/login?returnUrl=/main">로그인</a></li>
-					<li><a href="${_membershipPath}/registStep1" class="join">회원가입</a></li>
+					<li><a href="${_membershipPath}/regist" class="join">회원가입</a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="${_membershipPath}/logout">로그아웃</a></li>
@@ -56,7 +56,7 @@
 	    <div class="offcanvas-header">
 	        <ul>
 	            <li><a href="${_membershipPath}/login?returnUrl=/main">로그인</a></li>
-	            <li><a href="${_membershipPath}/registStep1">회원가입</a></li>
+	            <li><a href="${_membershipPath}/regist">회원가입</a></li>
 	        </ul>
 	        <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
 	    </div>
@@ -89,7 +89,7 @@
             <dd>
                 <ul>
                     <li><a href="${_mainPath}/recipter/list">요양정보 간편조회</a></li>
-                    <li><a href="https://www.eroum.co.kr/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
+                    <li><a href="/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
                     <li><a href="${_mainPath}/searchBokji">복지정보 서비스</a></li>
                 </ul>
             </dd>

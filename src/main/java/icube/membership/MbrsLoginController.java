@@ -60,7 +60,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
-	
+
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
 
@@ -102,7 +102,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 				returnUrl = "/" + mainPath;
 			}
 		}
-		
+		session.setAttribute("returnUrl", returnUrl);
 		model.addAttribute("returnUrl", returnUrl);
 
 		return "/membership/login";
@@ -122,7 +122,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 
 		JavaScript javaScript = new JavaScript();
 		String loginPasswd = "";
-		
+
 		if(null != request.getSession().getAttribute(RSA_MEMBERSHIP_KEY)) {
 			try {
 				loginPasswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.

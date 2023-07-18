@@ -31,4 +31,30 @@ public class ItemMap {
 			}
 		};
 
+		// 사용연한
+		public static final HashMap<String, Object> RECIPTER_DATE= new LinkedHashMap<String, Object>() {
+			private static final long serialVersionUID = -3421159888612434656L;
+			{
+				put("이동변기", 5);
+				put("목욕의자", 5);
+				put("성인용보행기", 5);
+				put("안전손잡이", 0);
+				put("미끄럼 방지용품", 0);
+				put("간이변기", 0);
+				put("지팡이", 2);
+				put("욕창예방방석", 3);
+				put("자세변환용구", 0);
+				put("요실금팬티", 0);
+				put("경사로(실내용)", 8);
+				put("수동휠체어", 5);
+				put("전동침대", 10);
+				put("수동침대", 10);
+				put("이동욕조", 5);
+				put("목욕리프트", 3);
+				put("배회감지기", 5);
+				put("경사로(실외용)", 2);
+				put("욕창예방 매트리스", 3);
+			}
+		};
+
 }

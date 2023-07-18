@@ -70,11 +70,11 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		sb.append(NaverRedirectUrl);
 		sb.append("&state=");
 		sb.append(URLEncoder.encode("icube","UTF-8"));
-		
+
 		return sb.toString();
 	}
-	
-	
+
+
 	/**
 	 * 로그인 및 회원가입 처리
 	 * @param paramMap
@@ -85,33 +85,47 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		int resultCnt = 0;
 
 		Map<String, Object> keyMap = this.getToken(paramMap);
-		Map<String, Object> resultMap = this.tokenCheck(keyMap);
+		/*Map<String, Object> resultMap = this.tokenCheck(keyMap);
 
 		if(EgovStringUtil.isNotEmpty((String)resultMap.get("accessToken"))) {
 			keyMap.put("accessToken", (String)resultMap.get("accessToken"));
-		}
+		}*/
 
 		MbrVO proflInfo = getMbrProfl(keyMap);
-		
+
 		paramMap.clear();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
 		paramMap.put("srchBirth", format.format(proflInfo.getBrdt()));
 		paramMap.put("srchMbrStts", "NORMAL");
-		
+
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
 		if(mbrList.size() < 1) {
 			mbrService.insertMbr(proflInfo);
-			
+
 			mbrSession.setParms(proflInfo, true);
-			
+
+			if(EgovStringUtil.equals(proflInfo.getRecipterYn(), "Y")) {
+				mbrSession.setRecipterInfo(proflInfo.getRecipterInfo());
+			}else {
+				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
+				recipterInfoVO.setUniqueId(proflInfo.getUniqueId());
+				recipterInfoVO.setMbrId(proflInfo.getMbrId());
+				recipterInfoVO.setMbrNm(proflInfo.getMbrNm());
+				recipterInfoVO.setProflImg(proflInfo.getProflImg());
+				recipterInfoVO.setMberSttus(proflInfo.getMberSttus());
+				recipterInfoVO.setMberGrade(proflInfo.getMberGrade());
+				mbrSession.setPrtcrRecipter(recipterInfoVO, proflInfo.getRecipterYn(), 0);
+			}
+			mbrSession.setMbrInfo(session, mbrSession);
+
 			resultCnt = 1; // 회원가입
 		}else if(mbrList.size() > 1) {
 			resultCnt = 5; // 동일 정보 2건 이상
 		}else {
 			resultCnt = 3; // 로그인
-			
+
 			if(mbrList.get(0).getJoinTy().equals("E")) {
 				resultCnt = 4; // 이로움 회원가입
 			}else if(mbrList.get(0).getJoinTy().equals("K")) {
@@ -122,7 +136,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 				drmtMap.put("srchMbrStts", "EXIT");
 				drmtMap.put("srchWhdwlDt", 7);
 				int drmtCnt = mbrService.selectMbrCount(paramMap);
-				
+
 				if(mbrList.get(0).getMberSttus().equals("BLACK")) {
 					resultCnt = 8;
 				}else if(mbrList.get(0).getMberSttus().equals("HUMAN")) {
@@ -133,7 +147,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 				}else {
 					// 로그인
 					mbrSession.setParms(mbrList.get(0), true);
-					
+
 					if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 						mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
 					}else {
@@ -147,7 +161,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 						mbrSession.setPrtcrRecipter(recipterInfoVO, mbrList.get(0).getRecipterYn(), 0);
 					}
 					mbrSession.setMbrInfo(session, mbrSession);
-					
+
 				}
 			}
 		}
@@ -173,10 +187,10 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
 			paramMap.put("type", "getToken");
 			StringBuffer sb = this.setStr(paramMap);
-			
+
 			bufferedWriter.write(sb.toString());
 			bufferedWriter.flush();
-			
+
 			Map<String, Object> eleMap = this.getResponse(conn, paramMap);
 			JsonElement element = (JsonElement)eleMap.get("element");
 
@@ -184,12 +198,11 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
 			bufferedWriter.close();
-			
+
 
 			resultMap.put("accessToken", accessToken);
 			resultMap.put("refreshToken", refreshToken);
 			resultMap.put("tokenType", "N");
-
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.debug("네이버 토큰 발급 실패 : " + e.getMessage());
@@ -348,7 +361,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		eleMap.put("refreshToken", refreshToken);
 
 		proflVO = this.setProflVO(eleMap);
-		
+
 		return proflVO;
 	}
 
@@ -363,7 +376,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 		JsonElement element = (JsonElement) eleMap.get("element");
         String resultCode = element.getAsJsonObject().get("resultcode").getAsString();
-
         if(resultCode.equals("00")) {
         	JsonElement mbrElement = element.getAsJsonObject().get("response");
         	JsonElement mbrInfo = JsonParser.parseString(mbrElement.toString());

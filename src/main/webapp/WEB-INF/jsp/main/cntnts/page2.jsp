@@ -17,9 +17,9 @@
     <div class="object4"></div>
     <div class="object5"></div>
     <h2 class="title">
-        <small>부모님의 생활을 한층 편하게</small>
-        복지용구가 일상생활에서<br>
-        <img src="/html/page/index/assets/images/txt-page2-visual.png" alt="꼭"> 필요한 이유
+		<span class="animate"><small>부모님의 생활을 한층 편하게</small></span>
+		<span class="animate2">복지용구가 일상생활에서</span>
+		<span class="animate3"><img src="/html/page/index/assets/images/txt-page2-visual.png" alt="꼭"> 필요한 이유</span>
     </h2>
     <p class="text-scroll is-white"><i></i> 자세히 보기</p>
 </div>

@@ -16,9 +16,9 @@
     <div class="object3"></div>
     <div class="object4"></div>
     <h2 class="title">
-        <small>똑똑하게 복지용구 선택하기</small>
-        복지용구,<br> 
-        어떻게 합리적으로 선택할까요?
+		<span class="animate"><small>똑똑하게 복지용구 선택하기</small></span>
+		<span class="animate2">복지용구,</span>
+		<span class="animate3">어떻게 합리적으로 선택할까요?</span>
     </h2>
     <p class="text-scroll is-white"><i></i> 자세히 보기</p>
 </div>

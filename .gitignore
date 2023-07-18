@@ -46,3 +46,9 @@ out/
 src/main/webapp/WEB-INF/classes/
 src/main/webapp/node_modules
 src/test/java/icube/TilkoTest.java
+src/main/webapp/WEB-INF/jsp/main/.DS_Store
+src/.DS_Store
+src/main/java/icube/.DS_Store
+src/main/.DS_Store
+src/.DS_Store
+.DS_Store

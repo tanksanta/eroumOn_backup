@@ -578,6 +578,15 @@
 		</choose>
 	</select>
 
+	<select id="selectBplcList" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+	SELECT
+		<include refid="listColumn" />
+	FROM BPLC
+	WHERE 1=1
+		<include refid="searchConditions" />
+	ORDER BY unique_id DESC
+	</select>
+
 
 	<!-- 사업소 좌표업데이트: 공간좌표-->
 	<update id="updateBplcGeocode" parameterType="java.util.HashMap">

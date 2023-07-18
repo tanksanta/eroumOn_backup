@@ -34,16 +34,16 @@ public class MbrsNaverController extends CommonAbstractController{
 
 	@Resource(name = "naverApiService")
 	private NaverApiService naverApiService;
-	
+
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
-	
+
 	@Autowired
 	private MbrSession mbrSession;
-	
+
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
-	
+
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
 
@@ -71,7 +71,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		paramMap.put("state", state);
 
 		int resultCnt = naverApiService.mbrAction(paramMap, session);
-		
+
 		String returnUrl = (String)session.getAttribute("returnUrl");
 
 		if(resultCnt == 0) {// 오류
@@ -79,7 +79,7 @@ public class MbrsNaverController extends CommonAbstractController{
 			javaScript.setLocation("/" + mainPath + "/login");
 		}else if(resultCnt == 1){//성공
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			
+
 			javaScript.setMessage("회원가입이 완료되었습니다.");
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
@@ -93,7 +93,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		}else if(resultCnt == 3) {// 네이버
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			
+
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
 				javaScript.setLocation(returnUrl);
 			}else {
@@ -108,7 +108,11 @@ public class MbrsNaverController extends CommonAbstractController{
 			javaScript.setLocation("/" + mainPath);
 		}else if(resultCnt == 6 || resultCnt == 7) {// 등록 완료
 			javaScript.setMessage("간편 회원가입이 완료되었습니다.");
-			javaScript.setLocation("/" + mainPath);
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			}else {
+				javaScript.setLocation("/" + mainPath);
+			}
 		}else if(resultCnt == 8) {
 			javaScript.setMessage("일시 정지된 회원입니다. 관리자에게 문의바랍니다.");
 			javaScript.setLocation("/" + mainPath);

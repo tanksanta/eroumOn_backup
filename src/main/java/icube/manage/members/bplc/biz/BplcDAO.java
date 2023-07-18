@@ -110,4 +110,8 @@ public class BplcDAO extends CommonAbstractMapper {
 		update("partners.bplc.updateFailedLoginCountReset", bplcVO);
 	}
 
+	public List<BplcVO> selectBplcList(Map<String, Object> paramMap) throws Exception {
+		return selectList("partners.bplc.selectBplcList",paramMap);
+	}
+
 }

@@ -55,7 +55,6 @@ public class MBnnrMngController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		CommonListVO listVO = new CommonListVO(request);
-		listVO.setParam("srchUseYn", "Y");
 		listVO = bnnrMngService.bnnrMngListVO(listVO);
 
 		model.addAttribute("listVO", listVO);

@@ -59,7 +59,6 @@ public class MMainMngController extends CommonAbstractController{
 			)throws Exception {
 
 		CommonListVO listVO = new CommonListVO(request);
-		listVO.setParam("srchUseYn", "Y");
 		listVO = mainMngService.mainMngListVO(listVO);
 
 		model.addAttribute("listVO", listVO);

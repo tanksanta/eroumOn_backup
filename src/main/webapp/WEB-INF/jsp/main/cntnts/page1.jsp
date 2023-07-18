@@ -14,12 +14,12 @@
     <div class="object1"></div>
     <div class="object2"></div>
     <h2 class="title">
-        <small>신청방법부터 등급별 혜택까지</small>
-        어르신 요양,<br>
-        혼자 고민하지 마세요!
-        <br><br>
-        모두에게 <span class="text-primary2">이로움</span>,<br>
-        <em>노인장기요양보험 <img src="/html/page/index/assets/images/ico-page1-visual.svg" alt=""></em>
+		<span class="animate"><small>신청방법부터 등급별 혜택까지</small></span>
+		<span class="animate2">어르신 요양,</span>
+		<span class="animate3">혼자 고민하지 마세요!</span>
+		<br>
+		<span class="animate4">모두에게 <span class="text-primary2">이로움</span>,</span>
+		<span class="animate5"><em>노인장기요양보험 <img src="/html/page/index/assets/images/ico-page1-visual.svg" alt=""></em></span>
     </h2>
     <p class="text-scroll"><i></i> 자세히 보기</p>
 </div>
@@ -80,7 +80,7 @@
                             등급 인정 신청
                         </h4>
                         <ul>
-                            <li><a href="https://www.eroum.co.kr/find/step2-1" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
+                            <li><a href="/find/step2-1" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
                             <li>인정 등급 신청까지 한 번에 하실 수 있어요!</li>
                         </ul>
                         <p>
@@ -341,7 +341,7 @@
         <div>
             <img src="/html/page/index/assets/images/img-page1-content5.png">
             <strong>예상 인정 등급을 확인해 보세요!</strong>
-            <a href="https://www.eroum.co.kr/find/step2-1" class="btn" target="_blank">지금 등급 확인하기​</a>
+            <a href="/find/step2-1" class="btn" target="_blank">지금 등급 확인하기​</a>
         </div>
     </div>
 </div>

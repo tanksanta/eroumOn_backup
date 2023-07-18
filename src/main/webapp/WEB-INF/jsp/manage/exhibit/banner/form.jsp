@@ -101,7 +101,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="form-item7" >배너 이미지(모바일)</label></th>
+					<th scope="row"><label for="form-item7" class="require" id="mobile" >배너 이미지(모바일)</label></th>
 					<td><c:forEach var="fileList" items="${bnnrMngVO.mobileFileList }" varStatus="status">
 							<div id="mobileFileViewDiv${fileList.fileNo}" class="">
 								<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
@@ -145,7 +145,7 @@
 								</div>
 							</c:forEach>
 						</div>
-						<form:input class="form-control w-full mt-1" path="linkUrl" maxlength="50" />
+						<form:input class="form-control w-full mt-1" path="linkUrl" maxlength="250" />
 					</td>
 				</tr>
 			</tbody>
@@ -160,6 +160,7 @@
 		<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
 	</div>
 </form:form>
+
 <script>
 //첨부파일 이미지 제한
 function fileCheck(obj) {
@@ -222,8 +223,10 @@ $(function(){
 
 		if($("#bannerTy").val() == "S"){
 			$(".mobileText").text(mobileTextMsg);
+			$("#mobile").removeClass("require");
 		}else{
 			$(".mobileText").text(pcTextMsg);
+			$("#mobile").addClass("require");
 		}
 	});
 

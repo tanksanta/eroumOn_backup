@@ -1,13 +1,13 @@
 package icube.main;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +17,13 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.values.CodeMap;
 import icube.main.biz.MainService;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
-import icube.market.mbr.biz.MbrSession;
+import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.members.bplc.biz.BplcVO;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Main.path']}/conslt")
@@ -36,8 +38,11 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
 
-	@Autowired
-	private MbrSession mbrSession;
+	@Resource(name = "bplcService")
+	private BplcService bplcService;
+
+	/*@Autowired
+	private MbrSession mbrSession;*/
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
@@ -56,6 +61,7 @@ public class MainConsltController extends CommonAbstractController{
 		}*/
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("genderCode", CodeMap.GENDER);
 
 		return "/main/conslt/form";
 	}
@@ -111,5 +117,22 @@ public class MainConsltController extends CommonAbstractController{
 			)throws Exception {
 
 		return "/main/conslt/view";
+	}
+
+	// 추천 멤버스 리스트
+	@RequestMapping(value="include/popup")
+	public String popup(
+			Model model
+			)throws Exception  {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchAprvTy", "C");
+		paramMap.put("srchUseYn", "Y");
+		paramMap.put("srchDspyYn", "Y");
+		List<BplcVO> bplcList = bplcService.selectBplcList(paramMap);
+
+		model.addAttribute("bplcList", bplcList);
+
+		return "/main/conslt/include/popup";
 	}
 }
