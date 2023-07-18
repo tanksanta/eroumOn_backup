@@ -240,7 +240,7 @@ public class TilkoApiService {
 			        	currentFlag = true;
 		        	}
 		        }
-		        System.out.println("@@ 7 : " + preMap.toString());
+		        //System.out.println("@@ 7 : " + preMap.toString());
 
 		        List<Map<String, Object>> welToolTgtHistListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtHistList);
 		        for(Map<String, Object> welTooTgtHistMap : welToolTgtHistListMap) {
@@ -338,6 +338,9 @@ public class TilkoApiService {
         json.remove("Col");
         json.remove("name");
 
+        List<String> ownSaleList = new ArrayList<String>();
+	    List<String> ownLendList = new ArrayList<String>();
+
         // 계약 리스트 API 호출 (이전 적용구간)
        if(preMap.get("APDT_FR_DT") != null) {
     	   json.put("StartDate", preMap.get("APDT_FR_DT"));
@@ -364,17 +367,29 @@ public class TilkoApiService {
 	   	    jsonObject = new JSONObject((Map<String, Object>) obj);
 
 	   	    JSONObject pre_result = (JSONObject) jsonObject.get("Result");
-	   	    System.out.println("@@ 6 : " + pre_result.toJSONString());
+	   	    //System.out.println("@@ 6 : " + pre_result.toJSONString());
 
-	   	   String mthdTy = (String) pre_result.get("WLR_MTHD_CD");
+	   	    if(pre_result != null) {
+	   	    	JSONArray returnResult = (JSONArray) pre_result.get("ds_result");
 
-	   	   if(EgovStringUtil.equals("판매", mthdTy)) {
-	   		   // 사용연한 검사
+	   	    	if(returnResult != null) {
+	   	    		List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
+				     for(Map<String, Object> dsResult : Ds_resultMap) {
+				    	 String mthdTy = (String) dsResult.get("WLR_MTHD_CD");
 
-	   	   }
+					   	   if(EgovStringUtil.equals("판매", mthdTy)) {
+					   		   // 사용연한 검사
+					   		   String prodNm = (String)dsResult.get("PROD_NM");
+					   		   if(EgovStringUtil.string2integer(String.valueOf(ItemMap.RECIPTER_DATE.get(prodNm))) > 0) {
+					   			   ownSaleList.add(ItemMap.RECIPTER_ITEM.get(prodNm));
+					   		   }
+					   	   }
+				     }
+	   	    	}
+	   	    }
+
 
        }
-
 
         // 계약 리스트 API 호출
         json.put("StartDate", infoMap.get("APDT_FR_DT"));
@@ -401,14 +416,12 @@ public class TilkoApiService {
 	     jsonObject = new JSONObject((Map<String, Object>) obj);
 
 	     JSONObject Ds_result = (JSONObject) jsonObject.get("Result");
-	     System.out.println("@@ 5 : " + Ds_result);
+	     //System.out.println("@@ 5 : " + Ds_result);
 	     if(Ds_result != null) {
 
 		     JSONArray returnResult = (JSONArray) Ds_result.get("ds_result");
 
 		     if(returnResult != null) {
-		    	 List<String> ownSaleList = new ArrayList<String>();
-			     List<String> ownLendList = new ArrayList<String>();
 
 			     int useAmt = 0;
 			     List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
