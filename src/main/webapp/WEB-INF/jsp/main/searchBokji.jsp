@@ -281,7 +281,7 @@ $(function(){
 
 	var sido = $("select[name='select-sido'] option:selected").text();
 	var gugun = $("select[name='select-gugun'] option:selected").text();
-
+	var selCheckVal = "";
 	// 회원 관심
 	<c:if test="${_mbrSession.loginCheck}">
 	$("checkbox input[name='category']").prop("checked",false);
@@ -300,18 +300,23 @@ $(function(){
 					case "8" : $("#opt-item5").prop("checked",true);break;
 				}
 			}
+		}else{
+			$(":checkbox[name='category']").each(function(){
+				selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
+			});
+			category = selCheckVal;
 		}
 	</c:if>
 
-	<c:if test="${!_mbrSession.loginCheck}">
-	$("input[name='category']").prop("checked",true);
-	</c:if>
 
-	var selCheckVal = "";
-	$(":checkbox[name='category']:checked").each(function(){
+	<c:if test="${!_mbrSession.loginCheck}">
+	$("input[name='category']").prop("checked",false);
+	$(":checkbox[name='category']").each(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 	});
-	category = selCheckVal;
+		console.log(category);
+	</c:if>
+
 	//$(".select-gugun button").text(gugun);
 
     f_srchInstList();
