@@ -41,7 +41,7 @@
 					<label for="age">만나이</label>
 				</dt>
 				<dd>
-					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>
+					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="${age}" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>
 				</dd>
 			</dl>
 			<dl>

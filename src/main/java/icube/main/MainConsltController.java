@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.util.DateUtil;
 import icube.main.biz.MainService;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
@@ -55,6 +57,12 @@ public class MainConsltController extends CommonAbstractController{
 			return "redirect:" + "/"+mainPath+"/login?returnUrl=/"+mainPath+"/conslt/form";
 		}*/
 
+		String age = "";
+		if (mbrSession.isLoginCheck() && mbrSession.getBrdt() != null) {
+			age = DateUtil.getAge(mbrSession.getBrdt());
+		}
+		
+		model.addAttribute("age", age);
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 
 		return "/main/conslt/form";
