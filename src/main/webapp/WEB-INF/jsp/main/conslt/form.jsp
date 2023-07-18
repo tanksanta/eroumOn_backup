@@ -56,7 +56,17 @@
 					<label for="age">생년월일</label>
 				</dt>
 				<dd>
-					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="<fmt:formatDate value="${_mbrSession.brdt}" pattern="yyyyMMdd" />" maxlengh="8"/>
+					<c:set var="repBrdt" >
+
+						<c:if test="${!empty _mbrSession.brdt}">
+						<c:set var="dates" >
+						<fmt:formatDate value="${_mbrSession.brdt}" pattern="yyyyMMdd" />
+						</c:set>
+							${fn:substring(dates,0,4)}/${fn:substring(dates,4,6)}/${fn:substring(dates,6,8)}
+						</c:if>
+					</c:set>
+
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${repBrdt}" maxlengh="10"/>
 				</dd>
 			</dl>
 			<dl>
@@ -154,6 +164,16 @@ $(function(){
 		}
 	});
 
+	$("#brdt").on("keydown",function(){
+		if($(this).val().length == 4){
+			$(this).val($(this).val() + "/");
+		}
+
+		if($(this).val().length == 7){
+			$(this).val($(this).val() + "/");
+		}
+	});
+
 	//유효성 검사
 	$("form#consltFrm").validate({
 		ignore: "input[type='text']:hidden",
@@ -161,7 +181,7 @@ $(function(){
 			mbrNm : {required : true},
 			mbrTelno : {required : true, regex : telchk},
 			gender : {required : true},
-			brdt : {required : true},
+			brdt : {required : true, minlength : 10},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
@@ -170,7 +190,7 @@ $(function(){
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
 			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
 			gender : {required : "성별은 필수 선택 항목입니다."},
-			brdt : {required : "생년월일은 필수 입력 항목입니다."},
+			brdt : {required : "생년월일은 필수 입력 항목입니다.", minlength : "생년월일은 최소 8자리입니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}
