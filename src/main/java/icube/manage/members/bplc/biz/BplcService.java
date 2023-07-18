@@ -195,4 +195,8 @@ public class BplcService extends CommonAbstractServiceImpl {
 		bplcDAO.updateFailedLoginCountReset(bplcVO);
 	}
 
+	public List<BplcVO> selectBplcList(Map<String, Object> paramMap) throws Exception {
+		return bplcDAO.selectBplcList(paramMap);
+	}
+
 }
