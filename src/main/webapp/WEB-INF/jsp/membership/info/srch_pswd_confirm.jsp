@@ -8,24 +8,24 @@
 	</header>
 
 	<div id="page-content">
-		<form action="./srchPswdChg" class="member-form is-noborder" name="pswdChgFrm" id="pswdChgFrm" method="post">
+		<form action="./srchPswdChg" class="search-form is-noborder" name="pswdChgFrm" id="pswdChgFrm" method="post">
 			<picture class="block sm:mb-6">
 			<source srcset="/html/page/members/assets/images/txt-search-pw-mobile.svg" media="(max-width: 576px)">
 			<source srcset="/html/page/members/assets/images/txt-search-pw.svg">
 			<img src="/html/page/members/assets/images/txt-search-pw.svg" alt="본인 인증이 완료되었습니다. 사용하실 새 비밀번호를 입력해주세요" class="mx-auto"> </picture>
 			<fieldset>
-				<div class="search-group">
+				<div class="form-group">
 					<label class="form-label" for="pswd">새 비밀번호</label>
 					<input class="form-control" type="password" id="pswd" name="pswd" maxlength="16">
 				</div>
-				<div class="search-group">
+				<div class="form-group">
 					<label class="form-label" for="newPswd">비밀번호 확인</label>
 					<input class="form-control" type="password" id="newPswd" name="newPswd" maxlength="16">
 				</div>
-				<p class="search-desc">
+				<p class="form-desc">
 					띄어쓰기 없이 8~16자 영문,숫자,특수문자를 조합하여 입력해 주세요.<br> (특수문자는 !, @, #, $, %, ^, &, *만 사용 가능)<br> 아이디와 동일한 비밀번호는 사용할 수 없습니다.
 				</p>
-				<div class="search-button">
+				<div class="form-button">
 					<button class="btn btn-primary" type="submit">확인</button>
 					<a href="/membership/login" class="btn btn-outline-primary">취소</a>
 				</div>

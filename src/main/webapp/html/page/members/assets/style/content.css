@@ -102,8 +102,8 @@
 }
 
 
-/* 로그인 아이디찾기 */
-.member-form {
+/* 로그인 아이디 찾기 */
+.login-form, .search-form {
     @apply mx-auto pb-5
            sm:max-w-[31.75rem] sm:pb-7.5;
     &.is-noborder {
@@ -113,26 +113,48 @@
         @apply w-full;
         & legend {
             @apply py-2 w-full border-b border-gray1 leading-snug text-[1.375rem] font-bold
-                   sm:py-2.5 sm:text-2xl;
-            & + .search-group {
+                    sm:py-2.5 sm:text-2xl;
+            & + .form-group {
                 @apply mt-8
-                       sm:mt-10;
+                        sm:mt-10;
             }
+        }
+    }
+    & .form-group {
+        & > * {
+            @apply mr-0;
         }
     }
     & .form-label {
         @apply flex items-center mb-1.5 text-[0.9375rem] font-medium
-               sm:float-left sm:mb-2.5 sm:w-25 sm:h-[3.125rem] sm:text-base;
+               sm:float-left sm:mb-2.5 sm:h-[3.125rem] sm:text-base;
     }
     & .form-control {
         @apply mb-2.5 w-full h-[3.125rem] text-[0.9375rem]
-               sm:float-left sm:w-[calc(100%_-_6.25rem)] sm:text-base;
+               sm:float-left sm:text-base;
     }
     & .form-check {
         @apply mt-3.5
                sm:mt-1.5 sm:ml-29;
     }
-    & .login-link {
+    & .error {
+        @apply relative pl-0
+               sm:-top-2 sm:clear-both;
+    }
+}
+
+.login-form {
+    & .form-group {
+        @apply block relative overflow-hidden mt-4
+               sm:mt-7.5 sm:pr-39 sm:pl-4;
+    }
+    & .form-label {
+        @apply sm:w-25;
+    }
+    & .form-control {
+        @apply sm:w-[calc(100%_-_6.25rem)];
+    }
+    & .form-link {
         @apply flex items-center mt-4 pt-3 border-t border-gray1
                sm:mt-6 sm:pt-5 sm:ml-29;
         & .link {
@@ -145,24 +167,28 @@
                    md:w-[9em] md:h-[2.625rem];
         }
     }
-    & .login-submit {
+    & .form-submit {
         @apply static top-0 right-0 bottom-2.5 mt-1.5 w-full h-15 text-base font-bold
                sm:absolute sm:mt-0 sm:w-36 sm:h-[6.875rem];
     }
-    & .login-group {
-        @apply relative overflow-hidden mt-4
-               sm:mt-7.5 sm:pr-39 sm:pl-4;
-        & .error {
-            @apply relative pl-0
-                   sm:-top-2 sm:m-0 sm:pl-25 sm:pr-0 sm:clear-both;
-        }
+    & .error {
+        @apply sm:pl-25;
     }
-    & .search-group {
-        @apply items-start
-               sm:flex sm:mt-1.5 sm:px-7.5
+}
+
+.search-form {
+    & .form-label {
+        @apply sm:mr-4 sm:w-33;
+    }
+    & .form-control {
+        @apply sm:w-[calc(100%_-_9.25rem)];
+    }
+    & .form-group {
+        @apply block items-start
+               sm:flex sm:flex-wrap sm:mt-1.5 sm:pr-7.5
                first:mt-8 first:sm:mt-10;
     }
-    & .search-auth {
+    & .form-auth {
         @apply flex items-center mt-6 mb-5
                sm:mt-11 sm:mb-6 sm:px-7.5;
         & img {
@@ -181,13 +207,13 @@
             }
         }
     }
-    & .search-desc {
+    & .form-desc {
         @apply -mt-0.5 text-[0.8125rem] pb-2.5 leading-tight
                sm:text-sm sm:pl-[8.125rem] sm:pr-7.5;
     }
-    & .search-button {
+    & .form-button {
         @apply flex flex-wrap gap-2 mt-1.5
-               sm:mt-8.5 sm:gap-2.5 sm:pl-[8.125rem] sm:pr-7.5;
+               sm:mt-8.5 sm:gap-2.5 sm:pl-37 sm:pr-7.5;
         & .btn {
             @apply relative w-full h-15 text-base font-bold
                    sm:w-35 sm:h-[4.375rem] sm:text-lg;
@@ -202,7 +228,7 @@
             }
         }
     }
-    & .search-result {
+    & .form-result {
         @apply mt-14 mb-16 text-center text-[0.9375rem]
                sm:mt-16 sm:mb-18 sm:text-base;
         & strong {
@@ -211,8 +237,18 @@
         }
     }
     & .error {
-        @apply -mt-2 mb-2.5
-               sm:ml-25 sm:px-7.5;
+        @apply sm:pl-37;
+    }
+    & + .member-social {
+        @apply mt-7.5 pt-5 border-t border-t-gray1
+               sm:mt-10 sm:pt-6.5;
+    }
+    & ~ .member-social {
+        @apply sm:pr-7.5;
+        & dt {
+            @apply text-[0.9375rem]
+                   sm:mr-4 sm:w-33 sm:text-base;
+        }
     }
 }
 
@@ -221,7 +257,7 @@
            sm:flex-row sm:mt-14 sm:max-w-[31.75rem];
     & dt {
         @apply mb-2.5 text-lg font-bold
-               sm:mt-2.5 sm:mb-0 sm:mr-5 sm:text-xl;
+               sm:mt-3 sm:mb-0 sm:mr-5 sm:text-xl;
     }
     & dd {
         @apply flex-1;
@@ -263,6 +299,22 @@
 
 
 /* 회원 가입 */
+.member-type {
+    @apply mt-10 pt-9 mx-auto max-w-88 border-t border-t-gray1
+           first:border-t-0
+           last:mb-10
+           sm:mt-12 sm:pt-11
+           sm:last:mb-12;
+    & dt {
+        @apply mb-3 leading-none text-lg font-bold
+               sm:mb-4 sm:text-xl;
+    }
+    & dd {
+        @apply space-y-2.5
+               sm:space-y-3;
+    }
+}
+
 .member-join {
     @apply relative mx-auto max-w-[36.5rem]
            before:content-empty before:hidden before:absolute before:-z-5 before:bottom-0 before:h-[306px] before:bg-right-bottom before:bg-[length:auto_100%]

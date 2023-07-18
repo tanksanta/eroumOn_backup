@@ -8,10 +8,10 @@
 	</header>
 
 	<div id="page-content">
-            <form action="srchPswdAction" class="member-form" id="srchPswdFrm" name="srchPswdFrm" method="post">
+		<form action="srchPswdAction" class="search-form" id="srchPswdFrm" name="srchPswdFrm" method="post">
 			<fieldset>
 				<legend>아이디로 찾기</legend>
-				<div class="search-group">
+				<div class="form-group">
 					<label class="form-label" for="mbrId">아이디</label>
 					<input class="form-control" type="text" id="mbrId" name="mbrId" maxlength="50">
 				</div>
@@ -19,7 +19,7 @@
 					<label class="form-label" for="search-item2">이름</label>
 					<input class="form-control" type="text" id="search-item2">
 				</div> --%>
-				<div class="search-auth">
+				<div class="form-auth">
 					<img src="/html/page/members/assets/images/img-join-auth.svg" alt="">
 					<dl>
 						<dt>휴대폰 본인 인증</dt>
@@ -28,7 +28,7 @@
 						</dd>
 					</dl>
 				</div>
-				<div class="search-button">
+				<div class="form-button">
 					<button class="btn btn-primary wide f_submit" type="submit">본인 인증하기</button>
                     <a href="/membership/login" class="btn btn-outline-primary">취소</a>
 				</div>
@@ -36,17 +36,26 @@
 			<input type="hidden" id="receiptId" name="receiptId" value="">
 		</form>
 
-		<dl class="member-desc">
-			<dl>
-				<dt>
-					<img src="/html/core/images/img-brand-logo-white.svg" alt="이로움ON">
-				</dt>
-				<dd>
-					<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>
-                    <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
-				</dd>
-			</dl>
-		</dl>
+        <dl class="member-social">
+            <dt>이로움ON 회원가입</dt>
+            <dd>
+                <a href="${_membershipPath}/registStep1" class="btn btn-eroum w-full">
+                    <span>회원가입</span>
+                </a>
+            </dd>
+        </dl>
+
+        <dl class="member-social">
+            <dt>간편 로그인</dt>
+            <dd>
+                <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
+                	<span>카카오 로그인</span>
+                </a>
+                <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
+                	<span>네이버 로그인</span>
+                </a>
+            </dd>
+        </dl>
 	</div>
 </main>
 <script>

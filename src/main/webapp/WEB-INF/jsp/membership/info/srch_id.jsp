@@ -8,28 +8,28 @@
 	</header>
 
 	<div id="page-content">
-		<form action="srchIdAction" class="member-form" id="srchIdFrm" name="srchIdFrm" method="post">
+		<form action="srchIdAction" class="search-form" id="srchIdFrm" name="srchIdFrm" method="post">
 			<ul class="member-tabs is-equal nav">
 				<li><a href="#tab-search1" data-bs-toggle="pill" data-bs-target="#srchIdByTelno" class="active" id="srchByTelno">휴대폰 번호로 찾기</a></li>
-					<li><a href="#tab-search2" data-bs-toggle="pill" data-bs-target="#srchIdByEml" id="srchByEml">이메일 주소로 찾기</a></li>
+				<li><a href="#tab-search2" data-bs-toggle="pill" data-bs-target="#srchIdByEml" id="srchByEml">이메일 주소로 찾기</a></li>
 			</ul>
 			<div class="tab-content">
 				<fieldset class="tab-pane show active" id="srchIdByTelno">
-					<div class="search-group">
+					<div class="form-group">
 						<label class="form-label" for="mbrId">이름</label>
 						<input class="form-control" type="text" id="mbrNm" name="mbrNm" maxlength="50">
 						</br>
 					</div>
-					<div class="search-group telnoView">
+					<div class="form-group telnoView">
 						<label class="form-label" for="mblTelno">휴대폰 번호</label>
 						<input class="form-control" type="text" id="mblTelno" name="mblTelno" maxlength="13" oninput="autoHyphen(this);" autofocus />
 						</br>
 					</div>
-					<div class="search-group emlView" style="display:none;">
+					<div class="form-group emlView" style="display:none;">
 						<label class="form-label" for="eml">이메일 주소</label>
 						<input class="form-control" type="text" id="eml" name="eml" maxlength="50">
 					</div>
-					<div class="search-button">
+					<div class="form-button">
 						<button class="btn btn-primary" type="submit">확인</button>
 						<a href="/membership/login" class="btn btn-outline-primary">취소</a>
 					</div>
@@ -37,17 +37,26 @@
 			</div>
 		</form>
 
-		<dl class="member-desc">
-			<dl>
-				<dt>
-					<img src="/html/core/images/img-brand-logo-white.svg" alt="이로움ON">
-				</dt>
-				<dd>
-					<strong>이로움ON</strong>만의<br> 특별함을 누리세요<br>
-                    <a href="/membership/registStep1" class="btn btn-outline-secondary">회원가입하기</a>
-				</dd>
-			</dl>
-		</dl>
+        <dl class="member-social">
+            <dt>이로움ON 회원가입</dt>
+            <dd>
+                <a href="${_membershipPath}/registStep1" class="btn btn-eroum w-full">
+                    <span>회원가입</span>
+                </a>
+            </dd>
+        </dl>
+
+        <dl class="member-social">
+            <dt>간편 로그인</dt>
+            <dd>
+                <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
+                	<span>카카오 로그인</span>
+                </a>
+                <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
+                	<span>네이버 로그인</span>
+                </a>
+            </dd>
+        </dl>
 	</div>
 </main>
 

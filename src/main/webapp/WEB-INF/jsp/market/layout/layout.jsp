@@ -60,7 +60,7 @@
             <ul class="utility-menu">
             	<c:if test="${!_mbrSession.loginCheck}">
 	                <li><a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a></li>
-	            	<li><a href="${_membershipPath }/registStep1">회원가입</a></li>
+	            	<li><a href="${_membershipPath }/regist">회원가입</a></li>
                 </c:if>
                 <c:if test="${_mbrSession.loginCheck}">
                 	<li><a href="${_membershipPath}/logout">로그아웃</a></li>

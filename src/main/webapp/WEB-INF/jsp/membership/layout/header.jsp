@@ -15,7 +15,7 @@
 	                <c:otherwise>
 	                	<ul>
 							<li><a href="${_membershipPath}/login" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/login') > -1}">is-active</c:if>">로그인</a></li>
-		                    <li><a href="${_membershipPath}/registStep1" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/registStep') > -1}">is-active</c:if>">회원가입</a></li>
+		                    <li><a href="${_membershipPath}/regist" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/registStep') > -1}">is-active</c:if>">회원가입</a></li>
 		                    <!-- li><a href="${_membershipPath}/mypage/form" class="navigation-link <c:if test="${fn:indexOf(_curPath, '/mypage/') > -1}">is-active</c:if>">내 정보 관리</a></li -->
 		                    
 		                </ul>
