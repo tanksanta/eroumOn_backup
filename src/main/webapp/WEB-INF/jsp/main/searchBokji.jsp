@@ -314,7 +314,8 @@ $(function(){
 	$(":checkbox[name='category']").each(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 	});
-		console.log(category);
+	category = selCheckVal;
+		//console.log(category);
 	</c:if>
 
 	//$(".select-gugun button").text(gugun);

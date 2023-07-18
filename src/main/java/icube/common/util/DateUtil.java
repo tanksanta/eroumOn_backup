@@ -581,4 +581,32 @@ public class DateUtil {
 		return _dateStr;
 	}
 
+	/**
+	 * 만나이 구하기
+	 * @param dateStr yyyy-MM-dd 형식
+	 * @return 만나이
+	 */
+	public static String getAge(Date birthDate) {
+		if (birthDate == null) {
+			return "";
+		}
+		
+		Calendar birthCalendar = Calendar.getInstance();
+		birthCalendar.setTime(birthDate);
+		 int birthYear = birthCalendar.get(Calendar.YEAR);
+		 int birthMonth = birthCalendar.get(Calendar.MONTH) + 1;
+		 int birthDay = birthCalendar.get(Calendar.DAY_OF_MONTH);
+		 
+		 Calendar current = Calendar.getInstance();
+         int currentYear  = current.get(Calendar.YEAR);
+         int currentMonth = current.get(Calendar.MONTH) + 1;
+         int currentDay   = current.get(Calendar.DAY_OF_MONTH);
+         
+         int age = currentYear - birthYear;
+         if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
+        	 age--;
+         }
+         
+         return String.valueOf(age);
+	}
 }

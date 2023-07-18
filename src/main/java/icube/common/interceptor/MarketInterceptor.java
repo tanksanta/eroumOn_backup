@@ -149,7 +149,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 		Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
 		if(mbrSession.isLoginCheck()) {
 			// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
-			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 
 			// 마일리지 정보
 			double mileagePercent = 0.0; // 신규:0.1%
