@@ -78,7 +78,7 @@
             	</c:forEach>
 			</ul>
 
-			<div class="page-header-title">
+			<div class="page-header-title lg:hidden">
 				<a href="${linkUrl}" class="back">이전 페이지 가기</a>
 				<h2 class="subject">
 					<c:forEach var="path" items="${breadcrumb}" varStatus="status">

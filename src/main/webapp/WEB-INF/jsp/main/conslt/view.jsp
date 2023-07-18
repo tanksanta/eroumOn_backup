@@ -32,6 +32,10 @@
                 </div>
             </div>
 			<p class="mt-5.5 text-lg font-bold md:mt-6 md:text-xl lg:mt-7 lg:text-2xl">상담 신청이 완료되었습니다.</p>
+            <p class="mt-5 text-sm font-bold md:mt-6 md:text-base lg:mt-7 lg:text-lg">
+                "영업일 기준, 2일 이내 해피콜 통해<br>
+                안내받으실 수 있습니다."
+            </p>
 			<a href="${_mainPath}" class="btn btn-large btn-primary3 mt-15 w-57 md:mt-20 md:w-70 lg:mt-25">이로움ON 메인으로</a>
 		</div>
 
