@@ -48,7 +48,7 @@
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
-					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);"/>
+					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" placeholder="010-0000-0000" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);"/>
 				</dd>
 			</dl>
 			<dl>
@@ -66,7 +66,7 @@
 						</c:if>
 					</c:set>
 
-					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${repBrdt}" maxlengh="10"/>
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${repBrdt}" maxlengh="10" placeholder="1900/01/01"/>
 				</dd>
 			</dl>
 			<dl>
@@ -83,7 +83,7 @@
 				</dd>
 			</dl>
 			<p>
-				※ 상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
+				상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
 					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>]에
 				제공되며, 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
 			</p>
