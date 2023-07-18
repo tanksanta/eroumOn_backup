@@ -82,11 +82,18 @@
 					<input type="text" class="form-control w-full" id="daddr" name="daddr" value="${_mbrSession.daddr}" maxlength="200" />
 				</dd>
 			</dl>
-			<p>
-				상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
-					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>]에
-				제공되며, 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
-			</p>
+			<!-- 2023-07-19 전체보기 임시히든처리 요청 및 문구 수정 -->
+			<br/>
+			<hr/>
+			<br/>
+			<div>
+				* 상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관<!-- [<a href="javascript:;" class="text-primary3"
+					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>] -->에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
+				<br/>
+				* 제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.
+				<br/>
+				* 위의 개인정보 제공 동의를 거부할 수 있습니다. 하지만 동의하지 않을 경우 서비스가 제한될 수 있습니다.
+			</div>
 		</fieldset>
 		<div class="form-submit">
 			<button type="submit" class="btn btn-large btn-primary3">상담신청하기</button>
