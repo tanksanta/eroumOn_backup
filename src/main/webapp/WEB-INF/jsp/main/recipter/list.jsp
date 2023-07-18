@@ -33,14 +33,14 @@
         </form>
 
         <div class="careinfo-mask <c:if test="${_mbrSession.loginCheck && !empty recipter && !empty rcperRcognNo}">is-active</c:if>">
-        
+
 			<c:if test="${_mbrSession.loginCheck == false}">
         	<div class="careinfo-layer">
                 <strong>요양정보간편조회가 궁금하시다면</strong>
                 <a href="${_mainPath}/login?returnUrl=/main/recipter/list&headerType=info" class="btn btn-large">간편 로그인/회원가입</a>
             </div>
 			</c:if>
-            
+
             <div class="careinfo-myinfo recipter_view">
                 <p class="careinfo-title">
                 	<span class="blurring"><span class="searchNm"><span class="mask"></span>이로미</span>(<span class="searchNo">123456789</span>)</span> &nbsp;님의 요양정보
@@ -583,7 +583,7 @@ $(function() {
     	$("#collapse-agree1").removeClass("show");
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
-    	
+
     	if(name == '' || no == '' ){
     		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
     	}else{
@@ -623,9 +623,9 @@ $(function() {
 				$("#searchRemn").text(comma(json.infoMap.LMT_AMT - json.infoMap.USE_AMT));
 				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
 				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원");
-			
 
-		
+
+
 				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
 				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
 
@@ -704,7 +704,7 @@ $(function() {
 						html +='</tr>';
 						$(".sale_return").append(html);
 					}
-					
+
 					for(let i=0; i<saleNonList.length; i++){
 						let html = "";
 						html +='   <tr>';
@@ -714,6 +714,8 @@ $(function() {
 						html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".sale_return").append(html);
+						$("dd.buy"+saleNonList[i]).text(0);
+						$("dd.fin"+saleNonList[i]).text(0);
 					}
 				}else{
 					let html = "";
@@ -759,6 +761,8 @@ $(function() {
 						html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
 						html +='</tr>';
 						$(".lend_return").append(html);
+						$("dd.buy"+lendNonList[i]).text(0);
+						$("dd.fin"+lendNonList[i]).text(0);
 					}
 				}else{
 					let html = "";
@@ -774,13 +778,13 @@ $(function() {
 					for(let i=0; i<ownSaleList.length; i++){
 						let finCnt = 0;
 						let buyCnt = 0;
-						
+
 						if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
 							finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
 							buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
-							$(".fin"+ownSaleList[i]).text(finCnt+1);	
+							$(".fin"+ownSaleList[i]).text(finCnt+1);
 						}else{
-							$(".fin"+ownSaleList[i]).text(1);	
+							$(".fin"+ownSaleList[i]).text(1);
 						}
 
 						if(buyCnt > 0){
@@ -790,17 +794,17 @@ $(function() {
 						}
 					}
 				}
-				
+
 				// 보유 현황 카운트 - 대여
 				if(ownLendList.length > 0){
 					for(let i=0; i<ownLendList.length; i++){
 						let finCnt = 0;
 						let buyCnt = 0;
-						
+
 						if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
 							finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
 							buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-							$(".fin"+ownLendList[i]).text(finCnt + 1);	
+							$(".fin"+ownLendList[i]).text(finCnt + 1);
 						}else{
 							$(".fin"+ownLendList[i]).text(1);
 						}
