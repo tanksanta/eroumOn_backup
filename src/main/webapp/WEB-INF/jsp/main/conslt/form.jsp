@@ -172,6 +172,13 @@ $(function(){
 		if($(this).val().length == 7){
 			$(this).val($(this).val() + "/");
 		}
+
+	});
+
+	$("#brdt").on("keyup",function(){
+		if($(this).val().length > 10){
+			$(this).val($(this).val().substr(0,10));
+		}
 	});
 
 	//유효성 검사
