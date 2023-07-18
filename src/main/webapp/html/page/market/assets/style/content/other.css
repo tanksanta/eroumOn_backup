@@ -505,13 +505,14 @@
             @apply absolute w-0 h-0 overflow-hidden opacity-0;
             &:checked {
                 & + .form-check-label {
-                    @apply border-black2 font-bold text-black2;
+                    @apply border-black2 bg-white font-bold text-black2;
                 }
             }
         }
         & .form-check-label {
-            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal
-                   md:py-1.5 md:px-4;
+            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal transition-colors duration-500
+                   md:py-1.5 md:px-4
+                   hover:bg-black/10;
         }
     }
     & .btn {
