@@ -46,7 +46,7 @@
 			<div class="allmenu-user">
 				<c:if test="${!_mbrSession.loginCheck}">
 					<a href="${_membershipPath }/login?returnUrl=${_curPath}">로그인</a>
-					<a href="${_membershipPath }/registStep1">회원가입</a>
+					<a href="${_membershipPath }/regist">회원가입</a>
 				</c:if>
 				<c:if test="${!_mbrSession.loginCheck}">
 					<a href="${_marketPath}/logout">로그아웃</a>

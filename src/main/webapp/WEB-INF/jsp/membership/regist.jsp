@@ -8,27 +8,25 @@
 	</header>
 
 	<div id="page-content">
-		<div class="member-join-introduce">
-			<div class="title">
-				<img src="/html/page/members/assets/images/txt-join-white.svg" alt="이로움ON과 함께 삶을 누리세요">
-			</div>
-			<dl class="join1">
-				<dt>본인인증</dt>
-				<dd>
-					<a href="/membership/registStep1" class="btn btn-large btn-outline-primary">
-					<strong>회원 가입하기</strong></a>
-				</dd>
-			</dl>
-			<!-- <dl class="join2">
-				<dt>간편 가입</dt>
-				<dd>
-					<a href="#" class="btn btn-large btn-kakao btn-outline-primary">
-					<strong>카카오</strong>로 회원가입</a>
-					<a href="#" class="btn btn-large btn-naver btn-outline-primary">
-					<strong>네이버</strong>로 회원가입</a>
-				</dd>
-			</dl> -->
-		</div>
+	    <dl class="member-type">
+	        <dt>이로움ON 회원가입</dt>
+	        <dd>
+	            <a href="${_membershipPath}/registStep1" class="btn btn-eroum w-full">
+	                <span>회원가입</span>
+	            </a>
+	        </dd>
+	    </dl>
+	    <dl class="member-type">
+	        <dt>간편 회원가입</dt>
+	        <dd>
+                <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
+	                <span>카카오 로그인</span>
+	            </a>
+                <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
+	                <span>네이버 로그인</span>
+	            </a>
+	        </dd>
+	    </dl>
 	</div>
 </main>
 

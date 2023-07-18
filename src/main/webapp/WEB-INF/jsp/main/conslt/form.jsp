@@ -33,12 +33,14 @@
 					<label for="mbrNm">성별</label>
 				</dt>
 				<dd>
+					<div class="form-group gap-4 h-10 md:h-11 md:gap-5">
 					<c:forEach var="gender" items="${genderCode}" varStatus="status">
-						<div class="form-group form-check">
-							<input type="radio" name="gender" id="gender${status.index}" value="${gender.key}" <c:if test="${gender.key eq  _mbrSession.gender}">checked="checked"</c:if>>
-							<label class="form-check-label" for="gender">${gender.value}</label>
-						</div>
+						<label class="form-check" for="gender${status.index}">
+							<input class="form-check-input" type="radio" name="gender" id="gender${status.index}" value="${gender.key}" <c:if test="${gender.key eq  _mbrSession.gender}">checked="checked"</c:if>>
+							<span class="form-check-label">${gender.value}</span>
+						</label>
 					</c:forEach>
+					</div>
 				</dd>
 			</dl>
 			<dl>

@@ -10,13 +10,13 @@
         </header>
 
         <div id="page-content">
-            <form action="/membership/loginAction" method="post" id="loginFrm" name="loginFrm" class="member-form">
+            <form action="/membership/loginAction" method="post" id="loginFrm" name="loginFrm" class="login-form">
 	            <input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
 				<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
 				<input type="hidden" id="encPw" name="encPw" value="">
                 <fieldset>
                     <legend>이로움ON 계정 로그인</legend>
-                    <div class="login-group">
+                    <div class="form-group">
                         <label class="form-label" for="login-item1">아이디</label>
                         <input class="form-control" type="text" id="mbrId" name="mbrId">
                         <!-- <div id="loginId-error" class="error text-danger">! 아이디를 입력해 주세요.</div> -->
@@ -24,16 +24,16 @@
                         <label class="form-label" for="login-item2">비밀번호</label>
                         <input class="form-control" type="password" id="mbrPw" name="mbrPw">
 
-                        <button class="btn btn-primary login-submit" type="submit">로그인</button>
+                        <button class="btn btn-primary form-submit" type="submit">로그인</button>
                     </div>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="saveId" name="saveId" value="Y">
                         <label class="form-check-label" for="saveId">아이디 저장</label>
                     </div>
-                    <div class="login-link">
-                        <a href="/membership/srchId" class="link">아이디 찾기</a>
-                        <a href="/membership/srchPswd" class="link">비밀번호 찾기</a>
-                        <a href="/membership/registStep1" class="btn btn-small">회원가입</a>
+                    <div class="form-link">
+                        <a href="${_membershipPath}/srchId" class="link">아이디 찾기</a>
+                        <a href="${_membershipPath}/srchPswd" class="link">비밀번호 찾기</a>
+                        <a href="${_membershipPath}/regist" class="btn btn-small">회원가입</a>
                     </div>
                 </fieldset>
             </form>
@@ -41,8 +41,12 @@
             <dl class="member-social">
                 <dt>간편 로그인</dt>
                 <dd>
-                    <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">카카오 로그인</a>
-                    <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">네이버 로그인</a>
+                    <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
+                    	<span>카카오 로그인</span>
+                    </a>
+                    <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
+                    	<span>네이버 로그인</span>
+                    </a>
                 </dd>
             </dl>
         </div>
