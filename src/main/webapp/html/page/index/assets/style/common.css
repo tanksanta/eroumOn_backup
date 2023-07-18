@@ -686,6 +686,10 @@ strong {
     .btn-naver {
         @apply hover:!bg-[#04C75B] hover:!text-white;
     }
+
+    .btn-eroum {
+        @apply hover:!bg-white hover:!text-black2;
+    }
 }
 
 @keyframes mousewheelmotion {

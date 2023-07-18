@@ -58,7 +58,7 @@
             <li><a href="/_mng/mbr/list" class="dashboard-item2">회원관리</a></li>
             <li><a href="/_mng/gds/gds/list" class="dashboard-item3">상품관리</a></li>
             <li><a href="/_mng/ordr/all/list" class="dashboard-item4">주문관리</a></li>
-            <li><a href="/_mng/exhibit/rcmd/list" class="dashboard-item5">전시관리</a></li>
+            <li><a href="/_mng/exhibit/banner/list" class="dashboard-item5">전시관리</a></li>
             <li><a href="/_mng/promotion/dspy/list" class="dashboard-item11">프로모션관리</a></li>
             <li><a href="/_mng/consult/mbrInqry/list" class="dashboard-item7">고객상담관리</a></li>
             <li><a href="/_mng/sysmng/mngr/list" class="dashboard-item8">시스템관리</a></li>

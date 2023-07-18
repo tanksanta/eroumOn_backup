@@ -8,7 +8,7 @@
 	</header>
 
 	<div id="page-content">
-		<div class="member-form">
+		<div class="search-form">
 			<picture class="block sm:mb-6">
 			<source srcset="/html/page/members/assets/images/txt-search-id.svg">
 			<img src="/html/page/members/assets/images/txt-search-id.svg" alt="회원님이 가입하신 아이디는 다음과 같습니다" class="mx-auto"> </picture>

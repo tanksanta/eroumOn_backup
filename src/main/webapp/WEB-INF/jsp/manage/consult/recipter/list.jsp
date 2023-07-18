@@ -58,7 +58,7 @@
 			<col class="w-80">
 			<col class="w-40">
 		</colgroup>
-		<thead>	
+		<thead>
 			<tr>
 				<th scope="col">
 					<div class="form-check">
@@ -75,6 +75,9 @@
 		</thead>
 		<tbody>
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
+			<c:set var="now" value="<%=new java.util.Date()%>" />
+			<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set>
+			<c:set var="brdt" value="${fn:substring(resultList.brdt,'0','4') }"> </c:set>
 			<tr>
 				<td>
 					<div class="form-check">
@@ -84,7 +87,7 @@
 				<td>${listVO.startNo - status.index }</td>
 				<td>${resultList.mbrNm}</td>
 				<td>${resultList.mbrTelno}</td>
-				<td>만 ${resultList.age} 세</a></td>
+				<td>만 ${sysYear - brdt} 세</a></td>
 				<td>${resultList.zip}&nbsp;&nbsp;${resultList.addr}&nbsp;&nbsp; ${resultList.daddr}</td>
 				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
 			</tr>
@@ -129,41 +132,41 @@ function f_srchJoinSet(ty){
 
 $(function(){
 	let arrDelConslt = [];
-	
+
 	// 전체 선택
 	$("#checkAll").on("click",function(){
 		let checkFlag = false;
 		arrDelConslt = [];
-		
+
 		if($(this).is(":checked")){
 			checkFlag = true;
-			
+
 			$("input[name='check_child']").each(function(){
 				arrDelConslt.push($(this).val());
 			});
 		}
 		$("input[name='check_child']").prop("checked",checkFlag);
-		console.log(arrDelConslt);		
+		console.log(arrDelConslt);
 	});
 
 	$("input[name='check_child']").on("click",function(){
 		let total = $("input[name='check_child']").length;
 		let checkCnt = $("input[name='check_child']:checked").length;
-		
+
 		if(total == checkCnt){
 			$("#checkAll").prop("checked",true);
 		}else{
 			$("#checkAll").prop("checked",false);
 		}
-		
+
 		if($(this).is(":checked")){
-			arrDelConslt.push($(this).val());	
+			arrDelConslt.push($(this).val());
 		}else{
 			arrDelConslt = arrDelConslt.filter((element) => element !== $(this).val());
 		}
 		console.log(arrDelConslt);
 	});
-	
+
 	$("#delConslt").on("click",function(){
 		$.ajax({
 			type : "post",
@@ -183,7 +186,7 @@ $(function(){
 			console.log("ERROR : " + err);
 		});
 	});
-	
+
 });
 </script>
 

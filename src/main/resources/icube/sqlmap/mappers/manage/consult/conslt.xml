@@ -8,7 +8,7 @@
 		conslt_no
 		, mbr_nm
 		, mbr_telno
-		, age
+		, brdt
 		, zip
 		, addr
 		, daddr
@@ -52,7 +52,7 @@
 	  	ORDER BY conslt_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
-	
+
 	<select id="selectMbrConsltCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)
 			<include refid="listColumn" />
@@ -60,26 +60,26 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
-	
+
 	<update id="updateUseYn" parameterType="java.util.HashMap">
 		UPDATE MBR_CONSLT SET
 			use_yn = #{useYn}
 		WHERE conslt_no = #{consltNo}
 	</update>
-	
+
 	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultType="mbrConsltVO">
-		SELECT 
+		SELECT
 			<include refid="listColumn" />
 		FROM MBR_CONSLT
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
-	
+
 	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
 		INSERT INTO MBR_CONSLT(
 			mbr_nm
 			, mbr_telno
-			, age
+			, brdt
 			, zip
 			, addr
 			, daddr
@@ -87,11 +87,11 @@
 			, reg_unique_id
 		    , reg_dt
 		    , reg_id
-		    , rgtr	
+		    , rgtr
 		)VALUES(
 			#{mbrNm}
 			, #{mbrTelno}
-			, #{age}
+			, #{brdt}
 			, #{zip}
 			, #{addr}
 			, #{daddr}
@@ -103,7 +103,7 @@
 		)
 	</insert>
 
-	
+
 
 
 </mapper>

@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/_mng/exhibit/rcmd/list">
+                        <a href="/_mng/exhibit/banner/list">
                             <i class="icon4"></i>
                             <span>전시관리</span>
                         </a>

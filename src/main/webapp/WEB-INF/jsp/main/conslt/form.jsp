@@ -14,7 +14,7 @@
 	<form:form class="provide-form" id="consltFrm" name="consltFrm" modelAttribute="mbrConsltVO" action="./action">
 	<form:hidden path="consltNo" />
 
-		<div class="form-check form-agree">
+		<div class="form-check form-agree form-group">
 			<input class="form-check-input" type="checkbox" name="agreeBtn" id="agreeBtn" value="Y">
 			<label class="form-check-label" for="agreeBtn">동의합니다</label>
 		</div>
@@ -30,18 +30,33 @@
 			</dl>
 			<dl>
 				<dt>
-					<label for="mblTelno">연락처</label>
+					<label for="mbrNm">성별</label>
 				</dt>
 				<dd>
-					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="15" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if>/>
+					<div class="form-group gap-4 h-10 md:h-11 md:gap-5">
+					<c:forEach var="gender" items="${genderCode}" varStatus="status">
+						<label class="form-check" for="gender${status.index}">
+							<input class="form-check-input" type="radio" name="gender" id="gender${status.index}" value="${gender.key}" <c:if test="${gender.key eq  _mbrSession.gender}">checked="checked"</c:if>>
+							<span class="form-check-label">${gender.value}</span>
+						</label>
+					</c:forEach>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt>
-					<label for="age">만나이</label>
+					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
-					<input type="text" id="age" name="age" class="form-control w-full xs:max-w-50" value="" maxlengh="3" <c:if test="${!empty _mbrSession.brdt}">readonly="true"</c:if>/>
+					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);"/>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="age">생년월일</label>
+				</dt>
+				<dd>
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="<fmt:formatDate value="${_mbrSession.brdt}" pattern="yyyyMMdd" />" maxlengh="8"/>
 				</dd>
 			</dl>
 			<dl>
@@ -58,7 +73,9 @@
 				</dd>
 			</dl>
 			<p>
-				이로움ON의 파트너이며, <br> 다양한 사례를 경험한 재가센터, 복지용구사업소의 전문가를 통해 상담 서비스가 이뤄집니다.
+				※ 상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
+					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>]에
+				제공되며, 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
 			</p>
 		</fieldset>
 		<div class="form-submit">
@@ -87,10 +104,24 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 	});
 }
 
+//전화번호 마스킹
+const autoHyphen = (target) => {
+	if(target.value.length > 8){
+		target.value = target.value
+   		.replace(/[^0-9]/g, '')
+   		.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}else{
+		target.value = target.value
+   		.replace(/[^0-9]/g, '')
+   		.replace(/^(\d{4})(\d{4})$/, `$1-$2`);
+	}
+
+}
 
 $(function(){
 
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
+	const numberCheck = /[0-9]/g;
 
 	// 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
@@ -128,16 +159,18 @@ $(function(){
 		ignore: "input[type='text']:hidden",
 		rules: {
 			mbrNm : {required : true},
-			mblTelno : {required : true, regex : telchk},
-			age : {required : true},
+			mbrTelno : {required : true, regex : telchk},
+			gender : {required : true},
+			brdt : {required : true},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
 		},
 		messages : {
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
-			mblTelno : {required : "연락처는 필수 입력 항목입니다."},
-			age : {required : "만 나이는 필수 입력 항목입니다."},
+			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
+			gender : {required : "성별은 필수 선택 항목입니다."},
+			brdt : {required : "생년월일은 필수 입력 항목입니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}

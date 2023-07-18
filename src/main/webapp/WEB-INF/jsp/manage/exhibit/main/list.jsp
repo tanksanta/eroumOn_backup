@@ -31,13 +31,13 @@
 						<td>
 							<div class="form-check-group">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="srchYn" id="search-item3" value="" checked>
-									<label class="form-check-label" for="search-item3">전체</label>
+									<input class="form-check-input" type="radio" name="srchUseYn" id="srchUseYn" value="" checked>
+									<label class="form-check-label" for="srchUseYn">전체</label>
 								</div>
-								<c:forEach var="yn" items="${useYnCode}">
+								<c:forEach var="yn" items="${useYnCode}" varStatus="status">
 									<div class="form-check">
-										<input type="radio" value="${yn.key}" id="${yn.value}" name="srchYn" class="form-check-input" <c:if test="${yn.key eq param.srchYn}">checked="checked"</c:if>>
-										<label class="form-check-label" for="${yn.value}">${yn.value}</label>
+										<input type="radio" value="${yn.key}" id="srchUseYn${status.index}" name="srchUseYn" class="form-check-input" <c:if test="${yn.key eq param.srchUseYn}">checked="checked"</c:if>>
+										<label class="form-check-label" for="srchUseYn${status.index}">${yn.value}</label>
 									</div>
 								</c:forEach>
 							</div>
@@ -52,7 +52,7 @@
 		</div>
 	</form>
 
-	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchYn=${param.srchYn}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
+	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchUseYn=${param.srchUseYn}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
 	<p class="text-title2 mt-13">메인 목록<br />
 	<btn class="btn btn-library" type="button" id="choose_delete">선택 삭제</btn>
 	<btn class="btn btn-library" type="button" id="sort_save">노출순서 저장</btn>
@@ -114,6 +114,8 @@
 		</tbody>
 	</table>
 
+	<p class="text-red-500">※ 노출순서 유의사항: ’배너 하프형’은 2개가 한쌍으로 함께 전시되어야 합니다.</p>
+	<p class="text-red-500">※ 전시리스트는 최대 5열까지 사용하는 것을 권장합니다.</p>
 	<p>※ 주제명을 클릭하면 상세/수정 페이지로 이동합니다.</p>
 	<p>※ 메인 노출 순서에 숫자 입력후 노출 순서 저장 버튼을 눌러야 저장됩니다.</p>
 	<div class="pagination mt-7">
@@ -208,6 +210,7 @@ $(function(){
   			})
   			.done(function(data) {
   				if(data.result){
+  					alert("저장되었습니다.");
 					location.reload();
   				}else{
   					alert("노출 순서 변경 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
@@ -218,6 +221,12 @@ $(function(){
   			});
 		}else{
 			return false;
+		}
+	});
+
+	$("input[name='item_child']").on("focusout",function(){
+		if($(this).val() == ''){
+			$(this).val(100);
 		}
 	});
 });

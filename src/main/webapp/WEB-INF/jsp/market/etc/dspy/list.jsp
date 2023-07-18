@@ -13,7 +13,7 @@
 				<img src="/html/page/market/assets/images/txt-event-eroum.svg" alt="" /> </picture>
 				<img src="/html/page/market/assets/images/img-shopbag.png" alt="" class="bags">
 				<p class="desc">
-					즐거움이 함께하는 <br> 이로움ON 마켓 기획전
+					즐거움이 함께하는 <br> 이로움ON 기획전
 				</p>
 			</div>
 

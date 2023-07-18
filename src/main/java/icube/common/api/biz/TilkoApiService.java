@@ -122,6 +122,7 @@ public class TilkoApiService {
 		boolean result = false;
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Map<String, Object> infoMap = new HashMap<String, Object>();
+		Map<String, Object> preMap = new HashMap<String, Object>();
 
 		Response response = client.newCall(request).execute();
 		String responseStr = response.body().string();
@@ -132,7 +133,7 @@ public class TilkoApiService {
         JSONObject jsonObject = new JSONObject((Map<String, Object>) obj);
 
         System.out.println(jsonObject);
-        
+
         String Status = (String) jsonObject.get("Status");
 
 
@@ -145,10 +146,10 @@ public class TilkoApiService {
 	        JSONArray welToolTgtHistList = (JSONArray) resultData.get("ds_welToolTgtHistList");
 	        //JSONArray ctrHistTotalList = (JSONArray) resultData.get("ds_ctrHistTotalList");
 
-	        //System.out.println("@@ 1: " + welToolTgtList); // 수급자 정보 
+	        //System.out.println("@@ 1: " + welToolTgtList); // 수급자 정보
 	        //System.out.println("@@ 2: " + toolPayLmtList); // 적용기간 사용금액/제한금액/급여잔액
 	        //System.out.println("@@ 3: " + welToolTgtHistList);// 인정유효기간
-	        //System.out.println("@@ 3-1: " + ctrHistTotalList);// 계약이력 
+	        //System.out.println("@@ 3-1: " + ctrHistTotalList);// 계약이력
 
 	        if(welToolTgtList != null) {
 	        	result = true;
@@ -191,6 +192,7 @@ public class TilkoApiService {
 		        }
 
 		        List<Map<String, Object>> toolPayLmtListMap =  JsonUtil.getListMapFromJsonArray(toolPayLmtList);
+		        boolean currentFlag = false;
 		        for(Map<String, Object> toolPayLmt : toolPayLmtListMap) {
 
 		        	String apdtFrDt = (String) toolPayLmt.get("APDT_FR_DT");
@@ -202,20 +204,27 @@ public class TilkoApiService {
 
 		        	int diffStDt = 0;
 		        	int diffEdDt = 0;
+
 		        	try {
 						diffStDt = EgovDateUtil.getDayCountWithFormatter(convertApdtFrDt, today, "yyyy-MM-dd");
 						diffEdDt = EgovDateUtil.getDayCountWithFormatter(convertApdtToDt, today, "yyyy-MM-dd");
 
-						System.out.println("diffStDt: " + diffStDt);
-						System.out.println("diffEdDt: " + diffEdDt);
+						//System.out.println("diffStDt: " + diffStDt);
+						//System.out.println("diffEdDt: " + diffEdDt);
 
 					} catch (java.text.ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
+		        	if(currentFlag) {
+		        		preMap.put("APDT_FR_DT", toolPayLmt.get("APDT_FR_DT"));
+		        		preMap.put("APDT_TO_DT", toolPayLmt.get("APDT_TO_DT"));
+		        		currentFlag = false;
+		        	}
+
 		        	if(diffStDt > 0 && diffEdDt < 0) {
-			        	
+
 			        	System.out.println("APDT_FR_DT" + toolPayLmt.get("APDT_FR_DT")); // 적용기간 시작
 			        	System.out.println("APDT_TO_DT" + toolPayLmt.get("APDT_TO_DT")); // 적용기간 종료
 			        	System.out.println("REMN_AMT" + toolPayLmt.get("REMN_AMT")); // 급여잔액
@@ -227,25 +236,28 @@ public class TilkoApiService {
 			        	infoMap.put("REMN_AMT", toolPayLmt.get("REMN_AMT"));
 			        	infoMap.put("USE_AMT", toolPayLmt.get("USE_AMT"));
 			        	infoMap.put("LMT_AMT", toolPayLmt.get("LMT_AMT"));
+
+			        	currentFlag = true;
 		        	}
 		        }
-		        
+		        //System.out.println("@@ 7 : " + preMap.toString());
+
 		        List<Map<String, Object>> welToolTgtHistListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtHistList);
 		        for(Map<String, Object> welTooTgtHistMap : welToolTgtHistListMap) {
 		        	infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ"));
 		        }
 	        }
         }
-        
+
         //API 요청 파라미터 설정
 	    returnMap.put("result", result);
 	    returnMap.put("infoMap", infoMap);
-	    
+
 	    // 급여 가능 불가능 품목 리스트
 	    String seq = (String) infoMap.get("LTC_MGMT_NO_SEQ");
 	    json.put("Col", seq);
 	    url = apiHost + url_recipientToolList;
-	    
+
 		// 판매/대여 가능 API 호출
 		client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
@@ -258,7 +270,7 @@ public class TilkoApiService {
 				.addHeader("API-KEY", apiKey)
 				.addHeader("ENC-KEY", aesCipherKey)
 				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
-		
+
 		response = client.newCall(request).execute();
 		responseStr = response.body().string();
 
@@ -268,34 +280,34 @@ public class TilkoApiService {
         jsonObject = new JSONObject((Map<String, Object>) obj);
 
         JSONObject dsPayPsblObj = (JSONObject) jsonObject.get("Result");
-        
+
        //System.out.println("@@ 4 : " + dsPayPsblObj);
         JSONArray ds_payPsbl1 = new JSONArray();
         JSONArray ds_payPsblLnd1 = new JSONArray();
-        
+
         JSONArray ds_payPsbl2 = new JSONArray();
         JSONArray ds_payPsblLnd2 = new JSONArray();
-        
+
         if(dsPayPsblObj != null) {
         	ds_payPsbl1 = (JSONArray) dsPayPsblObj.get("ds_payPsbl1");
             ds_payPsblLnd1 = (JSONArray) dsPayPsblObj.get("ds_payPsblLnd1");
-            
+
             ds_payPsbl2 = (JSONArray) dsPayPsblObj.get("ds_payPsbl2");
             ds_payPsblLnd2 = (JSONArray) dsPayPsblObj.get("ds_payPsblLnd2");
-            
+
             // 판매 급여 품목(가능 )
             List<Map<String, Object>> ds_payPsbl1Map =  JsonUtil.getListMapFromJsonArray(ds_payPsbl1);
             // 대여 급여 품목(가능 )
             List<Map<String, Object>> ds_payPsblLnd1Map =  JsonUtil.getListMapFromJsonArray(ds_payPsblLnd1);
-            
+
             // 판매 급여 품목(불가능 )
             List<Map<String, Object>> ds_payPsbl2Map =  JsonUtil.getListMapFromJsonArray(ds_payPsbl2);
             // 대여 급여 품목(불가능 )
             List<Map<String, Object>> ds_payPsblLnd2Map =  JsonUtil.getListMapFromJsonArray(ds_payPsblLnd2);
-            
+
             List<String> saleList = new ArrayList<String>();
             List<String> lendList = new ArrayList<String>();
-            
+
             List<String> saleNonList = new ArrayList<String>();
             List<String> lendNonList = new ArrayList<String>();
             for(Map<String, Object> saleMap : ds_payPsbl1Map) {
@@ -304,85 +316,137 @@ public class TilkoApiService {
             for(Map<String, Object>lendMap : ds_payPsblLnd1Map) {
             	lendList.add(ItemMap.RECIPTER_ITEM.get((String) lendMap.get("WIM_ITM_CD")));
             }
-            
+
             for(Map<String, Object> saleNonMap : ds_payPsbl2Map) {
             	saleNonList.add(ItemMap.RECIPTER_ITEM.get((String) saleNonMap.get("WIM_ITM_CD")));
             }
             for(Map<String, Object>lendNonMap : ds_payPsblLnd2Map) {
             	lendNonList.add(ItemMap.RECIPTER_ITEM.get((String) lendNonMap.get("WIM_ITM_CD")));
             }
-            
+
             infoMap.put("saleList", saleList);
             infoMap.put("lendList", lendList);
-            
+
             infoMap.put("saleNonList", saleNonList);
             infoMap.put("lendNonList", lendNonList);
         }else {
         	infoMap.put("saleNonList", null);
             infoMap.put("lendNonList", null);
         }
-        
-        // 계약 리스트 API 호출
+
         url = apiHost + url_recipientContractHistory;
         json.remove("Col");
         json.remove("name");
+
+        List<String> ownSaleList = new ArrayList<String>();
+	    List<String> ownLendList = new ArrayList<String>();
+
+        // 계약 리스트 API 호출 (이전 적용구간)
+       if(preMap.get("APDT_FR_DT") != null) {
+    	   json.put("StartDate", preMap.get("APDT_FR_DT"));
+           json.put("EndDate", preMap.get("APDT_TO_DT"));
+
+           client	= new OkHttpClient.Builder()
+   				.connectTimeout(30, TimeUnit.SECONDS)
+   				.readTimeout(30, TimeUnit.SECONDS)
+   				.writeTimeout(30, TimeUnit.SECONDS)
+   				.build();
+
+	   		request	= new Request.Builder()
+	   				.url(url)
+	   				.addHeader("API-KEY", apiKey)
+	   				.addHeader("ENC-KEY", aesCipherKey)
+	   				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
+
+	   		response = client.newCall(request).execute();
+	   		responseStr = response.body().string();
+
+	   	    jsonParser = new JSONParser();
+	   	    obj = jsonParser.parse(responseStr);
+
+	   	    jsonObject = new JSONObject((Map<String, Object>) obj);
+
+	   	    JSONObject pre_result = (JSONObject) jsonObject.get("Result");
+	   	    //System.out.println("@@ 6 : " + pre_result.toJSONString());
+
+	   	    if(pre_result != null) {
+	   	    	JSONArray returnResult = (JSONArray) pre_result.get("ds_result");
+
+	   	    	if(returnResult != null) {
+	   	    		List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
+				     for(Map<String, Object> dsResult : Ds_resultMap) {
+				    	 String mthdTy = (String) dsResult.get("WLR_MTHD_CD");
+
+					   	   if(EgovStringUtil.equals("판매", mthdTy)) {
+					   		   // 사용연한 검사
+					   		   String prodNm = (String)dsResult.get("PROD_NM");
+					   		   if(EgovStringUtil.string2integer(String.valueOf(ItemMap.RECIPTER_DATE.get(prodNm))) > 0) {
+					   			   ownSaleList.add(ItemMap.RECIPTER_ITEM.get(prodNm));
+					   		   }
+					   	   }
+				     }
+	   	    	}
+	   	    }
+
+
+       }
+
+        // 계약 리스트 API 호출
         json.put("StartDate", infoMap.get("APDT_FR_DT"));
         json.put("EndDate", infoMap.get("APDT_TO_DT"));
-        
+
 		client	= new OkHttpClient.Builder()
 				.connectTimeout(30, TimeUnit.SECONDS)
 				.readTimeout(30, TimeUnit.SECONDS)
 				.writeTimeout(30, TimeUnit.SECONDS)
 				.build();
-	
+
 		request	= new Request.Builder()
 				.url(url)
 				.addHeader("API-KEY", apiKey)
 				.addHeader("ENC-KEY", aesCipherKey)
 				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
-		
+
 		response = client.newCall(request).execute();
 		responseStr = response.body().string();
-	
+
 	     jsonParser = new JSONParser();
 	     obj = jsonParser.parse(responseStr);
-	
+
 	     jsonObject = new JSONObject((Map<String, Object>) obj);
-	     
+
 	     JSONObject Ds_result = (JSONObject) jsonObject.get("Result");
-	     System.out.println("@@ 5 : " + Ds_result);
+	     //System.out.println("@@ 5 : " + Ds_result);
 	     if(Ds_result != null) {
-	    	 
+
 		     JSONArray returnResult = (JSONArray) Ds_result.get("ds_result");
-		     
+
 		     if(returnResult != null) {
-		    	 List<String> ownSaleList = new ArrayList<String>();
-			     List<String> ownLendList = new ArrayList<String>();
-			     
+
 			     int useAmt = 0;
 			     List<Map<String, Object>> Ds_resultMap =  JsonUtil.getListMapFromJsonArray(returnResult);
 			     for(Map<String, Object> dsResult : Ds_resultMap) {
-			        
+
 					 String itemNm = (String) dsResult.get("PROD_NM");
 			    	 String recipterTy = (String) dsResult.get("WLR_MTHD_CD");
 			    	 String cnclYn = (String) dsResult.get("CNCL_YN");
-			    	 
+
 			    	 int totAmt = EgovStringUtil.string2integer((String) dsResult.get("TOT_AMT"));
-			    	 
+
 			    	 // 사용 금액 적용
 			    	 if(!EgovStringUtil.equals("취소",cnclYn)) {
 			    		// 변경, 연장, 정상 금액 포함
 			    		 if(totAmt > 0) {
 			    			 useAmt += totAmt;
 			    		 }
-			    		 
+
 			    		 if(recipterTy.equals("판매")) {
 				    		 ownSaleList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
 				    	 }else {
 				    		 ownLendList.add(ItemMap.RECIPTER_ITEM.get(itemNm));
 				    	 }
 			    	 }
-			    	 
+
 			     }
 			     infoMap.put("USE_AMT",  useAmt);
 			     useAmt = 0;
@@ -393,14 +457,14 @@ public class TilkoApiService {
 		    	 infoMap.put("ownLendList", null);
 		     }
 	     }
-	     
+
 	     List<String> allItem = new ArrayList<String>();
 	     for(Map.Entry<String, String> entry : ItemMap.RECIPTER_ITEM.entrySet()) {
 	    	 allItem.add(entry.getValue());
 	     }
-	     
+
 	     infoMap.put("allList", allItem);
-	    
+
 	    return returnMap;
 	}
 
