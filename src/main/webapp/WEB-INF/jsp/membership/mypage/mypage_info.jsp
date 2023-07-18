@@ -10,13 +10,9 @@
 		<ul class="tabs">
 			<li><a href="/membership/mypage/form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
 
-			<c:set var="changeUrl" value="" />
-			<c:choose>
-				<c:when test="${_mbrSession.joinTy eq 'E'}"><c:set var="changeUrl" value="/membership/mypage/pswd?returnUrl=${param.returnUrl}" /></c:when>
-				<c:when test="${_mbrSession.joinTy eq 'N' }"><c:set var="changeUrl" value="https://www.naver.com"/></c:when>
-				<c:otherwise><c:set var="changeUrl" value="https://cs.kakao.com/search?query=계정비밀번호%20변경" /></c:otherwise>
-			</c:choose>
-			<li><a href="${changeUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			<c:if test="${mbrVO.joinTy eq 'E'}">
+			<li><a href="/membership/mypage/pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			</c:if>
 
 		</ul>
 
