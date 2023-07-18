@@ -37,7 +37,7 @@
 			<c:if test="${_mbrSession.loginCheck == false}">
         	<div class="careinfo-layer">
                 <strong>요양정보간편조회가 궁금하시다면</strong>
-                <a href="${_mainPath}/login?returnUrl=/main/recipter/list&headerType=info" class="btn btn-large f_recipterCheck">간편 로그인/회원가입</a>
+                <a href="${_mainPath}/login?returnUrl=/main/recipter/list&headerType=info" class="btn btn-large">간편 로그인/회원가입</a>
             </div>
 			</c:if>
             
