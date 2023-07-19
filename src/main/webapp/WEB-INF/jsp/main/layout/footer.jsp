@@ -77,7 +77,7 @@
 
 		<!-- 고객센터 -->
 		<dl class="footer-customer">
-			<dt>고객센터 help@thkc.co.kr</dt>
+			<dt>고객센터 <a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a></dt>
 			<!-- <dd>
 				<p>
 					<strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a>

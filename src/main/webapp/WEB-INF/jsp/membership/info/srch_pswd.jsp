@@ -15,7 +15,7 @@
 					<label class="form-label" for="mbrId">아이디</label>
 					<input class="form-control" type="text" id="mbrId" name="mbrId" maxlength="50">
 				</div>
-				<%--<div class="search-group">
+				<%--<div class="form-group">
 					<label class="form-label" for="search-item2">이름</label>
 					<input class="form-control" type="text" id="search-item2">
 				</div> --%>
