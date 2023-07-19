@@ -12,10 +12,10 @@
 			<picture class="block sm:mb-6">
 			<source srcset="/html/page/members/assets/images/txt-search-id.svg">
 			<img src="/html/page/members/assets/images/txt-search-id.svg" alt="회원님이 가입하신 아이디는 다음과 같습니다" class="mx-auto"> </picture>
-			<p class="search-result">
-				<strong>${mbrVO.mbrId}</strong>(${noMbrVO.recipterYn eq 'Y'?'수급자회원':'일반회원' })
+			<p class="form-result">
+				<strong>${mbrVO.mbrId}</strong> (${noMbrVO.recipterYn eq 'Y'?'수급자회원':'일반회원' })
 			</p>
-			<div class="search-button complate">
+			<div class="form-button complate">
 				<a href="/membership/srchPswd" class="btn btn-outline-primary">비밀번호 찾기</a>
 				<a href="/membership/login" class="btn btn-primary">로그인하기</a>
 			</div>
