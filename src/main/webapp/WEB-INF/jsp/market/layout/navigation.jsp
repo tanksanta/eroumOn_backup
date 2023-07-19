@@ -69,11 +69,11 @@
 						<legend>통합검색</legend>
 						<c:set var="paramKwd" >
 							<c:choose>
-								<c:when test="${!empty param.srchKwd }">${param.srchKwd}</c:when>
-								<c:when test="${!empty param.srchNonKwd }">${param.srchNonKwd}</c:when>
+								<c:when test="${!empty param.srchKwd }">${fn:split(param.srchKwd,'?')[0]}</c:when>
+								<c:when test="${!empty param.srchNonKwd }">${fn:split(param.srchNonKwd,'?')[0]}</c:when>
 							</c:choose>
 						</c:set>
-						<input type="text" placeholder="검색어를 입력하세요" name="srchKwd" id="srchKwd" value="${paramKwd}" />
+						<input type="text" placeholder="검색어를 입력하세요" name="srchKwd" id="srchKwd" value="${fn:split(paramKwd,'?')[0]}" />
 						<button type="submit">검색</button>
 					</div>
 					<div class="form-current">
@@ -87,7 +87,7 @@
 								<button type="button" class="deleteKwd">삭제</button>
 							</div>
 							</c:forEach>
-						
+
 						</div>
 						<div class="current-option">
 							<div class="form-check form-switch option-switch">
@@ -98,7 +98,7 @@
 						</div>
 					</div>
 				</form>
-		
+
 		</div>
 		<ul class="navigation-util">
 			<li>
@@ -108,12 +108,18 @@
 			</li>
 			<li>
 				<a href="${_marketPath}/mypage/wish/list" class="util-item2">
-					<span class="sr-only">마이페이지</span>
+					<span class="sr-only">찜한상품</span>
+					<c:if test="${_mbrSession.loginCheck && _mbrEtcInfoMap.totalWish > 0}">
+						<i>${_mbrEtcInfoMap.totalWish}</i>
+					</c:if>
 				</a>
 			</li>
 			<li>
 				<a href="${_marketPath}/mypage/cart/list" class="util-item3">
-					<span class="sr-only">마이페이지</span>
+					<span class="sr-only">장바구니</span>
+					<c:if test="${_mbrSession.loginCheck && _mbrEtcInfoMap.totalCart > 0}">
+						<i>${_mbrEtcInfoMap.totalCart}</i>
+					</c:if>
 				</a>
 			</li>
 		</ul>
@@ -123,20 +129,20 @@
 
 <script>
 $(function(){
-	
+
 	$("#search-save").on("click",function(){
 		if($(this).is(":checked")){
 			$("#srchKwd").attr("name","srchNonKwd");
 		}
 	});
-	
+
 	if($("search-save").is(":checked")){
 		$("#srchKwd").attr("name","srchNonKwd");
 	}
-	
+
 	$("#all-delete").on("click",function(){
 		$(".deleteKwd").click();
 	});
-	
+
 });
 </script>

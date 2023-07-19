@@ -60,7 +60,7 @@
             <li><a href="/_mng/ordr/all/list" class="dashboard-item4">주문관리</a></li>
             <li><a href="/_mng/exhibit/banner/list" class="dashboard-item5">전시관리</a></li>
             <li><a href="/_mng/promotion/dspy/list" class="dashboard-item11">프로모션관리</a></li>
-            <li><a href="/_mng/consult/mbrInqry/list" class="dashboard-item7">고객상담관리</a></li>
+            <li><a href="/_mng/consult/recipter/list" class="dashboard-item7">고객상담관리</a></li>
             <li><a href="/_mng/sysmng/mngr/list" class="dashboard-item8">시스템관리</a></li>
             <li><a href="/_mng/stats/sales/prfmnc" class="dashboard-item10">통계관리</a></li>
             <li><a href="/_mng/members/bplc/list" class="dashboard-item12">멤버스관리</a></li>

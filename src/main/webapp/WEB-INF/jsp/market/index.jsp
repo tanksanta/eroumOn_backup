@@ -5,7 +5,9 @@
 		<div class="swiper-wrapper">
 			<c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
-					<c:if test="${resultList.linkTy ne 'N' }"><a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>></c:if>
+					<c:if test="${resultList.linkTy ne 'N' }">
+						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
+					</c:if>
 						<picture>
 							<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
 								<source srcset="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" media="(max-width: 768px)">

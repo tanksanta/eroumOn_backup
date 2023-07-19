@@ -17,6 +17,7 @@ public class MbrConsltVO extends CommonBaseVO {
 	private String mbrNm;
 	private String mbrTelno;
 	private String brdt;
+	private int age;
 	private String zip;
 	private String addr;
 	private String daddr;
