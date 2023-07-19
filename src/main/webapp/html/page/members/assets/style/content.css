@@ -121,6 +121,7 @@
         }
     }
     & .form-group {
+        @apply block relative overflow-hidden;
         & > * {
             @apply mr-0;
         }
@@ -145,7 +146,7 @@
 
 .login-form {
     & .form-group {
-        @apply block relative overflow-hidden mt-4
+        @apply mt-4
                sm:mt-7.5 sm:pr-39 sm:pl-4;
     }
     & .form-label {
@@ -184,8 +185,7 @@
         @apply sm:w-[calc(100%_-_9.25rem)];
     }
     & .form-group {
-        @apply block items-start
-               sm:flex sm:flex-wrap sm:mt-1.5 sm:pr-7.5
+        @apply sm:mt-1.5 sm:pr-7.5
                first:mt-8 first:sm:mt-10;
     }
     & .form-auth {
@@ -232,12 +232,12 @@
         @apply mt-14 mb-16 text-center text-[0.9375rem]
                sm:mt-16 sm:mb-18 sm:text-base;
         & strong {
-            @apply font-serif text-3xl
+            @apply font-serif text-3xl break-all
                    sm:text-[1.875rem];
         }
     }
     & .error {
-        @apply sm:pl-37;
+        @apply w-full sm:pl-37;
     }
     & + .member-social {
         @apply mt-7.5 pt-5 border-t border-t-gray1
