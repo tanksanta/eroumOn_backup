@@ -123,10 +123,23 @@ body {
 
 #footer {
     & .footer-link, & .footer-center {
-        @apply lg:px-4;
+        @apply px-5;
     }
     & .footer-family {
-        @apply lg:right-4;
+        @apply lg:right-5;
+        & .global-link {
+            & li {
+                &:last-child {
+                    & [class*="link-item"] {
+                        & .bubble {
+                            @apply md:-right-3 md:left-auto md:translate-x-0
+                                    md:before:left-[85%]
+                                    md:after:left-[85%];
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -2,8 +2,12 @@
     <!-- container -->
     <main id="container">
         <div id="page-header" class="search-header">
+            <ul class="page-header-breadcrumb">
+                <li><a href="${_marketPath}">홈</a></li>
+                <li>검색결과</li>
+            </ul>
             <div class="page-header-title">
-                <a href="#" class="back">이전 페이지 가기</a>
+                <a href="${_marketPath}" class="back">이전 페이지 가기</a>
                 <h2 class="subject">
                 	<c:if test="${!empty param.srchKwd }">
                 		<strong>‘${param.srchKwd}’</strong>
@@ -43,9 +47,9 @@
                             </c:forEach>
                         </dd>
                     </dl>
-                    <div class="text-center mt-5 md:mt-7">
+                    <!-- div class="text-center mt-5 md:mt-7">
                         <button type="button" class="btn btn-success f_srchBtn">검색</button>
-                    </div>
+                    </div -->
                 </fieldset>
             </form>
 
@@ -94,6 +98,10 @@ $(function(){
 	$(".f_srchBtn").on("click", function(){
 		f_srchGdsList(1);
 	});
+	
+	$('.search-option .form-check input').on('change', function() {
+		f_srchGdsList(1);
+	})
 
 	$(document).on("change", "#srchOrdr", function(){
 		console.log($(this).val());
