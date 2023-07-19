@@ -565,7 +565,7 @@
 						<!-- 구매 조건 선택 -->
                        	<c:choose>
 							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
-							<div class="payment-type-select">
+							<div class="payment-type-select" style="display:none;">
 	                            <%-- <label for="ordrTy1" class="select-item1">
 	                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > R or L
 	                                <span>급여 구매</span>
@@ -731,7 +731,7 @@
 										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
 									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
-										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매신청</button>
+										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하</button>
 									<%-- </c:if> --%>
 									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>

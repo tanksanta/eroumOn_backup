@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltService;
 
@@ -41,6 +42,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		listVO = mbrConsltService.formatMbrConsltVO(listVO);
 
 		model.addAttribute("listVO", listVO);
+		model.addAttribute("genderCode", CodeMap.GENDER);
 
 		return "/manage/consult/recipter/list";
 	}
