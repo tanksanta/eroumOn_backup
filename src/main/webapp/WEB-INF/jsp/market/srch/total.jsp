@@ -6,10 +6,10 @@
                 <a href="#" class="back">이전 페이지 가기</a>
                 <h2 class="subject">
                 	<c:if test="${!empty param.srchKwd }">
-                		<strong>‘${param.srchKwd}’</strong>
+                		<strong>‘${fn:split(param.srchKwd,'?')[0]}’</strong>
                 	</c:if>
                 	<c:if test="${!empty param.srchNonKwd }">
-                		<strong>‘${param.srchNonKwd}’</strong>
+                		<strong>‘${fn:split(param.srchNonKwd,'?')[0]}’</strong>
                 	</c:if>
                 	 검색결과입니다
                 </h2>
@@ -19,12 +19,13 @@
         <div class="search-container">
             <form action="#" class="search-option">
             	<input type="hidden" name="srchKwd" value="${param.srchKwd}">
+                <c:if test="${fn:length(resultCtgryGrpList) > 0}">
                 <fieldset>
                     <legend class="sr-only">검색 조건</legend>
                     <dl class="form-group">
                         <dt>카테고리</dt>
                         <dd>
-                        	<c:forEach items="${resultCtgryGrpList}" var="result" varStatus="status">
+                        	<c:forEach items="${resultCtgryGrpList}" var="result" varStatus="status" begin="1">
                             <label class="form-check">
                                 <input type="radio" name="srchCtgryNo" id="srchCtgryNo${status.index}" value="${result.ctgryNo}" class="form-check-input">
                                 <span for="srchCtgryNo${status.index}" class="form-check-label">${result.ctgryNm}</span>
@@ -47,6 +48,7 @@
                         <button type="button" class="btn btn-success f_srchBtn">검색</button>
                     </div>
                 </fieldset>
+                </c:if>
             </form>
 
             <div id="search-list-wrap">

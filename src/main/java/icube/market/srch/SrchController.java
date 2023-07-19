@@ -50,7 +50,7 @@ public class SrchController extends CommonAbstractController {
 		String[] srchKwd = {};
 		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
 			String kwd = (String) reqMap.get("srchKwd");
-			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+			srchKwd = EgovStringUtil.getStringArray(kwd.split("\\?")[0], " ");
 		}
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -92,7 +92,7 @@ public class SrchController extends CommonAbstractController {
 		String[] srchKwd = {};
 		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
 			String kwd = (String) reqMap.get("srchKwd");
-			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+			srchKwd = EgovStringUtil.getStringArray(kwd.split("\\?")[0], " ");
 		}
 
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);

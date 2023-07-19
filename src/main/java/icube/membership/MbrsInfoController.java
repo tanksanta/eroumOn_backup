@@ -67,7 +67,7 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
-	
+
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
 
@@ -99,17 +99,23 @@ public class MbrsInfoController extends CommonAbstractController{
 			HttpServletRequest request
 			, HttpSession session
 			, Model model
+			, @RequestParam(value = "returnUrl", required=false) String returnUrl
 			)throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
 			return "redirect:/"+ mainPath;
 		}
-		
+
 		if(!mbrSession.getJoinTy().equals("E")) {
 			session.setAttribute("infoStepChk", "EASYLOGIN");
 			session.setMaxInactiveInterval(60*60);
-			
-			return "redirect:/"+ membershipPath + "/mypage/form";
+
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				return "redirect:/"+ membershipPath + "/mypage/form?returnUrl=" + returnUrl;
+			}else {
+				return "redirect:/"+ membershipPath + "/mypage/form";
+			}
+
 		}
 
 		//암호화
@@ -341,7 +347,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			, Model model
 			, MbrVO mbrVO
 			)throws Exception {
-		
+
 		// 간편 회원 체크
 		if(!mbrSession.getJoinTy().equals("E")) {
 			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 변경을 이용하실 수 없습니다.");

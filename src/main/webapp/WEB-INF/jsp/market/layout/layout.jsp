@@ -41,7 +41,22 @@
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     </c:if>
 </head>
-<body <c:if test="${fn:length(_bannerList) > 0}">class="is-banner"</c:if>>
+<body>
+	<script>
+	$(function(){
+		//console.log($.cookie("topBanner"));
+		if(Number($.cookie("topBanner")) > 0){
+			$("body").removeClass("is-banner");
+		}else{
+			if(Number("${fn:length(_bannerList)}" > 0)){
+				$("body").addClass("is-banner");
+			}
+		}
+
+
+	});
+	</script>
+
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
@@ -150,6 +165,5 @@
     });
 
 	</script>
-
-</body>
+	</body>
 </html>

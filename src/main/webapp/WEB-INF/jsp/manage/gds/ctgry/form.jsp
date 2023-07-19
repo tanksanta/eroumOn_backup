@@ -198,7 +198,7 @@
                 	            	if(operation === 'move_node') {
                                     	if(node_parent.id === "#"){return false;} // 최상위 레벨로 이동 금지
                                     	if(node.state.disabled){return false;} // 비활성 상태 이동 금지
-                						if(node_parent.parents.length>2){return false;}
+                						if(node_parent.parents.length>3){return false;}
                 						if(node_parent.parents.length==2&&node.children.length>0){return false;}
                 						if(node_parent.parents.length==1&&(node.children.length!=node.children_d.length)){return false;}
                                     }

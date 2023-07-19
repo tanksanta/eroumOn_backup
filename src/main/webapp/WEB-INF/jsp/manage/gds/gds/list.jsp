@@ -99,9 +99,9 @@
                                         <select name="ctgryNo3" id="ctgryNo3" class="form-control w-32">
                                             <option value="0">전체</option>
                                         </select>
-                                        <select name="ctgryNo4" id="ctgryNo4" class="form-control w-32">
+                                        <%--  <select name="ctgryNo4" id="ctgryNo4" class="form-control w-32">
                                             <option value="0">전체</option>
-                                        </select>
+                                        </select>--%>
                                     </div>
                                 </td>
                             </tr>

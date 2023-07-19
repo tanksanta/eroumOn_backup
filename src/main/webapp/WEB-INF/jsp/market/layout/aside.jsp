@@ -13,7 +13,7 @@
 					</a>
 				</c:if>
 			</c:forEach>
-			<button type="button">
+			<button type="button" data-banner-no="${banner.bannerNo}">
 				<span class="sr-only">닫기</span>
 			</button>
 		</div>
@@ -22,5 +22,8 @@
 <script>
 $('#banner button').on('click', function() {
 	$('body').removeClass('is-banner');
+
+	let bannerNo = $(this).data("bannerNo");
+	$.cookie("topBanner",bannerNo,{expires:1, path:"/"});
 });
 </script>
