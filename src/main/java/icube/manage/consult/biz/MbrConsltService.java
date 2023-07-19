@@ -1,13 +1,16 @@
 package icube.manage.consult.biz;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.util.DateUtil;
 import icube.common.vo.CommonListVO;
 
 @Service("mbrConsltService")
@@ -41,6 +44,22 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltDAO.insertMbrConslt(mbrConsltVO);
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public CommonListVO formatMbrConsltVO(CommonListVO listVO) throws Exception{
+
+		List<MbrConsltVO> consltList = listVO.getListObject();
+
+		for(MbrConsltVO mbrConsltVO : consltList) {
+			int yyyy =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(0, 4));
+			int mm =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(4, 6));
+			int dd =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(6, 8));
+			mbrConsltVO.setAge(DateUtil.getRealAge(yyyy, mm, dd));
+		}
+
+		return listVO;
+	}
+
+
+
 
 }

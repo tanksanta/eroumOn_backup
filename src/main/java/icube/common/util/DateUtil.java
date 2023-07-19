@@ -582,31 +582,28 @@ public class DateUtil {
 	}
 
 	/**
-	 * 만나이 구하기
-	 * @param dateStr yyyy-MM-dd 형식
-	 * @return 만나이
+	 * 만나이 계산
+	 * @param birthYear
+	 * @param birthMonth
+	 * @param birthDay
+	 * @return
 	 */
-	public static String getAge(Date birthDate) {
-		if (birthDate == null) {
-			return "";
-		}
-		
-		Calendar birthCalendar = Calendar.getInstance();
-		birthCalendar.setTime(birthDate);
-		 int birthYear = birthCalendar.get(Calendar.YEAR);
-		 int birthMonth = birthCalendar.get(Calendar.MONTH) + 1;
-		 int birthDay = birthCalendar.get(Calendar.DAY_OF_MONTH);
-		 
-		 Calendar current = Calendar.getInstance();
-         int currentYear  = current.get(Calendar.YEAR);
-         int currentMonth = current.get(Calendar.MONTH) + 1;
-         int currentDay   = current.get(Calendar.DAY_OF_MONTH);
-         
-         int age = currentYear - birthYear;
-         if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
-        	 age--;
-         }
-         
-         return String.valueOf(age);
-	}
+	public static int getRealAge(int birthYear, int birthMonth, int birthDay)
+	 {
+	         Calendar current = Calendar.getInstance();
+
+	         int currentYear  = current.get(Calendar.YEAR);
+	         int currentMonth = current.get(Calendar.MONTH) + 1;
+	         int currentDay   = current.get(Calendar.DAY_OF_MONTH);
+
+	         // 만 나이 구하기 2022-1995=27 (현재년-태어난년)
+	         int age = currentYear - birthYear;
+	         // 만약 생일이 지나지 않았으면 -1
+	         if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay)
+	             age--;
+	         // 5월 26일 생은 526
+	         // 현재날짜 5월 25일은 525
+	         // 두 수를 비교 했을 때 생일이 더 클 경우 생일이 지나지 않은 것이다.
+	         return age;
+	 }
 }
