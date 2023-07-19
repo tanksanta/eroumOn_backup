@@ -16,7 +16,7 @@
                         <a href="${_marketPath}/info/srchPswd" class="btn btn-outline-primary wide">비밀번호 찾기</a>
                         <a href="${_marketPath}/login" class="btn btn-primary wide">로그인하기</a>
                     </div>
-                    <p class="text-alert mt-5.5">위에 제공된 방법으로 아이디 찾기가 어려우실 경우 고객센터 02-830-1301로 문의 주시기 바랍니다.</p>
+                    <p class="text-alert mt-5.5">위에 제공된 방법으로 아이디 찾기가 어려우실 경우 help@thkc.co.kr로 문의 주시기 바랍니다.</p>
                 </div>
             </div>
         </div>
