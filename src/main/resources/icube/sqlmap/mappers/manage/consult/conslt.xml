@@ -9,6 +9,7 @@
 		, mbr_nm
 		, mbr_telno
 		, brdt
+		, gender
 		, zip
 		, addr
 		, daddr
@@ -80,6 +81,7 @@
 			mbr_nm
 			, mbr_telno
 			, brdt
+			, gender
 			, zip
 			, addr
 			, daddr
@@ -92,6 +94,7 @@
 			#{mbrNm}
 			, #{mbrTelno}
 			, #{brdt}
+			, #{gender}
 			, #{zip}
 			, #{addr}
 			, #{daddr}
