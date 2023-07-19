@@ -139,6 +139,7 @@ $(function(){
 
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	const numberCheck = /[0-9]/g;
+	const dateChk = /^(19[0-9][0-9]|20\d{2})\/(0[0-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
 	// 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
@@ -171,15 +172,25 @@ $(function(){
 		}
 	});
 
-	$("#brdt").on("keydown",function(){
-		if($(this).val().length == 4){
-			$(this).val($(this).val() + "/");
+	//숫자와 /만 입력받도록 추가
+	const keyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
+	$("#brdt").keypress(function(e) {
+		if (!keyInputRegex.test(e.keyCode)) {
+			return false;
 		}
+	});
+	
+	$("#brdt").on("keydown",function(e){
+		//백스페이스는 무시
+		if (e.keyCode !== 8) {
+			if($(this).val().length == 4){
+				$(this).val($(this).val() + "/");
+			}
 
-		if($(this).val().length == 7){
-			$(this).val($(this).val() + "/");
+			if($(this).val().length == 7){
+				$(this).val($(this).val() + "/");
+			}
 		}
-
 	});
 
 	$("#brdt").on("keyup",function(){
@@ -195,7 +206,7 @@ $(function(){
 			mbrNm : {required : true},
 			mbrTelno : {required : true, regex : telchk},
 			gender : {required : true},
-			brdt : {required : true, minlength : 10},
+			brdt : {required : true, minlength : 10, regex : dateChk},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
@@ -204,7 +215,7 @@ $(function(){
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
 			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
 			gender : {required : "성별은 필수 선택 항목입니다."},
-			brdt : {required : "생년월일은 필수 입력 항목입니다.", minlength : "생년월일은 최소 8자리입니다."},
+			brdt : {required : "생년월일은 필수 입력 항목입니다.", minlength : "생년월일은 최소 8자리입니다.", regex: "생년월일이 올바르지 않습니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}
