@@ -80,7 +80,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/_mng/consult/gdsReview/list">
+                        <a href="/_mng/consult/recipter/list">
                             <i class="icon6"></i>
                             <span>고객상담관리</span>
                         </a>

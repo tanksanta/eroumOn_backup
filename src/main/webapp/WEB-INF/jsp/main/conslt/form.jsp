@@ -83,7 +83,7 @@
 				</dd>
 			</dl>
 			<p>
-				※ 상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
+				상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
 					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>]에
 				제공되며, 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
 			</p>
