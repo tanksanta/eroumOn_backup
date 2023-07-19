@@ -142,6 +142,7 @@ $(function(){
 
 	$("#all-delete").on("click",function(){
 		$(".deleteKwd").click();
+		$.removeCookie("keywords",{path:"/"});
 	});
 
 });

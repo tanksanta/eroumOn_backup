@@ -66,8 +66,7 @@ public class MainInqryController extends CommonAbstractController {
 				String MAIL_FORM_PATH = mailFormFilePath;
 				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_business.html");
 				String mailSj = "[이로움ON]" + inqryTy + " 문의가 등록되었습니다.";
-				//String putEml = "biz@thkc.co.kr";
-				String putEml = "gyoh@icubesystems.co.kr";
+				String putEml = "biz@thkc.co.kr";
 
 				mailForm = mailForm.replace("{inqryTy}", inqryTy);
 				mailForm = mailForm.replace("{bsnsNm}", bsnsNm);
@@ -76,9 +75,9 @@ public class MainInqryController extends CommonAbstractController {
 				mailForm = mailForm.replace("{cntntsSj}", cntntsSj);
 				mailForm = mailForm.replace("{cntnts}", cntnts);
 
-				/*if(EgovStringUtil.equals(inqryTy, "마켓입점")) {
+				if(EgovStringUtil.equals(inqryTy, "마켓입점")) {
 					putEml = "bizmarket@thkc.co.kr";
-				}*/
+				}
 				mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 
 				javaScript.setMessage(getMsg("action.complete.insert"));

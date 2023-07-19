@@ -78,12 +78,16 @@ $(function(){
 
 		var srchCtgryNos = $("input[name='srchCtgryNo']:checked").val();
 		var srchGdsTys = $("input[name='gdsTy']:checked").val();
+		var srchKwd = "${fn:split(param.srchKwd,'?')[0]}";
+		if("${param.srchNonKwd}" != '' && "${param.srchNonKwd}" != null){
+			srchKwd = "${fn:split(param.srchNonKwd,'?')[0]}";
+		}
 		var params = {
 			curPage:page
 			, srchGdsTys:srchGdsTys
 			, srchCtgryNos:srchCtgryNos
 			, sortBy:$("#srchOrdr").val() || 'SORT_NO'
-			, srchKwd:"${param.srchKwd}"
+			, srchKwd:srchKwd
 		};
 
 		$("#search-list-wrap").load(
@@ -100,7 +104,7 @@ $(function(){
 	$(".f_srchBtn").on("click", function(){
 		f_srchGdsList(1);
 	});
-	
+
 	$('.search-option .form-check input').on('change', function() {
 		f_srchGdsList(1);
 	})
