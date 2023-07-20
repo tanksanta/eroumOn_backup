@@ -36,6 +36,7 @@
 				<th scope="col">상품구분</th>
 				<th scope="col">카테고리1</th>
 				<th scope="col">카테고리2</th>
+				<th scope="col">카테고리3</th>
                 <th scope="col">상품코드</th>
                 <th scope="col">급여코드</th>
                 <th scope="col">품목코드</th>
@@ -50,6 +51,7 @@
                 <th scope="col">원산지</th>
                 <th scope="col">브랜드</th>
                 <th scope="col">모델</th>
+                <th scope="col">검색 키워드</th>
                 <th scope="col">노출여부</th>
 
                 <th scope="col">판매가</th>
@@ -72,8 +74,9 @@
 			<c:forEach items="${resultList}" var="result" varStatus="status">
 			<tr>
                 <td>${gdsTyCode[result.gdsTy]}</td>
-                <td>${result.upCtgryNm}</td>
-                <td>${result.ctgryNm}</td>
+                <td>${fn:split(result.gdsCtgryPath,' > ')[1]}</td>
+                <td>${fn:split(result.gdsCtgryPath,' > ')[2]}</td>
+                <td>${fn:split(result.gdsCtgryPath,' > ')[3]}</td>
                 <td>${result.gdsCd}</td>
                 <td>${result.bnefCd}</td>
                 <td>${result.itemCd}</td>
@@ -88,6 +91,7 @@
                 <td>${result.plor}</td>
                 <td>${result.brand}</td>
                 <td>${result.modl}</td>
+                <td>${result.keyword}</td>
                 <td>${dspyYnCode[result.dspyYn]}</td>
 
                 <td><fmt:formatNumber value="${result.pc}" pattern="###,###" /></td>

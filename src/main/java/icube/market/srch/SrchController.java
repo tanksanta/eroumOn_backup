@@ -48,10 +48,14 @@ public class SrchController extends CommonAbstractController {
 
 		//TODO : 카테고리 그룹핑 결과
 		String[] srchKwd = {};
+		String kwd = "";
 		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
-			String kwd = (String) reqMap.get("srchKwd");
-			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+			kwd = (String) reqMap.get("srchKwd");
 		}
+		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchNonKwd"))) {
+			kwd = (String) reqMap.get("srchNonKwd");
+		}
+		srchKwd = EgovStringUtil.getStringArray(kwd.split("\\?")[0], " ");
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUseYn", "Y"); // 사용중
