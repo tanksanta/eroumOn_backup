@@ -21,7 +21,7 @@
                 <div class="field">
                     <dl>
                         <dt><label for="recipter">이름</label></dt>
-                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="${recipter}"></dd>
+                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="${_mbrSession.mbrNm}" disabled></dd>
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
@@ -584,8 +584,13 @@ $(function() {
     	let name = $("#recipter").val();
     	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
 
-    	if(name == '' || no == '' ){
-    		alert("이름과 요양인정번호는 필수 입력 항목입니다.");
+    	if (name == '') {
+    		alert("로그인 이후 조회가 가능합니다.");
+    		return;
+    	}
+    	
+    	if(no == '' ){
+    		alert("요양인정번호는 필수 입력 항목입니다.");
     	}else{
     		if("${_mbrSession.loginCheck}" == "false"){
        			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
@@ -601,6 +606,11 @@ $(function() {
 			dataType : 'json'
 		})
 		.done(function(json) {
+			if(!json.isSearch) {
+				alert(json.msg);
+				return;
+			}
+			
 			if(json.result){
 				let usePercent = 0;
 				let setPercent = 100;
