@@ -6,7 +6,7 @@
                     <ul class="nav tabs-list">
                         <li><a href="#tabs1" data-bs-toggle="pill" data-bs-target="#tabs1">지역검색</a></li>
                         <li><a href="#tabs2" data-bs-toggle="pill" data-bs-target="#tabs2">직접검색</a></li>
-                        <li><a href="#tabs2" data-bs-toggle="pill" data-bs-target="#tabs3">추천 멤버스</a></li>
+                        <li><a href="#tabs2" data-bs-toggle="pill" data-bs-target="#tabs3">이로움 멤버스</a></li>
                     </ul>
                     <div class="tab-content">
                     	<%-- tab1 --%>
@@ -271,7 +271,7 @@
 		        				}
 		        				html += '    </div>';
 		        				html += '    <p class="addr">'+ item.addr +' ' + item.daddr  +'</p>';
-		        				html += '    <a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>';
+		        				//html += '    <a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>';
 		        				html += '</div>';
 							}
 	        			});
