@@ -731,13 +731,13 @@
 										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
 									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
-										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하</button>
+										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
 									<%-- </c:if> --%>
 									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
 								</c:if>
 								<c:if test="${!_mbrSession.loginCheck}">
-									<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매신청</button>
+									<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
 									<button type="button" class="btn btn-outline-primary btn-large f_loginCheck">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_loginCheck">상품찜하기</button>
 								</c:if>

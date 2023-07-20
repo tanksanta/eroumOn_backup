@@ -5,7 +5,6 @@
 
 	<!-- Define GdsVO Result Map  -->
 	<resultMap type="gdsVO" id="gdsVOListMap" autoMapping="true">
-		<association property="gdsCtgryPath" column="{ctgryNo=ctgry_no, gdsNo=gds_no}" select="gds.ctgry.selectGdsCtgryPath" />
 		<collection property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
 		<collection property="regCount" column="{gdsNo=gds_no}" select="dspy.grp.gds.selectRegCount" />
 	</resultMap>
@@ -156,12 +155,17 @@
 		<if test="srchCtgryNo > 0">
 			AND g.ctgry_no = #{srchCtgryNo}
 		</if>
-
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCtgryNos)">
-			AND g.ctgry_no IN
+			AND (g.ctgry_no IN
 			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
 				#{srchCtgryNo}
 			</foreach>
+			OR
+			gc1.up_ctgry_no IN
+			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+				#{srchCtgryNo}
+			</foreach>
+			)
 		</if>
 
 		<if test="srchGdsCd !=null and srchGdsCd != ''">
@@ -216,9 +220,6 @@
 		</if>
 		<if test="gdsNo !=null and gdsNo != ''"><!-- PK -->
 			AND g.gds_no = #{gdsNo}
-		</if>
-		<if test="srchAllCtgryNo != null and srchAllCtgryNo != '' ">
-			AND (g.ctgry_no = #{srchAllCtgryNo} or gc2.ctgry_no = #{srchAllCtgryNo})
 		</if>
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchKwd)">
 			AND (

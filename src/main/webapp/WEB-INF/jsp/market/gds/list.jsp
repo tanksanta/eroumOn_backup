@@ -78,6 +78,9 @@ var Goods = (function(){
 					, srchGdsTag:$("#srchGdsTag").val()
 					, srchGdsTagNI:$("#srchGdsTagNI").val() //NOT IN
 					, srchCtgryNos:srchCtgryNos
+					, ctgryNo1 : "${ctgryNo1}"
+					, ctgryNo2 : "${ctgryNo2}"
+					, ctgryNo3 : "${ctgryNo3}"
 			};
 
 			//console.log("params: ", params);

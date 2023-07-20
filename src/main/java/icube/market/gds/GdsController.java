@@ -2,6 +2,7 @@ package icube.market.gds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -172,10 +173,33 @@ public class GdsController extends CommonAbstractController {
 
 		int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
 		int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
-		String[] srchCtgryNos = {};
-		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchCtgryNos"))) {
-			srchCtgryNos = EgovStringUtil.getStringArray((String) reqMap.get("srchCtgryNos"), "|");
+		HashSet<String> ctgryNos = new HashSet<>();
+
+		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+
+		for(int i=1; i<4; i++) {
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"+i))) {
+				if(EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i)) > 0) {
+					upCtgryNo = EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i));
+				}
+			}
 		}
+		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+
+		if(currentCategory.getChildList().size() > 0) {
+			for(GdsCtgryVO gdsCtgryVO : currentCategory.getChildList()) {
+				for(GdsCtgryVO gdsCtgryChildVO : gdsCtgryVO.getChildList()) {
+						for(GdsCtgryVO gdsCtgryChild2VO : gdsCtgryChildVO.getChildList()) {
+							ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChild2VO.getCtgryNo()));
+						}
+						ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChildVO.getCtgryNo()));
+				}
+				ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryVO.getCtgryNo()));
+			}
+		}else{
+			ctgryNos.add(EgovStringUtil.integer2string(upCtgryNo));
+		}
+
 
 		String[] srchGdsTys = {};
 		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchGdsTys"))) {
@@ -185,8 +209,7 @@ public class GdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
 		listVO.setParam("srchUseYn", "Y"); // 사용중
 		listVO.setParam("srchDspyYn", "Y"); // 전시중
-		listVO.setParam("srchAllCtgryNo", upCtgryNo); //1depth
-		listVO.setParam("srchCtgryNos", srchCtgryNos); //2depth
+		listVO.setParam("srchCtgryNos", ArrayUtil.stringToArray(ctgryNos.toString().replace("[", "").replace("]", "")));
 		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
 		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
 

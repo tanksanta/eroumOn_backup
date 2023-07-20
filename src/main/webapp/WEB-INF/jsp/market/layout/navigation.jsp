@@ -129,11 +129,18 @@
 
 <script>
 $(function(){
+	if($.cookie("search-save") > 0){
+		$("#search-save").prop("checked",true);
+	}
 
 	$("#search-save").on("click",function(){
 		if($(this).is(":checked")){
 			$("#srchKwd").attr("name","srchNonKwd");
+			$.cookie('search-save',1,{path:'/'});
+		}else{
+			$.removeCookie('search-save',{path:'/'});
 		}
+
 	});
 
 	if($("search-save").is(":checked")){
