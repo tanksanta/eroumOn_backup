@@ -16,7 +16,7 @@
             	<c:if test="${_mbrSession.recipterYn eq 'Y'}">
                 <!-- 수급자 -->
                 <ul class="order-sequence">
-                    <li class="seq1">
+                    <!-- <li class="seq1">
                         <p>
                             멤버스<br>
                             <em>승인대기</em>
@@ -29,7 +29,7 @@
                             <em>승인완료/반려</em>
                         </p>
                         <strong>${ordrSttsTyCntMap.or02 + ordrSttsTyCntMap.or03}</strong>
-                    </li>
+                    </li> -->
                     <li class="seq3">
                         결제<em>대기</em>
                         <strong>${ordrSttsTyCntMap.or04}</strong>

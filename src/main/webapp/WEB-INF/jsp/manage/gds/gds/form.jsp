@@ -77,7 +77,7 @@
                                             <select id="ctgryNo3" name="ctgryNo3" class="form-control w-50">
                                                 <option value="0" label="선택" />
                                             </select>
-                                            <select id="ctgryNo4" name="ctgryNo4" class="form-control w-50" style="display:none;">
+                                            <select id="ctgryNo4" name="ctgryNo4" class="form-control w-50" readonly="true">
                                                 <option value="0" label="선택" />
                                             </select>
                                         </div>

@@ -185,7 +185,7 @@ public class GdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
 		listVO.setParam("srchUseYn", "Y"); // 사용중
 		listVO.setParam("srchDspyYn", "Y"); // 전시중
-		listVO.setParam("srchUpCtgryNo", upCtgryNo); //1depth
+		listVO.setParam("srchAllCtgryNo", upCtgryNo); //1depth
 		listVO.setParam("srchCtgryNos", srchCtgryNos); //2depth
 		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
 		listVO.setParam("srchTempYn", "N"); // 임시저장 여부

@@ -5,6 +5,7 @@
 
 	<!-- Define GdsVO Result Map  -->
 	<resultMap type="gdsVO" id="gdsVOListMap" autoMapping="true">
+		<association property="gdsCtgryPath" column="{ctgryNo=ctgry_no, gdsNo=gds_no}" select="gds.ctgry.selectGdsCtgryPath" />
 		<collection property="thumbnailFile" 	column="{upNo=gds_no, fileTy=thumb_file_ty}" select="gds.file.selectFileByFilter" />
 		<collection property="regCount" column="{gdsNo=gds_no}" select="dspy.grp.gds.selectRegCount" />
 	</resultMap>

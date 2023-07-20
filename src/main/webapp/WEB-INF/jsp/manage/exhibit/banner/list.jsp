@@ -243,6 +243,13 @@ $(function(){
 
 	});
 
+	$("input[name='item_sort']").on("focusout",function(){
+		if($(this).val() == ''){
+			$(this).val(100);
+		}
+	});
+
+
 
 
 });
