@@ -73,6 +73,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="gdsNm", required=true) String gdsNm
 			, @RequestParam(value="gdsPc", required=true) String gdsPc
 
+			, @RequestParam(value="gdsOptnNo", required=false) String gdsOptnNo
 			, @RequestParam(value="ordrOptnTy", required=true) String ordrOptnTy
 			, @RequestParam(value="ordrOptn", required=true) String ordrOptn
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
@@ -85,7 +86,6 @@ public class MyCartController extends CommonAbstractController  {
 		boolean result = false;
 		String resultMsg = "SUCCESS";
 		int totalCnt = 0;
-
 
 		// STEP.1 선택된 보호자 장바구니 > 동일상품 + 동일옵션이 있는지 체크 (추가옵션 제외)
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -117,6 +117,7 @@ public class MyCartController extends CommonAbstractController  {
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[0].trim()));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
@@ -224,6 +225,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="gdsNm", required=true) String gdsNm
 			, @RequestParam(value="gdsPc", required=true) String gdsPc
 
+			, @RequestParam(value="gdsOptnNo", required=true) String gdsOptnNo
 			, @RequestParam(value="ordrOptnTy", required=true) String ordrOptnTy
 			, @RequestParam(value="ordrOptn", required=true) String ordrOptn
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
@@ -250,6 +252,7 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i]);
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i]);
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i]));
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
 

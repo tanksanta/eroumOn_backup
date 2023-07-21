@@ -134,6 +134,7 @@
 									<td>
 									<input type="hidden" name="cartNo" value="${cart.cartNo}">
 									<input type="hidden" name="bnefCd" value="${cart.bnefCd}">
+									<input type="hidden" name="gdsOptnNo" value="${cart.gdsOptnNo}" />
 									<input type="hidden" name="ordrOptnTy" value="${cart.ordrOptnTy}">
 									<input type="hidden" name="ordrOptn" value="${cart.ordrOptn}">
 									<input type="hidden" name="ordrOptnPc" value="${cart.ordrOptnPc}">
@@ -245,7 +246,7 @@ function f_optnVal1(optnVal, optnTy){
 						var optnSoldout = "";
 						if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-						$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
+						$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
 					}else{
 						$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
 					}
@@ -289,7 +290,7 @@ function f_optnVal2(optnVal1, optnTy){ // 추후 사용자에서도 사용할 �
     						var optnSoldout = "";
     						if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
     						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
+    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
     					}else{
     						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
     					}
@@ -337,7 +338,7 @@ function f_optnVal3(optnVal2, optnTy){ // 추후 사용자에서도 사용할 �
 					var optnSoldout = "";
 					if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 					if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-					$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
+					$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
                 });
 				//$('.product-option .option-toggle')[1].click();
 				$('.product-option .option-toggle')[2].click();
@@ -378,6 +379,7 @@ function f_baseOptnChg(optnVal){
 	if(!skip){
 		$(".cart-chg-list tbody .optn_BASE").find("input[name='ordrOptn']").val(spOptnVal[0]);
 		$(".cart-chg-list tbody .optn_BASE").find("input[name='ordrOptnPc']").val(spOptnVal[1]);
+		$(".cart-chg-list tbody .optn_BASE").find("input[name='gdsOptnNo']").val(spOptnVal[4]);
 
 		var optnHtml = '';
 		for(var i=0; i<spOptnTxt.length;i++){
@@ -424,6 +426,7 @@ function f_aditOptnChg(optnVal){
 		gdsHtml += '		<input type="hidden" name="ordrOptnTy" value="ADIT">';
 		gdsHtml += '		<input type="hidden" name="ordrOptn" value="'+spAditOptnVal[0]+'">';
 		gdsHtml += '		<input type="hidden" name="ordrOptnPc" value="'+spAditOptnVal[1]+'">';
+		gdsHtml += '		<input type="hidden" name="gdsOptnNo" value="'+spAditOptnVal[4]+'">';
 		/*gdsHtml += '		<input type="hidden" name="ordrQy" value="${cartList[0].ordrQy}">';*/
 		gdsHtml += '		<input type="hidden" name="recipterUniqueId" value="${cartList[0].recipterUniqueId}">';
 		gdsHtml += '		<input type="hidden" name="bplcUniqueId" value="${cartList[0].bplcUniqueId}">';
@@ -577,6 +580,7 @@ $(function(){
 		var ordrQys = [];
 		var recipterUniqueIds = [];
 		var bplcUniqueIds = [];
+		var gdsOptnNo = [];
 		$("input[name='cartNo']").each(function(){	cartNos.push($(this).val());});
 		$("input[name='ordrOptnTy']").each(function(){ordrOptnTys.push($(this).val());});
 		$("input[name='ordrOptn']").each(function(){ordrOptns.push($(this).val());});
@@ -584,6 +588,7 @@ $(function(){
 		$("input[name='ordrQy']").each(function(){ordrQys.push($(this).val());});
 		$("input[name='recipterUniqueId']").each(function(){recipterUniqueIds.push($(this).val());});
 		$("input[name='bplcUniqueId']").each(function(){bplcUniqueIds.push($(this).val());});
+		$("input[name='gdsOptnNo']").each(function(){gdsOptnNo.push($(this).val());});
 
 		var formData = $("#frmOrdrChg").serialize();
 

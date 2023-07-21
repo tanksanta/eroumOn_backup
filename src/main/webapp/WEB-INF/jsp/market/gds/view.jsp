@@ -699,6 +699,7 @@
 	                                    </button>
 	                                    <ul class="option-items">
 	                                    <c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
+	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
 		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
 	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
 											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT">${spAditOptnTtl[1]}</a></li>
@@ -827,7 +828,7 @@ var Goods = (function(){
 							var optnSoldout = "";
 							if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 							if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
+							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
 						}else{
 							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
 						}
@@ -871,7 +872,7 @@ var Goods = (function(){
 	    						var optnSoldout = "";
 	    						if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
 	    						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
+	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
 	    					}else{
 	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
 	    					}
@@ -919,7 +920,7 @@ var Goods = (function(){
 						var optnSoldout = "";
 						if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
+						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
 	                });
 					//$('.product-option .option-toggle')[1].click();
 					$('.product-option .option-toggle')[2].click();
@@ -964,6 +965,7 @@ var Goods = (function(){
 				html += '	<input type="hidden" name="gdsCd" value="${gdsVO.gdsCd}">';
 				html += '	<input type="hidden" name="bnefCd" value="${gdsVO.bnefCd}">';
 				html += '	<input type="hidden" name="gdsNm" value="${gdsVO.gdsNm}">';
+				html += '	<input type="hidden" name="gdsOptnNo" value="'+ spOptnVal[4] +'">';
 				html += '	<input type="hidden" name="gdsPc" value="'+ gdsPc +'">';
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
@@ -1027,6 +1029,7 @@ var Goods = (function(){
 				html += '	<input type="hidden" name="bnefCd" value="${gdsVO.bnefCd}">';
 				html += '	<input type="hidden" name="gdsNm" value="${gdsVO.gdsNm}">';
 				html += '	<input type="hidden" name="gdsPc" value="0">';
+				html += '	<input type="hidden" name="gdsOptnNo" value="'+ spOptnVal[4] +'">';
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
 				html += '	<input type="hidden" name="ordrOptnPc" value="'+ spOptnVal[1] +'">';

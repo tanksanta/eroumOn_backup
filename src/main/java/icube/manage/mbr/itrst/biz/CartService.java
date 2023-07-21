@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
+import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 
 @Service("cartService")
 public class CartService extends CommonAbstractServiceImpl {
@@ -49,9 +51,9 @@ public class CartService extends CommonAbstractServiceImpl {
 		cartDAO.deleteCartlByNos(paramMap);
 	}
 
-	/*@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void updateMbrCart(Map<String, Object> cartMap) throws Exception {
-		GdsVO gdsVO = (GdsVO) cartMap.get("gdsVO");
+		/*GdsVO gdsVO = (GdsVO) cartMap.get("gdsVO");
 		List<GdsOptnVO> optnItemList = (List<GdsOptnVO>) cartMap.get("optnItemList");
 		List<GdsOptnVO> aditOptnItemList = (List<GdsOptnVO>) cartMap.get("aditOptnItemList");
 
@@ -89,11 +91,11 @@ public class CartService extends CommonAbstractServiceImpl {
 
 			updateCart(cartVO);
 
-		}
+		}*/
 	}
 
 	public void updateCart(CartVO cartVO) throws Exception {
 		cartDAO.updateCart(cartVO);
-	}*/
+	}
 
 }

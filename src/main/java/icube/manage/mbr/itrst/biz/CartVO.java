@@ -27,6 +27,7 @@ public class CartVO extends CommonBaseVO {
 	private String gdsNm;
 	private int gdsPc = 0;
 	private int ordrPc = 0;
+	private int gdsOptnNo = 0;
 	private String ordrOptnTy;
 	private String ordrOptn;
 	private int ordrOptnPc = 0;
