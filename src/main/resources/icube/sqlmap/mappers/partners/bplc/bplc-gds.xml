@@ -106,10 +106,9 @@
 
 	<insert id="selectInsertBplcGds" parameterType="java.util.HashMap">
 		INSERT INTO BPLC_GDS(unique_id, gds_no)
-			SELECT b.unique_id, g.gds_no
-			FROM BPLC b, GDS g
+			SELECT b.unique_id, #{srchGdsNo} as gds_no
+			FROM BPLC b
 			WHERE b.aprv_ty = #{srchAprvTy}
-				AND g.gds_no = #{srchGdsNo}
 	</insert>
 
 	<insert id="selectInsertGds" parameterType="java.util.HashMap">
