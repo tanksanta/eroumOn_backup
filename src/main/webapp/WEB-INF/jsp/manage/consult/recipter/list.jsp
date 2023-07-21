@@ -51,11 +51,13 @@
 	<table class="table-list">
 		<colgroup>
 			<col class="w-10">
-			<col class="w-10">
-			<col class="w-30">
+			<col class="w-15">
+			<col class="w-15">
+			<col class="w-15">
 			<col class="w-30">
 			<col class="w-25">
-			<col class="w-80">
+			<col class="w-25">
+			<col>
 			<col class="w-40">
 		</colgroup>
 		<thead>
@@ -67,22 +69,16 @@
 				</th>
 				<th scope="col">번호</th>
 				<th scope="col">성명</th>
+				<th scope="col">성별</th>
 				<th scope="col">연락처</th>
 				<th scope="col">만나이</th>
+				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
 				<th scope="col">등록일</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-			<c:set var="now" value="<%=new java.util.Date()%>" />
-			<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set>
-			<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="MMdd" /></c:set>
-
-			<c:set var="brdt" value="${fn:substring(resultList.brdt,'0','4') }"> </c:set>
-			<c:if test="${nowDate >  fn:substring(resultList.brdt,'4','6')}">
-				<c:set var="brdt" value="${brdt - 1 }" />
-			</c:if>
 			<tr>
 				<td>
 					<div class="form-check">
@@ -91,10 +87,12 @@
 				</td>
 				<td>${listVO.startNo - status.index }</td>
 				<td>${resultList.mbrNm}</td>
+				<td>${genderCode[resultList.gender]}</td>
 				<td>${resultList.mbrTelno}</td>
-				<td>만 ${sysYear - brdt} 세</a></td>
+				<td>만 ${resultList.age} 세</td>
+				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
 				<td>${resultList.zip}&nbsp;&nbsp;${resultList.addr}&nbsp;&nbsp; ${resultList.daddr}</td>
-				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
+				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 			</tr>
 		</c:forEach>
 		<c:if test="${empty listVO.listObject}">

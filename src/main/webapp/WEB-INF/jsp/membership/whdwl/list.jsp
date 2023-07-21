@@ -234,7 +234,7 @@
     			})
     			.done(function(data) {
     				if(data.result == true){
-    					if(confirm("이로움ON 마켓 회원에서 정말 탈퇴하시겠습니까?")){
+    					if(confirm("이로움ON 회원에서 정말 탈퇴하시겠습니까?")){
     			    		frm.submit();
     			    	}else{
     			    		return false;

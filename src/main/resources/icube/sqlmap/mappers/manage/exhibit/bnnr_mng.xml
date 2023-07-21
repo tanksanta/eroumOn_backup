@@ -69,7 +69,7 @@
 		FROM BNNER_MNG
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY banner_no DESC
+	  	ORDER BY sort_no, banner_ty, reg_dt DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 

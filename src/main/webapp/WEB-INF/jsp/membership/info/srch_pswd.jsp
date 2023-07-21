@@ -93,6 +93,26 @@
 
     	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
 
+		// 간편 회원가입 체크
+    	$("#mbrId").on("focusout",function(){
+    		let mbrId = $("#mbrId").val();
+
+    		$.ajax({
+        		type : "post",
+        		url  : "checkEasyMbr.json",
+        		data : {mbrId:mbrId},
+        		dataType : 'json'
+        	})
+        	.done(function(data){
+				if(!data.result){
+					alert("간편가입 회원은 비밀번호 찾기를 이용하실 수 없습니다.");
+				}
+        	})
+        	.fail(function(xhr,status,errorThrown){
+        		console.log("아이디 체크 중 오류 발생 : " + error);
+        	})
+    	});
+
     	//유효성
     	$("form#srchPswdFrm").validate({
     	    ignore: "input[type='text']:hidden",

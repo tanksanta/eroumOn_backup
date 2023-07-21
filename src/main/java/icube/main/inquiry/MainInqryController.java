@@ -1,5 +1,8 @@
 package icube.main.inquiry;
 
+import java.io.File;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
+import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
@@ -26,6 +32,9 @@ public class MainInqryController extends CommonAbstractController {
 	@Resource(name = "mailService")
 	private MailService mailService;
 
+	@Resource(name = "fileService")
+	private FileService fileService;
+
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
 
@@ -37,6 +46,12 @@ public class MainInqryController extends CommonAbstractController {
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
+
+	@Value("#{props['Globals.Server.Dir']}")
+	private String serverDir;
+
+	@Value("#{props['Globals.File.Upload.Dir']}")
+	private String fileUploadDir;
 
 	@RequestMapping(value = "list")
 	public String inquiry(
@@ -55,6 +70,7 @@ public class MainInqryController extends CommonAbstractController {
 			, @RequestParam(value="cntntsSj", required=true) String cntntsSj // 제목
 			, @RequestParam(value="cntnts", required=true) String cntnts // 내용
 			, @RequestParam(value="inqryTy", required=true) String inqryTy // 유형
+			, MultipartHttpServletRequest multiReq
 			, HttpServletRequest request
 			, Model model
 			)throws Exception {
@@ -78,7 +94,13 @@ public class MainInqryController extends CommonAbstractController {
 				if(EgovStringUtil.equals(inqryTy, "마켓입점")) {
 					putEml = "bizmarket@thkc.co.kr";
 				}
-				mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+
+				// 첨부파일 업로드
+				Map<String, MultipartFile> fileMap = multiReq.getFileMap();
+				String fileName = fileService.uploadFile(fileMap.get("attachFile"), serverDir.concat(fileUploadDir), "MAIL_ATTACH", fileMap.get("attachFile").getOriginalFilename());
+				String filePath = serverDir.concat(fileUploadDir)  + File.separator + "MAIL_ATTACH" + File.separator + fileName;
+
+				mailService.sendMail(sendMail, putEml, mailSj, mailForm, filePath);
 
 				javaScript.setMessage(getMsg("action.complete.insert"));
 

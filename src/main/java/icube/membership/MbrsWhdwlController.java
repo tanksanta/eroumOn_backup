@@ -51,8 +51,8 @@ public class MbrsWhdwlController extends CommonAbstractController{
 	@Resource(name = "couponLstService")
 	private CouponLstService couponLstService;
 
-	@Value("#{props['Globals.Planner.path']}")
-	private String plannerPath;
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
@@ -146,7 +146,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		session.invalidate();
 
 		javaScript.setMessage("탈퇴처리 되었습니다.");
-		javaScript.setLocation("/"+plannerPath+"/index");
+		javaScript.setLocation("/"+mainPath);
 
 		return new JavaScriptView(javaScript);
 
