@@ -355,11 +355,7 @@ public class MGdsController extends CommonAbstractController {
 
 			// 장바구니 업데이트
 			if(gdsVO.getCrud().equals(CRUD.UPDATE)) {
-				Map<String, Object> cartMap = new HashMap<String, Object>();
-				cartMap.put("gdsVO", gdsVO);
-				cartMap.put("optnItemList", optnItemList);
-				cartMap.put("aditOptnItemList", aditOptnItemList);
-				cartService.updateMbrCart(cartMap);
+				cartService.updateMbrCart(gdsVO);
 			}
 
 			// END 관련상품

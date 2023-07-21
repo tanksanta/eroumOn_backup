@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
 
 @Service("cartService")
@@ -18,6 +19,9 @@ public class CartService extends CommonAbstractServiceImpl {
 
 	@Resource(name="cartDAO")
 	private CartDAO cartDAO;
+
+	@Resource(name = "gdsOptnService")
+	private GdsOptnService gdsOptnService;
 
 	public CommonListVO selectMbrCartListVO(CommonListVO listVO) throws Exception {
 		return cartDAO.selectMbrCartListVO(listVO);
@@ -51,11 +55,7 @@ public class CartService extends CommonAbstractServiceImpl {
 		cartDAO.deleteCartlByNos(paramMap);
 	}
 
-	@SuppressWarnings("unchecked")
-	public void updateMbrCart(Map<String, Object> cartMap) throws Exception {
-		/*GdsVO gdsVO = (GdsVO) cartMap.get("gdsVO");
-		List<GdsOptnVO> optnItemList = (List<GdsOptnVO>) cartMap.get("optnItemList");
-		List<GdsOptnVO> aditOptnItemList = (List<GdsOptnVO>) cartMap.get("aditOptnItemList");
+	public void updateMbrCart(GdsVO gdsVO) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchGdsCode", gdsVO.getGdsCd());
@@ -66,16 +66,13 @@ public class CartService extends CommonAbstractServiceImpl {
 			int optnPc = 0;
 			int optnAditPc = 0;
 
-			// 옵션 가격 계산 (BASE)
-			for(GdsOptnVO gdsOptnVO : optnItemList) {
-					optnPc += gdsOptnVO.getOptnPc();
-			}
+			paramMap.clear();
+			paramMap.put("srchGdsOptnNo", cartVO.getGdsOptnNo());
+			paramMap.put("srchUseYn", "Y");
+			GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(paramMap);
 
-			// 옵션 가격 계산 (ADIT)
-			for(GdsOptnVO gdsOptnVO : aditOptnItemList) {
-					optnAditPc += gdsOptnVO.getOptnPc();
-			}
 
+			//TODO 옵션 세팅
 			cartVO.setBnefCd(gdsVO.getBnefCd());
 			cartVO.setGdsNm(gdsVO.getGdsNm());
 			cartVO.setGdsPc(gdsVO.getPc());
@@ -91,7 +88,7 @@ public class CartService extends CommonAbstractServiceImpl {
 
 			updateCart(cartVO);
 
-		}*/
+		}
 	}
 
 	public void updateCart(CartVO cartVO) throws Exception {
