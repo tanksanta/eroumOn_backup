@@ -11,14 +11,14 @@ body {
 /* banner */
 #banner {
     @apply hidden -mt-11 bg-[#485EB2] leading-[1.16] text-center font-medium text-white
-           md:-mt-14;
+           md:-mt-[55px];
     & .container {
         @apply relative mx-auto px-0 max-w-screen-xl
                lg:px-7
                xl:px-10;
     }
     & img {
-        @apply mx-auto h-11 object-cover md:h-14;
+        @apply mx-auto h-11 object-cover md:h-[55px];
     }
     & button {
         @apply absolute top-1/2 right-4 w-5 h-5 rounded-full bg-white/20 bg-no-repeat bg-center bg-[length:74%] bg-[url(../images/ico-close2-white.svg)] -translate-y-1/2
