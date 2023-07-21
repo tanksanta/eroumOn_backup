@@ -155,14 +155,14 @@
 					<tr>
 						<th scope="row"><label for="bankNm" class="require">은행/계좌번호/예금주</label></th>
 						<td>
-							<div class="form-group w-100">
-								<form:select path="bankNm" class="form-control w-30" >
+							<div class="form-group" style="width:480px;">
+								<form:select path="bankNm" class="form-control w-32" >
 								<option value="">선택</option>
 								<c:forEach var="bank" items="${bank}">
 									<form:option value="${bank.key}">${bank.value}</form:option>
 								</c:forEach>
 								</form:select>
-								<form:input class="form-control flex-1" path="actno" placeholder="-을 포함해주세요"/>
+								<form:input class="form-control flex-2" path="actno" placeholder="-을 포함해주세요"/>
 								<form:input class="form-control flex-1" path="dpstr" maxlength="5" />
 							</div>
 						</td>
