@@ -49,4 +49,51 @@ public class CartService extends CommonAbstractServiceImpl {
 		cartDAO.deleteCartlByNos(paramMap);
 	}
 
+	/*@SuppressWarnings("unchecked")
+	public void updateMbrCart(Map<String, Object> cartMap) throws Exception {
+		GdsVO gdsVO = (GdsVO) cartMap.get("gdsVO");
+		List<GdsOptnVO> optnItemList = (List<GdsOptnVO>) cartMap.get("optnItemList");
+		List<GdsOptnVO> aditOptnItemList = (List<GdsOptnVO>) cartMap.get("aditOptnItemList");
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchGdsCode", gdsVO.getGdsCd());
+
+		List<CartVO> cartList = selectCartListAll(paramMap);
+
+		for(CartVO cartVO : cartList) {
+			int optnPc = 0;
+			int optnAditPc = 0;
+
+			// 옵션 가격 계산 (BASE)
+			for(GdsOptnVO gdsOptnVO : optnItemList) {
+					optnPc += gdsOptnVO.getOptnPc();
+			}
+
+			// 옵션 가격 계산 (ADIT)
+			for(GdsOptnVO gdsOptnVO : aditOptnItemList) {
+					optnAditPc += gdsOptnVO.getOptnPc();
+			}
+
+			cartVO.setBnefCd(gdsVO.getBnefCd());
+			cartVO.setGdsNm(gdsVO.getGdsNm());
+			cartVO.setGdsPc(gdsVO.getPc());
+
+			// 주문 가격
+			if(cartVO.getOrdrOptnTy().equals("BASE")) {
+				cartVO.setOrdrOptnPc(optnPc);
+				cartVO.setOrdrPc((gdsVO.getPc() +  optnPc) * cartVO.getOrdrQy());
+			}else {
+				cartVO.setOrdrOptnPc(optnAditPc);
+				cartVO.setOrdrPc((gdsVO.getPc() +  optnAditPc) * cartVO.getOrdrQy());
+			}
+
+			updateCart(cartVO);
+
+		}
+	}
+
+	public void updateCart(CartVO cartVO) throws Exception {
+		cartDAO.updateCart(cartVO);
+	}*/
+
 }

@@ -66,6 +66,9 @@
 		<if test="srchGdsCd != null and srchGdsCd != '' ">
 			AND gds_cd like CONCAT('%',#{srchGdsCd},'%')
 		</if>
+		<if test="srchGdsCode != null and srchGdsCode != '' ">
+			AND gds_cd = #{srchGdsCode}
+		</if>
 		<if test="srchGdsNm != null and srchGdsNm != '' ">
 			AND gds_nm like CONCAT('%',#{srchGdsNm},'%')
 		</if>
@@ -253,6 +256,17 @@
 			<foreach collection="cartNos" item="cartNo" open="(" separator="," close=")">
 				#{cartNo}
 			</foreach>
+	</update>
+
+	<update id="updateCart" parameterType="cartVO">
+	UPDATE CART SET
+		bnef_cd = #{bnefCd}
+		, gds_nm = #{gdsNm}
+		, gds_pc = #{gdsPc}
+		, ordr_pc = #{ordrPc}
+		, ordr_optn_pc = #{ordrOptnPc}
+	WHERE cart_no = #{cartNo}
+
 	</update>
 
 
