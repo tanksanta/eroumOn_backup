@@ -481,7 +481,7 @@
            md:mt-53
            lg:mt-76;
     & .image {
-        @apply top-26 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content1.png)]
+        @apply top-26 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content1.jpg)]
                md:-top-26 md:-left-3 md:w-[344px] md:h-[579px]
                lg:-top-60 lg:left-0 lg:w-[507px] lg:h-[854px];
         & [class*="object"] {
@@ -511,7 +511,7 @@
            md:mt-85
            lg:mt-[29.375rem];
     & .image {
-        @apply top-full left-31 w-[260px] h-[183px] bg-[url(../images/img-main-content2.png)]
+        @apply top-full left-31 w-[260px] h-[183px] bg-[url(../images/img-main-content2.jpg)]
                md:-top-11 md:left-[50.7%] md:mt-0 md:w-[574px] md:h-[405px]
                lg:-top-35 lg:left-[43.7%] lg:w-[887px] lg:h-[626px];
         & .object1 {
@@ -526,7 +526,7 @@
     @apply mt-89
            lg:mt-[27.375rem];
     & .image {
-        @apply top-46 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content3.png)]
+        @apply top-46 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content3.jpg)]
                md:-top-26 md:-left-10 md:w-[344px] md:h-[579px]
                lg:-top-60 lg:left-0 lg:w-[507px] lg:h-[854px];
         & [class*="object"] {

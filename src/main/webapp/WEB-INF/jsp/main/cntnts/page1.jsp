@@ -69,7 +69,7 @@
                         <p>자세한 서류 상담은 국민건강보험공단에서 가능해요. (1577-1000 발신자 부담)</p>
                         <p>신청 전, 치매 검사 이력 또는 병원 진료 이력이 있어야 해요.</p>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2.jpg" alt="" class="img">
                 </div>
             </div>
             <div id="step-cont2" class="tab-pane fade">
@@ -89,7 +89,7 @@
                             - 국민건강보험공단 지사 방문, 우편, 팩스 신청
                         </p>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2-2.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2-2.jpg" alt="" class="img">
                 </div>
             </div>
             <div id="step-cont3" class="tab-pane fade">
@@ -108,7 +108,7 @@
                         </ul>
                         <p>병력, 병원 진료 이력이 있다면 심사에 반영돼요.</p>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2-3.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2-3.jpg" alt="" class="img">
                 </div>
             </div>
             <div id="step-cont4" class="tab-pane fade">
@@ -125,7 +125,7 @@
                         <p>어르신 상태에 따라 제출이 생략될 수도 있어요.</p>
                         <p>인근 지정 병원은 <a href="https://www.longtermcare.or.kr/npbs/e/b/201/selectDodEduCpetMdcAdminList" target="_blank" class="text-primary3 underline">여기</a>를 눌러 확인하실 수 있어요.</p>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2-4.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2-4.jpg" alt="" class="img">
                 </div>
             </div>
             <div id="step-cont5" class="tab-pane fade">
@@ -143,7 +143,7 @@
                             <li>인정서를 포함한 관련 서류도 보내드려요.</li>
                         </ul>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2-5.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2-5.jpg" alt="" class="img">
                 </div>
             </div>
             <div id="step-cont6" class="tab-pane fade">
@@ -159,7 +159,7 @@
                             <li>기관과 계약을 체결하고, 자세한 상담을 받아보세요.</li>
                         </ul>
                     </div>
-                    <img src="/html/page/index/assets/images/img-page1-content2-6.png" alt="" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content2-6.jpg" alt="" class="img">
                 </div>
             </div>
         </div>
@@ -183,7 +183,7 @@
             </div>
         </div>
         <div class="content">
-            <img src="/html/page/index/assets/images/img-page1-content3-2.png" class="img">
+            <img src="/html/page/index/assets/images/img-page1-content3-2.jpg" class="img">
             <div class="box">
                 <h4>어르신을 시설에 모실 수 있어요</h4>
                 <small class="text-primary3">#시설급여</small>
@@ -191,7 +191,7 @@
             </div>
         </div>
         <div class="content is-right">
-            <img src="/html/page/index/assets/images/img-page1-content3-3.png" class="img">
+            <img src="/html/page/index/assets/images/img-page1-content3-3.jpg" class="img">
             <div class="box">
                 <h4>요양 비용을 지원받을 수 있어요</h4>
                 <small class="text-[#822FE2]">#특별현금급여</small>
@@ -199,7 +199,7 @@
             </div>
         </div>
         <div class="content is-right">
-            <img src="/html/page/index/assets/images/img-page1-content3-4.png" class="img">
+            <img src="/html/page/index/assets/images/img-page1-content3-4.jpg" class="img">
             <div class="box">
                 <h4>거동, 생활에 도움 되는 용품을 지원받아요</h4>
                 <small class="text-[#2E9B34]">#복지용구</small>
@@ -207,14 +207,14 @@
             </div>
         </div>
         <div class="content">
-            <img src="/html/page/index/assets/images/img-page1-content3-5.png" class="img">
+            <img src="/html/page/index/assets/images/img-page1-content3-5.jpg" class="img">
             <div class="box">
                 <h4>중복 수급이 불가하고,<br> 유형별 지원금액이 달라요</h4>
                 <small class="text-primary2">#지원금</small>
             </div>
         </div>
         <div class="content">
-            <img src="/html/page/index/assets/images/img-page1-content3-6.png" class="img">
+            <img src="/html/page/index/assets/images/img-page1-content3-6.jpg" class="img">
             <div class="box">
                 <h4>15%~6%의 본인부담금이 있어요<br> 기초생활수급자는 전액 지원돼요</h4>
                 <small class="text-primary3">#본인부담금</small>
@@ -240,7 +240,7 @@
                     <p>도움 없이 인지, 신체적 일상생활이<br> <strong>전혀 불가</strong>해요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>188만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
@@ -258,7 +258,7 @@
                     <p>일상생활 중,<br> 인지, 신체적으로 <strong>도움이 대부분 필요</strong>해요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4-2.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4-2.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>169만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
@@ -276,7 +276,7 @@
                     <p>일상생활 중,<br> 인지, 신체적으로 <strong>부분적 도움이 필요</strong>해요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4-3.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4-3.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>141만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
@@ -293,7 +293,7 @@
                     <p>일상생활 중,<br> 인지, 신체적으로 <strong>다소 도움이 필요</strong>해요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4-4.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4-4.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>130만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
@@ -310,7 +310,7 @@
                     <p>신체 건강은 양호하지만,<br> <strong>중증 치매 증세</strong>가 있어요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4-5.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4-5.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>112만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
@@ -327,7 +327,7 @@
                     <p>신체 건강은 양호하지만,<br> <strong>경미한 치매 증세</strong>가 있어요.</p>
                 </div>
                 <div class="content">
-                    <img src="/html/page/index/assets/images/img-page1-content4-6.png" class="img">
+                    <img src="/html/page/index/assets/images/img-page1-content4-6.jpg" class="img">
                     <div class="box">
                         <p>월 <strong>62만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
