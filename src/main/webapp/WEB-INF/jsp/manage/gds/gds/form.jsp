@@ -144,10 +144,6 @@
                                     <td colspan="3"><form:input path="stndrd" class="form-control w-70" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><label for="keyword">검색 키워드</label></th>
-                                    <td colspan="3"><form:input path="keyword" class="form-control w-70" /></td>
-                                </tr>
-                                <tr>
                                     <th scope="row"><label for="sortNo">출력순서</label></th>
                                     <td colspan="3">
                                         <div class="form-group">
