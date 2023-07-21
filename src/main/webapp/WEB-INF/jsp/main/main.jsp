@@ -44,7 +44,7 @@
         <div class="object">
             <div class="object-content">
                 <div class="wrapper">
-                    <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.png" alt="">
+                    <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.jpg" alt="">
                     <div class="objects">
                         <div class="objects-1"></div>
                         <div class="objects-2"></div>
