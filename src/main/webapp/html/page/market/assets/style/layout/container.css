@@ -7,10 +7,10 @@
 
 /* page full title */
 #page-title {
-    @apply mx-auto pt-4 pb-1.5 px-2.5 max-w-[1736px] bg-no-repeat bg-[center_top] bg-[url(../images/txt-page-title.svg)] bg-[length:100%_auto] uppercase text-center leading-tight font-bold text-5xl
+    @apply mt-5 mx-auto pt-4 pb-1.5 px-2.5 max-w-[1736px] bg-no-repeat bg-[center_top] bg-[url(../images/txt-page-title.svg)] bg-[length:100%_auto] uppercase text-center leading-tight font-bold text-5xl
            sm:pt-5.5 sm:text-7xl
            md:px-5 md:bg-[length:calc(100%_-_2.5rem)_auto] md:text-9xl
-           lg:pt-11 lg:pb-2 lg:text-[4.5rem]
+           lg:mt-10 lg:pt-11 lg:pb-2 lg:text-[4.5rem]
            xl:pt-13 xl:text-[5.25rem]
            2xl:pt-17 2xl:bg-[length:auto_166px] 2xl:text-[6.25rem];
     & .english {
