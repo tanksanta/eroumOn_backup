@@ -26,7 +26,7 @@
                 <dd>
                     <ul class="global-link">
                         <li>
-                            <a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
+                            <a href="/" target="_blank" title="새창열림" class="link-item1">
                                 <div class="bubble">
                                     <small>시니어 라이프 케어 플랫폼</small>
                                     <strong>"이로움ON"</strong>
