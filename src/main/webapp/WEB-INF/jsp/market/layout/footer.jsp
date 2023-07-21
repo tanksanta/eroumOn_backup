@@ -28,7 +28,7 @@
 				<dd>
 					<ul class="global-link">
 						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
-						<li><a href="${_plannerPath}" target="_blank" title="새창열림" class="link-item1">
+						<li><a href="${_mainPath}" target="_blank" title="새창열림" class="link-item1">
 								<div class="bubble">
 									<small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
 								</div>
