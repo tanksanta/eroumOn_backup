@@ -110,7 +110,7 @@ public class SrchController extends CommonAbstractController {
 		listVO.setParam("srchKwd", srchKwd); // 키워드
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);

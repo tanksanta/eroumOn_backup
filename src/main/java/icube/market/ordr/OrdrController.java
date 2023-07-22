@@ -159,7 +159,7 @@ public class OrdrController extends CommonAbstractController{
 			ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			ordrDtlVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
-			ordrDtlVO.setRecipterUniqueId(mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			ordrDtlVO.setRecipterUniqueId(mbrSession.getUniqueId());
 			ordrDtlVO.setBplcUniqueId(bplcUniqueId);
 
 			int ordrPc = (ordrDtlVO.getGdsPc() + ordrDtlVO.getOrdrOptnPc()) * ordrDtlVO.getOrdrQy();
@@ -439,7 +439,7 @@ public class OrdrController extends CommonAbstractController{
 			ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			ordrDtlVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
-			ordrDtlVO.setRecipterUniqueId(mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			ordrDtlVO.setRecipterUniqueId(mbrSession.getUniqueId());
 			ordrDtlVO.setBplcUniqueId(bplcUniqueId);
 
 			int ordrPc = (ordrDtlVO.getGdsPc() + ordrDtlVO.getOrdrOptnPc()) * ordrDtlVO.getOrdrQy();

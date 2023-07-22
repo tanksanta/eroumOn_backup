@@ -214,7 +214,7 @@ public class GdsController extends CommonAbstractController {
 		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);
@@ -277,7 +277,7 @@ public class GdsController extends CommonAbstractController {
 			paramMap.put("srchDspyYn", "Y"); // 전시중 고정
 			paramMap.put("srchGdsCd", gdsCd); //상품 코드
 			if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-				paramMap.put("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+				paramMap.put("uniqueId", mbrSession.getUniqueId());
 			}
 
 			GdsVO gdsVO = gdsService.selectGdsByFilter(paramMap);
@@ -405,7 +405,7 @@ public class GdsController extends CommonAbstractController {
 		listVO.setParam("sortBy", "FI"); //First In
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);

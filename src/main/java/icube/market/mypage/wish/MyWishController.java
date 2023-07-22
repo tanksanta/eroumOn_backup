@@ -42,7 +42,7 @@ public class MyWishController extends CommonAbstractController {
 
 		CommonListVO listVO = new CommonListVO(request);
 		//listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
-		listVO.setParam("srchUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId()); //가족계정
+		listVO.setParam("srchUniqueId", mbrSession.getUniqueId()); //가족계정
 		listVO = wishService.selectWishListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
@@ -68,7 +68,7 @@ public class MyWishController extends CommonAbstractController {
 			wishVO.setGdsNo(gdsNo);
 
 			//wishVO.setUniqueId(mbrSession.getUniqueId());
-			wishVO.setUniqueId(mbrSession.getPrtcrRecipterInfo().getUniqueId()); //가족계정
+			wishVO.setUniqueId(mbrSession.getUniqueId()); //가족계정
 
 			wishVO.setRegUniqueId(mbrSession.getUniqueId());
 			wishVO.setRegId(mbrSession.getMbrId());
@@ -122,7 +122,7 @@ public class MyWishController extends CommonAbstractController {
 				paramMap.put("srchWishlistNos", wishlistNos);
 			}
 			//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-			paramMap.put("srchUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId()); //가족계정
+			paramMap.put("srchUniqueId", mbrSession.getUniqueId()); //가족계정
 
 			wishService.deleteWish(paramMap);
 

@@ -12,7 +12,6 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
-import icube.manage.gds.optn.biz.GdsOptnVO;
 
 @Service("cartService")
 public class CartService extends CommonAbstractServiceImpl {
@@ -63,31 +62,13 @@ public class CartService extends CommonAbstractServiceImpl {
 		List<CartVO> cartList = selectCartListAll(paramMap);
 
 		for(CartVO cartVO : cartList) {
-			int optnPc = 0;
-			int optnAditPc = 0;
 
-			paramMap.clear();
-			paramMap.put("srchGdsOptnNo", cartVO.getGdsOptnNo());
-			paramMap.put("srchUseYn", "Y");
-			GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(paramMap);
-
-
-			//TODO 옵션 세팅
 			cartVO.setBnefCd(gdsVO.getBnefCd());
 			cartVO.setGdsNm(gdsVO.getGdsNm());
 			cartVO.setGdsPc(gdsVO.getPc());
-
-			// 주문 가격
-			if(cartVO.getOrdrOptnTy().equals("BASE")) {
-				cartVO.setOrdrOptnPc(optnPc);
-				cartVO.setOrdrPc((gdsVO.getPc() +  optnPc) * cartVO.getOrdrQy());
-			}else {
-				cartVO.setOrdrOptnPc(optnAditPc);
-				cartVO.setOrdrPc((gdsVO.getPc() +  optnAditPc) * cartVO.getOrdrQy());
-			}
+			cartVO.setOrdrPc((gdsVO.getPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy());
 
 			updateCart(cartVO);
-
 		}
 	}
 

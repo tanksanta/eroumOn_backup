@@ -42,14 +42,14 @@ public class MyCartController extends CommonAbstractController  {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartTy", "R"); // 급여주문 상품
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 
 		List<CartVO> rResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("rResultList", rResultList);
 
 		paramMap.clear();
 		paramMap.put("srchCartTy", "N"); // 비급여주문 상품
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);
 
@@ -92,7 +92,7 @@ public class MyCartController extends CommonAbstractController  {
 		paramMap.put("srchCartTy", ordrTy);
 		paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
 		paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		CartVO chkCartVO = cartService.selectCartByFilter(paramMap);
@@ -123,7 +123,7 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
 
-				cartVO.setRecipterUniqueId(mbrSession.getPrtcrRecipterInfo().getUniqueId());
+				cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
 				cartVO.setBplcUniqueId(EgovStringUtil.isEmpty(bplcUniqueId)?null:bplcUniqueId);
 
 				int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();

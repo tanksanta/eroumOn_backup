@@ -354,6 +354,7 @@ public class MGdsController extends CommonAbstractController {
 			gdsOptnService.registerGdsOptn(aditOptnItemList);
 
 			// 장바구니 업데이트
+			// TODO 옵션이 없다가 생겼을 경우, 옵션이 있다가 없어질 경우 장바구니에 있는 상품은?
 			if(gdsVO.getCrud().equals(CRUD.UPDATE)) {
 				cartService.updateMbrCart(gdsVO);
 			}

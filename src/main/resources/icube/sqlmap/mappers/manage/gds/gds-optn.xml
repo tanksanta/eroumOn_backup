@@ -40,8 +40,8 @@
 		<if test="optnId != null and optnId != '' ">
 			AND REPLACE(REPLACE(optn_nm,"*","")," ","") = #{optnId}
 		</if>
-		<if test="srchOptnNo != null and srchOptnNo != '' ">
-			AND gds_optn_no = #{srchOptnNo}
+		<if test="srchGdsOptnNo != null and srchGdsOptnNo != '' ">
+			AND gds_optn_no = #{srchGdsOptnNo}
 		</if>
 	</sql>
 
