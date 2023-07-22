@@ -27,7 +27,7 @@
 	        	신체 기능 저하로 일상생활에 불편을 겪는 분들이 사용해요.
 			</dd>
 	    </dl>
-	    <img src="/html/page/index/assets/images/img-faq-content1.png" alt="" class="img">
+	    <img src="/html/page/index/assets/images/img-faq-content1.jpg" alt="" class="img">
 	</div>
 	<div class="page3-question2">
 	    <dl class="box">
@@ -41,7 +41,7 @@
 				구입 또는 대여하여 이용할 수 있어요.
 	        </dd>
 	    </dl>
-	    <img src="/html/page/index/assets/images/img-faq-content2.png" alt="" class="img">
+	    <img src="/html/page/index/assets/images/img-faq-content2.jpg" alt="" class="img">
 	</div>
 	<div class="page3-question3">
 	    <div class="box">
@@ -65,6 +65,6 @@
 				})
 			</script>
 	    </div>
-	    <img src="/html/page/index/assets/images/img-faq-content3.png" alt="" class="img">
+	    <img src="/html/page/index/assets/images/img-faq-content3.jpg" alt="" class="img">
 	</div>
 </div>

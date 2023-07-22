@@ -37,19 +37,19 @@
 	    <div class="tab">
 	        <div id="check-cont1" class="tab-pane fade">
 	            <div id="check-cont1-sub1" class="block">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-1.png" alt="실버카">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-1.jpg" alt="실버카">
 	                <div class="sr-only">
 	                    4륜 이상 유모차 형태의 보행차<br>
 	                    체구가 작은 고객에게 맞춰 개발된 보행차로<br>
 	                    <strong>하체 및 허리 근력이 약한 분들이 이동 중 잠시 앉을 곳이 필요한 고객에게 추천</strong>합니다.
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-1-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-1-2.jpg" alt="">
 	                    <a href="#check-cont1-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:24%; bottom:13.2%;"><span class="sr-only">실버카</span></a>
 	                    <a href="#check-cont1-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:24%; bottom:13.2%;"><span class="sr-only">롤레이터</span></a>
 	                    <a href="#check-cont1-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:24%; bottom:13.2%;"><span class="sr-only">워커</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-1-3.png" alt="실버카 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-1-3.jpg" alt="실버카 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>check point</dt>
@@ -76,7 +76,7 @@
 	                </div>
 	            </div>
 	            <div id="check-cont1-sub2" class="hidden">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-2.png" alt="롤레이터">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-2.jpg" alt="롤레이터">
 	                <div class="sr-only">
 	                    3~4륜의 바퀴로 좌,우 넓은 지지대 형태의 보행차<br>
 	                    일반적인 체구의 고객에게 맞춰 개발된 보행차로<br>
@@ -86,12 +86,12 @@
 	                    </strong>
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-2-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-2-2.jpg" alt="">
 	                    <a href="#check-cont1-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:24%; bottom:13.2%;"><span class="sr-only">실버카</span></a>
 	                    <a href="#check-cont1-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:24%; bottom:13.2%;"><span class="sr-only">롤레이터</span></a>
 	                    <a href="#check-cont1-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:24%; bottom:13.2%;"><span class="sr-only">워커</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-2-3.png" alt="롤레이터 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-2-3.jpg" alt="롤레이터 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>check point</dt>
@@ -118,7 +118,7 @@
 	                </div>
 	            </div>
 	            <div id="check-cont1-sub3" class="hidden">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-3.png" alt="워커">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-3.jpg" alt="워커">
 	                <div class="sr-only">
 	                    <p>
 	                        2~4륜 바퀴로 손잡이 이외에 다른 지지 장치가 없는 보행차<br>
@@ -126,12 +126,12 @@
 	                    </p>
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-3-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint1-3-2.jpg" alt="">
 	                    <a href="#check-cont1-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:24%; bottom:13.2%;"><span class="sr-only">실버카</span></a>
 	                    <a href="#check-cont1-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:24%; bottom:13.2%;"><span class="sr-only">롤레이터</span></a>
 	                    <a href="#check-cont1-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:24%; bottom:13.2%;"><span class="sr-only">워커</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-3-3.png" alt="워커 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint1-3-3.jpg" alt="워커 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>check point</dt>
@@ -161,7 +161,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont2" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint2.png" alt="수동휠체어">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint2.jpg" alt="수동휠체어">
 	            <div class="sr-only">
 	                <p><strong>실내, 야외에서 보행이 불가능하거나 장시간 걷지 못하는 고객에게 추천합니다.</strong></p>
 	                <dl>
@@ -188,7 +188,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont3" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint3.png" alt="지팡이">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint3.jpg" alt="지팡이">
 	            <div class="sr-only">
 	                <p><strong>일반적인 보행이 불편하고</strong> 실내 ,야외에서 <strong>낙상(넘어지는)위험이 있는 고객</strong>에게 추천합니다.</p>
 	                <dl>
@@ -226,7 +226,7 @@
 	        </div>
 	        <div id="check-cont4" class="tab-pane fade">
 	            <div id="check-cont4-sub1" class="block">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-1.png" alt="안전손잡이 변기형">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-1.jpg" alt="안전손잡이 변기형">
 	                <div class="sr-only">
 	                    <p>
 	                        신체 기능저하로 <strong>실내에서 일어서거나 앉을 때</strong> 보조하는 용품으로 <strong>낙상(넘어지는)위험이 있는 고객</strong>에게 추천합니다.<br>
@@ -234,12 +234,12 @@
 	                    </p>
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-1-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-1-2.jpg" alt="">
 	                    <a href="#check-cont4-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">변기형</span></a>
 	                    <a href="#check-cont4-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">벽걸이형</span></a>
 	                    <a href="#check-cont4-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">기둥형</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-1-3.png" alt="안전손잡이 변기형 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-1-3.jpg" alt="안전손잡이 변기형 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>변기형</dt>
@@ -281,7 +281,7 @@
 	                </div>
 	            </div>
 	            <div id="check-cont4-sub2" class="hidden">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-2.png" alt="안전손잡이 벽걸이형">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-2.jpg" alt="안전손잡이 벽걸이형">
 	                <div class="sr-only">
 	                    <p>
 	                        신체 기능저하로 <strong>실내에서 일어서거나 앉을 때</strong> 보조하는 용품으로 <strong>낙상(넘어지는)위험이 있는 고객</strong>에게 추천합니다.<br>
@@ -289,12 +289,12 @@
 	                    </p>
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-2-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-2-2.jpg" alt="">
 	                    <a href="#check-cont4-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">변기형</span></a>
 	                    <a href="#check-cont4-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">벽걸이형</span></a>
 	                    <a href="#check-cont4-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">기둥형</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-2-3.png" alt="안전손잡이 벽걸이형 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-2-3.jpg" alt="안전손잡이 벽걸이형 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>벽걸이형</dt>
@@ -336,7 +336,7 @@
 	                </div>
 	            </div>
 	            <div id="check-cont4-sub3" class="hidden">
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-3.png" alt="안전손잡이 기둥형">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-3.jpg" alt="안전손잡이 기둥형">
 	                <div class="sr-only">
 	                    <p>
 	                        신체 기능저하로 <strong>실내에서 일어서거나 앉을 때</strong> 보조하는 용품으로 <strong>낙상(넘어지는)위험이 있는 고객</strong>에게 추천합니다.<br>
@@ -344,12 +344,12 @@
 	                    </p>
 	                </div>
 	                <div class="relative w-fit mx-auto">
-	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-3-2.png" alt="">
+	                    <img src="/html/page/index/assets/images/img-page3-checkpoint4-3-2.jpg" alt="">
 	                    <a href="#check-cont4-sub1" style="position:absolute; right:65.09090909090909%; left:21.63636363636364%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">변기형</span></a>
 	                    <a href="#check-cont4-sub2" style="position:absolute; right:43.45454545454545%; left:43.27272727272727%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">벽걸이형</span></a>
 	                    <a href="#check-cont4-sub3" style="position:absolute; right:22.27272727272727%; left:64.54545454545455%; top:20.37351443123939%; bottom:29.54159592529711%;"><span class="sr-only">기둥형</span></a>
 	                </div>
-	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-3-3.png" alt="안전손잡이 기둥형 상세설명">
+	                <img src="/html/page/index/assets/images/img-page3-checkpoint4-3-3.jpg" alt="안전손잡이 기둥형 상세설명">
 	                <div class="sr-only">
 	                    <dl>
 	                        <dt>기둥형</dt>
@@ -391,7 +391,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont5" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint5.png" alt="미끄럼방지매트">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint5.jpg" alt="미끄럼방지매트">
 	            <div class="sr-only">
 	                <p>
 	                    신체 기능 저하로 실내에서 <strong>낙상(넘어지는)위험이 있는 고객에게 추천</strong>합니다.<br>
@@ -421,7 +421,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont6" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint6.png" alt="미끄럼방지양말">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint6.jpg" alt="미끄럼방지양말">
 	            <div class="sr-only">
 	                <p>신체 기능 저하로 <strong>실내에서 낙상(넘어지는)위험이 있는 고객에게 추천</strong>합니다.</p>
 	                <dl>
@@ -454,7 +454,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont7" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint7.png" alt="욕창예방 매트리스">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint7.jpg" alt="욕창예방 매트리스">
 	            <div class="sr-only">
 	                <p>신체 기능 저하로 <strong>실내에서 많은 시간 누워 계시는 고객에게 추천</strong>합니다.</p>
 	                <dl>
@@ -481,7 +481,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont8" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint8.png" alt="욕창예방 방석">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint8.jpg" alt="욕창예방 방석">
 	            <div class="sr-only">
 	                <p><strong>휠체어를 이용하시거나</strong> 실내, <strong>야외에서 많은 시간 앉아 계시는 고객</strong>에게 추천합니다.</p>
 	                <dl>
@@ -512,7 +512,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont9" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint9.png" alt="자세변환용구">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint9.jpg" alt="자세변환용구">
 	            <div class="sr-only">
 	                <p>신체 기능 저하로 <strong>실내에서 장시간 같은 자세로 있는 고객에게 추천</strong>합니다.</p>
 	                <dl>
@@ -538,7 +538,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont10" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint10.png" alt="요실금 팬티">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint10.jpg" alt="요실금 팬티">
 	            <div class="sr-only">
 	                <p>
 	                    실내, 야외에 활동 시 <strong>요실금이 있거나, 기저귀 착용에 거부감이 있는 고객에게 추천</strong>합니다.<br>
@@ -568,7 +568,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont11" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint11.png" alt="목욕의자">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint11.jpg" alt="목욕의자">
 	            <div class="sr-only">
 	                <p><strong>서 있거나 앉아서 씻기 불편한 고객의 자세 유지 및 편안한 목욕이 필요한 고객에게 추천합니다.</strong></p>
 	                <dl>
@@ -601,7 +601,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont12" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint12.png" alt="이동변기">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint12.jpg" alt="이동변기">
 	            <div class="sr-only">
 	                <p><strong>실내 화장실 이동이 불편하신 고객에게 추천합니다.</strong></p>
 	                <dl>
@@ -631,7 +631,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont13" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint13.png" alt="간이변기">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint13.jpg" alt="간이변기">
 	            <div class="sr-only">
 	                <p><strong>실내 화장실 이용이 불편하신 고객에게 추천합니다.</strong></p>
 	                <dl>
@@ -657,7 +657,7 @@
 	            </div>
 	        </div>
 	        <div id="check-cont14" class="tab-pane fade">
-	            <img src="/html/page/index/assets/images/img-page3-checkpoint14.png" alt="경사로(실내 구매)">
+	            <img src="/html/page/index/assets/images/img-page3-checkpoint14.jpg" alt="경사로(실내 구매)">
 	            <div class="sr-only">
 	                <p><strong>실내, 야외에서 문턱이나 계단 이동 시 안전사고 예방하기 위한 고객에게 추천</strong>합니다.</p>
 	                <dl>
