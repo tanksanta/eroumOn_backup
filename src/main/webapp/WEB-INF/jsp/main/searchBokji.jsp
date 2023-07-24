@@ -98,7 +98,7 @@
 				</label>
 			</li>
 		</ul>
-		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span>곳</a>
+		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span></a>
 	</nav>
 
 	<!-- 서비스 본문(복지제도) -->
@@ -202,20 +202,13 @@ $(function(){
             $('.welfare-service-map').addClass('is-active');
             $('.welfare-service-menu .nav').addClass('!hidden');
             $('.welfare-service-menu .totalCnt').text($(".instListCnt").text().replaceAll("복지시설 : ",""));
-            $(".instListCnt").text("복지제도 : " + comma($("#srvcListCnt").val()));
 
-            //$('.welfare-service-menu .count').html('<strong>42</strong>곳'); //카운트
-            //$('.welfare-service-menu .btn').text('서비스 1272건'); //카운트
         } else {
             $('.welfare-service-item').addClass('is-active');
             $('.welfare-service-map').removeClass('is-active');
             $('.welfare-service-menu .nav').removeClass('!hidden');
             $('.welfare-service-menu .totalCnt').text(comma($("#srvcListCnt").val()));
-            f_srchInstList();
-            //$('.welfare-service-menu .count').html('<strong>1272</strong>건'); //카운트
-            //$('.welfare-service-menu .btn').text('복지시설 42곳'); //카운트
         }
-        //$(".srch-srvc").click();
     })
 
     $('.welfare-service-toggle').on('click', function() {
@@ -549,19 +542,20 @@ function f_srchInstList(){
 		.done(function(json) {
 			var instCnt = Number(json.bplcCnt);
 			var bplcCnt = Number(json.instCnt);
-			if(srchMode == "LOCATION"){
-				objData = json.bplcList;
+
+			if($(".welfare-service-map").hasClass("is-active")){
+				if(srchMode == "LOCATION"){
+					objData = json.bplcList;
+				}else{
+					objData = json.instList;
+				}
+				$(".instListCnt").text("복지제도 : " + comma($("#srvcListCnt").val()) + "개");
 			}else{
-				objData = json.instList;
+				$(".instListCnt").text("복지시설 : " + comma(instCnt + bplcCnt) + "곳");
 			}
-			$(".instListCnt").text("복지시설 : " + comma(instCnt + bplcCnt));
-			//$(".totalCnt").text(comma(instCnt + bplcCnt));
-			//$(".totalCnt").text(comma(instCnt + bplcCnt));
 
 			addListItem();
 			kakaoMapDraw();
-
-			//cntSum();
 		})
 		.fail(function(data, status, err) {
 			console.log(data);
@@ -679,9 +673,9 @@ function kakaoMapDraw(){
 
 
 			//마커 생성
-            var imageSrc = '/html/page/planner/assets/images/img-marker-members.svg';
+            var imageSrc = '/html/page/index/assets/images/img-welfare-marker-members.svg';
         	if(srchMode == "BOKJI"){
-				imageSrc = '/html/page/planner/assets/images/img-marker.svg';
+				imageSrc = '/html/page/index/assets/images/img-welfare-marker.svg';
         	}
             var imageSize = new kakao.maps.Size(34, 42);
             var imageOption = {offset: new kakao.maps.Point(16, 46)};
