@@ -251,10 +251,11 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_cookieKwdList", cookieKwdList);
 
 		// 검색 로그 기록
+		String referer = (String)request.getHeader("REFERER");
 		if(EgovStringUtil.isNotEmpty(srchKwd)) {
 			Map<String, Object> logMap = new HashMap<String, Object>();
+			logMap.put("referer", referer);
 			logMap.put("kwd", srchKwd.split("\\?")[0]);
-			logMap.put("curPath", curPath);
 			srchLogService.registSrchLog(logMap);
 		}
 
