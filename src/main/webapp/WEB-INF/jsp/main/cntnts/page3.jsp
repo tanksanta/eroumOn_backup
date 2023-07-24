@@ -40,28 +40,28 @@
                 <p class="desc">예상 인정 등급을 바로 확인해 보세요!</p>
                 <a href="${_mainPath}/recipter/list?pageType=info" class="btn btn-large2 btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
             </div>
-            <img src="/html/page/index/assets/images/img-page3-content1.png" alt="" class="img">
+            <img src="/html/page/index/assets/images/img-page3-content1.jpg" alt="" class="img">
         </div>
         
         <div class="page3-content2"> 
             <h3>단, <strong>100%</strong> 지원되지 않아요</h3>
             <small><strong>본인부담금</strong>과 <strong>본인부담율</strong>을 꼭 확인하세요.</small>
             <picture>
-                <source srcset="/html/page/index/assets/images/img-page3-content4-m.png" media="(max-width: 768px)"> 
-                <source srcset="/html/page/index/assets/images/img-page3-content4.png"> 
-                <img src="/html/page/index/assets/images/img-page3-content4.png" alt="" />
+                <source srcset="/html/page/index/assets/images/img-page3-content4-m.jpg" media="(max-width: 768px)"> 
+                <source srcset="/html/page/index/assets/images/img-page3-content4.jpg"> 
+                <img src="/html/page/index/assets/images/img-page3-content4.jpg" alt="" />
             </picture>
         </div>
 
         <div class="page3-content3">
             <div>
                 <h3>복지용구 FAQ</h3>
-                <img src="/html/page/index/assets/images/img-page3-content3.png" alt="">
+                <img src="/html/page/index/assets/images/img-page3-content3.jpg" alt="">
                 <a href="${_mainPath}/cntnts/page3-faq" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>바로가기</strong></a>
             </div>
             <div>
                 <h3>복지용구 선택 방법</h3>
-                <img src="/html/page/index/assets/images/img-page3-content3-2.png" alt="">
+                <img src="/html/page/index/assets/images/img-page3-content3-2.jpg" alt="">
                 <a href="${_mainPath}/cntnts/page3-checkpoint" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>바로가기</strong></a>
             </div>
         </div>
