@@ -249,7 +249,7 @@ $(function(){
 
 
     $('.welfare-service-menu .btn').on('click', function() {
-    	$(".srch-srvc").click();
+    	f_srchInstList();
         if($('.welfare-service-item').hasClass('is-active')) {
             $('.welfare-service-item').removeClass('is-active');
             $('.welfare-service-map').addClass('is-active');
@@ -268,6 +268,7 @@ $(function(){
             //$('.welfare-service-menu .count').html('<strong>1272</strong>건'); //카운트
             //$('.welfare-service-menu .btn').text('복지시설 42곳'); //카운트
         }
+        //$(".srch-srvc").click();
     })
 
     $('.welfare-service-toggle').on('click', function() {
@@ -314,7 +315,8 @@ $(function(){
 	$(":checkbox[name='category']").each(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 	});
-		console.log(category);
+		//console.log(category);
+		category = selCheckVal;
 	</c:if>
 
 	//$(".select-gugun button").text(gugun);

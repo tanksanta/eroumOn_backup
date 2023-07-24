@@ -16,6 +16,7 @@
 		, link_url
 		, sort_no
 		, rdcnt
+		, color
 		, use_yn
 		, bgng_dt
 		, end_dt
@@ -105,6 +106,7 @@
 		, use_yn
 		, link_ty
 		, banner_ty
+		, color
 		, link_url
 		, bgng_dt
 		, end_dt
@@ -117,6 +119,7 @@
 		, #{useYn, jdbcType=VARCHAR}
 		, #{linkTy, jdbcType=VARCHAR}
 		, #{bannerTy, jdbcType=VARCHAR}
+		, #{color, jdbcType=VARCHAR}
 		, #{linkUrl, jdbcType=VARCHAR}
 		, #{bgngDt}
 		, #{endDt}
@@ -136,6 +139,7 @@
 		, use_yn = #{useYn, jdbcType=VARCHAR}
 		, link_ty = #{linkTy, jdbcType=VARCHAR}
 		, banner_ty = #{bannerTy, jdbcType=VARCHAR}
+		, color = #{color, jdbcType=VARCHAR}
 		, link_url = #{linkUrl, jdbcType=VARCHAR}
 		, bgng_dt = #{bgngDt}
 		, end_dt = #{endDt}
