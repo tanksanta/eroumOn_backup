@@ -98,7 +98,7 @@
 				</label>
 			</li>
 		</ul>
-		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span>곳</a>
+		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span></a>
 	</nav>
 
 	<!-- 서비스 본문(복지제도) -->
@@ -147,74 +147,6 @@
 	<!-- //서비스 본문(복지시설) -->
 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${_kakaoScriptKey}&libraries=services,clusterer,drawing"></script>
-	<script>
-      $(function() {
-          var page = 1;
-          var pageT = 15;
-      //아이템 선택
-      $('.service-select .select-item').on('click', function() {
-          $(this).toggleClass('is-active');
-          return false;
-      });
-
-      $('.service-select .nav-link').on('click', function() {
-          $(this).closest('.service-select').addClass('is-active');
-      });
-
-      $('.service-select .toggle').on('click', function() {
-          $(this).closest('.service-select').toggleClass('is-active');
-      });
-
-      //지도 생성
-      var map = new kakao.maps.Map(document.getElementById('map'), {
-          center: new kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3
-      });
-
-      //마커 생성
-      var imageSrc    = '/html/page/index/assets/images/img-welfare-marker-members.svg', //파트너스 img-welfare-marker-members.svg
-          imageSize   = new kakao.maps.Size(34, 42),
-          imageOption = {offset: new kakao.maps.Point(16, 46)};
-
-      var markerImage     = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-          markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
-
-      var marker = new kakao.maps.Marker({
-          position : markerPosition,
-          image    : markerImage
-      });
-
-      marker.setMap(map);
-
-      //맵 오버레이 파트너스일경우 is-members 추가
-      var ovContent = '<div class="service-overlay is-members">' +
-                      '<div class="name">' +
-                      '<strong>트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점</strong>' +
-                      '<div class="close" onclick="closeOverlay()">닫기</div>' +
-                      '</div>' +
-                      '<p class="addr">서울특별시 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366</p>' +
-                      '<a class="call" href="tel:02-2423-6331">02-2423-6331</a>' +
-                      '</div>';
-
-      overlay = new kakao.maps.CustomOverlay({
-          content: ovContent,
-          map: map,
-          yAnchor: 1.25,
-          position: marker.getPosition()
-      });
-
-      overlay.setMap(null);
-
-      //오버레이 이벤트
-      kakao.maps.event.addListener(marker, 'click', function() {
-          overlay.setMap(map);
-      });
-
-      function closeOverlay() {
-          overlay.setMap(null);
-      }
-      });
-  </script>
 </div>
 
 
@@ -226,6 +158,8 @@ function resizeHandler() {
 }
 
 $(function(){
+    var page = 1;
+    var pageT = 15;
 
 	var curPage = 1;
 	var cntPerPage = 8;
@@ -247,6 +181,19 @@ $(function(){
 	}, false);
 	resizeHandler();
 
+    //아이템 선택
+    $('.service-select .select-item').on('click', function() {
+        $(this).toggleClass('is-active');
+        return false;
+    });
+
+    $('.service-select .nav-link').on('click', function() {
+        $(this).closest('.service-select').addClass('is-active');
+    });
+
+    $('.service-select .toggle').on('click', function() {
+        $(this).closest('.service-select').toggleClass('is-active');
+    });
 
     $('.welfare-service-menu .btn').on('click', function() {
     	f_srchInstList();
@@ -255,20 +202,13 @@ $(function(){
             $('.welfare-service-map').addClass('is-active');
             $('.welfare-service-menu .nav').addClass('!hidden');
             $('.welfare-service-menu .totalCnt').text($(".instListCnt").text().replaceAll("복지시설 : ",""));
-            $(".instListCnt").text("복지제도 : " + comma($("#srvcListCnt").val()));
 
-            //$('.welfare-service-menu .count').html('<strong>42</strong>곳'); //카운트
-            //$('.welfare-service-menu .btn').text('서비스 1272건'); //카운트
         } else {
             $('.welfare-service-item').addClass('is-active');
             $('.welfare-service-map').removeClass('is-active');
             $('.welfare-service-menu .nav').removeClass('!hidden');
             $('.welfare-service-menu .totalCnt').text(comma($("#srvcListCnt").val()));
-            f_srchInstList();
-            //$('.welfare-service-menu .count').html('<strong>1272</strong>건'); //카운트
-            //$('.welfare-service-menu .btn').text('복지시설 42곳'); //카운트
         }
-        //$(".srch-srvc").click();
     })
 
     $('.welfare-service-toggle').on('click', function() {
@@ -602,19 +542,20 @@ function f_srchInstList(){
 		.done(function(json) {
 			var instCnt = Number(json.bplcCnt);
 			var bplcCnt = Number(json.instCnt);
-			if(srchMode == "LOCATION"){
-				objData = json.bplcList;
+
+			if($(".welfare-service-map").hasClass("is-active")){
+				if(srchMode == "LOCATION"){
+					objData = json.bplcList;
+				}else{
+					objData = json.instList;
+				}
+				$(".instListCnt").text("복지제도 : " + comma($("#srvcListCnt").val()) + "개");
 			}else{
-				objData = json.instList;
+				$(".instListCnt").text("복지시설 : " + comma(instCnt + bplcCnt) + "곳");
 			}
-			$(".instListCnt").text("복지시설 : " + comma(instCnt + bplcCnt));
-			//$(".totalCnt").text(comma(instCnt + bplcCnt));
-			//$(".totalCnt").text(comma(instCnt + bplcCnt));
 
 			addListItem();
 			kakaoMapDraw();
-
-			//cntSum();
 		})
 		.fail(function(data, status, err) {
 			console.log(data);
@@ -687,11 +628,11 @@ function kakaoMapDraw(){
         			datas = {
         				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lot)),
         				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lot) - centerLng),
-        				content: ' <a class="service-item is-members" href="#">' +
-		                         '		<p class="name">'+ item.bplcNm +'</strong>' +
+        				content: ' <div class="service-overlay is-members">' +
+		                         '		<p class="name"><strong>'+ item.bplcNm +'</strong></p>' +
 		                         '		<p class="addr">'+ item.addr +' '+ item.daddr  +'</p>' +
 		                         '		<a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>' +
-		                         '</a>',
+		                         '</div>',
         				title: item.bplcNm
         			}
 
@@ -699,11 +640,11 @@ function kakaoMapDraw(){
     				datas = {
         				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lng)),
         				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lng) - centerLng),
-        				content: '<a class="service-item" href="#">' +
-		                         '		<p class="name">'+ item.institutionName +'</strong>' +
+        				content: '<div class="service-overlay">' +
+		                         '		<p class="name"><strong>'+ item.institutionName +'</strong></p>' +
 		                         '		<p class="addr">'+ item.address  +'</p>' +
 		                         '		<a class="call" href="tel:'+ item.contactNumber +'">'+ item.contactNumber +'</a>' +
-		                         '</a>',
+		                         '</div>',
         				title: item.institutionName
 	        			}
     			}
@@ -732,9 +673,9 @@ function kakaoMapDraw(){
 
 
 			//마커 생성
-            var imageSrc = '/html/page/planner/assets/images/img-marker-members.svg';
+            var imageSrc = '/html/page/index/assets/images/img-welfare-marker-members.svg';
         	if(srchMode == "BOKJI"){
-				imageSrc = '/html/page/planner/assets/images/img-marker.svg';
+				imageSrc = '/html/page/index/assets/images/img-welfare-marker.svg';
         	}
             var imageSize = new kakao.maps.Size(34, 42);
             var imageOption = {offset: new kakao.maps.Point(16, 46)};

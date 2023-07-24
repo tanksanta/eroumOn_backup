@@ -644,7 +644,7 @@
     & .service-item {
         @apply flex flex-col justify-center relative px-5 py-2.5 min-h-21 rounded-md border-b border-b-gray2 text-xs leading-[1.125] last:border-b-0;
         & .name {
-            @apply text-base font-bold;
+            @apply text-base font-bold break-all;
         }
         & .addr, & .call {
             @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
@@ -656,7 +656,7 @@
             @apply mt-1.5 bg-[url(../images/ico-call.svg)];
         }
         &.is-active {
-            @apply bg-black2 text-white before:bg-[url(../images/img-marker-white.svg)] before:text-black2;
+            @apply bg-black2 text-white before:text-black2;
             & .addr {
                 @apply bg-[url(../images/ico-location-white.svg)];
             }
@@ -673,7 +673,7 @@
     & .service-overlay {
         @apply relative w-55 px-3 py-2.5 border border-black2 bg-white rounded-md whitespace-normal text-xs leading-[1.125] -translate-y-1.5;
         & .name {
-            @apply pr-3 text-base font-bold;
+            @apply pr-3 text-base font-bold break-all;
         }
         & .addr, & .call {
             @apply pl-[0.6875rem] bg-no-repeat bg-[left_top_0.125rem] bg-[length:auto_0.625rem];
