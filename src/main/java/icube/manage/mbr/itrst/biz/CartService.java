@@ -10,12 +10,17 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
+import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnService;
 
 @Service("cartService")
 public class CartService extends CommonAbstractServiceImpl {
 
 	@Resource(name="cartDAO")
 	private CartDAO cartDAO;
+
+	@Resource(name = "gdsOptnService")
+	private GdsOptnService gdsOptnService;
 
 	public CommonListVO selectMbrCartListVO(CommonListVO listVO) throws Exception {
 		return cartDAO.selectMbrCartListVO(listVO);
@@ -47,6 +52,28 @@ public class CartService extends CommonAbstractServiceImpl {
 		paramMap.put("cartNos", arrDelCartNo);
 
 		cartDAO.deleteCartlByNos(paramMap);
+	}
+
+	public void updateMbrCart(GdsVO gdsVO) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchGdsCode", gdsVO.getGdsCd());
+
+		List<CartVO> cartList = selectCartListAll(paramMap);
+
+		for(CartVO cartVO : cartList) {
+
+			cartVO.setBnefCd(gdsVO.getBnefCd());
+			cartVO.setGdsNm(gdsVO.getGdsNm());
+			cartVO.setGdsPc(gdsVO.getPc());
+			cartVO.setOrdrPc((gdsVO.getPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy());
+
+			updateCart(cartVO);
+		}
+	}
+
+	public void updateCart(CartVO cartVO) throws Exception {
+		cartDAO.updateCart(cartVO);
 	}
 
 }

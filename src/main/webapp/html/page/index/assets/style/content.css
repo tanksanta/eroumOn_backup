@@ -843,39 +843,39 @@
         @apply block mx-auto pt-[111.1111111111111%] max-w-[974px] overflow-hidden bg-cover -indent-96 text-[0] leading-none;
     }
     & .nav-item1 {
-        @apply bg-[url(../images/btn-page1-content4.png)];
+        @apply bg-[url(../images/btn-page1-content4.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-active.jpg)];
         }
     }
     & .nav-item2 {
-        @apply bg-[url(../images/btn-page1-content4-2.png)];
+        @apply bg-[url(../images/btn-page1-content4-2.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-2-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-2-active.jpg)];
         }
     }
     & .nav-item3 {
-        @apply bg-[url(../images/btn-page1-content4-3.png)];
+        @apply bg-[url(../images/btn-page1-content4-3.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-3-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-3-active.jpg)];
         }
     }
     & .nav-item4 {
-        @apply bg-[url(../images/btn-page1-content4-4.png)];
+        @apply bg-[url(../images/btn-page1-content4-4.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-4-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-4-active.jpg)];
         }
     }
     & .nav-item5 {
-        @apply bg-[url(../images/btn-page1-content4-5.png)];
+        @apply bg-[url(../images/btn-page1-content4-5.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-5-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-5-active.jpg)];
         }
     }
     & .nav-item6 {
-        @apply bg-[url(../images/btn-page1-content4-6.png)];
+        @apply bg-[url(../images/btn-page1-content4-6.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-6-active.png)];
+            @apply bg-[url(../images/btn-page1-content4-6-active.jpg)];
         }
     }
     & .tab {

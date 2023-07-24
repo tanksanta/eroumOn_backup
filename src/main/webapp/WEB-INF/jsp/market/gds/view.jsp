@@ -73,6 +73,7 @@
 														</c:otherwise>
 													</c:choose>
 												</a>
+
                                         	</div>
                                         <a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
                                             <div class="name">
@@ -80,38 +81,38 @@
                                                 <strong>${gdsRelList.gdsNm}</strong>
                                             </div>
                                             <div class="cost">
-                                            	<c:if test="${insuranceMode && _mbrSession.loginCheck}">
+                                            	<c:if test="${_mbrSession.loginCheck}">
                                             	<c:choose>
 				                            		<c:when test="${gdsRelList.gdsTy eq 'R' || gdsRelList.gdsTy eq 'L'}"> <%--급여(판매)제품--%>
-						                            	<dl class="discount">
-						                                    <dt>급여가</dt>
-						                                    <dd>
-						                                    	<c:choose>
-							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
-							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc15}" pattern="###,###" /><small>원</small>
-							                                 		</c:when>
-							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
-							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc9}" pattern="###,###" /><small>원</small>
-							                                 		</c:when>
-							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
-							                                 	<fmt:formatNumber value="${gdsRelList.bnefPc6}" pattern="###,###" /><small>원</small>
-							                                 		</c:when>
-							                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
-							                                	0<small>원</small>
-							                                 		</c:when>
-							                                 	</c:choose>
-						                                    </dd>
-						                                </dl>
+				                            	<dl class="discount">
+				                                    <dt>급여가</dt>
+				                                    <dd>
+				                                    	<c:choose>
+					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
+					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc15}" pattern="###,###" /><small>원</small>
+					                                 		</c:when>
+					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
+					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc9}" pattern="###,###" /><small>원</small>
+					                                 		</c:when>
+					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
+					                                 	<fmt:formatNumber value="${gdsRelList.bnefPc6}" pattern="###,###" /><small>원</small>
+					                                 		</c:when>
+					                                 		<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
+					                                	0<small>원</small>
+					                                 		</c:when>
+					                                 	</c:choose>
+				                                    </dd>
+				                                </dl>
 				                            		</c:when>
 				                            		<%--급여(대여)제품--%>
 				                            		<%--
 				                            		<c:when test="${gdsRelList.gdsTy eq 'L'}">
-														<dl class="discount">
-						                                    <dt>대여가(월)</dt>
-						                                    <dd>
-						                                    	<fmt:formatNumber value="${gdsRelList.lendPc}" pattern="###,###" /><small>원</small>
-						                                    </dd>
-						                                </dl>
+												<dl class="discount">
+				                                    <dt>대여가(월)</dt>
+				                                    <dd>
+				                                    	<fmt:formatNumber value="${gdsRelList.lendPc}" pattern="###,###" /><small>원</small>
+				                                    </dd>
+				                                </dl>
 				                            		</c:when>
 				                            		 --%>
 				                            	</c:choose>
@@ -146,7 +147,7 @@
 
 
                <!-- 가격 배너 -->
-               <!-- <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div> -->
+               <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div>
                <!-- //가격 배너 -->
 
 				<!-- 상세 탭 -->
@@ -204,12 +205,12 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(급여구매)</p></th>
-                                    <th scope="row"><p>상품별 상이</p></th>
+                                    <th scope="row"><p>무료</p></th>
                                     <td rowspan="3">${gdsVO.dlvyDc}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(일반구매)</p></th>
-                                    <th scope="row"><p>상품별 상이</p></th>
+                                    <th scope="row"><p>무료</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>일반상품</p></th>
@@ -380,13 +381,14 @@
 						</c:if>
 						<strong>${gdsVO.gdsNm}</strong>
 					</div>
+
 				</div>
 				<!-- //상품 이름 -->
 
 				<!-- 상품 재원 -->
 				<div class="product-resource">
 					<c:choose>
-						<c:when test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+						<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 							<%--급여상품(판매)--%>
 							<dl class="price1">
 								<dt>판매가</dt>
@@ -562,28 +564,28 @@
 					<form id="frmOrdr" name="frmOrdr" method="post" enctype="multipart/form-data">
 						<!-- 구매 조건 선택 -->
                        	<c:choose>
-							<c:when test="${insuranceMode && gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
-								<div class="payment-type-select">
-		                            <label for="ordrTy1" class="select-item1">
-		                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > <%--R or L--%>
-		                                <span>급여 구매</span>
-		                            </label>
-		                            <label for="ordrTy2" class="select-item2">
-		                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
-		                                <span>바로 구매</span>
-		                            </label>
-								</div>
+							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
+							<div class="payment-type-select" style="display:none;">
+	                            <%-- <label for="ordrTy1" class="select-item1">
+	                                <input type="radio" name="ordrTy" value="R" id="ordrTy1" checked="checked" > R or L
+	                                <span>급여 구매</span>
+	                            </label> --%>
+	                            <label for="ordrTy2" class="select-item2">
+	                                <input type="radio" name="ordrTy" value="N" id="ordrTy2">
+	                                <span>바로 구매</span>
+	                            </label>
+							</div>
                             </c:when>
-                            <c:when test="${insuranceMode && gdsVO.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 대여 & 수급자--%>
-								<div class="payment-type-select">
-		                            <label for="ordrTy1" class="select-item1">
-		                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
-		                                <span>급여 구매</span>
-		                            </label>
-		                        </div>
+                            <c:when test="${gdsVO.gdsTy eq 'L' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 대여 & 수급자--%>
+							<div class="payment-type-select">
+	                            <label for="ordrTy1" class="select-item1">
+	                                <input type="radio" name="ordrTy" value="L" id="ordrTy1" checked="checked" >
+	                                <span>급여 구매</span>
+	                            </label>
+	                        </div>
                             </c:when>
 							<c:otherwise> <%-- 비급여 > 판매가 구매 --%>
-								<input type="hidden" name="ordrTy" value="N">
+							<input type="hidden" name="ordrTy" value="N">
 							</c:otherwise>
 						</c:choose>
 						<!-- //구매 조건 선택 -->
@@ -591,15 +593,15 @@
 						<div class="payment-type-content1 is-active"> <%--고정--%>
 
 	                        <div class="payment-scroller">
-	                            <c:if test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
-			                        <div class="space-y-1 payment-guide">
-			                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
-			                            <p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
-			                        </div>
+	                            <c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+		                        <div class="space-y-1 payment-guide">
+		                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
+		                            <p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
+		                        </div>
 	                            </c:if>
 
 								<%-- 급여상품일 경우만 선택 --%>
-								<c:if test="${insuranceMode && (gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+								<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 	                            <!-- 멤버스 선택 -->
 	                            <div class="payment-partners">
 	                            	<!-- <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
@@ -697,6 +699,7 @@
 	                                    </button>
 	                                    <ul class="option-items">
 	                                    <c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
+	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
 		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
 	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
 											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT">${spAditOptnTtl[1]}</a></li>
@@ -729,13 +732,13 @@
 										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
 									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
-										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매신청</button>
+										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
 									<%-- </c:if> --%>
 									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
 								</c:if>
 								<c:if test="${!_mbrSession.loginCheck}">
-									<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매신청</button>
+									<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
 									<button type="button" class="btn btn-outline-primary btn-large f_loginCheck">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_loginCheck">상품찜하기</button>
 								</c:if>
@@ -825,7 +828,7 @@ var Goods = (function(){
 							var optnSoldout = "";
 							if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 							if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
+							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
 						}else{
 							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
 						}
@@ -866,10 +869,10 @@ var Goods = (function(){
 						if(oldOptnNm != optnNm[1]){
 	    					if(optnNm.length < 3){
 	    						var optnPc = "";
-	    						var optnSoldout = "";
+	    						var optnSoldout = "";L
 	    						if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
 	    						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
+	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
 	    					}else{
 	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
 	    					}
@@ -917,7 +920,7 @@ var Goods = (function(){
 						var optnSoldout = "";
 						if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
+						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
 	                });
 					//$('.product-option .option-toggle')[1].click();
 					$('.product-option .option-toggle')[2].click();
@@ -962,6 +965,12 @@ var Goods = (function(){
 				html += '	<input type="hidden" name="gdsCd" value="${gdsVO.gdsCd}">';
 				html += '	<input type="hidden" name="bnefCd" value="${gdsVO.bnefCd}">';
 				html += '	<input type="hidden" name="gdsNm" value="${gdsVO.gdsNm}">';
+				if(typeof spOptnVal[4] != 'undefined'){
+					html += '	<input type="hidden" name="gdsOptnNo" value="'+ spOptnVal[4] +'">';
+				}else{
+					html += '	<input type="hidden" name="gdsOptnNo" value="0">';
+				}
+
 				html += '	<input type="hidden" name="gdsPc" value="'+ gdsPc +'">';
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
@@ -1025,6 +1034,13 @@ var Goods = (function(){
 				html += '	<input type="hidden" name="bnefCd" value="${gdsVO.bnefCd}">';
 				html += '	<input type="hidden" name="gdsNm" value="${gdsVO.gdsNm}">';
 				html += '	<input type="hidden" name="gdsPc" value="0">';
+
+				if(typeof spOptnVal[4] != "undefined"){
+					html += '	<input type="hidden" name="gdsOptnNo" value="'+ spOptnVal[4] +'">';
+				}else{
+					html += '	<input type="hidden" name="gdsOptnNo" value="0">';
+				}
+
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
 				html += '	<input type="hidden" name="ordrOptnPc" value="'+ spOptnVal[1] +'">';

@@ -96,7 +96,7 @@ public class SrchController extends CommonAbstractController {
 		String[] srchKwd = {};
 		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
 			String kwd = (String) reqMap.get("srchKwd");
-			srchKwd = EgovStringUtil.getStringArray(kwd, " ");
+			srchKwd = EgovStringUtil.getStringArray(kwd.split("\\?")[0], " ");
 		}
 
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
@@ -110,7 +110,7 @@ public class SrchController extends CommonAbstractController {
 		listVO.setParam("srchKwd", srchKwd); // 키워드
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);

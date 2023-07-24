@@ -60,7 +60,6 @@
                 <th scope="col">급여가</th>
                 <th scope="col">대여가능</th>
                 <th scope="col">재고수량</th>
-                <th scope="col">옵션사용여부</th>
 
                 <th scope="col">배송비유형</th>
                 <th scope="col">배송비결제</th>
@@ -100,7 +99,6 @@
                 <td><fmt:formatNumber value="${result.bnefPc}" pattern="###,###" /></td>
                 <td>${result.lendDuraYn eq 'Y'?'사용':'미사용'}</td>
                 <td>${result.stockQy}</td>
-                <td>${result.useYn}</td>
 
                 <td>${dlvyCostTyCode[result.dlvyCtTy]}</td>
                 <td>${dlvyPayTyCode[result.dlvyCtStlm]}</td>

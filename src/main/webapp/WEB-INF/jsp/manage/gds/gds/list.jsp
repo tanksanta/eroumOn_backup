@@ -99,7 +99,7 @@
                                         <select name="ctgryNo3" id="ctgryNo3" class="form-control w-32">
                                             <option value="0">전체</option>
                                         </select>
-                                        <select name="ctgryNo4" id="ctgryNo4" class="form-control w-32">
+                                        <select name="ctgryNo4" id="ctgryNo4" class="form-control w-32" readonly="true">
                                             <option value="0">전체</option>
                                         </select>
                                     </div>
@@ -126,7 +126,7 @@
                         <col class="w-28">
 						<col class="w-30">
                         <col class="w-32">
-                        <col class="w-32">
+                        <col>
                         <col class="w-26">
 						<col class="w-26">
 						<col class="w-26">

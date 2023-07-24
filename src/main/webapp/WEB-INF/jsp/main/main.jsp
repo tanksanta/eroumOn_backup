@@ -44,7 +44,7 @@
         <div class="object">
             <div class="object-content">
                 <div class="wrapper">
-                    <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.png" alt="">
+                    <img src="/html/page/index/assets/images/visual/img-main-visual-phone2.jpg" alt="">
                     <div class="objects">
                         <div class="objects-1"></div>
                         <div class="objects-2"></div>
@@ -385,6 +385,25 @@ function comma(num){
             }
         });
         
+        var visualSetting = function() {
+            pageBtn = $('.main-visual .swiper-slide-active .btn');
+            slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+
+            $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+
+            if($(window).outerWidth() > 768) {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                    '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+                });
+            } else {
+                $('.swiper .object').css({
+                    '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                    '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+                });
+            }
+        };
+        
         //object visible
         [].slice.call(document.querySelectorAll('[class*="main-content"] .image')).forEach((e) => {
             var observer = new IntersectionObserver((entries) => {
@@ -395,39 +414,13 @@ function comma(num){
 
             observer.observe(e);
         }, this);
-
-        slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-
-        if($(window).outerWidth() > 768) {
-            $('.swiper .object').css({
-                '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-            });
-        } else {
-            $('.swiper .object').css({
-                '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-            });
-        }
-
-        $(window).on('load resize', function(e) {
-            pageBtn = $('.main-visual .swiper-slide-active .btn');
-            slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-
-            if(e.type === 'load' || (e.type === 'resize' && resize)) {
-                $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
-                
-                if($(window).outerWidth() > 768) {
-                    $('.swiper .object').css({
-                        '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                        '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-                    });
-                } else {
-                    $('.swiper .object').css({
-                        '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                        '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-                    });
-                }
+        
+        
+        visualSetting();
+        
+        $(window).on('resize', function(e) {
+            if(e.type === 'resize' && resize) {
+            	visualSetting;
             }
         })
     })

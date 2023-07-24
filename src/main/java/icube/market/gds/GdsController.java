@@ -2,6 +2,7 @@ package icube.market.gds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,8 +38,6 @@ import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
-import icube.manage.sysmng.code.biz.CodeService;
-import icube.manage.sysmng.code.biz.CodeVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.market.mbr.biz.MbrSession;
@@ -83,9 +82,6 @@ public class GdsController extends CommonAbstractController {
 	@Resource(name = "gdsCtgryService")
 	private GdsCtgryService gdsCtgryService;
 
-	@Resource(name = "codeService")
-	private CodeService codeService;
-	
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
 
@@ -123,10 +119,13 @@ public class GdsController extends CommonAbstractController {
 	 * @param upCtgryNo
 	 * @param ctgryNo
 	 */
-	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo}/list"})
+	@RequestMapping(value = {"{upCtgryNo}/list", "{upCtgryNo}/{ctgryNo1}/list"
+			, "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/list", "{upCtgryNo}/{ctgryNo1}/{ctgryNo2}/{ctgryNo3}/list"})
 	public String list(
 			@PathVariable int upCtgryNo // 카테고리 1
-			, @PathVariable(required = false) Optional<Integer> ctgryNo // 카테고리 2
+			, @PathVariable(required = false) Optional<Integer> ctgryNo1 // 카테고리 2
+			, @PathVariable(required = false) Optional<Integer> ctgryNo2 // 카테고리 3
+			, @PathVariable(required = false) Optional<Integer> ctgryNo3 // 카테고리 4
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
 			, HttpServletResponse response
@@ -134,11 +133,27 @@ public class GdsController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
-		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+		GdsCtgryVO currentCategory = new GdsCtgryVO();
+		int ctgryNo = 0;
+
+		if(ctgryNo3.orElse(0) > 0) {
+			ctgryNo = ctgryNo3.orElse(0);
+		}else if(ctgryNo2.orElse(0) > 0) {
+			ctgryNo = ctgryNo2.orElse(0);
+		}else if(ctgryNo1.orElse(0) > 0) {
+			ctgryNo = ctgryNo1.orElse(0);
+		}else {
+			ctgryNo = upCtgryNo;
+		}
+
+		currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
+
 		model.addAttribute("curCtgryVO", currentCategory);
 
 		model.addAttribute("upCtgryNo", upCtgryNo);
-		model.addAttribute("ctgryNo", ctgryNo.orElse(0));
+		model.addAttribute("ctgryNo1", ctgryNo1.orElse(0));
+		model.addAttribute("ctgryNo2", ctgryNo2.orElse(0));
+		model.addAttribute("ctgryNo3", ctgryNo3.orElse(0));
 
 		return "/market/gds/list";
 	}
@@ -156,13 +171,35 @@ public class GdsController extends CommonAbstractController {
 			, HttpSession session
 			, Model model) throws Exception {
 
-
 		int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
 		int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
-		String[] srchCtgryNos = {};
-		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchCtgryNos"))) {
-			srchCtgryNos = EgovStringUtil.getStringArray((String) reqMap.get("srchCtgryNos"), "|");
+		HashSet<String> ctgryNos = new HashSet<>();
+
+		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+
+		for(int i=1; i<4; i++) {
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"+i))) {
+				if(EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i)) > 0) {
+					upCtgryNo = EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i));
+				}
+			}
 		}
+		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+
+		if(currentCategory.getChildList().size() > 0) {
+			for(GdsCtgryVO gdsCtgryVO : currentCategory.getChildList()) {
+				for(GdsCtgryVO gdsCtgryChildVO : gdsCtgryVO.getChildList()) {
+						for(GdsCtgryVO gdsCtgryChild2VO : gdsCtgryChildVO.getChildList()) {
+							ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChild2VO.getCtgryNo()));
+						}
+						ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChildVO.getCtgryNo()));
+				}
+				ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryVO.getCtgryNo()));
+			}
+		}else{
+			ctgryNos.add(EgovStringUtil.integer2string(upCtgryNo));
+		}
+
 
 		String[] srchGdsTys = {};
 		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchGdsTys"))) {
@@ -172,13 +209,12 @@ public class GdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
 		listVO.setParam("srchUseYn", "Y"); // 사용중
 		listVO.setParam("srchDspyYn", "Y"); // 전시중
-		listVO.setParam("srchUpCtgryNo", upCtgryNo); //1depth
-		listVO.setParam("srchCtgryNos", srchCtgryNos); //2depth
+		listVO.setParam("srchCtgryNos", ArrayUtil.stringToArray(ctgryNos.toString().replace("[", "").replace("]", "")));
 		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
 		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);
@@ -192,26 +228,42 @@ public class GdsController extends CommonAbstractController {
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("upCtgryNo", upCtgryNo);
-		
-		//급여모드 비활성화(급여가 노출X)
-		CodeVO codeVO = codeService.selectCode("00", "MODE001");
-		if (codeVO == null) {
-			model.addAttribute("insuranceMode", false);
-		} else {
-			model.addAttribute("insuranceMode", "Y".equalsIgnoreCase(codeVO.getCdNm()));
-		}
 
 		return "/market/gds/include/srch_list";
+	}
+
+	@RequestMapping(value = "srchCtrgy")
+	public String srchCtgry(
+			@RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request
+			, Model model
+			)throws Exception {
+
+		String ctgryNo = "";
+		GdsCtgryVO gdsCtgryVO = new GdsCtgryVO();
+		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
+
+		if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"))) {
+			ctgryNo = (String)reqMap.get("ctgryNo");
+		}
+
+		if(EgovStringUtil.string2integer(ctgryNo) > 0) {
+			gdsCtgryVO = gdsCtgryService.findChildCategory(gdsCtgryList, EgovStringUtil.string2integer(ctgryNo));
+		}
+
+		model.addAttribute("childList", gdsCtgryVO.getChildList());
+		model.addAttribute("paramMap", reqMap);
+
+		return "/market/gds/include/srch_ctgry";
 	}
 
 
 	/**
 	 * 상품 상세
 	 */
-	@RequestMapping(value = "{upCtgryNo}/{ctgryNo}/{gdsCd}")
+	@RequestMapping(value = "{ctgryNo}/{gdsCd}")
 	public String view(
-			@PathVariable int upCtgryNo // 카테고리 1
-			, @PathVariable int ctgryNo // 카테고리 2
+			@PathVariable int ctgryNo // 해당 상품의 카테고리 번호
 			, @PathVariable String gdsCd // 상품 코드
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request
@@ -225,7 +277,7 @@ public class GdsController extends CommonAbstractController {
 			paramMap.put("srchDspyYn", "Y"); // 전시중 고정
 			paramMap.put("srchGdsCd", gdsCd); //상품 코드
 			if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-				paramMap.put("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+				paramMap.put("uniqueId", mbrSession.getUniqueId());
 			}
 
 			GdsVO gdsVO = gdsService.selectGdsByFilter(paramMap);
@@ -293,6 +345,11 @@ public class GdsController extends CommonAbstractController {
 				BplcVO bplcVO = bplcService.selectBplc(bplcMap);
 				model.addAttribute("bplcVO", bplcVO);
 
+				Map<String, Object> pathMap = new HashMap<String, Object>();
+				pathMap.put("srchCtgryNo", ctgryNo);
+				String noPath = gdsCtgryService.selectGdsCtgryNoPath(pathMap);
+				model.addAttribute("noPath", noPath);
+
 
 				model.addAttribute("gdsVO", gdsVO);
 
@@ -302,7 +359,6 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
 				model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
 
-				model.addAttribute("upCtgryNo", upCtgryNo);
 				model.addAttribute("ctgryNo", ctgryNo);
 				model.addAttribute("param", reqMap);
 
@@ -311,13 +367,6 @@ public class GdsController extends CommonAbstractController {
 				GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
 				model.addAttribute("curCtgryVO", currentCategory);
 
-				//급여모드 비활성화(급여가 노출X)
-				CodeVO codeVO = codeService.selectCode("00", "MODE001");
-				if (codeVO == null) {
-					model.addAttribute("insuranceMode", false);
-				} else {
-					model.addAttribute("insuranceMode", "Y".equalsIgnoreCase(codeVO.getCdNm()));
-				}
 			} else {
 				model.addAttribute("alertMsg", getMsg("goods.sale.stop"));
 				return "/common/msg";
@@ -356,7 +405,7 @@ public class GdsController extends CommonAbstractController {
 		listVO.setParam("sortBy", "FI"); //First In
 
 		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+			listVO.setParam("uniqueId", mbrSession.getUniqueId());
 		}
 
 		listVO = gdsService.gdsListVO(listVO);

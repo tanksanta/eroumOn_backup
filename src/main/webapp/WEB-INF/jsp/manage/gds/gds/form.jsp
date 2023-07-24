@@ -77,7 +77,7 @@
                                             <select id="ctgryNo3" name="ctgryNo3" class="form-control w-50">
                                                 <option value="0" label="선택" />
                                             </select>
-                                            <select id="ctgryNo4" name="ctgryNo4" class="form-control w-50">
+                                            <select id="ctgryNo4" name="ctgryNo4" class="form-control w-50" readonly="true">
                                                 <option value="0" label="선택" />
                                             </select>
                                         </div>
@@ -166,17 +166,6 @@
                                             <label class="form-check-label" for="gdsTag${status.index}">${iem.value}</label>
                                         </div>
                                         </c:forEach>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><label for="entrpsNo">입점업체</label></th>
-                                    <td>
-                                    	<form:select path="entrpsNo" class="form-control w-70">
-                                    		<form:option value="0" label="선택" />
-                                    		<c:forEach items="${entrpsList}" var="entrps" varStatus="status">
-                                            	<form:option value="${entrps.entrpsNo}" label="${entrps.entrpsNm}" />
-                                            </c:forEach>
-                                    	</form:select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -743,14 +732,14 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(급여구매)</p></th>
-                                    <th scope="row"><p>상품별 상이</p></th>
+                                    <th scope="row"><p>무료</p></th>
                                     <td rowspan="3">
                                         <form:textarea path="dlvyDc" class="form-control w-full" cols="30" rows="5" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(일반구매)</p></th>
-                                    <th scope="row"><p>상품별 상이</p></th>
+                                    <th scope="row"><p>무료</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>일반상품</p></th>

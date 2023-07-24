@@ -1,28 +1,33 @@
 .payment-shipping {
     @apply relative p-3 pt-4.5 overflow-hidden rounded-[1rem] border border-gray1 leading-tight tracking-tight;
     & dl {
-        @apply px-3 md:px-4;
+        @apply px-3
+               md:px-4;
         & dt {
             @apply text-sm font-medium;
         }
         & dd {
-            @apply mt-2.5 space-y-0.5 font-bold font-serif text-xl lg:text-2xl;
+            @apply mt-2.5 space-y-0.5 font-bold font-serif text-xl
+                   lg:text-2xl;
         }
     }
     & .shipping-name, & .shipping-call {
         @apply float-left pt-1.5;
     }
     & .shipping-name {
-        @apply w-1/2 md:w-41;
+        @apply w-1/2
+               md:w-41;
     }
     & .shipping-call {
-        @apply w-1/2 md:w-auto;
+        @apply w-1/2
+               md:w-auto;
     }
     & .shipping-addr {
         @apply clear-both float-none pt-2;
     }
     & .shipping-msgs {
-        @apply mt-7 pt-3 px-4 pb-12 rounded-md bg-gray2 md:mt-8.5 md:pt-4 md:px-5.5 md:pb-15;
+        @apply mt-7 pt-3 px-4 pb-12 rounded-md bg-gray2
+               md:mt-8.5 md:pt-4 md:px-5.5 md:pb-15;
         & dd {
             @apply mt-8 text-center font-normal;
         }
@@ -30,63 +35,80 @@
 }
 
 .payment-refund {
-    @apply justify-between p-3 overflow-hidden rounded-[1rem] border border-gray1 bg-no-repeat bg-[url(../images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem] md:flex;
+    @apply justify-between p-3 overflow-hidden rounded-[1rem] border border-gray1 bg-no-repeat bg-[url(../images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem]
+           md:flex;
     & .refund-method {
-        @apply flex tracking-tight font-medium md:mt-2;
+        @apply flex tracking-tight font-medium
+               md:mt-2;
         & dt {
-            @apply mr-6 text-sm mt-1.5;
+            @apply mt-1.5 mr-6 text-sm;
         }
         & dd {
-            @apply text-[1.375rem] md:text-2xl;
+            @apply text-xl
+                   md:text-2xl;
         }
     }
     & .refund-account {
-        @apply mt-4 tracking-tight font-medium md:mt-0 md:flex;
+        @apply mt-4 tracking-tight font-medium
+               md:flex md:mt-0;
         & dt {
             @apply mt-3.5 mr-6 text-sm;
         }
         & dd {
-            @apply px-5 pt-2.5 pb-3.5 mt-2.5 w-full rounded-md bg-[#FFC839] md:mt-0 md:px-6 md:pt-3.5 md:pb-4.5 md:w-92;
+            @apply px-5 pt-2.5 pb-3.5 mt-2.5 w-full rounded-md bg-[#FFC839]
+                   md:mt-0 md:px-6 md:pt-3.5 md:pb-4.5 md:w-92;
         }
         & .bank {
-            @apply text-base font-bold md:text-lg;
+            @apply text-base font-bold
+                   md:text-lg;
         }
         & .code {
-            @apply mt-6.5 text-2xl leading-tight font-bold text-center md:mt-8 md:text-3xl;
+            @apply mt-6.5 text-2xl leading-tight font-bold text-center
+                   md:mt-8 md:text-3xl;
         }
         & .name {
-            @apply mt-6.5 leading-tight text-right md:mt-8;
+            @apply mt-6.5 leading-tight text-right
+                   md:mt-8;
             & strong {
-                @apply text-lg md:text-xl;
+                @apply text-title2;
             }
         }
     }
 }
 
 .payment-amount {
-    @apply relative p-3 overflow-hidden rounded-[1rem] border border-gray1 text-[0.8125rem] font-bold leading-[1.428] md:flex md:text-sm;
+    @apply relative p-3 overflow-hidden rounded-[1rem] border border-gray1 text-[0.8125rem] font-bold leading-[1.428]
+           md:flex md:text-sm;
     & .amount-section {
-        @apply ml-19 flex-1 md:ml-0;
+        @apply ml-19 flex-1
+               md:ml-0;
         & .price {
-            @apply pt-2.5 md:pl-4.5 md:pr-6;
+            @apply pt-2.5
+                   md:pr-6 md:pl-4.5;
             & dd {
-                @apply leading-tight text-right mt-3 flex-1 md:mt-4;
+                @apply flex-1 mt-3 leading-tight text-right
+                       md:mt-4;
                 & strong {
-                    @apply text-[1.375rem] tracking-normal leading-tight align-middle md:text-2xl;
+                    @apply text-xl tracking-normal leading-tight align-middle
+                           md:text-2xl;
                 }
             }
         }
         & .detail {
-            @apply rounded-md mt-3.5 py-2 px-4 bg-gray2 text-sm md:mt-4.5 md:py-2.5 md:px-5;
+            @apply mt-3.5 py-2 px-4 rounded-md bg-gray2 text-sm
+                   md:mt-4.5 md:py-2.5 md:px-5;
             & dl {
-                @apply flex flex-wrap py-2 md:py-2.5;
+                @apply flex flex-wrap py-2
+                       md:py-2.5;
                 & dt {
-                    @apply mt-0.5 font-medium flex-none md:w-21;
+                    @apply mt-0.5 font-medium flex-none
+                           md:w-21;
                 }
                 & dd {
                     @apply flex-1 pl-2 text-right whitespace-nowrap;
                     & strong {
-                        @apply tracking-normal leading-tight text-base md:text-lg;
+                        @apply tracking-normal leading-tight text-base
+                               md:text-lg;
                     }   
                 }
             }
@@ -104,7 +126,8 @@
         }
     }
     & .amount-calculator {
-        @apply btn-icon flex flex-none mt-6 -mx-3 -mb-20 h-20 bg-cover md:h-[6.625rem] md:mb-0 md:-mt-2 md:-ml-6 md:-mr-5;
+        @apply btn-icon flex flex-none mt-6 -mx-3 -mb-20 h-20 bg-cover
+               md:-mt-2 md:mb-0 md:-mr-5 md:-ml-6 md:h-[6.625rem];
         &.is-plus {
             @apply bg-[url(../images/ico-payment-plus.png)];
         }
@@ -116,71 +139,67 @@
         }
     }
     & .amount-mileage {
-        @apply left-5 bottom-0 flex items-start -mb-3 mt-4 md:mb-0 md:mt-0 md:absolute;
+        @apply left-5 bottom-0 flex items-start -mb-3 mt-4
+               md:absolute md:my-0;
         & dd {
-            @apply flex flex-col ml-1.5 pb-1.5 pl-17 justify-end bg-no-repeat bg-left-bottom bg-[length:auto_3.5rem] bg-[url(../images/txt-mileage.svg)] md:pb-2 md:pl-20 md:bg-[length:auto_4.25rem];
+            @apply flex flex-col ml-1.5 pb-1.5 pl-17 justify-end bg-no-repeat bg-left-bottom bg-[length:auto_3.5rem] bg-[url(../images/txt-mileage.svg)]
+                   md:pb-2 md:pl-20 md:bg-[length:auto_4.25rem];
         }
         & .point {
-            @apply flex pr-5.5 w-fit bg-no-repeat bg-[right_center] bg-[url(../images/ico-mileage.svg)] bg-[length:1.125rem] font-serif leading-none text-3xl md:text-5xl;
+            @apply flex pr-5.5 w-fit bg-no-repeat bg-[right_center] bg-[url(../images/ico-mileage.svg)] bg-[length:1.125rem] font-serif leading-none text-3xl
+                   md:text-5xl;
         }
         & .desc {
-            @apply mt-1 font-normal md:mt-2;
+            @apply mt-1 font-normal
+                   md:mt-2;
         }
     }
 }
 
 .payment-customer {
-    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5 md:p-7 md:pb-11 md:space-y-8;
-    &::before {
-        @apply content-empty absolute top-1 right-2 w-37 h-17 blur-xl rounded-md bg-white sm:top-1.5 sm:right-2.5 sm:w-49 sm:h-23 lg:w-61 lg:h-29;
-    }
-    &::after {
-        @apply absolute top-5 right-4 font-bold text-6xl md:right-6 md:text-[3.125rem] lg:text-[3.75rem];
-    }
+    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5
+           before:absolute before:top-1 before:right-2 before:w-37 before:h-17 before:blur-xl before:rounded-md before:bg-white
+           after:absolute after:top-5 after:right-4 after:font-bold after:text-6xl
+           sm:before:top-1.5 sm:before:right-2.5 sm:before:w-49 sm:before:h-23
+           md:space-y-8 md:p-7 md:pb-11
+           md:after:right-6 md:after:text-[3.125rem]
+           lg:after:text-[3.75rem]
+           lg:before:w-61 lg:before:h-29;
     & dl {
         @apply relative z-10;
         & dt {
             @apply text-sm font-medium opacity-50;
         }
         & dd {
-            @apply mt-0.5 font-bold font-serif text-[1.375rem] lg:text-2xl;
+            @apply mt-0.5 font-bold font-serif text-xl
+                   md:text-2xl;
         }
     }
     &.customer-grade1 {
-        &::after {
-            @apply text-grade1;
-            content: "이로움";
-        }
+        @apply after:content-["이로움"] after:text-grade1;
     }
     &.customer-grade2 {
-        &::after {
-            @apply text-grade2;
-            content: "반가움";
-        }
+        @apply after:content-["반가움"] after:text-grade2;
     }
     &.customer-grade3 {
-        &::after {
-            @apply text-grade3;
-            content: "새로움";
-        }
+        @apply after:content-["새로움"] after:text-grade3;
     }
     &.customer-grade4 {
-        &::after {
-            content: "신규회원";
-        }
+        @apply after:content-["신규회원"];
     }
 }
 
 .payment-result {
     @apply md:flex md:gap-5;
     & .result-price {
-        @apply flex-1 p-4.5 pb-2.5 bg-[#FFEEEE] rounded-md tracking-tighter;
+        @apply flex-1 p-4.5 pb-2.5 rounded-md bg-[#FFEEEE] tracking-tighter;
         & dl {
             @apply relative z-5 flex justify-between items-center flex-wrap font-bold leading-tight;
             & dd {
                 @apply pl-2;
                 & strong {
-                    @apply relative -top-px font-serif text-[1.375rem] tracking-normal align-middle md:text-2xl;
+                    @apply relative -top-px font-serif text-xl tracking-normal align-middle
+                           md:text-2xl;
                 }
             }
         }
@@ -190,59 +209,76 @@
         & .last {
             @apply block mt-2 text-red3;
             & dd {
-                @apply text-right text-xl md:text-2xl;
+                @apply text-right text-xl
+                       md:text-2xl;
                 & strong {
-                    @apply text-3xl md:text-4xl lg:text-6xl;
+                    @apply text-3xl
+                           md:text-4xl
+                           lg:text-6xl;
                 }
             }
         }
     }
     & .result-agree {
-        @apply flex flex-col mt-5 leading-snug md:mt-0 md:w-2/5;
+        @apply flex flex-col mt-5 leading-snug
+               md:mt-0 md:w-2/5;
         & dt {
             @apply font-bold;
         }
         & dd {
-            @apply mt-2 p-3 rounded-md bg-gray2 md:mt-2.5 md:p-4.5;
+            @apply mt-2 p-3 rounded-md bg-gray2
+                   md:mt-2.5 md:p-4.5;
         }
         & .form-check {
-            @apply mt-2.5 md:mt-3 md:mb-auto;
+            @apply mt-2.5
+                   md:mt-3 md:mb-auto;
         }
         & .btn {
-            @apply mt-10 md:mt-13;
+            @apply mt-10 
+                   md:mt-13;
         }
     }
 }
 
 .payment-sequence {
-    @apply grid grid-cols-2 leading-tight gap-2 md:grid-cols-4 md:gap-2.5;
+    @apply grid grid-cols-2 leading-tight gap-2
+           md:grid-cols-4 md:gap-2.5;
     & li {
-        @apply p-3 pb-13 min-h-30 border border-black2 rounded-md bg-no-repeat bg-[left_1rem_bottom_0.5rem] md:p-4 md:pb-16 md:min-h-44;
+        @apply p-3 pb-13 min-h-30 border border-black2 rounded-md bg-no-repeat bg-[left_1rem_bottom_0.5rem]
+               md:p-4 md:pb-16 md:min-h-44;
         & dl {
             & dt {
-                @apply text-[1.375rem] md:text-2xl;
+                @apply text-xl
+                       md:text-2xl;
             }
             & dd {
-                @apply mt-2 text-sm md:mt-2.5 md:text-[0.9375rem];
+                @apply mt-2 text-sm
+                       md:mt-2.5 md:text-[0.9375rem];
             }
         }
         &.seq1 {
-            @apply bg-[url(../images/ico-sequence1.svg)] bg-[length:32px] md:bg-[length:40px];
+            @apply bg-[url(../images/ico-sequence1.svg)] bg-[length:32px]
+                   md:bg-[length:40px];
         }
         &.seq2 {
-            @apply bg-[url(../images/ico-sequence2.svg)] bg-[length:37px] md:bg-[length:46px];
+            @apply bg-[url(../images/ico-sequence2.svg)] bg-[length:37px]
+                   md:bg-[length:46px];
         }
         &.seq3 {
-            @apply bg-[url(../images/ico-sequence3.svg)] bg-[length:43px] md:bg-[length:54px];
+            @apply bg-[url(../images/ico-sequence3.svg)] bg-[length:43px]
+                   md:bg-[length:54px];
         }
         &.seq4 {
-            @apply bg-[url(../images/ico-sequence4.svg)] bg-[length:61px] md:bg-[length:76px];
+            @apply bg-[url(../images/ico-sequence4.svg)] bg-[length:61px]
+                   md:bg-[length:76px];
         }
         &.seq5 {
-            @apply bg-[url(../images/ico-sequence5.svg)] bg-[length:30px] md:bg-[length:37px];
+            @apply bg-[url(../images/ico-sequence5.svg)] bg-[length:30px]
+                   md:bg-[length:37px];
         }
         &.seq6 {
-            @apply bg-[url(../images/ico-sequence6.svg)] bg-[length:38px] md:bg-[length:48px];
+            @apply bg-[url(../images/ico-sequence6.svg)] bg-[length:38px]
+                   md:bg-[length:48px];
         }
     }
 }
@@ -260,10 +296,12 @@
                 }
             }
             & .detail {
-                @apply flex-1 mt-2.5 py-2 px-3 md:mt-3 md:px-4;
+                @apply flex-1 mt-2.5 py-2 px-3
+                       md:mt-3 md:px-4;
                 & dl {
                     & dt {
-                        @apply w-auto md:w-full;
+                        @apply w-auto
+                               md:w-full;
                     }
                     & dd {
                         & strong {
@@ -274,7 +312,8 @@
             }
         }
         & .amount-calculator {
-            @apply mt-7 -mx-3 -mb-18 h-18 md:h-[6.25rem] md:mb-0 md:-mt-3 md:-mx-5;
+            @apply mt-7 -mx-3 -mb-18 h-18
+                   md:-mt-3 md:mb-0 md:-mx-5 md:h-[6.25rem];
         }
     }
 }
