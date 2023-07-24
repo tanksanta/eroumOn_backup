@@ -29,20 +29,20 @@
 	<div class="page2-slider">
 	    <div class="swiper">
 	        <div class="swiper-wrapper">
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont1"><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont2"><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont3"><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont4"><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont5"><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont6"><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont7"><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont8"><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont9"><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont10"><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont11"><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont12"><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont13"><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></a></div>
-	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont14"><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont1"><img src="/html/page/index/assets/images/img-page2-category1.jpg" alt="성인용보행기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont2"><img src="/html/page/index/assets/images/img-page2-category2.jpg" alt="수동휠체어"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont3"><img src="/html/page/index/assets/images/img-page2-category3.jpg" alt="지팡이"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont4"><img src="/html/page/index/assets/images/img-page2-category4.jpg" alt="안전손잡이"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont5"><img src="/html/page/index/assets/images/img-page2-category5.jpg" alt="미끄럼방지 매트"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont6"><img src="/html/page/index/assets/images/img-page2-category6.jpg" alt="미끄럼방지 양말"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont7"><img src="/html/page/index/assets/images/img-page2-category7.jpg" alt="욕창예방 매트리스"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont8"><img src="/html/page/index/assets/images/img-page2-category8.jpg" alt="욕창예방 방석"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont9"><img src="/html/page/index/assets/images/img-page2-category9.jpg" alt="자세변환용구"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont10"><img src="/html/page/index/assets/images/img-page2-category10.jpg" alt="요실금 팬티"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont11"><img src="/html/page/index/assets/images/img-page2-category11.jpg" alt="목욕의자"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont12"><img src="/html/page/index/assets/images/img-page2-category12.jpg" alt="이동변기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont13"><img src="/html/page/index/assets/images/img-page2-category13.jpg" alt="간이변기"></a></div>
+	            <div class="swiper-slide"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont14"><img src="/html/page/index/assets/images/img-page2-category14.jpg" alt="경사로"></a></div>
 	        </div>
 	    </div>
 	</div>
@@ -60,7 +60,7 @@
 	</div>
 
     <div class="page2-content1">
-        <img src="/html/page/index/assets/images/img-page2-content1.png" alt="" class="img">
+        <img src="/html/page/index/assets/images/img-page2-content1.jpg" alt="" class="img">
         <div class="box">
             <dl>
                 <dt>안전한 욕실생활</dt>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="page2-content2">
-        <img src="/html/page/index/assets/images/img-page2-content2.png" alt="" class="img">
+        <img src="/html/page/index/assets/images/img-page2-content2.jpg" alt="" class="img">
         <div class="box">
             <dl>
                 <dt>편안한 거실생활</dt>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="page2-content3">
-        <img src="/html/page/index/assets/images/img-page2-content3.png" alt="" class="img">
+        <img src="/html/page/index/assets/images/img-page2-content3.jpg" alt="" class="img">
         <div class="box">
             <dl>
                 <dt>안락한 침실생활</dt>
@@ -102,7 +102,7 @@
     </div>
     
     <div class="page2-content4">
-        <img src="/html/page/index/assets/images/img-page2-content4.png" alt="" class="img">
+        <img src="/html/page/index/assets/images/img-page2-content4.jpg" alt="" class="img">
         <div class="box">
             <dl>
                 <dt>건강한 야외생활</dt>

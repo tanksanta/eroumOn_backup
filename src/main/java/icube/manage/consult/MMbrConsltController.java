@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltService;
 
@@ -28,46 +29,48 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
-	
+
 	@RequestMapping(value = "list")
 	public String list(
 		HttpServletRequest request
 		, Model model
 		) throws Exception {
-		
+
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
-		
+		listVO = mbrConsltService.formatMbrConsltVO(listVO);
+
 		model.addAttribute("listVO", listVO);
-		
+		model.addAttribute("genderCode", CodeMap.GENDER);
+
 		return "/manage/consult/recipter/list";
 	}
-	
+
 	@RequestMapping(value = "delConslt.json")
 	@ResponseBody
 	public Map<String, Object> delConslt(
 			@RequestParam(value = "arrDelConslt[]", required=true) String[] consltList
 			, HttpServletRequest request
 			) throws Exception {
-		
+
 		boolean result = false;
 		int resultCnt = 0;
-		
+
 		try {
 			for(String consltNo : consltList) {
 				resultCnt += mbrConsltService.updateUseYn(EgovStringUtil.string2integer(consltNo));
 			}
-			
+
 			if(resultCnt > 0) {
 				result = true;
 			}
-			
+
 		}catch(Exception e) {
 			e.printStackTrace();
-			log.debug("delConslt.Json Error : " + e.getMessage()); 
+			log.debug("delConslt.Json Error : " + e.getMessage());
 		}
-		
+
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;

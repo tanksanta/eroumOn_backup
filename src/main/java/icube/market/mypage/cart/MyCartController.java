@@ -42,14 +42,14 @@ public class MyCartController extends CommonAbstractController  {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartTy", "R"); // 급여주문 상품
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 
 		List<CartVO> rResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("rResultList", rResultList);
 
 		paramMap.clear();
 		paramMap.put("srchCartTy", "N"); // 비급여주문 상품
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);
 
@@ -73,6 +73,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="gdsNm", required=true) String gdsNm
 			, @RequestParam(value="gdsPc", required=true) String gdsPc
 
+			, @RequestParam(value="gdsOptnNo", required=false) String gdsOptnNo
 			, @RequestParam(value="ordrOptnTy", required=true) String ordrOptnTy
 			, @RequestParam(value="ordrOptn", required=true) String ordrOptn
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
@@ -86,13 +87,12 @@ public class MyCartController extends CommonAbstractController  {
 		String resultMsg = "SUCCESS";
 		int totalCnt = 0;
 
-
 		// STEP.1 선택된 보호자 장바구니 > 동일상품 + 동일옵션이 있는지 체크 (추가옵션 제외)
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartTy", ordrTy);
 		paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
 		paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
-		paramMap.put("srchRecipterUniqueId", mbrSession.getPrtcrRecipterInfo().getUniqueId());
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		CartVO chkCartVO = cartService.selectCartByFilter(paramMap);
@@ -117,12 +117,13 @@ public class MyCartController extends CommonAbstractController  {
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[0].trim()));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
 
-				cartVO.setRecipterUniqueId(mbrSession.getPrtcrRecipterInfo().getUniqueId());
+				cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
 				cartVO.setBplcUniqueId(EgovStringUtil.isEmpty(bplcUniqueId)?null:bplcUniqueId);
 
 				int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
@@ -224,6 +225,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="gdsNm", required=true) String gdsNm
 			, @RequestParam(value="gdsPc", required=true) String gdsPc
 
+			, @RequestParam(value="gdsOptnNo", required=true) String gdsOptnNo
 			, @RequestParam(value="ordrOptnTy", required=true) String ordrOptnTy
 			, @RequestParam(value="ordrOptn", required=true) String ordrOptn
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
@@ -250,6 +252,7 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i]);
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i]);
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i]));
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
 

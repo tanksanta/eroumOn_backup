@@ -1,6 +1,7 @@
 @layer components {
     .label-base {
-        @apply inline-flex relative text-[0.8125rem] leading-none align-middle md:text-sm;
+        @apply inline-flex relative text-[0.8125rem] leading-none align-middle
+               md:text-sm;
         & span, & i {
             @apply relative border-inherit;
         }

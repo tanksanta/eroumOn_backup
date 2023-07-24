@@ -48,7 +48,7 @@
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
-					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" placeholder="010-0000-0000" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);"/>
+					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);" placeholder="010-0000-0000"/>
 				</dd>
 			</dl>
 			<dl>

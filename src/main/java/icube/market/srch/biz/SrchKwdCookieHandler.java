@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -32,8 +33,8 @@ public class SrchKwdCookieHandler {
 				}
 			}
 		}
+		Collections.reverse(resultCookieKwd);
 		return resultCookieKwd;
-
 	}
 
 

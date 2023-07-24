@@ -38,7 +38,7 @@
 				<div class="content-complate mt-4">
 					<dl>
 						<dt>
-							이로움ON 마켓 회원가입이 <strong>정상적으로 완료</strong>되었습니다
+							이로움ON 회원가입이 <strong>정상적으로 완료</strong>되었습니다
 						</dt>
 						<dd>
 							${noMbrVO.mbrId } <small>(${noMbrVO.recipterYn eq 'Y'?'수급자회원':'일반회원' })</small>

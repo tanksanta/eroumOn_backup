@@ -36,9 +36,9 @@
 		, g.wt
 		, g.size
 		, g.stndrd
+		, g.keyword
 		, g.sort_no
 		, g.gds_tag as gds_tag_val
-		, g.entrps_no
 		, g.mkr
 		, g.plor
 		, g.brand
@@ -113,7 +113,6 @@
 		op.gds_optn_no
 		, op.optn_ty
 		, op.optn_nm
-		, op.optn_item_cd
 		, op.optn_pc
 		, op.optn_stock_qy
 		, op.use_yn
@@ -156,12 +155,17 @@
 		<if test="srchCtgryNo > 0">
 			AND g.ctgry_no = #{srchCtgryNo}
 		</if>
-
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCtgryNos)">
-			AND g.ctgry_no IN
+			AND (g.ctgry_no IN
 			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
 				#{srchCtgryNo}
 			</foreach>
+			OR
+			gc1.up_ctgry_no IN
+			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+				#{srchCtgryNo}
+			</foreach>
+			)
 		</if>
 
 		<if test="srchGdsCd !=null and srchGdsCd != ''">
@@ -230,6 +234,14 @@
 			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
 				gc1.ctgry_nm LIKE CONCAT ('%',#{kwd},'%')
 			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				(g.brand IN (SELECT brand_no FROM BRAND b WHERE b.brand_nm LIKE CONCAT ('%',#{kwd},'%')))
+			</foreach>
+			OR
+				<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+					  g.bnef_cd = #{kwd}
+				</foreach>
 			)
 		</if>
 
@@ -366,9 +378,9 @@
 			 , wt
 			 , size
 			 , stndrd
+			 , keyword
 			 , sort_no
 			 , gds_tag
-			 , entrps_no
 			 , mkr
 			 , plor
 			 , brand
@@ -449,9 +461,9 @@
 			, #{wt, jdbcType=VARCHAR}
 			, #{size, jdbcType=VARCHAR}
 			, #{stndrd, jdbcType=VARCHAR}
+			, #{keyword, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
-			, #{entrpsNo}
 			, #{mkr}
 			, #{plor, jdbcType=VARCHAR}
 			, #{brand}
@@ -538,9 +550,9 @@
 			, wt = #{wt, jdbcType=VARCHAR}
 			, size = #{size, jdbcType=VARCHAR}
 			, stndrd = #{stndrd, jdbcType=VARCHAR}
+			, keyword = #{keyword, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
-			, entrps_no = #{entrpsNo}
 			, mkr = #{mkr}
 			, plor = #{plor, jdbcType=VARCHAR}
 			, brand = #{brand}
@@ -660,20 +672,6 @@
 		SELECT
 			<include refid="listColumn"/>
 		FROM GDS g
-			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
-			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
-		WHERE 1=1
-			<include refid="searchConditions" />
-	  	ORDER BY g.gds_no DESC
-	</select>
-	
-	<!-- 상품 엑셀다운로드 -->
-	<select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
-		SELECT
-			<include refid="listColumn"/>
-			,<include refid="optnListColumn" />
-		FROM GDS g
-			LEFT JOIN GDS_OPTN op on g.gds_no = op.gds_no
 			LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
 			LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
 		WHERE 1=1

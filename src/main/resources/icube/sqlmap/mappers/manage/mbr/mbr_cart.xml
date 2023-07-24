@@ -21,6 +21,7 @@
 		, gds_nm
 		, gds_pc
 		, ordr_pc
+		, gds_optn_no
 		, ordr_optn_ty
 		, ordr_optn
 		, ordr_optn_pc
@@ -65,6 +66,9 @@
 		</if>
 		<if test="srchGdsCd != null and srchGdsCd != '' ">
 			AND gds_cd like CONCAT('%',#{srchGdsCd},'%')
+		</if>
+		<if test="srchGdsCode != null and srchGdsCode != '' ">
+			AND gds_cd = #{srchGdsCode}
 		</if>
 		<if test="srchGdsNm != null and srchGdsNm != '' ">
 			AND gds_nm like CONCAT('%',#{srchGdsNm},'%')
@@ -148,6 +152,7 @@
 			 , ordr_optn
 			 , ordr_optn_pc
 			 , ordr_qy
+			 , gds_optn_no
 
 			 , recipter_unique_id
 			 , bplc_unique_id
@@ -174,6 +179,7 @@
 			 , #{ordrOptn, jdbcType=VARCHAR}
 			 , #{ordrOptnPc}
 			 , #{ordrQy}
+			 , #{gdsOptnNo}
 
 			 , #{recipterUniqueId, jdbcType=VARCHAR}
 			 , #{bplcUniqueId, jdbcType=VARCHAR}
@@ -211,6 +217,7 @@
 			, ordr_optn
 			, ordr_optn_pc
 			, ordr_qy
+			, gds_optn_no
 			, recipter_unique_id
 			, bplc_unique_id
 			, reg_unique_id
@@ -231,6 +238,7 @@
 			, #{ordrOptn, jdbcType=VARCHAR}
 			, #{ordrOptnPc}
 			, #{ordrQy}
+			, #{gdsOptnNo}
 			, #{recipterUniqueId, jdbcType=VARCHAR}
 			, #{bplcUniqueId, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
@@ -243,6 +251,7 @@
 			, ordr_optn_ty = #{ordrOptnTy, jdbcType=VARCHAR}
 			, ordr_optn = #{ordrOptn, jdbcType=VARCHAR}
 			, ordr_optn_pc = #{ordrOptnPc}
+			, gds_optn_no = #{gdsOptnNo}
 			, ordr_qy = #{ordrQy}
 			, recipter_unique_id = #{recipterUniqueId, jdbcType=VARCHAR}
 	</insert>
@@ -253,6 +262,18 @@
 			<foreach collection="cartNos" item="cartNo" open="(" separator="," close=")">
 				#{cartNo}
 			</foreach>
+	</update>
+
+	<update id="updateCart" parameterType="cartVO">
+	UPDATE CART SET
+		bnef_cd = #{bnefCd}
+		, gds_nm = #{gdsNm}
+		, gds_pc = #{gdsPc}
+		, ordr_pc = #{ordrPc}
+		, ordr_optn_pc = #{ordrOptnPc}
+		, gds_optn_no = #{gdsOptnNo}
+	WHERE cart_no = #{cartNo}
+
 	</update>
 
 

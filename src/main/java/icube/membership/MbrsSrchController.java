@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BootpayApiService;
@@ -48,7 +49,7 @@ public class MbrsSrchController extends CommonAbstractController{
 
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
-	
+
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
 
@@ -163,7 +164,7 @@ public class MbrsSrchController extends CommonAbstractController{
 		if(mbrSession.isLoginCheck()){
 			return  "redirect:/" + mainPath + "/index";
 		}
-		
+
 		return "/membership/info/srch_pswd";
 	}
 
@@ -215,11 +216,17 @@ public class MbrsSrchController extends CommonAbstractController{
 
 
 			if(mbrVO != null) {
-				mbrSession.setParms(mbrVO, false);
-				session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
-				session.setMaxInactiveInterval(60*5);
+				// 간편 가입 회원 체크
+				if(!mbrVO.getJoinTy().equals("E")){
+					javaScript.setMessage("간편 회원가입 회원은 비밀번호 찾기를 이용하실 수 없습니다.");
+					javaScript.setLocation("/"+mainPath);
+				}else {
+					mbrSession.setParms(mbrVO, false);
+					session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
+					session.setMaxInactiveInterval(60*5);
 
-				javaScript.setLocation("/"+membershipPath+"/srchPswdConfirm");
+					javaScript.setLocation("/"+membershipPath+"/srchPswdConfirm");
+				}
 			}else {
 				javaScript.setMessage(getMsg("login.fail.find.pwsd"));
 				javaScript.setMethod("window.history.back()");
@@ -294,7 +301,25 @@ public class MbrsSrchController extends CommonAbstractController{
 		return new JavaScriptView(javaScript);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "checkEasyMbr.json")
+	public Map<String, Object> checkEasyMbr (
+			@RequestParam(value = "mbrId", required=true) String mbrId
+			) throws Exception {
+		boolean result = true;
 
+		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+
+		if(mbrVO != null) {
+			if(!EgovStringUtil.equals("E", mbrVO.getJoinTy())) {
+				result = false;
+			}
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
 
 
 }

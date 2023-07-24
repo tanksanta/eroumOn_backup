@@ -49,6 +49,7 @@ import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
+import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
@@ -67,6 +68,9 @@ public class MGdsController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
+
+	@Resource(name = "cartService")
+	private CartService cartService;
 
 	@Resource(name = "gdsCtgryService")
 	private GdsCtgryService gdsCtgryService;
@@ -358,6 +362,13 @@ public class MGdsController extends CommonAbstractController {
 				}
 			}
 			gdsOptnService.registerGdsOptn(aditOptnItemList);
+
+			// 장바구니 업데이트
+			// TODO 옵션이 없다가 생겼을 경우, 옵션이 있다가 없어질 경우 장바구니에 있는 상품은?
+			if(gdsVO.getCrud().equals(CRUD.UPDATE)) {
+				cartService.updateMbrCart(gdsVO);
+			}
+
 			// END 관련상품
 		}else {
 			javaScript.setMessage(getMsg("alert.author.common"));
