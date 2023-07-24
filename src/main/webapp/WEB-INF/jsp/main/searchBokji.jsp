@@ -147,74 +147,6 @@
 	<!-- //서비스 본문(복지시설) -->
 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${_kakaoScriptKey}&libraries=services,clusterer,drawing"></script>
-	<script>
-      $(function() {
-          var page = 1;
-          var pageT = 15;
-      //아이템 선택
-      $('.service-select .select-item').on('click', function() {
-          $(this).toggleClass('is-active');
-          return false;
-      });
-
-      $('.service-select .nav-link').on('click', function() {
-          $(this).closest('.service-select').addClass('is-active');
-      });
-
-      $('.service-select .toggle').on('click', function() {
-          $(this).closest('.service-select').toggleClass('is-active');
-      });
-
-      //지도 생성
-      var map = new kakao.maps.Map(document.getElementById('map'), {
-          center: new kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3
-      });
-
-      //마커 생성
-      var imageSrc    = '/html/page/index/assets/images/img-welfare-marker-members.svg', //파트너스 img-welfare-marker-members.svg
-          imageSize   = new kakao.maps.Size(34, 42),
-          imageOption = {offset: new kakao.maps.Point(16, 46)};
-
-      var markerImage     = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-          markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
-
-      var marker = new kakao.maps.Marker({
-          position : markerPosition,
-          image    : markerImage
-      });
-
-      marker.setMap(map);
-
-      //맵 오버레이 파트너스일경우 is-members 추가
-      var ovContent = '<div class="service-overlay is-members">' +
-                      '<div class="name">' +
-                      '<strong>트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점트윈시티점</strong>' +
-                      '<div class="close" onclick="closeOverlay()">닫기</div>' +
-                      '</div>' +
-                      '<p class="addr">서울특별시 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366 용산구 한강대로366</p>' +
-                      '<a class="call" href="tel:02-2423-6331">02-2423-6331</a>' +
-                      '</div>';
-
-      overlay = new kakao.maps.CustomOverlay({
-          content: ovContent,
-          map: map,
-          yAnchor: 1.25,
-          position: marker.getPosition()
-      });
-
-      overlay.setMap(null);
-
-      //오버레이 이벤트
-      kakao.maps.event.addListener(marker, 'click', function() {
-          overlay.setMap(map);
-      });
-
-      function closeOverlay() {
-          overlay.setMap(null);
-      }
-      });
-  </script>
 </div>
 
 
@@ -226,6 +158,8 @@ function resizeHandler() {
 }
 
 $(function(){
+    var page = 1;
+    var pageT = 15;
 
 	var curPage = 1;
 	var cntPerPage = 8;
@@ -247,6 +181,19 @@ $(function(){
 	}, false);
 	resizeHandler();
 
+    //아이템 선택
+    $('.service-select .select-item').on('click', function() {
+        $(this).toggleClass('is-active');
+        return false;
+    });
+
+    $('.service-select .nav-link').on('click', function() {
+        $(this).closest('.service-select').addClass('is-active');
+    });
+
+    $('.service-select .toggle').on('click', function() {
+        $(this).closest('.service-select').toggleClass('is-active');
+    });
 
     $('.welfare-service-menu .btn').on('click', function() {
     	f_srchInstList();
@@ -633,7 +580,7 @@ function addListItem(){
     				html += '        <p class="name">'+ item.bplcNm +'</p>';
     				html += '    	 <p class="addr">'+ item.addr +' ' + item.daddr  +'</p>';
     				html += '        <p class="call">'+ item.telno +'</p>';
-    				html += '    </a>';
+    				html += '    </div>';
     			});
 			}else if(srchMode == "BOKJI"){
     			$.each( objData, function( index, item ) {
@@ -687,11 +634,11 @@ function kakaoMapDraw(){
         			datas = {
         				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lot)),
         				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lot) - centerLng),
-        				content: ' <a class="service-item is-members" href="#">' +
-		                         '		<p class="name">'+ item.bplcNm +'</strong>' +
+        				content: ' <div class="service-overlay is-members">' +
+		                         '		<p class="name"><strong>'+ item.bplcNm +'</strong></p>' +
 		                         '		<p class="addr">'+ item.addr +' '+ item.daddr  +'</p>' +
 		                         '		<a class="call" href="tel:'+ item.telno +'">'+ item.telno +'</a>' +
-		                         '</a>',
+		                         '</div>',
         				title: item.bplcNm
         			}
 
@@ -699,11 +646,11 @@ function kakaoMapDraw(){
     				datas = {
         				latlng: new kakao.maps.LatLng(Number(item.lat), Number(item.lng)),
         				center: new kakao.maps.LatLng(Number(item.lat) + centerLat, Number(item.lng) - centerLng),
-        				content: '<a class="service-item" href="#">' +
-		                         '		<p class="name">'+ item.institutionName +'</strong>' +
+        				content: '<div class="service-overlay">' +
+		                         '		<p class="name"><strong>'+ item.institutionName +'</strong></p>' +
 		                         '		<p class="addr">'+ item.address  +'</p>' +
 		                         '		<a class="call" href="tel:'+ item.contactNumber +'">'+ item.contactNumber +'</a>' +
-		                         '</a>',
+		                         '</div>',
         				title: item.institutionName
 	        			}
     			}
