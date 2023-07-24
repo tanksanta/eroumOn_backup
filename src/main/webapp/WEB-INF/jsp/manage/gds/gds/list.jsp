@@ -126,7 +126,7 @@
                         <col class="w-28">
 						<col class="w-30">
                         <col class="w-32">
-                        <col>
+                        <col class="w-32">
                         <col class="w-26">
 						<col class="w-26">
 						<col class="w-26">
