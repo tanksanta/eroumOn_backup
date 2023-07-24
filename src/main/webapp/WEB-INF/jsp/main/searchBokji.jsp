@@ -580,7 +580,7 @@ function addListItem(){
     				html += '        <p class="name">'+ item.bplcNm +'</p>';
     				html += '    	 <p class="addr">'+ item.addr +' ' + item.daddr  +'</p>';
     				html += '        <p class="call">'+ item.telno +'</p>';
-    				html += '    </div>';
+    				html += '    </a>';
     			});
 			}else if(srchMode == "BOKJI"){
     			$.each( objData, function( index, item ) {
