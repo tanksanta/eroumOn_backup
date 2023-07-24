@@ -18,10 +18,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.framework.view.JavaScript;
+import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailFormService;
 import icube.common.util.Base64Util;
 import icube.common.util.DateUtil;
@@ -290,7 +293,7 @@ public class OrdrController extends CommonAbstractController{
 	 * 급여 주문 > 사업소 요청 (SAVE)
 	 */
 	@RequestMapping(value = "ordrRqstAction")
-	public String ordrRqstAction(OrdrVO ordrVO
+	public View ordrRqstAction(OrdrVO ordrVO
 			, @RequestParam(value = "ordrDtlCd", required = true) String ordrDtlCd
 			, @RequestParam(value = "gdsNo", required = true) String gdsNo
 			, @RequestParam(value = "gdsCd", required = true) String gdsCd
@@ -310,46 +313,41 @@ public class OrdrController extends CommonAbstractController{
 			, HttpSession session
 			, Model model
 			) throws Exception {
-
+		
+		JavaScript javaScript = new JavaScript();
+		
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			javaScript.setLocation("/" + marketPath + "/login");
+			return new JavaScriptView(javaScript);
 		}
 
 		//double-submit-preventer
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
-
-			List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
-
-			ArrayList<Map<String, Object>> ordrList = new ArrayList<>();
-
-			if(!ordrVO.getOrdrTy().equals("N") && ordrDtlList.size() > 0) {
-
-				for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
-					Map<String, Object> gdsInfoMap = updateBplcInfoApiService.confirmOrdrRqst(ordrDtlVO);
-					ordrList.add(gdsInfoMap);
+			try {
+				//급여 주문
+				List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdrForRecipter(ordrVO, reqMap, request);
+				
+				model.addAttribute("ordrDtlList", ordrDtlList);
+				model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+				
+				javaScript.setLocation("/" + marketPath + "/ordr/ordrRqstDone/" + ordrVO.getOrdrCd());
+				return new JavaScriptView(javaScript);
+			} catch (Exception ex) {
+				
+				String msg = ex.getMessage();
+				if (EgovStringUtil.isEmpty(msg)) {
+					msg = "주문 요청에 실패하였습니다.";					
 				}
-				try {
-					// 1.5 -> 1.0 주문정보 송신
-					String returnData = updateBplcInfoApiService.putEroumOrdrInfo(ordrVO.getOrdrCd(), ordrList);
-
-					// 송신 상태 업데이트
-					ordrService.updateOrdrByMap(ordrVO, returnData, "ordrSend");
-
-				}catch(Exception e) {
-					e.printStackTrace();
-					log.debug("ordrRqstAction Error : " + e.toString());
-				}
+				
+				javaScript.setMessage(msg);
+				javaScript.setMethod("history.go(-2)");
+				return new JavaScriptView(javaScript);
 			}
-
-			model.addAttribute("ordrDtlList", ordrDtlList);
-			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-
-			return "redirect:/" + marketPath + "/ordr/ordrRqstDone/" + ordrVO.getOrdrCd();
-
-			}else {
-				return "redirect:/" + marketPath;
-			}
+		} else {
+			javaScript.setLocation("/" + marketPath);
+			return new JavaScriptView(javaScript);
+		}
 	}
 
 	/**

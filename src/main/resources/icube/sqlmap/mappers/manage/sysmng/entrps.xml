@@ -85,12 +85,20 @@
 		<include refid="searchConditions"/>
 	</select>
 
-		<select id="selectEntrps" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
+	<select id="selectEntrps" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
 		/* Query ID : entrps.xml > selectEntrps */
 		SELECT
 		<include refid="listColumn"/>
 		FROM	ENTRPS
 		WHERE  entrps_no = #{entrpsNo}
+	</select>
+	
+	<select id="selectEntrpsByGdsNo" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
+		/* Query ID : entrps.xml > selectEntrpsByGdsNo */
+		SELECT E.entrps_no, E.entrps_nm
+		FROM   ENTRPS E
+		JOIN   GDS G  ON E.entrps_no = G.entrps_no
+		WHERE  G.gds_no = #{srchGdsNo}
 	</select>
 
 	<insert id="insertEntrps" parameterType="entrpsVO">

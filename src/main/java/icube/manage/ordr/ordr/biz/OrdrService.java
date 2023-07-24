@@ -27,6 +27,7 @@ import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
@@ -35,6 +36,8 @@ import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.promotion.point.biz.MbrPointVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Service("ordrService")
@@ -70,8 +73,15 @@ public class OrdrService extends CommonAbstractServiceImpl {
 	@Resource(name = "updateBplcInfoApiService")
 	private UpdateBplcInfoApiService updateBplcInfoApiService;
 
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
+	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	@Resource(name = "ordrService")
+	private OrdrService ordrService;
+	
 
 	JSONParser jsonParser = new JSONParser();
 
@@ -202,10 +212,25 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			ordrDtlVO.setOrdrNo(ordrVO.getOrdrNo());
 			ordrDtlVO.setOrdrCd(ordrVO.getOrdrCd());
 			ordrDtlVO.setOrdrDtlCd(ordrDtlCd.split(",")[i].trim());
-			ordrDtlVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+			
+			int dtlGdsNo = EgovStringUtil.string2integer(gdsNo.split(",")[i].trim());
+			
+			// 상품 정보
+			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+			// 상품에 대한 입점업체정보 조회
+			EntrpsVO entrpsVO = entrpsService.selectEntrpsByGdsNo(dtlGdsNo);
+			
+			ordrDtlVO.setGdsNo(dtlGdsNo);
 			ordrDtlVO.setGdsCd(gdsCd.split(",")[i].trim());
 			ordrDtlVO.setGdsNm(gdsNm.split(",")[i].trim());
 			ordrDtlVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+			ordrDtlVO.setGdsSupPc(gdsVO.getSupPc());
+			if (entrpsVO != null) {
+				ordrDtlVO.setEntrpsNo(entrpsVO.getEntrpsNo());
+			}
+			if (entrpsVO != null) {
+				ordrDtlVO.setEntrpsNm(entrpsVO.getEntrpsNm());
+			}
 			ordrDtlVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			ordrDtlVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
@@ -222,8 +247,30 @@ public class OrdrService extends CommonAbstractServiceImpl {
 				ordrDtlVO.setBnefCd("");
 			}
 
-			if(EgovStringUtil.isNotEmpty(ordrOptn)) {
-				ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+			
+			String ordrDtlOptnNm = "";
+			if (EgovStringUtil.isNotEmpty(ordrOptn)) {
+				ordrDtlOptnNm = ordrOptn.split(",")[i].trim();
+			}
+			
+			if (EgovStringUtil.isNotEmpty(ordrDtlOptnNm)) {
+				ordrDtlVO.setOrdrOptn(ordrDtlOptnNm);
+				
+				//옵션이면 옵션 품목코드 입력
+				GdsOptnVO optn = null;
+				if ("BASE".equals(ordrDtlVO.getOrdrOptnTy())) {
+					optn = gdsVO.getOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				} else {
+					optn = gdsVO.getAditOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				}
+				
+				if (optn != null) {
+					ordrDtlVO.setOptnItemCd(optn.getOptnItemCd());
+				}
+			}
+			//옵션이 아니면 상품 품목코드 입력
+			else {
+				ordrDtlVO.setGdsItemCd(gdsVO.getItemCd());
 			}
 
 			if(EgovStringUtil.isNotEmpty(accmlMlg)) {
@@ -274,8 +321,6 @@ public class OrdrService extends CommonAbstractServiceImpl {
 				ordrDtlVO.setSttsTy("OR01");
 			}
 
-			// 상품 정보
-			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
 			ordrDtlVO.setGdsInfo(gdsVO);
 			ordrDtlService.insertOrdrDtl(ordrDtlVO);
 
@@ -355,6 +400,15 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		ordrDAO.updateStlmAmt(ordrVO);
 	}
 
+	//사용 마일리지 수정
+	public void updateUseMlg (OrdrVO ordrVO) throws Exception {
+		ordrDAO.updateUseMlg(ordrVO);
+	}
+	
+	//사용 포인트 수정
+	public void updateUsePoint (OrdrVO ordrVO) throws Exception {
+		ordrDAO.updateUsePoint(ordrVO);
+	}
 
 	// 단계별 카운트
 	public Map<String, Integer> selectSttsTyCnt(Map<String, Object> paramMap) throws Exception {
@@ -432,4 +486,41 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		return ordrDAO.selectOrdrListAll(paramMap);
 	}
 
+	// 급여 주문 정보 저장 및 이로움1.0 사업소에 주문
+	public List<OrdrDtlVO> insertOrdrForRecipter(OrdrVO ordrVO
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request) throws Exception {
+		
+		List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
+
+		ArrayList<Map<String, Object>> ordrList = new ArrayList<>();
+
+		if(!ordrVO.getOrdrTy().equals("N") && ordrDtlList.size() > 0) {
+
+			for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
+				Map<String, Object> gdsInfoMap = updateBplcInfoApiService.confirmOrdrRqst(ordrDtlVO);
+				ordrList.add(gdsInfoMap);
+			}
+			
+			// 1.5 -> 1.0 주문정보 송신
+			String returnData = updateBplcInfoApiService.putEroumOrdrInfo(ordrVO.getOrdrCd(), ordrList);
+
+			// -- start : 1.0 사업소 주문에 실패한 경우 --
+			if (EgovStringUtil.isEmpty(returnData)) {
+				throw new Exception("사업소 주문에 문제가 발생하였습니다.");
+			}
+			Object obj = jsonParser.parse(returnData);
+			JSONObject jsonObj = (JSONObject)obj;
+			String code = (String)jsonObj.get("code");
+			if (!"200".equals(code)) {
+				throw new Exception((String)jsonObj.get("message"));
+			}
+			// -- end : 1.0 사업소 주문에 실패한 경우 --
+			
+			// 송신 상태 업데이트
+			ordrService.updateOrdrByMap(ordrVO, returnData, "ordrSend");
+		}
+		
+		return ordrDtlList;
+	}
 }

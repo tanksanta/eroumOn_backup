@@ -213,7 +213,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		request.setAttribute("_membershipPath", "/" + membershipPath);
 		request.setAttribute("_plannerPath", "/" + plannerPath);
 		request.setAttribute("_mainPath", "/" + mainPath);
-
 		request.setAttribute("_curPath", curPath);
 
 		// 팝업
