@@ -66,6 +66,10 @@
 						</form:select>
 					</td>
 				</tr>
+				<tr class="banner_color" <c:if test="${bnnrMngVO.bannerTy eq 'M'}">style="display:none;"</c:if>>
+					<th scope="row"><label for="color" class="require">배너 색상</label></th>
+					<td><input type="color" class="form-control w-30" id="color" name="color" value="${bnnrMngVO.color}"/></td>
+				</tr>
 				<tr>
 					<th scope="row"><label for="form-item7" class="require">배너 이미지(PC)</label></th>
 					<td><c:forEach var="fileList" items="${bnnrMngVO.pcFileList }" varStatus="status">
@@ -224,9 +228,11 @@ $(function(){
 		if($("#bannerTy").val() == "S"){
 			$(".mobileText").text(mobileTextMsg);
 			$("#mobile").removeClass("require");
+			$(".banner_color").show();
 		}else{
 			$(".mobileText").text(pcTextMsg);
 			$("#mobile").addClass("require");
+			$(".banner_color").hide();
 		}
 	});
 
@@ -316,6 +322,18 @@ $(function(){
 		}
 	}, "파일은 필수 입력 항목입니다.");
 
+	$.validator.addMethod("colorCheck", function(value,element){
+		if($("#bannerTy").val() == "S"){
+			if($("#color").val() != ''){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return true;
+		}
+	}, "띠배너 백그라운드 색상은 필수 입력 항목입니다.");
+
 	$("form#bannerFrm").validate({
 	    ignore: "input[type='text']:hidden",
 	    rules : {
@@ -323,7 +341,8 @@ $(function(){
 	    	bgngDt : { dtValidate : true, SizeValidate : true},
 	    	linkUrl : {required : true},
 	    	pcFile0 : {filechk : true},
-	    	mobileFile0 : {mobileFilechk : true}
+	    	mobileFile0 : {mobileFilechk : true},
+	    	color : {colorCheck : true}
 	    },
 	    messages : {
 	    	bannerNm : { required : "제목은 필수 입력 항목 입니다."},
@@ -333,12 +352,9 @@ $(function(){
 	 		var arrUpdateDc = [];
     		$("input[data-update-dc]").each(function(){
 	    		arrUpdateDc.push($(this).attr("name"));
-	    		console.log(arrUpdateDc);
 	    	});
 	    	if(arrUpdateDc.length>0){
-	    		console.log(arrUpdateDc.join(","));
 		    	$("input#updtImgFileDc").val(arrUpdateDc.join(","));
-		    	console.log($("input#updtImgFileDc").val());
 	    	}
 	    	if(confirm("저장 하시겠습니까?")){
 		    	frm.submit();
