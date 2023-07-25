@@ -277,7 +277,7 @@
 		</fieldset>
 
 
-		<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchYn=${param.srchYn}&amp;sortBy=${param.sortBy}" />
+		<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchUseYn=${param.srchUseYn}&amp;sortBy=${param.sortBy}" />
 		<div class="btn-group mt-8 right">
 			<button type="submit" class="btn-primary large shadow">저장</button>
 			<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>

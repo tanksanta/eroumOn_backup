@@ -52,7 +52,6 @@
 		</div>
 	</form>
 
-	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchUseYn=${param.srchUseYn}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
 	<p class="text-title2 mt-13">메인 목록<br />
 	<btn class="btn btn-library" type="button" id="choose_delete">선택 삭제</btn>
 	<btn class="btn btn-library" type="button" id="sort_save">노출순서 저장</btn>
@@ -86,6 +85,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
+			<c:set var="pageParam" value="mainNo=${resultList.mainNo}&amp;curPage=${listVO.curPage}&amp;srchText=${param.srchText}&amp;srchUseYn=${param.srchUseYn}&amp;cntPerPage=${param.cntPerPage}&amp;sortBy=${param.sortBy}" />
 				<tr>
 					<td>
 						<div class="form-check">
@@ -99,7 +99,7 @@
 					</td>
 					<td>${mainTyCode[resultList.themaTy]}</td>
 					<td>
-						<a href="./form?mainNo=${resultList.mainNo}">${resultList.sj}</a>
+						<a href="./form?${pageParam}">${resultList.sj}</a>
 					</td>
 					<td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${useYnCode[resultList.useYn]}</td>
@@ -134,6 +134,7 @@
 		</div>
 	</div>
 
+	<c:set var="pageParam" value="curPage=${listVO.curPage}&amp;srchText=${param.srchText}&amp;srchUseYn=${param.srchUseYn}&amp;cntPerPage=${param.cntPerPage}&amp;sortBy=${param.sortBy}" />
 	<div class="btn-group right mt-8">
 		<a href="./form?${pageParam}" class="btn-primary large shadow">등록</a>
 	</div>
