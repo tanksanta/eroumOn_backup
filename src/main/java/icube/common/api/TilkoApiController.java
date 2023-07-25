@@ -40,9 +40,7 @@ public class TilkoApiController {
 		returnMap.put("isSearch", false);
 		
 		if (mbrSession.isLoginCheck()) {
-			if (!"Y".equals(mbrSession.getRecipterYn())) {
-				returnMap.put("msg", "수급자 회원이 아닙니다.");
-			} else if (!mbrNm.equals(mbrSession.getMbrNm())) {
+			if (!mbrNm.equals(mbrSession.getMbrNm())) {
 				returnMap.put("msg", "본인 명의만 조회가 가능합니다.");
 			} else {
 				//수급자 본인인 경우만 조회가능

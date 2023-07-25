@@ -543,9 +543,13 @@ $(function(){
 			dataType : 'json'
 		})
 		.done(function(json) {
+            if(!json.isSearch) {
+                alert(json.msg);
+                return;
+            }
+			
 			if(json.result){
 				$("#wrapInfo").show();
-
 
 				$("#searchNm").text($("#recipter").val());
 				$("#searchNo").text("L"+$("#rcperRcognNo").val());
