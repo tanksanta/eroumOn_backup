@@ -2,6 +2,7 @@ package icube.manage.gds.gds;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -80,7 +81,7 @@ public class MGdsController extends CommonAbstractController {
 
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
-	
+
 	@Resource(name = "mkrService")
 	private MkrService mkrService;
 
@@ -106,11 +107,42 @@ public class MGdsController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request);
 		String srchUseYn = EgovStringUtil.null2string((String) reqMap.get("srchUseYn"), "Y");
 		listVO.setParam("srchUseYn", srchUseYn);
-		listVO = gdsService.gdsListVO(listVO);
 
+		int upCtgryNo = 0;
+		HashSet<String> ctgryNos = new HashSet<>();
 
 		//카테고리 호출
-		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(1);
+		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(-1, "Y");
+
+		for(int i=1; i<4; i++) {
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"+i))) {
+				if(EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i)) > 0) {
+					upCtgryNo = EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i));
+				}
+			}
+		}
+
+		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
+
+		if(currentCategory != null) {
+			if(currentCategory.getChildList().size() > 0) {
+				for(GdsCtgryVO gdsCtgryVO : currentCategory.getChildList()) {
+					for(GdsCtgryVO gdsCtgryChildVO : gdsCtgryVO.getChildList()) {
+							for(GdsCtgryVO gdsCtgryChild2VO : gdsCtgryChildVO.getChildList()) {
+								ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChild2VO.getCtgryNo()));
+							}
+							ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChildVO.getCtgryNo()));
+					}
+					ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryVO.getCtgryNo()));
+				}
+			}else{
+				ctgryNos.add(EgovStringUtil.integer2string(upCtgryNo));
+			}
+			listVO.setParam("srchCtgryNos", ArrayUtil.stringToArray(ctgryNos.toString().replace("[", "").replace("]", "")));
+		}
+
+		listVO = gdsService.gdsListVO(listVO);
+
 		model.addAttribute("gdsCtgryList", gdsCtgryList);
 
 		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
@@ -122,6 +154,7 @@ public class MGdsController extends CommonAbstractController {
 
 		return "/manage/gds/gds/list";
 	}
+
 
 
 	@RequestMapping(value="form")
@@ -191,7 +224,7 @@ public class MGdsController extends CommonAbstractController {
 		//입점업체 호출
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
 		model.addAttribute("entrpsList", entrpsList);
-		
+
 		//제조사 호출
 		List<MkrVO> mkrList = mkrService.selectMkrListAll();
 		model.addAttribute("mkrList", mkrList);
@@ -458,7 +491,7 @@ public class MGdsController extends CommonAbstractController {
 				gdsVo.setItemCd(gdsVo.getOptnItemCd());
 				gdsVo.setGdsNm(gdsVo.getGdsNm() + "(" + gdsVo.getOptnNm() + ")");
 				gdsVo.setStockQy(gdsVo.getOptnStockQy());
-				
+
 				//옵션의 사용여부 구하기
 				String useYn = "";
 				if ("BASE".equalsIgnoreCase(gdsVo.getOptnTy())) {

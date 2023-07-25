@@ -1018,7 +1018,7 @@
 						</c:if>
                     	<button type="button" class="btn-success large shadow tempSave">임시저장</button>
                         <button type="submit" class="btn-primary large shadow saveGds">저장</button>
-                        <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchAllCtgryNo=${param.srchAllCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}" />
+                        <c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchTarget=${param.srchTarget}&amp;srchText=${param.srchText}&amp;srchGdsCd=${param.srchGdsCd}&amp;srchBnefCd=${param.srchBnefCd}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchAllCtgryNo=${param.srchAllCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}&amp;srchGdsTag=${fn:replace(param.srchGdsTag, '|', '%7C')}&amp;ctgryNo1=${param.ctgryNo1}&amp;ctgryNo2=${param.ctgryNo2}&amp;ctgryNo3=${param.ctgryNo3}&amp;ctgryNo4=${param.ctgryNo4}" />
 	                    <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
                 </form:form>

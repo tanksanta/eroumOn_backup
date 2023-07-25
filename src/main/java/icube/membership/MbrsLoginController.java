@@ -236,11 +236,17 @@ public class MbrsLoginController extends CommonAbstractController  {
 	public String logout(
 			HttpServletRequest request,
 			HttpServletResponse response,
+			@RequestParam(value = "returnUrl", required=false) String returnUrl,
 			HttpSession session) throws Exception {
 
 		session.invalidate();
 
-		return "redirect:/"+ mainPath;
+		if(EgovStringUtil.isNotEmpty(returnUrl)) {
+			return "redirect:"+returnUrl;
+		}else {
+			return "redirect:/"+ mainPath;
+		}
+
 	}
 
 

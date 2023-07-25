@@ -22,6 +22,7 @@ import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.market.mbr.biz.MbrSession;
+import icube.market.srch.biz.SrchLogService;
 
 /**
  * 마켓 > 상품 검색
@@ -34,6 +35,9 @@ public class SrchController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
+
+	@Resource(name = "srchLogService")
+	private SrchLogService srchLogService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -64,6 +68,15 @@ public class SrchController extends CommonAbstractController {
 		paramMap.put("srchKwd", srchKwd);
 		List<String> resultCtgryGrpList = gdsService.selectGdsCtgryGrp(paramMap);
 		List<String> resultGdsTyGrpList = gdsService.selectGdsTyGrp(paramMap);
+
+		// 검색 로그 기록
+		String referer = (String)request.getHeader("REFERER");
+		if(EgovStringUtil.isNotEmpty(kwd.split("\\?")[0])) {
+			Map<String, Object> logMap = new HashMap<String, Object>();
+			logMap.put("referer", referer.split("\\?")[0]);
+			logMap.put("kwd", kwd.split("\\?")[0]);
+			srchLogService.registSrchLog(logMap);
+		}
 
 		model.addAttribute("resultCtgryGrpList", resultCtgryGrpList);
 		model.addAttribute("resultGdsTyGrpList", resultGdsTyGrpList);
