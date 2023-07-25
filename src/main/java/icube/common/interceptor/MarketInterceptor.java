@@ -253,6 +253,8 @@ public class MarketInterceptor implements HandlerInterceptor {
 			//기타
 			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 			request.setAttribute("_activeMode", activeMode.toUpperCase());
+		} catch (ModelAndViewDefiningException ex) {
+			throw ex;
 		} catch (Exception ex) {
 			log.error("============= 마켓 인터셉터 오류 ================", ex);
 		}
