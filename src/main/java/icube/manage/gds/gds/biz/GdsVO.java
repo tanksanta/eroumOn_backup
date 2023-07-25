@@ -100,6 +100,7 @@ public class GdsVO extends CommonBaseVO {
 	private String seoDesc;
 	private String seoKeyword;
 	private String memo;
+	private String keyword;
 
 	private String dspyYn = "Y";
 	private int inqcnt = 0;

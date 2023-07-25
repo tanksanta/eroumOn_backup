@@ -83,13 +83,15 @@
                                 </td>
                                 <th scope="row"><label for="srchUpCtgryNo">카테고리</label></th>
                                 <td>
-                                	<input type="hidden" id="srchAllCtgryNo" name="srchAllCtgryNo" value="${param.srchAllCtgryNo}" />
+                                	<!-- <input type="hidden" id="srchAllCtgryNo" name="srchAllCtgryNo" value="${param.srchAllCtgryNo}" /> -->
 
                                     <div class="form-group w-full">
                                         <select name="ctgryNo1" id="ctgryNo1" class="form-control w-32">
                                             <option value="0">전체</option>
                                         <c:forEach items="${gdsCtgryList}" var="ctgryList" varStatus="status">
-                                        	<option value="${ctgryList.ctgryNo}" ${param.ctgryNo1 eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
+                                        	<c:if test="${ctgryList.levelNo eq  2}">
+                                        		<option value="${ctgryList.ctgryNo}" ${param.ctgryNo1 eq ctgryList.ctgryNo?'selected="selected"':''}>${ctgryList.ctgryNm}</option>
+                                        	</c:if>
                                         </c:forEach>
 
                                         </select>
@@ -389,7 +391,7 @@
 										$("#ctgryNo"+(Number(sectionNo)+1)).append("<option value='"+ key +"'>"+ data[key] +"</option>");
 									}
                 				}
-                				$("#srchAllCtgryNo").val($("#ctgryNo"+Number(sectionNo)).val());
+                				//$("#srchAllCtgryNo").val($("#ctgryNo"+Number(sectionNo)).val());
                 				f_selectedOpt($("#ctgryNo"+Number(sectionNo)));
 
 
