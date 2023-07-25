@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="srch.log">
+
+	<resultMap type="srchLogVO" id="srchLogVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		srchwrd
+		, yy
+		, mt
+		, dd
+		, lc
+		, mber_se
+		, sexdstn
+	</sql>
+
+	<sql id="searchConditions" />
+
+	<insert id="insertSrchLog" parameterType="srchLogVO">
+		INSERT INTO SRCH_LOG (
+			srchwrd
+			, yy
+			, mt
+			, dd
+			, lc
+			, mber_se
+			, sexdstn
+		) VALUES (
+			#{srchwrd, jdbcType=VARCHAR}
+			, #{yy, jdbcType=VARCHAR}
+			, #{mt, jdbcType=VARCHAR}
+			, #{dd, jdbcType=VARCHAR}
+			, #{lc, jdbcType=VARCHAR}
+			, #{mberSe, jdbcType=VARCHAR}
+			, #{sexdstn, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+
+</mapper>
