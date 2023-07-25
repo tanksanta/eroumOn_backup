@@ -140,7 +140,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 			if(curPath.startsWith(matchPath)) {
 				System.out.println("matchPath: " + matchPath);
 				if(!mbrSession.isLoginCheck()) {
-					ModelAndView modelAndView = new ModelAndView("redirect:/"+membershipPath+"/login");
+					ModelAndView modelAndView = new ModelAndView("redirect:/"+membershipPath+"/login?returnUrl=/" + marketPath);
 					throw new ModelAndViewDefiningException(modelAndView);
 				}
 			}

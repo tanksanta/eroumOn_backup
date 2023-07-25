@@ -161,7 +161,17 @@
 				#{srchCtgryNo}
 			</foreach>
 			OR
+			gc2.up_ctgry_no IN
+			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+				#{srchCtgryNo}
+			</foreach>
+			OR
 			gc1.up_ctgry_no IN
+			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+				#{srchCtgryNo}
+			</foreach>
+			OR
+			gc2.up_ctgry_no IN
 			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
 				#{srchCtgryNo}
 			</foreach>

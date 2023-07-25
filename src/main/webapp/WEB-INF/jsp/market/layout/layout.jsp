@@ -78,7 +78,7 @@
 	            	<li><a href="${_membershipPath }/regist">회원가입</a></li>
                 </c:if>
                 <c:if test="${_mbrSession.loginCheck}">
-                	<li><a href="${_membershipPath}/logout">로그아웃</a></li>
+                	<li><a href="${_membershipPath}/logout?returnUrl=${_marketPath}">로그아웃</a></li>
                 </c:if>
                 <li><a href="${_marketPath}/etc/faq/list">고객센터</a></li>
             </ul>
