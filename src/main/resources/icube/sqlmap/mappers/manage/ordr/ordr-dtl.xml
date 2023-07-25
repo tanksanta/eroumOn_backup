@@ -173,7 +173,7 @@
 		<if test="srchContainer != null and srchContainer != '' ">
 			GROUP BY o.ordr_no
 		</if>
-		ORDER BY o.ordr_dtl_no DESC
+		ORDER BY od.ordr_dtl_no DESC
 	</select>
 
 	<!-- 특정 단계 제외 카운트 -->
