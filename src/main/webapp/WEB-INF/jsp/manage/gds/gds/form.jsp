@@ -1052,15 +1052,15 @@
 
                  		$("#ctgryNo"+ctNum+ " option").each(function(){
 							if(ctNum == 2){
-								if($(this).text() == "${path[2]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[2]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}else if(ctNum ==3 ){
-								if($(this).text() == "${path[3]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[3]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}else{
-								if($(this).text() == "${path[4]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[4]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}
