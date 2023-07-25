@@ -108,7 +108,7 @@
 						<label for="check${status.index}" class="form-input-label"></label>
 					</div>
 				</td>
-				<td>${listVO.startNo - status.index}</td>
+				<td>${resultList.bannerNo }</td>
 				<td>
 					<input type="text" id="sortNo${status.index}" name="item_sort" class="form-control text-center" value="${resultList.sortNo}" data-banner-no="${resultList.bannerNo}" />
 				</td>
