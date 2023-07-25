@@ -241,6 +241,10 @@ $(function(){
 					case "8" : $("#opt-item5").prop("checked",true);break;
 				}
 			}
+			$(":checkbox[name='category']:checked").each(function(){
+				selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
+			});
+			category = selCheckVal;
 		}else{
 			$(":checkbox[name='category']").each(function(){
 				selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
@@ -260,8 +264,7 @@ $(function(){
 	</c:if>
 
 	//$(".select-gugun button").text(gugun);
-
-    f_srchInstList();
+    //f_srchInstList();
     f_srchSrvcList(1);
 
   	// 시/군/구 검색
@@ -542,7 +545,6 @@ function f_srchInstList(){
 		.done(function(json) {
 			var instCnt = Number(json.bplcCnt);
 			var bplcCnt = Number(json.instCnt);
-
 			if($(".welfare-service-map").hasClass("is-active")){
 				if(srchMode == "LOCATION"){
 					objData = json.bplcList;
