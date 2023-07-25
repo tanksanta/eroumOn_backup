@@ -24,16 +24,18 @@
 
 		</div>
 	</div>
-	<div class="swiper-control">
-		<div class="swiper-control-container">
-			<div class="swiper-button">
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-toggle"></div>
-				<div class="swiper-button-next"></div>
+	<c:if test="${fn:length(mainBannerList) ne 0}">
+		<div class="swiper-control">
+			<div class="swiper-control-container">
+				<div class="swiper-button">
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-toggle"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+				<div class="swiper-pagination"></div>
 			</div>
-			<div class="swiper-pagination"></div>
 		</div>
-	</div>
+	</c:if>
 </div>
 
 <c:forEach var="gdsMainList" items="${mainMngList}" >
