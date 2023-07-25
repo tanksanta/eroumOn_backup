@@ -35,7 +35,6 @@ import icube.manage.sysmng.menu.biz.MngMenuVO;
 import icube.manage.sysmng.usermenu.biz.MngUserMenuService;
 import icube.market.mbr.biz.MbrSession;
 import icube.market.srch.biz.SrchKwdCookieHandler;
-import icube.market.srch.biz.SrchLogService;
 
 /**
  * 마켓 인터셉터
@@ -65,9 +64,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 
 	@Resource(name = "mainMngService")
 	private MainMngService mainMngService;
-
-	@Resource(name = "srchLogService")
-	private SrchLogService srchLogService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -249,15 +245,6 @@ public class MarketInterceptor implements HandlerInterceptor {
 		SrchKwdCookieHandler.setKwdList(request, response, srchKwd);
 		List<String> cookieKwdList = SrchKwdCookieHandler.getKwdListByCookie(request, response);
 		request.setAttribute("_cookieKwdList", cookieKwdList);
-
-		// 검색 로그 기록
-		String referer = (String)request.getHeader("REFERER");
-		if(EgovStringUtil.isNotEmpty(srchKwd)) {
-			Map<String, Object> logMap = new HashMap<String, Object>();
-			logMap.put("referer", referer);
-			logMap.put("kwd", srchKwd.split("\\?")[0]);
-			srchLogService.registSrchLog(logMap);
-		}
 
 		//코드
 		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
