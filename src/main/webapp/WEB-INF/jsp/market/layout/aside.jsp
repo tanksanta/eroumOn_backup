@@ -2,7 +2,7 @@
 
 <!-- banner -->
 <c:forEach var="banner" items="${_bannerList}">
-	<aside id="banner" style="background-color : ${banner.color}">
+	<aside id="banner">
 		<div class="container">
 			<picture>
 			<c:forEach var="fileList" items="${banner.pcFileList }" end="1">
