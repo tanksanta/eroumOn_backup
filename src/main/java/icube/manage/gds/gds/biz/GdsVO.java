@@ -82,6 +82,7 @@ public class GdsVO extends CommonBaseVO {
 	private String dlvyCtStlm;
 	private int dlvyBassAmt = 0;
 	private int dlvyAditAmt = 0;
+	private String dlvyGroupYn;
 	private String dlvyDc;
 
 	//상품 이미지

@@ -720,6 +720,15 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th scope="row"><label for="dlvyAditAmt">묶음배송</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
+                                            <label class="form-check-label" for="dlvyGroupYn">사용</label>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </fieldset>

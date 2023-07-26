@@ -72,6 +72,8 @@
 									<input type="hidden" name="${cart.bplcInfo.uniqueId}_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
 									<input type="hidden" name="gdsTag" value="${cart.gdsInfo.gdsTagVal}" />
 									<input type="hidden" name="bnefCd" value="${cart.gdsInfo.bnefCd}" />
+									<input type="hidden" name="entrpsNo" value="${cart.gdsInfo.entrpsNo}" />
+									<input type="hidden" name="dlvyGroupYn" value="${cart.gdsInfo.dlvyGroupYn}" />
                                 </div>
 								<div class="order-item-thumb">
 									<c:choose>
@@ -379,6 +381,8 @@
 								<input type="hidden" name="L_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
 								<input type="hidden" name="gdsTag" value="${cart.gdsInfo.gdsTagVal}" />
 								<input type="hidden" name="bnefCd" value="${cart.gdsInfo.bnefCd}" />
+								<input type="hidden" name="entrpsNo" value="${cart.gdsInfo.entrpsNo}" />
+								<input type="hidden" name="dlvyGroupYn" value="${cart.gdsInfo.dlvyGroupYn}" />
 							</div>
 
 							<div class="order-product">
@@ -530,6 +534,8 @@
 					<input type="hidden" name="L_stlmPc" value="${nResultList[status.index+1].ordrPc + nResultList[status.index+1].gdsInfo.dlvyAditAmt + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
 					<input type="hidden" name="gdsTag" value="${nResultList[status.index+1].gdsInfo.gdsTagVal}" />
 					<input type="hidden" name="bnefCd" value="${nResultList[status.index+1].gdsInfo.bnefCd}" />
+					<input type="hidden" name="entrpsNo" value="${nResultList[status.index+1].gdsInfo.entrpsNo}" />
+					<input type="hidden" name="dlvyGroupYn" value="${nResultList[status.index+1].gdsInfo.dlvyGroupYn}" />
 				</div>
 
 				<div class="order-product">
@@ -629,6 +635,9 @@
 
 
 <script>
+//업체별 배송정책 정보리스트
+const entrpsDlvyList = ${entrpsDlvyList};
+
 function f_cartClick(params) {
 	let cartTy = params.get("cartTy");
 	let cartGrpNos = params.get("cartGrpNos");
@@ -651,87 +660,82 @@ function f_cartClick(params) {
 
 $(function() {
 	$(":checkbox").each(function(){
-		$(this).prop("checked",false);6
+		$(this).prop("checked",false);
 	});
-
+	
 	//(비급여) 전체선택
 	let totalGdsPc = 0;
 	let totalDlvyPc = 0;
 	let totalStlmPc = 0;
-	const nTotalCnt = $(":checkbox[name=cartGrpNo].cart_ty_N").length;
-	$(".f_checkAll")	.on("click",function() {
-		let isChecked = true;
+	
+	function priceCalculation() {
+		totalGdsPc = 0;
+		totalDlvyPc = 0;
+		totalStlmPc = 0;
+		
+		$("input[name='L_gdsPc']").each(function(){
+			const checkBox = $(this).siblings('.cart_ty_N')[0];
+			
+			if (checkBox.checked) {
+				const gdsPc = Number($(this).val());  //상품 가격
+				totalGdsPc += gdsPc; 
+				
+				//상품의 입점업체 정보
+				const entrpsNoInput = $(this).siblings('input[name=entrpsNo]');
+				//상품의 묶음배송 여부
+				const dlvyGroupYn = $(this).siblings('input[name=dlvyGroupYn]');
+				
+				if (entrpsNoInput[0] && dlvyGroupYn[0].value) {
+					const entrpsNo = Number(entrpsNoInput[0].value); //상품의 입점업체
+					const entrpsInfo = entrpsDlvyList.find(f => f.entrpsNo === entrpsNo);  //입점업체 배송정보가져오기
+					const dlvyBaseCt = entrpsInfo.dlvyBaseCt;  //입점업체의 기본 배송비
+					const L_dlvyPcInput = $(this).siblings('input[name=L_dlvyPc]')[0];
+					const dlvyCt = Number(L_dlvyPcInput.value);  //해당 상품의 배송비
 
-		if (nTotalCnt == $(":checkbox[name=cartGrpNo].cart_ty_N:checked").length) {
-			isChecked = false;
-			totalGdsPc = 0;
-			totalDlvyPc = 0;
-			totalStlmPc = 0;
-		} else {
-			isChecked = true;
-			$("input[name='L_gdsPc']").each(function(){totalGdsPc += Number($(this).val());});
-			$("input[name='L_dlvyPc']").each(function(){totalDlvyPc += Number($(this).val());});
-			$("input[name='L_stlmPc']").each(function(){totalStlmPc += Number($(this).val());});
-		}
-
-		$(":checkbox[name=cartGrpNo].cart_ty_N").prop("checked", isChecked);
+					//입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
+					if (dlvyBaseCt != dlvyCt) {
+						totalDlvyPc += dlvyCt;
+					}
+					//묶음상품이여도 최초에 한번 배송비 부과
+					else if (!entrpsInfo.firstCheck) {
+						totalDlvyPc += dlvyCt;
+						entrpsInfo.firstCheck = true;
+					}
+				} else {
+					const L_dlvyPcInput = $(this).siblings('input[name=L_dlvyPc]')[0];
+					const dlvyCt = Number(L_dlvyPcInput.value);  //해당 상품의 배송비
+					totalDlvyPc += Number(dlvyCt);
+				}
+			}
+		});
+	}
+	
+	//전체 체크박스
+	let isFullChecked = false;
+	$(".f_checkAll").on("click", function() {
+		isFullChecked = !isFullChecked;
+        $(":checkbox[name=cartGrpNo].cart_ty_N").prop("checked", isFullChecked);
 		$(":checkbox[name=cartGrpNo].cart_ty_N").parents(".order-checkitem").find(".order-product").removeClass("is-active");
 		$(":checkbox[name=cartGrpNo].cart_ty_N:checked").parents(".order-checkitem").find(".order-product").addClass("is-active");
 
+		priceCalculation();
+		
 		$(".L_totalGdsPc").text(comma(totalGdsPc));
 		$(".L_totalDlvyPc").text(comma(totalDlvyPc));
-		$(".L_totalStlmPc").text(comma(totalStlmPc));
+        $(".L_totalStlmPc").text(comma(totalGdsPc + totalDlvyPc));
+        entrpsDlvyList.forEach(e => e.firstCheck = null);
 	});
 
 
-
-
 	//체크박스(비급여)
-	$(".cart_ty_N")	.on("click",function() {
-		let isChecked = $(this).is(":checked");
-		let gdsPc = $(this).siblings("input[name='L_gdsPc']").val();
-		let dlvyPc = $(this).siblings("input[name='L_dlvyPc']").val();
-		let stlmPc = $(this).siblings("input[name='L_stlmPc']").val();
-
-		$(this).prop("checked", isChecked);
-
-		$(".cart_ty_R").each(function(){
-			$(this).prop("checked",false);
-		});
-
-		if (isChecked) {
-			$(this).parents(".order-checkitem").find(".order-product").addClass("is-active");
-			totalGdsPc = Number(totalGdsPc) + Number(gdsPc);
-			totalDlvyPc = Number(totalDlvyPc)+ Number(dlvyPc);
-			totalStlmPc = Number(totalStlmPc)+ Number(stlmPc);
-			} else {
-				$(this).parents(".order-checkitem").find(".order-product").removeClass("is-active");
-				totalGdsPc = Number(totalGdsPc) - Number(gdsPc);
-				totalDlvyPc = Number(totalDlvyPc) - Number(dlvyPc);
-				totalStlmPc = Number(totalStlmPc) - Number(stlmPc);
-				}
-		if ($(":checkbox[name='cartGrpNo'].cart_ty_N:checked").length < 1) {
-			/*let oriGdsPc = 0;
-			let oriDlvyPc = 0;
-			let oriStlmPc = 0;
-			$("input[name='L_gdsPc']").each(	function() {
-				oriGdsPc = Number(oriGdsPc)+ Number($(this).val());
-			});
-			$("input[name='L_dlvyPc']").each(function() {
-				oriDlvyPc = Number(oriDlvyPc) + Number($(this).val());
-			});
-			$("input[name='L_stlmPc']").each(function() {
-				oriStlmPc = Number(oriStlmPc) + Number($(this).val());
-			});*/
-			$(".L_totalGdsPc").text(0);
-			$(".L_totalDlvyPc").text(0);
-			$(".L_totalStlmPc").text(0);
-		} else {
-			$(".L_totalGdsPc").text(comma(totalGdsPc));
-			$(".L_totalDlvyPc").text(comma(totalDlvyPc));
-			$(".L_totalStlmPc").text(comma(totalStlmPc));
-			}
-		});
+	$(".cart_ty_N").on("click", function() {
+		priceCalculation();
+        
+		$(".L_totalGdsPc").text(comma(totalGdsPc));
+		$(".L_totalDlvyPc").text(comma(totalDlvyPc));
+        $(".L_totalStlmPc").text(comma(totalGdsPc + totalDlvyPc));
+        entrpsDlvyList.forEach(e => e.firstCheck = null);
+	});
 
 	// 단일 삭제 버튼
 	/*$(".f_deleteSel").on(	"click",function() {
