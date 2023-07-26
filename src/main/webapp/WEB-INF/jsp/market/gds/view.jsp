@@ -869,7 +869,7 @@ var Goods = (function(){
 						if(oldOptnNm != optnNm[1]){
 	    					if(optnNm.length < 3){
 	    						var optnPc = "";
-	    						var optnSoldout = "";L
+	    						var optnSoldout = "";
 	    						if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
 	    						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
 	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
