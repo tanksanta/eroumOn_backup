@@ -131,6 +131,14 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row"><label for="form-item3" class="require">기본 배송비</label></th>
+						<td>
+							<div class="form-group">
+								<form:input type="number" class="form-control w-42" path="dlvyBaseCt" min="0"/>
+							</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</fieldset>
@@ -389,6 +397,7 @@ $(function(){
 				fxno : { regex : numchk},
 				eml : {regex : emailchk},
 				dlvyCtCnd : {required : true},
+				dlvyBaseCt : {required : true},
 				clclnCycle : {required : true},
 				bankNm : {required : true},
 				actno : {required : true ,regex : phonechk},

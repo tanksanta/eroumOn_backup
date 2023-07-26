@@ -169,6 +169,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row"><label for="entrpsNo">입점업체</label></th>
+                                    <td>
+                                        <form:select path="entrpsNo" class="form-control w-70">
+                                            <form:option value="0" label="선택" />
+                                            <c:forEach items="${entrpsList}" var="entrps" varStatus="status">
+                                                <form:option value="${entrps.entrpsNo}" label="${entrps.entrpsNm}" />
+                                            </c:forEach>
+                                        </form:select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row"><label for="mkr">제조사</label></th>
                                     <td>
                                     	<form:select path="mkr" class="form-control w-70">
