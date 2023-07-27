@@ -120,7 +120,7 @@
 					</td>
 					<td>${useYnCode[resultList.useYn]}</td>
 					<td>${ansYnCode[resultList.ansYn]}</td>
-				</tr
+				</tr>
 			</c:forEach>
 			<c:if test="${empty listVO.listObject}">
 				<tr>
