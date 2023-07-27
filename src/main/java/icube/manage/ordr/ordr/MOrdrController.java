@@ -91,7 +91,8 @@ public class MOrdrController extends CommonAbstractController {
 	//private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"
 		//									, "srchSttsTy", "srchOrdrYmdBgng", "srchOrdrYmdEnd", "srchOrdrrNm", "srchRecptrNm", "srchOrdrTy", "srchStlmTy", "srchGdsCd", "srchGdsNm"};
 
-    // 리스트
+	// 리스트
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="{ordrStts}/list")
 	public String list(
 			@PathVariable String ordrStts
@@ -101,6 +102,16 @@ public class MOrdrController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
 		listVO = ordrService.ordrListVO(listVO);
+		
+		//간편로그인 ID 너무 길어서 간단하게 표시작업
+		listVO.getListObject().stream().forEach(ordr -> {
+			OrdrDtlVO ordrDtlltVO = (OrdrDtlVO)ordr;
+			if (ordrDtlltVO.getOrdrrId().endsWith("@K")) {
+				ordrDtlltVO.setOrdrrId("카카오 계정");
+			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
+				ordrDtlltVO.setOrdrrId("네이버 계정");
+			}
+		});
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
