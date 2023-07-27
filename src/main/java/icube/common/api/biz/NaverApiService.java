@@ -309,7 +309,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("responseCode : " + responseCode);
+		//System.out.println("responseCode : " + responseCode);
 
 		if(responseCode == HttpURLConnection.HTTP_OK) {
 
@@ -317,7 +317,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			while ((line = bufferedReader.readLine()) != null) {
 				result.append(line);
 			}
-			System.out.println("response body : " + result);
+			//System.out.println("response body : " + result);
 
 		}else {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -389,8 +389,8 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             String birthDay = mbrInfo.getAsJsonObject().get("birthday").getAsString();
             String birthYear = mbrInfo.getAsJsonObject().get("birthyear").getAsString();
 
-            System.out.println(birthDay);
-            System.out.println(birthYear);
+            //System.out.println(birthDay);
+            //System.out.println(birthYear);
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date birth = formatter.parse(birthYear+ "-" + birthDay);
