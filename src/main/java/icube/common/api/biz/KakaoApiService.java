@@ -377,13 +377,6 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 	        	String dlvyNm = address.getAsJsonObject().get("name").getAsString();
 	 	        	String nm = address.getAsJsonObject().get("receiver_name").getAsString();
 
-	 	        	log.debug(defaultYn);
-	 	        	log.debug(zip);
-	 	        	log.debug(addr);
-	 	        	log.debug(daddr);
-	 	        	log.debug(dlvyNm);
-	 	        	log.debug(nm);
-
 	 	        	if(defaultYn) {
 	 	        		mbrVO.setZip(zip);
 	 	            	mbrVO.setAddr(addr);
@@ -391,8 +384,11 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 	        		dlvyVO.setBassDlvyYn("Y");
 	 	        		dlvyVO.setDlvyNm(dlvyNm);
 		 	        	dlvyVO.setNm(nm);
+		 	        	if(EgovStringUtil.isNotEmpty(mbrVO.getMblTelno())) {
+		 	        		dlvyVO.setMblTelno(mbrVO.getMblTelno());
+		 	        	}
 		 	        	dlvyVO.setZip(zip);
-		 	        	dlvyVO.setAddr(daddr);
+		 	        	dlvyVO.setAddr(addr);
 		 	        	dlvyVO.setDaddr(daddr);
 	 	        	}
 
