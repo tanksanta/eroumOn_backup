@@ -360,6 +360,7 @@ $(function(){
 	var phonechk =  /^[0-9]+-/;
 	var numchk =  /^[0-9]+$/;
 	var emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var faxchk = /^[0-9]+-[0-9]+-[0-9]+$/;
 
 	$.validator.addMethod("regex", function(value, element, regexpr) {
 		if(value != ''){
@@ -394,7 +395,7 @@ $(function(){
 				addr : {required : true},
 				daddr : {required : true},
 				telno : {required : true,  regex : phonechk},
-				fxno : { regex : numchk},
+				fxno : { regex : faxchk},
 				eml : {regex : emailchk},
 				dlvyCtCnd : {required : true},
 				dlvyBaseCt : {required : true},
@@ -418,6 +419,7 @@ $(function(){
 				addr : {required : "지번/도로명 주소는 필수 입력 사항입니다."},
 				daddr : {required : "상세주소는 필수 입력 사항입니다."},
 				telno : {required : "전화번호는 필수 입력 사항입니다." },
+				fxno : {regex : "펙스 형식이 올바르지 않습니다. \n(000-000-0000)"},
 				eml : {regex :  "형식이 올바르지 않습니다. \n(0000@naver.com)"},
 				dlvyCtCnd : {required : "주문 금액은 필수 입력 사항입니다.", min : "최솟값은 0입니다."},
 				clclnCycle : {required : "정산 주기는 필수 입력 사항입니다."},
