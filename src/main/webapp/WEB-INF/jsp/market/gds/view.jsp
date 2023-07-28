@@ -245,7 +245,7 @@
                                     <td rowspan="2">${gdsVO.dcFreeSalary}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
@@ -261,7 +261,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                     <td>
                                         ${gdsVO.dcPchrgGnrl}
                                     </td>
