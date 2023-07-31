@@ -195,8 +195,6 @@
 			 , od.bnef_cd
 			 , od.gds_nm
 			 , od.gds_pc
-			 , od.entrps_no
-			 , od.entrps_nm
 			 , od.ordr_pc
 			 , od.ordr_optn_ty
 			 , od.ordr_optn
@@ -326,8 +324,8 @@
 			stlm_amt = #{stlmAmt}
 		 WHERE ordr_no = #{ordrNo}
 	</update>
-	
-	
+
+
 	<!-- 결제상태 변경 -->
 	<update id="updateStlmYn" parameterType="ordrVO">
 		/* Query ID : ordr.updateStlmYn */
@@ -345,7 +343,7 @@
 			use_mlg = #{useMlg}
 		 WHERE ordr_no = #{ordrNo}
 	</update>
-	
+
 	<!-- 사용 포인트 변경 -->
 	<update id="updateUsePoint" parameterType="ordrVO">
 		/* Query ID : ordr.updateUsePoint */

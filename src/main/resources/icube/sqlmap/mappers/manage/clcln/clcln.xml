@@ -74,9 +74,6 @@
 		<if test="srchBplcNm !=null and srchBplcNm != ''">
 			AND b.bplc_nm LIKE CONCAT('%',#{srchBplcNm},'%')
 		</if>
-		<if test="srchEntrpsNm !=null and srchEntrpsNm != ''">
-			AND od.entrps_nm LIKE CONCAT('%',#{srchEntrpsNm},'%')
-		</if>
 	</sql>
 
 	<select id="selectOrdrList" parameterType="java.util.HashMap" resultMap="ordrDtlListVOMap">
@@ -90,8 +87,6 @@
 			 , od.gds_nm
 			 , od.gds_sup_pc
 			 , od.gds_pc
-			 , od.entrps_no
-			 , od.entrps_nm
 			 , od.gds_item_cd
 			 , od.optn_item_cd
 			 , od.ordr_pc

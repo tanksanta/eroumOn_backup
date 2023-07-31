@@ -20,7 +20,6 @@
 		, tkcg_md
 		, use_yn
 		, dlvy_ct_cnd
-		, dlvy_base_ct
 		, clcln_cycle
 		, bank_nm
 		, actno
@@ -93,7 +92,7 @@
 		FROM	ENTRPS
 		WHERE  entrps_no = #{entrpsNo}
 	</select>
-	
+
 	<select id="selectEntrpsByGdsNo" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
 		/* Query ID : entrps.xml > selectEntrpsByGdsNo */
 		SELECT E.entrps_no, E.entrps_nm

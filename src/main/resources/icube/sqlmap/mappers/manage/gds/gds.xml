@@ -78,7 +78,6 @@
 		, g.dlvy_ct_stlm
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
-		, g.dlvy_group_yn
 		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
@@ -698,7 +697,7 @@
 	  	ORDER BY g.gds_no DESC
 	</select>
 
-    
+
     <!-- 상품 엑셀다운로드 -->
     <select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
         SELECT
