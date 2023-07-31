@@ -70,9 +70,8 @@
 }
 
 #page-sidenav {
-    @apply flex-none fixed z-75 left-0 right-0 bottom-0 flex flex-col overflow-hidden bg-black/70 opacity-0 invisible
+    @apply flex-none fixed z-75 left-0 right-0 bottom-0 flex flex-col bg-black/70 opacity-0 invisible
            lg:sticky lg:top-15 lg:bottom-auto lg:mr-7 lg:max-h-[calc(100vh_-_120px)] lg:rounded-[1.125rem] lg:bg-white lg:opacity-100 lg:visible lg-max:shadow-none;
-    box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
     &.is-animate {
         @apply duration-500 transition-[opacity,visibility];
     }
@@ -93,7 +92,8 @@
 
 .page-sidenav-container {
     @apply flex ml-auto flex-col px-5 w-full max-w-none h-full overflow-hidden bg-white
-           lg:ml-0 lg:py-5 lg:w-[274px] lg:rounded-[1.125rem];  
+           lg:ml-0 lg:py-5 lg:w-[274px] lg:rounded-[1.125rem];
+    box-shadow: rgba(200,200,200,0.2) 3px 10px 5px, rgba(200,200,200,0.2) 5px 20px 10px, rgba(200,200,200,0.2) 8px 32px 16px, rgba(200,200,200,0.2) 24px 64px 32px, rgba(200,200,200,0.15) 48px 100px 32px;
 }
 
 .page-sidenav-scrollbar {
