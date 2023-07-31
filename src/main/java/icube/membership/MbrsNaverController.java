@@ -61,10 +61,18 @@ public class MbrsNaverController extends CommonAbstractController{
 			HttpServletRequest request
 			, HttpSession session
 			, Model model
-			, @RequestParam(value = "code", required=true) String code
+			, @RequestParam(value = "code", required=false) String code
 			, @RequestParam(value = "state", required=false) String state
+			, @RequestParam(value = "error", required=false) String error
 			) throws Exception {
+		
 		JavaScript javaScript = new JavaScript();
+		
+		//로그인 실패오류 또는 동의하지 않은 경우
+		if ("access_denied".equals(error)) {
+			javaScript.setLocation("/" + mainPath + "/login");
+			return new JavaScriptView(javaScript);
+		}
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("code", code);

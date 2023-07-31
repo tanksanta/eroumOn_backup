@@ -205,13 +205,16 @@
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'OR07'}"><%-- 배송중 --%>
                                         		<button class="btn-primary shadow w-full px-0 f_dlvy_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR08" data-resn-ty="", data-resn="배송완료 확인" data-msg="배송완료 상태로 변경됩니다. 처리하시겠습니까?" >배송완료 처리</button>
+                                        		<button type="button" class="btn-primary shadow w-full px-0 f_dlvy_preparing" data-stts-ty="OR06" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-dtl-no="${ordrDtl.ordrDtlNo}" data-ordr-cd="${ordrVO.ordrCd}">배송중 취소</button>
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'OR08'}"><%-- 배송완료 --%>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_gds_exchng" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-ordr-no="${ordrDtl.ordrNo}">교환</button>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_ordr_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR09" data-resn-ty="", data-resn="상품 구매확정" data-msg="마일리지가 적립됩니다.구매확정 처리하시겠습니까?" >구매확정 처리</button>
+                                        		<button type="button" class="btn-primary shadow w-full px-0 f_dlvyCo_save" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-ordr-no="${ordrDtl.ordrNo}">배송완료 취소</button>
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'OR09'}"><%-- 구매확정 --%>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_gds_exchng" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-ordr-no="${ordrDtl.ordrNo}">교환</button>
+                                        		<button type="button" class="btn-primary shadow w-full px-0 f_cancel_ordr_done" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="OR09" data-resn-ty="", data-resn="상품 구매확정 취소" data-msg="마일리지가 차감됩니다.구매확정 취소 처리하시겠습니까?" >구매확정 취소</button>
                                         		</c:when>
                                         		<c:when test="${ordrDtl.sttsTy eq 'EX01'}"><%-- 교환접수 --%>
                                         		<button type="button" class="btn-primary shadow w-full px-0 f_exchng_confm" data-dtl-cd="${ordrDtl.ordrDtlCd}" data-stts-ty="EX02" data-resn-ty="", data-resn="교환접수 승인" data-msg="교환접수승인 처리하시겠습니까?" >교환접수 승인</button>
@@ -732,6 +735,7 @@
             	});
 
             	// 택배사+송장번호 저장 -> 배송중 변경
+            	// 배송완료 -> 배송중 추가 
             	$(".f_dlvyCo_save").on("click", function(e){
             		e.preventDefault();
             		var obj = $(this);
@@ -739,37 +743,43 @@
             		var dtlCd = $(this).data("dtlCd");
             		var dlvyCo = $("#dlvyCo_" + dtlNo).val();
             		var dlvyInvcNo = $("#dlvyInvcNo_" + dtlNo).val();
-            		//console.log(dtlNo, dlvyCo, dlvyInvcNo);
-            		if(dlvyCo != "" && dlvyInvcNo != ""){
-            			obj.removeClass('btn-primary').addClass('btn').html('<i class="ico-loader"></i>');
-	            		$.ajax({
-	        				type : "post",
-	        				url  : "/_mng/ordr/dlvyCoSave.json",
-	        				data : {
-	        					ordrNo:'${ordrVO.ordrNo}'
-	        					//, ordrDtlNo:dtlNo
-	        					, ordrDtlCd:dtlCd
-	        					, dlvyCo:dlvyCo
-	        					, dlvyInvcNo:dlvyInvcNo
-	        				},
-	        				dataType : 'json'
-	        			})
-	        			.done(function(data) {
-	        				if(data.result){
-	        					console.log("f_dlvyCo_save : success");
-	        					obj.removeClass('btn').addClass('btn-primary').html('저장 완료');
-	        					$(".btn-reload").click();
-	        				}
-	        			})
-	        			.fail(function(data, status, err) {
-	        				console.log('f_dlvyCo_save : error forward : ' + data);
-	        				obj.html('실패(재시도)');
-	        				$(".btn-reload").click();
-	        			});
-            		} else {
-						alert("택배사와 송장번호를 입력해주세요");
-						return false;
+            		
+            		//ajax 전송용 객체
+            		var payload = {
+           				ordrNo:'${ordrVO.ordrNo}'
+         				//, ordrDtlNo:dtlNo
+          				, ordrDtlCd:dtlCd
+            		};
+            		//배송완료 -> 배송중인 경우 (이미 입력했으므로 택배사, 송장번호 정보가 없는 경우도 있음)
+            		if (dlvyCo) {
+            			payload.dlvyCo = dlvyCo;
             		}
+            		if (dlvyInvcNo) {
+            			payload.dlvyInvcNo = dlvyInvcNo;
+            		}
+            		
+            		obj.removeClass('btn-primary').addClass('btn').html('<i class="ico-loader"></i>');
+            		$.ajax({
+        				type : "post",
+        				url  : "/_mng/ordr/dlvyCoSave.json",
+        				data : payload,
+        				dataType : 'json'
+        			})
+        			.done(function(data) {
+        				if(data.result){
+        					console.log("f_dlvyCo_save : success");
+        					obj.removeClass('btn').addClass('btn-primary').html('저장 완료');
+        					$(".btn-reload").click();
+        				} else {
+                            alert("택배사와 송장번호를 입력해주세요");
+                            return false;
+        				}
+        			})
+        			.fail(function(data, status, err) {
+        				console.log('f_dlvyCo_save : error forward : ' + data);
+        				obj.html('실패(재시도)');
+        				$(".btn-reload").click();
+        			});
 
             	});
 
@@ -782,7 +792,6 @@
             		var bSndngDt = false;
             		var skip = true;
 
-            		//
 
             		$("input[name='sndngDt'].BASE").each(function(index, item){
             		    //console.log($(item).val(), $(item).data("dtlNo"));
@@ -853,6 +862,44 @@
             				console.log('f_ordr_chg_stts : error forward : ' + data);
             			});
             		}
+            	});
+            	
+            	// 배송중(OR07) > 배송준비중(OR06)
+            	$(".f_dlvy_preparing").on("click", function(e){
+            		e.preventDefault();
+            		var dtlCd = $(this).data("dtlCd");
+            		var dtlNo = $(this).data("dtlNo");
+            		
+            		if (!dtlCd || !dtlNo) {
+            			alert("배송중을 취소할 상품을 선택하세요.");
+            		}
+            		
+            		if(!confirm("배송중을 취소합니다. \n[배송중 > 배송준비중]")) {
+        				return;
+        			}
+            		
+            		
+            		$.ajax({
+        				type : "post",
+        				url  : "/_mng/ordr/dlvyPreparing.json", //주문확인
+        				data : {
+        					ordrNo:'${ordrVO.ordrNo}'
+        					, ordrDtlCd:dtlCd
+        					, ordrDtlNo:dtlNo
+        				},
+        				dataType : 'json'
+        			})
+        			.done(function(data) {
+        				if(data.result){
+        					console.log("f_ordr_chg_stts : success");
+        					$(".btn-reload").click();
+        				} else {
+        					alert("배송중 취소에 실패하였습니다.");
+        				}
+        			})
+        			.fail(function(data, status, err) {
+        				console.log('f_ordr_chg_stts : error forward : ' + data);
+        			});
             	});
 
             	// (공통) 상태변경용
@@ -1011,6 +1058,38 @@
 						$.ajax({
 		       				type : "post",
 		       				url  : "/_mng/ordr/ordrDone.json",
+		       				data : {
+		       					ordrNo:'${ordrVO.ordrNo}'
+		       					, ordrDtlCd:dtlCd
+		       					, resnTy:resnTy
+		       					, resn:resn
+		       				},
+		       				dataType : 'json'
+		       			})
+		       			.done(function(data) {
+		       				if(data.result){
+		       					console.log("상태변경 : success");
+		       					$(".btn-reload").click();
+		       				}
+		       			})
+		       			.fail(function(data, status, err) {
+		       				console.log('상태변경 : error forward : ' + data);
+		       			});
+					}
+				});
+	         	
+	         	// 구매확정 취소 처리
+	         	$(".f_cancel_ordr_done").on("click", function(e){
+					e.preventDefault();
+					var dtlCd = $(this).data("dtlCd");
+					var msg = $(this).data("msg");
+					var resnTy = $(this).data("resnTy");
+					var resn = $(this).data("resn");
+
+					if(confirm(msg)){
+						$.ajax({
+		       				type : "post",
+		       				url  : "/_mng/ordr/cancelOrdrDone.json",
 		       				data : {
 		       					ordrNo:'${ordrVO.ordrNo}'
 		       					, ordrDtlCd:dtlCd

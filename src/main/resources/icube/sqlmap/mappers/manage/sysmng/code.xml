@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sysmng.code">
+<mapper namespace="code">
 
 	<resultMap type="codeVO" id="codeMap" autoMapping="true">
 	</resultMap>
 
 	<sql id="selectCount">
 	 	( SELECT
-				COUNT(code_id)
-		FROM CODE b
-		WHERE a.code_id = b.upper_code_id )
+				COUNT(cd_id)
+		FROM CODE_MNG b
+		WHERE a.cd_id = b.up_cd_id )
 		 AS child_count
 	</sql>
 
@@ -57,20 +57,20 @@
 
 
 	<select id="selectCode" parameterType="java.util.HashMap" resultMap="codeMap">
-		SELECT code_ty
-				, code_id
-				, upper_code_id
-				, ( SELECT code_nm
-					FROM CODE b
-					WHERE a.upper_code_id = b.code_id ) AS upper_code_nm
-				, code_nm
-				, code_dc
+		SELECT cd_ty
+				, cd_id
+				, up_cd_id
+				, ( SELECT cd_nm
+					FROM CODE_MNG b
+					WHERE a.up_cd_id = b.cd_id ) AS up_cd_nm
+				, cd_nm
+				, cd_dc
 				, level_no
 				, sort_no
 				, use_yn
 				, <include refid="selectCount"/>
-		FROM CODE a
-	  WHERE code_id = #{codeId}
+		FROM CODE_MNG a
+	  WHERE cd_id = #{codeId}
 	</select>
 
 

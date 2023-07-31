@@ -91,7 +91,8 @@ public class MOrdrController extends CommonAbstractController {
 	//private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"
 		//									, "srchSttsTy", "srchOrdrYmdBgng", "srchOrdrYmdEnd", "srchOrdrrNm", "srchRecptrNm", "srchOrdrTy", "srchStlmTy", "srchGdsCd", "srchGdsNm"};
 
-    // 리스트
+	// 리스트
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="{ordrStts}/list")
 	public String list(
 			@PathVariable String ordrStts
@@ -101,6 +102,16 @@ public class MOrdrController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
 		listVO = ordrService.ordrListVO(listVO);
+		
+		//간편로그인 ID 너무 길어서 간단하게 표시작업
+		listVO.getListObject().stream().forEach(ordr -> {
+			OrdrDtlVO ordrDtlltVO = (OrdrDtlVO)ordr;
+			if (ordrDtlltVO.getOrdrrId().endsWith("@K")) {
+				ordrDtlltVO.setOrdrrId("카카오 계정");
+			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
+				ordrDtlltVO.setOrdrrId("네이버 계정");
+			}
+		});
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
@@ -450,17 +461,35 @@ public class MOrdrController extends CommonAbstractController {
 	public Map<String, Object> dlvyCoSave(
 			@RequestParam(value="ordrNo", required=true) int ordrNo
 			, @RequestParam(value="ordrDtlCd", required=true) String ordrDtlCd
-			, @RequestParam(value="dlvyCo", required=true) String dlvyCo
-			, @RequestParam(value="dlvyInvcNo", required=true) String dlvyInvcNo
+			, @RequestParam(value="dlvyCo", required=false) String dlvyCo
+			, @RequestParam(value="dlvyInvcNo", required=false) String dlvyInvcNo
 			, @RequestParam Map<String,Object> reqMap) throws Exception {
 
 		boolean result = false;
-
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		
 		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
 		for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
 			tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
+			
+			//택배사 정보가 없는 경우는 배송완료 -> 배송중으로 저장할 경우
+			if (EgovStringUtil.isEmpty(dlvyCo)) {
+				dlvyCo = String.valueOf(ordrDtlVO.getDlvyCoNo()) + "|" + ordrDtlVO.getDlvyCoNm();
+				dlvyInvcNo = ordrDtlVO.getDlvyInvcNo();
+			}
 		}
+		
+		
+		//택배사 정보가 없으면 잘못된 요청
+		if (EgovStringUtil.isEmpty(dlvyCo) || EgovStringUtil.isEmpty(dlvyInvcNo)) {
+			resultMap.put("result", result);
+			return resultMap;
+		}
+		
+		
 		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
 		String[] dlvyNm = dlvyCo.split("[|]");
 
@@ -486,8 +515,6 @@ public class MOrdrController extends CommonAbstractController {
 			result = true;
 		}
 
-		// result
-		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
 	}
@@ -551,6 +578,33 @@ public class MOrdrController extends CommonAbstractController {
 		return resultMap;
 	}
 
+	// 배송중 -> 배송준비중
+	@ResponseBody
+	@RequestMapping(value="dlvyPreparing.json")
+	public Map<String, Object> dlvyPreparing(
+			@RequestParam(value="ordrNo", required=true) int ordrNo
+			, @RequestParam(value="ordrDtlCd", required=true) String ordrDtlCd
+			, @RequestParam(value="ordrDtlNo", required=true) int ordrDtlNo) throws Exception {
+
+		boolean result = false;
+		
+		OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
+		ordrDtlVO.setOrdrNo(ordrNo);
+		ordrDtlVO.setOrdrDtlCd(ordrDtlCd);
+		ordrDtlVO.setOrdrDtlNo(ordrDtlNo);
+		
+		try {
+			ordrDtlService.updateOrdr06AndOrdrChgHist(ordrDtlVO);
+			result = true;
+		}catch(Exception e) {
+			log.error("==== 배송중 취소 오류 ====", e);
+		}
+		
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
 
 
 	/**
@@ -680,6 +734,52 @@ public class MOrdrController extends CommonAbstractController {
 		ordrDtlVO.setTotalAccmlMlg(totalAccmlMlg);
 
 		Integer resultCnt = ordrDtlService.updateOrdrOR09(ordrDtlVO);
+
+		if(resultCnt == 1){
+			result = true;
+		}
+
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+	
+	
+	// 구매확정 취소
+	@ResponseBody
+	@RequestMapping(value="cancelOrdrDone.json")
+	public Map<String, Object> cancelOrdrDone(
+			@RequestParam(value="ordrNo", required=true) int ordrNo
+			, @RequestParam(value="ordrDtlCd", required=true) String ordrDtlCd
+			, @RequestParam(value="resn", required=true) String resn
+			, @RequestParam Map<String,Object> reqMap) throws Exception {
+
+		boolean result = false;
+
+		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
+		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
+		int totalAccmlMlg = 0;
+		for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
+			tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
+			totalAccmlMlg += ordrDtlVO.getAccmlMlg();
+		}
+
+		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
+
+		OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
+		ordrDtlVO.setOrdrNo(ordrNo);
+		ordrDtlVO.setOrdrDtlCd(ordrDtlCd);
+		ordrDtlVO.setOrdrDtlNos(ordrDtlNos);
+		ordrDtlVO.setSttsTy("OR08");
+		ordrDtlVO.setResn(resn);
+		ordrDtlVO.setRegUniqueId(mngrSession.getUniqueId());
+		ordrDtlVO.setRegId(mngrSession.getMngrId());
+		ordrDtlVO.setRgtr(mngrSession.getMngrNm());
+
+		ordrDtlVO.setTotalAccmlMlg(totalAccmlMlg);
+
+		Integer resultCnt = ordrDtlService.updateCancelOrdrOR09(ordrDtlVO);
 
 		if(resultCnt == 1){
 			result = true;
@@ -1002,7 +1102,7 @@ public class MOrdrController extends CommonAbstractController {
 		ordrDtlVO.setRfndBank(rRfndBank);
 		ordrDtlVO.setRfndActno(rfndActno);
 		ordrDtlVO.setRfndDpstr(rfndDpstr);
-		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO);
+		Integer resultCnt = ordrDtlService.updateOrdrRE03(ordrDtlVO, ordrDtlNos);
 
 		if(resultCnt == 1){
 			result = true;

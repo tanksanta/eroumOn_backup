@@ -32,10 +32,11 @@ public class GdsVO extends CommonBaseVO {
 	private String wt; //중량
 	private String size; //사이즈상세정보
 	private String stndrd; //규격
-	private String keyword; // 검색 키워
+	private String keyword; //검색키워드
 	private int sortNo = 100;
 	private String[] gdsTag;
 	private String gdsTagVal; //DB저장용
+	private int entrpsNo; //입점업체
 	private int mkr; //제조사
 	private String plor; //원산지
 	private int brand; //브랜드
@@ -81,6 +82,7 @@ public class GdsVO extends CommonBaseVO {
 	private String dlvyCtStlm;
 	private int dlvyBassAmt = 0;
 	private int dlvyAditAmt = 0;
+	private String dlvyGroupYn;
 	private String dlvyDc;
 
 	//상품 이미지
@@ -124,7 +126,8 @@ public class GdsVO extends CommonBaseVO {
 	private String aditOptnVal;
 	private String optnNm;
 	private String optnTy;
-	private String optnStockQy;
+	private String optnItemCd;
+	private int optnStockQy;
 	private int gdsOptnNo;
 
 	private List<GdsOptnVO> optnList;

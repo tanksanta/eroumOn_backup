@@ -45,12 +45,14 @@
 									</div>
 								</a>
 								<a href="${_marketPath}/gds/${gdsList.ctgryNo}/${gdsList.gdsCd}" class="item-content">
+									<%--  
 									<div class="label">
 										<span class="label-primary"> <span>급여가</span> <i></i>
 										</span> <span class="label-outline-primary"> <span>직배송</span> <i></i>
 										</span> <span class="label-outline-primary"> <span>설치</span> <i></i> <c:if test="${gdsList.soldoutYn eq 'Y' }"></span> <span class="label-outline-danger"> <span>일시품절</span> <i></i> </c:if>
 										</span>
 									</div>
+									--%>
 									<div class="name">
 										<small>${gdsList.ctgryNm}</small> <strong>${gdsList.gdsNm}</strong>
 									</div>

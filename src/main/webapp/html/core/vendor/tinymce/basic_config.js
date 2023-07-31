@@ -67,6 +67,37 @@
 	    return output;
 	};
 
+	/*
+		멀티업로드를 구현하기 위해 사용
+		fileName={} 구조의 <img>를 분리하여 여러 <p>리스트로 변환
+	*/
+	var replaceFileList = function (content) {
+		const pattern = /<p><img.+fileName={.+}.+<\/p>/g;
+		
+		const matches = content.match(pattern);
+		if (matches) {
+			const fileListPattern = /fileName={.+}/g;
+	
+			for (var i = 0; i < matches.length; i++) {
+				const matchStr = matches[i];
+				let replacedStr = '';
+	
+				let fileNames = matchStr.match(fileListPattern)[0];
+				fileNames = fileNames.replace('fileName={', '');
+				fileNames = fileNames.replace('}', '');
+				fileNames = fileNames.split(',');
+	
+				for (var j = 0; j < fileNames.length; j++) {
+					const fileName = 'fileName=' + fileNames[j];
+					replacedStr += matchStr.replace(fileListPattern, fileName) + '\n';
+				}
+	
+				content = content.replace(matchStr, replacedStr);
+			}
+		}
+	
+		return content;
+	};
 
 	var baseConfig = {
 			//selector:"textarea#cn",
@@ -128,8 +159,9 @@
 				var input = document.createElement('input');
 				input.setAttribute('type', 'file');
 				input.setAttribute('accept', 'image/*');
+				input.setAttribute('multiple', true);
 				input.onchange = function () {
-					var file = this.files[0];
+					var files = this.files;
 
 					// server upload
 					var xhr, formData;
@@ -151,7 +183,12 @@
 						cb(json.url, {title:json.title});
                     }
                     formData = new FormData();
-                    formData.append('upload', file, file.name);
+					if (files) {
+						for (var i = 0; i < files.length; i++) {
+							formData.append('upload', files[i]);
+						}
+					}
+                    
                     xhr.send(formData);
 
 					/* blob data 방식
@@ -170,7 +207,14 @@
 				};
 				input.click();
 			},
-
+			setup: function (editor) {
+				editor.on('change', function (e) {
+					let content = e.target.getContent();
+					content = replaceFileList(content);
+					
+					e.target.setContent(content);
+				});
+			}
 	};
 
 	var baseConfig_noimg = {

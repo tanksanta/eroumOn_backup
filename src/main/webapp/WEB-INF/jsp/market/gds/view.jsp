@@ -147,7 +147,7 @@
 
 
                <!-- 가격 배너 -->
-               <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div>
+               <!--  <div class="my-12 my:mt-16"><img src="/html/page/market/assets/images/img-price-banner.jpg" alt=""></div> -->
                <!-- //가격 배너 -->
 
 				<!-- 상세 탭 -->
@@ -205,12 +205,12 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(급여구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
                                     <td rowspan="3">${gdsVO.dlvyDc}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>복지용구<br>(일반구매)</p></th>
-                                    <th scope="row"><p>무료</p></th>
+                                    <th scope="row"><p>상품별 상이</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="row"><p>일반상품</p></th>
@@ -245,7 +245,7 @@
                                     <td rowspan="2">${gdsVO.dcFreeSalary}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
@@ -261,7 +261,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                     <td>
                                         ${gdsVO.dcPchrgGnrl}
                                     </td>

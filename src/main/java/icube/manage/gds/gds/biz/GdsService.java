@@ -174,6 +174,13 @@ public class GdsService extends CommonAbstractServiceImpl {
 	public List<GdsVO> selectGdsListAll(Map<String, Object> paramMap) throws Exception {
 		return gdsDAO.selectGdsListAll(paramMap);
 	}
+	
+	/**
+	 * 상품정보 + 옵션 리스트 목록(상품 엑셀다운로드 시 사용)
+	 */
+	public List<GdsVO> selectGdsWithOptnListAll(Map<String, Object> paramMap) throws Exception {
+		return gdsDAO.selectGdsWithOptnListAll(paramMap);
+	}
 
 	/**
 	 * 상품 재고수량 변경

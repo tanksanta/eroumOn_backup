@@ -18,6 +18,8 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.mail.MailService;
+import icube.common.util.FileUtil;
 import icube.common.values.CodeMap;
 import icube.main.biz.MainService;
 import icube.manage.consult.biz.MbrConsltService;
@@ -47,6 +49,15 @@ public class MainConsltController extends CommonAbstractController{
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
+	
+	@Resource(name = "mailService")
+	private MailService mailService;
+	
+	@Value("#{props['Mail.Form.FilePath']}")
+	private String mailFormFilePath;
+	
+	@Value("#{props['Mail.Username']}")
+	private String sendMail;
 
 	@RequestMapping(value = "form")
 	public String form(
@@ -86,6 +97,16 @@ public class MainConsltController extends CommonAbstractController{
 
 		int insertCnt = mbrConsltService.insertMbrConslt(mbrConsltVO);
 
+		if (insertCnt > 0) {
+			//1:1 상담신청시 관리자에게 알림 메일 발송
+			String MAIL_FORM_PATH = mailFormFilePath;
+			String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
+			String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
+			String putEml = "help@thkc.co.kr";
+			
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
+		
 		/*if(insertCnt > 0) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 

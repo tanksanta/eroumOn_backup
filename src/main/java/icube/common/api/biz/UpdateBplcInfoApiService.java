@@ -444,7 +444,19 @@ public class UpdateBplcInfoApiService {
 				dataMap.put("ProdPayCode", Base64Util.encoder(ordrDtlVO.getGdsInfo().getBnefCd()));
 				dataMap.put("item_state", Base64Util.encoder("N"));
 
-				if(!EgovStringUtil.isEmpty((String)paramMap.get("resnTy"))) {
+				
+				Map<String, Object> chgHistParamMap = new HashMap<String, Object>();
+				chgHistParamMap.put("ordrNo", ordrDtlVO.getOrdrNo());
+				chgHistParamMap.put("ordrDtlNo", ordrDtlVO.getOrdrDtlNo());
+				chgHistParamMap.put("chgStts", "OR03");
+
+				OrdrChgHistVO ordrChgHistVOForOR03 = ordrChgHistService.selectOrdrChgHist(chgHistParamMap);
+				
+				//사업소 반려상품인 경우 반려사유가 취소사유
+				if (ordrChgHistVOForOR03 != null) {
+					dataMap.put("item_memo", Base64Util.encoder(ordrChgHistVOForOR03.getResn()));
+				}
+				else if(!EgovStringUtil.isEmpty((String)paramMap.get("resnTy"))) {
 					dataMap.put("item_memo", Base64Util.encoder(CodeMap.ORDR_CANCEL_TY.get((String)paramMap.get("resnTy"))));
 				}
 

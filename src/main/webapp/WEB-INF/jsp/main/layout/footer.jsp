@@ -35,7 +35,7 @@
                                 </div>
                             </a>
                         </li> -->
-                        
+
 						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
                         <li>
                             <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
@@ -78,6 +78,14 @@
 		<!-- 고객센터 -->
 		<dl class="footer-customer">
 			<dt>고객센터 <a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a></dt>
+			<!-- <dd>
+				<p>
+					<strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a>
+				</p>
+				<p>
+					<strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a>
+				</p>
+			</dd> -->
 			<dd>
 				<p>
 					<strong>운영시간 :</strong> 월~금 오전 8:30~오후 5:30 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)

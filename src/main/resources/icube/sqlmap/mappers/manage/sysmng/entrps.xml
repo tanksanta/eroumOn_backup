@@ -85,12 +85,20 @@
 		<include refid="searchConditions"/>
 	</select>
 
-		<select id="selectEntrps" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
+	<select id="selectEntrps" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
 		/* Query ID : entrps.xml > selectEntrps */
 		SELECT
 		<include refid="listColumn"/>
 		FROM	ENTRPS
 		WHERE  entrps_no = #{entrpsNo}
+	</select>
+
+	<select id="selectEntrpsByGdsNo" parameterType="java.util.HashMap" resultMap="entrpsVOMap">
+		/* Query ID : entrps.xml > selectEntrpsByGdsNo */
+		SELECT E.entrps_no, E.entrps_nm
+		FROM   ENTRPS E
+		JOIN   GDS G  ON E.entrps_no = G.entrps_no
+		WHERE  G.gds_no = #{srchGdsNo}
 	</select>
 
 	<insert id="insertEntrps" parameterType="entrpsVO">
@@ -110,6 +118,7 @@
 		, tkcg_md
 		, use_yn
 		, dlvy_ct_cnd
+		, dlvy_base_ct
 		, clcln_cycle
 		, bank_nm
 		, actno
@@ -142,6 +151,7 @@
 		, #{tkcgMd, jdbcType=VARCHAR}
 		, #{useYn, jdbcType=VARCHAR}
 		, #{dlvyCtCnd}
+		, #{dlvyBaseCt}
 		, #{clclnCycle, jdbcType=VARCHAR}
 		, #{bankNm, jdbcType=VARCHAR}
 		, #{actno, jdbcType=VARCHAR}
@@ -179,6 +189,7 @@
 			, tkcg_md = #{tkcgMd, jdbcType=VARCHAR}
 			, use_yn = #{useYn, jdbcType=VARCHAR}
 			, dlvy_ct_cnd = #{dlvyCtCnd}
+			, dlvy_base_ct = #{dlvyBaseCt}
 			, clcln_cycle = #{clclnCycle, jdbcType=VARCHAR}
 			, bank_nm = #{bankNm, jdbcType=VARCHAR}
 			, actno = #{actno, jdbcType=VARCHAR}

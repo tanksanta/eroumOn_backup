@@ -85,7 +85,10 @@
 			 , od.gds_cd
 			 , od.bnef_cd
 			 , od.gds_nm
+			 , od.gds_sup_pc
 			 , od.gds_pc
+			 , od.gds_item_cd
+			 , od.optn_item_cd
 			 , od.ordr_pc
 			 , od.ordr_optn_ty
 			 , od.ordr_optn
@@ -123,8 +126,8 @@
 			 , od.reg_id
 			 , od.rgtr
 		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
-			WHERE od.stts_ty IN ('OR09')
-			AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR09') ) &lt; 1
+			WHERE od.stts_ty IN ('OR07', 'OR08', 'OR09')
+			AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR07', 'OR08', 'OR09') ) &lt; 1
 			<include refid="searchConditions" />
 	  	ORDER BY o.ordr_no DESC, od.ordr_dtl_cd ASC, od.ordr_dtl_no ASC
 	</select>
@@ -141,9 +144,9 @@
 		 LEFT JOIN GDS g ON od.gds_no = g.gds_no
 		 LEFT JOIN BPLC b ON od.bplc_unique_id = b.unique_id
 		WHERE od.bplc_unique_id IS NOT NULL AND bplc_unique_id != ''
-		  AND od.stts_ty IN ('OR09')
+		  AND od.stts_ty IN ('OR07', 'OR08', 'OR09')
 		  AND o.ordr_ty IN ('R', 'L')
-		  AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR09') ) &lt; 1
+		  AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR07', 'OR08', 'OR09') ) &lt; 1
 		  <include refid="searchConditions" />
 		GROUP BY od.bplc_unique_id
 	</select>

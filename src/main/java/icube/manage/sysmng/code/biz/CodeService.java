@@ -60,7 +60,7 @@ public class CodeService extends CommonAbstractServiceImpl {
 		
 		Map<String, Object> returnMap = new LinkedHashMap<String, Object>();
 		for(CodeVO codeVO : codeList) {
-			returnMap.put(codeVO.getCodeId(), codeVO.getCodeNm());
+			returnMap.put(codeVO.getCdId(), codeVO.getCdNm());
 		}
 
 		return returnMap;
@@ -104,7 +104,7 @@ public class CodeService extends CommonAbstractServiceImpl {
 		for(int i=0; i<sortedCodeIds.length; i++) {
 			log.debug(" ## menu sort  " + sortedCodeIds[i] + " index " + i);
 			codeVO.setSortNo(i+1);
-			codeVO.setCodeId(sortedCodeIds[i]);
+			codeVO.setCdId(sortedCodeIds[i]);
 			codeDAO.updateCodePosition(codeVO);
 		}		
 	}

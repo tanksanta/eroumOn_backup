@@ -255,7 +255,7 @@ $(function(){
 
 
 	<c:if test="${!_mbrSession.loginCheck}">
-	$("input[name='category']").prop("checked",false);
+	$("input[name='category']").prop("checked",true);
 	$(":checkbox[name='category']").each(function(){
 		selCheckVal += (selCheckVal==""?$(this).val():"|"+$(this).val());
 	});

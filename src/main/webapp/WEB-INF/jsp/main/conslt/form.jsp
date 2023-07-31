@@ -48,7 +48,7 @@
 					<label for="mblTelno">연락처</label>
 				</dt>
 				<dd>
-					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);" placeholder="1990/01/01"/>
+					<input type="text" id="mbrTelno" name="mbrTelno" class="form-control w-full xs:max-w-50" value="${_mbrSession.mblTelno}" maxlength="13" <c:if test="${!empty _mbrSession.mblTelno}">readonly="true"</c:if> oninput="autoHyphen(this);" placeholder="010-0000-0000"/>
 				</dd>
 			</dl>
 			<dl>
@@ -66,7 +66,7 @@
 						</c:if>
 					</c:set>
 
-					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${repBrdt}" maxlengh="10"/>
+					<input type="text" id="brdt" name="brdt" class="form-control w-full xs:max-w-50" value="${repBrdt}" maxlengh="10" placeholder="1900/01/01"/>
 				</dd>
 			</dl>
 			<dl>
@@ -82,11 +82,18 @@
 					<input type="text" class="form-control w-full" id="daddr" name="daddr" value="${_mbrSession.daddr}" maxlength="200" />
 				</dd>
 			</dl>
-			<p>
-				상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관 [<a href="javascript:;" class="text-primary3"
-					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>]에
-				제공되며, 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
-			</p>
+			<!-- 2023-07-19 전체보기 임시히든처리 요청 및 문구 수정 -->
+			<br/>
+			<hr/>
+			<br/>
+			<div>
+				* 상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관<!-- [<a href="javascript:;" class="text-primary3"
+					onclick="window.open('./include/popup','','width=500,height=650,scrollbars=yes')">전체보기</a>] -->에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.
+				<br/>
+				* 제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.
+				<br/>
+				* 위의 개인정보 제공 동의를 거부할 수 있습니다. 하지만 동의하지 않을 경우 서비스가 제한될 수 있습니다.
+			</div>
 		</fieldset>
 		<div class="form-submit">
 			<button type="submit" class="btn btn-large btn-primary3">상담신청하기</button>
@@ -132,6 +139,7 @@ $(function(){
 
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	const numberCheck = /[0-9]/g;
+	const dateChk = /^(19[0-9][0-9]|20\d{2})\/(0[0-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
 	// 정규식 체크
 	$.validator.addMethod("regex", function(value, element, regexpr) {
@@ -164,15 +172,25 @@ $(function(){
 		}
 	});
 
-	$("#brdt").on("keydown",function(){
-		if($(this).val().length == 4){
-			$(this).val($(this).val() + "/");
+	//숫자와 /만 입력받도록 추가
+	const keyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
+	$("#brdt").keypress(function(e) {
+		if (!keyInputRegex.test(e.keyCode)) {
+			return false;
 		}
+	});
+	
+	$("#brdt").on("keydown",function(e){
+		//백스페이스는 무시
+		if (e.keyCode !== 8) {
+			if($(this).val().length == 4){
+				$(this).val($(this).val() + "/");
+			}
 
-		if($(this).val().length == 7){
-			$(this).val($(this).val() + "/");
+			if($(this).val().length == 7){
+				$(this).val($(this).val() + "/");
+			}
 		}
-
 	});
 
 	$("#brdt").on("keyup",function(){
@@ -188,7 +206,7 @@ $(function(){
 			mbrNm : {required : true},
 			mbrTelno : {required : true, regex : telchk},
 			gender : {required : true},
-			brdt : {required : true, minlength : 10},
+			brdt : {required : true, minlength : 10, regex : dateChk},
 			zip : {required : true, min : 5},
 			addr : {required : true},
 			daddr : {required : true}
@@ -197,7 +215,7 @@ $(function(){
 			mbrNm : {required : "성명은 필수 입력 항목입니다."},
 			mbrTelno : {required : "연락처는 필수 입력 항목입니다."},
 			gender : {required : "성별은 필수 선택 항목입니다."},
-			brdt : {required : "생년월일은 필수 입력 항목입니다.", minlength : "생년월일은 최소 8자리입니다."},
+			brdt : {required : "생년월일은 필수 입력 항목입니다.", minlength : "생년월일은 최소 8자리입니다.", regex: "생년월일이 올바르지 않습니다."},
 			zip : {required : "우편번호는 필수 입력 항목입니다.", min : 5},
 			addr : {required : "주소는 필수 입력 항목입니다."},
 			daddr : {required : "상세 주소는 필수 입력 항목입니다."}

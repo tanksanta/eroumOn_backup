@@ -26,6 +26,10 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                            	<th>입점업체명</th>
+                            	<td><input type="text" id="srchEntrpsNm" name="srchEntrpsNm" value="${param.srchEntrpsNm}" class="form-control"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </fieldset>
@@ -46,36 +50,60 @@
                             <col class="min-w-28 w-28">
                             <col class="min-w-32 w-32">
                             <col class="min-w-25 w-25">
+                            <col class="min-w-25 w-25">
+                            
+                            <col class="min-w-23 w-23">
+                            <col class="min-w-20 w-20">
                             <col class="min-w-23 w-23">
                             <col class="min-w-30">
+                            <col class="min-w-30 w-30">
+                            <col class="min-w-25 w-25">
                             <col class="min-w-23 w-23">
+                            <col class="min-w-20 w-20"> 
+                            <col class="min-w-25 w-25"> <!-- 공급가 -->
+                            <col class="min-w-25 w-25"> 
+                            <col class="min-w-30 w-25">
+                            <col class="min-w-30 w-25">
                             <col class="min-w-20 w-20">
+                            <col class="min-w-25 w-25">
+                            <col class="min-w-25 w-25">
+                            
+                            <col class="min-w-25 w-25">
+                            <col class="min-w-25 w-25">
+                            <col class="min-w-30 w-30">
+                            <col class="min-w-25 w-25">
+                            <col class="min-w-30 w-30">
                             <col class="min-w-30 w-30">
                             <col class="min-w-20 w-20">
-                            <col class="min-w-25 w-25">
-                            <col class="min-w-25 w-25">
-                            <col class="min-w-25 w-25">
-                            <col class="min-w-25 w-25">
-                            <col class="min-w-30 w-30">
-                            <col class="min-w-30 w-30">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col" rowspan="2">주문일시</th>
                                 <th scope="col" rowspan="2">주문번호</th>
-                                <th scope="col" rowspan="2">결제수단</th>
+                                <th scope="col" rowspan="2">주문자</th>
+                                <th scope="col" rowspan="2">수령인</th>
                                 <%-- loop area S --%>
                                 <th scope="col" rowspan="2">상품번호</th>
-                                <th scope="col" rowspan="2">상품명/옵션</th>
+                                <th scope="col" rowspan="2">이카운트<br/> 품목코드</th>
+                                <th scope="col" rowspan="2">입점업체명</th>
+                                <th scope="col" rowspan="2">상품명</th>
+                                <th scope="col" rowspan="2">옵션명</th>
+                                <th scope="col" rowspan="2">결제수단</th>
                                 <th scope="col" rowspan="2">상품가격</th>
                                 <th scope="col" rowspan="2">수량</th>
-                                <th scope="col" rowspan="2">주문금액</th>
+                                <th scope="col" rowspan="2">공급가</th>
+                                <th scope="col" rowspan="2">공급가합계</th>
+                                <th scope="col" rowspan="2">판매가</th>
+                                <th scope="col" rowspan="2">판매가합계</th>
                                 <th scope="colgroup" colspan="3">할인금액</th>
                                 <%-- loop area E --%>
                                 <th scope="col" rowspan="2">배송비</th>
-                                <th scope="col" rowspan="2">정산금액</th>
+                                <th scope="col" rowspan="2">실결제금액</th>
+                                <th scope="col" rowspan="2">발송처리일</th>
+                                <th scope="col" rowspan="2">송장번호</th>
                                 <th scope="col" rowspan="2">배송완료일</th>
                                 <th scope="col" rowspan="2">구매확정일</th>
+                                <th scope="col" rowspan="2">주문상태</th>
                             </tr>
                             <tr>
                                 <th scope="col">쿠폰</th>
@@ -87,6 +115,8 @@
 
                         	<c:if test="${!empty ordrList}">
                         	<c:set var="totalStlmAmt" value="0" />
+                        	<c:set var="accGdsSupPc" value="0" />
+                        	<c:set var="accOrdrPc" value="0" />
                         	<c:forEach items="${ordrList}" var="resultList" varStatus="status">
                         	<tr>
                                 <td class="${resultList.ordrCd}">
@@ -96,25 +126,41 @@
 									${resultList.ordrCd}
                                 </td>
                                 <td class="${resultList.ordrCd}">
-                                	<c:if test="${!empty resultList.stlmTy }">
-                                	${bassStlmTyCode[resultList.stlmTy]}
-                                	</c:if>
-                                	<c:if test="${empty resultList.stlmTy }">미정</c:if>
+									${resultList.ordrrNm}
                                 </td>
+                                <td class="${resultList.ordrCd}">
+									${resultList.recptrNm}
+                                </td>
+
 
                                 <td class="${resultList.ordrDtlCd }">
                                 	${resultList.gdsCd}
                                 </td>
-                                <td class="text-left">
+                                 <td class="${resultList.ordrDtlCd }">
+                                	<c:if test="${!empty resultList.gdsItemCd}">${resultList.gdsItemCd}</c:if>
+                                	<c:if test="${!empty resultList.optnItemCd}">${resultList.optnItemCd}</c:if>
+                                </td>
+                                <td class="${resultList.ordrDtlCd }">
+                                	${resultList.entrpsNm}
+                                </td>
+                                <td class="${resultList.ordrDtlCd }">
+                                	${resultList.gdsNm}
+                                </td>
+                                <td class="${resultList.ordrDtlCd }">
                                 	<c:if test="${resultList.ordrOptnTy eq 'ADIT' }"><%--추가상품--%>
-                                    <i class="ico-reply"></i>
-                                    <span class="badge">추가옵션</span>
-                               		${resultList.ordrOptn }
+	                                    <i class="ico-reply"></i>
+	                                    <span class="badge">추가옵션</span>
+	                               		${resultList.ordrOptn}
                                     </c:if>
                                     <c:if test="${resultList.ordrOptnTy eq 'BASE' }"><%--주문상품--%>
-                                    ${resultList.gdsNm}
-                               		<c:if test="${!empty resultList.ordrOptn}"><br>(${resultList.ordrOptn })</c:if>
+                               			<c:if test="${!empty resultList.ordrOptn}">${resultList.ordrOptn }</c:if>
                                     </c:if>
+                                </td>
+                                <td class="${resultList.ordrCd}">
+                                	<c:if test="${!empty resultList.stlmTy }">
+                                	${bassStlmTyCode[resultList.stlmTy]}
+                                	</c:if>
+                                	<c:if test="${empty resultList.stlmTy }">미정</c:if>
                                 </td>
                                 <td class="text-right">
                                 	<c:if test="${resultList.ordrOptnTy eq 'BASE'}">
@@ -127,10 +173,20 @@
                                 </td>
 
                                 <td><fmt:formatNumber value="${resultList.ordrQy}" pattern="###,###" /></td>
+                                <td class="text-right"><fmt:formatNumber value="${resultList.gdsSupPc }" pattern="###,###" /></td>
+                                <td class="text-right">
+                                	<c:set var="accGdsSupPc" value="${accGdsSupPc + resultList.gdsSupPc}" />
+                                	<fmt:formatNumber value="${accGdsSupPc }" pattern="###,###" />
+                                </td>
                                 <td class="text-right"><fmt:formatNumber value="${resultList.ordrPc }" pattern="###,###" /></td>
+                                <td class="text-right">
+                                	<c:set var="accOrdrPc" value="${accOrdrPc + resultList.ordrPc }" />
+                                	<fmt:formatNumber value="${accOrdrPc }" pattern="###,###" />
+                                </td>
                                 <td class="text-right ${resultList.ordrDtlCd}"><fmt:formatNumber value="${resultList.couponAmt }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.useMlg }" pattern="###,###" /></td>
                                 <td class="text-right ${resultList.ordrCd}"><fmt:formatNumber value="${resultList.usePoint }" pattern="###,###" /></td>
+
 
                                 <td class="text-right ${resultList.ordrDtlCd}">
                                 	<fmt:formatNumber value="${resultList.dlvyBassAmt}" pattern="###,###" />
@@ -138,9 +194,20 @@
                                 	<br>(+<fmt:formatNumber value="${resultList.dlvyAditAmt}" pattern="###,###" />)
                                 	</c:if>
                                 </td>
-
                                 <td class="text-right ${resultList.ordrCd}">
 									<fmt:formatNumber value="${resultList.stlmAmt}" pattern="###,###" />
+                                </td>
+                                <td class="${resultList.ordrCd}">
+									<c:set var="chk" value="true" />
+									<c:forEach items="${resultList.ordrChgHist}" var="chgHist" varStatus="s">
+									<c:if test="${chgHist.chgStts eq 'OR07' && chk }">
+										<fmt:formatDate value="${chgHist.regDt}" pattern="yyyy-MM-dd" />
+										<c:set var="chk" value="false" />
+									</c:if>
+									</c:forEach>
+                                </td>
+                                <td class="${resultList.ordrDtlCd }">
+                                	${resultList.dlvyInvcNo}
                                 </td>
 								<td class="${resultList.ordrCd}">
 									<c:set var="chk" value="true" />
@@ -150,7 +217,6 @@
 										<c:set var="chk" value="false" />
 									</c:if>
 									</c:forEach>
-
                                 </td>
                                 <td class="${resultList.ordrCd}">
                                 	<c:set var="chk" value="true" />
@@ -161,6 +227,9 @@
 									</c:if>
 									</c:forEach>
                                 </td>
+                                <td class="${resultList.ordrDtlCd }">
+                                	${ordrSttsCode[resultList.sttsTy]}
+                                </td>
                             </tr>
 
 							<c:if test="${resultList.ordrCd ne ordrList[status.index + 1].ordrCd}">
@@ -169,8 +238,8 @@
 
                             </c:forEach>
 	                        <tr class="total">
-	                        	<td colspan="12">총 합계</td>
-	                        	<td colspan="3"><fmt:formatNumber value="${totalStlmAmt}" pattern="###,###" /></td>
+	                        	<td colspan="20">총 합계</td>
+	                        	<td colspan="6"><fmt:formatNumber value="${totalStlmAmt}" pattern="###,###" /></td>
 	                        </tr>
 	                        </c:if>
 
@@ -223,13 +292,13 @@
                 	// rowspan
                 	$('.table-list tbody').mergeClassRowspan(0);
                 	$('.table-list tbody').mergeClassRowspan(1);
-                	$('.table-list tbody').mergeClassRowspan(2);
-                	$('.table-list tbody').mergeClassRowspan(3);
-
+                	$('.table-list tbody').mergeClassRowspan(4);
                 	$('.table-list tbody').mergeClassRowspan(9);
-                	$('.table-list tbody').mergeClassRowspan(10);
-                	$('.table-list tbody').mergeClassRowspan(11);
-                	$('.table-list tbody').mergeClassRowspan(12);
+
+                	$('.table-list tbody').mergeClassRowspan(17);
+                	$('.table-list tbody').mergeClassRowspan(18);
+                	$('.table-list tbody').mergeClassRowspan(19);
+                	$('.table-list tbody').mergeClassRowspan(20);
 
                 	$(".table-list tbody tr td:hidden").remove();
 

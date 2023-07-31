@@ -30,6 +30,7 @@ public class EntrpsVO extends CommonBaseVO {
 	private String eml;
 	private String tkcgMd;
 	private int dlvyCtCnd;
+	private int dlvyBaseCt;
 	private String clclnCycle;
 	private String bankNm;
 	private String actno;

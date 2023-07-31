@@ -131,6 +131,14 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row"><label for="form-item3" class="require">기본 배송비</label></th>
+						<td>
+							<div class="form-group">
+								<form:input type="number" class="form-control w-42" path="dlvyBaseCt" min="0"/>
+							</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</fieldset>
@@ -155,14 +163,14 @@
 					<tr>
 						<th scope="row"><label for="bankNm" class="require">은행/계좌번호/예금주</label></th>
 						<td>
-							<div class="form-group w-100">
-								<form:select path="bankNm" class="form-control w-30" >
+							<div class="form-group" style="width:480px;">
+								<form:select path="bankNm" class="form-control w-32" >
 								<option value="">선택</option>
 								<c:forEach var="bank" items="${bank}">
 									<form:option value="${bank.key}">${bank.value}</form:option>
 								</c:forEach>
 								</form:select>
-								<form:input class="form-control flex-1" path="actno" placeholder="-을 포함해주세요"/>
+								<form:input class="form-control flex-2" path="actno" placeholder="-을 포함해주세요"/>
 								<form:input class="form-control flex-1" path="dpstr" maxlength="5" />
 							</div>
 						</td>
@@ -352,6 +360,7 @@ $(function(){
 	var phonechk =  /^[0-9]+-/;
 	var numchk =  /^[0-9]+$/;
 	var emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var faxchk = /^[0-9]+-[0-9]+-[0-9]+$/;
 
 	$.validator.addMethod("regex", function(value, element, regexpr) {
 		if(value != ''){
@@ -386,9 +395,10 @@ $(function(){
 				addr : {required : true},
 				daddr : {required : true},
 				telno : {required : true,  regex : phonechk},
-				fxno : { regex : numchk},
+				fxno : { regex : faxchk},
 				eml : {regex : emailchk},
 				dlvyCtCnd : {required : true},
+				dlvyBaseCt : {required : true},
 				clclnCycle : {required : true},
 				bankNm : {required : true},
 				actno : {required : true ,regex : phonechk},
@@ -409,6 +419,7 @@ $(function(){
 				addr : {required : "지번/도로명 주소는 필수 입력 사항입니다."},
 				daddr : {required : "상세주소는 필수 입력 사항입니다."},
 				telno : {required : "전화번호는 필수 입력 사항입니다." },
+				fxno : {regex : "펙스 형식이 올바르지 않습니다. \n(000-000-0000)"},
 				eml : {regex :  "형식이 올바르지 않습니다. \n(0000@naver.com)"},
 				dlvyCtCnd : {required : "주문 금액은 필수 입력 사항입니다.", min : "최솟값은 0입니다."},
 				clclnCycle : {required : "정산 주기는 필수 입력 사항입니다."},

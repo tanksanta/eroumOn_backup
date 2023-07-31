@@ -169,6 +169,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row"><label for="entrpsNo">입점업체</label></th>
+                                    <td>
+                                        <form:select path="entrpsNo" class="form-control w-70">
+                                            <form:option value="0" label="선택" />
+                                            <c:forEach items="${entrpsList}" var="entrps" varStatus="status">
+                                                <form:option value="${entrps.entrpsNo}" label="${entrps.entrpsNm}" />
+                                            </c:forEach>
+                                        </form:select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row"><label for="mkr">제조사</label></th>
                                     <td>
                                     	<form:select path="mkr" class="form-control w-70">
@@ -709,6 +720,15 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th scope="row"><label for="dlvyAditAmt">묶음배송</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
+                                            <label class="form-check-label" for="dlvyGroupYn">사용</label>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </fieldset>
@@ -779,7 +799,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                 </tr>
                                 <tr>
                                     <th scope="rowgroup" rowspan="3"><p>단순변심<br> 교환/반품</p></th>
@@ -795,7 +815,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><p>일반상품<br>(&amp;CMK)</p></th>
+                                    <th scope="row"><p>일반상품</p></th>
                                     <td>
                                         <form:textarea path="dcPchrgGnrl" class="form-control w-full" cols="30" rows="2" />
                                     </td>
@@ -1052,15 +1072,15 @@
 
                  		$("#ctgryNo"+ctNum+ " option").each(function(){
 							if(ctNum == 2){
-								if($(this).text() == "${path[2]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[2]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}else if(ctNum ==3 ){
-								if($(this).text() == "${path[3]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[3]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}else{
-								if($(this).text() == "${path[4]}"){
+								if($(this).text().replaceAll(' ', '') == "${path[4]}"){
 									$(this).prop("selected",true).trigger("change");
 								}
 							}
