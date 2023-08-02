@@ -83,9 +83,9 @@
 								<th scope="row"><label class="require">상태</label></th>
 								<td>
 									<div class="form-check-group">
-										<c:forEach var="yn" items="${useYnCode}">
+										<c:forEach var="yn" items="${dspyYnCode}">
 											<div class="form-check">
-												<form:radiobutton class="form-check-input" id="${yn.key}" path="useYn" value="${yn.key}" />
+												<form:radiobutton class="form-check-input" id="${yn.key}" path="dspyYn" value="${yn.key}" />
 												<label class="form-check-label" for="${yn.key}">${yn.value}</label>
 											</div>
 										</c:forEach>
