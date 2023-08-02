@@ -52,7 +52,7 @@
             </fieldset>
         </form>
 
-        <p class="text-copyright">Copyright ⓒEroumMarket All righs reserved.</p>
+        <p class="text-copyright">Copyright ⓒTHKCompany Inc. All rights reserved.</p>
     </div>
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>

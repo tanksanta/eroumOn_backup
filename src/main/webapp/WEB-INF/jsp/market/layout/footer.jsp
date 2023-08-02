@@ -92,7 +92,7 @@
 
 	<!-- 카피 -->
 	<div class="footer-copyright">
-		Copyright ⓒ<strong>이로움ON</strong> All rights reserved
+		Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved
 	</div>
 	<!-- //카피 -->
 </footer>

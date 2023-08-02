@@ -8,5 +8,5 @@
 <!-- //quick -->
 
 <footer id="footer">
-    <p>COPYRIGHT ⓒ <strong>이로움ON</strong>. ALL RIGHTS RESERVED.</p>
+    <p>Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved.</p>
 </footer>

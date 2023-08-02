@@ -77,7 +77,7 @@
 	<hr>
 
 	<!-- 카피 라이트 -->
-	<div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+	<div class="footer-copyright">Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved</div>
 	<!-- //카피 라이트 -->
 </footer>
 

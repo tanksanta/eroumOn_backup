@@ -67,7 +67,7 @@
             <li><a href="/_mng/clcln/market/list" class="dashboard-item9">정산관리</a></li>
         </ul>
 
-        <p class="text-copyright">Copyright ⓒEroumMarket All righs reserved.</p>
+        <p class="text-copyright">Copyright ⓒTHKCompany Inc. All rights reserved.</p>
     </div>
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>
