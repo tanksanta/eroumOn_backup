@@ -257,7 +257,7 @@
 					</c:forEach>
 					<c:if test="${empty listVO.listObject}">
 						<tr>
-							<td class="noresult" colspan="6">응모 내역이 없습니다.</td>
+							<td class="noresult" colspan="7">응모 내역이 없습니다.</td>
 						</tr>
 					</c:if>
 				</tbody>

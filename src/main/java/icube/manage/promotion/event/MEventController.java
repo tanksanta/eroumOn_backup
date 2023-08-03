@@ -364,8 +364,19 @@ public class MEventController extends CommonAbstractController {
 		if(EgovStringUtil.isNotEmpty(iemNo)) {
 			paramMap.put("iemNo", EgovStringUtil.string2integer(iemNo));
 		}
-		 List<EventApplcnVO> itemList = eventApplcnService.eventApplcnListByIemNo(paramMap);
-
+		List<EventApplcnVO> itemList = eventApplcnService.eventApplcnListByIemNo(paramMap);
+		
+		//설문형 이벤트 응답자가 있으면
+		if (itemList.size() > 0) {
+			List <EventIemVO> eventIemList = eventIemService.selectListEventIem(eventNo);
+			
+			itemList.forEach(eventApplcn -> {
+				EventIemVO eventIem = eventIemList.stream().filter(ei -> ei.getIemNo() == eventApplcn.getChcIemNo()).findAny().orElse(null);
+				if (eventIem != null) {
+					eventApplcn.setChcIemCn(eventIem.getIemCn());
+				}
+			});
+		}
 
 		model.addAttribute("itemList", itemList);
 
