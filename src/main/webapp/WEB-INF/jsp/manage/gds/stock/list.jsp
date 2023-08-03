@@ -65,12 +65,14 @@
 	</form>
 
 	<p class="text-right mt-13 mb-3">
+		<button type="button" class="btn-primary" id="mdfrStockList">전체수정</button>
 		<button type="button" class="btn-primary" id="btn-excel">엑셀 다운로드</button>
 	</p>
 
 	<p class="text-title2">상품재고 관리 목록</p>
 	<table class="table-list">
 		<colgroup>
+			<col class="w-15">
 			<col class="w-27">
 			<col class="w-30">
 			<col class="">
@@ -83,6 +85,11 @@
 		</colgroup>
 		<thead>
 			<tr>
+				<th scope="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="check_all" name="check_all">
+                    </div>
+                </th>
 				<th scope="col">상품구분</th>
 				<th scope="col">이미지</th>
 				<th scope="col">상품명</th>
@@ -98,6 +105,11 @@
 			<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 			<c:set var="pageParam" value="gdsNo=${resultList.gdsNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchUseNdspy=${param.srchUseNdspy}&amp;srchBnefCode=${param.srchBnefCode}&amp;srchGdsTy=${param.srchGdsTy}&amp;srchUpCtgryNo=${param.srchUpCtgryNo}&amp;srchCtgryNo=${param.srchCtgryNo}&amp;srchGdsNm=${param.srchGdsNm}" />
 			<tr>
+				<td>
+                    <div class="form-check">
+                        <input class="form-check-input"  type="checkbox" name="arrGdsNo" value="${resultList.gdsNo}">
+                    </div>
+                </td>
 				<td>${gdsTyCode[resultList.gdsTy]}</td>
 				<td>
 					<c:choose>
@@ -170,6 +182,22 @@
 <script>
 $(function(){
 
+	const totalCnt = $(":checkbox[name='arrGdsNo']").length;
+	//전체 선택 체크박스 클릭시
+	$(":checkbox[name='check_all']").on("click", function(){
+		let isChecked = $(this).is(":checked");
+		$(":checkbox[name='arrGdsNo']").prop("checked",isChecked);
+	});
+	//리스트 체크박스 클릭시
+	$(":checkbox[name='arrGdsNo']").on("click", function(){
+		let checkedCnt = $(":checkbox[name='arrGdsNo']:checked").length;
+		if( totalCnt==checkedCnt ){
+			$(":checkbox[name='check_all']").prop("checked",true);
+		}else{
+			$(":checkbox[name='check_all']").prop("checked",false);
+		}
+	});
+	
   	//상품 카테고리
 	$("#srchUpCtgryNo").on("change", function(){
 
@@ -246,6 +274,64 @@ $(function(){
 
   	});
 
+  	//전체수정 이벤트
+  	$("#mdfrStockList").on("click",function(){
+  		let arrGdsNo = $(":checkbox[name=arrGdsNo]:checked");
+
+		if(arrGdsNo==null||arrGdsNo.length==0) {
+			alert("상품을 먼저 선택해주세요");
+			return;
+		} else {
+			const gdsList = [];
+			for (var i = 0; i < arrGdsNo.length; i++) {
+				const gdsCheckBox = arrGdsNo[i];
+				const gdsTrTag = $(gdsCheckBox).parent().parent().parent();
+				const mdfrStockBtn = gdsTrTag.find('.mdfrStock');
+				
+		  		const gdsOptnNo = $(mdfrStockBtn).data("optnNo");
+		  		const gdsNo = $(mdfrStockBtn).data("gdsNo");
+		  		let optnTy = $(mdfrStockBtn).data("optnTy");
+
+		  		if(optnTy == '' || optnTy == null){
+		  			optnTy = "none";
+		  		}
+
+		  		const stockQy = $(mdfrStockBtn).parent().siblings('.qy').children().val();
+		  		const yn = $(mdfrStockBtn).parent().siblings('.yn').children().val();
+		  		
+		  		gdsList.push({
+		  			gdsOptnNo
+		  			, gdsNo
+					, optnTy
+					, stockQy
+					, yn
+		  		});
+			}
+			
+			const jsonData = JSON.stringify(gdsList);
+			if(confirm("선택된 상품을 수정하시겠습니까?")){
+				$.ajax({
+					type : "post",
+					url  : "list/action.json",
+					data : { gdsListJson : jsonData },
+					dataType : 'json'
+				})
+				.done(function(data) {
+					if(data.result===true){
+						alert("수정되었습니다.");
+						location.reload();
+					}else{
+						alert("처리중 오류가 발생하였습니다.");
+					}
+				})
+				.fail(function(data, status, err) {
+					alert("처리중 오류가 발생하였습니다.");
+					console.log('error forward : ' + data);
+				});
+	  		}
+		}
+  	});
+  	
   	// 엑셀 다운르도
   	$("#btn-excel").on("click",function(){
   		$("#searchFrm").attr("action","./excel");
