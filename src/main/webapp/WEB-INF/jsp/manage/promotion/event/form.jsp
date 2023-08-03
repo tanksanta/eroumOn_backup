@@ -228,6 +228,7 @@
 					<col class="w-[15%]">
 					<col>
 					<col class="w-35">
+					<col class="w-30">
 					<col class="w-35">
 					<col class="w-45">
 				</colgroup>
@@ -237,6 +238,7 @@
 						<th scope="col">아이디</th>
 						<th scope="col">회원이름</th>
 						<th scope="col">휴대폰번호</th>
+						<th scope="col">답변</th>
 						<th scope="col">IP</th>
 						<th scope="col">응모일</th>
 					</tr>
@@ -248,6 +250,7 @@
 							<td>${applcnList.applctId}</td>
 							<td>${applcnList.applctNm}</td>
 							<td>${applcnList.applctTelno}</td>
+							<td>${applcnList.chcIemCn}</td>
 							<td>${applcnList.ip}</td>
 							<td><fmt:formatDate value="${applcnList.applctDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
