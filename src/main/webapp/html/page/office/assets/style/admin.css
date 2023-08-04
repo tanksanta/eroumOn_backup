@@ -389,6 +389,9 @@ body {
             &.menu-item6 {
                 @apply before:bg-[url(../images/ico-admin-menu6.svg)] before:bg-[length:1.25rem];
             }
+            &.menu-item7 {
+                @apply before:bg-[url(../images/ico-admin-menu7.svg)];
+            }
             &.active {
                 @apply border-white bg-white text-[#5E6FE0];
                 &.menu-item1 {
@@ -408,6 +411,9 @@ body {
                 }
                 &.menu-item6 {
                     @apply before:bg-[url(../images/ico-admin-menu6-active.svg)];
+                }
+                &.menu-item7 {
+                    @apply before:bg-[url(../images/ico-admin-menu7-active.svg)];
                 }
             }
         }

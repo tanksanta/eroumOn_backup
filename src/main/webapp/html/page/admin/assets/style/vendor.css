@@ -156,7 +156,7 @@
                 @apply !text-white !border-black1 !bg-black1 !pointer-events-none hover:!text-white focus:!text-white active:!text-white;
             }
             &.disabled {
-                @apply !pointer-events-none;
+                @apply !pointer-events-none !bg-neutral-100;
             }
             &.previous, &.next {
                 @apply !border-gray1 !relative !mx-3.5 !w-12 !-indent-96

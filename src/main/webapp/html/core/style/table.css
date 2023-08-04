@@ -60,7 +60,7 @@
             @apply px-3.5 pr-4 text-right;
         }
         & td {
-            @apply p-0 border-y-1 border-solid border-white text-left;
+            @apply py-0 px-1.5 border-y-1 border-solid border-white text-left;
         }
         & tbody {
             & tr {
