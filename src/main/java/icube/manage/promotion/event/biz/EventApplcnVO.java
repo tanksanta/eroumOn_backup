@@ -24,6 +24,9 @@ public class EventApplcnVO extends CommonBaseVO {
 	private String applctTelno;
 	private Date applctDt;
 	private String ip;
+	
+	//선택한 답변명
+	private String chcIemCn;
 
 	//eventVO
 	private String eventNm;

@@ -246,7 +246,7 @@
 									<button type="button" class="btn-danger tiny btn-relGds-remove">
 										<i class="fa fa-trash"></i>
 									</button>
-									<input type="hidden" name="gdsNo/{num}/ori" value="${resultList.gdsNo }">
+									<input type="hidden" name="gdsNo" value="${resultList.gdsNo}">
 								</div>
 							</td>
 							<td><a href="#">${resultList.gdsInfo.gdsCd}</a></td>

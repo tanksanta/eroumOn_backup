@@ -99,7 +99,7 @@
 
 	<!-- 카피 라이트 -->
 	<div class="footer-copyright">
-		Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved
+		Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved
 	</div>
 	<!-- //카피 라이트 -->
 </footer>
