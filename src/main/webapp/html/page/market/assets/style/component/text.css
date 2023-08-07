@@ -48,31 +48,31 @@
 }
 
 .text-alert {
-    @apply bg-[url(../images/ico-alert.svg)];
+    @apply bg-[url(/html/page/market/assets/images/ico-alert.svg)];
     &.is-danger {
-        @apply bg-[url(../images/ico-alert-red.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-alert-red.svg)];
     }
     &.is-white {
-        @apply bg-[url(../images/ico-alert-white.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-alert-white.svg)];
     }
 }
 
 .text-alerm {
-    @apply pl-[1.5em] bg-[left_top_0.125rem] bg-[length:auto_1.25em] bg-[url(../images/ico-bell.svg)];
+    @apply pl-[1.5em] bg-[left_top_0.125rem] bg-[length:auto_1.25em] bg-[url(/html/page/market/assets/images/ico-bell.svg)];
     &.is-color {
-        @apply bg-[url(../images/ico-bell-color.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-bell-color.svg)];
     }
     &.is-white {
-        @apply bg-[url(../images/ico-bell-white.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-bell-white.svg)];
     }
 }
 
 .text-question {
-    @apply bg-[url(../images/ico-question.svg)];
+    @apply bg-[url(/html/page/market/assets/images/ico-question.svg)];
     &.is-danger {
-        @apply bg-[url(../images/ico-question-red.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-question-red.svg)];
     }
     &.is-white {
-        @apply bg-[url(../images/ico-question-white.svg)];
+        @apply bg-[url(/html/page/market/assets/images/ico-question-white.svg)];
     }
 }

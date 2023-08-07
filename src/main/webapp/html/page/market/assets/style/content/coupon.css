@@ -23,15 +23,15 @@
             @apply text-[1.1875rem];
         }
         &.is-event {
-            @apply bg-[url(../images/img-coupon1.svg)];
+            @apply bg-[url(/html/page/market/assets/images/img-coupon1.svg)];
         }
         &.is-discount {
-            @apply bg-[url(../images/img-coupon2.svg)];
+            @apply bg-[url(/html/page/market/assets/images/img-coupon2.svg)];
         }
         &.is-delivery {
-            @apply bg-[url(../images/img-coupon3.svg)];
+            @apply bg-[url(/html/page/market/assets/images/img-coupon3.svg)];
             & .info {
-                @apply w-full h-9 overflow-hidden bg-no-repeat bg-[url(../images/img-coupon-delivery.svg)] bg-center bg-[length:auto_100%] -indent-[9999em];
+                @apply w-full h-9 overflow-hidden bg-no-repeat bg-[url(/html/page/market/assets/images/img-coupon-delivery.svg)] bg-center bg-[length:auto_100%] -indent-[9999em];
             }
             &.coupon-item-large {
                 & .info {
@@ -45,10 +45,10 @@
             }
         }
         &.is-disabled {
-            @apply bg-[url(../images/img-coupon4.png)] pointer-events-none;
+            @apply bg-[url(/html/page/market/assets/images/img-coupon4.png)] pointer-events-none;
             &.is-delivery {
                 & .info {
-                    @apply bg-[url(../images/img-coupon-delivery2.svg)];
+                    @apply bg-[url(/html/page/market/assets/images/img-coupon-delivery2.svg)];
                 }
             }
         }

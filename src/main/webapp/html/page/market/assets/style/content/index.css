@@ -40,14 +40,14 @@
                md:w-9 md:h-9;
     }
     & .swiper-button-prev, & .swiper-button-next {
-        @apply after:bg-[url(../images/ico-slide-arrow-white.svg)] after:bg-[length:22.22222222222222%];
+        @apply after:bg-[url(/html/page/market/assets/images/ico-slide-arrow-white.svg)] after:bg-[length:22.22222222222222%];
     }
     & .swiper-button-toggle {
         @apply w-7 border-x border-x-white/10
-               after:bg-[length:19.44444444444444%] after:bg-[url(../images/ico-slide-pause-white.svg)]
+               after:bg-[length:19.44444444444444%] after:bg-[url(/html/page/market/assets/images/ico-slide-pause-white.svg)]
                md:w-9.5;
         &.is-pause {
-            @apply after:bg-[length:30.55555555555556%] after:bg-[url(../images/ico-slide-play-white.svg)];
+            @apply after:bg-[length:30.55555555555556%] after:bg-[url(/html/page/market/assets/images/ico-slide-play-white.svg)];
         }
     }
     & .swiper-pagination {
@@ -88,7 +88,7 @@
     }
     & .swiper-button-prev, & .swiper-button-next {
         @apply mt-0 top-25 w-9 h-9 rounded-full border border-gray2 bg-white shadow-md opacity-100
-               after:bg-[length:18.96551724137931%] after:bg-[url(../images/ico-slide-arrow.svg)]
+               after:bg-[length:18.96551724137931%] after:bg-[url(/html/page/market/assets/images/ico-slide-arrow.svg)]
                sm:top-29 sm:w-11 sm:h-11       
                md:top-35 md:w-12 md:h-12       
                lg:top-41 lg:w-[3.625rem] lg:h-[3.625rem];

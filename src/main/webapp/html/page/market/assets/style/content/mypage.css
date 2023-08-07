@@ -7,7 +7,7 @@
                md:order-1 md:mt-0 md:w-85;
         & .thumb {
             @apply relative overflow-hidden rounded-[1.25rem] bg-no-repeat aspect-square
-                   before:absolute before:z-5 before:top-0 before:left-0 before:right-0 before:bottom-0 before:rounded-[1.25rem] before:border-white before:bg-no-repeat before:bg-gray2 before:bg-[url(../images/ico-image-white.svg)] before:bg-center before:bg-[length:20.15%]
+                   before:absolute before:z-5 before:top-0 before:left-0 before:right-0 before:bottom-0 before:rounded-[1.25rem] before:border-white before:bg-no-repeat before:bg-gray2 before:bg-[url(/html/page/market/assets/images/ico-image-white.svg)] before:bg-center before:bg-[length:20.15%]
                    sm:aspect-[1/0.6591]
                    md:aspect-[1/1.32353];
             & img {
@@ -16,7 +16,7 @@
         }
         & .toggle {
             @apply hidden absolute z-15 top-1/2 right-2 w-6 h-59 overflow-hidden rounded-l-md bg-[#595959]/50 -indent-96 -translate-y-1/2
-                   before:absolute before:top-1/2 before:left-1/2 before:w-3.5 before:h-[0.3125rem] before:overflow-hidden before:bg-cover before:bg-[url(../images/ico-compare-arrow2.svg)] before:rotate-90 before:-translate-x-1/2 before:-translate-y-1/2;
+                   before:absolute before:top-1/2 before:left-1/2 before:w-3.5 before:h-[0.3125rem] before:overflow-hidden before:bg-cover before:bg-[url(/html/page/market/assets/images/ico-compare-arrow2.svg)] before:rotate-90 before:-translate-x-1/2 before:-translate-y-1/2;
         }
         & .button {
             @apply flex mt-2.5 space-x-2
@@ -25,7 +25,7 @@
                 @apply font-bold;
             }
             & .btn-outline-primary {
-                @apply flex-1 border-0.5 bg-no-repeat bg-[left_0.25rem_bottom] bg-[length:2.5rem] bg-[url(../images/ico-human2.svg)]
+                @apply flex-1 border-0.5 bg-no-repeat bg-[left_0.25rem_bottom] bg-[length:2.5rem] bg-[url(/html/page/market/assets/images/ico-human2.svg)]
                        md:bg-[left_0.5rem_bottom] md:bg-[length:3rem];
             }
             & .btn-primary {
@@ -130,7 +130,7 @@
             }
         }
         & .link {
-            @apply block pr-3 w-fit bg-no-repeat bg-right-center bg-[length:0.375rem] bg-[url(../images/ico-angle-right.svg)] text-[0.8125rem]
+            @apply block pr-3 w-fit bg-no-repeat bg-right-center bg-[length:0.375rem] bg-[url(/html/page/market/assets/images/ico-angle-right.svg)] text-[0.8125rem]
                    md:text-sm;
         }
         & .service, & .notice {
@@ -143,7 +143,7 @@
                            md:min-h-12;
                 }
                 & small {
-                    @apply block pr-3 w-fit bg-no-repeat bg-right-center bg-[length:0.375rem] bg-[url(../images/ico-angle-right.svg)] text-[0.8125rem] font-normal
+                    @apply block pr-3 w-fit bg-no-repeat bg-right-center bg-[length:0.375rem] bg-[url(/html/page/market/assets/images/ico-angle-right.svg)] text-[0.8125rem] font-normal
                            md:text-sm;
                 }
                 & strong {
@@ -163,27 +163,27 @@
                 }
                 &.mileage {
                     & a {
-                        @apply pl-11 bg-[url(../images/txt-mileage.svg)] bg-[length:2.25rem]
+                        @apply pl-11 bg-[url(/html/page/market/assets/images/txt-mileage.svg)] bg-[length:2.25rem]
                                md:pl-14 md:bg-[length:3rem]
                                xs-max:pl-10;
                     }
                     & strong {
-                        @apply bg-[url(../images/ico-mileage.svg)];
+                        @apply bg-[url(/html/page/market/assets/images/ico-mileage.svg)];
                     }
                 }
                 &.point {
                     & a {
-                        @apply pl-9 bg-[url(../images/txt-point.svg)] bg-[length:1.625rem]
+                        @apply pl-9 bg-[url(/html/page/market/assets/images/txt-point.svg)] bg-[length:1.625rem]
                                md:pl-11 md:bg-[length:2.125rem]
                                xs-max:pl-7.5;
                     }
                     & strong {
-                        @apply bg-[url(../images/ico-point.svg)];
+                        @apply bg-[url(/html/page/market/assets/images/ico-point.svg)];
                     }
                 }
                 &.coupon {
                     & a {
-                        @apply pl-9 bg-[url(../images/txt-coupon.svg)] bg-[length:1.875rem]
+                        @apply pl-9 bg-[url(/html/page/market/assets/images/txt-coupon.svg)] bg-[length:1.875rem]
                                md:pl-12 md:bg-[length:2.5rem]
                                xs-max:pl-8.5;
                         & strong {
@@ -205,19 +205,19 @@
                 }
                 &.interest {
                     & a {
-                        @apply pl-11 bg-[url(../images/ico-attent-equal.svg)] bg-[length:2.375rem]
+                        @apply pl-11 bg-[url(/html/page/market/assets/images/ico-attent-equal.svg)] bg-[length:2.375rem]
                                md:pl-15 md:bg-[length:3rem];
                     }
                 }
                 &.cart {
                     & a {
-                        @apply pl-12 bg-[url(../images/ico-cart.svg)] bg-[length:2.625rem]
+                        @apply pl-12 bg-[url(/html/page/market/assets/images/ico-cart.svg)] bg-[length:2.625rem]
                                md:pl-18 md:bg-[length:3.625rem];
                     }
                 }
                 &.alerm {
                     & a {
-                        @apply pl-10 bg-[url(../images/ico-bell-color.svg)] bg-[length:2.25rem] text-[#B428AC]
+                        @apply pl-10 bg-[url(/html/page/market/assets/images/ico-bell-color.svg)] bg-[length:2.25rem] text-[#B428AC]
                                md:pl-16 md:bg-[length:3rem];
                         & strong {
                             @apply text-[#EE1051];
@@ -368,7 +368,7 @@
             }
         }
         & .button {
-            @apply press-action btn-icon absolute -top-14 right-0 h-[2.625rem] rounded-md bg-black2 bg-[length:1rem] bg-[url(../images/ico-close-white.svg)]
+            @apply press-action btn-icon absolute -top-14 right-0 h-[2.625rem] rounded-md bg-black2 bg-[length:1rem] bg-[url(/html/page/market/assets/images/ico-close-white.svg)]
                    xl:hidden;
         }
     }
@@ -488,78 +488,78 @@
         }
         & .seq1 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence13.svg)];
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence13.svg)];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence13-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence13-white.svg)];
                 }
             }
         }
         & .seq2 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence14.svg)];
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence14.svg)];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence14-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence14-white.svg)];
                 }
             }
         }
         & .seq3 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence8.svg)] before:bg-[length:1.75rem]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence8.svg)] before:bg-[length:1.75rem]
                        md:before:bg-[length:2rem];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence8-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence8-white.svg)];
                 }
             }
         }
         & .seq4 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence9.svg)] before:bg-[length:1.5rem]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence9.svg)] before:bg-[length:1.5rem]
                        md:before:bg-[length:1.75rem];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence9-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence9-white.svg)];
                 }
             }
         }
         & .seq5 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence10.svg)] before:bg-[length:1.5rem]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence10.svg)] before:bg-[length:1.5rem]
                        md:before:bg-[length:1.75rem];
             }
             &:hover {
                 & .content {
                     &::before {
-                        @apply before:bg-[url(../images/ico-sequence10-white.svg)];
+                        @apply before:bg-[url(/html/page/market/assets/images/ico-sequence10-white.svg)];
                     }
                 }
             }
         }
         & .seq6 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence11.svg)] before:bg-[length:1.5rem]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence11.svg)] before:bg-[length:1.5rem]
                        md:before:bg-[length:1.875rem];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence11-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence11-white.svg)];
                 }
             }
         }
         & .seq7 {
             & .content {
-                @apply before:bg-[url(../images/ico-sequence12.svg)] before:bg-[length:1.625rem]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence12.svg)] before:bg-[length:1.625rem]
                         md:before:bg-[length:2rem];
             }
             &:hover {
                 & .content {
-                    @apply before:bg-[url(../images/ico-sequence12-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence12-white.svg)];
                 }
             }
         }
@@ -819,7 +819,7 @@
                md:w-auto;
         & .status1 {
             @apply btn-outline-secondary flex-1 px-0 w-28 h-[3.125rem] font-bold text-[#EB3636] pointer-events-none
-                   before:mr-1.5 before:w-6 before:h-6 before:bg-cover before:bg-[url(../images/ico-prize.svg)]
+                   before:mr-1.5 before:w-6 before:h-6 before:bg-cover before:bg-[url(/html/page/market/assets/images/ico-prize.svg)]
                    md:absolute md:top-5 md:right-5 md:pt-10 md:w-29 md:h-19
                    md:before:absolute md:before:top-3 md:before:left-1/2 md:before:mr-0 md:before:-translate-x-1/2;
         }
@@ -840,7 +840,7 @@
 /* 쿠폰, 포인트, 마일리지 박스 */
 .mypage-profit {
     @apply relative items-stretch overflow-hidden border border-black2 rounded-[1rem] bg-no-repeat bg-black2
-           before:absolute before:-left-5.5 before:-bottom-19 before:w-44 before:h-53 before:opacity-50 before:bg-no-repeat before:bg-cover before:bg-[url(../images/bg-profit.png)]
+           before:absolute before:-left-5.5 before:-bottom-19 before:w-44 before:h-53 before:opacity-50 before:bg-no-repeat before:bg-cover before:bg-[url(/html/page/market/assets/images/bg-profit.png)]
            after:hidden after:absolute after:bg-no-repeat after:bg-cover after:opacity-5
            md:flex
            md:after:block
@@ -938,29 +938,29 @@
         }
     }
     &.is-mileage {
-        @apply after:left-43 after:bottom-0 after:w-[167px] after:h-[176px] after:bg-[url(../images/txt-mileage-white.svg)]
+        @apply after:left-43 after:bottom-0 after:w-[167px] after:h-[176px] after:bg-[url(/html/page/market/assets/images/txt-mileage-white.svg)]
                lg:after:left-49 lg:after:w-[192px] lg:after:h-[202px];
         & .profit-content {
             @apply content-["mileage"];
         }
         & .profit-infobox {
-            @apply bg-[url(../images/bg-mypage-mileage.png)] bg-[length:auto_4.5rem] bg-[position:right_-0.25rem_bottom]
+            @apply bg-[url(/html/page/market/assets/images/bg-mypage-mileage.png)] bg-[length:auto_4.5rem] bg-[position:right_-0.25rem_bottom]
                    md:bg-[position:right_-0.375rem_bottom] md:bg-[length:auto_6rem];
         }
     }
     &.is-point {
-        @apply after:left-44 after:-bottom-0.5 after:w-[131px] after:h-[174px] after:bg-[url(../images/txt-point-white.svg)]
+        @apply after:left-44 after:-bottom-0.5 after:w-[131px] after:h-[174px] after:bg-[url(/html/page/market/assets/images/txt-point-white.svg)]
                lg:after:-bottom-1 lg:after:left-51 lg:after:w-[151px] lg:after:h-[200px];
         & .profit-content {
             @apply content-["point"];
         }
         & .profit-infobox {
-            @apply bg-[url(../images/bg-mypage-point.png)] bg-[length:auto_4.25rem] bg-[position:right_-1.625rem_bottom]
+            @apply bg-[url(/html/page/market/assets/images/bg-mypage-point.png)] bg-[length:auto_4.25rem] bg-[position:right_-1.625rem_bottom]
                    md:bg-[position:right_-2.5rem_bottom] md:bg-[length:auto_5.625rem];
         }
     }
     &.is-coupon {
-        @apply after:left-35 after:-bottom-2.5 after:w-[141px] after:h-[164px] after:bg-[url(../images/txt-coupon-white.svg)]
+        @apply after:left-35 after:-bottom-2.5 after:w-[141px] after:h-[164px] after:bg-[url(/html/page/market/assets/images/txt-coupon-white.svg)]
                 lg:after:-bottom-3 lg:after:left-40 lg:after:w-[162px] lg:after:h-[188px];
         & .profit-content {
             @apply before:content-["Coupon_book"]
@@ -969,14 +969,14 @@
         & .tabs {
             & .tabs-link {
                 @apply relative pr-9.5 h-12 border border-black2 bg-white bg-no-repeat bg-[length:4.75rem] bg-[left_1rem_center] text-sm justify-start text-left
-                       after:absolute after:top-1/2 after:right-4 after:w-1.5 after:h-2.5 after:bg-cover after:bg-[url(../images/ico-angle-right.svg)] after:-translate-y-1/2
-                       sm:justify-end sm:bg-[url(../images/bg-mypage-coupon1.png)] sm:text-right
+                       after:absolute after:top-1/2 after:right-4 after:w-1.5 after:h-2.5 after:bg-cover after:bg-[url(/html/page/market/assets/images/ico-angle-right.svg)] after:-translate-y-1/2
+                       sm:justify-end sm:bg-[url(/html/page/market/assets/images/bg-mypage-coupon1.png)] sm:text-right
                        md:pr-14 md:h-14 md:bg-[left_1.375rem_center] md:bg-[length:5.625rem] md:text-base
                        md:after:right-7.5;
                 &.active {
                     @apply bg-black2 text-white
-                           after:bg-[url(../images/ico-angle-right-white.svg)]
-                           sm:bg-[url(../images/bg-mypage-coupon2.png)];
+                           after:bg-[url(/html/page/market/assets/images/ico-angle-right-white.svg)]
+                           sm:bg-[url(/html/page/market/assets/images/bg-mypage-coupon2.png)];
                 }
             }
         }
@@ -986,7 +986,7 @@
 
 /* 1:1문의 */
 .mypage-inquiry-items {
-    @apply relative pl-18 border border-black2 rounded-[1rem] bg-black2 bg-[url(../images/ico-inquiry-list.png)] bg-[left_1.25rem_top_1.25rem] bg-[length:2.125rem] bg-no-repeat
+    @apply relative pl-18 border border-black2 rounded-[1rem] bg-black2 bg-[url(/html/page/market/assets/images/ico-inquiry-list.png)] bg-[left_1.25rem_top_1.25rem] bg-[length:2.125rem] bg-no-repeat
            md:pl-24 md:bg-[length:auto] md:bg-[left_1.625rem_top_1.625rem];
     & dl {
         @apply pl-3 pr-5 rounded-[1rem] bg-white leading-snug
@@ -1039,7 +1039,7 @@
 .mypage-inquiry {
     @apply relative pt-2
            before:absolute before:top-0 before:left-0 before:right-0 before:h-[51%] before:rounded-[1rem] before:bg-black2 before:bg-no-repeat
-           md:before:bg-[length:5rem,11.875rem] md:before:bg-[position:left_1.875rem_top_2.5rem,right_2rem_top_2.25rem] md:before:bg-[url(../images/bg-inquiry.svg),url(../images/bg-inquiry2.svg)];
+           md:before:bg-[length:5rem,11.875rem] md:before:bg-[position:left_1.875rem_top_2.5rem,right_2rem_top_2.25rem] md:before:bg-[url(/html/page/market/assets/images/bg-inquiry.svg),url(/html/page/market/assets/images/bg-inquiry2.svg)];
     & legend {
         @apply sr-only;
     }
@@ -1157,11 +1157,11 @@
         }
     }
     &.is-inquiry {
-        @apply before:bg-[url(../images/bg-inquiry.svg)] before:bg-[length:3.125rem] before:bg-[left_1.25rem_top_2rem]
+        @apply before:bg-[url(/html/page/market/assets/images/bg-inquiry.svg)] before:bg-[length:3.125rem] before:bg-[left_1.25rem_top_2rem]
                 md:before:bg-[length:5rem] md:before:bg-[left_1.875rem_top_2.25rem];
     }
     &.is-answer {
-        @apply before:bg-[url(../images/bg-inquiry2.svg)] before:bg-[length:4.25rem] before:bg-[left_0.875rem_top_1.5rem]
+        @apply before:bg-[url(/html/page/market/assets/images/bg-inquiry2.svg)] before:bg-[length:4.25rem] before:bg-[left_0.875rem_top_1.5rem]
                 md:before:bg-[length:5.5rem] md:before:bg-[left_1.875rem_top_1.875rem];
     }
 }
@@ -1187,121 +1187,22 @@
     }
     &.is-mint {
         @apply border-[#3EB7B3] bg-white
-               before:bg-[url(../images/bg-category-mint.png)];
+               before:bg-[url(/html/page/market/assets/images/bg-category-mint.png)];
     }
     &.is-orange {
         @apply border-[#FF6A0F] bg-white
-               before:bg-[url(../images/bg-category-orange.png)];
+               before:bg-[url(/html/page/market/assets/images/bg-category-orange.png)];
     }
     &.is-pink {
         @apply border-[#FF4EA1] bg-white
-               before:bg-[url(../images/bg-category-pink.png)];
+               before:bg-[url(/html/page/market/assets/images/bg-category-pink.png)];
     }
     &.is-purple {
         @apply border-[#6B4DBC] bg-white
-               before:bg-[url(../images/bg-category-purple.png)];
+               before:bg-[url(/html/page/market/assets/images/bg-category-purple.png)];
     }
     &.is-yellow {
         @apply border-[#EEB307] bg-white
-               before:bg-[url(../images/bg-category-yellow.png)];
-    }
-}
-
-
-/* 관심사업소정보 */
-.mypage-partner {
-    @apply mt-4.5 p-4 border border-gray1 rounded-[1rem] transition-all duration-300 select-none
-           md:p-5;
-    & img {
-        @apply w-25 h-20
-               sm:w-35 sm:h-25
-               md:w-45 md:h-30;
-    }
-    & dl {
-        & dt {
-            @apply pr-3 pb-0.5 text-lg
-                   sm:min-h-[2.5em]
-                   md:pr-4 md:text-xl;
-        }
-        & .info {
-            @apply min-h-10
-                   sm:min-h-14
-                   md:min-h-16;
-        }
-        & .desc {
-            @apply sm:ml-0;
-        }
-    }
-}
-
-
-/* 배송지 관리 */
-.mypage-delivery {
-    @apply flex flex-wrap relative border border-black2 rounded-[1rem] bg-black2;
-    & .delivery-title {
-        @apply flex-none flex items-start py-3.5 px-4 w-30 break-keep
-               xs:flex-col
-               md:py-4 md:px-5 md:w-38
-               xs-max:w-full;
-        & .label-primary {
-            @apply flex-none border-white;
-            & span {
-                @apply bg-black2 text-white;
-            }
-            & i {
-                @apply bg-white text-black2;
-            }
-        }
-        & .name {
-            @apply mt-1.5 text-xl text-white font-bold leading-snug align-middle
-                   md:mt-2 md:text-2xl
-                   xs-max:inline-block xs-max:ml-2 xs-max:-mt-[0.1875rem]
-                   first:mt-0;
-        }
-    }
-    & .delivery-content {
-        @apply flex-1 relative p-4 rounded-[1rem] overflow-hidden bg-white
-               sm:pl-7
-               md:py-4 md:pl-9 md:pr-5 md:min-h-41;
-        & dl {
-            @apply flex items-start flex-wrap mt-3 overflow-hidden leading-snug
-                   md:mt-4;
-            & dt {
-                @apply flex-none mt-px w-[5em] text-[0.8125rem] text-right
-                       md:mt-0.5 md:text-sm;
-            }
-            & dd {
-                @apply flex-1 ml-4 overflow-hidden
-                       md:ml-5;
-                & strong {
-                    @apply font-medium;
-                }
-            }
-            &.name {
-                @apply mt-0 pr-4;
-                & dt {
-                    @apply mt-1
-                           md:mt-[0.3125rem];
-                }
-                & dd {
-                    @apply font-bold text-lg
-                           md:text-xl;
-                }
-            }
-            &.addr {
-                @apply sm:pr-30
-                       md:pr-35;
-            }
-        }
-    }
-    & .delivery-close {
-        @apply absolute top-1 right-2 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 bg-[url(../images/ico-close2.svg)] bg-[length:1.25rem]
-               sm:top-2
-               md:w-8 md:h-8 md:bg-[length:1.5rem];
-    }
-    & .delivery-button {
-        @apply mt-3 text-right
-               sm:absolute sm:bottom-4 sm:right-4
-               md:right-5;
+               before:bg-[url(/html/page/market/assets/images/bg-category-yellow.png)];
     }
 }

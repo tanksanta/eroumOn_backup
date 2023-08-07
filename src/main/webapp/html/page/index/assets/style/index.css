@@ -5,7 +5,7 @@
            lg:min-h-[750px] lg:h-[calc(100vh-5.25rem)] lg:!max-h-[960px] lg:bg-center
            xl:!max-h-[1024px];
     & .object {
-        @apply absolute z-20 top-1/2 -right-full w-[670px] h-[670px] bg-cover bg-[url(../images/visual/img-main-visual-phone.png)] scale-100 origin-[right_center] translate-x-[10%] duration-1500 transition-[opacity,top,right] opacity-0 -translate-y-1/2 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
+        @apply absolute z-20 top-1/2 -right-full w-[670px] h-[670px] bg-cover bg-[url(/html/page/index/assets/images/visual/img-main-visual-phone.png)] scale-100 origin-[right_center] translate-x-[10%] duration-1500 transition-[opacity,top,right] opacity-0 -translate-y-1/2 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
                md:top-full md:right-15
                lg:right-25
                xl:right-41
@@ -30,16 +30,16 @@
                         @apply absolute w-[117px] h-[117px] bg-cover transition-[transform,opacity] duration-1500 translate-y-[100px] opacity-0;
                     }
                     & .objects-1 {
-                        @apply top-0 right-[138px] delay-[3.4s] bg-[url(../images/visual/img-main-visual-obj3-3.png)];
+                        @apply top-0 right-[138px] delay-[3.4s] bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-3.png)];
                     }
                     & .objects-2 {
-                        @apply top-0 right-[11px] delay-[3.6s] bg-[url(../images/visual/img-main-visual-obj3-4.png)];
+                        @apply top-0 right-[11px] delay-[3.6s] bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-4.png)];
                     }
                     & .objects-3 {
-                        @apply top-[127px] right-[138px] delay-[3.8s] bg-[url(../images/visual/img-main-visual-obj3-5.png)];
+                        @apply top-[127px] right-[138px] delay-[3.8s] bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-5.png)];
                     }
                     & .objects-4 {
-                        @apply top-[127px] right-[11px] delay-[4s] bg-[url(../images/visual/img-main-visual-obj3-6.png)];
+                        @apply top-[127px] right-[11px] delay-[4s] bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-6.png)];
                     }
                 }
             }
@@ -77,32 +77,32 @@
             }
             &.is-scene1 {
                 & .object1 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj1-1-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj1-1.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj1-1-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj1-1.png)];
                 }
                 & .object2 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj1-2-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj1-2.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj1-2-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj1-2.png)];
                 }
             }
             &.is-scene2 {
                 & .object1 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj2-1-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj2-1.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj2-1-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj2-1.png)];
                 }
                 & .object2 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj2-2-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj2-2.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj2-2-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj2-2.png)];
                 }
             }
             &.is-scene3 {
                 & .object1 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj3-1-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj3-1.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-1-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-1.png)];
                 }
                 & .object2 {
-                    @apply bg-[url(../images/visual/img-main-visual-obj3-2-m.png)]
-                           md:bg-[url(../images/visual/img-main-visual-obj3-2.png)];
+                    @apply bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-2-m.png)]
+                           md:bg-[url(/html/page/index/assets/images/visual/img-main-visual-obj3-2.png)];
                 }
             }
         }
@@ -190,16 +190,16 @@
         }
     }
     & .slide-item1 {
-        @apply before:bg-[url(../images/visual/bg-main-visual-1-m.jpg)]
-               md:before:bg-[url(../images/visual/bg-main-visual-1.jpg)];
+        @apply before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-1-m.jpg)]
+               md:before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-1.jpg)];
         & .title {
             & strong {
                 @apply max-w-[62vw]
                        xl:max-w-none;
             }
             & .ani-obj {
-                @apply inline-block relative w-[30px] h-[30px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_23px]
-                       before:absolute before:-top-1/2 before:left-0 before:w-0 before:h-[48px] before:bg-no-repeat before:bg-[url(../images/visual/ico-main-visual-1-obj2.png)] before:bg-left-center before:bg-[length:auto_47px] before:transition-all before:duration-300 before:ease-out before:delay-1500
+                @apply inline-block relative w-[30px] h-[30px] bg-no-repeat bg-[url(/html/page/index/assets/images/visual/ico-main-visual-1-obj1.png)] bg-[center_bottom] bg-[length:auto_23px]
+                       before:absolute before:-top-1/2 before:left-0 before:w-0 before:h-[48px] before:bg-no-repeat before:bg-[url(/html/page/index/assets/images/visual/ico-main-visual-1-obj2.png)] before:bg-left-center before:bg-[length:auto_47px] before:transition-all before:duration-300 before:ease-out before:delay-1500
                        md:w-[40px] md:h-[40px] md:bg-[length:auto_31px]
                        md:before:h-[64px] md:before:bg-[length:auto_62px]
                        lg:w-[50px] lg:h-[50px] lg:bg-[length:auto_39px]
@@ -219,11 +219,11 @@
         }
     }
     & .slide-item2 {
-        @apply before:bg-[url(../images/visual/bg-main-visual-2-m.jpg)]
-               md:before:bg-[url(../images/visual/bg-main-visual-2.jpg)];
+        @apply before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-2-m.jpg)]
+               md:before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-2.jpg)];
         & .title {
             & .ani-obj {
-                @apply inline-block relative top-[30px] left-[10px] w-[60px] h-[50px] bg-no-repeat bg-[url(../images/visual/ico-main-visual-2-obj1.png)] bg-[center_bottom] bg-[length:auto_51px] opacity-0 scale-50 transition-all duration-500 delay-1500;
+                @apply inline-block relative top-[30px] left-[10px] w-[60px] h-[50px] bg-no-repeat bg-[url(/html/page/index/assets/images/visual/ico-main-visual-2-obj1.png)] bg-[center_bottom] bg-[length:auto_51px] opacity-0 scale-50 transition-all duration-500 delay-1500;
             }
             & strong.ani-text {
                 @apply whitespace-nowrap -mt-[0.7em]
@@ -252,8 +252,8 @@
                 }
             }
             & .ani-obj {
-                @apply inline-block relative top-[2px] mr-[5px] w-[20px] h-[20px] bg-no-repeat bg-[center_bottom] bg-[length:auto_19px] bg-[url(../images/visual/ico-main-visual-2-obj2.png)]
-                       before:absolute before:-top-[5px] before:left-[2px] before:w-0 before:h-[25px] before:bg-no-repeat before:bg-[url(../images/visual/ico-main-visual-2-obj3.png)] before:bg-left-center before:bg-[length:auto_25px] before:transition-all before:duration-300 before:ease-out
+                @apply inline-block relative top-[2px] mr-[5px] w-[20px] h-[20px] bg-no-repeat bg-[center_bottom] bg-[length:auto_19px] bg-[url(/html/page/index/assets/images/visual/ico-main-visual-2-obj2.png)]
+                       before:absolute before:-top-[5px] before:left-[2px] before:w-0 before:h-[25px] before:bg-no-repeat before:bg-[url(/html/page/index/assets/images/visual/ico-main-visual-2-obj3.png)] before:bg-left-center before:bg-[length:auto_25px] before:transition-all before:duration-300 before:ease-out
                        md:top-0
             }
         }
@@ -273,8 +273,8 @@
         }
     }
     & .slide-item3 {
-        @apply before:bg-[url(../images/visual/bg-main-visual-3-m.jpg)]
-               md:before:bg-[url(../images/visual/bg-main-visual-3.jpg)];
+        @apply before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-3-m.jpg)]
+               md:before:bg-[url(/html/page/index/assets/images/visual/bg-main-visual-3.jpg)];
         & .title {
             & .ani-obj {
                 @apply absolute top-0 w-[40px] h-0 -rotate-30 -translate-x-[17px] -translate-y-[9px] scale-[0.8]
@@ -283,11 +283,11 @@
                     @apply content-empty absolute left-0 bg-left-bottom bg-no-repeat bg-[length:100%_100%];
                 }
                 &::before {
-                    @apply -bottom-px w-[34px] h-[21px] bg-[url(../images/visual/ico-main-visual-3-obj1.png)] origin-bottom;
+                    @apply -bottom-px w-[34px] h-[21px] bg-[url(/html/page/index/assets/images/visual/ico-main-visual-3-obj1.png)] origin-bottom;
                     animation: b-fly-left 5s ease infinite;
                 }
                 &::after {
-                    @apply top-0 w-[40px] h-[9px] bg-[url(../images/visual/ico-main-visual-3-obj2.png)] origin-top;
+                    @apply top-0 w-[40px] h-[9px] bg-[url(/html/page/index/assets/images/visual/ico-main-visual-3-obj2.png)] origin-top;
                     animation: b-fly-right 6.5s ease infinite;
                 }
             }
@@ -375,26 +375,26 @@
     }
     & .link-item1 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link1.svg)]
-                   hover:before:bg-[url(../images/ico-main-link1-on.svg)];
+            @apply before:bg-[url(/html/page/index/assets/images/ico-main-link1.svg)]
+                   hover:before:bg-[url(/html/page/index/assets/images/ico-main-link1-on.svg)];
         }
     }
     & .link-item2 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link2.svg)]
-                   hover:before:bg-[url(../images/ico-main-link2-on.svg)];
+            @apply before:bg-[url(/html/page/index/assets/images/ico-main-link2.svg)]
+                   hover:before:bg-[url(/html/page/index/assets/images/ico-main-link2-on.svg)];
         }
     }
     & .link-item3 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link3.svg)]
-                   hover:before:bg-[url(../images/ico-main-link3-on.svg)];
+            @apply before:bg-[url(/html/page/index/assets/images/ico-main-link3.svg)]
+                   hover:before:bg-[url(/html/page/index/assets/images/ico-main-link3-on.svg)];
         }
     }
     & .link-item4 {
         & a {
-            @apply before:bg-[url(../images/ico-main-link4.svg)]
-                   hover:before:bg-[url(../images/ico-main-link4-on.svg)];
+            @apply before:bg-[url(/html/page/index/assets/images/ico-main-link4.svg)]
+                   hover:before:bg-[url(/html/page/index/assets/images/ico-main-link4-on.svg)];
         }
     }
 }
@@ -481,7 +481,7 @@
            md:mt-53
            lg:mt-76;
     & .image {
-        @apply top-26 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content1.jpg)]
+        @apply top-26 left-52 w-[180px] h-[303px] bg-[url(/html/page/index/assets/images/img-main-content1.jpg)]
                md:-top-26 md:-left-3 md:w-[344px] md:h-[579px]
                lg:-top-60 lg:left-0 lg:w-[507px] lg:h-[854px];
         & [class*="object"] {
@@ -490,10 +490,10 @@
                    lg:w-[174px] lg:h-[174px];
         }
         & .object1 {
-            @apply left-[26.64179104477612%] bg-[url(../images/img-main-content1-2.png)];
+            @apply left-[26.64179104477612%] bg-[url(/html/page/index/assets/images/img-main-content1-2.png)];
         }
         & .object2 {
-            @apply left-[63.76119402985075%] bg-[url(../images/img-main-content1-3.png)];
+            @apply left-[63.76119402985075%] bg-[url(/html/page/index/assets/images/img-main-content1-3.png)];
         }
     }
     & .box {
@@ -511,11 +511,11 @@
            md:mt-85
            lg:mt-[29.375rem];
     & .image {
-        @apply top-full left-31 w-[260px] h-[183px] bg-[url(../images/img-main-content2.jpg)]
+        @apply top-full left-31 w-[260px] h-[183px] bg-[url(/html/page/index/assets/images/img-main-content2.jpg)]
                md:-top-11 md:left-[50.7%] md:mt-0 md:w-[574px] md:h-[405px]
                lg:-top-35 lg:left-[43.7%] lg:w-[887px] lg:h-[626px];
         & .object1 {
-            @apply top-[52.1923937360179%] left-[5.172413793103448%] w-[90px] h-[87px] bg-[url(../images/img-main-content2-2.png)]
+            @apply top-[52.1923937360179%] left-[5.172413793103448%] w-[90px] h-[87px] bg-[url(/html/page/index/assets/images/img-main-content2-2.png)]
                    md:w-[189px] md:h-[182px]
                    lg:w-[288px] lg:h-[276px];
         }
@@ -526,7 +526,7 @@
     @apply mt-89
            lg:mt-[27.375rem];
     & .image {
-        @apply top-46 left-52 w-[180px] h-[303px] bg-[url(../images/img-main-content3.jpg)]
+        @apply top-46 left-52 w-[180px] h-[303px] bg-[url(/html/page/index/assets/images/img-main-content3.jpg)]
                md:-top-26 md:-left-10 md:w-[344px] md:h-[579px]
                lg:-top-60 lg:left-0 lg:w-[507px] lg:h-[854px];
         & [class*="object"] {
@@ -535,10 +535,10 @@
                    lg:w-[323px] lg:h-[75px];
         }
         & .object1 {
-            @apply top-[23.44117647058824%] left-[-7%] bg-[url(../images/img-main-content3-2.png)];
+            @apply top-[23.44117647058824%] left-[-7%] bg-[url(/html/page/index/assets/images/img-main-content3-2.png)];
         }
         & .object2 {
-            @apply top-[64.11764705882353%] right-[-9.52238805970149%] bg-[url(../images/img-main-content3-3.png)];
+            @apply top-[64.11764705882353%] right-[-9.52238805970149%] bg-[url(/html/page/index/assets/images/img-main-content3-3.png)];
         }
     }
     & .box {

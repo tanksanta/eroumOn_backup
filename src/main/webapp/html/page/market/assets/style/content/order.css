@@ -46,7 +46,7 @@
             }
         }
         & button {
-            @apply btn-icon absolute top-2.5 right-1.5 h-8 bg-[url(../images/ico-close2.svg)] bg-[length:1.125rem]
+            @apply btn-icon absolute top-2.5 right-1.5 h-8 bg-[url(/html/page/market/assets/images/ico-close2.svg)] bg-[length:1.125rem]
                    md:top-5 md:right-3 md:bg-[length:1.5rem];
         }
         & .order-close {
@@ -55,7 +55,7 @@
         }
     }
     & .order-close {
-        @apply btn-icon absolute z-20 top-2 right-1.5 h-8 bg-[url(../images/ico-close2.svg)] bg-[length:1.125rem]
+        @apply btn-icon absolute z-20 top-2 right-1.5 h-8 bg-[url(/html/page/market/assets/images/ico-close2.svg)] bg-[length:1.125rem]
                md:top-3.5 md:right-3 md:bg-[length:1.5rem];
         &:first-child {
             & + .order-body {
@@ -70,7 +70,7 @@
         @apply absolute left-3 bottom-4 w-22 text-center font-bold text-sm
                md:bottom-5 md:left-4.5 md:w-45 md:text-[0.9375rem];
         & .thumb {
-            @apply overflow-hidden mx-auto mb-1 w-10 h-10 rounded-full bg-center bg-[#6ECDCF] bg-no-repeat bg-[url(../images/ico-human3-white.svg)] bg-[length:38%]
+            @apply overflow-hidden mx-auto mb-1 w-10 h-10 rounded-full bg-center bg-[#6ECDCF] bg-no-repeat bg-[url(/html/page/market/assets/images/ico-human3-white.svg)] bg-[length:38%]
                    md:w-14 md:h-14;
         }
         & img {
@@ -95,7 +95,7 @@
                first:border-t-0;
     }
     & .order-item-thumb {
-        @apply flex-none mr-3 w-22 h-22 overflow-hidden rounded-md bg-gray2 bg-no-repeat bg-[url(../images/bg-compare-thumb.svg)] bg-[length:45%] bg-center
+        @apply flex-none mr-3 w-22 h-22 overflow-hidden rounded-md bg-gray2 bg-no-repeat bg-[url(/html/page/market/assets/images/bg-compare-thumb.svg)] bg-[length:45%] bg-center
                md:mr-6 md:w-45 md:h-45;
         & img {
             @apply w-full h-full object-cover;
@@ -247,7 +247,7 @@
     & .order-select {
         @apply absolute top-2 right-2 font-bold bg-white leading-tight overflow-hidden;
         & input {
-            @apply appearance-none float-right ml-2 w-5 h-5 bg-no-repeat bg-right-center bg-[length:auto_100%] bg-[url(../images/ico-partner-check.svg)];
+            @apply appearance-none float-right ml-2 w-5 h-5 bg-no-repeat bg-right-center bg-[length:auto_100%] bg-[url(/html/page/market/assets/images/ico-partner-check.svg)];
         }
         & span {
             @apply hidden;
@@ -310,7 +310,7 @@
         @apply border-black2 shadow-[0px_0px_0px_1px_#333];
         & .order-select {
             & input {
-                @apply bg-[url(../images/ico-partner-check-on.svg)];
+                @apply bg-[url(/html/page/market/assets/images/ico-partner-check-on.svg)];
             }
             & span {
                 @apply inline;
@@ -350,13 +350,13 @@
                sm:mb-0 sm:-mt-4 sm:mx-5
                md:h-[6.625rem];
         &.is-plus {
-            @apply bg-[url(../images/ico-payment-plus.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-plus.png)];
         }
         &.is-minus {
-            @apply bg-[url(../images/ico-payment-minus.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-minus.png)];
         }
         &.is-equal {
-            @apply bg-[url(../images/ico-payment-equal.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-equal.png)];
         }
     }
 }
@@ -411,7 +411,7 @@
     & .order-select {
         @apply absolute top-2 right-2 font-bold bg-white leading-tight overflow-hidden;
         & input {
-            @apply appearance-none float-right ml-2 w-5 h-5 bg-no-repeat bg-right-center bg-[length:auto_100%] bg-[url(../images/ico-partner-check.svg)];
+            @apply appearance-none float-right ml-2 w-5 h-5 bg-no-repeat bg-right-center bg-[length:auto_100%] bg-[url(/html/page/market/assets/images/ico-partner-check.svg)];
         }
         & span {
             @apply hidden;
@@ -424,7 +424,7 @@
         @apply border-black2 shadow-[0px_0px_0px_1px_#333];
         & .order-select {
             & input {
-                @apply bg-[url(../images/ico-partner-check-on.svg)];
+                @apply bg-[url(/html/page/market/assets/images/ico-partner-check-on.svg)];
             }
             & span {
                 @apply inline;
@@ -587,7 +587,7 @@
                md:mt-7;
     }
     & .desc {
-        @apply mt-2 mx-auto py-3 pl-6 pr-8 w-fit max-w-full bg-no-repeat bg-[position:left_top,right_bottom] bg-[length:1.125rem] font-medium leading-tight bg-[url(../images/txt-order-quote-l.svg),url(../images/txt-order-quote-r.svg)]
+        @apply mt-2 mx-auto py-3 pl-6 pr-8 w-fit max-w-full bg-no-repeat bg-[position:left_top,right_bottom] bg-[length:1.125rem] font-medium leading-tight bg-[url(/html/page/market/assets/images/txt-order-quote-l.svg),url(/html/page/market/assets/images/txt-order-quote-r.svg)]
                sm:pl-8 sm:pr-11 
                md:mt-2.5 md:py-3.5 md:pl-13 md:pr-19 md:bg-[length:1.375rem];
     }
@@ -648,7 +648,7 @@
                    md:mt-1.5 md:text-lg;
         }
         & .minus {
-            @apply float-left w-full bg-no-repeat py-2 pl-23 bg-[left_0.25rem_center] bg-[url(../images/ico-payment-minus.png)] bg-[length:auto_76px] text-base font-bold -indent-0.5
+            @apply float-left w-full bg-no-repeat py-2 pl-23 bg-[left_0.25rem_center] bg-[url(/html/page/market/assets/images/ico-payment-minus.png)] bg-[length:auto_76px] text-base font-bold -indent-0.5
                    xs:-mb-3 xs:py-5 xs:bg-[length:auto_86px] xs:bg-left-center md:text-lg xs:indent-0
                    md:!py-6.5 md:!pl-23 md:!bg-[left_-0.25rem_center] md:!bg-[length:auto_106px];
             & strong {
@@ -687,7 +687,7 @@
         @apply relative py-3.5 mx-4 bg-white text-center
                md:mx-5;
         & button {
-            @apply btn-icon absolute top-1/2 -right-2 -translate-y-1/2 w-8 h-8 bg-[url(../images/ico-close.svg)] bg-[length:1rem];
+            @apply btn-icon absolute top-1/2 -right-2 -translate-y-1/2 w-8 h-8 bg-[url(/html/page/market/assets/images/ico-close.svg)] bg-[length:1rem];
         }
     }
     &.is-active {
@@ -744,8 +744,8 @@
                    md:-mb-4;
             & dd {
                 @apply flex items-center mt-1.5
-                       before:mr-2 before:w-21 before:h-9 before:bg-[url(../images/txt-mileage.svg)] before:bg-no-repeat before:bg-right-center before:bg-[length:auto_100%] before:opacity-10
-                       after:ml-[0.125em] after:w-[1.5em] after:h-[1em] after:bg-[url(../images/ico-mileage.svg)] after:bg-no-repeat after:bg-right-center after:bg-[length:auto_100%]
+                       before:mr-2 before:w-21 before:h-9 before:bg-[url(/html/page/market/assets/images/txt-mileage.svg)] before:bg-no-repeat before:bg-right-center before:bg-[length:auto_100%] before:opacity-10
+                       after:ml-[0.125em] after:w-[1.5em] after:h-[1em] after:bg-[url(/html/page/market/assets/images/ico-mileage.svg)] after:bg-no-repeat after:bg-right-center after:bg-[length:auto_100%]
                        md:before:mr-2.5 md:before:h-10;
             }
         }
@@ -753,8 +753,8 @@
             @apply block p-0 -mb-3.5 md:-mb-4;
             & dd {
                 @apply flex items-center mt-1.5
-                       before:mr-2.5 before:w-21 before:h-10 before:bg-[url(../images/txt-point.svg)] before:bg-no-repeat before:bg-right-center before:bg-[length:auto_100%] before:opacity-10
-                       after:ml-[0.125em] after:w-[1.5em] after:h-[1em] after:bg-[url(../images/ico-point.svg)] after:bg-no-repeat after:bg-right-center after:bg-[length:auto_100%];
+                       before:mr-2.5 before:w-21 before:h-10 before:bg-[url(/html/page/market/assets/images/txt-point.svg)] before:bg-no-repeat before:bg-right-center before:bg-[length:auto_100%] before:opacity-10
+                       after:ml-[0.125em] after:w-[1.5em] after:h-[1em] after:bg-[url(/html/page/market/assets/images/ico-point.svg)] after:bg-no-repeat after:bg-right-center after:bg-[length:auto_100%];
             }
         }
     }
@@ -869,37 +869,37 @@
         }
         &.seq1, &.seq2 {
             @apply relative overflow-hidden w-[35%] border-[#F95813] text-[#F95813] bg-[length:1.25rem]
-                   before:absolute before:h-5 before:bg-no-repeat before:bg-[url(../images/txt-eroum-orange.svg)] before:bg-[length:auto_100%]
+                   before:absolute before:h-5 before:bg-no-repeat before:bg-[url(/html/page/market/assets/images/txt-eroum-orange.svg)] before:bg-[length:auto_100%]
                    md:bg-[length:1.5rem];
         }
         &.seq1 {
-            @apply bg-[url(../images/ico-sequence13.svg)]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence13.svg)]
                    before:top-2 before:right-0 before:w-23 before:bg-left-top
                    md:before:top-auto md:before:bottom-14;
         }
         &.seq2 {
-            @apply mr-[12%] bg-[url(../images/ico-sequence14.svg)]
+            @apply mr-[12%] bg-[url(/html/page/market/assets/images/ico-sequence14.svg)]
                    before:bottom-2 before:left-0 before:w-27 before:bg-right-top
                    md:mr-0;
         }
         &.seq3 {
-            @apply bg-[url(../images/ico-sequence8.svg)] bg-[length:1.5rem]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence8.svg)] bg-[length:1.5rem]
                    md:bg-[length:2rem];
         }
         &.seq4 {
-            @apply bg-[url(../images/ico-sequence9.svg)] bg-[length:1.125rem]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence9.svg)] bg-[length:1.125rem]
                    md:bg-[length:1.75rem];
         }
         &.seq5 {
-            @apply bg-[url(../images/ico-sequence10.svg)] bg-[length:1.25rem]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence10.svg)] bg-[length:1.25rem]
                    md:bg-[length:1.75rem];
         }
         &.seq6 {
-            @apply bg-[url(../images/ico-sequence11.svg)] bg-[length:1.375rem]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence11.svg)] bg-[length:1.375rem]
                    md:bg-[length:2rem];
         }
         &.seq7 {
-            @apply bg-[url(../images/ico-sequence12.svg)] bg-[length:1.5rem]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence12.svg)] bg-[length:1.5rem]
                    md:bg-[length:2rem];
         }
     }
@@ -932,32 +932,32 @@
         }
         & .seq1 {
             @apply rounded-t-md
-                   before:bg-[url(../images/ico-sequence13.svg)]
+                   before:bg-[url(/html/page/market/assets/images/ico-sequence13.svg)]
                    md:before:bg-[length:3rem];
         }
         & .seq2 {
             @apply rounded-b-md
-                   before:bg-[url(../images/ico-sequence14.svg)]
+                   before:bg-[url(/html/page/market/assets/images/ico-sequence14.svg)]
                    md:before:bg-[length:3.125rem];
         }
         & .seq3 {
-            @apply before:top-4.5 before:bg-[url(../images/ico-sequence8.svg)] before:bg-[length:1.75rem]
+            @apply before:top-4.5 before:bg-[url(/html/page/market/assets/images/ico-sequence8.svg)] before:bg-[length:1.75rem]
                    md:before:bg-[length:3.875rem];
         }
         & .seq4 {
-            @apply before:top-4.5 before:bg-[url(../images/ico-sequence9.svg)] before:bg-[length:1.375rem]
+            @apply before:top-4.5 before:bg-[url(/html/page/market/assets/images/ico-sequence9.svg)] before:bg-[length:1.375rem]
                    md:before:bg-[length:3.625rem];
         }
         & .seq5 {
-            @apply before:bg-[url(../images/ico-sequence10.svg)] before:bg-[length:1.5rem]
+            @apply before:bg-[url(/html/page/market/assets/images/ico-sequence10.svg)] before:bg-[length:1.5rem]
                    md:before:bg-[length:3.5rem];
         }
         & .seq6 {
-            @apply before:bg-[url(../images/ico-sequence11.svg)] before:bg-[length:1.5rem]
+            @apply before:bg-[url(/html/page/market/assets/images/ico-sequence11.svg)] before:bg-[length:1.5rem]
                    md:before:top-6 md:before:bg-[length:3.625rem];
         }
         & .seq7 {
-            @apply before:bg-[url(../images/ico-sequence12.svg)] before:bg-[length:1.625rem]
+            @apply before:bg-[url(/html/page/market/assets/images/ico-sequence12.svg)] before:bg-[length:1.625rem]
                    md:before:top-5 md:before:bg-[length:3.75rem];
         }
         & .desc {
@@ -1042,7 +1042,7 @@
     }
     & .cancel {
         @apply flex items-center justify-center px-6 h-[3.125rem] rounded-md bg-black2 text-base text-white font-bold
-               before:btn-icon before:block before:mr-2 before:w-8.5 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:bg-[url(../images/ico-sequence7-white.svg)]
+               before:btn-icon before:block before:mr-2 before:w-8.5 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:bg-[url(/html/page/market/assets/images/ico-sequence7-white.svg)]
                md:h-[4.375rem] md:text-lg
                md:before:w-[2.625rem] md:before:mr-3;
     }
@@ -1081,44 +1081,44 @@
                        md:pl-18;
             }
             &.seq1 {
-                @apply before:bg-[url(../images/ico-sequence1.svg)] before:bg-[length:28px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence1.svg)] before:bg-[length:28px]
                        md:before:bg-[length:36px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence1-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence1-white.svg)];
                 }
             }
             &.seq2 {
-                @apply before:bg-[url(../images/ico-sequence2.svg)] before:bg-[length:36px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence2.svg)] before:bg-[length:36px]
                        md:before:bg-[length:46px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence2-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence2-white.svg)];
                 }
             }
             &.seq3 {
-                @apply before:bg-[url(../images/ico-sequence3.svg)] before:bg-[length:38px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence3.svg)] before:bg-[length:38px]
                        md:before:bg-[length:48px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence3-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence3-white.svg)];
                 }
             }
             &.seq4 {
-                @apply before:bg-[url(../images/ico-sequence4.svg)] before:bg-[length:45px] md:before:bg-[length:56px];
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence4.svg)] before:bg-[length:45px] md:before:bg-[length:56px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence4-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence4-white.svg)];
                 }
             }
             &.seq5 {
-                @apply before:bg-[url(../images/ico-sequence5.svg)] before:bg-[length:30px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence5.svg)] before:bg-[length:30px]
                        md:before:bg-[length:38px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence5-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence5-white.svg)];
                 }
             }
             &.seq6 {
-                @apply before:bg-[url(../images/ico-sequence6.svg)] before:bg-[length:34px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence6.svg)] before:bg-[length:34px]
                        md:before:bg-[length:42px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence6-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence6-white.svg)];
                 }
             }
         }
@@ -1206,7 +1206,7 @@
     }
     & .status-cancel {
         @apply flex items-center justify-center px-6 h-[3.125rem] rounded-md bg-black2 text-base text-white font-bold
-               before:btn-icon before:block before:w-8.5 before:mr-2 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:bg-[url(../images/ico-sequence7-white.svg)]
+               before:btn-icon before:block before:w-8.5 before:mr-2 before:bg-no-repeat before:bg-center before:bg-[length:100%] before:bg-[url(/html/page/market/assets/images/ico-sequence7-white.svg)]
                md:h-[4.375rem] md:text-lg
                md:before:mr-3 md:before:w-[2.625rem];
     }
@@ -1247,45 +1247,45 @@
                        md:pl-18;
             }
             &.seq1 {
-                @apply before:bg-[url(../images/ico-sequence1.svg)] before:bg-[length:28px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence1.svg)] before:bg-[length:28px]
                        md:before:bg-[length:36px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence1-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence1-white.svg)];
                 }
             }
             &.seq2 {
-                @apply before:bg-[url(../images/ico-sequence2.svg)] before:bg-[length:36px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence2.svg)] before:bg-[length:36px]
                        md:before:bg-[length:46px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence2-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence2-white.svg)];
                 }
             }
             &.seq3 {
-                @apply before:bg-[url(../images/ico-sequence3.svg)] before:bg-[length:38px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence3.svg)] before:bg-[length:38px]
                        md:before:bg-[length:48px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence3-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence3-white.svg)];
                 }
             }
             &.seq4 {
-                @apply before:bg-[url(../images/ico-sequence4.svg)] before:bg-[length:45px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence4.svg)] before:bg-[length:45px]
                        md:before:bg-[length:56px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence4-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence4-white.svg)];
                 }
             }
             &.seq5 {
-                @apply before:bg-[url(../images/ico-sequence5.svg)] before:bg-[length:30px]
+                @apply before:bg-[url(/html/page/market/assets/images/ico-sequence5.svg)] before:bg-[length:30px]
                        md:before:bg-[length:38px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence5-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence5-white.svg)];
                 }
             }
             &.seq6 {
-                    @apply before:bg-[url(../images/ico-sequence6.svg)] before:bg-[length:34px]
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence6.svg)] before:bg-[length:34px]
                            md:before:bg-[length:42px];
                 &.active {
-                    @apply before:bg-[url(../images/ico-sequence6-white.svg)];
+                    @apply before:bg-[url(/html/page/market/assets/images/ico-sequence6-white.svg)];
                 }
             }
         }
@@ -1488,7 +1488,7 @@
         }
     }
     & .layer-close {
-        @apply -m-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[length:1rem] bg-[url(../images/ico-close-white.svg)] -indent-96;
+        @apply -m-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[length:1rem] bg-[url(/html/page/market/assets/images/ico-close-white.svg)] -indent-96;
     }
     &.is-active {
         @apply flex;

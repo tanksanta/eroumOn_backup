@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24.4079955px" height="26.0714544px" viewBox="0 0 24.4079955 26.0714544" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 10</title>
+    <defs>
+        <polygon id="path-1" points="0.166056315 3.15470378 5.86120605 1.68039551e-16 5.86120605 1.89082845 -7.16665194e-13 4.95218913"></polygon>
+    </defs>
+    <g id="회원" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="로그인-페이지" transform="translate(-1027.7851, -883.1049)">
+            <g id="Group-10" transform="translate(1028.2864, 883.6774)">
+                <g id="Group-9" transform="translate(15.769, 14.4275)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Path-9"></g>
+                    <line x1="0.524129232" y1="2.89355469" x2="0.524129232" y2="4.89355469" id="Line-7" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="1.19759115" y1="2.41829427" x2="1.19759115" y2="4.41829427" id="Line-7" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="1.81335449" y1="2.04370117" x2="1.81335449" y2="4.04370117" id="Line-7" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="2.99603271" y1="1.51171875" x2="2.99603271" y2="3.51171875" id="Line-7-Copy" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="3.30792236" y1="1.30786133" x2="3.30792236" y2="3.30786133" id="Line-7-Copy-2" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="3.60089111" y1="1.16040039" x2="3.60089111" y2="3.16040039" id="Line-7-Copy-3" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="4.71038818" y1="0.579711914" x2="4.71038818" y2="2.57971191" id="Line-7-Copy-5" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="5.019104" y1="0.399841309" x2="5.019104" y2="2.39984131" id="Line-7-Copy-6" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="5.32159424" y1="0.272644043" x2="5.32159424" y2="2.27264404" id="Line-7-Copy-7" stroke="#333333" stroke-width="0.2" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="2.52412923" y1="1.89355469" x2="2.52412923" y2="3.89355469" id="Line-7" stroke="#333333" stroke-width="0.5" stroke-linecap="square" mask="url(#mask-2)"></line>
+                    <line x1="4.25685628" y1="0.801025391" x2="4.25685628" y2="2.80102539" id="Line-7-Copy-4" stroke="#333333" stroke-width="0.5" stroke-linecap="square" mask="url(#mask-2)"></line>
+                </g>
+                <polygon id="Path-5" stroke="#333333" points="10.2818604 1.91014952e-14 0.0498046875 5.69018555 -9.03311215e-14 17.4622803 12.7322998 24.6462402 12.8205566 12.4603271 22.8282471 7.01464844"></polygon>
+                <line x1="0.459594727" y1="5.46972656" x2="12.8205566" y2="12.4603271" id="Path-6" stroke="#333333" stroke-linejoin="round"></line>
+                <polyline id="Path-7" stroke="#333333" points="23.3436279 7.00244141 23.4052734 19.3546143 12.9943848 25.0195313"></polyline>
+                <polyline id="Path-8" stroke="#333333" fill="#333333" points="7.24572754 1.60913086 19.3729867 8.68237305 19.3729867 12.9975586 16.9354867 14.3455811 16.9354867 10.1268311 4.81506348 3.02966309"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

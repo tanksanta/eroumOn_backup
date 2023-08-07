@@ -1,7 +1,7 @@
 @layer components {
     .alert {
         @apply flex relative w-[90vw] max-w-[29rem] text-white select-none
-               before:block before:relative before:z-5 before:mt-1.5 before:-mr-4.5 before:w-13 before:h-13 before:rounded before:bg-black2 before:bg-no-repeat before:bg-[length:1.125rem,auto] before:bg-center before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(147deg,_#7F2FAF_0%,_#F01366_100%)]
+               before:block before:relative before:z-5 before:mt-1.5 before:-mr-4.5 before:w-13 before:h-13 before:rounded before:bg-black2 before:bg-no-repeat before:bg-[length:1.125rem,auto] before:bg-center before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(147deg,_#7F2FAF_0%,_#F01366_100%)]
                md:before:-mr-6 md:before:w-15 md:before:h-15 md:before:bg-[length:1.375rem,auto];
         & .text {
             @apply bg-[#454545] py-3 pr-4 pl-7 rounded-l-lg flex-1 leading-tight overflow-hidden
@@ -15,7 +15,7 @@
             }
         }
         & .close {
-            @apply w-11 bg-[#6a6a6a] rounded-r-lg overflow-hidden -indent-96 bg-no-repeat bg-center bg-[length:0.875rem] bg-[url(../images/ico-close-white.svg)]
+            @apply w-11 bg-[#6a6a6a] rounded-r-lg overflow-hidden -indent-96 bg-no-repeat bg-center bg-[length:0.875rem] bg-[url(/html/page/market/assets/images/ico-close-white.svg)]
                    md:w-[3.125rem] md:bg-[length:1rem];
         }
         &.fade {
@@ -26,18 +26,18 @@
         }
     }
     .alert-color1 {
-        @apply before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(110deg,_#5BB6F3_0%,_#3B6FF5_100%)];
+        @apply before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(110deg,_#5BB6F3_0%,_#3B6FF5_100%)];
     }
     .alert-color2 {
-        @apply before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(110deg,_#EB6565_0%,_#ED3284_100%)];
+        @apply before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(110deg,_#EB6565_0%,_#ED3284_100%)];
     }
     .alert-color3 {
-        @apply before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(110deg,_#F8D61A_0%,_#F58D14_100%)];
+        @apply before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(110deg,_#F8D61A_0%,_#F58D14_100%)];
     }
     .alert-color4 {
-        @apply before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(110deg,_#8CCE4F_0%,_#4D8F7B_100%)];
+        @apply before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(110deg,_#8CCE4F_0%,_#4D8F7B_100%)];
     }
     .alert-color5 {
-        @apply before:bg-[url(../images/ico-bell-white.svg),_linear-gradient(180deg,_#8F5FEF_0%,_#E32ECF_100%)];
+        @apply before:bg-[url(/html/page/market/assets/images/ico-bell-white.svg),_linear-gradient(180deg,_#8F5FEF_0%,_#E32ECF_100%)];
     }
 }

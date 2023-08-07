@@ -1,4 +1,6 @@
-var timer = null;
+var timer   = null;
+var winSize = null;
+var resize  = false;
 
 // 주소검색 DAUM API
 function f_findAdres(zip, addr, daddr, lat, lot) {
@@ -116,8 +118,6 @@ function fileCheck(obj) {
 };
 
 
-
-
 $(function() {
     $(window).on('scroll load', function() {
         if($(window).scrollTop() > $(window).outerHeight() * 0.75) {
@@ -132,6 +132,11 @@ $(function() {
             $('body').removeClass('is-scroll');
         }
     });
+	
+    $(window).on('load scroll resize', function(e) {
+        resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
+        winSize = [$(window).outerWidth(), $(window).outerHeight()];
+	});
     
     //퀵메뉴 닫기
     $('#quick .moveTop').on('click', function() {

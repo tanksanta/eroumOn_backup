@@ -1,6 +1,6 @@
 /* 마켓 배너 */
 .market-banner {
-    @apply flex flex-col justify-center mx-auto px-[5%] h-[9.375rem] overflow-hidden rounded-lg bg-no-repeat bg-center bg-cover bg-[url(../images/img-market-banner.png)] leading-tight text-white
+    @apply flex flex-col justify-center mx-auto px-[5%] h-[9.375rem] overflow-hidden rounded-lg bg-no-repeat bg-center bg-cover bg-[url(/html/page/index/assets/images/img-market-banner.png)] leading-tight text-white
            md:px-[10%];
     & strong {
         @apply block w-fit mx-auto text-xl
@@ -11,7 +11,7 @@
         }
     }
     & a {
-        @apply block w-fit py-2 px-5 mt-4 mx-auto min-w-[11.3em] bg-white rounded-full text-[0.8125rem] font-medium text-black2 bg-no-repeat bg-[right_1.25rem_top_51%] bg-[url(../images/ico-angle.svg)]
+        @apply block w-fit py-2 px-5 mt-4 mx-auto min-w-[11.3em] bg-white rounded-full text-[0.8125rem] font-medium text-black2 bg-no-repeat bg-[right_1.25rem_top_51%] bg-[url(/html/page/index/assets/images/ico-angle.svg)]
                md:mx-0;
     }
 }
@@ -231,7 +231,7 @@
     & .myinfo-box1 {
         @apply flex flex-wrap justify-between col-span-2 relative md:col-span-4;
         &::before {
-            @apply content-empty absolute top-0 left-0 right-0 bottom-0 bg-no-repeat bg-[url(../images/bg-careinfo-content2.png),url(../images/bg-careinfo-content1.png)] bg-[length:153px,130px] bg-[position:center_bottom_-81px,right_-30px_top_-81px] md:bg-[position:calc(50%_-_66px)_calc(100%+120px),right_-50px_top_-140px] md:bg-[length:244px,208px];
+            @apply content-empty absolute top-0 left-0 right-0 bottom-0 bg-no-repeat bg-[url(/html/page/index/assets/images/bg-careinfo-content2.png),url(/html/page/index/assets/images/bg-careinfo-content1.png)] bg-[length:153px,130px] bg-[position:center_bottom_-81px,right_-30px_top_-81px] md:bg-[position:calc(50%_-_66px)_calc(100%+120px),right_-50px_top_-140px] md:bg-[length:244px,208px];
         }
         & > * {
             @apply relative z-5;
@@ -268,7 +268,7 @@
     & .myinfo-box2 {
         @apply col-span-2 relative pb-5 md:pb-6 md:min-h-[170px];
         &::before {
-            @apply content-empty absolute top-0 left-0 right-0 bottom-0 opacity-40 bg-no-repeat bg-[url(../images/bg-careinfo-content2.png)] bg-[length:153px] bg-[center_top_-81px] md:bg-[right_-47px_bottom_80px] md:bg-[length:244px];
+            @apply content-empty absolute top-0 left-0 right-0 bottom-0 opacity-40 bg-no-repeat bg-[url(/html/page/index/assets/images/bg-careinfo-content2.png)] bg-[length:153px] bg-[center_top_-81px] md:bg-[right_-47px_bottom_80px] md:bg-[length:244px];
         }
         & > * {
             @apply relative z-5;
@@ -311,10 +311,10 @@
         @apply min-h-[150px] md:min-h-[170px];
     }
     & .myinfo-box3 {
-        @apply bg-[url(../images/img-careinfo-content4.png)] bg-[left_1rem_bottom_0.875rem] bg-[length:1.75rem];
+        @apply bg-[url(/html/page/index/assets/images/img-careinfo-content4.png)] bg-[left_1rem_bottom_0.875rem] bg-[length:1.75rem];
     }
     & .myinfo-box4 {
-        @apply bg-[url(../images/img-careinfo-content5.png)] bg-[left_1.25rem_bottom_1rem] bg-[length:2.25rem];
+        @apply bg-[url(/html/page/index/assets/images/img-careinfo-content5.png)] bg-[left_1.25rem_bottom_1rem] bg-[length:2.25rem];
     }
 }
 
@@ -348,102 +348,102 @@
         }
         & .swiper-item1 {
             & i {
-                @apply bg-[url(../images/img-checkpoint1.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint1.png)];
             }
         }
         & .swiper-item2 {
             & i {
-                @apply bg-[url(../images/img-checkpoint2.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint2.png)];
             }
         }
         & .swiper-item3 {
             & i {
-                @apply bg-[url(../images/img-checkpoint3.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint3.png)];
             }
         }
         & .swiper-item4 {
             & i {
-                @apply bg-[url(../images/img-checkpoint4.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint4.png)];
             }
         }
         & .swiper-item5 {
             & i {
-                @apply bg-[url(../images/img-checkpoint5.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint5.png)];
             }
         }
         & .swiper-item6 {
             & i {
-                @apply bg-[url(../images/img-checkpoint6.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint6.png)];
             }
         }
         & .swiper-item7 {
             & i {
-                @apply bg-[url(../images/img-checkpoint7.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint7.png)];
             }
         }
         & .swiper-item8 {
             & i {
-                @apply bg-[url(../images/img-checkpoint8.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint8.png)];
             }
         }
         & .swiper-item9 {
             & i {
-                @apply bg-[url(../images/img-checkpoint9.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint9.png)];
             }
         }
         & .swiper-item10 {
             & i {
-                @apply bg-[url(../images/img-checkpoint10.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint10.png)];
             }
         }
         & .swiper-item11 {
             & i {
-                @apply bg-[url(../images/img-checkpoint11.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint11.png)];
             }
         }
         & .swiper-item12 {
             & i {
-                @apply bg-[url(../images/img-checkpoint12.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint12.png)];
             }
         }
         & .swiper-item13 {
             & i {
-                @apply bg-[url(../images/img-checkpoint13.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint13.png)];
             }
         }
         & .swiper-item14 {
             & i {
-                @apply bg-[url(../images/img-checkpoint14.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint14.png)];
             }
         }
         & .swiper-item15 {
             & i {
-                @apply bg-[url(../images/img-checkpoint15.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint15.png)];
             }
         }
         & .swiper-item16 {
             & i {
-                @apply bg-[url(../images/img-checkpoint16.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint16.png)];
             }
         }
         & .swiper-item17 {
             & i {
-                @apply bg-[url(../images/img-checkpoint17.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint17.png)];
             }
         }
         & .swiper-item18 {
             & i {
-                @apply bg-[url(../images/img-checkpoint18.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint18.png)];
             }
         }
         & .swiper-item19 {
             & i {
-                @apply bg-[url(../images/img-checkpoint19.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint19.png)];
             }
         }
         & .swiper-item20 {
             & i {
-                @apply bg-[url(../images/img-checkpoint20.png)];
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint20.png)];
             }
         }
         & .swiper-button-prev, & .swiper-button-next {
@@ -483,7 +483,7 @@
         }
     }
     & .status-toggle {
-        @apply flex mx-auto min-w-35 w-[22.75%] mt-6 md:mt-8.5 before:content-empty before:mt-px before:mr-1.5 before:w-2 before:h-2 before:bg-cover before:bg-[url(../images/ico-plus.svg)] before:transition-transform before:duration-200;
+        @apply flex mx-auto min-w-35 w-[22.75%] mt-6 md:mt-8.5 before:content-empty before:mt-px before:mr-1.5 before:w-2 before:h-2 before:bg-cover before:bg-[url(/html/page/index/assets/images/ico-plus.svg)] before:transition-transform before:duration-200;
         &.is-active {
             @apply before:rotate-45;
         }
@@ -843,39 +843,39 @@
         @apply block mx-auto pt-[111.1111111111111%] max-w-[974px] overflow-hidden bg-cover -indent-96 text-[0] leading-none;
     }
     & .nav-item1 {
-        @apply bg-[url(../images/btn-page1-content4.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-active.jpg)];
         }
     }
     & .nav-item2 {
-        @apply bg-[url(../images/btn-page1-content4-2.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-2.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-2-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-2-active.jpg)];
         }
     }
     & .nav-item3 {
-        @apply bg-[url(../images/btn-page1-content4-3.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-3.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-3-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-3-active.jpg)];
         }
     }
     & .nav-item4 {
-        @apply bg-[url(../images/btn-page1-content4-4.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-4.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-4-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-4-active.jpg)];
         }
     }
     & .nav-item5 {
-        @apply bg-[url(../images/btn-page1-content4-5.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-5.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-5-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-5-active.jpg)];
         }
     }
     & .nav-item6 {
-        @apply bg-[url(../images/btn-page1-content4-6.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-6.jpg)];
         &.active {
-            @apply bg-[url(../images/btn-page1-content4-6-active.jpg)];
+            @apply bg-[url(/html/page/index/assets/images/btn-page1-content4-6-active.jpg)];
         }
     }
     & .tab {
@@ -923,7 +923,7 @@
                        md:mt-6.5 md:pt-6.5 md:border-t md:border-t-gray1/20 md:text-lg
                        lg:mt-10 lg:pt-10 lg:text-xl;
                 & li {
-                    @apply relative pl-[1.4em] bg-no-repeat bg-[length:0.9em] bg-[left_top_0.25em] bg-[url(../images/ico-alert.svg)];
+                    @apply relative pl-[1.4em] bg-no-repeat bg-[length:0.9em] bg-[left_top_0.25em] bg-[url(/html/page/index/assets/images/ico-alert.svg)];
                 }
             }
         }
@@ -1128,8 +1128,8 @@
         }
         & .button {
             @apply flex items-center relative mt-auto ml-auto w-32 h-10 overflow-hidden rounded-full transition-all duration-300 bg-black2 font-bold text-sm text-white
-                   before:content-empty before:absolute before:top-1/2 before:left-4.5 before:w-5.5 before:h-4 before:bg-cover before:bg-no-repeat before:bg-center before:-translate-y-1/2 before:bg-[url(../images/ico-cart-white.svg)] before:transition-all
-                   after:content-empty after:absolute after:top-1/2 after:left-4.5 after:w-5.5 after:h-4 after:bg-cover after:bg-no-repeat after:bg-center after:-translate-y-1/2 after:bg-[url(../images/ico-cart.svg)] after:transition-all after:opacity-0
+                   before:content-empty before:absolute before:top-1/2 before:left-4.5 before:w-5.5 before:h-4 before:bg-cover before:bg-no-repeat before:bg-center before:-translate-y-1/2 before:bg-[url(/html/page/index/assets/images/ico-cart-white.svg)] before:transition-all
+                   after:content-empty after:absolute after:top-1/2 after:left-4.5 after:w-5.5 after:h-4 after:bg-cover after:bg-no-repeat after:bg-center after:-translate-y-1/2 after:bg-[url(/html/page/index/assets/images/ico-cart.svg)] after:transition-all after:opacity-0
                    hover:w-32 hover:bg-black2 hover:before:left-4.5 hover:before:opacity-100 hover:after:left-4.5 hover:after:opacity-0
                    md:w-11 md:h-11 md:bg-[#D8D8D8] md:text-base
                    md:before:opacity-0 md:before:left-[0.5625rem] md:before:w-6.5 md:before:h-5
@@ -1150,19 +1150,19 @@
         }
     }
     &.is-detail1 {
-        @apply bg-[url(../images/bg-page2-detail1-m.jpg)] md:bg-[url(../images/bg-page2-detail1.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/bg-page2-detail1-m.jpg)] md:bg-[url(/html/page/index/assets/images/bg-page2-detail1.jpg)];
     }
     &.is-detail2 {
-        @apply bg-[url(../images/bg-page2-detail2-m.jpg)] md:bg-[url(../images/bg-page2-detail2.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/bg-page2-detail2-m.jpg)] md:bg-[url(/html/page/index/assets/images/bg-page2-detail2.jpg)];
         & .title, & .desc {
             @apply md-max:text-white;
         }
     }
     &.is-detail3 {
-        @apply bg-[url(../images/bg-page2-detail3-m.jpg)] md:bg-[url(../images/bg-page2-detail3.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/bg-page2-detail3-m.jpg)] md:bg-[url(/html/page/index/assets/images/bg-page2-detail3.jpg)];
     }
     &.is-detail4 {
-        @apply bg-[url(../images/bg-page2-detail4-m.jpg)] md:bg-[url(../images/bg-page2-detail4.jpg)];
+        @apply bg-[url(/html/page/index/assets/images/bg-page2-detail4-m.jpg)] md:bg-[url(/html/page/index/assets/images/bg-page2-detail4.jpg)];
     }
 }
 
@@ -1353,9 +1353,9 @@
                md:mt-0 md:ml-auto md:w-[38.37579617834395%];
     }
     & .btn {
-        @apply mt-7.5 pl-11 pr-6.5 bg-[url(../images/ico-faq-location-white.svg)] bg-no-repeat bg-[left_0.625rem_center] bg-[length:1.25rem]
+        @apply mt-7.5 pl-11 pr-6.5 bg-[url(/html/page/index/assets/images/ico-faq-location-white.svg)] bg-no-repeat bg-[left_0.625rem_center] bg-[length:1.25rem]
                md:mt-10 md:pr-10 md:pl-23 md:bg-[left_1.75rem_top_55%] md:bg-[length:1.875rem]
-               hover:bg-[url(../images/ico-faq-location.svg)];
+               hover:bg-[url(/html/page/index/assets/images/ico-faq-location.svg)];
     }
 }
 

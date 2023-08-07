@@ -15,14 +15,14 @@
 .accordion-question {
     @apply space-y-5 md:space-y-7.5;
     & .accordion-item {
-        @apply pl-18 overflow-hidden rounded-lg border border-solid border-black2 bg-black2 bg-no-repeat bg-[url(../images/ico-qna-question-white.svg)] bg-[length:2.5rem] bg-[left_1rem_top_1rem] md:rounded-[1rem] md:pl-26 md:bg-[left_2rem_top_1.25rem];
+        @apply pl-18 overflow-hidden rounded-lg border border-solid border-black2 bg-black2 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-question-white.svg)] bg-[length:2.5rem] bg-[left_1rem_top_1rem] md:rounded-[1rem] md:pl-26 md:bg-[left_2rem_top_1.25rem];
     }
     & .accordion-container {
         @apply relative pb-1 rounded-lg bg-white md:pb-2 md:rounded-[1rem];
     }
     & .accordion-header {
         @apply block relative py-3 pr-10 pl-4 text-sm leading-snug
-               after:absolute after:top-[3.375rem] after:right-5 after:w-3.5 after:h-[0.4375rem] after:bg-no-repeat after:bg-[length:100%_auto] after:bg-center after:bg-[url(../images/ico-angle-down.svg)] after:transition-all after:duration-300
+               after:absolute after:top-[3.375rem] after:right-5 after:w-3.5 after:h-[0.4375rem] after:bg-no-repeat after:bg-[length:100%_auto] after:bg-center after:bg-[url(/html/page/market/assets/images/ico-angle-down.svg)] after:transition-all after:duration-300
                aria-expanded:after:-rotate-180
                md:py-3.5 md:pr-12 md:pl-5 md:text-base
                md:after:top-[3.625rem] md:after:right-6 md:after:w-5 md:after:h-2.5;
@@ -32,7 +32,7 @@
         }
     }
     & .accordion-body {
-        @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(../images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem]
+        @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem]
                md:py-3.5 md:pr-5 md:pl-24 md:bg-[left_2rem_top_1rem];
     }
 }
@@ -173,7 +173,7 @@
             }
         }
         & .join {
-            @apply flex items-center absolute top-1/2 right-3 pl-4.5 pr-9 w-fit h-9.5 rounded-full border-0.5 border-black2 bg-white bg-no-repeat bg-[right_0.75rem_center] bg-[length:0.875rem] bg-[url(../images/ico-arrow-right.svg)] text-left text-sm -translate-y-1/2
+            @apply flex items-center absolute top-1/2 right-3 pl-4.5 pr-9 w-fit h-9.5 rounded-full border-0.5 border-black2 bg-white bg-no-repeat bg-[right_0.75rem_center] bg-[length:0.875rem] bg-[url(/html/page/market/assets/images/ico-arrow-right.svg)] text-left text-sm -translate-y-1/2
                    md:pl-6.5 md:pr-11 md:h-11 md:text-base md:bg-[right_0.875rem_center] md:bg-[length:1rem]
                    xs-max:translate-y-12;
         }
@@ -368,7 +368,7 @@
     }
     & .benefit-grade {
         @apply pt-6 pb-23 px-4 rounded-t-[1rem] bg-no-repeat bg-[position:right_0.75rem_bottom,left_top] bg-[length:9.6375rem,auto] leading-snug
-               bg-[url(../images/img-benefit.svg),_linear-gradient(99deg,_rgba(44,57,180,0.1)_0%,_rgba(220,35,170,0.1)_46%,_rgba(255,0,0,0.1)_81%,_rgba(255,166,0,0.1)_100%)]
+               bg-[url(/html/page/market/assets/images/img-benefit.svg),_linear-gradient(99deg,_rgba(44,57,180,0.1)_0%,_rgba(220,35,170,0.1)_46%,_rgba(255,0,0,0.1)_81%,_rgba(255,166,0,0.1)_100%)]
                sm:pb-5.5 sm:bg-[position:right_0.75rem_center,left_top]
                md:py-9.5 md:pr-23 md:pl-14 md:bg-[position:right_2.25rem_center,left_top] md:bg-[length:auto,auto];
         & img {

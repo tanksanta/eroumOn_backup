@@ -127,10 +127,10 @@
     }
     
     .btn-refresh {
-        @apply btn-primary btn-icon bg-[length:1rem] bg-[url(../images/ico-refresh-white.svg)]
+        @apply btn-primary btn-icon bg-[length:1rem] bg-[url(/html/page/market/assets/images/ico-refresh-white.svg)]
                md:bg-[length:1.125rem];
         &.is-reverse {
-            @apply bg-[url(../images/ico-refresh.svg)] bg-white text-black2
+            @apply bg-[url(/html/page/market/assets/images/ico-refresh.svg)] bg-white text-black2
                    hover:bg-white
                    focus:bg-white
                    active:bg-white;
@@ -165,7 +165,7 @@
     }
 
     .btn-refresh2 {
-        @apply bg-[url(../images/ico-refresh-white.svg)] bg-[left_0.75rem_center] bg-[length:1rem]
+        @apply bg-[url(/html/page/market/assets/images/ico-refresh-white.svg)] bg-[left_0.75rem_center] bg-[length:1rem]
                md:bg-[left_1rem_center] md:bg-[length:1.125rem];
         &.btn-small {
             @apply bg-[left_0.375rem_center] bg-[length:0.875rem]
@@ -176,12 +176,12 @@
                    md:bg-[left_1.125rem_center] md:bg-[length:2rem];
         }
         &.is-reverse {
-            @apply bg-[url(../images/ico-refresh.svg)];
+            @apply bg-[url(/html/page/market/assets/images/ico-refresh.svg)];
         }
     }
 
     .btn-coupon {
-        @apply bg-[url(../images/txt-coupon-white.svg)] bg-[left_0.625rem_center]
+        @apply bg-[url(/html/page/market/assets/images/txt-coupon-white.svg)] bg-[left_0.625rem_center]
                md:bg-[left_0.875rem_center];
         &.btn-small {
             @apply bg-[left_0.5rem_center]
@@ -192,12 +192,12 @@
                    md:bg-[left_1.5rem_center];
         }
         &.is-reverse {
-            @apply bg-[url(../images/txt-coupon.svg)];
+            @apply bg-[url(/html/page/market/assets/images/txt-coupon.svg)];
         }
     }
     
     .btn-mileage {
-        @apply bg-[url(../images/txt-mileage-white.svg)] bg-[left_0.5625rem_center]
+        @apply bg-[url(/html/page/market/assets/images/txt-mileage-white.svg)] bg-[left_0.5625rem_center]
                md:bg-[left_0.75rem_center];
         &.btn-small {
             @apply bg-[left_0.375rem_center]
@@ -208,12 +208,12 @@
                    md:bg-[left_1.375rem_center];
         }
         &.is-reverse {
-            @apply bg-[url(../images/txt-mileage.svg)];
+            @apply bg-[url(/html/page/market/assets/images/txt-mileage.svg)];
         }
     }
 
     .btn-point {
-        @apply bg-[url(../images/txt-point-white.svg)] bg-[left_0.8125rem_center]
+        @apply bg-[url(/html/page/market/assets/images/txt-point-white.svg)] bg-[left_0.8125rem_center]
                md:bg-[left_1.125rem_center];
         &.btn-small {
             @apply bg-[left_0.625rem_center]
@@ -224,15 +224,15 @@
                    md:bg-[left_1.625rem_center];
         }
         &.is-reverse {
-            @apply bg-[url(../images/txt-point.svg)];
+            @apply bg-[url(/html/page/market/assets/images/txt-point.svg)];
         }
     }
 
     .btn-love {
-        @apply btn-icon btn-outline-danger bg-[url(../images/ico-attent-plus-red.svg)] bg-[length:1.25rem]
+        @apply btn-icon btn-outline-danger bg-[url(/html/page/market/assets/images/ico-attent-plus-red.svg)] bg-[length:1.25rem]
                md:bg-[length:1.5rem];
         &.is-active {
-            @apply !bg-red3 !bg-[url(../images/ico-attent-minus-white.svg)];
+            @apply !bg-red3 !bg-[url(/html/page/market/assets/images/ico-attent-minus-white.svg)];
         }
         &.btn-small {
             @apply bg-[length:0.875rem]
@@ -245,10 +245,10 @@
     }
 
     .btn-compare {
-        @apply btn-icon btn-outline-primary bg-[url(../images/ico-compare2.svg)] bg-[length:1.25rem]
+        @apply btn-icon btn-outline-primary bg-[url(/html/page/market/assets/images/ico-compare2.svg)] bg-[length:1.25rem]
                md:bg-[length:1.5rem];
         &.is-active {
-            @apply bg-black2 bg-[url(../images/ico-compare2-white.svg)];
+            @apply bg-black2 bg-[url(/html/page/market/assets/images/ico-compare2-white.svg)];
         }
         &.btn-small {
             @apply bg-[length:0.875rem]
@@ -261,10 +261,10 @@
     }
 
     .btn-cart {
-        @apply btn-icon btn-outline-primary bg-[url(../images/ico-cart.svg)] bg-[length:1.375rem]
+        @apply btn-icon btn-outline-primary bg-[url(/html/page/market/assets/images/ico-cart.svg)] bg-[length:1.375rem]
                md:bg-[length:1.625rem];
         &.is-active {
-            @apply bg-black2 bg-[url(../images/ico-cart-white.svg)];
+            @apply bg-black2 bg-[url(/html/page/market/assets/images/ico-cart-white.svg)];
         }
         &.btn-small {
             @apply bg-[length:1rem]
@@ -277,9 +277,9 @@
     }
 
     .btn-toggle {
-        @apply btn-outline-primary pr-9.5 bg-no-repeat bg-[right_0.75rem_center] bg-[url(../images/ico-angle-down.svg)] bg-[length:0.75rem];
+        @apply btn-outline-primary pr-9.5 bg-no-repeat bg-[right_0.75rem_center] bg-[url(/html/page/market/assets/images/ico-angle-down.svg)] bg-[length:0.75rem];
         &.is-active {
-            @apply btn-primary pr-9.5 bg-[url(../images/ico-angle-up-white.svg)];
+            @apply btn-primary pr-9.5 bg-[url(/html/page/market/assets/images/ico-angle-up-white.svg)];
         }
         &.btn-small {
             @apply pr-8 bg-[right_0.625rem_center] bg-[length:0.625rem];
@@ -296,7 +296,7 @@
     }
     
     .btn-payment {
-        @apply btn-primary border-0 bg-no-repeat bg-[url(../images/bg-payment.svg)] pl-10 pr-4
+        @apply btn-primary border-0 bg-no-repeat bg-[url(/html/page/market/assets/images/bg-payment.svg)] pl-10 pr-4
                md:pr-6 md:pl-12 bg-[length:2.5rem] bg-[left_-0.25rem_top_0.625rem] md:bg-[left_-0.25rem_top_1rem] md:bg-[length:3rem];
         &.btn-small {
             @apply pr-3 pl-7 md:pr-4 md:pl-8 bg-[left_-0.25rem_top_0.75rem] bg-[length:1.75rem]
@@ -309,27 +309,27 @@
     }
 
     .btn-plus {
-        @apply btn-icon h-6.5 rounded bg-[url(../images/ico-plus.svg)] bg-[length:0.75rem];
+        @apply btn-icon h-6.5 rounded bg-[url(/html/page/market/assets/images/ico-plus.svg)] bg-[length:0.75rem];
     }
     
     .btn-minus {
-        @apply btn-icon h-6.5 rounded bg-[url(../images/ico-minus.svg)] bg-[length:0.75rem];
+        @apply btn-icon h-6.5 rounded bg-[url(/html/page/market/assets/images/ico-minus.svg)] bg-[length:0.75rem];
     }
 
     .btn-delete {
-        @apply btn-icon btn-primary h-6.5 rounded bg-[url(../images/ico-close-white.svg)] bg-[length:0.75rem];
+        @apply btn-icon btn-primary h-6.5 rounded bg-[url(/html/page/market/assets/images/ico-close-white.svg)] bg-[length:0.75rem];
         &.is-reverse {
-            @apply bg-white border-white bg-[url(../images/ico-close.svg)];
+            @apply bg-white border-white bg-[url(/html/page/market/assets/images/ico-close.svg)];
         }
     }
 
     .btn-more {
-        @apply btn-icon btn-outline-primary h-5 rounded-full bg-[url(../images/ico-angle-right.svg)] bg-[length:0.375rem]
+        @apply btn-icon btn-outline-primary h-5 rounded-full bg-[url(/html/page/market/assets/images/ico-angle-right.svg)] bg-[length:0.375rem]
                md:h-5.5;
     }
 
     .btn-more2 {
-        @apply btn-primary py-0 pr-5 pl-2.5 h-5 rounded-full bg-no-repeat bg-[url(../images/ico-angle-right-white.svg)] bg-[length:0.375rem] bg-[right_0.5rem_center] text-[0.8125rem]
+        @apply btn-primary py-0 pr-5 pl-2.5 h-5 rounded-full bg-no-repeat bg-[url(/html/page/market/assets/images/ico-angle-right-white.svg)] bg-[length:0.375rem] bg-[right_0.5rem_center] text-[0.8125rem]
                md:pr-6 md:pl-3 md:h-5.5 md:text-sm md:bg-[right_0.625rem_center];
     }
 

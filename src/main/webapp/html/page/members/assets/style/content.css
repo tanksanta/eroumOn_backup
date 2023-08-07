@@ -13,28 +13,55 @@
             }
         }
     }
-
-    .list-normal {
-        @apply space-y-[0.17em];
-        & li {
-            @apply relative pl-[1em]
-                   before:content-["-"] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
+    
+    .box-gray {
+        @apply flex items-center flex-wrap w-fit relative max-w-full px-3.5 py-4 min-h-15 rounded-md border border-gray2 bg-gray2 align-middle leading-tight font-medium text-center
+               md:px-5 md:min-h-[4.375rem];
+        & > * {
+            @apply mr-2
+                   md:mr-3
+                   last:mr-0;
         }
     }
-    
-    .list-number {
+
+    .box-result {
+        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
+               md:py-13 md:rounded-[1rem] md:text-base;
+        &.is-large {
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(/html/page/market/assets/images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+                   md:py-29 md:bg-[length:auto_auto];
+        }
+    }
+
+    .list-normal, .list-number {
         @apply space-y-[0.17em];
-        counter-reset: section;
         & li {
             @apply relative pl-[1em]
-                   before:content-[counter(section)"."] before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
+                   before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
+        }
+    }
+
+    .list-normal {
+        & li {
+            @apply before:content-["-"];
+        }
+    }
+
+    .list-number {
+        counter-reset: section;
+        & li {
             &::before {
-                counter-increment: section;
+                counter-increment: section; 
+                content: counter(section)"."; 
             }
         }
     }
+    
+    .error {
+        @apply mt-1 text-[0.8125rem]
+               md:text-sm;
+    }
 }
-
 
 /* 옵션 */
 .product-option {
@@ -762,8 +789,8 @@
 /* 회원정보수정 */
 .member-modify {
     @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%]
-           before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover
-           after:content-empty after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1
+           before:absolute before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover
+           after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1
            after:md:block
            lg:before:top-8.5 lg:before:left-5.5 lg:before:w-[75px] lg:before:h-[635px]
            md-max:before:top-9 md-max:before:right-6.5 md-max:before:w-[16.125rem] md-max:before:h-7.5 md-max:before:bg-[url(../images/txt-membership-mo.svg)]
@@ -803,6 +830,8 @@
     }
 }
 
+
+/* 이용약관 */
 .terms-table {
     @apply table-fixed w-full border border-gray1 text-gray6;
     & th, & td {
@@ -848,6 +877,496 @@
         & > li {
             @apply pl-[0.9em]
                    before:content-["-"] before:absolute before:top-0 before:left-[0.15em];
+        }
+    }
+}
+
+
+/* 마이페이지 메인 */
+.mypage-split {
+    @apply my-5 -mx-5 px-5 border-t-2.5 border-neutral-100
+           lg:hidden
+           first:-mt-6;
+}
+
+.mypage-title {
+    @apply relative mb-2.5 pb-3 border-b border-b-gray3 text-lg leading-tight font-bold
+           md:mb-7.5 md:text-xl;
+}
+
+.mypage-manage1 {
+    @apply flex flex-col py-3.5 px-4.5 border border-gray3 rounded-2xl text-[0.9375rem] leading-snug
+           md:text-base;
+}
+
+.mypage-manage1-title {
+    @apply flex items-center font-bold
+           md:px-1.5;
+    & a {
+        @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-plus.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96;
+    }
+}
+
+.mypage-manage1-items {
+    @apply flex-1 flex flex-col mt-1.5 pt-1.5 divide-y divide-gray2
+           md:mt-2 md:pt-2;
+}
+
+.mypage-manage1-item {
+    @apply flex items-center py-2
+           md:py-2.5;
+    & .item-name {
+        @apply flex-1 truncate mr-2;
+    }
+    & .item-date {
+        @apply flex-none text-[0.8125rem] text-gray1;
+    }
+    & .item-home {
+        @apply flex-none flex gap-1 items-center justify-center -my-0.5 px-2 min-w-15 h-6.5 overflow-hidden border border-gray3 rounded-full bg-white text-xs text-gray1 transition-[background-color,border-color,color] duration-300
+               before:w-4 before:h-3 before:bg-center before:bg-no-repeat before:bg-[url(../images/ico-mypage-home.svg)] before:transition-all before:duration-300
+               after:hidden after:ml-0.5 after:w-2 after:h-2 after:bg-right-center after:bg-[length:auto_100%] after:bg-[url(../images/ico-mypage-arrow.svg)] after:opacity-50 after:transition-all after:duration-300
+               hover:bg-black2 hover:text-white
+               hover:before:bg-[url(../images/ico-mypage-home-hover.svg)]
+               hover:after:bg-[url(../images/ico-mypage-arrow-white.svg)]
+               md:after:block;
+        & span {
+            @apply hidden
+                   md:block;
+        }
+    }
+}
+
+.mypage-manage1-empty {
+    @apply flex-1 flex flex-col items-center justify-center flex-wrap py-5.5 px-4 min-h-23 rounded-md bg-[#f9f9f9] text-gray1 text-sm
+           md:min-h-29 md:text-[0.9375rem];
+    & a {
+        @apply btn mt-3 h-8.5 border-gray1 bg-white text-[0.8125rem] text-black2
+               before:mx-1.5 before:w-3 before:h-3 before:bg-cover before:bg-[url(../images/ico-mypage-interest-active.svg)]
+               after:mt-0.5 after:-mr-1 after:ml-3 after:w-2 after:h-2 after:bg-right-center after:bg-[length:auto_100%] after:bg-[url(../images/ico-mypage-arrow.svg)] after:opacity-50;
+    }
+}
+
+.mypage-manage2 {
+    @apply flex items-center p-3.5 border border-gray3 rounded-2xl text-[0.9375rem] leading-snug
+           md:items-stretch md:text-base;
+}
+
+.mypage-manage2-icon {
+    @apply flex-none flex items-center justify-center mr-4.5 w-[4.625rem] min-h-20 bg-[#f9f9f9]
+           md:min-h-23;
+}
+
+.mypage-manage2-name {
+    @apply flex-1 block text-base break-keep
+           md:pt-3;
+    & small {
+        @apply block mt-2 text-[0.8125rem] font-normal text-gray1;
+    }
+}
+
+
+/* 장기요양 상담신청 */
+.mypage-consult-toggle {
+    @apply btn-primary absolute -top-0.5 right-0 w-19 h-7 text-[0.8125rem] font-medium
+           md:hidden;
+}
+
+.mypage-consult-desc {
+    @apply mt-3 mb-7 px-3 py-2 rounded-md bg-neutral-100
+           md:mt-5 md:mb-13 md:p-0 md:bg-transparent;
+}
+
+.mypage-consult-search {
+    @apply hidden fixed z-20 top-13 left-0 right-0 bottom-0
+           before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-black1/60
+           md:block md:static
+           md:before:hidden;
+    & fieldset {
+        @apply relative p-4 pt-16 -mt-px border border-gray3 rounded-b-2xl bg-white max-h-[calc(100vh-7.5rem)] overflow-auto
+               md:mt-0 md:mx-0 md:py-5 md:px-7.5 md:rounded-t-2xl md:max-h-none md:overflow-visible;
+    }
+    & legend {
+        @apply flex items-center justify-center absolute top-0 left-0 w-full text-center h-12 text-lg font-bold
+               md:hidden;
+        & + dl {
+            @apply mt-0;
+        }
+    }
+    & dl {
+        @apply mt-5.5 flex flex-col leading-snug
+               md:mt-3.5 md:flex-row md:items-center
+               first:mt-0;
+        & dt {
+            @apply flex-none mb-2.5 font-medium
+                   md:mr-4.5 md:mb-0 md:w-25;
+        }
+        & dd {
+            @apply flex-1 flex relative;
+        }
+    }
+    & .form-group {
+        @apply flex-1;
+    }
+    & .form-group-check {
+        @apply absolute -top-9 right-0 flex gap-1
+               md:static md:flex-none md:ml-2.5 md:gap-1.5;
+        & .form-check {
+            & .form-check-input {
+                @apply absolute w-0 h-0 opacity-0;
+            }
+            & .form-check-label {
+                @apply flex items-center ml-0 px-3 h-8 rounded-md border-gray2 bg-gray2 text-[0.8125rem] text-gray6
+                       md:px-3.5 md:h-12 md:text-sm;
+            }
+        }
+    }
+    & .search-submit {
+        @apply btn-primary flex mt-7 mx-auto w-full
+               md:mt-2 md:w-43;
+    }
+    & .search-close {
+        @apply absolute top-2 right-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625rem] -indent-96
+               md:hidden;
+    }
+}
+
+.mypage-consult-item-gutter {
+    @apply w-4
+           md:w-5;
+}
+
+.mypage-consult-item {
+    @apply mb-4 p-4 w-full border border-gray3 rounded-2xl bg-white leading-tight
+           md:mb-5 md:w-[calc(50%-0.625rem)];
+    & .item-current, & .item-partner, & .item-date {
+        @apply flex;
+        & dt {
+            @apply flex-none mr-3 p-2 pr-0 w-[7.25em] bg-neutral-100 text-xs text-gray6
+                    md:text-[0.8125rem];
+        }
+        & dd {
+            @apply flex-1 py-2 text-sm;
+        }
+    }
+    & .item-current {
+        & dt {
+            @apply pt-3 rounded-t-md;
+        }
+        & dd {
+            @apply pt-3;
+        }
+    }
+    & .item-partner {
+        & dd {
+            @apply py-1 text-lg break-keep;
+        }
+        & .history {
+            & li {
+                @apply flex items-start mt-1.5
+                       md:mt-2;
+                & small {
+                    @apply px-2.5 py-0.5 border border-neutral-100 rounded-md bg-neutral-100 text-xs text-gray6
+                           md:px-3 md:text-[0.8125rem];
+                }
+                & span {
+                    @apply flex-1 ml-1 mt-px py-0.5 text-sm
+                           md:mt-0 md:ml-1.5;
+                }
+            }
+        }
+    }
+    & .item-date {
+        & dt {
+            @apply pb-3 rounded-b-md;
+        }
+        & dd {
+            @apply pb-3;
+        }
+    }
+    & .item-request {
+        @apply flex items-center mt-1.5 text-xs
+               md:mt-2.5 md:text-[0.8125rem];
+        & .button {
+            @apply flex-1 mr-auto w-35 max-w-42 h-10 rounded-md bg-[#3074FF] text-sm font-bold text-white
+                   md:flex-1 md:max-w-46;
+        }
+        & .check1, & .check2 {
+            @apply flex-none flex items-center gap-1 relative pl-3 select-none;
+            & input {
+                @apply order-2 appearance-none -mt-px w-4 h-4 bg-cover bg-center;
+            }
+            & span {
+                @apply order-1 leading-none;
+            }
+        }
+        & .check1 {
+            & input {
+                @apply bg-[url(../images/ico-mypage-recommend.svg)]
+                       checked:bg-[url(../images/ico-mypage-recommend-active.svg)];
+            }
+        }
+        & .check2 {
+            @apply ml-3
+                   before:absolute before:top-1/2 before:left-0 before:mt-px before:w-px before:h-3 before:bg-gray1/25 before:-translate-y-1/2;
+            & input {
+                @apply bg-[url(../images/ico-mypage-interest.svg)]
+                       checked:bg-[url(../images/ico-mypage-interest-active.svg)];
+            }
+        }
+    }
+}
+
+
+/* 관심 멤버스 설정 */
+.mypage-members-item {
+    @apply flex bg-white relative p-4 border border-gray1 rounded-[1rem] transition-all duration-300 select-none leading-tight
+           md:p-5;
+    & .item-thumb {
+        @apply flex-none mr-3 w-25 h-20 rounded object-cover
+               sm:w-35 sm:h-25
+               md:mr-5 md:w-34 md:h-25;
+    }
+    & .item-content {
+        @apply flex-1;
+        & .name {
+            @apply pr-6 pb-0.5 text-lg font-bold
+                   sm:min-h-[2.5em]
+                   md:pb-1.5 md:text-xl;
+        }
+        & .addr, & .call {
+            @apply mt-[0.25em] pl-[1.25em] bg-no-repeat bg-[length:auto_1em] text-sm
+                   md:text-[0.9375rem];
+        }
+        & .addr {
+            @apply bg-[url(/html/page/market/assets/images/ico-location.svg)] bg-[left_0.25em_top_0.125em];
+        }
+        & .call {
+            @apply bg-[url(/html/page/market/assets/images/ico-call.svg)] bg-[left_0.05em_top_0.125em];
+        }
+        & .desc {
+            @apply flex items-center justify-between pt-3 mt-3 border-t border-t-gray3 -ml-28
+                   sm:ml-0;
+        }
+        & .time {
+            @apply mr-auto pr-1 space-y-1 font-medium leading-tight text-sm tracking-tight
+                   xs:tracking-normal
+                   md:pr-4 md:text-[0.9375rem];
+            & p {
+                @apply flex flex-wrap;
+            }
+            & small {
+                @apply block flex-none min-w-[3.75em] mr-1.5 text-sm
+                       md:mt-px;
+            }
+        }
+        & .link {
+            @apply btn-primary btn-small flex-none;
+        }
+    }
+    & .item-delete {
+        @apply absolute top-2 right-4 w-7 h-7 overflow-hidden
+               md:w-8 md:h-8;
+    }
+    & .item-select, & .item-love {
+        @apply absolute top-2 right-2 font-bold bg-white leading-tight overflow-hidden;
+        & input {
+            @apply appearance-none float-right ml-1.5 w-4.5 h-4.5 rounded-full bg-no-repeat bg-right-center bg-[length:auto_100%] bg-gray2
+                   md:ml-2 md:w-5 md:h-5;
+        }
+        & span {
+            @apply hidden relative
+                   md:-top-px;
+        }
+    }
+    & .item-select {
+        & input {
+            @apply bg-[url(/html/page/market/assets/images/ico-partner-check.svg)];
+        }
+    }
+    &.is-active {
+        @apply border-black2 shadow-[inset_0px_0px_0px_1px_#333];
+        & .item-select, & .item-love {
+            & input {
+                @apply bg-white;
+            }
+            & span {
+                @apply inline-block
+                       xs-max:hidden;
+            }
+        }
+        & .item-select {
+            & input {
+                @apply bg-[url(/html/page/market/assets/images/ico-partner-check-on.svg)];
+            }
+        }
+        & .item-love {
+            & input {
+                @apply bg-[url(/html/page/market/assets/images/ico-partner-love-on.svg)];
+            }
+        }
+    }
+    &.is-disable {
+        @apply opacity-70;
+    }
+}
+
+.mypage-members-search {
+    @apply flex items-center flex-wrap -mx-5 p-5 pb-3.5 bg-white bg-[linear-gradient(96deg,_rgba(21,132,185,0.08)_0%,_rgba(119,13,172,0.08)_29%,_rgba(184,13,13,0.08)_54%,_rgba(229,162,10,0.08)_77%,_rgba(67,168,0,0.08)_100%)];
+    & > * {
+        @apply mb-1.5 ml-1.5
+               first:ml-0;
+    }
+    & .form-control {
+        &select {
+            @apply w-[calc(50%_-_0.1875rem)]
+                   md:w-40;
+        }
+        &input {
+            @apply flex-1 ml-0
+                   md:ml-1.5;
+        }
+    }
+    & ~ .mypage-members-item {
+        @apply mt-4.5 p-3
+               md:p-4;
+        & .item-thumb {
+            @apply sm:w-30;
+        }
+        & .name {
+            @apply text-base
+                   md:text-lg;
+        }
+    }
+}
+
+
+/* 배송지 관리 */
+.mypage-delivery-item {
+    @apply flex flex-wrap relative border border-black2 rounded-[1rem] bg-black2;
+    & .item-name {
+        @apply flex-none flex items-start py-3.5 px-4 w-30 break-keep text-white font-bold leading-snug text-xl
+               xs:flex-col
+               md:py-4 md:px-5 md:w-38 md:text-2xl
+               xs-max:w-full;
+        & .label-primary {
+            @apply mt-1 mr-2 flex-none border-white
+                   md:mt-0 md:mb-2;
+            & span {
+                @apply bg-black2 text-white;
+            }
+            & i {
+                @apply bg-white text-black2;
+            }
+        }
+    }
+    & .item-content {
+        @apply flex-1 relative p-4 rounded-[1rem] overflow-hidden bg-white
+               sm:pl-7
+               md:py-4 md:pl-9 md:pr-5 md:min-h-41;
+        & dl {
+            @apply flex items-start flex-wrap mt-3 overflow-hidden leading-snug
+                    md:mt-4;
+            & dt {
+                @apply flex-none mt-px w-[5em] text-[0.8125rem] text-right
+                        md:mt-0.5 md:text-sm;
+            }
+            & dd {
+                @apply flex-1 ml-4 overflow-hidden
+                        md:ml-5;
+                & strong {
+                    @apply font-medium;
+                }
+            }
+            &.name {
+                @apply mt-0 pr-4;
+                & dt {
+                    @apply mt-1
+                            md:mt-[0.3125rem];
+                }
+                & dd {
+                    @apply font-bold text-lg
+                            md:text-xl;
+                }
+            }
+            &.addr {
+                @apply sm:pr-30
+                        md:pr-35;
+            }
+        }
+    }
+    & .item-close {
+        @apply absolute top-1 right-2 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 bg-[url(../images/ico-close.svg)] bg-[length:1.25rem]
+               sm:top-2
+               md:w-8 md:h-8 md:bg-[length:1.5rem];
+    }
+    & .item-edit {
+        @apply mt-3 text-right
+               sm:absolute sm:bottom-4 sm:right-4
+               md:right-5;
+    }
+}
+
+.mypage-delivery-item2 {
+    @apply select-none flex-wrap relative overflow-hidden px-5 py-4 border border-gray1 rounded-[1rem] leading-snug
+           md:flex md:pt-5 md:px-7 md:pb-6;
+    & dl {
+        & dt {
+            @apply mr-3 pt-px text-[0.8125rem] font-medium
+                    md:mr-4 md:pt-0.5 md:text-sm;
+        }
+        & dd {
+            @apply text-[0.9125rem]
+                    md:text-base;
+        }
+    }
+    & .item-name {
+        @apply flex items-center
+               md:block md:mr-2 md:w-[30%];
+        & dt {
+            @apply w-[4em] text-right
+                   md:w-auto md:text-left;
+        }
+        & dd {
+            @apply text-[1.375rem] font-bold
+                   md:mt-0.5 md:text-2xl;
+            & .label-outline-primary {
+                @apply align-top mt-0.5
+                       md:flex md:mt-1;
+            }
+        }
+    }
+    & .item-info {
+        @apply flex-1 mt-2 space-y-2
+               md:mt-0 md:space-y-3.5;
+        & dl {
+            @apply flex;
+            & dt {
+                @apply flex-none text-right w-[4em]
+                       md:w-[3em];
+            }
+        }
+    }
+    & .item-select {
+        @apply absolute top-2 right-2 font-bold bg-white leading-tight overflow-hidden;
+        & input {
+            @apply appearance-none float-right ml-2 w-5 h-5 bg-no-repeat bg-right-center bg-[length:auto_100%] bg-[url(/html/page/market/assets/images/ico-partner-check.svg)];
+        }
+        & span {
+            @apply hidden;
+        }
+    }
+    &.is-disable {
+        @apply opacity-70;
+    }
+    &.is-active {
+        @apply border-black2 shadow-[0px_0px_0px_1px_#333];
+        & .item-select {
+            & input {
+                @apply bg-[url(/html/page/market/assets/images/ico-partner-check-on.svg)];
+            }
+            & span {
+                @apply inline;
+            }
         }
     }
 }

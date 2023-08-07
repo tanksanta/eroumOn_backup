@@ -286,7 +286,7 @@ body {
            lg:min-h-[45rem];
     & .container {
         @apply mx-auto max-w-7xl bg-no-repeat bg-[length:298px,_auto] bg-right-bottom
-               md:bg-[url(../images/img-partner-intro-jumbotron.png)]
+               md:bg-[url(/html/page/office/assets/images/img-partner-intro-jumbotron.png)]
                lg:bg-[length:372px,_auto] lg:bg-[right_2.25rem_bottom];
     }
     & .header {
@@ -357,22 +357,22 @@ body {
                    xl:text-[1.375rem];
         }
         &.image1 {
-            @apply bg-[url(../images/img-partner-intro-content1.png)] bg-[length:auto_118px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content1.png)] bg-[length:auto_118px]
                    md:bg-[length:auto_157px]
                    xl:bg-[length:auto_196px];
         }
         &.image2 {
-            @apply bg-[url(../images/img-partner-intro-content2.png)] bg-[length:auto_98px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content2.png)] bg-[length:auto_98px]
                    md:bg-[length:auto_130px]
                    xl:bg-[length:auto_163px];
         }
         &.image3 {
-            @apply bg-[url(../images/img-partner-intro-content3.png)] bg-[length:auto_128px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content3.png)] bg-[length:auto_128px]
                    md:bg-[length:auto_171px]
                    xl:bg-[length:auto_214px];
         }
         &.image4 {
-            @apply bg-[url(../images/img-partner-intro-content4.png)] bg-[length:auto_132px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content4.png)] bg-[length:auto_132px]
                    md:bg-[length:auto_176px]
                    xl:bg-[length:auto_220px];
         }
@@ -411,10 +411,10 @@ body {
             @apply mt-1;
         }
         & .call {
-            @apply inline-block mt-2 pl-5 bg-no-repeat bg-[left_center] text-[#666] bg-[url(../images/ico-tel-gray.svg)];
+            @apply inline-block mt-2 pl-5 bg-no-repeat bg-[left_center] text-[#666] bg-[url(/html/page/office/assets/images/ico-tel-gray.svg)];
         }
         & .close {
-            @apply absolute top-2 right-2.5 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 cursor-pointer opacity-50 bg-[url(../images/ico-close.svg)];
+            @apply absolute top-2 right-2.5 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 cursor-pointer opacity-50 bg-[url(/html/page/office/assets/images/ico-close.svg)];
         }
     }
 }
@@ -451,10 +451,10 @@ body {
                xs:w-10 xs:h-10;
     }
     & .btn-primary {
-        @apply bg-[url(../images/ico-search-white.svg)];
+        @apply bg-[url(/html/page/office/assets/images/ico-search-white.svg)];
     }
     & .btn-cancel {
-        @apply bg-[url(../images/ico-map-mylocation.svg)];
+        @apply bg-[url(/html/page/office/assets/images/ico-map-mylocation.svg)];
     }
 }
 
@@ -474,7 +474,7 @@ body {
 }
 
 .maps-layer-result {
-    @apply bg-no-repeat bg-[url(../images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 bg-[length:1.25rem]
+    @apply bg-no-repeat bg-[url(/html/page/office/assets/images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 bg-[length:1.25rem]
            xs:pl-11 xs:bg-[length:auto];
     & .name {
         @apply flex items-start justify-between;
@@ -487,7 +487,7 @@ body {
         }
     }
     & .call {
-        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(../images/ico-tel-gray.svg)]
+        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(/html/page/office/assets/images/ico-tel-gray.svg)]
                xs:bg-[length:auto];
     }
 }
@@ -532,7 +532,7 @@ body {
 
 .maps-layer-toggle {
     @apply flex-none sticky bottom-0 left-0 w-full bg-white overflow-hidden -indent-[999em] h-12
-           before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(../images/ico-map-arrow.svg)]
+           before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(/html/page/office/assets/images/ico-map-arrow.svg)]
            sm:h-16
            aria-expanded:before:rotate-180;
 }

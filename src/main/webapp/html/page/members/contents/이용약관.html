@@ -17,45 +17,81 @@
 </head>
 <body>
     <header id="header">
-        <div class="container">
-            <h1 id="logo" class="global-logo"><a href="#"><span>회원</span></a></h1>
-            <nav id="navigation">
-                <ul>
-                    <li><a href="로그인.html" class="navigation-link">로그인</a></li>
-                    <li><a href="회원가입.html" class="navigation-link">회원가입</a></li>
-                </ul>
-            </nav>
-            <ul id="family" class="global-link is-bottom">
-                <li>
-                    <a href="#" class="link-item1">
-                        <div class="bubble">
-                            <small>시니어 라이프 케어 플랫폼</small>
-                            <strong>"이로움ON"</strong>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="link-item2">
-                        <div class="bubble">
-                            <strong>이로움ON 멤버스</strong>
-                            <small>전국 2,432개 업체와 함께합니다</small>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="link-item3">
-                        <div class="bubble">
-                            <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
-                            <small>
-                                복지용구 사업소와 수급자 매칭부터<br>
-                                주문, 계약 및 결제까지 한번에!
-                            </small>
-                        </div>
-                    </a>
-                </li>
+        <h1 id="logo" class="global-logo">
+            <a href="#"><em>이로움ON</em></a>
+        </h1>
+        <nav id="navigation">
+            <ul>
+                <li><a href="로그인.html" class="navigation-link">로그인</a></li>
+                <li><a href="회원가입.html" class="navigation-link is-join">회원가입</a></li>
+                
+                <!-- <li><a href="#" class="navigation-link">로그아웃</a></li>
+                <li class="lg-max:hidden"><a href="#" class="navigation-link is-join">회원정보 수정</a></li>
+                <li class="lg-max:hidden"><a href="#" class="navigation-link">회원탈퇴</a></li> -->
             </ul>
-        </div>
+        </nav>
+        <ul id="family" class="global-link is-bottom">
+            <li>
+                <a href="#" class="link-item3">
+                    <div class="bubble">
+                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                        <small>
+                            복지용구 사업소와 수급자 매칭부터<br>
+                            주문, 계약 및 결제까지 한번에!
+                        </small>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴 열기/닫기</button>
     </header>
+
+    <nav id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
+        <div class="offcanvas-header">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+            </ul>
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="user-info">
+                <div class="thumb"></div>
+                <div class="name">
+                    김정래
+                    <small>님</small>
+                    <img src="/html/core/images/ico-kakao.png" alt="">
+                    <!-- 소셜 아이콘
+                    <img src="/html/core/images/ico-naver.png" alt="">
+                    -->
+                </div>
+                <a href="#" class="logout">로그아웃</a>
+            </div>
+            <dl class="menu-item1">
+                <dt><a href="#">나의 상담 관리</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">장기요양 상담신청</a></li>
+                        <li><a href="#">관심 멤버스 설정</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item2">
+                <dt><a href="#">나의 정보 관리</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">내 정보수정</a></li>
+                        <li><a href="#">배송지 관리</a></li>
+                        <li><a href="#">회원탈퇴</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item3">
+                <dt><a href="#">나의 쇼핑 관리</a></dt>
+                <dd></dd>
+            </dl>
+        </div>
+    </nav>
 
     <main id="container">
         <header id="page-title">
@@ -566,7 +602,7 @@
     </main>
 
     <footer id="footer">
-        <p>COPYRIGHT ⓒ E·ROUM. ALL RIGHTS RESERVED.</p>
+        <p>COPYRIGHT ⓒ <strong>E·ROUM</strong>. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script src="../../../core/vendor/twelements/index.min.js"></script>
