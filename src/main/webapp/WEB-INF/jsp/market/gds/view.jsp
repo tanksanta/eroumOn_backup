@@ -63,7 +63,7 @@
 									<div class="swiper-slide">
 										<div class="product-item">
 											<div class="item-thumb">
-												<a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
+												<a href="${_marketPath}/gds/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
 													<c:choose>
 														<c:when test="${gdsRelList.fileNo > 0}">
 															<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsRelList.relGdsNo}&amp;fileTy=THUMB&amp;fileNo=${gdsRelList.fileNo}&amp;thumbYn=Y">
@@ -75,7 +75,7 @@
 												</a>
 
                                         	</div>
-                                        <a href="${_marketPath}/gds/${gdsRelList.upCtgryNo}/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
+                                        <a href="${_marketPath}/gds/${gdsRelList.ctgryNo}/${gdsRelList.gdsCd}" class="item-content">
                                             <div class="name">
                                                 <small>${gdsRelList.ctgryNm}</small>
                                                 <strong>${gdsRelList.gdsNm}</strong>
