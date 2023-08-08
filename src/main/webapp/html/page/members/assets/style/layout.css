@@ -118,7 +118,7 @@ body {
            after:clear-both after:block after:h-0 after:overflow-hidden
            md:pt-17
            lg:pt-21 lg:px-7.5;
-    &.is-mypage-style1 {
+    &.is-mypage-style {
         & #page-title {
             @apply hidden
                    lg:block;
