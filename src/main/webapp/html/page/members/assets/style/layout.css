@@ -195,12 +195,3 @@ body {
 #page-content {
     @apply mx-auto max-w-screen-lg;
 }
-
-
-#footer {
-    @apply py-10 px-5 leading-tight text-xs text-center font-serif
-           lg:py-20;
-    & strong {
-        @apply font-medium;
-    }
-}

@@ -23,4 +23,5 @@
 @import "../../../market/assets/style/component/table.css";
 
 @import "layout.css";
+@import "common.css";
 @import "content.css";
