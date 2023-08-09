@@ -372,7 +372,6 @@ function comma(num){
         }
     };
     
-
     $(function() {
         var swiper = new Swiper(".main-visual .swiper", {
             slidesPerView: 1,
@@ -422,10 +421,14 @@ function comma(num){
             observer.observe(e);
         }, this);
 
+        $(window).on('load', function(e) {
+        	visualSetting(swiper);
+        });
+
         $(window).on('resize', function(e) {
             if(e.type === 'resize' && resize) {
-            	visualSetting;
+            	visualSetting(swiper);
             }
-        })
+        });
     })
 </script>
