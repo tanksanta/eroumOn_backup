@@ -145,7 +145,7 @@
 
 /* 상품 상세 */
 .product-detail {
-    @apply flex flex-wrap w-full;
+    @apply flex flex-wrap pt-5 w-full;
 }
 
 .product-detail-content {
