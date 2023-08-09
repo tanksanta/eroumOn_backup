@@ -147,10 +147,10 @@
 
 /* 이벤트 */
 .event-slogan {
-    @apply flex items-center justify-center px-4 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight
+    @apply flex items-center justify-center px-4 mt-3 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight
            shadow-[rgba(200,200,200,0.2)_3px_10px_5px,_rgba(200,200,200,0.2)_5px_20px_10px,_rgba(200,200,200,0.2)_8px_32px_16px,_rgba(200,200,200,0.2)_24px_64px_32px,_rgba(200,200,200,0.15)_48px_100px_32px]
            sm:w-fit sm:px-9
-           md:px-12 md:w-[730px] md:text-xl;
+           md:mt-7 md:px-12 md:w-[730px] md:text-xl;
     & .bags {
         @apply mt-2.5 -ml-1.5 w-[78px];
     }

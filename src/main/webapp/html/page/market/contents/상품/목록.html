@@ -311,9 +311,9 @@
                     </form>
                 </div>
                 <ul class="navigation-util">
-                    <li><a href="#" class="util-item1">마이페이지</a></li>
-                    <li><a href="#" class="util-item2">찜한상품</a></li>
-                    <li><a href="#" class="util-item3">장바구니</a></li>
+                    <li><a href="#" class="util-item1"><span class="sr-only">마이페이지</span></a></li>
+                    <li><a href="#" class="util-item2"><span class="sr-only">찜한상품</span></a></li>
+                    <li><a href="#" class="util-item3"><span class="sr-only">장바구니</span></a></li>
                 </ul>
             </div>
         </nav>
@@ -334,92 +334,83 @@
                 <a href="#" class="back">이전 페이지 가기</a>
                 <h2 class="subject"><a href="#">복지용구</a></h2>
             </div>
-            <button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+            <button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
         </div>
 
         <div id="page-container">
-            <nav id="page-sidenav" class="is-active">
-                <div class="page-sidenav-container">
+            <nav id="page-sidenav">
+                <div class="page-sidenav-menu">
                     <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
                         <button type="submit" class="btn btn-primary flex-1">적용</button>
                         <button type="button" class="btn btn-refresh">새로고침</button>
                     </div>
-                    <div class="page-sidenav-scrollbar">
-                        <div class="page-sidenav-group">
+                    <div class="menu-scrollbar">
+                        <div class="menu-group">
                             <p class="title">가격대</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <div>
-                                            <label for="price-s" class="block mb-1 text-sm tracking-tight">최소가격</label>
-                                            <div class="w-45 relative">
-                                                <input type="text" class="form-control pr-6 h-10" id="price-s">
-                                                <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2 flex">
-                                            <span class="flex h-10 items-center self-end text-lg mr-2.5 ml-1">~</span>
-                                            <div class="ml-auto">
-                                                <label for="price-e" class="block mb-1 text-sm tracking-tight">최대가격</label>
-                                                <div class="w-45 relative">
-                                                    <input type="text" class="form-control pr-6 h-10" id="price-e">
-                                                    <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
-                                                </div>
-                                            </div>
+                            <div class="content">
+                                <div>
+                                    <label for="price-s" class="block mb-1 text-sm tracking-tight">최소가격</label>
+                                    <div class="w-45 relative">
+                                        <input type="text" class="form-control pr-6 h-10" id="price-s">
+                                        <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex">
+                                    <span class="flex h-10 items-center self-end text-lg mr-2.5 ml-1">~</span>
+                                    <div class="flex flex-col flex-1 overflow-hidden ml-auto">
+                                        <label for="price-e" class="block mb-1 text-sm tracking-tight">최대가격</label>
+                                        <div class="flex-1 max-w-45 relative">
+                                            <input type="text" class="form-control flex-1 pr-6 min-w-0 w-full h-10" id="price-e">
+                                            <strong class="absolute top-1/2 right-2 -translate-y-1/2">원</strong>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="page-sidenav-group">
+                        <div class="menu-group">
                             <p class="title">기타</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content space-y-4">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item1">
-                                            <label class="form-check-label" for="search-item1">급여가 제품 우선</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item2">
-                                            <label class="form-check-label" for="search-item2">일시품절</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item3">
-                                            <label class="form-check-label" for="search-item3">일부옵션품절</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item4">
-                                            <label class="form-check-label" for="search-item4">설치</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item5">
-                                            <label class="form-check-label" for="search-item5">예약가능</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item6">
-                                            <label class="form-check-label" for="search-item6">특가할인</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item7">
-                                            <label class="form-check-label" for="search-item7">출고지연</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item8">
-                                            <label class="form-check-label" for="search-item8">급여탈락예정</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item9">
-                                            <label class="form-check-label" for="search-item9">직배송</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="search-item10">
-                                            <label class="form-check-label" for="search-item10">직배송</label>
-                                        </div>
-                                    </div>
+                            <div class="content space-y-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item1">
+                                    <label class="form-check-label" for="search-item1">급여가 제품 우선</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item2">
+                                    <label class="form-check-label" for="search-item2">일시품절</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item3">
+                                    <label class="form-check-label" for="search-item3">일부옵션품절</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item4">
+                                    <label class="form-check-label" for="search-item4">설치</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item5">
+                                    <label class="form-check-label" for="search-item5">예약가능</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item6">
+                                    <label class="form-check-label" for="search-item6">특가할인</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item7">
+                                    <label class="form-check-label" for="search-item7">출고지연</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item8">
+                                    <label class="form-check-label" for="search-item8">급여탈락예정</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item9">
+                                    <label class="form-check-label" for="search-item9">직배송</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-item10">
+                                    <label class="form-check-label" for="search-item10">직배송</label>
                                 </div>
                             </div>
-                            <button type="button" class="moreview">+</button>
                         </div>
                     </div>
                 </div>

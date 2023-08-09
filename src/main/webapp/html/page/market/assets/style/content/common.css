@@ -35,10 +35,10 @@
     }
 
     .box-result {
-        @apply px-5 py-9 rounded-lg text-center font-medium text-sm
+        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
                md:py-13 md:rounded-[1rem] md:text-base;
         &.is-large {
-            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(/html/page/market/assets/images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem]
                    md:py-29 md:bg-[length:auto_auto];
         }
     }

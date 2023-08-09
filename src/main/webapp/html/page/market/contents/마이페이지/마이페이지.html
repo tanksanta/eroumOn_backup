@@ -337,370 +337,130 @@
     <!-- //header -->
 
     <!-- container -->
-    <main id="container">
-        <h2 id="page-title"><span class="english">membership</span></h2>
-
+    <main id="container" class="is-mypage">
         <div id="page-header">
+            <ul class="page-header-breadcrumb">
+                <li><a href="#">홈</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+            </ul>
             <div class="page-header-title">
                 <a href="#" class="back">이전 페이지 가기</a>
                 <h2 class="subject">마이페이지</h2>
             </div>
-            <button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
         </div>
 
         <div id="page-container">
             <nav id="page-sidenav">
-                <div class="page-sidenav-container">
-                    <div class="page-sidenav-scrollbar">
-                        <div class="page-sidenav-group">
-                            <p class="title">쇼핑내역</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>주문/배송 조회</span></a></li>
-                                            <li><a href="#"><span>취소/교환/반품 조회</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                <div class="page-sidenav-header">
+                    <ul class="header-link">
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+                    <button type="button" class="header-close">닫기</button>
+                </div>
+                <div class="page-sidenav-menu lg-max:pt-0">
+                    <div class="global-user flex-none">
+                        <div class="user-name">
+                            <strong>사용자 <small>님</small></strong>
+                            <span>수급자 회원</span>
+                        </div>
+                        <div class="user-info">
+                            <div class="grade">
+                                <strong>신규회원</strong>
+                                <a href="#">등급별혜택</a>
+                            </div>
+                            <div class="point">
+                                <dl>
+                                    <dt>쿠폰</dt>
+                                    <dd><a href="#"><strong>5</strong> 장</a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>포인트</dt>
+                                    <dd><a href="#"><strong>512</strong> <img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트"></a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>마일리지</dt>
+                                    <dd><a href="#"><strong>5123</strong> <img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                                </dl>
                             </div>
                         </div>
-                        <div class="page-sidenav-group">
-                            <p class="title">쇼핑혜택</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>쿠폰</span></a></li>
-                                            <li><a href="#"><span>포인트</span></a></li>
-                                            <li><a href="#"><span>마일리지</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑내역</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">주문/배송 조회</a></li>
+                                <li><a href="#">취소/교환/반품 조회</a></li>
+                            </ul>
                         </div>
-                        <div class="page-sidenav-group">
-                            <p class="title">쇼핑활동</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>참여한 이벤트</span></a></li>
-                                            <li><a href="#"><span>내가 구매한 상품</span></a></li>
-                                            <li><a href="#"><span>상품후기</span></a></li>
-                                            <li><a href="#"><span>상품 Q&amp;A</span></a></li>
-                                            <li><a href="#"><span>1:1 문의</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑혜택</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">쿠폰</a></li>
+                                <li><a href="#">포인트</a></li>
+                                <li><a href="#">마일리지</a></li>
+                            </ul>
                         </div>
-                        <div class="page-sidenav-group">
-                            <p class="title">회원정보</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>회원정보 수정</span></a></li>
-                                            <li class="require"><a href="#"><span>가족회원 관리</span></a></li>
-                                            <li><a href="#"><span>배송지 관리</span></a></li>
-                                            <li><a href="#"><span>회원 탈퇴</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑활동</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">참여한 이벤트</a></li>
+                                <li><a href="#">내가 구매한 상품</a></li>
+                                <li><a href="#">상품후기</a></li>
+                                <li><a href="#">상품 Q&amp;A</a></li>
+                                <li><a href="#">1:1 문의</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">회원정보</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li class="is-active"><a href="#">회원정보 수정</a></li>
+                                <li class="is-require"><a href="#">가족회원 관리</a></li>
+                                <li><a href="#">배송지 관리</a></li>
+                                <li><a href="#">회원 탈퇴</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </nav>
             <div id="page-content">
-                <!-- 회원정보 -->
-                <div class="mypage-myinfo">
-                    <div class="myinfo-photo">
-                        <div class="thumb">
-                        </div>
-                        <div class="button">
-                            <a href="#" class="btn btn-outline-primary">가족회원 (3)</a>
-                            <a href="#" class="btn btn-primary">편집</a>
-                        </div>
-                        <p class="text-alert is-danger mt-2 text-sm font-medium">가족회원 승인 요청건이 있습니다</p>
+                <div class="global-user mb-12 lg:hidden">
+                    <div class="user-name">
+                        <strong>사용자 <small>님</small></strong>
+                        <span>수급자 회원</span>
+                        <button type="button" class="user-toggle">메뉴 열기</button>
                     </div>
-                    <div class="myinfo-user">
+                    <div class="user-info">
                         <div class="grade">
-                            <p class="image">
-                                <strong class="text-grade1">이로움</strong>
-                                <a href="#" class="btn btn-outline-primary">회원 등급별 혜택</a>
-                            </p>
-                            <p class="image">
-                                <strong class="text-grade2">반가움</strong>
-                                <a href="#" class="btn btn-outline-primary">회원 등급별 혜택</a>
-                            </p>
-                            <p class="image">
-                                <strong class="text-grade3">새로움</strong>
-                                <a href="#" class="btn btn-outline-primary">회원 등급별 혜택</a>
-                            </p>
-                            <p class="image">
-                                <strong>신규회원</strong>
-                                <a href="#" class="btn btn-outline-primary">회원 등급별 혜택</a>
-                            </p>
-                            <p class="desc"><strong>이로미</strong> 님은 <em>일반 회원</em>입니다</p>
+                            <strong>신규회원</strong>
+                            <a href="#">등급별혜택</a>
                         </div>
-                        <ul class="service">
-                            <li class="mileage">
-                                <a href="#">
-                                    <small>마일리지</small>
-                                    <strong>13,500</strong>
-                                </a>
-                            </li>
-                            <li class="point">
-                                <a href="#">
-                                    <small>포인트</small>
-                                    <strong>13,500</strong>
-                                </a>
-                            </li>
-                            <li class="coupon">
-                                <a href="#">
-                                    <small>쿠폰</small>
-                                    <strong>18</strong> 장
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="notice">
-                            <li class="interest">
-                                <a href="#">
-                                    <small>관심상품</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                            <li class="cart">
-                                <a href="#">
-                                    <small>장바구니</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                            <li class="alerm">
-                                <a href="#">
-                                    <small>알림</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="textbox">
-                            <p>알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 </p>
-                            <button type="button">제거</button>
+                        <div class="point">
+                            <dl>
+                                <dt>쿠폰</dt>
+                                <dd><a href="#"><strong>5</strong> 장</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>포인트</dt>
+                                <dd><a href="#"><strong>512</strong> <img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트"></a></dd>
+                            </dl>
+                            <dl>
+                                <dt>마일리지</dt>
+                                <dd><a href="#"><strong>5123</strong> <img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
-                <!-- //회원정보 -->
-
-                <!-- 수급자 회원정보 -->
-                <div class="mypage-myinfo is-recipient">
-                    <div class="myinfo-photo">
-                        <div class="thumb">
-                            <img src="../../assets/images/dummy/img-dummy-detail-content.png" alt="">
-                            <button class="toggle">수급자 정보 펼치기/접기</button>
-                        </div>
-                        <div class="button">
-                            <a href="#" class="btn btn-outline-primary">가족회원 (3)</a>
-                            <a href="#" class="btn btn-primary">편집</a>
-                        </div>
-                        <p class="text-alert is-danger mt-2 text-sm font-medium">가족회원 승인 요청건이 있습니다</p>
-                    </div>
-                    <div class="myinfo-user">
-                        <div class="grade">
-                            <p class="image">
-                                <strong class="text-grade1">이로움</strong>
-                                <a href="#" class="btn btn-outline-primary">회원 등급별 혜택</a>
-                            </p>
-                            <div class="desc">
-                                <div class="text">
-                                    <strong>이로미</strong> 님은 <em>수급자 회원</em>입니다
-                                    <a href="#" class="link">일반회원으로 전환</a>
-                                </div>
-                                <a href="#" class="btn btn-primary myinfo-recipient-button">나의 장기요양 정보</a>
-                            </div>
-                        </div>
-                        <!-- <div class="recipient">
-                            <div class="input">
-                                <dl class="code">
-                                    <dt>장기요양인정번호</dt>
-                                    <dd>L1301193848</dd>
-                                </dl>
-                                <dl class="per">
-                                    <dt>본인부담율</dt>
-                                    <dd>15 <small>%</small></dd>
-                                </dl>
-                                <dl class="rank">
-                                    <dt>등급</dt>
-                                    <dd>
-                                        <img src="../../assets/images/txt-grade-numa1.svg" alt="1">
-                                        <img src="../../assets/images/txt-grade-numa2.svg" alt="2">
-                                        <img src="../../assets/images/txt-grade-numa3.svg" alt="3">
-                                        <img src="../../assets/images/txt-grade-numa4.svg" alt="4">
-                                        <img src="../../assets/images/txt-grade-numa5.svg" alt="5">
-                                        <img src="../../assets/images/txt-grade-numa6.svg" alt="6">
-                                        <img src="../../assets/images/txt-grade-numa0.svg" alt="등급외" class="no">
-                                    </dd>
-                                </dl>
-                            </div>
-                            <p class="summary">장기요양 정보는 본인이 등록한 정보이며 <a href="#">회원정보수정</a> 에서 수정 가능합니다.</p>
-                        </div> -->
-                        <ul class="service">
-                            <li class="mileage">
-                                <a href="#">
-                                    <small>마일리지</small>
-                                    <strong>13,500</strong>
-                                </a>
-                            </li>
-                            <li class="point">
-                                <a href="#">
-                                    <small>포인트</small>
-                                    <strong>13,500</strong>
-                                </a>
-                            </li>
-                            <li class="coupon">
-                                <a href="#">
-                                    <small>쿠폰</small>
-                                    <strong>18</strong> 장
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="notice">
-                            <li class="interest">
-                                <a href="#">
-                                    <small>관심상품</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                            <li class="cart">
-                                <a href="#">
-                                    <small>장바구니</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                            <li class="alerm">
-                                <a href="#">
-                                    <small>알림</small>
-                                    <strong>1</strong>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="textbox">
-                            <p>알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 알람 </p>
-                            <button type="button">제거</button>
-                        </div>
-                    </div>
-                    <div class="myinfo-recipient">
-                        <div class="left">
-                            <div class="title">
-                                나의
-                                <strong>장기요양 정보</strong>
-                            </div>
-                            <div class="group1">
-                                <dl class="number">
-                                    <dt>장기요양인정번호</dt>
-                                    <dd>L1301193848</dd>
-                                </dl>
-                                <dl class="grades">
-                                    <dt>등급</dt>
-                                    <dd><img src="../../assets/images/txt-grade-num3.svg" alt="3"></dd>
-                                </dl>
-                            </div>
-                            <div class="group2">
-                                <dl class="percent">
-                                    <dt>본인부담율</dt>
-                                    <dd><strong>15</strong> &nbsp; %</dd>
-                                </dl>
-                                <dl class="date">
-                                    <dt>인정유효기간</dt>
-                                    <dd>
-                                        <p>2021.11.08</p>
-                                        <p>~ 2022.11.07</p>
-                                    </dd>
-                                </dl>
-                                <dl class="date">
-                                    <dt>적용기간</dt>
-                                    <dd>
-                                        <p>2021.11.08</p>
-                                        <p>~ 2022.11.07</p>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="title">
-                                <div class="update">
-                                    <p>최근 업데이트 <strong>2022.08.01</strong></p>
-                                    <button class="btn btn-primary btn-large">요양정보 업데이트</button>
-                                </div>
-                                <img src="../../assets/images/dummy/img-dummy-qrcode.svg" alt="">
-                            </div>
-                            <dl class="price1">
-                                <dt>급여잔액</dt>
-                                <dd>
-                                    <strong>1,020,000</strong> &nbsp; 원
-                                    <small>일백이만원</small>
-                                </dd>
-                            </dl>
-                            <dl class="price2">
-                                <dt>사용금액</dt>
-                                <dd><strong>676,000</strong> 원</dd>
-                            </dl>
-                        </div>
-                        <button type="button" class="button">닫기</button>
-                    </div>
-                </div>
-                <script>
-                    $(function() {
-                        var target  = $('.mypage-myinfo.is-recipient');
-                        var toggle  = target.find('.myinfo-photo .toggle');
-                        var close   = target.find('.myinfo-recipient .button');
-                        var trigger = target.find('.myinfo-user .myinfo-recipient-button');
-
-                        toggle.on('click', function() {
-                            target.toggleClass('is-active');
-                            return false;
-                        });
-
-                        close.on('click', function() {
-                            target.toggleClass('is-active');
-                            return false;
-                        });
-
-                        trigger.on('click', function() {
-                            target.toggleClass('is-active');
-                            return false;
-                        });
-
-                        $(window).on('load resize', function() {
-                            var top = $('.mypage-myinfo.is-recipient .myinfo-user .grade').height() + 14;
-                            $('.myinfo-recipient').css({'top' : top});
-                        })
-                        
-                        // var target  = $('.mypage-myinfo.is-recipient');
-                        // var close   = target.find('.myinfo-recipient .button');
-                        // var trigger = target.find('.myinfo-user .button .btn-primary');
-
-                        // close.on('click', function() {
-                        //     target.toggleClass('is-active');
-                        //     return false;
-                        // });
-
-                        // trigger.on('click', function() {
-                        //     target.toggleClass('is-active');
-                        //     return false;
-                        // });
-
-                        // $(window).on('load resize', function() {
-                        //     var top = $('.mypage-myinfo.is-recipient .myinfo-user .grade').height() + 14;
-                        //     $('.myinfo-recipient').css({'top' : top});
-                        // })
-                    });
-                </script>
-                <!-- //수급자 회원정보 -->
 
                 <!-- 진행 주문 현황 -->
-                <div class="mypage-myinfo-order">
+                <div class="mypage-myinfo-order mb-12 md:mb-25">
                     <div class="order-title">
                         <h2>진행중인 주문 현황</h2>
                         <ul>
@@ -748,7 +508,7 @@
                 <br>
 
                 <!-- 수급자 진행 주문 현황 -->
-                <div class="mypage-myinfo-order is-recipient">
+                <div class="mypage-myinfo-order mb-12 md:mb-25 is-recipient">
                     <div class="order-title">
                         <h2>진행중인 주문 현황</h2>
                         <ul>
@@ -906,149 +666,151 @@
                     </div>
                 </div>
                 <!-- //수급자 진행 주문 현황 -->
+                
+                <div class="space-y-12 md:space-y-25">
+                    <!-- 최근 구매 내역 -->
+                    <div class="mypage-myinfo-recent">
+                        <div class="recent-title">
+                            <h2>최근 구매 내역</h2>
+                            <a href="#" class="btn btn-more2">전체보기</a>
+                        </div>
 
-                <!-- 최근 구매 내역 -->
-                <div class="mypage-myinfo-recent">
-                    <div class="recent-title">
-                        <h2>최근 구매 내역</h2>
-                        <a href="#" class="btn btn-more2">전체보기</a>
-                    </div>
-
-                    <div class="space-y-5.5 md:space-y-7.5">
-                        <p class="box-result is-large">최근 6개월간 주문 내역이 없습니다</p>
-                            
-                        <div class="order-product">
-                            <div class="order-header">
-                                <dl class="large">
-                                    <dt>사업소</dt>
-                                    <dd>행복한 시니어 행복한 시니어 행복한 시니어 </dd>
-                                </dl>
-                                <dl>
-                                    <dt>주문번호</dt>
-                                    <dd><strong>EM2953897212</strong></dd>
-                                </dl>
-                                <dl>
-                                    <dt>취소일시</dt>
-                                    <dd>2022.08.12 14:24:42</dd>
-                                </dl>
-                            </div>
-                            <div class="order-body">
-                                <div class="order-buyer">
-                                    <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
-                                    <strong>이름</strong>
+                        <div class="space-y-5.5 md:space-y-7.5">
+                            <p class="box-result is-large">최근 6개월간 주문 내역이 없습니다</p>
+                                
+                            <div class="order-product">
+                                <div class="order-header">
+                                    <dl class="large">
+                                        <dt>사업소</dt>
+                                        <dd>행복한 시니어 행복한 시니어 행복한 시니어 </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>주문번호</dt>
+                                        <dd><strong>EM2953897212</strong></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>취소일시</dt>
+                                        <dd>2022.08.12 14:24:42</dd>
+                                    </dl>
                                 </div>
-                                <div class="order-item">
-                                    <div class="order-item-thumb">
-                                        <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                <div class="order-body">
+                                    <div class="order-buyer">
+                                        <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
+                                        <strong>이름</strong>
                                     </div>
-                                    <div class="order-item-content">
-                                        <div class="order-item-group">
-                                            <div class="order-item-base">
-                                                <p class="code">
-                                                    <span class="label-primary">
-                                                        <span>급여상품</span>
-                                                        <i></i>
+                                    <div class="order-item">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <div class="order-item-content">
+                                            <div class="order-item-group">
+                                                <div class="order-item-base">
+                                                    <p class="code">
+                                                        <span class="label-primary">
+                                                            <span>급여상품</span>
+                                                            <i></i>
+                                                        </span>
+                                                        <u>24n29G38Y72a</u>
+                                                    </p>
+                                                    <div class="product">
+                                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                        <dl class="option">
+                                                            <dt>옵션</dt>
+                                                            <dd>
+                                                                <span class="label-flat">블루</span>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-add">
+                                                    <span class="label-outline-primary">
+                                                        <span>추가</span>
+                                                        <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
                                                     </span>
-                                                    <u>24n29G38Y72a</u>
-                                                </p>
-                                                <div class="product">
-                                                    <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                                                    <dl class="option">
-                                                        <dt>옵션</dt>
-                                                        <dd>
-                                                            <span class="label-flat">블루</span>
-                                                        </dd>
+                                                    <div class="name">
+                                                        <p><strong>모던 스타일 스툴</strong></p>
+                                                        <p>수량 1개 (+80,000원)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item-count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="order-item-price">11,448,400원</p>
+                                            <div class="order-item-info">
+                                                <div class="payment">
+                                                    <dl>
+                                                        <dt>배송비</dt>
+                                                        <dd>3000원</dd>
                                                     </dl>
                                                 </div>
-                                            </div>
-                                            <div class="order-item-add">
-                                                <span class="label-outline-primary">
-                                                    <span>추가</span>
-                                                    <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
-                                                </span>
-                                                <div class="name">
-                                                    <p><strong>모던 스타일 스툴</strong></p>
-                                                    <p>수량 1개 (+80,000원)</p>
+                                                <div class="status">
+                                                    <dl>
+                                                        <dt>배송완료</dt>
+                                                        <dd>2022.08.16 14:22</dd>
+                                                    </dl>
+                                                    <a href="#" class="btn btn-delivery">
+                                                        <span class="name">
+                                                            <img src="../../assets/images/ico-delivery.svg" alt="">
+                                                            일반택배
+                                                        </span>
+                                                        <span class="underline">0629378485</span>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="order-item-count">
-                                            <p><strong>2</strong>개</p>
-                                        </div>
-                                        <p class="order-item-price">11,448,400원</p>
-                                        <div class="order-item-info">
-                                            <div class="payment">
-                                                <dl>
-                                                    <dt>배송비</dt>
-                                                    <dd>3000원</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="status">
-                                                <dl>
-                                                    <dt>배송완료</dt>
-                                                    <dd>2022.08.16 14:22</dd>
-                                                </dl>
-                                                <a href="#" class="btn btn-delivery">
-                                                    <span class="name">
-                                                        <img src="../../assets/images/ico-delivery.svg" alt="">
-                                                        일반택배
-                                                    </span>
-                                                    <span class="underline">0629378485</span>
-                                                </a>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="order-item">
-                                    <div class="order-item-thumb">
-                                        <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
-                                    </div>
-                                    <div class="order-item-content">
-                                        <div class="order-item-group">
-                                            <div class="order-item-base">
-                                                <p class="code">
-                                                    <span class="label-primary">
-                                                        <span>급여상품</span>
-                                                        <i></i>
+                                    <div class="order-item">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                        <div class="order-item-content">
+                                            <div class="order-item-group">
+                                                <div class="order-item-base">
+                                                    <p class="code">
+                                                        <span class="label-primary">
+                                                            <span>급여상품</span>
+                                                            <i></i>
+                                                        </span>
+                                                        <u>24n29G38Y72a</u>
+                                                    </p>
+                                                    <div class="product">
+                                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                                                        <dl class="option">
+                                                            <dt>옵션</dt>
+                                                            <dd>
+                                                                <span class="label-flat">블루</span>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-add">
+                                                    <span class="label-outline-primary">
+                                                        <span>추가</span>
+                                                        <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
                                                     </span>
-                                                    <u>24n29G38Y72a</u>
-                                                </p>
-                                                <div class="product">
-                                                    <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                                                    <dl class="option">
-                                                        <dt>옵션</dt>
-                                                        <dd>
-                                                            <span class="label-flat">블루</span>
-                                                        </dd>
+                                                    <div class="name">
+                                                        <p><strong>모던 스타일 스툴</strong></p>
+                                                        <p>수량 1개 (+80,000원)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item-count">
+                                                <p><strong>2</strong>개</p>
+                                            </div>
+                                            <p class="order-item-price">11,448,400원</p>
+                                            <div class="order-item-info">
+                                                <div class="payment">
+                                                    <dl>
+                                                        <dt>배송비</dt>
+                                                        <dd>3000원</dd>
                                                     </dl>
                                                 </div>
-                                            </div>
-                                            <div class="order-item-add">
-                                                <span class="label-outline-primary">
-                                                    <span>추가</span>
-                                                    <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
-                                                </span>
-                                                <div class="name">
-                                                    <p><strong>모던 스타일 스툴</strong></p>
-                                                    <p>수량 1개 (+80,000원)</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="order-item-count">
-                                            <p><strong>2</strong>개</p>
-                                        </div>
-                                        <p class="order-item-price">11,448,400원</p>
-                                        <div class="order-item-info">
-                                            <div class="payment">
-                                                <dl>
-                                                    <dt>배송비</dt>
-                                                    <dd>3000원</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="status">
-                                                <div class="box-gray">
-                                                    <p class="flex-1">결제대기</p>
-                                                    <a href="#" class="btn btn-primary btn-small">결제 진행</a>
+                                                <div class="status">
+                                                    <div class="box-gray">
+                                                        <p class="flex-1">결제대기</p>
+                                                        <a href="#" class="btn btn-primary btn-small">결제 진행</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1057,203 +819,203 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- //최근 구매 내역 -->
+                    <!-- //최근 구매 내역 -->
 
-                <!-- 나의 상품 후기 -->
-                <div class="mypage-myinfo-recent">
-                    <div class="recent-title">
-                        <h2>나의 상품 후기</h2>
-                        <a href="#" class="btn btn-more">전체보기</a>
-                        <p class="count">작성한 상품 후기 <strong>24</strong> 건</p>
-                    </div>
-                    <div class="mypage-myinfo-review-item">
-                        <a href="#modal-photo" class="item-thumb" data-bs-toggle="modal" data-bs-target="#modal-photo">
-                            <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
-                            <span>+3</span>
-                        </a>
-                        <div class="item-content">
-                            <p class="code">effeefeer</p>
-                            <p class="name">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. </p>
-                            <p class="cont">내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. </p>
-                            <p class="date">2022.08.24 14:33:24</p>
+                    <!-- 나의 상품 후기 -->
+                    <div class="mypage-myinfo-recent">
+                        <div class="recent-title">
+                            <h2>나의 상품 후기</h2>
+                            <a href="#" class="btn btn-more">전체보기</a>
+                            <p class="count">작성한 상품 후기 <strong>24</strong> 건</p>
+                        </div>
+                        <div class="mypage-myinfo-review-item">
+                            <a href="#modal-photo" class="item-thumb" data-bs-toggle="modal" data-bs-target="#modal-photo">
+                                <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
+                                <span>+3</span>
+                            </a>
+                            <div class="item-content">
+                                <p class="code">effeefeer</p>
+                                <p class="name">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. </p>
+                                <p class="cont">내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. </p>
+                                <p class="date">2022.08.24 14:33:24</p>
+                            </div>
+                        </div>
+                        <div class="mypage-myinfo-review-item">
+                            <div class="item-content">
+                                <p class="code">effeefeer</p>
+                                <p class="name">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. </p>
+                                <p class="cont">내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. </p>
+                                <p class="date">2022.08.24 14:33:24</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="mypage-myinfo-review-item">
-                        <div class="item-content">
-                            <p class="code">effeefeer</p>
-                            <p class="name">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. </p>
-                            <p class="cont">내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. </p>
-                            <p class="date">2022.08.24 14:33:24</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- //나의 상품 후기 -->
+                    <!-- //나의 상품 후기 -->
 
-                <!-- 나의 상품 Q&A -->
-                <div class="mypage-myinfo-recent">
-                    <div class="recent-title">
-                        <h2>나의 상품 Q&amp;A</h2>
-                        <a href="#" class="btn btn-more">전체보기</a>
-                        <p class="count">답변 처리중인 질문 <strong>24</strong> 건</p>
-                    </div>
-                    <div class="mypage-myinfo-qna-item">
-                        <div class="item-thumb">
-                            <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
+                    <!-- 나의 상품 Q&A -->
+                    <div class="mypage-myinfo-recent">
+                        <div class="recent-title">
+                            <h2>나의 상품 Q&amp;A</h2>
+                            <a href="#" class="btn btn-more">전체보기</a>
+                            <p class="count">답변 처리중인 질문 <strong>24</strong> 건</p>
                         </div>
-                        <div class="item-product">
-                            <p class="code">24n29G38Y72a</p>
-                            <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                        </div>
-                        <div class="product-qnaitem">
-                            <div class="question">
-                                <span class="label-primary">
-                                    <span>답변완료</span>
-                                    <i></i>
-                                </span>
-                                <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
-                                <p class="datetime">2022-08-24 14:24:02</p>
-                            </div>
-                            <div class="answer">
-                                <div class="context">
-                                    안녕하세요. 이로움 마켓입니다.<br>
-                                    무게는 4kg 이고 재질은 플라스틱입니다.<br>
-                                    감사합니다.<br>
-                                    더 필요하신 정보가 있을 경우 1:1 문의를 주시면 친절히 답해드리겠습니다.<br>
-                                    언제나 최고의 품질로 다가갈 수 있도록 노력하겠습니다.
-                                </div>
-                                <button class="btn btn-fold">펼처보기</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mypage-myinfo-qna-item">
-                        <div class="item-thumb">
-                            <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
-                        </div>
-                        <div class="item-product">
-                            <p class="code">24n29G38Y72a</p>
-                            <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                        </div>
-                        <div class="product-qnaitem">
-                            <div class="question">
-                                <span class="label-primary">
-                                    <span>답변완료</span>
-                                    <i></i>
-                                </span>
-                                <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
-                                <p class="datetime">2022-08-24 14:24:02</p>
-                            </div>
-                            <div class="answer">
-                                <div class="context">
-                                    안녕하세요. 이로움 마켓입니다.<br>
-                                    무게는 4kg 이고 재질은 플라스틱입니다.<br>
-                                    감사합니다.<br>
-                                    더 필요하신 정보가 있을 경우 1:1 문의를 주시면 친절히 답해드리겠습니다.<br>
-                                    언제나 최고의 품질로 다가갈 수 있도록 노력하겠습니다.
-                                </div>
-                                <button class="btn btn-fold">펼처보기</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mypage-myinfo-qna-item">
-                        <div class="item-thumb">
-                            <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
-                        </div>
-                        <div class="item-product">
-                            <p class="code">24n29G38Y72a</p>
-                            <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                        </div>
-                        <div class="product-qnaitem">
-                            <div class="question">
-                                <span class="label-primary">
-                                    <span>답변완료</span>
-                                    <i></i>
-                                </span>
-                                <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
-                                <p class="datetime">2022-08-24 14:24:02</p>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $('.product-qnaitem .answer .btn').on('click', function() {
-                            $(this).closest('.product-qnaitem').toggleClass('is-active');
-                        });
-                    </script>
-                </div>
-                <!-- //나의 상품 Q&A -->
-
-                <!-- 이벤트 응모 현황 -->
-                <div class="mypage-myinfo-recent">
-                    <div class="recent-title">
-                        <h2>이벤트 응모 현황</h2>
-                        <a href="#" class="btn btn-more">전체보기</a>
-                    </div>
-                    <div class="overflow-hidden space-y-5.5 md:space-y-7.5">
-                        <div class="mypage-myinfo-event-item">
+                        <div class="mypage-myinfo-qna-item">
                             <div class="item-thumb">
                                 <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
                             </div>
-                            <div class="item-content">
-                                <span class="label-outline-primary">
-                                    <span>진행중</span>
-                                    <i></i>
-                                </span>
-                                <p class="name">이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트</p>
-                                <p class="date">2022.08.12 ~ 2022.11.11</p>
+                            <div class="item-product">
+                                <p class="code">24n29G38Y72a</p>
+                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
                             </div>
-                            <div class="item-infomation">
-                                <dl>
-                                    <dt>응모일</dt>
-                                    <dd>2022.08.12 14:22:48</dd>
-                                </dl>
-                                <dl>
-                                    <dt>당첨일</dt>
-                                    <dd>2022.09.18 18:00</dd>
-                                </dl>
-                                <dl>
-                                    <dt>당첨자 발표</dt>
-                                    <dd>2022.09.18 18:00</dd>
-                                </dl>
-                            </div>
-                            <div class="item-status">
-                                <span class="status1">당첨</span>
-                                <button class="status3">당첨자 보기</button>
+                            <div class="product-qnaitem">
+                                <div class="question">
+                                    <span class="label-primary">
+                                        <span>답변완료</span>
+                                        <i></i>
+                                    </span>
+                                    <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
+                                    <p class="datetime">2022-08-24 14:24:02</p>
+                                </div>
+                                <div class="answer">
+                                    <div class="context">
+                                        안녕하세요. 이로움 마켓입니다.<br>
+                                        무게는 4kg 이고 재질은 플라스틱입니다.<br>
+                                        감사합니다.<br>
+                                        더 필요하신 정보가 있을 경우 1:1 문의를 주시면 친절히 답해드리겠습니다.<br>
+                                        언제나 최고의 품질로 다가갈 수 있도록 노력하겠습니다.
+                                    </div>
+                                    <button class="btn btn-fold">펼처보기</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="mypage-myinfo-event-item">
+                        <div class="mypage-myinfo-qna-item">
                             <div class="item-thumb">
                                 <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
                             </div>
-                            <div class="item-content">
-                                <span class="label-outline-primary">
-                                    <span>진행중</span>
-                                    <i></i>
-                                </span>
-                                <p class="name">이로움마켓 오픈 이벤트</p>
-                                <p class="date">2022.08.12 ~ 2022.11.11</p>
+                            <div class="item-product">
+                                <p class="code">24n29G38Y72a</p>
+                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
                             </div>
-                            <div class="item-infomation">
-                                <dl>
-                                    <dt>응모일</dt>
-                                    <dd>2022.08.12 14:22:48</dd>
-                                </dl>
-                                <dl>
-                                    <dt>당첨일</dt>
-                                    <dd>2022.09.18 18:00</dd>
-                                </dl>
-                                <dl>
-                                    <dt>당첨자 발표</dt>
-                                    <dd>2022.09.18 18:00</dd>
-                                </dl>
+                            <div class="product-qnaitem">
+                                <div class="question">
+                                    <span class="label-primary">
+                                        <span>답변완료</span>
+                                        <i></i>
+                                    </span>
+                                    <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
+                                    <p class="datetime">2022-08-24 14:24:02</p>
+                                </div>
+                                <div class="answer">
+                                    <div class="context">
+                                        안녕하세요. 이로움 마켓입니다.<br>
+                                        무게는 4kg 이고 재질은 플라스틱입니다.<br>
+                                        감사합니다.<br>
+                                        더 필요하신 정보가 있을 경우 1:1 문의를 주시면 친절히 답해드리겠습니다.<br>
+                                        언제나 최고의 품질로 다가갈 수 있도록 노력하겠습니다.
+                                    </div>
+                                    <button class="btn btn-fold">펼처보기</button>
+                                </div>
                             </div>
-                            <div class="item-status">
-                                <span class="status2">미당첨</span>
-                                <button class="status3">당첨자 보기</button>
+                        </div>
+                        <div class="mypage-myinfo-qna-item">
+                            <div class="item-thumb">
+                                <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
+                            </div>
+                            <div class="item-product">
+                                <p class="code">24n29G38Y72a</p>
+                                <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
+                            </div>
+                            <div class="product-qnaitem">
+                                <div class="question">
+                                    <span class="label-primary">
+                                        <span>답변완료</span>
+                                        <i></i>
+                                    </span>
+                                    <p class="subject">MIRAGE(22D)-B 무게 및 재질이 어떻게 되나요?</p>
+                                    <p class="datetime">2022-08-24 14:24:02</p>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('.product-qnaitem .answer .btn').on('click', function() {
+                                $(this).closest('.product-qnaitem').toggleClass('is-active');
+                            });
+                        </script>
+                    </div>
+                    <!-- //나의 상품 Q&A -->
+
+                    <!-- 이벤트 응모 현황 -->
+                    <div class="mypage-myinfo-recent">
+                        <div class="recent-title">
+                            <h2>이벤트 응모 현황</h2>
+                            <a href="#" class="btn btn-more">전체보기</a>
+                        </div>
+                        <div class="overflow-hidden space-y-5.5 md:space-y-7.5">
+                            <div class="mypage-myinfo-event-item">
+                                <div class="item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
+                                </div>
+                                <div class="item-content">
+                                    <span class="label-outline-primary">
+                                        <span>진행중</span>
+                                        <i></i>
+                                    </span>
+                                    <p class="name">이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트 이로움마켓 오픈 이벤트</p>
+                                    <p class="date">2022.08.12 ~ 2022.11.11</p>
+                                </div>
+                                <div class="item-infomation">
+                                    <dl>
+                                        <dt>응모일</dt>
+                                        <dd>2022.08.12 14:22:48</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>당첨일</dt>
+                                        <dd>2022.09.18 18:00</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>당첨자 발표</dt>
+                                        <dd>2022.09.18 18:00</dd>
+                                    </dl>
+                                </div>
+                                <div class="item-status">
+                                    <span class="status1">당첨</span>
+                                    <button class="status3">당첨자 보기</button>
+                                </div>
+                            </div>
+                            <div class="mypage-myinfo-event-item">
+                                <div class="item-thumb">
+                                    <img src="../../assets/images/dummy/img-dummy-detail-slider.png" alt="">
+                                </div>
+                                <div class="item-content">
+                                    <span class="label-outline-primary">
+                                        <span>진행중</span>
+                                        <i></i>
+                                    </span>
+                                    <p class="name">이로움마켓 오픈 이벤트</p>
+                                    <p class="date">2022.08.12 ~ 2022.11.11</p>
+                                </div>
+                                <div class="item-infomation">
+                                    <dl>
+                                        <dt>응모일</dt>
+                                        <dd>2022.08.12 14:22:48</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>당첨일</dt>
+                                        <dd>2022.09.18 18:00</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>당첨자 발표</dt>
+                                        <dd>2022.09.18 18:00</dd>
+                                    </dl>
+                                </div>
+                                <div class="item-status">
+                                    <span class="status2">미당첨</span>
+                                    <button class="status3">당첨자 보기</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- //이벤트 응모 현황 -->
                 </div>
-                <!-- //이벤트 응모 현황 -->
             </div>
         </div>
 

@@ -44,7 +44,7 @@
 					</c:forEach>
 				</h2>
 			</div>
-			<button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+			<button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
 		</div>
 	</c:when>
 
@@ -93,7 +93,33 @@
 
 	<%-- 고객센터 --%>
 	<c:when test="${fn:indexOf(_curPath, '/etc/faq/') > -1 || fn:indexOf(_curPath, '/etc/inqry/') > -1 || fn:indexOf(_curPath, '/etc/ntce/') > -1 || fn:indexOf(_curPath, '/etc/bnft/') > -1}">
-		<div id="page-header"></div>
+		<div id="page-header">
+            <ul class="page-header-breadcrumb">
+            	<li><a href="${_marketPath}">홈</a></li>
+                <li>고객센터</li>
+                <li>${param.pageTitle}</li>
+            </ul>
+            <div class="page-header-title">
+                <a href="javascript:'" onclick="" class="back">이전 페이지 가기</a>
+                <h2 class="subject">${param.pageTitle}</h2>
+            </div>
+			<button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+		</div>
+	</c:when>
+	
+	
+	<%-- 마이페이지 --%>
+	<c:when test="${fn:indexOf(_curPath, '/mypage/') > -1 }">
+		<div id="page-header">
+            <ul class="page-header-breadcrumb">
+            	<li><a href="${_marketPath}">홈</a></li>
+                <li>마이페이지</li>
+            </ul>
+            <div class="page-header-title">
+                <a href="#" class="back">이전 페이지 가기</a>
+                <h2 class="subject">마이페이지</h2>
+            </div>
+		</div>
 	</c:when>
 </c:choose>
 

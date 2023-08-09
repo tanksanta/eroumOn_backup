@@ -54,18 +54,6 @@ $(function() {
         $(this).toggleClass('is-active');
     })
 
-    // 팝업 닫기
-    $(".cls-popup-btn").on("click",function(){
-    	var popNo = $(this).data("popNo");
-    	$(".view"+popNo).removeClass("is-active");
-
-    	var id = $(this).data("oneHide");
-		
-    	if($("#"+id).is(":checked")){
-			$.cookie("popup"+popNo,"none",{expires:1, path:"/"});
-		}
-    });
-
     //상단 네비 스크롤
     horizonScroll($('.navigation-submenu ul'));
 
@@ -149,9 +137,9 @@ $(function() {
 	});
 
     //사이드 메뉴 토글
-    $('.page-sidenav-toggle').on('click', function() {
+    $('#page-sidenav-toggle').on('click', function() {
         var layer   = $('#page-sidenav');
-        var button  = $('.page-sidenav-toggle');
+        var button  = $('#page-sidenav-toggle');
         var pheader = $('#page-header');
         var body    = $('body');
 
@@ -165,12 +153,17 @@ $(function() {
             layer.addClass('is-animate').removeClass('is-active');
         } else {
             if(pheader.get(0).getBoundingClientRect().top > pheader.css('top').replace('px', '')) {
-                $(window).scrollTop($(window).scrollTop() + pheader.get(0).getBoundingClientRect().top - ($('#navigation').outerHeight()));
-                setTimeout(() => {
-                    body.addClass('overflow-hidden');
-                    button.addClass('is-active');
-                    layer.css({'top': pheader.get(0).getBoundingClientRect().top + pheader.outerHeight()}).addClass('is-animate').addClass('is-active');
-                }, 500);
+				if(!$('#container').hasClass('is-mypage')) {
+					$(window).scrollTop($(window).scrollTop() + pheader.get(0).getBoundingClientRect().top - ($('#navigation').outerHeight()));
+					setTimeout(() => {
+						body.addClass('overflow-hidden');
+						button.addClass('is-active');
+						layer.css({'top': pheader.get(0).getBoundingClientRect().top + pheader.outerHeight()}).addClass('is-animate').addClass('is-active');
+					}, 500);
+				} else {
+					body.addClass('overflow-hidden');
+					layer.addClass('is-animate').addClass('is-active');
+				}
             } else {
                 body.addClass('overflow-hidden');
                 button.addClass('is-active');
@@ -181,7 +174,7 @@ $(function() {
 
     $('#page-sidenav').on('click', function(e) {
         var layer  = $('#page-sidenav');
-        var button = $('.page-sidenav-toggle');
+        var button = $('#page-sidenav-toggle');
         var body   = $('body');
 
         layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
@@ -195,14 +188,36 @@ $(function() {
         }
     });
 
-    //상품 검색 기타 플러스버튼
-    $('#page-sidenav .moreview').on('click', function() {
-        $(this).closest('.page-sidenav-group').toggleClass('is-active');
-    });
+	//마이페이지용 사이드메뉴 헤더 토글
+	$('.page-sidenav-header .header-close, .global-user .user-toggle').on('click', function() {
+        var layer  = $('#page-sidenav');
+        var button = $('#page-sidenav-toggle');
+        var body   = $('body');
+		
+        layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
+            $(this).removeClass('is-animate');
+        });
+
+		body.toggleClass('overflow-hidden');
+		button.toggleClass('is-active');
+		layer.addClass('is-animate').toggleClass('is-active');
+	})
 
     //퀵메뉴
     $('#quick .moveTop').on('click', function() {
         $(window).scrollTop(0);
+    });
+
+    // 팝업 닫기
+    $(".cls-popup-btn").on("click",function(){
+    	var popNo = $(this).data("popNo");
+    	$(".view"+popNo).removeClass("is-active");
+
+    	var id = $(this).data("oneHide");
+		
+    	if($("#"+id).is(":checked")){
+			$.cookie("popup"+popNo,"none",{expires:1, path:"/"});
+		}
     });
 
     //resize
@@ -236,7 +251,7 @@ $(function() {
 			timer = setTimeout(function() {
 				if(resize) {
 					$('body').removeClass('overflow-hidden');
-					$('#page-sidenav, .page-sidenav-toggle, .navigation-allmenu *, .navigation-search *').removeClass('is-active').removeAttr('style');
+					$('#page-sidenav, #page-sidenav-toggle, .navigation-allmenu *, .navigation-search *').removeClass('is-active').removeAttr('style');
 				}
 			}, 5);
 		}

@@ -84,7 +84,7 @@ body {
             @apply flex items-center gap-[1.285em] font-medium;
         }
         & button {
-            @apply -mr-2.5 ml-auto w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625em] -indent-96;
+            @apply -mr-2 ml-auto w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625rem] -indent-96;
         }
     }
     & .offcanvas-body {
@@ -102,12 +102,12 @@ body {
             }
         }
         & dd {
-            @apply mt-[0.8em] py-2 px-3.5 rounded-md bg-neutral-100 tracking-tight;
+            @apply mt-[0.8em] py-2.5 px-3.5 rounded-md bg-neutral-100 tracking-tight;
             & ul {
                 @apply grid grid-cols-2;
             }
             & a {
-                @apply block py-3 px-1 font-medium;
+                @apply block py-1.5 px-1 font-medium;
             }
         }
     }
@@ -160,7 +160,7 @@ body {
 }
 
 #page-navigation {
-    @apply space-y-13
+    @apply space-y-10
            lg:float-left lg:w-[16.875rem];
     & .menu {
         @apply hidden relative
@@ -173,7 +173,7 @@ body {
         @apply block text-lg font-bold;
     }
     & .smenu-items {
-        @apply relative mt-2 ml-1 pl-2.5 space-y-px
+        @apply relative mt-2.5 ml-1 pl-2.5 space-y-2
                before:absolute before:top-0 before:bottom-0 before:left-0 before:w-px before:bg-black2;
     }
     & .smenu-link {
