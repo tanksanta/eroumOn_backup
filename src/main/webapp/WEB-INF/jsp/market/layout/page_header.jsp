@@ -100,7 +100,7 @@
                 <li>${param.pageTitle}</li>
             </ul>
             <div class="page-header-title">
-                <a href="javascript:'" onclick="" class="back">이전 페이지 가기</a>
+                <a href="javascript:'" onclick="history.back(-1)" class="back">이전 페이지 가기</a>
                 <h2 class="subject">${param.pageTitle}</h2>
             </div>
 			<button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
@@ -114,10 +114,13 @@
             <ul class="page-header-breadcrumb">
             	<li><a href="${_marketPath}">홈</a></li>
                 <li>마이페이지</li>
+				<c:if test="${param.pageTitle != '마이페이지'}">
+                <li>${param.pageTitle}</li>
+				</c:if>
             </ul>
             <div class="page-header-title">
-                <a href="#" class="back">이전 페이지 가기</a>
-                <h2 class="subject">마이페이지</h2>
+                <a href="javascript:'" onclick="history.back(-1)" class="back">이전 페이지 가기</a>
+                <h2 class="subject">${param.pageTitle}</h2>
             </div>
 		</div>
 	</c:when>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<main id="container" class="is-mypage">
 		<jsp:include page="../layout/page_header.jsp">
-			<jsp:param value="MEMBERSHIP" name="pageTitle"/>
+			<jsp:param value="마이페이지" name="pageTitle"/>
 		</jsp:include>
 
         <div id="page-container">
