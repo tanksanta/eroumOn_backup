@@ -804,7 +804,7 @@
         }
     }
     & .product-partners {
-        @apply mt-4.5 p-3 border border-gray1 rounded-[1rem] transition-all duration-300 select-none
+        @apply mt-4.5 p-3 border border-gray1 rounded-2xl transition-all duration-300 select-none
                md:p-4;
         & img {
             @apply w-25 h-20

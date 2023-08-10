@@ -365,7 +365,7 @@
 
 /* 마이페이지 이벤트 */
 .mypage-myinfo-event-item {
-    @apply flex flex-wrap relative p-4 overflow-hidden border border-gray1 rounded-[1rem] leading-tight
+    @apply flex flex-wrap relative p-4 overflow-hidden border border-gray1 rounded-2xl leading-tight
            md:p-5;
     & .item-thumb {
         @apply flex-none w-25 h-20 overflow-hidden rounded-md
@@ -430,7 +430,7 @@
 
 /* 쿠폰, 포인트, 마일리지 박스 */
 .mypage-profit {
-    @apply relative items-stretch overflow-hidden border border-black2 rounded-[1rem] bg-no-repeat bg-black2
+    @apply relative items-stretch overflow-hidden border border-black2 rounded-2xl bg-no-repeat bg-black2
            before:absolute before:-left-5.5 before:-bottom-19 before:w-44 before:h-53 before:opacity-50 before:bg-no-repeat before:bg-cover before:bg-[url(/html/page/market/assets/images/bg-profit.png)]
            after:hidden after:absolute after:bg-no-repeat after:bg-cover after:opacity-5
            md:flex
@@ -487,7 +487,7 @@
         }
     }
     & .profit-content {
-        @apply flex-1 relative z-5 p-3 pb-9 rounded-[1rem] bg-white break-all
+        @apply flex-1 relative z-5 p-3 pb-9 rounded-2xl bg-white break-all
                before:hidden before:absolute before:top-5.5 before:right-5.5 before:font-serif before:font-bold before:leading-tight before:uppercase before:text-black2/20
                md:py-12 md:px-5.5
                md:before:block;
@@ -577,10 +577,10 @@
 
 /* 1:1문의 */
 .mypage-inquiry-items {
-    @apply relative pl-18 border border-black2 rounded-[1rem] bg-black2 bg-[url(/html/page/market/assets/images/ico-inquiry-list.png)] bg-[left_1.25rem_top_1.25rem] bg-[length:2.125rem] bg-no-repeat
+    @apply relative pl-18 border border-black2 rounded-2xl bg-black2 bg-[url(/html/page/market/assets/images/ico-inquiry-list.png)] bg-[left_1.25rem_top_1.25rem] bg-[length:2.125rem] bg-no-repeat
            md:pl-24 md:bg-[length:auto] md:bg-[left_1.625rem_top_1.625rem];
     & dl {
-        @apply pl-3 pr-5 rounded-[1rem] bg-white leading-snug
+        @apply pl-3 pr-5 rounded-2xl bg-white leading-snug
                md:pl-4 md:pr-7;
         & dt {
             @apply relative py-4 border-b border-gray3
@@ -629,7 +629,7 @@
 
 .mypage-inquiry {
     @apply relative pt-2
-           before:absolute before:top-0 before:left-0 before:right-0 before:h-[51%] before:rounded-[1rem] before:bg-black2 before:bg-no-repeat
+           before:absolute before:top-0 before:left-0 before:right-0 before:h-[51%] before:rounded-2xl before:bg-black2 before:bg-no-repeat
            md:before:bg-[length:5rem,11.875rem] md:before:bg-[position:left_1.875rem_top_2.5rem,right_2rem_top_2.25rem] md:before:bg-[url(/html/page/market/assets/images/bg-inquiry.svg),url(/html/page/market/assets/images/bg-inquiry2.svg)];
     & legend {
         @apply sr-only;

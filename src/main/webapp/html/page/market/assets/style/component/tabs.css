@@ -24,36 +24,64 @@
                        lg:h-[3.125rem] lg:text-base;
             }
         }
+        &[class*="is-cols-"] {
+            & li {
+                @apply flex-none;
+            }
+        }
         &.is-cols-3 {
             & li {
-                @apply flex-none w-[calc(33.333333333333333%_-_4px)]
-                       md:flex-1;
+                @apply w-[calc(33.33333%-0.25rem)]
+                       md:w-[calc(33.33333%-0.33333rem)]
+                       lg:w-[calc(33.33333%-0.41666rem)];
             }
             &.is-small {
                 & li {
-                    @apply w-[calc(33.333333333333333%_-_2.666666666666667px)];
+                    @apply w-[calc(33.33333%-0.16666rem)]
+                           md:w-[calc(33.33333%-0.25rem)]
+                           lg:w-[calc(33.33333%-0.33333rem)];
                 }
             }
         }
         &.is-cols-4 {
             & li {
-                @apply flex-none w-[calc(25%_-_4.5px)]
-                       md:flex-1;
+                @apply w-[calc(25%-0.28125rem)]
+                       md:w-[calc(25%-0.375rem)]
+                       lg:w-[calc(25%-0.46875rem)];
             }
             &.is-small {
                 & li {
-                    @apply w-[calc(25%_-_3px)];
+                    @apply w-[calc(25%-0.1875rem)]
+                           md:w-[calc(25%-0.28125rem)]
+                           lg:w-[calc(25%-0.375rem)];
                 }
             }
         }
         &.is-cols-5 {
             & li {
-                @apply flex-none w-[calc(20%_-_4.8px)]
-                       md:flex-1;
+                @apply w-[calc(25%-0.3rem)]
+                       md:w-[calc(20%-0.4rem)]
+                       lg:w-[calc(20%-0.5rem)];
             }
             &.is-small {
                 & li {
-                    @apply w-[calc(20%_-_3.2px)];
+                    @apply w-[calc(25%-0.2rem)]
+                           md:w-[calc(20%-0.3rem)]
+                           lg:w-[calc(20%-0.4rem)];
+                }
+            }
+        }
+        &.is-cols-6 {
+            & li {
+                @apply w-[calc(25%-0.28125rem)]
+                       md:w-[calc(16.66667%-0.41666rem)]
+                       lg:w-[calc(16.66667%-0.52083rem)];
+            }
+            &.is-small {
+                & li {
+                    @apply w-[calc(25%-0.1875rem)]
+                           md:w-[calc(16.66667%-0.28125rem)]
+                           lg:w-[calc(16.66667%-0.41666rem)];
                 }
             }
         }

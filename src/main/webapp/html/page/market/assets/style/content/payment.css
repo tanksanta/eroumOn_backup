@@ -1,5 +1,5 @@
 .payment-shipping {
-    @apply relative p-3 pt-4.5 overflow-hidden rounded-[1rem] border border-gray1 leading-tight tracking-tight;
+    @apply relative p-3 pt-4.5 overflow-hidden rounded-2xl border border-gray1 leading-tight tracking-tight;
     & dl {
         @apply px-3
                md:px-4;
@@ -35,7 +35,7 @@
 }
 
 .payment-refund {
-    @apply justify-between p-3 overflow-hidden rounded-[1rem] border border-gray1 bg-no-repeat bg-[url(/html/page/market/assets/images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem]
+    @apply justify-between p-3 overflow-hidden rounded-2xl border border-gray1 bg-no-repeat bg-[url(/html/page/market/assets/images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem]
            md:flex;
     & .refund-method {
         @apply flex tracking-tight font-medium
@@ -77,7 +77,7 @@
 }
 
 .payment-amount {
-    @apply relative p-3 overflow-hidden rounded-[1rem] border border-gray1 text-[0.8125rem] font-bold leading-[1.428]
+    @apply relative p-3 overflow-hidden rounded-2xl border border-gray1 text-[0.8125rem] font-bold leading-[1.428]
            md:flex md:text-sm;
     & .amount-section {
         @apply ml-19 flex-1
@@ -157,7 +157,7 @@
 }
 
 .payment-customer {
-    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(/html/page/market/assets/images/bg-payment-card.svg)] rounded-[1rem] border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5
+    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(/html/page/market/assets/images/bg-payment-card.svg)] rounded-2xl border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5
            before:absolute before:top-1 before:right-2 before:w-37 before:h-17 before:blur-xl before:rounded-md before:bg-white
            after:absolute after:top-5 after:right-4 after:font-bold after:text-6xl
            sm:before:top-1.5 sm:before:right-2.5 sm:before:w-49 sm:before:h-23
