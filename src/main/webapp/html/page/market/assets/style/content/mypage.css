@@ -232,11 +232,6 @@
     @apply before:block before:-mx-5 before:mb-6 before:h-2.5 before:bg-gray2
            md:before:hidden
            first:before:hidden;
-    /* @apply mt-12
-           md:mt-25
-           md:before:hidden
-           first:before:hidden
-           first:md:mt-0; */
     & .recent-title {
         @apply flex items-center font-bold mb-3.5
                md:mb-6.5;
@@ -759,46 +754,5 @@
     &.is-answer {
         @apply before:bg-[url(/html/page/market/assets/images/bg-inquiry2.svg)] before:bg-[length:4.25rem] before:bg-[left_0.875rem_top_1.5rem]
                 md:before:bg-[length:5.5rem] md:before:bg-[left_1.875rem_top_1.875rem];
-    }
-}
-
-
-/* 관심카테고리 */
-.mypage-category-item {
-    @apply block relative pt-2.5 px-2 pb-4 h-full rounded-[1.4em] border-0.5 border-solid border-neutral-100 bg-neutral-100 text-[0.9375rem] text-center leading-snug tracking-tight
-           before:absolute before:-top-px before:-right-px before:w-12 before:h-12 before:rounded-[1em] before:bg-cover
-           md:py-3.5 md:px-2 md:pb-5 md:border-[3px] md:text-[1.0625rem]
-           md:before:w-15 md:before:h-15;
-    & .check {
-        @apply absolute w-0 h-0 opacity-0;
-    }
-    & .image {
-        @apply flex justify-center items-center aspect-[1/0.92];
-        & img {
-            @apply max-h-full;
-        }
-    }
-    & .text {
-        @apply mt-1;
-    }
-    &.is-mint {
-        @apply border-[#3EB7B3] bg-white
-               before:bg-[url(/html/page/market/assets/images/bg-category-mint.png)];
-    }
-    &.is-orange {
-        @apply border-[#FF6A0F] bg-white
-               before:bg-[url(/html/page/market/assets/images/bg-category-orange.png)];
-    }
-    &.is-pink {
-        @apply border-[#FF4EA1] bg-white
-               before:bg-[url(/html/page/market/assets/images/bg-category-pink.png)];
-    }
-    &.is-purple {
-        @apply border-[#6B4DBC] bg-white
-               before:bg-[url(/html/page/market/assets/images/bg-category-purple.png)];
-    }
-    &.is-yellow {
-        @apply border-[#EEB307] bg-white
-               before:bg-[url(/html/page/market/assets/images/bg-category-yellow.png)];
     }
 }

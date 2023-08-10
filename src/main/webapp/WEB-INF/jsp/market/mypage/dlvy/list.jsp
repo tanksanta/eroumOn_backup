@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<link rel="stylesheet" href="/html/page/market/assets/style/mypage-jh.css">
-
 	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="배송지 관리" name="pageTitle"/>

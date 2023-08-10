@@ -59,7 +59,7 @@
         & .info {
             @apply text-[2.375rem];
             & img {
-                @apply -mt-1 h-[2.875rem];
+                @apply h-[2.875rem];
             }
             & small {
                 @apply text-3xl;
@@ -97,7 +97,7 @@
                md:text-lg;
         & strong, & small {
             @apply block leading-snug text-sm font-serif
-                   md:text-[0.9125rem];
+                   md:text-base;
         }
         & strong {
             @apply mt-1.5
@@ -112,8 +112,7 @@
         @apply relative mx-auto px-3 w-37 max-w-full leading-snug text-sm text-center text-gray1 tracking-tight
                before:absolute before:top-[0.1875rem] before:bottom-[0.1875rem] before:left-0 before:w-2 before:border-y-[0.1875rem] before:border-l-[0.1875rem] before:border-gray3
                after:absolute after:top-[0.1875rem] after:right-0 after:bottom-[0.1875rem] after:w-2 after:border-y-[0.1875rem] after:border-r-[0.1875rem] after:border-gray3
-               xs:tracking-normal
-               md:px-4 md:w-43 md:text-[0.9125rem]
+               md:px-4 md:w-43 md:text-[0.9125rem] md:tracking-normal
                md:before:border-y-1 md:before:border-l-1 md:before:w-2.5
                md:after:w-2.5 md:after:border-y-1 md:after:border-r-1;
     }

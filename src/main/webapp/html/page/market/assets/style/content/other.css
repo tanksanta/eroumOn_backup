@@ -363,7 +363,7 @@
         }
     }
     & .benefit-container {
-        @apply mt-4 rounded-[1rem] bg-white break-all
+        @apply mt-4 rounded-[1rem] bg-white
                md:mt-5;
     }
     & .benefit-grade {
@@ -380,8 +380,8 @@
         @apply flex items-center border-b-0.5 border-b-gray2 py-8 leading-tight text-center
                md:py-12;
         & dl {
-            @apply flex-1 items-center text-center
-                   md:flex;
+            @apply flex flex-col flex-1 gap-y-1 items-center text-center
+                   md:flex-row;
             & dt, & dd {
                 @apply flex-1 px-4 leading-snug
                        md:px-5;
@@ -389,10 +389,6 @@
             & dt {
                 @apply text-xl font-bold
                        md:text-2xl;
-            }
-            & dd {
-                @apply mt-1
-                       md:mt-0;
             }
         }
         & p {
@@ -417,28 +413,11 @@
 
 
 /* 쿠폰존 */
-.couponzone-items {
-    @apply grid grid-cols-2 gap-y-5 mt-15 -mx-2.5
-           sm:grid-cols-3 sm:gap-y-8 sm:mx-0
-           md:gap-x-1.5 md:gap-y-16 md:mt-30;
-}
-
 .couponzone-item {
     @apply p-6 px-2.5 rounded-[1rem] transition-all duration-300 text-center
            hover:bg-neutral-100
            sm:px-6
            md:p-7 md:px-7;
-    & .coupon-item {
-        @apply mx-auto;
-    }
-    & .coupon-item-name {
-        @apply mt-6
-               md:mt-7;
-    }
-    & .coupon-item-desc {
-        @apply mt-5
-               md:mt-6;
-    }
     & .btn {
         @apply mt-7 max-w-45 w-full h-[2.625rem] border-gray1 bg-white font-bold text-base
                after:ml-2 after:w-4 after:h-4 after:bg-no-repeat after:bg-center after:bg-[length:100%] after:transition-all after:duration-300
@@ -458,88 +437,5 @@
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='16' viewBox='0 0 20 16'%3E%3Cpath id='Rectangle_2_Copy_3' data-name='Rectangle 2 Copy 3' d='M0,16V12H2v2H18V12h2v4ZM5.06,7.426,8,7.4V0h4V7.426h3L10,12Z' fill='%23fff'/%3E%3C/svg%3E%0A");
             }
         }
-    }
-}
-
-
-/* 통합검색 */
-.search-header {
-    & .page-header-title {
-        @apply mt-3
-               md:mt-4.5
-               lg:mt-6;
-        & .subject {
-            @apply pb-1 pl-11 text-left text-xl font-medium
-                   md:pl-14 md:text-2xl
-                   lg:p-0;
-            & strong {
-                @apply text-[#1D45D5];
-            }
-        }
-    }
-}
-
-.search-container {
-    @apply mx-auto px-4 max-w-screen-xl
-           lg:px-7
-           xl:px-10;
-}
-
-.search-option {
-    @apply mt-3 mb-6 border-t border-t-gray1
-           md:mt-4 md:mb-9.5
-           lg:mb-13;
-    & .form-group {
-        @apply flex items-start border-b border-b-gray3 font-bold text-[0.8125rem]
-               md:text-sm;
-        & dt {
-            @apply py-3 px-1.5 w-21 border border-transparent
-                   md:pt-3.5 md:px-2.5 md:w-41;
-        }
-        & dd {
-            @apply flex-1 flex flex-wrap items-start gap-1.5 p-2;
-        }
-    }
-    & .form-check {
-        & .form-check-input {
-            @apply absolute w-0 h-0 overflow-hidden opacity-0;
-            &:checked {
-                & + .form-check-label {
-                    @apply border-black2 bg-white font-bold text-black2;
-                }
-            }
-        }
-        & .form-check-label {
-            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal transition-colors duration-500
-                   md:py-1.5 md:px-4
-                   hover:bg-black/10;
-        }
-    }
-    & .btn {
-        @apply w-35
-               md:w-50 md:h-15;
-    }
-}
-
-.search-count {
-    @apply flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium
-           md:mb-5 md:text-sm;
-    & .form-control {
-        @apply w-28 h-9 bg-neutral-100
-               md:w-42;
-    }
-}
-
-.search-grid {
-    @apply grid grid-cols-2 gap-x-3 gap-y-6 mt-2.5
-           md:grid-cols-3 md:gap-x-4 md:gap-y-13 md:mt-4
-           lg:grid-cols-4 lg:gap-x-5 lg:gap-y-20 lg:mt-5;
-}
-
-.search-result {
-    @apply box-result text-base
-           md:text-lg;
-    & strong {
-        @apply text-[#1D45D5];
     }
 }

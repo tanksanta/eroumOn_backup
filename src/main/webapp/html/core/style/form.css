@@ -89,7 +89,7 @@
     
     /******************** checkbox ********************/
     .form-check {
-        @apply inline-block overflow-hidden text-sm leading-normal align-middle cursor-pointer;
+        @apply inline-block overflow-hidden text-sm leading-normal align-middle cursor-pointer select-none;
         & .form-check-input {
             @apply float-left mt-[0.125em] h-[1.25em] border border-gray1 bg-no-repeat bg-contain bg-white appearance-none cursor-pointer;
             &:checked {
