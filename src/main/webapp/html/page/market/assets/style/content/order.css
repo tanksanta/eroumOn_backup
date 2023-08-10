@@ -11,7 +11,7 @@
 }
 
 .order-product {
-    @apply relative border border-gray1 rounded-[1rem] bg-white leading-tight;
+    @apply relative border border-gray1 rounded-2xl bg-white leading-tight;
     & .order-header {
         @apply relative py-2 px-3.5 pr-8 flex items-center flex-wrap min-h-[3.625rem] border-b-1 border-solid border-t-gray2
                md:px-5 md:pr-10 md:min-h-19;
@@ -296,7 +296,7 @@
         }
     }
     & .order-disable {
-        @apply flex items-start absolute z-30 -top-px -left-px -right-px -bottom-px p-3 rounded-[1rem] bg-black/60
+        @apply flex items-start absolute z-30 -top-px -left-px -right-px -bottom-px p-3 rounded-2xl bg-black/60
                md:p-4.5;
         & p {
             @apply flex flex-col justify-center items-center text-center w-25 h-25 font-bold text-white
@@ -362,7 +362,7 @@
 }
 
 .order-delivery {
-    @apply select-none flex-wrap relative overflow-hidden px-5 py-4 border border-gray1 rounded-[1rem] leading-snug
+    @apply select-none flex-wrap relative overflow-hidden px-5 py-4 border border-gray1 rounded-2xl leading-snug
            md:flex md:pt-5 md:px-7 md:pb-6;
     & dl {
         & dt {
@@ -592,7 +592,7 @@
                md:mt-2.5 md:py-3.5 md:pl-13 md:pr-19 md:bg-[length:1.375rem];
     }
     & .product-partners {
-        @apply mx-auto mt-1.5 p-2.5 w-fit max-w-[460px] border rounded-[1rem] bg-white
+        @apply mx-auto mt-1.5 p-2.5 w-fit max-w-[460px] border rounded-2xl bg-white
                md:p-3
                first:mt-0;
     }
@@ -616,7 +616,7 @@
 }
 
 .order-coupon {
-    @apply p-3 border border-gray1 rounded-[1rem] break-keep
+    @apply p-3 border border-gray1 rounded-2xl break-keep
            xs:flex;
     & .order-content {
         @apply flex-1 flex flex-wrap overflow-hidden;
@@ -677,7 +677,7 @@
 .order-coupon-layer {
     @apply absolute z-20 flex flex-col left-0 right-0 bottom-0 top-0 overflow-hidden rounded-t-[1rem] bg-black/60 opacity-0 invisible transition-all duration-500 rounded-b-[1rem];
     & .container {
-        @apply flex flex-col mt-auto max-w-none h-3/4 rounded-[1rem] overflow-hidden bg-white transition-all duration-500 translate-y-10;
+        @apply flex flex-col mt-auto max-w-none h-3/4 rounded-2xl overflow-hidden bg-white transition-all duration-500 translate-y-10;
     }
     & .scrollbars {
         @apply flex-1 px-4
@@ -1011,7 +1011,7 @@
 
 /* 주문 상세 현황 안쓸..듯? */
 .order-status {
-    @apply overflow-hidden p-4 rounded-[1rem] bg-no-repeat bg-[linear-gradient(100deg,_#FEF5E7_0%,_#F4FCE8_38%,_#FEF0FB_100%)]
+    @apply overflow-hidden p-4 rounded-2xl bg-no-repeat bg-[linear-gradient(100deg,_#FEF5E7_0%,_#F4FCE8_38%,_#FEF0FB_100%)]
            md:flex md:p-5;
     & dl {
         @apply flex leading-tight;
@@ -1176,7 +1176,7 @@
 
 /* 주문 상세 현황 */
 .order-status-layer {
-    @apply overflow-hidden -mx-5 -my-3 p-5 pb-10 rounded-[1rem] bg-no-repeat bg-[linear-gradient(100deg,_#FEF5E7_0%,_#F4FCE8_38%,_#FEF0FB_100%)];
+    @apply overflow-hidden -mx-5 -my-3 p-5 pb-10 rounded-2xl bg-no-repeat bg-[linear-gradient(100deg,_#FEF5E7_0%,_#F4FCE8_38%,_#FEF0FB_100%)];
     & .status-info {
         @apply flex leading-tight
                md:ml-5;
@@ -1404,7 +1404,7 @@
 
 /* 대여조회 상세 */
 .order-history {
-    @apply relative overflow-hidden border border-gray1 rounded-[1rem] bg-white leading-tight;
+    @apply relative overflow-hidden border border-gray1 rounded-2xl bg-white leading-tight;
     & .history-header {
         @apply relative py-3 pr-4 pl-19
                md:py-3.5 md:pr-5 md:pl-22;
@@ -1468,7 +1468,7 @@
 
 /* 공용 레이어 */
 .notice-layer {
-    @apply z-[999] hidden flex-col absolute top-[19.32%] left-[5.5%] w-80 max-w-[90vw] overflow-hidden rounded-[1rem] bg-black2 aspect-[1/0.9902]
+    @apply z-[999] hidden flex-col absolute top-[19.32%] left-[5.5%] w-80 max-w-[90vw] overflow-hidden rounded-2xl bg-black2 aspect-[1/0.9902]
            md:w-[26rem] lg:w-[32rem]
            sm-max:!top-[19.32%] sm-max:!h-auto
            md-max:!left-1/2 md-max:!-translate-x-1/2;

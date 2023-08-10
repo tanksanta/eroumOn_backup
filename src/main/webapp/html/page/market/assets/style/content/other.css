@@ -1,39 +1,27 @@
 /* Q&A */
-.tabs.tabs-question {
-    & li {
-        @apply flex-none w-[calc(25%_-_4.5px)]
-               md:w-[calc(16.66666666666667%_-_6.666666666666667px)]
-               lg:w-[calc(16.66666666666667%_-_8.333333333333333px)];
+.question-item {
+    @apply relative overflow-hidden rounded-lg border border-solid border-black2 bg-black2 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-question-white.svg)] bg-[length:2.5rem] bg-[left_1rem_top_1rem]
+           md:rounded-2xl md:bg-[left_2rem_top_1.25rem];
+    & .item-container {
+        @apply ml-18 pb-1 rounded-lg bg-white
+               md:ml-26 md:pb-2 md:rounded-2xl;
     }
-    & .tabs-link {
-        @apply h-10 text-sm
-               md:h-13 md:text-base
-               lg:h-15 lg:text-lg;
-    }
-}
-
-.accordion-question {
-    @apply space-y-5 md:space-y-7.5;
-    & .accordion-item {
-        @apply pl-18 overflow-hidden rounded-lg border border-solid border-black2 bg-black2 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-question-white.svg)] bg-[length:2.5rem] bg-[left_1rem_top_1rem] md:rounded-[1rem] md:pl-26 md:bg-[left_2rem_top_1.25rem];
-    }
-    & .accordion-container {
-        @apply relative pb-1 rounded-lg bg-white md:pb-2 md:rounded-[1rem];
-    }
-    & .accordion-header {
-        @apply block relative py-3 pr-10 pl-4 text-sm leading-snug
+    & .item-header {
+        @apply block relative py-3 pr-10 pl-4
                after:absolute after:top-[3.375rem] after:right-5 after:w-3.5 after:h-[0.4375rem] after:bg-no-repeat after:bg-[length:100%_auto] after:bg-center after:bg-[url(/html/page/market/assets/images/ico-angle-down.svg)] after:transition-all after:duration-300
                aria-expanded:after:-rotate-180
-               md:py-3.5 md:pr-12 md:pl-5 md:text-base
+               md:py-3.5 md:pr-12 md:pl-5
                md:after:top-[3.625rem] md:after:right-6 md:after:w-5 md:after:h-2.5;
         & strong {
-            @apply block mt-3.5 text-base leading-normal
-                   md:mt-3.5 md:text-lg;
+            @apply block mt-3 text-base leading-normal
+                   md:text-lg;
         }
     }
-    & .accordion-body {
-        @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem]
-               md:py-3.5 md:pr-5 md:pl-24 md:bg-[left_2rem_top_1rem];
+    & .item-body {
+        & .container {
+            @apply py-3 pr-4 pl-16 bg-no-repeat bg-[url(/html/page/market/assets/images/ico-qna-answer.svg)] bg-[length:2.125rem] bg-[left_1rem_top_0.875rem]
+                   md:py-3.5 md:pr-5 md:pl-24 md:bg-[left_2rem_top_1rem];
+        }
     }
 }
 
@@ -80,7 +68,7 @@
     @apply leading-snug;
     & .detail-header {
         @apply flex flex-wrap items-center p-3.5 rounded-md bg-gray2
-               md:p-5 md:pt-4 md:rounded-[1rem];
+               md:p-5 md:pt-4 md:rounded-2xl;
         & .name {
             @apply w-full overflow-hidden;
             & small, & strong {
@@ -147,10 +135,10 @@
 
 /* 이벤트 */
 .event-slogan {
-    @apply flex items-center justify-center px-4 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight
+    @apply flex items-center justify-center px-4 mt-3 mx-auto w-90 max-w-full h-17 rounded-full leading-tight text-base font-medium tracking-tight
            shadow-[rgba(200,200,200,0.2)_3px_10px_5px,_rgba(200,200,200,0.2)_5px_20px_10px,_rgba(200,200,200,0.2)_8px_32px_16px,_rgba(200,200,200,0.2)_24px_64px_32px,_rgba(200,200,200,0.15)_48px_100px_32px]
            sm:w-fit sm:px-9
-           md:px-12 md:w-[730px] md:text-xl;
+           md:mt-7 md:px-12 md:w-[730px] md:text-xl;
     & .bags {
         @apply mt-2.5 -ml-1.5 w-[78px];
     }
@@ -183,7 +171,7 @@
 .event-item {
     @apply block;
     & .thumb {
-        @apply block overflow-hidden rounded-[1rem] aspect-[1/0.652]
+        @apply block overflow-hidden rounded-2xl aspect-[1/0.652]
                md:rounded-[1.375rem];
         & img {
             @apply w-full h-full object-cover;
@@ -222,7 +210,7 @@
 .story-item {
     @apply block;
     & .thumb {
-        @apply block h-70 overflow-hidden rounded-[1rem]
+        @apply block h-70 overflow-hidden rounded-2xl
                md:h-auto md:rounded-[1.375rem];
         & img {
             @apply max-w-none h-full
@@ -353,7 +341,7 @@
 
 /* 혜택 */
 .benefit-infomation {
-    @apply relative items-stretch overflow-hidden pt-4 pb-7.5 border border-black2 rounded-[1rem] bg-no-repeat bg-black2
+    @apply relative items-stretch overflow-hidden pt-4 pb-7.5 border border-black2 rounded-2xl bg-no-repeat bg-black2
            md:pt-5 md:pb-8.5;
     & .benefit-title {
         @apply px-4
@@ -363,7 +351,7 @@
         }
     }
     & .benefit-container {
-        @apply mt-4 rounded-[1rem] bg-white break-all
+        @apply mt-4 rounded-2xl bg-white
                md:mt-5;
     }
     & .benefit-grade {
@@ -380,8 +368,8 @@
         @apply flex items-center border-b-0.5 border-b-gray2 py-8 leading-tight text-center
                md:py-12;
         & dl {
-            @apply flex-1 items-center text-center
-                   md:flex;
+            @apply flex flex-col flex-1 gap-y-1 items-center text-center
+                   md:flex-row;
             & dt, & dd {
                 @apply flex-1 px-4 leading-snug
                        md:px-5;
@@ -389,10 +377,6 @@
             & dt {
                 @apply text-xl font-bold
                        md:text-2xl;
-            }
-            & dd {
-                @apply mt-1
-                       md:mt-0;
             }
         }
         & p {
@@ -417,28 +401,11 @@
 
 
 /* 쿠폰존 */
-.couponzone-items {
-    @apply grid grid-cols-2 gap-y-5 mt-15 -mx-2.5
-           sm:grid-cols-3 sm:gap-y-8 sm:mx-0
-           md:gap-x-1.5 md:gap-y-16 md:mt-30;
-}
-
 .couponzone-item {
-    @apply p-6 px-2.5 rounded-[1rem] transition-all duration-300 text-center
+    @apply p-6 px-2.5 rounded-2xl transition-all duration-300 text-center
            hover:bg-neutral-100
            sm:px-6
            md:p-7 md:px-7;
-    & .coupon-item {
-        @apply mx-auto;
-    }
-    & .coupon-item-name {
-        @apply mt-6
-               md:mt-7;
-    }
-    & .coupon-item-desc {
-        @apply mt-5
-               md:mt-6;
-    }
     & .btn {
         @apply mt-7 max-w-45 w-full h-[2.625rem] border-gray1 bg-white font-bold text-base
                after:ml-2 after:w-4 after:h-4 after:bg-no-repeat after:bg-center after:bg-[length:100%] after:transition-all after:duration-300
@@ -458,88 +425,5 @@
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='16' viewBox='0 0 20 16'%3E%3Cpath id='Rectangle_2_Copy_3' data-name='Rectangle 2 Copy 3' d='M0,16V12H2v2H18V12h2v4ZM5.06,7.426,8,7.4V0h4V7.426h3L10,12Z' fill='%23fff'/%3E%3C/svg%3E%0A");
             }
         }
-    }
-}
-
-
-/* 통합검색 */
-.search-header {
-    & .page-header-title {
-        @apply mt-3
-               md:mt-4.5
-               lg:mt-6;
-        & .subject {
-            @apply pb-1 pl-11 text-left text-xl font-medium
-                   md:pl-14 md:text-2xl
-                   lg:p-0;
-            & strong {
-                @apply text-[#1D45D5];
-            }
-        }
-    }
-}
-
-.search-container {
-    @apply mx-auto px-4 max-w-screen-xl
-           lg:px-7
-           xl:px-10;
-}
-
-.search-option {
-    @apply mt-3 mb-6 border-t border-t-gray1
-           md:mt-4 md:mb-9.5
-           lg:mb-13;
-    & .form-group {
-        @apply flex items-start border-b border-b-gray3 font-bold text-[0.8125rem]
-               md:text-sm;
-        & dt {
-            @apply py-3 px-1.5 w-21 border border-transparent
-                   md:pt-3.5 md:px-2.5 md:w-41;
-        }
-        & dd {
-            @apply flex-1 flex flex-wrap items-start gap-1.5 p-2;
-        }
-    }
-    & .form-check {
-        & .form-check-input {
-            @apply absolute w-0 h-0 overflow-hidden opacity-0;
-            &:checked {
-                & + .form-check-label {
-                    @apply border-black2 bg-white font-bold text-black2;
-                }
-            }
-        }
-        & .form-check-label {
-            @apply ml-0 py-1 px-3 border border-transparent rounded text-gray6 font-normal transition-colors duration-500
-                   md:py-1.5 md:px-4
-                   hover:bg-black/10;
-        }
-    }
-    & .btn {
-        @apply w-35
-               md:w-50 md:h-15;
-    }
-}
-
-.search-count {
-    @apply flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium
-           md:mb-5 md:text-sm;
-    & .form-control {
-        @apply w-28 h-9 bg-neutral-100
-               md:w-42;
-    }
-}
-
-.search-grid {
-    @apply grid grid-cols-2 gap-x-3 gap-y-6 mt-2.5
-           md:grid-cols-3 md:gap-x-4 md:gap-y-13 md:mt-4
-           lg:grid-cols-4 lg:gap-x-5 lg:gap-y-20 lg:mt-5;
-}
-
-.search-result {
-    @apply box-result text-base
-           md:text-lg;
-    & strong {
-        @apply text-[#1D45D5];
     }
 }

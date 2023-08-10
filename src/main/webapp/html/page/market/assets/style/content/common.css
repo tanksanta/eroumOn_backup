@@ -12,33 +12,23 @@
     }
 
     .box-gradient {
-        @apply before:absolute before:top-1 before:before:left-1 before:right-1 before:bottom-1 before:rounded-md before:blur-xs before:bg-[linear-gradient(122deg,_#F7C825_0%,_#24DADE_25%,_#746FE5_50%,_#C418BC_76%,_#FE0146_100%)];  
+        @apply before:absolute before:top-1 before:before:left-1 before:right-1 before:bottom-1 before:rounded-md before:blur-xs before:bg-[linear-gradient(122deg,_#F7C825_0%,_#24DADE_25%,_#746FE5_50%,_#C418BC_76%,_#FE0146_100%)];
         & .content {
-            @apply relative flex flex-wrap items-center z-5 px-3.5 py-3 w-full border rounded-md border-black/40 bg-white
-                   md:px-5;
-            & > * {
-                @apply mr-1
-                       md:mr-3
-                       last:mr-0;
-            }
+            @apply flex flex-wrap items-center gap-x-1 relative z-5 px-3.5 py-3 w-full border rounded-md border-black/40 bg-white
+                   md:gap-x-3 md:px-5;
         }
     }
     
     .box-gray {
-        @apply items-center px-3.5 py-4 border border-gray2
-               md:px-5;
-        & > * {
-            @apply mr-2
-                   md:mr-3
-                   last:mr-0;
-        }
+        @apply items-center gap-x-2 px-3.5 py-4 border border-gray2
+               md:gap-x-3 md:px-5;
     }
 
     .box-result {
-        @apply px-5 py-9 rounded-lg text-center font-medium text-sm
-               md:py-13 md:rounded-[1rem] md:text-base;
+        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
+               md:py-13 md:rounded-2xl md:text-base;
         &.is-large {
-            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(/html/page/market/assets/images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem]
                    md:py-29 md:bg-[length:auto_auto];
         }
     }
@@ -75,9 +65,11 @@
     .text-grade1 {
         @apply text-[#FE9015];
     }
+
     .text-grade2 {
         @apply text-[#3FA54D];
     }
+    
     .text-grade3 {
         @apply text-[#BF944C];
     }

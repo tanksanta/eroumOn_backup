@@ -64,8 +64,7 @@
         @apply block relative h-full overflow-hidden;
     }
     & img {
-        @apply mx-auto w-full max-w-full max-h-full object-cover object-top
-               md:w-auto md:h-full;
+        @apply mx-auto h-full object-cover object-top;
     }
 }
 
@@ -101,14 +100,4 @@
         @apply right-1
                xl:-right-0;
     }
-}
-
-[class*="main-banner"] {
-    & a {
-        @apply block overflow-hidden rounded-md;
-    }
-}
-
-.main-banner1 {
-    @apply grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:gap-5;
 }

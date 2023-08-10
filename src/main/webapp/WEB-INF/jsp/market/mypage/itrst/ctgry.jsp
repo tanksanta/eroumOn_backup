@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="관심 카테고리" name="pageTitle"/>
 		</jsp:include>
@@ -9,180 +9,66 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
-			<link rel="stylesheet" href="/html/page/market/assets/style/mypage-jh.css">
-			<div class="mypage-content">
-				<div class="interest-category">
-					<div class="alert-wrap">
-						<p class="text-alert">고객님의 관심 카테고리를 설정하실 수 있습니다.</p>
-						<p class="text-alert">설정하신 카테고리는 메인 페이지에서 바로 이동하실 수 있습니다.</p>
-						<p class="text-alert">관심 카테고리는 최대 5개까지 카테고리까지 설정 가능합니다.</p>
-					</div>
-					<div class="title-wrap">
-						<div class="title-head flex">
-							<span>복지용구</span>
-						</div>
-					</div>
-					<div class="category-list">
-						<!-- <ul class="flex">
-                                <li class="list">
-                                    <input id="list1" type="checkbox">
-                                    <label for="list1">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category1.png" alt="" >
-                                        </div>
-                                        <div class="text">수동휠체어</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list2" type="checkbox" checked>
-                                    <label for="list2" class="mint">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category2.png" alt="" >
-                                        </div>
-                                        <div class="text">성인용보행기</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list3" type="checkbox" checked>
-                                    <label for="list3" class="orange">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category3.png" alt="" >
-                                        </div>
-                                        <div class="text">지팡이</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list4" type="checkbox">
-                                    <label for="list4">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category4.png" alt="" >
-                                        </div>
-                                        <div class="text">안전손잡이</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list5" type="checkbox">
-                                    <label for="list5">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category5.png" alt="" >
-                                        </div>
-                                        <div class="text">경사로</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list6" type="checkbox" checked>
-                                    <label for="list6" class="yellow">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category6.png" alt="" >
-                                        </div>
-                                        <div class="text">미끄럼방지매트</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list7" type="checkbox">
-                                    <label for="list7">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category7.png" alt="" >
-                                        </div>
-                                        <div class="text">미끄럼방지양말</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list8" type="checkbox">
-                                    <label for="list8">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category8.png" alt="" >
-                                        </div>
-                                        <div class="text">이동욕조</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list9" type="checkbox" checked>
-                                    <label for="list9" class="purple">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category9.png" alt="" >
-                                        </div>
-                                        <div class="text">목욕의자</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list10" type="checkbox">
-                                    <label for="list10">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category10.png" alt="" >
-                                        </div>
-                                        <div class="text">간이변기</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list11" type="checkbox">
-                                    <label for="list11">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category11.png" alt="" >
-                                        </div>
-                                        <div class="text">이동변기</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list12" type="checkbox">
-                                    <label for="list12">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category12.png" alt="" >
-                                        </div>
-                                        <div class="text">요실금팬티</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list13" type="checkbox" checked>
-                                    <label for="list13" class="pink">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category13.png" alt="" >
-                                        </div>
-                                        <div class="text">전동침대</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list14" type="checkbox">
-                                    <label for="list14">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category14.png" alt="" >
-                                        </div>
-                                        <div class="text">자세변환용구</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list15" type="checkbox">
-                                    <label for="list15">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category15.png" alt="" >
-                                        </div>
-                                        <div class="text">욕창예방매트리스</div>
-                                    </label>
-                                </li>
-                                <li class="list">
-                                    <input id="list16" type="checkbox">
-                                    <label for="list16">
-                                        <div class="img-wrap">
-                                            <img src="/html/page/market/assets/images/content2/category16.png" alt="" >
-                                        </div>
-                                        <div class="text">욕창예방방석</div>
-                                    </label>
-                                </li>
-                            </ul> -->
-						<ul class="flex">
-							<c:forEach var="ctgry" items="${gdsCtgry}" varStatus="status">
-								<li class="list ctgryList ctgry${ctgry.ctgryNo}" data-color-nm="color" data-ctgry-no="${ctgry.ctgryNo}">
-									<div class="img-wrap">
-										<img src="/comm/CTGRY_IMG/getFile?fileName=${ctgry.ctgryImg}" alt="" >
-									</div>
-									<div class="text">${ctgry.ctgryNm}</div>
-								</li>
-							</c:forEach>
-
-						</ul>
-					</div>
+			<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
+				<div class="user-name">
+				    <strong>${_mbrSession.mbrNm} <small>님</small></strong>
+					<span>${recipterYnCode[_mbrSession.recipterYn]}</span>
+                       <button type="button" class="user-toggle">메뉴 열기</button>
 				</div>
-			</div>
+				<div class="user-info">
+				    <div class="grade">
+				        <strong>${gradeCode[_mbrSession.mberGrade]}</strong>
+						<a href="${_marketPath}/etc/bnft/list">등급별혜택</a>
+					</div>
+					<div class="point">
+					    <dl>
+					        <dt>쿠폰</dt>
+					        <dd>
+					        	<a href="${_marketPath}/mypage/coupon/list">
+                               		<strong>11</strong> 장
+						   		</a>
+						 	</dd>
+						</dl>
+						<dl>
+						    <dt>포인트</dt>
+						    <dd>
+						   		<a href="${_marketPath}/mypage/point/list">
+                               		<strong>11</strong>
+									<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
+								</a>
+							</dd>
+	                    </dl>
+	                    <dl>
+	                        <dt>마일리지</dt>
+	                        <dd>
+	                        	<a href="${_marketPath}/mypage/mlg/list">
+                               		<strong>11</strong>
+									<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
+								</a>
+							</dd>
+	                    </dl>
+	                </div>
+	            </div>
+            </div>
+            
+           <div class="items-center justify-between md:flex">
+               <div class="space-y-1.5">
+                   <p class="text-alert">고객님의 관심 카테고리를 설정하실 수 있습니다.</p>                  
+                   <p class="text-alert">설정하신 카테고리는 메인 페이지에서 바로 이동하실 수 있습니다.</p>
+                   <p class="text-alert">관심 카테고리는 최대 5개까지 카테고리까지 설정 가능합니다.</p>
+               </div>
+           </div>
+            
+			<div class="text-title2 mt-8 mb-5 md:mt-10 md:mb-6.5">복지용구</div>
+			<ul class="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 lg:gap-5 xl:grid-cols-5 xs-max:grid-cols-2">
+			<c:forEach var="ctgry" items="${gdsCtgry}" varStatus="status">
+                <li class="mypage-category-item ctgry${ctgry.ctgryNo}" data-color-nm="color" data-ctgry-no="${ctgry.ctgryNo}">
+                    <input type="checkbox" name="cates" class="check">
+                    <div class="image"><img src="/comm/CTGRY_IMG/getFile?fileName=${ctgry.ctgryImg}" alt="" ></div>
+					<div class="text">${ctgry.ctgryNm}</div>
+                </li>
+			</c:forEach>
+			</ul>
 		</div>
 	</div>
 </main>
@@ -216,8 +102,8 @@ function f_itrstCategory(ctgryNo, type){
 
 $(function(){
 
-	const color = ['mint','orange','yellow','purple','pink'];
-	var arrColor = ['mint','orange','yellow','purple','pink'];
+	const color = ['is-mint','is-orange','is-yellow','is-purple','is-pink'];
+	var arrColor = ['is-mint','is-orange','is-yellow','is-purple','is-pink'];
 
 
 	// 회원 관심 카테고리
@@ -232,7 +118,7 @@ $(function(){
 
 
 	// 색 변환 이벤트
-	$(document).on("click", ".ctgryList", function(e){
+	$(document).on("click", ".mypage-category-item", function(e){
 		console.log(arrColor);
 
 			if(!color.includes($(this).data("colorNm"))){
