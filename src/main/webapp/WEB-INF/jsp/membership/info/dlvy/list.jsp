@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main id="container" class="is-mypage">
+	<main id="container" class="is-mypage-style">
 		<header id="page-title">
 			<h2>
 				<span>배송지 관리</span>
@@ -12,21 +12,21 @@
 
         <div id="page-content">
 
-                <div class="items-center justify-between md:flex">
-                    <div class="space-y-1.5 md:mr-3">
-                        <p class="text-alert">자주 사용하시는 배송지를 등록해 두시면 더욱 더 편리하게 이용하실 수 있습니다.</p>
-                        <p class="text-alert">배송 주소록에는 최대 10개 까지 주소등록이 가능합니다.</p>
-                    </div>
-                    <div class="ml-auto my-3 w-46 md:w-53">
-                    	<button type="button" class="btn btn-large btn-primary w-full dlvyBtn" data-dlvy-btn="regist">배송지 등록</button>
-                    </div>
+            <div class="items-center justify-between md:flex">
+                <div class="space-y-1.5 md:mr-3">
+                    <p class="text-alert">자주 사용하시는 배송지를 등록해 두시면 더욱 더 편리하게 이용하실 수 있습니다.</p>
+                    <p class="text-alert">배송 주소록에는 최대 10개 까지 주소등록이 가능합니다.</p>
                 </div>
+                <div class="ml-auto my-3 w-46 md:my-0 md:w-53">
+                    <button type="button" class="btn btn-large btn-primary w-full dlvyBtn" data-dlvy-btn="regist">배송지등록</button>
+                </div>
+            </div>
 
                 <div class="mt-11 space-y-5 md:mt-15 md:space-y-7.5">
 	               	<c:if test="${!empty resultList}">
 					<c:forEach items="${resultList}" var="result" varStatus="status">
-                    <div class="mypage-delivery">
-                        <div class="delivery-title">
+                    <div class="mypage-delivery-item mypage-delivery">
+                        <div class="item-name">
 							<c:if test="${result.bassDlvyYn eq 'Y' }">
                             <span class="label-primary">
                            		<span>기본배송지</span>
@@ -35,9 +35,9 @@
                             </c:if>
                             <p class="name">${result.dlvyNm}</p>
                         </div>
-                        <div class="delivery-content">
+                        <div class="item-content">
                             <c:if test="${result.bassDlvyYn eq 'N' }">
-                            <button type="button" class="delivery-close delDlvyBtn" data-mng-no="${result.dlvyMngNo}">삭제하기</button>
+                            <button type="button" class="item-close delDlvyBtn" data-mng-no="${result.dlvyMngNo}">삭제하기</button>
                             </c:if>
                             <dl class="name">
                                 <dt>받으시는 분</dt>
@@ -53,9 +53,8 @@
                             <dl class="addr">
                                 <dt>주소</dt>
                                 <dd>
-	                                <strong>${result.zip}</strong>
-	                                ${result.addr}</br>
-	                                ${result.daddr}
+	                                <strong>${result.zip}</strong></br>
+	                                ${result.addr} ${result.daddr}
                                 </dd>
                             </dl>
                             <div class="delivery-button">

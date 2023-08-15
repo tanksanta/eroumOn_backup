@@ -45,6 +45,9 @@
 				AND DATE_FORMAT(reg_dt,'%Y-%m-%d') &lt;= #{srchRegEnd}
 			</when>
 		</choose>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
 		<if test="srchMbrNm != null and srchMbrNm != '' ">
 			AND mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
 		</if>
@@ -106,6 +109,7 @@
 		    , reg_dt
 		    , reg_id
 		    , rgtr
+		    , conslt_sttus
 		)VALUES(
 			#{mbrNm}
 			, #{mbrTelno}
@@ -119,6 +123,7 @@
 		    , SYSDATE()
 		    , #{regId}
 		    , #{rgtr}
+		    , 'CS01'
 		)
 	</insert>
 

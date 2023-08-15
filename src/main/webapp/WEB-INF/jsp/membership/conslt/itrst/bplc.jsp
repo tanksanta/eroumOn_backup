@@ -11,33 +11,34 @@
 
 		<div id="page-content">
 
-			<div class="items-center justify-between md:flex">
+            <div class="items-center justify-between md:flex">
                 <div class="space-y-1.5 md:mr-3">
-                    <p class="text-alert">멤버스 검색을 통해 관심 멤버스로 등록, 삭제할 수 있습니다. (최대 5개)</p>
-                    <p class="text-alert">등록된 관심 멤버스는 급여 상품 구매 시 '멤버스 선택' > '관심 멤버스' 목록에 노출됩니다.</p>
+                    <p class="text-alert">고객님의 관심 멤버스를 설정하실 수 있습니다.</p>
+                    <p class="text-alert">설정하신 멤버스는 상품 구매 시 관심 사업소에 출력되어 쉽게 찾으실 수 있습니다.</p>
+                    <p class="text-alert">관심 멤버스는 최대 5개 까지 설정 가능합니다.</p>
                 </div>
-                <div class="ml-auto my-3 w-46 md:w-53">
-                    <button type="button" class="btn btn-large btn-primary w-full" id="srchBplcBtn">멤버스 찾기</button>
+                <div class="ml-auto my-3 w-46 md:my-0 md:w-53">
+                    <button class="btn btn-large btn-primary w-full"  id="srchBplcBtn">멤버스 찾기</button>
                 </div>
-			</div>
+            </div>
 
             <div class="mt-11 space-y-4 md:mt-15 md:space-y-5">
                 <c:if test="${empty bplcList}"><div class="box-result is-large">아직 등록된 관심멤버스가 없습니다</div></c:if>
+
 				<c:forEach var="resultList" items="${bplcList}" varStatus="status">
-                <div class="product-partners mypage-partner ${resultList.bplcInfo.uniqueId}">
+                <div class="mypage-members-item ${resultList.bplcInfo.uniqueId}">
 					<c:if test="${resultList.bplcInfo.proflImg ne null}">
-						<img src="/comm/PROFL/getFile?fileName=${resultList.bplcInfo.proflImg}">
+						<img src="/comm/PROFL/getFile?fileName=${resultList.bplcInfo.proflImg}" class="item-thumb">
 					</c:if>
 					<c:if test="${resultList.bplcInfo.proflImg eq null}">
-						<img src="/html/page/market/assets/images/partners_default.png" alt="">
+						<img src="/html/page/market/assets/images/partners_default.png" alt="" class="item-thumb">
 					</c:if>
-                    <dl>
-                        <dt>${resultList.bplcInfo.bplcNm}</dt>
-                        <dd class="info">
-                            <p class="addr">${resultList.bplcInfo.zip}&nbsp;${resultList.bplcInfo.addr}&nbsp;${resultList.bplcInfo.daddr}</p>
-                            <p class="call"><a href="tel:${resultList.bplcInfo.telno}">${resultList.bplcInfo.telno}</a></p>
-                        </dd>
-                        <dd class="desc">
+
+                    <div class="item-content">
+                        <p class="name">${resultList.bplcInfo.bplcNm}</p>
+                        <p class="addr">${resultList.bplcInfo.zip}&nbsp;${resultList.bplcInfo.addr}&nbsp;${resultList.bplcInfo.daddr}</p>
+                        <p class="call"><a href="tel:${resultList.bplcInfo.telno}">${resultList.bplcInfo.telno}</a></p>
+                        <div class="desc">
                             <div class="time">
                                 <p>
                                     <small>영업시간</small>
@@ -58,9 +59,9 @@
                                 </p>
                             </div>
 							<a href="/members/${resultList.bplcInfo.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a>
-                        </dd>
-                    </dl>
-                    <button type="button" class="btn-large btn-primary partners-delete delBplc" data-unique-id="${resultList.bplcInfo.uniqueId}">삭제</button>
+                        </div>
+                    </div>
+                    <button type="button" class="item-delete delBplc" data-unique-id="${resultList.bplcInfo.uniqueId}">삭제</button>
                 </div>
 				</c:forEach>
             </div>
@@ -132,7 +133,7 @@ $(function(){
 		if(confirm("해당 관심 멤버스를 삭제하시겠습니까?")){
 			$.ajax({
 				type : "post",
-				url  : "${_marketPath}/mypage/itrst/deleteItrstBplc.json",
+				url  : "./deleteItrstBplc.json",
 				data : {
 					uniqueId : uniqueId
 				},

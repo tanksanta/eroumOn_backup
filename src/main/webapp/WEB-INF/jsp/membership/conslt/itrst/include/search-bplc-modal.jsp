@@ -10,7 +10,7 @@
 				<button type="button" data-bs-dismiss="modal" id="clsModal">모달 닫기</button>
 			</div>
 			<div class="modal-body">
-                <form class="product-partners-layer">
+                <form class="mypage-members-search">
 	                <fieldset class="layer-search">
 						<select name="sido" id="sido" class="form-control">
 	                        <option value="">시/도 선택</option>
@@ -25,14 +25,13 @@
 	                    <input type="text" id="none" name="none" class="form-control" style="display:none;">
 						<button type="button" class="btn btn-primary" id="searchBplc">검색</button>
 	                </fieldset>
-
-					<div class="pd">
-
-					</div>
-
-			        <div id="pages">
-			        </div>
                 </form>
+
+				<div class="pd">
+				</div>
+
+		        <div id="pages">
+		        </div>
 			</div>
 			<div class="modal-footer">
 				<buttton type="button" class="btn btn-primary" id="bplcBtn">확인</buttton>

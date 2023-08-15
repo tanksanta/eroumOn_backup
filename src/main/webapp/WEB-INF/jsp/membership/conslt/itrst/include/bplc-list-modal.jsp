@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-<div class="product-partners bplcList bplc${status.index}" data-unique-id="${resultList.uniqueId}">
+<div class="mypage-members-item bplcList bplc${status.index}" data-unique-id="${resultList.uniqueId}">
 <c:if test="${resultList.proflImg eq null }">
-	<img src="/html/page/market/assets/images/partners_default.png" alt="">
+	<img src="/html/page/market/assets/images/partners_default.png" alt="" class="item-thumb">
 </c:if>
 <c:if test="${resultList.proflImg ne null}">
-	<img src="/comm/PROFL/getFile?fileName=${resultList.proflImg}">
+	<img src="/comm/PROFL/getFile?fileName=${resultList.proflImg}" class="item-thumb">
 </c:if>
-    <dl>
-        <dt>${resultList.bplcNm}</dt>
-        <dd class="info">
-            <p class="addr">${resultList.zip}&nbsp;${resultList.addr}&nbsp;${resultList.daddr}</p>
-            <p class="call"><a href="tel:${resultList.telno}">${resultList.telno}</a></p>
-        </dd>
-        <dd class="desc">
+    <div class="item-content">
+        <p class="name">${resultList.bplcNm}</p>
+        <p class="addr">${resultList.zip}&nbsp;${resultList.addr}&nbsp;${resultList.daddr}</p>
+        <p class="call"><a href="tel:${resultList.telno}">${resultList.telno}</a></p>
+        <div class="desc">
             <div class="time">
                 <p>
                     <small>영업시간</small>
@@ -34,12 +33,12 @@
 					</p>
 				</div>
 			<a href="/members/${resultList.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a>
-        </dd>
-    </dl>
-    <div class="partners-love">
+        </div>
+    </div>
+    <label class="item-love">
 		<input type="checkbox" name="">
         <span>선택</span>
-    </div>
+    </label>
 </div>
 </c:forEach>
 <c:if test="${empty listVO.listObject}">

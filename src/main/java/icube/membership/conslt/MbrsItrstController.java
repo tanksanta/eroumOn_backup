@@ -49,20 +49,19 @@ public class MbrsItrstController extends CommonAbstractController{
 	private MbrSession mbrSession;
 
 	/**
-	 * 관심 
+	 * 관심
 	 * @param request
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="bplc")
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public String bplc(
 			HttpServletRequest request
 			, Model model
 			) throws Exception {
 
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
 		List<ItrstVO> bplcList = itrstService.selectItrstListAll(paramMap);
@@ -82,7 +81,6 @@ public class MbrsItrstController extends CommonAbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="ctgry")
-	@SuppressWarnings({"unchecked","rawtypes"})
 	public String ctgry(
 			HttpServletRequest request
 			, Model model
@@ -92,7 +90,7 @@ public class MbrsItrstController extends CommonAbstractController{
 		List<GdsCtgryVO> gdsCtgry = itrstService.selectGdsCtgryList();
 
 		// 관심 카테고리
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "C");
 		List<ItrstVO> itemList = itrstService.selectItrstListAll(paramMap);
@@ -133,7 +131,6 @@ public class MbrsItrstController extends CommonAbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="bplcListModal")
-	@SuppressWarnings({"unchecked","rawtypes"})
 	public String bplcListModal(
 			@RequestParam(value="sido", required=false) String sido
 			, @RequestParam(value="gugun", required=false) String gugun
@@ -142,7 +139,7 @@ public class MbrsItrstController extends CommonAbstractController{
 			, Model model
 			) throws Exception {
 		// 내 관심 사업소
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		List<ItrstVO> itemList = itrstService.selectItrstListAll(paramMap);
@@ -179,7 +176,6 @@ public class MbrsItrstController extends CommonAbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="insertItrstBplc.json")
-	@SuppressWarnings({"unchecked","rawtypes"})
 	@ResponseBody
 	public Map<String, Object> insertItrstBplc(
 			HttpServletRequest request
@@ -187,8 +183,8 @@ public class MbrsItrstController extends CommonAbstractController{
 			, @RequestParam(value="arrUniqueId", required=true) String[] uniqueIds
 			)throws Exception {
 
-		Map<String, Object> resultMap = new HashMap();
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
 		int result = 0; // 실패
@@ -234,16 +230,15 @@ public class MbrsItrstController extends CommonAbstractController{
 	 */
 	@RequestMapping(value="deleteItrstBplc.json")
 	@ResponseBody
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public Map<String, Object> resultMap(
 			HttpServletRequest request
 			, Model model
 			, @RequestParam(value="uniqueId", required=true) String uniqueId
 			)throws Exception{
 
-		Map<String, Object> resultMap = new HashMap();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchBplcUniqueId", uniqueId);
 		paramMap.put("srchItrstTy", "B");
@@ -272,7 +267,6 @@ public class MbrsItrstController extends CommonAbstractController{
 	 */
 	@RequestMapping(value="itrstCategory.json")
 	@ResponseBody
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public Map<String, Object> categoryMap(
 			HttpServletRequest request
 			, Model model
@@ -280,7 +274,7 @@ public class MbrsItrstController extends CommonAbstractController{
 			, @RequestParam(value="type", required=true) String type
 			)throws Exception{
 
-		Map<String, Object> resultMap = new HashMap();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		boolean result = false;
 
@@ -305,7 +299,7 @@ public class MbrsItrstController extends CommonAbstractController{
 
 			case "DELETE" :
 
-				Map<String, Object> paramMap = new HashMap();
+				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 				paramMap.put("srchItrstTy", "C");
 				paramMap.put("srchCtgryNo", ctgryNo);
