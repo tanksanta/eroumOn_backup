@@ -1,6 +1,7 @@
 package icube.manage.members.bplc;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -28,13 +29,18 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
 import icube.common.util.FileUtil;
+import icube.common.util.MapUtil;
 import icube.common.util.RandomUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.common.vo.DataTablesVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
+import icube.manage.sysmng.mngr.biz.MngrVO;
+import icube.members.stdg.biz.StdgCdService;
+import icube.members.stdg.biz.StdgCdVO;
 
 @Controller
 @RequestMapping(value="/_mng/members/bplc")
@@ -45,6 +51,9 @@ public class MBplcController extends CommonAbstractController {
 
 	@Resource(name = "fileService")
 	private FileService fileService;
+
+	@Resource(name = "stdgCdService")
+	private StdgCdService stdgCdService;
 
 	@Autowired
 	private MngrSession mngrSession;
@@ -248,4 +257,48 @@ public class MBplcController extends CommonAbstractController {
 
 		return resultMap;
 	}
+
+	@RequestMapping("modalBplcSearch")
+	public String gdsSearchModal(
+			HttpServletRequest request
+			, Model model) throws Exception{
+
+		List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
+
+		model.addAttribute("stdgCdList", stdgCdList);
+
+		return "/manage/members/bplc/include/modal-bplc-search";
+	}
+
+
+	//상품검색 datatable
+	@SuppressWarnings("unchecked")
+	@RequestMapping("bplcSearchList.json")
+	@ResponseBody
+	public DataTablesVO<MngrVO> gdsSearchList(
+			@RequestParam(value="srchSido", required=false) String srchSido
+			, @RequestParam(value="srchGugun", required=false) String srchGugun
+			, @RequestParam(value="srchText", required=false) String srchText
+			, @RequestParam(value="rcmdtnYn", required=false) String rcmdtnYn
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request) throws Exception {
+
+		CommonListVO listVO = new CommonListVO(request);
+		listVO.setParam("srchUseYn", "Y");
+		listVO.setParam("rcmdtnYn", rcmdtnYn);
+		listVO.setParam("srchSido", srchSido);
+		listVO.setParam("srchGugun", srchGugun);
+		listVO.setParam("srchText", srchText);
+		listVO = bplcService.bplcListVO(listVO);
+
+		// DataTable
+		DataTablesVO<MngrVO> dataTableVO = new DataTablesVO<MngrVO>();
+		dataTableVO.setsEcho(MapUtil.getString(reqMap, "sEcho"));
+		dataTableVO.setiTotalRecords(listVO.getTotalCount());
+		dataTableVO.setiTotalDisplayRecords(listVO.getTotalCount());
+		dataTableVO.setAaData(listVO.getListObject());
+
+		return dataTableVO;
+	}
+
 }

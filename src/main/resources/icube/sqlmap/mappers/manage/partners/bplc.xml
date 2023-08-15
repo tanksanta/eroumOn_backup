@@ -111,7 +111,6 @@
 		<if test="apptype != null and apptype != ''">
 			AND aprv_ty != #{apptype}
 		</if>
-
 		<if test="srchDspyYn != null and srchDspyYn != '' ">
 			AND rcmdtn_yn = #{srchDspyYn}
 		</if>

@@ -25,5 +25,13 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 	public Integer insertMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
 		return insert("conslt.insertMbrConslt",mbrConsltVO);
 	}
-	
+
+	public Integer updateMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
+		return update("conslt.updateMbrConslt", mbrConsltVO);
+	}
+
+	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.updateCanclConslt", paramMap);
+	}
+
 }

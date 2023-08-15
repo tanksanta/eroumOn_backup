@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package icube.manage.consult;
 
 import java.util.HashMap;
@@ -7,16 +10,26 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
+import org.springframework.web.util.HtmlUtils;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.framework.view.JavaScript;
+import icube.common.framework.view.JavaScriptView;
+import icube.common.util.CommonUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltResultService;
+import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
  * 장기요양 상담 신청
@@ -29,6 +42,14 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
+
+	@Resource(name = "mbrConsltResultService")
+	private MbrConsltResultService mbrConsltResultService;
+
+	@Autowired
+	private MngrSession mngrSession;
+
+	private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"};
 
 	@RequestMapping(value = "list")
 	public String list(
@@ -46,6 +67,105 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		return "/manage/consult/recipter/list";
 	}
+
+
+	// 상세내역 + 이로움 관리자메모
+	@RequestMapping(value="view")
+	public String view(
+			@RequestParam(value="consltNo", required=true) int consltNo
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request
+			, Model model) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltNo", consltNo);
+		MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConslt(reqMap);
+
+		if(mbrConsltVO == null) {
+			model.addAttribute("alertMsg", getMsg("alert.author.common"));
+			return "/common/msg";
+		}
+
+		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("genderCode", CodeMap.GENDER);
+
+		return "/manage/consult/recipter/view";
+	}
+
+
+	// 처리
+	@RequestMapping(value="action")
+	public View action(
+			MbrConsltVO mbrConsltVO
+			, @RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request) throws Exception {
+
+		JavaScript javaScript = new JavaScript();
+		String pageParam = HtmlUtils.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
+
+		// 사업소 선택 정보 처리
+		String bplcUniqueId = (String) reqMap.get("bplcUniqueId");
+		String bplcId = (String) reqMap.get("bplcId");
+		String bplcNm = (String) reqMap.get("bplcNm");
+
+
+		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
+				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
+
+			MbrConsltResultVO mbrConsltResultVO = new MbrConsltResultVO();
+			mbrConsltResultVO.setConsltNo(mbrConsltVO.getConsltNo());
+			mbrConsltResultVO.setBplcUniqueId(bplcUniqueId);
+			mbrConsltResultVO.setBplcId(bplcId);
+			mbrConsltResultVO.setBplcNm(bplcNm);
+			mbrConsltResultVO.setRegUniqueId(mngrSession.getUniqueId());
+			mbrConsltResultVO.setRegId(mngrSession.getMngrId());
+			mbrConsltResultVO.setRgtr(mngrSession.getMngrNm());
+
+			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
+
+		}else if(EgovStringUtil.isNotEmpty(bplcUniqueId))
+
+		// 상담정보 > 관리자(이로움) 메모 처리
+		mbrConsltVO.setMngrUniqueId(mngrSession.getUniqueId());
+		mbrConsltVO.setMngrId(mngrSession.getMngrId());
+		mbrConsltVO.setMngrNm(mngrSession.getMngrNm());
+
+		mbrConsltService.updateMbrConslt(mbrConsltVO);
+
+
+		javaScript.setMessage(getMsg("action.complete.update"));
+		javaScript.setLocation("./view?consltNo=" + mbrConsltVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
+
+		return new JavaScriptView(javaScript);
+	}
+
+	// 상담취소
+	@RequestMapping(value = "canclConslt.json")
+	@ResponseBody
+	public Map<String, Object> cancelConslt(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "canclResn", required=true) String canclResn
+			, HttpServletRequest request
+			) throws Exception {
+
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", "CS03"); //상담자 취소
+		paramMap.put("canclResn", canclResn);
+		paramMap.put("consltNo", consltNo);
+
+		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
+
+		if(resultCnt > 0) {
+			result = true;
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
 
 	@RequestMapping(value = "delConslt.json")
 	@ResponseBody

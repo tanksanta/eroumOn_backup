@@ -59,6 +59,15 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return listVO;
 	}
 
+	public Integer updateMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
+		return mbrConsltDAO.updateMbrConslt(mbrConsltVO);
+	}
+
+
+	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.updateCanclConslt(paramMap);
+	}
+
 
 
 

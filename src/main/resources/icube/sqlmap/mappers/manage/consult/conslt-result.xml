@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="conslt.result">
+
+	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		bplc_conslt_no
+		, conslt_no
+		, bplc_unique_id
+		, bplc_id
+		, bplc_nm
+		, conslt_dtls
+		, conslt_sttus
+		, conslt_dt
+		, reconslt_resn
+		, reconslt_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchConsltNo != null  and srchConsltNo != '' ">
+			AND conslt_no = #{srchConsltNo}
+		</if>
+	</sql>
+
+	<select id="selectMbrConsltResultList" parameterType="java.util.HashMap" resultMap="mbrConsltResultVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_RESULT
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY BPLC_CONSLT_NO ASC
+	</select>
+
+	<!-- 회원상담 사업소 지정 -->
+	<insert id="insertMbrConsltBplc" parameterType="mbrConsltResultVO">
+		INSERT INTO MBR_CONSLT_RESULT (
+			conslt_no
+			, bplc_unique_id
+			, bplc_id
+			, bplc_nm
+			, conslt_sttus
+			, reg_unique_id
+		    , reg_dt
+		    , reg_id
+		    , rgtr
+		)VALUES(
+			#{consltNo}
+			, #{bplcUniqueId}
+			, #{bplcId}
+			, #{bplcNm}
+			, #{consltSttus}
+			, #{regUniqueId}
+		    , SYSDATE()
+		    , #{regId}
+		    , #{rgtr}
+		)
+	</insert>
+
+</mapper>

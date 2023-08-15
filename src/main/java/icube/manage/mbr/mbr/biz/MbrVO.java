@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -70,7 +70,7 @@ public class MbrVO extends CommonBaseVO {
 	private String naverAppId;
 	private String kakaoAppId;
 	private String kakaoAccessToken;
-	
+
 	private String joinTy = "E"; // 가입 구분
 
 	// 첨부파일 체크

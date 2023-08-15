@@ -14,14 +14,14 @@ import icube.manage.promotion.mlg.biz.MbrMlgDAO;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointDAO;
 import icube.manage.promotion.point.biz.MbrPointVO;
-import icube.market.mypage.info.biz.DlvyDAO;
+import icube.membership.info.biz.DlvyDAO;
 
 @Service("mbrService")
 public class MbrService extends CommonAbstractServiceImpl {
 
 	@Resource(name = "mbrDAO")
 	private MbrDAO mbrDAO;
-	
+
 	@Resource(name = "dlvyDAO")
 	private DlvyDAO dlvyDAO;
 
@@ -354,9 +354,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 		paramMap.put("srchUniqueId", mbrVO.getUniqueId());
 		paramMap.put("eml", mbrVO.getEml());
 		paramMap.put("mblTelno", mbrVO.getMblTelno());
-		
+
 		mbrDAO.updateKaKaoInfo(paramMap);
-		
+
 	}
 
 	public Integer updateMbrAddr(Map<String, Object> paramMap) throws Exception {

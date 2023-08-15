@@ -980,5 +980,19 @@ public class CodeMap{
 			put("8","교육");
 		}
 	};
-	
+
+	// 1:1상담(장기요양 상담신청) 상태값 > 사용자/멤버스/관리자 사용하는 명칭이 다름
+	public static final HashMap<String, String> CONSLT_STTUS = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478940L;
+		{
+			put("CS01", "접수");
+			put("CS02", "배정");
+			put("CS03", "상담자 상담거부");		//취소
+			put("CS04", "장기요양기관 상담거부");//취소
+			put("CS05", "진행");
+			put("CS06", "완료");
+			put("CS07", "재접수"); //재상담
+			put("CS08", "재배정");
+		}
+	};
 }

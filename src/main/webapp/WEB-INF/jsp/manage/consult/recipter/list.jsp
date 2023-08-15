@@ -35,6 +35,23 @@
 						<th scope="row"><label for="srchMbrTelno">연락처</label></th>
 						<td><input type="text" class="form-control w-100" id="srchMbrTelno" name="srchMbrTelno" value="${param.srchMbrTelno}" maxlenth="15" /></td>
 					</tr>
+					<tr>
+                        <th scope="row"><label for="search-item4">상담 진행 상태</label></th>
+                        <td>
+                            <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-84">
+                                <option value="">선택</option>
+                                <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 접수</option>
+                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>장기요양기관 배정 완료</option>
+                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소 (신청자 상담 거부)</option>
+                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소 (장기요양기관 상담 거부)</option>
+                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
+                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
+                                <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 접수</option>
+                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>장기요양기관 재배정 완료</option>
+                            </select>
+                        </td>
+                    </tr>
+
 				</tbody>
 			</table>
 		</fieldset>
@@ -44,21 +61,26 @@
 		</div>
 	</form>
 
-	<p class="text-right mb-3">
-		<button type="button" class="btn btn-primary text-right" id="delConslt" name="delConslt">선택 삭제</button>
-	</p>
-	<legend class="text-title2">목록</legend>
+	<div class="mt-13 flex items-end gap-1.5">
+        <p class="text-title2 mr-auto">1:1상담 목록</p>
+        <button type="button" class="btn-primary mb-3">엑셀 다운로드</button>
+        <button type="button" class="btn-secondary mb-3" id="delConslt" name="delConslt">선택 삭제</button>
+    </div>
+    <div class="scroll-table">
+
 	<table class="table-list">
 		<colgroup>
-			<col class="w-10">
-			<col class="w-15">
-			<col class="w-15">
-			<col class="w-15">
-			<col class="w-30">
-			<col class="w-25">
-			<col class="w-25">
-			<col>
-			<col class="w-40">
+			 <col class="min-w-12 w-12">
+             <col class="min-w-18 w-22">
+             <col class="min-w-22 w-28">
+             <col class="min-w-18 w-18">
+             <col class="min-w-25 w-30">
+             <col class="min-w-15 w-20">
+             <col class="min-w-22 w-28">
+             <col>
+             <col class="min-w-22 w-28">
+             <col class="min-w-38 w-1/5">
+             <col class="min-w-35 w-[15%]">
 		</colgroup>
 		<thead>
 			<tr>
@@ -74,11 +96,14 @@
 				<th scope="col">만나이</th>
 				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
-				<th scope="col">등록일</th>
+				<th scope="col">상담신청일</th>
+				<th scope="col">사업소배정</th>
+				<th scope="col">상담진행상태</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
+		<c:set var="pageParam" value="consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
 			<tr>
 				<td>
 					<div class="form-check">
@@ -86,22 +111,47 @@
 					</div>
 				</td>
 				<td>${listVO.startNo - status.index }</td>
-				<td>${resultList.mbrNm}</td>
+				<td><a href="./view?${pageParam}">${resultList.mbrNm}</a></td>
 				<td>${genderCode[resultList.gender]}</td>
 				<td>${resultList.mbrTelno}</td>
 				<td>만 ${resultList.age} 세</td>
 				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
-				<td>${resultList.zip}&nbsp;&nbsp;${resultList.addr}&nbsp;&nbsp; ${resultList.daddr}</td>
-				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
+				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
+				<td>
+					<c:if test="${resultList.consltSttus ne 'CS01'}">
+					<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
+					${status2.index+1}차 : ${consltResult.bplcNm }<br>
+					</c:forEach>
+					</c:if>
+					<c:if test="${resultList.consltSttus eq 'CS01' || empty resultList.consltSttus}">
+					-
+					</c:if>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+					</c:choose>
+
+				</td>
 			</tr>
 		</c:forEach>
 		<c:if test="${empty listVO.listObject}">
 			<tr>
-				<td class="noresult" colspan="7">검색조건을 만족하는 결과가 없습니다.</td>
+				<td class="noresult" colspan="11">검색조건을 만족하는 결과가 없습니다.</td>
 			</tr>
 		</c:if>
 		</tbody>
 	</table>
+
+	</div>
 
 	<div class="pagination mt-7">
 		<mngr:mngrPaging listVO="${listVO}" />
