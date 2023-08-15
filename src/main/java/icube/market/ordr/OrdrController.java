@@ -49,8 +49,8 @@ import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.info.biz.DlvyService;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
@@ -100,7 +100,7 @@ public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "recipterInfoService")
 	private RecipterInfoService recipterInfoService;
-	
+
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
 
@@ -318,9 +318,9 @@ public class OrdrController extends CommonAbstractController{
 			, HttpSession session
 			, Model model
 			) throws Exception {
-		
+
 		JavaScript javaScript = new JavaScript();
-		
+
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
 			javaScript.setLocation("/" + marketPath + "/login");
@@ -332,19 +332,19 @@ public class OrdrController extends CommonAbstractController{
 			try {
 				//급여 주문
 				List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdrForRecipter(ordrVO, reqMap, request);
-				
+
 				model.addAttribute("ordrDtlList", ordrDtlList);
 				model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-				
+
 				javaScript.setLocation("/" + marketPath + "/ordr/ordrRqstDone/" + ordrVO.getOrdrCd());
 				return new JavaScriptView(javaScript);
 			} catch (Exception ex) {
-				
+
 				String msg = ex.getMessage();
 				if (EgovStringUtil.isEmpty(msg)) {
-					msg = "주문 요청에 실패하였습니다.";					
+					msg = "주문 요청에 실패하였습니다.";
 				}
-				
+
 				javaScript.setMessage(msg);
 				javaScript.setMethod("history.go(-2)");
 				return new JavaScriptView(javaScript);
@@ -507,7 +507,7 @@ public class OrdrController extends CommonAbstractController{
 		paramMap.clear();
 		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
-		
+
 		// STEP.3-1 주문코드 생성 (O 22 1014 1041 00 000)
 		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
 
@@ -539,12 +539,12 @@ public class OrdrController extends CommonAbstractController{
 			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
 			ordrDtlVO.setGdsInfo(gdsVO);
 
-			
+
 			//묶음 배송 처리
 			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
 			if (entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
 				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
-				
+
                 //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
 				int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
                 if (checkDlvyCy != dlvyBaseCt) {
@@ -559,8 +559,8 @@ public class OrdrController extends CommonAbstractController{
                 	gdsVO.setDlvyAditAmt(0);
                 }
 			}
-			
-			
+
+
 			// 사업소 정보 > 바로 구매는 사업소가 없음
 			// BplcVO bplcVO = bplcService.selectBplcByUniqueId(cartVO.getBplcUniqueId());
 			BplcVO bplcVO = new BplcVO();

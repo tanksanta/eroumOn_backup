@@ -7,7 +7,7 @@
 		</h2>
 	</header>
 
-	<jsp:include page="../layout/page_nav.jsp" />
+	<jsp:include page="../../layout/page_nav.jsp" />
 
 	<div id="page-content">
 		<div class="member-release-title">
@@ -109,7 +109,7 @@
 
 
 		<!-- 탈퇴 모달 -->
-		<form id="lveFrm" name="lveFrm" action="/membership/whdwl/action" method="post">
+		<form id="lveFrm" name="lveFrm" action="./action" method="post">
 			<div class="modal fade" id="leaveModal" tabindex="-1" aria-hidden="true">
 				<input type="hidden" id="resnCn" name="resnCn" value="" />
 				<div class="modal-dialog modal-dialog-centered">

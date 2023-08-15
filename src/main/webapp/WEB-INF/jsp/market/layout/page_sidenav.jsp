@@ -138,7 +138,7 @@
 							        <dt>쿠폰</dt>
 							        <dd>
 							        	<a href="${_marketPath}/mypage/coupon/list">
-                                   			<strong>11</strong> 장
+                                   			<strong>${_mbrEtcInfoMap.totalCoupon }</strong> 장
 								   		</a>
 								 	</dd>
 								</dl>
@@ -146,7 +146,7 @@
 								    <dt>포인트</dt>
 								    <dd>
 								   		<a href="${_marketPath}/mypage/point/list">
-                                    		<strong>11</strong>
+                                    		<strong><fmt:formatNumber value="${_mbrEtcInfoMap.totalPoint}" pattern="###,###" /></strong>
 											<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
 										</a>
 									</dd>
@@ -155,7 +155,7 @@
 			                        <dt>마일리지</dt>
 			                        <dd>
 			                        	<a href="${_marketPath}/mypage/mlg/list">
-                                    		<strong>11</strong>
+                                    		<strong><fmt:formatNumber value="${_mbrEtcInfoMap.totalMlg}" pattern="###,###" /></strong>
 											<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
 										</a>
 									</dd>
@@ -199,9 +199,9 @@
 	                    <p class="title">회원정보</p>
 	                    <div class="content">
 	                        <ul class="menulist">
-	                            <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="/membership/mypage/list?returnUrl=/market"><span>회원정보 수정</span></a></li>
-	                            <li ${fn:indexOf(_curPath, '/dlvy/') > -1?'class="is-active"':'' }><a href="${_marketPath }/mypage/dlvy/list"><span>배송지 관리</span></a></li>
-	                            <li ${fn:indexOf(_curPath, '/whdwl/') > -1?'class="is-active"':'' }><a href="/membership/whdwl/list"><span>회원 탈퇴</span></a></li>
+	                            <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/market"><span>회원정보 수정</span></a></li>
+	                            <li ${fn:indexOf(_curPath, '/dlvy/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info/dlvy/list"><span>배송지 관리</span></a></li>
+	                            <li ${fn:indexOf(_curPath, '/whdwl/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info//whdwl/form"><span>회원 탈퇴</span></a></li>
 	                        </ul>
 	                    </div>
 	                </div>
@@ -237,7 +237,7 @@
 				</div>
 			</nav>
 			</c:when>
-	
+
 	</c:choose>
 
 <script>

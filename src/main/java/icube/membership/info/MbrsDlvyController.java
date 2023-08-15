@@ -1,4 +1,4 @@
-package icube.market.mypage.info;
+package icube.membership.info;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +22,18 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.values.CRUD;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.info.biz.DlvyService;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 /**
  * 마이페이지 > 회원정보 > 배송지 관리
+ *
+ * 20230815 kkm : market -> mambership
  */
 
 @Controller
-@RequestMapping(value = "#{props['Globals.Market.path']}/mypage/dlvy")
-public class MyDlvyController extends CommonAbstractController {
+@RequestMapping(value = "#{props['Globals.Membership.path']}/info/dlvy")
+public class MbrsDlvyController extends CommonAbstractController {
 
 	@Resource(name = "dlvyService")
 	private DlvyService dlvyService;
@@ -65,7 +67,7 @@ public class MyDlvyController extends CommonAbstractController {
 
 		model.addAttribute("resultList", resultList);
 
-		return "/market/mypage/dlvy/list";
+		return "/membership/info/dlvy/list";
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class MyDlvyController extends CommonAbstractController {
 		model.addAttribute("dlvyVO", dlvyVO);
 
 
-		return "/market/mypage/dlvy/include/dlvy-mng-modal";
+		return "/membership/info/dlvy/include/dlvy-mng-modal";
 	}
 
 	/**

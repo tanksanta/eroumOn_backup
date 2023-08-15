@@ -1,4 +1,4 @@
-package icube.membership;
+package icube.membership.info;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ import icube.market.mbr.biz.MbrSession;
  * 마이페이지 > 회원정보 > 회원 탈퇴
  */
 @Controller
-@RequestMapping(value = "#{props['Globals.Membership.path']}/whdwl")
+@RequestMapping(value = "#{props['Globals.Membership.path']}/info/whdwl")
 public class MbrsWhdwlController extends CommonAbstractController{
 
 	@Resource(name="mbrService")
@@ -67,15 +67,14 @@ public class MbrsWhdwlController extends CommonAbstractController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="list")
-	@SuppressWarnings({"rawtypes","unchecked"})
+	@RequestMapping(value="form")
 	public String list(
 			HttpServletRequest request
 			, Model model
 			) throws Exception{
 
-		Map<String, Integer> resultMap = new HashMap();
-		Map<String, Object> paramMap = new HashMap();
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		int point = 0;
@@ -113,7 +112,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		model.addAttribute("norResnCdCode", CodeMap.NOR_RESN_CD);
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
 
-		return "/membership/whdwl/list";
+		return "/membership/info/whdwl/form";
 	}
 
 	/**
@@ -124,7 +123,6 @@ public class MbrsWhdwlController extends CommonAbstractController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="action")
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public View action(
 			HttpServletRequest request
 			, HttpSession session
@@ -135,7 +133,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 
 		JavaScript javaScript = new JavaScript();
 
-		Map paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("whdwlResn", resnCn);
 		paramMap.put("whdwlEtc", whdwlEtc);
@@ -159,10 +157,9 @@ public class MbrsWhdwlController extends CommonAbstractController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="exDlvySttsCnt.json")
 	@ResponseBody
-	@SuppressWarnings({"rawtypes","unchecked"})
-	public Map dlvyCount(
+	@RequestMapping(value="exDlvySttsCnt.json")
+	public Map<String, Object> dlvyCount(
 			HttpServletRequest request
 			, Model model
 			) throws Exception{
@@ -170,7 +167,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		boolean result = false;
 
 
-		Map paramMap = new HashMap();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchRegUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchExSttsTy", "OR08");
 
@@ -184,7 +181,7 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		}
 
 		//return map
-		Map resultMap = new HashMap();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("sttsTy", paramMap.get("srchExSttsTy"));
 		resultMap.put("result", result);
 

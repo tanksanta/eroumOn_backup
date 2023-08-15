@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
+import icube.market.mbr.biz.MbrSession;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Main.path']}/conslt")
@@ -44,18 +46,18 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
 
-	/*@Autowired
-	private MbrSession mbrSession;*/
+	@Autowired
+	private MbrSession mbrSession;
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
-	
+
 	@Resource(name = "mailService")
 	private MailService mailService;
-	
+
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
-	
+
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
@@ -67,10 +69,10 @@ public class MainConsltController extends CommonAbstractController{
 			, MbrConsltVO mbrConsltVO
 			)throws Exception {
 
-		/*if(!mbrSession.isLoginCheck()) {
+		if(!mbrSession.isLoginCheck()) {
 			session.setAttribute("returnUrl", "/"+mainPath+"/conslt/form");
 			return "redirect:" + "/"+mainPath+"/login?returnUrl=/"+mainPath+"/conslt/form";
-		}*/
+		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
@@ -87,9 +89,9 @@ public class MainConsltController extends CommonAbstractController{
 
 		JavaScript javaScript = new JavaScript();
 
-		/*mbrConsltVO.setRegId(mbrSession.getMbrId());
+		mbrConsltVO.setRegId(mbrSession.getMbrId());
 		mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
-		mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());*/
+		mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());
 
 		if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
 			mbrConsltVO.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));
@@ -103,10 +105,10 @@ public class MainConsltController extends CommonAbstractController{
 			String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
 			String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
 			String putEml = "help@thkc.co.kr";
-			
-			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+
+			//mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
-		
+
 		/*if(insertCnt > 0) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 

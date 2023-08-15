@@ -1,4 +1,4 @@
-package icube.market.mypage.itrst.biz;
+package icube.membership.conslt.biz;
 
 import java.util.List;
 import java.util.Map;

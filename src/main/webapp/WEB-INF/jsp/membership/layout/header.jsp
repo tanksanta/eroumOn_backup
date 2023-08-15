@@ -3,7 +3,7 @@
         <h1 id="logo" class="global-logo">
             <a href="${_mainPath}/index"><em>이로움ON 회원</em></a>
         </h1>
-        
+
         <nav id="navigation">
 		<c:choose>
 			<c:when test="${_mbrSession.loginCheck}">
@@ -22,7 +22,7 @@
 			</c:otherwise>
 		</c:choose>
        	</nav>
-        
+
         <ul id="family" class="global-link is-bottom">
 			<!-- li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li -->
             <!--li>
@@ -50,7 +50,7 @@
                 </a>
             </li>
         </ul>
-        
+
    		<c:if test="${_mbrSession.loginCheck}">
         <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴 열기/닫기</button>
         </c:if>
@@ -69,33 +69,33 @@
         <div class="offcanvas-body">
 		<c:choose>
 			<c:when test="${_mbrSession.loginCheck}">
-			<!-- 
+			<!--
 			is-grade1 -- 이로움
 			is-grade2 -- 반가움
 			is-grade3 -- 새로움
 			-->
-            <div class="global-user">
+            <div class="global-user ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''}">
                 <div class="user-name">
                     <strong>${_mbrSession.mbrNm} <small>님</small></strong>
-                    <span>수급자 회원</span>
+                    <span>${recipterYnCode[_mbrSession.recipterYn]}</span>
                 </div>
                 <div class="user-info">
                     <div class="grade">
-                        <strong>신규회원</strong>
+                        <strong>${gradeCode[_mbrSession.mberGrade]}</strong>
                         <a href="${_marketPath}/etc/bnft/list">등급별혜택</a>
                     </div>
                     <div class="point">
                         <dl>
                             <dt>쿠폰</dt>
-                            <dd><a href="#"><strong>5</strong> 장</a></dd>
+                            <dd><a href="${_marketPath}/mypage/coupon/list"><strong>${_mbrEtcInfoMap.totalCoupon }</strong> 장</a></dd>
                         </dl>
                         <dl>
                             <dt>포인트</dt>
-                            <dd><a href="#"><strong>512</strong> <img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트"></a></dd>
+                            <dd><a href="${_marketPath}/mypage/point/list"><strong><fmt:formatNumber value="${_mbrEtcInfoMap.totalPoint}" pattern="###,###" /></strong> <img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트"></a></dd>
                         </dl>
                         <dl>
                             <dt>마일리지</dt>
-                            <dd><a href="#"><strong>5123</strong> <img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                            <dd><a href="${_marketPath}/mypage/mlg/list"><strong><fmt:formatNumber value="${_mbrEtcInfoMap.totalMlg}" pattern="###,###" /></strong> <img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
                         </dl>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                 <dd>
                     <ul>
                         <li><a href="#">장기요양 상담신청</a></li>
-                        <li><a href="#">관심 멤버스 설정</a></li>
+                        <li><a href="${_membershipPath}/conslt/itrst/bplc">관심 멤버스 설정</a></li>
                     </ul>
                 </dd>
             </dl>
@@ -114,7 +114,7 @@
                 <dd>
                     <ul>
                         <li><a href="${_membershipPath}/mypage/list">내 정보수정</a></li>
-                        <li><a href="#">배송지 관리</a></li>
+                        <li><a href="${_membershipPath}/info/dlvy/list">배송지 관리</a></li>
                         <li><a href="${_membershipPath}/whdwl/list">회원탈퇴</a></li>
                     </ul>
                 </dd>

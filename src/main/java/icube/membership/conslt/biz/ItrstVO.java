@@ -1,4 +1,4 @@
-package icube.market.mypage.itrst.biz;
+package icube.membership.conslt.biz;
 
 import org.apache.ibatis.type.Alias;
 

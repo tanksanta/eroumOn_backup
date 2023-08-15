@@ -1,6 +1,11 @@
+/*
+ *
+ */
 package icube.common.interceptor;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +22,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import icube.common.util.CommonUtil;
+import icube.common.util.HMACUtil;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.market.mbr.biz.MbrSession;
 
@@ -26,9 +33,8 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 	protected Log log = LogFactory.getLog(this.getClass());
 
-
-	@Resource(name = "bplcService")
-	private BplcService bplcService;
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -44,7 +50,7 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 	@Value("#{props['Globals.Planner.path']}")
 	private String plannerPath;
-	
+
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
 
@@ -96,6 +102,7 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 
 		String curPath = request.getServletPath();
 
+		Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
 		// 로그인 확인
 		if(mbrSession.isLoginCheck()) {
 			// 주소
@@ -115,10 +122,15 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 				request.setAttribute("_mbrAge", mbrAge);
 			}
 
+			// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
+			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		}
+
+		request.setAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
 
 		// 코드
 		request.setAttribute("gradeCode", CodeMap.GRADE);
+		request.setAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 
 		// 경로
 		request.setAttribute("_membershipPath", "/" + membershipPath);

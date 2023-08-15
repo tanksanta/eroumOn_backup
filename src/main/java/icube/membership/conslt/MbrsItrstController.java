@@ -1,4 +1,4 @@
-package icube.market.mypage.itrst;
+package icube.membership.conslt;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,19 +21,20 @@ import icube.common.vo.CommonListVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.itrst.biz.ItrstService;
-import icube.market.mypage.itrst.biz.ItrstVO;
 import icube.members.stdg.biz.StdgCdService;
 import icube.members.stdg.biz.StdgCdVO;
+import icube.membership.conslt.biz.ItrstService;
+import icube.membership.conslt.biz.ItrstVO;
 
 /**
  * 관심 사업소, 관심 카테고리
  * @author ogy
  *
+ * 20230815 kkm : market -> mambership
  */
 @Controller
-@RequestMapping(value="#{props['Globals.Market.path']}/mypage/itrst")
-public class MyItrstController extends CommonAbstractController{
+@RequestMapping(value="#{props['Globals.Membership.path']}/conslt/itrst")
+public class MbrsItrstController extends CommonAbstractController{
 
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
@@ -48,7 +49,7 @@ public class MyItrstController extends CommonAbstractController{
 	private MbrSession mbrSession;
 
 	/**
-	 * 관심 사업소
+	 * 관심 
 	 * @param request
 	 * @param model
 	 * @return
@@ -70,7 +71,7 @@ public class MyItrstController extends CommonAbstractController{
 		model.addAttribute("bplcList", bplcList);
 		model.addAttribute("bplcRstdeCode", CodeMap.BPLC_RSTDE);
 
-		return "/market/mypage/itrst/bplc";
+		return "/membership/conslt/itrst/bplc";
 	}
 
 	/**
@@ -100,7 +101,7 @@ public class MyItrstController extends CommonAbstractController{
 		model.addAttribute("gdsCtgry", gdsCtgry);
 		model.addAttribute("itemList", itemList);
 
-		return "/market/mypage/itrst/ctgry";
+		return "/membership/conslt/itrst/ctgry";
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class MyItrstController extends CommonAbstractController{
 		model.addAttribute("stdgCdList", stdgCdList);
 		model.addAttribute("bplcRstdeCode", CodeMap.BPLC_RSTDE);
 
-		return "/market/mypage/itrst/include/search-bplc-modal";
+		return "/membership/conslt/itrst/include/search-bplc-modal";
 	}
 
 	/**
@@ -167,7 +168,7 @@ public class MyItrstController extends CommonAbstractController{
 		model.addAttribute("bplcRstdeCode", CodeMap.BPLC_RSTDE);
 
 
-		return "/market/mypage/itrst/include/bplc-list-modal";
+		return "/membership/conslt/itrst/include/bplc-list-modal";
 	}
 
 	/**

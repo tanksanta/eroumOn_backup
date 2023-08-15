@@ -125,6 +125,9 @@
 	<definition name="/membership/*/*" extends=".membership_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}/{2}.jsp" />
 	</definition>
+		<definition name="/membership/*/*/*" extends=".membership_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/membership/{1}/{2}/{3}.jsp" />
+	</definition>
 
 	<!-- 메인(main) -->
 	<definition name=".main_layout" template="/WEB-INF/jsp/main/layout/layout.jsp">

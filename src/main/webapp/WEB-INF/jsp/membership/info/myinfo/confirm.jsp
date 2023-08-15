@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage-style">
 	<header id="page-title">
 		<h2>
 			<span>회원정보수정</span>
 			<small>Member Modify</small>
 		</h2>
 	</header>
+
+	<jsp:include page="../../layout/page_nav.jsp" />
 
 	<div id="page-content">
 		<div class="items-center justify-between md:flex">
@@ -15,7 +17,7 @@
 			</div>
 		</div>
 
-		<form id="pwdChkFrm" name="pwdChkFrm" method="post" action="/membership/mypage/action" class="member-modify-password">
+		<form id="pwdChkFrm" name="pwdChkFrm" method="post" action="./action" class="member-modify-password">
 		<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
 		<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
 		<input type="hidden" id="encPw" name="encPw" value="" />

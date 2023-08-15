@@ -1,23 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage-style">
 	<header id="page-title">
 		<h2>
 			<span>회원정보수정</span> <small>Member Modify</small>
 		</h2>
 	</header>
 
+	<jsp:include page="../../layout/page_nav.jsp" />
+
 	<div id="page-content">
 		<ul class="tabs">
-			<li><a href="/membership/mypage/form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
+			<li><a href="./form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
 
 			<c:if test="${mbrVO.joinTy eq 'E'}">
-			<li><a href="/membership/mypage/pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			<li><a href="./pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
 			</c:if>
 
 		</ul>
 
 		<div class="member-modify mt-11 md:mt-15">
-			<form:form action="/membership/mypage/infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
+			<form:form action="./infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
 				<form:input type="hidden" path="delProflImg" id="delProflImg" name="delProflImg" value="N" />
 				<form:hidden path="proflImg" />
 				<form:hidden path="diKey" />
@@ -547,7 +549,7 @@ $(function(){
                 alert(json.msg);
                 return;
             }
-			
+
 			if(json.result){
 				$("#wrapInfo").show();
 

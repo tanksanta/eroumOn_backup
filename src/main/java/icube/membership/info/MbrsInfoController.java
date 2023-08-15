@@ -1,5 +1,5 @@
 
-package icube.membership;
+package icube.membership.info;
 
 import java.security.PrivateKey;
 import java.util.HashMap;
@@ -44,7 +44,7 @@ import icube.market.mbr.biz.MbrSession;
  * 마이페이지 > 회원정보 > 회원정보 수정
  */
 @Controller
-@RequestMapping(value = "#{props['Globals.Membership.path']}/mypage")
+@RequestMapping(value = "#{props['Globals.Membership.path']}/info/myinfo")
 public class MbrsInfoController extends CommonAbstractController{
 
 	@Resource(name="mbrService")
@@ -94,7 +94,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="list")
+	@RequestMapping(value="confirm")
 	public String list(
 			HttpServletRequest request
 			, HttpSession session
@@ -111,9 +111,9 @@ public class MbrsInfoController extends CommonAbstractController{
 			session.setMaxInactiveInterval(60*60);
 
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				return "redirect:/"+ membershipPath + "/mypage/form?returnUrl=" + returnUrl;
+				return "redirect:/"+ membershipPath + "/info/myinfo/form?returnUrl=" + returnUrl;
 			}else {
-				return "redirect:/"+ membershipPath + "/mypage/form";
+				return "redirect:/"+ membershipPath + "/info/myinfo/form";
 			}
 
 		}
@@ -124,7 +124,7 @@ public class MbrsInfoController extends CommonAbstractController{
 		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
 		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
 
-		return "/membership/mypage/mypage_confirm";
+		return "/membership/info/myinfo/confirm";
 	}
 
 	/**
@@ -163,9 +163,9 @@ public class MbrsInfoController extends CommonAbstractController{
 				session.setMaxInactiveInterval(60*60);
 
 				if(EgovStringUtil.isNotEmpty(returnUrl)) {
-					javaScript.setLocation("/"+ membershipPath + "/mypage/form?returnUrl="+ returnUrl);
+					javaScript.setLocation("/"+ membershipPath + "/info/myinfo/form?returnUrl="+ returnUrl);
 				}else {
-					javaScript.setLocation("/"+ membershipPath + "/mypage/form");
+					javaScript.setLocation("/"+ membershipPath + "/info/myinfo/form");
 				}
 			}else {
 				javaScript.setMessage("비밀번호가 일치하지 않습니다.");
@@ -192,7 +192,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			)throws Exception {
 
 		if(session.getAttribute("infoStepChk") == null) {
-			return "redirect:/"+ membershipPath +"/mypage/list";
+			return "redirect:/"+ membershipPath +"/info/myinfo/confirm";
 		}
 
 		mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
@@ -203,7 +203,7 @@ public class MbrsInfoController extends CommonAbstractController{
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
 
-		return "/membership/mypage/mypage_info";
+		return "/membership/info/myinfo/info";
 	}
 
 	/**
@@ -355,10 +355,10 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 
 		if(session.getAttribute("infoStepChk") == null) {
-			return "redirect:/"+ membershipPath +"/mypage/pswd";
+			return "redirect:/"+ membershipPath +"/info/myinfo/confirm";
 		}
 
-		return "/membership/mypage/mypage_pw";
+		return "/membership/info/myinfo/pw";
 	}
 
 	/**
