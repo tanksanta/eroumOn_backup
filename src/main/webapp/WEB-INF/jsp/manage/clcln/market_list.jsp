@@ -28,7 +28,7 @@
                             </tr>
                             <tr>
                             	<th>입점업체명</th>
-                            	<td><input type="text" id="srchEntrpsNm" name="srchEntrpsNm" value="${param.srchEntrpsNm}" class="form-control"></td>
+                            	<td><input type="text" id="srchEntrpsNm" name="srchEntrpsNm" <c:if test="${empty mngrEntrpsNm}">value="${param.srchEntrpsNm}"</c:if> class="form-control" <c:if test="${!empty mngrEntrpsNm}">value="${mngrEntrpsNm}" readonly</c:if>></td>
                             </tr>
                         </tbody>
                     </table>

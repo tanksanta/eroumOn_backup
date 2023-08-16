@@ -40,6 +40,8 @@ import icube.common.vo.DataTablesVO;
 import icube.manage.sysmng.auth.biz.MngAuthrtService;
 import icube.manage.sysmng.auth.biz.MngAuthrtVO;
 import icube.manage.sysmng.auth.biz.MngrAuthLogService;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.menu.biz.MngMenuService;
 import icube.manage.sysmng.menu.biz.MngMenuVO;
 import icube.manage.sysmng.mngr.biz.MngrService;
@@ -64,6 +66,9 @@ public class MMngrController  extends CommonAbstractController {
 
 	@Resource(name="fileService")
 	private FileService fileService;
+	
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
 
 	@Autowired
 	private MngrSession mngrSession;
@@ -126,6 +131,10 @@ public class MMngrController  extends CommonAbstractController {
 
 		List<MngAuthrtVO> authrtList = mngAuthrtService.mngAuthrtListAll();
 
+		//입점업체 호출
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
+		model.addAttribute("entrpsList", entrpsList);
+		
 		model.addAttribute("mngMenuList", mngMenuList);
 
 		model.addAttribute("useYnCode", CodeMap.USE_YN);
