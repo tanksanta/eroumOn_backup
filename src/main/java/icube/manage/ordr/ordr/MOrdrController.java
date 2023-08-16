@@ -41,6 +41,8 @@ import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.model.request.Subscribe;
@@ -65,6 +67,9 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
+	
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
@@ -112,6 +117,10 @@ public class MOrdrController extends CommonAbstractController {
 				ordrDtlltVO.setOrdrrId("네이버 계정");
 			}
 		});
+		
+		//입점업체 호출
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
+		model.addAttribute("entrpsList", entrpsList);
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
