@@ -1,16 +1,5 @@
 html, body {
-    @apply scroll-smooth text-black2 break-keep;
-    -webkit-overflow-scrolling: touch;
-    -webkit-font-smoothing: antialiased;
-}
-
-body {
-    @apply text-sm overflow-x-hidden
-           md:text-base;
-}
-
-strong {
-    @apply font-bold;
+    @apply text-black2;
 }
 
 @layer components {

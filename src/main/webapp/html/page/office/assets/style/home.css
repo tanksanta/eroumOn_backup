@@ -128,18 +128,12 @@
     }
 }
 
-html {
-    @apply overflow-x-hidden overflow-y-auto;
-}
-
-
 body {
-    @apply relative pl-0 text-[#545454]
+    @apply relative pl-0 text-sm text-[#545454]
            lg:text-base
            xl:pl-80
            2xl:pl-100;
 }
-
 
 #header {
     @apply flex flex-col sticky z-60 top-0 left-0 w-full bg-white leading-tight text-left

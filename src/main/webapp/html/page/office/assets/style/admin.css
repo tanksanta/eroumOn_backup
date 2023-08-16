@@ -222,7 +222,6 @@
     }
 }
 
-
 /******************** datatables ********************/
 .dataTables_wrapper {
     & .dataTable.display {
@@ -261,7 +260,7 @@
         & tbody {
             & tr {
                 & th, & td {
-                    @apply bg-white shadow-none !important;
+                    @apply !bg-white !shadow-none;
                 }
                 &:first-child {
                     & th, & td {
@@ -347,8 +346,7 @@
 }
 
 body {
-    @apply flex-row min-w-[1366px] text-black1 tracking-tight;
-    overflow: overlay;
+    @apply flex-row min-w-[1366px] text-sm text-black1 tracking-tight !overflow-x-auto;
 }
 
 #header {
@@ -369,8 +367,9 @@ body {
     & .menu-items {
         @apply absolute top-36 left-2 select-none;
         & a {
-            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white/20 bg-white/20 leading-none text-center text-[0.6875rem] text-white press-action active:border-white/50 active:bg-white/50
-                   before:content-empty before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
+            @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white/20 bg-white/20 leading-none text-center text-[0.6875rem] text-white press-action
+                   active:border-white/50 active:bg-white/50
+                   before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
             &.menu-item1 {
                 @apply before:bg-[url(/html/page/office/assets/images/ico-admin-menu1.svg)];
             }

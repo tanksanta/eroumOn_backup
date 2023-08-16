@@ -1,23 +1,9 @@
-/* ::-webkit-scrollbar {
-    @apply w-2 h-2 bg-transparent;
-}
-::-webkit-scrollbar-thumb {
-    @apply rounded-md bg-gray5;
-}
-::-webkit-scrollbar-track {
-    @apply bg-transparent;
-} */
-
 body {
-    @apply scrollbars flex-row min-w-[1366px] text-black1 tracking-tight bg-fixed bg-no-repeat bg-[url(../images/bg-dashboard.jpg)] bg-[position:center_bottom];
-    overflow: overlay;
+    @apply scrollbars flex-row min-w-[1366px] !overflow-x-auto text-sm text-black1 tracking-tight bg-fixed bg-no-repeat bg-[url(../images/bg-dashboard.jpg)] bg-[position:left_bottom];
 }
 
 #header {
-    @apply relative flex flex-col flex-none w-72 h-screen overflow-hidden bg-no-repeat bg-[left_top_right_top];
-    background-image: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), linear-gradient(180deg, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%);
-    background-position: left top, right top;
-    background-size: theme("spacing[17]") 100%, theme("spacing[55]") 100%;
+    @apply relative flex flex-col flex-none w-72 h-screen overflow-hidden bg-no-repeat bg-[length:theme("spacing[17]")_100%,theme("spacing[55]")_100%] bg-[position:left_top,right_top] bg-[linear-gradient(180deg,_#000000b3_0%,_#000000b3_100%),_linear-gradient(180deg,_#eee_0%,_#eee_100%)];
     & .system-title {
         @apply flex m-3.5 ml-6.5;
     }
@@ -32,7 +18,7 @@ body {
         @apply absolute top-1/2 left-2 -translate-y-1/2 select-none;
         & a {
             @apply flex flex-col justify-center items-center whitespace-nowrap relative my-2.5 w-13 h-13 rounded-md border border-white bg-white leading-none text-center text-[0.6875rem] press-action active:bg-white/80
-                   before:content-empty before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
+                   before:block before:mx-auto before:mb-0.5 before:w-7 before:h-7 before:bg-no-repeat before:bg-center before:bg-[length:1.5rem];
             &.menu-item1 {
                 @apply before:bg-[url(../images/ico-menu1.svg)];
             }
@@ -71,7 +57,7 @@ body {
             }
             &.active {
                 @apply bg-transparent text-white
-                       after:content-empty after:absolute after:top-1/2 after:-right-1 after:-translate-y-1/2 after:w-2 after:h-5 after:bg-white after:rounded-md;
+                       after:absolute after:top-1/2 after:-right-1 after:-translate-y-1/2 after:w-2 after:h-5 after:bg-white after:rounded-md;
                 &.menu-item1 {
                     @apply before:bg-[url(../images/ico-menu1-white.svg)];
                 }
@@ -126,7 +112,7 @@ body {
                     @apply px-5 py-0.5 mx-1.5 mb-1.5 rounded bg-gray2 text-[0.8125rem];
                     & li {
                         @apply relative py-1 pl-3
-                               before:content-empty before:absolute before:top-2.5 before:mt-px before:left-0 before:w-1.5 before:h-px before:bg-black2;
+                               before:absolute before:top-2.5 before:mt-px before:left-0 before:w-1.5 before:h-px before:bg-black2;
                     }
                 }
                 &.active {

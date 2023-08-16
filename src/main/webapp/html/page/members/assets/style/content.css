@@ -1,7 +1,7 @@
 /* 회원 탭 */
 .member-tabs {
     @apply flex relative justify-between
-           before:content-empty before:absolute before:left-0 before:right-0 before:bottom-px before:h-px before:bg-gray1;
+           before:absolute before:left-0 before:right-0 before:bottom-px before:h-px before:bg-gray1;
     & li {
         @apply relative;
         & a, & span {

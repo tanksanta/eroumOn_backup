@@ -1,10 +1,9 @@
 html {
-    @apply scroll-smooth overflow-visible;
+    @apply overflow-visible;
 }
 
 body {
-    @apply block relative w-full h-screen max-h-screen text-sm scroll-smooth overflow-x-hidden text-black2
-           md:text-base;
+    @apply block relative w-full h-screen max-h-screen text-black2;
 }
 
 

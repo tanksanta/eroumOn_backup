@@ -1,7 +1,6 @@
 
 body {
-    @apply scrollbars block overflow-x-hidden overflow-y-auto bg-no-repeat bg-[center_top] text-black2 scroll-smooth
-           md:text-base;
+    @apply scrollbars block bg-no-repeat bg-[center_top] text-black2;
     &::-webkit-scrollbar {
         @apply w-3 h-3;
     }

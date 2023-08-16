@@ -1,5 +1,12 @@
+html, body {
+    @apply scroll-smooth break-keep;
+    -webkit-overflow-scrolling: touch;
+    -webkit-font-smoothing: antialiased;
+}
+
 body {
-    @apply flex flex-col min-h-screen text-sm;
+    @apply flex flex-col min-h-screen !overflow-x-hidden text-sm
+           md:text-base;
 }
 
 strong {
@@ -40,10 +47,8 @@ strong {
             @apply w-4.5 h-4.5;
         }
         &::-webkit-scrollbar-thumb {
-            @apply rounded-lg border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300 bg-clip-content;
-            &:hover {
-                @apply bg-black2;
-            }
+            @apply rounded-lg border-1.5 border-solid border-transparent bg-[#d8d8d8] transition-all duration-300 bg-clip-content
+                   hover:bg-black2;
         }
     }
 
