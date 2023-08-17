@@ -32,7 +32,7 @@
 							</c:if>
 					</p>
 				</div>
-			<a href="/members/${resultList.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a>
+			<%-- <a href="/members/${resultList.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a> --%>
         </div>
     </div>
     <label class="item-love">

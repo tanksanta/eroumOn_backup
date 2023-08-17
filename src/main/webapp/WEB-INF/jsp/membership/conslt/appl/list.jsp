@@ -149,7 +149,7 @@
                             <span>추천하기</span>
                         </label>
                         <label class="check2">
-                            <input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}">
+                            <input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].itrstCnt > 0?'checked="checked"':''}>
                             <span>관심설정</span>
                         </label>
                     </div>
@@ -272,6 +272,67 @@
    	        		return false;
    	        	}
     	    }
+    	});
+
+
+    	// 멤버스 추가
+    	$("input[name='itrst']").on("click",function(){
+    		let bplcUniqueId = $(this).val();
+    		let checked = $(this).is(':checked');
+    		console.log(bplcUniqueId, checked);
+
+    		var uniqueIds = [];
+    		uniqueIds.push(bplcUniqueId);
+
+    		/* 기존 자원 활용 */
+    		if(uniqueIds.length > 0 && checked){ //등록
+   				$.ajax({
+   					type : "post",
+   					url  : "/membership/conslt/itrst/insertItrstBplc.json",
+   					data : {
+   						arrUniqueId : uniqueIds
+   					},
+   					traditional: true,
+   					dataType : 'json'
+   				}).done(function(data) {
+   					if(data.result == 0){
+   						$(this).prop('checked', false);
+   						alert("관심 멤버스 등록에 실패했습니다. /n 관리자에게 문의바랍니다.");
+   						return false;
+   					}else if(data.result == 1){
+   						//alert("등록되었습니다.");
+   						console.log("관심 멤버스로 등록 완료");
+   					}else{
+   						$(this).prop('checked', false);
+   						alert("관심 멤버스는 최대 5개 입니다.");
+   						return false;
+   					}
+
+   				}).fail(function(data, status, err) {
+   					console.log(data);
+   					return false;
+   				});
+    		}else if(uniqueIds.length > 0 && !checked){ //삭제
+
+    			$.ajax({
+    				type : "post",
+    				url  : "/membership/conslt/itrst/deleteItrstBplc.json",
+    				data : {
+    					uniqueId : bplcUniqueId
+    				},
+    				dataType : 'json'
+    			})
+    			.done(function(json) {
+    				console.log("관심 멤버스에서 삭제 완료");
+    				$(this).prop('checked', false);
+    				//alert("삭제되었습니다.");
+    			})
+    			.fail(function(data, status, err) {
+    				console.log(data);
+    			});
+    		}
+
+
     	});
 
 
