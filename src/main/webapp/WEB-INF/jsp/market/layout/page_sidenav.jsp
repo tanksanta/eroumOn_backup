@@ -169,7 +169,7 @@
 	                    <div class="content">
 	                        <ul class="menulist">
 	                            <li ${fn:indexOf(_curPath, '/ordr/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/ordr/list"><span>주문(배송) 조회</span></a></li>
-	                            <c:if test="${_mbrSession.recipterYn eq 'Y'}"><li ${fn:indexOf(_curPath, '/lend/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/lend/list"><span>대여 조회</span></a></li></c:if>
+	                            <%-- <c:if test="${_mbrSession.recipterYn eq 'Y'}"><li ${fn:indexOf(_curPath, '/lend/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/lend/list"><span>대여 조회</span></a></li></c:if> --%>
 	                            <li ${fn:indexOf(_curPath, '/buy/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/buy/list"><span>구매 상품 조회</span></a></li>
 	                        </ul>
 	                    </div>

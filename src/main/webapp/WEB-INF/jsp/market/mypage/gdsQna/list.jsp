@@ -17,48 +17,8 @@
 				})
 			</script>
 
-			<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
-				<div class="user-name">
-				    <strong>${_mbrSession.mbrNm} <small>님</small></strong>
-					<span>${recipterYnCode[_mbrSession.recipterYn]}</span>
-                       <button type="button" class="user-toggle">메뉴 열기</button>
-				</div>
-				<div class="user-info">
-				    <div class="grade">
-				        <strong>${gradeCode[_mbrSession.mberGrade]}</strong>
-						<a href="${_marketPath}/etc/bnft/list">등급별혜택</a>
-					</div>
-					<div class="point">
-					    <dl>
-					        <dt>쿠폰</dt>
-					        <dd>
-					        	<a href="${_marketPath}/mypage/coupon/list">
-                               		<strong>11</strong> 장
-						   		</a>
-						 	</dd>
-						</dl>
-						<dl>
-						    <dt>포인트</dt>
-						    <dd>
-						   		<a href="${_marketPath}/mypage/point/list">
-                               		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
-								</a>
-							</dd>
-	                    </dl>
-	                    <dl>
-	                        <dt>마일리지</dt>
-	                        <dd>
-	                        	<a href="${_marketPath}/mypage/mlg/list">
-                               		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
-								</a>
-							</dd>
-	                    </dl>
-	                </div>
-	            </div>
-            </div>
-            
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
 			<div class="space-y-1.5 mb-12 md:mb-16">
 				<p class="text-alert">문의하신 상품 Q&A를 쉽고 빠르게 확인하실 수 있습니다.</p>
 				<p class="text-alert">상품과 관계가 없는 내용이나 비방성 글은 등록자에게 사전 동의 없이 임의로 삭제될 수 있습니다.</p>

@@ -9,48 +9,8 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
-			<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
-				<div class="user-name">
-				    <strong>${_mbrSession.mbrNm} <small>님</small></strong>
-					<span>${recipterYnCode[_mbrSession.recipterYn]}</span>
-                       <button type="button" class="user-toggle">메뉴 열기</button>
-				</div>
-				<div class="user-info">
-				    <div class="grade">
-				        <strong>${gradeCode[_mbrSession.mberGrade]}</strong>
-						<a href="${_marketPath}/etc/bnft/list">등급별혜택</a>
-					</div>
-					<div class="point">
-					    <dl>
-					        <dt>쿠폰</dt>
-					        <dd>
-					        	<a href="${_marketPath}/mypage/coupon/list">
-                               		<strong>11</strong> 장
-						   		</a>
-						 	</dd>
-						</dl>
-						<dl>
-						    <dt>포인트</dt>
-						    <dd>
-						   		<a href="${_marketPath}/mypage/point/list">
-                               		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
-								</a>
-							</dd>
-	                    </dl>
-	                    <dl>
-	                        <dt>마일리지</dt>
-	                        <dd>
-	                        	<a href="${_marketPath}/mypage/mlg/list">
-                               		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
-								</a>
-							</dd>
-	                    </dl>
-	                </div>
-	            </div>
-            </div>
-            
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
             <div class="items-center justify-between md:flex">
                 <div class="space-y-1.5">
 					<p class="text-alert">문의하신 내용과 답변내용 확인하실 수 있습니다.</p>
@@ -58,9 +18,9 @@
 					<p class="text-alert">답변 완료된 문의는 수정, 삭제 하실 수 없습니다.</p>
                 </div>
             </div>
-            
+
             <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
-            
+
             <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="inqryVO" enctype="multipart/form-data">
 	            <form:hidden path="crud" />
 	            <form:hidden path="inqryNo" />
@@ -152,7 +112,7 @@
 	                                    </div>
 	                                     --%>
 	                                    <input type="file" id="attachFile" name="attachFile" ${fn:length(inqryVO.fileList) > 0 ? 'style="display:none;' : '' }" class="form-control w-full">
-	
+
 	                                    <c:forEach var="fileList" items="${inqryVO.fileList}" varStatus="status">
 	                                  	 <div class="form-upload-link">
 	                                         <span class="form-upload-link-name">${fileList.orgnlFileNm}</span>

@@ -9,48 +9,8 @@
             <jsp:include page="../layout/page_sidenav.jsp" />
 
             <div id="page-content">
-				<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
-					<div class="user-name">
-					    <strong>${_mbrSession.mbrNm} <small>님</small></strong>
-						<span>${recipterYnCode[_mbrSession.recipterYn]}</span>
-	                       <button type="button" class="user-toggle">메뉴 열기</button>
-					</div>
-					<div class="user-info">
-					    <div class="grade">
-					        <strong>${gradeCode[_mbrSession.mberGrade]}</strong>
-							<a href="${_marketPath}/etc/bnft/list">등급별혜택</a>
-						</div>
-						<div class="point">
-						    <dl>
-						        <dt>쿠폰</dt>
-						        <dd>
-						        	<a href="${_marketPath}/mypage/coupon/list">
-	                               		<strong>11</strong> 장
-							   		</a>
-							 	</dd>
-							</dl>
-							<dl>
-							    <dt>포인트</dt>
-							    <dd>
-							   		<a href="${_marketPath}/mypage/point/list">
-	                               		<strong>11</strong>
-										<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
-									</a>
-								</dd>
-		                    </dl>
-		                    <dl>
-		                        <dt>마일리지</dt>
-		                        <dd>
-		                        	<a href="${_marketPath}/mypage/mlg/list">
-	                               		<strong>11</strong>
-										<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
-									</a>
-								</dd>
-		                    </dl>
-		                </div>
-		            </div>
-	            </div>
-	            
+				<jsp:include page="../layout/mobile_userinfo.jsp" />
+
 				<c:if test="${prtcrRecipterYn eq 'N'}">
                 <!-- 진행 주문 현황 -->
                 <div class="mypage-myinfo-order mb-12 md:mb-25">
@@ -491,7 +451,7 @@
 
                 </c:if>
                 <!-- //수급자 진행 주문 현황 -->
-                
+
                 <div class="space-y-12 md:space-y-25">
 					<!-- 최근 구매 내역 -->
 	                <div class="mypage-myinfo-recent">
@@ -499,25 +459,25 @@
 	                        <h2>최근 구매 내역</h2>
 	                        <a href="./ordr/list" class="btn btn-more2">전체보기</a>
 	                    </div>
-	
+
 	                    <div class="space-y-5.5 md:space-y-7.5">
 	                    	<c:if test="${empty ordrListVO.listObject }">
 	                        <p class="box-result is-large">최근 6개월간 주문 내역이 없습니다</p>
 	                        </c:if>
-	
+
 							<c:forEach items="${ordrListVO.listObject}" var="ordrDtl" varStatus="status">
 							<c:set var="pageParam" value="curPage=${ordrListVO.curPage}${!empty(ordrListVO.urlParam)? '&amp;' : ''}${ordrListVO.urlParam}" />
-	
+
 							<c:set var="spOrdrOptn" value="${fn:split(ordrDtl.ordrOptn, '*')}" />
-	
+
 							<c:if test="${ordrDtl.ordrOptnTy eq 'BASE'}">
-	
+
 							<c:set var="sumOrdrPc" value="${ordrDtl.ordrPc }" />
 							<c:set var="ordrQy" value="${ordrDtl.ordrQy }" />
-	
+
 							<%-- 통합 주문 번호 --%>
 							<c:if test="${status.first}">
-	
+
 		                    <div class="order-product">
 		                        <div class="order-header">
 		                        	<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
@@ -551,8 +511,8 @@
 		                            </c:if>
 							</c:if>
 							<%-- 통합 주문 번호 --%>
-	
-	
+
+
 		                            <div class="order-item">
 		                                <div class="order-item-thumb">
 		                                    <c:choose>
@@ -590,7 +550,7 @@
 		                                        </div>
 							</c:if>
 							<c:if test="${ordrDtl.ordrOptnTy eq 'ADIT'}">
-	
+
 							<c:set var="sumOrdrPc" value="${sumOrdrPc + ordrDtl.ordrPc}" />
 		                                        <div class="order-item-add">
 		                                            <span class="label-outline-primary">
@@ -603,9 +563,9 @@
 		                                            </div>
 		                                        </div>
 							</c:if>
-	
+
 							<c:if test="${ordrListVO.listObject[status.index+1].ordrOptnTy eq 'BASE' || status.last}">
-	
+
 		                                    </div>
 		                                    <div class="order-item-count">
 		                                        <p><strong>${ordrQy}</strong>개</p>
@@ -690,14 +650,14 @@
 		                                                <dt>배송중</dt>
 		                                                <dd><fmt:formatDate value="${ordrDtl.sndngDt}" pattern="yyyy-MM-dd" /></dd>
 		                                            </dl>
-	
+
 													<c:set var="dlvyUrl" value="#" />
 		                                            <c:forEach items="${dlvyCoList}" var="dlvyCoInfo" >
 		                                            	<c:if test="${dlvyCoInfo.coNo eq ordrDtl.dlvyCoNo}">
 		                                            	<c:set var="dlvyUrl" value="${dlvyCoInfo.dlvyUrl}" />
 		                                            	</c:if>
 		                                            </c:forEach>
-	
+
 		                                            <a href="${dlvyUrl}${ordrDtl.dlvyInvcNo}" target="_blank" class="btn btn-delivery">
 		                                                <span class="name">
 		                                                    <img src="/html/page/market/assets/images/ico-delivery.svg" alt="">
@@ -749,11 +709,11 @@
 		                                    </div>
 		                                </div>
 		                            </div>
-	
+
 		                    <%-- 통합 주문 번호 --%>
 							<c:if test="${status.last || (ordrDtl.ordrCd ne ordrListVO.listObject[status.index+1].ordrCd )}">
 		                        </div>
-	
+
 								<c:set var="ordrCancelBtn" value="false" />
 								<c:if test="${ordrDtl.cancelBtn > 0}">
 								<c:set var="ordrCancelBtn" value="true" />
@@ -768,11 +728,11 @@
 		                            </c:if>
 		                        </div>
 		                        </c:if>
-	
+
 		                    </div>
 		                    </c:if>
 		                    <c:if test="${!status.last && ordrDtl.ordrCd ne ordrListVO.listObject[status.index+1].ordrCd}">
-	
+
 		                    <div class="order-product">
 		                        <div class="order-header">
 		                        <c:if test="${listVO.listObject[status.index+1].ordrTy eq 'R' || listVO.listObject[status.index+1].ordrTy eq 'L'}">
@@ -807,12 +767,12 @@
 							</c:if>
 		                    <%-- 통합 주문 번호 --%>
 		                    </c:if>
-	
+
 							</c:forEach>
 	                    </div>
 	                </div>
 	                <!-- //최근 구매 내역 -->
-	
+
 	                <!--  나의 상품 후기 -->
 	                <!-- <div class="mypage-myinfo-recent">
 	                    <div class="recent-title">
@@ -839,7 +799,7 @@
 	                    </c:forEach>
 	                </div> -->
 	                <!-- //나의 상품 후기 -->
-	
+
 	                <!-- 나의 상품 Q&A -->
 	                <div class="mypage-myinfo-recent">
 	                    <div class="recent-title">
@@ -847,7 +807,7 @@
 	                        <a href="${_marketPath}/mypage/gdsQna/list" class="btn btn-more">전체보기</a>
 	                        <p class="count">답변 처리중인 질문 <strong>${qaList.totalCount}</strong> 건</p>
 	                    </div>
-	
+
 						<c:if test="${empty qaList.listObject}"><p class="box-result is-large">최근 작성한 상품 Q&A가 없습니다</p></c:if>
 	                    <c:forEach var="qaList" items="${qaList.listObject}">
 		                    <div class="mypage-myinfo-qna-item">
@@ -878,8 +838,8 @@
 		                        </div>
 		                    </div>
 	                    </c:forEach>
-	
-	
+
+
 	                    <script>
 	                        $('.product-qnaitem .answer .btn').on('click', function() {
 	                            $(this).closest('.product-qnaitem').toggleClass('is-active');
@@ -887,14 +847,14 @@
 	                    </script>
 	                </div>
 	                <!-- //나의 상품 Q&A -->
-	
+
 	                <!-- 이벤트 응모 현황 -->
 	                <div class="mypage-myinfo-recent">
 	                    <div class="recent-title">
 	                        <h2>이벤트 응모 현황</h2>
 	                        <a href="${_marketPath}/mypage/event/list" class="btn btn-more">전체보기</a>
 	                    </div>
-	
+
 						<c:if test="${empty eventList.listObject}"><p class="box-result is-large">최근 응모한 이벤트가 없습니다</p></c:if>
 	                    <c:set var="getNow" value="<%=new java.util.Date()%>" />
 						<div class="overflow-hidden space-y-5.5 md:space-y-7.5">
