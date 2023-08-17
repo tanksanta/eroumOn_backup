@@ -27,6 +27,7 @@
 	<style>
 		table { border-collapse:collapse; }
 		table th,  td { border:1px solid #cccccc; }
+		.excel_data_value_string{ mso-number-format:"\@"; }
 	</style>
 	</head>
 <body>
@@ -79,7 +80,7 @@
                 <td>${fn:split(result.gdsCtgryPath,' > ')[3]}</td>
                 <td>${result.gdsCd}</td>
                 <td>${result.bnefCd}</td>
-                <td>${result.itemCd}</td>
+                <td class="excel_data_value_string">${result.itemCd}</td>
                 <td>${result.gdsNm}</td>
                 <td>${result.mngrMemo}</td>
                 <td>${result.bassDc}</td>
