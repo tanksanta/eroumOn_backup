@@ -1,6 +1,7 @@
 package icube.members.bplc.mng;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
+import icube.common.util.DateUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltResultService;
@@ -176,5 +178,30 @@ public class MBplcConsltController extends CommonAbstractController {
 		return resultMap;
 	}
 
+
+	@RequestMapping("excel")
+	public String excelDownload(
+			HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("srchUseYn", "Y");
+		paramMap.put("srchBplcUniqueId", partnersSession.getUniqueId());
+
+		List<MbrConsltResultVO> resultList = mbrConsltResultService.selectListForExcel(paramMap);
+		for(MbrConsltResultVO mbrConsltResultVO : resultList) {
+			int yyyy =  EgovStringUtil.string2integer(mbrConsltResultVO.getMbrConsltInfo().getBrdt().substring(0, 4));
+			int mm =  EgovStringUtil.string2integer(mbrConsltResultVO.getMbrConsltInfo().getBrdt().substring(4, 6));
+			int dd =  EgovStringUtil.string2integer(mbrConsltResultVO.getMbrConsltInfo().getBrdt().substring(6, 8));
+			mbrConsltResultVO.getMbrConsltInfo().setAge(DateUtil.getRealAge(yyyy, mm, dd));
+		}
+
+		model.addAttribute("resultList", resultList);
+		model.addAttribute("genderCode", CodeMap.GENDER);
+
+		return "/members/bplc/mng/conslt/excel";
+	}
 
 }

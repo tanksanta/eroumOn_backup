@@ -86,6 +86,7 @@
 	</definition>
 
 	<!-- 파트너스 > 사업소 > 관리자 order:1 -->
+	<definition name="/members/bplc/mng/*/excel" template="/WEB-INF/jsp/members/bplc/mng/{1}/excel.jsp" />
 	<definition name=".bplc_mng_layout" template="/WEB-INF/jsp/members/bplc/mng/layout/layout.jsp">
 		<put-attribute name="header" 	value="/WEB-INF/jsp/members/bplc/mng/layout/header.jsp" />
 		<put-attribute name="page-content" 	value="" />

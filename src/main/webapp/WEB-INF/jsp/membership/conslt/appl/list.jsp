@@ -50,7 +50,7 @@
                     </dl>
                     <dl class="search-partner">
                         <dt><label for="srchBplcNm">상담 기관</label></dt>
-                        <dd><input type="text"id="srchBplcNm" class="form-control w-full md:w-83"></dd>
+                        <dd><input type="text" id="srchBplcNm" name="srchBplcNm" value="${param.srchBplcNm}" class="form-control w-full md:w-83"></dd>
                     </dl>
                     <dl class="search-current">
                         <dt><label for="srchConsltSttus">상담 접수 현황</label></dt>

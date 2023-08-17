@@ -47,7 +47,7 @@
 			                                <option value="">선택</option>
 			                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 신청 접수</option>
 			                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
-			                                <option value="CS03" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>
+			                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>
 			                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
 			                            </select>
 			                        </td>
@@ -63,7 +63,7 @@
 
                 <div class="mt-13 flex items-end gap-1.5">
                     <p class="text-title2 mr-auto">1:1상담 목록</p>
-                    <button type="button" class="btn-primary mb-3">엑셀 다운로드</button>
+                    <button type="button" class="btn-primary mb-3 btn-excel">엑셀 다운로드</button>
                 </div>
                 <div class="scroll-table">
                     <table class="table-list">
@@ -159,6 +159,11 @@
             }
 
             $(function(){
+
+            	$(".btn-excel").on("click", function(){
+            		$("#searchFrm").attr("action","excel").submit();
+            		$("#searchFrm").attr("action","list");
+            	});
 
             	// 출력 갯수
                 $("#countPerPage").on("change", function(){

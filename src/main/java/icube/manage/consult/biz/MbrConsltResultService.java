@@ -85,5 +85,9 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 
 	}
 
+	public List<MbrConsltResultVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltResultDAO.selectListForExcel(paramMap);
+	}
+
 
 }

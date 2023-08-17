@@ -24,6 +24,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
+import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -209,5 +210,29 @@ public class MMbrConsltController extends CommonAbstractController{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
+	}
+
+
+	@RequestMapping("excel")
+	public String excelDownload(
+			HttpServletRequest request
+			, @RequestParam Map<String, Object> reqMap
+			, Model model) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUseYn", "Y");
+
+		List<MbrConsltVO> resultList = mbrConsltService.selectListForExcel(paramMap);
+		for(MbrConsltVO mbrConsltVO : resultList) {
+			int yyyy =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(0, 4));
+			int mm =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(4, 6));
+			int dd =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(6, 8));
+			mbrConsltVO.setAge(DateUtil.getRealAge(yyyy, mm, dd));
+		}
+
+		model.addAttribute("resultList", resultList);
+		model.addAttribute("genderCode", CodeMap.GENDER);
+
+		return "/manage/consult/recipter/excel";
 	}
 }
