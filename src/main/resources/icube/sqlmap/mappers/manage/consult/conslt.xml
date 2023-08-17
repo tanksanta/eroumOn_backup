@@ -150,4 +150,11 @@
 		WHERE conslt_no = #{consltNo}
 	</update>
 
+
+	<update id="updateSttus" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+	</update>
+
 </mapper>

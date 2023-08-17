@@ -5,13 +5,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +26,6 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
-import icube.manage.members.bplc.biz.BplcVO;
 import icube.members.biz.PartnersSession;
 
 @Controller
@@ -57,7 +54,6 @@ public class MBplcConsltController extends CommonAbstractController {
 		listVO.setParam("srchBplcUniqueId", partnersSession.getUniqueId());
 
 		listVO = mbrConsltResultService.selectMbrConsltResultListVO(listVO);
-		//listVO = mbrConsltService.formatMbrConsltVO(listVO);
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
@@ -70,6 +66,7 @@ public class MBplcConsltController extends CommonAbstractController {
 	@RequestMapping(value="view")
 	public String view(
 			@RequestParam(value="consltNo", required=true) int consltNo
+			, @RequestParam(value="bplcConsltNo", required=true) int bplcConsltNo
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
 			, Model model) throws Exception{
@@ -77,6 +74,7 @@ public class MBplcConsltController extends CommonAbstractController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltNo", consltNo);
 		paramMap.put("srchConsltNo", consltNo);
+		paramMap.put("srchBplcConsltNo", bplcConsltNo);
 		paramMap.put("srchBplcUniqueId", partnersSession.getUniqueId());
 
 		MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConslt(paramMap);
@@ -96,7 +94,7 @@ public class MBplcConsltController extends CommonAbstractController {
 	}
 
 
-	// 처리 (이로움 관리자의 처리와 다름)
+	// 상담 완료 처리 (이로움 관리자의 처리와 다름)
 	@RequestMapping(value="action")
 	public View action(
 			MbrConsltResultVO mbrConsltResultVO
@@ -105,12 +103,6 @@ public class MBplcConsltController extends CommonAbstractController {
 
 		JavaScript javaScript = new JavaScript();
 		String pageParam = HtmlUtils.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
-
-		// 사업소 선택 정보 처리
-		String bplcUniqueId = (String) reqMap.get("bplcUniqueId");
-		String bplcId = (String) reqMap.get("bplcId");
-		String bplcNm = (String) reqMap.get("bplcNm");
-
 
 		// 상담정보 > 관리자(사업소) 메모 처리
 		mbrConsltResultVO.setRegUniqueId(partnersSession.getUniqueId());
@@ -121,17 +113,18 @@ public class MBplcConsltController extends CommonAbstractController {
 
 
 		javaScript.setMessage(getMsg("action.complete.update"));
-		javaScript.setLocation("./view?consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
+		javaScript.setLocation("./view?bplcConsltNo="+ mbrConsltResultVO.getBplcConsltNo() +"&consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
 
 		return new JavaScriptView(javaScript);
 	}
 
 
-	// 상담취소
+	// 사업소 상담중 사용자 취소(CS03)
 	@RequestMapping(value = "canclConslt.json")
 	@ResponseBody
 	public Map<String, Object> cancelConslt(
 			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "bplcConsltNo", required=true) int bplcConsltNo
 			, @RequestParam(value = "canclResn", required=true) String canclResn
 			, HttpServletRequest request
 			) throws Exception {
@@ -142,8 +135,37 @@ public class MBplcConsltController extends CommonAbstractController {
 		paramMap.put("consltSttus", "CS03"); //상담자 취소
 		paramMap.put("canclResn", canclResn);
 		paramMap.put("consltNo", consltNo);
+		paramMap.put("bplcConsltNo", bplcConsltNo);
 
-		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
+		int resultCnt = mbrConsltResultService.updateCanclConslt(paramMap);
+		if(resultCnt > 0) {
+			result = true;
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
+
+	// 사업소 > 상담수락 or 상담거부
+	@RequestMapping(value = "changeSttus.json")
+	@ResponseBody
+	public Map<String, Object> changeSttus(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "bplcConsltNo", required=true) int bplcConsltNo
+			, @RequestParam(value = "consltSttus", required=true) String consltSttus
+			, HttpServletRequest request
+			) throws Exception {
+
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", consltSttus);
+		paramMap.put("consltNo", consltNo);
+		paramMap.put("bplcConsltNo", bplcConsltNo);
+
+		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
 
 		if(resultCnt > 0) {
 			result = true;
@@ -153,5 +175,6 @@ public class MBplcConsltController extends CommonAbstractController {
 		resultMap.put("result", result);
 		return resultMap;
 	}
+
 
 }

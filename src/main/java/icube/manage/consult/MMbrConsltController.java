@@ -4,6 +4,7 @@
 package icube.manage.consult;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
+import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltResultService;
@@ -34,6 +36,8 @@ import icube.manage.sysmng.mngr.biz.MngrSession;
 /**
  * 장기요양 상담 신청
  * @author ogy
+ *
+ * @update kkm : 상담 프로세스 추가
  *
  */
 @Controller
@@ -60,7 +64,6 @@ public class MMbrConsltController extends CommonAbstractController{
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
-		listVO = mbrConsltService.formatMbrConsltVO(listVO);
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
@@ -84,6 +87,12 @@ public class MMbrConsltController extends CommonAbstractController{
 		if(mbrConsltVO == null) {
 			model.addAttribute("alertMsg", getMsg("alert.author.common"));
 			return "/common/msg";
+		}else {
+			List<MbrConsltResultVO> consltResultList = mbrConsltVO.getConsltResultList();
+			for(MbrConsltResultVO mbrConsltResultVO : consltResultList) {
+				mbrConsltResultVO.setConsltDtls(HtmlUtil.enterToBr(mbrConsltResultVO.getConsltDtls()));
+				mbrConsltResultVO.setReconsltResn(HtmlUtil.enterToBr(mbrConsltResultVO.getReconsltResn()));
+			}
 		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
@@ -120,6 +129,12 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltResultVO.setRegUniqueId(mngrSession.getUniqueId());
 			mbrConsltResultVO.setRegId(mngrSession.getMngrId());
 			mbrConsltResultVO.setRgtr(mngrSession.getMngrNm());
+
+			mbrConsltResultVO.setConsltSttus(mbrConsltVO.getConsltSttus()); //배정
+
+			if(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02")) { // 처음 배정이면 기존 사업소 삭제
+				mbrConsltResultService.deleteMbrConsltBplc(mbrConsltResultVO);
+			}
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
 

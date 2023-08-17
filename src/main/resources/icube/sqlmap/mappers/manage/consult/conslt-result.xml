@@ -31,6 +31,10 @@
 		<if test="srchBplcUniqueId != null  and srchBplcUniqueId != '' ">
 			AND bplc_unique_id = #{srchBplcUniqueId}
 		</if>
+		<if test="srchConsltSttus != null  and srchConsltSttus != '' ">
+			AND conslt_sttus = #{srchConsltSttus}
+		</if>
+
 	</sql>
 
 	<select id="selectMbrConsltResultListVO" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
@@ -87,10 +91,12 @@
 		)
 	</insert>
 
+	<!-- 상담완료 -->
 	<update id="updateDtlsConslt" parameterType="mbrConsltResultVO">
 		UPDATE MBR_CONSLT_RESULT SET
 			conslt_dtls = #{consltDtls}
 			, conslt_dt = SYSDATE()
+			, conslt_sttus = 'CS06'
 		WHERE bplc_conslt_no = #{bplcConsltNo}
 	</update>
 
@@ -104,5 +110,38 @@
 		ORDER BY bplc_conslt_no DESC
 		LIMIT 1
 	</select>
+
+	<!-- 상담취소 -->
+	<update id="updateCanclConslt" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT_RESULT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_conslt_no = #{bplcConsltNo}
+	</update>
+
+	<!-- 상태변경 -->
+	<update id="updateSttus" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT_RESULT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_conslt_no = #{bplcConsltNo}
+	</update>
+
+	<!-- 완료된건에 대해서 재상담 사유만 입력 -->
+	<update id="updateReConslt" parameterType="mbrConsltResultVO">
+		UPDATE MBR_CONSLT_RESULT SET
+			reconslt_resn = #{reconsltResn}
+			, reconslt_dt = SYSDATE()
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_unique_Id = #{bplcUniqueId}
+		  AND conslt_sttus = 'CS06'
+	</update>
+
+	<!-- 상담전 재배정 -->
+	<delete id="deleteMbrConsltBplc" parameterType="mbrConsltResultVO">
+		DELETE FROM MBR_CONSLT_RESULT
+		WHERE conslt_no = #{consltNo}
+		  AND conslt_sttus = #{consltSttus}
+	</delete>
 
 </mapper>

@@ -49,8 +49,8 @@
                         </dd>
                     </dl>
                     <dl class="search-partner">
-                        <dt><label for="search-item2">상담 사업소</label></dt>
-                        <dd><input type="text"id="search-item2" class="form-control w-full md:w-83"></dd>
+                        <dt><label for="srchBplcNm">상담 기관</label></dt>
+                        <dd><input type="text"id="srchBplcNm" class="form-control w-full md:w-83"></dd>
                     </dl>
                     <dl class="search-current">
                         <dt><label for="srchConsltSttus">상담 접수 현황</label></dt>
@@ -58,13 +58,13 @@
                             <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-full md:w-40">
                                 <option value="">선택</option>
                                 <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 완료</option>
-                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>장기요양기관 배정 완료</option>
-                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소 (신청자 상담 거부)</option>
-                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소 (장기요양기관 상담 거부)</option>
+                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 기관 배정 완료</option>
+                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소</option><%--사용자--%>
+                                <%-- <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>사업소 --%>
                                 <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
                                 <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
-                                <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 접수</option>
-                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>장기요양기관 재배정 완료</option>
+                                <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 완료</option>
+                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>상담 기관 재배정 완료</option>
                             </select>
                         </dd>
                     </dl>
@@ -82,6 +82,7 @@
                 <div class="mypage-consult-item-gutter"></div>
 
                 <c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
+                <c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
                 <div class="mypage-consult-item">
                     <dl class="item-current">
                         <dt>상담진행 현황</dt>
@@ -89,28 +90,39 @@
                         	<%-- 사용자/관리자 txt가 일부 달라서 코드만 동일하게 사용함 --%>
                         	<c:choose>
 								<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 완료</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
 							</c:choose>
                         </dd>
                     </dl>
                     <dl class="item-partner">
-                        <dt>상담 사업소</dt>
+                        <dt>상담 기관</dt>
                         <dd>
 							<c:choose>
-								<c:when test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}"><strong>장기요양기관 배정 중</strong> 입니다.</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS01'}"><strong>상담 기관 배정 중</strong> 입니다.</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04'}">상담이 취소되었습니다.</c:when>
-								<c:otherwise>
-									<c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
-									<strong>${resultList.consltResultList[consltSize-1].bplcNm}</strong>
+								<c:when test="${resultList.consltSttus eq 'CS07'}"><strong>상담 기관 배정 중</strong> 입니다.
 									<c:if test="${consltSize > 1 }">
 									<ul class="history">
 									<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
+		                                <li>
+		                                    <small>${status2.index+1}차 상담</small>
+		                                    <span>${consltResult.bplcNm}</span>
+		                                </li>
+									</c:forEach>
+		                            </ul>
+		                            </c:if>
+								</c:when>
+								<c:otherwise>
+									<strong>${resultList.consltResultList[consltSize-1].bplcNm}</strong>
+									<c:if test="${consltSize > 1 }">
+									<ul class="history">
+									<c:forEach items="${resultList.consltResultList}" begin="0" end="${consltSize-2}" var="consltResult" varStatus="status2">
 		                                <li>
 		                                    <small>${status2.index+1}차 상담</small>
 		                                    <span>${consltResult.bplcNm}</span>
@@ -129,110 +141,21 @@
                     <%--상담 완료시 --%>
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
                     <div class="item-request">
-                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#reqModal">재 상담 신청</button>
+                    	<c:if test="${consltSize < 3}"> <%-- 재상담 신청은 최대 3회 --%>
+                        <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}">재 상담 신청</button>
+						</c:if>
                         <label class="check1">
-                            <input type="checkbox" name="" value="">
+                            <input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}">
                             <span>추천하기</span>
                         </label>
                         <label class="check2">
-                            <input type="checkbox" name="" value="">
+                            <input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}">
                             <span>관심설정</span>
                         </label>
                     </div>
                     </c:if>
                 </div>
                 </c:forEach>
-                <%--
-                <div class="mypage-consult-item">
-                    <dl class="item-current">
-                        <dt>상담진행 현황</dt>
-                        <dd>상담 신청 완료</dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>상담 사업소</dt>
-                        <dd><strong>장기요양기관 배정 중</strong> 입니다.</dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd>2023.07.28</dd>
-                    </dl>
-                </div>
-                <div class="mypage-consult-item">
-                    <dl class="item-current">
-                        <dt>상담진행 현황</dt>
-                        <dd>상담 신청 완료</dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>상담 사업소</dt>
-                        <dd><strong>장기요양기관 배정 중</strong> 입니다.</dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd>2023.07.28</dd>
-                    </dl>
-                </div>
-                <div class="mypage-consult-item">
-                    <dl class="item-current">
-                        <dt>상담진행 현황</dt>
-                        <dd>상담 신청 완료</dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>상담 사업소</dt>
-                        <dd><strong>장기요양기관 배정 중</strong> 입니다.</dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd>2023.07.28</dd>
-                    </dl>
-                </div>
-                <div class="mypage-consult-item">
-                    <dl class="item-current">
-                        <dt>상담진행 현황</dt>
-                        <dd>상담 신청 완료</dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>상담 사업소</dt>
-                        <dd><strong>장기요양기관 배정 중</strong> 입니다.</dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd>2023.07.28</dd>
-                    </dl>
-                </div>
-                <div class="mypage-consult-item">
-                    <dl class="item-current">
-                        <dt>상담진행 현황</dt>
-                        <dd>상담 신청 완료</dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>상담 사업소</dt>
-                        <dd>
-                            <strong>장기요양기관 배정 중</strong> 입니다.
-                            <ul class="history">
-                                <li>
-                                    <small>1차 상담</small>
-                                    <span>상담소명</span>
-                                </li>
-                            </ul>
-                        </dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd>2023.07.28</dd>
-                    </dl>
-                    <div class="item-request">
-                        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#reqModal">재 상담 신청</button>
-                        <label class="check1">
-                            <input type="checkbox" name="" value="">
-                            <span>추천하기</span>
-                        </label>
-                        <label class="check2">
-                            <input type="checkbox" name="" value="">
-                            <span>관심설정</span>
-                        </label>
-                    </div>
-                </div>
-                 --%>
             </div>
 
 			<div class="pagination">
@@ -241,7 +164,10 @@
 
             <div class="modal fade" id="reqModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
-                    <form class="modal-content">
+                    <form id="modalReConslt" name="modalReConslt" class="modal-content" enctype="multipart/form-data">
+                    	<input type="hidden" id="consltNo" name="consltNo" value="0">
+                    	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
+
                         <div class="modal-header">
                             <p class="text-title">재 상담 신청 사유 입력</p>
                         </div>
@@ -250,10 +176,10 @@
                         </div>
                         <div class="modal-body">
                             <p class="text-alert">재 상담 신청 사유를 입력해 주세요.</p>
-                            <textarea name="" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
+                            <textarea name="reconsltResn" id="reconsltResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-submit">저장하기</button>
+                            <button type="button" class="btn btn-primary btn-submit">저장하기</button>
                             <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </form>
@@ -290,7 +216,64 @@
 
         $(window).on('resize', function() {
             if(resize) $('body').removeClass('overflow-hidden').find('.consult-search').removeAttr('style');
-        })
+        });
+
+        $(".f_reconslt").on("click", function(e){
+        	let consltNo = $(this).data("consltNo");
+        	let bplcUniqueId = $(this).data("bplcUniqueId");
+        	console.log(consltNo, bplcUniqueId);
+
+        	$("#modalReConslt input[name='consltNo']").val(consltNo);
+        	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
+        	$("#reqModal").modal('show');
+        });
+
+
+        $("#modalReConslt .btn-submit").on("click", function(){
+    		$("#modalReConslt").submit();
+    	});
+
+    	$("form[name='modalReConslt']").validate({
+    	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
+    	    rules : {
+    	    	reconsltResn : { required : true}
+    	    },
+    	    messages : {
+    	    	reconsltResn : { required : "내용을 작성해 주세요"}
+    	    },
+    	    submitHandler: function (frm) {
+
+    	    	let consltNo = $("#modalReConslt input[name='consltNo']").val();
+    	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
+    	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
+
+   	            if (confirm('해당 내역을 저장하시겠습니까?')) {
+	   	            $.ajax({
+	       				type : "post",
+	       				url  : "./reConslt.json", //주문확인
+	       				data : {
+	       					consltNo:consltNo
+	       					, reconsltResn:reconsltResn
+	       					, bplcUniqueId:bplcUniqueId
+	       				},
+	       				dataType : 'json'
+	       			})
+	       			.done(function(data) {
+	       				if(data.result){
+	       					alert("정상적으로 저장되었습니다.");
+	       					//$("#modalReConslt .btn-cancel").click();
+	       					window.location.reload();
+	       				}
+	       			})
+	       			.fail(function(data, status, err) {
+	       				alert('재 상담 신청에 실패하였습니다. : ' + data);
+	       			});
+   	        	}else{
+   	        		return false;
+   	        	}
+    	    }
+    	});
+
 
     });
     </script>

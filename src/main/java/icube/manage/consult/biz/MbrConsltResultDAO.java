@@ -26,6 +26,22 @@ public class MbrConsltResultDAO extends CommonAbstractMapper {
 		return selectOne("conslt.result.selectMbrConsltBplc", paramMap);
 	}
 
+	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.result.updateCanclConslt", paramMap);
+	}
+
+	public int updateSttus(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.result.updateSttus", paramMap);
+	}
+
+	public void deleteMbrConsltBplc(MbrConsltResultVO mbrConsltResultVO) throws Exception {
+		delete("conslt.result.deleteMbrConsltBplc", mbrConsltResultVO);
+	}
+
+	public int updateReConslt(MbrConsltResultVO mbrConsltResultVO) throws Exception {
+		return update("conslt.result.updateReConslt", mbrConsltResultVO);
+	}
+
 
 
 }
