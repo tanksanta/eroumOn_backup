@@ -121,6 +121,58 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 	});
 }
 
+function f_findAdres(zip, addr, daddr, lat, lot) {
+	$.ajaxSetup({ cache: true });
+	$.getScript( "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js", function() {
+		$.ajaxSetup({ cache: false });
+		
+		// 우편번호 찾기 화면을 넣을 element
+		var element_layer = document.getElementById('addrModal-contents');
+		
+		if(!element_layer) {
+			var addrModalTemplate = `
+				<div id="addrModal" style="position:absolute; width:100%; height:100%; background:rgba(0,0,0,8); top:0; left:0; z-index: 100; display:none;">
+					<div id="addrModal-contents" style="width:500px; height:500px; background:#fff; border-radius:10px; position:relative; top:30%; left:50%; margin-top:-100px; margin-left:-250px; text-align:center; box-sizing:border-box; padding:10px 0; line-height:23px; cursor:pointer;">
+						<button id="addrModalClose" type="button" style="float:right; margin-right: 10px; border: 1px solid lightgray; padding: 5px; border-radius: 5px;">닫기</button>
+					</div>
+				</div>
+			`;
+			document.getElementById('container').insertAdjacentHTML('beforebegin', addrModalTemplate);
+			
+			element_layer = document.getElementById('addrModal-contents');
+			
+			//닫기 이벤트
+			$("#addrModalClose").on("click", function() {
+				$('#addrModal').fadeOut();
+	    		$('#container').css({"display": "block"});
+			});
+		}
+		
+		var daumLayer = document.getElementById('__daum__layer_1');
+		if(!daumLayer) {
+			//다음 주소검색 추가
+			new daum.Postcode({
+				oncomplete: function(data) {
+					$("#"+zip).val(data.zonecode); // 우편번호
+					$("#"+zip).removeClass("is-invalid");
+					$("#"+zip+"-error").remove();
+					$("#"+addr).val(data.roadAddress); // 도로명 주소 변수
+					$("#"+addr).removeClass("is-invalid");
+					$("#"+addr+"-error").remove();
+				
+					$('#addrModal').fadeOut();
+		    		$('#container').css({"display": "block"});
+		    		
+		    		$("#"+daddr).focus(); //포커스
+		        }
+		    }).embed(element_layer);
+		}
+		
+	    $('#addrModal').fadeIn();
+	    $('#container').css({"display": "none"});
+	});
+}
+
 //전화번호 마스킹
 const autoHyphen = (target) => {
 	if(target.value.length > 8){
