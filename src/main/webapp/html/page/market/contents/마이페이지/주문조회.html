@@ -17,7 +17,8 @@
     <script src="../../assets/script/common.js"></script>
     <script src="../../assets/script/order.js"></script>
 </head>
-<body class="is-banner">
+<body>
+
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
@@ -337,7 +338,7 @@
     <!-- //header -->
 
     <!-- container -->
-    <main id="container">
+    <main id="container" class="is-mypage">
         <div id="page-header">
             <ul class="page-header-breadcrumb">
                 <li><a href="#">홈</a></li>
@@ -349,15 +350,93 @@
                 <a href="#" class="back">이전 페이지 가기</a>
                 <h2 class="subject">마이페이지</h2>
             </div>
-            <button type="button" class="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
         </div>
 
         <div id="page-container">
             <nav id="page-sidenav">
-                <div class="global-user">
+                <div class="page-sidenav-header">
+                    <ul class="header-link">
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+                    <button type="button" class="header-close">닫기</button>
+                </div>
+                <div class="page-sidenav-menu lg-max:pt-0">
+                    <div class="global-user flex-none">
+                        <div class="user-name">
+                            <strong>사용자 <small>님</small></strong>
+                            <span>수급자 회원</span>
+                        </div>
+                        <div class="user-info">
+                            <div class="grade">
+                                <strong>신규회원</strong>
+                                <a href="#">등급별혜택</a>
+                            </div>
+                            <div class="point">
+                                <dl>
+                                    <dt>쿠폰</dt>
+                                    <dd><a href="#"><strong>5</strong> 장</a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>포인트</dt>
+                                    <dd><a href="#"><strong>512</strong> <img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트"></a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>마일리지</dt>
+                                    <dd><a href="#"><strong>5123</strong> <img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑내역</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">주문/배송 조회</a></li>
+                                <li><a href="#">취소/교환/반품 조회</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑혜택</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">쿠폰</a></li>
+                                <li><a href="#">포인트</a></li>
+                                <li><a href="#">마일리지</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑활동</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">참여한 이벤트</a></li>
+                                <li><a href="#">내가 구매한 상품</a></li>
+                                <li><a href="#">상품후기</a></li>
+                                <li><a href="#">상품 Q&amp;A</a></li>
+                                <li><a href="#">1:1 문의</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">회원정보</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li class="is-active"><a href="#">회원정보 수정</a></li>
+                                <li class="is-require"><a href="#">가족회원 관리</a></li>
+                                <li><a href="#">배송지 관리</a></li>
+                                <li><a href="#">회원 탈퇴</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div id="page-content">
+                <div class="global-user mb-12 lg:hidden">
                     <div class="user-name">
                         <strong>사용자 <small>님</small></strong>
                         <span>수급자 회원</span>
+                        <button type="button" class="user-toggle">메뉴 열기</button>
                     </div>
                     <div class="user-info">
                         <div class="grade">
@@ -380,70 +459,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="page-sidenav-menu">
-                    <div class="menu-container">
-                        <div class="menu-group">
-                            <p class="title">쇼핑내역</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>주문/배송 조회</span></a></li>
-                                            <li><a href="#"><span>취소/교환/반품 조회</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-group">
-                            <p class="title">쇼핑혜택</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>쿠폰</span></a></li>
-                                            <li><a href="#"><span>포인트</span></a></li>
-                                            <li><a href="#"><span>마일리지</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-group">
-                            <p class="title">쇼핑활동</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>참여한 이벤트</span></a></li>
-                                            <li><a href="#"><span>내가 구매한 상품</span></a></li>
-                                            <li><a href="#"><span>상품후기</span></a></li>
-                                            <li><a href="#"><span>상품 Q&amp;A</span></a></li>
-                                            <li><a href="#"><span>1:1 문의</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="menu-group">
-                            <p class="title">회원정보</p>
-                            <div class="scroller">
-                                <div class="direction">
-                                    <div class="content">
-                                        <ul class="menulist">
-                                            <li><a href="#"><span>회원정보 수정</span></a></li>
-                                            <li class="require"><a href="#"><span>가족회원 관리</span></a></li>
-                                            <li><a href="#"><span>배송지 관리</span></a></li>
-                                            <li><a href="#"><span>회원 탈퇴</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div id="page-content">
+                
                 <!-- 수급자 -->
                 <ul class="order-sequence">
                     <li class="seq1">
