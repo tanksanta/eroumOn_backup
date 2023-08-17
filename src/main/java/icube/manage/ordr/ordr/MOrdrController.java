@@ -43,7 +43,9 @@ import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
+import icube.manage.sysmng.mngr.biz.MngrService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
+import icube.manage.sysmng.mngr.biz.MngrVO;
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.model.request.Subscribe;
 import kr.co.bootpay.model.request.User;
@@ -73,6 +75,9 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
+	
+	@Resource(name="mngrService")
+	private MngrService mngrService;
 
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
@@ -104,8 +109,19 @@ public class MOrdrController extends CommonAbstractController {
 			, HttpServletRequest request
 			, Model model) throws Exception {
 
+        Map<String, String> mbgrReqMap = new HashMap<>();
+        mbgrReqMap.put("mngrId", mngrSession.getMngrId());
+        MngrVO curMngrVO = mngrService.selectMngrById(mbgrReqMap);
+		
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
+		
+        //현재관리자에 입점업체 정보가 있으면 해당 입점업체만 조회되도록 구현
+        if (curMngrVO.getEntrpsNo() > 0) {
+        	listVO.setParam("srchEntrpsNo", curMngrVO.getEntrpsNo());
+        	model.addAttribute("mngrEntrpsNo", curMngrVO.getEntrpsNo());
+        }
+        
 		listVO = ordrService.ordrListVO(listVO);
 		
 		//간편로그인 ID 너무 길어서 간단하게 표시작업

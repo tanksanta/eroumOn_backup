@@ -117,10 +117,10 @@
                                 </td>
                                 <th scope="row"><label for="srchOrdrrId">입점업체</label></th>
                                 <td>
-                                	<select name="srchEntrpsNo" id="srchEntrpsNo" class="form-control w-84">
+                                	<select name="srchEntrpsNo" id="srchEntrpsNo" class="form-control w-84" <c:if test="${!empty mngrEntrpsNo}">disabled</c:if>>
 	                                    <option value="">입점업체 선택</option>
 	                                    <c:forEach items="${entrpsList}" var="entrps">
-	                                    	<option value="${entrps.entrpsNo}">${entrps.entrpsNm}</option>
+	                                    	<option value="${entrps.entrpsNo}" <c:if test="${entrps.entrpsNo eq mngrEntrpsNo}">selected</c:if>>${entrps.entrpsNm}</option>
 	                                    </c:forEach>
 	                                </select>
                                 </td>
