@@ -81,6 +81,9 @@
 	                </c:choose>
 	            </div>
 	            <a href="${_membershipPath}/logout" class="logout">로그아웃</a>
+	            <div class="offcanvas-header">
+		    		<button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+		    	</div>
 	        </div>
         </c:if>
 
