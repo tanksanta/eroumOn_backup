@@ -1,18 +1,17 @@
-/*
- *
- */
-package icube.manage.consult;
+package icube.members.bplc.mng;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,16 +28,12 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
-import icube.manage.sysmng.mngr.biz.MngrSession;
+import icube.manage.members.bplc.biz.BplcVO;
+import icube.members.biz.PartnersSession;
 
-/**
- * 장기요양 상담 신청
- * @author ogy
- *
- */
 @Controller
-@RequestMapping(value="/#{props['Globals.Manager.path']}/consult/recipter")
-public class MMbrConsltController extends CommonAbstractController{
+@RequestMapping(value="#{props['Globals.Members.path']}/{bplcUrl}/mng/conslt")
+public class MBplcConsltController extends CommonAbstractController {
 
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -47,9 +42,9 @@ public class MMbrConsltController extends CommonAbstractController{
 	private MbrConsltResultService mbrConsltResultService;
 
 	@Autowired
-	private MngrSession mngrSession;
+	private PartnersSession partnersSession;
 
-	private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"};
+	private static String[] targetParams = {"curPage", "cntPerPage"};
 
 	@RequestMapping(value = "list")
 	public String list(
@@ -59,17 +54,19 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchUseYn", "Y");
-		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
-		listVO = mbrConsltService.formatMbrConsltVO(listVO);
+		listVO.setParam("srchBplcUniqueId", partnersSession.getUniqueId());
+
+		listVO = mbrConsltResultService.selectMbrConsltResultListVO(listVO);
+		//listVO = mbrConsltService.formatMbrConsltVO(listVO);
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 
-		return "/manage/consult/recipter/list";
+		return "/members/bplc/mng/conslt/list";
 	}
 
 
-	// 상세내역 + 이로움 관리자메모
+	// 상세내역 + 사업소 상담 내역
 	@RequestMapping(value="view")
 	public String view(
 			@RequestParam(value="consltNo", required=true) int consltNo
@@ -79,7 +76,11 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltNo", consltNo);
-		MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConslt(reqMap);
+		paramMap.put("srchConsltNo", consltNo);
+		paramMap.put("srchBplcUniqueId", partnersSession.getUniqueId());
+
+		MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConslt(paramMap);
+		MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(paramMap);
 
 		if(mbrConsltVO == null) {
 			model.addAttribute("alertMsg", getMsg("alert.author.common"));
@@ -87,16 +88,18 @@ public class MMbrConsltController extends CommonAbstractController{
 		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("mbrConsltResultVO", mbrConsltResultVO);
+
 		model.addAttribute("genderCode", CodeMap.GENDER);
 
-		return "/manage/consult/recipter/view";
+		return "/members/bplc/mng/conslt/view";
 	}
 
 
-	// 처리
+	// 처리 (이로움 관리자의 처리와 다름)
 	@RequestMapping(value="action")
 	public View action(
-			MbrConsltVO mbrConsltVO
+			MbrConsltResultVO mbrConsltResultVO
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request) throws Exception {
 
@@ -109,35 +112,20 @@ public class MMbrConsltController extends CommonAbstractController{
 		String bplcNm = (String) reqMap.get("bplcNm");
 
 
-		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
-				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
+		// 상담정보 > 관리자(사업소) 메모 처리
+		mbrConsltResultVO.setRegUniqueId(partnersSession.getUniqueId());
+		mbrConsltResultVO.setRegId(partnersSession.getPartnersId());
+		mbrConsltResultVO.setRgtr(partnersSession.getPartnersNm());
 
-			MbrConsltResultVO mbrConsltResultVO = new MbrConsltResultVO();
-			mbrConsltResultVO.setConsltNo(mbrConsltVO.getConsltNo());
-			mbrConsltResultVO.setBplcUniqueId(bplcUniqueId);
-			mbrConsltResultVO.setBplcId(bplcId);
-			mbrConsltResultVO.setBplcNm(bplcNm);
-			mbrConsltResultVO.setRegUniqueId(mngrSession.getUniqueId());
-			mbrConsltResultVO.setRegId(mngrSession.getMngrId());
-			mbrConsltResultVO.setRgtr(mngrSession.getMngrNm());
-
-			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
-
-		}
-
-		// 상담정보 > 관리자(이로움) 메모 처리
-		mbrConsltVO.setMngrUniqueId(mngrSession.getUniqueId());
-		mbrConsltVO.setMngrId(mngrSession.getMngrId());
-		mbrConsltVO.setMngrNm(mngrSession.getMngrNm());
-
-		mbrConsltService.updateMbrConslt(mbrConsltVO);
+		mbrConsltResultService.updateDtlsConslt(mbrConsltResultVO);
 
 
 		javaScript.setMessage(getMsg("action.complete.update"));
-		javaScript.setLocation("./view?consltNo=" + mbrConsltVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
+		javaScript.setLocation("./view?consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
 
 		return new JavaScriptView(javaScript);
 	}
+
 
 	// 상담취소
 	@RequestMapping(value = "canclConslt.json")
@@ -166,33 +154,4 @@ public class MMbrConsltController extends CommonAbstractController{
 		return resultMap;
 	}
 
-
-	@RequestMapping(value = "delConslt.json")
-	@ResponseBody
-	public Map<String, Object> delConslt(
-			@RequestParam(value = "arrDelConslt[]", required=true) String[] consltList
-			, HttpServletRequest request
-			) throws Exception {
-
-		boolean result = false;
-		int resultCnt = 0;
-
-		try {
-			for(String consltNo : consltList) {
-				resultCnt += mbrConsltService.updateUseYn(EgovStringUtil.string2integer(consltNo));
-			}
-
-			if(resultCnt > 0) {
-				result = true;
-			}
-
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.debug("delConslt.Json Error : " + e.getMessage());
-		}
-
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("result", result);
-		return resultMap;
-	}
 }

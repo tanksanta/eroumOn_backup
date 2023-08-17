@@ -97,13 +97,22 @@
         	<bean class="icube.common.interceptor.PartnersInterceptor" />
         </mvc:interceptor>
 
-        <!-- 그외 > 플래너, 멤버십 -->
+        <!-- 멤버십 -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/index"/>
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/info/**"/>
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/conslt/**"/>
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/mypage/**"/>
+        	<bean class="icube.common.interceptor.MbrAuthInterceptor" />
+        </mvc:interceptor>
+
+        <!-- 그외 > 플래너-->
         <mvc:interceptor>
         	<mvc:mapping path="/"/>
         	<mvc:mapping path="/index"/>
-        	<mvc:mapping path="/#{props['Globals.Membership.path']}/**"/>
         	<mvc:mapping path="/#{props['Globals.Main.path']}/**"/>
-        	<bean class="icube.common.interceptor.MbrAuthInterceptor" />
+        	<mvc:mapping path="/#{props['Globals.Membership.path']}/**"/>
+        	<bean class="icube.common.interceptor.GlobalInterceptor" />
         </mvc:interceptor>
 
     </mvc:interceptors>

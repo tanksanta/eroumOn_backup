@@ -1,8 +1,6 @@
 package icube.membership.conslt;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltResultService;
+import icube.manage.consult.biz.MbrConsltService;
 import icube.market.mbr.biz.MbrSession;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Membership.path']}/conslt")
 public class MbrsConsltController extends CommonAbstractController {
 
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+
+	@Resource(name = "mbrConsltResultService")
+	private MbrConsltResultService mbrConsltResultService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -27,8 +33,12 @@ public class MbrsConsltController extends CommonAbstractController {
 			HttpServletRequest request
 			, Model model) throws Exception {
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+		CommonListVO listVO = new CommonListVO(request);
+		listVO.setParam("srchUseYn", "Y");
+		//listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
+		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
+
+		model.addAttribute("listVO", listVO);
 
 		return "/membership/conslt/appl/list";
 	}

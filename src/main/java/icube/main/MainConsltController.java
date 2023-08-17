@@ -106,32 +106,8 @@ public class MainConsltController extends CommonAbstractController{
 			String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
 			String putEml = "help@thkc.co.kr";
 
-			//mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			//TODO : mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
-
-		/*if(insertCnt > 0) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-
-			paramMap.put("mbrNm", mbrConsltVO.getMbrNm());
-			paramMap.put("mblTelno",mbrConsltVO.getMbrTelno());
-			paramMap.put("zip", mbrConsltVO.getZip());
-			paramMap.put("addr", mbrConsltVO.getAddr());
-			paramMap.put("daddr", mbrConsltVO.getDaddr());
-			paramMap.put("uniqueId", mbrSession.getUniqueId());
-
-			int updateCnt = mbrService.updateMbrAddr(paramMap);
-
-			if(updateCnt > 0) {
-				javaScript.setMessage(getMsg("action.complete.insert"));
-				javaScript.setLocation("/"+mainPath+"/conslt/view");
-			}else {
-				javaScript.setMessage(getMsg("fail.common.network"));
-				javaScript.setMethod("window.history.back()");
-			}
-		}else {
-			javaScript.setMessage(getMsg("fail.common.network"));
-			javaScript.setMethod("window.history.back()");
-		}*/
 
 		javaScript.setMessage(getMsg("action.complete.insert"));
 		javaScript.setLocation("/"+mainPath+"/conslt/view");

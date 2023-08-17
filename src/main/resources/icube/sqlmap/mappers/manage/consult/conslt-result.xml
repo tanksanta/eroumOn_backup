@@ -4,6 +4,10 @@
 
 	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true" />
 
+	<resultMap type="mbrConsltResultVO" id="mbrConsltResultListVOMap" autoMapping="true">
+		<association property="mbrConsltInfo" column="{consltNo=conslt_no}" select="conslt.selectMbrConslt" />
+	</resultMap>
+
 	<sql id="listColumn">
 		bplc_conslt_no
 		, conslt_no
@@ -21,7 +25,33 @@
 		<if test="srchConsltNo != null  and srchConsltNo != '' ">
 			AND conslt_no = #{srchConsltNo}
 		</if>
+		<if test="srchBplcConsltNo != null  and srchBplcConsltNo != '' ">
+			AND bplc_conslt_no = #{srchBplcConsltNo}
+		</if>
+		<if test="srchBplcUniqueId != null  and srchBplcUniqueId != '' ">
+			AND bplc_unique_id = #{srchBplcUniqueId}
+		</if>
 	</sql>
+
+	<select id="selectMbrConsltResultListVO" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
+		/* Query ID : conslt.selectMbrConsltListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_RESULT
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY bplc_conslt_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMbrConsltResultCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+			<include refid="listColumn" />
+		FROM MBR_CONSLT_RESULT
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
 
 	<select id="selectMbrConsltResultList" parameterType="java.util.HashMap" resultMap="mbrConsltResultVOMap">
 		SELECT
@@ -29,7 +59,7 @@
 		FROM MBR_CONSLT_RESULT
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY BPLC_CONSLT_NO ASC
+	  	ORDER BY bplc_conslt_no ASC
 	</select>
 
 	<!-- 회원상담 사업소 지정 -->
@@ -56,5 +86,23 @@
 		    , #{rgtr}
 		)
 	</insert>
+
+	<update id="updateDtlsConslt" parameterType="mbrConsltResultVO">
+		UPDATE MBR_CONSLT_RESULT SET
+			conslt_dtls = #{consltDtls}
+			, conslt_dt = SYSDATE()
+		WHERE bplc_conslt_no = #{bplcConsltNo}
+	</update>
+
+
+	<select id="selectMbrConsltBplc" parameterType="java.util.HashMap" resultMap="mbrConsltResultVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_RESULT
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY bplc_conslt_no DESC
+		LIMIT 1
+	</select>
 
 </mapper>

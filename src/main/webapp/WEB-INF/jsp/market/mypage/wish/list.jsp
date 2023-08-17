@@ -6,6 +6,9 @@
 		</jsp:include>
 
 		<div id="page-container">
+
+			<jsp:include page="../../layout/page_sidenav.jsp" />
+
             <div id="page-content">
 				<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
 					<div class="user-name">
@@ -48,7 +51,7 @@
 		                </div>
 		            </div>
 	            </div>
-	            
+
                 <div class="items-center justify-between mb-6.5 md:flex lg:mb-8">
                     <div class="space-y-1.5 md:mr-3">
                         <p class="text-alert">고객님께서 관심 상품으로 등록한 상품 목록입니다.</p>

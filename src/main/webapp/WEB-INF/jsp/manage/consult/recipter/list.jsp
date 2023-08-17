@@ -36,7 +36,7 @@
 						<td><input type="text" class="form-control w-100" id="srchMbrTelno" name="srchMbrTelno" value="${param.srchMbrTelno}" maxlenth="15" /></td>
 					</tr>
 					<tr>
-                        <th scope="row"><label for="search-item4">상담 진행 상태</label></th>
+                        <th scope="row"><label for="srchConsltSttus">상담 진행 상태</label></th>
                         <td>
                             <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-84">
                                 <option value="">선택</option>

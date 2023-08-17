@@ -168,8 +168,9 @@
 	                    <p class="title">쇼핑내역</p>
 	                    <div class="content">
 	                        <ul class="menulist">
-	                            <li ${fn:indexOf(_curPath, '/ordr/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/ordr/list"><span>주문 조회</span></a></li>
+	                            <li ${fn:indexOf(_curPath, '/ordr/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/ordr/list"><span>주문(배송) 조회</span></a></li>
 	                            <c:if test="${_mbrSession.recipterYn eq 'Y'}"><li ${fn:indexOf(_curPath, '/lend/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/lend/list"><span>대여 조회</span></a></li></c:if>
+	                            <li ${fn:indexOf(_curPath, '/buy/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/buy/list"><span>구매 상품 조회</span></a></li>
 	                        </ul>
 	                    </div>
 	                </div>
@@ -187,32 +188,26 @@
 	                    <p class="title">쇼핑활동</p>
 	                    <div class="content">
 	                        <ul class="menulist">
+	                        	<li ${fn:indexOf(_curPath, '/wish/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/wish/list"><span>관심 상품</span></a></li>
+	                        	<li ${fn:indexOf(_curPath, '/cart/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/cart/list"><span>장바구니</span></a></li>
 	                            <li ${fn:indexOf(_curPath, '/event/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/event/list"><span>참여한 이벤트</span></a></li>
-	                            <li ${fn:indexOf(_curPath, '/buy/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/buy/list"><span>내가 구매한 상품</span></a></li>
-	                            <!-- <li ${fn:indexOf(_curPath, '/review/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/review/doList"><span>상품후기</span></a></li> -->
-	                            <li ${fn:indexOf(_curPath, '/gdsQna/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/gdsQna/list"><span>상품 Q&amp;A</span></a></li>
 	                            <li ${fn:indexOf(_curPath, '/inqry/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/inqry/list"><span>1:1 문의</span></a></li>
+	                            <li ${fn:indexOf(_curPath, '/gdsQna/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/gdsQna/list"><span>상품 문의</span></a></li>
+	                            <!-- <li ${fn:indexOf(_curPath, '/review/') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/review/doList"><span>상품후기</span></a></li> -->
 	                        </ul>
 	                    </div>
 	                </div>
 	                <div class="menu-group">
-	                    <p class="title">회원정보</p>
+	                    <p class="title">나의 정보관리</p>
 	                    <div class="content">
 	                        <ul class="menulist">
 	                            <li ${fn:indexOf(_curPath, '/info/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/market"><span>회원정보 수정</span></a></li>
 	                            <li ${fn:indexOf(_curPath, '/dlvy/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info/dlvy/list"><span>배송지 관리</span></a></li>
-	                            <li ${fn:indexOf(_curPath, '/whdwl/') > -1?'class="is-active"':'' }><a href="${_membershipPath}/info//whdwl/form"><span>회원 탈퇴</span></a></li>
 	                        </ul>
 	                    </div>
 	                </div>
 	                <div class="menu-group">
-	                    <p class="title">맞춤형서비스</p>
-	                    <div class="content">
-	                        <ul class="menulist">
-	                            <li ${fn:indexOf(_curPath, '/bplc') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/itrst/bplc"><span>관심멤버스 설정</span></a></li>
-	                            <!-- <li ${fn:indexOf(_curPath, '/ctgry') > -1?'class="is-active"':'' }><a href="${_marketPath}/mypage/itrst/ctgry"><span>관심카테고리 설정</span></a></li> -->
-	                        </ul>
-	                    </div>
+	                    <p class="title"><a href="${_marketPath}/etc/faq/list">고객센터</a></p>
 	                </div>
 				</div>
             </nav>

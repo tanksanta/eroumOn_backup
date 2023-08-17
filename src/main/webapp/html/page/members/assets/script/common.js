@@ -132,12 +132,12 @@ $(function() {
             $('body').removeClass('is-scroll');
         }
     });
-	
+
     $(window).on('load scroll resize', function(e) {
         resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
         winSize = [$(window).outerWidth(), $(window).outerHeight()];
 	});
-    
+
     //퀵메뉴 닫기
     $('#quick .moveTop').on('click', function() {
         $(window).scrollTop(0);
@@ -180,3 +180,24 @@ $(function() {
 
 
 });
+
+// 오늘날짜 구하기
+function f_getToday(){
+	var date = new Date();
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    return year + "-" + month + "-" + day;
+}
+
+// 오늘날짜로 +- day
+function f_getDate(day){
+	var date = new Date();
+	date.setDate(date.getDate()+day);
+	var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+	return year + "-" + month + "-" + day;
+}

@@ -277,7 +277,6 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
 
 $(function(){
 
-	// 상품검색 모달
 	$(".f_srchBplc").on("click", function(){
 		if ( !$.fn.dataTable.isDataTable('#bplcDataTable') ) { //데이터 테이블이 있으면x
 			BplcDataTable.init();

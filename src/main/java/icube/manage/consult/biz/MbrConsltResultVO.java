@@ -25,6 +25,6 @@ public class MbrConsltResultVO extends CommonBaseVO {
 	private String consltDt;
 	private String reconsltResn;
 	private String reconsltDt;
-	// private String useYn = "Y";
 
+	private MbrConsltVO mbrConsltInfo; // right join
 }

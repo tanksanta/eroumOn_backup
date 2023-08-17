@@ -40,6 +40,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${_membershipPath}/logout">로그아웃</a></li>
+					<li><a href="${_membershipPath}/index">마이페이지</a></li>
 				</c:otherwise>
 			</c:choose>
 

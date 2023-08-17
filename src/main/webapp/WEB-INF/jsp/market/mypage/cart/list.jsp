@@ -6,6 +6,9 @@
 	</jsp:include>
 
 	<div id="page-container">
+
+		<jsp:include page="../../layout/page_sidenav.jsp" />
+
 		<div id="page-content">
 			<div class="global-user mb-9 ${_mbrSession.mberGrade eq 'E' ? 'is-grade1' : _mbrSession.mberGrade eq 'B' ? 'is-grade2' : _mbrSession.mberGrade eq 'S' ? 'is-grade3' : _mbrSession.mberGrade eq 'N' ? '' : ''} lg:hidden">
 				<div class="user-name">
@@ -48,7 +51,7 @@
 	                </div>
 	            </div>
             </div>
-            
+
 			<c:if test="${_mbrSession.recipterYn eq 'Y' || _mbrSession.prtcrRecipterYn eq 'Y'}">
 
 				<h3 class="text-title mb-3 lg:mb-4">급여 주문</h3>
@@ -703,29 +706,29 @@ $(function() {
 	$(":checkbox").each(function(){
 		$(this).prop("checked",false);
 	});
-	
+
 	//(비급여) 전체선택
 	let totalGdsPc = 0;
 	let totalDlvyPc = 0;
 	let totalStlmPc = 0;
-	
+
 	function priceCalculation() {
 		totalGdsPc = 0;
 		totalDlvyPc = 0;
 		totalStlmPc = 0;
-		
+
 		$("input[name='L_gdsPc']").each(function(){
 			const checkBox = $(this).siblings('.cart_ty_N')[0];
-			
+
 			if (checkBox.checked) {
 				const gdsPc = Number($(this).val());  //상품 가격
-				totalGdsPc += gdsPc; 
-				
+				totalGdsPc += gdsPc;
+
 				//상품의 입점업체 정보
 				const entrpsNoInput = $(this).siblings('input[name=entrpsNo]');
 				//상품의 묶음배송 여부
 				const dlvyGroupYn = $(this).siblings('input[name=dlvyGroupYn]');
-				
+
 				if (entrpsNoInput[0] && dlvyGroupYn[0].value) {
 					const entrpsNo = Number(entrpsNoInput[0].value); //상품의 입점업체
 					const entrpsInfo = entrpsDlvyList.find(f => f.entrpsNo === entrpsNo);  //입점업체 배송정보가져오기
@@ -750,7 +753,7 @@ $(function() {
 			}
 		});
 	}
-	
+
 	//전체 체크박스
 	let isFullChecked = false;
 	$(".f_checkAll").on("click", function() {
@@ -760,7 +763,7 @@ $(function() {
 		$(":checkbox[name=cartGrpNo].cart_ty_N:checked").parents(".order-checkitem").find(".order-product").addClass("is-active");
 
 		priceCalculation();
-		
+
 		$(".L_totalGdsPc").text(comma(totalGdsPc));
 		$(".L_totalDlvyPc").text(comma(totalDlvyPc));
         $(".L_totalStlmPc").text(comma(totalGdsPc + totalDlvyPc));
@@ -771,7 +774,7 @@ $(function() {
 	//체크박스(비급여)
 	$(".cart_ty_N").on("click", function() {
 		priceCalculation();
-        
+
 		$(".L_totalGdsPc").text(comma(totalGdsPc));
 		$(".L_totalDlvyPc").text(comma(totalDlvyPc));
         $(".L_totalStlmPc").text(comma(totalGdsPc + totalDlvyPc));

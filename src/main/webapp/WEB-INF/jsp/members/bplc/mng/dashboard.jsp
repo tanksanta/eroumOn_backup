@@ -30,7 +30,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+	<%--
 	<div class="grid grid-cols-2 mt-13 gap-13">
 		<div>
 			<h2 class="flex items-end justify-between">
@@ -99,5 +99,6 @@
 			</table>
 		</div>
 	</div>
+ 	--%>
 </div>
 <!-- //page content -->
