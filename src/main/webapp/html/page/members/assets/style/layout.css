@@ -138,14 +138,13 @@ body {
     }
 }
 
-
 #page-title {
     @apply mb-6 pt-8
            lg:mb-10 lg:pt-0;
     & h2 {
         @apply relative mx-auto w-fit text-center leading-snug text-4xl font-bold
                md:text-6xl
-               lg:text-7xl lg:-translate-y-[calc(50%_-_0.1875em)];
+               lg:text-7xl lg:-translate-y-[0.625em];
         & span {
             @apply block relative
                    before:content-empty before:hidden before:absolute before:top-1/2 before:right-full before:mr-5 before:w-[50vw] before:h-px before:bg-black2 before:opacity-20 before:-translate-y-1/2 before:lg:block

@@ -1,12 +1,14 @@
 .order-checkitem {
     @apply relative;
     & .form-check {
-        @apply absolute z-5 top-1/2 right-full -mr-3.5 text-[1.375rem] -translate-y-1/2
-               md:-mr-4 md:text-2xl
-               lg:mr-3;
+        @apply absolute z-5 top-1/2 left-0 text-[1.375rem] -translate-y-1/2 -translate-x-1/2
+               md:text-2xl;
         & .form-check-input {
             @apply mt-0;
         }
+    }
+    & .order-product {
+        @apply lg:ml-0;
     }
 }
 
@@ -288,9 +290,8 @@
         }
     }
     & .order-check {
-        @apply absolute z-35 top-1/2 right-full -mr-3 text-xl -translate-y-1/2
-               md:-mr-4 md:text-2xl
-               lg:mr-3;
+        @apply absolute z-35 top-1/2 left-0 text-xl -translate-y-1/2 -translate-x-1/2
+               md:text-2xl;
         & .form-check-input {
             @apply mt-0;
         }
@@ -322,7 +323,8 @@
 .order-amount {
     @apply relative py-5 leading-snug
            before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-white before:bg-[linear-gradient(96deg,_#FFF9EF_0%,_#FAFFF2_38%,_#FFF5FD_100%)] before:-translate-x-1/2
-           md:pt-14 md:pb-7.5;
+           md:pt-14 md:pb-7.5
+           lg:before:w-full;
     & .container {
         @apply relative z-5 max-w-none flex flex-wrap
                md:justify-center;
