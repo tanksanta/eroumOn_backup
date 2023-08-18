@@ -136,7 +136,7 @@
                                 <td class="${resultList.ordrDtlCd }">
                                 	${resultList.gdsCd}
                                 </td>
-                                 <td class="${resultList.ordrDtlCd }">
+                                 <td class="excel_data_value_string">
                                 	<c:if test="${!empty resultList.gdsItemCd}">${resultList.gdsItemCd}</c:if>
                                 	<c:if test="${!empty resultList.optnItemCd}">${resultList.optnItemCd}</c:if>
                                 </td>
@@ -272,10 +272,26 @@
         		function tableToExcel(title) {
         		    var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
 
-        		    console.log($(".table-list").parent().html());
-
         		    $(".table-list th, td").css("border", "1px solid #cccccc");
-        		    var table_html = encodeURIComponent($(".table-list").parent().html());
+        		    
+        		    var template = `
+        		    	<!DOCTYPE html>
+        		        <html lang="en">
+        		        <head>
+        		          <meta charset="UTF-8">
+        		          <style>
+	        		          .excel_data_value_string{ mso-number-format:"\@"; }
+	        		      </style>
+        		        </head>
+        		        <body>
+        		          <table>
+        		    `;
+        		    
+        		    template = template + $(".table-list").html();
+        		    
+        		    template = template + '</table></body></html>';
+        		    
+        		    var table_html = encodeURIComponent(template);
 
         		    var a = document.createElement('a');
         		    a.href = data_type + ',%EF%BB%BF' + table_html;
