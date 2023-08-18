@@ -129,8 +129,8 @@
 									<label for="leave-item" class="pswd">비밀번호</label>&nbsp; <input type="password" class="form-control" id="pswd" name="pswd" placeholder="비밀번호" />
 								</div>
 								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary btn-submit">확인</buttton>
-									<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</buttton>
+									<button type="submit" class="btn btn-primary btn-submit">확인</button>
+									<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</button>
 								</div>
 							</div>
 						</div>
