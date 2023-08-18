@@ -187,17 +187,18 @@
     .form-upload-list {
         @apply flex flex-wrap break-all;
         & li {
-            @apply flex justify-center items-center flex-wrap relative mr-2 mt-2 w-20 h-20 rounded-md bg-gray2 text-xs text-center;
+            @apply flex justify-center items-center flex-wrap relative mr-2 mt-2 w-20 h-20 rounded-md bg-gray2 text-xs text-center
+                   last:mr-0;
             & button {
                 @apply absolute -top-1 -right-1 w-5.5 h-5.5 rounded-full border border-black1 bg-black1/90 bg-no-repeat bg-center bg-cover overflow-hidden -indent-44;
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.142' height='14.142' viewBox='0 0 14.142 14.142'%3E%3Cpath id='Rectangle_4' data-name='Rectangle 4' d='M4,9V6H1A1,1,0,0,1,1,4H4V1A1,1,0,0,1,6,1V4H9A1,1,0,0,1,9,6H6V9A1,1,0,0,1,4,9Z' transform='translate(7.071) rotate(45)' fill='%23fff'/%3E%3C/svg%3E%0A");
             }
         }
         & p {
-            @apply w-20;
+            @apply w-full h-full;
         }
         & img {
-            @apply w-full h-20 object-cover rounded-md;
+            @apply w-full h-full object-cover rounded-md;
         }
         & [class*="fa"] {
             @apply mt-2 text-3xl;

@@ -184,7 +184,7 @@
             @apply flex items-center gap-[1.285em] font-medium;
         }
         & button {
-            @apply -mr-2.5 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.625em] -indent-96;
+            @apply -mr-2.5 ml-auto w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.625em] -indent-96;
         }
     }
     & .offcanvas-body {

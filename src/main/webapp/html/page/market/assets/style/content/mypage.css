@@ -282,12 +282,27 @@
     & .item-content {
         @apply float-left w-full py-1 leading-tight
                md:py-1.5;
+        & .score {
+            @apply flex items-center absolute left-0 bottom-2.5 pl-5 bg-no-repeat bg-left-center bg-[length:1rem] bg-[url(../images/bg-mypage-review3.png)] text-xl font-serif font-bold leading-none
+                   sm:top-2.5 sm:right-0 sm:bottom-auto sm:left-auto
+                   md:pl-6 md:bg-[length:1.25rem] md:text-2xl;
+            & div {
+                @apply -mt-0.5 ml-1.5 w-[7.1875rem] h-5.5 bg-repeat-x bg-[length:auto_100%] bg-[url(../images/ico-rating.png)]
+                       md:w-[9.0625rem] md:h-7;
+                & div {
+                    @apply m-0 w-0 bg-[url(../images/ico-rating-active.png)];
+                }
+            }
+            & ~ .name {
+                @apply mt-3;
+            }
+        }
         & .code {
             @apply text-sm font-serif font-medium uppercase underline
                    md:text-[0.9375rem];
         }
         & .name {
-            @apply mt-2 h-[2.5em] overflow-hidden text-base font-bold
+            @apply mt-2.5 h-[2.5em] overflow-hidden text-base font-bold
                    md:h-auto md:text-lg;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -308,8 +323,8 @@
         }
     }
     & .item-button {
-        @apply absolute right-0 bottom-1.5
-               md:bottom-2;
+        @apply flex justify-end gap-1.5
+               md:absolute md:right-0 md:bottom-2;
     }
     & + & {
         @apply -mt-0.5;
@@ -757,7 +772,7 @@
     }
 }
 
-/* 상품후기 */
+/* 상품 후기 */
 .mypage-review-point {
     @apply grid rounded-2xl bg-[linear-gradient(135.37deg,_#52e9f24d_-0.64%,_#bd8df04d_49.38%,_#f11b7a4d_132.97%)]
            md:gap-6 md:grid-cols-2;
@@ -775,33 +790,35 @@
                 @apply relative mt-auto -mb-2.5 pr-14 font-serif text-3xl leading-tight text-right
                        after:absolute after:right-0 after:-bottom-0 after:w-10 after:h-[3.3125rem] after:bg-cover after:bg-no-repeat after:bg-center after:bg-[url(../images/txt-point.svg)]
                        md:-mb-3 md:pr-20 md:text-5xl
-                       md:after:w-15 md:after:h-20;
+                       md:after:-bottom-3 md:after:w-15 md:after:h-20;
             }
         }
     }
     & .point-right {
-        @apply p-2.5 bg-no-repeat bg-left-bottom bg-[url(../images/bg-mypage-review1.png)] 
-               md:p-3 md:pb-1;
+        @apply p-2.5 bg-no-repeat bg-left-bottom bg-[url(../images/bg-mypage-review1.png)] bg-[length:2.5rem] space-y-1.5
+               md:p-3 md:pb-1 md:bg-[length:auto];
         & dl {
             & dd {
-                @apply pl-[1.5556em] font-bold bg-no-repeat bg-left-center bg-[length:1.222222em] bg-[url(../images/ico-point.svg)];
+                @apply pl-[1.5556em] font-bold bg-no-repeat bg-left-center bg-[length:1.2223em] bg-[url(../images/ico-point.svg)];
             }
             &:nth-child(1) {
+                @apply bg-no-repeat bg-right-center bg-[url(../images/bg-mypage-review2.png)] bg-[length:2.75rem]
+                       md:bg-[length:auto];
                 & dt {
                     & strong {
                         @apply text-[#DF1F1F];
                     }
                 }
                 & dd {
-                    @apply
+                    @apply ml-9
                            md:ml-13;
                 }
             }
             &:nth-child(2) {
-                @apply flex flex-wrap
+                @apply flex flex-wrap ml-9
                        md:ml-13;
                 & dt {
-                    @apply flex-none mr-4;
+                    @apply flex-none mr-[0.25em];
                     & strong {
                         @apply text-[#163F9A];
                     }
@@ -811,5 +828,84 @@
                 }
             }
         }
+    }
+}
+
+.mypage-review-point2 {
+    @apply flex flex-col justify-around gap-1 -mx-5 py-3 px-5 bg-[linear-gradient(135.37deg,_#52e9f24d_-0.64%,_#bd8df04d_49.38%,_#f11b7a4d_132.97%)]
+           md:flex-row md:justify-between md:py-3.5;
+    & dl {
+        @apply flex flex-row flex-wrap relative pl-11 bg-no-repeat text-base whitespace-nowrap
+               md:m-0 md:pl-0
+               md:text-lg;
+        &:nth-child(1) {
+            & dt {
+                & strong {
+                    @apply text-[#DF1F1F];
+                }
+            }
+        }
+        &:nth-child(2) {
+            @apply before:absolute before:-bottom-3 before:left-0 before:w-10 before:h-9 before:bg-no-repeat before:bg-[url(../images/bg-mypage-review1.png)] before:bg-[length:auto_100%]
+                   xs:pl-11
+                   md:!pl-15
+                   md:before:-bottom-3.5 md:before:left-0 md:before:w-14 md:before:h-[3.125rem];
+            & dt {
+                & strong {
+                    @apply text-[#163F9A];
+                }
+            }
+        }
+    }
+    & dt {
+        @apply flex-none mr-[0.25em];
+    }
+    & dd {
+        @apply ml-3 pl-[1.5556em] font-bold bg-no-repeat bg-left-center bg-[length:1.2223em] bg-[url(../images/ico-point.svg)]
+               md:ml-0;
+    }
+}
+
+.mypage-review-rating {
+    @apply relative pl-23 min-h-20
+           md:pl-35 md:min-h-30;
+    & .rating-thumb {
+        @apply absolute top-0 left-0 w-20 h-20 overflow-hidden rounded-md bg-gray2 bg-no-repeat bg-[url(/html/page/market/assets/images/bg-compare-thumb.svg)] bg-[length:45%] bg-center
+               md:w-30 md:h-30;
+        & img {
+            @apply w-full h-full object-cover;
+        }
+    }
+    & .rating-product {
+        @apply leading-tight mb-2;
+        & u {
+            @apply block mb-1.5
+        }
+        & strong {
+            @apply block min-h-[2.5em] text-base
+                   md:text-lg;
+        }
+    }
+    & .rating-control {
+        @apply relative flex items-center select-none whitespace-nowrap;
+        & .rating {
+            @apply flex-none appearance-none border-0 w-8.5 h-8 bg-[url(../images/ico-rating.png)] bg-cover
+                   md:w-11 md:h-[2.625rem];
+            &.active {
+                @apply bg-[url(../images/ico-rating-active.png)];
+            }
+        }
+        & .text {
+            @apply flex-none ml-1.5 text-5xl font-bold leading-none font-serif translate-y-[0.05em]
+                   md:ml-2.5 md:text-7xl;
+        }
+    }
+}
+
+.mypage-review-uploads {
+    @apply form-upload-list grid grid-cols-3
+           md:grid-cols-5;
+    & li {
+        @apply w-auto h-auto aspect-[1/0.74];
     }
 }
