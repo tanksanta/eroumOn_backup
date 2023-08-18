@@ -42,6 +42,7 @@
                 <th scope="col">급여코드</th>
                 <th scope="col">품목코드</th>
                 <th scope="col">상품명</th>
+                <th scope="col">상품태그</th>
                 <th scope="col">관리자메모</th>
                 <th scope="col">기본설명</th>
                 <th scope="col">재질</th>
@@ -82,6 +83,16 @@
                 <td>${result.bnefCd}</td>
                 <td class="excel_data_value_string">${result.itemCd}</td>
                 <td>${result.gdsNm}</td>
+                <td>
+					<c:if test="${!empty result.gdsTagVal}">
+						<c:forEach var="tagList" items="${fn:split(fn:replace(result.gdsTagVal,' ',''),',')}" varStatus="status">
+							<c:if test="${status.index > 0}">, </c:if>${gdsTagCode[tagList]}
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty result.gdsTagVal}">
+						-
+					</c:if>
+				</td>
                 <td>${result.mngrMemo}</td>
                 <td>${result.bassDc}</td>
                 <td>${result.mtrqlt}</td>
