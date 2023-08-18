@@ -141,11 +141,11 @@
                     <%--상담 완료시 --%>
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
                     <div class="item-request">
-                    	<c:if test="${consltSize < 3}"> <%-- 재상담 신청은 최대 3회 --%>
+                    	<c:if test="${consltSize < 3}"> <%-- 상담 신청은 최대 3회 --%>
                         <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}">재 상담 신청</button>
 						</c:if>
                         <label class="check1">
-                            <input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}">
+                            <input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].rcmdCnt > 0?'checked="checked"':''}>
                             <span>추천하기</span>
                         </label>
                         <label class="check2">
@@ -274,7 +274,6 @@
     	    }
     	});
 
-
     	// 멤버스 추가
     	$("input[name='itrst']").on("click",function(){
     		let bplcUniqueId = $(this).val();
@@ -284,7 +283,7 @@
     		var uniqueIds = [];
     		uniqueIds.push(bplcUniqueId);
 
-    		/* 기존 자원 활용 */
+    		/* 기존 관심멤서브 자원 활용 */
     		if(uniqueIds.length > 0 && checked){ //등록
    				$.ajax({
    					type : "post",
@@ -332,6 +331,40 @@
     			});
     		}
 
+
+    	});
+
+    	$("input[name='recommend']").on("click",function(){
+    		let bplcUniqueId = $(this).val();
+    		let checked = $(this).is(':checked');
+    		console.log(bplcUniqueId, checked);
+
+    		if(bplcUniqueId != ""){
+	    		$.ajax({
+					type : "post",
+					url  : "/members/bplc/rcmd/incrsAction.json",
+					data : {bplcUniqueId},
+					dataType : 'json'
+				})
+				.done(function(data) {
+					console.log(data.result);
+					if(data.result==="success"){
+						$(this).prop('checked', false);
+					}else if(data.result==="login"){
+						$(this).prop('checked', false);
+						alert("로그인을 해야 사용하실 수 있습니다.");
+					}else if(data.result==="dislike"){
+						$(this).prop('checked', false);
+					/*
+					}else if(data.result==="already"){
+						alert("이미 '좋아요'를 하셨습니다.");
+					*/
+					}
+				})
+				.fail(function(data, status, err) {
+					console.log('error forward : ' + data);
+				});
+    		}
 
     	});
 

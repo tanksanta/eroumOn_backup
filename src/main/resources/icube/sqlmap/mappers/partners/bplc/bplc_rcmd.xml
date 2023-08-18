@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bplc.rcmd">
+
+	<resultMap type="bplcRcmdVO" id="bplcRcmdVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		bplc_unique_id
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, rcmd_yn
+	</sql>
+
+	<select id="selectRcmdCntByUniqueId" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		 FROM BPLC_RCMD
+		WHERE bplc_unique_id = #{bplcUniqueId}
+		  AND reg_unique_id = #{regUniqueId}
+		  AND reg_id = #{regId}
+	</select>
+
+	<insert id="insertRcmd" parameterType="bplcRcmdVO">
+		INSERT INTO BPLC_RCMD (
+			bplc_unique_id
+			, rcmd_yn
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+		) VALUES (
+			#{bplcUniqueId}
+			, #{rcmdYn}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+	</insert>
+
+	<delete id="deleteRcmd" parameterType="bplcRcmdVO">
+		DELETE FROM BPLC_RCMD
+		WHERE bplc_unique_id = #{bplcUniqueId}
+		AND reg_unique_id = #{regUniqueId}
+	</delete>
+
+</mapper>

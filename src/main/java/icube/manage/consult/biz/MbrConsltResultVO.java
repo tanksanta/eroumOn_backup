@@ -29,4 +29,5 @@ public class MbrConsltResultVO extends CommonBaseVO {
 	private MbrConsltVO mbrConsltInfo; // right join
 
 	private int itrstCnt = 0; // 관심멤버스 체크용
+	private int rcmdCnt = 0; // 좋아요 체크용
 }
