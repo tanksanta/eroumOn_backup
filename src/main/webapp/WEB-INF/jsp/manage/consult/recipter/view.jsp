@@ -4,7 +4,7 @@
                 <p class="mb-7">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
                 <form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltVO" >
 				<form:hidden path="consltNo" />
-				<form:input path="consltSttus" />
+				<form:hidden path="consltSttus" />
                     <fieldset>
                         <legend class="text-title2">상담내역</legend>
                         <table class="table-detail">
