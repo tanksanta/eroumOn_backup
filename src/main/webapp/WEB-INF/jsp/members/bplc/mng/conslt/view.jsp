@@ -41,14 +41,14 @@
                                         <ul class="space-y-1">
                                             <li>
                                             	<c:choose>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS03'}">상담 취소</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS06'}">상담 완료</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
 												</c:choose>
                                             </li>
                                             <%--
@@ -64,7 +64,7 @@
                         </table>
                     </fieldset>
 
-                    <c:if test="${mbrConsltVO.consltSttus eq 'CS03' || mbrConsltVO.consltSttus eq 'CS04'}">
+                    <c:if test="${mbrConsltVO.consltSttus eq 'CS03'}">
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담 취소 사유</legend>
                         <table class="table-detail">
@@ -83,9 +83,11 @@
                     </c:if>
 
  				<form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltResultVO" >
-				<form:input path="consltNo" />
-				<form:input path="bplcConsltNo" />
-				<form:input path="consltSttus" />
+				<form:hidden path="consltNo" />
+				<form:hidden path="bplcConsltNo" />
+				<form:hidden path="consltSttus" />
+
+					<c:if test="${mbrConsltResultVO.consltSttus eq 'CS05' || mbrConsltResultVO.consltSttus eq 'CS06'}">
 
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담내용(멤버스 관리자 메모)</legend>
@@ -99,14 +101,14 @@
                                     <th scope="row">상담진행상태</th>
                                     <td>
                                     	<c:choose>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS03'}">상담 취소</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS06'}">상담 완료</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
 										</c:choose>
                                     </td>
                                 </tr>
@@ -125,24 +127,28 @@
                             </tbody>
                         </table>
                     </fieldset>
+					</c:if>
 
 					<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
                     <div class="btn-group right mt-8">
 						<%-- 배정(CS02)->상담진행중(CS05) or 거부(CS04)로 변경 --%>
-						<c:if test="${mbrConsltVO.consltSttus eq 'CS02'}">
+						<c:if test="${mbrConsltResultVO.consltSttus eq 'CS02' || mbrConsltResultVO.consltSttus eq 'CS08'}">
                         <button type="button" class="btn-success large shadow f_consltSttus" data-sttus="CS05">상담수락</button>
                         <button type="button" class="btn-danger large shadow f_consltSttus" data-sttus="CS04">상담거부</button>
                         </c:if>
 
-                        <c:if test="${mbrConsltVO.consltSttus ne 'CS02' && mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04'}">
+                        <c:if test="${mbrConsltResultVO.consltSttus ne 'CS02' && mbrConsltResultVO.consltSttus ne 'CS03'
+                        	&& mbrConsltResultVO.consltSttus ne 'CS04'  && mbrConsltResultVO.consltSttus ne 'CS06' && mbrConsltResultVO.consltSttus ne 'CS08'}">
                         <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
 
-						<c:if test="${mbrConsltVO.consltSttus eq 'CS05'}">
+						<c:if test="${mbrConsltResultVO.consltSttus eq 'CS05'}">
 						<button type="submit" class="btn-success large shadow">상담완료</button>
 						</c:if>
                         <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
+
+
                 </form:form>
 
                 <!-- 상담 취소 사유 -->
@@ -175,6 +181,7 @@
             		e.preventDefault();
             		let sttus = $(this).data("sttus");
             		let params = {consltNo:$("#consltNo").val()
+            				, bplcConsltNo:$("#bplcConsltNo").val()
             				, consltSttus:sttus};
 
             		let confirmMsg = "수락";
@@ -209,6 +216,7 @@
             		e.preventDefault();
             		let params = {
             				consltNo:$("#consltNo").val()
+            				, bplcConsltNo:$("#bplcConsltNo").val()
             				, canclResn:$("#canclResn").val()};
             		if($("#canclResn").val() === ""){
             			alert("취소 사유를 입력해 주세요");

@@ -43,5 +43,4 @@ public class MbrConsltVO extends CommonBaseVO {
 	private Date canclDt;
 
 	private List<MbrConsltResultVO> consltResultList;
-
 }

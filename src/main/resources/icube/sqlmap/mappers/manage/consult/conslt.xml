@@ -60,13 +60,19 @@
 		<if test="srchConsltSttus != null and srchConsltSttus != '' ">
 			AND conslt_sttus = #{srchConsltSttus}
 		</if>
+
+		<!-- 사업소명 검색 & 취소건(화면x) 제외 -->
+		<if test="srchBplcNm != null and srchBplcNm != '' ">
+		 	AND conslt_no IN (SELECT conslt_no FROM MBR_CONSLT_RESULT mcr WHERE mcr.conslt_no = mc.conslt_no AND mcr.bplc_nm LIKE CONCAT ('%',#{srchBplcNm},'%'))
+		 	AND conslt_sttus NOT IN ('CS03', 'CS04')
+		</if>
 	</sql>
 
 	<select id="selectMbrConsltListVO" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		/* Query ID : conslt.selectMbrConsltListVO */
 		SELECT
 			<include refid="listColumn"/>
-		FROM MBR_CONSLT
+		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY conslt_no DESC
@@ -76,7 +82,7 @@
 	<select id="selectMbrConsltCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)
 			<include refid="listColumn" />
-		FROM MBR_CONSLT
+		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
@@ -90,7 +96,7 @@
 	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		SELECT
 			<include refid="listColumn" />
-		FROM MBR_CONSLT
+		FROM MBR_CONSLT mc
 		WHERE conslt_no = #{consltNo}
 			<include refid="searchConditions" />
 	</select>
@@ -149,5 +155,22 @@
 			, cancl_dt = SYSDATE()
 		WHERE conslt_no = #{consltNo}
 	</update>
+
+
+	<update id="updateSttus" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+	</update>
+
+
+	<select id="selectListForExcel" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT mc
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY conslt_no DESC
+	</select>
 
 </mapper>

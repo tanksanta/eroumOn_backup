@@ -8,8 +8,8 @@
 		<c:choose>
 			<c:when test="${_mbrSession.loginCheck}">
 				<ul>
-					<li><a href="${_membershipPath}/logout" class="navigation-link">로그아웃</a></li>
 					<li><a href="${_membershipPath}/index" class="navigation-link is-join <c:if test="${fn:indexOf(_curPath, '/mypage/') > -1}">is-active</c:if>">마이페이지</a></li>
+					<li><a href="${_membershipPath}/logout" class="navigation-link">로그아웃</a></li>
 				</ul>
 			</c:when>
 			<c:otherwise>

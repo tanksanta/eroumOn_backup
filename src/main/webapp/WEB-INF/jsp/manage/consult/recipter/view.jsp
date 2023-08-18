@@ -45,16 +45,13 @@
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
+													재상담 신청 접수
+                                                	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
+													</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
 												</c:choose>
                                             </li>
-                                            <%--
-                                            <li>
-                                                재상담 신청 접수
-                                                <a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
-                                            </li>
-                                             --%>
                                         </ul>
                                     </td>
                                 </tr>
@@ -66,7 +63,8 @@
                                     	<input type="hidden" id="bplcNm" name="bplcNm" value="">
 
 										<!-- 진행(CS05)전 상태이면 사업소 수정가능하게 해야함 -->
-										<c:if test="${(mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07') || mbrConsltVO.consltSttus eq 'CS02' }">
+
+										<c:if test="${(mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07') || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS04' }">
                                         <button type="button" class="btn-primary shadow f_srchBplc" data-bs-toggle="modal" data-bs-target="#bplcModal">사업소 선택</button>
                                         </c:if>
 
@@ -80,7 +78,7 @@
                             </tbody>
                         </table>
                     </fieldset>
-					<c:if test="${mbrConsltVO.consltSttus eq 'CS03' || mbrConsltVO.consltSttus eq 'CS04'}">
+					<c:if test="${mbrConsltVO.consltSttus eq 'CS03'}">
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담 취소 사유</legend>
                         <table class="table-detail">
@@ -142,7 +140,7 @@
                     	<c:if test="${mbrConsltVO.consltSttus ne 'CS01' && fn:length(mbrConsltVO.consltResultList) > 0}">
                         <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
                         </c:if>
-                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04'}">
+                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06'}">
                         <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
                         <button type="submit" class="btn-success large shadow">저장</button>
@@ -253,6 +251,10 @@
 
 function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
 
+	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
+		$(".bplcLi li:last").remove();
+	}
+
 	$("#bplcUniqueId").val(bplcUniqueId);
 	$("#bplcId").val(bplcId);
 	$("#bplcNm").val(bplcNm);
@@ -263,6 +265,9 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
 	$(".bplcLi li:last").remove();
 		</c:if>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS07'}"><%--CS07 재접수--%>
+	$("#consltSttus").val("CS08");
+		</c:if>
+		<c:if test="${mbrConsltVO.consltSttus eq 'CS04'}"><%-- 사업소에서 거부해서 재배정하는경우--%>
 	$("#consltSttus").val("CS08");
 		</c:if>
 	</c:if>

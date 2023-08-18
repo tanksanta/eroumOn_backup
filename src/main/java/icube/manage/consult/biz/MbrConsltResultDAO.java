@@ -1,5 +1,6 @@
 package icube.manage.consult.biz;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,26 @@ public class MbrConsltResultDAO extends CommonAbstractMapper {
 
 	public MbrConsltResultVO selectMbrConsltBplc(Map<String, Object> paramMap) throws Exception {
 		return selectOne("conslt.result.selectMbrConsltBplc", paramMap);
+	}
+
+	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.result.updateCanclConslt", paramMap);
+	}
+
+	public int updateSttus(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.result.updateSttus", paramMap);
+	}
+
+	public void deleteMbrConsltBplc(MbrConsltResultVO mbrConsltResultVO) throws Exception {
+		delete("conslt.result.deleteMbrConsltBplc", mbrConsltResultVO);
+	}
+
+	public int updateReConslt(MbrConsltResultVO mbrConsltResultVO) throws Exception {
+		return update("conslt.result.updateReConslt", mbrConsltResultVO);
+	}
+
+	public List<MbrConsltResultVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
+		return selectList("conslt.result.selectListForExcel", paramMap);
 	}
 
 

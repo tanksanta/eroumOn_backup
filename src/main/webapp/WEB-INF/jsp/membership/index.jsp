@@ -22,7 +22,17 @@
                     	<c:forEach var="resultList" items="${consltList}" varStatus="status" end="2">
                         <li>
                             <a href="#" class="mypage-manage1-item">
-                                <span class="item-name">${resultList.mbrNm } / ${resultList.consltSttus }</span>
+                                <span class="item-name">
+									<c:choose>
+										<c:when test="${resultList.consltSttus eq 'CS01'}">상담 기관 배정 중 입니다.</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04'}">상담이 취소되었습니다.</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS07'}">상담 기관 재 배정 중 입니다.</c:when>
+										<c:otherwise>
+											<c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
+											${resultList.consltResultList[consltSize-1].bplcNm}
+										</c:otherwise>
+									</c:choose>
+                                </span>
                                 <span class="item-date"><fmt:formatDate value="${resultList.regDt }" pattern="yyyy.MM.dd" /></span>
                             </a>
                         </li>
@@ -43,8 +53,9 @@
                     <ul class="mypage-manage1-items">
                     	<c:forEach var="resultList" items="${bplcList}" varStatus="status" end="2">
                         <li class="mypage-manage1-item">
-                            <a href="/members/${resultList.bplcInfo.bplcId}" class="item-name" target="_blank">${resultList.bplcInfo.bplcNm}</a>
-                            <a href="/members/${resultList.bplcInfo.bplcId}" class="item-home" target="_blank"><span>홈페이지</span></a>
+                        	${resultList.bplcInfo.bplcNm}
+                            <%-- <a href="/members/${resultList.bplcInfo.bplcId}" class="item-name" target="_blank">${resultList.bplcInfo.bplcNm}</a>
+                            <a href="/members/${resultList.bplcInfo.bplcId}" class="item-home" target="_blank"><span>홈페이지</span></a> --%>
                         </li>
                         </c:forEach>
 						<c:if test="${empty bplcList}">

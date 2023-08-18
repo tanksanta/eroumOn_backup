@@ -45,14 +45,10 @@
 			                        <td>
 			                            <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-84">
 			                                <option value="">선택</option>
-			                                <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 접수</option>
-			                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>장기요양기관 배정 완료</option>
-			                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소 (신청자 상담 거부)</option>
-			                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소 (장기요양기관 상담 거부)</option>
+			                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 신청 접수</option>
 			                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
+			                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>
 			                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
-			                                <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 접수</option>
-			                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>장기요양기관 재배정 완료</option>
 			                            </select>
 			                        </td>
 			                    </tr>
@@ -67,13 +63,11 @@
 
                 <div class="mt-13 flex items-end gap-1.5">
                     <p class="text-title2 mr-auto">1:1상담 목록</p>
-                    <button type="button" class="btn-primary mb-3">엑셀 다운로드</button>
-                    <button type="button" class="btn-secondary mb-3">선택 삭제</button>
+                    <button type="button" class="btn-primary mb-3 btn-excel">엑셀 다운로드</button>
                 </div>
                 <div class="scroll-table">
                     <table class="table-list">
                         <colgroup>
-                            <col class="min-w-12 w-12">
                             <col class="min-w-18 w-22">
                             <col class="min-w-22 w-28">
                             <col class="min-w-18 w-18">
@@ -86,11 +80,6 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th scope="col">
-									<div class="form-check">
-										<input type="checkbox" name="conslt_check" id="checkAll" value="" class="form-check-input"/>
-									</div>
-                                </th>
                                 <th scope="col">번호</th>
                                 <th scope="col">성명</th>
                                 <th scope="col">성별</th>
@@ -104,13 +93,8 @@
                         </thead>
                         <tbody>
 						<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-						<c:set var="pageParam" value="consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
+						<c:set var="pageParam" value="bplcConsltNo=${resultList.bplcConsltNo}&amp;consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
 							<tr>
-								<td>
-									<div class="form-check">
-										<input type="checkbox" name="check_child" value="${resultList.consltNo}" class="form-check-input" />
-									</div>
-								</td>
 								<td>${listVO.startNo - status.index }</td>
 								<td><a href="./view?${pageParam}">${resultList.mbrConsltInfo.mbrNm}</a></td>
 								<td>${genderCode[resultList.mbrConsltInfo.gender]}</td>
@@ -121,14 +105,14 @@
 								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
 								<td>
 									<c:choose>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS06'}">상담 완료</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-										<c:when test="${resultList.mbrConsltInfo.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
 									</c:choose>
 
 								</td>
@@ -136,7 +120,7 @@
 						</c:forEach>
 						<c:if test="${empty listVO.listObject}">
 							<tr>
-								<td class="noresult" colspan="10">검색조건을 만족하는 결과가 없습니다.</td>
+								<td class="noresult" colspan="9">검색조건을 만족하는 결과가 없습니다.</td>
 							</tr>
 						</c:if>
 						</tbody>
@@ -175,6 +159,11 @@
             }
 
             $(function(){
+
+            	$(".btn-excel").on("click", function(){
+            		$("#searchFrm").attr("action","excel").submit();
+            		$("#searchFrm").attr("action","list");
+            	});
 
             	// 출력 갯수
                 $("#countPerPage").on("change", function(){

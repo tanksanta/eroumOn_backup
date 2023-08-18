@@ -340,7 +340,7 @@ function comma(num){
         }
     };
 
-	var visualAnimate = function(swiper) {
+    var visualAnimate = function(swiper) {
         $(swiper.slides).each(function(i) {
             if(i === swiper.activeIndex) {
                 var numb = $(this).attr('data-slide-number');
@@ -405,7 +405,7 @@ function comma(num){
                     $('.main-visual .object-content').prop('class', 'object-content is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber);
                 },
                 slideChangeTransitionEnd: function(swiper) {
-                    $('.object').on('transitionend', visualAnimate(swiper));
+                	$('.object').on('transitionend', visualAnimate(swiper));
                 }
             }
         });

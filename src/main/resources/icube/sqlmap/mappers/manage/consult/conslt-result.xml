@@ -9,57 +9,96 @@
 	</resultMap>
 
 	<sql id="listColumn">
-		bplc_conslt_no
-		, conslt_no
-		, bplc_unique_id
-		, bplc_id
-		, bplc_nm
-		, conslt_dtls
-		, conslt_sttus
-		, conslt_dt
-		, reconslt_resn
-		, reconslt_dt
+		mcr.bplc_conslt_no
+		, mcr.conslt_no
+		, mcr.bplc_unique_id
+		, mcr.bplc_id
+		, mcr.bplc_nm
+		, mcr.conslt_dtls
+		, mcr.conslt_sttus
+		, mcr.conslt_dt
+		, mcr.reconslt_resn
+		, mcr.reconslt_dt
 	</sql>
 
 	<sql id="searchConditions">
+		<choose>
+			<when test="srchRegBgng != null and srchRegBgng != '' and srchRegEnd != null and srchRegEnd != '' ">
+				AND DATE_FORMAT(mc.reg_dt,'%Y-%m-%d') &gt;= #{srchRegBgng} AND DATE_FORMAT(mc.reg_dt,'%Y-%m-%d') &lt;= #{srchRegEnd}
+			</when>
+			<when test= 'srchRegBgng != null and srchRegBgng != "" '>
+				AND DATE_FORMAT(mc.reg_dt,'%Y-%m-%d') &gt;= #{srchRegBgng}
+			</when>
+			<when test='srchRegEnd != null and srchRegEnd != "" '>
+				AND DATE_FORMAT(mc.reg_dt,'%Y-%m-%d') &lt;= #{srchRegEnd}
+			</when>
+		</choose>
+
+		<if test="srchMbrNm != null and srchMbrNm != '' ">
+			AND mc.mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
+		</if>
+		<if test="srchMbrTelno != null  and srchMbrTelno != '' ">
+			AND mc.mbr_telno like CONCAT ('%',#{srchMbrTelno},'%')
+		</if>
+
 		<if test="srchConsltNo != null  and srchConsltNo != '' ">
-			AND conslt_no = #{srchConsltNo}
+			AND mcr.conslt_no = #{srchConsltNo}
 		</if>
 		<if test="srchBplcConsltNo != null  and srchBplcConsltNo != '' ">
-			AND bplc_conslt_no = #{srchBplcConsltNo}
+			AND mcr.bplc_conslt_no = #{srchBplcConsltNo}
 		</if>
 		<if test="srchBplcUniqueId != null  and srchBplcUniqueId != '' ">
-			AND bplc_unique_id = #{srchBplcUniqueId}
+			AND mcr.bplc_unique_id = #{srchBplcUniqueId}
 		</if>
+		<if test="srchConsltSttus != null  and srchConsltSttus != '' ">
+			AND mcr.conslt_sttus = #{srchConsltSttus}
+		</if>
+
+
 	</sql>
 
 	<select id="selectMbrConsltResultListVO" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
 		/* Query ID : conslt.selectMbrConsltListVO */
 		SELECT
 			<include refid="listColumn"/>
-		FROM MBR_CONSLT_RESULT
-		WHERE 1=1
+		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
+		WHERE mcr.conslt_no = mc.conslt_no
+		  AND mc.use_yn = 'Y'
 			<include refid="searchConditions" />
-	  	ORDER BY bplc_conslt_no DESC
+	  	ORDER BY mcr.conslt_no DESC, mcr.bplc_conslt_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
 	<select id="selectMbrConsltResultCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)
-			<include refid="listColumn" />
-		FROM MBR_CONSLT_RESULT
-		WHERE 1=1
+		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
+		WHERE mcr.conslt_no = mc.conslt_no
+		  AND mc.use_yn = 'Y'
 			<include refid="searchConditions" />
 	</select>
 
 
+	<!-- collection 용, 관심멤버스 여부 하위 질의 추가 -->
 	<select id="selectMbrConsltResultList" parameterType="java.util.HashMap" resultMap="mbrConsltResultVOMap">
 		SELECT
 			<include refid="listColumn"/>
-		FROM MBR_CONSLT_RESULT
-		WHERE 1=1
+			, (SELECT COUNT(*)
+				FROM MBR_ITRST mi
+				WHERE mi.itrst_ty = 'B' AND mi.bplc_unique_id = mcr.bplc_unique_id AND mi.reg_unique_id = mc.reg_unique_id) AS itrst_cnt
+		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
+		WHERE mcr.conslt_no = mc.conslt_no
 			<include refid="searchConditions" />
-	  	ORDER BY bplc_conslt_no ASC
+	  	ORDER BY mcr.bplc_conslt_no ASC
+	</select>
+
+	<select id="selectListForExcel" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
+		WHERE mcr.conslt_no = mc.conslt_no
+		  AND mc.use_yn = 'Y'
+			<include refid="searchConditions" />
+	  	ORDER BY mc.conslt_no DESC, mcr.bplc_conslt_no DESC
 	</select>
 
 	<!-- 회원상담 사업소 지정 -->
@@ -87,10 +126,12 @@
 		)
 	</insert>
 
+	<!-- 상담완료 -->
 	<update id="updateDtlsConslt" parameterType="mbrConsltResultVO">
 		UPDATE MBR_CONSLT_RESULT SET
 			conslt_dtls = #{consltDtls}
 			, conslt_dt = SYSDATE()
+			, conslt_sttus = 'CS06'
 		WHERE bplc_conslt_no = #{bplcConsltNo}
 	</update>
 
@@ -98,11 +139,44 @@
 	<select id="selectMbrConsltBplc" parameterType="java.util.HashMap" resultMap="mbrConsltResultVOMap">
 		SELECT
 			<include refid="listColumn"/>
-		FROM MBR_CONSLT_RESULT
+		FROM MBR_CONSLT_RESULT mcr
 		WHERE 1=1
 			<include refid="searchConditions" />
-		ORDER BY bplc_conslt_no DESC
+		ORDER BY mcr.bplc_conslt_no DESC
 		LIMIT 1
 	</select>
+
+	<!-- 상담취소 -->
+	<update id="updateCanclConslt" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT_RESULT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_conslt_no = #{bplcConsltNo}
+	</update>
+
+	<!-- 상태변경 -->
+	<update id="updateSttus" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT_RESULT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_conslt_no = #{bplcConsltNo}
+	</update>
+
+	<!-- 완료된건에 대해서 재상담 사유만 입력 -->
+	<update id="updateReConslt" parameterType="mbrConsltResultVO">
+		UPDATE MBR_CONSLT_RESULT SET
+			reconslt_resn = #{reconsltResn}
+			, reconslt_dt = SYSDATE()
+		WHERE conslt_no = #{consltNo}
+		  AND bplc_unique_Id = #{bplcUniqueId}
+		  AND conslt_sttus = 'CS06'
+	</update>
+
+	<!-- 상담전 재배정 -->
+	<delete id="deleteMbrConsltBplc" parameterType="mbrConsltResultVO">
+		DELETE FROM MBR_CONSLT_RESULT
+		WHERE conslt_no = #{consltNo}
+		  AND conslt_sttus = #{consltSttus}
+	</delete>
 
 </mapper>

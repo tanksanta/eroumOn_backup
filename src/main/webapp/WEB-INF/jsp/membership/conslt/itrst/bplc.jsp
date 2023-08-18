@@ -14,7 +14,7 @@
             <div class="items-center justify-between md:flex">
                 <div class="space-y-1.5 md:mr-3">
                     <p class="text-alert">고객님의 관심 멤버스를 설정하실 수 있습니다.</p>
-                    <p class="text-alert">설정하신 멤버스는 상품 구매 시 관심 사업소에 출력되어 쉽게 찾으실 수 있습니다.</p>
+                    <p class="text-alert">설정하신 멤버스는 상품 구매 시 관심 멤버스에 출력되어 쉽게 찾으실 수 있습니다.</p>
                     <p class="text-alert">관심 멤버스는 최대 5개 까지 설정 가능합니다.</p>
                 </div>
                 <div class="ml-auto my-3 w-46 md:my-0 md:w-53">
@@ -58,7 +58,7 @@
 									</c:if>
                                 </p>
                             </div>
-							<a href="/members/${resultList.bplcInfo.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a>
+							<%-- <a href="/members/${resultList.bplcInfo.bplcId}/gds/list" class="btn btn-primary btn-small flex-none" target="_blank">홈페이지 방문</a> --%>
                         </div>
                     </div>
                     <button type="button" class="item-delete delBplc" data-unique-id="${resultList.bplcInfo.uniqueId}">삭제</button>
