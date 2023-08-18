@@ -2,7 +2,9 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="conslt.result">
 
-	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true" />
+	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true">
+		<association property="bplcInfo" column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+	</resultMap>
 
 	<resultMap type="mbrConsltResultVO" id="mbrConsltResultListVOMap" autoMapping="true">
 		<association property="mbrConsltInfo" column="{consltNo=conslt_no}" select="conslt.selectMbrConslt" />

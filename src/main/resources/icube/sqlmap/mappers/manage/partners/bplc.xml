@@ -137,10 +137,13 @@
 		/* Query ID : bplc.selectBplcListVO */
 		SELECT
 			<include refid="listColumn"/>
-		FROM BPLC
+			, (SELECT COUNT(*)
+				FROM BPLC_RCMD br
+				WHERE br.bplc_unique_id = b.unique_id) AS rcmd_cnt
+		FROM BPLC b
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY unique_id DESC
+	  	ORDER BY b.unique_id DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
@@ -174,7 +177,10 @@
 		/* Query ID : bplc.selectBplc */
 		SELECT
 			<include refid="listColumn"/>
-		FROM	BPLC
+			, (SELECT COUNT(*)
+				FROM BPLC_RCMD br
+				WHERE br.bplc_unique_id = b.unique_id) AS rcmd_cnt
+		FROM BPLC b
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>

@@ -59,7 +59,7 @@
                                         <table class="table-list" id="bplcDataTable">
                                             <colgroup>
                                                 <col class="w-21">
-                                                <col class="w-44">
+                                                <col class="w-55">
                                                 <col>
                                                 <col class="w-35">
                                             </colgroup>
@@ -73,30 +73,6 @@
                                             </thead>
                                         </table>
 
-										<!--
-                                        <table id="example" class="display" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">선택</th>
-                                                    <th scope="col">사업소명</th>
-                                                    <th scope="col">주소</th>
-                                                    <th scope="col">전화번호</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" name="">
-                                                        </div>
-                                                    </td>
-                                                    <td>이로움사업소</td>
-                                                    <td>08504 서울 금천구 서부샛길 606 123</td>
-                                                    <td>031-1123-1234</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                         -->
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -132,7 +108,13 @@ const BplcDataTable = function() {
 				 		return str;
 					}
 				},
-				{ mDataProp: "bplcNm"},
+				{ mDataProp: "bplcNm",
+					mRender: function(oObj, dp, aDt) {
+						var str  = aDt.bplcNm + ' [<img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">'+ aDt.rcmdCnt +']';
+						return str;
+					}
+
+				},
 				{ mDataProp: "addr"},
 				{ mDataProp: "telno"}
 			],
