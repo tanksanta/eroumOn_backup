@@ -103,7 +103,7 @@ const BplcDataTable = function() {
 				{ mDataProp: "uniqueId",
 					mRender: function(oObj, dp, aDt) {
 						var str  = '<div class="form-check">';
-							str += '<input class="form-check-input" id="modalBplc_'+aDt.uniqueId+'" name="modalBplcUniqueId" type="radio" value="'+aDt.uniqueId+'" data-bplc-nm="'+ aDt.bplcNm +'" data-bplc-id="'+ aDt.bplcId +'">';
+							str += '<input class="form-check-input" id="modalBplc_'+aDt.uniqueId+'" name="modalBplcUniqueId" type="radio" value="'+aDt.uniqueId+'" data-bplc-nm="'+ aDt.bplcNm +'" data-bplc-id="'+ aDt.bplcId +'" data-rcmd-cnt="'+ aDt.rcmdCnt +'" data-telno="'+ aDt.telno +'">';
 							str += '</div>';
 				 		return str;
 					}
@@ -193,7 +193,10 @@ const BplcDataTable = function() {
 					console.log(uniqueId);
 					let bplcId = $("#bplcDataTable td :radio:checked").data("bplcId");
 					let bplcNm = $("#bplcDataTable td :radio:checked").data("bplcNm");
-					f_modalBplcSearch_callback(uniqueId, bplcId, bplcNm);
+					let telno = $("#bplcDataTable td :radio:checked").data("telno");
+					let rcmdCnt = $("#bplcDataTable td :radio:checked").data("rcmdCnt");
+					f_modalBplcSearch_callback(uniqueId, bplcId, bplcNm, telno, rcmdCnt);
+
 					$("#bplcDataTable td :radio, #bplcDataTable div :radio").prop("checked",false);
 					$(".f_modalCancel").click();
 				}

@@ -58,6 +58,8 @@ public class MbrsConsltController extends CommonAbstractController {
 			@RequestParam(value="consltNo", required=true) int consltNo
 			, @RequestParam(value="reconsltResn", required=true) String reconsltResn
 			, @RequestParam(value="bplcUniqueId", required=true) String bplcUniqueId
+			, @RequestParam(value="bplcConsltNo", required=true) int bplcConsltNo
+
 			, @RequestParam Map<String,Object> reqMap
 			, HttpServletRequest request) throws Exception {
 
@@ -68,6 +70,7 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltResultVO.setConsltNo(consltNo);
 			mbrConsltResultVO.setReconsltResn(reconsltResn);
 			mbrConsltResultVO.setBplcUniqueId(bplcUniqueId);
+			mbrConsltResultVO.setBplcConsltNo(bplcConsltNo);
 
 			mbrConsltResultService.updateReConslt(mbrConsltResultVO);
 

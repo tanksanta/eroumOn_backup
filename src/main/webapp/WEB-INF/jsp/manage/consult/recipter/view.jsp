@@ -250,7 +250,7 @@
 
 <script>
 
-function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
+function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt){
 
 	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
 		$(".bplcLi li:last").remove();
@@ -278,7 +278,7 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
 
 
 	let liCnt = $(".bplcLi li").length;
-	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +"</li>");
+	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
 
 $(function(){

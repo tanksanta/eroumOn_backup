@@ -142,7 +142,7 @@
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
                     <div class="item-request">
                     	<c:if test="${consltSize < 3}"> <%-- 상담 신청은 최대 3회 --%>
-                        <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}">재 상담 신청</button>
+                        <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청</button>
 						</c:if>
                         <label class="check1">
                             <input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].rcmdCnt > 0?'checked="checked"':''}>
@@ -167,6 +167,7 @@
                     <form id="modalReConslt" name="modalReConslt" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" id="consltNo" name="consltNo" value="0">
                     	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
+                    	<input type="hidden" id="bplcConsltNo" name="bplcConsltNo" value="0">
 
                         <div class="modal-header">
                             <p class="text-title">재 상담 신청 사유 입력</p>
@@ -221,10 +222,12 @@
         $(".f_reconslt").on("click", function(e){
         	let consltNo = $(this).data("consltNo");
         	let bplcUniqueId = $(this).data("bplcUniqueId");
-        	console.log(consltNo, bplcUniqueId);
+        	let bplcConsltNo = $(this).data("bplcConsltNo");
+        	console.log(consltNo, bplcUniqueId, bplcConsltNo);
 
         	$("#modalReConslt input[name='consltNo']").val(consltNo);
         	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
+        	$("#modalReConslt input[name='bplcConsltNo']").val(bplcConsltNo);
         	$("#reqModal").modal('show');
         });
 
@@ -246,6 +249,7 @@
     	    	let consltNo = $("#modalReConslt input[name='consltNo']").val();
     	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
     	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
+    	    	let bplcConsltNo = $("#modalReConslt input[name='bplcConsltNo']").val();
 
    	            if (confirm('해당 내역을 저장하시겠습니까?')) {
 	   	            $.ajax({
@@ -255,6 +259,7 @@
 	       					consltNo:consltNo
 	       					, reconsltResn:reconsltResn
 	       					, bplcUniqueId:bplcUniqueId
+	       					, bplcConsltNo:bplcConsltNo
 	       				},
 	       				dataType : 'json'
 	       			})
