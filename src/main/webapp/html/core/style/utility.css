@@ -162,7 +162,7 @@ strong {
     }
 
     .global-footer {
-        @apply w-full border-t border-gray5 font-sans;
+        @apply relative z-20 w-full border-t border-gray5 font-sans;
         & hr {
             @apply border-gray1/20;
         }
