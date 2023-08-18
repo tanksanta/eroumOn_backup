@@ -51,7 +51,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-                    <button type="subtmit" class="btn btn-primary btn-submit">저장</button>
+                    <button type="submit" class="btn btn-primary btn-submit">저장</button>
                     <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
