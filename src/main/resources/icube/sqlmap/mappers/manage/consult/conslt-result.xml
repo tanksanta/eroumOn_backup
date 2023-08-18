@@ -2,7 +2,9 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="conslt.result">
 
-	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true" />
+	<resultMap type="mbrConsltResultVO" id="mbrConsltResultVOMap" autoMapping="true">
+		<association property="bplcInfo" column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+	</resultMap>
 
 	<resultMap type="mbrConsltResultVO" id="mbrConsltResultListVOMap" autoMapping="true">
 		<association property="mbrConsltInfo" column="{consltNo=conslt_no}" select="conslt.selectMbrConslt" />
@@ -85,6 +87,9 @@
 			, (SELECT COUNT(*)
 				FROM MBR_ITRST mi
 				WHERE mi.itrst_ty = 'B' AND mi.bplc_unique_id = mcr.bplc_unique_id AND mi.reg_unique_id = mc.reg_unique_id) AS itrst_cnt
+			, (SELECT COUNT(*)
+				FROM BPLC_RCMD br
+				WHERE br.reg_unique_id = mc.reg_unique_id) AS rcmd_cnt
 		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
 		WHERE mcr.conslt_no = mc.conslt_no
 			<include refid="searchConditions" />
@@ -169,6 +174,7 @@
 			, reconslt_dt = SYSDATE()
 		WHERE conslt_no = #{consltNo}
 		  AND bplc_unique_Id = #{bplcUniqueId}
+		  AND bplc_conslt_no = #{bplcConsltNo}
 		  AND conslt_sttus = 'CS06'
 	</update>
 

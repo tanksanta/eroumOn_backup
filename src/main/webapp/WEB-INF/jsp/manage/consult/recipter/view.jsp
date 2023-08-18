@@ -70,7 +70,7 @@
 
                                         <ul class="mt-2 space-y-1 bplcLi">
                                         	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
-                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm}</li>
+                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno} / <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})</li>
                                         	</c:forEach>
                                         </ul>
                                     </td>
@@ -158,6 +158,7 @@
                             </div>
                             <fieldset class="modal-body">
                                 <label>상담 취소 사유를 입력해 주세요</label>
+                                <p class="text-red1">※ 상담 취소 시 재상담 신청 접수가 불가합니다.</p>
                                 <textarea name="canclResn" id="canclResn" cols="30" rows="5" class="form-control w-full mt-4"></textarea>
                             </fieldset>
                             <div class="modal-footer">
@@ -249,7 +250,7 @@
 
 <script>
 
-function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
+function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt){
 
 	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
 		$(".bplcLi li:last").remove();
@@ -277,7 +278,7 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm){
 
 
 	let liCnt = $(".bplcLi li").length;
-	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +"</li>");
+	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
 
 $(function(){

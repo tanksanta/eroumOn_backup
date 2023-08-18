@@ -9,7 +9,7 @@
 	<img src="/comm/PROFL/getFile?fileName=${resultList.proflImg}" class="item-thumb">
 </c:if>
     <div class="item-content">
-        <p class="name">${resultList.bplcNm}</p>
+        <p class="name">${resultList.bplcNm} / ${resultList.rcmdCnt }</p>
         <p class="addr">${resultList.zip}&nbsp;${resultList.addr}&nbsp;${resultList.daddr}</p>
         <p class="call"><a href="tel:${resultList.telno}">${resultList.telno}</a></p>
         <div class="desc">

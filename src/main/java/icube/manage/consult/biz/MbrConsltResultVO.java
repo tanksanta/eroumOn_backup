@@ -3,6 +3,7 @@ package icube.manage.consult.biz;
 import org.apache.ibatis.type.Alias;
 
 import icube.common.vo.CommonBaseVO;
+import icube.manage.members.bplc.biz.BplcVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,4 +30,7 @@ public class MbrConsltResultVO extends CommonBaseVO {
 	private MbrConsltVO mbrConsltInfo; // right join
 
 	private int itrstCnt = 0; // 관심멤버스 체크용
+	private int rcmdCnt = 0; // 좋아요 체크용
+
+	private BplcVO bplcInfo; // 사업소 정보
 }
