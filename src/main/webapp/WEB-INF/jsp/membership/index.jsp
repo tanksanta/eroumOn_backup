@@ -82,7 +82,7 @@
                         </small>
                     </strong>
                 </a>
-                <a href=""${_membershipPath}/info/dlvy/list" class="mypage-manage2">
+                <a href="${_membershipPath}/info/dlvy/list" class="mypage-manage2">
                     <i class="mypage-manage2-icon"><img src="/html/page/members/assets/images/img-mypage-management2.svg" alt="" class="w-6"></i>
                     <strong class="mypage-manage2-name">
                         배송지 관리
