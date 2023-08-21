@@ -196,40 +196,42 @@
                     간단 테스트로 <br class="md:hidden"> 쉽고 든든하게!
                 </h2>
                 <div class="grade-rolling mt-13 md:mt-23">
-                    <div class="rolling-item1 is-active">
-                        <div class="item-thumb">
-                            <img src="" alt="">
+                    <div class="container">
+                        <div class="rolling-item1 is-active">
+                            <div class="item-thumb">
+                                <img src="/html/page/index/assets/images/img-grade-rolling1.svg" alt="">
+                            </div>
+                            <div class="item-content">
+                                저희 아버지,<br>
+                                <strong>장기요양등급 몇 등급 일까요?</strong>
+                            </div>
                         </div>
-                        <div class="item-content">
-                            저희 아버지,<br>
-                            <strong>장기요양등급 몇 등급 일까요?</strong>
+                        <div class="rolling-item2">
+                            <div class="item-thumb">
+                                <img src="/html/page/index/assets/images/img-grade-rolling2.svg" alt="">
+                            </div>
+                            <div class="item-content">
+                                장기요양 등급별<br>
+                                <strong>지원 금액과 혜택이</strong> 궁금해요.
+                            </div>
                         </div>
-                    </div>
-                    <div class="rolling-item2">
-                        <div class="item-thumb">
-                            
+                        <div class="rolling-item3">
+                            <div class="item-thumb">
+                                <img src="/html/page/index/assets/images/img-grade-rolling3.svg" alt="">
+                            </div>
+                            <div class="item-content">
+                                장기요양등급<br>
+                                <strong>신청 절차가 너무 복잡해요.</strong>
+                            </div>
                         </div>
-                        <div class="item-content">
-                            장기요양 등급별<br>
-                            <strong>지원 금액과 혜택이</strong> 궁금해요.
-                        </div>
-                    </div>
-                    <div class="rolling-item3">
-                        <div class="item-thumb">
-                            
-                        </div>
-                        <div class="item-content">
-                            장기요양등급<br>
-                            <strong>신청 절차가 너무 복잡해요.</strong>
-                        </div>
-                    </div>
-                    <div class="rolling-item4">
-                        <div class="item-thumb">
-
-                        </div>
-                        <div class="item-content">
-                            <strong>거동 불편</strong>하신 우리 할머니,<br>
-                            <strong>어떤 용품이 필요한가요?</strong>
+                        <div class="rolling-item4">
+                            <div class="item-thumb">
+                                <img src="/html/page/index/assets/images/img-grade-rolling4.svg" alt="">
+                            </div>
+                            <div class="item-content">
+                                <strong>거동 불편</strong>하신 우리 할머니,<br>
+                                <strong>어떤 용품이 필요한가요?</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -444,7 +446,8 @@
             </div>
 
             <script>
-                var rolling = null;
+                var rolling1 = null;
+                var rolling2 = null;
 
                 $('.grade-slider').each(function() {
                     var slider = $(this);
@@ -479,7 +482,7 @@
                     return false;
                 });
 
-                rolling = setInterval(function() {
+                rolling1 = setInterval(function() {
                     var taps   = $('.grade-content1 .taps-item');
                     var active = $('.grade-content1 .taps-item.is-active');
                     taps.each(function(index, element) {
@@ -492,7 +495,19 @@
                             return false;
                         }
                     })
-                }, 5000)
+                }, 5000);
+
+                rolling2 = setInterval(function() {
+                    var items  = $('[class*="rolling-item"]');
+                    var active = items.filter('.is-active');
+                    var margin = -active.next().outerHeight(true);
+                    
+                    active.clone().removeClass('is-active').appendTo(items.closest('.container'));
+
+                    active.removeClass('is-active').css({'margin-top' : margin}).next().addClass('is-active').one('transitionend animationend',function() {
+                        active.remove();
+                    });
+                }, 6000);
             </script>
 
             <a href="/find/step2-1" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>

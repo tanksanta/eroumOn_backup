@@ -14,7 +14,7 @@
                 <div class="nav-sub-items">
                     <ul>
                         <li class="nav-sub-item"><a href="${_mainPath}/recipter/list">요양정보 간편조회</a></li>
-                        <li class="nav-sub-item"><a href="/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
+                        <li class="nav-sub-item"><a href="${_mainPath}/cntnts/test">인정 등급 예상 테스트</a></li>
                         <li class="nav-sub-item"><a href="${_mainPath}/searchBokji">복지정보 서비스</a></li>
                     </ul>
                 </div>
