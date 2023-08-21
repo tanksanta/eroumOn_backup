@@ -54,7 +54,7 @@
                                 <dt>주소</dt>
                                 <dd>
 	                                <strong>${result.zip}</strong></br>
-	                                ${result.addr} ${result.daddr}
+	                                ${result.addr}&nbsp;${result.daddr}
                                 </dd>
                             </dl>
                             <div class="delivery-button">
