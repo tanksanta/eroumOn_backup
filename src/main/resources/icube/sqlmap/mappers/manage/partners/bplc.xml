@@ -569,11 +569,11 @@
 		</if>
 		ORDER BY
 		<choose>
-			<when test="isAllow">
-			dist ASC, bplc_nm ASC, unique_id ASC
+			<when test="isAllow == 'true'">
+				dist ASC, bplc_nm ASC, unique_id ASC
 			</when>
 			<otherwise>
-			bplc_nm ASC, unique_id ASC
+				bplc_nm ASC, unique_id ASC
 			</otherwise>
 		</choose>
 	</select>
