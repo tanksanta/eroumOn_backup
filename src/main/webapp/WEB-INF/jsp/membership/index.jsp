@@ -21,7 +21,7 @@
                     <ul class="mypage-manage1-items">
                     	<c:forEach var="resultList" items="${consltList}" varStatus="status" end="2">
                         <li>
-                            <a href="#" class="mypage-manage1-item">
+                            <span class="mypage-manage1-item">
                                 <span class="item-name">
 									<c:choose>
 										<c:when test="${resultList.consltSttus eq 'CS01'}">상담 기관 배정 중 입니다.</c:when>
@@ -34,7 +34,7 @@
 									</c:choose>
                                 </span>
                                 <span class="item-date"><fmt:formatDate value="${resultList.regDt }" pattern="yyyy.MM.dd" /></span>
-                            </a>
+                            </span>
                         </li>
                         </c:forEach>
                         <c:if test="${empty consltList}">

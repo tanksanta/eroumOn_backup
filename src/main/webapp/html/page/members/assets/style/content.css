@@ -985,9 +985,9 @@
                    md:flex-1 md:max-w-46;
         }
         & .check1, & .check2 {
-            @apply flex-none flex items-center gap-1 relative pl-3 select-none;
+            @apply flex-none flex items-center gap-1 relative pl-3 select-none cursor-pointer;
             & input {
-                @apply order-2 appearance-none -mt-px w-4 h-4 bg-cover bg-center;
+                @apply order-2 appearance-none -mt-px w-4 h-4 bg-cover bg-center cursor-pointer;
             }
             & span {
                 @apply order-1 leading-none;

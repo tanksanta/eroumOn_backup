@@ -596,6 +596,7 @@
     }
 }
 
+
 /* 제3자 정보제공 */
 .provide-form {
     @apply mx-auto max-w-[800px];
@@ -1271,7 +1272,6 @@
     }
 }
 
-
 .page3-question1, .page3-question2, .page3-question3 {
     @apply flex flex-col relative mt-26 mx-auto w-fit first:mt-0
            md:flex-row md:items-center md:mx-0 md:w-auto;
@@ -1378,6 +1378,204 @@
                md:mt-14;
         & img {
             @apply mx-auto w-full max-w-screen-md;
+        }
+    }
+}
+
+
+/* 장기요양등급 테스트 */
+[class*="grade-content"] {
+    @apply mx-auto pt-20 pb-22 max-w-screen-sm
+           md:max-w-full md:pt-40 md:pb-44;
+}
+
+.grade-content1 {
+    @apply pt-0 pb-20
+           md:pb-34;
+}
+
+.grade-content2 {
+    @apply pt-17 pb-21 bg-[#f8f8f8]
+           md:pt-32 md:pb-38;
+}
+
+.grade-content4 {
+    @apply bg-[#f8f8f8];
+}
+
+.grade-title {
+    @apply text-4xl text-center font-bold leading-tight
+           md:text-6xl;
+    & small {
+        @apply block text-base font-normal leading-normal
+               md:mb-1 md:text-sm;
+    }
+}
+
+.grade-text1 {
+    @apply flex justify-center flex-wrap text-sm tracking-tight break-keep;
+    & p {
+        @apply relative pl-[1.1em]
+               before:absolute before:top-0 before:left-0 before:content-["※"];
+    }
+}
+
+.grade-text2 {
+    @apply text-base text-center tracking-tight 
+           md:text-xl;
+    & strong {
+        @apply bg-no-repeat bg-bottom bg-[length:auto_0.7em] bg-gradient-to-r from-[#FAF0D7] to-[#FAF0D7];
+    }
+}
+
+.grade-taps {
+    @apply flex gap-1 flex-col mx-auto max-w-[45.25rem] text-lg font-medium leading-tight text-center
+           md:flex-row md:items-start md:text-base;
+    & .taps-item {
+        & a, span {
+            @apply flex items-center font-medium
+                   md:flex-col;
+        }
+        & i {
+            @apply flex-none mr-1.5 flex items-center justify-center pb-1.5 w-[3.5625rem] h-[3.5625rem] overflow-hidden rounded-full bg-[#B4AEA8] bg-no-repeat bg-[center_top_calc(100%-1.5px)] bg-[length:calc(100%-3px)] bg-[url(../images/bg-grade-taps.svg)] transition-colors duration-500
+                   md:mb-3.5 md:mx-auto md:pb-2 md:w-21 md:h-21 md:bg-[center_top_calc(100%-2px)] md:bg-[length:calc(100%-4px)];
+                   & img {
+                       @apply scale-[0.681] origin-center
+                              md:scale-100;
+                   }
+        }
+        & span {
+            @apply flex-1;
+            & br {
+                @apply hidden
+                       md:inline;
+            }
+        }
+        &.is-active {
+            & i {
+                @apply bg-[#FD8106];
+            }
+        }
+    }
+    & .taps-spacer {
+        @apply hidden mx-auto w-[21px] h-[5px] bg-no-repeat bg-cover bg-[url(../images/bg-grade-taps2.svg)]
+               md:block md:mt-9.5;
+    }
+}
+
+.grade-floating {
+    @apply flex items-center gap-3.5 justify-center fixed z-90 left-0 right-0 bottom-0 py-5 bg-[#FD8106] text-center text-xl font-bold text-white shadow-[4px_4px_10px_0_#00000026]
+           after:block after:w-[1.8125rem] after:h-6 after:bg-cover after:bg-[url(../images/ico-grade-submit.svg)]
+           md:text-2xl;
+}
+
+.grade-slider {
+    @apply -mx-5 select-none
+           md:-mx-7;
+    & .container {
+        @apply relative mx-auto pb-5.5 max-w-95 select-none
+               md:max-w-[34.25rem];
+    }
+    & .swiper {
+        @apply mx-auto max-w-80 shadow-[0px_0px_10px_0px_#0000002e]
+               md:max-w-100;
+    }
+    & .swiper-slide {
+        & picture {
+            @apply block p-2.5 h-full;
+        }
+        & img {
+            @apply w-full h-full object-cover;
+        }
+    }
+    & .swiper-button-prev, & .swiper-button-next {
+        @apply -mt-6 w-3.5 h-5 bg-center bg-no-repeat bg-cover bg-[url(../images/ico-grade-slide.svg)]
+               after:sr-only
+               md:-mt-5 md:w-5 md:h-10;
+    }
+    & .swiper-button-prev {
+        @apply left-0;
+    }
+    & .swiper-button-next {
+        @apply right-0 rotate-180;
+    }
+    & .swiper-pagination {
+        @apply bottom-0 leading-none
+               md:hidden;
+    }
+    & .swiper-pagination-bullet {
+        @apply w-2.5 h-2.5 bg-[#EDE8E4] align-bottom opacity-100;
+        &.swiper-pagination-bullet-active {
+            @apply bg-[#FD8106];
+        }
+    }
+}
+
+.grade-start {
+    @apply mx-auto w-[480px] max-w-full
+           md:w-fit;
+    & picture {
+        @apply relative;
+    }
+    & img {
+        @apply mx-auto
+               md:translate-x-[5%];
+    }
+    & a {
+        @apply hidden items-center justify-center relative z-5 gap-5.5 mx-auto -mt-15 w-100 h-15 rounded-[0.625rem] bg-[#FD8106] text-2xl text-white font-bold
+               after:block after:w-[1.1875rem] after:h-[0.9375rem] after:bg-cover after:bg-[url(../images/ico-grade-submit.svg)]
+               md:flex;
+    }
+}
+
+.grade-rolling {
+    @apply -mx-5 select-none
+           md:-mx-7;
+    & [class*="rolling-item"] {
+        @apply mx-auto mb-2 py-4 px-5 w-82 h-[5.625rem] rounded-2xl bg-white shadow-[0px_6px_4px_0px_#0000001a] text-sm leading-snug text-black2/50 transition-all duration-1000
+               md:mb-4.5 md:p-7.5 md:w-[31.25rem] md:h-[6.875rem] md:text-xl;
+        &.is-active {
+            @apply w-90 h-[6.875rem] shadow-[0px_10px_4px_0px_#0000001a] tracking-tight text-xl text-black2
+                   md:w-[34.375rem] md:h-[9.375rem] md:text-2xl;
+        }
+    }
+}
+
+.grade-info {
+    @apply grid gap-2.5 mt-18 mx-auto max-w-[74.75rem] leading-snug
+           md:gap-5 md:mt-20
+           lg:gap-7 lg:grid-cols-3;
+    & [class*="info-text"] {
+        @apply flex items-center py-3 px-5 rounded-[1.25rem]
+               md:py-4 md:px-6;
+        & dt {
+            @apply flex-none flex items-center justify-center mr-6 w-15 h-15 rounded-full font-bold text-[1.875rem]
+                   md:w-20 md:h-20 md:text-[2.8125rem];
+        }
+        & dd {
+            @apply flex-1 text-xl
+                   md:text-[1.375rem];
+        }
+        & i {
+            @apply rounded-full;
+        }
+    }
+    & .info-text1 {
+        @apply bg-[#F1F6E7];
+        & dt {
+            @apply bg-[#DDE4CE] text-[#B4C09C];
+        }
+    }
+    & .info-text2 {
+        @apply bg-[#F4F0E5];
+        & dt {
+            @apply bg-[#EFE6CC] text-[#CAB887];
+        }
+    }
+    & .info-text3 {
+        @apply bg-[#F4E9E5];
+        & dt {
+            @apply bg-[#E8D7D1] text-[#C7B0A7];
         }
     }
 }
