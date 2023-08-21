@@ -102,6 +102,7 @@
 			, mngr.eml
 			, mngr.job_ty
 			, mngr.recent_lgn_dt
+			, mngr.entrps_no
 			, mngr.reg_unique_id
 			, mngr.reg_id
 			, mngr.rgtr
@@ -143,6 +144,7 @@
 			, telno
 			, eml
 			, job_ty
+			, entrps_no
 			, use_yn
 			, reg_unique_id
 			, reg_id
@@ -159,6 +161,7 @@
 			, #{telno, jdbcType=VARCHAR}
 			, #{eml, jdbcType=VARCHAR}
 			, #{jobTy, jdbcType=VARCHAR}
+			, #{entrpsNo}
 			, #{useYn, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
 			, #{regId, jdbcType=VARCHAR}
@@ -185,6 +188,7 @@
 				, telno = #{telno, jdbcType=VARCHAR}
 				, eml = #{eml, jdbcType=VARCHAR}
 				, job_ty = #{jobTy, jdbcType=VARCHAR}
+				, entrps_no = #{entrpsNo}
 				, use_yn = #{useYn, jdbcType=VARCHAR}
 				, dpcn_idnty_cd = #{dpcnIdntyCd, jdbcType=VARCHAR}
 

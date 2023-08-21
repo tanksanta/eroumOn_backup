@@ -24,6 +24,8 @@ public class MngrVO extends CommonBaseVO {
 	private String authrtTyNm;
 	private int authrtNo;
 	private String authrtNm;
+	private int entrpsNo; //입점업체
+	
 	private String useYn = "Y";
 	private String dpcnIdntyCd;
 

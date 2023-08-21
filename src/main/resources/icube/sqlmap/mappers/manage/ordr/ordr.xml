@@ -174,7 +174,9 @@
 		<if test="srchStlmSttus != null and srchStlmSttus != '' ">
 			AND stlm_sttus = #{srchStlmSttus}
 		</if>
-
+		<if test="srchEntrpsNo != null and srchEntrpsNo != '' ">
+			AND od1.entrps_no = #{srchEntrpsNo}
+		</if>
 
 		<if test="srchIntervalDay != null and srchIntervalDay != '' ">
 			AND DATE(NOW()) &gt; DATE_FORMAT(DATE_ADD(oc.reg_dt, INTERVAL #{srchIntervalDay} DAY), '%Y-%m-%d')
