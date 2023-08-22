@@ -1,5 +1,5 @@
 .payment-shipping {
-    @apply relative p-3 pt-4.5 overflow-hidden rounded-[1rem] border border-gray1 leading-tight tracking-tight;
+    @apply relative p-3 pt-4.5 overflow-hidden rounded-2xl border border-gray1 leading-tight tracking-tight;
     & dl {
         @apply px-3
                md:px-4;
@@ -35,7 +35,7 @@
 }
 
 .payment-refund {
-    @apply justify-between p-3 overflow-hidden rounded-[1rem] border border-gray1 bg-no-repeat bg-[url(../images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem]
+    @apply justify-between p-3 overflow-hidden rounded-2xl border border-gray1 bg-no-repeat bg-[url(/html/page/market/assets/images/txt-eroum-gray.svg)] bg-[left_5.75rem_bottom_1.625rem]
            md:flex;
     & .refund-method {
         @apply flex tracking-tight font-medium
@@ -77,7 +77,7 @@
 }
 
 .payment-amount {
-    @apply relative p-3 overflow-hidden rounded-[1rem] border border-gray1 text-[0.8125rem] font-bold leading-[1.428]
+    @apply relative p-3 overflow-hidden rounded-2xl border border-gray1 text-[0.8125rem] font-bold leading-[1.428]
            md:flex md:text-sm;
     & .amount-section {
         @apply ml-19 flex-1
@@ -129,24 +129,24 @@
         @apply btn-icon flex flex-none mt-6 -mx-3 -mb-20 h-20 bg-cover
                md:-mt-2 md:mb-0 md:-mr-5 md:-ml-6 md:h-[6.625rem];
         &.is-plus {
-            @apply bg-[url(../images/ico-payment-plus.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-plus.png)];
         }
         &.is-minus {
-            @apply bg-[url(../images/ico-payment-minus.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-minus.png)];
         }
         &.is-equal {
-            @apply bg-[url(../images/ico-payment-equal.png)];
+            @apply bg-[url(/html/page/market/assets/images/ico-payment-equal.png)];
         }
     }
     & .amount-mileage {
         @apply left-5 bottom-0 flex items-start -mb-3 mt-4
                md:absolute md:my-0;
         & dd {
-            @apply flex flex-col ml-1.5 pb-1.5 pl-17 justify-end bg-no-repeat bg-left-bottom bg-[length:auto_3.5rem] bg-[url(../images/txt-mileage.svg)]
+            @apply flex flex-col ml-1.5 pb-1.5 pl-17 justify-end bg-no-repeat bg-left-bottom bg-[length:auto_3.5rem] bg-[url(/html/page/market/assets/images/txt-mileage.svg)]
                    md:pb-2 md:pl-20 md:bg-[length:auto_4.25rem];
         }
         & .point {
-            @apply flex pr-5.5 w-fit bg-no-repeat bg-[right_center] bg-[url(../images/ico-mileage.svg)] bg-[length:1.125rem] font-serif leading-none text-3xl
+            @apply flex pr-5.5 w-fit bg-no-repeat bg-[right_center] bg-[url(/html/page/market/assets/images/ico-mileage.svg)] bg-[length:1.125rem] font-serif leading-none text-3xl
                    md:text-5xl;
         }
         & .desc {
@@ -157,7 +157,7 @@
 }
 
 .payment-customer {
-    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(../images/bg-payment-card.svg)] rounded-[1rem] border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5
+    @apply relative p-5.5 pb-9 overflow-hidden bg-no-repeat bg-cover bg-center bg-[url(/html/page/market/assets/images/bg-payment-card.svg)] rounded-2xl border border-[#AFAFAF] select-none leading-tight tracking-tight space-y-6.5
            before:absolute before:top-1 before:right-2 before:w-37 before:h-17 before:blur-xl before:rounded-md before:bg-white
            after:absolute after:top-5 after:right-4 after:font-bold after:text-6xl
            sm:before:top-1.5 sm:before:right-2.5 sm:before:w-49 sm:before:h-23
@@ -257,27 +257,27 @@
             }
         }
         &.seq1 {
-            @apply bg-[url(../images/ico-sequence1.svg)] bg-[length:32px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence1.svg)] bg-[length:32px]
                    md:bg-[length:40px];
         }
         &.seq2 {
-            @apply bg-[url(../images/ico-sequence2.svg)] bg-[length:37px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence2.svg)] bg-[length:37px]
                    md:bg-[length:46px];
         }
         &.seq3 {
-            @apply bg-[url(../images/ico-sequence3.svg)] bg-[length:43px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence3.svg)] bg-[length:43px]
                    md:bg-[length:54px];
         }
         &.seq4 {
-            @apply bg-[url(../images/ico-sequence4.svg)] bg-[length:61px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence4.svg)] bg-[length:61px]
                    md:bg-[length:76px];
         }
         &.seq5 {
-            @apply bg-[url(../images/ico-sequence5.svg)] bg-[length:30px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence5.svg)] bg-[length:30px]
                    md:bg-[length:37px];
         }
         &.seq6 {
-            @apply bg-[url(../images/ico-sequence6.svg)] bg-[length:38px]
+            @apply bg-[url(/html/page/market/assets/images/ico-sequence6.svg)] bg-[length:38px]
                    md:bg-[length:48px];
         }
     }

@@ -20,7 +20,18 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	private MbrConsltDAO mbrConsltDAO;
 
 	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
-		return mbrConsltDAO.selectMbrConsltListVO(listVO);
+
+		listVO = mbrConsltDAO.selectMbrConsltListVO(listVO);
+
+		List<MbrConsltVO> consltList = listVO.getListObject();
+		for(MbrConsltVO mbrConsltVO : consltList) {
+			int yyyy =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(0, 4));
+			int mm =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(4, 6));
+			int dd =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(6, 8));
+			mbrConsltVO.setAge(DateUtil.getRealAge(yyyy, mm, dd));
+		}
+
+		return listVO;
 	}
 
 	public Integer updateUseYn(int consltNo) throws Exception {
@@ -44,19 +55,17 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltDAO.insertMbrConslt(mbrConsltVO);
 	}
 
-	@SuppressWarnings("unchecked")
-	public CommonListVO formatMbrConsltVO(CommonListVO listVO) throws Exception{
+	public Integer updateMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
+		return mbrConsltDAO.updateMbrConslt(mbrConsltVO);
+	}
 
-		List<MbrConsltVO> consltList = listVO.getListObject();
 
-		for(MbrConsltVO mbrConsltVO : consltList) {
-			int yyyy =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(0, 4));
-			int mm =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(4, 6));
-			int dd =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(6, 8));
-			mbrConsltVO.setAge(DateUtil.getRealAge(yyyy, mm, dd));
-		}
+	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.updateCanclConslt(paramMap); // 상담취소;
+	}
 
-		return listVO;
+	public List<MbrConsltVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.selectListForExcel(paramMap);
 	}
 
 

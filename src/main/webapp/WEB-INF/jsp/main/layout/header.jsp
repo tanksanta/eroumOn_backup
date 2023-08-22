@@ -14,7 +14,7 @@
                 <div class="nav-sub-items">
                     <ul>
                         <li class="nav-sub-item"><a href="${_mainPath}/recipter/list">요양정보 간편조회</a></li>
-                        <li class="nav-sub-item"><a href="/find/step2-1" target="_blank">인정 등급 예상 테스트</a></li>
+                        <li class="nav-sub-item"><a href="${_mainPath}/cntnts/test">인정 등급 예상 테스트</a></li>
                         <li class="nav-sub-item"><a href="${_mainPath}/searchBokji">복지정보 서비스</a></li>
                     </ul>
                 </div>
@@ -39,6 +39,7 @@
 					<li><a href="${_membershipPath}/regist" class="join">회원가입</a></li>
 				</c:when>
 				<c:otherwise>
+					<li><a href="${_membershipPath}/index">마이페이지</a></li>
 					<li><a href="${_membershipPath}/logout">로그아웃</a></li>
 				</c:otherwise>
 			</c:choose>
@@ -81,6 +82,9 @@
 	                </c:choose>
 	            </div>
 	            <a href="${_membershipPath}/logout" class="logout">로그아웃</a>
+	            <div class="offcanvas-header">
+		    		<button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+		    	</div>
 	        </div>
         </c:if>
 

@@ -8,10 +8,11 @@
 					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
                     </c:if>
                 </c:if>
+                
 				<c:if test="${isSrchPage}">
-				<div class="search-count">
+            	<div class="flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium md:mb-5 md:text-sm">
 	                <p>총 <strong class="text-danger">${listVO.totalCount}</strong>개의 상품이 있습니다.</p>
-	                <select id="srchOrdr" name="srchOrdr" class="form-control form-small">
+	                <select id="srchOrdr" name="srchOrdr" class="form-control form-small w-28 bg-neutral-100 md:w-42">
 	                    <option value="SORT_NO" ${srchOrdr eq 'SORT_NO' || empty srchOrdr?'selected="selected"':'' }>신상품 순</option>
 	                    <option value="PC_ASC" ${srchOrdr eq 'PC_ASC'?'selected="selected"':'' }>낮은가격 순</option>
 	                    <option value="PC_DESC" ${srchOrdr eq 'PC_DESC'?'selected="selected"':'' }>높은가격 순</option>
@@ -19,17 +20,17 @@
 	            </div>
 
 	            <c:if test="${empty listVO.listObject}">
-		            <div class="search-result is-large">
+		            <div class="box-result is-large">
 		                <p>검색하신
 		                	<c:choose>
-		                		<c:when test="${!empty param.srchKwd}"><strong>${fn:split(param.srchKwd,'?')[0]}</strong></c:when>
-		                		<c:when test="${!empty param.srchNonKwd}"><strong>${fn:split(param.srchNonKwd,'?')[0]}</strong></c:when>
+		                		<c:when test="${!empty param.srchKwd}"><strong class="text-[#1D45D5]">${fn:split(param.srchKwd,'?')[0]}</strong></c:when>
+		                		<c:when test="${!empty param.srchNonKwd}"><strong class="text-[#1D45D5]">${fn:split(param.srchNonKwd,'?')[0]}</strong></c:when>
 		                	</c:choose>
 		                	 에 대한 상품검색 결과가 없습니다.</p>
 		            </div>
 	            </c:if>
 
-				<div class="search-grid">
+            	<div class="grid grid-cols-2 gap-x-3 gap-y-6 mt-2.5 md:grid-cols-3 md:gap-x-4 md:gap-y-13 md:mt-4 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-20 lg:mt-5">
 				</c:if>
                 	<input type="hidden" name="params" value=""/>
                 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">

@@ -29,10 +29,3 @@
 	    </dl>
 	</div>
 </main>
-
-<script>
-$(function(){
-
-	$("body").addClass("is-background is-join");
-});
-</script>

@@ -502,7 +502,7 @@
 	
 	        <p id="cont-36" id="cont-" class="mt-7 text-lg leading-tight font-bold md:mt-9 md:text-xl">부칙</p>
 	        <p class="mt-4 md:mt-5">
-	            이 약관은 2023년 04월 01일부터 시행합니다.
+	            이 약관은 2023년 07월 19일부터 시행합니다.
 	        </p>
 	 </div>
 	</div>

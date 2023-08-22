@@ -2,7 +2,9 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="conslt">
 
-	<resultMap type="mbrConsltVO" id="mbrConsltVOMap" autoMapping="true" />
+	<resultMap type="mbrConsltVO" id="mbrConsltVOMap" autoMapping="true">
+		<collection property="consltResultList" column="{srchConsltNo=conslt_no}" select="conslt.result.selectMbrConsltResultList" />
+	</resultMap>
 
 	<sql id="listColumn">
 		conslt_no
@@ -18,6 +20,17 @@
 	    , reg_dt
 	    , reg_id
 	    , rgtr
+
+	    , conslt_sttus
+	    , sttus_chg_dt
+	    , cancl_resn
+	    , cancl_dt
+
+	    , mng_memo
+		, memo_mdfcn_dt
+		, mngr_unique_id
+		, mngr_id
+		, mngr_nm
 	</sql>
 
 	<sql id="searchConditions">
@@ -32,6 +45,9 @@
 				AND DATE_FORMAT(reg_dt,'%Y-%m-%d') &lt;= #{srchRegEnd}
 			</when>
 		</choose>
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND reg_unique_id = #{srchUniqueId}
+		</if>
 		<if test="srchMbrNm != null and srchMbrNm != '' ">
 			AND mbr_nm like CONCAT ('%',#{srchMbrNm},'%')
 		</if>
@@ -41,13 +57,22 @@
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND use_yn = #{srchUseYn}
 		</if>
+		<if test="srchConsltSttus != null and srchConsltSttus != '' ">
+			AND conslt_sttus = #{srchConsltSttus}
+		</if>
+
+		<!-- 사업소명 검색 & 취소건(화면x) 제외 -->
+		<if test="srchBplcNm != null and srchBplcNm != '' ">
+		 	AND conslt_no IN (SELECT conslt_no FROM MBR_CONSLT_RESULT mcr WHERE mcr.conslt_no = mc.conslt_no AND mcr.bplc_nm LIKE CONCAT ('%',#{srchBplcNm},'%'))
+		 	AND conslt_sttus NOT IN ('CS03', 'CS04')
+		</if>
 	</sql>
 
 	<select id="selectMbrConsltListVO" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		/* Query ID : conslt.selectMbrConsltListVO */
 		SELECT
 			<include refid="listColumn"/>
-		FROM MBR_CONSLT
+		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY conslt_no DESC
@@ -57,7 +82,7 @@
 	<select id="selectMbrConsltCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)
 			<include refid="listColumn" />
-		FROM MBR_CONSLT
+		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
@@ -68,11 +93,11 @@
 		WHERE conslt_no = #{consltNo}
 	</update>
 
-	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultType="mbrConsltVO">
+	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		SELECT
 			<include refid="listColumn" />
-		FROM MBR_CONSLT
-		WHERE 1=1
+		FROM MBR_CONSLT mc
+		WHERE conslt_no = #{consltNo}
 			<include refid="searchConditions" />
 	</select>
 
@@ -90,6 +115,7 @@
 		    , reg_dt
 		    , reg_id
 		    , rgtr
+		    , conslt_sttus
 		)VALUES(
 			#{mbrNm}
 			, #{mbrTelno}
@@ -103,10 +129,48 @@
 		    , SYSDATE()
 		    , #{regId}
 		    , #{rgtr}
+		    , 'CS01'
 		)
 	</insert>
 
+	<!-- 관리자 메모 + 사업소 지정시 상태변경 처리 -->
+	<update id="updateMbrConslt" parameterType="mbrConsltVO">
+		UPDATE MBR_CONSLT SET
+			mng_memo = #{mngMemo}
+			, memo_mdfcn_dt = SYSDATE()
+			, mngr_unique_id = #{mngrUniqueId}
+			, mngr_id = #{mngrId}
+			, mngr_nm = #{mngrNm}
+			<if test="consltSttus != null and consltSttus != ''">
+			, conslt_sttus = #{consltSttus}
+			, sttus_chg_dt = SYSDATE()
+			</if>
+		WHERE conslt_no = #{consltNo}
+	</update>
+
+	<update id="updateCanclConslt" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			conslt_sttus = #{consltSttus}
+			, cancl_resn = #{canclResn}
+			, cancl_dt = SYSDATE()
+		WHERE conslt_no = #{consltNo}
+	</update>
 
 
+	<update id="updateSttus" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			conslt_sttus = #{consltSttus}
+		WHERE conslt_no = #{consltNo}
+	</update>
+
+
+	<select id="selectListForExcel" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT mc
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY conslt_no DESC
+	</select>
 
 </mapper>

@@ -92,5 +92,7 @@ public class BplcVO extends CommonBaseVO {
 
     private String dist;
 
+    private int rcmdCnt = 0;// 사용자 추천수
+
 
 }

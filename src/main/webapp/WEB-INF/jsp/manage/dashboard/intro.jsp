@@ -53,21 +53,42 @@
             </c:if>
         </c:forEach>
         --%>
-
-            <li><a href="/_mng/dashboard" class="dashboard-item1">대시보드</a></li>
-            <li><a href="/_mng/mbr/list" class="dashboard-item2">회원관리</a></li>
-            <li><a href="/_mng/gds/gds/list" class="dashboard-item3">상품관리</a></li>
-            <li><a href="/_mng/ordr/all/list" class="dashboard-item4">주문관리</a></li>
-            <li><a href="/_mng/exhibit/banner/list" class="dashboard-item5">전시관리</a></li>
-            <li><a href="/_mng/promotion/dspy/list" class="dashboard-item11">프로모션관리</a></li>
-            <li><a href="/_mng/consult/recipter/list" class="dashboard-item7">고객상담관리</a></li>
-            <li><a href="/_mng/sysmng/mngr/list" class="dashboard-item8">시스템관리</a></li>
-            <li><a href="/_mng/stats/sales/prfmnc" class="dashboard-item10">통계관리</a></li>
-            <li><a href="/_mng/members/bplc/list" class="dashboard-item12">멤버스관리</a></li>
-            <li><a href="/_mng/clcln/market/list" class="dashboard-item9">정산관리</a></li>
+			<c:if test="${menuAuthMap['대시보드']}">
+            	<li><a href="/_mng/dashboard" class="dashboard-item1">대시보드</a></li>
+            </c:if>
+            <c:if test="${menuAuthMap['회원']}">
+	            <li><a href="/_mng/mbr/list" class="dashboard-item2">회원관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['상품']}">
+	            <li><a href="/_mng/gds/gds/list" class="dashboard-item3">상품관리</a></li>
+	        </c:if>
+            <c:if test="${menuAuthMap['주문']}">
+            	<li><a href="/_mng/ordr/all/list" class="dashboard-item4">주문관리</a></li>
+            </c:if>
+            <c:if test="${menuAuthMap['전시']}">
+	            <li><a href="/_mng/exhibit/banner/list" class="dashboard-item5">전시관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['프로모션']}">
+	            <li><a href="/_mng/promotion/dspy/list" class="dashboard-item11">프로모션관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['고객상담']}">
+	            <li><a href="/_mng/consult/recipter/list" class="dashboard-item7">고객상담관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['시스템']}">
+	            <li><a href="/_mng/sysmng/mngr/list" class="dashboard-item8">시스템관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['통계']}">
+	            <li><a href="/_mng/stats/sales/prfmnc" class="dashboard-item10">통계관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['멤버스']}">
+	            <li><a href="/_mng/members/bplc/list" class="dashboard-item12">멤버스관리</a></li>
+	        </c:if>
+	        <c:if test="${menuAuthMap['정산']}">
+	            <li><a href="/_mng/clcln/market/list" class="dashboard-item9">정산관리</a></li>
+	        </c:if>
         </ul>
 
-        <p class="text-copyright">Copyright ⓒEroumMarket All righs reserved.</p>
+        <p class="text-copyright">Copyright ⓒTHKCompany Inc. All rights reserved.</p>
     </div>
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>

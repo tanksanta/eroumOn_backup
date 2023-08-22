@@ -1,10 +1,9 @@
 html {
-    @apply scroll-smooth overflow-visible;
+    @apply overflow-visible;
 }
 
 body {
-    @apply block relative w-full h-screen max-h-screen text-sm scroll-smooth overflow-x-hidden text-black2
-           md:text-base;
+    @apply block relative w-full h-screen max-h-screen text-black2;
 }
 
 
@@ -300,7 +299,8 @@ body {
                md:w-9 md:h-9
                lg:w-10 lg:h-10;
         & i {
-            @apply absolute -top-1 -right-1 py-0.5 px-1.5 rounded-full bg-[#FF3838] leading-none text-xs font-serif text-white font-bold md:text-[0.8125rem];
+            @apply absolute -top-0.5 left-full -ml-4 py-0.5 px-1 min-w-[1.5em] rounded-full bg-[#FF3838] leading-none text-[0.6875rem] text-center font-serif text-white font-bold
+                   md:text-xs md:px-1.5;
         }
     }
     & .util-item1 {

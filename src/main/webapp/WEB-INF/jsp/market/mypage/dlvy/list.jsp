@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<link rel="stylesheet" href="/html/page/market/assets/style/mypage-jh.css">
-
-	<main id="container">
+	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="배송지 관리" name="pageTitle"/>
 		</jsp:include>
@@ -13,6 +11,8 @@
            <jsp:include page="../../layout/page_sidenav.jsp" />
 
             <div id="page-content">
+				<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
                 <div class="items-center justify-between md:flex">
                     <div class="space-y-1.5 md:mr-3">
                         <p class="text-alert">자주 사용하시는 배송지를 등록해 두시면 더욱 더 편리하게 이용하실 수 있습니다.</p>

@@ -1,0 +1,13 @@
+<svg width="31" height="37" viewBox="0 0 31 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 18507">
+<g id="Group 154">
+<g id="Group 150">
+<line id="Line 37" x1="7" y1="21.5" x2="23.5884" y2="21.5" stroke="#F8F8F8"/>
+<line id="Line 39" x1="7" y1="25.5669" x2="23.5884" y2="25.5669" stroke="#F8F8F8"/>
+<line id="Line 41" x1="7" y1="29.6339" x2="18.0589" y2="29.6339" stroke="#F8F8F8"/>
+</g>
+<path id="Rectangle 148" d="M11 8C11 7.44772 11.4477 7 12 7H19.0482C19.6005 7 20.0482 7.44772 20.0482 8V12.7152C20.0482 13.0976 19.8301 13.4465 19.4864 13.6141L15.9623 15.3319C15.6857 15.4668 15.3625 15.4668 15.0859 15.3319L11.5618 13.6141C11.2181 13.4465 11 13.0976 11 12.7152V8Z" fill="white"/>
+</g>
+<rect id="Rectangle 153" x="1" y="1" width="29" height="35" rx="5" stroke="white" stroke-width="1.5"/>
+</g>
+</svg>

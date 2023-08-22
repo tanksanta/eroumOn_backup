@@ -41,10 +41,10 @@ import icube.manage.sysmng.brand.biz.BrandVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
 import icube.manage.sysmng.mkr.biz.MkrVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.itrst.biz.ItrstService;
-import icube.market.mypage.itrst.biz.ItrstVO;
 import icube.members.stdg.biz.StdgCdService;
 import icube.members.stdg.biz.StdgCdVO;
+import icube.membership.conslt.biz.ItrstService;
+import icube.membership.conslt.biz.ItrstVO;
 
 /**
  * 마켓 > 상품 정보

@@ -74,9 +74,6 @@
 		<if test="srchBplcNm !=null and srchBplcNm != ''">
 			AND b.bplc_nm LIKE CONCAT('%',#{srchBplcNm},'%')
 		</if>
-		<if test="srchEntrpsNm !=null and srchEntrpsNm != ''">
-			AND od.entrps_nm LIKE CONCAT('%',#{srchEntrpsNm},'%')
-		</if>
 	</sql>
 
 	<select id="selectOrdrList" parameterType="java.util.HashMap" resultMap="ordrDtlListVOMap">
@@ -90,8 +87,6 @@
 			 , od.gds_nm
 			 , od.gds_sup_pc
 			 , od.gds_pc
-			 , od.entrps_no
-			 , od.entrps_nm
 			 , od.gds_item_cd
 			 , od.optn_item_cd
 			 , od.ordr_pc
@@ -131,7 +126,7 @@
 			 , od.reg_id
 			 , od.rgtr
 		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
-			WHERE od.stts_ty IN ('OR07', 'OR08', 'OR09')
+			WHERE od.stts_ty IN ('RE03', 'CA02', 'OR07', 'OR08', 'OR09')
 			AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR07', 'OR08', 'OR09') ) &lt; 1
 			<include refid="searchConditions" />
 	  	ORDER BY o.ordr_no DESC, od.ordr_dtl_cd ASC, od.ordr_dtl_no ASC
@@ -149,7 +144,7 @@
 		 LEFT JOIN GDS g ON od.gds_no = g.gds_no
 		 LEFT JOIN BPLC b ON od.bplc_unique_id = b.unique_id
 		WHERE od.bplc_unique_id IS NOT NULL AND bplc_unique_id != ''
-		  AND od.stts_ty IN ('OR07', 'OR08', 'OR09')
+		  AND od.stts_ty IN ('RE03', 'CA02', 'OR07', 'OR08', 'OR09')
 		  AND o.ordr_ty IN ('R', 'L')
 		  AND (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('EX03', 'RE03', 'CA02', 'OR07', 'OR08', 'OR09') ) &lt; 1
 		  <include refid="searchConditions" />

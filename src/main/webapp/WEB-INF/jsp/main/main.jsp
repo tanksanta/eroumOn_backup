@@ -322,14 +322,14 @@ function comma(num){
         }
        $("select[name='select-sido']").trigger("change");
        
-   	$("form[name='bokjiFrm']").validate({ 
-	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
-	    submitHandler: function (frm) {
-	    	$("select[name='select-sido']").attr("name","selectSido");
-	    	$("select[name='select-gugun']").attr("name","selectGugun");
-	    	frm.submit();
-	    }
-	});
+	   	$("form[name='bokjiFrm']").validate({ 
+		    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
+		    submitHandler: function (frm) {
+		    	$("select[name='select-sido']").attr("name","selectSido");
+		    	$("select[name='select-gugun']").attr("name","selectGugun");
+		    	frm.submit();
+		    }
+		});
 
     });
 
@@ -340,6 +340,38 @@ function comma(num){
         }
     };
 
+    var visualAnimate = function(swiper) {
+        $(swiper.slides).each(function(i) {
+            if(i === swiper.activeIndex) {
+                var numb = $(this).attr('data-slide-number');
+                $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
+                    $('.main-visual .object-group').prop('class', 'object-group is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber + ' is-active');
+                });
+            } else {
+                $(this).find('.content').removeClass('is-active').find('.ani-text, .ani-obj').off('transitionend animationend');
+            }
+        });
+	};
+
+    var visualSetting = function(swiper) {
+        pageBtn = $('.main-visual .swiper-slide-active .btn');
+        slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
+
+        $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
+
+        if($(window).outerWidth() > 768) {
+            $('.swiper .object').css({
+                '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
+                '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
+            });
+        } else {
+            $('.swiper .object').css({
+                '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
+                '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
+            });
+        }
+    };
+    
     $(function() {
         var swiper = new Swiper(".main-visual .swiper", {
             slidesPerView: 1,
@@ -349,7 +381,7 @@ function comma(num){
             pagination: {
                 el: '.main-visual .swiper-pagination',
             },
-            autoplay: {
+			autoplay: {
                 delay: 6000,
                 disableOnInteraction: false,
             },
@@ -364,45 +396,19 @@ function comma(num){
                 beforeInit: function(swiper) {
                     $('.main-visual .object').addClass('is-init');
                 },
+                afterInit: function(swiper) {
+                	visualAnimate(swiper);
+                    visualSetting(swiper);
+                },
                 slideChange: function(swiper) {
                     $('.main-visual .object-group').removeClass('is-active');
                     $('.main-visual .object-content').prop('class', 'object-content is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber);
                 },
                 slideChangeTransitionEnd: function(swiper) {
-                    $('.object').on('transitionend',function() {
-                        $(swiper.slides).each(function(i) {
-                            if(i === swiper.activeIndex) {
-                                var numb = $(this).attr('data-slide-number');
-                                $(this).find('.content').addClass('is-active').find('.ani-text, .ani-obj').last().one('transitionend animationend',function() {
-                                    $('.main-visual .object-group').prop('class', 'object-group is-scene' + swiper.slides[swiper.activeIndex].dataset.slideNumber + ' is-active');
-                                });
-                            } else {
-                                $(this).find('.content').removeClass('is-active').find('.ani-text, .ani-obj').off('transitionend animationend');
-                            }
-                        });
-                    });
+                	$('.object').on('transitionend', visualAnimate(swiper));
                 }
             }
         });
-        
-        var visualSetting = function() {
-            pageBtn = $('.main-visual .swiper-slide-active .btn');
-            slider  = [$('.main-visual .swiper-slide-active').outerWidth(), $('.main-visual .swiper-slide-active').outerHeight()];
-
-            $(swiper.pagination.el).css({'bottom' : $('.main-visual').height() - (pageBtn.position().top + pageBtn.height() + ($(window).outerWidth() > 768 ? 48 : 23) + parseInt(pageBtn.css('margin-top').replace('px', '')))});
-
-            if($(window).outerWidth() > 768) {
-                $('.swiper .object').css({
-                    '--tw-scale-x' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670,
-                    '--tw-scale-y' : (slider[0] * 0.5583333 / 670 > 1.2) ? 1.2 : slider[0] * 0.5583333 / 670
-                });
-            } else {
-                $('.swiper .object').css({
-                    '--tw-scale-x' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670,
-                    '--tw-scale-y' : (slider[1] * 0.5 / 670 > 0.6) ? 0.6 : slider[1] * 0.5 / 670
-                });
-            }
-        };
         
         //object visible
         [].slice.call(document.querySelectorAll('[class*="main-content"] .image')).forEach((e) => {
@@ -414,14 +420,15 @@ function comma(num){
 
             observer.observe(e);
         }, this);
-        
-        
-        visualSetting();
-        
+
+        $(window).on('load', function(e) {
+        	visualSetting(swiper);
+        });
+
         $(window).on('resize', function(e) {
             if(e.type === 'resize' && resize) {
-            	visualSetting;
+            	visualSetting(swiper);
             }
-        })
+        });
     })
 </script>

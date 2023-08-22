@@ -39,6 +39,7 @@
 		, g.keyword
 		, g.sort_no
 		, g.gds_tag as gds_tag_val
+		, g.entrps_no
 		, g.mkr
 		, g.plor
 		, g.brand
@@ -113,6 +114,7 @@
 		op.gds_optn_no
 		, op.optn_ty
 		, op.optn_nm
+		, op.optn_item_cd
 		, op.optn_pc
 		, op.optn_stock_qy
 		, op.use_yn
@@ -391,6 +393,7 @@
 			 , keyword
 			 , sort_no
 			 , gds_tag
+			 , entrps_no
 			 , mkr
 			 , plor
 			 , brand
@@ -431,6 +434,7 @@
 			 , dlvy_ct_stlm
 			 , dlvy_bass_amt
 			 , dlvy_adit_amt
+			 , dlvy_group_yn
 			 , dlvy_dc
 
 			 , youtube_url
@@ -474,6 +478,7 @@
 			, #{keyword, jdbcType=VARCHAR}
 			, #{sortNo}
 			, #{gdsTagVal, jdbcType=VARCHAR}
+			, #{entrpsNo}
 			, #{mkr}
 			, #{plor, jdbcType=VARCHAR}
 			, #{brand}
@@ -515,6 +520,7 @@
 			, #{dlvyCtStlm, jdbcType=VARCHAR}
 			, #{dlvyBassAmt}
 			, #{dlvyAditAmt}
+			, #{dlvyGroupYn, jdbcType=VARCHAR}
 			, #{dlvyDc, jdbcType=VARCHAR}
 
 			, #{youtubeUrl}
@@ -563,6 +569,7 @@
 			, keyword = #{keyword, jdbcType=VARCHAR}
 			, sort_no = #{sortNo}
 			, gds_tag = #{gdsTagVal, jdbcType=VARCHAR}
+			, entrps_no = #{entrpsNo}
 			, mkr = #{mkr}
 			, plor = #{plor, jdbcType=VARCHAR}
 			, brand = #{brand}
@@ -606,6 +613,7 @@
 			, dlvy_ct_stlm = #{dlvyCtStlm, jdbcType=VARCHAR}
 			, dlvy_bass_amt = #{dlvyBassAmt}
 			, dlvy_adit_amt = #{dlvyAditAmt}
+			, dlvy_group_yn = #{dlvyGroupYn}
 			, dlvy_dc = #{dlvyDc}
 
 			, youtube_url = #{youtubeUrl}
@@ -689,6 +697,20 @@
 	  	ORDER BY g.gds_no DESC
 	</select>
 
+
+    <!-- 상품 엑셀다운로드 -->
+    <select id="selectGdsWithOptnListAll" parameterType="java.util.HashMap" resultMap="gdsVOMap">
+        SELECT
+            <include refid="listColumn"/>
+            ,<include refid="optnListColumn" />
+        FROM GDS g
+            LEFT JOIN GDS_OPTN op on g.gds_no = op.gds_no
+            LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+            LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+        WHERE 1=1
+            <include refid="searchConditions" />
+          ORDER BY g.gds_no DESC
+    </select>
 
 	<!-- 재고수량 변경 -->
 	<update id="updateGdsStockQy" parameterType="java.util.HashMap">

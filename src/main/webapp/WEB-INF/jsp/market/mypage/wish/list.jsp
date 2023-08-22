@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main id="container">
+	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="관심상품" name="pageTitle"/>
 		</jsp:include>
 
 		<div id="page-container">
+
+			<jsp:include page="../../layout/page_sidenav.jsp" />
+
             <div id="page-content">
+				<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
                 <div class="items-center justify-between mb-6.5 md:flex lg:mb-8">
                     <div class="space-y-1.5 md:mr-3">
                         <p class="text-alert">고객님께서 관심 상품으로 등록한 상품 목록입니다.</p>

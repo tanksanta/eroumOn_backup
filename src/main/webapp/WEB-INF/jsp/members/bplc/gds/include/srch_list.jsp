@@ -6,7 +6,7 @@
 	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 		<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
 
-		<a href="${_marketPath}/gds/${resultList.upCtgryNo}/${resultList.ctgryNo}/${resultList.gdsCd}" class="product-item">
+		<a href="${_marketPath}/gds/${resultList.ctgryNo}/${resultList.gdsCd}" class="product-item">
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${!empty resultList.thumbnailFile }">
@@ -47,9 +47,9 @@
 							</dd>
 						</dl>
 					</c:if>
+					<%--
 					<c:choose>
 						<c:when test="${(resultList.gdsTy eq 'R' || resultList.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y'}">
-							<%--급여(판매)제품--%>
 							<dl class="discount">
 								<dt>${resultList.gdsTy eq 'R'?'본인부담금':'대여가(월)'}</dt>
 								<dd>
@@ -74,6 +74,7 @@
 							</dl>
 						</c:when>
 					</c:choose>
+					 --%>
 				</div>
 			</div>
 		</a>

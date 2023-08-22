@@ -83,9 +83,9 @@
 								<th scope="row"><label class="require">상태</label></th>
 								<td>
 									<div class="form-check-group">
-										<c:forEach var="yn" items="${useYnCode}">
+										<c:forEach var="yn" items="${dspyYnCode}">
 											<div class="form-check">
-												<form:radiobutton class="form-check-input" id="${yn.key}" path="useYn" value="${yn.key}" />
+												<form:radiobutton class="form-check-input" id="${yn.key}" path="dspyYn" value="${yn.key}" />
 												<label class="form-check-label" for="${yn.key}">${yn.value}</label>
 											</div>
 										</c:forEach>
@@ -228,6 +228,7 @@
 					<col class="w-[15%]">
 					<col>
 					<col class="w-35">
+					<col class="w-30">
 					<col class="w-35">
 					<col class="w-45">
 				</colgroup>
@@ -237,6 +238,7 @@
 						<th scope="col">아이디</th>
 						<th scope="col">회원이름</th>
 						<th scope="col">휴대폰번호</th>
+						<th scope="col">답변</th>
 						<th scope="col">IP</th>
 						<th scope="col">응모일</th>
 					</tr>
@@ -248,13 +250,14 @@
 							<td>${applcnList.applctId}</td>
 							<td>${applcnList.applctNm}</td>
 							<td>${applcnList.applctTelno}</td>
+							<td>${applcnList.chcIemCn}</td>
 							<td>${applcnList.ip}</td>
 							<td><fmt:formatDate value="${applcnList.applctDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty listVO.listObject}">
 						<tr>
-							<td class="noresult" colspan="6">응모 내역이 없습니다.</td>
+							<td class="noresult" colspan="7">응모 내역이 없습니다.</td>
 						</tr>
 					</c:if>
 				</tbody>

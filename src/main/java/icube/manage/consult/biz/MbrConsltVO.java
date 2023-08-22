@@ -1,4 +1,10 @@
+/*
+ *
+ */
 package icube.manage.consult.biz;
+
+import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -24,4 +30,17 @@ public class MbrConsltVO extends CommonBaseVO {
 	private String daddr;
 	private String useYn = "Y";
 
+	// 20230807 kkm : 상담 상태값 추가
+	private String mngMemo; //관리 메모
+	private Date memoMdfcnDt;
+	private String mngrUniqueId;
+	private String mngrId;
+	private String mngrNm;
+
+	private String consltSttus = "CS01"; // 상담접수(상담신청완료)
+	private Date sttusChgDt;
+	private String canclResn;
+	private Date canclDt;
+
+	private List<MbrConsltResultVO> consltResultList;
 }

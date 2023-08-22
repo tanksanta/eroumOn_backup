@@ -1,20 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script>
-	var starCount = "${gdsReviewVO.dgstfn}";
-
-	var active_html = "";
-	active_html += '<button type="button">';
-	active_html += '<img src="/html/page/market/assets/images/content2/star_active.png" alt="" class="acstar stars">';
-	active_html += '</button>';
-
-	var normal_html = "";
-	normal_html += '<button type="button">';
-	normal_html += '<img src="/html/page/market/assets/images/content2/star_normal.png" alt="" class="nonstar stars">';
-	normal_html += '</button>';
-
-</script>
 <!-- 상품후기 모달 -->
-<div class="modal fade layer-popup layer-cancel layer-review" id="reviewModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -38,129 +24,80 @@
 			<input type="hidden" id="starScore" name="starScore" value="${gdsReviewVO.dgstfn}" />
 
 			<div class="modal-body">
-				<div class="content">
-					<div class="pd">
-						<div class="order-product">
-							<div class="order-body">
-								<div class="order-item">
-									<div class="order-item-thumb">
-										<c:forEach var="fileList" items="${gdsReviewVO.thumbnailFile}" varStatus="status">
-											<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsReviewVO.gdsNo}&amp;fileTy=THUMB&amp;fileNo=${fileList.fileNo}" alt="">
-										</c:forEach>
-										<if test="${gdsVO ne null}">
-											<c:set var="img" value="${gdsVO.thumbnailFile}" />
-											<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsVO.gdsNo}&amp;fileTy=THUMB" alt="">
-										</if>
-									</div>
-									<div class="order-item-content">
-										<div class="order-item-base">
-											<p class="code">
-												<u>${gdsReviewVO.gdsCd}</u>
-											</p>
-											<div class="product">
-												<p class="name">${gdsVO.gdsNm}</p>
-											</div>
-										</div>
-										<div class="order-item-add">
-											<div class="score">
-												<span class="satisfied">고객만족도</span>
-												<div class="star-score starview">
-													<script language="JavaScript">
-													if($("#crud").val() == "CREATE"){
-														for (var i = 0; i < 4-starCount; i++) {
-															$(".starview").prepend(normal_html);
-														}
-														for (var i = 0; i < starCount; i++) {
-															$(".starview").prepend(active_html);
-														}
-														var one_html = "";
-														one_html += '<button type="button">';
-														one_html += '<img src="/html/page/market/assets/images/content2/star_active.png" alt="" class="acstar stars">';
-														one_html += '</button>';
-														$(".starview").prepend(one_html);
-													}else{
-														for (var i = 0; i < 5-starCount; i++) {
-															$(".starview").prepend(normal_html);
-														}
-														for (var i = 0; i < starCount; i++) {
-															$(".starview").prepend(active_html);
-														}
-													}
-
-													</script>
-													<span class="score-text scoreTotal">${gdsReviewVO.dgstfn}.0</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<div class="mypage-review-rating">
+					<div class="rating-thumb">
+					<c:forEach var="fileList" items="${gdsReviewVO.thumbnailFile}" varStatus="status">
+						<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsReviewVO.gdsNo}&amp;fileTy=THUMB&amp;fileNo=${fileList.fileNo}" alt="">
+					</c:forEach>
+					<c:if test="${gdsVO ne null}">
+						<c:set var="img" value="${gdsVO.thumbnailFile}" />
+						<img src="/comm/getImage?srvcId=GDS&amp;upNo=${gdsVO.gdsNo}&amp;fileTy=THUMB" alt="">
+					</c:if>
 					</div>
-					<div class="expected-point">
-						<div class="box">
-							<div class="right">
-								<dl>
-									<dt>
-										<strong class="red">상품후기</strong> 작성시
-									</dt>
-									<dd>200 포인트 적립</dd>
-								</dl>
-								<dl>
-									<dt>
-										<strong class="blue">포토후기</strong> 작성시
-									</dt>
-									<dd>500 포인트 적립</dd>
-								</dl>
-							</div>
-						</div>
+					<div class="rating-product">
+					    <u>${gdsReviewVO.gdsCd}</u>
+					    <strong>${gdsVO.gdsNm}</strong>
 					</div>
-					<div class="pd">
-						<table class="table-detail mt17">
-							<colgroup>
-								<col width="87px">
-								<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th><p class="center">상품 후기</p></th>
-									<td><form:textarea path="cn" class="change-textarea" placeholder="상품 후기를 1000자 이내로 남겨주세요" maxlength="1000" /></td>
-								</tr>
-								<tr>
-									<th><p class="center">사진 등록</p></th>
-									<td>
-										<div class="form-upload attachFile" <c:if test="${!empty gdsReviewVO.imgFile}">style="display:none;"</c:if>>
-											<label for="uploadFile" class="form-upload-trigger">파일을 선택해주세요
-											</label><input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" >
-										</div>
-										<div class="image-upload">
-											<ul class="imgview">
-											<c:if test="${!empty gdsReviewVO.imgFile}">
-												<li class="order-item-thumb">
-													<a href="#f_delFile" onclick="f_delFile('${gdsReviewVO.imgFile.fileNo}', 'ATTACH', '${status.index}',this); return false;" class="img-delete">
-														<img src="/html/page/market/assets/images/content2/upload_cencel.png" alt="">
-													</a>
-													<img src="/comm/getImage?srvcId=REVIEW&amp;upNo=${gdsReviewVO.gdsReivewNo}&amp;fileNo=${gdsReviewVO.imgFile.fileNo}" alt="">
-												</li>
-											</c:if>
-
-											</ul>
-												<p>파일 형식 : JPG, GIF, 용량 : 2MB이하</p>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<p class="text-alert mt17">구매한 상품과 관계가 없는 내용이나 비방성 글은 등록자에게 사전 동의 없이 임의로 삭제될 수 있습니다.</p>
-						<p class="text-alert">
-							배송, 상품문의는 고객센터 <strong class="line">1:1 문의</strong>를 이용해주세요.
-						</p>
-						<div class="modal-footer">
-							<button type="subtmit" class="btn btn-primary w-46 flex-1 xs:flex-none">확인</button>
-							<button type="button" class="btn btn-outline-primary flex-none" data-bs-dismiss="modal">취소</button>
-						</div>
-					</div>
+					<strong class="block mb-1 md:mb-1.5">고객만족도</strong>
+                    <div class="rating-control">
+						<c:forEach var="i" begin="1" end="5">
+							<c:set var="bool" value="${i eq gdsReviewVO.dgstfn ? 'true' : 'false'}" />
+	                        <div class="rating <c:if test="${i <= gdsReviewVO.dgstfn}">active</c:if>" role="radio" aria-label="${i}점" aria-checked="${bool}" tabindex="0" data-rating="${i}"></div>
+						</c:forEach>
+						<div class="text">${gdsReviewVO.dgstfn}</div>
+                    </div>
 				</div>
+				
+                <div class="mypage-review-point2 mt-8 md:mt-10">
+                    <dl>
+                        <dt><strong>상품후기</strong> 작성시</dt>
+                        <dd>200 포인트 적립</dd>
+                    </dl>
+                    <dl>
+                        <dt><strong>포토후기</strong> 작성시</dt>
+                        <dd>500 포인트 적립</dd>
+                    </dl>
+                </div>
+                
+				<table class="table-detail mt-3.5 md:mt-4.5">
+					<colgroup>
+						<col class="w-22">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row"><p><label for="review-item2">상품 후기</label></p></th>
+							<td><form:textarea path="cn" cols="30" rows="10" id="review-item2" class="form-control w-full" placeholder="상품 후기를 1000자 이내로 남겨주세요" maxlength="1000" /></td>
+						</tr>
+						<tr>
+							<th scope="row"><p><label for="uploadFile">사진 등록</label></p></th>
+							<td>
+								<div class="form-upload attachFile" <c:if test="${!empty gdsReviewVO.imgFile}">style="display:none;"</c:if>>
+									<label for="uploadFile" class="form-upload-trigger">파일을 선택해주세요
+									</label><input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" >
+								</div>
+								<ul class="mypage-review-uploads">
+									<c:if test="${!empty gdsReviewVO.imgFile}">
+									<li>
+										<p><img src="/comm/getImage?srvcId=REVIEW&amp;upNo=${gdsReviewVO.gdsReivewNo}&amp;fileNo=${gdsReviewVO.imgFile.fileNo}" alt=""></p>
+										<button class="button" onclick="f_delFile('${gdsReviewVO.imgFile.fileNo}', 'ATTACH', '${status.index}',this); return false;">삭제</button>
+									</li>
+									</c:if>
+								</ul>
+								<p class="text-sm mt-1.5">파일 형식 : JPG, GIF, 용량 : 2MB이하</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+                        
+                <ul class="mt-4 md:mt-5 space-y-1 md:space-y-1.5">
+                    <li class="text-alert">구매한 상품과 관계가 없는 내용이나 비방성 글은 등록자에게 사전 동의 없이 임의로 삭제될 수 있습니다.</li>
+                    <li class="text-alert">배송, 상품문의는 고객센터 <strong class="underline">1:1 문의</strong>를 이용해주세요.</li>
+                </ul>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary btn-submit">확인</button>
+				<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</button>
 			</div>
 			</form:form>
 		</div>
@@ -172,27 +109,25 @@
 
 //첨부파일 변경
 function setImageFromFile(input, expression) {
-	    if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function (e) {
-	    $(expression).attr('src', e.target.result);
-	  }
-	  reader.readAsDataURL(input.files[0]);
-	  }
-
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$(expression).attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
 
 //첨부파일 삭제
 function f_delFile(fileNo, type, spanNo, obj) {
-	console.log(obj);
 	if (confirm("삭제하시겠습니까?")) {
 		if (type == "ATTACH") {
 			$(obj).closest("li").remove();
-			if ($("#delAttachFileNo").val() == "") {
+			if($("#delAttachFileNo").val() == "") {
 				$("#delAttachFileNo").val(fileNo);
 			} else {
 				$("#delAttachFileNo").val(
-						$("#delAttachFileNo").val() + "," + fileNo);
+				$("#delAttachFileNo").val() + "," + fileNo);
 			}
 			$(".attachFile").css("display", "");
 			$(".uploadFile").val('');
@@ -201,39 +136,42 @@ function f_delFile(fileNo, type, spanNo, obj) {
 }
 
 $(function(){
-	$("#starScore").val(1);
+	$(document).on("click keydown", ".rating-control .rating", function(e) {
+        e.stopPropagation();
 
-	//별점
-	$(".scoreTotal").text($(".acstar").length+".0");
-	$(document).on("click", ".acstar", function(){
-		//$(this).closest("button").prevUntil().children().addClass("nonstar").removeClass("acstar").attr("src","/html/page/market/assets/images/content2/star_normal.png");
-		$(this).closest("button").nextAll().children().addClass("nonstar").removeClass("acstar").attr("src","/html/page/market/assets/images/content2/star_normal.png");
-		$(this).removeClass("nonstar").addClass("acstar");
-		$(".scoreTotal").text($(".acstar").length+".0");
-		$("#starScore").val($(".acstar").length);
-		//$(this).attr("src","/html/page/market/assets/images/content2/star_normal.png");
+        var target = $(this);
+        
+        if(e.type === 'click' || (e.keyCode === 13 || e.keyCode === 32)) {
+            if($.parseJSON(target.attr('aria-checked'))) {
+                target.removeClass('active').attr('aria-checked', false);
+            } else {
+                target.addClass('active').attr('aria-checked', true);
+            }
+        }
+
+        target.prevAll('.rating').each(function() {
+            $(this).attr('class', (target.hasClass('active')) ? 'rating active' : 'rating').attr('aria-checked', false);
+        });
+        
+        target.nextAll('.rating').each(function() {
+            $(this).removeClass('active').attr('aria-checked', false);
+        });
+
+        target.siblings('.text').text(target.attr('data-rating'));
+        
+        $('#starScore').val(target.attr('data-rating'))
 	});
-
-	$(document).on("click", ".nonstar", function(){
-		$(this).closest("button").prevUntil().children().addClass("acstar").removeClass("nonstar").attr("src","/html/page/market/assets/images/content2/star_active.png");
-		$(this).closest("button").nextAll().children().addClass("nonstar").removeClass("acstar").attr("src","/html/page/market/assets/images/content2/star_normal.png");
-		$(this).removeClass("nonstar").addClass("acstar");
-		$(".scoreTotal").text($(".acstar").length+".0");
-		$("#starScore").val($(".acstar").length);
-		$(this).attr("src","/html/page/market/assets/images/content2/star_active.png");
-	});
-
+	
 	// 첨부파일
 	$("#uploadFile").on("change",function(){
-
 		var img_html = '';
-		img_html += '<li class="order-item-thumb addFile">';
-		img_html += '<img src="/html/page/market/assets/images/content2/upload_cencel.png" alt="" class="addAttach">';
+		img_html += '<li>';
+		img_html += '<img src="" alt="" class="addAttach">';
 		img_html += '</li>';
 		setImageFromFile(this, ".addAttach");
 
-		$(".addFile").remove();
-		$(".imgview").append(img_html);
+		$(".mypage-review-uploads *").remove();
+		$(".mypage-review-uploads").append(img_html);
 	});
 
 	//유효성

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main id="container">
+	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="주문결제" name="pageTitle"/>
 		</jsp:include>
@@ -9,10 +9,9 @@
 
             <jsp:include page="../../layout/page_sidenav.jsp" />
 
-			<%-- TO-DO : 보호자중에 수급자가 있는지 체크 --%>
-
-
             <div id="page-content">
+				<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
             	<c:if test="${_mbrSession.recipterYn eq 'Y'}">
                 <!-- 수급자 -->
                 <ul class="order-sequence">

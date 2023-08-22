@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>장기요양테스트</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../../core/vendor/datatables/datatables.min.js"></script>
+    
+    <!-- common -->
+    <script src="../../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <!-- header title -->
+        <h1 class="system-title small white">Management<br> System</h1>
+        <!-- //header title -->
+
+        <!-- main navigation -->
+        <nav id="navigation">
+            <ul class="menu-items">
+                <li><a href="dashboard.html" class="menu-item1">대시보드</a></li>
+                <li><a href="#list-items2" class="menu-item2">회원관리</a></li>
+                <li><a href="#list-items3" class="menu-item3">상품관리</a></li>
+                <li><a href="#list-items4" class="menu-item4">주문관리</a></li>
+                <li><a href="#list-items5" class="menu-item5">전시관리</a></li>
+                <li><a href="#list-items11" class="menu-item11">프로모션관리</a></li>
+                <li><a href="#list-items7" class="menu-item7 active">고객상담관리</a></li>
+                <li><a href="#list-items8" class="menu-item8">시스템관리</a></li>
+                <li><a href="#list-items9" class="menu-item9">정산관리</a></li>
+                <li><a href="#list-items10" class="menu-item10">통계관리</a></li>
+            </ul>
+            <div class="list-items" id="list-items2">
+                <p>
+                    회원관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">일반회원관리</a></li>
+                    <li><a href="#">블랙리스트회원관리</a></li>
+                    <li><a href="#">휴면회원관리</a></li>
+                    <li><a href="#">탈퇴회원관리</a></li>
+                    <li><a href="#">SMS 전송 이력</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items3">
+                <p>
+                    상품관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">카테고리관리</a></li>
+                    <li><a href="#">상품관리</a></li>
+                    <li><a href="#">상품일괄업로드</a></li>
+                    <li><a href="#">상품재고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items4">
+                <p>
+                    주문관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">전체주문</a></li>
+                    <li><a href="#">입금대기</a></li>
+                    <li><a href="#">결제완료</a></li>
+                    <li><a href="#">배송관리</a></li>
+                    <li><a href="#">구매확정</a></li>
+                    <li><a href="#">취소관리</a></li>
+                    <li><a href="#">사업소취소요청</a></li>
+                    <li><a href="#">교환관리</a></li>
+                    <li><a href="#">반품관리</a></li>
+                    <li><a href="#">환불관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items5">
+                <p>
+                    전시관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">추천상품관리</a></li>
+                    <li><a href="#">테마전시관리</a></li>
+                    <li><a href="#">팝업관리</a></li>
+                    <li><a href="#">광고관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items11">
+                <p>
+                    프로모션관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">기획전</a></li>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">쿠폰</a></li>
+                    <li><a href="#">포인트</a></li>
+                    <li><a href="#">마일리지</a></li>
+                </ul>
+            </div>
+            <div class="list-items active" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li class="active"><a href="#">1:1상담(장기요양테스트)</a></li>
+                    <li><a href="#">상품후기</a></li>
+                    <li><a href="#">상품Q&amp;A</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items8">
+                <p>
+                    시스템관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">관리자관리</a></li>
+                    <li><a href="#">권한관리</a></li>
+                    <li><a href="#">메뉴관리</a></li>
+                    <li><a href="#">게시판관리</a></li>
+                    <li><a href="#">금지어관리</a></li>
+                    <li><a href="#">업체(사업소)관리</a></li>
+                    <li><a href="#">제조사관리</a></li>
+                    <li><a href="#">배송업체관리</a></li>
+                    <li><a href="#">공통코드관리</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items9">
+                <p>
+                    정산관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">정산목록</a></li>
+                </ul>
+            </div>
+            <div class="list-items" id="list-items10">
+                <p>
+                    통계관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li><a href="#">매출통계</a></li>
+                    <li><a href="#">회원통계</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //main navigation -->
+        
+        <!-- admin exit -->
+        <a href="dashboard.html" class="back">뒤로가기</a>
+        <!-- //admin exit -->
+    </header>
+    <!-- //header -->
+
+    <!-- main content -->
+    <main id="container">
+        <div id="content">
+            <!-- page header -->
+            <header id="page-header">
+                <h1 class="text-title1"></h1>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><a href="#">고객상담관리</a></li>
+                        <li><strong></strong></li>
+                    </ul>
+                </nav>
+                <a href="#" class="user-info">
+                    <span class="name">
+                        <strong>Login-ID-abcd</strong>
+                        <small>접속중 <span>19:20:31</span></small>
+                    </span>
+                    <span class="thum"></span>
+                </a>
+                <a href="login.html" class="btn-logout">Logout</a>
+            </header>
+            <!-- //page header -->
+            
+            <!-- page content -->
+            <div id="page-content">
+                <p class="mb-7">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+                <form action="#">
+                    <fieldset>
+                        <legend class="text-title2">상담내역</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">성명</th>
+                                    <td>홍길동</td>
+                                    <th scope="row">성별</th>
+                                    <td>여성</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">연락처</th>
+                                    <td>123-4567-1234</td>
+                                    <th scope="row">생년월일</th>
+                                    <td>1960-01-01</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">거주지 주소</th>
+                                    <td colspan="3">08504 서울 금천구 서부샛길 606 123</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">상담 신청일</th>
+                                    <td>2023-01-01</td>
+                                    <th scope="row">상담진행상태</th>
+                                    <td>
+                                        <ul class="space-y-1">
+                                            <li>장기요양기관 배정 완료</li>
+                                            <li>
+                                                재상담 신청 접수
+                                                <a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">사업소 지정</th>
+                                    <td colspan="3">
+                                        <button type="button" class="btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modal2">사업소 선택</button>
+                                        <ul class="mt-2 space-y-1">
+                                            <li>1차 상담 사업소 : THKC 사업소</li>
+                                            <li>1차 상담 사업소 : THKC 사업소</li>
+                                            <li>1차 상담 사업소 : THKC 사업소</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">상담 취소 사유</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item1">상담 취소 사유</label></th>
+                                    <td><textarea name="" id="form-item1" cols="30" rows="5" class="form-control w-full"></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">상담내용(관리자 메모)</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">상담진행상태</th>
+                                    <td>상담 취소</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2" class="require">상담내용</label></th>
+                                    <td><textarea name="" id="form-item2" cols="30" rows="5" class="form-control w-full"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">등록일</th>
+                                    <td>관리자(admin) / yyyy.mm.dd 23:34:35</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <div class="btn-group right mt-8">
+                        <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
+                        <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
+                        <button type="submit" class="btn-success large shadow">저장</button>
+                        <a href="장기요양테스트.html" class="btn-secondary large shadow">목록</a>
+                    </div>
+                </form>
+
+                <!-- 상담 취소 사유 -->
+                <div class="modal fade" id="modal1" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <form class="modal-content">
+                            <div class="modal-header">
+                                <p>상담 취소 사유 입력</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <fieldset class="modal-body">
+                                <label>상담 취소 사유를 입력해 주세요</label>
+                                <textarea name="" id="modal-item1" cols="30" rows="5" class="form-control w-full mt-4"></textarea>
+                            </fieldset>
+                            <div class="modal-footer">
+                                <button tyep="submit" class="btn large btn-primary w-36">저장하기</button>
+                                <button type="button" class="btn large btn-secondary w-36" data-bs-dismiss="modal" aria-label="close">취소</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- //상담 취소 사유 -->
+
+                <!-- 사업소 선택 -->
+                <div class="modal fade" id="modal2" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>사업소 선택</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="nav tab-list tab-full">
+                                    <li><a href="#modal-pane1" class="active" data-bs-toggle="pill" data-bs-target="#modal-pane1" role="tab" aria-selected="true">경고내역</a></li>
+                                    <li><a href="#modal-pane2" data-bs-toggle="pill" data-bs-target="#modal-pane2" role="tab" aria-selected="false">정지/해제 내역</a></li>
+                                </ul>
+                                <div class="tab-content mt-5">
+                                    <div class="tab-pane fade show active" id="modal-pane1" role="tabpanel">
+                                        <form action="#">
+                                            <fieldset>
+                                                <legend class="text-title2">사업소 검색</legend>
+                                                <table class="table-detail">
+                                                    <colgroup>
+                                                        <col class="w-43">
+                                                        <col>
+                                                    </colgroup>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row"><label for="modal-item2">시/도 선택</label></th>
+                                                            <td>
+                                                                <select name="" id="modal-item2" class="form-control w-52">
+                                                                    <option value="">선택</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row"><label for="modal-item3">구/군 선택</label></th>
+                                                            <td>
+                                                                <select name="" id="modal-item3" class="form-control w-52">
+                                                                    <option value="">선택</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row"><label for="modal-item4">사업소명</label></th>
+                                                            <td><input type="text" class="form-control w-full" id="modal-item4"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </fieldset>
+                
+                                            <div class="btn-group mt-4">
+                                                <button type="submit" class="btn-primary large w-36">검색</button>
+                                            </div>
+                                        </form>
+                                        
+                                        <p class="mt-10 text-title2">사업소 목록</p>
+                                        <!-- 일반 테이블
+                                        <table class="table-list">
+                                            <colgroup>
+                                                <col class="w-21">
+                                                <col class="w-44">
+                                                <col>
+                                                <col class="w-35">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">선택</th>
+                                                    <th scope="col">사업소명</th>
+                                                    <th scope="col">주소</th>
+                                                    <th scope="col">전화번호</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </td>
+                                                    <td>이로움사업소</td>
+                                                    <td>08504 서울 금천구 서부샛길 606 123</td>
+                                                    <td>031-1123-1234</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="pagination mt-5">
+                                            <div class="paging">
+                                                <a href="#" class="prev">이전</a>
+                                                <a href="#" class="page active">1</a>
+                                                <a href="#" class="page">2</a>
+                                                <a href="#" class="page">3</a>
+                                                <a href="#" class="page">4</a>
+                                                <a href="#" class="page">5</a>
+                                                <a href="#" class="page">6</a>
+                                                <a href="#" class="page">7</a>
+                                                <a href="#" class="next">다음</a>
+                                            </div>
+                        
+                                            <div class="sorting2">
+                                                <label for="sort-item">출력</label>
+                                                <select name="" id="sort-item" class="form-control">
+                                                    <option value="">20개</option>
+                                                </select>
+                                            </div>
+                            
+                                            <div class="counter">총 <strong>200</strong>건, <strong>1</strong>/60 페이지</div>
+                                        </div>
+                                        -->
+
+                                        <table id="example" class="display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">선택</th>
+                                                    <th scope="col">사업소명</th>
+                                                    <th scope="col">주소</th>
+                                                    <th scope="col">전화번호</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="">
+                                                        </div>
+                                                    </td>
+                                                    <td>이로움사업소</td>
+                                                    <td>08504 서울 금천구 서부샛길 606 123</td>
+                                                    <td>031-1123-1234</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="modal-pane2" role="tabpanel">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button tyep="button" class="btn large btn-primary w-36">선택</button>
+                                <button type="button" class="btn large btn-secondary w-36" data-bs-dismiss="modal" aria-label="close">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var dataTable = null;
+                    $(function() {
+                        //임시 데이터테이블
+                        dataTable = $('#example').DataTable({
+                            'columns' : [ 
+                                {width: 60, targets: 0},
+                                {width: 152, targets: 1},
+                                {width: null, targets: 2},
+                                {width: 120, targets: 3}
+                            ],
+                            searching: false,
+                            fixedColumns: false,
+                            language: dt_lang
+                        });
+
+                        //모달 오픈시 datatable adjust
+                        $('#modal2').on("shown.bs.modal", function() {
+                            dataTable.columns.adjust().draw();
+                        });
+
+                        //탭 변경시 datatable adjust
+                        $('a[href="#modal-pane1"], a[href="#modal-pane2"]').on("shown.bs.tab", function() {
+                            dataTable.columns.adjust().draw();
+                        });
+                    });
+                </script>
+                <!-- //사업소 선택 -->
+
+                <!-- 재상담 신청 사유 확인  -->
+                <div class="modal fade" id="modal3" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>재상담 신청 사유 확인
+                                </p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>재상담 신청 사유를 확인 하세요</p>
+                                <table class="table-detail mt-5">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                1차 상담 사업소
+                                                <p class="mt-2 font-bold">(THKC 사업소)</p>
+                                            </th>
+                                            <td>지역이 너무 멀어서 재 상담 요청합니다.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                2차 상담 사업소
+                                                <p class="mt-2 font-bold">(THKC 사업소)</p>
+                                            </th>
+                                            <td>지역이 너무 멀어서 재 상담 요청합니다.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //재상담 신청 사유 확인  -->
+
+                <!-- 멤버스 상담 내역 확인 -->
+                <div class="modal fade" id="modal4" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>멤버스 상담 내역 확인</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>멤버스에서 상담한 상담 내역을 확인 하세요</p>
+                                <table class="table-detail mt-5">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                1차 상담 사업소
+                                                <p class="mt-2 font-bold">(THKC 사업소)</p>
+                                            </th>
+                                            <td>
+                                                상담 잘 진행했습니다.<br>
+                                                그러나 우리가 가지고 있는 상품이 없어서 재 상담 신청을 하라고 했습니다.                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                2차 상담 사업소
+                                                <p class="mt-2 font-bold">(THKC 사업소)</p>
+                                            </th>
+                                            <td>
+                                                상담 잘 진행했습니다.<br>
+                                                그러나 우리가 가지고 있는 상품이 없어서 재 상담 신청을 하라고 했습니다.                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                3차 상담 사업소
+                                                <p class="mt-2 font-bold">(THKC 사업소)</p>
+                                            </th>
+                                            <td>
+                                                상담 잘 진행했습니다.<br>
+                                                그러나 우리가 가지고 있는 상품이 없어서 재 상담 신청을 하라고 했습니다.                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn large btn-primary w-36" data-bs-dismiss="modal" aria-label="close">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //멤버스 상담 내역 확인 -->
+            </div>
+            <!-- //page content -->
+        </div>
+    </main>
+    <!-- //main content -->
+    
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

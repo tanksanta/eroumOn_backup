@@ -115,8 +115,15 @@
                                         <input type="text" class="form-control flex-1" id="srchRecptrNm" name="srchRecptrNm" value="${param.srchRecptrNm}">
                                     </div>
                                 </td>
-                                <th scope="row"><label for="srchOrdrrId">아이디</label></th>
-                                <td><input type="text" class="form-control w-84" id="srchOrdrrId" name="srchOrdrrId" value="${param.srchOrdrrId}"></td>
+                                <th scope="row"><label for="srchOrdrrId">입점업체</label></th>
+                                <td>
+                                	<select name="srchEntrpsNo" id="srchEntrpsNo" class="form-control w-84" <c:if test="${!empty mngrEntrpsNo}">disabled</c:if>>
+	                                    <option value="">입점업체 선택</option>
+	                                    <c:forEach items="${entrpsList}" var="entrps">
+	                                    	<option value="${entrps.entrpsNo}" <c:if test="${entrps.entrpsNo eq mngrEntrpsNo}">selected</c:if>>${entrps.entrpsNm}</option>
+	                                    </c:forEach>
+	                                </select>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row"><label for="srchGdsCd">상품번호</label></th>
@@ -146,7 +153,9 @@
                             </tr>
                             <tr>
                                 <th scope="row"><label for="srchGdsNm">상품명</label></th>
-                                <td colspan="3"><input type="text" class="form-control w-full" id="srchGdsNm" name="srchGdsNm" value="${param.srchGdsNm}"></td>
+                                <td><input type="text" class="form-control w-84" id="srchGdsNm" name="srchGdsNm" value="${param.srchGdsNm}"></td>
+                                <th scope="row"><label for="srchGdsCd">주문번호</label></th>
+                                <td><input type="text" class="form-control w-84" id="srchOrdrCd" name="srchOrdrCd" value="${param.srchOrdrCd}"></td>
                             </tr>
                         </tbody>
                     </table>

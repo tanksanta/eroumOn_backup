@@ -22,8 +22,8 @@ import icube.common.framework.view.JavaScriptView;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.info.biz.DlvyService;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 @Controller
 @RequestMapping(value="/comm/dlvy")

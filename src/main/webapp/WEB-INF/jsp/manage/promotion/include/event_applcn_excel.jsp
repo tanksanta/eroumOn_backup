@@ -38,6 +38,7 @@
 					<th scope="col">아이디</th>
 					<th scope="col">회원 이름</th>
 					<th scope="col">휴대폰 번호</th>
+					<th scope="col">답변</th>
 					<th scope="col">IP</th>
 					<th scope="col">응모일</th>
 				</tr>
@@ -49,13 +50,14 @@
 						<td>${result.applctId}</td>
 						<td>${result.applctNm}</td>
 						<td>${result.applctTelno}</td>
+						<td>${result.chcIemCn}</td>
 						<td>${result.ip}</td>
 						<td><fmt:formatDate value="${result.applctDt}" pattern="yyyy-MM-dd" /></td>
 					</tr>
 				</c:forEach>
 				<c:if test="${fn:length(itemList) < 1 }">
 					<tr>
-						<td colspan="6" style="height: 50px; text-align: center; vertical-align: middle;">데이터가 없습니다.</td>
+						<td colspan="7" style="height: 50px; text-align: center; vertical-align: middle;">데이터가 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

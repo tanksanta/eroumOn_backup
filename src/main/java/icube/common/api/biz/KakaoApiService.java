@@ -30,8 +30,8 @@ import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.info.biz.DlvyService;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 
 @Service("kakaoApiService")

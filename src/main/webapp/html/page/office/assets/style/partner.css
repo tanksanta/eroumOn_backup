@@ -13,20 +13,19 @@
     .form-control {
         @apply border-[#dedede] outline-none w-full px-3 h-11 rounded-lg
                placeholder:text-gray1
-               xs:px-4 xs:h-12 xs:rounded-xl xs:text-base;
+               md:px-4 md:h-12 md:rounded-xl md:text-base;
         &select {
             @apply bg-white appearance-none pr-4 bg-[right_1rem_top_0.75rem] bg-[length:0.75rem_auto]
-            xs:pr-5 xs:bg-[length:0.875rem_auto] xs:bg-[right_1.25rem_top_0.875rem];
+            md:pr-5 md:bg-[length:0.875rem_auto] md:bg-[right_1.25rem_top_0.875rem];
             background-image: url("data:image/svg+xml,%3Csvg id='Group_Copy_5' data-name='Group Copy 5' xmlns='http://www.w3.org/2000/svg' width='14.142' height='14.142' viewBox='0 0 14.142 14.142'%3E%3Cpath id='Combined_Shape' data-name='Combined Shape' d='M1,10A1,1,0,0,1,0,9V1A1,1,0,0,1,2,1V8H9a1,1,0,0,1,0,2Z' transform='translate(0 7.071) rotate(-45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
         &.large {
             @apply rounded-full h-13 text-base
-                   xs:h-15 xs:text-lg;
+                   md:h-15 md:text-lg;
         }
     }
 
     .form-check {
-        @apply xs:text-base;
         & .form-check-input {
             @apply border-[#dedede];
             &:checked {
@@ -45,10 +44,10 @@
     /******************** button ********************/
     .btn {
         @apply px-4 min-w-20 h-11 rounded-lg
-               xs:px-5 xs:min-w-25 xs:h-12 xs:rounded-xl xs:text-base;
+               md:px-5 md:min-w-25 md:h-12 md:rounded-xl md:text-base;
         &.large {
             @apply h-13 text-base rounded-full min-w-38
-                   xs:h-15 xs:text-lg xs:min-w-[11.875rem];
+                   md:h-15 md:text-lg md:min-w-[11.875rem];
         }
         &.shadow {
             @apply shadow-[0.11111111em_0.33333333em_0.5em_#0000003E];
@@ -83,18 +82,10 @@
     }
 }
 
-html, body {
-    @apply scroll-smooth;
-}
-
-body {
-    @apply break-keep
-           sm:text-base;
-}
-
 #header {
-    @apply relative top-0 z-60 bg-no-repeat bg-[linear-gradient(90deg,_#742DE7_0%,_#5195DC_100%)] leading-tight text-white h-15 text-sm shadow-[-2px_1px_5px_#00000030]
-           md:h-18 md:text-base lg:h-21;
+    @apply relative top-0 z-60 bg-no-repeat bg-[linear-gradient(90deg,_#742DE7_0%,_#5195DC_100%)] leading-tight text-white h-15 shadow-[-2px_1px_5px_#00000030]
+           md:h-18
+           lg:h-21;
     & .container {
         @apply flex items-center justify-between relative mx-auto px-5 h-full max-w-screen-xl;
         & .request {
@@ -110,15 +101,16 @@ body {
             @apply flex items-center leading-tight;
         }
         & small {
-            @apply hidden ml-2 text-[0.8125rem] leading-tight sm:block font-normal
-                   md:text-base;
+            @apply hidden ml-2 leading-tight font-normal
+                   md:block md:text-sm
+                   lg:text-base;
         }
     }
 }
 
 #container {
     @apply flex-1 px-5 pb-25 pt-13
-           xs:pt-16 xs:pb-31;
+           md:pt-16 md:pb-31;
 }
 
 #footer {
@@ -132,9 +124,9 @@ body {
                 &:last-child {
                     & [class*="link-item"] {
                         & .bubble {
-                            @apply md:-right-3 md:left-auto md:translate-x-0
-                                    md:before:left-[85%]
-                                    md:after:left-[85%];
+                            @apply md:right-0 md:left-auto md:translate-x-0
+                                   md:before:left-[85%]
+                                   md:after:left-[85%];
                         }
                     }
                 }
@@ -145,37 +137,40 @@ body {
 
 .text-title {
     @apply leading-[1.15] font-normal text-center text-black text-[1.875rem]
-           xs:text-4xl
            md:text-5xl;
     & small {
         @apply block leading-snug mt-1.5 text-sm
-               xs:mt-2 xs:text-base;
+               md:mt-2 md:text-base;
     }
 }
 
 .text-complate {
-    @apply text-center leading-[1.45] text-xl
-           xs:text-2xl
+    @apply text-center leading-[1.45] text-[1.375rem]
            md:text-[1.625rem];
     & em {
         @apply text-success not-italic;
     }
     & small {
         @apply block mt-2.5 text-base
-               xs:mt-3 xs:text-lg;
+               md:mt-3 md:text-lg;
     }
 }
 
 .tabs-list {
-    @apply flex relative mx-auto max-w-[540px] mt-13 xs:mt-16
-           after:absolute after:z-5 after:bottom-0 after:left-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
+    @apply flex relative mx-auto max-w-[540px] mt-13
+           after:absolute after:z-5 after:bottom-0 after:left-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px]
+           md:mt-16
+           md:after:h-[5px];
     & li {
         @apply relative z-10 flex-1 text-center;
         & a {
-            @apply block relative h-full font-medium leading-[1.45] text-gray1 text-lg xs:text-xl pt-1.5 xs:pt-3 pb-[calc(0.375rem_+_3px)] xs:pb-[calc(0.75rem_+_5px)]
-                   after:block after:absolute after:left-0 after:bottom-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px] after:xs:h-[5px];
+            @apply block relative pt-1.5 pb-[calc(0.375rem+3px)] h-full font-medium text-gray1 text-lg
+                   after:block after:absolute after:left-0 after:bottom-0 after:w-full after:rounded-[3px] after:bg-[#DEDEDE] after:h-[3px]
+                   md:text-xl md:pt-3 md:pb-[calc(0.75rem+5px)]
+                   md:after:h-[5px];
             &.active {
-                @apply text-black2 after:bg-black2;
+                @apply text-black2
+                       after:bg-black2;
             }
         }
     }
@@ -183,15 +178,15 @@ body {
 
 .term-agree {
     & dt {
-        @apply font-medium leading-[1.45] text-base
-               xs:text-lg;
+        @apply font-medium text-base
+               md:text-lg;
     }
     & dd {
-        @apply border border-[#DEDEDE] text-gray1 mt-1 py-4 px-1.5
-               xs:mt-1.5 xs:py-5 xs:px-2;
+        @apply mt-1 py-4 px-1.5 border border-[#DEDEDE] text-gray1
+               md:mt-1.5 md:py-5 md:px-2;
         & > div {
             @apply overflow-auto scroll-smooth aspect-[16/6.6] px-2.5
-                   xs:px-3;
+                   md:px-3;
             -webkit-overflow-scrolling: touch;
             &::-webkit-scrollbar {
                 @apply w-1.5 h-1.5 bg-transparent;
@@ -208,34 +203,34 @@ body {
 
 .form-container {
     @apply mx-auto max-w-[480px] mt-10
-           xs:mt-13;
+           md:mt-13;
     & legend {
-        @apply pb-1 border-black1 font-medium w-full leading-[1.15] border-b mb-6 text-base
-               xs:mb-8.5 xs:border-b-0.5 xs:text-lg;
+        @apply pb-1 border-black1 font-medium w-full leading-tight border-b mb-6 text-base
+               md:mb-8.5 md:border-b-0.5 md:text-lg;
         & small {
             @apply font-normal text-success text-xs
-                   xs:text-sm;
+                   md:text-sm;
         }
     }
 }
 
 .form-rows {
     @apply mb-5
-           xs:mb-6
+           md:mb-6
            last:mb-0;
 }
 
 .form-group {
     @apply flex items-center flex-wrap space-x-2
-           xs:space-x-2.5;
+           md:space-x-2.5;
     & .form-control {
         @apply flex-1 w-auto;
     }
 }
 
 .form-label {
-    @apply inline-block mb-1.5 font-medium leading-[1.45] text-base
-           xs:text-lg;
+    @apply inline-block mb-1.5 font-medium text-base
+           md:text-lg;
     & i {
         @apply text-success;
     }
@@ -243,7 +238,7 @@ body {
 
 .form-desc {
     @apply text-gray1 bg-no-repeat mt-2 bg-[left_0.1rem_top_0.375rem] bg-[length:0.75rem]
-           xs:mt-2.5 xs:bg-[length:0.875rem]
+           md:mt-2.5 md:bg-[length:0.875rem]
            first:mt-0;
     & + .form-desc {
         @apply mt-1;
@@ -258,9 +253,7 @@ body {
 
 .form-upload {
     & .form-control {
-        &[readonly] {
-            @apply !bg-white !border-[#dedede] !text-black1;
-        }
+        @apply read-only:!bg-white read-only:!border-[#dedede] read-only:!text-black1;
     }
     & .btn-primary {
         @apply cursor-pointer;
@@ -272,21 +265,20 @@ body {
 
 .btn-group {
     @apply flex justify-center mt-9 space-x-2
-           xs:mt-11 xs:space-x-2.5;
+           md:mt-11 md:space-x-2.5;
     & [class*="btn"] {
         @apply flex-shrink min-w-0 w-38
-               xs:w-[11.875rem];
+               md:w-[11.875rem];
     }
 }
 
 .intro-jumbotron {
     @apply -mt-13 -mx-5 px-7 pt-10 pb-20 bg-no-repeat bg-[linear-gradient(114deg,_#752DE8_0%,_#568BDE_100%)] text-white
-           xs:-mt-16 xs:pt-13 xs:pb-26
-           md:pt-16 md:pb-32
+           md:-mt-16 md:pt-13 md:pb-32
            lg:min-h-[45rem];
     & .container {
         @apply mx-auto max-w-7xl bg-no-repeat bg-[length:298px,_auto] bg-right-bottom
-               md:bg-[url(../images/img-partner-intro-jumbotron.png)]
+               md:bg-[url(/html/page/office/assets/images/img-partner-intro-jumbotron.png)]
                lg:bg-[length:372px,_auto] lg:bg-[right_2.25rem_bottom];
     }
     & .header {
@@ -307,9 +299,8 @@ body {
     }
     & .title {
         @apply mt-13 text-5xl leading-[1.15]
-               md:mt-15 md:text-[2.75rem]
-               lg:mt-17 lg:text-[3.25rem]
-               xl:text-[3.75rem];
+               md:mt-15 md:text-7xl
+               lg:mt-17 lg:text-[3.75rem];
     }
     & .desc {
         @apply mt-2.5 text-lg
@@ -318,13 +309,12 @@ body {
     }
     & .btns {
         @apply mt-10 space-y-4
-               sm:flex sm:space-x-5 sm:space-y-0
-               md:mt-12
+               md:flex md:space-x-5 md:space-y-0 md:mt-12
                lg:mt-15;
         & a {
             @apply flex justify-center items-center w-full h-13 rounded-full bg-white shadow-[0.1em_0.3em_0.45em_#0000003E] text-lg font-medium text-[#6B4FE4]
-                   sm:w-48
-                   md:w-60 md:h-15 md:text-xl;
+                   md:w-48
+                   lg:w-60 lg:h-15 lg:text-xl;
         }
     }
 }
@@ -335,10 +325,8 @@ body {
            lg:pt-19;
     & .container {
         @apply grid grid-cols-1 gap-7 mx-auto max-w-7xl
-               sm:grid-cols-2
-               md:gap-9
-               lg:gap-12
-               xl:gap-15;
+               md:grid-cols-2 md:gap-10
+               lg:gap-15;
     }
     & dl {
         @apply pt-7.5 pb-46 px-5.5 rounded-[1rem] bg-white bg-no-repeat bg-[right_1.8rem_bottom_1.65rem] leading-snug shadow-[3px_2px_7px_#8B8B8B31]
@@ -346,35 +334,33 @@ body {
                lg:pt-12 lg:pb-76 lg:px-9.5 lg:rounded-[1.5rem] lg:bg-[right_3rem_bottom_2.75rem] lg:shadow-[5px_4px_11px_#8B8B8B31];
         & dt {
             @apply font-medium text-3xl
-                   md:text-4xl
-                   lg:text-[2.375rem]
-                   xl:text-[2.625rem];
+                   md:text-5xl
+                   lg:text-[2.625rem];
         }
         & dd {
             @apply mt-4 text-base
                    md:mt-5 md:text-lg
-                   lg:mt-6.5 lg:text-xl
-                   xl:text-[1.375rem];
+                   lg:mt-6.5 lg:text-[1.375rem];
         }
         &.image1 {
-            @apply bg-[url(../images/img-partner-intro-content1.png)] bg-[length:auto_118px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content1.png)] bg-[length:auto_118px]
                    md:bg-[length:auto_157px]
-                   xl:bg-[length:auto_196px];
+                   lg:bg-[length:auto_196px];
         }
         &.image2 {
-            @apply bg-[url(../images/img-partner-intro-content2.png)] bg-[length:auto_98px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content2.png)] bg-[length:auto_98px]
                    md:bg-[length:auto_130px]
-                   xl:bg-[length:auto_163px];
+                   lg:bg-[length:auto_163px];
         }
         &.image3 {
-            @apply bg-[url(../images/img-partner-intro-content3.png)] bg-[length:auto_128px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content3.png)] bg-[length:auto_128px]
                    md:bg-[length:auto_171px]
-                   xl:bg-[length:auto_214px];
+                   lg:bg-[length:auto_214px];
         }
         &.image4 {
-            @apply bg-[url(../images/img-partner-intro-content4.png)] bg-[length:auto_132px]
+            @apply bg-[url(/html/page/office/assets/images/img-partner-intro-content4.png)] bg-[length:auto_132px]
                    md:bg-[length:auto_176px]
-                   xl:bg-[length:auto_220px];
+                   lg:bg-[length:auto_220px];
         }
     }
 }
@@ -411,10 +397,10 @@ body {
             @apply mt-1;
         }
         & .call {
-            @apply inline-block mt-2 pl-5 bg-no-repeat bg-[left_center] text-[#666] bg-[url(../images/ico-tel-gray.svg)];
+            @apply inline-block mt-2 pl-5 bg-no-repeat bg-[left_center] text-[#666] bg-[url(/html/page/office/assets/images/ico-tel-gray.svg)];
         }
         & .close {
-            @apply absolute top-2 right-2.5 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 cursor-pointer opacity-50 bg-[url(../images/ico-close.svg)];
+            @apply absolute top-2 right-2.5 w-7 h-7 overflow-hidden bg-no-repeat bg-center -indent-96 cursor-pointer opacity-50 bg-[url(/html/page/office/assets/images/ico-close.svg)];
         }
     }
 }
@@ -440,27 +426,27 @@ body {
     @apply flex-none flex flex-wrap relative z-20 space-x-2;
     & .form-control {
         @apply flex-1 h-9
-               xs:h-10;
+               md:h-10;
         &select {
             @apply pr-4 bg-[right_1rem_top_0.75rem] bg-[length:0.75rem_auto]
-                   xs:pr-5;
+                   md:pr-5;
         }
     }
     & [class*="btn"] {
         @apply min-w-0 p-0 w-9 h-9 overflow-hidden rounded-full bg-no-repeat bg-center -indent-96
-               xs:w-10 xs:h-10;
+               md:w-10 md:h-10;
     }
     & .btn-primary {
-        @apply bg-[url(../images/ico-search-white.svg)];
+        @apply bg-[url(/html/page/office/assets/images/ico-search-white.svg)];
     }
     & .btn-cancel {
-        @apply bg-[url(../images/ico-map-mylocation.svg)];
+        @apply bg-[url(/html/page/office/assets/images/ico-map-mylocation.svg)];
     }
 }
 
 .maps-layer-results {
-    @apply max-h-full overflow-auto scroll-smooth space-y-5.5 xs:space-y-6.5 duration-700 pr-2 mt-5
-           xs:mt-6.5;
+    @apply mt-5 pr-2 max-h-full overflow-auto scroll-smooth space-y-5.5 duration-700
+           md:mt-6.5 md:space-y-6.5;
     -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
         @apply w-4.5 h-2 bg-transparent;
@@ -474,21 +460,21 @@ body {
 }
 
 .maps-layer-result {
-    @apply bg-no-repeat bg-[url(../images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 bg-[length:1.25rem]
-           xs:pl-11 xs:bg-[length:auto];
+    @apply bg-no-repeat bg-[url(/html/page/office/assets/images/ico-map-marker.svg)] bg-[left_top_0.25rem] text-gray6 space-y-0.5 pl-8 bg-[length:1.25rem]
+           md:pl-11 md:bg-[length:auto];
     & .name {
         @apply flex items-start justify-between;
         & strong {
             @apply text-black text-base
-                   xs:text-lg;
+                   md:text-lg;
         }
         & span {
             @apply font-serif mt-0.5 ml-4 text-gray1;
         }
     }
     & .call {
-        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(../images/ico-tel-gray.svg)]
-               xs:bg-[length:auto];
+        @apply inline-block pl-5 bg-no-repeat bg-[left_center] bg-[length:0.875rem] bg-[url(/html/page/office/assets/images/ico-tel-gray.svg)]
+               md:bg-[length:auto];
     }
 }
 
@@ -496,7 +482,7 @@ body {
     @apply flex items-center;
     & .noimg {
         @apply block relative mr-3 w-20 h-20 rounded-full bg-no-repeat bg-center bg-[#8FCBDD]
-               sm:mr-5.5 sm:w-25 sm:h-25;
+               md:mr-5.5 md:w-25 md:h-25;
         &::before {
             @apply content-empty absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-[length:100%] bg-no-repeat bg-center -translate-x-1/2 -translate-y-1/2 opacity-65;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45' viewBox='0 0 45 45'%3E%3Cpath id='Shape' d='M1.875,45V18.75H43.125V45H1.875ZM27.138,27.877V38.542a1.934,1.934,0,0,0,.4,1.329,1.323,1.323,0,0,0,1.022.443,1.359,1.359,0,0,0,1.06-.443,1.953,1.953,0,0,0,.4-1.329V26.307a1.539,1.539,0,0,0-.527-1.365,2.529,2.529,0,0,0-1.424-.354H27.1a3.715,3.715,0,0,0-1.271.158,1.069,1.069,0,0,0-.585.57,8.914,8.914,0,0,0-.433,1.339L22.56,35.124l-2.246-8.469a9.045,9.045,0,0,0-.432-1.339,1.068,1.068,0,0,0-.586-.57,3.715,3.715,0,0,0-1.271-.158h-.97a2.533,2.533,0,0,0-1.424.354,1.539,1.539,0,0,0-.527,1.365V38.542a1.938,1.938,0,0,0,.4,1.335,1.453,1.453,0,0,0,2.084-.005,1.953,1.953,0,0,0,.4-1.329V27.868l2.479,9.851c.08.307.164.62.248.933a3.449,3.449,0,0,0,.332.817,1.7,1.7,0,0,0,.59.607,1.726,1.726,0,0,0,.928.238,1.655,1.655,0,0,0,1.139-.369,1.947,1.947,0,0,0,.564-.817c.1-.3.236-.777.4-1.409l2.477-9.842ZM37.5,11.25V9.191L32.087,0h3.776L45,9.32v2.057A3.735,3.735,0,0,1,41.25,15,3.846,3.846,0,0,1,37.5,11.25Zm-9.375,0V9.191L26.365,0h3.643l5.613,9.379v2.058A3.682,3.682,0,0,1,31.875,15,3.846,3.846,0,0,1,28.125,11.25Zm-9.375,0V9.191L20.714,0h3.571L26.25,9.187v2.059a3.75,3.75,0,1,1-7.5,0Zm-9.374.128V9.32L14.992,0h3.643l-1.76,9.32V11.38a3.752,3.752,0,0,1-7.5,0ZM0,11.378V9.32L9.139,0h3.775L7.5,9.32V11.38a3.752,3.752,0,0,1-7.5,0Z' fill='%23fff'/%3E%3C/svg%3E%0A");
@@ -516,13 +502,13 @@ body {
     }
     & img {
         @apply mr-3 w-20 h-20 rounded-full object-cover
-               sm:mr-5.5 sm:w-25 sm:h-25;
+               md:mr-5.5 md:w-25 md:h-25;
     }
     & .partner {
         @apply flex-1;
         & .name {
             @apply text-base font-medium
-                   sm:text-lg;
+                   md:text-lg;
         }
         & .addr {
             @apply text-gray6;
@@ -532,7 +518,7 @@ body {
 
 .maps-layer-toggle {
     @apply flex-none sticky bottom-0 left-0 w-full bg-white overflow-hidden -indent-[999em] h-12
-           before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(../images/ico-map-arrow.svg)]
-           sm:h-16
+           before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-6 before:h-3.5 before:bg-cover before:bg-[url(/html/page/office/assets/images/ico-map-arrow.svg)]
+           md:h-16
            aria-expanded:before:rotate-180;
 }

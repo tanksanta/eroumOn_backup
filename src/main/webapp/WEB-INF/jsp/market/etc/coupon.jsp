@@ -20,18 +20,17 @@
 				</br><div class="box-result is-large">발급된 쿠폰이 없습니다.</div>
 			</c:if>
 
-
-			<div class="couponzone-items">
+			<div class="grid grid-cols-2 gap-y-5 mt-15 -mx-2.5 sm:grid-cols-3 sm:gap-y-8 sm:mx-0 md:gap-x-1.5 md:gap-y-16 md:mt-30">
 				<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 					<div class="couponzone-item">
 						<c:if test="${resultList.couponTy ne 'NOR' && resultList.couponTy ne 'FREE' }">
-							<div class="coupon-item is-event md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
+							<div class="coupon-item is-event mx-auto md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
 						</c:if>
 						<c:if test="${resultList.couponTy eq 'NOR'}">
-							<div class="coupon-item is-discount md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
+							<div class="coupon-item is-discount mx-auto md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
 						</c:if>
 						<c:if test="${resultList.couponTy eq 'FREE'}">
-							<div class="coupon-item is-delivery md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
+							<div class="coupon-item is-delivery mx-auto md-max:coupon-item-small lg:coupon-item-large dwld${resultList.couponNo}">
 						</c:if>
 							<div class="itembox">
 								<div class="info">
@@ -54,7 +53,7 @@
 								<c:if test="${resultList.couponTy eq 'FREE'}"><p class="desc">FREE Shipping</p></c:if>
 							</div>
 						</div>
-						<div class="coupon-item-name">
+						<div class="coupon-item-name mt-6 md:mt-7">
 							${resultList.couponNm }
 								<strong>
 								○ 발급 기간 : <fmt:formatDate value="${resultList.issuBgngDt}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${resultList.issuEndDt}" pattern="yyyy-MM-dd" />
@@ -84,7 +83,7 @@
 												 <!-- 다운로드 발급은 개별 회원으로 발급 될 수 없게 설계 2022.12.29 '상품 주문 쿠폰 결제 작업 중' -->
 							</small>
 						</div>
-						<div class="coupon-item-desc">
+						<div class="coupon-item-desc mt-5 md:mt-6">
 							<fmt:formatNumber value="${resultList.mummOrdrAmt}" pattern="###,###" />원 이상 </br> 구매시
 								<c:if test="${resultList.couponTy ne 'FREE' }">
 									<br> 최대 <fmt:formatNumber value="${resultList.mxmmDscntAmt}" pattern="###,###" />원 할인

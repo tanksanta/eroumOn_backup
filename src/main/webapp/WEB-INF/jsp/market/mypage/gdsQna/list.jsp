@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
 		<jsp:param value="상품 Q&A" name="pageTitle" />
 	</jsp:include>
@@ -9,7 +9,6 @@
 	<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
-			<link rel="stylesheet" href="/html/page/market/assets/style/mypage-jh.css">
 			<script>
 				$(function() {
 					$('.product-qnaitem .answer .btn').on('click', function() {
@@ -17,6 +16,8 @@
 					});
 				})
 			</script>
+
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
 
 			<div class="space-y-1.5 mb-12 md:mb-16">
 				<p class="text-alert">문의하신 상품 Q&A를 쉽고 빠르게 확인하실 수 있습니다.</p>

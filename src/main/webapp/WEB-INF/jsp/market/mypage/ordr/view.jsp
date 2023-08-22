@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<main id="container">
+<main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
 		<jsp:param value="주문결제" name="pageTitle" />
 	</jsp:include>
@@ -10,6 +10,8 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
 			<form:form name="frmOrdr" id="frmOrdr" modelAttribute="ordrVO" method="post" enctype="multipart/form-data" action="${_marketPath}/mypage/ordr/ordrPayAction">
 				<form:hidden path="ordrTy" />
 				<form:hidden path="ordrCd" />

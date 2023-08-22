@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
 		<jsp:param value="1:1 문의" name="pageTitle" />
 	</jsp:include>
@@ -9,6 +9,8 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
             <div class="items-center justify-between md:flex">
                 <div class="space-y-1.5">
 					<p class="text-alert">문의하신 내용과 답변내용 확인하실 수 있습니다.</p>
@@ -16,9 +18,9 @@
 					<p class="text-alert">답변 완료된 문의는 수정, 삭제 하실 수 없습니다.</p>
                 </div>
             </div>
-            
+
             <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
-            
+
             <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="inqryVO" enctype="multipart/form-data">
 	            <form:hidden path="crud" />
 	            <form:hidden path="inqryNo" />
@@ -110,7 +112,7 @@
 	                                    </div>
 	                                     --%>
 	                                    <input type="file" id="attachFile" name="attachFile" ${fn:length(inqryVO.fileList) > 0 ? 'style="display:none;' : '' }" class="form-control w-full">
-	
+
 	                                    <c:forEach var="fileList" items="${inqryVO.fileList}" varStatus="status">
 	                                  	 <div class="form-upload-link">
 	                                         <span class="form-upload-link-name">${fileList.orgnlFileNm}</span>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
 		<jsp:param value="1:1 문의" name="pageTitle" />
 	</jsp:include>
@@ -10,6 +10,8 @@
 	<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
             <div class="items-center justify-between md:flex">
                 <div class="space-y-1.5 md:mr-3">
 					<p class="text-alert">문의하신 내용과 답변내용 확인하실 수 있습니다.</p>
@@ -20,9 +22,9 @@
 					<a href="${_marketPath}/mypage/inqry/form" class="btn btn-primary btn-large w-full">1:1 문의하기</a>
                 </div>
             </div>
-            
+
             <p class="text-title2 mt-11 md:mt-15">1:1 문의 <strong class="text-danger">${listVO.totalCount}</strong>건</p>
-            
+
             <div class="mt-4 md:mt-5 space-y-3 md:space-y-4">
 				<c:if test="${empty listVO.listObject}">
 				<div class="box-result is-large">아직 문의하신 내용이 없습니다</div>

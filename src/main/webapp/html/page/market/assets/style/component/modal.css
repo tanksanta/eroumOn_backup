@@ -71,10 +71,10 @@
             @apply px-0 bg-[linear-gradient(102deg,_#FFF9EF_0%,_#FAFFF2_38%,_#FFF5FD_100%)];
         }
         & .modal-close {
-            @apply absolute top-0 right-0 bottom-0 pl-4 py-2 w-13 rounded-r-[1rem] bg-black2 bg-no-repeat bg-[length:1rem] bg-[right_0.625rem_bottom_1.125rem] bg-[url(../images/txt-modal-close.svg)]
+            @apply absolute top-0 right-0 bottom-0 pl-4 py-2 w-13 rounded-r-[1rem] bg-black2 bg-no-repeat bg-[length:1rem] bg-[right_0.625rem_bottom_1.125rem] bg-[url(/html/page/market/assets/images/txt-modal-close.svg)]
                    md:w-18 md:bg-[length:1.25rem] md:bg-[right_1.125rem_bottom_1.25rem];
             & [data-bs-dismiss="modal"] {
-                @apply btn-icon h-9 bg-[url(../images/ico-close-white.svg)] bg-[length:0.875rem]
+                @apply btn-icon h-9 bg-[url(/html/page/market/assets/images/ico-close-white.svg)] bg-[length:0.875rem]
                        md:h-14 md:bg-[length:1rem];
             }
         }

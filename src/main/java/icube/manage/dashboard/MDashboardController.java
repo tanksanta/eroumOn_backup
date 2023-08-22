@@ -1,12 +1,14 @@
 package icube.manage.dashboard;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.dashboard.biz.DashboardService;
 import icube.manage.ordr.ordr.biz.OrdrService;
+import icube.manage.sysmng.menu.biz.MngMenuService;
+import icube.manage.sysmng.menu.biz.MngMenuVO;
+import icube.manage.sysmng.mngr.biz.MngrSession;
 
 @Controller
 public class MDashboardController extends CommonAbstractController {
@@ -24,11 +29,37 @@ public class MDashboardController extends CommonAbstractController {
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
+	
+	@Resource(name="mngMenuService")
+	private MngMenuService mngMenuService;
+	
+	@Autowired
+	private MngrSession mngrSession;
 
 	@RequestMapping(value = "/_mng/intro")
 	public String intro(
 			HttpServletRequest request) throws Exception {
-
+		List<MngMenuVO> mngMenuList = mngrSession.getMngMenuList();
+		
+		Map<String, Boolean> menuAuthMap = new HashMap<>();
+		for (MngMenuVO menuVO : mngMenuList) {
+			switch (menuVO.getMenuNm()) {
+				case "대시보드" : menuAuthMap.put("대시보드", true); break;
+				case "회원" : menuAuthMap.put("회원", true); break;
+				case "상품" : menuAuthMap.put("상품", true); break;
+				case "주문" : menuAuthMap.put("주문", true); break;
+				case "전시" : menuAuthMap.put("전시", true); break;
+				case "프로모션" : menuAuthMap.put("프로모션", true); break;
+				case "고객상담" : menuAuthMap.put("고객상담", true); break;
+				case "시스템" : menuAuthMap.put("시스템", true); break;
+				case "통계" : menuAuthMap.put("통계", true); break;
+				case "멤버스" : menuAuthMap.put("멤버스", true); break;
+				case "정산" : menuAuthMap.put("정산", true); break;
+				default : break;
+			}
+		}
+		
+		request.setAttribute("menuAuthMap", menuAuthMap);
 		return "/manage/dashboard/intro";
 	}
 

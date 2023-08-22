@@ -65,7 +65,9 @@ var Goods = (function(){
 			$("#srchMinPc").val(0);
 		}
 
-		if(uncomma($("#srchMinPc").val()) > uncomma($("#srchMaxPc").val())){
+		const srchMinPc = Number(uncomma($("#srchMinPc").val()));
+		const srchMaxPc = Number(uncomma($("#srchMaxPc").val()));
+		if(srchMinPc > srchMaxPc){
 			alert("최대 가격을 다시 설정해주세요.");
 			$("#srchMaxPc").val(0);
 		}else{

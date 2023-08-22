@@ -32,6 +32,7 @@ public class GdsVO extends CommonBaseVO {
 	private String wt; //중량
 	private String size; //사이즈상세정보
 	private String stndrd; //규격
+	private String keyword; //검색키워드
 	private int sortNo = 100;
 	private String[] gdsTag;
 	private String gdsTagVal; //DB저장용
@@ -81,6 +82,7 @@ public class GdsVO extends CommonBaseVO {
 	private String dlvyCtStlm;
 	private int dlvyBassAmt = 0;
 	private int dlvyAditAmt = 0;
+	private String dlvyGroupYn;
 	private String dlvyDc;
 
 	//상품 이미지
@@ -100,7 +102,6 @@ public class GdsVO extends CommonBaseVO {
 	private String seoDesc;
 	private String seoKeyword;
 	private String memo;
-	private String keyword;
 
 	private String dspyYn = "Y";
 	private int inqcnt = 0;

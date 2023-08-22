@@ -170,7 +170,7 @@ $(function(){
 			   		}
 				}else if(data == 1){
 					alert("회원 로그인 후 응모 가능합니다.");
-					window.location="/market/login";
+					window.location="/membership/login";
 				}else if(data == 2){
 					alert("이미 응모한 이벤트입니다. 응모해 주셔서 감사합니다.");
 					return false;

@@ -100,158 +100,164 @@ public class MarketInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		timer = System.currentTimeMillis();
+		try {
+			timer = System.currentTimeMillis();
 
-		//HttpSession session = request.getSession();
-
-		response.setContentType("text/html; charset=UTF-8");
-		request.setCharacterEncoding("UTF-8");
-
-		log.debug(" ################################################################## ");
-		log.debug(" # START Market interceptor preHandle");
-		log.debug(" # preHandle URI : " + request.getServletPath());
-		Enumeration<?> en = request.getParameterNames();
-		while (en.hasMoreElements()) {
-			Object keyObj = en.nextElement();
-
-			if (keyObj instanceof String) {
-				String key = (String) keyObj;
-				if (request.getParameterValues(key).length != 1) {
-					for (String value : request.getParameterValues(key)) {
-						log.debug(" #### parameter name = '" + key + "',Array value = '" + value + "'");
+			//HttpSession session = request.getSession();
+	
+			response.setContentType("text/html; charset=UTF-8");
+			request.setCharacterEncoding("UTF-8");
+	
+			log.debug(" ################################################################## ");
+			log.debug(" # START Market interceptor preHandle");
+			log.debug(" # preHandle URI : " + request.getServletPath());
+			Enumeration<?> en = request.getParameterNames();
+			while (en.hasMoreElements()) {
+				Object keyObj = en.nextElement();
+	
+				if (keyObj instanceof String) {
+					String key = (String) keyObj;
+					if (request.getParameterValues(key).length != 1) {
+						for (String value : request.getParameterValues(key)) {
+							log.debug(" #### parameter name = '" + key + "',Array value = '" + value + "'");
+						}
+					} else {
+						log.debug(" #### parameter name = '" + key + "', value = '" + request.getParameter(key) + "'");
 					}
 				} else {
-					log.debug(" #### parameter name = '" + key + "', value = '" + request.getParameter(key) + "'");
+					log.debug(" #### parameter name is Object");
 				}
-			} else {
-				log.debug(" #### parameter name is Object");
 			}
-		}
-		log.debug(" # MBER UNIQUE ID : " + mbrSession.getUniqueId());
-		log.debug(" # MBER ID : " + mbrSession.getMbrId());
-		log.debug(" # IS LOGIN : " + mbrSession.isLoginCheck());
-		log.debug(" ################################################################## ");
-
-
-		String curPath = request.getServletPath();
-		String matchPath = "/" + marketPath + "/mypage";
-
-		if(curPath.startsWith(matchPath)) {
-			System.out.println("matchPath: " + matchPath);
-			if(!mbrSession.isLoginCheck()) {
-				ModelAndView modelAndView = new ModelAndView("redirect:/"+membershipPath+"/login?returnUrl=/" + marketPath);
-				throw new ModelAndViewDefiningException(modelAndView);
+			log.debug(" # MBER UNIQUE ID : " + mbrSession.getUniqueId());
+			log.debug(" # MBER ID : " + mbrSession.getMbrId());
+			log.debug(" # IS LOGIN : " + mbrSession.isLoginCheck());
+			log.debug(" ################################################################## ");
+	
+	
+			String curPath = request.getServletPath();
+			String matchPath = "/" + marketPath + "/mypage";
+	
+			if(curPath.startsWith(matchPath)) {
+				System.out.println("matchPath: " + matchPath);
+				if(!mbrSession.isLoginCheck()) {
+					ModelAndView modelAndView = new ModelAndView("redirect:/"+membershipPath+"/login?returnUrl=/" + marketPath);
+					throw new ModelAndViewDefiningException(modelAndView);
+				}
 			}
-		}
-
-
-		// 회원정보 호출
-		Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
-		if(mbrSession.isLoginCheck()) {
-			// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
-			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
-
-			// 마일리지 정보
-			double mileagePercent = 0.0; // 신규:0.1%
-			if(EgovStringUtil.equals("N", mbrSession.getMberGrade())) {
-				mileagePercent = 0;
-			}else if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
-				mileagePercent = 050;
-			}else if(EgovStringUtil.equals("B", mbrSession.getMberGrade())) {
-				mileagePercent = 150;
-			}else if(EgovStringUtil.equals("E", mbrSession.getMberGrade())) {
-				mileagePercent = 250;
+	
+	
+			// 회원정보 호출
+			Map<String, Object> mbrEtcInfoMap = new HashMap<String, Object>();
+			if(mbrSession.isLoginCheck()) {
+				// 급여잔액 & 마일리지 & 포인트 & 장바구니 & 위시리스트
+				mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
+	
+				// 마일리지 정보
+				double mileagePercent = 0.0; // 신규:0.1%
+				if(EgovStringUtil.equals("N", mbrSession.getMberGrade())) {
+					mileagePercent = 0;
+				}else if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
+					mileagePercent = 050;
+				}else if(EgovStringUtil.equals("B", mbrSession.getMberGrade())) {
+					mileagePercent = 150;
+				}else if(EgovStringUtil.equals("E", mbrSession.getMberGrade())) {
+					mileagePercent = 250;
+				}
+				request.setAttribute("_mileagePercent", mileagePercent);
+	
+				String secretKey = talkSecretKey;
+				String hash = HMACUtil.encode(mbrSession.getMbrId(), secretKey, "HMACSHA256");
+	
+				System.out.println("hash: " + hash);
+				request.setAttribute("_mbrIdHash", hash);
+	
 			}
-			request.setAttribute("_mileagePercent", mileagePercent);
-
-			String secretKey = talkSecretKey;
-			String hash = HMACUtil.encode(mbrSession.getMbrId(), secretKey, "HMACSHA256");
-
-			System.out.println("hash: " + hash);
-			request.setAttribute("_mbrIdHash", hash);
-
+			request.setAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
+	
+			// ### return value ###
+			request.setAttribute("_mbrSession", mbrSession);
+			request.setAttribute("gradeCode", CodeMap.GRADE);
+	
+	
+			// 카테고리 정보 S
+			List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(-1, "Y");
+			Map<Integer, String> gdsCtgryListMap = gdsCtgryService.selectGdsCtgryListToMap(-1);
+			request.setAttribute("_gdsCtgryList", gdsCtgryList);
+			request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
+	
+			// 상품카테고리 tree(vo < list<vo>)구조로 변경
+			GdsCtgryVO rootCategory = gdsCtgryService.findRootCategory(gdsCtgryList);
+			rootCategory.setChildList(new ArrayList<>()); // childList 초기화
+			rootCategory.buildChildList(gdsCtgryList);
+			request.setAttribute("_gnbCtgry", rootCategory);
+			// 카테고리 정보 E
+	
+			// 사용자 메뉴 S
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("useYn", "Y");
+			List<MngMenuVO> userMenuList = mngUserMenuService.selectMngMenuList(paramMap);
+			request.setAttribute("_userMenuList", userMenuList);
+			// 사용자 메뉴 E
+	
+			// 띠 배너 S
+			Map<String, Object> bannerMap = new HashMap<String, Object>();
+			bannerMap.put("srchUseYn", "Y");
+			bannerMap.put("srchNowDate", "1");
+			bannerMap.put("srchBannerTy", "S");
+			List<BnnrMngVO> bannerList = bnnrMngService.selectBnnrMngList(bannerMap);
+			request.setAttribute("_bannerList", bannerList);
+			// 띠 배너 E
+	
+			// 경로정보
+			request.setAttribute("_marketPath", "/" + marketPath);
+			request.setAttribute("_membersPath", "/" + membersPath);
+			request.setAttribute("_membershipPath", "/" + membershipPath);
+			request.setAttribute("_plannerPath", "/" + plannerPath);
+			request.setAttribute("_mainPath", "/" + mainPath);
+			request.setAttribute("_curPath", curPath);
+	
+			// 팝업
+			Map<String, Object> paramMap2 = new HashMap<String, Object>();
+			paramMap2.put("srchYn", "Y");
+			paramMap2.put("srchDate", "TODAY");
+			List<PopupVO> popupList = popupService.selectPopupListAll(paramMap2);
+	
+			request.setAttribute("_popupList", popupList);
+	
+			// 배너 조회수 증가
+			String rdcntBanner = request.getParameter("rdcntBanner");
+			if(rdcntBanner != null) {
+				Map<String, Object> rdcntMap = new HashMap<String, Object>();
+				rdcntMap.put("srchBannerNo", EgovStringUtil.string2integer(rdcntBanner));
+				bnnrMngService.updateBnnrRdcnt(rdcntMap);
+			}
+	
+			// 메인 배너 조회수 증가
+			String rdcntMain = request.getParameter("rdcntMain");
+			if(rdcntMain != null) {
+				Map<String, Object> rdcntMap = new HashMap<String, Object>();
+				rdcntMap.put("srchMainNo", EgovStringUtil.string2integer(rdcntMain));
+				mainMngService.updateMainRdcnt(rdcntMap);
+			}
+	
+			// 검색어 쿠키 호출
+			String srchKwd = request.getParameter("srchKwd");
+			SrchKwdCookieHandler.setKwdList(request, response, srchKwd);
+			List<String> cookieKwdList = SrchKwdCookieHandler.getKwdListByCookie(request, response);
+			request.setAttribute("_cookieKwdList", cookieKwdList);
+	
+			//코드
+			request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
+			request.setAttribute("_gdsTyCode", CodeMap.GDS_TY);
+	
+			//기타
+			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
+			request.setAttribute("_activeMode", activeMode.toUpperCase());
+		} catch (ModelAndViewDefiningException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			log.error("============= 마켓 인터셉터 오류 ================", ex);
 		}
-		request.setAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
-
-		// ### return value ###
-		request.setAttribute("_mbrSession", mbrSession);
-		request.setAttribute("gradeCode", CodeMap.GRADE);
-
-
-		// 카테고리 정보 S
-		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList(-1, "Y");
-		Map<Integer, String> gdsCtgryListMap = gdsCtgryService.selectGdsCtgryListToMap(-1);
-		request.setAttribute("_gdsCtgryList", gdsCtgryList);
-		request.setAttribute("_gdsCtgryListMap", gdsCtgryListMap);
-
-		// 상품카테고리 tree(vo < list<vo>)구조로 변경
-		GdsCtgryVO rootCategory = gdsCtgryService.findRootCategory(gdsCtgryList);
-		rootCategory.setChildList(new ArrayList<>()); // childList 초기화
-		rootCategory.buildChildList(gdsCtgryList);
-		request.setAttribute("_gnbCtgry", rootCategory);
-		// 카테고리 정보 E
-
-		// 사용자 메뉴 S
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("useYn", "Y");
-		List<MngMenuVO> userMenuList = mngUserMenuService.selectMngMenuList(paramMap);
-		request.setAttribute("_userMenuList", userMenuList);
-		// 사용자 메뉴 E
-
-		// 띠 배너 S
-		Map<String, Object> bannerMap = new HashMap<String, Object>();
-		bannerMap.put("srchUseYn", "Y");
-		bannerMap.put("srchNowDate", "1");
-		bannerMap.put("srchBannerTy", "S");
-		List<BnnrMngVO> bannerList = bnnrMngService.selectBnnrMngList(bannerMap);
-		request.setAttribute("_bannerList", bannerList);
-		// 띠 배너 E
-
-		// 경로정보
-		request.setAttribute("_marketPath", "/" + marketPath);
-		request.setAttribute("_membersPath", "/" + membersPath);
-		request.setAttribute("_membershipPath", "/" + membershipPath);
-		request.setAttribute("_plannerPath", "/" + plannerPath);
-		request.setAttribute("_mainPath", "/" + mainPath);
-		request.setAttribute("_curPath", curPath);
-
-		// 팝업
-		Map<String, Object> paramMap2 = new HashMap<String, Object>();
-		paramMap2.put("srchYn", "Y");
-		paramMap2.put("srchDate", "TODAY");
-		List<PopupVO> popupList = popupService.selectPopupListAll(paramMap2);
-
-		request.setAttribute("_popupList", popupList);
-
-		// 배너 조회수 증가
-		String rdcntBanner = request.getParameter("rdcntBanner");
-		if(rdcntBanner != null) {
-			Map<String, Object> rdcntMap = new HashMap<String, Object>();
-			rdcntMap.put("srchBannerNo", EgovStringUtil.string2integer(rdcntBanner));
-			bnnrMngService.updateBnnrRdcnt(rdcntMap);
-		}
-
-		// 메인 배너 조회수 증가
-		String rdcntMain = request.getParameter("rdcntMain");
-		if(rdcntMain != null) {
-			Map<String, Object> rdcntMap = new HashMap<String, Object>();
-			rdcntMap.put("srchMainNo", EgovStringUtil.string2integer(rdcntMain));
-			mainMngService.updateMainRdcnt(rdcntMap);
-		}
-
-		// 검색어 쿠키 호출
-		String srchKwd = request.getParameter("srchKwd");
-		SrchKwdCookieHandler.setKwdList(request, response, srchKwd);
-		List<String> cookieKwdList = SrchKwdCookieHandler.getKwdListByCookie(request, response);
-		request.setAttribute("_cookieKwdList", cookieKwdList);
-
-		//코드
-		request.setAttribute("_gdsTagCode", CodeMap.GDS_TAG);
-		request.setAttribute("_gdsTyCode", CodeMap.GDS_TY);
-
-		//기타
-		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
-		request.setAttribute("_activeMode", activeMode.toUpperCase());
 
 		return true;
 	}

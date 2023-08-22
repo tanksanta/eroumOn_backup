@@ -15,9 +15,9 @@
     <!-- market -->
     <link rel="stylesheet" href="../../assets/style/style.min.css">
     <script src="../../assets/script/common.js"></script>
-    <script src="../../assets/script/product.js"></script>
+    <script src="../../assets/script/order.js"></script>
 </head>
-<body class="is-banner">
+<body>
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
@@ -311,9 +311,24 @@
                     </form>
                 </div>
                 <ul class="navigation-util">
-                    <li><a href="#" class="util-item1">마이페이지</a></li>
-                    <li><a href="#" class="util-item2">찜한상품</a></li>
-                    <li><a href="#" class="util-item3">장바구니</a></li>
+                    <li>
+                        <a href="#" class="util-item1">
+                            <span class="sr-only">마이페이지</span>
+                            <i>2</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="util-item2">
+                            <span class="sr-only">찜한상품</span>
+                            <i>2</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="util-item3">
+                            <span class="sr-only">장바구니</span>
+                            <i>2</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -323,7 +338,19 @@
 
     <!-- container -->
     <main id="container">
-        <h2 id="page-title">쿠폰존</h2>
+        <div id="page-header">
+            <ul class="page-header-breadcrumb">
+                <li><a href="#">홈</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+            </ul>
+            <div class="page-header-title">
+                <a href="#" class="back">이전 페이지 가기</a>
+                <h2 class="subject"><a href="#">복지용구</a></h2>
+            </div>
+            <button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
+        </div>
 
         <div id="page-container">
             <div id="page-content">
@@ -340,9 +367,9 @@
                     </p>
                 </div>
 
-                <div class="couponzone-items">
+                <div class="grid grid-cols-2 gap-y-5 mt-15 -mx-2.5 sm:grid-cols-3 sm:gap-y-8 sm:mx-0 md:gap-x-1.5 md:gap-y-16 md:mt-30">
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-birthday.svg" alt="">
@@ -351,19 +378,19 @@
                                 <p class="desc">Happy Birthday!</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn" disabled>받기 완료</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-join.svg" alt="">
@@ -372,19 +399,19 @@
                                 <p class="desc">가입을 환영합니다</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-first.svg" alt="">
@@ -393,19 +420,19 @@
                                 <p class="desc">첫구매 감사쿠폰</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     20,000 <small>원</small>
@@ -413,19 +440,19 @@
                                 <p class="desc">가입을 환영합니다</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                            <div class="coupon-item is-discount md-max:coupon-item-small lg:coupon-item-large">
+                            <div class="coupon-item mx-auto is-discount md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     20,000 <small>원</small>
@@ -433,19 +460,19 @@
                                 <p class="desc2">할인</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-discount md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-discount md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-discount.svg" alt="">
@@ -454,30 +481,30 @@
                                 <p class="desc">Discount coupon</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-delivery md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-delivery md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">무료배송</div>
                                 <p class="desc">FREE Shipping</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
@@ -486,7 +513,7 @@
 
                     <!-- disabled -->
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-birthday.svg" alt="">
@@ -495,19 +522,19 @@
                                 <p class="desc">Happy Birthday!</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn" disabled>받기 완료</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-join.svg" alt="">
@@ -516,19 +543,19 @@
                                 <p class="desc">가입을 환영합니다</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-first.svg" alt="">
@@ -537,19 +564,19 @@
                                 <p class="desc">첫구매 감사쿠폰</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-event is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     20,000 <small>원</small>
@@ -557,19 +584,19 @@
                                 <p class="desc">가입을 환영합니다</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                            <div class="coupon-item is-discount is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                            <div class="coupon-item mx-auto is-discount is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     20,000 <small>원</small>
@@ -577,19 +604,19 @@
                                 <p class="desc2">할인</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-discount is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-discount is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">
                                     <img src="../../assets/images/img-coupon-discount.svg" alt="">
@@ -598,30 +625,30 @@
                                 <p class="desc">Discount coupon</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
                         <button type="button" class="btn">쿠폰받기</button>
                     </div>
                     <div class="couponzone-item">
-                        <div class="coupon-item is-delivery is-disabled md-max:coupon-item-small lg:coupon-item-large">
+                        <div class="coupon-item mx-auto is-delivery is-disabled md-max:coupon-item-small lg:coupon-item-large">
                             <div class="itembox">
                                 <div class="info">무료배송</div>
                                 <p class="desc">FREE Shipping</p>
                             </div>
                         </div>
-                        <div class="coupon-item-name">
+                        <div class="coupon-item-name mt-6 md:mt-7">
                             생일축하 5% 쿠폰
                             <strong>2022.07.11 ~ 2022.11.30</strong>
                             <small>대상 : 전체</small>
                         </div>
-                        <div class="coupon-item-desc">
+                        <div class="coupon-item-desc mt-5 md:mt-6">
                             50,000원 이상 구매시<br>
                             최대 10,000원 할인
                         </div>
@@ -760,21 +787,6 @@
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
-
-    <!-- 공지 레이어 배너 -->
-    <div class="notice-layer">
-        <div class="layer-content">
-            <img src="../../assets/images/dummy/img-dummy-detail-content.png" alt="">
-        </div>
-        <div class="layer-footer">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="check-close">
-                <label class="form-check-label" for="check-close">1일동안 보지 않음</label>
-            </div>
-            <button type="button" class="layer-close">닫기</button>
-        </div>
-    </div>
-    <!-- //공지 레이어 배너 -->
 
     <script src="../../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../../core/vendor/twelements/popper.min.js"></script>

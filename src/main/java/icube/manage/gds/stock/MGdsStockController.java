@@ -8,6 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +96,46 @@ public class MGdsStockController extends CommonAbstractController {
 		resultMap.put("result", result);
 		return resultMap;
 
+	}
+	
+	/**
+	 * 상품재고 정보 일괄 수정
+	 * @param request
+	 * @param reqMap
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "list/action.json")
+	@ResponseBody
+	public Map<String, Object> listAction(
+			@RequestParam(value = "gdsListJson", required=true) String gdsListJson
+			)throws Exception {
+		
+		JSONParser parser = new JSONParser();
+		JSONArray gdsList = (JSONArray) parser.parse(gdsListJson);
+		
+		for (int i = 0; i < gdsList.size(); i++) {
+			JSONObject gdsMap = (JSONObject) gdsList.get(i);
+			Long gdsOptnNo = (Long) gdsMap.get("gdsOptnNo");
+			Long gdsNo = (Long) gdsMap.get("gdsNo");
+			String optnTy = (String) gdsMap.get("optnTy");
+			String stockQy = (String) gdsMap.get("stockQy");
+			String useYn = (String) gdsMap.get("yn");
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("gdsOptnNo", gdsOptnNo);
+			paramMap.put("gdsNo", gdsNo);
+			paramMap.put("optnTy", optnTy);
+			paramMap.put("optnStockQy", EgovStringUtil.string2integer(stockQy));
+			paramMap.put("useYn", useYn);
+
+			gdsStockService.updateGdsStock(paramMap);
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", true);
+		return resultMap;
 	}
 
 	@RequestMapping(value = "excel")

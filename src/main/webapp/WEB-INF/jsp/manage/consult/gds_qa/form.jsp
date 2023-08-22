@@ -84,7 +84,7 @@
 
 		</table>
 
-		<c:set var="pageParam" value="curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;sortBy=${param.sortBy}&amp;srchRegYmdBgng=${param.srchRegYmdBgng}&amp;srchRegYmdEnd=${param.srchRegYmdEnd}&&amp;srchRgtrId=${param.srchRgtrId}&amp;srchRgtr=${param.srchRgtr}&amp;srchQestnCn=${param.srchQestnCn}&amp;srchUseYn=${param.srchUseYn}&amp;srchUseYn=${param.srchUseYn}" />
+		<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;sortBy=${param.sortBy}&amp;srchRegYmdBgng=${param.srchRegYmdBgng}&amp;srchRegYmdEnd=${param.srchRegYmdEnd}&&amp;srchRgtrId=${param.srchRgtrId}&amp;srchRgtr=${param.srchRgtr}&amp;srchQestnCn=${param.srchQestnCn}&amp;srchUseYn=${param.srchUseYn}&amp;srchUseYn=${param.srchUseYn}" />
 		<div class="btn-group right mt-8">
 			<button type="submit" class="btn-primary large shadow">저장</button>
 			<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>

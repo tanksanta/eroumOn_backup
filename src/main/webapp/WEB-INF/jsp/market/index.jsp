@@ -24,16 +24,18 @@
 
 		</div>
 	</div>
-	<div class="swiper-control">
-		<div class="swiper-control-container">
-			<div class="swiper-button">
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-toggle"></div>
-				<div class="swiper-button-next"></div>
+	<c:if test="${fn:length(mainBannerList) ne 0}">
+		<div class="swiper-control">
+			<div class="swiper-control-container">
+				<div class="swiper-button">
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-toggle"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+				<div class="swiper-pagination"></div>
 			</div>
-			<div class="swiper-pagination"></div>
 		</div>
-	</div>
+	</c:if>
 </div>
 
 <c:forEach var="gdsMainList" items="${mainMngList}" >
@@ -89,21 +91,20 @@
 </c:if>
 </c:forEach>
 
-<div class="main-banner1">
+<aside class="main-banner grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:gap-5">
 	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'H' }">
-			<div <c:if test="${resultList.sortNo eq 1}">class="left"</c:if><c:if test="${resultList.sortNo eq 2}">class="right"</c:if>>
-				<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}"> <picture>
-					<c:forEach var="fileList" items="${resultList.halfFileList}">
-						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
-						<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
-					</c:forEach>
-				</a>
-			</div>
+		<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}" class="block overflow-hidden rounded-md"> 
+			<picture>
+			<c:forEach var="fileList" items="${resultList.halfFileList}">
+				<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
+				<img src="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }" alt=""> <!-- pc url --> </picture>
+			</c:forEach>
+            </picture>
+		</a>
 		</c:if>
 	</c:forEach>
-
-</div>
+</aside>
 
 <c:forEach var="gdsMainList" items="${mainMngList}" >
 <c:if test="${gdsMainList.themaTy eq 'G' && gdsMainList.sortNo eq 2}">
@@ -158,10 +159,10 @@
 </c:if>
 </c:forEach>
 
-<div class="main-banner2">
+<aside class="main-banner">
 	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'B'}">
-			<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}">
+			<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}" class="block overflow-hidden rounded-md">
 				<picture>
 					<c:forEach var="mobileFileList" items="${resultList.mobileImgFileList}">
 						<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${mobileFileList.upNo }&amp;fileTy=MOBILE&amp;fileNo=${mobileFileList.fileNo }" media="(max-width: 768px)">
@@ -175,7 +176,7 @@
 			</a>
 		</c:if>
 	</c:forEach>
-</div>
+</aside>
 
 <c:forEach var="gdsMainList" items="${mainMngList}" >
 <c:if test="${gdsMainList.themaTy eq 'G' && gdsMainList.sortNo eq 3}">

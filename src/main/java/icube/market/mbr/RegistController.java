@@ -46,8 +46,8 @@ import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.promotion.point.biz.MbrPointVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.market.mypage.info.biz.DlvyService;
-import icube.market.mypage.info.biz.DlvyVO;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 /**
  * 회원가입

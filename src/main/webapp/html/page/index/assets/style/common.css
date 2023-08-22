@@ -1,16 +1,5 @@
 html, body {
-    @apply scroll-smooth text-black2 break-keep;
-    -webkit-overflow-scrolling: touch;
-    -webkit-font-smoothing: antialiased;
-}
-
-body {
-    @apply text-sm overflow-x-hidden
-           md:text-base;
-}
-
-strong {
-    @apply font-bold;
+    @apply text-black2;
 }
 
 @layer components {
@@ -118,7 +107,7 @@ strong {
                 @apply h-4;
             }
             & [data-bs-dismiss="modal"] {
-                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.125rem]
+                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
                        sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
             }
         }
@@ -161,7 +150,7 @@ strong {
             @apply sticky top-0 bg-transparent flex items-center justify-between px-2.5 h-[2.8125rem]
                    sm:px-5 sm:h-15;
             & [data-bs-dismiss="offcanvas"] {
-                @apply absolute top-2 right-0.5 -mt-px w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.125rem]
+                @apply absolute top-2 right-0.5 -mt-px w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
                        sm:top-2.5 sm:right-1 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
             }
         }
@@ -472,7 +461,7 @@ strong {
     .btn-arrow {
         @apply min-w-[7em] justify-between transition-[transform,background-color,background-image,border,padding] duration-300 ease-in-out !bg-white
                before:absolute before:-top-[20%] before:-left-[200%] before:w-[158.75%] before:pt-[158.75%] before:bg-gray2 before:transition-all before:duration-700 before:-translate-y-[15.5%] before:-rotate-[35deg] before:ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
-               after:block after:relative after:z-5 after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:bg-[url(../images/ico-button-arrow.svg)] after:transition-all after:duration-300
+               after:block after:relative after:z-5 after:ml-4 after:w-2.5 after:h-2 after:bg-cover after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)] after:transition-all after:duration-300
                md:after:ml-5 md:after:w-3.5 md:after:h-3
                hover:px-2
                hover:after:ml-8
@@ -514,8 +503,8 @@ strong {
         &.btn-arrow {
             @apply !bg-black2
                    before:bg-white
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow.svg)];
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)];
         }
     }
     
@@ -527,15 +516,15 @@ strong {
         &.btn-arrow {
             @apply !bg-white
                    before:bg-black2
-                   after:bg-[url(../images/ico-button-arrow.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    md-max:!bg-black2 md-max:text-white
                    md-max:before:bg-white
                    md-max:hover:!text-black2 
                    md-max:focus:bg-black2 md-max:focus:text-white
                    md-max:active:text-black2
-                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:after:bg-[url(../images/ico-button-arrow.svg)];
+                   md-max:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)];
         }
     }
     
@@ -547,8 +536,8 @@ strong {
         &.btn-arrow {
             @apply !bg-[#FF8300]
                    before:bg-white
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)];
         }
     }
     
@@ -560,15 +549,15 @@ strong {
         &.btn-arrow {
             @apply !bg-white
                    before:bg-[#FF8300]
-                   after:bg-[url(../images/ico-button-arrow-orange.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    md-max:!bg-[#FF8300] md-max:text-white
                    md-max:before:bg-white
                    md-max:hover:!text-[#FF8300] 
                    md-max:focus:bg-[#FF8300] md-max:focus:text-white
                    md-max:active:text-[#FF8300]
-                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:after:bg-[url(../images/ico-button-arrow-orange.svg)];
+                   md-max:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)];
         }
     }
     
@@ -580,8 +569,8 @@ strong {
         &.btn-arrow {
             @apply !bg-[#3074FF]
                    before:bg-white
-                   after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-blue.svg)];
         }
     }
     
@@ -593,36 +582,36 @@ strong {
         &.btn-arrow {
             @apply !bg-white
                    before:bg-[#3074FF]
-                   after:bg-[url(../images/ico-button-arrow-blue.svg)]
-                   hover:after:bg-[url(../images/ico-button-arrow-white.svg)]
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-blue.svg)]
+                   hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    md-max:!bg-[#3074FF] md-max:text-white
                    md-max:before:bg-white
                    md-max:hover:!text-[#3074FF] 
                    md-max:focus:bg-[#3074FF] md-max:focus:text-white
                    md-max:active:text-[#3074FF]
-                   md-max:after:bg-[url(../images/ico-button-arrow-white.svg)]
-                   md-max:hover:after:bg-[url(../images/ico-button-arrow-blue.svg)];
+                   md-max:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   md-max:hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-blue.svg)];
         }
     }
 
     .btn-request {
         @apply rounded-full border-0 w-61 h-[2.625rem] text-white
-               after:content-empty after:ml-2.5 after:w-[0.825rem] after:h-3 after:bg-cover after:bg-[url(../images/ico-window-white.svg)];
+               after:content-empty after:ml-2.5 after:w-[0.825rem] after:h-3 after:bg-cover after:bg-[url(/html/page/index/assets/images/ico-window-white.svg)];
     }
 
     .btn-share {
         @apply relative w-10 h-10 overflow-hidden rounded-full border-0 -indent-96
-               after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(../images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
+               after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(/html/page/index/assets/images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
     }
 
     .text-scroll {
         @apply text-sm text-center font-medium opacity-70
                md:text-base md:opacity-100
-               after:block after:mx-auto after:mt-1 after:w-4 after:h-1.5 after:bg-cover after:bg-[url(../images/ico-scroll-arrow.svg)]
+               after:block after:mx-auto after:mt-1 after:w-4 after:h-1.5 after:bg-cover after:bg-[url(/html/page/index/assets/images/ico-scroll-arrow.svg)]
                md:after:hidden md:after:mt-1.5 md:after:w-7 md:after:h-2.5
                lg:after:mt-2 lg:after:w-8.5 lg:after:h-3;
         & i {
-            @apply hidden relative -top-0.5 mr-0.5 w-3.5 h-5.5 bg-center bg-no-repeat bg-[url(../images/ico-scroll-mouse.svg)] align-middle
+            @apply hidden relative -top-0.5 mr-0.5 w-3.5 h-5.5 bg-center bg-no-repeat bg-[url(/html/page/index/assets/images/ico-scroll-mouse.svg)] align-middle
                    md:inline-block;
             &::before {
                 @apply content-empty absolute top-[5px] left-1/2 w-[2px] h-[4px] rounded-[1px] bg-black2 -translate-x-1/2;
@@ -631,9 +620,9 @@ strong {
         }
         &.is-white {
             @apply text-white
-                   after:bg-[url(../images/ico-scroll-arrow-white.svg)];
+                   after:bg-[url(/html/page/index/assets/images/ico-scroll-arrow-white.svg)];
             & i {
-                @apply bg-[url(../images/ico-scroll-mouse-white.svg)];
+                @apply bg-[url(/html/page/index/assets/images/ico-scroll-mouse-white.svg)];
                 &::before {
                     @apply bg-white;
                 }

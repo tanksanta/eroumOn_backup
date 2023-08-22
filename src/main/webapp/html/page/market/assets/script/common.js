@@ -54,18 +54,6 @@ $(function() {
         $(this).toggleClass('is-active');
     })
 
-    // 팝업 닫기
-    $(".cls-popup-btn").on("click",function(){
-    	var popNo = $(this).data("popNo");
-    	$(".view"+popNo).removeClass("is-active");
-
-    	var id = $(this).data("oneHide");
-		
-    	if($("#"+id).is(":checked")){
-			$.cookie("popup"+popNo,"none",{expires:1, path:"/"});
-		}
-    });
-
     //상단 네비 스크롤
     horizonScroll($('.navigation-submenu ul'));
 
@@ -149,9 +137,9 @@ $(function() {
 	});
 
     //사이드 메뉴 토글
-    $('.page-sidenav-toggle').on('click', function() {
+    $('#page-sidenav-toggle').on('click', function() {
         var layer   = $('#page-sidenav');
-        var button  = $('.page-sidenav-toggle');
+        var button  = $('#page-sidenav-toggle');
         var pheader = $('#page-header');
         var body    = $('body');
 
@@ -165,12 +153,17 @@ $(function() {
             layer.addClass('is-animate').removeClass('is-active');
         } else {
             if(pheader.get(0).getBoundingClientRect().top > pheader.css('top').replace('px', '')) {
-                $(window).scrollTop($(window).scrollTop() + pheader.get(0).getBoundingClientRect().top - ($('#navigation').outerHeight()));
-                setTimeout(() => {
-                    body.addClass('overflow-hidden');
-                    button.addClass('is-active');
-                    layer.css({'top': pheader.get(0).getBoundingClientRect().top + pheader.outerHeight()}).addClass('is-animate').addClass('is-active');
-                }, 500);
+				if(!$('#container').hasClass('is-mypage')) {
+					$(window).scrollTop($(window).scrollTop() + pheader.get(0).getBoundingClientRect().top - ($('#navigation').outerHeight()));
+					setTimeout(() => {
+						body.addClass('overflow-hidden');
+						button.addClass('is-active');
+						layer.css({'top': pheader.get(0).getBoundingClientRect().top + pheader.outerHeight()}).addClass('is-animate').addClass('is-active');
+					}, 500);
+				} else {
+					body.addClass('overflow-hidden');
+					layer.addClass('is-animate').addClass('is-active');
+				}
             } else {
                 body.addClass('overflow-hidden');
                 button.addClass('is-active');
@@ -181,7 +174,7 @@ $(function() {
 
     $('#page-sidenav').on('click', function(e) {
         var layer  = $('#page-sidenav');
-        var button = $('.page-sidenav-toggle');
+        var button = $('#page-sidenav-toggle');
         var body   = $('body');
 
         layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
@@ -195,14 +188,36 @@ $(function() {
         }
     });
 
-    //상품 검색 기타 플러스버튼
-    $('#page-sidenav .moreview').on('click', function() {
-        $(this).closest('.page-sidenav-group').toggleClass('is-active');
-    });
+	//마이페이지용 사이드메뉴 헤더 토글
+	$('.page-sidenav-header .header-close, .global-user .user-toggle').on('click', function() {
+        var layer  = $('#page-sidenav');
+        var button = $('#page-sidenav-toggle');
+        var body   = $('body');
+		
+        layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
+            $(this).removeClass('is-animate');
+        });
+
+		body.toggleClass('overflow-hidden');
+		button.toggleClass('is-active');
+		layer.addClass('is-animate').toggleClass('is-active');
+	})
 
     //퀵메뉴
     $('#quick .moveTop').on('click', function() {
         $(window).scrollTop(0);
+    });
+
+    // 팝업 닫기
+    $(".cls-popup-btn").on("click",function(){
+    	var popNo = $(this).data("popNo");
+    	$(".view"+popNo).removeClass("is-active");
+
+    	var id = $(this).data("oneHide");
+		
+    	if($("#"+id).is(":checked")){
+			$.cookie("popup"+popNo,"none",{expires:1, path:"/"});
+		}
     });
 
     //resize
@@ -236,7 +251,7 @@ $(function() {
 			timer = setTimeout(function() {
 				if(resize) {
 					$('body').removeClass('overflow-hidden');
-					$('#page-sidenav, .page-sidenav-toggle, .navigation-allmenu *, .navigation-search *').removeClass('is-active').removeAttr('style');
+					$('#page-sidenav, #page-sidenav-toggle, .navigation-allmenu *, .navigation-search *').removeClass('is-active').removeAttr('style');
 				}
 			}, 5);
 		}
@@ -512,17 +527,56 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 	$.ajaxSetup({ cache: true });
 	$.getScript( "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js", function() {
 		$.ajaxSetup({ cache: false });
-		new daum.Postcode({
-			oncomplete: function(data) {
-				$("#"+zip).val(data.zonecode); // 우편번호
-				$("#"+addr).val(data.roadAddress); // 도로명 주소 변수
-				$("#"+daddr).focus(); //포커스
-
-				if(lat != undefined && lot != undefined){
-					f_findGeocode(data, lat, lot); //좌표
-				}
-	        }
-	    }).open();
+		
+		// 우편번호 찾기 화면을 넣을 element
+		var element_layer = document.getElementById('addrModal-contents');
+		var width = 500;
+        if (window.screen.width < 500) {
+            width = 300;
+        }
+		
+		if(!element_layer) {
+			var addrModalTemplate = `
+				<div id="addrModal" style="position:absolute; width:100%; height:100%; background:rgba(0,0,0,8); top:0; left:0; z-index: 1000; display:none;">
+					<div id="addrModal-contents" style="width:${width}px; height:500px; background:#fff; border-radius:10px; position:relative; top:30%; left:50%; margin-top:-100px; transform: translateX(-50%); text-align:center; box-sizing:border-box; padding:10px 0; line-height:23px; cursor:pointer;">
+						<button id="addrModalClose" type="button" style="float:right; margin-right: 10px; border: 1px solid lightgray; padding: 5px; border-radius: 5px;">닫기</button>
+					</div>
+				</div>
+			`;
+			document.getElementById('container').insertAdjacentHTML('beforebegin', addrModalTemplate);
+			
+			element_layer = document.getElementById('addrModal-contents');
+			
+			//닫기 이벤트
+			$("#addrModalClose").on("click", function() {
+				$('#addrModal').fadeOut();
+	    		$('#container').css({"display": "block"});
+			});
+		}
+		
+		var daumLayer = document.getElementById('__daum__layer_1');
+		if(!daumLayer) {
+			//다음 주소검색 추가
+			new daum.Postcode({
+			    width,
+				oncomplete: function(data) {
+					$("#"+zip).val(data.zonecode); // 우편번호
+					$("#"+addr).val(data.roadAddress); // 도로명 주소 변수
+		
+					if(lat != undefined && lot != undefined){
+						f_findGeocode(data, lat, lot); //좌표
+					}
+				
+					$('#addrModal').fadeOut();
+		    		$('#container').css({"display": "block"});
+		    		
+		    		$("#"+daddr).focus(); //포커스
+		        }
+		    }).embed(element_layer);
+		}
+		
+	    $('#addrModal').fadeIn();
+	    $('#container').css({"display": "none"});
 	});
 }
 

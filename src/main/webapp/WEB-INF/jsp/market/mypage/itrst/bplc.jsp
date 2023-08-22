@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<main id="container">
+<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="관심 멤버스" name="pageTitle"/>
 		</jsp:include>
@@ -9,6 +9,8 @@
 		<jsp:include page="../../layout/page_sidenav.jsp" />
 
 		<div id="page-content">
+			<jsp:include page="../../layout/mobile_userinfo.jsp" />
+
 			<div class="items-center justify-between md:flex">
                 <div class="space-y-1.5 md:mr-3">
                     <p class="text-alert">멤버스 검색을 통해 관심 멤버스로 등록, 삭제할 수 있습니다. (최대 5개)</p>

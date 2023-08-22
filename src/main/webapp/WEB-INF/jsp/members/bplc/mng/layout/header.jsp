@@ -14,9 +14,12 @@
         <nav id="navigation">
             <ul class="menu-items">
                 <li><a href="#list-items1" class="menu-item1 ${fn:indexOf(_curPath, '/info/') > -1 || fn:indexOf(_curPath, '/mng/') < 0 || fn:indexOf(_curPath, '/index') > -1 ?'active':''}">정보수정</a></li>
+                <li><a href="#list-items7" class="menu-item7 ${fn:indexOf(_curPath, '/conslt/') > -1?'active':''}">고객상담</a></li>
+				<%--
                 <li><a href="#list-items2" class="menu-item2 ${fn:indexOf(_curPath, '/gds/') > -1?'active':''}">상품</a></li>
                 <li><a href="#list-items3" class="menu-item3 ${fn:indexOf(_curPath, '/ordr/') > -1?'active':''}">주문</a></li>
                 <li><a href="#list-items4" class="menu-item4 ${fn:indexOf(_curPath, '/clcln/') > -1?'active':''}">정산</a></li>
+                --%>
                 <li><a href="#list-items5" class="menu-item5 ${fn:indexOf(_curPath, '/set/') > -1?'active':''}">멤버스</a></li>
                 <li><a href="#list-items6" class="menu-item6 ${fn:indexOf(_curPath, '/mNotice/') > -1?'active':''}">공지사항</a></li>
             </ul>
@@ -87,6 +90,15 @@
                 </p>
                 <ul>
                     <li ${fn:indexOf(_curPath, 'mNotice') > -1?'class="active"':''}><a href="${_bplcPath}/mng/mNotice/list">이로움ON 마켓 공지사항</a></li>
+                </ul>
+            </div>
+            <div class="list-items ${fn:indexOf(_curPath, '/conslt/') > -1?'active':''}" id="list-items7">
+                <p>
+                    고객상담관리
+                    <small> management</small>
+                </p>
+                <ul>
+                    <li ${fn:indexOf(_curPath, '/conslt/') > -1?'class="active"':''}><a href="${_bplcPath}/mng/conslt/list">1:1상담(장기요양테스트)</a></li>
                 </ul>
             </div>
         </nav>

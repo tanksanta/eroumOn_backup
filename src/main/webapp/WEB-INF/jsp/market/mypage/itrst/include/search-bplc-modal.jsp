@@ -35,8 +35,8 @@
                 </form>
 			</div>
 			<div class="modal-footer">
-				<buttton type="button" class="btn btn-primary" id="bplcBtn">확인</buttton>
-				<buttton type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">취소</buttton>
+				<buttton type="button" class="btn btn-primary" id="bplcBtn">확인</button>
+				<buttton type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">취소</button>
 			</div>
 		</div>
 	</div>

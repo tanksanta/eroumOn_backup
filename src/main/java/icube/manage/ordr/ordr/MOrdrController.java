@@ -41,7 +41,11 @@ import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
+import icube.manage.sysmng.mngr.biz.MngrService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
+import icube.manage.sysmng.mngr.biz.MngrVO;
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.model.request.Subscribe;
 import kr.co.bootpay.model.request.User;
@@ -65,9 +69,15 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
+	
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
+	
+	@Resource(name="mngrService")
+	private MngrService mngrService;
 
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
@@ -91,16 +101,42 @@ public class MOrdrController extends CommonAbstractController {
 	//private static String[] targetParams = {"curPage", "cntPerPage", "srchTarget", "srchText", "sortBy"
 		//									, "srchSttsTy", "srchOrdrYmdBgng", "srchOrdrYmdEnd", "srchOrdrrNm", "srchRecptrNm", "srchOrdrTy", "srchStlmTy", "srchGdsCd", "srchGdsNm"};
 
-    // 리스트
+	// 리스트
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="{ordrStts}/list")
 	public String list(
 			@PathVariable String ordrStts
 			, HttpServletRequest request
 			, Model model) throws Exception {
 
+        Map<String, String> mbgrReqMap = new HashMap<>();
+        mbgrReqMap.put("mngrId", mngrSession.getMngrId());
+        MngrVO curMngrVO = mngrService.selectMngrById(mbgrReqMap);
+		
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
+		
+        //현재관리자에 입점업체 정보가 있으면 해당 입점업체만 조회되도록 구현
+        if (curMngrVO.getEntrpsNo() > 0) {
+        	listVO.setParam("srchEntrpsNo", curMngrVO.getEntrpsNo());
+        	model.addAttribute("mngrEntrpsNo", curMngrVO.getEntrpsNo());
+        }
+        
 		listVO = ordrService.ordrListVO(listVO);
+		
+		//간편로그인 ID 너무 길어서 간단하게 표시작업
+		listVO.getListObject().stream().forEach(ordr -> {
+			OrdrDtlVO ordrDtlltVO = (OrdrDtlVO)ordr;
+			if (ordrDtlltVO.getOrdrrId().endsWith("@K")) {
+				ordrDtlltVO.setOrdrrId("카카오 계정");
+			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
+				ordrDtlltVO.setOrdrrId("네이버 계정");
+			}
+		});
+		
+		//입점업체 호출
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
+		model.addAttribute("entrpsList", entrpsList);
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);

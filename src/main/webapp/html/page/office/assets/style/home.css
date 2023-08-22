@@ -122,24 +122,18 @@
         @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
                lg:text-base lg:py-13 lg:rounded-[1rem];
         &.is-large {
-            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(/html/page/office/assets/images/txt-eroum-white.svg)] bg-[length:auto_1rem]
                    lg:py-29 lg:bg-[length:auto_auto];
         }
     }
 }
 
-html {
-    @apply overflow-x-hidden overflow-y-auto;
-}
-
-
 body {
-    @apply relative pl-0 text-[#545454]
+    @apply relative pl-0 text-sm text-[#545454]
            lg:text-base
            xl:pl-80
            2xl:pl-100;
 }
-
 
 #header {
     @apply flex flex-col sticky z-60 top-0 left-0 w-full bg-white leading-tight text-left
@@ -163,7 +157,7 @@ body {
                2xl:p-10 2xl:pb-7 2xl:text-3xl;
         & a {
             @apply block relative mr-25 pl-6 max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-left
-                   before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:rounded before:bg-[length:0.5rem] before:bg-no-repeat before:bg-center before:bg-[#103263] before:bg-[url(../images/img-header-logo.svg)] 
+                   before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:rounded before:bg-[length:0.5rem] before:bg-no-repeat before:bg-center before:bg-[#103263] before:bg-[url(/html/page/office/assets/images/img-header-logo.svg)] 
                    lg:py-0.5 lg:pl-8
                    lg:before:top-px lg:before:w-6.5 lg:before:h-6.5 lg:before:bg-[length:0.625rem] lg:before:rounded-md
                    xl:inline-block xl:mr-0 xl:whitespace-normal xl:text-clip
@@ -178,7 +172,7 @@ body {
                2xl:px-10;
     }
     & .infomation-close {
-        @apply hidden absolute z-10 top-3.5 right-3 w-8 h-8 overflow-hidden -indent-96 align-top bg-center bg-no-repeat bg-[length:0.875rem] bg-[url(../images/ico-close.svg)]
+        @apply hidden absolute z-10 top-3.5 right-3 w-8 h-8 overflow-hidden -indent-96 align-top bg-center bg-no-repeat bg-[length:0.875rem] bg-[url(/html/page/office/assets/images/ico-close.svg)]
                lg:top-5 lg:right-4.5;
     }
     & .photo {
@@ -202,24 +196,24 @@ body {
     }
     & .tel {
         & a {
-            @apply before:bg-[url(../images/ico-tel.svg)];
+            @apply before:bg-[url(/html/page/office/assets/images/ico-tel.svg)];
         }
     }
     & .time {
-        @apply before:bg-[url(../images/ico-timer.svg)];
+        @apply before:bg-[url(/html/page/office/assets/images/ico-timer.svg)];
     }
     & .park {
-        @apply before:bg-[url(../images/ico-parking.svg)];
+        @apply before:bg-[url(/html/page/office/assets/images/ico-parking.svg)];
     }
     & .rest {
-        @apply before:-mt-px before:w-4.5 before:h-4.5 before:bg-[url(../images/ico-rest.svg)] before:bg-[length:auto_1.125rem]
+        @apply before:-mt-px before:w-4.5 before:h-4.5 before:bg-[url(/html/page/office/assets/images/ico-rest.svg)] before:bg-[length:auto_1.125rem]
                lg:before:w-5.5 lg:before:h-5.5 lg:before:bg-[length:auto_1.375rem];
     }
     & .map {
         @apply mt-4
                lg:mt-5;
         & a {
-            @apply before:bg-[url(../images/ico-map.svg)] before:bg-[length:auto_1.125rem]
+            @apply before:bg-[url(/html/page/office/assets/images/ico-map.svg)] before:bg-[length:auto_1.125rem]
                    lg:before:bg-[length:auto_1.375rem];
         }
     }
@@ -334,7 +328,7 @@ body {
     & a, & button {
         @apply inline-block w-8 h-8 overflow-hidden bg-no-repeat bg-center -indent-96 align-top bg-[length:18px];
         &.toggle {
-            @apply bg-[url(../images/ico-search.svg)]
+            @apply bg-[url(/html/page/office/assets/images/ico-search.svg)]
                    xl:hidden;
             &[aria-expanded="true"] {
                 @apply bg-[length:16px];
@@ -342,13 +336,13 @@ body {
             }
         }
         &.search {
-            @apply bg-[url(../images/ico-search.svg)];
+            @apply bg-[url(/html/page/office/assets/images/ico-search.svg)];
         }
         &.user {
-            @apply bg-[url(../images/ico-user.svg)];
+            @apply bg-[url(/html/page/office/assets/images/ico-user.svg)];
         }
         &.cart {
-            @apply bg-[url(../images/ico-cart.svg)];
+            @apply bg-[url(/html/page/office/assets/images/ico-cart.svg)];
         }
     }
     & form {
@@ -382,7 +376,7 @@ body {
 }
 
 #footer {
-    @apply pt-17 pb-6.5 bg-[#f4f6f7] bg-[url(../images/img-footer-logo.svg)] bg-no-repeat bg-[length:5.375rem] bg-[center_top_1.5rem] leading-tight text-gray4 text-center text-xs
+    @apply pt-17 pb-6.5 bg-[#f4f6f7] bg-[url(/html/page/office/assets/images/img-footer-logo.svg)] bg-no-repeat bg-[length:5.375rem] bg-[center_top_1.5rem] leading-tight text-gray4 text-center text-xs
            lg:text-sm
            xl:pt-4.5 xl:pb-7.5 xl:px-47 xl:bg-[left_3.75rem_top_1.375rem] xl:bg-[length:6.5rem] xl:text-left
            2xl:pr-62 2xl:pl-66 2xl:bg-[left_7.5rem_top_1.375rem] 2xl:bg-[length:7.375rem];
@@ -430,17 +424,17 @@ body {
     }
     &.car {
         & dt {
-            @apply before:bg-[url(../images/ico-car.svg)];
+            @apply before:bg-[url(/html/page/office/assets/images/ico-car.svg)];
         }
     }
     &.bus {
         & dt {
-            @apply before:bg-[url(../images/ico-bus.svg)];
+            @apply before:bg-[url(/html/page/office/assets/images/ico-bus.svg)];
         }
     }
     &.metro {
         & dt {
-            @apply before:bg-[url(../images/ico-metro.svg)];
+            @apply before:bg-[url(/html/page/office/assets/images/ico-metro.svg)];
         }
     }
 }
@@ -597,7 +591,7 @@ body {
 
 .board-reply {
     & .count {
-        @apply flex items-center mt-6 pl-6 pb-3.5 border-b border-gray3 leading-none bg-[url(../images/ico-reply.svg)] bg-no-repeat bg-[left_top_1px] bg-[length:1.25rem] text-base;
+        @apply flex items-center mt-6 pl-6 pb-3.5 border-b border-gray3 leading-none bg-[url(/html/page/office/assets/images/ico-reply.svg)] bg-no-repeat bg-[left_top_1px] bg-[length:1.25rem] text-base;
         & strong {
             @apply ml-2 font-serif font-normal text-[#ff4690];
         }
@@ -664,7 +658,7 @@ body {
         }
         & .category-moreview {
             @apply hidden border-gray1 bg-white text-sm
-                   before:content-empty before:block before:mr-1.5 before:w-3 before:h-3 before:bg-cover before:bg-no-repeat before:bg-[url(../images/ico-plus.svg)];
+                   before:content-empty before:block before:mr-1.5 before:w-3 before:h-3 before:bg-cover before:bg-no-repeat before:bg-[url(/html/page/office/assets/images/ico-plus.svg)];
             &.is-visible {
                 @apply inline-flex;
             }
@@ -706,7 +700,7 @@ body {
             @apply absolute top-0 left-0 w-full h-full object-cover;
         }
         &.is-empty {
-            @apply bg-[url(../images/bg-compare-thumb.svg)];
+            @apply bg-[url(/html/page/office/assets/images/bg-compare-thumb.svg)];
         }
     }
     & .content {
@@ -763,11 +757,11 @@ body {
         }
     }
     & .cart {
-        @apply absolute right-0 bottom-0 w-8 h-8 overflow-hidden -indent-96 rounded-tl-[1rem] bg-white bg-[url(../images/ico-cart.svg)] bg-no-repeat bg-center bg-[length:0.8125rem,auto]
+        @apply absolute right-0 bottom-0 w-8 h-8 overflow-hidden -indent-96 rounded-tl-[1rem] bg-white bg-[url(/html/page/office/assets/images/ico-cart.svg)] bg-no-repeat bg-center bg-[length:0.8125rem,auto]
                md:w-11 md:h-11 md:rounded-tl-[1.5rem] md:bg-[length:1.25rem,auto]
                xl:w-14 xl:h-14 xl:rounded-tl-[2rem] xl:bg-[length:1.5rem,auto];
         &.active {
-            @apply bg-[url(../images/ico-cart-white.svg),linear-gradient(139deg,#7332E7_0%,#5886DE_100%)];
+            @apply bg-[url(/html/page/office/assets/images/ico-cart-white.svg),linear-gradient(139deg,#7332E7_0%,#5886DE_100%)];
         }
     }
 }

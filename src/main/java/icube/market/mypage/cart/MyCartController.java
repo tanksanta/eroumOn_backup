@@ -3,6 +3,7 @@ package icube.market.mypage.cart;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.ordr.ordr.biz.OrdrVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyBaseCtVO;
+import icube.manage.sysmng.entrps.biz.EntrpsService;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Controller
@@ -32,8 +38,14 @@ public class MyCartController extends CommonAbstractController  {
 	@Resource(name = "cartService")
 	private CartService cartService;
 
+	@Resource(name = "entrpsService")
+	private EntrpsService entrpsService;
+	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	ObjectMapper objectMapper = new ObjectMapper();
+	
 
 	@RequestMapping(value="list")
 	public String list(
@@ -53,6 +65,19 @@ public class MyCartController extends CommonAbstractController  {
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);
 
+		//입점업체 배송 정보(기본 배송료를 알기 위해 사용)
+		paramMap.clear();
+		List<Integer> entrpsNoList = nResultList.stream()
+				.map(g -> g.getGdsInfo().getEntrpsNo())
+				.collect(Collectors.toList());
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
+		List<EntrpsDlvyBaseCtVO> entrpsDlvyList = entrpsList.stream()
+				.filter(e -> entrpsNoList.contains(e.getEntrpsNo()))
+				.map(e -> new EntrpsDlvyBaseCtVO(e.getEntrpsNo(), e.getDlvyCtCnd(), e.getDlvyBaseCt()))
+				.collect(Collectors.toList());
+		String json = objectMapper.writeValueAsString(entrpsDlvyList);
+		model.addAttribute("entrpsDlvyList", json);
+		
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19.5px" height="22.1292725px" viewBox="0 0 19.5 22.1292725" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 12</title>
+    <g id="회원" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="로그인-페이지" transform="translate(-1334.5, -885.1774)" stroke="#333333">
+            <g id="Group-12" transform="translate(1335, 885.6774)">
+                <path d="M17,4.00244141 L17,2 C17,0.8954305 16.1045695,-6.46995335e-16 15,0 L2,0 C0.8954305,2.02906125e-16 3.0881846e-16,0.8954305 0,2 L0,19.1292725 C1.3527075e-16,20.233842 0.8954305,21.1292725 2,21.1292725 L15,21.1292725 C16.1045695,21.1292725 17,20.233842 17,19.1292725 L17,17.3648682 L17,17.3648682" id="Path-10" stroke-linejoin="round"></path>
+                <line x1="5.5" y1="10.8226318" x2="18.5" y2="10.8226318" id="Line-8"></line>
+                <line x1="14.5" y1="6.82263184" x2="18.5" y2="10.8226318" id="Line-8-Copy"></line>
+                <line x1="14.5" y1="14.8226318" x2="18.5" y2="10.8226318" id="Line-8-Copy-2"></line>
+            </g>
+        </g>
+    </g>
+</svg>

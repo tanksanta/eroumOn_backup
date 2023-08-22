@@ -27,6 +27,7 @@
 	<style>
 		table { border-collapse:collapse; }
 		table th,  td { border:1px solid #cccccc; }
+		.excel_data_value_string{ mso-number-format:"\@"; }
 	</style>
 	</head>
 <body>
@@ -41,6 +42,7 @@
                 <th scope="col">급여코드</th>
                 <th scope="col">품목코드</th>
                 <th scope="col">상품명</th>
+                <th scope="col">상품태그</th>
                 <th scope="col">관리자메모</th>
                 <th scope="col">기본설명</th>
                 <th scope="col">재질</th>
@@ -60,6 +62,7 @@
                 <th scope="col">급여가</th>
                 <th scope="col">대여가능</th>
                 <th scope="col">재고수량</th>
+                <th scope="col">옵션사용여부</th>
 
                 <th scope="col">배송비유형</th>
                 <th scope="col">배송비결제</th>
@@ -78,8 +81,18 @@
                 <td>${fn:split(result.gdsCtgryPath,' > ')[3]}</td>
                 <td>${result.gdsCd}</td>
                 <td>${result.bnefCd}</td>
-                <td>${result.itemCd}</td>
+                <td class="excel_data_value_string">${result.itemCd}</td>
                 <td>${result.gdsNm}</td>
+                <td>
+					<c:if test="${!empty result.gdsTagVal}">
+						<c:forEach var="tagList" items="${fn:split(fn:replace(result.gdsTagVal,' ',''),',')}" varStatus="status">
+							<c:if test="${status.index > 0}">, </c:if>${gdsTagCode[tagList]}
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty result.gdsTagVal}">
+						-
+					</c:if>
+				</td>
                 <td>${result.mngrMemo}</td>
                 <td>${result.bassDc}</td>
                 <td>${result.mtrqlt}</td>
@@ -99,6 +112,7 @@
                 <td><fmt:formatNumber value="${result.bnefPc}" pattern="###,###" /></td>
                 <td>${result.lendDuraYn eq 'Y'?'사용':'미사용'}</td>
                 <td>${result.stockQy}</td>
+                <td>${result.useYn}</td>
 
                 <td>${dlvyCostTyCode[result.dlvyCtTy]}</td>
                 <td>${dlvyPayTyCode[result.dlvyCtStlm]}</td>
