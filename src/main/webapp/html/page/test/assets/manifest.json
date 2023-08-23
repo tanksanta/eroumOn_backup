@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"short_name": "복지24",
+	"name": "가장 합리적인 효도 방법을 찾아드립니다, 이로움",
+	"version": "0.0.7",
+	"version_name": "0.0.7 beta",
+	"default_locale": "ko",
+	"description": "앱 설명",
+	"icons": {
+		"16": "imgs/eroum_icon.png",
+		"48": "imgs/eroum_icon.png",
+		"64": "imgs/eroum_icon.png",
+		"128": "imgs/eroum_icon.png",
+		"256": "imgs/eroum_icon.png",
+		"512": "imgs/eroum_icon.png"
+	},
+	"homepage_url": "https://silver.bokji24.com",
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#66a091"
+}

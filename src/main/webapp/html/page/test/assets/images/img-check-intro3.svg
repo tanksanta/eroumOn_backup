@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="41.594" height="38" viewBox="0 0 41.594 38">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.502"/>
+    </linearGradient>
+  </defs>
+  <path id="Rectangle_Copy_69" data-name="Rectangle Copy 69" d="M19.856,38H12.322V21.969H10.055a3,3,0,0,0-2.156.915L4.956,25.928a2.866,2.866,0,0,1-4.122,0,2.973,2.973,0,0,1,.069-4.2l5.053-4.9A6.019,6.019,0,0,1,9.98,15.133l2.273-.062.137,0H25.921a5,5,0,0,1,2.705.8l3.179,2.045a3,3,0,0,0,3.268-.013l1.963-1.287a2.933,2.933,0,1,1,3.222,4.9l-4.079,2.635a5,5,0,0,1-5.431,0l-3.358-2.174V38ZM13.409,6.552A6.552,6.552,0,1,1,19.96,13.1,6.551,6.551,0,0,1,13.409,6.552Z" transform="translate(0)" fill="url(#linear-gradient)"/>
+</svg>

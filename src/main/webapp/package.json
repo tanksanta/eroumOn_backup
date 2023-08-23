@@ -11,6 +11,7 @@
         "build-office3" : "postcss ./html/page/office/assets/style/admin.css -o ./html/page/office/assets/style/admin.min.css --watch --poll",
         "build-members" : "postcss ./html/page/members/assets/style/style.css -o ./html/page/members/assets/style/style.min.css --watch --poll",
         "build-index"   : "postcss ./html/page/index/assets/style/style.css -o ./html/page/index/assets/style/style.min.css --watch --poll",
+        "build-test"    : "postcss ./html/page/test/assets/style/style.css -o ./html/page/test/assets/style/style.min.css --watch --poll",
         "build": "npm-run-all --parallel build-core build-admin build-market build-office1 build-office2 build-office3 build-members build-index"
     },
     "keywords": [],
