@@ -70,6 +70,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		sb.append(NaverRedirectUrl);
 		sb.append("&state=");
 		sb.append(URLEncoder.encode("icube","UTF-8"));
+		sb.append("&inapp_view=true");
 
 		return sb.toString();
 	}
