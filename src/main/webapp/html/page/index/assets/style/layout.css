@@ -248,7 +248,7 @@
 }
 
 #container {
-    @apply relative pt-13 pb-15 overflow-x-hidden
+    @apply relative pt-13 pb-15 overflow-x-hidden overflow-y-visible
            md:pt-17 md:pb-20
            lg:pt-0 lg:pb-25;
 }

@@ -1384,31 +1384,12 @@
 
 
 /* 장기요양등급 테스트 */
-[class*="grade-content"] {
-    @apply mx-auto pt-20 pb-22 max-w-screen-sm
-           md:max-w-full md:pt-40 md:pb-44;
-}
-
-.grade-content1 {
-    @apply pt-0 pb-20
-           md:pb-34;
-}
-
-.grade-content2 {
-    @apply pt-17 pb-21 bg-[#f8f8f8]
-           md:pt-32 md:pb-38;
-}
-
-.grade-content4 {
-    @apply bg-[#f8f8f8];
-}
-
 .grade-title {
     @apply text-4xl text-center font-bold leading-tight
            md:text-6xl;
     & small {
         @apply block text-base font-normal leading-normal
-               md:mb-1 md:text-sm;
+               md:mb-1;
     }
 }
 
@@ -1445,7 +1426,8 @@
                    }
         }
         & span {
-            @apply flex-1;
+            @apply flex-1 justify-center py-2.5 rounded-[0.625rem] bg-[#f8f8f8]
+                   md:py-0 md:rounded-none md:bg-white;
             & br {
                 @apply hidden
                        md:inline;
@@ -1470,34 +1452,24 @@
 }
 
 .grade-slider {
-    @apply -mx-5 select-none
-           md:-mx-7;
-    & .container {
-        @apply relative mx-auto pb-5.5 max-w-95 select-none
-               md:max-w-[34.25rem];
-    }
+    @apply relative mx-auto px-5 pb-6 max-w-95 select-none
+            md:px-10 md:max-w-[34.25rem];
     & .swiper {
-        @apply mx-auto max-w-80 shadow-[0px_0px_10px_0px_#0000002e]
-               md:max-w-100;
-    }
-    & .swiper-slide {
-        & picture {
-            @apply block p-2.5 h-full;
-        }
-        & img {
-            @apply w-full h-full object-cover;
-        }
+        @apply mx-auto w-75 max-w-full overflow-hidden
+               md:w-100;
     }
     & .swiper-button-prev, & .swiper-button-next {
-        @apply -mt-6 w-3.5 h-5 bg-center bg-no-repeat bg-cover bg-[url(../images/ico-grade-slide.svg)]
+        @apply -mt-8 w-7 h-7 bg-center bg-no-repeat bg-[length:auto_1.25rem] bg-[url(../images/ico-grade-slide.svg)]
                after:sr-only
-               md:-mt-5 md:w-5 md:h-10;
+               md:-mt-5 md:w-10 md:h-10 md:bg-[length:auto_2.5rem];
     }
     & .swiper-button-prev {
-        @apply left-0;
+        @apply -left-3
+               md:-left-2.5;
     }
     & .swiper-button-next {
-        @apply right-0 rotate-180;
+        @apply -right-3 rotate-180
+               md:-right-2.5;
     }
     & .swiper-pagination {
         @apply bottom-0 leading-none
@@ -1512,18 +1484,46 @@
 }
 
 .grade-start {
-    @apply mx-auto w-[480px] max-w-full
-           md:w-fit;
-    & picture {
-        @apply relative;
+    & .picture {
+        @apply relative mx-auto pb-25 w-[280px] max-w-full
+               md:pb-0 md:w-[490px];
+        & .msg1, & .msg2 {
+            @apply absolute -right-7.5 w-fit select-none whitespace-nowrap
+                   md:right-auto;
+            & .box {
+                @apply relative z-5 py-3 px-10 rounded-full border bg-white leading-snug text-lg tracking-tight shadow-[0px_0px_4px_0px_#00000026]
+                       md:px-[3.125rem] md:text-xl;
+            }
+            & svg {
+                @apply absolute -z-5;
+            }
+        }
+        & .msg1 {
+            @apply z-10 top-61 text-right
+                   md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
+            & .box {
+                @apply border-[#FD8106];
+            }
+            & svg {
+                @apply left-full -ml-6.5 bottom-0
+                       md:-ml-4;
+            }
+        }
+        & .msg2 {
+            @apply z-5 top-76
+                   md:top-20 md:right-0 md:translate-x-[70%];
+            & .box {
+                @apply border-[#5DB0BF];
+            }
+            & svg {
+                @apply left-full bottom-0 -ml-6.5
+                       md:left-auto md:right-full md:-mr-5 md:ml-0 md:-scale-x-100;
+            }
+        }
     }
-    & img {
-        @apply mx-auto
-               md:translate-x-[5%];
-    }
-    & a {
-        @apply hidden items-center justify-center relative z-5 gap-5.5 mx-auto -mt-15 w-100 h-15 rounded-[0.625rem] bg-[#FD8106] text-2xl text-white font-bold
-               after:block after:w-[1.1875rem] after:h-[0.9375rem] after:bg-cover after:bg-[url(../images/ico-grade-submit.svg)]
+    & .btn {
+        @apply hidden justify-center -mt-15 mx-auto w-100 h-15 text-xl
+               after:w-[1.1875rem] after:h-[0.9375rem]
                md:flex;
     }
 }
@@ -1596,6 +1596,64 @@
             @apply bg-[#E8D7D1] text-[#C7B0A7];
         }
     }
+}
+
+[class*="grade-content"] {
+    @apply relative mx-auto pt-20 pb-22 max-w-screen-sm 
+           md:max-w-full md:pt-40 md:pb-44;
+}
+
+.grade-content1 {
+    @apply pt-0 pb-20
+           md:pb-34;
+    & .grade-title {
+        @apply md:text-7xl;
+        & small {
+            @apply text-lg
+                   md:-mb-1 md:text-2xl;
+        }
+    }
+}
+
+.grade-content2 {
+    @apply pt-17 pb-21
+           md:pt-32 md:pb-38;
+}
+
+.grade-content3 {
+    & .grade-slider {
+        & .swiper {
+            @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]
+                   md:h-[28.125rem];
+        }
+        & .swiper-slide {
+            @apply pt-8 px-5 text-center tracking-tighter text-sm
+                   md:pt-8.5;
+            & img {
+                @apply mx-auto;
+            }
+        }
+    }
+}
+
+.grade-content4 {
+    & .grade-slider {
+        & .swiper {
+            @apply h-[32.5rem] bg-[url(../images/bg-grade-content4-m.svg)] bg-center bg-[length:auto_100%] shadow-[0px_0px_10px_0px_#00000026]
+                   md:bg-[url(../images/bg-grade-content4.svg)];
+        }
+        & .swiper-slide {
+            @apply pt-[3.125rem]
+                   md:pt-13;
+            & img {
+                @apply mx-auto w-[251px];
+            }
+        }
+    }
+}
+
+.grade-content2, .grade-content4 {
+    @apply before:absolute before:-z-5 before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-[#f8f8f8] before:-translate-x-1/2;
 }
 
 
