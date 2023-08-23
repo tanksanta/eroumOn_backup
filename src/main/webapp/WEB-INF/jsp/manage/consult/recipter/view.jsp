@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- page content -->
             <div id="page-content">
-                <p class="mb-7">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+                <p class="mb-7">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
                 <form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltVO" >
 				<form:hidden path="consltNo" />
 				<form:hidden path="consltSttus" />
@@ -39,17 +39,18 @@
                                         <ul class="space-y-1">
                                             <li>
                                             	<c:choose>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
-													재상담 신청 접수
+													<span class="text-red1">재상담 신청 접수</span>
                                                 	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
 													</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
 												</c:choose>
                                             </li>
                                         </ul>
@@ -108,14 +109,15 @@
                                     <th scope="row">상담진행상태</th>
                                     <td>
                                     	<c:choose>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
 											<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 											<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-											<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}"><span class="text-red1">재상담 신청 접수</span></c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
 										</c:choose>
                                     </td>
                                 </tr>
@@ -140,7 +142,7 @@
                     	<c:if test="${mbrConsltVO.consltSttus ne 'CS01' && fn:length(mbrConsltVO.consltResultList) > 0}">
                         <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
                         </c:if>
-                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06'}">
+                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06' && mbrConsltVO.consltSttus ne 'CS09' }">
                         <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
                         <button type="submit" class="btn-success large shadow">저장</button>

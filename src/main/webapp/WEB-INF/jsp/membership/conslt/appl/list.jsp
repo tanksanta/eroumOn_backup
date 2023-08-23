@@ -3,7 +3,7 @@
 	<main id="container" class="is-mypage-style">
 		<header id="page-title">
 			<h2>
-				<span>장기요양 상담신청</span>
+				<span>인정등급 상담신청</span>
 			</h2>
 		</header>
 
@@ -12,7 +12,7 @@
         <div id="page-content">
 
             <h3 class="mypage-title">
-                장기요양 상담신청
+                인정등급 상담신청
                 <button type="button" class="mypage-consult-toggle">상세검색</button>
             </h3>
 
@@ -60,6 +60,7 @@
                                 <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 완료</option>
                                 <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 기관 배정 완료</option>
                                 <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소</option><%--사용자--%>
+                                <%-- <option value="CS09" ${param.srchConsltSttus eq 'CS09'?'selected="selected"':''}>상담 취소</option>THKC --%>
                                 <%-- <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>사업소 --%>
                                 <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
                                 <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
@@ -73,7 +74,7 @@
             </form>
 
             <div class="mypage-consult-desc">
-                <p class="text-alert">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+                <p class="text-alert">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
             </div>
 
             <p><strong>총 ${listVO.totalCount}건</strong>의 상담신청 내역이 있습니다.</p>
@@ -92,6 +93,7 @@
 								<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 완료</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS09'}">상담 취소</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
@@ -105,7 +107,7 @@
                         <dd>
 							<c:choose>
 								<c:when test="${resultList.consltSttus eq 'CS01'}"><strong>상담 기관 배정 중</strong> 입니다.</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04'}">상담이 취소되었습니다.</c:when>
+								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">상담이 취소되었습니다.</c:when>
 								<c:when test="${resultList.consltSttus eq 'CS07'}"><strong>상담 기관 배정 중</strong> 입니다.
 									<c:if test="${consltSize > 1 }">
 									<ul class="history">
@@ -138,7 +140,14 @@
                         <dt>상담 신청일</dt>
                         <dd><fmt:formatDate value="${resultList.regDt }" pattern="yyyy.MM.dd" /></dd>
                     </dl>
-                    <%--상담 완료시 --%>
+                    <%--상담 완료시
+                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
+                    <div class="item-request">
+                    	<button type="button" class="button f_cancel" data-conslt-no="${resultList.consltNo}">상담 취소</button>
+                    </div>
+                    </c:if>
+                    --%>
+
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
                     <div class="item-request">
                     	<c:if test="${consltSize < 3}"> <%-- 상담 신청은 최대 3회 --%>
@@ -165,9 +174,9 @@
             <div class="modal fade" id="reqModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                     <form id="modalReConslt" name="modalReConslt" class="modal-content" enctype="multipart/form-data">
-                    	<input type="hidden" id="consltNo" name="consltNo" value="0">
-                    	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
-                    	<input type="hidden" id="bplcConsltNo" name="bplcConsltNo" value="0">
+                    	<input type="hidden" name="consltNo" value="0">
+                    	<input type="hidden" name="bplcUniqueId" value="">
+                    	<input type="hidden" name="bplcConsltNo" value="0">
 
                         <div class="modal-header">
                             <p class="text-title">재 상담 신청 사유 입력</p>
@@ -181,6 +190,30 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary btn-submit">저장하기</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered">
+                    <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
+                    	<input type="hidden" name="consltNo" value="0">
+
+                        <div class="modal-header">
+                            <p class="text-title">상담 취소 사유 입력</p>
+                        </div>
+                        <div class="modal-close">
+                            <button type="button" data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
+                            <textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
                             <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </form>
@@ -372,6 +405,14 @@
     		}
 
     	});
+
+    	$(".f_cancel").on("click", function(e){
+        	let consltNo = $(this).data("consltNo");
+        	console.log(consltNo);
+
+        	$("#modalCancel input[name='consltNo']").val(consltNo);
+        	$("#cancelModal").modal('show');
+        });
 
 
     });

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 			<jsp:include page="../layout/page_header.jsp">
-				<jsp:param value="1:1상담(장기요양테스트)" name="pageTitle"/>
+				<jsp:param value="1:1상담(인정등급테스트)" name="pageTitle"/>
 			</jsp:include>
 
 			<!-- page content -->
             <div id="page-content">
-                <p class="mb-7">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+                <p class="mb-7">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
                     <fieldset>
                         <legend class="text-title2">상담내역</legend>
                         <table class="table-detail">
@@ -45,18 +45,13 @@
 													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
 													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS03'}">상담 취소</c:when>
 													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS09'}">상담 취소</c:when>
 													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">상담 신청 접수</c:when>
+													<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">상담 신청 접수</c:when>
 												</c:choose>
                                             </li>
-                                            <%--
-                                            <li>
-                                                재상담 신청 접수
-                                                <a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
-                                            </li>
-                                             --%>
                                         </ul>
                                     </td>
                                 </tr>
@@ -105,10 +100,11 @@
 											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
 											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS03'}">상담 취소</c:when>
 											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS09'}">상담 취소</c:when>
 											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
 											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS07'}">상담 신청 접수</c:when>
+											<c:when test="${mbrConsltResultVO.consltSttus eq 'CS08'}">상담 신청 접수</c:when>
 										</c:choose>
                                     </td>
                                 </tr>
@@ -138,7 +134,7 @@
                         </c:if>
 
                         <c:if test="${mbrConsltResultVO.consltSttus ne 'CS02' && mbrConsltResultVO.consltSttus ne 'CS03'
-                        	&& mbrConsltResultVO.consltSttus ne 'CS04'  && mbrConsltResultVO.consltSttus ne 'CS06' && mbrConsltResultVO.consltSttus ne 'CS08'}">
+                        	&& mbrConsltResultVO.consltSttus ne 'CS04'  && mbrConsltResultVO.consltSttus ne 'CS06' && mbrConsltResultVO.consltSttus ne 'CS08' && mbrConsltResultVO.consltSttus ne 'CS09'}">
                         <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
 

@@ -46,6 +46,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
+                                <th scope="col">상담진행상태</th>
                                 <th scope="col">성명</th>
                                 <th scope="col">성별</th>
                                 <th scope="col">연락처</th>
@@ -53,7 +54,6 @@
                                 <th scope="col">생년월일</th>
                                 <th scope="col">거주지주소</th>
                                 <th scope="col">상담신청일</th>
-                                <th scope="col">상담진행상태</th>
                                 <th scope="col">상담내역</th>
                             </tr>
                         </thead>
@@ -61,6 +61,19 @@
 						<c:forEach items="${resultList}" var="result" varStatus="status">
 							<tr>
 								<td>${status.index+1}</td>
+								<td>
+									<c:choose>
+										<c:when test="${result.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
+										<c:when test="${result.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
+										<c:when test="${result.consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${result.consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:when test="${result.consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${result.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+										<c:when test="${result.consltSttus eq 'CS06'}">상담 완료</c:when>
+										<c:when test="${result.consltSttus eq 'CS07'}">상담 신청 접수</c:when>
+										<c:when test="${result.consltSttus eq 'CS08'}">상담 신청 접수</c:when>
+									</c:choose>
+								</td>
 								<td>${result.mbrConsltInfo.mbrNm}</td>
 								<td>${genderCode[result.mbrConsltInfo.gender]}</td>
 								<td>${result.mbrConsltInfo.mbrTelno}</td>
@@ -68,18 +81,6 @@
 								<td>${fn:substring(result.mbrConsltInfo.brdt,0,4)}/${fn:substring(result.mbrConsltInfo.brdt,4,6)}/${fn:substring(result.mbrConsltInfo.brdt,6,8)}</td>
 								<td>(${result.mbrConsltInfo.zip})&nbsp;${result.mbrConsltInfo.addr}<br>${result.mbrConsltInfo.daddr}</td>
 								<td><fmt:formatDate value="${result.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
-								<td>
-									<c:choose>
-										<c:when test="${result.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-										<c:when test="${result.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
-										<c:when test="${result.consltSttus eq 'CS03'}">상담 취소</c:when>
-										<c:when test="${result.consltSttus eq 'CS04'}">상담 취소</c:when>
-										<c:when test="${result.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-										<c:when test="${result.consltSttus eq 'CS06'}">상담 완료</c:when>
-										<c:when test="${result.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-										<c:when test="${result.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
-									</c:choose>
-								</td>
 								<td>
 									${result.consltDtls }
 								</td>
