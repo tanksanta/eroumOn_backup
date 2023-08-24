@@ -16,14 +16,14 @@
 					</div>
 					<div class="header-steps">
 						<div class="indictor">
-							<div class="bubble" style="width: 96%;">
+							<div class="bubble" style="width: 92%;">
 								<div class="text">
 									<img src="/html/page/test/assets/images/ico-steps6.svg" alt="" />
 									<span class="font-bold">0/2</span>
 								</div>
 							</div>
 						</div>
-						<div class="percent">96%</div>
+						<div class="percent">92%</div>
 					</div>
 				</div>
 			</div>
@@ -167,10 +167,27 @@
 					<!-- 테스트 문항 끝 -->
 
 					<div class="check-button">
-						<div class="btn">뒤로가기</div>
-						<div class="btn btn-primary">결과 보기</div>
+						<div id="back-btn" class="btn">뒤로가기</div>
+						<div id="next-btn" class="btn btn-primary">결과 보기</div>
 					</div>
 				</form>
 			</div>
 		</section>
 	</main>
+	
+	<script>
+		$(function() {
+			//테스트 전체 문항수(12 + 1 + 1 + 1 + 10 + 2)
+			const testTotalCount = 27;
+			
+			//뒤로가기 이벤트
+			$('#back-btn').click(function() {
+				location.href = '/test/rehabilitate';
+			});
+			
+			//다음 단계 이벤트
+			$('#next-btn').click(function() {
+				location.href = '/test/finish';
+			});
+		});
+	</script>

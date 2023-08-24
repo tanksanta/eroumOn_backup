@@ -16,14 +16,14 @@
 					</div>
 					<div class="header-steps">
 						<div class="indictor">
-							<div class="bubble" style="width: 48%;">
+							<div class="bubble" style="width: 44%;">
 								<div class="text">
 									<img src="/html/page/test/assets/images/ico-steps2.svg" alt="" />
 									<span class="font-bold">0/1</span>
 								</div>
 							</div>
 						</div>
-						<div class="percent">48%</div>
+						<div class="percent">44%</div>
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 							<input type="checkbox" name="cognitive7"/>
 							<span>의사소통이나 전달에 장애가 있다.</span>
 						</label>
-						<label class="check-item">
+						<label class="check-item is-disable">
 							<input type="checkbox" name="cognitive8" checked/>
 							<span>해당하는 증상이 없다.</span>
 						</label>
@@ -84,10 +84,45 @@
 					<!-- 테스트 문항 끝 -->
 		
 					<div class="check-button">
-						<div class="btn">뒤로가기</div>
-						<div class="btn btn-primary">다음 단계로</div>
+						<div id="back-btn" class="btn">뒤로가기</div>
+						<div id="next-btn" class="btn btn-primary">다음 단계로</div>
 					</div>
 				</form>
 			</div>
 		</section>
 	</main>
+	
+	<script>
+		$(function() {
+			//문항 답변 클릭 이벤트
+			$('.check-item input').click(function() {
+				const inputName = $(this).attr('name');
+				const inputNumber = Number(inputName.replace('cognitive', ''));
+				
+				if (inputNumber === 8) {
+					//전부 체크 해제(증상 없음은 제외)
+					$('.check-item input').each(function() {
+						if (this.getAttribute('name') === 'cognitive8') {
+							this.checked = true;	
+						} else {
+							this.checked = false;							
+						}
+					});
+				}
+				else {
+					var test = $('input[name=cognitive8]')[0];
+					test.checked = false;
+				}
+			});
+			
+			//뒤로가기 이벤트
+			$('#back-btn').click(function() {
+				location.href = '/test/physical';
+			});
+			
+			//다음 단계 이벤트
+			$('#next-btn').click(function() {
+				location.href = '/test/behavior';
+			});
+		});
+	</script>

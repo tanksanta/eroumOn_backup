@@ -16,14 +16,14 @@
 					</div>
 					<div class="header-steps">
 						<div class="indictor">
-							<div class="bubble" style="width: 51%;">
+							<div class="bubble" style="width: 48%;">
 								<div class="text">
 									<img src="/html/page/test/assets/images/ico-steps3.svg" alt="" />
 									<span class="font-bold">0/1</span>
 								</div>
 							</div>
 						</div>
-						<div class="percent">51%</div>
+						<div class="percent">48%</div>
 					</div>
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 							<input type="checkbox" name="behavior14"/>
 							<span>대소변을 벽이나 옷에 바르는 등의 행위를 한다.</span>
 						</label>
-						<label class="check-item">
+						<label class="check-item is-disable">
 							<input type="checkbox" name="behavior15" checked/>
 							<span>해당하는 증상이 없다.</span>
 						</label>
@@ -112,10 +112,45 @@
 					<!-- 테스트 문항 끝 -->
 		
 					<div class="check-button">
-						<div class="btn">뒤로가기</div>
-						<div class="btn btn-primary">다음 단계로</div>
+						<div id="back-btn" class="btn">뒤로가기</div>
+						<div id="next-btn" class="btn btn-primary">다음 단계로</div>
 					</div>
 				</form>
 			</div>
 		</section>
 	</main>
+	
+	<script>
+		$(function() {
+			//문항 답변 클릭 이벤트
+			$('.check-item input').click(function() {
+				const inputName = $(this).attr('name');
+				const inputNumber = Number(inputName.replace('behavior', ''));
+				
+				if (inputNumber === 15) {
+					//전부 체크 해제(증상 없음은 제외)
+					$('.check-item input').each(function() {
+						if (this.getAttribute('name') === 'behavior15') {
+							this.checked = true;	
+						} else {
+							this.checked = false;							
+						}
+					});
+				}
+				else {
+					var test = $('input[name=behavior15]')[0];
+					test.checked = false;
+				}
+			});
+			
+			//뒤로가기 이벤트
+			$('#back-btn').click(function() {
+				location.href = '/test/cognitive';
+			});
+			
+			//다음 단계 이벤트
+			$('#next-btn').click(function() {
+				location.href = '/test/nurse';
+			});
+		});
+	</script>

@@ -129,8 +129,16 @@
 				</div>
 		
 				<div class="check-button is-sticky">
-					<button class="btn btn-primary">테스트 시작</button>
+					<button id="next-btn" class="btn btn-primary">테스트 시작</button>
 				</div>
 			</div>
 		</section>
 	</main>
+	
+	<script>
+		$(function() {
+			$('#next-btn').click(function() {
+				location.href = '/test/physical';
+			});
+		});
+	</script>

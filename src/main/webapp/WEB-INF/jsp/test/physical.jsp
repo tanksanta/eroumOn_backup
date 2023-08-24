@@ -280,10 +280,46 @@
 					<!-- 테스트 문항 끝 -->
 		
 					<div class="check-button">
-						<div class="btn">뒤로가기</div>
-						<div class="btn btn-primary">다음 단계로</div>
+						<div id="back-btn" class="btn">뒤로가기</div>
+						<div id="next-btn" class="btn btn-primary">다음 단계로</div>
 					</div>
 				</form>
 			</div>
 		</section>
 	</main>
+	
+	<script>
+		$(function() {
+			//테스트 전체 문항수(12 + 1 + 1 + 1 + 10 + 2)
+			const testTotalCount = 27;
+			//신체 테스트 문항수
+			const physicalCount = 12;
+			
+			//문항 답변 클릭 이벤트
+			$('.check-item input').click(function() {
+				const inputName = $(this).attr('name');
+				const inputNumber = Number(inputName.replace('physical', ''));
+				
+				//스크롤 내리기
+				if (inputNumber && inputNumber < physicalCount) {
+					const curInput = $('input[name=physical' + inputNumber + ']')[1];
+					curInput.scrollIntoView();
+				}
+				
+				//진행도 표시
+				const checkedCount = $('.check-item input:checked').length;
+				const percent = Math.floor((checkedCount / testTotalCount) * 100);
+				setPrograssBar(percent, checkedCount);
+			});
+			
+			//뒤로가기 이벤트
+			$('#back-btn').click(function() {
+				location.href = '/test/index';
+			});
+			
+			//다음 단계 이벤트
+			$('#next-btn').click(function() {
+				location.href = '/test/cognitive';
+			});
+		});
+	</script>
