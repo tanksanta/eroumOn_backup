@@ -140,13 +140,12 @@
                         <dt>상담 신청일</dt>
                         <dd><fmt:formatDate value="${resultList.regDt }" pattern="yyyy.MM.dd" /></dd>
                     </dl>
-                    <%--상담 완료시
+                    <%--상담 완료시 --%>
                     <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
                     <div class="item-request">
                     	<button type="button" class="button f_cancel" data-conslt-no="${resultList.consltNo}">상담 취소</button>
                     </div>
                     </c:if>
-                    --%>
 
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
                     <div class="item-request">
@@ -414,6 +413,41 @@
         	$("#cancelModal").modal('show');
         });
 
+    	$(".btn-cancel-submit").on("click", function(e){
+    		e.preventDefault();
+
+    		let consltNo = $("#modalCancel input[name='consltNo']").val();
+    		let canclResn = $("#modalCancel textarea[name='canclResn']").val();
+
+    		let params = {
+    				consltNo:consltNo
+    				, canclResn:canclResn};
+
+    		if($("#canclResn").val() === ""){
+    			alert("취소 사유를 입력해 주세요");
+    			$("#canclResn").focus();
+    		}else{
+    			$.ajax({
+    				type : "post",
+    				url  : "./canclConslt.json",
+    				data : params,
+    				dataType : 'json'
+    			})
+    			.done(function(data) {
+    				if(data.result){
+    					alert("정상적으로 저장되었습니다.");
+    				}else{
+    					alert("상담 취소 처리중 에러가 발생하였습니다.");
+    				}
+    				location.reload();
+    			})
+    			.fail(function(data, status, err) {
+    				console.log("ERROR : " + err);
+    			});
+    		}
+
+
+    	});
 
     });
     </script>

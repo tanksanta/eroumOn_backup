@@ -66,6 +66,8 @@
 		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
 		WHERE mcr.conslt_no = mc.conslt_no
 		  AND mc.use_yn = 'Y'
+		  AND mc.conslt_sttus NOT IN ('CS03', 'CS04', 'CS09')
+		  AND mcr.conslt_sttus NOT IN ('CS03', 'CS04', 'CS09')
 			<include refid="searchConditions" />
 	  	ORDER BY mcr.conslt_no DESC, mcr.bplc_conslt_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
@@ -76,6 +78,8 @@
 		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
 		WHERE mcr.conslt_no = mc.conslt_no
 		  AND mc.use_yn = 'Y'
+		  AND mc.conslt_sttus NOT IN ('CS03', 'CS04', 'CS09')
+		  AND mcr.conslt_sttus NOT IN ('CS03', 'CS04', 'CS09')
 			<include refid="searchConditions" />
 	</select>
 
@@ -89,7 +93,7 @@
 				WHERE mi.itrst_ty = 'B' AND mi.bplc_unique_id = mcr.bplc_unique_id AND mi.reg_unique_id = mc.reg_unique_id) AS itrst_cnt
 			, (SELECT COUNT(*)
 				FROM BPLC_RCMD br
-				WHERE br.reg_unique_id = mc.reg_unique_id) AS rcmd_cnt
+				WHERE br.bplc_unique_id = mcr.bplc_unique_id AND br.reg_unique_id = mc.reg_unique_id) AS rcmd_cnt
 		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
 		WHERE mcr.conslt_no = mc.conslt_no
 			<include refid="searchConditions" />

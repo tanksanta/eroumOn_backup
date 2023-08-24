@@ -738,6 +738,7 @@ public class CodeMap{
 			put("2","이벤트/혜택");
 			put("3","상품문의");
 			put("4","회원안내");
+			put("6","장기요양 인정등급");
 			put("5","기타");
 
 		}
@@ -946,23 +947,31 @@ public class CodeMap{
 	public static final HashMap<String, String> INQRY_TY_NO2= new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 5045970347033574329L;
 		{
+			// 0:교환/반품/환불
 			put("EXCHANGE","교환");
 			put("RETURN","반품");
 			put("REFUND","환불");
+			// 1:주문/결제
 			put("OCONFIRM","주문확인"); //ORDER CONFIRM
 			put("CANCLE","주문취소");
 			put("OCHANGE","주문변경"); //ORDER CHANGE
 			put("INQUIRY","결제문의");
+			// 2:이벤트/혜택
 			put("ECONFIRM","이벤트당첨확인"); // EVENT CONFIRM
 			put("EXTINC","마일리지/포인트 사용소멸문의");
 			put("EETC","이벤트 기타 문의"); // EVENT ETC
+			// 3:상품문의
 			put("GDSINFO","상품상세정보"); //GOODS INFORMATION
 			put("GDSPRICE","상품가격문의");
 			put("GDSTOCK","상품재고문의");
+			// 4:회원안내
 			put("SIGNUP","회원가입문의");
 			put("MCHANGE","회원정보변경문의"); //MBR CHANGE
 			put("SECES","회원탈퇴문의"); //SECESSION
+			// 5:기타
 			put("SYSTEM","시스템오류"); //SYSTEM
+			// 6:장기요양 인정등급
+			put("CONSLIT","상담신청문의/기타");
 		}
 	};
 
