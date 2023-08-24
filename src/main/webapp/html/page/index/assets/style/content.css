@@ -1720,8 +1720,7 @@
 }
 
 .result-content1 {
-    @apply pb-25
-           md:pb-33;
+    @apply pb-25;
     & .grade-title2 {
         @apply mb-39
                md:mb-22;
@@ -1821,7 +1820,7 @@
 
 .result-content2 {
     @apply pt-25 pb-15
-           md:pt-33 md:pb-26;
+           md:pb-26;
     & .images {
         @apply mt-8.5 mx-auto p-7.5 w-fit rounded-[1.25rem] bg-[#f8f8f8] md:mt-11;
     }
