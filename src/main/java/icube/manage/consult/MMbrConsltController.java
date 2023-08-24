@@ -167,7 +167,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		boolean result = false;
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("consltSttus", "CS03"); //상담자 취소
+		paramMap.put("consltSttus", "CS09"); //관리자에서 취소시 THKC 취소
 		paramMap.put("canclResn", canclResn);
 		paramMap.put("consltNo", consltNo);
 

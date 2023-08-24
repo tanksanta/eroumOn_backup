@@ -41,13 +41,14 @@
                             <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-84">
                                 <option value="">선택</option>
                                 <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 접수</option>
-                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>장기요양기관 배정 완료</option>
-                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소 (신청자 상담 거부)</option>
-                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소 (장기요양기관 상담 거부)</option>
+                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 기관 배정 완료</option>
+                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소 (상담자)</option>
+                                <option value="CS09" ${param.srchConsltSttus eq 'CS09'?'selected="selected"':''}>상담 취소 (THKC)</option>
+                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소 (상담기관)</option>
                                 <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
                                 <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
                                 <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 접수</option>
-                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>장기요양기관 재배정 완료</option>
+                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>상담 기관 재배정 완료</option>
                             </select>
                         </td>
                     </tr>
@@ -90,6 +91,8 @@
 					</div>
 				</th>
 				<th scope="col">번호</th>
+				<th scope="col">상담진행상태</th>
+				<th scope="col">사업소배정</th>
 				<th scope="col">성명</th>
 				<th scope="col">성별</th>
 				<th scope="col">연락처</th>
@@ -97,8 +100,6 @@
 				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
 				<th scope="col">상담신청일</th>
-				<th scope="col">사업소배정</th>
-				<th scope="col">상담진행상태</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -111,13 +112,20 @@
 					</div>
 				</td>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="./view?${pageParam}">${resultList.mbrNm}</a></td>
-				<td>${genderCode[resultList.gender]}</td>
-				<td>${resultList.mbrTelno}</td>
-				<td>만 ${resultList.age} 세</td>
-				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
-				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
-				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
+				<td>
+					<c:choose>
+						<c:when test="${resultList.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+						<c:when test="${resultList.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
+						<c:when test="${resultList.consltSttus eq 'CS07'}"><span class="text-red1">재상담 신청 접수</span></c:when>
+						<c:when test="${resultList.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
+					</c:choose>
+
+				</td>
 				<td>
 					<c:if test="${resultList.consltSttus ne 'CS01'}">
 					<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
@@ -128,19 +136,13 @@
 					-
 					</c:if>
 				</td>
-				<td>
-					<c:choose>
-						<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS02'}">장기요양기관 배정 완료</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소<br>(신청자 상담거부)</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소<br>(장기요양기관 상담거부)</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-						<c:when test="${resultList.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
-					</c:choose>
-
-				</td>
+				<td><a href="./view?${pageParam}" class="btn shadow w-full">${resultList.mbrNm}</a></td>
+				<td>${genderCode[resultList.gender]}</td>
+				<td>${resultList.mbrTelno}</td>
+				<td>만 ${resultList.age} 세</td>
+				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
+				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
+				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
 			</tr>
 		</c:forEach>
 		<c:if test="${empty listVO.listObject}">

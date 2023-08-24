@@ -86,7 +86,30 @@ public class MbrsConsltController extends CommonAbstractController {
 		return resultMap;
 	}
 
-	// 좋아요
+	// 상담 취소
+	@RequestMapping(value = "canclConslt.json")
+	@ResponseBody
+	public Map<String, Object> cancelConslt(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "canclResn", required=true) String canclResn
+			, HttpServletRequest request
+			) throws Exception {
 
-	// 관심멤버스 추가
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", "CS03"); //상담자 취소
+		paramMap.put("canclResn", canclResn);
+		paramMap.put("consltNo", consltNo);
+
+		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
+
+		if(resultCnt > 0) {
+			result = true;
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
 }
