@@ -98,7 +98,7 @@
                     <small> management</small>
                 </p>
                 <ul>
-                    <li ${fn:indexOf(_curPath, '/conslt/') > -1?'class="active"':''}><a href="${_bplcPath}/mng/conslt/list">1:1상담(장기요양테스트)</a></li>
+                    <li ${fn:indexOf(_curPath, '/conslt/') > -1?'class="active"':''}><a href="${_bplcPath}/mng/conslt/list">1:1상담(인정등급테스트)</a></li>
                 </ul>
             </div>
         </nav>

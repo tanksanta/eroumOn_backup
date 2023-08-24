@@ -29,7 +29,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">거주지 주소</th>
-                                    <td colspan="3">(${mbrConsltVO.zip}) ${mbrConsltVO.addr} ${mbrConsltVO.daddr}</td>
+                                    <td colspan="3">(${mbrConsltVO.zip}) ${mbrConsltVO.addr}&nbsp;${mbrConsltVO.daddr}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">상담 신청일</th>

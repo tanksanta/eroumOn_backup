@@ -59,7 +59,8 @@
                                 <option value="">선택</option>
                                 <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 완료</option>
                                 <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 기관 배정 완료</option>
-                                <option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소</option><%--사용자--%>
+                                <option value="CANCEL" ${param.srchConsltSttus eq 'CANCEL'?'selected="selected"':''}>상담 취소</option><%--상담취소 검색은 03, 04, 09가 포함되어야함 --%>
+                                <%--<option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소</option>사용자--%>
                                 <%-- <option value="CS09" ${param.srchConsltSttus eq 'CS09'?'selected="selected"':''}>상담 취소</option>THKC --%>
                                 <%-- <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>사업소 --%>
                                 <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>

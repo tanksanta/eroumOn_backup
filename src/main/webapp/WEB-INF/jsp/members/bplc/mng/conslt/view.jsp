@@ -20,7 +20,24 @@
                                 <tr>
                                     <th scope="row">성명</th>
                                     <td>${mbrConsltVO.mbrNm}</td>
+                            <c:choose>
+								<c:when test="${mbrConsltVO.consltSttus eq 'CS03' || mbrConsltVO.consltSttus eq 'CS04' || mbrConsltVO.consltSttus eq 'CS09'}"><%--상담취소--%>
                                     <th scope="row">성별</th>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">연락처</th>
+                                    <td>-</td>
+                                    <th scope="row">생년월일</th>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">거주지 주소</th>
+                                    <td colspan="3">-</td>
+                                </tr>
+                                </c:when>
+                                <c:otherwise>
+                                	<th scope="row">성별</th>
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
                                 </tr>
                                 <tr>
@@ -31,8 +48,11 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">거주지 주소</th>
-                                    <td colspan="3">(${mbrConsltVO.zip}) ${mbrConsltVO.addr} ${mbrConsltVO.daddr}</td>
+                                    <td colspan="3">(${mbrConsltVO.zip}) ${mbrConsltVO.addr}&nbsp;${mbrConsltVO.daddr}</td>
                                 </tr>
+                                </c:otherwise>
+                            </c:choose>
+
                                 <tr>
                                     <th scope="row">상담 신청일</th>
                                     <td><fmt:formatDate value="${mbrConsltVO.regDt}" pattern="yyyy-MM-dd" /></td>
@@ -59,7 +79,7 @@
                         </table>
                     </fieldset>
 
-                    <c:if test="${mbrConsltVO.consltSttus eq 'CS03'}">
+                    <c:if test="${mbrConsltVO.consltSttus eq 'CS03' || mbrConsltVO.consltSttus eq 'CS04' || mbrConsltVO.consltSttus eq 'CS09'}">
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담 취소 사유</legend>
                         <table class="table-detail">

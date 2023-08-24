@@ -47,7 +47,7 @@
 			                                <option value="">선택</option>
 			                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 신청 접수</option>
 			                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
-			                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>
+			                                <option value="CANCEL" ${param.srchConsltSttus eq 'CANCEL'?'selected="selected"':''}>상담 취소</option><%--사업소에서의 상담취소 검색은 03, 04, 09가 포함되어야함 --%>
 			                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
 			                            </select>
 			                        </td>
@@ -111,11 +111,23 @@
 
 								</td>
 								<td><a href="./view?${pageParam}" class="btn shadow w-full">${resultList.mbrConsltInfo.mbrNm}</a></td>
+								<c:choose>
+									<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}"><%--상담취소--%>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+									</c:when>
+									<c:otherwise>
 								<td>${genderCode[resultList.mbrConsltInfo.gender]}</td>
 								<td>${resultList.mbrConsltInfo.mbrTelno}</td>
 								<td>만 ${resultList.mbrConsltInfo.age} 세</td>
 								<td>${fn:substring(resultList.mbrConsltInfo.brdt,0,4)}/${fn:substring(resultList.mbrConsltInfo.brdt,4,6)}/${fn:substring(resultList.mbrConsltInfo.brdt,6,8)}</td>
 								<td>(${resultList.mbrConsltInfo.zip})&nbsp;${resultList.mbrConsltInfo.addr}<br>${resultList.mbrConsltInfo.daddr}</td>
+									</c:otherwise>
+								</c:choose>
+
 								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
 							</tr>
 						</c:forEach>
