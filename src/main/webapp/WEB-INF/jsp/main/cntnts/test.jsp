@@ -26,7 +26,7 @@
                 <source srcset="/html/page/index/assets/images/img-grade-start.png"> 
                 <img src="/html/page/index/assets/images/img-grade-start.png" alt="">
             </picture>
-            <a href="/find/step2-1" target="_blank" title="새창열림">테스트 시작하기</a>
+            <a href="/test/index" target="_blank" title="새창열림">테스트 시작하기</a>
         </div>
         <ul class="grade-taps mt-19 md:mt-24">
             <li class="taps-item is-active">
@@ -389,5 +389,5 @@
         }, 6000);
     </script>
 
-    <a href="/find/step2-1" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
+    <a href="/test/index" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
 </div>
