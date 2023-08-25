@@ -102,7 +102,72 @@
 	</main>
 	
 	<script>
+		//간호처치 평가점수 기준
+		const scoreEvaluations = [
+		  {
+	        "evaluation": 0,
+	        "score": 0
+	      },
+	      {
+	        "evaluation": 19.84,
+	        "score": 1
+	      },
+	      {
+	        "evaluation": 36.9,
+	        "score": 2
+	      },
+	      {
+	        "evaluation": 47.84,
+	        "score": 3
+	      },
+	      {
+	        "evaluation": 55.81,
+	        "score": 4
+	      },
+	      {
+	        "evaluation": 62.53,
+	        "score": 5
+	      },
+	      {
+	        "evaluation": 68.98,
+	        "score": 6
+	      },
+	      {
+	        "evaluation": 76.11,
+	        "score": 7
+	      },
+	      {
+	        "evaluation": 85.86,
+	        "score": 8
+	      },
+	      {
+	        "evaluation": 100,
+	        "score": 9
+	      }
+		];
+	
 		$(function() {
+			loadTestResult();
+			
+			//기존테스트 결과 있으면 불러오기
+			function loadTestResult() {
+				const testResult = getTestResultAjax();
+				if (testResult && testResult.nurseSelect && testResult.nurseSelect.length > 0) {
+					for (var i = 0; i < testResult.nurseSelect.length; i++) {
+						const inputNumber = i + 1;
+						const checked = testResult.nurseSelect[i];
+						const curInputs = $('input[name=nurse' + inputNumber + ']');
+						curInputs[0].checked = checked;
+						
+						//선택된것이 있다면 증상없음 해제
+						if (curInputs[0].checked) {
+							var input = $('input[name=nurse10]')[0];
+							input.checked = false;
+						}
+					}
+				}
+			}
+			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
 				const inputName = $(this).attr('name');
@@ -131,7 +196,33 @@
 			
 			//다음 단계 이벤트
 			$('#next-btn').click(function() {
-				location.href = '/test/rehabilitate';
+				const Inputs = $('.check-item input');
+				
+				let nurseSelect = '';
+				let selectSum = 0;
+				//증상 없음은 제외
+				for (var i = 0; i < 9; i++) {
+					const inputScore = Inputs[i].checked ? '1' : '0';
+					if (i === 0) {
+						nurseSelect = inputScore;
+					} else {
+						nurseSelect += "," + inputScore;
+					}
+					
+					selectSum += Number(inputScore);
+				}
+				const nurseScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						nurseSelect,
+						nurseScore
+					},
+					testNm: 'nurse',
+				});
+				
+				//간호처치 정보 저장
+				saveTestResultAjax(requestJson, '/test/rehabilitate');
 			});
 		});
 	</script>

@@ -55,15 +55,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical1"/>
+								<input type="radio" name="physical1" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical1"/>
+								<input type="radio" name="physical1" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical1"/>
+								<input type="radio" name="physical1" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -74,15 +74,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical2"/>
+								<input type="radio" name="physical2" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical2"/>
+								<input type="radio" name="physical2" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical2"/>
+								<input type="radio" name="physical2" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -93,15 +93,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical3"/>
+								<input type="radio" name="physical3" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical3"/>
+								<input type="radio" name="physical3" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical3"/>
+								<input type="radio" name="physical3" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -112,15 +112,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical4"/>
+								<input type="radio" name="physical4" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical4"/>
+								<input type="radio" name="physical4" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical4"/>
+								<input type="radio" name="physical4" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -131,15 +131,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical5"/>
+								<input type="radio" name="physical5" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical5"/>
+								<input type="radio" name="physical5" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical5"/>
+								<input type="radio" name="physical5" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -150,15 +150,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical6"/>
+								<input type="radio" name="physical6" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical6"/>
+								<input type="radio" name="physical6" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical6"/>
+								<input type="radio" name="physical6" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -169,15 +169,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical7"/>
+								<input type="radio" name="physical7" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical7"/>
+								<input type="radio" name="physical7" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical7"/>
+								<input type="radio" name="physical7" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -188,15 +188,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical8"/>
+								<input type="radio" name="physical8" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical8"/>
+								<input type="radio" name="physical8" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical8"/>
+								<input type="radio" name="physical8" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -207,15 +207,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical9"/>
+								<input type="radio" name="physical9" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical9"/>
+								<input type="radio" name="physical9" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical9"/>
+								<input type="radio" name="physical9" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -226,15 +226,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical10"/>
+								<input type="radio" name="physical10" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical10"/>
+								<input type="radio" name="physical10" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical10"/>
+								<input type="radio" name="physical10" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -245,15 +245,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical11"/>
+								<input type="radio" name="physical11" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical11"/>
+								<input type="radio" name="physical11" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical11"/>
+								<input type="radio" name="physical11" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -264,15 +264,15 @@
 						</h3>
 						<div class="check-items is-radio is-steps">
 							<label class="check-item">
-								<input type="radio" name="physical12"/>
+								<input type="radio" name="physical12" value="1"/>
 								<span>혼자서 가능</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical12"/>
+								<input type="radio" name="physical12" value="2"/>
 								<span>일부 도움 필요</span>
 							</label>
 							<label class="check-item">
-								<input type="radio" name="physical12"/>
+								<input type="radio" name="physical12" value="3"/>
 								<span>완전히 도움 필요</span>
 							</label>
 						</div>
@@ -289,11 +289,129 @@
 	</main>
 	
 	<script>
+		//테스트 전체 문항수(12 + 1 + 1 + 1 + 10 + 2)
+		const testTotalCount = 27;
+		//신체 테스트 문항수
+		const physicalCount = 12;
+		//신체 평가점수 기준
+		const scoreEvaluations = [
+		  {
+	        "evaluation": 0,
+	        "score": 12
+	      },
+	      {
+	        "evaluation": 15.58,
+	        "score": 13
+	      },
+	      {
+	        "evaluation": 22.24,
+	        "score": 14
+	      },
+	      {
+	        "evaluation": 28.04,
+	        "score": 15
+	      },
+	      {
+	        "evaluation": 32.38,
+	        "score": 16
+	      },
+	      {
+	        "evaluation": 35.92,
+	        "score": 17
+	      },
+	      {
+	        "evaluation": 38.96,
+	        "score": 18
+	      },
+	      {
+	        "evaluation": 41.68,
+	        "score": 19
+	      },
+	      {
+	        "evaluation": 44.18,
+	        "score": 20
+	      },
+	      {
+	        "evaluation": 46.52,
+	        "score": 21
+	      },
+	      {
+	        "evaluation": 48.76,
+	        "score": 22
+	      },
+	      {
+	        "evaluation": 50.93,
+	        "score": 23
+	      },
+	      {
+	        "evaluation": 53.06,
+	        "score": 24
+	      },
+	      {
+	        "evaluation": 55.17,
+	        "score": 25
+	      },
+	      {
+	        "evaluation": 57.3,
+	        "score": 26
+	      },
+	      {
+	        "evaluation": 59.46,
+	        "score": 27
+	      },
+	      {
+	        "evaluation": 61.71,
+	        "score": 28
+	      },
+	      {
+	        "evaluation": 64.06,
+	        "score": 29
+	      },
+	      {
+	        "evaluation": 66.59,
+	        "score": 30
+	      },
+	      {
+	        "evaluation": 69.36,
+	        "score": 31
+	      },
+	      {
+	        "evaluation": 72.5,
+	        "score": 32
+	      },
+	      {
+	        "evaluation": 76.22,
+	        "score": 33
+	      },
+	      {
+	        "evaluation": 81.02,
+	        "score": 34
+	      },
+	      {
+	        "evaluation": 88.4,
+	        "score": 35
+	      },
+	      {
+	        "evaluation": 100,
+	        "score": 36
+	      }
+	    ];
+	
 		$(function() {
-			//테스트 전체 문항수(12 + 1 + 1 + 1 + 10 + 2)
-			const testTotalCount = 27;
-			//신체 테스트 문항수
-			const physicalCount = 12;
+			loadTestResult();
+			
+			//기존테스트 결과 있으면 불러오기
+			function loadTestResult() {
+				const testResult = getTestResultAjax();
+				if (testResult && testResult.physicalSelect && testResult.physicalSelect.length > 0) {
+					for (var i = 0; i < physicalCount; i++) {
+						const inputNumber = i + 1;
+						const selectedIndex = testResult.physicalSelect[i] - 1;
+						const curInputs = $('input[name=physical' + inputNumber + ']');
+						curInputs[selectedIndex].checked = true;
+					}
+				}
+			}
 			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
@@ -319,7 +437,37 @@
 			
 			//다음 단계 이벤트
 			$('#next-btn').click(function() {
-				location.href = '/test/cognitive';
+				const checkedInputs = $('.check-item input:checked');
+				if (checkedInputs.length < physicalCount) {
+					alert('모든 항목을 작성하세요.');
+					return;
+				}
+				
+				let physicalSelect = '';
+				let selectSum = 0;
+				for (var i = 0; i < physicalCount; i++) {
+					const selectValue = checkedInputs[i].value;
+					
+				 	if (i === 0) {
+				 		physicalSelect = selectValue;
+				 	} else {
+				 		physicalSelect += "," + selectValue;
+				 	}
+				 	
+				 	selectSum += Number(selectValue);
+				}
+				const physicalScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						physicalSelect,
+						physicalScore
+					},
+					testNm: 'physical',
+				});
+					
+				//신체기능 정보 저장
+				saveTestResultAjax(requestJson, '/test/cognitive');
 			});
 		});
 	</script>

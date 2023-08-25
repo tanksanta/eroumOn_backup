@@ -93,7 +93,64 @@
 	</main>
 	
 	<script>
+		//인지기능 평가점수 기준
+		const scoreEvaluations = [
+		  {
+	        "evaluation": 0,
+	        "score": 0
+	      },
+	      {
+	        "evaluation": 19.71,
+	        "score": 1
+	      },
+	      {
+	        "evaluation": 33.81,
+	        "score": 2
+	      },
+	      {
+	        "evaluation": 44.61,
+	        "score": 3
+	      },
+	      {
+	        "evaluation": 54.78,
+	        "score": 4
+	      },
+	      {
+	        "evaluation": 65.71,
+	        "score": 5
+	      },
+	      {
+	        "evaluation": 80.06,
+	        "score": 6
+	      },
+	      {
+	        "evaluation": 100,
+	        "score": 7
+	      }
+		];
+	
 		$(function() {
+			loadTestResult();
+			
+			//기존테스트 결과 있으면 불러오기
+			function loadTestResult() {
+				const testResult = getTestResultAjax();
+				if (testResult && testResult.cognitiveSelect && testResult.cognitiveSelect.length > 0) {
+					for (var i = 0; i < testResult.cognitiveSelect.length; i++) {
+						const inputNumber = i + 1;
+						const checked = testResult.cognitiveSelect[i];
+						const curInputs = $('input[name=cognitive' + inputNumber + ']');
+						curInputs[0].checked = checked;
+						
+						//선택된것이 있다면 증상없음 해제
+						if (curInputs[0].checked) {
+							var input = $('input[name=cognitive8]')[0];
+							input.checked = false;
+						}
+					}
+				}
+			}
+			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
 				const inputName = $(this).attr('name');
@@ -110,8 +167,8 @@
 					});
 				}
 				else {
-					var test = $('input[name=cognitive8]')[0];
-					test.checked = false;
+					var input = $('input[name=cognitive8]')[0];
+					input.checked = false;
 				}
 			});
 			
@@ -122,7 +179,33 @@
 			
 			//다음 단계 이벤트
 			$('#next-btn').click(function() {
-				location.href = '/test/behavior';
+				const Inputs = $('.check-item input');
+				
+				let cognitiveSelect = '';
+				let selectSum = 0;
+				//증상 없음은 제외
+				for (var i = 0; i < 7; i++) {
+					const inputScore = Inputs[i].checked ? '1' : '0';
+					if (i === 0) {
+						cognitiveSelect = inputScore;
+					} else {
+						cognitiveSelect += "," + inputScore;
+					}
+					
+					selectSum += Number(inputScore);
+				}
+				const cognitiveScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						cognitiveSelect,
+						cognitiveScore
+					},
+					testNm: 'cognitive',
+				});
+				
+				//인지기능 정보 저장
+				saveTestResultAjax(requestJson, '/test/behavior');
 			});
 		});
 	</script>

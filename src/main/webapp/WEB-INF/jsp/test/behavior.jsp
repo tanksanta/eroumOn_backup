@@ -121,7 +121,92 @@
 	</main>
 	
 	<script>
+		//행동변화 평가점수 기준
+		const scoreEvaluations = [
+			{
+		      "evaluation": 0,
+		      "score": 0
+		    },
+		    {
+		      "evaluation": 15.58,
+		      "score": 1
+		    },
+		    {
+		      "evaluation": 25.55,
+		      "score": 2
+		    },
+		    {
+		      "evaluation": 32.1,
+		      "score": 3
+		    },
+		    {
+		      "evaluation": 37.29,
+		      "score": 4
+		    },
+		    {
+		      "evaluation": 41.8,
+		      "score": 5
+		    },
+		    {
+		      "evaluation": 45.95,
+		      "score": 6
+		    },
+		    {
+		      "evaluation": 49.94,
+		      "score": 7
+		    },
+		    {
+		      "evaluation": 53.93,
+		      "score": 8
+		    },
+		    {
+		      "evaluation": 58.08,
+		      "score": 9
+		    },
+		    {
+		      "evaluation": 62.59,
+		      "score": 10
+		    },
+		    {
+		      "evaluation": 67.8,
+		      "score": 11
+		    },
+		    {
+		      "evaluation": 74.37,
+		      "score": 12
+		    },
+		    {
+		      "evaluation": 84.37,
+		      "score": 13
+		    },
+		    {
+		      "evaluation": 100,
+		      "score": 14
+		    }
+		];
+	
 		$(function() {
+			loadTestResult();
+			
+			//기존테스트 결과 있으면 불러오기
+			function loadTestResult() {
+				const testResult = getTestResultAjax();
+				if (testResult && testResult.behaviorSelect && testResult.behaviorSelect.length > 0) {
+					for (var i = 0; i < testResult.behaviorSelect.length; i++) {
+						const inputNumber = i + 1;
+						const checked = testResult.behaviorSelect[i];
+						const curInputs = $('input[name=behavior' + inputNumber + ']');
+						curInputs[0].checked = checked;
+						
+						//선택된것이 있다면 증상없음 해제
+						if (curInputs[0].checked) {
+							var input = $('input[name=behavior15]')[0];
+							input.checked = false;
+						}
+					}
+				}
+			}
+			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
 				const inputName = $(this).attr('name');
@@ -150,7 +235,33 @@
 			
 			//다음 단계 이벤트
 			$('#next-btn').click(function() {
-				location.href = '/test/nurse';
+				const Inputs = $('.check-item input');
+				
+				let behaviorSelect = '';
+				let selectSum = 0;
+				//증상 없음은 제외
+				for (var i = 0; i < 14; i++) {
+					const inputScore = Inputs[i].checked ? '1' : '0';
+					if (i === 0) {
+						behaviorSelect = inputScore;
+					} else {
+						behaviorSelect += "," + inputScore;
+					}
+					
+					selectSum += Number(inputScore);
+				}
+				const behaviorScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						behaviorSelect,
+						behaviorScore
+					},
+					testNm: 'behavior',
+				});
+				
+				//행동변화 정보 저장
+				saveTestResultAjax(requestJson, '/test/nurse');
 			});
 		});
 	</script>

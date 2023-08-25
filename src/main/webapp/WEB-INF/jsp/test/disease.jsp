@@ -48,7 +48,7 @@
 					</div>
 
 					<!-- 테스트 문항 -->
-					<div class="check-items">
+					<div id="disease1-items" class="check-items">
 						<label class="check-item">
 							<input type="checkbox" name="disease1-1"/>
 							<span>치매</span>
@@ -110,7 +110,7 @@
 					</div>
 					
 					<!-- 테스트 문항 -->
-					<div class="check-items">
+					<div id="disease2-items" class="check-items">
 						<label class="check-item">
 							<input type="checkbox" name="disease2-1"/>
 							<span>치매</span>
@@ -176,9 +176,90 @@
 	</main>
 	
 	<script>
+		//질병 평가점수 기준
+		const scoreEvaluations = [
+			{
+		      "evaluation": 0,
+		      "score": 0
+		    },
+		    {
+		      "evaluation": 7.69,
+		      "score": 1
+		    },
+		    {
+		      "evaluation": 15.38,
+		      "score": 2
+		    },
+		    {
+		      "evaluation": 23.07,
+		      "score": 3
+		    },
+		    {
+		      "evaluation": 30.76,
+		      "score": 4
+		    },
+		    {
+		      "evaluation": 38.45,
+		      "score": 5
+		    },
+		    {
+		      "evaluation": 46.14,
+		      "score": 6
+		    },
+		    {
+		      "evaluation": 53.83,
+		      "score": 7
+		    },
+		    {
+		      "evaluation": 61.52,
+		      "score": 8
+		    },
+		    {
+		      "evaluation": 69.21,
+		      "score": 9
+		    },
+		    {
+		      "evaluation": 76.9,
+		      "score": 10
+		    },
+		    {
+		      "evaluation": 84.59,
+		      "score": 11
+		    },
+		    {
+		      "evaluation": 92.28,
+		      "score": 12
+		    },
+		    {
+		      "evaluation": 100,
+		      "score": 13
+		    }
+		];
+	
 		$(function() {
-			//테스트 전체 문항수(12 + 1 + 1 + 1 + 10 + 2)
-			const testTotalCount = 27;
+			loadTestResult();
+			
+			//기존테스트 결과 있으면 불러오기
+			function loadTestResult() {
+				const testResult = getTestResultAjax();
+				if (testResult && testResult.diseaseSelect1 && testResult.diseaseSelect1.length > 0) {
+					for (var i = 0; i < testResult.diseaseSelect1.length; i++) {
+						const inputNumber = i + 1;
+						const checked = testResult.diseaseSelect1[i];
+						const curInputs = $('input[name=disease1-' + inputNumber + ']');
+						curInputs[0].checked = checked;
+					}
+				}
+				
+				if (testResult && testResult.diseaseSelect2 && testResult.diseaseSelect2.length > 0) {
+					for (var i = 0; i < testResult.diseaseSelect2.length; i++) {
+						const inputNumber = i + 1;
+						const checked = testResult.diseaseSelect2[i];
+						const curInputs = $('input[name=disease2-' + inputNumber + ']');
+						curInputs[0].checked = checked;
+					}
+				}
+			}
 			
 			//뒤로가기 이벤트
 			$('#back-btn').click(function() {
@@ -187,7 +268,157 @@
 			
 			//다음 단계 이벤트
 			$('#next-btn').click(function() {
-				location.href = '/test/finish';
+				//질병1 영역 정보
+				const disease1Inputs = $('#disease1-items .check-item input');
+				
+				let diseaseSelect1 = '';
+				let selectSum = 0;
+				for (var i = 0; i < 13; i++) {
+					const inputScore = disease1Inputs[i].checked ? '1' : '0';
+					if (i === 0) {
+						diseaseSelect1 = inputScore;
+					} else {
+						diseaseSelect1 += "," + inputScore;
+					}
+					
+					selectSum += Number(inputScore);
+				}
+				const diseaseScore1 = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				//질병2 영역 정보
+				const disease2Inputs = $('#disease2-items .check-item input');
+				
+				let diseaseSelect2 = '';
+				selectSum = 0;
+				for (var i = 0; i < 13; i++) {
+					const inputScore = disease2Inputs[i].checked ? '1' : '0';
+					if (i === 0) {
+						diseaseSelect2 = inputScore;
+					} else {
+						diseaseSelect2 += "," + inputScore;
+					}
+					
+					selectSum += Number(inputScore);
+				}
+				const diseaseScore2 = scoreEvaluations.find(f => f.score === selectSum).evaluation;
+				
+				//다이어그램 로직을 위해 기존 테스트 데이터 가져오기
+				const testResult = getTestResultAjax();
+				if (!testResult
+					|| testResult.physicalSelect.length === 0
+					|| testResult.cognitiveSelect.length === 0
+					|| testResult.behaviorSelect.length === 0
+					|| testResult.nurseSelect.length === 0
+					|| testResult.rehabilitateSelect.length === 0) {
+					alert('테스트가 정상적으로 수행되지 않았습니다. 다시 진행하세요.');
+					return;
+				}
+				
+				//다이어그램 판정하기
+				const diagramBehaviorScore = InspectBehaviorResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.cognitiveScore,
+					testResult.behaviorScore,
+					testResult.behaviorSelect,
+				);
+				const diagramCleanScore = InspectCleanResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.cognitiveScore,
+					testResult.cognitiveSelect,
+					testResult.rehabilitateScore,
+					testResult.behaviorScore,
+				);
+				const diagramExcretionScore = InspectExcretionResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.cognitiveSelect,
+					testResult.behaviorScore,
+					testResult.behaviorSelect,
+					testResult.nurseSelect,
+					testResult.rehabilitateSelect,
+				);
+				const diagramFunctionalScore = InspectFunctionalAidResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.behaviorScore,
+					testResult.behaviorSelect,
+					testResult.nurseSelect,
+					testResult.rehabilitateSelect,
+				);
+				const diagramIndirectScore = InspectIndirectSupportResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.behaviorScore,
+					testResult.behaviorSelect,
+				);
+				const diagramMealScore = InspectMealResult(
+					testResult.physicalScore,
+					testResult.physicalSelect,
+					testResult.behaviorSelect,
+					testResult.rehabilitateScore,
+				);
+				const diagramNurseScore = InspectNurseResult(
+					testResult.physicalSelect,
+					testResult.behaviorSelect,
+					testResult.nurseScore,
+					testResult.nurseSelect,
+					testResult.rehabilitateSelect,
+				);
+				const diagramRehabilitateScore = InspectRehabilitateResult(
+					testResult.physicalSelect,
+					testResult.cognitiveSelect,
+					testResult.behaviorSelect,
+					testResult.rehabilitateScore,
+				);
+				
+				//최종점수 및 등급 판정
+				const score = diagramBehaviorScore + 
+					diagramCleanScore +
+					diagramExcretionScore +
+					diagramFunctionalScore +
+					diagramIndirectScore +
+					diagramMealScore +
+					diagramNurseScore +
+					diagramRehabilitateScore;
+				
+				let grade = 0;
+				if (score >= 95) {
+					grade = 1;
+				} else if (score >= 75 && score <= 94) {
+					grade = 2;
+				} else if (score >= 60 && score <= 74) {
+					grade = 3;
+				} else if (score >= 51 && score <= 59) {
+					grade = 4;
+				} else if (score >= 45 && score <= 50) {
+					grade = 5;
+				}
+				
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						grade,
+						score,
+						diseaseSelect1,
+						diseaseScore1,
+						diseaseSelect2,
+						diseaseScore2,
+						diagramBehaviorScore,
+						diagramCleanScore,
+						diagramExcretionScore,
+						diagramFunctionalScore,
+						diagramIndirectScore,
+						diagramMealScore,
+						diagramNurseScore,
+						diagramRehabilitateScore,
+					},
+					testNm: 'disease',
+				});
+				
+				//질병 및 최종결과 정보 저장
+				saveTestResultAjax(requestJson, '/test/finish');
 			});
 		});
 	</script>
