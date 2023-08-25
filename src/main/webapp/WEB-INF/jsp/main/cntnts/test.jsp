@@ -425,5 +425,5 @@
         }, 6000);
     </script>
 
-    <a href="/find/step2-1" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
+    <a href="/test/index" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
 </div>

@@ -146,6 +146,12 @@
 		<put-attribute name="content" 	value="/WEB-INF/jsp/main/{1}/{2}.jsp" />
 	</definition>
 
-
-
+	<!-- 테스트 -->
+	<definition name=".test_layout" template="/WEB-INF/jsp/test/layout/layout.jsp">
+		<put-attribute name="content" 	value="" />
+	</definition>
+	<definition name="/test/*" extends=".test_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/test/{1}.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.test">
+
+	<sql id="listColumn">
+		mbr_test_no,
+		unique_id,
+		grade,
+		score,
+		physical_select,
+		physical_score,
+		cognitive_select,
+		cognitive_score,
+		behavior_select,
+		behavior_score,
+		nurse_select,
+		nurse_score,
+		rehabilitate_select,
+		rehabilitate_score,
+		disease_select_1,
+		disease_score_1,
+		disease_select_2,
+		disease_score_2,
+		diagram_behavior_score,
+		diagram_clean_score,
+		diagram_excretion_score,
+		diagram_functional_score,
+		diagram_indirect_score,
+		diagram_meal_score,
+		diagram_nurse_score,
+		diagram_rehabilitate_score
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+	</sql>
+
+
+	<select id="selectMbrTest" parameterType="java.util.HashMap" resultType="mbrTestVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_TEST
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY REG_DT DESC
+	</select>
+
+	<insert id="insertMbrTest" parameterType="mbrTestVO" useGeneratedKeys="true" keyProperty="mbrTestNo" keyColumn="MBR_TEST_NO">
+		INSERT INTO MBR_TEST(
+			unique_id
+			, grade
+			, score
+			, physical_select
+			, physical_score
+			, cognitive_select
+			, cognitive_score
+			, behavior_select
+			, behavior_score
+			, nurse_select
+			, nurse_score
+			, rehabilitate_select
+			, rehabilitate_score
+			, disease_select_1
+			, disease_score_1
+			, disease_select_2
+			, disease_score_2
+			, diagram_behavior_score
+			, diagram_clean_score
+			, diagram_excretion_score
+			, diagram_functional_score
+			, diagram_indirect_score
+			, diagram_meal_score
+			, diagram_nurse_score
+			, diagram_rehabilitate_score
+			, reg_dt
+		)VALUES(
+			#{uniqueId}
+			, #{grade}
+			, #{score}
+			, #{physicalSelect}
+			, #{physicalScore}
+			, #{cognitiveSelect}
+			, #{cognitiveScore}
+			, #{behaviorSelect}
+			, #{behaviorScore}
+			, #{nurseSelect}
+			, #{nurseScore}
+			, #{rehabilitateSelect}
+			, #{rehabilitateScore}
+			, #{diseaseSelect1}
+			, #{diseaseScore1}
+			, #{diseaseSelect2}
+			, #{diseaseScore2}
+			, #{diagramBehaviorScore}
+			, #{diagramCleanScore}
+			, #{diagramExcretionScore}
+			, #{diagramFunctionalScore}
+			, #{diagramIndirectScore}
+			, #{diagramMealScore}
+			, #{diagramNurseScore}
+			, #{diagramRehabilitateScore}
+			, SYSDATE()
+		)
+	</insert>
+
+	<update id="updateMbrTest" parameterType="mbrTestVO">
+		UPDATE MBR_TEST SET
+			grade = #{grade}
+			, score = #{score}
+			, physical_select = #{physicalSelect}
+			, physical_score = #{physicalScore}
+			, cognitive_select = #{cognitiveSelect}
+			, cognitive_score = #{cognitiveScore}
+			, behavior_select = #{behaviorSelect}
+			, behavior_score = #{behaviorScore}
+			, nurse_select = #{nurseSelect}
+			, nurse_score = #{nurseScore}
+			, rehabilitate_select = #{rehabilitateSelect}
+			, rehabilitate_score = #{rehabilitateScore}
+			, disease_select_1 = #{diseaseSelect1}
+			, disease_score_1 = #{diseaseScore1}
+			, disease_select_2 = #{diseaseSelect2}
+			, disease_score_2 = #{diseaseScore2}
+			, diagram_behavior_score = #{diagramBehaviorScore}
+			, diagram_clean_score = #{diagramCleanScore}
+			, diagram_excretion_score = #{diagramExcretionScore}
+			, diagram_functional_score = #{diagramFunctionalScore}
+			, diagram_indirect_score = #{diagramIndirectScore}
+			, diagram_meal_score = #{diagramMealScore}
+			, diagram_nurse_score = #{diagramNurseScore}
+			, diagram_rehabilitate_score = #{diagramRehabilitateScore}
+			, mdfcn_dt = SYSDATE()
+		WHERE unique_id = #{uniqueId}
+	</update>
+</mapper>
