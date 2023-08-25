@@ -58,13 +58,20 @@
 			AND use_yn = #{srchUseYn}
 		</if>
 		<if test="srchConsltSttus != null and srchConsltSttus != '' ">
+			<choose>
+				<when test="srchConsltSttus == 'CANCEL' ">
+			AND conslt_sttus IN ('CS03', 'CS04', 'CS09')
+				</when>
+				<otherwise>
 			AND conslt_sttus = #{srchConsltSttus}
+				</otherwise>
+			</choose>
 		</if>
 
 		<!-- 사업소명 검색 & 취소건(화면x) 제외 -->
 		<if test="srchBplcNm != null and srchBplcNm != '' ">
 		 	AND conslt_no IN (SELECT conslt_no FROM MBR_CONSLT_RESULT mcr WHERE mcr.conslt_no = mc.conslt_no AND mcr.bplc_nm LIKE CONCAT ('%',#{srchBplcNm},'%'))
-		 	AND conslt_sttus NOT IN ('CS03', 'CS04')
+		 	AND conslt_sttus NOT IN ('CS03', 'CS04', 'CS09')
 		</if>
 	</sql>
 

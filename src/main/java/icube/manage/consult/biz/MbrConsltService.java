@@ -19,6 +19,9 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	@Resource(name="mbrConsltDAO")
 	private MbrConsltDAO mbrConsltDAO;
 
+	@Resource(name="mbrConsltResultDAO")
+	private MbrConsltResultDAO mbrConsltResultDAO;
+
 	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
 
 		listVO = mbrConsltDAO.selectMbrConsltListVO(listVO);
@@ -61,6 +64,9 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 
 
 	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {
+		// 관리자에서 취소시 사업소 지정된 데이터도 취소 처리
+		// updateCanclConslt
+		mbrConsltResultDAO.updateCanclConslt(paramMap);
 		return mbrConsltDAO.updateCanclConslt(paramMap); // 상담취소;
 	}
 

@@ -1384,31 +1384,21 @@
 
 
 /* 장기요양등급 테스트 */
-[class*="grade-content"] {
-    @apply mx-auto pt-20 pb-22 max-w-screen-sm
-           md:max-w-full md:pt-40 md:pb-44;
-}
-
-.grade-content1 {
-    @apply pt-0 pb-20
-           md:pb-34;
-}
-
-.grade-content2 {
-    @apply pt-17 pb-21 bg-[#f8f8f8]
-           md:pt-32 md:pb-38;
-}
-
-.grade-content4 {
-    @apply bg-[#f8f8f8];
-}
-
 .grade-title {
     @apply text-4xl text-center font-bold leading-tight
            md:text-6xl;
     & small {
         @apply block text-base font-normal leading-normal
-               md:mb-1 md:text-sm;
+               md:mb-1 md:text-lg;
+    }
+}
+
+.grade-title2 {
+    @apply text-4xl text-center font-bold leading-tight
+           md:text-7xl;
+    & small {
+        @apply block text-lg font-normal leading-normal
+               md:-mb-1 md:text-2xl;
     }
 }
 
@@ -1445,7 +1435,8 @@
                    }
         }
         & span {
-            @apply flex-1;
+            @apply flex-1 justify-center py-2.5 rounded-[0.625rem] bg-[#f8f8f8]
+                   md:py-0 md:rounded-none md:bg-white;
             & br {
                 @apply hidden
                        md:inline;
@@ -1470,34 +1461,24 @@
 }
 
 .grade-slider {
-    @apply -mx-5 select-none
-           md:-mx-7;
-    & .container {
-        @apply relative mx-auto pb-5.5 max-w-95 select-none
-               md:max-w-[34.25rem];
-    }
+    @apply relative mx-auto px-5 pb-6 max-w-95 select-none
+           md:px-10 md:max-w-[34.25rem];
     & .swiper {
-        @apply mx-auto max-w-80 shadow-[0px_0px_10px_0px_#0000002e]
-               md:max-w-100;
-    }
-    & .swiper-slide {
-        & picture {
-            @apply block p-2.5 h-full;
-        }
-        & img {
-            @apply w-full h-full object-cover;
-        }
+        @apply mx-auto w-75 max-w-full overflow-hidden
+               md:w-100;
     }
     & .swiper-button-prev, & .swiper-button-next {
-        @apply -mt-6 w-3.5 h-5 bg-center bg-no-repeat bg-cover bg-[url(../images/ico-grade-slide.svg)]
+        @apply -mt-8 w-7 h-7 bg-center bg-no-repeat bg-[length:auto_1.25rem] bg-[url(../images/ico-grade-slide.svg)]
                after:sr-only
-               md:-mt-5 md:w-5 md:h-10;
+               md:-mt-5 md:w-10 md:h-10 md:bg-[length:auto_2.5rem];
     }
     & .swiper-button-prev {
-        @apply left-0;
+        @apply -left-3
+               md:-left-2.5;
     }
     & .swiper-button-next {
-        @apply right-0 rotate-180;
+        @apply -right-3 rotate-180
+               md:-right-2.5;
     }
     & .swiper-pagination {
         @apply bottom-0 leading-none
@@ -1512,18 +1493,46 @@
 }
 
 .grade-start {
-    @apply mx-auto w-[480px] max-w-full
-           md:w-fit;
-    & picture {
-        @apply relative;
+    & .picture {
+        @apply relative mx-auto pb-25 w-[280px] max-w-full
+               md:pb-0 md:w-[490px];
+        & .msg1, & .msg2 {
+            @apply absolute -right-7.5 w-fit select-none whitespace-nowrap
+                   md:right-auto;
+            & .box {
+                @apply relative z-5 py-3 px-10 rounded-full border bg-white leading-snug text-lg tracking-tight shadow-[0px_0px_4px_0px_#00000026]
+                       md:px-[3.125rem] md:text-xl;
+            }
+            & svg {
+                @apply absolute -z-5;
+            }
+        }
+        & .msg1 {
+            @apply z-10 top-61 text-right
+                   md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
+            & .box {
+                @apply border-[#FD8106];
+            }
+            & svg {
+                @apply left-full -ml-6.5 bottom-0
+                       md:-ml-4;
+            }
+        }
+        & .msg2 {
+            @apply z-5 top-76
+                   md:top-20 md:right-0 md:translate-x-[70%];
+            & .box {
+                @apply border-[#5DB0BF];
+            }
+            & svg {
+                @apply left-full bottom-0 -ml-6.5
+                       md:left-auto md:right-full md:-mr-5 md:ml-0 md:-scale-x-100;
+            }
+        }
     }
-    & img {
-        @apply mx-auto
-               md:translate-x-[5%];
-    }
-    & a {
-        @apply hidden items-center justify-center relative z-5 gap-5.5 mx-auto -mt-15 w-100 h-15 rounded-[0.625rem] bg-[#FD8106] text-2xl text-white font-bold
-               after:block after:w-[1.1875rem] after:h-[0.9375rem] after:bg-cover after:bg-[url(../images/ico-grade-submit.svg)]
+    & .btn {
+        @apply hidden justify-center -mt-15 mx-auto w-100 h-15 text-xl
+               after:w-[1.1875rem] after:h-[0.9375rem]
                md:flex;
     }
 }
@@ -1595,6 +1604,268 @@
         & dt {
             @apply bg-[#E8D7D1] text-[#C7B0A7];
         }
+    }
+}
+
+[class*="grade-content"] {
+    @apply relative mx-auto pt-20 pb-22 max-w-screen-sm 
+           md:max-w-full md:pt-40 md:pb-44;
+}
+
+.grade-content1 {
+    @apply pt-0 pb-20
+           md:pb-34;
+}
+
+.grade-content2 {
+    @apply pt-17 pb-21
+           md:pt-32 md:pb-38;
+}
+
+.grade-content3 {
+    & .grade-slider {
+        & .swiper {
+            @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]
+                   md:h-[28.125rem];
+        }
+        & .swiper-slide {
+            @apply pt-8 px-5 text-center tracking-tighter text-sm
+                   md:pt-8.5;
+            & img {
+                @apply mx-auto;
+            }
+        }
+    }
+}
+
+.grade-content4 {
+    & .grade-slider {
+        & .swiper {
+            @apply h-[32.5rem] bg-[url(../images/bg-grade-content4-m.svg)] bg-center bg-[length:auto_100%] shadow-[0px_0px_10px_0px_#00000026]
+                   md:bg-[url(../images/bg-grade-content4.svg)];
+        }
+        & .swiper-slide {
+            @apply pt-[3.125rem]
+                   md:pt-13;
+            & img {
+                @apply mx-auto w-[251px];
+            }
+        }
+    }
+}
+
+.grade-content2, .grade-content4 {
+    @apply before:absolute before:-z-5 before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-[#f8f8f8] before:-translate-x-1/2;
+}
+
+.result-share {
+    @apply inline-block relative w-9 h-9 overflow-hidden rounded-full bg-no-repeat bg-[#777] bg-[center_top_calc(50%+1px)] bg-[length:40%] bg-[url(../images/ico-grade-share.svg)] -indent-96
+           md:w-[3.125rem] md:h-[3.125rem]
+}
+
+.result-question {
+    @apply flex justify-center items-center gap-2.5 text-2xl font-bold min-h-10
+           md:flex-col md:text-5xl;
+}
+
+[class*="result-answer"] {
+    @apply flex flex-wrap flex-col gap-1.5 py-4 px-5 rounded-lg bg-white
+           md:flex-row md:items-center md:px-7.5;
+    & dt {
+        @apply text-lg font-medium
+               md:text-[1.375rem];
+    }
+    & dd {
+        @apply py-2.5 px-5 rounded-lg border border-[#ccc] bg-[#f8f8f8] text-center text-base tracking-tight
+               md:text-xl;
+    }
+}
+
+.result-answer {
+    & dt {
+        @apply flex-1;
+    }
+    & dd {
+        @apply md:w-[35.09%] md:max-w-100;
+    }
+}
+
+.result-answer2 {
+    & dt {
+        @apply w-full
+               md:mb-3.5;
+    }
+}
+
+.result-answer3 {
+    @apply flex-col items-start;
+    & dt {
+        @apply w-full
+               md:mb-3.5;
+    }
+    & dd {
+        @apply w-full text-left
+               md:w-auto;
+    }
+}
+
+[class*="result-content"] {
+    @apply relative;
+    & .grade-title {
+        & small {
+            @apply mt-2 mb-0
+                   md:mt-3;
+        }
+    }
+}
+
+.result-content1 {
+    @apply pb-25;
+    & .grade-title2 {
+        @apply mb-39
+               md:mb-22;
+    }
+    & .warning {
+        @apply hidden py-2.5 text-center text-sm
+               md:block;
+        & strong {
+            @apply underline text-[#FD8106];
+        }
+    }
+    & .result {
+        @apply relative pt-25 pb-12
+               before:absolute before:-z-5 before:top-0 before:bottom-0 before:left-1/2 before:w-screen before:-translate-x-1/2 before:bg-[#fceac866]
+               md:pt-10 md:pb-44;
+        & .container {
+            @apply relative mx-auto max-w-[62.5rem]
+                   md:pl-71;
+        }
+        & .grade {
+            @apply flex flex-col items-center justify-center absolute -top-44 left-1/2 w-[9.375rem] h-[9.375rem] bg-cover bg-[url(../images/bg-grade-result.svg)] text-lg font-light text-white -translate-x-1/2
+                   md:top-6 md:left-9 md:w-50 md:h-50 md:text-base md:font-normal md:translate-x-0;
+            & strong {
+                @apply font-serif text-[4.6875rem] leading-none tracking-tight
+                       md:-mb-1.5 md:text-[6.25rem];
+            }
+        }
+        & .point {
+            @apply mb-7.5 text-xl font-light leading-none text-center
+                   md:mb-10 md:text-[1.875rem] md:text-left;
+            & strong {
+                @apply text-xl font-medium
+                       md:text-6xl;
+            }
+        }
+        & .desc {
+            @apply relative mb-9 pl-[1.1em]
+                   before:content-["※"] before:absolute before:top-0 before:left-0
+                   md:hidden;
+        }
+        & .cost {
+            @apply text-base
+                   md:text-xl;
+            & strong {
+                @apply relative text-2xl text-[#FD8106]
+                       md:text-[1.375rem] md:text-[#FF5700]
+                       md:before:absolute md:before:-z-5 md:before:-left-0.5 md:before:-right-0.5 md:before:bottom-0 md:before:h-[0.7em] md:before:rounded-sm md:before:bg-[#FFDDAD];
+            }
+        }
+        & .alert {
+            @apply mt-11 text-base
+                   md:mt-9.5 md:text-lg;
+            & li {
+                @apply relative pl-[1em]
+                       before:absolute before:top-[0.625em] before:left-[0.3125em] before:w-[0.375em] before:h-[0.375em] before:rounded-full before:bg-black2;
+            }
+        }
+    }
+    & .explan {
+        @apply hidden items-center justify-center gap-2.5 relative -mt-33 mx-auto py-8.5 px-5 max-w-[62.5rem] rounded-[1.25rem] bg-white shadow-[0px_0px_20px_0px_#0000001a]
+               md:flex;
+        & li {
+            @apply flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[0.625rem] border-[.1875rem] border-[#ede8e4] bg-[#ede8e4];
+            &.is-active {
+                @apply bg-origin-border flex-none border-transparent bg-[linear-gradient(#fff,_#fff),linear-gradient(118deg,_#7D48CF_0%,_#A22CB3_21.3542%,_#F5404E_46.3542%,_#D37E29_75%,_#DCAD4E_100%)];
+                background-clip: content-box, border-box;
+                & dl {
+                    @apply bg-[linear-gradient(140deg,_#0D0D0D_0%,_#424242_100%)] shadow-[3px_3px_10px_0px_#0000000d];
+                }
+                & dt {
+                    @apply py-0.5 text-[#FF7F00];
+                    & strong {
+                        @apply font-bold text-2xl;
+                    }
+                }
+                & dd {
+                    @apply text-lg text-white;
+                    & em {
+                        @apply font-bold;
+                    }
+                }
+            }
+        }
+        & dl {
+            @apply flex flex-col items-center justify-center gap-3 py-3 px-4 text-xs text-center
+                   lg:px-5;
+        }
+        & dt {
+            @apply py-1.5 px-4 rounded-sm bg-white font-medium leading-tight
+                   lg:px-5;
+            & strong {
+                @apply font-medium;
+            }
+        }
+    }
+}
+
+.result-content2 {
+    @apply pt-25 pb-15
+           md:pb-26;
+    & .images {
+        @apply mt-8.5 mx-auto p-7.5 w-fit rounded-[1.25rem] bg-[#f8f8f8] md:mt-11;
+    }
+}
+
+.result-content3 {
+    @apply pt-16 pb-31
+           md:pt-26 md:pb-45;
+    & .grade-slider {
+        @apply pb-0 px-4 max-w-full
+               md:px-7.5;
+        & .swiper {
+            @apply w-full mx-auto
+                   xs-max:aspect-square;
+        }
+        & .swiper-slide {
+            @apply p-1 xs-max:h-1/2
+                   sm:p-1.5
+                   md:p-2.5;
+            & a {
+                @apply block mx-auto rounded-lg w-full h-full overflow-hidden
+                       md:rounded-2xl
+                       lg:rounded-[18px];
+            }
+            & img {
+                @apply w-full h-full object-cover;
+            }
+        }
+        & .swiper-button-prev, & .swiper-button-next {
+            @apply top-1/2 mt-0 -translate-y-1/2;
+        }
+    }
+}
+
+.result-content4 {
+    @apply pt-20 pb-8.5
+           before:absolute before:-z-5 before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-[#f8f8f8] before:-translate-x-1/2
+           md:pt-11 md:pb-20;
+}
+
+.result-content5 {
+    @apply relative flex flex-col gap-2.5 justify-center items-center py-9.5 text-base
+           md:flex-row md:gap-3.5 md:text-lg;
+    & a {
+        @apply inline-flex py-2 px-7.5 rounded-[0.625rem] bg-gray6 leading-snug text-white;
     }
 }
 

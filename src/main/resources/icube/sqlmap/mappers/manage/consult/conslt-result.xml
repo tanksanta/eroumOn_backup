@@ -53,7 +53,14 @@
 			AND mcr.bplc_unique_id = #{srchBplcUniqueId}
 		</if>
 		<if test="srchConsltSttus != null  and srchConsltSttus != '' ">
+			<choose>
+				<when test="srchConsltSttus == 'CANCEL' ">
+			AND mcr.conslt_sttus IN ('CS03', 'CS04', 'CS09')
+				</when>
+				<otherwise>
 			AND mcr.conslt_sttus = #{srchConsltSttus}
+				</otherwise>
+			</choose>
 		</if>
 
 
@@ -89,7 +96,7 @@
 				WHERE mi.itrst_ty = 'B' AND mi.bplc_unique_id = mcr.bplc_unique_id AND mi.reg_unique_id = mc.reg_unique_id) AS itrst_cnt
 			, (SELECT COUNT(*)
 				FROM BPLC_RCMD br
-				WHERE br.reg_unique_id = mc.reg_unique_id) AS rcmd_cnt
+				WHERE br.bplc_unique_id = mcr.bplc_unique_id AND br.reg_unique_id = mc.reg_unique_id) AS rcmd_cnt
 		FROM MBR_CONSLT_RESULT mcr, MBR_CONSLT mc
 		WHERE mcr.conslt_no = mc.conslt_no
 			<include refid="searchConditions" />
@@ -156,7 +163,14 @@
 		UPDATE MBR_CONSLT_RESULT SET
 			conslt_sttus = #{consltSttus}
 		WHERE conslt_no = #{consltNo}
-		  AND bplc_conslt_no = #{bplcConsltNo}
+		<choose>
+			<when test="bplcConsltNo != null and bplcConsltNo!= '' ">
+			AND bplc_conslt_no = #{bplcConsltNo}
+			</when>
+			<otherwise>
+			AND conslt_sttus IN ('CS02', 'CS08')
+			</otherwise>
+		</choose>
 	</update>
 
 	<!-- 상태변경 -->

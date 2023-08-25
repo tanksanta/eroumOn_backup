@@ -46,6 +46,8 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
+				<th scope="col">상담진행상태</th>
+				<th scope="col">사업소배정</th>
 				<th scope="col">성명</th>
 				<th scope="col">성별</th>
 				<th scope="col">연락처</th>
@@ -53,8 +55,6 @@
 				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
 				<th scope="col">상담신청일</th>
-				<th scope="col">사업소배정</th>
-				<th scope="col">상담진행상태</th>
 				<th scope="col">관리자메모</th>
 			</tr>
 		</thead>
@@ -62,23 +62,6 @@
 		<c:forEach var="result" items="${resultList}" varStatus="status">
 			<tr>
 				<td>${status.index + 1}</td>
-				<td>${result.mbrNm}</td>
-				<td>${genderCode[result.gender]}</td>
-				<td>${result.mbrTelno}</td>
-				<td>만 ${result.age} 세</td>
-				<td>${fn:substring(result.brdt,0,4)}/${fn:substring(result.brdt,4,6)}/${fn:substring(result.brdt,6,8)}</td>
-				<td>(${result.zip})&nbsp;${result.addr}&nbsp;${result.daddr}</td>
-				<td><fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd" /></td>
-				<td>
-					<c:if test="${result.consltSttus ne 'CS01'}">
-					<c:forEach items="${result.consltResultList}" var="consltResult" varStatus="status2">
-					${status2.index+1}차 : ${consltResult.bplcNm } (${consltResult.consltDtls})<br>
-					</c:forEach>
-					</c:if>
-					<c:if test="${result.consltSttus eq 'CS01' || empty result.consltSttus}">
-					-
-					</c:if>
-				</td>
 				<td>
 					<c:choose>
 						<c:when test="${result.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
@@ -91,6 +74,23 @@
 						<c:when test="${result.consltSttus eq 'CS08'}">장기요양기관 재배정 완료</c:when>
 					</c:choose>
 				</td>
+				<td>
+					<c:if test="${result.consltSttus ne 'CS01'}">
+					<c:forEach items="${result.consltResultList}" var="consltResult" varStatus="status2">
+					${status2.index+1}차 : ${consltResult.bplcNm } (${consltResult.consltDtls})<br>
+					</c:forEach>
+					</c:if>
+					<c:if test="${result.consltSttus eq 'CS01' || empty result.consltSttus}">
+					-
+					</c:if>
+				</td>
+				<td>${result.mbrNm}</td>
+				<td>${genderCode[result.gender]}</td>
+				<td>${result.mbrTelno}</td>
+				<td>만 ${result.age} 세</td>
+				<td>${fn:substring(result.brdt,0,4)}/${fn:substring(result.brdt,4,6)}/${fn:substring(result.brdt,6,8)}</td>
+				<td>(${result.zip})&nbsp;${result.addr}&nbsp;${result.daddr}</td>
+				<td><fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd" /></td>
 				<td>
 					${result.mngMemo}
 				</td>

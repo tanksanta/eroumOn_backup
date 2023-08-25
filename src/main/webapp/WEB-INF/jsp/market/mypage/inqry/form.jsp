@@ -177,14 +177,16 @@ function f_inqryTyChg(idx){
     			$(".optVal"+(i)).css("display","");
     			$(".optVal"+(i+1)).css("display","");
     			$(".optVal" + (i + 2)).css("display", "");
-				} else {
-					$(".optVal" + (i * 3 + 1)).css("display", "");
-					$(".optVal" + (i * 3 + 2)).css("display", "");
-					$(".optVal" + (i * 3 + 3)).css("display", "");
-				}
+			}else if(idx == 6){
+				$(".optVal17").css("display","");
+			} else {
+				$(".optVal" + (i * 3 + 1)).css("display", "");
+				$(".optVal" + (i * 3 + 2)).css("display", "");
+				$(".optVal" + (i * 3 + 3)).css("display", "");
 			}
 		}
 	}
+}
 
 	//첨부파일 삭제
 	function f_delFile(fileNo, type, spanNo, obj) {

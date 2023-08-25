@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<style type="text/css">
+    body {
+        padding-bottom: 4.75rem;
+    }
+
+    #container {
+        padding-bottom: 0 !important;
+    }
+</style>
+
 <header id="subject">
     <nav class="breadcrumb">
         <ul>
@@ -8,25 +18,73 @@
 			<li>인정 등급 예상 테스트</li>
         </ul>
     </nav>
-	<h2 class="subject">
-	    <small>노인장기요양보험</small>
-	    인정등급 예상 테스트
-	</h2>
 </header>
 
 <div id="content">
     <div class="grade-content1">
-        <p class="grade-text2">
+        <h2 class="grade-title2">
+            <small>노인장기요양보험</small>
+            인정등급 예상 테스트
+        </h2>
+        <p class="grade-text2 mt-10">
             <strong>간단한 테스트</strong>로 받을 수 있는 혜택을 확인하고<br>
             장기요양 인정등급을 <strong>간편하게 신청해보세요.</strong>
         </p>
         <div class="grade-start mt-11 md:mt-15">
-            <picture>
-                <source srcset="/html/page/index/assets/images/img-grade-start-m.png" media="(max-width: 768px)"> 
-                <source srcset="/html/page/index/assets/images/img-grade-start.png"> 
-                <img src="/html/page/index/assets/images/img-grade-start.png" alt="">
-            </picture>
-            <a href="/find/step2-1" target="_blank" title="새창열림">테스트 시작하기</a>
+            <div class="picture">
+                <img src="/html/page/index/assets/images/img-grade-start.jpg" alt="">
+                <div class="msg1" aria-hidden="true">
+                    <div class="box">
+                        장기요양등급<br>
+                        <strong>신청 절차가 너무 복잡해요.</strong>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="47" height="27" viewBox="0 0 47 27" fill="none">
+                        <g filter="url(#filter0_d_2147_10177)">
+                            <path d="M38.5 15C25.7 15.4 19.224 5.7309 15.724 2.2309C7.39066 0.397568 -6.49969 1.90735e-06 5.50031 10C17.5003 20 31.3333 18.1667 38.5 15Z" fill="white"/>
+                            <path d="M38.5 15C25.7 15.4 19.224 5.7309 15.724 2.2309C7.39066 0.397568 -6.49969 1.90735e-06 5.50031 10C17.5003 20 31.3333 18.1667 38.5 15Z" stroke="#FD8106"/>
+                        </g>
+                        <defs>
+                            <filter id="filter0_d_2147_10177" x="0.319336" y="0.705566" width="46.3828" height="25.3055" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                <feOffset dx="4" dy="4"/>
+                                <feGaussianBlur stdDeviation="2"/>
+                                <feComposite in2="hardAlpha" operator="out"/>
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2147_10177"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2147_10177" result="shape"/>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="msg2" aria-hidden="true">
+                    <div class="box">
+                        저희 아버지,<br>
+                        장기요양보험 <strong>혜택 받을 수 있을까요?</strong>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="47" height="27" viewBox="0 0 47 27" fill="none">
+                        <g filter="url(#filter0_d_2147_10230)">
+                            <path d="M38.6807 15C25.8807 15.4 19.4047 5.7309 15.9047 2.2309C7.57133 0.397568 -6.31903 1.90735e-06 5.68097 10C17.681 20 31.514 18.1667 38.6807 15Z" fill="white"/>
+                            <path d="M38.6807 15C25.8807 15.4 19.4047 5.7309 15.9047 2.2309C7.57133 0.397568 -6.31903 1.90735e-06 5.68097 10C17.681 20 31.514 18.1667 38.6807 15Z" stroke="#5DB0BF"/>
+                        </g>
+                        <defs>
+                            <filter id="filter0_d_2147_10230" x="0.5" y="0.705566" width="46.3828" height="25.3055" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                <feOffset dx="4" dy="4"/>
+                                <feGaussianBlur stdDeviation="2"/>
+                                <feComposite in2="hardAlpha" operator="out"/>
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2147_10230"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2147_10230" result="shape"/>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            <a href="/find/step2-1" target="_blank" title="새창열림" class="btn btn-large2 btn-primary2 btn-arrow">
+                <strong>테스트 시작하기</strong>
+            </a>
         </div>
         <ul class="grade-taps mt-19 md:mt-24">
             <li class="taps-item is-active">
@@ -119,7 +177,7 @@
     <div class="grade-content3">
         <h2 class="grade-title">
             <small>노인장기요양보험 인정 등급 예상 테스트</small>
-            이렇게 진행돼요
+            이렇게 제공받아요
         </h2>
         <ul class="grade-taps mt-16 md:mt-23 md-max:!hidden">
             <li class="taps-item is-active">
@@ -159,42 +217,36 @@
         </ul>
         <div class="grade-slider mt-15 md:mt-20">
             <div class="container">
-                <div class="swiper !shadow-none">
+                <div class="swiper">
                     <div class="swiper-wrapper">
                         <div id="slide-item1" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info1-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info1.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info1.png" alt="" class="rounded-[1.25rem]">
-                            </picture>
+                            <p class="text-2xl font-bold tracking-normal">예상인정 등급 확인</p>
+                            <p class="mt-2.5">어르신의 예상 인정 등급을 알 수 있어요.</p>
+                            <img src="/html/page/index/assets/images/img-grade-info1.svg" alt="" class="mt-11 w-36 md:mt-15 md:w-40">
+                            <img src="/html/page/index/assets/images/img-grade-info1-2.svg" alt="" class="mt-13 md:mt-15">
                         </div>
                         <div id="slide-item2" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info2-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info2.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info2.png" alt="" class="rounded-[1.25rem]">
-                            </picture>
+                            <p class="text-2xl font-bold tracking-normal">등급별 지원 금액</p>
+                            <p class="mt-2.5">해당 등급에 제공되는 혜택을 알려드려요.</p>
+                            <img src="/html/page/index/assets/images/img-grade-info2.svg" alt="" class="mt-11 w-36 md:mt-15 md:w-40">
+                            <p class="mt-9.5 font-medium md:mt-11">거동, 생활 보조 용품(복지용구)을 신청하세요.</p>
+                            <p>*6~15%의 본인부담금이 발생해요.</p>
                         </div>
                         <div id="slide-item3" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info3-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info3.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info3.png" alt="" class="rounded-[1.25rem]">
-                            </picture>
+                            <p class="text-2xl font-bold tracking-normal">예상 복지용구</p>
+                            <p class="mt-2.5">선택하신 답변에 맞춰 예상 복지용구를 알려드려요.</p>
+                            <img src="/html/page/index/assets/images/img-grade-info3.svg" alt="" class="mt-6 w-38 md:mt-15 md:w-43">
+                            <p class="mt-7.5 md:mt-9"><strong>복지용구란?</strong> 어르신의 일상생활과 신체활동을 보조하고, 인지 기능 유지와 향상에 도움이 되는 보건복지부 지정 품목이에요.</p>
                         </div>
                         <div id="slide-item4" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info4-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info4.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info4.png" alt="" class="rounded-[1.25rem]">
-                            </picture>
+                            <p class="text-2xl font-bold tracking-normal">전문가 상담과 대리 등급 신청</p>
+                            <p class="mt-2.5">무료 전문가 상담으로 등급 신청까지 의뢰 가능해요.</p>
+                            <img src="/html/page/index/assets/images/img-grade-info4.svg" alt="" class="mt-5 w-46 md:mt-17 md:w-64">
                         </div>
                         <div id="slide-item5" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info5-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info5.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info5.png" alt="" class="rounded-[1.25rem]">
-                            </picture>
+                            <p class="text-2xl font-bold tracking-normal">결과지 제공</p>
+                            <p class="mt-2.5">분석된 결과를 저장, 출력하거나 가족에게 공유할 수 있어요.</p>
+                            <img src="/html/page/index/assets/images/img-grade-info5.svg" alt="" class="mt-13 w-63 md:mt-15 md:w-75">
                         </div>
                     </div>
                 </div>
@@ -208,7 +260,7 @@
     <div class="grade-content4">
         <h2 class="grade-title">
             <small>노인장기요양보험 인정 등급 예상 테스트</small>
-            어떻게 진행되나요?
+            이렇게 진행돼요
         </h2>
         <ul class="grade-taps mt-16 md:mt-23 md-max:!hidden">
             <li class="taps-item is-active">
@@ -247,50 +299,28 @@
             </li>
         </ul>
         <div class="grade-slider mt-15 md:mt-20">
-            <div class="container">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <div id="slide-item6" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info6-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info6.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info6.png" alt="">
-                            </picture>
-                        </div>
-                        <div id="slide-item7" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info7-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info7.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info7.png" alt="">
-                            </picture>
-                        </div>
-                        <div id="slide-item8" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info8-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info8.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info8.png" alt="">
-                            </picture>
-                        </div>
-                        <div id="slide-item9" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info9-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info9.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info9.png" alt="">
-                            </picture>
-                        </div>
-                        <div id="slide-item10" class="swiper-slide">
-                            <picture>
-                                <source srcset="/html/page/index/assets/images/img-grade-info10-m.png" media="(max-width: 768px)"> 
-                                <source srcset="/html/page/index/assets/images/img-grade-info10.png"> 
-                                <img src="/html/page/index/assets/images/img-grade-info10.png" alt="">
-                            </picture>
-                        </div>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div id="slide-item6" class="swiper-slide">
+                        <img src="/html/page/index/assets/images/img-grade-info6.svg" alt="">
+                    </div>
+                    <div id="slide-item7" class="swiper-slide">
+                        <img src="/html/page/index/assets/images/img-grade-info7.svg" alt="">
+                    </div>
+                    <div id="slide-item8" class="swiper-slide">
+                        <img src="/html/page/index/assets/images/img-grade-info8.svg" alt="">
+                    </div>
+                    <div id="slide-item9" class="swiper-slide">
+                        <img src="/html/page/index/assets/images/img-grade-info9.svg" alt="">
+                    </div>
+                    <div id="slide-item10" class="swiper-slide">
+                        <img src="/html/page/index/assets/images/img-grade-info10.svg" alt="" class="!w-[301px]">
                     </div>
                 </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
             </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
         </div>
         <div class="grade-info">
             <dl class="info-text1">
@@ -332,6 +362,12 @@
             var slider = $(this);
             
             new Swiper(slider.find('.swiper').get(0), {
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    speed: 5000,
+                    disableOnInteraction: false,
+                },
                 navigation: {
                     prevEl: slider.find('.swiper-button-prev').get(0),
                     nextEl: slider.find('.swiper-button-next').get(0)

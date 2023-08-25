@@ -16,6 +16,8 @@
 		 , od.ordr_no
 		 , od.ordr_dtl_cd
 		 , od.ordr_cd
+		 , od.entrps_no
+		 , od.entrps_nm
 		 , od.gds_no
 		 , od.gds_cd
 		 , od.bnef_cd
@@ -205,6 +207,8 @@
 			 , gds_nm
 			 , gds_pc
 			 , gds_sup_pc
+			 , entrps_no
+			 , entrps_nm
 			 , gds_item_cd
 			 , optn_item_cd
 			 , ordr_pc
@@ -247,6 +251,8 @@
 			 , #{gdsNm, jdbcType=VARCHAR}
 			 , #{gdsPc}
 			 , #{gdsSupPc}
+			 , #{entrpsNo}
+			 , #{entrpsNm, jdbcType=VARCHAR}
 			 , #{gdsItemCd, jdbcType=VARCHAR}
 			 , #{optnItemCd, jdbcType=VARCHAR}
 			 , #{ordrPc}
@@ -360,7 +366,7 @@
 		  AND stts_ty IN ('OR05', 'OR06')
 	</update>
 	<!-- AND ordr_dtl_no = #{ordrDtlNo} -->
-
+	
 	<!-- 배송중 -> 배송준비중 -->
 	<update id="updateDlvyPreparing" parameterType="ordrDtlVO">
 		UPDATE ORDR_DTL SET
@@ -368,7 +374,7 @@
 		WHERE ordr_no = #{ordrNo}
 		  AND ordr_dtl_cd = #{ordrDtlCd}
 	</update>
-
+	
 	<!-- 주문상태변경 -->
 	<update id="updateOrdrStts" parameterType="ordrDtlVO">
 		UPDATE ORDR_DTL SET

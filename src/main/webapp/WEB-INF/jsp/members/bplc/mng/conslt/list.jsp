@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 			<jsp:include page="../layout/page_header.jsp">
-				<jsp:param value="1:1상담(장기요양테스트)" name="pageTitle"/>
+				<jsp:param value="1:1상담(인정등급테스트)" name="pageTitle"/>
 			</jsp:include>
 
 			<!-- page content -->
             <div id="page-content">
-                <p class="mb-7">장기요양테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+                <p class="mb-7">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
 
                 <form id="searchFrm" name="searchFrm" method="get" action="./list">
 				<input type="hidden" name="cntPerPage" id="cntPerPage" value="${listVO.cntPerPage}" />
@@ -47,7 +47,7 @@
 			                                <option value="">선택</option>
 			                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 신청 접수</option>
 			                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
-			                                <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>
+			                                <option value="CANCEL" ${param.srchConsltSttus eq 'CANCEL'?'selected="selected"':''}>상담 취소</option><%--사업소에서의 상담취소 검색은 03, 04, 09가 포함되어야함 --%>
 			                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
 			                            </select>
 			                        </td>
@@ -69,6 +69,7 @@
                     <table class="table-list">
                         <colgroup>
                             <col class="min-w-18 w-22">
+                            <col class="min-w-35 w-[15%]">
                             <col class="min-w-22 w-28">
                             <col class="min-w-18 w-18">
                             <col class="min-w-25 w-30">
@@ -76,11 +77,11 @@
                             <col class="min-w-22 w-28">
                             <col>
                             <col class="min-w-22 w-28">
-                            <col class="min-w-35 w-[15%]">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
+                                <th scope="col">상담진행상태</th>
                                 <th scope="col">성명</th>
                                 <th scope="col">성별</th>
                                 <th scope="col">연락처</th>
@@ -88,7 +89,6 @@
                                 <th scope="col">생년월일</th>
                                 <th scope="col">거주지주소</th>
                                 <th scope="col">상담신청일</th>
-                                <th scope="col">상담진행상태</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,26 +96,39 @@
 						<c:set var="pageParam" value="bplcConsltNo=${resultList.bplcConsltNo}&amp;consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
 							<tr>
 								<td>${listVO.startNo - status.index }</td>
-								<td><a href="./view?${pageParam}">${resultList.mbrConsltInfo.mbrNm}</a></td>
+								<td>
+									<c:choose>
+										<c:when test="${resultList.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+										<c:when test="${resultList.consltSttus eq 'CS02'}"><span class="text-red1">상담 신청 접수</span></c:when>
+										<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
+										<c:when test="${resultList.consltSttus eq 'CS07'}"><span class="text-red1">상담 신청 접수</span></c:when>
+										<c:when test="${resultList.consltSttus eq 'CS08'}"><span class="text-red1">상담 신청 접수</span></c:when>
+									</c:choose>
+
+								</td>
+								<td><a href="./view?${pageParam}" class="btn shadow w-full">${resultList.mbrConsltInfo.mbrNm}</a></td>
+								<c:choose>
+									<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}"><%--상담취소--%>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+									</c:when>
+									<c:otherwise>
 								<td>${genderCode[resultList.mbrConsltInfo.gender]}</td>
 								<td>${resultList.mbrConsltInfo.mbrTelno}</td>
 								<td>만 ${resultList.mbrConsltInfo.age} 세</td>
 								<td>${fn:substring(resultList.mbrConsltInfo.brdt,0,4)}/${fn:substring(resultList.mbrConsltInfo.brdt,4,6)}/${fn:substring(resultList.mbrConsltInfo.brdt,6,8)}</td>
 								<td>(${resultList.mbrConsltInfo.zip})&nbsp;${resultList.mbrConsltInfo.addr}<br>${resultList.mbrConsltInfo.daddr}</td>
-								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
-								<td>
-									<c:choose>
-										<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 접수</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS02'}">상담 신청 접수</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 접수</c:when>
-										<c:when test="${resultList.consltSttus eq 'CS08'}">재상담 신청 접수</c:when>
-									</c:choose>
+									</c:otherwise>
+								</c:choose>
 
-								</td>
+								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
 							</tr>
 						</c:forEach>
 						<c:if test="${empty listVO.listObject}">
