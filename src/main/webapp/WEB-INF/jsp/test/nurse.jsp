@@ -67,7 +67,7 @@
 						</label>
 						<label class="check-item">
 							<input type="checkbox" name="nurse5"/>
-							<span>경관 영양 <small>구강으로 음식첩취가 아려워 관을 통해서 위, 십이지장 등에 직접 영양을 공급해야 하는 경우</small></span>
+							<span>경관 영양 <small>구강으로 음식섭취가 어려워 관을 통해서 위, 십이지장 등에 직접 영양을 공급해야 하는 경우</small></span>
 						</label>
 						<label class="check-item">
 							<input type="checkbox" name="nurse6"/>

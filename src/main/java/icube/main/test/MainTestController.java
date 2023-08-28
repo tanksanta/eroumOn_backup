@@ -165,22 +165,27 @@ public class MainTestController extends CommonAbstractController {
         			case "physical": {
         				srchMbrTestVO.setPhysicalSelect(mbrTestVO.getPhysicalSelect());
         				srchMbrTestVO.setPhysicalScore(mbrTestVO.getPhysicalScore());
+        				break;
         			}
         			case "cognitive": {
         				srchMbrTestVO.setCognitiveSelect(mbrTestVO.getCognitiveSelect());
         				srchMbrTestVO.setCognitiveScore(mbrTestVO.getCognitiveScore());
+        				break;
         			}
         			case "behavior": {
         				srchMbrTestVO.setBehaviorSelect(mbrTestVO.getBehaviorSelect());
         				srchMbrTestVO.setBehaviorScore(mbrTestVO.getBehaviorScore());
+        				break;
         			}
         			case "nurse": {
         				srchMbrTestVO.setNurseSelect(mbrTestVO.getNurseSelect());
         				srchMbrTestVO.setNurseScore(mbrTestVO.getNurseScore());
+        				break;
         			}
         			case "rehabilitate": {
         				srchMbrTestVO.setRehabilitateSelect(mbrTestVO.getRehabilitateSelect());
         				srchMbrTestVO.setRehabilitateScore(mbrTestVO.getRehabilitateScore());
+        				break;
         			}
         			case "disease": {
         				srchMbrTestVO.setGrade(mbrTestVO.getGrade());
@@ -199,6 +204,7 @@ public class MainTestController extends CommonAbstractController {
         				srchMbrTestVO.setDiagramMealScore(mbrTestVO.getDiagramMealScore());
         				srchMbrTestVO.setDiagramNurseScore(mbrTestVO.getDiagramNurseScore());
         				srchMbrTestVO.setDiagramRehabilitateScore(mbrTestVO.getDiagramRehabilitateScore());
+        				break;
         			}
         			default : break;
         		}

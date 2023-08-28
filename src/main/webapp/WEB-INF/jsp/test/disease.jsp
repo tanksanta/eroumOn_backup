@@ -418,7 +418,7 @@
 				});
 				
 				//질병 및 최종결과 정보 저장
-				saveTestResultAjax(requestJson, '/test/finish');
+				saveTestResultAjax(requestJson, '/main/cntnts/test-result');
 			});
 		});
 	</script>
