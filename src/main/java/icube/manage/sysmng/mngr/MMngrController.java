@@ -260,6 +260,7 @@ public class MMngrController  extends CommonAbstractController {
 			}
 			// 프로필 이미지 END
 
+			mngrVO.setAuthrtNo(oldMngrVO.getAuthrtNo());
 			mngrService.updateMngr(mngrVO);
 
 			if (!StringUtils.equals(oldMngrVO.getAuthrtTy(), mngrVO.getAuthrtTy())) {
