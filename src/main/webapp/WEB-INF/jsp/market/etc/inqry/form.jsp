@@ -12,7 +12,7 @@
                 <p class="text-alert">마이페이지 > 1:1 문의내역에서 답변을 확인하실 수 있습니다.</p>
 
                 <div class="mt-4 p-4 bg-gray2 rounded-md md:mt-5">
-                    <div class="h-44 md:h-58 scrollbars">
+                    <div class="h-44 scrollbars">
                         1. 수집 항목</br>
 						이름, 이메일,휴대전화번호</br>
 						2. 목적</br>

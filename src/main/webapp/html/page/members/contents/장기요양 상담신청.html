@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
     <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
     <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+    <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
 
     <link rel="stylesheet" href="../assets/style/style.min.css">
     <script src="../assets/script/common.js"></script>
@@ -361,12 +362,12 @@
                         percentPosition: true
                     });
 
-                    $('.consult-toggle, .consult-search-close').on('click', function() {
-                        $('body').toggleClass('overflow-hidden').find('.consult-search').toggle();
+                    $('.mypage-consult-toggle, .search-close').on('click', function() {
+                        $('body').toggleClass('overflow-hidden').find('.mypage-consult-search').toggle();
                     });
 
                     $(window).on('resize', function() {
-                        if(resize) $('body').removeClass('overflow-hidden').find('.consult-search').removeAttr('style');
+                        if(resize) $('body').removeClass('overflow-hidden').find('.mypage-consult-search').removeAttr('style');
                     })
                 })
             </script>

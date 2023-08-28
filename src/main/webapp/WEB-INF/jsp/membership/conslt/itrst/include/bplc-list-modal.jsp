@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-<div class="mypage-members-item bplcList bplc${status.index}" data-unique-id="${resultList.uniqueId}">
+<div class="mypage-members-item is-modal bplcList bplc${status.index}" data-unique-id="${resultList.uniqueId}">
 <c:if test="${resultList.proflImg eq null }">
 	<img src="/html/page/market/assets/images/partners_default.png" alt="" class="item-thumb">
 </c:if>

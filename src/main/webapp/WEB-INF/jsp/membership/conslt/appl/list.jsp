@@ -244,12 +244,12 @@
             percentPosition: true
         });
 
-        $('.consult-toggle, .consult-search-close').on('click', function() {
-            $('body').toggleClass('overflow-hidden').find('.consult-search').toggle();
+        $('.mypage-consult-toggle, .search-close').on('click', function() {
+            $('body').toggleClass('overflow-hidden').find('.mypage-consult-search').toggle();
         });
 
         $(window).on('resize', function() {
-            if(resize) $('body').removeClass('overflow-hidden').find('.consult-search').removeAttr('style');
+            if(resize) $('body').removeClass('overflow-hidden').find('.mypage-consult-search').removeAttr('style');
         });
 
         $(".f_reconslt").on("click", function(e){

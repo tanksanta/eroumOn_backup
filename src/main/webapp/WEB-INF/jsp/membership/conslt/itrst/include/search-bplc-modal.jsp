@@ -11,20 +11,18 @@
 			</div>
 			<div class="modal-body">
                 <form class="mypage-members-search">
-	                <fieldset class="layer-search">
-						<select name="sido" id="sido" class="form-control">
-	                        <option value="">시/도 선택</option>
-					      	<c:forEach items="${stdgCdList}" var="stdg">
-                            	<option value="${stdg.stdgCd}">${stdg.ctpvNm }</option>
-                            </c:forEach>
-	                    </select>
-	                    <select name="gugun" id="gugun" class="form-control">
-	                        <option value="">시/군/구 선택</option>
-	                    </select>
-	                    <input type="text" id="srchText" name="srchText" class="form-control" placeholder="기본">
-	                    <input type="text" id="none" name="none" class="form-control" style="display:none;">
-						<button type="button" class="btn btn-primary" id="searchBplc">검색</button>
-	                </fieldset>
+					<select name="sido" id="sido" class="form-control">
+                        <option value="">시/도 선택</option>
+				      	<c:forEach items="${stdgCdList}" var="stdg">
+                           	<option value="${stdg.stdgCd}">${stdg.ctpvNm }</option>
+                           </c:forEach>
+                    </select>
+                    <select name="gugun" id="gugun" class="form-control">
+                        <option value="">시/군/구 선택</option>
+                    </select>
+                    <input type="text" id="srchText" name="srchText" class="form-control" placeholder="기본">
+                    <input type="text" id="none" name="none" class="form-control" style="display:none;">
+					<button type="button" class="btn btn-primary" id="searchBplc">검색</button>
                 </form>
 
 				<div class="pd">

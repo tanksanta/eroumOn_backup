@@ -19,6 +19,23 @@
                 </div>
             </div>
 
+            <div class="mt-4 p-4 bg-gray2 rounded-md md:mt-5">
+                <div class="h-44 scrollbars">
+                    1. 수집 항목</br>
+					이름, 이메일,휴대전화번호</br>
+					2. 목적</br>
+					문의/신고(반품,교환)접수 및 결과 회신</br>
+					3. 보유 및 이용 기간</br>
+					전자상거래법 시행령 제6조(소비자의 불만 및 분쟁처리 관한 기록)에 따라 3년 보관 후 파기합니다.</br>
+					※고객님께서는 개인정보 수집에 동의를 거부할 권리가 있으며, 동의 거부 시 1:1 문의하기 이용이 불가합니다
+                </div>
+            </div>
+
+			<div class="form-check mt-3 md:mt-4">
+			    <input class="form-check-input" type="checkbox" id="termsChk" name="termsChk" value="N">
+			    <label class="form-check-label" for="termsChk">개인정보 취급방침 약관에 동의합니다</label>
+			</div>
+            
             <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
 
             <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="inqryVO" enctype="multipart/form-data">
