@@ -42,9 +42,7 @@ function getTestResultAjax() {
 	.done(function(res) {
 		if (res.success) {
 			result = JSON.parse(res.mbrTestResult);
-		} else {
-			alert('테스트 결과 정보 저장 실패');
-		}
+		} 
 	})
 	.fail(function(data, status, err) {
 		alert('통신중 오류가 발생하였습니다.');
