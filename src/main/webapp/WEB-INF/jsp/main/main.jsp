@@ -10,7 +10,7 @@
                         <strong class="ani-text"><span class="ani-obj"></span>65세 이상이라면 바로 신청하세요</strong>
                     </p>
                     <p class="desc"><span class="ani-text">등급별 지원 혜택이 달라요!</span></p>
-                    <a href="/${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                    <a href="${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
                 </div>
             </div>
             <div class="swiper-slide slide-item2" data-slide-number="2">
@@ -24,7 +24,7 @@
                         <span class="ani-text"><span class="ani-obj"></span>노인성 질환을 앓고 있는 어르신</span>
                         <span class="ani-text"><span class="ani-obj"></span>치매 증상으로 불편한 어르신</span>
                     </p>
-                    <a href="/${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                    <a href="${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 </div>
             </div>
             <div class="swiper-slide slide-item3" data-slide-number="3">
@@ -34,7 +34,7 @@
                         <strong class="ani-text">놓치지 말고 누리세요</strong>
                     </p>
                     <p class="desc"><span class="ani-text">등급을 받으시면 다양한 요양 용품, 서비스가 제공돼요</span></p>
-                    <a href="/${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
+                    <a href="${_mainPath}/cntnts/test" target="_blank" class="btn btn-primary3 btn-arrow"><strong>지금 등급 확인하기</strong></a>
                 </div>
             </div>
         </div>
