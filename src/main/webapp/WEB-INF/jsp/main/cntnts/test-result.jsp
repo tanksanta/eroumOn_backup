@@ -146,7 +146,7 @@
                 <dd></dd>
             </dl>
             <dl class="result-answer">
-                <dt>식사하기가 가능하십니까?</dt>
+                <dt>체위 변경하기가 가능하십니까?</dt>
                 <dd></dd>
             </dl>
             <dl class="result-answer">
