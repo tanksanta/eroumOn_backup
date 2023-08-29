@@ -285,7 +285,7 @@
     
     <!-- 결과 전송하기 모달 start-->           
     <div id="sendModal" style="position:fixed; width:100%; height:100%; background:rgba(0,0,0,0.2); top:0; left:0; z-index: 1000; display:none;">    
-        <div class="welfare-service-desc" id="sendModal-contents" style="display: flex; justify-content:center; align-items: center; height: 260px; width:350px; background:#fff; border-radius:10px; position:relative; top:50%; left:50%; transform: translateX(-50%); text-align:center; box-sizing:border-box; cursor:pointer;">                                               
+        <div class="welfare-service-desc" id="sendModal-contents" style="display: flex; justify-content:center; align-items: center; height: 260px; width:350px; background:#fff; border-radius:10px; position:relative; top:50%; left:50%; transform: translate(-50%, -50%); text-align:center; box-sizing:border-box; cursor:pointer;">                                               
             
             <form class="provide-form" >                            
                 <fieldset class="form-fieldset" style="height:250px; background: #fff;" >
@@ -295,7 +295,7 @@
                     </div>
                     <dl>
                         <dt><label for="agree-item1">이메일</label></dt>
-                        <dd><input type="email" id="agree-item1" class="form-control w-full xs:max-w-50"></dd>
+                        <dd><input type="email" id="agree-item1" class="form-control w-full xs:max-w-50" placeholder="이메일 주소 입력"></dd>
                     </dl>                        
                     <div class="form-submit">  
                         <button type="button" id="sendEmailBtn" class="btn btn-large btn-primary3" style="width: 100%;">전송하기</button>
