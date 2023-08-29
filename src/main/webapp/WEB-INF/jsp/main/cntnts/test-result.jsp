@@ -283,6 +283,30 @@
 
     <a href="/main/conslt/form" class="grade-floating" target="_blank" title="새창열림">1:1 상담하기</a>
     
+    <!-- 결과 전송하기 모달 start-->           
+    <div id="sendModal" style="position:fixed; width:100%; height:100%; background:rgba(0,0,0,0.2); top:0; left:0; z-index: 1000; display:none;">    
+        <div class="welfare-service-desc" id="sendModal-contents" style="display: flex; justify-content:center; align-items: center; height: 260px; width:350px; background:#fff; border-radius:10px; position:relative; top:50%; left:50%; transform: translateX(-50%); text-align:center; box-sizing:border-box; cursor:pointer;">                                               
+            
+            <form class="provide-form" >                            
+                <fieldset class="form-fieldset" style="height:250px; background: #fff;" >
+                   
+                    <div style="margin: -50px 0 20PX 0; display: flex; justify-content: space-between;">
+                        <h1 class="text-xl font-bold">상세 결과 공유</h1>                                  
+                    </div>
+                    <dl>
+                        <dt><label for="agree-item1">이메일</label></dt>
+                        <dd><input type="email" id="agree-item1" class="form-control w-full xs:max-w-50"></dd>
+                    </dl>                        
+                    <div class="form-submit">  
+                        <button type="button" id="sendEmailBtn" class="btn btn-large btn-primary3" style="width: 100%;">전송하기</button>
+                    </div>
+                </fieldset>                            
+            </form>
+            <button type="button" id="sendModalClose" class="close">닫기</button>    
+        </div>                              
+    </div>
+    <!-- 결과 전송하기 모달 end-->
+    
     <script>
     	var testResult = {};
     
@@ -791,6 +815,45 @@
               		$('#disease-select-2').html(diseaseTemplete);
           		}
           	}
+          	
+          	//공유하기 버튼 클릭
+          	$('.result-share').click(function() {
+          		$('#sendModal').fadeIn();
+          	});
+          	
+          	//이메일 전송 버튼 클릭
+          	$('#sendEmailBtn').click(function() {
+          		var email = $('input[type=email]')[0].value;
+          		if (!email) {
+          			alert('이메일을 입력하세요.');
+          			return;
+          		}
+          		
+          		$.ajax({
+          			type: "post",
+          			url: "/test/send/email.json",
+          			data: {
+          				email,
+          			},
+          			dataType: 'json'
+          		})
+          		.done(function(res) {
+          			if (res.success) {
+          				alert('테스트 결과 이메일을 발송하였습니다.');				
+          				$('#sendModal').fadeOut();
+          			} else {
+          				alert('이메일 발송 실패');
+          			}
+          		})
+          		.fail(function(data, status, err) {
+          			alert('통신중 오류가 발생하였습니다.');
+          		});
+          	});
+          	
+          	//모달 닫기 버튼 클릭
+          	$('#sendModalClose').click(function() {
+          		$('#sendModal').fadeOut();
+          	});
         });
     </script>
 </div>
