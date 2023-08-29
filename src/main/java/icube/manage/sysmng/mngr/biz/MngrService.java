@@ -119,7 +119,7 @@ public class MngrService extends CommonAbstractServiceImpl {
 		List<MngMenuVO> mngMenuList = new ArrayList<MngMenuVO>();
 		List<MngMenuVO> mngMenuList1 = mngMenuListMap.get(key);
 
-		if (mngMenuListMap != null) {
+		if (mngMenuListMap != null && mngMenuList1 != null) {
 			for(MngMenuVO mngMenuVo : mngMenuList1) {
 				mngMenuList.add(mngMenuVo);
 				if(mngMenuListMap.containsKey(""+mngMenuVo.getMenuNo())) {

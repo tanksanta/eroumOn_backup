@@ -287,8 +287,11 @@ public class MMngrController  extends CommonAbstractController {
 
 			mngrAuthLogService.insertMngrAuthLog(mngrVO, "UM" + (updatedAuthrtTy ? ",UA" : "") + (changedPswd ? ",UP" : ""), StringUtils.stripToEmpty(logtext.toString()));
 			javaScript.setMessage(getMsg("action.complete.update"));
-			javaScript.setLocation("./form?uniqueId=" + mngrVO.getUniqueId() + ("".equals(pageParam) ? "" : "&" + pageParam));
-
+			String location = "./form?uniqueId=" + mngrVO.getUniqueId() + ("".equals(pageParam) ? "" : "&" + pageParam);
+			if ("N".equals(mngrVO.getUseYn())) {
+				location += "&srchUseYn=N";
+			}
+			javaScript.setLocation(location);
 			break;
 
 		case DELETE:

@@ -114,9 +114,6 @@
 			, mngr.dpcn_idnty_cd
 		FROM MNGR mngr
 		WHERE 1=1
-			<if test="srchUseYn == null or srchUseYn == ''">
-			AND mngr.use_yn = 'Y'
-			</if>
 			<if test="srchUseYn != null and srchUseYn != ''">
 			AND mngr.use_yn = #{srchUseYn}
 			</if>
