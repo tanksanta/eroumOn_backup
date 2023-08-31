@@ -323,7 +323,7 @@ strong {
     }
 
     .global-user {
-        @apply rounded-2xl overflow-hidden leading-tight bg-[#157AF0] text-white;
+        @apply rounded-2xl overflow-hidden leading-tight bg-[#575757] text-white;
         & .user-name {
             @apply flex items-end relative p-5;
             & strong {

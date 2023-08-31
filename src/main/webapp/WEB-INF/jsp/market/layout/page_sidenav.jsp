@@ -13,8 +13,8 @@
                     <input type="hidden" id="srchGdsTys" name="srchGdsTys" value="${param.srchGdsTys}">
 
                     <div class="flex-none flex pb-5 border-b border-gray2 space-x-2">
-                        <button type="button" class="btn btn-primary flex-1 f_srchBtn">적용</button>
-                        <button type="button" class="btn btn-refresh f_srchGdsFrmReset">새로고침</button>
+                        <button type="button" class="btn btn-primary flex-1 h-10 f_srchBtn">적용</button>
+                        <button type="button" class="btn btn-refresh h-10 f_srchGdsFrmReset">새로고침</button>
                     </div>
 
                     <div class="menu-scrollbar">

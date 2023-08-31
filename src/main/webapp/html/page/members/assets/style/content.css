@@ -933,26 +933,22 @@
     @apply mb-4 p-4 w-full border border-gray3 rounded-2xl bg-white leading-tight
            md:mb-5 md:w-[calc(50%-0.625rem)];
     & .item-current, & .item-partner, & .item-date {
-        @apply flex;
+        @apply flex mb-1;
         & dt {
-            @apply flex-none mr-3 p-2 pr-0 w-[7.25em] bg-neutral-100 text-xs text-gray6
-                    md:text-[0.8125rem];
+            @apply flex-none flex items-center mr-3 py-2.5 px-2 pr-0 w-[7.25em] rounded-md bg-neutral-100 text-xs text-gray6
+                   md:text-[0.8125rem];
         }
         & dd {
-            @apply flex-1 py-2 text-sm;
-        }
-    }
-    & .item-current {
-        & dt {
-            @apply pt-3 rounded-t-md;
-        }
-        & dd {
-            @apply pt-3;
+            @apply relative flex-1 py-2 text-sm
+                   after:absolute after:-bottom-px after:left-0 after:right-0 after:h-px after:bg-gray2;
         }
     }
     & .item-partner {
+        & dt {
+            @apply py-3;
+        }
         & dd {
-            @apply py-1 text-lg break-keep;
+            @apply py-2.5 text-lg break-keep;
         }
         & .history {
             & li {
@@ -970,11 +966,8 @@
         }
     }
     & .item-date {
-        & dt {
-            @apply pb-3 rounded-b-md;
-        }
         & dd {
-            @apply pb-3;
+            @apply border-b-0;
         }
     }
     & .item-request {

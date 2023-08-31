@@ -120,7 +120,7 @@
     & .nav-item {
         & > a {
             @apply h-21 text-lg font-medium
-                   before:bottom-0 before:h-1 before:bg-[#3074FF];
+                   before:bottom-0 before:h-1 before:bg-indexKey2;
         }
     }
     & .nav-sub-items {
@@ -160,10 +160,10 @@
                        lg:text-sm lg:leading-normal lg:px-3 lg:py-2.5 lg:rounded-md lg:bg-white
                        hover:shadow-[inset_10px_10px_100px_200px_rgba(0,0,0,0.1)];
                 &.join {
-                    @apply lg-max:bg-[#3074FF] lg-max:text-white;
+                    @apply lg-max:bg-indexKey2 lg-max:text-white;
                 }
                 &.cost {
-                    @apply pr-3.5 pl-10 bg-no-repeat bg-[#3074FF] bg-[url(/html/page/index/assets/images/ico-notice-menu1.svg)] bg-[length:auto_1.25rem] bg-[left_0.75rem_center] text-white;
+                    @apply pr-3.5 pl-10 bg-no-repeat bg-indexKey2 bg-[url(/html/page/index/assets/images/ico-notice-menu1.svg)] bg-[length:auto_1.25rem] bg-[left_0.75rem_center] text-white;
                 }
             }
         }

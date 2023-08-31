@@ -3,7 +3,7 @@
 검색
  --%>
                 <c:if test="${!isSrchPage}">
-                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-10" >
+                <div class="grid gap-x-5 grid-cols-2 gap-y-8 mt-5 mb-13 md:grid-cols-3 md:gap-y-12" >
                 	<c:if test="${empty listVO.listObject}">
 					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
                     </c:if>

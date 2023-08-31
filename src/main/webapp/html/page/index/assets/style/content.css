@@ -606,7 +606,7 @@
                lg:text-2xl;
         & .form-check-input {
             @apply !rounded-full
-                   checked:border-[#3074FF] checked:bg-[#3074FF];
+                   checked:border-indexKey2 checked:bg-indexKey2;
         }
     }
     & .form-fieldset {
@@ -650,17 +650,17 @@
            md:-my-4 md:scale-[0.8]
            lg:my-0 lg:scale-100;
     & .wrapper {
-        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-[#3074FF] -translate-y-1/2 -translate-x-1/2;
+        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-indexKey2 -translate-y-1/2 -translate-x-1/2;
         & svg {
             @apply absolute top-1/2 left-1/2 -translate-y-1/2 translate-x-1/2 scale-100 opacity-0;
         }
     }
     & .object1 {
-        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
         transform: rotate(45deg) translate(-50%,-50%);
     }
     & .object2 {
-        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
         transform: rotate(-45deg);
     }
     & .object3 {
@@ -742,7 +742,7 @@
         @apply block py-2 px-1 text-center rounded border border-gray2 bg-gray2
                md:p-3 md:rounded-md;
         &.active {
-            @apply bg-[#3074FF] text-white;
+            @apply bg-indexKey2 text-white;
         }
     }
     & .content {
@@ -758,7 +758,7 @@
                    lg:text-4xl;
         }
         & small {
-            @apply block mb-3 text-sm text-[#3074FF]
+            @apply block mb-3 text-sm text-indexKey2
                    md:text-base
                    lg:text-lg;
         }
@@ -768,7 +768,7 @@
                    lg:mt-4 lg:text-[1.375rem];
         }
         & ul {
-            @apply mt-2 mb-3.5 p-3 rounded-md bg-[#3074FF]/10 text-sm font-bold leading-snug
+            @apply mt-2 mb-3.5 p-3 rounded-md bg-indexKey2/10 text-sm font-bold leading-snug
                    md:mt-4.5 md:mb-5 md:py-3.5 md:px-4 md:rounded-lg md:text-base
                    lg:my-7 lg:max-w-[500px] lg:py-4 lg:px-5 lg:text-lg;
             & li {
@@ -1088,7 +1088,7 @@
             @apply block p-2.5 rounded-md text-sm text-center font-bold
                    md:text-base;
             &.is-active {
-                @apply bg-[#FF8300] text-white;
+                @apply bg-indexKey1 text-white;
             }
         }
     }
@@ -1123,7 +1123,7 @@
                    xl:min-h-[3.75em];
         }
         & .check {
-            @apply block mt-4 mb-9.5 px-3 py-2.5 border border-[#3074FF] rounded-md text-center font-bold text-sm text-[#3074FF]
+            @apply block mt-4 mb-9.5 px-3 py-2.5 border border-indexKey2 rounded-md text-center font-bold text-sm text-indexKey2
                    md:mb-25
                    xl:mb-31;
         }
@@ -1369,7 +1369,7 @@
             @apply flex items-center justify-center px-[0.25em] h-10 rounded bg-gray2 text-center text-[0.8125rem] leading-tight font-medium
                    md:h-15 md:rounded-md md:text-base;
             &.active {
-                @apply bg-[#FF8300] text-white;
+                @apply bg-indexKey1 text-white;
             }
         }
     }

@@ -15,7 +15,7 @@
     &.is-product {
         & #page-sidenav {
             @apply bg-black/70
-                   lg:sticky lg:top-10 lg:bottom-auto lg:max-h-[calc(100vh_-_120px)] lg:rounded-[1.125rem] lg:bg-white lg:shadow-[#c8c8c833_3px_10px_5px,_#c8c8c833_5px_20px_10px,_#c8c8c833_8px_32px_16px,_#c8c8c833_24px_64px_32px,_#c8c8c833_48px_100px_32px];
+                   lg:sticky lg:top-10 lg:bottom-auto lg:mr-9 lg:max-h-[calc(100vh_-_120px)] lg:rounded-[1.125rem] lg:bg-white;
         }
         & #page-sidenav-toggle {
             @apply absolute bottom-3 right-4 mt-0 w-7.5 h-7.5 rounded-md bg-white bg-[length:0.75rem] bg-[url(../images/ico-product-search-toggle.svg)]
@@ -122,7 +122,7 @@
     & .subject {
         @apply font-bold truncate px-9.5 text-center leading-tight text-2xl
                md:px-12 md:text-[1.875rem] 
-               lg:flex-1 lg:px-0 lg:text-left lg:text-5xl;
+               lg:flex-1 lg:px-0 lg:text-5xl;
         & small {
             @apply font-serif text-lg tracking-tight align-middle lg:text-xl;
         }
