@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title></title>
+    <title>component</title>
 
     <!-- plugin -->
     <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
@@ -95,6 +95,16 @@
             <p class="font-bold">사용하는 것들 중 변경사항이 큰 항목만 추가함</p>
             <p class="mt-5 underline text-red-500">nodejs 연결하고 컴파일 할 것</p>
             <p class="underline text-red-500">tailwind.config.js 확인</p>
+
+            <br><br>
+
+            <h2 class="text-2xl text-black mb-3 mt-5">style.css 구성</h2>
+
+            core/style/*.css : 코어 스타일, 컴포넌트 기본형(utility.css는 사이트 글로벌요소 정의 ex:로고)<br>
+            market/style/compoentent/*.css : 사용자 페이지 공용 컴포넌트
+            <br><br>
+            필요한 구성요소 style.css 파일에 임포트해서 컴파일<br>
+            각 개별 사이트 구성요소는 사이트 style 폴더에 작성해서 임포트후 컴파일
         </div>
 
         <hr class="border-gray-300 mt-8 mb-6">
@@ -109,8 +119,7 @@
                 <h1 class="global-logo is-white"><a href="#"><em>스타일1</em></a></h1>
                 <h1 class="global-logo is-white is-style2"><a href="#"><em>스타일2</em></a></h1>
             </div>
-            
-            
+
             <h2 class="text-2xl text-black mb-3 mt-5">사이트 퀵링크</h2>
             <ul class="global-link">
                 <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
@@ -160,6 +169,40 @@
             <a href="#" class="btn btn-kakao">카카오 로그인</a>
             <a href="#" class="btn btn-naver">네이버 로그인</a>
             <a href="#" class="btn btn-eroum">이로움 로그인</a>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">개인화정보</h2>
+            <div class="global-user">
+                <div class="user-name">
+                    <strong>사용자 <small>님</small></strong>
+                    <span>수급자 회원</span>
+                </div>
+                <div class="user-info">
+                    <div class="grade">
+                        <strong>신규회원</strong>
+                        <a href="#">등급별혜택</a>
+                    </div>
+                    <div class="point">
+                        <dl>
+                            <dt>쿠폰</dt>
+                            <dd><a href="#"><strong>5</strong> 장</a></dd>
+                        </dl>
+                        <dl>
+                            <dt>포인트</dt>
+                            <dd><a href="#"><strong>512</strong> <img src="/html/core/images/txt-point-white.svg" alt="포인트"></a></dd>
+                        </dl>
+                        <dl>
+                            <dt>마일리지</dt>
+                            <dd><a href="#"><strong>5123</strong> <img src="/html/core/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">퀵버튼</h2>
+            <div class="global-quick is-active" style="position:static !important;">
+                <button type="button" class="moveTop">위로 이동</button>
+                <button type="button" class="channelTalk">채널톡</button>
+            </div>
         </div>
 
         <hr class="border-gray-300 mt-8 mb-6">
@@ -366,6 +409,14 @@
             </div>
 
             <br>
+            
+            <div class="box-gradient">
+                <div class="content">
+                    그라디언트 박스
+                </div>
+            </div>
+
+            <br>
 
             <div class="box-result">결과상자 기본</div>
             
@@ -376,7 +427,7 @@
 
         <hr class="border-gray-300 mt-8 mb-6">
 
-        <div id="section6">
+        <div id="section7">
             <h1 class="text-3xl text-black mb-7">리스트</h1>
 
             <ul class="list-normal">
@@ -628,12 +679,33 @@
             <button class="btn btn-primary btn-small">작은 버튼</button>
             <button class="btn btn-primary btn-large">큰 버튼</button>
 
+            <br>
+
+            <button class="btn btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br>
+
+            <button class="btn btn-primary btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-primary btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-primary btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-primary btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
             <br><br>
             
             <button class="btn btn-secondary">버튼 기본</button>
             <button class="btn btn-outline-secondary">버튼 아웃라인</button>
             <button class="btn btn-secondary btn-small">작은 버튼</button>
             <button class="btn btn-secondary btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-secondary btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-secondary btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-secondary btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-secondary btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
 
             <br><br>
             
@@ -642,12 +714,26 @@
             <button class="btn btn-success btn-small">작은 버튼</button>
             <button class="btn btn-success btn-large">큰 버튼</button>
 
+            <br>
+
+            <button class="btn btn-success btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-success btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-success btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-success btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
             <br><br>
             
             <button class="btn btn-danger">버튼 기본</button>
             <button class="btn btn-outline-danger">버튼 아웃라인</button>
             <button class="btn btn-danger btn-small">작은 버튼</button>
             <button class="btn btn-danger btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-danger btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-danger btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-danger btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-danger btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
 
             <br><br>
             
@@ -658,6 +744,10 @@
             <button class="btn btn-compare">장바구니 담기</button>
             <button class="btn btn-refresh">새로고침</button>
             <button class="btn btn-toggle">토글버튼</button>
+            <button class="btn btn-outline-primary">
+                <img src="/html/page/market/assets/images/ico-refresh.svg" alt="" class="w-4.5 mr-2 -ml-2.5">
+                할인혜택 초기화
+            </button>
 
             <br><br>
 
@@ -805,7 +895,6 @@
         </div>
         
         <hr class="border-gray-300 mt-8 mb-6">
-        
 
         <div id="section14">
             <h1 class="text-3xl text-black mb-7">모달</h1>
@@ -814,6 +903,13 @@
             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam2">lg 모달</a>
             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam3">xl 모달</a>
             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam4">2xl 모달</a>
+            
+            <br><br>
+
+            <a href="#offcanvasExam1" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam1" >오프캔버스 상 예시</a>
+            <a href="#offcanvasExam2" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam2" >오프캔버스 하 예시</a>
+            <a href="#offcanvasExam3" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam3" >오프캔버스 좌 예시</a>
+            <a href="#offcanvasExam4" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam4" >오프캔버스 우 예시</a>
 
             <div class="modal fade" id="modalExam1" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -953,6 +1049,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasExam1">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasExam2">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExam3">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExam4">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
             </div>
         </div>
     </main>

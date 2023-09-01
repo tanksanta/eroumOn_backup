@@ -1,0 +1,26 @@
+.box-gradient, .box-gray {
+    @apply flex flex-wrap w-fit relative max-w-full p-1 min-h-15 rounded-md bg-gray2 align-middle leading-tight font-medium text-center
+           md:min-h-[4.375rem];
+}
+
+.box-gradient {
+    @apply before:absolute before:top-1 before:left-1 before:right-1 before:bottom-1 before:rounded-md before:blur-xs before:bg-[linear-gradient(122deg,_#F7C825_0%,_#24DADE_25%,_#746FE5_50%,_#C418BC_76%,_#FE0146_100%)];
+    & .content {
+        @apply flex flex-wrap items-center gap-x-1 relative z-5 px-3.5 py-3 w-full border rounded-md border-black/40 bg-white
+               md:gap-x-3 md:px-5;
+    }
+}
+
+.box-gray {
+    @apply items-center gap-x-2 px-3.5 py-4 border border-gray2
+           md:gap-x-3 md:px-5;
+}
+
+.box-result {
+    @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
+           md:py-13 md:rounded-2xl md:text-base;
+    &.is-large {
+        @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(../images/txt-eroum-white.svg)] bg-[length:auto_1rem]
+               md:py-29 md:bg-[length:auto_auto];
+    }
+}

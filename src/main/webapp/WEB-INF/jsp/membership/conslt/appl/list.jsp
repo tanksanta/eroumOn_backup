@@ -70,7 +70,7 @@
                             </select>
                         </dd>
                     </dl>
-                    <button type="submit" class="search-submit">검색</button>
+                    <button type="submit" class="btn-primary btn-animate flex mt-7 mx-auto w-full md:mt-2 md:w-43"><strong>검색</strong></button>
                 </fieldset>
             </form>
 

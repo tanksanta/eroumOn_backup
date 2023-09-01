@@ -914,10 +914,6 @@
             }
         }
     }
-    & .search-submit {
-        @apply btn-primary flex mt-7 mx-auto w-full
-               md:mt-2 md:w-43;
-    }
     & .search-close {
         @apply absolute top-2 right-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625rem] -indent-96
                md:hidden;
