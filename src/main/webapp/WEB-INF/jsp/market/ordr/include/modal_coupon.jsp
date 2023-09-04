@@ -171,7 +171,7 @@ $(function(){
 
 
    //쿠폰사용
-    $('.order-trigger').on('click', function() {
+    $('.order-trigger').on('click', function(event) {
     	gdsCd = $(this).data("gdsCd");
     	gdsPc = $(this).data("gdsPc");
        	gdsNo = $(this).data("gdsNo");
@@ -186,8 +186,8 @@ $(function(){
                 $('.order-coupon-layer').removeClass('is-active');
             } else {
                 $('.order-coupon-layer').addClass('is-active');
-                //이벤트 전파 문제로 false 리턴
-                return false;
+                //이벤트 전파문제로 인해 추가
+                event.stopImmediatePropagation();
             }
        	}
 
