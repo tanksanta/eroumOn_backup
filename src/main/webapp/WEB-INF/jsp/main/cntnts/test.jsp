@@ -82,7 +82,7 @@
                     </svg>
                 </div>
             </div>
-            <a href="/find/step2-1" target="_blank" title="새창열림" class="btn btn-large2 btn-primary2 btn-arrow">
+            <a href="/test/physical" target="_blank" title="새창열림" class="btn btn-large2 btn-primary2 btn-arrow">
                 <strong>테스트 시작하기</strong>
             </a>
         </div>
@@ -425,5 +425,5 @@
         }, 6000);
     </script>
 
-    <a href="/test/index" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
+    <a href="/test/physical" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
 </div>

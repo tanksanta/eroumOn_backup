@@ -398,7 +398,7 @@
 	    ];
 	
 		$(function() {
-			loadTestResult();
+			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
 			function loadTestResult() {
@@ -432,7 +432,7 @@
 			
 			//뒤로가기 이벤트
 			$('#back-btn').click(function() {
-				location.href = '/test/index';
+				location.href = '/main/cntnts/test';
 			});
 			
 			//다음 단계 이벤트

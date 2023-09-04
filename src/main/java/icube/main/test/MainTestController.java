@@ -66,8 +66,9 @@ public class MainTestController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		if(!mbrSession.isLoginCheck()) {
-			session.setAttribute("returnUrl", "/test/index");
-			return "redirect:" + "/"+mainPath+"/login?returnUrl=/test/index";
+			String returnUrl = "/test/physical";
+			session.setAttribute("returnUrl", returnUrl);
+			return "redirect:" + "/"+ mainPath + "/login?returnUrl=" + returnUrl;
 		}
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

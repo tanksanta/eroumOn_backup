@@ -278,7 +278,7 @@
     </div>
 
     <div class="result-content5">
-        다른 결과를 확인하고 싶으시다면? <a href="/test/index">테스트 다시하기</a>
+        다른 결과를 확인하고 싶으시다면? <a href="/test/physical">테스트 다시하기</a>
     </div>
 
     <a href="/main/conslt/form" class="grade-floating" target="_blank" title="새창열림">1:1 상담하기</a>

@@ -349,7 +349,7 @@
 		];
 	
 		$(function() {
-			loadTestResult();
+			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
 			function loadTestResult() {
