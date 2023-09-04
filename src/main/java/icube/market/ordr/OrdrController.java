@@ -474,6 +474,12 @@ public class OrdrController extends CommonAbstractController{
 		}
 		model.addAttribute("bassDlvyVO", bassDlvyVO);
 
+		//쿠폰, 마일리지, 포인트 정보
+		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
+		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
+		model.addAttribute("remindPoint", mbrEtcInfoMap.get("totalPoint"));
+		model.addAttribute("remindMlg", mbrEtcInfoMap.get("totalMlg"));
+		
 		return "/market/ordr/ordr_pay";
 	}
 

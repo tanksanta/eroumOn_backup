@@ -311,6 +311,8 @@
                                     <span>원</span>
                                     <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_coupon" >쿠폰사용</button>
                                 </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 포인트 : ${remindCouponCount} 장</span>
                             </td>
                         </tr>
                         <tr>
@@ -321,6 +323,8 @@
                                     <span>원</span>
                                     <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_point">포인트사용</button>
                                 </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 포인트 : ${remindPoint} 원</span>
                             </td>
                         </tr>
                         <tr>
@@ -331,6 +335,8 @@
                                     <span>원</span>
                                     <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_mlg">마일리지사용</button>
                                 </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 마일리지 : ${remindMlg} 원</span>
                             </td>
                         </tr>
                         <tr class="bot-border">
