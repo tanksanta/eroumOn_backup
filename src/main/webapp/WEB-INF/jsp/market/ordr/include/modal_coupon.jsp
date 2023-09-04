@@ -186,6 +186,8 @@ $(function(){
                 $('.order-coupon-layer').removeClass('is-active');
             } else {
                 $('.order-coupon-layer').addClass('is-active');
+                //이벤트 전파 문제로 false 리턴
+                return false;
             }
        	}
 
