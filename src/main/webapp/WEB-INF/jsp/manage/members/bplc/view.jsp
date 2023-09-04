@@ -80,7 +80,7 @@
 					<td><form:input path="brno" class="form-control w-90" maxlength="12" value="${bplcVO.brno}" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="rcperInstNo" class="require">장기요양 기관번호</label></th>
+					<th scope="row"><label for="rcperInstNo">장기요양 기관번호</label></th>
 					<td><form:input path="rcperInstNo" class="form-control w-90" maxlength="13" value="${bplcVO.rcperInstNo}" /></td>
 				</tr>
 				<tr>
@@ -88,11 +88,11 @@
 					<td><form:input path="rprsvNm" class="form-control w-90" maxlength="50" value="${bplcVO.rprsvNm}" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="bizcnd" class="require">업태</label></th>
+					<th scope="row"><label for="bizcnd">업태</label></th>
 					<td><form:input path="bizcnd" class="form-control w-90" maxlength="50" value="${bplcVO.bizcnd}" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="iem" class="require">종목</label></th>
+					<th scope="row"><label for="iem">종목</label></th>
 					<td><form:input path="iem" class="form-control w-90" maxlength="50" value="${bplcVO.iem}" /></td>
 				</tr>
 				<tr>
@@ -109,7 +109,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="dlvyZip" class="require">배송지 주소</th>
+					<th scope="row"><label for="dlvyZip">배송지 주소</th>
 					<td>
 						<div class="form-group">
 							<form:input path="dlvyZip" class="form-control w-50 numbercheck" value="${bplcVO.dlvyZip}" maxlength="5" />
@@ -124,11 +124,11 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row">세금계산서 수신메일<span class="require"></span></th>
+					<th scope="row">세금계산서 수신메일<span></span></th>
 					<td><form:input class="form-control w-90" path="taxbilEml" value="${bplcVO.taxbilEml}" maxlength="50" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="bsnmCeregrt" class="require">사업자 등록증</th>
+					<th scope="row"><label for="bsnmCeregrt">사업자 등록증</th>
 					<td><c:if test="${!empty bplcVO.bsnmCeregrt}">
 							<div class="form-group" style="display: flex;">
 								<a href="/comm/CEREGRT/getFile?fileName=${bplcVO.bsnmCeregrt}">${bplcVO.bsnmCeregrt}</a>&nbsp;&nbsp;
@@ -180,15 +180,15 @@
 			</colgroup>
 			<tbody>
 				<tr>
-					<th scope="row"><label for="picNm" class="require">담당자 명</label></th>
+					<th scope="row"><label for="picNm">담당자 명</label></th>
 					<td><form:input class="form-control w-90" path="picNm" value="${bplcVO.picNm}" maxlength="50" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="picTelno" class="require">담당자 연락처</label></th>
+					<th scope="row"><label for="picTelno">담당자 연락처</label></th>
 					<td><form:input class="form-control w-90" path="picTelno" value="${bplcVO.picTelno}" maxlength="13" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="picEml" class="require">담당자 이메일</label></th>
+					<th scope="row"><label for="picEml">담당자 이메일</label></th>
 					<td><form:input class="form-control w-90" path="picEml" value="${bplcVO.picEml}" maxlength="100"/></td>
 				</tr>
 			</tbody>
@@ -259,7 +259,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th scope="row">추천 멤버스<span class="require"></span></th>
+					<th scope="row">추천 멤버스<span></span></th>
 					<td>
 						<div class="form-check-group">
 							<c:forEach items="${dspyYnCode}" var="rcmdtnYn" varStatus="status">
@@ -412,23 +412,23 @@ $(function(){
 	    	telno : {required : true, regex : telchk},
 	    	fxno : {regex : telchk},
 	    	brno : {required : true, regex : brnoChk},
-	    	rcperInstNo : {required : true, regex : rcperChk},
+	    	rcperInstNo : {required : false, regex : rcperChk},
 	    	rprsvNm : {required : true},
-	    	bizcnd : {required : true},
-	    	iem : {required : true},
-	    	zip : {required : true, min : 5},
-	    	addr : {required : true},
-	    	daddr : {required : true},
-	    	dlvyZip : {required : true, min : 5},
-	    	dlvyAddr : {required : true},
-	    	dlvyDaddr : {required : true},
-	    	taxbilEml : {required : true, regex : emailchk},
-	    	picNm : {required : true},
-	    	picTelno : {required : true, regex : telchk},
-	    	picEml : {required : true, regex : emailchk},
+	    	bizcnd : {required : false},
+	    	iem : {required : false},
+	    	zip : {required : false, min : 5},
+	    	addr : {required : false},
+	    	daddr : {required : false},
+	    	dlvyZip : {required : false, min : 5},
+	    	dlvyAddr : {required : false},
+	    	dlvyDaddr : {required : false},
+	    	taxbilEml : {required : false, regex : emailchk},
+	    	picNm : {required : false},
+	    	picTelno : {required : false, regex : telchk},
+	    	picEml : {required : false, regex : emailchk},
 	    	clclnActno : {regex : acctChk},
 	    	useYn : {required : true},
-	    	rcmdtnYn : {required : true},
+	    	rcmdtnYn : {required : false},
 	    },
 	    messages : {
 	    	bplcNm : {required : "기업명은 필수 입력 항목입니다."},
