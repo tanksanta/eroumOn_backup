@@ -551,7 +551,7 @@ fieldset {
 }
 
 #header {
-  @apply flex-none relative mx-auto mb-2 p-1 w-full max-w-screen-xs text-white;
+  @apply flex-none relative mx-auto mb-2 p-1 w-full md:max-w-screen-xs text-white;
   &::before,
   &::after {
     @apply content-empty z-5 absolute top-0 left-0 w-full h-full rounded-[1rem];
@@ -573,7 +573,7 @@ fieldset {
 }
 
 #container {
-  @apply scrollbars flex-1 relative mx-auto py-9.5 px-8 w-full max-w-screen-xs rounded-[1rem] bg-white xs:py-12 xs:px-10;
+  @apply scrollbars flex-1 relative mx-auto py-9.5 px-8 w-full md:max-w-screen-xs rounded-[1rem] bg-white xs:py-12 xs:px-10;
 }
 
 .header-title {
