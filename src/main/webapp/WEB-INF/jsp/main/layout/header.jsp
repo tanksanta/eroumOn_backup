@@ -93,7 +93,7 @@
             <dd>
                 <ul>
                     <li><a href="${_mainPath}/recipter/list">요양정보 간편조회</a></li>
-                    <li><a href="/test/index" target="_blank">인정 등급 예상 테스트</a></li>
+                    <li><a href="${_mainPath}/cntnts/test">인정 등급 예상 테스트</a></li>
                     <li><a href="${_mainPath}/searchBokji">복지정보 서비스</a></li>
                 </ul>
             </dd>
