@@ -271,6 +271,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		paramMap.put("srchStlmYn", "N");
 		paramMap.put("srchDate", "NOW");
 		paramMap.put("srchContainer", 1);
+		paramMap.put("srchExSttsTy", "CA02");
 
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrSttsList(paramMap);
 
