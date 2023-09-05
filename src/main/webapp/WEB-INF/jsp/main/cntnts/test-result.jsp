@@ -115,9 +115,11 @@
             <small>테스트 문항과 내가 선택한 답변을 확인하세요.</small>
         </h2>
 
+		<!-- 
         <div class="text-right mt-4 mb-5 md:mt-35 md:-mb-35">
             <button type="button" class="result-share">공유하기</button>
         </div>
+         -->
 
         <h3 class="result-question">
             <img src="/html/page/index/assets/images/img-grade-result2.svg" alt="" class="w-6 md:w-12">
@@ -273,45 +275,75 @@
         </div>
     </div>
 
+	<!--
     <div class="text-right mt-6">
         <button type="button" class="result-share">공유하기</button>
     </div>
+    -->
 
     <div class="result-content5">
         다른 결과를 확인하고 싶으시다면? <a href="/test/physical">테스트 다시하기</a>
     </div>
 
-    <a href="/main/conslt/form" class="grade-floating" target="_blank" title="새창열림">1:1 상담하기</a>
+    <a id="go-consult" href="#none" class="grade-floating">1:1 상담하기</a>
     
-    <!-- 결과 전송하기 모달 start-->           
-    <div id="sendModal" style="position:fixed; width:100%; height:100%; background:rgba(0,0,0,0.2); top:0; left:0; z-index: 1000; display:none;">    
-        <div class="welfare-service-desc" id="sendModal-contents" style="display: flex; justify-content:center; align-items: center; height: 260px; width:350px; background:#fff; border-radius:10px; position:relative; top:50%; left:50%; transform: translate(-50%, -50%); text-align:center; box-sizing:border-box; cursor:pointer;">                                               
-            
-            <form class="provide-form" >                            
-                <fieldset class="form-fieldset" style="height:250px; background: #fff;" >
-                   
-                    <div style="margin: -50px 0 20PX 0; display: flex; justify-content: space-between;">
-                        <h1 class="text-xl font-bold">상세 결과 공유</h1>                                  
-                    </div>
-                    <dl>
-                        <dt><label for="agree-item1">이메일</label></dt>
-                        <dd><input type="email" id="agree-item1" class="form-control w-full xs:max-w-50" placeholder="이메일 주소 입력"></dd>
-                    </dl>                        
-                    <div class="form-submit">  
-                        <button type="button" id="sendEmailBtn" class="btn btn-large btn-primary3" style="width: 100%;">전송하기</button>
-                    </div>
-                </fieldset>                            
-            </form>
-            <button type="button" id="sendModalClose" class="close">닫기</button>    
-        </div>                              
+    
+    <!-- 공유하기 모달 start-->
+    <button href="#modal-example1" data-bs-toggle="modal" data-bs-target="#modal-example1" type="button" class="result-share" style="display: none;">공유하기</button>
+    <div class="modal fade" id="modal-example1" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content-email">
+                <div class="modal-header">
+                    <p>테스트 결과 메일로 보내기</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-bod" style="padding: 30px 0;">
+                    <form class="provide-form" >                            
+                        <fieldset class="form-fieldset" style="background-color: transparent;">   
+                            <div class="md:flex gap-1 items-center">                                        
+                                <label for="form-item5" style="display: none;">이메일</label>
+                                <div>
+                                    <div class="md:flex gap-1 items-center">
+                                        <input id="email-front" type="text" placeholder="이메일주소" class="form-control w-full xs:max-w-40">
+                                        <i>@</i>
+                                        <input id="email-back" type="text" placeholder="직접입력"  class="form-control w-full xs:max-w-40">
+                                        <select id="select-email" name="select-email" class="form-control w-full xs:max-w-40">
+                                            <option value="">선택해 주세요</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="hanmail.net">hanmail.net</option>
+                                            <option value="daum.net">daum.net</option>
+                                            <option value="gmail.com">gmail.com</option>
+                                            <option value="kakao.com">kakao.com</option>
+                                            <option value="nate.com">nate.com</option>
+                                            <option value="hotmail.com">hotmail.com</option>                                                   
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                                   
+                        </fieldset>                            
+                     </form>            
+                </div>
+                <div class="modal-footer">
+                    <a id='sendEmailBtn'  href="#" class="btn large btn-primary w-36">전송하기</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- 결과 전송하기 모달 end-->
+    <!-- 공유하기 모달 end-->
+    
     
     <script>
     	var testResult = {};
     
         $(function() {
         	loadTestResult();
+        	
+        	//css link
+        	var link = document.createElement('link');
+    		link.href = '/html/core/style/style.min.css';
+    		link.rel = 'stylesheet';
+    		document.getElementsByTagName('head')[0].appendChild(link);
+    		
         	
             var swiper = new Swiper(".swiper", {
                 loop: true,
@@ -406,7 +438,7 @@
             			templete += `
                             <p class="cost"><strong>월 188만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                            <ul class="alert">
+                            <ul class="alert" style="background-color: transparent; display: block;">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 <li>1~2등급 어르신은 재가급여 대신 시설급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                             </ul>
@@ -418,7 +450,7 @@
             			templete += `
                             <p class="cost"><strong>월 169만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                            <ul class="alert">
+                            <ul class="alert" style="background-color: transparent; display: block;">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 <li>1~2등급 어르신은 재가급여 대신 시설급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                             </ul>
@@ -430,7 +462,7 @@
             			templete += `
                             <p class="cost"><strong>월 141만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                            <ul class="alert">
+                            <ul class="alert" style="background-color: transparent; display: block;">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                             </ul>
@@ -442,7 +474,7 @@
             			templete += `
                             <p class="cost"><strong>월 130만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                            <ul class="alert">
+                            <ul class="alert" style="background-color: transparent; display: block;">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                             </ul>
@@ -454,7 +486,7 @@
             			templete += `
                             <p class="cost"><strong>월 112만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                            <ul class="alert">
+                            <ul class="alert" style="background-color: transparent; display: block;">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                             </ul>
@@ -469,7 +501,7 @@
             				templete += `
                                 <p class="cost"><strong>월 62만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                                 <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
-                                <ul class="alert">
+                                <ul class="alert" style="background-color: transparent; display: block;">
                                     <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
                                 </ul>
                             `
@@ -477,7 +509,7 @@
             			} else {
             				templete += `
                                 <p class="cost">장기요양보험 <strong>혜택 불가</strong></p>
-                                <ul class="alert">
+                                <ul class="alert" style="background-color: transparent; display: block;">
                                     <li>등급판정은 "건강이 매우 안좋다", "큰 병에 걸렸다." 등과 같은 주관적인 개념이 아닌 
                                     "심신의 기능에 따라 일상생활에서 도움이 얼마나 필요한가?"를 기준으로 판단해요.</li>
                                 </ul>
@@ -490,6 +522,19 @@
             	//등급, 점수값 넣기
             	templete = templete.replace('((grade))', grade);
             	templete = templete.replace('((score))', score);
+            	
+            	//예상 테스트 결과 보내기 체크박스 추가하기
+            	templete += `
+            		<form class="provide-form mt-7">
+	                    <div class="form-agree">                                    
+	                        <div>
+	                          <input class="rounded-md border-2" style="width: 1.2rem; height: 1.2rem;" type="checkbox" name="chk-email" id="chk-email">
+	                          <label class="form-check-label text-lg" for="chk-email">나에게 예상 테스트 결과 보내기</label>
+	                        </div>
+	                    </div>
+	                    <div style="padding: 0 0 0 24px;">예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.<br> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</div> 
+	                </form>
+            	`;
             	
             	$('.result .container').html(templete);
             }
@@ -815,15 +860,19 @@
           		}
           	}
           	
-          	//공유하기 버튼 클릭
-          	$('.result-share').click(function() {
-          		$('#sendModal').fadeIn();
+          	//이메일 SELECT Event
+          	$('#select-email').change(function() {
+          		var emailBack = $('#select-email')[0].value;
+          		$('#email-back')[0].value = emailBack;
           	});
           	
           	//이메일 전송 버튼 클릭
           	$('#sendEmailBtn').click(function() {
-          		var email = $('input[type=email]')[0].value;
-          		if (!email) {
+          		var emailFront = $('#email-front')[0].value;
+          		var emailBack = $('#email-back')[0].value;
+          		var email = emailFront + '@' + emailBack;
+          		
+          		if (!email || !emailFront || !emailBack || email.length < 3) {
           			alert('이메일을 입력하세요.');
           			return;
           		}
@@ -838,10 +887,10 @@
           		})
           		.done(function(res) {
           			if (res.success) {
-          				alert('테스트 결과 이메일을 발송하였습니다.');				
-          				$('#sendModal').fadeOut();
+          				alert('전송이 완료되었어요.');				
+          				location.href = '/main/conslt/form';
           			} else {
-          				alert('이메일 발송 실패');
+          				alert('다시 시도해주세요.');
           			}
           		})
           		.fail(function(data, status, err) {
@@ -852,6 +901,27 @@
           	//모달 닫기 버튼 클릭
           	$('#sendModalClose').click(function() {
           		$('#sendModal').fadeOut();
+          	});
+          	
+          	//1:1 상담하기 버튼 클릭
+          	$('#go-consult').click(function() {
+          		const isCheckedEmail = $('#chk-email')[0].checked;
+          		
+          		//이메일 전송 폼 띄우기
+          		if (isCheckedEmail) {
+          			var email = '${mbrEml}';
+          			if (email) {
+          				const splitStr = email.split('@');
+          				if (splitStr.length === 2) {
+          					$('#email-front')[0].value = splitStr[0];
+              				$('#email-back')[0].value = splitStr[1];
+          				}
+          			}
+          			
+          			$('.result-share').click();
+          		} else {
+          			location.href = '/main/conslt/form';
+          		}
           	});
         });
     </script>

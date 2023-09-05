@@ -14,6 +14,7 @@
     <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
 
     <link rel="stylesheet" href="../assets/style/style.min.css">
+    <link rel="stylesheet" href="../../../core/style/style.min.css">
     <script src="../assets/script/index.js"></script>
 </head>
 <body class="pb-19">
@@ -148,11 +149,20 @@
                         <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
                         <p class="cost"><strong>연 160만원</strong> 내에서 거동, 생활 보조 용품(복지용구)을 신청할 수 있어요.</p>
                         <p class="cost"><strong>월 188만원</strong> 내에서 방문 요양보호사 또는 주야간센터를 이용할 수 있어요.</p>
-                        <ul class="alert">
+                        <ul class="alert" style="background-color: transparent; display: block;">
                             <li><strong>6~15%의 본인부담금이 발생해요.</strong></li>
                             <li>1~2등급 어르신은 요양보호사 방문 대신 시설 입소를 선택할 수 있어요.</li>
                             <li>시설에 모시는 어르신은 복지용구를 신청할 수 없어요.</li>
                         </ul>
+                        <form class="provide-form mt-7">
+                            <div class="form-agree">                                    
+                                <div>
+                                  <input class="rounded-md border-2" style="width: 1.2rem; height: 1.2rem;" type="checkbox" name="" id="" value="Y">
+                                  <label class="form-check-label text-lg" for="">나에게 예상 테스트 결과 보내기</label>
+                                </div>
+                            </div>
+                            <div style="padding: 0 0 0 24px;">예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.<br> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</div> 
+                        </form>
                     </div>
                 </div>
                 <div class="explan">
@@ -453,6 +463,50 @@
             <div class="result-content5">
                 다른 결과를 확인하고 싶으시다면? <a href="#">테스트 다시하기</a>
             </div>
+
+            <!-- 공유하기 모달 start-->
+            <button href="#modal-example1" data-bs-toggle="modal" data-bs-target="#modal-example1" type="button" class="result-share"> 공유하기</button>
+                <div class="modal fade" id="modal-example1" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content-email">
+                            <div class="modal-header">
+                                <p>인정등급 예상 테스트 결과 공유</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-bod" style="padding: 30px 0;">
+                                <form class="provide-form" >                            
+                                    <fieldset class="form-fieldset">   
+                                        <div class="md:flex gap-1 items-center">                                        
+                                            <label for="form-item5" style="display: none;">이메일</label>
+                                            <div>
+                                                <div class="md:flex gap-1 items-center">
+                                                    <input type="email" placeholder="이메일주소" class="form-control w-full xs:max-w-40">
+                                                    <i>@</i>
+                                                    <input type="email" placeholder="직접입력"  class="form-control w-full xs:max-w-40">
+                                                    <select name="email" class="form-control w-full xs:max-w-40">
+                                                        <option value="naver.com">선택해 주세요</option>
+                                                        <option value="naver.com">naver.com</option>
+                                                        <option value="hanmail.net">hanmail.net</option>
+                                                        <option value="daum.net">daum.net</option>
+                                                        <option value="gmail.com">gmail.com</option>
+                                                        <option value="kakao.com">kakao.com</option>
+                                                        <option value="nate.com">nate.com</option>
+                                                        <option value="hotmail.com">hotmail.com</option>                                                   
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                   
+                                    </fieldset>                            
+                                 </form>            
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn large btn-primary w-36">전송하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 공유하기 모달 end-->
+
 
             <a href="/find/step2-1" class="grade-floating" target="_blank" title="새창열림">1:1 상담하기</a>
             
