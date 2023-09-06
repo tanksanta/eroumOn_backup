@@ -103,7 +103,7 @@
 
 			<div class="flex justify-center space-x-1.5 mt-4 mx-auto md:space-x-2 md:mt-10">
 				<button type="submit" class="btn btn-large btn-primary w-44 md:w-53">탈퇴하기</button>
-				<a href="membership/index" class="btn btn-large btn-outline-primary w-31 md:w-37">취소</a>
+				<a href="/membership/index" class="btn btn-large btn-outline-primary w-31 md:w-37">취소</a>
 			</div>
 		</form>
 
