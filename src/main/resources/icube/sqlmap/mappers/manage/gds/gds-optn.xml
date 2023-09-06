@@ -13,6 +13,7 @@
 		, optn_stock_qy
 		, optn_item_cd
 		, use_yn
+		, sold_out_yn
 	</sql>
 
 	<sql id="searchConditions">
@@ -124,7 +125,8 @@
 	<!-- 이로움1.0 정보로 재고 수량 변경 -->
 	<update id="updateOptnStockQy" parameterType="java.util.HashMap">
 		UPDATE GDS_OPTN SET
-			optn_stock_qy = #{optnStockQy}
+			optn_stock_qy = #{optnStockQy},
+			sold_out_yn = #{soldOutYn}
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</update>

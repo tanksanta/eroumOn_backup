@@ -27,6 +27,7 @@ import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
@@ -99,6 +100,10 @@ public class UpdateBplcInfoApiService {
 		// 상품 배열 파싱
 		JSONArray array_item = (JSONArray) jsonObj.get("_array_item");
 		for(int i=0; i<array_item.size(); i++) {
+			if (array_item.get(i) == null || array_item.get(i) instanceof JSONArray) {
+				continue;
+			}
+			
 			JSONObject item = (JSONObject) array_item.get(i);
 			String bnefCd = Base64Util.decoder((String)item.get("ProdPayCode"));
 			String itemId = Base64Util.decoder((String)item.get("item_id"));
@@ -216,6 +221,45 @@ public class UpdateBplcInfoApiService {
 				}else {
 					System.out.println("#### 상품 옵션 없음 #### ");
 				}*/
+				
+				
+				//옵션 배열
+				/* 2023-09-06
+				 * 옵션은 일시품절 상태값만 반영
+				 * */
+				JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
+				if(item_opt_array.size() > 0) {
+					for(int h=0; h<item_opt_array.size(); h++) {
+						JSONObject item_opt = (JSONObject) item_opt_array.get(h);
+						String ioid = Base64Util.decoder((String)item_opt.get("io_id"));
+						ioid = ioid.replace("u001e", "");
+						String ioType = Base64Util.decoder((String)item_opt.get("io_type"));
+						String ioQty = Base64Util.decoder((String)item_opt.get("io_qty"));
+						String ioSoldOut = Base64Util.decoder((String)item_opt.get("io_sold_out"));
+						
+						Map<String, Object> optnMap = new HashMap<String, Object>();
+						optnMap.put("gdsNo", gdsVO.getGdsNo());
+						if(ioType.equals("0")) {
+							optnMap.put("optnTy", "BASE");
+						}else {
+							optnMap.put("optnTy", "ADIT");
+						}
+						optnMap.put("optnId", ioid);
+
+						GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(optnMap);
+						if(gdsOptnVO != null) {
+							try {
+								System.out.println(" ### 상품옵션 조회 성공 ###");
+								//optnMap.put("optnStockQy", EgovStringUtil.string2integer(ioQty));
+								optnMap.put("soldOutYn", "1".equals(ioSoldOut) ? "Y" : "N");
+								gdsOptnService.updateOptnStockQy(optnMap);
+							}catch(Exception e) {
+								e.printStackTrace();
+								System.out.println(" ### 상품옵션명 : "+ ioid + "업데이트 실패");
+							}
+						}
+					}
+				}
 			}
 		}
 	}

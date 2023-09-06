@@ -494,10 +494,10 @@
 	                                            <colgroup>
 	                                                <col class="w-15">
 	                                                <col>
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -511,6 +511,7 @@
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
 	                                                    <th scope="col">품목코드</th>
+	                                                    <th scope="col">일시품절여부</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -534,6 +535,7 @@
 					                						</select>
 					                					</td>
 					                					<td><input type="text" name="optnItemCd${status.index}" value="${optnList.optnItemCd}" class="form-control w-full" maxlength="20" /></td>
+					                					<td><input type="checkbox" name="soldOutYn${status.index}" value="Y" class="form-control w-full" ${optnList.soldOutYn eq 'Y' ? 'checked' : ''}/></td>
 					                				</tr>
 	                                                </c:forEach>
 	                                            </tbody>
