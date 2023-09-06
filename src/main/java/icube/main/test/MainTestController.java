@@ -237,7 +237,9 @@ public class MainTestController extends CommonAbstractController {
     @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value="/send/email.json", produces="application/json;charset=UTF-8")
-    public String sendTestResult(@RequestParam String email) {
+    public String sendTestResult(
+    		@RequestParam String email,
+    		HttpServletRequest request) {
         JSONObject resultJson = new JSONObject();
         if (!mbrSession.isLoginCheck()) {
             resultJson.put("success", false);
@@ -309,8 +311,11 @@ public class MainTestController extends CommonAbstractController {
 			String disease2Templete = getDiseaseSelectTemplete(srchMbrTestVO.getDiseaseSelect2());
 			mailForm = mailForm.replace("((disease2Templete))", disease2Templete);
 			
+			//도메인 입력
+			String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+			mailForm = mailForm.replace("((domain))", host);
 			
-			String mailSj = "[이로움 ON] 장기요양테스트 결과";
+			String mailSj = "[이로움ON] 장기요양 인정등급 예상 테스트 결과";
 			String putEml = email;
 
 			//장기요양테스트 결과 이메일 발송
@@ -559,7 +564,7 @@ public class MainTestController extends CommonAbstractController {
     	
     	String templete = "";
     	boolean isSelect = false;
-    	for (int i = 0; i < selectedIndexList.size(); i+=2) {
+    	for (int i = 0; i < selectedIndexList.size(); i++) {
     		isSelect = true;
     		Integer index = selectedIndexList.get(i);
     		
@@ -567,17 +572,6 @@ public class MainTestController extends CommonAbstractController {
     		templete += "                                            <td\r\n"
         			+ "                                                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; background-color: #FFFBF6;\">\r\n"
         			+ "                                                " + questions[index] + "</td>\r\n";
-    		
-    		if (i + 1 >= selectedIndexList.size()) {
-    			templete += "                                            <td\r\n"
-            			+ "                                                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; background-color: #FFFBF6;\">\r\n"
-            			+ "                                                </td>\r\n";
-    		} else {
-    			index = selectedIndexList.get(i + 1);
-    			templete += "                                            <td\r\n"
-            			+ "                                                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; background-color: #FFFBF6;\">\r\n"
-            			+ "                                                " + questions[index] + "</td>\r\n";
-    		}
     		templete += "                                      </tr>";
     	}
     	
