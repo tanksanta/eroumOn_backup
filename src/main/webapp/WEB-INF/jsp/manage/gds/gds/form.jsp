@@ -608,10 +608,10 @@
 	                                                <col class="w-15">
 	                                                <col>
 	                                                <col>
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -626,6 +626,7 @@
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
 	                                                    <th scope="col">품목코드</th>
+	                                                    <th scope="col">일시품절여부</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -654,6 +655,7 @@
 			        	                				</td>
 			        	                				<td>
 			        	                					<input type="text" name="aditOptnItemCd${status.index}" value="${aditOptnList.optnItemCd}" class="form-control w-full" maxlength="20"/>
+			        	                					<td><input type="checkbox" name="aditSoldOutYn${status.index}" value="Y" class="form-control w-full" ${aditOptnList.soldOutYn eq 'Y' ? 'checked' : ''}/></td>
 			        	                				</td>
 	        	                					</tr>
 	        	                					</c:forEach>
@@ -1285,6 +1287,7 @@
 	        	                				html += '		</select>';
 	        	                				html += '	</td>';
 	        	                				html += '	<td><input type="text" name="aditOptnItemCd'+cnt+'" class="form-control w-full" maxlength="20"></td>';
+	        	                				html += '	<td><input type="checkbox" name="aditSoldOutYn' +cnt+ '" value="Y" class="form-control w-full"/></td>';
 	        	                				html += '</tr>';
 
 	                							cnt = cnt + 1; //카운트용
@@ -1413,6 +1416,7 @@
 	                				html += '		</select>';
 	                				html += '	</td>';
 	                				html += '	<td><input type="text" name="optnItemCd'+index+'" class="form-control w-full" maxlength="20"></td>';
+	                				html += '	<td><input type="checkbox" name="soldOutYn' +index+ '" value="Y" class="form-control w-full"/></td>';
 	                				html += '</tr>';
                 				});
 
