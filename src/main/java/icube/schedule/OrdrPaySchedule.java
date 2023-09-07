@@ -27,6 +27,8 @@ import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -38,6 +40,9 @@ import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
 	@Resource(name = "ordrDtlService")
 	private OrdrDtlService ordrDtlService;
 
@@ -304,6 +309,14 @@ public class OrdrPaySchedule extends CommonAbstractController {
 			DecimalFormat numberFormat = new DecimalFormat("###,###");
 
 			OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrDtlVO.getOrdrCd());
+			
+			//탈퇴한 회원에게는 발송하지 않음
+			Map<String, Object> searchParamMap = new HashMap<String, Object>();
+			searchParamMap.put("srchUniqueId", ordrVO.getUniqueId());
+			MbrVO mbrVO = mbrService.selectMbr(searchParamMap);
+			if ("Y".equals(mbrVO.getWhdwlYn())) {
+				continue;
+			}
 
 			try {
 				if (ValidatorUtil.isEmail(ordrVO.getOrdrrEml())) {
