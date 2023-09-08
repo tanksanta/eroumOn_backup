@@ -44,12 +44,12 @@ public class MainTestController extends CommonAbstractController {
     @Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
 	
-    @Value("#{props['Globals.Main.path']}")
-	private String mainPath;
-    
     @Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
 
+    @Value("#{props['Globals.Membership.path']}")
+	private String membershipPath;
+    
     @Resource(name = "mailService")
 	private MailService mailService;
     
@@ -68,7 +68,7 @@ public class MainTestController extends CommonAbstractController {
 		if(!mbrSession.isLoginCheck()) {
 			String returnUrl = "/test/physical";
 			session.setAttribute("returnUrl", returnUrl);
-			return "redirect:" + "/"+ mainPath + "/login?returnUrl=" + returnUrl;
+			return "redirect:" + "/"+ membershipPath + "/login?returnUrl=" + returnUrl;
 		}
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
