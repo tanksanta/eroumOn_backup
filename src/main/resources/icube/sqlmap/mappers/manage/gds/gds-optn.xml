@@ -44,6 +44,12 @@
 		<if test="srchGdsOptnNo != null and srchGdsOptnNo != '' ">
 			AND gds_optn_no = #{srchGdsOptnNo}
 		</if>
+		<if test="optnItemCd != null and optnItemCd != '' ">
+			AND optn_item_cd = #{optnItemCd}
+		</if>
+		<if test="optnNmForReplace != null and optnNmForReplace != '' ">
+			AND REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
+		</if>
 	</sql>
 
 	<sql id="searchOrder">

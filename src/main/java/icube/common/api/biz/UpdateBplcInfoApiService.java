@@ -232,10 +232,10 @@ public class UpdateBplcInfoApiService {
 					for(int h=0; h<item_opt_array.size(); h++) {
 						JSONObject item_opt = (JSONObject) item_opt_array.get(h);
 						String ioid = Base64Util.decoder((String)item_opt.get("io_id"));
-						ioid = ioid.replace("u001e", "");
 						String ioType = Base64Util.decoder((String)item_opt.get("io_type"));
 						String ioQty = Base64Util.decoder((String)item_opt.get("io_qty"));
 						String ioSoldOut = Base64Util.decoder((String)item_opt.get("io_sold_out"));
+						String ioThezone = Base64Util.decoder((String)item_opt.get("io_thezone")); //품목코드이나 1.0에서는 DB에 thezone으로 저장중임 
 						
 						Map<String, Object> optnMap = new HashMap<String, Object>();
 						optnMap.put("gdsNo", gdsVO.getGdsNo());
@@ -244,8 +244,11 @@ public class UpdateBplcInfoApiService {
 						}else {
 							optnMap.put("optnTy", "ADIT");
 						}
-						optnMap.put("optnId", ioid);
-
+						
+						//옵션목록이 2개 이상인 경우 빨강 > 라지 이렇게 들어오는데
+						//Base 64 디코딩 과정에서 특수문자를 decode하지 못하여 빨강라지가 되어버리므로 DB의 REPLACE 검색 이용
+						optnMap.put("optnNmForReplace", ioid);
+						
 						GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(optnMap);
 						if(gdsOptnVO != null) {
 							try {
