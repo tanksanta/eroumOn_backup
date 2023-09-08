@@ -78,6 +78,7 @@
 			, optn_stock_qy
 			, optn_item_cd
 			, use_yn
+			, sold_out_yn
 		) VALUES (
 			#{gdsNo}
 			, #{optnTy, jdbcType=VARCHAR}
@@ -86,6 +87,7 @@
 			, #{optnStockQy}
 			, #{optnItemCd , jdbcType=VARCHAR}
 			, #{useYn, jdbcType=VARCHAR}
+			, #{soldOutYn, jdbcType=VARCHAR}
 		)
 	</insert>
 
@@ -98,6 +100,7 @@
 			, optn_stock_qy = #{optnStockQy}
 			, optn_item_cd = #{optnItemCd , jdbcType=VARCHAR}
 			, use_yn	= #{useYn, jdbcType=VARCHAR}
+			, sold_out_yn = #{soldOutYn, jdbcType=VARCHAR}
 		WHERE gds_no = #{gdsNo}
 			AND gds_optn_no = #{gdsOptnNo}
 	</update>

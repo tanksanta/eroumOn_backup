@@ -351,6 +351,7 @@ public class MGdsController extends CommonAbstractController {
 				int optnStockQy = EgovStringUtil.string2integer((String) reqMap.get("optnStockQy" + optnRow), 0);
 				String useYn = (String) reqMap.get("optUseYn" + optnRow);
 				String optnItemCd = (String) reqMap.get("optnItemCd" + optnRow);
+				String soldOutYn = (String) reqMap.get("soldOutYn" + optnRow);
 
 				if(EgovStringUtil.isNotEmpty(optnNm)) {
 					GdsOptnVO optnVO = new GdsOptnVO();
@@ -362,6 +363,7 @@ public class MGdsController extends CommonAbstractController {
 					optnVO.setOptnStockQy(optnStockQy);
 					optnVO.setOptnItemCd(optnItemCd);
 					optnVO.setUseYn(useYn);
+					optnVO.setSoldOutYn(soldOutYn);
 
 					optnItemList.add(optnVO);
 				}
@@ -379,6 +381,7 @@ public class MGdsController extends CommonAbstractController {
 				int optnStockQy = EgovStringUtil.string2integer((String) reqMap.get("aditOptnStockQy" + optnRow), 0);
 				String useYn = (String) reqMap.get("aditOptUseYn" + optnRow);
 				String optnItemCd = (String) reqMap.get("aditOptnItemCd" + optnRow);
+				String soldOutYn = (String) reqMap.get("aditSoldOutYn" + optnRow);
 
 				if(EgovStringUtil.isNotEmpty(optnNm)) {
 					GdsOptnVO optnVO = new GdsOptnVO();
@@ -390,6 +393,7 @@ public class MGdsController extends CommonAbstractController {
 					optnVO.setOptnStockQy(optnStockQy);
 					optnVO.setOptnItemCd(optnItemCd);
 					optnVO.setUseYn(useYn);
+					optnVO.setSoldOutYn(soldOutYn);
 
 					aditOptnItemList.add(optnVO);
 				}
