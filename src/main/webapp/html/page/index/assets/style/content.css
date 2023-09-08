@@ -1720,7 +1720,7 @@
 }
 
 .result-content1 {
-    @apply pb-25;
+    @apply pb-10;
     & .grade-title2 {
         @apply mb-39
                md:mb-22;
@@ -1732,6 +1732,7 @@
             @apply underline text-[#FD8106];
         }
     }
+
     & .result {
         @apply relative pt-25 pb-12
                before:absolute before:-z-5 before:top-0 before:bottom-0 before:left-1/2 before:w-screen before:-translate-x-1/2 before:bg-[#fceac866]
@@ -1815,6 +1816,13 @@
                 @apply font-medium;
             }
         }
+    }
+    & .mainSend {
+        @apply items-center justify-center gap-2.5 relative mt-10 md:mt-1  mx-auto py-8.5 px-4 max-w-[62.5rem] rounded-[1.25rem] bg-white shadow-[0px_0px_20px_0px_#0000001a] md:shadow-[0px_0px_0px_0px_#000000] 
+               md:flex; 
+        & li {
+            @apply text-sm text-center;
+        }              
     }
 }
 

@@ -71,7 +71,7 @@ html, body {
             }
         }
     }
-
+  
     .modal {
         @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
         & .modal-dialog {
@@ -146,6 +146,9 @@ html, body {
             @apply opacity-100;
         }
     }
+
+
+   
 
     .offcanvas {
         @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;

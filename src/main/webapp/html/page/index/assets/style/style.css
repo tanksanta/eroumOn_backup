@@ -10,8 +10,10 @@
 @import "../../../../core/style/button.css";
 @import "../../../../core/style/form.css";
 
+
 @import "common.css";
 @import "layout.css";
 @import "content.css"; 
 @import "index.css"; 
 @import "welfare.css"; 
+@import "modal.css";
