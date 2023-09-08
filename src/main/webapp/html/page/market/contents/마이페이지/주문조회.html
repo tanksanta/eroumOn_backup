@@ -540,30 +540,46 @@
 
                 <!-- 검색 -->
                 <form class="order-search mt-7.5 md:mt-9">
-                    <p class="search-title">조회기간</p>
-                    <div class="form-check-group search-left">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="aaa" id="search-item1">
-                            <label class="form-check-label" for="search-item1">1주일</label>
+                    <div class="search-group">
+                        <p class="search-title">조회기간</p>
+                        <div class="search-group1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="aaa" id="search-item1">
+                                <label class="form-check-label" for="search-item1">최대(5년)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="aaa" id="search-item1-2">
+                                <label class="form-check-label" for="search-item1-2">1개월</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="aaa" id="search-item1-3">
+                                <label class="form-check-label" for="search-item1-3">3개월</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="aaa" id="search-item1-4">
+                                <label class="form-check-label" for="search-item1-4">6개월</label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-2">
-                            <label class="form-check-label" for="search-item1-2">한 달</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-3">
-                            <label class="form-check-label" for="search-item1-3">6개월</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="aaa" id="search-item1-4">
-                            <label class="form-check-label" for="search-item1-4">1년</label>
+                        <div class="search-group2">
+                            <input type="text" class="form-control form-calendar">
+                            <i>-</i>
+                            <input type="text" class="form-control form-calendar">
                         </div>
                     </div>
-                    <div class="search-right">
-                        <input type="text" class="form-control form-calendar">
-                        <i>-</i>
-                        <input type="text" class="form-control form-calendar">
-                        <button type="submit" class="btn btn-primary">조회</button>
+                    <div class="search-group">
+                        <p class="search-title">검색항목</p>
+                        <div class="search-group3">
+                            <select name="" id="" class="form-control">
+                                <option value="">주문내역 선택하세요</option>
+                                <option value="">결제대기</option>
+                                <option value="">결제완료</option>
+                                <option value="">배송준비중</option>
+                                <option value="">상품준비완료 배송중</option>
+                                <option value="">배송완료</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="상품명 입력해 주세요">
+                            <button type="submit" class="btn btn-primary">조회</button>
+                        </div>
                     </div>
                 </form>
                 <!-- //검색 -->

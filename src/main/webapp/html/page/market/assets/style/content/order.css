@@ -812,40 +812,48 @@
 
 /* 주문 검색 */
 .order-search {
-    @apply flex flex-wrap items-center py-1.5 px-2.5 overflow-hidden bg-[linear-gradient(92deg,_#EFFFFC_0%,_#FCFEF0_34%,_#FAFFF2_67%,_#FFF5FD_100%)];
+    @apply flex flex-col gap-y-2 p-3 overflow-hidden bg-[linear-gradient(92deg,_#EFFFFC_0%,_#FCFEF0_34%,_#FAFFF2_67%,_#FFF5FD_100%)]
+           md:gap-y-3 md:p-4;
+    & [class*="search-group"] {
+        @apply flex-none flex flex-wrap items-center gap-y-1.5 w-full
+               md:flex-1 md:gap-y-1;
+    }
     & .search-title {
-        @apply flex-none my-1 font-bold text-sm
-               md:mr-3
-               lg:mr-6
-               xl:mr-8.5;
+        @apply flex-none w-full font-bold text-sm
+               md:mr-3 md:w-auto
+               lg:mr-6;
     }
-    & .search-left {
-        @apply flex items-center my-1 w-full
-               md:mr-2 md:w-auto;
-        & .form-check-group {
-            @apply flex-1
-                   md:flex-none;
-        }
+    & .search-group1 {
+        @apply form-check-group flex-nowrap
+               md:flex-none md:mr-2 md:w-auto text-sm;
         & .form-check-label {
-            @apply min-w-14
-                   md:min-w-16;
+            @apply !min-w-12
+                   sm:!min-w-14
+                   md:flex-none md:!px-2.5 md:!min-w-18;
         }
     }
-    & .search-right {
-        @apply ml-auto w-full flex flex-wrap items-center my-1 space-x-1.5
-               xs:flex-nowrap
-               md:flex-1 md:w-auto md:max-w-[508px] md:space-x-2;
-        & .form-control {
-            @apply flex-1 w-full;
+    & .search-group2 {
+        @apply form-group
+               md:w-auto md:max-w-[508px];
+        & .btn {
+            @apply flex-none w-full
+                   md:w-1/5 md:max-w-35;
         }
-        & i {
-            @apply flex-none w-2 h-0.5 bg-black overflow-hidden -indent-96
-                   md:w-2.5;
+    }
+    & .search-group3 {
+        @apply gap-x-2;
+        & .form-control {
+            &select {
+                @apply flex-none w-full
+                       md:min-w-45 md:w-1/4;
+            }
+            &input {
+                @apply flex-1 w-full;
+            }
         }
         & .btn {
-            @apply flex-none w-1/4 max-w-23
-                   md:max-w-none
-                   xs-max:mt-2 xs-max:!ml-0 xs-max:max-w-none xs-max:w-full;
+            @apply flex-none w-full
+                   md:w-1/5 md:max-w-35;
         }
     }
 }
