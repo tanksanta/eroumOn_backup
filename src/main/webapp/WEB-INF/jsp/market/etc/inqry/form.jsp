@@ -23,6 +23,11 @@
                     </div>
                 </div>
 
+                <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="mbrInqryVO" enctype="multipart/form-data">
+                <form:hidden path="crud" />
+                <form:hidden path="inqryNo" />
+                <input type="hidden" id="delAttachFileNo" name="delAttachFileNo" value="" />
+
                 <div class="form-check mt-3 md:mt-4">
                     <input class="form-check-input" type="checkbox" id="termsChk" name="termsChk" value="N">
                     <label class="form-check-label" for="termsChk">개인정보 취급방침 약관에 동의합니다</label>
@@ -30,10 +35,6 @@
 
                 <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
 
-                <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="mbrInqryVO" enctype="multipart/form-data">
-                <form:hidden path="crud" />
-                <form:hidden path="inqryNo" />
-                <input type="hidden" id="delAttachFileNo" name="delAttachFileNo" value="" />
 
                     <fieldset>
                         <legend>1:1문의내용</legend>
@@ -377,7 +378,8 @@
     	$("form#inqryFrm").validate({
     	    ignore: "input[type='text']:hidden",
     	    rules : {
-    	    	mblTelno : {regex : telchk, mblTelnoChk : true}
+    	    	termsChk : {required : true}
+    	    	, mblTelno : {regex : telchk, mblTelnoChk : true}
     	    	, inqryDtlTy : {required : true}
     	    	, eml : {regex : emailchk, emlChk : true}
     	    	, ordrCd : {ordrCdChk : true}
@@ -385,7 +387,8 @@
     			, cn : {required : true}
     	    },
     	    messages : {
-    	    	mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)", mblTelnoChk : "! 전화번호는 필수 입력 항목입니다."}
+    	    	termsChk : {required : "! 개인정보 취급방침 약관에 동의해야 합니다."}
+    	    	, mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)", mblTelnoChk : "! 전화번호는 필수 입력 항목입니다."}
     	    	, inqryDtlTy : {required : "! 문의유형은 필수 선택 항목입니다."}
 		    	, eml : {regex : "! 이메일 형식이 잘못되었습니다.\n(abc@def.com)", emlChk : "! 이메일은 필수 입력 항목입니다."}
 		    	, ordrCd : {ordrCdChk : "! 주문코드는 필수 선택 항목입니다."}
