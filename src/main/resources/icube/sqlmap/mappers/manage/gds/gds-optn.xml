@@ -134,8 +134,7 @@
 	<!-- 이로움1.0 정보로 재고 수량 변경 -->
 	<update id="updateOptnStockQy" parameterType="java.util.HashMap">
 		UPDATE GDS_OPTN SET
-			optn_stock_qy = #{optnStockQy},
-			sold_out_yn = #{soldOutYn}
+			optn_stock_qy = #{optnStockQy}
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</update>
@@ -148,4 +147,11 @@
 		WHERE gds_optn_no = #{gdsOptnNo}
 	</update>
 
+	<!-- 일시품절여부 변경 -->
+	<update id="updateOptnSoldOutYn" parameterType="java.util.HashMap">
+		UPDATE GDS_OPTN SET
+			sold_out_yn = #{soldOutYn}
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</update>
 </mapper>

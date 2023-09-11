@@ -175,53 +175,6 @@ public class UpdateBplcInfoApiService {
 					System.out.println("#### 상품 정보 업데이트 실패 : "+ e.toString() +" #### ");
 				}
 				System.out.println("#### 상품 정보 업데이트 END #### ");
-
-
-				// 옵션 배열
-				/**
-				 * 2023-04-20
-				 * 옵션은 메뉴얼로 수기 작성 진행
-				 */
-				/*JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
-				if(item_opt_array.size() > 0) {
-
-					for(int h=0; h<item_opt_array.size(); h++) {
-						JSONObject item_opt = (JSONObject) item_opt_array.get(h);
-						String ioid = Base64Util.decoder((String)item_opt.get("io_id"));
-						ioid = ioid.replace("u001e", "");
-						String ioType = Base64Util.decoder((String)item_opt.get("io_type"));
-						String ioQty = Base64Util.decoder((String)item_opt.get("io_qty"));
-
-						System.out.println("#### 상품 옵션 수량 #### " + ioQty);
-						System.out.println("#### 상품 옵션 구분 #### " + ioType);
-						System.out.println("#### 상품 옵션 아이디 #### " + ioid);
-
-						Map<String, Object> optnMap = new HashMap<String, Object>();
-						optnMap.put("gdsNo", gdsVO.getGdsNo());
-						if(ioType.equals("0")) {
-							optnMap.put("optnTy", "BASE");
-						}else {
-							optnMap.put("optnTy", "ADIT");
-						}
-						//optnMap.put("optnNm", ordrDtlVO.getOrdrOptn());
-						optnMap.put("optnId", ioid);
-
-						GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(optnMap);
-						if(gdsOptnVO != null) {
-							try {
-								System.out.println(" ### 상품옵션 조회 성공 ###");
-								optnMap.put("optnStockQy", EgovStringUtil.string2integer(ioQty));
-								gdsOptnService.updateOptnStockQy(optnMap);
-							}catch(Exception e) {
-								e.printStackTrace();
-								System.out.println(" ### 상품옵션명 : "+ ioid +"업데이트 실패");
-							}
-						}
-					}
-				}else {
-					System.out.println("#### 상품 옵션 없음 #### ");
-				}*/
-				
 				
 				//옵션 배열
 				/* 2023-09-06
@@ -253,9 +206,8 @@ public class UpdateBplcInfoApiService {
 						if(gdsOptnVO != null) {
 							try {
 								System.out.println(" ### 상품옵션 조회 성공 ###");
-								//optnMap.put("optnStockQy", EgovStringUtil.string2integer(ioQty));
 								optnMap.put("soldOutYn", "1".equals(ioSoldOut) ? "Y" : "N");
-								gdsOptnService.updateOptnStockQy(optnMap);
+								gdsOptnService.updateOptnSoldOutYn(optnMap);
 							}catch(Exception e) {
 								e.printStackTrace();
 								System.out.println(" ### 상품옵션명 : "+ ioid + "업데이트 실패");

@@ -72,4 +72,12 @@ public class GdsOptnService extends CommonAbstractServiceImpl {
 
 	}
 
+	/**
+	 * 이로움1.0 데이터로 이로움 1.5 상품 정보 업데이트(옵션의 일시여부만)
+	 * @param infoMap
+	 */
+	public void updateOptnSoldOutYn(Map<String, Object> paramMap) throws Exception {
+		gdsOptnDAO.updateOptnSoldOutYn(paramMap);
+
+	}
 }
