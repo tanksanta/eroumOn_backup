@@ -25,39 +25,21 @@
                 	<p class="search-title">조회기간</p>
 	                <div class="search-group1">
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod1" value="">
-	                        <label class="form-check-label" for="selPeriod1">최대(5년)</label>
-	                    </div>
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod2" value="">
-	                        <label class="form-check-label" for="selPeriod2">1개월</label>
-	                    </div>
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod3" value="">
-	                        <label class="form-check-label" for="selPeriod3">3개월</label>
-	                    </div>
-	                    <div class="form-check">
-	                        <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod4" value="">
-	                        <label class="form-check-label" for="selPeriod4">6개월</label>
-	                    </div>
-	                    <!-- 기존 개월 정보
-						<div class="form-check">
-						    <input class="form-check-input" type="radio" name="srchDate" id="srchDate0" value="week"  <c:if test="${param.srchDate eq 'week' }">checked="checked"</c:if>>
-						    <label class="form-check-label" for="srchDate0">1주일</label>
-						</div>
-						<div class="form-check">
-						    <input class="form-check-input" type="radio" name="srchDate" id="srchDate1" value="month" <c:if test="${param.srchDate eq 'month' }">checked="checked"</c:if>>
-						    <label class="form-check-label" for="srchDate1">한 달</label>
-						</div>
-						<div class="form-check">
-						    <input class="form-check-input" type="radio" name="srchDate" id="srchDate2" value="half" <c:if test="${param.srchDate eq 'half' }">checked="checked"</c:if>>
-						    <label class="form-check-label" for="srchDate2">6개월</label>
-						</div>
-						<div class="form-check">
-						    <input class="form-check-input" type="radio" name="srchDate" id="srchDate3" value="year" <c:if test="${param.srchDate eq 'year' }">checked="checked"</c:if>>
-						    <label class="form-check-label" for="srchDate3">1년</label>
-						</div>
-						-->
+	                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate1" value="5year" <c:if test="${param.srchDate eq '5year' }">checked="checked"</c:if>>
+                            <label class="form-check-label" for="srchDate1">최대(5년)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="srchDate" id="srchDate2" value="1month" <c:if test="${param.srchDate eq '1month' }">checked="checked"</c:if>>
+                            <label class="form-check-label" for="srchDate2">1개월</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="srchDate" id="srchDate3" value="3month" <c:if test="${param.srchDate eq '3month' }">checked="checked"</c:if>>
+                            <label class="form-check-label" for="srchDate3">3개월</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="srchDate" id="srchDate4" value="6month" <c:if test="${param.srchDate eq '6month' }">checked="checked"</c:if>>
+                            <label class="form-check-label" for="srchDate4">6개월</label>
+                        </div>
 	                </div>
 	                <div class="search-group2">
 	                    <input type="text" class="form-control" id="srchText" name="srchText" placeholder="상품명을 입력하세요." value="${param.srchText}"/>

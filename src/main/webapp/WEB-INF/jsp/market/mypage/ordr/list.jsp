@@ -99,39 +99,21 @@
                     	<p class="search-title">조회기간</p>
 						<div class="search-group1">
 	                        <div class="form-check">
-	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod1" value="">
+	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod1" value="1" <c:if test="${param.selPeriod eq '1' }">checked="checked"</c:if>>
 	                            <label class="form-check-label" for="selPeriod1">최대(5년)</label>
 	                        </div>
 	                        <div class="form-check">
-	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod2" value="">
+	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod2" value="2" <c:if test="${param.selPeriod eq '2' }">checked="checked"</c:if>>
 	                            <label class="form-check-label" for="selPeriod2">1개월</label>
 	                        </div>
 	                        <div class="form-check">
-	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod3" value="">
+	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod3" value="3" <c:if test="${param.selPeriod eq '3' }">checked="checked"</c:if>>
 	                            <label class="form-check-label" for="selPeriod3">3개월</label>
 	                        </div>
 	                        <div class="form-check">
-	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod4" value="">
+	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod4" value="4" <c:if test="${param.selPeriod eq '4' }">checked="checked"</c:if>>
 	                            <label class="form-check-label" for="selPeriod4">6개월</label>
 	                        </div>
-	                        <!-- 기존 개월 정보
-		                    <div class="form-check">
-		                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate0" value="week"  <c:if test="${param.srchDate eq 'week' }">checked="checked"</c:if>>
-		                        <label class="form-check-label" for="srchDate0">1주일</label>
-		                    </div>
-		                    <div class="form-check">
-		                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate1" value="month" <c:if test="${param.srchDate eq 'month' }">checked="checked"</c:if>>
-		                        <label class="form-check-label" for="srchDate1">한 달</label>
-		                    </div>
-		                    <div class="form-check">
-		                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate2" value="half" <c:if test="${param.srchDate eq 'half' }">checked="checked"</c:if>>
-		                        <label class="form-check-label" for="srchDate2">6개월</label>
-		                    </div>
-		                    <div class="form-check">
-		                        <input class="form-check-input" type="radio" name="srchDate" id="srchDate3" value="year" <c:if test="${param.srchDate eq 'year' }">checked="checked"</c:if>>
-		                        <label class="form-check-label" for="srchDate3">1년</label>
-		                    </div>
-		                    -->
 	                    </div>
                         <div class="search-group2">
 	                        <input type="date" class="form-control form-calendar" id="srchOrdrYmdBgng" name="srchOrdrYmdBgng" value="${param.srchOrdrYmdBgng}">
@@ -142,21 +124,21 @@
                     <div class="search-group">
                         <p class="search-title">검색항목</p>
                         <div class="search-group3">
-                            <select name="" id="" class="form-control">
-                                <option value="">주문내역 선택하세요</option>
-                                <option value="">결제대기</option>
-                                <option value="">결제완료</option>
-                                <option value="">배송준비중</option>
-                                <option value="">상품준비완료 배송중</option>
-                                <option value="">배송완료</option>
+                            <select name="srchOrdrSttsTy" id="srchOrdrSttsTy" class="form-control">
+                                <option value="" ${empty param.srchOrdrSttsTy?'selected="selected"':''}>주문내역 선택하세요</option>
+                                <option value="OR04" ${param.srchOrdrSttsTy eq 'OR04'?'selected="selected"':''}>결제대기</option>
+                                <option value="OR05" ${param.srchOrdrSttsTy eq 'OR05'?'selected="selected"':''}>결제완료</option>
+                                <option value="OR06" ${param.srchOrdrSttsTy eq 'OR06'?'selected="selected"':''}>배송준비중</option>
+                                <option value="OR07" ${param.srchOrdrSttsTy eq 'OR07'?'selected="selected"':''}>상품준비완료, 배송중</option>
+                                <option value="OR08" ${param.srchOrdrSttsTy eq 'OR08'?'selected="selected"':''}>배송완료</option>
                             </select>
-							<input type="text" class="form-control" id="srchText" name="srchText" placeholder="상품명을 입력하세요." value="${param.srchText}"/>
+							<input type="text" class="form-control" id="srchGdsNm" name="srchGdsNm" placeholder="상품명을 입력하세요." value="${param.srchGdsNm}"/>
                             <button type="submit" class="btn btn-primary">조회</button>
                         </div>
                     </div>
                 </form>
                 <!-- //검색 -->
-                
+
                 <!-- 목록 -->
                 <div class="mt-12 space-y-6 md:mt-16 md:space-y-7.5">
                		<c:if test="${empty listVO.listObject}">
@@ -776,14 +758,14 @@
     			//console.log("v", $(this).val());
     			const v = $(this).val();
     			$("#srchOrdrYmdEnd").val(f_getToday());
-    			if(v == "1"){//일주일
-            		$("#srchOrdrYmdBgng").val(f_getDate(-7));
-            	}else if(v == "2"){//한달
+    			if(v == "1"){//5년
+            		$("#srchOrdrYmdBgng").val(f_getDate(-365 * 5));
+            	}else if(v == "2"){//1개월
             		$("#srchOrdrYmdBgng").val(f_getDate(-30));
-            	}else if(v == "3"){//6개월
-            		$("#srchOrdrYmdBgng").val(f_getDate(-180));
-            	}else if(v== "4"){//1년
-               		$("#srchOrdrYmdBgng").val(f_getDate(-365));
+            	}else if(v == "3"){//3개월
+            		$("#srchOrdrYmdBgng").val(f_getDate(-30 * 3));
+            	}else if(v== "4"){//6개월
+               		$("#srchOrdrYmdBgng").val(f_getDate(-30 * 6));
             	}
     		});
 

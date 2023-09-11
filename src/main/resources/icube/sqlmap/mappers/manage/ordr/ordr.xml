@@ -97,6 +97,13 @@
 			AND od1.stts_ty = #{ordrSttsTy }
 			</when>
 		</choose>
+
+		<choose><!-- 사용자 페이지에서 넘어오는 검색 값 -->
+			<when test="srchOrdrSttsTy != null and srchOrdrSttsTy != ''">
+			AND od1.stts_ty = #{srchOrdrSttsTy}
+			</when>
+		</choose>
+
 		<choose>
 			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
 				AND o1.ordr_dt &gt;= #{srchBgngDt} AND o1.ordr_dt &lt;= #{srchEndDt}
