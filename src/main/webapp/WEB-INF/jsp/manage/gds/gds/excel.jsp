@@ -52,10 +52,12 @@
                 <th scope="col">제조사</th>
                 <th scope="col">원산지</th>
                 <th scope="col">브랜드</th>
+                <th scope="col">입점업체</th>
                 <th scope="col">모델</th>
                 <th scope="col">검색 키워드</th>
                 <th scope="col">노출여부</th>
 
+				<th scope="col">공급가</th>
                 <th scope="col">판매가</th>
                 <th scope="col">할인율</th>
                 <th scope="col">할인가</th>
@@ -102,10 +104,12 @@
                 <td>${result.mkr}</td>
                 <td>${result.plor}</td>
                 <td>${result.brand}</td>
+                <td>${result.entrpsNm}</td>
                 <td>${result.modl}</td>
                 <td>${result.keyword}</td>
                 <td>${dspyYnCode[result.dspyYn]}</td>
 
+				<td><fmt:formatNumber value="${result.supPc}" pattern="###,###" /></td>
                 <td><fmt:formatNumber value="${result.pc}" pattern="###,###" /></td>
                 <td>${result.dscntRt}%</td>
                 <td><fmt:formatNumber value="${result.dscntPc}" pattern="###,###" /></td>
@@ -124,7 +128,7 @@
 			</c:forEach>
 			<c:if test="${fn:length(resultList) < 1}">
 			<tr>
-				<td colspan="29" style="height:50px; text-align:center; vertical-align:middle;">데이터가 없습니다.</td>
+				<td colspan="31" style="height:50px; text-align:center; vertical-align:middle;">데이터가 없습니다.</td>
 			</tr>
 			</c:if>
 		</tbody>
