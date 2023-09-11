@@ -1,6 +1,3 @@
-/*
- *
- */
 package icube.manage.consult.biz;
 
 import java.util.Date;
@@ -43,4 +40,6 @@ public class MbrConsltVO extends CommonBaseVO {
 	private Date canclDt;
 
 	private List<MbrConsltResultVO> consltResultList;
+
+	private Date reConsltDt; // 재접수 일시 (CS07)
 }

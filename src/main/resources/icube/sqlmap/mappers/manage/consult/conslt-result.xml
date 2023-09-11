@@ -21,6 +21,7 @@
 		, mcr.conslt_dt
 		, mcr.reconslt_resn
 		, mcr.reconslt_dt
+		, mcr.reg_dt
 	</sql>
 
 	<sql id="searchConditions">

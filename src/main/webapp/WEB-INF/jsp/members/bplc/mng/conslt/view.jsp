@@ -55,7 +55,7 @@
 
                                 <tr>
                                     <th scope="row">상담 신청일</th>
-                                    <td><fmt:formatDate value="${mbrConsltVO.regDt}" pattern="yyyy-MM-dd" /></td>
+                                    <td><fmt:formatDate value="${mbrConsltVO.regDt}" pattern="yyyy-MM-dd HH:mm" /></td>
                                     <th scope="row">상담진행상태</th>
                                     <td>
                                         <ul class="space-y-1">
@@ -74,6 +74,10 @@
                                             </li>
                                         </ul>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">상담 배정 일시</th>
+                                    <td colspan="3"><fmt:formatDate value="${mbrConsltResultVO.regDt }" pattern="yyyy-MM-dd HH:mm" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -131,7 +135,7 @@
                                 <tr>
                                     <th scope="row"><label for="consltDtls" class="require">상담내용</label></th>
                                     <td>
-                                    	<form:textarea path="consltDtls" class="form-control w-full" title="메모" cols="30" rows="5" />
+                                    	<textarea id="consltDtls" name="consltDtls" class="form-control w-full" title="메모" cols="30" rows="5">${mbrConsltResultVO.consltDtls}</textarea>
                                     </td>
                                 </tr>
                                 <c:if test="${!empty mbrConsltResultVO.regUniqueId}">
