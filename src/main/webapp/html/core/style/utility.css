@@ -58,9 +58,9 @@ strong {
                lg:text-[1.875rem];
         & a {
             @apply flex items-center py-2
-                   before:w-[99px] before:h-[20px] before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-[auto_100%]
-                   md:before:w-[118px] md:before:h-[24px]
-                   lg:before:w-[148px] lg:before:h-[30px];
+                   before:w-[106px] before:h-[32px] before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-[auto_100%]
+                   md:before:w-[132px] md:before:h-[40px]
+                   lg:before:w-[158px] lg:before:h-[48px];
         }
         & em {
             @apply sr-only;
@@ -77,13 +77,37 @@ strong {
         }
         &.is-style2 {
             & a {
-                @apply before:w-[74px] before:bg-[url(/html/core/images/img-brand-logo2.svg)]
-                       md:before:w-[88px]
-                       lg:before:w-[109px];
+                @apply before:w-[53px] before:h-[31px] before:bg-[url(/html/core/images/img-brand-logo2.svg)]
+                       md:before:w-[64px] md:before:h-[38px]
+                       lg:before:w-[78px] lg:before:h-[46px];
             }
             &.is-white {
                 & a {
                     @apply before:bg-[url(/html/core/images/img-brand-logo2-white.svg)];
+                }
+            }
+        }
+        &.is-style3 {
+            & a {
+                @apply before:w-[99px] before:h-[20px] before:bg-[url(/html/core/images/img-brand-logo3.svg)]
+                       md:before:w-[118px] md:before:h-[24px]
+                       lg:before:w-[148px] lg:before:h-[30px];
+            }
+            &.is-white {
+                & a {
+                    @apply before:bg-[url(/html/core/images/img-brand-logo3-white.svg)];
+                }
+            }
+        }
+        &.is-style4 {
+            & a {
+                @apply before:w-[45px] before:h-[36px] before:bg-[url(/html/core/images/img-brand-logo4.svg)]
+                       md:before:w-[55px] md:before:h-[44px]
+                       lg:before:w-[65px] lg:before:h-[52px];
+            }
+            &.is-white {
+                & a {
+                    @apply before:bg-[url(/html/core/images/img-brand-logo4-white.svg)];
                 }
             }
         }

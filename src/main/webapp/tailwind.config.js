@@ -24,7 +24,7 @@ module.exports = {
                 'yellow2'   : '#FFFAE6',
                 'black1'    : '#1C1C1C',
                 'black2'    : '#333',
-                'indexKey1' : '#FF8300',
+                'indexKey1' : '#FF8120',
                 'indexKey2' : '#3074FF',
             },
             fontFamily: {

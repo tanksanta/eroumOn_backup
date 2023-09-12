@@ -2,7 +2,7 @@
 
 		<header id="header">
             <div class="container">
-                <h1 id="logo" class="global-logo is-style2 is-white">
+                <h1 id="logo" class="global-logo is-style3 is-white">
                     <a href="/<spring:eval expression="@props['Globals.Members.path']"/>/introduce">
                         <span>
                             멤버스

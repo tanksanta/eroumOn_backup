@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="content">
-    <div class="company-visual">
+    <div class="content-old-company-visual">
         <h1>
             시니어 라이프 케어<em>의</em> 혁신
             <span>
@@ -14,15 +14,15 @@
         </ul>
         <div class="swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" data-tab="tabs-cont1" style="background-image: url(/html/page/index/assets/images/img-company1.jpg)"></div>
-                <div class="swiper-slide" data-tab="tabs-cont2" style="background-image: url(/html/page/index/assets/images/img-company2.jpg)"></div>
+                <div class="swiper-slide" data-tab="tabs-cont1" style="background-image: url(/html/page/index/assets/images/img-old-company1.jpg)"></div>
+                <div class="swiper-slide" data-tab="tabs-cont2" style="background-image: url(/html/page/index/assets/images/img-old-company2.jpg)"></div>
             </div>
         </div>
     </div>
 
     <div class="tab">
         <div class="tab-pane fade show active" id="tabs-cont1" role="tabpanel">
-            <div class="content-company1">
+            <div class="content-old-company1">
                 <h2>시니어 라이프 케어 플랫폼<br class="sm:hidden"> <strong class="color">‘이로움ON’</strong></h2>
                 <p>
                     <strong class="color">이로움ON</strong>은 고령자들을 위한 다양한 생활용품과<br>
@@ -34,7 +34,7 @@
                     <strong>이로움ON 플랫폼</strong>을 만나보실 수 있습니다.
                 </p>
             </div>
-            <div class="content-company2">
+            <div class="content-old-company2">
                 <div class="content">
                     <h2>티에이치케이컴퍼니<em>가 <br> 걸어온 길</em></h2>
                     <p>
@@ -47,11 +47,11 @@
                         티에이치케이컴퍼니는 건강한 시니어 라이프를 위해 <br class="sm-max:hidden">
                         2023년 6월 시니어 라이프 케어 플랫폼 ‘<strong>이로움ON</strong>’으로 새로운 혁신을 만들어 갑니다.
                     </p>
-                    <p><img src="/html/page/index/assets/images/img-company3.png" alt=""></p>
+                    <p><img src="/html/page/index/assets/images/img-old-company3.png" alt=""></p>
                 </div>
-                <img src="/html/page/index/assets/images/bg-company3.png" alt="" class="visual">
+                <img src="/html/page/index/assets/images/img-old-company4.png" alt="" class="visual">
             </div>
-            <div class="content-company3">
+            <div class="content-old-company3">
                 <h2>시니어 맞춤 상품 큐레이션</h2>
                 <p>
                     <strong>복지용구를 넘어 시니어 토탈 케어 플랫폼으로</strong><br>
@@ -73,7 +73,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="content-company4">
+            <div class="content-old-company4">
                 <h2>Contact us</h2>
                 <div class="link">
                     <p><a href="mailto:biz@thkc.co.kr">사업제휴 문의 biz@thkc.co.kr</a></p>
@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="tabs-cont2" role="tabpanel">
-            <div class="content-company1">
+            <div class="content-old-company1">
                 <h2>그 시작엔 ‘<strong class="color">이로움</strong>’이 있었습니다.</h2>
                 <p>
                     B2C 플랫폼 ‘<strong class="color">이로움ON</strong>’과 B2B 플랫폼 ‘<strong class="color">이로움</strong>’을 운영하는 주식회사 <strong>티에이치케이컴퍼니</strong>는<br>
@@ -98,7 +98,7 @@
                 </p>
                 <p>이제 우리는 수급자 여러분과 만나는 새로운 시장으로의 한 걸음을 내딛습니다.</p>
             </div>
-            <div class="content-company2">
+            <div class="content-old-company2">
                 <div class="content">
                     <h2>티에이치케이컴퍼니<em>가 <br> 걸어온 길</em></h2>
                     <p>
@@ -115,7 +115,7 @@
                 </div>
                 <img src="/html/page/index/assets/images/bg-company3.png" alt="" class="visual">
             </div>
-            <div class="content-company3">
+            <div class="content-old-company3">
                 <h2>시니어 맞춤 상품 큐레이션</h2>
                 <p>
                     <strong>복지용구를 넘어 시니어 토탈 케어 플랫폼으로</strong><br>
@@ -137,7 +137,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="content-company4">
+            <div class="content-old-company4">
                 <h2>Contact us</h2>
                 <div class="link">
                     <p><a href="mailto:biz@thkc.co.kr">사업제휴 문의 biz@thkc.co.kr</a></p>

@@ -18,7 +18,225 @@
 
 
 /* 회사소개 */
-.company-visual {
+.company-title {
+    @apply mb-[max(4.5rem,(min(7.5vw,6rem)))] text-center font-bold;
+    & h2 {
+        @apply text-[max(1.625rem,(min(3.28125vw,2.625rem)))];
+    }
+    & ul {
+        @apply flex justify-center gap-[max(2.75rem,(min(6.09375vw,4.875rem)))] mt-5 text-[max(1.125rem,(min(1.71875vw,1.375rem)))]
+               md:mt-7;
+        & a {
+            @apply block mb-1 border-b-1 border-b-transparent;
+            &.active {
+                @apply border-b-indexKey1;
+            }
+        }
+    }
+}
+
+[class*="company-content"] {
+    @apply relative mx-auto max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.7578125vw,1.125rem)))];
+    & h3 {
+        @apply font-bold leading-[1.2] text-[max(1.5rem,(min(3.125vw,2.5rem)))];
+    }
+}
+
+.company-content1 {
+    & > * {
+        @apply relative z-10;
+    }
+    & h3 {
+        @apply mb-[1.40625em] font-light text-[max(1.5rem,(min(3.125vw,2rem)))];
+    }
+    & p {
+        @apply md:max-w-[75.5%];
+        & img {
+            @apply min-w-80 max-w-[57.4%]
+                   md:min-w-100
+                   lg:min-w-[30rem];
+        }
+    }
+    & .visual {
+        @apply relative z-5 -mt-[52.5%] -mx-4 w-[calc(100%_+_2rem)] max-w-none
+               md:-mt-[72.5%];
+    }
+}
+
+.company-content2 {
+    @apply mt-1 py-[max(3.25rem,(min(9.84375vw,7.875rem)))]
+           before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:-translate-x-1/2 before:bg-gray2;
+    & > * {
+        @apply relative z-5;
+    }
+    & h3 {
+        @apply mb-[1em] w-fit bg-[linear-gradient(94deg,_#FF8D37_0%,_#CA5A99_100%)];
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-text-fill-color: transparent;
+    }
+    & p {
+        & strong {
+            @apply text-[1.2222222222em];
+        }
+    }
+    & dl {
+        @apply mt-[max(2rem,(min(5vw,4rem)))];
+        & dt {
+            @apply inline-flex items-center font-extrabold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
+            & span {
+                @apply relative -mt-[0.01em] align-middle text-[1.666666666666667em] opacity-20
+                       first:pr-[0.25em]
+                       first:md:pr-[0.375em]
+                       last:pl-[0.25em]
+                       last:md:pl-[0.375em];
+            }
+        }
+        & dd {
+            @apply mt-[max(1.5rem,(min(2.5vw,2rem)))] -mx-1 xs:mx-0;
+            & ul {
+                @apply flex flex-wrap overflow-hidden;
+                & li {
+                    @apply w-[33.33333333333%] px-1 py-[max(0.875rem,(min(1.40625vw,1.125rem)))] xs:mr-[max(2rem,(min(4.0625vw,3.25rem)))] xs:px-0 xs:w-auto;
+                }
+                & img {
+                    @apply mx-auto max-h-[max(2.25rem,(min(4.84375vw,3.875rem)))] mix-blend-luminosity opacity-40 grayscale transition-all duration-500 hover:opacity-100 hover:grayscale-0;
+                }
+            }
+        }
+    }
+}
+
+.company-content3 {
+    @apply mt-[max(2.75rem,(min(8.75vw,6.875rem)))];
+    & h3 {
+        @apply mb-[1.95em] font-serif;
+    }
+    & p {
+        & a {
+            @apply inline-block align-middle font-serif font-bold text-[1.2222222222em];
+        }
+    }
+    & .link {
+        @apply flex gap-2 md-max:flex-col;
+        & p {
+            @apply mr-auto;
+        }
+    }
+}
+
+[class*="company-brand"] {
+    @apply relative mx-auto mb-[max(6.75rem,(min(14.0625vw,11.25rem)))] max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.7578125vw,1.125rem)))];
+    & > * {
+        @apply relative z-10;
+    }
+    & h3, & h4 {
+        @apply flex-none mb-[1em] leading-[1.2];
+    }
+    & h3 {
+        @apply font-bold text-[max(1.5rem,(min(3.125vw,2rem)))];
+    }
+    & h4 {
+        @apply font-medium text-[max(1.25rem,(min(2.34375vw,1.5rem)))];
+    }
+    & .title {
+        @apply flex items-center flex-col gap-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.875rem,(min(5.781255vw,4.625rem)))]
+               md:flex-row;
+        & h3 {
+            @apply mb-0;
+        }
+    }
+    & .nav {
+        @apply flex gap-2 w-full
+               md:gap-2.5 md:max-w-[620px];
+        & .nav-item {
+            @apply flex-1;
+        }
+        & .nav-link {
+            @apply flex items-center justify-center h-10 bg-gray2 rounded-md text-sm
+                   md:h-[3.125rem] md:text-base;
+            &.active {
+                @apply bg-black2 text-white;
+            }
+        }
+    }
+}
+
+.company-brand1 {
+    & .button {
+        @apply flex gap-2.5 mt-[2.22222222em];
+        & a {
+            @apply inline-flex items-center py-[0.8em] pr-[1.7em] pl-[2em] rounded-full bg-gray2 text-[0.8125rem] font-bold leading-snug
+                   after:w-5 after:h-5 after:ml-[1.7em] after:bg-cover after:bg-[url(../images/ico-brand-content1.svg)]
+                   md:py-[0.9em] md:pr-[2.125em] md:pl-[2.5em] md:text-sm
+                   md:after:w-6 md:after:h-6 md:after:ml-[2.125em];
+        }
+    }
+    & .image {
+        @apply mt-[3em] mx-auto max-w-80
+               md:max-w-[27.5rem]
+               lg:max-w-[34.375rem];
+    }
+}
+
+.company-brand2 {
+    & .images, & .images2 {
+        @apply mt-[2.6666667em];
+        & img {
+            @apply object-cover;
+        }
+    }
+    & .images {
+        & img {
+            @apply object-left-top;
+        }
+    }
+    & .images2 {
+        @apply grid gap-2.5
+               md:grid-cols-2 md:gap-5;
+        & img {
+            @apply md:h-60
+                   lg:h-75;
+        }
+    }
+}
+
+.company-brand3 {
+    & .nav {
+        @apply mx-auto mt-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.25rem,(min(4.0625vw,3.25rem)))];
+    }
+    & .images {
+        @apply mt-[max(1.375rem,(min(3.515625vw,2.25rem)))];
+    }
+}
+
+.company-brand4 {
+    & .nav {
+        @apply max-w-[26.25rem];
+    }
+    & .images {
+        @apply mt-[max(1.375rem,(min(3.515625vw,2.25rem)))];
+    }
+}
+
+.company-brand5 {
+    & .nav {
+        @apply mx-auto mt-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.25rem,(min(4.0625vw,3.25rem)))];
+    }
+    & .images {
+        @apply grid gap-x-2.5 gap-y-8 mt-[max(1.375rem,(min(3.515625vw,2.25rem)))]
+               md:grid-cols-2 md:gap-y-12 md:gap-x-5
+               lg:gap-y-16;
+        & img {
+            @apply mb-2.5;
+        }
+    }
+}
+
+
+
+.content-old-company-visual {
     @apply relative z-10 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl text-white;
     font-family: "NanumSquareNeo";
     & h1 {
@@ -50,7 +268,7 @@
     }
 }
 
-.content-company1, .content-company2, .content-company3, .content-company4 {
+.content-old-company1, .content-old-company2, .content-old-company3, .content-old-company4 {
     @apply relative mx-auto max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.40625vw,1.125rem)))];
     font-family: "NanumSquareNeo";
     & h2 {
@@ -61,7 +279,7 @@
     }
 }
 
-.content-company1 {
+.content-old-company1 {
     @apply mt-[max(2.5rem,(min(4.375vw,3.5rem)))];
     & h2 {
         @apply mb-[1.45em] text-[max(1.5rem,(min(2.8125vw,2.25rem)))];
@@ -80,7 +298,7 @@
     }
 }
 
-.content-company2 {
+.content-old-company2 {
     @apply mt-[max(7rem,(min(12.8125vw,10.25rem)))] text-sm lg:text-base 2xl:text-lg
            before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:-translate-x-1/2 before:bg-gray2;
     & .content {
@@ -100,7 +318,7 @@
     }
 }
 
-.content-company3 {
+.content-old-company3 {
     @apply mt-[max(12.25rem,(min(25.625vw,20.5rem)))] pb-[max(1.75rem,(min(7.1875vw,5.75rem)))] border-b border-b-gray3;
     & h2 {
         @apply mb-[1.1818em] w-fit text-[max(1.5rem,(min(4.375vw,3.5rem)))] bg-[linear-gradient(94deg,_#FF8D37_0%,_#CA5A99_100%)];
@@ -137,7 +355,7 @@
     }
 }
 
-.content-company4 {
+.content-old-company4 {
     @apply mt-[max(2.625rem,(min(8.59375vw,6.875rem)))];
     & h2 {
         @apply mb-[1.1818em] text-[max(1.875rem,(min(5.15625vw,4.125rem)))] font-serif font-bold;
@@ -154,6 +372,8 @@
         }
     }
 }
+
+
 
 
 /* 제휴 입점문의 */
