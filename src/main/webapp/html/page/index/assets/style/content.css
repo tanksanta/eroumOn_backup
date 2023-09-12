@@ -18,6 +18,13 @@
 
 
 /* 회사소개 */
+.company-visual {
+    @apply relative left-1/2 mb-[max(2.5rem,(min(5vw,4rem)))] py-[max(4.5rem,(min(9.53125vw,7.625rem)))] w-screen bg-[url(../images/bg-company-visual.jpg)] text-center leading-tight text-white font-light text-[max(1.875rem,(min(3.75vw,3rem)))] -translate-x-1/2;
+    & strong {
+        @apply font-bold;
+    }
+}
+
 .company-title {
     @apply mb-[max(4.5rem,(min(7.5vw,6rem)))] text-center font-bold;
     & h2 {

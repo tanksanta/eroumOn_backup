@@ -26,6 +26,7 @@ module.exports = {
                 'black2'    : '#333',
                 'indexKey1' : '#FF8120',
                 'indexKey2' : '#3074FF',
+                'indexKey3' : '#00399c',
             },
             fontFamily: {
                 'sans'  : ['Noto Sans KR', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
