@@ -31,13 +31,13 @@
 		<if test="srchText !='' and srchText !=null">
 			<choose>
 				<when test="srchTarget == 'srchMngrId' ">
-				AND UPPER(MNGR.mngr_id) LIKE  CONCAT('%', UPPER(#{srchText}), '%')
+				AND UPPER(mngr.mngr_id) LIKE  CONCAT('%', UPPER(#{srchText}), '%')
 				</when>
 				<when test="srchTarget == 'srchMngrNm' ">
-				AND MNGR.mngr_nm LIKE  CONCAT('%', #{srchText}, '%')
+				AND mngr.mngr_nm LIKE  CONCAT('%', #{srchText}, '%')
 				</when>
 				<otherwise>
-				AND (UPPER(MNGR.mngr_id) LIKE CONCAT('%', UPPER(#{srchText}), '%') OR MNGR.mngr_nm LIKE  CONCAT('%', #{srchText}, '%'))
+				AND (UPPER(mngr.mngr_id) LIKE CONCAT('%', UPPER(#{srchText}), '%') OR mngr.mngr_nm LIKE CONCAT('%', #{srchText}, '%'))
 				</otherwise>
 			</choose>
 		</if>
