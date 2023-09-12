@@ -148,6 +148,8 @@
 	<update id="updateOptnSoldOutYn" parameterType="java.util.HashMap">
 		UPDATE GDS_OPTN SET
 			sold_out_yn = #{soldOutYn}
-		WHERE REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
+		WHERE gds_no = #{gdsNo}
+		  AND optn_ty = #{optnTy}
+		  AND REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
 	</update>
 </mapper>
