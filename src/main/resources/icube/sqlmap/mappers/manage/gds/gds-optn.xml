@@ -47,9 +47,6 @@
 		<if test="optnItemCd != null and optnItemCd != '' ">
 			AND optn_item_cd = #{optnItemCd}
 		</if>
-		<if test="optnNmForReplace != null and optnNmForReplace != '' ">
-			AND REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
-		</if>
 	</sql>
 
 	<sql id="searchOrder">
@@ -151,7 +148,6 @@
 	<update id="updateOptnSoldOutYn" parameterType="java.util.HashMap">
 		UPDATE GDS_OPTN SET
 			sold_out_yn = #{soldOutYn}
-		WHERE 1=1
-			<include refid="searchConditions" />
+		WHERE REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
 	</update>
 </mapper>
