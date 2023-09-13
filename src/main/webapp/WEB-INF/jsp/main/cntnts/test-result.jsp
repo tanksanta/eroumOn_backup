@@ -78,6 +78,20 @@
                 </dl>
             </li>
         </div>
+        <div class="mainSend">
+            <form class="provide-form">
+                <div class="form-agree">                                    
+                    <div class="flex gap-3 items-center py-2 justify-center">
+                      <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="chk-email" id="chk-email">
+                      <label class="form-check-label text-1xl" for="chk-email">나에게 예상 테스트 결과 보내기</label>
+                    </div>
+                </div>                        
+                <ul>
+                    <li> 예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.</li>
+                    <li> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</li>
+                </ul>                   
+            </form>                    
+        </div>
     </div>
 
     <div class="result-content2">
@@ -339,10 +353,10 @@
         	loadTestResult();
         	
         	//css link
-        	var link = document.createElement('link');
-    		link.href = '/html/core/style/style.min.css';
-    		link.rel = 'stylesheet';
-    		document.getElementsByTagName('head')[0].appendChild(link);
+        	//var link = document.createElement('link');
+    		//link.href = '/html/core/style/style.min.css';
+    		//link.rel = 'stylesheet';
+    		//document.getElementsByTagName('head')[0].appendChild(link);
     		
         	
             var swiper = new Swiper(".swiper", {
@@ -522,19 +536,6 @@
             	//등급, 점수값 넣기
             	templete = templete.replace('((grade))', grade);
             	templete = templete.replace('((score))', score);
-            	
-            	//예상 테스트 결과 보내기 체크박스 추가하기
-            	templete += `
-            		<form class="provide-form mt-7">
-	                    <div class="form-agree">                                    
-	                        <div>
-	                          <input class="rounded-md border-2" style="width: 1.2rem; height: 1.2rem;" type="checkbox" name="chk-email" id="chk-email">
-	                          <label class="form-check-label text-lg" for="chk-email">나에게 예상 테스트 결과 보내기</label>
-	                        </div>
-	                    </div>
-	                    <div style="padding: 0 0 0 24px;">예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.<br> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</div> 
-	                </form>
-            	`;
             	
             	$('.result .container').html(templete);
             }
