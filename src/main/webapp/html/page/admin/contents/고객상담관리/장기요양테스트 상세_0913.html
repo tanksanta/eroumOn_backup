@@ -256,9 +256,31 @@
                         <a href="장기요양테스트.html" class="btn-secondary large shadow">목록</a>
                     </div>
 
-                   
+                    <fieldset class="mt-15">                                                                                                
+                        <legend class="text-title2">상담기록 및 진행상태 변경 내역</legend>                                                                 
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-full">
+                                <col>
+                            </colgroup>
+                            <tbody>                               
+                                <tr>  
+                                    <!-- <th scope="row"><label for="form-item1">내역</label></th> -->
+                                    <td>
+                                        <textarea name="" id="form-item1" cols="30" rows="5" class="w-full p-3">
+yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상담내용 입력텍스트
+yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상태변경: [상담진행상태상태값] -> [상담진행상태값]
+2023-09-07 11:11:11 회원명(회원아이디) / 담자가 사업소 연락이 안된다고 하여 사업소 컨택
+2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
+2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
+                                        </textarea>
+                                    </td>                      
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </fieldset>
                                 
-                    <fieldset class="mt-25">                                                                        
+                    <fieldset class="mt-5">                                                                        
                         <legend class="text-title2">상담기록</legend>
                         <div class="btn-group right mx-2">
                             <button class="small shadow btn-primary">저장</button>
@@ -270,7 +292,7 @@
                             </colgroup>
                             <tbody>                               
                                 <tr>
-                                    <th scope="row"><label for="form-item1">작성</label></th>
+                                    <th scope="row"><label for="form-item1">상담기록 작성</label></th>
                                     <td><textarea name="" id="form-item1" cols="30" rows="5" class="form-control w-full"></textarea></td>
                                 </tr>                                
                             </tbody>
@@ -278,7 +300,7 @@
                     </fieldset>
                    
                     
-                    <fieldset class="mt-13">                        
+                    <fieldset class="mt-5">                        
                         <legend class="text-title2">상담진행상태 변경</legend>
                         <div class="btn-group right mx-2">
                             <button class="small shadow btn-primary">저장</button>
@@ -298,7 +320,7 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">현재</th>
-                                        <td>관리자(admin) / yyyy.mm.dd 23:34:35</td>
+                                        <td>상담 신청 접수</td>
                                         <th scope="row">변경</th>
                                         <td>
                                             <select name="" id="search-item8" class="form-control w-50">
@@ -323,20 +345,12 @@
                                     <col>
                                 </colgroup>
                                 <tbody>                               
-                                    <tr>
-                                        <th scope="row"><label for="form-item1">내역</label></th>
-                                        <td><textarea name="" id="form-item1" cols="30" rows="5" class="w-full p-2">
-yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상담내용 입력텍스트
-yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상태변경: [상담진행상태상태값] -> [상담진행상태값]
-2023-09-07 11:11:11 회원명(회원아이디) / 담자가 사업소 연락이 안된다고 하여 사업소 컨택
-2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
-2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
-                                        </textarea></td>
-                                    </tr>                                
+                                                                
                                 </tbody>
                             </table>                         
                         </table>
-                    </fieldset>  
+                    </fieldset>                     
+                    
                 </form>
 
                 <!-- 상담 취소 사유 -->
