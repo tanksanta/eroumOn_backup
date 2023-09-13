@@ -11,31 +11,30 @@
             <div id="page-content">
                 <p class="text-alert">마이페이지 > 1:1 문의내역에서 답변을 확인하실 수 있습니다.</p>
 
-                <div class="mt-4 p-4 bg-gray2 rounded-md md:mt-5">
-                    <div class="h-44 md:h-58 scrollbars">
-                        1. 수집 항목</br>
-						이름, 이메일,휴대전화번호</br>
-						2. 목적</br>
-						문의/신고(반품,교환)접수 및 결과 회신</br>
-						3. 보유 및 이용 기간</br>
-						전자상거래법 시행령 제6조(소비자의 불만 및 분쟁처리 관한 기록)에 따라 3년 보관 후 파기합니다.</br>
-						※고객님께서는 개인정보 수집에 동의를 거부할 권리가 있으며, 동의 거부 시 1:1 문의하기 이용이 불가합니다
-                    </div>
-                </div>
-
-                <div class="form-check mt-3 md:mt-4">
-                    <input class="form-check-input" type="checkbox" id="termsChk" name="termsChk" value="N">
-                    <label class="form-check-label" for="termsChk">개인정보 취급방침 약관에 동의합니다</label>
-                </div>
-
-                <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
-
-                <form:form action="./action" class="mypage-inquiry mt-2.5 md:mt-3" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="mbrInqryVO" enctype="multipart/form-data">
-                <form:hidden path="crud" />
-                <form:hidden path="inqryNo" />
-                <input type="hidden" id="delAttachFileNo" name="delAttachFileNo" value="" />
-
-                    <fieldset>
+                <form:form action="./action" class="mt-4 md:mt-5" id="inqryFrm" name="inqryFrm" method="post" modelAttribute="mbrInqryVO" enctype="multipart/form-data">
+	                <form:hidden path="crud" />
+	                <form:hidden path="inqryNo" />
+	                <input type="hidden" id="delAttachFileNo" name="delAttachFileNo" value="" />
+	
+	                <div class="p-4 bg-gray2 rounded-md">
+	                    <div class="h-44 scrollbars">
+	                        1. 수집 항목</br>
+							이름, 이메일,휴대전화번호</br>
+							2. 목적</br>
+							문의/신고(반품,교환)접수 및 결과 회신</br>
+							3. 보유 및 이용 기간</br>
+							전자상거래법 시행령 제6조(소비자의 불만 및 분쟁처리 관한 기록)에 따라 3년 보관 후 파기합니다.</br>
+							※고객님께서는 개인정보 수집에 동의를 거부할 권리가 있으며, 동의 거부 시 1:1 문의하기 이용이 불가합니다
+	                    </div>
+	                </div>
+	                
+	                <div class="form-check mt-3 md:mt-4">
+	                    <input class="form-check-input" type="checkbox" id="termsChk" name="termsChk" value="N">
+	                    <label class="form-check-label" for="termsChk">개인정보 취급방침 약관에 동의합니다</label>
+	                </div>
+	
+	                <p class="mt-14 text-lg font-bold md:mt-17 md:text-xl">문의내용</p>
+                    <fieldset class="mypage-inquiry mt-2.5 md:mt-3">
                         <legend>1:1문의내용</legend>
                         <div class="inquiry-top">
                             <table>
@@ -377,7 +376,8 @@
     	$("form#inqryFrm").validate({
     	    ignore: "input[type='text']:hidden",
     	    rules : {
-    	    	mblTelno : {regex : telchk, mblTelnoChk : true}
+    	    	termsChk : {required : true}
+    	    	, mblTelno : {regex : telchk, mblTelnoChk : true}
     	    	, inqryDtlTy : {required : true}
     	    	, eml : {regex : emailchk, emlChk : true}
     	    	, ordrCd : {ordrCdChk : true}
@@ -385,7 +385,8 @@
     			, cn : {required : true}
     	    },
     	    messages : {
-    	    	mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)", mblTelnoChk : "! 전화번호는 필수 입력 항목입니다."}
+    	    	termsChk : {required : "! 개인정보 취급방침 약관에 동의해야 합니다."}
+    	    	, mblTelno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)", mblTelnoChk : "! 전화번호는 필수 입력 항목입니다."}
     	    	, inqryDtlTy : {required : "! 문의유형은 필수 선택 항목입니다."}
 		    	, eml : {regex : "! 이메일 형식이 잘못되었습니다.\n(abc@def.com)", emlChk : "! 이메일은 필수 입력 항목입니다."}
 		    	, ordrCd : {ordrCdChk : "! 주문코드는 필수 선택 항목입니다."}

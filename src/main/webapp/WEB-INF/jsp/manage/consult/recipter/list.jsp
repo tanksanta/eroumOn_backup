@@ -74,7 +74,8 @@
 			 <col class="min-w-12 w-12">
              <col class="min-w-18 w-22">
              <col class="min-w-22 w-28">
-             <col class="min-w-18 w-18">
+             <col>
+             <!-- <col class="min-w-18 w-18"> -->
              <col class="min-w-25 w-30">
              <col class="min-w-15 w-20">
              <col class="min-w-22 w-28">
@@ -92,14 +93,14 @@
 				</th>
 				<th scope="col">번호</th>
 				<th scope="col">상담진행상태</th>
-				<th scope="col">사업소배정</th>
+				<th scope="col">사업소배정 (배정일시)</th>
 				<th scope="col">성명</th>
 				<th scope="col">성별</th>
 				<th scope="col">연락처</th>
 				<th scope="col">만나이</th>
 				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
-				<th scope="col">상담신청일</th>
+				<th scope="col">상담신청일<br>(재상담 신청일)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -129,7 +130,7 @@
 				<td>
 					<c:if test="${resultList.consltSttus ne 'CS01'}">
 					<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
-					${status2.index+1}차 : ${consltResult.bplcNm }<br>
+					${status2.index+1}차 : ${consltResult.bplcNm } (<fmt:formatDate value="${consltResult.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
 					</c:forEach>
 					</c:if>
 					<c:if test="${resultList.consltSttus eq 'CS01' || empty resultList.consltSttus}">
@@ -142,7 +143,12 @@
 				<td>만 ${resultList.age} 세</td>
 				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
 				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
-				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
+				<td>
+					<fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" />
+					<c:if test="${resultList.consltSttus eq 'CS07' || resultList.consltSttus eq 'CS08'}">
+					<br>(<fmt:formatDate value="${resultList.reConsltDt }" pattern="yyyy-MM-dd" />)
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 		<c:if test="${empty listVO.listObject}">

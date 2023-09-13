@@ -71,7 +71,10 @@
 
                                         <ul class="mt-2 space-y-1 bplcLi">
                                         	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
-                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno} / <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})</li>
+                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno}
+                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})
+                                            	, 상담 배정 일시 : <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                            </li>
                                         	</c:forEach>
                                         </ul>
                                     </td>
@@ -124,7 +127,7 @@
                                 <tr>
                                     <th scope="row"><label for="mngMemo" class="require">상담내용</label></th>
                                     <td>
-                                    	<form:textarea path="mngMemo" class="form-control w-full" title="메모" cols="30" rows="5" />
+                                    	<textarea id="mngMemo" name="mngMemo" class="form-control w-full" title="메모" cols="30" rows="5">${mbrConsltVO.mngMemo }</textarea>
                                     </td>
                                 </tr>
                                 <c:if test="${!empty mbrConsltVO.mngrUniqueId}">
@@ -232,7 +235,14 @@
                                                 <p class="mt-2 font-bold">(${resultList.bplcNm})</p>
                                             </th>
                                             <td>
+                                            	<c:if test="${resultList.consltSttus eq 'CS06'}">
+                                            	(상담입력 : <fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
                                                 ${resultList.consltDtls}
+                                                </c:if>
+
+                                                <c:if test="${resultList.consltSttus ne 'CS06'}">
+                                                상담 대기 중
+                                                </c:if>
                                             </td>
                                         </tr>
                                         </c:forEach>

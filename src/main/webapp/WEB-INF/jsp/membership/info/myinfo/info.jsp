@@ -182,7 +182,7 @@
 						<dl class="grade">
 							<dt>등급</dt>
 							<dd>
-								<img id="searchGrade" src="<c:if test="${!empty mbrVO.recipterInfo.rcognGrad}">/html/page/market/assets/images/content2/num${mbrVO.recipterInfo.rcognGrad}.png</c:if>">
+								<img id="searchGrade" src="<c:if test="${!empty mbrVO.recipterInfo.rcognGrad}">/html/page/members/assets/images/txt-grade-num${mbrVO.recipterInfo.rcognGrad}.png</c:if>">
 							</dd>
 						</dl>
 					</div>
@@ -561,7 +561,7 @@ $(function(){
 				$("#searchQlf").text(penPayRate);
 
 
-				$("#searchGrade").attr("src", "/html/page/market/assets/images/content2/num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
+				$("#searchGrade").attr("src", "/html/page/members/assets/images/txt-grade-num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
 				$("#searchBgngRcgt").html((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
 				$("#searchEndRcgt").html("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
 				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));

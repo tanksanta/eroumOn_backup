@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>component</title>
+
+    <!-- plugin -->
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            overflow-x: hidden;
+            background: #fff !important;
+        }
+        #list, #content {
+            max-width:none;
+            overflow: overlay;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        #list::-webkit-scrollbar, #content::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        #list::-webkit-scrollbar-thumb, #content::-webkit-scrollbar-thumb {
+            border-radius: 0.75rem;
+            background-color: #aaa;
+        }
+
+        #list::-webkit-scrollbar-track, #content::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        
+        #list .nav-link {
+            position: relative;
+            margin-bottom: -1px;
+            z-index: 1;
+        }
+
+        #list .active {
+            z-index: 10;
+            transition: all 0.5s ease-in-out;
+            background-color: #60a5fa;
+            border-bottom-color: #60a5fa;
+            color: white;
+        }
+
+        hr {
+            margin: 2rem 0;
+        }
+
+        hr:last-child {
+            display: none;
+        }
+
+        [id*="section"] {
+            min-height: 25vh;
+        }
+    </style>
+</head>
+
+<body class="flex h-screen overflow-hidden">
+    <nav id="list" class="flex-none w-60 h-screen overflow-auto border-r border-gray-300">
+        <ul>
+            <li><a href="#section1" class="nav-link block py-2 px-3 border-b border-gray-300">기본</a></li>
+            <li><a href="#section2" class="nav-link block py-2 px-3 border-b border-gray-300">사이트 공통</a></li>
+            <li><a href="#section3" class="nav-link block py-2 px-3 border-b border-gray-300">텍스트</a></li>
+            <li><a href="#section4" class="nav-link block py-2 px-3 border-b border-gray-300">여백</a></li>
+            <li><a href="#section5" class="nav-link block py-2 px-3 border-b border-gray-300">컬러</a></li>
+            <li><a href="#section6" class="nav-link block py-2 px-3 border-b border-gray-300">박스</a></li>
+            <li><a href="#section7" class="nav-link block py-2 px-3 border-b border-gray-300">리스트</a></li>
+            <li><a href="#section8" class="nav-link block py-2 px-3 border-b border-gray-300">테이블</a></li>
+            <li><a href="#section9" class="nav-link block py-2 px-3 border-b border-gray-300">탭</a></li>
+            <li><a href="#section10" class="nav-link block py-2 px-3 border-b border-gray-300">페이징</a></li>
+            <li><a href="#section11" class="nav-link block py-2 px-3 border-b border-gray-300">라벨</a></li>
+            <li><a href="#section12" class="nav-link block py-2 px-3 border-b border-gray-300">버튼</a></li>
+            <li><a href="#section13" class="nav-link block py-2 px-3 border-b border-gray-300">폼 컨트롤</a></li>
+            <li><a href="#section14" class="nav-link block py-2 px-3 border-b border-gray-300">모달</a></li>
+        </ul>
+    </nav>
+    <main id="content" class="flex-1 py-4 px-5 overflow-auto">
+        <div id="section1">
+            <h1 class="text-3xl text-black mb-7">기본</h1>
+            <p>사용 기본 컴포넌트 <a href="https://tailwindcss.com/docs/installation" target="_blank">https://tailwindcss.com/docs/installation</a></p>
+            <p>사용 추가 컴포넌트 <a href="https://tailwind-elements.com/quick-start/" target="_blank">https://tailwind-elements.com/quick-start/</a></p>
+            <p class="font-bold">사용하는 것들 중 변경사항이 큰 항목만 추가함</p>
+            <p class="mt-5 underline text-red-500">nodejs 연결하고 컴파일 할 것</p>
+            <p class="underline text-red-500">tailwind.config.js 확인</p>
+
+            <br><br>
+
+            <h2 class="text-2xl text-black mb-3 mt-5">style.css 구성</h2>
+
+            core/style/*.css : 코어 스타일, 컴포넌트 기본형(utility.css는 사이트 글로벌요소 정의 ex:로고)<br>
+            market/style/compoentent/*.css : 사용자 페이지 공용 컴포넌트
+            <br><br>
+            필요한 구성요소 style.css 파일에 임포트해서 컴파일<br>
+            각 개별 사이트 구성요소는 사이트 style 폴더에 작성해서 임포트후 컴파일
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section2">
+            <h1 class="text-3xl text-black mb-7">사이트 공통</h1>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">로고</h2>
+            <div class="bg-gray3">
+                <h1 class="global-logo"><a href="#"><em>스타일1</em></a></h1>
+                <h1 class="global-logo is-white"><a href="#"><em>스타일1</em></a></h1>
+
+                <h1 class="global-logo is-style2"><a href="#"><em>스타일2</em></a></h1>
+                <h1 class="global-logo is-white is-style2"><a href="#"><em>스타일2</em></a></h1>
+
+                <h1 class="global-logo is-style3"><a href="#"><em>스타일3</em></a></h1>
+                <h1 class="global-logo is-white is-style3"><a href="#"><em>스타일3</em></a></h1>
+
+                <h1 class="global-logo is-style4"><a href="#"><em>스타일4</em></a></h1>
+                <h1 class="global-logo is-white is-style4"><a href="#"><em>스타일4</em></a></h1>
+            </div>
+
+            <h2 class="text-2xl text-black mb-3 mt-5">사이트 퀵링크</h2>
+            <ul class="global-link">
+                <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+                <li>
+                    <a href="#" class="link-item1">
+                        <div class="bubble">
+                            <small>시니어 라이프 케어 플랫폼</small>
+                            <strong>"이로움ON"</strong>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="link-item2">
+                        <div class="bubble">
+                            <strong>이로움ON 멤버스</strong>
+                            <small>전국 2,432개 업체와 함께합니다</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="link-item3">
+                        <div class="bubble">
+                            <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                            <small>
+                                복지용구 사업소와 수급자 매칭부터<br>
+                                주문, 계약 및 결제까지 한번에!
+                            </small>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">로딩바</h2>
+            <div class="bg-gray3">
+                <div class="progress-loading is-static">
+                    <div class="icon"><span></span><span></span><span></span></div>
+                     <p class="text">상품을 불러오는 중입니다.</p>
+                </div>
+                <br>
+                <div class="progress-loading is-white is-static">
+                    <div class="icon"><span></span><span></span><span></span></div>
+                     <p class="text">상품을 불러오는 중입니다.</p>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">로그인버튼</h2>
+            <a href="#" class="btn btn-kakao">카카오 로그인</a>
+            <a href="#" class="btn btn-naver">네이버 로그인</a>
+            <a href="#" class="btn btn-eroum">이로움 로그인</a>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">개인화정보</h2>
+            <div class="global-user">
+                <div class="user-name">
+                    <strong>사용자 <small>님</small></strong>
+                    <span>수급자 회원</span>
+                </div>
+                <div class="user-info">
+                    <div class="grade">
+                        <strong>신규회원</strong>
+                        <a href="#">등급별혜택</a>
+                    </div>
+                    <div class="point">
+                        <dl>
+                            <dt>쿠폰</dt>
+                            <dd><a href="#"><strong>5</strong> 장</a></dd>
+                        </dl>
+                        <dl>
+                            <dt>포인트</dt>
+                            <dd><a href="#"><strong>512</strong> <img src="/html/core/images/txt-point-white.svg" alt="포인트"></a></dd>
+                        </dl>
+                        <dl>
+                            <dt>마일리지</dt>
+                            <dd><a href="#"><strong>5123</strong> <img src="/html/core/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">퀵버튼</h2>
+            <div class="global-quick is-active" style="position:static !important;">
+                <button type="button" class="moveTop">위로 이동</button>
+                <button type="button" class="channelTalk">채널톡</button>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section3">
+            <h1 class="text-3xl text-black mb-7">텍스트</h1>
+
+            <p class="text-title">큰 타이틀 <small>디스크립션</small></p>
+            
+            <br>
+
+            <p class="text-title2">페이지 타이틀 <small>디스크립션</small></p>
+            
+            <br>
+
+            <p class="text-danger">주의 텍스트</p>
+            <p class="text-success">완료 텍스트</p>
+
+            <p class="text-alert">주의 아이콘 텍스트</p>
+            <p class="text-alerm">벨 아이콘 텍스트</p>
+            <p class="text-question">물음표 아이콘 텍스트</p>
+
+            <div class="bg-gray5">
+                <p class="text-alert is-danger">주의 아이콘 텍스트</p>
+                <p class="text-alert is-white">주의 아이콘 텍스트</p>
+                <p class="text-alerm is-color">벨 아이콘 텍스트</p>
+                <p class="text-alerm is-white">벨 아이콘 텍스트</p>
+                <p class="text-question is-danger">물음표 아이콘 텍스트</p>
+                <p class="text-question is-white">물음표 아이콘 텍스트</p>
+            </div>
+
+            <hr class="my-4">
+
+            <p class="mb-3">베이스 폰트 시스템 100% (16px) * rem으로 계산</p>
+
+            <div class="leading-none">
+                <p class="text-xs">text-xs(0.75rem) 12px</p>
+                <p class="text-sm">text-sm(0.875rem) 14px</p>
+                <p class="text-base">text-base(1rem) 16px</p>
+                <p class="text-lg">text-lg(1.125rem) 18px</p>
+                <p class="text-xl">text-xl(1.25rem) 20px</p>
+                <p class="text-2xl">text-2xl(1.5rem) 24px</p>
+                <p class="text-3xl">text-3xl(1.875rem) 30px</p>
+                <p class="text-4xl">text-4xl(2.25rem) 36px</p>
+                <p class="text-5xl">text-5xl(3rem) 48px</p>
+                <p class="text-6xl">text-6xl(3.5rem) 56px </p>
+                <p class="text-7xl">text-7xl(4rem) 64px</p>
+                <p class="text-8xl">text-8xl(5rem) 80px</p>
+                <p class="text-9xl">text-9xl(6rem) 96px </p>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section4">
+            <h1 class="text-3xl text-black mb-7">여백</h1>
+            <p>사용법은 기존과 같으나 클래스 접미 숫자에 따른 여백값이 달라짐</p>
+            <p>패딩, 마진, 그리드 갭, 너비 높이, 보더 사이즈 전부 변경함</p>
+
+            <p class="text-xl font-bold mt-3 mb-1">값 리스트</p>
+            <pre class="font-sans -ml-10">
+                px: 1px
+                0: 0
+                0.5: 0.125rem
+                1: 0.25rem
+                1.5: 0.375rem
+                2: 0.5rem
+                2.5: 0.625rem
+                3: 0.75rem
+                3.5: 0.875rem
+                4: 1rem
+                4.5: 1.125rem
+                5: 1.25rem
+                5.5: 1.375rem
+                6: 1.5rem
+                6.5: 1.625rem
+                7: 1.75rem
+                7.5: 1.875rem
+                8: 2rem
+                9: 2.25rem
+                10: 2.5rem
+                11: 2.75rem
+                12: 3rem
+                13: 3.25rem
+                14: 3.5rem
+                15: 3.75rem
+                16: 4rem
+                17: 4.25rem
+                18: 4.5rem
+                19: 4.75rem
+                20: 5rem
+                21: 5.25rem
+                22: 5.5rem
+                23: 5.75rem
+                24: 6rem
+                25: 6.25rem
+                26: 6.5rem
+                27: 6.75rem
+                28: 7rem
+                29: 7.25rem
+                30: 7.5rem
+                31: 7.75rem
+                32: 8rem
+                33: 8.25rem
+                34: 8.5rem
+                35: 8.75rem
+                36: 9rem
+                37: 9.25rem
+                38: 9.5rem
+                39: 9.75rem
+                40: 10rem
+                41: 10.25rem
+                42: 10.5rem
+                43: 10.75rem
+                44: 11rem
+                45: 11.25rem
+                46: 11.5rem
+                47: 11.75rem
+                48: 12rem
+                49: 12.25rem
+                50: 12.5rem
+                51: 12.75rem
+                52: 13rem
+                53: 13.25rem
+                54: 13.5rem
+                55: 13.75rem
+                56: 14rem
+                57: 14.25rem
+                58: 14.5rem
+                59: 14.75rem
+                60: 15rem
+                61: 15.25rem
+                62: 15.5rem
+                63: 15.75rem
+                64: 16rem
+                65: 16.25rem
+                66: 16.5rem
+                67: 16.75rem
+                68: 17rem
+                69: 17.25rem
+                70: 17.5rem
+                71: 17.75rem
+                72: 18rem
+                73: 18.25rem
+                74: 18.5rem
+                75: 18.75rem
+                76: 19rem
+                77: 19.25rem
+                78: 19.5rem
+                79: 19.75rem
+                80: 20rem
+                81: 20.25rem
+                82: 20.5rem
+                83: 20.75rem
+                84: 21rem
+                85: 21.25rem
+                86: 21.5rem
+                87: 21.75rem
+                88: 22rem
+                89: 22.25rem
+                90: 22.5rem
+                91: 22.75rem
+                92: 23rem
+                93: 23.25rem
+                94: 23.5rem
+                95: 23.75rem
+                96: 24rem
+                97: 24.25rem
+                98: 24.5rem
+                99: 24.75rem
+                100: 25rem
+            </pre>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+        
+        <div id="section5">
+            <h1 class="text-3xl text-black mb-7">컬러</h1>
+
+            <div class="bg-neutral-500 p-5 text-center flex justify-around">
+                <p class="inline-block px-2 py1 text-black1"><span class="block w-10 h-10 mx-auto mb-2 bg-black1"></span> #1C1C1C</p>
+                <p class="inline-block px-2 py1 text-black2"><span class="block w-10 h-10 mx-auto mb-2 bg-black2"></span> #333</p>
+                <p class="inline-block px-2 py1 text-gray1"><span class="block w-10 h-10 mx-auto mb-2 bg-gray1"></span> #999</p>
+                <p class="inline-block px-2 py1 text-gray2"><span class="block w-10 h-10 mx-auto mb-2 bg-gray2"></span> #eee</p>
+                <p class="inline-block px-2 py1 text-gray3"><span class="block w-10 h-10 mx-auto mb-2 bg-gray3"></span> #ddd</p>
+                <p class="inline-block px-2 py1 text-gray4"><span class="block w-10 h-10 mx-auto mb-2 bg-gray4"></span> #444</p>
+                <p class="inline-block px-2 py1 text-gray5"><span class="block w-10 h-10 mx-auto mb-2 bg-gray5"></span> #7f7f7f</p>
+                <p class="inline-block px-2 py1 text-red1"><span class="block w-10 h-10 mx-auto mb-2 bg-red1"></span> #DD3C3C</p>
+                <p class="inline-block px-2 py1 text-red2"><span class="block w-10 h-10 mx-auto mb-2 bg-red2"></span> #FFE6E6</p>
+                <p class="inline-block px-2 py1 text-red3"><span class="block w-10 h-10 mx-auto mb-2 bg-red3"></span> #FC2020</p>
+                <p class="inline-block px-2 py1 text-blue1"><span class="block w-10 h-10 mx-auto mb-2 bg-blue1"></span> #3C80B7</p>
+                <p class="inline-block px-2 py1 text-blue2"><span class="block w-10 h-10 mx-auto mb-2 bg-blue2"></span> #E4F1FF</p>
+                <p class="inline-block px-2 py1 text-blue3"><span class="block w-10 h-10 mx-auto mb-2 bg-blue3"></span> #1477F8</p>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section6">
+            <h1 class="text-3xl text-black mb-7">박스</h1>
+
+            <div class="box-gray">
+                <p>그레이 박스</p>
+            </div>
+
+            <br>
+            
+            <div class="box-gradient">
+                <div class="content">
+                    그라디언트 박스
+                </div>
+            </div>
+
+            <br>
+
+            <div class="box-result">결과상자 기본</div>
+            
+            <br>
+
+            <div class="box-result is-large">결과상자 대형</div>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section7">
+            <h1 class="text-3xl text-black mb-7">리스트</h1>
+
+            <ul class="list-normal">
+                <li>리스트 스타일1</li>
+                <li>리스트 스타일2</li>
+                <li>리스트 스타일3</li>
+            </ul>
+
+            <br>
+
+            <ul class="list-number">
+                <li>리스트 스타일1</li>
+                <li>리스트 스타일2</li>
+                <li>리스트 스타일3</li>
+            </ul>
+        </div>
+
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section8">
+            <h1 class="text-3xl text-black mb-7">테이블</h1>
+
+            <table class="table-list">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col"><p>타이틀</p></th>
+                        <th scope="col"><p>타이틀</p></th>
+                        <th scope="col"><p>타이틀</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="top-border">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>상세</td>
+                        <td>상세</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>상세</td>
+                        <td>상세</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>상세</td>
+                        <td>상세</td>
+                    </tr>
+                    <tr class="bot-border">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <br>
+
+            <table class="table-detail">
+                <colgroup>
+                    <col class="w-1/5">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr class="top-border">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><p>타이틀</p></th>
+                        <td>상세</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><p>타이틀</p></th>
+                        <td>상세</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><p>타이틀</p></th>
+                        <td>상세</td>
+                    </tr>
+                    <tr class="bot-border">
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section9">
+            <h1 class="text-3xl text-black mb-7">탭</h1>
+
+            <ul class="tabs">
+                <li><a href="/market/etc/faq/list" class="tabs-link active">탭 아이템1</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템2</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템3</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템4</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템5</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템6</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템7</a></li>
+            </ul>
+            
+            <br>
+
+            <ul class="tabs is-small">
+                <li><a href="/market/etc/faq/list" class="tabs-link active">탭 아이템1</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템2</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템3</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템4</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템5</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템6</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템7</a></li>
+            </ul>
+            
+            <br>
+            
+            <ul class="tabs is-cols-4">
+                <li><a href="/market/etc/faq/list" class="tabs-link active">탭 아이템1</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템2</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템3</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템4</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템5</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템6</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템7</a></li>
+            </ul>
+            
+            <br>
+            
+            <ul class="tabs is-cols-5">
+                <li><a href="/market/etc/faq/list" class="tabs-link active">탭 아이템1</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템2</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템3</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템4</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템5</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템6</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템7</a></li>
+            </ul>
+            
+            <br>
+            
+            <ul class="tabs is-cols-6">
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템1</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템2</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템3</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템4</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템5</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템6</a></li>
+                <li><a href="/market/etc/faq/list" class="tabs-link">탭 아이템7</a></li>
+            </ul>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section10">
+            <h1 class="text-3xl text-black mb-7">페이징</h1>
+
+            <div class="pagination">
+                <div class="paging">
+                    <a href="#" class="prev">이전</a>
+                    <a href="#" class="page active">1</a>
+                    <a href="#" class="page">2</a>
+                    <a href="#" class="page">3</a>
+                    <a href="#" class="page">4</a>
+                    <a href="#" class="page">5</a>
+                    <a href="#" class="next">다음</a>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section11">
+            <h1 class="text-3xl text-black mb-7">라벨</h1>
+            
+            <span class="label-primary">
+                <span>라벨 컬러1</span>
+                <i></i>
+            </span>
+            <span class="label-outline-primary">
+                <span>라벨 아웃라인 컬러1</span>
+                <i></i>
+            </span>
+            
+            <span class="label-secondary">
+                <span>라벨 컬러2</span>
+                <i></i>
+            </span>
+            <span class="label-outline-secondary">
+                <span>라벨 아웃라인 컬러2</span>
+                <i></i>
+            </span>
+            
+            <span class="label-danger">
+                <span>라벨 컬러3</span>
+                <i></i>
+            </span>
+            <span class="label-outline-danger">
+                <span>라벨 아웃라인 컬러3</span>
+                <i></i>
+            </span>
+            
+            <span class="label-success">
+                <span>라벨 컬러4</span>
+                <i></i>
+            </span>
+            <span class="label-outline-success">
+                <span>라벨 아웃라인 컬러4</span>
+                <i></i>
+            </span>
+
+            <br><br>
+
+            <span class="label-flat">
+                <span>플랫 라벨</span>
+                <i></i>
+            </span>
+
+            <span class="label-flat-lg">
+                <span>플랫 라벨 대형</span>
+                <i></i>
+            </span>
+
+            <span class="label-flat-xl">
+                <span>플랫 라벨 특대형</span>
+                <i></i>
+            </span>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section12">
+            <h1 class="text-3xl text-black mb-7">버튼</h1>
+
+            <a href="#" class="btn btn-small">작은 버튼</a>
+            <a href="#" class="btn">기본 버튼</a>
+            <a href="#" class="btn btn-large">큰 버튼</a>
+
+            <br><br>
+            
+            <button class="btn btn-primary">버튼 기본</button>
+            <button class="btn btn-outline-primary">버튼 아웃라인</button>
+            <button class="btn btn-primary btn-small">작은 버튼</button>
+            <button class="btn btn-primary btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br>
+
+            <button class="btn btn-primary btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-primary btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-primary btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-primary btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br><br>
+            
+            <button class="btn btn-secondary">버튼 기본</button>
+            <button class="btn btn-outline-secondary">버튼 아웃라인</button>
+            <button class="btn btn-secondary btn-small">작은 버튼</button>
+            <button class="btn btn-secondary btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-secondary btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-secondary btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-secondary btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-secondary btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br><br>
+            
+            <button class="btn btn-success">버튼 기본</button>
+            <button class="btn btn-outline-success">버튼 아웃라인</button>
+            <button class="btn btn-success btn-small">작은 버튼</button>
+            <button class="btn btn-success btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-success btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-success btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-success btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-success btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br><br>
+            
+            <button class="btn btn-danger">버튼 기본</button>
+            <button class="btn btn-outline-danger">버튼 아웃라인</button>
+            <button class="btn btn-danger btn-small">작은 버튼</button>
+            <button class="btn btn-danger btn-large">큰 버튼</button>
+
+            <br>
+
+            <button class="btn btn-danger btn-animate"><strong>버튼 애니메이트 기본</strong></button>
+            <button class="btn btn-outline-danger btn-animate"><strong>버튼 애니메이트 아웃라인</strong></button>
+            <button class="btn btn-danger btn-small btn-animate"><strong>작은 버튼 애니메이트</strong></button>
+            <button class="btn btn-danger btn-large btn-animate"><strong>큰 버튼 애니메이트</strong></button>
+
+            <br><br>
+            
+            <h2 class="text-2xl text-black mb-3 mt-5">특수버튼</h2>
+
+            <button class="btn btn-love">상품 찜하기</button>
+            <button class="btn btn-cart">장바구니 담기</button>
+            <button class="btn btn-compare">장바구니 담기</button>
+            <button class="btn btn-refresh">새로고침</button>
+            <button class="btn btn-toggle">토글버튼</button>
+            <button class="btn btn-outline-primary">
+                <img src="/html/page/market/assets/images/ico-refresh.svg" alt="" class="w-4.5 mr-2 -ml-2.5">
+                할인혜택 초기화
+            </button>
+
+            <br><br>
+
+            <button class="btn btn-payment btn-large">결제하기</button>
+            <button class="btn btn-delivery">
+                <span class="name">
+                    <img src="/html/page/market/assets/images/ico-delivery.svg" alt="">
+                    일반택배
+                </span>
+                <span class="underline">0629378485</span>
+            </button>
+            
+            <br><br>
+
+            <button class="btn btn-plus">추가</button>
+            <button class="btn btn-minus">삭제</button>
+            <button class="btn btn-delete">제거</button>
+            <button class="btn btn-more">더보기</button>
+            <button class="btn btn-more2">전체보기</button>
+            <button class="btn btn-fold">펼쳐보기</button>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section13">
+            <h1 class="text-3xl text-black mb-7">폼 컨트롤</h1>
+
+            <input type="text" class="form-control" placeholder="입력 기본">
+            <input type="text" class="form-control" readonly>
+            <input type="text" class="form-control" disabled value="111">
+
+            <br>
+
+            <input type="text" class="form-control form-small" placeholder="입력 작은">
+            <input type="text" class="form-control form-small form-calendar" placeholder="입력 작은">
+
+            <input type="text" class="form-control form-large" placeholder="입력 큰">
+            <input type="text" class="form-control form-large form-calendar" placeholder="입력 큰">
+
+            <br>
+
+            <input type="date" class="form-control" placeholder="달력">
+
+            <br><br>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check-item1">
+                <label class="form-check-label" for="check-item1">기본 체크</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked id="check-item1a">
+                <label class="form-check-label" for="check-item1a">기본 체크</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="check-item2">
+                <label class="form-check-label" for="check-item2">기본 라디오</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" checked id="check-item233">
+                <label class="form-check-label" for="check-item233">기본 라디오</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="check-item3">
+                <label class="form-check-label" for="check-item3">기본 스위치</label>
+            </div>
+
+            <br><br>
+            
+            <div class="form-group w-70">
+                <label for="" class="form-label">폼 그룹</label>
+                <input type="text" id="" class="form-control">
+            </div>
+
+            <br><br>
+
+            <div class="form-check-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item4">
+                    <label class="form-check-label" for="check-item4">전체</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item5">
+                    <label class="form-check-label" for="check-item5">PC</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aaa" id="check-item6">
+                    <label class="form-check-label" for="check-item6">Mobile</label>
+                </div>
+            </div>
+
+            <br><br>
+            
+            <div class="form-group-tel w-70">
+                <input type="text" id="" class="form-control">
+                <span>-</span>
+                <input type="text" id="" class="form-control">
+                <span>-</span>
+                <input type="text" id="" class="form-control">
+            </div>
+
+            <br><br>
+            
+            <select name="" id="ccc" class="form-control">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control form-small">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="ccc" class="form-control form-large">
+                <option value="">셀렉트박스</option>
+            </select>
+            <select name="" id="bbb" class="form-control" disabled>
+                <option value="">셀렉트박스</option>
+            </select>
+
+            <br><br>
+            
+            <textarea name="" id="aaa" cols="30" rows="10" class="form-control">텍스트 에어리어</textarea>
+
+            <br><br>
+
+            <div class="form-upload">
+                <label for="file-item" class="form-upload-trigger">Choose a file or drop file here</label>
+                <input type="file" class="form-upload-control" id="file-item" name="upload[]" multiple>
+            </div>
+            <div class="form-upload-link">
+                <span class="form-upload-link-name">
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                    첨부파일1.hwp
+                </span>
+                <a href="#" class="form-upload-link-download">다운로드</a>
+                <a href="#" class="form-upload-link-delete">삭제</a>
+            </div>
+        </div>
+        
+        <hr class="border-gray-300 mt-8 mb-6">
+
+        <div id="section14">
+            <h1 class="text-3xl text-black mb-7">모달</h1>
+
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam1">기본 모달</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam2">lg 모달</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam3">xl 모달</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExam4">2xl 모달</a>
+            
+            <br><br>
+
+            <a href="#offcanvasExam1" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam1" >오프캔버스 상 예시</a>
+            <a href="#offcanvasExam2" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam2" >오프캔버스 하 예시</a>
+            <a href="#offcanvasExam3" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam3" >오프캔버스 좌 예시</a>
+            <a href="#offcanvasExam4" class="btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExam4" >오프캔버스 우 예시</a>
+
+            <div class="modal fade" id="modalExam1" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="text-title">Modal title text goes here.</p>
+                        </div>
+                        <div class="modal-close">
+                            <button data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-submit">확인</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalExam2" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="text-title">Modal title text goes here.</p>
+                        </div>
+                        <div class="modal-close">
+                            <button data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-submit">확인</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalExam3" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="text-title">Modal title text goes here.</p>
+                        </div>
+                        <div class="modal-close">
+                            <button data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-submit">확인</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalExam4" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-2xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="text-title">Modal title text goes here.</p>
+                        </div>
+                        <div class="modal-close">
+                            <button data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                            dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-submit">확인</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasExam1">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasExam2">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExam3">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExam4">
+                <div class="offcanvas-header">
+                    <p>타이틀</p>
+                </div>
+                <div class="offcanvas-body">
+                </div>
+                <button type="button" data-bs-dismiss="offcanvas" class="offcanvas-close">닫기</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>

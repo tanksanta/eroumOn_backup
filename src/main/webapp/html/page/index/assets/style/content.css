@@ -19,91 +19,65 @@
 
 /* 회사소개 */
 .company-visual {
-    @apply relative z-10 mx-auto pt-[max(19.375rem,(min(54.90483162518302vw,35.625rem)))] max-w-screen-xl text-white;
-    font-family: "NanumSquareNeo";
-    & h1 {
-        @apply relative z-15 text-[max(1.75rem,(min(4.6875vw,3.75rem)))] leading-[1.1] font-extrabold;
-        & em {
-            @apply font-light;
-        }
-        & span {
-            @apply block align-bottom mt-1 font-serif font-light leading-snug text-[max(0.75rem,(min(1.09375vw,0.875rem)))] sm:inline-block sm:mt-0 sm:font-bold;
-            & br {
-                @apply sm-max:hidden;
-            }
-        }
-    }
-    & .nav {
-        @apply flex relative z-15 mt-[max(1.75rem,(min(5.3125vw,4.25rem)))] text-[max(1.25rem,(min(1.875vw,1.5rem)))];
-        & .nav-link {
-            @apply block min-w-[5.041666666666667em] text-center text-white after:content-empty after:block after:mt-[0.375em] after:h-[0.2916666666666667em];
-            &.active {
-                @apply font-extrabold text-white after:bg-white;
-            }
-        }
-    }
-    & .swiper {
-        @apply absolute z-5 top-0 left-1/2 w-screen h-full -translate-x-1/2;
-        & .swiper-slide {
-            @apply bg-cover bg-no-repeat bg-[center_top];
-        }
-    }
-}
-
-.content-company1, .content-company2, .content-company3, .content-company4 {
-    @apply relative mx-auto max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.40625vw,1.125rem)))];
-    font-family: "NanumSquareNeo";
-    & h2 {
-        @apply font-extrabold leading-[1.2];
-    }
+    @apply relative left-1/2 mb-[max(2.5rem,(min(5vw,4rem)))] py-[max(4.5rem,(min(9.53125vw,7.625rem)))] w-screen bg-cover bg-center bg-[url(../images/bg-company-visual.jpg)] text-center leading-tight text-white font-light text-[max(1.875rem,(min(3.75vw,3rem)))] -translate-x-1/2;
     & strong {
-        @apply font-extrabold;
+        @apply font-bold;
     }
 }
 
-.content-company1 {
-    @apply mt-[max(2.5rem,(min(4.375vw,3.5rem)))];
+.company-title {
+    @apply mb-[max(4.5rem,(min(7.5vw,6rem)))] text-center font-bold;
     & h2 {
-        @apply mb-[1.45em] text-[max(1.5rem,(min(2.8125vw,2.25rem)))];
-        & strong {
-            @apply inline-block;
+        @apply text-[max(1.625rem,(min(3.28125vw,2.625rem)))];
+    }
+    & ul {
+        @apply flex justify-center gap-[max(2.75rem,(min(6.09375vw,4.875rem)))] mt-5 text-[max(1.125rem,(min(1.71875vw,1.375rem)))]
+               md:mt-7;
+        & a {
+            @apply block mb-1 border-b-1 border-b-transparent;
+            &.active {
+                @apply border-b-indexKey1;
+            }
         }
+    }
+}
+
+[class*="company-content"] {
+    @apply relative mx-auto max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.7578125vw,1.125rem)))];
+    & h3 {
+        @apply font-bold leading-[1.2] text-[max(1.5rem,(min(3.125vw,2.5rem)))];
+    }
+}
+
+.company-content1 {
+    & > * {
+        @apply relative z-10;
+    }
+    & h3 {
+        @apply mb-[1.40625em] font-light text-[max(1.5rem,(min(3.125vw,2rem)))];
     }
     & p {
-        @apply mt-[1.75em];
-    }
-    & .color {
-        @apply text-[#FF7622];
-        & em {
-            @apply text-[#0031C8];
-        }
-    }
-}
-
-.content-company2 {
-    @apply mt-[max(7rem,(min(12.8125vw,10.25rem)))] text-sm lg:text-base 2xl:text-lg
-           before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:-translate-x-1/2 before:bg-gray2;
-    & .content {
-        @apply relative z-10 pt-13 md:absolute md:left-0 md:right-0 md:pt-29 md:px-0 md:mx-0 xl:pt-44;
-        & h2 {
-            @apply mb-[0.52em] text-2xl md:text-[2.125rem] lg:text-[2.625rem] 2xl:text-[3.25rem];
-            & em {
-                @apply font-light;
-            }
-        }
+        @apply md:max-w-[75.5%];
         & img {
-            @apply mt-[1.875em] w-[60.9375%] md:w-[40.625%];
+            @apply min-w-80 max-w-[57.4%]
+                   md:min-w-100
+                   lg:min-w-[30rem];
         }
     }
     & .visual {
-        @apply relative z-5 -mt-[50%] -mx-4 w-[calc(100%_+_2rem)] max-w-none md:mt-0 xl:-right-10 xl:w-[1236px] 2xl:-right-42;
+        @apply relative z-5 -mt-[52.5%] -mx-4 w-[calc(100%_+_2rem)] max-w-none
+               md:-mt-[72.5%];
     }
 }
 
-.content-company3 {
-    @apply mt-[max(12.25rem,(min(25.625vw,20.5rem)))] pb-[max(1.75rem,(min(7.1875vw,5.75rem)))] border-b border-b-gray3;
-    & h2 {
-        @apply mb-[1.1818em] w-fit text-[max(1.5rem,(min(4.375vw,3.5rem)))] bg-[linear-gradient(94deg,_#FF8D37_0%,_#CA5A99_100%)];
+.company-content2 {
+    @apply mt-1 py-[max(3.25rem,(min(9.84375vw,7.875rem)))]
+           before:absolute before:top-0 before:left-1/2 before:w-screen before:h-full before:-translate-x-1/2 before:bg-gray2;
+    & > * {
+        @apply relative z-5;
+    }
+    & h3 {
+        @apply mb-[1em] w-fit bg-[linear-gradient(94deg,_#FF8D37_0%,_#CA5A99_100%)];
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
@@ -117,9 +91,13 @@
     & dl {
         @apply mt-[max(2rem,(min(5vw,4rem)))];
         & dt {
-            @apply font-extrabold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
+            @apply inline-flex items-center font-extrabold text-[max(1.375rem,(min(2.8125vw,2.25rem)))] leading-none;
             & span {
-                @apply align-middle text-[1.666666666666667em] opacity-20 first:pr-[0.1em] first:md:pr-[0.25em] last:pl-[0.1em] last:md:pl-[0.25em];
+                @apply relative -mt-[0.01em] align-middle text-[1.666666666666667em] opacity-20
+                       first:pr-[0.25em]
+                       first:md:pr-[0.375em]
+                       last:pl-[0.25em]
+                       last:md:pl-[0.375em];
             }
         }
         & dd {
@@ -137,10 +115,10 @@
     }
 }
 
-.content-company4 {
-    @apply mt-[max(2.625rem,(min(8.59375vw,6.875rem)))];
-    & h2 {
-        @apply mb-[1.1818em] text-[max(1.875rem,(min(5.15625vw,4.125rem)))] font-serif font-bold;
+.company-content3 {
+    @apply mt-[max(2.75rem,(min(8.75vw,6.875rem)))];
+    & h3 {
+        @apply mb-[1.95em] font-serif;
     }
     & p {
         & a {
@@ -151,6 +129,114 @@
         @apply flex gap-2 md-max:flex-col;
         & p {
             @apply mr-auto;
+        }
+    }
+}
+
+[class*="company-brand"] {
+    @apply relative mx-auto mb-[max(6.75rem,(min(14.0625vw,11.25rem)))] max-w-screen-xl leading-[1.556] break-keep text-[max(0.875rem,(min(1.7578125vw,1.125rem)))];
+    & > * {
+        @apply relative z-10;
+    }
+    & h3, & h4 {
+        @apply flex-none mb-[1em] leading-[1.2];
+    }
+    & h3 {
+        @apply font-bold text-[max(1.5rem,(min(3.125vw,2rem)))];
+    }
+    & h4 {
+        @apply font-medium text-[max(1.25rem,(min(2.34375vw,1.5rem)))];
+    }
+    & .title {
+        @apply flex items-center flex-col gap-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.875rem,(min(5.781255vw,4.625rem)))]
+               md:flex-row;
+        & h3 {
+            @apply mb-0;
+        }
+    }
+    & .nav {
+        @apply flex gap-2 w-full
+               md:gap-2.5 md:max-w-[620px];
+        & .nav-item {
+            @apply flex-1;
+        }
+        & .nav-link {
+            @apply flex items-center justify-center h-10 bg-gray2 rounded-md text-sm
+                   md:h-[3.125rem] md:text-base;
+            &.active {
+                @apply bg-black2 text-white;
+            }
+        }
+    }
+}
+
+.company-brand1 {
+    & .button {
+        @apply flex gap-2.5 mt-[2.22222222em];
+        & a {
+            @apply inline-flex items-center py-[0.8em] pr-[1.7em] pl-[2em] rounded-full bg-gray2 text-[0.8125rem] font-bold leading-snug
+                   after:w-5 after:h-5 after:ml-[1.7em] after:bg-cover after:bg-[url(../images/ico-brand-content1.svg)]
+                   md:py-[0.9em] md:pr-[2.125em] md:pl-[2.5em] md:text-sm
+                   md:after:w-6 md:after:h-6 md:after:ml-[2.125em];
+        }
+    }
+    & .image {
+        @apply mt-[3em] mx-auto max-w-80
+               md:max-w-[27.5rem]
+               lg:max-w-[34.375rem];
+    }
+}
+
+.company-brand2 {
+    & .images, & .images2 {
+        @apply mt-[2.6666667em];
+        & img {
+            @apply object-cover;
+        }
+    }
+    & .images {
+        & img {
+            @apply object-left-top;
+        }
+    }
+    & .images2 {
+        @apply grid gap-2.5
+               md:grid-cols-2 md:gap-5;
+        & img {
+            @apply md:h-60
+                   lg:h-75;
+        }
+    }
+}
+
+.company-brand3 {
+    & .nav {
+        @apply mx-auto mt-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.25rem,(min(4.0625vw,3.25rem)))];
+    }
+    & .images {
+        @apply mt-[max(1.375rem,(min(3.515625vw,2.25rem)))];
+    }
+}
+
+.company-brand4 {
+    & .nav {
+        @apply max-w-[26.25rem];
+    }
+    & .images {
+        @apply mt-[max(1.375rem,(min(3.515625vw,2.25rem)))];
+    }
+}
+
+.company-brand5 {
+    & .nav {
+        @apply mx-auto mt-[max(2.875rem,(min(5.781255vw,4.625rem)))] mb-[max(2.25rem,(min(4.0625vw,3.25rem)))];
+    }
+    & .images {
+        @apply grid gap-x-2.5 gap-y-8 mt-[max(1.375rem,(min(3.515625vw,2.25rem)))]
+               md:grid-cols-2 md:gap-y-12 md:gap-x-5
+               lg:gap-y-16;
+        & img {
+            @apply mb-2.5;
         }
     }
 }
@@ -606,7 +692,7 @@
                lg:text-2xl;
         & .form-check-input {
             @apply !rounded-full
-                   checked:border-[#3074FF] checked:bg-[#3074FF];
+                   checked:border-indexKey2 checked:bg-indexKey2;
         }
     }
     & .form-fieldset {
@@ -650,17 +736,17 @@
            md:-my-4 md:scale-[0.8]
            lg:my-0 lg:scale-100;
     & .wrapper {
-        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-[#3074FF] -translate-y-1/2 -translate-x-1/2;
+        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-indexKey2 -translate-y-1/2 -translate-x-1/2;
         & svg {
             @apply absolute top-1/2 left-1/2 -translate-y-1/2 translate-x-1/2 scale-100 opacity-0;
         }
     }
     & .object1 {
-        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
         transform: rotate(45deg) translate(-50%,-50%);
     }
     & .object2 {
-        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-[#3074FF];
+        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
         transform: rotate(-45deg);
     }
     & .object3 {
@@ -742,7 +828,7 @@
         @apply block py-2 px-1 text-center rounded border border-gray2 bg-gray2
                md:p-3 md:rounded-md;
         &.active {
-            @apply bg-[#3074FF] text-white;
+            @apply bg-indexKey2 text-white;
         }
     }
     & .content {
@@ -758,7 +844,7 @@
                    lg:text-4xl;
         }
         & small {
-            @apply block mb-3 text-sm text-[#3074FF]
+            @apply block mb-3 text-sm text-indexKey2
                    md:text-base
                    lg:text-lg;
         }
@@ -768,7 +854,7 @@
                    lg:mt-4 lg:text-[1.375rem];
         }
         & ul {
-            @apply mt-2 mb-3.5 p-3 rounded-md bg-[#3074FF]/10 text-sm font-bold leading-snug
+            @apply mt-2 mb-3.5 p-3 rounded-md bg-indexKey2/10 text-sm font-bold leading-snug
                    md:mt-4.5 md:mb-5 md:py-3.5 md:px-4 md:rounded-lg md:text-base
                    lg:my-7 lg:max-w-[500px] lg:py-4 lg:px-5 lg:text-lg;
             & li {
@@ -1088,7 +1174,7 @@
             @apply block p-2.5 rounded-md text-sm text-center font-bold
                    md:text-base;
             &.is-active {
-                @apply bg-[#FF8300] text-white;
+                @apply bg-indexKey1 text-white;
             }
         }
     }
@@ -1123,7 +1209,7 @@
                    xl:min-h-[3.75em];
         }
         & .check {
-            @apply block mt-4 mb-9.5 px-3 py-2.5 border border-[#3074FF] rounded-md text-center font-bold text-sm text-[#3074FF]
+            @apply block mt-4 mb-9.5 px-3 py-2.5 border border-indexKey2 rounded-md text-center font-bold text-sm text-indexKey2
                    md:mb-25
                    xl:mb-31;
         }
@@ -1369,7 +1455,7 @@
             @apply flex items-center justify-center px-[0.25em] h-10 rounded bg-gray2 text-center text-[0.8125rem] leading-tight font-medium
                    md:h-15 md:rounded-md md:text-base;
             &.active {
-                @apply bg-[#FF8300] text-white;
+                @apply bg-indexKey1 text-white;
             }
         }
     }

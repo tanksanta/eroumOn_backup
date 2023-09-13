@@ -30,6 +30,22 @@
                md:px-9 md:h-[4.375rem] md:text-lg;
     }
 
+    .btn-animate {
+        @apply min-w-[7em] transition-[transform,background-color,background-image,border,padding] duration-300 ease-in-out
+               before:absolute before:-top-[20%] before:-left-[200%] before:w-[158.75%] before:pt-[158.75%] before:bg-gray2 before:transition-all before:duration-700 before:-translate-y-[15.5%] before:-rotate-[35deg] before:ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
+               hover:before:-left-[16%];
+        & strong {
+            @apply relative duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1.0)];
+        }
+        &.btn-large {
+            @apply min-w-[10em] duration-[400ms,500ms,500ms,500ms,500ms,500ms]
+                   before:duration-1000;
+            & strong {
+                @apply duration-1000;
+            }
+        }
+    }
+
     .btn-primary, .btn-outline-primary {
         @apply border-black2
                hover:border-black2 hover:ring-black2/10
@@ -42,6 +58,12 @@
                hover:bg-black2
                focus:bg-black2
                active:bg-black2;
+        &.btn-animate {
+            @apply before:bg-white
+                   hover:bg-black2 hover:text-black2 
+                   focus:bg-black2 focus:text-white 
+                   active:bg-white active:text-black2;
+        }
     }
 
     .btn-outline-primary {
@@ -49,6 +71,12 @@
                hover:bg-white
                focus:bg-white
                active:bg-white;
+        &.btn-animate {
+            @apply before:bg-black2
+                   hover:bg-white hover:text-white 
+                   focus:bg-white focus:text-black2 
+                   active:bg-black2 active:text-white;
+        }
     }
 
     .btn-secondary, .btn-outline-secondary {
@@ -63,6 +91,12 @@
                hover:border-gray2 hover:bg-gray2
                focus:border-gray2 focus:bg-gray2
                active:border-gray2 active:bg-gray2;
+               &.btn-animate {
+                   @apply before:bg-white
+                          hover:border-gray1
+                          focus:border-gray1
+                          active:bg-white;
+               }
     }
 
     .btn-outline-secondary {
@@ -70,6 +104,12 @@
                hover:bg-white
                focus:bg-white
                active:bg-white;
+        &.btn-animate {
+            @apply before:bg-gray2
+                   hover:bg-white
+                   focus:bg-white
+                   active:bg-gray2;
+        }
     }
 
     .btn-danger, .btn-outline-danger {
@@ -84,6 +124,12 @@
                hover:bg-red3
                focus:bg-red3
                active:bg-red3;
+        &.btn-animate {
+            @apply before:bg-white
+                   hover:bg-red3 hover:text-red3 
+                   focus:bg-red3 focus:text-white 
+                   active:bg-white active:text-red3;
+        }
     }
 
     .btn-outline-danger {
@@ -91,6 +137,12 @@
                hover:bg-white
                focus:bg-white
                active:bg-white;
+        &.btn-animate {
+            @apply before:bg-red3
+                   hover:bg-white hover:text-white 
+                   focus:bg-white focus:text-red3 
+                   active:bg-red3 active:text-white;
+        }
     }
 
     .btn-success, .btn-outline-success {
@@ -105,6 +157,12 @@
                hover:bg-blue3
                focus:bg-blue3
                active:bg-blue3;
+        &.btn-animate {
+            @apply before:bg-white
+                   hover:bg-blue3 hover:text-blue3 
+                   focus:bg-blue3 focus:text-white 
+                   active:bg-white active:text-blue3;
+        }
     }
 
     .btn-outline-success {
@@ -112,6 +170,12 @@
                hover:bg-white
                focus:bg-white
                active:bg-white;
+        &.btn-animate {
+            @apply before:bg-blue3
+                   hover:bg-white hover:text-white 
+                   focus:bg-white focus:text-blue3 
+                   active:bg-blue3 active:text-white;
+        }
     }
     
     .btn-icon {

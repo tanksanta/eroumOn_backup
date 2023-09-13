@@ -70,7 +70,7 @@
                             </select>
                         </dd>
                     </dl>
-                    <button type="submit" class="search-submit">검색</button>
+                    <button type="submit" class="btn-primary btn-animate flex mt-7 mx-auto w-full md:mt-2 md:w-43"><strong>검색</strong></button>
                 </fieldset>
             </form>
 
@@ -244,12 +244,12 @@
             percentPosition: true
         });
 
-        $('.consult-toggle, .consult-search-close').on('click', function() {
-            $('body').toggleClass('overflow-hidden').find('.consult-search').toggle();
+        $('.mypage-consult-toggle, .search-close').on('click', function() {
+            $('body').toggleClass('overflow-hidden').find('.mypage-consult-search').toggle();
         });
 
         $(window).on('resize', function() {
-            if(resize) $('body').removeClass('overflow-hidden').find('.consult-search').removeAttr('style');
+            if(resize) $('body').removeClass('overflow-hidden').find('.mypage-consult-search').removeAttr('style');
         });
 
         $(".f_reconslt").on("click", function(e){

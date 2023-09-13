@@ -9,7 +9,7 @@
                md:block;
         & a, & button {
             @apply hidden items-center justify-center px-0.5 min-h-10 rounded border border-transparent bg-gray2 tracking-tighter text-center leading-[1.15] align-top
-                   md:inline-flex md:mb-2 md:px-2.5 md:min-h-9 md:bg-white md:text-[1.0625rem];
+                   md:inline-flex md:mb-2 md:px-2.5 md:bg-white md:text-[1.0625rem];
             &.is-visible {
                 @apply inline-flex;
             }
@@ -54,8 +54,6 @@
         @apply block mt-2.5
                md:mt-3;
         & .label {
-            @apply min-h-[1.5625rem]
-                   md:min-h-6.5;
             & > * {
                 @apply mb-0.5 align-top;
             }

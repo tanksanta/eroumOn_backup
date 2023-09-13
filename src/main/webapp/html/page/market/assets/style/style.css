@@ -15,10 +15,12 @@
 
 /* component */
 @import "component/alert.css";
+@import "component/box.css";
 @import "component/button.css";
 @import "component/form.css";
 @import "component/modal.css";
 @import "component/label.css";
+@import "component/list.css";
 @import "component/pagination.css";
 @import "component/text.css";
 @import "component/table.css";
