@@ -235,7 +235,14 @@
                                                 <p class="mt-2 font-bold">(${resultList.bplcNm})</p>
                                             </th>
                                             <td>
+                                            	<c:if test="${resultList.consltSttus eq 'CS06'}">
+                                            	(상담입력 : <fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
                                                 ${resultList.consltDtls}
+                                                </c:if>
+
+                                                <c:if test="${resultList.consltSttus ne 'CS06'}">
+                                                상담 대기 중
+                                                </c:if>
                                             </td>
                                         </tr>
                                         </c:forEach>
