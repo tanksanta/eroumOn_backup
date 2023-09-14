@@ -58,9 +58,9 @@ strong {
                lg:text-[1.875rem];
         & a {
             @apply flex items-center py-2
-                   before:w-[99px] before:h-[20px] before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-[auto_100%]
-                   md:before:w-[118px] md:before:h-[24px]
-                   lg:before:w-[148px] lg:before:h-[30px];
+                   before:w-[106px] before:h-[32px] before:bg-[url(/html/core/images/img-brand-logo.svg)] before:bg-no-repeat before:bg-[auto_100%]
+                   md:before:w-[132px] md:before:h-[40px]
+                   lg:before:w-[158px] lg:before:h-[48px];
         }
         & em {
             @apply sr-only;
@@ -77,13 +77,37 @@ strong {
         }
         &.is-style2 {
             & a {
-                @apply before:w-[74px] before:bg-[url(/html/core/images/img-brand-logo2.svg)]
-                       md:before:w-[88px]
-                       lg:before:w-[109px];
+                @apply before:w-[53px] before:h-[31px] before:bg-[url(/html/core/images/img-brand-logo2.svg)]
+                       md:before:w-[64px] md:before:h-[38px]
+                       lg:before:w-[78px] lg:before:h-[46px];
             }
             &.is-white {
                 & a {
                     @apply before:bg-[url(/html/core/images/img-brand-logo2-white.svg)];
+                }
+            }
+        }
+        &.is-style3 {
+            & a {
+                @apply before:w-[99px] before:h-[20px] before:bg-[url(/html/core/images/img-brand-logo3.svg)]
+                       md:before:w-[118px] md:before:h-[24px]
+                       lg:before:w-[148px] lg:before:h-[30px];
+            }
+            &.is-white {
+                & a {
+                    @apply before:bg-[url(/html/core/images/img-brand-logo3-white.svg)];
+                }
+            }
+        }
+        &.is-style4 {
+            & a {
+                @apply before:w-[45px] before:h-[36px] before:bg-[url(/html/core/images/img-brand-logo4.svg)]
+                       md:before:w-[55px] md:before:h-[44px]
+                       lg:before:w-[65px] lg:before:h-[52px];
+            }
+            &.is-white {
+                & a {
+                    @apply before:bg-[url(/html/core/images/img-brand-logo4-white.svg)];
                 }
             }
         }
@@ -323,7 +347,7 @@ strong {
     }
 
     .global-user {
-        @apply rounded-2xl overflow-hidden leading-tight bg-[#555] text-white;
+        @apply rounded-2xl overflow-hidden leading-tight bg-[#575757] text-white;
         & .user-name {
             @apply flex items-end relative p-5;
             & strong {
@@ -344,9 +368,7 @@ strong {
                 @apply flex flex-col relative mr-px py-4 px-5 w-35 border-r border-dashed border-white/20
                        lg:flex-row lg:items-center lg:justify-between lg:py-3 lg:px-0 lg:mx-5 lg:w-auto lg:border-b lg:border-r-0 lg:border-solid lg:border-white/10;
                 & strong {
-                    @apply block text-[1.375rem] font-bold text-center
-                           before:block before:content-["GRADE"] before:relative before:top-0.5 before:mr-0.5 before:mb-px before:text-tiny before:font-light before:text-left before:opacity-50 before:align-top
-                           lg:before:inline;
+                    @apply block text-[1.375rem] font-bold text-center;
                 }
                 & a {
                     @apply block mt-auto mx-auto pr-4 w-fit text-xs bg-no-repeat bg-[left_calc(100%-1px)_top_calc(50%+1px)] bg-[length:0.6875rem]

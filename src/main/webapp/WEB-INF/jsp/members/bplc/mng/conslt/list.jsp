@@ -76,7 +76,8 @@
                             <col class="min-w-15 w-20">
                             <col class="min-w-22 w-28">
                             <col>
-                            <col class="min-w-22 w-28">
+                            <col class="min-w-25 w-30">
+                            <col class="min-w-25 w-30">
                         </colgroup>
                         <thead>
                             <tr>
@@ -88,7 +89,8 @@
                                 <th scope="col">만나이</th>
                                 <th scope="col">생년월일</th>
                                 <th scope="col">거주지주소</th>
-                                <th scope="col">상담신청일</th>
+                                <th scope="col">상담배정일시</th>
+                                <th scope="col">상담신청일시</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,12 +130,13 @@
 									</c:otherwise>
 								</c:choose>
 
-								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
+								<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm" /></td>
+								<td><fmt:formatDate value="${resultList.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 						<c:if test="${empty listVO.listObject}">
 							<tr>
-								<td class="noresult" colspan="9">검색조건을 만족하는 결과가 없습니다.</td>
+								<td class="noresult" colspan="10">검색조건을 만족하는 결과가 없습니다.</td>
 							</tr>
 						</c:if>
 						</tbody>

@@ -121,17 +121,17 @@
 			AND ordr_optn_ty = #{srchOptnTy}
 		</if>
 		<choose>
-			<when test='srchDate != null and srchDate == "week"'>
-				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -7 DAY),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
-			</when>
-			<when test='srchDate != null and srchDate == "month"'>
+			<when test='srchDate != null and srchDate == "1month"'>
 				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 MONTH),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
 			</when>
-			<when test='srchDate != null and srchDate == "half"'>
+			<when test='srchDate != null and srchDate == "3month"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -3 MONTH),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			</when>
+			<when test='srchDate != null and srchDate == "6month"'>
 				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -6 MONTH),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
 			</when>
-			<when test='srchDate != null and srchDate == "year"'>
-				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 YEAR),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
+			<when test='srchDate != null and srchDate == "5year"'>
+				AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -5 YEAR),'%Y-%m-%d') &lt; o.ordr_dt AND ordr_dt &lt; now()
 			</when>
 			<otherwise>
 				AND DATE_FORMAT(DATE_ADD(o.ordr_dt, INTERVAL -6 MONTH), '%Y-%m-%d') &lt; DATE(NOW())

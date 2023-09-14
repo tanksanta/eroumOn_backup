@@ -28,34 +28,42 @@
 
 @layer components {
     .btn-welfare-color1 {
+        @apply border-0 text-white;
         background: var(--key1-gradient2);
     }
 
     .btn-welfare-color2 {
+        @apply border-0;
         background: var(--key2-gradient2);
     }
 
     .btn-welfare-color3 {
+        @apply border-0 text-white;
         background: var(--key3-gradient2);
     }
 
     .btn-welfare-color4 {
+        @apply border-0;
         background: var(--key4-gradient2);
     }
 
     .btn-welfare-color5 {
+        @apply border-0 text-white;
         background: var(--key5-gradient2);
     }
 
     .btn-welfare-color6 {
+        @apply border-0 text-white;
         background: var(--key6-gradient2);
     }
 
     .btn-welfare-color7 {
+        @apply border-0 text-white;
         background: var(--key7-gradient2);
     }
 
     .btn-welfare-color8 {
+        @apply border-0 text-white;
         background: var(--key8-gradient2);
     }
 

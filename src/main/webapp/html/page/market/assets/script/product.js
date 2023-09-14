@@ -20,6 +20,11 @@ $(function() {
     }).on('mouseleave', function() {
         $(this).closest('.product-item').removeClass('is-hover');
     });
+    
+    //공용 옵션박스
+    $('.product-option .option-toggle').on('click', function() {
+        $(this).closest('.product-option').toggleClass('is-active');
+    })
 
     //상품 목록 더보기
     var cateResize = function() {

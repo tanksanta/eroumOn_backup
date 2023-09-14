@@ -31,6 +31,8 @@
 		, mngr_unique_id
 		, mngr_id
 		, mngr_nm
+
+		, re_conslt_dt
 	</sql>
 
 	<sql id="searchConditions">
@@ -82,7 +84,7 @@
 		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY conslt_no DESC
+	  	ORDER BY re_conslt_dt DESC, conslt_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
@@ -167,6 +169,9 @@
 	<update id="updateSttus" parameterType="java.util.HashMap">
 		UPDATE MBR_CONSLT SET
 			conslt_sttus = #{consltSttus}
+			<if test="consltSttus == 'CS07'">
+			, re_conslt_dt = SYSDATE()
+			</if>
 		WHERE conslt_no = #{consltNo}
 	</update>
 

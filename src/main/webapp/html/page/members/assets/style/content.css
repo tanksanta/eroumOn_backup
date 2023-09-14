@@ -876,8 +876,8 @@
            md:block md:static
            md:before:hidden;
     & fieldset {
-        @apply relative p-4 pt-16 -mt-px border border-gray3 rounded-b-2xl bg-white max-h-[calc(100vh-7.5rem)] overflow-auto
-               md:mt-0 md:mx-0 md:py-5 md:px-7.5 md:rounded-t-2xl md:max-h-none md:overflow-visible;
+        @apply relative p-4 pt-16 -mt-px border border-gray3 rounded-b-2xl bg-white bg-no-repeat bg-[url(../images/bg-consult1.jpg),url(../images/bg-consult2.jpg)] bg-[position:left_top,right_top] bg-[length:auto_100%] max-h-[calc(100vh-7.5rem)] overflow-auto
+               md:mt-0 md:mx-0 md:py-5 md:px-7.5 md:max-h-none md:rounded-t-2xl md:overflow-visible;
     }
     & legend {
         @apply flex items-center justify-center absolute top-0 left-0 w-full text-center h-12 text-lg font-bold
@@ -914,10 +914,6 @@
             }
         }
     }
-    & .search-submit {
-        @apply btn-primary flex mt-7 mx-auto w-full
-               md:mt-2 md:w-43;
-    }
     & .search-close {
         @apply absolute top-2 right-2 w-8 h-8 overflow-hidden bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:1.625rem] -indent-96
                md:hidden;
@@ -933,26 +929,22 @@
     @apply mb-4 p-4 w-full border border-gray3 rounded-2xl bg-white leading-tight
            md:mb-5 md:w-[calc(50%-0.625rem)];
     & .item-current, & .item-partner, & .item-date {
-        @apply flex;
+        @apply flex mb-1;
         & dt {
-            @apply flex-none mr-3 p-2 pr-0 w-[7.25em] bg-neutral-100 text-xs text-gray6
-                    md:text-[0.8125rem];
+            @apply flex-none flex items-center mr-3 py-2.5 px-2 pr-0 w-[7.25em] rounded-md bg-neutral-100 text-xs text-gray6
+                   md:text-[0.8125rem];
         }
         & dd {
-            @apply flex-1 py-2 text-sm;
-        }
-    }
-    & .item-current {
-        & dt {
-            @apply pt-3 rounded-t-md;
-        }
-        & dd {
-            @apply pt-3;
+            @apply relative flex-1 py-2 text-sm
+                   after:absolute after:-bottom-px after:left-0 after:right-0 after:h-px after:bg-gray2;
         }
     }
     & .item-partner {
+        & dt {
+            @apply py-3;
+        }
         & dd {
-            @apply py-1 text-lg break-keep;
+            @apply py-2.5 text-lg break-keep;
         }
         & .history {
             & li {
@@ -970,15 +962,12 @@
         }
     }
     & .item-date {
-        & dt {
-            @apply pb-3 rounded-b-md;
-        }
         & dd {
-            @apply pb-3;
+            @apply border-b-0;
         }
     }
     & .item-request {
-        @apply flex items-center mt-1.5 text-xs
+        @apply flex items-center justify-end mt-1.5 text-xs
                md:mt-2.5 md:text-[0.8125rem];
         & .button {
             @apply flex-1 mr-auto w-35 max-w-42 h-10 rounded-md bg-[#3074FF] text-sm font-bold text-white
@@ -1077,6 +1066,17 @@
             @apply bg-[url(/html/page/market/assets/images/ico-partner-check.svg)];
         }
     }
+    &.is-modal {
+        @apply mt-4.5 p-3
+               md:p-4;
+        & .item-thumb {
+            @apply sm:w-30;
+        }
+        & .name {
+            @apply text-base
+                   md:text-lg;
+        }
+    }
     &.is-active {
         @apply border-black2 shadow-[inset_0px_0px_0px_1px_#333];
         & .item-select, & .item-love {
@@ -1118,17 +1118,6 @@
         &input {
             @apply flex-1 ml-0
                    md:ml-1.5;
-        }
-    }
-    & ~ .mypage-members-item {
-        @apply mt-4.5 p-3
-               md:p-4;
-        & .item-thumb {
-            @apply sm:w-30;
-        }
-        & .name {
-            @apply text-base
-                   md:text-lg;
         }
     }
 }

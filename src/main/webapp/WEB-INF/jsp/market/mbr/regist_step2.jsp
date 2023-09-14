@@ -537,7 +537,7 @@ $(function(){
 				$("#searchQlf").text(penPayRate);
 
 
-				$("#searchGrade").html('<img src="/html/page/market/assets/images/content2/num'+json.infoMap.LTC_RCGT_GRADE_CD+'.png">');
+				$("#searchGrade").html('<img src="/html/page/members/assets/images/txt-grade-num'+json.infoMap.LTC_RCGT_GRADE_CD+'.png">');
 				$("#searchBgngRcgt").text((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''))
 				$("#searchEndRcgt").text("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''))
 				$("#searchBgngApdt").text(f_hiponFormat(json.infoMap.APDT_FR_DT))

@@ -14,49 +14,6 @@
         }
     }
     
-    .box-gray {
-        @apply flex items-center flex-wrap w-fit relative max-w-full px-3.5 py-4 min-h-15 rounded-md border border-gray2 bg-gray2 align-middle leading-tight font-medium text-center
-               md:px-5 md:min-h-[4.375rem];
-        & > * {
-            @apply mr-2
-                   md:mr-3
-                   last:mr-0;
-        }
-    }
-
-    .box-result {
-        @apply px-5 py-9 rounded-lg bg-gray2 text-center font-medium text-sm
-               md:py-13 md:rounded-[1rem] md:text-base;
-        &.is-large {
-            @apply py-14 bg-no-repeat bg-[right_0.875rem_bottom_0.75rem] bg-[url(/html/page/market/assets/images/txt-eroum-white.svg)] bg-[length:auto_1rem]
-                   md:py-29 md:bg-[length:auto_auto];
-        }
-    }
-
-    .list-normal, .list-number {
-        @apply space-y-[0.17em];
-        & li {
-            @apply relative pl-[1em]
-                   before:absolute before:top-0 before:left-0 before:w-[1em] before:text-center;
-        }
-    }
-
-    .list-normal {
-        & li {
-            @apply before:content-["-"];
-        }
-    }
-
-    .list-number {
-        counter-reset: section;
-        & li {
-            &::before {
-                counter-increment: section; 
-                content: counter(section)"."; 
-            }
-        }
-    }
-    
     .error {
         @apply mt-1 text-[0.8125rem]
                md:text-sm;

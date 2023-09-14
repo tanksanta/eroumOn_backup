@@ -37,7 +37,7 @@
 						    <dd>
 						   		<a href="${_marketPath}/mypage/point/list">
                                		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-point-white.svg" alt="포인트">
+									<img src="/html/core/images/txt-point-white.svg" alt="포인트">
 								</a>
 							</dd>
 	                    </dl>
@@ -46,7 +46,7 @@
 	                        <dd>
 	                        	<a href="${_marketPath}/mypage/mlg/list">
                                		<strong>11</strong>
-									<img src="/html/page/members/assets/images/txt-mileage-white.svg" alt="마일리지">
+									<img src="/html/core/images/txt-mileage-white.svg" alt="마일리지">
 								</a>
 							</dd>
 	                    </dl>
