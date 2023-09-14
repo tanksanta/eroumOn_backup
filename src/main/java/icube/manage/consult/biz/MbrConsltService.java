@@ -21,6 +21,9 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 
 	@Resource(name="mbrConsltResultDAO")
 	private MbrConsltResultDAO mbrConsltResultDAO;
+	
+	@Resource(name="mbrConsltMemoDAO")
+	private MbrConsltMemoDAO mbrConsltMemoDAO;
 
 	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
 
@@ -69,12 +72,18 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		mbrConsltResultDAO.updateCanclConslt(paramMap);
 		return mbrConsltDAO.updateCanclConslt(paramMap); // 상담취소;
 	}
+	
+	public int updateMngMemo(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.updateMngMemo(paramMap);
+	}
 
 	public List<MbrConsltVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.selectListForExcel(paramMap);
 	}
 
-
+	public Integer insertMbrConsltMemo(MbrConsltMemoVO mbrConsltMemoVO) throws Exception {
+		return mbrConsltMemoDAO.insertMbrConsltMemo(mbrConsltMemoVO);
+	}
 
 
 }

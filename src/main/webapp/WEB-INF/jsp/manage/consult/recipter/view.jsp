@@ -82,6 +82,8 @@
                             </tbody>
                         </table>
                     </fieldset>
+                    
+                    <%--
 					<c:if test="${mbrConsltVO.consltSttus eq 'CS03'}">
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담 취소 사유</legend>
@@ -99,7 +101,21 @@
                         </table>
                     </fieldset>
                     </c:if>
+                    --%>
+                    
+                    <c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
+                    <div class="btn-group right mt-5">
+                    	<c:if test="${mbrConsltVO.consltSttus ne 'CS01' && fn:length(mbrConsltVO.consltResultList) > 0}">
+                        <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
+                        </c:if>
+                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06' && mbrConsltVO.consltSttus ne 'CS09' }">
+                        <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
+                        </c:if>
+                        <button type="submit" class="btn-success large shadow">저장</button>
+                        <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
+                    </div>
 
+					<%--
                     <fieldset class="mt-13">
                         <legend class="text-title2">상담내용(관리자 메모)</legend>
                         <table class="table-detail">
@@ -139,19 +155,118 @@
                             </tbody>
                         </table>
                     </fieldset>
-
-					<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
-                    <div class="btn-group right mt-8">
-                    	<c:if test="${mbrConsltVO.consltSttus ne 'CS01' && fn:length(mbrConsltVO.consltResultList) > 0}">
-                        <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
-                        </c:if>
-                        <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06' && mbrConsltVO.consltSttus ne 'CS09' }">
-                        <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
-                        </c:if>
-                        <button type="submit" class="btn-success large shadow">저장</button>
-                        <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
-                    </div>
+                    --%>
                 </form:form>
+                
+
+				<fieldset class="mt-15">                                                                                                
+				    <legend class="text-title2">상담기록 및 진행상태 변경 내역</legend>                                                                 
+				    <table class="table-detail">
+				        <colgroup>
+				            <col class="w-full">
+				            <col>
+				        </colgroup>
+				        <tbody>                               
+				            <tr>  
+				                <!-- <th scope="row"><label for="form-item1">내역</label></th> -->
+				                <td>
+				                    <textarea name="" id="form-item1" cols="30" rows="5" class="w-full p-3" readonly>
+yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상담내용 입력텍스트
+yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상태변경: [상담진행상태상태값] -> [상담진행상태값]
+2023-09-07 11:11:11 회원명(회원아이디) / 담자가 사업소 연락이 안된다고 하여 사업소 컨택
+2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
+2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
+				                    </textarea>
+				                </td>                      
+				            </tr>                                
+				        </tbody>
+				    </table>
+				</fieldset>
+
+				<fieldset class="mt-5">                                                                        
+				    <legend class="text-title2">상담기록</legend>
+				    <div class="btn-group right mx-2">
+				        <button class="small shadow btn-primary f_saveMngMemo">저장</button>
+				    </div>                        
+				    <table class="table-detail">
+				        <colgroup>
+				            <col class="w-43">
+				            <col>
+				        </colgroup>
+				        <tbody>                               
+				            <tr>
+				                <th scope="row"><label for="form-item1">상담기록 작성</label></th>
+				                <td>
+				                	<textarea name="" id="mngMemo" cols="30" rows="5" class="form-control w-full">${mbrConsltVO.mngMemo}</textarea>
+				                </td>
+				            </tr>                                
+				        </tbody>
+				    </table>
+				</fieldset>
+				
+				<fieldset class="mt-5">                        
+                    <legend class="text-title2">상담진행상태 변경</legend>
+                    <div class="btn-group right mx-2">
+                        <button class="small shadow btn-primary">저장</button>
+                    </div>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-43">
+                            <col>
+                        </colgroup>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">현재</th>
+                                    <td>
+                                    	<c:choose>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}"><span class="text-red1">재상담 신청 접수</span></c:when>
+											<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
+										</c:choose>
+                                    </td>
+                                    <th scope="row">변경</th>
+                                    <td>
+                                        <select name="" id="search-item8" class="form-control w-50">
+                                            <option value="">선택</option>
+                                            <option value="">상담 신청 접수</option>
+                                            <option value="">상담 기관 배정 완료</option>
+                                            <option value="">상담 취소 (상담자)</option>
+                                            <option value="">상담 취소 (THKC)</option>
+                                            <option value="">상담 취소 (상담기관)</option>
+                                            <option value="">상담 진행 중</option>
+                                            <option value="">상담 완료</option>
+                                            <option value="">재상담 신청 접수</option>
+                                            <option value="">상감 기관 재배정 완료</option>                                                
+                                        </select>
+                                    </td>
+                                </tr>                                   
+                            </tbody>
+                        </table>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>                               
+                                                            
+                            </tbody>
+                        </table>                         
+                    </table>
+                </fieldset>  
+
 
                 <!-- 상담 취소 사유 -->
                 <div class="modal fade" id="modal1" tabindex="-1">
@@ -329,10 +444,36 @@ $(function(){
 				console.log("ERROR : " + err);
 			});
 		}
-
-
 	});
-
+	
+	$('.f_saveMngMemo').on('click', function(e) {
+		e.preventDefault();
+		
+		let params = {
+			consltNo:$("#consltNo").val()
+			, mngMemo:$("#mngMemo").val()
+		};
+		
+		if (confirm('상담기록을 저장하시겠습니까?')) {
+			$.ajax({
+				type : "post",
+				url  : "/_mng/consult/recipter/saveMemo.json",
+				data : params,
+				dataType : 'json'
+			})
+			.done(function(data) {
+				if(data.result){
+					alert("정상적으로 저장되었습니다.");
+				}else{
+					alert("상담 메모 저장중 에러가 발생하였습니다.");
+				}
+				location.reload();
+			})
+			.fail(function(data, status, err) {
+				console.log("ERROR : " + err);
+			});
+		}
+	});
 });
 
 

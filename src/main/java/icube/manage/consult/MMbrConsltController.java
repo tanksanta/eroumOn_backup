@@ -28,6 +28,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltMemoVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
@@ -174,6 +175,43 @@ public class MMbrConsltController extends CommonAbstractController{
 		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
 
 		if(resultCnt > 0) {
+			result = true;
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+	
+	// 상담기록(관리자 메모) 저장
+	@RequestMapping(value = "saveMemo.json")
+	@ResponseBody
+	public Map<String, Object> saveMemo(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "mngMemo", required=true) String mngMemo
+			, HttpServletRequest request
+			) throws Exception {
+
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltNo", consltNo);
+		paramMap.put("mngMemo", mngMemo);
+		
+		//상담의 메모 컬럼만 변경
+		int resultCnt = mbrConsltService.updateMngMemo(paramMap);
+
+		//관리자 상담 메모 저장
+		MbrConsltMemoVO newMemoVO = new MbrConsltMemoVO();
+		newMemoVO.setConsltNo(consltNo);
+		newMemoVO.setMngMemo(mngMemo);
+		newMemoVO.setMngrUniqueId(mngrSession.getUniqueId());
+		newMemoVO.setMngrId(mngrSession.getMngrId());
+		newMemoVO.setMngrNm(mngrSession.getMngrNm());
+		
+		resultCnt += mbrConsltService.insertMbrConsltMemo(newMemoVO);
+		
+		if(resultCnt > 1) {
 			result = true;
 		}
 

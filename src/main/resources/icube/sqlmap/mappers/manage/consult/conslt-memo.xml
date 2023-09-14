@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="conslt.memo">
+
+	<sql id="listColumn">
+		mcm.memo_conslt_no
+		, mcm.conslt_no
+		, mcm.mng_memo
+		, mcm.reg_dt
+		, mcm.mngr_unique_id
+		, mcm.mngr_id
+		, mcm.mngr_nm
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchConsltNo != null  and srchConsltNo != '' ">
+			AND mcm.conslt_no = #{srchConsltNo}
+		</if>
+	</sql>
+
+	<select id="selectMbrConsltMemo" parameterType="java.util.HashMap" resultType="mbrConsltMemoVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_MEMO mcm
+		WHERE 1:1
+			<include refid="searchConditions" />
+	  	ORDER BY mcm.reg_dt DESC
+	</select>
+
+	<!-- 상담 관리자 메모 저장 -->
+	<insert id="insertMbrConsltMemo" parameterType="mbrConsltMemoVO">
+		INSERT INTO MBR_CONSLT_MEMO (
+			conslt_no
+			, mng_memo
+		    , reg_dt
+		    , mngr_unique_id
+		    , mngr_id
+		    , mngr_nm
+		)VALUES(
+			#{consltNo}
+			, #{mngMemo}
+			, SYSDATE()
+			, #{mngrUniqueId}
+			, #{mngrId}
+		    , #{mngrNm}
+		)
+	</insert>
+
+</mapper>
