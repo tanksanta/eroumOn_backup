@@ -18,6 +18,8 @@ public class MbrConsltChgHistVO {
 	private String consltSttusChg;      //상담 변경 상태
 	private Integer bplcConsltNo;
 	private String bplcConsltSttusChg;  //사업소 상담 변경 상태
+	private String consltBplcUniqueId;
+	private String consltBplcNm;
 	private String resn;
 	private Date regDt;
 	private String mbrUniqueId;

@@ -43,6 +43,8 @@
 			, conslt_sttus_chg
 			, bplc_conslt_no
 			, bplc_conslt_sttus_chg
+			, conslt_bplc_unique_id
+			, conslt_bplc_nm
 			, resn
 		    , reg_dt
 		    , mbr_unique_id
@@ -59,6 +61,8 @@
 			, #{consltSttusChg}
 			, #{bplcConsltNo}
 			, #{bplcConsltSttusChg}
+			, #{consltBplcUniqueId}
+			, #{consltBplcNm}
 			, #{resn}
 			, SYSDATE()
 			, #{mbrUniqueId}

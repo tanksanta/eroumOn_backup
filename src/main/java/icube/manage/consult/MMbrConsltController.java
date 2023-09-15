@@ -28,6 +28,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltMemoVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
@@ -139,7 +140,22 @@ public class MMbrConsltController extends CommonAbstractController{
 			}
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
-
+			
+			//1:1 상담 배정 이력 추가
+			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(mbrConsltVO.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg(mbrConsltVO.getConsltSttus());
+			mbrConsltChgHistVO.setBplcConsltNo(null);
+			mbrConsltChgHistVO.setBplcConsltSttusChg(mbrConsltResultVO.getConsltSttus());
+			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
 
 		// 상담정보 > 관리자(이로움) 메모 처리
@@ -176,6 +192,24 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		if(resultCnt > 0) {
 			result = true;
+			
+			//1:1 관리자 상담 취소 이력 저장
+			Map<String, Object> srchMap = new HashMap<String, Object>();
+			srchMap.put("srchConsltNo", consltNo);
+			MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(consltNo);
+			mbrConsltChgHistVO.setConsltSttusChg("CS09");
+			mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+			mbrConsltChgHistVO.setBplcConsltSttusChg("CS09");
+			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소"));
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
