@@ -22,6 +22,9 @@
 	</sql>
 
 	<sql id="searchConditions">
+		<if test="srchChgNo > 0">
+			AND cch.chg_no = #{srchChgNo}
+		</if>
 		<if test="srchConsltNo != null  and srchConsltNo != '' ">
 			AND cch.conslt_no = #{srchConsltNo}
 		</if>

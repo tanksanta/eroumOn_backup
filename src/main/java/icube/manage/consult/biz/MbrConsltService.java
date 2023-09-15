@@ -103,4 +103,16 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	public List<MbrConsltChgHistVO> selectMbrConsltChgHist(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltChgHistDAO.selectMbrConsltChgHist(paramMap);
 	}
+	
+	public MbrConsltChgHistVO selectMbrConsltChgHistByChgNo(int chgNo) throws Exception {
+		Map<String, Object> srchParam = new HashMap<String, Object>();
+		srchParam.put("srchChgNo", chgNo);
+		
+		List<MbrConsltChgHistVO> chgHistList = mbrConsltChgHistDAO.selectMbrConsltChgHist(srchParam);
+		if (chgHistList.size() > 0) {
+			return chgHistList.get(0);
+		} else {
+			return null;
+		}
+	}
 }

@@ -144,6 +144,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("historyText", historyText);
+		model.addAttribute("chgHistList", chgHistList);
 
 		return "/manage/consult/recipter/view";
 	}
@@ -185,13 +186,17 @@ public class MMbrConsltController extends CommonAbstractController{
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
 			
+			
 			//1:1 상담 배정 이력 추가
+			Map<String, Object> srchMap = new HashMap<>();
+			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
+			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
 			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
 			
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(mbrConsltVO.getConsltNo());
 			mbrConsltChgHistVO.setConsltSttusChg(mbrConsltVO.getConsltSttus());
-			mbrConsltChgHistVO.setBplcConsltNo(null);
+			mbrConsltChgHistVO.setBplcConsltNo(srchConsltResult.getBplcConsltNo());
 			mbrConsltChgHistVO.setBplcConsltSttusChg(mbrConsltResultVO.getConsltSttus());
 			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
 			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
@@ -298,6 +303,64 @@ public class MMbrConsltController extends CommonAbstractController{
 		return resultMap;
 	}
 
+	// 상담진행상태 변경
+	@RequestMapping(value = "changeConsltSttus.json")
+	@ResponseBody
+	public Map<String, Object> changeConsltSttus(
+		@RequestParam(value = "chgNo", required=true) int chgNo  //변경할 이력 번호
+		, HttpServletRequest request
+		) throws Exception {
+		
+		boolean result = false;
+		
+		//변경할 이력 조회
+		MbrConsltChgHistVO srchChgHistVO = mbrConsltService.selectMbrConsltChgHistByChgNo(chgNo);
+		//가장 최신에 매칭된 사업소 조회
+		Map<String, Object> srchMap = new HashMap<String, Object>();
+		srchMap.put("srchConsltNo", srchChgHistVO.getConsltNo());
+		MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+		
+		//상태 변경
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String changedSttus = srchChgHistVO.getConsltSttusChg();
+		paramMap.put("consltSttus", changedSttus);
+		paramMap.put("consltNo", srchChgHistVO.getConsltNo());
+		paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
+		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
+		
+		if(resultCnt > 0) {
+			result = true;
+			
+			//상담 변경 이력 저장
+			String resn = "CS01".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("접수") 
+					: "CS02".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정")
+					: "CS03".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소")
+					: "CS04".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소")
+					: "CS05".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행")
+					: "CS06".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("완료")
+					: "CS07".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재접수")
+					: "CS08".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정")
+					: CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소");
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(srchChgHistVO.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg(changedSttus);
+			mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+			mbrConsltChgHistVO.setBplcConsltSttusChg(changedSttus);
+			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+	
 
 	@RequestMapping(value = "delConslt.json")
 	@ResponseBody

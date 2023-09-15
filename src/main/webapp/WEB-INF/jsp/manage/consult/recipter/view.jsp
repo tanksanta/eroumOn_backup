@@ -2,7 +2,7 @@
 <!-- page content -->
             <div id="page-content">
                 <p class="mb-7">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
-                <form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltVO" >
+                <form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltVO" onsubmit="return submitEvent();">
 				<form:hidden path="consltNo" />
 				<form:hidden path="consltSttus" />
                     <fieldset>
@@ -111,7 +111,9 @@
                         <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06' && mbrConsltVO.consltSttus ne 'CS09' }">
                         <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
+                        <c:if test="${mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS07' }">
                         <button type="submit" class="btn-success large shadow">저장</button>
+                        </c:if>
                         <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
 
@@ -201,7 +203,7 @@
 				<fieldset class="mt-5">                        
                     <legend class="text-title2">상담진행상태 변경</legend>
                     <div class="btn-group right mx-2">
-                        <button class="small shadow btn-primary">저장</button>
+                        <button class="small shadow btn-primary f_changeConsltSttus">저장</button>
                     </div>
                     <table class="table-detail">
                         <colgroup>
@@ -218,7 +220,7 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">현재</th>
-                                    <td>
+                                    <td class="currentSttus">
                                     	<c:choose>
 											<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
 											<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
@@ -233,17 +235,23 @@
                                     </td>
                                     <th scope="row">변경</th>
                                     <td>
-                                        <select name="" id="search-item8" class="form-control w-50">
+                                        <select name="chgSttusSelect" id="chgSttusSelect" class="form-control w-50">
                                             <option value="">선택</option>
-                                            <option value="">상담 신청 접수</option>
-                                            <option value="">상담 기관 배정 완료</option>
-                                            <option value="">상담 취소 (상담자)</option>
-                                            <option value="">상담 취소 (THKC)</option>
-                                            <option value="">상담 취소 (상담기관)</option>
-                                            <option value="">상담 진행 중</option>
-                                            <option value="">상담 완료</option>
-                                            <option value="">재상담 신청 접수</option>
-                                            <option value="">상감 기관 재배정 완료</option>                                                
+                                            <c:forEach var="chgHist" items="${chgHistList}" varStatus="status">
+                                            	<option value="${chgHist.chgNo}">
+                                            		<c:choose>
+														<c:when test="${chgHist.consltSttusChg eq 'CS01'}">상담 신청 접수</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS02'}">상담 기관 배정 완료</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS03'}">상담 취소 (상담자)</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS09'}">상담 취소 (THKC)</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS04'}">상담 취소 (상담기관)</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS05'}">상담 진행 중</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS06'}">상담 완료</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS07'}">재상담 신청 접수</c:when>
+														<c:when test="${chgHist.consltSttusChg eq 'CS08'}">상담 기관 재배정 완료</c:when>
+													</c:choose>
+                                            	</option>
+                                            </c:forEach>
                                         </select>
                                     </td>
                                 </tr>                                   
@@ -371,6 +379,16 @@
 
 <script>
 
+function submitEvent() {
+	var currentSttus = document.getElementsByClassName('currentSttus')[0].innerText;
+	
+	if (currentSttus === '상담 기관 배정 완료') {
+		return confirm('사업소를 변경할 경우 기존사업소 상담 정보는 삭제됩니다. 진행하시겠습니까?');	
+	} 
+	
+	return true;
+}
+
 function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt){
 
 	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
@@ -460,6 +478,54 @@ $(function(){
 					alert("정상적으로 저장되었습니다.");
 				}else{
 					alert("상담 메모 저장중 에러가 발생하였습니다.");
+				}
+				location.reload();
+			})
+			.fail(function(data, status, err) {
+				console.log("ERROR : " + err);
+			});
+		}
+	});
+	
+	$('.f_changeConsltSttus').on('click', function(e) {
+		e.preventDefault();
+		
+		var currentSttus = document.getElementsByClassName('currentSttus')[0].innerText;
+		var selectedChgNo = $('#chgSttusSelect option:selected').val();
+		var selectedChgSttus = $('#chgSttusSelect option:selected').text().trim();
+		if (selectedChgSttus === '선택') {
+			alert('변경 상태를 선택하세요.');
+			return;
+		}
+		if (currentSttus === selectedChgSttus) {
+			alert('현재상태로 변경할 수 없습니다.');
+			return;
+		}
+		if (selectedChgSttus === '상담 신청 접수') {
+			alert('상담 신청 접수 상태로 변경할 수 없습니다. 사업소 변경을 원하시는 경우 상담 기관 배정 완료상태에서 진행하세요.');
+			return;
+		}
+		if (selectedChgSttus === '재상담 신청 접수') {
+			alert('재상담 신청 접수 상태로 변경할 수 없습니다.');
+			return;
+		}
+		
+		if (confirm('상담진행상태를 변경하시겠습니까?')) {
+			let params = {
+				chgNo:selectedChgNo
+			};
+			
+			$.ajax({
+				type : "post",
+				url  : "/_mng/consult/recipter/changeConsltSttus.json",
+				data : params,
+				dataType : 'json'
+			})
+			.done(function(data) {
+				if(data.result){
+					alert("정상적으로 변경되었습니다.");
+				}else{
+					alert("상담진행상태 변경중 에러가 발생하였습니다.");
 				}
 				location.reload();
 			})
