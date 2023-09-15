@@ -109,7 +109,7 @@
 		WHERE conslt_no = #{consltNo}
 			<include refid="searchConditions" />
 	</select>
-
+	
 	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
 		INSERT INTO MBR_CONSLT(
 			mbr_nm
@@ -188,6 +188,17 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY conslt_no DESC
+	</select>
+	
+	<!-- 생성 직후 신청한 상담 조회용 -->
+	<select id="selectLastMbrConsltForCreate" parameterType="java.util.HashMap" resultType="mbrConsltVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		WHERE rgtr = #{srchRgtr}
+		  AND reg_unique_id = #{srchUniqueId}
+		ORDER BY conslt_no DESC
+		LIMIT 1;
 	</select>
 
 </mapper>

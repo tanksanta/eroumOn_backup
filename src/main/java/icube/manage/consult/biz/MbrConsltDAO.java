@@ -47,4 +47,7 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 		return selectList("conslt.selectListForExcel", paramMap);
 	}
 
+	public MbrConsltVO selectLastMbrConsltForCreate(Map<String, Object> paramMap) throws Exception {
+		return selectOne("conslt.selectLastMbrConsltForCreate",paramMap);
+	}
 }

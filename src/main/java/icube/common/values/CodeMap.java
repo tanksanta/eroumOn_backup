@@ -1005,4 +1005,12 @@ public class CodeMap{
 			put("CS09", "THKC 취소");	//취소(요청에 의한 추가)
 		}
 	};
+	
+	// 1:1상담 상태 변경 이력 사유
+	public static final HashMap<String, String> CONSLT_STTUS_CHG_RESN = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -8253406184254457029L;
+		{
+			put("접수", "이로움회원 상담신청");	
+		}
+	};
 }

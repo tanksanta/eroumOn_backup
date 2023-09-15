@@ -24,7 +24,10 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	
 	@Resource(name="mbrConsltMemoDAO")
 	private MbrConsltMemoDAO mbrConsltMemoDAO;
-
+	
+	@Resource(name="mbrConsltChgHistDAO")
+	private MbrConsltChgHistDAO mbrConsltChgHistDAO;
+	
 	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
 
 		listVO = mbrConsltDAO.selectMbrConsltListVO(listVO);
@@ -85,5 +88,11 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltMemoDAO.insertMbrConsltMemo(mbrConsltMemoVO);
 	}
 
-
+	public MbrConsltVO selectLastMbrConsltForCreate(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.selectLastMbrConsltForCreate(paramMap);
+	}
+	
+	public Integer insertMbrConsltChgHist(MbrConsltChgHistVO mbrConsltChgHistVO) throws Exception {
+		return mbrConsltChgHistDAO.insertMbrConsltChgHist(mbrConsltChgHistVO);
+	}
 }

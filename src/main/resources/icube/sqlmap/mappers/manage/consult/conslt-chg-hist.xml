@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="conslt.chg.hist">
+
+	<sql id="listColumn">
+		cch.chg_no
+		, cch.conslt_no
+		, cch.conslt_sttus_chg
+		, cch.bplc_conslt_no
+		, cch.bplc_conslt_sttus_chg
+		, cch.resn
+		, cch.reg_dt
+		, cch.mbr_unique_id
+		, cch.mbr_id
+		, cch.mbr_nm
+		, cch.mngr_unique_id
+		, cch.mngr_id
+		, cch.mngr_nm
+		, cch.bplc_unique_id
+		, cch.bplc_id
+		, cch.bplc_nm
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchConsltNo != null  and srchConsltNo != '' ">
+			AND cch.conslt_no = #{srchConsltNo}
+		</if>
+	</sql>
+
+	<select id="selectMbrConsltChgHist" parameterType="java.util.HashMap" resultType="mbrConsltChgHistVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_CHG_HIST cch
+		WHERE 1:1
+			<include refid="searchConditions" />
+	  	ORDER BY cch.reg_dt DESC
+	</select>
+
+	<!-- 상담상태 변경 이력 저장 -->
+	<insert id="insertMbrConsltChgHist" parameterType="mbrConsltChgHistVO">
+		INSERT INTO MBR_CONSLT_CHG_HIST (
+			conslt_no
+			, conslt_sttus_chg
+			, bplc_conslt_no
+			, bplc_conslt_sttus_chg
+			, resn
+		    , reg_dt
+		    , mbr_unique_id
+		    , mbr_id
+		    , mbr_nm
+		    , mngr_unique_id
+		    , mngr_id
+		    , mngr_nm
+		    , bplc_unique_id
+		    , bplc_id
+		    , bplc_nm
+		)VALUES(
+			#{consltNo}
+			, #{consltSttusChg}
+			, #{bplcConsltNo}
+			, #{bplcConsltSttusChg}
+			, #{resn}
+			, SYSDATE()
+			, #{mbrUniqueId}
+			, #{mbrId}
+		    , #{mbrNm}
+			, #{mngrUniqueId}
+			, #{mngrId}
+		    , #{mngrNm}
+		    , #{bplcUniqueId}
+			, #{bplcId}
+		    , #{bplcNm}
+		)
+	</insert>
+
+</mapper>
