@@ -22,7 +22,7 @@
 		SELECT
 			<include refid="listColumn"/>
 		FROM MBR_CONSLT_MEMO mcm
-		WHERE 1:1
+		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY mcm.reg_dt DESC
 	</select>

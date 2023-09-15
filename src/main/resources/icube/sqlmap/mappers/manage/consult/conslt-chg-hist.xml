@@ -31,7 +31,7 @@
 		SELECT
 			<include refid="listColumn"/>
 		FROM MBR_CONSLT_CHG_HIST cch
-		WHERE 1:1
+		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY cch.reg_dt DESC
 	</select>

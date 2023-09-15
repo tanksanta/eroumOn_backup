@@ -3,6 +3,8 @@
  */
 package icube.manage.consult;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.ConsltHistory;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltMemoVO;
 import icube.manage.consult.biz.MbrConsltResultService;
@@ -97,9 +100,50 @@ public class MMbrConsltController extends CommonAbstractController{
 				mbrConsltResultVO.setReconsltResn(HtmlUtil.enterToBr(mbrConsltResultVO.getReconsltResn()));
 			}
 		}
+		
+		//상담기록 및 진행상태 변경 내역
+		List<ConsltHistory> historyList = new ArrayList<>(); 
+		paramMap = new HashMap<String, Object>();
+		paramMap.put("srchConsltNo", consltNo);
+		
+		List<MbrConsltMemoVO> memoList = mbrConsltService.selectMbrConsltMemo(paramMap);
+		for(MbrConsltMemoVO memoVO : memoList) {
+			ConsltHistory ConsltHistory = new ConsltHistory();
+			ConsltHistory.setRegDt(memoVO.getRegDt());
+			ConsltHistory.setName(memoVO.getMngrNm());
+			ConsltHistory.setId(memoVO.getMngrId());
+			ConsltHistory.setContent(memoVO.getMngMemo());
+			historyList.add(ConsltHistory);
+		}
+		
+		List<MbrConsltChgHistVO> chgHistList =  mbrConsltService.selectMbrConsltChgHist(paramMap);
+		for(MbrConsltChgHistVO chgHistVO : chgHistList) {
+			ConsltHistory ConsltHistory = new ConsltHistory();
+			ConsltHistory.setRegDt(chgHistVO.getRegDt());
+			ConsltHistory.setName(EgovStringUtil.isNotEmpty(chgHistVO.getMbrNm()) ? chgHistVO.getMbrNm() 
+					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrNm()) ? chgHistVO.getMngrNm()
+					: chgHistVO.getBplcNm());
+			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
+					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
+					: chgHistVO.getBplcId());
+			ConsltHistory.setContent("상태변경: [" + chgHistVO.getResn() + "]");
+			historyList.add(ConsltHistory);
+		}
+		
+		Collections.sort(historyList, Collections.reverseOrder());
+		
+		String historyText = "";
+		for(int i = 0; i < historyList.size(); i++) {
+			ConsltHistory hist = historyList.get(i);
+			if (i != 0) {
+				historyText += "\n";
+			}
+			historyText += hist.toString();
+		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
+		model.addAttribute("historyText", historyText);
 
 		return "/manage/consult/recipter/view";
 	}

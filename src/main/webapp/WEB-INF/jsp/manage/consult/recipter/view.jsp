@@ -170,13 +170,7 @@
 				            <tr>  
 				                <!-- <th scope="row"><label for="form-item1">내역</label></th> -->
 				                <td>
-				                    <textarea name="" id="form-item1" cols="30" rows="5" class="w-full p-3" readonly>
-yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상담내용 입력텍스트
-yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상태변경: [상담진행상태상태값] -> [상담진행상태값]
-2023-09-07 11:11:11 회원명(회원아이디) / 담자가 사업소 연락이 안된다고 하여 사업소 컨택
-2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
-2023-09-09 14:11:11 회원명(회원아이디) / 상태변경: [상담취소(상담자)] -> [상담 진행 중]
-				                    </textarea>
+				                    <textarea name="" id="form-item1" cols="30" rows="5" class="w-full p-3" readonly>${historyText}</textarea>
 				                </td>                      
 				            </tr>                                
 				        </tbody>
@@ -197,7 +191,7 @@ yyyy-mm-dd hh:mm:ss 회원명(회원아이디) / 상태변경: [상담진행상�
 				            <tr>
 				                <th scope="row"><label for="form-item1">상담기록 작성</label></th>
 				                <td>
-				                	<textarea name="" id="mngMemo" cols="30" rows="5" class="form-control w-full">${mbrConsltVO.mngMemo}</textarea>
+				                	<textarea name="" id="mngMemo" cols="30" rows="5" class="form-control w-full"></textarea>
 				                </td>
 				            </tr>                                
 				        </tbody>

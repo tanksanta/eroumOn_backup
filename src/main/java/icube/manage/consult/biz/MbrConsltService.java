@@ -95,4 +95,12 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	public Integer insertMbrConsltChgHist(MbrConsltChgHistVO mbrConsltChgHistVO) throws Exception {
 		return mbrConsltChgHistDAO.insertMbrConsltChgHist(mbrConsltChgHistVO);
 	}
+	
+	public List<MbrConsltMemoVO> selectMbrConsltMemo(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltMemoDAO.selectMbrConsltMemo(paramMap);
+	}
+	
+	public List<MbrConsltChgHistVO> selectMbrConsltChgHist(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltChgHistDAO.selectMbrConsltChgHist(paramMap);
+	}
 }
