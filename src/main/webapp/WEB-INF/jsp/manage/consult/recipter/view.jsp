@@ -237,21 +237,15 @@
                                     <td>
                                         <select name="chgSttusSelect" id="chgSttusSelect" class="form-control w-50">
                                             <option value="">선택</option>
-                                            <c:forEach var="chgHist" items="${chgHistList}" varStatus="status">
-                                            	<option value="${chgHist.chgNo}">
-                                            		<c:choose>
-														<c:when test="${chgHist.consltSttusChg eq 'CS01'}">상담 신청 접수</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS02'}">상담 기관 배정 완료</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS03'}">상담 취소 (상담자)</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS09'}">상담 취소 (THKC)</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS04'}">상담 취소 (상담기관)</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS05'}">상담 진행 중</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS06'}">상담 완료</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS07'}">재상담 신청 접수</c:when>
-														<c:when test="${chgHist.consltSttusChg eq 'CS08'}">상담 기관 재배정 완료</c:when>
-													</c:choose>
-                                            	</option>
-                                            </c:forEach>
+                                            <option value="CS01">상담 신청 접수</option>
+                                            <option value="CS02">상담 기관 배정 완료</option>
+                                            <option value="CS03">상담 취소 (상담자)</option>
+                                            <option value="CS09">상담 취소 (THKC)</option>
+                                            <option value="CS04">상담 취소 (상담기관)</option>
+                                            <option value="CS05">상담 진행 중</option>
+                                            <option value="CS06">상담 완료</option>
+                                            <option value="CS07">재상담 신청 접수</option>
+                                            <option value="CS08">상감 기관 재배정 완료</option>             
                                         </select>
                                     </td>
                                 </tr>                                   
@@ -491,28 +485,29 @@ $(function(){
 		e.preventDefault();
 		
 		var currentSttus = document.getElementsByClassName('currentSttus')[0].innerText;
-		var selectedChgNo = $('#chgSttusSelect option:selected').val();
-		var selectedChgSttus = $('#chgSttusSelect option:selected').text().trim();
-		if (selectedChgSttus === '선택') {
+		var selectedChgSttus = $('#chgSttusSelect option:selected').val();
+		var selectedChgSttusText = $('#chgSttusSelect option:selected').text().trim();
+		if (selectedChgSttusText === '선택') {
 			alert('변경 상태를 선택하세요.');
 			return;
 		}
-		if (currentSttus === selectedChgSttus) {
+		if (currentSttus === selectedChgSttusText) {
 			alert('현재상태로 변경할 수 없습니다.');
 			return;
 		}
-		if (selectedChgSttus === '상담 신청 접수') {
+		if (selectedChgSttusText === '상담 신청 접수') {
 			alert('상담 신청 접수 상태로 변경할 수 없습니다. 사업소 변경을 원하시는 경우 상담 기관 배정 완료상태에서 진행하세요.');
 			return;
 		}
-		if (selectedChgSttus === '재상담 신청 접수') {
-			alert('재상담 신청 접수 상태로 변경할 수 없습니다.');
+		if (selectedChgSttusText === '재상담 신청 접수') {
+			alert('재상담 신청 접수 상태로 변경할 수 없습니다. 사업소 변경을 원하시는 경우 완료처리 후 재상담을 진행하세요.');
 			return;
 		}
 		
 		if (confirm('상담진행상태를 변경하시겠습니까?')) {
 			let params = {
-				chgNo:selectedChgNo
+				consltNo:$("#consltNo").val(),
+				changedSttus:selectedChgSttus,
 			};
 			
 			$.ajax({

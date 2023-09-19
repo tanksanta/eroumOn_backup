@@ -307,24 +307,22 @@ public class MMbrConsltController extends CommonAbstractController{
 	@RequestMapping(value = "changeConsltSttus.json")
 	@ResponseBody
 	public Map<String, Object> changeConsltSttus(
-		@RequestParam(value = "chgNo", required=true) int chgNo  //변경할 이력 번호
+		@RequestParam(value = "consltNo", required=true) int consltNo
+		, @RequestParam(value = "changedSttus", required=true) String changedSttus  //변경할 상태
 		, HttpServletRequest request
 		) throws Exception {
 		
 		boolean result = false;
 		
-		//변경할 이력 조회
-		MbrConsltChgHistVO srchChgHistVO = mbrConsltService.selectMbrConsltChgHistByChgNo(chgNo);
 		//가장 최신에 매칭된 사업소 조회
 		Map<String, Object> srchMap = new HashMap<String, Object>();
-		srchMap.put("srchConsltNo", srchChgHistVO.getConsltNo());
+		srchMap.put("srchConsltNo", consltNo);
 		MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
 		
 		//상태 변경
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		String changedSttus = srchChgHistVO.getConsltSttusChg();
 		paramMap.put("consltSttus", changedSttus);
-		paramMap.put("consltNo", srchChgHistVO.getConsltNo());
+		paramMap.put("consltNo", consltNo);
 		paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
 		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
 		
@@ -343,7 +341,7 @@ public class MMbrConsltController extends CommonAbstractController{
 					: CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소");
 			
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
-			mbrConsltChgHistVO.setConsltNo(srchChgHistVO.getConsltNo());
+			mbrConsltChgHistVO.setConsltNo(consltNo);
 			mbrConsltChgHistVO.setConsltSttusChg(changedSttus);
 			mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
 			mbrConsltChgHistVO.setBplcConsltSttusChg(changedSttus);
