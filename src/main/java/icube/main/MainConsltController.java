@@ -128,7 +128,7 @@ public class MainConsltController extends CommonAbstractController{
 			String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
 			String putEml = "help@thkc.co.kr";
 
-			if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile) || "test".equals(profile))) {
+			if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile))) {
 				mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 			}
 		}
