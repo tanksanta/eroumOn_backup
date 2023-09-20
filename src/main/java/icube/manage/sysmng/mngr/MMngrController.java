@@ -354,8 +354,98 @@ public class MMngrController  extends CommonAbstractController {
 
 		return paramMap;
 	}
+	
+	
+	@RequestMapping("mypage")
+	public String mypage(
+			HttpServletRequest request
+			, Model model) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("uniqueId", mngrSession.getUniqueId());
+		MngrVO mngrVO = mngrService.selectMngrById(paramMap);
+		int passCk = mngrService.selectFailedLoginCount(mngrVO);
 
+		model.addAttribute("useYnCode", CodeMap.USE_YN);
+		model.addAttribute("authrtTyCode", CodeMap.MNGR_AUTH_TY);
+		model.addAttribute("jobTyCode", CodeMap.MNGR_JOB_TY);
 
+		model.addAttribute("passCk", passCk);
+		model.addAttribute("mngrVO", mngrVO);
+
+		MngMenuVO menuInfo = new MngMenuVO();
+		menuInfo.setMenuNm("내정보");
+		menuInfo.setMenuNmPath("관리자/마이페이지/내정보");
+		request.setAttribute("_mngMenuVO", menuInfo);
+		
+		return "/manage/sysmng/mngr/mypage";
+	}
+
+	@RequestMapping("mypage/action")
+	public View mypageAction(
+			MngrVO mngrVO
+			, HttpServletRequest request
+			, @RequestParam Map<String,Object> reqMap
+			, MultipartHttpServletRequest multiReq
+			, HttpSession session) throws Exception {
+
+		JavaScript javaScript = new JavaScript();
+		String profileImg = "";
+		if (EgovStringUtil.isNotEmpty(mngrVO.getNewPswd())) {
+			if (!ValidatorUtil.isValidPassword(mngrVO.getNewPswd())) {
+				javaScript.setMessage("담당자 계정 신청에 실패하였습니다. 다시 시도하시기 바랍니다.[비밀번호는 8~25자리, 알파벳, 숫자, 특수문자로 구성된 문자열만 가능]");
+				javaScript.setMethod("window.history.back()");
+				return new JavaScriptView(javaScript);
+			}
+			String encPswd = BCrypt.hashpw(mngrVO.getNewPswd(), BCrypt.gensalt());
+
+			mngrVO.setMngrPswd(encPswd);
+		}
+
+		/** 관리자 정보 */
+		MngrVO updatedMngrVO = mngrService.selectMngrByUniqueId(mngrSession.getUniqueId());
+		updatedMngrVO.setMngrNm(mngrVO.getMngrNm());
+		updatedMngrVO.setMngrPswd(mngrVO.getMngrPswd());
+		updatedMngrVO.setTelno(mngrVO.getTelno());
+		updatedMngrVO.setEml(mngrVO.getEml());
+		updatedMngrVO.setMdfcnUniqueId(mngrSession.getUniqueId());
+		updatedMngrVO.setMdfcnId(mngrSession.getMngrId());
+		updatedMngrVO.setMdfr(mngrSession.getMngrNm());
+
+		// 프로필 이미지 업로드
+		Map<String, MultipartFile> fileMap = multiReq.getFileMap();
+		if (!fileMap.get("profileImg").isEmpty()) {
+			profileImg = fileService.uploadFileNFixFileName(fileMap.get("profileImg"), serverDir.concat(fileUploadDir),
+					"PROFL", mngrVO.getUniqueId());
+			updatedMngrVO.setProflImg(profileImg);
+		} else if (EgovStringUtil.equals("Y", mngrVO.getDelProfileImg())) {
+			updatedMngrVO.setProflImg(null);
+		} 
+		// 프로필 이미지 END
+
+		mngrService.updateMngr(updatedMngrVO);
+
+		javaScript.setMessage(getMsg("action.complete.update"));
+		javaScript.setLocation("/_mng/intro");
+		
+
+		// session reset
+		mngrSession.setUniqueId(mngrVO.getUniqueId());
+		mngrSession.setMngrId(mngrVO.getMngrId());
+		mngrSession.setMngrNm(mngrVO.getMngrNm());
+		mngrSession.setAuthrtTy(mngrVO.getAuthrtTy());
+		mngrSession.setAuthrtTyNm(CodeMap.MNGR_AUTH_TY.get(mngrVO.getAuthrtTy()));
+		mngrSession.setAuthrtNo(mngrVO.getAuthrtNo());
+		mngrSession.setAuthrtNm(mngrVO.getAuthrtNm());
+
+		if(EgovStringUtil.isNotEmpty(profileImg)) {
+			mngrSession.setProflImg(profileImg);
+		}
+
+		mngrSession.setLoginCheck(true);
+
+		return new JavaScriptView(javaScript);
+	}
+	
 	@RequestMapping("popup/myProfile")
 	public String myProfile(
 			MngrVO mngrVO
