@@ -245,7 +245,7 @@
                                             <option value="CS05">상담 진행 중</option>
                                             <option value="CS06">상담 완료</option>
                                             <option value="CS07">재상담 신청 접수</option>
-                                            <option value="CS08">상감 기관 재배정 완료</option>             
+                                            <option value="CS08">상담 기관 재배정 완료</option>             
                                         </select>
                                     </td>
                                 </tr>                                   
