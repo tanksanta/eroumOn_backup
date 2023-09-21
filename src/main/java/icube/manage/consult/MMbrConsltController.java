@@ -250,10 +250,12 @@ public class MMbrConsltController extends CommonAbstractController{
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(consltNo);
 			mbrConsltChgHistVO.setConsltSttusChg("CS09");
-			mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
-			mbrConsltChgHistVO.setBplcConsltSttusChg("CS09");
-			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
-			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			if (mbrConsltResultVO != null) {
+				mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+				mbrConsltChgHistVO.setBplcConsltSttusChg("CS09");
+				mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			}
 			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소"));
 			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
 			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
