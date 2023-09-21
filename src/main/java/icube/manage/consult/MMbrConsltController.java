@@ -323,8 +323,15 @@ public class MMbrConsltController extends CommonAbstractController{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltSttus", changedSttus);
 		paramMap.put("consltNo", consltNo);
-		paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
-		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
+		int resultCnt = 0;
+		if (mbrConsltResultVO == null) {
+			resultCnt = mbrConsltResultService.updateSttusWithOutResult(paramMap);
+		}
+		else {
+			paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
+			resultCnt = mbrConsltResultService.updateSttus(paramMap);
+		}
+		
 		
 		if(resultCnt > 0) {
 			result = true;
@@ -343,10 +350,12 @@ public class MMbrConsltController extends CommonAbstractController{
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(consltNo);
 			mbrConsltChgHistVO.setConsltSttusChg(changedSttus);
-			mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
-			mbrConsltChgHistVO.setBplcConsltSttusChg(changedSttus);
-			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
-			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			if (mbrConsltResultVO != null) {
+				mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+				mbrConsltChgHistVO.setBplcConsltSttusChg(changedSttus);
+				mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			}
 			mbrConsltChgHistVO.setResn(resn);
 			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
 			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
