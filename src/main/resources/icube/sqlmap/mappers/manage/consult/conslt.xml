@@ -80,11 +80,16 @@
 	<select id="selectMbrConsltListVO" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		/* Query ID : conslt.selectMbrConsltListVO */
 		SELECT
-			<include refid="listColumn"/>
+			<include refid="listColumn"/>,
+			CASE 
+				WHEN mc.RE_CONSLT_DT IS NULL THEN mc.REG_DT
+                WHEN mc.RE_CONSLT_DT > mc.REG_DT THEN mc.RE_CONSLT_DT
+                ELSE mc.RE_CONSLT_DT
+			END AS cur_conslt_dt
 		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY re_conslt_dt DESC, conslt_no DESC
+	  	ORDER BY cur_conslt_dt DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
