@@ -423,6 +423,10 @@ public class OrdrController extends CommonAbstractController{
 		ordrVO.setOrdrCd(ordrCd);
 		ordrVO.setOrdrTy(ordrTy);
 
+		//입점업체 정보
+		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<>());
+		
 		// STEP.3 주문 상세 정보
 		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
 		String[] spGdsNo = gdsNo.split(",");
@@ -452,6 +456,26 @@ public class OrdrController extends CommonAbstractController{
 			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(spGdsNo[i].trim()));
 			ordrDtlVO.setGdsInfo(gdsVO);
 
+			//묶음 배송 처리
+			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
+			if (entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
+				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
+
+                //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
+				int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+                if (checkDlvyCy != dlvyBaseCt) {
+                }
+                //묶음상품이여도 최초에 한번 배송비 부과
+                else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
+					entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
+				}
+                else {
+                	//묶음상품 배송비 무료처리
+                	gdsVO.setDlvyBassAmt(0);
+                	gdsVO.setDlvyAditAmt(0);
+                }
+			}
+			
 			ordrDtlList.add(ordrDtlVO);
 		}
 		model.addAttribute("ordrDtlList", ordrDtlList);
