@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="mt-8">
-			<a href="${_membershipPath}/kakao/reAuth" class="btn btn-kakao w-full" target="_blank">
+			<a href="${_membershipPath}/kakao/reAuth" class="btn btn-kakao w-full">
 				<span>카카오 인증하기</span>
 			</a>
 		</div>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div class="mt-8">
-			<a href="${_membershipPath}/naver/reAuth" class="btn btn-naver w-full" target="_blank">
+			<a href="${_membershipPath}/naver/reAuth" class="btn btn-naver w-full">
 				<span>네이버 인증하기</span>
 			</a>
 		</div>
