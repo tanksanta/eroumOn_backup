@@ -65,9 +65,9 @@ public class MbrsNaverController extends CommonAbstractController{
 			, @RequestParam(value = "state", required=false) String state
 			, @RequestParam(value = "error", required=false) String error
 			) throws Exception {
-		
+
 		JavaScript javaScript = new JavaScript();
-		
+
 		//로그인 실패오류 또는 동의하지 않은 경우
 		if ("access_denied".equals(error)) {
 			javaScript.setLocation("/" + mainPath + "/login");
@@ -127,6 +127,12 @@ public class MbrsNaverController extends CommonAbstractController{
 		}else if(resultCnt == 9) {
 			javaScript.setMessage("휴면 회원입니다. 휴면 해제 페이지로 이동합니다.");
 			javaScript.setLocation("/" + membershipPath + "/drmt/view?mbrId=" + mbrSession.getMbrId());
+		}else if(resultCnt == 11) {
+			session.setAttribute("infoStepChk", "EASYLOGIN");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
+		}else if(resultCnt == 12) {
+			javaScript.setMessage("소셜 정보가 불일치 합니다.\n인증에 실패하였습니다.");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
 		}else {
 			javaScript.setMessage("탈퇴한 회원입니다. 탈퇴일로부터 7일 후 재가입 가능합니다.");
 			javaScript.setLocation("/" + mainPath);
@@ -135,4 +141,15 @@ public class MbrsNaverController extends CommonAbstractController{
 		return new JavaScriptView(javaScript);
 	}
 
+
+	@RequestMapping(value = "/reAuth")
+	public View reAuth(
+			) throws Exception {
+		JavaScript javaScript = new JavaScript();
+
+		String naverUrl = naverApiService.getNaverReAuth();
+
+		javaScript.setLocation(naverUrl);
+		return new JavaScriptView(javaScript);
+	}
 }
