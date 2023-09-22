@@ -954,7 +954,11 @@ var Goods = (function(){
 		var spOptnVal = optnVal.split("|");
 		var spOptnTxt = spOptnVal[0].split("*");
 		var skip = false;
-		var gdsLastPc = gdsDscntPc;
+		var gdsLastPc = gdsPc;
+		
+		if (gdsDscntPc > 0) {
+			gdsLastPc = gdsDscntPc;
+		}
 		
 		console.log("gdsPc", gdsLastPc);
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
