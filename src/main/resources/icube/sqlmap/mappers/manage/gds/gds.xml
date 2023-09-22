@@ -78,6 +78,7 @@
 		, g.dlvy_ct_stlm
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
+		, g.dlvy_group_yn
 		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
