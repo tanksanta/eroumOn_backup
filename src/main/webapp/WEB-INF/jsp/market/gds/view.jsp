@@ -790,6 +790,7 @@ $('.product-option button').click(function() {
 var Goods = (function(){
 
 	var gdsPc = ${gdsVO.pc};
+	var gdsDscntPc = ${gdsVO.dscntPc};
 	var ordrTy = $("input[name='ordrTy']:checked").val() === undefined?"N":$("input[name='ordrTy']:checked").val(); //R / L / N
 
 	if(ordrTy === "R" || ordrTy === "L"){
@@ -953,8 +954,9 @@ var Goods = (function(){
 		var spOptnVal = optnVal.split("|");
 		var spOptnTxt = spOptnVal[0].split("*");
 		var skip = false;
-
-		console.log("gdsPc", gdsPc);
+		var gdsLastPc = gdsDscntPc;
+		
+		console.log("gdsPc", gdsLastPc);
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
 		$(".product-quanitem input[name='ordrOptn']").each(function(){
@@ -987,7 +989,7 @@ var Goods = (function(){
 					html += '	<input type="hidden" name="gdsOptnNo" value="0">';
 				}
 
-				html += '	<input type="hidden" name="gdsPc" value="'+ gdsPc +'">';
+				html += '	<input type="hidden" name="gdsPc" value="'+ gdsLastPc +'">';
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
 				html += '	<input type="hidden" name="ordrOptnPc" value="'+ spOptnVal[1] +'">';
@@ -1013,7 +1015,7 @@ var Goods = (function(){
 				html += '   	<button type="button" class="btn btn-plus">수량추가</button>';
 				html += '    	<button type="button" class="btn btn-delete">상품삭제</button>';
 				html += '	</div>';
-				html += '	<p class="price"><strong> '+ comma(Number(gdsPc) + Number(spOptnVal[1])) +'</strong> 원</p>';
+				html += '	<p class="price"><strong> '+ comma(Number(gdsLastPc) + Number(spOptnVal[1])) +'</strong> 원</p>';
 				html += '</dd>';
 				html += '</dl>';
 				html += '</div>';
