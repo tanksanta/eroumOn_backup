@@ -131,7 +131,7 @@ public class MbrsNaverController extends CommonAbstractController{
 			session.setAttribute("infoStepChk", "EASYLOGIN");
 			javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
 		}else if(resultCnt == 12) {
-			javaScript.setMessage("소셜 정보가 불일치 합니다.\n인증에 실패하였습니다.");
+			javaScript.setMessage("소셜 정보가 불일치 합니다. 인증에 실패하였습니다.");
 			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
 		}else {
 			javaScript.setMessage("탈퇴한 회원입니다. 탈퇴일로부터 7일 후 재가입 가능합니다.");
