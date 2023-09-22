@@ -38,6 +38,14 @@ public class MMbrExitController extends CommonAbstractController{
 		listVO.setParam("srchMbrStts", "EXIT");
 		listVO = mbrService.mbrListVO(listVO);
 
+		if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(icube.common.util.StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("exitTyCode", CodeMap.EXIT_TY);

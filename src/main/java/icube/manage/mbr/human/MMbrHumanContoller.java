@@ -46,6 +46,16 @@ public class MMbrHumanContoller extends CommonAbstractController{
 		listVO.setParam("srchMbrSttus","HUMAN");
 		listVO = mbrService.mbrListVO(listVO);
 
+		if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(icube.common.util.StringUtil.nameMasking(vo.getMbrNm()));
+				vo.setMblTelno(icube.common.util.StringUtil.phoneMasking(vo.getMblTelno()));
+        	}
+        }
+
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("gender", CodeMap.GENDER);
 

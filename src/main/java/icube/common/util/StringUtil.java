@@ -3,9 +3,12 @@ package icube.common.util;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -156,6 +159,101 @@ public class StringUtil {
 	 */
 	public static String removeMinusChar(String str) {
 		return remove(str, '-');
+	}
+
+	// 이름 가운데 글자 마스킹
+	public static String nameMasking(String name) throws Exception {
+		// 한글만 (영어, 숫자 포함 이름은 제외)
+		String regex = "(^[가-힣]+)$";
+		
+		Matcher matcher = Pattern.compile(regex).matcher(name);
+		if(matcher.find()) {
+			int length = name.length();
+			
+			String middleMask = "";
+			if(length > 2) {
+				middleMask = name.substring(1, length - 1);
+			} else {	// 이름이 외자
+				middleMask = name.substring(1, length);
+			}
+			
+			String dot = "";
+			for(int i = 0; i<middleMask.length(); i++) {
+				dot += "*";
+			}
+			
+			if(length > 2) {
+				return name.substring(0, 1)
+						+ middleMask.replace(middleMask, dot)
+						+ name.substring(length-1, length);
+			} else { // 이름이 외자 마스킹 리턴
+				return name.substring(0, 1)
+						+ middleMask.replace(middleMask, dot);
+			}
+		}
+		return name;
+	}
+
+	// 휴대폰번호 마스킹(가운데 숫자 4자리 마스킹)
+	public static String phoneMasking(String phoneNo) throws Exception {
+		String regex = "(\\d{2,3})-?(\\d{3,4})-?(\\d{4})$";
+		
+		Matcher matcher = Pattern.compile(regex).matcher(phoneNo);
+		if(matcher.find()) {
+			String target = matcher.group(2);
+			int length = target.length();
+			char[] c = new char[length];
+			Arrays.fill(c, '*');
+			
+			return phoneNo.replace(target, String.valueOf(c));
+		}
+		return phoneNo;
+	}
+
+	// 계좌번호 마스킹(뒤 5자리)
+	public static String accountNoMasking(String accountNo) throws Exception {
+		// 계좌번호는 숫자만 파악하므로
+		String regex = "(^[0-9]+)$";
+		
+		Matcher matcher = Pattern.compile(regex).matcher(accountNo);
+		if(matcher.find()) {
+			int length = accountNo.length();
+			if(length > 5) {
+				char[] c = new char[5];
+				Arrays.fill(c, '*');
+				
+				return accountNo.replace(accountNo, accountNo.substring(0, length-5) + String.valueOf(c));
+			}
+		}
+		return accountNo;
+	}
+
+	// 생년월일 마스킹(8자리)
+	public static String birthMasking(String birthday) throws Exception {
+		String regex = "^((19|20)\\d\\d)?([-/.])?(0[1-9]|1[012])([-/.])?(0[1-9]|[12][0-9]|3[01])$";
+		
+		Matcher matcher = Pattern.compile(regex).matcher(birthday);
+		if(matcher.find()) {
+			return birthday.replace("[0-9]", "*");
+		}
+		return birthday;
+	}
+
+	// 카드번호 가운데 8자리 마스킹
+	public static String cardMasking(String cardNo) throws Exception {
+		// 카드번호 16자리 또는 15자리 '-'포함/미포함 상관없음
+		String regex = "(\\d{4})-?(\\d{4})-?(\\d{4})-?(\\d{3,4})$";
+		
+		Matcher matcher = Pattern.compile(regex).matcher(cardNo);
+		if(matcher.find()) {
+			String target = matcher.group(2) + matcher.group(3);
+			int length = target.length();
+			char[] c = new char[length];
+			Arrays.fill(c, '*');
+			
+			return cardNo.replace(target, String.valueOf(c));
+		}
+		return cardNo;
 	}
 
 	/**
