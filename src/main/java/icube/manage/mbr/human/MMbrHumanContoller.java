@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import icube.common.util.StringUtil;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -51,8 +52,8 @@ public class MMbrHumanContoller extends CommonAbstractController{
         	MbrVO vo;
         	for(ifor=0 ; ifor<ilen ; ifor++) {
         		vo = (MbrVO)listVO.getListObject().get(ifor);
-                vo.setMbrNm(icube.common.util.StringUtil.nameMasking(vo.getMbrNm()));
-				vo.setMblTelno(icube.common.util.StringUtil.phoneMasking(vo.getMblTelno()));
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+				vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
         	}
         }
 

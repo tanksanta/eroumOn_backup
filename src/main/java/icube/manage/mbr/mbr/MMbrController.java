@@ -29,6 +29,7 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
@@ -163,7 +164,7 @@ public class MMbrController extends CommonAbstractController {
         	MbrVO vo;
         	for(ifor=0 ; ifor<ilen ; ifor++) {
         		vo = (MbrVO)listVO.getListObject().get(ifor);
-                vo.setMbrNm(icube.common.util.StringUtil.nameMasking(vo.getMbrNm()));
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
         	}
         }
 
