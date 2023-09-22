@@ -778,6 +778,15 @@
 </main>
 
 <script>
+$('.product-option button').click(function() {
+	var prevDisplay = $(this).parent().children('.option-items').css('display');
+	$('.product-option .option-items').hide();
+	
+	if (prevDisplay === 'none') {
+		$(this).parent().children('.option-items').show();	
+	}
+});
+
 var Goods = (function(){
 
 	var gdsPc = ${gdsVO.pc};
@@ -1319,6 +1328,8 @@ var Goods = (function(){
 			if(optnVal1 != ""){
 				f_baseOptnChg(optnVal1);
 			}
+			
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 		</c:if>
@@ -1333,6 +1344,8 @@ var Goods = (function(){
 			//console.log("optnVal1 :", optnVal1, optnTy);
 
 			f_optnVal2(optnVal1[0].trim(), optnTy);
+			
+			$(this).parent().parent().hide();
 		});
 
 		<c:if test="${empty optnTtl[2]}">
@@ -1348,8 +1361,7 @@ var Goods = (function(){
 				f_baseOptnChg(optnVal2);
 			}
 
-
-
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 
@@ -1364,6 +1376,7 @@ var Goods = (function(){
 			//console.log("optnVal2 :", optnVal2, optnTy);
 			f_optnVal3(optnVal2[0].trim() +" * " +optnVal2[1].trim(), optnTy);
 
+			$(this).parent().parent().hide();
 		});
 
 
@@ -1375,6 +1388,8 @@ var Goods = (function(){
 			if(optnVal3 != ""){
 				f_baseOptnChg(optnVal3);
 			}
+			
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 
@@ -1390,6 +1405,8 @@ var Goods = (function(){
 				alert("기본 옵션을 먼저 선택해야 합니다.");
 				$('.product-option').removeClass('is-active');
 			}
+			
+			$(this).parent().parent().hide();
 		});
 
 
