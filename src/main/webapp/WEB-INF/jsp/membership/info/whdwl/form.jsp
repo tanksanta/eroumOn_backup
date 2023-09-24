@@ -13,7 +13,7 @@
 		<div class="member-release-title">
 			<img src="/html/page/members/assets/images/txt-leave.svg" alt="그동안 이로움ON 마켓을 이용해 주셔서 감사합니다.">
 			<p>
-				이로움ON 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
+				이로움ON 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
 			</p>
 		</div>
 
