@@ -58,7 +58,7 @@
                                 	<td><form:textarea path="intrcn"  cols="30" rows="10" class="form-control w-full" maxlength="500"/></td>
                                 </tr>
                              	<tr>
-									<th scope="row"><label for="" class="require">브랜드 이미지</label></th>
+									<th scope="row"><label for="">브랜드 이미지</label></th>
 									<td><c:forEach var="fileList" items="${brandVO.fileList }" varStatus="status">
 											<div id="attachFileViewDiv${fileList.fileNo}">
 												<a href="/comm/getFile?srvcId=${fileList.srvcId }&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }">${fileList.orgnlFileNm} (다운로드 : ${fileList.dwnldCnt}회)</a>&nbsp;&nbsp;
@@ -241,7 +241,7 @@ $(function(){
 		    ignore: "input[type='text']:hidden",
 		    rules : {
 		    	brandNm : { required : true ,searchchk : true},
-		    	attachFile0 : {filechk : true}
+		    	//attachFile0 : {filechk : true}
 		    },
 		    messages : {
 		    	brandNm : { required : "브랜드명은 필수 입력 항목입니다.", maxlength : "50자 이내로 입력해주세요."},
