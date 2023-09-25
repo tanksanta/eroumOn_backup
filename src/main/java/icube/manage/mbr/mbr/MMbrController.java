@@ -845,6 +845,15 @@ public class MMbrController extends CommonAbstractController {
 
          List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
 
+         if (mbrList != null && !mbrList.isEmpty()) {
+        	int ifor, ilen = mbrList.size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)mbrList.get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
+
          model.addAttribute("mbrList", mbrList);
          model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
          model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
