@@ -51,55 +51,56 @@ public class MailSchedule extends CommonAbstractController  {
 	private String activeMode;
 
 
+	//2023-09-25 쿠폰은 발급되지 않고 이메일만 발송되므로 주석처리
 	// 생일 이메일 발송
-	@Scheduled(cron = "0 30 8 * * *")
-	public void sendBrdtEmail() throws Exception {
-
-		log.debug("############## 생일 이메일, 쿠폰 Scheduler ##############");
-		// 생일자 조회
-		int brdtCount = mbrService.selectBrdtMbrCount();
-
-		if (brdtCount > 0) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("srchDate", "now");
-			List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
-
-			for (int i = 0; i < mbrList.size(); i++) {
-
-				// 이메일 발송
-				try {
-					if (ValidatorUtil.isEmail(mbrList.get(i).getEml())) {
-						String MAIL_FORM_PATH = mailFormFilePath;
-						String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_brdt.html");
-
-						mailForm = mailForm.replace("{mbrNm}", mbrList.get(i).getMbrNm()); // 회원 이름
-
-						mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
-						mailForm = mailForm.replace("{name}", "이로움마켓");
-						mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
-						mailForm = mailForm.replace("{brno}", "617-86-14330");
-						mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
-
-						// 메일 발송
-						String mailSj = "[이로움ON] 회원님의 생일을 진심으로 축하드립니다.";
-						if (EgovStringUtil.equals("real", activeMode)) {
-							mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
-						} else if (EgovStringUtil.equals("dev", activeMode)) {
-							mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
-						} else {
-							mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); // 테스트
-						}
-					} else {
-						log.debug(i + "번째" + mbrList.get(i).getMbrNm() + " 회원 생일 축하 EMAIL 전송 실패 :: 이메일 체크 "
-								+ mbrList.get(i).getEml());
-					}
-				} catch (Exception e) {
-					log.debug(i + "번째" + mbrList.get(i).getMbrNm() + "회원 생일 축하 EMAIL 전송 실패 :: " + e.toString());
-				}
-			}
-		}
-
-	}
+//	@Scheduled(cron = "0 30 8 * * *")
+//	public void sendBrdtEmail() throws Exception {
+//
+//		log.debug("############## 생일 이메일, 쿠폰 Scheduler ##############");
+//		// 생일자 조회
+//		int brdtCount = mbrService.selectBrdtMbrCount();
+//
+//		if (brdtCount > 0) {
+//			Map<String, Object> paramMap = new HashMap<String, Object>();
+//			paramMap.put("srchDate", "now");
+//			List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+//
+//			for (int i = 0; i < mbrList.size(); i++) {
+//
+//				// 이메일 발송
+//				try {
+//					if (ValidatorUtil.isEmail(mbrList.get(i).getEml())) {
+//						String MAIL_FORM_PATH = mailFormFilePath;
+//						String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_brdt.html");
+//
+//						mailForm = mailForm.replace("{mbrNm}", mbrList.get(i).getMbrNm()); // 회원 이름
+//
+//						mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
+//						mailForm = mailForm.replace("{name}", "이로움마켓");
+//						mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
+//						mailForm = mailForm.replace("{brno}", "617-86-14330");
+//						mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
+//
+//						// 메일 발송
+//						String mailSj = "[이로움ON] 회원님의 생일을 진심으로 축하드립니다.";
+//						if (EgovStringUtil.equals("real", activeMode)) {
+//							mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
+//						} else if (EgovStringUtil.equals("dev", activeMode)) {
+//							mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
+//						} else {
+//							mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); // 테스트
+//						}
+//					} else {
+//						log.debug(i + "번째" + mbrList.get(i).getMbrNm() + " 회원 생일 축하 EMAIL 전송 실패 :: 이메일 체크 "
+//								+ mbrList.get(i).getEml());
+//					}
+//				} catch (Exception e) {
+//					log.debug(i + "번째" + mbrList.get(i).getMbrNm() + "회원 생일 축하 EMAIL 전송 실패 :: " + e.toString());
+//				}
+//			}
+//		}
+//
+//	}
 
 	/**
 	 * 소멸 예정 포인트, 마일리지 이메일
