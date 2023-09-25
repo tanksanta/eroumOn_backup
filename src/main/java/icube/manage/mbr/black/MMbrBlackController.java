@@ -7,12 +7,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import icube.common.util.StringUtil;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -37,6 +37,16 @@ public class MMbrBlackController extends CommonAbstractController{
 		listVO.setParam("srchMngTy", "BLACK");
 		listVO.setParam("srchNmngSe", "NONE");
 		listVO = mbrMngInfoService.selectMbrMngInfoListVO(listVO);
+
+		if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+				vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
+        	}
+        }
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("mngSeCode", CodeMap.MNG_SE_BLACK);

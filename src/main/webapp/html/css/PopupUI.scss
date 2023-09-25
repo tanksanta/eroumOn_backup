@@ -1,0 +1,70 @@
+
+.modal2-con {
+
+	.popup{
+		z-index: 1055;
+	}
+	.popOnPop{
+		z-index: 1069;
+	}
+	.popOnBack{
+		z-index: 1060;
+	}
+	.popOn3Pop{
+		z-index: 1079;
+	}
+	.popOn3Back{
+		z-index: 1070;
+	}
+}
+
+// .overlay:before {
+// 	content: "";
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	bottom: 0;
+// 	display: block;
+// 	background: rgba(0, 0, 0, 0.1);
+// 	position: fixed;
+// 	z-index: 1050;
+
+// }
+
+// .overlay2:before{
+// 	content: "";
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	bottom: 0;
+// 	display: block;
+// 	//background-color: #000;
+// 	//opacity: 0.1;
+// 	background: rgba(0, 0, 0, 0.1);
+// 	position: fixed;
+// 	z-index: 600;
+// }
+// .overlay256:before{
+// 	content: "";
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	bottom: 0;
+// 	display: block;
+// 	//background-color: #000;
+// 	//opacity: 0.1;
+// 	background: rgba(0, 0, 0, 0.1);
+// 	position: fixed;
+// 	z-index: 610;
+// }
+// .overlay-wait1:before {
+// 	content: "";
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	bottom: 0;
+// 	display: block;
+// 	position: fixed;
+// 	z-index: 9000;
+
+// }

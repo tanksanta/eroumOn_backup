@@ -29,6 +29,7 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
@@ -157,6 +158,15 @@ public class MMbrController extends CommonAbstractController {
         }
 
         listVO = mbrService.mbrListVO(listVO);
+        
+        if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
         model.addAttribute("listVO", listVO);
         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
@@ -834,6 +844,15 @@ public class MMbrController extends CommonAbstractController {
          }
 
          List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+
+         if (mbrList != null && !mbrList.isEmpty()) {
+        	int ifor, ilen = mbrList.size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)mbrList.get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
          model.addAttribute("mbrList", mbrList);
          model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);

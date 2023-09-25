@@ -48,7 +48,7 @@ public class MBplcIndexController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 
-		return "redirect:/"+ membersPath +"/ariamart/mng/conslt/list";
+		return "redirect:/"+ membersPath +"/"+partnersSession.getPartnersId()+"/mng/conslt/list";
 
 		/* 20230817 kkm : 대시보드가 확정되기 전까지 1:1상담으로 리턴
 

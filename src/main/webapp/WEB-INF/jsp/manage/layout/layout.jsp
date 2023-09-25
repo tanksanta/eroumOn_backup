@@ -28,6 +28,9 @@
 
 	<!-- common -->
     <script src="/html/core/script/utility.js"></script>
+    <script src="/html/core/script/JsCallApi.js"></script>
+    <script src="/html/core/script/JsHouse2309CodeConvert.js"></script>
+    <script src="/html/core/script/JsHouse2309PageBase.js"></script>
 
     <!-- admin -->
     <link rel="stylesheet" href="/html/page/admin/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>"/>
@@ -47,11 +50,14 @@
             <tiles:insertAttribute name="breadcrumb"/>
 
             <!-- page content -->
-            <div id="page-content">
+            <div id="page-content" class="layout page-content">
 
             	<tiles:insertAttribute name="content"/>
 
             </div>
+            <div class="modal2-con">
+            </div>
+            
             <!-- //page content -->
         </div>
     </main>

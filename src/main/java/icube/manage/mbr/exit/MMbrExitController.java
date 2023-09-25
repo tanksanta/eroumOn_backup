@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.util.StringUtil;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -38,6 +39,14 @@ public class MMbrExitController extends CommonAbstractController{
 		listVO.setParam("srchMbrStts", "EXIT");
 		listVO = mbrService.mbrListVO(listVO);
 
+		if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("exitTyCode", CodeMap.EXIT_TY);
