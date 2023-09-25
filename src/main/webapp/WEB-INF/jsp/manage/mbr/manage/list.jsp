@@ -1,4 +1,8 @@
+<%@page import="javax.servlet.annotation.WebServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script src="/html/page/admin/assets/script/_mng/mbr/JsHouseMngMbrList.js"></script>
+
 <div id="page-content">
 	<form action="./list" method="get" id="searchFrm" name="searchFrm">
 		<input type="hidden" name="cntPerPage" id="cntPerPage" value="${listVO.cntPerPage}" />
@@ -115,8 +119,8 @@
 		<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchMbrId=${param.srchMbrId}&amp;srchNm=${param.srchNm}&amp;srchLastTelnoOfMbl=${param.srchLastTelnoOfMbl}&amp;srchBrdt=${param.srchBrdt}" />
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
 				<td>${gender[resultList.gender]}</td>
 				<td><fmt:formatDate value="${resultList.brdt}" pattern="yyyy-MM-dd" /></td>
 				<td class="cateVal${status.index}">${recipterYn[resultList.recipterYn] }<span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>
@@ -136,59 +140,28 @@
 
 	<div class="pagination mt-7">
 		<mngr:mngrPaging listVO="${listVO}" />
-			<div class="sorting2">
-				<label for="countPerPage">출력</label>
-				 <select name="countPerPage" id="countPerPage" class="form-control">
-					<option value="10" ${listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
-					<option value="20" ${listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
-					<option value="30" ${listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
-				</select>
-			</div>
-
-			<div class="counter">
-				총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
-			</div>
-		</div>
-<!--
-	<p class="text-title2 mt-13">회원 목록(카드 리스트)</p>
-	<div class="member-list">
-			<a href="일반회원관리 상세.html" class="member-card man">
-				<p class="name">
-					회원이름 <sup>angel89</sup>
-				</p>
-				<p class="birthday">1989.09.23</p>
-				<p class="grade">
-					<span class="badge-primary">PLATINUM</span> <span class="badge">휴</span>
-				</p>
-				<div class="member">
-					<p>
-						온라인 회원 <span>2022.04.24</span>
-					</p>
-					<p>
-						<i class="ico-member-pc"></i>
-					</p>
-				</div>
-			</a>
-	</div>
-
-	<div class="pagination mt-7">
-		<div class="paging">
-			<a href="#" class="prev">이전</a> <a href="#" class="page active">1</a> <a href="#" class="page">2</a> <a href="#" class="page">3</a> <a href="#" class="page">4</a> <a href="#" class="page">5</a> <a href="#" class="page">6</a> <a href="#" class="page">7</a> <a href="#" class="next">다음</a>
-		</div>
-
 		<div class="sorting2">
-			<label for="sort-item">출력</label> <select name="" id="sort-item" class="form-control">
-				<option value="">20개</option>
+			<label for="countPerPage">출력</label>
+				<select name="countPerPage" id="countPerPage" class="form-control">
+				<option value="10" ${listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
+				<option value="20" ${listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
+				<option value="30" ${listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
 			</select>
 		</div>
 
 		<div class="counter">
-			총 <strong>200</strong>건, <strong>1</strong>/60 페이지
+			총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
 		</div>
 	</div>
-</div> -->
+
 
 <script>
+	var ctlMaster;
+	$(document).ready(function(){
+		ctlMaster = new JsHouseMngMbrList();
+		ctlMaster.fn_searched_data(`<%= request.getParameter("searched_data") != null ? request.getParameter("searched_data") : "" %>`);
+		ctlMaster.fn_page_init();
+	});
 function f_srchJoinSet(ty){
   	//srchJoinBgng, srchJoinEnd
 	$("#srchJoinEnd").val(f_getToday());

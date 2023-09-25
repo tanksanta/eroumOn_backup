@@ -17,16 +17,15 @@
 
                 </div>
 
-				<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchId=${param.srchId}&amp;srchNm=${param.srchNm}&amp;srchTel=${param.srchTel}&amp;srchBirth=${param.srchBirth}" />
-                <ul class="tab-list tab-full -mt-6.5 mx-2.5 px-1 rounded-md bg-white">
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/view"  ${fn:indexOf(_curPath, '/view') > -1?'class="active"':'' } >회원정보</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/ordr" ${fn:indexOf(_curPath, '/ordr') > -1?'class="active"':'' }>주문내역</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/mlg" ${fn:indexOf(_curPath, '/mlg') > -1?'class="active"':'' }>마일리지</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/coupon" ${fn:indexOf(_curPath, '/coupon') > -1?'class="active"':'' }>쿠폰</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/point" ${fn:indexOf(_curPath, '/point') > -1?'class="active"':'' }>포인트</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/event" ${fn:indexOf(_curPath, '/event') > -1?'class="active"':'' }>이벤트</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/review" ${fn:indexOf(_curPath, '/review') > -1?'class="active"':'' }>상품후기</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/qna" ${fn:indexOf(_curPath, '/qna') > -1?'class="active"':'' }>상품Q&A</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/question" ${fn:indexOf(_curPath, '/question') > -1?'class="active"':'' }>1:1문의</a></li>
-                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/favorite?modalType=cart " ${fn:indexOf(_curPath, '/favorite') > -1?'class="active"':'' }>관심상품</a></li>
+				<ul class="tab-list page-kind tab-full -mt-6.5 mx-2.5 px-1 rounded-md bg-white">
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/view" uniqueId="${mbrVO.uniqueId}" page-kind="view" class="btn ${fn:indexOf(_curPath, '/view') > -1?' active':'' }"   >회원정보</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/ordr" uniqueId="${mbrVO.uniqueId}" page-kind="ordr" class="btn ${fn:indexOf(_curPath, '/ordr') > -1?' active':'' }" >주문내역</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/mlg" uniqueId="${mbrVO.uniqueId}" page-kind="mlg" class="btn ${fn:indexOf(_curPath, '/mlg') > -1?' active':'' }" >마일리지</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/coupon" uniqueId="${mbrVO.uniqueId}" page-kind="coupon" class="btn ${fn:indexOf(_curPath, '/coupon') > -1?' active':'' }" >쿠폰</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/point" uniqueId="${mbrVO.uniqueId}" page-kind="point" class="btn ${fn:indexOf(_curPath, '/point') > -1?' active':'' }" >포인트</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/event" uniqueId="${mbrVO.uniqueId}" page-kind="event" class="btn ${fn:indexOf(_curPath, '/event') > -1?' active':'' }" >이벤트</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/review" uniqueId="${mbrVO.uniqueId}" page-kind="review" class="btn ${fn:indexOf(_curPath, '/review') > -1?' active':'' }" >상품후기</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/qna" uniqueId="${mbrVO.uniqueId}" page-kind="qna" class="btn ${fn:indexOf(_curPath, '/qna') > -1?' active':'' }" >상품Q&A</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/question" uniqueId="${mbrVO.uniqueId}" page-kind="question" class="btn ${fn:indexOf(_curPath, '/question') > -1?' active':'' }" >1:1문의</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/favorite?modalType=cart" uniqueId="${mbrVO.uniqueId}" page-kind="favorite?modalType=cart" class="btn ${fn:indexOf(_curPath, '/favorite') > -1?' active':'' }">관심상품</a></li>
                 </ul>
