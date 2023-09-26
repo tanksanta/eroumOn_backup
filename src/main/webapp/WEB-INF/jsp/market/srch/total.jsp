@@ -29,7 +29,7 @@
                     <dl class="flex items-start border-b border-b-gray3 font-bold text-[0.8125rem] md:text-sm">
                         <dt class="py-3 px-1.5 w-23 border border-transparent md:pt-3.5 md:px-2.5 md:w-43">카테고리</dt>
                         <dd class="flex-1 flex flex-wrap items-start gap-1.5 p-2">
-                        	<c:forEach items="${resultCtgryGrpList}" var="result" varStatus="status" begin="1">
+                        	<c:forEach items="${resultCtgryGrpList}" var="result" varStatus="status" begin="0">
                             <label class="form-check">
                                 <input type="radio" name="srchCtgryNo" id="srchCtgryNo${status.index}" value="${result.ctgryNo}" class="form-check-input peer absolute w-0 h-0 overflow-hidden opacity-0">
                                 <span for="srchCtgryNo${status.index}" class="form-check-label

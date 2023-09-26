@@ -252,9 +252,13 @@
 				(g.brand IN (SELECT brand_no FROM BRAND b WHERE b.brand_nm LIKE CONCAT ('%',#{kwd},'%')))
 			</foreach>
 			OR
-				<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
-					  g.bnef_cd = #{kwd}
-				</foreach>
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				g.bnef_cd = #{kwd}
+			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				g.GDS_CD = #{kwd}
+			</foreach>
 			)
 		</if>
 
