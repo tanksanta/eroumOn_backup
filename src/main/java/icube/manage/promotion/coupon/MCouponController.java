@@ -182,6 +182,29 @@ public class MCouponController extends CommonAbstractController {
 				couponVO.setIssuEndDt(endDt);
 
 				couponService.insertCoupon(couponVO,request);
+				
+				//발급 쿠폰이 회원 등급 쿠폰인 경우 즉시 발급
+				if ("GRADE".equals(couponVO.getCouponTy())) {
+					Map<String, Object> srchParam = new HashMap<>();
+					srchParam.put("srchMbrGrade", couponVO.getIssuMbrGrad());
+					srchParam.put("srchWhdwlYn", "N");
+					List<MbrVO> targetMbrList = mbrService.selectMbrListAll(srchParam);
+					
+					for (MbrVO mbr : targetMbrList) {
+						CouponLstVO couponLstVO = new CouponLstVO();
+						couponLstVO.setUniqueId(mbr.getUniqueId());
+						couponLstVO.setCouponNo(couponVO.getCouponNo());
+						
+						if(couponVO.getUsePdTy().equals("ADAY")) {
+							couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+						} else {
+							couponLstVO.setUseLstBgngYmd(couponVO.getUseBgngYmd());
+							couponLstVO.setUseLstEndYmd(couponVO.getUseEndYmd());
+						}
+						
+						couponLstService.insertCouponLst(couponLstVO);
+					}
+				}
 
 				javaScript.setMessage(getMsg("action.complete.insert"));
 				javaScript.setLocation("./list?" + pageParam);
