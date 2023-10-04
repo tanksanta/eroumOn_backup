@@ -1,8 +1,10 @@
 package icube.market.srch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,8 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ArrayUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.gds.ctgry.biz.GdsCtgryService;
+import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -39,6 +43,9 @@ public class SrchController extends CommonAbstractController {
 	@Resource(name = "srchLogService")
 	private SrchLogService srchLogService;
 
+	@Resource(name = "gdsCtgryService")
+	private GdsCtgryService gdsCtgryService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -110,6 +117,28 @@ public class SrchController extends CommonAbstractController {
 		if (EgovStringUtil.isNotEmpty((String) reqMap.get("srchKwd"))) {
 			String kwd = (String) reqMap.get("srchKwd");
 			srchKwd = EgovStringUtil.getStringArray(kwd.split("\\?")[0], " ");
+			
+			//키워드와 카테고리명이 일치하는 카테고리가 있다면 검색 추가
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("srchCtgryNmLike", kwd);
+			List<GdsCtgryVO> gdsCtgryVOLists = gdsCtgryService.selectGdsCtgryNoList(paramMap);
+			
+			List<String> srchCtgryList = new ArrayList<>();
+			while (gdsCtgryVOLists.size() > 0) {
+				List<String> ctgryNos = gdsCtgryVOLists.stream().map(m -> String.valueOf(m.getCtgryNo())).collect(Collectors.toList());
+				srchCtgryList.addAll(ctgryNos);
+				
+				//하위 카테고리 검색
+				paramMap.clear();
+				paramMap.put("srchUpCtgryNoList", ctgryNos);
+				gdsCtgryVOLists = gdsCtgryService.selectGdsCtgryNoList(paramMap);
+			}
+			srchCtgryNos = srchCtgryList.toArray(new String[srchCtgryList.size()]);
+			
+			//검색될 카테고리가 있다면 키워드 검색은 제거
+			if (srchCtgryNos.length > 0) {
+				srchKwd = null;
+			}
 		}
 
 		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
