@@ -25,6 +25,10 @@ public class GdsCtgryDAO extends CommonAbstractMapper {
 	public GdsCtgryVO selectGdsCtgryNo(Map<String, Object> paramMap) throws Exception {
 		return selectOne("gds.ctgry.selectGdsCtgryNo",paramMap);
 	}
+	
+	public List<GdsCtgryVO> selectGdsCtgryNoList(Map<String, Object> paramMap) throws Exception {
+		return selectList("gds.ctgry.selectGdsCtgryNo",paramMap);
+	}
 
 	public void insertGdsCtgry(GdsCtgryVO gdsCtgryVO) throws Exception {
 		insert("gds.ctgry.insertGdsCtgry", gdsCtgryVO);
