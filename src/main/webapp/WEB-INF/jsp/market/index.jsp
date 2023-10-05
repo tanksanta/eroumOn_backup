@@ -76,6 +76,7 @@
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
                                 	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                	<button type="button" class="btn btn-cart f_cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
                                 </c:if>
 							</div>
 						</div>
@@ -94,7 +95,7 @@
 <aside class="main-banner grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:gap-5">
 	<c:forEach var="resultList" items="${mainMngList}" varStatus="status">
 		<c:if test="${resultList.themaTy eq 'H' }">
-		<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}" class="block overflow-hidden rounded-md"> 
+		<a href="${resultList.linkUrl}?rdcntMain=${resultList.mainNo}" class="block overflow-hidden rounded-md">
 			<picture>
 			<c:forEach var="fileList" items="${resultList.halfFileList}">
 				<source srcset="/comm/getFile?srvcId=MAIN&amp;upNo=${fileList.upNo }&amp;fileTy=HALF&amp;fileNo=${fileList.fileNo }">
@@ -144,6 +145,7 @@
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
                                 	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+                                	<button type="button" class="btn btn-cart f_cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
                                 </c:if>
 							</div>
 						</div>
@@ -216,7 +218,8 @@
 							<div class="mx-auto mb-2.5">
 								<c:if test="${_mbrSession.loginCheck}">
 	                               	<button type="button" class="btn btn-love f_wish ${resultList.gdsInfo.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsInfo.gdsNo}" data-wish-yn="${resultList.gdsInfo.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-	                               </c:if>
+	                               	<button type="button" class="btn btn-cart f_cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+                            	</c:if>
 							</div>
 						</div>
 					</a>
@@ -230,6 +233,11 @@
 </div>
 </c:if>
 </c:forEach>
+
+</main>
+
+<div id="cart-div"></div>
+
 
 <script>
 window.addEventListener('DOMContentLoaded', (e) => {
@@ -283,6 +291,18 @@ window.addEventListener('DOMContentLoaded', (e) => {
             }
         });
     });
+
+	// 카트담기 모달
+	$(document).on("click", ".f_cart", function(e){
+		e.stopPropagation();
+        e.preventDefault();
+
+		let gdsNo = $(this).data("gdsNo");
+
+		$("#cart-div").load("${_marketPath}/gds/optnModal",
+			{gdsNo : gdsNo}, function(){
+    			$("#optnModal").modal('show');
+		});
+	});
 });
 </script>
-</main>

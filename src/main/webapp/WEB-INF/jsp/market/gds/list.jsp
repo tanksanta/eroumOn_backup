@@ -263,7 +263,6 @@ var Goods = (function(){
         e.preventDefault();
 
 		let gdsNo = $(this).data("gdsNo");
-		console.log("@@@@@@@@@@@@@@@@@@@@@@@", gdsNo);
 
 		$("#cart-div").load("${_marketPath}/gds/optnModal",
 			{gdsNo : gdsNo

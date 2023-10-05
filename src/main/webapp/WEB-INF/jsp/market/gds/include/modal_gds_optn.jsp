@@ -286,8 +286,8 @@ var Goods_${now} = (function(){
 			gdsLastPc = gdsDscntPc;
 		}
 
-		console.log("gdsPc", gdsLastPc);
-		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
+		//console.log("gdsPc", gdsLastPc);
+		//console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
 		if(spOptnVal[0].trim() != ""){
 			$(".order-list tbody input[name='ordrOptn']").each(function(){
@@ -299,7 +299,7 @@ var Goods_${now} = (function(){
 			});
 		}
 
-		console.log("재고:", spOptnVal[2]);
+		//console.log("재고:", spOptnVal[2]);
 		if(spOptnVal[2] < 1){
 			alert("선택하신 옵션은 품절상태입니다.");
 			skip = true;
@@ -451,7 +451,7 @@ var Goods_${now} = (function(){
 		$(document).on("click", "#optnVal1_${now} ul.option-items li a", function(e){
 			e.preventDefault();
 			const optnVal1 = $(this).data("optVal");
-			console.log(optnVal1);
+			//console.log(optnVal1);
 			if(optnVal1 != ""){
 				f_baseOptnChg_${now}(optnVal1);
 			}
@@ -466,7 +466,7 @@ var Goods_${now} = (function(){
 			const optnVal1 = $(this).data("optVal").split("*");
 			const optnTy = $(this).data("optnTy");
 
-			console.log("optnVal1 :", optnVal1, optnTy);
+			//console.log("optnVal1 :", optnVal1, optnTy);
 
 			f_optnVal2_${now}(optnVal1[0].trim(), optnTy);
 		});
@@ -478,7 +478,7 @@ var Goods_${now} = (function(){
 			const optnVal2 = $(this).data("optVal");//.split("*");
 			const optnTy = $(this).data("optnTy");
 
-			console.log("optnVal2 :", optnVal2, optnTy);
+			//console.log("optnVal2 :", optnVal2, optnTy);
 
 			if(optnVal2 != ""){
 				f_baseOptnChg_${now}(optnVal2);
@@ -497,7 +497,7 @@ var Goods_${now} = (function(){
 			e.preventDefault();
 			const optnVal2 = $(this).data("optVal").split("*");
 			const optnTy = $(this).data("optnTy");
-			console.log("optnVal2 :", optnVal2, optnTy);
+			//console.log("optnVal2 :", optnVal2, optnTy);
 			f_optnVal3_${now}(optnVal2[0].trim() +" * " +optnVal2[1].trim(), optnTy);
 
 		});
@@ -507,7 +507,7 @@ var Goods_${now} = (function(){
 			e.preventDefault();
 			const optnVal3 = $(this).data("optVal");//.split("*");
 			const optnTy = $(this).data("optnTy");
-			console.log("optnVal3 :", optnVal3, optnTy);
+			//console.log("optnVal3 :", optnVal3, optnTy);
 			if(optnVal3 != ""){
 				f_baseOptnChg_${now}(optnVal3);
 			}
@@ -529,7 +529,7 @@ var Goods_${now} = (function(){
 		});
 
 		$(document).on("keyup", "input[name='ordrQy']",function(){
-			console.log($("#_gdsTy").val());
+			//console.log($("#_gdsTy").val());
 			if($(this).val() > 15 && $("#_gdsTy").val() == 'R'){
 				alert("최대 수량은 15개 입니다.");
 				$(this).val(15);
