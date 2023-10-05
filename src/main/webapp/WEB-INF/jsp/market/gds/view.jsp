@@ -781,9 +781,9 @@
 $('.product-option button').click(function() {
 	var prevDisplay = $(this).parent().children('.option-items').css('display');
 	$('.product-option .option-items').hide();
-	
+
 	if (prevDisplay === 'none') {
-		$(this).parent().children('.option-items').show();	
+		$(this).parent().children('.option-items').show();
 	}
 });
 
@@ -955,11 +955,11 @@ var Goods = (function(){
 		var spOptnTxt = spOptnVal[0].split("*");
 		var skip = false;
 		var gdsLastPc = gdsPc;
-		
+
 		if (gdsDscntPc > 0) {
 			gdsLastPc = gdsDscntPc;
 		}
-		
+
 		console.log("gdsPc", gdsLastPc);
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
@@ -1334,7 +1334,7 @@ var Goods = (function(){
 			if(optnVal1 != ""){
 				f_baseOptnChg(optnVal1);
 			}
-			
+
 			$(this).parent().parent().hide();
 		});
 		</c:if>
@@ -1350,7 +1350,7 @@ var Goods = (function(){
 			//console.log("optnVal1 :", optnVal1, optnTy);
 
 			f_optnVal2(optnVal1[0].trim(), optnTy);
-			
+
 			$(this).parent().parent().hide();
 		});
 
@@ -1394,7 +1394,7 @@ var Goods = (function(){
 			if(optnVal3 != ""){
 				f_baseOptnChg(optnVal3);
 			}
-			
+
 			$(this).parent().parent().hide();
 		});
 		</c:if>
@@ -1411,7 +1411,7 @@ var Goods = (function(){
 				alert("기본 옵션을 먼저 선택해야 합니다.");
 				$('.product-option').removeClass('is-active');
 			}
-			
+
 			$(this).parent().parent().hide();
 		});
 
@@ -1445,11 +1445,7 @@ var Goods = (function(){
 						if(json.resultMsg == "ALREADY"){
 							alert("장바구니에 담겨있는 상품입니다.");
 						}else{
-							$('.service-mycart i, .personal-cart .mycart').text(Number($('.service-mycart i').text()) + 1);
-							$('.service-mycart, .personal-cart .mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
-							setTimeout(function(){
-								$('.service-mycart, .personal-cart .mycart').removeAttr('title').tooltip('dispose');
-							}, 2000);
+							$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
 							alert("장바구니에 담았습니다.");
 						}
 					}else{

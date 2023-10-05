@@ -30,6 +30,8 @@
 
 	</main>
 
+	<div id="cart-div"></div>
+
 <script>
 var Goods = (function(){
 
@@ -254,6 +256,21 @@ var Goods = (function(){
 	});
 
 
+
+	// 카트담기 모달
+	$(document).on("click", ".f_cart", function(e){
+		e.stopPropagation();
+        e.preventDefault();
+
+		let gdsNo = $(this).data("gdsNo");
+		console.log("@@@@@@@@@@@@@@@@@@@@@@@", gdsNo);
+
+		$("#cart-div").load("${_marketPath}/gds/optnModal",
+			{gdsNo : gdsNo
+			}, function(){
+    			$("#optnModal").modal('show');
+		});
+	});
 
 })();
 
