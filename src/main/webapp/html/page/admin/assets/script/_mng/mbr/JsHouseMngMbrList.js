@@ -21,6 +21,22 @@ class JsHouseMngMbrList extends JsHouse2309PageBase{
     }
 
     fn_page_condition(){
+        var nStart, curPage = 1;
+        
+        nStart = window.location.href.indexOf("curPage");
+        if (nStart >= 0){
+            var saTemp, nLast = window.location.href.indexOf("&", nStart);
+            if (nLast == -1 ) nLast = window.location.href.length;
+
+            if (nLast > nStart){
+                saTemp = window.location.href.substring(nStart, nLast).split('=');
+
+                if (saTemp.length > 1 && !isNaN(saTemp[1])){
+                    curPage = saTemp[1];
+                }
+            }
+        }
+
         var obj = { 
             "srchMbrId": $(this._cls_info.pagePrefix + " #srchMbrId").val()
             , "srchMbrNm": $(this._cls_info.pagePrefix + " #srchMbrNm").val()
@@ -35,6 +51,8 @@ class JsHouseMngMbrList extends JsHouse2309PageBase{
             , "cntPerPage": $(this._cls_info.pagePrefix + " #countPerPage option:selected").val()
             , "srchJoinBgng" : $(this._cls_info.pagePrefix + " #srchJoinBgng").val()
             , "srchJoinEnd" : $(this._cls_info.pagePrefix + " #srchJoinEnd").val()
+            , "curPage" : curPage
+            , "countPerPage" : $(this._cls_info.pagePrefix + " #countPerPage").val()
             };
 
         obj.grade = [];
