@@ -17,6 +17,18 @@
 		<if test="srchCtgryNm != null and srchCtgryNm != '' ">
 			AND ctgry_nm = #{srchCtgryNm}
 		</if>
+		<if test="srchCtgryNmLike != null and srchCtgryNmLike != '' ">
+			AND ctgry_nm like CONCAT('%', #{srchCtgryNmLike}, '%')
+		</if>
+		<if test="srchUpCtgryNo > 0">
+			AND up_ctgry_no = #{srchUpCtgryNo}
+		</if>
+		<if test="srchUpCtgryNoList != null and srchUpCtgryNoList.size != 0 ">
+			AND up_ctgry_no in 
+			<foreach collection="srchUpCtgryNoList" item="upCtgryNo" index="index" separator="," open="(" close=")">
+				#{upCtgryNo}
+			</foreach>
+		</if>
 	</sql>
 
 	<select id="selectGdsCtgryList" parameterType="java.util.HashMap" resultType="gdsCtgryVO">

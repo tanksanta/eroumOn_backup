@@ -250,23 +250,41 @@ public class GdsService extends CommonAbstractServiceImpl {
 		gdsVO.setWt((String)jsonObj.get("중량"));
 		gdsVO.setSize((String)jsonObj.get("사이즈"));
 		gdsVO.setStndrd((String)jsonObj.get("규격"));
-		gdsVO.setSortNo(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("정렬_번호"))));
-		gdsVO.setMkr(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("제조사"))));
+		
+		int sortNo = 100;
+		if (jsonObj.get("정렬_번호") != null) {
+			sortNo = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("정렬_번호")));
+		}
+		gdsVO.setSortNo(sortNo);
+		
+		int mkr = 0;
+		if (jsonObj.get("제조사") != null) {
+			mkr = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("제조사")));
+		}
+		gdsVO.setMkr(mkr);
+		
 		gdsVO.setPlor((String)jsonObj.get("원산지"));
 	
 		//입점업체명으로 업체를 찾아 정보 입력
 		String srchEntrpsNm = (String)jsonObj.get("입점업체");
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("srchTarget", "C");
-		param.put("srchText", srchEntrpsNm);
-		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(param);
-		if (entrpsList != null && entrpsList.size() > 0) {
-			EntrpsVO entrps = entrpsList.get(0);
-			gdsVO.setEntrpsNo(entrps.getEntrpsNo());
-			gdsVO.setEntrpsNm(entrps.getEntrpsNm());
+		if (EgovStringUtil.isNotEmpty(srchEntrpsNm)) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("srchTarget", "C");
+			param.put("srchText", srchEntrpsNm);
+			List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(param);
+			if (entrpsList != null && entrpsList.size() > 0) {
+				EntrpsVO entrps = entrpsList.get(0);
+				gdsVO.setEntrpsNo(entrps.getEntrpsNo());
+				gdsVO.setEntrpsNm(entrps.getEntrpsNm());
+			}
 		}
 		
-		gdsVO.setBrand(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("브랜드"))));
+		int brand = 0;
+		if (jsonObj.get("브랜드") != null) {
+			brand = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("브랜드")));
+		}
+		gdsVO.setBrand(brand);
+		
 		gdsVO.setModl((String)jsonObj.get("모델"));
 		gdsVO.setMlgPvsnYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("마일리지_제공_여부")));
 		gdsVO.setCouponUseYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("쿠폰_사용_여부")));
@@ -280,19 +298,42 @@ public class GdsService extends CommonAbstractServiceImpl {
 		gdsVO.setBnefPc6(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("급여_가격_6%"))));
 		gdsVO.setLendPc(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("대여_가격"))));
 		gdsVO.setLendDuraYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("대여_내구_여부")));
-		gdsVO.setUsePsbltyTrm(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("사용_가능_연한"))));
-		gdsVO.setExtnLendTrm(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("연장_대여_연한"))));
-		gdsVO.setExtnLendPc(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("연장_대여_가격"))));
+		
+		int usePsbltyTrm = 0;
+		if (jsonObj.get("사용_가능_연한") != null) {
+			usePsbltyTrm = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("사용_가능_연한")));
+		}
+		gdsVO.setUsePsbltyTrm(usePsbltyTrm);
+		
+		int extnLendTrm = 0;
+		if (jsonObj.get("연장_대여_연한") != null) {
+			extnLendTrm = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("연장_대여_연한")));
+		}
+		gdsVO.setExtnLendTrm(extnLendTrm);
+		
+		int extnLendPc = 0;
+		if (jsonObj.get("연장_대여_가격") != null) {
+			extnLendPc = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("연장_대여_가격")));
+		}
+		gdsVO.setExtnLendPc(extnLendPc);
+		
 		gdsVO.setStockQy(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("재고_수량"))));
-		gdsVO.setStockNtcnQy(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("재고_알림_수량"))));
+		
+		int stockNtcnQy = 0;
+		if (jsonObj.get("재고_알림_수량") != null) {
+			stockNtcnQy = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("재고_알림_수량"))); 
+		}
+		gdsVO.setStockNtcnQy(stockNtcnQy);
+		
 		gdsVO.setSoldoutYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("품절_여부")));
 		gdsVO.setAncmntTy(ReverseCodeMap.GDS_ANCMNT_TY.get((String)jsonObj.get("고시_유형")));
 		gdsVO.setDlvyCtTy(ReverseCodeMap.DLVY_COST_TY.get((String)jsonObj.get("배송_비용_유형")));
 		gdsVO.setDlvyCtStlm(ReverseCodeMap.DLVY_PAY_TY.get((String)jsonObj.get("배송_비용_결제")));
+		
 		gdsVO.setDlvyBassAmt(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("배송_기본_금액"))));
 		gdsVO.setDlvyGroupYn(ReverseCodeMap.USE_YN.get(String.valueOf(jsonObj.get("묶음배송"))));
 		gdsVO.setDlvyAditAmt(EgovStringUtil.string2integer(String.valueOf(jsonObj.get("배송_추가_금액"))));
-		gdsVO.setSeoKeyword((String)jsonObj.get("SEO_KEYWORD"));
+		gdsVO.setKeyword((String)jsonObj.get("검색_키워드"));
 		gdsVO.setMemo((String)jsonObj.get("메모"));
 		gdsVO.setDspyYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("전시_여부")));
 		gdsVO.setUseYn(ReverseCodeMap.USE_YN.get((String)jsonObj.get("사용_여부")));
