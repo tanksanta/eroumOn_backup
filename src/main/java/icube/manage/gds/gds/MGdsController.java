@@ -1,12 +1,18 @@
 package icube.manage.gds.gds;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +41,7 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.ArrayUtil;
 import icube.common.util.CommonUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.util.HtmlUtil;
 import icube.common.util.MapUtil;
 import icube.common.util.WebUtil;
@@ -482,8 +489,9 @@ public class MGdsController extends CommonAbstractController {
 
 
 	@RequestMapping("excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
@@ -515,19 +523,118 @@ public class MGdsController extends CommonAbstractController {
 				}
 				gdsVo.setUseYn(useYn);
 			}
+
+
 		}
 
-		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
+		// Excel Data 1번
+		/* 아래의 소스는 참고용으로 지우지 않았습니다. 확인 후 지우시기 바랍니다.
+		 * headers를 배열로 분리하여 가독성이 더 좋아보임
+		String[] headers = {
+				"상품구분", "카테고리1", "카테고리2", "카테고리3", "상품코드", "급여코드", "품목코드", "상품명", "상품태그", "관리자메모"
+				, "기본설명", "재질", "중량", "사이즈상세", "규격", "제조사", "원산지", "브랜드", "입점업체", "모델"
+				, "검색 키워드", "노출여부", "공급가", "판매가", "할인율", "할인가", "급여가", "대여가능", "재고수량", "옵션사용여부"
+				, "배송비유형", "배송비결제", "기본배송료", "추가배송비", "등록일"
+		};
 
-		model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
-		model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
+		for(GdsVO gdsVo : resultList) { // 위의 loop에서 처리해도 상관 없으나.. 사용법 확인을 위해 분리함
+			LinkedHashMap<String, Object> tempMap = new LinkedHashMap<String, Object>();
+			tempMap.put(headers[0], CodeMap.GDS_TY.get(gdsVo.getGdsTy()));
+		}
+		*/
 
-		model.addAttribute("resultList", resultList);
+		// Excel Data 2번
+		/* 소스의 길이는 조금 길어지나 header와 추출 함수를 같이 관리할수 있게 해줌
+		 *
+		 */
+		Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+		mapping.put("상품구분", obj -> CodeMap.GDS_TY.get(((GdsVO)obj).getGdsTy()));
+		mapping.put("카테고리1", obj -> {
+		    String path = ((GdsVO)obj).getGdsCtgryPath();
+		    return path != null && path.split(" > ").length > 1 ? path.split(" > ")[1] : "";
+		});
 
-		return "/manage/gds/gds/excel";
+		mapping.put("카테고리2", obj -> {
+		    String path = ((GdsVO)obj).getGdsCtgryPath();
+		    return path != null && path.split(" > ").length > 2 ? path.split(" > ")[2] : "";
+		});
+
+		mapping.put("카테고리3", obj -> {
+		    String path = ((GdsVO)obj).getGdsCtgryPath();
+		    return path != null && path.split(" > ").length > 3 ? path.split(" > ")[3] : "";
+		});
+
+		// 기본 정보
+		mapping.put("상품코드", obj -> ((GdsVO)obj).getGdsCd());
+		mapping.put("급여코드", obj -> ((GdsVO)obj).getBnefCd());
+		mapping.put("품목코드", obj -> ((GdsVO)obj).getItemCd());
+		mapping.put("상품명", obj -> ((GdsVO)obj).getGdsNm());
+
+		// 상품태그
+		mapping.put("상품태그", obj -> {
+		    String tagValues = ((GdsVO)obj).getGdsTagVal();
+		    if (tagValues == null || tagValues.trim().isEmpty()) {
+		        return "-";
+		    }
+		    String[] tags = tagValues.replace(" ", "").split(",");
+		    return Arrays.stream(tags)
+		            .map(tag -> CodeMap.GDS_TAG.get(tag))
+		            .collect(Collectors.joining(", "));
+		});
+
+		// 그 외의 필드들
+		mapping.put("관리자메모", obj -> ((GdsVO)obj).getMngrMemo());
+		mapping.put("기본설명", obj -> ((GdsVO)obj).getBassDc());
+		mapping.put("재질", obj -> ((GdsVO)obj).getMtrqlt());
+		mapping.put("중량", obj -> ((GdsVO)obj).getWt());
+		mapping.put("사이즈상세", obj -> ((GdsVO)obj).getSize());
+		mapping.put("규격", obj -> ((GdsVO)obj).getStndrd());
+		mapping.put("제조사", obj -> ((GdsVO)obj).getMkr());
+		mapping.put("원산지", obj -> ((GdsVO)obj).getPlor());
+		mapping.put("브랜드", obj -> ((GdsVO)obj).getBrand());
+		mapping.put("입점업체", obj -> ((GdsVO)obj).getEntrpsNm());
+		mapping.put("모델", obj -> ((GdsVO)obj).getModl());
+		mapping.put("검색 키워드", obj -> ((GdsVO)obj).getKeyword());
+		mapping.put("노출여부", obj -> CodeMap.DSPY_YN.get(((GdsVO)obj).getDspyYn()));
+		mapping.put("공급가", obj -> String.format("%,d", ((GdsVO)obj).getSupPc()));
+		mapping.put("판매가", obj -> String.format("%,d", ((GdsVO)obj).getPc()));
+		mapping.put("할인율", obj -> ((GdsVO)obj).getDscntRt() + "%");
+		mapping.put("할인가", obj -> String.format("%,d", ((GdsVO)obj).getDscntPc()));
+		mapping.put("급여가", obj -> String.format("%,d", ((GdsVO)obj).getBnefPc()));
+		mapping.put("대여가능", obj -> "Y".equals(((GdsVO)obj).getLendDuraYn()) ? "사용" : "미사용");
+		mapping.put("재고수량", obj -> String.format("%,d", ((GdsVO)obj).getStockQy()));
+		mapping.put("옵션사용여부", obj -> ((GdsVO)obj).getUseYn());
+
+		// 배송 정보
+		mapping.put("배송비유형", obj -> CodeMap.DLVY_COST_TY.get(((GdsVO)obj).getDlvyCtTy()));
+		mapping.put("배송비결제", obj -> CodeMap.DLVY_PAY_TY.get(((GdsVO)obj).getDlvyCtStlm()));
+		mapping.put("기본배송료", obj -> String.format("%,d", ((GdsVO)obj).getDlvyBassAmt()));
+		mapping.put("추가배송비", obj -> String.format("%,d", ((GdsVO)obj).getDlvyAditAmt()));
+
+		// 등록일
+		mapping.put("등록일", obj -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((GdsVO)obj).getRegDt()));
+
+		List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+		for (GdsVO gdsVo : resultList) {
+		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+		    for (String header : mapping.keySet()) {
+		        Function<Object, Object> extractor = mapping.get(header);
+		        if (extractor != null) {
+		            tempMap.put(header, extractor.apply(gdsVo));
+		        }
+		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "상품목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+
 	}
+
 
 	/**
 	 * 미리보기
