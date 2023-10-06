@@ -52,6 +52,7 @@ public class MMbrBlackController extends CommonAbstractController{
 		model.addAttribute("mngSeCode", CodeMap.MNG_SE_BLACK);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("resnCdCode", CodeMap.BLACK_RESN_CD);
+		model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
 		return "/manage/mbr/black/list";
 	}

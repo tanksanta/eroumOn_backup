@@ -39,7 +39,7 @@
 					</tr>
 					<tr>
 						<th scope="row">아이디</th>
-						<td colspan="2">${mbrVO.mbrId}</td>
+						<td colspan="2">${mbrVO.joinTy == "E" ? mbrVO.mbrId : mbrJoinTy[mbrVO.joinTy]}</td>
 					</tr>
 					<tr>
 						<th scope="row">이름/생년월일/성별</th>

@@ -59,6 +59,7 @@ public class MMbrHumanContoller extends CommonAbstractController{
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("gender", CodeMap.GENDER);
+		model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
 		return "/manage/mbr/human/list";
 	}

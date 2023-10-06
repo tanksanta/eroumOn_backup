@@ -101,7 +101,7 @@
 			<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
-					<td>${resultList.mbrId }</td>
+					<td>${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}</td>
 					<td>${resultList.mbrNm }</td>
 					<td><fmt:formatDate value="${resultList.whdwlDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${exitTyCode[resultList.whdwlTy]}</td>

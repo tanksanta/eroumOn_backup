@@ -119,7 +119,9 @@
 		<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchMbrId=${param.srchMbrId}&amp;srchNm=${param.srchNm}&amp;srchLastTelnoOfMbl=${param.srchLastTelnoOfMbl}&amp;srchBrdt=${param.srchBrdt}" />
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+					${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}
+					</a></td>
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
 				<td>${gender[resultList.gender]}</td>
 				<td><fmt:formatDate value="${resultList.brdt}" pattern="yyyy-MM-dd" /></td>

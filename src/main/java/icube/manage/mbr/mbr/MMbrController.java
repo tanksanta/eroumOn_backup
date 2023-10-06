@@ -173,6 +173,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
         model.addAttribute("grade", CodeMap.GRADE);
         model.addAttribute("gender", CodeMap.GENDER);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/list";
     }
@@ -344,6 +345,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("authResnCd", CodeMap.AUTH_RESN_CD);
         model.addAttribute("norResnCd", CodeMap.NOR_RESN_CD);
         model.addAttribute("recipter", CodeMap.RECIPTER_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/view";
     }
@@ -507,6 +509,7 @@ public class MMbrController extends CommonAbstractController {
     	model.addAttribute("ordrCoursCode", CodeMap.JOIN_COURS);
     	model.addAttribute("stlmTyCode", CodeMap.BASS_STLM_TY);
     	model.addAttribute("mberGradeCode", CodeMap.GRADE);
+    	model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
     	return "/manage/mbr/manage/ordr";
     }
@@ -543,6 +546,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mlgSeCode", CodeMap.POINT_SE);
         model.addAttribute("mlgCnCode", CodeMap.POINT_CN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/mlg";
     }
@@ -573,6 +577,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("resultMap", resultMap);
         model.addAttribute("couponTyCode", CodeMap.COUPON_TY);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/coupon";
     }
@@ -608,6 +613,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("pointCnCode", CodeMap.POINT_CN);
         model.addAttribute("pointSeCode", CodeMap.POINT_SE);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/point";
     }
@@ -634,6 +640,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("listVO", listVO);
         model.addAttribute("playSttusCode", CodeMap.PLAY_STTUS);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/event";
     }
@@ -668,6 +675,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
         model.addAttribute("useYnCode", CodeMap.USE_YN);
         model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/review";
     }
@@ -701,6 +709,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("listVO", listVO);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/qna";
     }
@@ -727,6 +736,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
         model.addAttribute("useYnCode", CodeMap.USE_YN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/qnaView";
     }
@@ -755,6 +765,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("inqryTyCode1", CodeMap.INQRY_TY_NO1);
         model.addAttribute("inqryTyCode2", CodeMap.INQRY_TY_NO2);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/question";
     }
@@ -782,6 +793,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("inqryTyCode2", CodeMap.INQRY_TY_NO2);
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
 
         return "/manage/mbr/manage/questionView";
@@ -814,6 +826,7 @@ public class MMbrController extends CommonAbstractController {
     	model.addAttribute("cartList", cartList);
     	model.addAttribute("wishList", wishList);
     	model.addAttribute("mberGradeCode", CodeMap.GRADE);
+    	model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/favorite";
     }

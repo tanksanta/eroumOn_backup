@@ -80,7 +80,7 @@
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.mbrId }</a></td>
+				<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}</a></td>
 				<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.mbrNm }</a></td>
 				<td>${gender[resultList.gender]}</td>
 				<td>${resultList.eml}</td>

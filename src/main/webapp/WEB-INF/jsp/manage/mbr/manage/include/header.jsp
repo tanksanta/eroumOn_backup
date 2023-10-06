@@ -4,7 +4,7 @@
                         <span class="thum"><c:if test="${mbrVO.proflImg ne null}"><img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}"></c:if></span>
                         <span class="name">
                             <strong>${mbrVO.mbrNm}</strong>
-                            <small>${mbrVO.mbrId }</small>
+                            <small>${mbrVO.joinTy == "E" ? mbrVO.mbrId : ' [' += mbrJoinTy[mbrVO.joinTy] += ']' }</small>
                         </span>
                     </div>
                     <p class="grade">${mberGradeCode[mbrVO.mberGrade]}</p>

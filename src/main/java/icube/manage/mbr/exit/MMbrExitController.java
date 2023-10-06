@@ -52,6 +52,7 @@ public class MMbrExitController extends CommonAbstractController{
 		model.addAttribute("exitTyCode", CodeMap.EXIT_TY);
 		model.addAttribute("authResnCode", CodeMap.AUTH_RESN_CD);
 		model.addAttribute("norResnCode", CodeMap.NOR_RESN_CD);
+		model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
 		return "/manage/mbr/exit/list";
 	}
