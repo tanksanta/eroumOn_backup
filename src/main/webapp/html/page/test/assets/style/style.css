@@ -1100,3 +1100,25 @@ fieldset {
     @apply text-blue-500;
   }
 }
+
+.global-quick {
+  @apply fixed z-40 bottom-8 right-4 space-y-2
+         md:right-5 md:bottom-[3.125rem] md:space-y-2.5;
+  & a, & button {
+    @apply flex relative w-10 h-10 overflow-hidden rounded-xl bg-no-repeat bg-center bg-black2 -indent-96 opacity-0 invisible translate-y-[calc(100%_+_0.5rem)] duration-500 transition-[opacity,transform,visibility]
+            md:w-15 md:h-15 md:rounded-[1.25rem];
+    &.moveTop {
+      @apply bg-[length:35%] bg-[url(/html/core/images/ico-quick-arrow.svg)];
+    }
+    &.channelTalk {
+      @apply z-5 bg-[#FD8106] bg-[length:73.33333333333333%] bg-[url(/html/core/images/ico-quick-channel.svg)] translate-y-0 opacity-100 visible;
+    }
+  }
+  &.is-active {
+    & button {
+      &.moveTop {
+        @apply translate-y-0 opacity-100 visible;
+      }
+    }
+  }
+}
