@@ -128,11 +128,13 @@ public class GdsService extends CommonAbstractServiceImpl {
 	public void updateGds(GdsVO gdsVO) throws Exception {
 
 		// 고시정보 merge
-		StringJoiner joiner = new StringJoiner(",", "{","}");
-		for(int i=0;i<gdsVO.getArticle_ttl().length;i++) {
-			joiner.add("\""+gdsVO.getArticle_ttl()[i]+"\":\""+HtmlUtil.escapeXmlStr(gdsVO.getArticle_val()[i].trim())+"\"");
+		if (gdsVO.getArticle_ttl() != null) {
+			StringJoiner joiner = new StringJoiner(",", "{","}");
+			for(int i=0;i<gdsVO.getArticle_ttl().length;i++) {
+				joiner.add("\""+gdsVO.getArticle_ttl()[i]+"\":\""+HtmlUtil.escapeXmlStr(gdsVO.getArticle_val()[i].trim())+"\"");
+			}
+			gdsVO.setAncmntInfo(joiner.toString());
 		}
-		gdsVO.setAncmntInfo(joiner.toString());
 
 		//기본정보
 		gdsDAO.updateGds(gdsVO);
