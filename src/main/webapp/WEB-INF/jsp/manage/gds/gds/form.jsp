@@ -858,7 +858,7 @@
                             <tbody>
 
 								<tr>
-	                                <th scope="row"><label for="thumbFile" class="require">대표이미지</label></th>
+	                                <th scope="row"><label for="thumbFile">대표이미지</label></th>
 	                                <td>
 	                                	<c:if test="${not empty gdsVO.thumbnailFile.fileNo}">
 										<div style="display:block;" id="thumbFileViewDiv${gdsVO.thumbnailFile.fileNo}">
@@ -1626,18 +1626,18 @@
                     	    	gdsTy		: { required : true}
                     	    	, ctgryNo   : { required : true, min:1}
                     	    	, gdsNm		: { required : true}
-                    	    	, ancmntTy	: { required : true}
+                    	    	//, ancmntTy	: { required : true}
                     	    	, supPc     : { required : true}
-                    	    	, thumbFile : { required : function(element){ return $("#thumbFileDiv").css("display") == "block"; }}
+                    	    	//, thumbFile : { required : function(element){ return $("#thumbFileDiv").css("display") == "block"; }}
                     	    	//, wt		: { required : true}
                     	    },
                     	    messages : {
                     	    	gdsTy 		: { required : "상품구분을 선택하세요"}
                     	    	, ctgryNo 	: { required : "카테고리를 선택하세요", min:"카테고리를 선택하세요"}
                     	    	, gdsNm 	: { required : "상품명을 입력하세요"}
-                    	    	, ancmntTy 	: { required : "상품요약(고시)정보를 선택하세요."}
+                    	    	//, ancmntTy 	: { required : "상품요약(고시)정보를 선택하세요."}
                     	    	, supPc     : { required : "공급가를 입력하세요"}
-                    	    	, thumbFile : { required : "대표이미지는 필수 선택 항목 입니다."}
+                    	    	//, thumbFile : { required : "대표이미지는 필수 선택 항목 입니다."}
                     	    	//, wt	 	: { required : "중량을 입력하세요"}
                     	    },
                     	    submitHandler: function (frm) {
