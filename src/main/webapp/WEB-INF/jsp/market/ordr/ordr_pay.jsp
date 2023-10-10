@@ -161,7 +161,7 @@
 	                    <input type="hidden" name="bplcUniqueId" value="${ordrDtl.bplcUniqueId}">
 
 	                    <c:if test="${ordrDtl.gdsInfo.mlgPvsnYn eq 'Y' && ordrVO.ordrTy eq 'N'}">
-	                    <input type="hidden" name="accmlMlg" value="<fmt:formatNumber type="number" maxFractionDigits="0"  value="${(ordrDtl.gdsInfo.pc * ordrDtl.ordrQy) * (_mileagePercent/100)}" />"> <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
+	                    <input type="hidden" name="accmlMlg" value="<fmt:formatNumber type="number" maxFractionDigits="0"  value="${(ordrDtl.gdsInfo.pc * ordrDtl.ordrQy) * (_mileagePercent / 100)}" />"> <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
 	                    </c:if>
 					</div>
 				</c:forEach>
@@ -312,7 +312,7 @@
                                     <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_coupon" >쿠폰사용</button>
                                 </div>
                                 &nbsp;&nbsp;
-                                <span>잔여 포인트 : ${remindCouponCount} 장</span>
+                                <span>잔여 쿠폰 : ${remindCouponCount} 장</span>
                             </td>
                         </tr>
                         <tr>
@@ -776,6 +776,7 @@
     	    submitHandler: function (frm) {
     	    	$("#usePoint").val(uncomma($("#usePoint").val()));
     	    	$("#useMlg").val(uncomma($("#useMlg").val()));
+				$("#accmlMlg").val(uncomma($("#accmlMlg").val()));
 
     	    	f_pay(frm);
     	    	return false;
