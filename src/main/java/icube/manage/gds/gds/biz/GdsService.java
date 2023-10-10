@@ -267,17 +267,17 @@ public class GdsService extends CommonAbstractServiceImpl {
 		
 		gdsVO.setPlor((String)jsonObj.get("원산지"));
 	
-		//입점업체명으로 업체를 찾아 정보 입력
-		String srchEntrpsNm = (String)jsonObj.get("입점업체");
-		if (EgovStringUtil.isNotEmpty(srchEntrpsNm)) {
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("srchTarget", "C");
-			param.put("srchText", srchEntrpsNm);
-			List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(param);
-			if (entrpsList != null && entrpsList.size() > 0) {
-				EntrpsVO entrps = entrpsList.get(0);
-				gdsVO.setEntrpsNo(entrps.getEntrpsNo());
-				gdsVO.setEntrpsNm(entrps.getEntrpsNm());
+		//입점업체를 찾아 정보 입력
+		int entrpsNo = 0;
+		if (jsonObj.get("입점업체") != null) {
+			entrpsNo = EgovStringUtil.string2integer(String.valueOf(jsonObj.get("입점업체")));
+			
+			if (entrpsNo > 0) {
+				EntrpsVO entrps = entrpsService.selectEntrps(entrpsNo);
+				if (entrps != null) {
+					gdsVO.setEntrpsNo(entrps.getEntrpsNo());
+					gdsVO.setEntrpsNm(entrps.getEntrpsNm());
+				}
 			}
 		}
 		
