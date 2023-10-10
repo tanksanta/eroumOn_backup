@@ -1029,4 +1029,19 @@ public class CodeMap{
 			put("THKC 취소", "THKC 취소상태로 변경되었습니다.");
 		}
 	};
+	
+	// 회원 - 수급자 관계 코드
+	public static final HashMap<String, String> MBR_RELATION_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -5623502462808019347L;
+		{
+			put("001", "본인");
+			put("002", "아버지");
+			put("003", "어머니");
+			put("004", "시아버지");
+			put("005", "시어머니");
+			put("006", "배우자");
+			put("007", "형제자매");
+			put("100", "기타");
+		}
+	};
 }
