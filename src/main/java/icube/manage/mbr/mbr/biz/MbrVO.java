@@ -61,6 +61,7 @@ public class MbrVO extends CommonBaseVO {
 	private String whdwlResn;
 	private String whdwlTy;
 	private String whdwlEtc;
+	private Date snsRegistDt;
 
 	private String diKey; //ci값 => 휴대폰 본인인증(고유키 리턴)
 

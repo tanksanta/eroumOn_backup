@@ -568,6 +568,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	        srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
 	        srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
 	        srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+	        srchMbr.setSnsRegistDt(new Date());
 			mbrService.updateMbr(srchMbr);
 
 			// 기본 배송지 등록
