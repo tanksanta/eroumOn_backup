@@ -75,6 +75,8 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	// 9 : 휴면
 	// 10: 탈퇴
 
+	// 11: 재인증 성공
+	// 12: 재인증 실패
 
 	/**
 	 * 인가 코드 발급
@@ -87,6 +89,17 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		sb.append("https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoApiKey);
 		sb.append("&redirect_uri=" + redirectUrl);
 		sb.append("&response_type=code");
+
+		return sb.toString();
+	}
+
+	// 코드 재인증
+	public String getKakaoReAuth() throws Exception {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoApiKey);
+		sb.append("&redirect_uri=" + redirectUrl);
+		sb.append("&response_type=code&auth_type=reauthenticate");
 
 		return sb.toString();
 	}
@@ -104,6 +117,11 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
+
+
+
+
+
 		return resultMap;
 	}
 
@@ -157,7 +175,8 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			resultMap.put("accessToken", accessToken);
 			resultMap.put("refreshToken", refreshToken);
 		}
-			return getUserInfo(resultMap, session);
+
+		return getUserInfo(resultMap, session);
 	}
 
 	/**
@@ -184,6 +203,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         while ((line = br.readLine()) != null) {
             result.append(line);
         }
+
         JsonElement element = JsonParser.parseString(result.toString());
         JsonObject jsonObj = element.getAsJsonObject();
         jsonObj.addProperty("accessToken", accessToken);
@@ -201,6 +221,21 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	private Integer setUserInfo(JsonElement element, HttpSession session) throws Exception {
 		MbrVO mbrVO = new MbrVO();
 		mbrVO.setKakaoAccessToken(element.getAsJsonObject().get("accessToken").getAsString());
+
+
+		// 재인증 추가 20230922 START
+		String checkId = element.getAsJsonObject().get("id").getAsString()+"@K";
+		if(mbrSession.isLoginCheck()) {
+			log.debug("### 재인증 진행 ###" + mbrSession.getMbrId()+"//"+checkId);
+
+			if(EgovStringUtil.equals(mbrSession.getMbrId(), checkId)) {
+				return 11;
+			}else {
+				return 12;
+			}
+		}
+		//재인증 END
+
 
 		JsonElement info = element.getAsJsonObject().get("kakao_account");
 

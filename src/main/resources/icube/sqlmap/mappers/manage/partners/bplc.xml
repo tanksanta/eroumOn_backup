@@ -574,7 +574,7 @@
 		</if>
 		ORDER BY
 		<choose>
-			<when test="isAllow == 'true'">
+			<when test="isAllow">
 				dist ASC, bplc_nm ASC, unique_id ASC
 			</when>
 			<otherwise>
