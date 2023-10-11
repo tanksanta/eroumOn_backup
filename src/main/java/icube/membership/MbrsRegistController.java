@@ -181,45 +181,16 @@ public class MbrsRegistController extends CommonAbstractController{
 			noMbrVO.setBrdt(sBrdt);
 
 		}else if(EgovStringUtil.isNotEmpty(receiptId)) {
-			// 본인인증정보 체크
-			HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-			String authData =String.valueOf(res.get("authenticate_data"));
-			String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-			HashMap<String, String> authMap = new HashMap<String, String>();
-			for(String auth : spAuthData) {
-				System.out.println("spAuthData: " + auth.trim());
-				String[] spTmp = auth.trim().split("=", 2);
-				authMap.put(spTmp[0], spTmp[1]); //key:value
-			}
-			/*
-			 !참고:부트페이 제공문서와 결과 값이 다름
-			      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
-
-			 */
-	        Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
-	        Calendar calendar = new GregorianCalendar();
-	        calendar.setTime(sBrdt);
-	        //만 14세 미만인 경우 회원가입을 할 수 없다.
+			certificateBootpay(receiptId, noMbrVO);
+			
+			Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(noMbrVO.getBrdt());
+			
+			//만 14세 미만인 경우 회원가입을 할 수 없다.
 	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
 	        	model.addAttribute("alertMsg", "14세 이상만 가입 가능합니다.");
 				return "/common/msg";
 	        }
-	        
-	        mblTelno = authMap.get("phone");
-	        gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
-	        if(EgovStringUtil.equals("1.0", gender)) {
-	        	gender = "M";
-	        }else {
-	        	gender = "W";
-	        }
-
-	        noMbrVO.setDiKey(authMap.get("di"));
-	        noMbrVO.setMbrNm(authMap.get("name"));
-	        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
-	        noMbrVO.setGender(gender);
-	        noMbrVO.setBrdt(sBrdt);
 
 	        System.out.println("noMbrVO: " + noMbrVO.toString());
 		}else {
@@ -532,5 +503,160 @@ public class MbrsRegistController extends CommonAbstractController{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
+	}
+	
+	/**
+	 * 간편 로그인 최초 회원가입
+	 */
+	@RequestMapping(value = "sns/regist")
+	public String registSns(
+			@RequestParam String uid
+			, HttpServletRequest request
+			, HttpSession session
+			, Model model)throws Exception {
+		MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+		model.addAttribute("mbrVO", srchMbr);
+		
+		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
+		return "/membership/sns_regist";
+	}
+	
+	/**
+	 * 간편 로그인 회원가입 등록
+	 * @param mbrVO
+	 * @param 장기요양정보
+	 */
+	@RequestMapping(value = "/sns/action")
+	public View snsAction(
+			MbrVO mbrVO
+			, @RequestParam(value="receiptId", required=true) String receiptId
+			, @RequestParam(value="uniqueId", required=true) String uniqueId
+			, HttpSession session
+			, HttpServletRequest request
+			, Model model) throws Exception {
+		JavaScript javaScript = new JavaScript();
+		
+		// 더블 서브밋 방지
+		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+
+			//본인인증 체크
+			certificateBootpay(receiptId, mbrVO);
+
+			Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(mbrVO.getBrdt());
+			
+			//만 14세 미만인 경우 회원가입을 할 수 없다.
+	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+				javaScript.setMessage("14세 이상만 가입 가능합니다.");
+				javaScript.setLocation("/membership/login");
+				return new JavaScriptView(javaScript);
+	        }
+			
+			//정보 수정
+	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId); 
+	        srchMbr.setDiKey(mbrVO.getDiKey());
+	        srchMbr.setMbrNm(mbrVO.getMbrNm());
+	        srchMbr.setMblTelno(mbrVO.getMblTelno());
+	        srchMbr.setGender(mbrVO.getGender());
+	        srchMbr.setBrdt(mbrVO.getBrdt());
+	        
+	        srchMbr.setZip(mbrVO.getZip());
+	        srchMbr.setAddr(mbrVO.getAddr());
+	        srchMbr.setDaddr(mbrVO.getDaddr());
+	        
+	        srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
+	        srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
+	        srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
+	        srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+			mbrService.updateMbr(srchMbr);
+
+			// 기본 배송지 등록
+			DlvyVO dlvyVO = new DlvyVO();
+			dlvyVO.setUniqueId(mbrVO.getUniqueId());
+			dlvyVO.setDlvyNm(mbrVO.getMbrNm());
+			dlvyVO.setNm(mbrVO.getMbrNm());
+			dlvyVO.setZip(mbrVO.getZip());
+			dlvyVO.setAddr(mbrVO.getAddr());
+			dlvyVO.setDaddr(mbrVO.getDaddr());
+			dlvyVO.setTelno(mbrVO.getTelno());
+			dlvyVO.setMblTelno(mbrVO.getMblTelno());
+			dlvyVO.setBassDlvyYn("Y");
+			dlvyVO.setUseYn("Y");
+
+			dlvyService.insertBassDlvy(dlvyVO);
+
+			// 회원가입 쿠폰
+			try {
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchCouponTy", "JOIN");
+				paramMap.put("srchSttusTy", "USE");
+				int cnt = couponService.selectCouponCount(paramMap);
+				if(cnt > 0) {
+					CouponVO couponVO = couponService.selectCoupon(paramMap);
+					CouponLstVO couponLstVO = new CouponLstVO();
+					couponLstVO.setCouponNo(couponVO.getCouponNo());
+					couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+
+					if(couponVO.getUsePdTy().equals("ADAY")) {
+						couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+					}
+
+					couponLstService.insertCouponLst(couponLstVO);
+				}else {
+					log.debug("회원 가입 쿠폰 개수 : " + cnt);
+				}
+			}catch(Exception e) {
+				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
+			}
+
+			//임시정보 추가
+			mbrSession.setParms(mbrVO, false);
+	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
+			session.setMaxInactiveInterval(60*60);
+
+			javaScript.setLocation("/"+membershipPath+"/registStep3");
+		}else {
+			javaScript.setLocation("/"+membershipPath);
+		}
+
+		return new JavaScriptView(javaScript);
+	}
+	
+	private void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 본인인증정보 체크
+		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
+
+		String authData =String.valueOf(res.get("authenticate_data"));
+		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
+
+		HashMap<String, String> authMap = new HashMap<String, String>();
+		for(String auth : spAuthData) {
+			System.out.println("spAuthData: " + auth.trim());
+			String[] spTmp = auth.trim().split("=", 2);
+			authMap.put(spTmp[0], spTmp[1]); //key:value
+		}
+		/*
+		 !참고:부트페이 제공문서와 결과 값이 다름
+		      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
+
+		 */
+        
+		Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
+        
+        String mblTelno = authMap.get("phone");
+        String gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
+        if(EgovStringUtil.equals("1.0", gender)) {
+        	gender = "M";
+        }else {
+        	gender = "W";
+        }
+
+        noMbrVO.setDiKey(authMap.get("di"));
+        noMbrVO.setMbrNm(authMap.get("name"));
+        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
+        noMbrVO.setGender(gender);
+        noMbrVO.setBrdt(sBrdt);
 	}
 }

@@ -342,6 +342,7 @@
 			, zip = #{zip, jdbcType=VARCHAR}
 			, addr = #{addr, jdbcType=VARCHAR}
 			, daddr = #{daddr, jdbcType=VARCHAR}
+			, di_key = #{diKey, jdbcType=VARCHAR}
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, bass_stlm_ty = #{bassStlmTy, jdbcType=VARCHAR}
 			, point_acmtl = #{pointAcmtl}

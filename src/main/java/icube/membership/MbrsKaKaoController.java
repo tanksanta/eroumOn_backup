@@ -21,6 +21,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -82,23 +83,24 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		}else if(resultCnt == 1){//성공
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 
-			javaScript.setMessage("회원가입이 완료되었습니다.");
-			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				javaScript.setLocation(returnUrl);
-			}else {
-				javaScript.setLocation("/" + mainPath);
-			}
+			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 2) {// 카카오 로그인
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				javaScript.setLocation(returnUrl);
-			}else {
-				javaScript.setLocation("/" + mainPath);
+			
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			
+			if (EgovStringUtil.isNotEmpty(srchMbr.getDiKey())) {
+				if(EgovStringUtil.isNotEmpty(returnUrl)) {
+					javaScript.setLocation(returnUrl);
+				}else {
+					javaScript.setLocation("/" + mainPath);
+				}
+				session.removeAttribute("returnUrl");
+			} else {
+				javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			}
-			session.removeAttribute("returnUrl");
-
 		}else if(resultCnt == 3) {// 네이버
 			javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + mainPath + "/login");
@@ -109,12 +111,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setMessage("동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
 			javaScript.setLocation("/" + mainPath);
 		}else if(resultCnt == 6 || resultCnt == 7) {// 등록 완료
-			javaScript.setMessage("간편 회원가입이 완료되었습니다.");
-			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				javaScript.setLocation(returnUrl);
-			}else {
-				javaScript.setLocation("/" + mainPath);
-			}
+			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 		}else if(resultCnt == 8) {
 			javaScript.setMessage("일시 정지된 회원입니다. 관리자에게 문의바랍니다.");
 			javaScript.setLocation("/" + mainPath);
