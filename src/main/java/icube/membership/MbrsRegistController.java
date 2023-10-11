@@ -271,7 +271,6 @@ public class MbrsRegistController extends CommonAbstractController{
 			, HttpServletRequest request) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		Map<String, MultipartFile> fileMap = multiReq.getFileMap();
 
 		// 관심 분야
 		String field = ArrayUtil.arrayToString(itrstFeild, ",");
@@ -290,12 +289,6 @@ public class MbrsRegistController extends CommonAbstractController{
 				mbrVO.setPswd(encPswd);
 			}
 
-			//이미지 등록
-			if (!fileMap.get("uploadFile").isEmpty()) {
-				String profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir), "PROFL");
-				mbrVO.setProflImg(profileImg);
-			}
-
 			MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
 
 			System.out.println("action noMbrVO:" + noMbrVO.toString());
@@ -310,32 +303,14 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			//소문자 치환
 			mbrVO.setMbrId(mbrVO.getMbrId().toLowerCase());
-			mbrVO.setRcmdtnId(mbrVO.getRcmdtnId().toLowerCase());
-			mbrVO.setRcmdtnMbrsId(mbrVO.getRcmdtnMbrsId().toLowerCase());
 
 			//정보 등록
 			mbrService.insertMbr(mbrVO);
-
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-			if(mbrVO.getRecipterYn().equals("Y")) {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				String uniqueId = mbrVO.getUniqueId();
-
-				recipterInfoVO.setUniqueId(uniqueId);
-				recipterInfoVO.setRcperRcognNo(rcperRcognNo);
-				recipterInfoVO.setRcognGrad(rcognGrad);
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
-				recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
-				recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
-				recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
-				recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
-				recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
-				recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
-				recipterInfoVO.setTestName(testName);
-
-				recipterInfoService.mergeRecipter(recipterInfoVO);
-			}
+			
+			// 모든 항목 동의처리 로그
+			String uniqueId = mbrVO.getUniqueId();
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
+			mbrService.insertAllAgreement(srchMbr.getUniqueId());
 
 			// 기본 배송지 등록
 			DlvyVO dlvyVO = new DlvyVO();
@@ -376,34 +351,6 @@ public class MbrsRegistController extends CommonAbstractController{
 				}
 			}catch(Exception e) {
 				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
-			}
-
-			// 추천인 포인트
-			try {
-				if(EgovStringUtil.isNotEmpty(mbrVO.getRcmdtnId())) {
-					if(!mbrVO.getMbrId().equals(mbrVO.getRcmdtnId())) {
-						MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(mbrVO.getRcmdtnId());
-						if(mbrRcmdtnVO != null) {
-							MbrPointVO mbrPointVO = new MbrPointVO();
-							mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
-							mbrPointVO.setPointMngNo(0);
-							mbrPointVO.setPointSe("A");
-							mbrPointVO.setPointCn("03");
-							mbrPointVO.setPoint(500);
-							mbrPointVO.setRegUniqueId(mbrVO.getUniqueId());
-							mbrPointVO.setRegId(mbrVO.getMbrId());
-							mbrPointVO.setRgtr(mbrVO.getMbrNm());
-							mbrPointVO.setGiveMthd("SYS");
-
-							mbrPointService.insertMbrPoint(mbrPointVO);
-
-						}
-					}
-				}
-
-			}catch(Exception e) {
-				e.printStackTrace();
-				log.debug("회원가입 추천인 포인트 지급 실패 : " + e.toString());
 			}
 
 			//임시정보 추가
@@ -571,6 +518,9 @@ public class MbrsRegistController extends CommonAbstractController{
 	        srchMbr.setSnsRegistDt(new Date());
 			mbrService.updateMbr(srchMbr);
 
+			// 모든 항목 동의처리 로그
+			mbrService.insertAllAgreement(srchMbr.getUniqueId());
+			
 			// 기본 배송지 등록
 			DlvyVO dlvyVO = new DlvyVO();
 			dlvyVO.setUniqueId(mbrVO.getUniqueId());
@@ -585,7 +535,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			dlvyVO.setUseYn("Y");
 
 			dlvyService.insertBassDlvy(dlvyVO);
-
+			
 			// 회원가입 쿠폰
 			try {
 				Map<String, Object> paramMap = new HashMap<String, Object>();

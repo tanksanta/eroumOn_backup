@@ -30,6 +30,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 
 	@Resource(name = "mbrMlgDAO")
 	private MbrMlgDAO mbrMlgDAO;
+	
+	@Resource(name = "mbrAgreementDAO")
+	private MbrAgreementDAO mbrAgreementDAO;
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
 		return mbrDAO.mbrListVO(listVO);
@@ -363,4 +366,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return mbrDAO.updateMbrAddr(paramMap);
 	}
 
+	public void insertAllAgreement(String mbrUniqueId) throws Exception {
+		//회원의 모든 동의항목을 동의한것으로 저장
+		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+		mbrAgreementVO.setMbrUniqueId(mbrUniqueId);
+		mbrAgreementVO.setTermsYn("Y");
+		mbrAgreementVO.setPrivacyYn("Y");
+		mbrAgreementVO.setProvisionYn("Y");
+		mbrAgreementVO.setThirdPartiesYn("Y");
+		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
+	}
 }
