@@ -20,7 +20,7 @@ $(function() {
     }).on('mouseleave', function() {
         $(this).closest('.product-item').removeClass('is-hover');
     });
-    
+
     //공용 옵션박스
     $('.product-option .option-toggle').on('click', function() {
         $(this).closest('.product-option').toggleClass('is-active');
@@ -30,7 +30,7 @@ $(function() {
     var cateResize = function() {
         var cateItem = $('.product-category a');
         var cateMore = $('.category-moreview');
-        
+
         if($(window).outerWidth() < 768) {
             if(cateItem.length < 9) {
                 cateItem.addClass('is-visible');
@@ -44,7 +44,7 @@ $(function() {
             cateItem.removeClass('is-visible');
             cateMore.removeClass('is-visible');
         }
-		
+
         cateMore.off('click').on('click', function() {
             var cateWrap = $(this).closest('dd');
             if(cateWrap.hasClass('is-expand')) {
@@ -58,9 +58,9 @@ $(function() {
             }
         });
     };
-    
+
     cateResize();
-    
+
     $(window).on('load resize', cateResize);
 
     //상품 상세 scrollspy
@@ -272,7 +272,7 @@ $(function() {
 
 	});
 
-})
+});
 
 
 function f_compareCall(){

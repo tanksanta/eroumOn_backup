@@ -121,6 +121,12 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		}else if(resultCnt == 9) {
 			javaScript.setMessage("휴면 회원입니다. 휴면 해제 페이지로 이동합니다.");
 			javaScript.setLocation("/" + membershipPath + "/drmt/view?mbrId=" + mbrSession.getMbrId());
+		}else if(resultCnt == 11) {
+			session.setAttribute("infoStepChk", "EASYLOGIN");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
+		}else if(resultCnt == 12) {
+			javaScript.setMessage("소셜 정보가 불일치 합니다. 인증에 실패하였습니다.");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
 		}else {
 			javaScript.setMessage("탈퇴한 회원입니다. 탈퇴일로부터 7일 후 재가입 가능합니다.");
 			javaScript.setLocation("/" + mainPath);
@@ -128,4 +134,21 @@ public class MbrsKaKaoController extends CommonAbstractController{
 
 		return new JavaScriptView(javaScript);
 	}
+
+
+	@RequestMapping(value = "/reAuth")
+	public View reAuth(
+			HttpServletRequest request
+			, Model model
+			)throws Exception {
+
+		JavaScript javaScript = new JavaScript();
+
+		String kakaoUrl = kakaoApiService.getKakaoReAuth();
+
+		javaScript.setLocation(kakaoUrl);
+		return new JavaScriptView(javaScript);
+	}
+
+
 }

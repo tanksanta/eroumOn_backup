@@ -314,14 +314,20 @@
                 			let siblingNode = $('#ctgryTree').jstree(true).get_node(obj.parent).children;
                 			let sort_no = obj.position+1;
 
-                			//console.log("obj.position:" + obj.position);
+                			console.log("obj.position:" + obj.position);
+                			console.log("siblingNode.length:" + siblingNode.length);
+
                 			for(let run=siblingNode.length-1; run>=0; run--) {
                 				if(obj.node.id!=siblingNode[run]) {
                 					sort_no = $('#ctgryTree').jstree(true).get_node(siblingNode[run]).original.sortNo + 1;
-                					//console.log(sort_no);
+                					console.log(sort_no);
                 					break;
                 				}
                 			}
+                			if(isNaN(sort_no)){
+                				sort_no = siblingNode.length+1;
+                			}
+
                 			$.ajax({
                 				type: 'post',
                 				url : 'setNewGdsCtgry.json',
@@ -382,7 +388,7 @@
                 			let seq = tree.get_node(obj.parent).children.join(",");
                 			tree.disable_node(tree.get_node('#').children_d);
 
-                			console.log("@@:" + obj.node.parents.length);
+                			console.log("@@:" + obj.parent);
 
                 			$.ajax({
                 				type: 'post',
@@ -400,6 +406,9 @@
                 				if(json.ok===false) {
                 					alert("카테고리 이동이 실패하였습니다. 계속해서 에러가 발생할 경우 운영자에게 문의바랍니다.");
                 				}
+
+                				tree.open_node(obj.parent);
+
                 			})
                 			.fail(function(){
                 				alert("카테고리 이동이 실패하였습니다. 계속해서 에러가 발생할 경우 운영자에게 문의바랍니다.");
@@ -445,7 +454,7 @@
                 		    			$("#ctgryNm").val(data.gdsCtgryVO.ctgryNm);
 
                 		    			//이미지
-                		    			if(data.gdsCtgryVO.levelNo == 1){
+                		    			if(data.gdsCtgryVO.levelNo == 0){
                 		    				$("#imgView").hide();
                 		    			}else{
                 		    				$("#imgView").show();

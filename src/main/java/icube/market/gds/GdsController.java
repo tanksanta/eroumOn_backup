@@ -32,6 +32,7 @@ import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnVO;
+import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
@@ -552,4 +553,63 @@ public class GdsController extends CommonAbstractController {
 	}
 
 
+
+	/**
+	 * 장바구니 옵션 선택 모달
+	 * @param gdsNo
+	 */
+	@RequestMapping(value="optnModal")
+	public String optnModal(
+			@RequestParam(value="gdsNo", required=true) String gdsNo
+			, Model model
+			)throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUseYn", "Y"); //사용중 고정
+		paramMap.put("srchDspyYn", "Y"); // 전시중 고정
+		paramMap.put("gdsNo", EgovStringUtil.string2integer(gdsNo));
+
+		GdsVO gdsVO = gdsService.selectGdsByFilter(paramMap);
+		if(gdsVO != null) {
+
+			// 상품옵션 set
+			List<String> optnVal1 = new ArrayList<String>()
+					, optnVal2 = new ArrayList<String>()
+					, optnVal3 = new ArrayList<String>();
+			for(GdsOptnVO gdsoOtnVO : gdsVO.getOptnList()) {
+				String[] optnVal = gdsoOtnVO.getOptnNm().split("[*]");
+				//log.debug("optnVal.length" + optnVal.length);
+				if(optnVal.length > 0 && !ArrayUtil.isContainsInList(optnVal1, optnVal[0].trim())) {
+					optnVal1.add(optnVal[0].trim());
+				}
+				if(optnVal.length > 1 && !ArrayUtil.isContainsInList(optnVal2, optnVal[1].trim())) {
+					optnVal2.add(optnVal[1].trim());
+				}
+				if(optnVal.length > 2 && !ArrayUtil.isContainsInList(optnVal3, optnVal[2].trim())) {
+					optnVal3.add(optnVal[2].trim());
+				}
+			}
+			String optnVal1Str = optnVal1.toString().replace("[", "").replace("]", "").replace(", ", ",");
+			String optnVal2Str = optnVal2.toString().replace("[", "").replace("]", "").replace(", ", ",");
+			String optnVal3Str = optnVal3.toString().replace("[", "").replace("]", "").replace(", ", ",");
+
+			StringJoiner joiner = new StringJoiner("|");
+			if(EgovStringUtil.isNotEmpty(optnVal1Str)) {
+				joiner.add(optnVal1Str); }
+			if(EgovStringUtil.isNotEmpty(optnVal2Str)) {
+				joiner.add(optnVal2Str); }
+			if(EgovStringUtil.isNotEmpty(optnVal3Str)) {
+				joiner.add(optnVal3Str); }
+			gdsVO.setOptnVal(joiner.toString());
+
+
+
+			model.addAttribute("gdsVO", gdsVO);
+		}
+
+
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+
+		return "/market/gds/include/modal_gds_optn";
+	}
 }
