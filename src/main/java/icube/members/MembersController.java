@@ -72,11 +72,11 @@ public class MembersController extends CommonAbstractController {
 
 	@Value("#{props['Globals.File.Upload.Dir']}")
 	private String fileUploadDir;
-	
+
 	@Value("#{props['Globals.EroumCare.PrivateKey']}")
 	private String eroumKey;
 
-	@Value("#{props['kakao.Script.key']}")
+	@Value("#{props['Kakao.Script.key']}")
 	private String kakaoScriptKey;
 
 	private static final String SAVE_ID_COOKIE_ID = "_partnersSaveId_";
@@ -193,21 +193,21 @@ public class MembersController extends CommonAbstractController {
 		if (EgovStringUtil.isNotEmpty(businessId)) {
 			try {
 				//사업자 번호를 암호화해서 보냈다면 sso 인증
-				String aesKey = eroumKey.substring(0, 32);	
+				String aesKey = eroumKey.substring(0, 32);
 				String decodedBusinessId = AES256Util.AESDecode(businessId, aesKey);
-				
+
 				//복호화되고 복화된 사업자번호로 등록된 사업소가 있으면 해당 사업소로 로그인 처리
 				if (!EgovStringUtil.isNotEmpty(decodedBusinessId)) {
 					throw new Exception();
-				} 
-				
+				}
+
 				BplcVO searchBplcVo = new BplcVO();
 				searchBplcVo.setBrno(decodedBusinessId);
 				BplcVO findBplcVo = bplcService.selectBrno(searchBplcVo);
 				if (findBplcVo == null) {
 					throw new Exception();
 				}
-				
+
 				//해당 사업소로 로그인 처리
 				// 파트너스(사업소) 세션 생성
 				partnersSession.setLoginCheck(true);
@@ -222,7 +222,7 @@ public class MembersController extends CommonAbstractController {
 				return "redirect:/"+ membersPath + "/" + partnersSession.getPartnersId() + "/mng/index";
 			} catch (Exception ex) {
 				model.addAttribute("ssoResultMsg", "사업소 로그인 실패");
-				
+
 				return "/members/login";
 			}
 		} else {
