@@ -1,7 +1,9 @@
 package icube.membership;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -197,6 +199,14 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			 */
 	        Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
+	        Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(sBrdt);
+	        //만 14세 미만인 경우 회원가입을 할 수 없다.
+	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+	        	model.addAttribute("alertMsg", "14세 이상만 가입 가능합니다.");
+				return "/common/msg";
+	        }
+	        
 	        mblTelno = authMap.get("phone");
 	        gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
 	        if(EgovStringUtil.equals("1.0", gender)) {
