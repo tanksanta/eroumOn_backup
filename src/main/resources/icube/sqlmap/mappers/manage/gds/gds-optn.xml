@@ -13,6 +13,7 @@
 		, optn_stock_qy
 		, optn_item_cd
 		, use_yn
+		, sold_out_yn
 	</sql>
 
 	<sql id="searchConditions">
@@ -23,7 +24,7 @@
 			AND optn_ty = #{optnTy}
 		</if>
 		<if test="optnVal !=null and optnVal != ''">
-			AND optn_nm LIKE CONCAT(#{optnVal}, '%')
+			AND TRIM(optn_nm) LIKE CONCAT(#{optnVal}, '%')
 		</if>
 		<if test="useYn !=null and useYn != ''">
 			AND use_yn = #{useYn}
@@ -43,6 +44,12 @@
 		<if test="srchGdsOptnNo != null and srchGdsOptnNo != '' ">
 			AND gds_optn_no = #{srchGdsOptnNo}
 		</if>
+		<if test="optnItemCd != null and optnItemCd != '' ">
+			AND optn_item_cd = #{optnItemCd}
+		</if>
+		<if test="optnNmForReplace != null and optnNmForReplace != '' ">
+            AND REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
+        </if>
 	</sql>
 
 	<sql id="searchOrder">
@@ -77,6 +84,7 @@
 			, optn_stock_qy
 			, optn_item_cd
 			, use_yn
+			, sold_out_yn
 		) VALUES (
 			#{gdsNo}
 			, #{optnTy, jdbcType=VARCHAR}
@@ -85,6 +93,7 @@
 			, #{optnStockQy}
 			, #{optnItemCd , jdbcType=VARCHAR}
 			, #{useYn, jdbcType=VARCHAR}
+			, #{soldOutYn, jdbcType=VARCHAR}
 		)
 	</insert>
 
@@ -97,6 +106,7 @@
 			, optn_stock_qy = #{optnStockQy}
 			, optn_item_cd = #{optnItemCd , jdbcType=VARCHAR}
 			, use_yn	= #{useYn, jdbcType=VARCHAR}
+			, sold_out_yn = #{soldOutYn, jdbcType=VARCHAR}
 		WHERE gds_no = #{gdsNo}
 			AND gds_optn_no = #{gdsOptnNo}
 	</update>
@@ -137,4 +147,12 @@
 		WHERE gds_optn_no = #{gdsOptnNo}
 	</update>
 
+	<!-- 일시품절여부 변경 -->
+	<update id="updateOptnSoldOutYn" parameterType="java.util.HashMap">
+		UPDATE GDS_OPTN SET
+			sold_out_yn = #{soldOutYn}
+		WHERE gds_no = #{gdsNo}
+		  AND optn_ty = #{optnTy}
+		  AND REPLACE(optn_nm, ' * ', '') = #{optnNmForReplace}
+	</update>
 </mapper>

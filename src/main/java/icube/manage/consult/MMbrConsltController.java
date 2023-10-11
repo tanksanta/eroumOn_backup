@@ -3,6 +3,8 @@
  */
 package icube.manage.consult;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,9 @@ import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.ConsltHistory;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
+import icube.manage.consult.biz.MbrConsltMemoVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
@@ -95,9 +100,51 @@ public class MMbrConsltController extends CommonAbstractController{
 				mbrConsltResultVO.setReconsltResn(HtmlUtil.enterToBr(mbrConsltResultVO.getReconsltResn()));
 			}
 		}
+		
+		//상담기록 및 진행상태 변경 내역
+		List<ConsltHistory> historyList = new ArrayList<>(); 
+		paramMap = new HashMap<String, Object>();
+		paramMap.put("srchConsltNo", consltNo);
+		
+		List<MbrConsltMemoVO> memoList = mbrConsltService.selectMbrConsltMemo(paramMap);
+		for(MbrConsltMemoVO memoVO : memoList) {
+			ConsltHistory ConsltHistory = new ConsltHistory();
+			ConsltHistory.setRegDt(memoVO.getRegDt());
+			ConsltHistory.setName(memoVO.getMngrNm());
+			ConsltHistory.setId(memoVO.getMngrId());
+			ConsltHistory.setContent(memoVO.getMngMemo());
+			historyList.add(ConsltHistory);
+		}
+		
+		List<MbrConsltChgHistVO> chgHistList =  mbrConsltService.selectMbrConsltChgHist(paramMap);
+		for(MbrConsltChgHistVO chgHistVO : chgHistList) {
+			ConsltHistory ConsltHistory = new ConsltHistory();
+			ConsltHistory.setRegDt(chgHistVO.getRegDt());
+			ConsltHistory.setName(EgovStringUtil.isNotEmpty(chgHistVO.getMbrNm()) ? chgHistVO.getMbrNm() 
+					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrNm()) ? chgHistVO.getMngrNm()
+					: chgHistVO.getBplcNm());
+			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
+					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
+					: chgHistVO.getBplcId());
+			ConsltHistory.setContent("상태변경: [" + chgHistVO.getResn() + "]");
+			historyList.add(ConsltHistory);
+		}
+		
+		Collections.sort(historyList, Collections.reverseOrder());
+		
+		String historyText = "";
+		for(int i = 0; i < historyList.size(); i++) {
+			ConsltHistory hist = historyList.get(i);
+			if (i != 0) {
+				historyText += "\n";
+			}
+			historyText += hist.toString();
+		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
+		model.addAttribute("historyText", historyText);
+		model.addAttribute("chgHistList", chgHistList);
 
 		return "/manage/consult/recipter/view";
 	}
@@ -138,7 +185,26 @@ public class MMbrConsltController extends CommonAbstractController{
 			}
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
-
+			
+			
+			//1:1 상담 배정 이력 추가
+			Map<String, Object> srchMap = new HashMap<>();
+			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
+			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(mbrConsltVO.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg(mbrConsltVO.getConsltSttus());
+			mbrConsltChgHistVO.setBplcConsltNo(srchConsltResult.getBplcConsltNo());
+			mbrConsltChgHistVO.setBplcConsltSttusChg(mbrConsltResultVO.getConsltSttus());
+			mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
 
 		// 상담정보 > 관리자(이로움) 메모 처리
@@ -175,6 +241,63 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		if(resultCnt > 0) {
 			result = true;
+			
+			//1:1 관리자 상담 취소 이력 저장
+			Map<String, Object> srchMap = new HashMap<String, Object>();
+			srchMap.put("srchConsltNo", consltNo);
+			MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(consltNo);
+			mbrConsltChgHistVO.setConsltSttusChg("CS09");
+			if (mbrConsltResultVO != null) {
+				mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+				mbrConsltChgHistVO.setBplcConsltSttusChg("CS09");
+				mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			}
+			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소"));
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		}
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+	
+	// 상담기록(관리자 메모) 저장
+	@RequestMapping(value = "saveMemo.json")
+	@ResponseBody
+	public Map<String, Object> saveMemo(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, @RequestParam(value = "mngMemo", required=true) String mngMemo
+			, HttpServletRequest request
+			) throws Exception {
+
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltNo", consltNo);
+		paramMap.put("mngMemo", mngMemo);
+		
+		//상담의 메모 컬럼만 변경
+		int resultCnt = mbrConsltService.updateMngMemo(paramMap);
+
+		//관리자 상담 메모 저장
+		MbrConsltMemoVO newMemoVO = new MbrConsltMemoVO();
+		newMemoVO.setConsltNo(consltNo);
+		newMemoVO.setMngMemo(mngMemo);
+		newMemoVO.setMngrUniqueId(mngrSession.getUniqueId());
+		newMemoVO.setMngrId(mngrSession.getMngrId());
+		newMemoVO.setMngrNm(mngrSession.getMngrNm());
+		
+		resultCnt += mbrConsltService.insertMbrConsltMemo(newMemoVO);
+		
+		if(resultCnt > 1) {
+			result = true;
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -182,6 +305,71 @@ public class MMbrConsltController extends CommonAbstractController{
 		return resultMap;
 	}
 
+	// 상담진행상태 변경
+	@RequestMapping(value = "changeConsltSttus.json")
+	@ResponseBody
+	public Map<String, Object> changeConsltSttus(
+		@RequestParam(value = "consltNo", required=true) int consltNo
+		, @RequestParam(value = "changedSttus", required=true) String changedSttus  //변경할 상태
+		, HttpServletRequest request
+		) throws Exception {
+		
+		boolean result = false;
+		
+		//가장 최신에 매칭된 사업소 조회
+		Map<String, Object> srchMap = new HashMap<String, Object>();
+		srchMap.put("srchConsltNo", consltNo);
+		MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+		
+		//상태 변경
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", changedSttus);
+		paramMap.put("consltNo", consltNo);
+		int resultCnt = 0;
+		if (mbrConsltResultVO == null) {
+			resultCnt = mbrConsltResultService.updateSttusWithOutResult(paramMap);
+		}
+		else {
+			paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
+			resultCnt = mbrConsltResultService.updateSttus(paramMap);
+		}
+		
+		
+		if(resultCnt > 0) {
+			result = true;
+			
+			//상담 변경 이력 저장
+			String resn = "CS01".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("접수") 
+					: "CS02".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정")
+					: "CS03".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소")
+					: "CS04".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소")
+					: "CS05".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행")
+					: "CS06".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("완료")
+					: "CS07".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재접수")
+					: "CS08".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정")
+					: CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소");
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(consltNo);
+			mbrConsltChgHistVO.setConsltSttusChg(changedSttus);
+			if (mbrConsltResultVO != null) {
+				mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+				mbrConsltChgHistVO.setBplcConsltSttusChg(changedSttus);
+				mbrConsltChgHistVO.setConsltBplcUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				mbrConsltChgHistVO.setConsltBplcNm(mbrConsltResultVO.getBplcNm());
+			}
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setMngrUniqueId(mngrSession.getUniqueId());
+			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
+			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+	
 
 	@RequestMapping(value = "delConslt.json")
 	@ResponseBody

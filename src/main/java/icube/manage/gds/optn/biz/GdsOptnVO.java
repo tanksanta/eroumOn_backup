@@ -21,4 +21,5 @@ public class GdsOptnVO {
 	private int optnPc = 0;
 	private int optnStockQy = 9999; // 0 입력시 품절
 	private String useYn;
+	private String soldOutYn;
 }

@@ -49,6 +49,13 @@
                     </a>
                 </dd>
             </dl>
+            
+            <div style="text-align: center;">
+            	<a href="<c:choose><c:when test="${returnUrl eq '/test/physical'}">/main/cntnts/test</c:when> <c:when test="${!empty returnUrl}">${returnUrl}</c:when> <c:otherwise>/</c:otherwise></c:choose>" 
+            	   class="btn btn-large" 
+            	   style="margin-top: 50px;width: 270px;height: 60px;">취소
+            	</a>
+            </div>
         </div>
     </main>
     <script src="/html/core/vendor/rsa/RSA.min.js" /></script>

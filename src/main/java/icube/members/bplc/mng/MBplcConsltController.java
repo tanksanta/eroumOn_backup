@@ -24,6 +24,7 @@ import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
@@ -113,7 +114,20 @@ public class MBplcConsltController extends CommonAbstractController {
 
 		mbrConsltResultService.updateDtlsConslt(mbrConsltResultVO);
 
-
+		// 상담 완료 이력 저장
+		MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+		mbrConsltChgHistVO.setConsltNo(mbrConsltResultVO.getConsltNo());
+		mbrConsltChgHistVO.setConsltSttusChg("CS06");
+		mbrConsltChgHistVO.setBplcConsltNo(mbrConsltResultVO.getBplcConsltNo());
+		mbrConsltChgHistVO.setBplcConsltSttusChg("CS06");
+		mbrConsltChgHistVO.setConsltBplcUniqueId(partnersSession.getUniqueId());
+		mbrConsltChgHistVO.setConsltBplcNm(partnersSession.getPartnersNm());
+		mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("완료"));
+		mbrConsltChgHistVO.setBplcUniqueId(partnersSession.getUniqueId());
+		mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
+		mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
+		mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		
 		javaScript.setMessage(getMsg("action.complete.update"));
 		javaScript.setLocation("./view?bplcConsltNo="+ mbrConsltResultVO.getBplcConsltNo() +"&consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
 
@@ -142,6 +156,18 @@ public class MBplcConsltController extends CommonAbstractController {
 		int resultCnt = mbrConsltResultService.updateCanclConslt(paramMap);
 		if(resultCnt > 0) {
 			result = true;
+			
+			//사용자 취소 이력 저장
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(consltNo);
+			mbrConsltChgHistVO.setConsltSttusChg("CS03");
+			mbrConsltChgHistVO.setBplcConsltNo(bplcConsltNo);
+			mbrConsltChgHistVO.setBplcConsltSttusChg("CS03");
+			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소"));
+			mbrConsltChgHistVO.setBplcUniqueId(partnersSession.getUniqueId());
+			mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
+			mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -171,6 +197,22 @@ public class MBplcConsltController extends CommonAbstractController {
 
 		if(resultCnt > 0) {
 			result = true;
+			
+			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소"); 
+			
+			//1:1 상담 수락/거부 이력 추가
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(consltNo);
+			mbrConsltChgHistVO.setConsltSttusChg(consltSttus);
+			mbrConsltChgHistVO.setBplcConsltNo(bplcConsltNo);
+			mbrConsltChgHistVO.setBplcConsltSttusChg(consltSttus);
+			mbrConsltChgHistVO.setConsltBplcUniqueId(partnersSession.getUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(partnersSession.getPartnersNm());
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setBplcUniqueId(partnersSession.getUniqueId());
+			mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
+			mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();

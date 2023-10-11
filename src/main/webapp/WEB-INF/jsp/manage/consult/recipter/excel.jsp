@@ -55,7 +55,6 @@
 				<th scope="col">생년월일</th>
 				<th scope="col">거주지주소</th>
 				<th scope="col">상담신청일</th>
-				<th scope="col">관리자메모</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -77,7 +76,7 @@
 				<td>
 					<c:if test="${result.consltSttus ne 'CS01'}">
 					<c:forEach items="${result.consltResultList}" var="consltResult" varStatus="status2">
-					${status2.index+1}차 : ${consltResult.bplcNm } (${consltResult.consltDtls})<br>
+					${status2.index+1}차 : ${consltResult.bplcNm } (<fmt:formatDate value="${consltResult.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
 					</c:forEach>
 					</c:if>
 					<c:if test="${result.consltSttus eq 'CS01' || empty result.consltSttus}">
@@ -90,9 +89,11 @@
 				<td>만 ${result.age} 세</td>
 				<td>${fn:substring(result.brdt,0,4)}/${fn:substring(result.brdt,4,6)}/${fn:substring(result.brdt,6,8)}</td>
 				<td>(${result.zip})&nbsp;${result.addr}&nbsp;${result.daddr}</td>
-				<td><fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd" /></td>
 				<td>
-					${result.mngMemo}
+					<fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd" />
+					<c:if test="${result.consltSttus eq 'CS07' || result.consltSttus eq 'CS08'}">
+					<br>(<fmt:formatDate value="${result.reConsltDt }" pattern="yyyy-MM-dd" />)
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

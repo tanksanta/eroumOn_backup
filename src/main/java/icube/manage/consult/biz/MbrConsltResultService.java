@@ -66,6 +66,11 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		mbrConsltDAO.updateSttus(paramMap);
 		return mbrConsltResultDAO.updateSttus(paramMap);
 	}
+	
+	// 사업소 제외하고 상담만 상태 변경
+	public int updateSttusWithOutResult(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.updateSttus(paramMap);
+	}
 
 	public void deleteMbrConsltBplc(MbrConsltResultVO mbrConsltResultVO) throws Exception {
 		mbrConsltResultDAO.deleteMbrConsltBplc(mbrConsltResultVO);

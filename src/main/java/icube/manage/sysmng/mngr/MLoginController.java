@@ -129,6 +129,7 @@ public class MLoginController extends CommonAbstractController {
 
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mngrId", loginId);
+			paramMap.put("srchUseYn", "Y");
 			mngrVO = mngrService.selectMngrById(paramMap);
 		}
 

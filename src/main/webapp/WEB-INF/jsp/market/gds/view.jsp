@@ -778,9 +778,19 @@
 </main>
 
 <script>
+$('.product-option button').click(function() {
+	var prevDisplay = $(this).parent().children('.option-items').css('display');
+	$('.product-option .option-items').hide();
+
+	if (prevDisplay === 'none') {
+		$(this).parent().children('.option-items').show();
+	}
+});
+
 var Goods = (function(){
 
 	var gdsPc = ${gdsVO.pc};
+	var gdsDscntPc = ${gdsVO.dscntPc};
 	var ordrTy = $("input[name='ordrTy']:checked").val() === undefined?"N":$("input[name='ordrTy']:checked").val(); //R / L / N
 
 	if(ordrTy === "R" || ordrTy === "L"){
@@ -828,7 +838,8 @@ var Goods = (function(){
 							var optnSoldout = "";
 							if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 							if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
+							if(data.soldOutYn === 'Y') { optnSoldout = " [일시품절]"; }
+							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo+ "|" + data.soldOutYn +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
 						}else{
 							$("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
 						}
@@ -872,7 +883,8 @@ var Goods = (function(){
 	    						var optnSoldout = "";
 	    						if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
 	    						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
+	    						if(data.soldOutYn === 'Y') { optnSoldout = " [일시품절]"; }
+	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo + "|" + data.soldOutYn +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
 	    					}else{
 	    						$("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
 	    					}
@@ -920,7 +932,8 @@ var Goods = (function(){
 						var optnSoldout = "";
 						if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
 						if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
+						if(data.soldOutYn === 'Y') { optnSoldout = " [일시품절]"; }
+						$("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo + "|" + data.soldOutYn +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
 	                });
 					//$('.product-option .option-toggle')[1].click();
 					$('.product-option .option-toggle')[2].click();
@@ -941,8 +954,13 @@ var Goods = (function(){
 		var spOptnVal = optnVal.split("|");
 		var spOptnTxt = spOptnVal[0].split("*");
 		var skip = false;
+		var gdsLastPc = gdsPc;
 
-		console.log("gdsPc", gdsPc);
+		if (gdsDscntPc > 0) {
+			gdsLastPc = gdsDscntPc;
+		}
+
+		console.log("gdsPc", gdsLastPc);
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
 		$(".product-quanitem input[name='ordrOptn']").each(function(){
@@ -955,6 +973,10 @@ var Goods = (function(){
 		//console.log("재고:", spOptnVal[2]);
 		if(spOptnVal[2] < 1){
 			alert("선택하신 옵션은 품절상태입니다.");
+			skip = true;
+		}
+		if(spOptnVal.length > 5 && spOptnVal[5] === 'Y') {
+			alert("선택하신 옵션은 일시품절상태입니다.");
 			skip = true;
 		}
 
@@ -971,7 +993,7 @@ var Goods = (function(){
 					html += '	<input type="hidden" name="gdsOptnNo" value="0">';
 				}
 
-				html += '	<input type="hidden" name="gdsPc" value="'+ gdsPc +'">';
+				html += '	<input type="hidden" name="gdsPc" value="'+ gdsLastPc +'">';
 				html += '	<input type="hidden" name="ordrOptnTy" value="'+ spOptnVal[3] +'">';
 				html += '	<input type="hidden" name="ordrOptn" value="'+ spOptnVal[0] +'">';
 				html += '	<input type="hidden" name="ordrOptnPc" value="'+ spOptnVal[1] +'">';
@@ -997,7 +1019,7 @@ var Goods = (function(){
 				html += '   	<button type="button" class="btn btn-plus">수량추가</button>';
 				html += '    	<button type="button" class="btn btn-delete">상품삭제</button>';
 				html += '	</div>';
-				html += '	<p class="price"><strong> '+ comma(Number(gdsPc) + Number(spOptnVal[1])) +'</strong> 원</p>';
+				html += '	<p class="price"><strong> '+ comma(Number(gdsLastPc) + Number(spOptnVal[1])) +'</strong> 원</p>';
 				html += '</dd>';
 				html += '</dl>';
 				html += '</div>';
@@ -1312,6 +1334,8 @@ var Goods = (function(){
 			if(optnVal1 != ""){
 				f_baseOptnChg(optnVal1);
 			}
+
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 		</c:if>
@@ -1326,6 +1350,8 @@ var Goods = (function(){
 			//console.log("optnVal1 :", optnVal1, optnTy);
 
 			f_optnVal2(optnVal1[0].trim(), optnTy);
+
+			$(this).parent().parent().hide();
 		});
 
 		<c:if test="${empty optnTtl[2]}">
@@ -1341,8 +1367,7 @@ var Goods = (function(){
 				f_baseOptnChg(optnVal2);
 			}
 
-
-
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 
@@ -1357,6 +1382,7 @@ var Goods = (function(){
 			//console.log("optnVal2 :", optnVal2, optnTy);
 			f_optnVal3(optnVal2[0].trim() +" * " +optnVal2[1].trim(), optnTy);
 
+			$(this).parent().parent().hide();
 		});
 
 
@@ -1368,6 +1394,8 @@ var Goods = (function(){
 			if(optnVal3 != ""){
 				f_baseOptnChg(optnVal3);
 			}
+
+			$(this).parent().parent().hide();
 		});
 		</c:if>
 
@@ -1383,6 +1411,8 @@ var Goods = (function(){
 				alert("기본 옵션을 먼저 선택해야 합니다.");
 				$('.product-option').removeClass('is-active');
 			}
+
+			$(this).parent().parent().hide();
 		});
 
 
@@ -1415,11 +1445,7 @@ var Goods = (function(){
 						if(json.resultMsg == "ALREADY"){
 							alert("장바구니에 담겨있는 상품입니다.");
 						}else{
-							$('.service-mycart i, .personal-cart .mycart').text(Number($('.service-mycart i').text()) + 1);
-							$('.service-mycart, .personal-cart .mycart').attr('title', "장바구니에 상품을 담았습니다").tooltip('show');
-							setTimeout(function(){
-								$('.service-mycart, .personal-cart .mycart').removeAttr('title').tooltip('dispose');
-							}, 2000);
+							$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
 							alert("장바구니에 담았습니다.");
 						}
 					}else{

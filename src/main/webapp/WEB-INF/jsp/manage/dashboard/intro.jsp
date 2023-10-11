@@ -35,13 +35,15 @@
 
         <div class="system-title">
             Management System
-            <div class="user-info">
-                <span class="thum"><c:if test="${_mngrSession.proflImg ne null && _mngrSession.proflImg ne '' }"><img src="/comm/proflImg?fileName=${_mngrSession.proflImg}" alt="manager"></c:if></span>
-                <span class="name">
-                    <strong>${_mngrSession.mngrId}</strong>
-                    <small>마지막 접속 <fmt:formatDate value="${_mngrSession.recentLgnDt }" pattern="yyyy-MM-dd HH:mm:ss" /></small>
-                </span>
-            </div>
+            <a href="/_mng/sysmng/mngr/mypage">
+	            <div class="user-info">
+	                <span class="thum"><c:if test="${_mngrSession.proflImg ne null && _mngrSession.proflImg ne '' }"><img src="/comm/proflImg?fileName=${_mngrSession.proflImg}" alt="manager"></c:if></span>
+	                <span class="name">
+	                    <strong>${_mngrSession.mngrId}</strong>
+	                    <small>마지막 접속 <fmt:formatDate value="${_mngrSession.recentLgnDt }" pattern="yyyy-MM-dd HH:mm:ss" /></small>
+	                </span>
+	            </div>
+            </a>
         </div>
 
 		<%-- DB로 관리 --%>

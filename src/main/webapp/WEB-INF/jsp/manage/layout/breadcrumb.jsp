@@ -15,7 +15,7 @@
                         </c:forEach>
                     </ul>
                 </nav>
-                <a href="#" class="user-info">
+                <a href="/_mng/sysmng/mngr/mypage" class="user-info">
                     <span class="name">
                         <strong>${_mngrSession.mngrId}</strong>
                         <small>접속중 <span>-</span></small>

@@ -19,7 +19,9 @@
 								<c:otherwise>3</c:otherwise>
 							</c:choose>
 						</c:set>
-						<i><img src="/html/page/market/assets/images/ico-navigation-menu${imgNumber}.png" alt=""></i> ${ctgry.ctgryNm }
+						<%-- <i><img src="/html/page/market/assets/images/ico-navigation-menu${imgNumber}.png" alt=""></i> ${ctgry.ctgryNm } --%>
+						<i><c:if test="${!empty ctgry.ctgryImg}"><img src="/comm/CTGRY_IMG/getFile?fileName=${ctgry.ctgryImg}" alt=""></c:if></i>
+						${ctgry.ctgryNm }
 						</a> <c:if test="${not empty ctgry.childList}">
 								<div class="allmenu-group2">
 									<%-- 2depth --%>

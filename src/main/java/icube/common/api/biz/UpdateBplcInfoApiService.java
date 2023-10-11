@@ -27,6 +27,7 @@ import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
@@ -99,6 +100,10 @@ public class UpdateBplcInfoApiService {
 		// 상품 배열 파싱
 		JSONArray array_item = (JSONArray) jsonObj.get("_array_item");
 		for(int i=0; i<array_item.size(); i++) {
+			if (array_item.get(i) == null || array_item.get(i) instanceof JSONArray) {
+				continue;
+			}
+			
 			JSONObject item = (JSONObject) array_item.get(i);
 			String bnefCd = Base64Util.decoder((String)item.get("ProdPayCode"));
 			String itemId = Base64Util.decoder((String)item.get("item_id"));
@@ -170,27 +175,21 @@ public class UpdateBplcInfoApiService {
 					System.out.println("#### 상품 정보 업데이트 실패 : "+ e.toString() +" #### ");
 				}
 				System.out.println("#### 상품 정보 업데이트 END #### ");
-
-
-				// 옵션 배열
-				/**
-				 * 2023-04-20
-				 * 옵션은 메뉴얼로 수기 작성 진행
-				 */
-				/*JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
+				
+				//옵션 배열
+				/* 2023-09-06
+				 * 옵션은 일시품절 상태값만 반영
+				 * */
+				JSONArray item_opt_array = (JSONArray)item.get("item_opt_id");
 				if(item_opt_array.size() > 0) {
-
 					for(int h=0; h<item_opt_array.size(); h++) {
 						JSONObject item_opt = (JSONObject) item_opt_array.get(h);
 						String ioid = Base64Util.decoder((String)item_opt.get("io_id"));
-						ioid = ioid.replace("u001e", "");
 						String ioType = Base64Util.decoder((String)item_opt.get("io_type"));
 						String ioQty = Base64Util.decoder((String)item_opt.get("io_qty"));
-
-						System.out.println("#### 상품 옵션 수량 #### " + ioQty);
-						System.out.println("#### 상품 옵션 구분 #### " + ioType);
-						System.out.println("#### 상품 옵션 아이디 #### " + ioid);
-
+						String ioSoldOut = Base64Util.decoder((String)item_opt.get("io_sold_out"));
+						String ioThezone = Base64Util.decoder((String)item_opt.get("io_thezone")); //품목코드이나 1.0에서는 DB에 thezone으로 저장중임 
+						
 						Map<String, Object> optnMap = new HashMap<String, Object>();
 						optnMap.put("gdsNo", gdsVO.getGdsNo());
 						if(ioType.equals("0")) {
@@ -198,24 +197,24 @@ public class UpdateBplcInfoApiService {
 						}else {
 							optnMap.put("optnTy", "ADIT");
 						}
-						//optnMap.put("optnNm", ordrDtlVO.getOrdrOptn());
-						optnMap.put("optnId", ioid);
-
+						
+						//옵션목록이 2개 이상인 경우 빨강 > 라지 이렇게 들어오는데
+						//Base 64 디코딩 과정에서 특수문자를 decode하지 못하여 빨강라지가 되어버리므로 DB의 REPLACE 검색 이용
+						optnMap.put("optnNmForReplace", ioid);
+						
 						GdsOptnVO gdsOptnVO = gdsOptnService.selectGdsOptn(optnMap);
 						if(gdsOptnVO != null) {
 							try {
 								System.out.println(" ### 상품옵션 조회 성공 ###");
-								optnMap.put("optnStockQy", EgovStringUtil.string2integer(ioQty));
-								gdsOptnService.updateOptnStockQy(optnMap);
+								optnMap.put("soldOutYn", "1".equals(ioSoldOut) ? "Y" : "N");
+								gdsOptnService.updateOptnSoldOutYn(optnMap);
 							}catch(Exception e) {
 								e.printStackTrace();
-								System.out.println(" ### 상품옵션명 : "+ ioid +"업데이트 실패");
+								System.out.println(" ### 상품옵션명 : "+ ioid + "업데이트 실패");
 							}
 						}
 					}
-				}else {
-					System.out.println("#### 상품 옵션 없음 #### ");
-				}*/
+				}
 			}
 		}
 	}

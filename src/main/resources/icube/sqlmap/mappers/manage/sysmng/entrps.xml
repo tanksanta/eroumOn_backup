@@ -20,6 +20,7 @@
 		, tkcg_md
 		, use_yn
 		, dlvy_ct_cnd
+		, dlvy_base_ct
 		, clcln_cycle
 		, bank_nm
 		, actno

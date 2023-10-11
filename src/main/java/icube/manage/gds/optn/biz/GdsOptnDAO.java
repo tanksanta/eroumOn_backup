@@ -43,5 +43,7 @@ public class GdsOptnDAO extends CommonAbstractMapper {
 		update("gds.optn.updateOptnStockQy",paramMap);
 	}
 
-
+	public void updateOptnSoldOutYn(Map<String, Object> paramMap) throws Exception {
+		update("gds.optn.updateOptnSoldOutYn",paramMap);
+	}
 }

@@ -1,5 +1,6 @@
 package icube.main;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import icube.common.mail.MailService;
 import icube.common.util.FileUtil;
 import icube.common.values.CodeMap;
 import icube.main.biz.MainService;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -61,6 +64,9 @@ public class MainConsltController extends CommonAbstractController{
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
+	@Autowired
+	private Environment environment;
+	
 	@RequestMapping(value = "form")
 	public String form(
 			HttpServletRequest request
@@ -71,7 +77,7 @@ public class MainConsltController extends CommonAbstractController{
 
 		if(!mbrSession.isLoginCheck()) {
 			session.setAttribute("returnUrl", "/"+mainPath+"/conslt/form");
-			return "redirect:" + "/"+mainPath+"/login?returnUrl=/"+mainPath+"/conslt/form";
+			return "redirect:" + "/membership/login?returnUrl=/"+mainPath+"/conslt/form";
 		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
@@ -100,13 +106,31 @@ public class MainConsltController extends CommonAbstractController{
 		int insertCnt = mbrConsltService.insertMbrConslt(mbrConsltVO);
 
 		if (insertCnt > 0) {
+			//1:1 상담신청 이력 추가
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchRgtr", mbrConsltVO.getRgtr());
+			paramMap.put("srchUniqueId", mbrConsltVO.getRegUniqueId());
+			MbrConsltVO srchMbrConslt = mbrConsltService.selectLastMbrConsltForCreate(paramMap);
+			
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(srchMbrConslt.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg(srchMbrConslt.getConsltSttus());
+			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("접수"));
+			mbrConsltChgHistVO.setMbrUniqueId(mbrSession.getUniqueId());
+			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
+			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+			
+			
 			//1:1 상담신청시 관리자에게 알림 메일 발송
 			String MAIL_FORM_PATH = mailFormFilePath;
 			String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
 			String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
 			String putEml = "help@thkc.co.kr";
 
-			//TODO : mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile))) {
+				mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			}
 		}
 
 		javaScript.setMessage(getMsg("action.complete.insert"));

@@ -141,4 +141,7 @@ public class GdsVO extends CommonBaseVO {
 
 	//위시리스트
 	private int wishYn = 0; // Y/N -> 1/0 카운트로 조회
+	
+	//엑셀다운로드용
+	private String entrpsNm;
 }

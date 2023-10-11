@@ -21,7 +21,13 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 
 	@Resource(name="mbrConsltResultDAO")
 	private MbrConsltResultDAO mbrConsltResultDAO;
-
+	
+	@Resource(name="mbrConsltMemoDAO")
+	private MbrConsltMemoDAO mbrConsltMemoDAO;
+	
+	@Resource(name="mbrConsltChgHistDAO")
+	private MbrConsltChgHistDAO mbrConsltChgHistDAO;
+	
 	public CommonListVO selectMbrConsltListVO(CommonListVO listVO) throws Exception {
 
 		listVO = mbrConsltDAO.selectMbrConsltListVO(listVO);
@@ -69,12 +75,44 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		mbrConsltResultDAO.updateCanclConslt(paramMap);
 		return mbrConsltDAO.updateCanclConslt(paramMap); // 상담취소;
 	}
+	
+	public int updateMngMemo(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.updateMngMemo(paramMap);
+	}
 
 	public List<MbrConsltVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.selectListForExcel(paramMap);
 	}
 
+	public Integer insertMbrConsltMemo(MbrConsltMemoVO mbrConsltMemoVO) throws Exception {
+		return mbrConsltMemoDAO.insertMbrConsltMemo(mbrConsltMemoVO);
+	}
 
-
-
+	public MbrConsltVO selectLastMbrConsltForCreate(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltDAO.selectLastMbrConsltForCreate(paramMap);
+	}
+	
+	public Integer insertMbrConsltChgHist(MbrConsltChgHistVO mbrConsltChgHistVO) throws Exception {
+		return mbrConsltChgHistDAO.insertMbrConsltChgHist(mbrConsltChgHistVO);
+	}
+	
+	public List<MbrConsltMemoVO> selectMbrConsltMemo(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltMemoDAO.selectMbrConsltMemo(paramMap);
+	}
+	
+	public List<MbrConsltChgHistVO> selectMbrConsltChgHist(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltChgHistDAO.selectMbrConsltChgHist(paramMap);
+	}
+	
+	public MbrConsltChgHistVO selectMbrConsltChgHistByChgNo(int chgNo) throws Exception {
+		Map<String, Object> srchParam = new HashMap<String, Object>();
+		srchParam.put("srchChgNo", chgNo);
+		
+		List<MbrConsltChgHistVO> chgHistList = mbrConsltChgHistDAO.selectMbrConsltChgHist(srchParam);
+		if (chgHistList.size() > 0) {
+			return chgHistList.get(0);
+		} else {
+			return null;
+		}
+	}
 }

@@ -13,7 +13,7 @@
 		<div class="member-release-title">
 			<img src="/html/page/members/assets/images/txt-leave.svg" alt="그동안 이로움ON 마켓을 이용해 주셔서 감사합니다.">
 			<p>
-				이로움ON 마켓 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
+				이로움ON 이용 시 불편했거나 부족했던 부분을 알려주시면,<br> 더 좋은 모습으로 찾아 뵙기 위해 노력하겠습니다.
 			</p>
 		</div>
 
@@ -103,7 +103,7 @@
 
 			<div class="flex justify-center space-x-1.5 mt-4 mx-auto md:space-x-2 md:mt-10">
 				<button type="submit" class="btn btn-large btn-primary w-44 md:w-53">탈퇴하기</button>
-				<a href="membership/index" class="btn btn-large btn-outline-primary w-31 md:w-37">취소</a>
+				<a href="/membership/index" class="btn btn-large btn-outline-primary w-31 md:w-37">취소</a>
 			</div>
 		</form>
 

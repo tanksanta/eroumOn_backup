@@ -78,6 +78,7 @@
 		, g.dlvy_ct_stlm
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
+		, g.dlvy_group_yn
 		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
@@ -251,9 +252,13 @@
 				(g.brand IN (SELECT brand_no FROM BRAND b WHERE b.brand_nm LIKE CONCAT ('%',#{kwd},'%')))
 			</foreach>
 			OR
-				<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
-					  g.bnef_cd = #{kwd}
-				</foreach>
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				g.bnef_cd = #{kwd}
+			</foreach>
+			OR
+			<foreach collection="srchKwd" item="kwd" separator=" OR " open="(" close=")">
+				g.GDS_CD = #{kwd}
+			</foreach>
 			)
 		</if>
 
@@ -703,10 +708,12 @@
         SELECT
             <include refid="listColumn"/>
             ,<include refid="optnListColumn" />
+            ,en.entrps_nm
         FROM GDS g
             LEFT JOIN GDS_OPTN op on g.gds_no = op.gds_no
             LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
             LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+            LEFT JOIN ENTRPS en ON g.entrps_no = en.entrps_no
         WHERE 1=1
             <include refid="searchConditions" />
           ORDER BY g.gds_no DESC

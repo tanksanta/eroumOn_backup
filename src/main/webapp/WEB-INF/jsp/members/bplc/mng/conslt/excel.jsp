@@ -53,7 +53,7 @@
                                 <th scope="col">만나이</th>
                                 <th scope="col">생년월일</th>
                                 <th scope="col">거주지주소</th>
-                                <th scope="col">상담내역</th>
+                                <th scope="col">상담배정일시</th>
                                 <th scope="col">상담신청일</th>
                             </tr>
                         </thead>
@@ -77,26 +77,24 @@
 								<td>${result.mbrConsltInfo.mbrNm}</td>
 
 								<c:choose>
-									<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}"><%--상담취소--%>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
+									<c:when test="${result.consltSttus eq 'CS03' || result.consltSttus eq 'CS04' || result.consltSttus eq 'CS09'}"><%--상담취소--%>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
 									</c:when>
 									<c:otherwise>
-								<td>${genderCode[result.mbrConsltInfo.gender]}</td>
-								<td>${result.mbrConsltInfo.mbrTelno}</td>
-								<td>만 ${result.mbrConsltInfo.age} 세</td>
-								<td>${fn:substring(result.mbrConsltInfo.brdt,0,4)}/${fn:substring(result.mbrConsltInfo.brdt,4,6)}/${fn:substring(result.mbrConsltInfo.brdt,6,8)}</td>
-								<td>(${result.mbrConsltInfo.zip})&nbsp;${result.mbrConsltInfo.addr}<br>${result.mbrConsltInfo.daddr}</td>
-								<td>
-									${result.consltDtls }
-								</td>
+										<td>${genderCode[result.mbrConsltInfo.gender]}</td>
+										<td>${result.mbrConsltInfo.mbrTelno}</td>
+										<td>만 ${result.mbrConsltInfo.age} 세</td>
+										<td>${fn:substring(result.mbrConsltInfo.brdt,0,4)}/${fn:substring(result.mbrConsltInfo.brdt,4,6)}/${fn:substring(result.mbrConsltInfo.brdt,6,8)}</td>
+										<td>(${result.mbrConsltInfo.zip})&nbsp;${result.mbrConsltInfo.addr}<br>${result.mbrConsltInfo.daddr}</td>
 									</c:otherwise>
 								</c:choose>
-								<td><fmt:formatDate value="${result.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd" /></td>
+								<td><fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd HH:mm" /></td>
+								<td><fmt:formatDate value="${result.mbrConsltInfo.regDt }" pattern="yyyy-MM-dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 						<c:if test="${fn:length(resultList) < 1}">
@@ -106,5 +104,5 @@
 						</c:if>
 						</tbody>
                     </table>
-</body>
+	</body>
 </html>

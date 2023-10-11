@@ -49,7 +49,7 @@ public class updateGdsSchedule extends CommonAbstractController {
 	 * 매일 1회 상품 정보 업데이트
 	 * @throws Exception
 	 */
-	@Scheduled(cron="0 30 03 * * *")
+	@Scheduled(cron="0 0 04 * * *")
 	public void updateGdsInfo() throws Exception {
 		ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
 

@@ -204,6 +204,8 @@
 			 , od.bnef_cd
 			 , od.gds_nm
 			 , od.gds_pc
+             , od.entrps_no
+             , od.entrps_nm
 			 , od.ordr_pc
 			 , od.ordr_optn_ty
 			 , od.ordr_optn

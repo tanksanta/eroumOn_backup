@@ -171,7 +171,7 @@ $(function(){
 
 
    //쿠폰사용
-    $('.order-trigger').on('click', function() {
+    $('.order-trigger').on('click', function(event) {
     	gdsCd = $(this).data("gdsCd");
     	gdsPc = $(this).data("gdsPc");
        	gdsNo = $(this).data("gdsNo");
@@ -186,6 +186,8 @@ $(function(){
                 $('.order-coupon-layer').removeClass('is-active');
             } else {
                 $('.order-coupon-layer').addClass('is-active');
+                //이벤트 전파문제로 인해 추가
+                event.stopImmediatePropagation();
             }
        	}
 
@@ -242,17 +244,18 @@ $(function(){
 			if(data.result != true){
 				alert("해당 상품에 사용 할 수 없는 쿠폰입니다.");
 			}else{
+				const total = "${total}";
+				
 				// 개별회원이 아닐 경우만 수급자 여부 검사
 				if(issuMbr != 'I' &&
 						issuMbrTy[0] != mbrTy && issuMbrTy[1] != mbrTy){
 					alert("회원님은 이 쿠폰을 사용하실 수 없습니다.");
 				}else{
-			    	if(Number(gdsPc) < amt){
+			    	if(Number(total) < Number(amt)){
 			    		alert("상품 가격이 할인가격보다 작습니다.");
 			    		return false;
 			    	}else{
 			    		// 최소 금액 체크
-			    		const total = "${total}";
 			    		if(Number(mummOrdrAmt) >  total){
 			    			alert("최소금액을 확인해주세요.");
 			    			return false;
@@ -280,8 +283,8 @@ $(function(){
 				        		amt = dlvyBassAmt;
 				        		$("#dlvyBassAmt_BASE"+"_"+gdsNo+"_"+(ordrIdx+1)).val(0);
 				        	}else{
-				            	if(Number(gdsPc) < Number(amt)){
-				            		amt = Number(gdsPc);
+				            	if(Number(total) < Number(amt)){
+				            		amt = Number(total);
 				            	}
 				        	}
 

@@ -86,6 +86,10 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 	public GdsCtgryVO selectGdsCtgryNo(Map<String, Object> paramMap) throws Exception{
 		return gdsCtgryDAO.selectGdsCtgryNo(paramMap);
 	}
+	
+	public List<GdsCtgryVO> selectGdsCtgryNoList(Map<String, Object> paramMap) throws Exception {
+		return gdsCtgryDAO.selectGdsCtgryNoList(paramMap);
+	}
 
 	public void insertGdsCtgry(GdsCtgryVO gdsCtgryVO) throws Exception {
 

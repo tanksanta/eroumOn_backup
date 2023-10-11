@@ -494,10 +494,10 @@
 	                                            <colgroup>
 	                                                <col class="w-15">
 	                                                <col>
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -511,6 +511,7 @@
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
 	                                                    <th scope="col">품목코드</th>
+	                                                    <th scope="col">일시품절여부</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -534,6 +535,7 @@
 					                						</select>
 					                					</td>
 					                					<td><input type="text" name="optnItemCd${status.index}" value="${optnList.optnItemCd}" class="form-control w-full" maxlength="20" /></td>
+					                					<td><input type="checkbox" name="soldOutYn${status.index}" value="Y" class="form-control w-full" ${optnList.soldOutYn eq 'Y' ? 'checked' : ''}/></td>
 					                				</tr>
 	                                                </c:forEach>
 	                                            </tbody>
@@ -606,10 +608,10 @@
 	                                                <col class="w-15">
 	                                                <col>
 	                                                <col>
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
-	                                                <col class="w-1/5">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
+	                                                <col class="w-1/6">
 	                                            </colgroup>
 	                                            <thead>
 	                                                <tr>
@@ -624,6 +626,7 @@
 	                                                    <th scope="col">재고수량</th>
 	                                                    <th scope="col">사용여부</th>
 	                                                    <th scope="col">품목코드</th>
+	                                                    <th scope="col">일시품절여부</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -652,6 +655,7 @@
 			        	                				</td>
 			        	                				<td>
 			        	                					<input type="text" name="aditOptnItemCd${status.index}" value="${aditOptnList.optnItemCd}" class="form-control w-full" maxlength="20"/>
+			        	                					<td><input type="checkbox" name="aditSoldOutYn${status.index}" value="Y" class="form-control w-full" ${aditOptnList.soldOutYn eq 'Y' ? 'checked' : ''}/></td>
 			        	                				</td>
 	        	                					</tr>
 	        	                					</c:forEach>
@@ -854,7 +858,7 @@
                             <tbody>
 
 								<tr>
-	                                <th scope="row"><label for="thumbFile" class="require">대표이미지</label></th>
+	                                <th scope="row"><label for="thumbFile">대표이미지</label></th>
 	                                <td>
 	                                	<c:if test="${not empty gdsVO.thumbnailFile.fileNo}">
 										<div style="display:block;" id="thumbFileViewDiv${gdsVO.thumbnailFile.fileNo}">
@@ -1283,6 +1287,7 @@
 	        	                				html += '		</select>';
 	        	                				html += '	</td>';
 	        	                				html += '	<td><input type="text" name="aditOptnItemCd'+cnt+'" class="form-control w-full" maxlength="20"></td>';
+	        	                				html += '	<td><input type="checkbox" name="aditSoldOutYn' +cnt+ '" value="Y" class="form-control w-full"/></td>';
 	        	                				html += '</tr>';
 
 	                							cnt = cnt + 1; //카운트용
@@ -1411,6 +1416,7 @@
 	                				html += '		</select>';
 	                				html += '	</td>';
 	                				html += '	<td><input type="text" name="optnItemCd'+index+'" class="form-control w-full" maxlength="20"></td>';
+	                				html += '	<td><input type="checkbox" name="soldOutYn' +index+ '" value="Y" class="form-control w-full"/></td>';
 	                				html += '</tr>';
                 				});
 
@@ -1620,18 +1626,18 @@
                     	    	gdsTy		: { required : true}
                     	    	, ctgryNo   : { required : true, min:1}
                     	    	, gdsNm		: { required : true}
-                    	    	, ancmntTy	: { required : true}
+                    	    	//, ancmntTy	: { required : true}
                     	    	, supPc     : { required : true}
-                    	    	, thumbFile : { required : function(element){ return $("#thumbFileDiv").css("display") == "block"; }}
+                    	    	//, thumbFile : { required : function(element){ return $("#thumbFileDiv").css("display") == "block"; }}
                     	    	//, wt		: { required : true}
                     	    },
                     	    messages : {
                     	    	gdsTy 		: { required : "상품구분을 선택하세요"}
                     	    	, ctgryNo 	: { required : "카테고리를 선택하세요", min:"카테고리를 선택하세요"}
                     	    	, gdsNm 	: { required : "상품명을 입력하세요"}
-                    	    	, ancmntTy 	: { required : "상품요약(고시)정보를 선택하세요."}
+                    	    	//, ancmntTy 	: { required : "상품요약(고시)정보를 선택하세요."}
                     	    	, supPc     : { required : "공급가를 입력하세요"}
-                    	    	, thumbFile : { required : "대표이미지는 필수 선택 항목 입니다."}
+                    	    	//, thumbFile : { required : "대표이미지는 필수 선택 항목 입니다."}
                     	    	//, wt	 	: { required : "중량을 입력하세요"}
                     	    },
                     	    submitHandler: function (frm) {

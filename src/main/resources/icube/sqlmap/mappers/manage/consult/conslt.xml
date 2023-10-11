@@ -80,11 +80,16 @@
 	<select id="selectMbrConsltListVO" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		/* Query ID : conslt.selectMbrConsltListVO */
 		SELECT
-			<include refid="listColumn"/>
+			<include refid="listColumn"/>,
+			CASE 
+				WHEN mc.RE_CONSLT_DT IS NULL THEN mc.REG_DT
+                WHEN mc.RE_CONSLT_DT > mc.REG_DT THEN mc.RE_CONSLT_DT
+                ELSE mc.RE_CONSLT_DT
+			END AS cur_conslt_dt
 		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
-	  	ORDER BY re_conslt_dt DESC, conslt_no DESC
+	  	ORDER BY cur_conslt_dt DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
@@ -109,7 +114,7 @@
 		WHERE conslt_no = #{consltNo}
 			<include refid="searchConditions" />
 	</select>
-
+	
 	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
 		INSERT INTO MBR_CONSLT(
 			mbr_nm
@@ -165,6 +170,11 @@
 		WHERE conslt_no = #{consltNo}
 	</update>
 
+	<update id="updateMngMemo" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			mng_memo = #{mngMemo}
+		WHERE conslt_no = #{consltNo}
+	</update>
 
 	<update id="updateSttus" parameterType="java.util.HashMap">
 		UPDATE MBR_CONSLT SET
@@ -183,6 +193,17 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	  	ORDER BY conslt_no DESC
+	</select>
+	
+	<!-- 생성 직후 신청한 상담 조회용 -->
+	<select id="selectLastMbrConsltForCreate" parameterType="java.util.HashMap" resultType="mbrConsltVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		WHERE rgtr = #{srchRgtr}
+		  AND reg_unique_id = #{srchUniqueId}
+		ORDER BY conslt_no DESC
+		LIMIT 1;
 	</select>
 
 </mapper>
