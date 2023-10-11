@@ -270,6 +270,7 @@ public class MbrsRegistController extends CommonAbstractController{
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("itrstFieldCode", CodeMap.ITRST_FIELD);
+		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
 
 		return "/membership/regist_step2";
 	}

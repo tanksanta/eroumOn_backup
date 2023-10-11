@@ -124,6 +124,14 @@
 							<td><form:input class="form-control w-full" path="eml" maxlength="50"/></td>
 						</tr>
 						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									주문/배송 및 공지를 위해 정확한 정보를 입력해 주세요.
+								</p>
+							</td>
+						</tr>
+						<tr>
 							<th scope="row">
 								<p>
 									<label for="join-item1-5">주소<sup class="text-danger text-base md:text-lg">*</sup></label>
@@ -136,10 +144,26 @@
 								</div> <form:input class="form-control mt-1.5 w-full md:mt-2" path="addr" maxlength="200" /> <form:input class="form-control mt-1.5 w-full md:mt-2" path="daddr" maxlength="200" />
 							</td>
 						</tr>
+						<tr>
+							<th scope="row"><p style="padding-left: 0;">
+									<label for="join-item3-3">개인정보 유효기간<sup class="text-danger text-base md:text-lg">*</sup></label>
+								</p></th>
+							<td>
+								<div class="form-check-group w-full">
+									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
+										<div class="form-check">
+											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
+											<label class="form-check-label" for="prvcVldPd${status.index}">${expr.value}</label>
+										</div>
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
+				</br>
 
-				<p class="mt-8 text-title2">수급자 정보</p>
+				<p class="mt-8 text-title2">수급자(어르신) 정보</p>
 				<table class="table-detail">
 					<colgroup>
 						<col class="w-22 xs:w-32">
@@ -150,16 +174,17 @@
 							<td></td>
 							<td></td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="content-select py-1.5">
-									<c:forEach var="reYn" items="${recipterYnCode}" varStatus="status">
-									<div class="form-check">
-										<form:radiobutton class="form-check-input" path="recipterYn" id="recipterYn${status.index}" value="${reYn.key}" />
-										<label class="form-check-label" for="recipterYn${status.index}">${reYn.key eq 'Y'?'장기요양등급 수급자':'해당없음'}<small>(${reYn.value})</small></label>
-									</div>
-									</c:forEach>
-								</div>
+						<tr class="wrapRelation">
+							<th scope="row"><p>
+									<label for="recipter">수급자와의 관계</label>
+								</p></th>
+							<td>
+								<select name="relationSelect" id="relationSelect" class="form-control w-full">
+                                    <option value="">선택</option>
+                                    <c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+                                    	<option value="${relation.key}">${relation.value}</option>	
+                                    </c:forEach>
+                                </select>
 							</td>
 						</tr>
 						<tr class="wrapNm">
@@ -181,80 +206,24 @@
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<p class="text-sm">
+									번호를 아시는 경우 입력해주세요.
+								</p>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<div class="content-button mt-4">
-					<button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
-					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">초기화</button>
+					<button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">등록하기</button>
+					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">삭제</button>
 				</div>
 				</br>
-				<div class="content-recipient mt-9.5" id="wrapInfo">
-					<div class="title">
-						<p class="name">
-							<strong id="searchNm">${mbrVO.recipterInfo.mbrNm}</strong> 님의
-						</p>
-						<p class="desc">장기요양 정보</p>
-					</div>
-					<div class="group1">
-						<dl class="number">
-							<dt>장기요양인정번호</dt>
-							<dd id="searchNo">L${mbrVO.recipterInfo.rcperRcognNo}</dd>
-						</dl>
-						<dl class="grade">
-							<dt>등급</dt>
-							<dd>
-								<img id="searchGrade" src="<c:if test="${!empty mbrVO.recipterInfo.rcognGrad}">/html/page/members/assets/images/txt-grade-num${mbrVO.recipterInfo.rcognGrad}.png</c:if>">
-							</dd>
-						</dl>
-					</div>
-					<div class="group2">
-						<dl class="percent">
-							<dt>본인부담율</dt>
-							<dd>
-								<strong id="searchQlf">${mbrVO.recipterInfo.selfBndRt}</strong> &nbsp;%
-							</dd>
-						</dl>
-						<dl class="date">
-							<dt>인정유효기간</dt>
-							<dd>
-								<p id="searchBgngRcgt">
-									<fmt:formatDate value="${mbrVO.recipterInfo.vldBgngYmd}" pattern="yyyy-MM-dd" />
-								</p>
-								<p id="searchEndRcgt">
-									~&nbsp;
-									<fmt:formatDate value="${mbrVO.recipterInfo.vldEndYmd}" pattern="yyyy-MM-dd" />
-								</p>
-							</dd>
-						</dl>
-						<dl class="date">
-							<dt>적용기간</dt>
-							<dd>
-								<p id="searchBgngApdt">
-									<fmt:formatDate value="${mbrVO.recipterInfo.aplcnBgngYmd}" pattern="yyyy-MM-dd" />
-								</p>
-								<p id="searchEndApdt">
-									~&nbsp;
-									<fmt:formatDate value="${mbrVO.recipterInfo.aplcnEndYmd}" pattern="yyyy-MM-dd" />
-								</p>
-							</dd>
-						</dl>
-					</div>
-					<dl class="price1">
-						<dt>급여잔액</dt>
-						<dd>
-							<strong id="searchRemn"><fmt:formatNumber value="${mbrVO.recipterInfo.bnefBlce}" pattern="###,###" /></strong> &nbsp; 원 <small id="formatKo"></small>
-						</dd>
-					</dl>
-					<dl class="price2">
-						<dt>사용금액</dt>
-						<dd>
-							<strong id="searchUseAmt"><fmt:formatNumber value="${mbrVO.recipterInfo.sprtAmt -  mbrVO.recipterInfo.bnefBlce}" /></strong>
-						</dd>
-					</dl>
+				
 
-				</div>
-
-				<p class="mt-17 text-title2">선택 정보</p>
+				<p class="mt-17 text-title2">정보수신 동의</p>
 				<table class="table-detail">
 					<colgroup>
 						<col class="w-29 xs:w-32">
@@ -264,86 +233,6 @@
 						<tr class="top-border">
 							<td></td>
 							<td></td>
-						</tr>
-						<tr>
-							<th scope="row"><p>
-									<label for="join-item-inter1">관심분야</label>
-								</p></th>
-							<td>
-								<div class="content-interest">
-									<c:forEach var="itrst" items="${itrstFieldCode}" varStatus="status">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="itrst${status.index}" name="itrstField" value="${itrst.key}">
-											<label class="form-check-label" for="itrst${status.index}">${itrst.value}</label>
-										</div>
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									현재 관심있는 분야를 선택하고<br> 시니어에게 필요한 복지서비스를 추천받으세요
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p>
-									<label for="rcmdtnId">추천인 아이디</label>
-								</p></th>
-							<td><form:input class="form-control w-full" path="rcmdtnId" maxlength="15" /></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									추천인에게 500포인트가 제공됩니다.
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="rcmdtnMbrsId">추천 멤버스 아이디</label>
-								</p></th>
-							<td><form:input class="form-control w-full" path="rcmdtnMbrsId" maxlength="100" /></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									복지용구 사업소에서 안내 받은 아이디를 입력하세요.
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p>
-									<label for="telno">전화번호</label>
-								</p></th>
-							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" /></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									숫자만 입력해주세요.
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="join-item3-3">개인정보 유효기간</label>
-								</p></th>
-							<td>
-								<div class="form-check-group w-full">
-									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
-										<div class="form-check">
-											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
-											<label class="form-check-label" for="prvcVldPd${status.index}">${expr.value}</label>
-										</div>
-									</c:forEach>
-								</div>
-							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p>
@@ -371,29 +260,11 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<th scope="row"><p>
-									<label for="join-item3-5">프로필 사진</label>
-								</p></th>
-							<td>
-								<div class="relative mb-4 aspect-square overflow-hidden rounded-md" style="display: none;">
-									<input type="file" class="absolute top-0 left-0 w-full h-full opacity-0"> <img src="" alt="" class="w-full h-full object-cover" id="profImg">
-								</div>
-
-								<div class="form-upload">
-									<label for="uploadFile" class="form-upload-trigger">
-									 	파일을 선택해주세요.<br>
-									 	5MB 이하의 이미지만 첨부가 가능합니다.
-									 </label>
-									<input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);" multiple>
-								</div>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 
 				<div class="content-button mt-25">
-					<button type="submit" class="btn btn-primary btn-large flex-1">정보 입력 완료</button>
+					<button type="submit" class="btn btn-primary btn-large flex-1">가입하기</button>
 					<a href="membership/login" class="btn btn-outline-primary btn-large w-[37.5%]">취소</a>
 				</div>
 			</form:form>
@@ -432,17 +303,6 @@ $(function(){
 	// 한글 변환
 	$(".money").text(viewKorean("${mbrVO.recipterInfo.bnefBlce}"));
 
-	// 수급자 정보
-	$("input[name='recipterYn']").on("click",function(){
-		if($("#recipterYn0").is(":checked")){
-			$("#newInfo").click();
-			$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").hide();
-		}else{
-			$("#recipter").val("${mbrVO.mbrNm}");
-			$(".wrapNm, .wrapNo, .f_recipterCheck, #newInfo").show();
-		}
-	});
-
 	//체크 박스 값
 	$("#smsRcptnYn1,#emlRcptnYn1,#telRecptnYn1").on("click",function(){
 		!$(this).is(":checked") ? $(this).val("N") : $(this).val("Y");
@@ -470,18 +330,6 @@ $(function(){
 		$("#selfBndRt").val('');
 		$("#wrapInfo").hide();
 	});
-
-	//첨부파일 이미지 변경
-	$("#uploadFile").change(function(){
-    	setImageFromFile(this, "#profImg");
-    	$("#profImg").parent("div .rounded-md").css("display","");
-	});
-
-	if($("#recipterYn0").is(":checked")){
-		$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").hide();
-	}else{
-		$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").show();
-	}
 
 	// 수급자 일때 정보 체크
 	$.validator.addMethod("repChk", function(value, element) {
@@ -553,9 +401,6 @@ $(function(){
 				$("#sprtAmt").val(Number(json.infoMap.LMT_AMT));
 				$("#bnefBlce").val(Number(json.infoMap.REMN_AMT));
 
-
-
-
 			}else{
 				alert("조회된 데이터가 없습니다.");
 			}
@@ -565,28 +410,6 @@ $(function(){
 			console.log('error forward : ' + data);
 		});
 	});
-
-	// 추천인 아이디 검사
-	$("#rcmdtnId").on("focusout",function(){
-		$.ajax({
-			type : "post",
-			url  : "/membership/rcmdIdChk.json",
-			data : {
-				rcmdtnId : $("#rcmdtnId").val()
-			},
-			dataType : 'json'
-		})
-		.done(function(data) {
-			if(!data.result){
-				alert("등록된 추천인 아이디가 없습니다. 정확한 추천인 아이디를 입력해 주세요.");
-				$("#rcmdtnId").val('');
-			}
-		})
-		.fail(function(data, status, err) {
-			console.log(data);
-		});
-	});
-
 
 
 	// 동의 체크
