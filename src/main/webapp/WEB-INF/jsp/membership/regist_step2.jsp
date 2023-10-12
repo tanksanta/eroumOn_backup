@@ -163,67 +163,76 @@
 				</table>
 				</br>
 
-				<p class="mt-8 text-title2">수급자(어르신) 정보</p>
-				<table class="table-detail">
-					<colgroup>
-						<col class="w-22 xs:w-32">
-						<col>
-					</colgroup>
-					<tbody>
-						<tr class="top-border">
-							<td></td>
-							<td></td>
-						</tr>
-						<tr class="wrapRelation">
-							<th scope="row"><p>
-									<label for="recipter">수급자와의 관계</label>
-								</p></th>
-							<td>
-								<select name="relationSelect" id="relationSelect" class="form-control w-full">
-                                    <option value="">선택</option>
-                                    <c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
-                                    	<option value="${relation.key}">${relation.value}</option>	
-                                    </c:forEach>
-                                </select>
-							</td>
-						</tr>
-						<tr class="wrapNm">
-							<th scope="row"><p>
-									<label for="recipter">수급자 성명</label>
-								</p></th>
-							<td><!-- <input type="text" class="form-control w-full" id="recipter" name="recipter" maxlength="50" value="${mbrVO.mbrNm}"> -->
-								<input type="text" class="form-control w-full" id="recipter" name="testName" maxlength="50" value="${mbrVO.recipterInfo.testName}">
-							</td>
-						</tr>
-						<tr class="wrapNo">
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="rcperRcognNo">요양인정번호</label>
-								</p></th>
-							<td>
-								<div class="form-group w-full">
-									<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-									<input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									번호를 아시는 경우 입력해주세요.
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="content-button mt-4">
-					<button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">등록하기</button>
-					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">삭제</button>
+				<div class="text-title2-wrap mt-13">
+					<p class="text-title2">수급자(어르신) 정보</p>
 				</div>
-				</br>
+				<div class="table-detail-wrap">
+					<p class="text-gray5">수급자 입력 1</p>
+					<table class="table-detail">
+						<colgroup>
+							<col class="w-22 xs:w-32">
+							<col>
+						</colgroup>
+						<tbody>
+							<tr class="wrapRelation">
+								<th scope="row"><p>
+										<label for="recipter">수급자와의 관계</label>
+									</p></th>
+								<td>
+									<select name="relationSelect" id="relationSelect" class="form-control w-full">
+	                                    <option value="">선택</option>
+	                                    <c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+	                                    	<option value="${relation.key}">${relation.value}</option>	
+	                                    </c:forEach>
+	                                </select>
+								</td>
+							</tr>
+							<tr class="wrapNm">
+								<th scope="row"><p>
+										<label for="recipter">수급자 성명</label>
+									</p></th>
+								<td><!-- <input type="text" class="form-control w-full" id="recipter" name="recipter" maxlength="50" value="${mbrVO.mbrNm}"> -->
+									<input type="text" class="form-control w-full" id="recipter" name="testName" maxlength="50" value="${mbrVO.recipterInfo.testName}">
+								</td>
+							</tr>
+							<tr class="wrapNo">
+								<th scope="row"><p style="padding-left: 0;">
+										<label for="rcperRcognNo">요양인정번호</label>
+									</p></th>
+								<td>
+									<div class="flex flex-row gap-2.5 mb-1.5">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="yn" id="yes" checked>
+											<label class="form-check-label" for="yes">있음</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="yn" id="no">
+											<label class="form-check-label" for="no">없음</label>
+										</div>
+									</div>
+									<div class="form-group w-full">
+										<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+										<input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="content-button mt-2">
+						<!-- <button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">등록하기</button>
+						<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">삭제</button> -->
+						<button type="button" class="btn btn-primary large flex-1" name="" data-bs-toggle="modal" data-bs-target="#check-recipient-info">등록하기</button>
+					</div>
+				</div>
+				
+				<div class="content-button mt-2">
+					<button type="button" class="btn btn-outline-secondary large flex-1" id="">
+						<img src="/html/page/members/assets/images/ico-plus.svg" alt="추가하기" class="w-4.5">
+					</button>
+				</div>
 				
 
-				<p class="mt-17 text-title2">정보수신 동의</p>
+				<p class="mt-13 text-title2">정보수신 동의</p>
 				<table class="table-detail">
 					<colgroup>
 						<col class="w-29 xs:w-32">
@@ -280,6 +289,51 @@
 			</div>
 		</div>
 	</div>
+	
+	<!--등록하는 수급자 정보를 확인하세요-->
+	<div class="modal modal-default fade" id="check-recipient-info" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="text-title">등록하신 수급자 정보를 확인하세요</h2>
+					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="text-subtitle">
+						<i class="icon-alert"></i>
+						<p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+					</div>
+					<div class="modal-list-wrap">
+						<ul>
+							<li>
+								<span class="modal-list-label">수급자와의 관계</span>
+								<span class="modal-list-value">본인</span>
+							</li>
+							<li>
+								<span class="modal-list-label">수급자 성명</span>
+								<span class="modal-list-value">홍길동</span>
+							</li>
+							<!--modal B : 아래 내용없음-->
+							<li>
+								<span class="modal-list-label">요양인정번호</span>
+								<span class="modal-list-value">L1234567890</span>
+							</li>
+						</ul>
+					</div>
+					<!--modal B : 추가-->
+					<div class="text-subtitle">
+						<i class="icon-alert"></i>
+						<p>요양인정번호는 마이페이지에서 등록하실 수 있어요</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary w-full">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--// 등록하는 수급자 정보를 확인하세요-->
 </main>
 
 <script>

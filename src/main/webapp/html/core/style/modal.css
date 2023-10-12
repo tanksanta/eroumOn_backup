@@ -1,40 +1,99 @@
 @layer components {
-    .modal {
-        @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
-        & .modal-dialog {
-            @apply relative pointer-events-none;
-            &.modal-lg {
-                @apply max-w-[800px];
-            }
-            &.modal-xl {
-                @apply max-w-screen-lg;
-            }
-            &.modal-2xl {
-                @apply max-w-screen-xl;
-            }
-        }
-        & .modal-content {
-            @apply relative flex flex-col p-1.5 w-full max-h-[calc(100vh_-_3.5rem)] bg-white rounded-md shadow-none pointer-events-auto;
-        }
-        & .modal-header {
-            @apply flex items-center justify-between px-4 py-3 rounded bg-black1 text-xl tracking-tighter leading-snug font-bold text-white;
-            & .btn-close {
-                @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center bg-[length:0.9375em];
-                background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%23fff'/%3E%3C/svg%3E");
-            }
-        }
-        & .modal-body {
-            @apply scrollbars p-5;
-            overflow: overlay;
-        }
-        & .modal-footer {
-            @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5;
-        }
+  .modal {
+    @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
+    & .modal-dialog {
+      @apply relative pointer-events-none;
+      &.modal-lg {
+        @apply max-w-[800px];
+      }
+      &.modal-xl {
+        @apply max-w-screen-lg;
+      }
+      &.modal-2xl {
+        @apply max-w-screen-xl;
+      }
     }
-    .modal-backdrop {
-        @apply bg-gray3/80 backdrop-blur-md;
-        &.show {
-            @apply opacity-100;
-        }
+    & .modal-content {
+      @apply relative flex flex-col w-full  bg-white rounded-md shadow-none pointer-events-auto;
     }
+    & .modal-header {
+      @apply flex items-center justify-between px-4 py-3 rounded bg-black1 text-xl tracking-tighter leading-snug font-bold text-white;
+      & .btn-close {
+        @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center bg-[length:0.9375em];
+        background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%23fff'/%3E%3C/svg%3E");
+      }
+    }
+    & .modal-body {
+      @apply scrollbars p-5;
+      overflow: overlay;
+    }
+    & .modal-footer {
+      @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5;
+    }
+
+    &.modal-default {
+      @apply lg:w-auto md:w-3/4;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+
+      & .modal-content {
+        @apply relative flex flex-col w-full bg-white rounded-lg shadow-none pointer-events-auto p-7;
+        &:before {
+          content: "";
+          right: 0;
+        }
+      }
+      & .modal-header {
+        @apply justify-between mt-2 p-0;
+        & .btn-close {
+          @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
+        }
+        & .text-title {
+          @apply text-lg font-medium text-left;
+        }
+      }
+      & .modal-body {
+        @apply flex flex-col justify-start py-8 px-0 gap-2.5;
+        overflow: inherit;
+        min-height: auto;
+        & .text-subtitle {
+          @apply flex flex-row items-start gap-2 text-sm tracking-tighter;
+        }
+        & .icon-alert {
+          @apply w-5 h-5 bg-no-repeat bg-center bg-[length:1rem];
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
+        }
+        & .modal-list-wrap {
+          @apply py-5 px-8 md:-mx-7;
+          background: linear-gradient(180deg, #faf2d3 0%, #feebeb 100%);
+          & li {
+            @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
+            &:first-child {
+              @apply pt-0;
+            }
+            &:last-child {
+              @apply border-0;
+            }
+            & .modal-list-label {
+              @apply text-gray6 w-2/5;
+            }
+            & .modal-list-value {
+              @apply text-black1 font-medium text-lg;
+            }
+          }
+        }
+      }
+      & .modal-footer {
+        @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5;
+      }
+    }
+  }
+  .modal-backdrop {
+    @apply bg-gray3/80 backdrop-blur-md right-0 bottom-0;
+    &.show {
+      @apply opacity-100;
+    }
+  }
 }
