@@ -172,65 +172,47 @@ public class GdsController extends CommonAbstractController {
 			, HttpSession session
 			, Model model) throws Exception {
 
-		int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
-		int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
-		HashSet<String> ctgryNos = new HashSet<>();
-
-		List<GdsCtgryVO> gdsCtgryList = (List<GdsCtgryVO>) request.getAttribute("_gdsCtgryList");
-
-		for(int i=1; i<4; i++) {
-			if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"+i))) {
-				if(EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i)) > 0) {
-					upCtgryNo = EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i));
-				}
-			}
-		}
-		GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, upCtgryNo);
-
-		if(currentCategory.getChildList().size() > 0) {
-			for(GdsCtgryVO gdsCtgryVO : currentCategory.getChildList()) {
-				for(GdsCtgryVO gdsCtgryChildVO : gdsCtgryVO.getChildList()) {
-						for(GdsCtgryVO gdsCtgryChild2VO : gdsCtgryChildVO.getChildList()) {
-							ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChild2VO.getCtgryNo()));
+				int curPage = EgovStringUtil.string2integer((String) reqMap.get("curPage"), 1);
+				int cntPerPage = EgovStringUtil.string2integer((String) reqMap.get("cntPerPage"), 12);
+		
+				for(int i=1; i<4; i++) {
+					if(EgovStringUtil.isNotEmpty((String)reqMap.get("ctgryNo"+i))) {
+						if(EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i)) > 0) {
+							upCtgryNo = EgovStringUtil.string2integer((String)reqMap.get("ctgryNo"+i));
 						}
-						ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryChildVO.getCtgryNo()));
+					}
 				}
-				ctgryNos.add(EgovStringUtil.integer2string(gdsCtgryVO.getCtgryNo()));
-			}
-		}else{
-			ctgryNos.add(EgovStringUtil.integer2string(upCtgryNo));
-		}
-
-
-		String[] srchGdsTys = {};
-		if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchGdsTys"))) {
-			srchGdsTys = EgovStringUtil.getStringArray((String) reqMap.get("srchGdsTys"), "|");
-		}
-
-		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
-		listVO.setParam("srchUseYn", "Y"); // 사용중
-		listVO.setParam("srchDspyYn", "Y"); // 전시중
-		listVO.setParam("srchCtgryNos", ArrayUtil.stringToArray(ctgryNos.toString().replace("[", "").replace("]", "")));
-		listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
-		listVO.setParam("srchTempYn", "N"); // 임시저장 여부
-
-		if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
-			listVO.setParam("uniqueId", mbrSession.getUniqueId());
-		}
-
-		listVO = gdsService.gdsListVO(listVO);
-
-		for(Object o : listVO.getListObject()) { // 상품태그 처리
-			GdsVO temp = (GdsVO) o;
-			if(EgovStringUtil.isNotEmpty(temp.getGdsTagVal())) {
-				temp.setGdsTag(ArrayUtil.stringToArray(temp.getGdsTagVal()));
-			}
-		}
-
-		model.addAttribute("listVO", listVO);
-		model.addAttribute("upCtgryNo", upCtgryNo);
-
-		return "/market/gds/include/srch_list";
+		
+				String[] srchGdsTys = {};
+				if(EgovStringUtil.isNotEmpty((String) reqMap.get("srchGdsTys"))) {
+					srchGdsTys = EgovStringUtil.getStringArray((String) reqMap.get("srchGdsTys"), "|");
+				}
+		
+				CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
+				listVO.setParam("srchUseYn", "Y"); // 사용중
+				listVO.setParam("srchDspyYn", "Y"); // 전시중
+		//		listVO.setParam("srchCtgryNos", ArrayUtil.stringToArray(ctgryNos.toString().replace("[", "").replace("]", "")));
+				listVO.setParam("srchGdsTys", srchGdsTys); //gds_ty
+				listVO.setParam("srchTempYn", "N"); // 임시저장 여부
+				listVO.setParam("srchRecsCtgryNo", upCtgryNo); // 카테고리 하위 재귀 호출
+		
+				if(mbrSession.isLoginCheck()){ // 로그인 > 위시리스트 여부
+					listVO.setParam("uniqueId", mbrSession.getUniqueId());
+				}
+		
+				listVO = gdsService.gdsListVO(listVO);
+		
+				for(Object o : listVO.getListObject()) { // 상품태그 처리
+					GdsVO temp = (GdsVO) o;
+					if(EgovStringUtil.isNotEmpty(temp.getGdsTagVal())) {
+						temp.setGdsTag(ArrayUtil.stringToArray(temp.getGdsTagVal()));
+					}
+				}
+		
+				model.addAttribute("listVO", listVO);
+				model.addAttribute("upCtgryNo", upCtgryNo);
+		
+				return "/market/gds/include/srch_list";
 	}
 
 	@RequestMapping(value = "srchCtrgy")
