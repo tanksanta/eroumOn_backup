@@ -1,5 +1,6 @@
 package icube.main;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -191,5 +192,17 @@ public class MainController extends CommonAbstractController  {
 
 		return mainService.srchInst(isAllow, reqMap, request);
 	}
+	
+	/**
+	 * 로그인 유지
+	 * 스크립트에서 주기적으로 호출을 해 준다
+	 */
+	@ResponseBody
+	@RequestMapping(value="heartbeat.json")
+	public Map<String, Object> heartBeat(
+						@RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request) throws Exception {
 
+		return new HashMap<String, Object>();
+	}
 }

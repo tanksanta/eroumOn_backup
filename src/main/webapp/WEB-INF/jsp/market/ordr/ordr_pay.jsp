@@ -436,6 +436,19 @@
 
 
     <script>
+
+	function f_heartbeat() {
+		console.log(new Date)
+		$.ajax({
+			type : "post",
+			url  : "${_mainPath}/heartbeat.json",
+			dataType : 'json'
+		}).done(function(json) {
+		});
+	}
+		
+	let timerId = setTimeout(f_heartbeat, 10 * 60 * 1000);
+		
     var ordrQy = [];
 
     function f_calStlmAmt(){
