@@ -1034,14 +1034,14 @@ public class CodeMap{
 	public static final HashMap<String, String> MBR_RELATION_CD = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -5623502462808019347L;
 		{
-			put("001", "본인");
-			put("002", "아버지");
-			put("003", "어머니");
-			put("004", "시아버지");
-			put("005", "시어머니");
-			put("006", "배우자");
-			put("007", "형제자매");
-			put("100", "기타");
+			put("001", "배우자");
+			put("002", "자녀");
+			put("003", "부모");
+			put("004", "형제");
+			put("005", "자손");
+			put("006", "자부");
+			put("007", "본인");
+			put("100", "기타(친척등)");
 		}
 	};
 }
