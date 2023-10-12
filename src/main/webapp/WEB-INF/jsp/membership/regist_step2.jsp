@@ -167,7 +167,11 @@
 					<p class="text-title2">수급자(어르신) 정보</p>
 				</div>
 				<div class="table-detail-wrap">
-					<p class="text-gray5">수급자 입력 1</p>
+					<div class="flex flex-row justify-between items-center">
+						<p class="text-gray5">수급자 입력 <span>1</span></p>
+						<!--2개 이상일 경우 닫기버튼 노출-->
+						<i class="icon-close">닫기</i>
+					</div>
 					<table class="table-detail">
 						<colgroup>
 							<col class="w-22 xs:w-32">
@@ -180,11 +184,11 @@
 									</p></th>
 								<td>
 									<select name="relationSelect" id="relationSelect" class="form-control w-full">
-	                                    <option value="">선택</option>
-	                                    <c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
-	                                    	<option value="${relation.key}">${relation.value}</option>	
-	                                    </c:forEach>
-	                                </select>
+											<option value="">선택</option>
+											<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+												<option value="${relation.key}">${relation.value}</option>	
+											</c:forEach>
+									</select>
 								</td>
 							</tr>
 							<tr class="wrapNm">
@@ -304,8 +308,8 @@
 						<i class="icon-alert"></i>
 						<p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
 					</div>
-					<div class="modal-list-wrap">
-						<ul>
+					<div class="modal-bg-wrap">
+						<ul class="modal-list-box">
 							<li>
 								<span class="modal-list-label">수급자와의 관계</span>
 								<span class="modal-list-value">본인</span>

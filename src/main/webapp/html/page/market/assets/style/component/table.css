@@ -7,11 +7,9 @@
       @apply p-0 border-0 h-5;
     }
     & th {
-      @apply text-[0.8125rem] font-bold tracking-tight
-                   md:text-sm;
+      @apply text-[0.8125rem] font-bold tracking-tight md:text-sm;
       & p {
-        @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md
-                       md:pt-5 md:px-3 md:pb-2.5;
+        @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md md:pt-5 md:px-3 md:pb-2.5;
       }
     }
     & td {
