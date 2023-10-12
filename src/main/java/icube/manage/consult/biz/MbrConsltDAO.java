@@ -50,4 +50,8 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 	public MbrConsltVO selectLastMbrConsltForCreate(Map<String, Object> paramMap) throws Exception {
 		return selectOne("conslt.selectLastMbrConsltForCreate",paramMap);
 	}
+	
+	public MbrConsltVO selectConsltInProcess(Map<String, Object> paramMap) throws Exception {
+		return selectOne("conslt.selectConsltInProcess",paramMap);
+	}
 }

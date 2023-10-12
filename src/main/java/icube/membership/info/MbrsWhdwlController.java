@@ -20,6 +20,8 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.values.CodeMap;
+import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
@@ -50,6 +52,9 @@ public class MbrsWhdwlController extends CommonAbstractController{
 
 	@Resource(name = "couponLstService")
 	private CouponLstService couponLstService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
@@ -133,6 +138,14 @@ public class MbrsWhdwlController extends CommonAbstractController{
 
 		JavaScript javaScript = new JavaScript();
 
+		//탈퇴전에 1:1 상담중인지 검사
+		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
+		if (mbrConslt != null) {
+			javaScript.setMessage("진행 중인 상담이 있습니다. 상담 완료 후 탈퇴해주세요.");
+			javaScript.setMethod("window.history.back()");
+			return new JavaScriptView(javaScript);
+		}
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("whdwlResn", resnCn);

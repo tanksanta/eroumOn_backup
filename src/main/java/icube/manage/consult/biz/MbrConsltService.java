@@ -92,6 +92,12 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltDAO.selectLastMbrConsltForCreate(paramMap);
 	}
 	
+	public MbrConsltVO selectConsltInProcess(String uniqueId) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("srchUniqueId", uniqueId);
+		return mbrConsltDAO.selectConsltInProcess(param);
+	}
+	
 	public Integer insertMbrConsltChgHist(MbrConsltChgHistVO mbrConsltChgHistVO) throws Exception {
 		return mbrConsltChgHistDAO.insertMbrConsltChgHist(mbrConsltChgHistVO);
 	}
