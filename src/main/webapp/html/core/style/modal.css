@@ -32,7 +32,8 @@
     }
 
     &.modal-default {
-      @apply w-full md:w-auto;
+      @apply w-full md:w-auto md:w-auto;
+      /* @apply w-[calc(100%_-_2rem)] md:w-auto md:w-auto h-auto rounded-3xl; */
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
