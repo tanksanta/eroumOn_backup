@@ -516,6 +516,10 @@ public class MbrsRegistController extends CommonAbstractController{
 	        srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
 	        srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
 	        srchMbr.setSnsRegistDt(new Date());
+	        
+	        //간편로그인은 ID를 새로 생성해준다.
+	        String newId = mbrService.generateMbrId(srchMbr.getJoinTy());
+	        srchMbr.setMbrId(newId);
 			mbrService.updateMbr(srchMbr);
 
 			// 모든 항목 동의처리 로그
