@@ -28,6 +28,7 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailFormService;
 import icube.common.util.Base64Util;
 import icube.common.util.DateUtil;
+import icube.common.util.LoginUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
 import icube.manage.gds.gds.biz.GdsService;
@@ -51,6 +52,7 @@ import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
@@ -103,6 +105,9 @@ public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
+	
+	@Value("#{props['Globals.Membership.path']}")
+	private String membershipPath;
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
@@ -408,6 +413,7 @@ public class OrdrController extends CommonAbstractController{
 			, @RequestParam Map<String, Object> reqMap
 
 			, HttpServletRequest request
+			, RedirectAttributes redirectAttributes
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model
@@ -415,7 +421,9 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
+		    
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// STEP.2 주문코드 생성 (O 2 1014 1041 00 000)
@@ -516,6 +524,7 @@ public class OrdrController extends CommonAbstractController{
 			, @RequestParam(value = "cartTy", required = true) String cartTy
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
+			, RedirectAttributes redirectAttributes
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model
@@ -523,7 +532,9 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
+		    
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// STEP.2 장바구니 호출
@@ -644,13 +655,16 @@ public class OrdrController extends CommonAbstractController{
 			, @RequestParam(value = "ordrPc", required = true) String ordrPc
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
+			, RedirectAttributes redirectAttributes
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model) throws Exception {
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
+		    
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// doubleSubmit check

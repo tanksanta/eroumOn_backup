@@ -114,6 +114,22 @@
 						'name': 'returnUrl',
 						'value': '${returnUrl}',
 						'type': 'hidden'
+					})).append($('<input>',{
+						'name': 'loginRedirectUrl',
+						'value': '${loginRedirectUrl}',
+						'type': 'hidden'
+					})).append($('<input>',{
+						'name': 'loginRedirectMethod',
+						'value': '${loginRedirectMethod}',
+						'type': 'hidden'
+					})).append($('<input>',{
+						'name': 'loginRedirectParam',
+						'value': '${loginRedirectParam}',
+						'type': 'hidden'
+					})).append($('<input>',{
+						'name': 'loginRedirectDoubleSubmit',
+						'value': '${loginRedirectDoubleSubmit}',
+						'type': 'hidden'
 					})).appendTo('body').submit();
 					return false;
 			    }
