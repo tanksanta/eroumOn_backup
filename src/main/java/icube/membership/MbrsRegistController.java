@@ -37,6 +37,7 @@ import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
@@ -146,6 +147,14 @@ public class MbrsRegistController extends CommonAbstractController{
 			return  "redirect:/" + plannerPath + "/index";
 		}
 
+		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+		Date now = new Date();
+		mbrAgreementVO.setTermsDt(now);
+		mbrAgreementVO.setPrivacyDt(now);
+		mbrAgreementVO.setProvisionDt(now);
+		mbrAgreementVO.setThirdPartiesDt(now);
+		model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+		
 		return "/membership/regist_step1";
 	}
 
@@ -155,6 +164,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	@RequestMapping(value = "registStep2")
 	public String registStep2(
 			MbrVO mbrVO
+			, MbrAgreementVO mbrAgreementVO
 			, @RequestParam(value="mbrNm", required=false) String mbrNm
 			, @RequestParam(value="mblTelno", required=false) String mblTelno
 			, @RequestParam(value="gender", required=false) String gender
@@ -231,6 +241,11 @@ public class MbrsRegistController extends CommonAbstractController{
 
 
 		mbrSession.setParms(noMbrVO, false);
+		
+		Date now = new Date();
+		mbrVO.setSmsRcptnDt(now);
+		mbrVO.setEmlRcptnDt(now);
+		mbrVO.setTelRecptnDt(now);
 
         session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 		session.setMaxInactiveInterval(60*5);
@@ -254,27 +269,13 @@ public class MbrsRegistController extends CommonAbstractController{
 	@RequestMapping(value = "action")
 	public View action(
 			MbrVO mbrVO
-			, @RequestParam (value="rcperRcognNo", required=false) String rcperRcognNo
-			, @RequestParam (value="rcognGrad", required=false) String rcognGrad
-			, @RequestParam (value="selfBndRt", required=false) String selfBndRt
-			, @RequestParam (value="vldBgngYmd", required=false) String vldBgngYmd
-			, @RequestParam (value="vldEndYmd", required=false) String vldEndYmd
-			, @RequestParam (value="aplcnBgngYmd", required=false) String aplcnBgngYmd
-			, @RequestParam (value="aplcnEndYmd", required=false) String aplcnEndYmd
-			, @RequestParam (value="sprtAmt", required=false) String sprtAmt
-			, @RequestParam (value="bnefBlce", required=false) String bnefBlce
-			, @RequestParam (value="itrstField", required=false) String[] itrstFeild
-			, @RequestParam (value="testName", required=false) String testName
+			, MbrAgreementVO mbrAgreementVO
 			, MultipartHttpServletRequest multiReq
 			, @RequestParam Map <String, Object>reqMap
 			, HttpSession session
 			, HttpServletRequest request) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-
-		// 관심 분야
-		String field = ArrayUtil.arrayToString(itrstFeild, ",");
-		mbrVO.setItrstField(field);
 
 		//가입 매체 구분
 		mbrVO.setJoinCours(WebUtil.getDevice(request));
@@ -309,8 +310,8 @@ public class MbrsRegistController extends CommonAbstractController{
 			
 			// 모든 항목 동의처리 로그
 			String uniqueId = mbrVO.getUniqueId();
-			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
-			mbrService.insertAllAgreement(srchMbr.getUniqueId());
+			mbrAgreementVO.setMbrUniqueId(uniqueId);
+			mbrService.insertMbrAgreement(mbrAgreementVO);
 
 			// 기본 배송지 등록
 			DlvyVO dlvyVO = new DlvyVO();
@@ -462,7 +463,18 @@ public class MbrsRegistController extends CommonAbstractController{
 			, HttpSession session
 			, Model model)throws Exception {
 		MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+		Date now = new Date();
+		srchMbr.setSmsRcptnDt(now);
+		srchMbr.setEmlRcptnDt(now);
+		srchMbr.setTelRecptnDt(now);
 		model.addAttribute("mbrVO", srchMbr);
+		
+		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+		mbrAgreementVO.setTermsDt(now);
+		mbrAgreementVO.setPrivacyDt(now);
+		mbrAgreementVO.setProvisionDt(now);
+		mbrAgreementVO.setThirdPartiesDt(now);
+		model.addAttribute("mbrAgreementVO", mbrAgreementVO);
 		
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		return "/membership/sns_regist";
@@ -476,6 +488,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	@RequestMapping(value = "/sns/action")
 	public View snsAction(
 			MbrVO mbrVO
+			, MbrAgreementVO mbrAgreementVO
 			, @RequestParam(value="receiptId", required=true) String receiptId
 			, @RequestParam(value="uniqueId", required=true) String uniqueId
 			, HttpSession session
@@ -513,8 +526,11 @@ public class MbrsRegistController extends CommonAbstractController{
 	        
 	        srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
 	        srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
+	        srchMbr.setSmsRcptnDt(mbrVO.getSmsRcptnDt());
 	        srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
+	        srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
 	        srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+	        srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
 	        srchMbr.setSnsRegistDt(new Date());
 	        
 	        //간편로그인은 ID를 새로 생성해준다.
@@ -523,7 +539,8 @@ public class MbrsRegistController extends CommonAbstractController{
 			mbrService.updateMbr(srchMbr);
 
 			// 모든 항목 동의처리 로그
-			mbrService.insertAllAgreement(srchMbr.getUniqueId());
+			mbrAgreementVO.setMbrUniqueId(srchMbr.getUniqueId());
+			mbrService.insertMbrAgreement(mbrAgreementVO);
 			
 			// 기본 배송지 등록
 			DlvyVO dlvyVO = new DlvyVO();

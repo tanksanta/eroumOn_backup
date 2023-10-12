@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+				<input type="hidden" id="termsDt" name="termsDt" value="<fmt:formatDate value="${mbrAgreementVO.termsDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="privacyDt" name="privacyDt" value="<fmt:formatDate value="${mbrAgreementVO.privacyDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="provisionDt" name="provisionDt" value="<fmt:formatDate value="${mbrAgreementVO.provisionDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="thirdPartiesDt" name="thirdPartiesDt" value="<fmt:formatDate value="${mbrAgreementVO.thirdPartiesDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+
 				<div class="content-accordion" id="accordionAgree">
 					<div class="accordion-item">
 						<div class="accordion-header">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="firstChk" name="agree">
-										<label class="form-check-label" for="firstChk"> <span class="text-danger">필수</span> 이용약관에 동의합니다
+								<input class="form-check-input agree-check" type="checkbox" id="termsYn" name="termsYn" value="Y">
+										<label class="form-check-label" for="termsYn"> <span class="text-danger">필수</span> 이용약관에 동의합니다
 								</label>
 							</div>
 							<button class="accordion-button" type="button" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">펼치기/접기</button>
@@ -470,8 +475,8 @@
 					<div class="accordion-item">
 						<div class="accordion-header">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="secondChk" name="agree">
-								<label class="form-check-label" for="secondChk"> <span class="text-danger">필수</span> 개인정보 처리방침에 동의합니다
+								<input class="form-check-input agree-check" type="checkbox" id="privacyYn" name="privacyYn" value="Y">
+								<label class="form-check-label" for="privacyYn"> <span class="text-danger">필수</span> 개인정보 처리방침에 동의합니다
 								</label>
 							</div>
 							<button class="accordion-button" type="button" data-bs-target="#collapse-agree2" data-bs-toggle="collapse" aria-expanded="false">펼치기/접기</button>
@@ -703,8 +708,8 @@
 					<div class="accordion-item">
 						<div class="accordion-header">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="thirdChk" name="agree">
-								<label class="form-check-label" for="thirdChk"> <span class="text-danger">필수</span> 개인정보 제공동의에 동의합니다
+								<input class="form-check-input agree-check" type="checkbox" id="provisionYn" name="provisionYn" value="Y">
+								<label class="form-check-label" for="provisionYn"> <span class="text-danger">필수</span> 개인정보 제공동의에 동의합니다
 								</label>
 							</div>
 							<button class="accordion-button" type="button" data-bs-target="#collapse-agree3" data-bs-toggle="collapse" aria-expanded="false">펼치기/접기</button>
@@ -817,8 +822,8 @@
 					<div class="accordion-item">
 						<div class="accordion-header">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="fourthChk" name="agree">
-								<label class="form-check-label" for="fourthChk"> <span class="text-danger">필수</span> 개인정보 제3자 제공동의에 동의합니다
+								<input class="form-check-input agree-check" type="checkbox" id="thirdPartiesYn" name="thirdPartiesYn" value="Y">
+								<label class="form-check-label" for="thirdPartiesYn"> <span class="text-danger">필수</span> 개인정보 제3자 제공동의에 동의합니다
 								</label>
 							</div>
 							<button class="accordion-button" type="button" data-bs-target="#collapse-agree4" data-bs-toggle="collapse" aria-expanded="false">펼치기/접기</button>
@@ -854,3 +859,50 @@
 						</div>
 					</div>
 				</div>
+				
+				<script>
+					$(function() {
+						function dateFormat(date) {
+					        let month = date.getMonth() + 1;
+					        let day = date.getDate();
+					        let hour = date.getHours();
+					        let minute = date.getMinutes();
+					        let second = date.getSeconds();
+
+					        month = month >= 10 ? month : '0' + month;
+					        day = day >= 10 ? day : '0' + day;
+					        hour = hour >= 10 ? hour : '0' + hour;
+					        minute = minute >= 10 ? minute : '0' + minute;
+					        second = second >= 10 ? second : '0' + second;
+
+					        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+						}
+						
+						// 전체 약관 동의
+						$("#check-all").on("click",function(){
+							if(!$("#check-all").is(":checked")){
+								$("#termsYn, #privacyYn, #provisionYn, #thirdPartiesYn").prop("checked",false);
+							}else{
+								$("#termsYn, #privacyYn, #provisionYn, #thirdPartiesYn").prop("checked",true);
+							}
+							
+							$('#termsDt').attr('value', dateFormat(new Date()));
+							$('#privacyDt').attr('value', dateFormat(new Date()));
+							$('#provisionDt').attr('value', dateFormat(new Date()));
+							$('#thirdPartiesDt').attr('value', dateFormat(new Date()));
+						});
+						
+						$(".agree-check").on("click",function(){
+							if(!$(this).is(":checked")){
+								$("#check-all").prop("checked",false);
+							}else{
+								if($(".agree-check:checked").length == 4){
+									$("#check-all").prop("checked",true);
+								}
+							}
+							
+							var inputName = $(this).attr('name');
+							$('#' + inputName.replace('Yn', '') + 'Dt').attr('value', dateFormat(new Date()));
+						});
+					});
+				</script>

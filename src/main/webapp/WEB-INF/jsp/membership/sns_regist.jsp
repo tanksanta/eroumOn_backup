@@ -85,6 +85,10 @@
 									<label for="join-item3-4">정보수신</label>
 								</p></th>
 							<td>
+								<input type="hidden" id="smsRcptnDt" name="smsRcptnDt" value="<fmt:formatDate value="${mbrVO.smsRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="emlRcptnDt" name="emlRcptnDt" value="<fmt:formatDate value="${mbrVO.emlRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="telRecptnDt" name="telRecptnDt" value="<fmt:formatDate value="${mbrVO.telRecptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
@@ -134,7 +138,7 @@
 
 <script>
 
-async function f_cert(){	
+async function f_cert(){
 	try {
 	    const response = await Bootpay.requestAuthentication({
 	        application_id: "${_bootpayScriptKey}",
@@ -163,11 +167,27 @@ async function f_cert(){
 }
 
 $(function(){
+	function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+	}
+	
 	$("#mbrBtn").click();
 
 	//약관 동의 확인
 	$(".selfBtn").on("click",function(){
-		if(!$("#firstChk").is(":checked") || !$("#secondChk").is(":checked") || !$("#thirdChk").is(":checked") || !$("#fourthChk").is(":checked")){
+		if(!$("#termsYn").is(":checked") || !$("#privacyYn").is(":checked") || !$("#provisionYn").is(":checked") || !$("#thirdPartiesYn").is(":checked")){
 			alert("필수 약관에 동의 해주세요.");
 			return false;
 		} else if(!$('#zip').val() || !$('#addr').val() || !$('#daddr').val()) {
@@ -178,18 +198,13 @@ $(function(){
 		}
 	});
 
-	// 전체 약관 동의
-	$("#check-all").on("click",function(){
-		if(!$("#check-all").is(":checked")){
-			$("#firstChk, #secondChk, #thirdChk, #fourthChk").prop("checked",false);
-		}else{
-			$("#firstChk, #secondChk, #thirdChk, #fourthChk").prop("checked",true);
-		}
-	});
-	
 	//전체 수신
 	$("#allChk").on("click",function(){
 		$("#allChk").is(":checked") ? $(".agree").prop("checked",true) : $(".agree").prop("checked",false)
+				
+		$('#smsRcptnDt').attr('value', dateFormat(new Date()));
+		$('#emlRcptnDt').attr('value', dateFormat(new Date()));
+		$('#telRecptnDt').attr('value', dateFormat(new Date()));
 	});
 
 	$(".agree").on("click",function(){
@@ -198,16 +213,9 @@ $(function(){
 		}else{
 			$("#allChk").prop("checked",false);
 		}
-	});
-	
-	$("input[name='agree']").on("click",function(){
-		if(!$(this).is(":checked")){
-			$("#check-all").prop("checked",false);
-		}else{
-			if($("input[name='agree']:checked").length == 4){
-				$("#check-all").prop("checked",true);
-			}
-		}
+		
+		var inputName = $(this).attr('name');
+		$('#' + inputName.replace('Yn', '') + 'Dt').attr('value', dateFormat(new Date()));
 	});
 });
 </script>

@@ -367,14 +367,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return mbrDAO.updateMbrAddr(paramMap);
 	}
 
-	public void insertAllAgreement(String mbrUniqueId) throws Exception {
-		//회원의 모든 동의항목을 동의한것으로 저장
-		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
-		mbrAgreementVO.setMbrUniqueId(mbrUniqueId);
-		mbrAgreementVO.setTermsYn("Y");
-		mbrAgreementVO.setPrivacyYn("Y");
-		mbrAgreementVO.setProvisionYn("Y");
-		mbrAgreementVO.setThirdPartiesYn("Y");
+	public void insertMbrAgreement(MbrAgreementVO mbrAgreementVO) throws Exception {
 		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
 	}
 	

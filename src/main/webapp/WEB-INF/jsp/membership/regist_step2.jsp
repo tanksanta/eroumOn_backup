@@ -20,14 +20,14 @@
 
 			<form:form action="/membership/action" class="member-join-content" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data">
 				<form:hidden path="crud" />
-				<input type="hidden" id="selfBndRt" name="selfBndRt" value="" />
-				<input type="hidden" id="vldBgngYmd" name="vldBgngYmd" value="" />
-				<input type="hidden" id="vldEndYmd" name="vldEndYmd" value="" />
-				<input type="hidden" id="aplcnBgngYmd" name="aplcnBgngYmd" value="" />
-				<input type="hidden" id="aplcnEndYmd" name="aplcnEndYmd" value="" />
-				<input type="hidden" id="sprtAmt" name="sprtAmt" value="" />
-				<input type="hidden" id="bnefBlce" name="bnefBlce" value="" />
-				<input type="hidden" id="rcognGrad" name="rcognGrad" value="" />
+				<input type="hidden" id="termsYn" name="termsYn" value="${mbrAgreementVO.termsYn}" />
+				<input type="hidden" id="termsDt" name="termsDt" value="<fmt:formatDate value="${mbrAgreementVO.termsDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="privacyYn" name="privacyYn" value="${mbrAgreementVO.privacyYn}" />
+				<input type="hidden" id="privacyDt" name="privacyDt" value="<fmt:formatDate value="${mbrAgreementVO.privacyDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="provisionYn" name="provisionYn" value="${mbrAgreementVO.provisionYn}" />
+				<input type="hidden" id="provisionDt" name="provisionDt" value="<fmt:formatDate value="${mbrAgreementVO.provisionDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+				<input type="hidden" id="thirdPartiesYn" name="thirdPartiesYn" value="${mbrAgreementVO.thirdPartiesYn}" />
+				<input type="hidden" id="thirdPartiesDt" name="thirdPartiesDt" value="<fmt:formatDate value="${mbrAgreementVO.thirdPartiesDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
 				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 
 				<double-submit:preventer tokenKey="preventTokenKey" />
@@ -239,6 +239,10 @@
 									<label for="join-item3-4">정보수신</label>
 								</p></th>
 							<td>
+								<input type="hidden" id="smsRcptnDt" name="smsRcptnDt" value="<fmt:formatDate value="${mbrVO.smsRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="emlRcptnDt" name="emlRcptnDt" value="<fmt:formatDate value="${mbrVO.emlRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="telRecptnDt" name="telRecptnDt" value="<fmt:formatDate value="${mbrVO.telRecptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
@@ -299,6 +303,22 @@ $(function(){
 	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	const telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	const rcperChk = /^([0-9]{1}-[0-9]{5}-[0-9]{5})$/;
+	
+	function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+	}
 
 	// 한글 변환
 	$(".money").text(viewKorean("${mbrVO.recipterInfo.bnefBlce}"));
@@ -311,6 +331,10 @@ $(function(){
 	//전체 수신
 	$("#allChk").on("click",function(){
 		$("#allChk").is(":checked") ? $(".agree").prop("checked",true) : $(".agree").prop("checked",false)
+				
+		$('#smsRcptnDt').attr('value', dateFormat(new Date()));
+		$('#emlRcptnDt').attr('value', dateFormat(new Date()));
+		$('#telRecptnDt').attr('value', dateFormat(new Date()));
 	});
 
 	$(".agree").on("click",function(){
@@ -319,6 +343,9 @@ $(function(){
 		}else{
 			$("#allChk").prop("checked",false);
 		}
+		
+		var inputName = $(this).attr('name');
+		$('#' + inputName.replace('Yn', '') + 'Dt').attr('value', dateFormat(new Date()));
 	});
 
 	//초기화

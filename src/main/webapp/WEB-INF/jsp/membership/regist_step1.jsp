@@ -94,30 +94,11 @@ $(function(){
 
 	//약관 동의 확인
 	$(".selfBtn").on("click",function(){
-		if(!$("#firstChk").is(":checked") || !$("#secondChk").is(":checked") || !$("#thirdChk").is(":checked") || !$("#fourthChk").is(":checked")){
+		if(!$("#termsYn").is(":checked") || !$("#privacyYn").is(":checked") || !$("#provisionYn").is(":checked") || !$("#thirdPartiesYn").is(":checked")){
 			alert("필수 약관에 동의 해주세요.");
 			return false;
 		}else{
 			f_cert();
-		}
-	});
-
-	// 전체 약관 동의
-	$("#check-all").on("click",function(){
-		if(!$("#check-all").is(":checked")){
-			$("#firstChk, #secondChk, #thirdChk, #fourthChk").prop("checked",false);
-		}else{
-			$("#firstChk, #secondChk, #thirdChk, #fourthChk").prop("checked",true);
-		}
-	});
-
-	$("input[name='agree']").on("click",function(){
-		if(!$(this).is(":checked")){
-			$("#check-all").prop("checked",false);
-		}else{
-			if($("input[name='agree']:checked").length == 4){
-				$("#check-all").prop("checked",true);
-			}
 		}
 	});
 });

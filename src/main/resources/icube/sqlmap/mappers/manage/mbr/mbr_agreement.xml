@@ -6,16 +6,24 @@
 		INSERT INTO MBR_AGREEMENT(
 			MBR_UNIQUE_ID
 			, TERMS_YN
+			, TERMS_DT
 			, PRIVACY_YN
+			, PRIVACY_DT
 			, PROVISION_YN
+			, PROVISION_DT
 			, THIRD_PARTIES_YN
+			, THIRD_PARTIES_DT
 			, REG_DT
 		)VALUES(
 			#{mbrUniqueId}
 			, #{termsYn}
+			, #{termsDt}
 			, #{privacyYn}
+			, #{privacyDt}
 			, #{provisionYn}
+			, #{provisionDt}
 			, #{thirdPartiesYn}
+			, #{thirdPartiesDt}
 			, SYSDATE()
 		)
 	</insert>
