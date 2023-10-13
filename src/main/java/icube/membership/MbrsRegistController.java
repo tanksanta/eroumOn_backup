@@ -20,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
@@ -30,7 +29,6 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
-import icube.common.util.ArrayUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
@@ -40,15 +38,15 @@ import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.coupon.biz.CouponLstVO;
 import icube.manage.promotion.coupon.biz.CouponService;
 import icube.manage.promotion.coupon.biz.CouponVO;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
-import icube.manage.promotion.point.biz.MbrPointVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
@@ -91,6 +89,9 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
+	
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -270,6 +271,9 @@ public class MbrsRegistController extends CommonAbstractController{
 	public View action(
 			MbrVO mbrVO
 			, MbrAgreementVO mbrAgreementVO
+			, String[] relationCds
+			, String[] recipientsNms
+			, String[] rcperRcognNos
 			, MultipartHttpServletRequest multiReq
 			, @RequestParam Map <String, Object>reqMap
 			, HttpSession session
@@ -328,6 +332,19 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			dlvyService.insertBassDlvy(dlvyVO);
 
+			//회원의 수급자 정보 등록
+			MbrRecipientsVO[] mbrRecipientsArray = new MbrRecipientsVO[recipientsNms.length];
+			for (int i = 0; i < recipientsNms.length; i++) {
+				mbrRecipientsArray[i] = new MbrRecipientsVO();
+				mbrRecipientsArray[i].setMbrUniqueId(uniqueId);
+				mbrRecipientsArray[i].setRelationCd(relationCds[i]);
+				mbrRecipientsArray[i].setRecipientsNm(recipientsNms[i]);
+				mbrRecipientsArray[i].setRcperRcognNo(rcperRcognNos[i]);
+				mbrRecipientsArray[i].setRecipientsYn(EgovStringUtil.isNotEmpty(mbrRecipientsArray[i].getRcperRcognNo()) ? "Y" : "N");
+			}
+			mbrRecipientsService.insertMbrRecipients(mbrRecipientsArray);
+			
+			
 			/** 2023-04-05 포인트 지급 삭제 **/
 
 			// 회원가입 쿠폰

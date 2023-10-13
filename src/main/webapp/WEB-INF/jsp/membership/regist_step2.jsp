@@ -79,7 +79,7 @@
 							<th scope="row"></th>
 							<td>
 								<p class="text-sm">
-									6~15자 영문,숫자를 조합하여 입력해 주세요.
+									6~15자 영문,숫자를 조합하여 입력해 주세요
 								</p>
 							</td>
 						</tr>
@@ -95,7 +95,7 @@
 							<th scope="row"></th>
 							<td>
 								<p class="text-sm">
-									띄어쓰기 없이 8~16자 영문, 숫자, 특수문자를 조합하여 입력해주세요. (특수문자는 !,@,#,$,%,^,&,*만 사용 가능) 아이디와 동일한 비밀번호는 사용 할 수 없습니다.
+									띄어쓰기 없이 8~16자 영문, 숫자, 특수문자를 조합하여 입력해주세요 (특수문자는 !,@,#,$,%,^,&,*만 사용 가능) 아이디와 동일한 비밀번호는 사용 할 수 없습니다.
 								</p>
 							</td>
 						</tr>
@@ -111,7 +111,7 @@
 							<th scope="row"></th>
 							<td>
 								<p class="text-sm">
-									비밀번호 확인을 위해 다시 한번 입력해주세요.
+									비밀번호 확인을 위해 다시 한번 입력해주세요
 								</p>
 							</td>
 						</tr>
@@ -127,7 +127,7 @@
 							<th scope="row"></th>
 							<td>
 								<p class="text-sm">
-									주문/배송 및 공지를 위해 정확한 정보를 입력해 주세요.
+									주문/배송 및 공지를 위해 정확한 정보를 입력해 주세요
 								</p>
 							</td>
 						</tr>
@@ -166,70 +166,11 @@
 				<div class="text-title2-wrap mt-13">
 					<p class="text-title2">수급자(어르신) 정보</p>
 				</div>
-				<div class="table-detail-wrap">
-					<div class="flex flex-row justify-between items-center">
-						<p class="text-gray5">수급자 입력 <span>1</span></p>
-						<!--2개 이상일 경우 닫기버튼 노출-->
-						<i class="icon-close">닫기</i>
-					</div>
-					<table class="table-detail">
-						<colgroup>
-							<col class="w-22 xs:w-32">
-							<col>
-						</colgroup>
-						<tbody>
-							<tr class="wrapRelation">
-								<th scope="row"><p>
-										<label for="recipter">수급자와의 관계</label>
-									</p></th>
-								<td>
-									<select name="relationSelect" id="relationSelect" class="form-control w-full">
-											<option value="">선택</option>
-											<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
-												<option value="${relation.key}">${relation.value}</option>	
-											</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<tr class="wrapNm">
-								<th scope="row"><p>
-										<label for="recipter">수급자 성명</label>
-									</p></th>
-								<td><!-- <input type="text" class="form-control w-full" id="recipter" name="recipter" maxlength="50" value="${mbrVO.mbrNm}"> -->
-									<input type="text" class="form-control w-full" id="recipter" name="testName" maxlength="50" value="${mbrVO.recipterInfo.testName}">
-								</td>
-							</tr>
-							<tr class="wrapNo">
-								<th scope="row"><p style="padding-left: 0;">
-										<label for="rcperRcognNo">요양인정번호</label>
-									</p></th>
-								<td>
-									<div class="flex flex-row gap-2.5 mb-1.5">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="yn" id="yes" checked>
-											<label class="form-check-label" for="yes">있음</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="yn" id="no">
-											<label class="form-check-label" for="no">없음</label>
-										</div>
-									</div>
-									<div class="form-group w-full">
-										<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-										<input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="content-button mt-2">
-						<!-- <button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">등록하기</button>
-						<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">삭제</button> -->
-						<button type="button" class="btn btn-primary large flex-1" name="" data-bs-toggle="modal" data-bs-target="#check-recipient-info">등록하기</button>
-					</div>
+				<div class="recipient-form">
+					
 				</div>
 				
-				<div class="content-button mt-2">
+				<div class="content-button mt-2 fn_addRecipientForm">
 					<button type="button" class="btn btn-outline-secondary large flex-1" id="">
 						<img src="/html/page/members/assets/images/ico-plus.svg" alt="추가하기" class="w-4.5">
 					</button>
@@ -312,27 +253,27 @@
 						<ul class="modal-list-box">
 							<li>
 								<span class="modal-list-label">수급자와의 관계</span>
-								<span class="modal-list-value">본인</span>
+								<span class="modal-list-value" id="modal-recipient-relation">본인</span>
 							</li>
 							<li>
 								<span class="modal-list-label">수급자 성명</span>
-								<span class="modal-list-value">홍길동</span>
+								<span class="modal-list-value" id="modal-recipient-nm">홍길동</span>
 							</li>
 							<!--modal B : 아래 내용없음-->
-							<li>
+							<li id="modal-lno-field">
 								<span class="modal-list-label">요양인정번호</span>
-								<span class="modal-list-value">L1234567890</span>
+								<span class="modal-list-value" id="modal-recipient-lno">L1234567890</span>
 							</li>
 						</ul>
 					</div>
 					<!--modal B : 추가-->
-					<div class="text-subtitle">
+					<div class="text-subtitle" id="modal-info-field">
 						<i class="icon-alert"></i>
 						<p>요양인정번호는 마이페이지에서 등록하실 수 있어요</p>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary w-full">확인</button>
+					<button type="button" class="btn btn-primary w-full fn_checkRecipient">확인</button>
 				</div>
 			</div>
 		</div>
@@ -341,6 +282,9 @@
 </main>
 
 <script>
+var recipientMaxCount = 4;
+var createdForm = 1;
+var currentRecipientNo = '';
 
 //사진 실시간 변경
 function setImageFromFile(input, expression) {
@@ -354,8 +298,74 @@ function setImageFromFile(input, expression) {
 
 }
 
-$(function(){
+//수급자 검사 폼 띄우기 버튼 클릭
+function showRecipientModal(target) {
+	var relationCd = $(target).parent().parent().find('#relationCds option:selected').val();
+	var relationText = $(target).parent().parent().find('#relationCds option:selected').text();
+	var recipientsNm = $(target).parent().parent().find('#recipientsNms').val();
+	var lnoYn = $(target).parent().parent().find('input[type=radio]:checked').val();
+	var rcperRcognNo = $(target).parent().parent().find('#rcperRcognNos').val();
+	
+	if (!relationCd || !recipientsNm) {
+		alert('수급자 정보를 작성하세요')
+		return false;
+	}
+	if (lnoYn === 'Y' && !rcperRcognNo) {
+		alert('요양인정번호를 작성하세요')
+		return false;
+	}
+	
+	//수급자 관계가 본인인 경우 회원이름과 동일해야 한다.
+	var mbrNm = $('#mbrNm').text();
+	if (relationCd === '007' && mbrNm !== recipientsNm) {
+		alert('수급자와의 관계를 확인해주세요')
+		return false;
+	}
+	
+	//배우자와 본인은 1명만 존재해야한다.
+	var me = 0;
+	var spouse = 0;
+	var relationCdSelectList = $('.relationCds option:selected');
+	for (var i = 0; i < relationCdSelectList.length; i++) {
+		var checkRelationCd = relationCdSelectList[i].value;
+		
+		switch(checkRelationCd) {
+			case '007': me++; break;
+			case '001': spouse++; break;
+		}
+		
+		if (me > 1) {
+			alert('본인은 한명만 등록이 가능합니다.');
+			return false;
+		} else if (spouse > 1) {
+			alert('배우자는 한명만 등록이 가능합니다.');
+			return false;
+		}
+	}
+	
+	
+	$('#modal-recipient-relation').text(relationText);
+	$('#modal-recipient-nm').text(recipientsNm);
+	$('#modal-recipient-lno').text('L' + rcperRcognNo);
+	
+	if (lnoYn === 'Y') {
+		$('#modal-lno-field').css('display', 'flex');
+		$('#modal-info-field').css('display', 'none');
+	} else {
+		$('#modal-lno-field').css('display', 'none');
+		$('#modal-info-field').css('display', 'block');
+	}
+	
+	$('.modal').modal('show');
+	
+	recipientNumber = $(target).parent().parent().find('.recipient-num').text();
+	currentRecipientNo = recipientNumber;
+}
 
+$(function(){
+	//최초에 수급자 입력폼 한개 생성
+	addRecipientForm();
+	
 	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
 	const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+*=*]).*$/;
 	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -406,96 +416,149 @@ $(function(){
 		$('#' + inputName.replace('Yn', '') + 'Dt').attr('value', dateFormat(new Date()));
 	});
 
-	//초기화
-	$("#newInfo").on("click",function(){
-		$("#recipter").val(null);
-		$("#rcperRcognNo").val(null);
-		$(".noneGrade").prop("selected",true);
-		$("#noneGrade").val('');
-		$("#selfBndRt").val('');
-		$("#wrapInfo").hide();
-	});
-
-	// 수급자 일때 정보 체크
-	$.validator.addMethod("repChk", function(value, element) {
-		if($("#recipterYn1").is(":checked")){
-			if($("#recipter").val() == '' || $("#rcperRcognNo").val() == ''){
-				return false;
-			}else{
-				return true;
-			}
-		}else{
-			return true;
+	//수급자 입력 폼 추가(최대 4개까지만 생성되도록 구현)
+	function addRecipientForm () {
+		if ($('.recipient-form .table-detail-wrap').length >= 4) {
+			alert('수급자(어르신)은 최대 4명 등록이 가능합니다.')
+			return;
 		}
-	}, );
+		
+		var number = createdForm++;
+		var template = `
+			<div class="table-detail-wrap" style="margin-top:10px;">
+				<div class="flex flex-row justify-between items-center">
+					<p class="text-gray5">수급자 입력 <span class="recipient-num"></span></p>
+					<!--2개 이상일 경우 닫기버튼 노출-->
+				`;
+				
+		template += (number === 1) ? `` : `<i class="icon-close fn_RemoveRecipientForm">닫기</i>`;
+		
+		template += `
+				</div>
+				<table class="table-detail">
+					<colgroup>
+						<col class="w-22 xs:w-32">
+						<col>
+					</colgroup>
+					<tbody>
+						<input type="hidden" class="regist-status" value="N">
+					
+						<tr class="wrapRelation">
+							<th scope="row"><p>
+									<label for="recipter">수급자와의 관계</label>
+								</p></th>
+							<td>
+								<select name="relationCds" id="relationCds" class="form-control w-full relationCds">
+										<option value="">선택</option>
+										<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+											<option value="${relation.key}">${relation.value}</option>	
+										</c:forEach>
+								</select>
+							</td>
+						</tr>
+						<tr class="wrapNm">
+							<th scope="row">
+								<p>
+									<label for="recipter">수급자 성명</label>
+								</p>
+							</th>
+							<td>
+								<input type="text" class="form-control w-full" id="recipientsNms" name="recipientsNms" maxlength="50" value="">
+							</td>
+						</tr>
+						<tr class="wrapNo">
+							<th scope="row"><p style="padding-left: 0;">
+									<label for="rcperRcognNo">요양인정번호</label>
+								</p></th>
+							<td>
+								<div class="flex flex-row gap-2.5 mb-1.5">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="yn` + number + `" id="yes` + number + `" value="Y" checked>
+										<label class="form-check-label" for="yes` + number + `">있음</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="yn` + number + `" id="no` + number + `" value="N">
+										<label class="form-check-label" for="no` + number + `">없음</label>
+									</div>
+								</div>
+								<div class="form-group w-full">
+									<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+									<input type="text" class="form-control w400" id="rcperRcognNos" name="rcperRcognNos" maxlength="13" value="">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="content-button mt-2">
+					<!-- <button type="button" class="btn btn-primary btn-large flex-1 f_recipterCheck" name="srchReBtn">등록하기</button>
+					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">삭제</button> -->
+					<button type="button" class="btn btn-primary large flex-1" onclick="showRecipientModal(this)">등록하기</button>
+				</div>
+			</div>
+		`;
+		
+		$('.recipient-form').append(template);
+		setRecipientNumber();
+	}
+	
+	//수급자 폼 넘버링 및 기타 셋팅
+	function setRecipientNumber() {
+		var recipientNumSpans = $('.recipient-num');
 
-	// 수급자 조회 체크
-	$.validator.addMethod("searchChk", function(value, element) {
-		if($("#recipterYn1").is(":checked")){
-			if($('#wrapInfo').is(':visible')){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return true;
+		let number = 1;
+		for (var i = 0; i < recipientNumSpans.length; i++) {
+			recipientNumSpans[i].textContent = number++;
 		}
-	}, );
-
-	//수급자 정보 조회
-	$(".f_recipterCheck").on("click", function(){
-		$.ajax({
-			type : "post",
-			url  : "/common/recipter/getRecipterInfo.json",
-			data : {
-				//mbrNm:'${noMbrVO.mbrNm}'
-				mbrNm:$("#recipter").val()
-				, rcperRcognNo:$("#rcperRcognNo").val()
-			},
-			dataType : 'json'
-		})
-		.done(function(json) {
-			if(json.result){
-				$("#wrapInfo").show();
-
-
-				$("#searchNm").text($("#recipter").val());
-				$("#searchNo").text("L"+$("#rcperRcognNo").val());
-
-
-				let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
-				$("#searchQlf").text(penPayRate);
-
-
-				$("#searchGrade").attr("src", "/html/page/members/assets/images/txt-grade-num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
-				$("#searchBgngRcgt").html((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-				$("#searchEndRcgt").html("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
-				$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				$("#searchRemn").text(comma(json.infoMap.REMN_AMT))
-				$("#formatKo").text(viewKorean(json.infoMap.REMN_AMT))
-				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
-
-				$("#rcperRcognNo").val($("#rcperRcognNo").val());
-				$("#rcognGrad").val(json.infoMap.LTC_RCGT_GRADE_CD);
-				$("#selfBndRt").val(Number(penPayRate));
-				$("#vldBgngYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-				$("#vldEndYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-				$("#aplcnBgngYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_FR_DT)));
-				$("#aplcnEndYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_TO_DT)));
-				$("#sprtAmt").val(Number(json.infoMap.LMT_AMT));
-				$("#bnefBlce").val(Number(json.infoMap.REMN_AMT));
-
-			}else{
-				alert("조회된 데이터가 없습니다.");
-			}
-
-		})
-		.fail(function(data, status, err) {
-			console.log('error forward : ' + data);
-		});
+	};
+	
+	$('.fn_addRecipientForm').on("click", addRecipientForm);	
+	
+	//수급자 폼 지우기
+	$('body').on('click', '.fn_RemoveRecipientForm',function(){
+		var recipientForm = $(this).parent().parent();
+		recipientForm.remove();
+		
+		setRecipientNumber();
 	});
-
+	
+	//수급자 검사 및 등록
+	$('.fn_checkRecipient').on('click', function() {
+		var recipientsNm = $('#modal-recipient-nm').text();
+		var rcperRcognNo = $('#modal-recipient-lno').text();
+		rcperRcognNo = rcperRcognNo.replace('L', '');
+		
+		if (!rcperRcognNo) {
+			alert('수급자 정보 등록에 동의했습니다.');
+			$('.modal').modal('hide');
+			
+			var index = Number(currentRecipientNo) - 1;
+			$('.regist-status')[index].value = 'Y';
+		} else {
+			$.ajax({
+				type : "post",
+				url  : "/common/recipter/getRecipterInfoInRegist.json",
+				data : {
+					mbrNm: recipientsNm
+					, rcperRcognNo
+				},
+				dataType : 'json'
+			})
+			.done(function(json) {
+				if(json.result){
+					alert('수급자 정보 등록에 동의했습니다.');
+					$('.modal').modal('hide');
+					
+					var index = Number(currentRecipientNo) - 1;
+					$('.regist-status')[index].value = 'Y';
+				}else{
+					alert("수급자 정보를 다시 확인해주세요");
+				}
+			})
+			.fail(function(data, status, err) {
+				console.log('error forward : ' + data);
+			});
+		}
+	});
 
 	// 동의 체크
 	$.validator.addMethod("agreeChk", function(value, element, regexpr) {
@@ -503,7 +566,7 @@ $(function(){
 			if($("#agree-item").is(":checked")){
 				return true;
 			}else{
-				alert("장기요양등급 정보 사용에 동의해주세요.");
+				alert("장기요양등급 정보 사용에 동의해주세요");
 				return false;
 			}
 		}else{
@@ -531,7 +594,7 @@ $(function(){
 		}
 	}, "! 공백 및 아이디와 똑같은 비밀번호는 사용하실 수 없습니다.");
 
-	//유효성
+	//회원가입 유효성
 	$("form#frmReg").validate({
 	    ignore: "input[type='text']:hidden",
 	    rules : {
@@ -552,7 +615,7 @@ $(function(){
 			//, selfBndRt : {selfChk : true}
 	    },
 	    messages : {
-	    	mbrId : {required : "! 아이디를 입력해 주세요" , regex : "! 6~15자 영문,숫자를 조합하여 입력해 주세요.", remote:"! 사용할수 없는 아이디 입니다"}
+	    	mbrId : {required : "! 아이디를 입력해 주세요" , regex : "! 6~15자 영문,숫자를 조합하여 입력해 주세요", remote:"! 사용할수 없는 아이디 입니다"}
 	    	, pswd : {required : "! 비밀번호는 필수 입력 항목입니다.", minlength : "! 비밀번호는 최소 8자리 입니다."}
 	    	, pswdConfirm : {required : "! 비밀번호 확인은 필수 입력 항목입니다.", equalTo : "! 비밀번호가 같지 않습니다.", regex : "! 비밀번호는 영문자, 숫자, 특수문자 조합을 입력해야 합니다.", minlength : "! 비밀번호는 최소 8 자리입니다." }
 			, eml : {required : "! 이메일은 필수 입력 항목입니다.", regex : "! 이메일 형식이 잘못되었습니다.\n(abc@def.com)"}
@@ -560,7 +623,7 @@ $(function(){
 			, addr : {required : "! 주소는 필수 입력 항목입니다."}
 			, daddr : {required : "! 상세 주소는 필수 입력 항목입니다."}
 			/*, recipter : {equalTo : "! 회원 이름과 같지 않습니다."}*/
-			, rcmdtnId : {regex : "! 6~15자 영문, 숫자를 조합하여 입력해주세요."}
+			, rcmdtnId : {regex : "! 6~15자 영문, 숫자를 조합하여 입력해주세요"}
 			, telno : {regex : "! 전화번호 형식이 잘못되었습니다.\n(000-0000-0000)"}
 			, agreeItem : {agreeChk : ""}
 			, recipter : {repChk : "! 수급자 성명은 필수 입력 항목입니다."}
@@ -578,6 +641,30 @@ $(function(){
 		    }
 		},
 	    submitHandler: function (frm) {
+	    	var recipientFormCount = $('.recipient-form .table-detail-wrap').length;
+	    	if (recipientFormCount > 1) {
+	    		var statusArray = $('.regist-status');
+	    		var confirmCount = 0;
+	    		for(var i = 0; i < statusArray.length; i++) {
+	    			if (statusArray[i].value === 'Y') {
+	    				confirmCount++;
+	    			}
+	    		}
+	    		
+	    		if (recipientFormCount !== confirmCount) {
+	    			alert('수급자 정보에서 등록하기 버튼을 눌러주세요')
+	    			return;
+	    		}
+	    	} else if (recipientFormCount === 1) {
+	    		var recipientsNm = $('.recipient-form .table-detail-wrap').find('#recipientsNms').val();
+	    		var status = $('.regist-status')[0].value;
+	    		
+	    		if (recipientsNm && status === 'N') {
+	    			alert('수급자 정보에서 등록하기 버튼을 눌러주세요')
+	    			return;
+	    		}
+	    	}
+	    	
    			frm.submit();
 	    }
 	});

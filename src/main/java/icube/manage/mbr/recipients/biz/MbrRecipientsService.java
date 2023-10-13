@@ -27,6 +27,15 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		mbrRecipientsDAO.insertMbrRecipients(mbrRecipientsVO);
 	}
 	
+	public void insertMbrRecipients(MbrRecipientsVO[] mbrRecipientsArray) {
+		int lenth = mbrRecipientsArray.length > 4 ? 4 : mbrRecipientsArray.length;
+		
+		//최대 4명까지 수급자 등록 가능
+		for (int i = 0; i < lenth; i++) {
+			mbrRecipientsDAO.insertMbrRecipients(mbrRecipientsArray[i]);
+		}
+	}
+	
 	public void updateMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {
 		mbrRecipientsDAO.updateMbrRecipients(mbrRecipientsVO);
 	}

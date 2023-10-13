@@ -56,5 +56,19 @@ public class TilkoApiController {
         return returnMap;
 	}
 
+	@ResponseBody
+	@RequestMapping(value="getRecipterInfoInRegist.json", method=RequestMethod.POST)
+	public Map<String, Object> getRecipterInfoInRegist(
+			@RequestParam(value="mbrNm", required=true) String mbrNm
+			, @RequestParam(value="rcperRcognNo", required=true) String rcperRcognNo
+			) throws Exception {
 
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
+		returnMap.put("isSearch", true);
+
+		System.out.println("returnMap: " + returnMap.toString());
+		
+        return returnMap;
+	}
 }
