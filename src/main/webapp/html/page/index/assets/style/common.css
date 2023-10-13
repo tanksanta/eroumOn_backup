@@ -9,11 +9,9 @@ html, body {
             @apply p-0 border-0 h-5;
         }
         & th {
-            @apply text-[0.8125rem] font-bold tracking-tight
-                   md:text-sm;
+            @apply text-[0.8125rem] font-bold tracking-tight md:text-sm;
             & p {
-                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md
-                       md:px-3 md:pb-2.5 md:pt-5;
+                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md md:px-3 md:pb-2.5 md:pt-5;
             }
         }
         & td {
@@ -64,19 +62,17 @@ html, body {
             & tr {
                 & th {
                     & p {
-                        @apply text-center justify-center py-3
-                               md:py-3.5;
+                        @apply text-center justify-center py-3 md:py-3.5;
                     }
                 }
             }
         }
     }
-  
+
     .modal {
         @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
         & .modal-dialog {
-            @apply relative pointer-events-none m-0 h-full
-                   sm:my-2 sm:h-[calc(100%_-_1rem)] sm:mx-auto;
+            @apply relative pointer-events-none m-0 h-full sm:my-2 sm:h-[calc(100%_-_1rem)] sm:mx-auto;
             &.modal-lg {
                 @apply max-w-[580px];
                 & .modal-content {
@@ -146,9 +142,6 @@ html, body {
             @apply opacity-100;
         }
     }
-
-
-   
 
     .offcanvas {
         @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;
@@ -670,6 +663,32 @@ html, body {
 
     .btn-eroum {
         @apply hover:!bg-white hover:!text-black2;
+    }
+}
+
+@layer components {
+    [class*='icon-'] {
+        font-size: 0;
+        color:transparent;
+        display: inline-block;
+    }
+    .icon-collapse {
+        @apply bg-no-repeat bg-center bg-[length:0.625rem]  w-4 h-4;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9.485' height='5.242' viewBox='0 0 9.485 5.242'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,5.1.147.853A.5.5,0,0,1,.853.147L4.743,4.036,8.632.147a.5.5,0,0,1,.707.707L5.1,5.1a.5.5,0,0,1-.707,0Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E%0A");
+        &.expand {
+            @apply rotate-180;
+        }
+    }
+    .btn-collapse {
+        @apply flex items-center bg-gray-100 text-xs gap-1 px-2 py-1 rounded-lg;
+    }
+
+    .btn-toggle-box {
+        @apply  flex justify-between items-center;
+    }
+
+    .text-danger {
+        @apply text-red3 text-sm mt-1;
     }
 }
 

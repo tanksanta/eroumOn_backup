@@ -162,6 +162,31 @@
         }
     }
 
+    .form-radio-button-group {
+        @apply flex flex-col gap-2 w-full select-none;
+        & .form-check {
+            & .form-check-input {
+                @apply sr-only ;
+                &:checked {
+                    & + .form-check-label {
+                        @apply font-medium bg-gray2 ;
+                        box-shadow: inset 0px 0px 0px 2px rgba(0,0,0,1);
+                    }
+                }
+            }
+            & .form-check-label {
+                @apply w-full flex-1 text-center  rounded-md bg-white p-2;
+                box-shadow: inset 0px 0px 0px 1px #999;
+            }
+            &:not(.form-switch) {
+                & .form-check-label {
+                    @apply m-0 !important;
+                }
+            }
+        }
+    }
+
+
     
     /******************** upload ********************/
     .form-upload {
