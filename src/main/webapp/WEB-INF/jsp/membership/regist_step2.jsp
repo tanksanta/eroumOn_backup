@@ -237,7 +237,7 @@
 	
 	<!--등록하는 수급자 정보를 확인하세요-->
 	<div class="modal modal-default fade" id="check-recipient-info" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="text-title">등록하신 수급자 정보를 확인하세요</h2>
