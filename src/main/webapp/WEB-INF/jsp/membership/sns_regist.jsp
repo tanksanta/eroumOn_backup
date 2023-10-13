@@ -16,6 +16,15 @@
 
 				<double-submit:preventer tokenKey="preventTokenKey" />
 
+				<div class="flex flex-col items-center">
+						<h3 class="flex items-center gap-2">
+							<i class="icon-naver">네이버</i><!--naver 일 경우-->
+							<!--<i class="icon-kakao">카카오</i>kakao 일 경우-->
+							<span class="text-xl font-semibold">계정으로 인증되었어요</span>
+						</h3>
+          <p class="text-sm font-normal">SNS회원은 만14세 이상만 가입 가능해요</p>
+        </div>
+
 				<p class="mt-13 text-title2">기본 정보</p>
 				<table class="table-detail">
 					<colgroup>
@@ -41,7 +50,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><p style="padding-left: 0;">
+							<th scope="row"><p>
 									<label for="join-item3-3">개인정보 유효기간<sup class="text-danger text-base md:text-lg">*</sup></label>
 								</p></th>
 							<td>
@@ -126,7 +135,9 @@
 				</div>
 
 				<div class="content-button mt-5">
-					<button type="button" class="btn btn-primary btn-large flex-1 selfBtn">본인 인증하기</button>
+					<!-- <button type="button" class="btn btn-primary btn-large flex-1 selfBtn">본인 인증하기</button> -->
+					<button type="button" class="btn btn-primary btn-large flex-1" data-bs-toggle="modal"
+          data-bs-target="#completed-members">본인 인증하기</button>
 					<a href="javascript:history.back(-1)" class="btn btn-outline-primary btn-large w-[37.5%]">취소</a>
 				</div>
 
@@ -134,6 +145,33 @@
 			</form:form>
 		</div>
 	</div>
+
+	<!--회원가입완료 팝업소스-->
+	<div class="modal modal-default fade" id="completed-members" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="text-title">회원가입</h2>
+					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-bg-wrap">
+						<div class="flex flex-col justify-center items-center">
+							<h3 class="text-xl">회원가입이 완료되었습니다</h3>
+							<div class="flex justify-center text-xl">
+								<strong>수급자(어르신)정보를 등록</strong>하시겠어요?
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">등록하러가기</button>
+					<button type="button" class="btn btn-outline-primary large w-[26.5%]" id="newInfo">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </main>
 
 <script>

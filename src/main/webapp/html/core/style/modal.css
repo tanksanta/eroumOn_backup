@@ -32,13 +32,14 @@
     }
 
     &.modal-default {
-      @apply lg:w-auto md:w-3/4;
+      @apply w-full md:w-auto md:w-auto;
+      /* @apply w-[calc(100%_-_2rem)] md:w-auto md:w-auto h-auto rounded-3xl; */
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
 
       & .modal-content {
-        @apply relative flex flex-col w-full bg-white rounded-lg shadow-none pointer-events-auto p-7;
+        @apply relative flex flex-col w-full bg-white rounded-3xl shadow-none pointer-events-auto p-7;
         &:before {
           content: "";
           right: 0;
@@ -65,24 +66,28 @@
           @apply w-5 h-5 bg-no-repeat bg-center bg-[length:1rem];
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
         }
-        & .modal-list-wrap {
-          @apply py-5 px-8 md:-mx-7;
+        & .modal-bg-wrap {
+          /* @apply py-5 px-8 md:-mx-7; */
+          @apply py-5 px-8 -mx-7;
           background: linear-gradient(180deg, #faf2d3 0%, #feebeb 100%);
-          & li {
-            @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
-            &:first-child {
-              @apply pt-0;
-            }
-            &:last-child {
-              @apply border-0;
-            }
-            & .modal-list-label {
-              @apply text-gray6 w-2/5;
-            }
-            & .modal-list-value {
-              @apply text-black1 font-medium text-lg;
+          & .modal-list-box {
+            & li {
+              @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
+              &:first-child {
+                @apply pt-0;
+              }
+              &:last-child {
+                @apply border-0;
+              }
+              & .modal-list-label {
+                @apply text-gray6 w-2/5;
+              }
+              & .modal-list-value {
+                @apply text-black1 font-medium text-lg;
+              }
             }
           }
+          
         }
       }
       & .modal-footer {
