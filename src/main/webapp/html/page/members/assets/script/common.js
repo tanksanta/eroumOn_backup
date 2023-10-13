@@ -1,3 +1,4 @@
+
 var timer   = null;
 var winSize = null;
 var resize  = false;
@@ -241,8 +242,5 @@ function f_getDate(day){
 	return year + "-" + month + "-" + day;
 }
 
-function closeRecipter() {
-	document.querySelector('.table-detail-wrap').style.display = "none";
-}
 
 
