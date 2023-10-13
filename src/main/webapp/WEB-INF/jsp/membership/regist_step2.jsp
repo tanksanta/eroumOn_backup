@@ -353,7 +353,7 @@ function showRecipientModal(target) {
 		$('#modal-info-field').css('display', 'none');
 	} else {
 		$('#modal-lno-field').css('display', 'none');
-		$('#modal-info-field').css('display', 'block');
+		$('#modal-info-field').css('display', 'flex');
 	}
 	
 	$('.modal').modal('show');
