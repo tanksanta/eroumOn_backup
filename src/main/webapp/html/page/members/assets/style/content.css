@@ -681,13 +681,15 @@
 
 /* 회원정보수정 */
 .member-modify {
-    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 pr-[6.666666666666667%] pl-[25.1063829787234%]
-           before:absolute before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover
+    @apply relative overflow-hidden rounded-[1.25rem] bg-black2 
+            /* pr-[6.666666666666667%] pl-[25.1063829787234%] */
+           /* before:absolute before:top-7 before:left-4.5 before:w-15 before:h-[31.75rem] before:bg-[url(../images/txt-membership.svg)] before:bg-cover
            after:absolute after:hidden after:top-0 after:bottom-0 after:right-0 after:w-1/2 after:bg-gray1
            after:md:block
-           lg:before:top-8.5 lg:before:left-5.5 lg:before:w-[75px] lg:before:h-[635px]
-           md-max:before:top-9 md-max:before:right-6.5 md-max:before:w-[16.125rem] md-max:before:h-7.5 md-max:before:bg-[url(../images/txt-membership-mo.svg)]
-           md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0;
+           lg:before:top-8.5 lg:before:left-5.5 lg:before:w-[75px] lg:before:h-[635px] */
+           /* md-max:before:top-9 md-max:before:right-6.5 md-max:before:w-[16.125rem] md-max:before:h-7.5 md-max:before:bg-[url(../images/txt-membership-mo.svg)] */
+           /* md-max:-mr-5 md-max:pt-16 md-max:pr-5 md-max:pl-0 */
+           ;
     & .member-join-content {
         @apply relative z-10 py-7.5 px-5 border
                md:px-8.5 md:pb-11;
