@@ -3,6 +3,7 @@ package icube.membership.info;
 
 import java.security.PrivateKey;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -36,6 +37,8 @@ import icube.common.values.CodeMap;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.market.mbr.biz.MbrSession;
@@ -61,6 +64,9 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	@Resource(name = "cartService")
 	private CartService cartService;
+	
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
@@ -196,12 +202,14 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 
 		mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
+		model.addAttribute("mbrRecipientList", mbrRecipientList);
 
 		return "/membership/info/myinfo/info";
 	}
@@ -218,104 +226,30 @@ public class MbrsInfoController extends CommonAbstractController{
 			HttpServletRequest request
 			, Model model
 			, MbrVO mbrVO
-			, MultipartHttpServletRequest multiReq
 			, HttpSession session
-			, @RequestParam (value="rcperRcognNo", required=false) String rcperRcognNo
-			, @RequestParam (value="rcognGrad", required=false) String rcognGrad
-			, @RequestParam (value="selfBndRt", required=false) String selfBndRt
-			, @RequestParam (value="vldBgngYmd", required=false) String vldBgngYmd
-			, @RequestParam (value="vldEndYmd", required=false) String vldEndYmd
-			, @RequestParam (value="aplcnBgngYmd", required=false) String aplcnBgngYmd
-			, @RequestParam (value="aplcnEndYmd", required=false) String aplcnEndYmd
-			, @RequestParam (value="sprtAmt", required=false) String sprtAmt
-			, @RequestParam (value="bnefBlce", required=false) String bnefBlce
-			, @RequestParam (value="itrstField", required=false) String[] itrstFeild
-			, @RequestParam (value="testName", required=false) String testName
 			, @RequestParam (value="returnUrl", required=false) String returnUrl
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		Map<String, MultipartFile> fileMap = multiReq.getFileMap();
-		String profileImg = "";
-
-		// 관심 분야
-		String field = ArrayUtil.arrayToString(itrstFeild, ",");
-		mbrVO.setItrstField(field);
 
 		try {
-			// 프로필 이미지
-			// 등록
-			if (!fileMap.get("uploadFile").isEmpty()) {
-				profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir),
-						"PROFL",fileMap.get("uploadFile").getOriginalFilename());
-				mbrVO.setProflImg(profileImg);
-				// 삭제
-			} else if (EgovStringUtil.equals("Y", mbrVO.getDelProflImg())) {
-				mbrVO.setProflImg(null);
-				// NOT
-			}else if(mbrVO.getProflImg() != null){
-				mbrVO.setProflImg(mbrVO.getProflImg());
-			}else {
-				mbrVO.setProflImg(null);
-			}
-
-			// 회원정보
-			mbrService.updateMbrInfo(mbrVO);
-
-			// 세션 정보
-			mbrSession.setProflImg(mbrVO.getProflImg());
-
-			// 수급자 정보
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-
-			if(mbrVO.getRecipterYn().equals("Y")) {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				String uniqueId = mbrSession.getUniqueId();
-				recipterInfoVO.setUniqueId(uniqueId);
-				recipterInfoVO.setRcperRcognNo(rcperRcognNo);
-				recipterInfoVO.setRcognGrad(rcognGrad);
-
-				/*String[] selfBnd = (selfBndRt.replace(" ", "")).split(",");
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBnd[0]));
-				recipterInfoVO.setSelfBndMemo(selfBnd[1]);*/
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
-				recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
-				recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
-				recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
-				recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
-				recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
-				recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
-				recipterInfoVO.setTestName(testName);
-				recipterInfoService.mergeRecipter(recipterInfoVO);
-			}else {
-				recipterInfoService.deleteRecipter(mbrVO.getUniqueId());
-
-				// 급여 장바구니 삭제
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
-				paramMap.put("srchCartTy", "R");
-				cartService.deleteCart(paramMap);
-			}
-
-			//수급자 정보 reSetting
-			mbrVO = mbrService.selectMbrByUniqueId(mbrVO.getUniqueId());
-
-			mbrSession.setParms(mbrVO, true);
-			if("Y".equals(mbrVO.getRecipterYn())){
-				mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-			}else {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-				recipterInfoVO.setMbrId(mbrVO.getMbrId());
-				recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-				recipterInfoVO.setProflImg(mbrVO.getProflImg());
-				recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-				recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-				mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-			}
-
-
+			// 회원정보 수정
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbr.setMblTelno(mbrVO.getMblTelno());
+			srchMbr.setEml(mbrVO.getEml());
+			srchMbr.setZip(mbrVO.getZip());
+			srchMbr.setAddr(mbrVO.getAddr());
+			srchMbr.setDaddr(mbrVO.getDaddr());
+			
+			srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
+			srchMbr.setSmsRcptnDt(mbrVO.getSmsRcptnDt());
+			srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
+			srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
+			srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+			srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
+			mbrService.updateMbrInfo(srchMbr);
+			
+			mbrSession.setParms(srchMbr, true);
 			mbrSession.setMbrInfo(session, mbrSession);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
@@ -324,7 +258,6 @@ public class MbrsInfoController extends CommonAbstractController{
 			}else {
 				javaScript.setLocation("/"+ mainPath + "/index");
 			}
-
 		}catch(Exception e) {
 			log.debug("MYPAGE UPDATE INFO ERROR");
 			e.printStackTrace();

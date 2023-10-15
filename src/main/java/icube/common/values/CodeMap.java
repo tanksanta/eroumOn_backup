@@ -557,7 +557,7 @@ public class CodeMap{
 		private static final long serialVersionUID = -4607667632954312467L;
 		{
 			put("N","일반 회원"); //GENERAL
-			put("Y","수급자 회원"); //RECIPTER
+			put("Y","일반 회원"); //RECIPTER 수급자 회원이 없어지면서 모두 일반회원으로 표시
 		}
 	};
 

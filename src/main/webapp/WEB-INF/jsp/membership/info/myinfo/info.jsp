@@ -20,19 +20,9 @@
 
 		<div class="member-modify mt-11 md:mt-15">
 			<form:form action="./infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
-				<form:input type="hidden" path="delProflImg" id="delProflImg" name="delProflImg" value="N" />
-				<form:hidden path="proflImg" />
 				<form:hidden path="diKey" />
 				<form:hidden path="joinTy" />
 
-				<input type="hidden" id="rcognGrad" name="rcognGrad" value="${mbrVO.recipterInfo.rcognGrad}" />
-				<input type="hidden" id="selfBndRt" name="selfBndRt" value="${mbrVO.recipterInfo.selfBndRt}" />
-				<input type="hidden" id="vldBgngYmd" name="vldBgngYmd" value="<fmt:formatDate value="${mbrVO.recipterInfo.vldBgngYmd}" pattern="yyyy-MM-dd" />" />
-				<input type="hidden" id="vldEndYmd" name="vldEndYmd" value="<fmt:formatDate value="${mbrVO.recipterInfo.vldEndYmd}" pattern="yyyy-MM-dd" />" />
-				<input type="hidden" id="aplcnBgngYmd" name="aplcnBgngYmd" value="<fmt:formatDate value="${mbrVO.recipterInfo.aplcnBgngYmd}" pattern="yyyy-MM-dd" />" />
-				<input type="hidden" id="aplcnEndYmd" name="aplcnEndYmd" value="<fmt:formatDate value="${mbrVO.recipterInfo.aplcnEndYmd}" pattern="yyyy-MM-dd" />" />
-				<input type="hidden" id="sprtAmt" name="sprtAmt" value="${mbrVO.recipterInfo.sprtAmt}" />
-				<input type="hidden" id="bnefBlce" name="bnefBlce" value="${mbrVO.recipterInfo.bnefBlce}" />
 				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 
 				<input type="hidden" id="uniqueId" name="uniqueId" value="${_mbrSession.uniqueId}" />
@@ -128,112 +118,26 @@
 							<td></td>
 							<td></td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="content-select py-1.5">
-									<c:forEach var="reYn" items="${recipterYnCode}" varStatus="status">
-										<div class="form-check">
-											<form:radiobutton class="form-check-input" path="recipterYn" id="recipterYn${status.index}" value="${reYn.key}" />
-											<label class="form-check-label" for="recipterYn${status.index}">${reYn.key eq 'Y'?'장기요양등급 수급자':'해당없음'}<small>(${reYn.value})</small></label>
-										</div>
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-						<tr class="wrapNm">
-							<th scope="row"><p>
-									<label for="recipter">수급자 성명</label>
-								</p></th>
-							<td><!-- <input type="text" class="form-control w-full" id="recipter" name="recipter" maxlength="50" value="${mbrVO.mbrNm}"> -->
-								<input type="text" class="form-control w-full" id="recipter" name="testName" maxlength="50" value="${mbrVO.recipterInfo.testName}">
-							</td>
-						</tr>
-						<tr class="wrapNo">
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="rcperRcognNo">요양인정번호</label>
-								</p></th>
-							<td>
-								<div class="form-group w-full">
-									<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-									<input type="text" class="form-control w400 numbercheck" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="${mbrVO.recipterInfo.rcperRcognNo}">
-								</div>
-							</td>
-						</tr>
+						<c:forEach var="mbrRecipient" items="${mbrRecipientList}">
+							<tr class="wrapNm">
+								<th scope="row">
+									<p>
+										<label for="recipter">수급자 성명</label>
+									</p>
+								</th>
+								<td>
+									<div class="form-group w-full">
+										<input type="hidden" value="${mbrRecipient.recipientsNo}">
+										<input type="text" class="form-control w-full max-w-73" maxlength="50" value="${mbrRecipient.recipientsNm}" readonly>
+										<button type="button" class="btn btn-primary">상세보기</button>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 
-				<div class="content-button mt-4">
-					<button type="button" class="btn btn-primary btn-large flex-1 md:flex-none md:w-73 f_recipterCheck" name="srchReBtn">수급자 정보 조회</button>
-					<button type="button" class="btn btn-outline-primary btn-large w-[26.5%]" id="newInfo">초기화</button>
-				</div>
-
-				<div class="content-recipient mt-9.5" id="wrapInfo">
-					<div class="title">
-						<p class="name">
-							<strong id="searchNm">${mbrVO.recipterInfo.mbrNm}</strong> 님의
-						</p>
-						<p class="desc">장기요양 정보</p>
-					</div>
-					<div class="group1">
-						<dl class="number">
-							<dt>장기요양인정번호</dt>
-							<dd id="searchNo">L${mbrVO.recipterInfo.rcperRcognNo}</dd>
-						</dl>
-						<dl class="grade">
-							<dt>등급</dt>
-							<dd>
-								<img id="searchGrade" src="<c:if test="${!empty mbrVO.recipterInfo.rcognGrad}">/html/page/members/assets/images/txt-grade-num${mbrVO.recipterInfo.rcognGrad}.png</c:if>">
-							</dd>
-						</dl>
-					</div>
-					<div class="group2">
-						<dl class="percent">
-							<dt>본인부담율</dt>
-							<dd>
-								<strong id="searchQlf">${mbrVO.recipterInfo.selfBndRt}</strong> &nbsp;%
-							</dd>
-						</dl>
-						<dl class="date">
-							<dt>인정유효기간</dt>
-							<dd>
-								<p id="searchBgngRcgt">
-									<fmt:formatDate value="${mbrVO.recipterInfo.vldBgngYmd}" pattern="yyyy-MM-dd" />
-								</p>
-								<p id="searchEndRcgt">
-									~&nbsp;
-									<fmt:formatDate value="${mbrVO.recipterInfo.vldEndYmd}" pattern="yyyy-MM-dd" />
-								</p>
-							</dd>
-						</dl>
-						<dl class="date">
-							<dt>적용기간</dt>
-							<dd>
-								<p id="searchBgngApdt">
-									<fmt:formatDate value="${mbrVO.recipterInfo.aplcnBgngYmd}" pattern="yyyy-MM-dd" />
-								</p>
-								<p id="searchEndApdt">
-									~&nbsp;
-									<fmt:formatDate value="${mbrVO.recipterInfo.aplcnEndYmd}" pattern="yyyy-MM-dd" />
-								</p>
-							</dd>
-						</dl>
-					</div>
-					<dl class="price1">
-						<dt>급여잔액</dt>
-						<dd>
-							<strong id="searchRemn"><fmt:formatNumber value="${mbrVO.recipterInfo.bnefBlce}" pattern="###,###" /></strong> &nbsp; 원 <small id="formatKo"></small>
-						</dd>
-					</dl>
-					<dl class="price2">
-						<dt>사용금액</dt>
-						<dd>
-							<strong id="searchUseAmt"><fmt:formatNumber value="${mbrVO.recipterInfo.sprtAmt -  mbrVO.recipterInfo.bnefBlce}" /></strong> 원
-						</dd>
-					</dl>
-
-				</div>
-
-				<p class="mt-11 text-title2">선택 정보</p>
+				<p class="mt-11 text-title2">정보 수신 정보</p>
 				<table class="table-detail">
 					<colgroup>
 						<col class="w-22 xs:w-32">
@@ -246,67 +150,13 @@
 						</tr>
 						<tr>
 							<th scope="row"><p>
-									<label for="join-item-inter1">관심분야</label>
-								</p></th>
-							<td>
-								<div class="content-interest">
-									<c:forEach var="itrstCode" items="${itrstCode}" varStatus="status">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="itrstCode${status.index}" name="itrstField" value="${itrstCode.key}" >
-											<label class="form-check-label" for="itrstCode${status.index}">${itrstCode.value}</label>
-										</div>
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									현재 관심있는 분야를 선택하고<br> 시니어에게 필요한 복지서비스를 추천받으세요
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p>
-								<label for="telno">전화번호</label>
-							</p></th>
-							<td><form:input class="form-control w-full" path="telno" maxlength="13" oninput="autoHyphen(this);" /></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<p class="text-sm">
-									숫자만 입력해주세요.
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="join-item3-3">개인정보 유효기간</label>
-								</p></th>
-							<td>
-								<div class="form-check-group w-full">
-									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
-										<div class="form-check">
-											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
-											<label class="form-check-label" for="prvcVldPd${status.index}">${expr.value}</label>
-										</div>
-									</c:forEach>
-								</div>
-								<p class="mt-1.5 text-sm">
-									<strong>선택 시</strong>, 장기 미접속시에도 휴면회원으로 전환되지 않고 회원 혜택을 받으실 수 있습니다.
-								</p>
-								<p class="mt-1.5 text-sm">
-									<strong>미선택시</strong>, 개인정보 유효기간은 1년입니다.
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p>
 									<label for="join-item3-4">정보수신</label>
 								</p></th>
 							<td>
+								<input type="hidden" id="smsRcptnDt" name="smsRcptnDt" value="<fmt:formatDate value="${mbrVO.smsRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="emlRcptnDt" name="emlRcptnDt" value="<fmt:formatDate value="${mbrVO.emlRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+								<input type="hidden" id="telRecptnDt" name="telRecptnDt" value="<fmt:formatDate value="${mbrVO.telRecptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
+							
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
@@ -326,33 +176,27 @@
 										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
 									</div>
 								</div>
-								<p class="mt-2 text-sm">이벤트 및 다양한 정보를 받으실 수 있습니다.</p>
-								<p class="mt-1.5 text-sm">수신 동의와 상관없이 주문/배송 관련 SMS/메일은 발송 됩니다.</p>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><p>프로필 사진</p></th>
-							<td>
-								<div class="flex space-x-2">
-									<div class="w-31 h-31 img" <c:if test="${empty mbrVO.proflImg}">style="display:none;"</c:if>>
-										<img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}" alt="" class="w-full h-full object-cover" id="profImg">
-									</div>
-									<div class="form-upload">
-										<label for="uploadFile" class="form-upload-trigger">
-									 		파일을 선택해주세요.<br>
-									 		5MB 이하의 이미지만 첨부가 가능합니다.
-									 	</label>
-										<input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);">
-									</div>
-									<button type="button" class="btn btn-primary" id="delBtn" onclick="f_delProflImg(); return false;">삭제</button>
-								</div>
+								<p class="mt-2 text-sm">이벤트 및 다양한 정보를 받으실 수 있습니다</p>
+								<p class="mt-1.5 text-sm">수신 동의와 상관없이 주문/배송 관련 문자/메일은 발송 됩니다</p>
+								<br>
+								<ul style="list-style: disc; list-style-position: inside;">
+									<li>
+										문자 : ${mbrVO.smsRcptnYn == "Y" ? "동의" : "비동의"}&nbsp;<fmt:formatDate value="${mbrVO.smsRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</li>
+									<li>
+										이메일 : ${mbrVO.emlRcptnYn == "Y" ? "동의" : "비동의"}&nbsp;<fmt:formatDate value="${mbrVO.emlRcptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</li>
+									<li>
+										전화 : ${mbrVO.telRecptnYn == "Y" ? "동의" : "비동의"}&nbsp;<fmt:formatDate value="${mbrVO.telRecptnDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</li>
+								</ul>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 
 				<div class="content-button mt-20 md:mt-25">
-					<button type="submit" class="btn btn-primary btn-large sm:w-53 sm-max:flex-1">확인</button>
+					<button type="submit" class="btn btn-primary btn-large sm:w-53 sm-max:flex-1">수정하기</button>
 					<!-- TODO : 플래너로 변경 -->
 					<a href="${_marketPath}" class="btn btn-outline-primary btn-large w-[37.5%] sm:w-37">취소</a>
 				</div>
@@ -361,31 +205,6 @@
 	</div>
 </main>
 <script>
-
-// 프로필 이미지 실시간 변경
-function setImageFromFile(input, expression) {
-	    if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function (e) {
-	    $(expression).attr('src', e.target.result);
-	  }
-	  reader.readAsDataURL(input.files[0]);
-	  }
-
-}
-
-//프로필 이미지 삭제
-function f_delProflImg(){
-	if(confirm("삭제하시겠습니까?")){
-		$("#delProflImg").val("Y");
-		$("#delBtn").hide();
-		$("#profImg").attr('src',"");
-		$(".img").hide();
-		$(".form-upload").show();
-	}else{
-		return false;
-	}
-}
 
 // 본인인증
 async function f_cert(){
@@ -438,32 +257,30 @@ $(function(){
 
 	const telchk = /^0([0-9]{2})-?([0-9]{3,4})-?([0-9]{4})$/;
 	const emailchk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	
+	function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
 
-	// 관심 분야
-	let itemList = "${mbrVO.itrstField}";
-	itemList = itemList.replaceAll(' ','').split(',');
-	for(var i=0; i<8; i++){
-		for(var h=0; h<itemList.length; h++){
-			if($("#itrstCode"+i).val() == itemList[h]){
-				$("#itrstCode"+i).prop("checked",true);
-			}
-		}
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 	}
-
-	if($(".agree:checked").length == 3){
-		$("#allChk").prop("checked",true);
-	}
-
-	// 한글 변환
-	$(".money").text(viewKorean("${mbrVO.recipterInfo.bnefBlce}"));
 
 	//전체 수신
 	$("#allChk").on("click",function(){
-		if($("#allChk").is(":checked")){
-			$(".agree").prop("checked",true);
-		}else{
-			$(".agree").prop("checked",false);
-		}
+		$("#allChk").is(":checked") ? $(".agree").prop("checked",true) : $(".agree").prop("checked",false)
+				
+		$('#smsRcptnDt').attr('value', dateFormat(new Date()));
+		$('#emlRcptnDt').attr('value', dateFormat(new Date()));
+		$('#telRecptnDt').attr('value', dateFormat(new Date()));
 	});
 
 	$(".agree").on("click",function(){
@@ -472,55 +289,9 @@ $(function(){
 		}else{
 			$("#allChk").prop("checked",false);
 		}
-	});
-
-	// 수급자 정보
-	$("input[name='recipterYn']").on("click",function(){
-		if($("#recipterYn0").is(":checked")){
-			$("#newInfo").click();
-			$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").hide();
-		}else{
-			//$("#recipter").val("${mbrVO.mbrNm}");
-			$(".wrapNm, .wrapNo, .f_recipterCheck, #newInfo").show();
-		}
-	});
-
-	// 정보수신
-	if($("input[name='smsRcptnYn']").is(":checked") && $("input[name='emlRcptnYn']").is(":checked") && $("input[name='telRecptnYn']").is(":checked")){
-		$("#allchk").prop("checked",true);
-	}
-
-	// 프로필 사진
-	$("#uploadFile").change(function(){
-    	setImageFromFile(this, "#profImg");
-    	$(".form-upload").hide()
-    	$(".img").show();
-    	$("#delBtn").show();
-
-	});
-
-	if("${mbrVO.proflImg}" != ''){
-		$(".form-upload").hide();
-	}else{
-		$(".form-upload").show();
-		$(".img").hide();
-		$("#delBtn").hide();
-	}
-
-	if($("#recipterYn0").is(":checked")){
-		$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").hide();
-	}else{
-		$(".wrapNm, .wrapNo, .f_recipterCheck, #wrapInfo, #newInfo").show();
-	}
-
-	//초기화
-	$("#newInfo").on("click",function(){
-		$("#recipter").val(null);
-		$("#rcperRcognNo").val(null);
-		$(".noneGrade").prop("selected",true);
-		$("#noneGrade").val('');
-		$("#selfBndRt").val('');
-		$("#wrapInfo").hide();
+		
+		var inputName = $(this).attr('name');
+		$('#' + inputName.replace('Yn', '') + 'Dt').attr('value', dateFormat(new Date()));
 	});
 
 	// 휴대폰 번호 변경
@@ -531,92 +302,6 @@ $(function(){
 			return false;
 		}
 	});
-
-	//수급자 정보 조회
-		$(".f_recipterCheck").on("click", function(){
-		$.ajax({
-			type : "post",
-			url  : "/common/recipter/getRecipterInfo.json",
-			data : {
-				//mbrNm:'${noMbrVO.mbrNm}'
-				mbrNm:$("#recipter").val()
-				, rcperRcognNo:$("#rcperRcognNo").val()
-			},
-			dataType : 'json'
-		})
-		.done(function(json) {
-            if(!json.isSearch) {
-                alert(json.msg);
-                return;
-            }
-
-			if(json.result){
-				$("#wrapInfo").show();
-
-				$("#searchNm").text($("#recipter").val());
-				$("#searchNo").text("L"+$("#rcperRcognNo").val());
-
-
-				let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
-				$("#searchQlf").text(penPayRate);
-
-
-				$("#searchGrade").attr("src", "/html/page/members/assets/images/txt-grade-num"+json.infoMap.LTC_RCGT_GRADE_CD+".png");
-				$("#searchBgngRcgt").html((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-				$("#searchEndRcgt").html("~ " + (json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)));
-				$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				$("#searchRemn").text(comma(json.infoMap.REMN_AMT))
-				$("#formatKo").text(viewKorean(json.infoMap.REMN_AMT))
-				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT));
-
-				$("#rcperRcognNo").val($("#rcperRcognNo").val());
-				$("#rcognGrad").val(json.infoMap.LTC_RCGT_GRADE_CD);
-				$("#selfBndRt").val(Number(penPayRate));
-				$("#vldBgngYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[0].replaceAll(' ',''));
-				$("#vldEndYmd").val((json.infoMap.RCGT_EDA_DT).split('~')[1].replaceAll(' ',''));
-				$("#aplcnBgngYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_FR_DT)));
-				$("#aplcnEndYmd").val(f_dateFormat(f_hiponFormat(json.infoMap.APDT_TO_DT)));
-				$("#sprtAmt").val(Number(json.infoMap.LMT_AMT));
-				$("#bnefBlce").val(Number(json.infoMap.REMN_AMT));
-
-
-			}else{
-				alert("조회된 데이터가 없습니다.");
-			}
-
-		})
-		.fail(function(data, status, err) {
-			console.log('error forward : ' + data);
-		});
-	});
-
-	// 수급자 일때 정보 체크
-	$.validator.addMethod("repChk", function(value, element) {
-		if($("#recipterYn1").is(":checked")){
-			if($("#recipter").val() == '' || $("#rcperRcognNo").val() == ''){
-				return false;
-			}else{
-				return true;
-			}
-		}else{
-			return true;
-		}
-	}, "형식이 올바르지 않습니다.");
-
-	// 수급자 조회 체크
-	$.validator.addMethod("searchChk", function(value, element) {
-		if($("#recipterYn1").is(":checked")){
-			if($('#wrapInfo').is(':visible')){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return true;
-		}
-
-	}, "형식이 올바르지 않습니다.");
 
 	//유효성 검사
 	$("form#frmReg").validate({
