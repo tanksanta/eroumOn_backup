@@ -94,23 +94,23 @@ html, body {
         }
         & .modal-content {
             @apply relative flex flex-col w-full h-full bg-white shadow-none pointer-events-auto
-                   sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[41.125rem];
+                sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[41.125rem];
         }
         & .modal-header {
             @apply flex items-center justify-between px-2.5 h-[2.8125rem]
-                   sm:px-5 sm:h-15;
+                sm:px-5 sm:h-15;
             & img {
                 @apply h-4;
             }
             & [data-bs-dismiss="modal"] {
                 @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
-                       sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
+                    sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
             }
         }
         & .modal-body {
             @apply px-2.5 py-4 scroll-smooth
-                   sm:p-5
-                   last:pb-10;
+                sm:p-5
+                last:pb-10;
             overflow: overlay;
             -webkit-overflow-scrolling: touch;
             &::-webkit-scrollbar {
@@ -123,7 +123,7 @@ html, body {
         }
         & .modal-banner {
             @apply flex-none -mx-2.5
-                   sm:-mx-5;
+                sm:-mx-5;
             & img {
                 @apply w-full;
             }
@@ -147,10 +147,10 @@ html, body {
         @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;
         & .offcanvas-header {
             @apply sticky top-0 bg-transparent flex items-center justify-between px-2.5 h-[2.8125rem]
-                   sm:px-5 sm:h-15;
-            & [data-bs-dismiss="offcanvas"] {
-                @apply absolute top-2 right-0.5 -mt-px w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
-                       sm:top-2.5 sm:right-1 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
+                sm:px-5 sm:h-15;
+        & [data-bs-dismiss="offcanvas"] {
+            @apply absolute top-2 right-0.5 -mt-px w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
+                    sm:top-2.5 sm:right-1 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
             }
         }
         & .offcanvas-body {
@@ -304,13 +304,13 @@ html, body {
     
     .form-check-group {
         @apply pt-0 px-1 pb-1
-               md:px-1.5 md:pb-1.5;
+            md:px-1.5 md:pb-1.5;
         & .form-check {
             @apply mt-1
-                   md:mt-1.5 md:mr-1.5;
+                md:mt-1.5 md:mr-1.5;
             & .form-check-label {
                 @apply px-2 min-w-0 h-8 leading-8
-                       md:px-3.5 md:h-8.5 md:leading-[2.125rem];
+                    md:px-3.5 md:h-8.5 md:leading-[2.125rem];
             }
         }
     }
@@ -340,22 +340,18 @@ html, body {
     .form-group {
         @apply inline-flex items-center max-w-full align-middle;
         & > * {
-            @apply mr-1.5 md:mr-2
-                   last:mr-0;
+            @apply mr-1.5 md:mr-2 last:mr-0;
         }
         & .form-control {
             @apply min-w-0 w-15 flex-1;
         }
         & .btn {
-            @apply px-4
-                   md:px-5;
+            @apply px-4 md:px-5;
             &.btn-small {
-                @apply px-3
-                       md:px-4;
+                @apply px-3  md:px-4;
             }
             &.btn-small {
-                @apply px-5
-                       md:px-8;
+                @apply px-5 md:px-8;
             }
         }
     }
@@ -402,8 +398,7 @@ html, body {
     .label {
         @apply inline-flex items-center justify-center px-3 rounded-full h-5.5 bg-gray1 text-[0.8125rem] font-normal text-white;
         & + .label {
-            @apply mr-0.5
-                   last:mr-0;
+            @apply mr-0.5 last:mr-0;
         }
     }
 
@@ -606,8 +601,7 @@ html, body {
             }
         }
         &.is-white {
-            @apply text-white
-                   after:bg-[url(/html/page/index/assets/images/ico-scroll-arrow-white.svg)];
+            @apply text-white after:bg-[url(/html/page/index/assets/images/ico-scroll-arrow-white.svg)];
             & i {
                 @apply bg-[url(/html/page/index/assets/images/ico-scroll-mouse-white.svg)];
                 &::before {
@@ -622,22 +616,16 @@ html, body {
     }
     
     .text-title {
-        @apply text-2xl
-               md:text-3xl
-               lg:text-5xl;
+        @apply text-2xl md:text-3xl lg:text-5xl;
         & small {
-            @apply text-base
-                   md:text-lg
-                   lg:text-xl;
+            @apply text-base md:text-lg lg:text-xl;
         }
     }
     
     .text-title2 {
-        @apply text-lg
-               md:text-xl;
+        @apply text-lg md:text-xl;
         & small {
-            @apply text-sm
-                   md:text-base;
+            @apply text-sm md:text-base;
         }
     }
     
@@ -664,9 +652,7 @@ html, body {
     .btn-eroum {
         @apply hover:!bg-white hover:!text-black2;
     }
-}
 
-@layer components {
     [class*='icon-'] {
         font-size: 0;
         color:transparent;
@@ -679,6 +665,7 @@ html, body {
             @apply rotate-180;
         }
     }
+   
     .btn-collapse {
         @apply flex items-center bg-gray-100 text-xs gap-1 px-2 py-1 rounded-lg;
     }
@@ -689,6 +676,36 @@ html, body {
 
     .text-danger {
         @apply text-red3 text-sm mt-1;
+    }
+
+    .btn-lightgrey {
+        background-color: #EDEDF0;
+        @apply text-sm flex items-center gap-2 px-2.5  py-1 rounded-md text-black
+            hover:bg-black  hover:text-white
+            focus:bg-black  focus:text-white
+            active:bg-black  active:text-white
+            disabled:!cursor-none disabled:!pointer-events-none disabled:!bg-black disabled:text-opacity-50;
+            
+            &:hover, &:focus { 
+                @apply bg-black text-white;
+                & .icon-refresh { 
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='19' viewBox='0 0 19 19' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.8332 0.759971C16.8345 0.483832 16.6117 0.258928 16.3356 0.257635C16.0595 0.256342 15.8346 0.479148 15.8333 0.755288L15.8176 4.09158C13.5939 1.69078 10.0495 0.52797 6.35509 1.74554L6.35448 1.74574C3.91656 2.55266 1.97981 4.386 1.0948 6.80672L1.09467 6.80709C-1.70866 14.4939 5.86772 21.6023 13.571 17.9296C15.1577 17.1742 16.4406 15.8787 17.1873 14.2939C17.9841 12.614 18.2682 10.9269 18.1351 9.3506C18.1119 9.07544 17.87 8.87121 17.5948 8.89445C17.3197 8.91769 17.1154 9.15959 17.1387 9.43475C17.2564 10.8291 17.0074 12.3399 16.2835 13.8658L16.2829 13.8671C15.634 15.2448 14.5179 16.3712 13.1412 17.0267L13.1409 17.0268C6.24595 20.3144 -0.462253 13.9958 2.03401 7.15009C2.81109 5.02457 4.51207 3.40902 6.66836 2.6952C10.2128 1.52719 13.572 2.80571 15.4969 5.25474L11.335 5.23999C11.0589 5.23901 10.8342 5.46207 10.8333 5.73821C10.8323 6.01435 11.0553 6.239 11.3315 6.23998L16.8075 6.2594L16.8332 0.759971ZM17.1873 14.2939L17.1876 14.2932L16.7353 14.0801L17.187 14.2944L17.1873 14.2939ZM13.571 17.9296L13.3563 17.4785L13.5713 17.9295L13.571 17.9296Z' fill='white'/%3E%3C/svg%3E");
+                }
+            }
+            &:disabled {
+                & .icon-refresh  { @apply opacity-50; }
+            }
+        
+        & .icon-refresh {
+            @apply bg-no-repeat bg-center bg-[length:100%] w-4 h-4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='19' viewBox='0 0 19 19' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.8333 0.75991C16.8346 0.483771 16.6118 0.258867 16.3357 0.257574C16.0595 0.256281 15.8346 0.479087 15.8333 0.755227L15.8177 4.09162C13.5939 1.69079 10.0496 0.527965 6.35512 1.74554L6.35451 1.74574C3.91659 2.55266 1.97984 4.386 1.09484 6.80672L1.0947 6.80709C-1.70863 14.4939 5.86775 21.6023 13.5711 17.9296C15.1577 17.1742 16.4406 15.8787 17.1873 14.2939C17.9842 12.614 18.2683 10.9269 18.1351 9.3506C18.1119 9.07544 17.87 8.87121 17.5948 8.89445C17.3197 8.91769 17.1155 9.15959 17.1387 9.43475C17.2564 10.8291 17.0075 12.3399 16.2836 13.8658L16.283 13.8671C15.634 15.2448 14.5179 16.3712 13.1412 17.0267L13.141 17.0268C6.24598 20.3144 -0.462222 13.9958 2.03404 7.15009C2.81112 5.02457 4.5121 3.40902 6.66839 2.6952C10.2128 1.5272 13.5719 2.80568 15.4969 5.25468L11.3351 5.23992C11.0589 5.23895 10.8343 5.46201 10.8333 5.73815C10.8323 6.01429 11.0554 6.23894 11.3315 6.23992L16.8075 6.25934L16.8333 0.75991ZM17.1873 14.2939L17.1876 14.2932L16.7353 14.0801L17.187 14.2944L17.1873 14.2939ZM13.5711 17.9296L13.3563 17.4785L13.5713 17.9295L13.5711 17.9296Z' fill='%23333333'/%3E%3C/svg%3E");
+        }
+    }
+
+    .text-hightlight-blue {
+        text-decoration: none;
+        display: inline;
+        box-shadow: inset 0 -10px 0 #D3E3FF; 
     }
 }
 
