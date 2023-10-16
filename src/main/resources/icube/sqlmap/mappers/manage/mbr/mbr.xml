@@ -402,8 +402,11 @@
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, prvc_vld_pd = #{prvcVldPd}
 			, sms_rcptn_yn = #{smsRcptnYn}
+			, sms_rcptn_dt = #{smsRcptnDt}
 			, eml_rcptn_yn = #{emlRcptnYn}
+			, eml_rcptn_dt = #{emlRcptnDt}
 			, tel_recptn_yn = #{telRecptnYn}
+			, tel_recptn_dt = #{telRecptnDt}
 			, profl_img = #{proflImg}
 			, itrst_field = #{itrstField, jdbcType=VARCHAR}
 		WHERE unique_id = #{uniqueId}

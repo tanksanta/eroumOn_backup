@@ -475,25 +475,33 @@ public class MbrsRegistController extends CommonAbstractController{
 	 */
 	@RequestMapping(value = "sns/regist")
 	public String registSns(
-			@RequestParam String uid
+			@RequestParam(required=false) String uid
+			, @RequestParam(required=false) String complete
 			, HttpServletRequest request
 			, HttpSession session
 			, Model model)throws Exception {
-		MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
-		Date now = new Date();
-		srchMbr.setSmsRcptnDt(now);
-		srchMbr.setEmlRcptnDt(now);
-		srchMbr.setTelRecptnDt(now);
-		model.addAttribute("mbrVO", srchMbr);
 		
-		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
-		mbrAgreementVO.setTermsDt(now);
-		mbrAgreementVO.setPrivacyDt(now);
-		mbrAgreementVO.setProvisionDt(now);
-		mbrAgreementVO.setThirdPartiesDt(now);
-		model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+		if (EgovStringUtil.isNotEmpty(uid)) {
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+			Date now = new Date();
+			srchMbr.setSmsRcptnDt(now);
+			srchMbr.setEmlRcptnDt(now);
+			srchMbr.setTelRecptnDt(now);
+			model.addAttribute("mbrVO", srchMbr);
+			
+			MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+			mbrAgreementVO.setTermsDt(now);
+			mbrAgreementVO.setPrivacyDt(now);
+			mbrAgreementVO.setProvisionDt(now);
+			mbrAgreementVO.setThirdPartiesDt(now);
+			model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+			model.addAttribute("expirationCode", CodeMap.EXPIRATION);
+		} else {
+			model.addAttribute("mbrVO", new MbrVO());
+			model.addAttribute("isComplete", complete);
+		}
 		
-		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
+		
 		return "/membership/sns_regist";
 	}
 	
@@ -603,9 +611,10 @@ public class MbrsRegistController extends CommonAbstractController{
 	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 			session.setMaxInactiveInterval(60*60);
 
-			javaScript.setLocation("/"+membershipPath+"/registStep3");
+			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
 		}else {
-			javaScript.setLocation("/"+membershipPath);
+			javaScript.setMessage("잘못된 접근입니다.");
+			javaScript.setLocation("/");
 		}
 
 		return new JavaScriptView(javaScript);
