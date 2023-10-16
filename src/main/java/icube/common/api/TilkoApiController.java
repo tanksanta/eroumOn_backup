@@ -39,14 +39,17 @@ public class TilkoApiController {
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("isSearch", false);
 		
+		returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
+		returnMap.put("isSearch", true);
+		
 		if (mbrSession.isLoginCheck()) {
-			if (!mbrNm.equals(mbrSession.getMbrNm())) {
-				returnMap.put("msg", "본인 명의만 조회가 가능합니다.");
-			} else {
-				//수급자 본인인 경우만 조회가능
-				returnMap = tilkoApiService.getRecipterInfo(mbrSession.getMbrNm(), rcperRcognNo);
-				returnMap.put("isSearch", true);
-			}
+//			if (!mbrNm.equals(mbrSession.getMbrNm())) {
+//				returnMap.put("msg", "본인 명의만 조회가 가능합니다.");
+//			} else {
+//				//수급자 본인인 경우만 조회가능
+//				returnMap = tilkoApiService.getRecipterInfo(mbrSession.getMbrNm(), rcperRcognNo);
+//				returnMap.put("isSearch", true);
+//			}
 		} else {
 			returnMap.put("msg", "로그인 이후 이용가능합니다.");
 		}

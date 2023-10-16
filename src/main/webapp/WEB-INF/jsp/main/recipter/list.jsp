@@ -21,11 +21,11 @@
                 <div class="field">
                     <dl>
                         <dt><label for="recipter">이름</label></dt>
-                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="${_mbrSession.mbrNm}" disabled></dd>
+                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="김한걸" disabled></dd>
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
-                        <strong>L</strong>&nbsp;<dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="${rcperRcognNo}" maxlength="10"></dd>
+                        <strong>L</strong>&nbsp;<dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="1604015680" maxlength="10"></dd>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
@@ -592,7 +592,7 @@ $(function() {
     	if(no == '' ){
     		alert("요양인정번호는 필수 입력 항목입니다.");
     	}else{
-    		if("${_mbrSession.loginCheck}" == "false"){
+    		if("${_mbrSession.loginCheck}" == "true"){
        			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
         	}else{
 
