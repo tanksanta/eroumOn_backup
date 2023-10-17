@@ -103,6 +103,7 @@
         	<mvc:mapping path="/#{props['Globals.Membership.path']}/info/**"/>
         	<mvc:mapping path="/#{props['Globals.Membership.path']}/conslt/**"/>
         	<mvc:mapping path="/#{props['Globals.Membership.path']}/mypage/**"/>
+        	<mvc:exclude-mapping path="/#{props['Globals.Membership.path']}/info/myinfo/getMbrInfo.json"/>
         	<bean class="icube.common.interceptor.MbrAuthInterceptor" />
         </mvc:interceptor>
 

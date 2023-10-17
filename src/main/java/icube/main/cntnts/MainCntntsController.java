@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
@@ -46,15 +47,16 @@ public class MainCntntsController extends CommonAbstractController {
 		
 		if ("test-result".equals(pageName)) {
 			if(!mbrSession.isLoginCheck()) {
-				String returnUrl = "/main/cntnts/test-result";
-				session.setAttribute("returnUrl", returnUrl);
-				return "redirect:" + "/"+ mainPath + "/login?returnUrl=" + returnUrl;
+//				String returnUrl = "/main/cntnts/test-result";
+//				session.setAttribute("returnUrl", returnUrl);
+//				return "redirect:" + "/"+ mainPath + "/login?returnUrl=" + returnUrl;
+			} else {
+				MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+				model.addAttribute("mbrEml", mbrVO.getEml());
 			}
-			
-		    MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			model.addAttribute("mbrEml", mbrVO.getEml());
 		}
 
+		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
 		return "/main/cntnts/" + pageName;
 	}
 }
