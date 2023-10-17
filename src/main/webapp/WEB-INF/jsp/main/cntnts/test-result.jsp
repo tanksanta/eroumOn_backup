@@ -296,7 +296,7 @@
     -->
 
     <div class="result-content5">
-        다른 결과를 확인하고 싶으시다면? <a href="/test/physical">테스트 다시하기</a>
+        다른 결과를 확인하고 싶으시다면? <a href="#" onclick="restartTest();">테스트 다시하기</a>
     </div>
 
     <a id="go-consult" href="#none" class="grade-floating">1:1 상담하기</a>
@@ -398,11 +398,12 @@
             });
             
             //테스트 결과 조회 ajax
-            function getTestResultAjax() {
+            function getTestResultAjax(recipientsNo) {
             	var result = null;
             	$.ajax({
             		type: "get",
             		url: "/test/result.json",
+            		data: {recipientsNo},
             		dataType : 'json',
             		async: false
             	})
@@ -419,12 +420,24 @@
             
             //로딩시 테스트 결과 조회
             function loadTestResult() {
-            	testResult = getTestResultAjax();
-            	if(!testResult) {
-            		alert('로그인 이후에 사용하여 주세요');
-            		location.href = '/membership/login?returnUrl=/main/cntnts/test-result'
-            		return;
+            	var testData = JSON.parse(sessionStorage.getItem('testData'));
+            	if (testData.isLogin) {
+            		//api 방식으로 테스트결과 가져오기
+            		testResult = getTestResultAjax(testData.recipientsNo);
+            		
+            		$('#go-consult').css('display', 'block');
             	}
+            	else {
+            		var finalTestResult = JSON.parse(sessionStorage.getItem('finalTestResult'));
+            		//세션 방식으로 테스트결과 가져오기
+            		testResult = {
+            			...testData,
+            			...finalTestResult,
+            		};
+            		
+            		$('#go-consult').css('display', 'none');
+            	}
+            	
             	
             	//등급 문구 표시
             	drawTestResultGradeAndScore(testResult.grade, testResult.score);
@@ -925,5 +938,11 @@
           		}
           	});
         });
+        
+      //테스트 다시하기 버튼 클릭
+      	function restartTest() {
+      		var testData = JSON.parse(sessionStorage.getItem('testData'));
+      		location.href = '/test/physical?recipientsNo=' + testData.recipientsNo;
+      	}
     </script>
 </div>

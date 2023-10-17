@@ -5,6 +5,7 @@
 	<sql id="listColumn">
 		mbr_test_no,
 		unique_id,
+		recipients_no,
 		grade,
 		score,
 		physical_select,
@@ -35,6 +36,9 @@
 		<if test="srchUniqueId != null and srchUniqueId != '' ">
 			AND unique_id = #{srchUniqueId}
 		</if>
+		<if test="srchRecipientsNo > 0">
+			AND recipients_no = #{srchRecipientsNo}
+		</if>
 	</sql>
 
 
@@ -50,6 +54,7 @@
 	<insert id="insertMbrTest" parameterType="mbrTestVO" useGeneratedKeys="true" keyProperty="mbrTestNo" keyColumn="MBR_TEST_NO">
 		INSERT INTO MBR_TEST(
 			unique_id
+			, recipients_no
 			, grade
 			, score
 			, physical_select
@@ -77,6 +82,7 @@
 			, reg_dt
 		)VALUES(
 			#{uniqueId}
+			, #{recipientsNo}
 			, #{grade}
 			, #{score}
 			, #{physicalSelect}
@@ -132,6 +138,6 @@
 			, diagram_nurse_score = #{diagramNurseScore}
 			, diagram_rehabilitate_score = #{diagramRehabilitateScore}
 			, mdfcn_dt = SYSDATE()
-		WHERE unique_id = #{uniqueId}
+		WHERE unique_id = #{uniqueId} AND recipients_no = #{recipientsNo}
 	</update>
 </mapper>

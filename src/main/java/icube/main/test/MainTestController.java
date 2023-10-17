@@ -59,16 +59,24 @@ public class MainTestController extends CommonAbstractController {
 	@RequestMapping(value = "{pageName}")
 	public String page(
 			@PathVariable String pageName
-			, @RequestParam Map<String,Object> reqMap
+			, @RequestParam(required = false) Integer recipientsNo
 			, HttpServletRequest request
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model) throws Exception {
 
-		if(!mbrSession.isLoginCheck()) {
-			String returnUrl = "/test/physical";
-			session.setAttribute("returnUrl", returnUrl);
-			return "redirect:" + "/"+ membershipPath + "/login?returnUrl=" + returnUrl;
+		//로그인을 안해도 테스트 가능하다.
+//		if(!mbrSession.isLoginCheck()) {
+//			String returnUrl = "/test/physical";
+//			session.setAttribute("returnUrl", returnUrl);
+//			return "redirect:" + "/"+ membershipPath + "/login?returnUrl=" + returnUrl;
+//		}
+		
+		//테스트 시작 화면에서 로그인되어 있을 시 수급자 정보 매핑
+		if ("physical".equals(pageName) && mbrSession.isLoginCheck()) {
+			model.addAttribute("recipientsNo", recipientsNo);
+		} else if ("physical".equals(pageName)) {
+			model.addAttribute("recipientsNo", 0);
 		}
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -84,15 +92,16 @@ public class MainTestController extends CommonAbstractController {
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value="/result.json", produces="application/json;charset=UTF-8")
-	public String getTestResult() {
+	public String getTestResult(@RequestParam Integer recipientsNo) {
 		JSONObject resultJson = new JSONObject();
         if (!mbrSession.isLoginCheck()) {
             resultJson.put("success", false);
             return resultJson.toJSONString();
         }
         
-        Map<String, String> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
     	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+    	paramMap.put("srchRecipientsNo", recipientsNo);
     	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
     	
     	if(srchMbrTestVO == null) {
@@ -103,6 +112,7 @@ public class MainTestController extends CommonAbstractController {
     	JSONObject dataJson = new JSONObject();
     	dataJson.put("mbrTestNo", srchMbrTestVO.getMbrTestNo());
     	dataJson.put("uniqueId", srchMbrTestVO.getUniqueId());
+    	dataJson.put("recipientsNo", srchMbrTestVO.getRecipientsNo());
     	dataJson.put("grade", srchMbrTestVO.getGrade());
     	dataJson.put("score", srchMbrTestVO.getScore());
     	
@@ -162,8 +172,9 @@ public class MainTestController extends CommonAbstractController {
         mbrTestVO.setUniqueId(mbrSession.getUniqueId());
         
         try {
-        	Map<String, String> paramMap = new HashMap<>();
+        	Map<String, Object> paramMap = new HashMap<>();
         	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+        	paramMap.put("srchRecipientsNo", mbrTestVO.getRecipientsNo());
         	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
         	
         	//생성

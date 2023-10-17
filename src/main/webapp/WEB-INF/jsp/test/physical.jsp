@@ -401,17 +401,17 @@
 			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
-			function loadTestResult() {
-				const testResult = getTestResultAjax();
-				if (testResult && testResult.physicalSelect && testResult.physicalSelect.length > 0) {
-					for (var i = 0; i < physicalCount; i++) {
-						const inputNumber = i + 1;
-						const selectedIndex = testResult.physicalSelect[i] - 1;
-						const curInputs = $('input[name=physical' + inputNumber + ']');
-						curInputs[selectedIndex].checked = true;
-					}
-				}
-			}
+			// function loadTestResult() {
+			// 	const testResult = getTestResultAjax();
+			// 	if (testResult && testResult.physicalSelect && testResult.physicalSelect.length > 0) {
+			// 		for (var i = 0; i < physicalCount; i++) {
+			// 			const inputNumber = i + 1;
+			// 			const selectedIndex = testResult.physicalSelect[i] - 1;
+			// 			const curInputs = $('input[name=physical' + inputNumber + ']');
+			// 			curInputs[selectedIndex].checked = true;
+			// 		}
+			// 	}
+			// }
 			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
@@ -458,16 +458,63 @@
 				}
 				const physicalScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
 				
+				const recipientsNo = ${recipientsNo};
 				const requestJson = JSON.stringify({
 					mbrTestVO: {
+						recipientsNo,
 						physicalSelect,
 						physicalScore
 					},
 					testNm: 'physical',
 				});
+				
+				
+				var result = getMbrInfo();
+				sessionStorage.setItem('testData', JSON.stringify({
+					isLogin: result.isLogin,
+					recipientsNo,
+				}));
+				
+				if (result.isLogin) {
+					//신체기능 정보 저장(api 방식)
+					saveTestResultAjax(requestJson, '/test/cognitive');	
+				} else {
+					//세션방식 저장
+					var testData = JSON.parse(sessionStorage.getItem('testData'));
+					testData.physical = {
+						physicalSelect,
+						physicalScore
+					};
+					sessionStorage.setItem('testData', JSON.stringify(testData));
 					
-				//신체기능 정보 저장
-				saveTestResultAjax(requestJson, '/test/cognitive');
+					location.href = '/test/cognitive';
+				}
 			});
+			
+			//로그인 여부 확인용 사용자 조회하기
+			function getMbrInfo() {
+				var result = {};
+				$.ajax({
+	        		type : "post",
+					url  : "/membership/info/myinfo/getMbrInfo.json",
+					dataType : 'json',
+					async: false
+	        	})
+	        	.done(function(data) {
+	        		//로그인 한 경우
+	        		if (data.isLogin) {
+	        			result.isLogin = true;	        			
+	        		}
+	        		//로그인 안한 경우
+	        		else {
+	        			result.isLogin = false;
+	        		}
+	        	})
+	        	.fail(function(data, status, err) {
+	        		alert('서버와 연결이 좋지 않습니다.');
+				});
+				
+				return result;
+			}
 		});
 	</script>

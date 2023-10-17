@@ -15,25 +15,21 @@
         <ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
 			<li>이로움 서비스</li>
-			<li>인정 등급 예상 테스트</li>
+			<li>인정등급 예상 테스트</li>
         </ul>
     </nav>
 </header>
 
 <div id="content">
-
+	<!-- 
     <div class="flex justify-center flex-wrap gap-2 py-2">
-        <!--a. 비로그인시 사용자-->
         <button type="button" class="btn btn-small" data-bs-toggle="modal" data-bs-target="#non-login-user">비로그인시 사용자</button>
-        <!--b. 로그인시 사용자-->
         <button type="button" class="btn btn-small" data-bs-toggle="modal" data-bs-target="#login-no-rcpt">로그인사용자 : 등록된 수급자 없는 경우</button>
-        <!--b. 등록 수급자 n명이상인 경우-->
         <button type="button" class="btn btn-small" data-bs-toggle="modal" data-bs-target="#login-rcpts">로그인사용자 : 등록 수급자 n명이상인 경우</button>
-        <!--d. 수급자 정보 등록-->
         <button type="button" class="btn btn-small" data-bs-toggle="modal" data-bs-target="#regist-rcpt">수급자 정보 등록</button>
-        <!--c. 상담내역알림-->
         <button type="button" class="btn btn-small" data-bs-toggle="modal" data-bs-target="#notified-consulting">상담내역알림</button>
     </div>
+	 -->
 
     <div class="grade-content1">
         <h2 class="grade-title2">
@@ -96,7 +92,7 @@
                     </svg>
                 </div>
             </div>
-            <a href="/test/physical" target="_blank" title="새창열림" class="btn btn-large2 btn-primary2 btn-arrow">
+            <a href="#" class="btn btn-large2 btn-primary2 btn-arrow" onclick="startTest();">
                 <strong>테스트 시작하기</strong>
             </a>
         </div>
@@ -372,31 +368,31 @@
     </div>
 
     
-<!--비로그인시 사용자 팝업소스-->
-<div class="modal modal-index fade" id="non-login-user" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="text-title">로그인</h2>
-            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-bg-wrap">
-                <div class="text-center text-xl">
-                    <p>로그인하지 않으면<br>전문가 상담과 대리 등급 신청이 불가해요 </p>
-                    <p class="font-semibold">로그인하시겠어요?</p>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="flex flex-col items-end gap-2 w-full">
-            <button type="button" class="btn btn-primary large w-full">로그인 하기</button>
-            <a href="#"class="underline text-blue3 text-sm">일회성으로 진행하기</a>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
+	<!--비로그인시 사용자 팝업소스-->
+	<div class="modal modal-index fade" id="non-login-user" tabindex="-1" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	        <div class="modal-header">
+	            <h2 class="text-title">로그인</h2>
+	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+	        </div>
+	        <div class="modal-body">
+	            <div class="modal-bg-wrap">
+	                <div class="text-center text-xl">
+	                    <p>로그인하지 않으면<br>전문가 상담과 대리 등급 신청이 불가해요 </p>
+	                    <p class="font-semibold">로그인하시겠어요?</p>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="modal-footer">
+	            <div class="flex flex-col items-end gap-2 w-full">
+		            <button type="button" class="btn btn-primary large w-full" onclick="location.href='/membership/login?returnUrl=/main/cntnts/test'">로그인 하기</button>
+		            <a href="/test/physical"class="underline text-blue3 text-sm">일회성으로 진행하기</a>
+	            </div>
+	        </div>
+	        </div>
+	    </div>
+	</div>
 
     <!--로그인사용자 : 등록된 수급자 없는 경우-->
     <div class="modal modal-index fade" id="login-no-rcpt" tabindex="-1" aria-hidden="true">
@@ -408,42 +404,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="flex flex-col justify-center items-end gap-1">
-                        <select name="" id="ccc" class="form-control w-full">
-                        <option value="">관계선택</option>
+                        <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-full">
+                        	<option value="">관계 선택</option>
+							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+								<option value="${relation.key}">${relation.value}</option>	
+							</c:forEach>
                         </select>
-                        <input type="text" id="" placeholder="수급자 성명" class="form-control w-full">
+                        <input type="text" name="no-rcpt-nm" id="no-rcpt-nm" placeholder="수급자 성명" class="form-control w-full">
                         <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
                     </div>
-
-                    <!--직접입력하기-->
-                    <div class="flex flex-col gap-2">
-                        <a href="#direct-rcpt" data-bs-toggle="collapse" aria-expanded="false" class="btn-toggle-box">
-                            <p class="text-gray5">직접입력하기</p>
-                            <div class="btn-collapse" onclick="toggleText()">
-                                <span>펼치기</span>
-                                <i class="icon-collapse">펼치기/접기</i> 
-                            </div>
-                        </a>
-                        <div id="direct-rcpt" class="collapse">
-                            <div class="flex flex-col justify-center items-start gap-2">
-                                <label for="rcpt-related" class="w-full">
-                                    <select name="" id="rcpt-related" class="form-control w-full is-invalid"  aria-required="true" aria-describedby="rcpt-related-error" 
-                                    aria-invalid="true">
-                                    <option value="">관계선택</option>
-                                    </select>
-                                    <p id="rcpt-related-error" class="error text-danger">! 필수로 선택해 주세요</p>
-                                </label>
-                                <label for="rcpt-name" class="w-full">
-                                    <input type="text" id="rcpt-name" aria-required="true" aria-describedby="rcpt-name-error" 
-                                    aria-invalid="true" placeholder="수급자 성명" class="form-control w-full is-invalid">
-                                    <p id="rcpt-name-error" class="error text-danger">! 필수로 입력해 주세요</p>
-                                </label>
-                                </div>
-                            </div>
-                        </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">시작하기</button>
+                    <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70" onclick="startLoginNoRcpt();">시작하기</button>
                 </div>
             </div>
         </div>
@@ -458,28 +430,19 @@
             <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
             </div>
             <div class="modal-body  items-end">
-            <div class="form-radio-button-group">
-                <div  class="form-check">
-                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt1">
-                    <label class="form-check-label" for="rcpt1">홍길동</label>
-                </div>
-                <div  class="form-check">
-                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt2">
-                    <label class="form-check-label" for="rcpt2">김길동</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt3">
-                    <label class="form-check-label" for="rcpt3">이길동</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt4">
-                    <label class="form-check-label" for="rcpt4">박길동</label>
-                </div>
-            </div>
-            <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
+	            <div class="form-radio-button-group" id="recipient-list">
+	                
+	            </div>
+	            <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
+	            
+	            
+	            <!--직접입력하기-->
+	            <div id="registRecipientForm" style="display: block; width: 100%;">
+	                
+	            </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">시작하기</button>
+            <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70" onclick="startloginRcpts();">시작하기</button>
             </div>
         </div>
         </div>
@@ -506,13 +469,14 @@
                 </div>
                 <div class="modal-bg-wrap">
                     <ul class="modal-list-box">
+                    	<input id="modal-recipient-relation-cd" type="hidden" value="">
                         <li>
                             <span class="modal-list-label">수급자와의 관계</span>
-                            <span class="modal-list-value">본인</span>
+                            <span class="modal-list-value" id="modal-recipient-relation">본인</span>
                         </li>
                         <li>
                             <span class="modal-list-label">수급자 성명</span>
-                            <span class="modal-list-value">홍길동</span>
+                            <span class="modal-list-value" id="modal-recipient-nm">홍길동</span>
                         </li>
                     </ul>
                 </div>
@@ -522,7 +486,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary w-full">확인</button>
+                    <button type="button" class="btn btn-primary w-full" onclick="clickRegistRecipient();">확인</button>
                 </div>
             </div>
         </div>
@@ -547,14 +511,20 @@
             </div>
             </div>
             <div class="modal-footer gap-1">
-            <button type="button" class="btn btn-primary large flex-initial w-55">상담내역 확인하기</button>
-            <button type="button" class="btn btn-outline-primary large flex-initial w-45" data-bs-dismiss="modal" class="btn-close">새롭게 진행하기</button>
+            <button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
+            <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="modalRecipient();">새롭게 진행하기</button>
             </div>
         </div>
         </div>
     </div>
 
+	<a href="#" class="grade-floating" title="새창열림" onclick="startTest();">테스트 시작하기</a>
+	
+
     <script>
+    	var mbrNm = null;
+    	var recipients = null;
+    
         var rolling1 = null;
         var rolling2 = null;
 
@@ -638,7 +608,220 @@
                 text.textContent =  "접기";
             }
         }
-    </script>
+        
+        //테스트 시작하기 버튼 클릭
+        function startTest() {
+        	$.ajax({
+        		type : "post",
+				url  : "/membership/info/myinfo/getMbrInfo.json",
+				dataType : 'json'
+        	})
+        	.done(function(data) {
+        		//로그인 한 경우
+        		if (data.isLogin) {
+        			//ajax 받아온 데이터 저장
+        			mbrNm = data.mbrVO.mbrNm;
+        	    	recipients = data.mbrRecipients;
+        			
+        			//진행중인 상담이 있는 경우
+        			if (data.isExistConsltInProcess) {
+        				$('#notified-consulting').modal('show');
+        				return;
+        			}
+        			
+        	    	modalRecipient();
+        		}
+        		//로그인 안한 경우
+        		else {
+        			$('#non-login-user').modal('show');
+        		}
+        	})
+        	.fail(function(data, status, err) {
+        		alert('서버와 연결이 좋지 않습니다.');
+			});
+        }
+        
+        //수급자 없는 모달 또는 등록된 수급자 있는 모달 띄우기
+        function modalRecipient() {
+        	$('#notified-consulting').modal('hide');
+        	
+        	//등록된 수급자가 없는 경우
+			if(!recipients || recipients.length === 0) {
+				$('#login-no-rcpt').modal('show');
+			}
+			//기존에 등록한 수급자가 있는 경우
+			else {
+				var template = '';
+				
+				//수급자 선택 박스 생성
+				for (var i = 0; i < recipients.length; i++) {
+					template += `<div  class="form-check">
+	                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt` + i + `" value="` + recipients[i].recipientsNo + `">
+	                    <label class="form-check-label" for="rcpt` + i + `">` + recipients[i].recipientsNm + `</label>
+	                </div>`;
+				}
+				$('#recipient-list').html(template);
+				
+				//직접입력하기 폼 추가(등록된 수급자가 4명 미만인 경우)
+				if (recipients.length < 4) {
+					template = getRegistRecipientForm();
+					
+					$('#registRecipientForm').html(template);
+				} else {
+					$('#registRecipientForm').html('');
+				}
+				
+				$('#login-rcpts').modal('show');
+			}
+        } 
+        
+        //수급자가 없는 모달 시작하기
+        function startLoginNoRcpt() {
+        	var relationCd = $('#no-rcpt-relation option:selected').val();
+        	var relationText = $('#no-rcpt-relation option:selected').text();
+        	var recipientsNm = $('#no-rcpt-nm').val();
+        	
+        	if (!relationCd || !recipientsNm) {
+        		alert('모두 입력해주세요');
+        		return;
+        	}
+        	if (relationCd === '007' && mbrNm !== recipientsNm) {
+        		alert('수급자와의 관계를 확인해주세요');
+        		return;
+        	}
+        	
+        	mappingRecipientModal(relationCd, relationText, recipientsNm);
+        }
+        
+        //등록된 수급자가 있는 모달 시작하기
+        function startloginRcpts() {
+        	var el = document.querySelector(".btn-toggle-box");
+        	var isRegist = el.classList.contains("collapsed");
+        	  
+        	//수급자 선택인 경우
+        	if (isRegist) {
+        		//등록된 수급자 선택값 가져오기
+            	var radioRecipientsNo =  $('input[name=rcpts]:checked').val();
+            	location.href = '/test/physical?recipientsNo=' + radioRecipientsNo;
+        	}
+        	//직접입력하기인 경우
+        	else {
+        		//직접 입력하기 수급자 정보
+            	var relationCd = $('#login-rcpts-relation option:selected').val();
+            	var relationText = $('#login-rcpts-relation option:selected').text();
+            	var recipientsNm = $('#login-rcpts-nm').val();
+            	
+            	if (!relationCd || !recipientsNm) {
+            		alert('모두 입력해주세요');
+            		return;
+            	}
+            	
+            	//본인과 배우자는 한명만 등록이 가능하다.
+            	if (relationCd === '007' && recipients.findIndex(f => f.relationCd === '007') !== -1) {
+            		alert('본인은 한명만 등록이 가능합니다.')
+            		return;
+            	}
+            	else if (relationCd === '001' && recipients.findIndex(f => f.relationCd === '001') !== -1) {
+            		alert('배우자는 한명만 등록이 가능합니다.')
+            		return;
+            	}
+            	
+            	mappingRecipientModal(relationCd, relationText, recipientsNm);
+        	}
+        }
+        
+        //새로 등록할 수급자 확인
+        function clickRegistRecipient() {
+        	var relationCd = $('#modal-recipient-relation-cd').val();
+        	var recipientsNm = $('#modal-recipient-nm').text();
+        	
+        	$.ajax({
+        		type : "post",
+				url  : "/membership/info/myinfo/addMbrRecipient.json",
+				data : {
+					relationCd
+					, recipientsNm
+				},
+				dataType : 'json'
+        	})
+        	.done(function(data) {
+        		if(data.success) {
+        			alert('수급자 정보 등록에 동의했습니다.');
+        			
+        			location.href = '/test/physical?recipientsNo=' + data.createdRecipientsNo;
+        		}else{
+        			alert(data.msg);
+        		}
+        	})
+        	.fail(function(data, status, err) {
+        		alert('서버와 연결이 좋지 않습니다.');
+			});
+        }
 
-    <a href="/test/physical" class="grade-floating" target="_blank" title="새창열림">테스트 시작하기</a>
+        
+        //등록하려는 수급자 확인 모달값 매핑
+        function mappingRecipientModal(relationCd, relationText, recipientsNm) {
+        	$('#modal-recipient-relation-cd').val(relationCd);
+        	$('#modal-recipient-relation').text(relationText);
+        	$('#modal-recipient-nm').text(recipientsNm);
+        	$('#regist-rcpt').modal('show');
+        }
+        
+        //직접입력하기(수급자 등록) 폼 반환
+        function getRegistRecipientForm() {
+        	return `
+        	<div class="flex flex-col gap-2">
+	            <a href="#direct-rcpt" data-bs-toggle="collapse" aria-expanded="false" class="btn-toggle-box collapsed">
+	                <p class="text-gray5">직접입력하기</p>
+	                <div class="btn-collapse" onclick="toggleText()">
+	                    <span>펼치기</span>
+	                    <i class="icon-collapse">펼치기/접기</i> 
+	                </div>
+	            </a>
+	            <div id="direct-rcpt" class="collapse">
+	            <div class="flex flex-col justify-center items-start gap-2">
+	                <label for="rcpt-related" class="w-full">
+	                    <select name="login-rcpts-relation" id="login-rcpts-relation" class="form-control w-full is-invalid"  aria-required="true" aria-describedby="rcpt-related-error" aria-invalid="true" onchange="validateRequiredField();">
+	                    	<option value="">관계 선택</option>
+							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+								<option value="${relation.key}">${relation.value}</option>	
+							</c:forEach>
+	                    </select>
+	                    <p id="rcpt-related-error" class="error text-danger">! 필수로 선택해 주세요</p>
+	                </label>
+	                <label for="rcpt-name" class="w-full">
+	                    <input type="text" id="login-rcpts-nm" aria-required="true" aria-describedby="rcpt-name-error" 
+	                    aria-invalid="true" placeholder="수급자 성명" class="form-control w-full is-invalid" oninput="validateRequiredField();">
+	                    <p id="rcpt-name-error" class="error text-danger">! 필수로 입력해 주세요</p>
+	                </label>
+	               </div>
+	           </div>
+	        </div>
+        	`
+        }
+        
+        //직접입력하기 필수체크
+        function validateRequiredField() {
+        	//직접 입력하기 수급자 정보
+        	var relationCd = $('#login-rcpts-relation option:selected').val();
+        	var relationText = $('#login-rcpts-relation option:selected').text();
+        	var recipientsNm = $('#login-rcpts-nm').val();
+        	
+        	if (relationCd) {
+        		$('#login-rcpts-relation').removeClass('is-invalid');
+        		$('#rcpt-related-error').css('display', 'none');
+        	} else {
+        		$('#login-rcpts-relation').addClass('is-invalid');
+        		$('#rcpt-related-error').css('display', 'block');
+        	}
+        	
+        	if (recipientsNm) {
+        		$('#login-rcpts-nm').removeClass('is-invalid');
+        		$('#rcpt-name-error').css('display', 'none');
+        	} else {
+        		$('#login-rcpts-nm').addClass('is-invalid');
+        		$('#rcpt-name-error').css('display', 'block');
+        	}
+        }
+    </script>
 </div>

@@ -133,23 +133,23 @@
 			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
-			function loadTestResult() {
-				const testResult = getTestResultAjax();
-				if (testResult && testResult.cognitiveSelect && testResult.cognitiveSelect.length > 0) {
-					for (var i = 0; i < testResult.cognitiveSelect.length; i++) {
-						const inputNumber = i + 1;
-						const checked = testResult.cognitiveSelect[i];
-						const curInputs = $('input[name=cognitive' + inputNumber + ']');
-						curInputs[0].checked = checked;
+			// function loadTestResult() {
+			// 	const testResult = getTestResultAjax();
+			// 	if (testResult && testResult.cognitiveSelect && testResult.cognitiveSelect.length > 0) {
+			// 		for (var i = 0; i < testResult.cognitiveSelect.length; i++) {
+			// 			const inputNumber = i + 1;
+			// 			const checked = testResult.cognitiveSelect[i];
+			// 			const curInputs = $('input[name=cognitive' + inputNumber + ']');
+			// 			curInputs[0].checked = checked;
 						
-						//선택된것이 있다면 증상없음 해제
-						if (curInputs[0].checked) {
-							var input = $('input[name=cognitive8]')[0];
-							input.checked = false;
-						}
-					}
-				}
-			}
+			// 			//선택된것이 있다면 증상없음 해제
+			// 			if (curInputs[0].checked) {
+			// 				var input = $('input[name=cognitive8]')[0];
+			// 				input.checked = false;
+			// 			}
+			// 		}
+			// 	}
+			// }
 			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
@@ -196,16 +196,30 @@
 				}
 				const cognitiveScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
 				
+				var testData = JSON.parse(sessionStorage.getItem('testData'));
 				const requestJson = JSON.stringify({
 					mbrTestVO: {
+						recipientsNo : testData.recipientsNo,
 						cognitiveSelect,
 						cognitiveScore
 					},
 					testNm: 'cognitive',
 				});
 				
-				//인지기능 정보 저장
-				saveTestResultAjax(requestJson, '/test/behavior');
+				
+				if (testData.isLogin) {
+					//인지기능 정보 저장(api 방식)
+					saveTestResultAjax(requestJson, '/test/behavior');
+				} else {
+					//세션방식 저장
+					testData.cognitive = {
+						cognitiveSelect,
+						cognitiveScore
+					};
+					sessionStorage.setItem('testData', JSON.stringify(testData));
+					
+					location.href = '/test/behavior';
+				}
 			});
 		});
 	</script>

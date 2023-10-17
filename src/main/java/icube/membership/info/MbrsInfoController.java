@@ -19,28 +19,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
-
-import com.ibm.icu.text.SimpleDateFormat;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
-import icube.common.util.ArrayUtil;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
-import icube.manage.mbr.recipter.biz.RecipterInfoService;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -56,9 +51,6 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Resource(name="fileService")
 	private FileService fileService;
 
-	@Resource(name = "recipterInfoService")
-	private RecipterInfoService recipterInfoService;
-
 	@Resource(name = "bootpayApiService")
 	private BootpayApiService bootpayApiService;
 
@@ -67,6 +59,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
@@ -372,5 +367,75 @@ public class MbrsInfoController extends CommonAbstractController{
 		resultMap.put("diKey", authMap.get("di"));
 		return resultMap;
 	}
-
+	
+	/**
+	 * 로그인 여부 및 수급자 정보 조회 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getMbrInfo.json")
+	public Map<String, Object> getMbrInfo(
+		HttpServletRequest request) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("isLogin", false);
+			return resultMap;
+		}
+	
+		MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		resultMap.put("mbrVO", mbrVO);
+		resultMap.put("mbrRecipients", mbrRecipients);
+		
+		//진행중인 인정등급상담 조회
+		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
+		resultMap.put("isExistConsltInProcess", mbrConslt == null ? false : true);
+		
+		resultMap.put("isLogin", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 장기요양테스트, 간편조회 이전 수급자 추가 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addMbrRecipient.json")
+	public Map<String, Object> addMbrRecipient(
+		@RequestParam String relationCd,
+		@RequestParam String recipientsNm,
+		HttpServletRequest request) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			//수급자 회원 등록 최대수 확인(최대 4명)
+			List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			if (srchMbrRecipientList.size() > 3) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "더 이상 수급자(어르신)를 등록할 수 없습니다");
+				return resultMap;
+			}
+			
+			
+			//회원의 수급자 정보 등록
+			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
+			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
+			mbrRecipient.setRelationCd(relationCd);
+			mbrRecipient.setRecipientsNm(recipientsNm);
+			mbrRecipient.setRecipientsYn("N");
+			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
+			
+			//등록된 수급전 번호 가져오기
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			int createdRecipientsNo = mbrRecipientList.get(0).getRecipientsNo();
+			
+			resultMap.put("success", true);
+			resultMap.put("createdRecipientsNo", createdRecipientsNo);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 등록중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
 }

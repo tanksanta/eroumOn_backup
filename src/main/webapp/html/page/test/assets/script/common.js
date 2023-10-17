@@ -31,11 +31,12 @@ function saveTestResultAjax(requestJson, redirectUrl) {
 }
 
 // 테스트 정보 조회 ajax
-function getTestResultAjax() {
+function getTestResultAjax(recipientsNo) {
 	var result = null;
 	$.ajax({
 		type: "get",
 		url: "/test/result.json",
+        data: {recipientsNo},
 		dataType : 'json',
 		async: false
 	})
