@@ -8,7 +8,7 @@
 					<p class="box-result is-large col-span-2 md:col-span-3">상품 검색 결과가 없습니다.</p>
                     </c:if>
                 </c:if>
-                
+
 				<c:if test="${isSrchPage}">
             	<div class="flex items-center justify-between mb-2.5 text-[0.8125rem] font-medium md:mb-5 md:text-sm">
 	                <p>총 <strong class="text-danger">${listVO.totalCount}</strong>개의 상품이 있습니다.</p>
@@ -121,8 +121,8 @@
                                 <!-- <button type="button" class="btn btn-compare f_compare" data-gds-no="${resultList.gdsNo}" data-gds-cd="${resultList.gdsCd}" data-ctgry-no="${resultList.ctgryNo}" data-gds-file="${resultList.thumbnailFile.fileNo}" data-bs-toggle="tooltip" title="상품 비교 추가">상품 비교 추가</button> -->
                                 <c:if test="${_mbrSession.loginCheck}">
                                 	<button type="button" class="btn btn-love f_wish ${resultList.wishYn>0?'is-active':'' }" data-gds-no="${resultList.gdsNo}" data-wish-yn="${resultList.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+	                                <button type="button" class="btn btn-cart f_cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
                                 </c:if>
-                                <%-- <button type="button" class="btn btn-cart" data-gds-no="${resultList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button> --%>
                             </div>
                             <c:if test="${!empty resultList.wrhsYmdNtcn}">
                             <p class="soldout">${resultList.wrhsYmdNtcn}</p>

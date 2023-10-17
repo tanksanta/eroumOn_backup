@@ -107,6 +107,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			return "redirect:/"+ mainPath;
 		}
 
+		/*
 		if(!mbrSession.getJoinTy().equals("E")) {
 			session.setAttribute("infoStepChk", "EASYLOGIN");
 			session.setMaxInactiveInterval(60*60);
@@ -117,7 +118,7 @@ public class MbrsInfoController extends CommonAbstractController{
 				return "redirect:/"+ membershipPath + "/info/myinfo/form";
 			}
 
-		}
+		}*/
 
 		//암호화
 		RSA rsa = RSA.getEncKey();

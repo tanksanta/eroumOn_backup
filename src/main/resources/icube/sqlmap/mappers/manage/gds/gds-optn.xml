@@ -24,7 +24,7 @@
 			AND optn_ty = #{optnTy}
 		</if>
 		<if test="optnVal !=null and optnVal != ''">
-			AND optn_nm LIKE CONCAT(#{optnVal}, '%')
+			AND TRIM(optn_nm) LIKE CONCAT(#{optnVal}, '%')
 		</if>
 		<if test="useYn !=null and useYn != ''">
 			AND use_yn = #{useYn}

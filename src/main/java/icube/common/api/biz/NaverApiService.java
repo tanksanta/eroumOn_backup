@@ -75,6 +75,21 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		return sb.toString();
 	}
 
+	// 재인증
+	public String getNaverReAuth() throws Exception {
+		StringBuffer sb = new StringBuffer();
+		sb.append("https://nid.naver.com/oauth2.0/authorize?response_type=code");
+		sb.append("&client_id=");
+		sb.append(NaverClientId);
+		sb.append("&redirect_uri=");
+		sb.append(NaverRedirectUrl);
+		sb.append("&state=");
+		sb.append(URLEncoder.encode("icube","UTF-8"));
+		sb.append("&inapp_view=true&auth_type=reauthenticate");
+
+		return sb.toString();
+	}
+
 
 	/**
 	 * 로그인 및 회원가입 처리
@@ -86,13 +101,20 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		int resultCnt = 0;
 
 		Map<String, Object> keyMap = this.getToken(paramMap);
-		/*Map<String, Object> resultMap = this.tokenCheck(keyMap);
-
-		if(EgovStringUtil.isNotEmpty((String)resultMap.get("accessToken"))) {
-			keyMap.put("accessToken", (String)resultMap.get("accessToken"));
-		}*/
-
 		MbrVO proflInfo = getMbrProfl(keyMap);
+
+		// 재인증 추가 20230922 START
+		String checkId = proflInfo.getMbrId();
+		if(mbrSession.isLoginCheck()) {
+			log.debug("### 재인증 진행 ###" + mbrSession.getMbrId()+"//"+checkId);
+
+			if(EgovStringUtil.equals(mbrSession.getMbrId(), checkId)) {
+				return 11;
+			}else {
+				return 12;
+			}
+		}
+		//재인증 END
 
 		paramMap.clear();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
