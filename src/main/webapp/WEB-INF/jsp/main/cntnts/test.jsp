@@ -379,15 +379,18 @@
 	        <div class="modal-body">
 	            <div class="modal-bg-wrap">
 	                <div class="text-center text-xl">
-	                    <p>로그인하지 않으면<br>전문가 상담과 대리 등급 신청이 불가해요 </p>
-	                    <p class="font-semibold">로그인하시겠어요?</p>
+	                    <p>
+	                    	로그인하고 인정등급을 간편하게 신청해 보세요.<br>
+	                    	테스트 결과를 바탕으로 전문가가 인정등급 신청<br>
+	                    	을 도와드려요.
+	                    </p>
 	                </div>
 	            </div>
 	        </div>
 	        <div class="modal-footer">
 	            <div class="flex flex-col items-end gap-2 w-full">
-		            <button type="button" class="btn btn-primary large w-full" onclick="location.href='/membership/login?returnUrl=/main/cntnts/test'">로그인 하기</button>
-		            <a href="/test/physical"class="underline text-blue3 text-sm">일회성으로 진행하기</a>
+		            <button type="button" class="btn btn-primary large w-full" onclick="location.href='/membership/login?returnUrl=/main/cntnts/test'">로그인하기</button>
+		            <a href="/test/physical"class="underline text-blue3 text-sm">테스트만 진행하기</a>
 	            </div>
 	        </div>
 	        </div>
@@ -411,7 +414,6 @@
 							</c:forEach>
                         </select>
                         <input type="text" name="no-rcpt-nm" id="no-rcpt-nm" placeholder="수급자 성명" class="form-control w-full">
-                        <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -433,10 +435,10 @@
 	            <div class="form-radio-button-group" id="recipient-list">
 	                
 	            </div>
-	            <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
+	            <a href="#"class="underline text-blue3 text-sm">수급자 관리</a>
 	            
 	            
-	            <!--직접입력하기-->
+	            <!--추가 등록-->
 	            <div id="registRecipientForm" style="display: block; width: 100%;">
 	                
 	            </div>
@@ -464,7 +466,11 @@
                     </div>
                     <div class="text-subtitle">
                         <i class="icon-alert"></i>
-                        <p>회원이 이용 약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+                        <p>등록하려는 수급자 정보를 확인하세요</p>
+                    </div>
+                    <div class="text-subtitle">
+                        <i class="icon-alert"></i>
+                        <p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
                     </div>
                 </div>
                 <div class="modal-bg-wrap">
@@ -772,7 +778,7 @@
         	return `
         	<div class="flex flex-col gap-2">
 	            <a href="#direct-rcpt" data-bs-toggle="collapse" aria-expanded="false" class="btn-toggle-box collapsed">
-	                <p class="text-gray5">직접입력하기</p>
+	                <p class="text-gray5">추가 등록</p>
 	                <div class="btn-collapse" onclick="toggleText()">
 	                    <span>펼치기</span>
 	                    <i class="icon-collapse">펼치기/접기</i> 
