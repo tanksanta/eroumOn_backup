@@ -205,7 +205,7 @@
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="smsRcptnYn" value="Y" />
-										<label class="form-check-label" for="smsRcptnYn1">SMS</label>
+										<label class="form-check-label" for="smsRcptnYn1">문자</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="emlRcptnYn" value="Y" />
@@ -213,7 +213,7 @@
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
+										<label class="form-check-label" for="telRecptnYn1">전화</label>
 									</div>
 								</div>
 							</td>
