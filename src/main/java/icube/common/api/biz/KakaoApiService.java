@@ -429,7 +429,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 	 	        }
 
-				mbrVO.setDlvyInfo(dlvyVO);
+				//mbrVO.setDlvyInfo(dlvyVO);
  				insertUserInfo(mbrVO, session);
 
 	 	        resultCnt = 7;

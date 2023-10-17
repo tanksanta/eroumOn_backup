@@ -1,70 +1,86 @@
 @layer components {
-    .table-list, .table-detail {
-        @apply table-fixed -mx-1.5 w-[calc(100%_+_0.75rem)] border-separate border-spacing-1.5 leading-tight;
-        & th, & td {
-            @apply p-0 border-0 h-5;
-        }
-        & th {
-            @apply text-[0.8125rem] font-bold tracking-tight
-                   md:text-sm;
-            & p {
-                @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md
-                       md:pt-5 md:px-3 md:pb-2.5;
-            }
-        }
+  .table-list,
+  .table-detail {
+    @apply table-fixed -mx-1.5 w-[calc(100%_+_0.75rem)] border-separate border-spacing-1.5 leading-tight;
+    & th,
+    & td {
+      @apply p-0 border-0 h-5;
+    }
+    & th {
+      @apply text-[0.8125rem] font-bold tracking-tight md:text-sm;
+      & p {
+        @apply flex items-end pt-4 pb-2 px-2.5 h-full bg-gray2 rounded-md md:pt-5 md:px-3 md:pb-2.5;
+      }
+    }
+    & td {
+      @apply px-3 py-2.5 border-t border-t-gray2;
+    }
+    & .top-border,
+    & .bot-border {
+      & td {
+        @apply p-0 h-1 border-t-0 rounded-full bg-gray2;
+      }
+    }
+    & .top-border {
+      & td {
+        @apply first:bg-black2;
+      }
+    }
+  }
+
+  .table-list {
+    & tr {
+      &:first-child {
         & td {
-            @apply px-3 py-2.5 border-t border-t-gray2;
+          @apply border-t-0;
         }
-        & .top-border, & .bot-border {
-            & td {
-                @apply p-0 h-1 border-t-0 rounded-full bg-gray2;
-            }
+      }
+      &.top-border,
+      &.bot-border {
+        & + tr {
+          & td {
+            @apply border-t-0;
+          }
         }
-        & .top-border {
-            & td {
-                @apply first:bg-black2;
-            }
-        }
+      }
     }
-    
-    .table-list {
-        & tr {
-            &:first-child {
-                & td {
-                    @apply border-t-0;
-                }
-            }
-            &.top-border, &.bot-border {
-                & + tr {
-                    & td {
-                        @apply border-t-0;
-                    }
-    
-                }
-            }
+  }
+
+  .table-detail {
+    & tr {
+      & th {
+        & p {
+          @apply items-center justify-end text-right;
         }
+      }
+      & td {
+        @apply border-t-0 p-0;
+      }
     }
-    
-    .table-detail {
-        & tr {
-            & th {
-                & p {
-                    @apply items-center justify-end text-right;
-                }
-            }
-            & td {
-                @apply border-t-0 p-0;
-            }
+    & thead {
+      & tr {
+        & th {
+          & p {
+            @apply text-center justify-center py-3 md:py-3.5;
+          }
         }
-        & thead {
-            & tr {
-                & th {
-                    & p {
-                        @apply text-center justify-center py-3
-                               md:py-3.5;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
+
+  .table-detail-wrap {
+    @apply flex flex-col gap-5 border border-gray1 rounded rounded-lg p-5;
+  }
+
+  .text-title2-wrap {
+    @apply relative mb-2 pb-2;
+    &:before {
+      content: "";
+      @apply absolute w-32 bottom-0 h-1 rounded-full bg-black2;
+    }
+    &:after {
+      content: "";
+      @apply absolute w-[calc(100%-8.375rem)]  h-1 bottom-0 right-0 rounded-full bg-gray2;
+    }
+  }
 }

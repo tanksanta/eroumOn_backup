@@ -206,4 +206,13 @@
 		LIMIT 1;
 	</select>
 
+	<!-- 회원 탈퇴 전 검사용으로 진행중인 상담이 있는지 조회 -->
+	<select id="selectConsltInProcess" parameterType="java.util.HashMap" resultType="mbrConsltVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		WHERE reg_unique_id = #{srchUniqueId}
+		  AND conslt_sttus IN ('CS01', 'CS02', 'CS05', 'CS07', 'CS08')
+		LIMIT 1;
+	</select>
 </mapper>

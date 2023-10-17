@@ -21,6 +21,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -88,12 +89,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		}else if(resultCnt == 1){//성공
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
 
-			javaScript.setMessage("회원가입이 완료되었습니다.");
-			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				javaScript.setLocation(returnUrl);
-			}else {
-				javaScript.setLocation("/" + mainPath);
-			}
+			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 2) {// 카카오 로그인
 			javaScript.setMessage("카카오 계정으로 가입된 회원입니다.");
@@ -101,13 +97,19 @@ public class MbrsNaverController extends CommonAbstractController{
 		}else if(resultCnt == 3) {// 네이버
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());
-
-			if(EgovStringUtil.isNotEmpty(returnUrl)) {
-				javaScript.setLocation(returnUrl);
-			}else {
-				javaScript.setLocation("/" + mainPath);
+			
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			
+			if (EgovStringUtil.isNotEmpty(srchMbr.getDiKey())) {
+				if(EgovStringUtil.isNotEmpty(returnUrl)) {
+					javaScript.setLocation(returnUrl);
+				}else {
+					javaScript.setLocation("/" + mainPath);
+				}
+				session.removeAttribute("returnUrl");
+			} else {
+				javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			}
-			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 4) {// 이로움
 			javaScript.setMessage("이로움 계정으로 가입된 회원입니다.");
 			javaScript.setLocation("/" + membershipPath + "/login");

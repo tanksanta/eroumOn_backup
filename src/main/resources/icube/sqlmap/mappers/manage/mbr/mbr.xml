@@ -31,8 +31,11 @@
 		, m.rcmdtn_mbrs_id
 		, m.prvc_vld_pd
 		, m.sms_rcptn_yn
+		, m.sms_rcptn_dt
 		, m.eml_rcptn_yn
+		, m.eml_rcptn_dt
 		, m.tel_recptn_yn
+		, m.tel_recptn_dt
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.di_key
@@ -56,6 +59,7 @@
 		, m.whdwl_resn
 		, m.whdwl_ty
 		, m.whdwl_etc
+		, m.sns_regist_dt
 		, 'F' as req_ty
 	</sql>
 
@@ -268,8 +272,11 @@
 			, rcmdtn_mbrs_id
 			, prvc_vld_pd
 			, sms_rcptn_yn
+			, sms_rcptn_dt
 			, eml_rcptn_yn
+			, eml_rcptn_dt
 			, tel_recptn_yn
+			, tel_recptn_dt
 			, profl_img
 			, trms_agre_dt
 			, itrst_field
@@ -308,8 +315,11 @@
 			, #{rcmdtnMbrsId, jdbcType=VARCHAR}
 			, #{prvcVldPd, jdbcType=VARCHAR}
 			, #{smsRcptnYn, jdbcType=VARCHAR}
+			, #{smsRcptnDt}
 			, #{emlRcptnYn, jdbcType=VARCHAR}
+			, #{emlRcptnDt}
 			, #{telRecptnYn, jdbcType=VARCHAR}
+			, #{telRecptnDt}
 			, #{proflImg, jdbcType=VARCHAR}
 			, SYSDATE()
 			, #{itrstField, jdbcType=VARCHAR}
@@ -342,6 +352,7 @@
 			, zip = #{zip, jdbcType=VARCHAR}
 			, addr = #{addr, jdbcType=VARCHAR}
 			, daddr = #{daddr, jdbcType=VARCHAR}
+			, di_key = #{diKey, jdbcType=VARCHAR}
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, bass_stlm_ty = #{bassStlmTy, jdbcType=VARCHAR}
 			, point_acmtl = #{pointAcmtl}
@@ -351,8 +362,11 @@
 			, rcmdtn_id = #{rcmdtnId, jdbcType=VARCHAR}
 			, prvc_vld_pd = #{prvcVldPd, jdbcType=VARCHAR}
 			, sms_rcptn_yn = #{smsRcptnYn, jdbcType=VARCHAR}
+			, sms_rcptn_dt = #{smsRcptnDt}
 			, eml_rcptn_yn = #{emlRcptnYn, jdbcType=VARCHAR}
+			, eml_rcptn_dt = #{emlRcptnDt}
 			, tel_recptn_yn = #{telRecptnYn, jdbcType=VARCHAR}
+			, tel_recptn_dt = #{telRecptnDt}
 			, profl_img = #{proflImg, jdbcType=VARCHAR}
 			, trms_agre_dt = #{trmsAgreDt}
 			, itrst_field = #{itrstField, jdbcType=VARCHAR}
@@ -369,6 +383,7 @@
 			, whdwl_yn = #{whdwlYn, jdbcType=VARCHAR}
 			, whdwl_dt = #{whdwlDt}
 			, whdwl_resn = #{whdwlResn, jdbcType=VARCHAR}
+			, sns_regist_dt = #{snsRegistDt}
 			WHERE	unique_id = #{uniqueId}
 	</update>
 
@@ -387,8 +402,11 @@
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, prvc_vld_pd = #{prvcVldPd}
 			, sms_rcptn_yn = #{smsRcptnYn}
+			, sms_rcptn_dt = #{smsRcptnDt}
 			, eml_rcptn_yn = #{emlRcptnYn}
+			, eml_rcptn_dt = #{emlRcptnDt}
 			, tel_recptn_yn = #{telRecptnYn}
+			, tel_recptn_dt = #{telRecptnDt}
 			, profl_img = #{proflImg}
 			, itrst_field = #{itrstField, jdbcType=VARCHAR}
 		WHERE unique_id = #{uniqueId}

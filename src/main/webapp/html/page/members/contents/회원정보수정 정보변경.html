@@ -24,7 +24,7 @@
             <ul>
                 <!-- <li><a href="로그인.html" class="navigation-link">로그인</a></li>
                 <li><a href="회원가입.html" class="navigation-link is-join">회원가입</a></li> -->
-                
+
                 <li><a href="#" class="navigation-link">로그아웃</a></li>
                 <li class="lg-max:hidden"><a href="#" class="navigation-link is-join">회원정보 수정</a></li>
                 <li class="lg-max:hidden"><a href="#" class="navigation-link">회원탈퇴</a></li>
@@ -164,10 +164,10 @@
 
         <div id="page-content">
             <ul class="tabs">
-	            <li><a href="#" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
-	            <li><a href="#" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
-	        </ul>
-            
+                <li><a href="#" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
+                <li><a href="#" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+            </ul>
+
             <div class="member-modify mt-11 md:mt-15">
                 <form action="#" class="member-join-content">
                     <div class="space-y-1 5">
@@ -220,14 +220,13 @@
                                 <td>
                                     <div class="form-group w-full max-w-73">
                                         <input id="zip" name="zip" class="form-control w161" type="text" value="46770" maxlength="5"><button type="button" class="btn btn-primary" style="padding: 0 0.75rem;" onclick="f_findAdres('zip', 'addr', 'daddr'); return false;">우편번호 검색</button>
-                                    </div>
-                                    <input id="addr" name="addr" class="form-control mt-1.5 w-full md:mt-2" type="text" value="부산 강서구 거가대로 2659" maxlength="200"><input id="daddr" name="daddr" class="form-control mt-1.5 w-full md:mt-2" type="text" value="그 어디쯤" maxlength="200">
+                                                                        </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    
-                    <p class="mt-8 text-title2">수급자 정보</p>
+
+                    <!-- <p class="mt-8 text-title2">수급자 정보</p>
                     <table class="table-detail">
                         <colgroup>
                             <col class="w-22 xs:w-32">
@@ -262,8 +261,8 @@
                                         <input type="text" class="form-control w400" id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="0000000011">
                                     </div>
                                 </td>
-                            </tr>
-                            <!-- <tr class="wrapGrade">
+                            </tr> -->
+                    <!-- <tr class="wrapGrade">
                                 <th scope="row"><p><label for="rcognGrad">등급선택</label></p></th>
                                 <td>
                                     <select id="rcognGrad" name="rcognGrad" class="form-control w-full">
@@ -291,6 +290,62 @@
                                     </select>
                                 </td>
                             </tr> -->
+                    <!-- </tbody>
+                    </table> -->
+
+                    <p class="mt-13 text-title2">정보수신 동의</p>
+                    <table class="table-detail">
+                        <colgroup>
+                            <col class="w-29 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p>
+                                        <label for="join-item3-4">정보수신</label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <div class="py-1.5 md:py-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="allChk"> <label
+                                                class="form-check-label" for="allChk">전체 수신</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-1.5 flex flex-wrap md:mt-2">
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="smsRcptnYn1" name="smsRcptnYn" class="form-check-input agree"
+                                                type="checkbox" value="Y"><input type="hidden" name="_smsRcptnYn"
+                                                value="on"><label class="form-check-label" for="smsRcptnYn1">SMS</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="emlRcptnYn1" name="emlRcptnYn" class="form-check-input agree"
+                                                type="checkbox" value="Y"><input type="hidden" name="_emlRcptnYn"
+                                                value="on"><label class="form-check-label" for="emlRcptnYn1">이메일</label>
+                                        </div>
+                                        <div class="form-check mr-3 xs:mr-auto">
+                                            <input id="telRecptnYn1" name="telRecptnYn" class="form-check-input agree"
+                                                type="checkbox" value="Y"><input type="hidden" name="_telRecptnYn"
+                                                value="on"><label class="form-check-label"
+                                                for="telRecptnYn1">휴대폰</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm">
+                                            이벤트 및 다양한 정보를 받으실 수 있습니다.<br>
+                                            수신동의와 상관없이 주문/배송 관련 SMS/메일은 발송 됩니다.
+                                        </p>
+                                        <p class="text-sm">SMS: 동의 yymmdd hh:mm:ss</p>
+                                        <p class="text-sm">이메일: 비동의: yymmdd hh:mm:ss</p>
+                                        <p class="text-sm">휴대폰: 비동의: yymmdd hh:mm:ss</p>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -353,7 +408,7 @@
                             </dd>
                         </dl>
                     </div>
-            
+
                     <p class="mt-11 text-title2">선택 정보</p>
                     <table class="table-detail">
                         <colgroup>
@@ -432,7 +487,7 @@
                                         <div class="form-check">
                                             <input id="prvcVldPd2" name="prvcVldPd" class="form-check-input" type="radio" value="1Y"><label class="form-check-label" for="prvcVldPd2">1년</label>
                                         </div>
-                                        </div>
+                                    </div>
                                     <p class="mt-1.5 text-sm">
                                         <strong>선택 시</strong>, 장기 미접속시에도 휴면회원으로 전환되지 않고 회원 혜택을 받으실 수 있습니다.
                                     </p>
@@ -470,8 +525,8 @@
                                 <td>
                                     <div class="flex space-x-2">
                                         <div class="w-31 h-31">
-                                                <img src="/comm/PROFL/getFile?fileName=202301160950305481.gif" alt="" class="w-full h-full object-cover" id="profImg">
-                                            </div>
+                                            <img src="/comm/PROFL/getFile?fileName=202301160950305481.gif" alt="" class="w-full h-full object-cover" id="profImg">
+                                        </div>
                                         <div class="form-upload" style="display: none;">
                                             <label for="uploadFile" class="form-upload-trigger">파일을 선택해주세요</label>
                                             <input type="file" class="form-upload-control" id="uploadFile" name="uploadFile" onchange="fileCheck(this);">
@@ -482,9 +537,9 @@
                             </tr>
                         </tbody>
                     </table>
-            
+
                     <div class="content-button mt-20 md:mt-25">
-                        <button type="submit" class="btn btn-primary btn-large sm:w-53 sm-max:flex-1">확인</button>
+                        <button type="submit" class="btn btn-primary btn-large sm:w-53 sm-max:flex-1">수정하기</button>
                         <a href="/market/mypage" class="btn btn-outline-primary btn-large w-[37.5%] sm:w-37">취소</a>
                     </div>
                 </form>
@@ -505,7 +560,7 @@
                 </ul>
             </nav>
             <!-- //회사 메뉴 -->
-    
+
             <!-- 패밀리 사이트 -->
             <div class="footer-family">
                 <dl>
@@ -520,13 +575,13 @@
                                     </div>
                                 </a>
                             </li> -->
-    
+
                             <li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
                             <li><a href="#" target="_blank" title="새창열림" class="link-item1">
                                     <div class="bubble">
                                         <small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
                                     </div>
-                            </a></li>
+                                </a></li>
                             <li>
                                 <a href="#" class="link-item3" target="_blank" title="새창열림">
                                     <div class="bubble">
@@ -541,9 +596,9 @@
             </div>
             <!-- //패밀리 사이트 -->
         </div>
-    
+
         <hr>
-    
+
         <div class="footer-center">
             <!-- 사이트 정보-->
             <dl class="footer-company">
@@ -564,7 +619,7 @@
                 </dd>
             </dl>
             <!-- //사이트 정보-->
-    
+
             <!-- 고객센터 -->
             <dl class="footer-customer">
                 <dt>고객센터 <a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a></dt>
@@ -584,9 +639,9 @@
             </dl>
             <!-- //고객센터 -->
         </div>
-    
+
         <hr>
-    
+
         <!-- 카피 라이트 -->
         <div class="footer-copyright">
             Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved
@@ -594,7 +649,7 @@
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
-    
+
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../core/vendor/twelements/popper.min.js"></script>
 </body>

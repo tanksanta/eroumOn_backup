@@ -352,17 +352,17 @@
 			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
-			function loadTestResult() {
-				const testResult = getTestResultAjax();
-				if (testResult && testResult.rehabilitateSelect && testResult.rehabilitateSelect.length > 0) {
-					for (var i = 0; i < rehabilitateCount; i++) {
-						const inputNumber = i + 1;
-						const selectedIndex = testResult.rehabilitateSelect[i] - 1;
-						const curInputs = $('input[name=rehabilitate' + inputNumber + ']');
-						curInputs[selectedIndex].checked = true;
-					}
-				}
-			}
+			// function loadTestResult() {
+			// 	const testResult = getTestResultAjax();
+			// 	if (testResult && testResult.rehabilitateSelect && testResult.rehabilitateSelect.length > 0) {
+			// 		for (var i = 0; i < rehabilitateCount; i++) {
+			// 			const inputNumber = i + 1;
+			// 			const selectedIndex = testResult.rehabilitateSelect[i] - 1;
+			// 			const curInputs = $('input[name=rehabilitate' + inputNumber + ']');
+			// 			curInputs[selectedIndex].checked = true;
+			// 		}
+			// 	}
+			// }
 			
 			//문항 답변 클릭 이벤트
 			$('.check-item input').click(function() {
@@ -409,16 +409,31 @@
 				}
 				const rehabilitateScore = scoreEvaluations.find(f => f.score === selectSum).evaluation;
 				
+				var testData = JSON.parse(sessionStorage.getItem('testData'));
 				const requestJson = JSON.stringify({
 					mbrTestVO: {
+						recipientsNo : testData.recipientsNo,
 						rehabilitateSelect,
 						rehabilitateScore
 					},
 					testNm: 'rehabilitate',
 				});
+				
+				
+				if (testData.isLogin) {
+					//재활 정보 저장(api 방식)
+					saveTestResultAjax(requestJson, '/test/disease');
+				} else {
+					//세션방식 저장
+					testData.rehabilitate = {
+						rehabilitateSelect,
+						rehabilitateScore
+					};
+					sessionStorage.setItem('testData', JSON.stringify(testData));
 					
-				//재활 정보 저장
-				saveTestResultAjax(requestJson, '/test/disease');
+					location.href = '/test/disease';
+				}
+				
 			});
 		});
 	</script>

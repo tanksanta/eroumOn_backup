@@ -1,3 +1,4 @@
+
 var timer   = null;
 var winSize = null;
 var resize  = false;
@@ -240,3 +241,6 @@ function f_getDate(day){
 
 	return year + "-" + month + "-" + day;
 }
+
+
+

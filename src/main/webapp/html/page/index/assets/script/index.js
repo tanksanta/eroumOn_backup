@@ -39,6 +39,8 @@ $(function() {
         }
     });
 
+    $()
+
     $(window).on('load', function() {
         setTimeout(function() {
             $('#visual').addClass('is-active');

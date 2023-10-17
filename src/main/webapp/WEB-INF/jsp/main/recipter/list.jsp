@@ -4,12 +4,12 @@
         <ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
 			<li>이로움 서비스</li>
-            <li>요양정보 간편조회</li>
+            <li>수급자 요양정보</li>
         </ul>
     </nav>
 	<h2 class="subject">
-		요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-		<small>수급자명, 요양인정번호를 입력하면 조회하실 수 있어요.</small>
+		수급자 요양정보
+		<small>올해 남은 급여 금액을 확인 후 복지 혜택 상담을 신청해보세요</small>
 	</h2>
 </header>
 
@@ -21,11 +21,11 @@
                 <div class="field">
                     <dl>
                         <dt><label for="recipter">이름</label></dt>
-                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="${_mbrSession.mbrNm}" disabled></dd>
+                        <dd><input type="text" id="recipter" name="recipter" class="form-control" value="김한걸" disabled></dd>
                     </dl>
                     <dl>
                         <dt><label for="rcperRcognNo">요양인정번호</label></dt>
-                        <strong>L</strong>&nbsp;<dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="${rcperRcognNo}" maxlength="10"></dd>
+                        <strong>L</strong>&nbsp;<dd><input type="text" id="rcperRcognNo" name="rcperRcognNo" class="form-control" value="1604015680" maxlength="10"></dd>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
@@ -35,16 +35,23 @@
         <div class="careinfo-mask <c:if test="${_mbrSession.loginCheck && !empty recipter && !empty rcperRcognNo}">is-active</c:if>">
 
 			<c:if test="${_mbrSession.loginCheck == false}">
-        	<div class="careinfo-layer">
-                <strong>요양정보간편조회가 궁금하시다면</strong>
-                <a href="${_membershipPath}/login?returnUrl=/main/recipter/list&headerType=info" class="btn btn-large">간편 로그인/회원가입</a>
-            </div>
+                <div class="careinfo-layer">
+                    <strong>요양정보간편조회가 궁금하시다면</strong>
+                    <a href="${_membershipPath}/login?returnUrl=/main/recipter/list&headerType=info" class="btn btn-large">간편 로그인/회원가입</a>
+                </div>
 			</c:if>
 
             <div class="careinfo-myinfo recipter_view">
-                <p class="careinfo-title">
-                	<span class="blurring"><span class="searchNm"><span class="mask"></span>이로미</span>(<span class="searchNo">123456789</span>)</span> &nbsp;님의 요양정보
-                	</p>
+                <div class="careinfo-myinfo-inner">
+                    <p class="careinfo-title mb-0">
+                        <span class="blurring"><span class="searchNm"><span class="mask"></span>이로미</span>
+                        (<span class="searchNo">123456789</span>)</span> &nbsp;님의 요양정보
+                    </p>
+                    <div class="flex items-end justify-end gap-3">
+                        <span class="text-sm text-black2/50">2023년 10월 04일 11:11:11</span>
+                        <button class="btn-lightgrey">다시 조회하기 <i class="icon-refresh"></i></button>
+                    </div>
+                </div>
                 <div class="myinfo-wrapper">
                     <div class="myinfo-box1">
                         <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
@@ -59,33 +66,33 @@
                         <dl class="date">
                             <dt class="desc">인정 유효기간</dt>
                             <dd id="searchRcgt">
-                            	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
+                                <span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
                             </dd>
                         </dl>
                         <dl class="date">
                             <dt class="desc">적용기간</dt>
                             <dd id="searchBgngApdt">
-                            	<span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
+                                <span class="blurring2"><span class="mask"></span>2023년 1월 1일 ~2023년 12월 31일</span>
                             </dd>
                         </dl>
                     </div>
                     <div class="myinfo-box2">
-	                        <p class="desc">잔여급여</p>
-	                        <p class="cost"><span class="blurring2"><span class="mask"></span><strong id="searchRemn">1,250,000</strong>원</span></p>
-	                        <dl class="used1">
-	                            <dt class="desc">사용</dt>
-	                            <dd class="percent">
-	                                <div class="track">
-	                                    <div class="bar" id="useAmtBar" style="width: 0%;"></div>
-	                            </div>
-	                            <div class="won" id="searchUseAmt"><span class="blurring2"><span class="mask"></span>350,000원</span></div>
-	                        </dd>
+                        <p class="desc">잔여급여</p>
+                        <p class="cost"><span class="blurring2"><span class="mask"></span><strong id="searchRemn">1,250,000</strong>원</span></p>
+                        <dl class="used1">
+                            <dt class="desc">사용</dt>
+                            <dd class="percent">
+                                <div class="track">
+                                    <div class="bar" id="useAmtBar"></div>
+                            </div>
+                            <div class="won" id="searchUseAmt"><span class="blurring2"><span class="mask"></span>350,000원</span></div>
+                        </dd>
 	                    </dl>
 	                    <dl class="used2">
 	                        <dt class="desc">총 급여</dt>
 	                        <dd class="percent">
 	                            <div class="track">
-	                                <div class="bar" id="setAmtBar" style="width: 0%;"></div>
+	                                <div class="bar" id="setAmtBar"></div>
 	                            </div>
 	                            <div class="won" id="searchLimit"><span class="blurring2"><span class="mask"></span>1,600,000원</span></div>
 	                        </dd>
@@ -105,7 +112,7 @@
             </div>
 
             <div class="careinfo-status recipter_view">
-                <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
+                <h3 class="careinfo-title">복지용구 급여 품목 보유현황</h3>
                 <div class="status-swiper">
                     <div class="swiper">
                         <div class="swiper-wrapper own_view">
@@ -117,7 +124,7 @@
                                     <dd class="finwalkerForAdults"><span class="blurring"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buywalkerForAdults" ><span class="blurring2"><span class="mask"></span>${apiVO.walkerForAdults}</span></dd>
                                 </dl>
                             </div>
@@ -129,7 +136,7 @@
                                     <dd class="finwheelchair"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buywheelchair"><span class="blurring2"><span class="mask"></span>${apiVO.wheelchair}</span></dd>
                                 </dl>
                             </div>
@@ -141,7 +148,7 @@
                                     <dd class="fincane"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buycane"><span class="blurring2"><span class="mask"></span>${apiVO.cane}</span></dd>
                                 </dl>
                             </div>
@@ -153,7 +160,7 @@
                                     <dd class="finsafetyHandle"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buysafetyHandle"><span class="blurring2"><span class="mask"></span>${apiVO.safetyHandle}</span></dd>
                                 </dl>
                             </div>
@@ -165,7 +172,7 @@
                                     <dd class="finantiSlipProduct"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buyantiSlipProduct"><span class="blurring2"><span class="mask"></span>${apiVO.antiSlipProduct}</span></dd>
                                 </dl>
                             </div>
@@ -177,7 +184,7 @@
                                     <dd>1</dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd>0</dd>
                                 </dl>
                             </div> -->
@@ -189,7 +196,7 @@
                                     <dd class="finmattress"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buymattress"><span class="blurring2"><span class="mask"></span>${apiVO.mattress}</span></dd>
                                 </dl>
                             </div>
@@ -201,7 +208,7 @@
                                     <dd class="fincushion"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buycushion"><span class="blurring2"><span class="mask"></span>${apiVO.cushion}</span></dd>
                                 </dl>
                             </div>
@@ -213,7 +220,7 @@
                                     <dd class="finchangeTool"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buychangeTool"><span class="blurring2"><span class="mask"></span>${apiVO.changeTool}</span></dd>
                                 </dl>
                             </div>
@@ -225,7 +232,7 @@
                                     <dd class="finpanties"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buypanties"><span class="blurring2"><span class="mask"></span>${apiVO.panties}</span></dd>
                                 </dl>
                             </div>
@@ -237,7 +244,7 @@
                                     <dd class="finbathChair"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buybathChair"><span class="blurring2"><span class="mask"></span>${apiVO.bathChair}</span></dd>
                                 </dl>
                             </div>
@@ -249,7 +256,7 @@
                                     <dd class="finmobileToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buymobileToilet"><span class="blurring2"><span class="mask"></span>${apiVO.mobileToilet}</span></dd>
                                 </dl>
                             </div>
@@ -261,7 +268,7 @@
                                     <dd class="finportableToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buyportableToilet"><span class="blurring2"><span class="mask"></span>${apiVO.portableToilet}</span></dd>
                                 </dl>
                             </div>
@@ -273,7 +280,7 @@
                                     <dd class="finoutRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buyoutRunway"><span class="blurring2"><span class="mask"></span>${apiVO.outRunway}</span></dd>
                                 </dl>
                             </div>
@@ -285,7 +292,7 @@
                                     <dd class="fininRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buyinRunway"><span class="blurring2"><span class="mask"></span>${apiVO.inRunway}</span></dd>
                                 </dl>
                             </div>
@@ -297,7 +304,7 @@
                                     <dd class="finelectricBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buyelectricBed"><span class="blurring2"><span class="mask"></span>${apiVO.electricBed}</span></dd>
                                 </dl>
                             </div>
@@ -309,7 +316,7 @@
                                     <dd class="finmanualBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buymanualBed"><span class="blurring2"><span class="mask"></span>${apiVO.manualBed}</span></dd>
                                 </dl>
                             </div>
@@ -321,7 +328,7 @@
                                     <dd class="finbathtub"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buybathtub"><span class="blurring2"><span class="mask"></span>${apiVO.bathtub}</span></dd>
                                 </dl>
                             </div>
@@ -333,7 +340,7 @@
                                     <dd class="finbathLift"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buybathLift"><span class="blurring2"><span class="mask"></span>${apiVO.bathLift}</span></dd>
                                 </dl>
                             </div>
@@ -345,7 +352,7 @@
                                     <dd class="findetector"><span class="blurring2"><span class="mask"></span>0</span></dd>
                                 </dl>
                                 <dl>
-                                    <dt>구매가능</dt>
+                                    <dt>구매예상</dt>
                                     <dd class="buydetector"><span class="blurring2"><span class="mask"></span>${apiVO.detector}</span></dd>
                                 </dl>
                             </div>
@@ -356,8 +363,9 @@
                 </div>
 
                 <div class="collapse" id="collapse-agree1">
-                    <p class="status-title">판매 급여 품목</p>
+                    <h4 class="status-title">복지용구 상세 현황</h4>
                     <table class="status-table">
+                        <caption class="hidden">복지용구 품목명, 계약완료상태, 구매예상 표입니다</caption>
                         <colgroup>
                             <col class="min-w-10 w-[15%]">
                             <col>
@@ -369,15 +377,16 @@
                                 <th scope="col">No</th>
                                 <th scope="col">품목명</th>
                                 <th scope="col">계약완료</th>
-                                <th scope="col">구매가능</th>
+                                <th scope="col">구매예상</th>
                             </tr>
                         </thead>
                         <tbody class="sale_return">
                         </tbody>
                     </table>
 
-                    <p class="status-title">대여 급여 품목</p>
+                    <h4 class="status-title">대여 복지용구 상세 현황</h4>
                     <table class="status-table">
+                        <caption class="hidden">대여 복지용구 품목명, 계약완료상태, 구매예상 표입니다</caption>
                         <colgroup>
                             <col class="min-w-10 w-[15%]">
                             <col>
@@ -389,7 +398,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">품목명</th>
                                 <th scope="col">계약완료</th>
-                                <th scope="col">구매가능</th>
+                                <th scope="col">구매예상</th>
                             </tr>
                         </thead>
                         <tbody  class="lend_return">
@@ -438,6 +447,39 @@
                 <div>
                     <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
 					<a href="${_mainPath}/cntnts/page3" class="btn btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-xl mt-12">
+            <span class="text-hightlight-blue font-bold">올해 남은 급여 금액</span>을 확인 후 <br>
+            복지 혜택 <span class="text-hightlight-blue font-bold">상담을 신청해보세요</span>
+    </div>
+
+        <a href="#" class="grade-floating consulting" data-bs-toggle="modal" data-bs-target="#pop-consulting">
+            <strong>상담하기</strong>
+        </a>
+
+        <!--상담하기 팝업소스-->
+        <div class="modal modal-index fade" id="pop-consulting" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">알림</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-bg-wrap">
+                        <div class="text-center text-xl">
+                            진행중인 요양정보 상담이 있습니다.<br>
+                            상담 내역을 확인하시겠습니까?
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary large w-[52.5%]">상담내역 확인하기</button>
+                    <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap">새롭게 진행하기</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -592,7 +634,7 @@ $(function() {
     	if(no == '' ){
     		alert("요양인정번호는 필수 입력 항목입니다.");
     	}else{
-    		if("${_mbrSession.loginCheck}" == "false"){
+    		if("${_mbrSession.loginCheck}" == "true"){
        			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
         	}else{
 

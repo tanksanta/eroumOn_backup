@@ -1,7 +1,9 @@
 package icube.membership;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
@@ -28,24 +29,24 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
-import icube.common.util.ArrayUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoService;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.coupon.biz.CouponLstVO;
 import icube.manage.promotion.coupon.biz.CouponService;
 import icube.manage.promotion.coupon.biz.CouponVO;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
-import icube.manage.promotion.point.biz.MbrPointVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
@@ -88,6 +89,9 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
+	
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -144,6 +148,14 @@ public class MbrsRegistController extends CommonAbstractController{
 			return  "redirect:/" + plannerPath + "/index";
 		}
 
+		MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+		Date now = new Date();
+		mbrAgreementVO.setTermsDt(now);
+		mbrAgreementVO.setPrivacyDt(now);
+		mbrAgreementVO.setProvisionDt(now);
+		mbrAgreementVO.setThirdPartiesDt(now);
+		model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+		
 		return "/membership/regist_step1";
 	}
 
@@ -153,6 +165,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	@RequestMapping(value = "registStep2")
 	public String registStep2(
 			MbrVO mbrVO
+			, MbrAgreementVO mbrAgreementVO
 			, @RequestParam(value="mbrNm", required=false) String mbrNm
 			, @RequestParam(value="mblTelno", required=false) String mblTelno
 			, @RequestParam(value="gender", required=false) String gender
@@ -179,37 +192,16 @@ public class MbrsRegistController extends CommonAbstractController{
 			noMbrVO.setBrdt(sBrdt);
 
 		}else if(EgovStringUtil.isNotEmpty(receiptId)) {
-			// 본인인증정보 체크
-			HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-			String authData =String.valueOf(res.get("authenticate_data"));
-			String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-			HashMap<String, String> authMap = new HashMap<String, String>();
-			for(String auth : spAuthData) {
-				System.out.println("spAuthData: " + auth.trim());
-				String[] spTmp = auth.trim().split("=", 2);
-				authMap.put(spTmp[0], spTmp[1]); //key:value
-			}
-			/*
-			 !참고:부트페이 제공문서와 결과 값이 다름
-			      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
-
-			 */
-	        Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
-	        mblTelno = authMap.get("phone");
-	        gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
-	        if(EgovStringUtil.equals("1.0", gender)) {
-	        	gender = "M";
-	        }else {
-	        	gender = "W";
+			certificateBootpay(receiptId, noMbrVO);
+			
+			Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(noMbrVO.getBrdt());
+			
+			//만 14세 미만인 경우 회원가입을 할 수 없다.
+	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+	        	model.addAttribute("alertMsg", "14세 이상만 가입 가능합니다.");
+				return "/common/msg";
 	        }
-
-	        noMbrVO.setDiKey(authMap.get("di"));
-	        noMbrVO.setMbrNm(authMap.get("name"));
-	        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
-	        noMbrVO.setGender(gender);
-	        noMbrVO.setBrdt(sBrdt);
 
 	        System.out.println("noMbrVO: " + noMbrVO.toString());
 		}else {
@@ -250,6 +242,11 @@ public class MbrsRegistController extends CommonAbstractController{
 
 
 		mbrSession.setParms(noMbrVO, false);
+		
+		Date now = new Date();
+		mbrVO.setSmsRcptnDt(now);
+		mbrVO.setEmlRcptnDt(now);
+		mbrVO.setTelRecptnDt(now);
 
         session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 		session.setMaxInactiveInterval(60*5);
@@ -260,6 +257,7 @@ public class MbrsRegistController extends CommonAbstractController{
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("itrstFieldCode", CodeMap.ITRST_FIELD);
+		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
 
 		return "/membership/regist_step2";
 	}
@@ -272,28 +270,16 @@ public class MbrsRegistController extends CommonAbstractController{
 	@RequestMapping(value = "action")
 	public View action(
 			MbrVO mbrVO
-			, @RequestParam (value="rcperRcognNo", required=false) String rcperRcognNo
-			, @RequestParam (value="rcognGrad", required=false) String rcognGrad
-			, @RequestParam (value="selfBndRt", required=false) String selfBndRt
-			, @RequestParam (value="vldBgngYmd", required=false) String vldBgngYmd
-			, @RequestParam (value="vldEndYmd", required=false) String vldEndYmd
-			, @RequestParam (value="aplcnBgngYmd", required=false) String aplcnBgngYmd
-			, @RequestParam (value="aplcnEndYmd", required=false) String aplcnEndYmd
-			, @RequestParam (value="sprtAmt", required=false) String sprtAmt
-			, @RequestParam (value="bnefBlce", required=false) String bnefBlce
-			, @RequestParam (value="itrstField", required=false) String[] itrstFeild
-			, @RequestParam (value="testName", required=false) String testName
+			, MbrAgreementVO mbrAgreementVO
+			, String[] relationCds
+			, String[] recipientsNms
+			, String[] rcperRcognNos
 			, MultipartHttpServletRequest multiReq
 			, @RequestParam Map <String, Object>reqMap
 			, HttpSession session
 			, HttpServletRequest request) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		Map<String, MultipartFile> fileMap = multiReq.getFileMap();
-
-		// 관심 분야
-		String field = ArrayUtil.arrayToString(itrstFeild, ",");
-		mbrVO.setItrstField(field);
 
 		//가입 매체 구분
 		mbrVO.setJoinCours(WebUtil.getDevice(request));
@@ -306,12 +292,6 @@ public class MbrsRegistController extends CommonAbstractController{
 			if(EgovStringUtil.isNotEmpty(mbrVO.getPswd())) {
 				String encPswd = BCrypt.hashpw(mbrVO.getPswd(), BCrypt.gensalt());
 				mbrVO.setPswd(encPswd);
-			}
-
-			//이미지 등록
-			if (!fileMap.get("uploadFile").isEmpty()) {
-				String profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir), "PROFL");
-				mbrVO.setProflImg(profileImg);
 			}
 
 			MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
@@ -328,32 +308,14 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			//소문자 치환
 			mbrVO.setMbrId(mbrVO.getMbrId().toLowerCase());
-			mbrVO.setRcmdtnId(mbrVO.getRcmdtnId().toLowerCase());
-			mbrVO.setRcmdtnMbrsId(mbrVO.getRcmdtnMbrsId().toLowerCase());
 
 			//정보 등록
 			mbrService.insertMbr(mbrVO);
-
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-			if(mbrVO.getRecipterYn().equals("Y")) {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				String uniqueId = mbrVO.getUniqueId();
-
-				recipterInfoVO.setUniqueId(uniqueId);
-				recipterInfoVO.setRcperRcognNo(rcperRcognNo);
-				recipterInfoVO.setRcognGrad(rcognGrad);
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
-				recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
-				recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
-				recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
-				recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
-				recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
-				recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
-				recipterInfoVO.setTestName(testName);
-
-				recipterInfoService.mergeRecipter(recipterInfoVO);
-			}
+			
+			// 모든 항목 동의처리 로그
+			String uniqueId = mbrVO.getUniqueId();
+			mbrAgreementVO.setMbrUniqueId(uniqueId);
+			mbrService.insertMbrAgreement(mbrAgreementVO);
 
 			// 기본 배송지 등록
 			DlvyVO dlvyVO = new DlvyVO();
@@ -370,6 +332,19 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			dlvyService.insertBassDlvy(dlvyVO);
 
+			//회원의 수급자 정보 등록
+			MbrRecipientsVO[] mbrRecipientsArray = new MbrRecipientsVO[recipientsNms.length];
+			for (int i = 0; i < recipientsNms.length; i++) {
+				mbrRecipientsArray[i] = new MbrRecipientsVO();
+				mbrRecipientsArray[i].setMbrUniqueId(uniqueId);
+				mbrRecipientsArray[i].setRelationCd(relationCds[i]);
+				mbrRecipientsArray[i].setRecipientsNm(recipientsNms[i]);
+				mbrRecipientsArray[i].setRcperRcognNo(rcperRcognNos[i]);
+				mbrRecipientsArray[i].setRecipientsYn(EgovStringUtil.isNotEmpty(mbrRecipientsArray[i].getRcperRcognNo()) ? "Y" : "N");
+			}
+			mbrRecipientsService.insertMbrRecipients(mbrRecipientsArray);
+			
+			
 			/** 2023-04-05 포인트 지급 삭제 **/
 
 			// 회원가입 쿠폰
@@ -394,34 +369,6 @@ public class MbrsRegistController extends CommonAbstractController{
 				}
 			}catch(Exception e) {
 				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
-			}
-
-			// 추천인 포인트
-			try {
-				if(EgovStringUtil.isNotEmpty(mbrVO.getRcmdtnId())) {
-					if(!mbrVO.getMbrId().equals(mbrVO.getRcmdtnId())) {
-						MbrVO mbrRcmdtnVO = mbrService.selectMbrIdByOne(mbrVO.getRcmdtnId());
-						if(mbrRcmdtnVO != null) {
-							MbrPointVO mbrPointVO = new MbrPointVO();
-							mbrPointVO.setUniqueId(mbrRcmdtnVO.getUniqueId());
-							mbrPointVO.setPointMngNo(0);
-							mbrPointVO.setPointSe("A");
-							mbrPointVO.setPointCn("03");
-							mbrPointVO.setPoint(500);
-							mbrPointVO.setRegUniqueId(mbrVO.getUniqueId());
-							mbrPointVO.setRegId(mbrVO.getMbrId());
-							mbrPointVO.setRgtr(mbrVO.getMbrNm());
-							mbrPointVO.setGiveMthd("SYS");
-
-							mbrPointService.insertMbrPoint(mbrPointVO);
-
-						}
-					}
-				}
-
-			}catch(Exception e) {
-				e.printStackTrace();
-				log.debug("회원가입 추천인 포인트 지급 실패 : " + e.toString());
 			}
 
 			//임시정보 추가
@@ -521,5 +468,193 @@ public class MbrsRegistController extends CommonAbstractController{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
+	}
+	
+	/**
+	 * 간편 로그인 최초 회원가입
+	 */
+	@RequestMapping(value = "sns/regist")
+	public String registSns(
+			@RequestParam(required=false) String uid
+			, @RequestParam(required=false) String complete
+			, HttpServletRequest request
+			, HttpSession session
+			, Model model)throws Exception {
+		
+		if (EgovStringUtil.isNotEmpty(uid)) {
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+			Date now = new Date();
+			srchMbr.setSmsRcptnDt(now);
+			srchMbr.setEmlRcptnDt(now);
+			srchMbr.setTelRecptnDt(now);
+			model.addAttribute("mbrVO", srchMbr);
+			
+			MbrAgreementVO mbrAgreementVO = new MbrAgreementVO();
+			mbrAgreementVO.setTermsDt(now);
+			mbrAgreementVO.setPrivacyDt(now);
+			mbrAgreementVO.setProvisionDt(now);
+			mbrAgreementVO.setThirdPartiesDt(now);
+			model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+			model.addAttribute("expirationCode", CodeMap.EXPIRATION);
+		} else {
+			model.addAttribute("mbrVO", new MbrVO());
+			model.addAttribute("isComplete", complete);
+		}
+		
+		
+		return "/membership/sns_regist";
+	}
+	
+	/**
+	 * 간편 로그인 회원가입 등록
+	 * @param mbrVO
+	 * @param 장기요양정보
+	 */
+	@RequestMapping(value = "/sns/action")
+	public View snsAction(
+			MbrVO mbrVO
+			, MbrAgreementVO mbrAgreementVO
+			, @RequestParam(value="receiptId", required=true) String receiptId
+			, @RequestParam(value="uniqueId", required=true) String uniqueId
+			, HttpSession session
+			, HttpServletRequest request
+			, Model model) throws Exception {
+		JavaScript javaScript = new JavaScript();
+		
+		// 더블 서브밋 방지
+		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+
+			//본인인증 체크
+			certificateBootpay(receiptId, mbrVO);
+
+			Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(mbrVO.getBrdt());
+			
+			//만 14세 미만인 경우 회원가입을 할 수 없다.
+	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+				javaScript.setMessage("14세 이상만 가입 가능합니다.");
+				javaScript.setLocation("/membership/login");
+				return new JavaScriptView(javaScript);
+	        }
+			
+			//정보 수정
+	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId); 
+	        srchMbr.setDiKey(mbrVO.getDiKey());
+	        srchMbr.setMbrNm(mbrVO.getMbrNm());
+	        srchMbr.setMblTelno(mbrVO.getMblTelno());
+	        srchMbr.setGender(mbrVO.getGender());
+	        srchMbr.setBrdt(mbrVO.getBrdt());
+	        
+	        srchMbr.setZip(mbrVO.getZip());
+	        srchMbr.setAddr(mbrVO.getAddr());
+	        srchMbr.setDaddr(mbrVO.getDaddr());
+	        
+	        srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
+	        srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
+	        srchMbr.setSmsRcptnDt(mbrVO.getSmsRcptnDt());
+	        srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
+	        srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
+	        srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+	        srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
+	        srchMbr.setSnsRegistDt(new Date());
+	        
+	        //간편로그인은 ID를 새로 생성해준다.
+	        String newId = mbrService.generateMbrId(srchMbr.getJoinTy());
+	        srchMbr.setMbrId(newId);
+			mbrService.updateMbr(srchMbr);
+
+			// 모든 항목 동의처리 로그
+			mbrAgreementVO.setMbrUniqueId(srchMbr.getUniqueId());
+			mbrService.insertMbrAgreement(mbrAgreementVO);
+			
+			// 기본 배송지 등록
+			DlvyVO dlvyVO = new DlvyVO();
+			dlvyVO.setUniqueId(mbrVO.getUniqueId());
+			dlvyVO.setDlvyNm(mbrVO.getMbrNm());
+			dlvyVO.setNm(mbrVO.getMbrNm());
+			dlvyVO.setZip(mbrVO.getZip());
+			dlvyVO.setAddr(mbrVO.getAddr());
+			dlvyVO.setDaddr(mbrVO.getDaddr());
+			dlvyVO.setTelno(mbrVO.getTelno());
+			dlvyVO.setMblTelno(mbrVO.getMblTelno());
+			dlvyVO.setBassDlvyYn("Y");
+			dlvyVO.setUseYn("Y");
+
+			dlvyService.insertBassDlvy(dlvyVO);
+			
+			// 회원가입 쿠폰
+			try {
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchCouponTy", "JOIN");
+				paramMap.put("srchSttusTy", "USE");
+				int cnt = couponService.selectCouponCount(paramMap);
+				if(cnt > 0) {
+					CouponVO couponVO = couponService.selectCoupon(paramMap);
+					CouponLstVO couponLstVO = new CouponLstVO();
+					couponLstVO.setCouponNo(couponVO.getCouponNo());
+					couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+
+					if(couponVO.getUsePdTy().equals("ADAY")) {
+						couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+					}
+
+					couponLstService.insertCouponLst(couponLstVO);
+				}else {
+					log.debug("회원 가입 쿠폰 개수 : " + cnt);
+				}
+			}catch(Exception e) {
+				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
+			}
+
+			//임시정보 추가
+			mbrSession.setParms(mbrVO, false);
+	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
+			session.setMaxInactiveInterval(60*60);
+
+			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
+		}else {
+			javaScript.setMessage("잘못된 접근입니다.");
+			javaScript.setLocation("/");
+		}
+
+		return new JavaScriptView(javaScript);
+	}
+	
+	private void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 본인인증정보 체크
+		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
+
+		String authData =String.valueOf(res.get("authenticate_data"));
+		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
+
+		HashMap<String, String> authMap = new HashMap<String, String>();
+		for(String auth : spAuthData) {
+			System.out.println("spAuthData: " + auth.trim());
+			String[] spTmp = auth.trim().split("=", 2);
+			authMap.put(spTmp[0], spTmp[1]); //key:value
+		}
+		/*
+		 !참고:부트페이 제공문서와 결과 값이 다름
+		      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
+
+		 */
+        
+		Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
+        
+        String mblTelno = authMap.get("phone");
+        String gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
+        if(EgovStringUtil.equals("1.0", gender)) {
+        	gender = "M";
+        }else {
+        	gender = "W";
+        }
+
+        noMbrVO.setDiKey(authMap.get("di"));
+        noMbrVO.setMbrNm(authMap.get("name"));
+        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
+        noMbrVO.setGender(gender);
+        noMbrVO.setBrdt(sBrdt);
 	}
 }

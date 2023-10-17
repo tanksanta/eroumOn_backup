@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.recipients">
+	<sql id="listColumn">
+		mr.recipients_no
+		, mr.mbr_unique_id
+		, mr.recipients_nm
+		, mr.recipients_yn
+		, mr.rcper_rcogn_no
+		, mr.tel
+		, mr.zip
+		, mr.addr
+		, mr.daddr
+		, mr.gender
+		, mr.brdt
+		, mr.relation_cd
+		, mr.reg_dt
+		, mr.mdfcn_dt
+	</sql>
+	
+	<sql id="searchConditions">
+		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
+			AND mr.mbr_unique_id = #{srchMbrUniqueId}
+		</if>
+	</sql>
+	
+	<select id="selectMbrRecipients" parameterType="java.util.HashMap" resultType="MbrRecipientsVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_RECIPIENTS mr
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY REG_DT DESC
+	</select>
+	
+	<insert id="insertMbrRecipients" parameterType="MbrRecipientsVO">
+		INSERT INTO MBR_RECIPIENTS(
+			mbr_unique_id
+			, recipients_nm
+			, recipients_yn
+			, rcper_rcogn_no
+			, tel
+			, zip
+			, addr
+			, daddr
+			, gender
+			, brdt
+			, relation_cd
+			, reg_dt
+		)VALUES(
+			#{mbrUniqueId}
+			, #{recipientsNm}
+			, #{recipientsYn}
+			, #{rcperRcognNo}
+			, #{tel}
+			, #{zip}
+			, #{addr}
+			, #{daddr}
+			, #{gender}
+			, #{brdt}
+			, #{relationCd}
+			, SYSDATE()
+		)
+	</insert>
+	
+	<update id="updateMbrRecipients" parameterType="MbrRecipientsVO">
+		UPDATE MBR_RECIPIENTS SET
+			mbr_unique_id = #{mbrUniqueId}
+			, recipients_nm = #{recipientsNm}
+			, recipients_yn = #{recipientsYn}
+			, rcper_rcogn_no = #{rcperRcognNo}
+			, tel = #{tel}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+			, gender = #{gender}
+			, brdt = #{brdt}
+			, relationCd = #{relationCd}
+			, mdfcn_dt = SYSDATE()
+		WHERE recipients_no = #{recipientsNo}
+	</update>
+</mapper>

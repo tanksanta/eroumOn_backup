@@ -3,6 +3,7 @@ package icube.membership.info;
 
 import java.security.PrivateKey;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,26 +19,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
-
-import com.ibm.icu.text.SimpleDateFormat;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
-import icube.common.util.ArrayUtil;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.mbr.recipter.biz.RecipterInfoService;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -53,14 +51,17 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Resource(name="fileService")
 	private FileService fileService;
 
-	@Resource(name = "recipterInfoService")
-	private RecipterInfoService recipterInfoService;
-
 	@Resource(name = "bootpayApiService")
 	private BootpayApiService bootpayApiService;
 
 	@Resource(name = "cartService")
 	private CartService cartService;
+	
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
@@ -197,12 +198,14 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 
 		mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
+		model.addAttribute("mbrRecipientList", mbrRecipientList);
 
 		return "/membership/info/myinfo/info";
 	}
@@ -219,104 +222,30 @@ public class MbrsInfoController extends CommonAbstractController{
 			HttpServletRequest request
 			, Model model
 			, MbrVO mbrVO
-			, MultipartHttpServletRequest multiReq
 			, HttpSession session
-			, @RequestParam (value="rcperRcognNo", required=false) String rcperRcognNo
-			, @RequestParam (value="rcognGrad", required=false) String rcognGrad
-			, @RequestParam (value="selfBndRt", required=false) String selfBndRt
-			, @RequestParam (value="vldBgngYmd", required=false) String vldBgngYmd
-			, @RequestParam (value="vldEndYmd", required=false) String vldEndYmd
-			, @RequestParam (value="aplcnBgngYmd", required=false) String aplcnBgngYmd
-			, @RequestParam (value="aplcnEndYmd", required=false) String aplcnEndYmd
-			, @RequestParam (value="sprtAmt", required=false) String sprtAmt
-			, @RequestParam (value="bnefBlce", required=false) String bnefBlce
-			, @RequestParam (value="itrstField", required=false) String[] itrstFeild
-			, @RequestParam (value="testName", required=false) String testName
 			, @RequestParam (value="returnUrl", required=false) String returnUrl
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		Map<String, MultipartFile> fileMap = multiReq.getFileMap();
-		String profileImg = "";
-
-		// 관심 분야
-		String field = ArrayUtil.arrayToString(itrstFeild, ",");
-		mbrVO.setItrstField(field);
 
 		try {
-			// 프로필 이미지
-			// 등록
-			if (!fileMap.get("uploadFile").isEmpty()) {
-				profileImg = fileService.uploadFile(fileMap.get("uploadFile"), serverDir.concat(fileUploadDir),
-						"PROFL",fileMap.get("uploadFile").getOriginalFilename());
-				mbrVO.setProflImg(profileImg);
-				// 삭제
-			} else if (EgovStringUtil.equals("Y", mbrVO.getDelProflImg())) {
-				mbrVO.setProflImg(null);
-				// NOT
-			}else if(mbrVO.getProflImg() != null){
-				mbrVO.setProflImg(mbrVO.getProflImg());
-			}else {
-				mbrVO.setProflImg(null);
-			}
-
-			// 회원정보
-			mbrService.updateMbrInfo(mbrVO);
-
-			// 세션 정보
-			mbrSession.setProflImg(mbrVO.getProflImg());
-
-			// 수급자 정보
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-
-			if(mbrVO.getRecipterYn().equals("Y")) {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				String uniqueId = mbrSession.getUniqueId();
-				recipterInfoVO.setUniqueId(uniqueId);
-				recipterInfoVO.setRcperRcognNo(rcperRcognNo);
-				recipterInfoVO.setRcognGrad(rcognGrad);
-
-				/*String[] selfBnd = (selfBndRt.replace(" ", "")).split(",");
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBnd[0]));
-				recipterInfoVO.setSelfBndMemo(selfBnd[1]);*/
-				recipterInfoVO.setSelfBndRt(EgovStringUtil.string2integer(selfBndRt));
-				recipterInfoVO.setVldBgngYmd(formatter.parse(vldBgngYmd));
-				recipterInfoVO.setVldEndYmd(formatter.parse(vldEndYmd));
-				recipterInfoVO.setAplcnBgngYmd(formatter.parse(aplcnBgngYmd));
-				recipterInfoVO.setAplcnEndYmd(formatter.parse(aplcnEndYmd));
-				recipterInfoVO.setBnefBlce(EgovStringUtil.string2integer(bnefBlce));
-				recipterInfoVO.setSprtAmt(EgovStringUtil.string2integer(sprtAmt));
-				recipterInfoVO.setTestName(testName);
-				recipterInfoService.mergeRecipter(recipterInfoVO);
-			}else {
-				recipterInfoService.deleteRecipter(mbrVO.getUniqueId());
-
-				// 급여 장바구니 삭제
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
-				paramMap.put("srchCartTy", "R");
-				cartService.deleteCart(paramMap);
-			}
-
-			//수급자 정보 reSetting
-			mbrVO = mbrService.selectMbrByUniqueId(mbrVO.getUniqueId());
-
-			mbrSession.setParms(mbrVO, true);
-			if("Y".equals(mbrVO.getRecipterYn())){
-				mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-			}else {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-				recipterInfoVO.setMbrId(mbrVO.getMbrId());
-				recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-				recipterInfoVO.setProflImg(mbrVO.getProflImg());
-				recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-				recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-				mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-			}
-
-
+			// 회원정보 수정
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbr.setMblTelno(mbrVO.getMblTelno());
+			srchMbr.setEml(mbrVO.getEml());
+			srchMbr.setZip(mbrVO.getZip());
+			srchMbr.setAddr(mbrVO.getAddr());
+			srchMbr.setDaddr(mbrVO.getDaddr());
+			
+			srchMbr.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
+			srchMbr.setSmsRcptnDt(mbrVO.getSmsRcptnDt());
+			srchMbr.setEmlRcptnYn(mbrVO.getEmlRcptnYn());
+			srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
+			srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
+			srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
+			mbrService.updateMbrInfo(srchMbr);
+			
+			mbrSession.setParms(srchMbr, true);
 			mbrSession.setMbrInfo(session, mbrSession);
 
 			javaScript.setMessage(getMsg("action.complete.update"));
@@ -325,7 +254,6 @@ public class MbrsInfoController extends CommonAbstractController{
 			}else {
 				javaScript.setLocation("/"+ mainPath + "/index");
 			}
-
 		}catch(Exception e) {
 			log.debug("MYPAGE UPDATE INFO ERROR");
 			e.printStackTrace();
@@ -440,5 +368,75 @@ public class MbrsInfoController extends CommonAbstractController{
 		resultMap.put("diKey", authMap.get("di"));
 		return resultMap;
 	}
-
+	
+	/**
+	 * 로그인 여부 및 수급자 정보 조회 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getMbrInfo.json")
+	public Map<String, Object> getMbrInfo(
+		HttpServletRequest request) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("isLogin", false);
+			return resultMap;
+		}
+	
+		MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		resultMap.put("mbrVO", mbrVO);
+		resultMap.put("mbrRecipients", mbrRecipients);
+		
+		//진행중인 인정등급상담 조회
+		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
+		resultMap.put("isExistConsltInProcess", mbrConslt == null ? false : true);
+		
+		resultMap.put("isLogin", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 장기요양테스트, 간편조회 이전 수급자 추가 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addMbrRecipient.json")
+	public Map<String, Object> addMbrRecipient(
+		@RequestParam String relationCd,
+		@RequestParam String recipientsNm,
+		HttpServletRequest request) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			//수급자 회원 등록 최대수 확인(최대 4명)
+			List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			if (srchMbrRecipientList.size() > 3) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "더 이상 수급자(어르신)를 등록할 수 없습니다");
+				return resultMap;
+			}
+			
+			
+			//회원의 수급자 정보 등록
+			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
+			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
+			mbrRecipient.setRelationCd(relationCd);
+			mbrRecipient.setRecipientsNm(recipientsNm);
+			mbrRecipient.setRecipientsYn("N");
+			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
+			
+			//등록된 수급전 번호 가져오기
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			int createdRecipientsNo = mbrRecipientList.get(0).getRecipientsNo();
+			
+			resultMap.put("success", true);
+			resultMap.put("createdRecipientsNo", createdRecipientsNo);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 등록중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
 }

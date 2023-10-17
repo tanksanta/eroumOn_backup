@@ -12,7 +12,8 @@ import lombok.ToString;
 @Alias("mbrTestVO")
 public class MbrTestVO {
     private Integer mbrTestNo;
-    private String uniqueId; //사용자 unique id
+    private String uniqueId;      //회원 unique id
+    private Integer recipientsNo; //회원에 등록된 수급자 no
     private Integer grade;   //등급
     private Float score;     //점수
     

@@ -557,7 +557,7 @@ public class CodeMap{
 		private static final long serialVersionUID = -4607667632954312467L;
 		{
 			put("N","일반 회원"); //GENERAL
-			put("Y","수급자 회원"); //RECIPTER
+			put("Y","일반 회원"); //RECIPTER 수급자 회원이 없어지면서 모두 일반회원으로 표시
 		}
 	};
 
@@ -1045,6 +1045,21 @@ public class CodeMap{
 			put("E", "직접가입");
 			put("K", "카카오 간편가입");
 			put("N", "네이버 간편가입");
+		}
+	};
+	
+	// 회원 - 수급자 관계 코드
+	public static final HashMap<String, String> MBR_RELATION_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -5623502462808019347L;
+		{
+			put("001", "배우자");
+			put("002", "자녀");
+			put("003", "부모");
+			put("004", "형제");
+			put("005", "자손");
+			put("006", "자부");
+			put("007", "본인");
+			put("100", "기타(친척등)");
 		}
 	};
 }

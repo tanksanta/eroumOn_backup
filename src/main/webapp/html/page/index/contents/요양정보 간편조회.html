@@ -89,15 +89,15 @@
                 <div class="name">
                     김정래
                     <small>님</small>
-                    <img src="/html/core/images/ico-kakao.png" alt="">
+                    <img src="/html/core/images/ico-kakao.png" alt="카카오소셜아이콘">
                     <!-- 소셜 아이콘
-                    <img src="/html/core/images/ico-naver.png" alt="">
+                    <img src="/html/core/images/ico-naver.png" alt="네이버소셜아이콘">
                     -->
                 </div>
                 <a href="#" class="logout">로그아웃</a>
             </div>
             <dl class="menu-item1">
-                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt="이로움 서비스를 표현한 아이콘"> 이로움 서비스</a></dt>
                 <dd>
                     <ul>
                         <li><a href="#">요양정보 간편조회</a></li>
@@ -107,7 +107,7 @@
                 </dd>
             </dl>
             <dl class="menu-item2">
-                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 시니어 길잡이</a></dt>
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt="이로움 서비스를 표현한 아이콘"> 시니어 길잡이</a></dt>
                 <dd>
                     <ul>
                         <li><a href="#">노인장기요양보험제도</a></li>
@@ -125,18 +125,20 @@
             <nav class="breadcrumb">
                 <ul>
                     <li class="home"><a href="#">홈</a></li>
-                    <li>요양정보 간편조회</li>
+                    <li>이로움서비스</li>
+                    <li>수급자 요양정보</li>
                 </ul>
             </nav>
             <h2 class="subject">
-                요양정보 간편조회 <img src="/html/page/index/assets/images/ico-subject2.png" alt="">
-                <small>수급자명, 요양인정번호만 입력하면 조회할 수 있습니다.</small>
+                수급자 요양정보 
+                <!-- <img src="/html/page/index/assets/images/ico-subject2.png" alt=""> -->
+                <small>올해 남은 급여 금액을 확인 후 복지 혜택 상담을 신청해보세요</small>
             </h2>
         </header>
 
         <div id="content">
             <div class="mx-auto max-w-[800px]">
-                <form class="careinfo-search">
+                <!-- <form class="careinfo-search">
                     <fieldset>
                         <legend class="sr-only">요양정보 검색</legend>
                         <div class="field">
@@ -151,7 +153,7 @@
                         </div>
                         <button class="btn btn-large btn-primary3">조회하기</button>
                     </fieldset>
-                </form>
+                </form> -->
 
                 <div class="careinfo-mask">
                     <div class="careinfo-layer">
@@ -160,7 +162,13 @@
                     </div>
 
                     <div class="careinfo-myinfo">
-                        <p class="careinfo-title"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</p>
+                        <div class="flex-none mb-2  md:flex md:justify-between">
+                            <h3 class="careinfo-title mb-0"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</h3>
+                            <div class="flex items-end justify-end gap-3">
+                                <span class="text-sm text-black2/50">2023년 10월 04일 11:11:11</span>
+                                <button class="btn-lightgrey">다시 조회하기 <i class="icon-refresh"></i></button>
+                            </div>
+                        </div>
                         <div class="myinfo-wrapper">
                             <div class="myinfo-box1">
                                 <p class="name"><span class="blurring">이로미님</span> <a href="#">정보수정</a></p>
@@ -209,7 +217,7 @@
                     </div>
     
                     <div class="careinfo-status">
-                        <p class="careinfo-title">복지용구 급여 품목 보유현황</p>
+                        <h3 class="careinfo-title">나의 복지용구 현황</h3>
                         <div class="status-swiper">
                             <div class="swiper">
                                 <div class="swiper-wrapper">
@@ -221,7 +229,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -233,7 +241,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -245,7 +253,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -257,7 +265,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -269,7 +277,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -281,7 +289,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -293,7 +301,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -305,7 +313,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -317,7 +325,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -329,7 +337,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -341,7 +349,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -353,7 +361,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -365,7 +373,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -377,7 +385,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -389,7 +397,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -401,7 +409,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -413,7 +421,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -425,7 +433,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -437,7 +445,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -449,7 +457,7 @@
                                             <dd><span class="blurring">1</span></dd>
                                         </dl>
                                         <dl>
-                                            <dt>구매가능</dt>
+                                            <dt>구매예상</dt>
                                             <dd><span class="blurring">0</span></dd>
                                         </dl>
                                     </div>
@@ -460,8 +468,9 @@
                         </div>
     
                         <div class="collapse" id="collapse-agree1">
-                            <p class="status-title">판매 급여 품목</p>
+                            <h4 class="status-title">복지용구 상세 현황</h4>
                             <table class="status-table">
+                                <caption class="hidden">복지용구 품목명, 계약완료상태, 구매예상 표입니다</caption>
                                 <colgroup>
                                     <col class="min-w-10 w-[15%]">
                                     <col>
@@ -473,7 +482,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">품목명</th>
                                         <th scope="col">계약완료</th>
-                                        <th scope="col">구매가능</th>
+                                        <th scope="col">구매예상</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -492,8 +501,9 @@
                                 </tbody>
                             </table>
             
-                            <p class="status-title">대여 급여 품목</p>
+                            <h4 class="status-title">대여 복지용구 상세 현황</h4>
                             <table class="status-table">
+                                <caption class="hidden">대여 복지용구 품목명, 계약완료상태, 구매예상 표입니다</caption>
                                 <colgroup>
                                     <col class="min-w-10 w-[15%]">
                                     <col>
@@ -505,7 +515,7 @@
                                         <th scope="col">No</th>
                                         <th scope="col">품목명</th>
                                         <th scope="col">계약완료</th>
-                                        <th scope="col">구매가능</th>
+                                        <th scope="col">구매예상</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -523,6 +533,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <p class="text-center mt-3 text-sm">※ 위 내용은 데이터 조회 시점에 따라 <span class="underline font-bold">실제와 다를 수 있으니 참고용</span>으로만 사용해주세요. </p>
                         </div>
     
                         <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
@@ -544,7 +555,7 @@
                             <dd>노인장기요양보험,<br> 차근차근 배워보세요</dd>
                         </dl>
                         <div>
-                            <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="">
+                            <img src="/html/page/index/assets/images/img-careinfo-content1.png" alt="쉽게 알아보기">
                             <a href="#" class="btn btn-outline-primary2 is-arrow"><strong>쉽게 알아보기</strong></a>
                         </div>
                     </div>
@@ -554,7 +565,7 @@
                             <dd>삶의 질을 높여주는<br> 복지용구, 소개해드릴게요</dd>
                         </dl>
                         <div>
-                            <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="">
+                            <img src="/html/page/index/assets/images/img-careinfo-content2.png" alt="복지용구 알아보기">
                             <a href="#" class="btn btn-outline-primary3 is-arrow"><strong>복지용구 알아보기</strong></a>
                         </div>
                     </div>
@@ -564,11 +575,45 @@
                             <dd>부모님을 위한 복지용구,<br> 아무거나 고를 순 없어요</dd>
                         </dl>
                         <div>
-                            <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="">
+                            <img src="/html/page/index/assets/images/img-careinfo-content3.png" alt="복지용구 선택하기">
                             <a href="#" class="btn btn-outline-primary2 is-arrow"><strong>복지용구 선택하기</strong></a>
                         </div>
                     </div>
                 </div>
+
+                <div class="text-center text-xl mt-12">
+                    <span class="text-hightlight-blue font-bold">올해 남은 급여 금액</span>을 확인 후 <br>
+                    복지 혜택 <span class="text-hightlight-blue font-bold">상담을 신청해보세요</span>
+                </div>
+
+                <a href="#" class="grade-floating consulting" data-bs-toggle="modal" data-bs-target="#pop-consulting">
+                    <strong>상담하기</strong>
+                </a>
+
+                <!--상담하기 팝업소스-->
+                <div class="modal modal-index fade" id="pop-consulting" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="text-title">알림</h2>
+                            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-bg-wrap">
+                                <div class="text-center text-xl">
+                                    진행중인 요양정보 상담이 있습니다. <br>
+                                    상담 내역을 확인하시겠습니까?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary large w-[52.5%]">상담내역 확인하기</button>
+                            <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap">새롭게 진행하기</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
             </div>
 
             <script>

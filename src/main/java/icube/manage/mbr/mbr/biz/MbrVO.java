@@ -44,8 +44,14 @@ public class MbrVO extends CommonBaseVO {
 	private String rcmdtnMbrsId;
 	private String prvcVldPd = "1Y";
 	private String smsRcptnYn ="N";
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date smsRcptnDt;
 	private String emlRcptnYn ="N";
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date emlRcptnDt;
 	private String telRecptnYn ="N";
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date telRecptnDt;
 	private String eventRecptnYn;
 	private String proflImg; // 프로필이미지
 	private Date trmsAgreDt;
@@ -61,6 +67,7 @@ public class MbrVO extends CommonBaseVO {
 	private String whdwlResn;
 	private String whdwlTy;
 	private String whdwlEtc;
+	private Date snsRegistDt;
 
 	private String diKey; //ci값 => 휴대폰 본인인증(고유키 리턴)
 

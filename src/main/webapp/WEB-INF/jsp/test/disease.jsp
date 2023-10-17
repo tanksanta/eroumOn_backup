@@ -240,26 +240,26 @@
 			//loadTestResult();
 			
 			//기존테스트 결과 있으면 불러오기
-			function loadTestResult() {
-				const testResult = getTestResultAjax();
-				if (testResult && testResult.diseaseSelect1 && testResult.diseaseSelect1.length > 0) {
-					for (var i = 0; i < testResult.diseaseSelect1.length; i++) {
-						const inputNumber = i + 1;
-						const checked = testResult.diseaseSelect1[i];
-						const curInputs = $('input[name=disease1-' + inputNumber + ']');
-						curInputs[0].checked = checked;
-					}
-				}
+			// function loadTestResult() {
+			// 	const testResult = getTestResultAjax();
+			// 	if (testResult && testResult.diseaseSelect1 && testResult.diseaseSelect1.length > 0) {
+			// 		for (var i = 0; i < testResult.diseaseSelect1.length; i++) {
+			// 			const inputNumber = i + 1;
+			// 			const checked = testResult.diseaseSelect1[i];
+			// 			const curInputs = $('input[name=disease1-' + inputNumber + ']');
+			// 			curInputs[0].checked = checked;
+			// 		}
+			// 	}
 				
-				if (testResult && testResult.diseaseSelect2 && testResult.diseaseSelect2.length > 0) {
-					for (var i = 0; i < testResult.diseaseSelect2.length; i++) {
-						const inputNumber = i + 1;
-						const checked = testResult.diseaseSelect2[i];
-						const curInputs = $('input[name=disease2-' + inputNumber + ']');
-						curInputs[0].checked = checked;
-					}
-				}
-			}
+			// 	if (testResult && testResult.diseaseSelect2 && testResult.diseaseSelect2.length > 0) {
+			// 		for (var i = 0; i < testResult.diseaseSelect2.length; i++) {
+			// 			const inputNumber = i + 1;
+			// 			const checked = testResult.diseaseSelect2[i];
+			// 			const curInputs = $('input[name=disease2-' + inputNumber + ']');
+			// 			curInputs[0].checked = checked;
+			// 		}
+			// 	}
+			// }
 			
 			//뒤로가기 이벤트
 			$('#back-btn').click(function() {
@@ -302,8 +302,63 @@
 				}
 				const diseaseScore2 = scoreEvaluations.find(f => f.score === selectSum).evaluation;
 				
-				//다이어그램 로직을 위해 기존 테스트 데이터 가져오기
-				const testResult = getTestResultAjax();
+				
+				var testData = JSON.parse(sessionStorage.getItem('testData'));
+				var testResult = {};
+				if (testData.isLogin) {
+					//다이어그램 로직을 위해 기존 테스트 데이터 가져오기(api 방식)
+					testResult = getTestResultAjax(testData.recipientsNo);	
+				} else {
+					//테스트 데이터 가져오기(세션 방식)
+					testResult = {
+						isLogin: testData.isLogin,
+						physicalScore: testData.physical.physicalScore,
+						physicalSelect: convertStringToNumberArray(testData.physical.physicalSelect),
+						cognitiveScore: testData.cognitive.cognitiveScore,
+						cognitiveSelect: convertStringToNumberArray(testData.cognitive.cognitiveSelect),
+						behaviorScore: testData.behavior.behaviorScore,
+						behaviorSelect: convertStringToNumberArray(testData.behavior.behaviorSelect),
+						nurseScore: testData.nurse.nurseScore,
+						nurseSelect: convertStringToNumberArray(testData.nurse.nurseSelect),
+						rehabilitateScore: testData.rehabilitate.rehabilitateScore,
+						rehabilitateSelect: convertStringToNumberArray(testData.rehabilitate.rehabilitateSelect),
+						diseaseScore1,
+						diseaseSelect1: convertStringToNumberArray(diseaseSelect1),
+						diseaseScore2,
+						diseaseSelect2: convertStringToNumberArray(diseaseSelect2),
+					}
+					sessionStorage.setItem('testData', JSON.stringify(testResult));
+				}
+				
+				
+				//최종 결과 객체 만들기
+				const finalTestResult = getFinalTestResultData(testResult);
+				
+				const requestJson = JSON.stringify({
+					mbrTestVO: {
+						...finalTestResult,
+						recipientsNo : testData.recipientsNo,
+						diseaseScore1,
+						diseaseSelect1,
+						diseaseScore2,
+						diseaseSelect2,
+					},
+					testNm: 'disease',
+				});
+				
+				
+				//질병 및 최종결과 정보 저장
+				if (testData.isLogin) {
+					//api 방식
+					saveTestResultAjax(requestJson, '/main/cntnts/test-result');
+				} else {
+					//session 방식
+					sessionStorage.setItem('finalTestResult', JSON.stringify(finalTestResult));
+					location.href = '/main/cntnts/test-result';
+				}
+			});
+			
+			function getFinalTestResultData(testResult) {
 				if (!testResult
 					|| testResult.physicalSelect.length === 0
 					|| testResult.cognitiveSelect.length === 0
@@ -396,29 +451,27 @@
 					grade = 5;
 				}
 				
+				return {
+					grade,
+					score,
+					diagramBehaviorScore,
+					diagramCleanScore,
+					diagramExcretionScore,
+					diagramFunctionalScore,
+					diagramIndirectScore,
+					diagramMealScore,
+					diagramNurseScore,
+					diagramRehabilitateScore,
+				}
+			}
+			
+			function convertStringToNumberArray(str) {
+				var strArray = str.split(',');
+				if (strArray.length === 0) {
+					return [];
+				}
 				
-				const requestJson = JSON.stringify({
-					mbrTestVO: {
-						grade,
-						score,
-						diseaseSelect1,
-						diseaseScore1,
-						diseaseSelect2,
-						diseaseScore2,
-						diagramBehaviorScore,
-						diagramCleanScore,
-						diagramExcretionScore,
-						diagramFunctionalScore,
-						diagramIndirectScore,
-						diagramMealScore,
-						diagramNurseScore,
-						diagramRehabilitateScore,
-					},
-					testNm: 'disease',
-				});
-				
-				//질병 및 최종결과 정보 저장
-				saveTestResultAjax(requestJson, '/main/cntnts/test-result');
-			});
+				return strArray.map(m => Number(m));
+			}
 		});
 	</script>

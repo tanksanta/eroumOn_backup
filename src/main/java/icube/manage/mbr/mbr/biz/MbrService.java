@@ -3,6 +3,7 @@ package icube.manage.mbr.mbr.biz;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -30,6 +31,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 
 	@Resource(name = "mbrMlgDAO")
 	private MbrMlgDAO mbrMlgDAO;
+	
+	@Resource(name = "mbrAgreementDAO")
+	private MbrAgreementDAO mbrAgreementDAO;
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
 		return mbrDAO.mbrListVO(listVO);
@@ -363,4 +367,37 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return mbrDAO.updateMbrAddr(paramMap);
 	}
 
+	public void insertMbrAgreement(MbrAgreementVO mbrAgreementVO) throws Exception {
+		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
+	}
+	
+	/**
+	 * 간편회원 전용 ID 생성 함수
+	 */
+	public String generateMbrId(String joinTy) throws Exception {
+		String id = "";
+		
+		while ("".equals(id)) {
+			id = "";
+			for (int i = 0; i < 10; i++) {
+				Random random = new Random();
+				int num = random.nextInt(10);
+				id += String.valueOf(num); 
+			}
+			
+			//같은 ID가 있으면 다시 만들도록 처리
+			MbrVO srchMbrVO = selectMbrById(id);
+			if (srchMbrVO != null) {
+				id = "";
+			}
+		}
+		
+		if ("K".equals(joinTy)) {
+			id += "@K";
+		} else if ("N".equals(joinTy)) {
+			id += "@N";
+		}
+		
+		return id;
+	}
 }
