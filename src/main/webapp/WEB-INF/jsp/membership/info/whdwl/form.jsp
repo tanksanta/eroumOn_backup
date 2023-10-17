@@ -119,20 +119,38 @@
 							<p class="text-title">정말 탈퇴하시겠습니까?</p>
 						</div>
 						<div class="modal-close">
-							<button data-bs-dismiss="modal">모달 닫기</button>
+							<button type="button" data-bs-dismiss="modal">모달 닫기</button>
 						</div>
 						<div class="modal-body">
 							<div class="content">
 								<p class="text-alert">고객님의 개인정보를 안전하게 취급하며, 회원님의 동의 없이는 회원정보를 공개 및 변경하지 않습니다.</p>
 								<p class="text-alert">확인을 위해 비밀번호를 다시 입력해 주세요.</p>
-
-								<div class="member-release-reason mt-6">
-									<label for="leave-item" class="pswd">비밀번호</label>&nbsp; <input type="password" class="form-control" id="pswd" name="pswd" placeholder="비밀번호" />
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary btn-submit">확인</button>
-									<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</button>
-								</div>
+								
+								<c:choose>
+									<c:when test="${_mbrSession.joinTy eq 'K'}">
+										<div class="mt-8">
+											<a href="#" class="btn btn-kakao w-full" onclick="requestWhdwlSnsMbr('K');">
+												<span>카카오 인증하기</span>
+											</a>
+										</div>
+									</c:when>
+									<c:when test="${_mbrSession.joinTy eq 'N'}">
+										<div class="mt-8">
+											<a href="#" class="btn btn-naver w-full" onclick="requestWhdwlSnsMbr('N');">
+												<span>네이버 인증하기</span>
+											</a>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="member-release-reason mt-6">
+											<label for="leave-item" class="pswd">비밀번호</label>&nbsp; <input type="password" class="form-control" id="pswd" name="pswd" placeholder="비밀번호" />
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary btn-submit">확인</button>
+											<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">취소</button>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -210,7 +228,7 @@
 		});
 
 
-		//유효성 검사
+		//유효성 검사(일반 회원 탈퇴)
 		$("form[name='lveFrm']").validate({
 		    ignore: "input[type='text']:hidden",
 		    rules : {
@@ -229,30 +247,41 @@
 			    }
 			},
 		    submitHandler: function (frm) {
-		    	/*특정 단계 제외 카운트*/
-	   			$.ajax({
-    				type : "post",
-    				url  : "exDlvySttsCnt.json",
-    				dataType : 'json'
-    			})
-    			.done(function(data) {
-    				if(data.result == true){
-    					if(confirm("이로움ON 회원에서 정말 탈퇴하시겠습니까?")){
-    			    		frm.submit();
-    			    	}else{
-    			    		return false;
-    			    	}
-    				}else{
-    					//alert(ordrSttsCode[data.sttsTy] + " 의외의 단계가 존재합니다.");
-    					alert("주문 건수 중 진행 중인 단계가 존재합니다.");
-    				}
-    			})
-    			.fail(function(data, status, err) {
-    				alert("단계 검사 중 오류가 발생했습니다.");
-    				console.log('error forward : ' + data);
-    			});
+		    	if (confirm("이로움ON 회원에서 정말 탈퇴하시겠습니까?")) {
+		    		/*특정 단계 제외 카운트*/
+		   			$.ajax({
+	    				type : "post",
+	    				url  : "exDlvySttsCnt.json",
+	    				dataType : 'json'
+	    			})
+	    			.done(function(data) {
+	    				if(data.result == true){
+	    					frm.submit();
+	    				}else{
+	    					//alert(ordrSttsCode[data.sttsTy] + " 의외의 단계가 존재합니다.");
+	    					alert("주문 건수 중 진행 중인 단계가 존재합니다.");
+	    				}
+	    			})
+	    			.fail(function(data, status, err) {
+	    				alert("단계 검사 중 오류가 발생했습니다.");
+	    				console.log('error forward : ' + data);
+	    			});		    		
+		    	}
 		    }
 		});
-
 	});
+	
+	//간편 회원 탈퇴 요청
+	function requestWhdwlSnsMbr(joinTy) {
+		var redirecUrl = '/'
+		var resnCn = $("#resnCn").val();
+		var whdwlEtc = $('#whdwlEtc').val();
+		
+		if (joinTy === 'K') {
+			redirecUrl = '/membership/kakao/reAuth?requestView=whdwl&resnCn=' + resnCn + '&whdwlEtc=' + whdwlEtc;
+		} else if (joinTy === 'N') {
+			redirecUrl = '/membership/naver/reAuth?requestView=whdwl&resnCn=' + resnCn + '&whdwlEtc=' + whdwlEtc;
+		}
+		location.href = redirecUrl;
+	}
 </script>

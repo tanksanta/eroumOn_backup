@@ -57,7 +57,9 @@ public class MbrSession extends MbrVO implements Serializable {
 		setDaddr(mbrVO.getDaddr());
 
 		setDiKey(mbrVO.getDiKey()); // di
-
+		setKakaoAppId(mbrVO.getKakaoAppId());
+		setNaverAppId(mbrVO.getNaverAppId());
+		
 		setGender(mbrVO.getGender());
 		setBrdt(mbrVO.getBrdt());
 		setProflImg(mbrVO.getProflImg());

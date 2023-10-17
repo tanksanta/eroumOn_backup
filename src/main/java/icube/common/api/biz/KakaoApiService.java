@@ -224,11 +224,12 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 
 		// 재인증 추가 20230922 START
-		String checkId = element.getAsJsonObject().get("id").getAsString()+"@K";
+		String checkId = element.getAsJsonObject().get("id").getAsString();
 		if(mbrSession.isLoginCheck()) {
-			log.debug("### 재인증 진행 ###" + mbrSession.getMbrId()+"//"+checkId);
+			String mbrSnsId = mbrSession.getKakaoAppId();
+			log.debug("### 재인증 진행 ###" + mbrSnsId + "//" +checkId);
 
-			if(EgovStringUtil.equals(mbrSession.getMbrId(), checkId)) {
+			if(EgovStringUtil.equals(mbrSnsId, checkId)) {
 				return 11;
 			}else {
 				return 12;
