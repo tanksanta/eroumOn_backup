@@ -244,12 +244,14 @@
                                                 	</c:if>
 							</dd>
 						</dl>
-						<c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
+
+						<%-- <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
 							<dl>
 								<dt>추가 배송비</dt>
 								<dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
 							</dl>
-						</c:if>
+						</c:if> --%>
+
 					</div>
 					<div class="status">
 						<%-- TO-DO : 주문상태에 따라 다름 --%>
@@ -366,8 +368,10 @@
 
 	<%-- 배송비 + 추가배송비 --%>
 	<c:if test="${ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'RF02' && ordrDtl.sttsTy ne 'RE03' && ordrDtl.sttsTy ne 'EX03'}">
-		<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt):0)}" />
+		<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.dlvyBassAmt):0)}" />
+		<c:set var="totalDlvyAditAmt" value="${totalDlvyAditAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.dlvyAditAmt):0)}" />
 	</c:if>
+
 
 	<c:if test="${ordrDtl.gdsInfo.mlgPvsnYn eq 'Y' && (ordrDtl.sttsTy ne 'CA01' && ordrDtl.sttsTy ne 'CA02' && ordrDtl.sttsTy ne 'EX03')}">
 		<%-- 적립예정마일리지 --%>
@@ -464,7 +468,7 @@
 				<dl class="price">
 					<dt>총 주문금액</dt>
 					<dd>
-						<strong><fmt:formatNumber value="${sumGdsPc + totalDlvyBassAmt}" pattern="###,###" /></strong> 원
+						<strong><fmt:formatNumber value="${sumGdsPc + totalDlvyBassAmt + totalDlvyAditAmt}" pattern="###,###" /></strong> 원
 					</dd>
 				</dl>
 				<div class="detail">
@@ -480,6 +484,14 @@
 							<strong><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###" /></strong> 원
 						</dd>
 					</dl>
+					<c:if test="${totalDlvyAditAmt > 0}">
+					<dl>
+						<dt>도서산간 추가 배송비</dt>
+						<dd>
+							<strong><fmt:formatNumber value="${totalDlvyAditAmt}" pattern="###,###" /></strong> 원
+						</dd>
+					</dl>
+					</c:if>
 				</div>
 			</div>
 			<!--<i class="amount-calculator is-plus">+</i> -->
@@ -529,7 +541,7 @@
 				<dl class="price">
 					<dt>총 결제금액</dt>
 					<dd>
-						<strong><fmt:formatNumber value="${sumGdsPc + totalDlvyBassAmt - (totalDscntAmt)}" pattern="###,###" /></strong> 원
+						<strong><fmt:formatNumber value="${sumGdsPc + (totalDlvyBassAmt + totalDlvyAditAmt) - (totalDscntAmt)}" pattern="###,###" /></strong> 원
 					</dd>
 				</dl>
 				<div class="detail">
@@ -721,7 +733,7 @@
 				<dl class="last">
 					<dt>최종 결제금액</dt>
 					<dd>
-						<strong class="total-stlmAmt-txt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></strong> 원
+						<strong class="total-stlmAmt-txt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" pattern="###,###" /></strong> 원
 					</dd>
 				</dl>
 			</div>
@@ -748,8 +760,8 @@
 
 	<form:hidden path="delngNo" />
 	<form:hidden path="stlmYn" value="N" />
-	<form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt}" />
-	<%-- 상품금액+옵션+배송 > TO-DO 쿠폰&마일리지&포인트 작업 필요 --%>
+	<form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" />
+
 	<form:hidden path="stlmTy" />
 	<form:hidden path="stlmDt" />
 	<form:hidden path="cardAprvno" />

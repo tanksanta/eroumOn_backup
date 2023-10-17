@@ -72,8 +72,10 @@
 								<div class="form-check order-check">
                                     <input class="form-check-input cart_ty_R bplc_${cart.bplcInfo.uniqueId}" type="checkbox" name="bplc_item" value="${cart.bplcInfo.uniqueId}" data-cart-grp="${cart.cartGrpNo}" data-cart-ty="${cart.cartTy}">
                                     <input type="hidden" name="${cart.bplcInfo.uniqueId}_gdsPc" value="${cart.ordrPc}" />
-									<input type="hidden" name="${cart.bplcInfo.uniqueId}_dlvyPc" value="${cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
-									<input type="hidden" name="${cart.bplcInfo.uniqueId}_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
+									<%-- <input type="hidden" name="${cart.bplcInfo.uniqueId}_dlvyPc" value="${cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" /> --%>
+									<%-- <input type="hidden" name="${cart.bplcInfo.uniqueId}_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" /> --%>
+									<input type="hidden" name="${cart.bplcInfo.uniqueId}_dlvyPc" value="${cart.gdsInfo.dlvyBassAmt}" />
+									<input type="hidden" name="${cart.bplcInfo.uniqueId}_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyBassAmt}" />
 									<input type="hidden" name="gdsTag" value="${cart.gdsInfo.gdsTagVal}" />
 									<input type="hidden" name="bnefCd" value="${cart.gdsInfo.bnefCd}" />
 									<input type="hidden" name="entrpsNo" value="${cart.gdsInfo.entrpsNo}" />
@@ -167,13 +169,14 @@
 	                                                	</c:if>
 							</dd>
 						</dl>
-						<c:if test="${cart.gdsInfo.dlvyAditAmt > 0}">
+
+						<%-- <c:if test="${cart.gdsInfo.dlvyAditAmt > 0}">
 							<dl>
 								<dt>추가 배송비</dt>
 								<dd><fmt:formatNumber pattern="###,###" value="${cart.gdsInfo.dlvyAditAmt}" />원</dd>
 
 							</dl>
-						</c:if>
+						</c:if> --%>
 					</div>
 				</div>
 		</div>
@@ -207,7 +210,8 @@
 		<button class="btn btn-outline-primary md:px-8.5 f_delete" data-bplc-unique="${cart.bplcUniqueId}" data-cart-ty="R" data-sel-ty="SEL">선택상품 삭제</button>
 	</div>
 	<%-- 배송비 + 추가배송비 --%>
-	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt + cart.gdsInfo.dlvyAditAmt):0)}" />
+	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt):0)}" />
+	<c:set var="totalDlvyAditAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyAditAmt):0)}" />
 
 	<%-- 주문금액 + 옵션금액 --%>
 	<c:set var="totalOrdrPc" value="${totalOrdrPc + cart.ordrPc}" />
@@ -293,7 +297,8 @@
 	</c:if>
 
 	<%-- 배송비 + 추가배송비 --%>
-	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt + cart.gdsInfo.dlvyAditAmt):0)}" />
+	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt):0)}" />
+	<c:set var="totalDlvyAditAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyAditAmt):0)}" />
 
 	<%-- 주문금액 + 옵션금액 --%>
 	<c:set var="totalOrdrPc" value="${totalOrdrPc + cart.ordrPc}" />
@@ -381,8 +386,10 @@
 							<div class="form-check">
 								<input class="form-check-input cart_ty_N" type="checkbox" name="cartGrpNo" value="${cart.cartGrpNo}">
 								<input type="hidden" name="L_gdsPc" value="${cart.ordrPc}" />
-								<input type="hidden" name="L_dlvyPc" value="${cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
-								<input type="hidden" name="L_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" />
+								<%-- <input type="hidden" name="L_dlvyPc" value="${cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" /> 추가배송비 제외 --%>
+								<input type="hidden" name="L_dlvyPc" value="${cart.gdsInfo.dlvyBassAmt}" />
+								<%-- <input type="hidden" name="L_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyAditAmt + cart.gdsInfo.dlvyBassAmt}" /> 추가배송비 제외 --%>
+								<input type="hidden" name="L_stlmPc" value="${cart.ordrPc + cart.gdsInfo.dlvyBassAmt}" />
 								<input type="hidden" name="gdsTag" value="${cart.gdsInfo.gdsTagVal}" />
 								<input type="hidden" name="bnefCd" value="${cart.gdsInfo.bnefCd}" />
 								<input type="hidden" name="entrpsNo" value="${cart.gdsInfo.entrpsNo}" />
@@ -496,12 +503,12 @@
 	                                                	</c:if>
 					</dd>
 				</dl>
-				<c:if test="${cart.gdsInfo.dlvyAditAmt > 0}">
+				<%-- <c:if test="${cart.gdsInfo.dlvyAditAmt > 0}">
 					<dl>
 						<dt>추가 배송비</dt>
 						<dd><fmt:formatNumber pattern="##,###" value="${cart.gdsInfo.dlvyAditAmt}" />원</dd>
 					</dl>
-				</c:if>
+				</c:if> --%>
 			</div>
 		</div>
 		</div>
@@ -534,8 +541,10 @@
 				<div class="form-check">
 					<input class="form-check-input cart_ty_N" type="checkbox" name="cartGrpNo" value="${nResultList[status.index+1].cartGrpNo}">
 					<input type="hidden" name="L_gdsPc" value="${nResultList[status.index+1].ordrPc}" />
-					<input type="hidden" name="L_dlvyPc" value="${nResultList[status.index+1].gdsInfo.dlvyAditAmt + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
-					<input type="hidden" name="L_stlmPc" value="${nResultList[status.index+1].ordrPc + nResultList[status.index+1].gdsInfo.dlvyAditAmt + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
+					<%-- <input type="hidden" name="L_dlvyPc" value="${nResultList[status.index+1].gdsInfo.dlvyAditAmt + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
+					<input type="hidden" name="L_stlmPc" value="${nResultList[status.index+1].ordrPc + nResultList[status.index+1].gdsInfo.dlvyAditAmt + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" /> --%>
+					<input type="hidden" name="L_dlvyPc" value="${nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
+					<input type="hidden" name="L_stlmPc" value="${nResultList[status.index+1].ordrPc + nResultList[status.index+1].gdsInfo.dlvyBassAmt}" />
 					<input type="hidden" name="gdsTag" value="${nResultList[status.index+1].gdsInfo.gdsTagVal}" />
 					<input type="hidden" name="bnefCd" value="${nResultList[status.index+1].gdsInfo.bnefCd}" />
 					<input type="hidden" name="entrpsNo" value="${nResultList[status.index+1].gdsInfo.entrpsNo}" />
@@ -561,7 +570,9 @@
 	</c:if>
 
 	<%-- 배송비 + 추가배송비 --%>
-	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt + cart.gdsInfo.dlvyAditAmt):0)}" />
+	<%-- <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt + cart.gdsInfo.dlvyAditAmt):0)}" /> --%>
+	<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyBassAmt):0)}" />
+	<c:set var="totalDlvyAditAmt" value="${totalDlvyBassAmt + (cart.ordrOptnTy eq 'BASE'?(cart.gdsInfo.dlvyAditAmt):0)}" />
 
 	<%-- 주문금액 + 옵션금액 --%>
 	<c:set var="totalOrdrPc" value="${totalOrdrPc + cart.ordrPc}" />

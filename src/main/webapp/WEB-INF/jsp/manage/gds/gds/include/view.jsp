@@ -329,6 +329,7 @@
 								</dd>
 							</dl>
 						</c:if>
+						<%-- 추가 배송비 -> 도서산간비용, 노출x
 						<c:if test="${gdsVO.dlvyAditAmt > 0}">
 							<dl>
 								<dt>추가 배송비</dt>
@@ -336,7 +337,7 @@
 									<fmt:formatNumber value="${gdsVO.dlvyAditAmt}" pattern="###,###" />
 								</dd>
 							</dl>
-						</c:if>
+						</c:if> --%>
 					</div>
 					<!-- //상품 재원 -->
 
