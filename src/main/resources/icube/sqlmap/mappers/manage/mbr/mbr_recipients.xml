@@ -14,11 +14,15 @@
 		, mr.gender
 		, mr.brdt
 		, mr.relation_cd
+		, mr.main_yn
 		, mr.reg_dt
 		, mr.mdfcn_dt
 	</sql>
 	
 	<sql id="searchConditions">
+		<if test="srchRecipientsNo > 0 ">
+			AND mr.recipients_no = #{srchRecipientsNo}
+		</if>
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mr.mbr_unique_id = #{srchMbrUniqueId}
 		</if>

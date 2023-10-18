@@ -1,5 +1,6 @@
 package icube.common.api;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 import icube.common.api.biz.TilkoApiService;
 import icube.main.biz.MainService;
@@ -28,6 +31,8 @@ public class TilkoApiController {
 	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss"); 
 
 	@ResponseBody
 	@RequestMapping(value="getRecipterInfo.json", method=RequestMethod.POST)
@@ -39,17 +44,11 @@ public class TilkoApiController {
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("isSearch", false);
 		
-		returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
-		returnMap.put("isSearch", true);
-		
 		if (mbrSession.isLoginCheck()) {
-//			if (!mbrNm.equals(mbrSession.getMbrNm())) {
-//				returnMap.put("msg", "본인 명의만 조회가 가능합니다.");
-//			} else {
-//				//수급자 본인인 경우만 조회가능
-//				returnMap = tilkoApiService.getRecipterInfo(mbrSession.getMbrNm(), rcperRcognNo);
-//				returnMap.put("isSearch", true);
-//			}
+			returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
+			
+			returnMap.put("refleshDate", simpleDateFormat.format(new Date()));
+			returnMap.put("isSearch", true);
 		} else {
 			returnMap.put("msg", "로그인 이후 이용가능합니다.");
 		}

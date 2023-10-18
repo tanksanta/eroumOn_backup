@@ -702,12 +702,17 @@
         //등록된 수급자가 있는 모달 시작하기
         function startloginRcpts() {
         	var el = document.querySelector(".btn-toggle-box");
-        	var isRegist = el.classList.contains("collapsed");
+        	var isRegist = !el ? true : el.classList.contains("collapsed");
         	  
         	//수급자 선택인 경우
         	if (isRegist) {
         		//등록된 수급자 선택값 가져오기
             	var radioRecipientsNo =  $('input[name=rcpts]:checked').val();
+        		if (!radioRecipientsNo) {
+        			alert('수급자를 선택하세요');
+        			return;
+        		}
+        		
             	location.href = '/test/physical?recipientsNo=' + radioRecipientsNo;
         	}
         	//직접입력하기인 경우
