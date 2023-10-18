@@ -30,6 +30,18 @@
 				<dl class="content-auth mt-15">
 					<dt>본인인증</dt>
 				</dl>
+				<table class="table-detail">
+					<colgroup>
+						<col class="w-29 xs:w-32">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr class="top-border">
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<div class="content-auth-phone mt-9">
 					<img src="/html/page/members/assets/images/img-join-auth.svg" alt="">
