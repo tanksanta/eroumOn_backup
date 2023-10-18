@@ -662,7 +662,7 @@
 				//수급자 선택 박스 생성
 				for (var i = 0; i < recipients.length; i++) {
 					template += `<div  class="form-check">
-	                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt` + i + `" value="` + recipients[i].recipientsNo + `">
+	                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt` + i + `" value="` + recipients[i].recipientsNo + `"` + (recipients[i].mainYn === 'Y' ? `checked` : ``) + `>
 	                    <label class="form-check-label" for="rcpt` + i + `">` + recipients[i].recipientsNm + `</label>
 	                </div>`;
 				}
