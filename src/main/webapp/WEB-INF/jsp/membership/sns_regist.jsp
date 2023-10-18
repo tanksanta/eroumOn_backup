@@ -56,9 +56,11 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><p>
-									<label for="join-item3-3">개인정보 유효기간<sup class="text-danger text-base md:text-lg">*</sup></label>
-								</p></th>
+							<th scope="row">
+								<p class="flex">
+									<label for="join-item3-3">개인정보<br>유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
+							</th>
 							<td>
 								<div class="form-check-group w-full">
 									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
@@ -75,6 +77,18 @@
 				</br>
 
 				<p class="mt-13 text-title2">약관동의</p>
+				<table class="table-detail">
+					<colgroup>
+						<col class="w-29 xs:w-32">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr class="top-border">
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 				<div class="form-check font-bold my-3.5">
 					<input class="form-check-input" type="checkbox" id="check-all">
 					<label class="form-check-label" for="check-all">전체 약관에 동의합니다</label>
@@ -106,13 +120,13 @@
 								
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
+										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk"><strong>전체 수신</strong></label>
 									</div>
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="smsRcptnYn" value="Y" />
-										<label class="form-check-label" for="smsRcptnYn1">SMS</label>
+										<label class="form-check-label" for="smsRcptnYn1">문자</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="emlRcptnYn" value="Y" />
@@ -120,7 +134,7 @@
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
+										<label class="form-check-label" for="telRecptnYn1">전화</label>
 									</div>
 								</div>
 							</td>
@@ -132,6 +146,18 @@
 				<dl class="content-auth mt-15">
 					<dt>본인인증</dt>
 				</dl>
+				<table class="table-detail">
+					<colgroup>
+						<col class="w-29 xs:w-32">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr class="top-border">
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<div class="content-auth-phone mt-9">
 					<img src="/html/page/members/assets/images/img-join-auth.svg" alt="">
