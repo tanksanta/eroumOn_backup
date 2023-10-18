@@ -53,22 +53,21 @@ public class MainRecipterController extends CommonAbstractController{
 	 */
 	@RequestMapping(value = "list")
 	public String list(
-		@RequestParam(required = false) String recipientsNm
-		, @RequestParam(required = false) String rcperRcognNo
-		, @RequestParam(required = false) Integer recipientsNo
+		@RequestParam Integer recipientsNo
 		, Model model)throws Exception {
 		
-		if (recipientsNo != null) {
-			MbrRecipientsVO recipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
-			recipientsNm = recipient.getRecipientsNm();
-			rcperRcognNo = recipient.getRcperRcognNo();
-		}
+		MbrRecipientsVO recipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+		String recipientsNm = recipient.getRecipientsNm();
+		String rcperRcognNo = recipient.getRcperRcognNo();
 		
 		TilkoApiVO apiVO = new TilkoApiVO();
 		model.addAttribute("apiVO",apiVO);
 		model.addAttribute("apiCode", ItemMap.RECIPTER_ITEM);
+		model.addAttribute("recipientsNo", recipientsNo);
 		model.addAttribute("recipientsNm", recipientsNm);
 		model.addAttribute("rcperRcognNo", rcperRcognNo);
+		
+		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
 		
 		return "/main/recipter/list";
 	}

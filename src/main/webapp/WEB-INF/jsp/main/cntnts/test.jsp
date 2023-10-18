@@ -452,7 +452,7 @@
 
     <!-- 수급자정보등록 팝업소스 -->
     <div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-title">수급자 정보 등록</h2>
@@ -662,7 +662,7 @@
 				//수급자 선택 박스 생성
 				for (var i = 0; i < recipients.length; i++) {
 					template += `<div  class="form-check">
-	                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt` + i + `" value="` + recipients[i].recipientsNo + `">
+	                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt` + i + `" value="` + recipients[i].recipientsNo + `"` + (recipients[i].mainYn === 'Y' ? `checked` : ``) + `>
 	                    <label class="form-check-label" for="rcpt` + i + `">` + recipients[i].recipientsNm + `</label>
 	                </div>`;
 				}

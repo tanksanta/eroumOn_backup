@@ -2,7 +2,7 @@
     .pagination {
         @apply flex items-center flex-wrap;
         & a {
-            @apply btn mx-0.5 px-0 w-9 h-7.5 rounded overflow-hidden text-sm font-serif
+            @apply btn mx-0.5 px-0 w-9 h-7.5 border rounded overflow-hidden text-sm font-serif
                    hover:ring-0 hover:ring-offset-0
                    focus:ring-0 focus:ring-offset-0
                    active:border-black1 active:bg-black1 active:text-white active:ring-0 active:ring-offset-0;

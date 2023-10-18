@@ -130,6 +130,10 @@
 		    , reg_id
 		    , rgtr
 		    , conslt_sttus
+		    , recipients_no
+		    , relation_cd
+		    , rcper_rcogn_no
+		    , prev_path
 		)VALUES(
 			#{mbrNm}
 			, #{mbrTelno}
@@ -144,6 +148,10 @@
 		    , #{regId}
 		    , #{rgtr}
 		    , 'CS01'
+		    , #{recipientsNo}
+		    , #{relationCd}
+		    , #{rcperRcognNo}
+		    , #{prevPath}
 		)
 	</insert>
 
