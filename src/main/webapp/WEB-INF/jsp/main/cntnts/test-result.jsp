@@ -425,7 +425,7 @@
             		//api 방식으로 테스트결과 가져오기
             		testResult = getTestResultAjax(testData.recipientsNo);
             		
-            		$('#go-consult').css('display', 'block');
+            		$('#go-consult').css('display', 'flex');
             	}
             	else {
             		var finalTestResult = JSON.parse(sessionStorage.getItem('finalTestResult'));

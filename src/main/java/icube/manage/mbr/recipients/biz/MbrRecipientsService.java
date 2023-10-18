@@ -1,5 +1,6 @@
 package icube.manage.mbr.recipients.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,12 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		return mbrRecipientsDAO.selectMbrRecipientsList(paramMap);
 	}
 
+	public MbrRecipientsVO selectMbrRecipientsByRecipientsNo(int recipientsNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchRecipientsNo", recipientsNo);
+		return mbrRecipientsDAO.selectMbrRecipients(paramMap);
+	}
+	
 	public List<MbrRecipientsVO> selectMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 	}

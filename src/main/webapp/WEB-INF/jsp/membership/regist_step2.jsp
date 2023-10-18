@@ -145,9 +145,11 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><p style="padding-left: 0;">
-									<label for="join-item3-3">개인정보 유효기간<sup class="text-danger text-base md:text-lg">*</sup></label>
-								</p></th>
+							<th scope="row">
+								<p class="flex">
+									<label for="join-item3-3">개인정보<br>유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
+							</th>
 							<td>
 								<div class="form-check-group w-full">
 									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
@@ -199,13 +201,13 @@
 								
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
+										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk"><strong>전체 수신</strong></label>
 									</div>
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="smsRcptnYn" value="Y" />
-										<label class="form-check-label" for="smsRcptnYn1">SMS</label>
+										<label class="form-check-label" for="smsRcptnYn1">문자</label>
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="emlRcptnYn" value="Y" />
@@ -213,7 +215,7 @@
 									</div>
 									<div class="form-check mr-3 xs:mr-auto">
 										<form:checkbox class="form-check-input agree" path="telRecptnYn" value="Y" />
-										<label class="form-check-label" for="telRecptnYn1">휴대폰</label>
+										<label class="form-check-label" for="telRecptnYn1">전화</label>
 									</div>
 								</div>
 							</td>

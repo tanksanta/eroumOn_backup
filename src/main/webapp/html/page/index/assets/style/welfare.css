@@ -199,12 +199,19 @@
 
 /* 복지서비스 안내 */
 .welfare-service-toggle {
-    @apply inline-flex relative -top-px ml-1 justify-center items-center leading-none font-normal px-[0.9em] h-[1.69em] text-[0.8125rem] border border-black2 rounded-full;
+    @apply inline-flex relative gap-2  justify-center items-center leading-none font-normal px-[0.9em] h-[1.71em] text-[0.8125rem] border border-black2 rounded-full bg-black2 text-white;
+    & .icon-plus {
+        @apply w-2 h-2;
+        filter: invert(99%) sepia(4%) saturate(742%) hue-rotate(280deg) brightness(119%) contrast(100%);
+    }
     & .open {
         @apply hidden;
     }
     &.is-active {
-        @apply bg-black2 text-white;
+        @apply bg-white text-black2;
+        & .icon-plus {
+            filter: none;
+        }
         & .close {
             @apply hidden;
         }
@@ -936,8 +943,7 @@
         @apply flex-none block mb-1 w-[4em] text-sm text-gray1 leading-tight;
     }
     & .form-control {
-        @apply px-4 w-full h-[3.4375rem] rounded-lg bg-gray2
-               xs-max:flex-none;
+        @apply px-4 w-full h-[3.4375rem] rounded-lg bg-gray2 xs-max:flex-none;
     }
 }
 
@@ -950,7 +956,7 @@
 
 .modal-login-join {
     @apply relative mt-23 mx-auto max-w-[20.625rem]
-           before:content-empty before:absolute before:right-8 before:bottom-3 before:w-[203px] before:h-[227px] before:bg-cover before:bg-[url(../images/bg-login.png)];
+        before:content-empty before:absolute before:right-8 before:bottom-3 before:w-[203px] before:h-[227px] before:bg-cover before:bg-[url(../images/bg-login.png)];
     & dl {
         @apply relative z-10 pr-[8.375rem] text-right text-base leading-tight;
         & dd {
@@ -960,4 +966,40 @@
     & .btn {
         @apply relative z-10 mt-7.5 w-full;
     }
+}
+
+.recommended-hot {
+    @apply  grid md:grid-cols-4 lg:grid-rows-3 lg:grid-cols-5 gap-6 mb-24 tracking-tight;
+    & .recommended-hot-border {
+        @apply col-span-1 p-5 border border-[#DADADD] hover:border-[#FF8300] hover:shadow-lg rounded-lg;
+        & .badge-eroum {
+            @apply bg-[#F8F5F0] text-sm rounded-2xl px-4 py-1 mr-auto;
+        }
+        & .icon-eroum-service {
+            @apply bg-[#F8F5F0] rounded-sm p-2;
+        }
+    }
+    & .recommended-hot-box {
+        @apply  relative px-6 py-5 rounded-lg;
+        & .bg-eroum-service img {
+            @apply absolute bottom-5 right-5 w-39;
+        }
+        &.first {
+            @apply col-span-2 lg:row-span-2 lg:col-span-2 bg-[#F8F5F0];
+        }
+        &.second {
+            @apply col-span-2 lg:col-span-3 bg-slate-200 h-59;
+            & .bg-eroum-service img {
+                @apply bottom-2 right-5;
+            }
+        }
+        & .badge-eroum {
+            @apply flex-auto bg-white text-sm rounded-2xl px-4 py-1; 
+        }
+    }
+    & .recommended-hot-box-inner {
+        @apply flex flex-col gap-4;
+    }
+    
+
 }

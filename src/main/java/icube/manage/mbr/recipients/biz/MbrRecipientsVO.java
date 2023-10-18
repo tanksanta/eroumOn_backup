@@ -25,6 +25,7 @@ public class MbrRecipientsVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date brdt;
 	private String relationCd;  //관계 코드
+	private String mainYn;      //대표 수급자
 	private Date regDt;
 	private Date mdfcnDt;
 }

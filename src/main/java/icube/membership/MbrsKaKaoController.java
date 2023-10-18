@@ -120,7 +120,16 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setLocation("/" + membershipPath + "/drmt/view?mbrId=" + mbrSession.getMbrId());
 		}else if(resultCnt == 11) {
 			session.setAttribute("infoStepChk", "EASYLOGIN");
-			javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
+			
+			String requestView = (String)session.getAttribute("requestView");
+			if (EgovStringUtil.isNotEmpty(requestView) && "whdwl".equals(requestView)) {
+				String resnCn = (String)session.getAttribute("resnCn");
+				String whdwlEtc = (String)session.getAttribute("whdwlEtc");
+				
+				javaScript.setLocation("/" + membershipPath + "/info/whdwl/action?resnCn=" + resnCn + "&whdwlEtc=" + whdwlEtc);
+			} else {
+				javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
+			}
 		}else if(resultCnt == 12) {
 			javaScript.setMessage("소셜 정보가 불일치 합니다. 인증에 실패하였습니다.");
 			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
@@ -135,12 +144,26 @@ public class MbrsKaKaoController extends CommonAbstractController{
 
 	@RequestMapping(value = "/reAuth")
 	public View reAuth(
-			HttpServletRequest request
+			@RequestParam(required = false) String requestView
+			, @RequestParam(required = false) String resnCn
+			, @RequestParam(required = false) String whdwlEtc
+			, HttpServletRequest request
 			, Model model
+			, HttpSession session
 			)throws Exception {
 
 		JavaScript javaScript = new JavaScript();
 
+		if (EgovStringUtil.isNotEmpty(requestView)) {
+			session.setAttribute("requestView", requestView);
+			session.setAttribute("resnCn", resnCn);
+			session.setAttribute("whdwlEtc", whdwlEtc);
+		} else {
+			session.setAttribute("requestView", null);
+			session.setAttribute("resnCn", null);
+			session.setAttribute("whdwlEtc", null);
+		}
+		
 		String kakaoUrl = kakaoApiService.getKakaoReAuth();
 
 		javaScript.setLocation(kakaoUrl);

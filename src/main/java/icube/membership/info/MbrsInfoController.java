@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BootpayApiService;
+import icube.common.api.biz.TilkoApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
@@ -62,6 +63,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
+	
+	@Resource(name= "tilkoApiService")
+	private TilkoApiService tilkoApiService;
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
@@ -404,6 +408,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	public Map<String, Object> addMbrRecipient(
 		@RequestParam String relationCd,
 		@RequestParam String recipientsNm,
+		@RequestParam(required = false) String rcperRcognNo,
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
@@ -417,12 +422,27 @@ public class MbrsInfoController extends CommonAbstractController{
 				return resultMap;
 			}
 			
+			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
+			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo);
+				
+				Boolean result = (Boolean) returnMap.get("result");
+				if (result == false) {
+					returnMap.put("success", false);
+					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+					return resultMap;
+				}
+			}
+			
 			
 			//회원의 수급자 정보 등록
 			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
 			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
 			mbrRecipient.setRelationCd(relationCd);
 			mbrRecipient.setRecipientsNm(recipientsNm);
+			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+				mbrRecipient.setRcperRcognNo(rcperRcognNo);
+			}
 			mbrRecipient.setRecipientsYn("N");
 			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
 			

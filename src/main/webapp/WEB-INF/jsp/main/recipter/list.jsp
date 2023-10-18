@@ -7,6 +7,20 @@
             <li>수급자 요양정보</li>
         </ul>
     </nav>
+
+    <!--팝업작업 후 삭제-->
+    <div class="mt-6">
+        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#pop-consulting">
+            <strong>알림</strong>
+        </a>
+        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#pop-consulting-info">
+            <strong>L번호가 있는 수급자의 경우 : 상담정보확인</strong>
+        </a>
+        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#pop-consulting-complated">
+            <strong>상담확인</strong>
+        </a>
+    </div>
+
 	<h2 class="subject">
 		수급자 요양정보
 		<small>올해 남은 급여 금액을 확인 후 복지 혜택 상담을 신청해보세요</small>
@@ -15,6 +29,8 @@
 
 <div id="content">
     <div class="mx-auto max-w-[800px]">
+        <!--조회영역 삭제-->
+        <!-- 
         <form class="careinfo-search">
             <fieldset>
                 <legend class="sr-only">요양정보 검색</legend>
@@ -31,6 +47,10 @@
                 <button type="button" class="btn btn-large btn-primary3 f_recipterCheck">조회하기</button>
             </fieldset>
         </form>
+         -->
+         
+        <input type="hidden" id="recipter" name="recipter" value="${recipientsNm}">
+        <input type="hidden" id="rcperRcognNo" name="rcperRcognNo" value="${rcperRcognNo}">
 
         <div class="careinfo-mask <c:if test="${_mbrSession.loginCheck && !empty recipter && !empty rcperRcognNo}">is-active</c:if>">
 
@@ -48,8 +68,8 @@
                         (<span class="searchNo">123456789</span>)</span> &nbsp;님의 요양정보
                     </p>
                     <div class="flex items-end justify-end gap-3">
-                        <span class="text-sm text-black2/50">2023년 10월 04일 11:11:11</span>
-                        <button class="btn-lightgrey">다시 조회하기 <i class="icon-refresh"></i></button>
+                        <span class="text-sm text-black2/50" id="refleshDate">2000년 01월 01일 11:11:11</span>
+                        <button class="btn-lightgrey" onclick="clickReSearchBtn();">다시 조회하기 <i class="icon-refresh"></i></button>
                     </div>
                 </div>
                 <div class="myinfo-wrapper">
@@ -112,7 +132,7 @@
             </div>
 
             <div class="careinfo-status recipter_view">
-                <h3 class="careinfo-title">복지용구 급여 품목 보유현황</h3>
+                <h3 class="careinfo-title">나의 복지용구 현황</h3>
                 <div class="status-swiper">
                     <div class="swiper">
                         <div class="swiper-wrapper own_view">
@@ -404,6 +424,7 @@
                         <tbody  class="lend_return">
                         </tbody>
                     </table>
+                    <div style="text-align: center; margin-top: 5px;">※ 위 내용은 데이터 조회 시점에 따라 <strong style="text-decoration: underline;">실제와 다를 수 있으니 참고용</strong>으로만 사용해주세요.</div>
                 </div>
 
                 <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
@@ -454,9 +475,9 @@
         <div class="text-center text-xl mt-12">
             <span class="text-hightlight-blue font-bold">올해 남은 급여 금액</span>을 확인 후 <br>
             복지 혜택 <span class="text-hightlight-blue font-bold">상담을 신청해보세요</span>
-    </div>
+    	</div>
 
-        <a href="#" class="grade-floating consulting" data-bs-toggle="modal" data-bs-target="#pop-consulting">
+        <a href="#" class="grade-floating consulting" data-bs-toggle="modal" data-bs-target="#pop-consulting-info">
             <strong>상담하기</strong>
         </a>
 
@@ -483,6 +504,184 @@
                 </div>
             </div>
         </div>
+
+        <!--L번호가 있는 수급자의 경우 : 상담정보확인-->
+        <div class="modal modal-index fade md:max-w-[35rem]" id="pop-consulting-info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered md:max-w-[35rem]">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">상담 정보 확인</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-subtitle -mb-4">
+                        <i class="icon-alert"></i>
+                        <p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+                    </div>
+                    <table class="table-detail">
+                        <caption class="hidden">상담정보확인 위한 수급자와의 관계(필수), 수급자성명(필수), 요양인정번호, 상담받을연락처(필수), 실거주지 주소(필수), 생년월일(필수),성별(필수), 상담유형 입력폼입니다 </caption>
+                        <colgroup>
+                            <col class="w-22 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="wrapRelation">
+                                <tr class="top-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <th scope="row">
+                                    <p>
+                                        <label for="recipter">수급자와의 관계<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <select name="relationSelect" id="relationSelect" class="form-control w-full lg:w-[60%]">
+                                        <option value="">선택</option>
+                                        <option value="001">본인</option>
+                                        <option value="002">아버지</option>
+                                        <option value="003">어머니</option>
+                                        <option value="004">시아버지</option>
+                                        <option value="005">시어머니</option>
+                                        <option value="006">배우자</option>
+                                        <option value="007">형제자매</option>
+                                        <option value="100">기타</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="wrapNm">
+                                <th scope="row">
+                                    <p>
+                                        <label for="recipter">수급자 성명<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <input type="text" class="form-control  lg:w-[60%]" id="recipter" name="testName" maxlength="50" value="">
+                                </td>
+                            </tr>
+                            <tr class="wrapNo">
+                                <th scope="row">
+                                    <p>
+                                        <label for="rcperRcognNo">요양인정번호</label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <div class="flex flex-row gap-2.5 mb-1.5">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="yn" id="yes" checked>
+                                            <label class="form-check-label" for="yes">있음</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="yn" id="no">
+                                            <label class="form-check-label" for="no">없음</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full lg:w-[60%]">
+                                        <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+                                        <input type="text" class="form-control " id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="search-item6">상담받을 연락처</label></p>
+                                </th>
+                                <td><input type="text" class="form-control w-full lg:w-[60%]" id="search-item6"></td>
+                            </tr> 
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td>
+                                    <fieldset class="flex flex-col lg:flex-row gap-1 ">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">시/도</option>
+                                        </select>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">시/군/구</option>
+                                        </select>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">동/읍/면</option>
+                                        </select>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                                <td><input type="text" class="form-control  lg:w-[60%]" id="search-item4"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="search-item4">상담유형</label></p></th>
+                                <td>요양정보상담</td>
+                            </tr>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="bg-gray-300 rounded-md p-5">
+                        <ul class="list-style1">
+                            <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
+                            <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
+                            <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer md:w-3/4 mx-auto mt-4">
+                    <button type="button" class="btn btn-primary3 large w-[60%] md:w-[70%]">상담신청하기</button>
+                    <button type="button" class="btn btn-outline-primary large w-[40%] md:w-[30%] md:whitespace-nowrap">취소하기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--상담신청완료-->
+        <div class="modal modal-index fade" id="pop-consulting-complated" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">알림</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="provide-complate">
+                            <div class="wrapper">
+                                <svg width="45.1731884px" height="44.9930805px" viewBox="0 0 45.1731884 44.9930805">
+                                    <g id="airplane" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="airplane" transform="translate(-836.3067, -384.1337)" fill="#FFFFFF">
+                                            <g id="airplane" transform="translate(787, 329)">
+                                                <path d="M49.8149249,79.6635069 L92.9878533,55.2632727 C93.4686607,54.9915327 94.078721,55.1610153 94.350461,55.6418227 C94.4586743,55.8332916 94.5007484,56.0550947 94.470169,56.2728912 L89.2316897,93.5830877 C89.0781107,94.6769283 88.0668774,95.439161 86.9730368,95.285582 C86.8468774,95.2678688 86.7226991,95.2381419 86.6021946,95.1968067 L75.5767429,91.4148747 C74.7376734,91.1270585 73.8092758,91.426319 73.2962443,92.1499725 L67.940117,99.7050262 C67.620703,100.155574 66.9965258,100.261879 66.5459782,99.9424645 C66.2814978,99.7549621 66.1243285,99.4508781 66.1243285,99.1266759 L66.1243285,89.5357494 C66.1243285,88.8171161 66.3822929,88.1223582 66.8512931,87.5778653 L81.6305995,70.4196045 C81.8108177,70.2103773 81.7873014,69.8946695 81.5780742,69.7144512 C81.3931938,69.555204 81.1203694,69.552664 80.9325561,69.7084415 L62.4817313,85.0120537 C61.6191487,85.727503 60.4297149,85.9025231 59.3976054,85.4658696 L49.9173201,81.4550557 C49.4086824,81.2398669 49.1707951,80.6530897 49.3859839,80.1444521 C49.4719751,79.9411962 49.6227902,79.7720965 49.8149249,79.6635069 Z" id="Path-4"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                                <div class="object1"></div>
+                                <div class="object2"></div>
+                                <div class="object3"></div>
+                            </div>
+                        </div>
+                        <p class="mt-5.5 text-lg font-bold md:mt-6 md:text-xl lg:mt-7 lg:text-2xl">상담 신청이 완료되었습니다.</p>
+                        <p class="mt-2 mb-4 text-sm md:text-base tracking-tight">
+                            "영업일 기준, 2일 이내 해피콜 통해 <span class="block md:inline-block">안내 받으실 수 있어요"</span>
+                        </p>
+                    </div>
+    
+                    <script>
+                        $('.provide-complate').addClass('animate1');
+                        $('.provide-complate svg').one('animationend transitionend',function(){
+                            $('.provide-complate').removeClass('animate1').addClass('animate2');
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-large btn-primary3 w-57 md:w-70">이로움ON 메인으로</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 
@@ -592,7 +791,275 @@ function f_onlyNumber (str){
 	return str;
 }
 
+//수급자 정보 조회
+function getRecipterInfo(){
+	$(".careinfo-mask").removeClass("is-active");
+	$("#collapse-agree1").removeClass("show");
+	const name = '${recipientsNm}';
+	const no = '${rcperRcognNo}';
+
+	if (name == '') {
+		alert("로그인 이후 조회가 가능합니다.");
+		return;
+	}
+	
+	if(no == '' ){
+		alert("요양인정번호는 필수 입력 항목입니다.");
+		return;
+	}
+	
+	$.ajax({
+		type : "post",
+		url  : "/common/recipter/getRecipterInfo.json",
+		data : {
+			mbrNm : name
+			, rcperRcognNo : no
+		},
+		dataType : 'json'
+	})
+	.done(function(json) {
+		if(!json.isSearch) {
+			alert(json.msg);
+			return;
+		}
+		
+		if(json.result){
+			//갱신일 입력
+			$(refleshDate).text(json.refleshDate);
+			
+			let usePercent = 0;
+			let setPercent = 100;
+			if(Number(json.infoMap.USE_AMT) != 0){
+				let total = Number(json.infoMap.LMT_AMT);
+				let use = Number(json.infoMap.USE_AMT);
+				usePercent = ((use / total) * 100);
+				setPercent = (((total-use) / total) * 100);
+			}
+
+			let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
+			$("#searchQlf").text(penPayRate);
+
+			$(".searchNm").text($("#recipter").val());
+			$(".searchNo").text("L"+$("#rcperRcognNo").val());
+			$("#searchGrade").text(json.infoMap.LTC_RCGT_GRADE_CD);
+			$("#searchRcgt").html(json.infoMap.RCGT_EDA_DT);
+			$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)) + " ~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+			//$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
+			$("#searchRemn").text(comma(json.infoMap.LMT_AMT - json.infoMap.USE_AMT));
+			$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
+			$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원");
+
+
+
+			$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
+			$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
+
+			let allList = new Array();
+
+			let saleList = new Array();
+			let saleNonList = new Array();
+			let lendList = new Array();
+			let lendNonList = new Array();
+
+			let ownSaleList = new Array();
+			let ownLendList = new Array();
+
+			if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
+				saleList = json.infoMap.saleList
+			}
+			if(json.infoMap.saleNonList != '' && json.infoMap.saleNonList != null){
+				saleNonList = json.infoMap.saleNonList
+			}
+			if(json.infoMap.lendList != '' && json.infoMap.lendList != null){
+				lendList = json.infoMap.lendList
+			}
+			if(json.infoMap.lendNonList != '' && json.infoMap.lendNonList != null){
+				lendNonList = json.infoMap.lendNonList
+			}
+			if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != null){
+				ownSaleList = json.infoMap.ownSaleList
+			}
+			if(json.infoMap.ownLendList != '' && json.infoMap.ownLendList != null){
+				ownLendList = json.infoMap.ownLendList
+			}
+			if(json.infoMap.allList != '' && json.infoMap.allList != null){
+				allList = json.infoMap.allList;
+			}
+
+			// 고유 보유 개수
+			let apiMap = new Map();
+
+			let vo = "${apiVO}";
+			vo = vo.replaceAll("TilkoApiVO(","").replaceAll(")","").replaceAll(" ","").split(",");
+
+			for(let v=0; v<vo.length; v++){
+				let obj = vo[v].split("=");
+				apiMap.set(obj[0],obj[1]);
+			}
+
+			// 전체 고유 개수
+			if(allList.length > 0){
+				for(let i=0; i<allList.length; i++){
+					$(".fin"+allList[i]).text(0);
+					$(".buy"+allList[i]).text(apiMap.get(allList[i]));
+				}
+			}
+
+			let CodeMap = new Map();
+			let code = "${apiCode}";
+			code = code.replaceAll("{","").replaceAll("}","").replaceAll(" ","").split(",");
+
+			for(let v=0; v<code.length; v++){
+				let str = code[v];
+				str = str.split("=");
+				CodeMap.set(str[1], str[0]);
+			}
+
+			// 판매 급여 품목
+			$(".sale_return").empty();
+			if(saleList.length > 0){
+				for(let i=0; i<saleList.length; i++){
+					let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
+					let html = "";
+					html +='   <tr>';
+					html +='    <td class="sale_index">'+(i+1)+'</td>';
+					html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
+					html +=' <td class="fin'+saleList[i]+'">0</td>';
+					html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
+					html +='</tr>';
+					$(".sale_return").append(html);
+				}
+
+				for(let i=0; i<saleNonList.length; i++){
+					let html = "";
+					html +='   <tr>';
+					html +='    <td class="sale_index">'+($(".sale_index").length+1)+'</td>';
+					html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleNonList[i])+'" target=_blank>'+CodeMap.get(saleNonList[i])+'(판매 불가)</a></td>';
+					html +=' <td class="fin'+saleNonList[i]+'">해당없음</td>';
+					html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
+					html +='</tr>';
+					$(".sale_return").append(html);
+					$("dd.buy"+saleNonList[i]).text(0);
+					$("dd.fin"+saleNonList[i]).text(0);
+				}
+			}else{
+				let html = "";
+				html +='   <tr>';
+				html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
+				html +='</tr>';
+				$(".sale_return").append(html);
+			}
+
+
+
+			// 대여 급여 품목
+			$(".lend_return").empty();
+			if(lendList.length > 0){
+				for(let i=0; i<lendList.length; i++){
+					let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
+					let html = "";
+					html +='   <tr>';
+					html +='    <td class="lend_index">'+($(".lend_index").length+1)+'</td>';
+					if(f_replaceLink(lendList[i]) == 0){
+						html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
+					}else{
+						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';
+					}
+
+
+					html +=' <td class="fin'+lendList[i]+'">0</td>';
+					html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
+					html +='</tr>';
+					$(".lend_return").append(html);
+				}
+				for(let i=0; i<lendNonList.length; i++){
+					let html = "";
+					html +='   <tr>';
+					html +='    <td class="lend_index">'+(i+1)+'</td>';
+					if(f_replaceLink(lendNonList[i]) == 0){
+						html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
+					}else{
+						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendNonList[i])+'" target=_blank>'+CodeMap.get(lendNonList[i])+'(대여 불가)</a></td>';
+					}
+
+					html +=' <td class="fin'+lendNonList[i]+'">해당없음</td>';
+					html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
+					html +='</tr>';
+					$(".lend_return").append(html);
+					$("dd.buy"+lendNonList[i]).text(0);
+					$("dd.fin"+lendNonList[i]).text(0);
+				}
+			}else{
+				let html = "";
+				html +='   <tr>';
+				html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
+				html +='   </tr>';
+				$(".lend_return").append(html);
+			}
+
+
+			// 보유 현황 카운트 - 판매
+			if(ownSaleList.length > 0){
+				for(let i=0; i<ownSaleList.length; i++){
+					let finCnt = 0;
+					let buyCnt = 0;
+
+					if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
+						finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
+						buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
+						$(".fin"+ownSaleList[i]).text(finCnt+1);
+					}else{
+						$(".fin"+ownSaleList[i]).text(1);
+					}
+
+					if(buyCnt > 0){
+						$(".buy"+ownSaleList[i]).text(buyCnt-1);
+					}else{
+						$(".buy"+ownSaleList[i]).text(0);
+					}
+				}
+			}
+
+			// 보유 현황 카운트 - 대여
+			if(ownLendList.length > 0){
+				for(let i=0; i<ownLendList.length; i++){
+					let finCnt = 0;
+					let buyCnt = 0;
+
+					if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
+						finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
+						buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
+						$(".fin"+ownLendList[i]).text(finCnt + 1);
+					}else{
+						$(".fin"+ownLendList[i]).text(1);
+					}
+
+					if(buyCnt > 0){
+						$(".buy"+ownLendList[i]).text(buyCnt -1);
+					}else{
+						$(".buy"+ownLendList[i]).text(0);
+					}
+				}
+			}
+            $('.careinfo-mask').addClass('is-active');
+		}else{
+			alert("조회된 데이터가 없습니다.");
+		}
+	})
+	.fail(function(data, status, err) {
+		console.log('error forward : ' + data);
+	});
+}
+
+//다시조회하기 버튼 클릭
+function clickReSearchBtn() {
+	getRecipterInfo();
+}
+
 $(function() {
+	//바로 조회하기
+	getRecipterInfo();
+	
 	let regExp = /[^0-9 a-zA-Z!@#$%^&*()-_]/g;
 
     var swiper = new Swiper(".swiper", {
@@ -618,273 +1085,12 @@ $(function() {
 		}
     });
 
-   // 기능
-    $(".f_recipterCheck").on("click", function(){
-
-    	$(".careinfo-mask").removeClass("is-active");
-    	$("#collapse-agree1").removeClass("show");
-    	let name = $("#recipter").val();
-    	let no = $("#rcperRcognNo").val().replace("L","").replace("l","");
-
-    	if (name == '') {
-    		alert("로그인 이후 조회가 가능합니다.");
-    		return;
-    	}
-    	
-    	if(no == '' ){
-    		alert("요양인정번호는 필수 입력 항목입니다.");
-    	}else{
-    		if("${_mbrSession.loginCheck}" == "true"){
-       			window.location.href = '${_mainPath}/login?returnUrl=${_mainPath}/recipter/list&headerType=info&recipter='+$("#recipter").val()+'&rcperRcognNo='+$("#rcperRcognNo").val()+'';
-        	}else{
-
-		$.ajax({
-			type : "post",
-			url  : "/common/recipter/getRecipterInfo.json",
-			data : {
-				mbrNm : $("#recipter").val()
-				, rcperRcognNo : $("#rcperRcognNo").val()
-			},
-			dataType : 'json'
-		})
-		.done(function(json) {
-			if(!json.isSearch) {
-				alert(json.msg);
-				return;
-			}
-			
-			if(json.result){
-				let usePercent = 0;
-				let setPercent = 100;
-				if(Number(json.infoMap.USE_AMT) != 0){
-					let total = Number(json.infoMap.LMT_AMT);
-					let use = Number(json.infoMap.USE_AMT);
-					usePercent = ((use / total) * 100);
-					setPercent = (((total-use) / total) * 100);
-				}
-
-				let penPayRate = json.infoMap.REDUCE_NM == '일반' ? '15': json.infoMap.REDUCE_NM == '기초' ? '0' : json.infoMap.REDUCE_NM == '의료급여' ? '6': (json.infoMap.SBA_CD.split('(')[1].substr(0, json.infoMap.SBA_CD.split('(')[1].length-1).replaceAll("%",""));
-				$("#searchQlf").text(penPayRate);
-
-				$(".searchNm").text($("#recipter").val());
-				$(".searchNo").text("L"+$("#rcperRcognNo").val());
-				$("#searchGrade").text(json.infoMap.LTC_RCGT_GRADE_CD);
-				$("#searchRcgt").html(json.infoMap.RCGT_EDA_DT);
-				$("#searchBgngApdt").html(f_hiponFormat((json.infoMap.APDT_FR_DT)) + " ~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				//$("#searchEndApdt").html("~ " + f_hiponFormat((json.infoMap.APDT_TO_DT)));
-				$("#searchRemn").text(comma(json.infoMap.LMT_AMT - json.infoMap.USE_AMT));
-				$("#searchUseAmt").html(comma(json.infoMap.USE_AMT) + ' <span class="won">원</span>');
-				$("#searchLimit").text(comma(json.infoMap.LMT_AMT)+"원");
-
-
-
-				$("#useAmtBar").attr("style", 'width: '+usePercent+'%');
-				$("#setAmtBar").attr("style", 'width: '+setPercent+'%');
-
-				let allList = new Array();
-
-				let saleList = new Array();
-				let saleNonList = new Array();
-				let lendList = new Array();
-				let lendNonList = new Array();
-
-				let ownSaleList = new Array();
-				let ownLendList = new Array();
-
-				if(json.infoMap.saleList != '' && json.infoMap.saleList != null){
-					saleList = json.infoMap.saleList
-				}
-				if(json.infoMap.saleNonList != '' && json.infoMap.saleNonList != null){
-					saleNonList = json.infoMap.saleNonList
-				}
-				if(json.infoMap.lendList != '' && json.infoMap.lendList != null){
-					lendList = json.infoMap.lendList
-				}
-				if(json.infoMap.lendNonList != '' && json.infoMap.lendNonList != null){
-					lendNonList = json.infoMap.lendNonList
-				}
-				if(json.infoMap.ownSaleList != '' && json.infoMap.ownSaleList != null){
-					ownSaleList = json.infoMap.ownSaleList
-				}
-				if(json.infoMap.ownLendList != '' && json.infoMap.ownLendList != null){
-					ownLendList = json.infoMap.ownLendList
-				}
-				if(json.infoMap.allList != '' && json.infoMap.allList != null){
-					allList = json.infoMap.allList;
-				}
-
-				// 고유 보유 개수
-				let apiMap = new Map();
-
-				let vo = "${apiVO}";
-				vo = vo.replaceAll("TilkoApiVO(","").replaceAll(")","").replaceAll(" ","").split(",");
-
-				for(let v=0; v<vo.length; v++){
-					let obj = vo[v].split("=");
-					apiMap.set(obj[0],obj[1]);
-				}
-
-				// 전체 고유 개수
-				if(allList.length > 0){
-					for(let i=0; i<allList.length; i++){
-						$(".fin"+allList[i]).text(0);
-						$(".buy"+allList[i]).text(apiMap.get(allList[i]));
-					}
-				}
-
-				let CodeMap = new Map();
-				let code = "${apiCode}";
-				code = code.replaceAll("{","").replaceAll("}","").replaceAll(" ","").split(",");
-
-				for(let v=0; v<code.length; v++){
-					let str = code[v];
-					str = str.split("=");
-					CodeMap.set(str[1], str[0]);
-				}
-
-				// 판매 급여 품목
-				$(".sale_return").empty();
-				if(saleList.length > 0){
-					for(let i=0; i<saleList.length; i++){
-						let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
-						let html = "";
-						html +='   <tr>';
-						html +='    <td class="sale_index">'+(i+1)+'</td>';
-						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
-						html +=' <td class="fin'+saleList[i]+'">0</td>';
-						html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
-						html +='</tr>';
-						$(".sale_return").append(html);
-					}
-
-					for(let i=0; i<saleNonList.length; i++){
-						let html = "";
-						html +='   <tr>';
-						html +='    <td class="sale_index">'+($(".sale_index").length+1)+'</td>';
-						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleNonList[i])+'" target=_blank>'+CodeMap.get(saleNonList[i])+'(판매 불가)</a></td>';
-						html +=' <td class="fin'+saleNonList[i]+'">해당없음</td>';
-						html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
-						html +='</tr>';
-						$(".sale_return").append(html);
-						$("dd.buy"+saleNonList[i]).text(0);
-						$("dd.fin"+saleNonList[i]).text(0);
-					}
-				}else{
-					let html = "";
-					html +='   <tr>';
-					html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
-					html +='</tr>';
-					$(".sale_return").append(html);
-				}
-
-
-
-				// 대여 급여 품목
-				$(".lend_return").empty();
-				if(lendList.length > 0){
-					for(let i=0; i<lendList.length; i++){
-						let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
-						let html = "";
-						html +='   <tr>';
-						html +='    <td class="lend_index">'+($(".lend_index").length+1)+'</td>';
-						if(f_replaceLink(lendList[i]) == 0){
-							html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
-						}else{
-							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';
-						}
-
-
-						html +=' <td class="fin'+lendList[i]+'">0</td>';
-						html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
-						html +='</tr>';
-						$(".lend_return").append(html);
-					}
-					for(let i=0; i<lendNonList.length; i++){
-						let html = "";
-						html +='   <tr>';
-						html +='    <td class="lend_index">'+(i+1)+'</td>';
-						if(f_replaceLink(lendNonList[i]) == 0){
-							html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
-						}else{
-							html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendNonList[i])+'" target=_blank>'+CodeMap.get(lendNonList[i])+'(대여 불가)</a></td>';
-						}
-
-						html +=' <td class="fin'+lendNonList[i]+'">해당없음</td>';
-						html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
-						html +='</tr>';
-						$(".lend_return").append(html);
-						$("dd.buy"+lendNonList[i]).text(0);
-						$("dd.fin"+lendNonList[i]).text(0);
-					}
-				}else{
-					let html = "";
-					html +='   <tr>';
-					html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
-					html +='   </tr>';
-					$(".lend_return").append(html);
-				}
-
-
-				// 보유 현황 카운트 - 판매
-				if(ownSaleList.length > 0){
-					for(let i=0; i<ownSaleList.length; i++){
-						let finCnt = 0;
-						let buyCnt = 0;
-
-						if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
-							finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
-							buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
-							$(".fin"+ownSaleList[i]).text(finCnt+1);
-						}else{
-							$(".fin"+ownSaleList[i]).text(1);
-						}
-
-						if(buyCnt > 0){
-							$(".buy"+ownSaleList[i]).text(buyCnt-1);
-						}else{
-							$(".buy"+ownSaleList[i]).text(0);
-						}
-					}
-				}
-
-				// 보유 현황 카운트 - 대여
-				if(ownLendList.length > 0){
-					for(let i=0; i<ownLendList.length; i++){
-						let finCnt = 0;
-						let buyCnt = 0;
-
-						if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
-							finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
-							buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-							$(".fin"+ownLendList[i]).text(finCnt + 1);
-						}else{
-							$(".fin"+ownLendList[i]).text(1);
-						}
-
-						if(buyCnt > 0){
-							$(".buy"+ownLendList[i]).text(buyCnt -1);
-						}else{
-							$(".buy"+ownLendList[i]).text(0);
-						}
-					}
-				}
-                $('.careinfo-mask').addClass('is-active');
-			}else{
-				alert("조회된 데이터가 없습니다.");
-			}
-
-		})
-		.fail(function(data, status, err) {
-			console.log('error forward : ' + data);
-		});
-    }
-    	}
-	});
-
-	if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){
-
+   	// 기능
+    $(".f_recipterCheck").on("click", getRecipterInfo);
+   	
+    if("${recipter}" != '' && "${rcperRcognNo}" != '' && $(".careinfo-mask").hasClass("is-active")){
 		$(".f_recipterCheck").click();
 	}
-})
+});
 </script>
 </div>

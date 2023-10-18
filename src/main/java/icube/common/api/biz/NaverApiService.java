@@ -106,9 +106,10 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		// 재인증 추가 20230922 START
 		String checkId = proflInfo.getMbrId();
 		if(mbrSession.isLoginCheck()) {
-			log.debug("### 재인증 진행 ###" + mbrSession.getMbrId()+"//"+checkId);
+			String mbrSnsId = mbrSession.getNaverAppId() + "@N";
+			log.debug("### 재인증 진행 ###" + mbrSnsId +"//" +checkId);
 
-			if(EgovStringUtil.equals(mbrSession.getMbrId(), checkId)) {
+			if(EgovStringUtil.equals(mbrSnsId, checkId)) {
 				return 11;
 			}else {
 				return 12;

@@ -11,6 +11,10 @@ import icube.common.framework.abst.CommonAbstractMapper;
 @Repository("mbrRecipientsDAO")
 public class MbrRecipientsDAO extends CommonAbstractMapper {
 	
+	public MbrRecipientsVO selectMbrRecipients(Map<String, Object> paramMap) throws Exception {
+		return selectOne("mbr.recipients.selectMbrRecipients", paramMap);
+	}
+	
 	public List<MbrRecipientsVO> selectMbrRecipientsList(Map<String, Object> paramMap) throws Exception {
 		return selectList("mbr.recipients.selectMbrRecipients", paramMap);
 	}
