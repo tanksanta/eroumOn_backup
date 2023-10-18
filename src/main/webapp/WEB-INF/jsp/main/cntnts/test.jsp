@@ -452,7 +452,7 @@
 
     <!-- 수급자정보등록 팝업소스 -->
     <div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-title">수급자 정보 등록</h2>
