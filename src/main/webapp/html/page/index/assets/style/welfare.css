@@ -267,9 +267,7 @@
            md:mb-14
            lg:flex lg:mb-18;
     & .count {
-        @apply text-base leading-none
-               md:mr-7
-               lg:mr-9;
+        @apply text-base leading-none lg:mr-6;
         & strong {
             @apply text-3xl
                    md:text-5xl
@@ -282,7 +280,7 @@
                lg:grid-cols-8 lg:mt-0 lg:mr-9 lg:pr-9
                lg:before:content-empty lg:before:absolute lg:before:top-1/2 lg:before:right-0 lg:before:w-px lg:before:h-8.5 lg:before:bg-gray1 lg:before:-translate-y-1/2;
         & label {
-            @apply block cursor-pointer select-none;
+            @apply cursor-pointer select-none;
             & input {
                 @apply appearance-none absolute w-0 h-0 opacity-0;
                 &:checked {
@@ -306,8 +304,8 @@
 
 /* 복지서비스 카드 */
 .welfare-service-item {
-    @apply hidden relative pb-25
-           lg:pb-0;
+    @apply hidden relative pb-25 lg:pb-0;
+    
     & .service-content {
         & .content-sizer {
             @apply w-[calc(50%_-_0.375rem)]
@@ -971,35 +969,161 @@
 .recommended-hot {
     @apply  grid md:grid-cols-4 lg:grid-rows-3 lg:grid-cols-5 gap-6 mb-24 tracking-tight;
     & .recommended-hot-border {
-        @apply col-span-1 p-5 border border-[#DADADD] hover:border-[#FF8300] hover:shadow-lg rounded-lg;
+        @apply col-span-1 p-5 border border-[#DADADD] rounded-lg transition-all duration-300; 
+        &:hover {
+            @apply border-[#FF8300] shadow-lg rounded-lg;
+            & .btn-detail {
+                &::before {
+                    @apply bg-[#FF8300];
+                }
+            }
+            & .icon-eroum-service {
+                @apply bg-[#FF8300];
+                & img {
+                    filter:  grayscale(1) brightness(100);
+                } 
+            }
+        }
+        & .subject-inner {
+            @apply flex flex-col h-full justify-between;
+        }
+        & .subject-inner-text {
+            @apply flex flex-col gap-2 lg:gap-6;
+        }
+        & .subject-inner-link {
+            @apply flex items-center justify-between mt-8 lg:mt-0;
+        }
         & .badge-eroum {
             @apply bg-[#F8F5F0] text-sm rounded-2xl px-4 py-1 mr-auto;
         }
         & .icon-eroum-service {
-            @apply bg-[#F8F5F0] rounded-sm p-2;
+            @apply bg-[#F8F5F0] rounded-md w-11 p-2  hidden lg:block;
+            & img {
+                @apply mx-auto;
+            }
+        }
+        &  h4 {
+            @apply text-xl lg:text-2xl leading-tight;
         }
     }
     & .recommended-hot-box {
-        @apply  relative px-6 py-5 rounded-lg;
+        @apply relative px-6 py-5 rounded-lg;
         & .bg-eroum-service img {
-            @apply absolute bottom-5 right-5 w-39;
+            @apply absolute bottom-5 right-5 w-26 lg:w-39;
         }
         &.first {
             @apply col-span-2 lg:row-span-2 lg:col-span-2 bg-[#F8F5F0];
         }
         &.second {
-            @apply col-span-2 lg:col-span-3 bg-slate-200 h-59;
+            @apply col-span-2 lg:col-span-3 bg-slate-200 h-full lg:h-59;
             & .bg-eroum-service img {
                 @apply bottom-2 right-5;
             }
         }
         & .badge-eroum {
-            @apply flex-auto bg-white text-sm rounded-2xl px-4 py-1; 
+            @apply flex-auto bg-white text-sm rounded-2xl px-4 py-1 mr-auto; 
         }
     }
     & .recommended-hot-box-inner {
         @apply flex flex-col gap-4;
     }
-    
+}
 
+.welfare-service-category {
+    @apply flex flex-col gap-6 mb-6 lg:flex-row;
+    & .careinfo-title-wrap {
+        @apply flex flex-col lg:gap-2 lg:w-60;
+    }
+    & .careinfo-title {
+        @apply mr-auto font-bold -mb-6 lg:mb-0;
+    }
+    & .careinfo-count {
+        @apply text-base leading-none;
+        & strong {
+            @apply text-6xl lg:text-[2.625rem];
+        }
+    }
+}
+.option-nav {
+    @apply flex-1 grid relative gap-1.5 grid-cols-4 md:grid-cols-8 lg:grid-cols-8 lg:mt-0;
+    & input {
+        @apply appearance-none absolute w-0 h-0 opacity-0;
+        &:checked ~ .option-category-box {
+            @apply bg-[#FF8300] text-white;
+            [class*='icon-opt'] {
+                filter:  grayscale(1) brightness(100);
+            }
+        }
+    }
+    & label {
+        @apply cursor-pointer select-none;
+        &.option-category-box {
+            @apply flex flex-col items-center justify-center gap-1 bg-[#F8F5F0] rounded-md p-3 font-medium text-black transition ease-in-out;
+            &:hover {
+                @apply bg-[#FF8300] hover:text-white;
+                [class*='icon-opt'] {
+                    filter:  grayscale(1) brightness(100);
+                }
+            }
+        }
+    }
+}   
+    [class*='icon-opt'] {
+        @apply bg-no-repeat bg-center bg-[length:2rem] w-8 h-8;
+    }
+    .icon-opt-all {
+        @apply bg-[url(../images/ico-all.svg)];
+    }
+    .icon-opt-support {
+        @apply bg-[url(../images/ico-support.svg)];
+    }
+    .icon-opt-protect {
+        @apply bg-[url(../images/ico-protect.svg)];
+    }
+    .icon-opt-consulting {
+        @apply bg-[url(../images/ico-consulting.svg)];
+    }
+    .icon-opt-health {
+        @apply bg-[url(../images/ico-health.svg)];
+    }
+    .icon-opt-culture {
+        @apply bg-[url(../images/ico-culture.svg)];
+    }
+    .icon-opt-dwelling {
+        @apply bg-[url(../images/ico-dwelling.svg)];
+    }
+    .icon-opt-education {
+        @apply bg-[url(../images/ico-education.svg)];
+    }
+
+
+.welfare-service-list {
+    & .service-content {
+        @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-start items-start gap-6 ;
+        & .content-item {
+            @apply overflow-hidden rounded-md border border-gray-300 transition-all duration-300 hover:shadow-lg hover:scale-105;
+        }
+        & .content-img {
+            @apply object-cover h-34 w-full;
+        }
+        & .content-inner{
+            @apply flex flex-col justify-between p-5 min-h-61;           
+        }
+        & .content-inner-text {
+            @apply flex flex-col gap-1;
+
+            & .name {
+                @apply text-xl font-bold leading-tight;
+            }
+            & .type {
+                @apply flex items-center gap-2;
+                & > span  {
+                    @apply first:text-black text-sm last:text-gray-500 leading-tight tracking-tight;
+                } 
+            }
+        }
+        & .badge-city {
+            @apply border border-[#FF8300] rounded-sm px-2 py-1 mr-auto mb-2 text-[#FF8300] text-[0.75rem] leading-tight font-medium leading-none;
+        }
+    }
 }

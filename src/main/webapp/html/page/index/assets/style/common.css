@@ -659,7 +659,7 @@ html, body {
         display: inline-block;
     }
     .icon-collapse {
-        @apply bg-no-repeat bg-center bg-[length:0.625rem]  w-4 h-4;
+        @apply bg-no-repeat bg-center bg-[length:0.625rem] w-4 h-4;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9.485' height='5.242' viewBox='0 0 9.485 5.242'%3E%3Cpath id='Rectangle_Copy_3' data-name='Rectangle Copy 3' d='M4.389,5.1.147.853A.5.5,0,0,1,.853.147L4.743,4.036,8.632.147a.5.5,0,0,1,.707.707L5.1,5.1a.5.5,0,0,1-.707,0Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E%0A");
         &.expand {
             @apply rotate-180;
@@ -667,10 +667,10 @@ html, body {
     }
 
     .icon-plus {
-        @apply bg-no-repeat bg-center bg-[length:0.625rem]  w-4 h-4;
+        @apply bg-no-repeat bg-center bg-[length:0.625rem] w-4 h-4;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 15 15'%3E%3Cpath id='Rectangle_7_Copy' data-name='Rectangle 7 Copy' d='M6,13.5V9H1.5a1.5,1.5,0,1,1,0-3H6V1.5a1.5,1.5,0,1,1,3,0V6h4.5a1.5,1.5,0,1,1,0,3H9v4.5a1.5,1.5,0,1,1-3,0Z' fill='%23333'/%3E%3C/svg%3E");
     }
-   
+
     .btn-collapse {
         @apply flex items-center bg-gray-100 text-xs gap-1 px-2 py-1 rounded-lg;
     }
@@ -704,6 +704,23 @@ html, body {
         & .icon-refresh {
             @apply bg-no-repeat bg-center bg-[length:100%] w-4 h-4;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='19' viewBox='0 0 19 19' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.8333 0.75991C16.8346 0.483771 16.6118 0.258867 16.3357 0.257574C16.0595 0.256281 15.8346 0.479087 15.8333 0.755227L15.8177 4.09162C13.5939 1.69079 10.0496 0.527965 6.35512 1.74554L6.35451 1.74574C3.91659 2.55266 1.97984 4.386 1.09484 6.80672L1.0947 6.80709C-1.70863 14.4939 5.86775 21.6023 13.5711 17.9296C15.1577 17.1742 16.4406 15.8787 17.1873 14.2939C17.9842 12.614 18.2683 10.9269 18.1351 9.3506C18.1119 9.07544 17.87 8.87121 17.5948 8.89445C17.3197 8.91769 17.1155 9.15959 17.1387 9.43475C17.2564 10.8291 17.0075 12.3399 16.2836 13.8658L16.283 13.8671C15.634 15.2448 14.5179 16.3712 13.1412 17.0267L13.141 17.0268C6.24598 20.3144 -0.462222 13.9958 2.03404 7.15009C2.81112 5.02457 4.5121 3.40902 6.66839 2.6952C10.2128 1.5272 13.5719 2.80568 15.4969 5.25468L11.3351 5.23992C11.0589 5.23895 10.8343 5.46201 10.8333 5.73815C10.8323 6.01429 11.0554 6.23894 11.3315 6.23992L16.8075 6.25934L16.8333 0.75991ZM17.1873 14.2939L17.1876 14.2932L16.7353 14.0801L17.187 14.2944L17.1873 14.2939ZM13.5711 17.9296L13.3563 17.4785L13.5713 17.9295L13.5711 17.9296Z' fill='%23333333'/%3E%3C/svg%3E");
+        }
+    }
+
+    .btn-detail {
+        @apply relative text-sm pr-5;
+
+        &:hover, &:focus {
+            &::before {
+                @apply bg-[#FF8300]
+            }
+        }
+        
+        &:before {
+            content:'';
+            transform: translateY(-50%);
+            @apply absolute right-0 top-[50%] bg-black rounded-full bg-no-repeat bg-center bg-[length:0.625rem]  w-4 h-4  ;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='Group_18' data-name='Group 18' width='13.778' height='12' viewBox='0 0 13.778 12'%3E%3Cpath id='Rectangle_3' data-name='Rectangle 3' d='M0,7.778V.707A.708.708,0,0,1,.707,0h7.07a.707.707,0,1,1,0,1.414H1.414V7.778A.707.707,0,1,1,0,7.778Z' transform='translate(13.778 6) rotate(135)' fill='%23fff'/%3E%3Crect id='Rectangle' width='12.728' height='1.414' rx='0.707' transform='translate(0 5.293)' fill='%23fff'/%3E%3C/svg%3E");
         }
     }
 
