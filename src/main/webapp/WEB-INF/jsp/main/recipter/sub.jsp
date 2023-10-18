@@ -234,6 +234,12 @@
         			alert('수급자를 선택하세요');
         			return;
         		}
+            	
+            	var recipientInfo = recipients.filter(f => f.recipientsNo === Number(radioRecipientsNo))[0];
+            	if (!recipientInfo.rcperRcognNo) {
+            		alert('마이페이지 수급자 관리에서 요양인정번호를 등록해주세요');
+            		return;
+            	}
         		
             	location.href = '/main/recipter/list?recipientsNo=' + radioRecipientsNo;
         	}
@@ -286,7 +292,7 @@
         		if(data.success) {
         			alert('수급자 정보 등록에 동의했습니다.');
         			
-        			location.href = '/main/recipter/list?recipientsNm=' + recipientsNm + '&rcperRcognNo=' + rcperRcognNo;
+        			location.href = '/main/recipter/list?recipientsNo=' + data.createdRecipientsNo;
         		}else{
         			alert(data.msg);
         		}
