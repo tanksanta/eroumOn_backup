@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title></title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+    <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+</head>
+<body>
+    <!-- notice -->
+    <aside id="notice">
+        <div class="notice-banner1">
+            <dl>
+                <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
+                <dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
+            </dl>
+            <a href="#">남은 금액 보기</a>
+        </div>
+        <div class="notice-banner2">
+            <dl>
+                <dt>부모님 맞춤 제품이 필요하세요?</dt>
+                <dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
+            </dl>
+            <a href="#">지금 둘러보기</a>
+        </div>
+    </aside>
+    <!-- //notice -->
+
+    <!-- header -->
+    <header id="header">
+        <h1 id="logo" class="global-logo">
+            <a href="#"><em>이로움ON</em></a>
+        </h1>
+        <nav id="navigation">
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="#">이로움 서비스</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">요양정보 간편조회</a></li>
+                            <li class="nav-sub-item"><a href="#">인정 등급 예상 테스트</a></li>
+                            <li class="nav-sub-item"><a href="#">복지정보 서비스</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#">시니어 길잡이</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">노인장기요양보험제도</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 알아보기</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 선택하기</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="utility">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <!-- <li><a href="#">로그아웃</a></li> -->
+                <li><a href="#" class="join">회원가입</a></li>
+                <li><a href="#" class="cost">남은 금액보기</a></li>
+            </ul>
+        </div>
+        <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴 열기/닫기</button>
+    </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
+        <div class="offcanvas-header">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+            </ul>
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어 닫기</button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="user-info">
+                <div class="thumb"></div>
+                <div class="name">
+                    김정래
+                    <small>님</small>
+                    <img src="/html/core/images/ico-kakao.png" alt="">
+                    <!-- 소셜
+                    <img src="/html/core/images/ico-naver.png" alt="">
+                    -->
+                </div>
+                <a href="#" class="logout">로그아웃</a>
+            </div>
+            <dl class="menu-item1">
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">요양정보 간편조회</a></li>
+                        <li><a href="#">인정 등급 예상 테스트</a></li>
+                        <li><a href="#">복지정보 서비스</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item2">
+                <dt><a href="#"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 시니어 길잡이</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">노인장기요양보험제도</a></li>
+                        <li><a href="#">복지용구 알아보기</a></li>
+                        <li><a href="#">복지용구 선택하기</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <!-- //header -->
+    
+    <main id="container">
+        <header id="subject">
+            <nav class="breadcrumb">
+                <ul>
+                    <li class="home"><a href="#">홈</a></li>
+                    <li>어르신 복지 서비스</li>
+                </ul>
+            </nav>
+            <h2 class="subject">
+                어르신 복지 서비스<img src="/html/page/index/assets/images/ico-subject1.png" class="ml-2" alt="이로움 복지 서비스">
+                <small>어르신복지가 궁금하세요? 
+                    <a href="#" class="welfare-service-toggle">확인하기
+                        <i class="icon-plus"></i>
+                    </a>
+                </small>
+            </h2>
+        </header>
+
+        <div id="content">
+            <div class="welfare-service-desc">
+                <div class="content">
+                    <img src="/html/page/index/assets/images/img-welfare-content1.jpg" alt="">
+                    <img src="/html/page/index/assets/images/img-welfare-content2.jpg" alt="">
+                    <img src="/html/page/index/assets/images/img-welfare-content3.jpg" alt="">
+                </div>
+                <button type="button" class="close">닫기</button>
+            </div>
+
+            <!-- <form action="#" class="welfare-service-search">
+                <fieldset>
+                    <legend class="sr-only">복지서비스 검색</legend>
+                    <select name="" class="form-control">
+                        <option value="">서울특별시</option>
+                    </select>
+                    <select name="" class="form-control">
+                        <option value="">금천구</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary2">서비스 검색</button>
+                </fieldset>
+            </form> -->
+
+            <h3 class="careinfo-title">어르신 복지 <span class="text-indexKey1">추천 Hot 10</span></h3>
+            <div class="recommended-hot">
+                <div class="recommended-hot-box first">
+                    <span class="badge-eroum">이로움 01</span>
+                    <div class="flex flex-col gap-2 mt-7">
+                        <h4 class="text-3xl lg:text-5xl"><strong>어르신용품</strong> 구매비 지원</h4>
+                        <p class="text-lg lg:text-2xl leading-tight font-light">신체활동이 불편하신 어르신이라면,<br><strong class="font-medium">어르신용품을 신청하세요</strong></p>
+                    </div>
+                    <a href="#" class="btn btn-primary2 btn-arrow mt-8 md:mt-13 lg:mt-23 mr-auto"><strong>자세히보기</strong></a>
+                    <span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service01.png" alt="어르신용품구매지원비 이미지"/></span>
+                </div>
+                <div class="recommended-hot-box second">
+                    <span class="badge-eroum">이로움 02</span>
+                    <div class="flex flex-col gap-1 mt-4">
+                        <h4 class="text-3xl leading-tight"><strong>요양시설 입소(시설급여)</strong> 이용비 지원</h4>
+                        <p class="text-lg">집에서 생활이 어려운 어르신이라면, <strong class="font-medium">요양 전문 시설 입소를 신청하세요.</strong></p>
+                    </div>
+                    <a href="#" class="btn btn-primary2 btn-arrow mt-8"><strong>자세히보기</strong></a>
+                    <span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service02.png" alt="요양시설 입소(시설급여)이용비지원 이미지"/></span>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 03</span>
+                            <h4><strong>가정방문(재가)</strong><br>이용비 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item03.svg" alt="재가"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 04</span>
+                            <h4><strong>보청기</strong><br>구매비 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item04.svg" alt="보청기"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 05</span>
+                            <h4><strong>임플란트</strong><br>이용 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item05.svg" alt="임플란트"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 06</span>
+                            <h4><strong>틀니</strong><br>이용 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item06.svg" alt="틀니"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 07</span>
+                            <h4><strong>인공관절</strong><br>수술비 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item07.svg" alt="인공관절"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 08</span>
+                            <h4><strong>노인개안</strong><br>수술비 지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item07.svg" alt="인공관절"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 09</span>
+                            <h4><strong>치매 검사비</strong><br>지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item08.svg" alt="치매 검사비"/></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-hot-border">
+                    <div class="subject-inner">
+                        <div class="subject-inner-text">
+                            <span class="badge-eroum">이로움 10</span>
+                            <h4><strong>치매 치료비</strong><br>지원</h4>
+                        </div>
+                        <div class="subject-inner-link">
+                            <a href="#" class="btn-detail">자세히보기</a>
+                            <i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item09.svg" alt="치매 치료비"/></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="welfare-service-category">
+                <div class="careinfo-title-wrap">
+                    <h3 class="careinfo-title">통합복지 <span class="font-normal">목록</span></h3>
+                    <p class="careinfo-count self-end"><strong>1,272</strong>건</p>
+                </div>
+                <ul class="option-nav">
+                    <li class="option-item9">
+                        <input type="checkbox" name="category" value="전체" id="opt-item9">
+                        <label for="opt-item9" class="option-category-box">
+                            <i class="icon-opt-all"></i>
+                            <p>전체</p>
+                        </label>
+                    </li>
+                    <li class="option-item7">
+                        <input type="checkbox" name="category" value="지원" id="opt-item7">
+                        <label for="opt-item7" class="option-category-box">
+                            <i class="icon-opt-support"></i>
+                            <p>지원</p>
+                        </label>
+                    </li>
+                    <li class="option-item8">
+                        <input type="checkbox" name="category" value="보호" id="opt-item8">
+                        <label for="opt-item8" class="option-category-box">
+                            <i class="icon-opt-protect"></i>
+                            <p>보호</p>
+                        </label>
+                    </li>
+                    <li class="option-item6">
+                        <input type="checkbox" name="category" value="상담" id="opt-item6">
+                        <label for="opt-item6" class="option-category-box">
+                            <i class="icon-opt-consulting"></i>
+                            <p>상담</p>
+                        </label>
+                    </li>
+                    <li class="option-item3">
+                        <input type="checkbox" name="category" value="보건" id="opt-item3">
+                        <label for="opt-item3" class="option-category-box">
+                            <i class="icon-opt-health"></i>
+                            <p>보건</p>
+                        </label>
+                    </li>
+                    <li class="option-item2">
+                        <input type="checkbox" name="category" value="문화" id="opt-item2">
+                        <label for="opt-item2" class="option-category-box">
+                            <i class="icon-opt-culture"></i>
+                            <p>문화</p>
+                        </label>
+                    </li>
+                    <li class="option-item1">
+                        <input type="checkbox" name="category" value="주거" id="opt-item1">
+                        <label for="opt-item1" class="option-category-box">
+                            <i class="icon-opt-dwelling"></i>
+                            <p>주거</p>
+                        </label>
+                    </li>
+                    <li class="option-item5">
+                        <input type="checkbox" name="category" value="교육" id="opt-item5">
+                        <label for="opt-item5" class="option-category-box">
+                            <i class="icon-opt-education"></i>
+                            <p>교육</p>
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- 서비스 본문(복지제도) -->
+            <div class="welfare-service-list"><!--welfare-service-item is-active-->
+                <div class="service-content">
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-support"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-detail">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">주택용 소방시설(소화기, 단독경보형 감지기) 무료방문 설치</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-consulting"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-health"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-dwelling"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-education"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-support"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-support"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="content-item is-lock" data-bs-toggle="modal" data-bs-target="#modal-login">
+                        <div class="content">
+                            <img src="../assets/images/img-sample.png" class="content-img" alt="국가보훈대상자 양로지원 이미지"/>
+                            <div class="content-inner">
+                                <div class="content-inner-text">
+                                    <span class="badge-city">경기도 고양시청</span>
+                                    <p class="name">국가보훈대상자 양로지원</p>
+                                    <p  class="type"><span>보조금24</span><span>보호 ∙ 지원금품-지원금</span></p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span href="#" class="btn-detail">자세히보기</span>
+                                    <i class="icon-opt-support"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="pagination mt-14">
+                    <div class="paging">
+                        <a href="#" class="prev">이전</a>
+                        <a href="#" class="page active">1</a>
+                        <a href="#" class="page">2</a>
+                        <a href="#" class="page">3</a>
+                        <a href="#" class="page">4</a>
+                        <a href="#" class="page">5</a>
+                        <a href="#" class="page">6</a>
+                        <a href="#" class="page">7</a>
+                        <a href="#" class="next">다음</a>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //서비스 본문(복지제도) -->
+
+            <script>
+                $(function() {
+                    var page = 1;
+                    var pageT = 15;
+
+                    $('.welfare-service-toggle').on('click', function() {
+                        $('.welfare-service-toggle, .welfare-service-desc').addClass('is-active');
+                        return false;
+                    });
+
+                    $('.welfare-service-desc .close').on('click', function() {
+                        $('.welfare-service-toggle, .welfare-service-desc').removeClass('is-active');
+                    });
+                })
+            </script>
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer id="footer" class="global-footer">
+        <div class="footer-link">
+            <!-- 회사 메뉴 -->
+            <nav class="footer-menu">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">전자금융거래약관</a></li>
+                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                </ul>
+            </nav>
+            <!-- //회사 메뉴 -->
+
+            <!-- 패밀리 사이트 -->
+            <div class="footer-family">
+                <dl>
+                    <dt>슈퍼시니어</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>패밀리 사이트</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li>
+                                <a href="#" class="link-item1">
+                                    <div class="bubble">
+                                        <small>시니어 라이프 케어 플랫폼</small>
+                                        <strong>"이로움ON"</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item2">
+                                    <div class="bubble">
+                                        <strong>이로움ON 멤버스</strong>
+                                        <small>전국 2,432개 업체와 함께합니다</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item3">
+                                    <div class="bubble">
+                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                                        <small>
+                                            복지용구 사업소와 수급자 매칭부터<br>
+                                            주문, 계약 및 결제까지 한번에!
+                                        </small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- //패밀리 사이트 -->
+        </div>
+        
+        <hr>
+
+        <div class="footer-center">
+            <!-- 사이트 정보-->
+            <dl class="footer-company">
+                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dd id="footer-collapse" class="collapse">
+                    <p>대표 : 신종호</p>
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2018-서울강남-04157</p>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </dd>
+            </dl>
+            <!-- //사이트 정보-->
+
+            <!-- 고객센터 -->
+            <dl class="footer-customer">
+                <dt>고객센터</dt>
+                <dd>
+                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
+                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
+                </dd>
+                <dd>
+                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                </dd>
+            </dl>
+            <!-- //고객센터 -->
+        </div>
+
+        <hr>
+
+        <!-- 카피 라이트 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 라이트 -->
+    </footer>
+    <!-- //footer -->
+
+    <!-- 로그인 모달 -->
+    <div class="modal fade" id="modal-login" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
+                    <button data-bs-dismiss="modal">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-login-desc"><strong>로그인</strong>이 필요한 서비스입니다</p>
+                    <div class="modal-login-form">
+                        <div class="form-group">
+                            <label for="login-item3" class="form-label">아이디</label>
+                            <input type="text" id="login-item3" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-item4" class="form-label">비밀번호</label>
+                            <input type="password" id="login-item4" class="form-control">
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="saveId" name="saveId" value="Y">
+                            <label class="form-check-label" for="saveId">아이디 저장</label>
+                        </div>
+                        <button type="button" class="btn btn-large btn-primary mt-3 w-full">로그인</button>
+                    </div>
+                    <div class="modal-login-search">
+                        <a href="#">아이디 찾기</a>
+                        <a href="#">비밀번호 찾기</a>
+                    </div>
+                    <div class="modal-login-join">
+                        <dl>
+                            <dt>아직 회원이 아니신가요?</dt>
+                            <dd>이로움과 함께<br> 새 삶을 누리세요!</dd>
+                        </dl>
+                        <a href="#" class="btn btn-large btn-outline-primary">회원가입</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //로그인 모달 -->
+
+    <!-- 컨텐츠 상세 is-color클래스는 목록과 동일 -->
+    <div id="modalSrvcDtl">
+        <div class="modal fade is-color2" id="modal-detail" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-detail-title">소규모 공동주택 공용시설물 보조금 지원</div>
+                        <div class="modal-detail-content">
+                            <a href="#" class="share">공유하기 <i></i></a>
+                            <table>
+                                <colgroup>
+                                    <col class="w-14">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">분류</th>
+                                        <td>
+                                            <span class="label">라벨</span>
+                                            <span class="label">라벨</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원조건</th>
+                                        <td>65세 이상 기초생활수급자</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원방법</th>
+                                        <td>서류접수 및 인터넷 신청</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원기간</th>
+                                        <td>
+                                            상시신청<br>
+                                            (2023.02.24 ~ 2023.12.23)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">필요서류</th>
+                                        <td>
+                                            주민등록등본 1부<br>
+                                            가족관계증명서 1부
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원금</th>
+                                        <td>240,000 <small>원</small></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">내용</th>
+                                        <td>
+                                            <div class="content">
+                                                - 옥상 공용부분 방수공사 <br>
+                                                - 재해 및 재난 등이 발생할 우려가 큰 위험 시설의 보수 <br>
+                                                - 단지 내 차도 및 보도의 보수 <br>
+                                                - 하수관의 교체ㆍ보수 및 준설 <br>
+                                                - 장애인ㆍ노인ㆍ임산부 등의 편의시설의 설치 및 보수 <br>
+                                                - 지하주차장의 바닥ㆍ벽체 방수공사
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출처</th>
+                                        <td>복지로(<a href="bokjiro.go.kr" target="_blank" class="home">bokjiro.go.kr</a>)</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">기관명</th>
+                                        <td>서울시 송파구청</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-banner">
+                            <img src="/html/page/index/assets/images/dummy/img-dummy-banner.png" alt="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-large btn-request">자세한 신청방법 보기</a>
+                        <a href="#" class="btn btn-large btn-share sm:hidden">공유하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //컨텐츠 상세 is-color클래스는 목록과 동일 -->
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>
