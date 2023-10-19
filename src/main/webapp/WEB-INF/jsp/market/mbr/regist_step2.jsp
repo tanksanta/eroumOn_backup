@@ -294,11 +294,11 @@
 										<p class="text-sm mt-2.5">숫자만 입력해주세요</p></td>
 								</tr>
 								<tr>
-									<th scope="row"><p style="padding-left: 0;">
+									<th scope="row"><p>
 											<label for="join-item3-3">개인정보 유효기간</label>
 										</p></th>
 									<td>
-										<div class="form-check-group w-full">
+										<div class="form-radio-group">
 											<c:forEach var="expr" items="${expirationCode}" varStatus="status">
 												<div class="form-check">
 													<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}"/>
@@ -322,7 +322,7 @@
 										<div class="mt-1.5 flex flex-wrap md:mt-2">
 											<div class="form-check mr-3 xs:mr-auto">
 												<form:checkbox class="form-check-input" path="smsRcptnYn" value="Y"/>
-												<label class="form-check-label" for="smsRcptnYn">SMS</label>
+												<label class="form-check-label" for="smsRcptnYn">문자</label>
 											</div>
 											<div class="form-check mr-3 xs:mr-auto">
 												<form:checkbox class="form-check-input" path="emlRcptnYn" value="Y"/>

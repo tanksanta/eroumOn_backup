@@ -161,6 +161,26 @@
             }
         }
     }
+    .form-radio-group {
+        @apply inline-flex p-2 rounded-md bg-gray2 select-none w-full lg:w-auto;
+        & .form-check:not(.form-switch) .form-check-label {
+            @apply ml-0;
+        }
+        & .form-check {
+            @apply flex-1 relative overflow-visible;
+            & .form-check-input {
+                @apply sr-only;
+                &:checked {
+                    & + .form-check-label {
+                        @apply font-medium bg-white text-black1;
+                    }
+                }
+            }
+            & .form-check-label {
+                @apply inline-flex items-center justify-center px-4 h-13 rounded bg-gray2 leading-[1.875rem] font-medium text-center whitespace-nowrap;
+            }
+        }
+    }
 
     .form-radio-button-group {
         @apply flex flex-col gap-2 w-full select-none;
