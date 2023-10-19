@@ -27,6 +27,7 @@ import org.egovframe.rte.fdl.string.EgovDateUtil;
  * 공통으로 사용할 수 있도록 제작하였으나 여러 케이스에서 사용하려면 보완이 필요할 수 있습니다.
  *
  * + 출력순서 변경방지를 위해 LinkedHashMap 사용
+ * + rowNum 추가 -> value로 rowNum을 넣으면 순번이 출력되도록 추가
  *
  * @author kyunmo
  */
@@ -60,6 +61,7 @@ public class ExcelExporter {
 
         CellStyle style = workbook.createCellStyle();
         style.setFont(font);
+        style.setWrapText(true); //줄바꿈처리 : \n
 
         // Header 생성
         Row headerRow = sheet.createRow(0);
@@ -78,9 +80,14 @@ public class ExcelExporter {
                 Cell cell = row.createCell(j);
                 Object value = dataMap.get(headers.get(j));
                 if (value != null) {
-                    cell.setCellValue(value.toString());
+                	if(value.toString().equals("rowNum")) {
+                		cell.setCellValue(row.getRowNum());
+                	} else {
+                		cell.setCellValue(value.toString());
+                	}
                     cell.setCellStyle(style);
                 }
+                sheet.autoSizeColumn(j); // width auto
             }
         }
 
