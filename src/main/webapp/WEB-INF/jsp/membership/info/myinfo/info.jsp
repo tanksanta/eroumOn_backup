@@ -104,6 +104,23 @@
 								</div> <form:input class="form-control mt-1.5 w-full md:mt-2" path="addr" maxlength="200" /> <form:input class="form-control mt-1.5 w-full md:mt-2" path="daddr" maxlength="200" />
 							</td>
 						</tr>
+						<tr>
+							<th scope="row">
+								<p class="flex">
+									<label for="join-item3-3">개인정보<br>유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
+							</th>
+							<td>
+								<div class="form-check-group w-full">
+									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
+										<div class="form-check">
+											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
+											<label class="form-check-label" for="prvcVldPd${status.index}">${expr.value}</label>
+										</div>
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
