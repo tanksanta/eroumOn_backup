@@ -1,5 +1,6 @@
 package icube.main;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -192,4 +193,76 @@ public class MainController extends CommonAbstractController  {
 		return mainService.srchInst(isAllow, reqMap, request);
 	}
 
+	
+	/**
+	 * 기존 복지서비스 조회는 사용하지 않고 새로 개발된 API 사용
+	 */
+	@ResponseBody
+	@RequestMapping(value="search/srvcList.json")
+	public Map<String, Object> srchSrvc(
+			@RequestParam String category
+			, Integer curPage
+			, Integer cntPerPage
+			, HttpServletRequest request
+			, Model model) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		String sido = "서울특별시";
+		String gugun = "금천구";
+		
+		if ("전체".equals(category)) {
+			category = "지원|보호|상담|보건|문화|주거|교육";
+		}
+		
+		category = category.replace("|", ",");
+		if(category.contains("지원")) {
+			category = category.replace("지원", "지원금품");
+		}
+
+		CommonListVO listVO = new CommonListVO(request, curPage, cntPerPage);
+		listVO.setParam("sprName", sido);
+		listVO.setParam("cityName", gugun);
+		listVO.setParam("categoryList", category);
+
+		try {// 첫화면 부터 에러나지 않도록..
+			listVO = bokjiService.getSrvcList(listVO);
+		} catch (Exception e) {
+			log.debug(e.getMessage());
+			
+			resultMap.put("success", false);
+			resultMap.put("msg", "복지서비스 조회에 실패하였습니다");
+			return resultMap;
+		}
+
+		resultMap.put("listVO", listVO);
+		resultMap.put("success", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 복지서비스 상세모달 조회 API
+	 */
+	@ResponseBody
+	@RequestMapping(value="srvc/detail.json")
+	public Map<String, Object> getSrvcDetail(
+			@RequestParam Integer bokjiId) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+
+		BokjiServiceVO bokjiServiceVO = null;
+		if(bokjiId > 0) {
+			try {
+				bokjiServiceVO = bokjiService.getSrvcDtl(bokjiId);
+				resultMap.put("bokjiVO", bokjiServiceVO);
+			} catch (Exception e) {
+				log.debug(e.getMessage());
+				
+				resultMap.put("success", false);
+				resultMap.put("msg", "복지서비스 상세조회에 실패하였습니다");
+				return resultMap;
+			}
+		}
+
+		resultMap.put("success", true);
+		return resultMap;
+	}
 }
