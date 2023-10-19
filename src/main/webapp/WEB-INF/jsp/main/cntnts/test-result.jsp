@@ -493,13 +493,11 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="bg-gray-300 rounded-md p-5">
-                    <ul class="list-style1">
-                        <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
-                        <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
-                        <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
-                    </ul>
-                </div>
+                <ul class="list-style1">
+                    <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
+                    <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
+                    <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
+                </ul>
             </div>
             <div class="modal-footer md:w-3/4 mx-auto mt-4">
                 <button type="button" class="btn btn-primary3 large w-[60%] md:w-[70%]" onclick="requestConslt();">상담신청하기</button>
