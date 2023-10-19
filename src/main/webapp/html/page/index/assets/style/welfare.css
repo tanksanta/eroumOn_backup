@@ -1068,33 +1068,40 @@
         }
     }
 }   
-    [class*='icon-opt'] {
+[class*='icon-opt'] {
+    @apply bg-no-repeat bg-center bg-[length:2rem] w-8 h-8;
+}
+[class*='is-color'] {
+    & .part {
         @apply bg-no-repeat bg-center bg-[length:2rem] w-8 h-8;
     }
-    .icon-opt-all {
-        @apply bg-[url(../images/ico-all.svg)];
-    }
-    .icon-opt-support {
-        @apply bg-[url(../images/ico-support.svg)];
-    }
-    .icon-opt-protect {
-        @apply bg-[url(../images/ico-protect.svg)];
-    }
-    .icon-opt-consulting {
-        @apply bg-[url(../images/ico-consulting.svg)];
-    }
-    .icon-opt-health {
-        @apply bg-[url(../images/ico-health.svg)];
-    }
-    .icon-opt-culture {
-        @apply bg-[url(../images/ico-culture.svg)];
-    }
-    .icon-opt-dwelling {
-        @apply bg-[url(../images/ico-dwelling.svg)];
-    }
-    .icon-opt-education {
-        @apply bg-[url(../images/ico-education.svg)];
-    }
+}
+.icon-opt-all, .is-color9 .part {
+    @apply bg-[url(../images/ico-all.svg)];
+}
+.icon-opt-support, .is-color7 .part {
+    @apply bg-[url(../images/ico-support.svg)];
+}
+.icon-opt-protect, .is-color8 .part {
+    @apply bg-[url(../images/ico-protect.svg)];
+}
+.icon-opt-consulting, .is-color6 .part {
+    @apply bg-[url(../images/ico-consulting.svg)];
+}
+.icon-opt-health, .is-color3 .part {
+    @apply bg-[url(../images/ico-health.svg)];
+}
+.icon-opt-culture, .is-color2 .part {
+    @apply bg-[url(../images/ico-culture.svg)];
+}
+.icon-opt-dwelling, .is-color1 .part {
+    @apply bg-[url(../images/ico-dwelling.svg)];
+}
+.icon-opt-education, .is-color5 .part {
+    @apply bg-[url(../images/ico-education.svg)];
+}
+
+
 
 
 .welfare-service-list {
@@ -1125,5 +1132,11 @@
         & .badge-city {
             @apply border border-[#FF8300] rounded-sm px-2 py-1 mr-auto mb-2 text-[#FF8300] text-[0.75rem] leading-tight font-medium leading-none;
         }
+
+        
+        
     }
+    
+ 
+
 }
