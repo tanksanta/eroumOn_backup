@@ -627,8 +627,8 @@
                 </div>
 
                 <!--L번호가 있는 수급자의 경우 : 상담정보확인-->
-                <div class="modal modal-index fade md:max-w-[35rem]" id="pop-consulting-info" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered md:max-w-[35rem]">
+                <div class="modal modal-index fade" id="pop-consulting-info" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h2 class="text-title">상담 정보 확인</h2>
@@ -657,7 +657,7 @@
                                             </p>
                                         </th>
                                         <td>
-                                            <select name="relationSelect" id="relationSelect" class="form-control w-full lg:w-[60%]">
+                                            <select name="relationSelect" id="relationSelect" class="form-control w-full lg:w-8/12">
                                                 <option value="">선택</option>
                                                 <option value="001">본인</option>
                                                 <option value="002">아버지</option>
@@ -677,7 +677,7 @@
                                             </p>
                                         </th>
                                         <td>
-                                            <input type="text" class="form-control  lg:w-[60%]" id="recipter" name="testName" maxlength="50" value="">
+                                            <input type="text" class="form-control w-full  lg:w-8/12" id="recipter" name="testName" maxlength="50" value="">
                                         </td>
                                     </tr>
                                     <tr class="wrapNo">
@@ -697,9 +697,9 @@
                                                     <label class="form-check-label" for="no">없음</label>
                                                 </div>
                                             </div>
-                                            <div class="form-group w-full lg:w-[60%]">
+                                            <div class="form-group w-full flex lg:w-8/12">
                                                 <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-                                                <input type="text" class="form-control " id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="">
+                                                <input  type="text" class="form-control " id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="">
                                             </div>
                                         </td>
                                     </tr>
@@ -707,21 +707,21 @@
                                         <th scope="row">
                                             <p><label for="search-item6">상담받을 연락처</label></p>
                                         </th>
-                                        <td><input type="text" class="form-control w-full lg:w-[60%]" id="search-item6"></td>
+                                        <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel"></td>
                                     </tr> 
                                     <tr>
                                         <th scope="row">
                                             <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
                                         </th>
                                         <td>
-                                            <fieldset class="flex flex-col lg:flex-row gap-1 ">
+                                            <fieldset class="addr-select">
                                                 <select name="" id="" class="form-control">
                                                     <option value="">시/도</option>
                                                 </select>
                                                 <select name="" id="" class="form-control">
                                                     <option value="">시/군/구</option>
                                                 </select>
-                                                <select name="" id="" class="form-control">
+                                                <select name="" id="" class="form-control md:col-span-2 lg:col-span-1">
                                                     <option value="">동/읍/면</option>
                                                 </select>
                                             </fieldset>
@@ -729,7 +729,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
-                                        <td><input type="text" class="form-control  lg:w-[60%]" id="search-item4"></td>
+                                        <td><input type="text" class="form-control w-full  lg:w-8/12" id="search-item4"></td>
                                     </tr>
                                     <tr>
                                         <th scope="row"><p><label for="search-item4">상담유형</label></p></th>
@@ -741,13 +741,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="bg-gray-300 rounded-md p-5">
-                                <ul class="list-style1">
-                                    <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
-                                    <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
-                                    <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
-                                </ul>
-                            </div>
+                            <ul class="list-style1">
+                                <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
+                                <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
+                                <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
+                            </ul>
                         </div>
                         <div class="modal-footer md:w-3/4 mx-auto mt-4">
                             <button type="button" class="btn btn-primary3 large w-[60%] md:w-[70%]" data-bs-toggle="modal" data-bs-target="#pop-consulting-complated">상담신청하기</button>

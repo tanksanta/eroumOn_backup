@@ -731,7 +731,7 @@ html, body {
     }
 
     .list-style1 {
-        @apply flex flex-col gap-1;
+        @apply flex flex-col gap-1 bg-[#eee] rounded-md p-5;
         & li {
             @apply relative flex items-start justify-start gap-2 mt-1 pl-2 text-sm;
             &:before {
@@ -739,6 +739,9 @@ html, body {
                 @apply absolute top-[0.6rem] left-0 inline-block border-[2px] border-black rounded-[50%] bg-gray-800;
             }
         }
+    }
+    .addr-select {
+        @apply grid md:grid-cols-2 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-1;
     }
 }
 

@@ -508,8 +508,8 @@
         </div>
 
         <!--L번호가 있는 수급자의 경우 : 상담정보확인-->
-        <div class="modal modal-index fade md:max-w-[35rem]" id="modal-consulting-info" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered md:max-w-[35rem]">
+        <div class="modal modal-index fade" id="modal-consulting-info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-title">상담 정보 확인</h2>
@@ -538,7 +538,7 @@
                                     </p>
                                 </th>
                                 <td>
-                                    <select name="relationSelect" id="info-relationSelect" class="form-control w-full lg:w-[60%]">
+                                    <select name="relationSelect" id="info-relationSelect" class="form-control w-full lg:w-8/12">
                                         <option value="">관계 선택</option>
 										<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
 											<option value="${relation.key}">${relation.value}</option>	
@@ -553,7 +553,7 @@
                                     </p>
                                 </th>
                                 <td>
-                                    <input type="text" class="form-control  lg:w-[60%]" id="info-recipientsNm" name="info-recipientsNm" maxlength="50" value="">
+                                    <input type="text" class="form-control  lg:w-8/12" id="info-recipientsNm" name="info-recipientsNm" maxlength="50" value="">
                                 </td>
                             </tr>
                             <tr class="wrapNo">
@@ -573,7 +573,7 @@
                                             <label class="form-check-label" for="info-rcperRcognNo-n">없음</label>
                                         </div>
                                     </div>
-                                    <div class="form-group w-full lg:w-[60%]" id="input-rcperRcognNo">
+                                    <div class="form-group w-full lg:w-8/12" id="input-rcperRcognNo">
                                         <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
                                         <input type="text" class="form-control " id="info-rcperRcognNo" name="info-rcperRcognNo" maxlength="13" value="">
                                     </div>
@@ -583,20 +583,20 @@
                                 <th scope="row">
                                     <p><label for="search-item6">상담받을 연락처<sup class="text-danger text-base md:text-lg">*</sup></label></p>
                                 </th>
-                                <td><input type="text" class="form-control w-full lg:w-[60%]" id="info-tel"></td>
+                                <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel"></td>
                             </tr> 
                             <tr>
                                 <th scope="row">
                                     <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
                                 </th>
                                 <td>
-                                    <fieldset class="flex flex-col lg:flex-row gap-1 ">
+                                    <fieldset  class="addr-select">
                                         <select name="sido" id="sido" class="form-control" onchange="setSigugun();">
                                         </select>
                                         <select name="sigugun" id="sigugun" class="form-control" onchange="setDong();">
                                         	<option value="">시/군/구</option>
                                         </select>
-                                        <select name="dong" id="dong" class="form-control">
+                                        <select name="dong" id="dong" class="form-control md:col-span-2 lg:col-span-1">
                                             <option value="">동/읍/면</option>
                                         </select>
                                     </fieldset>
@@ -604,7 +604,7 @@
                             </tr>
                             <tr>
                                 <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
-                                <td><input type="text" class="form-control  lg:w-[60%]" id="info-brdt"></td>
+                                <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt"></td>
                             </tr>
                             <tr>
                             	<th scope="row"><p><label for="search-item4">성별<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
