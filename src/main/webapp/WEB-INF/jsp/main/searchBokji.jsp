@@ -168,6 +168,7 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="searchBokji-modal.jsp" flush="true"/>
 
 	<nav class="welfare-service-category">
 		<div class="careinfo-title-wrap">
@@ -233,6 +234,8 @@
 			</li>
 		</ul>
 	</nav>
+
+	
 
 	<!-- <nav class="welfare-service-menu">
 		<p class="count">
