@@ -247,6 +247,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
 			srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
 			srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
+			srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
 			mbrService.updateMbrInfo(srchMbr);
 			
 			mbrSession.setParms(srchMbr, true);
