@@ -1101,26 +1101,32 @@
     @apply bg-[url(../images/ico-education.svg)];
 }
 
-
-
-
 .welfare-service-list {
     & .service-content {
         @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-start items-start gap-6 ;
         & .content-item {
-            @apply overflow-hidden rounded-md border border-gray-300 transition-all duration-300 hover:shadow-lg hover:scale-105;
+            @apply overflow-hidden rounded-md border border-gray-300 transition-all duration-300;
+            &:hover {
+                @apply shadow-lg scale-105;
+                & .btn-detail {
+                    &::before {
+                        @apply bg-[#FF8300];
+                    }
+                }
+            }
+          
         }
         & .content-img {
-            @apply object-cover h-34 w-full;
+            @apply object-cover h-40 md:h-38 lg:h-34 w-full ;
         }
         & .content-inner{
-            @apply flex flex-col justify-between p-5 min-h-61;           
+            @apply flex flex-col justify-between p-5 min-h-50 sm:min-h-61 ;           
         }
         & .content-inner-text {
             @apply flex flex-col gap-1;
 
             & .name {
-                @apply text-xl font-bold leading-tight;
+                @apply text-xl font-semibold leading-tight;
             }
             & .type {
                 @apply flex items-center gap-2;
