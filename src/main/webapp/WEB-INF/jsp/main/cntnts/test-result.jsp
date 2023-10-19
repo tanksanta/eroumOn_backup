@@ -466,7 +466,7 @@
                         </tr>
                         <tr>
                             <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
-                            <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt"></td>
+                            <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt" placeholder="1950/01/01"></td>
                         </tr>
                         <tr>
                         	<th scope="row"><p><label for="search-item4">성별<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
