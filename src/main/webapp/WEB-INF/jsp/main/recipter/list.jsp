@@ -1162,12 +1162,17 @@ function openNewConsltInfo() {
 	
 	if(myRecipientInfo.brdt) {
 		$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
+	}else {
+		$('#info-brdt').val('');    			
 	}
 	
 	if (myRecipientInfo.gender === 'M') {
 		$('#info-gender-m').prop('checked', true);
-	} else {
+	} else if (myRecipientInfo.gender === 'W') {
 		$('#info-gender-w').prop('checked', true);
+	} else {
+		$('#info-gender-m').prop('checked', false);
+		$('#info-gender-w').prop('checked', false);
 	}
 	
 	

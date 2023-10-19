@@ -1044,4 +1044,13 @@ public class CodeMap{
 			put("100", "기타(친척등)");
 		}
 	};
+	
+	// 상담 요청 경로
+	public static final HashMap<String, String> PREV_PATH = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031481L;
+		{
+			put("simpleSearch", "요양정보상담");
+			put("test", "인정등급상담");
+		}
+	};
 }
