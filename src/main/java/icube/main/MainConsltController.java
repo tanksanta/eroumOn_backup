@@ -25,6 +25,8 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.market.mbr.biz.MbrSession;
@@ -44,6 +46,9 @@ public class MainConsltController extends CommonAbstractController{
 
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
+	
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -169,7 +174,8 @@ public class MainConsltController extends CommonAbstractController{
 	@ResponseBody
 	@RequestMapping(value = "/addMbrConslt.json")
 	public Map<String, Object> addMbrConslt(
-			MbrConsltVO mbrConsltVO
+			MbrConsltVO mbrConsltVO,
+			Boolean saveRecipientInfo
 		)throws Exception {
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
@@ -186,6 +192,21 @@ public class MainConsltController extends CommonAbstractController{
 			int insertCnt = mbrConsltService.insertMbrConslt(mbrConsltVO);
 
 			if (insertCnt > 0) {
+				//수급자 정보 저장동의시 저장
+				if (saveRecipientInfo) {
+					MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+					mbrRecipient.setRelationCd(mbrConsltVO.getRelationCd());
+					mbrRecipient.setRecipientsNm(mbrConsltVO.getMbrNm());
+					mbrRecipient.setRcperRcognNo(mbrConsltVO.getRcperRcognNo());
+					mbrRecipient.setTel(mbrConsltVO.getMbrTelno());
+					mbrRecipient.setSido(mbrConsltVO.getZip());
+					mbrRecipient.setSigugun(mbrConsltVO.getAddr());
+					mbrRecipient.setDong(mbrConsltVO.getDaddr());
+					mbrRecipient.setBrdt(mbrConsltVO.getBrdt());
+					mbrRecipient.setGender(mbrConsltVO.getGender());
+					mbrRecipientsService.updateMbrRecipients(mbrRecipient);
+				}
+				
 				//1:1 상담신청 이력 추가
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("srchRgtr", mbrConsltVO.getRgtr());
