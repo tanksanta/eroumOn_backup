@@ -260,7 +260,7 @@
 
 
 <script>
-	var cntPerPage = 8;
+	var cntPerPage = 20;
 	var prevModalClass = '';
 
 	//로딩바 생성
