@@ -4,8 +4,8 @@
 
 <div class="service-content" data-page-total="${listVO.totalPage}">
 	<c:if test="${!empty listVO.listObject}">
-		<div class="content-sizer"></div>
-		<div class="content-gutter"></div>
+		<!-- <div class="content-sizer"></div>
+		<div class="content-gutter"></div> -->
 
 		<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 			<c:set var="colorNumber">
@@ -23,18 +23,31 @@
 			</c:set>
 			<a href="#${resultList.bokjiId}" class="content-item is-color${colorNumber}">
 				<div class="content">
-					<p class="name">${resultList.benefitName}</p>
-					<p class="type">
-						<c:forEach items="${resultList.categoryList}" var="cate" varStatus="s">
-                                        	${cate} ${s.last?'':' ∙ '}
-                                        	</c:forEach>
-					</p>
-					<p class="part">${resultList.bokjiResource}</p>
+					<img src="/html/page/index/assets/images/img-sample.png" class="content-img" alt="img-sample"/>
+					<div class="content-inner">
+						<div class="content-inner-text">
+							<span class="badge-city">경기도 고양시청</span>     
+							<p class="name">${resultList.benefitName}</p>
+							<p class="type">
+								<span>${resultList.bokjiResource}</span>
+								<span>
+									<c:forEach items="${resultList.categoryList}" var="cate" varStatus="s">
+										${cate} ${s.last?'':' ∙ '}
+									</c:forEach>
+								</span>
+							</p>
+						</div>
+						<div class="flex items-center justify-between">
+							<!-- <p class="part">${resultList.bokjiResource}</p> -->
+							<span href="#" class="btn-detail">자세히보기</span>
+							<i class="part"></i>
+						</div>
+					</div>
 				</div>
-				<div class="status"></div>
+				<!-- <div class="status"></div> -->
 			</a>
 		</c:forEach>
-		<div class="service-button">
+		<!-- <div class="service-button">
 			<c:if test="${listVO.curPage > 1}">
 				<button type="button" class="button-prev srvc-pager" data-page-no="${listVO.curPage - 1}" data-page-total="${listVO.totalPage}">
 					<span>이전 페이지</span> <i></i>
@@ -45,7 +58,7 @@
 					<span>다음 페이지</span> <i></i>
 				</button>
 			</c:if>
-		</div>
+		</div> -->
 	</c:if>
 	<c:if test="${empty listVO.listObject}">데이터가 없습니다.</c:if>
 </div>

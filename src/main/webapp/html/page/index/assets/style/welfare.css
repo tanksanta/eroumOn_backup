@@ -1068,52 +1068,65 @@
         }
     }
 }   
-    [class*='icon-opt'] {
+[class*='icon-opt'] {
+    @apply bg-no-repeat bg-center bg-[length:2rem] w-8 h-8;
+}
+[class*='is-color'] {
+    & .part {
         @apply bg-no-repeat bg-center bg-[length:2rem] w-8 h-8;
     }
-    .icon-opt-all {
-        @apply bg-[url(../images/ico-all.svg)];
-    }
-    .icon-opt-support {
-        @apply bg-[url(../images/ico-support.svg)];
-    }
-    .icon-opt-protect {
-        @apply bg-[url(../images/ico-protect.svg)];
-    }
-    .icon-opt-consulting {
-        @apply bg-[url(../images/ico-consulting.svg)];
-    }
-    .icon-opt-health {
-        @apply bg-[url(../images/ico-health.svg)];
-    }
-    .icon-opt-culture {
-        @apply bg-[url(../images/ico-culture.svg)];
-    }
-    .icon-opt-dwelling {
-        @apply bg-[url(../images/ico-dwelling.svg)];
-    }
-    .icon-opt-education {
-        @apply bg-[url(../images/ico-education.svg)];
-    }
-
+}
+.icon-opt-all, .is-color9 .part {
+    @apply bg-[url(../images/ico-all.svg)];
+}
+.icon-opt-support, .is-color7 .part {
+    @apply bg-[url(../images/ico-support.svg)];
+}
+.icon-opt-protect, .is-color8 .part {
+    @apply bg-[url(../images/ico-protect.svg)];
+}
+.icon-opt-consulting, .is-color6 .part {
+    @apply bg-[url(../images/ico-consulting.svg)];
+}
+.icon-opt-health, .is-color3 .part {
+    @apply bg-[url(../images/ico-health.svg)];
+}
+.icon-opt-culture, .is-color2 .part {
+    @apply bg-[url(../images/ico-culture.svg)];
+}
+.icon-opt-dwelling, .is-color1 .part {
+    @apply bg-[url(../images/ico-dwelling.svg)];
+}
+.icon-opt-education, .is-color5 .part {
+    @apply bg-[url(../images/ico-education.svg)];
+}
 
 .welfare-service-list {
     & .service-content {
         @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-start items-start gap-6 ;
         & .content-item {
-            @apply overflow-hidden rounded-md border border-gray-300 transition-all duration-300 hover:shadow-lg hover:scale-105;
+            @apply overflow-hidden rounded-md border border-gray-300 transition-all duration-300;
+            &:hover {
+                @apply shadow-lg scale-105;
+                & .btn-detail {
+                    &::before {
+                        @apply bg-[#FF8300];
+                    }
+                }
+            }
+          
         }
         & .content-img {
-            @apply object-cover h-34 w-full;
+            @apply object-cover h-40 md:h-38 lg:h-34 w-full ;
         }
         & .content-inner{
-            @apply flex flex-col justify-between p-5 min-h-61;           
+            @apply flex flex-col justify-between p-5 min-h-50 sm:min-h-61 ;           
         }
         & .content-inner-text {
             @apply flex flex-col gap-1;
 
             & .name {
-                @apply text-xl font-bold leading-tight;
+                @apply text-xl font-semibold leading-tight;
             }
             & .type {
                 @apply flex items-center gap-2;
@@ -1125,5 +1138,11 @@
         & .badge-city {
             @apply border border-[#FF8300] rounded-sm px-2 py-1 mr-auto mb-2 text-[#FF8300] text-[0.75rem] leading-tight font-medium leading-none;
         }
+
+        
+        
     }
+    
+ 
+
 }

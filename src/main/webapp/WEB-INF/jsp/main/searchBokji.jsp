@@ -8,8 +8,8 @@
 		</ul>
 	</nav>
 	<h2 class="subject">
-		어르신 맞춤 복지서비스 <img src="/html/page/index/assets/images/ico-subject1.png" alt="">
-		<small>노인복지가 궁금하세요? <a href="#" class="welfare-service-toggle">펼쳐보기</a></small>
+		어르신 복지 서비스 <img src="/html/page/index/assets/images/ico-subject1.png" alt="파일이미지">
+		<small>어르신복지가 궁금하세요? <a href="#" class="welfare-service-toggle">확인하기 <i class="icon-plus"></i></a></small>
 	</h2>
 </header>
 
@@ -23,6 +23,7 @@
 		<button type="button" class="close">닫기</button>
 	</div>
 
+	<!--검색부분 삭제해야 함-->
 	<form action="#" class="welfare-service-search">
 		<fieldset>
 			<legend class="sr-only">복지서비스 검색</legend>
@@ -50,7 +51,190 @@
 		</fieldset>
 	</form>
 
-	<nav class="welfare-service-menu">
+	<h3 class="careinfo-title">어르신 복지 <span class="text-indexKey1">추천 Hot 10</span></h3>
+	<div class="recommended-hot">
+		<div class="recommended-hot-box first">
+			<span class="badge-eroum">이로움 01</span>
+			<div class="flex flex-col gap-2 mt-7">
+				<h4 class="text-3xl lg:text-5xl"><strong>어르신용품</strong> 구매비 지원</h4>
+				<p class="text-lg lg:text-2xl leading-tight font-light">신체활동이 불편하신 어르신이라면,<br><strong class="font-medium">어르신용품을 신청하세요</strong></p>
+			</div>
+			<a href="#" class="btn btn-primary2 btn-arrow mt-8 md:mt-13 lg:mt-23 mr-auto"><strong>자세히보기</strong></a>
+			<span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service01.png" alt="어르신용품구매지원비 이미지"/></span>
+		</div>
+		<div class="recommended-hot-box second">
+			<span class="badge-eroum">이로움 02</span>
+			<div class="flex flex-col gap-1 mt-4">
+				<h4 class="text-3xl leading-tight"><strong>요양시설 입소(시설급여)</strong> 이용비 지원</h4>
+				<p class="text-lg">집에서 생활이 어려운 어르신이라면, <strong class="font-medium">요양 전문 시설 입소를 신청하세요.</strong></p>
+			</div>
+			<a href="#" class="btn btn-primary2 btn-arrow mt-8"><strong>자세히보기</strong></a>
+			<span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service02.png" alt="요양시설 입소(시설급여)이용비지원 이미지"/></span>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 03</span>
+					<h4><strong>가정방문(재가)</strong><br>이용비 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item03.svg" alt="재가"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 04</span>
+					<h4><strong>보청기</strong><br>구매비 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item04.svg" alt="보청기"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 05</span>
+					<h4><strong>임플란트</strong><br>이용 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item05.svg" alt="임플란트"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 06</span>
+					<h4><strong>틀니</strong><br>이용 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item06.svg" alt="틀니"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 07</span>
+					<h4><strong>인공관절</strong><br>수술비 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item07.svg" alt="인공관절"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 08</span>
+					<h4><strong>노인개안</strong><br>수술비 지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item07.svg" alt="인공관절"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 09</span>
+					<h4><strong>치매 검사비</strong><br>지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item08.svg" alt="치매 검사비"/></i>
+				</div>
+			</div>
+		</div>
+		<div class="recommended-hot-border">
+			<div class="subject-inner">
+				<div class="subject-inner-text">
+					<span class="badge-eroum">이로움 10</span>
+					<h4><strong>치매 치료비</strong><br>지원</h4>
+				</div>
+				<div class="subject-inner-link">
+					<a href="#" class="btn-detail">자세히보기</a>
+					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item09.svg" alt="치매 치료비"/></i>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<nav class="welfare-service-category">
+		<div class="careinfo-title-wrap">
+			<h3 class="careinfo-title">통합복지 <span class="font-normal">목록</span></h3>
+			<p class="careinfo-count self-end"><strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건</p>
+		</div>
+		<ul  id="category_view" class="option-nav">
+			<li class="option-item9">
+				<input type="checkbox" name="category" value="전체" id="opt-item9">
+				<label for="opt-item9" class="option-category-box">
+					<i class="icon-opt-all"></i>
+					<p>전체</p>
+				</label>
+			</li>
+			<li class="option-item7">
+				<input type="checkbox" name="category" value="지원" id="opt-item7">
+				<label for="opt-item7" class="option-category-box">
+					<i class="icon-opt-support"></i>
+					<p>지원</p>
+				</label>
+			</li>
+			<li class="option-item8">
+				<input type="checkbox" name="category" value="보호" id="opt-item8">
+				<label for="opt-item8" class="option-category-box">
+					<i class="icon-opt-protect"></i>
+					<p>보호</p>
+				</label>
+			</li>
+			<li class="option-item6">
+				<input type="checkbox" name="category" value="상담" id="opt-item6">
+				<label for="opt-item6" class="option-category-box">
+					<i class="icon-opt-consulting"></i>
+					<p>상담</p>
+				</label>
+			</li>
+			<li class="option-item3">
+				<input type="checkbox" name="category" value="보건" id="opt-item3">
+				<label for="opt-item3" class="option-category-box">
+					<i class="icon-opt-health"></i>
+					<p>보건</p>
+				</label>
+			</li>
+			<li class="option-item2">
+				<input type="checkbox" name="category" value="문화" id="opt-item2">
+				<label for="opt-item2" class="option-category-box">
+					<i class="icon-opt-culture"></i>
+					<p>문화</p>
+				</label>
+			</li>
+			<li class="option-item1">
+				<input type="checkbox" name="category" value="주거" id="opt-item1">
+				<label for="opt-item1" class="option-category-box">
+					<i class="icon-opt-dwelling"></i>
+					<p>주거</p>
+				</label>
+			</li>
+			<li class="option-item5">
+				<input type="checkbox" name="category" value="교육" id="opt-item5">
+				<label for="opt-item5" class="option-category-box">
+					<i class="icon-opt-education"></i>
+					<p>교육</p>
+				</label>
+			</li>
+		</ul>
+	</nav>
+
+	<!-- <nav class="welfare-service-menu">
 		<p class="count">
 			<strong class="totalCnt"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건
 		</p>
@@ -99,10 +283,10 @@
 			</li>
 		</ul>
 		<a href="#" class="btn btn-small btn-outline-primary"><span class="instListCnt">복지시설  0</span></a>
-	</nav>
+	</nav> -->
 
 	<!-- 서비스 본문(복지제도) -->
-	<div class="welfare-service-item is-active">
+	<div class="welfare-service-list">
 		<div class="cont-target">
 			<div class="progress-loading is-dark">
 				<div class="icon">
@@ -112,7 +296,20 @@
 			</div>
 		</div>
 		<div class="service-paging">
-			<div class="paging-flow"></div>
+			<!-- <div class="paging-flow"></div> -->
+			<div class="pagination mt-14">
+				<div class="paging">
+					<a href="#" class="prev">이전</a>
+					<a href="#" class="page active">1</a>
+					<a href="#" class="page">2</a>
+					<a href="#" class="page">3</a>
+					<a href="#" class="page">4</a>
+					<a href="#" class="page">5</a>
+					<a href="#" class="page">6</a>
+					<a href="#" class="page">7</a>
+					<a href="#" class="next">다음</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- //서비스 본문(복지제도) -->
@@ -164,6 +361,8 @@ $(function(){
 	var curPage = 1;
 	var cntPerPage = 8;
 	var category = "";
+
+	console.log(category)
 
 	var srchMode = "LOCATION";
 	var dist = 0; // meter

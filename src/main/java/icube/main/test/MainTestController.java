@@ -250,6 +250,7 @@ public class MainTestController extends CommonAbstractController {
     @RequestMapping(value="/send/email.json", produces="application/json;charset=UTF-8")
     public String sendTestResult(
     		@RequestParam String email,
+    		@RequestParam Integer recipientsNo,
     		HttpServletRequest request) {
         JSONObject resultJson = new JSONObject();
         if (!mbrSession.isLoginCheck()) {
@@ -258,8 +259,9 @@ public class MainTestController extends CommonAbstractController {
         }
             
         try {
-        	Map<String, String> paramMap = new HashMap<>();
+        	Map<String, Object> paramMap = new HashMap<>();
         	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+        	paramMap.put("srchRecipientsNo", recipientsNo);
         	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
         	
         	//이메일 폼 로딩
