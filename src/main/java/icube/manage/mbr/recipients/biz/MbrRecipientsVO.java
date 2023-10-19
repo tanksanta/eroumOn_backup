@@ -18,12 +18,12 @@ public class MbrRecipientsVO {
 	private String recipientsYn;  //수급자 여부
 	private String rcperRcognNo;  //요양인정 번호
 	private String tel;
-	private String zip;
-	private String addr;
-	private String daddr;
+	private String sido;
+	private String sigugun;
+	private String dong;
 	private String gender;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date brdt;
+	private String brdt;
 	private String relationCd;  //관계 코드
 	private String mainYn;      //대표 수급자
 	private Date regDt;

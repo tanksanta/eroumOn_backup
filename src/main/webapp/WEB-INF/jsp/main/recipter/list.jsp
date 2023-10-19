@@ -697,7 +697,9 @@
 </div>
 
 <script>
+var me = {};
 var myRecipientInfo = {};
+var mbrRecipients = {};
 
 //숫자형 날짜 하이폰 삽입
 function f_hiponFormat(value){
@@ -1081,7 +1083,9 @@ function clickStartConsltBtn() {
 		//로그인 한 경우
 		if (data.isLogin) {
 			var recipientsNo = ${recipientsNo};
+			me = data.mbrVO;
 			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
+			mbrRecipients = data.mbrRecipients;
 			
 			//진행중인 상담이 있는 경우
 			if (data.isExistConsltInProcess) {
@@ -1129,10 +1133,43 @@ function openNewConsltInfo() {
 	
 	$('#info-tel').val(myRecipientInfo.tel);
 	
-	if(myRecipientInfo.brdt) {
-		var btdt = new Date(myRecipientInfo.brdt);
-		$('#info-brdt').val(btdt.getFullYear() + '/' + (btdt.getMonth() + 1) + '/' + btdt.getDate());	
+	if (myRecipientInfo.sido) {
+		var options = $('#sido option');
+		for(var i = 0; i < options.length; i++) {
+			if ($('#sido option')[i].text === myRecipientInfo.sido) {
+				$('#sido option')[i].selected = true;
+			}
+		}
+		setSigugun();
 	}
+	if (myRecipientInfo.sigugun) {
+		var options = $('#sigugun option');
+		for(var i = 0; i < options.length; i++) {
+			if ($('#sigugun option')[i].text === myRecipientInfo.sigugun) {
+				$('#sigugun option')[i].selected = true;
+			}
+		}
+		setDong();
+	}
+	if (myRecipientInfo.dong) {
+		var options = $('#dong option');
+		for(var i = 0; i < options.length; i++) {
+			if ($('#dong option')[i].text === myRecipientInfo.dong) {
+				$('#dong option')[i].selected = true;
+			}
+		}
+	}
+	
+	if(myRecipientInfo.brdt) {
+		$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
+	}
+	
+	if (myRecipientInfo.gender === 'M') {
+		$('#info-gender-m').prop('checked', true);
+	} else {
+		$('#info-gender-w').prop('checked', true);
+	}
+	
 	
 	$('#modal-consulting-info').modal('show');
 }
@@ -1198,6 +1235,21 @@ function requestConslt() {
 		return;
 	}
 	
+	//본인인지 체크
+	if (relationCd === '007' && recipientsNm !== me.mbrNm) {
+		alert('수급자와의 관계를 확인해주세요');
+		return;
+	}
+	//본인과 배우자는 한명만 등록
+	var meCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '007').length; //내 수급자가 아닌 다른수급자도 본인인지 확인
+	var spouseCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '001').length; //내 수급자가 아닌 다른수급자도 배우자인지 확인
+	if ((relationCd === '007' && meCount > 0) ||
+		(relationCd === '001' && spouseCount > 0)) {
+		alert('수급자와의 관계를 확인해주세요');
+		return;
+	}
+	
+		
 	//연락처 형식 검사
 	if (telchk.test(tel) === false) {
 		alert('연락처 형식이 올바르지 않습니다 (예시: 010-0000-0000)');
@@ -1209,6 +1261,9 @@ function requestConslt() {
 		alert('생년월일 형식이 올바르지 않습니다 (예시: 1950/01/01)');
 		return;
 	}
+	
+	
+	var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
 	
 	$.ajax({
 		type : "post",
@@ -1225,6 +1280,7 @@ function requestConslt() {
 			, gender
 			, recipientsNo: myRecipientInfo.recipientsNo
 			, prevPath: 'simpleSearch'
+			, saveRecipientInfo
 		},
 		dataType : 'json'
 	})

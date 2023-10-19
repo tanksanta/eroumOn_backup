@@ -8,9 +8,9 @@
 		, mr.recipients_yn
 		, mr.rcper_rcogn_no
 		, mr.tel
-		, mr.zip
-		, mr.addr
-		, mr.daddr
+		, mr.sido
+		, mr.sigugun
+		, mr.dong
 		, mr.gender
 		, mr.brdt
 		, mr.relation_cd
@@ -44,9 +44,9 @@
 			, recipients_yn
 			, rcper_rcogn_no
 			, tel
-			, zip
-			, addr
-			, daddr
+			, sido
+			, sigugun
+			, dong
 			, gender
 			, brdt
 			, relation_cd
@@ -57,9 +57,9 @@
 			, #{recipientsYn}
 			, #{rcperRcognNo}
 			, #{tel}
-			, #{zip}
-			, #{addr}
-			, #{daddr}
+			, #{sido}
+			, #{sigugun}
+			, #{dong}
 			, #{gender}
 			, #{brdt}
 			, #{relationCd}
@@ -74,12 +74,12 @@
 			, recipients_yn = #{recipientsYn}
 			, rcper_rcogn_no = #{rcperRcognNo}
 			, tel = #{tel}
-			, zip = #{zip}
-			, addr = #{addr}
-			, daddr = #{daddr}
+			, sido = #{sido}
+			, sigugun = #{sigugun}
+			, dong = #{dong}
 			, gender = #{gender}
 			, brdt = #{brdt}
-			, relationCd = #{relationCd}
+			, relation_cd = #{relationCd}
 			, mdfcn_dt = SYSDATE()
 		WHERE recipients_no = #{recipientsNo}
 	</update>
