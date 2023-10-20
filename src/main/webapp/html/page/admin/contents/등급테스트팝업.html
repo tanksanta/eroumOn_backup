@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>등급테스트팝업</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/jstree/dist/themes/default/style.min.css">
+    <link rel="stylesheet" href="../../../core/vendor/datatables/datatables.min.css">
+
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/jstree/dist/jstree.min.js"></script>
+    <script src="../../../core/vendor/datatables/datatables.min.js"></script>
+
+    <!-- common -->
+    <script src="../../../core/script/utility.js"></script>
+
+    <!-- admin -->
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+</head>
+<body class="bg-none">
+    <div>
+        <a href="#" class="btn-primary" data-bs-toggle="modal" data-bs-target="#grade-test-result">등급테스트결과</a>
+        <div class="modal fade" id="grade-test-result" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>결과 상세보기</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe  src="../../mail/장기용양등급테스트결과_mailFrom_2023908.html" onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+                        <!-- <iframe  src="../../mail/장기용양등급테스트결과_mailFrom_2023908.html" class="w-full"></iframe> -->
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <a href="#" class="btn large btn-primary w-36">저장</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>
