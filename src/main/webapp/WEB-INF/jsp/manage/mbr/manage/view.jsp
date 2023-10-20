@@ -34,12 +34,15 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row">아이디</th>
-						<td colspan="2">${mbrVO.mbrId}</td>
+						<th scope="row">회원아이디</th>
+						<td>${mbrVO.mbrId}</td>
+						
+						<th scope="row">가입유형</th>
+						<td>${mbrJoinTy3[mbrVO.joinTy]}</td>
 					</tr>
 					<tr>
 						<th scope="row">이름/생년월일/성별</th>
-						<td class="nameVal">${mbrVO.mbrNm }/ <fmt:formatDate value="${mbrVO.brdt }" pattern="yyyy-MM-dd" /> / ${gender[mbrVO.gender] }
+						<td class="nameVal">${mbrVO.mbrNm }/ <fmt:formatDate value="${mbrVO.brdt}" pattern="yyyy-MM-dd" /> / ${gender[mbrVO.gender] }
 
 						<th scope="row">휴대폰 번호</th>
 						<td>${mbrVO.mblTelno}</td>
@@ -48,75 +51,45 @@
 					</tr>
 					<tr>
 						<th scope="row">이메일</th>
-						<td>${mbrVO.eml }</td>
+						<td>${mbrVO.eml}</td>
 
 						<th scope="row">가입매체 / 가입일</th>
 						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 					<tr>
+						<th scope="row">이메일인증여부</th>
+						<td></td>
+
+						<th scope="row">등록수급자수</th>
+						<td class="joinVal">${mbrVO.mbrRecipientsList.size()}</td>
+					</tr>
+					<tr>
 						<th scope="row">주소</th>
-						<td colspan="3">${mbrVO.zip }&nbsp;${mbrVO.addr }&nbsp; ${mbrVO.daddr }</td>
+						<td>${mbrVO.zip }&nbsp;${mbrVO.addr }&nbsp; ${mbrVO.daddr }</td>
+						
+						<th scope="row">최종변경일 / 처리자</th>
+						<td>
+							<c:if test="${mbrVO.mdfr ne null}">
+								<fmt:formatDate value="${mbrVO.mdfcnDt}" pattern="yyyy-MM-dd HH:mm:ss"/> / ${mbrVO.mdfr}
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">최근접속일</th>
-						<td><fmt:formatDate value="${mbrVO.recentCntnDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<th scope="row">최종변경일 / 처리자</th>
-						<td><c:if test="${mbrVO.mdfr ne null}">
-								<fmt:formatDate value="${mbrVO.mdfcnDt }" pattern="yyyy-MM-dd HH:mm:ss" /> / ${mbrVO.mdfr}</c:if></td>
-					</tr>
-				</tbody>
-			</table>
-		</fieldset>
-
-		<c:if test="${mbrVO.recipterYn eq 'Y'}">
-			<fieldset class="mt-13">
-				<legend class="text-title2">수급자정보</legend>
-				<table class="table-detail">
-					<colgroup>
-						<col class="w-43">
-						<col>
-						<col class="w-43">
-						<col>
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row">요양인정번호</th>
-							<td colspan="3">${mbrVO.recipterInfo.rcperRcognNo}</td>
-							<th scope="row">본인부담율</th>
-							<td colspan="3">${mbrVO.recipterInfo.selfBndRt}%</td>
-						</tr>
-						<tr>
-							<th scope="row">인정유효기간</th>
-							<td colspan="3"><fmt:formatDate value="${mbrVO.recipterInfo.vldBgngYmd }" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${mbrVO.recipterInfo.vldEndYmd }" pattern="yyyy-MM-dd" /></td>
-							<th scope="row">적용기간</th>
-							<td colspan="3"><fmt:formatDate value="${mbrVO.recipterInfo.aplcnBgngYmd }" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${mbrVO.recipterInfo.aplcnEndYmd }" pattern="yyyy-MM-dd" /></td>
-						</tr>
-						<tr>
-							<th scope="row">급여잔액</th>
-							<td colspan="3"><fmt:formatNumber value="${mbrVO.recipterInfo.bnefBlce}" pattern="#,###" />원</td>
-							<th scope="row">사용금액</th>
-							<td colspan="3"><fmt:formatNumber value="${mbrVO.recipterInfo.sprtAmt - mbrVO.recipterInfo.bnefBlce}" pattern="#,###" />원</td>
-						</tr>
-					</tbody>
-				</table>
-			</fieldset>
-		</c:if>
-
-		<fieldset class="mt-13">
-			<legend class="text-title2">선택정보</legend>
-			<table class="table-detail">
-				<colgroup>
-					<col class="w-43">
-					<col>
-					<col class="w-43">
-					<col>
-				</colgroup>
-				<tbody>
-					<tr>
-						<th scope="row">전화번호</th>
-						<td>${mbrVO.telno }</td>
-						<th scope="row">추천인 ID</th>
-						<td>${mbrVO.rcmdtnId }</td>
+						<td><fmt:formatDate value="${mbrVO.recentCntnDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						
+						<th scope="row">
+							이용약관<br>
+							개인정보처리방침<br>
+							개인정보동의<br>
+							제3자제공동의<br>
+						</th>
+						<td>
+							${mbrAgreementVO == null ? "비동의" : (mbrAgreementVO.termsYn == "Y" ? "동의" : "비동의")}&nbsp;<fmt:formatDate value="${mbrAgreementVO == null ? '' : mbrAgreementVO.termsDt}" pattern="yyMMdd HH:mm:ss"/><br>
+							${mbrAgreementVO == null ? "비동의" : (mbrAgreementVO.privacyYn == "Y" ? "동의" : "비동의")}&nbsp;<fmt:formatDate value="${mbrAgreementVO == null ? '' : mbrAgreementVO.privacyDt}" pattern="yyMMdd HH:mm:ss"/><br>
+							${mbrAgreementVO == null ? "비동의" : (mbrAgreementVO.provisionYn == "Y" ? "동의" : "비동의")}&nbsp;<fmt:formatDate value="${mbrAgreementVO == null ? '' : mbrAgreementVO.provisionDt}" pattern="yyMMdd HH:mm:ss"/><br>
+							${mbrAgreementVO == null ? "비동의" : (mbrAgreementVO.thirdPartiesYn == "Y" ? "동의" : "비동의")}&nbsp;<fmt:formatDate value="${mbrAgreementVO == null ? '' : mbrAgreementVO.thirdPartiesDt}" pattern="yyMMdd HH:mm:ss"/><br>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row">개인정보 유효기간</th>
@@ -130,46 +103,12 @@
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<th scope="row">정보수신</th>
-						<td colspan="3">
-							<div class="flex flex-wrap -mx-2">
-								<div class="form-group px-2 my-1 mr-auto">
-									<label for="member-item2-1" class="pr-1">SMS 수신</label>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input choiceVal" name="smsRcptnYn" id="smsRcptnYn" value="${mbrVO.smsRcptnYn }" <c:if test="${mbrVO.smsRcptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="smsRcptnYn"></label>
-									</div>
-
-									<label for="member-item2-1" class="pr-1">이메일 수신</label>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input choiceVal" name="emlRcptnYn" id="emlRcptnYn" value="${mbrVO.emlRcptnYn }" <c:if test="${mbrVO.emlRcptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="emlRcptnYn"></label>
-									</div>
-
-									<label for="member-item2-1" class="pr-1">전화 수신</label>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input choiceVal" name="telRecptnYn" id="telRecptnYn" value="${mbrVO.telRecptnYn }" <c:if test="${mbrVO.telRecptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="telRecptnYn"></label>
-									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="member-item3">프로필 이미지</label></th>
-						<td colspan="3"><c:if test="${!empty mbrVO.proflImg}">
-								<div class="form-group" style="display: flex;">
-									<img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}" id="profile" style="width: 55px; height: 55px; border-radius: 25%;">
-									<!-- <button type="button" class="delProfileImgBtn">
-										<i class="fa fa-trash"></i>
-									</button> -->
-								</div>
-							</c:if></td>
-					</tr>
 				</tbody>
 			</table>
 		</fieldset>
 
 		<fieldset class="mt-13">
-			<legend class="text-title2">관리정보</legend>
+			<legend class="text-title2">선택정보</legend>
 			<table class="table-detail">
 				<colgroup>
 					<col class="w-43">
@@ -179,81 +118,39 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" rowspan="5">관리대상</th>
-						<td>
-							<div class="form-group w-full">
-								<button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas1">경고관리</button>
-								<p class="flex-1 mx-2"><c:if test="${mngMap.warning ne null}">${mngSeWarning[mngMap.warning.mngSe]} :
-									<c:if test="${mngMap.warning.resnCd ne 'ETC'}">
-							  	      	<c:if test="${mngMap.warning.resnCd eq 'CS'}">고객 요청</c:if>
-                                  		<c:if test="${mngMap.warning.resnCd ne 'CS'}">${resnCd[mngMap.warning.resnCd]}</c:if>
-									</c:if>
-									<c:if test="${mngMap.warning.resnCd eq 'ETC' }">${mngMap.warning.mngrMemo}</c:if>
-									</c:if>
-									</p>
-								<button type="button" id="changeListBtn" class="btn shadow ml-auto" data-unique-id="${mbrVO.uniqueId}">변경내역보기</button>
+						<th scope="row">정보수신</th>
+						<td colspan="2">
+							<div class="flex flex-wrap -mx-2">
+								<div class="form-group px-2 my-1 mr-auto">
+									<label for="member-item2-1" class="pr-1">SMS 수신</label>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input choiceVal" name="smsRcptnYn" id="smsRcptnYn" value="${mbrVO.smsRcptnYn}" <c:if test="${mbrVO.smsRcptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="smsRcptnYn"></label>
+									</div>
+
+									<label for="member-item2-1" class="pr-1">이메일 수신</label>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input choiceVal" name="emlRcptnYn" id="emlRcptnYn" value="${mbrVO.emlRcptnYn}" <c:if test="${mbrVO.emlRcptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="emlRcptnYn"></label>
+									</div>
+
+									<label for="member-item2-1" class="pr-1">전화 수신</label>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input choiceVal" name="telRecptnYn" id="telRecptnYn" value="${mbrVO.telRecptnYn}" <c:if test="${mbrVO.telRecptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="telRecptnYn"></label>
+									</div>
+								</div>
 							</div>
 						</td>
-						<th scope="row">최종변경일/처리자</th>
-						<td><c:if test="${mngMap.warning.regId ne null}">
-								<fmt:formatDate value="${mngMap.warning.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.warning.regId}</c:if></td>
-					</tr>
-					<tr>
+						
+						<th scope="row">
+							문자 수신<br>
+							이메일 수신<br>
+							전화 수신<br>
+						</th>
 						<td>
-							<div class="form-group w-full">
-								<button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas2">블랙리스트관리</button>
-								<p class="flex-1 mx-2">
-									<c:if test="${mngMap.black ne null }">
-                                    ${mngSeBlack[mngMap.black.mngSe]} <c:if test="${mngMap.black.mngSe eq 'PAUSE'}">(<fmt:formatDate value="${mngMap.black.stopBgngYmd}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${mngMap.black.stopEndYmd}" pattern="yyyy-MM-dd" />)</c:if><br>
-                                    사유 : <c:if test="${mngMap.black.resnCd ne 'ETC'}">
-                                    	      	<c:if test="${mngMap.black.resnCd eq 'CS'}">고객 요청</c:if>
-                                    			<c:if test="${mngMap.black.resnCd ne 'CS'}">${blackResnCd[mngMap.black.resnCd]}</c:if>
-                                    		</c:if>
-                                    		<c:if test="${mngMap.black.resnCd eq 'ETC'}">${mngMap.black.mngrMemo}</c:if>
-                                    </c:if>
-								</p>
-							</div>
+							${mbrVO.smsRcptnYn == 'Y' ? '동의' : '비동의'}&nbsp;<fmt:formatDate value="${mbrVO.smsRcptnDt == null ? '' : mbrVO.smsRcptnDt}" pattern="yyMMdd HH:mm:ss"/><br>
+							${mbrVO.emlRcptnYn == 'Y' ? '동의' : '비동의'}&nbsp;<fmt:formatDate value="${mbrVO.emlRcptnDt == null ? '' : mbrVO.emlRcptnDt}" pattern="yyMMdd HH:mm:ss"/><br>
+							${mbrVO.telRecptnYn == 'Y' ? '동의' : '비동의'}&nbsp;<fmt:formatDate value="${mbrVO.telRecptnDt == null ? '' : mbrVO.telRecptnDt}" pattern="yyMMdd HH:mm:ss"/><br>
 						</td>
-						<th scope="row">최종변경일/처리자</th>
-						<td><c:if test="${mngMap.black.regId ne null}">
-								<fmt:formatDate value="${mngMap.black.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.black.regId }</c:if></td>
 					</tr>
-					<tr>
-						<td>
-							<div class="form-group w-full">
-								<button type="button" class="btn authBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas3">직권탈퇴관리</button>
-								<p class="flex-1 mx-2 authView">
-									<c:if test="${mngMap.auth ne null}">
-                                    직권탈퇴<br>
-                                    사유 : <c:if test="${mngMap.auth.resnCd ne 'SELF'}">
-                                    			${authResnCd[mngMap.auth.resnCd]}
-                                    		</c:if>
-                                    		<c:if test="${mngMap.auth.resnCd eq 'SELF'}">${mngMap.auth.mngrMemo}</c:if>
-                                    </c:if>
-								</p>
-							</div>
-						</td>
-						<th scope="row">최종변경일/처리자</th>
-						<td><c:if test="${mngMap.auth.regId ne null}">
-								<fmt:formatDate value="${mngMap.auth.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.auth.regId}</c:if></td>
-					</tr>
-					<!--
-                    <tr>
-                        <td colspan="3">
-                            <div class="form-group">
-                                <label for="member-item4" class="mr-1">이벤트 당첨자 제외</label>
-                                <div class="form-check-group">
-                                	<c:forEach var="result" items="${yn}" varStatus="status">
-                                     <div class="form-check">
-                                         <input class="form-check-input eventVal" type="radio" name="useYn" id="useYn${status.index}" value="${result.key}" <c:if test="${mbrVO.eventRecptnYn eq result.key }">checked="checked"</c:if>>
-                                         <label class="form-check-label" for="useYn${status.index}">${result.value}</label>
-                                     </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                     -->
 				</tbody>
 			</table>
 		</fieldset>

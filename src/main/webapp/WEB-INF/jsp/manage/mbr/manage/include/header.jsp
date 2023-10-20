@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                 <div class="member-info">
                     <div class="info">
-                        <span class="thum"><c:if test="${mbrVO.proflImg ne null}"><img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}"></c:if></span>
+                        <%-- <span class="thum"><c:if test="${mbrVO.proflImg ne null}"><img src="/comm/PROFL/getFile?fileName=${mbrVO.proflImg}"></c:if></span> --%> 
                         <span class="name">
                             <strong>${mbrVO.mbrNm}</strong>
                             <small>${mbrVO.mbrId }</small>

@@ -48,6 +48,7 @@ import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
 import icube.manage.mbr.itrst.biz.WishVO;
+import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -343,8 +344,12 @@ public class MMbrController extends CommonAbstractController {
         infoMap.put("srchMngTy", "AUTH");
         MbrMngInfoVO authInfoVO = mbrMngInfoService.selectMbrMngInfo(infoMap);
         mngMap.put("auth", authInfoVO);
+        
+        //약관동의 정보 조회
+        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
 
         model.addAttribute("mbrVO", mbrVO);
+        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);
@@ -359,6 +364,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("authResnCd", CodeMap.AUTH_RESN_CD);
         model.addAttribute("norResnCd", CodeMap.NOR_RESN_CD);
         model.addAttribute("recipter", CodeMap.RECIPTER_YN);
+        model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
         return "/manage/mbr/manage/view";
     }

@@ -371,6 +371,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
 	}
 	
+	public MbrAgreementVO selectMbrAgreementByMbrUniqueId(String uniqueId) throws Exception {
+		return mbrAgreementDAO.selectMbrAgreementByMbrUniqueId(uniqueId);
+	}
+	
 	/**
 	 * 간편회원 전용 ID 생성 함수
 	 */
