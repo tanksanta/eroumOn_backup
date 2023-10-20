@@ -1,5 +1,7 @@
 package icube.manage.ordr.ordr;
 
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,8 +10,18 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.egovframe.rte.fdl.string.EgovDateUtil;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.json.simple.JSONObject;
@@ -26,6 +38,7 @@ import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.util.HtmlUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
@@ -69,13 +82,13 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
-	
+
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
-	
+
 	@Resource(name="mngrService")
 	private MngrService mngrService;
 
@@ -112,18 +125,18 @@ public class MOrdrController extends CommonAbstractController {
         Map<String, String> mbgrReqMap = new HashMap<>();
         mbgrReqMap.put("mngrId", mngrSession.getMngrId());
         MngrVO curMngrVO = mngrService.selectMngrById(mbgrReqMap);
-		
+
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
-		
+
         //현재관리자에 입점업체 정보가 있으면 해당 입점업체만 조회되도록 구현
         if (curMngrVO.getEntrpsNo() > 0) {
         	listVO.setParam("srchEntrpsNo", curMngrVO.getEntrpsNo());
         	model.addAttribute("mngrEntrpsNo", curMngrVO.getEntrpsNo());
         }
-        
+
 		listVO = ordrService.ordrListVO(listVO);
-		
+
 		//간편로그인 ID 너무 길어서 간단하게 표시작업
 		listVO.getListObject().stream().forEach(ordr -> {
 			OrdrDtlVO ordrDtlltVO = (OrdrDtlVO)ordr;
@@ -133,7 +146,7 @@ public class MOrdrController extends CommonAbstractController {
 				ordrDtlltVO.setOrdrrId("네이버 계정");
 			}
 		});
-		
+
 		//입점업체 호출
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
 		model.addAttribute("entrpsList", entrpsList);
@@ -493,28 +506,28 @@ public class MOrdrController extends CommonAbstractController {
 		boolean result = false;
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
-		
+
+
 		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
 		for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
 			tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
-			
+
 			//택배사 정보가 없는 경우는 배송완료 -> 배송중으로 저장할 경우
 			if (EgovStringUtil.isEmpty(dlvyCo)) {
 				dlvyCo = String.valueOf(ordrDtlVO.getDlvyCoNo()) + "|" + ordrDtlVO.getDlvyCoNm();
 				dlvyInvcNo = ordrDtlVO.getDlvyInvcNo();
 			}
 		}
-		
-		
+
+
 		//택배사 정보가 없으면 잘못된 요청
 		if (EgovStringUtil.isEmpty(dlvyCo) || EgovStringUtil.isEmpty(dlvyInvcNo)) {
 			resultMap.put("result", result);
 			return resultMap;
 		}
-		
-		
+
+
 		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
 		String[] dlvyNm = dlvyCo.split("[|]");
 
@@ -612,19 +625,19 @@ public class MOrdrController extends CommonAbstractController {
 			, @RequestParam(value="ordrDtlNo", required=true) int ordrDtlNo) throws Exception {
 
 		boolean result = false;
-		
+
 		OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
 		ordrDtlVO.setOrdrNo(ordrNo);
 		ordrDtlVO.setOrdrDtlCd(ordrDtlCd);
 		ordrDtlVO.setOrdrDtlNo(ordrDtlNo);
-		
+
 		try {
 			ordrDtlService.updateOrdr06AndOrdrChgHist(ordrDtlVO);
 			result = true;
 		}catch(Exception e) {
 			log.error("==== 배송중 취소 오류 ====", e);
 		}
-		
+
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
@@ -769,8 +782,8 @@ public class MOrdrController extends CommonAbstractController {
 		resultMap.put("result", result);
 		return resultMap;
 	}
-	
-	
+
+
 	// 구매확정 취소
 	@ResponseBody
 	@RequestMapping(value="cancelOrdrDone.json")
@@ -1428,17 +1441,199 @@ public class MOrdrController extends CommonAbstractController {
 	 * @param model
 	 */
 	@RequestMapping(value="{ordrStts}/excel")
-	public String excelDownload(
+	public void excelDownload(
 			@PathVariable String ordrStts
 			, HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
+		/*
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if(!ordrStts.toUpperCase().equals("ALL")) {
 			paramMap.put("srchSttsTy", ordrStts.toUpperCase());
 		}
-		 List<OrdrDtlVO> ordrDtlList =ordrDtlService.selectOrdrSttsList(paramMap);
+		*/
+
+		Map<String, String> mbgrReqMap = new HashMap<>();
+        mbgrReqMap.put("mngrId", mngrSession.getMngrId());
+        MngrVO curMngrVO = mngrService.selectMngrById(mbgrReqMap);
+
+		CommonListVO listVO = new CommonListVO(request, 1, 10000);
+		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
+
+        //현재관리자에 입점업체 정보가 있으면 해당 입점업체만 조회되도록 구현
+        if (curMngrVO.getEntrpsNo() > 0) {
+        	listVO.setParam("srchEntrpsNo", curMngrVO.getEntrpsNo());
+        	model.addAttribute("mngrEntrpsNo", curMngrVO.getEntrpsNo());
+        }
+
+		listVO = ordrService.ordrListVO(listVO);
+
+		List<OrdrDtlVO> ordrDtlList = listVO.getListObject();
+
+		Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("DataSheet");
+
+
+        Font font = workbook.createFont();
+        font.setFontHeightInPoints((short) 10);	// 글자크기
+
+        CellStyle style = workbook.createCellStyle();
+        style.setFont(font);
+        style.setWrapText(true); //줄바꿈처리 : \n
+
+        // 첫 번째 행 (상위 헤더)
+        Row row1 = sheet.createRow(0);
+        row1.createCell(0).setCellValue("주문일시");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 0));
+        row1.createCell(1).setCellValue("주문자");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 1, 1));
+        row1.createCell(2).setCellValue("수령인");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 2, 2));
+        row1.createCell(3).setCellValue("상품구분");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 3, 3));
+        row1.createCell(4).setCellValue("상품번호");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 4, 4));
+        row1.createCell(5).setCellValue("입점업체");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 5, 5));
+        row1.createCell(6).setCellValue("상품명/옵션");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 6, 6));
+        row1.createCell(7).setCellValue("상품가격");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 7, 7));
+        row1.createCell(8).setCellValue("수량");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 8, 8));
+        row1.createCell(9).setCellValue("주문금액");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 9, 9));
+        row1.createCell(10).setCellValue("할인금액");
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 10, 12));
+        row1.createCell(13).setCellValue("배송비");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 13, 13));
+        row1.createCell(14).setCellValue("결제금액");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 14, 14));
+        row1.createCell(15).setCellValue("결제수단");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 15, 15));
+        row1.createCell(16).setCellValue("멤버스");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 16, 16));
+        row1.createCell(17).setCellValue("주문상태");
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 17, 17));
+
+        // 두 번째 행 (하위 헤더)
+        Row row2 = sheet.createRow(1);
+        row2.createCell(10).setCellValue("쿠폰");
+        row2.createCell(11).setCellValue("마일리지");
+        row2.createCell(12).setCellValue("포인트");
+
+        // 스타일 적용하고 싶음
+        ExcelExporter.setCellStyleForRow(row1, style);
+        ExcelExporter.setCellStyleForRow(row2, style);
+
+        int i = 2; //2row부터
+        for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
+        	Row dataRow = sheet.createRow(i);
+
+			dataRow.createCell(0).setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ordrDtlVO.getOrdrDt())
+					+ "\n" + ordrDtlVO.getOrdrCd());
+        	dataRow.createCell(1).setCellValue(ordrDtlVO.getOrdrrNm() + "\n(" + ordrDtlVO.getOrdrrId() + ")");
+        	dataRow.createCell(2).setCellValue(ordrDtlVO.getRecptrNm());
+        	dataRow.createCell(3).setCellValue(CodeMap.GDS_TY.get(ordrDtlVO.getOrdrTy()));
+        	dataRow.createCell(4).setCellValue(ordrDtlVO.getGdsCd());
+        	dataRow.createCell(5).setCellValue(ordrDtlVO.getEntrpsNm());
+
+        	String gdsNm = "";
+        	gdsNm = ordrDtlVO.getGdsNm();
+        	if(ordrDtlVO.getOrdrOptnTy().equals("BASE")) {
+        		if(EgovStringUtil.isNotEmpty(ordrDtlVO.getOrdrOptn())) {
+        			gdsNm += "\n(" + ordrDtlVO.getOrdrOptn() + ")";
+        		}
+    		}else {
+    			gdsNm = ordrDtlVO.getOrdrOptn();
+    		}
+    		dataRow.createCell(6).setCellValue(gdsNm);
+
+    		String gdsPc = String.format("%,d", ordrDtlVO.getGdsPc());
+    		if(ordrDtlVO.getOrdrOptnTy().equals("BASE")) {
+    			gdsPc += "(+" + String.format("%,d", ordrDtlVO.getOrdrOptnPc())  +")";
+    		}else {
+    			gdsPc = String.format("%,d", ordrDtlVO.getOrdrOptnPc());
+    		}
+        	dataRow.createCell(7).setCellValue(gdsPc);
+        	dataRow.createCell(8).setCellValue(String.format("%,d", ordrDtlVO.getOrdrQy()));
+        	dataRow.createCell(9).setCellValue(String.format("%,d", ordrDtlVO.getOrdrPc()));
+
+        	dataRow.createCell(10).setCellValue(String.format("%,d", ordrDtlVO.getCouponAmt()));
+        	dataRow.createCell(11).setCellValue(String.format("%,d", ordrDtlVO.getUseMlg()));
+        	dataRow.createCell(12).setCellValue(String.format("%,d", ordrDtlVO.getUsePoint()));
+
+        	String dlvyAmt = String.format("%,d", ordrDtlVO.getDlvyBassAmt());
+        	if(ordrDtlVO.getDlvyAditAmt() > 0) {
+        		dlvyAmt += "(" + String.format("%,d", ordrDtlVO.getDlvyAditAmt()) +")";
+        	}
+        	dataRow.createCell(13).setCellValue(dlvyAmt);
+
+        	dataRow.createCell(14).setCellValue(String.format("%,d", ordrDtlVO.getStlmAmt()));
+        	String stlmTy = "미정";
+        	if(EgovStringUtil.isNotEmpty(ordrDtlVO.getStlmTy())) {
+        		stlmTy = CodeMap.BASS_STLM_TY.get(ordrDtlVO.getStlmTy());
+        	}
+        	dataRow.createCell(15).setCellValue(stlmTy);
+
+        	dataRow.createCell(16).setCellValue(ordrDtlVO.getBplcNm());
+
+        	String sttsTy = CodeMap.ORDR_STTS.get(ordrDtlVO.getSttsTy());
+        	if((ordrDtlVO.getSttsTy().equals("RE03") || ordrDtlVO.getSttsTy().equals("RF01")) && ordrDtlVO.getRfndYn().equals("N")) {
+        		sttsTy = "환불접수(반품완료)";
+        	}else if((ordrDtlVO.getSttsTy().equals("RE03") || ordrDtlVO.getSttsTy().equals("RF02")) && ordrDtlVO.getRfndYn().equals("Y")) {
+        		sttsTy = "환불완료(반품완료)";
+        	}
+        	dataRow.createCell(17).setCellValue(sttsTy);
+
+        	i++;
+
+        	ExcelExporter.setCellStyleForRow(dataRow, style);
+
+        }
+
+        for(int j=0; j<18; j++) {
+        	sheet.autoSizeColumn(j);
+        }
+
+        // 파일명요청
+        String fileName = "전체_주문_목록";
+        ordrStts = ordrStts.toUpperCase();
+        if(ordrStts.equals("OR01")) {
+        	fileName = "승인대기_주문_목록";
+        }else if(ordrStts.equals("OR02")) {
+        	fileName = "승인완료_주문_목록";
+        }else if(ordrStts.equals("OR03")) {
+        	fileName = "승인반려_주문_목록";
+        }else if(ordrStts.equals("OR04")) {
+        	fileName = "결제대기_주문_목록";
+        }else if(ordrStts.equals("OR05")) {
+        	fileName = "결제완료_주문_목록";
+        }else if(ordrStts.equals("OR06")) {
+        	fileName = "배송관리_주문_목록";
+        }else if(ordrStts.equals("OR09")) {
+        	fileName = "구매확정_주문_목록";
+        }else if(ordrStts.equals("CA01")) {
+        	fileName = "취소관리_주문_목록";
+        }else if(ordrStts.equals("EX01")) {
+        	fileName = "교환관리_주문_목록";
+        }else if(ordrStts.equals("RE01")) {
+        	fileName = "반품관리_주문_목록";
+        }else if(ordrStts.equals("RF01")) {
+        	fileName = "환불관리_주문_목록";
+        }
+
+        // Excel 다운로드를 위한 응답 유형을 설정하고 데이터를 작성
+        fileName = URLEncoder.encode(fileName,  "UTF-8");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + "_" + EgovDateUtil.getCurrentDateAsString()  + ".xlsx");
+
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            workbook.write(outputStream);
+            workbook.close();
+        }
 
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
@@ -1448,7 +1643,7 @@ public class MOrdrController extends CommonAbstractController {
 		model.addAttribute("ordrDtlList", ordrDtlList);
 		model.addAttribute("ordrSttsTy", ordrStts.toUpperCase());
 
-		return "/manage/ordr/excel";
+		//return "/manage/ordr/excel";
 	}
 
 }
