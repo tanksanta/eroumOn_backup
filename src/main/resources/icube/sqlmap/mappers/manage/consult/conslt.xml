@@ -33,6 +33,11 @@
 		, mngr_nm
 
 		, re_conslt_dt
+
+		, recipients_no
+		, relation_cd
+		, rcper_rcogn_no
+		, prev_path
 	</sql>
 
 	<sql id="searchConditions">
@@ -58,6 +63,25 @@
 		</if>
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND use_yn = #{srchUseYn}
+		</if>
+		<if test="srchPREV_PATH != null and srchPREV_PATH != '' ">
+			AND prev_path = #{srchPREV_PATH}
+		</if>
+		<if test="srchCd != null and srchCd != '' and srchText != null and srchText != '' ">
+			<choose>
+				<when test="srchCd == 'MBR_NM' ">
+					AND MBR_NM like CONCAT ('%',#{srchText},'%')
+				</when>
+				<when test="srchCd == 'MBR_TELNO' ">
+					AND MBR_TELNO like CONCAT ('%',#{srchText},'%')
+				</when>
+				<when test="srchCd == 'RGTR' ">
+					AND RGTR like CONCAT ('%',#{srchText},'%')
+				</when>
+				<when test="srchCd == 'REG_ID' ">
+					AND REG_ID like CONCAT ('%',#{srchText},'%')
+				</when>
+			</choose>
 		</if>
 		<if test="srchConsltSttus != null and srchConsltSttus != '' ">
 			<choose>

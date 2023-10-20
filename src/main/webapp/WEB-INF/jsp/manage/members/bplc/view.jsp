@@ -259,6 +259,19 @@
 					</td>
 				</tr>
 				<tr>
+					<th scope="row">상담 장기요양기관<span></span></th>
+					<td>
+						<div class="form-check-group">
+							<c:forEach items="${dspyYnCode}" var="mbGiupMatching" varStatus="status"> 
+								<div class="form-check">
+									<form:radiobutton class="form-check-input" path="mbGiupMatching" id="mbGiupMatching${status.index}" value="${mbGiupMatching.key}" />
+									<label class="form-check-label" for="mbGiupMatching${status.index}">${mbGiupMatching.value}</label>
+								</div>
+							</c:forEach>
+						</div>
+					</td>
+				</tr>
+				<tr>
 					<th scope="row">추천 멤버스<span></span></th>
 					<td>
 						<div class="form-check-group">

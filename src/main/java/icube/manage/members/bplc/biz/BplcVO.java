@@ -94,5 +94,6 @@ public class BplcVO extends CommonBaseVO {
 
     private int rcmdCnt = 0;// 사용자 추천수
 
+    private String mbGiupMatching;//이로움온 매칭서비스 사용
 
 }
