@@ -156,6 +156,28 @@ public class MMbrController extends CommonAbstractController {
         	listVO.setParam("srchGrade", grade);
         }
 
+        //검색어 초기화 이후 추가
+        listVO.setParam("srchTarget", "");
+        listVO.setParam("srchText", "");
+        if (reqMap.containsKey("srchTarget") && reqMap.containsKey("srchText") && EgovStringUtil.isNotEmpty((String)reqMap.get("srchText"))) {
+        	String value = (String)reqMap.get("srchText");
+        	if ("srchLastTelnoOfMbl".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchLastTelnoOfMbl", value);
+        	}
+        	if ("srchMbrId".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchMbrId", value);
+        	}
+        	if ("srchMbrNm".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchMbrNm", value);
+        	}
+        	if ("srchRecipientsNm".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchRecipientsNm", value);
+        	}
+        	if ("srchRcperRcognNo".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchRcperRcognNo", value);
+        	}
+        }
+        
         listVO = mbrService.mbrListVO(listVO);
 
         model.addAttribute("listVO", listVO);
@@ -163,6 +185,9 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
         model.addAttribute("grade", CodeMap.GRADE);
         model.addAttribute("gender", CodeMap.GENDER);
+        
+        model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
+        model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
         return "/manage/mbr/manage/list";
     }
