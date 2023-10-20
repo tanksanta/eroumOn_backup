@@ -107,11 +107,11 @@
 						<tr>
 							<th scope="row">
 								<p class="flex">
-									<label for="join-item3-3">개인정보<br>유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
+									<label for="join-item3-3">개인정보 유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
 								</p>
 							</th>
 							<td>
-								<div class="form-check-group w-full">
+								<div class="form-radio-group">
 									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
 										<div class="form-check">
 											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
