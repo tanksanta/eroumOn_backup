@@ -29,6 +29,7 @@ import icube.common.util.FileUtil;
 import icube.main.test.biz.MbrTestResultVO;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
+import icube.manage.sysmng.mngr.biz.MngrSession;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -40,6 +41,9 @@ public class MainTestController extends CommonAbstractController {
 
     @Autowired
     private MbrSession mbrSession;
+    
+    @Autowired
+    private MngrSession mngrSession;
     
     @Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
@@ -55,6 +59,9 @@ public class MainTestController extends CommonAbstractController {
     
     @Value("#{props['Mail.Username']}")
 	private String sendMail;
+    
+    @Value("#{props['Globals.EroumCare.PrivateKey']}")
+	private String eroumCarePrivateKey;
     
 	@RequestMapping(value = "{pageName}")
 	public String page(
@@ -259,74 +266,7 @@ public class MainTestController extends CommonAbstractController {
         }
             
         try {
-        	Map<String, Object> paramMap = new HashMap<>();
-        	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-        	paramMap.put("srchRecipientsNo", recipientsNo);
-        	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
-        	
-        	//이메일 폼 로딩
-			String MAIL_FORM_PATH = mailFormFilePath;
-			String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_test_result.html");
-			
-			//등급, 점수, 설명 부분 수정
-			boolean isDementia = srchMbrTestVO.getDiseaseSelect1().startsWith("1") || srchMbrTestVO.getDiseaseSelect2().startsWith("1");
-			String gradeAndScoreTemplete = getGradeAndScoreTemplete(srchMbrTestVO.getGrade(), srchMbrTestVO.getScore(), isDementia);
-			mailForm = mailForm.replace("((gradeAndScoreTemplete))", gradeAndScoreTemplete);
-			
-			//신체기능 부분 수정
-			String physicalSelectTemplete  = getPhysicalSelectTemplete(srchMbrTestVO.getPhysicalSelect());
-			mailForm = mailForm.replace("((physicalSelectTemplete))", physicalSelectTemplete);
-			
-			//인지능력 부분 수정
-			String[] cognitiveQuestions = new String[] {
-				"방금 전에 들었던 이야기나 일을 잊는다.",
-      			"오늘이 몇 년, 몇 월, 몇 일인지 모른다.",
-      			"자신이 있는 장소를 알지 못한다.",
-      			"자신의 나이와 생일을 모른다.",
-      			"지시를 이해하지 못한다.",
-      			"주어진 상황에 대한 판단력이 떨어져 있다.",
-      			"의사소통이나 전달에 장애가 있다."
-			};
-			String cognitiveTemplete = getCheckSelectTemplete(srchMbrTestVO.getCognitiveSelect(), cognitiveQuestions);
-			mailForm = mailForm.replace("((cognitiveTemplete))", cognitiveTemplete);
-			
-			//행동변화 부분 수정
-			String[] behaviorQuestions = new String[] {
-				"사람들이 무엇을 훔쳤다고 믿거나, 자기를 해하려 한다고 잘못 믿고 있다.",
-				"헛것을 보거나 환청을 듣는다.",
-				"슬퍼 보이거나 기분이 처져 있으며 때로 울기도 한다.",
-				"밤에 자다가 일어나 주위 사람을 깨우거나 아침에 너무 일찍 일어난다. 또는 낮에는 지나치게 잠을 자고 밤에는 잠을 이루지 못한다.",
-				"주위사람이 도와주려 할 때 도와주는 것에 저항한다.",
-				"한군데 가만히 있지 못하고 서성거리거나 왔다 갔다 하며 안절부절 못한다.",
-				"길을 잃거나 헤맨 적이 있다. 외출하면 집이나 병원, 시설로 혼자 들어올 수 없다.",
-				"화를 내며 폭언이나 폭행을 하는 등 위협적인 행동을 보인다.",
-				"혼자서 밖으로 나가려고 해서 눈을 뗄 수가 없다.",
-				"물건을 망가뜨리거나 부순다.",
-				"의미 없거나 부적절한 행동을 자주 보인다.",
-				"돈이나 물건을 장롱같이 찾기 어려운 곳에 감춘다.",
-				"옷을 부적절하게 입는다.",
-				"대소변을 벽이나 옷에 바르는 등의 행위를 한다."
-			};
-			String behaviorTemplete = getCheckSelectTemplete(srchMbrTestVO.getBehaviorSelect(), behaviorQuestions);
-			mailForm = mailForm.replace("((behaviorTemplete))", behaviorTemplete);
-			
-			//간호처치 부분 수정
-			String nurseTemplete = getNurseSelectTemplete(srchMbrTestVO.getNurseSelect());
-			mailForm = mailForm.replace("((nurseTemplete))", nurseTemplete);
-			
-			//재활 부분 수정
-			String rehabilitateTemplete  = getRehabilitateSelectTemplete(srchMbrTestVO.getRehabilitateSelect());
-			mailForm = mailForm.replace("((rehabilitateTemplete))", rehabilitateTemplete);
-			
-			//질병 부분 수정
-			String disease1Templete = getDiseaseSelectTemplete(srchMbrTestVO.getDiseaseSelect1());
-			mailForm = mailForm.replace("((disease1Templete))", disease1Templete);
-			String disease2Templete = getDiseaseSelectTemplete(srchMbrTestVO.getDiseaseSelect2());
-			mailForm = mailForm.replace("((disease2Templete))", disease2Templete);
-			
-			//도메인 입력
-			String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
-			mailForm = mailForm.replace("((domain))", host);
+        	String mailForm = getTestResultMailForm(request, recipientsNo);
 			
 			String mailSj = "[이로움ON] 장기요양 인정등급 예상 테스트 결과";
 			String putEml = email;
@@ -340,6 +280,108 @@ public class MainTestController extends CommonAbstractController {
         }
         
         return resultJson.toJSONString();
+    }
+    
+    
+    /**
+     * 이로움케어, 이로움관리자에서 요양테스트 결과 폼을 보기 위한 API (email 폼 사용)
+     */
+    @ResponseBody
+    @RequestMapping(value="/result.html", produces="text/html;charset=UTF-8")
+    public String getTestResultForm(
+    		@RequestParam Integer recipientsNo,
+    		HttpServletRequest request) {
+        
+    	//이로움케어에서 사용하기도 하고 이로움온 관리자에서도 사용함
+    	String eroumApikey = request.getHeader("eroumAPI_Key");
+    	if (eroumCarePrivateKey.equals(eroumApikey)) {
+    	} else if (mngrSession.isLoginCheck()) {
+    	} else {
+    		return "인증도지 않은 접근";
+    	}
+    
+        try {
+        	return getTestResultMailForm(request, recipientsNo);
+        } catch (Exception ex) {
+            log.error("======= 테스트 결과", ex);
+        }
+        return "결과 가져오기 실패";
+    }
+    
+    
+    private String getTestResultMailForm(HttpServletRequest request, Integer recipientsNo) {
+    	Map<String, Object> paramMap = new HashMap<>();
+    	if (EgovStringUtil.isNotEmpty(mbrSession.getUniqueId())) {
+    		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+    	}
+    	paramMap.put("srchRecipientsNo", recipientsNo);
+    	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
+    	
+    	//이메일 폼 로딩
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_test_result.html");
+		
+		//등급, 점수, 설명 부분 수정
+		boolean isDementia = srchMbrTestVO.getDiseaseSelect1().startsWith("1") || srchMbrTestVO.getDiseaseSelect2().startsWith("1");
+		String gradeAndScoreTemplete = getGradeAndScoreTemplete(srchMbrTestVO.getGrade(), srchMbrTestVO.getScore(), isDementia);
+		mailForm = mailForm.replace("((gradeAndScoreTemplete))", gradeAndScoreTemplete);
+		
+		//신체기능 부분 수정
+		String physicalSelectTemplete  = getPhysicalSelectTemplete(srchMbrTestVO.getPhysicalSelect());
+		mailForm = mailForm.replace("((physicalSelectTemplete))", physicalSelectTemplete);
+		
+		//인지능력 부분 수정
+		String[] cognitiveQuestions = new String[] {
+			"방금 전에 들었던 이야기나 일을 잊는다.",
+  			"오늘이 몇 년, 몇 월, 몇 일인지 모른다.",
+  			"자신이 있는 장소를 알지 못한다.",
+  			"자신의 나이와 생일을 모른다.",
+  			"지시를 이해하지 못한다.",
+  			"주어진 상황에 대한 판단력이 떨어져 있다.",
+  			"의사소통이나 전달에 장애가 있다."
+		};
+		String cognitiveTemplete = getCheckSelectTemplete(srchMbrTestVO.getCognitiveSelect(), cognitiveQuestions);
+		mailForm = mailForm.replace("((cognitiveTemplete))", cognitiveTemplete);
+		
+		//행동변화 부분 수정
+		String[] behaviorQuestions = new String[] {
+			"사람들이 무엇을 훔쳤다고 믿거나, 자기를 해하려 한다고 잘못 믿고 있다.",
+			"헛것을 보거나 환청을 듣는다.",
+			"슬퍼 보이거나 기분이 처져 있으며 때로 울기도 한다.",
+			"밤에 자다가 일어나 주위 사람을 깨우거나 아침에 너무 일찍 일어난다. 또는 낮에는 지나치게 잠을 자고 밤에는 잠을 이루지 못한다.",
+			"주위사람이 도와주려 할 때 도와주는 것에 저항한다.",
+			"한군데 가만히 있지 못하고 서성거리거나 왔다 갔다 하며 안절부절 못한다.",
+			"길을 잃거나 헤맨 적이 있다. 외출하면 집이나 병원, 시설로 혼자 들어올 수 없다.",
+			"화를 내며 폭언이나 폭행을 하는 등 위협적인 행동을 보인다.",
+			"혼자서 밖으로 나가려고 해서 눈을 뗄 수가 없다.",
+			"물건을 망가뜨리거나 부순다.",
+			"의미 없거나 부적절한 행동을 자주 보인다.",
+			"돈이나 물건을 장롱같이 찾기 어려운 곳에 감춘다.",
+			"옷을 부적절하게 입는다.",
+			"대소변을 벽이나 옷에 바르는 등의 행위를 한다."
+		};
+		String behaviorTemplete = getCheckSelectTemplete(srchMbrTestVO.getBehaviorSelect(), behaviorQuestions);
+		mailForm = mailForm.replace("((behaviorTemplete))", behaviorTemplete);
+		
+		//간호처치 부분 수정
+		String nurseTemplete = getNurseSelectTemplete(srchMbrTestVO.getNurseSelect());
+		mailForm = mailForm.replace("((nurseTemplete))", nurseTemplete);
+		
+		//재활 부분 수정
+		String rehabilitateTemplete  = getRehabilitateSelectTemplete(srchMbrTestVO.getRehabilitateSelect());
+		mailForm = mailForm.replace("((rehabilitateTemplete))", rehabilitateTemplete);
+		
+		//질병 부분 수정
+		String disease1Templete = getDiseaseSelectTemplete(srchMbrTestVO.getDiseaseSelect1());
+		mailForm = mailForm.replace("((disease1Templete))", disease1Templete);
+		String disease2Templete = getDiseaseSelectTemplete(srchMbrTestVO.getDiseaseSelect2());
+		mailForm = mailForm.replace("((disease2Templete))", disease2Templete);
+		
+		//도메인 입력
+		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		mailForm = mailForm.replace("((domain))", host);
+		
+		return mailForm;
     }
     
     @SuppressWarnings("unchecked")
