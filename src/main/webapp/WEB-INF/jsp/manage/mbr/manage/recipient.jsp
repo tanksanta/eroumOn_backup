@@ -185,9 +185,9 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row">테스트결과저장여부</th>
+						<th scope="row">해당 수급자 삭제</th>
 						<td>
-							<button type="button" class="btn shadow">해당 수급자 삭제</button>
+							<button type="button" class="btn shadow" id="deleteRecipient">해당 수급자 삭제</button>
 						</td>
 					</tr>
 				</tbody>
@@ -257,15 +257,15 @@
 			}
 		})
 		.fail(function(data, status, err) {
-			alert('서버와 연결이 좋지 않습니다.');
+			alert('서버와 연결이 좋지 않습니다');
 		});
 	}
 
 	
 	//수급자 선택 이벤트
 	function changeRecipient() {
-		var RecipientNo = $('input[name=radioRecipient]:checked').val();
-		getRecipientInfo(Number(RecipientNo));
+		var recipientNo = $('input[name=radioRecipient]:checked').val();
+		getRecipientInfo(Number(recipientNo));
 	}
 	
 	
@@ -275,6 +275,38 @@
 		if (firstRecipientNo) {
 			getRecipientInfo(Number(firstRecipientNo));
 		}
+		
+		
+		//수급자 삭제
+		$('#deleteRecipient').click(function() {
+			var recipientNo = $('input[name=radioRecipient]:checked').val();
+			if (!recipientNo) {
+				alert('수급자를 선택하세요');
+				return;
+			}
+			
+			if (confirm('해당 수급자를 삭제하시겠습니까?')) {
+				$.ajax({
+					type : "post",
+					url  : "/_mng/mbr/recipients/remove.json",
+					data : {
+						recipientsNo: Number(recipientNo)
+					},
+					dataType : 'json'
+				})
+				.done(function(data) {
+					if(data.success) {
+						alert('수급자 삭제가 완료되었습니다');
+						location.reload();
+					}else{
+						alert(data.msg);
+					}
+				})
+				.fail(function(data, status, err) {
+					alert('서버와 연결이 좋지 않습니다');
+				});
+			}
+		});
 	});
 </script>
 

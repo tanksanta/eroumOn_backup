@@ -119,7 +119,7 @@
 						<td colspan="2">
 							<div class="flex flex-wrap -mx-2">
 								<div class="form-group px-2 my-1 mr-auto">
-									<label for="member-item2-1" class="pr-1">SMS 수신</label>
+									<label for="member-item2-1" class="pr-1">문자 수신</label>
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input choiceVal" name="smsRcptnYn" id="smsRcptnYn" value="${mbrVO.smsRcptnYn}" <c:if test="${mbrVO.smsRcptnYn eq 'Y' }">checked="checked"</c:if>> <label class="form-check-label" for="smsRcptnYn"></label>
 									</div>
