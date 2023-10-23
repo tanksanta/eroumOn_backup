@@ -11,10 +11,12 @@
 @import "../../../../core/style/modal.css";
 @import "../../../../core/style/offcanvas.css";
 @import "../../../../core/style/pagination.css";
+@import "../../../../core/style/icons.css";
+/* @import "../../../../core/style/table.css"; */
 
 @import "../../../market/assets/style/component/table.css";
 @import "../../../market/assets/style/component/form.css";
-@import "../../../market/assets/style/component/modal.css";
+/* @import "../../../market/assets/style/component/modal.css"; */
 @import "../../../market/assets/style/component/label.css";
 @import "../../../market/assets/style/component/list.css";
 @import "../../../market/assets/style/component/button.css";
@@ -22,6 +24,9 @@
 @import "../../../market/assets/style/component/text.css";
 @import "../../../market/assets/style/component/pagination.css";
 @import "../../../market/assets/style/component/tabs.css";
+
+@import "../../../index/assets/style/content.css";
+
 
 @import "layout.css";
 @import "common.css";

@@ -52,4 +52,8 @@
   .btn-toggle-box {
     @apply  flex justify-between items-center;
   }
+  .btn-rounded {
+    @apply flex items-center justify-center w-25 h-25 rounded-full bg-white shadow-lg;
+
+  }
 }

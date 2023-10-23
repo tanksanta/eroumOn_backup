@@ -1,6 +1,7 @@
 @layer components {
   .table-list,
-  .table-detail {
+  .table-detail,
+  .table-view {
     @apply table-fixed -mx-1.5 w-[calc(100%_+_0.75rem)] border-separate border-spacing-1.5 leading-tight;
     & th,
     & td {
@@ -83,4 +84,45 @@
       @apply absolute w-[calc(100%-8.375rem)]  h-1 bottom-0 right-0 rounded-full bg-gray2;
     }
   }
+
+  .table-view {
+    @apply table leading-tight;
+    & th, & td {
+        @apply py-3 border-0 border-b  border-gray2;
+    }
+    & td {
+        & .table-detail {
+            & th, & td {
+                @apply !border-y-1;
+            }
+        }
+    }
+
+    & .subject {
+        @apply block text-left overflow-hidden whitespace-nowrap text-ellipsis;
+        & img {
+            @apply float-left mr-2 mt-1;
+        }
+    }
+    & .noresult {
+        @apply bg-neutral-100 py-7.5;
+    }
+    & .border-right {
+        @apply border-r border-r-gray2;
+    }
+    & .total {
+        & th, & td {
+            @apply bg-neutral-100;
+        }
+    }
+
+    &.bg-title {
+      & th {
+        @apply bg-neutral-100 rounded-md border-b-0 text-gray6 text-left font-normal px-2;
+      }
+    }
+  }
+
+  
+
 }

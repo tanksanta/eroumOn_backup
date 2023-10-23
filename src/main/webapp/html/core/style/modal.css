@@ -32,25 +32,26 @@
     }
 
     &.modal-default {
-      @apply w-full w-[calc(100%_-_2rem)] sm:w-auto h-auto rounded-3xl;
+      @apply w-[calc(100%_-_2rem)] sm:w-auto h-auto rounded-3xl;
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
       & .modal-dialog {
+        @apply  m-0;
         min-height: inherit;
       }
       & .modal-content {
         @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11;
       }
       & .modal-header {
-        @apply justify-between p-0;
+        @apply justify-between text-black bg-transparent p-0;
         & .btn-close {
           font-size:0;
           @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
         & .text-title {
-          @apply text-lg font-medium text-left;
+          @apply text-2xl font-bold text-left;
         }
       }
       & .modal-body {
@@ -87,7 +88,27 @@
         }
       }
       & .modal-footer {
-        @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5;
+        @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5;
+        &>:not([hidden])~:not([hidden]) {
+          @apply m-0;
+        }
+      }
+    }
+
+    &.modal-scrolled {
+      & .modal-header {
+        @apply justify-between bg-transparent text-black p-0;
+        & .btn-close {
+          font-size:0;
+          @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
+        }
+        & .text-title {
+          @apply text-2xl font-bold text-left;
+        }
+      }
+      & .modal-content {
+        @apply p-5 sm:pt-7 sm:px-7 sm:pb-11;
       }
     }
   }

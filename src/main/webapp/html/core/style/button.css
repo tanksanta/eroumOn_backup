@@ -46,6 +46,13 @@
                focus:bg-gray4
                active:bg-black1;
     }
+
+    .btn-text-primary {
+        @apply text-black2 
+               hover:text-black1 hover:underline hover:underline-offset-1
+               focus:text-black1
+               active:text-black1;
+    }
     
     .btn-outline-primary {
         @apply text-black
@@ -163,4 +170,9 @@
                active:!border-gray1 active:!bg-white active:!text-black2
                before:bg-[url(/html/core/images/ico-eroum.png)];
     }
+
+    .btn-white {
+        @apply flex items-center justify-center bg-white border-0 text-black h-12 px-6;
+    }
+    
 }
