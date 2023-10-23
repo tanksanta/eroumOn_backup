@@ -8,7 +8,7 @@
 	String header = request.getHeader("User-Agent");
 
 	// 엑셀 파일명 설정
-	String fileName = "가입경로_"+EgovDateUtil.getCurrentDateAsString();
+	String fileName = "회원등급_"+EgovDateUtil.getCurrentDateAsString();
 	try {
 		fileName = URLEncoder.encode(fileName.toString(), "UTF-8").replaceAll("\\+", "%20");
 	} catch (UnsupportedEncodingException e) {
@@ -177,7 +177,7 @@
 								"${grade.key}" : "${grade.value}",
 							</c:forEach>
 						}
-							var arrGrade = ['P','V','G','S','R'];
+							var arrGrade = ['E','B','S','N','R'];
 							var lengths = $(".grades").length;
 
 						$(function(){

@@ -1,11 +1,17 @@
 package icube.manage.mbr.mbr;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -30,6 +36,7 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.util.RandomUtil;
@@ -44,6 +51,7 @@ import icube.manage.consult.biz.GdsReviewService;
 import icube.manage.consult.biz.GdsReviewVO;
 import icube.manage.consult.biz.MbrInqryService;
 import icube.manage.consult.biz.MbrInqryVO;
+import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
@@ -809,39 +817,71 @@ public class MMbrController extends CommonAbstractController {
     }
 
     @RequestMapping("excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-         String[] grade = new String[5];
-         boolean result = false;
+		String[] grade = new String[5];
+		boolean result = false;
 
-         for(int i=0; i < 5; i++) {
-         	if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchGrade"+i))) {
-         		grade[i] = ((String)reqMap.get("srchGrade"+i));
-         	}
-         }
+		for(int i=0; i < 5; i++) {
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchGrade"+i))) {
+				grade[i] = ((String)reqMap.get("srchGrade"+i));
+		 	}
+		 }
 
-         for(int h=0; h < 5; h++) {
-         	if(EgovStringUtil.isNotEmpty(grade[h])) {
-         		result = true;
-         	}
-         }
+		 for(int h=0; h < 5; h++) {
+		 	if(EgovStringUtil.isNotEmpty(grade[h])) {
+		 		result = true;
+		 	}
+		 }
 
-         if(result) {
-         	reqMap.put("srchGrade", grade);
-         }
+        if(result) {
+        	reqMap.put("srchGrade", grade);
+        }
 
-         List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+        List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
 
-         model.addAttribute("mbrList", mbrList);
-         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
-         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
-         model.addAttribute("grade", CodeMap.GRADE);
-         model.addAttribute("gender", CodeMap.GENDER);
 
-         return "/manage/mbr/manage/excel";
+        // excel data
+        Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+        mapping.put("번호", obj -> "rowNum");
+        mapping.put("아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
+        mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrVO)obj).getGender()));
+        mapping.put("생년월일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getBrdt()));
+        mapping.put("회원분류(회원등급)", obj -> {
+        	String recipterYn = CodeMap.RECIPTER_YN.get(((MbrVO)obj).getRecipterYn());
+        	String mbrGrade = CodeMap.GRADE.get(((MbrVO)obj).getMberGrade());
+        	return recipterYn + "(" + mbrGrade + ")";
+        });
+        mapping.put("가입일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getJoinDt()));
+        mapping.put("가입매체", obj -> ((MbrVO)obj).getJoinCours());
+
+
+        List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+
+
+        for (MbrVO mbrVO : mbrList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(mbrVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "회원목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
+
 	}
 
     @RequestMapping(value = "{uniqueId}/chgGrade.json")

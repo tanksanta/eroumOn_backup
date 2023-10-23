@@ -1,11 +1,17 @@
 package icube.manage.promotion.mlg;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +23,7 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.util.ExcelExporter;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -24,6 +31,7 @@ import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.mlg.biz.MlgMngService;
 import icube.manage.promotion.mlg.biz.MlgMngVO;
+import icube.manage.promotion.point.biz.PointMngVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -75,18 +83,45 @@ public class MMlgMngController extends CommonAbstractController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="mlgExcel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> paramMap
 			, Model model) throws Exception{
 
 		List<MlgMngVO> itemList = mlgMngService.selectMlgMngListAll(paramMap);
 
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("pointSeCode", CodeMap.POINT_SE);
-		model.addAttribute("pointCnCode", CodeMap.POINT_CN);
+		// excel data
+        Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+        mapping.put("번호", obj -> "rowNum");
+        mapping.put("구분", obj -> "A".equals(((MlgMngVO)obj).getMlgSe())?"적립":"차감");
+        mapping.put("내역", obj -> CodeMap.POINT_CN.get(((MlgMngVO)obj).getMlgCn()));
+        mapping.put("관리자 메모", obj -> ((MlgMngVO)obj).getMngrMemo());
+        mapping.put("개별 마일리지", obj -> String.format("%,d", ((MlgMngVO)obj).getMlg()));
+        mapping.put("대상 인원수", obj -> String.format("%,d", ((MlgMngVO)obj).getTargetCnt()));
+        mapping.put("총 마일리지", obj -> String.format("%,d", ((MlgMngVO)obj).getTargetCnt() * ((MlgMngVO)obj).getMlg()) );
+        mapping.put("처리자", obj -> ((MlgMngVO)obj).getRgtr() + "(" + ((MlgMngVO)obj).getRegId() + ")");
+        mapping.put("처리일", obj -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MlgMngVO)obj).getRegDt()));
 
-		return "/manage/promotion/mlg/include/mlg_excel";
+
+        List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+        for (MlgMngVO mlgMngVO : itemList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(mlgMngVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "마일리지_목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
 	}
 
 	/**

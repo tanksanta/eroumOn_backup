@@ -3,14 +3,20 @@
  */
 package icube.manage.consult;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +33,7 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -100,12 +107,12 @@ public class MMbrConsltController extends CommonAbstractController{
 				mbrConsltResultVO.setReconsltResn(HtmlUtil.enterToBr(mbrConsltResultVO.getReconsltResn()));
 			}
 		}
-		
+
 		//상담기록 및 진행상태 변경 내역
-		List<ConsltHistory> historyList = new ArrayList<>(); 
+		List<ConsltHistory> historyList = new ArrayList<>();
 		paramMap = new HashMap<String, Object>();
 		paramMap.put("srchConsltNo", consltNo);
-		
+
 		List<MbrConsltMemoVO> memoList = mbrConsltService.selectMbrConsltMemo(paramMap);
 		for(MbrConsltMemoVO memoVO : memoList) {
 			ConsltHistory ConsltHistory = new ConsltHistory();
@@ -115,12 +122,12 @@ public class MMbrConsltController extends CommonAbstractController{
 			ConsltHistory.setContent(memoVO.getMngMemo());
 			historyList.add(ConsltHistory);
 		}
-		
+
 		List<MbrConsltChgHistVO> chgHistList =  mbrConsltService.selectMbrConsltChgHist(paramMap);
 		for(MbrConsltChgHistVO chgHistVO : chgHistList) {
 			ConsltHistory ConsltHistory = new ConsltHistory();
 			ConsltHistory.setRegDt(chgHistVO.getRegDt());
-			ConsltHistory.setName(EgovStringUtil.isNotEmpty(chgHistVO.getMbrNm()) ? chgHistVO.getMbrNm() 
+			ConsltHistory.setName(EgovStringUtil.isNotEmpty(chgHistVO.getMbrNm()) ? chgHistVO.getMbrNm()
 					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrNm()) ? chgHistVO.getMngrNm()
 					: chgHistVO.getBplcNm());
 			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
@@ -129,9 +136,9 @@ public class MMbrConsltController extends CommonAbstractController{
 			ConsltHistory.setContent("상태변경: [" + chgHistVO.getResn() + "]");
 			historyList.add(ConsltHistory);
 		}
-		
+
 		Collections.sort(historyList, Collections.reverseOrder());
-		
+
 		String historyText = "";
 		for(int i = 0; i < historyList.size(); i++) {
 			ConsltHistory hist = historyList.get(i);
@@ -185,14 +192,14 @@ public class MMbrConsltController extends CommonAbstractController{
 			}
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
-			
-			
+
+
 			//1:1 상담 배정 이력 추가
 			Map<String, Object> srchMap = new HashMap<>();
 			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
 			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
 			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
-			
+
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(mbrConsltVO.getConsltNo());
 			mbrConsltChgHistVO.setConsltSttusChg(mbrConsltVO.getConsltSttus());
@@ -241,12 +248,12 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		if(resultCnt > 0) {
 			result = true;
-			
+
 			//1:1 관리자 상담 취소 이력 저장
 			Map<String, Object> srchMap = new HashMap<String, Object>();
 			srchMap.put("srchConsltNo", consltNo);
 			MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
-			
+
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(consltNo);
 			mbrConsltChgHistVO.setConsltSttusChg("CS09");
@@ -267,7 +274,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		resultMap.put("result", result);
 		return resultMap;
 	}
-	
+
 	// 상담기록(관리자 메모) 저장
 	@RequestMapping(value = "saveMemo.json")
 	@ResponseBody
@@ -282,7 +289,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltNo", consltNo);
 		paramMap.put("mngMemo", mngMemo);
-		
+
 		//상담의 메모 컬럼만 변경
 		int resultCnt = mbrConsltService.updateMngMemo(paramMap);
 
@@ -293,9 +300,9 @@ public class MMbrConsltController extends CommonAbstractController{
 		newMemoVO.setMngrUniqueId(mngrSession.getUniqueId());
 		newMemoVO.setMngrId(mngrSession.getMngrId());
 		newMemoVO.setMngrNm(mngrSession.getMngrNm());
-		
+
 		resultCnt += mbrConsltService.insertMbrConsltMemo(newMemoVO);
-		
+
 		if(resultCnt > 1) {
 			result = true;
 		}
@@ -313,14 +320,14 @@ public class MMbrConsltController extends CommonAbstractController{
 		, @RequestParam(value = "changedSttus", required=true) String changedSttus  //변경할 상태
 		, HttpServletRequest request
 		) throws Exception {
-		
+
 		boolean result = false;
-		
+
 		//가장 최신에 매칭된 사업소 조회
 		Map<String, Object> srchMap = new HashMap<String, Object>();
 		srchMap.put("srchConsltNo", consltNo);
 		MbrConsltResultVO mbrConsltResultVO = mbrConsltResultService.selectMbrConsltBplc(srchMap);
-		
+
 		//상태 변경
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltSttus", changedSttus);
@@ -333,13 +340,13 @@ public class MMbrConsltController extends CommonAbstractController{
 			paramMap.put("bplcConsltNo", mbrConsltResultVO.getBplcConsltNo());
 			resultCnt = mbrConsltResultService.updateSttus(paramMap);
 		}
-		
-		
+
+
 		if(resultCnt > 0) {
 			result = true;
-			
+
 			//상담 변경 이력 저장
-			String resn = "CS01".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("접수") 
+			String resn = "CS01".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("접수")
 					: "CS02".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정")
 					: "CS03".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소")
 					: "CS04".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소")
@@ -348,7 +355,7 @@ public class MMbrConsltController extends CommonAbstractController{
 					: "CS07".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재접수")
 					: "CS08".equals(changedSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정")
 					: CodeMap.CONSLT_STTUS_CHG_RESN.get("THKC 취소");
-			
+
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
 			mbrConsltChgHistVO.setConsltNo(consltNo);
 			mbrConsltChgHistVO.setConsltSttusChg(changedSttus);
@@ -364,12 +371,12 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		}
-		
+
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
 	}
-	
+
 
 	@RequestMapping(value = "delConslt.json")
 	@ResponseBody
@@ -400,10 +407,22 @@ public class MMbrConsltController extends CommonAbstractController{
 		return resultMap;
 	}
 
+	public static final Map<String, String> CONSLT_STTUS_MAP = new HashMap<String, String>() {{
+	    put("CS01", "상담 신청 접수");
+	    put("CS02", "장기요양기관 배정 완료");
+	    put("CS03", "상담 취소 (신청자 상담거부)");
+	    put("CS04", "상담 취소 (장기요양기관 상담거부)");
+	    put("CS05", "상담 진행 중");
+	    put("CS06", "상담 완료");
+	    put("CS07", "재상담 신청 접수");
+	    put("CS08", "장기요양기관 재배정 완료");
+	}};
+
 
 	@RequestMapping("excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
@@ -418,9 +437,75 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltVO.setAge(DateUtil.getRealAge(yyyy, mm, dd));
 		}
 
+		// excel data
+        Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+        mapping.put("번호", obj -> "rowNum");
+        mapping.put("상담진행상태", obj -> {
+        	 String consltSttus = ((MbrConsltVO) obj).getConsltSttus();
+        	 return CONSLT_STTUS_MAP.getOrDefault(consltSttus, "");
+        });
+        mapping.put("사업소배정", obj -> {
+        	String rtnStr = "";
+        	if(!"CS01".equals( ((MbrConsltVO)obj).getConsltSttus()) ) {
+        		int i = 1;
+        		for(MbrConsltResultVO mbrConsltResultVO : ((MbrConsltVO)obj).getConsltResultList()) {
+        			Date regDt = mbrConsltResultVO.getRegDt();
+        			if(regDt == null) {
+        				rtnStr += i++ + "차 : " + mbrConsltResultVO.getBplcNm() + "\n";
+        			}else {
+        				rtnStr += i++ + "차 : " + mbrConsltResultVO.getBplcNm() + "(" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(mbrConsltResultVO.getRegDt()) + ")\n";
+        			}
+        		}
+        	}
+        	if("CS01".equals( ((MbrConsltVO)obj).getConsltSttus()) || EgovStringUtil.isEmpty(((MbrConsltVO)obj).getConsltSttus()) ) {
+        		rtnStr = "-";
+        	}
+        	return rtnStr;
+        });
+
+        mapping.put("성명", obj -> ((MbrConsltVO)obj).getMbrNm());
+        mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrConsltVO)obj).getGender()));
+        mapping.put("연락처", obj -> ((MbrConsltVO)obj).getMbrTelno());
+        mapping.put("만나이", obj -> "만 " + ((MbrConsltVO)obj).getAge() + " 세");
+        mapping.put("생년월일", obj -> ((MbrConsltVO)obj).getBrdt());
+		mapping.put("거주지주소", obj -> ((MbrConsltVO) obj).getZip() + " "
+				+ ((MbrConsltVO) obj).getAddr() + " " + ((MbrConsltVO) obj).getDaddr());
+        mapping.put("상담신청일", obj -> {
+        	String rtnStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MbrConsltVO)obj).getRegDt());
+        	if(((MbrConsltVO)obj).getConsltSttus().equals("CS07") || ((MbrConsltVO)obj).getConsltSttus().equals("CS08")) {
+        		Date reConsltDt = ((MbrConsltVO)obj).getReConsltDt();
+        		if (reConsltDt == null) {
+        	    }else {
+        	    	rtnStr += "\n" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(reConsltDt);;
+        	    }
+        	}
+        	return rtnStr;
+        });
+
+
+        List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+        for (MbrConsltVO mbrConsltVO : resultList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(mbrConsltVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "장기요양테스트_상담목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
+
+
 		model.addAttribute("resultList", resultList);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 
-		return "/manage/consult/recipter/excel";
+		//return "/manage/consult/recipter/excel";
 	}
 }
