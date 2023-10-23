@@ -240,8 +240,10 @@
                                     </tr>
 
                                     <%--<c:if test="${ordrDtl.sttsTy ne 'CA02'}"> --%> <%-- 취소완료일때 미적용 --%>
-                                    	<%-- 배송비 + 추가배송비 --%>
-	                                    <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + ordrDtl.dlvyBassAmt + ordrDtl.dlvyAditAmt}" />
+                                    	<%-- 배송비 --%>
+	                                    <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + ordrDtl.dlvyBassAmt }" />
+	                                    <%-- 추가배송비 --%>
+	                                    <c:set var="totalDlvyAditAmt" value="${totalDlvyAditAmt + ordrDtl.dlvyAditAmt}" />
 	                                    <%-- 쿠폰금액 --%>
 	                                    <c:set var="totalCouponAmt" value="${totalCouponAmt + ordrDtl.couponAmt}" />
 	                                    <%-- 적립예정마일리지 --%>
@@ -436,7 +438,7 @@
                                         	<%-- 마일리지 + 포인트 + 쿠폰할인가 --%>
                                         	<strong><fmt:formatNumber value="${ordrVO.useMlg + ordrVO.usePoint + totalCouponAmt}" pattern="###,###" /></strong>
                                         </td>
-                                        <td><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###"  /></td>
+                                        <td><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###"  /><br>(<fmt:formatNumber value="${totalDlvyAditAmt}" pattern="###,###"  />)</td>
                                         <td><strong><fmt:formatNumber value="${ordrVO.stlmAmt}" pattern="###,###" /></strong></td>
                                         <td><fmt:formatNumber value="${totalAccmlMlg}" pattern="###,###" /></td>
                                     </tr>
@@ -735,7 +737,7 @@
             	});
 
             	// 택배사+송장번호 저장 -> 배송중 변경
-            	// 배송완료 -> 배송중 추가 
+            	// 배송완료 -> 배송중 추가
             	$(".f_dlvyCo_save").on("click", function(e){
             		e.preventDefault();
             		var obj = $(this);
@@ -743,7 +745,7 @@
             		var dtlCd = $(this).data("dtlCd");
             		var dlvyCo = $("#dlvyCo_" + dtlNo).val();
             		var dlvyInvcNo = $("#dlvyInvcNo_" + dtlNo).val();
-            		
+
             		//ajax 전송용 객체
             		var payload = {
            				ordrNo:'${ordrVO.ordrNo}'
@@ -757,7 +759,7 @@
             		if (dlvyInvcNo) {
             			payload.dlvyInvcNo = dlvyInvcNo;
             		}
-            		
+
             		obj.removeClass('btn-primary').addClass('btn').html('<i class="ico-loader"></i>');
             		$.ajax({
         				type : "post",
@@ -863,22 +865,22 @@
             			});
             		}
             	});
-            	
+
             	// 배송중(OR07) > 배송준비중(OR06)
             	$(".f_dlvy_preparing").on("click", function(e){
             		e.preventDefault();
             		var dtlCd = $(this).data("dtlCd");
             		var dtlNo = $(this).data("dtlNo");
-            		
+
             		if (!dtlCd || !dtlNo) {
             			alert("배송중을 취소할 상품을 선택하세요.");
             		}
-            		
+
             		if(!confirm("배송중을 취소합니다. \n[배송중 > 배송준비중]")) {
         				return;
         			}
-            		
-            		
+
+
             		$.ajax({
         				type : "post",
         				url  : "/_mng/ordr/dlvyPreparing.json", //주문확인
@@ -1077,7 +1079,7 @@
 		       			});
 					}
 				});
-	         	
+
 	         	// 구매확정 취소 처리
 	         	$(".f_cancel_ordr_done").on("click", function(e){
 					e.preventDefault();

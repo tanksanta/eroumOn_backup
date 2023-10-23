@@ -97,12 +97,12 @@
 					<c:set var="sumEtotal" value="0" />
 
 				<c:forEach var="result" items="${resultList}">
-					<c:set var="sumNjoin" value="${sumTotal + result.njoin}" />
-					<c:set var="sumNexit" value="${sumMnChild +result.nexit}" />
-					<c:set var="sumRjoin" value="${sumMnTwenty + result.rjoin}" />
-					<c:set var="sumRexit" value="${sumMnThirty + result.rexit}" />
-					<c:set var="sumJtotal" value="${sumMnForty + result.jtotal}" />
-					<c:set var="sumEtotal" value="${sumMnFifty + result.etotal}" />
+					<c:set var="sumNjoin" value="${sumNjoin + result.njoin}" />
+					<c:set var="sumNexit" value="${sumNexit +result.nexit}" />
+					<c:set var="sumRjoin" value="${sumRjoin + result.rjoin}" />
+					<c:set var="sumRexit" value="${sumRexit + result.rexit}" />
+					<c:set var="sumJtotal" value="${sumJtotal + result.jtotal}" />
+					<c:set var="sumEtotal" value="${sumEtotal + result.etotal}" />
 					<tr>
 						<c:if test="${fn:length(result.date) eq 10 }"><fmt:parseDate value="${fn:replace(result.date,'-','')}" var="fmtDate" pattern="yyyyMMdd" /></c:if>
 						<c:if test="${fn:length(result.date) eq 7 }"><fmt:parseDate value="${fn:replace(result.date,'-','')}" var="fmtDate" pattern="yyyyMM" /></c:if>

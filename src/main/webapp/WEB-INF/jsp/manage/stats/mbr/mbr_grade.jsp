@@ -217,7 +217,7 @@ const gradeCode = {
 	</c:forEach>
 }
 $(function(){
-	var arrGrade = ['P','V','G','S','R'];
+	var arrGrade = ['E','B','S','N','R'];
 	var lengths = $(".grades").length;
 
 	//default

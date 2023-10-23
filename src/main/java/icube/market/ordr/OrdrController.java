@@ -50,6 +50,7 @@ import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
+import icube.market.ordr.biz.DlvyCtAditRgnService;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -105,12 +106,15 @@ public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
-	
-	@Value("#{props['Globals.Membership.path']}")
-	private String membershipPath;
+
+	@Resource(name = "dlvyCtAditRgnService")
+	private DlvyCtAditRgnService dlvyCtAditRgnService;
 
 	@Value("#{props['Globals.Market.path']}")
 	private String marketPath;
+
+	@Value("#{props['Globals.Membership.path']}")
+	private String membershipPath;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -144,7 +148,7 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// STEP.2 주문코드 생성 (O 2 1014 1041 00 000)
@@ -227,7 +231,7 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		// STEP.2 장바구니 호출
@@ -328,7 +332,7 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			javaScript.setLocation("/" + marketPath + "/login");
+			javaScript.setLocation("/" + membershipPath + "/login");
 			return new JavaScriptView(javaScript);
 		}
 
@@ -375,7 +379,7 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
@@ -422,7 +426,6 @@ public class OrdrController extends CommonAbstractController{
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
 			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
-		    
 			return "redirect:/" + membershipPath + "/login";
 		}
 
@@ -434,7 +437,26 @@ public class OrdrController extends CommonAbstractController{
 		//입점업체 정보
 		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<>());
-		
+
+
+		// 기본주소 call
+		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
+		if (bassDlvyVO != null) {
+		} else {
+			bassDlvyVO = new DlvyVO();
+			bassDlvyVO.setNm(mbrSession.getMbrNm());
+			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
+			bassDlvyVO.setTelno(mbrSession.getTelno());
+			bassDlvyVO.setZip(mbrSession.getZip());
+			bassDlvyVO.setAddr(mbrSession.getAddr());
+			bassDlvyVO.setDaddr(mbrSession.getDaddr());
+		}
+		model.addAttribute("bassDlvyVO", bassDlvyVO);
+
+		// 도서산간지역 배송지역 체크
+		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
+		log.debug("@@ 도서산간지역 체크: " + aditCt);
+
 		// STEP.3 주문 상세 정보
 		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
 		String[] spGdsNo = gdsNo.split(",");
@@ -462,15 +484,24 @@ public class OrdrController extends CommonAbstractController{
 
 			// 상품 정보
 			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(spGdsNo[i].trim()));
+			// 산간지역 체크
+			if(aditCt>0) {
+				gdsVO.setDlvyAditAmt(aditCt); //도서산간 배송비
+			}else {
+				gdsVO.setDlvyAditAmt(0); //0원
+			}
+
 			ordrDtlVO.setGdsInfo(gdsVO);
 
-			//묶음 배송 처리
+			// 20231016 : 상품에서 주문으로 바로 넘어온 경우에는 묶음 배송상태가 없음.
+			// 묶음 배송 처리
 			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
 			if (entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
 				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
 
                 //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
-				int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt()
                 if (checkDlvyCy != dlvyBaseCt) {
                 }
                 //묶음상품이여도 최초에 한번 배송비 부과
@@ -483,7 +514,7 @@ public class OrdrController extends CommonAbstractController{
                 	gdsVO.setDlvyAditAmt(0);
                 }
 			}
-			
+
 			ordrDtlList.add(ordrDtlVO);
 		}
 		model.addAttribute("ordrDtlList", ordrDtlList);
@@ -492,26 +523,13 @@ public class OrdrController extends CommonAbstractController{
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("ordrVO", ordrVO);
 
-		// 기본주소 call
-		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
-		if (bassDlvyVO != null) {
-		} else {
-			bassDlvyVO = new DlvyVO();
-			bassDlvyVO.setNm(mbrSession.getMbrNm());
-			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
-			bassDlvyVO.setTelno(mbrSession.getTelno());
-			bassDlvyVO.setZip(mbrSession.getZip());
-			bassDlvyVO.setAddr(mbrSession.getAddr());
-			bassDlvyVO.setDaddr(mbrSession.getDaddr());
-		}
-		model.addAttribute("bassDlvyVO", bassDlvyVO);
 
 		//쿠폰, 마일리지, 포인트 정보
 		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
 		model.addAttribute("remindPoint", mbrEtcInfoMap.get("totalPoint"));
 		model.addAttribute("remindMlg", mbrEtcInfoMap.get("totalMlg"));
-		
+
 		return "/market/ordr/ordr_pay";
 	}
 
@@ -533,7 +551,6 @@ public class OrdrController extends CommonAbstractController{
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
 			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
-		    
 			return "redirect:/" + membershipPath + "/login";
 		}
 
@@ -548,6 +565,24 @@ public class OrdrController extends CommonAbstractController{
 		paramMap.clear();
 		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
+
+		// 기본주소 call
+		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
+		if (bassDlvyVO != null) {
+		} else {
+			bassDlvyVO = new DlvyVO();
+			bassDlvyVO.setNm(mbrSession.getMbrNm());
+			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
+			bassDlvyVO.setTelno(mbrSession.getTelno());
+			bassDlvyVO.setZip(mbrSession.getZip());
+			bassDlvyVO.setAddr(mbrSession.getAddr());
+			bassDlvyVO.setDaddr(mbrSession.getDaddr());
+		}
+		model.addAttribute("bassDlvyVO", bassDlvyVO);
+
+		// 도서산간지역 배송지역 체크
+		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
+		log.debug("@@ 도서산간지역 체크: " + aditCt);
 
 		// STEP.3-1 주문코드 생성 (O 22 1014 1041 00 000)
 		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
@@ -578,16 +613,23 @@ public class OrdrController extends CommonAbstractController{
 
 			// 상품 정보
 			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
+			// 산간지역 체크
+			if(aditCt>0) {
+				gdsVO.setDlvyAditAmt(aditCt); //도서산간 배송비
+			}else {
+				gdsVO.setDlvyAditAmt(0); //0원
+			}
 			ordrDtlVO.setGdsInfo(gdsVO);
 
-
+			// 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
 			//묶음 배송 처리
 			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
 			if (entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
 				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
 
                 //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
-				int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt();
                 if (checkDlvyCy != dlvyBaseCt) {
                 }
                 //묶음상품이여도 최초에 한번 배송비 부과
@@ -616,20 +658,8 @@ public class OrdrController extends CommonAbstractController{
 		model.addAttribute("ordrVO", ordrVO);
 		model.addAttribute("cartGrpNos", cartGrpNos);
 
-		// 기본주소 call
-		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
-		if (bassDlvyVO != null) {
-		} else {
-			bassDlvyVO = new DlvyVO();
-			bassDlvyVO.setNm(mbrSession.getMbrNm());
-			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
-			bassDlvyVO.setTelno(mbrSession.getTelno());
-			bassDlvyVO.setZip(mbrSession.getZip());
-			bassDlvyVO.setAddr(mbrSession.getAddr());
-			bassDlvyVO.setDaddr(mbrSession.getDaddr());
-		}
-		model.addAttribute("bassDlvyVO", bassDlvyVO);
-		
+
+
 		//쿠폰, 마일리지, 포인트 정보
 		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
@@ -663,7 +693,6 @@ public class OrdrController extends CommonAbstractController{
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
 			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
-		    
 			return "redirect:/" + membershipPath + "/login";
 		}
 
@@ -700,7 +729,7 @@ public class OrdrController extends CommonAbstractController{
 
 		// STEP.1 로그인 체크
 		if (!mbrSession.isLoginCheck()) {
-			return "redirect:/" + marketPath + "/login";
+			return "redirect:/" + membershipPath + "/login";
 		}
 
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);

@@ -319,11 +319,11 @@
                                 		${resultList.gdsCd}
                                 	</a>
                                 </td>
-                                
+
                                 <td>
                                 	${resultList.entrpsNm}
                                 </td>
-                                
+
                                 <td class="text-left">
                                 	<c:if test="${resultList.ordrOptnTy eq 'ADIT' }"><%--추가상품--%>
                                     <i class="ico-reply"></i>
@@ -543,8 +543,16 @@
                 	});
 
                 	$(".btn-excel").on("click", function(){
+                		<c:if test="${empty param.srchSttsTy}">
+                		$("#srchSttsTy").val("");
+                		</c:if>
 	            		$("#searchFrm").attr("action","excel").submit();
-	            		$("#searchFrm").attr("action","list");
+	            		setTimeout(function() {
+		            		$("#searchFrm").attr("action","list");
+		            		<c:if test="${empty param.srchSttsTy}">
+		            		$("#srchSttsTy").prop("selectedIndex", 0);
+		            		</c:if>
+	            		}, 100); // 100 밀리초 지연
 	            	});
 
                 	// rowspan

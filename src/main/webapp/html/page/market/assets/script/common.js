@@ -62,7 +62,7 @@ $(function() {
 		var navHeight = ($(window).outerWidth() > 1040) ? $(window).width() * 0.2604166666666667 : $(window).height() - ($('#navigation').height() + $('#navigation').get(0).getClientRects()[0].y + 1);
 
 		$('.allmenu-list').height(navHeight).find('[class*="allmenu-group"]').height(navHeight);
-		
+
 		if($(window).outerWidth() < 1041) {
 			$('[class*="allmenu-group"]').height(navHeight - 46);
 			if($(this).hasClass('is-active')) {
@@ -193,7 +193,7 @@ $(function() {
         var layer  = $('#page-sidenav');
         var button = $('#page-sidenav-toggle');
         var body   = $('body');
-		
+
         layer.one('transitionend webkitTransitionEnd oTransitionEnd', function() {
             $(this).removeClass('is-animate');
         });
@@ -214,7 +214,7 @@ $(function() {
     	$(".view"+popNo).removeClass("is-active");
 
     	var id = $(this).data("oneHide");
-		
+
     	if($("#"+id).is(":checked")){
 			$.cookie("popup"+popNo,"none",{expires:1, path:"/"});
 		}
@@ -224,7 +224,7 @@ $(function() {
     $(window).on('load scroll resize', function(e) {
         resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
         winSize = [$(window).outerWidth(), $(window).outerHeight()];
-		
+
 		if($(window).scrollTop() > $('#header').outerHeight() - ($('#navigation').outerHeight() + 3)) {
 			$('body').addClass('is-scroll');
 		} else {
@@ -247,7 +247,7 @@ $(function() {
 
 		if(e.type !== 'scroll') {
 			clearTimeout(timer);
-	
+
 			timer = setTimeout(function() {
 				if(resize) {
 					$('body').removeClass('overflow-hidden');
@@ -527,14 +527,14 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 	$.ajaxSetup({ cache: true });
 	$.getScript( "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js", function() {
 		$.ajaxSetup({ cache: false });
-		
+
 		// 우편번호 찾기 화면을 넣을 element
 		var element_layer = document.getElementById('addrModal-contents');
 		var width = 500;
         if (window.screen.width < 500) {
             width = 300;
         }
-		
+
 		if(!element_layer) {
 			var addrModalTemplate = `
 				<div id="addrModal" style="position:absolute; width:100%; height:100%; background:rgba(0,0,0,8); top:0; left:0; z-index: 2000; display:none;">
@@ -544,16 +544,16 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 				</div>
 			`;
 			document.getElementById('container').insertAdjacentHTML('beforebegin', addrModalTemplate);
-			
+
 			element_layer = document.getElementById('addrModal-contents');
-			
+
 			//닫기 이벤트
 			$("#addrModalClose").on("click", function() {
 				$('#addrModal').fadeOut();
 	    		$('#container').css({"display": "block"});
 			});
 		}
-		
+
 		var daumLayer = document.getElementById('__daum__layer_1');
 		if(!daumLayer) {
 			//다음 주소검색 추가
@@ -562,21 +562,30 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 				oncomplete: function(data) {
 					$("#"+zip).val(data.zonecode); // 우편번호
 					$("#"+addr).val(data.roadAddress); // 도로명 주소 변수
-		
+
 					if(lat != undefined && lot != undefined){
 						f_findGeocode(data, lat, lot); //좌표
 					}
-				
+
 					$('#addrModal').fadeOut();
 		    		$('#container').css({"display": "block"});
-		    		
+
 		    		$("#"+daddr).focus(); //포커스
+
+
+				    // callback함수가 있는지 체크
+				    if(typeof f_findAdresCallback === 'function' && !f_findAdresCallback()) {
+				        console.log("추가 함수실행");
+				        f_findAdresCallback();
+				    }
 		        }
 		    }).embed(element_layer);
 		}
-		
+
 	    $('#addrModal').fadeIn();
 	    $('#container').css({"display": "none"});
+
+
 	});
 }
 
@@ -688,6 +697,12 @@ function f_dlvyRraw(paramMap){
 			}
 
 		}
+
+		 // callback함수가 있는지 체크
+	    if(typeof f_findAdresCallback === 'function' && !f_findAdresCallback()) {
+	        console.log("추가 함수실행");
+	        f_findAdresCallback();
+	    }
 
 	}
 	$("#hide-btn").click();
