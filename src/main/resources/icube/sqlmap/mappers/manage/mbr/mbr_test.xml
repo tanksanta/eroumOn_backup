@@ -29,7 +29,9 @@
 		diagram_indirect_score,
 		diagram_meal_score,
 		diagram_nurse_score,
-		diagram_rehabilitate_score
+		diagram_rehabilitate_score,
+		reg_dt,
+		mdfcn_dt
 	</sql>
 
 	<sql id="searchConditions">

@@ -103,8 +103,8 @@
 				<th scope="col">회원등급</th>
 				<th scope="col">가입유형</th>
 				<th scope="col">가입일</th>
-				<th scope="col">본인여부</th>
-				<th scope="col">수급자등록여부</th>
+				<th scope="col">수급자본인여부</th>
+				<th scope="col">L번호등록수급자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -139,8 +139,8 @@
 				<td class="cateVal${status.index}"><span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>
 				<td>${mbrJoinTy3[resultList.joinTy]}</td>
 				<td><fmt:formatDate value="${resultList.joinDt}" pattern="yyyy-MM-dd" /></td>
-				<td>${(resultList.mbrRecipientsList.stream().filter(f -> f.relationCd == "007").count() > 0) ? "유" : "무"}</td>
-				<td>${resultList.mbrRecipientsList.size() > 0 ? "유" : "무"}</td>
+				<td>${(resultList.mbrRecipientsList.stream().filter(f -> f.relationCd == "007").count() > 0) ? "본인" : "-"}</td>
+				<td>${resultList.mbrRecipientsList.stream().filter(f -> f.recipientsYn == "Y").count()}</td>
 			</tr>
 			</c:forEach>
 			   <c:if test="${empty listVO.listObject}">

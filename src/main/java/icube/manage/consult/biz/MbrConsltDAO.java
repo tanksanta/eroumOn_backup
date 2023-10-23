@@ -54,4 +54,8 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 	public MbrConsltVO selectConsltInProcess(Map<String, Object> paramMap) throws Exception {
 		return selectOne("conslt.selectConsltInProcess",paramMap);
 	}
+	
+	public MbrConsltVO selectRecentConsltByRecipientsNo(Map<String, Object> paramMap) throws Exception {
+		return selectOne("conslt.selectRecentConsltByRecipientsNo",paramMap);
+	}
 }

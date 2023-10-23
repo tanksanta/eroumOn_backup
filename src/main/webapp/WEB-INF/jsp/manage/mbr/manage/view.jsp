@@ -57,15 +57,15 @@
 						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 					<tr>
-						<th scope="row">이메일인증여부</th>
-						<td></td>
+						<th scope="row">주소</th>
+						<td>${mbrVO.zip }&nbsp;${mbrVO.addr }&nbsp; ${mbrVO.daddr }</td>
 
 						<th scope="row">등록수급자수</th>
 						<td class="joinVal">${mbrVO.mbrRecipientsList.size()}</td>
 					</tr>
 					<tr>
-						<th scope="row">주소</th>
-						<td>${mbrVO.zip }&nbsp;${mbrVO.addr }&nbsp; ${mbrVO.daddr }</td>
+						<th scope="row">최근접속일</th>
+						<td><fmt:formatDate value="${mbrVO.recentCntnDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						
 						<th scope="row">최종변경일 / 처리자</th>
 						<td>
@@ -75,9 +75,6 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row">최근접속일</th>
-						<td><fmt:formatDate value="${mbrVO.recentCntnDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						
 						<th scope="row">
 							이용약관<br>
 							개인정보처리방침<br>

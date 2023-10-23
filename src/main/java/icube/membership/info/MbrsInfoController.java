@@ -443,8 +443,11 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrRecipient.setRecipientsNm(recipientsNm);
 			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
 				mbrRecipient.setRcperRcognNo(rcperRcognNo);
+				mbrRecipient.setRecipientsYn("Y");
+			} else {
+				mbrRecipient.setRecipientsYn("N");
 			}
-			mbrRecipient.setRecipientsYn("N");
+			
 			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
 			
 			//등록된 수급전 번호 가져오기

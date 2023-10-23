@@ -20,6 +20,7 @@
 				<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchId=${param.srchId}&amp;srchNm=${param.srchNm}&amp;srchTel=${param.srchTel}&amp;srchBirth=${param.srchBirth}" />
                 <ul class="tab-list tab-full -mt-6.5 mx-2.5 px-1 rounded-md bg-white">
                     <li><a href="/_mng/mbr/${mbrVO.uniqueId}/view"  ${fn:indexOf(_curPath, '/view') > -1?'class="active"':'' } >회원정보</a></li>
+                    <li><a href="/_mng/mbr/${mbrVO.uniqueId}/recipient"  ${fn:indexOf(_curPath, '/recipient') > -1?'class="active"':'' } >수급자정보</a></li>
                     <li><a href="/_mng/mbr/${mbrVO.uniqueId}/ordr" ${fn:indexOf(_curPath, '/ordr') > -1?'class="active"':'' }>주문내역</a></li>
                     <li><a href="/_mng/mbr/${mbrVO.uniqueId}/mlg" ${fn:indexOf(_curPath, '/mlg') > -1?'class="active"':'' }>마일리지</a></li>
                     <li><a href="/_mng/mbr/${mbrVO.uniqueId}/coupon" ${fn:indexOf(_curPath, '/coupon') > -1?'class="active"':'' }>쿠폰</a></li>

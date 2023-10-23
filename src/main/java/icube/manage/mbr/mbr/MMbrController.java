@@ -370,6 +370,31 @@ public class MMbrController extends CommonAbstractController {
     }
 
     /**
+     * 회원 상세 > 수급자정보
+     */
+    @RequestMapping(value="{uniqueId}/recipient")
+    public String recipient(
+            @PathVariable String uniqueId
+            , @RequestParam Map<String, Object> reqMap
+            , HttpServletRequest request
+            , Model model
+            ) throws Exception{
+        MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
+
+        if (mbrVO == null) {
+            model.addAttribute("alertMsg", getMsg("alert.author.common"));
+            return "/common/msg";
+        }
+
+        model.addAttribute("mbrVO", mbrVO);;
+        model.addAttribute("param", reqMap);
+        model.addAttribute("gender", CodeMap.GENDER);
+        model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
+
+        return "/manage/mbr/manage/recipient";
+    }
+    
+    /**
      * 임시 비밀번호 발송
      * @return resultMap
      * @throws Exception
