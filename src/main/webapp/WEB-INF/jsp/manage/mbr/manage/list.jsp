@@ -118,22 +118,30 @@
 				<td>${resultList.mbrRecipientsList.size()}</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 1}">
-						${mbrRelationCd[resultList.mbrRecipientsList[0].relationCd]}(${resultList.mbrRecipientsList[0].recipientsNm})
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[0].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[0].relationCd]}(${resultList.mbrRecipientsList[0].recipientsNm})
+						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 2}">
-						${mbrRelationCd[resultList.mbrRecipientsList[1].relationCd]}(${resultList.mbrRecipientsList[1].recipientsNm})
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[1].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[1].relationCd]}(${resultList.mbrRecipientsList[1].recipientsNm})
+						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 3}">
-						${mbrRelationCd[resultList.mbrRecipientsList[2].relationCd]}(${resultList.mbrRecipientsList[2].recipientsNm})
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[2].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[2].relationCd]}(${resultList.mbrRecipientsList[2].recipientsNm})
+						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 4}">
-						${mbrRelationCd[resultList.mbrRecipientsList[3].relationCd]}(${resultList.mbrRecipientsList[3].recipientsNm})
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[3].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[3].relationCd]}(${resultList.mbrRecipientsList[3].recipientsNm})
+						</a>
 					</c:if>
 				</td>
 				<td class="cateVal${status.index}"><span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>

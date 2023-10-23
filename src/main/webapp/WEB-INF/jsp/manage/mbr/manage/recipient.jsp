@@ -270,9 +270,23 @@
 	
 	
 	$(function() {
+		var srchRecipientsNo = '${recipientsNo}';
 		var firstRecipientNo = '${mbrVO.mbrRecipientsList[0].recipientsNo}';
+		
+		//조회할 수급자가 있으면
+		if (srchRecipientsNo) {
+			//radio 버튼 체크처리
+			var inputs = $('input[name=radioRecipient]');
+			for(var i = 0; i < inputs.length; i++) {
+				if (inputs[i].value === srchRecipientsNo) {
+					$('input[name=radioRecipient]')[i].checked = true;
+				}
+			}
+				
+			getRecipientInfo(Number(srchRecipientsNo));
+		}
 		//로딩시 첫번째 수급자 바로조회
-		if (firstRecipientNo) {
+		else if (firstRecipientNo) {
 			getRecipientInfo(Number(firstRecipientNo));
 		}
 		

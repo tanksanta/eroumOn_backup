@@ -376,6 +376,7 @@ public class MMbrController extends CommonAbstractController {
     public String recipient(
             @PathVariable String uniqueId
             , @RequestParam Map<String, Object> reqMap
+            , @RequestParam(required = false) Integer recipientsNo
             , HttpServletRequest request
             , Model model
             ) throws Exception{
@@ -386,6 +387,7 @@ public class MMbrController extends CommonAbstractController {
             return "/common/msg";
         }
 
+        model.addAttribute("recipientsNo", recipientsNo);
         model.addAttribute("mbrVO", mbrVO);;
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);
