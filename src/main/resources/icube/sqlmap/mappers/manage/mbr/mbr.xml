@@ -5,7 +5,7 @@
 	<resultMap type="mbrVO" id="mbrListVOMap" autoMapping="true" />
 
 	<resultMap type="mbrVO" id="mbrVOMap" autoMapping="true">
-		<association property="recipterInfo" column="{srchUniqueId=unique_id}" select="recipter.selectRecipter" />
+		<collection property="mbrRecipientsList" column="{srchMbrUniqueId=unique_id}" select="mbr.recipients.selectMbrRecipients" />
 	</resultMap>
 
 	<sql id="listColumn">
@@ -190,6 +190,12 @@
 			AND m.kakao_token = #{srchKakaoAppId}
 		</if>
 
+		<if test="srchRecipientsNm != null and srchRecipientsNm != '' ">
+			AND EXISTS (SELECT * FROM MBR_RECIPIENTS mr WHERE m.unique_id = mr.mbr_unique_id AND  mr.recipients_nm like CONCAT ('%',#{srchRecipientsNm},'%'))
+		</if>
+		<if test="srchRcperRcognNo != null and srchRcperRcognNo != '' ">
+			AND EXISTS (SELECT * FROM MBR_RECIPIENTS mr WHERE m.unique_id = mr.mbr_unique_id AND  mr.rcper_rcogn_no like CONCAT ('%',#{srchRcperRcognNo},'%'))
+		</if>
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">

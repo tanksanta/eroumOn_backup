@@ -579,7 +579,6 @@ public class CodeMap{
 			put("B","반가움"); //반가움
 			put("S","새로움"); //새로움
 			put("N","신규회원"); //신규회원
-			put("R","수급자회원"); //수급자
 		}
 	};
 
@@ -1027,6 +1026,15 @@ public class CodeMap{
 			put("재접수", "재접수상태로 변경되었습니다.");
 			put("재배정", "재배정상태로 변경되었습니다.");
 			put("THKC 취소", "THKC 취소상태로 변경되었습니다.");
+		}
+	};
+	
+	public static final HashMap<String, String> MBR_JOIN_TY3 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478940L;
+		{
+			put("E", "일반");
+			put("K", "간편카카오");
+			put("N", "간편네이버");
 		}
 	};
 	

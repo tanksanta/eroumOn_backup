@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.membership.info.biz.DlvyVO;
 import lombok.Getter;
@@ -83,7 +84,8 @@ public class MbrVO extends CommonBaseVO {
 	// 첨부파일 체크
 	private List<FileVO> fileList;
 
-	private RecipterInfoVO recipterInfo; //RecipterInfoVO
+	private RecipterInfoVO recipterInfo; //RecipterInfoVO 이제 사용 안함
 	private DlvyVO dlvyInfo;
-
+	
+	private List<MbrRecipientsVO> mbrRecipientsList;
 }

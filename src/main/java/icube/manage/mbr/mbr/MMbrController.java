@@ -48,6 +48,7 @@ import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
 import icube.manage.mbr.itrst.biz.WishVO;
+import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -156,6 +157,28 @@ public class MMbrController extends CommonAbstractController {
         	listVO.setParam("srchGrade", grade);
         }
 
+        //검색어 초기화 이후 추가
+        listVO.setParam("srchTarget", "");
+        listVO.setParam("srchText", "");
+        if (reqMap.containsKey("srchTarget") && reqMap.containsKey("srchText") && EgovStringUtil.isNotEmpty((String)reqMap.get("srchText"))) {
+        	String value = (String)reqMap.get("srchText");
+        	if ("srchLastTelnoOfMbl".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchLastTelnoOfMbl", value);
+        	}
+        	if ("srchMbrId".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchMbrId", value);
+        	}
+        	if ("srchMbrNm".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchMbrNm", value);
+        	}
+        	if ("srchRecipientsNm".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchRecipientsNm", value);
+        	}
+        	if ("srchRcperRcognNo".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchRcperRcognNo", value);
+        	}
+        }
+        
         listVO = mbrService.mbrListVO(listVO);
 
         model.addAttribute("listVO", listVO);
@@ -163,6 +186,9 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
         model.addAttribute("grade", CodeMap.GRADE);
         model.addAttribute("gender", CodeMap.GENDER);
+        
+        model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
+        model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
         return "/manage/mbr/manage/list";
     }
@@ -318,8 +344,12 @@ public class MMbrController extends CommonAbstractController {
         infoMap.put("srchMngTy", "AUTH");
         MbrMngInfoVO authInfoVO = mbrMngInfoService.selectMbrMngInfo(infoMap);
         mngMap.put("auth", authInfoVO);
+        
+        //약관동의 정보 조회
+        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
 
         model.addAttribute("mbrVO", mbrVO);
+        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);
@@ -334,10 +364,36 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("authResnCd", CodeMap.AUTH_RESN_CD);
         model.addAttribute("norResnCd", CodeMap.NOR_RESN_CD);
         model.addAttribute("recipter", CodeMap.RECIPTER_YN);
+        model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
         return "/manage/mbr/manage/view";
     }
 
+    /**
+     * 회원 상세 > 수급자정보
+     */
+    @RequestMapping(value="{uniqueId}/recipient")
+    public String recipient(
+            @PathVariable String uniqueId
+            , @RequestParam Map<String, Object> reqMap
+            , HttpServletRequest request
+            , Model model
+            ) throws Exception{
+        MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
+
+        if (mbrVO == null) {
+            model.addAttribute("alertMsg", getMsg("alert.author.common"));
+            return "/common/msg";
+        }
+
+        model.addAttribute("mbrVO", mbrVO);;
+        model.addAttribute("param", reqMap);
+        model.addAttribute("gender", CodeMap.GENDER);
+        model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
+
+        return "/manage/mbr/manage/recipient";
+    }
+    
     /**
      * 임시 비밀번호 발송
      * @return resultMap

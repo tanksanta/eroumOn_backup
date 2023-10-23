@@ -1,5 +1,7 @@
 package icube.main.test.biz;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Getter;
@@ -41,4 +43,7 @@ public class MbrTestVO {
     private Float diagramMealScore;          //간접지원 점수
     private Float diagramNurseScore;         //간호처치 점수
     private Float diagramRehabilitateScore;  //재활훈련 점수
+    
+    private Date regDt;
+    private Date mdfcnDt;
 }

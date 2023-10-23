@@ -33,7 +33,7 @@
 		, mngr_nm
 
 		, re_conslt_dt
-
+		
 		, recipients_no
 		, relation_cd
 		, rcper_rcogn_no
@@ -245,6 +245,16 @@
 		FROM MBR_CONSLT mc
 		WHERE reg_unique_id = #{srchUniqueId}
 		  AND conslt_sttus IN ('CS01', 'CS02', 'CS05', 'CS07', 'CS08')
+		LIMIT 1;
+	</select>
+
+	<!-- 수급자 최근 상담 조회 -->
+	<select id="selectRecentConsltByRecipientsNo" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		WHERE recipients_no = #{srchRecipientsNo}
+		ORDER BY conslt_no DESC
 		LIMIT 1;
 	</select>
 </mapper>

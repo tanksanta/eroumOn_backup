@@ -26,6 +26,12 @@
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mr.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
+		<if test="srchRecipientsNm != null and srchRecipientsNm != '' ">
+			AND mr.recipients_nm like CONCAT ('%',#{srchRecipientsNm},'%')
+		</if>
+		<if test="srchRcperRcognNo != null and srchRcperRcognNo != '' ">
+			AND mr.rcper_rcogn_no like CONCAT ('%',#{srchRcperRcognNo},'%')
+		</if>
 	</sql>
 	
 	<select id="selectMbrRecipients" parameterType="java.util.HashMap" resultType="MbrRecipientsVO">
