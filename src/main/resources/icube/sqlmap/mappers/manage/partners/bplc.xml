@@ -132,6 +132,10 @@
 		<if test="srchRegUniqueId != null and srchRegUniqueId != '' ">
 			AND od.reg_unique_id = #{srchRegUniqueId}
 		</if>
+
+		<if test="mbGiupMatching != null and mbGiupMatching != '' ">
+			AND mb_giup_matching = #{mbGiupMatching}
+		</if>
 	</sql>
 
 	<select id="selectBplcListVO" parameterType="java.util.HashMap" resultMap="bplcVOMap">
@@ -488,9 +492,6 @@
 			</if>
 			<if test="carDrc != null and carDrc != '' ">
 			, car_drc = #{carDrc}
-			</if>
-			<if test="mbGiupMatching != null and mbGiupMatching != '' ">
-			, mb_giup_matching = #{mbGiupMatching}
 			</if>
 			, mdfcn_unique_id = #{mdfcnUniqueId}
 		    , mdfcn_id = #{mdfcnId}
