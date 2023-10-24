@@ -198,6 +198,19 @@ public class MMbrRecipientsController extends CommonAbstractController {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
+			//삭제전에 1:1 상담중인지 검사
+			MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
+			if (mbrConslt != null && 
+					("CS01".equals(mbrConslt.getConsltSttus()) ||
+					"CS02".equals(mbrConslt.getConsltSttus()) ||
+					"CS05".equals(mbrConslt.getConsltSttus()) ||
+					"CS07".equals(mbrConslt.getConsltSttus()) ||
+					"CS08".equals(mbrConslt.getConsltSttus()))) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "진행중인 상담이 있습니다");
+				return resultMap;
+			}
+			
 			//수급자 기본정보
 			MbrRecipientsVO mbrRecipients = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
 			mbrRecipients.setDelDt(new Date());

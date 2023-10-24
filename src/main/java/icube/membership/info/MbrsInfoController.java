@@ -555,6 +555,19 @@ public class MbrsInfoController extends CommonAbstractController{
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
+			//삭제전에 1:1 상담중인지 검사
+			MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
+			if (mbrConslt != null && 
+					("CS01".equals(mbrConslt.getConsltSttus()) ||
+					"CS02".equals(mbrConslt.getConsltSttus()) ||
+					"CS05".equals(mbrConslt.getConsltSttus()) ||
+					"CS07".equals(mbrConslt.getConsltSttus()) ||
+					"CS08".equals(mbrConslt.getConsltSttus()))) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "진행중인 상담이 있습니다");
+				return resultMap;
+			}
+			
 			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 			
