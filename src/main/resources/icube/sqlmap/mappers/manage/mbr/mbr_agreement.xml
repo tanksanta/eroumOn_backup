@@ -2,6 +2,37 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mbr.agreement">
 
+	<sql id="listColumn">
+		ma.agreement_no
+		, ma.mbr_unique_id
+		, ma.terms_yn
+		, ma.terms_dt
+		, ma.privacy_yn
+		, ma.privacy_dt
+		, ma.provision_yn
+		, ma.provision_dt
+		, ma.third_parties_yn
+		, ma.third_parties_dt
+		, ma.reg_dt
+		, ma.mdfcn_dt
+	</sql>
+	
+	<sql id="searchConditions">
+		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
+			AND ma.mbr_unique_id = #{srchMbrUniqueId}
+		</if>
+	</sql>
+	
+	
+	<select id="selectMbrAgreement" parameterType="java.util.HashMap" resultType="mbrAgreementVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_AGREEMENT ma
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+	
+
 	<insert id="insertMbrAgreement" parameterType="mbrAgreementVO">
 		INSERT INTO MBR_AGREEMENT(
 			MBR_UNIQUE_ID

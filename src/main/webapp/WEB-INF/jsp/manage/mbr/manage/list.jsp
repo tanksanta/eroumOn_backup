@@ -34,33 +34,20 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchMbrId">아이디</label></th>
-						<td><input type="text" class="form-control w-84" id="srchMbrId" name="srchMbrId" value="${param.srchMbrId}" maxlength="30"></td>
-						<th scope="row"><label for="srchMbrNm">이름</label></th>
-						<td><input type="text" class="form-control w-84" id="srchMbrNm" name="srchMbrNm" value="${param.srchMbrNm}" maxlength="30"></td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="srchLastTelnoOfMbl">휴대전화 (4자리)</label></th>
-						<td><input type="tel" class="form-control w-84" id="srchLastTelnoOfMbl" name="srchLastTelnoOfMbl" value="${param.srchLastTelnoOfMbl}" maxlength="4"></td>
-						<th scope="row"><label for="srchBrdt">생년월일</label></th>
-						<td><input type="text" class="form-control w-84" id="srchBrdt" name="srchBrdt" value="${param.srchBrdt }" maxlength="8"></td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="srchRecipterYn0">회원구분</label></th>
-						<td>
-							<div class="form-check-group">
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="srchRecipterYn" id="srchRecipterYn" value="" checked>
-									<label class="form-check-label" for="srchRecipterYn">전체</label>
-								</div>
-								<c:forEach var="recipter" items="${recipterYn}" varStatus="status">
-									<div class="form-check">
-										<input type="radio" value="${recipter.key}" id="srchRecipterYn${status.index + 1}" name="srchRecipterYn" class="form-check-input" <c:if test="${recipter.key eq param.srchRecipterYn}">checked="checked"</c:if>> <label class="form-check-label" for="srchRecipterYn${status.index + 1}">${recipter.value}</label>
-									</div>
-								</c:forEach>
-							</div>
-						</td>
-					</tr>
+                        <th scope="row"><label for="search-item1">검색어</label></th>
+                        <td>
+                            <div class="form-group w-84">
+                                <select name="srchTarget" id="srchTarget" class="form-control w-40">
+                                    <option value="srchLastTelnoOfMbl" <c:if test="${param.srchTarget == 'srchLastTelnoOfMbl'}">selected</c:if>>휴대폰번호</option>
+                                    <option value="srchMbrId" <c:if test="${param.srchTarget == 'srchMbrId'}">selected</c:if>>회원아이디</option>
+                                    <option value="srchMbrNm" <c:if test="${param.srchTarget == 'srchMbrNm'}">selected</c:if>>회원이름</option>
+                                    <option value="srchRecipientsNm" <c:if test="${param.srchTarget == 'srchRecipientsNm'}">selected</c:if>>수급자성명</option>
+                                    <option value="srchRcperRcognNo" <c:if test="${param.srchTarget == 'srchRcperRcognNo'}">selected</c:if>>요양인정번호</option>
+                                </select>
+                                <input type="text" class="form-control flex-1" name="srchText" id="srchText" value="${param.srchText}">
+                            </div>
+                        </td>
+                    </tr>
 					<tr>
 						<th scope="row"><label for="srchGrade">회원등급</label></th>
 						<td colspan="2">
@@ -92,43 +79,80 @@
 	<table class="table-list">
 		<colgroup>
 			<col class="w-20">
+			<col class="w-40">
+			<col class="w-28">
 			<col class="w-30">
+			<col class="w-25">
+			<col class="w-28">
+			<col class="w-28">
+			<col class="w-28">
+			<col class="w-28">
 			<col class="w-28">
 			<col class="w-20">
-			<col class="w-28">
-			<col>
-			<col class="w-28">
-			<!-- <col class="w-28"> -->
 			<col class="w-25">
+			<col class="w-28">
+			<col class="w-28">
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
-				<th scope="col">아이디</th>
+				<th scope="col">회원아이디</th>
 				<th scope="col">회원이름</th>
-				<th scope="col">성별</th>
-				<th scope="col">생년월일</th>
-				<th scope="col">회원분류(회원등급)</th>
+				<th scope="col">휴대폰번호</th>
+				<th scope="col">등록수급자수</th>
+				<th scope="col">관계1</th>
+				<th scope="col">관계2</th>
+				<th scope="col">관계3</th>
+				<th scope="col">관계4</th>
+				<th scope="col">회원등급</th>
+				<th scope="col">가입유형</th>
 				<th scope="col">가입일</th>
-				<!-- <th scope="col">가입구분</th> -->
-				<th scope="col">가입매체</th>
+				<th scope="col">수급자본인여부</th>
+				<th scope="col">L번호등록수급자</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-		<c:set var="pageParam" value="curPage=${param.curPage }&amp;cntPerPage=${param.cntPerPage }&amp;srchMbrId=${param.srchMbrId}&amp;srchNm=${param.srchNm}&amp;srchLastTelnoOfMbl=${param.srchLastTelnoOfMbl}&amp;srchBrdt=${param.srchBrdt}" />
+		<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage }&amp;srchMbrId=${param.srchMbrId}&amp;srchNm=${param.srchNm}&amp;srchLastTelnoOfMbl=${param.srchLastTelnoOfMbl}&amp;srchBrdt=${param.srchBrdt}" />
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
-					${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}
-					</a></td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" uniqueId="${resultList.uniqueId}" class="btn view mbr shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
-				<td>${gender[resultList.gender]}</td>
-				<td><fmt:formatDate value="${resultList.brdt}" pattern="yyyy-MM-dd" /></td>
-				<td class="cateVal${status.index}">${recipterYn[resultList.recipterYn] }<span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
+				<td>${resultList.mblTelno}</td>
+				<td>${resultList.mbrRecipientsList.size()}</td>
+				<td>
+					<c:if test="${resultList.mbrRecipientsList.size() >= 1}">
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[0].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[0].relationCd]}(${resultList.mbrRecipientsList[0].recipientsNm})
+						</a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.mbrRecipientsList.size() >= 2}">
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[1].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[1].relationCd]}(${resultList.mbrRecipientsList[1].recipientsNm})
+						</a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.mbrRecipientsList.size() >= 3}">
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[2].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[2].relationCd]}(${resultList.mbrRecipientsList[2].recipientsNm})
+						</a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.mbrRecipientsList.size() >= 4}">
+						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[3].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+							${mbrRelationCd[resultList.mbrRecipientsList[3].relationCd]}(${resultList.mbrRecipientsList[3].recipientsNm})
+						</a>
+					</c:if>
+				</td>
+				<td class="cateVal${status.index}"><span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>
+				<td>${mbrJoinTy3[resultList.joinTy]}</td>
 				<td><fmt:formatDate value="${resultList.joinDt}" pattern="yyyy-MM-dd" /></td>
-				<!-- <td>온라인회원</td> -->
-				<td>${resultList.joinCours}</td>
+				<td>${(resultList.mbrRecipientsList.stream().filter(f -> f.relationCd == "007").count() > 0) ? "본인" : "-"}</td>
+				<td>${resultList.mbrRecipientsList.stream().filter(f -> f.recipientsYn == "Y").count()}</td>
 			</tr>
 			</c:forEach>
 			   <c:if test="${empty listVO.listObject}">
@@ -136,12 +160,52 @@
 					<td class="noresult" colspan="8">검색조건을 만족하는 결과가 없습니다.</td>
 				</tr>
 				</c:if>
-
 		</tbody>
 	</table>
 
 	<div class="pagination mt-7">
 		<mngr:mngrPaging listVO="${listVO}" />
+			<div class="sorting2">
+				<label for="countPerPage">출력</label>
+				 <select name="countPerPage" id="countPerPage" class="form-control">
+					<option value="10" ${listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
+					<option value="20" ${listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
+					<option value="30" ${listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
+				</select>
+			</div>
+
+			<div class="counter">
+				총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
+			</div>
+		</div>
+		
+<!--
+	<p class="text-title2 mt-13">회원 목록(카드 리스트)</p>
+	<div class="member-list">
+			<a href="일반회원관리 상세.html" class="member-card man">
+				<p class="name">
+					회원이름 <sup>angel89</sup>
+				</p>
+				<p class="birthday">1989.09.23</p>
+				<p class="grade">
+					<span class="badge-primary">PLATINUM</span> <span class="badge">휴</span>
+				</p>
+				<div class="member">
+					<p>
+						온라인 회원 <span>2022.04.24</span>
+					</p>
+					<p>
+						<i class="ico-member-pc"></i>
+					</p>
+				</div>
+			</a>
+	</div>
+
+	<div class="pagination mt-7">
+		<div class="paging">
+			<a href="#" class="prev">이전</a> <a href="#" class="page active">1</a> <a href="#" class="page">2</a> <a href="#" class="page">3</a> <a href="#" class="page">4</a> <a href="#" class="page">5</a> <a href="#" class="page">6</a> <a href="#" class="page">7</a> <a href="#" class="next">다음</a>
+		</div>
+
 		<div class="sorting2">
 			<label for="countPerPage">출력</label>
 				<select name="countPerPage" id="countPerPage" class="form-control">

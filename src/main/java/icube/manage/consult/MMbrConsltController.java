@@ -80,6 +80,15 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
+		model.addAttribute("prevPath", CodeMap.PREV_PATH);
+		
+		HashMap<String, String> map = new LinkedHashMap<String, String>();
+		map.put("MBR_NM", "수급자 성명");
+		map.put("MBR_TELNO", "상담받을 연락처");
+		map.put("RGTR", "회원이름");
+		map.put("REG_ID", "회원아이디");
+		
+		model.addAttribute("FindCdList", map);
 
 		return "/manage/consult/recipter/list";
 	}

@@ -71,7 +71,9 @@
                     </p>
                     <div class="flex items-end justify-end gap-3">
                         <span class="text-sm text-black2/50" id="refleshDate">2000년 01월 01일 11:11:11</span>
-                        <button class="btn-lightgrey" onclick="clickReSearchBtn();">다시 조회하기 <i class="icon-refresh"></i></button>
+                        
+                        <!-- 요양정보 저장기능 구현전 까지 다시조회버튼 숨김 -->
+                        <!-- <button class="btn-lightgrey" onclick="clickReSearchBtn();">다시 조회하기 <i class="icon-refresh"></i></button> -->
                     </div>
                 </div>
                 <div class="myinfo-wrapper">

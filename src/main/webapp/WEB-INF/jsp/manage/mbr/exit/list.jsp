@@ -29,9 +29,9 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchId">아이디</label></th>
+						<th scope="row"><label for="srchId">회원아이디</label></th>
 						<td><input type="text" class="form-control w-84" id="srchMbrId" name=srchMbrId value="${param.srchMbrId }"></td>
-						<th scope="row"><label for="srchName">이름</label></th>
+						<th scope="row"><label for="srchName">회원이름</label></th>
 						<td><input type="text" class="form-control w-84" id="srchMbrNm" name="srchMbrNm" value="${param.srchMbrNm}"></td>
 					</tr>
 					<tr>
@@ -90,7 +90,7 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
-				<th scope="col">아이디</th>
+				<th scope="col">회원아이디</th>
 				<th scope="col">회원이름</th>
 				<th scope="col">탈퇴일</th>
 				<th scope="col">탈퇴유형</th>

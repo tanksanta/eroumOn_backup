@@ -28,4 +28,8 @@ public class MbrRecipientsVO {
 	private String mainYn;      //대표 수급자
 	private Date regDt;
 	private Date mdfcnDt;
+	private String delYn;
+	private Date delDt;
+	private String delMbrUniqueId;
+	private String delMngrUniqueId;
 }

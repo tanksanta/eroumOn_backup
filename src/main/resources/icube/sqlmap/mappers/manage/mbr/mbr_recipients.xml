@@ -26,6 +26,12 @@
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mr.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
+		<if test="srchRecipientsNm != null and srchRecipientsNm != '' ">
+			AND mr.recipients_nm like CONCAT ('%',#{srchRecipientsNm},'%')
+		</if>
+		<if test="srchRcperRcognNo != null and srchRcperRcognNo != '' ">
+			AND mr.rcper_rcogn_no like CONCAT ('%',#{srchRcperRcognNo},'%')
+		</if>
 	</sql>
 	
 	<select id="selectMbrRecipients" parameterType="java.util.HashMap" resultType="MbrRecipientsVO">
@@ -33,6 +39,7 @@
 			<include refid="listColumn" />
 		FROM MBR_RECIPIENTS mr
 		WHERE 1=1
+		  AND (del_yn IS NULL OR del_yn != 'Y')
 			<include refid="searchConditions" />
 		ORDER BY REG_DT DESC
 	</select>
@@ -80,7 +87,12 @@
 			, gender = #{gender}
 			, brdt = #{brdt}
 			, relation_cd = #{relationCd}
+			, main_yn = #{mainYn}
 			, mdfcn_dt = SYSDATE()
+			, del_dt = #{delDt}
+			, del_yn = #{delYn}
+			, del_mbr_unique_id = #{delMbrUniqueId}
+			, del_mngr_unique_id = #{delMngrUniqueId}
 		WHERE recipients_no = #{recipientsNo}
 	</update>
 </mapper>

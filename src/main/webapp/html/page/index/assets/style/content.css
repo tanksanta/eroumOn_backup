@@ -296,6 +296,9 @@
 
 .careinfo-myinfo {
     @apply mt-24 md:mt-30;
+    &.mypage {
+        @apply mt-10;
+    }
     & .myinfo-wrapper {
         @apply grid gap-3 grid-cols-2 md:gap-5 md:grid-cols-4;
     }
@@ -409,6 +412,10 @@
 
 .careinfo-status {
     @apply mt-18 mb-20 md:mt-22 md:mb-25;
+
+    &.mypage {
+        @apply my-10;
+    }
     & .status-title {
         @apply mt-9 mb-2.5 text-base leading-snug font-bold md:mt-11 md:mb-3 md:text-lg;
     }

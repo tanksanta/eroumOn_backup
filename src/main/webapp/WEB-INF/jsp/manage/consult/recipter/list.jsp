@@ -28,13 +28,30 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchMbrNm">성명</label></th>
-						<td><input type="text" class="form-control w-100" id="srchMbrNm" name="srchMbrNm" value="${param.srchMbrNm}" maxlength="30"></td>
+						<th scope="row"><label for="srchCd">검색어</label></th>
+						<td>
+							<div class="form-group w-84">
+
+								<select name="srchCd" id="srchCd" class="form-control w-40">
+									<!--option value="" ${empty param.srchCd?'selected':'' }>전체</option-->
+									<c:forEach items="${FindCdList}" var="item" varStatus="status">
+									<option value="${item.key}" ${item.key eq param.srchCd?'selected':''}>${item.value}</option>
+									</c:forEach>
+								</select>
+								<input type="text" class="form-control flex-1" name="srchText" id="srchText" value="${param.srchText}">
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchMbrTelno">연락처</label></th>
-						<td><input type="text" class="form-control w-100" id="srchMbrTelno" name="srchMbrTelno" value="${param.srchMbrTelno}" maxlenth="15" /></td>
-					</tr>
+                        <th scope="row"><label for="srchPREV_PATH">상담유형</label></th>
+                        <td>
+                            <select name="srchPREV_PATH" id="srchPREV_PATH" class="form-control w-84">
+                                <option value="">전체</option>
+                                <option value="simpleSearch" ${param.srchPREV_PATH eq 'simpleSearch'?'selected="selected"':''}>요양정보상담</option>
+                                <option value="test" ${param.srchPREV_PATH eq 'test'?'selected="selected"':''}>인정등급상담</option>
+                            </select>
+                        </td>
+                    </tr>
 					<tr>
                         <th scope="row"><label for="srchConsltSttus">상담 진행 상태</label></th>
                         <td>
@@ -52,7 +69,6 @@
                             </select>
                         </td>
                     </tr>
-
 				</tbody>
 			</table>
 		</fieldset>
@@ -63,7 +79,7 @@
 	</form>
 
 	<div class="mt-13 flex items-end gap-1.5">
-        <p class="text-title2 mr-auto">1:1상담 목록</p>
+        <p class="text-title2 mr-auto">수급자 상담목록</p>
         <button type="button" class="btn-primary mb-3 btn-excel">엑셀 다운로드</button>
         <button type="button" class="btn-secondary mb-3" id="delConslt" name="delConslt">선택 삭제</button>
     </div>
@@ -75,14 +91,12 @@
              <col class="min-w-18 w-22">
              <col class="min-w-22 w-28">
              <col>
-             <!-- <col class="min-w-18 w-18"> -->
              <col class="min-w-25 w-30">
-             <col class="min-w-15 w-20">
-             <col class="min-w-22 w-28">
-             <col>
-             <col class="min-w-22 w-28">
-             <col class="min-w-38 w-1/5">
-             <col class="min-w-35 w-[15%]">
+             <col class="min-w-15 w-30">
+             <col class="min-w-22 w-50">
+             <col class="min-w-35 w-30">
+			 <col class="min-w-22 w-28">
+			 <col class="min-w-22 w-28">
 		</colgroup>
 		<thead>
 			<tr>
@@ -94,13 +108,13 @@
 				<th scope="col">번호</th>
 				<th scope="col">상담진행상태</th>
 				<th scope="col">사업소배정 (배정일시)</th>
-				<th scope="col">성명</th>
-				<th scope="col">성별</th>
-				<th scope="col">연락처</th>
-				<th scope="col">만나이</th>
-				<th scope="col">생년월일</th>
+				<th scope="col">수급자 성명</th>
+				
+				<th scope="col">상담받을 연락처</th>
 				<th scope="col">거주지주소</th>
+				<th scope="col">상담유형</th>
 				<th scope="col">상담신청일<br>(재상담 신청일)</th>
+				<th scope="col">회원이름<br>(아이디)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -138,16 +152,23 @@
 					</c:if>
 				</td>
 				<td><a href="./view?${pageParam}" class="btn shadow w-full">${resultList.mbrNm}</a></td>
-				<td>${genderCode[resultList.gender]}</td>
+				
 				<td>${resultList.mbrTelno}</td>
-				<td>만 ${resultList.age} 세</td>
-				<td>${fn:substring(resultList.brdt,0,4)}/${fn:substring(resultList.brdt,4,6)}/${fn:substring(resultList.brdt,6,8)}</td>
+				
+				
 				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
+				
+				<td>${prevPath[resultList.prevPath]}</td> 
 				<td>
 					<fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" />
 					<c:if test="${resultList.consltSttus eq 'CS07' || resultList.consltSttus eq 'CS08'}">
 					<br>(<fmt:formatDate value="${resultList.reConsltDt }" pattern="yyyy-MM-dd" />)
 					</c:if>
+				</td>
+				<td>
+					<a href="/_mng/mbr/${resultList.regUniqueId }/view" target="_blank" class="btn shadow w-full" style="height:auto;">
+						${resultList.rgtr } <br> (${resultList.regId }) 
+					</a>
 				</td>
 			</tr>
 		</c:forEach>

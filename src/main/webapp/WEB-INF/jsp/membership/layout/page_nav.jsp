@@ -32,7 +32,7 @@
                     <li class="menu-item">
                         <a href="${_membershipPath}/conslt/appl/list" class="menu-link">나의 상담 관리</a>
                         <ul class="smenu-items">
-                            <li class="smenu-item"><a href="${_membershipPath}/conslt/appl/list" class="smenu-link ${fn:indexOf(_curPath, '/appl/') > -1?'is-active':'' }">인정등급 상담신청</a></li>
+                            <li class="smenu-item"><a href="${_membershipPath}/conslt/appl/list" class="smenu-link ${fn:indexOf(_curPath, '/appl/') > -1?'is-active':'' }">상담 내역 관리</a></li>
                             <li class="smenu-item"><a href="${_membershipPath}/conslt/itrst/bplc" class="smenu-link ${fn:indexOf(_curPath, '/itrst/') > -1?'is-active':'' }">관심 멤버스 설정</a></li>
                         </ul>
                     </li>
@@ -40,6 +40,7 @@
                         <a href="${_membershipPath}/info/myinfo/list" class="menu-link">나의 정보 관리</a>
                         <ul class="smenu-items">
                             <li class="smenu-item"><a href="${_membershipPath}/info/myinfo/confirm" class="smenu-link ${fn:indexOf(_curPath, '/myinfo/') > -1?'is-active':'' }">내 정보수정</a></li>
+                            <li class="smenu-item"><a href="${_membershipPath}/info/recipients/list" class="smenu-link ${fn:indexOf(_curPath, '/recipients/') > -1?'is-active':'' }">수급자 관리</a></li>
                             <li class="smenu-item"><a href="${_membershipPath}/info/dlvy/list" class="smenu-link ${fn:indexOf(_curPath, '/dlvy/') > -1?'is-active':'' }">배송지 관리</a></li>
                             <li class="smenu-item"><a href="${_membershipPath}/info/whdwl/form" class="smenu-link ${fn:indexOf(_curPath, '/whdwl/') > -1?'is-active':'' }">회원탈퇴</a></li>
                         </ul>
