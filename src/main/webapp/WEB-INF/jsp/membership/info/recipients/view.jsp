@@ -3,60 +3,12 @@
 <main id="container" class="is-mypage-style">
 	<header id="page-title">
 		<h2>
-			<span>수급자관리</span>
+			<span>수급자상세</span>
 		</h2>
 	</header>
 
-	<div id="page-navigation">
-		<div class="global-user">
-			<div class="user-name">
-				<strong>사용자 <small>님</small></strong>
-				<span>수급자 회원</span>
-			</div>
-			<div class="user-info">
-				<div class="grade">
-					<strong>신규회원</strong>
-					<a href="#">등급별혜택</a>
-				</div>
-				<div class="point">
-					<dl>
-						<dt>쿠폰</dt>
-						<dd><a href="#"><strong>5</strong> 장</a></dd>
-					</dl>
-					<dl>
-						<dt>포인트</dt>
-						<dd><a href="#"><strong>512</strong> <img src="/html/core/images/txt-point-white.svg" alt="포인트"></a></dd>
-					</dl>
-					<dl>
-						<dt>마일리지</dt>
-						<dd><a href="#"><strong>5123</strong> <img src="/html/core/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
-					</dl>
-				</div>
-			</div>
-		</div>
-		<nav class="menu">
-			<ul class="menu-items">
-				<li class="menu-item">
-					<a href="#" class="menu-link">나의 상담 관리</a>
-					<ul class="smenu-items">
-						<li class="smenu-item"><a href="#" class="smenu-link">상담 내역 관리</a></li>
-						<li class="smenu-item"><a href="#" class="smenu-link">관심 멤버스 설정</a></li>
-					</ul>
-				</li>
-				<li class="menu-item">
-					<a href="#" class="menu-link">나의 정보 관리</a>
-					<ul class="smenu-items">
-						<li class="smenu-item"><a href="#" class="smenu-link">내 정보수정</a></li>
-						<li class="smenu-item"><a href="#" class="smenu-link">수급자 관리</a></li>
-						<li class="smenu-item"><a href="#" class="smenu-link">배송지 관리</a></li>
-						<li class="smenu-item"><a href="#" class="smenu-link">회원탈퇴</a></li>
-					</ul>
-				</li>
-				<li class="menu-item"><a href="#" class="menu-link">나의 쇼핑 관리</a></li>
-			</ul>
-		</nav>
-	</div>
-
+	<jsp:include page="../../layout/page_nav.jsp" />
+	
 	<div id="page-content">               
 		<h3 class="mypage-title2 with-icon">
 			<i class="icon-back"></i>
@@ -178,11 +130,15 @@
 		<div class="careinfo-myinfo mypage">
 			<div class="flex-none mb-2 md:flex md:justify-between gap-2">
 				<h3 class="careinfo-title mb-0"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</h3>
+				
+				<!-- 다시 조회하기 버튼 숨김처리 -->
+				<!-- 
 				<div class="flex gap-2 justify-end items-center">
 					<span class="text-sm text-black2/50">2023년 10월 04일 11:11:11</span>
 					<a class="btn btn-secondary btn-small">다시 조회하기 <i class="icon-refresh ml-1"></i></a>
 					<a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
 				</div>
+				 -->
 			</div>
 			<div class="myinfo-wrapper">
 				<div class="myinfo-box1">
@@ -478,17 +434,7 @@
 						</div>
 					</div>
 
-					<!--데이터 없을때-->
-					<!-- <div class="swiper-wrapper">
-						<div class="card-bg-gray">
-							<i class="icon-alert size-md opacity-60"></i>
-							<p class="text-gray6">요양인정번호를 등록하면 확인할 수 있어요</p>
-							<a href="#" class="btn btn-white mt-8">
-								<strong class="text-blue3 underline">기본 정보 > 수정하기</strong>에서 등록할 수 있어요
-								<i class="icon-next ml-3"></i>
-							</a>
-						</div>
-					</div> -->
+					
 				</div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-button-next"></div>
@@ -564,6 +510,27 @@
 			</div>
 			<button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
 		</div>
+		
+		<!--데이터 없을때-->
+		<div class="card-bg-gray">
+			<i class="icon-alert size-md opacity-60"></i>
+			<p class="text-gray6">요양인정번호를 등록하면 확인할 수 있어요</p>
+			<a href="#" class="btn btn-white mt-8">
+				<strong class="text-blue3 underline">기본 정보 > 수정하기</strong>에서 등록할 수 있어요
+				<i class="icon-next ml-3"></i>
+			</a>
+		</div>
+		
+	 	<!--요양정보 조회전 -->
+        <div class="card-bg-gray">
+            <img src="/html/page/members/assets/images/img-medical-care.svg" class="w-12" alt="요양정보 표현이미지"/>
+            <p class="text-gray6">올해 사용한 장기요양금액과 남은 장기요양금액을 확인하세요</p>
+            <p class="text-gray5 text-xs">최근 조회 일시: <span>2023년 10월 04일 11:11:11</span></p>
+            <a href="#" class="btn-outline-secondary btn-arrow mt-8">
+                요양정보 상세보기
+                <i class="icon-next ml-3"></i>
+            </a>
+        </div>
 
 		
 		<div class="flex justify-between">
