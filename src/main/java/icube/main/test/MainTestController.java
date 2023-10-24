@@ -296,6 +296,7 @@ public class MainTestController extends CommonAbstractController {
     	String eroumApikey = request.getHeader("eroumAPI_Key");
     	if (eroumCarePrivateKey.equals(eroumApikey)) {
     	} else if (mngrSession.isLoginCheck()) {
+    	} else if (mbrSession.isLoginCheck()) {
     	} else {
     		return "인증도지 않은 접근";
     	}

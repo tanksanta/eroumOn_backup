@@ -79,7 +79,7 @@
 								</c:if>
 							</dd>
 						</dl>
-						<a href="./view" class="btn-success btn-small">상세보기</a>
+						<a href="./view?recipientsNo=${recipientInfo.recipientsNo}" class="btn-success btn-small">상세보기</a>
 					</div>
 					
 					<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] == null}">

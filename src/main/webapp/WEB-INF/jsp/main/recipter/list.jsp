@@ -566,11 +566,11 @@
                                 </th>
                                 <td>
                                     <div class="flex flex-row gap-2.5 mb-1.5">
-                                        <div class="form-check">
+                                        <div class="form-check input-rcperRcognNo-yn">
                                             <input class="form-check-input" type="radio" name="info-rcperRcognNo-yn" id="info-rcperRcognNo-y" value="Y" checked onchange="changeRcperRcognNoYn();">
                                             <label class="form-check-label" for="info-rcperRcognNo-y">있음</label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check input-rcperRcognNo-yn">
                                             <input class="form-check-input" type="radio" name="info-rcperRcognNo-yn" id="info-rcperRcognNo-n" value="N" onchange="changeRcperRcognNoYn();">
                                             <label class="form-check-label" for="info-rcperRcognNo-n">없음</label>
                                         </div>
@@ -1114,6 +1114,8 @@ function openNewConsltInfo() {
 	if(myRecipientInfo.rcperRcognNo) {
 		//L번호가 있는 경우 이름, L번호 수정 불가
 		$('#info-recipientsNm').prop('readonly', true);
+		
+		$('.input-rcperRcognNo-yn').css('display', 'none');
 		$('#info-rcperRcognNo-y').prop('disabled', true);
 		$('#info-rcperRcognNo-n').prop('disabled', true);
 		
@@ -1123,6 +1125,8 @@ function openNewConsltInfo() {
 		$('#info-rcperRcognNo').prop('readonly', true);
 	} else {
 		$('#info-recipientsNm').prop('readonly', false);
+		
+		$('.input-rcperRcognNo-yn').css('display', 'inline-block');
 		$('#info-rcperRcognNo-y').prop('disabled', false);
 		$('#info-rcperRcognNo-n').prop('disabled', false);
 		

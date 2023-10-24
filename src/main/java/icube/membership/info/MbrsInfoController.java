@@ -407,9 +407,15 @@ public class MbrsInfoController extends CommonAbstractController{
 	@ResponseBody
 	@RequestMapping(value = "addMbrRecipient.json")
 	public Map<String, Object> addMbrRecipient(
-		@RequestParam String relationCd,
-		@RequestParam String recipientsNm,
-		@RequestParam(required = false) String rcperRcognNo,
+        @RequestParam String relationCd,
+        @RequestParam String recipientsNm,
+        @RequestParam(required = false) String rcperRcognNo,
+        @RequestParam(required = false) String tel,
+        @RequestParam(required = false) String sido,
+        @RequestParam(required = false) String sigugun,
+        @RequestParam(required = false) String dong,
+        @RequestParam(required = false) String brdt,
+        @RequestParam(required = false) String gender,
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
@@ -447,6 +453,14 @@ public class MbrsInfoController extends CommonAbstractController{
 			} else {
 				mbrRecipient.setRecipientsYn("N");
 			}
+			mbrRecipient.setTel(tel);
+			mbrRecipient.setSido(sido);
+			mbrRecipient.setSigugun(sigugun);
+			mbrRecipient.setDong(dong);
+			if(EgovStringUtil.isNotEmpty(brdt)) {
+				mbrRecipient.setBrdt(brdt.replace("/", ""));
+			}
+			mbrRecipient.setGender(gender);
 			
 			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
 			
@@ -458,7 +472,72 @@ public class MbrsInfoController extends CommonAbstractController{
 			resultMap.put("createdRecipientsNo", createdRecipientsNo);
 		} catch (Exception ex) {
 			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 등록중 오류가 발생하였습니다");
+			resultMap.put("msg", "수급자 등록 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 수급자 수정 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateMbrRecipient.json")
+	public Map<String, Object> updateMbrRecipient(
+		@RequestParam int recipientsNo,
+        @RequestParam String relationCd,
+        @RequestParam String recipientsNm,
+        @RequestParam(required = false) String rcperRcognNo,
+        @RequestParam(required = false) String tel,
+        @RequestParam(required = false) String sido,
+        @RequestParam(required = false) String sigugun,
+        @RequestParam(required = false) String dong,
+        @RequestParam(required = false) String brdt,
+        @RequestParam(required = false) String gender,
+		HttpServletRequest request) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			
+			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
+			if ("N".equals(mbrRecipient.getRecipientsYn()) && EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo);
+				
+				Boolean result = (Boolean) returnMap.get("result");
+				if (result == false) {
+					returnMap.put("success", false);
+					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+					return resultMap;
+				}
+			}
+			
+			//회원의 수급자 정보 수정
+			mbrRecipient.setRelationCd(relationCd);
+			mbrRecipient.setRecipientsNm(recipientsNm);
+			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+				mbrRecipient.setRcperRcognNo(rcperRcognNo);
+				mbrRecipient.setRecipientsYn("Y");
+			} else {
+				mbrRecipient.setRecipientsYn("N");
+			}
+			mbrRecipient.setTel(tel);
+			mbrRecipient.setSido(sido);
+			mbrRecipient.setSigugun(sigugun);
+			mbrRecipient.setDong(dong);
+			if(EgovStringUtil.isNotEmpty(brdt)) {
+				mbrRecipient.setBrdt(brdt.replace("/", ""));
+			}
+			mbrRecipient.setGender(gender);
+			
+			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 수정 중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
