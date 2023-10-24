@@ -508,6 +508,18 @@ html, body {
                    md-max:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    md-max:hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)];
         }
+
+        &.btn-thin {
+            @apply border;
+        }
+        & .icon-search {
+            @apply ml-2;
+        }
+        &:hover, &:focus, &:active {
+            & .icon-search {
+                filter: invert(100%) sepia(0%) saturate(7466%) hue-rotate(77deg) brightness(97%) contrast(102%);;
+            }
+        }
     }
     
     .btn-primary2 {
@@ -518,19 +530,21 @@ html, body {
         &.btn-arrow {
             @apply !bg-indexKey1
                    before:bg-white
-                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)] 
                    hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)];
+                   
         }
     }
     
     .btn-outline-primary2 {
         @apply !border-indexKey1 bg-white text-indexKey1
-               hover:!bg-indexKey1 hover:!text-white
+               hover:!bg-indexKey1 hover:!text-white 
                focus:bg-white focus:text-indexKey1
                active:bg-indexKey1 active:text-white;
-        &.btn-arrow {
+               &.btn-arrow {
             @apply !bg-white
                    before:bg-indexKey1
+                   hover:before:-z-5
                    after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)]
                    hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    md-max:!bg-indexKey1 md-max:text-white
@@ -549,11 +563,22 @@ html, body {
                focus:bg-indexKey2 focus:text-white 
                active:bg-white active:text-indexKey2;
         &.btn-arrow {
-            @apply !bg-indexKey2
+            @apply  !bg-indexKey2
                    before:bg-white
-                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
+                   after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)] 
                    hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-blue.svg)];
         }
+
+        &:hover {
+            & .icon-tel {
+                @apply filter-none;
+            }
+        }
+        & .icon-tel {
+            filter: brightness(0) saturate(100%) invert(91%) sepia(100%) saturate(0%) hue-rotate(66deg) brightness(106%) contrast(100%);
+        
+        }
+
     }
     
     .btn-outline-primary3 {
