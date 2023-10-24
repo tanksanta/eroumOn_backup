@@ -121,7 +121,7 @@
 					</tbody>
 				</table>
 				<div class="flex justify-end">
-					<button class="btn-text-primary">삭제하기</button>
+					<button class="btn-text-primary" onclick="removeRecipient();">삭제하기</button>
 				</div>
 			</div>
 			<div class="modal-footer md:w-3/4 mx-auto mt-4">
@@ -465,6 +465,36 @@
 	    		$('#dong').html(template);
 	    	}
 	    }
+	    
+	    
+	    // 수급자 삭제하기
+	    function removeRecipient() {
+	    	var recipientsNo = myRecipientInfo.recipientsNo;
+	    	if (!recipientsNo) {
+	    		alert('삭제할 수급자를 선택하세요');
+	    		return;
+	    	}
+    		
+	    	if (confirm('수급자를 삭제한 후에는 복구가 불가합니다. 정말 삭제하시겠습니까?')) {
+	    		$.ajax({
+		    		type : "post",
+		    		url  : "/membership/info/myinfo/removeMbrRecipient.json",
+		    		data : { recipientsNo },
+		    		dataType : 'json'
+		    	})
+		    	.done(function(data) {
+		    		if(data.success) {
+		    			location.href = '/membership/info/recipients/list';
+		    		}else{
+		    			alert(data.msg);
+		    		}
+		    	})
+		    	.fail(function(data, status, err) {
+		    		alert('서버와 연결이 좋지 않습니다.');
+		    	});	
+	    	}
+	    }
+	    
 	    
 	    $(function() {
 	    	initSido();

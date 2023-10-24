@@ -2,6 +2,7 @@
 package icube.membership.info;
 
 import java.security.PrivateKey;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -538,6 +539,36 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 수정 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 수급자 삭제 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeMbrRecipient.json")
+	public Map<String, Object> removeMbrRecipient(
+		@RequestParam int recipientsNo) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			
+			//삭제처리
+			mbrRecipient.setDelDt(new Date());
+			mbrRecipient.setDelYn("Y");
+			mbrRecipient.setDelMbrUniqueId(mbrSession.getUniqueId());
+			
+			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
