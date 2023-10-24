@@ -84,6 +84,10 @@
                 @apply pr-5 bg-[length:0.5rem] bg-[right_0.5rem_center];
             }
         }
+
+        &.border-light {
+            @apply border-[#DADADD];
+        }
     }
 
     

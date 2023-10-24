@@ -33,10 +33,7 @@
         }
 
         &.modal-index {
-            @apply w-[calc(100%_-_2rem)]  sm:w-auto h-auto rounded-3xl;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
+            @apply w-[calc(100%_-_2rem)] lg:w-auto h-auto rounded-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
             & .modal-dialog {
                 min-height: inherit;
                 height:auto;
@@ -44,12 +41,15 @@
                     & .modal-body {
                         @apply scrollbars p-5;
                         overflow: overlay;
+                        &.space-no-x {
+                            @apply px-0;
+                        }
                     }
                 }
             }
 
             & .modal-content {
-                @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl border-none pointer-events-auto p-5 pb-7 sm:pt-7 sm:px-7 sm:pb-11;
+                @apply relative flex flex-col w-full sm:w-auto  mx-auto h-auto bg-white rounded-3xl border-none pointer-events-auto p-5 pb-7 sm:pt-7 sm:px-7 sm:pb-11;
             }
             & .modal-header {
                 @apply justify-between p-0 bg-transparent text-black1 h-auto;
@@ -60,6 +60,12 @@
                 }
                 & .text-title {
                     @apply text-2xl font-bold text-left;
+                }
+                & .text-title2 {
+                    @apply text-xl font-bold text-left;
+                }
+                & .text-header-title {
+                    @apply text-xl font-normal text-left;
                 }
             }
             & .modal-body {
@@ -94,9 +100,19 @@
                         }
                     }
                 }
+                & .text-body-title {
+                    @apply text-4xl font-bold text-left;
+                }
+
+                &.space-no-x {
+                    @apply px-0
+                }
             }
             & .modal-footer {
                 @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5;
+                &>:not([hidden])~:not([hidden]) {
+                    @apply m-0;
+                }
             }
             }
     }
