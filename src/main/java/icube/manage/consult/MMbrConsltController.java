@@ -29,6 +29,7 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.HtmlUtil;
+import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.ConsltHistory;
@@ -38,6 +39,8 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -51,6 +54,9 @@ import icube.manage.sysmng.mngr.biz.MngrSession;
 @RequestMapping(value="/#{props['Globals.Manager.path']}/consult/recipter")
 public class MMbrConsltController extends CommonAbstractController{
 
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 
@@ -150,11 +156,19 @@ public class MMbrConsltController extends CommonAbstractController{
 			}
 			historyText += hist.toString();
 		}
+		
+		String regUniqueId = mbrConsltVO.getRegUniqueId();
+		MbrVO mbrVO = mbrService.selectMbrByUniqueId(regUniqueId);
+        mbrVO.setCrud(CRUD.UPDATE);
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("historyText", historyText);
 		model.addAttribute("chgHistList", chgHistList);
+		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);
+		model.addAttribute("MBER_STTUS", CodeMap.MBER_STTUS);
 
 		return "/manage/consult/recipter/view";
 	}

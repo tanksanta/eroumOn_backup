@@ -16,24 +16,77 @@
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th scope="row">성명</th>
+                                    <th scope="row">수급자 성명</th>
                                     <td>${mbrConsltVO.mbrNm}</td>
+                                    <th scope="row">수급자와의 관계</th>
+                                    <td>${MBR_RELATION_CD[mbrConsltVO.relationCd]}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">회원아이디</th>
+                                    <td>${mbrConsltVO.regId}</td>
+                                    <th scope="row">상담유형</th>
+                                    <td>${PREV_PATH[mbrConsltVO.prevPath]}</td>
+                                </tr>
+                                <tr>
                                     <th scope="row">성별</th>
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
+                                    <th scope="row">상담유형 상세</th>
+                                    <td>
+                                        <button type="button" class="btn-primary shadow f_detailView" data-bs-toggle="modal" data-bs-target="#bplcModal">상세보기</button>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">연락처</th>
-                                    <td>${mbrConsltVO.mbrTelno}</td>
                                     <th scope="row">생년월일</th>
-                                    <td>${mbrConsltVO.brdt}</td>
+                                    <td><fmt:formatDate value="${mbrVO.brdt}" pattern="yyyy-MM-dd" /></td>
+                                    <th scope="row">장기요양인정번호</th>
+                                    <td>
+                                        <c:choose>  
+                                            <c:when test="${not empty mbrConsltVO.rcperRcognNo}">L${mbrConsltVO.rcperRcognNo}</c:when> 
+                                            <c:otherwise>-</c:otherwise>
+                                        </c:choose>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">거주지 주소</th>
-                                    <td colspan="3">(${mbrConsltVO.zip}) ${mbrConsltVO.addr}&nbsp;${mbrConsltVO.daddr}</td>
+                                    <th scope="row">상담받을 연락처</th>
+                                    <td>${mbrConsltVO.mbrTelno}</td>
+                                    <th scope="row">상담신청일시</th>
+                                    <td><fmt:formatDate value="${mbrConsltVO.regDt}" pattern="yyyy-MM-dd HH:mm" /></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">상담 신청일</th>
-                                    <td><fmt:formatDate value="${mbrConsltVO.regDt}" pattern="yyyy-MM-dd" /></td>
+                                    <th scope="row">실거주지 주소</th>
+                                    <td colspan="3">${mbrConsltVO.zip}&nbsp;${mbrConsltVO.addr}&nbsp;${mbrConsltVO.daddr}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">장기요양기관 지정</th>
+                                    <td colspan="3">
+                                    	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
+                                    	<input type="hidden" id="bplcId" name="bplcId" value="">
+                                    	<input type="hidden" id="bplcNm" name="bplcNm" value="">
+
+										<!-- 진행(CS05)전 상태이면 사업소 수정가능하게 해야함 -->
+
+										<c:if test="${(mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07') || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS04' }">
+                                        <button type="button" class="btn-primary shadow f_srchBplc" data-bs-toggle="modal" data-bs-target="#bplcModal">선택</button>
+                                        </c:if>
+
+                                        <ul class="mt-2 space-y-1 bplcLi">
+                                        	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
+                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno}
+                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})
+                                            	, 상담 배정 일시 : <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                            </li>
+                                        	</c:forEach>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">탈퇴여부</th>
+                                    <td>
+                                        <c:choose>  
+                                            <c:when test="${mbrVO.mberSttus eq 'EXIT'}">${MBER_STTUS[mbrVO.mberSttus]}</c:when> 
+                                            <c:otherwise>-</c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <th scope="row">상담진행상태</th>
                                     <td>
                                         <ul class="space-y-1">
@@ -53,29 +106,6 @@
 													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
 												</c:choose>
                                             </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">사업소 지정</th>
-                                    <td colspan="3">
-                                    	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
-                                    	<input type="hidden" id="bplcId" name="bplcId" value="">
-                                    	<input type="hidden" id="bplcNm" name="bplcNm" value="">
-
-										<!-- 진행(CS05)전 상태이면 사업소 수정가능하게 해야함 -->
-
-										<c:if test="${(mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07') || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS04' }">
-                                        <button type="button" class="btn-primary shadow f_srchBplc" data-bs-toggle="modal" data-bs-target="#bplcModal">사업소 선택</button>
-                                        </c:if>
-
-                                        <ul class="mt-2 space-y-1 bplcLi">
-                                        	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
-                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno}
-                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})
-                                            	, 상담 배정 일시 : <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                            </li>
-                                        	</c:forEach>
                                         </ul>
                                     </td>
                                 </tr>
