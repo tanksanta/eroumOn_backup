@@ -26,4 +26,15 @@ public class MbrsRecipientsController extends CommonAbstractController {
 
 		return "/membership/info/recipients/list";
 	}
+	/**
+	 * 수급자 관리 상세
+	 */
+	@RequestMapping(value="view")
+	public String view(
+			HttpServletRequest request
+			, Model model
+			) throws Exception {
+
+		return "/membership/info/recipients/view";
+	}
 }

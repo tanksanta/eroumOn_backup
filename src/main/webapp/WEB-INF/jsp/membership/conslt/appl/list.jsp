@@ -3,7 +3,7 @@
 	<main id="container" class="is-mypage-style">
 		<header id="page-title">
 			<h2>
-				<span>인정등급 상담신청</span>
+				<span>상담 내역 관리</span>
 			</h2>
 		</header>
 
@@ -12,7 +12,7 @@
         <div id="page-content">
 
             <h3 class="mypage-title">
-                인정등급 상담신청
+                상담 내역 관리
                 <button type="button" class="mypage-consult-toggle">상세검색</button>
             </h3>
 
@@ -48,11 +48,40 @@
                             </div>
                         </dd>
                     </dl>
-                    <dl class="search-partner">
+					<dl class="search-current">
+                        <dt><label for="search-item3">수급자 선택</label></dt>
+                        <dd>
+                            <select name="" id="search-item3" class="form-control w-full">
+                                <option value="">옵션</option>
+                            </select>
+                        </dd>
+                        <dt class="ml-4.5 text-center"><label for="srchConsltSttus">진행 현황</label></dt>
+                        <dd>
+							<select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-full">
+                                <option value="">선택</option>
+                                <option value="CS01" ${param.srchConsltSttus eq 'CS01'?'selected="selected"':''}>상담 신청 완료</option>
+                                <option value="CS02" ${param.srchConsltSttus eq 'CS02'?'selected="selected"':''}>상담 기관 배정 완료</option>
+                                <option value="CANCEL" ${param.srchConsltSttus eq 'CANCEL'?'selected="selected"':''}>상담 취소</option><%--상담취소 검색은 03, 04, 09가 포함되어야함 --%>
+                                <%--<option value="CS03" ${param.srchConsltSttus eq 'CS03'?'selected="selected"':''}>상담 취소</option>사용자--%>
+                                <%-- <option value="CS09" ${param.srchConsltSttus eq 'CS09'?'selected="selected"':''}>상담 취소</option>THKC --%>
+                                <%-- <option value="CS04" ${param.srchConsltSttus eq 'CS04'?'selected="selected"':''}>상담 취소</option>사업소 --%>
+                                <option value="CS05" ${param.srchConsltSttus eq 'CS05'?'selected="selected"':''}>상담 진행 중</option>
+                                <option value="CS06" ${param.srchConsltSttus eq 'CS06'?'selected="selected"':''}>상담 완료</option>
+                                <option value="CS07" ${param.srchConsltSttus eq 'CS07'?'selected="selected"':''}>재상담 신청 완료</option>
+                                <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>상담 기관 재배정 완료</option>
+                            </select>
+                        </dd>
+                    </dl>
+					<dl class="search-partner">
+                        <dt><label for="srchBplcNm">장기요양기간</label></dt>
+                        <dd><input type="text" id="srchBplcNm" name="srchBplcNm" value="${param.srchBplcNm}" class="form-control w-full"></dd>
+                    </dl>
+                    <!--이전 코드 백업-->
+                    <!-- <dl class="search-partner">
                         <dt><label for="srchBplcNm">상담 기관</label></dt>
                         <dd><input type="text" id="srchBplcNm" name="srchBplcNm" value="${param.srchBplcNm}" class="form-control w-full md:w-83"></dd>
-                    </dl>
-                    <dl class="search-current">
+                    </dl> -->
+                    <!-- <dl class="search-current">
                         <dt><label for="srchConsltSttus">상담 접수 현황</label></dt>
                         <dd>
                             <select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-full md:w-40">
@@ -69,13 +98,14 @@
                                 <option value="CS08" ${param.srchConsltSttus eq 'CS08'?'selected="selected"':''}>상담 기관 재배정 완료</option>
                             </select>
                         </dd>
-                    </dl>
-                    <button type="submit" class="btn-primary btn-animate flex mt-7 mx-auto w-full md:mt-2 md:w-43"><strong>검색</strong></button>
+                    </dl> -->
+                    <button type="submit" class="btn-primary btn-animate flex mt-6 mx-auto w-full md:w-43"><strong>검색</strong></button>
                 </fieldset>
             </form>
 
-            <div class="mypage-consult-desc">
-                <p class="text-alert">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
+            <div class="mypage-consult-desc text-with-icon">
+				<i class="icon-alert"></i>
+                <strong>인정등급 예상 테스트, 요양정보 조회 후 상담 신청하신 내역을 확인하는 페이지 입니다.</strong>
             </div>
 
             <p><strong>총 ${listVO.totalCount}건</strong>의 상담신청 내역이 있습니다.</p>
@@ -86,8 +116,21 @@
                 <c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
                 <c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
                 <div class="mypage-consult-item">
+					<dl class="item-current">
+                        <dt>수급자 성명</dt>
+                        <dd class="flex justify-between">
+                            <span>홍길동(배우자)</span>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#check-counseling-info" class="btn-conselng-info">
+                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
+                            </a>
+                        </dd>
+                    </dl>
+					<dl class="item-current">
+                        <dt>상담유형</dt>
+                        <dd>인정등급상담</dd>
+                    </dl>
                     <dl class="item-current">
-                        <dt>상담진행 현황</dt>
+                        <dt>진행 현황</dt>
                         <dd>
                         	<%-- 사용자/관리자 txt가 일부 달라서 코드만 동일하게 사용함 --%>
                         	<c:choose>
@@ -104,12 +147,14 @@
                         </dd>
                     </dl>
                     <dl class="item-partner">
-                        <dt>상담 기관</dt>
+                        <dt>장기요양기간</dt>
                         <dd>
+							<strong>이로움 사업소</strong>
 							<c:choose>
-								<c:when test="${resultList.consltSttus eq 'CS01'}"><strong>상담 기관 배정 중</strong> 입니다.</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">상담이 취소되었습니다.</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS07'}"><strong>상담 기관 배정 중</strong> 입니다.
+								<c:when test="${resultList.consltSttus eq 'CS06'}"><a href="tel:010-0000-0000"><i class="icon-tel"></i></a></c:when>
+								<c:when test="${resultList.consltSttus eq 'CS01'}"><span class="text-base">(배정 중)</span></c:when>
+								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}"></c:when>
+								<c:when test="${resultList.consltSttus eq 'CS07'}"><span class="text-base">재상담 신청완료</span>
 									<c:if test="${consltSize > 1 }">
 									<ul class="history">
 									<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
@@ -143,24 +188,26 @@
                     </dl>
                     <%--상담 완료시 --%>
                     <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
-                    <div class="item-request">
-                    	<button type="button" class="button f_cancel" data-conslt-no="${resultList.consltNo}">상담 취소</button>
+                    <div class="item-request  justify-end">
+                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}">신청 취소하기</button>
                     </div>
                     </c:if>
 
                     <c:if test="${resultList.consltSttus eq 'CS06'}">
-                    <div class="item-request">
+                    <div class="item-request justify-end">
                     	<c:if test="${consltSize < 3}"> <%-- 상담 신청은 최대 3회 --%>
                         <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청</button>
 						</c:if>
-                        <label class="check1">
-                            <input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].rcmdCnt > 0?'checked="checked"':''}>
-                            <span>추천하기</span>
-                        </label>
-                        <label class="check2">
-                            <input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].itrstCnt > 0?'checked="checked"':''}>
-                            <span>관심설정</span>
-                        </label>
+						<div class="flex items-center">
+							<label class="check1">
+								<input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].rcmdCnt > 0?'checked="checked"':''}>
+								<span>추천하기</span>
+							</label>
+							<label class="check2">
+								<input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].itrstCnt > 0?'checked="checked"':''}>
+								<span>관심설정</span>
+							</label>
+						</div>
                     </div>
                     </c:if>
                 </div>
@@ -197,13 +244,12 @@
             </div>
 
 
-            <div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal modal-default fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
                     <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" name="consltNo" value="0">
-
                         <div class="modal-header">
-                            <p class="text-title">상담 취소 사유 입력</p>
+                            <h2 class="text-title">상담 취소 사유 입력</h2>
                         </div>
                         <div class="modal-close">
                             <button type="button" data-bs-dismiss="modal">모달 닫기</button>
@@ -212,11 +258,81 @@
                             <p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
                             <textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer gap-1">
                             <button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
                             <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        
+          <!-- 상담정보확인팝업소스 -->
+        <div class="modal modal-default fade" id="check-counseling-info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">상담 정보 확인</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <div class="text-subtitle">
+                                <i class="icon-alert"></i>
+                                <p>신청하신 수급자의 정보와 상담받을 연락처를 확인하세요</p>
+                            </div>
+                            <table class="table-view w-auto">
+                                <caption class="hidden">상담정보확인 위한 수급자와의 관계, 수급자성명, 요양인정번호, 상담받을연락처, 실거주지 주소, 생년월일,성별, 상담유형 내용입니다 </caption>
+                                <colgroup>
+                                    <col class="w-22 xs:w-32">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr class="top-border">
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">수급자와의 관계</th>
+                                        <td>본인</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">수급자 성명</th>
+                                        <td>이로움</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">요양인정번호</th>
+                                        <td>L123456789</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">상담받을 연락처</th>
+                                        <td>010-1234-5678</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">실거주지 주소</th>
+                                        <td>서울특별시 금천구 가산디지털로 104</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">생년월일</th>
+                                        <td>1900/01/01</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">성별</th>
+                                        <td>남성</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="text-gray1 font-medium">상담 유형</th>
+                                        <td>인정등급 상담</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-2/6">닫기</button>
+                    </div>
                 </div>
             </div>
         </div>
