@@ -6,17 +6,17 @@
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <p>사업소 선택</p>
+                                <p>장기요양기관 선택</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                             </div>
                             <div class="modal-body">
                                 <ul class="nav tab-list tab-full">
-                                    <li><a href="#modal-pane1" class="active" data-bs-toggle="pill" role="tab" aria-selected="true" data-rcmdtn-yn="Y">추천 사업소</a></li>
-                                    <li><a href="#modal-pane2" data-bs-toggle="pill" role="tab" aria-selected="false" data-rcmdtn-yn="">사업소 찾기</a></li>
+                                    <li><a href="#modal-pane1" class="active" data-bs-toggle="pill" role="tab" aria-selected="true" data-rcmdtn-yn="Y">추천 장기요양기관</a></li>
+                                    <li><a href="#modal-pane2" data-bs-toggle="pill" role="tab" aria-selected="false" data-rcmdtn-yn="">장기요양기관 찾기</a></li>
                                 </ul>
                                 <div class="tab-content mt-5">
                                             <fieldset>
-                                                <legend class="text-title2">사업소 검색</legend>
+                                                <legend class="text-title2">장기요양기관 검색</legend>
                                                 <table class="table-detail">
                                                     <colgroup>
                                                         <col class="w-43">
@@ -43,7 +43,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row"><label for="modalSrchText">사업소명</label></th>
+                                                            <th scope="row"><label for="modalSrchText">장기요양기관명</label></th>
                                                             <td><input type="text" class="form-control w-full" id="modalSrchText" name="modalSrchText"></td>
                                                         </tr>
                                                     </tbody>
@@ -54,7 +54,7 @@
                                                 <button type="button" class="btn-primary large w-36" id="modalSrchBplcBtn">검색</button>
                                             </div>
 
-                                        <p class="mt-10 text-title2">사업소 목록</p>
+                                        <p class="mt-10 text-title2">장기요양기관 목록</p>
                                         <!-- 일반 테이블-->
                                         <table class="table-list" id="bplcDataTable">
                                             <colgroup>
@@ -66,7 +66,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">선택</th>
-                                                    <th scope="col">사업소명</th>
+                                                    <th scope="col">장기요양기관명</th>
                                                     <th scope="col">주소</th>
                                                     <th scope="col">전화번호</th>
                                                 </tr>
@@ -135,6 +135,7 @@ const BplcDataTable = function() {
 				restParams.push({name : "srchSido", value :  ($("#modalSrchSido").val() != "")?$("#modalSrchSido option:selected").text().substring(0,2):""});
 				restParams.push({name : "srchGugun", value :  ($("#modalSrchGugun").val() != "")?$("#modalSrchGugun option:selected").text():""});
 				restParams.push({name : "srchBplcNm", value :  $("#modalSrchText").val()});
+				restParams.push({name : "mbGiupMatching", value : 'Y' });
 
 				$.ajax({
 	          		dataType : 'json',
