@@ -215,7 +215,7 @@
 
 
 	<!-- 수급자정보등록 확인팝업 -->
-	<div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
+	<div class="modal modal-default fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-header">

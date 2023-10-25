@@ -32,7 +32,7 @@
     }
 
     &.modal-default {
-      @apply w-[calc(100%_-_2rem)] sm:w-auto h-auto rounded-3xl;
+      @apply w-[calc(100%_-_2rem)] sm:w-auto h-auto rounded-3xl shadow-xl;
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
