@@ -32,7 +32,12 @@
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
                                     <th scope="row">상담유형 상세</th>
                                     <td>
-                                        <button type="button" class="btn-primary shadow f_detailView" data-bs-toggle="modal" data-bs-target="#bplcModal">상세보기</button>
+                                    	<c:if test="${mbrConsltVO.prevPath == 'test'}">
+                                    		<button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#grade-test-result">등급테스트결과</button>
+                                    	</c:if>
+                                    	<c:if test="${not empty mbrConsltVO.rcperRcognNo}">
+                                    		<button type="button" class="btn-primary" onclick="getRecipientInfo('${mbrConsltVO.recipientsNo}');">요양정보</button>
+                                    	</c:if>
                                     </td>
                                 </tr>
                                 <tr>
@@ -397,6 +402,14 @@
                     </div>
                 </div>
                 <!-- //멤버스 상담 내역 확인 -->
+                
+                
+                <!-- 등급테스트결과 모달 -->
+               	<%@include file="./testResultModal.jsp"%>
+               	
+               	<!-- 요양정보 간편조회 모달 -->
+               	<%@include file="./simpleSearchModal.jsp"%>
+               	
             </div>
             <!-- //page content -->
 
@@ -443,6 +456,46 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 	let liCnt = $(".bplcLi li").length;
 	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
+
+
+//수급자 요양정보 조회
+function getRecipientInfo(recipientsNo) {
+	$.ajax({
+		type : "post",
+		url  : "/_mng/mbr/recipients/getInfo.json",
+		data : {
+			recipientsNo
+		},
+		dataType : 'json'
+	})
+	.done(function(data) {
+		if(data.success) {
+			var recipientInfo = data.recipientInfo;
+			
+			//수급자 요양정보
+			$('#mss-rcperRcognNo').text(recipientInfo.rcperRcognNo);
+			if (recipientInfo.ltcRcgtGradeCd) {
+				$('#mss-ltcRcgtGradeCd').text(recipientInfo.ltcRcgtGradeCd + '등급');	
+			} else {
+				$('#mss-ltcRcgtGradeCd').text('');	
+			}
+			$('#mss-rcgtEdaDt').text(recipientInfo.rcgtEdaDt);
+			$('#mss-penPayRate').text(recipientInfo.penPayRate);
+			$('#mss-bgngApdt').text(recipientInfo.bgngApdt);
+			$('#mss-remindAmt').text(comma(Number(recipientInfo.remindAmt)) + '원');
+			$('#mss-useAmt').text(comma(Number(recipientInfo.useAmt)) + '원');
+			$('#mss-searchDt').text(recipientInfo.searchDt);
+			
+			$('#modal-simple-search').modal('show');
+		}else{
+			alert(data.msg);
+		}
+	})
+	.fail(function(data, status, err) {
+		alert('서버와 연결이 좋지 않습니다');
+	});
+}
+
 
 $(function(){
 
