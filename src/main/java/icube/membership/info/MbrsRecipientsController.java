@@ -152,7 +152,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		model.addAttribute("rcperRcognNo", rcperRcognNo);
 		model.addAttribute("refleshDate", new Date());
 		
-		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("prevPathCode", CodeMap.PREV_PATH);
 		model.addAttribute("consltSttusCode", CodeMap.CONSLT_STTUS);

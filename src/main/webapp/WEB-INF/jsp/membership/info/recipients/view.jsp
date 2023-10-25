@@ -23,7 +23,7 @@
 			<div class="mypage-client-detail-item">
 				<h4 class="mypage-client-detail-item-title">
 					<strong class="text-xl">기본정보</strong>
-					<a href="#" class="text-blue3 text-sm" onclick="clickStartConsltBtn();">수정하기<i class="icon-plus icon-blue3"></i></a>
+					<a href="#" class="text-blue3 text-sm" onclick="clickUpdateRecipientBtn();">수정하기<i class="icon-plus icon-blue3"></i></a>
 				</h4>
 				<div class="mypage-client-detail-inner">
 					<table class="table-view bg-title">
@@ -35,7 +35,7 @@
 						<tbody>
 							<tr>
 								<th scope="row">수급자와의 관계</th>
-								<td>${mbrRelationCode[recipientVO.relationCd]}</td>
+								<td>${relationCd[recipientVO.relationCd]}</td>
 							</tr>
 							<tr>
 								<th scope="row">수급자 성명</th>
@@ -566,11 +566,11 @@
 		</c:choose>
 		
 		<div class="text-center my-20">
-			<a href="수급자관리.html"  class="btn-primary btn-large w-1/3">목록</a>
+			<a href="/membership/info/recipients/list" class="btn-primary btn-large w-1/3">목록</a>
 		</div>
 	</div>
 
-
+	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
 	<jsp:include page="./recipient_info_modal.jsp" />
 	
 
@@ -969,7 +969,7 @@
     
 	  	
 	  	//수급자 정보 수정 클릭
-	    function clickStartConsltBtn() {
+	    function clickUpdateRecipientBtn() {
 			var recipientsNo = '${recipientsNo}'
 			openModal('updateRecipient', Number(recipientsNo));
 	    }

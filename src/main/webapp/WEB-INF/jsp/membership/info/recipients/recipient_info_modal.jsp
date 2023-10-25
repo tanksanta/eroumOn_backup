@@ -33,7 +33,7 @@
                             <td>
                                 <select name="relationSelect" id="info-relationSelect" class="form-control w-full lg:w-8/12">
                                     <option value="">관계 선택</option>
-									<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+									<c:forEach var="relation" items="${relationCd}" varStatus="status">
 										<option value="${relation.key}">${relation.value}</option>	
 									</c:forEach>
                                 </select>
@@ -46,7 +46,7 @@
                                 </p>
                             </th>
                             <td>
-                                <input type="text" class="form-control  lg:w-8/12" id="info-recipientsNm" name="info-recipientsNm" maxlength="50" value="">
+                                <input type="text" class="form-control  lg:w-8/12" id="info-recipientsNm" name="info-recipientsNm" maxlength="50" value="" placeholder="성명">
                             </td>
                         </tr>
 						<tr class="wrapNo">
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group w-full lg:w-8/12" id="input-rcperRcognNo">
                                     <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
-                                    <input type="text" class="form-control " id="info-rcperRcognNo" name="info-rcperRcognNo" maxlength="13" value="">
+                                    <input type="text" class="form-control " id="info-rcperRcognNo" name="info-rcperRcognNo" maxlength="13" value="" placeholder="1234567890">
                                 </div>
                             </td>
                         </tr>
@@ -76,7 +76,7 @@
                             <th scope="row">
                                 <p><label for="search-item6">상담받을 연락처<sup class="text-danger text-base md:text-lg">*</sup></label></p>
                             </th>
-                            <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel"></td>
+                            <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel" placeholder="010-1234-5678"></td>
                         </tr> 
 						<tr>
                             <th scope="row">
@@ -214,19 +214,75 @@
     </div>
 
 
+	<!-- 수급자정보등록 확인팝업 -->
+	<div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h2 class="text-title">수급자 정보 등록</h2>
+	                <button data-bs-dismiss="modal" class="btn-close"></button>
+	            </div>
+	            <div class="modal-body">
+	            <div class="flex flex-col">
+	                <div class="text-subtitle">
+	                    <i class="icon-alert"></i>
+	                    <p>테스트를 하려면 수급자 등록이 필요해요</p>
+	                </div>
+	                <div class="text-subtitle">
+	                    <i class="icon-alert"></i>
+	                    <p>등록하려는 수급자 정보를 확인하세요</p>
+	                </div>
+	                <div class="text-subtitle">
+	                    <i class="icon-alert"></i>
+	                    <p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+	                </div>
+	            </div>
+	            <div class="modal-bg-wrap">
+	                <ul class="modal-list-box">
+	                	<input id="modal-recipient-relation-cd" type="hidden" value="">
+	                    <li>
+	                        <span class="modal-list-label">수급자와의 관계</span>
+	                        <span class="modal-list-value" id="modal-recipient-relation">본인</span>
+	                    </li>
+	                    <li>
+	                        <span class="modal-list-label">수급자 성명</span>
+	                        <span class="modal-list-value" id="modal-recipient-nm">홍길동</span>
+	                    </li>
+	                    <li id="regist-rcpt-lno">
+	                        <span class="modal-list-label">요양인정번호</span>
+	                        <span class="modal-list-value" id="modal-recipient-lno">L1234512345</span>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="text-subtitle">
+	                <i class="icon-alert"></i>
+	                <p>요양인정번호는 마이페이지에서 등록하실 수 있어요</p>
+	            </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary w-full" onclick="clickRegistRecipient();">확인</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
     <script>
 	    var me = {};
 	    var myRecipientInfo = {};
 	    var mbrRecipients = {};
 	    var infoModalType = '';
 	    var infoPrevPath = '';
+	    var addRecipientInfo = {};
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
 	    function openModal(modalType, recipientsNo, prevPath) {
 	    	infoModalType = modalType;
 	    	infoPrevPath = prevPath;
 	    	
-	  		if (modalType === 'updateRecipient') {
+	    	if (modalType === 'addRecipient') {
+	    		initModal();
+	    	} else if (modalType === 'updateRecipient') {
 	  			getUpdateRecipientInfoData(recipientsNo);	
 	  		} else if (modalType === 'requestConslt') {
 	  			getRequestConsltInfoData(recipientsNo);
@@ -309,6 +365,36 @@
 	  		mappingModalData();
 	  	}
 	  	
+	  	//수급자 추가하기 모달
+	  	function initModal() {
+	  		$('#pop-client-edit .text-title').text('수급자 정보 등록');
+  			$('#tr-prev-path').css('display', 'none');
+  			$('#div-remove-recipient').css('display', 'none');
+  			$('#ul-conslt-info').css('display', 'none');
+	  		
+  			//사용자 정보 가져오기
+  			$.ajax({
+	    		type : "post",
+	    		url  : "/membership/info/myinfo/getMbrInfo.json",
+	    		dataType : 'json'
+	    	})
+	    	.done(function(data) {
+	    		//로그인 한 경우
+	    		if (data.isLogin) {
+	    			me = data.mbrVO;
+	    			mbrRecipients = data.mbrRecipients;
+	    			
+	    			$('#pop-client-edit').modal('show');
+	    		}
+	    		//로그인 안한 경우
+	    		else {
+	    			alert('로그인 이후 이용가능합니다')
+	    		}
+	    	})
+	    	.fail(function(data, status, err) {
+	    		alert('서버와 연결이 좋지 않습니다');
+	    	});
+	  	}
 	  	
 	  	//모달에 데이터 매핑
 	  	function mappingModalData() {
@@ -476,8 +562,15 @@
 	    		return;
 	    	}
 	    	//본인과 배우자는 한명만 등록
-	    	var meCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '007').length; //내 수급자가 아닌 다른수급자도 본인인지 확인
-	    	var spouseCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '001').length; //내 수급자가 아닌 다른수급자도 배우자인지 확인
+	    	var meCount = 0;
+	    	var spouseCount = 0;
+	    	if (infoModalType === 'addRecipient') {
+	    		meCount = mbrRecipients.filter(f => f.relationCd === '007').length; //다른수급자도 본인인지 확인
+	    		spouseCount = mbrRecipients.filter(f => f.relationCd === '001').length; //다른수급자도 배우자인지 확인
+	    	} else {
+	    		meCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '007').length; //내 수급자가 아닌 다른수급자도 본인인지 확인
+	    		spouseCount = mbrRecipients.filter(f => f.recipientsNo !== myRecipientInfo.recipientsNo && f.relationCd === '001').length; //내 수급자가 아닌 다른수급자도 배우자인지 확인
+	    	}
 	    	if ((relationCd === '007' && meCount > 0) ||
 	    		(relationCd === '001' && spouseCount > 0)) {
 	    		alert('수급자와의 관계를 확인해주세요');
@@ -510,25 +603,22 @@
     			, gender
 	    	};
 	    	
-	    	//수급자 정보 수정
+	    	//수급자 정보 등록
 	    	if (infoModalType === 'addRecipient') {
-	    		$.ajax({
-		    		type : "post",
-		    		url  : "/membership/info/myinfo/addMbrRecipient.json",
-		    		data : jsonData,
-		    		dataType : 'json'
-		    	})
-		    	.done(function(data) {
-		    		if(data.success) {
-		    			$('#modal-consulting-info').modal('hide');
-		    			$('#modal-consulting-complated').modal('show');
-		    		}else{
-		    			alert(data.msg);
-		    		}
-		    	})
-		    	.fail(function(data, status, err) {
-		    		alert('서버와 연결이 좋지 않습니다.');
-		    	});
+	    		//등록 확인 모달창
+	    		$('#modal-recipient-relation-cd').val(relationCd);
+	        	$('#modal-recipient-relation').text($('#info-relationSelect option:checked').text());
+	        	$('#modal-recipient-nm').text(recipientsNm);
+	        	
+	        	if (rcperRcognNoYn === 'Y') {
+	        		$('#regist-rcpt-lno').css('display', 'block');
+	        		$('#modal-recipient-lno').text(rcperRcognNo);
+	        	} else {
+	        		$('#regist-rcpt-lno').css('display', 'none');
+	        	}
+	        	
+	    		$('#regist-rcpt').modal('show');
+	    		addRecipientInfo = jsonData;
 	    	}
 	    	//수급자 정보 수정
 	    	else if (infoModalType === 'updateRecipient') {
@@ -629,6 +719,27 @@
 	    		
 	    		$('#dong').html(template);
 	    	}
+	    }
+	    
+	    
+	    // 수급자 등록하기
+	    function clickRegistRecipient() {
+	    	$.ajax({
+	    		type : "post",
+	    		url  : "/membership/info/myinfo/addMbrRecipient.json",
+	    		data : addRecipientInfo,
+	    		dataType : 'json'
+	    	})
+	    	.done(function(data) {
+	    		if(data.success) {
+	    			location.reload();
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	})
+	    	.fail(function(data, status, err) {
+	    		alert('서버와 연결이 좋지 않습니다.');
+	    	});
 	    }
 	    
 	    
