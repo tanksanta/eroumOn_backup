@@ -68,15 +68,13 @@ public class MbrsConsltController extends CommonAbstractController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
-		
-		//회원의 추천 멤버스 정보
-		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
-		model.addAttribute("bplcRcmdList", bplcRcmdList);
-		
 		//회원의 관심 멤버스 정보
 		List <ItrstVO> itrstList = itrstService.selectItrstListAll(paramMap);
 		model.addAttribute("itrstList", itrstList);
 		
+		//회원의 추천 멤버스 정보
+		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
+		model.addAttribute("bplcRcmdList", bplcRcmdList);
 		
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
