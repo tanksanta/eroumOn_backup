@@ -611,8 +611,8 @@
 	        	$('#modal-recipient-nm').text(recipientsNm);
 	        	
 	        	if (rcperRcognNoYn === 'Y') {
-	        		$('#regist-rcpt-lno').css('display', 'block');
-	        		$('#modal-recipient-lno').text(rcperRcognNo);
+	        		$('#regist-rcpt-lno').css('display', 'flex');
+	        		$('#modal-recipient-lno').text('L' + rcperRcognNo);
 	        	} else {
 	        		$('#regist-rcpt-lno').css('display', 'none');
 	        	}

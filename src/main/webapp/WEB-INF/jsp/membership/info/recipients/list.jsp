@@ -86,8 +86,10 @@
 						<!-- 이미 상담중이라면 버튼 표시X -->
 						<div class="rounded-card-gray gap-2">
 							<div class="flex justify-between items-center">
+								<c:set var="consltPrevPath" value="${recipientInfo.recipientsYn == 'Y' ? 'simpleSearch' : 'test'}" />
+							
 								<strong>${recipientInfo.recipientsYn == "Y" ? "인정정보상담" : "요양등급상담"}</strong>
-								<button type="button" class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#check-counseling-info">상담하기</button>
+								<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
 							</div>
 							<div class="text-subtitle">
 								<i class="icon-alert size-sm"></i>
@@ -117,6 +119,36 @@
 	function clickAddRecipientBtn() {
 		openModal('addRecipient');
 	}
+	
+	// 상담하기 버튼 클릭
+	function requestConslt(recipientsNo, prevPath) {
+		if (prevPath === 'test') {
+			$.ajax({
+	    		type : "post",
+	    		url  : "/membership/info/recipients/test/result.json",
+	    		data : {
+	    			recipientsNo
+	    		},
+	    		dataType : 'json'
+	    	})
+	    	.done(function(data) {
+	    		if(data.success) {
+	    			if (data.isExistTest) {
+	    				openModal('requestConslt', Number(recipientsNo), prevPath);	
+	    			} else {
+	    				alert('테스트 진행 후 상담요청해주세요')
+	    			}
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	})
+	    	.fail(function(data, status, err) {
+	    		alert('서버와 연결이 좋지 않습니다.');
+	    	});
+		} else {
+			openModal('requestConslt', Number(recipientsNo), prevPath);	
+		}
+  	}
 	
 
 	window.onload = function(){

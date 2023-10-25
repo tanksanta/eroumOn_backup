@@ -59,6 +59,12 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	public MbrConsltVO selectMbrConslt(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.selectMbrConslt(paramMap);
 	}
+	
+	public MbrConsltVO selectMbrConsltByConsltNo(int consltNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltNo", consltNo);
+		return mbrConsltDAO.selectMbrConslt(paramMap);
+	}
 
 	public Integer insertMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
 		return mbrConsltDAO.insertMbrConslt(mbrConsltVO);

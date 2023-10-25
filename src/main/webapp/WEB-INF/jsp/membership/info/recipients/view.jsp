@@ -116,11 +116,11 @@
 										<div class="item-request justify-end">
 											<div class="flex items-center">
 												<label class="check1">
-													<input type="checkbox" name="" value="">
+													<input type="checkbox" name="recommend" value="${consltResultVO.bplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == consltResultVO.bplcUniqueId).count() > 0}">checked</c:if>>
 													<span>추천하기</span>
 												</label>
 												<label class="check2">
-													<input type="checkbox" name="" value="">
+													<input type="checkbox" name="itrst" value="${consltResultVO.bplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == consltResultVO.bplcUniqueId).count() > 0}">checked</c:if>>
 													<span>관심설정</span>
 												</label>
 											</div>
@@ -998,5 +998,101 @@
 			$('.status-toggle').on('click', function() {
 				$(this).toggleClass('is-active').prev('.status-list').toggleClass('hidden');
 			})
+			
+			
+			//추천하기 이벤트
+			$("input[name='recommend']").on("click",function(){
+	    		let bplcUniqueId = $(this).val();
+	    		let checked = $(this).is(':checked');
+	    		console.log(bplcUniqueId, checked);
+	
+	    		if(bplcUniqueId != ""){
+		    		$.ajax({
+						type : "post",
+						url  : "/members/bplc/rcmd/incrsAction.json",
+						data : {bplcUniqueId},
+						dataType : 'json'
+					})
+					.done(function(data) {
+						console.log(data.result);
+						if(data.result==="success"){
+							$(this).prop('checked', false);
+						}else if(data.result==="login"){
+							$(this).prop('checked', false);
+							alert("로그인을 해야 사용하실 수 있습니다.");
+						}else if(data.result==="dislike"){
+							$(this).prop('checked', false);
+						/*
+						}else if(data.result==="already"){
+							alert("이미 '좋아요'를 하셨습니다.");
+						*/
+						}
+					})
+					.fail(function(data, status, err) {
+						console.log('error forward : ' + data);
+					});
+	    		}
+	
+	    	});
+			
+			//관심멤버스 이벤트
+			$("input[name='itrst']").on("click",function(){
+	    		let bplcUniqueId = $(this).val();
+	    		let checked = $(this).is(':checked');
+	    		console.log(bplcUniqueId, checked);
+
+	    		var uniqueIds = [];
+	    		uniqueIds.push(bplcUniqueId);
+
+	    		/* 기존 관심멤서브 자원 활용 */
+	    		if(uniqueIds.length > 0 && checked){ //등록
+	   				$.ajax({
+	   					type : "post",
+	   					url  : "/membership/conslt/itrst/insertItrstBplc.json",
+	   					data : {
+	   						arrUniqueId : uniqueIds
+	   					},
+	   					traditional: true,
+	   					dataType : 'json'
+	   				}).done(function(data) {
+	   					if(data.result == 0){
+	   						$(this).prop('checked', false);
+	   						alert("관심 멤버스 등록에 실패했습니다. /n 관리자에게 문의바랍니다.");
+	   						return false;
+	   					}else if(data.result == 1){
+	   						//alert("등록되었습니다.");
+	   						console.log("관심 멤버스로 등록 완료");
+	   					}else{
+	   						$(this).prop('checked', false);
+	   						alert("관심 멤버스는 최대 5개 입니다.");
+	   						return false;
+	   					}
+
+	   				}).fail(function(data, status, err) {
+	   					console.log(data);
+	   					return false;
+	   				});
+	    		}else if(uniqueIds.length > 0 && !checked){ //삭제
+
+	    			$.ajax({
+	    				type : "post",
+	    				url  : "/membership/conslt/itrst/deleteItrstBplc.json",
+	    				data : {
+	    					uniqueId : bplcUniqueId
+	    				},
+	    				dataType : 'json'
+	    			})
+	    			.done(function(json) {
+	    				console.log("관심 멤버스에서 삭제 완료");
+	    				$(this).prop('checked', false);
+	    				//alert("삭제되었습니다.");
+	    			})
+	    			.fail(function(data, status, err) {
+	    				console.log(data);
+	    			});
+	    		}
+
+
+	    	});
 		})
     </script>

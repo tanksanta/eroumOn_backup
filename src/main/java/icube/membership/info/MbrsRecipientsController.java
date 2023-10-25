@@ -30,6 +30,8 @@ import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
+import icube.members.bplc.rcmd.biz.BplcRcmdService;
+import icube.members.bplc.rcmd.biz.BplcRcmdVO;
 import icube.membership.conslt.biz.ItrstService;
 import icube.membership.conslt.biz.ItrstVO;
 
@@ -51,6 +53,9 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	
 	@Resource(name = "itrstService")
 	private ItrstService itrstService;
+	
+	@Resource(name="bplcRcmdService")
+	private BplcRcmdService bplcRcmdService;
 	
 	@Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
@@ -84,9 +89,13 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
-		
+		//회원의 관심 멤버스 정보
 		List <ItrstVO> itrstList = itrstService.selectItrstListAll(paramMap);
 		model.addAttribute("itrstList", itrstList);
+		
+		//회원의 추천 멤버스 정보
+		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
+		model.addAttribute("bplcRcmdList", bplcRcmdList);
 		
 		
 		model.addAttribute("prevPath", CodeMap.PREV_PATH);
@@ -140,6 +149,18 @@ public class MbrsRecipientsController extends CommonAbstractController {
     	paramMap.put("srchRecipientsNo", recipientsNo);
     	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
     	
+    	
+    	paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+		paramMap.put("srchItrstTy", "B");
+		//회원의 관심 멤버스 정보
+		List <ItrstVO> itrstList = itrstService.selectItrstListAll(paramMap);
+		model.addAttribute("itrstList", itrstList);
+    	
+    	//회원의 추천 멤버스 정보
+		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
+		model.addAttribute("bplcRcmdList", bplcRcmdList);
+    	
 		
 		TilkoApiVO apiVO = new TilkoApiVO();
 		model.addAttribute("apiVO",apiVO);
@@ -158,6 +179,36 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		model.addAttribute("consltSttusCode", CodeMap.CONSLT_STTUS);
 		
 		return "/membership/info/recipients/view";
+	}
+	
+	/**
+	 * 테스트 결과 확인
+	 */
+	@ResponseBody
+	@RequestMapping(value = "test/result.json")
+	public Map<String, Object> testResult(
+		@RequestParam Integer recipientsNo) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			//인정등급예상테스트 정보
+			Map<String, Object> paramMap = new HashMap<>();
+	    	paramMap.put("srchRecipientsNo", recipientsNo);
+	    	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
+	    	if (srchMbrTestVO != null) {
+	    		resultMap.put("isExistTest", true);
+	    	} else {
+	    		resultMap.put("isExistTest", false);
+	    	}
+	    	
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "테스트 결과 조회중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
 	}
 	
 	/**
