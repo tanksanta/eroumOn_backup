@@ -252,9 +252,9 @@
                     <h4 class="text-header-title">통합복지</h4>
                     <button data-bs-dismiss="modal">모달 닫기</button>
                 </div>
-                 <hr class="divide-x-1 mt-5"/>
+                 <hr class="divide-x-1 mt-3"/>
                 <div class="modal-body space-no-x">
-                    <div class="modal-detail-title" id="modal-detail-benefitName"></div>
+                    <div class="modal-detail-title mt-5" id="modal-detail-benefitName"></div>
                     <div class="modal-detail-content">
                         <a class="share f_clip" data-bokji-id="">공유하기 <i></i></a>
                         <table>
