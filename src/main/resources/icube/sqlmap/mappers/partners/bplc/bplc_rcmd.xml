@@ -12,6 +12,13 @@
 		, rgtr
 		, rcmd_yn
 	</sql>
+	
+	<select id="selectBplcRcmdByUniqueId" parameterType="java.util.HashMap" resultType="BplcRcmdVO">
+		SELECT
+			<include refid="listColumn" />
+		 FROM BPLC_RCMD
+		WHERE reg_unique_id = #{regUniqueId}
+	</select>
 
 	<select id="selectRcmdCntByUniqueId" parameterType="java.util.HashMap" resultType="int">
 		SELECT

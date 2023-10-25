@@ -1,5 +1,9 @@
 package icube.members.bplc.rcmd.biz;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -31,4 +35,9 @@ public class BplcRcmdService extends CommonAbstractServiceImpl {
 		return bplcRcmdDAO.selectRcmdCntByUniqueId(rcmdVO);
 	}
 
+	public List<BplcRcmdVO> selectBplcRcmdByUniqueId(String mbrUniqueId) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("regUniqueId", mbrUniqueId);
+		return bplcRcmdDAO.selectBplcRcmdByUniqueId(param);
+	}
 }

@@ -270,7 +270,7 @@
 
 /* 요양정보 간편조회 */
 .careinfo-title {
-    @apply mb-[0.6em] text-lg leading-tight font-bold md:text-[1.375rem];
+    @apply mb-3 text-lg leading-tight font-bold md:text-[1.375rem];
 }
 
 .careinfo-search {
@@ -1978,6 +1978,34 @@
     }
 }
 
+.beige-card-wrap {
+    @apply flex flex-col gap-2.5 bg-[#F8F5F0] p-5 w-full rounded-md;
+}
+.check-lists {
+    @apply flex flex-col gap-2;
+
+    & li {
+        @apply relative bg-white rounded-md py-2.5 pr-5 pl-11;
+        &::before {
+            @apply content-empty  absolute left-5 top-3 inline-block bg-no-repeat bg-center bg-[length:100%] w-4 h-4 ;
+            background-image: url('../images/ico-check.svg');
+        }
+    }
+}
+
+.circle-lists {
+    @apply flex flex-col mt-2;
+    & li {
+        @apply relative pl-4 text-sm;
+        &::before {
+            @apply content-empty  absolute left-0 top-2 inline-block w-1 h-1 rounded-[50%] bg-black;
+        }
+    }
+}
+
+.welfare-contact {
+    @apply flex flex-col justify-start items-start md:flex-row md:items-center md:justify-between  w-full gap-3;
+}
 
 @keyframes textblur {
     0% {

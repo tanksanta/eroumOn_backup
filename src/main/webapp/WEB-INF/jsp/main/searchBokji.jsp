@@ -29,10 +29,10 @@
 		<div class="recommended-hot-box first">
 			<span class="badge-eroum">이로움 01</span>
 			<div class="flex flex-col gap-2 mt-7">
-				<h4 class="text-3xl lg:text-5xl"><strong>어르신용품</strong> 구매비 지원</h4>
+				<h4 class="text-3xl lg:text-5xl leading-tight"><strong>어르신용품</strong> 구매비 지원</h4>
 				<p class="text-lg lg:text-2xl leading-tight font-light">신체활동이 불편하신 어르신이라면,<br><strong class="font-medium">어르신용품을 신청하세요</strong></p>
 			</div>
-			<a href="#" class="btn btn-primary2 btn-arrow mt-8 md:mt-13 lg:mt-23 mr-auto"><strong>자세히보기</strong></a>
+			<a href="#" class="btn btn-primary2 btn-arrow mt-8 md:mt-13 lg:mt-23 mr-auto" data-bs-toggle="modal" data-bs-target="#pop-welfare-1"><strong>자세히보기</strong></a>
 			<span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service01.png" alt="어르신용품구매지원비 이미지"/></span>
 		</div>
 		<div class="recommended-hot-box second">
@@ -41,109 +41,101 @@
 				<h4 class="text-3xl leading-tight"><strong>요양시설 입소(시설급여)</strong> 이용비 지원</h4>
 				<p class="text-lg">집에서 생활이 어려운 어르신이라면, <strong class="font-medium">요양 전문 시설 입소를 신청하세요.</strong></p>
 			</div>
-			<a href="#" class="btn btn-primary2 btn-arrow mt-8"><strong>자세히보기</strong></a>
+			<a href="#" class="btn btn-primary2 btn-arrow mt-8" data-bs-toggle="modal" data-bs-target="#pop-welfare-2"><strong>자세히보기</strong></a>
 			<span class="bg-eroum-service"><img src="/html/page/index/assets/images/bg-eroum-service02.png" alt="요양시설 입소(시설급여)이용비지원 이미지"/></span>
 		</div>
-		<div class="recommended-hot-border">
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-3">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 03</span>
 					<h4><strong>가정방문(재가)</strong><br>이용비 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item03.svg" alt="재가"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-4">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 04</span>
 					<h4><strong>보청기</strong><br>구매비 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item04.svg" alt="보청기"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-5">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 05</span>
 					<h4><strong>임플란트</strong><br>이용 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item05.svg" alt="임플란트"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-6">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 06</span>
 					<h4><strong>틀니</strong><br>이용 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item06.svg" alt="틀니"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-7">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 07</span>
 					<h4><strong>인공관절</strong><br>수술비 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item07.svg" alt="인공관절"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-8">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 08</span>
 					<h4><strong>노인개안</strong><br>수술비 지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item08.svg" alt="인공관절"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-9">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 09</span>
 					<h4><strong>치매 검사비</strong><br>지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item09.svg" alt="치매 검사비"/></i>
 				</div>
 			</div>
-		</div>
-		<div class="recommended-hot-border">
+		</a>
+		<a href="#" class="recommended-hot-border" data-bs-toggle="modal" data-bs-target="#pop-welfare-10">
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 10</span>
 					<h4><strong>치매 치료비</strong><br>지원</h4>
 				</div>
 				<div class="subject-inner-link">
-					<a href="#" class="btn-detail">자세히보기</a>
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item10.svg" alt="치매 치료비"/></i>
 				</div>
 			</div>
-		</div>
+		</a>
 	</div>
 	
 	<jsp:include page="searchBokji-modal.jsp" flush="true"/>
-
+	
 	<nav class="welfare-service-category">
 		<div class="careinfo-title-wrap">
 			<h3 class="careinfo-title">통합복지 <span class="font-normal">목록</span></h3>
@@ -207,6 +199,33 @@
 				</label>
 			</li>
 		</ul>
+		
+         <form action="#" class="welfare-service-category-search">
+			<fieldset>
+				<legend class="sr-only">복지서비스 검색</legend>
+				<select name="select-sido" class="form-control border-light">
+					<c:set var="addr" value="" />
+					<c:if test="${_mbrAddr1 eq '충남'}"><c:set var="addr" value="충청남도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '충북'}"><c:set var="addr" value="충청북도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '경남'}"><c:set var="addr" value="경상남도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '경북'}"><c:set var="addr" value="경상북도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '전남'}"><c:set var="addr" value="전라남도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '전북'}"><c:set var="addr" value="전라북도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '서울'}"><c:set var="addr" value="서울특별시" /></c:if>
+					<c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
+					<c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
+					<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}광역시" /></c:if>
+	
+					<c:forEach var="stdg" items="${stdgCdList}">
+						<option value="${stdg.stdgCd}" <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if><c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr }">selected="selected"</c:if>>${stdg.ctpvNm}</option>
+					</c:forEach>
+				</select>
+				<select name="select-gugun" class="form-control border-light">
+					<option value="">선택</option>
+				</select>
+				<button type="button" class="btn-outline-primary btn-thin w-auto srch-srvc">확인<i class="icon-search"></i></button>
+			</fieldset>
+		</form>
 	</nav>
 
 	<!-- 서비스 본문(복지제도) -->
@@ -226,15 +245,16 @@
 	
 	
 	<!-- 복지서비스 상세보기 모달 -->
-	<div class="modal fade" id="modal-detail" tabindex="-1" aria-hidden="true">
+	<div class="modal modal-index fade" id="modal-detail" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p>
+                    <h4 class="text-header-title">통합복지</h4>
                     <button data-bs-dismiss="modal">모달 닫기</button>
                 </div>
-                <div class="modal-body">
-                    <div class="modal-detail-title" id="modal-detail-benefitName"></div>
+                 <hr class="divide-x-1 mt-3"/>
+                <div class="modal-body space-no-x">
+                    <div class="modal-detail-title mt-5" id="modal-detail-benefitName"></div>
                     <div class="modal-detail-content">
                         <a class="share f_clip" data-bokji-id="">공유하기 <i></i></a>
                         <table>
@@ -331,20 +351,21 @@
 				
 				template += `<a class="content-item is-color` + colorCode + `" onclick="viewSrvcDetail(` + srvcList[i].bokjiId + `)">
 					<div class="content">
-						<img src="/html/page/index/assets/images/img-sample.png" class="content-img" alt="img-sample"/>
 						<div class="content-inner">
 							<div class="content-inner-text">
-								<span class="badge-city">` + '경기도 고양시청' + `</span>     
+							 	<div>
+									<span class="badge-city">` + '경기도 고양시청' + `</span>
+									<span class="text-gray6 text-xs">서울특별시 구로구</span>
+								</div>
 								<p class="name">` + srvcList[i].benefitName + `</p>
 								<p class="type">
-									<span>` + srvcList[i].bokjiResource + `</span>
 									<span>
 										` + categoryText + `
 									</span>
 								</p>
 							</div>
 							<div class="flex items-center justify-between">
-								<span class="btn-detail">자세히보기</span>
+								<span class="text-sm">` + srvcList[i].bokjiResource + `</span>
 								<i class="part"></i>
 							</div>
 						</div>
@@ -546,7 +567,7 @@
 				$('#modal-detail-table-content').html(contentsTemplate);
 				
 				//모달 띄우기
-				$('#modal-detail').modal('show');
+				$('#modal-detail').modal('show').css('outline', 'none');
 				
 				//공유하기 복지ID 매핑
 				$('.f_clip').prop('data-bokji-id', srvcInfo.bokjiId);

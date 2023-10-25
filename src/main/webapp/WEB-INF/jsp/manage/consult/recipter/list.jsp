@@ -111,7 +111,7 @@
 				<th scope="col">수급자 성명</th>
 				
 				<th scope="col">상담받을 연락처</th>
-				<th scope="col">거주지주소</th>
+				<th scope="col">실거주지주소</th>
 				<th scope="col">상담유형</th>
 				<th scope="col">상담신청일<br>(재상담 신청일)</th>
 				<th scope="col">회원이름<br>(아이디)</th>

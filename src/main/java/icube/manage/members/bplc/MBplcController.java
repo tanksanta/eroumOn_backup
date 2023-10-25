@@ -280,6 +280,7 @@ public class MBplcController extends CommonAbstractController {
 			, @RequestParam(value="srchGugun", required=false) String srchGugun
 			, @RequestParam(value="srchText", required=false) String srchText
 			, @RequestParam(value="rcmdtnYn", required=false) String rcmdtnYn
+			, @RequestParam(value="mbGiupMatching", required=false) String mbGiupMatching
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request) throws Exception {
 
@@ -289,6 +290,7 @@ public class MBplcController extends CommonAbstractController {
 		listVO.setParam("srchSido", srchSido);
 		listVO.setParam("srchGugun", srchGugun);
 		listVO.setParam("srchText", srchText);
+		listVO.setParam("mbGiupMatching", mbGiupMatching);
 		listVO = bplcService.bplcListVO(listVO);
 
 		// DataTable

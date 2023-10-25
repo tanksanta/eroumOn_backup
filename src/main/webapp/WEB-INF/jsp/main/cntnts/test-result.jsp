@@ -361,7 +361,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer gap-1">
                 <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
                 <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button>
             </div>

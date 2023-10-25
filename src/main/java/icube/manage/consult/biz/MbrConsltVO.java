@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.type.Alias;
 
 import icube.common.vo.CommonBaseVO;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -47,4 +48,7 @@ public class MbrConsltVO extends CommonBaseVO {
 	private String relationCd;
 	private String rcperRcognNo;
 	private String prevPath;
+
+	private String regId;
+	private String regUniqueId;
 }

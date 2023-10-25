@@ -93,6 +93,9 @@
 				</otherwise>
 			</choose>
 		</if>
+		<if test="srchRecipientsNo > 0">
+			AND recipients_no = #{srchRecipientsNo}
+		</if>
 
 		<!-- 사업소명 검색 & 취소건(화면x) 제외 -->
 		<if test="srchBplcNm != null and srchBplcNm != '' ">

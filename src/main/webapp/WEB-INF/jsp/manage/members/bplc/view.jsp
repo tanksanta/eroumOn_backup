@@ -295,7 +295,7 @@
 
 		<button type="submit" class="btn-primary large shadow">저장</button>
 
-		<c:set var="pageParam" value="uniqueId=${bplcVO.uniqueId}&amp;curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchBgngDt=${param.srchBgngDt}&amp;srchEndDt=${param.srchEndDt}&amp;sortBy=${param.sortBy}&amp;srchBplcId=${param.srchBplcId}
+		<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchBgngDt=${param.srchBgngDt}&amp;srchEndDt=${param.srchEndDt}&amp;sortBy=${param.sortBy}&amp;srchBplcId=${param.srchBplcId}
 		&amp;srchBplcNm=${param.srchBplcNm}&amp;srchRprsvNm=${param.srchRprsvNm}&amp;srchBrno=${param.srchBrno}&amp;srchDspyYn=${param.srchDspyYn}&amp;srchUseYn=${param.srchUseYn}" />
 		<a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
 	</div>

@@ -501,7 +501,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer gap-1">
                     <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
                     <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button>
                 </div>
@@ -566,11 +566,11 @@
                                 </th>
                                 <td>
                                     <div class="flex flex-row gap-2.5 mb-1.5">
-                                        <div class="form-check">
+                                        <div class="form-check input-rcperRcognNo-yn">
                                             <input class="form-check-input" type="radio" name="info-rcperRcognNo-yn" id="info-rcperRcognNo-y" value="Y" checked onchange="changeRcperRcognNoYn();">
                                             <label class="form-check-label" for="info-rcperRcognNo-y">있음</label>
                                         </div>
-                                        <div class="form-check">
+                                        <div class="form-check input-rcperRcognNo-yn">
                                             <input class="form-check-input" type="radio" name="info-rcperRcognNo-yn" id="info-rcperRcognNo-n" value="N" onchange="changeRcperRcognNoYn();">
                                             <label class="form-check-label" for="info-rcperRcognNo-n">없음</label>
                                         </div>
@@ -1114,6 +1114,8 @@ function openNewConsltInfo() {
 	if(myRecipientInfo.rcperRcognNo) {
 		//L번호가 있는 경우 이름, L번호 수정 불가
 		$('#info-recipientsNm').prop('readonly', true);
+		
+		$('.input-rcperRcognNo-yn').css('display', 'none');
 		$('#info-rcperRcognNo-y').prop('disabled', true);
 		$('#info-rcperRcognNo-n').prop('disabled', true);
 		
@@ -1123,6 +1125,8 @@ function openNewConsltInfo() {
 		$('#info-rcperRcognNo').prop('readonly', true);
 	} else {
 		$('#info-recipientsNm').prop('readonly', false);
+		
+		$('.input-rcperRcognNo-yn').css('display', 'inline-block');
 		$('#info-rcperRcognNo-y').prop('disabled', false);
 		$('#info-rcperRcognNo-n').prop('disabled', false);
 		
