@@ -48,13 +48,16 @@
 				<th scope="col">번호</th>
 				<th scope="col">상담진행상태</th>
 				<th scope="col">사업소배정</th>
-				<th scope="col">성명</th>
-				<th scope="col">성별</th>
-				<th scope="col">연락처</th>
-				<th scope="col">만나이</th>
-				<th scope="col">생년월일</th>
-				<th scope="col">거주지주소</th>
+				<th scope="col">수급자 성명</th>
+				<!--th scope="col">성별</th-->
+				<th scope="col">상담받을 연락처</th>
+				<!--th scope="col">만나이</th-->
+				<!--th scope="col">생년월일</th-->
+				<th scope="col">실거주지주소</th>
+				<th scope="col">상담유형</th>
 				<th scope="col">상담신청일</th>
+				<th scope="col">회원이름</th>
+				<th scope="col">회원아이디</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -84,17 +87,20 @@
 					</c:if>
 				</td>
 				<td>${result.mbrNm}</td>
-				<td>${genderCode[result.gender]}</td>
+				<!--td>${genderCode[result.gender]}</td-->
 				<td>${result.mbrTelno}</td>
-				<td>만 ${result.age} 세</td>
-				<td>${fn:substring(result.brdt,0,4)}/${fn:substring(result.brdt,4,6)}/${fn:substring(result.brdt,6,8)}</td>
-				<td>(${result.zip})&nbsp;${result.addr}&nbsp;${result.daddr}</td>
+				<!--td>만 ${result.age} 세</td-->
+				<!--td>${fn:substring(result.brdt,0,4)}/${fn:substring(result.brdt,4,6)}/${fn:substring(result.brdt,6,8)}</td-->
+				<td>${result.zip}&nbsp;${result.addr}&nbsp;${result.daddr}</td>
+				<td>${prevPath[result.prevPath]}</td>
 				<td>
 					<fmt:formatDate value="${result.regDt }" pattern="yyyy-MM-dd" />
 					<c:if test="${result.consltSttus eq 'CS07' || result.consltSttus eq 'CS08'}">
 					<br>(<fmt:formatDate value="${result.reConsltDt }" pattern="yyyy-MM-dd" />)
 					</c:if>
 				</td>
+				<td>${result.rgtr }</td>
+				<td>${result.regId }</td>
 			</tr>
 		</c:forEach>
 		<c:if test="${fn:length(resultList) < 1}">
