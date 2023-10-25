@@ -444,6 +444,8 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		model.addAttribute("resultList", resultList);
 		model.addAttribute("genderCode", CodeMap.GENDER);
+		model.addAttribute("prevPath", CodeMap.PREV_PATH);
+		model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
 
 		return "/manage/consult/recipter/excel";
 	}
