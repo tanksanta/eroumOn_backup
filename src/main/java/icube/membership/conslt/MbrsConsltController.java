@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -161,6 +163,51 @@ public class MbrsConsltController extends CommonAbstractController {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
+		return resultMap;
+	}
+	
+	/**
+	 * 상담정보조회 API
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getConsltInfo.json")
+	public Map<String, Object> getConsltInfo(
+		@RequestParam Integer consltNo) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+			//본인 계정의 상담만 조회 가능
+			if (mbrConsltVO.getRegUniqueId().equals(mbrSession.getUniqueId()) == false) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "본인의 상담만 조회가능합니다");
+			}
+			
+			Map<String, String> mbrConsltInfo = new HashMap<>(); 
+			mbrConsltInfo.put("relationText", CodeMap.MBR_RELATION_CD.get(mbrConsltVO.getRelationCd()));
+			mbrConsltInfo.put("mbrNm", mbrConsltVO.getMbrNm());
+			mbrConsltInfo.put("rcperRcognNo", "L" + mbrConsltVO.getRcperRcognNo());
+			mbrConsltInfo.put("mbrTelno", mbrConsltVO.getMbrTelno());
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getZip()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getAddr()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getDaddr())) {
+				mbrConsltInfo.put("address", mbrConsltVO.getZip() + " " + mbrConsltVO.getAddr() + " " + mbrConsltVO.getDaddr());
+			}
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
+				mbrConsltInfo.put("brdt", mbrConsltVO.getBrdt().substring(0, 4) + "/" + mbrConsltVO.getBrdt().substring(4, 6) + "/" + mbrConsltVO.getBrdt().substring(6, 8));
+			}
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getGender())) {
+				mbrConsltInfo.put("gender", CodeMap.GENDER.get(mbrConsltVO.getGender()));
+			}
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getPrevPath())) {
+				mbrConsltInfo.put("prevPath", CodeMap.PREV_PATH.get(mbrConsltVO.getPrevPath()));
+			}
+			
+			resultMap.put("mbrConsltInfo", mbrConsltInfo);
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "상담정보조회 중 오류가 발생하였습니다");
+		}
+		
 		return resultMap;
 	}
 }

@@ -123,7 +123,7 @@
 	                        <dt>수급자 성명</dt>
 	                        <dd class="flex justify-between">
 	                            <span>${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
-	                            <a href="#" data-bs-toggle="modal" data-bs-target="#check-counseling-info" class="btn-conselng-info">
+	                            <a class="btn-conselng-info" onclick="viewConsltInfoModal('${resultList.consltNo}')" style="cursor: pointer;">
 	                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
 	                            </a>
 	                        </dd>
@@ -284,35 +284,35 @@
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">수급자와의 관계</th>
-                                        <td>본인</td>
+                                        <td id="relationText">본인</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">수급자 성명</th>
-                                        <td>이로움</td>
+                                        <td id="mbrNm">이로움</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">요양인정번호</th>
-                                        <td>L123456789</td>
+                                        <td id="rcperRcognNo">L123456789</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">상담받을 연락처</th>
-                                        <td>010-1234-5678</td>
+                                        <td id="mbrTelno">010-1234-5678</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">실거주지 주소</th>
-                                        <td>서울특별시 금천구 가산디지털로 104</td>
+                                        <td id="address">서울특별시 금천구 가산디지털로 104</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">생년월일</th>
-                                        <td>1900/01/01</td>
+                                        <td id="brdt">1900/01/01</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">성별</th>
-                                        <td>남성</td>
+                                        <td id="gender">남성</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-gray1 font-medium">상담 유형</th>
-                                        <td>인정등급 상담</td>
+                                        <td id="prevPath">인정등급 상담</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -329,231 +329,264 @@
     </main>
 	<script src="/html/core/vendor/masonry/masonry.pkgd.min.js"></script>
     <script>
-    function f_srchJoinSet(ty){
-    	$("#srchRegEnd").val(f_getToday());
-    	if(ty == "1"){//오늘
-       		$("#srchRegBgng").val(f_getToday());
-    	}else if(ty == "2"){//일주일
-    		$("#srchRegBgng").val(f_getDate(-7));
-    	}else if(ty == "3"){//15일
-    		$("#srchRegBgng").val(f_getDate(-15));
-    	}else if(ty == "4"){//한달
-    		$("#srchRegBgng").val(f_getDate(-30));
-    	}
-    }
-
-    $(function(){
-        $('.mypage-consult-items').masonry({
-            itemSelector   : '.mypage-consult-item',
-            gutter         : '.mypage-consult-item-gutter',
-            percentPosition: true
-        });
-
-        $('.mypage-consult-toggle, .search-close').on('click', function() {
-            $('body').toggleClass('overflow-hidden').find('.mypage-consult-search').toggle();
-        });
-
-        $(window).on('resize', function() {
-            if(resize) $('body').removeClass('overflow-hidden').find('.mypage-consult-search').removeAttr('style');
-        });
-
-        $(".f_reconslt").on("click", function(e){
-        	let consltNo = $(this).data("consltNo");
-        	let bplcUniqueId = $(this).data("bplcUniqueId");
-        	let bplcConsltNo = $(this).data("bplcConsltNo");
-        	console.log(consltNo, bplcUniqueId, bplcConsltNo);
-
-        	$("#modalReConslt input[name='consltNo']").val(consltNo);
-        	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
-        	$("#modalReConslt input[name='bplcConsltNo']").val(bplcConsltNo);
-        	$("#reqModal").modal('show');
-        });
-
-
-        $("#modalReConslt .btn-submit").on("click", function(){
-    		$("#modalReConslt").submit();
-    	});
-
-    	$("form[name='modalReConslt']").validate({
-    	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
-    	    rules : {
-    	    	reconsltResn : { required : true}
-    	    },
-    	    messages : {
-    	    	reconsltResn : { required : "내용을 작성해 주세요"}
-    	    },
-    	    submitHandler: function (frm) {
-
-    	    	let consltNo = $("#modalReConslt input[name='consltNo']").val();
-    	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
-    	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
-    	    	let bplcConsltNo = $("#modalReConslt input[name='bplcConsltNo']").val();
-
-   	            if (confirm('해당 내역을 저장하시겠습니까?')) {
-	   	            $.ajax({
-	       				type : "post",
-	       				url  : "./reConslt.json", //주문확인
-	       				data : {
-	       					consltNo:consltNo
-	       					, reconsltResn:reconsltResn
-	       					, bplcUniqueId:bplcUniqueId
-	       					, bplcConsltNo:bplcConsltNo
-	       				},
-	       				dataType : 'json'
-	       			})
-	       			.done(function(data) {
-	       				if(data.result){
-	       					alert("정상적으로 저장되었습니다.");
-	       					//$("#modalReConslt .btn-cancel").click();
-	       					window.location.reload();
-	       				}
-	       			})
-	       			.fail(function(data, status, err) {
-	       				alert('재 상담 신청에 실패하였습니다. : ' + data);
-	       			});
-   	        	}else{
-   	        		return false;
-   	        	}
-    	    }
-    	});
-
-    	// 멤버스 추가
-    	$("input[name='itrst']").on("click",function(){
-    		let bplcUniqueId = $(this).val();
-    		let checked = $(this).is(':checked');
-    		console.log(bplcUniqueId, checked);
-
-    		var uniqueIds = [];
-    		uniqueIds.push(bplcUniqueId);
-
-    		/* 기존 관심멤서브 자원 활용 */
-    		if(uniqueIds.length > 0 && checked){ //등록
-   				$.ajax({
-   					type : "post",
-   					url  : "/membership/conslt/itrst/insertItrstBplc.json",
-   					data : {
-   						arrUniqueId : uniqueIds
-   					},
-   					traditional: true,
-   					dataType : 'json'
-   				}).done(function(data) {
-   					if(data.result == 0){
-   						$(this).prop('checked', false);
-   						alert("관심 멤버스 등록에 실패했습니다. /n 관리자에게 문의바랍니다.");
-   						return false;
-   					}else if(data.result == 1){
-   						//alert("등록되었습니다.");
-   						console.log("관심 멤버스로 등록 완료");
-   					}else{
-   						$(this).prop('checked', false);
-   						alert("관심 멤버스는 최대 5개 입니다.");
-   						return false;
-   					}
-
-   				}).fail(function(data, status, err) {
-   					console.log(data);
-   					return false;
-   				});
-    		}else if(uniqueIds.length > 0 && !checked){ //삭제
-
-    			$.ajax({
-    				type : "post",
-    				url  : "/membership/conslt/itrst/deleteItrstBplc.json",
-    				data : {
-    					uniqueId : bplcUniqueId
-    				},
-    				dataType : 'json'
-    			})
-    			.done(function(json) {
-    				console.log("관심 멤버스에서 삭제 완료");
-    				$(this).prop('checked', false);
-    				//alert("삭제되었습니다.");
-    			})
-    			.fail(function(data, status, err) {
-    				console.log(data);
-    			});
-    		}
-
-
-    	});
-
-    	$("input[name='recommend']").on("click",function(){
-    		let bplcUniqueId = $(this).val();
-    		let checked = $(this).is(':checked');
-    		console.log(bplcUniqueId, checked);
-
-    		if(bplcUniqueId != ""){
-	    		$.ajax({
-					type : "post",
-					url  : "/members/bplc/rcmd/incrsAction.json",
-					data : {bplcUniqueId},
-					dataType : 'json'
-				})
-				.done(function(data) {
-					console.log(data.result);
-					if(data.result==="success"){
-						$(this).prop('checked', false);
-					}else if(data.result==="login"){
-						$(this).prop('checked', false);
-						alert("로그인을 해야 사용하실 수 있습니다.");
-					}else if(data.result==="dislike"){
-						$(this).prop('checked', false);
-					/*
-					}else if(data.result==="already"){
-						alert("이미 '좋아요'를 하셨습니다.");
-					*/
-					}
-				})
-				.fail(function(data, status, err) {
-					console.log('error forward : ' + data);
-				});
-    		}
-
-    	});
-
-    	$(".f_cancel").on("click", function(e){
-        	let consltNo = $(this).data("consltNo");
-        	console.log(consltNo);
-
-        	$("#modalCancel input[name='consltNo']").val(consltNo);
-        	$("#cancelModal").modal('show');
-        });
-
-    	$(".btn-cancel-submit").on("click", function(e){
-    		e.preventDefault();
-
-    		let consltNo = $("#modalCancel input[name='consltNo']").val();
-    		let canclResn = $("#modalCancel textarea[name='canclResn']").val();
-
-    		let params = {
-    				consltNo:consltNo
-    				, canclResn:canclResn};
-
-    		if($("#canclResn").val() === ""){
-    			alert("취소 사유를 입력해 주세요");
-    			$("#canclResn").focus();
-    		}else{
-    			$.ajax({
-    				type : "post",
-    				url  : "./canclConslt.json",
-    				data : params,
-    				dataType : 'json'
-    			})
-    			.done(function(data) {
-    				if(data.result){
-    					alert("정상적으로 저장되었습니다.");
-    				}else{
-    					alert("상담 취소 처리중 에러가 발생하였습니다.");
-    				}
-    				location.reload();
-    			})
-    			.fail(function(data, status, err) {
-    				console.log("ERROR : " + err);
-    			});
-    		}
-
-
-    	});
-
-    });
+	    function f_srchJoinSet(ty){
+	    	$("#srchRegEnd").val(f_getToday());
+	    	if(ty == "1"){//오늘
+	       		$("#srchRegBgng").val(f_getToday());
+	    	}else if(ty == "2"){//일주일
+	    		$("#srchRegBgng").val(f_getDate(-7));
+	    	}else if(ty == "3"){//15일
+	    		$("#srchRegBgng").val(f_getDate(-15));
+	    	}else if(ty == "4"){//한달
+	    		$("#srchRegBgng").val(f_getDate(-30));
+	    	}
+	    }
+	    
+	    
+	    //상담정보보기 클릭
+	    function viewConsltInfoModal(consltNo) {
+	    	$.ajax({
+	    		type : "post",
+	    		url  : "/membership/conslt/appl/getConsltInfo.json",
+	    		data : {
+	    			consltNo
+	    		},
+	    		dataType : 'json'
+	    	})
+	    	.done(function(data) {
+	    		if(data.success) {
+	    			$('#relationText').text(data.mbrConsltInfo.relationText);
+	    			$('#mbrNm').text(data.mbrConsltInfo.mbrNm);
+	    			$('#rcperRcognNo').text(data.mbrConsltInfo.rcperRcognNo);
+	    			$('#mbrTelno').text(data.mbrConsltInfo.mbrTelno);
+	    			$('#address').text(data.mbrConsltInfo.address);
+	    			$('#brdt').text(data.mbrConsltInfo.brdt);
+	    			$('#gender').text(data.mbrConsltInfo.gender);
+	    			$('#prevPath').text(data.mbrConsltInfo.prevPath);
+	    			
+	    			$('#check-counseling-info').modal('show');
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	})
+	    	.fail(function(data, status, err) {
+	    		alert('서버와 연결이 좋지 않습니다.');
+	    	});
+	    }
+	
+	    
+	    $(function(){
+	        $('.mypage-consult-items').masonry({
+	            itemSelector   : '.mypage-consult-item',
+	            gutter         : '.mypage-consult-item-gutter',
+	            percentPosition: true
+	        });
+	
+	        $('.mypage-consult-toggle, .search-close').on('click', function() {
+	            $('body').toggleClass('overflow-hidden').find('.mypage-consult-search').toggle();
+	        });
+	
+	        $(window).on('resize', function() {
+	            if(resize) $('body').removeClass('overflow-hidden').find('.mypage-consult-search').removeAttr('style');
+	        });
+	
+	        $(".f_reconslt").on("click", function(e){
+	        	let consltNo = $(this).data("consltNo");
+	        	let bplcUniqueId = $(this).data("bplcUniqueId");
+	        	let bplcConsltNo = $(this).data("bplcConsltNo");
+	        	console.log(consltNo, bplcUniqueId, bplcConsltNo);
+	
+	        	$("#modalReConslt input[name='consltNo']").val(consltNo);
+	        	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
+	        	$("#modalReConslt input[name='bplcConsltNo']").val(bplcConsltNo);
+	        	$("#reqModal").modal('show');
+	        });
+	
+	
+	        $("#modalReConslt .btn-submit").on("click", function(){
+	    		$("#modalReConslt").submit();
+	    	});
+	
+	    	$("form[name='modalReConslt']").validate({
+	    	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
+	    	    rules : {
+	    	    	reconsltResn : { required : true}
+	    	    },
+	    	    messages : {
+	    	    	reconsltResn : { required : "내용을 작성해 주세요"}
+	    	    },
+	    	    submitHandler: function (frm) {
+	
+	    	    	let consltNo = $("#modalReConslt input[name='consltNo']").val();
+	    	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
+	    	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
+	    	    	let bplcConsltNo = $("#modalReConslt input[name='bplcConsltNo']").val();
+	
+	   	            if (confirm('해당 내역을 저장하시겠습니까?')) {
+		   	            $.ajax({
+		       				type : "post",
+		       				url  : "./reConslt.json", //주문확인
+		       				data : {
+		       					consltNo:consltNo
+		       					, reconsltResn:reconsltResn
+		       					, bplcUniqueId:bplcUniqueId
+		       					, bplcConsltNo:bplcConsltNo
+		       				},
+		       				dataType : 'json'
+		       			})
+		       			.done(function(data) {
+		       				if(data.result){
+		       					alert("정상적으로 저장되었습니다.");
+		       					//$("#modalReConslt .btn-cancel").click();
+		       					window.location.reload();
+		       				}
+		       			})
+		       			.fail(function(data, status, err) {
+		       				alert('재 상담 신청에 실패하였습니다. : ' + data);
+		       			});
+	   	        	}else{
+	   	        		return false;
+	   	        	}
+	    	    }
+	    	});
+	
+	    	// 멤버스 추가
+	    	$("input[name='itrst']").on("click",function(){
+	    		let bplcUniqueId = $(this).val();
+	    		let checked = $(this).is(':checked');
+	    		console.log(bplcUniqueId, checked);
+	
+	    		var uniqueIds = [];
+	    		uniqueIds.push(bplcUniqueId);
+	
+	    		/* 기존 관심멤서브 자원 활용 */
+	    		if(uniqueIds.length > 0 && checked){ //등록
+	   				$.ajax({
+	   					type : "post",
+	   					url  : "/membership/conslt/itrst/insertItrstBplc.json",
+	   					data : {
+	   						arrUniqueId : uniqueIds
+	   					},
+	   					traditional: true,
+	   					dataType : 'json'
+	   				}).done(function(data) {
+	   					if(data.result == 0){
+	   						$(this).prop('checked', false);
+	   						alert("관심 멤버스 등록에 실패했습니다. /n 관리자에게 문의바랍니다.");
+	   						return false;
+	   					}else if(data.result == 1){
+	   						//alert("등록되었습니다.");
+	   						console.log("관심 멤버스로 등록 완료");
+	   					}else{
+	   						$(this).prop('checked', false);
+	   						alert("관심 멤버스는 최대 5개 입니다.");
+	   						return false;
+	   					}
+	
+	   				}).fail(function(data, status, err) {
+	   					console.log(data);
+	   					return false;
+	   				});
+	    		}else if(uniqueIds.length > 0 && !checked){ //삭제
+	
+	    			$.ajax({
+	    				type : "post",
+	    				url  : "/membership/conslt/itrst/deleteItrstBplc.json",
+	    				data : {
+	    					uniqueId : bplcUniqueId
+	    				},
+	    				dataType : 'json'
+	    			})
+	    			.done(function(json) {
+	    				console.log("관심 멤버스에서 삭제 완료");
+	    				$(this).prop('checked', false);
+	    				//alert("삭제되었습니다.");
+	    			})
+	    			.fail(function(data, status, err) {
+	    				console.log(data);
+	    			});
+	    		}
+	
+	
+	    	});
+	
+	    	$("input[name='recommend']").on("click",function(){
+	    		let bplcUniqueId = $(this).val();
+	    		let checked = $(this).is(':checked');
+	    		console.log(bplcUniqueId, checked);
+	
+	    		if(bplcUniqueId != ""){
+		    		$.ajax({
+						type : "post",
+						url  : "/members/bplc/rcmd/incrsAction.json",
+						data : {bplcUniqueId},
+						dataType : 'json'
+					})
+					.done(function(data) {
+						console.log(data.result);
+						if(data.result==="success"){
+							$(this).prop('checked', false);
+						}else if(data.result==="login"){
+							$(this).prop('checked', false);
+							alert("로그인을 해야 사용하실 수 있습니다.");
+						}else if(data.result==="dislike"){
+							$(this).prop('checked', false);
+						/*
+						}else if(data.result==="already"){
+							alert("이미 '좋아요'를 하셨습니다.");
+						*/
+						}
+					})
+					.fail(function(data, status, err) {
+						console.log('error forward : ' + data);
+					});
+	    		}
+	
+	    	});
+	
+	    	$(".f_cancel").on("click", function(e){
+	        	let consltNo = $(this).data("consltNo");
+	        	console.log(consltNo);
+	
+	        	$("#modalCancel input[name='consltNo']").val(consltNo);
+	        	$("#cancelModal").modal('show');
+	        });
+	
+	    	$(".btn-cancel-submit").on("click", function(e){
+	    		e.preventDefault();
+	
+	    		let consltNo = $("#modalCancel input[name='consltNo']").val();
+	    		let canclResn = $("#modalCancel textarea[name='canclResn']").val();
+	
+	    		let params = {
+	    				consltNo:consltNo
+	    				, canclResn:canclResn};
+	
+	    		if($("#canclResn").val() === ""){
+	    			alert("취소 사유를 입력해 주세요");
+	    			$("#canclResn").focus();
+	    		}else{
+	    			$.ajax({
+	    				type : "post",
+	    				url  : "./canclConslt.json",
+	    				data : params,
+	    				dataType : 'json'
+	    			})
+	    			.done(function(data) {
+	    				if(data.result){
+	    					alert("정상적으로 저장되었습니다.");
+	    				}else{
+	    					alert("상담 취소 처리중 에러가 발생하였습니다.");
+	    				}
+	    				location.reload();
+	    			})
+	    			.fail(function(data, status, err) {
+	    				console.log("ERROR : " + err);
+	    			});
+	    		}
+	
+	
+	    	});
+	
+	    });
     </script>
