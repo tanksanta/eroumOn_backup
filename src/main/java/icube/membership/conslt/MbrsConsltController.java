@@ -1,6 +1,7 @@
 package icube.membership.conslt;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,7 +21,13 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
+import icube.members.bplc.rcmd.biz.BplcRcmdService;
+import icube.members.bplc.rcmd.biz.BplcRcmdVO;
+import icube.membership.conslt.biz.ItrstService;
+import icube.membership.conslt.biz.ItrstVO;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Membership.path']}/conslt/appl")
@@ -32,6 +39,15 @@ public class MbrsConsltController extends CommonAbstractController {
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
 
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name = "itrstService")
+	private ItrstService itrstService;
+	
+	@Resource(name="bplcRcmdService")
+	private BplcRcmdService bplcRcmdService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -46,7 +62,25 @@ public class MbrsConsltController extends CommonAbstractController {
 		listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
 		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
 
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+		paramMap.put("srchItrstTy", "B");
+		
+		//회원의 추천 멤버스 정보
+		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
+		model.addAttribute("bplcRcmdList", bplcRcmdList);
+		
+		//회원의 관심 멤버스 정보
+		List <ItrstVO> itrstList = itrstService.selectItrstListAll(paramMap);
+		model.addAttribute("itrstList", itrstList);
+		
+		
 		model.addAttribute("listVO", listVO);
+		model.addAttribute("mbrRecipientList", mbrRecipientList);
+		model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
 
 		return "/membership/conslt/appl/list";
 	}

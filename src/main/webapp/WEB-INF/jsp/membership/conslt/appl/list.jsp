@@ -51,8 +51,11 @@
 					<dl class="search-current">
                         <dt><label for="search-item3">수급자 선택</label></dt>
                         <dd>
-                            <select name="" id="search-item3" class="form-control w-full">
-                                <option value="">옵션</option>
+                            <select name="srchRecipientsNo" id="srchRecipientsNo" class="form-control w-full" value="${param.srchRecipientsNo}">
+                            	<option value="">전체</option>
+                            	<c:forEach var="mbrRecipient" items="${mbrRecipientList}" varStatus="status">
+                                	<option value="${mbrRecipient.recipientsNo}">${mbrRecipient.recipientsNm}</option>
+                                </c:forEach>
                             </select>
                         </dd>
                         <dt class="ml-4.5 text-center"><label for="srchConsltSttus">진행 현황</label></dt>
@@ -114,103 +117,89 @@
                 <div class="mypage-consult-item-gutter"></div>
 
                 <c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-                <c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
-                <div class="mypage-consult-item">
-					<dl class="item-current">
-                        <dt>수급자 성명</dt>
-                        <dd class="flex justify-between">
-                            <span>홍길동(배우자)</span>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#check-counseling-info" class="btn-conselng-info">
-                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
-                            </a>
-                        </dd>
-                    </dl>
-					<dl class="item-current">
-                        <dt>상담유형</dt>
-                        <dd>인정등급상담</dd>
-                    </dl>
-                    <dl class="item-current">
-                        <dt>진행 현황</dt>
-                        <dd>
-                        	<%-- 사용자/관리자 txt가 일부 달라서 코드만 동일하게 사용함 --%>
-                        	<c:choose>
-								<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS09'}">상담 취소</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 완료</c:when>
-								<c:when test="${resultList.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
-							</c:choose>
-                        </dd>
-                    </dl>
-                    <dl class="item-partner">
-                        <dt>장기요양기간</dt>
-                        <dd>
-							<strong>이로움 사업소</strong>
-							<c:choose>
-								<c:when test="${resultList.consltSttus eq 'CS06'}"><a href="tel:010-0000-0000"><i class="icon-tel"></i></a></c:when>
-								<c:when test="${resultList.consltSttus eq 'CS01'}"><span class="text-base">(배정 중)</span></c:when>
-								<c:when test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}"></c:when>
-								<c:when test="${resultList.consltSttus eq 'CS07'}"><span class="text-base">재상담 신청완료</span>
-									<c:if test="${consltSize > 1 }">
-									<ul class="history">
-									<c:forEach items="${resultList.consltResultList}" var="consltResult" varStatus="status2">
-		                                <li>
-		                                    <small>${status2.index+1}차 상담</small>
-		                                    <span>${consltResult.bplcNm}</span>
-		                                </li>
-									</c:forEach>
-		                            </ul>
-		                            </c:if>
-								</c:when>
-								<c:otherwise>
-									<strong>${resultList.consltResultList[consltSize-1].bplcNm}</strong>
-									<c:if test="${consltSize > 1 }">
-									<ul class="history">
-									<c:forEach items="${resultList.consltResultList}" begin="0" end="${consltSize-2}" var="consltResult" varStatus="status2">
-		                                <li>
-		                                    <small>${status2.index+1}차 상담</small>
-		                                    <span>${consltResult.bplcNm}</span>
-		                                </li>
-									</c:forEach>
-		                            </ul>
-		                            </c:if>
-								</c:otherwise>
-							</c:choose>
-                        </dd>
-                    </dl>
-                    <dl class="item-date">
-                        <dt>상담 신청일</dt>
-                        <dd><fmt:formatDate value="${resultList.regDt }" pattern="yyyy.MM.dd" /></dd>
-                    </dl>
-                    <%--상담 완료시 --%>
-                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
-                    <div class="item-request  justify-end">
-                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}">신청 취소하기</button>
-                    </div>
-                    </c:if>
-
-                    <c:if test="${resultList.consltSttus eq 'CS06'}">
-                    <div class="item-request justify-end">
-                    	<c:if test="${consltSize < 3}"> <%-- 상담 신청은 최대 3회 --%>
-                        <button type="button" class="button f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청</button>
-						</c:if>
-						<div class="flex items-center">
-							<label class="check1">
-								<input type="checkbox" name="recommend" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].rcmdCnt > 0?'checked="checked"':''}>
-								<span>추천하기</span>
-							</label>
-							<label class="check2">
-								<input type="checkbox" name="itrst" value="${resultList.consltResultList[consltSize-1].bplcUniqueId}" ${resultList.consltResultList[consltSize-1].itrstCnt > 0?'checked="checked"':''}>
-								<span>관심설정</span>
-							</label>
-						</div>
-                    </div>
-                    </c:if>
-                </div>
+	                <c:set var="consltSize" value="${fn:length(resultList.consltResultList)}" />
+	                <div class="mypage-consult-item">
+						<dl class="item-current">
+	                        <dt>수급자 성명</dt>
+	                        <dd class="flex justify-between">
+	                            <span>${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
+	                            <a href="#" data-bs-toggle="modal" data-bs-target="#check-counseling-info" class="btn-conselng-info">
+	                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
+	                            </a>
+	                        </dd>
+	                    </dl>
+						<dl class="item-current">
+	                        <dt>상담유형</dt>
+	                        <dd>${resultList.prevPath == 'test' ? '인정등급상담' : '요양정보상담'}</dd>
+	                    </dl>
+	                    <dl class="item-current">
+	                        <dt>진행 현황</dt>
+	                        <dd>
+	                        	<%-- 사용자/관리자 txt가 일부 달라서 코드만 동일하게 사용함 --%>
+	                        	<c:choose>
+									<c:when test="${resultList.consltSttus eq 'CS01'}">상담 신청 완료</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS03'}">상담 취소</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS09'}">상담 취소</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS04'}">상담 취소</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS06'}">상담 완료</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS07'}">재상담 신청 완료</c:when>
+									<c:when test="${resultList.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
+								</c:choose>
+	                        </dd>
+	                    </dl>
+	                    <dl class="item-partner">
+	                        <dt>장기요양기간</dt>
+	                        <dd>
+								<c:choose>
+									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
+										<strong>${resultList.consltResultList[0].bplcNm}</strong>
+										<c:if test="${resultList.consltResultList[0].consltSttus == 'CS06'}">
+											<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+											<div class="item-request justify-end">
+				                                <div class="flex items-center">
+				                                    <label class="check1">
+				                                        <input type="checkbox" name="recommend" value="${resultList.consltResultList[0].bplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == resultList.consltResultList[0].bplcUniqueId).count() > 0}">checked</c:if>>
+				                                        <span>추천하기</span>
+				                                    </label>
+				                                    <label class="check2">
+				                                        <input type="checkbox" name="itrst" value="${resultList.consltResultList[0].bplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == resultList.consltResultList[0].bplcUniqueId).count() > 0}">checked</c:if>>
+				                                        <span>관심설정</span>
+				                                    </label>
+				                                </div>
+				                            </div>
+										</c:if>
+									</c:when>
+									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() > 1}">
+										<c:forEach var="consltResultInfo" items="${resultList.consltResultList}" varStatus="status">
+											[${resultList.consltResultList.size() - status.index}차] ${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcNm}<br>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										(배정중)
+									</c:otherwise>
+								</c:choose>
+	                        </dd>
+	                    </dl>
+	                    <dl class="item-date">
+	                        <dt>상담 신청일</dt>
+	                        <dd><fmt:formatDate value="${resultList.regDt}" pattern="yyyy.MM.dd" /></dd>
+	                    </dl>
+	                    
+	                    <%--상담 완료시 --%>
+	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
+	                    <div class="item-request  justify-end">
+	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}">신청 취소하기</button>
+	                    </div>
+	                    </c:if>
+	
+	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
+	                    	<div class="item-request justify-end">
+		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
+		                    </div>
+	                    </c:if>
+	                </div>
                 </c:forEach>
             </div>
 
@@ -267,7 +256,7 @@
             </div>
         </div>
         
-          <!-- 상담정보확인팝업소스 -->
+       	<!-- 상담정보확인팝업소스 -->
         <div class="modal modal-default fade" id="check-counseling-info" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

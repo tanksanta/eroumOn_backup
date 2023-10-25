@@ -1,5 +1,8 @@
 package icube.members.bplc.rcmd.biz;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import icube.common.framework.abst.CommonAbstractMapper;
@@ -19,4 +22,7 @@ public class BplcRcmdDAO extends CommonAbstractMapper {
 		return selectInt("bplc.rcmd.selectRcmdCntByUniqueId", rcmdVO);
 	}
 
+	public List<BplcRcmdVO> selectBplcRcmdByUniqueId(Map<String, Object> param) throws Exception {
+		return selectList("bplc.rcmd.selectBplcRcmdByUniqueId", param);
+	}
 }
