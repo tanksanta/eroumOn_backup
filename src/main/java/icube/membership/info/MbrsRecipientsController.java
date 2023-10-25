@@ -161,6 +161,36 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	}
 	
 	/**
+	 * 테스트 결과 확인
+	 */
+	@ResponseBody
+	@RequestMapping(value = "test/result.json")
+	public Map<String, Object> testResult(
+		@RequestParam Integer recipientsNo) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			//인정등급예상테스트 정보
+			Map<String, Object> paramMap = new HashMap<>();
+	    	paramMap.put("srchRecipientsNo", recipientsNo);
+	    	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
+	    	if (srchMbrTestVO != null) {
+	    		resultMap.put("isExistTest", true);
+	    	} else {
+	    		resultMap.put("isExistTest", false);
+	    	}
+	    	
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "테스트 결과 조회중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
 	 * 대표 수급자 처리 API
 	 */
 	@ResponseBody
