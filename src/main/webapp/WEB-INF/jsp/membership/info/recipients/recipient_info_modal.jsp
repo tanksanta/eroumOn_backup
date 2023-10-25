@@ -5,7 +5,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 			<div class="modal-header">
-				<h2 class="text-title">수급자 정보 수정</h2>
+				<h2 class="text-title"></h2>
 				<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 			</div>
 			<div class="modal-body">
@@ -114,15 +114,24 @@
                                 </div>
                         	</td>
                         </tr>
+                        <tr id="tr-prev-path">
+                            <th scope="row"><p><label for="search-item4">상담유형</label></p></th>
+                            <td>요양정보상담</td>
+                        </tr>
 						<tr class="top-border">
 							<td></td>
 							<td></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="flex justify-end">
+				<div class="flex justify-end" id="div-remove-recipient">
 					<button class="btn-text-primary" onclick="removeRecipient();">삭제하기</button>
 				</div>
+				<ul class="list-style1" id="ul-conslt-info">
+                    <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
+                    <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
+                    <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
+                </ul>
 			</div>
 			<div class="modal-footer md:w-3/4 mx-auto mt-4">
 				<button type="button" class="btn btn-primary large w-3/5" onclick="requestAction();">등록하기</button>
@@ -132,21 +141,100 @@
 		</div>
 	</div>
 
+	<!--모달: 진행중인 상담 알림 모달 -->
+	<div class="modal modal-default fade" id="modal-my-consulting" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="text-title">알림</h2>
+					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+				</div>
+				<div class="modal-body">
+					<div class="modal-bg-wrap">
+					<div class="flex flex-col justify-center items-center">
+						<div class="text-center text-xl" id="process-conslt-noti">
+							진행중인 인정등급 상담이 있습니다.<br>
+							상담 내역을 확인하시겠습니까?
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="modal-footer gap-2">
+					<button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
+					<button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--모달: 상담신청완료-->
+    <div class="modal modal-index fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-title">알림</h2>
+                <button data-bs-dismiss="modal" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="provide-complate">
+                        <div class="wrapper">
+                            <svg width="45.1731884px" height="44.9930805px" viewBox="0 0 45.1731884 44.9930805">
+                                <g id="airplane" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="airplane" transform="translate(-836.3067, -384.1337)" fill="#FFFFFF">
+                                        <g id="airplane" transform="translate(787, 329)">
+                                            <path d="M49.8149249,79.6635069 L92.9878533,55.2632727 C93.4686607,54.9915327 94.078721,55.1610153 94.350461,55.6418227 C94.4586743,55.8332916 94.5007484,56.0550947 94.470169,56.2728912 L89.2316897,93.5830877 C89.0781107,94.6769283 88.0668774,95.439161 86.9730368,95.285582 C86.8468774,95.2678688 86.7226991,95.2381419 86.6021946,95.1968067 L75.5767429,91.4148747 C74.7376734,91.1270585 73.8092758,91.426319 73.2962443,92.1499725 L67.940117,99.7050262 C67.620703,100.155574 66.9965258,100.261879 66.5459782,99.9424645 C66.2814978,99.7549621 66.1243285,99.4508781 66.1243285,99.1266759 L66.1243285,89.5357494 C66.1243285,88.8171161 66.3822929,88.1223582 66.8512931,87.5778653 L81.6305995,70.4196045 C81.8108177,70.2103773 81.7873014,69.8946695 81.5780742,69.7144512 C81.3931938,69.555204 81.1203694,69.552664 80.9325561,69.7084415 L62.4817313,85.0120537 C61.6191487,85.727503 60.4297149,85.9025231 59.3976054,85.4658696 L49.9173201,81.4550557 C49.4086824,81.2398669 49.1707951,80.6530897 49.3859839,80.1444521 C49.4719751,79.9411962 49.6227902,79.7720965 49.8149249,79.6635069 Z" id="Path-4"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div class="object1"></div>
+                            <div class="object2"></div>
+                            <div class="object3"></div>
+                        </div>
+                    </div>
+                    <p class="mt-5.5 text-lg font-bold md:mt-6 md:text-xl lg:mt-7 lg:text-2xl">상담 신청이 완료되었습니다.</p>
+                    <p class="mt-2 mb-4 text-sm md:text-base tracking-tight">
+                        "영업일 기준, 2일 이내 해피콜 통해 <span class="block md:inline-block">안내 받으실 수 있어요"</span>
+                    </p>
+                </div>
+
+                <script>
+                    $('.provide-complate').addClass('animate1');
+                    $('.provide-complate svg').one('animationend transitionend',function(){
+                        $('.provide-complate').removeClass('animate1').addClass('animate2');
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-large btn-primary3 w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
 	    var me = {};
 	    var myRecipientInfo = {};
 	    var mbrRecipients = {};
 	    var infoModalType = '';
+	    var infoPrevPath = '';
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
-	    function openModal(modalType, recipientsNo) {
+	    function openModal(modalType, recipientsNo, prevPath) {
 	    	infoModalType = modalType;
+	    	infoPrevPath = prevPath;
+	    	
 	  		if (modalType === 'updateRecipient') {
-	  			mappingModalData(recipientsNo);	
+	  			getUpdateRecipientInfoData(recipientsNo);	
+	  		} else if (modalType === 'requestConslt') {
+	  			getRequestConsltInfoData(recipientsNo);
 	  		}
 	    }
 	  	
-	  	function mappingModalData(recipientsNo) {
+	  	//수급자 수정하기 정보 가져오기
+	  	function getUpdateRecipientInfoData(recipientsNo) {
 	  		$.ajax({
 	    		type : "post",
 	    		url  : "/membership/info/myinfo/getMbrInfo.json",
@@ -159,80 +247,7 @@
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
 	    			
-	    			//모달 데이터 매핑
-	    			$('#info-relationSelect').val(myRecipientInfo.relationCd);
-	    	    	$('#info-recipientsNm').val(myRecipientInfo.recipientsNm);
-	    	    	
-	    	    	if(myRecipientInfo.rcperRcognNo) {
-	    	    		//L번호가 있는 경우 이름, L번호 수정 불가
-	    	    		$('#info-recipientsNm').prop('readonly', true);
-	    	    		
-	    	            $('.input-rcperRcognNo-yn').css('display', 'none');
-	    	    		$('#info-rcperRcognNo-y').prop('disabled', true);
-	    	    		$('#info-rcperRcognNo-n').prop('disabled', true);
-	    	    		
-	    	    		$('#info-rcperRcognNo-y').prop('checked', true); 
-	    	    		$('#info-rcperRcognNo').val(myRecipientInfo.rcperRcognNo);
-	    	    		$('#input-rcperRcognNo').css('display', 'inline-flex');
-	    	    		$('#info-rcperRcognNo').prop('readonly', true);
-	    	    	} else {
-	    	    		$('#info-recipientsNm').prop('readonly', false);
-	    	    		
-	    	            $('.input-rcperRcognNo-yn').css('display', 'inline-block');
-	    	    		$('#info-rcperRcognNo-y').prop('disabled', false);
-	    	    		$('#info-rcperRcognNo-n').prop('disabled', false);
-	    	    		
-	    	    		$('#info-rcperRcognNo-n').prop('checked', true);
-	    	    		$('#info-rcperRcognNo').val('');
-	    	    		$('#input-rcperRcognNo').css('display', 'none');
-	    	    	}
-	    	    	
-	    	    	$('#info-tel').val(myRecipientInfo.tel);
-	    	    	
-	    	    	if (myRecipientInfo.sido) {
-	    	    		var options = $('#sido option');
-	    	    		for(var i = 0; i < options.length; i++) {
-	    	    			if ($('#sido option')[i].text === myRecipientInfo.sido) {
-	    	    				$('#sido option')[i].selected = true;
-	    	    			}
-	    	    		}
-	    	    		setSigugun();
-	    	    	}
-	    	    	if (myRecipientInfo.sigugun) {
-	    	    		var options = $('#sigugun option');
-	    	    		for(var i = 0; i < options.length; i++) {
-	    	    			if ($('#sigugun option')[i].text === myRecipientInfo.sigugun) {
-	    	    				$('#sigugun option')[i].selected = true;
-	    	    			}
-	    	    		}
-	    	    		setDong();
-	    	    	}
-	    	    	if (myRecipientInfo.dong) {
-	    	    		var options = $('#dong option');
-	    	    		for(var i = 0; i < options.length; i++) {
-	    	    			if ($('#dong option')[i].text === myRecipientInfo.dong) {
-	    	    				$('#dong option')[i].selected = true;
-	    	    			}
-	    	    		}
-	    	    	}
-	    	    	
-	    	    	if(myRecipientInfo.brdt) {
-	    	    		$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
-	    	    	}else {
-	    	    		$('#info-brdt').val('');    			
-	    	    	}
-	    	    	
-	    	    	if (myRecipientInfo.gender === 'M') {
-	    	    		$('#info-gender-m').prop('checked', true);
-	    	    	} else if (myRecipientInfo.gender === 'W') {
-	    	    		$('#info-gender-w').prop('checked', true);
-	    	    	} else {
-	    	    		$('#info-gender-m').prop('checked', false);
-	    	    		$('#info-gender-w').prop('checked', false);
-	    	    	}
-	    	    	
-	    	    	
-	    	    	$('#pop-client-edit').modal('show');
+	    			mappingModalData();
 	    		}
 	    		//로그인 안한 경우
 	    		else {
@@ -242,6 +257,156 @@
 	    	.fail(function(data, status, err) {
 	    		alert('서버와 연결이 좋지 않습니다');
 	    	});
+	  	}
+	  	
+	  	//상담하기 정보 가져오기
+	  	function getRequestConsltInfoData(recipientsNo) {
+	  		$.ajax({
+	    		type : "post",
+	    		url  : "/membership/info/myinfo/getMbrInfo.json",
+	    		data : {recipientsNo},
+	    		dataType : 'json'
+	    	})
+	    	.done(function(data) {
+	    		//로그인 한 경우
+	    		if (data.isLogin) {
+	    			me = data.mbrVO;
+	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
+	    			mbrRecipients = data.mbrRecipients;
+	    			
+	    			//진행중인 상담 있는지 체크
+	    			if (data.recipientConslt) {
+	    				if (data.recipientConslt.prevPath === 'test') {
+	    					$('#process-conslt-noti').html(`
+    							진행중인 인정등급 상담이 있습니다.<br>
+    							상담 내역을 확인하시겠습니까?
+	    					`);
+	    				} else {
+	    					$('#process-conslt-noti').html(`
+    							진행중인 요양정보 상담이 있습니다.<br>
+    							상담 내역을 확인하시겠습니까?
+	    					`);
+	    				}
+	    				$('#modal-my-consulting').modal('show');
+	    				return;
+	    			}
+	    			
+	    			mappingModalData();
+	    		}
+	    		//로그인 안한 경우
+	    		else {
+	    			alert('로그인 이후 이용가능합니다')
+	    		}
+	    	})
+	    	.fail(function(data, status, err) {
+	    		alert('서버와 연결이 좋지 않습니다');
+	    	});
+	  	}
+	  	
+	  	//진행중인 상담 모달에서 새롭게 진행하기 클릭
+	  	function openNewConslt() {
+	  		$('#modal-my-consulting').modal('hide');
+	  		mappingModalData();
+	  	}
+	  	
+	  	
+	  	//모달에 데이터 매핑
+	  	function mappingModalData() {
+	  		//데이터 매핑전 모달 타입에 따라 UI 변경
+	  		if (infoModalType === 'updateRecipient') {
+	  			$('#pop-client-edit .text-title').text('수급자 정보 수정');
+	  			
+	  			$('#tr-prev-path').css('display', 'none');
+	  			$('#div-remove-recipient').css('display', 'flex');
+	  			$('#ul-conslt-info').css('display', 'none');
+	  		} else if (infoModalType === 'requestConslt') {
+	  			$('#pop-client-edit .text-title').text('상담 정보 확인');
+	  			
+	  			$('#tr-prev-path').css('display', 'table-row');	
+	  			if (infoPrevPath === 'test') {
+	  				$('#tr-prev-path td').text('인정등급상담');
+	  			} else {
+	  				$('#tr-prev-path td').text('요양정보상담');
+	  			}
+	  			$('#div-remove-recipient').css('display', 'none');
+	  			$('#ul-conslt-info').css('display', 'block');
+	  		}
+	  		
+	  		
+	  		//데이터 매핑
+			$('#info-relationSelect').val(myRecipientInfo.relationCd);
+	    	$('#info-recipientsNm').val(myRecipientInfo.recipientsNm);
+	    	
+	    	if(myRecipientInfo.rcperRcognNo) {
+	    		//L번호가 있는 경우 이름, L번호 수정 불가
+	    		$('#info-recipientsNm').prop('readonly', true);
+	    		
+	            $('.input-rcperRcognNo-yn').css('display', 'none');
+	    		$('#info-rcperRcognNo-y').prop('disabled', true);
+	    		$('#info-rcperRcognNo-n').prop('disabled', true);
+	    		
+	    		$('#info-rcperRcognNo-y').prop('checked', true); 
+	    		$('#info-rcperRcognNo').val(myRecipientInfo.rcperRcognNo);
+	    		$('#input-rcperRcognNo').css('display', 'inline-flex');
+	    		$('#info-rcperRcognNo').prop('readonly', true);
+	    	} else {
+	    		$('#info-recipientsNm').prop('readonly', false);
+	    		
+	            $('.input-rcperRcognNo-yn').css('display', 'inline-block');
+	    		$('#info-rcperRcognNo-y').prop('disabled', false);
+	    		$('#info-rcperRcognNo-n').prop('disabled', false);
+	    		
+	    		$('#info-rcperRcognNo-n').prop('checked', true);
+	    		$('#info-rcperRcognNo').val('');
+	    		$('#input-rcperRcognNo').css('display', 'none');
+	    	}
+	    	
+	    	$('#info-tel').val(myRecipientInfo.tel);
+	    	
+	    	if (myRecipientInfo.sido) {
+	    		var options = $('#sido option');
+	    		for(var i = 0; i < options.length; i++) {
+	    			if ($('#sido option')[i].text === myRecipientInfo.sido) {
+	    				$('#sido option')[i].selected = true;
+	    			}
+	    		}
+	    		setSigugun();
+	    	}
+	    	if (myRecipientInfo.sigugun) {
+	    		var options = $('#sigugun option');
+	    		for(var i = 0; i < options.length; i++) {
+	    			if ($('#sigugun option')[i].text === myRecipientInfo.sigugun) {
+	    				$('#sigugun option')[i].selected = true;
+	    			}
+	    		}
+	    		setDong();
+	    	}
+	    	if (myRecipientInfo.dong) {
+	    		var options = $('#dong option');
+	    		for(var i = 0; i < options.length; i++) {
+	    			if ($('#dong option')[i].text === myRecipientInfo.dong) {
+	    				$('#dong option')[i].selected = true;
+	    			}
+	    		}
+	    	}
+	    	
+	    	if(myRecipientInfo.brdt) {
+	    		$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
+	    	}else {
+	    		$('#info-brdt').val('');    			
+	    	}
+	    	
+	    	if (myRecipientInfo.gender === 'M') {
+	    		$('#info-gender-m').prop('checked', true);
+	    	} else if (myRecipientInfo.gender === 'W') {
+	    		$('#info-gender-w').prop('checked', true);
+	    	} else {
+	    		$('#info-gender-m').prop('checked', false);
+	    		$('#info-gender-w').prop('checked', false);
+	    	}
+	    	
+	    	
+	    	$('#pop-client-edit').modal('show');
 	  	}
 	  	
 	  	
@@ -388,8 +553,8 @@
 		    	});
 	    	}
 	    	//상담신청
-	    	else {
-				var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
+	    	else if (infoModalType === 'requestConslt') {
+				var saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
 		    	
 		    	$.ajax({
 		    		type : "post",
@@ -405,14 +570,14 @@
 		    			, brdt
 		    			, gender
 		    			, recipientsNo: myRecipientInfo.recipientsNo
-		    			, prevPath: 'simpleSearch'
+		    			, prevPath: infoPrevPath
 		    			, saveRecipientInfo
 		    		},
 		    		dataType : 'json'
 		    	})
 		    	.done(function(data) {
 		    		if(data.success) {
-		    			$('#modal-consulting-info').modal('hide');
+		    			$('#pop-client-edit').modal('hide');
 		    			$('#modal-consulting-complated').modal('show');
 		    		}else{
 		    			alert(data.msg);

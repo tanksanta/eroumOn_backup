@@ -381,7 +381,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	@ResponseBody
 	@RequestMapping(value = "getMbrInfo.json")
 	public Map<String, Object> getMbrInfo(
-		HttpServletRequest request) throws Exception {
+		@RequestParam(required = false) Integer recipientsNo) throws Exception {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
 		if(!mbrSession.isLoginCheck()) {
@@ -397,6 +397,12 @@ public class MbrsInfoController extends CommonAbstractController{
 		//진행중인 인정등급상담 조회
 		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
 		resultMap.put("isExistConsltInProcess", mbrConslt == null ? false : true);
+		
+		//수급자 최근 상담 조회
+		if (recipientsNo != null) {
+			MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
+			resultMap.put("recipientConslt", recipientConslt);
+		}
 		
 		resultMap.put("isLogin", true);
 		return resultMap;

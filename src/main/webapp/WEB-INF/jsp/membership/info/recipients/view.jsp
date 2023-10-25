@@ -148,7 +148,7 @@
 
 		<div class="flex justify-between mt-8">
 			<h3 class="careinfo-title mb-2">요양정보</h3>
-			<a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+			<a class="btn-success btn-small" onclick="requestConslt('simpleSearch');">상담하기</a>
 		</div>
 
 		<div class="careinfo-myinfo mypage" style="display:none;">
@@ -538,7 +538,7 @@
 		
 		<div class="flex justify-between mt-8">
 			<h3 class="careinfo-title mb-2">인정등급 예상 테스트</h3>
-			<a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+			<a class="btn-success btn-small" onclick="requestConslt('test');">상담하기</a>
 		</div>
 		
 		<c:choose>
@@ -588,33 +588,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!--모달: 인정등급 예상 테스트 상담-->
-	<div class="modal modal-default fade" id="pop-consulting-test" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2 class="text-title">알림</h2>
-					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
-				</div>
-				<div class="modal-body">
-					<div class="modal-bg-wrap">
-					<div class="flex flex-col justify-center items-center">
-						<div class="text-center text-xl">
-							진행중인 인정등급 상담이 있습니다.<br>
-							상담 내역을 확인하시겠습니까?
-						</div>
-					</div>
-					</div>
-				</div>
-				<div class="modal-footer gap-2">
-					<button type="button" class="btn btn-primary large flex-initial w-55">상담내역 확인하기</button>
-					<button type="button" class="btn btn-outline-primary large flex-initial w-45" data-bs-dismiss="modal" class="btn-close">새롭게 진행하기</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 </main>
 
 
@@ -1001,6 +974,11 @@
 			openModal('updateRecipient', Number(recipientsNo));
 	    }
 	  	
+	  	//상담하기 버튼 클릭
+	  	function requestConslt(prevPath) {
+	  		var recipientsNo = '${recipientsNo}'
+			openModal('requestConslt', Number(recipientsNo), prevPath);
+	  	}
 	  	
 	  	
 	    $(function() {
