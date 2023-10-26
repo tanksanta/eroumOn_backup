@@ -299,7 +299,7 @@
 				return;
 			}
 			
-			if (confirm('해당 수급자를 삭제하시겠습니까?')) {
+			if (confirm('수급자를 삭제한 후에는 복구가 불가합니다. 정말 삭제하시겠습니까?')) {
 				$.ajax({
 					type : "post",
 					url  : "/_mng/mbr/recipients/remove.json",
