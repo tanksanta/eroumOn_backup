@@ -475,6 +475,9 @@ html, body {
                    hover:after:ml-6
                    hover:md:px-2.5;
         }
+        &.btn-center {
+            @apply justify-center;
+        }
     }
     
     .btn-primary {
@@ -544,10 +547,8 @@ html, body {
                &.btn-arrow {
             @apply !bg-white
                    before:bg-indexKey1
-                   hover:before:-z-5
                    after:bg-[url(/html/page/index/assets/images/ico-button-arrow-orange.svg)]
                    hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
-                   md-max:!bg-indexKey1 md-max:text-white
                    md-max:before:bg-white
                    md-max:hover:!text-indexKey1 
                    md-max:focus:bg-indexKey1 md-max:focus:text-white

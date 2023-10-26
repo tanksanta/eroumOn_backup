@@ -2141,7 +2141,7 @@
 }
 
 .welfare-contact {
-    @apply flex flex-col justify-start items-start md:flex-row md:items-center md:justify-between  w-full gap-3;
+    @apply flex flex-col justify-start items-start md:flex-row md:items-center  w-full gap-3;
 }
 
 @keyframes textblur {
