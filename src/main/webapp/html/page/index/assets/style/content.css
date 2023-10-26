@@ -1481,12 +1481,12 @@
 
 /* 장기요양등급 테스트 */
 .grade-title {
-    @apply text-4xl text-center font-bold leading-tight
-           md:text-6xl;
+    @apply text-4xl text-center font-bold leading-tight md:text-6xl;
     & small {
         @apply block text-base font-normal leading-normal
                md:mb-1 md:text-lg;
     }
+   
 }
 
 .grade-title2 {
@@ -1547,7 +1547,7 @@
     & .taps-spacer {
         @apply hidden mx-auto w-[21px] h-[5px] bg-no-repeat bg-cover bg-[url(../images/bg-grade-taps2.svg)]
                md:block md:mt-9.5;
-    }
+    } 
 }
 
 .grade-floating {
@@ -1595,39 +1595,32 @@
 
 .grade-start {
     & .picture {
-        @apply relative mx-auto pb-25 w-[280px] max-w-full
-               md:pb-0 md:w-[490px];
+        @apply relative mx-auto pb-25 w-[280px] max-w-full md:pb-0 md:w-[490px];
         & .msg1, & .msg2 {
-            @apply absolute -right-7.5 w-fit select-none whitespace-nowrap
-                   md:right-auto;
+            @apply absolute -right-7.5 w-fit select-none whitespace-nowrap  md:right-auto;
             & .box {
-                @apply relative z-5 py-3 px-10 rounded-full border bg-white leading-snug text-lg tracking-tight shadow-[0px_0px_4px_0px_#00000026]
-                       md:px-[3.125rem] md:text-xl;
+                @apply relative z-5 py-3 px-10 rounded-full border bg-white leading-snug text-lg tracking-tight shadow-[0px_0px_4px_0px_#00000026] md:px-[3.125rem] md:text-xl;
             }
             & svg {
                 @apply absolute -z-5;
             }
         }
         & .msg1 {
-            @apply z-10 top-61 text-right
-                   md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
+            @apply z-10 top-61 text-right md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
             & .box {
                 @apply border-[#FD8106];
             }
             & svg {
-                @apply left-full -ml-6.5 bottom-0
-                       md:-ml-4;
+                @apply left-full -ml-6.5 bottom-0 md:-ml-4;
             }
         }
         & .msg2 {
-            @apply z-5 top-76
-                   md:top-20 md:right-0 md:translate-x-[70%];
+            @apply z-5 top-76 md:top-20 md:right-0 md:translate-x-[70%];
             & .box {
                 @apply border-[#5DB0BF];
             }
             & svg {
-                @apply left-full bottom-0 -ml-6.5
-                       md:left-auto md:right-full md:-mr-5 md:ml-0 md:-scale-x-100;
+                @apply left-full bottom-0 -ml-6.5  md:left-auto md:right-full md:-mr-5 md:ml-0 md:-scale-x-100;
             }
         }
     }
@@ -1639,26 +1632,21 @@
 }
 
 .grade-rolling {
-    @apply -mx-5 select-none
-           md:-mx-7;
+    @apply -mx-5 select-none md:-mx-7;
     & .container {
-        @apply mx-auto max-w-92 overflow-hidden px-2 h-[26rem]
-               md:max-w-[34.875rem] md:h-[34.5rem];
+        @apply mx-auto max-w-92 overflow-hidden px-2 h-[26rem] md:max-w-[34.875rem] md:h-[34.5rem];
     }
     & [class*="rolling-item"] {
         @apply flex relative items-center mx-auto mb-2 py-4 px-5 gap-4 w-[91.111111111111%] h-[5.625rem] rounded-2xl bg-white shadow-[0px_6px_4px_0px_#0000001a] text-sm leading-snug text-black2/50 transition-all duration-1000 select-none
                md:gap-7.5 md:mb-4.5 md:p-7.5 md:h-[6.875rem] md:text-xl;
         &.is-active {
-            @apply z-5 w-full h-[6.875rem] shadow-[0px_10px_4px_0px_#0000001a] tracking-tighter text-xl text-black2
-                   md:h-[9.375rem] md:text-2xl;
+            @apply z-5 w-full h-[6.875rem] shadow-[0px_10px_4px_0px_#0000001a] tracking-tighter text-xl text-black2 md:h-[9.375rem] md:text-2xl;
                    & .item-thumb {
-                       @apply w-[4.375rem] h-[4.375rem]
-                              md:w-[6.875rem] md:h-[6.875rem];
+                       @apply w-[4.375rem] h-[4.375rem] md:w-[6.875rem] md:h-[6.875rem];
                    }
         }
         & .item-thumb {
-            @apply flex-none w-15 h-15 rounded-full bg-[#EDE8E4] transition-all duration-1000
-                   md:w-[5.625rem] md:h-[5.625rem];
+            @apply flex-none w-15 h-15 rounded-full bg-[#EDE8E4] transition-all duration-1000 md:w-[5.625rem] md:h-[5.625rem];
             & img {
                 @apply w-full h-full object-cover transition-all duration-1000;
             }
@@ -1714,13 +1702,95 @@
 }
 
 .grade-content1 {
-    @apply pt-0 pb-20
-           md:pb-34;
+    @apply pt-0 pb-20 md:pb-34;
+
+    &.simple-inquiry {
+
+        & .grade-text2  {
+            @apply text-xl;
+        }
+        & .grade-start {
+            & .picture {
+                @apply w-[50rem] pt-48 md:pt-0 pb-0 md:pb-25;
+
+                & .msg1 .box, & .msg2 .box {
+                    @apply bg-black2 text-white border-none;
+                    & strong {
+                        @apply text-[#659EFF];
+                    }
+                }
+                & .msg1 {
+                    @apply right-15 translate-x-7 md:-translate-x-[45%] top-0 md:top-12;
+                    & .box {
+                        @apply text-left;
+                    }
+                }
+                & .msg2 {
+                    @apply right-[100%] left-7 md:left-1/2 md:translate-x-[33%] top-21 md:top-18;
+                    & > svg {
+                        @apply left-auto -scale-x-100;
+                    }
+                }
+                & .btn-inquiry {
+                    @apply absolute bottom-35 left-[22%]; 
+                }
+                & .img-hand {
+                    @apply absolute bottom-1 left-[33%] w-49;
+                }
+            }
+        }
+
+
+        & .grade-taps {
+            @apply md:max-w-[47.25rem];
+        }
+
+        & .text-link {
+            @apply text-indexKey2 flex justify-center underline underline-offset-1 mt-6 md:mt-18 text-xl;
+        }
+    }
 }
 
 .grade-content2 {
-    @apply pt-17 pb-21
-           md:pt-32 md:pb-38;
+    @apply pt-17 pb-21 md:pt-32 md:pb-38;
+    &.simple-inquiry {
+        & .grade-rolling {
+            & .container {
+                @apply h-[39rem] md:h-[49.5rem];
+            }
+        }
+        & .grade-rolling [class*=rolling-item] {
+            @apply flex-col items-end gap-0 h-48 md:h-58;
+            & .grade-rolling-inner {
+                @apply flex justify-between items-center gap-4 md:gap-8 w-full;
+
+                & .item-content {
+                    @apply text-base md:text-xl whitespace-normal;
+                }
+            }
+            &:last-of-type {
+                @apply w-10/12;
+            } 
+
+            /* &:first-of-type {
+                @apply  z-15;
+            }
+            &:last-of-type {
+                @apply w-10/12 border border-gray-700 z-5;
+            } 
+            &:not(:last-of-type):not(:first-of-type) {
+                @apply z-10;
+            }
+            &:not(:first-of-type) {
+                @apply -mt-20;
+            } */
+
+            &.is-active {
+                @apply h-54 md:h-70;
+            }
+        }
+        
+    }
 }
 
 .grade-content3 {
@@ -1737,26 +1807,93 @@
             }
         }
     }
+    &.simple-inquiry {
+        /* & .grade-slider .swiper-slide {
+            @apply shadow-lg;
+        } */
+        & .grade-taps {
+            @apply max-w-[27.25rem];
+        }
+        & .grade-slider {
+          
+            & .swiper {
+                @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]  shadow-lg;
+               
+            }
+        }
+    }
 }
 
 .grade-content4 {
     & .grade-slider {
         & .swiper {
-            @apply h-[32.5rem] bg-[url(../images/bg-grade-content4-m.svg)] bg-center bg-[length:auto_100%] shadow-[0px_0px_10px_0px_#00000026]
-                   md:bg-[url(../images/bg-grade-content4.svg)];
+            @apply h-[32.5rem] bg-[url(../images/bg-grade-content4-m.svg)] bg-center bg-[length:auto_100%] shadow-[0px_0px_10px_0px_#00000026] md:bg-[url(../images/bg-grade-content4.svg)];
         }
         & .swiper-slide {
-            @apply pt-[3.125rem]
-                   md:pt-13;
+            @apply pt-[3.125rem] md:pt-13;
             & img {
                 @apply mx-auto w-[251px];
             }
+        }
+    }
+    &.simple-inquiry {
+        @apply before:bg-[#EAEFFC];
+
+        & .grade-slider {
+            & .swiper {
+                @apply h-[28rem] md:h-[32.5rem] bg-white bg-none shadow-[0px_0px_10px_0px_#00000026] rounded-2xl;
+            }
+            & .swiper-slide {
+                @apply flex flex-col items-center justify-between gap-8 pt-[3.125rem] md:pt-13;
+                & img {
+                    @apply w-full;
+                }
+                & .swiper-slide-text {
+                    @apply flex flex-col gap-2.5 items-center mx-5;
+                }
+            }
+        }
+
+        & .grade-taps .taps-item span {
+            @apply whitespace-nowrap;
         }
     }
 }
 
 .grade-content2, .grade-content4 {
     @apply before:absolute before:-z-5 before:top-0 before:left-1/2 before:w-screen before:h-full before:bg-[#f8f8f8] before:-translate-x-1/2;
+}
+
+.grade-content2 {
+    &.simple-inquiry {
+        @apply before:bg-[#EAEFFC];
+    }
+}
+
+.grade-content1, .grade-content2, .grade-content3, .grade-content4 {
+    &.simple-inquiry {
+        & .taps-item {
+            &.is-active {
+                & i {
+                    @apply bg-indexKey2;
+                }
+            }
+
+            & i {
+                @apply bg-[#A7C8FF];
+            }
+            
+        }
+        & .grade-slider {
+
+            & .swiper-pagination-bullet {
+                @apply bg-gray-300;
+                &.swiper-pagination-bullet-active {
+                    @apply bg-indexKey2;
+                }
+            }
+        }
+    }
 }
 
 .result-share {
