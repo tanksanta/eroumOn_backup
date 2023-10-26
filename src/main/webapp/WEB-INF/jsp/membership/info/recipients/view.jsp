@@ -148,7 +148,9 @@
 
 		<div class="flex justify-between mt-8">
 			<h3 class="careinfo-title mb-2">요양정보</h3>
-			<a class="btn-success btn-small" onclick="requestConslt('simpleSearch');">상담하기</a>
+			<c:if test="${recipientVO.recipientsYn != null && recipientVO.recipientsYn == 'Y'}">
+				<a class="btn-success btn-small" onclick="requestConslt('simpleSearch');">상담하기</a>
+			</c:if>
 		</div>
 
 		<div class="careinfo-myinfo mypage" style="display:none;">
@@ -538,7 +540,9 @@
 		
 		<div class="flex justify-between mt-8">
 			<h3 class="careinfo-title mb-2">인정등급 예상 테스트</h3>
-			<a class="btn-success btn-small" onclick="requestConslt('test');">상담하기</a>
+			<c:if test="${testVO != null}">
+				<a class="btn-success btn-small" onclick="requestConslt('test');">상담하기</a>
+			</c:if>
 		</div>
 		
 		<c:choose>

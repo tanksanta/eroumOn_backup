@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -51,7 +52,12 @@ public class MbrAuthInterceptor implements HandlerInterceptor {
 		if(mbrSession.isLoginCheck()) {
 			mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
 		} else {
-			response.sendRedirect("/" + membershipPath + "/login");
+			if (EgovStringUtil.isNotEmpty(request.getQueryString())) {
+				response.sendRedirect("/" + membershipPath + "/login?returnUrl=" + request.getRequestURI() + "?" + request.getQueryString());
+			}else {
+				response.sendRedirect("/" + membershipPath + "/login?returnUrl=" + request.getRequestURI());
+			}
+			
 			return false;
 		}
 		request.setAttribute("_mbrEtcInfoMap", mbrEtcInfoMap);
