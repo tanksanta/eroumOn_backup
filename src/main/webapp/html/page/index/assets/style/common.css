@@ -752,7 +752,7 @@ html, body {
     .text-hightlight-blue {
         text-decoration: none;
         display: inline;
-        box-shadow: inset 0 -10px 0 #D3E3FF; 
+        box-shadow: inset 0 -0.875rem 0 #D3E3FF; 
     }
 
     .list-style1 {

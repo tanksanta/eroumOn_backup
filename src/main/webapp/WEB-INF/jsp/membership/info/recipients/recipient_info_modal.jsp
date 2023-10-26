@@ -590,6 +590,9 @@
 	    		return;
 	    	}
 	    	
+			if (rcperRcognNoYn === 'N') {
+				rcperRcognNo = '';
+			}
 	    	
 	    	jsonData = {
     			relationCd

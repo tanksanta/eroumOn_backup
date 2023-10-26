@@ -27,6 +27,7 @@
     <script src="/html/core/vendor/tinymce/basic_config.js"></script>
 
 	<!-- common -->
+	<script src="/html/core/script/hangjungdong.js"></script>
     <script src="/html/core/script/utility.js"></script>
     <script src="/html/core/script/JsCallApi.js"></script>
     <script src="/html/core/script/JsHouse2309CodeConvert.js"></script>
