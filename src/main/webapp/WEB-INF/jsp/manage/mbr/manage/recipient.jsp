@@ -311,7 +311,7 @@
 				.done(function(data) {
 					if(data.success) {
 						alert('수급자 삭제가 완료되었습니다');
-						location.reload();
+						location.href = './recipient';
 					}else{
 						alert(data.msg);
 					}
