@@ -96,7 +96,7 @@
         }
       }
       & .modal-footer {
-        @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5;
+        @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5 gap-1;
         /* &>:not([hidden])~:not([hidden]) {
           @apply m-0;
         } */
