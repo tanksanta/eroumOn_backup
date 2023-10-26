@@ -34,6 +34,7 @@ public class BokjiServiceVO extends CommonBaseVO {
 	private String refUrl;				// 출처사이트
 	private String bokjiResource;		// 출처(원천데이터 위치)
 	private String bokjiRefUrl;			// 복지지원사이트
+	private String bokjiProviderName;   // 복지제공기관명
 	//private String videoUrl;			//
 	//private String thumbnailImageUrl;
 

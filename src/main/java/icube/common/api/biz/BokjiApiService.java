@@ -115,6 +115,7 @@ public class BokjiApiService {
 			bokjiServiceVO.setAvailableKeyword((Boolean) content.get("isAvailableKeyword"));
 			bokjiServiceVO.setBokjiResource((String)content.get("bokjiResource"));
 			bokjiServiceVO.setCategoryList((List<String>) content.get("category"));
+			bokjiServiceVO.setBokjiProviderName((String)content.get("bokjiProviderName"));
 
 			//System.out.println("bokjiServiceVO: " + bokjiServiceVO.toString());
 
