@@ -429,7 +429,7 @@
 				);
 				
 				//최종점수 및 등급 판정
-				const score = diagramBehaviorScore + 
+				let score = diagramBehaviorScore + 
 					diagramCleanScore +
 					diagramExcretionScore +
 					diagramFunctionalScore +
@@ -437,6 +437,9 @@
 					diagramMealScore +
 					diagramNurseScore +
 					diagramRehabilitateScore;
+				
+				//소수점 2자리까지 처리
+				score = Number(score.toFixed(2));
 				
 				let grade = 0;
 				if (score >= 95) {
