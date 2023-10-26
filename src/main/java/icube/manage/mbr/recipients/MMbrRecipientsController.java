@@ -3,6 +3,7 @@ package icube.manage.mbr.recipients;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
@@ -102,44 +103,44 @@ public class MMbrRecipientsController extends CommonAbstractController {
 			}
 			
 			//수급자 요양정보 (내부DB에 요양정보저장 기능 구현 전까지 주석처리)
-//			if ("Y".equals(mbrRecipients.getRecipientsYn())) {
-//				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipients.getRecipientsNm(), mbrRecipients.getRcperRcognNo());
-//				
-//				recipientInfoVO.setRcperRcognNo(mbrRecipients.getRcperRcognNo());
-//				returnMap = (Map<String, Object>)returnMap.get("infoMap");
-//				
-//				String penPayRate = "";
-//				switch ((String)returnMap.get("REDUCE_NM")) {
-//					case "일반" : penPayRate = "15"; break;
-//					case "기초" : penPayRate = "0"; break;
-//					case "의료급여" : penPayRate = "6"; break;
-//					default: {
-//						String sbaCd = (String)returnMap.get("SBA_CD");
-//						
-//						Matcher matcher = pattern.matcher(sbaCd);
-//						if (matcher.find()) {
-//							penPayRate = sbaCd.substring(matcher.start(), matcher.end());
-//						}
-//						break;
-//					}
-//				}
-//				recipientInfoVO.setPenPayRate(penPayRate + "%");
-//				recipientInfoVO.setLtcRcgtGradeCd((String)returnMap.get("LTC_RCGT_GRADE_CD"));
-//				recipientInfoVO.setRcgtEdaDt((String)returnMap.get("RCGT_EDA_DT"));
-//				
-//				String apdtFrDt = (String)returnMap.get("APDT_FR_DT");
-//				apdtFrDt = apdtFrDt.substring(0, 4) + "-" + apdtFrDt.substring(4, 6) + "-" + apdtFrDt.substring(6, 8);
-//				String apdtToDt = (String)returnMap.get("APDT_TO_DT");
-//				apdtToDt = apdtToDt.substring(0, 4) + "-" + apdtToDt.substring(4, 6) + "-" + apdtToDt.substring(6, 8);
-//				recipientInfoVO.setBgngApdt(apdtFrDt + " ~ " + apdtToDt);
-//				
-//				Integer lmtAmt = Integer.valueOf((String)returnMap.get("LMT_AMT"));
-//				Integer useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
-//				Integer remindAmt = lmtAmt - useAmt;
-//				recipientInfoVO.setRemindAmt(remindAmt.toString());
-//				recipientInfoVO.setUseAmt(useAmt.toString());
-//				recipientInfoVO.setSearchDt(simpleDateFormat.format(new Date()));
-//			}
+			if ("Y".equals(mbrRecipients.getRecipientsYn())) {
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipients.getRecipientsNm(), mbrRecipients.getRcperRcognNo());
+				
+				recipientInfoVO.setRcperRcognNo(mbrRecipients.getRcperRcognNo());
+				returnMap = (Map<String, Object>)returnMap.get("infoMap");
+				
+				String penPayRate = "";
+				switch ((String)returnMap.get("REDUCE_NM")) {
+					case "일반" : penPayRate = "15"; break;
+					case "기초" : penPayRate = "0"; break;
+					case "의료급여" : penPayRate = "6"; break;
+					default: {
+						String sbaCd = (String)returnMap.get("SBA_CD");
+						
+						Matcher matcher = pattern.matcher(sbaCd);
+						if (matcher.find()) {
+							penPayRate = sbaCd.substring(matcher.start(), matcher.end());
+						}
+						break;
+					}
+				}
+				recipientInfoVO.setPenPayRate(penPayRate + "%");
+				recipientInfoVO.setLtcRcgtGradeCd((String)returnMap.get("LTC_RCGT_GRADE_CD"));
+				recipientInfoVO.setRcgtEdaDt((String)returnMap.get("RCGT_EDA_DT"));
+				
+				String apdtFrDt = (String)returnMap.get("APDT_FR_DT");
+				apdtFrDt = apdtFrDt.substring(0, 4) + "-" + apdtFrDt.substring(4, 6) + "-" + apdtFrDt.substring(6, 8);
+				String apdtToDt = (String)returnMap.get("APDT_TO_DT");
+				apdtToDt = apdtToDt.substring(0, 4) + "-" + apdtToDt.substring(4, 6) + "-" + apdtToDt.substring(6, 8);
+				recipientInfoVO.setBgngApdt(apdtFrDt + " ~ " + apdtToDt);
+				
+				Integer lmtAmt = Integer.valueOf((String)returnMap.get("LMT_AMT"));
+				Integer useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
+				Integer remindAmt = lmtAmt - useAmt;
+				recipientInfoVO.setRemindAmt(remindAmt.toString());
+				recipientInfoVO.setUseAmt(useAmt.toString());
+				recipientInfoVO.setSearchDt(simpleDateFormat.format(new Date()));
+			}
 			
 			//수급자 상담정보
 			MbrConsltVO mbrConsltVO = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);

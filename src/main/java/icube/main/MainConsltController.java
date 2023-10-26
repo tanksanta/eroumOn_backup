@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
 import icube.common.util.FileUtil;
@@ -49,6 +50,9 @@ public class MainConsltController extends CommonAbstractController{
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "tilkoApiService")
+	private TilkoApiService tilkoApiService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -181,6 +185,18 @@ public class MainConsltController extends CommonAbstractController{
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
+			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
+				
+				Boolean result = (Boolean) returnMap.get("result");
+				if (result == false) {
+					returnMap.put("success", false);
+					resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
+					return resultMap;
+				}
+			}
+			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
 			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
 			mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());
@@ -197,7 +213,12 @@ public class MainConsltController extends CommonAbstractController{
 					MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 					mbrRecipient.setRelationCd(mbrConsltVO.getRelationCd());
 					mbrRecipient.setRecipientsNm(mbrConsltVO.getMbrNm());
-					mbrRecipient.setRcperRcognNo(mbrConsltVO.getRcperRcognNo());
+					if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
+						mbrRecipient.setRcperRcognNo(mbrConsltVO.getRcperRcognNo());
+						mbrRecipient.setRecipientsYn("Y");
+					} else {
+						mbrRecipient.setRecipientsYn("N");
+					}
 					mbrRecipient.setTel(mbrConsltVO.getMbrTelno());
 					mbrRecipient.setSido(mbrConsltVO.getZip());
 					mbrRecipient.setSigugun(mbrConsltVO.getAddr());
