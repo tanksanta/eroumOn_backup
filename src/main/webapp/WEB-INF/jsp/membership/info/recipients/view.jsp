@@ -43,7 +43,7 @@
 							</tr>
 							<tr>
 								<th scope="row">요양인정번호</th>
-								<td>L${recipientVO.rcperRcognNo}</td>
+								<td><c:if test="${!empty recipientVO.rcperRcognNo}">L</c:if>${recipientVO.rcperRcognNo}</td>
 							</tr>
 							<tr>
 								<th scope="row">상담받을 연락처</th>
