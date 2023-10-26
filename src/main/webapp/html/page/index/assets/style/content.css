@@ -1711,7 +1711,7 @@
         }
         & .grade-start {
             & .picture {
-                @apply w-[50rem] pt-48 md:pt-0 pb-0 md:pb-25;
+                @apply w-[50rem] pt-48 md:pt-0 pb-0;
 
                 & .msg1 .box, & .msg2 .box {
                     @apply bg-black2 text-white border-none;
@@ -1880,7 +1880,7 @@
             }
 
             & i {
-                @apply bg-[#A7C8FF];
+                @apply bg-[#A7C8FF]  bg-[url(../images/bg-inquiry-taps.svg)];
             }
             
         }
@@ -2141,7 +2141,7 @@
 }
 
 .welfare-contact {
-    @apply flex flex-col justify-start items-start md:flex-row md:items-center md:justify-between  w-full gap-3;
+    @apply flex flex-col justify-start items-start md:flex-row md:items-center  w-full gap-3;
 }
 
 @keyframes textblur {

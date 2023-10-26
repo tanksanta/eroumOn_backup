@@ -100,13 +100,13 @@
 				</div>
 			</c:forEach>
 		
-			<c:forEach begin="1" end="${4 - mbrVO.mbrRecipientsList.size()}">
+			<c:if test="${mbrVO.mbrRecipientsList.size() < 4}">
 				<div class="mypage-client-item add-item">
 					<button type="button" class="btn-rounded" onclick="clickAddRecipientBtn();">
 						<i class="icon-plus-thin"></i>
 					</button>
 				</div>
-			</c:forEach>
+			</c:if>
 		</div>
 	</div>
 	

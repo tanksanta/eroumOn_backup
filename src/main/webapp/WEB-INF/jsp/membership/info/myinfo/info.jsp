@@ -146,7 +146,7 @@
 									<div class="form-group w-full">
 										<input type="hidden" value="${mbrRecipient.recipientsNo}">
 										<input type="text" class="form-control w-full max-w-73" maxlength="50" value="${mbrRecipient.recipientsNm}" readonly>
-										<button type="button" class="btn btn-primary">상세보기</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='/membership/info/recipients/view?recipientsNo=${mbrRecipient.recipientsNo}'">상세보기</button>
 									</div>
 								</td>
 							</tr>

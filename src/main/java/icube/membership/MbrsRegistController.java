@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -606,10 +607,13 @@ public class MbrsRegistController extends CommonAbstractController{
 				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
 			}
 
-			//임시정보 추가
-			mbrSession.setParms(mbrVO, false);
-	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
-			session.setMaxInactiveInterval(60*60);
+			
+			// 최근 접속 일시 업데이트
+			mbrService.updateRecentDt(srchMbr.getUniqueId());
+			
+			//임시정보 추가(등록하러가기 기능떄문에 로그인 처리로 변경)
+			mbrSession.setParms(srchMbr, true);
+			mbrSession.setMbrInfo(session, mbrSession);			
 
 			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
 		}else {

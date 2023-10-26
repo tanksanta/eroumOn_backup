@@ -71,9 +71,9 @@
                         </defs>
                     </svg>
                 </div>
-                <a href="#" target="_blank" title="새창열림" class="btn-inquiry btn btn-large2 btn-primary3 btn-arrow">
+                <button onclick="searchRecipients();" class="btn-inquiry btn btn-large2 btn-primary3 btn-arrow">
                     <strong>요양정보 조회하기</strong>
-                </a>
+                </button>
                 <img src="/html/page/index/assets/images/img-hand.png" class="img-hand hidden md:block" alt="손모양 이미지" />
             </div>
 
