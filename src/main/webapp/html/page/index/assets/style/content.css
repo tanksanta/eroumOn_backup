@@ -1880,7 +1880,7 @@
             }
 
             & i {
-                @apply bg-[#A7C8FF];
+                @apply bg-[#A7C8FF]  bg-[url(../images/bg-inquiry-taps.svg)];
             }
             
         }
