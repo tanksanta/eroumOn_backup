@@ -141,14 +141,15 @@
                     <c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
                     <div class="btn-group right mt-5">
                     	<c:if test="${mbrConsltVO.consltSttus ne 'CS01' && fn:length(mbrConsltVO.consltResultList) > 0}">
-                        <button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
+                        	<button type="button" class="btn-primary large shadow float-left" data-bs-toggle="modal" data-bs-target="#modal4">멤버스 상담 내역 확인</button>
                         </c:if>
+                        
                         <c:if test="${mbrConsltVO.consltSttus ne 'CS03' && mbrConsltVO.consltSttus ne 'CS04' && mbrConsltVO.consltSttus ne 'CS06' && mbrConsltVO.consltSttus ne 'CS09' }">
-                        <button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
+                        	<button type="button" class="btn-danger large shadow" data-bs-toggle="modal" data-bs-target="#modal1">상담취소</button>
                         </c:if>
                         <c:if test="${mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS07' }">
-                        <button type="submit" class="btn-success large shadow">저장</button>
-                        <button type="button" class="btn-warning large shadow" data-bs-toggle="modal" data-bs-target="#modal5">정보수정</button>
+	                        <button type="submit" class="btn-success large shadow">저장</button>
+	                        <button type="button" class="btn-warning large shadow" data-bs-toggle="modal" data-bs-target="#modal-consulting-info">정보수정</button>
                         </c:if>
                         <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
@@ -160,7 +161,7 @@
                             <colgroup>
                                 <col class="w-43">
                                 <col>
-                            </colgroup>
+  	                          </colgroup>
                             <tbody>
                                 <tr>
                                     <th scope="row">상담진행상태</th>
@@ -411,6 +412,8 @@
                	<!-- 요양정보 간편조회 모달 -->
                	<%@include file="./simpleSearchModal.jsp"%>
                	
+               	<!-- 상담 정보 수정 모달 -->
+               	<%@include file="./updateConsltModal.jsp"%>
             </div>
             <!-- //page content -->
 
@@ -496,6 +499,7 @@ function getRecipientInfo(recipientsNo) {
 		alert('서버와 연결이 좋지 않습니다');
 	});
 }
+
 
 
 $(function(){

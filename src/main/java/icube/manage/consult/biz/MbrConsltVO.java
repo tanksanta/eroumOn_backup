@@ -51,4 +51,9 @@ public class MbrConsltVO extends CommonBaseVO {
 
 	private String regId;
 	private String regUniqueId;
+	
+	private Date mdfcnDt;
+	private String mdfcnMngrUniqueId;
+	private String mdfcnMngrId;
+	private String mdfcnMngrNm;
 }

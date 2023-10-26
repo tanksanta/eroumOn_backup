@@ -204,6 +204,24 @@
 			, cancl_dt = SYSDATE()
 		WHERE conslt_no = #{consltNo}
 	</update>
+	
+	<!-- 관리자가 상담정보 수정 시 사용 -->
+	<update id="updateConsltByMngr" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			relation_cd = #{relationCd}
+			, rcper_rcogn_no = #{rcperRcognNo}
+			, mbr_telno = #{mbrTelno}
+			, zip = #{zip}
+			, addr = #{addr}
+			, daddr = #{daddr}
+			, brdt = #{brdt}
+			, gender = #{gender} 
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_mngr_unique_id = #{mdfcnMngrUniqueId}
+			, mdfcn_mngr_id = #{mdfcnMngrId}
+			, mdfcn_mngr_nm = #{mdfcnMngrNm}
+		WHERE conslt_no = #{consltNo}
+	</update>
 
 	<update id="updateMngMemo" parameterType="java.util.HashMap">
 		UPDATE MBR_CONSLT SET

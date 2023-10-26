@@ -755,6 +755,9 @@
     			return;
     		}
     		
+            if (rcperRcognNoYn === 'N') {
+				rcperRcognNo = '';
+			}
     		
     		var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
     		

@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <table class="table-detail">
                         <colgroup>
-                            <col class="w-30">
+                            <col class="w-36">
                             <col>
                         </colgroup>
                         <tbody>

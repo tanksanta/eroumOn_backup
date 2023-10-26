@@ -4,6 +4,7 @@
 package icube.manage.consult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.util.HtmlUtils;
 
+import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
+import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
@@ -41,6 +44,7 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -63,6 +67,9 @@ public class MMbrConsltController extends CommonAbstractController{
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
 
+	@Resource(name= "tilkoApiService")
+	private TilkoApiService tilkoApiService;
+	
 	@Autowired
 	private MngrSession mngrSession;
 
@@ -448,5 +455,53 @@ public class MMbrConsltController extends CommonAbstractController{
 		model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
 
 		return "/manage/consult/recipter/excel";
+	}
+	
+	/**
+	 * 모달에서 1:1 상담 수정하기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateMbrConslt.json")
+	public Map<String, Object> updateMbrConslt(
+			MbrConsltVO mbrConsltVO
+		)throws Exception {
+
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
+				
+				Boolean result = (Boolean) returnMap.get("result");
+				if (result == false) {
+					returnMap.put("success", false);
+					resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
+					return resultMap;
+				}
+			}
+			
+			MbrConsltVO srchMbrConslt = mbrConsltService.selectMbrConsltByConsltNo(mbrConsltVO.getConsltNo());
+			srchMbrConslt.setRelationCd(mbrConsltVO.getRelationCd());
+			srchMbrConslt.setRcperRcognNo(mbrConsltVO.getRcperRcognNo());
+			srchMbrConslt.setMbrTelno(mbrConsltVO.getMbrTelno());
+			srchMbrConslt.setZip(mbrConsltVO.getZip());
+			srchMbrConslt.setAddr(mbrConsltVO.getAddr());
+			srchMbrConslt.setDaddr(mbrConsltVO.getDaddr());
+			if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
+				srchMbrConslt.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));
+			}
+			srchMbrConslt.setGender(mbrConsltVO.getGender());
+			srchMbrConslt.setMdfcnMngrUniqueId(mngrSession.getUniqueId());
+			srchMbrConslt.setMdfcnMngrId(mngrSession.getMngrId());
+			srchMbrConslt.setMdfcnMngrNm(mngrSession.getMngrNm());
+			mbrConsltService.updateMbrConsltByMngr(srchMbrConslt);
+
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "상담 수정에 실패하였습니다");
+		}
+		return resultMap;
 	}
 }
