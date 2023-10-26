@@ -197,7 +197,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70" onclick="location.href='/membership/info/recipients/list'">등록하러가기</button>
-					<button type="button" class="btn btn-outline-primary large w-[26.5%]" data-bs-dismiss="modal" class="btn-close">취소</button>
+					<button type="button" class="btn btn-outline-primary large w-[26.5%]" onclick="location.href='/'">취소</button>
 				</div>
 			</div>
 		</div>
