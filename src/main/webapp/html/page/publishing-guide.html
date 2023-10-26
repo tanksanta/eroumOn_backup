@@ -36,6 +36,7 @@
     .tree ul li input:checked~ul:before {content:''; position: absolute; top: 17px; left: 0; display: block; width: 16px; height: 1px;  background-color: #777;}
     .tree-custom { display: block; background: #eee; padding: 1rem; border-radius: 0.3rem; }
     .btn-open { display: flex; align-items: center; justify-content: center; padding: 0.1rem 0.15rem; background-color: #dee4ff; font-size: 0.75rem; border-radius: 0.4rem; }
+    .btn-link { display: flex; align-items: center; justify-content: center;  font-size: 0.75rem; color: blueviolet; }
    .tree-label a:hover,  .tree-label a:focus { color: blue;}
   </style>
 </head>
@@ -47,6 +48,14 @@
         <li>
           <input type="checkbox" checked="checked" id="c1" />
           <label class="tree-label" for="c1">메뉴</label>
+          <ul>
+            <li>
+              <div class="tree-label">
+                <a href="guide/index.html" target="iframe">웹퍼블리싱가이드</a>
+                <a href="guide/index.html" target="_blank" class="btn-open">새창</a>
+              </div>
+            </li>
+          </ul>
           <!--관리지-->
           <ul>
             <li>
@@ -99,6 +108,12 @@
                   <div class="tree-label">
                     <a href="../page/admin/contents/modify.html" target="iframe">회원관리</a>
                     <a href="../page/admin/contents/modify.html" target="_blank" class="btn-open">새창</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="tree-label">
+                    <a href="../page/admin/contents/등급테스트팝업.html" target="iframe">등급테스트결과팝업</a>
+                    <a href="../page/admin/contents/등급테스트팝업.html" target="_blank" class="btn-open">새창</a>
                   </div>
                 </li>
                 <li>
@@ -604,7 +619,7 @@
           <!--마켓-->
           <ul>
             <li>
-              <input type="checkbox" checked id="d21" />
+              <input type="checkbox" id="d21" />
               <label for="d21" class="tree-label">마켓</label>
               <ul>
                 <li>
@@ -953,7 +968,7 @@
           <!--사업소-->
           <ul>
             <li>
-              <input type="checkbox"  checked="checked"  id="c40" />
+              <input type="checkbox" id="c40" />
               <label for="c30" class="tree-label">사업소</label>
               <ul>
                 <li>
@@ -1185,7 +1200,7 @@
         <!--인덱스-->
         <ul>
           <li>
-            <input type="checkbox"  checked="checked"  id="c50" />
+            <input type="checkbox"    id="c50" />
             <label for="c50" class="tree-label">인덱스</label>
             <ul>
               <li>
@@ -1210,6 +1225,12 @@
                 <div class="tree-label">
                   <a href="../../html/page/index/contents/로그인.html" target="iframe">로그인</a>
                   <a href="../../html/page/index/contents/로그인.html" target="_blank" class="btn-open">새창</a>
+                </div>
+              </li>
+              <li>
+                <div class="tree-label">
+                  <a href="../../html/page/index/contents/요양정보간편조회-서브메인.html" target="iframe">요양정보간편조회-서브메인</a>
+                  <a href="../../html/page/index/contents/요양정보간편조회-서브메인.html" target="_blank" class="btn-open">새창</a>
                 </div>
               </li>
               <li>
@@ -1320,7 +1341,7 @@
         <!--맵버쉽-->
         <ul>
           <li>
-              <input type="checkbox"  checked="checked"  id="c60" />
+              <input type="checkbox"    id="c60" />
               <label for="c60" class="tree-label">맵버쉽</label>
               <ul>
                 <li>
@@ -1451,6 +1472,7 @@
                       <div class="tree-label">
                         <a href="../../html/page/members/contents/장기요양%20상담신청.html" target="iframe">장기요양 상담신청</a>
                         <a href="../../html/page/members/contents/장기요양%20상담신청.html" target="_blank" class="btn-open">새창</a>
+                        <a href="../../html/page/members/contents/장기요양%20상담신청-0.html" target="iframe" class="btn-link">0차</a>
                       </div>
                     </li>
                     <li>
@@ -1509,7 +1531,7 @@
         <!--메일폼-->
         <ul>
           <li>
-              <input type="checkbox"  checked="checked"  id="c70" />
+              <input type="checkbox"    id="c70" />
               <label for="c70" class="tree-label">메일폼</label>
               <ul>
                 <li>
@@ -1600,6 +1622,24 @@
                   <div class="tree-label">
                     <a href="../../html/page/mail/문의.html" target="iframe">1:1문의</a>
                     <a href="../../html/page/mail/문의.html" target="_blank" class="btn-open">새창</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="tree-label">
+                    <a href="../../html/page/mail/장기용양등급테스트결과_mailFrom_2023906.html" target="iframe">장기요양등급테스트결과_230906</a>
+                    <a href="../../html/page/mail/장기용양등급테스트결과_mailFrom_2023906.html" target="_blank" class="btn-open">새창</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="tree-label">
+                    <a href="../../html/page/mail/장기용양등급테스트결과_mailFrom_2023908.html" target="iframe">장기요양등급테스트결과_230908</a>
+                    <a href="../../html/page/mail/장기용양등급테스트결과_mailFrom_2023908.html" target="_blank" class="btn-open">새창</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="tree-label">
+                    <a href="../../html/page/mail/휴면계정 전환 안내.html" target="iframe">휴면계정 전환 안내</a>
+                    <a href="../../html/page/mail/휴면계정 전환 안내.html" target="_blank" class="btn-open">새창</a>
                   </div>
                 </li>
               </ul>
