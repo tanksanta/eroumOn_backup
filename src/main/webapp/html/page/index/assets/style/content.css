@@ -1711,7 +1711,7 @@
         }
         & .grade-start {
             & .picture {
-                @apply w-[50rem] pt-48 md:pt-0 pb-0 md:pb-25;
+                @apply w-[50rem] pt-48 md:pt-0 pb-0;
 
                 & .msg1 .box, & .msg2 .box {
                     @apply bg-black2 text-white border-none;
