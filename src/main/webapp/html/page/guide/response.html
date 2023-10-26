@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>반응형규칙</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-10 py-4 px-5">
+        <h2 class="font-semibold text-4xl">반응형 규칙</h2>
+            <table class="table-list">
+                <caption class="hidden">반응형규칙</caption>
+                <colgroup>
+                <col class="w-30"/>
+                <col class="w-50"/>
+                <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Breakpoint prefix</th>
+                        <th scope="col">min width / max width</th>
+                        <th scope="col">CSS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="odd:bg-white even:bg-slate-50">
+                        <th scope="row">sm</th>
+                        <td>640px</td>
+                        <td>@media (min-width: 640px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">md</th>
+                        <td>768px</td>
+                        <td>@media (min-width: 768px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">lg</th>
+                        <td>1024px</td>
+                        <td>@media (min-width: 1024px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">xl</th>
+                        <td>1280px</td>
+                        <td>@media (min-width: 1280px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2xl</th>
+                        <td>1536px</td>
+                        <td>@media (min-width: 1536px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">xs-max</th>
+                        <td>479px</td>
+                        <td>@media (max-width: 479px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">sm-max</th>
+                        <td>575px</td>
+                        <td>@media (max-width: 575px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">md-max</th>
+                        <td>767px</td>
+                        <td>@media (max-width: 767px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">lg-max</th>
+                        <td>1039px</td>
+                        <td>@media (max-width: 1039px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">xl-max</th>
+                        <td>1279px</td>
+                        <td>@media (max-width: 1279px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2xl-max</th>
+                        <td>1559px</td>
+                        <td>@media (max-width: 1559px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">xs-range</th>
+                        <td>480px</td>
+                        <td>@media (max-width: 480px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">sm-range</th>
+                        <td>480px, 575px</td>
+                        <td>@media (min-width: 480px) and (max-width: 575px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">md-range</th>
+                        <td>576px, 767px</td>
+                        <td>@media (min-width: 576px) and (max-width: 767px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">lg-range</th>
+                        <td>768px, 1039px</td>
+                        <td>@media (min-width: 768px) and (max-width: 1039px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">xl-range</th>
+                        <td>1040px, 1279px</td>
+                        <td>@media (min-width: 1040px) and (max-width: 1279px) { ... }</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2xl-range</th>
+                        <td>1280px, 1559px</td>
+                        <td>@media (min-width: 1280px) and (max-width: 1559px) { ... }</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>

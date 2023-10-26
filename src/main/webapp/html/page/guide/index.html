@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가이드</title>
+    <link rel="stylesheet" href="../../core/style/style.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+      body { display: flex; flex-direction: row; overflow-x: hidden; background: #fff !important; font-family: Pretendard,'Noto Sans KR', sans-serif; }
+      #list, #content { max-width: none; overflow: overlay; -webkit-overflow-scrolling: touch; }
+      #list::-webkit-scrollbar, #content::-webkit-scrollbar { width: 0.5rem; height: 0.5rem; }
+      #list::-webkit-scrollbar-thumb, #content::-webkit-scrollbar-thumb { border-radius: 0.75rem; background-color: #aaa; }
+      #list::-webkit-scrollbar-track, #content::-webkit-scrollbar-track { background-color: transparent; }
+      #list .nav-link { position: relative; margin-bottom: -1px; z-index: 1; }
+      #list .active { z-index: 10; transition: all 0.5s ease-in-out; background-color: #60a5fa; border-bottom-color: #60a5fa; color: white; }
+      hr { margin: 2rem 0; }
+      hr:last-child { display: none; }
+      [id*="section"] { min-height: 25vh; }
+  </style>
+  </head>
+  <body class="flex h-screen overflow-hidden">
+    <nav id="list" class="w-30 h-screen overflow-y-auto border-r border-gray-300 bg-gray-100">
+        <ul>
+            <li><a href="#section1" class="nav-link block py-2 px-3 border-b border-gray-300">반응형 규칙</a></li>
+            <li><a href="#section2" class="nav-link block py-2 px-3 border-b border-gray-300">텍스트 규칙</a></li>
+            <li><a href="#section3" class="nav-link block py-2 px-3 border-b border-gray-300">색상 규칙</a></li>
+            <!-- <li><a href="#section4" class="nav-link block py-2 px-3 border-b border-gray-300">버튼 규칙</a></li> -->
+        </ul>
+    </nav>
+    <main id="content" class="flex-1 py-4 px-5 overflow-auto">
+      <div id="section1" class="min-h-full bg-slate-50">
+        <iframe src="response.html"  onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+      </div>
+      <div id="section2" class="min-h-full">
+        <iframe src="text.html"  onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+      </div>
+      <div id="section3" class="min-h-full">
+        <iframe src="colors.html"  onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+      </div>
+      <!-- <div id="section4" class="min-h-full">
+        <iframe src="buttons.html"  onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+      </div> -->
+    </main>
+  </body>
+</html>
