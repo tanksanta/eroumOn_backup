@@ -1,6 +1,9 @@
 html, body {
     @apply text-black2;
 }
+img[alt] {
+    font-size: 0;
+}
 
 @layer components {
     .table-list, .table-detail {
