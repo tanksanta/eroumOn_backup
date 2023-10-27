@@ -89,7 +89,10 @@
 								<c:set var="consltPrevPath" value="${recipientInfo.recipientsYn == 'Y' ? 'simpleSearch' : 'test'}" />
 							
 								<strong>${recipientInfo.recipientsYn == "Y" ? "인정정보상담" : "요양등급상담"}</strong>
-								<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
+								
+								<c:if test="${consltPrevPath == 'simpleSearch' || consltPrevPath == 'test' && (mbrTestList.stream().filter(f -> f.recipientsNo == recipientInfo.recipientsNo).count() > 0)}">
+									<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
+								</c:if>
 							</div>
 							<div class="text-subtitle">
 								<i class="icon-alert size-sm"></i>
@@ -122,32 +125,34 @@
 	
 	// 상담하기 버튼 클릭
 	function requestConslt(recipientsNo, prevPath) {
-		if (prevPath === 'test') {
-			$.ajax({
-	    		type : "post",
-	    		url  : "/membership/info/recipients/test/result.json",
-	    		data : {
-	    			recipientsNo
-	    		},
-	    		dataType : 'json'
-	    	})
-	    	.done(function(data) {
-	    		if(data.success) {
-	    			if (data.isExistTest) {
-	    				openModal('requestConslt', Number(recipientsNo), prevPath);	
-	    			} else {
-	    				alert('테스트 진행 후 상담요청해주세요')
-	    			}
-	    		}else{
-	    			alert(data.msg);
-	    		}
-	    	})
-	    	.fail(function(data, status, err) {
-	    		alert('서버와 연결이 좋지 않습니다.');
-	    	});
-		} else {
-			openModal('requestConslt', Number(recipientsNo), prevPath);	
-		}
+		openModal('requestConslt', Number(recipientsNo), prevPath);	
+		
+		// if (prevPath === 'test') {
+		// 	$.ajax({
+	    // 		type : "post",
+	    // 		url  : "/membership/info/recipients/test/result.json",
+	    // 		data : {
+	    // 			recipientsNo
+	    // 		},
+	    // 		dataType : 'json'
+	    // 	})
+	    // 	.done(function(data) {
+	    // 		if(data.success) {
+	    // 			if (data.isExistTest) {
+	    // 				openModal('requestConslt', Number(recipientsNo), prevPath);	
+	    // 			} else {
+	    // 				alert('테스트 진행 후 상담요청해주세요')
+	    // 			}
+	    // 		}else{
+	    // 			alert(data.msg);
+	    // 		}
+	    // 	})
+	    // 	.fail(function(data, status, err) {
+	    // 		alert('서버와 연결이 좋지 않습니다.');
+	    // 	});
+		// } else {
+		// 	openModal('requestConslt', Number(recipientsNo), prevPath);	
+		// }
   	}
 	
 
