@@ -65,7 +65,16 @@ $(function() {
         } else {
             $('body').removeClass('is-scroll');
         }
+
+        if($(window).scrollTop() > $('#header').outerHeight() * 5) {
+            // console.log($('#header').outerHeight() * 5)
+            $('.grade-floating').addClass('is-active');
+        } else {
+            $('.grade-floating').removeClass('is-active');
+        }
     });
+
+   
 
     $(window).on('load resize', function(e) {
         resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
