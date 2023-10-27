@@ -203,7 +203,7 @@ public class MainConsltController extends CommonAbstractController{
 			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
 			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
-			mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());
+			mbrConsltVO.setRgtr(mbrSession.getMbrNm());
 
 			if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
 				mbrConsltVO.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));

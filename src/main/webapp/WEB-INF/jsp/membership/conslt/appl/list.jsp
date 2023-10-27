@@ -76,7 +76,7 @@
                         </dd>
                     </dl>
 					<dl class="search-partner">
-                        <dt><label for="srchBplcNm">장기요양기간</label></dt>
+                        <dt><label for="srchBplcNm">장기요양기관</label></dt>
                         <dd><input type="text" id="srchBplcNm" name="srchBplcNm" value="${param.srchBplcNm}" class="form-control w-full"></dd>
                     </dl>
                     <!--이전 코드 백업-->
@@ -150,7 +150,7 @@
 	                        </dd>
 	                    </dl>
 	                    <dl class="item-partner">
-	                        <dt>장기요양기간</dt>
+	                        <dt>장기요양기관</dt>
 	                        <dd>
 								<c:choose>
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
