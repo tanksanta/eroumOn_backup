@@ -501,3 +501,27 @@
         </div>
     </div>
 </div>
+
+<script>
+	$(function() {		
+		//modal dimmed 되는 현상 수정
+		function modalOpen(id) {
+			$(id).on('show.bs.modal', function () {     
+				var modal = $(this);
+				modal.appendTo('body');
+				modal.css('outline', 'none');
+			});
+		}
+
+		modalOpen('#pop-welfare-1');
+		modalOpen('#pop-welfare-2');
+		modalOpen('#pop-welfare-3');
+		modalOpen('#pop-welfare-4');
+		modalOpen('#pop-welfare-5');
+		modalOpen('#pop-welfare-6');
+		modalOpen('#pop-welfare-7');
+		modalOpen('#pop-welfare-8');
+		modalOpen('#pop-welfare-9');
+		modalOpen('#pop-welfare-10');
+	})
+</script>
