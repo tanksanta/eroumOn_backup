@@ -32,16 +32,16 @@
     }
 
     &.modal-default {
-      @apply w-[calc(100%_-_2rem)] sm:w-auto h-auto rounded-3xl shadow-xl;
+      @apply w-[calc(100%_-_2rem)] sm:w-auto  h-auto rounded-3xl shadow-xl;
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
       & .modal-dialog {
-        @apply relative  m-0;
+        @apply relative m-0 max-w-full;
         min-height: inherit;
       }
       & .modal-content {
-        @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11;
+        @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11 md:min-w-[32rem] ;
       }
       & .modal-close {
          > button {
@@ -126,4 +126,6 @@
       @apply opacity-100;
     }
   }
+  .modal-backdrop{z-index: 1050 !important;}
+  .modal{z-index: 1060 !important;}
 }
