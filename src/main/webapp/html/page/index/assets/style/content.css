@@ -1738,10 +1738,10 @@
                     }
                 }
                 & .btn-inquiry {
-                    @apply absolute bottom-35 left-[22%]; 
+                    @apply absolute bottom-24 md:bottom-35  flex left-[7%] md:left-[22%] w-10/12 md:w-100 scale-[95%] md:scale-100; 
                 }
                 & .img-hand {
-                    @apply absolute bottom-1 left-[33%] w-49;
+                    @apply absolute bottom-[3px] left-[33%] w-34 md:w-49;
                 }
             }
         }
