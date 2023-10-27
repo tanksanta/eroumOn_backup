@@ -188,6 +188,18 @@
 	                        <dt>상담 신청일</dt>
 	                        <dd><fmt:formatDate value="${resultList.regDt}" pattern="yyyy.MM.dd" /></dd>
 	                    </dl>
+	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
+	                    	<dl class="item-date">
+		                    	<dt>상담 완료일</dt>
+		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+	                        </dl>
+	                    </c:if>
+	                    <c:if test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">
+	                    	<dl class="item-date">
+		                    	<dt>상담 취소일</dt>
+		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+	                        </dl>
+	                    </c:if>
 	                    
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
