@@ -362,7 +362,7 @@
 	         <div class="form-radio-button-group" id="recipient-list">
 	             
 	         </div>
-	         <a href="#"class="underline text-blue3 text-sm">수급자 관리</a>
+	         <a href="/membership/info/recipients/list"class="underline text-blue3 text-sm">수급자 관리</a>
 	         
 	         
 	         <!--추가 등록-->
@@ -597,7 +597,7 @@
         	})
         	.done(function(data) {
         		if(data.success) {
-        			alert('수급자 정보 등록에 동의했습니다.');
+        			alert('수급자가 등록되었습니다');
         			
         			location.href = '/main/recipter/list?recipientsNo=' + data.createdRecipientsNo;
         		}else{
