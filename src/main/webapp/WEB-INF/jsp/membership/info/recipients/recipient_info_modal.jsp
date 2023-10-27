@@ -135,7 +135,7 @@
 			</div>
 			<div class="modal-footer md:w-3/4 mx-auto mt-4">
 				<button type="button" class="btn btn-primary large w-3/5" onclick="requestAction();">등록하기</button>
-				<button type="button" class="btn btn-outline-primary large w-2/5">취소하기</button>
+				<button type="button" class="btn btn-outline-primary large w-2/5" data-bs-dismiss="modal">취소하기</button>
 			</div>
 			</div>
 		</div>

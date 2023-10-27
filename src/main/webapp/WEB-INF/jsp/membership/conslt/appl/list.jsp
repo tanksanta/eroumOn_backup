@@ -338,7 +338,7 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary w-2/6">닫기</button>
+                        <button type="button" class="btn btn-primary w-2/6" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
