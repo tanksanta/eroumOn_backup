@@ -54,8 +54,8 @@ public class BiztalkApiService {
 	private String careHost;//케어서버 호스트
 	
 	
-	//@Value("#{props['Biztalk.TargetEroumHost']}")//이로움온 서버
-	private String eroumOnHost = "https://eroum.co.kr"; /*나중에 httpreqeust에서 받아서 오자*/
+	// @Value("#{props['Biztalk.TargetEroumHost']}")//이로움온 서버
+	private String eroumOnHost = "https://eroum.co.kr";
 	
 
 	private String biztalkTokenKey;//토큰 문자열
@@ -296,6 +296,17 @@ public class BiztalkApiService {
 	// Care_00001 사업소_수급자매칭 biztalkApiService.sendCareTalkMatched("사업소", "010-2808-9178");
 	public boolean sendCareTalkMatched(String bplcNm, String sPhoneNo) throws Exception {
 		JSONObject param = this.msgCare00001( bplcNm);
+		
+        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
+        
+        // this.getResultAll();
+        
+        return bResult;
+	}
+	
+	// Care_00002 사업소_수급자매칭 biztalkApiService.sendCareTalkCancel("사업소", "010-2808-9178");
+	public boolean sendCareTalkCancel(String bplcNm, String sPhoneNo) throws Exception {
+		JSONObject param = this.msgCare00002( bplcNm);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -552,6 +563,43 @@ public class BiztalkApiService {
 		JSONObject param = new JSONObject();
 		
 		param.put("tmpltCode", "Care_00001");
+		param.put("senderKey", this.biztalkSenderKeyEroumcare);
+		param.put("message", msg);
+		param.put("attach", btn);
+		
+		return param;
+	}
+	
+	// Care_00002 사업소_상담취소 사업소님, 1:1 상담 매칭 취소.
+	private JSONObject msgCare00002(String bplcNm) throws Exception {
+		
+		String jsonStr;
+		
+		JSONObject jsonObject;
+		JSONParser jsonParser = new JSONParser();
+		JSONArray list = new JSONArray();
+		
+		jsonStr = "{" + " \"name\":\"◼︎ 상담관리 바로가기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_list.php");
+		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
+		list.add(jsonObject);
+		
+		
+		JSONObject btn = new JSONObject();
+		btn.put("button", list);
+		
+		String msg = "[1:1 상담 매칭 취소]\r\n"
+				+ "\r\n"
+				+ "#{장기요양기관명} 사업소님, 상담 요청자에 의해 1:1 상담 매칭이 취소되었습니다.\r\n"
+				+ "\r\n"
+				+ "아래 버튼을 누르면 수급자 상담관리 페이지로 바로 이동됩니다.";
+		
+		
+		msg = msg.replace("#{장기요양기관명}", bplcNm);
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("tmpltCode", "Care_00002");
 		param.put("senderKey", this.biztalkSenderKeyEroumcare);
 		param.put("message", msg);
 		param.put("attach", btn);
