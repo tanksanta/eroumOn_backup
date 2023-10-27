@@ -196,7 +196,7 @@
 	
 	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
 	                    	<div class="item-request justify-end">
-		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
+		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
 		                    </div>
 	                    </c:if>
 	                </div>
@@ -213,6 +213,8 @@
                     	<input type="hidden" name="consltNo" value="0">
                     	<input type="hidden" name="bplcUniqueId" value="">
                     	<input type="hidden" name="bplcConsltNo" value="0">
+						<input type="hidden" name="consltmbrNm" value="">
+						<input type="hidden" name="consltmbrTelno" value="">
 
                         <div class="modal-header">
                             <p class="text-title">재 상담 신청 사유 입력</p>
@@ -396,11 +398,16 @@
 	        	let consltNo = $(this).data("consltNo");
 	        	let bplcUniqueId = $(this).data("bplcUniqueId");
 	        	let bplcConsltNo = $(this).data("bplcConsltNo");
+				let consltmbrNm = $(this).attr("data-conslt-mbrNm")
+				let consltmbrTelno = $(this).attr("data-conslt-mbrTelno")
+
 	        	console.log(consltNo, bplcUniqueId, bplcConsltNo);
 	
 	        	$("#modalReConslt input[name='consltNo']").val(consltNo);
 	        	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
 	        	$("#modalReConslt input[name='bplcConsltNo']").val(bplcConsltNo);
+				$("#modalReConslt input[name='consltmbrNm']").val(consltmbrNm);
+				$("#modalReConslt input[name='consltmbrTelno']").val(consltmbrTelno);
 	        	$("#reqModal").modal('show');
 	        });
 	
@@ -423,6 +430,8 @@
 	    	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
 	    	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
 	    	    	let bplcConsltNo = $("#modalReConslt input[name='bplcConsltNo']").val();
+					let consltmbrNm = $("#modalReConslt input[name='consltmbrNm']").val();
+					let consltmbrTelno = $("#modalReConslt input[name='consltmbrTelno']").val();
 	
 	   	            if (confirm('해당 내역을 저장하시겠습니까?')) {
 		   	            $.ajax({
@@ -433,6 +442,8 @@
 		       					, reconsltResn:reconsltResn
 		       					, bplcUniqueId:bplcUniqueId
 		       					, bplcConsltNo:bplcConsltNo
+								, consltmbrNm:consltmbrNm
+								, consltmbrTelno:consltmbrTelno
 		       				},
 		       				dataType : 'json'
 		       			})
