@@ -104,7 +104,7 @@
 
 <!--모달: 가정방문(재가급여) 이용비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-3" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content">
         <div class="modal-header">
             <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -115,7 +115,9 @@
             <div class="flex flex-col gap-8 items-start">
                 <h3 class="text-body-title">가정방문(재가급여) <span class="text-indexKey1 text-normal">이용비 지원</span></h3>
                 <div class="">
-                    <p class="text-xl">일상생활에서 부분적인 도움이 필요한 어르신이라면, <strong>전문요원의 도움을 받을 수 있는 방문요양과 주야간보호 서비스를 신청하세요.</strong></p>
+                    <p class="text-xl">일상생활에서 부분적인 도움이 필요한 어르신이라면, <br>
+						<strong>전문요원의 도움을 받을 수 있는 방문요양과 주야간보호 서비스를 신청하세요.</strong>
+					</p>
                     <p><span class="font-semibold">[국민건강보험]</span>에서 어르신의 원활한 생활이 가능하도록 <span class="font-semibold underline underline-offset-1">재가 서비스 비용을 지원합니다.</span></p>
                 </div>
                 <div class="beige-card-wrap">

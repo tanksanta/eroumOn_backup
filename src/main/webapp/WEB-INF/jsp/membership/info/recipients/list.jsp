@@ -44,7 +44,14 @@
 							<dt>상담 진행 현황</dt>
 							<dd>
 								<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] != null}">
-									${consltSttus[mbrConsltMap[recipientInfo.recipientsNo].consltSttus]}
+									<c:choose>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:otherwise>
+											${consltSttus[mbrConsltMap[recipientInfo.recipientsNo].consltSttus]}
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 							</dd>
 						</dl>
