@@ -493,6 +493,9 @@
 			<if test="carDrc != null and carDrc != '' ">
 			, car_drc = #{carDrc}
 			</if>
+			<if test="mbGiupMatching != null and mbGiupMatching != '' ">
+			, mb_giup_matching = #{mbGiupMatching}
+			</if>
 			, mdfcn_unique_id = #{mdfcnUniqueId}
 		    , mdfcn_id = #{mdfcnId}
 			, mdfr = #{mdfr}
