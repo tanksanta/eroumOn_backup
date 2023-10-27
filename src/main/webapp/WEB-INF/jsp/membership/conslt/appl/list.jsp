@@ -1,21 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<%
-		String agent = request.getHeader("USER-AGENT");
-
-		String[] mobileos = {"iPhone","iPod","Android","BlackBerry","Windows CE","Nokia","Webos","Opera Mini","SonyEricsson","Opera Mobi","IEMobile"};
-
-		boolean isMobile = false;
-		for(int i=0 ; i<mobileos.length ; i++) {
-			if(agent.indexOf(mobileos[i]) > -1 )
-			{
-				// 모바일로 접근했을 때
-				isMobile = true;
-				break;
-			}
-		}
-	%>
-
 	<main id="container" class="is-mypage-style">
 		<header id="page-title">
 			<h2>
@@ -172,8 +156,8 @@
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
 										<strong>${resultList.consltResultList[0].bplcNm}</strong>
 										<c:if test="${resultList.consltResultList[0].consltSttus == 'CS06'}">
-											<c:if test="${isMobile}">
-												<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+											<c:if test="${!empty resultList.consltResultList[0].bplcInfo}">
+												<a href="tel:${resultList.consltResultList[0].bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
 											</c:if>
 											<div class="item-request justify-end">
 				                                <div class="flex items-center">
@@ -208,7 +192,7 @@
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
 	                    <div class="item-request  justify-end">
-	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}">신청 취소하기</button>
+	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
 	                    </div>
 	                    </c:if>
 	
@@ -255,6 +239,8 @@
                 <div class="modal-dialog">
                     <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" name="consltNo" value="0">
+						<input type="hidden" name="consltmbrNm" value="">
+						<input type="hidden" name="consltmbrTelno" value="">
                         <div class="modal-header">
                             <h2 class="text-title">상담 취소 사유 입력</h2>
                         </div>
@@ -398,6 +384,13 @@
 	
 	    
 	    $(function(){
+	    	//모바일 체크 처리
+	    	var isMobile = /Mobi/i.test(window.navigator.userAgent);
+	    	if (!isMobile) {
+	    		$('.mobile-tel-btn').css('display', 'none');
+	    	}
+	    	
+	    	
 	        $('.mypage-consult-items').masonry({
 	            itemSelector   : '.mypage-consult-item',
 	            gutter         : '.mypage-consult-item-gutter',
@@ -568,9 +561,17 @@
 	
 	    	$(".f_cancel").on("click", function(e){
 	        	let consltNo = $(this).data("consltNo");
+				let consltmbrNm = $(this).attr("data-conslt-mbrNm")
+				let consltmbrTelno = $(this).attr("data-conslt-mbrTelno")
 	        	console.log(consltNo);
-	
+				console.log($(this).attr("data-conslt-mbrNm"));
+				console.log($(this).attr("data-conslt-mbrTelno"));
 	        	$("#modalCancel input[name='consltNo']").val(consltNo);
+				$("#modalCancel input[name='consltmbrNm']").val(consltmbrNm);
+				$("#modalCancel input[name='consltmbrTelno']").val(consltmbrTelno);
+
+				console.log($("#modalCancel input[name='consltmbrTelno']").val())
+				
 	        	$("#cancelModal").modal('show');
 	        });
 	
@@ -578,10 +579,15 @@
 	    		e.preventDefault();
 	
 	    		let consltNo = $("#modalCancel input[name='consltNo']").val();
+				let consltmbrNm = $("#modalCancel input[name='consltmbrNm']").val();
+				let consltmbrTelno = $("#modalCancel input[name='consltmbrTelno']").val();
 	    		let canclResn = $("#modalCancel textarea[name='canclResn']").val();
+
 	
 	    		let params = {
 	    				consltNo:consltNo
+						, consltmbrNm:consltmbrNm
+						, consltmbrTelno:consltmbrTelno
 	    				, canclResn:canclResn};
 	
 	    		if($("#canclResn").val() === ""){

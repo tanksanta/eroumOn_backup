@@ -112,7 +112,9 @@
 								<td>
 									<c:if test="${consltResultVO != null}">
 										<strong>${consltResultVO.bplcNm}</strong>
-										<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+                                        <c:if test="${!empty consltResultVO.bplcInfo}">
+                                        	<a href="tel:${consltResultVO.bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
+                                        </c:if>
 										<div class="item-request justify-end">
 											<div class="flex items-center">
 												<label class="check1">
@@ -158,7 +160,7 @@
 				<div class="myinfo-box1">
                        <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
                            <c:if test="${_mbrSession.loginCheck}">
-                               <a href="/membership/mypage/list">정보수정</a>
+                               <a href="/membership/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form">정보수정</a>
                            </c:if>
                        </p>
                        <dl class="numb">
@@ -597,6 +599,12 @@
 
 
     <script>
+	  	//모바일 체크 처리
+		var isMobile = /Mobi/i.test(window.navigator.userAgent);
+		if (!isMobile) {
+			$('.mobile-tel-btn').css('display', 'none');
+		}
+    
     
 	    //숫자형 날짜 하이폰 삽입
 	    function f_hiponFormat(value){

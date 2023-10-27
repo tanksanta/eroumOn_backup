@@ -74,7 +74,7 @@
                 <button onclick="searchRecipients();" class="btn-inquiry btn btn-large2 btn-primary3 btn-arrow">
                     <strong>요양정보 조회하기</strong>
                 </button>
-                <img src="/html/page/index/assets/images/img-hand.png" class="img-hand hidden md:block" alt="손모양 이미지" />
+                <img src="/html/page/index/assets/images/img-hand.png" class="img-hand" alt="손모양 이미지" />
             </div>
 
         </div>
@@ -114,7 +114,7 @@
                 </a>
             </li>
         </ul>
-        <a href="#" class="text-link">
+        <a href="/main/cntnts/test" class="text-link">
             요양인정번호가 없으세요?
         </a>
     </div>
@@ -761,6 +761,6 @@
             active.removeClass('is-active').css({ 'margin-top': margin }).next().addClass('is-active').one('transitionend animationend', function () {
                 active.remove();
             });
-        }, 6000);  
+        }, 3000);  
 	</script>
 </div>

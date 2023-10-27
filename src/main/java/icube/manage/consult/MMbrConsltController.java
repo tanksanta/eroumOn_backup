@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.util.HtmlUtils;
 
+import icube.common.api.biz.BiztalkApiService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
@@ -48,6 +49,9 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
+import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -72,6 +76,13 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
+	
+	@Resource(name = "bplcService")
+	private BplcService bplcService;
+	
+	@Resource(name = "biztalkApiService")
+	private BiztalkApiService biztalkApiService;
+	
 	
 	@Autowired
 	private MngrSession mngrSession;
@@ -179,6 +190,11 @@ public class MMbrConsltController extends CommonAbstractController{
 		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
 		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);
 		model.addAttribute("MBER_STTUS", CodeMap.MBER_STTUS);
+		
+		
+		if (chgHistList.size() > 0) {
+			model.addAttribute("consltBplcUniqueId", chgHistList.get(0).getConsltBplcUniqueId());
+		}
 
 		return "/manage/consult/recipter/view";
 	}
@@ -198,8 +214,14 @@ public class MMbrConsltController extends CommonAbstractController{
 		String bplcUniqueId = (String) reqMap.get("bplcUniqueId");
 		String bplcId = (String) reqMap.get("bplcId");
 		String bplcNm = (String) reqMap.get("bplcNm");
+		String originConsltSttus = (String) reqMap.get("originConsltSttus");
+		String originConsltBplcUniqueId = (String) reqMap.get("originConsltBplcUniqueId");
+		
+		String consltmbrNm = (String) reqMap.get("consltmbrNm");
+		String consltMbrTelno = (String) reqMap.get("consltMbrTelno");
 
-
+		BplcVO bplcVO = null;
+		
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
 				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
 
@@ -246,7 +268,18 @@ public class MMbrConsltController extends CommonAbstractController{
 		mbrConsltVO.setMngrId(mngrSession.getMngrId());
 		mbrConsltVO.setMngrNm(mngrSession.getMngrNm());
 
-		mbrConsltService.updateMbrConslt(mbrConsltVO);
+		Integer iResult = mbrConsltService.updateMbrConslt(mbrConsltVO);
+		
+		if (iResult > 0 ) {
+			if (EgovStringUtil.isNotEmpty(bplcUniqueId) && EgovStringUtil.equals("CS01", originConsltSttus)) {
+				/*상담 매칭*/
+				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
+				biztalkApiService.sendOnTalkMatched(consltmbrNm, bplcVO.getBplcNm(), consltMbrTelno);
+				biztalkApiService.sendCareTalkMatched(bplcNm, bplcVO.getPicTelno());
+				
+			}
+			
+		} 
 
 
 		javaScript.setMessage(getMsg("action.complete.update"));
@@ -261,6 +294,8 @@ public class MMbrConsltController extends CommonAbstractController{
 	public Map<String, Object> cancelConslt(
 			@RequestParam(value = "consltNo", required=true) int consltNo
 			, @RequestParam(value = "canclResn", required=true) String canclResn
+			, @RequestParam(value = "consltmbrNm", required=true) String consltmbrNm
+			, @RequestParam(value = "consltMbrTelno", required=true) String consltMbrTelno
 			, HttpServletRequest request
 			) throws Exception {
 
@@ -295,6 +330,9 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+			
+			//관리자 상담취소
+			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
