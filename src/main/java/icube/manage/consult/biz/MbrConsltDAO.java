@@ -46,6 +46,10 @@ public class MbrConsltDAO extends CommonAbstractMapper {
 	public int updateSttus(Map<String, Object> paramMap) throws Exception {
 		return update("conslt.updateSttus", paramMap);
 	}
+	
+	public int updateCurConsltResultNo(Map<String, Object> paramMap) throws Exception {
+		return update("conslt.updateCurConsltResultNo", paramMap);
+	}
 
 	public List<MbrConsltVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
 		return selectList("conslt.selectListForExcel", paramMap);

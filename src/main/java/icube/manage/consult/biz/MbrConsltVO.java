@@ -56,4 +56,6 @@ public class MbrConsltVO extends CommonBaseVO {
 	private String mdfcnMngrUniqueId;
 	private String mdfcnMngrId;
 	private String mdfcnMngrNm;
+	
+	private String curConsltResultNo; //현재 매칭된 사업소 상담 번호
 }
