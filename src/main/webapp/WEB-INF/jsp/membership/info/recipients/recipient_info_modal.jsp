@@ -277,6 +277,7 @@
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
 	    function openModal(modalType, recipientsNo, prevPath) {
+	    	doubleClickCheck = false;
 	    	infoModalType = modalType;
 	    	infoPrevPath = prevPath;
 	    	
@@ -509,9 +510,14 @@
 	    }
 	  	
 	  	//수급자 등록, 수정 또는 상담신청하기
+	  	var doubleClickCheck = false;
 	    var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	    var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;
 	    function requestAction() {
+	    	if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	
 	    	var relationCd = $('#info-relationSelect').val();
 	    	var recipientsNm = $('#info-recipientsNm').val();
 	    	var rcperRcognNoYn = $('input[name=info-rcperRcognNo-yn]:checked').val();
@@ -630,6 +636,7 @@
 	    	}
 	    	//수급자 정보 수정
 	    	else if (infoModalType === 'updateRecipient') {
+	    		doubleClickCheck = true;
 	    		jsonData.recipientsNo = myRecipientInfo.recipientsNo;
 	    		
 		    	$.ajax({
@@ -652,6 +659,7 @@
 	    	}
 	    	//상담신청
 	    	else if (infoModalType === 'requestConslt') {
+	    		doubleClickCheck = true;
 				var saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
 		    	
 		    	$.ajax({
@@ -732,6 +740,11 @@
 	    
 	    // 수급자 등록하기
 	    function clickRegistRecipient() {
+	    	if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	doubleClickCheck = true;
+	    	
 	    	$.ajax({
 	    		type : "post",
 	    		url  : "/membership/info/myinfo/addMbrRecipient.json",
