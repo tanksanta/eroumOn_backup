@@ -156,7 +156,7 @@
 				<td>${resultList.mbrTelno}</td>
 				
 				
-				<td>(${resultList.zip})&nbsp;${resultList.addr}<br>${resultList.daddr}</td>
+				<td>${resultList.zip}&nbsp;${resultList.addr}&nbsp;${resultList.daddr}</td>
 				
 				<td>${prevPath[resultList.prevPath]}</td> 
 				<td>
