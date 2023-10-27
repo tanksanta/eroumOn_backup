@@ -72,6 +72,12 @@ public class MMbrRecipientsController extends CommonAbstractController {
 			
 			//수급자 기본정보
 			MbrRecipientsVO mbrRecipients = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+			if (mbrRecipients == null) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "존재하지 않거나 삭제된 수급자입니다.");
+				return resultMap;
+			}
+			
 			recipientInfoVO.setRecipientsNm(mbrRecipients.getRecipientsNm());
 			recipientInfoVO.setRecipientsNo(mbrRecipients.getRecipientsNo());
 			recipientInfoVO.setRelationText(CodeMap.MBR_RELATION_CD.get(mbrRecipients.getRelationCd()));
