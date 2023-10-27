@@ -67,7 +67,13 @@
                                     	<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="">
                                     	<input type="hidden" id="bplcId" name="bplcId" value="">
                                     	<input type="hidden" id="bplcNm" name="bplcNm" value="">
-
+                                    	<input type="hidden" id="consltmbrNm" name="consltmbrNm" value="${mbrConsltVO.mbrNm}">
+                                    	<input type="hidden" id="consltMbrTelno" name="consltMbrTelno" value="${mbrConsltVO.mbrTelno}">
+                                    	<input type="hidden" id="regUniqueId" name="regUniqueId" value="${mbrConsltVO.getRegUniqueId()}">
+                                        <input type="hidden" id="originConsltBplcUniqueId" name="originConsltBplcUniqueId" value="${consltBplcUniqueId}">
+                                    	<input type="hidden" id="chgHistListSize" name="chgHistListSize" value="${chgHistList.size()}">
+                                    	<input type="hidden" id="originConsltSttus" name="originConsltSttus" value="${mbrConsltVO.consltSttus}">
+                                        
 										<!-- 진행(CS05)전 상태이면 사업소 수정가능하게 해야함 -->
 
 										<c:if test="${(mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07') || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS04' }">
@@ -439,6 +445,7 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 	$("#bplcUniqueId").val(bplcUniqueId);
 	$("#bplcId").val(bplcId);
 	$("#bplcNm").val(bplcNm);
+	
 
 	<c:if test="${fn:length(mbrConsltVO.consltResultList) > 0}"><%--등록된 데이터o--%>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS08'}"> <%--CS02 or CS08 배정진행중 --%>
@@ -514,8 +521,11 @@ $(function(){
 		e.preventDefault();
 		let params = {
 				consltNo:$("#consltNo").val()
-				, canclResn:$("#canclResn").val()};
-
+				, canclResn:$("#canclResn").val()
+				, consltmbrNm:"${mbrConsltVO.mbrNm}"
+				, consltMbrTelno:"${mbrConsltVO.mbrTelno}"
+				};
+		
 		if($("#canclResn").val() === ""){
 			alert("취소 사유를 입력해 주세요");
 			$("#canclResn").focus();
