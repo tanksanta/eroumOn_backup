@@ -4,11 +4,12 @@
 		<ul>
 			<li class="home"><a href="${_mainPath}">홈</a></li>
 			<li>이로움 서비스</li>
-			<li>복지정보 서비스</li>
+			<li>어르신 복지 서비스</li>
 		</ul>
 	</nav>
 	<h2 class="subject">
-		어르신 복지 서비스 <img src="/html/page/index/assets/images/ico-subject1.png" alt="파일이미지">
+		어르신 복지 서비스 
+		<!-- <img src="/html/page/index/assets/images/ico-subject1.png" alt="파일이미지"> -->
 		<small>어르신복지가 궁금하세요? <a href="#" class="welfare-service-toggle">확인하기 <i class="icon-plus"></i></a></small>
 	</h2>
 </header>
