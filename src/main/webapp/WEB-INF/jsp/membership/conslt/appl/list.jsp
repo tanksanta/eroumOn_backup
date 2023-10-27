@@ -357,7 +357,11 @@
 	    		if(data.success) {
 	    			$('#relationText').text(data.mbrConsltInfo.relationText);
 	    			$('#mbrNm').text(data.mbrConsltInfo.mbrNm);
-	    			$('#rcperRcognNo').text(data.mbrConsltInfo.rcperRcognNo);
+	    			if (data.mbrConsltInfo.rcperRcognNo) {
+	    				$('#rcperRcognNo').text(data.mbrConsltInfo.rcperRcognNo);	    				
+	    			} else {
+	    				$('#rcperRcognNo').text('');
+	    			}
 	    			$('#mbrTelno').text(data.mbrConsltInfo.mbrTelno);
 	    			$('#address').text(data.mbrConsltInfo.address);
 	    			$('#brdt').text(data.mbrConsltInfo.brdt);
