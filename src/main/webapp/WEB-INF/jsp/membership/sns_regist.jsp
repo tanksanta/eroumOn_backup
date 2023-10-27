@@ -62,7 +62,7 @@
 								</p>
 							</th>
 							<td>
-								<div class="form-check-group w-full">
+								<div class="form-radio-group">
 									<c:forEach var="expr" items="${expirationCode}" varStatus="status">
 										<div class="form-check">
 											<form:radiobutton class="form-check-input" path="prvcVldPd" id="prvcVldPd${status.index}" value="${expr.key}" />
