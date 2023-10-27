@@ -49,7 +49,7 @@
 							</dd>
 						</dl>
 						<dl class="item-current">
-							<dt>장기요양기간</dt>
+							<dt>장기요양기관</dt>
 							<dd class="flex flex-col items-start justify-center gap-2">
 								<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] != null}">
 									<div class="flex items-center justify-start gap-2">
