@@ -1,6 +1,7 @@
 package icube.common.api.biz;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import icube.common.util.DateUtil;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -58,13 +60,21 @@ public class BiztalkApiService {
 
 	private String biztalkTokenKey;//토큰 문자열
 	private String biztalkTokenExpireDate;//토큰 만료시간 (YYYYMMDDhhmmss) ( 최대 24시간 )//현재는 토큰을 신경 쓸 필요가 없다. 세션으로 4시간 관리하기때문에
-
+	private Date biztalkTokenExpireDate2 = null;//토근 만료시간
 	/*
 	 * 토큰발급
 	 * 인증 토큰은 12시간마다 요청해서 사용을 권장합니다
 	 * (사용자 토큰 요청은 1분당 최대 12회로 제한됩니다.)
 	 * */ 
 	protected Boolean getToken() throws Exception {
+		
+		if (EgovStringUtil.isNotEmpty(this.biztalkTokenKey) 
+				&& this.biztalkTokenExpireDate2 != null) {
+			int compare = this.biztalkTokenExpireDate2.compareTo(new Date(System.currentTimeMillis())); 
+			if (compare > 0) {
+				return true;
+			}
+		}
 		
 		JSONObject json = new JSONObject();
 		json.put("bsid", biztalkBsId);
@@ -106,6 +116,12 @@ public class BiztalkApiService {
 			result = true;
 			biztalkTokenKey = jsonObject.get("token").toString();
 			biztalkTokenExpireDate = jsonObject.get("expireDate").toString();
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date(System.currentTimeMillis()));
+			cal.add( Calendar.HOUR_OF_DAY, 12 );/*토큰 만기를 12시간에 한번씩*/
+			this.biztalkTokenExpireDate2 = cal.getTime();
+			
 			log.debug("biztalkTokenKey=" + biztalkTokenKey);
 			log.debug("biztalkTokenExpireDate=" + biztalkTokenExpireDate);
 		}
@@ -142,11 +158,7 @@ public class BiztalkApiService {
 			return true;
 		}
 		
-		if (EgovStringUtil.isEmpty(this.biztalkTokenKey)) {
-			result = this.getToken();
-		}else {
-			result = true;
-		}
+		result = this.getToken();
 		
 		if (!result) {
 			return result;
