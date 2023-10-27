@@ -32,12 +32,7 @@
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
                                     <th scope="row">상담유형 상세</th>
                                     <td>
-                                    	<c:if test="${mbrConsltVO.prevPath == 'test'}">
-                                    		<button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#grade-test-result">등급테스트결과</button>
-                                    	</c:if>
-                                    	<c:if test="${not empty mbrConsltVO.rcperRcognNo}">
-                                    		<button type="button" class="btn-primary" onclick="getRecipientInfo('${mbrConsltVO.recipientsNo}');">요양정보</button>
-                                    	</c:if>
+                                    	<button type="button" class="btn-primary" onclick="viewConsltDetailModal('${mbrConsltVO.prevPath}');">상세보기</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -505,6 +500,16 @@ function getRecipientInfo(recipientsNo) {
 	.fail(function(data, status, err) {
 		alert('서버와 연결이 좋지 않습니다');
 	});
+}
+
+
+//상담유형상세 상세보기 버튼 클릭 이벤트
+function viewConsltDetailModal(prevPath) {
+	if (prevPath === 'test') {
+		$('#grade-test-result').modal('show');
+	} else {
+		getRecipientInfo(Number('${mbrConsltVO.recipientsNo}'));
+	}
 }
 
 
