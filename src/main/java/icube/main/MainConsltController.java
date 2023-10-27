@@ -193,9 +193,9 @@ public class MainConsltController extends CommonAbstractController{
 			//수굽저 정보 저장동의시 같은 수급자명이 다른 수급자명으로 등록하려는 경우
 			if (saveRecipientInfo) {
 	            List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-	            if (srchMbrRecipientList.stream().filter(f -> mbrRecipient.getRecipientsNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+	            if (srchMbrRecipientList.stream().filter(f -> mbrConsltVO.getMbrNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrConsltVO.getRecipientsNo()).count() > 0) {
 	                resultMap.put("success", false);
-	                resultMap.put("msg", "이미 등록한 수급자입니다");
+	                resultMap.put("msg", "이미 등록한 수급자입니다 (수급자명을 확인하세요)");
 	                return resultMap;
 	            }
 			}
