@@ -725,5 +725,16 @@
 		
 		// 시/군/구 검색
 		$(document).on("change", "select[name='select-sido']", setSigugun);
+
+
+		//어르신 복지 서비스 확인하기 버튼 
+		$('.welfare-service-toggle').on('click', function() {
+			$('.welfare-service-toggle, .welfare-service-desc').addClass('is-active');
+			return false;
+		});
+
+		$('.welfare-service-desc .close').on('click', function() {
+			$('.welfare-service-toggle, .welfare-service-desc').removeClass('is-active');
+		});
 	});
 </script>

@@ -15,6 +15,13 @@
         }
         & .modal-content {
             @apply relative flex flex-col p-1.5 w-full max-h-[calc(100vh_-_3.5rem)] bg-white rounded-md shadow-none pointer-events-auto;
+            & .modal-close {
+                > button {
+                  font-size:0;
+                  @apply absolute right-7 top-5 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
+                  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%23fff'/%3E%3C/svg%3E"); 
+                }
+            }
         }
         & .modal-header {
             @apply flex items-center justify-between px-4 py-3 rounded bg-black1 text-xl tracking-tighter leading-snug font-bold text-white;
@@ -101,7 +108,7 @@
                     }
                 }
                 & .text-body-title {
-                    @apply text-4xl font-bold text-left;
+                    @apply text-4xl font-bold text-left leading-tight;
                 }
 
                 &.space-no-x {
