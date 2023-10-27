@@ -210,7 +210,7 @@
 	
 	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
 	                    	<div class="item-request justify-end">
-		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
+		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
 		                    </div>
 	                    </c:if>
 	                </div>
@@ -221,12 +221,14 @@
 				<front:paging listVO="${listVO}" />
 			</div>
 
-            <div class="modal fade" id="reqModal" tabindex="-1" aria-hidden="true">
+            <div class="modal modal-default fade" id="reqModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                     <form id="modalReConslt" name="modalReConslt" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" name="consltNo" value="0">
                     	<input type="hidden" name="bplcUniqueId" value="">
                     	<input type="hidden" name="bplcConsltNo" value="0">
+						<input type="hidden" name="consltmbrNm" value="">
+						<input type="hidden" name="consltmbrTelno" value="">
 
                         <div class="modal-header">
                             <p class="text-title">재 상담 신청 사유 입력</p>
@@ -249,30 +251,30 @@
 
             <div class="modal modal-default fade" id="cancelModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
-                    	<input type="hidden" name="consltNo" value="0">
-						<input type="hidden" name="consltmbrNm" value="">
-						<input type="hidden" name="consltmbrTelno" value="">
-                        <div class="modal-header">
-                            <h2 class="text-title">상담 취소 사유 입력</h2>
-                        </div>
-                        <div class="modal-close">
-                            <button type="button" data-bs-dismiss="modal">모달 닫기</button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
-                            <textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
-                        </div>
-                        <div class="modal-footer gap-1">
-                            <button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
-                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
-                        </div>
-                    </form>
-                </div>
+					<form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
+							<input type="hidden" name="consltNo" value="0">
+							<input type="hidden" name="consltmbrNm" value="">
+							<input type="hidden" name="consltmbrTelno" value="">
+							<div class="modal-header">
+								<h2 class="text-title">상담 취소 사유 입력</h2>
+							</div>
+							<div class="modal-close">
+								<button type="button" data-bs-dismiss="modal">모달 닫기</button>
+							</div>
+							<div class="modal-body">
+								<p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
+								<textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
+							</div>
+							<div class="modal-footer gap-1">
+								<button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
+								<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+							</div>
+						</form>
+					</div>
             </div>
         </div>
         
-       	<!-- 상담정보확인팝업소스 -->
+		<!-- 상담정보확인팝업소스 -->
         <div class="modal modal-default fade" id="check-counseling-info" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -336,7 +338,7 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary w-2/6">닫기</button>
+                        <button type="button" class="btn btn-primary w-2/6" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
@@ -421,11 +423,16 @@
 	        	let consltNo = $(this).data("consltNo");
 	        	let bplcUniqueId = $(this).data("bplcUniqueId");
 	        	let bplcConsltNo = $(this).data("bplcConsltNo");
+				let consltmbrNm = $(this).attr("data-conslt-mbrNm")
+				let consltmbrTelno = $(this).attr("data-conslt-mbrTelno")
+
 	        	console.log(consltNo, bplcUniqueId, bplcConsltNo);
 	
 	        	$("#modalReConslt input[name='consltNo']").val(consltNo);
 	        	$("#modalReConslt input[name='bplcUniqueId']").val(bplcUniqueId);
 	        	$("#modalReConslt input[name='bplcConsltNo']").val(bplcConsltNo);
+				$("#modalReConslt input[name='consltmbrNm']").val(consltmbrNm);
+				$("#modalReConslt input[name='consltmbrTelno']").val(consltmbrTelno);
 	        	$("#reqModal").modal('show');
 	        });
 	
@@ -448,6 +455,8 @@
 	    	    	let reconsltResn = $("#modalReConslt textarea[name='reconsltResn']").val();
 	    	    	let bplcUniqueId = $("#modalReConslt input[name='bplcUniqueId']").val();
 	    	    	let bplcConsltNo = $("#modalReConslt input[name='bplcConsltNo']").val();
+					let consltmbrNm = $("#modalReConslt input[name='consltmbrNm']").val();
+					let consltmbrTelno = $("#modalReConslt input[name='consltmbrTelno']").val();
 	
 	   	            if (confirm('해당 내역을 저장하시겠습니까?')) {
 		   	            $.ajax({
@@ -458,6 +467,8 @@
 		       					, reconsltResn:reconsltResn
 		       					, bplcUniqueId:bplcUniqueId
 		       					, bplcConsltNo:bplcConsltNo
+								, consltmbrNm:consltmbrNm
+								, consltmbrTelno:consltmbrTelno
 		       				},
 		       				dataType : 'json'
 		       			})

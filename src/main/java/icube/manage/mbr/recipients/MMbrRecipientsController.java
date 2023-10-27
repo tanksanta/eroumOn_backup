@@ -141,7 +141,13 @@ public class MMbrRecipientsController extends CommonAbstractController {
 				recipientInfoVO.setBgngApdt(apdtFrDt + " ~ " + apdtToDt);
 				
 				Integer lmtAmt = Integer.valueOf((String)returnMap.get("LMT_AMT"));
-				Integer useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
+				Integer useAmt = 0;
+				if (returnMap.get("USE_AMT") instanceof Integer) {
+					useAmt = (Integer)returnMap.get("USE_AMT");
+				} else if (returnMap.get("USE_AMT") instanceof String) {
+					useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
+				}
+				
 				Integer remindAmt = lmtAmt - useAmt;
 				recipientInfoVO.setRemindAmt(remindAmt.toString());
 				recipientInfoVO.setUseAmt(useAmt.toString());

@@ -1012,10 +1012,10 @@
             @apply absolute bottom-5 right-5 w-26 lg:w-39;
         }
         &.first {
-            @apply col-span-2 lg:row-span-2 lg:col-span-2 bg-[#F8F5F0];
+            @apply col-span-2 lg:row-span-2 lg:col-span-2 bg-[#F8F5F0] min-h-81 sm:min-h-[auto];
         }
         &.second {
-            @apply col-span-2 lg:col-span-3 bg-[#F3F4F6] h-full lg:h-59;
+            @apply col-span-2 lg:col-span-3 bg-[#F3F4F6] h-full lg:h-59 min-h-81 sm:min-h-[auto];
             & .bg-eroum-service img {
                 @apply bottom-2 right-5;
             }

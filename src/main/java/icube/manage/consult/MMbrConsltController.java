@@ -225,6 +225,14 @@ public class MMbrConsltController extends CommonAbstractController{
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
 				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
 
+			//3차까지만 재신청 가능하도록 검사
+			int mbrConsltResultCtn = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(mbrConsltVO.getConsltNo());
+			if (mbrConsltResultCtn >= 3) {
+				javaScript.setMessage("사업소 배정은 3차까지 가능합니다.");
+				javaScript.setLocation("./view?consltNo=" + mbrConsltVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
+				return new JavaScriptView(javaScript);
+			}
+			
 			MbrConsltResultVO mbrConsltResultVO = new MbrConsltResultVO();
 			mbrConsltResultVO.setConsltNo(mbrConsltVO.getConsltNo());
 			mbrConsltResultVO.setBplcUniqueId(bplcUniqueId);
@@ -242,11 +250,16 @@ public class MMbrConsltController extends CommonAbstractController{
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
 
-
-			//1:1 상담 배정 이력 추가
+			
+			//추가된 사업소 상담 정보 조회
 			Map<String, Object> srchMap = new HashMap<>();
 			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
 			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			
+			//상담 테이블에 현재 매칭된 사업소 상담 정보 저장
+			mbrConsltService.updateCurConsltResultNo(mbrConsltVO.getConsltNo(), srchConsltResult.getBplcConsltNo());
+			
+			//1:1 상담 배정 이력 추가
 			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
 
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
@@ -331,8 +344,14 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
-			//관리자 상담취소
+			//관리자 상담취소 ==> 일반사용자에게 메세지
 			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
+			
+			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
+			if (EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
+				biztalkApiService.sendCareTalkCancel(mbrConsltResultVO.getBplcNm(), mbrConsltResultVO.getBplcInfo().getPicTelno());	
+			}
+			
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();

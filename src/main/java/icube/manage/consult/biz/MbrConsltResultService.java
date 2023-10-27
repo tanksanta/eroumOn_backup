@@ -54,6 +54,13 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 	public MbrConsltResultVO selectMbrConsltBplc(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltResultDAO.selectMbrConsltBplc(paramMap);
 	}
+	
+	//상담에 연결된 사업소 상담 수 가져오기
+	public int selectMbrConsltBplcCntByConsltNo(int consltNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("srchConsltNo", consltNo);
+		return mbrConsltResultDAO.selectMbrConsltResultCount(paramMap);
+	}
 
 	// 사업소에서 취소(같은 상태로 업데이트)
 	public int updateCanclConslt(Map<String, Object> paramMap) throws Exception {

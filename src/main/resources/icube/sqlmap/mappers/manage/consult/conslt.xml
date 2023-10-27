@@ -229,6 +229,12 @@
 		WHERE conslt_no = #{consltNo}
 	</update>
 
+	<update id="updateCurConsltResultNo" parameterType="java.util.HashMap">
+		UPDATE MBR_CONSLT SET
+			cur_conslt_result_no = #{curConsltResultNo}
+		WHERE conslt_no = #{consltNo}
+	</update>
+
 	<update id="updateSttus" parameterType="java.util.HashMap">
 		UPDATE MBR_CONSLT SET
 			conslt_sttus = #{consltSttus}
@@ -237,7 +243,6 @@
 			</if>
 		WHERE conslt_no = #{consltNo}
 	</update>
-
 
 	<select id="selectListForExcel" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		SELECT

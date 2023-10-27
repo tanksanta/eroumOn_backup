@@ -89,6 +89,13 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	public int updateMngMemo(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.updateMngMemo(paramMap);
 	}
+	
+	public int updateCurConsltResultNo(int consltNo, int curConsltResultNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("curConsltResultNo", curConsltResultNo);
+		paramMap.put("consltNo", consltNo);
+		return mbrConsltDAO.updateCurConsltResultNo(paramMap);
+	}
 
 	public List<MbrConsltVO> selectListForExcel(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.selectListForExcel(paramMap);

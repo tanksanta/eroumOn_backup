@@ -126,6 +126,14 @@ public class MbrsConsltController extends CommonAbstractController {
 		} catch (Exception e) {
 			result = false;
 		}
+		
+		if (result) {
+			String consltmbrNm = (String) reqMap.get("consltmbrNm");
+			String consltmbrTelno = (String) reqMap.get("consltmbrTelno");
+			
+			//사용자 재상담 신청
+			biztalkApiService.sendOnTalkMatchAgain(consltmbrNm, consltmbrTelno);
+		}
 
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();

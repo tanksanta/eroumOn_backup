@@ -14,6 +14,10 @@ public class MbrConsltResultDAO extends CommonAbstractMapper {
 	public CommonListVO selectMbrConsltResultListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("conslt.result.selectMbrConsltResultCount","conslt.result.selectMbrConsltResultListVO",listVO);
 	}
+	
+	public int selectMbrConsltResultCount(Map<String, Object> paramMap) throws Exception {
+		return selectInt("selectMbrConsltResultCount", paramMap);
+	}
 
 	public Integer insertMbrConsltBplc(MbrConsltResultVO mbrConsltResultVO) throws Exception {
 		return insert("conslt.result.insertMbrConsltBplc", mbrConsltResultVO);

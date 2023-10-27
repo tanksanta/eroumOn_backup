@@ -90,9 +90,9 @@ img[alt] {
             }
             &.modal-2xl {
                 @apply max-w-[1024px];
-                & .modal-content {
+                /* & .modal-content {
                     @apply sm:max-h-[60rem];
-                }
+                } */
             }
         }
         & .modal-content {
