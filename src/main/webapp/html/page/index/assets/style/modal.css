@@ -108,7 +108,7 @@
                     }
                 }
                 & .text-body-title {
-                    @apply text-4xl font-bold text-left;
+                    @apply text-4xl font-bold text-left leading-tight;
                 }
 
                 &.space-no-x {
