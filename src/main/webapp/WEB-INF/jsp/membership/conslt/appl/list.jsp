@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+	<%
+		String agent = request.getHeader("USER-AGENT");
+
+		String[] mobileos = {"iPhone","iPod","Android","BlackBerry","Windows CE","Nokia","Webos","Opera Mini","SonyEricsson","Opera Mobi","IEMobile"};
+
+		boolean isMobile = false;
+		for(int i=0 ; i<mobileos.length ; i++) {
+			if(agent.indexOf(mobileos[i]) > -1 )
+			{
+				// 모바일로 접근했을 때
+				isMobile = true;
+				break;
+			}
+		}
+	%>
+
 	<main id="container" class="is-mypage-style">
 		<header id="page-title">
 			<h2>
@@ -156,7 +172,9 @@
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
 										<strong>${resultList.consltResultList[0].bplcNm}</strong>
 										<c:if test="${resultList.consltResultList[0].consltSttus == 'CS06'}">
-											<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+											<c:if test="${isMobile}">
+												<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+											</c:if>
 											<div class="item-request justify-end">
 				                                <div class="flex items-center">
 				                                    <label class="check1">
