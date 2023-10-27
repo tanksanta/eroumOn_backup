@@ -1553,7 +1553,13 @@
 .grade-floating {
     @apply flex items-center gap-3.5 justify-center fixed z-90 left-0 right-0 bottom-0 py-5 bg-[#FD8106] text-center text-xl font-bold text-white shadow-[4px_4px_10px_0_#00000026]
            after:block after:w-[1.8125rem] after:h-6 after:bg-cover after:bg-[url(../images/ico-grade-submit.svg)]
-           md:text-2xl;
+           md:text-2xl
+           translate-y-19
+           transition-transform duration-300 ease-out;
+
+        &.is-active {
+            @apply translate-y-0;
+        }
 }
 
 .grade-floating.consulting {
