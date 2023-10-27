@@ -76,7 +76,7 @@
                         </dd>
                     </dl>
 					<dl class="search-partner">
-                        <dt><label for="srchBplcNm">장기요양기간</label></dt>
+                        <dt><label for="srchBplcNm">장기요양기관</label></dt>
                         <dd><input type="text" id="srchBplcNm" name="srchBplcNm" value="${param.srchBplcNm}" class="form-control w-full"></dd>
                     </dl>
                     <!--이전 코드 백업-->
@@ -150,13 +150,15 @@
 	                        </dd>
 	                    </dl>
 	                    <dl class="item-partner">
-	                        <dt>장기요양기간</dt>
+	                        <dt>장기요양기관</dt>
 	                        <dd>
 								<c:choose>
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
 										<strong>${resultList.consltResultList[0].bplcNm}</strong>
 										<c:if test="${resultList.consltResultList[0].consltSttus == 'CS06'}">
-											<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+											<c:if test="${!empty resultList.consltResultList[0].bplcInfo}">
+												<a href="tel:${resultList.consltResultList[0].bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
+											</c:if>
 											<div class="item-request justify-end">
 				                                <div class="flex items-center">
 				                                    <label class="check1">
@@ -186,6 +188,18 @@
 	                        <dt>상담 신청일</dt>
 	                        <dd><fmt:formatDate value="${resultList.regDt}" pattern="yyyy.MM.dd" /></dd>
 	                    </dl>
+	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
+	                    	<dl class="item-date">
+		                    	<dt>상담 완료일</dt>
+		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+	                        </dl>
+	                    </c:if>
+	                    <c:if test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">
+	                    	<dl class="item-date">
+		                    	<dt>상담 취소일</dt>
+		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+	                        </dl>
+	                    </c:if>
 	                    
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
@@ -324,7 +338,7 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary w-2/6">닫기</button>
+                        <button type="button" class="btn btn-primary w-2/6" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
@@ -361,7 +375,11 @@
 	    		if(data.success) {
 	    			$('#relationText').text(data.mbrConsltInfo.relationText);
 	    			$('#mbrNm').text(data.mbrConsltInfo.mbrNm);
-	    			$('#rcperRcognNo').text(data.mbrConsltInfo.rcperRcognNo);
+	    			if (data.mbrConsltInfo.rcperRcognNo) {
+	    				$('#rcperRcognNo').text(data.mbrConsltInfo.rcperRcognNo);	    				
+	    			} else {
+	    				$('#rcperRcognNo').text('');
+	    			}
 	    			$('#mbrTelno').text(data.mbrConsltInfo.mbrTelno);
 	    			$('#address').text(data.mbrConsltInfo.address);
 	    			$('#brdt').text(data.mbrConsltInfo.brdt);
@@ -380,6 +398,13 @@
 	
 	    
 	    $(function(){
+	    	//모바일 체크 처리
+	    	var isMobile = /Mobi/i.test(window.navigator.userAgent);
+	    	if (!isMobile) {
+	    		$('.mobile-tel-btn').css('display', 'none');
+	    	}
+	    	
+	    	
 	        $('.mypage-consult-items').masonry({
 	            itemSelector   : '.mypage-consult-item',
 	            gutter         : '.mypage-consult-item-gutter',

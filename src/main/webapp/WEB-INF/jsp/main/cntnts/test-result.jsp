@@ -718,6 +718,11 @@
     			alert('요양인정번호를 입력하세요');
     			return;
     		}
+            //요양번호 10자리 검사
+            if (rcperRcognNoYn === 'Y' && rcperRcognNo.length != 10) {
+                alert('요양인정번호 숫자 10자리를 입력하세요 (예: 1234567890)');
+                return;
+            }
     		if (!tel) {
     			alert('상담받을 연락처를 입력하세요');
     			return;

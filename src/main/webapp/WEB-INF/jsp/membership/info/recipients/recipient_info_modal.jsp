@@ -135,7 +135,7 @@
 			</div>
 			<div class="modal-footer md:w-3/4 mx-auto mt-4">
 				<button type="button" class="btn btn-primary large w-3/5" onclick="requestAction();">등록하기</button>
-				<button type="button" class="btn btn-outline-primary large w-2/5">취소하기</button>
+				<button type="button" class="btn btn-outline-primary large w-2/5" data-bs-dismiss="modal">취소하기</button>
 			</div>
 			</div>
 		</div>
@@ -277,6 +277,7 @@
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
 	    function openModal(modalType, recipientsNo, prevPath) {
+	    	doubleClickCheck = false;
 	    	infoModalType = modalType;
 	    	infoPrevPath = prevPath;
 	    	
@@ -509,9 +510,14 @@
 	    }
 	  	
 	  	//수급자 등록, 수정 또는 상담신청하기
+	  	var doubleClickCheck = false;
 	    var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 	    var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;
 	    function requestAction() {
+	    	if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	
 	    	var relationCd = $('#info-relationSelect').val();
 	    	var recipientsNm = $('#info-recipientsNm').val();
 	    	var rcperRcognNoYn = $('input[name=info-rcperRcognNo-yn]:checked').val();
@@ -539,6 +545,11 @@
 	    		alert('요양인정번호를 입력하세요');
 	    		return;
 	    	}
+			//요양번호 10자리 검사
+			if (rcperRcognNoYn === 'Y' && rcperRcognNo.length != 10) {
+				alert('요양인정번호 숫자 10자리를 입력하세요 (예: 1234567890)');
+				return;
+			}
 	    	if (!tel) {
 	    		alert('상담받을 연락처를 입력하세요');
 	    		return;
@@ -625,6 +636,7 @@
 	    	}
 	    	//수급자 정보 수정
 	    	else if (infoModalType === 'updateRecipient') {
+	    		doubleClickCheck = true;
 	    		jsonData.recipientsNo = myRecipientInfo.recipientsNo;
 	    		
 		    	$.ajax({
@@ -647,6 +659,7 @@
 	    	}
 	    	//상담신청
 	    	else if (infoModalType === 'requestConslt') {
+	    		doubleClickCheck = true;
 				var saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
 		    	
 		    	$.ajax({
@@ -727,6 +740,11 @@
 	    
 	    // 수급자 등록하기
 	    function clickRegistRecipient() {
+	    	if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	doubleClickCheck = true;
+	    	
 	    	$.ajax({
 	    		type : "post",
 	    		url  : "/membership/info/myinfo/addMbrRecipient.json",

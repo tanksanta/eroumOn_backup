@@ -435,7 +435,7 @@
 	            <div class="form-radio-button-group" id="recipient-list">
 	                
 	            </div>
-	            <a href="/membership/info/recipients/list"class="underline text-blue3 text-sm">수급자 관리</a>
+	            <a href="/membership/info/recipients/list" class="underline text-blue3 text-sm">수급자 관리</a>
 	            
 	            
 	            <!--추가 등록-->

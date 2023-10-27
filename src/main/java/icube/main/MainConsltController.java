@@ -189,6 +189,18 @@ public class MainConsltController extends CommonAbstractController{
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
+			MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());			
+			//수굽저 정보 저장동의시 같은 수급자명이 다른 수급자명으로 등록하려는 경우
+			if (saveRecipientInfo) {
+	            List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+	            if (srchMbrRecipientList.stream().filter(f -> mbrConsltVO.getMbrNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrConsltVO.getRecipientsNo()).count() > 0) {
+	                resultMap.put("success", false);
+	                resultMap.put("msg", "이미 등록한 수급자입니다 (수급자명을 확인하세요)");
+	                return resultMap;
+	            }
+			}
+			
+			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
 				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
@@ -203,7 +215,7 @@ public class MainConsltController extends CommonAbstractController{
 			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
 			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
-			mbrConsltVO.setRgtr(mbrConsltVO.getMbrNm());
+			mbrConsltVO.setRgtr(mbrSession.getMbrNm());
 
 			if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
 				mbrConsltVO.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));
@@ -214,7 +226,6 @@ public class MainConsltController extends CommonAbstractController{
 			if (insertCnt > 0) {
 				//수급자 정보 저장동의시 저장
 				if (saveRecipientInfo) {
-					MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 					mbrRecipient.setRelationCd(mbrConsltVO.getRelationCd());
 					mbrRecipient.setRecipientsNm(mbrConsltVO.getMbrNm());
 					if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {

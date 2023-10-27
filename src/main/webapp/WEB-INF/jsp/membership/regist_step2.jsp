@@ -364,6 +364,19 @@ function showRecipientModal(target) {
 	currentRecipientNo = recipientNumber;
 }
 
+//요양인정번호 있음, 없음으로 L번호 입력 막기 처리
+function ChangeRecipientLnoRadioBtn(target) {
+	var lnoYn = target.value;
+	
+	if (lnoYn === 'Y') {
+		$(target).closest('td').find('.form-group').css('display', 'inline-flex');
+	} else {
+		$(target).closest('td').find('.form-group').css('display', 'none');
+	}
+}
+
+
+
 $(function(){
 	//최초에 수급자 입력폼 한개 생성
 	addRecipientForm();
@@ -475,11 +488,11 @@ $(function(){
 							<td>
 								<div class="flex flex-row gap-2.5 mb-1.5">
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="yn` + number + `" id="yes` + number + `" value="Y" checked>
+										<input class="form-check-input" type="radio" name="yn` + number + `" id="yes` + number + `" value="Y" checked onchange="ChangeRecipientLnoRadioBtn(this);">
 										<label class="form-check-label" for="yes` + number + `">있음</label>
 									</div>
 									<div class="form-check">
-										<input class="form-check-input" type="radio" name="yn` + number + `" id="no` + number + `" value="N">
+										<input class="form-check-input" type="radio" name="yn` + number + `" id="no` + number + `" value="N" onchange="ChangeRecipientLnoRadioBtn(this);">
 										<label class="form-check-label" for="no` + number + `">없음</label>
 									</div>
 								</div>

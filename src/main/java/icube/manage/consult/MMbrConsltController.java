@@ -221,6 +221,14 @@ public class MMbrConsltController extends CommonAbstractController{
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
 				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
 
+			//3차까지만 재신청 가능하도록 검사
+			int mbrConsltResultCtn = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(mbrConsltVO.getConsltNo());
+			if (mbrConsltResultCtn >= 3) {
+				javaScript.setMessage("사업소 배정은 3차까지 가능합니다.");
+				javaScript.setLocation("./view?consltNo=" + mbrConsltVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
+				return new JavaScriptView(javaScript);
+			}
+			
 			MbrConsltResultVO mbrConsltResultVO = new MbrConsltResultVO();
 			mbrConsltResultVO.setConsltNo(mbrConsltVO.getConsltNo());
 			mbrConsltResultVO.setBplcUniqueId(bplcUniqueId);
@@ -238,11 +246,15 @@ public class MMbrConsltController extends CommonAbstractController{
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
 			
-			
-			//1:1 상담 배정 이력 추가
+			//추가된 사업소 상담 정보 조회
 			Map<String, Object> srchMap = new HashMap<>();
 			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
 			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			
+			//상담 테이블에 현재 매칭된 사업소 상담 정보 저장
+			mbrConsltService.updateCurConsltResultNo(mbrConsltVO.getConsltNo(), srchConsltResult.getBplcConsltNo());
+			
+			//1:1 상담 배정 이력 추가
 			String resn = "CS02".equals(mbrConsltVO.getConsltSttus()) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("배정") : CodeMap.CONSLT_STTUS_CHG_RESN.get("재배정");
 			
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();

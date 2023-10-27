@@ -201,15 +201,13 @@ public class MainController extends CommonAbstractController  {
 	@RequestMapping(value="search/srvcList.json")
 	public Map<String, Object> srchSrvc(
 			@RequestParam String category
-			, Integer curPage
-			, Integer cntPerPage
+			, @RequestParam String sido
+			, @RequestParam String gugun
+			, @RequestParam Integer curPage
+			, @RequestParam Integer cntPerPage
 			, HttpServletRequest request
 			, Model model) throws Exception {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-		
-		String sido = "서울특별시";
-		String gugun = "금천구";
-		
 		if ("전체".equals(category)) {
 			category = "지원|보호|상담|보건|문화|주거|교육";
 		}

@@ -203,7 +203,9 @@ public class MbrsConsltController extends CommonAbstractController {
 			Map<String, String> mbrConsltInfo = new HashMap<>(); 
 			mbrConsltInfo.put("relationText", CodeMap.MBR_RELATION_CD.get(mbrConsltVO.getRelationCd()));
 			mbrConsltInfo.put("mbrNm", mbrConsltVO.getMbrNm());
-			mbrConsltInfo.put("rcperRcognNo", "L" + mbrConsltVO.getRcperRcognNo());
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
+				mbrConsltInfo.put("rcperRcognNo", "L" + mbrConsltVO.getRcperRcognNo());
+			}
 			mbrConsltInfo.put("mbrTelno", mbrConsltVO.getMbrTelno());
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getZip()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getAddr()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getDaddr())) {
 				mbrConsltInfo.put("address", mbrConsltVO.getZip() + " " + mbrConsltVO.getAddr() + " " + mbrConsltVO.getDaddr());

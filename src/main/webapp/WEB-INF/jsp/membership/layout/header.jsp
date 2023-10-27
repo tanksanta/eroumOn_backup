@@ -102,16 +102,17 @@
                 <dt><a href="#">나의 상담 관리</a></dt>
                 <dd>
                     <ul>
-                        <li><a href="#">장기요양 상담신청</a></li>
+                        <li><a href="${_membershipPath}/conslt/appl/list">상담 내역 관리</a></li>
                         <li><a href="${_membershipPath}/conslt/itrst/bplc">관심 멤버스 설정</a></li>
                     </ul>
                 </dd>
             </dl>
             <dl class="menu-item2">
-                <dt><a href="${_membershipPath}/mypage/list">나의 정보 관리</a></dt>
+                <dt><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form">나의 정보 관리</a></dt>
                 <dd>
                     <ul>
-                        <li><a href="${_membershipPath}/mypage/list">내 정보수정</a></li>
+                        <li><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form">내 정보수정</a></li>
+                        <li><a href="${_membershipPath}/info/recipients/list">수급자 관리</a></li>
                         <li><a href="${_membershipPath}/info/dlvy/list">배송지 관리</a></li>
                         <li><a href="${_membershipPath}/whdwl/list">회원탈퇴</a></li>
                     </ul>

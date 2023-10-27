@@ -597,7 +597,7 @@
         	})
         	.done(function(data) {
         		if(data.success) {
-        			alert('수급자 정보 등록에 동의했습니다.');
+        			alert('수급자가 등록되었습니다');
         			
         			location.href = '/main/recipter/list?recipientsNo=' + data.createdRecipientsNo;
         		}else{

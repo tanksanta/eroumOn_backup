@@ -44,12 +44,19 @@
 							<dt>상담 진행 현황</dt>
 							<dd>
 								<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] != null}">
-									${consltSttus[mbrConsltMap[recipientInfo.recipientsNo].consltSttus]}
+									<c:choose>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:otherwise>
+											${consltSttus[mbrConsltMap[recipientInfo.recipientsNo].consltSttus]}
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 							</dd>
 						</dl>
 						<dl class="item-current">
-							<dt>장기요양기간</dt>
+							<dt>장기요양기관</dt>
 							<dd class="flex flex-col items-start justify-center gap-2">
 								<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] != null}">
 									<div class="flex items-center justify-start gap-2">
@@ -89,7 +96,10 @@
 								<c:set var="consltPrevPath" value="${recipientInfo.recipientsYn == 'Y' ? 'simpleSearch' : 'test'}" />
 							
 								<strong>${recipientInfo.recipientsYn == "Y" ? "인정정보상담" : "요양등급상담"}</strong>
-								<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
+								
+								<c:if test="${consltPrevPath == 'simpleSearch' || consltPrevPath == 'test' && (mbrTestList.stream().filter(f -> f.recipientsNo == recipientInfo.recipientsNo).count() > 0)}">
+									<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
+								</c:if>
 							</div>
 							<div class="text-subtitle">
 								<i class="icon-alert size-sm"></i>
@@ -122,32 +132,34 @@
 	
 	// 상담하기 버튼 클릭
 	function requestConslt(recipientsNo, prevPath) {
-		if (prevPath === 'test') {
-			$.ajax({
-	    		type : "post",
-	    		url  : "/membership/info/recipients/test/result.json",
-	    		data : {
-	    			recipientsNo
-	    		},
-	    		dataType : 'json'
-	    	})
-	    	.done(function(data) {
-	    		if(data.success) {
-	    			if (data.isExistTest) {
-	    				openModal('requestConslt', Number(recipientsNo), prevPath);	
-	    			} else {
-	    				alert('테스트 진행 후 상담요청해주세요')
-	    			}
-	    		}else{
-	    			alert(data.msg);
-	    		}
-	    	})
-	    	.fail(function(data, status, err) {
-	    		alert('서버와 연결이 좋지 않습니다.');
-	    	});
-		} else {
-			openModal('requestConslt', Number(recipientsNo), prevPath);	
-		}
+		openModal('requestConslt', Number(recipientsNo), prevPath);	
+		
+		// if (prevPath === 'test') {
+		// 	$.ajax({
+	    // 		type : "post",
+	    // 		url  : "/membership/info/recipients/test/result.json",
+	    // 		data : {
+	    // 			recipientsNo
+	    // 		},
+	    // 		dataType : 'json'
+	    // 	})
+	    // 	.done(function(data) {
+	    // 		if(data.success) {
+	    // 			if (data.isExistTest) {
+	    // 				openModal('requestConslt', Number(recipientsNo), prevPath);	
+	    // 			} else {
+	    // 				alert('테스트 진행 후 상담요청해주세요')
+	    // 			}
+	    // 		}else{
+	    // 			alert(data.msg);
+	    // 		}
+	    // 	})
+	    // 	.fail(function(data, status, err) {
+	    // 		alert('서버와 연결이 좋지 않습니다.');
+	    // 	});
+		// } else {
+		// 	openModal('requestConslt', Number(recipientsNo), prevPath);	
+		// }
   	}
 	
 

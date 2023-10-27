@@ -94,7 +94,8 @@
 							<div class="form-check-group w-90">
 								<c:forEach var="expiration" items="${expiration}" varStatus="status">
 									<div class="form-check">
-										<input class="form-check-input prvcVal" type="radio" name="expiration" id="expiration${status.index}" value="${expiration.key}" <c:if test="${expiration.key eq mbrVO.prvcVldPd }">checked="checked"</c:if>> <label class="form-check-label" for="expiration${status.index}">${expiration.value}</label>
+										<input class="form-check-input prvcVal" type="radio" name="expiration" id="expiration${status.index}" value="${expiration.key}" <c:if test="${expiration.key eq mbrVO.prvcVldPd }">checked="checked"</c:if> disabled>
+										<label class="form-check-label" for="expiration${status.index}">${expiration.value}</label>
 									</div>
 								</c:forEach>
 							</div>
@@ -539,26 +540,26 @@
 		});
 
 		//개인정보 유효기간
-		$(".prvcVal").on("click", function() {
-			if(confirm("변경하시겠습니까?")){
-				$.ajax({
-					type : "post",
-					url : '/_mng/mbr/' + $("#uniqueId").val() + '/prvc.json',
-					data : {
-						uniqueId : $("#uniqueId").val(),
-						prvc : $('input[name=expiration]:checked').val()
-					},
-					dataType : 'json'
-				}).done(function(data) {
-					alert("저장되었습니다.");
-				}).fail(function(data, status, err) {
-					alert("정보변경 중 오류가 발생했습니다.");
-					console.log('error forward : ' + data);
-				});
-			}else{
-				return false;
-			}
-		});
+		// $(".prvcVal").on("click", function() {
+		// 	if(confirm("변경하시겠습니까?")){
+		// 		$.ajax({
+		// 			type : "post",
+		// 			url : '/_mng/mbr/' + $("#uniqueId").val() + '/prvc.json',
+		// 			data : {
+		// 				uniqueId : $("#uniqueId").val(),
+		// 				prvc : $('input[name=expiration]:checked').val()
+		// 			},
+		// 			dataType : 'json'
+		// 		}).done(function(data) {
+		// 			alert("저장되었습니다.");
+		// 		}).fail(function(data, status, err) {
+		// 			alert("정보변경 중 오류가 발생했습니다.");
+		// 			console.log('error forward : ' + data);
+		// 		});
+		// 	}else{
+		// 		return false;
+		// 	}
+		// });
 
 		 //변경내역
 		 $("#changeListBtn").on("click",function(){

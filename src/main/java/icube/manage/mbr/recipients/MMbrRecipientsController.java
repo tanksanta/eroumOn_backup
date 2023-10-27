@@ -72,6 +72,12 @@ public class MMbrRecipientsController extends CommonAbstractController {
 			
 			//수급자 기본정보
 			MbrRecipientsVO mbrRecipients = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+			if (mbrRecipients == null) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "존재하지 않거나 삭제된 수급자입니다.");
+				return resultMap;
+			}
+			
 			recipientInfoVO.setRecipientsNm(mbrRecipients.getRecipientsNm());
 			recipientInfoVO.setRecipientsNo(mbrRecipients.getRecipientsNo());
 			recipientInfoVO.setRelationText(CodeMap.MBR_RELATION_CD.get(mbrRecipients.getRelationCd()));
@@ -135,7 +141,13 @@ public class MMbrRecipientsController extends CommonAbstractController {
 				recipientInfoVO.setBgngApdt(apdtFrDt + " ~ " + apdtToDt);
 				
 				Integer lmtAmt = Integer.valueOf((String)returnMap.get("LMT_AMT"));
-				Integer useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
+				Integer useAmt = 0;
+				if (returnMap.get("USE_AMT") instanceof Integer) {
+					useAmt = (Integer)returnMap.get("USE_AMT");
+				} else if (returnMap.get("USE_AMT") instanceof String) {
+					useAmt = Integer.valueOf((String)returnMap.get("USE_AMT"));
+				}
+				
 				Integer remindAmt = lmtAmt - useAmt;
 				recipientInfoVO.setRemindAmt(remindAmt.toString());
 				recipientInfoVO.setUseAmt(useAmt.toString());

@@ -224,7 +224,7 @@
 				<select name="select-gugun" class="form-control border-light">
 					<option value="">선택</option>
 				</select>
-				<button type="button" class="btn-outline-primary btn-thin w-auto srch-srvc">확인<i class="icon-search"></i></button>
+				<button type="button" class="btn-outline-primary btn-thin w-auto srch-srvc" onclick="searchBokjiService(1);">확인<i class="icon-search"></i></button>
 			</fieldset>
 		</form>
 	</nav>
@@ -305,10 +305,15 @@
 		//선택된 카테고리
 		var categoryText = $('input[name=category]:checked').val();
 		
+		//선택된 지역 가져오기
+		var sido = $('select[name=select-sido] option:selected').text();
+		var gugun = $('select[name=select-gugun] option:selected').text();
 		
 		//검색 API 실행
 		var params = {
-			curPage
+			sido
+			, gugun
+			, curPage
 			, cntPerPage
 			, category:categoryText
 		};
@@ -346,6 +351,10 @@
 		if (!srvcList || srvcList.length === 0) {
 			template += "데이터가 없습니다.";
 		} else {
+			//선택된 지역 가져오기
+			var sido = $('select[name=select-sido] option:selected').text();
+			var gugun = $('select[name=select-gugun] option:selected').text();
+			
 			for(var i = 0; i < srvcList.length; i++) {
 				var categoryText = srvcList[i].categoryList.join(' ∙ ');
 				var colorCode = getColorCode(categoryText);
@@ -355,8 +364,8 @@
 						<div class="content-inner">
 							<div class="content-inner-text">
 							 	<div>
-									<span class="badge-city">` + '경기도 고양시청' + `</span>
-									<span class="text-gray6 text-xs">서울특별시 구로구</span>
+									<span class="badge-city">` + srvcList[i].bokjiProviderName + `</span>
+									<span class="text-gray6 text-xs">`+ sido + ` ` + gugun + `</span>
 								</div>
 								<p class="name">` + srvcList[i].benefitName + `</p>
 								<p class="type">
@@ -625,8 +634,62 @@
 	}
 	
 	
+	function setSigugun(e){
+		if (e) {
+			e.preventDefault();	
+		}
+		
+		
+		//선택된 지역 가져오기
+		var stdgCd = $('select[name=select-sido] option:selected').val();
+		var stdgNm = $('select[name=select-sido] option:selected').text();
+		
+	   	if(stdgCd != ""){
+    		$.ajax({
+				type : "post",
+				url  : "/members/stdgCd/stdgCdList.json",
+				data : {stdgCd:stdgCd},
+				dataType : 'json'
+			})
+			.done(function(data) {
+				if(data.result){
+					$("select[name='select-gugun']").empty();
+   					$.each(data.result, function(index, item){
+							$("select[name='select-gugun']").append('<option value='+item.stdgCd+'>'+item.sggNm+'</option>');
+   	                });
+
+   					/*let uniqueId = "";
+   			        console.log(uniqueId == '');
+   			        if(uniqueId ==''){
+   			        	$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+
+   			        	$("button.srch-srvc").click();
+   			        }*/
+   					
+			     		$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+			     	
+			     	if("" != '' && ""){
+			     		$("select[name='select-gugun'] option").each(function(){
+			     			if($(this).val() == ""){
+			     				$(this).prop("selected",true);
+			     			}
+			     		});
+			     	}
+			     	//$("button.srch-srvc").click();
+				}
+			})
+			.fail(function(data, status, err) {
+				console.log('지역호출 error forward : ' + data);
+			});
+    	}
+
+	}
+	
+	
 	$(function () {
 		searchBokjiService(1);
+		
+		setSigugun();
 		
 		//공유하기 기능
 		$(document).on("click", ".f_clip", function(e){
@@ -660,6 +723,9 @@
 				}
 			}
 		});
+		
+		// 시/군/구 검색
+		$(document).on("change", "select[name='select-sido']", setSigugun);
 
 
 		//어르신 복지 서비스 확인하기 버튼 

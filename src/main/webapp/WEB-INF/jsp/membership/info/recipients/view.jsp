@@ -11,7 +11,9 @@
 	
 	<div id="page-content">               
 		<h3 class="mypage-title2 with-icon">
-			<i class="icon-back"></i>
+			<a href="javascript:history.back();">
+				<i class="icon-back"></i>
+			</a>
 			수급자상세
 		</h3>
 		<div class="mypage-consult-desc text-with-icon">
@@ -43,7 +45,7 @@
 							</tr>
 							<tr>
 								<th scope="row">요양인정번호</th>
-								<td>L${recipientVO.rcperRcognNo}</td>
+								<td><c:if test="${!empty recipientVO.rcperRcognNo}">L</c:if>${recipientVO.rcperRcognNo}</td>
 							</tr>
 							<tr>
 								<th scope="row">상담받을 연락처</th>
@@ -105,14 +107,25 @@
 							</tr>
 							<tr>
 								<th scope="row">진행 현황</th>
-								<td>${consltSttusCode[consltVO.consltSttus]}</td>
+								<td>
+									<c:choose>
+										<c:when test="${consltVO.consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${consltVO.consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${consltVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:otherwise>
+											${consltSttusCode[consltVO.consltSttus]}
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">장기요양기관</th>
 								<td>
 									<c:if test="${consltResultVO != null}">
 										<strong>${consltResultVO.bplcNm}</strong>
-										<a href="tel:010-0000-0000"><i class="icon-tel"></i></a>
+                                        <c:if test="${!empty consltResultVO.bplcInfo}">
+                                        	<a href="tel:${consltResultVO.bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
+                                        </c:if>
 										<div class="item-request justify-end">
 											<div class="flex items-center">
 												<label class="check1">
@@ -158,7 +171,7 @@
 				<div class="myinfo-box1">
                        <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
                            <c:if test="${_mbrSession.loginCheck}">
-                               <a href="/membership/mypage/list">정보수정</a>
+                               <a href="/membership/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form">정보수정</a>
                            </c:if>
                        </p>
                        <dl class="numb">
@@ -597,6 +610,12 @@
 
 
     <script>
+	  	//모바일 체크 처리
+		var isMobile = /Mobi/i.test(window.navigator.userAgent);
+		if (!isMobile) {
+			$('.mobile-tel-btn').css('display', 'none');
+		}
+    
     
 	    //숫자형 날짜 하이폰 삽입
 	    function f_hiponFormat(value){
