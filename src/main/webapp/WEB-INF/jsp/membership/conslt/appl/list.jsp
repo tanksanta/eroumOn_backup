@@ -207,7 +207,7 @@
 				<front:paging listVO="${listVO}" />
 			</div>
 
-            <div class="modal fade" id="reqModal" tabindex="-1" aria-hidden="true">
+            <div class="modal modal-default fade" id="reqModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                     <form id="modalReConslt" name="modalReConslt" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" name="consltNo" value="0">
@@ -237,30 +237,30 @@
 
             <div class="modal modal-default fade" id="cancelModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
-                    	<input type="hidden" name="consltNo" value="0">
-						<input type="hidden" name="consltmbrNm" value="">
-						<input type="hidden" name="consltmbrTelno" value="">
-                        <div class="modal-header">
-                            <h2 class="text-title">상담 취소 사유 입력</h2>
-                        </div>
-                        <div class="modal-close">
-                            <button type="button" data-bs-dismiss="modal">모달 닫기</button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
-                            <textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
-                        </div>
-                        <div class="modal-footer gap-1">
-                            <button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
-                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
-                        </div>
-                    </form>
-                </div>
+					<form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
+							<input type="hidden" name="consltNo" value="0">
+							<input type="hidden" name="consltmbrNm" value="">
+							<input type="hidden" name="consltmbrTelno" value="">
+							<div class="modal-header">
+								<h2 class="text-title">상담 취소 사유 입력</h2>
+							</div>
+							<div class="modal-close">
+								<button type="button" data-bs-dismiss="modal">모달 닫기</button>
+							</div>
+							<div class="modal-body">
+								<p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
+								<textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
+							</div>
+							<div class="modal-footer gap-1">
+								<button type="button" class="btn btn-primary btn-cancel-submit">저장하기</button>
+								<button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+							</div>
+						</form>
+					</div>
             </div>
         </div>
         
-       	<!-- 상담정보확인팝업소스 -->
+		<!-- 상담정보확인팝업소스 -->
         <div class="modal modal-default fade" id="check-counseling-info" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
