@@ -11,7 +11,9 @@
 	
 	<div id="page-content">               
 		<h3 class="mypage-title2 with-icon">
-			<i class="icon-back"></i>
+			<a href="javascript:history.back();">
+				<i class="icon-back"></i>
+			</a>
 			수급자상세
 		</h3>
 		<div class="mypage-consult-desc text-with-icon">
