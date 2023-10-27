@@ -97,7 +97,10 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
 		model.addAttribute("bplcRcmdList", bplcRcmdList);
 		
-		
+		//회원 수급자들의 테스트 정보
+    	List<MbrTestVO> srchMbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
+    	model.addAttribute("mbrTestList", srchMbrTestList);
+    	
 		model.addAttribute("prevPath", CodeMap.PREV_PATH);
 		model.addAttribute("consltSttus", CodeMap.CONSLT_STTUS);
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);

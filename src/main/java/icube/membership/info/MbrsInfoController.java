@@ -436,17 +436,25 @@ public class MbrsInfoController extends CommonAbstractController{
 				return resultMap;
 			}
 			
+			//동일한 수급자 이름 등록 체크
+			if (srchMbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm())).count() > 0) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "이미 등록한 수급자입니다");
+				return resultMap;
+			}
+			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
 				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo);
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					returnMap.put("success", false);
+					resultMap.put("success", false);
 					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
 					return resultMap;
 				}
 			}
+			
 			
 			
 			//회원의 수급자 정보 등록
@@ -508,6 +516,13 @@ public class MbrsInfoController extends CommonAbstractController{
 		try {
 			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			
+			//동일한 수급자 이름 등록 체크
+			if (mbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "이미 등록한 다른 수급자성명으로 변경할 수 없습니다");
+				return resultMap;
+			}
 			
 			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if ("N".equals(mbrRecipient.getRecipientsYn()) && EgovStringUtil.isNotEmpty(rcperRcognNo)) {

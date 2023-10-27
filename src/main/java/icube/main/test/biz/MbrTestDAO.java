@@ -10,6 +10,10 @@ import icube.common.framework.abst.CommonAbstractMapper;
 @Repository("mbrTestDAO")
 public class MbrTestDAO extends CommonAbstractMapper {
     
+	public List<MbrTestVO> selectMbrTestList(Map paramMap) {
+        return selectList("mbr.test.selectMbrTest", paramMap);
+    }
+	
     public MbrTestVO selectMbrTest(Map paramMap) {
         return selectOne("mbr.test.selectMbrTest", paramMap);
     }
