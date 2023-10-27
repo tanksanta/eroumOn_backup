@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.api.biz.BiztalkApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -49,6 +50,9 @@ public class MbrsConsltController extends CommonAbstractController {
 	
 	@Resource(name="bplcRcmdService")
 	private BplcRcmdService bplcRcmdService;
+	
+	@Resource(name = "biztalkApiService")
+	private BiztalkApiService biztalkApiService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -135,6 +139,8 @@ public class MbrsConsltController extends CommonAbstractController {
 	public Map<String, Object> cancelConslt(
 			@RequestParam(value = "consltNo", required=true) int consltNo
 			, @RequestParam(value = "canclResn", required=true) String canclResn
+			, @RequestParam(value = "consltmbrNm") String consltmbrNm
+			, @RequestParam(value = "consltmbrTelno") String consltmbrTelno
 			, HttpServletRequest request
 			) throws Exception {
 
@@ -159,6 +165,9 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+			
+			//사용자 상담취소
+			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltmbrTelno);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
