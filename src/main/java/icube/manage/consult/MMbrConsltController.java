@@ -327,8 +327,14 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
-			//관리자 상담취소
+			//관리자 상담취소 ==> 일반사용자에게 메세지
 			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
+			
+			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
+			if (EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
+				biztalkApiService.sendCareTalkCancel(mbrConsltResultVO.getBplcNm(), mbrConsltResultVO.getBplcInfo().getPicTelno());	
+			}
+			
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
