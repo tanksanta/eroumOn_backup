@@ -107,7 +107,16 @@
 							</tr>
 							<tr>
 								<th scope="row">진행 현황</th>
-								<td>${consltSttusCode[consltVO.consltSttus]}</td>
+								<td>
+									<c:choose>
+										<c:when test="${consltVO.consltSttus eq 'CS03'}">상담 취소</c:when>
+										<c:when test="${consltVO.consltSttus eq 'CS09'}">상담 취소</c:when>
+										<c:when test="${consltVO.consltSttus eq 'CS04'}">상담 취소</c:when>
+										<c:otherwise>
+											${consltSttusCode[consltVO.consltSttus]}
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">장기요양기관</th>
