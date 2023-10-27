@@ -192,7 +192,7 @@
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
 	                    <div class="item-request  justify-end">
-	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}">신청 취소하기</button>
+	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
 	                    </div>
 	                    </c:if>
 	
@@ -239,6 +239,8 @@
                 <div class="modal-dialog">
                     <form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
                     	<input type="hidden" name="consltNo" value="0">
+						<input type="hidden" name="consltmbrNm" value="">
+						<input type="hidden" name="consltmbrTelno" value="">
                         <div class="modal-header">
                             <h2 class="text-title">상담 취소 사유 입력</h2>
                         </div>
@@ -559,9 +561,17 @@
 	
 	    	$(".f_cancel").on("click", function(e){
 	        	let consltNo = $(this).data("consltNo");
+				let consltmbrNm = $(this).attr("data-conslt-mbrNm")
+				let consltmbrTelno = $(this).attr("data-conslt-mbrTelno")
 	        	console.log(consltNo);
-	
+				console.log($(this).attr("data-conslt-mbrNm"));
+				console.log($(this).attr("data-conslt-mbrTelno"));
 	        	$("#modalCancel input[name='consltNo']").val(consltNo);
+				$("#modalCancel input[name='consltmbrNm']").val(consltmbrNm);
+				$("#modalCancel input[name='consltmbrTelno']").val(consltmbrTelno);
+
+				console.log($("#modalCancel input[name='consltmbrTelno']").val())
+				
 	        	$("#cancelModal").modal('show');
 	        });
 	
@@ -569,10 +579,15 @@
 	    		e.preventDefault();
 	
 	    		let consltNo = $("#modalCancel input[name='consltNo']").val();
+				let consltmbrNm = $("#modalCancel input[name='consltmbrNm']").val();
+				let consltmbrTelno = $("#modalCancel input[name='consltmbrTelno']").val();
 	    		let canclResn = $("#modalCancel textarea[name='canclResn']").val();
+
 	
 	    		let params = {
 	    				consltNo:consltNo
+						, consltmbrNm:consltmbrNm
+						, consltmbrTelno:consltmbrTelno
 	    				, canclResn:canclResn};
 	
 	    		if($("#canclResn").val() === ""){

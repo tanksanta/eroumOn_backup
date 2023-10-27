@@ -195,7 +195,7 @@
                         <a href="#" target="_blank" title="새창열림" class="btn-inquiry btn btn-large2 btn-primary3 btn-arrow">
                             <strong>요양정보 조회하기</strong>
                         </a>
-                        <img src="../assets/images/img-hand.png" class="img-hand hidden md:block" alt="손모양 이미지" />
+                        <img src="../assets/images/img-hand.png" class="img-hand" alt="손모양 이미지" />
                     </div>
 
                 </div>
@@ -235,7 +235,7 @@
                         </a>
                     </li>
                 </ul>
-                <a href="#" class="text-link">
+                <a href="/main/cntnts/test" class="text-link">
                     요양인정번호가 없으세요?
                 </a>
             </div>
@@ -471,6 +471,9 @@
                 $('.grade-taps a').on('click', function () {
                     var target = $($(this).attr('href'));
                     var slider = $(target).closest('.swiper').get(0).swiper;
+                    // var slider = $(target).closest('.swiper').swiper;
+
+                    console.log(slider)
 
                     $(this).parent().addClass('is-active').siblings().removeClass('is-active');
 
@@ -505,7 +508,7 @@
                     active.removeClass('is-active').css({ 'margin-top': margin }).next().addClass('is-active').one('transitionend animationend', function () {
                         active.remove();
                     });
-                }, 6000);  
+                }, 3000);  
             </script>
 
             <a href="#" class="grade-floating consulting" data-bs-toggle="modal" data-bs-target="#">

@@ -19,6 +19,7 @@
 		, cch.bplc_unique_id
 		, cch.bplc_id
 		, cch.bplc_nm
+		, cch.conslt_bplc_unique_id
 	</sql>
 
 	<sql id="searchConditions">

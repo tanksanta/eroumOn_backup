@@ -73,9 +73,7 @@ $(function() {
             $('.grade-floating').removeClass('is-active');
         }
     });
-
-   
-
+    
     $(window).on('load resize', function(e) {
         resize  = (winSize !== null && $(window).outerWidth() === winSize[0]) ? false : true;
         winSize = [$(window).outerWidth(), $(window).outerHeight()];
