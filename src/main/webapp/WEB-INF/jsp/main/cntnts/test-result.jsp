@@ -306,7 +306,7 @@
         다른 결과를 확인하고 싶으시다면? <a href="#" onclick="restartTest();">테스트 다시하기</a>
     </div>
 
-    <a id="go-consult" href="#none" class="grade-floating">1:1 상담하기</a>
+    <a id="go-consult" href="#none" class="grade-floating">다른 혜택 확인하기</a>
     
     
     <!-- 공유하기 모달 start-->
@@ -516,7 +516,7 @@
 
     <!--상담신청완료-->
     <div class="modal modal-index fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
                 <h2 class="text-title">알림</h2>

@@ -67,7 +67,6 @@ $(function() {
         }
 
         if($(window).scrollTop() > $('#header').outerHeight() * 5) {
-            // console.log($('#header').outerHeight() * 5)
             $('.grade-floating').addClass('is-active');
         } else {
             $('.grade-floating').removeClass('is-active');
