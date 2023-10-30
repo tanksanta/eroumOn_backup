@@ -80,7 +80,7 @@
                     <div class="myinfo-box1">
                         <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
                             <c:if test="${_mbrSession.loginCheck}">
-                                <a href="/membership/mypage/list">정보수정</a>
+                                <a href="/membership/info/recipients/view?recipientsNo=${recipientsNo}">정보수정</a>
                             </c:if>
                         </p>
                         <dl class="numb">
@@ -1362,6 +1362,65 @@ $(function() {
 	getRecipterInfo();
 	initSido();
 	
+
+    //연락처 형식 - 자동작성
+    const telKeyInputRegex = /^(45|48|49|50|51|52|53|54|55|56|57|58|59)$/;
+    $("#info-tel").keypress(function(e) {
+        //숫자와 /만 입력받도록 추가
+        if (!telKeyInputRegex.test(e.keyCode)) {
+            return false;
+        }
+    });
+    $("#info-tel").on("keydown",function(e){
+        //백스페이스는 무시
+        if (e.keyCode !== 8) {
+            if($(this).val().length == 3){
+                $(this).val($(this).val() + "-");
+            }
+
+            if($(this).val().length == 8){
+                $(this).val($(this).val() + "-");
+            }
+            
+            if($(this).val().length == 13){
+                $(this).val($(this).val() + "-");
+            }
+        }
+    });
+    $("#info-tel").on("keyup",function(){
+        if($(this).val().length > 13){
+            $(this).val($(this).val().substr(0,13));
+        }
+    });
+    
+    
+    //생년월일 형식 / 자동작성
+    const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
+    $("#info-brdt").keypress(function(e) {
+        //숫자와 /만 입력받도록 추가
+        if (!brdtKeyInputRegex.test(e.keyCode)) {
+            return false;
+        }
+    });
+    $("#info-brdt").on("keydown",function(e){
+        //백스페이스는 무시
+        if (e.keyCode !== 8) {
+            if($(this).val().length == 4){
+                $(this).val($(this).val() + "/");
+            }
+
+            if($(this).val().length == 7){
+                $(this).val($(this).val() + "/");
+            }
+        }
+    });
+    $("#info-brdt").on("keyup",function(){
+        if($(this).val().length > 10){
+            $(this).val($(this).val().substr(0,10));
+        }
+    });
+
+
 	let regExp = /[^0-9 a-zA-Z!@#$%^&*()-_]/g;
 	
     var swiper = new Swiper(".swiper", {

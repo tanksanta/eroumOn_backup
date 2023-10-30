@@ -306,7 +306,7 @@
         다른 결과를 확인하고 싶으시다면? <a href="#" onclick="restartTest();">테스트 다시하기</a>
     </div>
 
-    <a id="go-consult" href="#none" class="grade-floating">다른 혜택 확인하기</a>
+    <a id="go-consult" class="grade-floating">다른 혜택 확인하기</a>
     
     
     <!-- 공유하기 모달 start-->
@@ -918,7 +918,7 @@
             		//api 방식으로 테스트결과 가져오기
             		testResult = getTestResultAjax(testData.recipientsNo);
             		
-            		$('#go-consult').css('display', 'flex');
+            		$('#go-consult').css({'display':'flex', 'cursor':'pointer'});
             	}
             	else {
             		var finalTestResult = JSON.parse(sessionStorage.getItem('finalTestResult'));
@@ -1365,6 +1365,12 @@
               		
               		$('#disease-select-2').html(diseaseTemplete);
           		}
+          		
+          		
+          		//등급에 따라서 버튼명 결정(다른 혜택 확인하기, 상담하기)
+          		if (testResult.grade !== 0) {
+          			$('#go-consult').text('1:1 상담하기');
+          		}
           	}
           	
           	//이메일 SELECT Event
@@ -1416,8 +1422,15 @@
           	});
           	
           	
-          	//1:1 상담하기 버튼 클릭
+          	//다른 혜택 확인하기 또는 1:1 상담하기 버튼 클릭
           	$('#go-consult').click(function() {
+          		//0등급인 경우 다른 혜택 확인하기
+          		if (testResult.grade === 0) {
+          			location.href="/main/searchBokji"
+          			return;
+          		}
+          		
+          		
           		const isCheckedEmail = $('#chk-email')[0].checked;
           		
           		//이메일 전송 폼 띄우기
@@ -1436,6 +1449,64 @@
           			clickStartConsltBtn();
           		}
           	});
+
+
+            //연락처 형식 - 자동작성
+	    	const telKeyInputRegex = /^(45|48|49|50|51|52|53|54|55|56|57|58|59)$/;
+	    	$("#info-tel").keypress(function(e) {
+	    		//숫자와 /만 입력받도록 추가
+	    		if (!telKeyInputRegex.test(e.keyCode)) {
+	    			return false;
+	    		}
+	    	});
+	    	$("#info-tel").on("keydown",function(e){
+	    		//백스페이스는 무시
+	    		if (e.keyCode !== 8) {
+	    			if($(this).val().length == 3){
+	    				$(this).val($(this).val() + "-");
+	    			}
+
+	    			if($(this).val().length == 8){
+	    				$(this).val($(this).val() + "-");
+	    			}
+	    			
+	    			if($(this).val().length == 13){
+	    				$(this).val($(this).val() + "-");
+	    			}
+	    		}
+	    	});
+	    	$("#info-tel").on("keyup",function(){
+	    		if($(this).val().length > 13){
+	    			$(this).val($(this).val().substr(0,13));
+	    		}
+	    	});
+	    	
+	    	
+	    	//생년월일 형식 / 자동작성
+	    	const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
+	    	$("#info-brdt").keypress(function(e) {
+	    		//숫자와 /만 입력받도록 추가
+	    		if (!brdtKeyInputRegex.test(e.keyCode)) {
+	    			return false;
+	    		}
+	    	});
+	    	$("#info-brdt").on("keydown",function(e){
+	    		//백스페이스는 무시
+	    		if (e.keyCode !== 8) {
+	    			if($(this).val().length == 4){
+	    				$(this).val($(this).val() + "/");
+	    			}
+
+	    			if($(this).val().length == 7){
+	    				$(this).val($(this).val() + "/");
+	    			}
+	    		}
+	    	});
+	    	$("#info-brdt").on("keyup",function(){
+	    		if($(this).val().length > 10){
+	    			$(this).val($(this).val().substr(0,10));
+	    		}
+	    	});
         });
         
       	//테스트 다시하기 버튼 클릭

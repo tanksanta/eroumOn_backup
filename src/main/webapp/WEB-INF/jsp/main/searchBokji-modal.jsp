@@ -2,7 +2,7 @@
 
 <!--모달: 어르신용품(복지용구) 구매비 지원-->
 <div class="modal modal-index fade " id="pop-welfare-1" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
         <div class="modal-header">
             <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -54,7 +54,7 @@
 
 <!--모달: 요양시설 입소(시설급여) 이용비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-2" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
         <div class="modal-header">
             <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -71,7 +71,7 @@
                 <div class="beige-card-wrap">
                     <h4 class="font-medium">지원내용 및 자격요건</h4>
                     <ul class="check-lists">
-                        <li><span class="font-semibold">장기요양인정등급</span> 판정을 받으셔야 신청 가능</li>
+                        <li><span class="font-semibold">장기요양인정등급 1, 2등급</span> 판정을 받으셔야 신청 가능</li>
                         <li>시설 입소에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 2,256만원(월 188만원)</span></li>
                     </ul>
                 </div>
@@ -156,7 +156,7 @@
 
 <!--모달: 보청기 구매비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-4" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -206,7 +206,7 @@
 
 <!--모달: 임플란트 비용 지원-->
 <div class="modal modal-index fade" id="pop-welfare-5" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -225,7 +225,6 @@
 	                    <ul class="check-lists">
 	                        <li><span class="font-semibold">치과에서 진료</span>를 통해 지원 대상자 판정 <span class="font-semibold">(만 65세 이상)</span></li>
 	                        <li><span class="font-semibold">1인 기준,</span> <span class="text-indexKey1 font-semibold">평생 2개 지원</span></li>
-	                        <li>보건복지부에 고시된 제품에 한해 <span class="font-semibold">5년에 1회 한정, 보청기 1대 지원</span></li>
 	                    </ul>
 	                </div>
 	                <div>
@@ -256,7 +255,7 @@
 
 <!--모달: 틀니 비용 지원-->
 <div class="modal modal-index fade" id="pop-welfare-6" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -305,7 +304,7 @@
 
 <!--모달: 인공관절 수술비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-7" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -322,7 +321,7 @@
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">‘인공관절치환술(슬관절)’ </span>이 필요한 저소득층 어르신<span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">‘인공관절치환술(슬관절)’ </span>이 필요한 저소득층 어르신<span class="font-semibold">(만 60세 이상)</span></li>
 	                        <li><span class="font-semibold">한쪽 무릎 기준, </span> <span class="text-indexKey1 font-semibold">지원금 120만원 한도 실비 지원</span></li>
 	                    </ul>
 	                </div>
@@ -354,9 +353,9 @@
     </div>
 </div>
 
-<!--모달: 노인 개안 수술비 지원-->
+<!--모달: 노안 개안 수술비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-8" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -373,7 +372,7 @@
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">백내장, 망막질환, 녹내장 </span>등 안질환 수술이 필요한 어르신 <span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">백내장, 망막질환, 녹내장 </span>등 안질환 수술이 필요한 어르신 <span class="font-semibold">(만 60세 이상)</span></li>
 	                        <li><span class="font-semibold">저소득층</span>을 우선 지원</li>
 	                        <li>1안 당 본인 부담 수술비 및 사전 검사비 <span class="font-semibold">전액 1회 지원</span></li>
 	                    </ul>
@@ -407,7 +406,7 @@
 
 <!--모달: 치매 검진비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-9" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -424,7 +423,7 @@
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">조기 치매로 선별검사, 진단/감별검사</span>가 필요한 어르신 <span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">조기 치매로 선별검사, 진단/감별검사</span>가 필요한 어르신 <span class="font-semibold">(만 60세 이상)</span></li>
 	                        <li><span class="font-semibold">저소득층</span>을 우선 지원</li>
 	                        <li><span class="font-semibold">치매선별검사는 무료 </span>(치매안심센터에서 진행)</li>
 	                        <li><span class="font-semibold">진단/감별검사비 무료 </span>(만 65세 이상, 저소득층에 해당)</li>
@@ -457,7 +456,7 @@
 
 <!--모달: 치매 치료비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-10" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-2xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
 	        <div class="modal-header">
 	            <h4 class="text-header-title">어르신 복지 서비스</h4>
@@ -467,14 +466,14 @@
 	        <div class="modal-body space-no-x">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">치매 <span class="text-indexKey1 text-normal">치료비 지원</span></h3>
-	                <div class="">
-	                    <p class="text-xl">치매가 의심되는 어르신이라면, <strong>치매치료관리비 지원을 신청하세요.</strong></p>
-	                    <p><span class="font-semibold">[보건복지부]</span>에서 어르신의으로 <span class="font-semibold underline underline-offset-1"> 치매 증상을 초기에 치료함</span>행복한 노후를 지원합니다.</p>
+	                <div>
+	                    <p class="text-xl">치매 치료가 필요한 어르신이라면, <strong>치매치료관리비 지원을 신청하세요.</strong></p>
+	                    <p><span class="font-semibold">[보건복지부]</span>에서 어르신의 <span class="font-semibold underline underline-offset-1"> 치매 증상을 초기에 치료함</span>으로 행복한 노후를 지원합니다.</p>
 	                </div>
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">치매환자로 등록되고, </span> 치매치료약을 복용하는 어르신 <span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">치매환자로 등록되고, </span> 치매치료약을 복용하는 어르신 <span class="font-semibold">(만 60세 이상)</span></li>
 	                        <li><span class="font-semibold">월 3만원(연 36만원) 상한 내 </span>본인납부 실비 지원</li>
 	                    </ul>
 	                </div>
