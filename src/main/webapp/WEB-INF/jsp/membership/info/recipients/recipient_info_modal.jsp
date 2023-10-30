@@ -169,7 +169,7 @@
 
 	<!--모달: 상담신청완료-->
     <div class="modal modal-index fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
                 <h2 class="text-title">알림</h2>
