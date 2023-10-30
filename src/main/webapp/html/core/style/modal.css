@@ -49,8 +49,14 @@
         @apply relative m-0 max-w-full;
         min-height: inherit;
       } */
+
+      & .modal-dialog {
+          &.modal-dialog-centered {
+              @apply justify-center;
+          }
+      }
       & .modal-content {
-        @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11 md:min-w-[32rem] ;
+        @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11;
       }
       & .modal-close {
          > button {

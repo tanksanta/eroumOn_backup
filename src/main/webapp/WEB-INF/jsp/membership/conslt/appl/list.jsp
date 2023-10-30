@@ -272,7 +272,7 @@
 
 
             <div class="modal modal-default fade" id="cancelModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
 					<form id="modalCancel" name="modalCancel" class="modal-content" enctype="multipart/form-data">
 							<input type="hidden" name="consltNo" value="0">
 							<input type="hidden" name="consltmbrNm" value="">
@@ -298,7 +298,7 @@
         
 		<!-- 상담정보확인팝업소스 -->
         <div class="modal modal-default fade" id="check-counseling-info" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="text-title">상담 정보 확인</h2>

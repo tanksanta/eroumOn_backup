@@ -46,6 +46,7 @@
                 /* @apply top-1/2 -translate-y-1/2 h-auto min-h-[inherit]; */
                 /* @apply h-auto min-h-[inherit]; */
                 &.modal-dialog-centered {
+                    @apply justify-center;
                     & .modal-body {
                         @apply scrollbars p-5;
                         overflow: overlay;
