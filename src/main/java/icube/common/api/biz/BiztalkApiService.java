@@ -242,7 +242,6 @@ public class BiztalkApiService {
 
 	// ON_00003 이로움ON회원_가입완료 biztalkApiService.sendJoinComleted("이동열", "010-2808-9178");
 	public boolean sendOnJoinComleted(String mbrNm, String sPhoneNo) throws Exception {
-		mbrNm = StringUtil.nameMasking(mbrNm);
 		
 		JSONObject param = this.msgOn00003(mbrNm);
 		
@@ -253,7 +252,6 @@ public class BiztalkApiService {
 	
 	// ON_00002 이로움ON회원_상담신청취소 biztalkApiService.sendTalkCancel("이동열", "010-2808-9178");
 	public boolean sendOnTalkCancel(String mbrNm, String sPhoneNo) throws Exception {
-		mbrNm = StringUtil.nameMasking(mbrNm);
 		
 		JSONObject param = this.msgOn00002(mbrNm);
 		
@@ -266,7 +264,6 @@ public class BiztalkApiService {
 	
 	// ON_00004 이로움ON회원_상담접수완료 biztalkApiService.sendTalkCreated("이동열", "010-2808-9178");
 	public boolean sendOnTalkCreated(String mbrNm, String sPhoneNo) throws Exception {
-		mbrNm = StringUtil.nameMasking(mbrNm);
 		
 		JSONObject param = this.msgOn00004(mbrNm);
 		
@@ -279,7 +276,6 @@ public class BiztalkApiService {
 
 	// ON_00005 이로움ON회원_재상담접수완료 biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
 	public boolean sendOnTalkMatchAgain(String mbrNm, String sPhoneNo) throws Exception {
-		mbrNm = StringUtil.nameMasking(mbrNm);
 		
 		JSONObject param = this.msgOn00005(mbrNm);
 		
@@ -292,7 +288,6 @@ public class BiztalkApiService {
 	
 	// ON_00006 이로움ON회원_매칭완료(공통) biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
 	public boolean sendOnTalkMatched(String mbrNm, String bplcNm, String sPhoneNo) throws Exception {
-		mbrNm = StringUtil.nameMasking(mbrNm);
 		
 		JSONObject param = this.msgOn00006(mbrNm, bplcNm);
 		
