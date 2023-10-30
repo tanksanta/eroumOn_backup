@@ -133,81 +133,81 @@
 	<script>
 	
 		//상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
-		function openNewConsltInfo(myRecipientInfo) {
-			$('#info-relationSelect').val(myRecipientInfo.relationCd);
-			$('#info-recipientsNm').val(myRecipientInfo.recipientsNm);
+		// function openNewConsltInfo(myRecipientInfo) {
+		// 	$('#info-relationSelect').val(myRecipientInfo.relationCd);
+		// 	$('#info-recipientsNm').val(myRecipientInfo.recipientsNm);
 			
-			if(myRecipientInfo.rcperRcognNo) {
-				//L번호가 있는 경우 이름, L번호 수정 불가
-				$('#info-recipientsNm').prop('readonly', true);
+		// 	if(myRecipientInfo.rcperRcognNo) {
+		// 		//L번호가 있는 경우 이름, L번호 수정 불가
+		// 		$('#info-recipientsNm').prop('readonly', true);
 				
-				$('.input-rcperRcognNo-yn').css('display', 'none');
-				$('#info-rcperRcognNo-y').prop('disabled', true);
-				$('#info-rcperRcognNo-n').prop('disabled', true);
+		// 		$('.input-rcperRcognNo-yn').css('display', 'none');
+		// 		$('#info-rcperRcognNo-y').prop('disabled', true);
+		// 		$('#info-rcperRcognNo-n').prop('disabled', true);
 				
-				$('#info-rcperRcognNo-y').prop('checked', true); 
-				$('#info-rcperRcognNo').val(myRecipientInfo.rcperRcognNo);
-				$('#input-rcperRcognNo').css('display', 'inline-flex');
-				$('#info-rcperRcognNo').prop('readonly', true);
-			} else {
-				$('#info-recipientsNm').prop('readonly', false);
+		// 		$('#info-rcperRcognNo-y').prop('checked', true); 
+		// 		$('#info-rcperRcognNo').val(myRecipientInfo.rcperRcognNo);
+		// 		$('#input-rcperRcognNo').css('display', 'inline-flex');
+		// 		$('#info-rcperRcognNo').prop('readonly', true);
+		// 	} else {
+		// 		$('#info-recipientsNm').prop('readonly', false);
 				
-				$('.input-rcperRcognNo-yn').css('display', 'inline-block');
-				$('#info-rcperRcognNo-y').prop('disabled', false);
-				$('#info-rcperRcognNo-n').prop('disabled', false);
+		// 		$('.input-rcperRcognNo-yn').css('display', 'inline-block');
+		// 		$('#info-rcperRcognNo-y').prop('disabled', false);
+		// 		$('#info-rcperRcognNo-n').prop('disabled', false);
 				
-				$('#info-rcperRcognNo-n').prop('checked', true);
-				$('#info-rcperRcognNo').val('');
-				$('#input-rcperRcognNo').css('display', 'none');
-			}
+		// 		$('#info-rcperRcognNo-n').prop('checked', true);
+		// 		$('#info-rcperRcognNo').val('');
+		// 		$('#input-rcperRcognNo').css('display', 'none');
+		// 	}
 			
-			$('#info-tel').val(myRecipientInfo.tel);
+		// 	$('#info-tel').val(myRecipientInfo.tel);
 			
-			if (myRecipientInfo.sido) {
-				var options = $('#sido option');
-				for(var i = 0; i < options.length; i++) {
-					if ($('#sido option')[i].text === myRecipientInfo.sido) {
-						$('#sido option')[i].selected = true;
-					}
-				}
-				setSigugun();
-			}
-			if (myRecipientInfo.sigugun) {
-				var options = $('#sigugun option');
-				for(var i = 0; i < options.length; i++) {
-					if ($('#sigugun option')[i].text === myRecipientInfo.sigugun) {
-						$('#sigugun option')[i].selected = true;
-					}
-				}
-				setDong();
-			}
-			if (myRecipientInfo.dong) {
-				var options = $('#dong option');
-				for(var i = 0; i < options.length; i++) {
-					if ($('#dong option')[i].text === myRecipientInfo.dong) {
-						$('#dong option')[i].selected = true;
-					}
-				}
-			}
+		// 	if (myRecipientInfo.sido) {
+		// 		var options = $('#sido option');
+		// 		for(var i = 0; i < options.length; i++) {
+		// 			if ($('#sido option')[i].text === myRecipientInfo.sido) {
+		// 				$('#sido option')[i].selected = true;
+		// 			}
+		// 		}
+		// 		setSigugun();
+		// 	}
+		// 	if (myRecipientInfo.sigugun) {
+		// 		var options = $('#sigugun option');
+		// 		for(var i = 0; i < options.length; i++) {
+		// 			if ($('#sigugun option')[i].text === myRecipientInfo.sigugun) {
+		// 				$('#sigugun option')[i].selected = true;
+		// 			}
+		// 		}
+		// 		setDong();
+		// 	}
+		// 	if (myRecipientInfo.dong) {
+		// 		var options = $('#dong option');
+		// 		for(var i = 0; i < options.length; i++) {
+		// 			if ($('#dong option')[i].text === myRecipientInfo.dong) {
+		// 				$('#dong option')[i].selected = true;
+		// 			}
+		// 		}
+		// 	}
 			
-			if(myRecipientInfo.brdt) {
-				$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
-			}else {
-				$('#info-brdt').val('');    			
-			}
+		// 	if(myRecipientInfo.brdt) {
+		// 		$('#info-brdt').val(myRecipientInfo.brdt.substring(0, 4) + '/' + myRecipientInfo.brdt.substring(4, 6) + '/' + myRecipientInfo.brdt.substring(6, 8));	
+		// 	}else {
+		// 		$('#info-brdt').val('');    			
+		// 	}
 			
-			if (myRecipientInfo.gender === 'M') {
-				$('#info-gender-m').prop('checked', true);
-			} else if (myRecipientInfo.gender === 'W') {
-				$('#info-gender-w').prop('checked', true);
-			} else {
-				$('#info-gender-m').prop('checked', false);
-				$('#info-gender-w').prop('checked', false);
-			}
+		// 	if (myRecipientInfo.gender === 'M') {
+		// 		$('#info-gender-m').prop('checked', true);
+		// 	} else if (myRecipientInfo.gender === 'W') {
+		// 		$('#info-gender-w').prop('checked', true);
+		// 	} else {
+		// 		$('#info-gender-m').prop('checked', false);
+		// 		$('#info-gender-w').prop('checked', false);
+		// 	}
 			
 			
-			$('#modal-consulting-info').modal('show');
-		}
+		// 	$('#modal-consulting-info').modal('show');
+		// }
 		
 	
 		// 시/도 Select 박스 셋팅
@@ -317,6 +317,29 @@
 				return;
 			}
 				
+			//본인인지 체크
+			if (relationCd === '007' && recipientsNm !== '${mbrVO.mbrNm}') {
+				alert('수급자와의 관계를 확인해주세요');
+				return;
+			}
+			//본인과 배우자는 한명만 등록
+			var mbrRecipients = [
+				<c:forEach var="recipientInfo" items="${mbrVO.mbrRecipientsList}">
+					{
+						recipientsNo: ${recipientInfo.recipientsNo}
+						, relationCd: '${recipientInfo.relationCd}'
+					},
+				</c:forEach>
+			];
+			
+			var meCount = mbrRecipients.filter(f => f.recipientsNo !== ${mbrConsltVO.recipientsNo} && f.relationCd === '007').length; //내 수급자가 아닌 다른수급자도 본인인지 확인
+			var spouseCount = mbrRecipients.filter(f => f.recipientsNo !== ${mbrConsltVO.recipientsNo} && f.relationCd === '001').length; //내 수급자가 아닌 다른수급자도 배우자인지 확인
+			if ((relationCd === '007' && meCount > 0) ||
+				(relationCd === '001' && spouseCount > 0)) {
+				alert('수급자와의 관계를 확인해주세요');
+				return;
+			}
+			
 			//연락처 형식 검사
 			if (telchk.test(tel) === false) {
 				alert('연락처 형식이 올바르지 않습니다 (예시: 010-0000-0000)');
