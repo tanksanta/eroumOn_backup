@@ -703,11 +703,10 @@
             new Swiper(slider.find('.swiper').get(0), {
                 loop: true,
                 speed: 1000,
-                autoplay: true,
-                // autoplay: {
-                //     speed: 5000,
-                //     disableOnInteraction: false,
-                // },
+                autoplay: {
+                    speed: 5000,
+                    disableOnInteraction: false,
+                },
                 navigation: {
                     prevEl: slider.find('.swiper-button-prev').get(0),
                     nextEl: slider.find('.swiper-button-next').get(0)
