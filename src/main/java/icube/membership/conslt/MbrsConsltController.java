@@ -102,8 +102,19 @@ public class MbrsConsltController extends CommonAbstractController {
 			, HttpServletRequest request) throws Exception {
 
 		boolean result = false;
-
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
 		try {
+			//재상담은 최대 3회 가능
+			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
+			if (consltNo >= 3) {
+				resultMap.put("result", result);
+				resultMap.put("msg", "재상담 신청은 최대 3번 가능합니다");
+				return resultMap;
+			}
+			
+			
 			MbrConsltResultVO mbrConsltResultVO = new MbrConsltResultVO();
 			mbrConsltResultVO.setConsltNo(consltNo);
 			mbrConsltResultVO.setReconsltResn(reconsltResn);
@@ -135,8 +146,6 @@ public class MbrsConsltController extends CommonAbstractController {
 			biztalkApiService.sendOnTalkMatchAgain(consltmbrNm, consltmbrTelno);
 		}
 
-		// result
-		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
 	}

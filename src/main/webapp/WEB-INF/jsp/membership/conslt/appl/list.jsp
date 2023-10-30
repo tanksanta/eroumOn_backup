@@ -223,9 +223,16 @@
 	                    </div>
 	                    </c:if>
 	
-	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
+	                    <c:if test="${resultList.consltSttus eq 'CS06' && resultList.consltResultList.size() < 3}">
 	                    	<div class="item-request justify-end">
-		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
+		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" 
+		                        		data-conslt-no="${resultList.consltNo}" 
+		                        		data-conslt-mbrNm="${resultList.mbrNm}" 
+		                        		data-conslt-mbrTelno="${resultList.mbrTelno}" 
+		                        		data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" 
+		                        		data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">
+		                        		재 상담 신청하기
+		                        </button>
 		                    </div>
 	                    </c:if>
 	                </div>
@@ -492,6 +499,8 @@
 		       					alert("정상적으로 저장되었습니다.");
 		       					//$("#modalReConslt .btn-cancel").click();
 		       					window.location.reload();
+		       				} else {
+		       					alert(data.msg);
 		       				}
 		       			})
 		       			.fail(function(data, status, err) {
