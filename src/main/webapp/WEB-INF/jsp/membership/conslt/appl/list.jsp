@@ -177,6 +177,21 @@
 										<c:forEach var="consltResultInfo" items="${resultList.consltResultList}" varStatus="status">
 											[${resultList.consltResultList.size() - status.index}차] ${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcNm}<br>
 										</c:forEach>
+										
+										<div class="item-request justify-end">
+											<div class="flex items-center">
+												<c:set var="lastBplcUniqueId" value="${resultList.consltResultList[resultList.consltResultList.size() - 1].bplcUniqueId}" />
+			                                    
+			                                    <label class="check1">
+			                                        <input type="checkbox" name="recommend" value="${lastBplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
+			                                        <span>추천하기</span>
+			                                    </label>
+			                                    <label class="check2">
+			                                        <input type="checkbox" name="itrst" value="${lastBplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
+			                                        <span>관심설정</span>
+			                                    </label>
+			                                </div>
+		                                </div>
 									</c:when>
 									<c:otherwise>
 										(배정중)
@@ -208,9 +223,16 @@
 	                    </div>
 	                    </c:if>
 	
-	                    <c:if test="${resultList.consltSttus eq 'CS06'}">
+	                    <c:if test="${resultList.consltSttus eq 'CS06' && resultList.consltResultList.size() < 3}">
 	                    	<div class="item-request justify-end">
-		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}" data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">재 상담 신청하기</button>
+		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" 
+		                        		data-conslt-no="${resultList.consltNo}" 
+		                        		data-conslt-mbrNm="${resultList.mbrNm}" 
+		                        		data-conslt-mbrTelno="${resultList.mbrTelno}" 
+		                        		data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" 
+		                        		data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">
+		                        		재 상담 신청하기
+		                        </button>
 		                    </div>
 	                    </c:if>
 	                </div>
@@ -477,6 +499,8 @@
 		       					alert("정상적으로 저장되었습니다.");
 		       					//$("#modalReConslt .btn-cancel").click();
 		       					window.location.reload();
+		       				} else {
+		       					alert(data.msg);
 		       				}
 		       			})
 		       			.fail(function(data, status, err) {
