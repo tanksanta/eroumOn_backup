@@ -259,7 +259,7 @@
             <li class="taps-item">
                 <a href="#slide-item10">
                     <i><img src="/html/page/index/assets/images/ico-grade-info4.svg" alt="헤드셋 아이콘" class="-mt-2.5"></i>
-                    <span>전문가 상담과 혜택 신청</span>
+                    <span>전문가 상담과 혜택신청</span>
                 </a>
             </li>
         </ul>
@@ -703,6 +703,7 @@
             new Swiper(slider.find('.swiper').get(0), {
                 loop: true,
                 speed: 1000,
+                autoplay: true,
                 // autoplay: {
                 //     speed: 5000,
                 //     disableOnInteraction: false,
