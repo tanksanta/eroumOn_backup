@@ -108,7 +108,7 @@ public class MbrsConsltController extends CommonAbstractController {
 		try {
 			//재상담은 최대 3회 가능
 			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
-			if (consltNo >= 3) {
+			if (resultCnt >= 3) {
 				resultMap.put("result", result);
 				resultMap.put("msg", "재상담 신청은 최대 3번 가능합니다");
 				return resultMap;
