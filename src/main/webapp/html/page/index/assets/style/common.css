@@ -106,8 +106,8 @@ img[alt] {
                 @apply h-4;
             }
             & [data-bs-dismiss="modal"] {
-                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:1.125rem]
-                    sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:1.5rem];
+                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(/html/page/index/assets/images/ico-close.svg)] bg-[length:2rem]
+                    sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:2rem];
             }
         }
         & .modal-body {

@@ -82,7 +82,7 @@
 			<div class="subject-inner">
 				<div class="subject-inner-text">
 					<span class="badge-eroum">이로움 06</span>
-					<h4><strong>틀니</strong><br>이용 지원</h4>
+					<h4><strong>틀니</strong><br>비용 지원</h4>
 				</div>
 				<div class="subject-inner-link">
 					<i class="icon-eroum-service"><img src="/html/page/index/assets/images/icon-service-item06.svg" alt="틀니"/></i>
