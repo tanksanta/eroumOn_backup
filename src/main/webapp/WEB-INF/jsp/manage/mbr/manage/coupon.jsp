@@ -1,4 +1,8 @@
+<%@page import="javax.servlet.annotation.WebServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script src="/html/page/admin/assets/script/_mng/mbr/JsHouseMngMbrDetail.js"></script>
+
 <div id="page-content">
 	<%@include file="./include/header.jsp"%>
 
@@ -153,6 +157,13 @@
 
 
 <script>
+	var ctlMaster;
+	$(document).ready(function(){
+		ctlMaster = new JsHouseMngMbrCoupon();
+		ctlMaster.fn_searched_data(`<%= request.getParameter("searched_data") != null ? request.getParameter("searched_data") : "" %>`);
+		ctlMaster.fn_page_init();
+	});
+
 function f_srchJoinSet(ty){
   	//srchJoinBgng, srchJoinEnd
 	$("#srchEndDt").val(f_getToday());

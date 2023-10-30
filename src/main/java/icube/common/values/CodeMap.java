@@ -1029,6 +1029,23 @@ public class CodeMap{
 		}
 	};
 	
+	//회원가입 경로(직접가입, 카카오간편가입, 네이버 간편가입) 
+	public static final HashMap<String, String> MBR_JOIN_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478940L;
+		{
+			put("E", "직접가입");
+			put("K", "카카오");
+			put("N", "네이버");
+		}
+	};
+	public static final HashMap<String, String> MBR_JOIN_TY2 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478940L;
+		{
+			put("E", "직접가입");
+			put("K", "카카오 간편가입");
+			put("N", "네이버 간편가입");
+		}
+	};
 	public static final HashMap<String, String> MBR_JOIN_TY3 = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 7437138482747478940L;
 		{

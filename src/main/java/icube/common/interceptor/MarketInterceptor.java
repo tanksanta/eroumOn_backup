@@ -157,11 +157,11 @@ public class MarketInterceptor implements HandlerInterceptor {
 				if(EgovStringUtil.equals("N", mbrSession.getMberGrade())) {
 					mileagePercent = 0;
 				}else if(EgovStringUtil.equals("S", mbrSession.getMberGrade())) {
-					mileagePercent = 050;
+					mileagePercent = 0.50;
 				}else if(EgovStringUtil.equals("B", mbrSession.getMberGrade())) {
-					mileagePercent = 150;
+					mileagePercent = 1.50;
 				}else if(EgovStringUtil.equals("E", mbrSession.getMberGrade())) {
-					mileagePercent = 250;
+					mileagePercent = 2.50;
 				}
 				request.setAttribute("_mileagePercent", mileagePercent);
 	

@@ -127,6 +127,21 @@
 		<!-- <if test="srchUseYn == null or srchUseYn == ''">
 			AND g.use_yn = 'Y'
 		</if> -->
+	<sql id="searchRecsCtgryNo">
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchRecsCtgryNo)">
+		WITH RECURSIVE recs (CTGRY_NO, UP_CTGRY_NO) AS (
+			SELECT t1.CTGRY_NO, t1.UP_CTGRY_NO
+			FROM GDS_CTGRY t1
+			WHERE t1.CTGRY_NO IN ( #{srchRecsCtgryNo} )
+			
+			UNION
+			
+			SELECT t2.CTGRY_NO, t2.UP_CTGRY_NO
+			FROM GDS_CTGRY t2
+			INNER JOIN recs ON t2.UP_CTGRY_NO = recs.CTGRY_NO
+		)
+		</if>
+	</sql>
 	<sql id="searchConditions">
 		<if test="srchText != null and srchText != '' ">
 			<choose>
@@ -137,7 +152,6 @@
 				</otherwise>
 			</choose>
 		</if>
-
 
 		<if test="srchUseYn !=null and srchUseYn != ''">
 			AND g.use_yn = #{srchUseYn}
@@ -158,28 +172,34 @@
 		<if test="srchCtgryNo > 0">
 			AND g.ctgry_no = #{srchCtgryNo}
 		</if>
-		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCtgryNos)">
-			AND (g.ctgry_no IN
-			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
-				#{srchCtgryNo}
-			</foreach>
-			OR
-			gc2.up_ctgry_no IN
-			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
-				#{srchCtgryNo}
-			</foreach>
-			OR
-			gc1.up_ctgry_no IN
-			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
-				#{srchCtgryNo}
-			</foreach>
-			OR
-			gc2.up_ctgry_no IN
-			<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
-				#{srchCtgryNo}
-			</foreach>
-			)
-		</if>
+		<choose>
+			<when test="@icube.common.util.StringUtil@isNotEmpty(srchRecsCtgryNo)">
+				AND g.ctgry_no IN ( SELECT CTGRY_NO FROM recs )
+			</when>
+			<when test="@icube.common.util.StringUtil@isNotEmpty(srchCtgryNos)">
+				AND (g.ctgry_no IN
+				<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+					#{srchCtgryNo}
+				</foreach>
+				OR
+				gc2.up_ctgry_no IN
+				<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+					#{srchCtgryNo}
+				</foreach>
+				OR
+				gc1.up_ctgry_no IN
+				<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+					#{srchCtgryNo}
+				</foreach>
+				OR
+				gc2.up_ctgry_no IN
+				<foreach collection="srchCtgryNos" item="srchCtgryNo" open="(" separator="," close=")">
+					#{srchCtgryNo}
+				</foreach>
+				)
+			</when>
+		</choose>
+		
 
 		<if test="srchGdsCd !=null and srchGdsCd != ''">
 			AND g.gds_cd = #{srchGdsCd}
@@ -298,6 +318,9 @@
 	<!-- Define gds List Query -->
 	<select id="selectGdsListVO" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
 		/* Query ID : gds.selectGdsListVO */
+		
+		<include refid="searchRecsCtgryNo" />
+
 		SELECT
 			<include refid="listColumn"/>
 			<if test="uniqueId !=null and uniqueId != '' ">
@@ -315,6 +338,9 @@
 
 	<!-- Define gds Count Query -->
 	<select id="selectGdsCount" parameterType="java.util.HashMap" resultType="int">
+	
+		<include refid="searchRecsCtgryNo" />
+		
 		/* Query ID : gds.selectGdsCount */
 		SELECT	COUNT(*)
 		FROM GDS g

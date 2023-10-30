@@ -1,11 +1,17 @@
 package icube.manage.mbr.mbr;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -29,7 +35,9 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.DateUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.util.RandomUtil;
@@ -44,6 +52,7 @@ import icube.manage.consult.biz.GdsReviewService;
 import icube.manage.consult.biz.GdsReviewVO;
 import icube.manage.consult.biz.MbrInqryService;
 import icube.manage.consult.biz.MbrInqryVO;
+import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
@@ -180,13 +189,22 @@ public class MMbrController extends CommonAbstractController {
         }
         
         listVO = mbrService.mbrListVO(listVO);
+        
+        if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
+        	int ifor, ilen = listVO.getListObject().size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)listVO.getListObject().get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
         model.addAttribute("listVO", listVO);
         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
         model.addAttribute("grade", CodeMap.GRADE);
         model.addAttribute("gender", CodeMap.GENDER);
-        
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
         model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
         model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
@@ -364,6 +382,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("authResnCd", CodeMap.AUTH_RESN_CD);
         model.addAttribute("norResnCd", CodeMap.NOR_RESN_CD);
         model.addAttribute("recipter", CodeMap.RECIPTER_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
         model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
         return "/manage/mbr/manage/view";
@@ -555,6 +574,7 @@ public class MMbrController extends CommonAbstractController {
     	model.addAttribute("ordrCoursCode", CodeMap.JOIN_COURS);
     	model.addAttribute("stlmTyCode", CodeMap.BASS_STLM_TY);
     	model.addAttribute("mberGradeCode", CodeMap.GRADE);
+    	model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
     	return "/manage/mbr/manage/ordr";
     }
@@ -591,6 +611,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mlgSeCode", CodeMap.POINT_SE);
         model.addAttribute("mlgCnCode", CodeMap.POINT_CN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/mlg";
     }
@@ -621,6 +642,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("resultMap", resultMap);
         model.addAttribute("couponTyCode", CodeMap.COUPON_TY);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/coupon";
     }
@@ -656,6 +678,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("pointCnCode", CodeMap.POINT_CN);
         model.addAttribute("pointSeCode", CodeMap.POINT_SE);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/point";
     }
@@ -682,6 +705,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("listVO", listVO);
         model.addAttribute("playSttusCode", CodeMap.PLAY_STTUS);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/event";
     }
@@ -716,6 +740,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
         model.addAttribute("useYnCode", CodeMap.USE_YN);
         model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/review";
     }
@@ -749,6 +774,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("listVO", listVO);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/qna";
     }
@@ -775,6 +801,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
         model.addAttribute("useYnCode", CodeMap.USE_YN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/qnaView";
     }
@@ -803,6 +830,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("inqryTyCode1", CodeMap.INQRY_TY_NO1);
         model.addAttribute("inqryTyCode2", CodeMap.INQRY_TY_NO2);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/question";
     }
@@ -830,6 +858,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("inqryTyCode2", CodeMap.INQRY_TY_NO2);
         model.addAttribute("ansYnCode", CodeMap.ANS_YN);
         model.addAttribute("mberGradeCode", CodeMap.GRADE);
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
 
         return "/manage/mbr/manage/questionView";
@@ -862,44 +891,91 @@ public class MMbrController extends CommonAbstractController {
     	model.addAttribute("cartList", cartList);
     	model.addAttribute("wishList", wishList);
     	model.addAttribute("mberGradeCode", CodeMap.GRADE);
+    	model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
 
         return "/manage/mbr/manage/favorite";
     }
 
     @RequestMapping("excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-         String[] grade = new String[5];
-         boolean result = false;
+		String[] grade = new String[5];
+		boolean result = false;
 
-         for(int i=0; i < 5; i++) {
-         	if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchGrade"+i))) {
-         		grade[i] = ((String)reqMap.get("srchGrade"+i));
-         	}
-         }
+		for(int i=0; i < 5; i++) {
+			if(EgovStringUtil.isNotEmpty((String)reqMap.get("srchGrade"+i))) {
+				grade[i] = ((String)reqMap.get("srchGrade"+i));
+		 	}
+		 }
 
-         for(int h=0; h < 5; h++) {
-         	if(EgovStringUtil.isNotEmpty(grade[h])) {
-         		result = true;
-         	}
-         }
+		 for(int h=0; h < 5; h++) {
+		 	if(EgovStringUtil.isNotEmpty(grade[h])) {
+		 		result = true;
+		 	}
+		 }
 
-         if(result) {
-         	reqMap.put("srchGrade", grade);
-         }
+        if(result) {
+        	reqMap.put("srchGrade", grade);
+        }
 
-         List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
+        List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
 
-         model.addAttribute("mbrList", mbrList);
-         model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
-         model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
-         model.addAttribute("grade", CodeMap.GRADE);
-         model.addAttribute("gender", CodeMap.GENDER);
+         if (mbrList != null && !mbrList.isEmpty()) {
+        	int ifor, ilen = mbrList.size();
+        	MbrVO vo;
+        	for(ifor=0 ; ifor<ilen ; ifor++) {
+        		vo = (MbrVO)mbrList.get(ifor);
+                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+        	}
+        }
 
-         return "/manage/mbr/manage/excel";
+	    model.addAttribute("mbrList", mbrList);
+	    model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
+	    model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
+	    model.addAttribute("grade", CodeMap.GRADE);
+	    model.addAttribute("gender", CodeMap.GENDER);
+
+        // excel data
+        Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+        mapping.put("번호", obj -> "rowNum");
+        mapping.put("아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
+        mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrVO)obj).getGender()));
+        mapping.put("생년월일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getBrdt()));
+        mapping.put("회원분류(회원등급)", obj -> {
+        	String recipterYn = CodeMap.RECIPTER_YN.get(((MbrVO)obj).getRecipterYn());
+        	String mbrGrade = CodeMap.GRADE.get(((MbrVO)obj).getMberGrade());
+        	return recipterYn + "(" + mbrGrade + ")";
+        });
+        mapping.put("가입일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getJoinDt()));
+        mapping.put("가입매체", obj -> ((MbrVO)obj).getJoinCours());
+
+
+        List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+
+
+        for (MbrVO mbrVO : mbrList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(mbrVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "회원목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
+
 	}
 
     @RequestMapping(value = "{uniqueId}/chgGrade.json")

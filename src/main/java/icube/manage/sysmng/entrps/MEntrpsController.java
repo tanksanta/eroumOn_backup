@@ -1,11 +1,17 @@
 package icube.manage.sysmng.entrps;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -21,9 +27,11 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.CommonUtil;
+import icube.common.util.ExcelExporter;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.promotion.point.biz.PointMngVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -139,20 +147,44 @@ public class MEntrpsController extends CommonAbstractController {
 	 * @return list
 	 */
 	@RequestMapping(value = "excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
-			, Model model
-			) throws Exception {
+			, Model model ) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
 
-		model.addAttribute("entrpsList", entrpsList);
-		model.addAttribute("keyTy", CodeMap.ENTRPS_KEY_TY);
-		model.addAttribute("useYn", CodeMap.USE_YN);
+		// excel data
+        Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+        mapping.put("번호", obj -> "rowNum");
+        mapping.put("상호/법인명", obj -> ((EntrpsVO)obj).getEntrpsNm());
+        mapping.put("담당자", obj -> ((EntrpsVO)obj).getPicNm());
+        mapping.put("사업자번호", obj -> ((EntrpsVO)obj).getBrno());
+        mapping.put("대표자", obj -> ((EntrpsVO)obj).getRprsvNm());
+        mapping.put("등록일", obj ->  new SimpleDateFormat("yyyy-MM-dd").format(((EntrpsVO)obj).getRegDt()));
+        mapping.put("상태", obj -> CodeMap.USE_YN.get( ((EntrpsVO)obj).getUseYn()) );
 
-		return "/manage/sysmng/entrps/excel";
+        List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+        for (EntrpsVO entrpsVO : entrpsList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(entrpsVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "입점업체_목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
+
 	}
 
 

@@ -5,10 +5,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.AbstractView;
+
+import icube.common.util.HtmlUtil;
+import icube.common.util.egov.EgovDoubleSubmitHelper;
+import java.util.HashMap;
 
 @Component("javascript")
 public class JavaScriptView extends AbstractView {
@@ -67,12 +72,54 @@ public class JavaScriptView extends AbstractView {
 			if(!"".equals(script.getMessage())) {
 				out.println("alert(\"" + script.getMessage() + "\");");
 			}
-			if(!"".equals(script.getLocation())) {
-				out.println("location.href = \"" + script.getLocation() + "\";");
+			
+			String location = script.getLocation();
+			String httpMethod = script.getHttpMethod();
+			String sTemp;
+			
+			if (httpMethod != null && httpMethod.equals("POST") && !"".equals(location) && script.getReqParams() != null) {
+				out.println("document.addEventListener(\"DOMContentLoaded\", function(){");
+				out.println(	"const form = document.createElement('form');");
+				out.println(	"form.setAttribute('method', 'POST');");
+				out.println(	"form.setAttribute('action', '" + location + "');");
+				
+				int ifor=1;
+				boolean bToken = false;
+				if (script.getJsonObject() != null && script.getJsonObject().get("loginRedirectDoubleSubmit").equals("1")) {
+					bToken = true;
+				}
+				Map<String, Object> reqParams = script.getReqParams();
+				for( String strKey : reqParams.keySet() ){
+					if (strKey.equals(EgovDoubleSubmitHelper.SESSION_TOKEN_KEY) || strKey.equals(EgovDoubleSubmitHelper.PARAMETER_NAME) || strKey.equals("preventTokenKey")) {
+						bToken = true;
+						continue;
+					}
+					
+					sTemp = HtmlUtil.addElementInputHidden(Integer.toString(ifor), "form", strKey, (String)reqParams.get(strKey));
+					out.println(sTemp);
+					ifor++;
+				}
+				
+				if (bToken) {
+					sTemp = this.getDoubleSubmit(request, "preventTokenKey");
+					sTemp = HtmlUtil.addElementInputHidden(Integer.toString(ifor), "form", EgovDoubleSubmitHelper.PARAMETER_NAME, sTemp);
+					out.println(sTemp);
+
+					ifor++;
+				}
+				
+				out.println(	"document.body.appendChild(form);");
+				out.println(	"form.submit();");
+				out.println("});");
+			}else {
+				if(!"".equals(location)) {
+					out.println("location.href = \"" + location + "\";");
+				}
+				if(!"".equals(script.getMethod())) {
+					out.println(script.getMethod() + ";");
+				}
 			}
-			if(!"".equals(script.getMethod())) {
-				out.println(script.getMethod() + ";");
-			}
+			
 			if(script.getMethods() != null && script.getMethods().length > 0) {
 				for(String method : script.getMethods()) {
 					out.println(method + ";");
@@ -89,6 +136,32 @@ public class JavaScriptView extends AbstractView {
 		out.close();
 		javascript = null;
 
+	}
+	
+	/*
+	 * DoubleSubmitTag.doStartTag에서 발췌
+	 * */
+	protected String getDoubleSubmit(HttpServletRequest request, String tokenKey) {
+		HttpSession session = request.getSession();
+		
+		Map<String, String> map = null;
+		
+		if (session.getAttribute(EgovDoubleSubmitHelper.SESSION_TOKEN_KEY) == null) {
+			map = new HashMap<String, String>();
+			
+			session.setAttribute(EgovDoubleSubmitHelper.SESSION_TOKEN_KEY, map);
+		} else {
+			map = (Map<String, String>) session.getAttribute(EgovDoubleSubmitHelper.SESSION_TOKEN_KEY);
+		}
+		
+		// First call (check session)
+		if (map.get(tokenKey) == null) {
+			map.put(tokenKey, EgovDoubleSubmitHelper.getNewUUID());
+//			LOGGER.debug("[Double Submit] session token created({}) : {}", tokenKey, map.get(tokenKey)); 
+		}
+
+		return map.get(tokenKey);
+		// buffer.append("<input type='hidden' name='").append(EgovDoubleSubmitHelper.PARAMETER_NAME).append("' value='").append(map.get(tokenKey)).append("'/>");
 	}
 
 }

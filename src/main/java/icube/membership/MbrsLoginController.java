@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.util.Base64Util;
 import icube.common.util.CommonUtil;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
@@ -104,6 +106,13 @@ public class MbrsLoginController extends CommonAbstractController  {
 		}
 		session.setAttribute("returnUrl", returnUrl);
 		model.addAttribute("returnUrl", returnUrl);
+		
+		if (EgovStringUtil.null2string((String) model.getAttribute("loginRedirectMethod"), "").equals("POST") ) {
+			model.addAttribute("loginRedirectMethod", EgovStringUtil.null2string((String) model.getAttribute("loginRedirectMethod"), ""));
+			model.addAttribute("loginRedirectUrl", EgovStringUtil.null2string((String) model.getAttribute("loginRedirectUrl"), ""));
+			model.addAttribute("loginRedirectParam", EgovStringUtil.null2string((String) model.getAttribute("loginRedirectParam"), ""));
+			model.addAttribute("loginRedirectDoubleSubmit", EgovStringUtil.null2string((String) model.getAttribute("loginRedirectDoubleSubmit"), ""));
+		}
 
 		return "/membership/login";
 	}
@@ -114,6 +123,10 @@ public class MbrsLoginController extends CommonAbstractController  {
 			MbrVO mbrVO
 			, @RequestParam(defaultValue="N", required=false) String saveId
 			, @RequestParam(value = "returnUrl", required=false) String returnUrl
+			, @RequestParam(value = "loginRedirectMethod", required=false) String loginRedirectMethod
+			, @RequestParam(value = "loginRedirectUrl", required=false) String loginRedirectUrl
+			, @RequestParam(value = "loginRedirectParam", required=false) String loginRedirectParam
+			, @RequestParam(value = "loginRedirectDoubleSubmit", required=false) String loginRedirectDoubleSubmit
 			, @RequestParam(required=true, value="mbrId") String mbrId
 			, @RequestParam(required=true, value="encPw") String encPw
 			, HttpServletRequest request
@@ -202,7 +215,17 @@ public class MbrsLoginController extends CommonAbstractController  {
 									mbrService.updateFailedLoginCountReset(mbrVO);
 
 									// return page check
-									if (EgovStringUtil.isNotEmpty(returnUrl)) {
+									if (EgovStringUtil.isNotEmpty(loginRedirectMethod) && loginRedirectMethod.equals("POST") 
+											&& EgovStringUtil.isNotEmpty(loginRedirectUrl) && EgovStringUtil.isNotEmpty(loginRedirectParam)) {
+										
+										JSONObject jObj = new JSONObject();
+										jObj.put("loginRedirectDoubleSubmit", loginRedirectDoubleSubmit);
+										
+										javaScript.setHttpMethod(loginRedirectMethod);
+										javaScript.setLocation(Base64Util.decoder(loginRedirectUrl));
+										javaScript.setReqParamsBase64(loginRedirectParam);
+										javaScript.setJsonObject(jObj);
+									} else if (EgovStringUtil.isNotEmpty(returnUrl)) {
 										javaScript.setLocation(returnUrl);
 									} else {
 										javaScript.setLocation("/" + mainPath);

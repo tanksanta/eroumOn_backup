@@ -13,7 +13,8 @@
     <meta property="og:title" content="이로움ON : 시니어 정보 플랫폼" >
     <meta property="og:description" content="장기요양인정 등급 테스트부터 우리 동네 복지혜택, 복지용구 구매까지. 소중한 부모님과 나를 위한 서비스를 이로움온이 제공합니다." >
 
-    <title>이로움ON</title>
+    <title>이로움ON : 시니어 정보 플랫폼</title>
+    <meta name="description" content="장기요양인정 등급 테스트부터 우리 동네 복지혜택, 복지용구 구매까지. 소중한 부모님과 나를 위한 서비스를 이로움온이 제공합니다.">
 
     <!-- Google tag (gtag.js) -->
     <c:set var="googleAnalyticsId"><spring:eval expression="@props['Google.Analytics.Id']"/></c:set>
