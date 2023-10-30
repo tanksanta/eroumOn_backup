@@ -80,7 +80,7 @@
                     <div class="myinfo-box1">
                         <p class="name" ><span class="blurring2"><span class="mask"></span><span class="searchNm">이로미</span></span>&nbsp; 님
                             <c:if test="${_mbrSession.loginCheck}">
-                                <a href="/membership/mypage/list">정보수정</a>
+                                <a href="/membership/info/recipients/view?recipientsNo=${recipientsNo}">정보수정</a>
                             </c:if>
                         </p>
                         <dl class="numb">
