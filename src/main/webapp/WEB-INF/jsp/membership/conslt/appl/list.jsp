@@ -155,7 +155,7 @@
 								<c:choose>
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() == 1}">
 										<strong>${resultList.consltResultList[0].bplcNm}</strong>
-										<c:if test="${resultList.consltResultList[0].consltSttus == 'CS06'}">
+										<c:if test="${resultList.consltSttus == 'CS06'}">
 											<c:if test="${!empty resultList.consltResultList[0].bplcInfo}">
 												<a href="tel:${resultList.consltResultList[0].bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
 											</c:if>
@@ -178,20 +178,22 @@
 											[${resultList.consltResultList.size() - status.index}차] ${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcNm}<br>
 										</c:forEach>
 										
-										<div class="item-request justify-end">
-											<div class="flex items-center">
-												<c:set var="lastBplcUniqueId" value="${resultList.consltResultList[resultList.consltResultList.size() - 1].bplcUniqueId}" />
-			                                    
-			                                    <label class="check1">
-			                                        <input type="checkbox" name="recommend" value="${lastBplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
-			                                        <span>추천하기</span>
-			                                    </label>
-			                                    <label class="check2">
-			                                        <input type="checkbox" name="itrst" value="${lastBplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
-			                                        <span>관심설정</span>
-			                                    </label>
+										
+										<c:set var="lastBplcUniqueId" value="${resultList.consltResultList[resultList.consltResultList.size() - 1].bplcUniqueId}" />
+										<c:if test="${resultList.consltSttus == 'CS06'}">
+											<div class="item-request justify-end">
+												<div class="flex items-center">
+				                                    <label class="check1">
+				                                        <input type="checkbox" name="recommend" value="${lastBplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
+				                                        <span>추천하기</span>
+				                                    </label>
+				                                    <label class="check2">
+				                                        <input type="checkbox" name="itrst" value="${lastBplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == lastBplcUniqueId).count() > 0}">checked</c:if>>
+				                                        <span>관심설정</span>
+				                                    </label>
+				                                </div>
 			                                </div>
-		                                </div>
+		                                </c:if>
 									</c:when>
 									<c:otherwise>
 										(배정중)
