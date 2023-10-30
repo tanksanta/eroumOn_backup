@@ -217,8 +217,9 @@
 					<c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
 					<c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}광역시" /></c:if>
 	
+					<option value="">전체</option>
 					<c:forEach var="stdg" items="${stdgCdList}">
-						<option value="${stdg.stdgCd}" <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if><c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr }">selected="selected"</c:if>>${stdg.ctpvNm}</option>
+						<option value="${stdg.stdgCd}">${stdg.ctpvNm}</option>
 					</c:forEach>
 				</select>
 				<select name="select-gugun" class="form-control border-light">
@@ -308,6 +309,9 @@
 		//선택된 지역 가져오기
 		var sido = $('select[name=select-sido] option:selected').text();
 		var gugun = $('select[name=select-gugun] option:selected').text();
+		if (sido === '전체') {
+			gugun = '전체';
+		}
 		
 		//검색 API 실행
 		var params = {
@@ -358,6 +362,12 @@
 			for(var i = 0; i < srvcList.length; i++) {
 				var categoryText = srvcList[i].categoryList.join(' ∙ ');
 				var colorCode = getColorCode(categoryText);
+				var area = '';
+				if (sido === '전체') {
+					area = sido;
+				} else {
+					area = sido + ' ' + gugun;
+				}
 				
 				template += `<a class="content-item is-color` + colorCode + `" onclick="viewSrvcDetail(` + srvcList[i].bokjiId + `)">
 					<div class="content">
@@ -365,7 +375,7 @@
 							<div class="content-inner-text">
 							 	<div>
 									<span class="badge-city">` + srvcList[i].bokjiProviderName + `</span>
-									<span class="text-gray6 text-xs">`+ sido + ` ` + gugun + `</span>
+									<span class="text-gray6 text-xs">` + area + `</span>
 								</div>
 								<p class="name">` + srvcList[i].benefitName + `</p>
 								<p class="type">
