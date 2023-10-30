@@ -175,9 +175,14 @@
 									</c:when>
 									<c:when test="${resultList.consltResultList != null && resultList.consltResultList.size() > 1}">
 										<c:forEach var="consltResultInfo" items="${resultList.consltResultList}" varStatus="status">
-											[${resultList.consltResultList.size() - status.index}차] ${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcNm}<br>
+											[${resultList.consltResultList.size() - status.index}차] ${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcNm}
+											
+											<c:if test="${resultList.consltSttus == 'CS06' && status.index == 0 && !empty resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcInfo}">
+												&nbsp;<a href="tel:${resultList.consltResultList[resultList.consltResultList.size() - (status.index + 1)].bplcInfo.telno}" class="mobile-tel-btn"><i class="icon-tel"></i></a>
+											</c:if>
+											
+											<br>
 										</c:forEach>
-										
 										
 										<c:set var="lastBplcUniqueId" value="${resultList.consltResultList[resultList.consltResultList.size() - 1].bplcUniqueId}" />
 										<c:if test="${resultList.consltSttus == 'CS06'}">
