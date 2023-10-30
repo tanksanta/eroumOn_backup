@@ -80,35 +80,35 @@
         </div>
         <ul class="grade-taps simple-inquiry mt-19 md:mt-24">
             <li class="taps-item is-active">
-                <a href="#slide-item1">
+                <a href="#slide-item6">
                     <i><img src="/html/page/index/assets/images/ico-grade-info6.svg" alt="사람 아이콘"></i>
                     <span>요양정보 확인</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
             <li class="taps-item">
-                <a href="#slide-item2">
+                <a href="#slide-item7">
                     <i><img src="/html/page/index/assets/images/ico-grade-info2.svg" alt="금액 아이콘"></i>
                     <span>남은 장기요양금액</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
             <li class="taps-item">
-                <a href="#slide-item3">
+                <a href="#slide-item8">
                     <i><img src="/html/page/index/assets/images/ico-grade-info3.svg" alt="복지용구 아이콘"></i>
                     <span>보유 중인 복지용구</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
             <li class="taps-item">
-                <a href="#slide-item4">
+                <a href="#slide-item9">
                     <i><img src="/html/page/index/assets/images/ico-grade-info11.svg" alt="지팡이 아이콘"></i>
                     <span>구매 예상 복지용구</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
             <li class="taps-item">
-                <a href="#slide-item5">
+                <a href="#slide-item10">
                     <i><img src="/html/page/index/assets/images/ico-grade-info4.svg" alt="헤드셋 아이콘"></i>
                     <span>전문가 상담과 혜택신청</span>
                 </a>
