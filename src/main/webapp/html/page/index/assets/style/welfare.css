@@ -742,7 +742,7 @@
                sm:inline-flex;
         & i {
             @apply block relative ml-1 w-7.5 h-7.5 rounded-full
-                   after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-4 after:h-4 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(../images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
+                after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-4 after:h-4 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(../images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
         }
     }
 }
@@ -750,176 +750,200 @@
 .is-color1 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category1-on.svg)];
-        background: var(--key1-gradient2);
+        /* background: var(--key1-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key1)];
+            /* @apply text-[var(--key1)]; */
+            @apply text-black1;
             & i {
-                background: var(--key1-gradient2);
+                /* background: var(--key1-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key1-gradient2);
+        /* background: var(--key1-gradient2); */
+        @apply bg-indexKey1;
     } 
 }
 
 .is-color2 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category2-on.svg)];
-        background: var(--key2-gradient2);
+        /* background: var(--key2-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key2)];
+            /* @apply text-[var(--key2)]; */
+            @apply text-black1;
             & i {
-                background: var(--key2-gradient2);
+                /* background: var(--key2-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key2-gradient2);
+        /* background: var(--key2-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color3 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category3-on.svg)];
-        background: var(--key3-gradient2);
+        /* background: var(--key3-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key3)];
+            /* @apply text-[var(--key3)]; */
+            @apply text-black1;
             & i {
-                background: var(--key3-gradient2);
+                /* background: var(--key3-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key3-gradient2);
+        /* background: var(--key3-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color4 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category4-on.svg)];
-        background: var(--key4-gradient2);
+        /* background: var(--key4-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key4)];
+            /* @apply text-[var(--key4)]; */
+            @apply text-black1;
             & i {
-                background: var(--key4-gradient2);
+                /* background: var(--key4-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key4-gradient2);
+        /* background: var(--key4-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color5 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category5-on.svg)];
-        background: var(--key5-gradient2);
+        /* background: var(--key5-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key5)];
+            /* @apply text-[var(--key5)]; */
+            @apply text-black1;
             & i {
-                background: var(--key5-gradient2);
+                /* background: var(--key5-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key5-gradient2);
+        /* background: var(--key5-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color6 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category6-on.svg)];
-        background: var(--key6-gradient2);
+        /* background: var(--key6-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent; 
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key6)];
+            /* @apply text-[var(--key6)]; */
+            @apply text-black1;
             & i {
-                background: var(--key6-gradient2);
+                /* background: var(--key6-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key6-gradient2);
+        /* background: var(--key6-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color7 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category7-on.svg)];
-        background: var(--key7-gradient2);
+        /* background: var(--key7-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key7)];
+            /* @apply text-[var(--key7)]; */
+            @apply text-black1;
             & i {
-                background: var(--key7-gradient2);
+                /* background: var(--key7-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key7-gradient2);
+        /* background: var(--key7-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
 .is-color8 {
     & .modal-detail-title {
         @apply before:bg-[url(../images/ico-welfare-category8-on.svg)];
-        background: var(--key8-gradient2);
+        /* background: var(--key8-gradient2);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
-        -moz-text-fill-color: transparent;
+        -moz-text-fill-color: transparent; */
     }
     & .modal-detail-content {
         & .share {
-            @apply text-[var(--key8)];
+            /* @apply text-[var(--key8)]; */
+            @apply text-black1;
             & i {
-                background: var(--key8-gradient2);
+                /* background: var(--key8-gradient2); */
+                @apply bg-indexKey1;
             }
         }
     }
     & .label, & .btn {
-        background: var(--key8-gradient2);
+        /* background: var(--key8-gradient2); */
+        @apply bg-indexKey1;
     }
 }
 
