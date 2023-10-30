@@ -77,9 +77,24 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		Map<Integer, MbrConsltVO> mbrConsltMap = new HashMap<>();
 		List<MbrRecipientsVO> mbrRecipientsList = mbrVO.getMbrRecipientsList();
 		if (mbrRecipientsList != null && mbrRecipientsList.size() > 0) {
+			MbrRecipientsVO mainRecipient = null;
+			int mainRecipientIndex = -1;
+			
 			for(int i = 0; i < mbrRecipientsList.size(); i++) {
-				MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(mbrRecipientsList.get(i).getRecipientsNo());
-				mbrConsltMap.put(mbrRecipientsList.get(i).getRecipientsNo(), mbrConslt);
+				MbrRecipientsVO curRecipient = mbrRecipientsList.get(i);
+				MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo());
+				mbrConsltMap.put(curRecipient.getRecipientsNo(), mbrConslt);
+				
+				if ("Y".equals(curRecipient.getMainYn())) {
+					mainRecipient = curRecipient;
+					mainRecipientIndex = i;
+				}
+			}
+			
+			//메인수급자가 제일 앞으로 오도록 처리
+			if (mainRecipient != null) {
+				mbrRecipientsList.remove(mainRecipientIndex);
+				mbrRecipientsList.add(0, mainRecipient);
 			}
 		}
 		model.addAttribute("mbrVO", mbrVO);
