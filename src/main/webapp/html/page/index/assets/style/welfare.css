@@ -967,9 +967,10 @@
 }
 
 .recommended-hot {
-    @apply  grid md:grid-cols-4 lg:grid-rows-3 lg:grid-cols-5 gap-6 mb-24 tracking-tight;
+    @apply  grid grid-cols-2 md:grid-cols-4 lg:grid-rows-3 lg:grid-cols-5 gap-5 md:gap-6 mb-24 tracking-tight;
+    @media (max-width: 414px) {grid-template-columns: repeat(2, 1fr) }
     & .recommended-hot-border {
-        @apply col-span-1 p-5 border border-[#DADADD] rounded-lg transition-all duration-300; 
+        @apply col-span-1 p-3 sm:p-5 border border-[#DADADD] rounded-lg transition-all duration-300; 
         &:hover {
             @apply border-[#FF8300] shadow-lg rounded-lg;
             & .btn-detail {
