@@ -201,35 +201,35 @@
                 </div>
                 <ul class="grade-taps simple-inquiry mt-19 md:mt-24">
                     <li class="taps-item is-active">
-                        <a href="#slide-item1" title="요양정보 확인">
+                        <a href="#slide-item6" title="요양정보 확인">
                             <i><img src="../assets/images/ico-grade-info6.svg" alt="사람 아이콘"></i>
                             <span>요양정보 확인</span>
                         </a>
                     </li>
                     <li class="taps-spacer"></li>
                     <li class="taps-item">
-                        <a href="#slide-item2" title="남은 장기요양금액">
+                        <a href="#slide-item7" title="남은 장기요양금액">
                             <i><img src="../assets/images/ico-grade-info2.svg" alt="금액 아이콘"></i>
                             <span>남은 장기요양금액</span>
                         </a>
                     </li>
                     <li class="taps-spacer"></li>
                     <li class="taps-item">
-                        <a href="#slide-item3" title="보유 중인 복지용구">
+                        <a href="#slide-item8" title="보유 중인 복지용구">
                             <i><img src="../assets/images/ico-grade-info3.svg" alt="복지용구 아이콘"></i>
                             <span>보유 중인 복지용구</span>
                         </a>
                     </li>
                     <li class="taps-spacer"></li>
                     <li class="taps-item">
-                        <a href="#slide-item4">
+                        <a href="#slide-item9">
                             <i><img src="../assets/images/ico-grade-info11.svg" alt="지팡이 아이콘"></i>
                             <span>구매 예상 복지용구</span>
                         </a>
                     </li>
                     <li class="taps-spacer"></li>
                     <li class="taps-item">
-                        <a href="#slide-item5">
+                        <a href="#slide-item10">
                             <i><img src="../assets/images/ico-grade-info4.svg" alt="헤드셋 아이콘"></i>
                             <span>전문가 상담과 혜택신청</span>
                         </a>
@@ -447,8 +447,11 @@
 
                     new Swiper(slider.find('.swiper').get(0), {
                         loop: true,
-                        speed: 3000,
-                        autoplay: true,
+                        speed: 1000,
+                        autoplay: {
+                            speed: 5000,
+                            disableOnInteraction: false,
+                        },
                         navigation: {
                             prevEl: slider.find('.swiper-button-prev').get(0),
                             nextEl: slider.find('.swiper-button-next').get(0)
@@ -468,14 +471,14 @@
                 $('.grade-taps a').on('click', function () {
                     var target = $($(this).attr('href'));
                     var slider = $(target).closest('.swiper').get(0).swiper;
-                    // var slider = $(target).closest('.swiper').swiper;
+// var slider = $(target).closest('.swiper').swiper;
 
                     console.log(slider)
 
                     $(this).parent().addClass('is-active').siblings().removeClass('is-active');
 
                     slider.slideTo(target.index())
-
+                    
                     $(window).scrollTop(target.closest('[class*="grade-content"]').find('.grade-taps').offset().top - ($('#header').outerHeight() + 20))
 
                     return false;
