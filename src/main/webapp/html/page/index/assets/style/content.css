@@ -1745,10 +1745,16 @@
                 }
             }
         }
-
-
         & .grade-taps {
             @apply md:max-w-[47.25rem];
+
+            & .taps-item {
+
+                @apply w-33;
+              & span {
+                @apply whitespace-nowrap;
+               } 
+            }
         }
 
         & .text-link {
@@ -1778,19 +1784,6 @@
                 @apply w-10/12;
             } 
 
-            /* &:first-of-type {
-                @apply  z-15;
-            }
-            &:last-of-type {
-                @apply w-10/12 border border-gray-700 z-5;
-            } 
-            &:not(:last-of-type):not(:first-of-type) {
-                @apply z-10;
-            }
-            &:not(:first-of-type) {
-                @apply -mt-20;
-            } */
-
             &.is-active {
                 @apply h-54 md:h-70;
             }
@@ -1803,28 +1796,23 @@
     & .grade-slider {
         & .swiper {
             @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]
-                   md:h-[28.125rem];
+                md:h-[28.125rem];
         }
         & .swiper-slide {
             @apply pt-8 px-5 text-center tracking-tighter text-sm
-                   md:pt-8.5;
+                md:pt-8.5;
             & img {
                 @apply mx-auto;
             }
         }
     }
     &.simple-inquiry {
-        /* & .grade-slider .swiper-slide {
-            @apply shadow-lg;
-        } */
         & .grade-taps {
             @apply max-w-[27.25rem];
         }
         & .grade-slider {
-          
             & .swiper {
                 @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]  shadow-lg;
-               
             }
         }
     }
@@ -1860,8 +1848,12 @@
             }
         }
 
-        & .grade-taps .taps-item span {
-            @apply whitespace-nowrap;
+        & .grade-taps .taps-item {
+
+            @apply w-33;
+            & span {
+                @apply whitespace-nowrap;
+            } 
         }
     }
 }
@@ -1875,7 +1867,6 @@
         @apply before:bg-[#EAEFFC];
     }
 }
-
 .grade-content1, .grade-content2, .grade-content3, .grade-content4 {
     &.simple-inquiry {
         & .taps-item {
@@ -1904,24 +1895,24 @@
 
 .result-share {
     @apply inline-block relative w-9 h-9 overflow-hidden rounded-full bg-no-repeat bg-[#777] bg-[center_top_calc(50%+1px)] bg-[length:40%] bg-[url(../images/ico-grade-share.svg)] -indent-96
-           md:w-[3.125rem] md:h-[3.125rem]
+        md:w-[3.125rem] md:h-[3.125rem]
 }
 
 .result-question {
     @apply flex justify-center items-center gap-2.5 text-2xl font-bold min-h-10
-           md:flex-col md:text-5xl;
+        md:flex-col md:text-5xl;
 }
 
 [class*="result-answer"] {
     @apply flex flex-wrap flex-col gap-1.5 py-4 px-5 rounded-lg bg-white
-           md:flex-row md:items-center md:px-7.5;
+        md:flex-row md:items-center md:px-7.5;
     & dt {
         @apply text-lg font-medium
-               md:text-[1.375rem];
+        md:text-[1.375rem];
     }
     & dd {
         @apply py-2.5 px-5 rounded-lg border border-[#ccc] bg-[#f8f8f8] text-center text-base tracking-tight
-               md:text-xl;
+        md:text-xl;
     }
 }
 
@@ -1936,20 +1927,17 @@
 
 .result-answer2 {
     & dt {
-        @apply w-full
-               md:mb-3.5;
+        @apply w-full md:mb-3.5;
     }
 }
 
 .result-answer3 {
     @apply flex-col items-start;
     & dt {
-        @apply w-full
-               md:mb-3.5;
+        @apply w-full md:mb-3.5;
     }
     & dd {
-        @apply w-full text-left
-               md:w-auto;
+        @apply w-full text-left md:w-auto;
     }
 }
 
@@ -1957,8 +1945,7 @@
     @apply relative;
     & .grade-title {
         & small {
-            @apply mt-2 mb-0
-                   md:mt-3;
+            @apply mt-2 mb-0 md:mt-3;
         }
     }
 }
@@ -1966,12 +1953,10 @@
 .result-content1 {
     @apply pb-10;
     & .grade-title2 {
-        @apply mb-39
-               md:mb-22;
+        @apply mb-39 md:mb-22;
     }
     & .warning {
-        @apply hidden py-2.5 text-center text-sm
-               md:block;
+        @apply hidden py-2.5 text-center text-sm md:block;
         & strong {
             @apply underline text-[#FD8106];
         }
@@ -1982,8 +1967,7 @@
                before:absolute before:-z-5 before:top-0 before:bottom-0 before:left-1/2 before:w-screen before:-translate-x-1/2 before:bg-[#fceac866]
                md:pt-10 md:pb-44;
         & .container {
-            @apply relative mx-auto max-w-[62.5rem]
-                   md:pl-71;
+            @apply relative mx-auto max-w-[62.5rem] md:pl-71;
         }
         & .grade {
             @apply flex flex-col items-center justify-center absolute -top-44 left-1/2 w-[9.375rem] h-[9.375rem] bg-cover bg-[url(../images/bg-grade-result.svg)] text-lg font-light text-white -translate-x-1/2

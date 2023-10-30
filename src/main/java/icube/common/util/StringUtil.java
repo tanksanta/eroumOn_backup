@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -161,6 +163,86 @@ public class StringUtil {
 		return remove(str, '-');
 	}
 
+	/**
+	 * <p>기준 문자열에 포함된 모든 대상 문자(char)를 제거한다.</p>
+	 *
+	 * <pre>
+	 * StringUtil.remove(null, *)       = null
+	 * StringUtil.remove("", *)         = ""
+	 * StringUtil.remove("queued", 'u') = "qeed"
+	 * StringUtil.remove("queued", 'z') = "queued"
+	 * </pre>
+	 *
+	 * @param str  입력받는 기준 문자열
+	 * @param remove  입력받는 문자열에서 제거할 대상 문자열
+	 * @return 제거대상 문자열이 제거된 입력문자열. 입력문자열이 null인 경우 출력문자열은 null
+	 */
+	public static String remove(String str, char remove) {
+		if (isEmpty(str) || str.indexOf(remove) == -1) {
+			return str;
+		}
+		char[] chars = str.toCharArray();
+		int pos = 0;
+		for (int i = 0; i < chars.length; i++) {
+			if (chars[i] != remove) {
+				chars[pos++] = chars[i];
+			}
+		}
+		return new String(chars, 0, pos);
+	}
+
+	public static int arraySearchIndex(String [] obj, String key) {
+		int result = -1;
+		if (isEmpty(obj) || obj.length < 1) {
+			return result;
+		}
+
+		for (int i = 0; i < obj.length; i++) {
+			if (key.equals(obj[i].trim())) {
+				result = i;
+			}
+		}
+		return result;
+	}
+
+	public static List<String> setDateList(String startDate, String endDate, String format) {
+	    List<String> dateList = new ArrayList<String>();
+	    SimpleDateFormat formatter = new SimpleDateFormat(format);
+	    try {
+	        Calendar beginDate = Calendar.getInstance();
+	        Calendar stopDate = Calendar.getInstance();
+	        beginDate.setTime(formatter.parse(startDate));
+	        stopDate.setTime(formatter.parse(endDate));
+	        while (beginDate.compareTo(stopDate) != 1) {
+	            dateList.add(formatter.format(beginDate.getTime()));
+	            beginDate.add(Calendar.DATE, 1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return dateList;
+	}
+
+	public static String arrayToStringGubun(Map<String, Object> map, String key , String gubun) {
+		String[] param = null;
+		String result = "";
+		if(!StringUtil.nvl(map.get(key),"").equals("")){
+			if(map.get(key) instanceof String []){
+				param = (String[])map.get(key);
+				for(int i = 0 ; i < param.length ; i++) {
+					if(i != 0)result = gubun;
+					result += param[i];
+				}
+			}else if(StringUtil.nvl(map.get(key),"").indexOf(",") > (-1)){
+				result= StringUtil.nvl(map.get(key),"").replace(",", gubun);
+			}else{
+				result= StringUtil.nvl(map.get(key),"");
+			}
+		}
+		return result;
+	}
+
+
 	// 이름 가운데 글자 마스킹
 	public static String nameMasking(String name) throws Exception {
 		// 한글만 (영어, 숫자 포함 이름은 제외)
@@ -255,85 +337,5 @@ public class StringUtil {
 		}
 		return cardNo;
 	}
-
-	/**
-	 * <p>기준 문자열에 포함된 모든 대상 문자(char)를 제거한다.</p>
-	 *
-	 * <pre>
-	 * StringUtil.remove(null, *)       = null
-	 * StringUtil.remove("", *)         = ""
-	 * StringUtil.remove("queued", 'u') = "qeed"
-	 * StringUtil.remove("queued", 'z') = "queued"
-	 * </pre>
-	 *
-	 * @param str  입력받는 기준 문자열
-	 * @param remove  입력받는 문자열에서 제거할 대상 문자열
-	 * @return 제거대상 문자열이 제거된 입력문자열. 입력문자열이 null인 경우 출력문자열은 null
-	 */
-	public static String remove(String str, char remove) {
-		if (isEmpty(str) || str.indexOf(remove) == -1) {
-			return str;
-		}
-		char[] chars = str.toCharArray();
-		int pos = 0;
-		for (int i = 0; i < chars.length; i++) {
-			if (chars[i] != remove) {
-				chars[pos++] = chars[i];
-			}
-		}
-		return new String(chars, 0, pos);
-	}
-
-	public static int arraySearchIndex(String [] obj, String key) {
-		int result = -1;
-		if (isEmpty(obj) || obj.length < 1) {
-			return result;
-		}
-
-		for (int i = 0; i < obj.length; i++) {
-			if (key.equals(obj[i].trim())) {
-				result = i;
-			}
-		}
-		return result;
-	}
-
-	public static List<String> setDateList(String startDate, String endDate, String format) {
-	    List<String> dateList = new ArrayList<String>();
-	    SimpleDateFormat formatter = new SimpleDateFormat(format);
-	    try {
-	        Calendar beginDate = Calendar.getInstance();
-	        Calendar stopDate = Calendar.getInstance();
-	        beginDate.setTime(formatter.parse(startDate));
-	        stopDate.setTime(formatter.parse(endDate));
-	        while (beginDate.compareTo(stopDate) != 1) {
-	            dateList.add(formatter.format(beginDate.getTime()));
-	            beginDate.add(Calendar.DATE, 1);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return dateList;
-	}
-
-	public static String arrayToStringGubun(Map<String, Object> map, String key , String gubun) {
-		String[] param = null;
-		String result = "";
-		if(!StringUtil.nvl(map.get(key),"").equals("")){
-			if(map.get(key) instanceof String []){
-				param = (String[])map.get(key);
-				for(int i = 0 ; i < param.length ; i++) {
-					if(i != 0)result = gubun;
-					result += param[i];
-				}
-			}else if(StringUtil.nvl(map.get(key),"").indexOf(",") > (-1)){
-				result= StringUtil.nvl(map.get(key),"").replace(",", gubun);
-			}else{
-				result= StringUtil.nvl(map.get(key),"");
-			}
-		}
-		return result;
-	}
-
 }
 
