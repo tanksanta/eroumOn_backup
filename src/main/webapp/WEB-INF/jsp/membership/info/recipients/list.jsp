@@ -3,14 +3,14 @@
 <main id="container" class="is-mypage-style">
 	<header id="page-title">
 		<h2>
-			<span>수급자상세</span>
+			<span>수급자 관리</span>
 		</h2>
 	</header>
 	
 	<jsp:include page="../../layout/page_nav.jsp" />
 
 	<div id="page-content">               
-		<h3 class="mypage-title2">수급자관리 </h3>
+		<h3 class="mypage-title2">수급자 관리</h3>
 		<div class="mypage-consult-desc text-with-icon">
 			<i class="icon-alert"></i>
 			<p>장기요양보험 수급자와 예비수급자의 정보를 관리할 수 있는 페이지입니다.</p>

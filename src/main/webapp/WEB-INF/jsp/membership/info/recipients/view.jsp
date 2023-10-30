@@ -3,7 +3,7 @@
 <main id="container" class="is-mypage-style">
 	<header id="page-title">
 		<h2>
-			<span>수급자상세</span>
+			<span>수급자 관리</span>
 		</h2>
 	</header>
 
@@ -14,7 +14,7 @@
 			<a href="javascript:history.back();">
 				<i class="icon-back"></i>
 			</a>
-			수급자상세
+			수급자 관리
 		</h3>
 		<div class="mypage-consult-desc text-with-icon">
 			<i class="icon-alert"></i>
