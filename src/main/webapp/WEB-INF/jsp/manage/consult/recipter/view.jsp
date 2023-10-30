@@ -150,7 +150,9 @@
                         </c:if>
                         <c:if test="${mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS07' }">
 	                        <button type="submit" class="btn-success large shadow">저장</button>
-	                        <button type="button" class="btn-warning large shadow" data-bs-toggle="modal" data-bs-target="#modal-consulting-info">정보수정</button>
+                        </c:if>
+                        <c:if test="${mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS05' }">
+                        	<button type="button" class="btn-warning large shadow" data-bs-toggle="modal" data-bs-target="#modal-consulting-info">정보수정</button>
                         </c:if>
                         <a href="./list?${pageParam}" class="btn-secondary large shadow">목록</a>
                     </div>
