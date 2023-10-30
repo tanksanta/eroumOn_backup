@@ -1710,6 +1710,10 @@
 .grade-content1 {
     @apply pt-0 pb-20 md:pb-34;
 
+    & .text-link {
+        @apply text-indexKey1 flex justify-center underline underline-offset-1 text-xl mt-6 md:mt-9.5;
+    }
+
     &.simple-inquiry {
 
         & .grade-text2  {
@@ -1751,9 +1755,9 @@
             & .taps-item {
 
                 @apply md:w-33;
-              & span {
-                @apply whitespace-nowrap;
-               } 
+                & span {
+                    @apply whitespace-nowrap;
+                } 
             }
         }
 
@@ -1850,7 +1854,7 @@
 
         & .grade-taps .taps-item {
 
-            @apply w-33;
+            @apply md:w-33;
             & span {
                 @apply whitespace-nowrap;
             } 

@@ -57,8 +57,13 @@
 	<tiles:insertAttribute name="header"/>
 
 	<tiles:insertAttribute name="content"/>
-
+	
+	<div class="modal2-con">
+	</div>
+	
     <tiles:insertAttribute name="footer"/>
+
+</body>
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>
     <script src="/html/core/vendor/twelements/popper.min.js"></script>

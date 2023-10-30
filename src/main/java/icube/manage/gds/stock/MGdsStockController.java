@@ -1,11 +1,16 @@
 package icube.manage.gds.stock;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.json.simple.JSONArray;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.util.ExcelExporter;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
@@ -97,7 +103,7 @@ public class MGdsStockController extends CommonAbstractController {
 		return resultMap;
 
 	}
-	
+
 	/**
 	 * 상품재고 정보 일괄 수정
 	 * @param request
@@ -111,10 +117,10 @@ public class MGdsStockController extends CommonAbstractController {
 	public Map<String, Object> listAction(
 			@RequestParam(value = "gdsListJson", required=true) String gdsListJson
 			)throws Exception {
-		
+
 		JSONParser parser = new JSONParser();
 		JSONArray gdsList = (JSONArray) parser.parse(gdsListJson);
-		
+
 		for (int i = 0; i < gdsList.size(); i++) {
 			JSONObject gdsMap = (JSONObject) gdsList.get(i);
 			Long gdsOptnNo = (Long) gdsMap.get("gdsOptnNo");
@@ -122,7 +128,7 @@ public class MGdsStockController extends CommonAbstractController {
 			String optnTy = (String) gdsMap.get("optnTy");
 			String stockQy = (String) gdsMap.get("stockQy");
 			String useYn = (String) gdsMap.get("yn");
-			
+
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("gdsOptnNo", gdsOptnNo);
 			paramMap.put("gdsNo", gdsNo);
@@ -132,28 +138,61 @@ public class MGdsStockController extends CommonAbstractController {
 
 			gdsStockService.updateGdsStock(paramMap);
 		}
-		
+
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", true);
 		return resultMap;
 	}
 
 	@RequestMapping(value = "excel")
-	public String excelDownload(
+	public void excelDownload(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model
 			) throws Exception {
 
 		List<GdsVO> itemList = gdsStockService.gdsStockListAll(reqMap);
 
-		model.addAttribute("itemList", itemList);
+		Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
+		mapping.put("상품구분", obj -> CodeMap.GDS_TY.get(((GdsVO)obj).getGdsTy()));
+		mapping.put("상품명", obj -> ((GdsVO)obj).getGdsNm());
+		mapping.put("옵션항목", obj -> ((GdsVO)obj).getOptnNm().trim());
 
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
-		model.addAttribute("useYnCode", CodeMap.USE_YN);
+		mapping.put("판매가", obj -> String.format("%,d", ((GdsVO)obj).getPc()));
+		mapping.put("급여가", obj -> String.format("%,d", ((GdsVO)obj).getBnefPc()));
 
-		return "/manage/gds/stock/excel";
+		mapping.put("재고수량", obj -> {
+			int stockQy = EgovStringUtil.isNotEmpty(((GdsVO)obj).getOptnTy()) ?
+		              ((GdsVO)obj).getOptnStockQy() :
+		              ((GdsVO)obj).getStockQy();
+			return stockQy;
+		});
+		mapping.put("판매여부", obj -> {
+			String useYn = EgovStringUtil.isEmpty(((GdsVO)obj).getOptnTy()) ?
+		               CodeMap.DSPY_YN.get(((GdsVO)obj).getDspyYn()) :
+		               CodeMap.USE_YN.get(((GdsVO)obj).getUseYn());
+			return useYn;
+		});
+
+		List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
+        for (GdsVO gdsVO : itemList) {
+ 		    LinkedHashMap<String, Object> tempMap = new LinkedHashMap<>();
+ 		    for (String header : mapping.keySet()) {
+ 		        Function<Object, Object> extractor = mapping.get(header);
+ 		        if (extractor != null) {
+ 		            tempMap.put(header, extractor.apply(gdsVO));
+ 		        }
+ 		    }
+		    dataList.add(tempMap);
+		}
+
+		ExcelExporter exporter = new ExcelExporter();
+		try {
+			exporter.export(response, "상품재고_관리목록", dataList, mapping);
+		} catch (IOException e) {
+		    e.printStackTrace();
+ 		}
 	}
 
 }

@@ -27,6 +27,7 @@
                 <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5">
 
                 <c:set var="totalDlvyBassAmt" value="0" />
+                <c:set var="totalDlvyAditAmt" value="0" />
                 <c:set var="totalCouponAmt" value="0" />
                 <c:set var="totalAccmlMlg" value="0" />
                 <c:set var="totalOrdrPc" value="0" />
@@ -131,12 +132,14 @@
                                                 	</c:if>
                                                 </dd>
                                             </dl>
-                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
+
+                                            <%-- <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
                                                 <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
-                                            </c:if>
+                                            </c:if> --%>
+
                                         </div>
 										<div class="status">
                                             <div class="box-gray">
@@ -152,7 +155,8 @@
                 	</c:if>
 
 					<%-- 배송비 + 추가배송비 --%>
-					<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.gdsInfo.dlvyBassAmt + ordrDtl.gdsInfo.dlvyAditAmt):0)}" />
+					<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + ordrDtl.dlvyBassAmt}" />
+					<c:set var="totalDlvyAditAmt" value="${totalDlvyAditAmt + ordrDtl.dlvyAditAmt}" />
 					<%-- 적립예정마일리지 --%>
                     <c:set var="totalAccmlMlg" value="${totalAccmlMlg + ordrDtl.accmlMlg}" />
                     <%-- 주문금액 + 옵션금액 --%>
@@ -250,6 +254,12 @@
                                 <dt>배송비</dt>
                                 <dd><strong><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###" /></strong> 원</dd>
                             </dl>
+                            <c:if test="${totalDlvyAditAmt > 0}">
+                            <dl>
+                                <dt>도서산간 추가 배송비</dt>
+                                <dd><strong><fmt:formatNumber value="${totalDlvyAditAmt}" pattern="###,###" /></strong> 원</dd>
+                            </dl>
+                            </c:if>
                         </div>
                     </div>
                     <!-- <i class="amount-calculator is-plus">+</i> -->

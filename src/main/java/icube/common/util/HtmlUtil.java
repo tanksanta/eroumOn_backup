@@ -126,4 +126,26 @@ public class HtmlUtil {
 	    }
 	    return videoId;
 	}
+
+	/*
+	 * ifor 순번(유일값. 의미는 없음)
+	 * html element(<input type="hidden" name="" value="">)를 추가하는 메서드
+	 * strFormNm : 추가할 form명칭
+	 * strInputNm : input tag명
+	 * strVal : 값
+	*/
+	public static String addElementInputHidden(String ifor, String strFormNm, String strInputNm, String strVal) throws Exception {
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("var data_"+ifor+" = document.createElement('input');");
+		stringBuilder.append("data_"+ifor+".setAttribute('type', 'hidden');");
+		stringBuilder.append("data_"+ifor+".setAttribute('name', '" + strInputNm + "');");
+		stringBuilder.append("data_"+ifor+".setAttribute('value', '" + strVal  + "');");
+
+		stringBuilder.append(strFormNm + ".appendChild(data_"+ifor+");");
+
+		return stringBuilder.toString();
+	}
+
+
 }

@@ -107,12 +107,14 @@
                                                 	</c:if>
                                                 </dd>
                                             </dl>
+                                            <%-- 추가 배송비 -> 도서산간비용, 노출x
                                             <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
                                                 <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
                                             </c:if>
+                                            --%>
 
                                         </div>
                                     </div>
@@ -126,7 +128,12 @@
 					<%-- 주문정보 ALL START --%>
 					<div class="${ordrVO.ordrCd}_${dtlIndex}">
 						<%-- 배송비 + 추가배송비 --%>
-						<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.gdsInfo.dlvyBassAmt + ordrDtl.gdsInfo.dlvyAditAmt):0)}" />
+
+						<%-- <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.gdsInfo.dlvyBassAmt + ordrDtl.gdsInfo.dlvyAditAmt):0)}" /> --%>
+						<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0)}" />
+						<c:set var="totalDlvyAditAmt" value="${totalDlvyAditAmt + (ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0)}" />
+
+
 						<%-- 적립예정마일리지 --%>
 	                    <c:set var="totalAccmlMlg" value="${totalAccmlMlg + ordrDtl.accmlMlg}" />
 	                    <%-- 주문금액 + 옵션금액 --%>
@@ -148,7 +155,9 @@
 						<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0}"> <%--배송비 > 추가옵션일경우 제외 --%>
 						<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0}"> <%--배송비 > 할인초기화를 위한 여분 --%>
 
-						<input type="hidden" name="dlvyAditAmt" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0}"> <%--추가 배송비 > 추가옵션일경우 제외 --%>
+						<%--추가 배송비 > 추가옵션일경우 제외 --%>
+						<%-- <input type="hidden" name="dlvyAditAmt" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0}"> --%>
+						<input type="hidden" name="dlvyAditAmt" value="${ordrDtl.gdsInfo.dlvyAditAmt}"><%--기본 0원--%>
 
 						<input type="hidden" name="ordrPc" id="ordrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc}"> <%--건별 주문금액--%>
 						<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc }"> <%--건별 주문금액 초기화를 위한 여분--%>
@@ -161,8 +170,12 @@
 	                    <input type="hidden" name="bplcUniqueId" value="${ordrDtl.bplcUniqueId}">
 
 	                    <c:if test="${ordrDtl.gdsInfo.mlgPvsnYn eq 'Y' && ordrVO.ordrTy eq 'N'}">
-	                    <input type="hidden" name="accmlMlg" value="<fmt:formatNumber type="number" maxFractionDigits="0"  value="${(ordrDtl.gdsInfo.pc * ordrDtl.ordrQy) * (_mileagePercent/100)}" />"> <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
+	                    <input type="hidden" name="accmlMlg" value="<fmt:formatNumber type="number" maxFractionDigits="0"  value="${(ordrDtl.gdsInfo.pc * ordrDtl.ordrQy) * (_mileagePercent / 100)}" />"> <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
 	                    </c:if>
+
+	                    <%--묶음체크--%>
+	                    <input type="hidden" name="dlvyGroupYn" value="${ordrDtl.gdsInfo.dlvyGroupYn}" />
+	                    <input type="hidden" name="entrpsNo" value="${ordrDtl.gdsInfo.entrpsNo}" />
 					</div>
 				</c:forEach>
 				</div>
@@ -312,7 +325,7 @@
                                     <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_coupon" >쿠폰사용</button>
                                 </div>
                                 &nbsp;&nbsp;
-                                <span>잔여 포인트 : ${remindCouponCount} 장</span>
+                                <span>잔여 쿠폰 : ${remindCouponCount} 장</span>
                             </td>
                         </tr>
                         <tr>
@@ -370,10 +383,14 @@
                                 <dt>배송비</dt>
                                 <dd><strong class="total-dlvy-txt"><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###" /></strong> 원</dd>
                             </dl>
+                            <dl id="total-dlvyAdit-dl" ${totalDlvyAditAmt>0?'':'style="display:none"'}>
+                                <dt>도서산간 추가 배송비</dt>
+                                <dd><strong class="total-dlvyAdit-txt"><fmt:formatNumber value="${totalDlvyAditAmt}" pattern="###,###" /></strong> 원</dd>
+                            </dl>
                         </div>
                         <dl class="last">
                             <dt>최종 결제금액</dt>
-                            <dd><strong class="total-stlmAmt-txt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt}" pattern="###,###" /></strong> 원</dd>
+                            <dd><strong class="total-stlmAmt-txt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" pattern="###,###" /></strong> 원</dd>
                         </dl>
                     </div>
                     <div class="result-agree">
@@ -397,7 +414,7 @@
 
         <form:hidden path="delngNo" />
         <form:hidden path="stlmYn" value="N" />
-        <form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt}" /><%-- 상품금액+옵션+배송 > TO-DO 쿠폰&마일리지&포인트 작업 필요 --%>
+        <form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" /><%-- 도서산간지역 배송비 추가 --%>
         <form:hidden path="stlmTy" />
         <form:hidden path="stlmDt" />
 
@@ -436,6 +453,19 @@
 
 
     <script>
+
+	function f_heartbeat() {
+		console.log(new Date)
+		$.ajax({
+			type : "post",
+			url  : "${_mainPath}/heartbeat.json",
+			dataType : 'json'
+		}).done(function(json) {
+		});
+	}
+		
+	let timerId = setTimeout(f_heartbeat, 10 * 60 * 1000);
+		
     var ordrQy = [];
 
     function f_calStlmAmt(){
@@ -630,6 +660,50 @@
     	}
     }
 
+    // 주소호출 콜백
+    function f_findAdresCallback(){
+    	let zipcode = $("#recptrZip").val();
+    	$.ajax({
+			type : "post",
+			url  : "/comm/dlvyCt/chkRgn.json",
+			data : {
+				zip : zipcode
+			},
+			dataType : 'json'
+		})
+		.done(function(data) {
+			if(data.result){
+				let entrpsMap = new Map();
+				$("input[name='entrpsNo']").each(function(i,o){
+
+					if($(this).val() > 0){
+						const dlvyGroupYn = $(this).siblings("input[name='dlvyGroupYn']").val();
+						if(!entrpsMap.get("chkEntrps"+$(this).val()) || dlvyGroupYn === "N"){//묶음x or 동일업체x
+							entrpsMap.set("chkEntrps"+$(this).val(), true);
+							$(this).siblings("input[name='dlvyAditAmt']").val(5000);
+						}
+					}else{ //0이면 업체지정x
+						$(this).siblings("input[name='dlvyAditAmt']").val(5000);
+					}
+				});
+				let dlvyAditAmt = 0;
+				$("input[name='dlvyAditAmt']").each(function(){
+					dlvyAditAmt += Number($(this).val());
+				});
+				$(".total-dlvyAdit-txt").text(comma(dlvyAditAmt));
+				$("#total-dlvyAdit-dl").css({"display":"flex"});
+			}else{
+				$("input[name='dlvyAditAmt']").val(0);
+				$(".total-dlvyAdit-txt").text(0);
+				$("#total-dlvyAdit-dl").css({"display":"none"});
+			}
+			f_calStlmAmt();
+	    })
+		.fail(function(data, status, err) {
+			console.log('error forward : 산간지역 체크 실패');
+		});
+    }
+
 
     const mlgMap = new Map();
     const pointMap = new Map();
@@ -732,8 +806,8 @@
     		}
     	});
 
-     // 할인혜택 초기화
-     $(".f_reset").on("click",function(){
+		// 할인혜택 초기화
+	    $(".f_reset").on("click",function(){
       		$("#totalCouponAmt, #usePoint, #useMlg").val(0);
       		$(".total-mlg-txt").text(0);
       		$("#btn-reset").click();
@@ -776,6 +850,7 @@
     	    submitHandler: function (frm) {
     	    	$("#usePoint").val(uncomma($("#usePoint").val()));
     	    	$("#useMlg").val(uncomma($("#useMlg").val()));
+				$("#accmlMlg").val(uncomma($("#accmlMlg").val()));
 
     	    	f_pay(frm);
     	    	return false;

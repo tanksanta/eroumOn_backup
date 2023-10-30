@@ -284,12 +284,14 @@
                                                 	</c:if>
                                                 </dd>
                                             </dl>
-                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
+
+                                            <%-- <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
                                                 <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
-                                            </c:if>
+                                            </c:if> --%>
+
                                         </div>
                                         <div class="status">
                                        	<%-- TO-DO : 주문상태에 따라 다름 --%>

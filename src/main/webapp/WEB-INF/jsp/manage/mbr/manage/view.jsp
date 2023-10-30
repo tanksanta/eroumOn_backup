@@ -1,4 +1,8 @@
+<%@page import="javax.servlet.annotation.WebServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script src="/html/page/admin/assets/script/_mng/mbr/JsHouseMngMbrDetail.js"></script>
+
 <div id="page-content">
 	<%@include file="./include/header.jsp"%>
 
@@ -154,7 +158,7 @@
 		</fieldset>
 
 		<div class="btn-group mt-8">
-			<a href="/_mng/mbr/list" class="btn-primary large shadow w-52">목록</a>
+			<a href="/_mng/mbr/list" class="btn-primary large shadow w-52 btn list">목록</a>
 		</div>
 	</form:form>
 
@@ -292,6 +296,12 @@
 </div>
 
 <script>
+	var ctlMaster;
+	$(document).ready(function(){
+		ctlMaster = new JsHouseMngMbrView();
+		ctlMaster.fn_searched_data(`<%= request.getParameter("searched_data") != null ? request.getParameter("searched_data") : "" %>`); 
+		ctlMaster.fn_page_init();
+	});
 
 	$(function() {
 		// 경고관리 해제 시 벨류 체인지

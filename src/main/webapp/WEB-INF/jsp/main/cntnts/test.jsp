@@ -135,7 +135,7 @@
         <div class="grade-text1 mt-6 md:mt-9.5">
             <p>보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong>실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
         </div>
-        <a href="/main/recipter/sub" class="flex justify-center text-indexKey1 underline mt-6 md:mt-9.5">
+        <a href="/main/recipter/sub" class="text-link">
             이미 인정등급을 알고 계세요?
         </a>
     </div>
