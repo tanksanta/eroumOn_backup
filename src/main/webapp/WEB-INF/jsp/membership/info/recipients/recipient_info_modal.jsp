@@ -168,7 +168,7 @@
 	</div>
 
 	<!--모달: 상담신청완료-->
-    <div class="modal modal-index fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
+    <div class="modal modal-default fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
@@ -207,7 +207,7 @@
                 </script>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-large btn-primary3 w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
+                <a href="#" class="btn btn-success w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
             </div>
             </div>
         </div>
