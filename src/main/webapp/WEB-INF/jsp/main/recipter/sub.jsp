@@ -322,13 +322,13 @@
 
 	<!--로그인사용자 : 등록된 수급자 없는 경우-->
 	<div class="modal modal-index fade" id="login-no-rcpt" tabindex="-1" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <h2 class="text-title">수급자 선택</h2>
 	                <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	            </div>
-	            <div class="modal-body">
+	            <div class="modal-body space-no-horizonal">
 	                <div class="flex flex-col justify-center items-end gap-1">
 	                    <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-full">
 	                    	<option value="">관계 선택</option>
@@ -337,14 +337,14 @@
 							</c:forEach>
 	                    </select>
 	                    <input type="text" name="no-rcpt-nm" id="no-rcpt-nm" placeholder="수급자 성명" class="form-control w-full">
-	                    <div class="flex">
+	                    <div class="flex w-full">
 	                    	<p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
 	                    	<input type="text" name="no-rcpt-nm" id="no-rcpt-lno" placeholder="요양인정번호" class="form-control w-full">
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70" onclick="startLoginNoRcpt();">시작하기</button>
+	                <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70" onclick="startLoginNoRcpt();">조회하기</button>
 	            </div>
 	        </div>
 	    </div>
@@ -352,13 +352,13 @@
 	
 	<!--로그인사용자 : 등록 수급자 n명이상인 경우-->
 	<div class="modal modal-index fade" id="login-rcpts" tabindex="-1" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	        <div class="modal-header">
 	        <h2 class="text-title">수급자 선택</h2>
 	        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
-	        <div class="modal-body  items-end">
+	        <div class="modal-body space-no-horizonal items-end">
 	         <div class="form-radio-button-group" id="recipient-list">
 	             
 	         </div>
@@ -379,13 +379,13 @@
 	
 	<!-- 수급자정보등록 팝업소스 -->
 	<div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <h2 class="text-title">수급자 정보 등록</h2>
 	                <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	            </div>
-	            <div class="modal-body">
+	            <div class="modal-body space-no-horizonal">
 	            <div class="flex flex-col">
 	                <div class="text-subtitle">
 	                    <i class="icon-alert"></i>
