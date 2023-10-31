@@ -222,7 +222,7 @@
 }
 
 .welfare-service-desc {
-    @apply hidden absolute z-45 top-0 left-5 right-5 -mt-9 p-4 pr-0 h-2/3 border border-gray1 rounded-md bg-white
+    @apply hidden absolute z-45 top-0 left-5 right-5 -mt-9 p-4 pr-0 border border-gray1 rounded-md bg-white
            md:right-7 md:left-7 md:-mt-13 md:pr-4 md:h-auto
            lg:left-10 lg:right-10 lg:-mt-17;
     & .content {
