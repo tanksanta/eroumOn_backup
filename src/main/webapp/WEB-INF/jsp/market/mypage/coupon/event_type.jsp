@@ -64,7 +64,7 @@
 		</c:when> --%>
 
 		<%-- 회원 가입 정율 --%>
-		<c:when test="${param.eventType eq 'JOIN' && param.dscntTy eq 'PRCS'}">
+		<c:when test="${(param.eventType eq 'JOIN' || param.eventType eq 'JOIN_ADD') && param.dscntTy eq 'PRCS'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -76,7 +76,7 @@
 		</c:when>
 
 		<%-- 회원 가입 정액 --%>
-		<c:when test="${param.eventType eq 'JOIN' && param.dscntTy eq 'SEMEN'}">
+		<c:when test="${(param.eventType eq 'JOIN' || param.eventType eq 'JOIN_ADD') && param.dscntTy eq 'SEMEN'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">

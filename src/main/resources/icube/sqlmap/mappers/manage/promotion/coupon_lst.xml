@@ -182,6 +182,7 @@
 			, use_lst_bgng_ymd
 			, use_lst_end_ymd
 			, ult_yn
+			, reg_dt
 		)VALUES(
 			#{uniqueId, jdbcType=VARCHAR}
 			, #{couponNo}
@@ -200,6 +201,7 @@
 			, #{useLstEndYmd}
 			</if>
 			, #{ultYn, jdbcType=VARCHAR}
+			, SYSDATE()
 		)
 	</insert>
 
