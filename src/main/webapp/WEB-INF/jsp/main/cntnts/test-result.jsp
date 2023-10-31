@@ -492,7 +492,7 @@
                         </tr>
                         <tr>
                             <th scope="row"><p><label for="search-item4">상담유형</label></p></th>
-                            <td>요양정보상담</td>
+                            <td>인정등급상담</td>
                         </tr>
                         <tr class="top-border">
                             <td></td>
