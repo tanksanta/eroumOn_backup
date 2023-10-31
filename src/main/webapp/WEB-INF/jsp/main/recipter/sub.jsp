@@ -694,8 +694,8 @@
         }
         
         
-        const rolling1 = null;
-        const rolling2 = null;
+        var rolling1 = null;
+        var rolling2 = null;
 
         $('.grade-slider').each(function () {
             var slider = $(this);

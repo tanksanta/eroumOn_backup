@@ -143,7 +143,7 @@
 
 	<!--모달: 진행중인 상담 알림 모달 -->
 	<div class="modal modal-default fade" id="modal-my-consulting" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="text-title">알림</h2>
@@ -216,7 +216,7 @@
 
 	<!-- 수급자정보등록 확인팝업 -->
 	<div class="modal modal-default fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <h2 class="text-title">수급자 정보 등록</h2>
