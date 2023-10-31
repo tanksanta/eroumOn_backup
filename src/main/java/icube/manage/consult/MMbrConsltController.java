@@ -180,7 +180,9 @@ public class MMbrConsltController extends CommonAbstractController{
 		
 		String regUniqueId = mbrConsltVO.getRegUniqueId();
 		MbrVO mbrVO = mbrService.selectMbrByUniqueId(regUniqueId);
-        mbrVO.setCrud(CRUD.UPDATE);
+		if (mbrVO != null) {
+			mbrVO.setCrud(CRUD.UPDATE);
+		}
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("mbrVO", mbrVO);
