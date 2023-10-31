@@ -24,8 +24,8 @@
                         <li>전동침대부터 요실금팬티까지 대부분 <span class="font-semibold">생활용품 지원</span></li>
                     </ul>
                 </div>
-                <div>
-                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
+                <div class="flex flex-col w-full">
+                    <div class="text-subtitle pb-1 border-b border-gray-300">
                         <i class="icon-alert"></i>
                         <p class="font-medium">숙지사항</p>
                     </div>
@@ -75,7 +75,7 @@
                         <li>시설 입소에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 2,256만원(월 188만원)</span></li>
                     </ul>
                 </div>
-                <div>
+                <div class="flex flex-col w-full">
                     <div class="text-subtitle w-full pb-1 border-b border-gray-300">
                         <i class="icon-alert"></i>
                         <p class="font-medium">숙지사항</p>
@@ -128,7 +128,7 @@
                         <li><span class="font-semibold">방문</span>(방문요양, 방문간호, 방문목욕)과 <span class="font-semibold">주야간보호</span> 서비스 이용 가능 </li>
                     </ul>
                 </div>
-                <div>
+                <div class="flex flex-col w-full">
                     <div class="text-subtitle w-full pb-1 border-b border-gray-300">
                         <i class="icon-alert"></i>
                         <p class="font-medium">숙지사항</p>
@@ -178,7 +178,7 @@
 	                        <li>보건복지부에 고시된 제품에 한해 <span class="font-semibold">5년에 1회 한정, 보청기 1대 지원</span></li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -227,7 +227,7 @@
 	                        <li><span class="font-semibold">1인 기준,</span> <span class="text-indexKey1 font-semibold">평생 2개 지원</span></li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -276,7 +276,7 @@
 	                        <li><span class="font-semibold">완전틀니, 부분틀니 </span> <span class="text-indexKey1 font-semibold">7년에 1회 지원</span></li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -325,7 +325,7 @@
 	                        <li><span class="font-semibold">한쪽 무릎 기준, </span> <span class="text-indexKey1 font-semibold">지원금 120만원 한도 실비 지원</span></li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -377,7 +377,7 @@
 	                        <li>1안 당 본인 부담 수술비 및 사전 검사비 <span class="font-semibold">전액 1회 지원</span></li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -429,7 +429,7 @@
 	                        <li><span class="font-semibold">진단/감별검사비 무료 </span>(만 65세 이상, 저소득층에 해당)</li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>
@@ -477,7 +477,7 @@
 	                        <li><span class="font-semibold">월 3만원(연 36만원) 상한 내 </span>본인납부 실비 지원</li>
 	                    </ul>
 	                </div>
-	                <div>
+	                <div class="flex flex-col w-full">
 	                    <div class="text-subtitle w-full pb-1 border-b border-gray-300">
 	                        <i class="icon-alert"></i>
 	                        <p class="font-medium">숙지사항</p>

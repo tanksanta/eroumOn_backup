@@ -579,10 +579,10 @@
 				var footerTemplate = '';
 				if (srvcInfo.refUrl) {
 					// footerTemplate += `<a href="` + srvcInfo.refUrl + `" target="_blank" class="btn btn-request">자세한 신청방법 보기</a>`;
-					footerTemplate += `<a href="` + srvcInfo.refUrl + `" target="_blank" class="btn btn-primary2 btn-arrow btn-center large">자세한 신청방법 보기</a>`;
+					footerTemplate += `<a href="` + srvcInfo.refUrl + `" target="_blank" class="btn btn-primary2 sm:btn-arrow btn-center large"><strong>자세한 신청방법 보기</strong></a>`;
 				}
 				// footerTemplate += `<a href="#" class="btn btn-share sm:hidden f_clip" data-bokji-id="` + srvcInfo.bokjiId + `">공유하기</a>`;
-				footerTemplate += `<a href="#" class="btn btn-primary3 btn-arrow btn-center large sm:hidden f_clip" data-bokji-id="` + srvcInfo.bokjiId + `">공유하기</a>`;
+				footerTemplate += `<a href="#" class="btn btn-share-blue btn-center large sm:hidden f_clip" data-bokji-id="` + srvcInfo.bokjiId + `"><strong>공유하기</strong></a>`;
 				$('.modal-footer').html(footerTemplate);
 				
 				//모달 컨텐츠 추가
