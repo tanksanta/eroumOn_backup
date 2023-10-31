@@ -589,13 +589,8 @@
 				$('#modal-detail-table-content').html(contentsTemplate);
 				
 				//모달 띄우기
-				// $('#modal-detail').modal('show').css('outline', 'none');
-				$('#modal-detail').on('show.bs.modal', function () {     
-					var modal = $(this);
-					modal.appendTo('body');
-					modal.css('outline', 'none');
-				});
-				
+				$('#modal-detail').modal('show').appendTo('body').css('outline', 'none');
+
 				//공유하기 복지ID 매핑
 				$('.f_clip').prop('data-bokji-id', srvcInfo.bokjiId);
 			}else{
