@@ -370,7 +370,7 @@
     
 	<!--비로그인시 사용자 팝업소스-->
 	<div class="modal modal-index fade" id="non-login-user" tabindex="-1" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-dialog-centered modal-lg">
 	        <div class="modal-content">
 	        <div class="modal-header">
 	            <h2 class="text-title">로그인</h2>
@@ -399,7 +399,7 @@
 
     <!--로그인사용자 : 등록된 수급자 없는 경우-->
     <div class="modal modal-index fade" id="login-no-rcpt" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-title">수급자 선택</h2>
@@ -425,7 +425,7 @@
 
     <!--로그인사용자 : 등록 수급자 n명이상인 경우-->
     <div class="modal modal-index fade" id="login-rcpts" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
             <h2 class="text-title">수급자 선택</h2>
@@ -452,7 +452,7 @@
 
     <!-- 수급자정보등록 팝업소스 -->
     <div class="modal modal-index fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-title">수급자 정보 등록</h2>
@@ -500,7 +500,7 @@
 
     <!--알림 팝업소스-->
     <div class="modal modal-index fade" id="notified-consulting" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
             <h2 class="text-title">알림</h2>

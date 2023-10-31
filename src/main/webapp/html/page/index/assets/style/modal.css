@@ -48,7 +48,7 @@
                 &.modal-dialog-centered {
                     @apply justify-center px-5;
                     & .modal-body {
-                        @apply scrollbars p-5;
+                        @apply scrollbars py-5;
                         overflow: overlay;
                         /* &.space-no-x {
                             @apply px-0;
@@ -94,6 +94,9 @@
                 & .modal-bg-wrap {
                     @apply py-5 px-8;
                     background: linear-gradient(180deg, #faf2d3 0%, #feebeb 100%);
+                    &.minus-margin {
+                        @apply -mx-7;
+                    }
                     & .modal-list-box {
                         & li {
                         @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
@@ -121,7 +124,7 @@
                 } */
             }
             & .modal-footer {
-                @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-1;
+                @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-1 mt-6;
                 &>:not([hidden])~:not([hidden]) {
                     @apply m-0;
                 }
