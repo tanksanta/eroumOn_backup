@@ -1301,7 +1301,9 @@
     & .flag {
         @apply self-end relative select-none cursor-pointer;
         & input {
-            @apply appearance-none  w-10 h-10 bg-no-repeat bg-cover bg-center cursor-pointer 
+            @apply appearance-none  w-10 h-10 bg-no-repeat bg-center cursor-pointer 
+            bg-contain
+            rounded-none
             bg-[url(../images/ico-flag.svg)]
             checked:bg-[url(../images/ico-flag-active.svg)];
         }
