@@ -53,24 +53,3 @@ src/main/.DS_Store
 src/.DS_Store
 .DS_Store
 .metadata
-
-
-### personal ###
-regist_step2_bk1.jsp
-regist_step1_bk1.jsp
-regist_step1_bk2.jsp
-recipient_info_modal_bk1.jsp
-searchBokji_bk1.jsp
-sub_bk1.jsp
-sub_bk2.jsp
-list_bk1.jsp
-test-result_bk1.jsp
-요양정보간편조회-서브메인_bk1.html
-어르신복지서비스-모달.html
-검색서비스_231010.html
-infomation.html
-sitemap2.html
-test.html
-tailwind.html
-index copy.html
-.gitignore
