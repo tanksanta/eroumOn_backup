@@ -280,11 +280,19 @@ public class MMbrConsltController extends CommonAbstractController{
 		mbrConsltVO.setMngrUniqueId(mngrSession.getUniqueId());
 		mbrConsltVO.setMngrId(mngrSession.getMngrId());
 		mbrConsltVO.setMngrNm(mngrSession.getMngrNm());
+		
+		
+
+
 
 		Integer iResult = mbrConsltService.updateMbrConslt(mbrConsltVO);
 		
 		if (iResult > 0 ) {
-			if (EgovStringUtil.isNotEmpty(bplcUniqueId) && EgovStringUtil.equals("CS01", originConsltSttus)) {
+			if (EgovStringUtil.isNotEmpty(bplcUniqueId) 
+					&& (
+							EgovStringUtil.equals("CS01", originConsltSttus))
+							|| (EgovStringUtil.equals("CS02", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId))
+					) {
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
 				biztalkApiService.sendOnTalkMatched(consltmbrNm, bplcVO.getBplcNm(), consltMbrTelno);
@@ -292,7 +300,13 @@ public class MMbrConsltController extends CommonAbstractController{
 				
 			}
 			
+			if (EgovStringUtil.equals(originConsltSttus, "CS02") && EgovStringUtil.isNotEmpty(originConsltBplcUniqueId)) {
+				BplcVO bplcVOOrigin = bplcService.selectBplcByUniqueId(originConsltBplcUniqueId);
+				
+				biztalkApiService.sendCareTalkCancel(bplcVOOrigin.getBplcNm(), bplcVOOrigin.getPicTelno());
+			}
 		} 
+		
 
 
 		javaScript.setMessage(getMsg("action.complete.update"));
@@ -348,7 +362,7 @@ public class MMbrConsltController extends CommonAbstractController{
 			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
 			
 			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
-			if (EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
+			if (mbrConsltResultVO != null && EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
 				biztalkApiService.sendCareTalkCancel(mbrConsltResultVO.getBplcNm(), mbrConsltResultVO.getBplcInfo().getPicTelno());	
 			}
 			
