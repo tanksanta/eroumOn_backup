@@ -24,6 +24,8 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -36,6 +38,9 @@ import icube.membership.conslt.biz.ItrstVO;
 @RequestMapping(value="#{props['Globals.Membership.path']}/conslt/appl")
 public class MbrsConsltController extends CommonAbstractController {
 
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 
@@ -77,6 +82,9 @@ public class MbrsConsltController extends CommonAbstractController {
 		//회원의 관심 멤버스 정보
 		List <ItrstVO> itrstList = itrstService.selectItrstListAll(paramMap);
 		model.addAttribute("itrstList", itrstList);
+		
+		MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+		model.addAttribute("mbrVO", mbrVO);
 		
 		//회원의 추천 멤버스 정보
 		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());

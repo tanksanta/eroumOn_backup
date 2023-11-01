@@ -63,6 +63,7 @@
                                     	<input type="hidden" id="bplcId" name="bplcId" value="">
                                     	<input type="hidden" id="bplcNm" name="bplcNm" value="">
                                     	<input type="hidden" id="consltmbrNm" name="consltmbrNm" value="${mbrConsltVO.mbrNm}">
+                                        <input type="hidden" id="regMbrNm" name="regMbrNm" value="${mbrVO.mbrNm}">
                                     	<input type="hidden" id="consltMbrTelno" name="consltMbrTelno" value="${mbrConsltVO.mbrTelno}">
                                     	<input type="hidden" id="regUniqueId" name="regUniqueId" value="${mbrConsltVO.getRegUniqueId()}">
                                         <input type="hidden" id="originConsltBplcUniqueId" name="originConsltBplcUniqueId" value="${consltBplcUniqueId}">

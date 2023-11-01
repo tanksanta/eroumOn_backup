@@ -226,7 +226,7 @@
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
 	                    <div class="item-request  justify-end">
-	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
+	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${mbrVO.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
 	                    </div>
 	                    </c:if>
 	
@@ -234,7 +234,7 @@
 	                    	<div class="item-request justify-end">
 		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" 
 		                        		data-conslt-no="${resultList.consltNo}" 
-		                        		data-conslt-mbrNm="${resultList.mbrNm}" 
+		                        		data-conslt-mbrNm="${mbrVO.mbrNm}" 
 		                        		data-conslt-mbrTelno="${resultList.mbrTelno}" 
 		                        		data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" 
 		                        		data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">

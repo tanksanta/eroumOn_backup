@@ -270,7 +270,7 @@ public class MainConsltController extends CommonAbstractController{
 				}
 			}
 
-			biztalkApiService.sendOnTalkCreated(mbrConsltVO.getMbrNm(), mbrConsltVO.getMbrTelno()); 
+			biztalkApiService.sendOnTalkCreated(mbrSession.getMbrNm(), mbrConsltVO.getMbrTelno()); 
 
 			resultMap.put("success", true);
 		} catch (Exception ex) {
