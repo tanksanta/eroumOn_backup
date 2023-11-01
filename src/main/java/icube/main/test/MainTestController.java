@@ -29,6 +29,7 @@ import icube.common.util.FileUtil;
 import icube.main.test.biz.MbrTestResultVO;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
+import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 import icube.market.mbr.biz.MbrSession;
 
@@ -47,6 +48,9 @@ public class MainTestController extends CommonAbstractController {
     
     @Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
+    
+    @Resource(name = "mbrService")
+	private MbrService mbrService;
 	
     @Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -89,6 +93,10 @@ public class MainTestController extends CommonAbstractController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
+		
+		
+		//채널톡 연동 데이터 셋팅
+		mbrService.setChannelTalk(request);
 		
 		return "/test/" + pageName;
 	}

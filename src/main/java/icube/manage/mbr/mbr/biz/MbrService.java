@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -45,6 +46,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	@Value("#{props['Talk.Plugin.key']}")
+	private String talkPluginKey;
 	
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
@@ -433,8 +437,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 					customProfileVO.setMbrNm(mbrVO.getMbrNm());
 					customProfileVO.setMblTelno(mbrVO.getMblTelno());
 					customProfileVO.setEml(mbrVO.getEml());
-					customProfileVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn() == null || "N".equals(mbrVO.getSmsRcptnYn()) ? "미수신" : "수신");
-					customProfileVO.setEmlRcptnYn(mbrVO.getEmlRcptnYn() == null || "N".equals(mbrVO.getEmlRcptnYn()) ? "미수신" : "수신");
+					customProfileVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? "수신" : "미수신");
+					customProfileVO.setEmlRcptnYn(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? "수신" : "미수신");
 					
 					CommonListVO listVO = new CommonListVO(request);
 					listVO.setParam("srchUseYn", "Y");
@@ -453,5 +457,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			
 			request.setAttribute("customProfileVO", customProfileVO);
 		}
+		
+		//채널톡 pluginKey 셋팅
+		request.setAttribute("talkPluginKey", talkPluginKey);
 	}
 }
