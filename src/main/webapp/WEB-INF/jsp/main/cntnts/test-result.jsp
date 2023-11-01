@@ -78,27 +78,29 @@
                 </dl>
             </li>
         </div>
-        <div class="mainSend">
-        	<c:choose>
-	        	<c:when test="${_mbrSession.loginCheck}">
-		            <form class="provide-form">
-		                <div class="form-agree">                                    
-		                    <div class="flex gap-3 items-center py-2 justify-center">
-		                      <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="chk-email" id="chk-email">
-		                      <label class="form-check-label text-1xl" for="chk-email">나에게 예상 테스트 결과 보내기</label>
-		                    </div>
-		                </div>                        
-		                <ul>
-		                    <li> 예상 테스트 결과를 메일로 보내고 1:1상담을 신청하세요.</li>
-		                    <li> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</li>
-		                </ul>                   
-		            </form>
-	            </c:when>
-	            <c:otherwise>
-	            	<%-- <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">메일보내기</button> --%> 
-	            </c:otherwise>
-            </c:choose>
-        </div>
+        
+        <c:choose>
+            <c:when test="${_mbrSession.loginCheck}">
+                <div class="mainSend">
+                    <form class="provide-form">
+                        <div class="form-agree">                                    
+                            <div class="flex gap-3 items-center py-2 justify-center">
+                            <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="chk-email" id="chk-email">
+                            <label class="form-check-label text-1xl" for="chk-email">나에게 예상 테스트 결과 보내기</label>
+                            </div>
+                        </div>                        
+                        <ul>
+                            <li> 예상 테스트 결과를 메일로 보내고 1:1상담을 신청하세요.</li>
+                            <li> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</li>
+                        </ul>                   
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <%-- <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">메일보내기</button> --%> 
+            </c:otherwise>
+        </c:choose>
+        
     </div>
 
     <div class="result-content2">
