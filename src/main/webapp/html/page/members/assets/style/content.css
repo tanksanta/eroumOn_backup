@@ -802,7 +802,8 @@
         @apply mt-0.5 mr-1.5 w-[0.9375rem];
     }
     & a {
-        @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-plus.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96;
+        /* @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-plus.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96; */
+        @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-mypage-arrow.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96;
     }
 }
 
