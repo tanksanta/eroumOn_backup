@@ -219,7 +219,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		String originConsltSttus = (String) reqMap.get("originConsltSttus");
 		String originConsltBplcUniqueId = (String) reqMap.get("originConsltBplcUniqueId");
 		
-		String consltmbrNm = (String) reqMap.get("consltmbrNm");
+		String regMbrNm = (String) reqMap.get("regMbrNm");
 		String consltMbrTelno = (String) reqMap.get("consltMbrTelno");
 
 		BplcVO bplcVO = null;
@@ -297,7 +297,7 @@ public class MMbrConsltController extends CommonAbstractController{
 					) {
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
-				biztalkApiService.sendOnTalkMatched(consltmbrNm, bplcVO.getBplcNm(), consltMbrTelno);
+				biztalkApiService.sendOnTalkMatched(regMbrNm, bplcVO.getBplcNm(), consltMbrTelno);
 				biztalkApiService.sendCareTalkMatched(bplcNm, bplcVO.getPicTelno());
 				
 			}
