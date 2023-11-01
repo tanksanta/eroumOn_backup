@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 
 import icube.common.framework.request.RequestHolder;
+import icube.common.interceptor.biz.CustomProfileVO;
 import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +23,9 @@ public class MbrSession extends MbrVO implements Serializable {
 
 	private boolean loginCheck = false; // 로그인 여부
 
-	// 선택 보호자 수급자 정보
-	private String prtcrRecipterYn = "N";
-	private int prtcrRecipterIndex = 0;
-	private RecipterInfoVO prtcrRecipterInfo;
+	//채널톡 연동 데이터
+	private CustomProfileVO customProfileVO;
+	
 	
 
 	@Setter(AccessLevel.NONE)
@@ -71,12 +70,5 @@ public class MbrSession extends MbrVO implements Serializable {
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
 
 		setLoginCheck(loginCheck);
-	}
-
-	// 보호자 수급자정보 set
-	public void setPrtcrRecipter(RecipterInfoVO recipterInfoVO, String recipterYn, int index) {
-		setPrtcrRecipterYn(recipterYn);
-		setPrtcrRecipterInfo(recipterInfoVO);
-		setPrtcrRecipterIndex(index);
 	}
 }

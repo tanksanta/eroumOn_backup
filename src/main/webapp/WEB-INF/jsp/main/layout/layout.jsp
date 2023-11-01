@@ -82,13 +82,15 @@
 	    , "mobileMessengerMode": "newTab"
 		, "customLauncherSelector": ".channelTalk"
 		, "hideChannelButtonOnBoot": true
-	    <c:if test="${!empty _mbrIdHash}">
-	    , "memberHash": "${_mbrIdHash}"
-	    , "profile": {
-	      	"name": "${_mbrSession.mbrNm}"
-	      , "mobileNumber": "${_mbrSession.mblTelno}"
-	      , "email": "${_mbrSession.eml}"
-	    }
+	    <c:if test="${!empty customProfileVO}">
+		    ,"profile": {
+		      	"name": "${customProfileVO.mbrNm}"
+		      , "mobileNumber": "${customProfileVO.mblTelno}"
+		      , "email": "${customProfileVO.eml}"
+		      , "smsRcptnYn" : "${customProfileVO.smsRcptnYn}"
+		      , "emlRcptnYn" : "${customProfileVO.emlRcptnYn}"
+		      , "mbrConsltCnt" : ${customProfileVO.mbrConsltCnt}
+		    }
 	    </c:if>
 	  });
 	</script>

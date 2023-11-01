@@ -19,9 +19,13 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.util.CommonUtil;
 import icube.common.values.CodeMap;
+import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 
@@ -31,6 +35,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
 
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -135,10 +142,41 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		request.setAttribute("_kakaoScriptKey", kakaoScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 
-
-
 		request.setAttribute("_mbrSession", mbrSession);
+		
 
+		//채널톡 연동 데이터 셋팅
+		if (mbrSession.isLoginCheck()) {
+			CustomProfileVO customProfileVO = new CustomProfileVO();
+			
+			if (mbrSession.getCustomProfileVO() == null) {
+				try {
+					MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+					customProfileVO.setMbrId(mbrVO.getMbrId());
+					customProfileVO.setMbrNm(mbrVO.getMbrNm());
+					customProfileVO.setMblTelno(mbrVO.getMblTelno());
+					customProfileVO.setEml(mbrVO.getEml());
+					customProfileVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn() == null || "N".equals(mbrVO.getSmsRcptnYn()) ? "미수신" : "수신");
+					customProfileVO.setEmlRcptnYn(mbrVO.getEmlRcptnYn() == null || "N".equals(mbrVO.getEmlRcptnYn()) ? "미수신" : "수신");
+					
+					CommonListVO listVO = new CommonListVO(request);
+					listVO.setParam("srchUseYn", "Y");
+					listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
+					listVO = mbrConsltService.selectMbrConsltListVO(listVO);
+					
+					customProfileVO.setMbrConsltCnt(listVO.getListObject().size());
+					
+					mbrSession.setCustomProfileVO(customProfileVO);
+				} catch (Exception ex) {
+					log.error("===== globalInterceptor mbr 조회 오류", ex);
+				}
+			} else {
+				customProfileVO = mbrSession.getCustomProfileVO();
+			}
+			
+			request.setAttribute("customProfileVO", customProfileVO);
+		}
+		
 		return true;
 	}
 

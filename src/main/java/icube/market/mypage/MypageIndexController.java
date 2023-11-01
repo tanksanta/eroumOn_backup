@@ -268,19 +268,6 @@ public class MypageIndexController extends CommonAbstractController {
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
 
 			mbrSession.setParms(mbrVO, true);
-			if("Y".equals(mbrVO.getRecipterYn())){
-				mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-			}else {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-				recipterInfoVO.setMbrId(mbrVO.getMbrId());
-				recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-				recipterInfoVO.setProflImg(mbrVO.getProflImg());
-				recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-				recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-				mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-			}
-
 			mbrSession.setMbrInfo(session, mbrSession);
 
 			result = true;

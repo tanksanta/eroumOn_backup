@@ -328,14 +328,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 							if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 								mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
 							}else {
-								RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-								recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-								recipterInfoVO.setMbrId(mbrVO.getMbrId());
-								recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-								recipterInfoVO.setProflImg(mbrVO.getProflImg());
-								recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-								recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-								mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
+								
 							}
 							mbrSession.setMbrInfo(session, mbrSession);
 							mbrTy = 2;
@@ -463,14 +456,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         if(EgovStringUtil.equals(mbrVO.getRecipterYn(), "Y")) {
 			mbrSession.setRecipterInfo(mbrVO.getRecipterInfo());
 		}else {
-			RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-			recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-			recipterInfoVO.setMbrId(mbrVO.getMbrId());
-			recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-			recipterInfoVO.setProflImg(mbrVO.getProflImg());
-			recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-			recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-			mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
+			
 		}
 		mbrSession.setMbrInfo(session, mbrSession);
 
