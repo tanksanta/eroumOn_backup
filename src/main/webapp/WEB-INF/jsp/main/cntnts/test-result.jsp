@@ -105,9 +105,13 @@
         <h2 class="grade-title">
             전문가 상담
             <small>무료 전문가 상담으로 등급 신청까지 의뢰 가능해요.</small>
+            <small>아래 1:1 상담하기 버튼을 눌러주세요.</small>
+
         </h2>
-        <div class="images">
-            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="">
+        <div class="images" >
+            <button type="button" class="go-consult">
+                <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+            </button>
         </div>
     </div>
     
@@ -937,6 +941,7 @@
             		testResult = getTestResultAjax(testData.recipientsNo);
             		
             		$('#go-consult').css({'display':'flex', 'cursor':'pointer'});
+            		$('.go-consult').css({'display':'flex', 'cursor':'pointer'});
             	}
             	else {
             		var finalTestResult = JSON.parse(sessionStorage.getItem('finalTestResult'));
@@ -947,6 +952,7 @@
             		};
             		
             		$('#go-consult').css('display', 'none');
+            		$('.go-consult').css('display', 'none');
             	}
             	
             	
@@ -1388,6 +1394,7 @@
           		//등급에 따라서 버튼명 결정(다른 혜택 확인하기, 상담하기)
           		if (testResult.grade !== 0) {
           			$('#go-consult').text('1:1 상담하기');
+          			// $('.go-consult').text('1:1 상담하기');
           		}
           	}
           	
@@ -1441,7 +1448,7 @@
           	
           	
           	//다른 혜택 확인하기 또는 1:1 상담하기 버튼 클릭
-          	$('#go-consult').click(function() {
+          	$('#go-consult, .go-consult').click(function() {
           		//0등급인 경우 다른 혜택 확인하기
           		if (testResult.grade === 0) {
           			location.href="/main/searchBokji"
