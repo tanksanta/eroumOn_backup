@@ -58,7 +58,7 @@
                                 </c:forEach>
                             </select>
                         </dd>
-                        <dt class="ml-4.5 text-center"><label for="srchConsltSttus">진행 현황</label></dt>
+                        <dt class="mt-5.5 md:mt-0 md:text-center"><label for="srchConsltSttus" class="md:ml-4">진행 현황</label></dt>
                         <dd>
 							<select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-full">
                                 <option value="">선택</option>
