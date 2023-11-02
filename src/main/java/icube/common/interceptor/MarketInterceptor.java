@@ -253,6 +253,11 @@ public class MarketInterceptor implements HandlerInterceptor {
 			//기타
 			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 			request.setAttribute("_activeMode", activeMode.toUpperCase());
+			
+			
+			//채널톡 연동 데이터 셋팅
+			mbrService.setChannelTalk(request);
+			
 		} catch (ModelAndViewDefiningException ex) {
 			throw ex;
 		} catch (Exception ex) {

@@ -424,6 +424,19 @@
 	    		alert('서버와 연결이 좋지 않습니다.');
 	    	});
 	    }
+	    
+	    
+        //채널톡 event 처리 (재상담 신청시)
+        function eventChannelTalk() {
+            var propertyObj = {};
+            
+            //재상담 일자(현재시간)
+            var now = new Date();
+            propertyObj.reConsltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+            
+            ChannelIO('track', 'click_rematching', propertyObj);
+        }
+	    
 	
 	    
 	    $(function(){
@@ -505,6 +518,9 @@
 		       				if(data.result){
 		       					alert("정상적으로 저장되었습니다.");
 		       					//$("#modalReConslt .btn-cancel").click();
+		       					
+		       					eventChannelTalk();
+		       					
 		       					window.location.reload();
 		       				} else {
 		       					alert(data.msg);

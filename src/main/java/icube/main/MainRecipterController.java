@@ -1,5 +1,8 @@
 package icube.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,6 +71,15 @@ public class MainRecipterController extends CommonAbstractController{
 		model.addAttribute("rcperRcognNo", rcperRcognNo);
 		
 		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		
+		
+		//채널톡 event 처리 (jsp에서 스크립트로 처리함)
+//		Map<String, Object> channelTalkEvent = new HashMap<>();
+//		Map<String, Object> propertyObject = new HashMap<>();
+//		channelTalkEvent.put("eventName", "view_infocheck_success");
+//		channelTalkEvent.put("propertyObj", propertyObject);
+//		
+//		model.addAttribute("channelTalkEvent", channelTalkEvent);
 		
 		return "/main/recipter/list";
 	}
