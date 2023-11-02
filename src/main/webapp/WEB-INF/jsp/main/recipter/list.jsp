@@ -1375,17 +1375,26 @@ function eventChannelTalk(eventName) {
 	var useAmt = $('#searchUseAmt').text().replaceAll('원', '').replaceAll(',', '').replaceAll(' ', '');
 	//잔여 금액
 	var remainingAmt = comma(Number(limitAmt) - Number(useAmt)) + '원';
-	//조회 완료 일자
-	var searchDate = $('#refleshDate').text();
-	if (searchDate) {
-		searchDate = searchDate.substr(0, 13);
+	
+	var propertyObj = {
+		 grade,
+		 remainingAmt
 	}
 	
-	 ChannelIO('track', eventName, {
-		 grade,
-		 remainingAmt,
-		 searchDate
-	});
+	if (eventName === 'view_infocheck_success') {
+		//조회 완료 일자
+		var searchDate = $('#refleshDate').text();
+		if (searchDate) {
+			searchDate = searchDate.substr(0, 13);
+			propertyObj.searchDate = searchDate;
+		}
+	} else {
+		//상담 신청 일자
+		var now = new Date();
+		propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일'; 
+	}
+	
+	 ChannelIO('track', eventName, propertyObj);
 }
 
 
