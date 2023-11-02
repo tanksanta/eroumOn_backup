@@ -226,7 +226,7 @@
 	                    <%--상담 완료시 --%>
 	                    <c:if test="${resultList.consltSttus eq 'CS01' || resultList.consltSttus eq 'CS07'}">
 	                    <div class="item-request  justify-end">
-	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${resultList.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
+	                    	<button type="button" class="btn btn-outline-success btn-small f_cancel" data-conslt-no="${resultList.consltNo}" data-conslt-mbrNm="${mbrVO.mbrNm}" data-conslt-mbrTelno="${resultList.mbrTelno}">신청 취소하기</button>
 	                    </div>
 	                    </c:if>
 	
@@ -234,7 +234,7 @@
 	                    	<div class="item-request justify-end">
 		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" 
 		                        		data-conslt-no="${resultList.consltNo}" 
-		                        		data-conslt-mbrNm="${resultList.mbrNm}" 
+		                        		data-conslt-mbrNm="${mbrVO.mbrNm}" 
 		                        		data-conslt-mbrTelno="${resultList.mbrTelno}" 
 		                        		data-bplc-unique-id="${resultList.consltResultList[consltSize-1].bplcUniqueId}" 
 		                        		data-bplc-conslt-no="${resultList.consltResultList[consltSize-1].bplcConsltNo}">
@@ -318,7 +318,7 @@
                                 <i class="icon-alert"></i>
                                 <p>신청하신 수급자의 정보와 상담받을 연락처를 확인하세요</p>
                             </div>
-                            <table class="table-view w-auto">
+                            <table class="table-view">
                                 <caption class="hidden">상담정보확인 위한 수급자와의 관계, 수급자성명, 요양인정번호, 상담받을연락처, 실거주지 주소, 생년월일,성별, 상담유형 내용입니다 </caption>
                                 <colgroup>
                                     <col class="w-22 xs:w-32">

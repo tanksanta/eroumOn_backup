@@ -480,7 +480,7 @@
         	
         	//등록된 수급자가 없는 경우
 			if(!recipients || recipients.length === 0) {
-				$('#login-no-rcpt').modal('show');
+				$('#login-no-rcpt').modal('show').appendTo('body');
 			}
 			//기존에 등록한 수급자가 있는 경우
 			else {
@@ -504,7 +504,7 @@
 					$('#registRecipientForm').html('');
 				}
 				
-				$('#login-rcpts').modal('show');
+				$('#login-rcpts').modal('show').appendTo('body');
 			}
         }
       	
@@ -616,7 +616,7 @@
         	$('#modal-recipient-relation').text(relationText);
         	$('#modal-recipient-nm').text(recipientsNm);
         	$('#modal-recipient-lno').text(recipientsLno);
-        	$('#regist-rcpt').modal('show');
+        	$('#regist-rcpt').modal('show').appendTo('body');
         }
         
         //직접입력하기(수급자 등록) 폼 반환

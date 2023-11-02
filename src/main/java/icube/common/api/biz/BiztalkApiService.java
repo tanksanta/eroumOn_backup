@@ -330,7 +330,7 @@ public class BiztalkApiService {
 		JSONArray list = new JSONArray();
 		
 		jsonStr = "{" + " \"name\":\"◼︎ 요양정보 간편조회\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
-		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/main/recipter/list");
+		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/main/recipter/sub");
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		list.add(jsonObject);
 		
@@ -360,7 +360,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_00002");
+		param.put("tmpltCode", "ON_00002-");
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "상담 취소 안내");

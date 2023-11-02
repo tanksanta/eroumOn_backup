@@ -631,7 +631,7 @@
         			
         			//진행중인 상담이 있는 경우
         			if (data.isExistConsltInProcess) {
-        				$('#notified-consulting').modal('show');
+        				$('#notified-consulting').modal('show').appendTo('body');
         				return;
         			}
         			
@@ -639,7 +639,7 @@
         		}
         		//로그인 안한 경우
         		else {
-        			$('#non-login-user').modal('show');
+        			$('#non-login-user').modal('show').appendTo('body');
         		}
         	})
         	.fail(function(data, status, err) {
@@ -653,7 +653,7 @@
         	
         	//등록된 수급자가 없는 경우
 			if(!recipients || recipients.length === 0) {
-				$('#login-no-rcpt').modal('show');
+				$('#login-no-rcpt').modal('show').appendTo('body');
 			}
 			//기존에 등록한 수급자가 있는 경우
 			else {
@@ -677,7 +677,7 @@
 					$('#registRecipientForm').html('');
 				}
 				
-				$('#login-rcpts').modal('show');
+				$('#login-rcpts').modal('show').appendTo('body');
 			}
         } 
         
@@ -775,7 +775,7 @@
         	$('#modal-recipient-relation-cd').val(relationCd);
         	$('#modal-recipient-relation').text(relationText);
         	$('#modal-recipient-nm').text(recipientsNm);
-        	$('#regist-rcpt').modal('show');
+        	$('#regist-rcpt').modal('show').appendTo('body');
         }
         
         //직접입력하기(수급자 등록) 폼 반환
