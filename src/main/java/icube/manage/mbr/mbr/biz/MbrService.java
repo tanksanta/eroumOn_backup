@@ -1,5 +1,6 @@
 package icube.manage.mbr.mbr.biz;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 	@Value("#{props['Talk.Plugin.key']}")
 	private String talkPluginKey;
 	
+	SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
+	
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
 		return mbrDAO.mbrListVO(listVO);
@@ -71,6 +74,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrDAO.deleteMbr(string);
 	}
 
+	
+	
+	
 	/**
 	 * 회원 상세정보 by Map
 	 * @param paramMap
@@ -453,6 +459,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 					//채널톡 이벤트 처리(첫 로그인 처리)
 					Map<String, Object> channelTalkEvent = new HashMap<>();
 					Map<String, Object> propertyObject = new HashMap<>();
+					propertyObject.put("loginTy", "K".equals(mbrVO.getJoinTy()) ? "kakao" :
+						"N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum");
+					propertyObject.put("loginDate", dtFormat.format(mbrVO.getRecentCntnDt()));
+					propertyObject.put("recipientResist", mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록");
+					propertyObject.put("telNo", mbrVO.getMblTelno());
+					
 					channelTalkEvent.put("eventName", "view_loginsuccess");
 					channelTalkEvent.put("propertyObj", propertyObject);
 			      
