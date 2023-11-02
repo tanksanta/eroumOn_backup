@@ -1377,6 +1377,9 @@ function eventChannelTalk(eventName) {
 	var remainingAmt = comma(Number(limitAmt) - Number(useAmt)) + '원';
 	//조회 완료 일자
 	var searchDate = $('#refleshDate').text();
+	if (searchDate) {
+		searchDate = searchDate.substr(0, 13);
+	}
 	
 	 ChannelIO('track', eventName, {
 		 grade,
