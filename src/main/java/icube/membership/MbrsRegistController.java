@@ -378,6 +378,8 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			//임시정보 추가
 			mbrSession.setParms(mbrVO, false);
+			//회원가입 처리
+			mbrSession.setRegistCheck(true);
 	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 			session.setMaxInactiveInterval(60*60);
 			
@@ -620,6 +622,8 @@ public class MbrsRegistController extends CommonAbstractController{
 			//임시정보 추가(등록하러가기 기능떄문에 로그인 처리로 변경)
 			mbrSession.setParms(srchMbr, true);
 			mbrSession.setMbrInfo(session, mbrSession);
+			//회원가입 처리
+			mbrSession.setRegistCheck(true);
 
 			biztalkApiService.sendOnJoinComleted(mbrVO.getMbrNm(), mbrVO.getMblTelno());
 

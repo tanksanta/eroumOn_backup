@@ -22,6 +22,7 @@ public class MbrSession extends MbrVO implements Serializable {
 	private static final long serialVersionUID = 1122298133272109714L;
 
 	private boolean loginCheck = false; // 로그인 여부
+	private boolean registCheck = false; // 회원가입 체크(채널톡 때문에)
 
 	//채널톡 연동 데이터
 	private CustomProfileVO customProfileVO;

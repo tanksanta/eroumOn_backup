@@ -1,6 +1,7 @@
 package icube.manage.mbr.mbr.biz;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -455,14 +456,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 					
 					mbrSession.setCustomProfileVO(customProfileVO);
 					
-					
 					//채널톡 이벤트 처리(첫 로그인 처리)
+					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
 					Map<String, Object> channelTalkEvent = new HashMap<>();
 					Map<String, Object> propertyObject = new HashMap<>();
-					propertyObject.put("loginTy", "K".equals(mbrVO.getJoinTy()) ? "kakao" :
-						"N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum");
+					propertyObject.put("loginTy", joinTy);
 					propertyObject.put("loginDate", dtFormat.format(mbrVO.getRecentCntnDt()));
-					propertyObject.put("recipientResist", mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록");
+					propertyObject.put("recipientResist", recipientResist);
 					propertyObject.put("telNo", mbrVO.getMblTelno());
 					
 					channelTalkEvent.put("eventName", "view_loginsuccess");
@@ -475,6 +476,33 @@ public class MbrService extends CommonAbstractServiceImpl {
 			} else {
 				customProfileVO = mbrSession.getCustomProfileVO();
 			}
+			
+			
+			//채널톡 이벤트 처리(회원가입)
+			if (mbrSession.isRegistCheck()) {
+				try {
+					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
+					
+					Map<String, Object> channelTalkEvent2 = new HashMap<>();
+					Map<String, Object> propertyObject2 = new HashMap<>();
+					propertyObject2.put("mbrNm", mbrVO.getMbrNm());
+					propertyObject2.put("joinDate", dtFormat.format(new Date()));
+					propertyObject2.put("joinTy", joinTy);
+					propertyObject2.put("recipientResist", recipientResist);
+					
+					channelTalkEvent2.put("eventName", "view_signupsuccess");
+					channelTalkEvent2.put("propertyObj", propertyObject2);
+			      
+					request.setAttribute("channelTalkEvent", channelTalkEvent2);
+					
+					mbrSession.setRegistCheck(false);
+				} catch (Exception ex) {
+					log.error("===== Interceptor mbr 채널톡 정보 조회 오류", ex);
+				}
+			}
+			
 			
 			request.setAttribute("customProfileVO", customProfileVO);
 		}
