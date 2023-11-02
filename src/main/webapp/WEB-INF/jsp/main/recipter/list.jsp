@@ -1185,10 +1185,6 @@ function openNewConsltInfo() {
 	
 	
 	$('#modal-consulting-info').modal('show');
-	
-	
-	 //채널톡 이벤트 처리
-    eventChannelTalk('click_infocheck_matching');
 }
 
 //상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
@@ -1313,6 +1309,10 @@ function requestConslt() {
 		if(data.success) {
 			$('#modal-consulting-info').modal('hide');
 			$('#modal-consulting-complated').modal('show');
+			
+			
+			//채널톡 이벤트 처리
+		    eventChannelTalk('click_infocheck_matching');
 		}else{
 			alert(data.msg);
 		}

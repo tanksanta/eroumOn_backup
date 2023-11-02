@@ -796,6 +796,10 @@
     			if(data.success) {
     				$('#modal-consulting-info').modal('hide');
     				$('#modal-consulting-complated').modal('show');
+    				
+    				
+    				//채널톡 이벤트 처리
+    	        	eventChannelTalk('click_gradetest_matching');
     			}else{
     				alert(data.msg);
     			}
@@ -847,6 +851,31 @@
     		}
     	}
     
+    	
+    	//채널톡 event 처리 (테스트 결과보기 페이지 실행, 1:1 상담하기 버튼 실행)
+		function eventChannelTalk(eventName) {
+		    //예상결과 등급
+		    var grade = testResult.grade;
+		    
+		    var propertyObj = {
+		   		 grade
+		   	}
+		    
+		    //테스트 완료 일자(현재시간)
+		    if (eventName === 'view_testresult') {
+		    	//테스트 완료 일자
+		    	var now = new Date();
+		    	propertyObj.testEndDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+		    } else {
+		    	//상담 신청 일자
+				var now = new Date();
+				propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+		    }
+		    
+		     ChannelIO('track', eventName, propertyObj);
+		}
+    	
+    	
         $(function() {
         	loadTestResult();
         	initSido();
@@ -938,6 +967,10 @@
             	drawWelfareEquipment();
             	//내가 선택한 문항결과 확인
             	drawMbrTestSelectResult();
+            	
+            	
+            	//채널톡 이벤트 처리
+            	eventChannelTalk('view_testresult');
             }
             
             //등급 문구 표시
