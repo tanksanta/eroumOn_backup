@@ -19,4 +19,15 @@
 	    }
     </c:if>
   });
+  
+  
+  <c:if test="${!empty channelTalkEvent}">
+	//채널톡 event 처리
+    ChannelIO('track', '${channelTalkEvent.eventName}', {
+    	<c:forEach var="properyMap" items="${channelTalkEvent.propertyObj}" varStatus="status">
+    		<c:if test="${status.index != 0}">,</c:if> ${properyMap.key} : "${properyMap.value}"
+    	</c:forEach>
+	});
+  </c:if>
+  
 </script>

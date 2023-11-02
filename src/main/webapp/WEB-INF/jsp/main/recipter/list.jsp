@@ -1057,6 +1057,10 @@ function getRecipterInfo(){
 				}
 			}
             $('.careinfo-mask').addClass('is-active');
+            
+            
+            //채널톡 이벤트 처리
+            eventChannelTalk('view_infocheck_success');
 		}else{
 			alert("조회된 데이터가 없습니다.");
 		}
@@ -1181,6 +1185,10 @@ function openNewConsltInfo() {
 	
 	
 	$('#modal-consulting-info').modal('show');
+	
+	
+	 //채널톡 이벤트 처리
+    eventChannelTalk('click_infocheck_matching');
 }
 
 //상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
@@ -1354,6 +1362,27 @@ function setDong() {
 		
 		$('#dong').html(template);
 	}
+}
+
+
+//채널톡 event 처리 (요양정보 조회 페이지 실행, 1:1 상담하기 버튼 실행)
+function eventChannelTalk(eventName) {
+	//인정 등급
+	var grade = $('#searchGrade').text();
+	//총 급여액
+	var limitAmt = $('#searchLimit').text().replaceAll('원', '').replaceAll(',', '');
+	//사용 금액
+	var useAmt = $('#searchUseAmt').text().replaceAll('원', '').replaceAll(',', '').replaceAll(' ', '');
+	//잔여 금액
+	var remainingAmt = comma(Number(limitAmt) - Number(useAmt)) + '원';
+	//조회 완료 일자
+	var searchDate = $('#refleshDate').text();
+	
+	 ChannelIO('track', eventName, {
+		 grade,
+		 remainingAmt,
+		 searchDate
+	});
 }
 
 
