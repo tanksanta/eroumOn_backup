@@ -610,8 +610,21 @@ img[alt] {
                after:content-empty after:ml-2.5 after:w-[0.825rem] after:h-3 after:bg-cover after:bg-[url(/html/page/index/assets/images/ico-window-white.svg)];
     }
 
+    .btn-see-apply {
+        & .mobile {
+            @apply xs:hidden;
+        }
+        & .web {
+            @apply hidden xs:inline-flex;
+        }
+    }
+
     .btn-share {
         @apply relative w-10 h-10 overflow-hidden rounded-full border-0 -indent-96
+               after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(/html/page/index/assets/images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
+    }
+    .btn-share-blue {
+        @apply relative w-10 h-10 overflow-hidden rounded-md border-0 -indent-96 !bg-indexKey2
                after:content-empty after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-no-repeat after:bg-[length:100%] after:bg-center after:bg-[url(/html/page/index/assets/images/ico-share-white.svg)] after:-translate-x-1/2 after:-translate-y-1/2;
     }
 

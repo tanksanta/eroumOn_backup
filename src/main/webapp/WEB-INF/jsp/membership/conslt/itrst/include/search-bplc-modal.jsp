@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 멤버스 모달 -->
 <div class="modal fade layer-popup layer-cancel layer-office" id="partnerModal" tabindex="-1" aria-hidden="false">
-	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<p class="text-title">멤버스 찾기</p>

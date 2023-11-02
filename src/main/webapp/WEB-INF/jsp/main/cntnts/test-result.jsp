@@ -78,36 +78,40 @@
                 </dl>
             </li>
         </div>
-        <div class="mainSend">
-        	<c:choose>
-	        	<c:when test="${_mbrSession.loginCheck}">
-		            <form class="provide-form">
-		                <div class="form-agree">                                    
-		                    <div class="flex gap-3 items-center py-2 justify-center">
-		                      <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="chk-email" id="chk-email">
-		                      <label class="form-check-label text-1xl" for="chk-email">나에게 예상 테스트 결과 보내기</label>
-		                    </div>
-		                </div>                        
-		                <ul>
-		                    <li> 예상 테스트 결과를 메일로 보내고 1:1상담을 신청하세요.</li>
-		                    <li> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</li>
-		                </ul>                   
-		            </form>
-	            </c:when>
-	            <c:otherwise>
-	            	<%-- <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">메일보내기</button> --%> 
-	            </c:otherwise>
-            </c:choose>
-        </div>
+        
+        <c:choose>
+            <c:when test="${_mbrSession.loginCheck}">
+                <div class="mainSend">
+                    <form class="provide-form">
+                        <div class="form-agree">                                    
+                            <div class="flex gap-3 items-center py-2 justify-center">
+                            <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="chk-email" id="chk-email">
+                            <label class="form-check-label text-1xl" for="chk-email">나에게 예상 테스트 결과 보내기</label>
+                            </div>
+                        </div>                        
+                        <ul>
+                            <li> 예상 테스트 결과를 메일로 보내고 1:1상담을 신청하세요.</li>
+                            <li> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</li>
+                        </ul>                   
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <%-- <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">메일보내기</button> --%> 
+            </c:otherwise>
+        </c:choose>
+        
     </div>
 
     <div class="result-content2">
         <h2 class="grade-title">
             전문가 상담
             <small>무료 전문가 상담으로 등급 신청까지 의뢰 가능해요.</small>
+            <!-- <small>아래 1:1 상담하기 버튼을 눌러주세요.</small> -->
+
         </h2>
-        <div class="images">
-            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="">
+        <div class="images" >
+            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
         </div>
     </div>
     
@@ -403,7 +407,8 @@
                             </tr>
                             <th scope="row">
                                 <p>
-                                    <label for="recipter">수급자와의 관계<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    <label for="recipter">수급자와의 관계</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
                                 </p>
                             </th>
                             <td>
@@ -418,7 +423,8 @@
                         <tr class="wrapNm">
                             <th scope="row">
                                 <p>
-                                    <label for="recipter">수급자 성명<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    <label for="recipter">수급자 성명</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
                                 </p>
                             </th>
                             <td>
@@ -450,13 +456,19 @@
                         </tr>
                         <tr>
                             <th scope="row">
-                                <p><label for="search-item6">상담받을 연락처<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                <p>
+                                    <label for="search-item6">상담받을 연락처</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
+                                </p>
                             </th>
                             <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel"></td>
                         </tr> 
                         <tr>
                             <th scope="row">
-                                <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                <p>
+                                    <label for="search-item6">실거주지 주소</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
+                                </p>
                             </th>
                             <td>
                                 <fieldset  class="addr-select">
@@ -472,11 +484,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                            <th scope="row">
+                                <p>
+                                    <label for="search-item4">생년월일</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
+                                </p>
+                            </th>
                             <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt" placeholder="1950/01/01"></td>
                         </tr>
                         <tr>
-                        	<th scope="row"><p><label for="search-item4">성별<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                        	<th scope="row">
+                                <p>
+                                    <label for="search-item4">성별</label>
+                                    <sup class="text-danger text-base md:text-lg">*</sup>
+                                </p>
+                            </th>
                         	<td>
                         		<div class="flex flex-row gap-2.5 mb-1.5">
                                     <div class="form-check">

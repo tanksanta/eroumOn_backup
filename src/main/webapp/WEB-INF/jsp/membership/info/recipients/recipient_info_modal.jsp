@@ -27,7 +27,8 @@
 						<tr>
 							<th scope="row">
                                 <p>
-                                    <label for="recipter">수급자와의 관계<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    <label for="recipter">수급자와의 관계</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
                                 </p>
                             </th>
                             <td>
@@ -42,7 +43,8 @@
 						<tr class="wrapNm">
                             <th scope="row">
                                 <p>
-                                    <label for="recipter">수급자 성명<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    <label for="recipter">수급자 성명</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
                                 </p>
                             </th>
                             <td>
@@ -74,13 +76,19 @@
                         </tr>
 						<tr>
                             <th scope="row">
-                                <p><label for="search-item6">상담받을 연락처<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                <p>
+									<label for="search-item6">상담받을 연락처</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
                             </th>
                             <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel" placeholder="010-1234-5678"></td>
                         </tr> 
 						<tr>
                             <th scope="row">
-                                <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                <p>
+									<label for="search-item6">실거주지 주소</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
                             </th>
                             <td>
                                 <fieldset  class="addr-select">
@@ -96,11 +104,21 @@
                             </td>
                         </tr>
 						<tr>
-                            <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                            <th scope="row">
+								<p>
+									<label for="search-item4">수급자 생년월일</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
+							</th>
                             <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt" placeholder="1950/01/01"></td>
                         </tr>
 						<tr>
-                        	<th scope="row"><p><label for="search-item4">성별<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                        	<th scope="row">
+								<p>
+									<label for="search-item4">성별</label>
+									<sup class="text-danger text-base md:text-lg">*</sup>
+								</p>
+							</th>
                         	<td>
                         		<div class="flex flex-row gap-2.5 mb-1.5">
                                     <div class="form-check">
@@ -559,7 +577,7 @@
 	    		return;
 	    	}
 	    	if (!brdt) {
-	    		alert('생년월일를 입력하세요');
+	    		alert('수급자 생년월일를 입력하세요');
 	    		return;
 	    	}
 	    	if (!gender) {

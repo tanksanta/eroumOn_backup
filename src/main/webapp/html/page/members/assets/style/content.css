@@ -802,7 +802,8 @@
         @apply mt-0.5 mr-1.5 w-[0.9375rem];
     }
     & a {
-        @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-plus.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96;
+        /* @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-plus.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96; */
+        @apply block overflow-hidden -m-2.5 ml-auto w-8 h-8 bg-[url(../images/ico-mypage-arrow.svg)] bg-center bg-no-repeat bg-[length:0.75rem] -indent-96;
     }
 }
 
@@ -881,7 +882,7 @@
 }
 
 .mypage-consult-search {
-    @apply hidden fixed z-20 top-13 left-0 right-0 bottom-0
+    @apply hidden fixed z-25 top-13 left-0 right-0 bottom-0
            before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-black1/60
            md:block md:static
            md:before:hidden;

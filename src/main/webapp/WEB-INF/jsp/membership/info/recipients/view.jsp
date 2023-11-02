@@ -53,7 +53,7 @@
 							</tr>
 							<tr>
 								<th scope="row">실거주지 주소</th>
-								<td>${recipientVO.sido}&nbsp;${recipientVO.sigugun}&nbsp;${recipientVO.dong}</td>
+								<td class="break-all">${recipientVO.sido}&nbsp;${recipientVO.sigugun}&nbsp;${recipientVO.dong}</td>
 							</tr>
 							<tr>
 								<th scope="row">생년월일</th>
