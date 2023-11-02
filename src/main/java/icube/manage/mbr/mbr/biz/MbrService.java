@@ -1,20 +1,28 @@
 package icube.manage.mbr.mbr.biz;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.promotion.mlg.biz.MbrMlgDAO;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointDAO;
 import icube.manage.promotion.point.biz.MbrPointVO;
+import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyDAO;
 
 @Service("mbrService")
@@ -34,6 +42,18 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Resource(name = "mbrAgreementDAO")
 	private MbrAgreementDAO mbrAgreementDAO;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+	
+	@Autowired
+	private MbrSession mbrSession;
+	
+	@Value("#{props['Talk.Plugin.key']}")
+	private String talkPluginKey;
+	
+	SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
+	
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
 		return mbrDAO.mbrListVO(listVO);
@@ -55,6 +75,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrDAO.deleteMbr(string);
 	}
 
+	
+	
+	
 	/**
 	 * 회원 상세정보 by Map
 	 * @param paramMap
@@ -403,5 +426,88 @@ public class MbrService extends CommonAbstractServiceImpl {
 		}
 		
 		return id;
+	}
+	
+	
+	/**
+	 * 채널톡 고객프로필 연동데이터 추가
+	 */
+	public void setChannelTalk(HttpServletRequest request) throws Exception {
+		
+		if (mbrSession.isLoginCheck()) {
+			CustomProfileVO customProfileVO = new CustomProfileVO();
+			
+			if (mbrSession.getCustomProfileVO() == null) {
+				try {
+					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+					customProfileVO.setMbrId(mbrVO.getMbrId());
+					customProfileVO.setMbrNm(mbrVO.getMbrNm());
+					customProfileVO.setMblTelno(mbrVO.getMblTelno());
+					customProfileVO.setEml(mbrVO.getEml());
+					customProfileVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? "수신" : "미수신");
+					customProfileVO.setEmlRcptnYn(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? "수신" : "미수신");
+					
+					CommonListVO listVO = new CommonListVO(request);
+					listVO.setParam("srchUseYn", "Y");
+					listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
+					listVO = mbrConsltService.selectMbrConsltListVO(listVO);
+					
+					customProfileVO.setMbrConsltCnt(listVO.getListObject().size());
+					
+					mbrSession.setCustomProfileVO(customProfileVO);
+					
+					//채널톡 이벤트 처리(첫 로그인 처리)
+					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
+					Map<String, Object> channelTalkEvent = new HashMap<>();
+					Map<String, Object> propertyObject = new HashMap<>();
+					propertyObject.put("loginTy", joinTy);
+					propertyObject.put("loginDate", dtFormat.format(mbrVO.getRecentCntnDt()));
+					propertyObject.put("recipientResist", recipientResist);
+					propertyObject.put("telNo", mbrVO.getMblTelno());
+					
+					channelTalkEvent.put("eventName", "view_loginsuccess");
+					channelTalkEvent.put("propertyObj", propertyObject);
+			      
+					request.setAttribute("channelTalkEvent", channelTalkEvent);
+				} catch (Exception ex) {
+					log.error("===== Interceptor mbr 채널톡 정보 조회 오류", ex);
+				}
+			} else {
+				customProfileVO = mbrSession.getCustomProfileVO();
+			}
+			
+			
+			//채널톡 이벤트 처리(회원가입)
+			if (mbrSession.isRegistCheck()) {
+				try {
+					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
+					
+					Map<String, Object> channelTalkEvent2 = new HashMap<>();
+					Map<String, Object> propertyObject2 = new HashMap<>();
+					propertyObject2.put("mbrNm", mbrVO.getMbrNm());
+					propertyObject2.put("joinDate", dtFormat.format(new Date()));
+					propertyObject2.put("joinTy", joinTy);
+					propertyObject2.put("recipientResist", recipientResist);
+					
+					channelTalkEvent2.put("eventName", "view_signupsuccess");
+					channelTalkEvent2.put("propertyObj", propertyObject2);
+			      
+					request.setAttribute("channelTalkEvent", channelTalkEvent2);
+					
+					mbrSession.setRegistCheck(false);
+				} catch (Exception ex) {
+					log.error("===== Interceptor mbr 채널톡 정보 조회 오류", ex);
+				}
+			}
+			
+			
+			request.setAttribute("customProfileVO", customProfileVO);
+		}
+		
+		//채널톡 pluginKey 셋팅
+		request.setAttribute("talkPluginKey", talkPluginKey);
 	}
 }

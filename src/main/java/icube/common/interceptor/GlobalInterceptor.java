@@ -19,9 +19,13 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.util.CommonUtil;
 import icube.common.values.CodeMap;
+import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 
@@ -31,6 +35,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
 
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 
 	@Resource(name="messageSource")
 	private MessageSource messageSource;
@@ -135,10 +142,12 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		request.setAttribute("_kakaoScriptKey", kakaoScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 
-
-
 		request.setAttribute("_mbrSession", mbrSession);
+		
 
+		//채널톡 연동 데이터 셋팅
+		mbrService.setChannelTalk(request);
+		
 		return true;
 	}
 
