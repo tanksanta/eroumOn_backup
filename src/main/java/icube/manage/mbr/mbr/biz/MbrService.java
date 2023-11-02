@@ -448,6 +448,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 					customProfileVO.setMbrConsltCnt(listVO.getListObject().size());
 					
 					mbrSession.setCustomProfileVO(customProfileVO);
+					
+					
+					//채널톡 이벤트 처리(첫 로그인 처리)
+					Map<String, Object> channelTalkEvent = new HashMap<>();
+					Map<String, Object> propertyObject = new HashMap<>();
+					channelTalkEvent.put("eventName", "view_loginsuccess");
+					channelTalkEvent.put("propertyObj", propertyObject);
+			      
+					request.setAttribute("channelTalkEvent", channelTalkEvent);
 				} catch (Exception ex) {
 					log.error("===== Interceptor mbr 채널톡 정보 조회 오류", ex);
 				}
