@@ -313,6 +313,23 @@
 			gugun = '전체';
 		}
 		
+		//메인에서 넘어온 지역 선택 확인
+		var selectSido = '${selectSido}';
+		var selectGugun = '${selectGugun}';
+		if (selectSido && selectGugun) {
+			var sidoOptions = $('select[name=select-sido] option[value=' + selectSido + ']');
+			if (sidoOptions && sidoOptions.length > 0) {
+				sidoOptions[0].selected = true;
+				setSigugunSync();
+			}
+			
+			var gugunOptions = $('select[name=select-gugun] option[value=' + selectGugun + ']');
+			if (gugunOptions && gugunOptions.length > 0) {
+				gugunOptions[0].selected = true;
+			}
+		}
+		
+		
 		//검색 API 실행
 		var params = {
 			sido
@@ -681,7 +698,7 @@
    			        	$("button.srch-srvc").click();
    			        }*/
    					
-			     		$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
+			     	$("select[name='select-gugun'] option[value='1154500000']").prop("selected",true);
 			     	
 			     	if("" != '' && ""){
 			     		$("select[name='select-gugun'] option").each(function(){
@@ -701,10 +718,45 @@
 	}
 	
 	
+	function setSigugunSync(){
+		//선택된 지역 가져오기
+		var stdgCd = $('select[name=select-sido] option:selected').val();
+		var stdgNm = $('select[name=select-sido] option:selected').text();
+		
+	   	if(stdgCd != ""){
+    		$.ajax({
+				type : "post",
+				url  : "/members/stdgCd/stdgCdList.json",
+				data : {stdgCd:stdgCd},
+				dataType : 'json',
+				async: false
+			})
+			.done(function(data) {
+				if(data.result){
+					$("select[name='select-gugun']").empty();
+   					$.each(data.result, function(index, item){
+						$("select[name='select-gugun']").append('<option value='+item.stdgCd+'>'+item.sggNm+'</option>');
+   	                });
+				}
+			})
+			.fail(function(data, status, err) {
+				console.log('지역호출 error forward : ' + data);
+			});
+    	}
+
+	}
+	
+	
+	
 	$(function () {
 		searchBokjiService(1);
 		
-		setSigugun();
+		var selectSido = '${selectSido}';
+		var selectGugun = '${selectGugun}';
+		if (!selectSido && !selectGugun) {
+			setSigugun();			
+		}
+		
 		
 		//공유하기 기능
 		$(document).on("click", ".f_clip", function(e){
