@@ -12,8 +12,10 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.util.DateUtil;
 import icube.common.util.JsonUtil;
+
 import icube.main.biz.ItemMap;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -272,7 +275,7 @@ public class TilkoApiService {
 				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
 
 		response = client.newCall(request).execute();
-		responseStr = response.body().string();
+		String resonsePayRsb = responseStr = response.body().string();
 
         jsonParser = new JSONParser();
         obj = jsonParser.parse(responseStr);
@@ -464,6 +467,41 @@ public class TilkoApiService {
 	     }
 
 	     infoMap.put("allList", allItem);
+
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = DateUtil.getDateAdd(new Date(), "year", -6);
+	    
+		// 계약 리스트 API 호출 6년치 데이터 호출
+        json.put("StartDate", format.format(date));
+        json.put("EndDate", infoMap.get("APDT_TO_DT"));
+
+		client	= new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		request	= new Request.Builder()
+				.url(url)
+				.addHeader("API-KEY", apiKey)
+				.addHeader("ENC-KEY", aesCipherKey)
+				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
+
+		response = client.newCall(request).execute();
+		responseStr = response.body().string();
+		
+		String rcgtEdaDtFr = (String)infoMap.get("RCGT_EDA_DT");
+		String rcgtEdaDtTo = rcgtEdaDtFr.substring(rcgtEdaDtFr.indexOf("~") + 1).trim();
+		rcgtEdaDtFr = rcgtEdaDtFr.substring(0, rcgtEdaDtFr.indexOf("~") - 1).trim();
+
+		WelToolsInfoParser wtInfoParser = new WelToolsInfoParser(rcgtEdaDtFr, rcgtEdaDtTo, (String)infoMap.get("APDT_FR_DT"), (String)infoMap.get("APDT_TO_DT"));
+
+		wtInfoParser.setItemGrpAble(resonsePayRsb);
+
+		wtInfoParser.contractItemListParse(responseStr);
+
+		infoMap.put("ownList", wtInfoParser.getResutAll());
 
 	    return returnMap;
 	}

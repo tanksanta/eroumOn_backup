@@ -386,6 +386,21 @@ public class DateUtil {
 		return result;
 	}
 
+	public static Date getDateAdd( Date now, String gubn, int rec ) throws Exception {
+		
+	    Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+
+        if( gubn == "year" ) cal.add( Calendar.YEAR, rec );
+		if( gubn == "month" ) cal.add( Calendar.MONTH, rec );
+		if( gubn == "date" ) cal.add( Calendar.DATE, rec );
+		if( gubn == "week" ) cal.add( Calendar.WEEK_OF_MONTH, rec );
+		if( gubn == "hour" ) cal.add( Calendar.HOUR_OF_DAY, rec );
+		if( gubn == "minute" ) cal.add( Calendar.MINUTE, rec );
+
+		return cal.getTime();
+	}
+
 	/**
 	 * 날짜를 입력하면 요일을 나타내준다..
 	 * @param date
