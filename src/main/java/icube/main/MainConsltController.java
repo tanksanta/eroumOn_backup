@@ -181,7 +181,7 @@ public class MainConsltController extends CommonAbstractController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/addMbrConslt.json")
-	public Map<String, Object> addMbrConslt(
+	public synchronized Map<String, Object> addMbrConslt(
 			MbrConsltVO mbrConsltVO,
 			Boolean saveRecipientInfo
 		)throws Exception {
@@ -200,6 +200,20 @@ public class MainConsltController extends CommonAbstractController{
 	            }
 			}
 			
+			//같은 상담(prev_path)중 진행중인 상담이 있다면 불가능
+			//수급자 최근 상담 조회(진행 중인 상담 체크)
+			MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(mbrRecipient.getRecipientsNo(), mbrConsltVO.getPrevPath());
+			if (recipientConslt != null && (
+					!"CS03".equals(recipientConslt.getConsltSttus()) &&
+					!"CS04".equals(recipientConslt.getConsltSttus()) &&
+					!"CS09".equals(recipientConslt.getConsltSttus()) &&
+					!"CS06".equals(recipientConslt.getConsltSttus())
+					)) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "진행중인 인정등급 상담이 있습니다.");
+				return resultMap;
+			}
+			
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
@@ -207,11 +221,13 @@ public class MainConsltController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					returnMap.put("success", false);
+					resultMap.put("success", false);
 					resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
 					return resultMap;
 				}
 			}
+			
+			
 			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
 			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());

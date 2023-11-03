@@ -132,10 +132,11 @@
 													<input type="checkbox" name="recommend" value="${consltResultVO.bplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == consltResultVO.bplcUniqueId).count() > 0}">checked</c:if>>
 													<span>추천하기</span>
 												</label>
-												<label class="check2">
+												<%-- 관심설정 기능 제거 --%>
+												<%-- <label class="check2">
 													<input type="checkbox" name="itrst" value="${consltResultVO.bplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == consltResultVO.bplcUniqueId).count() > 0}">checked</c:if>>
 													<span>관심설정</span>
-												</label>
+												</label> --%>
 											</div>
 										</div>
 									</c:if>

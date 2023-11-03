@@ -179,7 +179,7 @@
 				</div>
 				<div class="modal-footer gap-2">
 					<button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
-					<button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button>
+					<!-- <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button> -->
 				</div>
 			</div>
 		</div>
@@ -284,8 +284,20 @@
 	    </div>
 	</div>
 
-
+	<script src="/html/core/script/JsCommon.js"></script>
     <script>
+
+		var jsCommon = null;
+		$(document).ready(function() {
+			jsCommon = new JsCommon();
+
+			
+			$("#info-tel").off("keyup").on("keyup", function(event){
+				jsCommon.inputPhoneNumber(event);
+			});
+			
+		});
+		
 	    var me = {};
 	    var myRecipientInfo = {};
 	    var mbrRecipients = {};
@@ -336,6 +348,42 @@
 	  	
 	  	//상담하기 정보 가져오기
 	  	function getRequestConsltInfoData(recipientsNo) {
+	  		//진행중인 상담 조회 api
+    		$.ajax({
+        		type : "post",
+				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+				data : {
+					recipientsNo : recipientsNo,
+					prevPath : infoPrevPath,
+				},
+				dataType : 'json'
+        	})
+        	.done(function(data) {
+        		//해당 수급자가 진행중인 상담이 있는 경우
+        		if (data.isExistRecipientConslt) {
+        			if (infoPrevPath === 'test') {
+    					$('#process-conslt-noti').html(`
+							진행중인 인정등급 상담이 있습니다.<br>
+							상담 내역을 확인하시겠습니까?
+    					`);
+    				} else {
+    					$('#process-conslt-noti').html(`
+							진행중인 요양정보 상담이 있습니다.<br>
+							상담 내역을 확인하시겠습니까?
+    					`);
+    				}
+        			$('#modal-my-consulting').modal('show');
+        		} else {
+        			getRecipientInfoIntoModal(recipientsNo);
+        		}
+        	})
+        	.fail(function(data, status, err) {
+        		alert('서버와 연결이 좋지 않습니다.');
+			});
+	  		
+	  	}
+	  	
+	  	function getRecipientInfoIntoModal(recipientsNo) {
 	  		$.ajax({
 	    		type : "post",
 	    		url  : "/membership/info/myinfo/getMbrInfo.json",
@@ -377,6 +425,7 @@
 	    		alert('서버와 연결이 좋지 않습니다');
 	    	});
 	  	}
+	  	
 	  	
 	  	//진행중인 상담 모달에서 새롭게 진행하기 클릭
 	  	function openNewConslt() {
@@ -814,38 +863,6 @@
 	    
 	    $(function() {
 	    	initSido();
-	    	
-	    	
-	    	//연락처 형식 - 자동작성
-	    	const telKeyInputRegex = /^(45|48|49|50|51|52|53|54|55|56|57|58|59)$/;
-	    	$("#info-tel").keypress(function(e) {
-	    		//숫자와 /만 입력받도록 추가
-	    		if (!telKeyInputRegex.test(e.keyCode)) {
-	    			return false;
-	    		}
-	    	});
-	    	$("#info-tel").on("keydown",function(e){
-	    		//백스페이스는 무시
-	    		if (e.keyCode !== 8) {
-	    			if($(this).val().length == 3){
-	    				$(this).val($(this).val() + "-");
-	    			}
-
-	    			if($(this).val().length == 8){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    			
-	    			if($(this).val().length == 13){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    		}
-	    	});
-	    	$("#info-tel").on("keyup",function(){
-	    		if($(this).val().length > 13){
-	    			$(this).val($(this).val().substr(0,13));
-	    		}
-	    	});
-	    	
 	    	
 	    	//생년월일 형식 / 자동작성
 	    	const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;

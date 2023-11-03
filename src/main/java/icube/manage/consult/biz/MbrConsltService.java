@@ -144,4 +144,11 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		paramMap.put("srchRecipientsNo", RecipientsNo);
 		return mbrConsltDAO.selectRecentConsltByRecipientsNo(paramMap);
 	}
+	
+	public MbrConsltVO selectRecentConsltByRecipientsNo(int RecipientsNo, String prevPath) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchRecipientsNo", RecipientsNo);
+		paramMap.put("srchPREV_PATH", prevPath);
+		return mbrConsltDAO.selectRecentConsltByRecipientsNo(paramMap);
+	}
 }

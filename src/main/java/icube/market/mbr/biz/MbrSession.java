@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import icube.common.framework.request.RequestHolder;
 import icube.common.interceptor.biz.CustomProfileVO;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,12 @@ public class MbrSession extends MbrVO implements Serializable {
 
 	private boolean loginCheck = false; // 로그인 여부
 	private boolean registCheck = false; // 회원가입 체크(채널톡 때문에)
+
+	/*마켓에서 오류가 나서 다시 추가함. 더이상 사용하지 말자 2023-11-03*/
+	private String prtcrRecipterYn = "N";
+	private RecipterInfoVO prtcrRecipterInfo;
+
+	
 
 	//채널톡 연동 데이터
 	private CustomProfileVO customProfileVO;
@@ -66,6 +73,7 @@ public class MbrSession extends MbrVO implements Serializable {
 		setMberGrade(mbrVO.getMberGrade());
 		setItrstField(mbrVO.getItrstField());
 		setJoinTy(mbrVO.getJoinTy());
+		setSnsRegistDt(mbrVO.getSnsRegistDt());
 
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보

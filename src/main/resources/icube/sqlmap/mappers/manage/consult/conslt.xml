@@ -4,6 +4,7 @@
 
 	<resultMap type="mbrConsltVO" id="mbrConsltVOMap" autoMapping="true">
 		<collection property="consltResultList" column="{srchConsltNo=conslt_no}" select="conslt.result.selectMbrConsltResultList" />
+		<collection property="consltChgHistList" column="{srchConsltNo=conslt_no}" select="conslt.chg.hist.selectMbrConsltChgHist" />
 	</resultMap>
 
 	<sql id="listColumn">
@@ -280,6 +281,9 @@
 			<include refid="listColumn" />
 		FROM MBR_CONSLT mc
 		WHERE recipients_no = #{srchRecipientsNo}
+		<if test="srchPREV_PATH != null and srchPREV_PATH != '' ">
+		  AND prev_path = #{srchPREV_PATH}
+		</if>
 		ORDER BY conslt_no DESC
 		LIMIT 1;
 	</select>
