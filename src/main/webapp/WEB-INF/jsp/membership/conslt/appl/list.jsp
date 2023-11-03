@@ -121,8 +121,8 @@
 	                <div class="mypage-consult-item">
 						<dl class="item-current">
 	                        <dt>수급자 성명</dt>
-	                        <dd class="flex justify-between">
-	                            <span>${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
+	                        <dd class="flex justify-between items-start gap-4">
+	                            <span class="break-all">${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
 	                            <a class="btn-conselng-info" onclick="viewConsltInfoModal('${resultList.consltNo}')" style="cursor: pointer;">
 	                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
 	                            </a>

@@ -1,6 +1,6 @@
 @layer components {
     .icon-alert {
-        @apply w-5 h-5 bg-no-repeat bg-center bg-[length:1rem];
+        @apply w-5 h-5 bg-no-repeat bg-center bg-[length:99.9%];
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
         &.size-sm {
             @apply w-3.5 h-3.5 bg-[length:0.875rem] mt-px;
