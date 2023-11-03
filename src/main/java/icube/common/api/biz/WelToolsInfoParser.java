@@ -277,12 +277,18 @@ public class WelToolsInfoParser {
 
 				itemGrpInfo2 = (WelToolsItemGrpInfo)(weltoolsItemGrpList.get(itemGrpOther));
 				if (!EgovStringUtil.equals("Y", itemGrpInfo1.getAble())
-					|| (itemGrpInfo1.getUsedPersistPeriodCnt() + itemGrpInfo2.getUsedPersistPeriodCnt()) > 0){
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNone());
-					jsonObject.put(itemGrpCd, itemGrpInfo1.getResultNone());
-				}else{
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					 || (itemGrpInfo1.getUsedPersistPeriodCnt() + itemGrpInfo2.getUsedPersistPeriodCnt()) == 0){
 					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+				}else{
+					if (itemGrpInfo1.getUsedPersistPeriodCnt() > 0){
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+					}else{
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResultNoneOther());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					}
+					
 				}
 
 			} else if (EgovStringUtil.equals(itemGrpCd, "mattressS") ){
@@ -290,11 +296,11 @@ public class WelToolsInfoParser {
 
 				itemGrpInfo2 = (WelToolsItemGrpInfo)(weltoolsItemGrpList.get(itemGrpOther));
 				if (!EgovStringUtil.equals("Y", itemGrpInfo1.getAble()) || itemGrpInfo1.getUsedPersistPeriodCnt() > 0){
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNone());
-					jsonObject.put(itemGrpCd, itemGrpInfo1.getResultNone());
-				}else{
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
 					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+					jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+				}else{
+					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
 				}
 
 			}else{

@@ -170,12 +170,12 @@ public class WelToolsItemGrpInfo {
     }
 
     public JSONObject getResult() {
-        return this.getResult(this.getAbleCnt());
+        return this.getResult(this.getAbleCnt(), this.persistPeriodCnt);
     }
-    public JSONObject getResultNone() {
-        return this.getResult(0);
+    public JSONObject getResultNoneOther() {
+        return this.getResult(0, 0);
     }
-    protected JSONObject getResult(int ableCnt) {
+    protected JSONObject getResult(int ableCnt, int periodCnt) {
 
         JSONObject jsonObject = new JSONObject();
 
@@ -185,7 +185,7 @@ public class WelToolsItemGrpInfo {
         jsonObject.put("itemGrpNm", this.itemGrpNm);
         
         jsonObject.put("persistPeriodYear", this.persistPeriodYear);
-        jsonObject.put("persistPeriodCnt", this.persistPeriodCnt);
+        jsonObject.put("persistPeriodCnt", periodCnt);
 
         jsonObject.put("ableCnt", ableCnt);
 
