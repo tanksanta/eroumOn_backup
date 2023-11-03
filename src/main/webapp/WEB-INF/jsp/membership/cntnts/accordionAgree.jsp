@@ -479,7 +479,8 @@
 						<div class="accordion-header">
 							<div class="form-check">
 								<input class="form-check-input agree-check" type="checkbox" id="privacyYn" name="privacyYn" value="Y">
-								<label class="form-check-label" for="privacyYn"> <span class="text-danger">필수</span> 개인정보 처리방침에 동의합니다
+								<label class="form-check-label" for="privacyYn"> <span class="text-danger">필수</span> 
+									개인정보 처리방침에 동의합니다
 								</label>
 							</div>
 							<button class="accordion-button" type="button" data-bs-target="#collapse-agree2" data-bs-toggle="collapse" aria-expanded="false">펼치기/접기</button>
@@ -592,7 +593,7 @@
 									<li>보유 및 이용기간: 이용 목적 달성 또는 보유 기간 경과 시</li>
 								</ul>
 								<ul class="terms-list is-hypen mt-1 md:mt-1.5">
-									<li>제공받는자: 장기요양기관<a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup2.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[리스트 : 링크]</a> 목적: 복지용구 상담, 장기요양 인정등급 상담 및 서비스 제공</li>
+									<li>제공받는자: 장기요양기관<a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup2.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[리스트 : 링크]</a></li>
 									<li>목적: 복지용구 상담, 장기요양 인정등급 상담 및 서비스 제공</li>
 									<li>항목: 이름, 아이디, 수급자 정보(수급자와의 관계, 수급자 성명, 장기요양인정번호{수급자 이용자 限}), 전화번호, 주소, 생년월일, 성별, 장기요양정보(수급자 이용자 限), 인정등급 예상 테스트 결과 </li>
 									<li>보유 및 이용기간: 이용 목적 달성 또는 보유기간 경과 시</li>
@@ -757,7 +758,7 @@
 	                            <p class="mt-4"><strong>1. 수집하는 개인정보의 항목 및 수집방법</strong></p>
 	                            <p class="mt-1.5">
 									가. 수집하는 개인정보의 항목<br>
-									회사는 회원가입, 이용대금결제, 상담, 부정이 용의 방지 등을 위해 아래와 같은 개인정보를 필수 또는 선택 항목으로 수집하고 있습니다.<br/> 
+									회사는 회원가입, 이용대금결제, 상담, 부정이용의 방지 등을 위해 아래와 같은 개인정보를 필수 또는 선택 항목으로 수집하고 있습니다.<br/> 
 			    					선택항목 없이도 서비스는 제공됩니다. 단, 선택항목 미동의 시 관련 서비스 이용에 있어 제한이 발생할 수 있습니다.
 								</p>
 	                            <ol class="terms-list is-number mt-1.5">
@@ -884,9 +885,17 @@
 									<li>제공받는 자: 복지용구 판매 사업소, 상품공급사(판매자) <a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup2.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[리스트 : 링크]</a> </li>
 									<li>목적: 상품 및 경품(서비스) 배송(전송), 제품설치, 반품, 환불, 고객상담 등 정보통신서비스 제공계약 및 전자상거래(통신판매)계약의 이행을 위해 필요한 업무의 처리, 장기요양 수급자 확인, 고객상담 등</li>
 									<li>항목: 이름, 아이디, 이메일, 휴대폰 번호, 배송지 주소, 수령인 및 연락처, 장기요양인정번호</li>
-									<li>보유 및 이용기간: 이용 목적 달성 또는 보유 기간 경과 시</li>
+									<li>보유 및 이용기간: 이용 목적 달성 또는 보유기간 경과 시</li>
 								</ul>
 								<p class="mt-1.5">이용자의 개인정보는 원칙적으로 위 사항 외에 외부에 제공하지 않습니다. 다만, 아래의 경우에는 예외로 합니다.</p>
+
+								<ul class="terms-list is-hypen mt-1 md:mt-1.5">
+									<li>제공받는자: 장기요양기관<a class="text-success" href="javascript:;" onclick="window.open('/html/page/members/contents/popup2.html','','width=600,height=700,scrollbars=yes,location=no,toolbar=no')">[리스트 : 링크]</a></li>
+									<li>목적: 복지용구 상담, 장기요양 인정등급 상담 및 서비스 제공</li>
+									<li>항목: 이름, 아이디, 수급자 정보(수급자와의 관계, 수급자 성명, 장기요양인정번호{수급자 이용자 限}), 전화번호, 주소, 생년월일, 성별, 장기요양정보(수급자 이용자 限), 인정등급 예상 테스트 결과 </li>
+									<li>보유 및 이용기간: 이용 목적 달성 또는 보유기간 경과 시</li>
+								</ul>
+
 								<ul class="terms-list is-hypen mt-1.5">
 									<li>이용자들이 사전에 동의한 경우</li>
 									<li>법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
