@@ -165,10 +165,11 @@
 				                                        <input type="checkbox" name="recommend" value="${resultList.consltResultList[0].bplcUniqueId}" <c:if test="${bplcRcmdList.stream().filter(f -> f.bplcUniqueId == resultList.consltResultList[0].bplcUniqueId).count() > 0}">checked</c:if>>
 				                                        <span>추천하기</span>
 				                                    </label>
-				                                    <label class="check2">
+				                                    <%-- 관심설정 기능 제거 --%>
+				                                    <%-- <label class="check2">
 				                                        <input type="checkbox" name="itrst" value="${resultList.consltResultList[0].bplcUniqueId}" <c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == resultList.consltResultList[0].bplcUniqueId).count() > 0}">checked</c:if>>
 				                                        <span>관심설정</span>
-				                                    </label>
+				                                    </label> --%>
 				                                </div>
 				                            </div>
 										</c:if>
@@ -217,9 +218,10 @@
 	                        </dl>
 	                    </c:if>
 	                    <c:if test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">
+	                    	<c:set var="cancelConsltChgHist" value="${resultList.consltChgHistList.stream().filter(f -> f.consltSttusChg == 'CS03' || f.consltSttusChg == 'CS04' || f.consltSttusChg == 'CS09').findFirst().orElse(null)}" />
 	                    	<dl class="item-date">
 		                    	<dt>상담 취소일</dt>
-		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+		                        <dd><fmt:formatDate value="${cancelConsltChgHist.regDt}" pattern="yyyy.MM.dd" /></dd>
 	                        </dl>
 	                    </c:if>
 	                    

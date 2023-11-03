@@ -44,7 +44,7 @@
                         </c:if>
                     </ul>
                 </div>
-                <div class="mypage-manage1">
+                <div class="mypage-manage1" style="display: none;">
                     <h4 class="mypage-manage1-title">
                         <img src="/html/page/members/assets/images/ico-mypage-interest-active.svg" alt="">
                         관심 멤버스 설정
