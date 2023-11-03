@@ -41,6 +41,7 @@ public class MbrConsltVO extends CommonBaseVO {
 	private Date canclDt;
 
 	private List<MbrConsltResultVO> consltResultList;
+	private List<MbrConsltChgHistVO> consltChgHistList;
 
 	private Date reConsltDt; // 재접수 일시 (CS07)
 	

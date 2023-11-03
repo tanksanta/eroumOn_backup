@@ -179,7 +179,7 @@
 				</div>
 				<div class="modal-footer gap-2">
 					<button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
-					<button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button>
+					<!-- <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button> -->
 				</div>
 			</div>
 		</div>
@@ -336,6 +336,42 @@
 	  	
 	  	//상담하기 정보 가져오기
 	  	function getRequestConsltInfoData(recipientsNo) {
+	  		//진행중인 상담 조회 api
+    		$.ajax({
+        		type : "post",
+				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+				data : {
+					recipientsNo : recipientsNo,
+					prevPath : infoPrevPath,
+				},
+				dataType : 'json'
+        	})
+        	.done(function(data) {
+        		//해당 수급자가 진행중인 상담이 있는 경우
+        		if (data.isExistRecipientConslt) {
+        			if (infoPrevPath === 'test') {
+    					$('#process-conslt-noti').html(`
+							진행중인 인정등급 상담이 있습니다.<br>
+							상담 내역을 확인하시겠습니까?
+    					`);
+    				} else {
+    					$('#process-conslt-noti').html(`
+							진행중인 요양정보 상담이 있습니다.<br>
+							상담 내역을 확인하시겠습니까?
+    					`);
+    				}
+        			$('#modal-my-consulting').modal('show');
+        		} else {
+        			getRecipientInfoIntoModal(recipientsNo);
+        		}
+        	})
+        	.fail(function(data, status, err) {
+        		alert('서버와 연결이 좋지 않습니다.');
+			});
+	  		
+	  	}
+	  	
+	  	function getRecipientInfoIntoModal(recipientsNo) {
 	  		$.ajax({
 	    		type : "post",
 	    		url  : "/membership/info/myinfo/getMbrInfo.json",
@@ -349,22 +385,6 @@
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
 	    			
-	    			//진행중인 상담 있는지 체크
-	    			if (data.recipientConslt) {
-	    				if (data.recipientConslt.prevPath === 'test') {
-	    					$('#process-conslt-noti').html(`
-    							진행중인 인정등급 상담이 있습니다.<br>
-    							상담 내역을 확인하시겠습니까?
-	    					`);
-	    				} else {
-	    					$('#process-conslt-noti').html(`
-    							진행중인 요양정보 상담이 있습니다.<br>
-    							상담 내역을 확인하시겠습니까?
-	    					`);
-	    				}
-	    				$('#modal-my-consulting').modal('show');
-	    				return;
-	    			}
 	    			
 	    			mappingModalData();
 	    		}
@@ -377,6 +397,7 @@
 	    		alert('서버와 연결이 좋지 않습니다');
 	    	});
 	  	}
+	  	
 	  	
 	  	//진행중인 상담 모달에서 새롭게 진행하기 클릭
 	  	function openNewConslt() {
@@ -741,10 +762,11 @@
 	    }
 	    // 동/읍/면 Select 박스 셋팅
 	    function setDong() {
+	    	var sidoCode = $('#sido option:selected').val();
 	    	var sigugunCode = $('#sigugun option:selected').val();
 	    	
 	    	if (sigugunCode) {
-	    		var dongArray = hangjungdong.dong.filter(f => f.sigugun === sigugunCode);
+	    		var dongArray = hangjungdong.dong.filter(f => f.sido === sidoCode && f.sigugun === sigugunCode);
 	    		var template = '<option value="">동/읍/면</option>';
 	    		
 	    		for(var i = 0; i < dongArray.length; i++) {

@@ -517,8 +517,10 @@
             </div>
             </div>
             <div class="modal-footer gap-1">
-            <button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
-            <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="modalRecipient();">새롭게 진행하기</button>
+	            <button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
+	            
+	            <!-- 새롭게 진행하기 버튼 제거 -->
+	            <!-- <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="createNewConslt();">새롭게 진행하기</button> -->
             </div>
         </div>
         </div>
@@ -629,12 +631,6 @@
         			mbrNm = data.mbrVO.mbrNm;
         	    	recipients = data.mbrRecipients;
         			
-        			//진행중인 상담이 있는 경우
-        			if (data.isExistConsltInProcess) {
-        				$('#notified-consulting').modal('show').appendTo('body');
-        				return;
-        			}
-        			
         	    	modalRecipient();
         		}
         		//로그인 안한 경우
@@ -713,7 +709,35 @@
         			return;
         		}
         		
-            	location.href = '/test/physical?recipientsNo=' + radioRecipientsNo;
+        		
+        		//진행중인 상담 조회 api
+        		$.ajax({
+            		type : "post",
+    				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+    				data : {
+    					recipientsNo : radioRecipientsNo,
+    					prevPath : 'test'
+    				},
+    				dataType : 'json'
+            	})
+            	.done(function(data) {
+            		//로그인 안한 경우
+            		if (!data.isLogin) {
+            			$('#non-login-user').modal('show').appendTo('body');
+            			return;
+            		}
+            		
+            		//해당 수급자가 진행중인 상담이 있는 경우
+            		if (data.isExistRecipientConslt) {
+            			$('#notified-consulting').modal('show').appendTo('body');
+            		} else {
+            			location.href = '/test/physical?recipientsNo=' + radioRecipientsNo;
+            		}
+            	})
+            	.fail(function(data, status, err) {
+            		alert('서버와 연결이 좋지 않습니다.');
+    			});
+            	
         	}
         	//직접입력하기인 경우
         	else {
@@ -834,5 +858,39 @@
         		$('#rcpt-name-error').css('display', 'block');
         	}
         }
+        
+        //새롭게 진행하기
+        // function createNewConslt() {
+        // 	//등록된 수급자 선택값 가져오기
+        // 	var radioRecipientsNo =  $('input[name=rcpts]:checked').val();
+    	// 	if (!radioRecipientsNo) {
+    	// 		alert('수급자를 선택하세요');
+    	// 		return;
+    	// 	}
+    		
+        	
+        // 	if (confirm('새롭게 진행하실 경우 기존 상담은 취소됩니다. 진행하시겠습니까?')) {
+        // 		//기존 상담취소 API 실행
+    	// 		$.ajax({
+    	// 			type : "post",
+    	// 			url  : "/membership/info/myinfo/cancelRecipientConslt.json",
+    	// 			data : {
+    	// 				recipientsNo : radioRecipientsNo
+    	// 				, prevPath : 'test'
+    	// 			},
+    	// 			dataType : 'json'
+    	// 		})
+    	// 		.done(function(data) {
+    	// 			if(data.success) {
+    	// 				location.href = '/test/physical?recipientsNo=' + radioRecipientsNo;
+    	// 			}else{
+    	// 				alert(data.msg);
+    	// 			}
+    	// 		})
+    	// 		.fail(function(data, status, err) {
+    	// 			alert('서버와 연결이 좋지 않습니다.');
+    	// 		});
+        // 	}
+        // }
     </script>
 </div>
