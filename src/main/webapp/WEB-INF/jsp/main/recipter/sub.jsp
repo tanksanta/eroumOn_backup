@@ -634,12 +634,19 @@
         	}
         }
       	
+        var clickRegistRecipient_click = false;
       	//새로 등록할 수급자 확인
         function clickRegistRecipient() {
         	var relationCd = $('#modal-recipient-relation-cd').val();
         	var recipientsNm = $('#modal-recipient-nm').text();
         	var rcperRcognNo = $('#modal-recipient-lno').text();
         	var rcperRcognNo = rcperRcognNo.replace('L', '');
+
+            if (clickRegistRecipient_click){
+                return;
+            }
+
+            clickRegistRecipient_click = true;
         	
         	$.ajax({
         		type : "post",
@@ -652,6 +659,7 @@
 				dataType : 'json'
         	})
         	.done(function(data) {
+                clickRegistRecipient_click = false;
         		if(data.success) {
         			alert('수급자가 등록되었습니다');
         			
