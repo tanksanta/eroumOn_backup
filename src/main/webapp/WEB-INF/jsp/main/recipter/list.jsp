@@ -1202,7 +1202,7 @@ function openNewConsltInfo() {
 	}
 	
 	
-	$('#modal-consulting-info').modal('show');
+	$('#modal-consulting-info').modal('show').appendTo('body');
 }
 
 //상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
