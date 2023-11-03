@@ -74,8 +74,15 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		int resultCnt = 0;
 
 		String returnUrl = (String)session.getAttribute("returnUrl");
-		resultMap = kakaoApiService.mbrAction(code, session);
-		resultCnt = (Integer)resultMap.get("result");
+		try {
+			resultMap = kakaoApiService.mbrAction(code, session);
+			resultCnt = (Integer)resultMap.get("result");
+		} catch (Exception ex) {
+			javaScript.setMessage("카카오로부터 로그인정보를 받아오지 못하였습니다.");
+			javaScript.setLocation("/" + mainPath + "/login");
+			return new JavaScriptView(javaScript);
+		}
+		
 
 		if(resultCnt == 0) {// 오류
 			javaScript.setMessage(getMsg("fail.common.network"));
