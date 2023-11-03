@@ -50,7 +50,7 @@
 					<h3 class="check-title3 mt-5 xs:mt-6.5">운동장애 정도</h3>
 					<div>
 						<h4 class="check-title2 is-icon">
-							<img src="/images/img-check-treat1.svg" alt="" />
+							<img src="/html/page/test/assets/images/img-check-treat1.svg" alt="" />
 							<p><strong>오른쪽 상지(손, 팔, 어깨)</strong>가 의지대로 움직이시나요?</p>
 						</h4>
 						<div class="check-items is-radio is-steps">
@@ -70,7 +70,7 @@
 					</div>
 					<div>
 						<h4 class="check-title2 is-icon">
-							<img src="/images/img-check-treat2.svg" alt="" />
+							<img src="/html/page/test/assets/images/img-check-treat2.svg" alt="" />
 							<p><strong>오른쪽 하지(발, 다리)</strong>가 의지대로 움직이시나요?</p>
 						</h4>
 						<div class="check-items is-radio is-steps">
@@ -90,7 +90,7 @@
 					</div>
 					<div>
 						<h4 class="check-title2 is-icon">
-							<img src="/images/img-check-treat3.svg" alt="" />
+							<img src="/html/page/test/assets/images/img-check-treat3.svg" alt="" />
 							<p><strong>왼쪽 상지(손, 팔, 어깨)</strong>가 의지대로 움직이시나요?</p>
 						</h4>
 						<div class="check-items is-radio is-steps">
@@ -110,7 +110,7 @@
 					</div>
 					<div>
 						<h4 class="check-title2 is-icon">
-							<img src="/images/img-check-treat4.svg" alt="" />
+							<img src="/html/page/test/assets/images/img-check-treat4.svg" alt="" />
 							<p><strong>왼쪽 하지(발, 다리)</strong>가 의지대로 움직이시나요?</p>
 						</h4>
 						<div class="check-items is-radio is-steps">
