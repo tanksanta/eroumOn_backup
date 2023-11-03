@@ -116,4 +116,10 @@ function f_searchBrnoInfo(brno) {
 	var url = "http://www.ftc.go.kr/bizCommPop.do?wrkr_no="+ brno;
 	window.open(url, "bizCommPop","width=750, height=700;");
 }
+
+//SNS 정보 미등록 시
+var requireResist = '${requireResist}';
+if (requireResist) {
+	location.href = "/membership/sns/regist?uid=${_mbrSession.uniqueId}";
+}
 </script>
