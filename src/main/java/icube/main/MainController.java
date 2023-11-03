@@ -76,7 +76,9 @@ public class MainController extends CommonAbstractController  {
 	
 	@RequestMapping(value = "searchBokji")
 	public String searchBokji(
-		HttpServletRequest reqeust
+		@RequestParam(required = false) String selectSido
+		, @RequestParam(required = false) String selectGugun
+		, HttpServletRequest reqeust
 		, Model model
 			) throws Exception {
 		
@@ -102,6 +104,8 @@ public class MainController extends CommonAbstractController  {
 		int total = bokjisCnt + prvdCnt;
 
 		model.addAttribute("total", total);
+		model.addAttribute("selectSido", selectSido);
+		model.addAttribute("selectGugun", selectGugun);
 		
 		return "/main/searchBokji";
 	}
