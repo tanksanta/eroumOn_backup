@@ -24,6 +24,9 @@ public class MbrSession extends MbrVO implements Serializable {
 	private boolean loginCheck = false; // 로그인 여부
 	private boolean registCheck = false; // 회원가입 체크(채널톡 때문에)
 
+	/*마켓에서 오류가 나서 다시 추가함. 더이상 사용하지 말자 2023-11-03*/
+	private String prtcrRecipterYn = "N";
+
 	//채널톡 연동 데이터
 	private CustomProfileVO customProfileVO;
 	
