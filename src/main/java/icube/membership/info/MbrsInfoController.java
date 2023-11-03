@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
+import icube.common.api.biz.BiztalkApiService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.file.biz.FileService;
@@ -31,6 +32,7 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.itrst.biz.CartService;
@@ -86,6 +88,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Value("#{props['Globals.File.Upload.Dir']}")
 	private String fileUploadDir;
 
+	@Resource(name = "biztalkApiService")
+	private BiztalkApiService biztalkApiService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -381,7 +386,8 @@ public class MbrsInfoController extends CommonAbstractController{
 	@ResponseBody
 	@RequestMapping(value = "getMbrInfo.json")
 	public Map<String, Object> getMbrInfo(
-		@RequestParam(required = false) Integer recipientsNo) throws Exception {
+		) throws Exception {
+		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
 		if(!mbrSession.isLoginCheck()) {
@@ -390,23 +396,124 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 	
 		MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 		resultMap.put("mbrVO", mbrVO);
-		resultMap.put("mbrRecipients", mbrRecipients);
+		resultMap.put("mbrRecipients", mbrVO.getMbrRecipientsList());
 		
-		//진행중인 인정등급상담 조회
-		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
-		resultMap.put("isExistConsltInProcess", mbrConslt == null ? false : true);
+		resultMap.put("isLogin", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 수급자의 진행중인 상담 체크 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getRecipientConsltSttus.json")
+	public Map<String, Object> getRecipientConsltSttus(
+	    Integer recipientsNo,
+	    String prevPath        //상담 유형 검사
+		) throws Exception {
 		
-		//수급자 최근 상담 조회
-		if (recipientsNo != null) {
-			MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
-			resultMap.put("recipientConslt", recipientConslt);
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("isLogin", false);
+			return resultMap;
+		}
+		
+		//내 수급자 정보 체크가 아니면 그냥 리턴
+		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		MbrRecipientsVO srchRecipient = mbrRecipients.stream().filter(f -> f.getMbrUniqueId().equals(mbrSession.getUniqueId())).findAny().orElse(null);
+		if (srchRecipient == null) {
+			return resultMap;
+		}
+		
+		
+		//수급자 최근 상담 조회(진행 중인 상담 체크)
+		MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, prevPath);
+		if (recipientConslt != null && (
+				!"CS03".equals(recipientConslt.getConsltSttus()) &&
+				!"CS04".equals(recipientConslt.getConsltSttus()) &&
+				!"CS09".equals(recipientConslt.getConsltSttus()) &&
+				!"CS06".equals(recipientConslt.getConsltSttus())
+				)) {
+			resultMap.put("isExistRecipientConslt", true);
+		} else {
+			resultMap.put("isExistRecipientConslt", false);
 		}
 		
 		resultMap.put("isLogin", true);
 		return resultMap;
 	}
+	
+	/**
+	 * 기존 진행하는 수급자의 상담 종료 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "cancelRecipientConslt.json")
+	public Map<String, Object> cancelRecipientConslt(
+	    Integer recipientsNo,
+	    String prevPath
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		
+		//내 수급자 정보 체크가 아니면 그냥 리턴
+		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		MbrRecipientsVO srchRecipient = mbrRecipients.stream().filter(f -> f.getMbrUniqueId().equals(mbrSession.getUniqueId())).findAny().orElse(null);
+		if (srchRecipient == null) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "존재하지 않는 수급자입니다.");
+			return resultMap;
+		}
+		
+		
+		//수급자 최근 상담 조회(진행 중인 상담 체크)
+		MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, prevPath);
+		if (recipientConslt != null && (
+				!"CS03".equals(recipientConslt.getConsltSttus()) &&
+				!"CS04".equals(recipientConslt.getConsltSttus()) &&
+				!"CS09".equals(recipientConslt.getConsltSttus()) &&
+				!"CS06".equals(recipientConslt.getConsltSttus())
+				)) {
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("msg", "진행중인 상담이 존재하지 않습니다.");
+			return resultMap;
+		}
+		
+		//상담 취소 처리
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", "CS03"); //상담자 취소
+		paramMap.put("canclResn", "새롭게 진행하기로 인한 취소");
+		paramMap.put("consltNo", recipientConslt.getConsltNo());
+
+		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
+
+		if(resultCnt > 0) {
+			//1:1 상담 취소 이력 추가(접수, 재접수일 때만 취소가 되므로 사업소 상담 정보는 없음)
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(recipientConslt.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg("CS03");
+			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소"));
+			mbrConsltChgHistVO.setMbrUniqueId(mbrSession.getUniqueId());
+			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
+			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+			
+			//사용자 상담취소
+			biztalkApiService.sendOnTalkCancel(recipientConslt.getMbrNm(), recipientConslt.getMbrTelno());
+		} else {
+			resultMap.put("success", false);
+			resultMap.put("msg", "진행중인 상담이 존재하지 않습니다.");
+			return resultMap;
+		}
+		
+		resultMap.put("success", true);
+		return resultMap;
+	}
+	
 	
 	/**
 	 * 장기요양테스트, 간편조회 이전 수급자 추가 ajax
