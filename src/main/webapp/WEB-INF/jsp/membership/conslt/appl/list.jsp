@@ -217,9 +217,10 @@
 	                        </dl>
 	                    </c:if>
 	                    <c:if test="${resultList.consltSttus eq 'CS03' || resultList.consltSttus eq 'CS04' || resultList.consltSttus eq 'CS09'}">
+	                    	<c:set var="cancelConsltChgHist" value="${resultList.consltChgHistList.stream().filter(f -> f.consltSttusChg == 'CS03' || f.consltSttusChg == 'CS04' || f.consltSttusChg == 'CS09').findFirst().orElse(null)}" />
 	                    	<dl class="item-date">
 		                    	<dt>상담 취소일</dt>
-		                        <dd><fmt:formatDate value="${resultList.sttusChgDt}" pattern="yyyy.MM.dd" /></dd>
+		                        <dd><fmt:formatDate value="${cancelConsltChgHist.regDt}" pattern="yyyy.MM.dd" /></dd>
 	                        </dl>
 	                    </c:if>
 	                    

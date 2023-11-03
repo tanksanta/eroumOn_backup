@@ -4,6 +4,7 @@
 
 	<resultMap type="mbrConsltVO" id="mbrConsltVOMap" autoMapping="true">
 		<collection property="consltResultList" column="{srchConsltNo=conslt_no}" select="conslt.result.selectMbrConsltResultList" />
+		<collection property="consltChgHistList" column="{srchConsltNo=conslt_no}" select="conslt.chg.hist.selectMbrConsltChgHist" />
 	</resultMap>
 
 	<sql id="listColumn">
