@@ -284,8 +284,20 @@
 	    </div>
 	</div>
 
-
+	<script src="/html/core/script/JsCommon.js"></script>
     <script>
+
+		var jsCommon = null;
+		$(document).ready(function() {
+			jsCommon = new JsCommon();
+
+			
+			$("#info-tel").off("keyup").on("keyup", function(event){
+				jsCommon.inputPhoneNumber(event);
+			});
+			
+		});
+		
 	    var me = {};
 	    var myRecipientInfo = {};
 	    var mbrRecipients = {};
@@ -851,38 +863,6 @@
 	    
 	    $(function() {
 	    	initSido();
-	    	
-	    	
-	    	//연락처 형식 - 자동작성
-	    	const telKeyInputRegex = /^(45|48|49|50|51|52|53|54|55|56|57|58|59)$/;
-	    	$("#info-tel").keypress(function(e) {
-	    		//숫자와 /만 입력받도록 추가
-	    		if (!telKeyInputRegex.test(e.keyCode)) {
-	    			return false;
-	    		}
-	    	});
-	    	$("#info-tel").on("keydown",function(e){
-	    		//백스페이스는 무시
-	    		if (e.keyCode !== 8) {
-	    			if($(this).val().length == 3){
-	    				$(this).val($(this).val() + "-");
-	    			}
-
-	    			if($(this).val().length == 8){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    			
-	    			if($(this).val().length == 13){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    		}
-	    	});
-	    	$("#info-tel").on("keyup",function(){
-	    		if($(this).val().length > 13){
-	    			$(this).val($(this).val().substr(0,13));
-	    		}
-	    	});
-	    	
 	    	
 	    	//생년월일 형식 / 자동작성
 	    	const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
