@@ -58,7 +58,7 @@
                                 </c:forEach>
                             </select>
                         </dd>
-                        <dt class="ml-4.5 text-center"><label for="srchConsltSttus">진행 현황</label></dt>
+                        <dt class="mt-5.5 md:mt-0 md:text-center"><label for="srchConsltSttus" class="md:ml-4">진행 현황</label></dt>
                         <dd>
 							<select name="srchConsltSttus" id="srchConsltSttus" class="form-control w-full">
                                 <option value="">선택</option>
@@ -121,8 +121,8 @@
 	                <div class="mypage-consult-item">
 						<dl class="item-current">
 	                        <dt>수급자 성명</dt>
-	                        <dd class="flex justify-between">
-	                            <span>${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
+	                        <dd class="flex justify-between items-start gap-4">
+	                            <span class="break-all">${resultList.mbrNm}&nbsp;(${mbrRelationCd[resultList.relationCd]})</span>
 	                            <a class="btn-conselng-info" onclick="viewConsltInfoModal('${resultList.consltNo}')" style="cursor: pointer;">
 	                                상담정보확인<i class="icon-arrow-right opacity-70"></i>
 	                            </a>
@@ -424,6 +424,19 @@
 	    		alert('서버와 연결이 좋지 않습니다.');
 	    	});
 	    }
+	    
+	    
+        //채널톡 event 처리 (재상담 신청시)
+        function eventChannelTalk() {
+            var propertyObj = {};
+            
+            //재상담 일자(현재시간)
+            var now = new Date();
+            propertyObj.reConsltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+            
+            ChannelIO('track', 'click_rematching', propertyObj);
+        }
+	    
 	
 	    
 	    $(function(){
@@ -505,6 +518,9 @@
 		       				if(data.result){
 		       					alert("정상적으로 저장되었습니다.");
 		       					//$("#modalReConslt .btn-cancel").click();
+		       					
+		       					eventChannelTalk();
+		       					
 		       					window.location.reload();
 		       				} else {
 		       					alert(data.msg);

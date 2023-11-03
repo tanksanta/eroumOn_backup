@@ -74,23 +74,7 @@
 	<script src="/html/core/vendor/twelements/index.min.js"></script>
     <script src="/html/core/vendor/twelements/popper.min.js"></script>
 
-	<script>
-	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.")}var ch=function(){ch.c(arguments)};ch.q=[];ch.c=function(args){ch.q.push(args)};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x)}}if(document.readyState==="complete"){l()}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l)}})();
-
-	  ChannelIO('boot', {
-	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
-	    , "mobileMessengerMode": "newTab"
-		, "customLauncherSelector": ".channelTalk"
-		, "hideChannelButtonOnBoot": true
-	    <c:if test="${!empty _mbrIdHash}">
-	    , "memberHash": "${_mbrIdHash}"
-	    , "profile": {
-	      	"name": "${_mbrSession.mbrNm}"
-	      , "mobileNumber": "${_mbrSession.mblTelno}"
-	      , "email": "${_mbrSession.eml}"
-	    }
-	    </c:if>
-	  });
-	</script>
+	<!-- 채널톡 연동처리 -->
+	<jsp:include page="/WEB-INF/jsp/common/channel_talk.jsp" />
 </body>
 </html>

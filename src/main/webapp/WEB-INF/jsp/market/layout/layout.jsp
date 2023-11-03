@@ -147,44 +147,21 @@
 	</script>
 	</c:if>
 
-<%-- 기본 채널톡
 	<script>
-	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.")}var ch=function(){ch.c(arguments)};ch.q=[];ch.c=function(args){ch.q.push(args)};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x)}}if(document.readyState==="complete"){l()}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l)}})();
-
-	  ChannelIO('boot', {
-	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
-	  });
+		$(document).ready(function() {
+	
+	    	$('.deleteKwd').on('click', function(){
+	    		const cookiedata = document.cookie.split('; ').find(row => row.startsWith('keywords')).split('=')[1];
+	    		const delKwd = encodeURIComponent($(this).parent().find('a:eq(0)').text());
+	    		document.cookie = "keywords=" + cookiedata.replace('__'+delKwd, '') + "; path=/";
+	    		$(this).parent().remove();
+	    	});
+	    });
 	</script>
- --%>
-	<script>
-	  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.")}var ch=function(){ch.c(arguments)};ch.q=[];ch.c=function(args){ch.q.push(args)};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x)}}if(document.readyState==="complete"){l()}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l)}})();
-
-	  ChannelIO('boot', {
-	    "pluginKey": "8f96ca15-d09d-4434-b2fb-ace28cdfbfdb"
-	    , "mobileMessengerMode": "newTab"
-		, "customLauncherSelector": ".channelTalk"
-		, "hideChannelButtonOnBoot": true
-	    <c:if test="${!empty _mbrIdHash}">
-	    , "memberHash": "${_mbrIdHash}"
-	    , "profile": {
-	      	"name": "${_mbrSession.mbrNm}"
-	      , "mobileNumber": "${_mbrSession.mblTelno}"
-	      , "email": "${_mbrSession.eml}"
-	    }
-	    </c:if>
-	  });
-	</script>
-	<script>
-	$(document).ready(function() {
-
-    	$('.deleteKwd').on('click', function(){
-    		const cookiedata = document.cookie.split('; ').find(row => row.startsWith('keywords')).split('=')[1];
-    		const delKwd = encodeURIComponent($(this).parent().find('a:eq(0)').text());
-    		document.cookie = "keywords=" + cookiedata.replace('__'+delKwd, '') + "; path=/";
-    		$(this).parent().remove();
-    	});
-    });
-
-	</script>
-	</body>
+	
+	
+	<!-- 채널톡 연동처리 -->
+	<jsp:include page="/WEB-INF/jsp/common/channel_talk.jsp" />
+	
+</body>
 </html>

@@ -237,10 +237,11 @@
 		}
 		// 동/읍/면 Select 박스 셋팅
 		function setDong() {
+			var sidoCode = $('#sido option:selected').val();
 			var sigugunCode = $('#sigugun option:selected').val();
 			
 			if (sigugunCode) {
-				var dongArray = hangjungdong.dong.filter(f => f.sigugun === sigugunCode);
+				var dongArray = hangjungdong.dong.filter(f => f.sido === sidoCode && f.sigugun === sigugunCode);
 				var template = '<option value="">동/읍/면</option>';
 				
 				for(var i = 0; i < dongArray.length; i++) {

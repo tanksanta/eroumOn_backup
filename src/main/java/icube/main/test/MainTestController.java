@@ -29,6 +29,7 @@ import icube.common.util.FileUtil;
 import icube.main.test.biz.MbrTestResultVO;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
+import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 import icube.market.mbr.biz.MbrSession;
 
@@ -47,6 +48,9 @@ public class MainTestController extends CommonAbstractController {
     
     @Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
+    
+    @Resource(name = "mbrService")
+	private MbrService mbrService;
 	
     @Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -89,6 +93,10 @@ public class MainTestController extends CommonAbstractController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
+		
+		
+		//채널톡 연동 데이터 셋팅
+		mbrService.setChannelTalk(request);
 		
 		return "/test/" + pageName;
 	}
@@ -298,25 +306,44 @@ public class MainTestController extends CommonAbstractController {
     	} else if (mngrSession.isLoginCheck()) {
     	} else if (mbrSession.isLoginCheck()) {
     	} else {
-    		return "인증도지 않은 접근";
+    		return "인증되지 않은 접근";
     	}
     
         try {
         	return getTestResultMailForm(request, recipientsNo);
         } catch (Exception ex) {
             log.error("======= 테스트 결과", ex);
+            
+            if ("테스트 항목이 모두 완료되지 않음".equals(ex.getMessage())) {
+            	return "테스트 항목이 모두 완료되지 않음";
+            }
         }
         return "결과 가져오기 실패";
     }
     
     
-    private String getTestResultMailForm(HttpServletRequest request, Integer recipientsNo) {
+    private String getTestResultMailForm(HttpServletRequest request, Integer recipientsNo) throws Exception {
     	Map<String, Object> paramMap = new HashMap<>();
     	if (EgovStringUtil.isNotEmpty(mbrSession.getUniqueId())) {
     		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
     	}
     	paramMap.put("srchRecipientsNo", recipientsNo);
     	MbrTestVO srchMbrTestVO = mbrTestService.selectMbrTest(paramMap);
+    	
+    	//테스트 결과가 모두 작성되었는지 체크
+    	if (srchMbrTestVO == null 
+    		|| srchMbrTestVO.getGrade() == null
+    		|| srchMbrTestVO.getScore() == null
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getPhysicalSelect())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getCognitiveSelect())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getBehaviorSelect())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getNurseSelect())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getRehabilitateSelect())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getDiseaseSelect1())
+    		|| EgovStringUtil.isEmpty(srchMbrTestVO.getDiseaseSelect2())) {
+    		throw new Exception("테스트 항목이 모두 완료되지 않음");
+    	}
+    	
     	
     	//이메일 폼 로딩
 		String MAIL_FORM_PATH = mailFormFilePath;

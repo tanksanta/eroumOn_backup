@@ -876,13 +876,13 @@
      &.text-with-icon {
         @apply flex items-start justify-start gap-1;
         & .icon-alert { 
-            @apply mt-[0.188rem];
+            @apply mt-[0.1rem];
         }
     }
 }
 
 .mypage-consult-search {
-    @apply hidden fixed z-20 top-13 left-0 right-0 bottom-0
+    @apply hidden fixed z-25 top-13 left-0 right-0 bottom-0
            before:absolute before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-black1/60
            md:block md:static
            md:before:hidden;
@@ -948,7 +948,7 @@
             @apply relative flex-1 py-2 text-base font-medium after:absolute after:-bottom-px after:left-0 after:right-0 after:h-px after:bg-gray2;
         }
         & .btn-conselng-info {
-            @apply flex items-center gap-1 text-sm text-gray6;
+            @apply flex items-center gap-1 text-sm text-gray6 mt-px;
         }
     }
     & .item-partner {

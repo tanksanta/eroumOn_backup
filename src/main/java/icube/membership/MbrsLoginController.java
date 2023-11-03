@@ -189,19 +189,6 @@ public class MbrsLoginController extends CommonAbstractController  {
 									mbrService.updateRecentDt(mbrVO.getUniqueId());
 
 									mbrSession.setParms(mbrVO, true);
-									if ("Y".equals(mbrVO.getRecipterYn())) {
-										mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-									} else {
-										RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-										recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-										recipterInfoVO.setMbrId(mbrVO.getMbrId());
-										recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-										recipterInfoVO.setProflImg(mbrVO.getProflImg());
-										recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-										recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-										mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-									}
-
 									mbrSession.setMbrInfo(session, mbrSession);
 
 									// saveId용 쿠키
@@ -339,19 +326,6 @@ public class MbrsLoginController extends CommonAbstractController  {
 								resultCode = "SUCCESS";
 
 								mbrSession.setParms(mbrVO, true);
-								if ("Y".equals(mbrVO.getRecipterYn())) {
-									mbrSession.setPrtcrRecipter(mbrVO.getRecipterInfo(), mbrVO.getRecipterYn(), 0);
-								} else {
-									RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-									recipterInfoVO.setUniqueId(mbrVO.getUniqueId());
-									recipterInfoVO.setMbrId(mbrVO.getMbrId());
-									recipterInfoVO.setMbrNm(mbrVO.getMbrNm());
-									recipterInfoVO.setProflImg(mbrVO.getProflImg());
-									recipterInfoVO.setMberSttus(mbrVO.getMberSttus());
-									recipterInfoVO.setMberGrade(mbrVO.getMberGrade());
-									mbrSession.setPrtcrRecipter(recipterInfoVO, mbrVO.getRecipterYn(), 0);
-								}
-
 								mbrSession.setMbrInfo(session, mbrSession);
 
 								// 로그인에 성공하면 로그인 실패 횟수를 초기화

@@ -362,7 +362,7 @@
     							상담 내역을 확인하시겠습니까?
 	    					`);
 	    				}
-	    				$('#modal-my-consulting').modal('show');
+	    				$('#modal-my-consulting').modal('show').appendTo('body');
 	    				return;
 	    			}
 	    			
@@ -403,7 +403,7 @@
 	    			me = data.mbrVO;
 	    			mbrRecipients = data.mbrRecipients;
 	    			
-	    			$('#pop-client-edit').modal('show');
+	    			$('#pop-client-edit').modal('show').appendTo('body');
 	    		}
 	    		//로그인 안한 경우
 	    		else {
@@ -511,7 +511,7 @@
 	    	}
 	    	
 	    	
-	    	$('#pop-client-edit').modal('show');
+	    	$('#pop-client-edit').modal('show').appendTo('body');
 	  	}
 	  	
 	  	
@@ -649,7 +649,7 @@
 	        		$('#regist-rcpt-lno').css('display', 'none');
 	        	}
 	        	
-	    		$('#regist-rcpt').modal('show');
+	    		$('#regist-rcpt').modal('show').appendTo('body');
 	    		addRecipientInfo = jsonData;
 	    	}
 	    	//수급자 정보 수정
@@ -702,7 +702,7 @@
 		    	.done(function(data) {
 		    		if(data.success) {
 		    			$('#pop-client-edit').modal('hide');
-		    			$('#modal-consulting-complated').modal('show');
+		    			$('#modal-consulting-complated').modal('show').appendTo('body');
 		    		}else{
 		    			alert(data.msg);
 		    		}
@@ -741,10 +741,11 @@
 	    }
 	    // 동/읍/면 Select 박스 셋팅
 	    function setDong() {
+	    	var sidoCode = $('#sido option:selected').val();
 	    	var sigugunCode = $('#sigugun option:selected').val();
 	    	
 	    	if (sigugunCode) {
-	    		var dongArray = hangjungdong.dong.filter(f => f.sigugun === sigugunCode);
+	    		var dongArray = hangjungdong.dong.filter(f => f.sido === sidoCode && f.sigugun === sigugunCode);
 	    		var template = '<option value="">동/읍/면</option>';
 	    		
 	    		for(var i = 0; i < dongArray.length; i++) {

@@ -133,14 +133,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			if(EgovStringUtil.equals(proflInfo.getRecipterYn(), "Y")) {
 				mbrSession.setRecipterInfo(proflInfo.getRecipterInfo());
 			}else {
-				RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-				recipterInfoVO.setUniqueId(proflInfo.getUniqueId());
-				recipterInfoVO.setMbrId(proflInfo.getMbrId());
-				recipterInfoVO.setMbrNm(proflInfo.getMbrNm());
-				recipterInfoVO.setProflImg(proflInfo.getProflImg());
-				recipterInfoVO.setMberSttus(proflInfo.getMberSttus());
-				recipterInfoVO.setMberGrade(proflInfo.getMberGrade());
-				mbrSession.setPrtcrRecipter(recipterInfoVO, proflInfo.getRecipterYn(), 0);
+				
 			}
 			mbrSession.setMbrInfo(session, mbrSession);
 
@@ -175,14 +168,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 					if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
 						mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
 					}else {
-						RecipterInfoVO recipterInfoVO = new RecipterInfoVO();
-						recipterInfoVO.setUniqueId(mbrList.get(0).getUniqueId());
-						recipterInfoVO.setMbrId(mbrList.get(0).getMbrId());
-						recipterInfoVO.setMbrNm(mbrList.get(0).getMbrNm());
-						recipterInfoVO.setProflImg(mbrList.get(0).getProflImg());
-						recipterInfoVO.setMberSttus(mbrList.get(0).getMberSttus());
-						recipterInfoVO.setMberGrade(mbrList.get(0).getMberGrade());
-						mbrSession.setPrtcrRecipter(recipterInfoVO, mbrList.get(0).getRecipterYn(), 0);
 					}
 					mbrSession.setMbrInfo(session, mbrSession);
 
