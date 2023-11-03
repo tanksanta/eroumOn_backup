@@ -184,6 +184,7 @@ public class WelToolsItemGrpInfo {
         jsonObject.put("itemGrpCd", this.itemGrpCd);
         jsonObject.put("itemGrpNm", this.itemGrpNm);
         
+        jsonObject.put("persistPeriodYear", this.persistPeriodYear);
         jsonObject.put("persistPeriodCnt", this.persistPeriodCnt);
 
         jsonObject.put("ableCnt", ableCnt);
