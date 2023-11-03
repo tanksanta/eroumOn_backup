@@ -1426,6 +1426,8 @@
           		//등급에 따라서 버튼명 결정(다른 혜택 확인하기, 상담하기)
           		if (testResult.grade !== 0) {
           			$('#go-consult').text('1:1 상담하기');
+          		} else if (testResult.grade === 0) {
+          			$('.mainSend').css('display', 'none');
           		}
           	}
           	
