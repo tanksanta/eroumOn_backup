@@ -1570,7 +1570,11 @@
       	//테스트 다시하기 버튼 클릭
 	   	function restartTest() {
 	   		var testData = JSON.parse(sessionStorage.getItem('testData'));
-	   		location.href = '/test/physical?recipientsNo=' + testData.recipientsNo;
+	   		if (testData.isLogin) {
+	   			location.href = '/test/physical?recipientsNo=' + testData.recipientsNo;	
+	   		} else {
+	   			location.href = '/test/physical';	   			
+	   		}
 	   	}
     </script>
 </div>

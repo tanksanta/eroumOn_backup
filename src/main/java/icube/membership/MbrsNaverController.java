@@ -79,7 +79,14 @@ public class MbrsNaverController extends CommonAbstractController{
 		paramMap.put("code", code);
 		paramMap.put("state", state);
 
-		int resultCnt = naverApiService.mbrAction(paramMap, session);
+		int resultCnt = -1;
+		try {
+			resultCnt = naverApiService.mbrAction(paramMap, session);
+		} catch (Exception ex) {
+			javaScript.setMessage("네이버로부터 로그인정보를 받아오지 못하였습니다.");
+			javaScript.setLocation("/" + mainPath + "/login");
+			return new JavaScriptView(javaScript);
+		}
 
 		String returnUrl = (String)session.getAttribute("returnUrl");
 

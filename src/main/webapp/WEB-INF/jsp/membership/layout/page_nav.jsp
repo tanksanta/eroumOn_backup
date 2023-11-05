@@ -33,7 +33,7 @@
                         <a href="${_membershipPath}/conslt/appl/list" class="menu-link">나의 상담 관리</a>
                         <ul class="smenu-items">
                             <li class="smenu-item"><a href="${_membershipPath}/conslt/appl/list" class="smenu-link ${fn:indexOf(_curPath, '/appl/') > -1?'is-active':'' }">상담 내역 관리</a></li>
-                            <li class="smenu-item"><a href="${_membershipPath}/conslt/itrst/bplc" class="smenu-link ${fn:indexOf(_curPath, '/itrst/') > -1?'is-active':'' }">관심 멤버스 설정</a></li>
+                            <%-- <li class="smenu-item"><a href="${_membershipPath}/conslt/itrst/bplc" class="smenu-link ${fn:indexOf(_curPath, '/itrst/') > -1?'is-active':'' }">관심 멤버스 설정</a></li>  --%>
                         </ul>
                     </li>
                     <li class="menu-item">
