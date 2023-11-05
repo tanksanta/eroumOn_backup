@@ -55,23 +55,23 @@ public class MbrsItrstController extends CommonAbstractController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="bplc")
-	public String bplc(
-			HttpServletRequest request
-			, Model model
-			) throws Exception {
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
-		paramMap.put("srchItrstTy", "B");
-		List<ItrstVO> bplcList = itrstService.selectItrstListAll(paramMap);
-
-
-		model.addAttribute("bplcList", bplcList);
-		model.addAttribute("bplcRstdeCode", CodeMap.BPLC_RSTDE);
-
-		return "/membership/conslt/itrst/bplc";
-	}
+//	@RequestMapping(value="bplc")
+//	public String bplc(
+//			HttpServletRequest request
+//			, Model model
+//			) throws Exception {
+//
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+//		paramMap.put("srchItrstTy", "B");
+//		List<ItrstVO> bplcList = itrstService.selectItrstListAll(paramMap);
+//
+//
+//		model.addAttribute("bplcList", bplcList);
+//		model.addAttribute("bplcRstdeCode", CodeMap.BPLC_RSTDE);
+//
+//		return "/membership/conslt/itrst/bplc";
+//	}
 
 	/**
 	 * 관심 카테고리
