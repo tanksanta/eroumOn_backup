@@ -232,7 +232,7 @@
 	                    </div>
 	                    </c:if>
 	
-	                    <c:if test="${resultList.consltSttus eq 'CS06' && resultList.consltResultList.size() < 3}">
+	                    <c:if test="${resultList.prevPath eq 'test' && resultList.consltSttus eq 'CS06' && resultList.consltResultList.size() < 3}">
 	                    	<div class="item-request justify-end">
 		                        <button type="button" class="btn btn-outline-success btn-small f_reconslt" 
 		                        		data-conslt-no="${resultList.consltNo}" 
