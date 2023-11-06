@@ -475,37 +475,6 @@ $(function(){
 	    }
 	});
 
-	//장기요양 기관번호 입력시  - 기호추가
-	$("#rcperInstNo").on("keydown",function(e){
-		if (e.keyCode !== 11) {
-			if(e.key === "Backspace" || e.key === "Delete") {
-				var currentValue = $(this).val();
-				var caretPosition = this.selectionStart;
-				var newValue = currentValue.slice(0, caretPosition - 1) + currentValue.slice(caretPosition);
-				$(this).val(newValue);
-				this.setSelectionRange(caretPosition - 1, caretPosition - 1);
-				return false; 
-			}
-
-			if($(this).val().length == 1){
-				$(this).val($(this).val() + "-");
-			}
-
-			if($(this).val().length == 7){
-				$(this).val($(this).val() + "-");
-			}
-			
-			if($(this).val().length == 13){
-				$(this).val($(this).val() + "-");
-			}
-		}
-	});
-
-	$("#rcperInstNo").on("keyup",function(){
-		if($(this).val().length > 13){
-			$(this).val($(this).val().substr(0,13));
-		}
-	});
 
 });
 </script>
