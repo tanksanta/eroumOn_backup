@@ -114,11 +114,20 @@ public class MbrsConsltController extends CommonAbstractController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		try {
+			MbrConsltVO mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+			
 			//재상담은 최대 3회 가능
 			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
 			if (resultCnt >= 3) {
 				resultMap.put("result", result);
 				resultMap.put("msg", "재상담 신청은 최대 3번 가능합니다");
+				return resultMap;
+			}
+			
+			//요양정보 상담은 재상담 불가능하도록 조건 추가 (OEOS-144)
+			if ("simpleSearch".equals(mbrConslt.getPrevPath())) {
+				resultMap.put("result", result);
+				resultMap.put("msg", "요양정보상담은 재상담 신청이 불가합니다");
 				return resultMap;
 			}
 			

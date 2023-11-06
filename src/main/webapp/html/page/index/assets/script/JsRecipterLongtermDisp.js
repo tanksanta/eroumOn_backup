@@ -64,7 +64,7 @@ class JsRecipterLongtermDisp{
         var ifor;
         var sTrTemp, sTrBase = "<tr>"+
                     "<td class=\"sale_index\">{{ifor}}</td>"+
-                    "<td class=\"subject\"><a href=\"/"+this._cls_info._mainPath+"/cntnts/page3-checkpoint#check-cont{{Link}}\" target=\"_blank\">{{itemGrpNm}}</a></td>"+
+                    "<td class=\"subject\"><a href=\""+this._cls_info._mainPath+"/cntnts/page3-checkpoint#check-cont{{Link}}\" target=\"_blank\">{{itemGrpNm}}</a></td>"+
                     "<td class=\"fin{{itemGrpCd}}\">{{contractCnt}}</td><td class=\"buy{{itemGrpCd}}\">{{ableCnt}}</td>"+
                 "</tr>";
 
@@ -91,7 +91,7 @@ class JsRecipterLongtermDisp{
                 sTrTemp = sTrBase;
     
                 sTrTemp = sTrTemp.replaceAll("{{ifor}}", (ipos));
-                sTrTemp = sTrTemp.replaceAll("{{Link}}", this.f_replaceLink());
+                sTrTemp = sTrTemp.replaceAll("{{Link}}", this.f_replaceLink(itemOne.itemGrpCd));
                 
                 sTrTemp = sTrTemp.replaceAll("{{itemGrpCd}}", itemOne.itemGrpCd);
                 
