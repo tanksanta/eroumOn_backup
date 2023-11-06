@@ -154,7 +154,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		request.setAttribute("_mbrSession", mbrSession);
 		
 
-		//채널톡 연동 데이터 셋팅
+		//채널톡 연동 데이터 셋팅 + GA4
 		mbrService.setChannelTalk(request);
 		
 		return true;

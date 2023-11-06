@@ -255,7 +255,7 @@ public class MarketInterceptor implements HandlerInterceptor {
 			request.setAttribute("_activeMode", activeMode.toUpperCase());
 			
 			
-			//채널톡 연동 데이터 셋팅
+			//채널톡 연동 데이터 셋팅 + GA4
 			mbrService.setChannelTalk(request);
 			
 		} catch (ModelAndViewDefiningException ex) {
