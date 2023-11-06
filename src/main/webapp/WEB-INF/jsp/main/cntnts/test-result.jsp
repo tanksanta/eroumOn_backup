@@ -693,7 +693,7 @@
     		}
     		
     		
-    		$('#modal-consulting-info').modal('show');
+    		$('#modal-consulting-info').modal('show').appendTo('body');
     	}
 
     	//상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
@@ -817,7 +817,7 @@
     		.done(function(data) {
     			if(data.success) {
     				$('#modal-consulting-info').modal('hide');
-    				$('#modal-consulting-complated').modal('show');
+    				$('#modal-consulting-complated').modal('show').appendTo('body');
     				
     				
     				//채널톡 이벤트 처리
