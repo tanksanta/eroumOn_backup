@@ -896,6 +896,18 @@
 		    }
 		    
 		     ChannelIO('track', eventName, propertyObj);
+		     
+		     
+		     //GA 이벤트 처리
+		     var gaProp = {
+		         grade,
+		     };
+		     
+		     if (eventName === 'click_gradetest_matching') {
+		    	 gaProp.consltDate = propertyObj.consltDate;
+		     }
+		     
+		     gtag('event', eventName, gaProp);
 		}
     	
     	
