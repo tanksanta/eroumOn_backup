@@ -956,7 +956,7 @@ function getRecipterInfo(){
             
             
             //채널톡 이벤트 처리
-            eventChannelTalk('view_infocheck_success');
+            eventChannelTalk('view_infocheck_success', json.infoMap.ownList);
 		}else{
 			alert("조회된 데이터가 없습니다.");
 		}
@@ -1263,7 +1263,7 @@ function setDong() {
 
 
 //채널톡 event 처리 (요양정보 조회 페이지 실행, 1:1 상담하기 버튼 실행)
-function eventChannelTalk(eventName) {
+function eventChannelTalk(eventName, ownList) {
 	//인정 등급
 	var grade = $('#searchGrade').text();
 	//총 급여액
@@ -1291,7 +1291,29 @@ function eventChannelTalk(eventName) {
 		propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일'; 
 	}
 	
-	 ChannelIO('track', eventName, propertyObj);
+	ChannelIO('track', eventName, propertyObj);
+	 
+	 
+	//GA 이벤트 처리
+	var gaProp = {
+		grade,
+	};
+	
+	if (eventName === 'view_infocheck_success' && ownList) {
+		var ableCtgList = [];
+		var ownListKeys = Object.keys(ownList);
+		for(var i = 0; i < ownListKeys.length; i++) {
+			var ctgInfo = ownList[ownListKeys[i]];
+			if (ctgInfo.ableYn === "Y" && ctgInfo.ableCnt > 0) {
+				ableCtgList.push(ctgInfo.itemGrpNm);
+			}
+		}
+		
+		gaProp.remainingAmt = remainingAmt;
+		gaProp.ableCtgList = ableCtgList.join(', ');
+	} 
+	
+	gtag('event', eventName, gaProp);
 }
 
 
