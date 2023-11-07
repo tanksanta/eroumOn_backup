@@ -351,10 +351,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 포인트
 		MbrPointVO mbrPointVO = new MbrPointVO();
 		mbrPointVO.setPointMngNo(0);
-		mbrPointVO.setUniqueId((String)paramMap.get("uniqueId"));
+		mbrPointVO.setUniqueId((String)paramMap.get("srchUniqueId"));
 		mbrPointVO.setPointSe("E");
 		mbrPointVO.setPointCn(cn);
-		mbrPointVO.setPoint(Integer.parseInt(String.valueOf(accmtMap.get("ownPoint"))));
+		mbrPointVO.setPoint(Integer.parseInt(String.valueOf(accmtMap.get("pointAcmtl"))));
 		mbrPointVO.setPointAcmtl(0);
 		mbrPointVO.setRgtr("System");
 		mbrPointVO.setGiveMthd("SYS");
@@ -362,10 +362,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 마일리지
 		MbrMlgVO mbrMlgVO = new MbrMlgVO();
 		mbrMlgVO.setMlgMngNo(0);
-		mbrMlgVO.setUniqueId((String)paramMap.get("uniqueId"));
+		mbrMlgVO.setUniqueId((String)paramMap.get("srchUniqueId"));
 		mbrMlgVO.setMlgSe("E");
 		mbrMlgVO.setMlgCn(cn);
-		mbrMlgVO.setMlg(Integer.parseInt(String.valueOf(accmtMap.get("ownMlg"))));
+		mbrMlgVO.setMlg(Integer.parseInt(String.valueOf(accmtMap.get("mlgAcmtl"))));
 		mbrMlgVO.setMlgAcmtl(0);
 		mbrMlgVO.setRgtr("System");
 		mbrMlgVO.setGiveMthd("SYS");
@@ -374,7 +374,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 
 		mbrPointDAO.extinctMbrPoint(mbrPointVO);
 		mbrMlgDAO.extinctMbrMlg(mbrMlgVO);
-		}
+	}
 
 	public void updateKaKaoInfo(MbrVO mbrVO) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -430,7 +430,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	
 	/**
-	 * 채널톡 고객프로필 연동데이터 추가
+	 * 채널톡 고객프로필 연동데이터 추가 (GA4도 포함)
 	 */
 	public void setChannelTalk(HttpServletRequest request) throws Exception {
 		
@@ -458,7 +458,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 					
 					//채널톡 이벤트 처리(첫 로그인 처리)
 					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
-					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "O" : "X";
 					Map<String, Object> channelTalkEvent = new HashMap<>();
 					Map<String, Object> propertyObject = new HashMap<>();
 					propertyObject.put("loginTy", joinTy);
@@ -470,6 +470,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 					channelTalkEvent.put("propertyObj", propertyObject);
 			      
 					request.setAttribute("channelTalkEvent", channelTalkEvent);
+					
+					
+					//GA4 이벤트 처리
+					Map<String, Object> gaEvent = new HashMap<>();
+					gaEvent.put("eventName", "view_loginsuccess");
+					gaEvent.put("propertyObj", propertyObject);
+					
+					request.setAttribute("gaEvent", gaEvent);
 				} catch (Exception ex) {
 					log.error("===== Interceptor mbr 채널톡 정보 조회 오류", ex);
 				}
@@ -483,7 +491,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 				try {
 					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
 					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";
-					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "등록" : "미등록";
+					String recipientResist = mbrVO.getMbrRecipientsList() != null && mbrVO.getMbrRecipientsList().size() > 0 ? "O" : "X";
 					
 					Map<String, Object> channelTalkEvent2 = new HashMap<>();
 					Map<String, Object> propertyObject2 = new HashMap<>();
@@ -496,6 +504,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 					channelTalkEvent2.put("propertyObj", propertyObject2);
 			      
 					request.setAttribute("channelTalkEvent", channelTalkEvent2);
+					
+					
+					//GA4 이벤트 처리
+					Map<String, Object> gaEvent = new HashMap<>();
+					gaEvent.put("eventName", "view_signupsuccess");
+					gaEvent.put("propertyObj", propertyObject2);
+					
+					request.setAttribute("gaEvent", gaEvent);
+					
 					
 					mbrSession.setRegistCheck(false);
 				} catch (Exception ex) {

@@ -38,7 +38,7 @@
                     <strong class="text-primary3">누구나 동일</strong>
                 </h3>
                 <p class="desc">예상 인정 등급을 바로 확인해 보세요!</p>
-                <a href="${_mainPath}/recipter/list?pageType=info" class="btn btn-large2 btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
+                <a href="${_mainPath}/cntnts/test" class="btn btn-large2 btn-primary3 btn-arrow"><strong>내 인정등급 확인하기</strong></a>
             </div>
             <img src="/html/page/index/assets/images/img-page3-content1.jpg" alt="" class="img">
         </div>

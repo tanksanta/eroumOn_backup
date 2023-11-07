@@ -103,4 +103,12 @@
     .ico-angle-top {
         @apply ico-angle-bottom rotate-180;
     }
+
+
+    .ico-alert {
+        @apply ico-base w-10 h-10 bg-[url(../images/ico-alert.svg)];
+        &.orange {
+            @apply bg-[url(../images/ico-alert-orange.svg)];
+        }
+    }
 }

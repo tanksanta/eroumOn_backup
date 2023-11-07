@@ -310,7 +310,12 @@ public class MainTestController extends CommonAbstractController {
     	}
     
         try {
-        	return getTestResultMailForm(request, recipientsNo);
+         	String mailForm = getTestResultMailForm(request, recipientsNo);
+         	//모달 폼에서는 이로움On 바로가기, Footer 숨기기
+         	mailForm = mailForm.replace("id=\"goEroum\" style=\"padding: 15px 50px;", "id=\"goEroum\" style=\"display:none; padding: 15px 50px;");
+         	mailForm = mailForm.replace("id=\"footerTable\" style=\"font-family", "id=\"footerTable\" style=\"display:none; font-family");
+         	
+        	return mailForm;
         } catch (Exception ex) {
             log.error("======= 테스트 결과", ex);
             

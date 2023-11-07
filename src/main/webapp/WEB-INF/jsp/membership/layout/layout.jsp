@@ -84,4 +84,7 @@
 	<!-- 채널톡 연동처리 -->
 	<jsp:include page="/WEB-INF/jsp/common/channel_talk.jsp" />
 	
+    <!-- GA 이벤트 -->
+	<jsp:include page="/WEB-INF/jsp/common/ga4_event.jsp" />
+
 </html>

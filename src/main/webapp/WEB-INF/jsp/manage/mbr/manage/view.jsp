@@ -157,6 +157,97 @@
 			</table>
 		</fieldset>
 
+		<fieldset class="mt-13">
+			<legend class="text-title2">관리정보</legend>
+			<table class="table-detail">
+				<colgroup>
+					<col class="w-43">
+					<col>
+					<col class="w-43">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" rowspan="5">관리대상</th>
+						<td>
+							<div class="form-group w-full">
+								<button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas1">경고관리</button>
+								<p class="flex-1 mx-2"><c:if test="${mngMap.warning ne null}">${mngSeWarning[mngMap.warning.mngSe]} :
+									<c:if test="${mngMap.warning.resnCd ne 'ETC'}">
+							  	      	<c:if test="${mngMap.warning.resnCd eq 'CS'}">고객 요청</c:if>
+                                  		<c:if test="${mngMap.warning.resnCd ne 'CS'}">${resnCd[mngMap.warning.resnCd]}</c:if>
+									</c:if>
+									<c:if test="${mngMap.warning.resnCd eq 'ETC' }">${mngMap.warning.mngrMemo}</c:if>
+									</c:if>
+									</p>
+								<button type="button" id="changeListBtn" class="btn shadow ml-auto" data-unique-id="${mbrVO.uniqueId}">변경내역보기</button>
+							</div>
+						</td>
+						<th scope="row">최종변경일/처리자</th>
+						<td><c:if test="${mngMap.warning.regId ne null}">
+								<fmt:formatDate value="${mngMap.warning.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.warning.regId}</c:if></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group w-full">
+								<button type="button" class="btn shadow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas2">블랙리스트관리</button>
+								<p class="flex-1 mx-2">
+									<c:if test="${mngMap.black ne null }">
+                                    ${mngSeBlack[mngMap.black.mngSe]} <c:if test="${mngMap.black.mngSe eq 'PAUSE'}">(<fmt:formatDate value="${mngMap.black.stopBgngYmd}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${mngMap.black.stopEndYmd}" pattern="yyyy-MM-dd" />)</c:if><br>
+                                    사유 : <c:if test="${mngMap.black.resnCd ne 'ETC'}">
+                                    	      	<c:if test="${mngMap.black.resnCd eq 'CS'}">고객 요청</c:if>
+                                    			<c:if test="${mngMap.black.resnCd ne 'CS'}">${blackResnCd[mngMap.black.resnCd]}</c:if>
+                                    		</c:if>
+                                    		<c:if test="${mngMap.black.resnCd eq 'ETC'}">${mngMap.black.mngrMemo}</c:if>
+                                    </c:if>
+								</p>
+							</div>
+						</td>
+						<th scope="row">최종변경일/처리자</th>
+						<td><c:if test="${mngMap.black.regId ne null}">
+								<fmt:formatDate value="${mngMap.black.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.black.regId }</c:if></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group w-full">
+								<button type="button" class="btn authBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvas3">직권탈퇴관리</button>
+								<p class="flex-1 mx-2 authView">
+									<c:if test="${mngMap.auth ne null}">
+                                    직권탈퇴<br>
+                                    사유 : <c:if test="${mngMap.auth.resnCd ne 'SELF'}">
+                                    			${authResnCd[mngMap.auth.resnCd]}
+                                    		</c:if>
+                                    		<c:if test="${mngMap.auth.resnCd eq 'SELF'}">${mngMap.auth.mngrMemo}</c:if>
+                                    </c:if>
+								</p>
+							</div>
+						</td>
+						<th scope="row">최종변경일/처리자</th>
+						<td><c:if test="${mngMap.auth.regId ne null}">
+								<fmt:formatDate value="${mngMap.auth.regDt}" pattern="yyyy.MM.dd HH:mm:ss" /> / ${mngMap.auth.regId}</c:if></td>
+					</tr>
+					<!--
+                    <tr>
+                        <td colspan="3">
+                            <div class="form-group">
+                                <label for="member-item4" class="mr-1">이벤트 당첨자 제외</label>
+                                <div class="form-check-group">
+                                	<c:forEach var="result" items="${yn}" varStatus="status">
+                                     <div class="form-check">
+                                         <input class="form-check-input eventVal" type="radio" name="useYn" id="useYn${status.index}" value="${result.key}" <c:if test="${mbrVO.eventRecptnYn eq result.key }">checked="checked"</c:if>>
+                                         <label class="form-check-label" for="useYn${status.index}">${result.value}</label>
+                                     </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                     -->
+				</tbody>
+			</table>
+		</fieldset>
+
+
 		<div class="btn-group mt-8">
 			<a href="/_mng/mbr/list" class="btn-primary large shadow w-52 btn list">목록</a>
 		</div>

@@ -12,8 +12,10 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.util.DateUtil;
 import icube.common.util.JsonUtil;
+
 import icube.main.biz.ItemMap;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -133,6 +136,10 @@ public class TilkoApiService {
         JSONObject jsonObject = new JSONObject((Map<String, Object>) obj);
 
         System.out.println(jsonObject);
+        if ("조회된 데이터가 없습니다.".equals(jsonObject.get("Message"))) {
+        	returnMap.put("result", result);
+        	return returnMap;
+        }
 
         String Status = (String) jsonObject.get("Status");
 
@@ -242,9 +249,17 @@ public class TilkoApiService {
 		        }
 		        //System.out.println("@@ 7 : " + preMap.toString());
 
+				String sDate1, sDate2;
+				String today = DateUtil.getToday("yyyyMMdd");
 		        List<Map<String, Object>> welToolTgtHistListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtHistList);
 		        for(Map<String, Object> welTooTgtHistMap : welToolTgtHistListMap) {
-		        	infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ"));
+					sDate1 = (String) welTooTgtHistMap.get("RCGT_EDA_FR_DT"); /* 20230715 */
+					sDate2 = (String) welTooTgtHistMap.get("RCGT_EDA_TO_DT"); /* 20250714 */
+
+					if (today.compareTo(sDate1) >= 0  && today.compareTo(sDate2) <= 0 ){/*현재 날짜가 들어가 있는 인정기간이 필요하다.*/
+						infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ"));
+					}
+		        	
 		        }
 	        }
         }
@@ -272,7 +287,7 @@ public class TilkoApiService {
 				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
 
 		response = client.newCall(request).execute();
-		responseStr = response.body().string();
+		String resonsePayRsb = responseStr = response.body().string();
 
         jsonParser = new JSONParser();
         obj = jsonParser.parse(responseStr);
@@ -464,6 +479,41 @@ public class TilkoApiService {
 	     }
 
 	     infoMap.put("allList", allItem);
+
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = DateUtil.getDateAdd(new Date(), "year", -6);
+	    
+		// 계약 리스트 API 호출 6년치 데이터 호출
+        json.put("StartDate", format.format(date));
+        json.put("EndDate", infoMap.get("APDT_TO_DT"));
+
+		client	= new OkHttpClient.Builder()
+				.connectTimeout(30, TimeUnit.SECONDS)
+				.readTimeout(30, TimeUnit.SECONDS)
+				.writeTimeout(30, TimeUnit.SECONDS)
+				.build();
+
+		request	= new Request.Builder()
+				.url(url)
+				.addHeader("API-KEY", apiKey)
+				.addHeader("ENC-KEY", aesCipherKey)
+				.post(RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toJSONString())).build();
+
+		response = client.newCall(request).execute();
+		responseStr = response.body().string();
+		
+		String rcgtEdaDtFr = (String)infoMap.get("RCGT_EDA_DT");
+		String rcgtEdaDtTo = rcgtEdaDtFr.substring(rcgtEdaDtFr.indexOf("~") + 1).trim();
+		rcgtEdaDtFr = rcgtEdaDtFr.substring(0, rcgtEdaDtFr.indexOf("~") - 1).trim();
+
+		WelToolsInfoParser wtInfoParser = new WelToolsInfoParser(rcgtEdaDtFr, rcgtEdaDtTo, (String)infoMap.get("APDT_FR_DT"), (String)infoMap.get("APDT_TO_DT"));
+
+		wtInfoParser.setItemGrpAbleParse(resonsePayRsb);
+
+		wtInfoParser.setContractItemListParse(responseStr);
+
+		infoMap.put("ownList", wtInfoParser.getResutAll());
 
 	    return returnMap;
 	}

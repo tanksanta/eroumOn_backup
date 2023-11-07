@@ -145,11 +145,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finwalkerForAdults"><span class="blurring"><span class="mask"></span>0</span></dd>
+                                    <dd class="finwalkerForAdults"><span class="blurring"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buywalkerForAdults" ><span class="blurring2"><span class="mask"></span>${apiVO.walkerForAdults}</span></dd>
+                                    <dd class="buywalkerForAdults" ><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item2">
@@ -157,11 +157,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finwheelchair"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finwheelchair"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buywheelchair"><span class="blurring2"><span class="mask"></span>${apiVO.wheelchair}</span></dd>
+                                    <dd class="buywheelchair"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item3">
@@ -169,11 +169,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fincane"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="fincane"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buycane"><span class="blurring2"><span class="mask"></span>${apiVO.cane}</span></dd>
+                                    <dd class="buycane"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item4">
@@ -181,47 +181,47 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finsafetyHandle"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finsafetyHandle"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buysafetyHandle"><span class="blurring2"><span class="mask"></span>${apiVO.safetyHandle}</span></dd>
+                                    <dd class="buysafetyHandle"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item5">
-                                <strong>미끄럼방지 용품</strong>
+                                <strong>미끄럼방지 매트/액</strong>
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finantiSlipProduct"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finantiSlipProduct"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buyantiSlipProduct"><span class="blurring2"><span class="mask"></span>${apiVO.antiSlipProduct}</span></dd>
+                                    <dd class="buyantiSlipProduct"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
-                            <!-- <div class="swiper-slide swiper-item6">
+                            <div class="swiper-slide swiper-item6">
                                 <strong>미끄럼방지 양말</strong>
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd>1</dd>
+                                    <dd class="finantiSlipSocks"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd>0</dd>
+                                    <dd class="buyantiSlipSocks"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
-                            </div> -->
+                            </div>
                             <div class="swiper-slide swiper-item7">
                                 <strong>욕창예방 매트리스</strong>
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmattress"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finmattress"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buymattress"><span class="blurring2"><span class="mask"></span>${apiVO.mattress}</span></dd>
+                                    <dd class="buymattress"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item8">
@@ -229,11 +229,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fincushion"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="fincushion"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buycushion"><span class="blurring2"><span class="mask"></span>${apiVO.cushion}</span></dd>
+                                    <dd class="buycushion"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item9">
@@ -241,11 +241,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finchangeTool"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finchangeTool"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buychangeTool"><span class="blurring2"><span class="mask"></span>${apiVO.changeTool}</span></dd>
+                                    <dd class="buychangeTool"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item10">
@@ -253,11 +253,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finpanties"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finpanties"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buypanties"><span class="blurring2"><span class="mask"></span>${apiVO.panties}</span></dd>
+                                    <dd class="buypanties"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item11">
@@ -265,11 +265,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathChair"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finbathChair"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buybathChair"><span class="blurring2"><span class="mask"></span>${apiVO.bathChair}</span></dd>
+                                    <dd class="buybathChair"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item12">
@@ -277,11 +277,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmobileToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finmobileToilet"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buymobileToilet"><span class="blurring2"><span class="mask"></span>${apiVO.mobileToilet}</span></dd>
+                                    <dd class="buymobileToilet"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item13">
@@ -289,11 +289,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finportableToilet"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finportableToilet"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buyportableToilet"><span class="blurring2"><span class="mask"></span>${apiVO.portableToilet}</span></dd>
+                                    <dd class="buyportableToilet"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item15">
@@ -301,11 +301,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finoutRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finoutRunway"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buyoutRunway"><span class="blurring2"><span class="mask"></span>${apiVO.outRunway}</span></dd>
+                                    <dd class="buyoutRunway"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item14">
@@ -313,11 +313,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="fininRunway"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="fininRunway"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buyinRunway"><span class="blurring2"><span class="mask"></span>${apiVO.inRunway}</span></dd>
+                                    <dd class="buyinRunway"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item16">
@@ -325,11 +325,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finelectricBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finelectricBed"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buyelectricBed"><span class="blurring2"><span class="mask"></span>${apiVO.electricBed}</span></dd>
+                                    <dd class="buyelectricBed"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item17">
@@ -337,11 +337,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finmanualBed"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finmanualBed"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buymanualBed"><span class="blurring2"><span class="mask"></span>${apiVO.manualBed}</span></dd>
+                                    <dd class="buymanualBed"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item18">
@@ -349,11 +349,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathtub"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finbathtub"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buybathtub"><span class="blurring2"><span class="mask"></span>${apiVO.bathtub}</span></dd>
+                                    <dd class="buybathtub"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item19">
@@ -361,11 +361,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="finbathLift"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="finbathLift"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buybathLift"><span class="blurring2"><span class="mask"></span>${apiVO.bathLift}</span></dd>
+                                    <dd class="buybathLift"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item20">
@@ -373,11 +373,11 @@
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>
-                                    <dd class="findetector"><span class="blurring2"><span class="mask"></span>0</span></dd>
+                                    <dd class="findetector"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                                 <dl>
                                     <dt>구매예상</dt>
-                                    <dd class="buydetector"><span class="blurring2"><span class="mask"></span>${apiVO.detector}</span></dd>
+                                    <dd class="buydetector"><span class="blurring2"><span class="mask"></span><span class="cnt">0</span></span></dd>
                                 </dl>
                             </div>
                         </div>
@@ -503,7 +503,7 @@
                 </div>
                 <div class="modal-footer gap-1">
                     <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
-                    <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button>
+                    <!-- <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button> -->
                 </div>
                 </div>
             </div>
@@ -714,7 +714,16 @@
     </div>
 </div>
 
+<script src="/html/core/script/formatter.js"></script>
+<script src="/html/page/index/assets/script/JsRecipterLongtermDisp.js"></script>
 <script>
+    let grdMaster ;
+    $(document).ready(function() {
+        grdMaster = new JsRecipterLongtermDisp();
+        grdMaster.fn_init_page('${_mainPath}');
+        
+    });
+
 var me = {};
 var myRecipientInfo = {};
 var mbrRecipients = {};
@@ -930,14 +939,6 @@ function getRecipterInfo(){
 				apiMap.set(obj[0],obj[1]);
 			}
 
-			// 전체 고유 개수
-			if(allList.length > 0){
-				for(let i=0; i<allList.length; i++){
-					$(".fin"+allList[i]).text(0);
-					$(".buy"+allList[i]).text(apiMap.get(allList[i]));
-				}
-			}
-
 			let CodeMap = new Map();
 			let code = "${apiCode}";
 			code = code.replaceAll("{","").replaceAll("}","").replaceAll(" ","").split(",");
@@ -948,137 +949,14 @@ function getRecipterInfo(){
 				CodeMap.set(str[1], str[0]);
 			}
 
-			// 판매 급여 품목
-			$(".sale_return").empty();
-			if(saleList.length > 0){
-				for(let i=0; i<saleList.length; i++){
-					let uniqueCnt = Number($(".own_view .buy"+saleList[i]).text());
-					let html = "";
-					html +='   <tr>';
-					html +='    <td class="sale_index">'+(i+1)+'</td>';
-					html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleList[i])+'" target=_blank>'+CodeMap.get(saleList[i])+'</a></td>';
-					html +=' <td class="fin'+saleList[i]+'">0</td>';
-					html +='<td class="buy'+saleList[i]+'">'+uniqueCnt+'</td>';
-					html +='</tr>';
-					$(".sale_return").append(html);
-				}
+            grdMaster.fn_data_CodeMap(CodeMap);
+	        grdMaster.fn_data_received_getRecipterInfo(json);
 
-				for(let i=0; i<saleNonList.length; i++){
-					let html = "";
-					html +='   <tr>';
-					html +='    <td class="sale_index">'+($(".sale_index").length+1)+'</td>';
-					html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(saleNonList[i])+'" target=_blank>'+CodeMap.get(saleNonList[i])+'(판매 불가)</a></td>';
-					html +=' <td class="fin'+saleNonList[i]+'">해당없음</td>';
-					html +='<td class="buy'+saleNonList[i]+'">해당없음</td>';
-					html +='</tr>';
-					$(".sale_return").append(html);
-					$("dd.buy"+saleNonList[i]).text(0);
-					$("dd.fin"+saleNonList[i]).text(0);
-				}
-			}else{
-				let html = "";
-				html +='   <tr>';
-				html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
-				html +='</tr>';
-				$(".sale_return").append(html);
-			}
-
-
-
-			// 대여 급여 품목
-			$(".lend_return").empty();
-			if(lendList.length > 0){
-				for(let i=0; i<lendList.length; i++){
-					let uniqueCnt = Number($(".own_view .buy"+lendList[i]).text());
-					let html = "";
-					html +='   <tr>';
-					html +='    <td class="lend_index">'+($(".lend_index").length+1)+'</td>';
-					if(f_replaceLink(lendList[i]) == 0){
-						html +=' <td class="subject">'+CodeMap.get(lendList[i])+'</td>';
-					}else{
-						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendList[i])+'" target=_blank>'+CodeMap.get(lendList[i])+'</a></td>';
-					}
-
-
-					html +=' <td class="fin'+lendList[i]+'">0</td>';
-					html +='<td class="buy'+lendList[i]+'">'+uniqueCnt+'</td>';
-					html +='</tr>';
-					$(".lend_return").append(html);
-				}
-				for(let i=0; i<lendNonList.length; i++){
-					let html = "";
-					html +='   <tr>';
-					html +='    <td class="lend_index">'+(i+1)+'</td>';
-					if(f_replaceLink(lendNonList[i]) == 0){
-						html +=' <td class="subject">'+CodeMap.get(lendNonList[i])+'(대여 불가)</td>';
-					}else{
-						html +=' <td class="subject"><a href="${_mainPath}/cntnts/page3-checkpoint#check-cont'+f_replaceLink(lendNonList[i])+'" target=_blank>'+CodeMap.get(lendNonList[i])+'(대여 불가)</a></td>';
-					}
-
-					html +=' <td class="fin'+lendNonList[i]+'">해당없음</td>';
-					html +='<td class="buy'+lendNonList[i]+'">해당없음</td>';
-					html +='</tr>';
-					$(".lend_return").append(html);
-					$("dd.buy"+lendNonList[i]).text(0);
-					$("dd.fin"+lendNonList[i]).text(0);
-				}
-			}else{
-				let html = "";
-				html +='   <tr>';
-				html +='    <td colspan="4">검색된 데이터가 없습니다.</td>';
-				html +='   </tr>';
-				$(".lend_return").append(html);
-			}
-
-
-			// 보유 현황 카운트 - 판매
-			if(ownSaleList.length > 0){
-				for(let i=0; i<ownSaleList.length; i++){
-					let finCnt = 0;
-					let buyCnt = 0;
-
-					if($(".sale_return .fin"+ownSaleList[i]).text() != '해당없음'){
-						finCnt = Number($(".sale_return .fin"+ownSaleList[i]).text());
-						buyCnt = Number($(".own_view .buy"+ownSaleList[i]).text());
-						$(".fin"+ownSaleList[i]).text(finCnt+1);
-					}else{
-						$(".fin"+ownSaleList[i]).text(1);
-					}
-
-					if(buyCnt > 0){
-						$(".buy"+ownSaleList[i]).text(buyCnt-1);
-					}else{
-						$(".buy"+ownSaleList[i]).text(0);
-					}
-				}
-			}
-
-			// 보유 현황 카운트 - 대여
-			if(ownLendList.length > 0){
-				for(let i=0; i<ownLendList.length; i++){
-					let finCnt = 0;
-					let buyCnt = 0;
-
-					if($(".lend_return .fin"+ownLendList[i]).text() != '해당없음'){
-						finCnt = Number($(".lend_return .fin"+ownLendList[i]).text());
-						buyCnt = Number($("own_view .buy"+ownLendList[i]).text());
-						$(".fin"+ownLendList[i]).text(finCnt + 1);
-					}else{
-						$(".fin"+ownLendList[i]).text(1);
-					}
-
-					if(buyCnt > 0){
-						$(".buy"+ownLendList[i]).text(buyCnt -1);
-					}else{
-						$(".buy"+ownLendList[i]).text(0);
-					}
-				}
-			}
             $('.careinfo-mask').addClass('is-active');
             
             
             //채널톡 이벤트 처리
-            eventChannelTalk('view_infocheck_success');
+            eventChannelTalk('view_infocheck_success', json.infoMap.ownList);
 		}else{
 			alert("조회된 데이터가 없습니다.");
 		}
@@ -1096,6 +974,32 @@ function clickReSearchBtn() {
 
 //상담하기 버튼 클릭
 function clickStartConsltBtn() {
+	//진행중인 상담 조회 api
+	$.ajax({
+		type : "post",
+		url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+		data : {
+			recipientsNo : ${recipientsNo},
+			prevPath : 'simpleSearch'
+		},
+		dataType : 'json'
+	})
+	.done(function(data) {
+		//해당 수급자가 진행중인 상담이 있는 경우
+		if (data.isExistRecipientConslt) {
+            $('#modal-my-consulting').modal('show');
+		} else {
+			getMbrInfo();
+		}
+	})
+	.fail(function(data, status, err) {
+		alert('서버와 연결이 좋지 않습니다.');
+	});
+}
+
+
+//회원 및 수급자 정보 조회 후 상담신청 모달 호출
+function getMbrInfo()  {
 	$.ajax({
 		type : "post",
 		url  : "/membership/info/myinfo/getMbrInfo.json",
@@ -1108,12 +1012,6 @@ function clickStartConsltBtn() {
 			me = data.mbrVO;
 			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 			mbrRecipients = data.mbrRecipients;
-			
-			//진행중인 상담이 있는 경우
-			if (data.isExistConsltInProcess) {
-				$('#modal-my-consulting').modal('show');
-				return;
-			}
 			
 			openNewConsltInfo();
 		}
@@ -1202,7 +1100,7 @@ function openNewConsltInfo() {
 	}
 	
 	
-	$('#modal-consulting-info').modal('show');
+	$('#modal-consulting-info').modal('show').appendTo('body');
 }
 
 //상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
@@ -1219,9 +1117,15 @@ function changeRcperRcognNoYn() {
 
 
 //상담신청하기
+var doubleClickCheck = false;
 var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
 var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;
 function requestConslt() {
+	if (doubleClickCheck) {
+		return;
+	}
+	doubleClickCheck = true;
+	
 	var relationCd = $('#info-relationSelect').val();
 	var recipientsNm = $('#info-recipientsNm').val();
 	var rcperRcognNoYn = $('input[name=info-rcperRcognNo-yn]:checked').val();
@@ -1301,8 +1205,21 @@ function requestConslt() {
     if (rcperRcognNoYn === 'N') {
         rcperRcognNo = '';
     }
+    
+    //입력된 정보가 수정되었는지 체크 후 alert처리
+    var saveRecipientInfo = false;
+    if (myRecipientInfo.relationCd !== (relationCd ? relationCd : null) ||
+    		myRecipientInfo.recipientsNm !== (recipientsNm ? recipientsNm : null) ||
+    		myRecipientInfo.rcperRcognNo !== (rcperRcognNo ? rcperRcognNo : null) ||
+    		myRecipientInfo.tel !== (tel ? tel : null) ||
+    		myRecipientInfo.sido !== (sido ? sido : null) ||
+    		myRecipientInfo.sigugun !== (sigugun ? sigugun : null) ||
+    		myRecipientInfo.dong !== (dong ? dong : null) ||
+    		(brdt && myRecipientInfo.brdt !== (brdt ? brdt.replaceAll('/', '') : null) ) ||
+    		myRecipientInfo.gender !== (gender ? gender : null)) {
+    	saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');	
+    }
 	
-	var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
 	
 	$.ajax({
 		type : "post",
@@ -1324,6 +1241,7 @@ function requestConslt() {
 		dataType : 'json'
 	})
 	.done(function(data) {
+		doubleClickCheck = false;
 		if(data.success) {
 			$('#modal-consulting-info').modal('hide');
 			$('#modal-consulting-complated').modal('show');
@@ -1385,7 +1303,7 @@ function setDong() {
 
 
 //채널톡 event 처리 (요양정보 조회 페이지 실행, 1:1 상담하기 버튼 실행)
-function eventChannelTalk(eventName) {
+function eventChannelTalk(eventName, ownList) {
 	//인정 등급
 	var grade = $('#searchGrade').text();
 	//총 급여액
@@ -1413,7 +1331,29 @@ function eventChannelTalk(eventName) {
 		propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일'; 
 	}
 	
-	 ChannelIO('track', eventName, propertyObj);
+	ChannelIO('track', eventName, propertyObj);
+	 
+	 
+	//GA 이벤트 처리
+	var gaProp = {
+		grade,
+	};
+	
+	if (eventName === 'view_infocheck_success' && ownList) {
+		var ableCtgList = [];
+		var ownListKeys = Object.keys(ownList);
+		for(var i = 0; i < ownListKeys.length; i++) {
+			var ctgInfo = ownList[ownListKeys[i]];
+			if (ctgInfo.ableYn === "Y" && ctgInfo.ableCnt > 0) {
+				ableCtgList.push(ctgInfo.itemGrpNm);
+			}
+		}
+		
+		gaProp.remainingAmt = remainingAmt;
+		gaProp.ableCtgList = ableCtgList.join(', ');
+	} 
+	
+	gtag('event', eventName, gaProp);
 }
 
 

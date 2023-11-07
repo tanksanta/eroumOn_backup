@@ -16,7 +16,8 @@ public class TilkoApiVO {
 	private int bathChair = 1;			//목욕의자
 	private int walkerForAdults = 2;	//성인용보행기
 	private int safetyHandle = 10;		//안전손잡이
-	private int antiSlipProduct = 11; 	//미끄럼 방지용품
+	private int antiSlipProduct = 11; 	//미끄럼 방지용품(양말포함)
+	private int antiSlipSocks = 6; 			//미끄럼 방지양말
 	private int portableToilet = 2;		//간이변기
 	private int cane = 1;					//지팡이
 	private int cushion = 1;				//욕창예방방석
@@ -31,4 +32,6 @@ public class TilkoApiVO {
 	private int detector = 1;				//배회감지기
 	private int outRunway = 1;			//경사로
 	private int mattress = 1;				//욕창예방 매트리스
+	private int mattressS = 1;				//욕창예방 매트리스(판매)		//3년에 1개 구매가능(dayOne)
+	private int mattressR = 1;				//욕창예방 매트리스(대여)		//rent
 }

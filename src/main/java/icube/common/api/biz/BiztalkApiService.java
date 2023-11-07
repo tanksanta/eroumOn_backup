@@ -299,8 +299,8 @@ public class BiztalkApiService {
 	}
 
 	// Care_00001 사업소_수급자매칭 biztalkApiService.sendCareTalkMatched("사업소", "010-2808-9178");
-	public boolean sendCareTalkMatched(String bplcNm, String sPhoneNo) throws Exception {
-		JSONObject param = this.msgCare00001( bplcNm);
+	public boolean sendCareTalkMatched(String bplcNm, String consltID, String sPhoneNo) throws Exception {
+		JSONObject param = this.msgCare00001( bplcNm, consltID);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -537,16 +537,15 @@ public class BiztalkApiService {
 	}
 	
 	// Care_00001 사업소_수급자매칭 사업소님, 1:1 상담이 매칭되었습니다.
-	private JSONObject msgCare00001(String bplcNm) throws Exception {
+	private JSONObject msgCare00001(String bplcNm, String consltID) throws Exception {
 		
 		String jsonStr;
 		
 		JSONObject jsonObject;
 		JSONParser jsonParser = new JSONParser();
 		JSONArray list = new JSONArray();
-		
 		jsonStr = "{" + " \"name\":\"◼︎ 매칭된 상담 확인하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
-		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_list.php");
+		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_view.php?consltID=" + consltID);
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		list.add(jsonObject);
 		

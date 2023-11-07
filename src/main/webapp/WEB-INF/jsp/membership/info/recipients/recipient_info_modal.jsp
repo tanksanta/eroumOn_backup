@@ -284,8 +284,20 @@
 	    </div>
 	</div>
 
-
+	<script src="/html/core/script/JsCommon.js"></script>
     <script>
+
+		var jsCommon = null;
+		$(document).ready(function() {
+			jsCommon = new JsCommon();
+
+			
+			$("#info-tel").off("keyup").on("keyup", function(event){
+				jsCommon.inputPhoneNumber(event);
+			});
+			
+		});
+		
 	    var me = {};
 	    var myRecipientInfo = {};
 	    var mbrRecipients = {};
@@ -385,6 +397,22 @@
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
 	    			
+	    			//진행중인 상담 있는지 체크
+	    			if (data.recipientConslt) {
+	    				if (data.recipientConslt.prevPath === 'test') {
+	    					$('#process-conslt-noti').html(`
+    							진행중인 인정등급 상담이 있습니다.<br>
+    							상담 내역을 확인하시겠습니까?
+	    					`);
+	    				} else {
+	    					$('#process-conslt-noti').html(`
+    							진행중인 요양정보 상담이 있습니다.<br>
+    							상담 내역을 확인하시겠습니까?
+	    					`);
+	    				}
+	    				$('#modal-my-consulting').modal('show').appendTo('body');
+	    				return;
+	    			}
 	    			
 	    			mappingModalData();
 	    		}
@@ -424,7 +452,7 @@
 	    			me = data.mbrVO;
 	    			mbrRecipients = data.mbrRecipients;
 	    			
-	    			$('#pop-client-edit').modal('show');
+	    			$('#pop-client-edit').modal('show').appendTo('body');
 	    		}
 	    		//로그인 안한 경우
 	    		else {
@@ -532,7 +560,7 @@
 	    	}
 	    	
 	    	
-	    	$('#pop-client-edit').modal('show');
+	    	$('#pop-client-edit').modal('show').appendTo('body');
 	  	}
 	  	
 	  	
@@ -670,7 +698,7 @@
 	        		$('#regist-rcpt-lno').css('display', 'none');
 	        	}
 	        	
-	    		$('#regist-rcpt').modal('show');
+	    		$('#regist-rcpt').modal('show').appendTo('body');
 	    		addRecipientInfo = jsonData;
 	    	}
 	    	//수급자 정보 수정
@@ -685,6 +713,7 @@
 		    		dataType : 'json'
 		    	})
 		    	.done(function(data) {
+		    		doubleClickCheck = false;
 		    		if(data.success) {
 		    			$('#pop-client-edit').modal('hide');
 		    			location.reload();
@@ -699,7 +728,20 @@
 	    	//상담신청
 	    	else if (infoModalType === 'requestConslt') {
 	    		doubleClickCheck = true;
-				var saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
+	    		
+	    		//입력된 정보가 수정되었는지 체크 후 alert처리
+	    	    var saveRecipientInfo = false;
+	    	    if (myRecipientInfo.relationCd !== (relationCd ? relationCd : null) ||
+	    	    		myRecipientInfo.recipientsNm !== (recipientsNm ? recipientsNm : null) ||
+	    	    		myRecipientInfo.rcperRcognNo !== (rcperRcognNo ? rcperRcognNo : null) ||
+	    	    		myRecipientInfo.tel !== (tel ? tel : null) ||
+	    	    		myRecipientInfo.sido !== (sido ? sido : null) ||
+	    	    		myRecipientInfo.sigugun !== (sigugun ? sigugun : null) ||
+	    	    		myRecipientInfo.dong !== (dong ? dong : null) ||
+	    	    		(brdt && myRecipientInfo.brdt !== (brdt ? brdt.replaceAll('/', '') : null) ) ||
+	    	    		myRecipientInfo.gender !== (gender ? gender : null)) {
+	    	    	saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');	
+	    	    }
 		    	
 		    	$.ajax({
 		    		type : "post",
@@ -723,7 +765,7 @@
 		    	.done(function(data) {
 		    		if(data.success) {
 		    			$('#pop-client-edit').modal('hide');
-		    			$('#modal-consulting-complated').modal('show');
+		    			$('#modal-consulting-complated').modal('show').appendTo('body');
 		    		}else{
 		    			alert(data.msg);
 		    		}
@@ -792,6 +834,7 @@
 	    		dataType : 'json'
 	    	})
 	    	.done(function(data) {
+	    		doubleClickCheck = false;
 	    		if(data.success) {
 	    			location.reload();
 	    		}else{
@@ -835,38 +878,6 @@
 	    
 	    $(function() {
 	    	initSido();
-	    	
-	    	
-	    	//연락처 형식 - 자동작성
-	    	const telKeyInputRegex = /^(45|48|49|50|51|52|53|54|55|56|57|58|59)$/;
-	    	$("#info-tel").keypress(function(e) {
-	    		//숫자와 /만 입력받도록 추가
-	    		if (!telKeyInputRegex.test(e.keyCode)) {
-	    			return false;
-	    		}
-	    	});
-	    	$("#info-tel").on("keydown",function(e){
-	    		//백스페이스는 무시
-	    		if (e.keyCode !== 8) {
-	    			if($(this).val().length == 3){
-	    				$(this).val($(this).val() + "-");
-	    			}
-
-	    			if($(this).val().length == 8){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    			
-	    			if($(this).val().length == 13){
-	    				$(this).val($(this).val() + "-");
-	    			}
-	    		}
-	    	});
-	    	$("#info-tel").on("keyup",function(){
-	    		if($(this).val().length > 13){
-	    			$(this).val($(this).val().substr(0,13));
-	    		}
-	    	});
-	    	
 	    	
 	    	//생년월일 형식 / 자동작성
 	    	const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;

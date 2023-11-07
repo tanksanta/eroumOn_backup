@@ -123,6 +123,15 @@ public class GlobalInterceptor implements HandlerInterceptor {
 				String mbrAge = CommonUtil.getAge(mbrSession.getBrdt());
 				request.setAttribute("_mbrAge", mbrAge);
 			}
+			
+			
+			//간편 로그인시 회원가입 미등록자인 경우
+			String checkPath = request.getRequestURI();
+			if (!"/membership/sns/regist".equals(checkPath)
+					&& ("K".equals(mbrSession.getJoinTy()) || "N".equals(mbrSession.getJoinTy())) 
+					&& mbrSession.getSnsRegistDt() == null) {
+				request.setAttribute("requireResist", true);
+			}
 		}
 
 		// 코드
@@ -145,7 +154,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		request.setAttribute("_mbrSession", mbrSession);
 		
 
-		//채널톡 연동 데이터 셋팅
+		//채널톡 연동 데이터 셋팅 + GA4
 		mbrService.setChannelTalk(request);
 		
 		return true;

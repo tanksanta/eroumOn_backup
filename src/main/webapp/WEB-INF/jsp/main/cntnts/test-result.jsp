@@ -693,7 +693,7 @@
     		}
     		
     		
-    		$('#modal-consulting-info').modal('show');
+    		$('#modal-consulting-info').modal('show').appendTo('body');
     	}
 
     	//상담신청정보 모달창안에 L번호 있음, 없음 체크로 readonly 처리
@@ -710,9 +710,15 @@
 
 
     	//상담신청하기
+    	var doubleClickCheck = false;
     	var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
     	var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;
     	function requestConslt() {
+    		if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	doubleClickCheck = true;
+    		
     		var relationCd = $('#info-relationSelect').val();
     		var recipientsNm = $('#info-recipientsNm').val();
     		var rcperRcognNoYn = $('input[name=info-rcperRcognNo-yn]:checked').val();
@@ -793,8 +799,21 @@
 				rcperRcognNo = '';
 			}
     		
-    		var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
+          	//입력된 정보가 수정되었는지 체크 후 alert처리
+            var saveRecipientInfo = false;
+            if (myRecipientInfo.relationCd !== (relationCd ? relationCd : null) ||
+            		myRecipientInfo.recipientsNm !== (recipientsNm ? recipientsNm : null) ||
+            		myRecipientInfo.rcperRcognNo !== (rcperRcognNo ? rcperRcognNo : null) ||
+            		myRecipientInfo.tel !== (tel ? tel : null) ||
+            		myRecipientInfo.sido !== (sido ? sido : null) ||
+            		myRecipientInfo.sigugun !== (sigugun ? sigugun : null) ||
+            		myRecipientInfo.dong !== (dong ? dong : null) ||
+            		(brdt && myRecipientInfo.brdt !== (brdt ? brdt.replaceAll('/', '') : null) ) ||
+            		myRecipientInfo.gender !== (gender ? gender : null)) {
+            	saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');	
+            }
     		
+            
     		$.ajax({
     			type : "post",
     			url  : "/main/conslt/addMbrConslt.json",
@@ -815,9 +834,10 @@
     			dataType : 'json'
     		})
     		.done(function(data) {
+    			doubleClickCheck = false;
     			if(data.success) {
     				$('#modal-consulting-info').modal('hide');
-    				$('#modal-consulting-complated').modal('show');
+    				$('#modal-consulting-complated').modal('show').appendTo('body');
     				
     				
     				//채널톡 이벤트 처리
@@ -896,6 +916,18 @@
 		    }
 		    
 		     ChannelIO('track', eventName, propertyObj);
+		     
+		     
+		     //GA 이벤트 처리
+		     var gaProp = {
+		         grade,
+		     };
+		     
+		     if (eventName === 'click_gradetest_matching') {
+		    	 gaProp.consltDate = propertyObj.consltDate;
+		     }
+		     
+		     gtag('event', eventName, gaProp);
 		}
     	
     	
@@ -1570,7 +1602,11 @@
       	//테스트 다시하기 버튼 클릭
 	   	function restartTest() {
 	   		var testData = JSON.parse(sessionStorage.getItem('testData'));
-	   		location.href = '/test/physical?recipientsNo=' + testData.recipientsNo;
+	   		if (testData.isLogin) {
+	   			location.href = '/test/physical?recipientsNo=' + testData.recipientsNo;	
+	   		} else {
+	   			location.href = '/test/physical';	   			
+	   		}
 	   	}
     </script>
 </div>
