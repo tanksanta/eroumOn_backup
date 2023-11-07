@@ -710,9 +710,15 @@
 
 
     	//상담신청하기
+    	var doubleClickCheck = false;
     	var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;
     	var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;
     	function requestConslt() {
+    		if (doubleClickCheck) {
+	    		return;
+	    	}
+	    	doubleClickCheck = true;
+    		
     		var relationCd = $('#info-relationSelect').val();
     		var recipientsNm = $('#info-recipientsNm').val();
     		var rcperRcognNoYn = $('input[name=info-rcperRcognNo-yn]:checked').val();
@@ -815,6 +821,7 @@
     			dataType : 'json'
     		})
     		.done(function(data) {
+    			doubleClickCheck = false;
     			if(data.success) {
     				$('#modal-consulting-info').modal('hide');
     				$('#modal-consulting-complated').modal('show').appendTo('body');

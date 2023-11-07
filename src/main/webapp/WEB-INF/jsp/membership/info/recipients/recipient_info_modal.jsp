@@ -713,6 +713,7 @@
 		    		dataType : 'json'
 		    	})
 		    	.done(function(data) {
+		    		doubleClickCheck = false;
 		    		if(data.success) {
 		    			$('#pop-client-edit').modal('hide');
 		    			location.reload();
@@ -820,6 +821,7 @@
 	    		dataType : 'json'
 	    	})
 	    	.done(function(data) {
+	    		doubleClickCheck = false;
 	    		if(data.success) {
 	    			location.reload();
 	    		}else{
