@@ -1612,7 +1612,7 @@
             }
         }
         & .msg1 {
-            @apply z-10 top-61 text-right md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
+            @apply z-10 top-57 text-right md:top-17 md:left-0 md:mt-0 md:text-left md:-translate-x-[70%];
             & .box {
                 @apply border-[#FD8106];
             }
@@ -1621,7 +1621,7 @@
             }
         }
         & .msg2 {
-            @apply z-5 top-76 md:top-20 md:right-0 md:translate-x-[70%];
+            @apply z-5 top-72 md:top-20 md:right-0 md:translate-x-[70%];
             & .box {
                 @apply border-[#5DB0BF];
             }
@@ -1631,9 +1631,8 @@
         }
     }
     & .btn {
-        @apply hidden justify-center -mt-15 mx-auto w-100 h-15 text-xl
+        @apply flex justify-center mt-4 md:-mt-15 mx-[10%] md:mx-auto md:w-100 md:h-15 text-xl
                after:w-[1.1875rem] after:h-[0.9375rem]
-               md:flex;
     }
 }
 
