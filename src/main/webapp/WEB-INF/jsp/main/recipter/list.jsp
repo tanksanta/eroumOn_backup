@@ -503,7 +503,7 @@
                 </div>
                 <div class="modal-footer gap-1">
                     <button type="button" class="btn btn-primary large w-[52.5%]" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
-                    <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button>
+                    <!-- <button type="button" class="btn btn-outline-primary large w-[47.5%] md:whitespace-nowrap" onclick="openNewConsltInfo();">새롭게 진행하기</button> -->
                 </div>
                 </div>
             </div>
@@ -974,6 +974,32 @@ function clickReSearchBtn() {
 
 //상담하기 버튼 클릭
 function clickStartConsltBtn() {
+	//진행중인 상담 조회 api
+	$.ajax({
+		type : "post",
+		url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+		data : {
+			recipientsNo : ${recipientsNo},
+			prevPath : 'simpleSearch'
+		},
+		dataType : 'json'
+	})
+	.done(function(data) {
+		//해당 수급자가 진행중인 상담이 있는 경우
+		if (data.isExistRecipientConslt) {
+            $('#modal-my-consulting').modal('show');
+		} else {
+			getMbrInfo();
+		}
+	})
+	.fail(function(data, status, err) {
+		alert('서버와 연결이 좋지 않습니다.');
+	});
+}
+
+
+//회원 및 수급자 정보 조회 후 상담신청 모달 호출
+function getMbrInfo()  {
 	$.ajax({
 		type : "post",
 		url  : "/membership/info/myinfo/getMbrInfo.json",
@@ -986,12 +1012,6 @@ function clickStartConsltBtn() {
 			me = data.mbrVO;
 			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 			mbrRecipients = data.mbrRecipients;
-			
-			//진행중인 상담이 있는 경우
-			if (data.isExistConsltInProcess) {
-				$('#modal-my-consulting').modal('show');
-				return;
-			}
 			
 			openNewConsltInfo();
 		}
