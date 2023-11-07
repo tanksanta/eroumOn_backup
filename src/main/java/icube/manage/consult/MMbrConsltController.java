@@ -223,7 +223,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		String consltMbrTelno = (String) reqMap.get("consltMbrTelno");
 
 		BplcVO bplcVO = null;
-		
+		MbrConsltResultVO srchConsltResult = null;
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
 				(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02") || EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS08"))) {
 
@@ -256,7 +256,7 @@ public class MMbrConsltController extends CommonAbstractController{
 			//추가된 사업소 상담 정보 조회
 			Map<String, Object> srchMap = new HashMap<>();
 			srchMap.put("srchConsltNo", mbrConsltVO.getConsltNo());
-			MbrConsltResultVO srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
+			srchConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchMap);
 			
 			//상담 테이블에 현재 매칭된 사업소 상담 정보 저장
 			mbrConsltService.updateCurConsltResultNo(mbrConsltVO.getConsltNo(), srchConsltResult.getBplcConsltNo());
@@ -298,7 +298,9 @@ public class MMbrConsltController extends CommonAbstractController{
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
 				biztalkApiService.sendOnTalkMatched(regMbrNm, bplcVO.getBplcNm(), consltMbrTelno);
-				biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(mbrConsltVO.getConsltNo()) , bplcVO.getPicTelno());
+				if (srchConsltResult != null){
+					biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(srchConsltResult.getBplcConsltNo()) , bplcVO.getPicTelno());
+				}
 			}
 			
 			if (EgovStringUtil.equals(originConsltSttus, "CS02") && EgovStringUtil.isNotEmpty(originConsltBplcUniqueId)) {
