@@ -411,7 +411,8 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);
         model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
-
+        model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
+        
         return "/manage/mbr/manage/recipient";
     }
     
