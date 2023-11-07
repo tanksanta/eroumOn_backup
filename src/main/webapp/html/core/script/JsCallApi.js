@@ -18,7 +18,9 @@ class JsCallApi{
 
     
     call_svr_post_json = function (owner, uri, callback, data, param){
-        
+        var _self = this;
+
+        // _self.createProgressLoading();
         $.ajax({
             url: uri,
             data: data,
@@ -33,7 +35,10 @@ class JsCallApi{
         }).fail(function(data, status, err) {
             // alert("배송지 삭제 중 오류가 발생했습니다. \n 관리자에게 문의 바랍니다.");
             console.log('error forward : ' + data);
-        });;
+        }).always(function(){/* result, textStatus, xhr */
+            // _self.removeProgressLoading();
+            console.log('JsCallApi call_svr_post_json always called');
+        });
     };
 
     call_svr_post_move = function (uri, data, searched_data){
@@ -78,6 +83,22 @@ class JsCallApi{
         }
 
         return arr.join('&')
+    }
+
+    //로딩바 생성
+	createProgressLoading() {
+		var template = `<div class="progress-loading is-dark">
+			<div class="icon">
+				<span></span><span></span><span></span>
+			</div>
+			<p class="text">데이터를 불러오는 중입니다.</p>
+		</div>`
+		
+		$('.cont-target').html(template);		
+	}
+
+    removeProgressLoading(){
+        $('.progress-loading').remove();
     }
 }
 

@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 
 import icube.common.values.CodeList;
 
-
+@SuppressWarnings("unchecked")
 public class WelToolsItemGrpInfo {
     private String itemGrpCd;	// 복지용구 그룹 코드
     // private String itemGrpNm;	// 복지용구 그룹 명
@@ -37,7 +37,7 @@ public class WelToolsItemGrpInfo {
 
 
     // private List<String> itemsContract;// 취소를 제외한 모든 아이템의 항목들
-    private List<String> ItemsAble;//취소,구매 종류별로 기한내의 중복항목 제외 한 아이템들
+    // private List<String> ItemsAble;//취소,구매 종류별로 기한내의 중복항목 제외 한 아이템들
     private List<String> usedCd;
     
     private String itemGrpNm;
@@ -64,7 +64,7 @@ public class WelToolsItemGrpInfo {
 //        this.peroidDtFr = peroidDtFr;
 //        this.peroidDtTo = peroidDtTo;
 
-        this.ItemsAble = new ArrayList<String>();
+        // this.ItemsAble = new ArrayList<String>();
         this.usedCd = new ArrayList<String>();
 
         
