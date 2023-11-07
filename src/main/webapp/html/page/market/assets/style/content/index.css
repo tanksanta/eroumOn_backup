@@ -101,3 +101,12 @@
                xl:-right-0;
     }
 }
+
+.response {
+    & img.mobile {
+        @apply md-max:block md:hidden w-full;
+    }
+    & img.web {
+        @apply md-max:hidden md:block w-full;
+    }
+}
