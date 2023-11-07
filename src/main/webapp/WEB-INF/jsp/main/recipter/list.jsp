@@ -1205,8 +1205,21 @@ function requestConslt() {
     if (rcperRcognNoYn === 'N') {
         rcperRcognNo = '';
     }
+    
+    //입력된 정보가 수정되었는지 체크 후 alert처리
+    var saveRecipientInfo = false;
+    if (myRecipientInfo.relationCd !== (relationCd ? relationCd : null) ||
+    		myRecipientInfo.recipientsNm !== (recipientsNm ? recipientsNm : null) ||
+    		myRecipientInfo.rcperRcognNo !== (rcperRcognNo ? rcperRcognNo : null) ||
+    		myRecipientInfo.tel !== (tel ? tel : null) ||
+    		myRecipientInfo.sido !== (sido ? sido : null) ||
+    		myRecipientInfo.sigugun !== (sigugun ? sigugun : null) ||
+    		myRecipientInfo.dong !== (dong ? dong : null) ||
+    		(brdt && myRecipientInfo.brdt !== (brdt ? brdt.replaceAll('/', '') : null) ) ||
+    		myRecipientInfo.gender !== (gender ? gender : null)) {
+    	saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');	
+    }
 	
-	var saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');
 	
 	$.ajax({
 		type : "post",
