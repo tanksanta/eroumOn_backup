@@ -136,6 +136,10 @@ public class TilkoApiService {
         JSONObject jsonObject = new JSONObject((Map<String, Object>) obj);
 
         System.out.println(jsonObject);
+        if ("조회된 데이터가 없습니다.".equals(jsonObject.get("Message"))) {
+        	returnMap.put("result", result);
+        	return returnMap;
+        }
 
         String Status = (String) jsonObject.get("Status");
 

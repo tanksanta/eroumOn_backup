@@ -537,7 +537,13 @@ $(function(){
 	});
 	
 	//수급자 검사 및 등록
+	var doubleClickCheck = false;
 	$('.fn_checkRecipient').on('click', function() {
+		if (doubleClickCheck) {
+    		return;
+    	}
+    	doubleClickCheck = true;
+		
 		var recipientsNm = $('#modal-recipient-nm').text();
 		var rcperRcognNo = $('#modal-recipient-lno').text();
 		rcperRcognNo = rcperRcognNo.replace('L', '');
@@ -548,6 +554,8 @@ $(function(){
 			
 			var index = Number(currentRecipientNo) - 1;
 			$('.regist-status')[index].value = 'Y';
+			
+			doubleClickCheck = false;
 		} else {
 			$.ajax({
 				type : "post",
@@ -559,6 +567,8 @@ $(function(){
 				dataType : 'json'
 			})
 			.done(function(json) {
+				doubleClickCheck = false;
+				
 				if(json.result){
 					alert('수급자 정보 등록에 동의했습니다.');
 					$('.modal').modal('hide');
