@@ -298,8 +298,7 @@ public class MMbrConsltController extends CommonAbstractController{
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
 				biztalkApiService.sendOnTalkMatched(regMbrNm, bplcVO.getBplcNm(), consltMbrTelno);
-				biztalkApiService.sendCareTalkMatched(bplcNm, bplcVO.getPicTelno());
-				
+				biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(mbrConsltVO.getConsltNo()) , bplcVO.getPicTelno());
 			}
 			
 			if (EgovStringUtil.equals(originConsltSttus, "CS02") && EgovStringUtil.isNotEmpty(originConsltBplcUniqueId)) {
