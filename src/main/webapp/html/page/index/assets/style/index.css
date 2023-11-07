@@ -415,6 +415,30 @@
            lg:mt-77 lg:px-10;
 }
 
+/* 메인 스토어 배너 */
+.main-inner {
+    @apply -mb-16 md:-mb-20 lg:-mb-25;
+}
+.main-store {
+    @apply my-8 mx-auto px-5 max-w-screen-xl
+        md:px-7
+        lg:px-10;
+    & .main-store-inner {
+        @apply flex justify-between flex-col md:flex-row items-center gap-4;
+        & img {
+        @apply h-20 md:h-19;
+        }
+    }
+
+    & .main-store-text {
+        @apply text-2xl md:text-3xl leading-tight;
+    }
+
+    & .main-store-link {
+        @apply flex items-center gap-2;
+    }
+}
+
 
 /* 메인 컨텐츠 섹션 */
 .main-content-wrapper {
