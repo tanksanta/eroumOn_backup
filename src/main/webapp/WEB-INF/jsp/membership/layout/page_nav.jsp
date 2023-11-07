@@ -37,7 +37,7 @@
                         </ul>
                     </li>
                     <li class="menu-item">
-                        <a href="${_membershipPath}/info/myinfo/list" class="menu-link">나의 정보 관리</a>
+                        <a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form" class="menu-link">나의 정보 관리</a>
                         <ul class="smenu-items">
                             <li class="smenu-item"><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form" class="smenu-link ${fn:indexOf(_curPath, '/myinfo/') > -1?'is-active':'' }">내 정보수정</a></li>
                             <li class="smenu-item"><a href="${_membershipPath}/info/recipients/list" class="smenu-link ${fn:indexOf(_curPath, '/recipients/') > -1?'is-active':'' }">수급자 관리</a></li>

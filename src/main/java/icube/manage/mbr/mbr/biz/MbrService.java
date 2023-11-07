@@ -351,10 +351,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 포인트
 		MbrPointVO mbrPointVO = new MbrPointVO();
 		mbrPointVO.setPointMngNo(0);
-		mbrPointVO.setUniqueId((String)paramMap.get("uniqueId"));
+		mbrPointVO.setUniqueId((String)paramMap.get("srchUniqueId"));
 		mbrPointVO.setPointSe("E");
 		mbrPointVO.setPointCn(cn);
-		mbrPointVO.setPoint(Integer.parseInt(String.valueOf(accmtMap.get("ownPoint"))));
+		mbrPointVO.setPoint(Integer.parseInt(String.valueOf(accmtMap.get("pointAcmtl"))));
 		mbrPointVO.setPointAcmtl(0);
 		mbrPointVO.setRgtr("System");
 		mbrPointVO.setGiveMthd("SYS");
@@ -362,10 +362,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 마일리지
 		MbrMlgVO mbrMlgVO = new MbrMlgVO();
 		mbrMlgVO.setMlgMngNo(0);
-		mbrMlgVO.setUniqueId((String)paramMap.get("uniqueId"));
+		mbrMlgVO.setUniqueId((String)paramMap.get("srchUniqueId"));
 		mbrMlgVO.setMlgSe("E");
 		mbrMlgVO.setMlgCn(cn);
-		mbrMlgVO.setMlg(Integer.parseInt(String.valueOf(accmtMap.get("ownMlg"))));
+		mbrMlgVO.setMlg(Integer.parseInt(String.valueOf(accmtMap.get("mlgAcmtl"))));
 		mbrMlgVO.setMlgAcmtl(0);
 		mbrMlgVO.setRgtr("System");
 		mbrMlgVO.setGiveMthd("SYS");
@@ -374,7 +374,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 
 		mbrPointDAO.extinctMbrPoint(mbrPointVO);
 		mbrMlgDAO.extinctMbrMlg(mbrMlgVO);
-		}
+	}
 
 	public void updateKaKaoInfo(MbrVO mbrVO) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
