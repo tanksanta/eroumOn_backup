@@ -189,7 +189,7 @@
                                 </dl>
                             </div>
                             <div class="swiper-slide swiper-item5">
-                                <strong>미끄럼방지 용품</strong>
+                                <strong>미끄럼방지 매트/액</strong>
                                 <i></i>
                                 <dl>
                                     <dt>계약완료</dt>

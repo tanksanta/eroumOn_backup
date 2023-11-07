@@ -481,9 +481,18 @@ public class WelToolsInfoParser {
 				itemGrpOther = "mattressR";
 
 				itemGrpInfo2 = (WelToolsItemGrpInfo)(weltoolsItemGrpList.get(itemGrpOther));
-				if (!EgovStringUtil.equals("Y", itemGrpInfo1.getAble()) || itemGrpInfo1.getUsedPersistPeriodCnt() > 0){
-					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+
+				if (EgovStringUtil.equals("Y", itemGrpInfo1.getAble())){
+					if (itemGrpInfo1.getUsedPersistPeriodCnt() > 0){/*매트리스 판매가 있을 경우*/
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+					} else if (itemGrpInfo2.getUsedPersistPeriodCnt() > 0){/*매트리스 대여가 있을 경우*/
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResultNoneOther());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					} else {
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					}
 				}else{
 					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
 					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());

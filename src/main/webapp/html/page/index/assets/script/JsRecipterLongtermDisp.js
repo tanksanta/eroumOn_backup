@@ -53,7 +53,29 @@ class JsRecipterLongtermDisp{
 
         }
 
+        /************************************매트리스 예외사항***********************************/
+        itemOne = jsonOwnList["mattressR"];
+        var itemSelected, itemTwo = jsonOwnList["mattressS"];
+        joTargetFin = $(cssPrefix + " .fin" + "mattress" + " .cnt");
+        joTargetBuy = $(cssPrefix + " .buy" + "mattress" + " .cnt");
 
+        if (itemOne.ableYn != 'Y'){
+            joTargetFin.html(0);
+            joTargetBuy.html(0);
+        }else{
+            if (itemTwo.ableCnt > 0){
+                itemSelected = itemTwo;
+            }else{
+                itemSelected = itemTwo;
+            }
+
+            if (itemSelected.ableCnt > itemSelected.persistPeriodCnt){
+                joTargetFin.html(itemSelected.persistPeriodCnt);
+            }else{
+                joTargetFin.html(itemSelected.persistPeriodCnt - itemSelected.ableCnt);
+            }
+            joTargetBuy.html(itemSelected.ableCnt);
+        }
     }
 
     fn_tabletr_detail(cssPrefix, saleKind, jsonOwnList){
