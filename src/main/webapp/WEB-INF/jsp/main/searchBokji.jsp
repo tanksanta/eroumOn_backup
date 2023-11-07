@@ -320,12 +320,14 @@
 			var sidoOptions = $('select[name=select-sido] option[value=' + selectSido + ']');
 			if (sidoOptions && sidoOptions.length > 0) {
 				sidoOptions[0].selected = true;
+				sido = sidoOptions[0].text;
 				setSigugunSync();
 			}
 			
 			var gugunOptions = $('select[name=select-gugun] option[value=' + selectGugun + ']');
 			if (gugunOptions && gugunOptions.length > 0) {
 				gugunOptions[0].selected = true;
+				gugun = gugunOptions[0].text;
 			}
 		}
 		
