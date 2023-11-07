@@ -245,9 +245,17 @@ public class TilkoApiService {
 		        }
 		        //System.out.println("@@ 7 : " + preMap.toString());
 
+				String sDate1, sDate2;
+				String today = DateUtil.getToday("yyyyMMdd");
 		        List<Map<String, Object>> welToolTgtHistListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtHistList);
 		        for(Map<String, Object> welTooTgtHistMap : welToolTgtHistListMap) {
-		        	infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ"));
+					sDate1 = (String) welTooTgtHistMap.get("RCGT_EDA_FR_DT"); /* 20230715 */
+					sDate2 = (String) welTooTgtHistMap.get("RCGT_EDA_TO_DT"); /* 20250714 */
+
+					if (today.compareTo(sDate1) >= 0  && today.compareTo(sDate2) <= 0 ){/*현재 날짜가 들어가 있는 인정기간이 필요하다.*/
+						infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ"));
+					}
+		        	
 		        }
 	        }
         }
@@ -497,9 +505,9 @@ public class TilkoApiService {
 
 		WelToolsInfoParser wtInfoParser = new WelToolsInfoParser(rcgtEdaDtFr, rcgtEdaDtTo, (String)infoMap.get("APDT_FR_DT"), (String)infoMap.get("APDT_TO_DT"));
 
-		wtInfoParser.setItemGrpAble(resonsePayRsb);
+		wtInfoParser.setItemGrpAbleParse(resonsePayRsb);
 
-		wtInfoParser.contractItemListParse(responseStr);
+		wtInfoParser.setContractItemListParse(responseStr);
 
 		infoMap.put("ownList", wtInfoParser.getResutAll());
 

@@ -8,38 +8,62 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 
+import icube.common.util.DateUtil;
 import icube.common.util.JsonUtil;
 import icube.common.values.CodeList;
 
 public class WelToolsInfoParser {
 
-	private String peroidDtFr;
-	private String peroidDtTo;
-	private String applyDtFr;
-	private String applyDtTo;
-
-	private HashMap<String, WelToolsItemGrpInfo>  weltoolsItemGrpList;
 	
+	private JSONObject infoMap = null; /*{"QLF_TYPE":"3"
+										,"LTC_RCGT_GRADE_CD":"1"					// 등급
+										,"APDT_FR_DT":"20230329" 					// 적용구간 시작
+										,"APDT_TO_DT":"20240328" 					// 적용구간 마지막
+										,"LTC_MGMT_NO_SEQ":"109" 					// 인정기간의 순번
+										,"RCGT_EDA_DT":"2023-07-15 ~ 2025-07-14"	// 인정기간
+										,"RCGT_EDA_TO_DT":"20250714"				// 인정기간 시작
+										,"RCGT_EDA_FR_DT":"20230715"				// 인정기간 마지막
+										,"SELF_BND_RT":15 							// 본인부담율
+										,"REDUCE_NM":"일반"							 // 
+										,"SBA_CD":"일반" 							 // 일반, 의료급여, 기초 , 등등
+										,"LTC_MGMT_NO":"L0011559991"				// L-번호
+										,"LMT_AMT":"1600000"						// 한도
+										,"REMN_AMT":"1298500"						// 남은 금액
+										,"USE_AMT":"301500"							// 사용금액(현재 적용구간은 금액을 각 더해야 한다. 이거랑 안 맞음)
+									}*/
+	private String peroidDtFr;// 인정기간 시작 (2023-11-01)
+	private String peroidDtTo;// 인정기간 마지막 (2023-11-01)
+	private String applyDtFr;// 적용구간 마지막 (2023-11-01)
+	private String applyDtTo;// 적용구간 시작 (2023-11-01)
+
+	private HashMap<String, WelToolsItemGrpInfo>  weltoolsItemGrpList = null;
+	
+	public WelToolsInfoParser() {
+	}
+
 	public WelToolsInfoParser(String peroidDtFr, String peroidDtTo, String applyDtFr, String applyDtTo) {
-		this.peroidDtFr = peroidDtFr;
-		this.peroidDtTo = peroidDtTo;
-		
 		if (applyDtFr.length() == 8) {
 			applyDtFr = applyDtFr.substring(0, 4) + "-" + applyDtFr.substring(4, 6) + "-" + applyDtFr.substring(6, 8);
 		}
 		if (applyDtTo.length() == 8) {
 			applyDtTo = applyDtTo.substring(0, 4) + "-" + applyDtTo.substring(4, 6) + "-" + applyDtTo.substring(6, 8);
 		}
+
+		this.peroidDtFr = peroidDtFr;
+		this.peroidDtTo = peroidDtTo;
 		this.applyDtFr = applyDtFr;
 		this.applyDtTo = applyDtTo;
 
 		weltoolsItemGrpList = this.getWeltoolsItemGrpList(this.peroidDtFr, this.peroidDtTo, this.applyDtFr,  this.applyDtTo);
 	}
 	
-	public List<String> getItemGrpAbleICube() {
+	public List<String> getItemGrpAbleICube() throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		List<String> resultList = this.getItemGrpAbleICube("S", "Y");
 
 		resultList.addAll(this.getItemGrpAbleICube("R", "Y"));
@@ -47,12 +71,17 @@ public class WelToolsInfoParser {
 		return resultList;
 	}
 	
-	public int getUsedAmt() {
+	public int getUsedAmt() throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+
 		int usedAmt = 0;
 		WelToolsItemGrpInfo itemGrpInfo;
 	   	for (String itemGrpCd : weltoolsItemGrpList.keySet()) {
 	   		
-	   		if (EgovStringUtil.equals(itemGrpCd , "antiSlipSocks") || EgovStringUtil.equals(itemGrpCd , "mattressS")) { /*미끄럼 방지용품, 욕창예방 매트리스(대여) 에서 처리*/
+	   		if (EgovStringUtil.equals(itemGrpCd , "antiSlipSocks") || EgovStringUtil.equals(itemGrpCd , "mattressS")) { 
+				/*미끄럼 방지용품, 욕창예방 매트리스(대여) 에서 처리*/
 	   			continue;
 	   		}
 	   		
@@ -65,7 +94,11 @@ public class WelToolsInfoParser {
 
 		return usedAmt;
 	}
-	public List<String> getItemGrpAbleICube(String saleKind, String ableYn) {
+	public List<String> getItemGrpAbleICube(String saleKind, String ableYn)throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		WelToolsItemGrpInfo itemGrpInfo;
 		List<String> resultList = new ArrayList<>();
 	   	for (String itemGrpCd : weltoolsItemGrpList.keySet()) {
@@ -92,14 +125,22 @@ public class WelToolsInfoParser {
 		return resultList;
 	}
 	
-	public List<String> getItemGrpAble() {
+	public List<String> getItemGrpAble() throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		List<String> resultList = this.getItemGrpAble("S", "Y");
 
 		resultList.addAll(this.getItemGrpAble("R", "Y"));
 
 		return resultList;
 	}
-	public List<String> getItemGrpAble(String saleKind, String ableYn) {
+	public List<String> getItemGrpAble(String saleKind, String ableYn) throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		WelToolsItemGrpInfo itemGrpInfo;
 		List<String> resultList = new ArrayList<>();
 	   	for (String itemGrpCd : weltoolsItemGrpList.keySet()) {
@@ -115,7 +156,146 @@ public class WelToolsInfoParser {
 		return resultList;
 	}
 	
-	public void setItemGrpAble(String responseStr) throws Exception {
+	public boolean setContractInfoParse(String responseStr) throws Exception{
+
+		boolean bBool = this.setContractInfoParsing(responseStr);
+
+		if (!bBool){
+			return bBool;
+		}
+
+		String sTemp;
+		sTemp = (String) this.infoMap.get("APDT_FR_DT");//:"20230329" 					// 적용구간 시작
+		if (sTemp.length() == 8) sTemp = this.date8To10(sTemp);
+		this.applyDtFr = sTemp;
+
+		sTemp = (String) this.infoMap.get("APDT_TO_DT");//:"20240328" 					// 적용구간 마지막
+		if (sTemp.length() == 8) sTemp = this.date8To10(sTemp);
+		this.applyDtTo = sTemp;
+
+		sTemp = (String) this.infoMap.get("RCGT_EDA_FR_DT");//:"20250714"				// 인정기간 시작
+		if (sTemp.length() == 8) sTemp = this.date8To10(sTemp);
+		this.peroidDtFr = sTemp;
+
+		sTemp = (String) this.infoMap.get("RCGT_EDA_TO_DT");//:"20230715"				// 인정기간 마지막
+		if (sTemp.length() == 8) sTemp = this.date8To10(sTemp);
+		this.peroidDtTo = sTemp;
+
+		weltoolsItemGrpList = this.getWeltoolsItemGrpList(this.peroidDtFr, this.peroidDtTo, this.applyDtFr,  this.applyDtTo);
+
+		return bBool;
+	}
+
+	protected boolean setContractInfoParsing(String responseStr) throws Exception{
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		
+		boolean bResult = false;
+
+		JSONParser jsonParser = new JSONParser();
+		Object obj = jsonParser.parse(responseStr);
+
+		JSONObject jsonObject = new JSONObject((Map<String, Object>) obj);
+
+		String Status = (String) jsonObject.get("Status");
+		if(!EgovStringUtil.equals("OK", Status)) { // 정상
+			return bResult;
+		}
+
+		
+		JSONObject resultData = (JSONObject) jsonObject.get("Result");
+		if (resultData == null){
+			return bResult;
+		}
+
+		JSONArray welToolTgtList = (JSONArray) resultData.get("ds_welToolTgtList");/*현재 사용자의 기본 정보*/
+		JSONArray toolPayLmtList = (JSONArray) resultData.get("ds_toolPayLmtList");/*적용구간 리스트*/
+		// JSONArray toolPayLmtList = (JSONArray) resultData.get("ds_Result");/*공급자(사업소) 정보*/
+		JSONArray welToolTgtHistList = (JSONArray) resultData.get("ds_welToolTgtHistList");/*인정기간 리스트*/
+		if(welToolTgtList == null || welToolTgtList.size() < 1 
+			|| toolPayLmtList == null || toolPayLmtList.size() < 1
+			|| welToolTgtHistList == null || welToolTgtHistList.size() < 1 ) {
+			return bResult;
+		}
+
+		bResult = true;
+		this.infoMap = new JSONObject();
+
+		/******************************수급자의 일반 사항****************************************/
+		List<Map<String, Object>> welToolTgtListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtList);
+		for(Map<String, Object> welToolTgt : welToolTgtListMap) {
+			String reduceNm = (String) welToolTgt.get("REDUCE_NM");/* 본인부담율  */
+			String sbaCd = (String) welToolTgt.get("SBA_CD");/*본인부담율 - 감면*/
+			int selfBndRt  = 0;
+
+			//let penPayRate = rep_info['REDUCE_NM'] == '일반' ? '15%': rep_info['REDUCE_NM'] == '기초' ? '0%' : rep_info['REDUCE_NM'] == '의료급여' ? '6%': (rep_info['SBA_CD'].split('(')[1].substr(0, rep_info['SBA_CD'].split('(')[1].length-1));
+			if( reduceNm.equals("일반") ) {
+				selfBndRt = 15;
+			}else if( reduceNm.equals("기초") ) {
+				selfBndRt = 0;
+			}else if( reduceNm.equals("의료급여") ) {
+				selfBndRt = 6;
+			}else if (sbaCd != null && sbaCd.indexOf("(") >= 0) {
+				selfBndRt = EgovStringUtil.string2integer(sbaCd.split("\\(")[1].substring(0, sbaCd.split("\\(")[1].length()-1).replace("%", "")); // 9% or 6%
+			}else{
+				selfBndRt = 20; /* 현재 없는 경우 20%로 박음 */
+			}
+
+			this.infoMap.put("LTC_MGMT_NO", welToolTgt.get("LTC_MGMT_NO"));/*L-번호*/
+			this.infoMap.put("LTC_RCGT_GRADE_CD", welToolTgt.get("LTC_RCGT_GRADE_CD"));/*등급*/
+			this.infoMap.put("QLF_TYPE", welToolTgt.get("QLF_TYPE"));
+			this.infoMap.put("RCGT_EDA_DT", welToolTgt.get("RCGT_EDA_DT"));/* 인정 기간 2023-06-18 ~ 2026-06-17 */
+			this.infoMap.put("REDUCE_NM", reduceNm);/* 본인부담율  */
+			this.infoMap.put("SBA_CD", sbaCd);/*본인부담율 - 감면*/
+			this.infoMap.put("SELF_BND_RT", selfBndRt);
+
+		}
+
+		String apdtFrDt, apdtToDt, today;
+
+		today = DateUtil.getToday("yyyyMMdd");
+		/**********************************수급자의 현재 적용구간************************************/
+		List<Map<String, Object>> toolPayLmtListMap =  JsonUtil.getListMapFromJsonArray(toolPayLmtList);
+		for(Map<String, Object> toolPayLmt : toolPayLmtListMap) {
+//			System.out.println("@@ " + methodName + " : " + toolPayLmt.toString());
+
+			apdtFrDt = (String) toolPayLmt.get("APDT_FR_DT");
+			apdtToDt = (String) toolPayLmt.get("APDT_TO_DT");
+			
+			if (today.compareTo(apdtFrDt) >= 0  && today.compareTo(apdtToDt) <= 0 ){
+				this.infoMap.put("APDT_FR_DT", toolPayLmt.get("APDT_FR_DT")); // 적용구간 시작
+				this.infoMap.put("APDT_TO_DT", toolPayLmt.get("APDT_TO_DT")); // 적용구간 종료
+				this.infoMap.put("REMN_AMT", toolPayLmt.get("REMN_AMT")); // 급여잔액
+				this.infoMap.put("USE_AMT", toolPayLmt.get("USE_AMT")); // 사용금액
+				this.infoMap.put("LMT_AMT", toolPayLmt.get("LMT_AMT")); // 제한금액
+			}
+		}
+//		System.out.println("@@ " + methodName + " : " + this.infoMap.toString());
+
+		/**********************************수급자의 현재 인정기간************************************/
+		List<Map<String, Object>> welToolTgtHistListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtHistList);
+		for(Map<String, Object> welTooTgtHistMap : welToolTgtHistListMap) {
+//			System.out.println("@@ " + methodName + " : " + welTooTgtHistMap.toString());
+
+			apdtFrDt = (String) welTooTgtHistMap.get("RCGT_EDA_FR_DT"); /* 20230715 */
+			apdtToDt = (String) welTooTgtHistMap.get("RCGT_EDA_TO_DT"); /* 20250714 */
+
+			if (today.compareTo(apdtFrDt) >= 0  && today.compareTo(apdtToDt) <= 0 ){
+				this.infoMap.put("RCGT_EDA_FR_DT", welTooTgtHistMap.get("RCGT_EDA_FR_DT")); // 인정기간 시작
+				this.infoMap.put("RCGT_EDA_TO_DT", welTooTgtHistMap.get("RCGT_EDA_TO_DT")); // 인정기간 종료
+				this.infoMap.put("LTC_MGMT_NO_SEQ", welTooTgtHistMap.get("LTC_MGMT_NO_SEQ")); // 인정기간 순번(롱텀에서 부여된 순번)
+			}
+			
+		}
+		System.out.println("@@ " + methodName + " : " + this.infoMap.toString());
+
+		return bResult;
+	}
+
+	public void setItemGrpAbleParse(String responseStr) throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		JSONParser jsonParser = new JSONParser();
 		Object obj = jsonParser.parse(responseStr);
 
@@ -169,7 +349,6 @@ public class WelToolsInfoParser {
 			
 			if (idx == -1) {
 				idx = CodeList.WELTOOLS_ITEMGRP_NM_DISP.indexOf(itemGrpNm);
-				String sss = "";
 			}
 
 			itemGrpCd = CodeList.WELTOOLS_ITEMGRP_CDS.get(idx);
@@ -200,12 +379,15 @@ public class WelToolsInfoParser {
 				itemGrpInfo.setAble(yn);
 			}
 			
-			
 		}
 		
 	}
 	
-	public void contractItemListParse(String responseStr) throws Exception {
+	public void setContractItemListParse(String responseStr) throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+
 		JSONParser jsonParser = new JSONParser();
 		Object obj = jsonParser.parse(responseStr);
 
@@ -262,7 +444,11 @@ public class WelToolsInfoParser {
 
 	}
 
-	public JSONObject getResutAll(){
+	public JSONObject getResutAll()throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		JSONObject jsonObject = new JSONObject();
 		WelToolsItemGrpInfo itemGrpInfo1, itemGrpInfo2;
 		String itemGrpOther;
@@ -295,9 +481,18 @@ public class WelToolsInfoParser {
 				itemGrpOther = "mattressR";
 
 				itemGrpInfo2 = (WelToolsItemGrpInfo)(weltoolsItemGrpList.get(itemGrpOther));
-				if (!EgovStringUtil.equals("Y", itemGrpInfo1.getAble()) || itemGrpInfo1.getUsedPersistPeriodCnt() > 0){
-					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
-					jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+
+				if (EgovStringUtil.equals("Y", itemGrpInfo1.getAble())){
+					if (itemGrpInfo1.getUsedPersistPeriodCnt() > 0){/*매트리스 판매가 있을 경우*/
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResultNoneOther());
+					} else if (itemGrpInfo2.getUsedPersistPeriodCnt() > 0){/*매트리스 대여가 있을 경우*/
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResultNoneOther());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					} else {
+						jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
+						jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
+					}
 				}else{
 					jsonObject.put(itemGrpCd, itemGrpInfo1.getResult());
 					jsonObject.put(itemGrpOther, itemGrpInfo2.getResult());
@@ -312,7 +507,11 @@ public class WelToolsInfoParser {
 		return jsonObject;
 	}
 
-	public List<String> getResutIcube(String saleKind){
+	public List<String> getResutIcube(String saleKind)throws Exception {
+		if (weltoolsItemGrpList == null) {
+			throw new Exception("not found weltoolsItemGrpList");
+		}
+		
 		WelToolsItemGrpInfo itemGrpInfo;
 		List<String> resultList = new ArrayList<>();
 	   	for (String itemGrpCd : weltoolsItemGrpList.keySet()) {
@@ -360,9 +559,9 @@ public class WelToolsInfoParser {
 		
 		WelToolsInfoParser wtInfoParser = new WelToolsInfoParser("2023-07-15", "2025-07-14", "2023-03-29", "2024-03-28");
 		
-		wtInfoParser.setItemGrpAble(wtInfoParser.getTestDataPayPsb());
+		wtInfoParser.setItemGrpAbleParse(wtInfoParser.getTestDataPayPsb());
 		
-		wtInfoParser.contractItemListParse(wtInfoParser.getTestDataContractItemHistory());
+		wtInfoParser.setContractItemListParse(wtInfoParser.getTestDataContractItemHistory());
    	    
 		Map<String, Object> infoMap = new HashMap<String, Object>();
 		
@@ -395,6 +594,34 @@ public class WelToolsInfoParser {
 	
 	}
 
+	public void testAction2() throws Exception{
+		
+		WelToolsInfoParser wtInfoParser = new WelToolsInfoParser();
+		
+		wtInfoParser.setContractInfoParse(wtInfoParser.getTestDataContractInfo());
+
+		wtInfoParser.setItemGrpAbleParse(wtInfoParser.getTestDataPayPsb());
+		
+		wtInfoParser.setContractItemListParse(wtInfoParser.getTestDataContractItemHistory());
+   	    
+		Map<String, Object> infoMap = new HashMap<String, Object>();
+		
+		infoMap.put("USE_AMT", wtInfoParser.getUsedAmt());
+		
+		infoMap.put("ownList", wtInfoParser.getResutAll());
+
+		System.out.println("infoMap = " + infoMap);
+	
+	}
+
+	private String date8To10(String date8){
+		if (date8.length() == 8) {
+			date8 = date8.substring(0, 4) + "-" + date8.substring(4, 6) + "-" + date8.substring(6, 8);
+		}
+
+		return date8;
+	}
+
 	//이병녀(0011559991)
 	//수급자의 계약 정보
 	public String getTestDataContractInfo(){
@@ -402,6 +629,7 @@ public class WelToolsInfoParser {
 
 		return responseStr;
 	}
+	
 	//수급자의 가능품목, 불가능 품목
 	public String getTestDataPayPsb(){
 		String responseStr = "{\"Result\":{\"ds_payPsblLnd1\":[{\"WIM_ITM_CD\":\"수동휠체어\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"전동침대\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"수동침대\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"욕창예방 매트리스\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"이동욕조\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"목욕리프트\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"배회감지기\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"경사로(실외용)\",\"_ROW_STATUS\":\"1\"}],\"ds_payPsblLnd2\":[],\"ds_payPsbl1\":[{\"WIM_ITM_CD\":\"이동변기\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"목욕의자\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"안전손잡이\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"미끄럼 방지용품\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"간이변기\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"지팡이\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"욕창예방방석\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"자세변환용구\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"욕창예방 매트리스\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"성인용보행기\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"요실금팬티\",\"_ROW_STATUS\":\"1\"},{\"WIM_ITM_CD\":\"경사로(실내용)\",\"_ROW_STATUS\":\"1\"}],\"ds_payPsbl2\":[]},\"ApiTxKey\":\"65d2833a-c4f9-47a5-be38-91663476e170\",\"Status\":\"OK\",\"StatusSeq\":0,\"ErrorCode\":0,\"Message\":\"성공\",\"ErrorLog\":null,\"TargetCode\":null,\"TargetMessage\":null}";
