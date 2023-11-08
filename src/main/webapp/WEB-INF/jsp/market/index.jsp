@@ -3,7 +3,27 @@
 <div class="main-visual">
 	<div class="swiper">
 		<div class="swiper-wrapper">
+			
 			<c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
+				<div class="swiper-slide">
+					<c:if test="${resultList.linkTy ne 'N' }">
+						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" class="response" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
+					</c:if>
+						
+							<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
+								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="mobile" alt="">
+							</c:forEach>
+
+							<c:forEach var="fileList" items="${resultList.pcFileList}" varStatus="stts">
+								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="web" alt="" >
+							</c:forEach>
+						
+					<c:if test="${resultList.linkTy ne 'N' }"></a></c:if>
+				</div>
+			</c:forEach>
+
+			<!-- 이전소스 백업 -->
+			<!-- <c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
 					<c:if test="${resultList.linkTy ne 'N' }">
 						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
@@ -20,7 +40,7 @@
 						</picture>
 					<c:if test="${resultList.linkTy ne 'N' }"></a></c:if>
 				</div>
-			</c:forEach>
+			</c:forEach> -->
 
 		</div>
 	</div>
