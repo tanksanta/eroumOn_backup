@@ -717,7 +717,6 @@
     		if (doubleClickCheck) {
 	    		return;
 	    	}
-	    	doubleClickCheck = true;
     		
     		var relationCd = $('#info-relationSelect').val();
     		var recipientsNm = $('#info-recipientsNm').val();
@@ -826,6 +825,7 @@
             	saveRecipientInfo = confirm('입력하신 수급자 정보를 마이페이지에도 저장하시겠습니까?');	
             }
     		
+            doubleClickCheck = true;
             
     		$.ajax({
     			type : "post",
