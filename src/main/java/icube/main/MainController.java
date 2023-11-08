@@ -62,7 +62,7 @@ public class MainController extends CommonAbstractController  {
 
 		try {// 첫화면 부터 에러나지 않도록..
 			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
-			prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+			//prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
 		}catch(Exception e) {
 			log.debug(e.getMessage());
 		}
@@ -96,7 +96,7 @@ public class MainController extends CommonAbstractController  {
 
 		try {// 첫화면 부터 에러나지 않도록..
 			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
-			prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
+			//prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
 		}catch(Exception e) {
 			log.debug(e.getMessage());
 		}
