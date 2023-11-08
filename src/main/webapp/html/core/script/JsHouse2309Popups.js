@@ -149,7 +149,7 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
         
     }
 
-    fn_loading_form_cb(data, param, result){
+    fn_loading_form_cb(result, fail, data, param){
         this._cls_info.loadedFormYn = true;
 
         if (result != null) this._cls_info.formResult = result;
@@ -222,14 +222,14 @@ class JsPopupLoadingFormDataBase extends JsPopupLoadingFormBase{
             this._cls_info.loadedDataYn = false;
             this._cls_info.popup_data = data;
     
-            jsCallApi.call_svr_post_json(this, this._cls_info.dataUrl, 'fn_loading_data_cb', data);    
+            jsCallApi.call_api_post_json(this, this._cls_info.dataUrl, 'fn_loading_data_cb', data);    
         }else{
             this.fn_loading_data_cb(data, null, {});
         }
         
     }
 
-    fn_loading_data_cb(data, param, result){
+    fn_loading_data_cb(result, fail, data, param){
         this._cls_info.loadedDataYn = true;
 
         this._cls_info.dataAllResult = result;

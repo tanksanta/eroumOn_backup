@@ -621,10 +621,23 @@
 	    		alert('상담받을 연락처를 입력하세요');
 	    		return;
 	    	}
-	    	if (!sidoCode || !sigugunCode || !dongCode) {
-	    		alert('실거주지 주소를 모두 선택하세요');
-	    		return;
+	    	
+	    	//동은 선택값이 없으면 검사하지 않음
+	    	var dongOptions = $('#dong option');
+	    	if (dongOptions.length === 1) {
+	    		if (!sidoCode || !sigugunCode) {
+		    		alert('실거주지 주소를 선택하세요');
+		    		return;
+		    	}
+	    		dong = null;
+	    	} 
+	    	else {
+	    		if (!sidoCode || !sigugunCode || !dongCode) {
+		    		alert('실거주지 주소를 모두 선택하세요');
+		    		return;
+		    	}
 	    	}
+	    	
 	    	if (!brdt) {
 	    		alert('수급자 생년월일를 입력하세요');
 	    		return;

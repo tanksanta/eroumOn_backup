@@ -18,7 +18,7 @@
 						<div class="indictor">
 							<div class="bubble" style="width: 92%;">
 								<div class="text">
-									<img src="/html/page/test/assets/images/ico-steps6.svg" alt="" />
+									<!-- <img src="/html/page/test/assets/images/ico-steps6.svg" alt="" /> -->
 									<span class="font-bold">0/2</span>
 								</div>
 							</div>
