@@ -70,7 +70,7 @@
 				<p>
 					사업자등록번호 : 617-86-14330 [<a href="javascript:;" onclick="window.open('https://www.ftc.go.kr/bizCommPop.do?wrkr_no=6178614330','communicationViewPopup','width=750,height=700,scrollbars=yes')">사업자정보확인</a>]
 				</p>
-				<p>통신판매신고번호 : 2018-서울강남-04157</p>
+				<p>통신판매신고번호 : 2016-부산금정-0114</p>
 				<address>
 					<p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
 					<p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
