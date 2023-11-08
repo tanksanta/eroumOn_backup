@@ -537,6 +537,11 @@ body {
   word-break: keep-all;
   overflow: overlay;
   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.6) 0%, rgba(50, 50, 50, 0.6) 100%), url(../images/bg-body.png);
+  &.long-term-care-level {
+    /* padding: calc(constant(safe-area-inset-top) + 0.625rem) 0.625rem calc(env(safe-area-inset-bottom) + 0.625rem); */
+    padding: constant(safe-area-inset-top) 0.5rem env(safe-area-inset-bottom);
+    padding: constant(safe-area-inset-top) 0.5rem env(safe-area-inset-bottom);
+  }
 }
 
 img {
@@ -1134,6 +1139,7 @@ fieldset {
       @apply bg-[url(../images/ico-alert-orange.svg)];
   }
 }
+/*modal*/
 @layer components {
   .modal {
     @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
