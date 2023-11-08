@@ -719,29 +719,11 @@
 	    		doubleClickCheck = true;
 	    		jsonData.recipientsNo = myRecipientInfo.recipientsNo;
 	    		
-		    	$.ajax({
-		    		type : "post",
-		    		url  : "/membership/info/myinfo/updateMbrRecipient.json",
-		    		data : jsonData,
-		    		dataType : 'json'
-		    	})
-		    	.done(function(data) {
-		    		doubleClickCheck = false;
-		    		if(data.success) {
-		    			$('#pop-client-edit').modal('hide');
-		    			location.reload();
-		    		}else{
-		    			alert(data.msg);
-		    		}
-		    	})
-		    	.fail(function(data, status, err) {
-		    		alert('서버와 연결이 좋지 않습니다.');
-		    	});
+	    		//수급자 정보 수정 API 호출
+		    	jsCallApi.call_api_post_json(window, "/membership/info/myinfo/updateMbrRecipient.json", "updateMbrRecipientCallback", jsonData);
 	    	}
 	    	//상담신청
 	    	else if (infoModalType === 'requestConslt') {
-	    		doubleClickCheck = true;
-	    		
 	    		//입력된 정보가 수정되었는지 체크 후 alert처리
 	    	    var saveRecipientInfo = false;
 	    	    if (myRecipientInfo.relationCd !== (relationCd ? relationCd : null) ||
@@ -756,38 +738,58 @@
 	    	    	saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');	
 	    	    }
 		    	
-		    	$.ajax({
-		    		type : "post",
-		    		url  : "/main/conslt/addMbrConslt.json",
-		    		data : {
-		    			relationCd
-		    			, mbrNm: recipientsNm
-		    			, rcperRcognNo
-		    			, mbrTelno: tel
-		    			, zip: sido
-		    			, addr: sigugun
-		    			, daddr: dong
-		    			, brdt
-		    			, gender
-		    			, recipientsNo: myRecipientInfo.recipientsNo
-		    			, prevPath: infoPrevPath
-		    			, saveRecipientInfo
-		    		},
-		    		dataType : 'json'
-		    	})
-		    	.done(function(data) {
-		    		if(data.success) {
-		    			$('#pop-client-edit').modal('hide');
-		    			$('#modal-consulting-complated').modal('show').appendTo('body');
-		    		}else{
-		    			alert(data.msg);
-		    		}
-		    	})
-		    	.fail(function(data, status, err) {
-		    		alert('서버와 연결이 좋지 않습니다.');
+	    	    doubleClickCheck = true;
+	    	    
+	    	  	//상담신청 API 호출
+		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", {
+		    		relationCd
+	    			, mbrNm: recipientsNm
+	    			, rcperRcognNo
+	    			, mbrTelno: tel
+	    			, zip: sido
+	    			, addr: sigugun
+	    			, daddr: dong
+	    			, brdt
+	    			, gender
+	    			, recipientsNo: myRecipientInfo.recipientsNo
+	    			, prevPath: infoPrevPath
+	    			, saveRecipientInfo
 		    	});
 	    	}
 	    }
+	    // 수급자 정보 수정 콜백
+	    function updateMbrRecipientCallback(result, errorResult, data, param) {
+	    	if (errorResult == null) {
+	    		var data = result;
+	    		
+	    		doubleClickCheck = false;
+	    		if(data.success) {
+	    			$('#pop-client-edit').modal('hide');
+	    			location.reload();
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	}
+	    	else {
+				alert('서버와 연결이 좋지 않습니다.');
+			}
+	    }
+	    // 상담신청하기 콜백
+	    function addMbrConsltCallback(result, errorResult, data, param) {
+	    	if (errorResult == null) {
+	    		var data = result;
+	    		
+	    		if(data.success) {
+	    			$('#pop-client-edit').modal('hide');
+	    			$('#modal-consulting-complated').modal('show').appendTo('body');
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	} else {
+	    		alert('서버와 연결이 좋지 않습니다.');
+	    	}
+	    }
+
 
 
 	    // 시/도 Select 박스 셋팅
@@ -840,23 +842,23 @@
 	    	}
 	    	doubleClickCheck = true;
 	    	
-	    	$.ajax({
-	    		type : "post",
-	    		url  : "/membership/info/myinfo/addMbrRecipient.json",
-	    		data : addRecipientInfo,
-	    		dataType : 'json'
-	    	})
-	    	.done(function(data) {
+	    	//수급자 등록 API 호출
+	    	jsCallApi.call_api_post_json(window, "/membership/info/myinfo/addMbrRecipient.json", "addMbrRecipientCallback", addRecipientInfo);
+	    }
+	    // 수급자 등록 콜백
+	    function addMbrRecipientCallback(result, errorResult, data, param) {
+	    	if (errorResult == null) {
+	    		var data = result;
+	    		
 	    		doubleClickCheck = false;
 	    		if(data.success) {
 	    			location.reload();
 	    		}else{
 	    			alert(data.msg);
 	    		}
-	    	})
-	    	.fail(function(data, status, err) {
+	    	} else {
 	    		alert('서버와 연결이 좋지 않습니다.');
-	    	});
+	    	}
 	    }
 	    
 	    
