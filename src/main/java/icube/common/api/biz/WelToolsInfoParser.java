@@ -14,6 +14,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.JsonUtil;
 import icube.common.values.CodeList;
 
+@SuppressWarnings("unchecked")
 public class WelToolsInfoParser {
 
 	

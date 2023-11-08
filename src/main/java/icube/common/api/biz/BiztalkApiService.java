@@ -14,14 +14,13 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import icube.common.util.DateUtil;
-import icube.common.util.StringUtil;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+@SuppressWarnings("unchecked")
 @Service("biztalkApiService")
 public class BiztalkApiService {
 
@@ -226,10 +225,9 @@ public class BiztalkApiService {
 		log.debug("responseStr=" + responseStr);
 		
 		JSONParser jsonParser = new JSONParser();
-		JSONObject jsonObject;
 		
 		try {
-			jsonObject = (JSONObject) jsonParser.parse(responseStr);
+			jsonParser.parse(responseStr);
 		}catch(Exception e) {
 			e.printStackTrace();
 			log.debug(e.getMessage());

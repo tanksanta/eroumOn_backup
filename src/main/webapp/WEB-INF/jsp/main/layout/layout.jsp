@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="/html/page/index/assets/style/style.min.css">
     <script src="/html/core/script/hangjungdong.js"></script>
     <script src="/html/page/index/assets/script/index.js"></script>
+    <script src="/html/core/script/JsCallApi.js"></script>
 </head>
 
 <body>
