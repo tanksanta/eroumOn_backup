@@ -187,6 +187,10 @@ strong {
 
     .global-footer {
         @apply relative z-20 w-full border-t border-gray5 font-sans;
+        @media (max-width: 767px) { 
+            padding: 0 0 calc(constant(safe-area-inset-bottom) + 1rem);
+            padding: 0 0 calc(env(safe-area-inset-bottom) + 1rem);
+        }
         & hr {
             @apply border-gray1/20;
         }
