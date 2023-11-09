@@ -65,24 +65,28 @@
 												<c:set var="bplcInfo" value="${mbrConsltMap[recipientInfo.recipientsNo].consltResultList[0]}" />
 												<strong>${bplcInfo.bplcNm}</strong>
 												
+												<%-- 
 												<label class="recommend">
 													<input type="checkbox" id="mainYn${status.index}" name="mainYn${status.index}" value="${bplcInfo.bplcUniqueId}" 
 														onchange="changeItrst(this);"
 														<c:if test="${itrstList.stream().filter(f -> f.bplcUniqueId == bplcInfo.bplcUniqueId).count() > 0}">checked</c:if>
 													>
 												</label>
+												--%>
 											</c:when>
 											<c:otherwise>
 												사업소 배정 중
 											</c:otherwise>
 										</c:choose>
 									</div>
+									<%-- 
 									<c:if test="${mbrConsltMap[recipientInfo.recipientsNo].consltResultList.size() > 0}">
 										<div class="text-subtitle">
 											<i class="icon-alert size-sm"></i>
 											별(★)을 눌러 관심 멤버스 설정하세요
 										</div>
 									</c:if>
+									--%>
 								</c:if>
 							</dd>
 						</dl>
