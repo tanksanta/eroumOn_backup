@@ -26,6 +26,7 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
@@ -286,7 +287,8 @@ public class MainConsltController extends CommonAbstractController{
 				}
 			}
 
-			biztalkApiService.sendOnTalkCreated(mbrSession.getMbrNm(), mbrConsltVO.getMbrTelno()); 
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+			biztalkApiService.sendOnTalkCreated(mbrVO, mbrRecipient); 
 
 			resultMap.put("success", true);
 		} catch (Exception ex) {

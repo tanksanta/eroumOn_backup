@@ -49,6 +49,7 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
@@ -73,6 +74,9 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
+
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
@@ -297,7 +301,12 @@ public class MMbrConsltController extends CommonAbstractController{
 					) {
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
-				biztalkApiService.sendOnTalkMatched(regMbrNm, bplcVO.getBplcNm(), consltMbrTelno);
+				
+				MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+				
+				MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+			
+				biztalkApiService.sendOnTalkMatched(mbrVO, mbrRecipientsVO, bplcVO);
 				if (srchConsltResult != null){
 					biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(srchConsltResult.getBplcConsltNo()) , bplcVO.getPicTelno());
 				}
@@ -360,9 +369,14 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+
+			MbrConsltVO mbrConsltVO  = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
 			
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+
 			//관리자 상담취소 ==> 일반사용자에게 메세지
-			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
+			biztalkApiService.sendOnTalkCancel(mbrVO, mbrRecipientsVO);
 			
 			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
 			if (mbrConsltResultVO != null && EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){

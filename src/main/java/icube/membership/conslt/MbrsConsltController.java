@@ -112,9 +112,9 @@ public class MbrsConsltController extends CommonAbstractController {
 		boolean result = false;
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+		MbrConsltVO mbrConslt = null;
 		try {
-			MbrConsltVO mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+			mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
 			
 			//재상담은 최대 3회 가능
 			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
@@ -155,12 +155,12 @@ public class MbrsConsltController extends CommonAbstractController {
 			result = false;
 		}
 		
-		if (result) {
-			String consltmbrNm = (String) reqMap.get("consltmbrNm");
-			String consltmbrTelno = (String) reqMap.get("consltmbrTelno");
-			
+		if (result && mbrConslt != null) {
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConslt.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConslt.getRecipientsNo());
+
 			//사용자 재상담 신청
-			biztalkApiService.sendOnTalkMatchAgain(consltmbrNm, consltmbrTelno);
+			biztalkApiService.sendOnTalkMatchAgain(mbrVO, mbrRecipientsVO);
 		}
 
 		resultMap.put("result", result);
@@ -199,9 +199,13 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
-			
+
+			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 			//사용자 상담취소
-			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltmbrTelno);
+			biztalkApiService.sendOnTalkCancel(mbrVO, mbrRecipientsVO);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
