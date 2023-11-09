@@ -159,7 +159,7 @@ public class MailFormService extends CommonAbstractServiceImpl {
 		// 배송 정보
 		mailForm = mailForm.replace("{recptrNm}", ordrVO.getRecptrNm()); // 받는사람
 
-		if(ordrVO.getStlmTy().equals("CARD")){
+		if(EgovStringUtil.equals(ordrVO.getStlmTy(), "CARD") || ordrVO.getDpstTermDt() == null){
 			mailForm = mailForm.replace("{dpstTermDt}", ""); // 입금기한
 		}else {
 			mailForm = mailForm.replace("{dpstTermDt}", ordrVO.getDpstTermDt()); // 입금기한

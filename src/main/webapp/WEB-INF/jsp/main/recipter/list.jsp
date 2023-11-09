@@ -1234,26 +1234,28 @@ function requestConslt() {
 	
     doubleClickCheck = true;
 	
-	$.ajax({
-		type : "post",
-		url  : "/main/conslt/addMbrConslt.json",
-		data : {
-			relationCd
-			, mbrNm: recipientsNm
-			, rcperRcognNo
-			, mbrTelno: tel
-			, zip: sido
-			, addr: sigugun
-			, daddr: dong
-			, brdt
-			, gender
-			, recipientsNo: myRecipientInfo.recipientsNo
-			, prevPath: 'simpleSearch'
-			, saveRecipientInfo
-		},
-		dataType : 'json'
-	})
-	.done(function(data) {
+    //상담신청 API 호출
+    jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", {
+		relationCd
+		, mbrNm: recipientsNm
+		, rcperRcognNo
+		, mbrTelno: tel
+		, zip: sido
+		, addr: sigugun
+		, daddr: dong
+		, brdt
+		, gender
+		, recipientsNo: myRecipientInfo.recipientsNo
+		, prevPath: 'simpleSearch'
+		, saveRecipientInfo
+	});
+}
+
+// 상담신청하기 콜백
+function addMbrConsltCallback(result, errorResult, data, param) {
+	if (errorResult == null) {
+		var data = result;
+		
 		doubleClickCheck = false;
 		if(data.success) {
 			$('#modal-consulting-info').modal('hide');
@@ -1265,10 +1267,9 @@ function requestConslt() {
 		}else{
 			alert(data.msg);
 		}
-	})
-	.fail(function(data, status, err) {
+	} else {
 		alert('서버와 연결이 좋지 않습니다.');
-	});
+	}
 }
 
 

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main id="simulation" class="mt-0">
-		<section class="h-100vh max-h-screen xl:h-screen flex flex-col">
+	<main id="simulation">
+		<!-- <section class="h-100vh max-h-screen xl:h-screen flex flex-col"> -->
+		<section class="simulation-inner">
 			<div id="header">
 				<div class="container">
 					<div class="header-title">

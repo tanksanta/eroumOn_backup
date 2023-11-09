@@ -1735,13 +1735,13 @@
                     }
                 }
                 & .msg2 {
-                    @apply right-[100%] left-7 md:left-1/2 md:translate-x-[33%] top-21 md:top-18;
+                    @apply right-[100%] left-5 md:left-1/2 md:translate-x-[33%] top-21 md:top-18;
                     & > svg {
                         @apply left-auto -scale-x-100;
                     }
                 }
                 & .btn-inquiry {
-                    @apply absolute bottom-24 md:bottom-35  flex left-[7%] md:left-[22%] w-10/12 md:w-100 scale-[95%] md:scale-100; 
+                    @apply absolute bottom-24 md:bottom-35  flex left-[7%] md:left-[22%] w-10/12 md:w-100 scale-[95%] md:scale-100 mx-auto; 
                 }
                 & .img-hand {
                     @apply absolute bottom-[3px] left-[33%] w-34 md:w-49;

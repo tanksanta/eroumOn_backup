@@ -5,7 +5,8 @@
 <head>
 	<meta charSet="utf-8" />
 	<meta name="theme-color" content="rgba(246, 248, 255, 0.6)" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" media="screen and (min-width: 768px)">
+	<meta name="viewport" content="initial-scale=1, viewport-fit=cover" media="screen and (max-width: 767px)">
 	<link rel="apple-touch-icon" href="/html/page/test/assets/images/icon_128.png" />
 	<link rel="shortcut icon" href="/html/page/test/assets/images/favicon.ico" />
 	<link rel="manifest" href="/html/page/test/assets/manifest.json" />
