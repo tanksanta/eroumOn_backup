@@ -224,7 +224,7 @@ public class MainController extends CommonAbstractController  {
 			, Model model) throws Exception {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		if ("전체".equals(category)) {
-			category = "지원|보호|상담|보건|문화|주거|교육";
+			category = "";
 		}
 		
 		category = category.replace("|", ",");
