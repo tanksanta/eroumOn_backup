@@ -4,7 +4,8 @@
 <head>
 	<meta charSet="utf-8" />
 	<meta name="theme-color" content="rgba(246, 248, 255, 0.6)" />
-	<meta name="viewport" content="initial-scale=1, viewport-fit=cover">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" media="screen and (min-width: 768px)">
+	<meta name="viewport" content="initial-scale=1, viewport-fit=cover" media="screen and (max-width: 767px)">
 	<link rel="apple-touch-icon" href="../assets/images/icon_128.png" />
 	<link rel="shortcut icon" href="../assets/images/favicon.ico" />
 	<link rel="manifest" href="../assets/manifest.json" />
@@ -14,8 +15,8 @@
 </head>
 <body class="bg-main">
 
-	<main id="simulation"  class="long-term-care-level">
-		<section class="h-100vh max-h-screen xl:h-screen flex flex-col p-2">
+	<main id="simulation" >
+		<section class="simulation-inner">
 			<div id="header">
 				<div class="container">
 					<div class="header-title">
@@ -43,7 +44,7 @@
 				</div>
 			</div>
 		
-			<div id="container">
+			<div id="container" class="long-term-care-level">
 
 				<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalError">오류시</a>
 
