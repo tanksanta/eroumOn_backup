@@ -433,7 +433,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 
 				// 메일 발송
-				String mailSj = "[이로움ON] 이로움 회원 가입을 축하드립니다.";
+				String mailSj = "[이로움ON] 회원 가입을 축하드립니다.";
 				if(EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, noMbrVO.getEml(), mailSj, mailForm);
 				}else if(EgovStringUtil.equals("dev", activeMode)) {
