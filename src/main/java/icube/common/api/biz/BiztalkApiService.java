@@ -166,6 +166,7 @@ public class BiztalkApiService {
 		result = this.getToken();
 		
 		if (!result) {
+			log.debug("can not found token");
 			return result;
 		}
 		
@@ -243,17 +244,18 @@ public class BiztalkApiService {
 		return true;
 	}
 
-	// ON_00003 이로움ON회원_가입완료 biztalkApiService.sendJoinComleted("이동열", "010-2808-9178");
+	// ON_0001 이로움ON회원_가입완료 biztalkApiService.sendJoinComleted("이동열", "010-2808-9178");
 	public boolean sendOnJoinComleted(MbrVO mbrVO) throws Exception {
-		JSONObject param = this.msgOn0001(mbrVO.getMbrNm());
+		String tmpltCode = "ON_0001";
+		JSONObject param = this.msgOn0001(tmpltCode, mbrVO.getMbrNm());
 
 		return this.sendApiWithToken("/v2/kko/sendAlimTalk", mbrVO.getMblTelno(), param);
 	}
 
-	// ON_00002 이로움ON회원_상담신청취소 biztalkApiService.sendTalkCancel("이동열", "010-2808-9178");
+	// ON_0004 이로움ON회원_상담신청취소 biztalkApiService.sendTalkCancel("이동열", "010-2808-9178");
 	public boolean sendOnTalkCancel(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
-		
-		JSONObject param = this.msgOn0004(mbrVO, mbrRecipientsVO);
+		String tmpltCode = "ON_0004";
+		JSONObject param = this.msgOn0004(tmpltCode, mbrVO, mbrRecipientsVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", mbrVO.getMblTelno(), param);
         
@@ -262,10 +264,10 @@ public class BiztalkApiService {
         return bResult;
 	}
 	
-	// ON_00004 이로움ON회원_상담접수완료 biztalkApiService.sendTalkCreated("이동열", "010-2808-9178");
+	// ON_0002 이로움ON회원_상담접수완료 biztalkApiService.sendTalkCreated("이동열", "010-2808-9178");
 	public boolean sendOnTalkCreated(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
-		
-		JSONObject param = this.msgOn0002(mbrVO, mbrRecipientsVO);
+		String tmpltCode = "ON_0002";
+		JSONObject param = this.msgOn0002(tmpltCode, mbrVO, mbrRecipientsVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", mbrVO.getMblTelno(), param);
         
@@ -274,10 +276,10 @@ public class BiztalkApiService {
         return bResult;
 	}
 
-	// ON_00005 이로움ON회원_재상담접수완료 biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
+	// ON_0003 이로움ON회원_재상담접수완료 biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
 	public boolean sendOnTalkMatchAgain(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
-		
-		JSONObject param = this.msgOn0003(mbrVO, mbrRecipientsVO);
+		String tmpltCode = "ON_0003";
+		JSONObject param = this.msgOn0003(tmpltCode, mbrVO, mbrRecipientsVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", mbrVO.getMblTelno(), param);
         
@@ -286,10 +288,10 @@ public class BiztalkApiService {
         return bResult;
 	}
 	
-	// ON_00006 이로움ON회원_매칭완료(공통) biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
+	// ON_0005 이로움ON회원_매칭완료(공통) biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
 	public boolean sendOnTalkMatched(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, BplcVO bplcVO) throws Exception {
-		
-		JSONObject param = this.msgOn0005(mbrVO, mbrRecipientsVO, bplcVO);
+		String tmpltCode = "ON_0005";
+		JSONObject param = this.msgOn0005(tmpltCode, mbrVO, mbrRecipientsVO, bplcVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", mbrVO.getMblTelno(), param);
         
@@ -298,9 +300,10 @@ public class BiztalkApiService {
         return bResult;
 	}
 
-	// Care_00001 사업소_수급자매칭 biztalkApiService.sendCareTalkMatched("사업소", "010-2808-9178");
+	// Care_0001 사업소_수급자매칭 biztalkApiService.sendCareTalkMatched("사업소", "010-2808-9178");
 	public boolean sendCareTalkMatched(String bplcNm, String consltID, String sPhoneNo) throws Exception {
-		JSONObject param = this.msgCare00001( bplcNm, consltID);
+		String tmpltCode = "Care_0001";
+		JSONObject param = this.msgCare0001(tmpltCode, bplcNm, consltID);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -309,9 +312,11 @@ public class BiztalkApiService {
         return bResult;
 	}
 	
-	// Care_00002 사업소_수급자매칭 biztalkApiService.sendCareTalkCancel("사업소", "010-2808-9178");
+	// Care_0002 사업소_수급자매칭 biztalkApiService.sendCareTalkCancel("사업소", "010-2808-9178");
 	public boolean sendCareTalkCancel(String bplcNm, String sPhoneNo) throws Exception {
-		JSONObject param = this.msgCare00002( bplcNm);
+		String tmpltCode = "Care_0002";
+
+		JSONObject param = this.msgCare0002(tmpltCode, bplcNm);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -321,8 +326,8 @@ public class BiztalkApiService {
 	}
 
 
-	// ON_00003 이로움ON 회원가입이 완료되었습니다
-	private JSONObject msgOn0001(String mbrNm) throws Exception {
+	// ON_0001 이로움ON 회원가입이 완료되었습니다
+	private JSONObject msgOn0001(String tmpltCode, String mbrNm) throws Exception {
 		
 		String jsonStr;
 		
@@ -354,7 +359,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_0001");
+		param.put("tmpltCode", tmpltCode);
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "회원가입 완료");
@@ -363,9 +368,8 @@ public class BiztalkApiService {
 		return param;
 	}
 
-	
-	// ON_00004 상담을 신청해 주셔서 감사합니다.
-	private JSONObject msgOn0002(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	// ON_0002 상담을 신청해 주셔서 감사합니다.
+	private JSONObject msgOn0002(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		
 		String jsonStr;
 		
@@ -402,7 +406,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_0002");
+		param.put("tmpltCode", tmpltCode);
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "상담 접수 완료");
@@ -411,9 +415,8 @@ public class BiztalkApiService {
 		return param;
 	}
 
-	
-	// ON_00005 #{회원이름}님, 재상담을 신청해 주셔서 감사합니다.
-	private JSONObject msgOn0003(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	// ON_0003 #{회원이름}님, 재상담을 신청해 주셔서 감사합니다.
+	private JSONObject msgOn0003(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		
 		String jsonStr;
 		
@@ -453,7 +456,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_0003");
+		param.put("tmpltCode", tmpltCode);
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "재상담 접수 완료");
@@ -462,8 +465,8 @@ public class BiztalkApiService {
 		return param;
 	}
 
-	// ON_00002 #{회원이름}님, 요청하신 1:1 상담이 취소되었습니다
-	private JSONObject msgOn0004(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	// ON_0004 #{회원이름}님, 요청하신 1:1 상담이 취소되었습니다
+	private JSONObject msgOn0004(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		
 		String jsonStr;
 		
@@ -505,7 +508,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_00002-");
+		param.put("tmpltCode", tmpltCode);
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "상담 취소 안내");
@@ -514,8 +517,8 @@ public class BiztalkApiService {
 		return param;
 	}
 
-	// ON_00006 #{회원이름}님, 장기요양기관이 매칭되었습니다
-	private JSONObject msgOn0005(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, BplcVO bplcVO) throws Exception {
+	// ON_0005 #{회원이름}님, 장기요양기관이 매칭되었습니다
+	private JSONObject msgOn0005(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, BplcVO bplcVO) throws Exception {
 		
 		String jsonStr;
 		
@@ -552,7 +555,7 @@ public class BiztalkApiService {
 		
 		JSONObject param = new JSONObject();
 		
-		param.put("tmpltCode", "ON_00006");
+		param.put("tmpltCode", tmpltCode);
 		param.put("senderKey", this.biztalkSenderKeyEroumOn);
 		param.put("message", msg);
 		param.put("title", "1:1상담 매칭 완료");
@@ -561,9 +564,87 @@ public class BiztalkApiService {
 		return param;
 	}
 
+	// Care_0001 사업소_수급자매칭 사업소님, 1:1 상담이 매칭되었습니다.
+	private JSONObject msgCare0001(String tmpltCode, String bplcNm, String consltID) throws Exception {
+		
+		String jsonStr;
+		
+		JSONObject jsonObject;
+		JSONParser jsonParser = new JSONParser();
+		JSONArray list = new JSONArray();
+		jsonStr = "{" + " \"name\":\"◼︎ 매칭된 상담 확인하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_view.php?consltID=" + consltID);
+		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
+		list.add(jsonObject);
+		
+		
+		JSONObject btn = new JSONObject();
+		btn.put("button", list);
+		
+		String msg = "[1:1 상담 매칭 완료]\n" + //
+				"\n" + //
+				"#{장기요양기관명} 사업소님, 1:1 상담이 매칭되었습니다.\n" + //
+				"아래 버튼을 눌러 상담 요청자 정보 확인 후, 상담진행 요청드립니다.\n" + //
+				"\n" + //
+				"상담 완료 후, 상담 완료 버튼을 꼭 눌러주세요.\n" + //
+				"상담 완료 전에 상담 내용도 자유롭게 작성하실 수 있습니다.\n" + //
+				"\n" + //
+				"사업소의 상담 내용을 반영하여 더욱 만족하실 수 있는 이로움이 되겠습니다. 감사합니다.";
+		
+		
+		msg = msg.replace("#{장기요양기관명}", bplcNm);
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("tmpltCode", tmpltCode);
+		param.put("senderKey", this.biztalkSenderKeyEroumcare);
+		param.put("message", msg);
+		param.put("attach", btn);
+		
+		return param;
+	}
+	
+	// Care_0002 사업소_상담취소 사업소님, 1:1 상담 매칭 취소.
+	private JSONObject msgCare0002(String tmpltCode, String bplcNm) throws Exception {
+		
+		String jsonStr;
+		
+		JSONObject jsonObject;
+		JSONParser jsonParser = new JSONParser();
+		JSONArray list = new JSONArray();
+		
+		jsonStr = "{" + " \"name\":\"◼︎ 상담관리 바로가기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_list.php");
+		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
+		list.add(jsonObject);
+		
+		
+		JSONObject btn = new JSONObject();
+		btn.put("button", list);
+		
+		String msg = "[1:1 상담 매칭 취소]\r\n"
+				+ "\r\n"
+				+ "#{장기요양기관명} 사업소님, 상담 요청자에 의해 1:1 상담 매칭이 취소되었습니다.\r\n"
+				+ "\r\n"
+				+ "아래 버튼을 누르면 수급자 상담관리 페이지로 바로 이동됩니다.";
+		
+		
+		msg = msg.replace("#{장기요양기관명}", bplcNm);
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("tmpltCode", tmpltCode);
+		param.put("senderKey", this.biztalkSenderKeyEroumcare);
+		param.put("message", msg);
+		param.put("attach", btn);
+		
+		return param;
+	}
+
 
 	//********************************************************************************************************************** */
 	// ON_00002 #{회원이름}님, 요청하신 1:1 상담이 취소되었습니다
+	/*
 	// private JSONObject msgOn00002(String mbrNm) throws Exception {
 		
 	// 	String jsonStr;
@@ -611,9 +692,10 @@ public class BiztalkApiService {
 		
 	// 	return param;
 	// }
-
+	*/
 	
 	// // ON_00003 이로움ON 회원가입이 완료되었습니다
+	/*
 	// private JSONObject msgOn00003(String mbrNm) throws Exception {
 		
 	// 	String jsonStr;
@@ -654,8 +736,10 @@ public class BiztalkApiService {
 		
 	// 	return param;
 	// }
+	*/
 
 	// // ON_00004 상담을 신청해 주셔서 감사합니다.
+	/*
 	// private JSONObject msgOn00004(String mbrNm) throws Exception {
 		
 	// 	String jsonStr;
@@ -700,8 +784,10 @@ public class BiztalkApiService {
 		
 	// 	return param;
 	// }
+	*/
 
 	// // ON_00005 #{회원이름}님, 재상담을 신청해 주셔서 감사합니다.
+	/*
 	// private JSONObject msgOn00005(String mbrNm) throws Exception {
 		
 	// 	String jsonStr;
@@ -739,8 +825,10 @@ public class BiztalkApiService {
 		
 	// 	return param;
 	// }
-	
+	*/
+
 	// // ON_00006 #{회원이름}님, 장기요양기관이 매칭되었습니다
+	/*
 	// private JSONObject msgOn00006(String mbrNm, String bplcNm) throws Exception {
 		
 	// 	String jsonStr;
@@ -779,8 +867,10 @@ public class BiztalkApiService {
 		
 	// 	return param;
 	// }
-	
+	*/
+
 	// Care_00001 사업소_수급자매칭 사업소님, 1:1 상담이 매칭되었습니다.
+	/*
 	private JSONObject msgCare00001(String bplcNm, String consltID) throws Exception {
 		
 		String jsonStr;
@@ -817,8 +907,10 @@ public class BiztalkApiService {
 		
 		return param;
 	}
+	*/
 	
 	// Care_00002 사업소_상담취소 사업소님, 1:1 상담 매칭 취소.
+	/*
 	private JSONObject msgCare00002(String bplcNm) throws Exception {
 		
 		String jsonStr;
@@ -854,4 +946,5 @@ public class BiztalkApiService {
 		
 		return param;
 	}
+	*/
 }
