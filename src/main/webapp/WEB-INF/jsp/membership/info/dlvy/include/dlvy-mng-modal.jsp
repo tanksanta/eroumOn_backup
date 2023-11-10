@@ -76,8 +76,8 @@
                           <tr>
                               <th scope="row"><p><label for="memo"></label>배송 메시지</p></th>
                               <td>
-                                  <div class="flex flex-wrap">
-                                      <select id="selMemo" name="selMemo" class="form-control w-60">
+                                  <div class="flex flex-col">
+                                      <select id="selMemo" name="selMemo" class="form-control">
 											<option value="" checked>배송메세지</option>
 											<option value="문 앞에 놓아주세요" <c:if test="${dlvyVO.memo eq '문 앞에 놓아주세요' }">selected="selected"</c:if>>문 앞에 놓아주세요</option>
 											<option value="직접 받겠습니다 (부재시 문 앞)" <c:if test="${dlvyVO.memo eq '직접 받겠습니다 (부재시 문 앞)' }">selected="selected"</c:if>>직접 받겠습니다 (부재시 문 앞)</option>
@@ -85,7 +85,7 @@
 											<option value="택배함에 넣어주세요" <c:if test="${dlvyVO.memo eq '택배함에 넣어주세요' }">selected="selected"</c:if>>택배함에 넣어주세요</option>
 											<option value="직접입력" id="selfMemo" <c:if test="${dlvyVO.memo ne '문 앞에 놓아주세요' && dlvyVO.memo ne '직접 받겠습니다 (부재시 문 앞)' && dlvyVO.memo ne '경비실에 보관해 주세요' && dlvyVO.memo ne '택배함에 넣어주세요' && dlvyVO.crud ne 'CREATE' }">selected="selected"</c:if> >직접입력</option>
 										</select>
-                                      <form:input class="form-control w-full sm:flex-1 mt-1.5 sm:mt-0 sm:ml-2 sm:w-auto" path="memo" maxlength="25" style="display:none;" placeholder="배송 요청 사항 입력(25자 이내)"/>
+                                      <form:input class="form-control mt-1.5 sm:mt-1" path="memo" maxlength="25" style="display:none;" placeholder="배송 요청 사항 입력(25자 이내)"/>
                                   </div>
                               </td>
                           </tr>
