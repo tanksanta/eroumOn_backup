@@ -9,14 +9,16 @@
 					<c:if test="${resultList.linkTy ne 'N' }">
 						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" class="response" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
 					</c:if>
-						
-							<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
-								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="mobile" alt="">
-							</c:forEach>
+					
+					<%-- 
+					<c:forEach var="fileList" items="${resultList.mobileFileList}" varStatus="stts">
+						<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="mobile" alt="">
+					</c:forEach>
+					--%>
 
-							<c:forEach var="fileList" items="${resultList.pcFileList}" varStatus="stts">
-								<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="web" alt="" >
-							</c:forEach>
+					<c:forEach var="fileList" items="${resultList.pcFileList}" varStatus="stts">
+						<img src="/comm/getFile?srvcId=BANNER&amp;upNo=${fileList.upNo }&amp;fileTy=${fileList.fileTy }&amp;fileNo=${fileList.fileNo }" class="web" alt="" >
+					</c:forEach>
 						
 					<c:if test="${resultList.linkTy ne 'N' }"></a></c:if>
 				</div>
@@ -261,6 +263,21 @@
 
 <script>
 window.addEventListener('DOMContentLoaded', (e) => {
+	//모바일 체크 처리
+	var isMobile = /Mobi/i.test(window.navigator.userAgent);
+	if (isMobile) {
+		var imgs = $('.swiper-wrapper img.web');
+		for(var i = 0; i < imgs.length; i++) {
+			var src = $(imgs[i]).attr('src');
+			src = src.replace('fileTy=PC', 'fileTy=MOBILE');
+			$(imgs[i]).attr('src', src);
+			
+			$(imgs[i]).removeClass('web');
+			$(imgs[i]).addClass('mobile');
+		}
+	}
+	
+	
     var visual = new Swiper('.main-visual .swiper', {
         loop: true,
         slidesPerView: 1,

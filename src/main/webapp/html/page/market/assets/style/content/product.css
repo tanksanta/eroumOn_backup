@@ -608,7 +608,8 @@
                lg:hidden;
     }
     & .payment-toggle {
-        @apply hidden absolute bg-no-repeat bg-center bg-black2 rounded-full -top-3 w-25 h-6 left-1/2 -translate-x-1/2
+        /* @apply hidden absolute bg-no-repeat bg-center bg-black2 rounded-full -top-3 w-25 h-6 left-1/2 -translate-x-1/2 */
+        @apply absolute z-70 bg-no-repeat bg-center bg-black2 rounded-full -top-3.5 w-25 h-6 left-1/2 -translate-x-1/2
                lg:!hidden;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23.458' height='8' viewBox='0 0 23.458 8'%3E%3Cpath id='Rectangle_8' data-name='Rectangle 8' d='M22.172-7.885,11.729-1.855,1.286-7.885a.857.857,0,0,0-1.171.313A.857.857,0,0,0,.428-6.4L11.153-.209A.86.86,0,0,0,11.729,0a.861.861,0,0,0,.577-.209L23.029-6.4a.857.857,0,0,0,.314-1.171A.857.857,0,0,0,22.6-8,.852.852,0,0,0,22.172-7.885Z' transform='translate(0 8)' fill='%23fff'/%3E%3C/svg%3E%0A");
     }
@@ -617,6 +618,10 @@
                lg:block lg:p-0 lg:max-h-[none] lg:overflow-visible;
         @screen lg-max {
             overflow: overlay;
+        }
+
+        &.is-active {
+            @apply block;
         }
     }
     & .payment-type-select {
