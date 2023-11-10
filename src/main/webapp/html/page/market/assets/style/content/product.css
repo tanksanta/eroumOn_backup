@@ -600,20 +600,25 @@
 }
 
 .product-payment {
-    @apply fixed z-60 left-0 bottom-0 w-full border-t-1 border-t-black2 bg-white
+    @apply fixed z-60 left-0 right-0 bottom-0 border-t-1 border-t-black2 bg-white
            lg:static lg:pt-5 lg:border-t-0;
+           transition: all ease-in 300ms;
     & .option-title {
         @apply absolute left-0 top-0 mb-2 font-bold text-base
                md:static md:text-lg
                lg:hidden;
     }
     & .payment-toggle {
-        @apply hidden absolute bg-no-repeat bg-center bg-black2 rounded-full -top-3 w-25 h-6 left-1/2 -translate-x-1/2
-               lg:!hidden;
+        @apply lg:hidden absolute bg-no-repeat bg-center bg-black2 rounded-full -top-3 w-25 h-6 left-1/2; 
+        transform: translateX(-50%);
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23.458' height='8' viewBox='0 0 23.458 8'%3E%3Cpath id='Rectangle_8' data-name='Rectangle 8' d='M22.172-7.885,11.729-1.855,1.286-7.885a.857.857,0,0,0-1.171.313A.857.857,0,0,0,.428-6.4L11.153-.209A.86.86,0,0,0,11.729,0a.861.861,0,0,0,.577-.209L23.029-6.4a.857.857,0,0,0,.314-1.171A.857.857,0,0,0,22.6-8,.852.852,0,0,0,22.172-7.885Z' transform='translate(0 8)' fill='%23fff'/%3E%3C/svg%3E%0A");
+        &.is-active {
+            @apply block;
+            transform: translateX(-50%) rotate(180deg);
+        }
     }
     & .payment-scroller {
-        @apply hidden scrollbars px-5 max-h-[calc(75vh_-_10.5rem)]
+        @apply scrollbars px-5 max-h-[calc(75vh_-_10.5rem)]
                lg:block lg:p-0 lg:max-h-[none] lg:overflow-visible;
         @screen lg-max {
             overflow: overlay;

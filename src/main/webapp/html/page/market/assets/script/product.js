@@ -166,7 +166,17 @@ $(function() {
     });
 
     $('.payment-toggle').click(function() {
+        console.log('this', this)
         $(this).closest('.product-payment').removeClass('is-active');
+        if ($(this).hasClass('is-active')) {
+            $(this).siblings('.payment-type-content1').removeClass('is-active');
+            $(this).siblings('.payment-type-content1').children('payment-scroller').css('display', 'block')
+            $(this).removeClass('is-active')
+        } else {
+            $(this).addClass('is-active')
+            $(this).siblings('.payment-type-content1').addClass('is-active');
+            $(this).siblings('.payment-type-content1').children('payment-scroller').css('display', 'none')
+        }
     })
 
     //상품 사업소 선택
