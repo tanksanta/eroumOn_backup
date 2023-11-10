@@ -559,7 +559,7 @@
 				<!-- 상품 결제 -->
 				<div class="product-payment">
 					<!-- 상품 결제 토글 모바일 -->
-					<button type="button" class="payment-toggle"></button>
+					<button type="button" class="payment-toggle is-active"></button>
 					<!-- //상품 결제 토글 모바일 -->
 
 					<%--from start--%>
@@ -594,7 +594,7 @@
 
 						<div class="payment-type-content1 is-active"> <%--고정--%>
 
-	                        <div class="payment-scroller">
+	                        <div class="payment-scroller is-active">
 	                            <c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
 		                        <div class="space-y-1 payment-guide">
 		                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
