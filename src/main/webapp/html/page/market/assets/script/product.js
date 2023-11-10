@@ -166,7 +166,15 @@ $(function() {
     });
 
     $('.payment-toggle').click(function() {
-        $(this).closest('.product-payment').removeClass('is-active');
+        $(this).toggleClass('is-active')
+        if ($(this).hasClass('is-active')) {
+            $(this).closest('.product-payment').addClass('is-active');
+            $(this).siblings().find('.payment-scroller').addClass('is-active');
+        } else {
+            $(this).closest('.product-payment').removeClass('is-active');
+            $(this).siblings().find('.payment-scroller').removeClass('is-active');
+        }
+
     })
 
     //상품 사업소 선택
