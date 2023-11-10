@@ -665,8 +665,8 @@
         }
         & + [class*="payment-type-content"] {
             & .payment-button {
-                @apply hidden
-                       lg:flex;
+                /* @apply hidden */
+                @apply lg:flex;
             }
         }
     }

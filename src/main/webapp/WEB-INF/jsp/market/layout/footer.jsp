@@ -81,7 +81,7 @@
 				<dt>이로움온 고객센터 <a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a></dt>
 				<dd>
 					<p>
-						<strong>운영시간 :</strong> 월~금 오전 8:30~오후 5:30 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)
+						<strong>운영시간 :</strong> 월~금 오전 9:00 ~ 오후 16:30 점심시간 오후 12:00 ~ 오후 13:30 (주말 및 공휴일 휴무)
 					</p>
 				</dd>
 			</dl>
