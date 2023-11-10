@@ -1159,6 +1159,7 @@ var Goods = (function(){
 	        </c:if>
 	        }else if($(".product-quanitem").length < 1){
 	        	alert("필수 옵션을 선택하세요");
+				$('.payment-type-content1 .payment-scroller').addClass('is-active');
 	        	return false;
 	        }else{
 		        var actionUrl = "${_marketPath}/ordr/ordrRqst"; //주문확인
@@ -1432,6 +1433,7 @@ var Goods = (function(){
 				return false;
 	        }else if($(".product-quanitem").length < 1){
 	        	alert("필수 옵션을 선택하세요");
+				$('.payment-type-content1 .payment-scroller').addClass('is-active');
 	        	return false;
 	        }else{
 	        	var formData = $("#frmOrdr").serialize();
