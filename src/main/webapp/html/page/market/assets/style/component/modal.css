@@ -77,6 +77,10 @@
                 @apply btn-icon h-9 bg-[url(/html/page/market/assets/images/ico-close-white.svg)] bg-[length:0.875rem]
                        md:h-14 md:bg-[length:1rem];
             }
+
+            > button {
+                @apply  !right-2.5 md:!right-4 !w-5 !h-5 md:w-9 md:h-9 ;
+            }
         }
     }
     .modal-backdrop {

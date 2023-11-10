@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>modal</title>
+
+    <!-- plugin -->
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+
+    <style>
+        body { background-color: hsla(0,0%,87%,.8); }
+        .modal-show { display: block!important; position: relative !important; }
+        .capitalize { text-transform: capitalize; }
+    </style>
+</head>
+
+<body>
+    <main class="flex flex-col gap-4 mx-auto">
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <h3 class="capitalize font-bold text-lg">index modal style</h3>
+            <p>modal 기본스타일 / .modal-index 스타일 </p>
+        </div>
+        <div class="modal  modal-show" id="modalExam1" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <p class="text-title"><img src="/html/core/images/img-brand-logo.svg" alt="eroum"></p> -->
+                        <p class="text-title">이로움온</p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠  <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary">확인</a>
+                        <a href="#" class="btn">취소</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-lg </p>
+            <p>최대: 800px / 최소: 500px</p>
+        </div>
+        <div class="modal   modal-show" id="modalExam2" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title"><img src="../../../core/images/img-brand-logo.svg" alt="eroum"></p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- 모달컨텐츠모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠  <br> -->
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary">확인</a>
+                        <a href="#" class="btn">취소</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-xl </p>
+            <p>최대: 1040px / 최소: 500px </p>
+        </div>
+        <div class="modal  modal-show" id="modalExam3" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title"><img src="../../../core/images/img-brand-logo.svg" alt="eroum"></p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary">확인</a>
+                        <a href="#" class="btn">취소</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-2xl </p>
+            <p>최대: 1280px / 최소: 500px</p>
+        </div>
+        <div class="modal  modal-show" id="modalExam4" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-2xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title"><img src="../../../core/images/img-brand-logo.svg" alt="eroum"></p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                        모달컨텐츠 <br>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary">확인</a>
+                        <a href="#" class="btn">취소</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-lg </p>
+        </div>
+        <div class="modal  is-color1  modal-show" id="modalExam5" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">이로움온</p>
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-detail-title">전체 컬러 is-color+1~8</div>
+                        <div class="modal-detail-content">
+                            <a href="#" class="share">공유하기 <i></i></a>
+                            <table>
+                                <colgroup>
+                                    <col class="w-14">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">분류</th>
+                                        <td>
+                                            <span class="label">라벨</span>
+                                            <span class="label">라벨</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원조건</th>
+                                        <td>65세 이상 기초생활수급자</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원방법</th>
+                                        <td>서류접수 및 인터넷 신청</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원기간</th>
+                                        <td>
+                                            상시신청<br>
+                                            (2023.02.24 ~ 2023.12.23)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">필요서류</th>
+                                        <td>
+                                            주민등록등본 1부<br>
+                                            가족관계증명서 1부
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">지원금</th>
+                                        <td>240,000 <small>원</small></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">내용</th>
+                                        <td>
+                                            <div class="content">
+                                                - 옥상 공용부분 방수공사 <br>
+                                                - 재해 및 재난 등이 발생할 우려가 큰 위험 시설의 보수 <br>
+                                                - 단지 내 차도 및 보도의 보수 <br>
+                                                - 하수관의 교체ㆍ보수 및 준설 <br>
+                                                - 장애인ㆍ노인ㆍ임산부 등의 편의시설의 설치 및 보수 <br>
+                                                - 지하주차장의 바닥ㆍ벽체 방수공사
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">출처</th>
+                                        <td>복지로(<a href="bokjiro.go.kr" target="_blank" class="home">bokjiro.go.kr</a>)</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">기관명</th>
+                                        <td>서울시 송파구청</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-large btn-request">자세한 신청방법 보기</a>
+                        <a href="#" class="btn btn-large btn-share sm:hidden">공유하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <!--상담하기 팝업소스-->
+          <div class="modal modal-index   modal-show" id="pop-consulting" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">알림</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-bg-wrap">
+                            <div class="text-center text-xl">
+                                진행중인 요양정보 상담이 있습니다. <br>
+                                상담 내역을 확인하시겠습니까?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer gap-1">
+                        <button type="button" class="btn btn-primary large flex-initial w-55">상담내역 확인하기</button>
+                        <button type="button" class="btn btn-outline-primary large flex-initial w-45" data-bs-dismiss="modal" class="btn-close">새롭게 진행하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--L번호가 있는 수급자의 경우 : 상담정보확인-->
+        <div class="modal modal-index  modal-show" id="pop-consulting-info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">상담 정보 확인</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-subtitle">
+                        <i class="icon-alert"></i>
+                        <p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+                    </div>
+                    <table class="table-detail">
+                        <caption class="hidden">상담정보확인 위한 수급자와의 관계(필수), 수급자성명(필수), 요양인정번호, 상담받을연락처(필수), 실거주지 주소(필수), 생년월일(필수),성별(필수), 상담유형 입력폼입니다 </caption>
+                        <colgroup>
+                            <col class="w-22 xs:w-32">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="wrapRelation">
+                                <tr class="top-border">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <th scope="row">
+                                    <p>
+                                        <label for="recipter">수급자와의 관계<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <select name="relationSelect" id="relationSelect" class="form-control w-full lg:w-[60%]">
+                                        <option value="">선택</option>
+                                        <option value="001">본인</option>
+                                        <option value="002">아버지</option>
+                                        <option value="003">어머니</option>
+                                        <option value="004">시아버지</option>
+                                        <option value="005">시어머니</option>
+                                        <option value="006">배우자</option>
+                                        <option value="007">형제자매</option>
+                                        <option value="100">기타</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="wrapNm">
+                                <th scope="row">
+                                    <p>
+                                        <label for="recipter">수급자 성명<sup class="text-danger text-base md:text-lg">*</sup></label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <input type="text" class="form-control  lg:w-[60%]" id="recipter" name="testName" maxlength="50" value="">
+                                </td>
+                            </tr>
+                            <tr class="wrapNo">
+                                <th scope="row">
+                                    <p>
+                                        <label for="rcperRcognNo">요양인정번호</label>
+                                    </p>
+                                </th>
+                                <td>
+                                    <div class="flex flex-row gap-2.5 mb-1.5">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="yn" id="yes" checked>
+                                            <label class="form-check-label" for="yes">있음</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="yn" id="no">
+                                            <label class="form-check-label" for="no">없음</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-full lg:w-[60%]">
+                                        <p class="px-1.5 font-serif text-[1.375rem] font-bold md:text-2xl">L</p>
+                                        <input type="text" class="form-control " id="rcperRcognNo" name="rcperRcognNo" maxlength="13" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="search-item6">상담받을 연락처</label></p>
+                                </th>
+                                <td><input type="text" class="form-control w-full lg:w-[60%]" id="search-item6"></td>
+                            </tr> 
+                            <tr>
+                                <th scope="row">
+                                    <p><label for="search-item6">실거주지 주소<sup class="text-danger text-base md:text-lg">*</sup></label></p>
+                                </th>
+                                <td>
+                                    <fieldset class="flex flex-col lg:flex-row gap-1 ">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">시/도</option>
+                                        </select>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">시/군/구</option>
+                                        </select>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">동/읍/면</option>
+                                        </select>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="search-item4">생년월일<sup class="text-danger text-base md:text-lg">*</sup></label></p></th>
+                                <td><input type="text" class="form-control  lg:w-[60%]" id="search-item4"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><p><label for="search-item4">상담유형</label></p></th>
+                                <td>요양정보상담</td>
+                            </tr>
+                            <tr class="top-border">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="list-style1">
+                        <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
+                        <li>제공되는 정보는 상기 목적으로만 활용하며 1년간 보관 후 폐기됩니다.</li>
+                        <li>가입 시 동의받은 개인정보 제3자 제공동의에따라 위의 개인정보가 제공됩니다. 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer md:w-3/4 mx-auto mt-4">
+                    <a href="#pop-consulting" type="button" data-bs-toggle="modal" data-bs-target="#pop-consulting" class="btn btn-primary3 large w-[60%] md:w-[70%]">상담신청하기</a>
+                    <button type="button" class="btn btn-outline-primary large w-[40%] md:w-[30%] md:whitespace-nowrap">취소하기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--상담신청완료-->
+        <div class="modal modal-index  modal-show" id="pop-consulting-complated" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">알림</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="provide-complate">
+                            <div class="wrapper">
+                                <svg width="45.1731884px" height="44.9930805px" viewBox="0 0 45.1731884 44.9930805">
+                                    <g id="airplane" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="airplane" transform="translate(-836.3067, -384.1337)" fill="#FFFFFF">
+                                            <g id="airplane" transform="translate(787, 329)">
+                                                <path d="M49.8149249,79.6635069 L92.9878533,55.2632727 C93.4686607,54.9915327 94.078721,55.1610153 94.350461,55.6418227 C94.4586743,55.8332916 94.5007484,56.0550947 94.470169,56.2728912 L89.2316897,93.5830877 C89.0781107,94.6769283 88.0668774,95.439161 86.9730368,95.285582 C86.8468774,95.2678688 86.7226991,95.2381419 86.6021946,95.1968067 L75.5767429,91.4148747 C74.7376734,91.1270585 73.8092758,91.426319 73.2962443,92.1499725 L67.940117,99.7050262 C67.620703,100.155574 66.9965258,100.261879 66.5459782,99.9424645 C66.2814978,99.7549621 66.1243285,99.4508781 66.1243285,99.1266759 L66.1243285,89.5357494 C66.1243285,88.8171161 66.3822929,88.1223582 66.8512931,87.5778653 L81.6305995,70.4196045 C81.8108177,70.2103773 81.7873014,69.8946695 81.5780742,69.7144512 C81.3931938,69.555204 81.1203694,69.552664 80.9325561,69.7084415 L62.4817313,85.0120537 C61.6191487,85.727503 60.4297149,85.9025231 59.3976054,85.4658696 L49.9173201,81.4550557 C49.4086824,81.2398669 49.1707951,80.6530897 49.3859839,80.1444521 C49.4719751,79.9411962 49.6227902,79.7720965 49.8149249,79.6635069 Z" id="Path-4"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                                <div class="object1"></div>
+                                <div class="object2"></div>
+                                <div class="object3"></div>
+                            </div>
+                        </div>
+                        <p class="mt-5.5 text-lg font-bold md:mt-6 md:text-xl lg:mt-7 lg:text-2xl">상담 신청이 완료되었습니다.</p>
+                        <p class="mt-2 mb-4 text-sm md:text-base tracking-tight">
+                            "영업일 기준, 2일 이내 해피콜 통해 <span class="block md:inline-block">안내 받으실 수 있어요"</span>
+                        </p>
+                    </div>
+    
+                    <script>
+                        $('.provide-complate').addClass('animate1');
+                        $('.provide-complate svg').one('animationend transitionend',function(){
+                            $('.provide-complate').removeClass('animate1').addClass('animate2');
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-large btn-primary3 w-57 md:w-70">이로움ON 메인으로</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

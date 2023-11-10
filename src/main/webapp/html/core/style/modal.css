@@ -19,7 +19,7 @@
         & .modal-close {
           > button {
             font-size:0;
-            @apply absolute top-6 right-6 md:top-7 md:right-7 w-6 h-6 md:w-9 md:h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:100%];
+            @apply absolute top-6 right-6 md:top-6 md:right-6 w-6 h-6  opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:100%];
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%23fff'/%3E%3C/svg%3E"); 
           }
       }
@@ -32,6 +32,9 @@
       }
       & [data-bs-dismiss="modal"] {
         @apply  w-5 h-5 overflow-hidden -indent-96;
+      }
+      & .text-title {
+        @apply text-2xl font-bold text-left;
       }
     }
     & .modal-body {
@@ -72,9 +75,7 @@
           @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
-        & .text-title {
-          @apply text-2xl font-bold text-left;
-        }
+      
       }
       & .modal-body {
         @apply flex flex-col justify-start py-8 px-0 gap-2.5;

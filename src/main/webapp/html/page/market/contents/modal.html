@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>component</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <!-- market -->
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/common.js"></script>
+    <script src="../assets/script/product.js"></script>
+
+    <style>
+        body { background-color: hsla(0,0%,87%,.8); }
+        .modal-show { display: block!important; position: relative !important; }
+        .capitalize { text-transform: capitalize; }
+    </style>
+</head>
+
+<body>
+    <main class="flex flex-col gap-4 mx-auto">
+        <div class="modal modal-show" id="modalExam1" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-show" id="modalExam2" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-show" id="modalExam3" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-show" id="modalExam4" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-2xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+</body>
+</html>
