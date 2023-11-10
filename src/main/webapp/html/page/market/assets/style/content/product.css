@@ -619,6 +619,10 @@
         @screen lg-max {
             overflow: overlay;
         }
+
+        &.is-active {
+            @apply block;
+        }
     }
     & .payment-type-select {
         @apply flex gap-2.5 px-5 py-2.5
