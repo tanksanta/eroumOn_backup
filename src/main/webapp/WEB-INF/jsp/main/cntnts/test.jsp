@@ -337,9 +337,9 @@
         </div>
         <div class="grade-info">
             <dl class="info-text1">
-                <dt>15</dt>
+                <dt>5</dt>
                 <dd>
-                    약 <strong>15분</strong>의 시간이
+                    약 <strong>5분</strong>의 시간이
                     소요돼요.
                 </dd>
             </dl>
