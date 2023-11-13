@@ -152,7 +152,7 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		}
 		BplcVO bplcVO = bplcService.selectBplcByUniqueId(resultVO.getBplcUniqueId());
 		if (bplcVO == null) {
-			resultMap.put("msg", "해당 상담의 사업소를 찾을 수 없습니다.");
+			resultMap.put("msg", "해당 사업소를 찾을 수 없습니다.");
 			resultMap.put("code", "err_02");
 			return resultMap;
 		}

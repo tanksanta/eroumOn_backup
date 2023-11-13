@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.api.biz.EroumcareApiResponseVO;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.consult.biz.MbrConsltResultService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 이로움케어 호출용 API 컨트롤러
  */
+@Api(tags = "이로움케어 상담상태 변경 요청 API")
 @Controller
 @RequestMapping(value="/api/#{props['Globals.Members.path']}/conslt")
 public class MBplcConsltApiController extends CommonAbstractController {
@@ -31,30 +35,34 @@ public class MBplcConsltApiController extends CommonAbstractController {
 	
 	
 	// 사업소 > 상담 거부 (이로움케어 호출용 API)
+	@ApiOperation(value="상담 거부", notes="err_01: 해당 사업소의 상담을 찾을 수 없습니다. <br>err_02: 해당 사업소를 찾을 수 없습니다. <br>err_98: 서버 처리중 오류가 발생하였습니다. <br>err_99: 인증되지 않은 접근입니다.")
 	@RequestMapping(value = "/rejectConslt.json", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> rejectConslt(
+	public EroumcareApiResponseVO rejectConslt(
 			@RequestParam(value = "bplcConsltNo", required=true) int bplcConsltNo
 			, HttpServletRequest request
 			) throws Exception {
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", false);
+		EroumcareApiResponseVO responseVO = new EroumcareApiResponseVO();
+		responseVO.setSuccess(false);
 		
 		String eroumApikey = request.getHeader("eroumAPI_Key");
     	if (!eroumCarePrivateKey.equals(eroumApikey)) {
-    		resultMap.put("msg", "인증되지 않은 접근입니다.");
-    		resultMap.put("code", "err_99");
-    		return resultMap;
+    		responseVO.setCode("err_99");
+    		responseVO.setMsg("인증되지 않은 접근입니다.");
+    		return responseVO;
     	}
-		
+    	
 		try {
-			resultMap = mbrConsltResultService.changeSttusForBplc(bplcConsltNo, "CS04");
+			Map<String, Object> resultMap = mbrConsltResultService.changeSttusForBplc(bplcConsltNo, "CS04");
+			responseVO.setSuccess((boolean)resultMap.get("success"));
+			responseVO.setCode((String)resultMap.get("code"));
+    		responseVO.setMsg((String)resultMap.get("msg"));
 		} catch (Exception ex) {
-			resultMap.put("msg", "서버 처리중 오류가 발생하였습니다.");
-    		resultMap.put("code", "err_98");
-    		return resultMap;
+    		responseVO.setCode("err_98");
+    		responseVO.setMsg("서버 처리중 오류가 발생하였습니다.");
+    		return responseVO;
 		}
-		return resultMap;
+		return responseVO;
 	}
 }
