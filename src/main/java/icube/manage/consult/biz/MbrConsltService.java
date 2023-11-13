@@ -196,4 +196,26 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
 	}
+	
+	/**
+	 * 회원 상담취소 이메일 발송
+	 */
+	public void sendCancelConsltEmail(MbrConsltVO mbrConsltVO) throws Exception {
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_cancel.html");
+		String mailSj = "[이로움 ON] 상담이 취소되었습니다.";
+		String putEml = "help_cx@thkc.co.kr";
+		
+		mailForm = mailForm.replace("((mbr_nm))", mbrConsltVO.getMbrNm());
+		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
+		mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
+		mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
+
+		if ("real".equals(activeMode)) {
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		} else {
+			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
+	}
 }

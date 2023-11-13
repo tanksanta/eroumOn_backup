@@ -203,7 +203,12 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 
+			
+            // 상담취소 시 관리자에게 알림 메일 발송
 			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+            mbrConsltService.sendCancelConsltEmail(mbrConsltVO);
+
+            
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
 
 			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
