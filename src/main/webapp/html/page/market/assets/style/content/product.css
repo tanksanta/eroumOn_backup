@@ -257,14 +257,16 @@
 }
 
 .product-tablist {
-    @apply sticky top-11 z-25 left-0 text-[0.9375rem] tracking-tighter bg-white
-           md:top-[2.9375rem] md:text-lg md:tracking-normal
-           lg:top-0 lg:text-xl;
+    @apply sticky top-11 z-25 left-0 text-[0.9375rem] tracking-tighter bg-white overflow-x-auto
+        sm:overflow-x-hidden
+        md:top-[2.9375rem] md:text-lg md:tracking-normal 
+        lg:top-0 lg:text-xl;
+        -webkit-overflow-scrolling: touch;
     & ul {
         @apply relative z-25 flex text-center space-x-1 leading-snug
                md:space-x-2;
         & li {
-            @apply flex-none pt-4 pb-2 min-w-[33.33333333333333333%];
+            @apply flex-none pt-4 pb-2 sm:min-w-[33.33333333333333333%];
             & a {
                 @apply block text-gray1 px-2
                        after:block after:mt-1.5 after:-mx-2 after:h-0.5 after:rounded-full;
