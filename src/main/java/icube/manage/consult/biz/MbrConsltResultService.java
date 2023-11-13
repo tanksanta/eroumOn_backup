@@ -184,26 +184,33 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 			
 			//상담 거부에 대한 이메일 발송 처리
 			if ("CS04".equals(consltSttus)) {
-				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_reject.html");
-				String mailSj = "[이로움케어] 장기요양기관에서 상담을 취소하였습니다.";
-				String putEml = "help_cx@thkc.co.kr";
-				
-				mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
-				mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
-				mailForm = mailForm.replace("((bplc_telno))", bplcVO.getTelno());
-				mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
-				
-				if("real".equals(activeMode)) {
-					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
-				} else {
-					putEml = "gr1993@naver.com";
-					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
-				}
+				sendBplcRejectEmail(bplcVO);
 			}
 		}
 		
 		resultMap.put("success", true);
 		return resultMap;
+	}
+	
+	/**
+	 * 사업소 상담거부 이메일 발송
+	 */
+	public void sendBplcRejectEmail(BplcVO bplcVO) throws Exception {
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_reject.html");
+		String mailSj = "[이로움케어] 장기요양기관에서 상담을 취소하였습니다.";
+		String putEml = "help_cx@thkc.co.kr";
+		
+		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
+		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
+		mailForm = mailForm.replace("((bplc_telno))", bplcVO.getTelno());
+		mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
+		
+		if("real".equals(activeMode)) {
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		} else {
+			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
 	}
 }
