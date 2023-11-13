@@ -282,22 +282,7 @@ public class MainConsltController extends CommonAbstractController{
 				
 				
 				//1:1 상담신청시 관리자에게 알림 메일 발송
-				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
-				String mailSj = "[이로움 ON] 신규상담건 문의가 접수되었습니다.";
-				String putEml = "help_cx@thkc.co.kr";
-				
-				mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
-				mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
-				mailForm = mailForm.replace("((conslt_ty))", "test".equals(mbrConsltVO.getPrevPath()) ? "인정등급상담" : "요양정보상담");
-				mailForm = mailForm.replace("((conslt_date))", simpleDateFormat.format(new Date()));
-
-				if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile))) {
-					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
-				} else {
-					putEml = "gr1993@naver.com";
-					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
-				}
+				mbrConsltService.sendConsltRequestEmail(mbrConsltVO);
 			}
 
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());

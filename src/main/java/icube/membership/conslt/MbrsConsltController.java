@@ -151,6 +151,9 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
 			result = true;
+			
+			// 재상담 신청시 관리자에게 알림 메일 발송
+			mbrConsltService.sendConsltRequestEmail(mbrConslt);
 		} catch (Exception e) {
 			result = false;
 		}
