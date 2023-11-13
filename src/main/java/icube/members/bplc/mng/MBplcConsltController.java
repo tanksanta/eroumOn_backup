@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +44,12 @@ public class MBplcConsltController extends CommonAbstractController {
 
 	@Autowired
 	private PartnersSession partnersSession;
-
+	
+	@Value("#{props['Globals.EroumCare.PrivateKey']}")
+	private String eroumCarePrivateKey;
+	
 	private static String[] targetParams = {"curPage", "cntPerPage"};
+	
 
 	@RequestMapping(value = "list")
 	public String list(
@@ -187,39 +192,19 @@ public class MBplcConsltController extends CommonAbstractController {
 			) throws Exception {
 
 		boolean result = false;
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("consltSttus", consltSttus);
-		paramMap.put("consltNo", consltNo);
-		paramMap.put("bplcConsltNo", bplcConsltNo);
-
-		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
-
-		if(resultCnt > 0) {
-			result = true;
-			
-			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소"); 
-			
-			//1:1 상담 수락/거부 이력 추가
-			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
-			mbrConsltChgHistVO.setConsltNo(consltNo);
-			mbrConsltChgHistVO.setConsltSttusChg(consltSttus);
-			mbrConsltChgHistVO.setBplcConsltNo(bplcConsltNo);
-			mbrConsltChgHistVO.setBplcConsltSttusChg(consltSttus);
-			mbrConsltChgHistVO.setConsltBplcUniqueId(partnersSession.getUniqueId());
-			mbrConsltChgHistVO.setConsltBplcNm(partnersSession.getPartnersNm());
-			mbrConsltChgHistVO.setResn(resn);
-			mbrConsltChgHistVO.setBplcUniqueId(partnersSession.getUniqueId());
-			mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
-			mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
-			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			resultMap = mbrConsltResultService.changeSttusForBplc(bplcConsltNo, consltSttus);
+			result = (boolean)resultMap.get("success");
+		} catch (Exception ex) {
+			result = false;
 		}
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
 	}
-
 
 	@RequestMapping("excel")
 	public String excelDownload(
@@ -245,5 +230,4 @@ public class MBplcConsltController extends CommonAbstractController {
 
 		return "/members/bplc/mng/conslt/excel";
 	}
-
 }

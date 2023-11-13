@@ -284,7 +284,7 @@ public class MainConsltController extends CommonAbstractController{
 				//1:1 상담신청시 관리자에게 알림 메일 발송
 				String MAIL_FORM_PATH = mailFormFilePath;
 				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
-				String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
+				String mailSj = "[이로움 ON] 신규상담건 문의가 접수되었습니다.";
 				String putEml = "help_cx@thkc.co.kr";
 				
 				mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
