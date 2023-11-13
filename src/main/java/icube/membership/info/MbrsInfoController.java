@@ -502,8 +502,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
+			MbrConsltVO mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(recipientConslt.getConsltNo());
+
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConslt.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConslt.getRecipientsNo());
 			//사용자 상담취소
-			biztalkApiService.sendOnTalkCancel(recipientConslt.getMbrNm(), recipientConslt.getMbrTelno());
+			biztalkApiService.sendOnTalkCancel(mbrVO, mbrRecipientsVO);
 		} else {
 			resultMap.put("success", false);
 			resultMap.put("msg", "진행중인 상담이 존재하지 않습니다.");

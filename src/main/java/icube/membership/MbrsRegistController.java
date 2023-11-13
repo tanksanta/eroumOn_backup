@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -383,7 +382,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 			session.setMaxInactiveInterval(60*60);
 			
-			biztalkApiService.sendOnJoinComleted(mbrVO.getMbrNm(), mbrVO.getMblTelno());
+			biztalkApiService.sendOnJoinComleted(mbrVO);
 
 			javaScript.setLocation("/"+membershipPath+"/registStep3");
 		}else {
@@ -625,7 +624,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			//회원가입 처리
 			mbrSession.setRegistCheck(true);
 
-			biztalkApiService.sendOnJoinComleted(mbrVO.getMbrNm(), mbrVO.getMblTelno());
+			biztalkApiService.sendOnJoinComleted(mbrVO);
 
 			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
 		}else {
