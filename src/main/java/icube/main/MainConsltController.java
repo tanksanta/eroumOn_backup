@@ -32,7 +32,7 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.common.api.biz.BiztalkApiService;
+import icube.common.api.biz.BiztalkConsultService;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Main.path']}/conslt")
@@ -56,8 +56,8 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
 
-	@Resource(name = "biztalkApiService")
-	private BiztalkApiService biztalkApiService;
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -288,7 +288,7 @@ public class MainConsltController extends CommonAbstractController{
 			}
 
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
-			biztalkApiService.sendOnTalkCreated(mbrVO, mbrRecipient); 
+			biztalkConsultService.sendOnTalkCreated(mbrVO, mbrRecipient, insertCnt); 
 
 			resultMap.put("success", true);
 		} catch (Exception ex) {

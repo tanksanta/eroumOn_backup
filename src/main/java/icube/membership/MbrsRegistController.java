@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
-import icube.common.api.biz.BiztalkApiService;
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
@@ -94,8 +94,8 @@ public class MbrsRegistController extends CommonAbstractController{
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 	
-	@Resource(name = "biztalkApiService")
-	private BiztalkApiService biztalkApiService;
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -382,7 +382,7 @@ public class MbrsRegistController extends CommonAbstractController{
 	        session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 			session.setMaxInactiveInterval(60*60);
 			
-			biztalkApiService.sendOnJoinComleted(mbrVO);
+			biztalkConsultService.sendOnJoinComleted(mbrVO);
 
 			javaScript.setLocation("/"+membershipPath+"/registStep3");
 		}else {
@@ -624,7 +624,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			//회원가입 처리
 			mbrSession.setRegistCheck(true);
 
-			biztalkApiService.sendOnJoinComleted(mbrVO);
+			biztalkConsultService.sendOnJoinComleted(mbrVO);
 
 			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
 		}else {
