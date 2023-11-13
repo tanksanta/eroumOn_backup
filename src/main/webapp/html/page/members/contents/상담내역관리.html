@@ -261,7 +261,7 @@
                         <dd>2023.07.28</dd>
                     </dl>
                     <div class="item-request justify-end">
-                        <button type="button" class="btn btn-outline-success btn-small" data-bs-toggle="modal" data-bs-target="#reqModal">신청취소하기</button>
+                        <button type="button" class="btn btn-outline-success btn-small" data-bs-toggle="modal" data-bs-target="#cancelReqModal">신청취소하기</button>
                     </div>
                 </div>
                 <div class="mypage-consult-item">
@@ -422,7 +422,7 @@
                         <dd>2023.07.28</dd>
                     </dl>
                     <div class="item-request justify-end">
-                        <button type="button" class="btn btn-outline-success btn-small" data-bs-toggle="modal" data-bs-target="#reqModal">신청 취소하기</button>
+                        <button type="button" class="btn btn-outline-success btn-small" data-bs-toggle="modal" data-bs-target="#cancelReqModal">신청 취소하기</button>
                     </div>
                 </div>
                 <div class="mypage-consult-item">
@@ -484,7 +484,7 @@
                 })
             </script>
         
-            <!-- 배송지 -->
+            <!-- 재 상담 신청 사유 입력 -->
             <div class="modal modal-default fade" id="reqModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                     <form class="modal-content">
@@ -505,7 +505,33 @@
                     </form>
                 </div>
             </div>
-            <!-- //배송지 -->
+            <!-- //재 상담 신청 사유 입력 -->
+            <!-- 상담 취소 사유 입력 -->
+            <div class="modal modal-default fade" id="cancelReqModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered">
+                    <form class="modal-content">
+                        <div class="modal-header">
+                            <p class="text-title">상담 취소 사유 입력</p>
+                        </div>
+                        <div class="modal-close">
+                            <button type="button" data-bs-dismiss="modal">모달 닫기</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-alert">재 상담 신청 사유를 입력해 주세요.</p>
+                            <p class="text-alert">
+                                <span class="text-red3">신청 취소 시 상담정보가 삭제되어 복구할 수 없어요. <br class="hidden md:block">
+                                신중하게 취소해 주세요.</span>
+                            </p>
+                            <textarea name="" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-submit">저장하기</button>
+                            <button type="button" class="btn btn-outline-primary btn-cancel" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- //상담 취소 사유 입력 -->
         </div>
 
         <!-- 상담정보확인팝업소스 -->

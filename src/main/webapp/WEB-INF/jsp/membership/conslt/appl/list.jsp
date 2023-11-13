@@ -294,6 +294,10 @@
 							</div>
 							<div class="modal-body">
 								<p class="text-alert">상담 취소 사유를 입력해 주세요.</p>
+								<p class="text-alert">
+									<span class="text-red3">신청 취소 시 상담정보가 삭제되어 복구할 수 없어요. <br class="hidden md:block">
+									신중하게 취소해 주세요.</span>
+								</p>
 								<textarea name="canclResn" id="canclResn" cols="30" rows="10" class="form-control mt-3.5 w-full h-58"></textarea>
 							</div>
 							<div class="modal-footer gap-1">
