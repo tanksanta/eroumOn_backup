@@ -158,9 +158,10 @@ public class MbrsConsltController extends CommonAbstractController {
 		if (result && mbrConslt != null) {
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConslt.getRegUniqueId());
 			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConslt.getRecipientsNo());
+			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
 
 			//사용자 재상담 신청
-			biztalkApiService.sendOnTalkMatchAgain(mbrVO, mbrRecipientsVO);
+			biztalkApiService.sendOnTalkMatchAgain(mbrVO, mbrRecipientsVO, resultCnt);
 		}
 
 		resultMap.put("result", result);

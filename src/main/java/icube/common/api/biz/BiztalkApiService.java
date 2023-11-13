@@ -243,7 +243,7 @@ public class BiztalkApiService {
 	public boolean sendOnJoinComleted(MbrVO mbrVO) throws Exception {
 		String tmpltCode = "ON_0001";
 		
-		String sPhoneNo = this.changeDevPhoneNo(mbrVO.getMblTelno());
+		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 				
 		JSONObject param = this.msgOn0001(tmpltCode, sPhoneNo);
 
@@ -254,7 +254,7 @@ public class BiztalkApiService {
 	public boolean sendOnTalkCancel(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		String tmpltCode = "ON_0004";
 		
-		String sPhoneNo = this.changeDevPhoneNo(mbrVO.getMblTelno());
+		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 				
 		JSONObject param = this.msgOn0004(tmpltCode, mbrVO, mbrRecipientsVO);
 		
@@ -269,7 +269,7 @@ public class BiztalkApiService {
 	public boolean sendOnTalkCreated(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		String tmpltCode = "ON_0002";
 		
-		String sPhoneNo = this.changeDevPhoneNo(mbrVO.getMblTelno());
+		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 				
 		JSONObject param = this.msgOn0002(tmpltCode, mbrVO, mbrRecipientsVO);
 		
@@ -281,12 +281,12 @@ public class BiztalkApiService {
 	}
 
 	// ON_0003 이로움ON회원_재상담접수완료 biztalkApiService.sendTalkMatchAgain("이동열", "010-2808-9178");
-	public boolean sendOnTalkMatchAgain(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	public boolean sendOnTalkMatchAgain(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, int consltCompletedCnt) throws Exception {
 		String tmpltCode = "ON_0003";
 		
-		String sPhoneNo = this.changeDevPhoneNo(mbrVO.getMblTelno());
+		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 				
-		JSONObject param = this.msgOn0003(tmpltCode, mbrVO, mbrRecipientsVO);
+		JSONObject param = this.msgOn0003(tmpltCode, mbrVO, mbrRecipientsVO, consltCompletedCnt);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -299,7 +299,7 @@ public class BiztalkApiService {
 	public boolean sendOnTalkMatched(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, BplcVO bplcVO) throws Exception {
 		String tmpltCode = "ON_0005";
 		
-		String sPhoneNo = this.changeDevPhoneNo(mbrVO.getMblTelno());
+		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 		
 		JSONObject param = this.msgOn0005(tmpltCode, mbrVO, mbrRecipientsVO, bplcVO);
 		
@@ -311,12 +311,12 @@ public class BiztalkApiService {
 	}
 
 	// Care_0001 사업소_수급자매칭 biztalkApiService.sendCareTalkMatched("사업소", "010-2808-9178");
-	public boolean sendCareTalkMatched(String bplcNm, String consltID, String sPhoneNo) throws Exception {
+	public boolean sendCareTalkMatched(BplcVO bplcVO, String consltID) throws Exception {
 		String tmpltCode = "Care_0001";
 		
-		sPhoneNo = this.changeDevPhoneNo(sPhoneNo);
+		String sPhoneNo = this.changeDevPhoneNo(true, bplcVO.getPicTelno());
 		
-		JSONObject param = this.msgCare0001(tmpltCode, bplcNm, consltID);
+		JSONObject param = this.msgCare0001(tmpltCode, bplcVO.getBplcNm(), consltID);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -326,12 +326,12 @@ public class BiztalkApiService {
 	}
 	
 	// Care_0002 사업소_수급자매칭 biztalkApiService.sendCareTalkCancel("사업소", "010-2808-9178");
-	public boolean sendCareTalkCancel(String bplcNm, String sPhoneNo) throws Exception {
+	public boolean sendCareTalkCancel(BplcVO bplcVO) throws Exception {
 		String tmpltCode = "Care_0002";
 		
-		sPhoneNo = this.changeDevPhoneNo(sPhoneNo);
+		String sPhoneNo = this.changeDevPhoneNo(true, bplcVO.getPicTelno());
 
-		JSONObject param = this.msgCare0002(tmpltCode, bplcNm);
+		JSONObject param = this.msgCare0002(tmpltCode, bplcVO.getBplcNm());
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -340,14 +340,16 @@ public class BiztalkApiService {
         return bResult;
 	}
 	
-	protected String changeDevPhoneNo(String sPhoneNo) {
+	protected String changeDevPhoneNo(Boolean bBplc, String sPhoneNo) {
 		if (activeMode.equals("real")) {/*운영은 핸드폰 번호 그대로 보낸다*/
 			return sPhoneNo;
 		}else {/*개발 서버는 번호를 특정번호로 변경해서 보낸다*/
-			return biztalkTestPhoneMember;
+			if (bBplc) {
+				return biztalkTestPhoneBplc;
+			}else {
+				return biztalkTestPhoneMember;	
+			}
 		}
-		
-		
 	}
 
 
@@ -441,7 +443,7 @@ public class BiztalkApiService {
 	}
 
 	// ON_0003 #{회원이름}님, 재상담을 신청해 주셔서 감사합니다.
-	private JSONObject msgOn0003(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	private JSONObject msgOn0003(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, int consltCompletedCnt) throws Exception {
 		
 		String jsonStr;
 		
@@ -475,6 +477,8 @@ public class BiztalkApiService {
 		msg = msg.replace("#{회원이름}", mbrVO.getMbrNm());
 
 		msg = msg.replace("#{YYYY-MM-DD}", timeInFormat);
+
+		msg = msg.replace("#{n}", String.valueOf(consltCompletedCnt));
 
 		msg = msg.replace("#{수급자 성명}", mbrRecipientsVO.getRecipientsNm());
 		msg = msg.replace("#{가족 관계}", CodeMap.MBR_RELATION_CD.get(mbrRecipientsVO.getRelationCd()));
