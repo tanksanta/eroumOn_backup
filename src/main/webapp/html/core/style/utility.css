@@ -442,7 +442,7 @@ strong {
             animation:1s ease 0.5s normal forwards 1 ani-progress-fadein;
             -webkit-animation:1s ease 0.5s normal forwards 1 ani-progress-fadein;
             opacity:0;
-            transform: none;
+            /* transform: none; */
         }
         &.off {
             @apply hidden;

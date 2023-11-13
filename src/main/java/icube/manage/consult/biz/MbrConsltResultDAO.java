@@ -1,11 +1,13 @@
 package icube.manage.consult.biz;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import icube.common.framework.abst.CommonAbstractMapper;
+import icube.common.util.DateUtil;
 import icube.common.vo.CommonListVO;
 
 @Repository("mbrConsltResultDAO")
@@ -51,6 +53,17 @@ public class MbrConsltResultDAO extends CommonAbstractMapper {
 		return selectList("conslt.result.selectListForExcel", paramMap);
 	}
 
+	public List<MbrConsltResultVO> selectListForCareTalkDelayed(Map<String, Object> paramMap) throws Exception {
+		String sDate = DateUtil.getDateTime(DateUtil.getDateAdd(new Date(), "date", -1), "yyyy-MM-dd");
+		paramMap.put("consltDt10forBiztalk", sDate);
+		return selectList("conslt.result.selectListForCareTalkDelayed", paramMap);
+	}
+	public List<MbrConsltResultVO> selectListForCareTalkAttention(Map<String, Object> paramMap) throws Exception {
+		
+		String sDate = DateUtil.getDateTime(DateUtil.getDateAdd(new Date(), "date", -2), "yyyy-MM-dd");
+		paramMap.put("consltDt10forBiztalk", sDate);
 
+		return selectList("conslt.result.selectListForCareTalkAttention", paramMap);
+	}
 
 }

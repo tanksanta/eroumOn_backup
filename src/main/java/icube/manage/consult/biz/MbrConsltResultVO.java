@@ -32,5 +32,7 @@ public class MbrConsltResultVO extends CommonBaseVO {
 	private int itrstCnt = 0; // 관심멤버스 체크용
 	private int rcmdCnt = 0; // 좋아요 체크용
 
+	private String consltDt10forBiztalk; // 비즈톡 Care_0003(10시에 그 전날 상담 배정 받은것 ), Care_0004 일때
+
 	private BplcVO bplcInfo; // 사업소 정보
 }
