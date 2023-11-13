@@ -213,4 +213,25 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
 	}
+	
+	/**
+	 * 사업소 상담완료 이메일 발송
+	 */
+	public void sendBplcCompleteEmail(BplcVO bplcVO) throws Exception {
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_complete.html");
+		String mailSj = "[이로움케어] 장기요양기관에서 상담을 완료하였습니다.";
+		String putEml = "help_cx@thkc.co.kr";
+		
+		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
+		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
+		mailForm = mailForm.replace("((complete_date))", simpleDateFormat.format(new Date()));
+		
+		if("real".equals(activeMode)) {
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		} else {
+			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
+	}
 }

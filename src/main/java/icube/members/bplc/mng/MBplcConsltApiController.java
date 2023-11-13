@@ -40,8 +40,8 @@ public class MBplcConsltApiController extends CommonAbstractController {
 	private String eroumCarePrivateKey;
 	
 	
-	// 사업소 > 상담 거부 (이로움케어 호출용 API)
-	@ApiOperation(value="상담 거부", notes="err_01: 해당 사업소의 상담을 찾을 수 없습니다. <br>err_02: 해당 사업소를 찾을 수 없습니다. <br>err_98: 서버 처리중 오류가 발생하였습니다. <br>err_99: 인증되지 않은 접근입니다.")
+	// 사업소 > 상담 거부 이메일 발송 (이로움케어 호출용 API)
+	@ApiOperation(value="상담거부 이메일 발송", notes="err_01: 해당 사업소의 상담을 찾을 수 없습니다. <br>err_02: 해당 사업소를 찾을 수 없습니다. <br>err_98: 서버 처리중 오류가 발생하였습니다. <br>err_99: 인증되지 않은 접근입니다.")
 	@RequestMapping(value = "/rejectEmail.json", method = RequestMethod.POST)
 	@ResponseBody
 	public EroumcareApiResponseVO sendRejectConsltEmail(
@@ -74,6 +74,49 @@ public class MBplcConsltApiController extends CommonAbstractController {
 			}
 			
 			mbrConsltResultService.sendBplcRejectEmail(bplcVO);
+			responseVO.setSuccess(true);
+		} catch (Exception ex) {
+    		responseVO.setCode("err_98");
+    		responseVO.setMsg("서버 처리중 오류가 발생하였습니다.");
+    		return responseVO;
+		}
+		return responseVO;
+	}
+	
+	// 사업소 > 상담 완료 이메일 발송 (이로움케어 호출용 API)
+	@ApiOperation(value="상담완료 이메일 발송", notes="err_01: 해당 사업소의 상담을 찾을 수 없습니다. <br>err_02: 해당 사업소를 찾을 수 없습니다. <br>err_98: 서버 처리중 오류가 발생하였습니다. <br>err_99: 인증되지 않은 접근입니다.")
+	@RequestMapping(value = "/completeEmail.json", method = RequestMethod.POST)
+	@ResponseBody
+	public EroumcareApiResponseVO sendCompleteConsltEmail(
+			@RequestParam(value = "bplcConsltNo", required=true) int bplcConsltNo
+			, HttpServletRequest request
+		) throws Exception {
+
+		EroumcareApiResponseVO responseVO = new EroumcareApiResponseVO();
+		responseVO.setSuccess(false);
+		
+		String eroumApikey = request.getHeader("eroumAPI_Key");
+    	if (!eroumCarePrivateKey.equals(eroumApikey)) {
+    		responseVO.setCode("err_99");
+    		responseVO.setMsg("인증되지 않은 접근입니다.");
+    		return responseVO;
+    	}
+    	
+		try {
+			MbrConsltResultVO resultVO = mbrConsltResultService.selectMbrConsltResultByBplcNo(bplcConsltNo);
+			if (resultVO == null) {
+				responseVO.setCode("err_01");
+	    		responseVO.setMsg("해당 사업소의 상담을 찾을 수 없습니다.");
+	    		return responseVO;
+			}
+			BplcVO bplcVO = bplcService.selectBplcByUniqueId(resultVO.getBplcUniqueId());
+			if (bplcVO == null) {
+				responseVO.setCode("err_02");
+	    		responseVO.setMsg("해당 사업소를 찾을 수 없습니다.");
+	    		return responseVO;
+			}
+			
+			mbrConsltResultService.sendBplcCompleteEmail(bplcVO);
 			responseVO.setSuccess(true);
 		} catch (Exception ex) {
     		responseVO.setCode("err_98");

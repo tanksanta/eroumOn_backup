@@ -30,6 +30,8 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.members.bplc.biz.BplcVO;
 import icube.members.biz.PartnersSession;
 
 @Controller
@@ -41,6 +43,9 @@ public class MBplcConsltController extends CommonAbstractController {
 
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
+	
+	@Resource(name = "bplcService")
+	private BplcService bplcService;
 
 	@Autowired
 	private PartnersSession partnersSession;
@@ -132,6 +137,11 @@ public class MBplcConsltController extends CommonAbstractController {
 		mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
 		mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
 		mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		
+		
+		//상담 완료에 대한 이메일 발송 처리
+		BplcVO bplcVO = bplcService.selectBplcByUniqueId(partnersSession.getUniqueId());
+		mbrConsltResultService.sendBplcCompleteEmail(bplcVO);
 		
 		javaScript.setMessage(getMsg("action.complete.update"));
 		javaScript.setLocation("./view?bplcConsltNo="+ mbrConsltResultVO.getBplcConsltNo() +"&consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
