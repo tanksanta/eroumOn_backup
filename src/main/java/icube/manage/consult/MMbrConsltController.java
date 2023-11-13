@@ -223,9 +223,6 @@ public class MMbrConsltController extends CommonAbstractController{
 		String originConsltSttus = (String) reqMap.get("originConsltSttus");
 		String originConsltBplcUniqueId = (String) reqMap.get("originConsltBplcUniqueId");
 		
-		String regMbrNm = (String) reqMap.get("regMbrNm");
-		String consltMbrTelno = (String) reqMap.get("consltMbrTelno");
-
 		BplcVO bplcVO = null;
 		MbrConsltResultVO srchConsltResult = null;
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
@@ -308,14 +305,14 @@ public class MMbrConsltController extends CommonAbstractController{
 			
 				biztalkApiService.sendOnTalkMatched(mbrVO, mbrRecipientsVO, bplcVO);
 				if (srchConsltResult != null){
-					biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(srchConsltResult.getBplcConsltNo()) , bplcVO.getPicTelno());
+					biztalkApiService.sendCareTalkMatched(bplcVO, Integer.toString(srchConsltResult.getBplcConsltNo()));
 				}
 			}
 			
 			if (EgovStringUtil.equals(originConsltSttus, "CS02") && EgovStringUtil.isNotEmpty(originConsltBplcUniqueId)) {
 				BplcVO bplcVOOrigin = bplcService.selectBplcByUniqueId(originConsltBplcUniqueId);
 				
-				biztalkApiService.sendCareTalkCancel(bplcVOOrigin.getBplcNm(), bplcVOOrigin.getPicTelno());
+				biztalkApiService.sendCareTalkCancel(bplcVOOrigin);
 			}
 		} 
 		
@@ -380,7 +377,9 @@ public class MMbrConsltController extends CommonAbstractController{
 			
 			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
 			if (mbrConsltResultVO != null && EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
-				biztalkApiService.sendCareTalkCancel(mbrConsltResultVO.getBplcNm(), mbrConsltResultVO.getBplcInfo().getPicTelno());	
+				/*상담 매칭*/
+				BplcVO bplcVO = bplcService.selectBplcByUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				biztalkApiService.sendCareTalkCancel(bplcVO);	
 			}
 			
 		}
