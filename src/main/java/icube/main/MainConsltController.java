@@ -1,6 +1,8 @@
 package icube.main;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +78,9 @@ public class MainConsltController extends CommonAbstractController{
 
 	@Autowired
 	private Environment environment;
+	
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
 	
 	/**
 	 * 상담신청이 모달방식으로 변경됨에 따라 주석처리
@@ -280,9 +285,17 @@ public class MainConsltController extends CommonAbstractController{
 				String MAIL_FORM_PATH = mailFormFilePath;
 				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
 				String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
-				String putEml = "help@thkc.co.kr";
+				String putEml = "help_cx@thkc.co.kr";
+				
+				mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
+				mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
+				mailForm = mailForm.replace("((conslt_ty))", "test".equals(mbrConsltVO.getPrevPath()) ? "인정등급상담" : "요양정보상담");
+				mailForm = mailForm.replace("((conslt_date))", simpleDateFormat.format(new Date()));
 
 				if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile))) {
+					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+				} else {
+					putEml = "gr1993@naver.com";
 					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 				}
 			}
