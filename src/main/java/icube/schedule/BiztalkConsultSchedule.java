@@ -58,6 +58,7 @@ public class BiztalkConsultSchedule  extends CommonAbstractController  {
 			biztalkConsultService.sendCareTalkDelayed(bplcVO, crVo.getConsltNo(), crVo.getBplcConsltNo());
 		}
 
+		
 	}
 
     /*
