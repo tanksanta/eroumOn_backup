@@ -71,7 +71,7 @@ public class BiztalkConsultSchedule  extends CommonAbstractController  {
         * 오후 3시 확인 시 즉시 발송 (상담건당 최초 1회 발송)
         * 이틀은 48시간으로 계산하지 않고, 날짜로 계산되어야 합니다.
     */
-    @Scheduled(cron="0 10 16 * * *")
+    @Scheduled(cron="0 0 15 * * *")
 	public void selectListForCareTalkAttention() throws Exception {
 
     	Map<String,Object> reqMap = new HashMap<>();
