@@ -208,7 +208,7 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		String mailSj = "[이로움 ON] 상담이 취소되었습니다.";
 		String putEml = "thkc_cx@thkc.co.kr";
 		
-		mailForm = mailForm.replace("((mbr_nm))", mbrConsltVO.getMbrNm());
+		mailForm = mailForm.replace("((mbr_nm))", mbrConsltVO.getRgtr());
 		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
 		mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
 		mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
