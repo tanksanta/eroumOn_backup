@@ -69,6 +69,7 @@
                                         <input type="hidden" id="originConsltBplcUniqueId" name="originConsltBplcUniqueId" value="${consltBplcUniqueId}">
                                     	<input type="hidden" id="chgHistListSize" name="chgHistListSize" value="${chgHistList.size()}">
                                     	<input type="hidden" id="originConsltSttus" name="originConsltSttus" value="${mbrConsltVO.consltSttus}">
+                                        <input type="hidden" id="recipientsNo" name="recipientsNo" value="${mbrConsltVO.recipientsNo}">
                                         
 										<!-- 진행(CS05)전 상태이면 사업소 수정가능하게 해야함 -->
 

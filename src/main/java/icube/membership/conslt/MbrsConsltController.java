@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import icube.common.api.biz.BiztalkApiService;
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -56,8 +56,8 @@ public class MbrsConsltController extends CommonAbstractController {
 	@Resource(name="bplcRcmdService")
 	private BplcRcmdService bplcRcmdService;
 	
-	@Resource(name = "biztalkApiService")
-	private BiztalkApiService biztalkApiService;
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -112,9 +112,9 @@ public class MbrsConsltController extends CommonAbstractController {
 		boolean result = false;
 		// result
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
+		MbrConsltVO mbrConslt = null;
 		try {
-			MbrConsltVO mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+			mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
 			
 			//재상담은 최대 3회 가능
 			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
@@ -151,16 +151,20 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
 			result = true;
+			
+			// 재상담 신청시 관리자에게 알림 메일 발송
+			mbrConsltService.sendConsltRequestEmail(mbrConslt);
 		} catch (Exception e) {
 			result = false;
 		}
 		
-		if (result) {
-			String consltmbrNm = (String) reqMap.get("consltmbrNm");
-			String consltmbrTelno = (String) reqMap.get("consltmbrTelno");
-			
+		if (result && mbrConslt != null) {
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConslt.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConslt.getRecipientsNo());
+			int resultCnt = mbrConsltResultService.selectMbrConsltBplcCntByConsltNo(consltNo);
+
 			//사용자 재상담 신청
-			biztalkApiService.sendOnTalkMatchAgain(consltmbrNm, consltmbrTelno);
+			biztalkConsultService.sendOnTalkMatchAgain(mbrVO, mbrRecipientsVO, consltNo, resultCnt);
 		}
 
 		resultMap.put("result", result);
@@ -199,9 +203,18 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+
 			
+            // 상담취소 시 관리자에게 알림 메일 발송
+			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+            mbrConsltService.sendCancelConsltEmail(mbrConsltVO);
+
+            
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 			//사용자 상담취소
-			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltmbrTelno);
+			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, consltNo);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();

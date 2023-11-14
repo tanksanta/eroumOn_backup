@@ -80,7 +80,7 @@
                             등급 인정 신청
                         </h4>
                         <ul>
-                            <li><a href="/test/index" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
+                            <li><a href="/main/cntnts/test" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
                             <li>인정 등급 신청까지 한 번에 하실 수 있어요!</li>
                         </ul>
                         <p>
@@ -281,6 +281,7 @@
                         <p>월 <strong>141만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
+                            <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
                             <li><strong>3~4등급 어르신</strong>도 조건에 부합하면, 방문 요양보호사 요청 대신 <strong>시설에 모실 수 있어요.</strong></li>
                             <li>시설에 모시는 어르신은 <strong>복지용구를 신청할 수 없어요.</strong></li>
                         </ul>
@@ -298,6 +299,7 @@
                         <p>월 <strong>130만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
+                            <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
                             <li><strong>3~4등급 어르신</strong>도 조건에 부합하면, 방문 요양보호사 요청 대신 <strong>시설에 모실 수 있어요.</strong></li>
                             <li>시설에 모시는 어르신은 <strong>복지용구를 신청할 수 없어요.</strong></li>
                         </ul>
@@ -315,6 +317,7 @@
                         <p>월 <strong>112만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
+                            <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
                             <li><strong>5등급 어르신</strong>도 조건에 부합하면, 방문 요양보호사 요청 대신 <strong>시설에 모실 수 있어요.</strong></li>
                             <li>시설에 모시는 어르신은 <strong>복지용구를 신청할 수 없어요.</strong></li>
                         </ul>
@@ -331,6 +334,9 @@
                     <div class="box">
                         <p>월 <strong>62만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
+                        <ul>
+                            <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -340,7 +346,7 @@
     <div class="page1-content5">
         <div>
             <img src="/html/page/index/assets/images/img-page1-content5.png">
-            <strong>예상 인정 등급을 확인해 보세요!</strong>
+            <strong>예상 인정등급을 확인해 보세요!</strong>
             <a href="/main/cntnts/test" class="btn" target="_blank">지금 등급 확인하기​</a>
         </div>
     </div>

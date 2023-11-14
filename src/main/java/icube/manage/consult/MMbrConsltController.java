@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.util.HtmlUtils;
 
-import icube.common.api.biz.BiztalkApiService;
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
@@ -49,6 +49,7 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
@@ -74,14 +75,17 @@ public class MMbrConsltController extends CommonAbstractController{
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
 
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
+
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
 	
 	@Resource(name = "bplcService")
 	private BplcService bplcService;
 	
-	@Resource(name = "biztalkApiService")
-	private BiztalkApiService biztalkApiService;
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 	
 	
 	@Autowired
@@ -219,9 +223,6 @@ public class MMbrConsltController extends CommonAbstractController{
 		String originConsltSttus = (String) reqMap.get("originConsltSttus");
 		String originConsltBplcUniqueId = (String) reqMap.get("originConsltBplcUniqueId");
 		
-		String regMbrNm = (String) reqMap.get("regMbrNm");
-		String consltMbrTelno = (String) reqMap.get("consltMbrTelno");
-
 		BplcVO bplcVO = null;
 		MbrConsltResultVO srchConsltResult = null;
 		if(EgovStringUtil.isNotEmpty(bplcUniqueId) &&
@@ -292,21 +293,29 @@ public class MMbrConsltController extends CommonAbstractController{
 		if (iResult > 0 ) {
 			if (EgovStringUtil.isNotEmpty(bplcUniqueId) 
 					&& (
-							EgovStringUtil.equals("CS01", originConsltSttus))
-							|| (EgovStringUtil.equals("CS02", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId))
+							EgovStringUtil.equals("CS01", originConsltSttus) // 접수
+							|| (EgovStringUtil.equals("CS02", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId)) //배정
+							|| EgovStringUtil.equals("CS07", originConsltSttus) //재접수
+							|| (EgovStringUtil.equals("CS08", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId)) //재배정
+						)
 					) {
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
-				biztalkApiService.sendOnTalkMatched(regMbrNm, bplcVO.getBplcNm(), consltMbrTelno);
+				
+				MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+				
+				MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+			
+				biztalkConsultService.sendOnTalkMatched(mbrVO, mbrRecipientsVO, bplcVO, mbrConsltVO.getConsltNo());
 				if (srchConsltResult != null){
-					biztalkApiService.sendCareTalkMatched(bplcNm, Integer.toString(srchConsltResult.getBplcConsltNo()) , bplcVO.getPicTelno());
+					biztalkConsultService.sendCareTalkMatched(bplcVO, mbrConsltVO.getConsltNo(), srchConsltResult.getBplcConsltNo());
 				}
 			}
 			
 			if (EgovStringUtil.equals(originConsltSttus, "CS02") && EgovStringUtil.isNotEmpty(originConsltBplcUniqueId)) {
 				BplcVO bplcVOOrigin = bplcService.selectBplcByUniqueId(originConsltBplcUniqueId);
 				
-				biztalkApiService.sendCareTalkCancel(bplcVOOrigin.getBplcNm(), bplcVOOrigin.getPicTelno());
+				biztalkConsultService.sendCareTalkCancel(bplcVOOrigin, mbrConsltVO.getConsltNo());
 			}
 		} 
 		
@@ -360,13 +369,20 @@ public class MMbrConsltController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMngrId(mngrSession.getMngrId());
 			mbrConsltChgHistVO.setMngrNm(mngrSession.getMngrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+
+			MbrConsltVO mbrConsltVO  = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
 			
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+
 			//관리자 상담취소 ==> 일반사용자에게 메세지
-			biztalkApiService.sendOnTalkCancel(consltmbrNm, consltMbrTelno);
+			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, mbrConsltVO.getConsltNo());
 			
 			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
 			if (mbrConsltResultVO != null && EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
-				biztalkApiService.sendCareTalkCancel(mbrConsltResultVO.getBplcNm(), mbrConsltResultVO.getBplcInfo().getPicTelno());	
+				/*상담 매칭*/
+				BplcVO bplcVO = bplcService.selectBplcByUniqueId(mbrConsltResultVO.getBplcUniqueId());
+				biztalkConsultService.sendCareTalkCancel(bplcVO, mbrConsltVO.getConsltNo());	
 			}
 			
 		}

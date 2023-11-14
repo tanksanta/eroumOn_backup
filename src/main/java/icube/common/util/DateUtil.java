@@ -64,6 +64,10 @@ public class DateUtil {
         return new SimpleDateFormat(format).format(new Date());
     }
 
+	public static String getDateTime(Date date, String format){
+        return new SimpleDateFormat(format).format(date);
+    }
+
     /**
 	 * Date format String을 "yyyy/MM/dd" format으로 convert format 한다!
 	 * @IssueID :

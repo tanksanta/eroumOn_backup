@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
-import icube.common.api.biz.BiztalkApiService;
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.file.biz.FileService;
@@ -88,8 +88,8 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Value("#{props['Globals.File.Upload.Dir']}")
 	private String fileUploadDir;
 
-	@Resource(name = "biztalkApiService")
-	private BiztalkApiService biztalkApiService;
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -502,8 +502,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
+			MbrConsltVO mbrConslt = mbrConsltService.selectMbrConsltByConsltNo(recipientConslt.getConsltNo());
+
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConslt.getRegUniqueId());
+			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConslt.getRecipientsNo());
 			//사용자 상담취소
-			biztalkApiService.sendOnTalkCancel(recipientConslt.getMbrNm(), recipientConslt.getMbrTelno());
+			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, mbrConslt.getConsltNo());
 		} else {
 			resultMap.put("success", false);
 			resultMap.put("msg", "진행중인 상담이 존재하지 않습니다.");

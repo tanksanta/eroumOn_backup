@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>modal</title>
+
+    <!-- plugin -->
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+
+    <style>
+        body { background-color: hsla(0,0%,87%,.8); }
+        .modal-show { display: block!important; position: relative !important; }
+        .capitalize { text-transform: capitalize; }
+    </style>
+</head>
+
+<body>
+    <main class="flex flex-col gap-4 mx-auto">
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <h3 class="capitalize font-bold text-lg">members modal style</h3>
+            <p>modal 기본스타일 / .modal-default 스타일 </p>
+        </div>
+        <div class="modal modal-show" id="modalExam1" tabindex="-1" aria-hidden="true" style="height: 50rem">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel"
+                            data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-lg </p>
+            <p>최대: 800px / 최소: 500px</p>
+            <p>.modal-dialog-scrollable :컨텐츠에 스크롤 추가</p>
+        </div>
+        <div class="modal modal-show" id="modalExam2" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        <!-- dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel"
+                            data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-xl </p>
+            <p>최대: 1040px / 최소: 500px </p>
+        </div>
+        <div class="modal modal-show" id="modalExam3" tabindex="-1" aria-hidden="true" style="height: 50rem">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel"
+                            data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 p-4 bg-white rounded-md mt-8">
+            <p>사이즈 / .modal-2xl </p>
+            <p>최대: 1280px / 최소: 500px</p>
+        </div>
+        <div class="modal modal-show" id="modalExam4" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-2xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="text-title">Modal title text goes here.</p>
+                    </div>
+                    <div class="modal-close">
+                        <button data-bs-dismiss="modal">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        <!-- dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>
+                        dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br>dasadsdas<br> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-submit">확인</button>
+                        <button type="button" class="btn btn-outline-primary btn-cancel"
+                            data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 등록하기 팝업소스 -->
+        <div class="modal modal-default modal-show" id="check-recipient-info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">수급자 정보 등록</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="text-subtitle">
+                            <i class="icon-alert"></i>
+                            <p>회원이 이용약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+                        </div>
+                        <div class="modal-bg-wrap">
+                            <ul class="modal-list-box">
+                                <li>
+                                    <span class="modal-list-label">수급자와의 관계</span>
+                                    <span class="modal-list-value">본인</span>
+                                </li>
+                                <li>
+                                    <span class="modal-list-label">수급자 성명</span>
+                                    <span class="modal-list-value">홍길동</span>
+                                </li>
+                                <li>
+                                    <span class="modal-list-label">요양인정번호</span>
+                                    <span class="modal-list-value">L1234567890</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-subtitle">
+                            <i class="icon-alert"></i>
+                            <p>요양인정번호는 마이페이지에서 등록하실 수 있어요</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-full">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--회원가입완료 팝업소스-->
+        <div class="modal modal-default modal-show" id="completed-members" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">회원가입</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-bg-wrap">
+                    <div class="flex flex-col justify-center items-center">
+                        <h3 class="text-center text-xl">회원가입이 완료되었습니다</h3>
+                        <div class="text-center text-xl">
+                        <strong>수급자(어르신)정보를 등록</strong>하시겠어요?
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">등록하러가기</button>
+                    <button type="button" class="btn btn-outline-primary large w-[26.5%]" data-bs-dismiss="modal" class="btn-close">취소</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--비로그인시 사용자 팝업소스-->
+        <div class="modal modal-default modal-show" id="non-login-user" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">로그인</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-bg-wrap">
+                    <div class="text-center text-xl">
+                        <p>로그인하지 않으면<br>전문가 상담과 대리 등급 신청이 불가해요 </p>
+                        <p class="font-semibold">로그인하시겠어요?</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="flex flex-col items-end gap-2 w-full">
+                    <button type="button" class="btn btn-primary large w-full">로그인 하기</button>
+                    <a href="#"class="underline text-blue3 text-sm">일회성으로 진행하기</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--로그인사용자 : 등록된 수급자 없는 경우-->
+        <div class="modal modal-default modal-show" id="login-no-rcpt" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">수급자 선택</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="flex flex-col justify-center items-end gap-2">
+                    <select name="" id="ccc" class="form-control w-full">
+                        <option value="">관계선택</option>
+                    </select>
+                    <input type="text" id="" placeholder="수급자 성명" class="form-control w-full">
+                    <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
+                    </div>
+
+                    <!--직접입력하기-->
+                    <div class="flex flex-col gap-2">
+                    <a href="#direct-rcpt" data-bs-toggle="collapse" aria-expanded="false" class="btn-toggle-box">
+                        <p class="text-gray5">직접입력하기</p>
+                        <div class="btn-collapse" onclick="toggleText()">
+                        <span>펼치기</span>
+                        <i class="icon-collapse">펼치기/접기</i> 
+                        </div>
+                    </a>
+                    <div id="direct-rcpt" class="collapse">
+                        <div class="flex flex-col justify-center items-start gap-2">
+                        <label for="rcpt-related" class="w-full">
+                            <select name="" id="rcpt-related" class="form-control w-full is-invalid"  aria-required="true" aria-describedby="rcpt-related-error" 
+                            aria-invalid="true">
+                            <option value="">관계선택</option>
+                            </select>
+                            <p id="rcpt-related-error" class="error text-danger">! 필수로 선택해 주세요</p>
+                        </label>
+                        <label for="rcpt-name" class="w-full">
+                            <input type="text" id="rcpt-name" aria-required="true" aria-describedby="rcpt-name-error" 
+                            aria-invalid="true" placeholder="수급자 성명" class="form-control w-full is-invalid">
+                            <p id="rcpt-name-error" class="error text-danger">! 필수로 입력해 주세요</p>
+                        </label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">시작하기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--로그인사용자 : 등록 수급자 n명이상인 경우-->
+        <div class="modal modal-default modal-show" id="login-rcpts" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">수급자 선택</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body  items-end">
+                    <div class="form-radio-button-group">
+                    <div  class="form-check">
+                        <input class="form-check-input" type="radio" name="rcpts" id="rcpt1">
+                        <label class="form-check-label" for="rcpt1">홍길동</label>
+                    </div>
+                    <div  class="form-check">
+                        <input class="form-check-input" type="radio" name="rcpts" id="rcpt2">
+                        <label class="form-check-label" for="rcpt2">김길동</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rcpts" id="rcpt3">
+                        <label class="form-check-label" for="rcpt3">이길동</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rcpts" id="rcpt4">
+                        <label class="form-check-label" for="rcpt4">박길동</label>
+                    </div>
+                    </div>
+                    <a href="#"class="underline text-blue3 text-sm">수급자 관리하기</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary large flex-1 md:flex-none md:w-70">시작하기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 수급자정보등록 팝업소스 -->
+        <div class="modal modal-default modal-show" id="regist-rcpt" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">수급자 정보 등록</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="flex flex-col">
+                        <div class="text-subtitle">
+                            <i class="icon-alert"></i>
+                            <p>테스트를 하려면 수급자 등록이 필요해요</p>
+                        </div>
+                        <div class="text-subtitle">
+                            <i class="icon-alert"></i>
+                            <p>회원이 이용 약관에 따라 수급자 등록과 관리하는 것에 동의합니다</p>
+                        </div>
+                        </div>
+                        <div class="modal-bg-wrap">
+                            <ul class="modal-list-box">
+                                <li>
+                                    <span class="modal-list-label">수급자와의 관계</span>
+                                    <span class="modal-list-value">본인</span>
+                                </li>
+                                <li>
+                                    <span class="modal-list-label">수급자 성명</span>
+                                    <span class="modal-list-value">홍길동</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-subtitle">
+                            <i class="icon-alert"></i>
+                            <p>요양인정번호는 마이페이지에서 등록하실 수 있어요</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-full">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--알림 팝업소스-->
+        <div class="modal modal-default modal-show" id="notified-consulting" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-title">알림</h2>
+                    <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-bg-wrap">
+                    <div class="flex flex-col justify-center items-center">
+                        <div class="text-center text-xl">
+                        <p>진행중인 인정등급 상담이 있습니다</p>
+                        <p>상담내역을 확인하시겠습니까?</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer gap-1">
+                    <button type="button" class="btn btn-primary large flex-initial w-55">상담내역 확인하기</button>
+                    <button type="button" class="btn btn-outline-primary large flex-initial w-45" data-bs-dismiss="modal" class="btn-close">새롭게 진행하기</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script>
+        function toggleText() {
+            const el = document.querySelector(".btn-toggle-box");
+            const icon = document.querySelector(".icon-collapse");
+            const text = document.querySelector(".btn-collapse > span")
+            
+            if (el.classList.contains("collapsed") ) {
+            icon.classList.remove("expand")
+            text.textContent = "펼치기";
+            } else {
+            icon.classList.add("expand")
+            text.textContent =  "접기";
+            }
+        }
+    </script>
+</body>
+
+</html>

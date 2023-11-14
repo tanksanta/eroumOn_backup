@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,8 @@ import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.members.bplc.biz.BplcVO;
 import icube.members.biz.PartnersSession;
 
 @Controller
@@ -40,11 +43,18 @@ public class MBplcConsltController extends CommonAbstractController {
 
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
+	
+	@Resource(name = "bplcService")
+	private BplcService bplcService;
 
 	@Autowired
 	private PartnersSession partnersSession;
-
+	
+	@Value("#{props['Globals.EroumCare.PrivateKey']}")
+	private String eroumCarePrivateKey;
+	
 	private static String[] targetParams = {"curPage", "cntPerPage"};
+	
 
 	@RequestMapping(value = "list")
 	public String list(
@@ -128,6 +138,11 @@ public class MBplcConsltController extends CommonAbstractController {
 		mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
 		mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 		
+		
+		//상담 완료에 대한 이메일 발송 처리
+		BplcVO bplcVO = bplcService.selectBplcByUniqueId(partnersSession.getUniqueId());
+		mbrConsltResultService.sendBplcCompleteEmail(bplcVO);
+		
 		javaScript.setMessage(getMsg("action.complete.update"));
 		javaScript.setLocation("./view?bplcConsltNo="+ mbrConsltResultVO.getBplcConsltNo() +"&consltNo=" + mbrConsltResultVO.getConsltNo() + ("".equals(pageParam) ? "" : "&" + pageParam));
 
@@ -187,39 +202,19 @@ public class MBplcConsltController extends CommonAbstractController {
 			) throws Exception {
 
 		boolean result = false;
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("consltSttus", consltSttus);
-		paramMap.put("consltNo", consltNo);
-		paramMap.put("bplcConsltNo", bplcConsltNo);
-
-		int resultCnt = mbrConsltResultService.updateSttus(paramMap);
-
-		if(resultCnt > 0) {
-			result = true;
-			
-			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소"); 
-			
-			//1:1 상담 수락/거부 이력 추가
-			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
-			mbrConsltChgHistVO.setConsltNo(consltNo);
-			mbrConsltChgHistVO.setConsltSttusChg(consltSttus);
-			mbrConsltChgHistVO.setBplcConsltNo(bplcConsltNo);
-			mbrConsltChgHistVO.setBplcConsltSttusChg(consltSttus);
-			mbrConsltChgHistVO.setConsltBplcUniqueId(partnersSession.getUniqueId());
-			mbrConsltChgHistVO.setConsltBplcNm(partnersSession.getPartnersNm());
-			mbrConsltChgHistVO.setResn(resn);
-			mbrConsltChgHistVO.setBplcUniqueId(partnersSession.getUniqueId());
-			mbrConsltChgHistVO.setBplcId(partnersSession.getPartnersId());
-			mbrConsltChgHistVO.setBplcNm(partnersSession.getPartnersNm());
-			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			resultMap = mbrConsltResultService.changeSttusForBplc(bplcConsltNo, consltSttus);
+			result = (boolean)resultMap.get("success");
+		} catch (Exception ex) {
+			result = false;
 		}
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		return resultMap;
 	}
-
 
 	@RequestMapping("excel")
 	public String excelDownload(
@@ -245,5 +240,4 @@ public class MBplcConsltController extends CommonAbstractController {
 
 		return "/members/bplc/mng/conslt/excel";
 	}
-
 }

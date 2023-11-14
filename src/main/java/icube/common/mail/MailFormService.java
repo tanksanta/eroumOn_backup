@@ -80,12 +80,12 @@ public class MailFormService extends CommonAbstractServiceImpl {
 
 		if(mailHtml.equals("mail_ordr.html") && EgovStringUtil.isNotEmpty(ordrVO.getDelngNo())) {
 
-			if(ordrVO.getStlmTy().equals("CARD")) {
-				mailForm = mailForm.replace("{img}", "<img src=\"https://eroum.icubesystems.co.kr/html/page/mail/images/t-mail7.png\" alt=\"주문하신 상품의 입금이 확인되었습니다.\" width=\"350\">");
+			if(!ordrVO.getStlmTy().equals("VBANK")) {/*  가상계좌가 아니면 */
+				mailForm = mailForm.replace("{img}", "<img src=\"https://eroum.co.kr/html/page/mail/images/t-mail7.png\" alt=\"주문하신 상품의 입금이 확인되었습니다.\" width=\"350\">");
 				mailForm = mailForm.replace("{vbankInfo}", "");
 				mailForm = mailForm.replace("{vbankGuide}", "");
 			}else {
-				mailForm = mailForm.replace("{img}", "<img src=\"https://eroum.icubesystems.co.kr/html/page/mail/images/t-mail6.png\" alt=\"주문하신 상품의 입금확인 부탁드립니다.\" width=\"350\">");
+				mailForm = mailForm.replace("{img}", "<img src=\"https://eroum.co.kr/html/page/mail/images/t-mail6.png\" alt=\"주문하신 상품의 입금확인 부탁드립니다.\" width=\"350\">");
 				mailForm = mailForm.replace("{vbankInfo}", "<p style=\"margin:0; padding:0; font-size:24px; line-height:1.45; word-break:keep-all;\"><strong>주문해 주셔서 감사합니다!</strong></p>\r\n"
 						+ "	                                <p style=\"margin:0; padding:0; line-height:0.375;\">&nbsp;</p>\r\n"
 						+ "	                                <p style=\"margin:0; padding:0;\">\r\n"

@@ -113,6 +113,26 @@
 			<include refid="searchConditions" />
 	  	ORDER BY mc.conslt_no DESC, mcr.bplc_conslt_no DESC
 	</select>
+	
+	<select id="selectListForCareTalkDelayed" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		INNER JOIN MBR_CONSLT_RESULT mcr ON mc.CONSLT_NO = mcr.CONSLT_NO AND mc.CUR_CONSLT_RESULT_NO = mcr.BPLC_CONSLT_NO
+		WHERE mc.conslt_sttus IN ('CS02', 'CS08')
+			AND mc.sttus_chg_dt BETWEEN #{consltDt10forBiztalk} AND CONCAT(#{consltDt10forBiztalk}, ' 23:59:59')
+		ORDER BY mcr.BPLC_UNIQUE_ID
+	</select>
+
+	<select id="selectListForCareTalkAttention" parameterType="java.util.HashMap" resultMap="mbrConsltResultListVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		INNER JOIN MBR_CONSLT_RESULT mcr ON mc.CONSLT_NO = mcr.CONSLT_NO AND mc.CUR_CONSLT_RESULT_NO = mcr.BPLC_CONSLT_NO
+		WHERE mc.conslt_sttus IN ('CS05')
+			AND mc.sttus_chg_dt BETWEEN #{consltDt10forBiztalk} AND CONCAT(#{consltDt10forBiztalk}, ' 23:59:59')
+		ORDER BY mcr.BPLC_UNIQUE_ID
+	</select>
 
 	<!-- 회원상담 사업소 지정 -->
 	<insert id="insertMbrConsltBplc" parameterType="mbrConsltResultVO">
