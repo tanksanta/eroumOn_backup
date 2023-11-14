@@ -288,7 +288,6 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		// 기존 회원가입 여부
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchMblTelno", mbrVO.getMblTelno());
-		paramMap.put("srchBirth", formatter.format(mbrVO.getBrdt()));
 		paramMap.put("srchMbrStts", "NORMAL");
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
