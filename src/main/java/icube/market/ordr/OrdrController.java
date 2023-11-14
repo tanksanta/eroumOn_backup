@@ -621,10 +621,31 @@ public class OrdrController extends CommonAbstractController{
 			}
 			ordrDtlVO.setGdsInfo(gdsVO);
 
+			
+			//상품에 입점업체 정보가 있는지 체크
+			boolean isCheckEntrps = true;
+			if (gdsVO.getEntrpsNo() == 0) {
+				isCheckEntrps = false;
+			}
+			
+			
+			//배송비 무료조건에 부합하는지 검사
+			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
+			if (isCheckEntrps) {
+				//선택된 상품중 같은 입점업체 상품 가격 합
+				int checkedGdsPrice = cartList.stream().filter(c -> c.getGdsInfo().getEntrpsNo() == gdsVO.getEntrpsNo()).mapToInt(c -> c.getOrdrPc()).sum();
+				if (checkedGdsPrice >= entrpsVO.getDlvyCtCnd()) {
+					//배송비 무료처리
+                	gdsVO.setDlvyBassAmt(0);
+                	gdsVO.setDlvyAditAmt(0);
+					isCheckEntrps = false;
+				}
+			}
+			
+			
 			// 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
 			//묶음 배송 처리
-			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
-			if (entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
+			if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
 				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
 
                 //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
