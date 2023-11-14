@@ -80,7 +80,7 @@
                             등급 인정 신청
                         </h4>
                         <ul>
-                            <li><a href="/test/index" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
+                            <li><a href="/main/cntnts/test" target="_blank" class="text-primary3 underline">여기</a>를 눌러 예상등급을 확인해보세요.</li>
                             <li>인정 등급 신청까지 한 번에 하실 수 있어요!</li>
                         </ul>
                         <p>
