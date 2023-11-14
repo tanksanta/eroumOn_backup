@@ -700,9 +700,27 @@ $(function() {
 				//상품의 묶음배송 여부
 				const dlvyGroupYn = $(this).siblings('input[name=dlvyGroupYn]');
 
+				const entrpsNo = Number(entrpsNoInput[0].value); //상품의 입점업체
+				//상품의 입점업체 정보가 없으면 바로 배송비 계산
+				if (entrpsNo == 0) {
+					const L_dlvyPcInput = $(this).siblings('input[name=L_dlvyPc]')[0];
+					const dlvyCt = Number(L_dlvyPcInput.value);  //해당 상품의 배송비
+					totalDlvyPc += Number(dlvyCt);
+					return;
+				}
+				
+				
+				//배송비 무료조건에 부합하는지 검사
+				const entrpsInfo = entrpsDlvyList.find(f => f.entrpsNo === entrpsNo);  //입점업체 배송정보가져오기
+				const dlvyCtCnd = entrpsInfo.dlvyCtCnd;  //무료배송 조건 가격
+				const checkedGdsPrice = getSumPriceInEntrps(entrpsNo);  //선택된 상품중 같은 입점업체 상품 가격 합
+				if (checkedGdsPrice >= dlvyCtCnd) {
+					return;
+				}
+				
+				
+				//배송비 계산(묶음배송 고려하여)
 				if (entrpsNoInput[0] && dlvyGroupYn[0].value) {
-					const entrpsNo = Number(entrpsNoInput[0].value); //상품의 입점업체
-					const entrpsInfo = entrpsDlvyList.find(f => f.entrpsNo === entrpsNo);  //입점업체 배송정보가져오기
 					const dlvyBaseCt = entrpsInfo.dlvyBaseCt;  //입점업체의 기본 배송비
 					const L_dlvyPcInput = $(this).siblings('input[name=L_dlvyPc]')[0];
 					const dlvyCt = Number(L_dlvyPcInput.value);  //해당 상품의 배송비
@@ -724,6 +742,29 @@ $(function() {
 			}
 		});
 	}
+	
+	//선택된 특정 입점업체의 상품가격합 가져오기
+	function getSumPriceInEntrps(srchEntrpsNo) {
+		var gdsPcInputs = $("input[name='L_gdsPc']");
+		var totalPrice = 0;
+		
+		for(var i = 0; i < gdsPcInputs.length; i++) {
+			var gdsPcInput = gdsPcInputs[i];
+			
+			const checkBox = $(gdsPcInput).siblings('.cart_ty_N')[0];
+			if (checkBox.checked) {
+				const entrpsNoInput = $(gdsPcInput).siblings('input[name=entrpsNo]');
+				const entrpsNo = Number(entrpsNoInput[0].value); //상품의 입점업체
+				const gdsPc = Number($(gdsPcInput).val());  //상품 가격
+				
+				if(entrpsNo === srchEntrpsNo) {
+					totalPrice += gdsPc;	
+				}
+			}
+		}
+		return totalPrice;
+	}
+	
 
 	//전체 체크박스
 	let isFullChecked = false;
