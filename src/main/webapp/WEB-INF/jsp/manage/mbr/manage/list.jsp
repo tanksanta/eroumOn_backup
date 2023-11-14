@@ -83,10 +83,10 @@
 			<col class="w-28">
 			<col class="w-30">
 			<col class="w-25">
-			<col class="w-28">
-			<col class="w-28">
-			<col class="w-28">
-			<col class="w-28">
+			<col class="w-30">
+			<col class="w-30">
+			<col class="w-30">
+			<col class="w-30">
 			<col class="w-28">
 			<col class="w-20">
 			<col class="w-25">
@@ -117,7 +117,7 @@
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm}</a></td>
 				<td>${resultList.mblTelno}</td>
 				<td>${resultList.mbrRecipientsList.size()}</td>
 				<td>

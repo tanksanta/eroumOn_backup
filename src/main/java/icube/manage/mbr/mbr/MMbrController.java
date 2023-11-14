@@ -196,6 +196,15 @@ public class MMbrController extends CommonAbstractController {
         	for(ifor=0 ; ifor<ilen ; ifor++) {
         		vo = (MbrVO)listVO.getListObject().get(ifor);
                 vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+                vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
+                
+                vo.getMbrRecipientsList().forEach(recipientInfo -> {
+                	try {
+                		recipientInfo.setRecipientsNm(StringUtil.nameMasking(recipientInfo.getRecipientsNm()));
+                	} catch (Exception ex) {
+                		recipientInfo.setRecipientsNm("");
+                	}
+                });
         	}
         }
 

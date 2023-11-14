@@ -26,6 +26,7 @@
 		, mbr.gender
 		, mbr.mbl_telno
 		, mbr.eml
+		, mbr.join_ty
 	</sql>
 
 	<sql id="oriListColumn">
