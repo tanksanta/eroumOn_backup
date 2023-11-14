@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.DateUtil;
+import icube.common.util.StringUtil;
 import icube.common.values.CodeMap;
 import icube.manage.clcln.biz.ClclnService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
@@ -179,6 +180,14 @@ public class MClclnController extends CommonAbstractController {
 
 		List<OrdrDtlVO> resultList = clclnService.selectOrdrList(paramMap);
 
+		
+		//개인정보 마스킹
+		for(OrdrDtlVO vo : resultList) {
+			vo.setOrdrrNm(StringUtil.nameMasking(vo.getOrdrrNm()));
+			vo.setRecptrNm(StringUtil.nameMasking(vo.getRecptrNm()));
+		}
+		
+		
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
