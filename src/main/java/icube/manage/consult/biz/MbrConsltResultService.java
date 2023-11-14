@@ -199,7 +199,7 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		String MAIL_FORM_PATH = mailFormFilePath;
 		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_reject.html");
 		String mailSj = "[이로움케어] 장기요양기관에서 상담을 취소하였습니다.";
-		String putEml = "help_cx@thkc.co.kr";
+		String putEml = "thkc_cx@thkc.co.kr";
 		
 		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
 		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
@@ -221,7 +221,7 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		String MAIL_FORM_PATH = mailFormFilePath;
 		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_complete.html");
 		String mailSj = "[이로움케어] 장기요양기관에서 상담을 완료하였습니다.";
-		String putEml = "help_cx@thkc.co.kr";
+		String putEml = "thkc_cx@thkc.co.kr";
 		
 		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
 		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
