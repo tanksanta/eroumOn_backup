@@ -1,6 +1,8 @@
 package icube.main;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +78,9 @@ public class MainConsltController extends CommonAbstractController{
 
 	@Autowired
 	private Environment environment;
+	
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
 	
 	/**
 	 * 상담신청이 모달방식으로 변경됨에 따라 주석처리
@@ -277,14 +282,7 @@ public class MainConsltController extends CommonAbstractController{
 				
 				
 				//1:1 상담신청시 관리자에게 알림 메일 발송
-				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt.html");
-				String mailSj = "[이로움 ON] 장기요양테스트 신규상담건 문의가 접수되었습니다.";
-				String putEml = "help@thkc.co.kr";
-
-				if (Arrays.asList(environment.getActiveProfiles()).stream().anyMatch(profile -> "real".equals(profile))) {
-					mailService.sendMail(sendMail, putEml, mailSj, mailForm);
-				}
+				mbrConsltService.sendConsltRequestEmail(mbrConsltVO);
 			}
 
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());

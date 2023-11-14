@@ -151,6 +151,9 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
 			result = true;
+			
+			// 재상담 신청시 관리자에게 알림 메일 발송
+			mbrConsltService.sendConsltRequestEmail(mbrConslt);
 		} catch (Exception e) {
 			result = false;
 		}
@@ -201,7 +204,12 @@ public class MbrsConsltController extends CommonAbstractController {
 			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 
+			
+            // 상담취소 시 관리자에게 알림 메일 발송
 			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+            mbrConsltService.sendCancelConsltEmail(mbrConsltVO);
+
+            
 			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
 
 			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());

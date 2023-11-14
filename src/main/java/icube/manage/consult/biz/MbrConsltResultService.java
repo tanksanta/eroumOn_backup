@@ -1,5 +1,7 @@
 package icube.manage.consult.biz;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +9,17 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
+import icube.common.util.FileUtil;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.members.bplc.biz.BplcService;
+import icube.manage.members.bplc.biz.BplcVO;
 
 @Service("mbrConsltResultService")
 public class MbrConsltResultService extends CommonAbstractServiceImpl {
@@ -21,6 +29,27 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 
 	@Resource(name="mbrConsltResultDAO")
 	private MbrConsltResultDAO mbrConsltResultDAO;
+	
+	@Resource(name = "bplcService")
+	private BplcService bplcService;
+	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+	
+	@Resource(name = "mailService")
+	private MailService mailService;
+	
+	@Value("#{props['Profiles.Active']}")
+	private String activeMode;
+	
+	@Value("#{props['Mail.Form.FilePath']}")
+	private String mailFormFilePath;
+
+	@Value("#{props['Mail.Username']}")
+	private String sendMail;
+	
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
 
 	public CommonListVO selectMbrConsltResultListVO(CommonListVO listVO) throws Exception {
 
@@ -52,6 +81,12 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 	}
 
 	public MbrConsltResultVO selectMbrConsltBplc(Map<String, Object> paramMap) throws Exception {
+		return mbrConsltResultDAO.selectMbrConsltBplc(paramMap);
+	}
+	
+	public MbrConsltResultVO selectMbrConsltResultByBplcNo(int bplcConsltNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchBplcConsltNo", bplcConsltNo);
 		return mbrConsltResultDAO.selectMbrConsltBplc(paramMap);
 	}
 	
@@ -101,5 +136,102 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		return mbrConsltResultDAO.selectListForExcel(paramMap);
 	}
 
+	
+	/**
+	 * 사업소 전용 상담승인/거부 로직
+	 */
+	public Map<String, Object> changeSttusForBplc(int bplcConsltNo, String consltSttus) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		MbrConsltResultVO resultVO = selectMbrConsltResultByBplcNo(bplcConsltNo);
+		if (resultVO == null) {
+			resultMap.put("msg", "해당 사업소의 상담을 찾을 수 없습니다.");
+			resultMap.put("code", "err_01");
+			return resultMap;
+		}
+		BplcVO bplcVO = bplcService.selectBplcByUniqueId(resultVO.getBplcUniqueId());
+		if (bplcVO == null) {
+			resultMap.put("msg", "해당 사업소를 찾을 수 없습니다.");
+			resultMap.put("code", "err_02");
+			return resultMap;
+		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("consltSttus", consltSttus);
+		paramMap.put("consltNo", resultVO.getConsltNo());
+		paramMap.put("bplcConsltNo", bplcConsltNo);
 
+		int resultCnt = updateSttus(paramMap);
+
+		if(resultCnt > 0) {
+			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소"); 
+			
+			//1:1 상담 수락/거부 이력 추가
+			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+			mbrConsltChgHistVO.setConsltNo(resultVO.getConsltNo());
+			mbrConsltChgHistVO.setConsltSttusChg(consltSttus);
+			mbrConsltChgHistVO.setBplcConsltNo(bplcConsltNo);
+			mbrConsltChgHistVO.setBplcConsltSttusChg(consltSttus);
+			mbrConsltChgHistVO.setConsltBplcUniqueId(bplcVO.getUniqueId());
+			mbrConsltChgHistVO.setConsltBplcNm(bplcVO.getBplcNm());
+			mbrConsltChgHistVO.setResn(resn);
+			mbrConsltChgHistVO.setBplcUniqueId(bplcVO.getUniqueId());
+			mbrConsltChgHistVO.setBplcId(bplcVO.getBplcId());
+			mbrConsltChgHistVO.setBplcNm(bplcVO.getBplcNm());
+			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+			
+			
+			//상담 거부에 대한 이메일 발송 처리
+			if ("CS04".equals(consltSttus)) {
+				sendBplcRejectEmail(bplcVO);
+			}
+		}
+		
+		resultMap.put("success", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 사업소 상담거부 이메일 발송
+	 */
+	public void sendBplcRejectEmail(BplcVO bplcVO) throws Exception {
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_reject.html");
+		String mailSj = "[이로움케어] 장기요양기관에서 상담을 취소하였습니다.";
+		String putEml = "thkc_cx@thkc.co.kr";
+		
+		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
+		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
+		mailForm = mailForm.replace("((bplc_telno))", bplcVO.getTelno());
+		mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
+		
+		if("real".equals(activeMode)) {
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		} else {
+			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
+	}
+	
+	/**
+	 * 사업소 상담완료 이메일 발송
+	 */
+	public void sendBplcCompleteEmail(BplcVO bplcVO) throws Exception {
+		String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_conslt_bplc_complete.html");
+		String mailSj = "[이로움케어] 장기요양기관에서 상담을 완료하였습니다.";
+		String putEml = "thkc_cx@thkc.co.kr";
+		
+		mailForm = mailForm.replace("((bplc_nm))", bplcVO.getBplcNm());
+		mailForm = mailForm.replace("((bplc_id))", bplcVO.getBplcId());
+		mailForm = mailForm.replace("((complete_date))", simpleDateFormat.format(new Date()));
+		
+		if("real".equals(activeMode)) {
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		} else {
+			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+		}
+	}
 }

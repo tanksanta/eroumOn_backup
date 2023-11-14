@@ -5,7 +5,7 @@
 		<form:hidden path="dlvyMngNo" />
 		<input type="hidden" id="ordrDlvyCd" name="ordrDlvyCd" value="${ordrCd}" />
 
-		<div class="modal modal-default fade" id="deliModal" tabindex="-1" aria-hidden="true">
+		<div class="modal fade" id="deliModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">

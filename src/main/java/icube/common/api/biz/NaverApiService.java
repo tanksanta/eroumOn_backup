@@ -120,7 +120,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		paramMap.clear();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
-		paramMap.put("srchBirth", format.format(proflInfo.getBrdt()));
 		paramMap.put("srchMbrStts", "NORMAL");
 
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
