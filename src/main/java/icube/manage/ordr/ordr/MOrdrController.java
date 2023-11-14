@@ -40,6 +40,7 @@ import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
 import icube.common.util.ExcelExporter;
 import icube.common.util.HtmlUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -145,6 +146,15 @@ public class MOrdrController extends CommonAbstractController {
 			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
 				ordrDtlltVO.setOrdrrId("네이버 계정");
 			}
+			
+			//개인정보 마스킹
+			try {
+				ordrDtlltVO.setOrdrrNm(StringUtil.nameMasking(ordrDtlltVO.getOrdrrNm()));
+				ordrDtlltVO.setRecptrNm(StringUtil.nameMasking(ordrDtlltVO.getRecptrNm()));
+        	} catch (Exception ex) {
+        		ordrDtlltVO.setOrdrrNm("");
+    			ordrDtlltVO.setRecptrNm("");
+        	}
 		});
 
 		//입점업체 호출
