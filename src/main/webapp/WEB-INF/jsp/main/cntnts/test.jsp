@@ -45,7 +45,7 @@
                 <img src="/html/page/index/assets/images/img-grade-start.jpg" alt="">
                 <div class="msg1" aria-hidden="true">
                     <div class="box">
-                        장기요양등급<br>
+                        장기요양 인정등급<br>
                         <strong>신청 절차가 너무 복잡해요.</strong>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="47" height="27" viewBox="0 0 47 27" fill="none">
@@ -100,7 +100,7 @@
             <li class="taps-item is-active">
                 <a href="#slide-item1">
                     <i><img src="/html/page/index/assets/images/ico-grade-info1.svg" alt=""></i>
-                    <span>예상인정 등급 확인</span>
+                    <span>예상 인정등급 확인</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
@@ -142,7 +142,7 @@
 
     <div class="grade-content2">
         <h2 class="grade-title">
-            <small>노인장기요양보험 인정 등급 예상 테스트</small>
+            <small>노인장기요양보험 인정등급 예상 테스트</small>
             간단 테스트로 <br class="md:hidden"> 쉽고 든든하게!
         </h2>
         <div class="grade-rolling mt-13 md:mt-23">
@@ -153,7 +153,7 @@
                     </div>
                     <div class="item-content">
                         저희 아버지,<br>
-                        <strong>장기요양등급 몇 등급 일까요?</strong>
+                        <strong>장기요양 인정등급 몇 등급 일까요?</strong>
                     </div>
                 </div>
                 <div class="rolling-item2">
@@ -161,7 +161,7 @@
                         <img src="/html/page/index/assets/images/img-grade-rolling2.svg" alt="">
                     </div>
                     <div class="item-content">
-                        장기요양 등급별<br>
+                        장기요양 인정등급별<br>
                         <strong>지원 금액과 혜택이</strong> 궁금해요.
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                         <img src="/html/page/index/assets/images/img-grade-rolling3.svg" alt="">
                     </div>
                     <div class="item-content">
-                        장기요양등급<br>
+                        장기요양 인정등급<br>
                         <strong>신청 절차가 너무 복잡해요.</strong>
                     </div>
                 </div>
@@ -189,14 +189,14 @@
     
     <div class="grade-content3">
         <h2 class="grade-title">
-            <small>노인장기요양보험 인정 등급 예상 테스트</small>
+            <small>노인장기요양보험 인정등급 예상 테스트</small>
             이렇게 제공받아요
         </h2>
         <ul class="grade-taps mt-16 md:mt-23 md-max:!hidden">
             <li class="taps-item is-active">
                 <a href="#slide-item1">
                     <i><img src="/html/page/index/assets/images/ico-grade-info1.svg" alt=""></i>
-                    <span>예상인정 등급 확인</span>
+                    <span>예상 인정등급 확인</span>
                 </a>
             </li>
             <li class="taps-spacer"></li>
@@ -233,8 +233,8 @@
                 <div class="swiper">
                     <div class="swiper-wrapper">
                         <div id="slide-item1" class="swiper-slide">
-                            <p class="text-2xl font-bold tracking-normal">예상인정 등급 확인</p>
-                            <p class="mt-2.5">어르신의 예상 인정 등급을 알 수 있어요.</p>
+                            <p class="text-2xl font-bold tracking-normal">예상 인정등급 확인</p>
+                            <p class="mt-2.5">어르신의 예상 인정등급을 알 수 있어요.</p>
                             <img src="/html/page/index/assets/images/img-grade-info1.svg" alt="" class="mt-11 w-36 md:mt-15 md:w-40">
                             <img src="/html/page/index/assets/images/img-grade-info1-2.svg" alt="" class="mt-13 md:mt-15">
                         </div>
@@ -272,7 +272,7 @@
 
     <div class="grade-content4">
         <h2 class="grade-title">
-            <small>노인장기요양보험 인정 등급 예상 테스트</small>
+            <small>노인장기요양보험 인정등급 예상 테스트</small>
             이렇게 진행돼요
         </h2>
         <ul class="grade-taps mt-16 md:mt-23 md-max:!hidden">

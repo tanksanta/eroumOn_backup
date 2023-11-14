@@ -169,7 +169,7 @@
 
     <div class="grade-content3 simple-inquiry">
         <h2 class="grade-title">
-            <small>노인장기요양보험 인정 등급 예상 테스트</small>
+            <small>요양정보 간편조회</small>
             이렇게 제공받아요
         </h2>
         <ul class="grade-taps simple-inquiry mt-16 md:mt-23 md-max:!hidden">
@@ -275,7 +275,7 @@
                     </div>
                     <div id="slide-item7" class="swiper-slide">
                         <div class="swiper-slide-text">
-                            <p class="text-2xl font-bold tracking-normal">남은 장기요양 금액</p>
+                            <p class="text-2xl font-bold tracking-normal">남은 장기요양금액</p>
                             <p class="text-center">올해 남은 장기요양금액을 확인해요</p>
                         </div>
                         <img src="/html/page/index/assets/images/img-inquiry4-2.jpg" alt="장기요양금액 표현이미지">

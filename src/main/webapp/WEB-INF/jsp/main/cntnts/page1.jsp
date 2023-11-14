@@ -346,7 +346,7 @@
     <div class="page1-content5">
         <div>
             <img src="/html/page/index/assets/images/img-page1-content5.png">
-            <strong>예상 인정 등급을 확인해 보세요!</strong>
+            <strong>예상 인정등급을 확인해 보세요!</strong>
             <a href="/main/cntnts/test" class="btn" target="_blank">지금 등급 확인하기​</a>
         </div>
     </div>
