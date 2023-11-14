@@ -513,7 +513,7 @@ public class BiztalkConsultService extends BiztalkApiService {
 		JSONParser jsonParser = new JSONParser();
 		JSONArray list = new JSONArray();
 		
-		jsonStr = "{" + " \"name\":\"◼︎ 상담 수락하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = "{" + " \"name\":\"◼︎ 상담 완료하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
 		jsonStr = jsonStr.replace("#{url}", this.careHost + "/shop/eroumon_members_conslt_view.php?consltID=" + bplcConsltNo);
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		list.add(jsonObject);
