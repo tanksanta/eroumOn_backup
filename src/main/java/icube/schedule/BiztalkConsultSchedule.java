@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import icube.manage.members.bplc.biz.BplcVO;
 
 @EnableScheduling
 @Service("biztalkConsultSchedule")
+@Profile(value = {"test", "real"}) /*개발, 운영서버에서만 실행*/
 public class BiztalkConsultSchedule  extends CommonAbstractController  {
     
 	@Resource(name = "mbrConsltResultDAO")
