@@ -47,6 +47,9 @@ public class MailSchedule extends CommonAbstractController  {
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
+
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
@@ -162,7 +165,7 @@ public class MailSchedule extends CommonAbstractController  {
 						if(!EgovStringUtil.equals("local", activeMode)) {
 							mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 						} else {
-							mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+							mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 						}
 					} else {
 						log.debug(mbrVO.getMbrNm() + " 회원 소멸예정 안내 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
@@ -228,7 +231,7 @@ public class MailSchedule extends CommonAbstractController  {
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 					}
 				} else {
 					log.debug(mbrVO.getMbrNm()+" 개인정보 이용내역 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
@@ -271,7 +274,7 @@ public class MailSchedule extends CommonAbstractController  {
 					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 					}
 				} else {
 					log.debug(i + "번째" + mbrList.get(i).getMbrNm()+" 개인정보 이용내역 EMAIL 전송 실패 :: 이메일 체크 " + mbrList.get(i).getEml());

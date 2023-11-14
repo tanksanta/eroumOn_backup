@@ -64,6 +64,9 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
+
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
@@ -440,7 +443,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 					} else if (EgovStringUtil.equals("dev", activeMode)) {
 						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); // 테스트
+						mailService.sendMail(sendMail, mailTestuser, mailSj, mailForm); // 테스트
 					}
 				} else {
 					System.out.println("사용자 상품 주문 자동 취소 EMAIL 전송 실패 :: 이메일 체크 " + ordrVO.getOrdrrEml());

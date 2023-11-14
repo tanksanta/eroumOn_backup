@@ -1078,4 +1078,12 @@ public class CodeMap{
 			put("test", "인정등급상담");
 		}
 	};
+
+	// 보낸사람 이름
+	public static final HashMap<String, String> MAIL_SENDER_NAME = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031482L;
+		{
+			put("noreply@thkc.co.kr", "이로움ON");
+		}
+	};
 }

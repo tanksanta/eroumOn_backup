@@ -52,7 +52,6 @@ import icube.manage.consult.biz.GdsReviewService;
 import icube.manage.consult.biz.GdsReviewVO;
 import icube.manage.consult.biz.MbrInqryService;
 import icube.manage.consult.biz.MbrInqryVO;
-import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
@@ -127,6 +126,9 @@ public class MMbrController extends CommonAbstractController {
 
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
+
+    @Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
@@ -453,7 +455,7 @@ public class MMbrController extends CommonAbstractController {
 					if(!EgovStringUtil.equals("local", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 					}
 					result = true;
 				} else {
