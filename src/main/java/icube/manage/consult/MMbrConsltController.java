@@ -293,8 +293,11 @@ public class MMbrConsltController extends CommonAbstractController{
 		if (iResult > 0 ) {
 			if (EgovStringUtil.isNotEmpty(bplcUniqueId) 
 					&& (
-							EgovStringUtil.equals("CS01", originConsltSttus))
-							|| (EgovStringUtil.equals("CS02", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId))
+							EgovStringUtil.equals("CS01", originConsltSttus) // 접수
+							|| (EgovStringUtil.equals("CS02", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId)) //배정
+							|| EgovStringUtil.equals("CS07", originConsltSttus) //재접수
+							|| (EgovStringUtil.equals("CS08", originConsltSttus) && !EgovStringUtil.equals(bplcUniqueId , originConsltBplcUniqueId)) //재배정
+						)
 					) {
 				/*상담 매칭*/
 				if (bplcVO == null) bplcVO = bplcService.selectBplcByUniqueId(bplcUniqueId);
