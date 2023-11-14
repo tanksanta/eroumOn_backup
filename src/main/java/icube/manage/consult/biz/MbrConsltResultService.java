@@ -211,6 +211,8 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		} else {
 			putEml = "gr1993@naver.com";
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			putEml = "dglee@thkc.co.kr";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
 	}
 	
@@ -231,6 +233,8 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		} else {
 			putEml = "gr1993@naver.com";
+			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			putEml = "dglee@thkc.co.kr";
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		}
 	}
