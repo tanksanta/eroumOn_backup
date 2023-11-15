@@ -74,6 +74,17 @@ public class MngrLogService extends CommonAbstractServiceImpl {
 	}
 	
 	private String getUseHistForExcel(String url) {
-		return "이용내역";
+		String useHist = null;
+		
+		if (url.startsWith("/_mng/mbr/list")) {
+			useHist = "회원 > 일반회원관리에서 개인정보가 포함된 엑셀 다운로드";
+		} else if (url.startsWith("/_mng/mbr/black/list")) {
+			useHist = "회원 > 블랙리스트회원관리에서 개인정보가 포함된 엑셀 다운로드";
+		} else if (url.startsWith("/_mng/mbr/human/list")) {
+			useHist = "회원 > 휴면회원관리에서 개인정보가 포함된 엑셀 다운로드";
+		} else if (url.startsWith("/_mng/clcln/market/list")) {
+			useHist = "정산 > 마켓정산에서 개인정보가 포함된 엑셀 다운로드";
+		}
+		return useHist;
 	}
 }

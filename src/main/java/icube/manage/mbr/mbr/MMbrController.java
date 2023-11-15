@@ -61,6 +61,7 @@ import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.event.biz.EventApplcnService;
@@ -944,15 +945,6 @@ public class MMbrController extends CommonAbstractController {
 
         List<MbrVO> mbrList = mbrService.selectMbrListAll(reqMap);
 
-         if (mbrList != null && !mbrList.isEmpty()) {
-        	int ifor, ilen = mbrList.size();
-        	MbrVO vo;
-        	for(ifor=0 ; ifor<ilen ; ifor++) {
-        		vo = (MbrVO)mbrList.get(ifor);
-                vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
-        	}
-        }
-
 	    model.addAttribute("mbrList", mbrList);
 	    model.addAttribute("recipterYn", CodeMap.RECIPTER_YN);
 	    model.addAttribute("mberSttus", CodeMap.MBER_STTUS);
@@ -962,17 +954,26 @@ public class MMbrController extends CommonAbstractController {
         // excel data
         Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
         mapping.put("번호", obj -> "rowNum");
-        mapping.put("아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원아이디", obj -> ((MbrVO)obj).getMbrId());
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
-        mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrVO)obj).getGender()));
-        mapping.put("생년월일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getBrdt()));
-        mapping.put("회원분류(회원등급)", obj -> {
-        	String recipterYn = CodeMap.RECIPTER_YN.get(((MbrVO)obj).getRecipterYn());
-        	String mbrGrade = CodeMap.GRADE.get(((MbrVO)obj).getMberGrade());
-        	return recipterYn + "(" + mbrGrade + ")";
+        mapping.put("휴대폰번호", obj -> ((MbrVO)obj).getMblTelno());
+        mapping.put("등록수급자수", obj -> ((MbrVO)obj).getMbrRecipientsList().size());
+        mapping.put("관계1", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 0));
+        mapping.put("관계2", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 1));
+        mapping.put("관계3", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 2));
+        mapping.put("관계4", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 3));
+        mapping.put("회원등급", obj -> CodeMap.GRADE.get(((MbrVO)obj).getMberGrade()));
+        mapping.put("가입유형", obj -> {
+        	String joinTy = ((MbrVO)obj).getJoinTy();
+        	return CodeMap.MBR_JOIN_TY3.get(joinTy);
         });
         mapping.put("가입일", obj -> new SimpleDateFormat("yyyy-MM-dd").format(((MbrVO)obj).getJoinDt()));
-        mapping.put("가입매체", obj -> ((MbrVO)obj).getJoinCours());
+        mapping.put("수급자본인여부", obj -> {
+        	return ((MbrVO)obj).getMbrRecipientsList().stream().filter(f -> "007".equals(f.getRelationCd())).count() > 0 ? "본인" : "-";
+        });
+        mapping.put("L번호등록수급자", obj -> {
+        	return ((MbrVO)obj).getMbrRecipientsList().stream().filter(f -> "Y".equals(f.getRecipientsYn())).count();
+        });
 
 
         List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
@@ -1030,5 +1031,20 @@ public class MMbrController extends CommonAbstractController {
     	return resultMap;
     }
 
-
+    
+    // 엑셀다운로드 관계1~4에 문구 표출시 사용
+    private String getRelationText(List<MbrRecipientsVO> mbrRecipientList, int index) {
+    	if (mbrRecipientList == null) {
+    		return "";
+    	}
+    	
+    	if (mbrRecipientList.size() >= index + 1) {
+    		return CodeMap.MBR_RELATION_CD.get(mbrRecipientList.get(index).getRelationCd()) +
+    				"(" +
+    				mbrRecipientList.get(index).getRecipientsNm() +
+    				")";
+    	} else {
+    		return "";
+    	}
+    }
 }

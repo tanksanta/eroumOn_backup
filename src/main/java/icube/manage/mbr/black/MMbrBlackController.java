@@ -96,6 +96,7 @@ public class MMbrBlackController extends CommonAbstractController{
 		return "/manage/mbr/manage/include/mng_info_modal";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("excel")
 	public void excelDownload(
 			HttpServletRequest request
@@ -103,14 +104,18 @@ public class MMbrBlackController extends CommonAbstractController{
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-		reqMap.put("srchMngTy", "BLACK");
-		reqMap.put("srchNmngSe", "NONE");
-		List<MbrMngInfoVO> mbrList = mbrMngInfoService.selectMbrMngInfoListAll(reqMap);
+		CommonListVO listVO = new CommonListVO(request);
+		listVO.setParam("srchMngTy", "BLACK");
+		listVO.setParam("srchNmngSe", "NONE");
+		listVO = mbrMngInfoService.selectMbrMngInfoListVO(listVO);
+		
+		List<MbrMngInfoVO> mbrList = (List<MbrMngInfoVO>)listVO.getListObject();
 
+		
 		// excel data
         Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
         mapping.put("번호", obj -> "rowNum");
-        mapping.put("아이디", obj -> ((MbrMngInfoVO)obj).getMbrId());
+        mapping.put("회원아이디", obj -> ((MbrMngInfoVO)obj).getMbrId());
         mapping.put("회원이름", obj -> ((MbrMngInfoVO)obj).getMbrNm());
         mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrMngInfoVO)obj).getGender()));
 
