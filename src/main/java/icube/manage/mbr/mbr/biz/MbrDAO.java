@@ -1,5 +1,6 @@
 package icube.manage.mbr.mbr.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,10 @@ public class MbrDAO extends CommonAbstractMapper {
 		update("mbr.updateMbr", mbrVO);
 	}
 
-	public void deleteMbr(String string) throws Exception {
-		delete("mbr.deleteMbr", string);
+	public void deleteMbr(String uniqueId) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueId", uniqueId);
+		delete("mbr.deleteMbr", paramMap);
 	}
 
 	public MbrVO selectMbr(Map<String, Object> paramMap) throws Exception{
