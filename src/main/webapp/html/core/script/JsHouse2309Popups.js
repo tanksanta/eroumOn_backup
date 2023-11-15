@@ -633,7 +633,12 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
     }
 
     async fn_show_popup(param){
+        var owner = this;
+
         super.fn_show_popup(param);
+
+        $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val("");
+        $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val("");
 
         return this.fn_async();
     }
@@ -649,12 +654,13 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
                 data.txt = $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val();
                 data.caller = document.location.pathname + document.location.search;
 
-                if (data.pwd == ""){
+                if (data.pwd == "" || data.pwd.length < 2){
+                    this._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
                     owner._cls_info.coms.msgPwd.show();
                     bCall = false;
                 }
     
-                if (data.txt == ""){
+                if (data.txt == "" || data.txt.length < 2){
                     owner._cls_info.coms.msgTxt.show();
                     bCall = false;
                 }
@@ -663,9 +669,11 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
                     return;
                 }
 
-                var result =  jsCallApi.call_sync_api_post('/_mng/api/popups/excelPwd.json', data);
-                if (result){
-                    console.log(result);
+                var retVal =  jsCallApi.call_sync_api_post('/_mng/api/popups/excelPwd.json', data);
+                if (retVal == null || retVal.result == null || retVal.result.result != "OK"){
+                    owner._cls_info.coms.msgPwd.find('.text').html('비밀번호가 일치하지 않습니다.');
+                    owner._cls_info.coms.msgPwd.show();
+                    return;
                 }
 
                 owner.fn_close_popup();
