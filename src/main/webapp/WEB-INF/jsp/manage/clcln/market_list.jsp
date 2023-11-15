@@ -302,7 +302,7 @@
 
                 $(function(){
                 	$(".btn-excel").on("click", function(){
-                		tableToExcel("마켓정산_"+f_getToday().replaceAll("-",""));
+                		fn_excel_down();
 	            	});
 
                 	// rowspan
@@ -319,4 +319,15 @@
                 	$(".table-list tbody tr td:hidden").remove();
 
                 });
+                
+                var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+            	async function fn_excel_down(){
+                    const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+                    // console.log(asyncConfirm)
+                    if (asyncConfirm != "confirm"){
+                        return;
+                    }
+                    
+                    tableToExcel("마켓정산_"+f_getToday().replaceAll("-",""));
+            	}
                 </script>
