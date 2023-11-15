@@ -638,6 +638,22 @@ public class MbrsRegistController extends CommonAbstractController{
 		return new JavaScriptView(javaScript);
 	}
 	
+	/**
+	 * 가입취소
+	 */
+	@RequestMapping(value = "cancel/sns/regist")
+	public String cancelRegistSns(
+			HttpServletRequest request
+			, HttpSession session
+			, Model model)throws Exception {
+		
+		mbrService.deleteMbr(mbrSession.getUniqueId());
+		mbrSession.setParms(new MbrVO(), false);
+		
+		return "redirect:/membership/login";
+	}
+	
+	
 	private void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		

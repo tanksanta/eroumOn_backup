@@ -169,7 +169,7 @@
 				<div class="content-button mt-5">
 					<button type="button" class="btn btn-primary btn-large flex-1 selfBtn">본인 인증하기</button>
                     <!-- <button type="button" class="btn btn-primary btn-large flex-1" data-bs-toggle="modal" data-bs-target="#completed-members">본인 인증하기</button> -->
-					<a href="javascript:history.back(-1)" class="btn btn-outline-primary btn-large w-[37.5%]">취소</a>
+					<a href="/membership/cancel/sns/regist" class="btn btn-outline-primary btn-large w-[37.5%]">취소</a>
 				</div>
 
 				<input type="hidden" id="receiptId" name="receiptId" value="">

@@ -71,8 +71,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrDAO.updateMbr(mbrVO);
 	}
 
-	public void deleteMbr(String string) throws Exception {
-		mbrDAO.deleteMbr(string);
+	public void deleteMbr(String uniqueId) throws Exception {
+		mbrDAO.deleteMbr(uniqueId);
 	}
 
 	
