@@ -184,10 +184,10 @@
 		</if>
 
 		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
-			AND m.naver_token = #{srchNaverAppId}
+			AND m.naver_app_id = #{srchNaverAppId}
 		</if>
 		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
-			AND m.kakao_token = #{srchKakaoAppId}
+			AND m.kakao_app_id = #{srchKakaoAppId}
 		</if>
 
 		<if test="srchRecipientsNm != null and srchRecipientsNm != '' ">

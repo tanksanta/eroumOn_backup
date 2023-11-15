@@ -303,10 +303,11 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 						String mbrId = mbrList.get(0).getMbrId();
 
 						Map<String, Object> drmtMap = new HashMap<String, Object>();
-						drmtMap.put("srchKakaoAppId", mbrVO.getKakaoAppId());
+						String appId = element.getAsJsonObject().get("id").getAsString();
+						drmtMap.put("srchKakaoAppId", appId);
 						drmtMap.put("srchMbrStts", "EXIT");
 						drmtMap.put("srchWhdwlDt", 7);
-						int drmtCnt = mbrService.selectMbrCount(paramMap);
+						int drmtCnt = mbrService.selectMbrCount(drmtMap);
 
 						if(EgovStringUtil.equals("BLACK", sttus)) {
 							mbrTy = 8; // 블랙
@@ -347,7 +348,15 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			mbrVO.setMbrId(appId+"@K");
 			mbrVO.setJoinTy("K");
 			mbrVO.setKakaoAppId(appId);
-
+			
+			//회원 생성전 같은 카카오계정 가입자 확인
+			paramMap = new HashMap<String, Object>();
+			paramMap.put("srchKakaoAppId", appId);
+			List<MbrVO> srchMbrList = mbrService.selectMbrListAll(paramMap);
+			if (srchMbrList.size() > 0) {
+				return 5;
+			}
+			
 			return setUserDlvy(mbrVO, session);
 		}
 
