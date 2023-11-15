@@ -54,6 +54,7 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
+import icube.manage.sysmng.mngr.biz.MngrLogService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -87,6 +88,9 @@ public class MMbrConsltController extends CommonAbstractController{
 	
 	@Resource(name = "biztalkConsultService")
 	private BiztalkConsultService biztalkConsultService;
+	
+	@Resource(name="mngrLogService")
+	private MngrLogService mngrLogService;
 	
 	
 	@Autowired
@@ -213,6 +217,10 @@ public class MMbrConsltController extends CommonAbstractController{
 			model.addAttribute("consltBplcUniqueId", chgHistList.get(0).getConsltBplcUniqueId());
 		}
 
+		
+		//상세조회 로그 수집
+        mngrLogService.insertMngrDetailLog(request);
+		
 		return "/manage/consult/recipter/view";
 	}
 

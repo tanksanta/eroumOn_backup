@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysmng.excel.log">
+
+	<sql id="listColumn">
+		log_no
+		, unique_id
+		, mngr_id
+		, mngr_nm
+		, url
+		, dmnd_ip
+		, use_hist
+		, resn
+		, reg_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+		</if>
+	</sql>
+
+	<select id="selectMngrExcelLogListVO" parameterType="java.util.HashMap" resultType="mngrExcelLogVO">
+		SELECT
+			<include refid="listColumn"/>
+		  FROM MNGR_EXCEL_LOG
+		 WHERE 1=1
+			<include refid="searchConditions" />
+	  ORDER BY reg_dt DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectMngrExcelLogCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(LOG_NO)
+		  FROM MNGR_EXCEL_LOG
+		 WHERE 1=1
+		 <include refid="searchConditions" />
+	</select>
+
+	<insert id="insertMngrExcelLog" parameterType="mngrExcelLogVO">
+		 INSERT INTO MNGR_EXCEL_LOG (
+		 	unique_id
+			, mngr_id
+			, mngr_nm
+			, url
+			, dmnd_ip
+			, use_hist
+			, resn
+			, reg_dt
+		  ) VALUES (
+		        #{uniqueId, jdbcType=VARCHAR}
+		       , #{mngrId, jdbcType=VARCHAR}
+		       , #{mngrNm, jdbcType=VARCHAR}
+		       , #{url, jdbcType=VARCHAR}
+		       , #{dmndIp, jdbcType=VARCHAR}
+		       , #{useHist, jdbcType=VARCHAR}
+		       , #{resn, jdbcType=VARCHAR}
+			   , SYSDATE()
+		  )
+		<selectKey resultType="int" keyProperty="logNo" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+</mapper>

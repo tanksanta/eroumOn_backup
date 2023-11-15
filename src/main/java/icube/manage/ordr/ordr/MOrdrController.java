@@ -57,6 +57,7 @@ import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
 import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
+import icube.manage.sysmng.mngr.biz.MngrLogService;
 import icube.manage.sysmng.mngr.biz.MngrService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 import icube.manage.sysmng.mngr.biz.MngrVO;
@@ -98,6 +99,9 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name="mailFormService")
 	private MailFormService mailFormService;
+	
+	@Resource(name="mngrLogService")
+	private MngrLogService mngrLogService;
 
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
@@ -178,6 +182,7 @@ public class MOrdrController extends CommonAbstractController {
 	public String ordrDtlView(
 			@RequestParam(value="ordrCd", required=true) String ordrCd
 			, @RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request
 			, Model model) throws Exception {
 
 		// 주문정보
@@ -202,6 +207,10 @@ public class MOrdrController extends CommonAbstractController {
 		model.addAttribute("ordrVO", ordrVO);
 		model.addAttribute("_bootpayScriptKey", bootpayScriptKey);
 
+		
+		//상세조회 로그 수집
+        mngrLogService.insertMngrDetailLog(request);
+		
 		return "/manage/ordr/include/ordr_dtl";
 	}
 
