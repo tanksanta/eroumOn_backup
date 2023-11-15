@@ -33,3 +33,9 @@ CREATE TABLE IF NOT EXISTS `eroumcare`.`MNGR_EXCEL_LOG` (
 COMMENT='관리자 엑셀다운로드 로그 테이블'
 COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB;
+
+
+-- 관리자 > 시스템 > 이용내역 메뉴 추가
+INSERT INTO `eroumcare`.`MNG_MENU` 
+(`UP_MENU_NO`, `MENU_NM`, `MENU_URL`, `MENU_TY`, `LEVEL_NO`, `SORT_NO`, `USE_YN`) 
+VALUES ('9', '이용내역', '/_mng/sysmng/log/list', '4', '1', '10', 'Y');

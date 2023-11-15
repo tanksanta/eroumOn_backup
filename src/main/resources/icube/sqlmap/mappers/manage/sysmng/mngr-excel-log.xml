@@ -15,7 +15,20 @@
 	</sql>
 
 	<sql id="searchConditions">
+		<if test="srchRegDtBgng !=null and srchRegDtBgng != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &gt;= #{srchRegDtBgng}
+		</if>
+		<if test="srchRegDtEnd !=null and srchRegDtEnd != ''">
+			AND DATE_FORMAT(reg_dt, '%Y-%m-%d') &lt;= #{srchRegDtEnd}
+		</if>
+		
 		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "srchMngrId" '>AND mngr_id like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "srchUseHist" '>AND use_hist like CONCAT('%', #{srchText}, '%')</when>
+				<otherwise>
+				</otherwise>
+			</choose>
 		</if>
 	</sql>
 
