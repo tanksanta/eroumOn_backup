@@ -647,8 +647,9 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
         var owner = this;
         var bCall;
         return new Promise((resolve) => {
-            bCall = true;
             $(owner._cls_info.pageModalfix + ' .btn.save').off('click').on('click', function(){
+                bCall = true;
+
                 var data = {};
                 data.pwd = $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val();
                 data.txt = $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val();
