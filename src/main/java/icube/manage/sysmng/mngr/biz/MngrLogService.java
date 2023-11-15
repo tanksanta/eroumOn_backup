@@ -82,6 +82,26 @@ public class MngrLogService extends CommonAbstractServiceImpl {
 			useHist = "회원 > 블랙리스트회원관리에서 개인정보가 포함된 엑셀 다운로드";
 		} else if (url.startsWith("/_mng/mbr/human/list")) {
 			useHist = "회원 > 휴면회원관리에서 개인정보가 포함된 엑셀 다운로드";
+		} else if (url.startsWith("/_mng/ordr")) {
+			String sttus = url.replace("/_mng/ordr/", "").replace("/list", "").split("\\?")[0];
+			String sttusText = "";
+			
+			switch (sttus) {
+				case "all" : sttusText = "전체주문"; break;
+				case "or01" : sttusText = "승인대기"; break;
+				case "or02" : sttusText = "승인완료"; break;
+				case "or03" : sttusText = "승인반려"; break;
+				case "or04" : sttusText = "결제대기"; break;
+				case "or05" : sttusText = "결제완료"; break;
+				case "or06" : sttusText = "배송관리"; break;
+				case "or09" : sttusText = "구매확정"; break;
+				case "ca01" : sttusText = "취소관리"; break;
+				case "ex01" : sttusText = "교환관리"; break;
+				case "re01" : sttusText = "반품관리"; break;
+				case "rf01" : sttusText = "환불관리"; break;
+			}
+			
+			useHist = "주문 > " + sttusText + "에서 개인정보가 포함된 엑셀 다운로드";
 		} else if (url.startsWith("/_mng/clcln/market/list")) {
 			useHist = "정산 > 마켓정산에서 개인정보가 포함된 엑셀 다운로드";
 		}

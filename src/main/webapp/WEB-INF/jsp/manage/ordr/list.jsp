@@ -546,18 +546,18 @@
 
                 	});
 
-                	$(".btn-excel").on("click", function(){
-                		<c:if test="${empty param.srchSttsTy}">
-                		$("#srchSttsTy").val("");
-                		</c:if>
-	            		$("#searchFrm").attr("action","excel").submit();
-	            		setTimeout(function() {
-		            		$("#searchFrm").attr("action","list");
-		            		<c:if test="${empty param.srchSttsTy}">
-		            		$("#srchSttsTy").prop("selectedIndex", 0);
-		            		</c:if>
-	            		}, 100); // 100 밀리초 지연
-	            	});
+                	// $(".btn-excel").on("click", function(){
+                	// 	<c:if test="${empty param.srchSttsTy}">
+                	// 	$("#srchSttsTy").val("");
+                	// 	</c:if>
+	            	// 	$("#searchFrm").attr("action","excel").submit();
+	            	// 	setTimeout(function() {
+		            // 		$("#searchFrm").attr("action","list");
+		            // 		<c:if test="${empty param.srchSttsTy}">
+		            // 		$("#srchSttsTy").prop("selectedIndex", 0);
+		            // 		</c:if>
+	            	// 	}, 100); // 100 밀리초 지연
+	            	// });
 
                 	// rowspan
                 	$('.table-list tbody').mergeClassRowspan(0);
@@ -582,8 +582,18 @@
 					});
 
 	             	$(".btn-excel").on("click", function(){
-	            		$("#searchFrm").attr("action","excel").submit();
-	            		$("#searchFrm").attr("action","list");
+	                    var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+	                    async function fn_excel_down(){
+	                        const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+	                        // console.log(asyncConfirm)
+	                        if (asyncConfirm != "confirm"){
+	                            return;
+	                        }
+	                        
+	                        $("#searchFrm").attr("action","excel").submit();
+	                        $("#searchFrm").attr("action","list");
+	                    }
+	                    fn_excel_down();
 	            	});
 
                 });
