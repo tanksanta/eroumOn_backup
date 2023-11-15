@@ -35,12 +35,12 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
-import icube.common.util.StringUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.ExcelExporter;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
 import icube.common.util.RandomUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CRUD;
@@ -66,6 +66,7 @@ import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.event.biz.EventApplcnService;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
+import icube.manage.sysmng.mngr.biz.MngrLogService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 @Controller
@@ -114,6 +115,9 @@ public class MMbrController extends CommonAbstractController {
 
 	@Resource(name="mailService")
 	private MailService mailService;
+	
+	@Resource(name="mngrLogService")
+	private MngrLogService mngrLogService;
 
     @Value("#{props['Globals.Server.Dir']}")
     private String serverDir;
@@ -198,6 +202,15 @@ public class MMbrController extends CommonAbstractController {
         	for(ifor=0 ; ifor<ilen ; ifor++) {
         		vo = (MbrVO)listVO.getListObject().get(ifor);
                 vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+                vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
+                
+                vo.getMbrRecipientsList().forEach(recipientInfo -> {
+                	try {
+                		recipientInfo.setRecipientsNm(StringUtil.nameMasking(recipientInfo.getRecipientsNm()));
+                	} catch (Exception ex) {
+                		recipientInfo.setRecipientsNm("");
+                	}
+                });
         	}
         }
 
@@ -387,6 +400,10 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
         model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
 
+        
+        //상세조회 로그 수집
+        mngrLogService.insertMngrDetailLog(request);
+        
         return "/manage/mbr/manage/view";
     }
 

@@ -37,6 +37,7 @@ import icube.common.util.CommonUtil;
 import icube.common.util.DateUtil;
 import icube.common.util.ExcelExporter;
 import icube.common.util.HtmlUtil;
+import icube.common.util.StringUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
@@ -53,6 +54,7 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
+import icube.manage.sysmng.mngr.biz.MngrLogService;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 /**
@@ -87,6 +89,9 @@ public class MMbrConsltController extends CommonAbstractController{
 	@Resource(name = "biztalkConsultService")
 	private BiztalkConsultService biztalkConsultService;
 	
+	@Resource(name="mngrLogService")
+	private MngrLogService mngrLogService;
+	
 	
 	@Autowired
 	private MngrSession mngrSession;
@@ -103,6 +108,16 @@ public class MMbrConsltController extends CommonAbstractController{
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
 
+		
+		//개인정보 마스킹
+		for(Object listObj : listVO.getListObject()) {
+			MbrConsltVO vo = (MbrConsltVO)listObj;
+			vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
+			vo.setMbrTelno(StringUtil.phoneMasking(vo.getMbrTelno()));
+			vo.setRgtr(StringUtil.nameMasking(vo.getRgtr()));
+		}
+		
+		
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("prevPath", CodeMap.PREV_PATH);
@@ -202,6 +217,10 @@ public class MMbrConsltController extends CommonAbstractController{
 			model.addAttribute("consltBplcUniqueId", chgHistList.get(0).getConsltBplcUniqueId());
 		}
 
+		
+		//상세조회 로그 수집
+        mngrLogService.insertMngrDetailLog(request);
+		
 		return "/manage/consult/recipter/view";
 	}
 

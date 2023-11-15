@@ -47,9 +47,9 @@ public class MMbrBlackController extends CommonAbstractController{
 
 		if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
         	int ifor, ilen = listVO.getListObject().size();
-        	MbrVO vo;
+        	MbrMngInfoVO vo;
         	for(ifor=0 ; ifor<ilen ; ifor++) {
-        		vo = (MbrVO)listVO.getListObject().get(ifor);
+        		vo = (MbrMngInfoVO)listVO.getListObject().get(ifor);
                 vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
 				vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
         	}
