@@ -49,9 +49,12 @@ public class MngrLogService extends CommonAbstractServiceImpl {
 		mngrExcelLogVO.setUniqueId(mngrSession.getUniqueId());
 		mngrExcelLogVO.setMngrId(mngrSession.getMngrId());
 		mngrExcelLogVO.setMngrNm(mngrSession.getMngrNm());
-		mngrExcelLogVO.setUrl(request.getRequestURI());
+		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		String referer = request.getHeader("Referer");
+		referer = referer.replace(host, "");
+		mngrExcelLogVO.setUrl(referer);
 		mngrExcelLogVO.setDmndIp(WebUtil.getIp(request));
-		mngrExcelLogVO.setUseHist(getUseHistForExcel(mngrExcelLogVO.getUrl()));
+		mngrExcelLogVO.setUseHist(getUseHistForExcel(referer));
 		mngrExcelLogVO.setResn(resn);   //엑셀 다운로드 사유(입력 받음)
 		mngrExcelLogDAO.insertMngrExcelLog(mngrExcelLogVO);
 	}

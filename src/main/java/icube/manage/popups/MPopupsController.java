@@ -4,6 +4,7 @@ package icube.manage.popups;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.manage.sysmng.mngr.biz.MngrLogService;
 
 
 /**
@@ -27,6 +29,10 @@ import icube.common.framework.abst.CommonAbstractController;
 @RequestMapping(value="/#{props['Globals.Manager.path']}/api/popups")
 public class MPopupsController extends CommonAbstractController{
 
+	@Resource(name="mngrLogService")
+	private MngrLogService mngrLogService;
+	
+	
     /* 엑셀 다운로드 전 패스워드 확인*/
     @RequestMapping(value = {"excelPwd.json"})
     @ResponseBody
@@ -43,7 +49,7 @@ public class MPopupsController extends CommonAbstractController{
         /*패스워드 체크*/
 
         /*사유 저장하는 부분*/
-
+		mngrLogService.insertMngrExcelLog(request, txt);
 
 		return resultMap;
 	}
