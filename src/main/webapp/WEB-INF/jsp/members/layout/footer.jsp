@@ -25,7 +25,7 @@
 				<dt class="sr-only">패밀리 사이트</dt>
 			    <dd>
 					<ul class="global-link">
-						<li><a href="//www.youtube.com/@Super_Senior" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+						<li><a href="//www.youtube.com/@eroumon" target="_blank" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
 						<li>
 							<a href="/" class="link-item1" target="_blank" title="새창열림">
 							    <div class="bubble">
