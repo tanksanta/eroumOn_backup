@@ -494,7 +494,17 @@ public class MGdsController extends CommonAbstractController {
 			, HttpServletResponse response
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
-
+				
+		if (reqMap.get("ctgryNo4") != null && !EgovStringUtil.isEmpty(reqMap.get("ctgryNo4").toString())&& !EgovStringUtil.equals("0", reqMap.get("ctgryNo4").toString())){
+			reqMap.put("srchRecsCtgryNo", reqMap.get("ctgryNo4").toString());
+		}else if (reqMap.get("ctgryNo3") != null && !EgovStringUtil.isEmpty(reqMap.get("ctgryNo3").toString())&& !EgovStringUtil.equals("0", reqMap.get("ctgryNo3").toString())){
+			reqMap.put("srchRecsCtgryNo", reqMap.get("ctgryNo3").toString());
+		}else if (reqMap.get("ctgryNo2") != null && !EgovStringUtil.isEmpty(reqMap.get("ctgryNo2").toString())&& !EgovStringUtil.equals("0", reqMap.get("ctgryNo2").toString())){
+			reqMap.put("srchRecsCtgryNo", reqMap.get("ctgryNo2").toString());
+		}else if (reqMap.get("ctgryNo1") != null && !EgovStringUtil.isEmpty(reqMap.get("ctgryNo1").toString())&& !EgovStringUtil.equals("0", reqMap.get("ctgryNo1").toString())){
+			reqMap.put("srchRecsCtgryNo", reqMap.get("ctgryNo1").toString());
+		}
+		
 		reqMap.put("srchUseYn", "Y");
 		List<GdsVO> resultList = gdsService.selectGdsWithOptnListAll(reqMap);
 		for(GdsVO gdsVo : resultList) {
