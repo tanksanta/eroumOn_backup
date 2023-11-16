@@ -627,8 +627,14 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
 
             this._cls_info.modalPop = $(this._cls_info.pageModalfix);
 
-            this._cls_info.coms.msgPwd = $(this._cls_info.pageModalfix + ' .table-detail tr.pwd td.con div').hide();
-            this._cls_info.coms.msgTxt = $(this._cls_info.pageModalfix + ' .table-detail tr.txt td.con div').hide();
+            this._cls_info.coms.inputPwd = $(this._cls_info.pageModalfix + ' .table-detail tr.pwd td.con input[type="password"]');
+            this._cls_info.coms.inputTxt = $(this._cls_info.pageModalfix + ' .table-detail tr.txt td.con textarea');
+
+            this._cls_info.coms.msgPwd = $(this._cls_info.pageModalfix + ' .table-detail tr.pwd td.con div');
+            this._cls_info.coms.msgTxt = $(this._cls_info.pageModalfix + ' .table-detail tr.txt td.con div');
+
+            this._cls_info.coms.msgPwd.hide();
+            this._cls_info.coms.msgTxt.hide();
         }
     }
 
@@ -636,6 +642,8 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
         if (this._cls_info.coms.msgPwd != undefined){
             $(this._cls_info.pageModalfix + ' .table-detail tr td.con div.alert button[type="button"][aria-label="close"]').off('click').on('click', function(){
                 $(this).closest('div.alert').hide();
+
+                $(this).closest('td').find(".is-invalid").removeClass("is-invalid");
             });
         }
 
@@ -648,6 +656,9 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
 
         owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
         owner._cls_info.coms.msgPwd.hide();
+
+        this._cls_info.coms.inputPwd.removeClass("is-invalid");
+        this._cls_info.coms.inputTxt.removeClass("is-invalid");
         
         $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val("");
         $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val("");
@@ -668,12 +679,15 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
                 data.caller = document.location.pathname + document.location.search;
 
                 if (data.pwd == "" || data.pwd.length < 2){
+                    owner._cls_info.coms.inputPwd.addClass("is-invalid");
+        
                     owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
                     owner._cls_info.coms.msgPwd.show();
                     bCall = false;
                 }
     
                 if (data.txt == "" || data.txt.length < 2){
+                    owner._cls_info.coms.inputTxt.addClass("is-invalid");
                     owner._cls_info.coms.msgTxt.show();
                     bCall = false;
                 }
