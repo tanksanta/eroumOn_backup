@@ -102,6 +102,8 @@ public class MngrLogService extends CommonAbstractServiceImpl {
 			}
 			
 			useHist = "주문 > " + sttusText + "에서 개인정보가 포함된 엑셀 다운로드";
+		} else if (url.startsWith("/_mng/consult/recipter/list")) {
+			useHist = "고객상담 > 수급자 상담관리에서 개인정보가 포함된 엑셀 다운로드";
 		} else if (url.startsWith("/_mng/clcln/market/list")) {
 			useHist = "정산 > 마켓정산에서 개인정보가 포함된 엑셀 다운로드";
 		}

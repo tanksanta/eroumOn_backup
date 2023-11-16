@@ -270,8 +270,18 @@ $(function(){
 	});
 
 	$(".btn-excel").on("click", function(){
-		$("#searchFrm").attr("action","excel").submit();
-		$("#searchFrm").attr("action","list");
+        var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+        async function fn_excel_down(){
+            const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+            // console.log(asyncConfirm)
+            if (asyncConfirm != "confirm"){
+                return;
+            }
+            
+            $("#searchFrm").attr("action","excel").submit();
+    		$("#searchFrm").attr("action","list");
+        }
+        fn_excel_down();
 	});
 
 });
