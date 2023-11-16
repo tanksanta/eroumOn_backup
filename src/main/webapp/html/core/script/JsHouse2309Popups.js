@@ -632,11 +632,23 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
         }
     }
 
+    fn_page_init_third_click(){
+        if (this._cls_info.coms.msgPwd != undefined){
+            $(this._cls_info.pageModalfix + ' .table-detail tr td.con div.alert button[type="button"][aria-label="close"]').off('click').on('click', function(){
+                $(this).closest('div.alert').hide();
+            });
+        }
+
+    }
+
     async fn_show_popup(param){
         var owner = this;
 
         super.fn_show_popup(param);
 
+        owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
+        owner._cls_info.coms.msgPwd.hide();
+        
         $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val("");
         $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val("");
 
@@ -656,7 +668,7 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
                 data.caller = document.location.pathname + document.location.search;
 
                 if (data.pwd == "" || data.pwd.length < 2){
-                    this._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
+                    owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
                     owner._cls_info.coms.msgPwd.show();
                     bCall = false;
                 }
