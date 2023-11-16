@@ -81,7 +81,7 @@
 									<sup class="text-danger text-base md:text-lg">*</sup>
 								</p>
                             </th>
-                            <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel" placeholder="010-1234-5678"></td>
+                            <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel" class="keycontrol phonenumber" placeholder="010-1234-5678"></td>
                         </tr> 
 						<tr>
                             <th scope="row">
@@ -291,11 +291,7 @@
 		$(document).ready(function() {
 			jsCommon = new JsCommon();
 
-			
-			$("#info-tel").off("keyup").on("keyup", function(event){
-				jsCommon.inputPhoneNumber(event);
-			});
-			
+			jsCommon.fn_keycontrol();
 		});
 		
 	    var me = {};
