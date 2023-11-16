@@ -8,9 +8,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="text-subtitle -mb-4">
-                        <i class="icon-alert"></i>
-                        <p>* 수급자의 정보와 상담받을 연락처를 입력해주세요</p>
+                    <div class="text-subtitle mb-2">
+						<div class="flex items-center gap-1">
+							<i class="ico-alert2 size-sm"></i>
+							수급자의 정보와 상담받을 연락처를 입력해주세요
+						</div>
                     </div>
                     <table class="table-detail">
                         <caption class="hidden">상담정보확인 위한 수급자와의 관계(필수), 수급자성명(필수), 요양인정번호, 상담받을연락처(필수), 실거주지 주소(필수), 생년월일(필수),성별(필수), 상담유형 입력폼입니다 </caption>
@@ -116,9 +118,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <ul class="list-style1">
-                        <li>* 수급자 성명은 수정할 수 없습니다.</li>
-                        <li>* 요양인정번호는 없음으로 체크된 경우에만 수정 가능합니다.</li>
+                    <ul class="list-style1 mt-2">
+                        <li class="flex items-center gap-1"><i class="ico-alert2 size-sm"></i> 수급자 성명은 수정할 수 없습니다.</li>
+                        <li class="flex items-center gap-1"><i class="ico-alert2 size-sm"></i> 요양인정번호는 없음으로 체크된 경우에만 수정 가능합니다.</li>
                     </ul>
                 </div>
                 <div class="modal-footer md:w-3/4 mx-auto mt-4">
