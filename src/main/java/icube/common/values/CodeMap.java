@@ -1102,8 +1102,10 @@ public class CodeMap{
 		{
 			put("TERMS", "이용약관");
 			put("PRIVACY", "개인정보 처리방침");
+			/*
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
+			*/
 		}
 	};
 }

@@ -20,7 +20,6 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.DateUtil;
-import icube.common.util.StringUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -44,13 +43,13 @@ public class TermsController  extends CommonAbstractController {
         return this.listTerms(request, reqMap, termsKind, model);
 	}
 
-    @RequestMapping(value = "provision/list")
-	public String listProvision(
+    @RequestMapping(value = "terms/list")
+	public String listTerms(
 			HttpServletRequest request
             , @RequestParam Map<String,Object> reqMap
             
 			, Model model) throws Exception {
-        String termsKind = "PROVISION";
+        String termsKind = "TERMS";
         return this.listTerms(request, reqMap, termsKind, model);
 	}
 
@@ -87,15 +86,15 @@ public class TermsController  extends CommonAbstractController {
         return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
     }
 
-    @RequestMapping(value = "provision/form")
-	public String formProvision(
+    @RequestMapping(value = "terms/form")
+	public String formTerms(
 			HttpServletRequest request
             , @RequestParam Map<String,Object> reqMap
             , @RequestParam(value="termsNo", required=true) int termsNo
             , TermsVO termsVO
 			, Model model) throws Exception {
 
-        String termsKind = "PROVISION";
+        String termsKind = "TERMS";
             
         return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
     }
