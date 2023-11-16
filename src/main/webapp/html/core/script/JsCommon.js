@@ -1,15 +1,29 @@
 
 class JsCommon{
+    fn_keycontrol(){
+        var owner = this;
+
+        $(".keycontrol.numberonly").off('keyup').on('keyup', function(){
+            this.value=this.value.replace(/[^-0-9]/g,'');
+        });
+        $(".keycontrol.numbercomma").off('keyup').on('keyup', function(){
+            this.value=this.value.replace(/[^-0-9]/g,'');
+            this.value=jsFuncs.numberWithCommas(this.value)
+        });
+
+        $(".keycontrol.phonenumber").off("keyup").on("keyup", function(event){
+            owner.fn_keycontrol_PhoneNumber(event);
+        });
+        
+    }
     /**
      * 휴대폰 번호 입력 마스크 처리
-     * 
-     * 사용예) 
      * $(owner._cls_info.pageModalfix + " .mem_confirm .phone_no").on("keyup", function(event){
-            owner.inputPhoneNumber(event);
+            owner.fn_keycontrol_PhoneNumber(event);
         });
-     * 
      */
-    inputPhoneNumber(event) {
+
+    fn_keycontrol_PhoneNumber(event) {
         var phone = event.target;
         
         if( event.keyCode != 8 ) {
@@ -58,5 +72,77 @@ class JsCommon{
         const regExp = new RegExp( /^[0-9|-]*$/ );
         if( regExp.test( number ) == true ) { return true; }
         else { return false; }
+    }
+
+    /*
+        kind : d:일, m:월, y:년
+        cnt : 숫자
+    */
+    fn_srchBtwnYmdSet(kind, cnt, srchWrtYmdBgng, srchWrtYmdEnd){
+        if (!(kind == 'd' || kind == 'm' || kind == 'y')){
+            return;
+        }
+        if (srchWrtYmdBgng == undefined || srchWrtYmdBgng == ''){
+            srchWrtYmdBgng = '#srchWrtYmdBgng';
+        }
+
+        if (srchWrtYmdEnd == undefined || srchWrtYmdEnd == ''){
+            srchWrtYmdEnd = '#srchWrtYmdEnd';
+        }
+
+        if (isNaN(cnt)){
+            return;
+        }else{
+            if (typeof cnt == 'string'){
+                cnt = parseInt(cnt);
+            }
+            
+        }
+
+        var date = new Date();
+
+        $(srchWrtYmdEnd).val(date.format('yyyy-MM-dd'));
+
+        if (kind == 'y'){
+            date = date.addYears(cnt);
+        } else if (kind == 'm'){
+            date = date.addMonths(cnt);
+        } else if (kind == 'd'){
+            date = date.addDays(cnt);
+        }
+        
+        $(srchWrtYmdBgng).val(date.format('yyyy-MM-dd'));
+        
+    }
+    
+    escapeHtml (string) {
+        var entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+          };
+
+        return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+    
+    unescapeHtml(str) {
+        const regex = /&(amp|lt|gt|quot|#39);/g;
+        const chars = {
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&quot;': '"',
+            '&#39;': "'"
+        }  
+        if(regex.test(str)) {
+            return str.replace(regex, (matched) => chars[matched] || matched);
+        }
     }
 }
