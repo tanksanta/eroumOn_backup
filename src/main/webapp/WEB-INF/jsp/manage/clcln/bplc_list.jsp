@@ -226,40 +226,10 @@
                 	}
                 }
 
-        		function tableToExcel(title) {
-        		    var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
-
-        		    $(".table-list th, td").css("border", "1px solid #cccccc");
-        		    
-        		    var template = `
-        		    	<!DOCTYPE html>
-        		        <html lang="en">
-        		        <head>
-        		          <meta charset="UTF-8">
-        		          <style>
-	        		          .excel_data_value_string{ mso-number-format:"\@"; }
-	        		      </style>
-        		        </head>
-        		        <body>
-        		          <table>
-        		    `;
-        		    
-        		    template = template + $(".table-list").html();
-        		    
-        		    template = template + '</table></body></html>';
-        		    
-        		    var table_html = encodeURIComponent(template);
-
-        		    var a = document.createElement('a');
-        		    a.href = data_type + ',%EF%BB%BF' + table_html;
-        		    a.download = title+'.xls';
-        		    a.click();
-        		    $(".table-list th, td").css("border", "");
-        		}
-
                 $(function(){
                 	$(".btn-excel").on("click", function(){
-                		tableToExcel("${ordrList[0].bplcInfo.bplcNm}_정산_"+f_getToday().replaceAll("-",""));
+                        $("#searchFrm").attr("action","excel").submit();
+                        $("#searchFrm").attr("action","list");
 	            	});
 
                 	// rowspan
