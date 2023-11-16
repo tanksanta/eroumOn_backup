@@ -159,10 +159,8 @@ function f_srchWhdwlSet(ty){
 
 $(function(){
 	$(".btn-excel").on("click", function(){
-		alert('엑셀다운로드 기능은 추후에 구현될 예정입니다.');
-		
-		//$("#searchFrm").attr("action","excel").submit();
-		//$("#searchFrm").attr("action","list");
+		$("#searchFrm").attr("action","excel").submit();
+		$("#searchFrm").attr("action","list");
 	});
 });
 </script>

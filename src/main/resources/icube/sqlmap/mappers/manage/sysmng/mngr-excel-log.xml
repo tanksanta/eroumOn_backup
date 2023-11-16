@@ -24,6 +24,7 @@
 		
 		<if test="srchText != null and srchText != '' ">
 			<choose>
+				<when test='srchTarget != null and srchTarget == "srchMngrNm" '>AND mngr_nm like CONCAT('%', #{srchText}, '%')</when>
 				<when test='srchTarget != null and srchTarget == "srchMngrId" '>AND mngr_id like CONCAT('%', #{srchText}, '%')</when>
 				<when test='srchTarget != null and srchTarget == "srchUseHist" '>AND use_hist like CONCAT('%', #{srchText}, '%')</when>
 				<otherwise>

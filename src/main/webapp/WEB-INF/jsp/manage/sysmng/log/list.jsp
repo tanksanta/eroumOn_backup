@@ -36,6 +36,7 @@
                         <td>
                             <div class="form-group w-84">
                                 <select name="srchTarget" id="srchTarget" class="form-control w-40">
+                                	<option value="srchMngrNm" <c:if test="${param.srchTarget == 'srchMngrNm'}">selected</c:if>>관리자명</option>
                                     <option value="srchMngrId" <c:if test="${param.srchTarget == 'srchMngrId'}">selected</c:if>>아이디</option>
                                     <option value="srchUseHist" <c:if test="${param.srchTarget == 'srchUseHist'}">selected</c:if>>이용내역</option>
                                 </select>
