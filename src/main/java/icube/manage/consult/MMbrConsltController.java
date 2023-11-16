@@ -545,16 +545,18 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	public static final Map<String, String> CONSLT_STTUS_MAP = new HashMap<String, String>() {{
 	    put("CS01", "상담 신청 접수");
-	    put("CS02", "장기요양기관 배정 완료");
-	    put("CS03", "상담 취소 (신청자 상담거부)");
-	    put("CS04", "상담 취소 (장기요양기관 상담거부)");
+	    put("CS02", "상담 기관 배정 완료");
+	    put("CS03", "상담 취소\n(상담자)");
+	    put("CS09", "상담 취소\n(THKC)");
+	    put("CS04", "상담 취소\n(상담기관)");
 	    put("CS05", "상담 진행 중");
 	    put("CS06", "상담 완료");
 	    put("CS07", "재상담 신청 접수");
-	    put("CS08", "장기요양기관 재배정 완료");
+	    put("CS08", "상담 기관 재배정 완료");
 	}};
 
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("excel")
 	public void excelDownload(
 			HttpServletRequest request
@@ -562,10 +564,11 @@ public class MMbrConsltController extends CommonAbstractController{
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchUseYn", "Y");
+		CommonListVO listVO = new CommonListVO(request);
+		listVO.setParam("srchUseYn", "Y");
+		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
 
-		List<MbrConsltVO> resultList = mbrConsltService.selectListForExcel(paramMap);
+		List<MbrConsltVO> resultList = listVO.getListObject();
 		for(MbrConsltVO mbrConsltVO : resultList) {
 			int yyyy =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(0, 4));
 			int mm =  EgovStringUtil.string2integer(mbrConsltVO.getBrdt().substring(4, 6));
@@ -580,7 +583,7 @@ public class MMbrConsltController extends CommonAbstractController{
         	 String consltSttus = ((MbrConsltVO) obj).getConsltSttus();
         	 return CONSLT_STTUS_MAP.getOrDefault(consltSttus, "");
         });
-        mapping.put("사업소배정", obj -> {
+        mapping.put("사업소배정(배정일시)", obj -> {
         	String rtnStr = "";
         	if(!"CS01".equals( ((MbrConsltVO)obj).getConsltSttus()) ) {
         		int i = 1;
@@ -598,25 +601,26 @@ public class MMbrConsltController extends CommonAbstractController{
         	}
         	return rtnStr;
         });
-
-        mapping.put("성명", obj -> ((MbrConsltVO)obj).getMbrNm());
-        mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrConsltVO)obj).getGender()));
-        mapping.put("연락처", obj -> ((MbrConsltVO)obj).getMbrTelno());
-        mapping.put("만나이", obj -> "만 " + ((MbrConsltVO)obj).getAge() + " 세");
-        mapping.put("생년월일", obj -> ((MbrConsltVO)obj).getBrdt());
-		mapping.put("거주지주소", obj -> ((MbrConsltVO) obj).getZip() + " "
-				+ ((MbrConsltVO) obj).getAddr() + " " + ((MbrConsltVO) obj).getDaddr());
-        mapping.put("상담신청일", obj -> {
-        	String rtnStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MbrConsltVO)obj).getRegDt());
+        mapping.put("수급자 성명", obj -> ((MbrConsltVO)obj).getMbrNm());
+        mapping.put("상담받을 연락처", obj -> ((MbrConsltVO)obj).getMbrTelno());
+        mapping.put("실거주지주소", obj -> {
+        	return ((MbrConsltVO) obj).getZip() + " "
+    				+ ((MbrConsltVO) obj).getAddr() + " " 
+        			+ ((MbrConsltVO) obj).getDaddr();
+        });
+        mapping.put("상담유형", obj -> CodeMap.PREV_PATH.get(((MbrConsltVO)obj).getPrevPath()));
+        mapping.put("상담신청일(재상담 신청일)", obj -> {
+        	String rtnStr = new SimpleDateFormat("yyyy-MM-dd").format(((MbrConsltVO)obj).getRegDt());
         	if(((MbrConsltVO)obj).getConsltSttus().equals("CS07") || ((MbrConsltVO)obj).getConsltSttus().equals("CS08")) {
         		Date reConsltDt = ((MbrConsltVO)obj).getReConsltDt();
         		if (reConsltDt == null) {
         	    }else {
-        	    	rtnStr += "\n" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(reConsltDt);;
+        	    	rtnStr += "\n" + new SimpleDateFormat("yyyy-MM-dd").format(reConsltDt);;
         	    }
         	}
         	return rtnStr;
         });
+        mapping.put("회원이름(아이디)", obj -> ((MbrConsltVO)obj).getRgtr() + "(" + ((MbrConsltVO)obj).getRegId() + ")");
 
 
         List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();
@@ -633,7 +637,7 @@ public class MMbrConsltController extends CommonAbstractController{
 
 		ExcelExporter exporter = new ExcelExporter();
 		try {
-			exporter.export(response, "장기요양테스트_상담목록", dataList, mapping);
+			exporter.export(response, "수급자_상담목록", dataList, mapping);
 		} catch (IOException e) {
 		    e.printStackTrace();
  		}
