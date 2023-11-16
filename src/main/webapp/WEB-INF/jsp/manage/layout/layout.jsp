@@ -28,11 +28,13 @@
 
 	<!-- common -->
 	<script src="/html/core/script/hangjungdong.js"></script>
-    <script src="/html/core/script/utility.js"></script>
-    <script src="/html/core/script/JsCallApi.js"></script>
-    <script src="/html/core/script/JsHouse2309CodeConvert.js"></script>
-    <script src="/html/core/script/JsHouse2309PageBase.js"></script>
-    <script src="/html/core/script/JsHouse2309Popups.js"></script>
+    <script src="/html/core/script/formatter.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/utility.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsHouse2309CodeConvert.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsHouse2309PageBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
     <!-- admin -->
     <link rel="stylesheet" href="/html/page/admin/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>"/>

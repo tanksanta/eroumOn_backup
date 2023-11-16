@@ -10,17 +10,15 @@ class JsHouse2309PageBase{
                         , popups:{}/*팝업들*/
                         , searched_data : null/* 뷰화면에서 받은 post값(리스트에서 항목을 선택한 후 뷰화면으로 이동을 한뒤)*/
                         , customData:{}/*각 화면별로 임시로 저장할 데이터*/
-                        , codeData:{}/*코드에서 받은 값*/
-                        , codeConv:{}/*코드변환 값*/
                         , codeCondition:null
                         , receivedData : null/*데이터를 호출 한 후 받은 값*/
-                        , dataUrls:{}
                     };
 
         // this._cls_info.popups.waiting = new JsHousePop2305Waiting();
         // this._cls_info.popups.confirm = new JsHouse2305Confirm();;
 
         this._cls_info.jsCallApi = jsCallApi//new JsCallApi(null, null, null);
+        this._cls_info.jsCommon = new JsCommon();
         this._cls_info.houseCode = new JsHouse2309CodeConvert();
     }
 
@@ -30,38 +28,6 @@ class JsHouse2309PageBase{
     }
     fn_popup_set(popkind, popObj){
         this._cls_info.popups[popkind] = popObj;
-    }
-
-    
-      
-    escapeHtml (string) {
-        var entityMap = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;',
-            '/': '&#x2F;',
-            '`': '&#x60;',
-            '=': '&#x3D;'
-          };
-
-        return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-            return entityMap[s];
-        });
-    }
-    unescapeHtml(str) {
-        const regex = /&(amp|lt|gt|quot|#39);/g;
-        const chars = {
-            '&amp;': '&',
-            '&lt;': '<',
-            '&gt;': '>',
-            '&quot;': '"',
-            '&#39;': "'"
-        }  
-        if(regex.test(str)) {
-            return str.replace(regex, (matched) => chars[matched] || matched);
-        }
     }
     
     fn_searched_data(postdata){
@@ -77,7 +43,7 @@ class JsHouse2309PageBase{
             }
 
             if (!bBool){
-                postdata = this.unescapeHtml(postdata);
+                postdata = this._cls_info.jsCommon.unescapeHtml(postdata);
 
                 try{
                     json = JSON.parse(postdata);
@@ -106,6 +72,8 @@ class JsHouse2309PageBase{
         this.fn_init_addevent()
 
         this.fn_page_sub();
+
+        this.fn_init_sub_addevent();
     }
 
     fn_page_sub(){
@@ -117,6 +85,10 @@ class JsHouse2309PageBase{
         $( window ).resize( function() {
             owner.fn_page_resized();
         });
+    }
+
+    fn_init_sub_addevent(){
+
     }
 
     /*코드를 가져오기 위한 검색 조건들*/

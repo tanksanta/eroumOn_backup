@@ -17,6 +17,15 @@ public class CodeMap{
 		}
 	};
 
+	public static HashMap<String, String> PUBLIC_YN = new LinkedHashMap<String, String>(){
+		private static final long serialVersionUID = 1L;
+		{
+			put("Y", "공개");
+			put("N", "비공개");
+		}
+	};
+	
+
 	// 전시(노출)여부 > TO-DO : 명칭 재확인
 	public static final HashMap<String, String> DSPY_YN = new LinkedHashMap<String, String>(){
 		private static final long serialVersionUID = 1L;
@@ -1084,6 +1093,17 @@ public class CodeMap{
 		private static final long serialVersionUID = -4615344482467031482L;
 		{
 			put("noreply@thkc.co.kr", "이로움ON");
+		}
+	};
+
+	/*이용약관 종류*/
+	public static final HashMap<String, String> TERMS_KIND = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031481L;
+		{
+			put("TERMS", "이용약관");
+			put("PRIVACY", "개인정보 처리방침");
+			put("PROVISION", "개인정보 제공");
+			put("THIRD_PARTIES", "개인정보 제3자 제공");
 		}
 	};
 }
