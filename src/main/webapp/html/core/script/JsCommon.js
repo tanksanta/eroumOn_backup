@@ -3,16 +3,29 @@ class JsCommon{
     fn_keycontrol(){
         var owner = this;
 
+        /*숫자만 입력*/
         $(".keycontrol.numberonly").off('keyup').on('keyup', function(){
             this.value=this.value.replace(/[^-0-9]/g,'');
         });
+
+        /*숫자,만 입력*/
         $(".keycontrol.numbercomma").off('keyup').on('keyup', function(){
             this.value=this.value.replace(/[^-0-9]/g,'');
             this.value=jsFuncs.numberWithCommas(this.value)
         });
 
+        /*핸드폰 번호 형식*/
         $(".keycontrol.phonenumber").off("keyup").on("keyup", function(event){
             owner.fn_keycontrol_PhoneNumber(event);
+        });
+
+        /*한글만 입력가능하게*/
+        var patternHangeul = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+        $(".keycontrol.keyname").off('keyup').on('keyup', function(){
+            this.value=this.value.replace(patternHangeul,'')
+        });
+        $(".keycontrol.hangeulonly").off('keyup').on('keyup', function(){
+            this.value=this.value.replace(patternHangeul,'')
         });
         
     }
