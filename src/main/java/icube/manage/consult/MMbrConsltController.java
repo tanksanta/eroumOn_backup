@@ -564,7 +564,7 @@ public class MMbrConsltController extends CommonAbstractController{
 			, @RequestParam Map<String, Object> reqMap
 			, Model model) throws Exception{
 
-		CommonListVO listVO = new CommonListVO(request);
+		CommonListVO listVO = new CommonListVO(request, 1, 10000);
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrConsltService.selectMbrConsltListVO(listVO);
 
