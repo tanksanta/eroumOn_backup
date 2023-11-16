@@ -440,20 +440,9 @@
 
 
 	            	$(".btn-excel").on("click", function(){
-	            		fn_excel_down();
-	            	});
-	            	
-	            	var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
-	            	async function fn_excel_down(){
-	                    const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
-	                    // console.log(asyncConfirm)
-	                    if (asyncConfirm != "confirm"){
-	                        return;
-	                    }
-	                    
 	            		$("#searchFrm").attr("action","excel").submit();
 	            		$("#searchFrm").attr("action","list");
-	            	}
+	            	});
 	            	
 	            	$("button.f_useYn").on("click",function(e){
 	            		e.preventDefault();

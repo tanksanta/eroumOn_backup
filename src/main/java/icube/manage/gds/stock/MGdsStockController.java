@@ -157,7 +157,7 @@ public class MGdsStockController extends CommonAbstractController {
 		Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
 		mapping.put("상품구분", obj -> CodeMap.GDS_TY.get(((GdsVO)obj).getGdsTy()));
 		mapping.put("상품명", obj -> ((GdsVO)obj).getGdsNm());
-		mapping.put("옵션항목", obj -> ((GdsVO)obj).getOptnNm().trim());
+		mapping.put("옵션항목", obj -> ((GdsVO)obj).getOptnNm() == null ? "" : ((GdsVO)obj).getOptnNm().trim());
 
 		mapping.put("판매가", obj -> String.format("%,d", ((GdsVO)obj).getPc()));
 		mapping.put("급여가", obj -> String.format("%,d", ((GdsVO)obj).getBnefPc()));
