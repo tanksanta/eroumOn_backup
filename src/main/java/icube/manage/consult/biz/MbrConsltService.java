@@ -72,12 +72,6 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltDAO.updateUseYn(paramMap);
 	}
 
-	public MbrConsltVO selectMbrConslt(String uniqueId) throws Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchRegUniqueId", uniqueId);
-		return selectMbrConslt(paramMap);
-	}
-
 	public MbrConsltVO selectMbrConslt(Map<String, Object> paramMap) throws Exception {
 		return mbrConsltDAO.selectMbrConslt(paramMap);
 	}
