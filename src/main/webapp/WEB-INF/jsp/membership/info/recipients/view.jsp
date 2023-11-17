@@ -41,7 +41,7 @@
 							</tr>
 							<tr>
 								<th scope="row">수급자 성명</th>
-								<td>${recipientVO.recipientsNm}</td>
+								<td class="break-all">${recipientVO.recipientsNm}</td>
 							</tr>
 							<tr>
 								<th scope="row">요양인정번호</th>
@@ -99,7 +99,7 @@
 						<tbody>
 							<tr>
 								<th scope="row">수급자 성명</th>
-								<td>${consltVO.mbrNm}</td>
+								<td class="break-all">${consltVO.mbrNm}</td>
 							</tr>
 							<tr>
 								<th scope="row">상담 유형</th>
@@ -160,8 +160,8 @@
 			</div>
 		</div>
 
-		<div class="flex justify-between mt-8">
-			<h3 class="careinfo-title mb-2">요양정보</h3>
+		<div class="flex items-center justify-between mt-8 mb-2">
+			<h3 class="careinfo-title !mb-0">요양정보</h3>
 			<c:if test="${recipientVO.recipientsYn != null && recipientVO.recipientsYn == 'Y'}">
 				<a class="btn-success btn-small" onclick="requestConslt('simpleSearch');">상담하기</a>
 			</c:if>
@@ -228,7 +228,7 @@
 		</div>
 
 		<div class="careinfo-status recipter_view" style="display:none;">
-            <h3 class="careinfo-title">나의 복지용구 현황</h3>
+            <h3 class="careinfo-title mb-2">나의 복지용구 현황</h3>
             <div class="status-swiper">
                 <div class="swiper">
                     <div class="swiper-wrapper own_view">
@@ -552,7 +552,7 @@
 		</c:choose>
 		
 		
-		<div class="flex justify-between mt-8">
+		<div class="flex justify-between mt-8 mb-2">
 			<h3 class="careinfo-title mb-2">인정등급 예상 테스트</h3>
 			<c:if test="${testVO != null}">
 				<a class="btn-success btn-small" onclick="requestConslt('test');">상담하기</a>

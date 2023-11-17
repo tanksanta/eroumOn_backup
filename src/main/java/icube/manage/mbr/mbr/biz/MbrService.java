@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.vo.CommonListVO;
+import icube.main.test.biz.MbrTestService;
+import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.promotion.mlg.biz.MbrMlgDAO;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointDAO;
@@ -46,6 +50,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 	
+	@Resource(name="mbrTestService")
+    private MbrTestService mbrTestService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 	
@@ -71,8 +78,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrDAO.updateMbr(mbrVO);
 	}
 
-	public void deleteMbr(String string) throws Exception {
-		mbrDAO.deleteMbr(string);
+	public void deleteMbr(String uniqueId) throws Exception {
+		mbrDAO.deleteMbr(uniqueId);
 	}
 
 	
@@ -439,22 +446,49 @@ public class MbrService extends CommonAbstractServiceImpl {
 			
 			if (mbrSession.getCustomProfileVO() == null) {
 				try {
+					//고객프로필 데이터 셋팅
 					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
 					customProfileVO.setMbrId(mbrVO.getMbrId());
 					customProfileVO.setMbrNm(mbrVO.getMbrNm());
 					customProfileVO.setMblTelno(mbrVO.getMblTelno());
 					customProfileVO.setEml(mbrVO.getEml());
-					customProfileVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? "수신" : "미수신");
-					customProfileVO.setEmlRcptnYn(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? "수신" : "미수신");
+					customProfileVO.setUnsubscribeTexting(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? false : true);
+					customProfileVO.setUnsubscribeEmail(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? false : true);
 					
+					//누적 상담 건수
 					CommonListVO listVO = new CommonListVO(request);
 					listVO.setParam("srchUseYn", "Y");
 					listVO.setParam("srchUniqueId", mbrSession.getUniqueId());
 					listVO = mbrConsltService.selectMbrConsltListVO(listVO);
-					
 					customProfileVO.setMbrConsltCnt(listVO.getListObject().size());
 					
+					//회원 수급자들의 테스트 정보
+			    	List<MbrTestVO> mbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
+			    	customProfileVO.setExistTestResult(mbrTestList != null && mbrTestList.size() > 0 ? "O" : "X");
+			   
+			    	//회원의 수급자 정보
+					List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
+			    	if (mbrRecipientList != null && mbrRecipientList.size() > 0) {
+			    		//수급자 등록 여부
+			    		customProfileVO.setRegisterRecipient(true);
+			    		//L넘버값 유무
+			    		MbrRecipientsVO recipient = mbrRecipientList.stream().filter(f -> "Y".equals(f.getRecipientsYn())).findAny().orElse(null);
+			    		customProfileVO.setExistLNumber(recipient == null ? "X" : "O");
+			    	} else {
+			    		//수급자 등록 여부
+			    		customProfileVO.setRegisterRecipient(false);
+			    	 	//L넘버값 유무
+			    		customProfileVO.setExistLNumber("X");
+			    	}
+			    	
+			    	//회원의 상담 정보
+			    	Map<String, Object> paramMap = new HashMap<>();
+			    	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
+			    	List<MbrConsltVO> mbrConsltList = mbrConsltService.selectListForExcel(paramMap);
+			    	customProfileVO.setExistConslt(mbrConsltList != null && mbrConsltList.size() > 0 ? "O" : "X");
+			    	
 					mbrSession.setCustomProfileVO(customProfileVO);
+					
 					
 					//채널톡 이벤트 처리(첫 로그인 처리)
 					String joinTy = "K".equals(mbrVO.getJoinTy()) ? "kakao" : "N".equals(mbrVO.getJoinTy()) ? "naver" : "eroum";

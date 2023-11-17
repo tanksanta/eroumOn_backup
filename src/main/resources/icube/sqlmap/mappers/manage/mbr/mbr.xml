@@ -184,10 +184,10 @@
 		</if>
 
 		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
-			AND m.naver_token = #{srchNaverAppId}
+			AND m.naver_app_id = #{srchNaverAppId}
 		</if>
 		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
-			AND m.kakao_token = #{srchKakaoAppId}
+			AND m.kakao_app_id = #{srchKakaoAppId}
 		</if>
 
 		<if test="srchRecipientsNm != null and srchRecipientsNm != '' ">
@@ -611,4 +611,10 @@
 		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'M'),0) AS use_mlg
 		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'E'),0) AS ext_mlg
 	</select>
+	
+	<!-- 간편 회원가입 취소시 mbr 데이터 삭제용 -->
+	<delete id="deleteMbr" parameterType="java.util.HashMap">
+		DELETE FROM MBR
+		WHERE unique_id = #{srchUniqueId}
+	</delete>
 </mapper>

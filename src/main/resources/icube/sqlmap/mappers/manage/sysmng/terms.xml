@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="terms">
+
+	<resultMap type="TermsVO" id="TermsVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		terms_no
+		, terms_kind
+		, terms_dt
+		
+		, use_yn
+		, public_yn
+
+		, contents
+
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+	</sql>
+
+	<sql id="searchTermsConditions">
+		AND del_yn = 'N'
+
+		<if test="srchTermsKind != null and srchTermsKind != '' ">
+			AND tm1.terms_kind = #{srchTermsKind}
+		</if>
+		<if test="srchTermsNo != null and srchTermsNo > 0 ">
+			AND tm1.termsNo = #{srchTermsNo}
+		</if>
+		<if test="srchText != null and srchText != '' ">
+			AND tm1.contents like CONCAT ('%',#{srchText},'%')
+		</if>
+		<if test="srchUseYn != null and srchUseYn != '' ">
+			AND tm1.use_yn = #{srchUseYn}
+		</if>
+		<if test="srchPublicYn != null and srchPublicYn != '' ">
+			AND tm1.public_yn = #{srchPublicYn}
+		</if>
+		
+		<choose>
+			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
+				AND tm1.terms_dt &gt;= #{srchBgngDt} AND tm1.terms_dt &lt;= #{srchEndDt}
+			</when>
+			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
+				AND tm1.terms_dt &gt;= #{srchBgngDt}
+			</when>
+			<when test='srchEndDt != null and srchEndDt != "" '>
+				AND tm1.terms_dt &lt;= #{srchEndDt}
+			</when>
+		</choose>
+	</sql>
+
+	
+	<select id="selectListVO" parameterType="java.util.HashMap" resultMap="TermsVOMap">
+		/* Query ID : terms.xml > selectGroupListVO */
+		SELECT terms_no , terms_kind , terms_dt
+
+				, use_yn , public_yn
+
+				, reg_unique_id , reg_dt , reg_id
+
+				, mdfcn_unique_id , mdfcn_dt , mdfcn_id
+		FROM TERMS_M1 tm1
+		WHERE 1=1
+			<include refid="searchTermsConditions" />
+	  	ORDER BY terms_no desc
+	</select>
+
+	<select id="selectGroupListVO" parameterType="java.util.HashMap" resultMap="TermsVOMap">
+		/* Query ID : terms.xml > selectGroupListVO */
+		SELECT TERMS_KIND, count(*) CNT
+		FROM TERMS_M1
+		WHERE 1=1
+			<include refid="searchTermsConditions" />
+		GROUP BY TERMS_KIND
+	  	ORDER BY TERMS_KIND
+	</select>
+
+	<select id="selectTermsOne" parameterType="java.util.HashMap" resultMap="TermsVOMap">
+		/* Query ID : terms.xml > selectTermsOne */
+		SELECT terms_no
+		, terms_kind
+		, terms_dt
+		
+		, use_yn
+		, public_yn
+
+		, contents
+
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		FROM	TERMS_M1 t1
+		WHERE terms_no = #{no}
+	</select>
+	<insert id="insertTerms" parameterType="TermsVO">
+		INSERT INTO TERMS_M1 (
+			terms_kind
+			, terms_dt
+			, use_yn
+			, public_yn
+			, del_yn
+			, contents
+			, reg_unique_id
+			, reg_id
+			, rgtr
+			, reg_dt
+		) VALUES (
+			#{termsKind, jdbcType=VARCHAR}
+		 	, #{termsDt, jdbcType=VARCHAR}
+			, #{useYn, jdbcType=VARCHAR}
+			, #{publicYn, jdbcType=VARCHAR}
+			, 'N'
+		 	, #{contents, jdbcType=VARCHAR}
+			, #{regUniqueId, jdbcType=VARCHAR}
+			, #{regId, jdbcType=VARCHAR}
+			, #{rgtr, jdbcType=VARCHAR}
+			, SYSDATE()
+		)
+		<selectKey keyProperty="termsNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="updateTermsOne" parameterType="TermsVO">
+		UPDATE TERMS_M1
+		SET terms_dt = #{termsDt}
+			, use_yn = #{useYn}
+			, public_yn = #{publicYn}
+			, contents = #{contents}
+			, mdfcn_unique_id = #{mdfcnUniqueId}
+			, mdfcn_id = #{mdfcnId}
+			, mdfr = #{mdfr}
+			, mdfcn_dt = SYSDATE()
+		WHERE terms_no = #{termsNo} AND terms_kind = #{termsKind}
+	</update>
+
+</mapper>

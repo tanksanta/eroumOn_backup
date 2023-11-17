@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>메뉴구조도</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+<style>
+    .table-guide th, .table-guide td { border: 1px solid #ddd; padding: 0.5rem; letter-spacing: -0.2px; }
+    .table-guide thead th { background-color: #eee; }
+    .table-guide tbody th { background-color: #f5f5f5; }
+    .table-guide a { color: #2563eb; }
+    .table-guide td > p { line-height: 160%; padding-bottom: 0.5rem;  }
+    .table-guide td > p ~ p {border-top: 1px solid #eee; margin: 0 -0.5rem 0; padding: 0.5rem; }
+    .table-guide td > p ~ p:last-child { padding: 0.5rem 0.5rem 0; }
+    .table-guide a:active, .table-guide a:focus, .table-guide a:hover {
+        text-decoration: underline;
+        color: #2563eb;
+    }
+    .not-current a, .not-current { color: #dc2626;}
+</style>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-10 py-4 px-5">
+
+        <div class="flex flex-col gap-4 w-full">
+            <h2 class="flex justify-between items-center font-semibold text-lg">
+                Directory
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-red-600">빨간색글자: 현행화 안되어 있음</span>
+                    <span class="text-sm text-blue-600">파란색글자: 링크있음</span>
+                </div>
+            </h2>
+            <table class="table-guide">
+                <colgroup>
+                    <col style="min-width: 2rem">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col style="width: 3rem">
+                    <col style="width: 3rem">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="2">화면이름</th>
+                        <th colspan="2">개발</th>
+                        <th>퍼블리싱</th>
+                        <th>디자인</th>
+                        <th>기획</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>사이트</th>
+                        <th>이로움CMS</th>
+                        <td colspan="3"><a target="_blank"  href="http://contents.eroum.co.kr/" target="_blank">이로움CMS</a></td>
+                        <td>디자인</td>
+                        <td><a target="_blank"  href="https://www.figma.com/file/P66t6iaQqgtSRPa2LLFtab/CMS?type=whiteboard&node-id=0%3A1&t=xb19vz4QLESD82N8-1">기획</a></td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th>플러그인</th>
+                        <th>채널톡</th>
+                        <td colspan="3">
+                            <p><a target="_blank"  href="https://desk.channel.io/#/channels/130549/settings/general/plugins/130305" target="_blank">채널톡</a></p>
+                            <p><a target="_blank"  href="https://developers.channel.io/reference/web-customization-kr" target="_blank">채널톡 API</a></p>
+                        </td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>플러그인</th>
+                        <th>부트페이</th>
+                        <td colspan="3"><a target="_blank"  href="https://www.bootpay.co.kr/" target="_blank">부트페이</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                </tbody>
+                
+                <tbody>
+                    <tr>
+                        <th>index</th>
+                        <th>첫화면</th>
+                        <td>/main/index</td>
+                        <td>/jsp/main/main.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/메인.html" target="_blank">/html/page/index/contents/메인.html</a></td>
+                        <td><a target="_blank" href="https://www.figma.com/file/nOmKbMHJWMmY0pzkjbGhVE/%EC%9D%B4%EB%A1%9C%EC%9B%80ON-%EC%B5%9C%EC%A2%85-%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%8C%EC%9D%BC-(Copy)?type=design&node-id=91-2&mode=design">디자인</a></td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>요양정보간편조회 서브메인</th>
+                        <td>main/recipter/sub</td>
+                        <td>/jsp/main/recipter/sub.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/요양정보간편조회-서브메인.html">/html/page/index/contents/요양정보간편조회-서브메인.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>인정등급 예상 테스트</th>
+                        <td>/main/cntnts/test</td>
+                        <td>/jsp/main/cntnts/test.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/등급테스트.html">/html/page/index/contents/등급테스트.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>인정등급 예상 테스트 결과</th>
+                        <td>/main/cntnts/test-result</td>
+                        <td>/jsp/main/cntnts/test-result.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/등급테스트 결과.html">/html/page/index/contents/등급테스트 결과.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>상담신청로그인</th>
+                        <td></td>
+                        <td></td>
+                        <td><a target="_blank"  href="../index/contents/상담신청로그인.html">/html/page/index/contents/상담신청로그인.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>어르신복지서비스</th>
+                        <td>/main/searchBokji</td>
+                        <td>
+                            <p>/jsp/main/searchBokji.jsp</p>
+                            <p>/jsp/main/searchBokji-modal.jsp</p>
+                        </td>
+                        <td><a target="_blank"  href="../index/contents/어르신복지서비스.html">/html/page/index/contents/어르신복지서비스.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>노인장기요양보험제도</th>
+                        <td>/main/cntnts/page1</td>
+                        <td>/jsp/main/cntnts/page1.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/노인장기요양보험제도.html">/html/page/index/contents/노인장기요양보험제도.html</a></td>
+                        <td><a target="_blank" href="https://www.figma.com/file/nOmKbMHJWMmY0pzkjbGhVE/%EC%9D%B4%EB%A1%9C%EC%9B%80ON-%EC%B5%9C%EC%A2%85-%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%8C%EC%9D%BC-(Copy)?type=design&node-id=92%3A13819&mode=design&t=WByaKl0XzNtyRBMf-1">디자인</a></td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 선택</th>
+                        <td>/main/cntnts/page3-checkpoint.jsp#check-cont4-sub3</td>
+                        <td>/jsp/main/cntnts/page3-checkpoint.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/복지용구 선택.html">/html/page/index/contents/복지용구 선택.html</a></td>
+                        <td><a target="_blank" href="https://www.figma.com/file/nOmKbMHJWMmY0pzkjbGhVE/%EC%9D%B4%EB%A1%9C%EC%9B%80ON-%EC%B5%9C%EC%A2%85-%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%8C%EC%9D%BC-(Copy)?type=design&node-id=92-4&mode=design">디자인</a></td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 선택방법</th>
+                        <td>/main/cntnts/page3-checkpoint</td>
+                        <td>/jsp/main/cntnts/page3-checkpoint.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/체크포인트.html">/html/page/index/contents/체크포인트.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 알아보기</th>
+                        <td>/main/cntnts/page2</td>
+                        <td>/jsp/main/cntnts/page2.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/복지용구 활용.html">/html/page/index/contents/복지용구 활용.html</a></td>
+                        <td><a target="_blank" href="https://www.figma.com/file/nOmKbMHJWMmY0pzkjbGhVE/%EC%9D%B4%EB%A1%9C%EC%9B%80ON-%EC%B5%9C%EC%A2%85-%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%8C%EC%9D%BC-(Copy)?type=design&node-id=92-4&mode=design">디자인</a></td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 알아보기-욕실</th>
+                        <td>/main/cntnts/page2-bath</td>
+                        <td>/jsp/main/cntnts/page2-bath.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/욕실.html">/html/page/index/contents/욕실.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 알아보기-거실</th>
+                        <td>/main/cntnts/page2-living</td>
+                        <td>/jsp/main/cntnts/page2-living.jsp</td>
+                        <td><a target="_blank"  href=""></a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>복지용구 알아보기-침실</th>
+                        <td>/main/cntnts/page2-bed</td>
+                        <td>/jsp/main/cntnts/page2-bed.jsp</td>
+                        <td><a target="_blank"  href=""></a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>index</th>
+                        <th>회사소개</th>
+                        <td>/main/cntnts/company</td>
+                        <td>/jsp/main/cntnts/company.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/회사소개.html">/html/page/index/contents/회사소개.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>로그인</th>
+                        <td>/membership/login</td>
+                        <td>/jsp/membership/login.jsp</td>
+                        <td><a target="_blank"  href="../index/contents/로그인.html">/html/page/index/contents/로그인.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원정보수정(SNS)</th>
+                        <td>/membership/info/myinfo/confirm</td>
+                        <td>/jsp/membership/info/myinfo/confirm.jsp</td>
+                        <td></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원정보수정 정보변경</th>
+                        <td>/membership/info/myinfo/info</td>
+                        <td>/jsp/membership/info/myinfo/info.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원정보수정 정보변경.html">/html/page/members/contents/회원정보수정 정보변경.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원정보수정 비밀번호변경</th>
+                        <td>/membership/info/myinfo/pw</td>
+                        <td>/jsp/membership/info/myinfo/pw.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원정보수정 비밀번호변경.html">/html/page/members/contents/회원정보수정 비밀번호변경.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원탈퇴</th>
+                        <td>/membership/info/whdwl/form</td>
+                        <td>/jsp/membership/info/whdwl/form.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원탈퇴.html">/html/page/members/contents/회원탈퇴.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>휴면계정해제</th>
+                        <td>/membership/drmt/clear</td>
+                        <td>/jsp/membership/drmt/clear.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/휴면계정 해제.html">/html/page/members/contents/휴면계정 해제.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원가입</th>
+                        <td>/membership/regist</td>
+                        <td>/jsp/membership/regist.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원가입.html">/html/page/members/contents/회원가입.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원가입-1단계</th>
+                        <td>membership/registStep1</td>
+                        <td>
+                            <p>/jsp/membership/registStep1.jsp</p>
+                            <p>/jsp/membership/cntnts/accordionAgree.jsp (필수동의)</p>
+                        </td>
+                        <td><a target="_blank"  href="../members/contents/회원가입1.html">/html/page/members/contents/회원가입1.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원가입-2단계</th>
+                        <td>/membership/registStep2</td>
+                        <td>/jsp/membership/registStep2.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원가입2.html">/html/page/members/contents/회원가입2.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>회원가입-3단계</th>
+                        <td>/membership/registStep3</td>
+                        <td>/jsp/membership/registStep3.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/회원가입3.html">/html/page/members/contents/회원가입3.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>이용약관</th>
+                        <td>/membership/cntnts/terms</td>
+                        <td>/jsp/membership/cntnts/terms.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/이용약관.html">/html/page/members/contents/이용약관.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>개인정보처리방침</th>
+                        <td>/membership/cntnts/privacy</td>
+                        <td>/jsp/membership/cntnts/privacy.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/개인정보처리방침.html">/html/page/members/contents/개인정보처리방침.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>배송지관리</th>
+                        <td>/membership/info/dlvy/list</td>
+                        <td>/jsp/membership/info/dlvy/list.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/배송지관리.html">/html/page/members/contents/배송지관리.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>수급자관리</th>
+                        <td>/membership/info/recipients/list</td>
+                        <td>/jsp/membership/info/recipients/list.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/수급자관리.html">/html/page/members/contents/수급자관리.html</a></td>
+                        <td>디자인</td>
+                        <td><a target="_blank"  href="https://www.figma.com/file/EmN8jpGKVWdXUXrBGB88mU/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%EA%B4%80%EB%A6%AC-%5B%ED%94%84%EB%A1%A0%ED%8A%B8%2F%EA%B4%80%EB%A6%AC%EC%9E%90-(%EB%A9%94%EB%89%B4%EB%AA%85)%5D-%EA%B8%B0%EB%8A%A5%EC%9A%94%EC%95%BD?type=whiteboard&node-id=892%3A595&t=c56I7WFUMmS0PdTG-1">기획</a></td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>수급자관리상세</th>
+                        <td>/membership/info/recipients/view</td>
+                        <td>/jsp/membership/info/recipients/view.jsp</td>
+                        <td><a target="_blank"  href="../members/contents/수급자관리상세.html">/html/page/members/contents/수급자관리상세.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>관심멤버스</th>
+                        <td></td>
+                        <td></td>
+                        <td><a target="_blank"  href="../members/contents/관심멤버스.html">/html/page/members/contents/관심멤버스.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>members</th>
+                        <th>제휴 / 입점문의</th>
+                        <td></td>
+                        <td></td>
+                        <td><a target="_blank"  href="../members/contents/제휴문의.html">/html/page/members/contents/제휴문의.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>인덱스</th>
+                        <td>/market/index</td>
+                        <td>/jsp/market/index.jsp</td>
+                        <td class="not-current"><a target="_blank"  href="../market/contents/index.html">/html/page/market/contents/index.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>쿠폰존</th>
+                        <td>
+                            <p>/market/etc/coupon</p>
+                        </td>
+                        <td>
+                            <p>/jsp/market/etc/coupon.jsp</p>
+                            <p>/jsp/market/ordr/include/modal_coupon.jsp</p>
+                        </td>
+                        <td><a target="_blank"  href="../market/contents/기타/쿠폰존.html">/html/page/market/contents/기타/쿠폰존.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>기획전</th>
+                        <td>/market/etc/dspy/list</td>
+                        <td>/jsp/market/etc/dspy/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/기타/기획전.html">/html/page/market/contents/기타/기획전.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>기획전상세</th>
+                        <td>/market/etc/dspy/view</td>
+                        <td>/jsp/market/etc/dspy/view.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/기타/기획전%20상세.html">/html/page/market/contents/기타/기획전 상세.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>이벤트</th>
+                        <td>/market/etc/event/list</td>
+                        <td>/market/etc/event/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/기타/이벤트.html">/html/page/market/contents/기타/이벤트.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>고객센터</th>
+                        <td>
+                            <p><span class="mr-2">자주하는 질문</span>/market/etc/faq/list</p>
+                            <p><span class="mr-2">1:1문의</span>/market/etc/inqry/form</p>
+                            <p><span class="mr-2">공지사항</span>/market/etc/ntce/list</p>
+                            <p><span class="mr-2">이로움ON 혜택</span>/market/etc/bnft/list</p>
+                        </td>
+                        <td>
+                            <p><span class="mr-2">자주하는 질문</span>/market/etc/faq/list.jsp</p>
+                            <p><span class="mr-2">1:1문의</span>/market/etc/inqry/form.jsp</p>
+                            <p><span class="mr-2">공지사항</span>/market/etc/ntce/list.jsp</p>
+                            <p><span class="mr-2">이로움ON 혜택</span>/market/etc/bnft/list.jsp</p>
+                        </td>
+                        <td>
+                            <p><a target="_blank"  href="../market/contents/기타/자주묻는%20질문.html">/html/page/market/contents/기타/자주묻는%20질문.html</a></p>
+                            <p><a target="_blank"  href="../market/contents/기타/문의.html">/html/page/market/contents/기타/문의.html</a></p>
+                            <p><a target="_blank"  href="../market/contents/기타/공지사항.html">/html/page/market/contents/기타/공지사항.html</a></p>
+                            <p><a target="_blank" href="../market/contents/기타/혜택.html">/html/page/market/contents/기타/혜택.html</a></p>
+                        </td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>상품목록</th>
+                        <td>/market/gds</td>
+                        <td>/jsp/market/gds/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/상품/목록.html">/html/page/market/contents/상품/목록.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>상품상세</th>
+                        <td>/market/gds</td>
+                        <td>/jsp/market/gds/view.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/상품/상세nologin.html">/html/page/market/contents/상품/상세nologin.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>장바구니</th>
+                        <td>/market/mypage/cart/list</td>
+                        <td>/jsp/market/mypage/cart/list.jsp</td>
+                        <td class="not-current"><a target="_blank"  href="../market/contents/주문/장바구니.html">/html/page/market/contents/주문/장바구니.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>관심상품</th>
+                        <td>/market/mypage/wish/list</td>
+                        <td>/jsp/market/mypage/wish/list.jsp</td>
+                        <td class="not-current"><a target="_blank"  href="../market/contents/주문/위시리스트.html">/html/page/market/contents/주문/위시리스트.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>마이페이지</th>
+                        <td>/market/mypage/index</td>
+                        <td>/jsp/market/mypage/index.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/마이페이지/마이페이지.html">/html/page/market/contents/마이페이지/마이페이지.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>market</th>
+                        <th>상품QA</th>
+                        <td></td>
+                        <td>/jsp/market/mypage/gdsQna/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/마이페이지/상품QA.html">/html/page/market/contents/마이페이지/상품QA.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>주문(배송) 조회</th>
+                        <td>/market/mypage/ordr/list</td>
+                        <td>/jsp/market/mypage/ordr/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/마이페이지/주문조회.html">/html/page/market/contents/마이페이지/주문조회.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>주문조회상세</th>
+                        <td></td>
+                        <td>/jsp/market/ordr/ordr_pay_done.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/마이페이지/주문조회%20상세.html">/html/page/market/contents/마이페이지/주문조회%20상세.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>내가 구매한 상품</th>
+                        <td>/market/mypage/buy/list</td>
+                        <td>/jsp/market/mypage/buy/list.jsp</td>
+                        <td><a target="_blank"  href="../market/contents/마이페이지/내가구매한상품.html">/html/page/market/contents/마이페이지/내가구매한상품.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>주문결제</th>
+                        <td>/market/ordr/cartPay</td>
+                        <td>/jsp/market/ordr/ordr_pay.jsp</td>
+                        <td class="not-current"><a target="_blank"  href="../market/contents/주문/주문결제.html">/html/page/market/contents/주문/주문결제.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>상품주문</th>
+                        <td></td>
+                        <td></td>
+                        <td><a target="_blank"  href="../market/contents/주문/상품주문.html">/html/page/market/contents/주문/상품주문.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th>주문결제완료</th>
+                        <td></td>
+                        <td></td>
+                        <td><a target="_blank"  href="../market/contents/주문/주문결제완료.html">/html/page/market/contents/주문/주문결제완료.html</a></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                    <tr>
+                        <th>market</th>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td ></td>
+                        <td>디자인</td>
+                        <td>기획</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function mergeTable(target, index) {
+            let loop = null;
+            let start_idx = 0; 
+            let add_num = 1;   
+            $(target).find('tr').each(function (idx) {
+                var target_text = $(this).find('th').eq(index).text();
+                if (!loop) { 
+                    loop = target_text;
+                    start_idx = idx;
+                } else if (target_text == loop) {  
+                    add_num++;
+                    if (idx == $(target).find('tr').length - 1) {
+                        $(target).find('tr').eq(start_idx).find('th').eq(index).attr("rowSpan", add_num)
+                        for (var i = start_idx + 1; i < start_idx + add_num; i++) {
+                            $(target).find('tr').eq(i).find('th').eq(index).hide(); 
+                        }
+                    }
+                } else {
+                    if (add_num != 1) { 
+                        $(target).find('tr').eq(start_idx).find('th').eq(index).attr("rowSpan", add_num)
+                        for (var i = start_idx + 1; i < start_idx + add_num; i++) {
+                            $(target).find('tr').eq(i).find('th').eq(index).hide(); 
+                        }
+                    }
+                    start_idx = idx;
+                    loop = target_text;
+                    add_num = 1;
+                }
+            });
+        }
+        $(function () {
+                mergeTable('.table-guide', 0);
+        })
+    </script>
+</body>
+</html>

@@ -153,7 +153,7 @@
                     </div>
                     <div class="item-content">
                         저희 아버지,<br>
-                        <strong>장기요양 인정등급 몇 등급 일까요?</strong>
+                        <strong class="whitespace-normal">장기요양 인정등급 몇 등급 일까요?</strong>
                     </div>
                 </div>
                 <div class="rolling-item2">
@@ -162,7 +162,7 @@
                     </div>
                     <div class="item-content">
                         장기요양 인정등급별<br>
-                        <strong>지원 금액과 혜택이</strong> 궁금해요.
+                        <p class="whitespace-normal"><strong>지원 금액과 혜택이</strong> 궁금해요.</p>
                     </div>
                 </div>
                 <div class="rolling-item3">
@@ -171,7 +171,7 @@
                     </div>
                     <div class="item-content">
                         장기요양 인정등급<br>
-                        <strong>신청 절차가 너무 복잡해요.</strong>
+                        <strong  class="whitespace-normal">신청 절차가 너무 복잡해요.</strong>
                     </div>
                 </div>
                 <div class="rolling-item4">
@@ -180,7 +180,7 @@
                     </div>
                     <div class="item-content">
                         <strong>거동 불편</strong>하신 우리 할머니,<br>
-                        <strong>어떤 용품이 필요한가요?</strong>
+                        <strong  class="whitespace-normal">어떤 용품이 필요한가요?</strong>
                     </div>
                 </div>
             </div>

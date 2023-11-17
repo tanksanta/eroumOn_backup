@@ -106,6 +106,10 @@ public class MMbrExitController extends CommonAbstractController{
         mapping.put("탈퇴유형", obj -> CodeMap.EXIT_TY.get( ((MbrVO)obj).getWhdwlTy() ));
         mapping.put("탈퇴사유", obj -> {
         	String resn = "";
+        	if (((MbrVO)obj).getWhdwlTy() == null) {
+        		return resn;
+        	}
+        	
         	if(((MbrVO)obj).getWhdwlTy().equals("AUTHEXIT") && EgovStringUtil.isEmpty(((MbrVO)obj).getWhdwlEtc()) ) {
         		resn = CodeMap.AUTH_RESN_CD.get( ((MbrVO)obj).getWhdwlEtc());
         	}else if(((MbrVO)obj).getWhdwlTy().equals("AUTHEXIT") && EgovStringUtil.isNotEmpty(((MbrVO)obj).getWhdwlEtc()) ) {

@@ -118,13 +118,20 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		//재인증 END
 
 		paramMap.clear();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
 		paramMap.put("srchMbrStts", "NORMAL");
 
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
 		if(mbrList.size() < 1) {
+            //회원 생성전 같은 카카오계정 가입자 확인
+            paramMap = new HashMap<String, Object>();
+            paramMap.put("srchNaverAppId", proflInfo.getNaverAppId());
+            List<MbrVO> srchMbrList = mbrService.selectMbrListAll(paramMap);
+            if (srchMbrList.size() > 0) {
+                return 5;
+            }
+			
 			mbrService.insertMbr(proflInfo);
 
 			mbrSession.setParms(proflInfo, true);
@@ -151,7 +158,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 				drmtMap.put("srchNaverAppId", mbrList.get(0).getNaverAppId());
 				drmtMap.put("srchMbrStts", "EXIT");
 				drmtMap.put("srchWhdwlDt", 7);
-				int drmtCnt = mbrService.selectMbrCount(paramMap);
+				int drmtCnt = mbrService.selectMbrCount(drmtMap);
 
 				if(mbrList.get(0).getMberSttus().equals("BLACK")) {
 					resultCnt = 8;

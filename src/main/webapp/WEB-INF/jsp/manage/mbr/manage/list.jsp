@@ -83,10 +83,10 @@
 			<col class="w-28">
 			<col class="w-30">
 			<col class="w-25">
-			<col class="w-28">
-			<col class="w-28">
-			<col class="w-28">
-			<col class="w-28">
+			<col class="w-30">
+			<col class="w-30">
+			<col class="w-30">
+			<col class="w-30">
 			<col class="w-28">
 			<col class="w-20">
 			<col class="w-25">
@@ -117,7 +117,7 @@
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm }</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm}</a></td>
 				<td>${resultList.mblTelno}</td>
 				<td>${resultList.mbrRecipientsList.size()}</td>
 				<td>
@@ -164,22 +164,22 @@
 	</table>
 
 	<div class="pagination mt-7">
-		<mngr:mngrPaging listVO="${listVO}" />
-			<div class="sorting2">
-				<label for="countPerPage">출력</label>
-				 <select name="countPerPage" id="countPerPage" class="form-control">
-					<option value="10" ${listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
-					<option value="20" ${listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
-					<option value="30" ${listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
-				</select>
-			</div>
-
-			<div class="counter">
-				총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
-			</div>
+	<mngr:mngrPaging listVO="${listVO}" />
+		<div class="sorting2">
+			<label for="countPerPage">출력</label>
+			 <select name="countPerPage" id="countPerPage" class="form-control">
+				<option value="10" ${listVO.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
+				<option value="20" ${listVO.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
+				<option value="30" ${listVO.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
+			</select>
 		</div>
-		
-<!--
+
+		<div class="counter">
+			총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
+		</div>
+	</div>
+	
+	<!-- 
 	<p class="text-title2 mt-13">회원 목록(카드 리스트)</p>
 	<div class="member-list">
 			<a href="일반회원관리 상세.html" class="member-card man">
@@ -219,7 +219,7 @@
 			총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
 		</div>
 	</div>
-
+	 -->
 
 <script>
 	var ctlMaster;
@@ -228,46 +228,57 @@
 		ctlMaster.fn_searched_data(`<%= request.getParameter("searched_data") != null ? request.getParameter("searched_data") : "" %>`);
 		ctlMaster.fn_page_init();
 	});
-function f_srchJoinSet(ty){
-  	//srchJoinBgng, srchJoinEnd
-	$("#srchJoinEnd").val(f_getToday());
-  	if(ty == "0"){//초기화
-  		$("#srchJoinBgng").val('');
-  		$("#srchJoinEnd").val('');
-  	}else if(ty == "1"){//오늘
-   		$("#srchJoinBgng").val(f_getToday());
-	}else if(ty == "2"){//일주일
-		$("#srchJoinBgng").val(f_getDate(-7));
-	}else if(ty == "3"){//15일
-		$("#srchJoinBgng").val(f_getDate(-15));
-	}else if(ty == "4"){//한달
-		$("#srchJoinBgng").val(f_getDate(-30));
-	}
-}
-
-$(function(){
-	var oObj = "${listVO.listObject}";
-	var arrObj = oObj.split(",");
-
-	for(var i=0; i<arrObj.length; i++){
-		if($(".cateVal"+i).text() == ''){
-			$(".cateVal"+i).remove();
+	
+	function f_srchJoinSet(ty){
+	  	//srchJoinBgng, srchJoinEnd
+		$("#srchJoinEnd").val(f_getToday());
+	  	if(ty == "0"){//초기화
+	  		$("#srchJoinBgng").val('');
+	  		$("#srchJoinEnd").val('');
+	  	}else if(ty == "1"){//오늘
+	   		$("#srchJoinBgng").val(f_getToday());
+		}else if(ty == "2"){//일주일
+			$("#srchJoinBgng").val(f_getDate(-7));
+		}else if(ty == "3"){//15일
+			$("#srchJoinBgng").val(f_getDate(-15));
+		}else if(ty == "4"){//한달
+			$("#srchJoinBgng").val(f_getDate(-30));
 		}
 	}
 
-	var gradeVal = [];
-	for(var i=0; i<5; i++){
-		if($("#srchGrade"+i).is(":checked") ){
-			gradeVal.push($("#srchGrade"+i).val());
+	$(function(){
+		var oObj = "${listVO.listObject}";
+		var arrObj = oObj.split(",");
+	
+		for(var i=0; i<arrObj.length; i++){
+			if($(".cateVal"+i).text() == ''){
+				$(".cateVal"+i).remove();
+			}
 		}
-	}
-	$("#grade").attr("value",gradeVal);
-
-   	$(".btn-excel").on("click", function(){
-		$("#searchFrm").attr("action","excel").submit();
-		$("#searchFrm").attr("action","list");
+	
+		var gradeVal = [];
+		for(var i=0; i<5; i++){
+			if($("#srchGrade"+i).is(":checked") ){
+				gradeVal.push($("#srchGrade"+i).val());
+			}
+		}
+		$("#grade").attr("value",gradeVal);
+	
+	   	$(".btn-excel").on("click", function(){
+            var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+            async function fn_excel_down(){
+                const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+                // console.log(asyncConfirm)
+                if (asyncConfirm != "confirm"){
+                    return;
+                }
+                
+                $("#searchFrm").attr("action","excel").submit();
+    			$("#searchFrm").attr("action","list");
+            }
+            fn_excel_down();
+		});
+	
 	});
-
-});
 </script>
 

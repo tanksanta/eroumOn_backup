@@ -103,7 +103,7 @@
     <div id="notice-mobile" class="main-notice">
         <div class="notice-banner1">
             <dl>
-                <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
+                <dt><em>장기요양 인정등급</em>을 이미 받으셨나요?</dt>
                 <dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
             </dl>
             <a href="${_mainPath}/recipter/sub">남은 혜택보기​</a>

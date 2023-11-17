@@ -23,7 +23,10 @@ class JsHouse2309PopupBase{
         this._cls_info.popName = popName;
         this._cls_info.popStep = popStep;
         this._cls_info.popOptions = popOptions;
+        this._cls_info.coms = {};/*컴포넌트*/
         this._cls_info.modalCon = $("div.modal2-con");
+        if (this._cls_info.modalCon == undefined || this._cls_info.modalCon.length < 1) this._cls_info.modalCon = $("body");
+
         this._cls_info.modalPop = $(this._cls_info.pageModalfix);
         
         // this._cls_info._par_cls_info = this._cls_info.container._cls_info;
@@ -53,6 +56,10 @@ class JsHouse2309PopupBase{
     }
 
     fn_init_component(){
+        this.fn_init_sub_component();
+    }
+
+    fn_init_sub_component(){
 
     }
     
@@ -67,6 +74,10 @@ class JsHouse2309PopupBase{
     }
 
     fn_page_init_click(){
+        this.fn_page_init_sub_click()
+    }
+
+    fn_page_init_sub_click(){
 
     }
 
@@ -80,7 +91,7 @@ class JsHouse2309PopupBase{
         현재는 modal에서 대신함
     */
     fn_close_popup(){
-
+        $(this._cls_info.pageModalfix).removeClass("fade").modal("hide");
     }
 
     /* 
@@ -125,6 +136,23 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
         this._cls_info.loadedDataYn = true;
 
         this._cls_info.popUrl = popUrl;
+    }
+
+    fn_init_sub_component(){
+        this.fn_init_third_component();
+    }
+
+    fn_init_third_component(){
+
+    }
+
+    fn_page_init_sub_click(){
+
+        this.fn_page_init_third_click();
+    }
+
+    fn_page_init_third_click(){
+
     }
 
     fn_show_popup(param){
@@ -510,4 +538,186 @@ class JsPopupDlvyInfo extends JsPopupLoadingFormDataBase{
         //     return false;
         // }
     }
+}
+
+class JsPopupTest{
+    constructor(){
+        
+    }
+
+    async fn_aa(){
+        var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+        const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+        console.log(asyncConfirm)
+        if (asyncConfirm != "confirm"){
+            return;
+        }
+
+        
+
+
+    }
+}
+class JsPopupExcelPwd extends JsPopupLoadingFormBase{
+    /*
+    async fn_aa(){
+        var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+        const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+        console.log(asyncConfirm)
+        if (asyncConfirm != "confirm"){
+            return;
+        }
+    */
+
+    fn_init_third_component(){
+        if (this._cls_info.modalPop == undefined || this._cls_info.modalPop.length < 1){
+            var contents = `<div class="modal fade" id="modal-excel-download" tabindex="-1" aria-modal="true" role="dialog" >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>엑셀다운로드</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-5">
+                                <p class="flex items-center gap-1"><i class="ico-alert2 size-sm"></i> 로그인한 계정의 비밀번호를 입력하세요.</p>
+                                <p class="flex items-center gap-1"><i class="ico-alert2 size-sm"></i> 개인정보 다운로드 시 사유를 작성하세요.</p>
+                            </div>
+                            <table class="table-detail">
+                                <colgroup>
+                                    <col class="w-1/3">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr class="pwd">
+                                        <th scope="row"><label for="form-item1" class="require">비밀번호</label></th>
+                                        <td class="con">
+                                            <input type="password" class="form-control w-full mb-1" id="form-item1">
+                                            <div class="w-full alert alert-danger fade show">
+                                                <p class="moji">:(</p>
+                                                <p class="text">비밀번호를 입력하세요.</p>
+                                                <button type="button" aria-label="close">닫기</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="txt">
+                                        <th scope="row"><label for="form-item2" class="require">사유</label></th>
+                                        <td class="con">
+                                            <textarea name="" id="form-item2" cols="30" rows="7" class="form-control w-full mb-1"></textarea>
+                                            <div class="w-full alert alert-danger fade show">
+                                                <p class="moji">:(</p>
+                                                <p class="text">다운로드 사유를 입력해 주세요.</p>
+                                                <button type="button" aria-label="close">닫기</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn large btn-primary save">저장</a>
+                            <a href="#" class="btn large btn-outline-primary cancel">취소</a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            this._cls_info.pageModalfix = '#modal-excel-download';
+            this._cls_info.modalCon.append(contents);
+
+            this._cls_info.modalPop = $(this._cls_info.pageModalfix);
+
+            this._cls_info.coms.inputPwd = $(this._cls_info.pageModalfix + ' .table-detail tr.pwd td.con input[type="password"]');
+            this._cls_info.coms.inputTxt = $(this._cls_info.pageModalfix + ' .table-detail tr.txt td.con textarea');
+
+            this._cls_info.coms.msgPwd = $(this._cls_info.pageModalfix + ' .table-detail tr.pwd td.con div');
+            this._cls_info.coms.msgTxt = $(this._cls_info.pageModalfix + ' .table-detail tr.txt td.con div');
+
+            this._cls_info.coms.msgPwd.hide();
+            this._cls_info.coms.msgTxt.hide();
+        }
+    }
+
+    fn_page_init_third_click(){
+        if (this._cls_info.coms.msgPwd != undefined){
+            $(this._cls_info.pageModalfix + ' .table-detail tr td.con div.alert button[type="button"][aria-label="close"]').off('click').on('click', function(){
+                $(this).closest('div.alert').hide();
+
+                $(this).closest('td').find(".is-invalid").removeClass("is-invalid");
+            });
+        }
+
+    }
+
+    async fn_show_popup(param){
+        var owner = this;
+
+        super.fn_show_popup(param);
+
+        owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
+        owner._cls_info.coms.msgPwd.hide();
+
+        this._cls_info.coms.inputPwd.removeClass("is-invalid");
+        this._cls_info.coms.inputTxt.removeClass("is-invalid");
+        
+        $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val("");
+        $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val("");
+
+        return this.fn_async();
+    }
+
+    async fn_async(){
+        var owner = this;
+        var bCall;
+        return new Promise((resolve) => {
+            $(owner._cls_info.pageModalfix + ' .btn.save').off('click').on('click', function(){
+                bCall = true;
+
+                var data = {};
+                data.pwd = $(owner._cls_info.pageModalfix + ' .table-detail tr.pwd input[type="password"]').val();
+                data.txt = $(owner._cls_info.pageModalfix + ' .table-detail tr.txt textarea').val();
+                data.caller = document.location.pathname + document.location.search;
+
+                if (data.pwd == "" || data.pwd.length < 2){
+                    owner._cls_info.coms.inputPwd.addClass("is-invalid");
+        
+                    owner._cls_info.coms.msgPwd.find('.text').html('비밀번호를 입력하세요.');
+                    owner._cls_info.coms.msgPwd.show();
+                    bCall = false;
+                }
+    
+                if (data.txt == "" || data.txt.length < 2){
+                    owner._cls_info.coms.inputTxt.addClass("is-invalid");
+                    owner._cls_info.coms.msgTxt.show();
+                    bCall = false;
+                }
+
+                if (!bCall){
+                    return;
+                }
+
+                var retVal =  jsCallApi.call_sync_api_post('/_mng/api/popups/excelPwd.json', data);
+                if (retVal == null || retVal.result == null || retVal.result.result != "OK"){
+                    owner._cls_info.coms.msgPwd.find('.text').html('비밀번호가 일치하지 않습니다.');
+                    owner._cls_info.coms.msgPwd.show();
+                    return;
+                }
+
+                owner.fn_close_popup();
+
+                resolve('confirm');
+            });
+            $(owner._cls_info.pageModalfix + ' .btn.cancel').off('click').on('click', function(){
+                owner.fn_close_popup();
+                resolve('reject')
+            });
+            
+          })
+    }
+
+    fn_call_svr(){
+        
+    }
+
+
 }

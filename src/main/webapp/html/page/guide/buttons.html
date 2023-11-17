@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>버튼 규칙</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<link rel="stylesheet" href="../../page/index/assets/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-4 py-4 px-5">
+        <h2 class="font-semibold text-4xl">버튼 규칙</h2>
+        <hr class="divide-x-1"/>
+        <p class="text-xl font-black">Index</p>
+        <h3 class="text-3xl mb-2">사이즈별</h3>
+        <div class="grid grid-cols-4 gap-5 items-stretch w-auto p-4 border border-gray-300">
+            <div>
+                <a href="#" class="btn btn-small">작은 버튼</a>
+                <div class="flex flex-col text-xs mt-2 bg-gray-100 p-4">
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-small"&gt;
+        작은 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+                    <strong>폰트크기: 14px</strong>
+                    <p>폰트두께: 700</p>
+                    <p>폰트색상: #333333</p>
+                    <p>높이: 40px</p>
+                    <p>패딩: 0 12px</p>
+                    <p>배경색:#ffffff</p>
+                    <p>보더: #999999</p>
+                    <hr class="divide-x-1 my-2">
+                    <p>[hover, focus, active]<br>
+                        배경색: #999999<br>
+                        translate-y: 0.125rem;<br>
+                        scale-x: 0.98;<br>
+                        scale-y: 0.98;<br>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <a href="#" class="btn">기본 버튼</a>
+                <div class="flex flex-col text-xs mt-2 bg-gray-100 p-4">
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn"&gt;
+            기본 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+                    <strong>폰트크기: 16px</strong>
+                    <p>폰트두께: 700</p>
+                    <p>폰트색상: #333333</p>
+                    <p>높이: 44px</p>
+                    <p>패딩: 0 16px</p>
+                    <p>배경색:#ffffff</p>
+                    <p>보더: #999999</p>
+                    <hr class="divide-x-1 my-2">
+                    <p>[hover, focus, active]<br>
+                        배경색: #999999<br>
+                        translate-y: 0.125rem;<br>
+                        scale-x: 0.98;<br>
+                        scale-y: 0.98;<br>
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-large">큰 버튼</a>
+                <div class="flex flex-col text-xs mt-2 bg-gray-100 p-4">
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-large"&gt;
+            큰 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+                    <strong>폰트크기: 16px</strong>
+                    <p>폰트두께: 700</p>
+                    <p>폰트색상: #333333</p>
+                    <p>높이: 54px</p>
+                    <p>패딩: 0 24px</p>
+                    <p>배경색:#ffffff</p>
+                    <p>보더: #999999</p>
+                    <hr class="divide-x-1 my-2">
+                    <p>[hover, focus, active]<br>
+                        배경색: #999999<br>
+                        translate-y: 0.125rem;<br>
+                        scale-x: 0.98;<br>
+                        scale-y: 0.98;<br>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <a href="#" class="btn btn-large2">큰 버튼2</a>
+                <div class="flex flex-col text-xs mt-2 bg-gray-100 p-4">
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-large2"&gt;
+            큰 버튼2
+        &lt;/a&gt;
+    </code>
+</pre>
+                    <strong>폰트크기: 16px</strong>
+                    <p>폰트두께: 700</p>
+                    <p>폰트색상: #333333</p>
+                    <p>높이: 60px</p>
+                    <p>패딩: 0 38px</p>
+                    <p>배경색:#ffffff</p>
+                    <p>보더: #999999</p>
+                    <hr class="divide-x-1 my-2">
+                    <p>[hover, focus, active]<br>
+                        배경색: #999999<br>
+                        translate-y: 0.125rem;<br>
+                        scale-x: 0.98;<br>
+                        scale-y: 0.98;<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-3xl mb-2">아이콘 + 애니메이션 버튼</h3>
+        <div class="grid grid-cols-4 gap-5 items-stretch w-auto p-4 border border-gray-300">
+            <div>
+                <a href="#" class="btn btn-small btn-arrow"><strong>작은 애니메이션 버튼</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-small btn-arrow"&gt;
+            &lt;strong&gt;작은 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+            <div>
+                <a href="#" class="btn btn-arrow"><strong>기본 애니메이션 버튼</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-arrow"&gt;
+        &lt;strong&gt;기본 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-large btn-arrow"><strong>큰 애니메이션 버튼</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-large btn-arrow"&gt;
+            &lt;strong&gt;큰 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+            <div>
+                <a href="#" class="btn btn-large2 btn-arrow"><strong>큰 애니메이션 버튼2</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-large2 btn-arrow"&gt;
+            &lt;strong&gt;큰 애니메이션 버튼2&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-5 items-stretch w-auto p-4 border border-gray-300">
+
+            <div>
+                <a href="#" class="btn btn-primary btn-arrow">기본 애니메이션 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary btn-arrow"&gt;
+            &lt;strong&gt;기본 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-primary2 btn-arrow">기본 애니메이션 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary2 btn-arrow"&gt;
+            &lt;strong&gt;기본 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            
+            <div>
+                <a href="#" class="btn btn-primary3 btn-arrow"><strong>기본 애니메이션 버튼</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary3 btn-arrow"&gt;
+            &lt;strong&gt;기본 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-outline-primary2 btn-arrow"><strong>기본 애니메이션 버튼</strong></a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-outline-primary2 btn-arrow"&gt;
+            &lt;strong&gt;기본 애니메이션 버튼&lt;/strong&gt;
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+        </div>
+
+        <h3 class="text-3xl mb-2">색상별</h3>
+        <div class="grid grid-cols-4 gap-5 items-stretch w-auto p-4 border border-gray-300">
+
+            <div>
+                <a href="#" class="btn btn-primary">기본 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary"&gt;
+            기본 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-primary2">기본 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary2"&gt;
+            기본 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            
+            <div>
+                <a href="#" class="btn btn-primary3">기본 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-primary3"&gt;
+            기본 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-outline-primary2">기본 버튼</a>
+<pre>
+    <code class="language-html">
+        &lt;a href="#" class="btn btn-outline-primary2"&gt;
+            기본 버튼
+        &lt;/a&gt;
+    </code>
+</pre>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -281,7 +281,8 @@
                         <tbody>
                         	<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 			                <tr>
-								<td class="${resultList.ordrDtlCd }"><c:choose>
+								<td class="${resultList.ordrDtlCd }">
+									<c:choose>
 										<c:when test="${(resultList.sttsTy eq 'RE03' || resultList.sttsTy eq 'RF01') && resultList.rfndYn eq 'N'}">
 											<%--반품완료+환불미완료 --%>
 											<span class="text-danger">환불접수</span>
@@ -294,11 +295,14 @@
 			                                		</c:when>
 										<c:otherwise>
 			                                    ${ordrSttsCode[resultList.sttsTy]}
-			                                		</c:otherwise>
-									</c:choose> <%-- 배송중, 배송완료, 구매확정 --%> <c:if test="${resultList.sttsTy eq 'OR07' || resultList.sttsTy eq 'OR08'}">
+			                            </c:otherwise>
+									</c:choose> 
+									<%-- 배송중, 배송완료, 구매확정 --%> 
+									<c:if test="${resultList.sttsTy eq 'OR07' || resultList.sttsTy eq 'OR08'}">
 										<br>
 										<a href="#">${resultList.dlvyInvcNo }</a>
-									</c:if></td>
+									</c:if>
+								</td>
 								<td class="${resultList.ordrCd}">
                                     <a href="#dtl-modal1" class="btn shadow w-full f_gds_dtl" data-ordr-cd="${resultList.ordrCd}" style="height:auto;">
                                         <fmt:formatDate value="${resultList.ordrDt}" pattern="yyyy-MM-dd" /><br>
@@ -542,18 +546,18 @@
 
                 	});
 
-                	$(".btn-excel").on("click", function(){
-                		<c:if test="${empty param.srchSttsTy}">
-                		$("#srchSttsTy").val("");
-                		</c:if>
-	            		$("#searchFrm").attr("action","excel").submit();
-	            		setTimeout(function() {
-		            		$("#searchFrm").attr("action","list");
-		            		<c:if test="${empty param.srchSttsTy}">
-		            		$("#srchSttsTy").prop("selectedIndex", 0);
-		            		</c:if>
-	            		}, 100); // 100 밀리초 지연
-	            	});
+                	// $(".btn-excel").on("click", function(){
+                	// 	<c:if test="${empty param.srchSttsTy}">
+                	// 	$("#srchSttsTy").val("");
+                	// 	</c:if>
+	            	// 	$("#searchFrm").attr("action","excel").submit();
+	            	// 	setTimeout(function() {
+		            // 		$("#searchFrm").attr("action","list");
+		            // 		<c:if test="${empty param.srchSttsTy}">
+		            // 		$("#srchSttsTy").prop("selectedIndex", 0);
+		            // 		</c:if>
+	            	// 	}, 100); // 100 밀리초 지연
+	            	// });
 
                 	// rowspan
                 	$('.table-list tbody').mergeClassRowspan(0);
@@ -578,8 +582,18 @@
 					});
 
 	             	$(".btn-excel").on("click", function(){
-	            		$("#searchFrm").attr("action","excel").submit();
-	            		$("#searchFrm").attr("action","list");
+	                    var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+	                    async function fn_excel_down(){
+	                        const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+	                        // console.log(asyncConfirm)
+	                        if (asyncConfirm != "confirm"){
+	                            return;
+	                        }
+	                        
+	                        $("#searchFrm").attr("action","excel").submit();
+	                        $("#searchFrm").attr("action","list");
+	                    }
+	                    fn_excel_down();
 	            	});
 
                 });

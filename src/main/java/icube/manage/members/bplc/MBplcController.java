@@ -67,6 +67,9 @@ public class MBplcController extends CommonAbstractController {
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
+
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
@@ -239,7 +242,7 @@ public class MBplcController extends CommonAbstractController {
 					if(!EgovStringUtil.equals("local", activeMode)) {
 						mailService.sendMail(sendMail, bplcVO.getPicEml(), mailSj, mailForm);
 					} else {
-						mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 					}
 
 					result = true;

@@ -28,6 +28,7 @@ public class MbrMngInfoVO extends CommonBaseVO {
 	private String gender;
 	private String mblTelno;
 	private String eml;
+	private String joinTy;
 
 	private List<MbrMngInfoVO> idList;
 

@@ -443,8 +443,7 @@
 	            		$("#searchFrm").attr("action","excel").submit();
 	            		$("#searchFrm").attr("action","list");
 	            	});
-
-
+	            	
 	            	$("button.f_useYn").on("click",function(e){
 	            		e.preventDefault();
 	            		let arrGdsNo = $(":checkbox[name=arrGdsNo]:checked").map(function(){return $(this).val();}).get();
@@ -547,5 +546,7 @@
 	            		$(".btn-close").click();
 	            		location.reload();
 	            	});
+	            	
+	            	
                 });
                 </script>

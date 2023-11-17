@@ -329,16 +329,17 @@ strong {
     }
 
     .global-quick {
-        @apply fixed  bottom-8 right-4 space-y-2 md:right-5 md:bottom-[3.125rem] md:space-y-2.5;
+        /* @apply fixed  bottom-8 right-4 space-y-2 md:right-5 md:bottom-[3.125rem] md:space-y-2.5; */
+        @apply fixed space-y-2 right-6 bottom-6 md:space-y-2.5;
         z-index: 101;
         & a, & button {
-            @apply flex relative w-10 h-10 overflow-hidden rounded-xl bg-no-repeat bg-center bg-black2 -indent-96 opacity-0 invisible translate-y-[calc(100%_+_0.5rem)] duration-500 transition-[opacity,transform,visibility]
-                   md:w-15 md:h-15 md:rounded-[1.25rem];
+            @apply flex relative w-11 h-11 overflow-hidden bg-no-repeat bg-center bg-black2 -indent-96 opacity-0 invisible translate-y-[calc(100%_+_0.5rem)] duration-500 transition-[opacity,transform,visibility]
+                   md:w-14 md:h-14 rounded-[1.25rem] md:rounded-3xl shadow-lg;
             &.moveTop {
                 @apply bg-[length:35%] bg-[url(/html/core/images/ico-quick-arrow.svg)];
             }
             &.channelTalk {
-                @apply z-5 bg-[#FD8106] bg-[length:73.33333333333333%] bg-[url(/html/core/images/ico-quick-channel.svg)] translate-y-0 opacity-100 visible;
+                @apply z-5 bg-[#FD8106] bg-[length:73.33333333333333%] bg-[url(/html/core/images/ico-quick-channel.svg)] translate-y-0 opacity-100 visible ;
             }
         }
         &.is-active {

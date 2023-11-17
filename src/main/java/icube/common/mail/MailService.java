@@ -3,6 +3,7 @@ package icube.common.mail;
 import java.io.File;
 
 import javax.mail.Multipart;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.values.CodeMap;
 
 
 @Service("mailService")
@@ -34,7 +36,13 @@ public class MailService extends CommonAbstractServiceImpl {
 	public void sendMail(String from, String to, String sj, String content) throws Exception {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
-		helper.setFrom(from);
+
+		if (CodeMap.MAIL_SENDER_NAME.get(from) == null){
+			helper.setFrom(from);
+		}else{
+			helper.setFrom(new InternetAddress(from, CodeMap.MAIL_SENDER_NAME.get(from)));
+		}
+		
 		helper.setTo(to);
 		helper.setSubject(sj);
 		mimeMessage.setContent(content, "text/html;charset=utf-8");
@@ -52,12 +60,16 @@ public class MailService extends CommonAbstractServiceImpl {
 	 */
 	@Async
 	public void sendMail(String from, String to, String sj, String content, String filePath) throws Exception {
-
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 
 		// 멀티파트 지원 false -> true
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-		helper.setFrom(from);
+		
+		if (CodeMap.MAIL_SENDER_NAME.get(from) == null){
+			helper.setFrom(from);
+		}else{
+			helper.setFrom(new InternetAddress(from, CodeMap.MAIL_SENDER_NAME.get(from)));
+		}
 		helper.setTo(to);
 		helper.setSubject(sj);
 
@@ -81,5 +93,4 @@ public class MailService extends CommonAbstractServiceImpl {
 
 		mailSender.send(mimeMessage);
 	}
-
 }

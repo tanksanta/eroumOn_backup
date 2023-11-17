@@ -25,7 +25,7 @@
 					</label>
 					<div class="item-current-header">
 						<i class="icon-clienton"></i>
-						<h4 class="text-2xl"><strong>${recipientInfo.recipientsNm}</strong>(${relationCd[recipientInfo.relationCd]})</h4>
+						<h4 class="text-2xl break-all"><strong>${recipientInfo.recipientsNm}</strong>(${relationCd[recipientInfo.relationCd]})</h4>
 						<p class="text-gray6">
 							${recipientInfo.rcperRcognNo == null || recipientInfo.rcperRcognNo == "" ? "" : "L"}
 							${recipientInfo.rcperRcognNo == null || recipientInfo.rcperRcognNo == "" ? "요양인정번호 없음" : recipientInfo.rcperRcognNo}
@@ -75,7 +75,9 @@
 												--%>
 											</c:when>
 											<c:otherwise>
-												사업소 배정 중
+												<c:if test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus != 'CS03' && mbrConsltMap[recipientInfo.recipientsNo].consltSttus != 'CS09'}">
+													사업소 배정 중
+												</c:if>
 											</c:otherwise>
 										</c:choose>
 									</div>

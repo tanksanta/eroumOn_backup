@@ -58,6 +58,32 @@ class JsCallApi{
         });
     };
 
+    call_sync_api_post = function (uri, data){
+        var _self = this;
+        var retVal = null;
+
+        _self._cls_info.call_cnt += 1;
+        _self._cls_info.jsWaiting.fn_show_popup();
+
+        $.ajax({
+            async: false,
+            url: uri,
+            data: data,
+            method: "POST",
+        }).done(function(result){
+            _self.fn_callbacked();
+
+            retVal = {"result":result};
+        }).fail(function(result, status, err) {
+            _self.fn_callbacked();
+
+            retVal = {"fail":result};
+            // console.log('error forward : ' + data);
+        });
+
+        return retVal;
+    };
+
     call_svr_post_move = function (uri, data, searched_data){
         let f = document.createElement('form');
     

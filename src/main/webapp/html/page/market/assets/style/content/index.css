@@ -18,7 +18,8 @@
 .main-visual {
     @apply relative mt-0 mb-11 !px-0 w-full max-w-none min-h-94
            md:mb-15 md:h-[27.25rem] md:aspect-auto
-           lg:mb-19 lg:h-[31.25rem];
+           lg:mb-19 lg:h-[31.25rem]
+           2xl:mb-19 2xl:h-[40.25rem];
     & .swiper {
         @apply h-full;
     }

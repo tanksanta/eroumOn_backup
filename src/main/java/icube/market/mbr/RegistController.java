@@ -94,6 +94,9 @@ public class RegistController extends CommonAbstractController{
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
+
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
@@ -478,7 +481,7 @@ public class RegistController extends CommonAbstractController{
 				}else if(EgovStringUtil.equals("dev", activeMode)) {
 					mailService.sendMail(sendMail, noMbrVO.getEml(), mailSj, mailForm);
 				} else {
-					mailService.sendMail(sendMail, "gyoh@icubesystems.co.kr", mailSj, mailForm); //테스트
+					mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 				}
 			} else {
 				log.debug("회원 가입 알림 EMAIL 전송 실패 :: 이메일 체크 " + noMbrVO.getEml());

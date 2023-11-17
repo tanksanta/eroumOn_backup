@@ -21,7 +21,7 @@ import icube.manage.members.bplc.biz.BplcVO;
 
 @EnableScheduling
 @Service("biztalkConsultSchedule")
-@Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
+@Profile(value = {"test", "real"}) /*개발, 운영서버에서만 실행*/
 public class BiztalkConsultSchedule  extends CommonAbstractController  {
     
 	@Resource(name = "mbrConsltResultDAO")
