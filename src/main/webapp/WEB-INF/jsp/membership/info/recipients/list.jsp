@@ -75,7 +75,9 @@
 												--%>
 											</c:when>
 											<c:otherwise>
-												사업소 배정 중
+												<c:if test="${mbrConsltMap[recipientInfo.recipientsNo].consltSttus != 'CS03' && mbrConsltMap[recipientInfo.recipientsNo].consltSttus != 'CS09'}">
+													사업소 배정 중
+												</c:if>
 											</c:otherwise>
 										</c:choose>
 									</div>
