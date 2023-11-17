@@ -28,17 +28,17 @@ AUTO_INCREMENT=12
 
 INSERT INTO `MNG_MENU` ( `UP_MENU_NO`, `MENU_NM`, `MENU_URL`              , `ICON`, `MENU_TY`, `LEVEL_NO`, `SORT_NO`, `USE_YN`)
 VALUES
-                        (9            , '약관관리', '#'                     , '' , '2'       , 1         , 1         , 'Y')
+                        (9            , '약관관리', '#'                     , '' , '2'       , 1         , 2         , 'Y')
 ;
 
 SET @upMenuNo := last_insert_id();
 
 INSERT INTO `MNG_MENU` (`UP_MENU_NO`, `MENU_NM`, `MENU_URL`                                 , `ICON`, `MENU_TY`, `LEVEL_NO`, `SORT_NO`, `USE_YN`)
 VALUES
-                    (@upMenuNo       , '개인정보 처리방침', '/_mng/sysmng/terms/privacy/list', '' , '2'         , 1         , 1         , 'Y')
-                  , (@upMenuNo        , '이용약관', '/_mng/sysmng/terms/terms/list'         , '' , '2'          , 1        , 1         , 'Y')
+                  (@upMenuNo        , '이용약관', '/_mng/sysmng/terms/terms/list'           , '' , '2'          , 1        , 1         , 'Y')
+				  , (@upMenuNo      , '개인정보 처리방침', '/_mng/sysmng/terms/privacy/list', '' , '2'          , 1         , 2         , 'Y')
 ;
-
+ 
 /*
 INSERT INTO `MNG_AUTHRT_MENU` (`AUTHRT_NO`, `MENU_NO`, `AUTHRT_YN`, `INQ_YN`, `WRT_YN`) VALUES
                     	        (1      , 76         , 'Y'           , 'N'   , 'N')
