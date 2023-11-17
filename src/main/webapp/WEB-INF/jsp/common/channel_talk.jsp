@@ -9,13 +9,19 @@
 	, "customLauncherSelector": ".channelTalk"
 	, "hideChannelButtonOnBoot": true
     <c:if test="${!empty customProfileVO}">
+    	, "unsubscribeTexting" : ${customProfileVO.unsubscribeTexting}
+    	, "unsubscribeEmail" : ${customProfileVO.unsubscribeEmail}
+    	
 	    ,"profile": {
-	      	"name": "${customProfileVO.mbrNm}"
+	      "mbrId": "${customProfileVO.mbrId}"
+	      , "name": "${customProfileVO.mbrNm}"
 	      , "mobileNumber": "${customProfileVO.mblTelno}"
 	      , "email": "${customProfileVO.eml}"
-	      , "smsRcptnYn" : "${customProfileVO.smsRcptnYn}"
-	      , "emlRcptnYn" : "${customProfileVO.emlRcptnYn}"
 	      , "mbrConsltCnt" : ${customProfileVO.mbrConsltCnt}
+	      , "registerRecipient" : ${customProfileVO.registerRecipient}
+	      , "existTestResult": "${customProfileVO.existTestResult}"
+	   	  , "existLNumber": "${customProfileVO.existLNumber}"
+	   	  , "existConslt": "${customProfileVO.existConslt}"
 	    }
     </c:if>
   });
