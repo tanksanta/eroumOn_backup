@@ -423,7 +423,7 @@ $(function(){
 	    rules : {
 	    	bplcNm : {required : true},
 	    	telno : {required : true, regex : telchk},
-	    	fxno : {regex : telchk},
+	    	//fxno : {regex : telchk},
 	    	brno : {required : true, regex : brnoChk},
 	    	//rcperInstNo : {required : false, regex : rcperChk},
 	    	rprsvNm : {required : true},
@@ -446,7 +446,7 @@ $(function(){
 	    messages : {
 	    	bplcNm : {required : "기업명은 필수 입력 항목입니다."},
 	    	telno : {required : "전화번호는 필수 입력 항목입니다.", regex : "전화번호 형식이 잘못되었습니다.\n(000-0000-0000)"},
-	    	fxno : {regex : "숫자와 하이폰으로 입력해주세요."},
+	    	//fxno : {regex : "숫자와 하이폰으로 입력해주세요."},
 	    	brno : {required : "사업자등록번호는 필수 입력 항목입니다."},
 	    	//rcperInstNo : {required : "장기요양기관번호는 필수 입력 항목입니다.", regex : "형식이 잘못되었습니다.\n(0-00000-00000)"},
 	    	rprsvNm : {required : "대표자명은 필수 입력 항목입니다."},
