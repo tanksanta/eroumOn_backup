@@ -15,7 +15,10 @@ class JsHouse2309PageBase{
                     };
 
         // this._cls_info.popups.waiting = new JsHousePop2305Waiting();
-        // this._cls_info.popups.confirm = new JsHouse2305Confirm();;
+        // this._cls_info.popups.confirm = new JsHouse2305Confirm();
+
+        this._cls_info.urlCode = '';
+        this._cls_info.urlService = '';
 
         this._cls_info.jsCallApi = jsCallApi//new JsCallApi(null, null, null);
         this._cls_info.jsCommon = new JsCommon();
@@ -105,7 +108,7 @@ class JsHouse2309PageBase{
 
         var data2 = this.fn_page_condition();
         if (data2 != undefined){
-            this._cls_info.jsHouseHttp.call_svr4_post_json(this, 'fn_page_cb_main', data2, {});
+            this._cls_info.jsCallApi.call_svr4_post_json(this, this._cls_info.urlService, 'fn_page_cb_main', data2, {});
             return;
         }
     }
@@ -121,7 +124,7 @@ class JsHouse2309PageBase{
             var data;
             data = this.fn_code_condition();
             if (data != undefined){
-                this._cls_info.jsHouseHttp.call_svr4_post_json(this, 'fn_code_cb_main', data, {});
+                this._cls_info.jsCallApi.call_svr4_post_json(this, this._cls_info.urlCode, 'fn_code_cb_main', data, {});
                 return;
             }
         }
@@ -135,7 +138,7 @@ class JsHouse2309PageBase{
 
         data = this.fn_page_condition();
         if (data != undefined){
-            this._cls_info.jsHouseHttp.call_svr4_post_json(this, 'fn_page_cb_main', data, {});
+            this._cls_info.jsCallApi.call_svr4_post_json(this, this._cls_info.urlService, 'fn_page_cb_main', data, {});
             return;
         }
     }
