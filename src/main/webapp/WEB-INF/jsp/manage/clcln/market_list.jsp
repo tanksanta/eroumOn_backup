@@ -255,79 +255,37 @@
 
 
 				<script>
-                function f_srchOrdrYmdSet(ty){
-                	//srchOrdrYmdBgng, srchOrdrYmdEnd
-                	$("#srchOrdrYmdEnd").val(f_getToday());
-                	if(ty == "1"){//오늘
-                   		$("#srchOrdrYmdBgng").val(f_getToday());
-                	}else if(ty == "2"){//일주일
-                		$("#srchOrdrYmdBgng").val(f_getDate(-7));
-                	}else if(ty == "3"){//15일
-                		$("#srchOrdrYmdBgng").val(f_getDate(-15));
-                	}else if(ty == "4"){//한달
-                		$("#srchOrdrYmdBgng").val(f_getDate(-30));
-                	}
-                }
+				
+	                function f_srchOrdrYmdSet(ty){
+	                	//srchOrdrYmdBgng, srchOrdrYmdEnd
+	                	$("#srchOrdrYmdEnd").val(f_getToday());
+	                	if(ty == "1"){//오늘
+	                   		$("#srchOrdrYmdBgng").val(f_getToday());
+	                	}else if(ty == "2"){//일주일
+	                		$("#srchOrdrYmdBgng").val(f_getDate(-7));
+	                	}else if(ty == "3"){//15일
+	                		$("#srchOrdrYmdBgng").val(f_getDate(-15));
+	                	}else if(ty == "4"){//한달
+	                		$("#srchOrdrYmdBgng").val(f_getDate(-30));
+	                	}
+	                }
 
-        		function tableToExcel(title) {
-        		    var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
 
-        		    $(".table-list th, td").css("border", "1px solid #cccccc");
-        		    
-        		    var template = `
-        		    	<!DOCTYPE html>
-        		        <html lang="en">
-        		        <head>
-        		          <meta charset="UTF-8">
-        		          <style>
-	        		          .excel_data_value_string{ mso-number-format:"\@"; }
-	        		      </style>
-        		        </head>
-        		        <body>
-        		          <table>
-        		    `;
-        		    
-        		    template = template + $(".table-list").html();
-        		    
-        		    template = template + '</table></body></html>';
-        		    
-        		    var table_html = encodeURIComponent(template);
-
-        		    var a = document.createElement('a');
-        		    a.href = data_type + ',%EF%BB%BF' + table_html;
-        		    a.download = title+'.xls';
-        		    a.click();
-        		    $(".table-list th, td").css("border", "");
-        		}
-
-                $(function(){
-                	$(".btn-excel").on("click", function(){
-                		fn_excel_down();
-	            	});
-
-                	// rowspan
-                	$('.table-list tbody').mergeClassRowspan(0);
-                	$('.table-list tbody').mergeClassRowspan(1);
-                	$('.table-list tbody').mergeClassRowspan(4);
-                	$('.table-list tbody').mergeClassRowspan(9);
-
-                	$('.table-list tbody').mergeClassRowspan(17);
-                	$('.table-list tbody').mergeClassRowspan(18);
-                	$('.table-list tbody').mergeClassRowspan(19);
-                	$('.table-list tbody').mergeClassRowspan(20);
-
-                	$(".table-list tbody tr td:hidden").remove();
-
-                });
+	                $(function(){
+	                	$(".btn-excel").on("click", function(){
+	                        var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
+		                    async function fn_excel_down(){
+		                        const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
+		                        // console.log(asyncConfirm)
+		                        if (asyncConfirm != "confirm"){
+		                            return;
+		                        }
+		                        
+		                        $("#searchFrm").attr("action","excel").submit();
+		                        $("#searchFrm").attr("action","list");
+		                    }
+		                    fn_excel_down();
+		            	});
+	                });
                 
-                var jsPopupExcelPwd = new JsPopupExcelPwd(this, '', 'jsPopupExcelPwd', 1, {});
-            	async function fn_excel_down(){
-                    const asyncConfirm = await jsPopupExcelPwd.fn_show_popup({})
-                    // console.log(asyncConfirm)
-                    if (asyncConfirm != "confirm"){
-                        return;
-                    }
-                    
-                    tableToExcel("마켓정산_"+f_getToday().replaceAll("-",""));
-            	}
                 </script>

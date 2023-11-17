@@ -74,13 +74,13 @@
 									${resultList.buyCnt}
                                 </td>
                                 <td>
-									${resultList.ordrPc}
+                                	<fmt:formatNumber value="${resultList.ordrPc}" pattern="###,###" />
                                 </td>
                                 <td>
-									${resultList.dlvyBassAmt + resultList.dlvyAditAmt}
+                                	<fmt:formatNumber value="${resultList.dlvyBassAmt + resultList.dlvyAditAmt}" pattern="###,###" />
                                 </td>
                                 <td>
-									${resultList.ordrPc + resultList.dlvyBassAmt + resultList.dlvyAditAmt}
+                                	<fmt:formatNumber value="${resultList.ordrPc + resultList.dlvyBassAmt + resultList.dlvyAditAmt}" pattern="###,###" />
                                 </td>
                                 <td>
 									${resultList.picNm}
@@ -114,25 +114,10 @@
                 	}
                 }
 
-        		function tableToExcel(title) {
-        		    var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
-
-        		    console.log($(".table-list").parent().html());
-
-        		    $(".table-list th, td").css("border", "1px solid #cccccc");
-        		    var table_html = encodeURIComponent($(".table-list").parent().html());
-
-        		    var a = document.createElement('a');
-        		    a.href = data_type + ',%EF%BB%BF' + table_html;
-        		    a.download = title+'.xls';
-        		    a.click();
-        		    $(".table-list th, td").css("border", "");
-        		}
-
                 $(function(){
                 	$(".btn-excel").on("click", function(){
-                		tableToExcel("멤버스정산_"+f_getToday().replaceAll("-",""));
+                        $("#searchFrm").attr("action","excel").submit();
+                        $("#searchFrm").attr("action","list");
 	            	});
-
                 });
                 </script>

@@ -202,7 +202,9 @@
 		                                </c:if>
 									</c:when>
 									<c:otherwise>
-										(배정중)
+										<c:if test="${resultList.consltSttus != 'CS03' && resultList.consltSttus != 'CS09'}">
+											(배정중)
+										</c:if>
 									</c:otherwise>
 								</c:choose>
 	                        </dd>

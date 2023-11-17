@@ -195,7 +195,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">수급자 성명</th>
-                                    <td>김영자</td>
+                                    <td class="break-all">김영자김영자김영자김영자김영자김영자김영자김영자김영자</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">요양인정번호</th>
@@ -240,7 +240,7 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">수급자 성명</th>
-                                    <td>김영자</td>
+                                    <td class="break-all">김영자</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">상담 유형</th>
@@ -284,12 +284,14 @@
             </div>
 
             <div class="careinfo-myinfo mypage">
-                <div class="flex-none mb-2 md:flex md:justify-between gap-2">
-                    <h3 class="careinfo-title mb-0"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</h3>
-                    <div class="flex gap-2 justify-end items-center">
+                <div class="flex-none mb-2 md:flex flex-col xl:flex-row md:justify-between gap-2">
+                    <h3 class="careinfo-title !mb-0"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</h3>
+                    <div class="flex xs-max:flex-col gap-2 justify-end sm:items-center xs-max:mt-2">
                         <span class="text-sm text-black2/50">2023년 10월 04일 11:11:11</span>
-                        <a class="btn btn-secondary btn-small">다시 조회하기 <i class="icon-refresh ml-1"></i></a>
-                        <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                        <div class="text-right">
+                            <a class="btn btn-secondary btn-small">다시 조회하기 <i class="icon-refresh ml-1"></i></a>
+                            <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                        </div>
                     </div>
                 </div>
                 <div class="myinfo-wrapper">
