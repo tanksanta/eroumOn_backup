@@ -60,7 +60,7 @@ public class TermsController  extends CommonAbstractController {
         
         reqMap.put("srchTermsKind", termsKind);
 
-        List<TermsVO> listVO = termsService.selectListVO(reqMap);
+        List<TermsVO> listVO = termsService.selectListMngVO(reqMap);
         
         model.addAttribute("listVO", listVO);
 

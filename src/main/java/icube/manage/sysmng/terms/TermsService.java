@@ -1,5 +1,6 @@
 package icube.manage.sysmng.terms;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,18 @@ public class TermsService {
     @Resource(name = "termsDAO")
 	private TermsDAO termsDAO;
 
-    public List<TermsVO> selectListVO(Map<String, Object> paramMap) throws Exception {
+    /*관리자 화면에서 리스트 조회*/
+    public List<TermsVO> selectListMngVO(Map<String, Object> paramMap) throws Exception {
+        return termsDAO.selectListVO(paramMap);
+    }
+
+    /*일반 사용자 화면에서 조회*/
+    public List<TermsVO> selectListMemberVO(String termsKind) throws Exception {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+			paramMap.put("srchTermsKind", termsKind.toUpperCase());
+			paramMap.put("srchUseYn", "Y");
+			paramMap.put("srchPublicYn", "Y");
         return termsDAO.selectListVO(paramMap);
     }
 

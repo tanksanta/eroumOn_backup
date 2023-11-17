@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.sysmng.terms.TermsService;
@@ -40,17 +41,40 @@ public class MbrsCntntsController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		if (EgovStringUtil.equals(pageName.toLowerCase(), "privacy") || EgovStringUtil.equals(pageName.toLowerCase(), "terms") ){
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-
-			paramMap.put("srchTermsKind", pageName.toUpperCase());
-			paramMap.put("srchUseYn", "Y");
-			paramMap.put("srchPublicYn", "Y");
-
-			List<TermsVO> listHVO = termsService.selectListVO(paramMap);
+			
+			List<TermsVO> listHVO = termsService.selectListMemberVO(pageName);
 
 			model.addAttribute("listHistoryVO", listHVO);
+			if (listHVO.size() > 0){
+				model.addAttribute("termContent", listHVO.get(0).getContents());
+			}else{
+				model.addAttribute("termContent", "");
+			}
+			
 		}
 
 		return "/membership/cntnts/" + pageName;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "terms/contents.json")
+	public Map<String, Object> termsContents(
+			@RequestParam(defaultValue="N", required=false) int termsNo
+			, HttpServletRequest request
+			, HttpServletResponse response
+			, HttpSession session
+			, Model model) throws Exception {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		TermsVO termsVO = termsService.selectTermsOne(termsNo);
+
+		if (termsVO != null){
+			resultMap.put("termsVO", termsVO);
+			resultMap.put("result", "OK");
+		} else{
+			resultMap.put("result", "FAIL");
+		}
+		return resultMap;
 	}
 }
