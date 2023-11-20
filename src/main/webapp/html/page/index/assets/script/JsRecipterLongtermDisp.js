@@ -119,7 +119,7 @@ class JsRecipterLongtermDisp{
                 
                 if (itemOne.ableYn != 'Y'){
                     if (itemOne.saleKind == "S"){
-                        sTrTemp = sTrTemp.replaceAll("{{itemGrpNm}}", itemOne.itemGrpNm.replaceAll("(대여)", "").replaceAll("(판매)", "") + "(판매 불가)");
+                        sTrTemp = sTrTemp.replaceAll("{{itemGrpNm}}", itemOne.itemGrpNm.replaceAll("(대여)", "").replaceAll("(판매)", "") + "(구매 불가)");
                     }else{
                         sTrTemp = sTrTemp.replaceAll("{{itemGrpNm}}", itemOne.itemGrpNm.replaceAll("(대여)", "").replaceAll("(판매)", "") + "(대여 불가)");
                     }
