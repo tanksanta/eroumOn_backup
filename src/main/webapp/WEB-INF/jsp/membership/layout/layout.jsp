@@ -45,7 +45,10 @@
     <link rel="stylesheet" href="/html/page/members/assets/style/style.min.css">
     <script src="/html/page/members/assets/script/common.js"></script>
     <script src="/html/core/script/hangjungdong.js"></script>
-    <script src="/html/core/script/JsCallApi.js"></script>
+    <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsHouse2309PageBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
 <!--     <c:if test="${fn:indexOf(_curPath, '/membership/regist') > -1 || fn:indexOf(_curPath, '/membership/srchPswd') > -1}"> -->
 <!--    </c:if>-->
