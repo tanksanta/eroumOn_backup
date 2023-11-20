@@ -23,7 +23,6 @@ public class TermsService {
         Map<String, Object> paramMap = new HashMap<String, Object>();
 
 			paramMap.put("srchTermsKind", termsKind.toUpperCase());
-			paramMap.put("srchUseYn", "Y");
 			paramMap.put("srchPublicYn", "Y");
         return termsDAO.selectListVO(paramMap);
     }

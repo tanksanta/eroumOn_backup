@@ -3,6 +3,7 @@ package icube.membership.cntnts;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +46,11 @@ public class MbrsCntntsController extends CommonAbstractController {
 			List<TermsVO> listHVO = termsService.selectListMemberVO(pageName);
 
 			model.addAttribute("listHistoryVO", listHVO);
-			if (listHVO.size() > 0){
-				model.addAttribute("termContent", listHVO.get(0).getContents());
+			
+			Optional<TermsVO> result = listHVO.stream().filter(x -> x.getUseYn().equals("Y")).findAny();
+			TermsVO optn = result.orElse(null);
+			if (optn != null){
+				model.addAttribute("termContent", optn.getContents());
 			}else{
 				model.addAttribute("termContent", "");
 			}
