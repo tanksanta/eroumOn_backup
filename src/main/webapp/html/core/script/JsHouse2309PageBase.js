@@ -22,8 +22,12 @@ class JsHouse2309PageBase{
 
         this._cls_info.jsCallApi = jsCallApi//new JsCallApi(null, null, null);
         this._cls_info.jsCommon = new JsCommon();
-        if (JsHouse2309CodeConvert != undefined){
-            this._cls_info.houseCode = new JsHouse2309CodeConvert();
+        try{
+            if (JsHouse2309CodeConvert != undefined){
+                this._cls_info.houseCode = new JsHouse2309CodeConvert();
+            }
+        }catch{
+            
         }
     }
 
