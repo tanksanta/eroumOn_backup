@@ -306,7 +306,7 @@ public class MainTestController extends CommonAbstractController {
     	} else if (mngrSession.isLoginCheck()) {
     	} else if (mbrSession.isLoginCheck()) {
     	} else {
-    		return "인증되지 않은 접근";
+    		return getTestResultErrorForm(request);
     	}
     
         try {
@@ -317,13 +317,13 @@ public class MainTestController extends CommonAbstractController {
          	
         	return mailForm;
         } catch (Exception ex) {
-            log.error("======= 테스트 결과", ex);
+            log.error("======= 테스트 결과 오류", ex);
             
             if ("테스트 항목이 모두 완료되지 않음".equals(ex.getMessage())) {
-            	return "테스트 항목이 모두 완료되지 않음";
+            	return getTestResultErrorForm(request);
             }
         }
-        return "결과 가져오기 실패";
+        return getTestResultErrorForm(request);
     }
     
     
@@ -416,6 +416,18 @@ public class MainTestController extends CommonAbstractController {
 		
 		return mailForm;
     }
+    
+    private String getTestResultErrorForm(HttpServletRequest request) {
+    	String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_test_result_error.html");
+		
+		//도메인 입력
+		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		mailForm = mailForm.replace("((domain))", host);
+		
+		return mailForm;
+    }
+    
     
     @SuppressWarnings("unchecked")
 	private JSONArray convertSelectStrToJsonArray(String selectStr) {

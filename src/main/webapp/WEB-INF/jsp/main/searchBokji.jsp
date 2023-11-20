@@ -676,10 +676,16 @@
 			e.preventDefault();	
 		}
 		
-		
 		//선택된 지역 가져오기
 		var stdgCd = $('select[name=select-sido] option:selected').val();
 		var stdgNm = $('select[name=select-sido] option:selected').text();
+		
+		if (stdgNm === '전체') {
+			$("select[name='select-gugun']").empty();
+			$("select[name='select-gugun']").append('<option value="" selected>전체</option>');
+			return;
+		}
+		
 		
 	   	if(stdgCd != ""){
     		$.ajax({

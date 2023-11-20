@@ -22,11 +22,11 @@ function saveTestResultAjax(requestJson, redirectUrl) {
 		if (res.success) {
 			location.href = redirectUrl;						
 		} else {
-			alert('테스트 결과 정보 저장 실패');
+			$('#modalError').modal('show');
 		}
 	})
 	.fail(function(data, status, err) {
-		alert('통신중 오류가 발생하였습니다.');
+		$('#modalError').modal('show');
 	});
 }
 
@@ -46,7 +46,7 @@ function getTestResultAjax(recipientsNo) {
 		} 
 	})
 	.fail(function(data, status, err) {
-		alert('통신중 오류가 발생하였습니다.');
+		$('#modalError').modal('show');
 	});
 	return result;
 }

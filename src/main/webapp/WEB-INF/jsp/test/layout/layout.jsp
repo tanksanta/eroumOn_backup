@@ -48,6 +48,31 @@
     <!-- End Google Tag Manager (noscript) -->
 
 	<tiles:insertAttribute name="content"/>
+
+
+	<!-- 예상치 못한 오류 팝업 -->
+	<div class="modal modal-default fade" id="modalError" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered ">
+			<div class="modal-content">
+				<div class="modal-header">
+				</div>
+				<div class="modal-body md:min-w-[26rem]">
+					<!-- 예상치 못한 오류로 결과를 확인할 수 없는 상황에 호출되는 모달(팝업) -->
+					<div class="flex flex-col items-center text-xl">
+						<i class="ico-alert orange mb-8"></i>
+						<p>죄송합니다</p>
+						<p><strong>일시적 오류</strong>가 발생했습니다</p>
+						<p>잠시후 다시 시도해 주세요</p>
+					</div>
+					<!--// 예상치 못한 오류로 결과를 확인할 수 없는 상황에 호출되는 모달(팝업) -->
+				</div>
+				<div class="modal-footer">
+					<a href="/main/cntnts/test" class="btn btn-primary">테스트 시작하기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	<!-- quick -->
 	<div id="quick" class="global-quick" style="right:2.5rem;">
@@ -67,6 +92,9 @@
 		</script>
 	</c:if>
 	
+	
+	<script src="/html/core/vendor/twelements/index.min.js"></script>
+    <script src="/html/core/vendor/twelements/popper.min.js"></script>
 	
 	<!-- 채널톡 연동처리 -->
 	<jsp:include page="/WEB-INF/jsp/common/channel_talk.jsp" />

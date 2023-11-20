@@ -366,7 +366,6 @@
 					|| testResult.behaviorSelect.length === 0
 					|| testResult.nurseSelect.length === 0
 					|| testResult.rehabilitateSelect.length === 0) {
-					alert('테스트가 정상적으로 수행되지 않았습니다. 다시 진행하세요.');
 					return;
 				}
 				
