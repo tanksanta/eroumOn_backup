@@ -45,6 +45,7 @@
 			, use_yn
 			, <include refid="selectCount"/>
 		FROM GDS_CTGRY gc
+		WHERE use_yn = 'Y'
 		ORDER BY sort_no ASC, ctgry_nm ASC
 	</select>
 
