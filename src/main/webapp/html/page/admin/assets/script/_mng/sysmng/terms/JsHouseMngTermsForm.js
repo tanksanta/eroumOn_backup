@@ -7,7 +7,9 @@ class JsHouseMngTermsForm extends JsHouse2309PageBase{
 
         baseConfig.init_instance_callback = "ctlMaster.fn_texteditor_loaded"
         tinymce.overrideDefaults(baseConfig);
-        tinymce.init({selector: this._cls_info.pagePrefix + " #contents"});
+
+        tinymce.init({selector: this._cls_info.pagePrefix + " #contents", content_css: '/html/page/members/assets/style/term.css'});
+
 
         this._cls_info.frmSerialized = $(this._cls_info.pagePrefix + " #frm").serialize();
         this._cls_info.myContent = tinymce.activeEditor.getContent();
@@ -65,8 +67,16 @@ class JsHouseMngTermsForm extends JsHouse2309PageBase{
             rules : {},
             messages : {},
             submitHandler: function (frm) {
+
+                if ($("input[name=useYn]:checked").val() == 'Y' && $("input[name=publicYn]:checked").val() == 'N'){
+                    alert("사용여부, 공개/비공개를 확인하여 주십시오.");
+                    return false;
+                }
+                
                 if (confirm('저장하시겠습니까?')) {
                     frm.submit();
+                }else{
+                    return false;
                 }
                 
             },

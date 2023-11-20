@@ -123,4 +123,10 @@
 		WHERE terms_no = #{termsNo} AND terms_kind = #{termsKind}
 	</update>
 
+	<update id="updateTermsUseYnOtherN" parameterType="TermsVO">
+		UPDATE TERMS_M1
+		SET use_yn = 'N'
+		WHERE terms_no != #{termsNo} AND terms_kind = #{termsKind}
+	</update>
+
 </mapper>

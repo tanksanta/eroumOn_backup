@@ -39,4 +39,9 @@ public class TermsService {
     public int updateTermsOne(TermsVO vo) throws Exception {
 		return termsDAO.updateTermsOne(vo);
 	}
+
+	/*사용 여부(최종)*/
+	public int updateTermsUseYnOtherN(TermsVO vo) throws Exception {
+		return termsDAO.updateTermsUseYnOtherN(vo);
+	}
 }
