@@ -258,7 +258,7 @@
 		                    		})
 		                    		.done(function(json){
 		                    			var menu = [];
-		                    			for (var idx in json) {
+                                        for (var idx = 0; idx < json.length; idx++) {
 		                    				var menuType = '';
 		                    				if(json[idx].childCnt > 0){
 		                    					menuType = 'folder';
