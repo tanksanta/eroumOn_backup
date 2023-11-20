@@ -471,6 +471,10 @@
 				
 				
 				var result = getMbrInfo();
+				if (result.error) {
+					return;	
+				}
+				
 				sessionStorage.setItem('testData', JSON.stringify({
 					isLogin: result.isLogin,
 					recipientsNo,
@@ -512,7 +516,8 @@
 	        		}
 	        	})
 	        	.fail(function(data, status, err) {
-	        		alert('서버와 연결이 좋지 않습니다.');
+	        		$('#modalError').modal('show');
+	        		result.error = true;
 				});
 				
 				return result;
