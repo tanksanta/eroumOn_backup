@@ -21,5 +21,6 @@ public class TermsVO extends CommonBaseVO {
     private String useYn;
     private String publicYn;
 
-    private String contents;
+    private String contentHeader;
+    private String contentBody;
 }

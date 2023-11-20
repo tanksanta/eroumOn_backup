@@ -16,8 +16,11 @@ public class TermsDAO extends CommonAbstractMapper {
 		return selectList("terms.selectListVO", paramMap);
 	}
 
-    public TermsVO selectTermsOne(int no) throws Exception {
-		return selectOne("terms.selectTermsOne", no);
+    // public TermsVO selectTermsOne(int no) throws Exception {
+	// 	return selectOne("terms.selectTermsOne", no);
+	// }
+	public TermsVO selectTermsOne(Map<String, Object> paramMap) throws Exception {
+		return selectOne("terms.selectTermsOne", paramMap);
 	}
 
 	public int insertTermsOne(TermsVO vo) throws Exception {

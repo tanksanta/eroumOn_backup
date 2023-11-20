@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-<script src="/html/page/membership/cntnts/assets/script/JsHouseMembershipTermsView.js"></script>
+<script src="/html/page/membership/cntnts/assets/script/JsHouseMembershipTermsView.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script>
 	var ctlMaster;
 	$(document).ready(function(){

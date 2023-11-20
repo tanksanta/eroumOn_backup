@@ -63,9 +63,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="contents" class="require">내용</label></th>
+                    <th scope="row"><label for="contents" class="require">내용 헤더</label></th>
                     <td>
-                        <form:textarea path="contents" class="form-control w-full" title="내용" cols="30" rows="4" />
+                        <form:textarea path="contentHeader" class="form-control w-full tinymce" title="내용" cols="30" rows="4" />
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="contents" class="require">내용 본문</label></th>
+                    <td>
+                        <form:textarea path="contentBody" class="form-control w-full tinymce" title="내용" cols="30" rows="4" />
                     </td>
                 </tr>
             </tbody>

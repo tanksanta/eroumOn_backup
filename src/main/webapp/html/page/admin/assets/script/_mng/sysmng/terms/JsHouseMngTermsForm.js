@@ -8,11 +8,11 @@ class JsHouseMngTermsForm extends JsHouse2309PageBase{
         baseConfig.init_instance_callback = "ctlMaster.fn_texteditor_loaded"
         tinymce.overrideDefaults(baseConfig);
 
-        tinymce.init({selector: this._cls_info.pagePrefix + " #contents", content_css: '/html/page/members/assets/style/term.css'});
+        tinymce.init({selector: this._cls_info.pagePrefix + " .form-control.tinymce", content_css: '/html/page/members/assets/style/term.css'});
 
 
-        this._cls_info.frmSerialized = $(this._cls_info.pagePrefix + " #frm").serialize();
-        this._cls_info.myContent = tinymce.activeEditor.getContent();
+        // this._cls_info.frmSerialized = $(this._cls_info.pagePrefix + " #frm").serialize();
+        // this._cls_info.myContent = tinymce.activeEditor.getContent();
         // console.log("loaded=" + this._cls_info.frmSerialized);
         // console.log("loaded=" + this._cls_info.myContent);
 
@@ -29,7 +29,7 @@ class JsHouseMngTermsForm extends JsHouse2309PageBase{
     }
 
     fn_texteditor_loaded(){
-        this._cls_info.myContent = tinymce.activeEditor.getContent();
+        // this._cls_info.myContent = tinymce.activeEditor.getContent();
     }
     fn_init_sub_addevent(){
         var owner = this;
