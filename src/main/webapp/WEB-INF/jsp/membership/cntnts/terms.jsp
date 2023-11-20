@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script src="/core/script/JsCommon.js"></script>
-<script src="/core/script/JsHouse2309CodeConvert.js"></script>
-<script src="/core/script/JsHouse2309PageBase.js"></script>
+
 <script src="/html/page/membership/cntnts/assets/script/JsHouseMembershipTermsView.js"></script>
 <script>
 	var ctlMaster;
