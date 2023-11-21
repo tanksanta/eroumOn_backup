@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
+import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
@@ -60,6 +61,9 @@ public class DscntSchedule extends CommonAbstractController {
 	
 	SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
 	
+	SimpleDateFormat format3 = new SimpleDateFormat("yyyy.MM.dd");
+	
+	
 	/**
 	 * 소멸예정 포인트 안내
 	 */
@@ -96,6 +100,62 @@ public class DscntSchedule extends CommonAbstractController {
 		}
 
 		log.debug("   ###   guideExtinctPoint END  ####");
+	}
+	
+	/**
+	 * 소멸예정 마일리지 안내
+	 */
+	@Scheduled(cron="0 15 9 * * *")
+	public void guideExtinctMlg() throws Exception {
+		log.debug("   ###   guideExtinctMlg START  ####");
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchMbrStts", "NORMAL");
+		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+
+		Date now = new Date();
+		String today = format.format(now);
+		Date extinct = DateUtil.getDateAdd(now, "date", 7);
+		String extinctDate = format3.format(extinct);
+		
+		for(MbrVO mbrVO : mbrList) {
+			try {
+				paramMap.clear();
+				paramMap.put("srchTwoYearBeforeWeek", 1);
+				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+				Map<String, Object> mlgMap = mbrMlgService.selectAlltypeMlg(paramMap);
+				
+				int totalAccmtMlg = Integer.parseInt(String.valueOf(mlgMap.get("addMlg")));
+				int totalUseMlg = Integer.parseInt(String.valueOf(mlgMap.get("useMlg")));
+				int totalExtMlg = Integer.parseInt(String.valueOf(mlgMap.get("extMlg")));
+				int restMlg = totalAccmtMlg - (totalUseMlg + totalExtMlg);
+				
+				//소멸 마일리지가 있음
+				if(restMlg > 0) {
+					String MAIL_FORM_PATH = mailFormFilePath;
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_guide_extinct_mlg.html");
+					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
+					mailForm = mailForm.replace("((today))", today);
+					mailForm = mailForm.replace("((ownMlg))", String.valueOf(mlgMap.get("ownMlg")));
+					mailForm = mailForm.replace("((extinctMlg))", String.valueOf(restMlg));
+					mailForm = mailForm.replace("((extinctDate))", extinctDate);
+					
+					// 메일 발송
+					String mailSj = "[이로움ON] 소멸예정 마일리지 안내";
+					if(!EgovStringUtil.equals("local", activeMode)) {
+						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+					} else {
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+					}
+				}
+				
+			}catch(Exception e) {
+				log.debug("   ###   guideExtinctMlg Error   ### : " + e.toString());
+				e.printStackTrace();
+			}
+		}
+
+		log.debug("   ###   guideExtinctMlg END  ####");
 	}
 	
 	

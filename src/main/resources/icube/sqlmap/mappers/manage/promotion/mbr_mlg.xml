@@ -69,7 +69,9 @@
 		<if test="srchTwoYear != null and srchTwoYear != '' ">
 			AND DATEDIFF(NOW(),reg_dt) &gt;= 730
 		</if>
-
+		<if test="srchTwoYearBeforeWeek != null and srchTwoYearBeforeWeek != '' ">
+			AND DATEDIFF(NOW(),reg_dt) &gt;= 723
+		</if>
 	</sql>
 
 	<select id="selectMbrMlgListVO" parameterType="java.util.HashMap" resultMap="mbrMlgVOMap">
