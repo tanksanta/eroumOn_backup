@@ -30,7 +30,10 @@
 			</select>
 		</div>
 		<div class="terms contents">
-			${termContent}
+			<div class="text-sm md:text-base">
+				${termContent}
+			</div>
+			
 		</div>
 
 	</div>
