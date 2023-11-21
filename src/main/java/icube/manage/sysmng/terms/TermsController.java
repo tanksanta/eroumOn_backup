@@ -21,6 +21,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.DateUtil;
+import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -138,8 +139,13 @@ public class TermsController  extends CommonAbstractController {
 		, TermsVO termsVO
         , @RequestParam Map<String,Object> reqMap
 		, HttpSession session
+		, HttpServletRequest request
     ) throws Exception {
         JavaScript javaScript = new JavaScript();
+    	
+    	if (!EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+    		return new JavaScriptView(javaScript);
+    	}
 
         termsVO.setRegUniqueId(mngrSession.getUniqueId());
 		termsVO.setRegId(mngrSession.getMngrId());

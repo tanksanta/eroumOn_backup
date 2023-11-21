@@ -9,6 +9,8 @@
     <input type="hidden" name="oldUseYn" id="oldUseYn" value="${termsVO.crud eq 'CREATE' ? 'N' : termsVO.useYn }" />
     <input type="hidden" name="returnUrl" id="returnUrl" value="${header.referer}" />
 
+    <double-submit:preventer tokenKey="preventTokenKey" />
+
     <p class="text-title2 mt-13">[${termsKindCode[termsKind]}]
         <c:choose>
             <c:when test="${termsVO.crud eq 'CREATE'}">등록</c:when>
@@ -65,13 +67,13 @@
                 <tr>
                     <th scope="row"><label for="contents" class="require">내용 헤더</label></th>
                     <td>
-                        <form:textarea path="contentHeader" class="form-control w-full tinymce" title="내용" cols="30" rows="4" />
+                        <form:textarea path="contentHeader" class="form-control w-full tinymce" title="내용" cols="30" rows="6" />
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="contents" class="require">내용 본문</label></th>
                     <td>
-                        <form:textarea path="contentBody" class="form-control w-full tinymce" title="내용" cols="30" rows="4" />
+                        <form:textarea path="contentBody" class="form-control w-full tinymce" title="내용" cols="30" rows="10" />
                     </td>
                 </tr>
             </tbody>
@@ -92,3 +94,12 @@
 		ctlMaster.fn_page_init();
 	});
 </script>
+
+<script>
+    function closeIt()
+    {
+      return "Any string value here forces a dialog box to \n" +
+             "appear before closing the window.";
+    }
+    window.onbeforeunload = closeIt;
+    </script>

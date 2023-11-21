@@ -31,7 +31,7 @@
 			AND tm1.terms_kind = #{srchTermsKind}
 		</if>
 		<if test="srchTermsNo != null and srchTermsNo > 0 ">
-			AND tm1.termsNo = #{srchTermsNo}
+			AND tm1.terms_no = #{srchTermsNo}
 		</if>
 		
 		<if test="srchUseYn != null and srchUseYn != '' ">

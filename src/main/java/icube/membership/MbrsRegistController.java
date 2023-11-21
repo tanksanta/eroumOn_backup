@@ -172,12 +172,12 @@ public class MbrsRegistController extends CommonAbstractController{
 		TermsVO termsVO;
 		termsVO = termsService.selectListJoinVO("TERMS");
 		if (termsVO != null){
-			model.addAttribute("termsTerms", termsVO.getContentHeader() + termsVO.getContentBody());
+			model.addAttribute("termsTerms", termsVO.getContentBody());
 		}
 
 		termsVO = termsService.selectListJoinVO("PRIVACY");
 		if (termsVO != null){
-			model.addAttribute("termsPrivacy", termsVO.getContentHeader() + termsVO.getContentBody());
+			model.addAttribute("termsPrivacy", termsVO.getContentBody());
 		}
 
 		return "/membership/regist_step1";
