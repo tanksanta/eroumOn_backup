@@ -93,7 +93,7 @@
 			AND od.gds_cd = #{srchGdsCd}
 		</if>
 		<if test="srchIntervalDay != null and srchIntervalDay != '' ">
-			AND DATE(NOW()) &gt; DATE_FORMAT(DATE_ADD(oc.reg_dt, INTERVAL #{srchIntervalDay} DAY), '%Y-%m-%d')
+			AND DATE(NOW()) &gt;= DATE_FORMAT(DATE_ADD(oc.reg_dt, INTERVAL #{srchIntervalDay} DAY), '%Y-%m-%d')
 		</if>
 		<if test="srchDate != null and srchDate != '' ">
 			AND DATE(NOW()) &gt; DATE_FORMAT(o.dpst_term_dt,'%Y-%m-%d')
@@ -170,6 +170,9 @@
 		</if>
 		WHERE 1=1
 			<include refid="searchConditions" />
+		<if test="srchChgStts != null and srchChgStts != '' ">
+			AND oc.chg_stts = #{srchChgStts}
+		</if>
 		<if test="srchContainer != null and srchContainer != '' ">
 			GROUP BY o.ordr_no
 		</if>
