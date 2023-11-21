@@ -187,6 +187,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 		Map <String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchSttsTy", "OR07");
+		paramMap.put("srchChgStts", "OR07");
 		paramMap.put("srchContainer", 1);
 		paramMap.put("srchIntervalDay", "7");
 
@@ -228,6 +229,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 		Map <String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchSttsTy", "OR08");
+		paramMap.put("srchChgStts", "OR08");
 		paramMap.put("srchContainer", 1);
 		paramMap.put("srchIntervalDay", "7");
 
