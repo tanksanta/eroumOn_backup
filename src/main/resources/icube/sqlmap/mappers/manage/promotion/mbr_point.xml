@@ -132,6 +132,19 @@
 			, IFNULL((SELECT SUM(point) FROM MBR_POINT WHERE point_se = "E" <include refid="searchConditions" />),0) AS ext_point
 			, IFNULL((SELECT point_acmtl FROM MBR_POINT WHERE unique_id = #{srchUniqueId} ORDER BY point_no DESC LIMIT 1 ),0) AS own_point
 	</select>
+	
+	<!-- 소멸예정 포인트 조회 -->
+	<select id="selectExtinctPoinThisYear" parameterType="java.util.HashMap" resultMap="mbrPointVOMap">
+		/* Query ID : mbrPoint.selectExtinctPoinThisYear */
+		SELECT * FROM MBR_POINT
+		WHERE point_no IN (
+			SELECT MAX(point_no) FROM MBR_POINT 
+		    WHERE reg_dt &gt;= CONCAT(DATE_FORMAT(now(),'%Y'), '-01-01 00:00:00') 
+			  AND reg_dt &lt;= CONCAT(DATE_FORMAT(now(),'%Y'), '-12-31 23:59:59')
+		    GROUP BY unique_id
+		);
+	</select>
+	
 
 	<!-- 포인트 적립, 차감 -->
 	<insert id="insertMbrPoint" parameterType="mbrPointVO">
