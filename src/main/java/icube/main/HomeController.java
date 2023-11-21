@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import icube.common.api.biz.BokjiApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.util.SHA256;
 import icube.members.stdg.biz.StdgCdService;
 import icube.members.stdg.biz.StdgCdVO;
 

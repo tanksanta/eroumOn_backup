@@ -316,7 +316,7 @@
 				            		})
 				            		.done(function(json){
 				            			var menu = [];
-				            			for (var idx in json) {
+                                        for (var idx = 0; idx < json.length; idx++) {
 				            				var menuType = '';
 				            				var disableCheckbox = true;
 				            				if(json[idx].upMenuNo == '0'){

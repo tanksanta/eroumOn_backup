@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomProfileVO {
-	private String mbrId;                        //회원 아이디
+	private String memberId;                     //회원 아이디
+	private String memberHash;                   //회원 아이디 해시값
 	private String mbrNm;                        //회원 이름
 	private String mblTelno;                     //회원 휴대폰 번호
 	private String eml;                          //회원 이메일

@@ -17,12 +17,18 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 import icube.common.api.biz.TilkoApiService;
 import icube.main.biz.MainService;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Controller
 @RequestMapping(value = "/common/recipter")
 public class TilkoApiController {
 
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
 	
@@ -45,6 +51,13 @@ public class TilkoApiController {
 		returnMap.put("isSearch", false);
 		
 		if (mbrSession.isLoginCheck()) {
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO recipientVO = mbrVO.getMbrRecipientsList().stream().filter(f -> mbrNm.equals(f.getRecipientsNm()) && rcperRcognNo.equals(f.getRcperRcognNo())).findAny().orElse(null);
+			if (recipientVO == null) {
+				returnMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return returnMap;
+			}
+			
 			returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
 			
 			returnMap.put("refleshDate", simpleDateFormat.format(new Date()));
