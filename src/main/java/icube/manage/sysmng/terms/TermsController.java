@@ -110,11 +110,15 @@ public class TermsController  extends CommonAbstractController {
 			, Model model) throws Exception {
 
         if (termsNo == 0){
+        	TermsVO tempVO = termsService.selectListJoinVO(termsKind);
+        	
             termsVO.setCrud(CRUD.CREATE);
             termsVO.setTermsDt(DateUtil.getCurrentDateTime("yyyy-MM-dd"));
             termsVO.setUseYn("Y");
             termsVO.setPublicYn("Y");
             
+            termsVO.setContentHeader(tempVO.getContentHeader());
+            termsVO.setContentBody(tempVO.getContentBody());
         }else{
             termsVO = termsService.selectTermsOne(termsNo);
             termsVO.setCrud(CRUD.UPDATE);
