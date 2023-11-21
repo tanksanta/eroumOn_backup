@@ -9,12 +9,13 @@
 	, "customLauncherSelector": ".channelTalk"
 	, "hideChannelButtonOnBoot": true
     <c:if test="${!empty customProfileVO}">
+    	, "memberId": "${customProfileVO.memberId}"
+    	, "memberHash": "${customProfileVO.memberHash}"
     	, "unsubscribeTexting" : ${customProfileVO.unsubscribeTexting}
     	, "unsubscribeEmail" : ${customProfileVO.unsubscribeEmail}
     	
 	    ,"profile": {
-	      "mbrId": "${customProfileVO.mbrId}"
-	      , "name": "${customProfileVO.mbrNm}"
+	      "name": "${customProfileVO.mbrNm}"
 	      , "mobileNumber": "${customProfileVO.mblTelno}"
 	      , "email": "${customProfileVO.eml}"
 	      , "mbrConsltCnt" : ${customProfileVO.mbrConsltCnt}

@@ -41,6 +41,12 @@
     <c:if test="${!empty naverSiteVerification}">
 	<meta name="naver-site-verification" content="${naverSiteVerification}" />
 	</c:if>
+	
+	<!-- 네이버 연관채널 SEO -->
+    <span itemscope="" itemtype="http://schema.org/Organization">
+	<link itemprop="url" href="https://eroum.co.kr">
+	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
+	</span>
 </head>
 <body class="bg-main">
 	<!-- Google Tag Manager (noscript) -->

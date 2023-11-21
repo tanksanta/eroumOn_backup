@@ -49,6 +49,12 @@
     <script src="/html/core/script/hangjungdong.js"></script>
     <script src="/html/page/index/assets/script/index.js"></script>
     <script src="/html/core/script/JsCallApi.js"></script>
+    
+    <!-- 네이버 연관채널 SEO -->
+    <span itemscope="" itemtype="http://schema.org/Organization">
+	<link itemprop="url" href="https://eroum.co.kr">
+	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
+	</span>
 </head>
 
 <body>
