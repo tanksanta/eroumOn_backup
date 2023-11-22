@@ -77,25 +77,27 @@ public class DscntSchedule extends CommonAbstractController {
 		String thisYear = format2.format(now);
 		
 		for(MbrPointVO mbrPointVO : mbrPointList) {
-			try {
-				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_guide_extinct_point.html");
-				MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
-				mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
-				mailForm = mailForm.replace("((today))", today);
-				mailForm = mailForm.replace("((point))", String.valueOf(mbrPointVO.getPointAcmtl()));
-				mailForm = mailForm.replace("((thisYear))", thisYear);
-				
-				// 메일 발송
-				String mailSj = "[이로움ON] 소멸예정 포인트 안내";
-				if(!EgovStringUtil.equals("local", activeMode)) {
-					mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
-				} else {
-					mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+			if (mbrPointVO.getPointAcmtl() > 0) {
+				try {
+					String MAIL_FORM_PATH = mailFormFilePath;
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_point.html");
+					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
+					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
+					mailForm = mailForm.replace("((today))", today);
+					mailForm = mailForm.replace("((point))", String.valueOf(mbrPointVO.getPointAcmtl()));
+					mailForm = mailForm.replace("((thisYear))", thisYear);
+					
+					// 메일 발송
+					String mailSj = "[이로움ON] 소멸예정 포인트 안내";
+					if(!EgovStringUtil.equals("local", activeMode)) {
+						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+					} else {
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+					}
+				}catch(Exception e) {
+					log.debug("   ###   guideExtinctPoint Error   ### : " + e.toString());
+					e.printStackTrace();
 				}
-			}catch(Exception e) {
-				log.debug("   ###   guideExtinctPoint Error   ### : " + e.toString());
-				e.printStackTrace();
 			}
 		}
 
@@ -133,7 +135,7 @@ public class DscntSchedule extends CommonAbstractController {
 				//소멸 마일리지가 있음
 				if(restMlg > 0) {
 					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_guide_extinct_mlg.html");
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_mlg.html");
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
 					mailForm = mailForm.replace("((today))", today);
 					mailForm = mailForm.replace("((ownMlg))", String.valueOf(mlgMap.get("ownMlg")));

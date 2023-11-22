@@ -96,7 +96,7 @@ public class MbrSchedule extends CommonAbstractController {
 
 
 				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_drmc.html");
+				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_drmc.html");
 				mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
 				mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
 				mailForm = mailForm.replace("((recentCntnDt))", format.format(mbrVO.getRecentCntnDt()));

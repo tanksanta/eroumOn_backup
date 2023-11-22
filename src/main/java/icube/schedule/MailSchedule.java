@@ -103,7 +103,7 @@ public class MailSchedule extends CommonAbstractController  {
 					// 이메일 발송
 					if (ValidatorUtil.isEmail(mbrVO.getEml())) {
 						String MAIL_FORM_PATH = mailFormFilePath;
-						String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_brdt.html");
+						String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail/mbr/mail_brdt.html");
 						mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm()); // 회원 이름
 
 						String mailSj = "[이로움ON] 생일을 진심으로 축하드립니다.";
@@ -142,7 +142,7 @@ public class MailSchedule extends CommonAbstractController  {
 			try {
 				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
 					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_guide_drmc.html");
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_drmc.html");
 
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
 					mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
