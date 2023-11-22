@@ -401,6 +401,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public Integer updateMbrAddr(Map<String, Object> paramMap) throws Exception {
 		return mbrDAO.updateMbrAddr(paramMap);
 	}
+	
+	public void updateHumanMailYn(Map<String, Object> paramMap) throws Exception {
+		mbrDAO.updateHumanMailYn(paramMap);
+	}
 
 	public void insertMbrAgreement(MbrAgreementVO mbrAgreementVO) throws Exception {
 		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
@@ -409,6 +413,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public MbrAgreementVO selectMbrAgreementByMbrUniqueId(String uniqueId) throws Exception {
 		return mbrAgreementDAO.selectMbrAgreementByMbrUniqueId(uniqueId);
 	}
+	
 	
 	/**
 	 * 간편회원 전용 ID 생성 함수

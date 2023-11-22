@@ -196,6 +196,9 @@
 		<if test="srchRcperRcognNo != null and srchRcperRcognNo != '' ">
 			AND EXISTS (SELECT * FROM MBR_RECIPIENTS mr WHERE m.unique_id = mr.mbr_unique_id AND  mr.rcper_rcogn_no like CONCAT ('%',#{srchRcperRcognNo},'%'))
 		</if>
+		<if test="srchNotHumanMail != null and srchNotHumanMail != '' ">
+			AND (human_mail_yn IS NULL OR human_mail_yn != 'Y')
+		</if>
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
@@ -617,4 +620,11 @@
 		DELETE FROM MBR
 		WHERE unique_id = #{srchUniqueId}
 	</delete>
+	
+	<update id="updateHumanMailYn" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			human_mail_yn = 'Y'
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</update>
 </mapper>
