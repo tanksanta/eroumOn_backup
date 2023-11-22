@@ -80,8 +80,9 @@ public class BootpayApiController {
 		JSONObject jsonObj = (JSONObject) obj;
 
 		BootpayVO bootpayVO = new BootpayVO();
-		bootpayVO.setPg((String) jsonObj.get("pg")); // KCP
+		bootpayVO.setPg((String) jsonObj.get("pg")); // KCP, 이니시스
 		bootpayVO.setReceiptId((String) jsonObj.get("receipt_id")); // 6389b6cecf9f6d001e6459d8
+		bootpayVO.setReceiptUrl((String) jsonObj.get("receipt_url")); // https://door.bootpay.co.kr/receipt/??????????????
 		bootpayVO.setOrderId((String) jsonObj.get("order_id")); // O21202172643424
 		bootpayVO.setMethodSymbol(((String) jsonObj.get("method_symbol")).toUpperCase()); // vbank, card, bank, auth
 		bootpayVO.setStatus(EgovStringUtil.long2string((Long) jsonObj.get("status"))); // status
