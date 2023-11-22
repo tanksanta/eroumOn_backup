@@ -53,7 +53,7 @@ public class MailSchedule extends CommonAbstractController  {
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 	
-	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd");
 	SimpleDateFormat format3 = new SimpleDateFormat("yyyy년 MM월 dd일");
 
