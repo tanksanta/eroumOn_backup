@@ -80,8 +80,9 @@ public class BootpayApiController {
 		JSONObject jsonObj = (JSONObject) obj;
 
 		BootpayVO bootpayVO = new BootpayVO();
-		bootpayVO.setPg((String) jsonObj.get("pg")); // KCP
+		bootpayVO.setPg((String) jsonObj.get("pg")); // KCP, 이니시스
 		bootpayVO.setReceiptId((String) jsonObj.get("receipt_id")); // 6389b6cecf9f6d001e6459d8
+		bootpayVO.setReceiptUrl((String) jsonObj.get("receipt_url")); // https://door.bootpay.co.kr/receipt/??????????????
 		bootpayVO.setOrderId((String) jsonObj.get("order_id")); // O21202172643424
 		bootpayVO.setMethodSymbol(((String) jsonObj.get("method_symbol")).toUpperCase()); // vbank, card, bank, auth
 		bootpayVO.setStatus(EgovStringUtil.long2string((Long) jsonObj.get("status"))); // status
@@ -89,6 +90,10 @@ public class BootpayApiController {
 
 		bootpayVO.setCallbackTxt(sb);
 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date parseDt;
+		String convertDt;
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -102,11 +107,8 @@ public class BootpayApiController {
 
 			// status = 1 결제완료
 			if("1".equals(bootpayVO.getStatus())) {
-
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-				SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date parseDt = format.parse((String) jsonObj.get("purchased_at"));
-				String convertDt =  output.format(parseDt);
+				parseDt = format.parse((String) jsonObj.get("purchased_at"));
+				convertDt =  output.format(parseDt);
 				bootpayVO.setPurchasedAt(convertDt);
 
 				//System.out.println("bootpayVO: " + bootpayVO.toString());
@@ -122,7 +124,10 @@ public class BootpayApiController {
 			}
 
 		}else if("CARD".equals(bootpayVO.getMethodSymbol())) {
-
+			parseDt = format.parse((String) jsonObj.get("purchased_at"));
+			convertDt =  output.format(parseDt);
+			bootpayVO.setPurchasedAt(convertDt);
+			
 			Object vdata = parser.parse(jsonObj.get("card_data").toString());
 			JSONObject vdataObj = (JSONObject) vdata;
 
@@ -132,6 +137,9 @@ public class BootpayApiController {
 			bootpayVO.setTid((String) vdataObj.get("tid"));
 
 		}else if("BANK".equals(bootpayVO.getMethodSymbol())) {
+			parseDt = format.parse((String) jsonObj.get("purchased_at"));
+			convertDt =  output.format(parseDt);
+			bootpayVO.setPurchasedAt(convertDt);
 
 			Object vdata = parser.parse(jsonObj.get("bank_data").toString());
 			JSONObject vdataObj = (JSONObject) vdata;

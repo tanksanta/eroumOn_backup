@@ -9,12 +9,14 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.util.FileUtil;
 import icube.common.values.CodeMap;
 
 
@@ -23,6 +25,53 @@ public class MailService extends CommonAbstractServiceImpl {
 
 	@Autowired
 	private JavaMailSender mailSender;
+
+	@Value("#{props['Mail.Form.FilePath']}")
+	private String mailFormFilePath;
+
+	@Value("#{props['Mail.Form.Domain']}")
+	private String mailFormDomain;
+
+	@Value("#{props['Mail.Username']}")
+	private String mailFrom;
+
+	protected String replaceContent(String content){
+
+		if (content == null){
+			return content;	
+		}
+
+		String mailFormTemp;
+		String keyword;
+
+		keyword = "((mail_header))";
+		if (content.indexOf(keyword) >= 0){
+			mailFormTemp = FileUtil.readFile(mailFormFilePath + "/mail/mail_header.html");
+
+			content = content.replace(keyword, mailFormTemp);
+		}
+
+		keyword = "((mail_footer))";
+		if (content.indexOf("((mail_footer))") >= 0){
+			mailFormTemp = FileUtil.readFile(mailFormFilePath + "/mail/mail_footer.html");
+
+			content = content.replace(keyword, mailFormTemp);
+		}
+
+		keyword = "((domain))";
+		if (content.indexOf(keyword) >= 0){
+			if (mailFormDomain == null || mailFormDomain.length() < 1){
+				mailFormTemp = "https://eroum.co.kr";
+			}else {
+				mailFormTemp = mailFormDomain;
+			}
+
+			content = content.replace(keyword, mailFormTemp);
+		}
+
+		return content;
+	}
+
 
 	/**
 	 * 메일발송
@@ -36,6 +85,8 @@ public class MailService extends CommonAbstractServiceImpl {
 	public void sendMail(String from, String to, String sj, String content) throws Exception {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+		content = this.replaceContent(content);
 
 		if (CodeMap.MAIL_SENDER_NAME.get(from) == null){
 			helper.setFrom(from);
@@ -64,6 +115,8 @@ public class MailService extends CommonAbstractServiceImpl {
 
 		// 멀티파트 지원 false -> true
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+
+		content = this.replaceContent(content);
 		
 		if (CodeMap.MAIL_SENDER_NAME.get(from) == null){
 			helper.setFrom(from);
