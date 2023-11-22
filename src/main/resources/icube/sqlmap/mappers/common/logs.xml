@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="logs">
+
+	<resultMap type="BootpayVO" id="BootpayVOVOMap" autoMapping="true" />
+
+
+	<insert id="insertLogBootpayWebhook" parameterType="BootpayVO">
+		INSERT INTO LOG_BOOTPAY (
+            CALLBACK_TXT,
+            RECEIPT_ID,
+            ORDER_ID,
+            PG,
+            METHOD_SYMBOL,
+            STATUS,
+            STATUS_LOCALE,
+            RECEIPT_URL,
+            TID,
+            PURCHASED_AT
+        ) VALUES (
+            #{callbackTxt,  jdbcType=VARCHAR}
+            , #{receiptId, jdbcType=VARCHAR}
+            , #{orderId, jdbcType=VARCHAR}
+            , #{pg, jdbcType=VARCHAR}
+            , #{methodSymbol, jdbcType=VARCHAR}
+            , #{status, jdbcType=VARCHAR}
+            , #{statusLocale, jdbcType=VARCHAR}
+            , #{receiptUrl, jdbcType=VARCHAR}
+            , #{tid, jdbcType=VARCHAR}
+            , #{purchasedAt}
+        )
+        
+
+	</insert>
+
+
+</mapper>
+

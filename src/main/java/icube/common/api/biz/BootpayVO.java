@@ -1,5 +1,7 @@
 package icube.common.api.biz;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Getter;
@@ -25,4 +27,7 @@ public class BootpayVO {
 	//카드, 계좌이체, 가상계좌
 	private String tid; //PG에서 발급한 결제 고유 식별 ID
 
+	private int logSeq;/*callback string*/
+	private String callbackTxt;/*callback string*/
+	private Date regDt;			// 등록 일시
 }
