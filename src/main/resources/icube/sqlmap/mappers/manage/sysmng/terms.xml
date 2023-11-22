@@ -42,14 +42,14 @@
 		</if>
 		
 		<choose>
-			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
-				AND tm1.terms_dt &gt;= #{srchBgngDt} AND tm1.terms_dt &lt;= #{srchEndDt}
+			<when test="srchWrtYmdBgng != null and srchWrtYmdBgng != '' and srchWrtYmdEnd != null and srchWrtYmdEnd != '' ">
+				AND tm1.terms_dt &gt;= #{srchWrtYmdBgng} AND tm1.terms_dt &lt;= #{srchWrtYmdEnd}
 			</when>
-			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
-				AND tm1.terms_dt &gt;= #{srchBgngDt}
+			<when test= 'srchWrtYmdBgng != null and srchWrtYmdBgng != "" '>
+				AND tm1.terms_dt &gt;= #{srchWrtYmdBgng}
 			</when>
-			<when test='srchEndDt != null and srchEndDt != "" '>
-				AND tm1.terms_dt &lt;= #{srchEndDt}
+			<when test='srchWrtYmdEnd != null and srchWrtYmdEnd != "" '>
+				AND tm1.terms_dt &lt;= #{srchWrtYmdEnd}
 			</when>
 		</choose>
 	</sql>
