@@ -68,9 +68,12 @@
 		</if>
 		<if test="srchTwoYear != null and srchTwoYear != '' ">
 			AND DATEDIFF(NOW(),reg_dt) &gt;= 730
+			AND (extinct_yn IS NULL OR extinct_yn != 'Y')
 		</if>
+		<!-- 소멸 안내 알림 보내기 전용 조건 -->
 		<if test="srchTwoYearBeforeWeek != null and srchTwoYearBeforeWeek != '' ">
 			AND DATEDIFF(NOW(),reg_dt) &gt;= 723
+			AND (extinct_mail_yn IS NULL OR extinct_mail_yn != 'Y')
 		</if>
 	</sql>
 
@@ -194,5 +197,21 @@
 		)
 	</insert>
 
-
+	<!-- 마일리지 소멸 안내 이메일 발송 처리 -->
+	<update id="updateExtinctMlgMail" parameterType="java.util.HashMap">
+		UPDATE MBR_MLG SET
+			extinct_mail_yn = 'Y'
+		WHERE 1=1
+			AND DATEDIFF(NOW(),reg_dt) &gt;= 723
+			AND (extinct_mail_yn IS NULL OR extinct_mail_yn != 'Y')
+	</update>
+	
+	<!-- 마일리지 소멸 여부 처리 -->
+	<update id="updateExtinctMlgAction" parameterType="java.util.HashMap">
+		UPDATE MBR_MLG SET
+			extinct_yn = 'Y'
+		WHERE 1=1
+			AND DATEDIFF(NOW(),reg_dt) &gt;= 730
+			AND (extinct_yn IS NULL OR extinct_yn != 'Y')
+	</update>
 </mapper>

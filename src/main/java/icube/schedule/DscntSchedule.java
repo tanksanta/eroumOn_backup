@@ -155,6 +155,9 @@ public class DscntSchedule extends CommonAbstractController {
 			}
 		}
 
+		//소멸 마일리지 메일 발송 처리
+		mbrMlgService.updateExtinctMlgMail();
+		
 		log.debug("   ###   guideExtinctMlg END  ####");
 	}
 	
@@ -185,8 +188,9 @@ public class DscntSchedule extends CommonAbstractController {
 	/**
 	 * 회원 마일리지 자동 소멸
 	 * @see 자정 실행 -> 재작년 마일리지 계산
+	 * @see 매일 실행으로 변경 (이다겸 대리 확인)
 	 */
-	@Scheduled(cron="0 15 0 1 1 *")
+	@Scheduled(cron="0 0 9 * * *")
 	public void autoExtinctMlg() throws Exception {
 		log.debug("   ###   autoExtinctMlg START  ####");
 
@@ -203,6 +207,9 @@ public class DscntSchedule extends CommonAbstractController {
 			}
 		}
 
+		//마일리지 소멸 처리 체크
+		mbrMlgService.updateExtinctMlgAction();
+		
 		log.debug("   ###   extinctMbrMlg END  ####");
 	}
 }
