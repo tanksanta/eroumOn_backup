@@ -720,7 +720,7 @@ public class MainTestController extends CommonAbstractController {
 				isSelect = true;
 				templete += "                                      <tr>\r\n"
 						+ "                                            <th\r\n"
-						+ "                                                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: color: #333;\">\r\n"
+						+ "                                                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: #333;\">\r\n"
 						+ "                                                " + title[i] + " </th>\r\n"
 						+ "                                            <td\r\n"
 						+ "                                                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333;\">\r\n"

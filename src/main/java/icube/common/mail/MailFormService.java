@@ -421,12 +421,10 @@ public class MailFormService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public void doSender(OrdrVO ordrVO, String mailForm, String mailSj) throws Exception {
-
-		if (!EgovStringUtil.equals("local", activeMode)) {
-			mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
-		}else {
-			mailService.sendMail(sendMail, testUser, mailSj, mailForm); // 테스트
-		}
+		/* 
+		주문자의 메일로 보냄
+		*/
+		mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
 	}
 
 	/**
