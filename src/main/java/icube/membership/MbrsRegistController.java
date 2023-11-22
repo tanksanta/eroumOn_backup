@@ -129,7 +129,10 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	@Autowired
 	private MbrSession mbrSession;
+	
+	private SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd HHmmss");
 
+	
 
 	@RequestMapping(value = "regist")
 	public String registStep(
@@ -374,6 +377,36 @@ public class MbrsRegistController extends CommonAbstractController{
 				}else {
 					log.debug("회원 가입 쿠폰 개수 : " + cnt);
 				}
+				
+				
+				// 2023년 11/6 ~ 12/08 까지 5천원 추가 쿠폰 자동 지급
+				Date now = new Date();
+				String startDtStr = "20231106 000000";
+				Date startDt = format.parse(startDtStr);
+				String endDtStr = "20231208 235959";
+				Date endDt = format.parse(endDtStr);
+				
+				//쿠폰발급 기간조건 (크다(1), 같다(0), 작다(-1))
+				if (now.compareTo(startDt) >= 0 && now.compareTo(endDt) <= 0) {
+					paramMap = new HashMap<String, Object>();
+					paramMap.put("srchCouponTy", "JOIN_ADD");
+					paramMap.put("srchSttusTy", "USE");
+					CouponVO couponVO = couponService.selectCoupon(paramMap);
+					
+					//회원가입 추가발급 쿠폰이 있는 경우
+					if (couponVO != null) {
+						CouponLstVO couponLstVO = new CouponLstVO();
+						couponLstVO.setCouponNo(couponVO.getCouponNo());
+						couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+						
+						if(couponVO.getUsePdTy().equals("ADAY")) {
+							couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+						}
+
+						couponLstService.insertCouponLst(couponLstVO);
+					}
+				}
+				
 			}catch(Exception e) {
 				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
 			}
@@ -612,6 +645,35 @@ public class MbrsRegistController extends CommonAbstractController{
 					couponLstService.insertCouponLst(couponLstVO);
 				}else {
 					log.debug("회원 가입 쿠폰 개수 : " + cnt);
+				}
+				
+				
+				// 2023년 11/6 ~ 12/08 까지 5천원 추가 쿠폰 자동 지급
+				Date now = new Date();
+				String startDtStr = "20231106 000000";
+				Date startDt = format.parse(startDtStr);
+				String endDtStr = "20231208 235959";
+				Date endDt = format.parse(endDtStr);
+				
+				//쿠폰발급 기간조건 (크다(1), 같다(0), 작다(-1))
+				if (now.compareTo(startDt) >= 0 && now.compareTo(endDt) <= 0) {
+					paramMap = new HashMap<String, Object>();
+					paramMap.put("srchCouponTy", "JOIN_ADD");
+					paramMap.put("srchSttusTy", "USE");
+					CouponVO couponVO = couponService.selectCoupon(paramMap);
+					
+					//회원가입 추가발급 쿠폰이 있는 경우
+					if (couponVO != null) {
+						CouponLstVO couponLstVO = new CouponLstVO();
+						couponLstVO.setCouponNo(couponVO.getCouponNo());
+						couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+						
+						if(couponVO.getUsePdTy().equals("ADAY")) {
+							couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+						}
+
+						couponLstService.insertCouponLst(couponLstVO);
+					}
 				}
 			}catch(Exception e) {
 				log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
