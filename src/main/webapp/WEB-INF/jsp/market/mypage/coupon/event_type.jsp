@@ -39,19 +39,19 @@
 		</c:when>
 
 		<%-- 생일 정율 --%>
-		<%--<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'PRCS'}">
+		<c:when test="${param.eventType eq 'BRDT' && param.dscntTy eq 'PRCS'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
-						<img src="/html/page/market/assets/images/img-coupon-birthday.svg" alt=""> ${param.dscntAmt} <small>%</small>
+						${param.dscntAmt} <small>%</small>
 					</div>
 					<p class="desc">Happy Birthday!</p>
 				</div>
 			</div>
-		</c:when> --%>
+		</c:when>
 
 		<%-- 생일 정액 --%>
-		<%--<c:when test="${param.eventType eq 'BIRTH' && param.dscntTy eq 'SEMEN'}">
+		<c:when test="${param.eventType eq 'BRDT' && param.dscntTy eq 'SEMEN'}">
 			<div class="coupon-item is-event sm-max:coupon-item-small xl:coupon-item-large">
 				<div class="itembox">
 					<div class="info">
@@ -61,7 +61,7 @@
 					<p class="desc">Happy Birthday!</p>
 				</div>
 			</div>
-		</c:when> --%>
+		</c:when>
 
 		<%-- 회원 가입 정율 --%>
 		<c:when test="${(param.eventType eq 'JOIN' || param.eventType eq 'JOIN_ADD') && param.dscntTy eq 'PRCS'}">
