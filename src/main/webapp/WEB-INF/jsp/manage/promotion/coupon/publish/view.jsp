@@ -54,7 +54,7 @@
 						<td>${listVO.startNo - status.index}</td>
 						<td>${resultList.mbrNm}</td>
 						<td>${resultList.mbrId}</td>
-						<td><fmt:formatDate value="${resultList.issuBgngDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<c:if test="${resultList.useDt ne NULL}"><td><fmt:formatDate value="${resultList.useDt}" pattern="yyyy-MM-dd HH:mm:ss" /></td></c:if>
 						<c:if test="${resultList.useDt eq NULL}"><td>-</td></c:if>
 					</tr>

@@ -16,6 +16,7 @@
 			, lst.use_lst_bgng_ymd
 			, lst.use_lst_end_ymd
 			, lst.use_dt
+			, lst.reg_dt
 			, od.ordr_cd
 			, mb.mbr_id
 			, mb.mbr_nm
