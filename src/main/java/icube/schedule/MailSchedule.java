@@ -182,32 +182,25 @@ public class MailSchedule extends CommonAbstractController  {
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
 		//개인정보 이용내역 메일
-		for(int i=0; i < mbrList.size(); i++) {
+		for(MbrVO mbrVO : mbrList) {
 			try {
-				if(ValidatorUtil.isEmail(mbrList.get(i).getEml())) {
+				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
 					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_info.html");
-
-					mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
-					mailForm = mailForm.replace("{name}", "이로움마켓");
-					mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
-					mailForm = mailForm.replace("{brno}", "617-86-14330");
-					mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
-
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_privacy_info.html");
 
 
 					// 메일 발송
 					String mailSj = "[이로움ON] 개인정보 이용내역 안내";
 					if(EgovStringUtil.equals("real", activeMode)) {
-						mailService.sendMail(sendMail, mbrList.get(i).getEml(), mailSj, mailForm);
+						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
 						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 					}
 				} else {
-					log.debug(i + "번째" + mbrList.get(i).getMbrNm()+" 개인정보 이용내역 EMAIL 전송 실패 :: 이메일 체크 " + mbrList.get(i).getEml());
+					log.debug(mbrVO.getMbrNm()+" 개인정보 이용내역 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
 				}
 			} catch (Exception e) {
-				log.debug(i + "번째" + mbrList.get(i).getMbrNm()+"개인정보 이용내역 EMAIL 전송 실패 :: " + e.toString());
+				log.debug(mbrVO.getMbrNm()+"개인정보 이용내역 EMAIL 전송 실패 :: " + e.toString());
 			}
 		}
 	}
