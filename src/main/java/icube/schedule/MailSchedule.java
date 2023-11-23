@@ -181,7 +181,7 @@ public class MailSchedule extends CommonAbstractController  {
 	}
 
 	// 개인정보 이용내역
-	@Scheduled(cron="0 0 12 31 12 *")
+	@Scheduled(cron="0 0 23 31 12 *")
 	public void sendInfoMail() throws Exception {
 
 		log.info("################## 개인정보 MAIL START #####################");
