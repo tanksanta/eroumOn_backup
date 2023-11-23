@@ -124,6 +124,7 @@
     <!-- //header -->
     
     <main id="container">
+        <div class="main-inner">
         <div class="main-bottom-zero">
             <div class="main-visual">
                 <div class="swiper">
@@ -189,23 +190,7 @@
 
             <div id="abs"></div>
 
-            <div class="main-welfare">
-                <div class="container">
-                    <p class="desc">시니어를 위한 <strong>복지서비스</strong><br> <strong>한 곳에 모아서!</strong></p>
-                    <p class="count"><strong>17,790</strong>건</p>
-                    <form action="" class="form">
-                        <legend class="sr-only">복지서비스 검색</legend>
-                        <select name="" class="form-control">
-                            <option value="">서울특별시</option>
-                            <option value="">서울특별시</option>
-                        </select>
-                        <select name="" class="form-control">
-                            <option value="">금천구</option>
-                        </select>
-                        <button type="submit" class="btn">바로 확인</button>
-                    </form>
-                </div>
-            </div>
+            
 
             <div id="notice-mobile" class="main-notice">
                 <div class="notice-banner1">
@@ -224,14 +209,49 @@
                 </div>
             </div>
 
-            <ul class="main-link">
+            <!-- <ul class="main-link">
                 <li class="link-item1"><a href="${_mainPath}/searchBokji">어르신<br> 복지</a></li>
                 <li class="link-item2"><a href="https://www.eroum.co.kr/test/index" target="_blank">인정 등급<br> 테스트</a></li>
                 <li class="link-item3"><a href="${_marketPath}/index" target="_blank">어르신 <br> 맞춤몰</a></li>
                 <li class="link-item4"><a href="//www.youtube.com/@eroumon" target="_blank">유튜브<br> 채널</a></li>
-            </ul>
+            </ul> -->
+
+            
 
             <div class="main-content-wrapper">
+                <div class="main-content4">
+                    <div class="box">
+                        <h2>
+                            <small>100만명이 받은 복지혜택  저도 받았어요</small>
+                            <p>부모님과 나를 위한,</p>
+                            <em class="text-primary3">복지서비스</em>
+                        </h2>
+                        <p>65세부터 꼭 혜택 받으세요!</p>
+                        <p>복지혜택 확인하기 이로움ON에서 5분이면 가능해요</p> 
+                        <p>신청부터 상담까지 한번에!</p>
+                        <a href="#" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>인정등급 테스트하기</strong></a>
+                    </div>
+                    <button class="image-youtube" data-bs-toggle="modal" data-bs-target="#watching-youtube">
+                        <img src="../assets/images/img-promotion-youtube.png" alt="부모님과 나를 위한 복지서비스"/>
+                    </button>
+
+                    <div class="modal modal-youtube fade" id="watching-youtube" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                   <button data-bs-dismiss="modal" class="btn-close"> 닫기 </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="embed-container">
+                                        <iframe src="https://www.youtube.com/embed/YpfWKyDGPB4" frameborder="0" allowfullscreen title="시니어 정보 플랫폼 이로움ON - 수급자 보호자 편"></iframe>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="main-content1">
                     <div class="image">
                         <div class="object1"></div>
@@ -255,13 +275,14 @@
                     </div>
                     <div class="box">
                         <h2>
-                            <small>부모님 생활을 한층 편하게</small>
-                            삶의 질을 높여주는<br>
-                            <em class="text-primary3">복지용구, 소개해 드릴게요</em>
+                            <small>100만명이 받은 복지혜택  저도 받았어요</small>
+                            <em class="text-primary2">부모님과 나를 위한,</em><br>
+                            복지서비스
                         </h2>
-                        <p>불편한 거동, 낙상 사고 등의 걱정을</p>
-                        <p>복지용구로 덜으실 수 있어요</p>
-                        <a href="#" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>복지용구 알아보기</strong></a>
+                        <p>65세부터 꼭 혜택 받으세요!</p>
+                        <p>복지혜택 확인하기 이로움ON에서 5분이면 가능해요</p>
+                        <p>신청부터 상담까지 한번에!</p>
+                        <a href="/main/cntnts/page1" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>인정등급 테스트하기</strong></a>
                     </div>
                 </div>
         
@@ -280,6 +301,26 @@
                         <p>혜택받는 방법과<br> 고르는 법을 알려드려요</p>
                         <a href="#" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
                     </div>
+                </div>
+            </div>
+
+            <div class="main-welfare-search">
+                <div class="container">
+                    <p class="desc">시니어를 위한 <strong>복지서비스</strong><br> <strong>한 곳에 모아서!</strong></p>
+                    <p class="count"><strong>17,790</strong>건</p>
+                    <form action="" class="form">
+                        <legend class="sr-only">복지서비스 검색</legend>
+                        <label for="city" class="sr-only">시</label>
+                        <select id="city" name="" class="form-control">
+                            <option value="">서울특별시</option>
+                            <option value="">서울특별시</option>
+                        </select>
+                        <label for="gu" class="sr-only">구</label>
+                        <select id="gu" name="" class="form-control">
+                            <option value="">금천구</option>
+                        </select>
+                        <button type="submit" class="btn">바로 확인</button>
+                    </form>
                 </div>
             </div>
 
@@ -406,6 +447,8 @@
                     }
                 });
             })
+
+            
         </script>
     </main>
 
@@ -519,5 +562,13 @@
 
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../core/vendor/twelements/popper.min.js"></script>
+    <script>
+        $(function() {
+            $('#watching-youtube').on('show.bs.modal', function () {     
+				var modal = $(this);
+				modal.appendTo('body');
+			});
+        })
+    </script>
 </body>
 </html>

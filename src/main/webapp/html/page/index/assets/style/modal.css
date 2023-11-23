@@ -134,13 +134,40 @@
                 }
             }
         }
+
+        &.modal-media {
+            & .modal-header {
+                @apply bg-transparent justify-end p-0;
+                & .btn-close {
+                    @apply w-12 h-12 border border-black text-black rounded-3xl -indent-28 overflow-hidden transition-[0.2s] m-[0_0_0.75rem_0]
+                    bg-[url('../images/ico-close.svg')] bg-[length:80%_80%] bg-[center_center] bg-[#dedede]
+                    md:hover:indent-0 md:hover:w-28 md:hover:pr-10 md:hover:bg-[right_-1.2rem_center];
+                }
+                & [data-bs-dismiss="modal"] {
+                    filter: none;
+                }
+            }
+            & .modal-content {
+                @apply relative flex flex-col w-full h-auto  border-none p-0 bg-transparent pointer-events-auto mx-5 md:mx-auto;
+            }
+            & .modal-body {
+                @apply p-0 shadow-2xl rounded-lg;
+            }
+            & .embed-container {
+                @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full sm:min-w-[560px] ;
+            }
+            & .embed-container iframe, .embed-container object, .embed-container embed {
+                @apply absolute top-0 left-0 w-full h-full;
+            }
+
+
+        }
     }
     .modal-backdrop {
         @apply bg-gray3/80 backdrop-blur-md;
+        transform: translate3d(0, 0, 0);
         &.show {
             @apply opacity-100;
         }
     }
-    /* .modal-backdrop{z-index: 1050 !important;}
-    .modal{z-index: 1060 !important;} */
 }

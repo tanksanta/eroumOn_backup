@@ -1870,6 +1870,7 @@
         @apply before:bg-[#EAEFFC];
     }
 }
+
 .grade-content1, .grade-content2, .grade-content3, .grade-content4 {
     &.simple-inquiry {
         & .taps-item {
@@ -2056,7 +2057,6 @@
         }              
     }
 }
-
 .result-content2 {
     @apply pt-25 pb-15
            md:pb-26;
@@ -2138,115 +2138,88 @@
 }
 
 @keyframes textblur {
-    0% {
-        left: -50%;
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    45% {
-        opacity: 1;
-    }
-    50% {
-        left: -300%;
-        opacity: 0;
-    }
+    0% { left: -50%; opacity: 0; }
+    5% { opacity: 1; }
+    45% { opacity: 1; }
+    50% { left: -300%; opacity: 0; }
 }
 
 @keyframes pagetitle2 {
-    0% {
-        top: 0;
-    }
-    8% {
-        top: -1.5em;
-    }
-    25% {
-        top: -1.5em;
-    }
-    33% {
-        top: -3em;
-    }
-    50% {
-        top: -3em;
-    }
-    58% {
-        top: -4.5em;
-    }
-    75% {
-        top: -4.5em;
-    }
-    83% {
-        top: -6em;
-    }
-    99.9% {
-        top: -6em;
-    }
-    100% {
-        top: 0;
-    }
+    0% { top: 0; }
+    8% { top: -1.5em; }
+    25% { top: -1.5em; }
+    33% { top: -3em; }
+    50% { top: -3em; }
+    58% { top: -4.5em; }
+    75% { top: -4.5em; }
+    83% { top: -6em; }
+    99.9% { top: -6em; }
+    100% { top: 0; }
 }
 
 @keyframes ani-airplane {
-    0% {
-        transform: translate(-50%,-50%) scale(1);
-    }
-    50% {
-        transform: translate(-50%,-50%) scale(1);
-    }
-    60% {
-        transform: translate(-60%,-40%) scale(1.1);
-    }
-    100% {
-        transform: translate(100%,-150%) scale(0.2);
-    }
+    0% { transform: translate(-50%,-50%) scale(1); }
+    50% { transform: translate(-50%,-50%) scale(1); }
+    60% { transform: translate(-60%,-40%) scale(1.1); }
+    100% { transform: translate(100%,-150%) scale(0.2); }
 }
 
 @keyframes ani-circle {
-    0% {
-        width: 0;
-        height: 0;
-    }
-    20% {
-        width: 80%;
-        height: 80%;
-    }
+    0% { width: 0; height: 0; }
+    20% { width: 80%; height: 80%; }
 }
 
 @keyframes ani-ls {
-    0% {
-        width: 30px;
-        transform: rotate(45deg) translate(-300%,-50%);
-    }
-    30% {
-        width: 20px;
-        transform: rotate(45deg) translate(-10%,-50%);
-    }
-    50% {
-        width: 30px;
-        transform: rotate(45deg) translate(-50%,-50%);
-    }
-    100% {
-        width: 30px;
-        transform: rotate(45deg) translate(-50%,-50%);
-    }
+    0% { width: 30px; transform: rotate(45deg) translate(-300%,-50%); }
+    30% { width: 20px; transform: rotate(45deg) translate(-10%,-50%); }
+    50% { width: 30px; transform: rotate(45deg) translate(-50%,-50%); }
+    100% { width: 30px; transform: rotate(45deg) translate(-50%,-50%); }
 }
 
 @keyframes ani-ll {
-    0% {
-        width: 0;
-        transform: rotate(-45deg);
+    0% { width: 0; transform: rotate(-45deg); }
+    60% { width: 0; transform: rotate(-45deg); }
+    95% { width: 55px; transform: rotate(-45deg); }
+    100% { width: 50px; transform: rotate(-45deg); }
+}
+
+
+.slideLeft {
+    animation-name: slideLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0;
+}
+.slideRight {
+    animation-name: slideRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0;
+}
+@keyframes slideLeft {
+    0% { transform: translateX(4%); }
+    100% { transform: translateX(0%); }
+}
+@keyframes slideRight {
+    0% { transform: translateX(-4%); }
+    100% { transform: translateX(0%); }
+}
+
+
+.add-rcpts-regist {
+    display: none;
+    &.active {
+        overflow:hidden;
+        display: block;
+        @apply slideLeft;
     }
-    60% {
-        width: 0;
-        transform: rotate(-45deg);
+}
+
+.rcpts-select-content {
+     &.active {
+        @apply slideRight;
     }
-    95% {
-        width: 55px;
-        transform: rotate(-45deg);
-    }
-    100% {
-        width: 50px;
-        transform: rotate(-45deg);
+     &.inactive {
+        @apply hidden;
     }
 }
