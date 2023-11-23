@@ -19,16 +19,30 @@ public class TermsService {
     }
 
     /*일반 사용자 화면에서 조회*/
+    public TermsVO selectListJoinVO(String termsKind) throws Exception {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        paramMap.put("srchTermsKind", termsKind.toUpperCase());
+        paramMap.put("srchUseYn", "Y");
+        paramMap.put("srchPublicYn", "Y");
+
+        return termsDAO.selectTermsOne(paramMap);
+    }
+
+    /*일반 사용자 화면에서 조회*/
     public List<TermsVO> selectListMemberVO(String termsKind) throws Exception {
         Map<String, Object> paramMap = new HashMap<String, Object>();
 
-			paramMap.put("srchTermsKind", termsKind.toUpperCase());
-			paramMap.put("srchPublicYn", "Y");
+        paramMap.put("srchTermsKind", termsKind.toUpperCase());
+        paramMap.put("srchPublicYn", "Y");
         return termsDAO.selectListVO(paramMap);
     }
 
     public TermsVO selectTermsOne(int termsNo) throws Exception {
-		return termsDAO.selectTermsOne(termsNo);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        paramMap.put("srchTermsNo", termsNo);
+		return termsDAO.selectTermsOne(paramMap);
 	}
 
     public int insertTermsOne(TermsVO vo) throws Exception {

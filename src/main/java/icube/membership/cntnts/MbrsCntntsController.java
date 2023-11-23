@@ -50,7 +50,7 @@ public class MbrsCntntsController extends CommonAbstractController {
 			Optional<TermsVO> result = listHVO.stream().filter(x -> x.getUseYn().equals("Y")).findAny();
 			TermsVO optn = result.orElse(null);
 			if (optn != null){
-				model.addAttribute("termContent", optn.getContents());
+				model.addAttribute("termContent", optn.getContentHeader() + optn.getContentBody());
 			}else{
 				model.addAttribute("termContent", "");
 			}

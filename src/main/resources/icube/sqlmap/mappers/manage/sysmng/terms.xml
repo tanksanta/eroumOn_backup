@@ -12,7 +12,8 @@
 		, use_yn
 		, public_yn
 
-		, contents
+		, content_header
+		, content_body
 
 		, reg_unique_id
 		, reg_dt
@@ -30,11 +31,9 @@
 			AND tm1.terms_kind = #{srchTermsKind}
 		</if>
 		<if test="srchTermsNo != null and srchTermsNo > 0 ">
-			AND tm1.termsNo = #{srchTermsNo}
+			AND tm1.terms_no = #{srchTermsNo}
 		</if>
-		<if test="srchText != null and srchText != '' ">
-			AND tm1.contents like CONCAT ('%',#{srchText},'%')
-		</if>
+		
 		<if test="srchUseYn != null and srchUseYn != '' ">
 			AND tm1.use_yn = #{srchUseYn}
 		</if>
@@ -43,14 +42,14 @@
 		</if>
 		
 		<choose>
-			<when test="srchBgngDt != null and srchBgngDt != '' and srchEndDt != null and srchEndDt != '' ">
-				AND tm1.terms_dt &gt;= #{srchBgngDt} AND tm1.terms_dt &lt;= #{srchEndDt}
+			<when test="srchWrtYmdBgng != null and srchWrtYmdBgng != '' and srchWrtYmdEnd != null and srchWrtYmdEnd != '' ">
+				AND tm1.terms_dt &gt;= #{srchWrtYmdBgng} AND tm1.terms_dt &lt;= #{srchWrtYmdEnd}
 			</when>
-			<when test= 'srchBgngDt != null and srchBgngDt != "" '>
-				AND tm1.terms_dt &gt;= #{srchBgngDt}
+			<when test= 'srchWrtYmdBgng != null and srchWrtYmdBgng != "" '>
+				AND tm1.terms_dt &gt;= #{srchWrtYmdBgng}
 			</when>
-			<when test='srchEndDt != null and srchEndDt != "" '>
-				AND tm1.terms_dt &lt;= #{srchEndDt}
+			<when test='srchWrtYmdEnd != null and srchWrtYmdEnd != "" '>
+				AND tm1.terms_dt &lt;= #{srchWrtYmdEnd}
 			</when>
 		</choose>
 	</sql>
@@ -78,8 +77,9 @@
 	<select id="selectTermsOne" parameterType="java.util.HashMap" resultMap="TermsVOMap">
 		/* Query ID : terms.xml > selectTermsOne */
 		SELECT <include refid="listColumn"/>
-		FROM	TERMS_M1 t1
-		WHERE terms_no = #{no}
+		FROM	TERMS_M1 tm1
+		WHERE 1=1
+			<include refid="searchTermsConditions" />
 	</select>
 	<insert id="insertTerms" parameterType="TermsVO">
 		INSERT INTO TERMS_M1 (
@@ -88,7 +88,8 @@
 			, use_yn
 			, public_yn
 			, del_yn
-			, contents
+			, content_header
+			, content_body
 			, reg_unique_id
 			, reg_id
 			, rgtr
@@ -99,7 +100,8 @@
 			, #{useYn, jdbcType=VARCHAR}
 			, #{publicYn, jdbcType=VARCHAR}
 			, 'N'
-		 	, #{contents, jdbcType=VARCHAR}
+		 	, #{contentHeader, jdbcType=VARCHAR}
+			, #{contentBody, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
@@ -115,7 +117,8 @@
 		SET terms_dt = #{termsDt}
 			, use_yn = #{useYn}
 			, public_yn = #{publicYn}
-			, contents = #{contents}
+			, content_header = #{contentHeader}
+			, content_body = #{contentBody}
 			, mdfcn_unique_id = #{mdfcnUniqueId}
 			, mdfcn_id = #{mdfcnId}
 			, mdfr = #{mdfr}

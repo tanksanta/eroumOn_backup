@@ -20,8 +20,18 @@ class JsHouseMembershipTermsView extends JsHouse2309PageBase{
     }
 
     fn_change_termsno_cb(result, fail, data, param){
-        if (result != null && result.termsVO != null && result.termsVO.contents != null && result.termsVO.contents.length > 0){
-            $("#page-content .terms.contents").html(result.termsVO.contents);
+        if (result != null && result.termsVO != null ){
+            var contents = '';
+            if (result.termsVO.contentHeader != null  && result.termsVO.contentHeader.length > 0){
+                contents += result.termsVO.contentHeader;
+            }
+            if (result.termsVO.contentBody != null  && result.termsVO.contentBody.length > 0){
+                contents += result.termsVO.contentBody;
+            }
+
+            // contents = contents.replace("\n", "<br>")
+            
+            $("#page-content .terms.contents").html(contents);
         }
     }
 }
