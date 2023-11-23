@@ -342,17 +342,27 @@ public class MbrsRegistController extends CommonAbstractController{
 
 			dlvyService.insertBassDlvy(dlvyVO);
 
-			//회원의 수급자 정보 등록
-			MbrRecipientsVO[] mbrRecipientsArray = new MbrRecipientsVO[recipientsNms.length];
-			for (int i = 0; i < recipientsNms.length; i++) {
-				mbrRecipientsArray[i] = new MbrRecipientsVO();
-				mbrRecipientsArray[i].setMbrUniqueId(uniqueId);
-				mbrRecipientsArray[i].setRelationCd(relationCds[i]);
-				mbrRecipientsArray[i].setRecipientsNm(recipientsNms[i]);
-				mbrRecipientsArray[i].setRcperRcognNo(rcperRcognNos[i]);
-				mbrRecipientsArray[i].setRecipientsYn(EgovStringUtil.isNotEmpty(mbrRecipientsArray[i].getRcperRcognNo()) ? "Y" : "N");
+			try {
+				//회원의 수급자 정보 등록
+				MbrRecipientsVO[] mbrRecipientsArray = new MbrRecipientsVO[recipientsNms.length];
+				for (int i = 0; i < recipientsNms.length; i++) {
+					mbrRecipientsArray[i] = new MbrRecipientsVO();
+					mbrRecipientsArray[i].setMbrUniqueId(uniqueId);
+					if (i < relationCds.length) {
+						mbrRecipientsArray[i].setRelationCd(relationCds[i]);
+					}
+					if (i < recipientsNms.length) {
+						mbrRecipientsArray[i].setRecipientsNm(recipientsNms[i]);
+					}
+					if (i < rcperRcognNos.length) {
+						mbrRecipientsArray[i].setRcperRcognNo(rcperRcognNos[i]);
+					}
+					mbrRecipientsArray[i].setRecipientsYn(EgovStringUtil.isNotEmpty(mbrRecipientsArray[i].getRcperRcognNo()) ? "Y" : "N");
+				}
+				mbrRecipientsService.insertMbrRecipients(mbrRecipientsArray);
+			} catch (Exception e) {
+				log.debug("회원 가입 수급자 등록 실패" + e.toString());
 			}
-			mbrRecipientsService.insertMbrRecipients(mbrRecipientsArray);
 			
 			
 			/** 2023-04-05 포인트 지급 삭제 **/
