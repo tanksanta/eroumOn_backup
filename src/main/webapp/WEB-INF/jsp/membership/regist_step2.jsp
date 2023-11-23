@@ -24,10 +24,6 @@
 				<input type="hidden" id="termsDt" name="termsDt" value="<fmt:formatDate value="${mbrAgreementVO.termsDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
 				<input type="hidden" id="privacyYn" name="privacyYn" value="${mbrAgreementVO.privacyYn}" />
 				<input type="hidden" id="privacyDt" name="privacyDt" value="<fmt:formatDate value="${mbrAgreementVO.privacyDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
-				<input type="hidden" id="provisionYn" name="provisionYn" value="${mbrAgreementVO.provisionYn}" />
-				<input type="hidden" id="provisionDt" name="provisionDt" value="<fmt:formatDate value="${mbrAgreementVO.provisionDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
-				<input type="hidden" id="thirdPartiesYn" name="thirdPartiesYn" value="${mbrAgreementVO.thirdPartiesYn}" />
-				<input type="hidden" id="thirdPartiesDt" name="thirdPartiesDt" value="<fmt:formatDate value="${mbrAgreementVO.thirdPartiesDt}" pattern="yyyy-MM-dd HH:mm:ss" />" />
 				<input type="hidden" name="returnUrl" value="${param.returnUrl}" />
 
 				<double-submit:preventer tokenKey="preventTokenKey" />

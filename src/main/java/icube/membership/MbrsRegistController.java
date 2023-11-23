@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -48,6 +49,8 @@ import icube.manage.promotion.coupon.biz.CouponService;
 import icube.manage.promotion.coupon.biz.CouponVO;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
+import icube.manage.sysmng.terms.TermsService;
+import icube.manage.sysmng.terms.TermsVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
@@ -96,6 +99,9 @@ public class MbrsRegistController extends CommonAbstractController{
 	
 	@Resource(name = "biztalkConsultService")
 	private BiztalkConsultService biztalkConsultService;
+
+	@Resource(name = "termsService")
+	private TermsService termsService;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -165,7 +171,18 @@ public class MbrsRegistController extends CommonAbstractController{
 		mbrAgreementVO.setProvisionDt(now);
 		mbrAgreementVO.setThirdPartiesDt(now);
 		model.addAttribute("mbrAgreementVO", mbrAgreementVO);
-		
+
+		TermsVO termsVO;
+		termsVO = termsService.selectListJoinVO("TERMS");
+		if (termsVO != null){
+			model.addAttribute("termsTerms", termsVO.getContentBody());
+		}
+
+		termsVO = termsService.selectListJoinVO("PRIVACY");
+		if (termsVO != null){
+			model.addAttribute("termsPrivacy", termsVO.getContentBody());
+		}
+
 		return "/membership/regist_step1";
 	}
 
