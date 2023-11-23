@@ -415,7 +415,8 @@
         <form:hidden path="delngNo" />
         <form:hidden path="stlmYn" value="N" />
         <form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" /><%-- 도서산간지역 배송비 추가 --%>
-        <form:hidden path="stlmTy" />
+        <form:hidden path="stlmKnd" />
+		<form:hidden path="stlmTy" />
         <form:hidden path="stlmDt" />
 
         <form:hidden path="cardAprvno" />
@@ -574,13 +575,15 @@
 			            if(confirmedData.event === 'done') {
 							const stlmDt = confirmedData.data.purchased_at;
 							const delngNo = confirmedData.data.receipt_id; // : 거래번호 => DELNG_NO
+							const stlmKnd = confirmedData.data.method_symbol.toUpperCase(); // 결테타입 : CARD  => stlmKnd
 							const stlmTy = confirmedData.data.method_origin_symbol; // 결테타입 : CARD  => STLM_TY
 
 							$("#delngNo").val(delngNo);
-				            $("#stlmTy").val(stlmTy);
+				            $("#stlmKnd").val(stlmKnd);
+							$("#stlmTy").val(stlmTy);
 				            $("#stlmDt").val(stlmDt);
 
-				            if(stlmTy.toUpperCase() === "CARD"){ //CARD
+				            if(stlmKnd === "CARD"){ //CARD
 				            	const cardAprvno = confirmedData.data.card_data.card_approve_no; //카드 승인번호 => CARD_APRVNO
 					            const cardCoNm = confirmedData.data.card_data.card_company; //카드회사 => CARD_CO_NM
 					            const cardNo = confirmedData.data.card_data.card_no; //카드번호 => CARD_NO
@@ -603,8 +606,10 @@
 			            	const stlmDt = confirmedData.data.purchased_at;
 							const delngNo = confirmedData.data.receipt_id; // : 거래번호 => DELNG_NO
 							const stlmTy = confirmedData.data.method_origin_symbol; // 결테타입 : CARD  => STLM_TY
+							const stlmKnd = confirmedData.data.method_symbol.toUpperCase(); // 결테타입 : CARD  => stlmKnd
 
 							$("#delngNo").val(delngNo);
+							$("#stlmKnd").val(stlmKnd);
 				            $("#stlmTy").val(stlmTy);
 				            $("#stlmDt").val(stlmDt);
 
@@ -655,6 +660,7 @@
     	} else {
 
     		$("#stlmYn").val("Y");
+			$("#stlmKnd").val("FREE");
     		$("#stlmTy").val("FREE");
     		frm.submit();
     	}

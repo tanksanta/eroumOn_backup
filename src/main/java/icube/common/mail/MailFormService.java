@@ -1,3 +1,4 @@
+
 package icube.common.mail;
 
 import java.text.DecimalFormat;
@@ -5,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,10 +19,14 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
+import icube.manage.ordr.rebill.biz.OrdrRebillVO;
+import icube.common.values.CodeList;
 
 /**
  * EROUM 메일 폼 Maker
@@ -42,7 +49,11 @@ public class MailFormService extends CommonAbstractServiceImpl {
 	private String mailFormFilePath;
 
 	@Value("#{props['Mail.Username']}")
-	private String sendMail;
+	private String mailSender;
+
+	
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
@@ -424,7 +435,7 @@ public class MailFormService extends CommonAbstractServiceImpl {
 		/* 
 		주문자의 메일로 보냄
 		*/
-		mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
+		mailService.sendMail(mailSender, ordrVO.getOrdrrEml(), mailSj, mailForm);
 	}
 
 	/**
@@ -452,6 +463,247 @@ public class MailFormService extends CommonAbstractServiceImpl {
 		} catch (Exception e) {
 			System.out.println("EMAIL 전송 실패 :: " + e.toString());
 		}
+	}
+
+	public void mail_test() throws Exception 
+	{
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31122094739188");
+
+		this.sendMailOrder("MAILSEND_ORDR_CARD", mbrVO, ordrVO);
+
+	}
+
+	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		if (!EgovStringUtil.equals("Y", mbrVO.getEmlRcptnYn())){
+			return;
+		}
+
+		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
+			throw new Exception("not found mail type");
+		}
+
+		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO);
+		String mailSubject = "";
+		switch (ordrMailTy) {
+			case "MAILSEND_ORDR_CARD":
+			case "MAILSEND_ORDR_ACCOUNT":
+				break;
+		
+			case "MAILSEND_ORDR_VBANK":
+			case "MAILSEND_ORDR_VBANK_RETRY":
+			case "MAILSEND_ORDR_VBANK_CANCEL":
+			case "MAILSEND_ORDR_VBANK_INCOME":
+			default:
+				throw new Exception("not found mail file");
+		}
+		/* 
+		주문자의 메일로 보냄
+		*/
+		mailService.sendMail(mailSender, ordrVO.getOrdrrEml(), mailSubject, content);
+	}
+
+	public String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		// String aaa = MAIL_SEND_TY
+		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
+			throw new Exception("not found mail type");
+		}
+
+		String sFileNM = "";
+
+		switch (ordrMailTy) {
+			case "MAILSEND_ORDR_CARD":
+			case "MAILSEND_ORDR_ACCOUNT":
+				sFileNM = "/mail/ordr/mail_ordr_card.html";
+				break;
+		
+			case "MAILSEND_ORDR_VBANK":
+			case "MAILSEND_ORDR_VBANK_RETRY":
+			case "MAILSEND_ORDR_VBANK_CANCEL":
+			case "MAILSEND_ORDR_VBANK_INCOME":
+			default:
+				throw new Exception("not found mail file");
+		}
+
+		String mailContent;
+
+		try{
+			mailContent = this.getRead(sFileNM);
+		}catch(Exception e){
+			throw new Exception("not found mail file read");
+		}
+		
+
+		mailContent = this.convertMailFormMbr(mbrVO, mailContent);
+
+		switch (ordrMailTy) {
+			case "ORDR_ACCOUNT_SEND":
+			case "ORDR_CARD_SEND":
+				mailContent = this.makeMailForm2OrdrCard(ordrVO, mailContent);
+
+				break;
+		
+		}
+
+
+		return mailContent;
+	}
+
+	protected String makeMailForm2OrdrCard(OrdrVO ordrVO, String mailContent){
+
+		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
+		
+		mailContent = this.convertMailFormOrdrDtl(ordrVO.getOrdrDtlList(), mailContent);
+
+		mailContent = this.convertMailFormOrdrRebill(ordrVO.getOrdrRebillList(), mailContent);
+		
+		return mailContent;
+	}
+	
+	/*회원 일반 사항*/
+	protected String convertMailFormMbr(MbrVO mbrVO, String mailContent){
+		String keyword;
+
+		keyword = "((mbrNm))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, mbrVO.getMbrNm());
+
+		return mailContent;
+	}
+
+	/*주문 일반 사항*/
+	protected String convertMailFormOrdrCommon(OrdrVO ordrVO, String mailContent){
+		String keyword;
+		
+		keyword = "((ordrDt))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, formatter.format(ordrVO.getOrdrDt()));
+		keyword = "((ordrCd))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrCd());
+		
+		return mailContent;
+	}
+
+	/*주문 주문자*/
+	protected String convertMailFormORDRR(OrdrVO ordrVO, String mailContent){
+		String keyword;
+		
+		keyword = "((ordrrEml))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrEml());
+		keyword = "((ordrrNm))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrNm());
+		keyword = "((ordrrTelno))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrTelno());
+		keyword = "((ordrrMblTelno))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrMblTelno());
+		keyword = "((ordrrZip))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrZip());
+		keyword = "((ordrrAddr))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrAddr());
+		keyword = "((ordrrDaddr))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getOrdrrDaddr());
+		
+		return mailContent;
+	}
+
+	/*주문 배송*/
+	protected String convertMailFormOrdrRECPTR(OrdrVO ordrVO, String mailContent){
+		String keyword;
+		
+		keyword = "((recptrNm))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrNm());
+		keyword = "((recptrTelno))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrTelno());
+		keyword = "((recptrMblTelno))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrMblTelno());
+		keyword = "((recptrZip))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrZip());
+		keyword = "((recptrAddr))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrAddr());
+		keyword = "((recptrDaddr))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getRecptrDaddr());
+		
+		return mailContent;
+	}
+
+	/*주문 금액*/
+	protected String convertMailFormOrdrPayment(OrdrVO ordrVO, String mailContent){
+		String keyword;
+		
+		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO.getOrdrDtlList());
+
+		keyword = "((stlmAmt))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, numberFormat.format(ordrVO.getStlmAmt()));// 결제금액
+
+		// keyword = "((SUM_GDS_PC))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, numberFormat.format(totalGdsPc));// 상품_가격
+		keyword = "((SumOrdrPc))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, numberFormat.format(resultMap.get("ordrPc")));// 주문_가격
+		keyword = "((SumDlvyPc))";				if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, numberFormat.format(resultMap.get("dlvyPc")));// 배송_금액 + 배송_추가_금액
+		keyword = "((SumCouponAmts))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, numberFormat.format(resultMap.get("couponAmts")));// 쿠폰_금액
+		
+		return mailContent;
+	}
+
+	/*주문 결제정보*/
+	protected String convertMailFormOrdrCardDisp(OrdrVO ordrVO, String mailContent){
+		String keyword;
+		
+		keyword = "((cardCoNm))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getCardCoNm());
+		keyword = "((cardNo))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getCardNo());
+
+		keyword = "((dpstBankNm))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getDpstBankNm());
+		keyword = "((vrActno))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getVrActno());
+		keyword = "((dpstr))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getDpstr());
+		keyword = "((pyrNm))";			if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getPyrNm());
+		keyword = "((dpstTermDt))";		if (mailContent.indexOf(keyword) >= 0) mailContent = mailContent.replace(keyword	, ordrVO.getDpstTermDt());
+
+		mailContent = this.convertMailFormDateFull(ordrVO.getDpstTermDt(), "dpstTermDt", mailContent);
+
+		return mailContent;
+	}
+
+	protected String convertMailFormOrdrDtl(List<OrdrDtlVO> ordrDtlList, String mailContent){
+
+		return mailContent;
+	}
+
+	protected String convertMailFormOrdrRebill(List<OrdrRebillVO> ordrRebillList, String mailContent){
+
+		return mailContent;
+	}
+
+	protected String convertMailFormDate(String date10, String keyword, String mailContent){
+
+		mailContent = mailContent.replace("((" + keyword + "Year))"		, date10.substring(0, 4)); // 년
+		mailContent = mailContent.replace("((" + keyword + "Month))"	, date10.substring(5, 7)); // 월
+		mailContent = mailContent.replace("((" + keyword + "Day))"		, date10.substring(8, 10)); // 일
+
+		return mailContent;
+	}
+
+	/*
+	 * date19 : 2023-11-23 12:03:59
+	 * 
+	*/
+	protected String convertMailFormDateFull(String date19, String keyword, String mailContent){
+
+		mailContent = mailContent.replace("((" + keyword + "Year))"		, date19.substring(0, 4)); // 년
+		mailContent = mailContent.replace("((" + keyword + "Month))"	, date19.substring(5, 7)); // 월
+		mailContent = mailContent.replace("((" + keyword + "Day))"		, date19.substring(8, 10)); // 일
+
+		mailContent = mailContent.replace("((" + keyword + "Hour))"		, date19.substring(11, 13)); // 시
+		mailContent = mailContent.replace("((" + keyword + "Minute))"	, date19.substring(14, 16)); // 분
+		mailContent = mailContent.replace("((" + keyword + "Second))"	, date19.substring(17, 19)); // 초
+
+		return mailContent;
+	}
+
+	protected Map<String, Integer> ordrDtlSum(List<OrdrDtlVO> list){
+		// 결제 정보
+		int totalGdsPc = 0; // 총 상품 금액 (상품 가격 * 수량)
+		int dlvyPc = 0; // 배송비
+		int ordrPc = 0; // 주문가격
+		int couponAmts = 0; // 쿠폰 할인
+
+		for (OrdrDtlVO ordrDtlVO : list) {
+			if(ordrDtlVO.getOrdrOptnTy().equals("BASE")) {
+				totalGdsPc += (ordrDtlVO.getGdsPc() * ordrDtlVO.getOrdrQy());
+			}else {
+				totalGdsPc += (ordrDtlVO.getOrdrOptnPc() * ordrDtlVO.getOrdrQy());
+			}
+			dlvyPc += (ordrDtlVO.getDlvyBassAmt() + ordrDtlVO.getDlvyAditAmt());
+			couponAmts += ordrDtlVO.getCouponAmt();
+		}
+
+
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+
+		resultMap.put("totalGdsPc", totalGdsPc);
+		resultMap.put("ordrPc", ordrPc);
+		resultMap.put("dlvyPc", dlvyPc);
+		resultMap.put("couponAmts", couponAmts);
+
+		return resultMap;
 	}
 
 }

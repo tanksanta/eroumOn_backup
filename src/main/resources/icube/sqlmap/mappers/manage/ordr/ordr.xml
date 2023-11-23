@@ -393,6 +393,7 @@
 		 	, use_point
 
 			, stlm_device
+			, stlm_knd
 			, stlm_ty
 			, stlm_amt
 			, stlm_yn
@@ -441,6 +442,7 @@
 		 	, #{usePoint}
 
 			, #{stlmDevice, jdbcType=VARCHAR}
+			, #{stlmKnd, jdbcType=VARCHAR}
 			, #{stlmTy, jdbcType=VARCHAR}
 			, #{stlmAmt}
 			, #{stlmYn, jdbcType=VARCHAR}

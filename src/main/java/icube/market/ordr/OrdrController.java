@@ -752,13 +752,12 @@ public class OrdrController extends CommonAbstractController{
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
 
-			if (reqMap.get("stlmTy") != null && EgovStringUtil.equals(reqMap.get("stlmTy").toString().toUpperCase() , "VBANK")) {
-				/*OEOS-249 가상계좌에서만 주문 접수 메일을 보낸다. 카드, 계좌이체는 주문완료 메일을 보낸다*/
-				String mailHtml = "mail_ordr.html";
-				String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
-				mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);	
-			}
-			
+			// String mailHtml = "mail_ordr.html";
+			// String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
+			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+
+			mailFormService.sendMailOrder("MAILSEND_ORDR_" + ordrVO.getStlmKnd(), mbrSession, ordrVO);
+			//mailFormService.makeMailForm2Ordr("MAILSEND_ORDR_", mbrSession, ordrVO);
 
 			model.addAttribute("ordrDtlList", ordrDtlList);
 			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
