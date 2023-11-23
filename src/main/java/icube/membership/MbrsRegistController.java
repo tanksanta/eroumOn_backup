@@ -462,23 +462,16 @@ public class MbrsRegistController extends CommonAbstractController{
 		try {
 			if(ValidatorUtil.isEmail(noMbrVO.getEml())) {
 				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_join.html");
+				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_join.html");
 
 				mailForm = mailForm.replace("{mbrNm}", noMbrVO.getMbrNm()); // 회원 이름
 				mailForm = mailForm.replace("{mbrId}", noMbrVO.getMbrId()); // 회원 아이디
 				mailForm = mailForm.replace("{mbrEml}", noMbrVO.getEml()); // 회원 이메일
 				mailForm = mailForm.replace("{mblTelno}", noMbrVO.getMblTelno()); // 회원 전화번호
 
-				mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
-				mailForm = mailForm.replace("{name}", "이로움마켓");
-				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
-				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
-
-
 
 				// 메일 발송
-				String mailSj = "[이로움ON] 회원 가입을 축하드립니다.";
+				String mailSj = "[이로움ON] 회원이 되신것을 환영합니다.";
 				if(EgovStringUtil.equals("real", activeMode)) {
 					mailService.sendMail(sendMail, noMbrVO.getEml(), mailSj, mailForm);
 				}else if(EgovStringUtil.equals("dev", activeMode)) {
@@ -699,6 +692,36 @@ public class MbrsRegistController extends CommonAbstractController{
 			//회원가입 처리
 			mbrSession.setRegistCheck(true);
 
+			
+			// 가입 축하 메일 발송
+			try {
+				if(ValidatorUtil.isEmail(srchMbr.getEml())) {
+					String MAIL_FORM_PATH = mailFormFilePath;
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_join.html");
+
+					mailForm = mailForm.replace("{mbrNm}", srchMbr.getMbrNm()); // 회원 이름
+					mailForm = mailForm.replace("{mbrId}", srchMbr.getMbrId()); // 회원 아이디
+					mailForm = mailForm.replace("{mbrEml}", srchMbr.getEml()); // 회원 이메일
+					mailForm = mailForm.replace("{mblTelno}", srchMbr.getMblTelno()); // 회원 전화번호
+
+
+					// 메일 발송
+					String mailSj = "[이로움ON] 회원이 되신것을 환영합니다.";
+					if(EgovStringUtil.equals("real", activeMode)) {
+						mailService.sendMail(sendMail, srchMbr.getEml(), mailSj, mailForm);
+					}else if(EgovStringUtil.equals("dev", activeMode)) {
+						mailService.sendMail(sendMail, srchMbr.getEml(), mailSj, mailForm);
+					} else {
+						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+					}
+				} else {
+					log.debug("회원 가입 알림 EMAIL 전송 실패 :: 이메일 체크 " + srchMbr.getEml());
+				}
+			} catch (Exception e) {
+				log.debug("회원 가입 알림 EMAIL 전송 실패 :: " + e.toString());
+			}
+			
+			
 			biztalkConsultService.sendOnJoinComleted(mbrVO);
 
 			javaScript.setLocation("/"+membershipPath+"/sns/regist?complete=Y");
