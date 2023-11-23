@@ -41,4 +41,8 @@ public class MbrPointDAO extends CommonAbstractMapper {
 		return selectOne("mbr.point.selectAlltypePoint",paramMap);
 	}
 
+	// 포인트 소멸 예정 조회
+	public List<MbrPointVO> selectExtinctPoinThisYear(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.point.selectExtinctPoinThisYear",paramMap);
+	}
 }

@@ -4,7 +4,7 @@
     var jsCommon = new JsCommon();
 
 </script>
-<form id="searchFrm" name="searchFrm" method="get" action="./list">
+    <form id="searchFrm" name="searchFrm" method="get" action="./list">
     
         <fieldset>
             <legend class="text-title2">[${termsKindCode[termsKind]}] 검색</legend>

@@ -317,6 +317,7 @@ public class CodeMap{
 			put("GRADE", "회원등급");
 			put("JOIN", "회원가입");
 			put("FREE", "무료배송");
+			put("BRDT", "생일축하");
 		}
 	};
 
@@ -1102,8 +1103,10 @@ public class CodeMap{
 		{
 			put("TERMS", "이용약관");
 			put("PRIVACY", "개인정보 처리방침");
+			/*
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
+			*/
 		}
 	};
 }

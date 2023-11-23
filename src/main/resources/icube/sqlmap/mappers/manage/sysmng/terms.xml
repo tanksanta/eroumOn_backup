@@ -58,13 +58,7 @@
 	
 	<select id="selectListVO" parameterType="java.util.HashMap" resultMap="TermsVOMap">
 		/* Query ID : terms.xml > selectGroupListVO */
-		SELECT terms_no , terms_kind , terms_dt
-
-				, use_yn , public_yn
-
-				, reg_unique_id , reg_dt , reg_id
-
-				, mdfcn_unique_id , mdfcn_dt , mdfcn_id
+		SELECT <include refid="listColumn"/>
 		FROM TERMS_M1 tm1
 		WHERE 1=1
 			<include refid="searchTermsConditions" />
@@ -83,22 +77,7 @@
 
 	<select id="selectTermsOne" parameterType="java.util.HashMap" resultMap="TermsVOMap">
 		/* Query ID : terms.xml > selectTermsOne */
-		SELECT terms_no
-		, terms_kind
-		, terms_dt
-		
-		, use_yn
-		, public_yn
-
-		, contents
-
-		, reg_unique_id
-		, reg_dt
-		, reg_id
-
-		, mdfcn_unique_id
-		, mdfcn_dt
-		, mdfcn_id
+		SELECT <include refid="listColumn"/>
 		FROM	TERMS_M1 t1
 		WHERE terms_no = #{no}
 	</select>
@@ -142,6 +121,12 @@
 			, mdfr = #{mdfr}
 			, mdfcn_dt = SYSDATE()
 		WHERE terms_no = #{termsNo} AND terms_kind = #{termsKind}
+	</update>
+
+	<update id="updateTermsUseYnOtherN" parameterType="TermsVO">
+		UPDATE TERMS_M1
+		SET use_yn = 'N'
+		WHERE terms_no != #{termsNo} AND terms_kind = #{termsKind}
 	</update>
 
 </mapper>

@@ -139,4 +139,7 @@ public class MbrDAO extends CommonAbstractMapper {
 		return update("mbr.updateMbrAddr", paramMap);
 	}
 
+	public void updateHumanMailYn(Map<String, Object> paramMap) throws Exception {
+		update("mbr.updateHumanMailYn", paramMap);
+	}
 }

@@ -6,6 +6,7 @@
     <form:hidden path="crud" />
     <input type="hidden" name="termsKind" id="termsKind" value="${termsKind}" />
     <input type="hidden" name="termsNo" id="termsNo" value="${termsVO.termsNo}" />
+    <input type="hidden" name="oldUseYn" id="oldUseYn" value="${termsVO.crud eq 'CREATE' ? 'N' : termsVO.useYn }" />
     <input type="hidden" name="returnUrl" id="returnUrl" value="${header.referer}" />
 
     <p class="text-title2 mt-13">[${termsKindCode[termsKind]}]
@@ -72,19 +73,16 @@
     </fieldset>
 
     <div class="btn-group mt-8 right">
-        <button type="action.confirm.save" class="btn-primary large shadow btn save">저장</button>
+        <button type="action.confirm.save" class="btn-primary large shadow btn save">${termsVO.crud eq 'CREATE'?'저장':'적용' }</button>
         <button type="button" class="btn-secondary large shadow btn list">목록</button>
         
     </div>
 </form:form>
 
 <script>
-    //tinymce editor
     var ctlMaster;
 	$(document).ready(function(){
 		ctlMaster = new JsHouseMngTermsForm();
 		ctlMaster.fn_page_init();
 	});
-
-    
 </script>

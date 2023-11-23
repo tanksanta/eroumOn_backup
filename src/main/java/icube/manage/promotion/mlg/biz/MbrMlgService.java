@@ -104,7 +104,7 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 	}
 
 	/**
-	 * 회원 마일리지 소멸
+	 * 회원 마일리지 소멸 (매일 실행되는 소멸 schedule)
 	 * 유효기간 : 적립일 기준 2년
 	 * @param uniqueId
 	 * @throws Exception
@@ -116,19 +116,20 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 		paramMap.put("srchUniqueId", uniqueId);
 		Map<String, Object> mlgMap = this.selectAlltypeMlg(paramMap);
 
+		int ownMlg = Integer.parseInt(String.valueOf(mlgMap.get("ownMlg")));
 		int totalAccmtMlg = Integer.parseInt(String.valueOf(mlgMap.get("addMlg")));
 		int totalUseMlg = Integer.parseInt(String.valueOf(mlgMap.get("useMlg")));
 		int totalExtMlg = Integer.parseInt(String.valueOf(mlgMap.get("extMlg")));
 		int restMlg = totalAccmtMlg - (totalUseMlg + totalExtMlg);
 
-		if(totalAccmtMlg - totalUseMlg > 0) {
+		if(restMlg > 0) {
 			MbrMlgVO mbrMlgVO = new MbrMlgVO();
 			mbrMlgVO.setMlgMngNo(0);
 			mbrMlgVO.setUniqueId(uniqueId);
 			mbrMlgVO.setMlgSe("E");
 			mbrMlgVO.setMlg(restMlg);
 			mbrMlgVO.setMlgCn("15");
-			mbrMlgVO.setMlgAcmtl(0);
+			mbrMlgVO.setMlgAcmtl(ownMlg - restMlg);
 			mbrMlgVO.setRgtr("System");
 			mbrMlgVO.setGiveMthd("SYS");
 
@@ -152,4 +153,13 @@ public class MbrMlgService extends CommonAbstractServiceImpl {
 		return mbrMlgDAO.selectAlltypeMlg(paramMap);
 	}
 
+	//소멸 안내 이메일 발송 처리
+	public void updateExtinctMlgMail() throws Exception {
+		mbrMlgDAO.updateExtinctMlgMail(new HashMap<>());
+	}
+	
+	//마일리지 소멸 여부 처리
+	public void updateExtinctMlgAction() throws Exception {
+		mbrMlgDAO.updateExtinctMlgAction(new HashMap<>());
+	}
 }

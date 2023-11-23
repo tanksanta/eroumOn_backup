@@ -306,7 +306,7 @@ public class MainTestController extends CommonAbstractController {
     	} else if (mngrSession.isLoginCheck()) {
     	} else if (mbrSession.isLoginCheck()) {
     	} else {
-    		return "인증되지 않은 접근";
+    		return getTestResultErrorForm(request);
     	}
     
         try {
@@ -317,13 +317,13 @@ public class MainTestController extends CommonAbstractController {
          	
         	return mailForm;
         } catch (Exception ex) {
-            log.error("======= 테스트 결과", ex);
+            log.error("======= 테스트 결과 오류", ex);
             
             if ("테스트 항목이 모두 완료되지 않음".equals(ex.getMessage())) {
-            	return "테스트 항목이 모두 완료되지 않음";
+            	return getTestResultErrorForm(request);
             }
         }
-        return "결과 가져오기 실패";
+        return getTestResultErrorForm(request);
     }
     
     
@@ -416,6 +416,18 @@ public class MainTestController extends CommonAbstractController {
 		
 		return mailForm;
     }
+    
+    private String getTestResultErrorForm(HttpServletRequest request) {
+    	String MAIL_FORM_PATH = mailFormFilePath;
+		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_test_result_error.html");
+		
+		//도메인 입력
+		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		mailForm = mailForm.replace("((domain))", host);
+		
+		return mailForm;
+    }
+    
     
     @SuppressWarnings("unchecked")
 	private JSONArray convertSelectStrToJsonArray(String selectStr) {
@@ -625,7 +637,7 @@ public class MainTestController extends CommonAbstractController {
 			
 			templete += "      <tr>\r\n"
 					+ "            <td\r\n"
-					+ "                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: color: #333; \">\r\n"
+					+ "                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: #333; \">\r\n"
 					+ "                " + physicalQuestions[i] + "</td>\r\n"
 					+ "            <td\r\n"
 					+ "                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; text-align: right;\">\r\n"
@@ -708,7 +720,7 @@ public class MainTestController extends CommonAbstractController {
 				isSelect = true;
 				templete += "                                      <tr>\r\n"
 						+ "                                            <th\r\n"
-						+ "                                                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: color: #333;\">\r\n"
+						+ "                                                style=\"text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: #333;\">\r\n"
 						+ "                                                " + title[i] + " </th>\r\n"
 						+ "                                            <td\r\n"
 						+ "                                                style=\"text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333;\">\r\n"
@@ -761,7 +773,7 @@ public class MainTestController extends CommonAbstractController {
 					+ "                                                style=\"width: 50%; text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: #333;\">\r\n"
 					+ "                                                " + rehabilitateQuestions[i] + "</td>\r\n"
 					+ "                                            <td\r\n"
-					+ "                                                style=\"width: 50%; text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; text-align: right;text-align: right;\">\r\n"
+					+ "                                                style=\"width: 50%;  padding: 10px; border: 1px solid #e7e7e7; color: #333; text-align: right;\">\r\n"
 					+ "                                                <span\r\n"
 					+ "                                                    style=\"background-color: #F1F3FC; padding: 5px 20px; border-radius: 30px;\">\r\n"
 					+ "                                                    " + rehabilitateAnswers[index] + "</span>\r\n"
@@ -773,7 +785,7 @@ public class MainTestController extends CommonAbstractController {
 					+ "                                                style=\"width: 50%; text-align: left;  padding: 10px; border-right: 1px solid #fff;  border-bottom: 1px solid #e7e7e7; color: #333;\">\r\n"
 					+ "                                                " + rehabilitateQuestions[i] + "</td>\r\n"
 					+ "                                            <td\r\n"
-					+ "                                                style=\"width: 50%; text-align: left; padding: 10px; border: 1px solid #e7e7e7; color: #333; text-align: right;text-align: right;\">\r\n"
+					+ "                                                style=\"width: 50%; padding: 10px; border: 1px solid #e7e7e7; color: #333; text-align: right;\">\r\n"
 					+ "                                                <span\r\n"
 					+ "                                                    style=\"background-color: #F1F3FC; padding: 5px 20px; border-radius: 30px;\">\r\n"
 					+ "                                                    " + rehabilitateAnswers2[index] + "</span>\r\n"

@@ -41,4 +41,13 @@ public class MbrMlgDAO extends CommonAbstractMapper {
 		return selectOne("mbr.mlg.selectAlltypeMlg", paramMap);
 	}
 
+	//마일리지 소멸 안내 이메일 발송 처리
+	public void updateExtinctMlgMail(Map<String, Object> paramMap) throws Exception {
+		update("mbr.mlg.updateExtinctMlgMail",paramMap);
+	}
+	
+	//마일리지 소멸 여부 처리
+	public void updateExtinctMlgAction(Map<String, Object> paramMap) throws Exception {
+		update("mbr.mlg.updateExtinctMlgAction",paramMap);
+	}
 }

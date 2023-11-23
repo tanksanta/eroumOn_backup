@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,6 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.DateUtil;
-import icube.common.util.StringUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.manage.sysmng.mngr.biz.MngrSession;
@@ -44,13 +44,13 @@ public class TermsController  extends CommonAbstractController {
         return this.listTerms(request, reqMap, termsKind, model);
 	}
 
-    @RequestMapping(value = "provision/list")
-	public String listProvision(
+    @RequestMapping(value = "terms/list")
+	public String listTerms(
 			HttpServletRequest request
             , @RequestParam Map<String,Object> reqMap
             
 			, Model model) throws Exception {
-        String termsKind = "PROVISION";
+        String termsKind = "TERMS";
         return this.listTerms(request, reqMap, termsKind, model);
 	}
 
@@ -61,7 +61,7 @@ public class TermsController  extends CommonAbstractController {
         
         reqMap.put("srchTermsKind", termsKind);
 
-        List<TermsVO> listVO = termsService.selectListVO(reqMap);
+        List<TermsVO> listVO = termsService.selectListMngVO(reqMap);
         
         model.addAttribute("listVO", listVO);
 
@@ -87,15 +87,15 @@ public class TermsController  extends CommonAbstractController {
         return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
     }
 
-    @RequestMapping(value = "provision/form")
-	public String formProvision(
+    @RequestMapping(value = "terms/form")
+	public String formTerms(
 			HttpServletRequest request
             , @RequestParam Map<String,Object> reqMap
             , @RequestParam(value="termsNo", required=true) int termsNo
             , TermsVO termsVO
 			, Model model) throws Exception {
 
-        String termsKind = "PROVISION";
+        String termsKind = "TERMS";
             
         return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
     }
@@ -107,7 +107,7 @@ public class TermsController  extends CommonAbstractController {
             , String termsKind
             , TermsVO termsVO
 			, Model model) throws Exception {
-                
+
         if (termsNo == 0){
             termsVO.setCrud(CRUD.CREATE);
             termsVO.setTermsDt(DateUtil.getCurrentDateTime("yyyy-MM-dd"));
@@ -162,7 +162,13 @@ public class TermsController  extends CommonAbstractController {
             default:
 				break;
 
-		}        
+		}
+
+        String useYn = reqMap.get("useYn").toString();
+
+        if (EgovStringUtil.equals("Y", useYn) && !EgovStringUtil.equals(reqMap.get("oldUseYn").toString(), useYn)){
+            termsService.updateTermsUseYnOtherN(termsVO);
+        }
 
         return new JavaScriptView(javaScript);
     }

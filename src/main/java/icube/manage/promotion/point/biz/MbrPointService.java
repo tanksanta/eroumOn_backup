@@ -110,5 +110,11 @@ public class MbrPointService extends CommonAbstractServiceImpl {
 	public Map<String, Object> selectAlltypePoint(Map<String, Object> paramMap) throws Exception {
 		return mbrPointDAO.selectAlltypePoint(paramMap);
 	}
-
+	
+	/**
+	 * 소멸 예정 안내 메일 발송 시 사용
+	 */
+	public List<MbrPointVO> selectExtinctPoinThisYear() throws Exception {
+		return mbrPointDAO.selectExtinctPoinThisYear(new HashMap<String, Object>());
+	}
 }

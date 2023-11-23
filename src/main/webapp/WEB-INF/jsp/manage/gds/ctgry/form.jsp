@@ -216,7 +216,7 @@
                             		.done(function(json){
                             			var ctgryArr = [];
                             			//ctgryArr.push({'id':'0', 'parent':'#', 'text':'상품카테고리'})
-                            			for (var idx in json) {
+                            			for (var idx = 0; idx < json.length; idx++) {
 
                             				var iconType = '';
 		                    				if(json[idx].childCnt > 0){

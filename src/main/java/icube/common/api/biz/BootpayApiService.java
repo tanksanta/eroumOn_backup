@@ -2,6 +2,8 @@ package icube.common.api.biz;
 
 import java.util.HashMap;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,9 @@ import kr.co.bootpay.model.request.User;
 public class BootpayApiService {
 
 	protected Log log = LogFactory.getLog(this.getClass());
+
+	@Resource(name = "logsDAO")
+	private LogsDAO logsDAO;
 
 	@Value("#{props['Bootpay.Private.Key']}")
 	private String bootpayPrivateKey;
@@ -183,6 +188,10 @@ public class BootpayApiService {
 	    returnMap = bootpay.certificate(receiptId);
 
 	    return returnMap;
+	}
+
+	public int insertLog(BootpayVO vo) throws Exception {
+		return this.logsDAO.insertLogOne(vo);
 	}
 
 }

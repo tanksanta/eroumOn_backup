@@ -60,6 +60,12 @@
     <c:if test="${fn:indexOf(_curPath, '/mbr/registStep1') > -1 || fn:indexOf(_curPath, '/info/srchPswd') > -1}">
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     </c:if>
+    
+    <!-- 네이버 연관채널 SEO -->
+    <span itemscope="" itemtype="http://schema.org/Organization">
+	<link itemprop="url" href="https://eroum.co.kr">
+	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
+	</span>
 </head>
 <body>
 	<!-- Google Tag Manager (noscript) -->

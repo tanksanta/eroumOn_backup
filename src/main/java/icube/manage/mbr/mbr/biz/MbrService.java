@@ -10,12 +10,14 @@ import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.interceptor.biz.CustomProfileVO;
+import icube.common.util.SHA256;
 import icube.common.vo.CommonListVO;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
@@ -58,6 +60,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Value("#{props['Talk.Plugin.key']}")
 	private String talkPluginKey;
+	
+	@Value("#{props['Talk.Secret.key']}")
+	private String talkSecretKey;
 	
 	SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
 	
@@ -396,6 +401,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public Integer updateMbrAddr(Map<String, Object> paramMap) throws Exception {
 		return mbrDAO.updateMbrAddr(paramMap);
 	}
+	
+	public void updateHumanMailYn(Map<String, Object> paramMap) throws Exception {
+		mbrDAO.updateHumanMailYn(paramMap);
+	}
 
 	public void insertMbrAgreement(MbrAgreementVO mbrAgreementVO) throws Exception {
 		mbrAgreementDAO.insertMbrAgreement(mbrAgreementVO);
@@ -404,6 +413,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public MbrAgreementVO selectMbrAgreementByMbrUniqueId(String uniqueId) throws Exception {
 		return mbrAgreementDAO.selectMbrAgreementByMbrUniqueId(uniqueId);
 	}
+	
 	
 	/**
 	 * 간편회원 전용 ID 생성 함수
@@ -448,7 +458,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 				try {
 					//고객프로필 데이터 셋팅
 					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
-					customProfileVO.setMbrId(mbrVO.getMbrId());
+					customProfileVO.setMemberId(mbrVO.getMbrId());
+					//회원 ID 해시하기
+					customProfileVO.setMemberHash(SHA256.HmacEncrypt(mbrVO.getMbrId(), talkSecretKey));
 					customProfileVO.setMbrNm(mbrVO.getMbrNm());
 					customProfileVO.setMblTelno(mbrVO.getMblTelno());
 					customProfileVO.setEml(mbrVO.getEml());
