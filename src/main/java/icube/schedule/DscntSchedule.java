@@ -79,9 +79,16 @@ public class DscntSchedule extends CommonAbstractController {
 		for(MbrPointVO mbrPointVO : mbrPointList) {
 			if (mbrPointVO.getPointAcmtl() > 0) {
 				try {
+					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
+					
+					//이메일 수신거부 확인
+					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+						continue;
+					}
+					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_point.html");
-					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
+					
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
 					mailForm = mailForm.replace("((today))", today);
 					mailForm = mailForm.replace("((point))", String.valueOf(mbrPointVO.getPointAcmtl()));
@@ -134,6 +141,12 @@ public class DscntSchedule extends CommonAbstractController {
 				
 				//소멸 마일리지가 있음
 				if(restMlg > 0) {
+					
+					//이메일 수신거부 확인
+					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+						continue;
+					}
+					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_mlg.html");
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());

@@ -100,6 +100,11 @@ public class MailSchedule extends CommonAbstractController  {
 					couponLstService.insertCouponLst(couponLstVO);
 					
 					
+					//이메일 수신거부 확인
+					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+						continue;
+					}
+					
 					// 이메일 발송
 					if (ValidatorUtil.isEmail(mbrVO.getEml())) {
 						String MAIL_FORM_PATH = mailFormFilePath;
@@ -141,6 +146,12 @@ public class MailSchedule extends CommonAbstractController  {
 		for(MbrVO mbrVO : mbrList) {
 			try {
 				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
+					
+					//이메일 수신거부 확인
+					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+						continue;
+					}
+					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_drmc.html");
 
@@ -170,7 +181,7 @@ public class MailSchedule extends CommonAbstractController  {
 	}
 
 	// 개인정보 이용내역
-	@Scheduled(cron="0 0 12 31 12 *")
+	@Scheduled(cron="0 0 23 31 12 *")
 	public void sendInfoMail() throws Exception {
 
 		log.info("################## 개인정보 MAIL START #####################");
