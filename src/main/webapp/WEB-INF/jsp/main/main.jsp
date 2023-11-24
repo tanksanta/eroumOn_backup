@@ -63,42 +63,7 @@
         <p class="text-scroll is-white"><i></i> 자세히 보기</p>
     </div>
 
-    <div class="main-welfare">
-        <div class="container">
-            <p class="desc">어르신 맞춤 <strong>복지서비스,</strong><br> <strong>한 곳에서 편하게!</strong></p>
-            <p class="count"><strong class="totalCount"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건 </p>
-            
-            <c:set var="addr" value="" />
-            <c:if test="${_mbrAddr1 eq '충남'}"><c:set var="addr" value="충청남도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '충북'}"><c:set var="addr" value="충청북도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '경남'}"><c:set var="addr" value="경상남도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '경북'}"><c:set var="addr" value="경상북도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '전남'}"><c:set var="addr" value="전라남도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '전북'}"><c:set var="addr" value="전라북도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '서울'}"><c:set var="addr" value="서울특별시" /></c:if>
-            <c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
-            <c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
-            <c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}+광역시" /></c:if>
-                    
-                    
-            <form class="form" action="${_mainPath}/searchBokji" id="bokjiFrm" name="bokjiFrm" method="get">
-                <select name="select-sido" class="form-control">
-                    <c:forEach var="stdg" items="${stdgCdList}">
-                        <option value="${stdg.stdgCd}" 
-                            <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if>
-                            <c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr}">selected="selected"</c:if>
-                        >${stdg.ctpvNm}</option>
-                    </c:forEach>
-                </select>
-                <select name="select-gugun" class="form-control">
-                    <!--<c:if test="${!_mbrSession.loginCheck}"><option value="">금천구</option></c:if>
-                    <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>-->
-                </select>
-                <button type="submit" class="btn">바로 확인</button>
-                <%-- <a class="btn" href="${_mainPath}/searchBokji?sido=${addr}&amp;gugun=${}">바로 확인</a> --%>
-            </form>
-        </div>
-    </div>
+   
 
     <div id="notice-mobile" class="main-notice">
         <div class="notice-banner1">
@@ -119,6 +84,42 @@
     </div>
 
     <div class="main-content-wrapper">
+
+        <div class="main-content4">
+            <div class="box">
+                <h2>
+                    <small>100만명이 받은 복지혜택  저도 받았어요</small>
+                    <p>부모님과 나를 위한,</p>
+                    <em class="text-primary3">복지서비스</em>
+                </h2>
+                <p>65세부터 꼭 혜택 받으세요!</p>
+                <p>복지혜택 확인하기 이로움ON에서 5분이면 가능해요</p> 
+                <p>신청부터 상담까지 한번에!</p>
+                <a href="${_mainPath}/cntnts/test" class="btn btn-large2 btn-outline-primary3 btn-arrow"><strong>인정등급 테스트하기</strong></a>
+            </div>
+            <button class="image-youtube" data-bs-toggle="modal" data-bs-target="#watching-youtube">
+                <img src="/html/page/index/assets/images/img-promotion-youtube.png" alt="부모님과 나를 위한 복지서비스"/>
+            </button>
+
+            <div class="modal modal-media fade" id="watching-youtube" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button data-bs-dismiss="modal" class="btn-close">
+                                닫기
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="embed-container">
+                                <iframe src="https://www.youtube.com/embed/YpfWKyDGPB4" frameborder="0" allowfullscreen title="시니어 정보 플랫폼 이로움ON - 수급자 보호자 편"></iframe>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="main-content1">
             <div class="image">
                 <div class="object1"></div>
@@ -167,6 +168,45 @@
                 <p>혜택받는 방법과<br> 고르는 법을 알려드릴게요.</p>
                 <a href="${_mainPath}/cntnts/page3" class="btn btn-large2 btn-outline-primary2 btn-arrow"><strong>복지용구 선택하기</strong></a>
             </div>
+        </div>
+    </div>
+
+    <div class="main-welfare-search">
+        <div class="container">
+            <p class="desc">어르신 맞춤 <strong>복지서비스,</strong><br> <strong>한 곳에서 편하게!</strong></p>
+            <p class="count"><strong class="totalCount"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건 </p>
+            
+            <c:set var="addr" value="" />
+            <c:if test="${_mbrAddr1 eq '충남'}"><c:set var="addr" value="충청남도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '충북'}"><c:set var="addr" value="충청북도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '경남'}"><c:set var="addr" value="경상남도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '경북'}"><c:set var="addr" value="경상북도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '전남'}"><c:set var="addr" value="전라남도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '전북'}"><c:set var="addr" value="전라북도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '서울'}"><c:set var="addr" value="서울특별시" /></c:if>
+            <c:if test="${_mbrAddr1 eq '강원' || _mbrAddr1 eq '경기' }"><c:set var="addr" value="${_mbrAddr1}도" /></c:if>
+            <c:if test="${_mbrAddr1 eq '광주'}"><c:set var="addr" value="광주광역시" /></c:if>
+            <c:if test="${_mbrAddr1 eq '대구' || _mbrAddr1 eq '대전' || _mbrAddr1 eq '부산' || _mbrAddr1 eq '울산' || _mbrAddr1 eq '인천'}"><c:set var="addr" value="${_mbrAddr1}+광역시" /></c:if>
+                    
+                    
+            <form class="form" action="${_mainPath}/searchBokji" id="bokjiFrm" name="bokjiFrm" method="get">
+                <label for="select-sido" class="sr-only">시</label>
+                <select id="select-sido" name="select-sido" class="form-control">
+                    <c:forEach var="stdg" items="${stdgCdList}">
+                        <option value="${stdg.stdgCd}" 
+                            <c:if test="${!_mbrSession.loginCheck && stdg.ctpvNm eq '서울특별시'}">selected="selected"</c:if>
+                            <c:if test="${_mbrSession.loginCheck && stdg.ctpvNm eq addr}">selected="selected"</c:if>
+                        >${stdg.ctpvNm}</option>
+                    </c:forEach>
+                </select>
+                <label for="select-gugun" class="sr-only">군</label>
+                <select id="select-gugun" name="select-gugun" class="form-control">
+                    <!--<c:if test="${!_mbrSession.loginCheck}"><option value="">금천구</option></c:if>
+                    <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>-->
+                </select>
+                <button type="submit" class="btn">바로 확인</button>
+                <%-- <a class="btn" href="${_mainPath}/searchBokji?sido=${addr}&amp;gugun=${}">바로 확인</a> --%>
+            </form>
         </div>
     </div>
 
@@ -447,6 +487,12 @@ function comma(num){
             if(e.type === 'resize' && resize) {
             	visualSetting(swiper);
             }
+        });
+
+        //modal open
+        $('#watching-youtube').on('show.bs.modal', function () {     
+            var modal = $(this);
+            modal.appendTo('body');
         });
     })
 </script>
