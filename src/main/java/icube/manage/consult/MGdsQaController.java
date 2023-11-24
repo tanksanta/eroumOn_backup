@@ -163,7 +163,7 @@ public class MGdsQaController extends CommonAbstractController {
 			GdsQaVO qaVO = gdsQaService.selectGdsQa(gdsQaVO.getQaNo());
 
 			if(ValidatorUtil.isEmail(qaVO.getEml())) {
-				SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm");
 
 				String MAIL_FORM_PATH = mailFormFilePath;
 				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_qna.html");
