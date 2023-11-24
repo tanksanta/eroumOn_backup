@@ -261,7 +261,7 @@ $(function(){
 
 	//약관 동의 확인
 	$(".selfBtn").on("click",function(){
-		if(!$("#termsYn").is(":checked") || !$("#privacyYn").is(":checked") || !$("#provisionYn").is(":checked") || !$("#thirdPartiesYn").is(":checked")){
+		if(!$("#termsYn").is(":checked") || !$("#privacyYn").is(":checked") ){
 			alert("필수 약관에 동의 해주세요.");
 			return false;
 		} else if(!$('#zip').val() || !$('#addr').val() || !$('#daddr').val()) {
