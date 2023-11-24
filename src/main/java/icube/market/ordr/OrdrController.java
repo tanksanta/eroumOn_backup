@@ -25,6 +25,7 @@ import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.mail.MailForm2Service;
 import icube.common.mail.MailFormService;
 import icube.common.util.Base64Util;
 import icube.common.util.DateUtil;
@@ -97,6 +98,9 @@ public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "mailFormService")
 	private MailFormService mailFormService;
+
+	@Resource(name = "mailForm2Service")
+	private MailForm2Service mailForm2Service;
 
 	@Resource(name = "updateBplcInfoApiService")
 	private UpdateBplcInfoApiService updateBplcInfoApiService;
@@ -752,12 +756,16 @@ public class OrdrController extends CommonAbstractController{
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
 
-			// String mailHtml = "mail_ordr.html";
-			// String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
-			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			String mailHtml = "mail_ordr.html";
+			String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
+			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 
-			mailFormService.sendMailOrder("MAILSEND_ORDR_" + ordrVO.getStlmKnd(), mbrSession, ordrVO);
-			//mailFormService.makeMailForm2Ordr("MAILSEND_ORDR_", mbrSession, ordrVO);
+			// if (ordrVO.getStlmKnd().equals("VBANK")){
+			// 	mailForm2Service.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", mbrSession, ordrVO);
+			// }else{
+			// 	mailForm2Service.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrSession, ordrVO);
+			// }
+			
 
 			model.addAttribute("ordrDtlList", ordrDtlList);
 			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.View;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.mail.MailForm2Service;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.manage.sysmng.menu.biz.MngMenuService;
@@ -32,6 +33,10 @@ import icube.manage.sysmng.mngr.biz.MngrVO;
 @Controller
 @RequestMapping(value = "/_mng")
 public class MLoginController extends CommonAbstractController {
+
+	
+	@Resource(name = "mailForm2Service")
+	private MailForm2Service mailForm2Service;
 
 	@Resource(name = "mngrService")
 	private MngrService mngrService;
@@ -64,6 +69,8 @@ public class MLoginController extends CommonAbstractController {
 			, HttpServletResponse response
 			, HttpSession session
 			, Model model) throws Exception {
+
+				mailForm2Service.mail_test();
 
 		if(mngrSession.isLoginCheck()){
 			return "redirect:/_mng/intro";
