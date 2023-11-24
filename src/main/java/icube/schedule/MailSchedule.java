@@ -148,9 +148,9 @@ public class MailSchedule extends CommonAbstractController  {
 				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
 					
 					//이메일 수신거부 확인
-					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
-						continue;
-					}
+//					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+//						continue;
+//					}
 					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_drmc.html");
