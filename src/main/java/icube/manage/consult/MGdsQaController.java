@@ -166,7 +166,7 @@ public class MGdsQaController extends CommonAbstractController {
 				SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
 				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_qna.html");
+				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_qna.html");
 
 				/* body */
 				mailForm = mailForm.replace("{mbrNm}", qaVO.getRgtr()); // 회원 이름
@@ -177,16 +177,9 @@ public class MGdsQaController extends CommonAbstractController {
 				mailForm = mailForm.replace("{ansDt}", formatter.format(qaVO.getAnsDt())); // 답변 일
 				mailForm = mailForm.replace("{ansCn}", qaVO.getAnsCn()); // 답변 내용
 
-				/* footer */
-				mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
-				mailForm = mailForm.replace("{name}", "이로움마켓");
-				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
-				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
-
 
 				// 메일 발송
-				String mailSj = "[이로움ON] 상품문의에 대한 답변이 등록되었습니다";
+				String mailSj = "[이로움ON] 상품Q&A에 대한 답변이 등록되었습니다";
 				if(!EgovStringUtil.equals("local", activeMode)) {
 					mailService.sendMail(sendMail, qaVO.getEml(), mailSj, mailForm);
 				}else {
