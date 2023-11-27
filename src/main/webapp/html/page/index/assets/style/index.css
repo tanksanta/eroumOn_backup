@@ -295,8 +295,8 @@
     }
     & .text-scroll {
         @apply absolute z-15 bottom-2.5 left-1/2 -translate-x-1/2
-               md:bottom-4
-               lg:bottom-32;
+               md:bottom-4;
+               /* lg:bottom-32; */
     }
 }
 
@@ -322,6 +322,45 @@
     & .container {
         @apply flex flex-wrap items-center mx-auto p-2.5 max-w-screen-lg rounded-md bg-gray2 leading-tight
                md:py-4.5 md:px-5 md:rounded-[1.25rem] md:bg-white/70 md:backdrop-blur-[10px] md:shadow-[0px_0px_20px_rgba(0,0,0,0.1)];
+    }
+    & .desc {
+        @apply flex-none leading-tight;
+        & br {
+            @apply md-max:hidden;
+        }
+    }
+    & .count {
+        @apply flex-none ml-2.5 w-40 font-bold
+               lg-max:hidden;
+        & strong {
+            @apply text-5xl;
+        }
+    }
+    & .form {
+        @apply flex gap-1 mt-2.5 w-full
+               md:gap-2.5 md:flex-1 md:mt-0 md:ml-[2%] md:w-auto;
+        & .form-control, & .btn {
+            @apply h-[2.625rem]
+                   md:h-14;
+        }
+        & .form-control {
+            @apply flex-1;
+        }
+        & .btn {
+            @apply border-px w-21
+                   md:w-35;
+        }
+    }
+}
+
+.main-welfare-search {
+    
+    @apply relative mt-59 mb-8 px-5 mx-auto max-w-screen-xl 
+        md:mt-68  lg:mt-77;
+
+    & .container {
+        @apply flex flex-wrap items-center py-2.5 px-2.5 leading-tight bg-gray2 rounded-md w-full max-w-screen-xl 
+               md:py-8 md:rounded-2xl md:px-10 xl:px-30;
     }
     & .desc {
         @apply flex-none leading-tight;
@@ -410,9 +449,9 @@
 
 /* 메인 마켓 배너 */
 .main-banner {
-    @apply mt-59 mx-auto px-5 max-w-screen-xl
-           md:mt-68 md:px-7
-           lg:mt-77 lg:px-10;
+    @apply mx-auto px-5 max-w-screen-xl;
+           /* md:mt-68 md:px-7
+           lg:mt-77 lg:px-10; */
 }
 
 /* 메인 스토어 배너 */
@@ -568,4 +607,39 @@
     & .box {
         @apply md:ml-auto;
     }
+}
+
+.main-content4 {
+    @apply flex flex-col-reverse justify-between gap-4 mt-20 
+    md:mt-40 md:flex-row;
+    & .box {
+        @apply relative z-5 w-fit px-0 text-base leading-snug
+               md:px-4 md:text-lg;
+        & h2 {
+            @apply mb-8 leading-tight text-4xl font-bold tracking-tighter
+                   md:mb-5.5 md:text-6xl
+                   lg:text-7xl;
+            & small {                                    
+                @apply mb-3
+                       md:mb-5.5;
+            }
+        }
+        & p {
+            & br {
+                @apply md:hidden;
+            }
+        }
+        & small {
+            @apply block text-lg font-normal tracking-normal leading-tight
+                   md:text-xl
+                   lg:text-2xl;
+        }
+    }
+    & .btn {
+        @apply mt-8 px-9  h-[3.125rem] shadow-[8px_10px_17px_#0000001A]
+               md:mt-13 md:px-10  md:h-15
+               hover:px-7
+               hover:md:px-8;
+    }
+    
 }

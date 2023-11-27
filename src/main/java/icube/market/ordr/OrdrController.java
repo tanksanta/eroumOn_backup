@@ -760,13 +760,6 @@ public class OrdrController extends CommonAbstractController{
 			String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
 			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 
-			// if (ordrVO.getStlmKnd().equals("VBANK")){
-			// 	mailForm2Service.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", mbrSession, ordrVO);
-			// }else{
-			// 	mailForm2Service.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrSession, ordrVO);
-			// }
-			
-
 			model.addAttribute("ordrDtlList", ordrDtlList);
 			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 

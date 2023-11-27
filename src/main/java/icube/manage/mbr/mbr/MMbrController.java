@@ -464,12 +464,12 @@ public class MMbrController extends CommonAbstractController {
 	    	try {
 				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
 					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_sample.html");
+					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_temp_password.html");
 
 					mailForm = mailForm.replace("{rndPswd}", rndPswd);
 
 					// 메일 발송
-					String mailSj = "[이로움ON] 임시 비밀번호가 발송되었습니다.";
+					String mailSj = "[이로움ON] 임시 비밀번호 안내";
 					if(!EgovStringUtil.equals("local", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {

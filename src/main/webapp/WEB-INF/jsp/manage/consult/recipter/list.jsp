@@ -81,7 +81,7 @@
 	<div class="mt-13 flex items-end gap-1.5">
         <p class="text-title2 mr-auto">수급자 상담목록</p>
         <button type="button" class="btn-primary mb-3 btn-excel">엑셀 다운로드</button>
-        <button type="button" class="btn-secondary mb-3" id="delConslt" name="delConslt">선택 삭제</button>
+        <%-- <button type="button" class="btn-secondary mb-3" id="delConslt" name="delConslt">선택 삭제</button> --%>
     </div>
     <div class="scroll-table">
 

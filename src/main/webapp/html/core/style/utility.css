@@ -116,11 +116,12 @@ strong {
     .global-link {
         @apply flex;
         & [class*="link-item"] {
-            @apply block relative w-9 h-10
-                   before:absolute before:top-0 before:left-0 before:block before:w-full before:h-full before:bg-no-repeat before:bg-center before:bg-[length:auto_100%] before:transition-opacity before:duration-300
-                   after:absolute after:top-0 after:left-0 after:block after:w-full after:h-full after:bg-no-repeat after:bg-center after:bg-[length:auto_100%] after:transition-opacity after:duration-300 after:opacity-0
-                   md:w-10 md:h-11
-                   lg:w-11 lg:h-12;
+            @apply  block w-9 h-10 bg-[length:auto_100%] transition-opacity duration-300
+                /* hover:opacity-0 */
+                /* before:absolute before:top-0 before:left-0 before:block before:w-full before:h-full before:bg-no-repeat before:bg-center before:bg-[length:auto_100%] before:transition-opacity before:duration-300 */
+                /* after:absolute after:top-0 after:left-0 after:block after:w-full after:h-full after:bg-no-repeat after:bg-center after:bg-[length:auto_100%] after:transition-opacity after:duration-300 after:opacity-0 */
+                md:w-10 md:h-11
+                lg:w-11 lg:h-12;
             & .bubble {
                 @apply hidden absolute bottom-full left-1/2 -mb-1 p-2.5 w-40 rounded-lg border border-gray1 bg-no-repeat bg-white tracking-tight -translate-x-1/2 shadow-[0px_2px_4px_#00000034] transition-all duration-300 opacity-0 invisible
                        before:absolute before:left-1/2 before:top-full before:w-0 before:h-0 before:border-solid before:border-transparent before:-translate-x-1/2 before:border-1.5 before:border-b-0 before:border-t-gray1
@@ -146,19 +147,19 @@ strong {
             }
         }
         & .link-item1 {
-            @apply before:bg-[url(/html/core/images/ico-brand-link1.png)]
-                   after:bg-[url(/html/core/images/ico-brand-link1-on.png)];
+            @apply bg-[url(/html/core/images/ico-brand-link1.png)]
+                   hover:bg-[url(/html/core/images/ico-brand-link1-on.png)];
         }
         & .link-item2 {
-            @apply before:bg-[url(/html/core/images/ico-brand-link2.png)]
-                   after:bg-[url(/html/core/images/ico-brand-link2-on.png)];
+            @apply bg-[url(/html/core/images/ico-brand-link2.png)]
+                   hover:bg-[url(/html/core/images/ico-brand-link2-on.png)];
             & .bubble {
                 @apply bg-[url(/html/core/images/bg-brand-link2.png)] bg-[length:55px] bg-[right_center];
             }
         }
         & .link-item3 {
-            @apply before:bg-[url(/html/core/images/ico-brand-link3.png)]
-                   after:bg-[url(/html/core/images/ico-brand-link3-on.png)];
+            @apply bg-[url(/html/core/images/ico-brand-link3.png)]
+                   hover:bg-[url(/html/core/images/ico-brand-link3-on.png)];
             & .bubble {
                 @apply bg-[url(/html/core/images/bg-brand-link3.png)] bg-[length:68px] bg-[right_0.25rem_top_0.5rem];
                 & strong {
@@ -171,8 +172,8 @@ strong {
             }
         }
         & .link-item4 {
-            @apply before:bg-[url(/html/core/images/ico-brand-link4.png)]
-                   after:bg-[url(/html/core/images/ico-brand-link4-on.png)];
+            @apply bg-[url(/html/core/images/ico-brand-link4.png)]
+                   hover:bg-[url(/html/core/images/ico-brand-link4-on.png)];
         }
         &.is-bottom {
             & [class*="link-item"] {
@@ -186,7 +187,7 @@ strong {
     }
 
     .global-footer {
-        @apply relative z-20 w-full border-t border-gray5 font-sans;
+        @apply w-full border-t border-gray5 font-sans;
         @media (max-width: 767px) { 
             padding: 0 0 calc(constant(safe-area-inset-bottom) + 1rem);
             padding: 0 0 calc(env(safe-area-inset-bottom) + 1rem);
@@ -195,18 +196,20 @@ strong {
             @apply border-gray1/20;
         }
         & .footer-link, & .footer-center {
-            @apply relative flex flex-col items-start mx-auto max-w-screen-xl;
+            @apply flex flex-col items-start mx-auto max-w-screen-xl;
         }
         & .footer-link {
-            @apply z-5 flex-wrap px-4
+            @apply flex-wrap px-4 w-full
                    md:flex-row md:justify-between
                    lg:px-7
                    xl:px-10;
         }
         & .footer-menu {
+            @apply md-max:w-full;
             & ul {
                 @apply flex items-center flex-wrap py-2.5 -ml-2.5 text-[0.8125rem] leading-[1.3333333333333]
-                       md:-ml-4 md:py-3 md:text-[0.9375rem];
+                       md:-ml-4 md:py-3 md:text-[0.9375rem] md:border-0
+                       border-b border-gray2;
                 & li {
                     @apply px-1.5
                            md:px-2;
@@ -218,10 +221,10 @@ strong {
             }
         }
         & .footer-family {
-            @apply flex items-center justify-between -mx-4 px-4 border-t border-gray1/20 w-[calc(100%_+_2rem)]
+            /* @apply flex items-center justify-between -mx-4 px-4 border-t border-gray1/20 w-[calc(100%_+_2rem)]
                    md:gap-5 md:absolute md:top-0 md:p-0 md:right-4 md:ml-0 md:-mr-2.5 md:w-auto md:border-t-0
                    lg:right-7
-                   xl:right-10;
+                   xl:right-10; */
             & dl {
                 @apply flex items-center;
             }
@@ -271,9 +274,9 @@ strong {
                        lg:mb-2.5;
             }
             & dd {
-                @apply mt-0.5 leading-snug font-light text-[0.8125rem];
+                @apply mt-0.5 leading-snug font-normal text-[0.8125rem];
                 & p {
-                    @apply relative mb-0.5
+                    @apply mb-0.5
                            lg:inline-block lg:mb-0 lg:mr-0.5 lg:pr-2
                            last:m-0 last:p-0;
                 }
@@ -286,11 +289,11 @@ strong {
             @apply lg:mr-5;
             & dt {
                 & a {
-                    @apply relative pr-5
+                    @apply flex items-center pr-5
                            md:pointer-events-none
                            aria-expanded:after:rotate-180;
                     &::after {
-                        @apply content-empty absolute top-1/2 right-0 w-2.5 h-1.5 bg-[length:100%] bg-center -translate-y-1/2 mt-px transition-all duration-300 rotate-0
+                        @apply content-empty  w-2.5 h-1.5 bg-[length:100%] bg-center -translate-y-1/2 transition-all duration-300 rotate-0 ml-2 mt-1
                                md:hidden;
                         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5.751' viewBox='0 0 10 5.751'%3E%3Cpath id='Rectangle_3' daata-name='Rectangle 3' d='M.22,9.78a.753.753,0,0,1,0-1.063L3.937,5,.22,1.283A.752.752,0,0,1,1.283.22L5.531,4.469a.752.752,0,0,1,0,1.063L1.283,9.78a.752.752,0,0,1-1.063,0Z' transform='translate(10 0) rotate(90)' fill='%23999'/%3E%3C/svg%3E%0A");
                     }
