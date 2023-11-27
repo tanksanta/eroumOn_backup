@@ -530,6 +530,10 @@ public class MbrsRegistController extends CommonAbstractController{
 		
 		if (EgovStringUtil.isNotEmpty(uid)) {
 			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+			if (srchMbr == null) {
+				return "/membership/login";
+			}
+			
 			Date now = new Date();
 			srchMbr.setSmsRcptnDt(now);
 			srchMbr.setEmlRcptnDt(now);
@@ -581,11 +585,18 @@ public class MbrsRegistController extends CommonAbstractController{
 	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
 				javaScript.setMessage("14세 이상만 가입 가능합니다.");
 				javaScript.setLocation("/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
 	        }
 			
 			//정보 수정
-	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId); 
+	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
+	        if (srchMbr == null) {
+	        	javaScript.setMessage("정상적으로 처리되지 않았습니다. 다시 시도해주세요.");
+				javaScript.setLocation("/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
+				return new JavaScriptView(javaScript);
+	        }
 	        srchMbr.setDiKey(mbrVO.getDiKey());
 	        srchMbr.setMbrNm(mbrVO.getMbrNm());
 	        srchMbr.setMblTelno(mbrVO.getMblTelno());
