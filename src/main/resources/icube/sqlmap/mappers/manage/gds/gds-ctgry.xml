@@ -78,6 +78,7 @@
 			<if test="useYn != null and useYn != '' ">
 			AND gc.use_yn = #{useYn}
 			</if>
+		ORDER BY gc.level_no, gc.sort_no
 	</select>
 
 	<select id="selectGdsCtgry" parameterType="java.util.HashMap" resultMap="gdsCtgryMap">
