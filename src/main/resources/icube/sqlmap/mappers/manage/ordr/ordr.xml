@@ -148,6 +148,9 @@
 		<if test="srchOrdrTy !=null and srchOrdrTy != ''">
 			AND o1.ordr_ty = #{srchOrdrTy}
 		</if>
+		<if test="srchStlmKnd !=null and srchStlmKnd != ''">
+			AND o1.stlm_Knd = #{srchStlmKnd}
+		</if>
 		<if test="srchStlmTy !=null and srchStlmTy != ''">
 			AND o1.stlm_ty = #{srchStlmTy}
 		</if>
@@ -312,6 +315,22 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
+
+	<select id="selectOrdrScheduleStlmNList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR o
+		WHERE o.ordr_dt &gt;= #{srchBgngDt} AND o.ordr_dt &lt;= #{srchEndDt}
+			AND (o.stlm_Knd = #{srchStlmKnd} OR o.stlm_ty =  #{srchStlmTy} ) AND o.stlm_yn = #{srchStlmYn}
+			AND o.ordr_no in (
+				183, 157
+			)
+	</select>
+	<!--
+		SELECT ordr_no
+				FROM ORDR_DTL od1
+				WHERE od1.stts_ty = 'OR04'
+				-->
 
 	<!-- 배송정보 변경 -->
 	<update id="updateDlvyInfo" parameterType="java.util.HashMap">

@@ -41,9 +41,9 @@ public class OrdrChgHistService extends CommonAbstractServiceImpl {
 		ordrChgHistDAO.insertOrdrChgHist(ordrChgHistVO);
 	}
 
-	public void deleteOrdrChgHist(int chgNo) throws Exception {
-		ordrChgHistDAO.deleteOrdrChgHist(chgNo);
-	}
+	// public void deleteOrdrChgHist(int chgNo) throws Exception {
+	// 	ordrChgHistDAO.deleteOrdrChgHist(chgNo);
+	// }
 
 
 	/**

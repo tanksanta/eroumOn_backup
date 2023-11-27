@@ -59,10 +59,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	// 공통 선언
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat numberFormat = new DecimalFormat("###,###");
-	Calendar cal = Calendar.getInstance();
-
-
-
+	
 	/**
 	 * 양식 읽기
 	 * @param mailHtml
@@ -74,6 +71,24 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + mailHtml);
 
 		return mailForm;
+	}
+
+	/* MailSchedule 에서 호출*/
+	public void selectOrdrScheduleStlmNList() throws Exception {
+		// List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmN3DaysList();
+		// OrdrVO ordrVO;
+		// MbrVO mbrVO;
+		// int ifor, ilen = ordrList.size();
+		 
+		// for(ifor=0 ; ifor<ilen ; ifor++){
+		// 	ordrVO = ordrList.get(ifor);
+
+		// 	ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
+
+		// 	mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+		// 	this.sendMailOrder("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST", mbrVO, ordrVO);
+		// }
 	}
 
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
@@ -90,6 +105,11 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			throw new Exception("not found ordrVO OrdrCd");
 		}
 
+		//탈퇴한 회원에게는 발송하지 않음
+		if ("Y".equals(mbrVO.getWhdwlYn())) {
+			return;
+		}
+
 		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO);
 		String mailSubject = "";
 		switch (ordrMailTy) {
@@ -97,6 +117,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				mailSubject = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST":
+				mailSubject = "[이로움ON] 주문하신 상품의 입금확인부탁드립니다.";
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL":
+				mailSubject = "[이로움ON] 회원님의 주문이 자동취소 되었습니다.";
 				break;
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				mailSubject = "[이로움ON] 주문하신 상품의 입금이 확인되었습니다.";
@@ -130,6 +156,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				sFileNM = "/mail/ordr/mail_ordr_market_paydone_vbank.html";
 				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST":
+				sFileNM = "/mail/ordr/mail_ordr_schedule_vbank_retry.html";
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL":
+				sFileNM = "/mail/ordr/mail_ordr_schedule_vbank_cancel.html";
+				break;
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				sFileNM = "/mail/ordr/mail_ordr_bootpay_vbank_income.html";
 				break;
@@ -155,6 +187,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				mailContent = this.makeMailForm2OrdrMarketPaydoneVBank(ordrVO, mailContent);
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST":
+				mailContent = this.makeMailForm2OrdrScheduleVbankRqeuqst(ordrVO, mailContent);
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL":
+				mailContent = this.makeMailForm2OrdrScheduleVbankCancel(ordrVO, mailContent);
 				break;
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				mailContent = this.makeMailForm2OrdrBootpayVbankIncome(ordrVO, mailContent);
@@ -190,6 +228,21 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailContent = this.convertMailFormOrdrVBankInfo(ordrVO, mailContent);
 		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
 		
+		return mailContent;
+	}
+
+	/* schedule에서 입금 요청.*/
+	protected String makeMailForm2OrdrScheduleVbankRqeuqst(OrdrVO ordrVO, String mailContent) throws Exception {
+
+		return mailContent;
+	}
+
+	/* schedule에서 입금 요청 취소.*/
+	protected String makeMailForm2OrdrScheduleVbankCancel(OrdrVO ordrVO, String mailContent) throws Exception {
+		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
+
+		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
+
 		return mailContent;
 	}
 	
@@ -504,8 +557,18 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 	}
 
+	/*가상계좌 입금요청*/
+	public void mail_test_schedule_vbank_retry() throws Exception 
+	{
+		
+	}
+	/*가상계좌 입금취소*/
+	public void mail_test_schedule_vbank_cancel() throws Exception 
+	{
+		
+	}
 	/*가상계좌 입금완료*/
-	public void mail_test_bootpay_vbank_income(HttpServletRequest request) throws Exception 
+	public void mail_test_bootpay_vbank_income() throws Exception 
 	{
 		String callbackTxt = "{\"receipt_id\":\"6560225fa575b4002adcb1c4\",\"order_id\":\"O31124131046432\",\"price\":44700,\"tax_free\":0,\"cancelled_price\":0\r\n" + //
 				",\"cancelled_tax_free\":0,\"order_name\":\"뼈까지 먹는 고등어조림 외 4건\",\"company_name\":\"(주)티에이치케이컴퍼니\"\r\n" + //
@@ -540,7 +603,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	public void mail_test(HttpServletRequest request) throws Exception {
-		this.mail_test_bootpay_vbank_income(request);
+		this.mail_test_schedule_vbank_retry();
 
 	}
 }

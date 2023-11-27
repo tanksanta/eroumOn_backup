@@ -33,7 +33,7 @@ public class CodeList {
 			add("MAILSEND_ORDR_MARKET_PAYDONE_CARD");//,"주문접수 카드"
 			add("MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT");//,"주문접수 실시간계좌이체"
 			add("MAILSEND_ORDR_MARKET_PAYDONE_VBANK");//,"주문접수 가상계좌"
-			add("MAILSEND_ORDR_SCHEDULE_VBANK_RETRY");//,"주문확인 입금 독촉"
+			add("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST");//,"주문확인 입금 요청"
 			add("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL");//,"주문확인 취소"
 			add("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME");//,"주문확인 입금완료"
 		}

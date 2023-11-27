@@ -22,9 +22,9 @@ public class OrdrChgHistDAO extends CommonAbstractMapper {
 		insert("ordr.chg.insertOrdrChgHist", ordrChgHistVO);
 	}
 
-	public void deleteOrdrChgHist(int chgNo) throws Exception {
-		delete("ordr.chg.deleteOrdrChgHist", chgNo);
-	}
+	// public void deleteOrdrChgHist(int chgNo) throws Exception {
+	// 	delete("ordr.chg.deleteOrdrChgHist", chgNo);
+	// }
 
 
 

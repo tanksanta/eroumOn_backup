@@ -79,25 +79,61 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 	public void insertOrdrDtl(OrdrDtlVO ordrDtlVO) throws Exception {
 
+		this.updateOrdrDtlAdjustStock(ordrDtlVO, false);
+
+		ordrDtlDAO.insertOrdrDtl(ordrDtlVO);
+	}
+
+	/*재고 조정 
+		bAdd : true ==>재고 증가
+			: false ==>재고 감소		
+	*/
+	public void updateOrdrDtlAdjustStock(OrdrDtlVO ordrDtlVO, boolean bAdd) throws Exception {
+
 		Map<String, Object> stockQyMinus = new HashMap<String, Object>();
 
 		/* 재고 처리 */
 		if(EgovStringUtil.isEmpty(ordrDtlVO.getOrdrOptn())) {
 			stockQyMinus.put("gdsNo", ordrDtlVO.getGdsNo());
-			stockQyMinus.put("stockQy", (ordrDtlVO.getOrdrQy()*-1)); // 감소
+			stockQyMinus.put("stockQy", (ordrDtlVO.getOrdrQy() * (bAdd?1:-1)));
 			gdsService.updateGdsStockQy(stockQyMinus);
 		}else {
 			stockQyMinus.put("gdsNo", ordrDtlVO.getGdsNo());
 			stockQyMinus.put("optnNm", ordrDtlVO.getOrdrOptn());
-			stockQyMinus.put("optnStockQy", (ordrDtlVO.getOrdrQy()*-1)); // 감소
+			stockQyMinus.put("optnStockQy", (ordrDtlVO.getOrdrQy() * (bAdd?1:-1)));
 			gdsOptnService.updateGdsOptnStockQy(stockQyMinus);
 		}
 
-		ordrDtlDAO.insertOrdrDtl(ordrDtlVO);
 	}
 
 	public void updateOrdrDtl(OrdrDtlVO ordrDtlVO) throws Exception {
 		ordrDtlDAO.updateOrdrDtl(ordrDtlVO);
+	}
+
+	public void updateOrdrDtlCancel(String ordrUniqueId, OrdrDtlVO ordrDtlVO, OrdrChgHistVO chgHistVO) throws Exception {
+		
+		if (!EgovStringUtil.isEmpty(ordrDtlVO.getCouponCd())){
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("uniqueId", ordrUniqueId);
+			paramMap.put("couponNo", ordrDtlVO.getCouponNo());
+			paramMap.put("useYn", "N");
+			couponLstService.updateCouponUseYn(paramMap);
+
+			ordrDtlVO.setCouponCd("");
+			ordrDtlVO.setCouponNo(0);
+			ordrDtlVO.setCouponAmt(0);
+		}
+
+		ordrDtlVO.setMdfcnId(chgHistVO.getRegId());
+		ordrDtlVO.setMdfr(chgHistVO.getRgtr());
+		ordrDtlVO.setSttsTy(chgHistVO.getChgStts());
+
+		ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
+
+		ordrDtlDAO.updateOrdrDtl(ordrDtlVO);
+
+		this.updateOrdrDtlAdjustStock(ordrDtlVO, true);/*재고처리*/
+
 	}
 
 	public void deleteOrdrDtl(int ordrDtlNo) throws Exception {

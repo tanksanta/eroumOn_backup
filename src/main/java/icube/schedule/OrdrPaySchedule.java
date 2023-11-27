@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,12 @@ import com.google.gson.reflect.TypeToken;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.mail.MailForm2Service;
 import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
-import icube.common.util.FileUtil;
-import icube.common.util.ValidatorUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -37,6 +38,7 @@ import icube.manage.ordr.rebill.biz.OrdrRebillService;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 
 @Service("ordrPaySchedule")
+// @Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 
@@ -57,6 +59,9 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 	@Resource(name = "mailService")
 	private MailService mailService;
+
+	@Resource(name = "mailForm2Service")
+	private MailForm2Service mailForm2Service;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -268,9 +273,71 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 
+	// public void vbankReqeust() throws Exception {
+	// 	log.info("########## 가상계좌 입금요청 처리 START ##########");
+
+	// 	String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST";
+	// 	MbrVO mbrVO;
+	// 	OrdrVO ordrVO;
+	// 	List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForRequestList();
+	// 	int ifor, ilen = ordrList.size();
+	// 	for(ifor=0 ; ifor<ilen; ifor++){
+	// 		ordrVO = ordrList.get(ifor);
+
+	// 		mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+	// 		mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
+	// 	}
+
+	// 	log.info("########## 가상계좌 입금요청 처리 END ##########");
+	// }
 
 	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
 	@Scheduled(cron="0 30 0 * * *")
+	public void vbankCancle02() throws Exception {
+		log.info("########## 가상계좌 취소 처리 START ##########");
+
+		String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL";
+		MbrVO mbrVO;
+		OrdrVO ordrVO;
+		OrdrDtlVO ordrDtlVO;
+		OrdrChgHistVO ordrChgHistVO;
+		List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForCancelList();
+		List<OrdrDtlVO> ordrDtlList;
+		int jfor, jlen;
+
+		int ifor, ilen = ordrList.size();
+		for(ifor=0 ; ifor<ilen; ifor++){
+			ordrVO = ordrList.get(ifor);
+
+			ordrDtlList = ordrVO.getOrdrDtlList();
+
+			jlen = ordrDtlList.size();
+			for(jfor=0 ; jfor<jlen; jfor++){
+				ordrDtlVO = ordrDtlList.get(jfor);
+
+				ordrChgHistVO = new OrdrChgHistVO();
+				ordrChgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
+				ordrChgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
+				ordrChgHistVO.setChgStts("CA02");
+				ordrChgHistVO.setResnTy(ordrDtlVO.getResnTy());
+				ordrChgHistVO.setResn("자동 전환");
+				ordrChgHistVO.setRegUniqueId(null);
+				ordrChgHistVO.setRegId("SYS");
+				ordrChgHistVO.setRgtr("SYS");
+
+				ordrDtlService.updateOrdrDtlCancel(ordrVO.getUniqueId(), ordrDtlVO, ordrChgHistVO);
+			}
+
+			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+			mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
+		}
+
+		log.info("########## 가상계좌 취소 처리 END ##########");
+	}
+
+	/* vbankCancle02 으로 대체
 	public void cancle02() throws Exception {
 
 		log.info("########## 가상계좌 취소 처리 START ##########");
@@ -457,5 +524,6 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 		log.info("########## 가상계좌 취소 처리 END ##########");
 	}
+	*/
 
 }
