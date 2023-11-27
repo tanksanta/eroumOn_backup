@@ -194,7 +194,7 @@ public class MMbrController extends CommonAbstractController {
         		listVO.setParam("srchRcperRcognNo", value);
         	}
         }
-        
+        listVO.setParam("srchWithoutNotSnsExist", "1");
         listVO = mbrService.mbrListVO(listVO);
         
         if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {

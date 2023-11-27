@@ -414,6 +414,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return mbrAgreementDAO.selectMbrAgreementByMbrUniqueId(uniqueId);
 	}
 	
+	// 간편 회원이면서 미등록자 조회
+	public List<MbrVO> selectNotSnsRegistMbr() throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		return mbrDAO.selectNotSnsRegistMbr(paramMap);
+	}
+	
 	
 	/**
 	 * 간편회원 전용 ID 생성 함수
