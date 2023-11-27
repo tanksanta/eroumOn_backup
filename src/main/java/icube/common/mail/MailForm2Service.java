@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.common.values.CodeList;
+
+import icube.common.framework.helper.HttpHelper;;
 
 /**
  * EROUM 메일 폼 Maker
@@ -56,14 +61,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	DecimalFormat numberFormat = new DecimalFormat("###,###");
 	Calendar cal = Calendar.getInstance();
 
-	public void mail_test() throws Exception 
-	{
-		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
-		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31124131046432");
 
-		this.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrVO, ordrVO);
-
-	}
 
 	/**
 	 * 양식 읽기
@@ -84,6 +82,14 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			throw new Exception("not found mail type");
 		}
 
+		if (mbrVO == null || EgovStringUtil.isEmpty(mbrVO.getUniqueId())){
+			throw new Exception("not found mbrVO uniqueid");
+		}
+
+		if (ordrVO == null || EgovStringUtil.isEmpty(ordrVO.getOrdrCd())){
+			throw new Exception("not found ordrVO OrdrCd");
+		}
+
 		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO);
 		String mailSubject = "";
 		switch (ordrMailTy) {
@@ -92,12 +98,15 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				mailSubject = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
 				break;
+			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
+				mailSubject = "[이로움ON] 주문하신 상품의 입금이 확인되었습니다.";
+				break;
 			default:
 				throw new Exception("not found mail file");
 		}
 
-		System.out.print(mailSubject);
-		System.out.print(content);
+		// System.out.print(mailSubject);
+		// System.out.print(content);
 		/* 
 		주문자의 메일로 보냄
 		*/
@@ -112,6 +121,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 		String sFileNM = "";
 
+		/*기본이 되는 메일양식 선택*/
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
@@ -119,6 +129,9 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				sFileNM = "/mail/ordr/mail_ordr_market_paydone_vbank.html";
+				break;
+			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
+				sFileNM = "/mail/ordr/mail_ordr_bootpay_vbank_income.html";
 				break;
 			default:
 				throw new Exception("not found mail file");
@@ -134,13 +147,17 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		
 		mailContent = this.convertMailFormMbr(mbrVO, mailContent);
 
+		/*메일양식을 내용으로 치환*/
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
-				mailContent = this.makeMailForm2OrdrCard(ordrVO, mailContent);
+				mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
-				mailContent = this.makeMailForm2OrdrVBank(ordrVO, mailContent);
+				mailContent = this.makeMailForm2OrdrMarketPaydoneVBank(ordrVO, mailContent);
+				break;
+			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
+				mailContent = this.makeMailForm2OrdrBootpayVbankIncome(ordrVO, mailContent);
 				break;
 			default:
 				throw new Exception("not found mail content");
@@ -150,7 +167,8 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 
-	protected String makeMailForm2OrdrCard(OrdrVO ordrVO, String mailContent) throws Exception {
+	/*주문 접수 중 결제가 완료된 경우(CARD, BANK)*/
+	protected String makeMailForm2OrdrMarketPaydoneCard(OrdrVO ordrVO, String mailContent) throws Exception {
 
 		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
 		mailContent = this.convertMailFormORDRR(ordrVO, mailContent);
@@ -164,9 +182,10 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 
-	protected String makeMailForm2OrdrVBank(OrdrVO ordrVO, String mailContent) throws Exception {
+	/*주문 접수 중 결제가 바로 되지 않는 경우 (VBANK), 가상계좌 정보를 더 표시 한다.*/
+	protected String makeMailForm2OrdrMarketPaydoneVBank(OrdrVO ordrVO, String mailContent) throws Exception {
 
-		mailContent = this.makeMailForm2OrdrCard(ordrVO, mailContent);
+		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
 
 		mailContent = this.convertMailFormOrdrVBankInfo(ordrVO, mailContent);
 		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
@@ -174,6 +193,17 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 	
+	/*bootpay callback에서 입금이 확인.*/
+	protected String makeMailForm2OrdrBootpayVbankIncome(OrdrVO ordrVO, String mailContent) throws Exception {
+
+		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
+
+		mailContent = this.convertMailFormOrdrVBankInfo(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
+		
+		return mailContent;
+	}
+
 	/*회원 일반 사항*/
 	protected String convertMailFormMbr(MbrVO mbrVO, String mailContent){
 		String keyword;
@@ -463,4 +493,54 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return resultMap;
 	}
 
+
+	/*주문접수 카드*/
+	public void mail_test_market_paydone_card() throws Exception 
+	{
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31124131046432");
+
+		this.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrVO, ordrVO);
+
+	}
+
+	/*가상계좌 입금완료*/
+	public void mail_test_bootpay_vbank_income(HttpServletRequest request) throws Exception 
+	{
+		String callbackTxt = "{\"receipt_id\":\"6560225fa575b4002adcb1c4\",\"order_id\":\"O31124131046432\",\"price\":44700,\"tax_free\":0,\"cancelled_price\":0\r\n" + //
+				",\"cancelled_tax_free\":0,\"order_name\":\"뼈까지 먹는 고등어조림 외 4건\",\"company_name\":\"(주)티에이치케이컴퍼니\"\r\n" + //
+				",\"gateway_url\":\"https://gw.bootpay.co.kr\"\r\n" + //
+				",\"metadata\":{},\"sandbox\":true,\"pg\":\"이니시스\",\"method\":\"가상계좌\",\"method_symbol\":\"vbank\",\"method_origin\":\"가상계좌\"\r\n" + //
+				",\"method_origin_symbol\":\"vbank\",\"purchased_at\":\"2023-11-24T13:11:28+09:00\",\"requested_at\":\"2023-11-24T13:11:11+09:00\"\r\n" + //
+				",\"status_locale\":\"결제완료\",\"currency\":\"KRW\"\r\n" + //
+				",\"receipt_url\":\"https://door.bootpay.co.kr/receipt/K1pVMmwrNzczTmRUR0U3ZnlzaGtQQ3FVT2lhMTRXdk9SdnM9LS1rMzlyVUJQ%0AeXNpRXpaVlBqLS1CTWI5Vm1WOWFpdVpFZ2FWci9MZGx3PT0%3D%0A\"\r\n" + //
+				",\"status\":1\r\n" + //
+				",\"vbank_data\":{\"tid\":\"StdpayVBNKINIpayTest20231124131125326893\",\"bank_code\":\"020\",\"bank_name\":\"우리은행\"\r\n" + //
+				"\t\t\t,\"bank_account\":\"27490242018118\",\"sender_name\":\"이동열\",\"expired_at\":\"2023-11-26T23:59:00+09:00\"\r\n" + //
+				"\t\t\t,\"cash_receipt_tid\":\"test-cash-tid-31820940\",\"cash_receipt_no\":\"61614407\"\r\n" + //
+				"\t\t\t}\r\n" + //
+				",\"application_id\":\"6369b8f5cf9f6d002023e2d1\"}";
+
+		// BootpayApiController bootpay = new BootpayApiController();
+		// bootpay.bootpayAction(callbackTxt);
+
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(callbackTxt);
+
+		JSONObject jsonObj = (JSONObject) obj;
+
+		HttpHelper ohttp = new HttpHelper();
+
+		ohttp.postJson("http://local-on.eroum.co.kr/common/bootpay/callback.json", jsonObj, null);
+
+		// MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		// OrdrVO ordrVO = ordrService.selectOrdrByCd("O31124131046432");
+
+		// this.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrVO, ordrVO);
+	}
+
+	public void mail_test(HttpServletRequest request) throws Exception {
+		this.mail_test_bootpay_vbank_income(request);
+
+	}
 }
