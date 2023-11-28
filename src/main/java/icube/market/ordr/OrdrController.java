@@ -736,6 +736,7 @@ public class OrdrController extends CommonAbstractController{
 			, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
 			, @RequestParam(value = "ordrQy", required = true) String ordrQy
 			, @RequestParam(value = "ordrPc", required = true) String ordrPc
+			, @RequestParam(value = "stlmKnd", required = true) String stlmKnd
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
 			, RedirectAttributes redirectAttributes
@@ -752,13 +753,16 @@ public class OrdrController extends CommonAbstractController{
 		// doubleSubmit check
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
+			String ordrMailTy = "MAILSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
+
 			List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
+			mailForm2Service.sendMailOrder(ordrMailTy, mbrSession, ordrVO);
+			// String mailHtml = "mail_ordr.html";
+			// String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
+			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 
-			String mailHtml = "mail_ordr.html";
-			String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 
 			model.addAttribute("ordrDtlList", ordrDtlList);
 			model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
