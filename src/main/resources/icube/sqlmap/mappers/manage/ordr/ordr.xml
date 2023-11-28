@@ -323,14 +323,12 @@
 		WHERE o.ordr_dt &gt;= #{srchBgngDt} AND o.ordr_dt &lt;= #{srchEndDt}
 			AND (o.stlm_Knd = #{srchStlmKnd} OR o.stlm_ty =  #{srchStlmTy} ) AND o.stlm_yn = #{srchStlmYn}
 			AND o.ordr_no in (
-				183, 157
-			)
-	</select>
-	<!--
-		SELECT ordr_no
+				SELECT ordr_no
 				FROM ORDR_DTL od1
 				WHERE od1.stts_ty = 'OR04'
-				-->
+			)
+	</select>
+	<!--o.ordr_no in ( 183, 157 )-->
 
 	<!-- 배송정보 변경 -->
 	<update id="updateDlvyInfo" parameterType="java.util.HashMap">

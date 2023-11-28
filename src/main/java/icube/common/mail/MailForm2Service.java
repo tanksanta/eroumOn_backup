@@ -157,7 +157,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				sFileNM = "/mail/ordr/mail_ordr_market_paydone_vbank.html";
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST":
-				sFileNM = "/mail/ordr/mail_ordr_schedule_vbank_retry.html";
+				sFileNM = "/mail/ordr/mail_ordr_schedule_vbank_request.html";
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL":
 				sFileNM = "/mail/ordr/mail_ordr_schedule_vbank_cancel.html";
@@ -234,6 +234,11 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	/* schedule에서 입금 요청.*/
 	protected String makeMailForm2OrdrScheduleVbankRqeuqst(OrdrVO ordrVO, String mailContent) throws Exception {
 
+		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
+
+		mailContent = this.convertMailFormOrdrVBankInfo(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
+		
 		return mailContent;
 	}
 

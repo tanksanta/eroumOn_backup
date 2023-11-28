@@ -29,7 +29,6 @@ import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -38,7 +37,7 @@ import icube.manage.ordr.rebill.biz.OrdrRebillService;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 
 @Service("ordrPaySchedule")
-// @Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
+@Profile(value = {"test", "real"}) /*개발, 운영서버에서만 실행*/
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 
@@ -272,72 +271,29 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		log.info("########## 구매 확정 처리 END ##########");
 	}
 
-
-	// public void vbankReqeust() throws Exception {
-	// 	log.info("########## 가상계좌 입금요청 처리 START ##########");
-
-	// 	String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST";
-	// 	MbrVO mbrVO;
-	// 	OrdrVO ordrVO;
-	// 	List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForRequestList();
-	// 	int ifor, ilen = ordrList.size();
-	// 	for(ifor=0 ; ifor<ilen; ifor++){
-	// 		ordrVO = ordrList.get(ifor);
-
-	// 		mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
-
-	// 		mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
-	// 	}
-
-	// 	log.info("########## 가상계좌 입금요청 처리 END ##########");
-	// }
-
-	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
+	// 가상계좌 입금요청 -> 매일 자정
 	@Scheduled(cron="0 30 0 * * *")
-	public void vbankCancle02() throws Exception {
-		log.info("########## 가상계좌 취소 처리 START ##########");
+	public void vbankReqeust() throws Exception {
+		log.info("########## 가상계좌 입금요청 처리 START ##########");
 
-		String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL";
+		String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST";
 		MbrVO mbrVO;
 		OrdrVO ordrVO;
-		OrdrDtlVO ordrDtlVO;
-		OrdrChgHistVO ordrChgHistVO;
-		List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForCancelList();
-		List<OrdrDtlVO> ordrDtlList;
-		int jfor, jlen;
-
+		List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForRequestList();
 		int ifor, ilen = ordrList.size();
 		for(ifor=0 ; ifor<ilen; ifor++){
 			ordrVO = ordrList.get(ifor);
-
-			ordrDtlList = ordrVO.getOrdrDtlList();
-
-			jlen = ordrDtlList.size();
-			for(jfor=0 ; jfor<jlen; jfor++){
-				ordrDtlVO = ordrDtlList.get(jfor);
-
-				ordrChgHistVO = new OrdrChgHistVO();
-				ordrChgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
-				ordrChgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
-				ordrChgHistVO.setChgStts("CA02");
-				ordrChgHistVO.setResnTy(ordrDtlVO.getResnTy());
-				ordrChgHistVO.setResn("자동 전환");
-				ordrChgHistVO.setRegUniqueId(null);
-				ordrChgHistVO.setRegId("SYS");
-				ordrChgHistVO.setRgtr("SYS");
-
-				ordrDtlService.updateOrdrDtlCancel(ordrVO.getUniqueId(), ordrDtlVO, ordrChgHistVO);
-			}
 
 			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
 			mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
 		}
 
-		log.info("########## 가상계좌 취소 처리 END ##########");
+		log.info("########## 가상계좌 입금요청 처리 END ##########");
 	}
 
-	/* vbankCancle02 으로 대체
+	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
+	@Scheduled(cron="0 30 0 * * *")
 	public void cancle02() throws Exception {
 
 		log.info("########## 가상계좌 취소 처리 START ##########");
@@ -376,154 +332,60 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 			ordrDtlService.updateOrdrCA02(newDtlVO);
 
-			// 이메일 발송
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			DecimalFormat numberFormat = new DecimalFormat("###,###");
-
 			OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrDtlVO.getOrdrCd());
 			
 			//탈퇴한 회원에게는 발송하지 않음
 			Map<String, Object> searchParamMap = new HashMap<String, Object>();
 			searchParamMap.put("srchUniqueId", ordrVO.getUniqueId());
 			MbrVO mbrVO = mbrService.selectMbr(searchParamMap);
-			if ("Y".equals(mbrVO.getWhdwlYn())) {
-				continue;
-			}
-
-			try {
-				if (ValidatorUtil.isEmail(ordrVO.getOrdrrEml())) {
-					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH + "mail_ordr_auto_cancel.html");
-
-					// 입금기한
-					mailForm = mailForm.replace("{yyyy}", ordrVO.getDpstTermDt().substring(0, 4));
-					mailForm = mailForm.replace("{MM}", ordrVO.getDpstTermDt().substring(5, 7));
-					mailForm = mailForm.replace("{dd}", ordrVO.getDpstTermDt().substring(8, 10));
-					mailForm = mailForm.replace("{HH}", ordrVO.getDpstTermDt().substring(11, 16));
-
-					mailForm = mailForm.replace("{mbrNm}", ordrVO.getOrdrrNm()); // 주문자
-					mailForm = mailForm.replace("{ordrDt}", formatter.format(ordrVO.getOrdrDt())); // 주문일
-					mailForm = mailForm.replace("{ordrCd}", ordrVO.getOrdrCd()); // 주문번호
-
-					// 상품 정보 Start
-					String last = "";
-					String base = "";
-					String adit = "";
-					String base_reset = "";
-					String adit_reset = "";
-					String bplc = "";
-
-					for (int i=0; i<ordrVO.getOrdrDtlList().size(); i++) {
-
-						// BASE
-						if(ordrVO.getOrdrDtlList().get(i).getOrdrOptnTy().equals("BASE")) {
-							base = base.replace("{aditOptn}", "");
-							base_reset = "";
-							String base_html = FileUtil.readFile(MAIL_FORM_PATH + "mail_ordr_gds.html");
-							base_html = base_html.replace("{gdsNm}", ordrVO.getOrdrDtlList().get(i).getGdsNm());
-							base_html = base_html.replace("{gdsOptnNm}", ordrVO.getOrdrDtlList().get(i).getOrdrOptn());
-							base_html = base_html.replace("{ordrQy}", EgovStringUtil.integer2string(ordrVO.getOrdrDtlList().get(i).getOrdrQy()));
-							base_html = base_html.replace("{ordrPc}", numberFormat.format(ordrVO.getOrdrDtlList().get(i).getOrdrPc()));
-
-							// 멤버스
-							if (!ordrVO.getOrdrTy().equals("N")) {
-								bplc = FileUtil.readFile(MAIL_FORM_PATH + "mail_ordr_bplc.html");
-								bplc = bplc.replace("{bplcNm}", ordrVO.getOrdrDtlList().get(i).getBplcInfo().getBplcNm());
-								bplc = bplc.replace("{telno}", ordrVO.getOrdrDtlList().get(i).getBplcInfo().getTelno());
-								bplc = bplc.replace("{dlvyPc}",
-										numberFormat.format((ordrVO.getOrdrDtlList().get(i).getDlvyAditAmt()
-												+ ordrVO.getOrdrDtlList().get(i).getDlvyBassAmt())));
-								base_html = base_html.replace("{bplc}", bplc);
-							} else {
-								base_html = base_html.replace("{bplc}", "");
-							}
-
-							base_reset = base_html;
-						}
-
-						if(ordrVO.getOrdrDtlList().get(i).getOrdrOptnTy().equals("ADIT")) {
-							// ADIT
-							adit_reset = "";
-							String adit_html = FileUtil.readFile(MAIL_FORM_PATH + "mail_ordr_gds_optn.html");
-							adit_html = adit_html.replace("{optnNm}", ordrVO.getOrdrDtlList().get(i).getOrdrOptn());
-							adit_html = adit_html.replace("{optnQy}", EgovStringUtil.integer2string(ordrVO.getOrdrDtlList().get(i).getOrdrQy()));
-							adit_html = adit_html.replace("{optnPc}", numberFormat.format(ordrVO.getOrdrDtlList().get(i).getOrdrOptnPc()));
-
-							adit_reset = adit_html;
-						}
-
-
-						if(i == (ordrVO.getOrdrDtlList().size()-1)) {
-
-							if(ordrVO.getOrdrDtlList().get(i).getOrdrOptnTy().equals("BASE")) {
-
-								base += base_reset;
-								base = base.replace("{aditOptn}", "");
-							}else {
-								adit += adit_reset;
-								base = base.replace("{aditOptn}",adit);
-							}
-							last += base;
-
-							mailForm = mailForm.replace("{gdsView}", last);
-						}else {
-							if(ordrVO.getOrdrDtlList().get(i).getOrdrOptnTy().equals("BASE")) {
-								base += base_reset;
-							}else {
-								adit += adit_reset;
-							}
-						}
-
-
-					}
-
-					// 결제 정보
-					int totalGdsPc = 0; // 총 상품 금액 (상품 가격 * 수량)
-					int dlvyPc = 0; // 배송비
-					int couponAmt = 0; // 쿠폰 할인
-
-					int mlg = ordrVO.getUseMlg(); // 마일리지
-					int point = ordrVO.getUsePoint(); // 포인트
-
-					for (OrdrDtlVO ordrDtl2VO : ordrVO.getOrdrDtlList()) {
-						if(ordrDtl2VO.getOrdrOptnTy().equals("BASE")) {
-							totalGdsPc += (ordrDtl2VO.getGdsPc() * ordrDtl2VO.getOrdrQy());
-						}else {
-							totalGdsPc += (ordrDtl2VO.getOrdrOptnPc() * ordrDtl2VO.getOrdrQy());
-						}
-						dlvyPc += (ordrDtl2VO.getDlvyBassAmt() + ordrDtl2VO.getDlvyAditAmt());
-						couponAmt += ordrDtl2VO.getCouponAmt();
-					}
-
-					mailForm = mailForm.replace("{totalOrdrPc}", numberFormat.format(totalGdsPc));
-					mailForm = mailForm.replace("{dlvyPc}", numberFormat.format(dlvyPc));
-					mailForm = mailForm.replace("{couponAmt}", numberFormat.format(couponAmt + mlg + point));
-
-					mailForm = mailForm.replace("{stlmAmt}", numberFormat.format(ordrVO.getStlmAmt())); // 결제금액
-
-					mailForm = mailForm.replace("{bank}", ordrVO.getDpstBankNm()); // 은행
-					mailForm = mailForm.replace("{actno}", ordrVO.getVrActno()); // 계좌번호
-					mailForm = mailForm.replace("{dsptDt}", ordrVO.getDpstTermDt().substring(0, 16)); // 입금기한
-
-					// 메일 발송
-					String mailSj = "[이로움ON] 회원님의 주문이 자동취소 되었습니다.";
-					if (EgovStringUtil.equals("real", activeMode)) {
-						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
-					} else if (EgovStringUtil.equals("dev", activeMode)) {
-						mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
-					} else {
-						mailService.sendMail(sendMail, mailTestuser, mailSj, mailForm); // 테스트
-					}
-				} else {
-					System.out.println("사용자 상품 주문 자동 취소 EMAIL 전송 실패 :: 이메일 체크 " + ordrVO.getOrdrrEml());
-				}
-			} catch (Exception e) {
-				System.out.println("사용자 상품 주문 자동 취소 EMAIL 전송 실패 :: " + e.toString());
-			}
+			
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL", mbrVO, ordrVO);
 		}
 
 		log.info("########## 가상계좌 취소 처리 END ##########");
 	}
-	*/
+
+//	public void vbankCancle02() throws Exception {
+//		log.info("########## 가상계좌 취소 처리 START ##########");
+//
+//		String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL";
+//		MbrVO mbrVO;
+//		OrdrVO ordrVO;
+//		OrdrDtlVO ordrDtlVO;
+//		OrdrChgHistVO ordrChgHistVO;
+//		List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForCancelList();
+//		List<OrdrDtlVO> ordrDtlList;
+//		int jfor, jlen;
+//
+//		int ifor, ilen = ordrList.size();
+//		for(ifor=0 ; ifor<ilen; ifor++){
+//			ordrVO = ordrList.get(ifor);
+//
+//			ordrDtlList = ordrVO.getOrdrDtlList();
+//
+//			jlen = ordrDtlList.size();
+//			for(jfor=0 ; jfor<jlen; jfor++){
+//				ordrDtlVO = ordrDtlList.get(jfor);
+//
+//				ordrChgHistVO = new OrdrChgHistVO();
+//				ordrChgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
+//				ordrChgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
+//				ordrChgHistVO.setChgStts("CA02");
+//				ordrChgHistVO.setResnTy(ordrDtlVO.getResnTy());
+//				ordrChgHistVO.setResn("자동 전환");
+//				ordrChgHistVO.setRegUniqueId(null);
+//				ordrChgHistVO.setRegId("SYS");
+//				ordrChgHistVO.setRgtr("SYS");
+//
+//				ordrDtlService.updateOrdrDtlCancel(ordrVO.getUniqueId(), ordrDtlVO, ordrChgHistVO);
+//			}
+//
+//			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+//
+//			mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
+//		}
+//
+//		log.info("########## 가상계좌 취소 처리 END ##########");
+//	}
 
 }
