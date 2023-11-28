@@ -173,6 +173,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		}
 
 		List<MbrConsltChgHistVO> chgHistList =  mbrConsltService.selectMbrConsltChgHist(paramMap);
+		List<MbrConsltChgHistVO> bplcRejectChgList = new ArrayList<MbrConsltChgHistVO>();
 		for(MbrConsltChgHistVO chgHistVO : chgHistList) {
 			ConsltHistory ConsltHistory = new ConsltHistory();
 			ConsltHistory.setRegDt(chgHistVO.getRegDt());
@@ -182,8 +183,13 @@ public class MMbrConsltController extends CommonAbstractController{
 			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
 					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
 					: chgHistVO.getBplcId());
-			ConsltHistory.setContent("상태변경: [" + chgHistVO.getResn() + "]");
+			ConsltHistory.setContent("상태변경: [" + CodeMap.CONSLT_STTUS.get(chgHistVO.getConsltSttusChg()) + "상태로 변경되었습니다.]");
 			historyList.add(ConsltHistory);
+			
+			//사업소 거부 이력 쌓기
+			if ("CS04".equals(chgHistVO.getConsltSttusChg())) {
+				bplcRejectChgList.add(chgHistVO);
+			}
 		}
 
 		Collections.sort(historyList, Collections.reverseOrder());
@@ -208,6 +214,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("historyText", historyText);
 		model.addAttribute("chgHistList", chgHistList);
+		model.addAttribute("bplcRejectChgList", bplcRejectChgList);
 		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
 		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);
 		model.addAttribute("MBER_STTUS", CodeMap.MBER_STTUS);

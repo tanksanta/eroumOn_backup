@@ -97,24 +97,29 @@
                                     </td>
                                     <th scope="row">상담진행상태</th>
                                     <td>
-                                        <ul class="space-y-1">
-                                            <li>
-                                            	<c:choose>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
-													<span class="text-red1">재상담 신청 접수</span>
-                                                	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
-													</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
-												</c:choose>
-                                            </li>
-                                        </ul>
+                                    	<div class="flex items-center gap-4">
+	                                        <ul>
+	                                            <li>
+	                                            	<c:choose>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
+														<span class="text-red1">재상담 신청 접수</span>
+	                                                	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
+														</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
+													</c:choose>
+	                                            </li>
+	                                        </ul>
+	                                        <c:if test="${!empty bplcRejectChgList && bplcRejectChgList.size() > 0}">
+	                                        	<button type="button" class="btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modal5">상담 거부 사유 확인</button>
+	                                        </c:if>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -409,6 +414,41 @@
                     </div>
                 </div>
                 <!-- //멤버스 상담 내역 확인 -->
+                
+                <!-- 상담 거부 사유 확인 -->
+                <div class="modal fade" id="modal5" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>상담 거부 사유 확인</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>상담 거부 사유를 확인하세요</p>
+                                <table class="table-detail mt-5">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                    	<c:forEach items="${bplcRejectChgList}" var="resultList" varStatus="status">
+	                                        <tr>
+	                                            <th scope="row">
+	                                                ${status.index+1}차 거부 사업소
+	                                                <p class="mt-2 font-bold">(${resultList. bplcNm})</p>
+	                                            </th>
+	                                            <td>
+	                                            	${resultList.resn}
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //상담 거부 사유 확인  -->
                 
                 
                 <!-- 등급테스트결과 모달 -->
