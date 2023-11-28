@@ -1,7 +1,6 @@
 package icube.schedule;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -271,8 +270,8 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		log.info("########## 구매 확정 처리 END ##########");
 	}
 
-	// 가상계좌 입금요청 -> 매일 자정
-	@Scheduled(cron="0 30 0 * * *")
+	// 가상계좌 입금요청 -> 매일 오전 7시 30분
+	@Scheduled(cron="0 30 7 * * *")
 	public void vbankReqeust() throws Exception {
 		log.info("########## 가상계좌 입금요청 처리 START ##########");
 

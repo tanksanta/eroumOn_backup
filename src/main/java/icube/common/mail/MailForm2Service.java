@@ -571,8 +571,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	/*가상계좌 입금취소*/
 	public void mail_test_schedule_vbank_cancel() throws Exception 
 	{//OrdrPaySchedule.cancle02 에서 테스트
-		
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128144851767");
+
+		this.sendMailOrder("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL", mbrVO, ordrVO);
 	}
+
 	/*가상계좌 입금완료*/
 	public void mail_test_bootpay_vbank_income() throws Exception 
 	{
@@ -617,7 +621,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	public void mail_test(HttpServletRequest request) throws Exception {
-		this.mail_test_bootpay_vbank_income();
+		this.mail_test_schedule_vbank_cancel();
 
 	}
 }

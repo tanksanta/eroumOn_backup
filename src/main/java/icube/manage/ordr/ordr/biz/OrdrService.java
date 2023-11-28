@@ -542,7 +542,6 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		paramMap.put("srchStlmKnd", "VBANK");
 		paramMap.put("srchStlmTy", "VBANK");
 		paramMap.put("srchStlmYn", "N");
-		paramMap.put("srchSttsTy", "N");
 		
 		paramMap.put("srchBgngDt", DateUtil.formatDate(DateUtil.getDateAdd(now, "date", days + 0), "yyyy-MM-dd"));
 		paramMap.put("srchEndDt" , DateUtil.formatDate(DateUtil.getDateAdd(now, "date", days + 1), "yyyy-MM-dd"));
