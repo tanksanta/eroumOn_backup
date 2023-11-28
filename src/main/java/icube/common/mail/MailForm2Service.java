@@ -73,24 +73,6 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailForm;
 	}
 
-	/* MailSchedule 에서 호출*/
-	public void selectOrdrScheduleStlmNList() throws Exception {
-		// List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmN3DaysList();
-		// OrdrVO ordrVO;
-		// MbrVO mbrVO;
-		// int ifor, ilen = ordrList.size();
-		 
-		// for(ifor=0 ; ifor<ilen ; ifor++){
-		// 	ordrVO = ordrList.get(ifor);
-
-		// 	ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
-
-		// 	mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
-
-		// 	this.sendMailOrder("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST", mbrVO, ordrVO);
-		// }
-	}
-
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
 
 		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
@@ -115,11 +97,13 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+				mailSubject = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
+				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
 				mailSubject = "[이로움ON] 회원님의 주문이 접수 되었습니다.";
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST":
-				mailSubject = "[이로움ON] 주문하신 상품의 입금확인부탁드립니다.";
+				mailSubject = "[이로움ON] 주문하신 상품의 입금확인 부탁드립니다.";
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL":
 				mailSubject = "[이로움ON] 회원님의 주문이 자동취소 되었습니다.";
@@ -127,6 +111,10 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				mailSubject = "[이로움ON] 주문하신 상품의 입금이 확인되었습니다.";
 				break;
+			case "MAILSEND_ORDR_MNG_CONFIRM":
+				mailSubject = "[이로움ON] 주문하신 상품의 주문이 확정되었습니다.";
+				break;
+				
 			default:
 				throw new Exception("not found mail file");
 		}
@@ -165,6 +153,9 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				sFileNM = "/mail/ordr/mail_ordr_bootpay_vbank_income.html";
 				break;
+			case "MAILSEND_ORDR_MNG_CONFIRM":
+				sFileNM = "/mail/ordr/mail_ordr_mng_confirm.html";
+				break;
 			default:
 				throw new Exception("not found mail file");
 		}
@@ -196,6 +187,9 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_BOOTPAY_VBANK_INCOME":
 				mailContent = this.makeMailForm2OrdrBootpayVbankIncome(ordrVO, mailContent);
+				break;
+			case "MAILSEND_ORDR_MNG_CONFIRM":
+				mailContent = this.makeMailForm2OrdrMngConfirm(ordrVO, mailContent);
 				break;
 			default:
 				throw new Exception("not found mail content");
@@ -261,6 +255,13 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		
 		return mailContent;
 	}
+
+	protected String makeMailForm2OrdrMngConfirm(OrdrVO ordrVO, String mailContent) throws Exception {
+
+		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
+		return mailContent;
+	}
+
 
 	/*회원 일반 사항*/
 	protected String convertMailFormMbr(MbrVO mbrVO, String mailContent){
@@ -564,12 +565,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 	/*가상계좌 입금요청*/
 	public void mail_test_schedule_vbank_retry() throws Exception 
-	{
+	{//OrdrPaySchedule.vbankReqeust 에서 테스트
 		
 	}
 	/*가상계좌 입금취소*/
 	public void mail_test_schedule_vbank_cancel() throws Exception 
-	{
+	{//OrdrPaySchedule.cancle02 에서 테스트
 		
 	}
 	/*가상계좌 입금완료*/
@@ -607,8 +608,16 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		// this.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrVO, ordrVO);
 	}
 
+	public void mail_test_mng_confirm() throws Exception {
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31122100315848");
+
+		this.sendMailOrder("MAILSEND_ORDR_MNG_CONFIRM", mbrVO, ordrVO);
+
+	}
+
 	public void mail_test(HttpServletRequest request) throws Exception {
-		this.mail_test_schedule_vbank_retry();
+		this.mail_test_mng_confirm();
 
 	}
 }
