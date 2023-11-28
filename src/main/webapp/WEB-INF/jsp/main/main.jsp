@@ -494,5 +494,8 @@ function comma(num){
             var modal = $(this);
             modal.appendTo('body');
         });
+        $('#watching-youtube').on('hidden.bs.modal', function () {
+            $("#watching-youtube iframe").attr("src", $("#watching-youtube iframe").attr("src"))
+        });
     })
 </script>
