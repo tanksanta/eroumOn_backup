@@ -88,7 +88,7 @@
                                 <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #999; border-radius:8px;">
                                     <tr>
-                                        <td bgcolor="#fff" align="left" width="100" style="border-top-left-radius:8px; padding:12px 6px 3px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">총 상품금액</p></td>
+                                        <td bgcolor="#fff" align="left" width="100" style="border-top-left-radius:8px; padding:12px 6px 3px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">총 주문금액</p></td>
                                         <td bgcolor="#fff" align="right" style="padding:12px 14px 3px; border-top-right-radius:8px; background-color:#fff; text-align:right; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:18px;"><b class="totalOrdrPc">((SumGdsPc))</b> <b style="font-size:13px">원</b></p></td>
                                     </tr>
                                     <tr>
@@ -116,7 +116,29 @@
                                     </tr>
                                 </table>
                                 <p style="margin:0; padding:0;">&nbsp;</p>
-                                ((ordrPartVbankGuide))
+                                
+                                <p style="margin:0; padding:0;"><strong>가상계좌 입금내역</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #999; border-radius:8px;">
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:12px 6px 3px 14px; border-top-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">가상계좌</p></td>
+                                        <td bgcolor="#fff" style="padding:12px 14px 3px; border-top-right-radius:8px; background-color:#fff;">
+                                            <p style="margin:0; padding:0; font-size:16px;">
+                                                <b>((dpstBankNm))
+                                                    <span style="font-family:'Roboto'">((vrActno))</span></b>
+                                            </p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:3px 6px 12px 14px; border-bottom-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">입금확인일</p></td>
+                                        <td bgcolor="#fff" align="left" style="padding:3px 14px 12px; border-bottom-right-radius:8px; background-color:#fff; text-align:left;">
+                                            <p style="margin:0; padding:0; font-size:16px; color:#F81616;">
+                                                <b>
+                                                    <span style="font-family:'Roboto'">((stlmDtYear))-((stlmDtMonth))-((stlmDtDay)) ((stlmDtHour)):((stlmDtMinute))</span>
+                                                </b>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
                                 
                             </td>
                         </tr>

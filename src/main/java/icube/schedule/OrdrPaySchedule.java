@@ -37,7 +37,7 @@ import icube.manage.ordr.rebill.biz.OrdrRebillService;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 
 @Service("ordrPaySchedule")
-@Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
+@Profile(value = {"test", "real"}) /*개발, 운영서버에서만 실행*/
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 

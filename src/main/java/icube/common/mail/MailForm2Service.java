@@ -3,7 +3,6 @@ package icube.common.mail;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,7 +250,8 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
 
 		mailContent = this.convertMailFormOrdrVBankInfo(ordrVO, mailContent);
-		mailContent = this.convertMailFormOrdrVBankGuide(ordrVO, mailContent);
+		
+		mailContent = this.convertMailFormDateFull(ordrVO.getStlmDt(), "stlmDt", mailContent);
 		
 		return mailContent;
 	}
@@ -617,7 +617,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	public void mail_test(HttpServletRequest request) throws Exception {
-		this.mail_test_mng_confirm();
+		this.mail_test_bootpay_vbank_income();
 
 	}
 }
