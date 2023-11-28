@@ -81,6 +81,10 @@ public class DscntSchedule extends CommonAbstractController {
 				try {
 					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
 					
+					//탈퇴여부 확인
+					if ("Y".equals(mbrVO.getWhdwlYn())) {
+						continue;
+					}
 					//이메일 수신거부 확인
 //					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
 //						continue;

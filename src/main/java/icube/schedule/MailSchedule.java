@@ -77,6 +77,7 @@ public class MailSchedule extends CommonAbstractController  {
 		// 생일자 조회
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchDate", "now");
+		paramMap.put("srchWhdwlYn", "N");
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
 		if (mbrList.size() > 0) {
@@ -188,8 +189,7 @@ public class MailSchedule extends CommonAbstractController  {
 		// 개인정보 유효기간으로부터 1개월 전 발송
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-
-		//유효기간 select
+		paramMap.put("srchWhdwlYn", "N");
 		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
 
 		//개인정보 이용내역 메일

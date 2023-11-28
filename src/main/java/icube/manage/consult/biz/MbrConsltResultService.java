@@ -157,15 +157,25 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 			return resultMap;
 		}
 		
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("consltSttus", consltSttus);
+		//상담 거부인 경우
+		String rejectFinalStatus = "";
+		if ("CS04".equals(consltSttus)) {
+			int bplcCount = selectMbrConsltBplcCntByConsltNo(resultVO.getConsltNo());  //몇차 상담인지 알기 위해
+			rejectFinalStatus = bplcCount == 1 ? "CS01" : "CS07";
+			paramMap.put("consltSttus", rejectFinalStatus);
+		} else {
+			paramMap.put("consltSttus", consltSttus);
+		}
+		
 		paramMap.put("consltNo", resultVO.getConsltNo());
 		paramMap.put("bplcConsltNo", bplcConsltNo);
 
 		int resultCnt = updateSttus(paramMap);
 
 		if(resultCnt > 0) {
-			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : CodeMap.CONSLT_STTUS_CHG_RESN.get("사업소 취소"); 
+			String resn = "CS05".equals(consltSttus) ? CodeMap.CONSLT_STTUS_CHG_RESN.get("진행") : "상담거부 취소 사유를 입력함"; 
 			
 			//1:1 상담 수락/거부 이력 추가
 			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
@@ -182,8 +192,21 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
 			
 			
-			//상담 거부에 대한 이메일 발송 처리
+			//상담 거부만 처리
 			if ("CS04".equals(consltSttus)) {
+				//상담접수 이력 추가
+				mbrConsltChgHistVO.setConsltSttusChg(rejectFinalStatus);
+				mbrConsltChgHistVO.setBplcConsltNo(null);
+				mbrConsltChgHistVO.setBplcConsltSttusChg(null);
+				mbrConsltChgHistVO.setConsltBplcUniqueId(null);
+				mbrConsltChgHistVO.setConsltBplcNm(null);
+				mbrConsltChgHistVO.setResn("접수로 변경");
+				mbrConsltChgHistVO.setBplcUniqueId(bplcVO.getUniqueId());
+				mbrConsltChgHistVO.setBplcId(bplcVO.getBplcId());
+				mbrConsltChgHistVO.setBplcNm(bplcVO.getBplcNm());
+				mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+				
+				//상담 거부 이메일 발송 처리
 				sendBplcRejectEmail(bplcVO);
 			}
 		}
