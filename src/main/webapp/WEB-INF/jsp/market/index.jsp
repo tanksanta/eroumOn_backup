@@ -25,7 +25,7 @@
 			</c:forEach>
 
 			<!-- 이전소스 백업 -->
-			<!-- <c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
+			<%--  <c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
 					<c:if test="${resultList.linkTy ne 'N' }">
 						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
@@ -42,7 +42,7 @@
 						</picture>
 					<c:if test="${resultList.linkTy ne 'N' }"></a></c:if>
 				</div>
-			</c:forEach> -->
+			</c:forEach> --%>
 
 		</div>
 	</div>
