@@ -78,11 +78,12 @@
                                         </c:if>
 
                                         <ul class="mt-2 space-y-1 bplcLi">
-                                        	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
-                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno}
-                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})
-                                            	, 상담 배정 일시 : <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                            </li>
+                                        	<c:forEach items="${consltAssignmentList}" var="resultList" varStatus="status">
+	                                            <li <c:if test="${resultList.reject}">style="opacity: 0.5;"</c:if>>
+	                                            	${resultList.consltCnt}차 상담 사업소<c:if test="${resultList.reject}">(상담 거부)</c:if> : ${resultList.bplcNm} (${resultList.bplcTelno}
+	                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.rcmdCnt})
+	                                            	, <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+	                                            </li>
                                         	</c:forEach>
                                         </ul>
                                     </td>
@@ -478,7 +479,7 @@ function submitEvent() {
 function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt){
 
 	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
-		$(".bplcLi li:last").remove();
+		$(".bplcLi li:first").remove();
 	}
 
 	$("#bplcUniqueId").val(bplcUniqueId);
@@ -488,23 +489,26 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 
 	<c:if test="${fn:length(mbrConsltVO.consltResultList) > 0}"><%--등록된 데이터o--%>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS08'}"> <%--CS02 or CS08 배정진행중 --%>
-	$("#consltSttus").val("${mbrConsltVO.consltSttus}");
-	$(".bplcLi li:last").remove();
+			$("#consltSttus").val("${mbrConsltVO.consltSttus}");
+			$(".bplcLi li:first").remove();
 		</c:if>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS07'}"><%--CS07 재접수--%>
-	$("#consltSttus").val("CS08");
+			$("#consltSttus").val("CS08");
 		</c:if>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS04'}"><%-- 사업소에서 거부해서 재배정하는경우--%>
-	$("#consltSttus").val("CS08");
+			$("#consltSttus").val("CS08");
 		</c:if>
 	</c:if>
 	<c:if test="${empty mbrConsltVO.consltResultList}"><%--등록된 데이터x--%>
-	$("#consltSttus").val("CS02"); //최초면 CS02 추가면 CS08
+		$("#consltSttus").val("CS02"); //최초면 CS02 추가면 CS08
+	</c:if>
+	<c:if test="${!empty mbrConsltVO.consltResultList && mbrConsltVO.consltSttus eq 'CS01'}"><%-- 상담거부 후 배정인 경우 --%>
+		$("#consltSttus").val("CS02");
 	</c:if>
 
 
 	let liCnt = $(".bplcLi li").length;
-	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
+	$(".bplcLi").prepend("<li>(배정중) 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
 
 
