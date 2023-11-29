@@ -38,6 +38,9 @@ public class CodeList {
 			add("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME");//,"가상계좌 입금완료"
 
 			add("MAILSEND_ORDR_MNG_CONFIRM");//,"주문확정"
+
+			add("MAILSEND_ORDR_MNG_RETURN");//,"반품"
+			add("MAILSEND_ORDR_MNG_REFUND");//,"환불"
 		}
 	};
 

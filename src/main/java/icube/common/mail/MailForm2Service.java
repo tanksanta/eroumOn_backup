@@ -3,9 +3,11 @@ package icube.common.mail;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.common.values.CodeList;
-
+import icube.common.values.CodeMap;
 import icube.common.framework.helper.HttpHelper;;
 
 /**
@@ -73,6 +75,9 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		this.sendMailOrder(ordrMailTy, mbrVO, ordrVO, "");
+	}
+	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
 
 		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
 			throw new Exception("not found mail type");
@@ -91,7 +96,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			return;
 		}
 
-		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO);
+		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO, ordrDtlCd);
 		String mailSubject = "";
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
@@ -111,9 +116,14 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				mailSubject = "[이로움ON] 주문하신 상품의 입금이 확인되었습니다.";
 				break;
 			case "MAILSEND_ORDR_MNG_CONFIRM":
-				mailSubject = "[이로움ON] 주문하신 상품의 주문이 확정되었습니다.";
+				mailSubject = "[이로움ON] 주문하신 상품의 배송 준비가 완료되었습니다.";
 				break;
-				
+			case "MAILSEND_ORDR_MNG_RETURN":
+				mailSubject = "[이로움ON] 회원님의 상품 반품이 완료 되었습니다.";
+				break;
+			case "MAILSEND_ORDR_MNG_REFUND":
+				mailSubject = "[이로움ON] 회원님의 주문이 취소 되었습니다.";
+				break;
 			default:
 				throw new Exception("not found mail file");
 		}
@@ -126,7 +136,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
 	}
 
-	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
 		// String aaa = MAIL_SEND_TY
 		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
 			throw new Exception("not found mail type");
@@ -154,6 +164,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_MNG_CONFIRM":
 				sFileNM = "/mail/ordr/mail_ordr_mng_confirm.html";
+				break;
+			case "MAILSEND_ORDR_MNG_RETURN":
+				sFileNM = "/mail/ordr/mail_ordr_mng_return.html";
+				break;
+			case "MAILSEND_ORDR_MNG_REFUND":
+				sFileNM = "/mail/ordr/mail_ordr_mng_rfnd.html";
 				break;
 			default:
 				throw new Exception("not found mail file");
@@ -189,6 +205,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_MNG_CONFIRM":
 				mailContent = this.makeMailForm2OrdrMngConfirm(ordrVO, mailContent);
+				break;
+			case "MAILSEND_ORDR_MNG_RETURN":
+				mailContent = this.makeMailForm2OrdrMngReturn(ordrVO, ordrDtlCd, mailContent);
+				break;
+			case "MAILSEND_ORDR_MNG_REFUND":
+				mailContent = this.makeMailForm2OrdrMngRefund(ordrVO, ordrDtlCd, mailContent);
 				break;
 			default:
 				throw new Exception("not found mail content");
@@ -262,6 +284,47 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 
+	protected String makeMailForm2OrdrMngReturn(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
+
+		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
+		mailContent = this.convertMailFormORDRR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrRECPTR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrPayment(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrCardDisp(ordrVO, mailContent);
+
+		List<OrdrDtlVO> listDtl = ordrVO.getOrdrDtlList().stream()
+				    .filter(t -> EgovStringUtil.equals(ordrDtlCd, t.getOrdrDtlCd()))
+				    .collect(Collectors.toList());
+		mailContent = this.convertMailFormOrdrDtlList(listDtl, mailContent);
+
+		mailContent = this.convertMailFormDate(new Date(), "ordrDt", mailContent);
+
+		mailContent = this.convertMailFormOrdrPartRefundInfo(ordrVO, listDtl.get(0), mailContent);
+		mailContent = this.convertMailFormOrdrPartRefundGuide(mailContent);
+		
+		return mailContent;
+	}
+
+	protected String makeMailForm2OrdrMngRefund(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
+
+		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
+		mailContent = this.convertMailFormORDRR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrRECPTR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrPayment(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrCardDisp(ordrVO, mailContent);
+
+		List<OrdrDtlVO> listDtl = ordrVO.getOrdrDtlList().stream()
+				    .filter(t -> EgovStringUtil.equals(ordrDtlCd, t.getOrdrDtlCd()))
+				    .collect(Collectors.toList());
+		mailContent = this.convertMailFormOrdrDtlList(listDtl, mailContent);
+
+		mailContent = this.convertMailFormDate(ordrVO.getOrdrDt(), "now", mailContent);
+
+		mailContent = this.convertMailFormOrdrPartRefundInfo(ordrVO, ordrVO.getOrdrDtlList().get(0), mailContent);
+		mailContent = this.convertMailFormOrdrPartRefundGuide(mailContent);
+		
+		return mailContent;
+	}
 
 	/*회원 일반 사항*/
 	protected String convertMailFormMbr(MbrVO mbrVO, String mailContent){
@@ -464,6 +527,51 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailGdsAditTemp;
 	}
 
+	protected String convertMailFormOrdrPartRefundInfo(OrdrVO ordrVO, OrdrDtlVO ordrDtlVO, String mailContent) throws Exception {
+		String filePath;
+		
+		if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "CARD")){
+			filePath = "/mail/ordr/part/mail_ordr_part_rfnd_card.html";
+		}else if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "BANK") || EgovStringUtil.equals(ordrVO.getStlmKnd(), "VBANK")){
+			filePath = "/mail/ordr/part/mail_ordr_part_rfnd_bank.html";
+		}else{
+			throw new Exception("not defind StlmKnd.");
+		}
+		
+		if (ordrDtlVO == null) ordrDtlVO = ordrVO.getOrdrDtlList().get(0);
+		String mailTemp = this.getRead(filePath);
+
+		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO.getOrdrDtlList());
+		
+		String key, keyword;
+
+		key = "rfndTy"; 		keyword = "((" + key + "))"; if (mailTemp.indexOf(keyword) >= 0) mailTemp = this.convertReplace(keyword, CodeMap.BASS_STLM_TY.get(ordrVO.getStlmKnd()), mailTemp);
+		key = "rfndTotalAmt"; 	keyword = "((" + key + "))"; if (mailTemp.indexOf(keyword) >= 0) mailTemp = this.convertReplace(keyword, resultMap.get(key), mailTemp);
+		
+		key = "rfndBank"; 		keyword = "((" + key + "))"; mailTemp = this.convertReplace(keyword, ordrDtlVO.getRfndBank(), mailTemp);
+		key = "rfndActno"; 		keyword = "((" + key + "))"; mailTemp = this.convertReplace(keyword, ordrDtlVO.getRfndActno(), mailTemp);
+		key = "rfndNm"; 		keyword = "((" + key + "))"; mailTemp = this.convertReplace(keyword, ordrDtlVO.getRfndDpstr(), mailTemp);
+
+		mailContent = mailContent.replace("((ordrPartRfndInfo))", mailTemp);
+
+		return mailContent;
+
+	}
+	protected String convertMailFormOrdrPartRefundGuide(String mailContent) throws Exception {
+		String filePath = "/mail/ordr/part/mail_ordr_part_rfnd_guide.html";
+		String mailTemp = this.getRead(filePath);
+
+		mailContent = mailContent.replace("((ordrPartRfndGuide))", mailTemp);
+
+		return mailContent;
+	}
+
+	protected String convertMailFormDate(Date date, String keyword, String mailContent){
+		if (date == null) return mailContent;
+
+		return this.convertMailFormDate(formatter.format(date), keyword, mailContent);
+	}
+
 	protected String convertMailFormDate(String date10, String keyword, String mailContent){
 		if (date10 == null || date10.length() < 10) return mailContent;
 
@@ -479,6 +587,11 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	/*
 	 * date19 : 2023-11-23 12:03:59
 	*/
+	protected String convertMailFormDateFull(Date date, String keyword, String mailContent){
+		if (date == null) return mailContent;
+
+		return this.convertMailFormDateFull(formatter.format(date), keyword, mailContent);
+	}
 	protected String convertMailFormDateFull(String date19, String keyword, String mailContent){
 		if (date19 == null || date19.length() < 19) return mailContent;
 
@@ -530,6 +643,11 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		int dlvyPc = 0; // 배송비
 		int ordrPc = 0; // 주문가격
 		int couponAmts = 0; // 쿠폰 할인
+		
+		int rfndTotalAmt = 0; // 환불금액
+//		boolean rfFLag = false;
+//		String rfndBanks = "";
+//		String rfndActnos = "";
 
 		for (OrdrDtlVO ordrDtlVO : list) {
 			if(ordrDtlVO.getOrdrOptnTy().equals("BASE")) {
@@ -539,6 +657,13 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			}
 			dlvyPc += (ordrDtlVO.getDlvyBassAmt() + ordrDtlVO.getDlvyAditAmt());
 			couponAmts += ordrDtlVO.getCouponAmt();
+			
+			if(ordrDtlVO.getSttsTy().equals("RE03") || ordrDtlVO.getSttsTy().equals("CA02")) {
+				rfndTotalAmt += ordrDtlVO.getRfndAmt();
+				// rfndBanks = ordrDtlVO.getRfndBank();
+				// rfndActnos = ordrDtlVO.getRfndActno();
+				// rfFLag = true;
+			}
 		}
 
 
@@ -548,6 +673,11 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		resultMap.put("SumOrdrPc", ordrPc);
 		resultMap.put("SumDlvyPc", dlvyPc);
 		resultMap.put("SumCouponAmts", couponAmts);
+		
+		resultMap.put("rfndTotalAmt", rfndTotalAmt);
+//		resultMap.put("rfndBanks", rfndBanks);
+//		resultMap.put("rfndActnos", rfndActnos);
+//		resultMap.put("rfFLag", rfFLag);
 		
 		return resultMap;
 	}
@@ -620,8 +750,25 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 	}
 
+	public void mail_test_mng_return() throws Exception 
+	{//MOrdrController.java - returnDone.json
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128143539257");
+
+		this.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrVO, "O31128143539257_2");
+
+	}
+	public void mail_test_mng_refund() throws Exception 
+	{//MOrdrController.java - ordrRtrcnSave.json
+		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
+		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128144753147");
+
+		this.sendMailOrder("MAILSEND_ORDR_MNG_REFUND", mbrVO, ordrVO);
+
+	}
+
 	public void mail_test(HttpServletRequest request) throws Exception {
-		this.mail_test_schedule_vbank_cancel();
+		this.mail_test_mng_return();
 
 	}
 }

@@ -42,6 +42,7 @@
 		 , o.use_point
 
 		 , o.stlm_device
+		 , o.stlm_knd
 		 , o.stlm_ty
 		 , o.stlm_amt
 		 , o.stlm_yn
