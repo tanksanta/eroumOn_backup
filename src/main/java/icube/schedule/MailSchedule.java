@@ -210,6 +210,11 @@ public class MailSchedule extends CommonAbstractController  {
 				} else {
 					log.debug(mbrVO.getMbrNm()+" 개인정보 이용내역 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
 				}
+				
+				//테스트 서버 인 경우 1번만 발송 처리
+				if(EgovStringUtil.equals("test", activeMode) || EgovStringUtil.equals("local", activeMode)) {
+					break;
+				}
 			} catch (Exception e) {
 				log.debug(mbrVO.getMbrNm()+"개인정보 이용내역 EMAIL 전송 실패 :: " + e.toString());
 			}
