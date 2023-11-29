@@ -750,11 +750,11 @@ public class MOrdrController extends CommonAbstractController {
 		if(resultCnt == 1){
 			result = true;
 
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			// OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
 
-			String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
-			String mailHtml = "mail_ordr_auto.html";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			// String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
+			// String mailHtml = "mail_ordr_auto.html";
+			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 		}
 
 		// result
