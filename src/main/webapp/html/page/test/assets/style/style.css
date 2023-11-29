@@ -1254,7 +1254,7 @@ fieldset {
                 @apply text-gray6 w-2/5;
               }
               & .modal-list-value {
-                @apply text-black1 font-medium text-lg;
+                @apply text-black1 font-medium text-lg break-all w-3/5;
               }
             }
           }
