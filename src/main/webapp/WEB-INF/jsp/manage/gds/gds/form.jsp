@@ -1580,7 +1580,7 @@
 							if(ctgryNoVal > 0){ //값이 있을경우만..
 								$.ajax({
 									type : "post",
-									url  : "../ctgry/getGdsCtgryListByFilter.json",
+									url  : "../ctgry/getGdsCtgryListByFilterForMng.json",
 									data : {upCtgryNo:ctgryNoVal},
 									dataType : 'json'
 								})

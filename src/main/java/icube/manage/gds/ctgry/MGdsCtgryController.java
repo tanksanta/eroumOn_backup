@@ -180,7 +180,7 @@ public class MGdsCtgryController extends CommonAbstractController {
 	public List<GdsCtgryVO> getGdsCtgryList(
 			HttpServletRequest request) throws Exception {
 
-		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryList();
+		List<GdsCtgryVO> gdsCtgryList = gdsCtgryService.selectGdsCtgryListForMng();
 
 		return gdsCtgryList;
 	}
@@ -192,6 +192,17 @@ public class MGdsCtgryController extends CommonAbstractController {
 			, HttpServletRequest request) throws Exception {
 
 		Map<Integer, String> gdsCtgryList = gdsCtgryService.selectGdsCtgryListToMap(upCtgryNo);
+
+		return gdsCtgryList;
+	}
+	
+	@ResponseBody
+	@RequestMapping("getGdsCtgryListByFilterForMng.json")
+	public Map<Integer, String> getGdsCtgryListByFilterForMng(
+			@RequestParam(required = true, value="upCtgryNo") int upCtgryNo
+			, HttpServletRequest request) throws Exception {
+
+		Map<Integer, String> gdsCtgryList = gdsCtgryService.selectGdsCtgryListToMapForMng(upCtgryNo);
 
 		return gdsCtgryList;
 	}

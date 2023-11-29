@@ -13,6 +13,10 @@ public class GdsCtgryDAO extends CommonAbstractMapper {
 	public List<GdsCtgryVO> selectGdsCtgryList() throws Exception {
 		return selectList("gds.ctgry.selectGdsCtgryList");
 	}
+	
+	public List<GdsCtgryVO> selectGdsCtgryListForMng() throws Exception {
+		return selectList("gds.ctgry.selectGdsCtgryListForMng");
+	}
 
 	public List<GdsCtgryVO> selectGdsCtgryListByFilter(Map<String, Object> paramMap) throws Exception {
 		return selectList("gds.ctgry.selectGdsCtgryListByFilter",  paramMap);
