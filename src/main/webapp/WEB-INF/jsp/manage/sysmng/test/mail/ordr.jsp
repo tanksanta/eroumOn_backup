@@ -33,19 +33,19 @@
                 <tr>
                     <th scope="row"><label for="contents" class="require">주문번호</label></th>
                     <td>
-                        <input type="text" class="form-control w-100 " id="ordr_cd" name="ordr_cd">
+                        <input type="text" class="form-control w-100 " id="ordrCd" name="ordrCd">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="contents" class="">주문 상세 번호</label></th>
                     <td>
-                        <input type="text" class="form-control w-100 " id="ordr_dtl_cd" name="ordr_dtl_cd">
+                        <input type="text" class="form-control w-100 " id="ordrDtlCd" name="ordrDtlCd">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="contents" class="require">발송자 아이디</label></th>
                     <td>
-                        <input type="text" class="form-control w-100 " id="ordrr_id" name="ordrr_id">
+                        <input type="text" class="form-control w-100 " id="ordrrId" name="ordrrId">
                     </td>
                 </tr>
                 
@@ -62,9 +62,9 @@
 <script>
     function mailSendCall(){
 
-        var data = {'ordrCd':$('.ordr_cd').val()
-                    , 'ordrDtlCd':$('.ordr_dtl_cd').val()
-                    , 'ordrrId':$('.ordrr_id').val()
+        var data = {'ordrCd':$('input[type="text"][name="ordrCd"]').val()
+                    , 'ordrDtlCd':$('input[type="text"][name="ordrDtlCd"]').val()
+                    , 'ordrrId':$('input[type="text"][name="ordrrId"]').val()
                     , 'mailTy':$('input[type="radio"][name="mailty"]:checked').val()
         }
 
@@ -92,6 +92,17 @@
         jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/mail/ordrMailSend.json", 'mailSendCb', data);
     }
 
-    function mailSendCb(){
+    function mailSendCb(result, fail, data, param){
+        if (result == undefined){
+            alert("결과를 받지 못 했습니다. 개발자에게 문의하여 주십시오")
+            return;
+        }
+
+        if (!result.success){
+            alert("결과를 받지 못 했습니다. 개발자에게 문의하여 주십시오")
+            return;
+        }
+
+        alert(result.email + " 발송하였습니다.")
     }
 </script>

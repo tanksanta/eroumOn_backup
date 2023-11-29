@@ -202,26 +202,27 @@ public class MMngMailTestController {
 				return resultMap;
 			}
 		}
-		
-		if (!EgovStringUtil.equals(ordrrId, ordrVO.getOrdrrId())){
-			resultMap.put("success", success);
-			resultMap.put("error_code", "00003");
-			resultMap.put("error_msg", "주문의 발송자와 발송자 아이디가 일치하지 않습니다.");
-			return resultMap;
-		}
 
 		if (!CodeMap.MAIL_SEND_TY.containsKey(mailTy)){
 			resultMap.put("success", success);
-			resultMap.put("error_code", "00004");
+			resultMap.put("error_code", "00003");
 			resultMap.put("error_msg", "메일 타입이 존재하지 않습니다.");
 			return resultMap;
 		}
 
-		MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+		MbrVO mbrVO = mbrService.selectMbrById(ordrrId);
+		if (mbrVO == null){
+			resultMap.put("success", success);
+			resultMap.put("error_code", "00004");
+			resultMap.put("error_msg", "발송자를 확인하여 주십시오.");
+			return resultMap;
+		}
 
 		mailForm2Service.sendMailOrder(mailTy, mbrVO, ordrVO, ordrDtlCd);
 		
+		success = true;
 		resultMap.put("success", success);
+		resultMap.put("email", mbrVO.getEml());
 		return resultMap;
 	}
 
