@@ -49,6 +49,23 @@
 		ORDER BY sort_no ASC, ctgry_nm ASC
 	</select>
 
+	<!-- 관리자 카테고리 설정 조회용 쿼리(미사용 카테고리도 포함) -->
+	<select id="selectGdsCtgryListForMng" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
+		SELECT ctgry_no
+			, up_ctgry_no
+			, ( SELECT ctgry_nm
+				FROM GDS_CTGRY gc1
+				WHERE gc.up_ctgry_no = gc1.ctgry_no ) AS up_ctgry_nm
+			, ctgry_nm
+			, ctgry_img
+			, tag
+			, level_no
+			, sort_no
+			, use_yn
+			, <include refid="selectCount"/>
+		FROM GDS_CTGRY gc
+		ORDER BY sort_no ASC, ctgry_nm ASC
+	</select>
 
 	<select id="selectGdsCtgryListByFilter" parameterType="java.util.HashMap" resultType="gdsCtgryVO">
 		SELECT

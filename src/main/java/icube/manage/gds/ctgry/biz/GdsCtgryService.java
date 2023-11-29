@@ -31,6 +31,10 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 		return gdsCtgryDAO.selectGdsCtgryList();
 	}
 
+	public List<GdsCtgryVO> selectGdsCtgryListForMng() throws Exception {
+		return gdsCtgryDAO.selectGdsCtgryListForMng();
+	}
+	
 
 	public List<GdsCtgryVO> selectGdsCtgryList(int upCtgryNo) throws Exception {
 		return selectGdsCtgryList(upCtgryNo, null);
@@ -72,6 +76,25 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 		Map<Integer, String> returnMap = new LinkedHashMap<Integer, String>();
 		for(GdsCtgryVO gdsCtgryVO : gdsCtgryList) {
 			returnMap.put(gdsCtgryVO.getCtgryNo(), gdsCtgryVO.getCtgryNm());
+		}
+
+		return returnMap;
+	}
+	
+	/**
+	 * 미사용 카테고리 표시 함수(상품 등록 시 미사용 카테고리 확인용)
+	 */
+	public Map<Integer, String> selectGdsCtgryListToMapForMng(int upCtgryNo) throws Exception {
+
+		List<GdsCtgryVO> gdsCtgryList = this.selectGdsCtgryList(upCtgryNo);
+
+		Map<Integer, String> returnMap = new LinkedHashMap<Integer, String>();
+		for(GdsCtgryVO gdsCtgryVO : gdsCtgryList) {
+			if ("N".equals(gdsCtgryVO.getUseYn())) {
+				returnMap.put(gdsCtgryVO.getCtgryNo(), "[미사용] " + gdsCtgryVO.getCtgryNm());
+			} else {
+				returnMap.put(gdsCtgryVO.getCtgryNo(), gdsCtgryVO.getCtgryNm());
+			}
 		}
 
 		return returnMap;
