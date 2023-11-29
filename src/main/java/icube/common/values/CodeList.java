@@ -27,23 +27,6 @@ public class CodeList {
 		}
 	};
 
-	public static final List<String> MAIL_SEND_TY = new ArrayList<String>() {
-		private static final long serialVersionUID = 2L;
-		{//MAILSEND_ORDR_발송모듈
-			add("MAILSEND_ORDR_MARKET_PAYDONE_CARD");//,"주문접수 카드"
-			add("MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT");//,"주문접수 실시간계좌이체"
-			add("MAILSEND_ORDR_MARKET_PAYDONE_VBANK");//,"주문접수 가상계좌"
-			add("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST");//,"가상계좌 입금 요청"
-			add("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL");//,"가상계좌 취소"
-			add("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME");//,"가상계좌 입금완료"
-
-			add("MAILSEND_ORDR_MNG_CONFIRM");//,"주문확정"
-
-			add("MAILSEND_ORDR_MNG_RETURN");//,"반품"
-			add("MAILSEND_ORDR_MNG_REFUND");//,"환불"
-		}
-	};
-
 	/*복지용구 그룹별 계산 로직 persistPeriodKind*/
 	public static final List<String> WELTOOLS_ITEMGRP_PERSISTPERIODKIND = new ArrayList<String>() {
 		private static final long serialVersionUID = 2L;

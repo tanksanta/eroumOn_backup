@@ -26,7 +26,6 @@ import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
-import icube.common.values.CodeList;
 import icube.common.values.CodeMap;
 import icube.common.framework.helper.HttpHelper;;
 
@@ -79,7 +78,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
 
-		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
+		if (!CodeMap.MAIL_SEND_TY.containsKey(ordrMailTy)){
 			throw new Exception("not found mail type");
 		}
 
@@ -137,11 +136,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
-		// String aaa = MAIL_SEND_TY
-		if (!CodeList.MAIL_SEND_TY.contains(ordrMailTy)){
-			throw new Exception("not found mail type");
-		}
-
+		
 		String sFileNM = "";
 
 		/*기본이 되는 메일양식 선택*/
