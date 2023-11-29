@@ -441,7 +441,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		OrdrDtlVO ordrDtlOne;
 
-		filePath = "/mail/ordr/part/mail_ordr_part_gds.html";
+		filePath = "/mail/ordr/part/mail_ordr_part_gds_view.html";
 		mailGdsBase = this.getRead(filePath);
 
 		filePath = "/mail/ordr/part/mail_ordr_part_gds_optn.html";
