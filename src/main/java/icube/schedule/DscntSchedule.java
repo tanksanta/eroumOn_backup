@@ -100,7 +100,7 @@ public class DscntSchedule extends CommonAbstractController {
 					
 					// 메일 발송
 					String mailSj = "[이로움ON] 소멸예정 포인트 안내";
-					if(!EgovStringUtil.equals("local", activeMode)) {
+					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
 						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
@@ -161,7 +161,7 @@ public class DscntSchedule extends CommonAbstractController {
 					
 					// 메일 발송
 					String mailSj = "[이로움ON] 소멸예정 마일리지 안내";
-					if(!EgovStringUtil.equals("local", activeMode)) {
+					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
 						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
