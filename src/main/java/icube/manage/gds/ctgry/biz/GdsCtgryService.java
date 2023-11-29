@@ -41,7 +41,9 @@ public class GdsCtgryService extends CommonAbstractServiceImpl {
 
 		String cacheNm = "gdsCtgryCache_" + upCtgryNo;
 
-		Element el = gdsCtgryCache.get(cacheNm);
+		//카테고리 변경이 잦고 캐시문제가 많이 발생하여 주석처리
+		//Element el = gdsCtgryCache.get(cacheNm);
+		Element el = null;
 		if (el == null) {
 			log.debug("#### cache is not defined");
 
