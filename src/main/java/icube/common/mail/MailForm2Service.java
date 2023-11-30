@@ -32,7 +32,7 @@ import icube.common.framework.helper.HttpHelper;;
 
 /**
  * EROUM 메일 폼 Maker
- * @author ogy
+ * @author dylee
  *
  */
 @Service("mailForm2Service")
@@ -67,7 +67,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	 * @return mailForm
 	 * @throws Exception
 	 */
-	public String getRead(String mailHtml) throws Exception {
+	protected String getRead(String mailHtml) throws Exception {
 		String MAIL_FORM_PATH = mailFormFilePath;
 		String mailForm = FileUtil.readFile(MAIL_FORM_PATH + mailHtml);
 
@@ -78,6 +78,14 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		this.sendMailOrder(ordrMailTy, mbrVO, ordrVO, "");
 	}
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String addInfo) throws Exception {
+		try{
+			this.sendMailOrderAction(ordrMailTy, mbrVO, ordrVO, addInfo);
+		}catch(Exception e){
+			System.out.println("EMAIL 전송 실패 :: " + e.toString());
+		}
+	}
+
+	protected void sendMailOrderAction(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String addInfo) throws Exception {
 
 		if (!CodeMap.MAIL_SEND_TY.containsKey(ordrMailTy)){
 			throw new Exception("not found mail type");
@@ -360,6 +368,13 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	protected String makeMailForm2OrdrScheduleConfirmAction(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
+		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
+		mailContent = this.convertMailFormORDRR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrRECPTR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrPayment(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrCardDisp(ordrVO, mailContent);
+					
+		mailContent = this.convertMailFormOrdrDtlList(ordrVO.getOrdrDtlList(), mailContent);
 		
 		return mailContent;
 	}
@@ -722,7 +737,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 
 	/*주문접수 카드*/
-	public void mail_test_market_paydone_card() throws Exception 
+	protected void mail_test_market_paydone_card() throws Exception 
 	{
 		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
 		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31124131046432");
@@ -732,12 +747,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	/*가상계좌 입금요청*/
-	public void mail_test_schedule_vbank_retry() throws Exception 
+	protected void mail_test_schedule_vbank_retry() throws Exception 
 	{//OrdrPaySchedule.vbankReqeust 에서 테스트
 		
 	}
 	/*가상계좌 입금취소*/
-	public void mail_test_schedule_vbank_cancel() throws Exception 
+	protected void mail_test_schedule_vbank_cancel() throws Exception 
 	{//OrdrPaySchedule.cancle02 에서 테스트
 		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
 		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128144851767");
@@ -746,7 +761,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	}
 
 	/*가상계좌 입금완료*/
-	public void mail_test_bootpay_vbank_income() throws Exception 
+	protected void mail_test_bootpay_vbank_income() throws Exception 
 	{
 		String callbackTxt = "{\"receipt_id\":\"6560225fa575b4002adcb1c4\",\"order_id\":\"O31124131046432\",\"price\":44700,\"tax_free\":0,\"cancelled_price\":0\r\n" + //
 				",\"cancelled_tax_free\":0,\"order_name\":\"뼈까지 먹는 고등어조림 외 4건\",\"company_name\":\"(주)티에이치케이컴퍼니\"\r\n" + //
@@ -780,7 +795,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		// this.sendMailOrder("MAILSEND_ORDR_MARKET_PAYDONE_CARD", mbrVO, ordrVO);
 	}
 
-	public void mail_test_mng_confirm() throws Exception {
+	protected void mail_test_mng_confirm() throws Exception {
 		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
 		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31122100315848");
 
@@ -788,7 +803,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 	}
 
-	public void mail_test_mng_return() throws Exception 
+	protected void mail_test_mng_return() throws Exception 
 	{//MOrdrController.java - returnDone.json
 		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
 		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128143539257");
@@ -796,7 +811,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		this.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrVO, "O31128143539257_2");
 
 	}
-	public void mail_test_mng_refund() throws Exception 
+	protected void mail_test_mng_refund() throws Exception 
 	{//MOrdrController.java - ordrRtrcnSave.json
 		MbrVO mbrVO =  mbrService.selectMbrById("dylee96");
 		OrdrVO ordrVO = ordrService.selectOrdrByCd("O31128144753147");

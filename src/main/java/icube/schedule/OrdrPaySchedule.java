@@ -36,7 +36,7 @@ import icube.manage.ordr.rebill.biz.OrdrRebillService;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 
 @Service("ordrPaySchedule")
-@Profile(value = {"test", "real"}) /*개발, 운영서버에서만 실행*/
+@Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 
@@ -265,38 +265,48 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		Map <String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchSttsTy", "OR08");
 		paramMap.put("srchChgStts", "OR08");
-		paramMap.put("srchContainer", 1);
-		paramMap.put("srchIntervalDay", "7");
+		paramMap.put("srchIntervalDay", "-7");
 
-		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrSttsList(paramMap);
+		MbrVO mbrVO;
+		OrdrVO ordrVO;
+		OrdrDtlVO newDtlVO;
+		List<OrdrDtlVO> ordrNoList = ordrDtlService.selectOrdrSttsDaysList(paramMap);
+		List<OrdrDtlVO> ordrDtlList;
+		String[] ordrDtlNos;
+		
+		for(OrdrDtlVO ordrNoDtlVO : ordrNoList) {
+			ordrVO = ordrService.selectOrdrByNo(ordrNoDtlVO.getOrdrNo());
 
-		for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
-			ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
-			paramMap.clear();
-			paramMap.put("ordrCd", ordrDtlVO.getOrdrCd());
-			List<OrdrDtlVO> itemList = ordrDtlService.selectOrdrSttsList(paramMap);
+			paramMap.put("ordrNo", ordrNoDtlVO.getOrdrNo());
+			ordrDtlList = ordrDtlService.selectOrdrSttsDaysDtlList(paramMap);
 
-			int totalAccmlMlg = 0;
-			for(OrdrDtlVO ordrDdtlVO : itemList) {
-				tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDdtlVO.getOrdrDtlNo()));
-				totalAccmlMlg += ordrDdtlVO.getAccmlMlg();
+			for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
+
+				
+				ordrDtlNos = new String[]{String.valueOf(ordrDtlVO.getOrdrDtlNo())};
+
+
+				newDtlVO = new OrdrDtlVO();
+				newDtlVO.setOrdrNo(ordrDtlVO.getOrdrNo());
+				newDtlVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
+				newDtlVO.setSttsTy("OR09");
+				newDtlVO.setResn("자동 전환");
+				newDtlVO.setRegUniqueId(null);
+				newDtlVO.setRegId("SYS");
+				newDtlVO.setRgtr("SYS");
+
+				newDtlVO.setOrdrDtlNos(ordrDtlNos);
+
+				newDtlVO.setTotalAccmlMlg(ordrDtlVO.getAccmlMlg());
+
+				ordrDtlService.updateOrdrOR09(ordrVO, newDtlVO);
 			}
 
-			String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
+			ordrVO.setOrdrDtlList(ordrDtlList);
+			
+			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
-			OrdrDtlVO newDtlVO = new OrdrDtlVO();
-			newDtlVO.setOrdrNo(ordrDtlVO.getOrdrNo());
-			newDtlVO.setOrdrDtlCd(ordrDtlVO.getOrdrDtlCd());
-			newDtlVO.setOrdrDtlNos(ordrDtlNos);
-			newDtlVO.setSttsTy("OR09");
-			newDtlVO.setResn("자동 전환");
-			newDtlVO.setRegUniqueId(null);
-			newDtlVO.setRegId("SYS");
-			newDtlVO.setRgtr("SYS");
-
-			newDtlVO.setTotalAccmlMlg(totalAccmlMlg);
-
-			ordrDtlService.updateOrdrOR09(newDtlVO);
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION", mbrVO, ordrVO);
 		}
 
 		log.info("########## 구매 확정 처리 END ##########");

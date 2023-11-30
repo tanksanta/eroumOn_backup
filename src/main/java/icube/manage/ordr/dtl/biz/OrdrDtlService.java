@@ -295,11 +295,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public int updateOrdrOR09(OrdrDtlVO ordrDtlVO) throws Exception {
+		return this.updateOrdrOR09(null, ordrDtlVO);
+	}
+	public int updateOrdrOR09(OrdrVO ordrVO, OrdrDtlVO ordrDtlVO) throws Exception {
 		int result = 0;
 
 		try {
-
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
+			if (ordrVO == null) ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
 
 			log.debug("STEP.1 : 주문상태 변경(구매확정) START");
 			ordrDtlDAO.updateOrdrStts(ordrDtlVO);

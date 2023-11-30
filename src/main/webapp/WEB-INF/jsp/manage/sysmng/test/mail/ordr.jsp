@@ -82,12 +82,12 @@
             alert("메일발송 종류를 선택하여 주십시오.")
             return;
         }
-        if ((data.mailTy=="MAILSEND_ORDR_MNG_RETURN" || data.mailTy=="MAILSEND_ORDR_MNG_REFUND")
+
+        if ((data.mailTy=="MAILSEND_ORDR_MNG_RETURN" || data.mailTy=="MAILSEND_ORDR_MNG_REFUND" || data.mailTy=="MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION" || data.mailTy=="MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE")
             && data.ordrDtlCd.length < 2){
-            alert("반품, 환불은 주문상세번호를 입력해야 합니다.")
+            alert("주문상세번호를 입력해야 합니다.")
             return;
         }
-
 
         jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/mail/ordrMailSend.json", 'mailSendCb', data);
     }

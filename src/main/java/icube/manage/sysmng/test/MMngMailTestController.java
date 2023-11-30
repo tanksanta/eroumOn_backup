@@ -19,6 +19,7 @@ import icube.common.mail.MailForm2Service;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
 import icube.manage.ordr.ordr.biz.OrdrVO;
@@ -48,6 +49,9 @@ public class MMngMailTestController {
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
 	
+	@Resource(name = "ordrDtlService")
+	private OrdrDtlService ordrDtlService;
+
 	@Resource(name = "mailForm2Service")
 	private MailForm2Service mailForm2Service;
 	
@@ -217,6 +221,23 @@ public class MMngMailTestController {
 			resultMap.put("error_msg", "발송자를 확인하여 주십시오.");
 			return resultMap;
 		}
+
+		if (EgovStringUtil.equals(mailTy, "MAILSEND_ORDR_MNG_RETURN") 
+			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_MNG_REFUND")
+			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION")
+			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE")){
+
+			if (EgovStringUtil.isEmpty(ordrDtlCd)){
+				resultMap.put("success", success);
+				resultMap.put("error_code", "00101");
+				resultMap.put("error_msg", "주문상세 번호를 확인하여 주십시오.");
+				return resultMap;
+			}
+
+			List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
+			ordrVO.setOrdrDtlList(ordrDtlList);
+		}
+		
 
 		mailForm2Service.sendMailOrder(mailTy, mbrVO, ordrVO, ordrDtlCd);
 		
