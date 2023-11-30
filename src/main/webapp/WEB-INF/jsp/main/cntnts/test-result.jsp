@@ -107,8 +107,9 @@
         <h2 class="grade-title">
             전문가 상담
             <small>무료 전문가 상담으로 등급 신청까지 의뢰 가능해요.</small>
-            <!-- <small>아래 1:1 상담하기 버튼을 눌러주세요.</small> -->
-
+            <c:if test="${_mbrSession.loginCheck}">
+            	<small>아래 1:1 상담하기 버튼을 눌러주세요.</small>	
+            </c:if>
         </h2>
         <div class="images" >
             <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
