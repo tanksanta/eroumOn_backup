@@ -18,8 +18,8 @@ public class OrdrChgHistDAO extends CommonAbstractMapper {
 		return selectOne("ordr.chg.selectOrdrChgHist", paramMap);
 	}
 
-	public void insertOrdrChgHist(OrdrChgHistVO ordrChgHistVO) throws Exception {
-		insert("ordr.chg.insertOrdrChgHist", ordrChgHistVO);
+	public int insertOrdrChgHist(OrdrChgHistVO ordrChgHistVO) throws Exception {
+		return insert("ordr.chg.insertOrdrChgHist", ordrChgHistVO);
 	}
 
 	// public void deleteOrdrChgHist(int chgNo) throws Exception {

@@ -37,8 +37,8 @@ public class OrdrChgHistService extends CommonAbstractServiceImpl {
 		return ordrChgHistDAO.selectOrdrChgHist(paramMap);
 	}
 
-	public void insertOrdrChgHist(OrdrChgHistVO ordrChgHistVO) throws Exception {
-		ordrChgHistDAO.insertOrdrChgHist(ordrChgHistVO);
+	public int insertOrdrChgHist(OrdrChgHistVO ordrChgHistVO) throws Exception {
+		return ordrChgHistDAO.insertOrdrChgHist(ordrChgHistVO);
 	}
 
 	// public void deleteOrdrChgHist(int chgNo) throws Exception {
@@ -55,7 +55,7 @@ public class OrdrChgHistService extends CommonAbstractServiceImpl {
 	 * @param sttsTy : 상태타입
 	 * @throws Exception : pass
 	 */
-	public void insertOrdrSttsChgHist(int ordrNo, int ordrDtlNo, String resnTy, String resn, String sttsTy) throws Exception {
+	public int insertOrdrSttsChgHist(int ordrNo, int ordrDtlNo, String resnTy, String resn, String sttsTy) throws Exception {
 		OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
 		chgHistVO.setOrdrNo(ordrNo);
 		chgHistVO.setOrdrDtlNo(ordrDtlNo);
@@ -65,14 +65,15 @@ public class OrdrChgHistService extends CommonAbstractServiceImpl {
 		chgHistVO.setRegUniqueId(mngrSession.getUniqueId());
 		chgHistVO.setRegId(mngrSession.getMngrId());
 		chgHistVO.setRgtr(mngrSession.getMngrNm());
-		this.insertOrdrChgHist(chgHistVO);
+		
+		return this.insertOrdrChgHist(chgHistVO);
 	}
 
 	/**
 	 * 변경내역 기록
 	 */
-	public void insertOrdrSttsChgHist(OrdrChgHistVO chgHistVO) throws Exception {
-		this.insertOrdrChgHist(chgHistVO);
+	public int insertOrdrSttsChgHist(OrdrChgHistVO chgHistVO) throws Exception {
+		return this.insertOrdrChgHist(chgHistVO);
 	}
 
 }

@@ -805,7 +805,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @param ordrDtlVO
 	 * @throws Exception
 	 */
-	public void insertOrdrSttsChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
+	public int insertOrdrSttsChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
 		OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
 		chgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
 		chgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
@@ -816,7 +816,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 		chgHistVO.setRegUniqueId(ordrDtlVO.getRegUniqueId());
 		chgHistVO.setRegId(ordrDtlVO.getRegId());
 		chgHistVO.setRgtr(ordrDtlVO.getRgtr());
-		ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
+		return ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
 	}
 
 
