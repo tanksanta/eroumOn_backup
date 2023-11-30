@@ -1111,6 +1111,10 @@ public class CodeMap{
 
 			put("MAILSEND_ORDR_MNG_RETURN","반품");//
 			put("MAILSEND_ORDR_MNG_REFUND","환불");//
+
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","구매확정-예정");//
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION","구매확정-처리");//
+
 		}
 	};
 

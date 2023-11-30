@@ -123,8 +123,18 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_MNG_REFUND":
 				mailSubject = "[이로움ON] 회원님의 주문이 취소 되었습니다.";
 				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE":
+				mailSubject = "[이로움ON] 주문하신 상품이 자동 구매확정처리 예정입니다.";
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION":
+				mailSubject = "[이로움ON] 주문하신 상품이 자동 구매확정처리 되었습니다.";
+				break;
 			default:
 				throw new Exception("not found mail file");
+		}
+
+		if(!EgovStringUtil.equals("real", activeMode)) {
+			mailSubject = "[TEST] " + mailSubject;
 		}
 
 		// System.out.print(mailSubject);
@@ -166,6 +176,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			case "MAILSEND_ORDR_MNG_REFUND":
 				sFileNM = "/mail/ordr/mail_ordr_mng_rfnd.html";
 				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE":
+				sFileNM = "/mail/ordr/mail_ordr_schedule_confirm_notice.html";
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION":
+				sFileNM = "/mail/ordr/mail_ordr_schedule_confirm_action.html";
+				break;
 			default:
 				throw new Exception("not found mail file");
 		}
@@ -206,6 +222,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				break;
 			case "MAILSEND_ORDR_MNG_REFUND":
 				mailContent = this.makeMailForm2OrdrMngRefund(ordrVO, ordrDtlCd, mailContent);
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE":
+				mailContent = this.makeMailForm2OrdrScheduleConfirmNotice(ordrVO, ordrDtlCd, mailContent);
+				break;
+			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION":
+				mailContent = this.makeMailForm2OrdrScheduleConfirmAction(ordrVO, ordrDtlCd, mailContent);
 				break;
 			default:
 				throw new Exception("not found mail content");
@@ -317,6 +339,16 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 		mailContent = this.convertMailFormOrdrPartRefundInfo(ordrVO, ordrVO.getOrdrDtlList().get(0), mailContent);
 		mailContent = this.convertMailFormOrdrPartRefundGuide(mailContent);
+		
+		return mailContent;
+	}
+
+	protected String makeMailForm2OrdrScheduleConfirmNotice(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
+		
+		return mailContent;
+	}
+
+	protected String makeMailForm2OrdrScheduleConfirmAction(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
 		
 		return mailContent;
 	}

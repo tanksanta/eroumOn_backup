@@ -224,10 +224,24 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		log.info("########## 배송 완료 처리 END ##########");
 	}
 
+	// 구매확정 예정
+	@Scheduled(cron="0 30 1 * * *")
+	public void order09_notice() throws Exception {
+		log.info("########## 구매 확정 처리 START ##########");
+
+		Map <String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchSttsTy", "OR08");
+		paramMap.put("srchChgStts", "OR08");
+		paramMap.put("srchContainer", 1);
+		paramMap.put("srchIntervalDay", "2");
+
+		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrSttsList(paramMap);
+	}
+
 
 	// 구매확정 처리
-	@Scheduled(cron="0 30 1 * * *")
-	public void order09() throws Exception {
+	@Scheduled(cron="0 30 2 * * *")
+	public void order09_action() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
 		Map <String, Object> paramMap = new HashMap<String, Object>();
