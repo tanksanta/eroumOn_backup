@@ -245,6 +245,10 @@ public class StringUtil {
 
 	// 이름 가운데 글자 마스킹
 	public static String nameMasking(String name) throws Exception {
+		if (EgovStringUtil.isEmpty(name)) {
+			return name;
+		}
+		
 		// 한글만 (영어, 숫자 포함 이름은 제외)
 		String regex = "(^[가-힣]+)$";
 		
@@ -278,6 +282,10 @@ public class StringUtil {
 
 	// 휴대폰번호 마스킹(가운데 숫자 4자리 마스킹)
 	public static String phoneMasking(String phoneNo) throws Exception {
+		if (EgovStringUtil.isEmpty(phoneNo)) {
+			return phoneNo;
+		}
+		
 		String regex = "(\\d{2,3})-?(\\d{3,4})-?(\\d{4})$";
 		
 		Matcher matcher = Pattern.compile(regex).matcher(phoneNo);
@@ -294,6 +302,10 @@ public class StringUtil {
 
 	// 계좌번호 마스킹(뒤 5자리)
 	public static String accountNoMasking(String accountNo) throws Exception {
+		if (EgovStringUtil.isEmpty(accountNo)) {
+			return accountNo;
+		}
+		
 		// 계좌번호는 숫자만 파악하므로
 		String regex = "(^[0-9]+)$";
 		
@@ -312,6 +324,10 @@ public class StringUtil {
 
 	// 생년월일 마스킹(8자리)
 	public static String birthMasking(String birthday) throws Exception {
+		if (EgovStringUtil.isEmpty(birthday)) {
+			return birthday;
+		}
+		
 		String regex = "^((19|20)\\d\\d)?([-/.])?(0[1-9]|1[012])([-/.])?(0[1-9]|[12][0-9]|3[01])$";
 		
 		Matcher matcher = Pattern.compile(regex).matcher(birthday);
@@ -323,6 +339,10 @@ public class StringUtil {
 
 	// 카드번호 가운데 8자리 마스킹
 	public static String cardMasking(String cardNo) throws Exception {
+		if (EgovStringUtil.isEmpty(cardNo)) {
+			return cardNo;
+		}
+		
 		// 카드번호 16자리 또는 15자리 '-'포함/미포함 상관없음
 		String regex = "(\\d{4})-?(\\d{4})-?(\\d{4})-?(\\d{3,4})$";
 		
