@@ -47,7 +47,7 @@
 						<th scope="row">수급자성명</th>
 						<td id="recipientsNm"></td>
 
-						<th scope="row">등록수급자번호</th>
+						<th scope="row">등록수급자ID</th>
 						<td id="recipientsNo"></td>
 					</tr>
 					<tr>
