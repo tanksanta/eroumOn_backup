@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -76,7 +77,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
 		this.sendMailOrder(ordrMailTy, mbrVO, ordrVO, "");
 	}
-	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
+	public void sendMailOrder(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String addInfo) throws Exception {
 
 		if (!CodeMap.MAIL_SEND_TY.containsKey(ordrMailTy)){
 			throw new Exception("not found mail type");
@@ -95,7 +96,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			return;
 		}
 
-		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO, ordrDtlCd);
+		String content = this.makeMailForm2Ordr(ordrMailTy, mbrVO, ordrVO, addInfo);
 		String mailSubject = "";
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
@@ -145,7 +146,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
 	}
 
-	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String ordrDtlCd) throws Exception {
+	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String addInfo) throws Exception {
 		
 		String sFileNM = "";
 
@@ -218,16 +219,16 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 				mailContent = this.makeMailForm2OrdrMngConfirm(ordrVO, mailContent);
 				break;
 			case "MAILSEND_ORDR_MNG_RETURN":
-				mailContent = this.makeMailForm2OrdrMngReturn(ordrVO, ordrDtlCd, mailContent);
+				mailContent = this.makeMailForm2OrdrMngReturn(ordrVO, addInfo, mailContent);
 				break;
 			case "MAILSEND_ORDR_MNG_REFUND":
-				mailContent = this.makeMailForm2OrdrMngRefund(ordrVO, ordrDtlCd, mailContent);
+				mailContent = this.makeMailForm2OrdrMngRefund(ordrVO, addInfo, mailContent);
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE":
-				mailContent = this.makeMailForm2OrdrScheduleConfirmNotice(ordrVO, ordrDtlCd, mailContent);
+				mailContent = this.makeMailForm2OrdrScheduleConfirmNotice(ordrVO, addInfo, mailContent);
 				break;
 			case "MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION":
-				mailContent = this.makeMailForm2OrdrScheduleConfirmAction(ordrVO, ordrDtlCd, mailContent);
+				mailContent = this.makeMailForm2OrdrScheduleConfirmAction(ordrVO, addInfo, mailContent);
 				break;
 			default:
 				throw new Exception("not found mail content");
@@ -343,8 +344,18 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 
-	protected String makeMailForm2OrdrScheduleConfirmNotice(OrdrVO ordrVO, String ordrDtlCd, String mailContent) throws Exception {
-		
+	protected String makeMailForm2OrdrScheduleConfirmNotice(OrdrVO ordrVO, String srchIntervalDay, String mailContent) throws Exception {
+		mailContent = this.convertMailFormOrdrCommon(ordrVO, mailContent);
+		mailContent = this.convertMailFormORDRR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrRECPTR(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrPayment(ordrVO, mailContent);
+		mailContent = this.convertMailFormOrdrCardDisp(ordrVO, mailContent);
+					
+		mailContent = this.convertMailFormOrdrDtlList(ordrVO.getOrdrDtlList(), mailContent);
+
+		//구매확정 예정일
+		mailContent = this.convertMailFormDate(DateUtil.getDateAdd(new Date(), "date", 4), "now", mailContent);
+
 		return mailContent;
 	}
 

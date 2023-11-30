@@ -848,6 +848,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 		return ordrDtlDAO.selectOrdrSttsList(paramMap);
 	}
 
+	public List<OrdrDtlVO> selectOrdrSttsDaysList(Map<String, Object> paramMap) throws Exception {
+		return ordrDtlDAO.selectOrdrSttsDaysList(paramMap);
+	}
+	public List<OrdrDtlVO> selectOrdrSttsDaysDtlList(Map<String, Object> paramMap) throws Exception {
+		return ordrDtlDAO.selectOrdrSttsDaysDtlList(paramMap);
+	}
+
 	/**
 	 * 마지막 상품 판별
 	 * @param paramMap

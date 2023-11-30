@@ -229,13 +229,31 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	public void order09_notice() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
+		String srchIntervalDay = "-4";
+
 		Map <String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchSttsTy", "OR08");
 		paramMap.put("srchChgStts", "OR08");
-		paramMap.put("srchContainer", 1);
-		paramMap.put("srchIntervalDay", "2");
+		paramMap.put("srchIntervalDay", srchIntervalDay);
 
-		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrSttsList(paramMap);
+		List<OrdrDtlVO> ordrDtlList;
+		List<OrdrDtlVO> ordrNoList = ordrDtlService.selectOrdrSttsDaysList(paramMap);
+		OrdrVO ordrVO;
+		MbrVO mbrVO;
+
+		for(OrdrDtlVO ordrDtlVO : ordrNoList) {
+			ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
+
+			paramMap.put("ordrNo", ordrVO.getOrdrNo());
+
+			ordrDtlList = ordrDtlService.selectOrdrSttsDaysDtlList(paramMap);
+
+			ordrVO.setOrdrDtlList(ordrDtlList);
+
+			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE", mbrVO, ordrVO, srchIntervalDay);
+		}
 	}
 
 
