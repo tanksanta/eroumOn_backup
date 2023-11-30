@@ -1089,14 +1089,6 @@
 	                <p class="point">장기요양인정 예상점수 : <strong>((score))점</strong></p>
 	                <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
             	`;
-            	let templete2 = `
-            		<div class="grade">
-	                    <strong class="!text-2xl md:!text-4xl">((grade))</strong>
-	                    <small class="md:mt-2">등급</small>
-	                </div>
-	                <p class="point">장기요양인정 예상점수 : <strong>((score))점</strong></p>
-	                <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
-            	`;
             	
             	switch (grade) {
             		case 1 : {
@@ -1160,10 +1152,21 @@
             			break;
             		}
             		default: {
+            			//5등급 미만인 경우는 등급 및 점수 표시 HTML 재정의
+            			templete = `
+                    		<div class="grade">
+        	                    <strong class="!text-2xl md:!text-4xl">((grade))</strong>
+        	                </div>
+        	                <p class="point">장기요양인정 예상점수 : <strong>((score))점</strong></p>
+        	                <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                    	`;
+            			
             			//치매환자 인경우
             			if (testResult.diseaseSelect1 && testResult.diseaseSelect1[0] 
             				|| testResult.diseaseSelect2 && testResult.diseaseSelect2[0]) {
-            				templete2 += `
+            				grade = '인지지원';
+            				
+            				templete += `
                                 <p class="cost"><strong>월 62만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                                 <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                                 <ul class="alert">
@@ -1172,7 +1175,9 @@
                             `
             				$('.explan li:nth-child(6)').addClass('is-active');
             			} else {
-            				templete2 += `
+            				grade = '등급 외';
+            				
+            				templete += `
                                 <p class="cost">장기요양보험 <strong>혜택 불가</strong></p>
                                 <ul class="alert">
                                     <li>등급판정은 "건강이 매우 안좋다", "큰 병에 걸렸다." 등과 같은 주관적인 개념이 아닌 
@@ -1187,11 +1192,8 @@
             	//등급, 점수값 넣기
             	templete = templete.replace('((grade))', grade);
             	templete = templete.replace('((score))', score);
-            	templete2 = templete2.replace('((grade))', grade);
-            	templete2 = templete2.replace('((score))', score);
             	
             	$('.result .container').html(templete);
-            	$('.result .container').html(templete2);
             }
             
             //복지용구 표시

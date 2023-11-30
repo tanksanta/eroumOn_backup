@@ -232,13 +232,13 @@ public class MBplcController extends CommonAbstractController {
 
 			try {
 				if(ValidatorUtil.isEmail(bplcVO.getPicEml())) {
-					String MAIL_FORM = mailFormFilePath + "mail_sample.html";
+					String MAIL_FORM = mailFormFilePath + "mail/mbr/mail_temp_password.html";
 					String mailForm = FileUtil.readFile(MAIL_FORM);
 
 					mailForm = mailForm.replace("{rndPswd}", rndPswd);
 
 					// 메일 발송
-					String mailSj = "[이로움ON] 멤버스 임시비밀번호 입니다."; //TO-DO : message로 이동
+					String mailSj = "[이로움ON] 임시 비밀번호 안내"; //TO-DO : message로 이동
 					if(!EgovStringUtil.equals("local", activeMode)) {
 						mailService.sendMail(sendMail, bplcVO.getPicEml(), mailSj, mailForm);
 					} else {

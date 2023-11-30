@@ -156,7 +156,7 @@ public class MMbrInqryController extends CommonAbstractController {
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat  formatter = new SimpleDateFormat ("yyyy.MM.dd HH:mm");
 		MbrInqryVO inqryVO = mbrInqryService.selectMbrInqry(mbrInqryVO.getInqryNo());
 
 
@@ -164,7 +164,7 @@ public class MMbrInqryController extends CommonAbstractController {
 		try {
 			if(ValidatorUtil.isEmail(inqryVO.getEml())) {
 				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail_inqry.html");
+				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_inqry.html");
 
 				/* body */
 				mailForm = mailForm.replace("{mbrNm}", inqryVO.getMbrNm()); // 회원 이름
@@ -175,13 +175,6 @@ public class MMbrInqryController extends CommonAbstractController {
 				mailForm = mailForm.replace("{cn}", inqryVO.getCn()); // 문의 내용
 				mailForm = mailForm.replace("{ansDt}", formatter.format(inqryVO.getAnsDt())); // 답변 일
 				mailForm = mailForm.replace("{ansCn}", inqryVO.getAnsCn()); // 답변 내용
-
-				/* footer */
-				mailForm = mailForm.replace("{company}", "㈜티에이치케이컴퍼니");
-				mailForm = mailForm.replace("{name}", "이로움마켓");
-				mailForm = mailForm.replace("{addr}", "부산시 금정구 중앙대로 1815, 5층(가루라빌딩)");
-				mailForm = mailForm.replace("{brno}", "617-86-14330");
-				mailForm = mailForm.replace("{telno}", "2016-부산금정-0114");
 
 
 				// 메일 발송

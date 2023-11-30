@@ -41,6 +41,7 @@ import icube.common.util.StringUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.consult.biz.ConsltAssignmentVO;
 import icube.manage.consult.biz.ConsltHistory;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltMemoVO;
@@ -173,6 +174,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		}
 
 		List<MbrConsltChgHistVO> chgHistList =  mbrConsltService.selectMbrConsltChgHist(paramMap);
+		List<MbrConsltChgHistVO> bplcRejectChgList = new ArrayList<MbrConsltChgHistVO>();
 		for(MbrConsltChgHistVO chgHistVO : chgHistList) {
 			ConsltHistory ConsltHistory = new ConsltHistory();
 			ConsltHistory.setRegDt(chgHistVO.getRegDt());
@@ -182,8 +184,13 @@ public class MMbrConsltController extends CommonAbstractController{
 			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
 					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
 					: chgHistVO.getBplcId());
-			ConsltHistory.setContent("상태변경: [" + chgHistVO.getResn() + "]");
+			ConsltHistory.setContent("상태변경: [" + CodeMap.CONSLT_STTUS.get(chgHistVO.getConsltSttusChg()) + "상태로 변경되었습니다.]");
 			historyList.add(ConsltHistory);
+			
+			//사업소 거부 이력 쌓기
+			if ("CS04".equals(chgHistVO.getConsltSttusChg())) {
+				bplcRejectChgList.add(chgHistVO);
+			}
 		}
 
 		Collections.sort(historyList, Collections.reverseOrder());
@@ -202,12 +209,76 @@ public class MMbrConsltController extends CommonAbstractController{
 		if (mbrVO != null) {
 			mbrVO.setCrud(CRUD.UPDATE);
 		}
+		
+		
+		//상담 배정 이력 리스트 생성(배정 + 상담 거부한 사업소까지 포함)
+		List<ConsltAssignmentVO> consltAssignmentList = new ArrayList<ConsltAssignmentVO>();
+		List<ConsltAssignmentVO> checkConsltResult =  new ArrayList<ConsltAssignmentVO>();
+		int consltCnt = 1;
+		for (MbrConsltResultVO consltResultVO : mbrConsltVO.getConsltResultList()) {
+			ConsltAssignmentVO consltAssignmentVO = new ConsltAssignmentVO();
+			consltAssignmentVO.setReject(false);
+			consltAssignmentVO.setConsltCnt(consltCnt);
+			consltAssignmentVO.setBplcUniqueId(consltResultVO.getBplcUniqueId());
+			consltAssignmentVO.setBplcNm(consltResultVO.getBplcNm());
+			consltAssignmentVO.setBplcTelno(consltResultVO.getBplcInfo().getTelno());
+			consltAssignmentVO.setRcmdCnt(consltResultVO.getBplcInfo().getRcmdCnt());
+			consltAssignmentVO.setRegDt(consltResultVO.getRegDt());
+			consltAssignmentList.add(consltAssignmentVO);
+			checkConsltResult.add(consltAssignmentVO);
+			consltCnt++;
+		}
+		for (MbrConsltChgHistVO rejectChgHist: bplcRejectChgList) {
+			ConsltAssignmentVO consltAssignmentVO = new ConsltAssignmentVO();
+			consltAssignmentVO.setReject(true);
+			
+			//상담거부 했던 시점으로 차수 구하기(배정 이력중에서 맞는 차수 찾기)
+			consltCnt = 1;
+			if (checkConsltResult.size() >= 2) {
+				//1차, 2차 사업소 상담 사이에 있어도 2차 상담 거부
+				if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(0).getRegDt()) >= 0 
+						&& rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) <= 0) {
+					consltCnt = 2;
+				}
+				//2차 사업소 상담 보다 늦으면 최소 2차 상담
+				else if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) > 0) {
+					consltCnt = 2;
+				}
+			} 
+			if (checkConsltResult.size() >= 3) {
+				//2차, 3차 사업소 상담 사이에 있어도 3차 상담 거부
+				if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) >= 0 
+						&& rejectChgHist.getRegDt().compareTo(checkConsltResult.get(2).getRegDt()) <= 0) {
+					consltCnt = 3;
+				}
+				//3차 사업소 상담 보다 늦으면 3차 상담
+				else if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(2).getRegDt()) > 0) {
+					consltCnt = 3;
+				}
+			}
+			consltAssignmentVO.setConsltCnt(consltCnt);
+			
+			consltAssignmentVO.setBplcUniqueId(rejectChgHist.getBplcUniqueId());
+			consltAssignmentVO.setBplcNm(rejectChgHist.getBplcNm());
+			consltAssignmentVO.setRegDt(rejectChgHist.getRegDt());
+			
+			//사업소 정보 조회
+			BplcVO bplcVO = bplcService.selectBplcByUniqueId(rejectChgHist.getBplcUniqueId());
+			consltAssignmentVO.setBplcTelno(bplcVO.getTelno());
+			consltAssignmentVO.setRcmdCnt(bplcVO.getRcmdCnt());
+			
+			consltAssignmentList.add(consltAssignmentVO);
+		}
+		Collections.sort(consltAssignmentList, Collections.reverseOrder());
+		
 
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("consltAssignmentList", consltAssignmentList);
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("historyText", historyText);
 		model.addAttribute("chgHistList", chgHistList);
+		model.addAttribute("bplcRejectChgList", bplcRejectChgList);
 		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
 		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);
 		model.addAttribute("MBER_STTUS", CodeMap.MBER_STTUS);
@@ -268,6 +339,19 @@ public class MMbrConsltController extends CommonAbstractController{
 
 			if(EgovStringUtil.equals(mbrConsltVO.getConsltSttus(), "CS02")) { // 처음 배정이면 기존 사업소 삭제
 				mbrConsltResultService.deleteMbrConsltBplc(mbrConsltResultVO);
+				
+				//접수 상태의 기존 사업소 상담 또한 삭제
+				MbrConsltResultVO consltParam = new MbrConsltResultVO();
+				consltParam.setConsltNo(mbrConsltResultVO.getConsltNo());
+				consltParam.setConsltSttus("CS01");
+				mbrConsltResultService.deleteMbrConsltBplc(consltParam);
+			}
+			// 재상담 접수였다면 기존 재접수 사업소 상담 삭제
+			if("CS07".equals(originConsltSttus)) {
+				MbrConsltResultVO consltParam = new MbrConsltResultVO();
+				consltParam.setConsltNo(mbrConsltResultVO.getConsltNo());
+				consltParam.setConsltSttus("CS07");
+				mbrConsltResultService.deleteMbrConsltBplc(consltParam);
 			}
 
 			mbrConsltResultService.insertMbrConsltBplc(mbrConsltResultVO);
