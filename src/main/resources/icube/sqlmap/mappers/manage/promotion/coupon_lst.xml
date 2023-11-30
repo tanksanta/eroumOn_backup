@@ -92,7 +92,7 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 			<include refid="searchYmdConditions" />
-	  	ORDER BY coupon_no DESC
+	  	ORDER BY lst.reg_dt DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
