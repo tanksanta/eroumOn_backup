@@ -235,14 +235,14 @@
                         <img src="../assets/images/img-promotion-youtube.png" alt="부모님과 나를 위한 복지서비스"/>
                     </button>
 
-                    <div class="modal modal-youtube fade" id="watching-youtube" tabindex="-1" aria-hidden="true">
+                    <div class="modal modal-media fade" id="watching-youtube" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                    <button data-bs-dismiss="modal" class="btn-close"> 닫기 </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="embed-container">
+                                    <div class="embed-container" id="youtube-player">
                                         <iframe src="https://www.youtube.com/embed/YpfWKyDGPB4" frameborder="0" allowfullscreen title="시니어 정보 플랫폼 이로움ON - 수급자 보호자 편"></iframe>
                                     </div>
                                 </div>
@@ -568,6 +568,9 @@
 				var modal = $(this);
 				modal.appendTo('body');
 			});
+            $('#watching-youtube').on('hidden.bs.modal', function () {
+                $("#watching-youtube iframe").attr("src", $("#watching-youtube iframe").attr("src"))
+            });
         })
     </script>
 </body>

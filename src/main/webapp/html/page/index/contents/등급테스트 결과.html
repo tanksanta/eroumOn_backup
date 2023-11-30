@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="../assets/style/style.min.css">
     <!-- <link rel="stylesheet" href="../../../core/style/style.min.css"> -->
     <script src="../assets/script/index.js"></script>
+    <style>
+        .collapse.show { display: block; }
+        .collapse { display: none; }
+    </style>
 </head>
 <body class="pb-19">
     <!-- notice -->
@@ -140,93 +144,164 @@
                 </h2>
                 <p class="warning">※ 보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong>실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
                 <div class="result">
-                    <div class="container">
+                    <div class="container" id="grade1">
+                        <div class="grade">
+                            <strong>1</strong>
+                            <small>등급</small>
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>90점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost"><strong>월 188만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                            <li>1~2등급 어르신은 재가급여 대신 시설급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
+                        </ul>
+                        <!-- <form class="provide-form mt-7">
+                            <div class="form-agree">                                    
+                                <div>
+                                    <input class="rounded-md border-2" style="width: 1.2rem; height: 1.2rem;" type="checkbox" name="" id="" value="Y">
+                                    <label class="form-check-label text-lg">나에게 예상 테스트 결과 보내기</label>
+                                </div>
+                            </div>
+                            <div class="text_con01" style="padding: 0 0 0 24px;">예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.<br> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</div> 
+                        </form> -->
+                    </div>
+
+                    <div class="container" id="grade2">
+                        <div class="grade">
+                            <strong>2</strong>
+                            <small>등급</small>
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>75점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost"><strong>월 169만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                            <li>1~2등급 어르신은 재가급여 대신 시설급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
+                        </ul>
+                    </div>
+                    <div class="container" id="grade3">
                         <div class="grade">
                             <strong>3</strong>
                             <small>등급</small>
                         </div>
                         <p class="point">장기요양인정 예상점수 : <strong>60점</strong></p>
                         <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
-                        <p class="cost"><strong>연 160만원</strong> 내에서 거동, 생활 보조 용품(복지용구)을 신청할 수 있어요.</p>
-                        <p class="cost"><strong>월 188만원</strong> 내에서 방문 요양보호사 또는 주야간센터를 이용할 수 있어요.</p>
-                        <ul class="alert" style="background-color: transparent; display: block;">
-                            <li><strong>6~15%의 본인부담금이 발생해요.</strong></li>
-                            <li>1~2등급 어르신은 요양보호사 방문 대신 시설 입소를 선택할 수 있어요.</li>
-                            <li>시설에 모시는 어르신은 복지용구를 신청할 수 없어요.</li>
+                        <p class="cost"><strong>월 141만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                            <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
                         </ul>
-                        <!-- <form class="provide-form mt-7">
-                            <div class="form-agree">                                    
-                                <div>
-                                  <input class="rounded-md border-2" style="width: 1.2rem; height: 1.2rem;" type="checkbox" name="" id="" value="Y">
-                                  <label class="form-check-label text-lg">나에게 예상 테스트 결과 보내기</label>
-                                </div>
-                            </div>
-                            <div class="text_con01" style="padding: 0 0 0 24px;">예상 테스트 결과를 나에게 보내고 1:1상담을 신청하세요.<br> 이 페이지를 벗어나면 더 이상 결과를 확인할 수 없어요.</div> 
-                        </form> -->
                     </div>
+                    <div class="container" id="grade4">
+                        <div class="grade">
+                            <strong>4</strong>
+                            <small>등급</small>
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>50점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost"><strong>월 130만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                            <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
+                        </ul>
+                    </div>
+                    <div class="container" id="grade5">
+                        <div class="grade">
+                            <strong>5</strong>
+                            <small>등급</small>
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>45점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost"><strong>월 112만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                            <li>조건 부합 시, 재가급여 대신 시설 급여 선택 가능(시설급여 선택 시 복지용구 신청 불가)</li>
+                        </ul>
+                    </div>
+                    <div class="container" id="grade6">
+                        <div class="grade">
+                            <strong class="!text-2xl md:!text-4xl">인지지원</strong>
+                            <!-- <small class="md:mt-2">등급</small> -->
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>43점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost"><strong>월 62만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                        <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
+                        <ul class="alert">
+                            <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
+                        </ul>
+                    </div>
+                    <div class="container" id="grade7">
+                        <div class="grade">
+                            <strong class="!text-2xl md:!text-4xl">등급 외</strong>
+                            <!-- <small class="md:mt-2">등급</small> -->
+                        </div>
+                        <p class="point">장기요양인정 예상점수 : <strong>40점</strong></p>
+                        <p class="desc">보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong class="underline">실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
+                        <p class="cost">장기요양보험 <strong>혜택 불가</strong></p>
+                        <ul class="alert">
+                            <li>등급판정은 "건강이 매우 안좋다", "큰 병에 걸렸다." 등과 같은 주관적인 개념이 아닌 
+                            "심신의 기능에 따라 일상생활에서 도움이 얼마나 필요한가?"를 기준으로 판단해요.</li>
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="explan">
-                    <li>
+                    <li data-bs-target="#grade1">
                         <dl>
                             <dt><strong>1</strong>등급</dt>
-                            <dd>
-                                95점~<br>
-                                <em>전적 도움</em>
-                            </dd>
+                            <dd> 95점~<br> <em>전적 도움</em> </dd>
                         </dl>
                     </li>
-                    <li>
+                    <li data-bs-target="#grade2">
                         <dl>
                             <dt><strong>2</strong>등급</dt>
-                            <dd>
-                                94점~75점<br>
-                                <em>상당부분 도움</em>
-                            </dd>
+                            <dd> 94점~75점<br> <em>상당부분 도움</em> </dd>
                         </dl>
                     </li>
-                    <li class="is-active">
+                    <li data-bs-target="#grade3">
                         <dl>
                             <dt><strong>3</strong>등급</dt>
-                            <dd>
-                                74점~60점<br>
-                                <em>부분적 도움</em>
-                            </dd>
+                            <dd> 74점~60점<br> <em>부분적 도움</em> </dd>
                         </dl>
                     </li>
-                    <li>
+                    <li data-bs-target="#grade4">
                         <dl>
                             <dt><strong>4</strong>등급</dt>
-                            <dd>
-                                59점~51점<br>
-                                <em>일정부분 도움</em>
-                            </dd>
+                            <dd> 59점~51점<br> <em>일정부분 도움</em> </dd>
                         </dl>
                     </li>
-                    <li>
+                    <li data-bs-target="#grade5">
                         <dl>
                             <dt><strong>5</strong>등급</dt>
-                            <dd>
-                                50점~ 45점<br>
-                                <em>노인성질병 치매</em>
-                            </dd>
+                            <dd> 50점~ 45점<br> <em>노인성질병 치매</em> </dd>
                         </dl>
                     </li>
-                    <li>
+                    <li data-bs-target="#grade6">
                         <dl>
                             <dt><strong>인지지원</strong> 등급</dt>
-                            <dd>
-                                45점 이하<br>
-                                <em>노인성질병 치매</em>
-                            </dd>
+                            <dd> 45점 이하<br> <em>노인성질병 치매</em> </dd>
                         </dl>
                     </li>
+                    <!-- <li data-bs-target="#grade7">
+                        <dl>
+                            <dt><strong>등급 외</strong> 등급</dt>
+                            <dd> 45점 이하<br> <em>노인성질병 치매</em> </dd>
+                        </dl>
+                    </li> -->
                 </div>
                 <div class="mainSend">
                     <form class="provide-form">
                         <div class="form-agree">                                    
                             <div class="flex gap-3 items-center py-2 justify-center">
-                              <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="" id="" value="Y">
-                              <label class="form-check-label text-1xl">나에게 예상 테스트 결과 보내기</label>
+                                <input class="rounded-md border-2 relative" style="width: 1.4rem; height: 1.4rem;" type="checkbox" name="" id="" value="Y">
+                                <label class="form-check-label text-1xl">나에게 예상 테스트 결과 보내기</label>
                             </div>
                         </div>                        
                         <ul>
@@ -512,7 +587,7 @@
                                             </div>
                                         </div>                                   
                                     </fieldset>                            
-                                 </form>            
+                                </form>            
                             </div>
                             <div class="modal-footer">
                                 <a href="#" class="btn large btn-primary w-36">전송하기</a>
@@ -675,5 +750,26 @@
 
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../core/vendor/twelements/popper.min.js"></script>
+
+    <script>
+        $(function() {
+            gradeTab()
+        })
+        function gradeTab() {
+            $('.explan li:first-child').addClass('is-active');
+            $('.result > div').hide();
+            $('.result > div:first').show();
+
+            $('.explan li').click(function(){
+                $(this).siblings().removeClass('is-active')
+                $(this).addClass('is-active');
+                $('.result > div').hide();
+            
+                let activeTab = $(this).attr('data-bs-target');
+                    $(activeTab).fadeIn();
+                    return false;
+            });
+        }
+    </script>
 </body>
 </html>

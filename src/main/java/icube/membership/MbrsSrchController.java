@@ -308,7 +308,7 @@ public class MbrsSrchController extends CommonAbstractController{
 			) throws Exception {
 		boolean result = true;
 
-		MbrVO mbrVO = mbrService.selectMbrById(mbrId);
+		MbrVO mbrVO = mbrService.selectMbrIdByOne(mbrId);
 
 		if(mbrVO != null) {
 			if(!EgovStringUtil.equals("E", mbrVO.getJoinTy())) {

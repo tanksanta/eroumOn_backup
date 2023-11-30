@@ -450,9 +450,16 @@ public class MainTestController extends CommonAbstractController {
     }
     
     private String getGradeAndScoreTemplete(Integer grade, Float score, boolean isDementia) {
+    	String gradeText = grade.toString() + " 등급";
+    	if (grade == 0 && isDementia) {
+    		gradeText = "인지지원";
+    	} else if(grade == 0) {
+    		gradeText = "등급 외";
+    	}
+    	
     	String gradeAndScoreTemplete = "                       <td\r\n"
 				+ "                                                style=\"text-align: center; padding: 10px; border: 1px solid #e7e7e7; color: #fff; font-weight: bold; font-size: 20px; background-color: #EF7F1A;\">\r\n"
-				+ "                                          " + grade.toString() + "등급\r\n"
+				+ "                                          " + gradeText + "\r\n"
 				+ "                                            </td>\r\n"
 				+ "                                            <td\r\n"
 				+ "                                                style=\"text-align: center; padding: 10px; border: 1px solid #e7e7e7; color: #fff; font-weight: bold; font-size: 20px; background-color: #424242;\">\r\n"

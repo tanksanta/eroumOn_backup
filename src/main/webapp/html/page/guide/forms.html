@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>폼규칙</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<link rel="stylesheet" href="../../page/index/assets/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-4 py-4 px-5">
+        <h2 class="font-semibold text-4xl">폼 스타일</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 justify-start text-center gap-6">
+            <div class="flex flex-col gap-3 border border-gray-500 rounded-md p-6">
+                <label for="input1">일반</label>
+                <input type="text" id="input1" class="form-control" placeholder="입력 기본">
+                <label for="input2">readonly</label>
+                <input type="text" id="input2" class="form-control" readonly>
+                <label for="input3">disabled</label>
+                <input type="text" id="input3" class="form-control" disabled value="값">
+                <hr class="divide-x-1 my-5"/>
+                <div class="form-group">
+                    <label for="" class="form-label">폼 그룹</label>
+                    <input type="text" id="" class="form-control">
+                </div>
+            </div>
+            <div class="flex flex-col gap-3 border border-gray-500 rounded-md p-6">
+                <label for="input21">작은 사이즈</label>
+                <input type="text" id="input21" class="form-control form-small" placeholder="입력 작은">
+                <label for="input22">작은 사이즈 - 캘린더</label>
+                <input type="text" id="input22" class="form-control form-small calendar" placeholder="입력 작은">
+                <label for="input23">큰 사이즈</label>
+                <input type="text" id="input23" class="form-control form-large" placeholder="입력 큰">
+                <label for="input24">큰 사이즈 - 캘린더</label>
+                <input type="text" id="input24" class="form-control form-large calendar" placeholder="입력 큰">
+                <label for="input24">캘린더</label>
+                <input type="date" id="input25" class="form-control" placeholder="달력">
+            </div>
+
+            <div class="flex flex-col gap-3 border border-gray-500 rounded-md p-6">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check-item1">
+                    <label class="form-check-label" for="check-item1">기본 체크</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked id="check-item1a">
+                    <label class="form-check-label" for="check-item1a">기본 체크</label>
+                </div>
+                <hr class="divide-x-1"/>
+                <div class="form-check">
+                    <input class="form-check-input" name="radio" type="radio" id="radio-item2">
+                    <label class="form-check-label" for="check-item2">기본 라디오</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="radio" type="radio" checked id="radio-item3">
+                    <label class="form-check-label" for="check-item233">기본 라디오</label>
+                </div>
+                <hr class="divide-x-1"/>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="check-item3">
+                    <label class="form-check-label" for="check-item3">기본 스위치</label>
+                </div>
+                <hr class="divide-x-1"/>
+                <div class="form-check-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="aaa" id="check-item4" checked>
+                        <label class="form-check-label" for="check-item4">전체</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="aaa" id="check-item5">
+                        <label class="form-check-label" for="check-item5">PC</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="aaa" id="check-item6">
+                        <label class="form-check-label" for="check-item6">Mobile</label>
+                    </div>
+                </div>
+                <hr class="divide-x-1"/>
+                <div class="form-radio-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bbb" id="check-item24" checked>
+                        <label class="form-check-label" for="check-item24">전체</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bbb" id="check-item25">
+                        <label class="form-check-label" for="check-item25">PC</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bbb" id="check-item26">
+                        <label class="form-check-label" for="check-item26">Mobile</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3 border border-gray-500 rounded-md p-6">
+                <label for="sel1">셀렉트박스-기본</label>
+                <select name="" id="sel1" class="form-control">
+                    <option value="">셀렉트박스</option>
+                </select>
+                <label for="sel2">셀렉트박스-small</label>
+                <select name="" id="sel2" class="form-control form-small">
+                    <option value="">셀렉트박스</option>
+                </select>
+                <label for="sel3">셀렉트박스-large</label>
+                <select name="" id="sel3" class="form-control form-large">
+                    <option value="">셀렉트박스</option>
+                </select>
+                <hr class="divide-x-1"/>
+                <label for="sel4">셀렉트박스-disabled</label>
+                <select name="" id="sel4" class="form-control" disabled>
+                    <option value="">셀렉트박스</option>
+                </select>
+                <textarea name="" id="aaa" cols="30" rows="5" class="form-control">텍스트 영역</textarea>
+            </div>
+
+            <div class="flex flex-col gap-3 border border-gray-500 rounded-md p-6">
+                <div class="form-upload">
+                    <label for="file-item" class="form-upload-trigger">Choose a file or drop file here</label>
+                    <input type="file" class="form-upload-control" id="file-item" name="upload[]" multiple>
+                </div>
+                <div class="form-upload-link">
+                    <span class="form-upload-link-name">
+                        첨부파일1.hwp <br>
+                        첨부파일1.hwp <br>
+                        첨부파일1.hwp <br>
+                        첨부파일1.hwp <br>
+                    </span>
+                    <a href="#" class="form-upload-link-download">다운로드</a>
+                    <a href="#" class="form-upload-link-delete">삭제</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

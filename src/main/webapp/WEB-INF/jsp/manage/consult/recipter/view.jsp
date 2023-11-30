@@ -78,11 +78,12 @@
                                         </c:if>
 
                                         <ul class="mt-2 space-y-1 bplcLi">
-                                        	<c:forEach items="${mbrConsltVO.consltResultList}" var="resultList" varStatus="status">
-                                            <li>${status.index+1}차 상담 사업소 : ${resultList.bplcNm} (${resultList.bplcInfo.telno}
-                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.bplcInfo.rcmdCnt})
-                                            	, 상담 배정 일시 : <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                            </li>
+                                        	<c:forEach items="${consltAssignmentList}" var="resultList" varStatus="status">
+	                                            <li <c:if test="${resultList.reject}">style="opacity: 0.5;"</c:if>>
+	                                            	${resultList.consltCnt}차 상담 사업소<c:if test="${resultList.reject}">(상담 거부)</c:if> : ${resultList.bplcNm} (${resultList.bplcTelno}
+	                                            	/ <img src="/html/page/members/assets/images/ico-mypage-recommend.svg" style="display: inline; margin-top: -2px; margin-right: 3px; height: 13px;">${resultList.rcmdCnt})
+	                                            	, <fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss" />
+	                                            </li>
                                         	</c:forEach>
                                         </ul>
                                     </td>
@@ -97,24 +98,29 @@
                                     </td>
                                     <th scope="row">상담진행상태</th>
                                     <td>
-                                        <ul class="space-y-1">
-                                            <li>
-                                            	<c:choose>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
-													<span class="text-red1">재상담 신청 접수</span>
-                                                	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
-													</c:when>
-													<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
-												</c:choose>
-                                            </li>
-                                        </ul>
+                                    	<div class="flex items-center gap-4">
+	                                        <ul>
+	                                            <li>
+	                                            	<c:choose>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS01'}"><span class="text-red1">상담 신청 접수</span></c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS02'}">상담 기관 배정 완료</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS03'}">상담 취소<br>(상담자)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS04'}">상담 취소<br>(상담기관)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS09'}">상담 취소<br>(THKC)</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS05'}">상담 진행 중</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS06'}">상담 완료</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS07'}">
+														<span class="text-red1">재상담 신청 접수</span>
+	                                                	<a href="#modal3" class="btn-primary tiny shadow relative -top-px" data-bs-toggle="modal" data-bs-target="#modal3">재상담 신청 사유 확인</a>
+														</c:when>
+														<c:when test="${mbrConsltVO.consltSttus eq 'CS08'}">상담 기관 재배정 완료</c:when>
+													</c:choose>
+	                                            </li>
+	                                        </ul>
+	                                        <c:if test="${!empty bplcRejectChgList && bplcRejectChgList.size() > 0}">
+	                                        	<button type="button" class="btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modal5">상담 거부 사유 확인</button>
+	                                        </c:if>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -410,6 +416,41 @@
                 </div>
                 <!-- //멤버스 상담 내역 확인 -->
                 
+                <!-- 상담 거부 사유 확인 -->
+                <div class="modal fade" id="modal5" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>상담 거부 사유 확인</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>상담 거부 사유를 확인하세요</p>
+                                <table class="table-detail mt-5">
+                                    <colgroup>
+                                        <col class="w-43">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                    	<c:forEach items="${bplcRejectChgList}" var="resultList" varStatus="status">
+	                                        <tr>
+	                                            <th scope="row">
+	                                                ${status.index+1}차 거부 사업소
+	                                                <p class="mt-2 font-bold">(${resultList. bplcNm})</p>
+	                                            </th>
+	                                            <td>
+	                                            	${resultList.resn}
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //상담 거부 사유 확인  -->
+                
                 
                 <!-- 등급테스트결과 모달 -->
                	<%@include file="./testResultModal.jsp"%>
@@ -438,7 +479,7 @@ function submitEvent() {
 function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt){
 
 	if($("#bplcUniqueId").val() != ""){ //선택된게 있으면 지움
-		$(".bplcLi li:last").remove();
+		$(".bplcLi li:first").remove();
 	}
 
 	$("#bplcUniqueId").val(bplcUniqueId);
@@ -448,37 +489,38 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 
 	<c:if test="${fn:length(mbrConsltVO.consltResultList) > 0}"><%--등록된 데이터o--%>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS02' || mbrConsltVO.consltSttus eq 'CS08'}"> <%--CS02 or CS08 배정진행중 --%>
-	$("#consltSttus").val("${mbrConsltVO.consltSttus}");
-	$(".bplcLi li:last").remove();
+			$("#consltSttus").val("${mbrConsltVO.consltSttus}");
+			$(".bplcLi li:first").remove();
 		</c:if>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS07'}"><%--CS07 재접수--%>
-	$("#consltSttus").val("CS08");
+			$("#consltSttus").val("CS08");
 		</c:if>
 		<c:if test="${mbrConsltVO.consltSttus eq 'CS04'}"><%-- 사업소에서 거부해서 재배정하는경우--%>
-	$("#consltSttus").val("CS08");
+			$("#consltSttus").val("CS08");
 		</c:if>
 	</c:if>
 	<c:if test="${empty mbrConsltVO.consltResultList}"><%--등록된 데이터x--%>
-	$("#consltSttus").val("CS02"); //최초면 CS02 추가면 CS08
+		$("#consltSttus").val("CS02"); //최초면 CS02 추가면 CS08
+	</c:if>
+	<c:if test="${!empty mbrConsltVO.consltResultList && mbrConsltVO.consltSttus eq 'CS01'}"><%-- 상담거부 후 배정인 경우 --%>
+		$("#consltSttus").val("CS02");
 	</c:if>
 
 
 	let liCnt = $(".bplcLi li").length;
-	$(".bplcLi").append("<li>"+ (liCnt+1) +"차 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
+	$(".bplcLi").prepend("<li>(배정중) 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
 
 
 //수급자 요양정보 조회
 function getRecipientInfo(recipientsNo) {
-	$.ajax({
-		type : "post",
-		url  : "/_mng/mbr/recipients/getInfo.json",
-		data : {
-			recipientsNo
-		},
-		dataType : 'json'
-	})
-	.done(function(data) {
+	// 요양정보 조회 API 호출
+	jsCallApi.call_api_post_json(window, "/_mng/mbr/recipients/getInfo.json", "getRecipientInfoCallback", {recipientsNo});
+}
+//수급자 요양정보 조회 콜백
+function getRecipientInfoCallback(result, errorResult, data, param) {
+	if (errorResult == null) {
+		var data = result;
 		if(data.success) {
 			var recipientInfo = data.recipientInfo;
 			
@@ -500,10 +542,9 @@ function getRecipientInfo(recipientsNo) {
 		}else{
 			alert(data.msg);
 		}
-	})
-	.fail(function(data, status, err) {
-		alert('서버와 연결이 좋지 않습니다');
-	});
+	} else {
+		alert('서버와 연결이 좋지 않습니다.');
+	}
 }
 
 

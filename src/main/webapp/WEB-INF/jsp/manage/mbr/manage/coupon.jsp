@@ -112,23 +112,28 @@
 				<td>${resultList.couponCd}</td>
 				<td>${couponTyCode[resultList.couponTy]}</td>
 				<td>${resultList.couponNm }</td>
-				<td><c:if test="${resultList.couponTy ne 'FREE'}">${resultList.dscntAmt}${resultList.dscntTy eq 'PRCS' ? '%' : '원'}<c:if test="${resultList.mxmmDscntAmt ne 0}"><br>(<fmt:formatNumber value="${resultList.mxmmDscntAmt}" pattern="###,###" />)</c:if></c:if>
-						<c:if test="${resultList.couponTy eq 'FREE'}">배송비</c:if>
-				</td>
-				<td><c:if test="${resultList.usePdTy eq 'FIX' }"><fmt:formatDate value="${resultList.useBgngYmd}" pattern="yyyy-MM-dd" /> ~<br><fmt:formatDate value="${resultList.useEndYmd}" pattern="yyyy-MM-dd" /></c:if>
-						<c:if test="${resultList.usePdTy eq 'ADAY'}"><fmt:formatDate value="${resultList.issuBgngDt}" pattern="yyyy-MM-dd" /> <br> 로 부터 ${resultList.usePsbltyDaycnt} 일</c:if>
-				</td>
-				<td><c:if test="${resultList.useBgngYmd < getNow && resultList.useEndYmd >= getNow }">
-						<c:if test="${resultList.useYn eq 'Y'}"><fmt:formatDate value="${resultList.useDt}" pattern="yyyy-MM-dd HH:mm:ss" /></c:if>
-						<c:if test="${resultList.useYn eq 'N'}">미사용</c:if></c:if>
-						<c:if test="${resultList.useEndYmd < getNow}">소멸</c:if>
-						</td>
 				<td>
-						<c:if test="${resultList.useBgngYmd < getNow && resultList.useEndYmd >= getNow }">
+					<c:if test="${resultList.couponTy ne 'FREE'}">${resultList.dscntAmt}${resultList.dscntTy eq 'PRCS' ? '%' : '원'}<c:if test="${resultList.mxmmDscntAmt ne 0}"><br>(<fmt:formatNumber value="${resultList.mxmmDscntAmt}" pattern="###,###" />)</c:if></c:if>
+					<c:if test="${resultList.couponTy eq 'FREE'}">배송비</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.usePdTy eq 'FIX' }"><fmt:formatDate value="${resultList.useBgngYmd}" pattern="yyyy-MM-dd" /> ~<br><fmt:formatDate value="${resultList.useEndYmd}" pattern="yyyy-MM-dd" /></c:if>
+					<c:if test="${resultList.usePdTy eq 'ADAY'}"><fmt:formatDate value="${resultList.useLstBgngYmd}" pattern="yyyy-MM-dd" /> <br> 로 부터 ${resultList.usePsbltyDaycnt} 일</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.useBgngYmd < getNow && resultList.useEndYmd >= getNow }">
+						<c:if test="${resultList.useYn eq 'Y'}"><fmt:formatDate value="${resultList.useDt}" pattern="yyyy-MM-dd HH:mm:ss" /></c:if>
+						<c:if test="${resultList.useYn eq 'N'}">미사용</c:if>
+					</c:if>
+					<c:if test="${resultList.useEndYmd < getNow}">소멸</c:if>
+				</td>
+				<td>
+					<c:if test="${resultList.useBgngYmd < getNow && resultList.useEndYmd >= getNow }">
 						<c:if test="${resultList.useYn eq 'Y'}">${resultList.ordrCd}</c:if>
-						<c:if test="${resultList.useYn eq 'N'}">미사용</c:if></c:if>
-						<c:if test="${resultList.useEndYmd < getNow}">소멸</c:if>
-						</td>
+						<c:if test="${resultList.useYn eq 'N'}">미사용</c:if>
+					</c:if>
+					<c:if test="${resultList.useEndYmd < getNow}">소멸</c:if>
+				</td>
 			</tr>
 			</c:forEach>
 			<c:if test="${empty listVO.listObject}">

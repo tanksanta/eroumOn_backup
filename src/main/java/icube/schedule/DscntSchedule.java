@@ -79,9 +79,20 @@ public class DscntSchedule extends CommonAbstractController {
 		for(MbrPointVO mbrPointVO : mbrPointList) {
 			if (mbrPointVO.getPointAcmtl() > 0) {
 				try {
+					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
+					
+					//탈퇴여부 확인
+					if ("Y".equals(mbrVO.getWhdwlYn())) {
+						continue;
+					}
+					//이메일 수신거부 확인
+//					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+//						continue;
+//					}
+					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_point.html");
-					MbrVO mbrVO = mbrPointVO.getMbrList().get(0);
+					
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
 					mailForm = mailForm.replace("((today))", today);
 					mailForm = mailForm.replace("((point))", String.valueOf(mbrPointVO.getPointAcmtl()));
@@ -89,7 +100,7 @@ public class DscntSchedule extends CommonAbstractController {
 					
 					// 메일 발송
 					String mailSj = "[이로움ON] 소멸예정 포인트 안내";
-					if(!EgovStringUtil.equals("local", activeMode)) {
+					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
 						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
@@ -134,6 +145,12 @@ public class DscntSchedule extends CommonAbstractController {
 				
 				//소멸 마일리지가 있음
 				if(restMlg > 0) {
+					
+					//이메일 수신거부 확인
+//					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+//						continue;
+//					}
+					
 					String MAIL_FORM_PATH = mailFormFilePath;
 					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_extinct_mlg.html");
 					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
@@ -144,7 +161,7 @@ public class DscntSchedule extends CommonAbstractController {
 					
 					// 메일 발송
 					String mailSj = "[이로움ON] 소멸예정 마일리지 안내";
-					if(!EgovStringUtil.equals("local", activeMode)) {
+					if(EgovStringUtil.equals("real", activeMode)) {
 						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
 					} else {
 						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
