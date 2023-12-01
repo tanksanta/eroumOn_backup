@@ -1,11 +1,15 @@
 package icube.common.interceptor.biz;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomProfileVO {
+public class CustomProfileVO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String memberId;                     //회원 아이디
 	private String memberHash;                   //회원 아이디 해시값
 	private String mbrNm;                        //회원 이름
