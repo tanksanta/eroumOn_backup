@@ -533,7 +533,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 
 		keyword = "((gdsNm))";			if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getGdsNm(), mailContent);
 		
-		keyword = "((gdsOptnNm))";		if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getGdsNm(), mailContent);
+		keyword = "((gdsOptnNm))";		if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getOrdrOptn(), mailContent);
 		keyword = "((ordrQy))";			if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getOrdrQy(), mailContent);
 		keyword = "((ordrPc))";			if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getOrdrPc(), mailContent);
 		keyword = "((bplc))";			if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword, ordrDtlOne.getBplcNm(), mailContent);
