@@ -514,15 +514,13 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 
 //수급자 요양정보 조회
 function getRecipientInfo(recipientsNo) {
-	$.ajax({
-		type : "post",
-		url  : "/_mng/mbr/recipients/getInfo.json",
-		data : {
-			recipientsNo
-		},
-		dataType : 'json'
-	})
-	.done(function(data) {
+	// 요양정보 조회 API 호출
+	jsCallApi.call_api_post_json(window, "/_mng/mbr/recipients/getInfo.json", "getRecipientInfoCallback", {recipientsNo});
+}
+//수급자 요양정보 조회 콜백
+function getRecipientInfoCallback(result, errorResult, data, param) {
+	if (errorResult == null) {
+		var data = result;
 		if(data.success) {
 			var recipientInfo = data.recipientInfo;
 			
@@ -544,10 +542,9 @@ function getRecipientInfo(recipientsNo) {
 		}else{
 			alert(data.msg);
 		}
-	})
-	.fail(function(data, status, err) {
-		alert('서버와 연결이 좋지 않습니다');
-	});
+	} else {
+		alert('서버와 연결이 좋지 않습니다.');
+	}
 }
 
 
