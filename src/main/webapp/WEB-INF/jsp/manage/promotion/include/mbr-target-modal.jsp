@@ -4,7 +4,14 @@
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<p>포인트 적립/차감 대상확인</p>
+				<p>
+					<c:if test="${fn:indexOf(_curPath,'/point') > 0 }">
+						포인트 적립/차감 대상확인
+					</c:if>
+					<c:if test="${fn:indexOf(_curPath,'/mlg') > 0 }">
+						마일리지 적립/차감 대상확인
+					</c:if>
+				</p>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
@@ -20,7 +27,14 @@
 							<th scope="col">구분</th>
 							<th scope="col">내역</th>
 							<th scope="col">관리자메모</th>
-							<th scope="col">개별포인트</th>
+							<th scope="col">
+								<c:if test="${fn:indexOf(_curPath,'/point') > 0 }">
+									개별포인트
+								</c:if>
+								<c:if test="${fn:indexOf(_curPath,'/mlg') > 0 }">
+									개별마일리지
+								</c:if>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
