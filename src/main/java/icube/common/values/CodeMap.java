@@ -1107,10 +1107,10 @@ public class CodeMap{
 			put("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
 			put("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
 
-			put("MAILSEND_ORDR_MNG_CONFIRM","주문확정");//
+			put("MAILSEND_ORDR_MNG_CONFIRM","배송준비중");//
 
+			put("MAILSEND_ORDR_MNG_REFUND","주문 취소");//환불 // 결제 완료 후 배송준비중 이전 단계
 			put("MAILSEND_ORDR_MNG_RETURN","반품");//
-			put("MAILSEND_ORDR_MNG_REFUND","환불");//
 
 			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","구매확정-예정");//
 			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION","구매확정-처리");//
