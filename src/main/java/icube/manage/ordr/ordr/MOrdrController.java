@@ -132,7 +132,19 @@ public class MOrdrController extends CommonAbstractController {
         MngrVO curMngrVO = mngrService.selectMngrById(mbgrReqMap);
 
 		CommonListVO listVO = new CommonListVO(request);
-		listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
+		//배송관리 화면인 경우 검색 조건에 따라 조회
+		if ("or06".equalsIgnoreCase(ordrStts)) {
+			if (EgovStringUtil.isEmpty(listVO.getParam("srchSttsTy"))) {
+				listVO.setParam("ordrSttsTy", "OR06");
+				listVO.setParam("srchSttsTy", "OR06");
+			}
+			else {
+				listVO.setParam("ordrSttsTy", listVO.getParam("srchSttsTy").toUpperCase());
+			}
+		} else {
+			listVO.setParam("ordrSttsTy", ordrStts.toUpperCase());
+		}
+		
 
         //현재관리자에 입점업체 정보가 있으면 해당 입점업체만 조회되도록 구현
         if (curMngrVO.getEntrpsNo() > 0) {
