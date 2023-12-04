@@ -362,7 +362,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailContent = this.convertMailFormOrdrDtlList(ordrVO.getOrdrDtlList(), mailContent);
 
 		//구매확정 예정일
-		mailContent = this.convertMailFormDate(DateUtil.getDateAdd(new Date(), "date", 3), "now", mailContent);
+		mailContent = this.convertMailFormDate(DateUtil.getDateAdd(new Date(), "date", 2), "now", mailContent);
 
 		return mailContent;
 	}
