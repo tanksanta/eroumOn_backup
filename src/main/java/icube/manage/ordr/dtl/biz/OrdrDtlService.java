@@ -773,14 +773,12 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ordrCd", ordrCd);
 
-		log.debug("STEP.1 : 결제완료 처리 START");
-		ordrDtlDAO.updateOrdrSttsByOrdrCd(paramMap);
-		log.debug("STEP.1 : 결제완료 처리 END");
-
-
-
-		log.debug("STEP.2 : 전체 주문상태 호출");
+		log.debug("STEP.1 : 전체 주문상태 호출");//결제완료 처리전 상태를 가지고 온다
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
+
+		log.debug("STEP.2 : 결제완료 처리 START");
+		ordrDtlDAO.updateOrdrSttsByOrdrCd(paramMap);
+		log.debug("STEP.2 : 결제완료 처리 END");
 
 		log.debug("STEP.3 : 주문상태 변경 내역 기록 START");
 		for(OrdrDtlVO ordrDtlVO : ordrVO.getOrdrDtlList()) {
