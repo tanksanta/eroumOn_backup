@@ -526,7 +526,7 @@
 					</c:if>
 					 -->
 
-					<dl>
+					<dl class="border-bottom">
 						<dt>배송 유형</dt>
 						<dd>
 							${dlvyCostTyCode[gdsVO.dlvyCtTy]}배송
@@ -536,7 +536,7 @@
 						</dd>
 					</dl>
 					<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-					<dl>
+					<dl class="border-bottom">
 						<dt>배송비</dt>
 						<dd>
 							<fmt:formatNumber value="${gdsVO.dlvyBassAmt}" pattern="###,###" />
@@ -553,6 +553,21 @@
 						</dd>
 					</dl>
 					</c:if> --%>
+					<!--복지용구일때만 나오는 영역-->
+					<div class="flex flex-col gap-4 bg-gray2 rounded-md p-4 my-10">
+						<ul class="text-sm">
+							<li>본인부담율에 따라 <strong>85~94%</strong> 지원금을 받을 수 있습니다.(기초수급자의 경우 <strong>100%</strong> 지원)</li>
+							<li>원하시는 분은 복지용구 지원금 상담받기를 눌러 상담을 신청해 주세요. 
+								<ul class="list-dot">
+									<li>장기요양 인정등급 보유자는 상담 전 ‘개인별장기요양이용계획서’를 미리 준비해 주시면 좋아요.</li>
+									<li>장기요양 인정등급이 없으실 경우 발급을 도와드리고 있어요.</li>
+								</ul>
+							</li>
+						</ul>
+						<a href="https://docs.google.com/forms/d/1SI7z69RkUkqJDW9-i3lFC5GcGu7d8uSrF7h4yIBP0yI/viewform?pli=1&pli=1&edit_requested=true" target="_blank" class="btn btn-danger btn-animate w-full">
+							<strong>복지용구 지원금 상담하기</strong>
+						</a>
+					</div>
 				</div>
 				<!-- //상품 재원 -->
 
