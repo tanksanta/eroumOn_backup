@@ -152,6 +152,8 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			if(mbrList.get(0).getJoinTy().equals("E")) {
 				resultCnt = 4; // 이로움 회원가입
 			}else if(mbrList.get(0).getJoinTy().equals("K")) {
+				//SNS 등록 여부에 따라 안내 메시지가 다름
+				mbrSession.setSnsRegistDt(mbrList.get(0).getSnsRegistDt());
 				resultCnt = 2; // 카카오 회원 가입
 			}else {
 				Map<String, Object> drmtMap = new HashMap<String, Object>();

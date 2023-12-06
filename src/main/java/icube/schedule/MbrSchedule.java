@@ -229,5 +229,22 @@ public class MbrSchedule extends CommonAbstractController {
 
 	 }
 
-
+	 //간편회원 미등록 계정 삭제 처리 (10분 마다 체크)
+	 @Scheduled(cron="0 */10 * * * *")
+	 public void deleteSnsNotRegistMbr() throws Exception {
+		 log.info("################## 간편가입 회원 등록 검사 START #####################");
+		 
+		 List<MbrVO> mbrList = mbrService.selectNotSnsRegistMbr();
+		 
+		 for(MbrVO mbrVO : mbrList) {
+			try {
+				mbrService.deleteMbr(mbrVO.getUniqueId());
+			}catch(Exception e) {
+				e.printStackTrace();
+				log.info("간편가입 회원 : " + mbrVO.getMbrNm() + "삭제 실패 : " + e.toString());
+			}
+		 }
+		 
+		 log.info("################## 간편가입 회원 등록 검사 END #####################");
+	 }
 }

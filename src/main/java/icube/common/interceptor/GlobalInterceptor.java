@@ -128,6 +128,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			//간편 로그인시 회원가입 미등록자인 경우
 			String checkPath = request.getRequestURI();
 			if (!"/membership/sns/regist".equals(checkPath)
+					&& mbrSession.isLoginCheck()
 					&& ("K".equals(mbrSession.getJoinTy()) || "N".equals(mbrSession.getJoinTy())) 
 					&& mbrSession.getSnsRegistDt() == null) {
 				request.setAttribute("requireResist", true);
