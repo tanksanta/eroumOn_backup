@@ -1191,9 +1191,10 @@ public class MOrdrController extends CommonAbstractController {
 			result = true;
 
 			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			ordrVO.setOrdrDtlList(ordrDtlList);
 
 			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
-			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrVO, ordrDtlCd);
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrVO);
 		}
 
 		// result

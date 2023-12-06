@@ -152,7 +152,12 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		/* 
 		주문자의 메일로 보냄
 		*/
-		mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
+		if(EgovStringUtil.equals("pc", activeMode)) {
+			mailService.sendMail(mailSender, "dylee@thkc.co.kr", mailSubject, content);
+		}else{
+			mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
+		}
+		
 	}
 
 	protected String makeMailForm2Ordr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO, String addInfo) throws Exception {
@@ -321,14 +326,14 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		mailContent = this.convertMailFormOrdrPayment(ordrVO, mailContent);
 		mailContent = this.convertMailFormOrdrCardDisp(ordrVO, mailContent);
 
-		List<OrdrDtlVO> listDtl = ordrVO.getOrdrDtlList().stream()
-				    .filter(t -> EgovStringUtil.equals(ordrDtlCd, t.getOrdrDtlCd()))
-				    .collect(Collectors.toList());
-		mailContent = this.convertMailFormOrdrDtlList(listDtl, mailContent);
+		// List<OrdrDtlVO> listDtl = ordrVO.getOrdrDtlList().stream()
+		// 		    .filter(t -> EgovStringUtil.equals(ordrDtlCd, t.getOrdrDtlCd()))
+		// 		    .collect(Collectors.toList());
+		mailContent = this.convertMailFormOrdrDtlList(ordrVO.getOrdrDtlList(), mailContent);
 
 		mailContent = this.convertMailFormDate(new Date(), "ordrDt", mailContent);
 
-		mailContent = this.convertMailFormOrdrPartRefundInfo(ordrVO, listDtl.get(0), mailContent);
+		mailContent = this.convertMailFormOrdrPartRefundInfo(ordrVO, ordrVO.getOrdrDtlList().get(0), mailContent);
 		mailContent = this.convertMailFormOrdrPartRefundGuide(mailContent);
 		
 		return mailContent;
@@ -728,7 +733,8 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			}
 		}
 
-		couponAmts += ordrVO.getUsePoint();
+		couponAmts += ordrVO.getUseMlg();/*마일리지 금액*/
+		couponAmts += ordrVO.getUsePoint();/*포인트 금액*/
 
 		Map<String, Integer> resultMap = new HashMap<String, Integer>();
 
