@@ -109,7 +109,11 @@ public class MbrsKaKaoController extends CommonAbstractController{
 				javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			}
 		}else if(resultCnt == 3) {// 네이버
-			javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
+			if (mbrSession.getSnsRegistDt() == null) {
+				javaScript.setMessage("현재 네이버 계정으로 간편 가입 진행 중입니다.");
+			} else {
+				javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
+			}
 			javaScript.setLocation("/" + mainPath + "/login");
 		}else if(resultCnt == 4) {// 이로움
 			javaScript.setMessage("이로움 계정으로 가입된 회원입니다.");

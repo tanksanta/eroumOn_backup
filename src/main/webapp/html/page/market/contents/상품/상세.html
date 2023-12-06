@@ -25,7 +25,7 @@
     <!-- //access -->
 
     <!-- header -->
-    <header id="header">
+<header id="header">
         <!-- banner -->
         <aside id="banner">
             <div class="container">
@@ -967,10 +967,25 @@
                             <dt>배송비</dt>
                             <dd>무료</dd>
                         </dl>
-                        <dl>
+                        <dl class="border-bottom">
                             <dt>배송방법</dt>
                             <dd>직배송</dd>
                         </dl>
+                        <!--복지용구일때만 나오는 영역-->
+                        <div class="flex flex-col gap-4 bg-gray2 rounded-md p-4 my-10">
+                            <ul class="text-sm flex flex-col gap-4">
+                                <li>본인부담율에 따라 <strong>85~94%</strong> 지원금을 받을 수 있습니다.(기초수급자의 경우 <strong>100%</strong> 지원)</li>
+                                <li>원하시는 분은 복지용구 지원금 상담받기를 눌러 상담을 신청해 주세요. 
+                                    <ul class="list-dot mt-4 ml-5">
+                                        <li>장기요양 인정등급 보유자는 상담 전 ‘개인별장기요양이용계획서’를 미리 준비해 주시면 좋아요.</li>
+                                        <li>장기요양 인정등급이 없으실 경우 발급을 도와드리고 있어요.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <a href="https://docs.google.com/forms/d/1SI7z69RkUkqJDW9-i3lFC5GcGu7d8uSrF7h4yIBP0yI/viewform?pli=1&pli=1&edit_requested=true" target="_blank" class="btn btn-danger btn-animate w-full">
+                                <strong>복지용구 지원금 상담하기</strong>
+                            </a>
+                        </div>
                     </div>
                     <!-- //상품 재원 -->
 
@@ -1128,7 +1143,7 @@
                             </div>
                                 
                             <div class="payment-button">
-                                <button type="button" class="btn btn-primary btn-large btn-trigger">구매신청</button>
+                                <button type="button" class="btn btn-primary btn-large btn-trigger">구매하기</button>
                                 <button type="button" class="btn btn-outline-primary btn-large">장바구니</button>
                                 <button type="button" class="btn btn-love btn-large">상품찜하기</button>
                             </div>

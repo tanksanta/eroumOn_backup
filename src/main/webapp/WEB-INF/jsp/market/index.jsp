@@ -84,9 +84,17 @@
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
 							</div>
+							<!--할인가 추가 :  class="hypen" 판매가에 추가 -->
 							<div class="cost">
-								<dl>
+								<dl class="hypen">
 									<dt>판매가</dt>
+									<dd>
+										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
+										<small>원</small>
+									</dd>
+								</dl>
+								<dl>
+									<dt>할인가</dt>
 									<dd>
 										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
 										<small>원</small>
@@ -153,9 +161,17 @@
 								<small>${resultList.gdsCtgry.ctgryNm}</small>
 								<strong>${resultList.gdsInfo.gdsNm}</strong>
 							</div>
+							<!--할인가 추가 :  class="hypen" 판매가에 추가 -->
 							<div class="cost">
-								<dl>
+								<dl class="hypen">
 									<dt>판매가</dt>
+									<dd>
+										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
+										<small>원</small>
+									</dd>
+								</dl>
+								<dl>
+									<dt>할인가</dt>
 									<dd>
 										<fmt:formatNumber value="${resultList.gdsInfo.pc}" pattern="###,###" />
 										<small>원</small>
