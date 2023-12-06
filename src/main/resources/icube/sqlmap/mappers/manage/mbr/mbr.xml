@@ -618,13 +618,13 @@
 		, IFNULL((SELECT SUM(mlg) FROM MBR_MLG WHERE unique_id = #{srchUniqueId} AND DATEDIFF(NOW(),reg_dt) &lt;= 730 AND mlg_se = 'E'),0) AS ext_mlg
 	</select>
 	
-	<!-- 간편 회원이면서 미등록자 조회 (계정 생성 후 60분 지났는지 확인)-->
+	<!-- 간편 회원이면서 미등록자 조회 (계정 생성 후 30분 지났는지 확인)-->
 	<select id="selectNotSnsRegistMbr" parameterType="java.util.HashMap" resultMap="mbrVOMap">
 		SELECT
 			<include refid="listColumn"/>
 		FROM MBR m
 		WHERE m.join_ty IN ('K', 'N') AND m.sns_regist_dt IS NULL
-		  AND TIMESTAMPDIFF(MINUTE, m.join_dt, NOW()) &gt;= 60
+		  AND TIMESTAMPDIFF(MINUTE, m.join_dt, NOW()) &gt;= 30
 	</select>
 	
 	<!-- 간편 회원가입 취소시 mbr 데이터 삭제용 -->

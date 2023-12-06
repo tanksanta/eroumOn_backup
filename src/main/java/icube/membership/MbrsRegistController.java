@@ -531,7 +531,10 @@ public class MbrsRegistController extends CommonAbstractController{
 		if (EgovStringUtil.isNotEmpty(uid)) {
 			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
 			if (srchMbr == null) {
-				return "/membership/login";
+				model.addAttribute("alertMsg", "세션이 만료되었습니다. 처음부터 다시 시작해 주세요.");
+				model.addAttribute("goUrl", "/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
+				return "/common/msg";
 			}
 			
 			Date now = new Date();
@@ -592,7 +595,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			//정보 수정
 	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
 	        if (srchMbr == null) {
-	        	javaScript.setMessage("정상적으로 처리되지 않았습니다. 다시 시도해주세요.");
+	        	javaScript.setMessage("세션이 만료되었습니다. 처음부터 다시 시작해 주세요.");
 				javaScript.setLocation("/membership/login");
 				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
