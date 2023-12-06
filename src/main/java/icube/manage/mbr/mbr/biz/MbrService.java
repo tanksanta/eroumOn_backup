@@ -470,8 +470,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 					customProfileVO.setMbrNm(mbrVO.getMbrNm());
 					customProfileVO.setMblTelno(mbrVO.getMblTelno());
 					customProfileVO.setEml(mbrVO.getEml());
-					customProfileVO.setUnsubscribeTexting(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? false : true);
-					customProfileVO.setUnsubscribeEmail(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? false : true);
+					customProfileVO.setUnsubscribeTexting(mbrVO.getSmsRcptnYn() != null && "Y".equals(mbrVO.getSmsRcptnYn()) ? false : true);
+					customProfileVO.setUnsubscribeEmail(mbrVO.getEmlRcptnYn() != null && "Y".equals(mbrVO.getEmlRcptnYn()) ? false : true);
 					
 					//누적 상담 건수
 					CommonListVO listVO = new CommonListVO(request);
