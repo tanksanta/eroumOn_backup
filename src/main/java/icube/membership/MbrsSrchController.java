@@ -109,13 +109,12 @@ public class MbrsSrchController extends CommonAbstractController{
 		if(mbrVO != null) {
 			//간편회원이면서 본인인증하지 않았으면 안내처리
 			if (!"E".equals(mbrVO.getJoinTy()) && mbrVO.getSnsRegistDt() == null) {
-				
 				if ("K".equals(mbrVO.getJoinTy())) {
 					javaScript.setMessage("현재 카카오 계정으로 간편 가입 진행 중입니다.");
 				} else if ("N".equals(mbrVO.getJoinTy())) {
 					javaScript.setMessage("현재 네이버 계정으로 간편 가입 진행 중입니다.");
 				}
-				javaScript.setMethod("window.history.back()");
+				javaScript.setLocation("/"+membershipPath + "/regist");
 				return new JavaScriptView(javaScript);
 			}
 			
