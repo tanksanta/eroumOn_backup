@@ -1103,6 +1103,7 @@ public class CodeMap{
 			put("MAILSEND_ORDR_MARKET_PAYDONE_CARD", "주문접수 카드");//,
 			put("MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT","주문접수 실시간계좌이체");//
 			put("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", "주문접수 가상계좌");//,
+			put("MAILSEND_ORDR_MARKET_PAYDONE_FREE", "주문접수 무료");//,
 			put("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST","가상계좌 입금 요청");//
 			put("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
 			put("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//

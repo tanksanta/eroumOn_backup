@@ -109,6 +109,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				mailSubject = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
@@ -162,6 +163,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				sFileNM = "/mail/ordr/mail_ordr_market_paydone_card.html";
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
@@ -209,6 +211,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
 				break;
 			case "MAILSEND_ORDR_MARKET_PAYDONE_VBANK":
@@ -464,7 +467,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	protected String convertMailFormOrdrPayment(OrdrVO ordrVO, String mailContent){
 		String keyword;
 		
-		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO.getOrdrDtlList());
+		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO);
 
 		keyword = "((stlmAmt))";				if (mailContent.indexOf(keyword) >= 0) mailContent = this.convertReplace(keyword	, ordrVO.getStlmAmt(), mailContent);// 결제금액
 
@@ -594,7 +597,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		if (ordrDtlVO == null) ordrDtlVO = ordrVO.getOrdrDtlList().get(0);
 		String mailTemp = this.getRead(filePath);
 
-		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO.getOrdrDtlList());
+		Map<String, Integer> resultMap = this.ordrDtlSum(ordrVO);
 		
 		String key, keyword;
 
@@ -690,7 +693,10 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		return mailContent;
 	}
 
-	protected Map<String, Integer> ordrDtlSum(List<OrdrDtlVO> list){
+	protected Map<String, Integer> ordrDtlSum(OrdrVO ordrVO){
+
+		List<OrdrDtlVO> list = ordrVO.getOrdrDtlList();
+
 		// 결제 정보
 		int totalGdsPc = 0; // 총 상품 금액 (상품 가격 * 수량)
 		int dlvyPc = 0; // 배송비
@@ -719,6 +725,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 			}
 		}
 
+		couponAmts += ordrVO.getUsePoint();
 
 		Map<String, Integer> resultMap = new HashMap<String, Integer>();
 
