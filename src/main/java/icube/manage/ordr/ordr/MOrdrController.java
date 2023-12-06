@@ -812,6 +812,13 @@ public class MOrdrController extends CommonAbstractController {
 		Integer resultCnt = ordrDtlService.updateOrdrOR09(ordrDtlVO);
 
 		if(resultCnt == 1){
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			ordrVO.setOrdrDtlList(ordrDtlList);
+			
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION", mbrVO, ordrVO);
+			
 			result = true;
 		}
 

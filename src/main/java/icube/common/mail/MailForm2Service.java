@@ -586,7 +586,10 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 	protected String convertMailFormOrdrPartRefundInfo(OrdrVO ordrVO, OrdrDtlVO ordrDtlVO, String mailContent) throws Exception {
 		String filePath;
 		
-		if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "CARD")){
+		if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "FREE")){
+			mailContent = mailContent.replace("((ordrPartRfndInfo))", "");
+			return mailContent;
+		}else if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "CARD")){
 			filePath = "/mail/ordr/part/mail_ordr_part_rfnd_card.html";
 		}else if (EgovStringUtil.equals(ordrVO.getStlmKnd(), "BANK") || EgovStringUtil.equals(ordrVO.getStlmKnd(), "VBANK")){
 			filePath = "/mail/ordr/part/mail_ordr_part_rfnd_bank.html";
