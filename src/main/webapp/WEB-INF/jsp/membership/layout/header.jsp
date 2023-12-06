@@ -114,7 +114,7 @@
                         <li><a href="${_membershipPath}/info/myinfo/confirm?returnUrl=/membership/info/myinfo/form">내 정보수정</a></li>
                         <li><a href="${_membershipPath}/info/recipients/list">수급자 관리</a></li>
                         <li><a href="${_membershipPath}/info/dlvy/list">배송지 관리</a></li>
-                        <li><a href="${_membershipPath}/whdwl/list">회원탈퇴</a></li>
+                        <li><a href="${_membershipPath}/info/whdwl/form">회원탈퇴</a></li>
                     </ul>
                 </dd>
             </dl>
