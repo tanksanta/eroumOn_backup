@@ -19,7 +19,7 @@
 
 	<fieldset>
 		<legend class="text-title2 relative">기본정보</legend>
-		<table class="table-detail">
+		<table class="table-detail bplc">
 			<colgroup>
 				<col class="w-43">
 				<col>
@@ -69,7 +69,7 @@
 
 	<fieldset class="mt-13">
 		<legend class="text-title2 relative"> 업체정보 </legend>
-		<table class="table-detail">
+		<table class="table-detail br">
 			<colgroup>
 				<col class="w-43">
 				<col>
@@ -173,7 +173,7 @@
 
 	<fieldset class="mt-13">
 		<legend class="text-title2 relative"> 담당자정보 </legend>
-		<table class="table-detail">
+		<table class="table-detail pic">
 			<colgroup>
 				<col class="w-43">
 				<col>
@@ -197,7 +197,7 @@
 
 	<fieldset class="mt-13">
 		<legend class="text-title2 relative"> 정산정보 </legend>
-		<table class="table-detail">
+		<table class="table-detail bank">
 			<colgroup>
 				<col class="w-43">
 				<col>
@@ -227,7 +227,7 @@
 
 	<fieldset class="mt-13">
 		<legend class="text-title2 relative"> 등록정보 </legend>
-		<table class="table-detail">
+		<table class="table-detail join">
 			<colgroup>
 				<col class="w-43">
 				<col>
@@ -509,5 +509,17 @@ $(function(){
 		}
 	});
 	--%>
+});
+
+
+$(document).ready(function(){
+	/* 기본정보, 업체정보, 정산정보 영역 disabled*/
+	$(".table-detail.bplc input").attr("disabled", "disabled");
+	$(".table-detail.br input").attr("disabled", "disabled");
+	$(".table-detail.bank input").attr("disabled", "disabled");
+	$(".table-detail.bank select").attr("disabled", "disabled");
+
+	$(".table-detail.bplc button").off("click");
+	$(".table-detail.br button").off("click");
 });
 </script>
