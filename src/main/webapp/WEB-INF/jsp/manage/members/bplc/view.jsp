@@ -521,5 +521,6 @@ $(document).ready(function(){
 
 	$(".table-detail.bplc button").off("click");
 	$(".table-detail.br button").off("click");
+	$(".table-detail.br button").removeAttr("onclick");
 });
 </script>
