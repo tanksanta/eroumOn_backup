@@ -92,6 +92,7 @@
 
 		<form id="radioFrm" name="radioFrm" method="get" novalidate="novalidate">
 			<input type="hidden" id="dlvyCount" name="dlvyCount" value="${dlvyCount}" />
+			<input type="hidden" id="mbrConsltExists" name="mbrConsltExists" value="${mbrConsltExists}" />
 			<p class="text-title2 mt-6 md:mt-8">회원탈퇴 사유</p>
 			<div class="member-release-check mt-2.5 md:mt-3">
 				<c:forEach var="whdwlCode" items="${norResnCdCode}" varStatus="status">
@@ -197,6 +198,10 @@
 			},
 		    submitHandler: function (frm) {
 				if (frm.dlvyCount.value != "0"){
+					alert("주문 건수 중 진행 중인 단계가 존재합니다.");
+					return false;
+				}
+				if (frm.mbrConsltExists.value != "0"){
 					alert("진행 중인 상담이 있습니다. 상담완료 후 탈퇴해주세요.");
 					return false;
 				}
