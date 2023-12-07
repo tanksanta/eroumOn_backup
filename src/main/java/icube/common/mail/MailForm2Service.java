@@ -108,7 +108,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		String mailSubject = "";
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
-			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_BANK":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				mailSubject = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
 				break;
@@ -163,7 +163,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		/*기본이 되는 메일양식 선택*/
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
-			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_BANK":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				sFileNM = "/mail/ordr/mail_ordr_market_paydone_card.html";
 				break;
@@ -211,7 +211,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		/*메일양식을 내용으로 치환*/
 		switch (ordrMailTy) {
 			case "MAILSEND_ORDR_MARKET_PAYDONE_CARD":
-			case "MAILSEND_ORDR_MARKET_PAYDONE_ACCOUNT":
+			case "MAILSEND_ORDR_MARKET_PAYDONE_BANK":
 			case "MAILSEND_ORDR_MARKET_PAYDONE_FREE":
 				mailContent = this.makeMailForm2OrdrMarketPaydoneCard(ordrVO, mailContent);
 				break;
