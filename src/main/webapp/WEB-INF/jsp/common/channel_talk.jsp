@@ -23,6 +23,7 @@
 	      , "existTestResult": "${customProfileVO.existTestResult}"
 	   	  , "existLNumber": "${customProfileVO.existLNumber}"
 	   	  , "existConslt": "${customProfileVO.existConslt}"
+	   	  , "coupon": ${customProfileVO.coupon}
 	    }
     </c:if>
   });

@@ -505,6 +505,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 			    	List<MbrConsltVO> mbrConsltList = mbrConsltService.selectListForExcel(paramMap);
 			    	customProfileVO.setExistConslt(mbrConsltList != null && mbrConsltList.size() > 0 ? "O" : "X");
 			    	
+			    	//쿠폰 보유 여부
+			    	Map<String, Object> mbrEtcInfoMap = selectMbrEtcInfo(mbrSession.getUniqueId());
+			    	customProfileVO.setCoupon(mbrEtcInfoMap.get("totalCoupon") != null && ((Long)mbrEtcInfoMap.get("totalCoupon")) > 0 ? true : false);
+					//mbrEtcInfoMap.get("totalPoint")
+					//mbrEtcInfoMap.get("totalMlg")
+			    	
 					mbrSession.setCustomProfileVO(customProfileVO);
 					
 					
