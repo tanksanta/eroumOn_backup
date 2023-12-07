@@ -568,7 +568,7 @@
 						<div class="flex flex-col gap-4 bg-gray2 rounded-md p-4 my-10">
 							<ul class="text-sm flex flex-col gap-4">
 								<li>본인부담율에 따라 <strong>85~94%</strong> 지원금을 받을 수 있습니다.(기초수급자의 경우 <strong>100%</strong> 지원)</li>
-								<li>원하시는 분은 복지용구 지원금 상담받기를 눌러 상담을 신청해 주세요. 
+								<li>원하시는 분은 <strong>복지용구 지원금 상담받기</strong>를 눌러 상담을 신청해 주세요. 
 									<ul class="list-dot mt-4 ml-5">
 										<li>장기요양 인정등급 보유자는 상담 전 ‘개인별장기요양이용계획서’를 미리 준비해 주시면 좋아요.</li>
 										<li>장기요양 인정등급이 없으실 경우 발급을 도와드리고 있어요.</li>
