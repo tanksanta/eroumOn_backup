@@ -514,10 +514,10 @@ $(function(){
 
 $(document).ready(function(){
 	/* 기본정보, 업체정보, 정산정보 영역 disabled*/
-	$(".table-detail.bplc input").attr("disabled", "disabled");
-	$(".table-detail.br input").attr("disabled", "disabled");
-	$(".table-detail.bank input").attr("disabled", "disabled");
-	$(".table-detail.bank select").attr("disabled", "disabled");
+	$(".table-detail.bplc input").attr("readonly", "true");
+	$(".table-detail.br input").attr("readonly", "true");
+	$(".table-detail.bank input").attr("readonly", "true");
+	$(".table-detail.bank select").attr("readonly", "true");
 
 	$(".table-detail.bplc button").off("click");
 	$(".table-detail.br button").off("click");
