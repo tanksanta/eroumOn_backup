@@ -46,6 +46,9 @@
         <!-- office -->
         <link rel="stylesheet" href="/html/page/office/assets/style/partner.min.css">
         <script src="/html/page/office/assets/script/common.js"></script>
+		<script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+		<script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+		
     </head>
     <body>
     	<!-- Google Tag Manager (noscript) -->
@@ -78,6 +81,15 @@
 		}
 	</script>
 </c:if>
+
+<script type="text/javascript">
+    var jsCommon = null;
+    $(document).ready(function() {
+        jsCommon = new JsCommon();
+
+        jsCommon.fn_keycontrol();
+    });
+</script>
 
 </body>
 </html>

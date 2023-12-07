@@ -19,6 +19,9 @@
     <!-- admin -->
     <link rel="stylesheet" href="../assets/style/style.min.css">
     <script src="../assets/script/common.js"></script>
+    <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+
 </head>
 <body>
     <!-- header -->
@@ -288,6 +291,15 @@
 
     <!-- App js -->
     <script src="/assets/js/app.js"></script>
+    <script type="text/javascript">
+        var jsCommon = null;
+        $(document).ready(function() {
+            jsCommon = new JsCommon();
+    
+            jsCommon.fn_keycontrol();
+        });
+    </script>
+
 </body>
 
 </html>

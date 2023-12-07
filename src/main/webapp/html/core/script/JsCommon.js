@@ -10,7 +10,6 @@ class JsCommon{
 
         /*숫자,만 입력*/
         $(".keycontrol.numbercomma").off('keyup').on('keyup', function(){
-            this.value=this.value.replace(/[^-0-9]/g,'');
             this.value=jsFuncs.numberWithCommas(this.value)
         });
 
@@ -28,13 +27,44 @@ class JsCommon{
             this.value=this.value.replace(patternHangeul,'')
         });
         
-    }
-    /**
-     * 휴대폰 번호 입력 마스크 처리
-     * $(owner._cls_info.pageModalfix + " .mem_confirm .phone_no").on("keyup", function(event){
-            owner.fn_keycontrol_PhoneNumber(event);
+        /*생년월일 형식*/
+        $(".keycontrol.birthdt10").off("keyup").on("keyup", function(event){
+            this.value= owner.fn_keycontrol_BirthDt10(this.value);
         });
-     */
+
+    }
+    
+
+    fn_keycontrol_BirthDt10(date){
+        date=date.replace(/[^0-9]/g,'');/*숫자만 입력*/
+        if (date.length < 4) {
+            return date;
+        }
+
+        if (date.length > 8){
+            date = date.substring(0, 8);
+        }
+
+        var DataFormat, RegDateFmt;
+        if (date.length <= 6) {
+            DataFormat = "$1/$2"; // 포맷(-)을 바꾸려면 이곳을 변경
+            RegDateFmt = /([0-9]{4})([0-9]+)/;
+        } else if (date.length <= 9) {
+            DataFormat = "$1/$2/$3"; // 포맷(-)을 바꾸려면 이곳을 변경
+            RegDateFmt = /([0-9]{4})([0-9]{2})([0-9]+)/;
+        }
+
+        if (DataFormat != undefined){
+            date = date.replace(RegDateFmt, DataFormat);
+        }
+
+        return date;
+    }
+
+    fn_keycontrol_NumberComma(x){
+        x=x.replace(/[^-0-9]/g,'');
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     fn_keycontrol_PhoneNumber(event) {
         var phone = event.target;
