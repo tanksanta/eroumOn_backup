@@ -152,11 +152,7 @@ public class MailForm2Service extends CommonAbstractServiceImpl {
 		/* 
 		주문자의 메일로 보냄
 		*/
-		if(EgovStringUtil.equals("pc", activeMode)) {
-			mailService.sendMail(mailSender, "dylee@thkc.co.kr", mailSubject, content);
-		}else{
-			mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
-		}
+		mailService.sendMail(mailSender, mbrVO.getEml(), mailSubject, content);
 		
 	}
 

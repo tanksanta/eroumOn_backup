@@ -1165,11 +1165,14 @@ public class MOrdrController extends CommonAbstractController {
 
 		boolean result = false;
 
+		OrdrVO ordrMailSendVO = ordrService.selectOrdrByNo(ordrNo);
+
 		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
 		for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
 			tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
 		}
+		ordrMailSendVO.setOrdrDtlList(ordrDtlList);
 
 		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
 
@@ -1190,11 +1193,8 @@ public class MOrdrController extends CommonAbstractController {
 		if(resultCnt == 1){
 			result = true;
 
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
-			ordrVO.setOrdrDtlList(ordrDtlList);
-
-			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
-			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrVO);
+			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrMailSendVO.getUniqueId());
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrMailSendVO);
 		}
 
 		// result
