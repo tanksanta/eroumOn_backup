@@ -1562,6 +1562,7 @@ public class MOrdrController extends CommonAbstractController {
 			row1.createCell(cellPos++).setCellValue("수령인 휴대전화");
 			row1.createCell(cellPos++).setCellValue("우편번호");
 			row1.createCell(cellPos++).setCellValue("배송주소");
+			row1.createCell(cellPos++).setCellValue("배송 요청사항");
 		}
 
         row1.createCell(cellPos++).setCellValue("상품구분");
@@ -1615,6 +1616,11 @@ public class MOrdrController extends CommonAbstractController {
 					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getRecptrAddr() + " " + ordrDtlVO.getRecptrDaddr());//배송지
 				}else{
 					dataRow.createCell(cellPos++).setCellValue("");//배송지
+				}
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrMemo());//배송메세지
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//배송메세지
 				}
 			}
 
