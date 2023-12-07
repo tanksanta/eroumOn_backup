@@ -245,13 +245,25 @@ public class MbrsRegistController extends CommonAbstractController{
 		MbrVO findMbrVO = mbrService.selectMbr(paramMap);
 		if(findMbrVO != null) {
 			if(findMbrVO.getJoinTy().equals("N")) {
-				model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
+				if (findMbrVO.getSnsRegistDt() == null) {
+					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
+					model.addAttribute("alertMsg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
+				} else {
+					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
+					model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
+				}
 			}else if(findMbrVO.getJoinTy().equals("K")) {
-				model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
+				if (findMbrVO.getSnsRegistDt() == null) {
+					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
+					model.addAttribute("alertMsg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
+				} else {
+					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
+					model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
+				}
 			}else {
+				model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
 				model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
 			}
-			model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
 			return "/common/msg";
 		}
 

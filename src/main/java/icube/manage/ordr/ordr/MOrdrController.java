@@ -1513,6 +1513,42 @@ public class MOrdrController extends CommonAbstractController {
         	model.addAttribute("mngrEntrpsNo", curMngrVO.getEntrpsNo());
         }
 
+		boolean cellAdd231206 = true;/* 주문자 휴대폰번호, 수령인 휴대폰번호, 우편번호, 배송지*/
+		ordrStts = ordrStts.toUpperCase();
+ 		if(ordrStts.equals("OR03") || ordrStts.equals("OR04") || ordrStts.equals("OR09")) {//구매확정
+			cellAdd231206 = false;
+        }else if(ordrStts.equals("CA01")) {//취소관리
+			cellAdd231206 = false;
+        }
+
+		Map<String, Boolean> dataAdd231206Map = new HashMap<String, Boolean>(){{
+			put("OR01", true); // 주문승인대기
+			put("OR02", true);//주문승인완료
+			put("OR03", false);//주문승인반려
+
+			put("OR04", false);//결제대기
+			put("OR05", true);//결제완료
+			put("OR06", true);//배송준비중
+			put("OR07", true);//배송중
+			put("OR08", false);//배송완료
+			put("OR09", false);//구매확정
+
+			put("CA01", false); // 취소접수
+			put("CA02", false);//취소완료
+			put("CA03", false);//주문취소
+
+			put("EX01", true); // 교환접수
+			put("EX02", true);//교환진행중
+			put("EX03", false);//교환완료
+
+			put("RE01", true);  // 반품접수
+			put("RE02", true);//반품진행중
+			put("RE03", false);//반품완료
+
+			put("RF01", false); // 환불접수
+			put("RF02", false);//환불완료
+		}};
+
 		listVO = ordrService.ordrListVO(listVO);
 
 		List<OrdrDtlVO> ordrDtlList = listVO.getListObject();
@@ -1528,62 +1564,83 @@ public class MOrdrController extends CommonAbstractController {
         style.setFont(font);
         style.setWrapText(true); //줄바꿈처리 : \n
 
+		int cellPos = 0;
+
         // 첫 번째 행 (상위 헤더)
         Row row1 = sheet.createRow(0);
-        row1.createCell(0).setCellValue("주문일시");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 0));
-        row1.createCell(1).setCellValue("주문자");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 1, 1));
-        row1.createCell(2).setCellValue("수령인");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 2, 2));
-        row1.createCell(3).setCellValue("상품구분");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 3, 3));
-        row1.createCell(4).setCellValue("상품번호");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 4, 4));
-        row1.createCell(5).setCellValue("입점업체");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 5, 5));
-        row1.createCell(6).setCellValue("상품명/옵션");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 6, 6));
-        row1.createCell(7).setCellValue("상품가격");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 7, 7));
-        row1.createCell(8).setCellValue("수량");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 8, 8));
-        row1.createCell(9).setCellValue("주문금액");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 9, 9));
-        row1.createCell(10).setCellValue("할인금액");
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 10, 12));
-        row1.createCell(13).setCellValue("배송비");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 13, 13));
-        row1.createCell(14).setCellValue("결제금액");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 14, 14));
-        row1.createCell(15).setCellValue("결제수단");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 15, 15));
-        row1.createCell(16).setCellValue("멤버스");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 16, 16));
-        row1.createCell(17).setCellValue("주문상태");
-        sheet.addMergedRegion(new CellRangeAddress(0, 1, 17, 17));
+        row1.createCell(cellPos++).setCellValue("주문일시");
+        row1.createCell(cellPos++).setCellValue("주문자");
+		if (cellAdd231206) row1.createCell(cellPos++).setCellValue("주문자 휴대전화");
+        row1.createCell(cellPos++).setCellValue("수령인");
+		if (cellAdd231206 ) {
+			row1.createCell(cellPos++).setCellValue("수령인 휴대전화");
+			row1.createCell(cellPos++).setCellValue("우편번호");
+			row1.createCell(cellPos++).setCellValue("배송주소");
+			row1.createCell(cellPos++).setCellValue("배송 요청사항");
+		}
 
-        // 두 번째 행 (하위 헤더)
-        Row row2 = sheet.createRow(1);
-        row2.createCell(10).setCellValue("쿠폰");
-        row2.createCell(11).setCellValue("마일리지");
-        row2.createCell(12).setCellValue("포인트");
-
+        row1.createCell(cellPos++).setCellValue("상품구분");
+        row1.createCell(cellPos++).setCellValue("상품번호");
+        row1.createCell(cellPos++).setCellValue("입점업체");
+        row1.createCell(cellPos++).setCellValue("상품명/옵션");
+        row1.createCell(cellPos++).setCellValue("상품가격");
+        row1.createCell(cellPos++).setCellValue("수량");
+        row1.createCell(cellPos++).setCellValue("주문금액");
+        
+		row1.createCell(cellPos++).setCellValue("쿠폰 할인");
+        row1.createCell(cellPos++).setCellValue("마일리지 할인");
+        row1.createCell(cellPos++).setCellValue("포인트 할인");
+        
+		row1.createCell(cellPos++).setCellValue("배송비");
+        row1.createCell(cellPos++).setCellValue("결제금액");
+        row1.createCell(cellPos++).setCellValue("결제수단");
+        row1.createCell(cellPos++).setCellValue("멤버스");
+        row1.createCell(cellPos++).setCellValue("주문상태");
+        
         // 스타일 적용하고 싶음
         ExcelExporter.setCellStyleForRow(row1, style);
-        ExcelExporter.setCellStyleForRow(row2, style);
 
-        int i = 2; //2row부터
+        int i = 1; //2row부터
         for(OrdrDtlVO ordrDtlVO : ordrDtlList) {
         	Row dataRow = sheet.createRow(i);
+			cellPos = 0;
 
-			dataRow.createCell(0).setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ordrDtlVO.getOrdrDt())
-					+ "\n" + ordrDtlVO.getOrdrCd());
-        	dataRow.createCell(1).setCellValue(ordrDtlVO.getOrdrrNm() + "\n(" + ordrDtlVO.getOrdrrId() + ")");
-        	dataRow.createCell(2).setCellValue(ordrDtlVO.getRecptrNm());
-        	dataRow.createCell(3).setCellValue(CodeMap.GDS_TY.get(ordrDtlVO.getOrdrTy()));
-        	dataRow.createCell(4).setCellValue(ordrDtlVO.getGdsCd());
-        	dataRow.createCell(5).setCellValue(ordrDtlVO.getEntrpsNm());
+			dataRow.createCell(cellPos++).setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ordrDtlVO.getOrdrDt()) + "\n" + ordrDtlVO.getOrdrCd());
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrNm() + "\n(" + ordrDtlVO.getOrdrrId() + ")");
+			if (cellAdd231206){
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrMblTelno());//주문자 휴대폰번호
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//주문자 휴대폰번호
+				}
+			}
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getRecptrNm());
+			if (cellAdd231206){
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getRecptrMblTelno());//수령인 휴대폰번호
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//수령인 휴대폰번호
+				}
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getRecptrZip());//우편번호
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//우편번호
+				}
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getRecptrAddr() + " " + ordrDtlVO.getRecptrDaddr());//배송지
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//배송지
+				}
+				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
+					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrMemo());//배송메세지
+				}else{
+					dataRow.createCell(cellPos++).setCellValue("");//배송메세지
+				}
+			}
+
+        	dataRow.createCell(cellPos++).setCellValue(CodeMap.GDS_TY.get(ordrDtlVO.getOrdrTy()));
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getGdsCd());
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getEntrpsNm());
 
         	String gdsNm = "";
         	gdsNm = ordrDtlVO.getGdsNm();
@@ -1594,7 +1651,7 @@ public class MOrdrController extends CommonAbstractController {
     		}else {
     			gdsNm = ordrDtlVO.getOrdrOptn();
     		}
-    		dataRow.createCell(6).setCellValue(gdsNm);
+    		dataRow.createCell(cellPos++).setCellValue(gdsNm);
 
     		String gdsPc = String.format("%,d", ordrDtlVO.getGdsPc());
     		if(ordrDtlVO.getOrdrOptnTy().equals("BASE")) {
@@ -1602,28 +1659,28 @@ public class MOrdrController extends CommonAbstractController {
     		}else {
     			gdsPc = String.format("%,d", ordrDtlVO.getOrdrOptnPc());
     		}
-        	dataRow.createCell(7).setCellValue(gdsPc);
-        	dataRow.createCell(8).setCellValue(String.format("%,d", ordrDtlVO.getOrdrQy()));
-        	dataRow.createCell(9).setCellValue(String.format("%,d", ordrDtlVO.getOrdrPc()));
+        	dataRow.createCell(cellPos++).setCellValue(gdsPc);
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getOrdrQy()));
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getOrdrPc()));
 
-        	dataRow.createCell(10).setCellValue(String.format("%,d", ordrDtlVO.getCouponAmt()));
-        	dataRow.createCell(11).setCellValue(String.format("%,d", ordrDtlVO.getUseMlg()));
-        	dataRow.createCell(12).setCellValue(String.format("%,d", ordrDtlVO.getUsePoint()));
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getCouponAmt()));
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getUseMlg()));
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getUsePoint()));
 
         	String dlvyAmt = String.format("%,d", ordrDtlVO.getDlvyBassAmt());
         	if(ordrDtlVO.getDlvyAditAmt() > 0) {
         		dlvyAmt += "(" + String.format("%,d", ordrDtlVO.getDlvyAditAmt()) +")";
         	}
-        	dataRow.createCell(13).setCellValue(dlvyAmt);
+        	dataRow.createCell(cellPos++).setCellValue(dlvyAmt);
 
-        	dataRow.createCell(14).setCellValue(String.format("%,d", ordrDtlVO.getStlmAmt()));
+        	dataRow.createCell(cellPos++).setCellValue(String.format("%,d", ordrDtlVO.getStlmAmt()));
         	String stlmTy = "미정";
         	if(EgovStringUtil.isNotEmpty(ordrDtlVO.getStlmTy())) {
         		stlmTy = CodeMap.BASS_STLM_TY.get(ordrDtlVO.getStlmTy());
         	}
-        	dataRow.createCell(15).setCellValue(stlmTy);
+        	dataRow.createCell(cellPos++).setCellValue(stlmTy);
 
-        	dataRow.createCell(16).setCellValue(ordrDtlVO.getBplcNm());
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getBplcNm());
 
         	String sttsTy = CodeMap.ORDR_STTS.get(ordrDtlVO.getSttsTy());
         	if((ordrDtlVO.getSttsTy().equals("RE03") || ordrDtlVO.getSttsTy().equals("RF01")) && ordrDtlVO.getRfndYn().equals("N")) {
@@ -1631,7 +1688,7 @@ public class MOrdrController extends CommonAbstractController {
         	}else if((ordrDtlVO.getSttsTy().equals("RE03") || ordrDtlVO.getSttsTy().equals("RF02")) && ordrDtlVO.getRfndYn().equals("Y")) {
         		sttsTy = "환불완료(반품완료)";
         	}
-        	dataRow.createCell(17).setCellValue(sttsTy);
+        	dataRow.createCell(cellPos++).setCellValue(sttsTy);
 
         	i++;
 
@@ -1680,13 +1737,13 @@ public class MOrdrController extends CommonAbstractController {
             workbook.close();
         }
 
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
-		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
-		model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+		// model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		// model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		// model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
+		// model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
 
-		model.addAttribute("ordrDtlList", ordrDtlList);
-		model.addAttribute("ordrSttsTy", ordrStts.toUpperCase());
+		// model.addAttribute("ordrDtlList", ordrDtlList);
+		// model.addAttribute("ordrSttsTy", ordrStts.toUpperCase());
 
 		//return "/manage/ordr/excel";
 	}

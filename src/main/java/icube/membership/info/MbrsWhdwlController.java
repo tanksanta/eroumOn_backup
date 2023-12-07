@@ -78,8 +78,20 @@ public class MbrsWhdwlController extends CommonAbstractController{
 			, Model model
 			) throws Exception{
 
-		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchRegUniqueId", mbrSession.getUniqueId());
+		paramMap.put("srchExSttsTy", "OR08");
+
+		paramMap.put("srchOrdrOptnTy", "BASE");
+
+		//특정 단계 제외 카운트
+		int dlvyCount = ordrDtlService.selectExSttsTyCnt(paramMap);
+
+		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());
+
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		int point = 0;
@@ -112,7 +124,8 @@ public class MbrsWhdwlController extends CommonAbstractController{
 		resultMap.put("mlg", mlg);
 		resultMap.put("coupon", coupon);
 
-
+		model.addAttribute("mbrConsltExists", (mbrConslt == null)?0:1);
+		model.addAttribute("dlvyCount", dlvyCount);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("norResnCdCode", CodeMap.NOR_RESN_CD);
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);

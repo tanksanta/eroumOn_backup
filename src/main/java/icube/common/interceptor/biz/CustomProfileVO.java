@@ -23,4 +23,6 @@ public class CustomProfileVO implements Serializable {
 	private String existTestResult;              //인정등급예상 테스트 결과값 유무
 	private String existLNumber;                 //L넘버 값 유무
 	private String existConslt;                  //상담 신청 기록 유무
+	
+	private boolean coupon = false;              //마켓 쿠폰 보유 여부
 }
