@@ -245,13 +245,25 @@ public class MbrsRegistController extends CommonAbstractController{
 		MbrVO findMbrVO = mbrService.selectMbr(paramMap);
 		if(findMbrVO != null) {
 			if(findMbrVO.getJoinTy().equals("N")) {
-				model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
+				if (findMbrVO.getSnsRegistDt() == null) {
+					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
+					model.addAttribute("alertMsg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
+				} else {
+					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
+					model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
+				}
 			}else if(findMbrVO.getJoinTy().equals("K")) {
-				model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
+				if (findMbrVO.getSnsRegistDt() == null) {
+					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
+					model.addAttribute("alertMsg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
+				} else {
+					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
+					model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
+				}
 			}else {
+				model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
 				model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
 			}
-			model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
 			return "/common/msg";
 		}
 
@@ -547,6 +559,13 @@ public class MbrsRegistController extends CommonAbstractController{
 		
 		if (EgovStringUtil.isNotEmpty(uid)) {
 			MbrVO srchMbr = mbrService.selectMbrByUniqueId(uid);
+			if (srchMbr == null) {
+				model.addAttribute("alertMsg", "세션이 만료되었습니다. 처음부터 다시 시작해 주세요.");
+				model.addAttribute("goUrl", "/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
+				return "/common/msg";
+			}
+			
 			Date now = new Date();
 			srchMbr.setSmsRcptnDt(now);
 			srchMbr.setEmlRcptnDt(now);
@@ -598,11 +617,18 @@ public class MbrsRegistController extends CommonAbstractController{
 	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
 				javaScript.setMessage("14세 이상만 가입 가능합니다.");
 				javaScript.setLocation("/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
 	        }
 			
 			//정보 수정
-	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId); 
+	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
+	        if (srchMbr == null) {
+	        	javaScript.setMessage("세션이 만료되었습니다. 처음부터 다시 시작해 주세요.");
+				javaScript.setLocation("/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
+				return new JavaScriptView(javaScript);
+	        }
 	        srchMbr.setDiKey(mbrVO.getDiKey());
 	        srchMbr.setMbrNm(mbrVO.getMbrNm());
 	        srchMbr.setMblTelno(mbrVO.getMblTelno());

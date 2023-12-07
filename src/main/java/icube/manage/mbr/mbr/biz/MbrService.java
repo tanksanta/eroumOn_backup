@@ -414,6 +414,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return mbrAgreementDAO.selectMbrAgreementByMbrUniqueId(uniqueId);
 	}
 	
+	// 간편 회원이면서 미등록자 조회
+	public List<MbrVO> selectNotSnsRegistMbr() throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		return mbrDAO.selectNotSnsRegistMbr(paramMap);
+	}
+	
 	
 	/**
 	 * 간편회원 전용 ID 생성 함수
@@ -464,8 +470,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 					customProfileVO.setMbrNm(mbrVO.getMbrNm());
 					customProfileVO.setMblTelno(mbrVO.getMblTelno());
 					customProfileVO.setEml(mbrVO.getEml());
-					customProfileVO.setUnsubscribeTexting(mbrVO.getSmsRcptnYn() == null && "Y".equals(mbrVO.getSmsRcptnYn()) ? false : true);
-					customProfileVO.setUnsubscribeEmail(mbrVO.getEmlRcptnYn() == null && "Y".equals(mbrVO.getEmlRcptnYn()) ? false : true);
+					customProfileVO.setUnsubscribeTexting(mbrVO.getSmsRcptnYn() != null && "Y".equals(mbrVO.getSmsRcptnYn()) ? false : true);
+					customProfileVO.setUnsubscribeEmail(mbrVO.getEmlRcptnYn() != null && "Y".equals(mbrVO.getEmlRcptnYn()) ? false : true);
 					
 					//누적 상담 건수
 					CommonListVO listVO = new CommonListVO(request);
@@ -498,6 +504,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 			    	paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 			    	List<MbrConsltVO> mbrConsltList = mbrConsltService.selectListForExcel(paramMap);
 			    	customProfileVO.setExistConslt(mbrConsltList != null && mbrConsltList.size() > 0 ? "O" : "X");
+			    	
+			    	//쿠폰 보유 여부
+			    	Map<String, Object> mbrEtcInfoMap = selectMbrEtcInfo(mbrSession.getUniqueId());
+			    	customProfileVO.setCoupon(mbrEtcInfoMap.get("totalCoupon") != null && ((Long)mbrEtcInfoMap.get("totalCoupon")) > 0 ? true : false);
+					//mbrEtcInfoMap.get("totalPoint")
+					//mbrEtcInfoMap.get("totalMlg")
 			    	
 					mbrSession.setCustomProfileVO(customProfileVO);
 					

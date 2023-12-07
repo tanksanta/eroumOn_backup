@@ -99,8 +99,13 @@ public class MbrsNaverController extends CommonAbstractController{
 			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
 			session.removeAttribute("returnUrl");
 		}else if(resultCnt == 2) {// 카카오 로그인
-			javaScript.setMessage("카카오 계정으로 가입된 회원입니다.");
-			javaScript.setLocation("/" + mainPath + "/login");
+			if (mbrSession.getSnsRegistDt() == null) {
+				javaScript.setMessage("현재 카카오 계정으로 간편 가입 진행 중입니다.");
+				javaScript.setLocation("/" + membershipPath + "/regist");
+			} else {
+				javaScript.setMessage("카카오 계정으로 가입된 회원입니다.");
+				javaScript.setLocation("/" + mainPath + "/login");
+			}
 		}else if(resultCnt == 3) {// 네이버
 			// 최근 일시 업데이트
 			mbrService.updateRecentDt(mbrSession.getUniqueId());

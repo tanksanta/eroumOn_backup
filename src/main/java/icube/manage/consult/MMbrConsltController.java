@@ -224,6 +224,7 @@ public class MMbrConsltController extends CommonAbstractController{
 			consltAssignmentVO.setBplcTelno(consltResultVO.getBplcInfo().getTelno());
 			consltAssignmentVO.setRcmdCnt(consltResultVO.getBplcInfo().getRcmdCnt());
 			consltAssignmentVO.setRegDt(consltResultVO.getRegDt());
+			consltAssignmentVO.setConsltSttus(consltResultVO.getConsltSttus());
 			consltAssignmentList.add(consltAssignmentVO);
 			checkConsltResult.add(consltAssignmentVO);
 			consltCnt++;
@@ -234,17 +235,29 @@ public class MMbrConsltController extends CommonAbstractController{
 			
 			//상담거부 했던 시점으로 차수 구하기(배정 이력중에서 맞는 차수 찾기)
 			consltCnt = 1;
+			if (checkConsltResult.size() == 1) {
+				//1차 사업소가 상담완료이며 1차 사업소보다 거부 날짜가 이후인 경우 2차 거부 처리
+				if ("CS06".equals(checkConsltResult.get(0).getConsltSttus())
+						&& rejectChgHist.getRegDt().compareTo(checkConsltResult.get(0).getRegDt()) > 0) {
+					consltCnt = 2;
+				}
+			}
 			if (checkConsltResult.size() >= 2) {
 				//1차, 2차 사업소 상담 사이에 있어도 2차 상담 거부
 				if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(0).getRegDt()) >= 0 
 						&& rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) <= 0) {
 					consltCnt = 2;
 				}
+				//2차 사업소가 상담완료이며 2차 사업소보다 거부 날짜가 이후인 경우 3차 거부 처리
+				else if ("CS06".equals(checkConsltResult.get(1).getConsltSttus())
+							&& rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) > 0) {
+					consltCnt = 3;
+				}
 				//2차 사업소 상담 보다 늦으면 최소 2차 상담
 				else if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) > 0) {
 					consltCnt = 2;
 				}
-			} 
+			}
 			if (checkConsltResult.size() >= 3) {
 				//2차, 3차 사업소 상담 사이에 있어도 3차 상담 거부
 				if (rejectChgHist.getRegDt().compareTo(checkConsltResult.get(1).getRegDt()) >= 0 
@@ -278,6 +291,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("historyText", historyText);
 		model.addAttribute("chgHistList", chgHistList);
+		Collections.reverse(bplcRejectChgList);
 		model.addAttribute("bplcRejectChgList", bplcRejectChgList);
 		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
 		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);

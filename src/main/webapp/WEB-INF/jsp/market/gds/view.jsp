@@ -452,7 +452,16 @@
 						--%>
 						<c:otherwise>
 							<dl class="price2">
-								<dt>판매가</dt>
+								<dt>
+									<c:choose>
+										<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
+											정가
+										</c:when>
+										<c:otherwise>
+											판매가
+										</c:otherwise>
+									</c:choose>
+								</dt>
 								<dd <c:if test="${gdsVO.dscntRt > 0}">style="color : rgb(153 153 153/var(--tw-text-opacity));"</c:if>>
 									<strong <c:if test="${gdsVO.dscntRt > 0}">style="text-decoration : line-through;"</c:if>><fmt:formatNumber value="${gdsVO.pc}" pattern="###,###" /></strong> 원
 								</dd>
@@ -526,7 +535,7 @@
 					</c:if>
 					 -->
 
-					<dl>
+					<dl class="border-bottom">
 						<dt>배송 유형</dt>
 						<dd>
 							${dlvyCostTyCode[gdsVO.dlvyCtTy]}배송
@@ -536,7 +545,7 @@
 						</dd>
 					</dl>
 					<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-					<dl>
+					<dl class="border-bottom">
 						<dt>배송비</dt>
 						<dd>
 							<fmt:formatNumber value="${gdsVO.dlvyBassAmt}" pattern="###,###" />
@@ -553,6 +562,24 @@
 						</dd>
 					</dl>
 					</c:if> --%>
+					
+					<!--복지용구일때만 나오는 영역-->
+					<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
+						<div class="flex flex-col gap-4 bg-gray2 rounded-md p-4 my-10">
+							<ul class="text-sm">
+								<li>본인부담율에 따라 <strong>85~94%</strong> 지원금을 받을 수 있습니다.(기초수급자의 경우 <strong>100%</strong> 지원)</li>
+								<li>원하시는 분은 복지용구 지원금 상담받기를 눌러 상담을 신청해 주세요. 
+									<ul class="list-dot">
+										<li>장기요양 인정등급 보유자는 상담 전 ‘개인별장기요양이용계획서’를 미리 준비해 주시면 좋아요.</li>
+										<li>장기요양 인정등급이 없으실 경우 발급을 도와드리고 있어요.</li>
+									</ul>
+								</li>
+							</ul>
+							<a href="https://docs.google.com/forms/d/1SI7z69RkUkqJDW9-i3lFC5GcGu7d8uSrF7h4yIBP0yI/viewform?edit_requested=true" target="_blank" class="btn btn-danger btn-animate w-full">
+								<strong>복지용구 지원금 상담하기</strong>
+							</a>
+						</div>
+					</c:if>
 				</div>
 				<!-- //상품 재원 -->
 
@@ -734,13 +761,27 @@
 										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
 									</c:if>
 									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
-										<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
+										<c:choose>
+											<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
+												<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">정가구매하기</button>
+											</c:when>
+											<c:otherwise>
+												<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
+											</c:otherwise>
+										</c:choose>
 									<%-- </c:if> --%>
 									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
 								</c:if>
 								<c:if test="${!_mbrSession.loginCheck}">
-									<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
+									<c:choose>
+										<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
+											<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">정가구매하기</button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
+										</c:otherwise>
+									</c:choose>
 									<button type="button" class="btn btn-outline-primary btn-large f_loginCheck">장바구니</button>
 									<button type="button" class="btn btn-love btn-large f_loginCheck">상품찜하기</button>
 								</c:if>

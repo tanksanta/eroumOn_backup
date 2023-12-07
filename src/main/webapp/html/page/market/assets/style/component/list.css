@@ -1,4 +1,4 @@
-.list-normal, .list-number {
+.list-normal, .list-number, .list-dot {
     @apply space-y-[0.17em];
     & > li {
         @apply relative pl-[1em]
@@ -9,6 +9,11 @@
 .list-normal {
     & > li {
         @apply before:content-["-"];
+    }
+}
+.list-dot {
+    & > li {
+        @apply before:content-[""] before:top-1.5 before:w-1 before:h-1 before:inline-block before:bg-black1 before:rounded-full;
     }
 }
 

@@ -1,11 +1,15 @@
 package icube.common.interceptor.biz;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomProfileVO {
+public class CustomProfileVO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String memberId;                     //회원 아이디
 	private String memberHash;                   //회원 아이디 해시값
 	private String mbrNm;                        //회원 이름
@@ -19,4 +23,6 @@ public class CustomProfileVO {
 	private String existTestResult;              //인정등급예상 테스트 결과값 유무
 	private String existLNumber;                 //L넘버 값 유무
 	private String existConslt;                  //상담 신청 기록 유무
+	
+	private boolean coupon = false;              //마켓 쿠폰 보유 여부
 }

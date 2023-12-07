@@ -118,10 +118,6 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 
-
-
-
-
 		return resultMap;
 	}
 
@@ -338,6 +334,8 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 					return mbrTy; // 카카오 로그인
 
 				}else if(EgovStringUtil.equals(mbrList.get(0).getJoinTy(), "N")){
+					//SNS 등록 여부에 따라 안내 메시지가 다름
+					mbrSession.setSnsRegistDt(mbrList.get(0).getSnsRegistDt());
 					return 3; // 네이버 회원가입
 				}else {
 					return 4; // 이로움 회원가입

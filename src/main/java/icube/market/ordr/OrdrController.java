@@ -429,135 +429,41 @@ public class OrdrController extends CommonAbstractController{
 			return "redirect:/" + membershipPath + "/login";
 		}
 
-		// STEP.2 주문코드 생성 (O 2 1014 1041 00 000)
-		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
-		ordrVO.setOrdrCd(ordrCd);
-		ordrVO.setOrdrTy(ordrTy);
-
-		//입점업체 정보
-		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
-		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<>());
-
-
-		// 기본주소 call
-		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
-		if (bassDlvyVO != null) {
-		} else {
-			bassDlvyVO = new DlvyVO();
-			bassDlvyVO.setNm(mbrSession.getMbrNm());
-			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
-			bassDlvyVO.setTelno(mbrSession.getTelno());
-			bassDlvyVO.setZip(mbrSession.getZip());
-			bassDlvyVO.setAddr(mbrSession.getAddr());
-			bassDlvyVO.setDaddr(mbrSession.getDaddr());
-		}
-		model.addAttribute("bassDlvyVO", bassDlvyVO);
-
-		// 도서산간지역 배송지역 체크
-		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
-		log.debug("@@ 도서산간지역 체크: " + aditCt);
-
-		// STEP.3 주문 상세 정보
-		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
+		//주문정보 계산을 위해 카트 객체로 변환
+		List<CartVO> cartList = new ArrayList<>();
 		String[] spGdsNo = gdsNo.split(",");
 		for (int i = 0; i < spGdsNo.length; i++) {
 
-			OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
-			ordrDtlVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
-			ordrDtlVO.setGdsCd(gdsCd.split(",")[i].trim());
+			CartVO cartVO = new CartVO();
+			cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+			cartVO.setGdsCd(gdsCd.split(",")[i].trim());
 			if (bnefCd.split(",").length > 0) { // bnefCd null일수 있음
-				ordrDtlVO.setBnefCd(bnefCd.split(",")[i].trim());
+				cartVO.setBnefCd(bnefCd.split(",")[i].trim());
 			} else {
-				ordrDtlVO.setBnefCd("");
+				cartVO.setBnefCd("");
 			}
-			ordrDtlVO.setGdsNm(gdsNm.split(",")[i].trim());
-			ordrDtlVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-			ordrDtlVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
-			ordrDtlVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
-			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
-			ordrDtlVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
-			ordrDtlVO.setRecipterUniqueId(mbrSession.getUniqueId());
-			ordrDtlVO.setBplcUniqueId(bplcUniqueId);
+			cartVO.setGdsNm(gdsNm.split(",")[i].trim());
+			cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+			cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
+			cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+			cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
+			cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+			cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
+			cartVO.setBplcUniqueId(bplcUniqueId);
 
-			int ordrPc = (ordrDtlVO.getGdsPc() + ordrDtlVO.getOrdrOptnPc()) * ordrDtlVO.getOrdrQy();
-			ordrDtlVO.setOrdrPc(ordrPc);
-
-			// 상품 정보
-			GdsVO gdsVO = gdsService.selectGds(EgovStringUtil.string2integer(spGdsNo[i].trim()));
-			// 산간지역 체크
-			if(aditCt>0) {
-				gdsVO.setDlvyAditAmt(aditCt); //도서산간 배송비
-			}else {
-				gdsVO.setDlvyAditAmt(0); //0원
-			}
-
-			ordrDtlVO.setGdsInfo(gdsVO);
-
+			int ordrPc = (cartVO.getGdsPc() + cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+			cartVO.setOrdrPc(ordrPc);
 			
-			//상품에 입점업체 정보가 있는지 체크
-			boolean isCheckEntrps = true;
-			if (gdsVO.getEntrpsNo() == 0) {
-				isCheckEntrps = false;
-			}
+			//상품 정보 조회
+			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
+			cartVO.setGdsInfo(gdsVO);
 			
-			
-			//배송비 무료조건에 부합하는지 검사
-			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
-			if (isCheckEntrps) {
-				//선택된 상품중 같은 입점업체 상품 가격 합
-				int totalPrice = 0;
-				String[] gdsPcArr = gdsPc.split(",");
-				String[] ordrOptnPcArr = ordrOptnPc.split(",");
-				String[] ordrQyArr = ordrQy.split(",");
-				for(int pcIndex = 0; pcIndex < gdsPcArr.length; pcIndex++) {
-					totalPrice += (Integer.parseInt(gdsPcArr[pcIndex].trim()) + Integer.parseInt(ordrOptnPcArr[pcIndex].trim())) * Integer.parseInt(ordrQyArr[pcIndex].trim());
-				}
-				
-				if (totalPrice >= entrpsVO.getDlvyCtCnd()) {
-					//배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-					isCheckEntrps = false;
-				}
-			}
-			
-			
-			// 20231016 : 상품에서 주문으로 바로 넘어온 경우에는 묶음 배송상태가 없음.
-			// 묶음 배송 처리
-			if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
-				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
-
-                //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
-				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
-				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt()
-                if (checkDlvyCy != dlvyBaseCt) {
-                }
-                //묶음상품이여도 최초에 한번 배송비 부과
-                else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
-					entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
-				}
-                else {
-                	//묶음상품 배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-                }
-			}
-
-			ordrDtlList.add(ordrDtlVO);
+			cartList.add(cartVO);
 		}
-		model.addAttribute("ordrDtlList", ordrDtlList);
-
-		// STEP4. 기타정보
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("ordrVO", ordrVO);
-
-
-		//쿠폰, 마일리지, 포인트 정보
-		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
-		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
-		model.addAttribute("remindPoint", mbrEtcInfoMap.get("totalPoint"));
-		model.addAttribute("remindMlg", mbrEtcInfoMap.get("totalMlg"));
-
+		
+		//주문정보 model에 담기
+		getOrderDetailListForPay(ordrTy, cartList, model);
+		
 		return "/market/ordr/ordr_pay";
 	}
 
@@ -589,131 +495,10 @@ public class OrdrController extends CommonAbstractController{
 
 		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
 
-		//입점업체 정보
-		paramMap.clear();
-		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
-		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
-
-		// 기본주소 call
-		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
-		if (bassDlvyVO != null) {
-		} else {
-			bassDlvyVO = new DlvyVO();
-			bassDlvyVO.setNm(mbrSession.getMbrNm());
-			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
-			bassDlvyVO.setTelno(mbrSession.getTelno());
-			bassDlvyVO.setZip(mbrSession.getZip());
-			bassDlvyVO.setAddr(mbrSession.getAddr());
-			bassDlvyVO.setDaddr(mbrSession.getDaddr());
-		}
-		model.addAttribute("bassDlvyVO", bassDlvyVO);
-
-		// 도서산간지역 배송지역 체크
-		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
-		log.debug("@@ 도서산간지역 체크: " + aditCt);
-
-		// STEP.3-1 주문코드 생성 (O 22 1014 1041 00 000)
-		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
-
-		OrdrVO ordrVO = new OrdrVO();
-		ordrVO.setOrdrCd(ordrCd);
-		ordrVO.setOrdrTy(cartTy);
-
-		// STEP.3 주문 상세 정보
-		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
-		for (CartVO cartVO : cartList) {
-			OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
-			ordrDtlVO.setGdsNo(cartVO.getGdsNo());
-			ordrDtlVO.setGdsCd(cartVO.getGdsCd());
-			ordrDtlVO.setBnefCd(cartVO.getBnefCd());
-			ordrDtlVO.setGdsNm(cartVO.getGdsNm());
-			ordrDtlVO.setGdsPc(cartVO.getGdsPc());
-			ordrDtlVO.setOrdrOptnTy(cartVO.getOrdrOptnTy());
-			ordrDtlVO.setOrdrOptn(cartVO.getOrdrOptn());
-			ordrDtlVO.setOrdrOptnPc(cartVO.getOrdrOptnPc());
-			ordrDtlVO.setOrdrQy(cartVO.getOrdrQy());
-
-			ordrDtlVO.setRecipterUniqueId(cartVO.getRecipterUniqueId());
-			ordrDtlVO.setBplcUniqueId(cartVO.getBplcUniqueId());
-
-			int ordrPc = (ordrDtlVO.getGdsPc() + ordrDtlVO.getOrdrOptnPc()) * ordrDtlVO.getOrdrQy();
-			ordrDtlVO.setOrdrPc(ordrPc);
-
-			// 상품 정보
-			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
-			// 산간지역 체크
-			if(aditCt>0) {
-				gdsVO.setDlvyAditAmt(aditCt); //도서산간 배송비
-			}else {
-				gdsVO.setDlvyAditAmt(0); //0원
-			}
-			ordrDtlVO.setGdsInfo(gdsVO);
-
-			
-			//상품에 입점업체 정보가 있는지 체크
-			boolean isCheckEntrps = true;
-			if (gdsVO.getEntrpsNo() == 0) {
-				isCheckEntrps = false;
-			}
-			
-			
-			//배송비 무료조건에 부합하는지 검사
-			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
-			if (isCheckEntrps) {
-				//선택된 상품중 같은 입점업체 상품 가격 합
-				int checkedGdsPrice = cartList.stream().filter(c -> c.getGdsInfo().getEntrpsNo() == gdsVO.getEntrpsNo()).mapToInt(c -> c.getOrdrPc()).sum();
-				if (checkedGdsPrice >= entrpsVO.getDlvyCtCnd()) {
-					//배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-					isCheckEntrps = false;
-				}
-			}
-			
-			
-			// 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
-			//묶음 배송 처리
-			if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
-				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
-
-                //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
-				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
-				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt();
-                if (checkDlvyCy != dlvyBaseCt) {
-                }
-                //묶음상품이여도 최초에 한번 배송비 부과
-                else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
-					entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
-				}
-                else {
-                	//묶음상품 배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-                }
-			}
-
-
-			// 사업소 정보 > 바로 구매는 사업소가 없음
-			// BplcVO bplcVO = bplcService.selectBplcByUniqueId(cartVO.getBplcUniqueId());
-			BplcVO bplcVO = new BplcVO();
-			ordrDtlVO.setBplcInfo(bplcVO);
-
-			ordrDtlList.add(ordrDtlVO);
-		}
-		model.addAttribute("ordrDtlList", ordrDtlList);
-
-		// STEP4. 기타정보
-		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-		model.addAttribute("ordrVO", ordrVO);
+		//주문정보 model에 담기
+		getOrderDetailListForPay(cartTy, cartList, model);
+		
 		model.addAttribute("cartGrpNos", cartGrpNos);
-
-
-
-		//쿠폰, 마일리지, 포인트 정보
-		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
-		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
-		model.addAttribute("remindPoint", mbrEtcInfoMap.get("totalPoint"));
-		model.addAttribute("remindMlg", mbrEtcInfoMap.get("totalMlg"));
 
 		return "/market/ordr/ordr_pay";
 	}
@@ -814,4 +599,135 @@ public class OrdrController extends CommonAbstractController{
 		return "/market/ordr/ordr_pay_done";
 	}
 
+	
+	/**
+	 * 결제 직전 화면에서 호출(model에 데이터를 담음)
+	 * 바로 구매하기, 장바구니 구매하기 시 상품 및 배송비 계산 로직 함수
+	 */
+	private void getOrderDetailListForPay(String cartTy, List<CartVO> cartList, Model model) throws Exception {
+		// 주문코드 생성 (O 22 1014 1041 00 000)
+		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
+
+		OrdrVO ordrVO = new OrdrVO();
+		ordrVO.setOrdrCd(ordrCd);
+		ordrVO.setOrdrTy(cartTy);
+		
+		
+		//입점업체 정보
+		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
+		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<>());
+		
+		
+		// 기본주소 call
+		DlvyVO bassDlvyVO = dlvyService.selectBassDlvy(mbrSession.getUniqueId());
+		if (bassDlvyVO != null) {
+		} else {
+			bassDlvyVO = new DlvyVO();
+			bassDlvyVO.setNm(mbrSession.getMbrNm());
+			bassDlvyVO.setMblTelno(mbrSession.getMblTelno());
+			bassDlvyVO.setTelno(mbrSession.getTelno());
+			bassDlvyVO.setZip(mbrSession.getZip());
+			bassDlvyVO.setAddr(mbrSession.getAddr());
+			bassDlvyVO.setDaddr(mbrSession.getDaddr());
+		}
+		
+
+		// 도서산간지역 배송지역 체크
+		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
+		log.debug("@@ 도서산간지역 체크: " + aditCt);
+		
+		
+		// STEP.3 주문 상세 정보
+		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
+		for (CartVO cartVO : cartList) {
+			OrdrDtlVO ordrDtlVO = new OrdrDtlVO();
+			ordrDtlVO.setGdsNo(cartVO.getGdsNo());
+			ordrDtlVO.setGdsCd(cartVO.getGdsCd());
+			ordrDtlVO.setBnefCd(cartVO.getBnefCd());
+			ordrDtlVO.setGdsNm(cartVO.getGdsNm());
+			ordrDtlVO.setGdsPc(cartVO.getGdsPc());
+			ordrDtlVO.setOrdrOptnTy(cartVO.getOrdrOptnTy());
+			ordrDtlVO.setOrdrOptn(cartVO.getOrdrOptn());
+			ordrDtlVO.setOrdrOptnPc(cartVO.getOrdrOptnPc());
+			ordrDtlVO.setOrdrQy(cartVO.getOrdrQy());
+			ordrDtlVO.setRecipterUniqueId(cartVO.getRecipterUniqueId());
+			ordrDtlVO.setBplcUniqueId(cartVO.getBplcUniqueId());
+
+			int ordrPc = (ordrDtlVO.getGdsPc() + ordrDtlVO.getOrdrOptnPc()) * ordrDtlVO.getOrdrQy();
+			ordrDtlVO.setOrdrPc(ordrPc);
+
+			// 상품 정보
+			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
+			// 산간지역 체크
+			if(aditCt>0) {
+				gdsVO.setDlvyAditAmt(aditCt); //도서산간 배송비
+			}else {
+				gdsVO.setDlvyAditAmt(0); //0원
+			}
+			ordrDtlVO.setGdsInfo(gdsVO);
+
+			
+			//상품에 입점업체 정보가 있는지 체크
+			boolean isCheckEntrps = true;
+			if (gdsVO.getEntrpsNo() == 0) {
+				isCheckEntrps = false;
+			}
+			
+			
+			//배송비 무료조건에 부합하는지 검사
+			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
+			if (isCheckEntrps) {
+				//선택된 상품중 같은 입점업체 상품 가격 합
+				int checkedGdsPrice = cartList.stream().filter(c -> c.getGdsInfo().getEntrpsNo() == gdsVO.getEntrpsNo()).mapToInt(c -> c.getOrdrPc()).sum();
+				if (checkedGdsPrice >= entrpsVO.getDlvyCtCnd()) {
+					//배송비 무료처리
+                	gdsVO.setDlvyBassAmt(0);
+                	gdsVO.setDlvyAditAmt(0);
+					isCheckEntrps = false;
+				}
+			}
+			
+			
+			// 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
+			//묶음 배송 처리
+			if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
+				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
+
+                //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
+				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt();
+                if (checkDlvyCy != dlvyBaseCt) {
+                }
+                //묶음상품이여도 최초에 한번 배송비 부과
+                else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
+					entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
+				}
+                else {
+                	//묶음상품 배송비 무료처리
+                	gdsVO.setDlvyBassAmt(0);
+                	gdsVO.setDlvyAditAmt(0);
+                }
+			}
+
+
+			// 사업소 정보 > 바로 구매는 사업소가 없음
+//			BplcVO bplcVO = new BplcVO();
+//			ordrDtlVO.setBplcInfo(bplcVO);
+
+			ordrDtlList.add(ordrDtlVO);
+		}
+		
+		model.addAttribute("bassDlvyVO", bassDlvyVO);
+		model.addAttribute("ordrDtlList", ordrDtlList);
+
+		// STEP4. 기타정보
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("ordrVO", ordrVO);
+		
+		//쿠폰, 마일리지, 포인트 정보
+		Map<String, Object> mbrEtcInfoMap = mbrService.selectMbrEtcInfo(mbrSession.getUniqueId());
+		model.addAttribute("remindCouponCount", mbrEtcInfoMap.get("totalCoupon"));
+		model.addAttribute("remindPoint", mbrEtcInfoMap.get("totalPoint"));
+		model.addAttribute("remindMlg", mbrEtcInfoMap.get("totalMlg"));
+	}
 }

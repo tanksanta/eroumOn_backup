@@ -1,6 +1,3 @@
-/*
- *
- */
 package icube.common.interceptor;
 
 import java.util.Enumeration;
@@ -19,13 +16,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.util.CommonUtil;
 import icube.common.values.CodeMap;
-import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.mbr.biz.MbrService;
-import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 
@@ -128,6 +122,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			//간편 로그인시 회원가입 미등록자인 경우
 			String checkPath = request.getRequestURI();
 			if (!"/membership/sns/regist".equals(checkPath)
+					&& mbrSession.isLoginCheck()
 					&& ("K".equals(mbrSession.getJoinTy()) || "N".equals(mbrSession.getJoinTy())) 
 					&& mbrSession.getSnsRegistDt() == null) {
 				request.setAttribute("requireResist", true);
