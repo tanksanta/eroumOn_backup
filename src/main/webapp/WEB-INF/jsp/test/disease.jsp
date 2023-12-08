@@ -444,13 +444,13 @@
 				let grade = 0;
 				if (score >= 95) {
 					grade = 1;
-				} else if (score >= 75 && score <= 94) {
+				} else if (score >= 75 && score < 95) {
 					grade = 2;
-				} else if (score >= 60 && score <= 74) {
+				} else if (score >= 60 && score < 75) {
 					grade = 3;
-				} else if (score >= 51 && score <= 59) {
+				} else if (score >= 51 && score < 60) {
 					grade = 4;
-				} else if (score >= 45 && score <= 50) {
+				} else if (score >= 45 && score < 51) {
 					grade = 5;
 				}
 				

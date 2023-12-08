@@ -70,7 +70,7 @@ public class MainRecipterController extends CommonAbstractController{
 		model.addAttribute("recipientsNm", recipientsNm);
 		model.addAttribute("rcperRcognNo", rcperRcognNo);
 		
-		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		
 		
 		//채널톡 event 처리 (jsp에서 스크립트로 처리함)
