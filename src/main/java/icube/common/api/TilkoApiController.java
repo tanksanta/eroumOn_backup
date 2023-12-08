@@ -79,7 +79,7 @@ public class TilkoApiController {
 			) throws Exception {
 
 		Map<String, Object> returnMap = new HashMap<>();
-		returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
+		returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo, true);
 		returnMap.put("isSearch", true);
 
 		System.out.println("returnMap: " + returnMap.toString());

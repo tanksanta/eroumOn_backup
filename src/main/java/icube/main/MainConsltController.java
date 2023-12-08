@@ -223,7 +223,7 @@ public class MainConsltController extends CommonAbstractController{
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {

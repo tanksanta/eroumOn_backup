@@ -234,7 +234,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "update/main.json")
-	public Map<String, Object> addMbrRecipient(
+	public Map<String, Object> updateMainRecipient(
 		@RequestParam Integer recipientsNo,
 		HttpServletRequest request) throws Exception {
 		
@@ -260,7 +260,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 			resultMap.put("success", true);
 		} catch (Exception ex) {
 			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 등록중 오류가 발생하였습니다");
+			resultMap.put("msg", "메인 수급자 변경 중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
