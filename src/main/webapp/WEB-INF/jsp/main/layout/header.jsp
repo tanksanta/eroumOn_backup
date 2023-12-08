@@ -10,11 +10,11 @@
     <nav id="navigation">
         <ul class="nav-items">
             <li class="nav-item">
-                <a href="${_mainPath}/recipter/sub">이로움 서비스</a>
+                <a href="${_mainPath}/cntnts/test">이로움 서비스</a>
                 <div class="nav-sub-items">
                     <ul>
-                        <li class="nav-sub-item"><a href="${_mainPath}/recipter/sub">요양정보 간편조회</a></li>
-                        <li class="nav-sub-item"><a href="${_mainPath}/cntnts/test">인정등급 예상 테스트</a></li>
+						<li class="nav-sub-item"><a href="${_mainPath}/cntnts/test">인정등급 예상 테스트</a></li>
+                        <li class="nav-sub-item"><a href="${_mainPath}/welfare/equip/sub">관심 복지용구 상담</a></li>
                         <li class="nav-sub-item"><a href="${_mainPath}/searchBokji">어르신 복지 서비스</a></li>
                     </ul>
                 </div>
@@ -89,11 +89,11 @@
         </c:if>
 
         <dl class="menu-item1">
-            <dt><a href="${_mainPath}/recipter/sub"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
+            <dt><a href="${_mainPath}/cntnts/test"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
             <dd>
                 <ul>
-                    <li><a href="${_mainPath}/recipter/sub">요양정보 간편조회</a></li>
-                    <li><a href="${_mainPath}/cntnts/test">인정등급 예상 테스트</a></li>
+					<li><a href="${_mainPath}/cntnts/test">인정등급 예상 테스트</a></li>
+                    <li><a href="${_mainPath}/welfare/equip/sub">관심 복지용구 상담</a></li>
                     <li><a href="${_mainPath}/searchBokji">어르신 복지 서비스</a></li>
                 </ul>
             </dd>
