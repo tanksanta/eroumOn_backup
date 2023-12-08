@@ -97,4 +97,13 @@
     <!-- GA 이벤트 -->
 	<jsp:include page="/WEB-INF/jsp/common/ga4_event.jsp" />
 
+    <script type="text/javascript">
+    var jsCommon = null;
+    $(document).ready(function() {
+        jsCommon = new JsCommon();
+
+        jsCommon.fn_keycontrol();
+    });
+    </script>
+
 </html>

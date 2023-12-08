@@ -51,6 +51,8 @@
     <!-- market -->
     <link rel="stylesheet" href="/html/page/market/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>">
     <script src="/html/page/market/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/page/market/assets/script/product.js"></script>
 
     <c:if test="${fn:indexOf(_curPath, '/ordr/') > -1}">
@@ -172,5 +174,13 @@
     <!-- GA 이벤트 -->
 	<jsp:include page="/WEB-INF/jsp/common/ga4_event.jsp" />
 
+    <script type="text/javascript">
+        var jsCommon = null;
+        $(document).ready(function() {
+            jsCommon = new JsCommon();
+    
+            jsCommon.fn_keycontrol();
+        });
+        </script>
 </body>
 </html>

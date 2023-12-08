@@ -589,7 +589,7 @@
 	</div>
 
 	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
-	<jsp:include page="./recipient_info_modal.jsp" />
+	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
 	
 
 	<!--모달: 인정등급 예상 테스트 결과보기 -->

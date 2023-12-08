@@ -1131,4 +1131,38 @@ public class CodeMap{
 			*/
 		}
 	};
+	
+	/* 이로움케어 판매품목 분류코드 */
+	public static final HashMap<String, String> CARE_10_CTGRY_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -2876097412598151458L;
+		{
+			put("욕창예방매트리스", "1010");
+			put("요실금팬티", "1020");
+			put("자세변환용구", "1030");
+			put("욕창예방방석", "1040");
+			put("지팡이", "1050");
+			put("간이변기", "1060");
+			put("미끄럼방지양말", "1070");
+			put("미끄럼방지매트", "1080");
+			put("안전손잡이", "1090");
+			put("성인용보행기", "10a0");
+			put("목욕의자", "10b0");
+			put("이동변기", "10c0");
+			put("경사로", "10d0");
+		}
+	};
+	/* 이로움케어 대여품목 분류코드 */
+	public static final HashMap<String, String> CARE_20_CTGRY_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 8150821442119869182L;
+		{
+			put("욕창예방매트리스", "2010");
+			put("경사로", "2020");    //경사로(실외용)
+			put("배회감지기", "2030");
+			put("목욕리프트", "2040");
+			put("이동욕조", "2050");
+			put("수동침대", "2060");
+			put("전동침대", "2070");
+			put("수동휠체어", "2080");
+		}
+	};
 }

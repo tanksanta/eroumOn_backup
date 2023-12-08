@@ -68,5 +68,13 @@
     <!-- //main content -->
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>
+    <script type="text/javascript">
+        var jsCommon = null;
+        $(document).ready(function() {
+            jsCommon = new JsCommon();
+    
+            jsCommon.fn_keycontrol();
+        });
+    </script>
 </body>
 </html>
