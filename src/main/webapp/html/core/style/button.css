@@ -186,5 +186,16 @@
     .btn-gray {
         @apply flex items-center justify-center bg-[#FAF7F5] border-0 text-gray6 h-12 px-6 rounded-md;
     }
-    
+
+    .btn-more3 {
+        @apply mx-auto my-4;
+        &.is-active {
+            & > img {
+                @apply rotate-180;
+            }    
+        }
+        & > img {
+            @apply ml-2 w-[0.875em] transition-transform ease-in-out rotate-0;
+        }
+    }
 }

@@ -160,6 +160,145 @@
 			</div>
 		</div>
 
+		<div class="flex flex-col gap-4 mt-8">
+                <div class="flex justify-between items-center gap-2">
+                    <h3 class="font-semibold text-xl">관심 복지용구</h3>
+                    <div>
+                        <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                    </div>
+                </div>
+                <div class="welfare-kit-outer">
+                    <ul class="welfare-kit-wrap members">
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint1.png" alt="성인용 보행기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">성인용 보행기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint2.png" alt="수동휠체어" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">수동휠체어</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint3.png" alt="지팡이" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">지팡이</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint4.png" alt="안전손잡이" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">안전손잡이</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint5.png" alt="미끄럼방지 매트" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 매트</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint6.png" alt="미끄럼방지 양말" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 양말</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint7.png" alt="욕창예방 매트리스" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">욕창예방 매트리스</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint8.png" alt="욕창예방 방석" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">욕창예방 방석</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1" id="collapse-welfare">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="자세변환용구" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">자세변환용구</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="요실금 팬티" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">요실금 팬티</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint10.png" alt="목욕의자" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">목욕의자</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint11.png" alt="이동변기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">이동변기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="간이변기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">간이변기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="/html/page/index/assets/images/img-checkpoint13.png" alt="경사로" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">경사로</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <button id="welfare-more" type="button" class="btn btn-small btn-more3">
+                        <span>더보기</span>
+                        <img src="/html/page/members/assets/images/ico-angle-down.svg" alt="" class="">
+                    </button>
+                </div>
+            </div>
+
+            <!--데이터없을때-->
+            <div class="card-bg-gray mt-4">
+                <img src="/html/page/members/assets/images/img-welfare-kit-nodata.svg" class="w-25" alt="관심복지용품 이미지"/>
+                <p class="text-gray5">필요한 복지용구를 선택하고  <strong> 구매 신청해보세요</strong></p>
+                <a href="#" class="btn-outline-secondary btn-arrow mt-8">
+                    선택하기
+                    <i class="icon-next ml-3"></i>
+                </a>
+            </div>
+
 		<div class="flex items-center justify-between mt-8 mb-2">
 			<h3 class="careinfo-title !mb-0">요양정보</h3>
 			<c:if test="${recipientVO.recipientsYn != null && recipientVO.recipientsYn == 'Y'}">
@@ -529,7 +668,7 @@
 		
 		<c:choose>
 			<c:when test="${recipientVO.recipientsYn != null && recipientVO.recipientsYn == 'Y'}">
-				<div class="card-bg-gray searchRecipterInfo">
+				<div class="card-bg-gray mt-4 searchRecipterInfo">
 		            <img src="/html/page/members/assets/images/img-medical-care.svg" class="w-12" alt="요양정보 표현이미지"/>
 		            <p class="text-gray6">올해 사용한 장기요양금액과 남은 장기요양금액을 확인하세요</p>
 		            <p class="text-gray5 text-xs">최근 조회 일시: <span id="refleshDate"><fmt:formatDate value="${refleshDate}" pattern="yyyy년 MM월 dd일 HH:mm:ss" /></span></p>
@@ -552,8 +691,8 @@
 		</c:choose>
 		
 		
-		<div class="flex justify-between mt-8 mb-2">
-			<h3 class="careinfo-title mb-2">인정등급 예상 테스트</h3>
+		<div class="flex justify-between items-center gap-2  mt-8">
+			<h3 class="font-semibold text-xl">인정등급 예상 테스트</h3>
 			<c:if test="${testVO != null}">
 				<a class="btn-success btn-small" onclick="requestConslt('test');">상담하기</a>
 			</c:if>
@@ -561,7 +700,7 @@
 		
 		<c:choose>
 			<c:when test="${testVO != null}">
-				<div class="card-bg-gray">
+				<div class="card-bg-gray mt-4">
 					<img src="/html/page/members/assets/images/img-expected-test.png" class="w-80" alt="인정등급예상테스트결과 표현이미지"/>
 					<p class="text-gray6">진행하신 인정등급 예상 테스트 결과를 확인하세요</p>
 					<p class="text-gray5 text-xs">최근 테스트 일시 :<span><fmt:formatDate value="${testVO.mdfcnDt != null ? testVO.mdfcnDt : testVO.regDt}" pattern="yyyy년 MM월 dd일 HH:mm:ss" /></span></p>
@@ -572,7 +711,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="card-bg-gray">
+				<div class="card-bg-gray mt-4">
 					<i class="icon-alert size-md opacity-60"></i>
 					<p class="text-gray6">인정등급 예상 테스트를 하면 확인할 수 있어요</p>
 					<a href="/main/cntnts/test" class="btn-outline-secondary mt-8">
@@ -995,5 +1134,42 @@
 
 
 	    	});
+
+			//관심복지용품목록
+			function isMobileDevice() {
+				return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+			}
+
+                let items = $('.welfare-kit-wrap li');
+
+                if (isMobileDevice()) {
+                    let itemsMo = $('.welfare-kit-wrap li:nth-child(n+7)')
+                    if (items.length < 7) {
+                        $('#welfare-more').hide()
+                    }
+                    itemsMo.hide();
+                    moreEvent(itemsMo)
+                } else {
+                    let itemsPc = $('.welfare-kit-wrap li:nth-child(n+11)')
+                    if (items.length < 11) {
+                        $('#welfare-more').hide()
+                    }
+                    itemsPc.hide();
+                    moreEvent(itemsPc)
+                }
+
+                function moreEvent (item) {
+                    $('#welfare-more').click(function () {
+                        if ($(this).hasClass('is-active')) {
+                            item.hide();
+                            $(this).children('span').text('더보기');
+                            $(this).removeClass('is-active');
+                        } else {
+                            item.show();
+                            $(this).children('span').text('숨기기');
+                            $(this).addClass('is-active');
+                        }
+                    });
+                }
 		})
     </script>
