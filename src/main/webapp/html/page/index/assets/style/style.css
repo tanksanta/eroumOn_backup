@@ -11,7 +11,8 @@
 @import "../../../../core/style/form.css";
 @import "../../../../core/style/pagination.css";
 @import "../../../../core/style/icons.css";
-/* @import "../../../../core/style/modal.css"; */
+@import "../../../../core/style/modal.css";
+@import "../../../../core/style/content.css";
 
 
 @import "common.css";
@@ -19,4 +20,4 @@
 @import "content.css"; 
 @import "index.css"; 
 @import "welfare.css"; 
-@import "modal.css"; 
+/* @import "modal.css";  */

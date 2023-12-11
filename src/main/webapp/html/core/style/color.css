@@ -18,6 +18,9 @@
     .text-success {
         @apply text-blue1;
     }
+    .text-valid {
+        @apply text-green1;
+    }
     
     .border-primary {
         @apply border-black1;

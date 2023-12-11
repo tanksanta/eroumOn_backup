@@ -1,0 +1,22 @@
+@layer components {
+    .welfare-kit-wrap {
+        @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-10;
+        
+
+        &.members {
+            @apply gap-y-5;
+        }
+    
+        & .welfare-kit-box {
+            @apply border border-gray3 flex flex-col items-center gap-3 rounded-md p-3 md:min-h-[11.5rem];
+            & label {
+                @apply text-center;
+            }
+            &.is-active {
+                @apply border-indexKey1 shadow-md;
+            }
+        }
+    }
+    
+
+}

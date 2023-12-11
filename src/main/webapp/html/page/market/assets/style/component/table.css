@@ -28,6 +28,7 @@
       }
     }
   }
+  
 
   .table-list {
     & tr {
@@ -70,7 +71,7 @@
   }
 
   .table-detail-wrap {
-    @apply flex flex-col gap-5 border border-gray1 rounded rounded-lg p-5;
+    @apply flex flex-col gap-5 border border-gray1 rounded-lg p-5;
   }
 
   .text-title2-wrap {
@@ -124,5 +125,30 @@
   }
 
   
+  .table-box {
+    @apply border border-gray3 rounded-md p-5 w-full; 
+    & table {
+      @apply w-full text-lg;
+      & tr {
+        @apply flex flex-col gap-1 md:inline-block md:w-full;
 
+        & ~ tr {
+          @apply my-4 md:my-0;
+        }
+      }
+      & th, & td {
+        @apply md:py-2.5;
+      }
+      & td {
+        @apply md:pl-3 md:w-full;
+      }
+  
+      & th {
+        @apply relative font-normal text-sm md:text-base text-left text-black2 md:min-w-37 whitespace-nowrap;
+      }
+      & .required {
+        @apply text-danger text-base md:text-lg top-0 ml-1 font-semibold;
+      }
+    }
+  }
 }
