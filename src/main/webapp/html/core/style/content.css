@@ -8,12 +8,13 @@
         }
     
         & .welfare-kit-box {
-            @apply border border-gray3 flex flex-col items-center gap-3 rounded-md p-3 md:min-h-[11.5rem];
-            & label {
-                @apply text-center;
-            }
+            @apply border border-gray3 flex flex-col justify-between items-center gap-3 rounded-md p-3;
             &.is-active {
                 @apply border-indexKey1 shadow-md;
+            }
+
+            & .welfare-kit-name {
+                @apply flex justify-center items-center text-lg font-medium min-h-13 text-center;
             }
         }
     }
