@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="conslt.gds">
+
+	<sql id="listColumn">
+		mcg.conslt_gds_no
+		, mcg.conslt_no
+		, mcg.conslt_gds_ty
+		, mcg.ctgry_nm
+		, mcg.care_ctgry_cd
+		, mcg.gds_no
+		, mcg.mbr_unique_id
+		, mcg.mbr_id
+		, mcg.mbr_nm
+		, mcg.reg_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchConsltNo != null  and srchConsltNo != '' ">
+			AND mcg.conslt_no = #{srchConsltNo}
+		</if>
+	</sql>
+
+	<select id="selectMbrConsltGds" parameterType="java.util.HashMap" resultType="mbrConsltGdsVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_CONSLT_GDS mcg
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertMbrConsltGds" parameterType="mbrConsltGdsVO">
+		INSERT INTO MBR_CONSLT_GDS (
+			conslt_no
+			, conslt_gds_ty
+			, ctgry_nm
+			, care_ctgry_cd
+			, gds_no
+		    , mbr_unique_id
+		    , mbr_id
+		    , mbr_nm
+		    , reg_dt
+		)VALUES(
+			#{consltNo}
+			, #{consltGdsTy}
+			, #{ctgryNm}
+			, #{careCtgryCd}
+			, #{gdsNo}
+		    , #{mbrUniqueId}
+		    , #{mbrId}
+		    , #{mbrNm}
+		    , SYSDATE()
+		)
+	</insert>
+
+	<delete id="deleteMbrConsltGds" parameterType="java.util.HashMap">
+		DELETE FROM MBR_CONSLT_GDS
+		WHERE conslt_no = #{consltNo}
+		  AND conslt_gds_ty = #{consltGdsTy}
+	</delete>
+
+</mapper>

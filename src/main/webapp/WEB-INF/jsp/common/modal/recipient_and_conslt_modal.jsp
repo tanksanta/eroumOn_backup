@@ -410,6 +410,12 @@
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
 	    			
+	    			//등록된 수급자가 아닌 경우 다음단계 진행하지 않음
+	    			if (!myRecipientInfo) {
+	    				alert('등록된 수급자가 아닙니다.');
+	    				return;
+	    			}
+	    			
 	    			//진행중인 상담 있는지 체크
 	    			if (data.recipientConslt) {
 	    				if (data.recipientConslt.prevPath === 'test') {
@@ -492,8 +498,10 @@
 	  			$('#tr-prev-path').css('display', 'table-row');	
 	  			if (infoPrevPath === 'test') {
 	  				$('#tr-prev-path td').text('인정등급상담');
-	  			} else {
+	  			} else if (infoPrevPath === 'simpleSearch') {
 	  				$('#tr-prev-path td').text('요양정보상담');
+	  			} else {
+	  				$('#tr-prev-path td').text('복지용구상담');
 	  			}
 	  			$('#div-remove-recipient').css('display', 'none');
 	  			$('#ul-conslt-info').css('display', 'block');
@@ -753,8 +761,8 @@
 		    	
 	    	    doubleClickCheck = true;
 	    	    
-	    	  	//상담신청 API 호출
-		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", {
+	    	    
+	    	    var consltRequestData = {
 		    		relationCd
 	    			, mbrNm: recipientsNm
 	    			, rcperRcognNo
@@ -767,7 +775,15 @@
 	    			, recipientsNo: myRecipientInfo.recipientsNo
 	    			, prevPath: infoPrevPath
 	    			, saveRecipientInfo
-		    	});
+		    	};
+	    	    
+	    	    if (infoPrevPath === 'equip_ctgry') {
+	    	    	consltRequestData.ctgry10Nms = ['욕창예방매트리스'];
+	    	    	consltRequestData.ctgry20Nms = ['수동휠체어'];
+	    	    }
+	    	    
+	    	  	//상담신청 API 호출
+		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", consltRequestData);
 	    	}
 	    }
 	    // 수급자 정보 수정 콜백
@@ -805,6 +821,8 @@
 	    		}else{
 	    			alert(data.msg);
 	    		}
+	    		
+	    		doubleClickCheck = false;
 	    	} else {
 	    		alert('서버와 연결이 좋지 않습니다.');
 	    	}
