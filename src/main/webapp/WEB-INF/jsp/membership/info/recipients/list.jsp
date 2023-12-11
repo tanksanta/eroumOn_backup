@@ -121,6 +121,7 @@
 					<button type="button" class="btn-rounded" onclick="clickAddRecipientBtn();">
 						<i class="icon-plus-thin"></i>
 					</button>
+					<p>수급자 등록</p>
 				</div>
 			</c:if>
 		</div>

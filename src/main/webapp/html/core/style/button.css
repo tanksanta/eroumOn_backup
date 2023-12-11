@@ -106,9 +106,10 @@
     
     .btn-warning {
         @apply bg-yellow1 text-white
-               hover:bg-yellow1/80
-               focus:bg-yellow1/80
-               active:bg-yellow1;
+               hover:!bg-yellow1/80 
+               focus:!bg-yellow1/80 
+               active:!bg-yellow1
+               disabled:!cursor-none disabled:!pointer-events-none disabled:!border-[#ccc] disabled:!bg-[#ccc] disabled:!text-white;
     }
     
     .btn-outline-warning {
@@ -116,6 +117,13 @@
                hover:bg-yellow2
                focus:bg-yellow2
                active:bg-white;
+    }
+
+    .btn-dotted-warning {
+        @apply border-dotted border-indexKey1 border
+               hover:border-solid hover:bg-white
+               focus:border-solid focus:bg-white
+               active:border-solid active:bg-white;
     }
     
     .btn-success, .btn-outline-success {
@@ -173,6 +181,10 @@
 
     .btn-white {
         @apply flex items-center justify-center bg-white border-0 text-black h-12 px-6;
+    }
+
+    .btn-gray {
+        @apply flex items-center justify-center bg-[#FAF7F5] border-0 text-gray6 h-12 px-6 rounded-md;
     }
     
 }
