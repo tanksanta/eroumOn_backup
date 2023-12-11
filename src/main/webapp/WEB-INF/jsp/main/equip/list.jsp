@@ -27,7 +27,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint1.png" alt="성인용 보행기" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">성인용 보행기</label>
+                <label for="check-item1" class="welfare-kit-name">성인용 보행기</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit1">자세히보기</button>
         </li>   
@@ -39,7 +39,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint2.png" alt="수동휠체어" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">수동휠체어</label>
+                <label for="check-item1" class="welfare-kit-name">수동휠체어</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit2">자세히보기</button>
         </li>   
@@ -51,7 +51,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint3.png" alt="지팡이" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">지팡이</label>
+                <label for="check-item1" class="welfare-kit-name">지팡이</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit3">자세히보기</button>
         </li>   
@@ -63,7 +63,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint4.png" alt="안전손잡이" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">안전손잡이</label>
+                <label for="check-item1" class="welfare-kit-name">안전손잡이</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit4">자세히보기</button>
         </li>   
@@ -75,7 +75,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint5.png" alt="미끄럼방지 매트" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">미끄럼방지 매트</label>
+                <label for="check-item1" class="welfare-kit-name">미끄럼방지 매트</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit5">자세히보기</button>
         </li>   
@@ -87,7 +87,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint6.png" alt="미끄럼방지 양말" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">미끄럼방지 양말</label>
+                <label for="check-item1" class="welfare-kit-name">미끄럼방지 양말</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit6">자세히보기</button>
         </li>   
@@ -99,7 +99,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint7.png" alt="욕창예방 매트리스" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">욕창예방 매트리스</label>
+                <label for="check-item1" class="welfare-kit-name">욕창예방 매트리스</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit7">자세히보기</button>
         </li>   
@@ -111,7 +111,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint8.png" alt="욕창예방 방석" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">욕창예방 방석</label>
+                <label for="check-item1" class="welfare-kit-name">욕창예방 방석</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit8">자세히보기</button>
         </li>   
@@ -123,7 +123,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="자세변환용구" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">자세변환용구</label>
+                <label for="check-item1" class="welfare-kit-name">자세변환용구</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit9">자세히보기</button>
         </li>   
@@ -135,7 +135,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="요실금 팬티" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">요실금 팬티</label>
+                <label for="check-item1" class="welfare-kit-name">요실금 팬티</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit10">자세히보기</button>
         </li>   
@@ -147,7 +147,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint10.png" alt="목욕의자" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">목욕의자</label>
+                <label for="check-item1" class="welfare-kit-name">목욕의자</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit11">자세히보기</button>
         </li>   
@@ -159,7 +159,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint11.png" alt="이동변기" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">이동변기</label>
+                <label for="check-item1" class="welfare-kit-name">이동변기</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit12">자세히보기</button>
         </li>   
@@ -171,7 +171,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="간이변기" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">간이변기</label>
+                <label for="check-item1" class="welfare-kit-name">간이변기</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit13">자세히보기</button>
         </li>   
@@ -183,7 +183,7 @@
                 <div class="mx-auto">
                     <img src="/html/page/index/assets/images/img-checkpoint13.png" alt="경사로" class="h-20"/>
                 </div>
-                <label for="check-item1" class="text-lg font-medium mb-3">경사로</label>
+                <label for="check-item1" class="welfare-kit-name">경사로</label>
             </div>
             <button type="button" class="btn-gray" data-bs-toggle="modal" data-bs-target="#welfare-kit14">자세히보기</button>
         </li>   
