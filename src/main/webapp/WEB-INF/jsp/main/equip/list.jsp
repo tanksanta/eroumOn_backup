@@ -216,7 +216,7 @@
 	    	var selectedCnt = $('.welfare-check:checked').length
   			
 	    	if (selectedCnt > 0) {
-	    		var recipientsNo = '46';
+	    		var recipientsNo = '${recipientsNo}';
 		    	openModal('requestConslt', Number(recipientsNo), 'equip_ctgry');	
 	    	} else {
 	    		alert('관심 복지용구를 선택하세요');	

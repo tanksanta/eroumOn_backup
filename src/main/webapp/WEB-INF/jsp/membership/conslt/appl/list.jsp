@@ -130,7 +130,7 @@
 	                    </dl>
 						<dl class="item-current">
 	                        <dt>상담유형</dt>
-	                        <dd>${resultList.prevPath == 'test' ? '인정등급상담' : '요양정보상담'}</dd>
+	                        <dd>${prevPathMap[resultList.prevPath]}</dd>
 	                    </dl>
 	                    <dl class="item-current">
 	                        <dt>진행 현황</dt>
