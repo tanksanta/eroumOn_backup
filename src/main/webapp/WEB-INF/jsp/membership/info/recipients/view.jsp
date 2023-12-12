@@ -182,7 +182,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint2.png" alt="수동휠체어" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">수동휠체어</label>
+                                <label for="check-item2" class="welfare-kit-name">수동휠체어</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -190,7 +190,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint3.png" alt="지팡이" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">지팡이</label>
+                                <label for="check-item3" class="welfare-kit-name">지팡이</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -198,7 +198,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint4.png" alt="안전손잡이" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">안전손잡이</label>
+                                <label for="check-item4" class="welfare-kit-name">안전손잡이</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -206,7 +206,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint5.png" alt="미끄럼방지 매트" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 매트</label>
+                                <label for="check-item5" class="welfare-kit-name">미끄럼방지 매트</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -214,7 +214,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint6.png" alt="미끄럼방지 양말" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 양말</label>
+                                <label for="check-item6" class="welfare-kit-name">미끄럼방지 양말</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -222,7 +222,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint7.png" alt="욕창예방 매트리스" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">욕창예방 매트리스</label>
+                                <label for="check-item7" class="welfare-kit-name">욕창예방 매트리스</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
@@ -230,7 +230,7 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint8.png" alt="욕창예방 방석" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">욕창예방 방석</label>
+                                <label for="check-item8" class="welfare-kit-name">욕창예방 방석</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1" id="collapse-welfare">
@@ -238,47 +238,47 @@
                                 <div class="mx-auto">
                                     <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="자세변환용구" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">자세변환용구</label>
+                                <label for="check-item9" class="welfare-kit-name">자세변환용구</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
                             <div class="welfare-kit-box">
                                 <div class="mx-auto">
-                                    <img src="/html/page/index/assets/images/img-checkpoint9.png" alt="요실금 팬티" class="h-20"/>
+                                    <img src="/html/page/index/assets/images/img-checkpoint10.png" alt="요실금 팬티" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">요실금 팬티</label>
+                                <label for="check-item10" class="welfare-kit-name">요실금 팬티</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
                             <div class="welfare-kit-box">
                                 <div class="mx-auto">
-                                    <img src="/html/page/index/assets/images/img-checkpoint10.png" alt="목욕의자" class="h-20"/>
+                                    <img src="/html/page/index/assets/images/img-checkpoint11.png" alt="목욕의자" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">목욕의자</label>
+                                <label for="check-item11" class="welfare-kit-name">목욕의자</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
                             <div class="welfare-kit-box">
                                 <div class="mx-auto">
-                                    <img src="/html/page/index/assets/images/img-checkpoint11.png" alt="이동변기" class="h-20"/>
+                                    <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="이동변기" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">이동변기</label>
+                                <label for="check-item12" class="welfare-kit-name">이동변기</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
                             <div class="welfare-kit-box">
                                 <div class="mx-auto">
-                                    <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="간이변기" class="h-20"/>
+                                    <img src="/html/page/index/assets/images/img-checkpoint13.png" alt="간이변기" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">간이변기</label>
+                                <label for="check-item13" class="welfare-kit-name">간이변기</label>
                             </div>
                         </li>   
                         <li class="flex flex-col gap-1">
                             <div class="welfare-kit-box">
                                 <div class="mx-auto">
-                                    <img src="/html/page/index/assets/images/img-checkpoint13.png" alt="경사로" class="h-20"/>
+                                    <img src="/html/page/index/assets/images/img-checkpoint14.png" alt="경사로" class="h-20"/>
                                 </div>
-                                <label for="check-item1" class="welfare-kit-name">경사로</label>
+                                <label for="check-item14" class="welfare-kit-name">경사로</label>
                             </div>
                         </li>
                     </ul>
