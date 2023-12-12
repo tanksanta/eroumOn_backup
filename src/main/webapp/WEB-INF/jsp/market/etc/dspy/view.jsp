@@ -74,15 +74,15 @@
 											</dl>
 										</c:if>
 									</div>
-								</a>
-								<div class="item-layer">
-									<div class="mx-auto mb-2.5">
-										<c:if test="${_mbrSession.loginCheck}">
-		                                	<button type="button" class="btn btn-love f_wish ${gdsList.wishYn>0?'is-active':'' }" data-gds-no="${gdsList.gdsNo}" data-wish-yn="${gdsList.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
-		                                	<button type="button" class="btn btn-cart f_cart" data-gds-no="${gdsList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
-		                                </c:if>
+									<div class="item-layer">
+										<div class="mx-auto mb-2.5">
+											<c:if test="${_mbrSession.loginCheck}">
+			                                	<button type="button" class="btn btn-love f_wish ${gdsList.wishYn>0?'is-active':'' }" data-gds-no="${gdsList.gdsNo}" data-wish-yn="${gdsList.wishYn>0?'Y':'N'}" data-bs-toggle="tooltip" title="관심상품 등록">관심상품 등록</button>
+			                                	<button type="button" class="btn btn-cart f_cart" data-gds-no="${gdsList.gdsNo}" data-bs-toggle="tooltip" title="장바구니 담기">장바구니 담기</button>
+			                                </c:if>
+										</div>
 									</div>
-								</div>
+								</a>
 							</div>
 						</c:forEach>
 					</div>
