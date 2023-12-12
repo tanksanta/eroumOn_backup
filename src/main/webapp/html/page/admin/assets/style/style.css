@@ -1,6 +1,7 @@
 /* core include */
 @import "../../../../core/style/style.css";
 @import "../../../../core/style/modal.css";
+@import "../../../../page/index/assets/style/recipter.css";
 
 /* admin include */
 @import "vendor.css";
