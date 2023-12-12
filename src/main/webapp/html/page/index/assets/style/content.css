@@ -1366,6 +1366,48 @@
             @apply text-indexKey2 flex justify-center underline underline-offset-1 mt-6 md:mt-18 text-xl;
         }
     }
+
+    /*관심복지용구상담*/
+    &.welfare-equip {
+
+        & .grade-text2  {
+            @apply text-xl;
+        }
+        & .grade-start {
+            & .picture {
+                @apply w-[46.125rem] pt-48 md:pt-0 pb-0;
+
+                & .msg1 .box, & .msg2 .box {
+                    @apply bg-black2 text-white border-none;
+                    & strong {
+                        @apply text-indexKey1;
+                    }
+                }
+                & .msg1 {
+                    @apply right-15 translate-x-7 md:-translate-x-[45%] top-0 md:top-12;
+                    & .box {
+                        @apply text-left;
+                    }
+                }
+                & .msg2 {
+                    @apply right-[100%] left-5 md:left-[56%] md:translate-x-[33%] top-21 md:top-18;
+                    & > svg {
+                        @apply left-auto -scale-x-100;
+                    }
+                }
+                & .btn-welfare {
+                    @apply flex absolute bottom-15 left-[50%] w-10/12 mx-auto shadow-md
+                    md-max:-translate-x-1/2 
+                    md:bottom-16  md:left-[23%]  md:w-100 scale-[95%] md:scale-100; 
+                }
+            }
+        }
+        
+
+        & .text-link {
+            @apply text-indexKey1 flex justify-center underline underline-offset-1 mt-12 md:mt-18 text-xl;
+        }
+    }
 }
 
 .grade-content2 {
@@ -1395,6 +1437,29 @@
         }
         
     }
+
+    &.welfare-equip {
+        & .grade-rolling {
+            & .container {
+                @apply h-[20.5rem] md:h-[32.5rem];
+            }
+        }
+        & .grade-rolling [class*=rolling-item] {
+            @apply flex-col items-end gap-0 h-auto;
+            & .grade-rolling-inner {
+                @apply flex justify-between items-center gap-4 md:gap-8 w-full;
+
+                & .item-content {
+                    @apply text-base md:text-xl whitespace-normal;
+                }
+            }
+            &:last-of-type {
+                @apply w-10/12;
+            } 
+
+        }
+        
+    }
 }
 
 .grade-content3 {
@@ -1419,6 +1484,11 @@
             & .swiper {
                 @apply h-100 rounded-[1.25rem] bg-[#f8f8f8]  shadow-lg;
             }
+        }
+    }
+    &.welfare-equip {
+        & .content-box {
+            @apply flex flex-col gap-5 items-center mt-10;
         }
     }
 }
@@ -1459,6 +1529,12 @@
             & span {
                 @apply whitespace-nowrap;
             } 
+        }
+    }
+
+    &.welfare-equip {
+        & .content-box {
+            @apply flex flex-col gap-5 items-center mt-10;
         }
     }
 }
@@ -1738,6 +1814,8 @@
 .welfare-contact {
     @apply flex flex-col justify-start items-start md:flex-row md:items-center  w-full gap-3;
 }
+
+
 
 @keyframes textblur {
     0% { left: -50%; opacity: 0; }
