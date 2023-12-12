@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.values.CodeMap;
 
 /**
  * 관심 복지용구 상담 관련 컨트롤러
@@ -35,6 +36,8 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 	@RequestMapping(value = "list")
 	public String list(
 		Model model)throws Exception {
+		
+		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		
 		return "/main/equip/list";
 	}

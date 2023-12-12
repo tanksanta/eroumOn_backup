@@ -1086,6 +1086,7 @@ public class CodeMap{
 		{
 			put("simpleSearch", "요양정보상담");
 			put("test", "인정등급상담");
+			put("equip_ctgry", "복지용구상담");
 		}
 	};
 

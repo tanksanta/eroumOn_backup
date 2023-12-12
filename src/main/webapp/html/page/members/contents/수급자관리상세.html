@@ -14,7 +14,7 @@
     <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
 
     <link rel="stylesheet" href="../assets/style/style.min.css">
-    <script src="../assets/script/common.js"></script>
+    <!-- <script src="../assets/script/common.js"></script> -->
 </head>
 <body>
     <header id="header">
@@ -283,7 +283,148 @@
                 </div>
             </div>
 
-            <div class="careinfo-myinfo mypage">
+            <div class="flex flex-col gap-4 mt-8">
+                <div class="flex justify-between items-center gap-2">
+                    <h3 class="font-semibold text-xl">관심 복지용구</h3>
+                    <div>
+                        <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                    </div>
+                </div>
+                <div class="welfare-kit-outer">
+                    <ul class="welfare-kit-wrap members">
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint1.png" alt="성인용 보행기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">성인용 보행기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint2.png" alt="수동휠체어" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">수동휠체어</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint3.png" alt="지팡이" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">지팡이</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint4.png" alt="안전손잡이" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">안전손잡이</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint5.png" alt="미끄럼방지 매트" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 매트</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint6.png" alt="미끄럼방지 양말" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">미끄럼방지 양말</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint7.png" alt="욕창예방 매트리스" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">욕창예방 매트리스</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint8.png" alt="욕창예방 방석" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">욕창예방 방석</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1" id="collapse-welfare">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint9.png" alt="자세변환용구" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">자세변환용구</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint9.png" alt="요실금 팬티" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">요실금 팬티</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint10.png" alt="목욕의자" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">목욕의자</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint11.png" alt="이동변기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">이동변기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint12.png" alt="간이변기" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">간이변기</label>
+                            </div>
+                        </li>   
+                        <li class="flex flex-col gap-1">
+                            <div class="welfare-kit-box">
+                                <div class="mx-auto">
+                                    <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-checkpoint13.png" alt="경사로" class="h-20"/>
+                                </div>
+                                <label for="check-item1" class="welfare-kit-name">경사로</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <button id="welfare-more" type="button" class="btn btn-small btn-more3">
+                        <span>더보기</span>
+                        <img src="../assets/images/ico-angle-down.svg" alt="" class="">
+                    </button>
+                </div>
+            </div>
+
+            <!--데이터없을때-->
+            <div class="card-bg-gray mt-4">
+                <img src="../assets/images/img-welfare-kit-nodata.svg" class="w-25" alt="관심복지용품 이미지"/>
+                <p class="text-gray5">필요한 복지용구를 선택하고  <strong> 구매 신청해보세요</strong></p>
+                <a href="#" class="btn-outline-secondary btn-arrow mt-8">
+                    선택하기
+                    <i class="icon-next ml-3"></i>
+                </a>
+            </div>
+            
+
+            
+            <!-- <div class="careinfo-myinfo mypage mt-8">
                 <div class="flex-none mb-2 md:flex flex-col xl:flex-row md:justify-between gap-2">
                     <h3 class="careinfo-title !mb-0"><span class="blurring"><span class="mask"></span>이로미(L123456789)</span> 님의 요양정보</h3>
                     <div class="flex xs-max:flex-col gap-2 justify-end sm:items-center xs-max:mt-2">
@@ -300,7 +441,7 @@
                         <dl class="numb">
                             <dt class="desc">요양인정번호</dt>
                             <dd><span class="blurring">L123456789</span></dd>
-                        </dl>
+                        </dl> 
                         <dl class="date">
                             <dt class="desc">인정 유효기간</dt>
                             <dd><span class="blurring">2023년 1월 1일<br> ~ 2023년 12월 31일</span></dd>
@@ -339,9 +480,9 @@
                         <p class="desc">월 141만원내에서<br> 요양보호사 신청 가능</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="careinfo-status mypage">
+            <!-- <div class="careinfo-status mypage">
                 <h3 class="careinfo-title">나의 복지용구 현황</h3>
                 <div class="status-swiper">
                     <div class="swiper">
@@ -660,39 +801,45 @@
                     <p class="text-center mt-3 text-sm">※ 위 내용은 데이터 조회 시점에 따라 <span class="underline font-bold">실제와 다를 수 있으니 참고용</span>으로만 사용해주세요. </p>
                 </div>
                 <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
-            </div>
+            </div> -->
 
             <!--데이터 없을때-->
-            <div class="card-bg-gray">
+            <!-- <div class="card-bg-gray">
                 <i class="icon-alert size-md opacity-60"></i>
                 <p class="text-gray6">요양인정번호를 등록하면 확인할 수 있어요</p>
                 <a href="#" class="btn btn-white mt-8">
                     <strong class="text-blue3 underline">기본 정보 > 수정하기</strong>에서 등록할 수 있어요
                     <i class="icon-next ml-3"></i>
                 </a>
-            </div>
+            </div> -->
             <!--요양정보 조회전 -->
-            <div class="card-bg-gray">
-                <!-- <img src="/html/page/members/assets/images/img-medical-care.svg" class="w-80" alt="요양정보 표현이미지"/> -->
-                <img src="../assets/images/img-medical-care.svg" class="w-12" alt="요양정보 표현이미지"/>
+            <!-- <div class="card-bg-gray">
+                <img src="https://test.eroum.co.kr/html/page/index/assets/images/img-medical-care.svg" class="w-12" alt="요양정보 표현이미지"/>
                 <p class="text-gray6">올해 사용한 장기요양금액과 남은 장기요양금액을 확인하세요</p>
                 <p class="text-gray5 text-xs">최근 조회 일시: <span>2023년 10월 04일 11:11:11</span></p>
                 <a href="#" class="btn-outline-secondary btn-arrow mt-8">
                     요양정보 상세보기
                     <i class="icon-next ml-3"></i>
                 </a>
-            </div>
+            </div> -->
 
-
-            <h3 class="careinfo-title mb-2">
+            <!-- <h3 class="careinfo-title mb-2">
                 <div class="flex justify-between">
                     인정등급 예상 테스트
                     <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
                 </div>
-            </h3>
-            <div class="card-bg-gray">
+            </h3> -->
+
+            <div class="flex justify-between items-center gap-2  mt-8">
+                <h3 class="font-semibold text-xl">인정등급 예상 테스트</h3>
+                <div>
+                    <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                </div>
+            </div>
+
+            <div class="card-bg-gray mt-4">
                 <!-- <img src="/html/page/members/assets/images/img-expected-test.png" class="w-80" alt="인정등급예상테스트결과 표현이미지"/> -->
-                <img src="../assets/images/img-expected-test.png" class="w-80" alt="인정등급예상테스트결과 표현이미지"/>
+                <img src="https://test.eroum.co.kr/html/page/members/assets/images/img-expected-test.png" class="w-80" alt="인정등급예상테스트결과 표현이미지"/>
                 <p class="text-gray6">진행하신 인정등급 예상 테스트 결과를 확인하세요</p>
                 <p class="text-gray5 text-xs">최근 테스트 일시 :<span>2023년 10월 04일 11:11:11</span></p>
                 <a href="#" class="btn-outline-secondary mt-8"  data-bs-toggle="modal" data-bs-target="#grade-test-result">
@@ -700,7 +847,7 @@
                     <i class="icon-next ml-3"></i>
                 </a>
             </div>
-            <div class="card-bg-gray">
+            <div class="card-bg-gray mt-4">
                 <i class="icon-alert size-md opacity-60"></i>
                 <p class="text-gray6">인정등급 예상 테스트를 하면 확인할 수 있어요</p>
                 <a href="#" class="btn-outline-secondary mt-8">
@@ -910,6 +1057,62 @@
             </div>
         </div>
 
+        <script>
+            $(function() {
+                var swiper = new Swiper(".swiper", {
+                    slidesPerView : 'auto',
+                    spaceBetween : 10,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    breakpoints: {
+                        spaceBetween : 12,
+                    },
+                });
+                
+                $('.status-toggle').on('click', function() {
+                    $(this).toggleClass('is-active').prev('.status-list').toggleClass('hidden');
+                })
+                
+                function isMobileDevice() {
+                    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+                }
+
+                let items = $('.welfare-kit-wrap li');
+
+                if (isMobileDevice()) {
+                    let itemsMo = $('.welfare-kit-wrap li:nth-child(n+7)')
+                    if (items.length < 7) {
+                        $('#welfare-more').hide()
+                    }
+                    itemsMo.hide();
+                    moreEvent(itemsMo)
+                } else {
+                    let itemsPc = $('.welfare-kit-wrap li:nth-child(n+11)')
+                    if (items.length < 11) {
+                        $('#welfare-more').hide()
+                    }
+                    itemsPc.hide();
+                    moreEvent(itemsPc)
+                }
+
+                function moreEvent (item) {
+                    $('#welfare-more').click(function () {
+                        if ($(this).hasClass('is-active')) {
+                            item.hide();
+                            $(this).children('span').text('더보기');
+                            $(this).removeClass('is-active');
+                        } else {
+                            item.show();
+                            $(this).children('span').text('숨기기');
+                            $(this).addClass('is-active');
+                        }
+                    });
+                }
+            })
+        </script>
+
     </main>
 
     <!-- footer -->
@@ -1018,24 +1221,6 @@
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script src="../../../core/vendor/twelements/popper.min.js"></script>
 
-    <script>
-        $(function() {
-            var swiper = new Swiper(".swiper", {
-                slidesPerView : 'auto',
-                spaceBetween : 10,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                breakpoints: {
-                    spaceBetween : 12,
-                },
-            });
-            
-            $('.status-toggle').on('click', function() {
-                $(this).toggleClass('is-active').prev('.status-list').toggleClass('hidden');
-            })
-        })
-    </script>
+    
 </body>
 </html>

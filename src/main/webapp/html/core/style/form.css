@@ -31,6 +31,15 @@
             &[multiple] {
                 @apply h-auto bg-none pt-4 pr-4;
             }
+            &option[value=""][disabled] {
+                @apply hidden;
+            }
+            &option {
+                @apply text-black1;
+            }
+            &:invalid {
+                @apply text-gray1;
+            }
         }
         &textarea {
             @apply h-auto resize-none align-top p-4;
@@ -84,7 +93,6 @@
                 @apply pr-5 bg-[length:0.5rem] bg-[right_0.5rem_center];
             }
         }
-
         &.border-light {
             @apply border-[#DADADD];
         }
@@ -140,6 +148,49 @@
                 @apply ml-[0.375em];
             }
         }
+
+        &.warning {
+            @apply flex items-start ;
+            & .form-check-input {
+                @apply  border bg-no-repeat bg-center bg-white border-gray1 appearance-none px-2 sm:px-0;
+                background-size: initial;
+                background-image:url("/html/core/images/icon-check-gray.svg");
+                &:checked {
+                    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E");
+                    @apply bg-indexKey1 border-indexKey1;
+                }
+            }
+        }
+        & .form-check-label {
+            @apply cursor-pointer break-all;
+        }
+    }
+
+    .form-check-radio {
+        @apply flex flex-1 items-center justify-center gap-3 bg-[#FAF7F5] font-bold p-2 rounded-md overflow-hidden cursor-pointer select-none;
+        & .form-check-input {
+            @apply mt-[0.125em] h-5.5 w-5.5 border rounded-full  bg-no-repeat bg-center bg-white border-gray1 appearance-none cursor-pointer;
+            /* background-image:url("/html/core/images/icon-check-gray.svg"); */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='9' viewBox='0 0 11 9' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.5546 1.04531C11.0818 1.57252 11.0818 2.42729 10.5546 2.9545L5.15459 8.3545C4.62738 8.8817 3.77261 8.8817 3.2454 8.3545L0.5454 5.6545C0.0181919 5.12729 0.0181919 4.27252 0.5454 3.74531C1.07261 3.2181 1.92738 3.2181 2.45459 3.74531L4.19999 5.49071L8.6454 1.04531C9.17261 0.5181 10.0274 0.5181 10.5546 1.04531Z' fill='%23999999'/%3E%3C/svg%3E");
+            &:checked {
+                background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E");
+                @apply bg-indexKey1 border-indexKey1;
+                & + .form-check-label {
+                    @apply font-bold;
+                }
+            } 
+        }
+        & .form-check-label {
+            @apply inline-block cursor-pointer;
+        }
+
+        &.button-group {
+            @apply flex justify-between gap-3 border-0.5 border-gray3 p-4 bg-white shadow-[0_0_0_0.5rem_#FAF7F5];
+        }
+
+        & .img-senior {
+            @apply w-10 h-10 bg-gray2 p-1 rounded-full;
+        }
     }
     
     .form-check-group {
@@ -194,16 +245,51 @@
                     & + .form-check-label {
                         @apply font-medium bg-gray2 ;
                         box-shadow: inset 0px 0px 0px 2px rgba(0,0,0,1);
+
+                        &.type-warning {
+                            @apply  bg-[#FAF7F5];
+                            box-shadow: inset 0px 0px 0px 2px #FF8120, 0px 0px 0px 8px #FAF7F5;
+                        }
+                    }
+                }
+
+                &:disabled {
+                    & + .form-check-label {
+                        @apply cursor-default;
                     }
                 }
             }
             & .form-check-label {
                 @apply w-full flex-1 text-center  rounded-md bg-white p-2;
                 box-shadow: inset 0px 0px 0px 1px #999;
+
+                &.type-warning {
+                    @apply flex justify-between gap-3 p-4  ; 
+                    box-shadow: inset 0px 0px 2px 0px #949494, 0px 0px 0px 8px #FAF7F5;
+                    width: calc(100% - 1rem);
+
+                    & .rcpt-inner {
+                        @apply  flex-1 flex flex-col md:flex-row flex-wrap md:items-center justify-between gap-1;
+                       & > div {
+                            @apply flex items-center gap-2;
+                        }
+                        & > strong, & > button , & > a {
+                            @apply md-max:text-left md-max:ml-12;
+                        }
+                    }
+                }
+            }
+
+            & .img-senior {
+                @apply w-10 h-10 bg-gray2 p-1 rounded-full;
             }
             &:not(.form-switch) {
                 & .form-check-label {
                     @apply m-0 !important;
+
+                    &.type-warning { 
+                        @apply !m-2;
+                    }
                 }
             }
         }
@@ -273,4 +359,19 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_6' data-name='Rectangle 6 Copy 6' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E%0A");
         }
     }
+
+    /*lno*/
+    .rcpt-lno {
+        @apply relative w-36 sm:w-47;
+        &:before {
+            @apply content-["L"] absolute inline-block font-medium left-2.5 top-[50%] leading-none  translate-y-[-40%] pr-1 text-base;
+        }
+        & .form-control {
+            @apply !text-base;
+        }
+        > input { 
+            @apply indent-2 !text-base;
+        }
+    }
 }
+

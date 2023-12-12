@@ -73,8 +73,12 @@ public class TilkoApiService {
 	private String url_recipientToolList 		  =  "api/v1.0/Longtermcare/NPIA201P01"; // 복지용구 급여 가능/불가능 품목 조회
 	private String url_recipientContractHistory	  = "api/v1.0/Longtermcare/NPIA208P01"; // 복지용구 적용기간별 계약내역 조회
 
-	@SuppressWarnings("unchecked")
 	public Map<String, Object> getRecipterInfo(String name, String identityNumber) throws Exception {
+		return getRecipterInfo(name, identityNumber, false);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getRecipterInfo(String name, String identityNumber, boolean isSimpleCheck) throws Exception {
 
 		// RSA Public Key 조회
 		String rsaPublicKey		= getPublicKey();
@@ -160,7 +164,13 @@ public class TilkoApiService {
 
 	        if(welToolTgtList != null) {
 	        	result = true;
-
+	        	
+	        	//단순 L번호 검사면 바로 리턴
+	        	if (isSimpleCheck) {
+	        		returnMap.put("result", result);
+	            	return returnMap;
+	        	}
+	        	
 		        List<Map<String, Object>> welToolTgtListMap =  JsonUtil.getListMapFromJsonArray(welToolTgtList);
 		        for(Map<String, Object> welToolTgt : welToolTgtListMap) {
 
@@ -263,10 +273,16 @@ public class TilkoApiService {
 		        }
 	        }
         }
-
+        
         //API 요청 파라미터 설정
 	    returnMap.put("result", result);
 	    returnMap.put("infoMap", infoMap);
+	    
+	    //단순 L번호 검사면 바로 리턴
+    	if (isSimpleCheck) {
+        	return returnMap;
+    	}
+	    
 
 	    // 급여 가능 불가능 품목 리스트
 	    String seq = (String) infoMap.get("LTC_MGMT_NO_SEQ");

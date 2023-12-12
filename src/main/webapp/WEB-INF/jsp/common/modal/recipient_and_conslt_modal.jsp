@@ -292,6 +292,7 @@
 	    var infoModalType = '';
 	    var infoPrevPath = '';
 	    var addRecipientInfo = {};
+	    var ctgryNmArr = [];
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
 	    function openModal(modalType, recipientsNo, prevPath) {
@@ -379,11 +380,16 @@
 							진행중인 인정등급 상담이 있습니다.<br>
 							상담 내역을 확인하시겠습니까?
     					`);
-    				} else {
+    				} else if (infoPrevPath === 'simpleSearch') {
     					$('#process-conslt-noti').html(`
 							진행중인 요양정보 상담이 있습니다.<br>
 							상담 내역을 확인하시겠습니까?
     					`);
+    				} else {
+    					$('#process-conslt-noti').html(`
+   							진행중인 관심 복지용구 상담이 있습니다.<br>
+   							상담 내역을 확인하시겠습니까?
+       					`);
     				}
         			$('#modal-my-consulting').modal('show');
         		} else {
@@ -409,6 +415,12 @@
 	    			me = data.mbrVO;
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
+	    			
+	    			//등록된 수급자가 아닌 경우 다음단계 진행하지 않음
+	    			if (!myRecipientInfo) {
+	    				alert('등록된 수급자가 아닙니다.');
+	    				return;
+	    			}
 	    			
 	    			//진행중인 상담 있는지 체크
 	    			if (data.recipientConslt) {
@@ -492,8 +504,10 @@
 	  			$('#tr-prev-path').css('display', 'table-row');	
 	  			if (infoPrevPath === 'test') {
 	  				$('#tr-prev-path td').text('인정등급상담');
-	  			} else {
+	  			} else if (infoPrevPath === 'simpleSearch') {
 	  				$('#tr-prev-path td').text('요양정보상담');
+	  			} else {
+	  				$('#tr-prev-path td').text('복지용구상담');
 	  			}
 	  			$('#div-remove-recipient').css('display', 'none');
 	  			$('#ul-conslt-info').css('display', 'block');
@@ -751,10 +765,7 @@
 	    	    	saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');	
 	    	    }
 		    	
-	    	    doubleClickCheck = true;
-	    	    
-	    	  	//상담신청 API 호출
-		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", {
+	    	    var consltRequestData = {
 		    		relationCd
 	    			, mbrNm: recipientsNm
 	    			, rcperRcognNo
@@ -767,7 +778,24 @@
 	    			, recipientsNo: myRecipientInfo.recipientsNo
 	    			, prevPath: infoPrevPath
 	    			, saveRecipientInfo
-		    	});
+		    	};
+	    	    
+	    	    if (infoPrevPath === 'equip_ctgry') {
+	    	    	var ctgry10Length = ctgryNmArr.ctgry10Nms ? ctgryNmArr.ctgry10Nms.length : 0;
+	    	    	var ctgry20Length = ctgryNmArr.ctgry20Nms ? ctgryNmArr.ctgry20Nms.length : 0;
+	    	    	if (ctgry10Length === 0 && ctgry20Length === 0) {
+	    	    		alert('관심 복지용구를 선택하세요');
+	    	    		return;
+	    	    	}
+	    	    	
+	    	    	consltRequestData.ctgry10Nms = ctgryNmArr.ctgry10Nms;
+	    	    	consltRequestData.ctgry20Nms = ctgryNmArr.ctgry20Nms;
+	    	    }
+
+	    	    doubleClickCheck = true;
+	    	    
+	    	  	//상담신청 API 호출
+		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", consltRequestData);
 	    	}
 	    }
 	    // 수급자 정보 수정 콜백
@@ -799,12 +827,14 @@
 	    			//채널톡 이벤트 처리
 	    			if (infoPrevPath === 'test') {
 	    				eventChannelTalkForConslt('click_gradetest_matching');	
-	    			} else {
+	    			} else if (infoPrevPath === 'simpleSearch') {
 	    				eventChannelTalkForConslt('click_infocheck_matching');
 	    			}
 	    		}else{
 	    			alert(data.msg);
 	    		}
+	    		
+	    		doubleClickCheck = false;
 	    	} else {
 	    		alert('서버와 연결이 좋지 않습니다.');
 	    	}
