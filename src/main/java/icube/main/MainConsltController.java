@@ -27,6 +27,8 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
@@ -51,6 +53,9 @@ public class MainConsltController extends CommonAbstractController{
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
@@ -184,21 +189,21 @@ public class MainConsltController extends CommonAbstractController{
 	@RequestMapping(value = "/addMbrConslt.json")
 	public synchronized Map<String, Object> addMbrConslt(
 			MbrConsltVO mbrConsltVO,
-			Boolean saveRecipientInfo,
-			@RequestParam(value="ctgry10Nms[]", required = false) String[] ctgry10Nms, //판매 카테고리명
-			@RequestParam(value="ctgry20Nms[]", required = false) String[] ctgry20Nms  //대여 카테고리명
+			Boolean saveRecipientInfo
 		)throws Exception {
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			//복지용구상담인데 선택한 복지용구 품목이 없는 경우
-			int ctgry10Length = ctgry10Nms == null ? 0 : ctgry10Nms.length;
-			int ctgry20Length = ctgry20Nms == null ? 0 : ctgry20Nms.length;
-			if ("equip_ctgry".equals(mbrConsltVO.getPrevPath()) && (ctgry10Length + ctgry20Length == 0)) {
-				resultMap.put("success", false);
-                resultMap.put("msg", "관심 복지용구를 선택하세요");
-                return resultMap;
+			if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
+				List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+				
+				if (recipientsGdsList == null || recipientsGdsList.size() == 0) {
+					resultMap.put("success", false);
+	                resultMap.put("msg", "관심 복지용구를 선택하세요");
+	                return resultMap;
+				}
 			}
 			
 			MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());			
@@ -289,7 +294,7 @@ public class MainConsltController extends CommonAbstractController{
 				
 				//복지용구상담인 경우 선택 복지용구 정보 추가 저장
 				if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
-					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getConsltNo(), ctgry10Nms, ctgry20Nms);
+					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getRecipientsNo(), srchMbrConslt.getConsltNo());
 				}
 				
 				

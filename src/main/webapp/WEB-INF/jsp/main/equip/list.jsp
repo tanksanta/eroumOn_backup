@@ -211,17 +211,41 @@
 
 
     <script>
+    	var ctgryNmArr = {};
+    
   		//상담하기 버튼 클릭
 	    function clickStartConsltBtn() {
 	    	var selectedCnt = $('.welfare-check:checked').length
   			
 	    	if (selectedCnt > 0) {
+	    		//수급자 관심 복지용구 선택값 저장 API
 	    		var recipientsNo = '${recipientsNo}';
-		    	openModal('requestConslt', Number(recipientsNo), 'equip_ctgry');	
+	    		jsCallApi.call_api_post_json(window, "/main/welfare/equip/addMbrRecipientsGds.json", "addMbrRecipientsGdsCallback", {
+	    			recipientsNo : Number(recipientsNo),
+	    			ctgry10Nms : ctgryNmArr.ctgry10Nms,
+	    			ctgry20Nms : ctgryNmArr.ctgry20Nms
+	    		});
 	    	} else {
 	    		alert('관심 복지용구를 선택하세요');	
 	    	}
 	    }
+  		//수급자 관심 복지용구 선택값 저장 콜백
+  		function addMbrRecipientsGdsCallback(result, errorResult, data, param) {
+  			if (errorResult == null) {
+	    		var data = result;
+	    		if(data.success) {
+	    			//상담신청 모달 띄우기
+	    			var recipientsNo = '${recipientsNo}';
+			    	openModal('requestConslt', Number(recipientsNo), 'equip_ctgry');
+	    		}else{
+	    			alert(data.msg);
+	    		}
+	    	}
+	    	else {
+				alert('서버와 연결이 좋지 않습니다.');
+			}
+  		}
+  		
   		
   		//선택된 갯수 UI표시 처리
   		function drawSelectedWelfareCount() {

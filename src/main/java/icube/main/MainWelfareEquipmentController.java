@@ -1,6 +1,8 @@
 package icube.main;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -27,6 +31,9 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -72,5 +79,47 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		
 		return "/main/equip/list";
+	}
+	
+	
+	/**
+	 * 수급자 관심 복지용구 선택값 저장 API
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addMbrRecipientsGds.json")
+	public synchronized Map<String, Object> addMbrConslt(
+			int recipientsNo,
+			@RequestParam(value="ctgry10Nms[]", required = false) String[] ctgry10Nms, //판매 카테고리명
+			@RequestParam(value="ctgry20Nms[]", required = false) String[] ctgry20Nms  //대여 카테고리명
+		)throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		//선택 복지용구가 없는 경우
+		int ctgry10Length = ctgry10Nms == null ? 0 : ctgry10Nms.length;
+		int ctgry20Length = ctgry20Nms == null ? 0 : ctgry20Nms.length;
+		if (ctgry10Length + ctgry20Length == 0) {
+			resultMap.put("success", false);
+            resultMap.put("msg", "관심 복지용구를 선택하세요");
+            return resultMap;
+		}
+		
+		List<MbrRecipientsVO> mbrRecipientsList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+		if (!mbrRecipientsList.stream().anyMatch(f -> f.getRecipientsNo() == recipientsNo)) {
+			resultMap.put("success", false);
+            resultMap.put("msg", "등록되지 않은 수급자입니다");
+            return resultMap;
+		}
+		
+		try {
+			mbrRecipientsGdsService.insertMbrRecipientsGds(recipientsNo, ctgry10Nms, ctgry20Nms);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "관심 복지용구 선택정보 저장에 실패하였습니다");
+		}
+		
+		return resultMap;
 	}
 }
