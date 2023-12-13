@@ -22,6 +22,8 @@ import icube.main.biz.ItemMap;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
+import icube.manage.consult.biz.MbrConsltGdsService;
+import icube.manage.consult.biz.MbrConsltGdsVO;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
@@ -47,6 +49,9 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
+	
+	@Resource(name = "mbrConsltGdsService")
+	private MbrConsltGdsService mbrConsltGdsService;
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
@@ -161,6 +166,15 @@ public class MbrsRecipientsController extends CommonAbstractController {
 				}
 			}
 		}
+		
+		
+		//복지용구정보 가져오기 위해 복지용구상담 조회
+		MbrConsltVO welfareConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, "equip_ctgry");
+		if (welfareConslt != null) {
+			List<MbrConsltGdsVO> mbrConsltGdsList = mbrConsltGdsService.selectMbrConsltGdsByConsltNo(welfareConslt.getConsltNo());
+			model.addAttribute("mbrConsltGdsList", mbrConsltGdsList);
+		}
+		
 		
 		//인정등급예상테스트 정보
 		Map<String, Object> paramMap = new HashMap<>();
