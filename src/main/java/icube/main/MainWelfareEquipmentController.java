@@ -42,6 +42,8 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 		, Model model
 			)throws Exception {
 		
+		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		
 		return "/main/equip/sub";
 	}
 	
