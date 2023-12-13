@@ -459,13 +459,19 @@
                 
                 
                 <!-- 등급테스트결과 모달 -->
-               	<%@include file="./modal/testResultModal.jsp"%>
+                <c:if test="${mbrConsltVO.getPrevPath() eq 'test'}">
+                	<%@include file="./modal/testResultModal.jsp"%>
+                </c:if>
                	
                	<!-- 요양정보 간편조회 모달 -->
-               	<%@include file="./modal/simpleSearchModal.jsp"%>
+               	<c:if test="${mbrConsltVO.getPrevPath() eq 'simpleSearch'}">
+               		<%@include file="./modal/simpleSearchModal.jsp"%>
+               	</c:if>
 
 				<!-- 관심 복지용구 정보 모달 -->
-				<%@include file="./modal/welfareEquipModal.jsp"%>
+				<c:if test="${mbrConsltVO.getPrevPath() eq 'equip_ctgry'}">
+					<%@include file="./modal/welfareEquipModal.jsp"%>
+				</c:if>
                	
                	<!-- 상담 정보 수정 모달 -->
                	<%@include file="./modal/updateConsltModal.jsp"%>
@@ -561,7 +567,7 @@ function getRecipientInfoCallback(result, errorResult, data, param) {
 function viewConsltDetailModal(prevPath) {
 	if (prevPath === 'test') {
 		$('#grade-test-result').modal('show');
-	} else if (prevPath === 'test') {
+	} else if (prevPath === 'simpleSearch') {
 		getRecipientInfo(Number('${mbrConsltVO.recipientsNo}'));
 	} else {
 		$('#popup-welfare-detail').modal('show');
