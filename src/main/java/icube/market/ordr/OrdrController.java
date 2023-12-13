@@ -550,7 +550,7 @@ public class OrdrController extends CommonAbstractController{
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
 
-			// biztalkOrderService.sendOrdr(ordrBiztalkTy, mbrSession, ordrVO);
+			// biztalkOrderService.sendOrdrMarketPaydone(ordrBiztalkTy, mbrSession, ordrVO);
 
 			mailForm2Service.sendMailOrder(ordrMailTy, mbrSession, ordrVO);
 			// String mailHtml = "mail_ordr.html";

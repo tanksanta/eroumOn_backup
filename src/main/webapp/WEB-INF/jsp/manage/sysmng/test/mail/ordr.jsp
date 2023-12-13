@@ -20,7 +20,7 @@
                     <td>
                         <div class="form-group">
                             <div class="form-check-group">
-                                <c:forEach items="${mailSendTyCode}" var="iem" varStatus="status">
+                                <c:forEach items="${mailSendTyCdList}" var="iem" varStatus="status">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="mailty" id="search-item-mailty-${status.index}" value="${iem.key}">
                                         <label class="form-check-label" for="search-item-mailty-${status.index}">${iem.value}</label>
@@ -55,8 +55,7 @@
     </fieldset>
     <br/>
     <div>
-		<button class="btn-primary shadow w-52" onclick="sendCall('mail')">메일 발송</button>
-        <button class="btn-primary shadow w-52" onclick="sendCall('bizTalk')">알림톡 발송</button>
+		<button class="btn-primary shadow w-52" onclick="sendCall('${mailSendTy}')">발송</button>
 	</div>
 </div>
 

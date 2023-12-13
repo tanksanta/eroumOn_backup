@@ -64,7 +64,8 @@ public class MMngOrdrSendTestController {
 	public String ordrMailForm(HttpServletRequest request
 		, Model model) {
 
-		model.addAttribute("mailSendTyCode", CodeMap.MAIL_SEND_TY);
+		model.addAttribute("mailSendTy", "mail");
+		model.addAttribute("mailSendTyCdList", CodeMap.MAIL_SEND_TY);
 
 		return "/manage/sysmng/test/mail/ordr";
 	}
@@ -73,7 +74,9 @@ public class MMngOrdrSendTestController {
 	public String ordrBiztalkForm(HttpServletRequest request
 		, Model model) {
 
-		model.addAttribute("mailSendTyCode", CodeMap.BIZTALK_SEND_TY);
+		model.addAttribute("mailSendTy", "biztalk");	
+		model.addAttribute("mailSendTyCdList", CodeMap.BIZTALK_SEND_TY);
+		
 
 		return "/manage/sysmng/test/mail/ordr";
 	}
@@ -191,7 +194,7 @@ public class MMngOrdrSendTestController {
 			}
 		}
 
-		if (!CodeMap.MAIL_SEND_TY.containsKey(mailTy)){
+		if (!CodeMap.BIZTALK_SEND_TY.containsKey(mailTy)){
 			resultMap.put("success", success);
 			resultMap.put("error_code", "00003");
 			resultMap.put("error_msg", "메일 타입이 존재하지 않습니다.");
@@ -206,26 +209,11 @@ public class MMngOrdrSendTestController {
 			return resultMap;
 		}
 
-		if (EgovStringUtil.equals(mailTy, "MAILSEND_ORDR_MNG_RETURN") 
-			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_MNG_REFUND")
-			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION")
-			|| EgovStringUtil.equals(mailTy,"MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE")){
+		if (mailTy != null && mailTy.indexOf("BIZTALKSEND_ORDR_MARKET_PAYDONE") >= 0 ){
+			success = biztalkOrderService.sendOrdrMarketPaydone(mailTy, mbrVO, ordrVO);
 
-			if (EgovStringUtil.isEmpty(ordrDtlCd)){
-				resultMap.put("success", success);
-				resultMap.put("error_code", "00101");
-				resultMap.put("error_msg", "주문상세 번호를 확인하여 주십시오.");
-				return resultMap;
-			}
-
-			List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
-			ordrVO.setOrdrDtlList(ordrDtlList);
 		}
 		
-
-		biztalkOrderService.sendOrdr(mailTy, mbrVO, ordrVO);
-		
-		success = true;
 		resultMap.put("success", success);
 		resultMap.put("phoneno", mbrVO.getMblTelno());
 		return resultMap;

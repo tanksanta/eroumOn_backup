@@ -18,49 +18,33 @@ import icube.manage.ordr.ordr.biz.OrdrVO;
 @Service("biztalkOrderService")
 public class BiztalkOrderService extends BiztalkApiService {
 	
-	public boolean sendOrdr(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
-		boolean bResult = false;
+	public boolean sendOrdrMarketPaydone(String ordrMailTy, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		String tmpltCode;
+		
+		JSONObject param = null;
+		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
+
 		if (EgovStringUtil.equals(ordrMailTy, "BIZTALKSEND_ORDR_MARKET_PAYDONE_CARD")
 			|| EgovStringUtil.equals(ordrMailTy, "BIZTALKSEND_ORDR_MARKET_PAYDONE_BANK")){
-			this.sendOrdrMarketPaydoneCard(mbrVO, ordrVO);
+			tmpltCode = "Order_0005";
+			param = this.msgOrder0005(tmpltCode, mbrVO, ordrVO);
 		}else if (EgovStringUtil.equals(ordrMailTy, "BIZTALKSEND_ORDR_MARKET_PAYDONE_VBANK")){
-			this.sendOrdrMarketPaydoneVBank(mbrVO, ordrVO);
-		// }else if (EgovStringUtil.equals(ordrMailTy, "BIZTALKSEND_ORDR_MARKET_PAYDONE_FREE")){
-		// 	this.sendOrdrMarketPaydoneVBank(mbrVO, ordrVO);
+			tmpltCode = "Order_0001";
+			param = this.msgOrder0001(tmpltCode, mbrVO, ordrVO);
+		}else if (EgovStringUtil.equals(ordrMailTy, "BIZTALKSEND_ORDR_MARKET_PAYDONE_FREE")){
+			tmpltCode = "Order_0017";
+			param = this.msgOrder0017(tmpltCode, mbrVO, ordrVO);
+		}else{
+			throw new Exception("Not support type["+ordrMailTy+"]");
 		}
+
+		boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
+
+		this.getResultAll();
 
 		return bResult;
 	}
 
-	// Order_0005 주문완료(카드, 계좌이체)
-	protected boolean sendOrdrMarketPaydoneCard(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
-		String tmpltCode = "Order_0005";
-		
-		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
-		
-		JSONObject param = this.msgOrder0005(tmpltCode, mbrVO, ordrVO);
-		
-        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
-        
-        this.getResultAll();
-        
-        return bResult;
-	}
-
-    // Order_0001 주문접수(가상계좌만 가능)
-	protected boolean sendOrdrMarketPaydoneVBank(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
-		String tmpltCode = "Order_0001";
-		
-		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
-		
-		JSONObject param = this.msgOrder0001(tmpltCode, mbrVO, ordrVO);
-		
-        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
-        
-        this.getResultAll();
-        
-        return bResult;
-	}
 
 	// Order_0002 입금기한안내(가상계좌만 가능)
 	public boolean sendOrdrSchVbankRequest(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
@@ -71,8 +55,6 @@ public class BiztalkOrderService extends BiztalkApiService {
 		JSONObject param = this.msgOrder0002(tmpltCode, mbrVO, ordrVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
-        
-        this.getResultAll();
         
         return bResult;
 	}
@@ -99,6 +81,51 @@ public class BiztalkOrderService extends BiztalkApiService {
 		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
 		
 		JSONObject param = this.msgOrder0004(tmpltCode, mbrVO, ordrVO);
+		
+        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
+        
+        this.getResultAll();
+        
+        return bResult;
+	}
+
+	// Order_0014 자동구매확정예정
+	public boolean sendOrdrSchConfirmNotice(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		String tmpltCode = "Order_0014";
+		
+		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
+		
+		JSONObject param = this.msgOrder0014(tmpltCode, mbrVO, ordrVO);
+		
+        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
+        
+        this.getResultAll();
+        
+        return bResult;
+	}
+
+	// Order_0015 자동구매확정완료
+	public boolean sendOrdrSchConfirmAction(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		String tmpltCode = "Order_0015";
+		
+		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
+		
+		JSONObject param = this.msgOrder0015(tmpltCode, mbrVO, ordrVO);
+		
+        boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
+        
+        this.getResultAll();
+        
+        return bResult;
+	}
+
+	// Order_0016 사용자-구매확정완료
+	public boolean sendOrdrMypageConfirmAction(MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		String tmpltCode = "Order_0016";
+		
+		String sPhoneNo = this.changeDevPhoneNo(true, mbrVO.getMblTelno());
+		
+		JSONObject param = this.msgOrder0016(tmpltCode, mbrVO, ordrVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -396,4 +423,27 @@ public class BiztalkOrderService extends BiztalkApiService {
 		return param;
 	}
 
+	// Order_0017 주문완료(무료)
+	private JSONObject msgOrder0017(String tmpltCode, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		
+		return null;
+	}
+
+	// Order_0014 자동구매확정예정
+	private JSONObject msgOrder0014(String tmpltCode, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		
+		return null;
+	}
+
+	// Order_0015 자동구매확정완료
+	private JSONObject msgOrder0015(String tmpltCode, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		
+		return null;
+	}
+
+	// Order_0016 구매확정완료
+	private JSONObject msgOrder0016(String tmpltCode, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
+		
+		return null;
+	}
 }

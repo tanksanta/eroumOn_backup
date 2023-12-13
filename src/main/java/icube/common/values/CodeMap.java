@@ -1135,6 +1135,10 @@ public class CodeMap{
 			put("BIZTALKSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
 			put("BIZTALKSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
 
+			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","자동 구매확정-예정");//
+			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION","자동 구매확정-처리");//
+
+			put("BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION","사용자 구매확정-처리");//
 		}
 	};
 
