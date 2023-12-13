@@ -325,7 +325,7 @@
             		<div class="card-bg-gray">
 			            <img src="/html/page/members/assets/images/img-welfare-kit-nodata.svg" class="w-25" alt="관심복지용품 이미지"/>
 			            <p class="text-gray5">필요한 복지용구를 선택하고  <strong> 구매 신청해보세요</strong></p>
-			            <a href="#" class="btn-outline-secondary btn-arrow mt-8">
+			            <a href="/main/welfare/equip/sub" class="btn-outline-secondary btn-arrow mt-8">
 			                선택하기
 			                <i class="icon-next ml-3"></i>
 			            </a>
