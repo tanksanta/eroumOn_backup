@@ -46,7 +46,7 @@
         </div>
         <div class="modal-footer flex-col md:flex-row gap-1 mt-6">
             <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-2/5"><strong>내 인정등급 확인하기</strong></a>
-            <a href="/main/recipter/sub" target="_blank"  class="btn btn-primary3 btn-arrow btn-center large w-full md:w-2/5"><strong>요양정보 간편조회하기</strong></a>
+            <a href="/main/recipter/sub" target="_blank"  class="btn btn-primary3 btn-arrow btn-center large w-full md:w-2/5"><strong>관심 복지용구 상담하기</strong></a>
         </div>
         </div>
     </div>
