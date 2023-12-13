@@ -209,8 +209,19 @@ public class MMngOrdrSendTestController {
 			return resultMap;
 		}
 
-		if (mailTy != null && mailTy.indexOf("BIZTALKSEND_ORDR_MARKET_PAYDONE") >= 0 ){
-			success = biztalkOrderService.sendOrdrMarketPaydone(mailTy, mbrVO, ordrVO);
+		if (mailTy != null){
+			if (mailTy.indexOf("BIZTALKSEND_ORDR_MARKET_PAYDONE") >= 0 
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_VBANK_REQUEST")
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_BOOTPAY_VBANK_INCOME")
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_VBANK_CANCEL")
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE")
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION")
+				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION")
+			){
+
+				success = biztalkOrderService.sendOrdr(mailTy, mbrVO, ordrVO);
+			}
+			
 
 		}
 		

@@ -92,10 +92,10 @@
 
         if (sendKind == 'mail'){
             jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/ordrsend/ordrMailSend.json", 'mailSendCb', data);
-        }else if (sendKind == 'bizTalk'){
+        }else if (sendKind == 'biztalk'){
             jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/ordrsend/ordrBiztalkSend.json", 'mailSendCb', data);
         }else{
-            alert("확인")
+            alert("sendKind 확인")
         }
         
     }
@@ -111,7 +111,7 @@
             return;
         }
 
-        if (data.sendKind == 'bizTalk'){
+        if (data.sendKind == 'biztalk'){
             alert(result.phoneno + " 발송하였습니다.")
         }else{
             alert(result.email + " 발송하였습니다.")
