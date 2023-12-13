@@ -38,7 +38,17 @@
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
                                     <th scope="row">상담유형 상세</th>
                                     <td>
-                                    	<button type="button" class="btn-primary" onclick="viewConsltDetailModal('${mbrConsltVO.prevPath}');">상세보기</button>
+                                    	<c:choose>
+                                    		<c:when test="${mbrConsltVO.prevPath eq 'test'}">
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('test');">테스트결과</button>
+                                    		</c:when>
+                                    		<c:when test="${mbrConsltVO.prevPath eq 'simpleSearch'}">
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('simpleSearch');">요양정보</button>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('equip_ctgry');">관심복지용구</button>
+                                    		</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                 </tr>
                                 <tr>
