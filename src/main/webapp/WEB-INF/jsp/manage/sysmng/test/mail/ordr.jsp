@@ -55,17 +55,19 @@
     </fieldset>
     <br/>
     <div>
-		<button class="btn-primary shadow w-52" onclick="mailSendCall()">메일 발송</button>
+		<button class="btn-primary shadow w-52" onclick="sendCall('mail')">메일 발송</button>
+        <button class="btn-primary shadow w-52" onclick="sendCall('bizTalk')">알림톡 발송</button>
 	</div>
 </div>
 
 <script>
-    function mailSendCall(){
+    function sendCall(sendKind){
 
         var data = {'ordrCd':$('input[type="text"][name="ordrCd"]').val()
                     , 'ordrDtlCd':$('input[type="text"][name="ordrDtlCd"]').val()
                     , 'ordrrId':$('input[type="text"][name="ordrrId"]').val()
                     , 'mailTy':$('input[type="radio"][name="mailty"]:checked').val()
+                    , sendKind
         }
 
         if (data.ordrCd.length < 2){
@@ -78,7 +80,7 @@
             return;
         }
 
-        if (data.mailTy.length < 2){
+        if (data.mailTy == undefined || data.mailTy.length < 2){
             alert("메일발송 종류를 선택하여 주십시오.")
             return;
         }
@@ -89,7 +91,14 @@
             return;
         }
 
-        jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/mail/ordrMailSend.json", 'mailSendCb', data);
+        if (sendKind == 'mail'){
+            jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/ordrsend/ordrMailSend.json", 'mailSendCb', data);
+        }else if (sendKind == 'bizTalk'){
+            jsCallApi.call_api_post_json(this, "/_mng/sysmng/test/ordrsend/ordrBiztalkSend.json", 'mailSendCb', data);
+        }else{
+            alert("확인")
+        }
+        
     }
 
     function mailSendCb(result, fail, data, param){
@@ -103,6 +112,11 @@
             return;
         }
 
-        alert(result.email + " 발송하였습니다.")
+        if (data.sendKind == 'bizTalk'){
+            alert(result.phoneno + " 발송하였습니다.")
+        }else{
+            alert(result.email + " 발송하였습니다.")
+        }
+        
     }
 </script>
