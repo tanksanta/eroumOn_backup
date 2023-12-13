@@ -172,6 +172,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		MbrConsltVO welfareConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, "equip_ctgry");
 		if (welfareConslt != null) {
 			List<MbrConsltGdsVO> mbrConsltGdsList = mbrConsltGdsService.selectMbrConsltGdsByConsltNo(welfareConslt.getConsltNo());
+			model.addAttribute("welfareConsltNo", welfareConslt.getConsltNo());
 			model.addAttribute("mbrConsltGdsList", mbrConsltGdsList);
 		}
 		
