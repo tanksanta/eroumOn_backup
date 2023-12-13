@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +17,6 @@ import com.ibm.icu.text.SimpleDateFormat;
 import icube.common.api.biz.TilkoApiService;
 import icube.main.biz.MainService;
 import icube.manage.mbr.mbr.biz.MbrService;
-import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
-import icube.market.mbr.biz.MbrSession;
 
 @Controller
 @RequestMapping(value = "/common/recipter")
@@ -35,9 +31,6 @@ public class TilkoApiController {
 	@Resource(name = "mainService")
 	private MainService mainService;
 	
-	@Autowired
-	private MbrSession mbrSession;
-	
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss"); 
 
 	@ResponseBody
@@ -50,23 +43,16 @@ public class TilkoApiController {
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("isSearch", false);
 		
-		if (mbrSession.isLoginCheck()) {
-			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			MbrRecipientsVO recipientVO = mbrVO.getMbrRecipientsList().stream().filter(f -> mbrNm.equals(f.getRecipientsNm()) && rcperRcognNo.equals(f.getRcperRcognNo())).findAny().orElse(null);
-			if (recipientVO == null) {
-				returnMap.put("msg", "등록되지 않은 수급자 입니다.");
-				return returnMap;
-			}
-			
+		try {
 			returnMap = tilkoApiService.getRecipterInfo(mbrNm, rcperRcognNo);
 			
 			returnMap.put("refleshDate", simpleDateFormat.format(new Date()));
 			returnMap.put("isSearch", true);
-		} else {
-			returnMap.put("msg", "로그인 이후 이용가능합니다.");
-		}
 
-		System.out.println("returnMap: " + returnMap.toString());
+			System.out.println("returnMap: " + returnMap.toString());
+		} catch (Exception ex) {
+            returnMap.put("msg", "수급자 조회중 오류가 발생하였습니다.");
+		}
 		
         return returnMap;
 	}
