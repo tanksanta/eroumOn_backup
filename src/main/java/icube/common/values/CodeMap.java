@@ -1098,6 +1098,28 @@ public class CodeMap{
 		}
 	};
 
+	public static final HashMap<String, String> MAIL_SEND_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031482L;
+		{
+			put("MAILSEND_ORDR_MARKET_PAYDONE_CARD", "주문접수 카드");//,
+			put("MAILSEND_ORDR_MARKET_PAYDONE_BANK","주문접수 실시간계좌이체");//
+			put("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", "주문접수 가상계좌");//,
+			put("MAILSEND_ORDR_MARKET_PAYDONE_FREE", "주문접수 무료");//,
+			put("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST","가상계좌 입금 요청");//
+			put("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
+			put("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
+
+			put("MAILSEND_ORDR_MNG_CONFIRM","배송준비중");//
+
+			put("MAILSEND_ORDR_MNG_REFUND","주문 취소");//환불 // 결제 완료 후 배송준비중 이전 단계
+			put("MAILSEND_ORDR_MNG_RETURN","반품");//
+
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","구매확정-예정");//
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION","구매확정-처리");//
+
+		}
+	};
+
 	/*이용약관 종류*/
 	public static final HashMap<String, String> TERMS_KIND = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -4615344482467031481L;

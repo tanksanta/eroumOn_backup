@@ -523,4 +523,30 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		
 		return ordrDtlList;
 	}
+
+	// 2일 동안 결제를 안 한 주문 리스트 (입금요청)
+	public List<OrdrVO> selectOrdrScheduleStlmNForRequestList() throws Exception {
+		return this.selectOrdrScheduleStlmNList(-2);
+	}
+
+	// 3일 동안 결제를 안 한 주문 리스트 (주문취소)
+	public List<OrdrVO> selectOrdrScheduleStlmNForCancelList() throws Exception {
+		return this.selectOrdrScheduleStlmNList(-3);
+	}
+
+	protected List<OrdrVO> selectOrdrScheduleStlmNList(int days) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		Date now = new Date();
+
+		paramMap.put("srchStlmKnd", "VBANK");
+		paramMap.put("srchStlmTy", "VBANK");
+		paramMap.put("srchStlmYn", "N");
+		
+		paramMap.put("srchBgngDt", DateUtil.formatDate(DateUtil.getDateAdd(now, "date", days + 0), "yyyy-MM-dd"));
+		paramMap.put("srchEndDt" , DateUtil.formatDate(DateUtil.getDateAdd(now, "date", days + 1), "yyyy-MM-dd"));
+
+		return ordrDAO.selectOrdrScheduleStlmNList(paramMap);
+	}
+
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.mail.MailForm2Service;
 import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
 import icube.common.util.HtmlUtil;
@@ -31,6 +32,8 @@ import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
 import icube.manage.gds.optn.biz.GdsOptnVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
 import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
@@ -70,6 +73,12 @@ public class MBplcOrdrController extends CommonAbstractController  {
 
 	@Resource(name = "mailFormService")
 	private MailFormService mailFormService;
+
+	@Resource(name = "mailForm2Service")
+	private MailForm2Service mailForm2ervice;
+
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 
 	@Resource(name = "dlvyCoMngService")
 	private DlvyCoMngService dlvyCoMngService;
@@ -535,10 +544,9 @@ public class MBplcOrdrController extends CommonAbstractController  {
 			result = true;
 
 			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
-			String mailHtml = "mail_ordr_confirm.html";
-			String mailSj = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			mailForm2ervice.sendMailOrder("MAILSEND_ORDR_MNG_CONFIRM", mbrVO, ordrVO);
 		}
 
 		// result
@@ -629,11 +637,11 @@ public class MBplcOrdrController extends CommonAbstractController  {
 		if(resultCnt == 1){
 			result = true;
 
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			// OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
 
-			String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
-			String mailHtml = "mail_ordr_auto.html";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			// String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
+			// String mailHtml = "mail_ordr_auto.html";
+			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 		}
 
 		// result

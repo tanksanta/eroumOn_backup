@@ -84,6 +84,15 @@ public class OrdrDtlDAO extends CommonAbstractMapper {
 		return selectList("ordr.dtl.selectOrdrSttsList",paramMap);
 	}
 
+	// 스케줄러 상태 조회
+	public List<OrdrDtlVO> selectOrdrSttsDaysList(Map<String, Object> paramMap) throws Exception {
+		return selectList("ordr.dtl.selectOrdrSttsDaysList",paramMap);
+	}
+		// 스케줄러 상태 조회
+	public List<OrdrDtlVO> selectOrdrSttsDaysDtlList(Map<String, Object> paramMap) throws Exception {
+		return selectList("ordr.dtl.selectOrdrSttsDaysDtlList",paramMap);
+	}
+
 	// 반품, 주문취소 마지막 상품 판별
 	public int selectLastReturn(Map<String, Object> paramMap) throws Exception {
 		return selectOne("ordr.dtl.selectLastReturn",paramMap);
