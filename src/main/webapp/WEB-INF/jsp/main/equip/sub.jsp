@@ -289,6 +289,34 @@
 	    </div>
 	</div>
 
+	<!--알림 팝업소스-->
+    <div class="modal modal-index fade" id="notified-consulting" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h2 class="text-title">알림</h2>
+            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+            </div>
+            <div class="modal-body">
+            <div class="modal-bg-wrap">
+                <div class="flex flex-col justify-center items-center">
+                <div class="text-center text-xl">
+                    <p>진행중인 관심 복지용구 상담이 있습니다</p>
+                    <p>상담내역을 확인하시겠습니까?</p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer gap-1">
+	            <button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
+	            
+	            <!-- 새롭게 진행하기 버튼 제거 -->
+	            <!-- <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="createNewConslt();">새롭게 진행하기</button> -->
+            </div>
+        </div>
+        </div>
+    </div>
+
 
 	<script>
 		var mbrNm = null;
@@ -409,7 +437,29 @@
 	        		return;
 	        	}
 	    		
-	        	location.href = '/main/welfare/equip/list?recipientsNo=' + radioRecipientsNo;
+	        	
+	        	//진행중인 상담 조회 api
+	        	$.ajax({
+            		type : "post",
+    				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+    				data : {
+    					recipientsNo : radioRecipientsNo,
+    					prevPath : 'equip_ctgry'
+    				},
+    				dataType : 'json'
+            	})
+            	.done(function(data) {
+            		//해당 수급자가 진행중인 상담이 있는 경우
+            		if (data.isExistRecipientConslt) {
+            			$('#notified-consulting').modal('show').appendTo('body');
+            		} else {
+            			location.href = '/main/welfare/equip/list?recipientsNo=' + radioRecipientsNo;
+            		}
+            	})
+            	.fail(function(data, status, err) {
+            		alert('서버와 연결이 좋지 않습니다.');
+    			});
+	        	
 	    	}
 	    	//직접입력하기인 경우
 	    	else {

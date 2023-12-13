@@ -164,7 +164,14 @@
             <div class="flex justify-between items-center gap-2">
                 <h3 class="font-semibold text-xl">관심 복지용구</h3>
                 <div>
-                    <a href="#" class="btn-success btn-small" data-bs-toggle="modal" data-bs-target="#pop-consulting-test">상담하기</a>
+                	<c:choose>
+                		<c:when test="${!empty welfareConsltNo}">
+                			<a class="btn-success btn-small" onclick="viewConsltInfoModal('${welfareConsltNo}')">상담하기</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="/main/welfare/equip/sub" class="btn-success btn-small">상담하기</a>
+                		</c:otherwise>
+                	</c:choose>
                 </div>
             </div>
             
@@ -325,7 +332,7 @@
             		<div class="card-bg-gray">
 			            <img src="/html/page/members/assets/images/img-welfare-kit-nodata.svg" class="w-25" alt="관심복지용품 이미지"/>
 			            <p class="text-gray5">필요한 복지용구를 선택하고  <strong> 구매 신청해보세요</strong></p>
-			            <a href="/main/welfare/equip/sub" class="btn-outline-secondary btn-arrow mt-8">
+			            <a href="/main/welfare/equip/list?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary btn-arrow mt-8">
 			                선택하기
 			                <i class="icon-next ml-3"></i>
 			            </a>
@@ -377,6 +384,8 @@
 	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
 	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
 	
+	<!-- 상담정보확인팝업소스 -->
+    <jsp:include page="/WEB-INF/jsp/common/modal/conslt_info_modal.jsp" />
 
 	<!--모달: 인정등급 예상 테스트 결과보기 -->
 	<div class="modal modal-scrolled  fade" id="grade-test-result" tabindex="-1">
@@ -395,7 +404,6 @@
 </main>
 
 <script src="/html/core/script/formatter.js"></script>
-<script src="/html/page/index/assets/script/JsRecipterLongtermDisp.js"></script>
 <script>
   	//모바일 체크 처리
 	var isMobile = /Mobi/i.test(window.navigator.userAgent);
