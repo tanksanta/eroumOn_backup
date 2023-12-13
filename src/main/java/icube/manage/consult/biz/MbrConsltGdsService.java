@@ -28,6 +28,12 @@ public class MbrConsltGdsService extends CommonAbstractServiceImpl {
 		return mbrConsltGdsDAO.selectMbrConsltGds(paramMap);
 	}
 	
+	public List<MbrConsltGdsVO> selectMbrConsltGdsByConsltNo(int consltNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchConsltNo", consltNo);
+		return selectMbrConsltGds(paramMap);
+	}
+	
 	public Integer insertMbrConsltGds(MbrConsltGdsVO mbrConsltGdsVO) throws Exception {
 		return mbrConsltGdsDAO.insertMbrConsltGds(mbrConsltGdsVO);
 	}

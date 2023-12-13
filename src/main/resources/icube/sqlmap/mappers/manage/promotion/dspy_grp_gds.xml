@@ -39,6 +39,8 @@
 			, g.use_yn
 			, g.reg_dt
 			, g.pc
+			, g.dscnt_rt
+			, g.dscnt_pc
 			, g.soldout_yn
 			, 'THUMB' as thumb_file_ty
 			, p.sort_no
