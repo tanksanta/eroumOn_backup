@@ -1328,20 +1328,55 @@
             //     }
             // });
             const checkAllItems = document.querySelector("#check-all");
-            const parents = document.querySelectorAll(".welfare-kit-box");
+            const welfareKitBoxes = document.querySelectorAll(".welfare-kit-box");
             const checks = document.querySelectorAll(".welfare-kit-box .form-check-input");
 
-            checks.forEach((chk) => {
-                chk.addEventListener("change", (e) => {
-                    const current = e.currentTarget;
-                    const parent = current.closest('.welfare-kit-box');
-                    if (current.checked) {
-                        parent.classList.add('is-active');
-                    } else {
-                        parent.classList.remove('is-active');
-                    }
+            // welfareKitBoxes.forEach((kit) => {
+            //     kit.addEventListener("click", (e) => {
+            //         const currentParent = e.currentTarget;
+            //         const checkbox = currentParent.querySelector('.form-check-input');
+            //         if (!checkbox.checked) {
+            //             currentParent.classList.add('is-active');
+            //         } else {
+            //             currentParent.classList.remove('is-active');
+            //         }
+            //         checkbox.checked = !checkbox.checked;
+            //     });
+            // });
+
+
+            // checks.forEach((chk) => {
+            //     chk.addEventListener("change", (e) => {
+            //         const current = e.currentTarget;
+            //         const parent = current.closest('.welfare-kit-box');
+            //         if (current.checked) {
+            //             parent.classList.add('is-active');
+            //         } else {
+            //             parent.classList.remove('is-active');
+            //         }
+            //     });
+            // });
+
+            welfareKitBoxes.forEach((box) => {
+                const checkbox = box.querySelector('.form-check-input');
+                box.addEventListener("click", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
+                });
+
+                checkbox.addEventListener("change", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
                 });
             });
+
+            function toggleActiveClass(element, isChecked) {
+                if (isChecked) {
+                    element.classList.add('is-active');
+                } else {
+                    element.classList.remove('is-active');
+                }
+            }
 
             checkAllItems.addEventListener('change', (e) => {
                 const current = e.currentTarget;
@@ -1355,11 +1390,6 @@
                     }
                 });
             });
-
-
-
-            
-            
         })
     </script>
 </body>

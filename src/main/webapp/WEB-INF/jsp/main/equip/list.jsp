@@ -282,23 +282,30 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const checkAllItems = document.querySelector("#check-all");
-            const parents = document.querySelectorAll(".welfare-kit-box");
+            const welfareKitBoxes = document.querySelectorAll(".welfare-kit-box");
             const checks = document.querySelectorAll(".welfare-kit-box .form-check-input");
 
-            checks.forEach((chk) => {
-            	//복지용구 단일선택 이벤트
-                chk.addEventListener("change", (e) => {
-                    const current = e.currentTarget;
-                    const parent = current.closest('.welfare-kit-box');
-                    if (current.checked) {
-                        parent.classList.add('is-active');
-                    } else {
-                        parent.classList.remove('is-active');
-                    }
-                    
-                    drawSelectedWelfareCount();
+            //복지용구 단일선택 이벤트
+            welfareKitBoxes.forEach((box) => {
+                const checkbox = box.querySelector('.form-check-input');
+                box.addEventListener("click", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
+                });
+
+                checkbox.addEventListener("change", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
                 });
             });
+
+            function toggleActiveClass(element, isChecked) {
+                if (isChecked) {
+                    element.classList.add('is-active');
+                } else {
+                    element.classList.remove('is-active');
+                }
+            }
 
             //복지용구 전체선택 이벤트
             checkAllItems.addEventListener('change', (e) => {
