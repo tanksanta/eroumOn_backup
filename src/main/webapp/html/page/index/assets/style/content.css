@@ -1116,6 +1116,10 @@
     }
 }
 
+.text-hightlight-orange {
+    @apply bg-no-repeat bg-bottom bg-[length:auto_0.7em] bg-gradient-to-r from-[#FAF0D7] to-[#FAF0D7];
+}
+
 .grade-taps {
     @apply flex gap-1 flex-col mx-auto max-w-[45.25rem] text-lg font-medium leading-tight text-center
            md:flex-row md:items-start md:text-base;
@@ -1914,6 +1918,10 @@
     }
 }
 
+@keyframes slideLeft {
+    0% { transform: translateX(4%); }
+    100% { transform: translateX(0%); }
+}
 
 .add-rcpts-regist {
     display: none;
