@@ -403,7 +403,7 @@
 					//대여
 					else {
 						welfareRTemp += '<tr' + (myCareCtgryCd ? ' class="bg-[#ffe1cc]"' : '') + '>'
-							+ '<td>' + sCount + '</td>'
+							+ '<td>' + rCount + '</td>'
 							+ '<td class="subject">' + ownWelfareInfo.itemGrpNm + '</td>'
 							+ '<td>' + (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.persistPeriodCnt - ownWelfareInfo.ableCnt : '해당없음')  + '</td>'
 							+ '<td>' + (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.ableCnt : '해당없음') + '</td>'
@@ -446,7 +446,8 @@
 			case '1090': imgClassNm = 'swiper-item4'; textNm = '안전손잡이'; break;
 			case '1080': imgClassNm = 'swiper-item5'; textNm = '미끄럼방지 매트'; break;
 			case '1070': imgClassNm = 'swiper-item6'; textNm = '미끄럼방지 양말'; break;
-			case '1010': imgClassNm = 'swiper-item7'; textNm = '욕창예방 매트리스'; break;
+			case '1010': imgClassNm = 'swiper-item7'; textNm = '욕창예방 매트리스(판매)'; break;
+			case '2010': imgClassNm = 'swiper-item7'; textNm = '욕창예방 매트리스(대여)'; break;
 			case '1040': imgClassNm = 'swiper-item8'; textNm = '욕창예방 방석'; break;
 			case '1030': imgClassNm = 'swiper-item9'; textNm = '자세변환용구'; break;
 			case '1020': imgClassNm = 'swiper-item10'; textNm = '요실금 팬티'; break;
@@ -490,6 +491,7 @@
 			case '미끄럼 방지매트/액': returnCareCd = '1080'; break;
 			case '미끄럼 방지양말': returnCareCd = '1070'; break;
 			case '욕창예방 매트리스(판매)': returnCareCd = '1010'; break;
+			case '욕창예방 매트리스(대여)': returnCareCd = '2010'; break;
 			case '욕창예방방석': returnCareCd = '1040'; break;
 			case '자세변환용구': returnCareCd = '1030'; break;
 			case '요실금팬티': returnCareCd = '1020'; break;

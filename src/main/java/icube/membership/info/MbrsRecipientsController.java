@@ -22,13 +22,13 @@ import icube.main.biz.ItemMap;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
-import icube.manage.consult.biz.MbrConsltGdsService;
-import icube.manage.consult.biz.MbrConsltGdsVO;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -50,11 +50,11 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 	
-	@Resource(name = "mbrConsltGdsService")
-	private MbrConsltGdsService mbrConsltGdsService;
-	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Resource(name = "itrstService")
 	private ItrstService itrstService;
@@ -168,13 +168,9 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		}
 		
 		
-		//복지용구정보 가져오기 위해 복지용구상담 조회
-		MbrConsltVO welfareConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, "equip_ctgry");
-		if (welfareConslt != null) {
-			List<MbrConsltGdsVO> mbrConsltGdsList = mbrConsltGdsService.selectMbrConsltGdsByConsltNo(welfareConslt.getConsltNo());
-			model.addAttribute("welfareConsltNo", welfareConslt.getConsltNo());
-			model.addAttribute("mbrConsltGdsList", mbrConsltGdsList);
-		}
+		//수급자 관심 복지용구 선택값 조회
+		List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(srchRecipient.getRecipientsNo());
+		model.addAttribute("mbrRecipientsGdsList", mbrRecipientsGdsList);
 		
 		
 		//인정등급예상테스트 정보

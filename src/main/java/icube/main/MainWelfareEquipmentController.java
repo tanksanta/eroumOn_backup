@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -74,9 +75,17 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 			model.addAttribute("goUrl", "/main/welfare/equip/sub");
 			return "/common/msg";
 		}
-		model.addAttribute("recipientsNo", recipientsNo);
 		
+		//수급자 관심 복지용구 선택값 저장
+		Map<String, Boolean> recipientsGdsCheckMap = new HashMap<>();
+		List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(recipientsNo);
+		for (MbrRecipientsGdsVO recipientsGds : recipientsGdsList) {
+			recipientsGdsCheckMap.put(recipientsGds.getCareCtgryCd(), true);
+		}
+		
+		model.addAttribute("recipientsNo", recipientsNo);
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("recipientsGdsCheckMap", recipientsGdsCheckMap);
 		
 		return "/main/equip/list";
 	}
