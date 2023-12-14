@@ -1138,7 +1138,7 @@ public class CodeMap{
 			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","자동 구매확정-예정");//
 			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION","자동 구매확정-처리");//
 
-			put("BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION","사용자 구매확정-처리");//
+			// put("BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION","사용자 구매확정-처리");// 사용자가 구매확정을 처리하는 경우에도 한건씩 처리해서 추후에 적용
 		}
 	};
 

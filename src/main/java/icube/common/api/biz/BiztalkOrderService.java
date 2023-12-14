@@ -68,7 +68,7 @@ public class BiztalkOrderService extends BiztalkApiService {
 
 		boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
 
-		this.getResultAll();
+		// this.getResultAll();
 
 		return bResult;
 	}
@@ -424,7 +424,59 @@ public class BiztalkOrderService extends BiztalkApiService {
 	// Order_0017 주문완료(무료)
 	private JSONObject msgOrder0017(String tmpltCode, MbrVO mbrVO, OrdrVO ordrVO) throws Exception {
 		
-		return null;
+		String jsonStr;
+		
+		JSONObject jsonObject;
+		JSONParser jsonParser = new JSONParser();
+		JSONArray btns = new JSONArray();
+		JSONObject attach = new JSONObject();
+        JSONObject item = new JSONObject();
+		JSONObject jtemp;
+
+
+		jsonStr = "{" + " \"name\":\"주문내역 확인\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/market/mypage/ordr/list");
+		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
+		btns.add(jsonObject);
+
+		attach.put("button", btns);
+
+        JSONArray itemList = new JSONArray();
+		jtemp = new JSONObject();
+		jtemp.put("title", "주문일자");
+		jtemp.put("description", DateUtil.getDateTime(ordrVO.getOrdrDt(), "yyyy-MM-dd"));
+        itemList.add(jtemp);
+		jtemp = new JSONObject();
+		jtemp.put("title", "주문번호");
+		jtemp.put("description", ordrVO.getOrdrCd());
+        itemList.add(jtemp);
+        item.put("list", itemList);
+
+        attach.put("item", item);
+
+		jtemp = new JSONObject();
+		jtemp.put("title", this.getHighlightTitle(ordrVO));
+		jtemp.put("description", "주문상품");
+		attach.put("item_highlight", jtemp);
+		
+		String msg = "안녕하세요. #{회원이름}님!\r\n" + //
+				"\r\n" + //
+				"상품을 주문해 주셔서 감사합니다.\r\n" + //
+				"빠른 배송이 될 수 있도록 노력하겠습니다.";
+		
+		
+		msg = msg.replace("#{회원이름}", mbrVO.getMbrNm());
+        
+		
+		JSONObject param = new JSONObject();
+		
+		param.put("tmpltCode", tmpltCode);
+		param.put("senderKey", this.biztalkSenderKeyEroumOn);
+		param.put("message", msg);
+		param.put("attach", attach);
+        param.put("header", "주문이 완료되었습니다.");
+		
+		return param;
 	}
 
 	// Order_0014 자동구매확정예정
