@@ -150,7 +150,7 @@
                                         <p class="text-center mt-3 text-sm">※ 위 내용은 데이터 조회 시점에 따라 <span class="underline font-bold">실제와 다를 수 있으니 참고용</span>으로만 사용해주세요. </p>
                                     </div>
                                     <div class="flex justify-center my-4">
-                                        <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false">상세열기</button>
+                                        <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false" onclick="clickOpenDetail()">상세열기</button>
                                     </div>
                                 </div>
                             </div>
@@ -173,11 +173,19 @@
 			},
 		</c:forEach>
 	]
-
-
+	
 	//조회하기 버튼 클릭
 	function welfareSearchBtn() {
 		getRecipterInfo();
+	}
+	
+	//상세열기
+	function clickOpenDetail() {
+		if ($('.btn.status-toggle').text() == '상세열기') {
+			$('.btn.status-toggle').text('상세닫기');
+		} else {
+			$('.btn.status-toggle').text('상세열기');
+		}
 	}
 
 	//숫자형 날짜 하이폰 삽입
@@ -374,6 +382,8 @@
 				let welfareRTemp = '';
 				let sCount = 1;
 				let rCount = 1;
+				let myCareCtgryCdList10 = [];
+				let myCareCtgryCdList20 = [];
 				
 				initSelectedWelfare();
 				
@@ -382,12 +392,6 @@
 					
 					//선택된 관심 복지용구인 경우 careCtgryCd 반환
 					var myCareCtgryCd = getCareCtgryCdIfInteresting(ownWelfareInfo.itemGrpNm);
-					if (myCareCtgryCd) {
-						appendSelectedWelfare(myCareCtgryCd
-								, (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.persistPeriodCnt - ownWelfareInfo.ableCnt : 0)
-								, (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.ableCnt : 0));
-					}
-					
 					
 					//판매
 					if (ownWelfareInfo.saleKind === 'S') {
@@ -399,6 +403,14 @@
 							+ '</tr>';
 							
 						sCount++;
+						
+						if (myCareCtgryCd) {
+							myCareCtgryCdList10.push({
+								careCtgryCd : myCareCtgryCd,
+								contractCnt: (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.persistPeriodCnt - ownWelfareInfo.ableCnt : 0),
+								ableCnt: (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.ableCnt : 0)
+							});
+						}
 					}
 					//대여
 					else {
@@ -410,9 +422,35 @@
 							+ '</tr>';
 						
 						rCount++;
+						
+						if (myCareCtgryCd) {
+							myCareCtgryCdList20.push({
+								careCtgryCd : myCareCtgryCd,
+								contractCnt: (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.persistPeriodCnt - ownWelfareInfo.ableCnt : 0),
+								ableCnt: (ownWelfareInfo.ableYn == 'Y' ? ownWelfareInfo.ableCnt : 0)
+							});
+						}
 					}
 				}
 
+				
+				//선택 복지용구 정보 추가하기
+				for (var i = 0; i < myCareCtgryCdList10.length; i++) {
+					appendSelectedWelfare(
+						myCareCtgryCdList10[i].careCtgryCd, 
+						myCareCtgryCdList10[i].contractCnt, 
+						myCareCtgryCdList10[i].ableCn
+					);
+				}
+				for (var i = 0; i < myCareCtgryCdList20.length; i++) {
+					appendSelectedWelfare(
+						myCareCtgryCdList20[i].careCtgryCd, 
+						myCareCtgryCdList20[i].contractCnt, 
+						myCareCtgryCdList20[i].ableCn
+					);
+				}
+				
+				
 				$('#own-welfare-s').html(welfareSTemp);
 				$('#own-welfare-r').html(welfareRTemp);
 				
