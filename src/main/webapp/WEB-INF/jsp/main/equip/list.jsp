@@ -305,6 +305,8 @@
                 } else {
                     element.classList.remove('is-active');
                 }
+                
+                drawSelectedWelfareCount();
             }
 
             //복지용구 전체선택 이벤트
