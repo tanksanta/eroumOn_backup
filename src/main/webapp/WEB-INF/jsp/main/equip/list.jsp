@@ -18,7 +18,7 @@
 
 <div id="content">
     <div class="flex justify-between items-center mb-3">
-        <div class="form-check">
+        <div class="form-check warning">
             <input class="form-check-input" type="checkbox" id="check-all">
             <label class="form-check-label" for="check-all">전체선택</label>
         </div>
