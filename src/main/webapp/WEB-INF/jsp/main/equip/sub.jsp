@@ -175,7 +175,7 @@
         혜택을 확인하고 <span class="text-hightlight-orange font-bold">구매 신청해보세요</span>
     </div>
 
-	<a href="/main/welfare/equip/list" id="search-recipients" class="grade-floating">
+	<a id="search-recipients" class="grade-floating" onclick="searchRecipients()">
         <strong>복지용구 선택하기</strong>
     </a>
 	

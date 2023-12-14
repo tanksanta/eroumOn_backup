@@ -292,7 +292,6 @@
 	    var infoModalType = '';
 	    var infoPrevPath = '';
 	    var addRecipientInfo = {};
-	    var ctgryNmArr = [];
     
 	  	//수급자 등록 수정 ,상담신청 모달창 띄우기(또는 진행중인 상담존재 모달에서 새롭게 진행하기 클릭)
 	    function openModal(modalType, recipientsNo, prevPath) {
@@ -779,18 +778,6 @@
 	    			, prevPath: infoPrevPath
 	    			, saveRecipientInfo
 		    	};
-	    	    
-	    	    if (infoPrevPath === 'equip_ctgry') {
-	    	    	var ctgry10Length = ctgryNmArr.ctgry10Nms ? ctgryNmArr.ctgry10Nms.length : 0;
-	    	    	var ctgry20Length = ctgryNmArr.ctgry20Nms ? ctgryNmArr.ctgry20Nms.length : 0;
-	    	    	if (ctgry10Length === 0 && ctgry20Length === 0) {
-	    	    		alert('관심 복지용구를 선택하세요');
-	    	    		return;
-	    	    	}
-	    	    	
-	    	    	consltRequestData.ctgry10Nms = ctgryNmArr.ctgry10Nms;
-	    	    	consltRequestData.ctgry20Nms = ctgryNmArr.ctgry20Nms;
-	    	    }
 
 	    	    doubleClickCheck = true;
 	    	    
