@@ -149,7 +149,7 @@
                                         </table>
                                         <p class="text-center mt-3 text-sm">※ 위 내용은 데이터 조회 시점에 따라 <span class="underline font-bold">실제와 다를 수 있으니 참고용</span>으로만 사용해주세요. </p>
                                     </div>
-                                    <div class="flex justify-center my-4">
+                                    <div class="flex justify-center my-4" style="display:none;">
                                         <button type="button" class="btn status-toggle" data-bs-target="#collapse-agree1" data-bs-toggle="collapse" aria-expanded="false" onclick="clickOpenDetail()">상세열기</button>
                                     </div>
                                 </div>
@@ -314,9 +314,6 @@
 			}
 			
 			if(json.result){
-				//간편조회 정보 표출
-				$('.search-info-view').css('display','block');
-				
 				let usePercent = 0;
 				let setPercent = 100;
 				if(Number(json.infoMap.USE_AMT) != 0){
@@ -454,6 +451,12 @@
 				$('#own-welfare-s').html(welfareSTemp);
 				$('#own-welfare-r').html(welfareRTemp);
 				
+				
+                //간편조회 정보 표출
+                $('.search-info-view').css('display','block');
+                
+              	//상세보기 버튼이 없어져서 바로 보이게 만들기
+        		$(".btn.status-toggle").trigger("click");
 			}else{
 				alert("조회된 데이터가 없습니다.");
 			}
