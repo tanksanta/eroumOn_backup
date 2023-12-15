@@ -721,3 +721,28 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
 
 
 }
+
+class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
+    fn_page_init_click(){
+        var owner = this;
+
+        $(owner._cls_info.pageModalfix + ' #findAdres').removeAttr("onclick");
+        $(owner._cls_info.pageModalfix + ' #findAdres').off('click').on('click', function(){
+            popupZipSearch.fn_show_popup(owner, 'fn_zipsearch_cb', true, {defalut_result:true});
+        });
+        
+        // 삭제기능 없음
+        // $(owner._cls_info.pageModalfix + ' .delDlvyBtn').off('click').on('click', function(){
+        //     owner.fn_del_click();
+        // });
+    }
+
+    fn_loading_all_result_data(){
+        
+    }
+    
+    // 삭제기능 없음
+    fn_del_click(){
+        
+    }
+}

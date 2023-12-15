@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entrps.dlvygrp">
+
+	<resultMap type="entrpsDlvyGrpVO" id="entrpsDlvyGrpVOMap" autoMapping="true" />
+
+	<sql id="listColumn">
+		entrps_dlvygrp_no
+		, entrps_no
+		, entrps_dlvygrp_nm
+		, use_yn
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		, mdfcn_unique_id
+		, mdfcn_dt
+		, mdfcn_id
+		, mdfr
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchText != null and srchText != '' ">
+			<choose>
+				<when test='srchTarget != null and srchTarget == "C" '>AND entrps_nm like CONCAT('%', #{srchText}, '%')</when>
+				<when test='srchTarget != null and srchTarget == "N" '>AND brno like CONCAT('%',#{srchText},'%')</when>
+				<when test='srchTarget != null and srchTarget == "M" '>AND pic_nm like CONCAT('%',#{srchText},'%')</when>
+			</choose>
+		</if>
+		<if test="srchYn != null and srchYn != '' ">
+			AND use_yn = #{srchYn}
+		</if>
+		<if test="srchEntrpsNo != null and srchEntrpsNo != '' ">
+			AND entrps_no = #{srchEntrpsNo}
+		</if>
+	</sql>
+
+	<select id="selectEntrpsDlvyGrpListVO" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpListVO */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ENTRPS_DLVYGRP
+		WHERE 1=1
+			<include refid="searchConditions" />
+	  	ORDER BY entrps_no DESC
+	  	LIMIT #{startNum}, #{endNumMysql}
+	</select>
+
+	<select id="selectEntrpsDlvyGrpListAll" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpListAll */
+		SELECT
+			<include refid="listColumn"/>
+		FROM ENTRPS_DLVYGRP
+		WHERE 1=1
+		 	<include refid="searchConditions" />
+		ORDER BY entrps_no DESC
+	</select>
+
+	<select id="selectEntrpsDlvyGrpCount" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpCount */
+		SELECT	COUNT(*)
+		FROM	ENTRPS_DLVYGRP
+		WHERE	1=1
+		<include refid="searchConditions"/>
+	</select>
+
+	<select id="selectEntrpsDlvyGrp" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+		/* Query ID : entrps-dlvy-grp.xml > selectEntrps */
+		SELECT
+		<include refid="listColumn"/>
+		FROM	ENTRPS_DLVYGRP
+		WHERE  entrps_no = #{entrpsDlvyGrpNo}
+	</select>
+
+	<select id="selectEntrpsDlvyGrpByGdsNo" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpByGdsNo */
+		SELECT E.entrps_no, E.entrps_nm
+		FROM   ENTRPS_DLVYGRP E
+		JOIN   GDS G  ON E.entrps_no = G.entrps_no
+		WHERE  G.gds_no = #{srchGdsNo}
+	</select>
+
+	<insert id="insertEntrpsDlvyGrp" parameterType="entrpsDlvyGrpVO">
+	/* Query ID : entrps-dlvy-grp.xml > insertEntrps */
+	INSERT INTO ENTRPS_DLVYGRP (
+		entrps_nm
+		, reg_unique_id
+		, reg_dt
+		, reg_id
+		, rgtr
+		) VALUES (
+		#{entrpsNm, jdbcType=VARCHAR}
+		
+		, #{regUniqueId, jdbcType=VARCHAR}
+		, SYSDATE()
+		, #{regId, jdbcType=VARCHAR}
+		, #{rgtr, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateEntrpsDlvyGrp" parameterType="entrpsDlvyGrpVO">
+		/* Query ID : entrps-dlvy-grp.xml > updateEntrpsDlvyGrp */
+		UPDATE ENTRPS_DLVYGRP SET
+			entrps_nm = #{entrpsNm, jdbcType=VARCHAR}
+			
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+			WHERE	entrps_no = #{entrpsNo}
+	</update>
+
+</mapper>
