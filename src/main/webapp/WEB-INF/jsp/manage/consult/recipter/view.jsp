@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    <!-- plugin -->
-    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
-    
-    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+		    <!-- plugin -->
+		    <link rel="stylesheet" href="/html/core/vendor/swiperjs/swiper-bundle.css">
+		    <script src="/html/core/vendor/swiperjs/swiper-bundle.min.js"></script>
     
 			<!-- page content -->
             <div id="page-content">
