@@ -93,6 +93,7 @@ public class MbrsConsltController extends CommonAbstractController {
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
 		model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("prevPathMap", CodeMap.PREV_PATH);
 
 		return "/membership/conslt/appl/list";
 	}

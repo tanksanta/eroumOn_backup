@@ -27,6 +27,8 @@ import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -50,6 +52,9 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Resource(name = "itrstService")
 	private ItrstService itrstService;
@@ -101,6 +106,50 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		model.addAttribute("mbrConsltMap", mbrConsltMap);
 		
 		
+		//회원 수급자들의 테스트 정보
+    	List<MbrTestVO> mbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
+		//회원 수급자들의 관심 복지용구 선택 정보
+    	List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByUniqueId(mbrSession.getUniqueId());
+    	
+		//수급자 리스트에서 상담하기 숏컷 버튼 노출 정보(각 수급자 별로 복지용구 또는 인정등급 상담 신청하기 버튼 노출 여부 저장)
+		//null인 경우 노출 안하며 prevPath에 따라 해당 상담하기 버튼 노출
+		Map<Integer, String> btnConsltPrevPathMap = new HashMap<>();
+		if (mbrRecipientsList != null && mbrRecipientsList.size() > 0) {
+			for(int i = 0; i < mbrRecipientsList.size(); i++) {
+				MbrRecipientsVO curRecipient = mbrRecipientsList.get(i);
+				MbrConsltVO mbrConslt = mbrConsltMap.get(curRecipient.getRecipientsNo());
+				boolean existTestResult = mbrTestList.stream().anyMatch(t -> t.getRecipientsNo() == curRecipient.getRecipientsNo()); //테스트 결과가 있는 지 확인
+				boolean existGdsResult = mbrRecipientsGdsList.stream().anyMatch(g -> g.getRecipientsNo() == curRecipient.getRecipientsNo()); //관심 복지용구가 있는 지 확인 
+				
+				//상담이 없는 경우
+				if (mbrConslt == null) {
+					if (existGdsResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+					} else if (existTestResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+					}
+				}
+				//먼저 조회한 상담이 test인 경우
+				else if ("test".equals(mbrConslt.getPrevPath())) {
+					MbrConsltVO mbrEquipConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "equip_ctgry");
+					//test 상담은 존재하므로 복지용구 상담만 없고 관심 복지용구가 있는 지 확인
+					if (mbrEquipConslt == null && existGdsResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+					}
+				}
+				//먼저 조회한 상담이 복지용구 상담인 경우
+				else if ("equip_ctgry".equals(mbrConslt.getPrevPath())) {
+					MbrConsltVO mbrTestConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "test");
+					//복지용구 상담은 존재하므로 test 상담만 없고 테스트 결과가 있는 지 확인
+					if (mbrTestConslt == null && existTestResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+					}
+				}
+			}
+		}
+		model.addAttribute("btnConsltPrevPathMap", btnConsltPrevPathMap);
+		
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
@@ -112,10 +161,6 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
 		model.addAttribute("bplcRcmdList", bplcRcmdList);
 		
-		//회원 수급자들의 테스트 정보
-    	List<MbrTestVO> srchMbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
-    	model.addAttribute("mbrTestList", srchMbrTestList);
-    	
 		model.addAttribute("prevPath", CodeMap.PREV_PATH);
 		model.addAttribute("consltSttus", CodeMap.CONSLT_STTUS);
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
@@ -161,6 +206,12 @@ public class MbrsRecipientsController extends CommonAbstractController {
 				}
 			}
 		}
+		
+		
+		//수급자 관심 복지용구 선택값 조회
+		List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(srchRecipient.getRecipientsNo());
+		model.addAttribute("mbrRecipientsGdsList", mbrRecipientsGdsList);
+		
 		
 		//인정등급예상테스트 정보
 		Map<String, Object> paramMap = new HashMap<>();
@@ -234,7 +285,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "update/main.json")
-	public Map<String, Object> addMbrRecipient(
+	public Map<String, Object> updateMainRecipient(
 		@RequestParam Integer recipientsNo,
 		HttpServletRequest request) throws Exception {
 		
@@ -260,7 +311,7 @@ public class MbrsRecipientsController extends CommonAbstractController {
 			resultMap.put("success", true);
 		} catch (Exception ex) {
 			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 등록중 오류가 발생하였습니다");
+			resultMap.put("msg", "메인 수급자 변경 중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;

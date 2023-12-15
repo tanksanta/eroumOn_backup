@@ -95,10 +95,10 @@ img[alt] {
                 } */
             }
         }
-        & .modal-content {
+        /* & .modal-content {
             @apply relative flex flex-col w-full h-full bg-white shadow-none pointer-events-auto
-                sm:border-[0.1875rem] sm:border-black1 sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[41.125rem];
-        }
+                sm:rounded-[1.875rem] sm:h-[calc(100vh_-_1rem)] sm:max-h-[41.125rem];
+        } */
         & .modal-header {
             @apply flex items-center justify-between px-2.5 h-[2.8125rem]
                 sm:px-5 sm:h-15;
@@ -106,14 +106,16 @@ img[alt] {
                 @apply h-4;
             }
             & [data-bs-dismiss="modal"] {
-                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[url(../images/ico-close.svg)] bg-[length:2rem]
-                    sm:-mr-3.5 sm:w-11 sm:h-11 sm:bg-[length:2rem];
+                @apply -mr-2.5 w-8 h-8 overflow-hidden -indent-96 bg-no-repeat bg-center bg-[length:1.5rem]
+                    sm:-mr-3.5 sm:w-11 sm:h-11;
+                    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9'%3E%3Cpath data-name='Rectangle 6 Copy 7' d='m8.046 8.753-3.6-3.6-3.6 3.6a.5.5 0 0 1-.707-.707l3.6-3.6L.147.853A.5.5 0 0 1 .853.147l3.6 3.6 3.6-3.6a.5.5 0 0 1 .707.707l-3.6 3.6 3.6 3.6a.5.5 0 0 1-.707.707Z' fill='%23fff'/%3E%3C/svg%3E")
+
             }
         }
         & .modal-body {
-            @apply px-2.5 py-4 scroll-smooth
+            /* @apply px-2.5 py-4 scroll-smooth
                 sm:p-5
-                last:pb-10;
+                last:pb-10; */
             overflow: overlay;
             -webkit-overflow-scrolling: touch;
             &::-webkit-scrollbar {
@@ -139,12 +141,12 @@ img[alt] {
         }
     }
 
-    .modal-backdrop {
+    /* .modal-backdrop {
         @apply bg-black/70;
         &.show {
             @apply opacity-100;
         }
-    }
+    } */
 
     .offcanvas {
         @apply fixed flex inset-0 flex-col overflow-auto invisible max-w-full max-h-full transition duration-200 ease-in-out bg-white;
@@ -482,6 +484,9 @@ img[alt] {
             @apply justify-center;
         }
     }
+
+
+   
     
     .btn-primary {
         @apply !border-black2 bg-black2 text-white
@@ -493,6 +498,18 @@ img[alt] {
                    before:bg-white
                    after:bg-[url(/html/page/index/assets/images/ico-button-arrow-white.svg)]
                    hover:after:bg-[url(/html/page/index/assets/images/ico-button-arrow.svg)];
+        }
+        &.btn-arrow-right {
+            @apply !bg-black2 min-w-[7em] justify-between font-medium
+                   hover:!bg-white
+                   hover:text-black2
+                   after:bg-no-repeat
+                   after:bg-contain
+                   /* after:ml-2 */
+                   after:w-4
+                   after:h-4
+                   after:bg-[url(../images/ico-angle-white.svg)]
+                   hover:after:bg-[url(../images/ico-angle.svg)];
         }
     }
     
@@ -777,8 +794,7 @@ img[alt] {
         & li {
             @apply relative flex items-start justify-start gap-2 mt-1 pl-2 text-sm;
             &:before {
-                content: "";
-                @apply absolute top-[0.6rem] left-0 inline-block border-[2px] border-black rounded-[50%] bg-gray-800;
+                @apply content-empty absolute top-[0.5rem] left-0 inline-block w-1 h-1 rounded-full bg-black2;
             }
         }
     }

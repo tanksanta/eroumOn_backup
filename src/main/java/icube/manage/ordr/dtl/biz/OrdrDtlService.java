@@ -79,25 +79,61 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 
 	public void insertOrdrDtl(OrdrDtlVO ordrDtlVO) throws Exception {
 
+		this.updateOrdrDtlAdjustStock(ordrDtlVO, false);
+
+		ordrDtlDAO.insertOrdrDtl(ordrDtlVO);
+	}
+
+	/*재고 조정 
+		bAdd : true ==>재고 증가
+			: false ==>재고 감소		
+	*/
+	public void updateOrdrDtlAdjustStock(OrdrDtlVO ordrDtlVO, boolean bAdd) throws Exception {
+
 		Map<String, Object> stockQyMinus = new HashMap<String, Object>();
 
 		/* 재고 처리 */
 		if(EgovStringUtil.isEmpty(ordrDtlVO.getOrdrOptn())) {
 			stockQyMinus.put("gdsNo", ordrDtlVO.getGdsNo());
-			stockQyMinus.put("stockQy", (ordrDtlVO.getOrdrQy()*-1)); // 감소
+			stockQyMinus.put("stockQy", (ordrDtlVO.getOrdrQy() * (bAdd?1:-1)));
 			gdsService.updateGdsStockQy(stockQyMinus);
 		}else {
 			stockQyMinus.put("gdsNo", ordrDtlVO.getGdsNo());
 			stockQyMinus.put("optnNm", ordrDtlVO.getOrdrOptn());
-			stockQyMinus.put("optnStockQy", (ordrDtlVO.getOrdrQy()*-1)); // 감소
+			stockQyMinus.put("optnStockQy", (ordrDtlVO.getOrdrQy() * (bAdd?1:-1)));
 			gdsOptnService.updateGdsOptnStockQy(stockQyMinus);
 		}
 
-		ordrDtlDAO.insertOrdrDtl(ordrDtlVO);
 	}
 
 	public void updateOrdrDtl(OrdrDtlVO ordrDtlVO) throws Exception {
 		ordrDtlDAO.updateOrdrDtl(ordrDtlVO);
+	}
+
+	public void updateOrdrDtlCancel(String ordrUniqueId, OrdrDtlVO ordrDtlVO, OrdrChgHistVO chgHistVO) throws Exception {
+		
+		if (!EgovStringUtil.isEmpty(ordrDtlVO.getCouponCd())){
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("uniqueId", ordrUniqueId);
+			paramMap.put("couponNo", ordrDtlVO.getCouponNo());
+			paramMap.put("useYn", "N");
+			couponLstService.updateCouponUseYn(paramMap);
+
+			ordrDtlVO.setCouponCd("");
+			ordrDtlVO.setCouponNo(0);
+			ordrDtlVO.setCouponAmt(0);
+		}
+
+		ordrDtlVO.setMdfcnId(chgHistVO.getRegId());
+		ordrDtlVO.setMdfr(chgHistVO.getRgtr());
+		ordrDtlVO.setSttsTy(chgHistVO.getChgStts());
+
+		ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
+
+		ordrDtlDAO.updateOrdrDtl(ordrDtlVO);
+
+		this.updateOrdrDtlAdjustStock(ordrDtlVO, true);/*재고처리*/
+
 	}
 
 	public void deleteOrdrDtl(int ordrDtlNo) throws Exception {
@@ -259,11 +295,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public int updateOrdrOR09(OrdrDtlVO ordrDtlVO) throws Exception {
+		return this.updateOrdrOR09(null, ordrDtlVO);
+	}
+	public int updateOrdrOR09(OrdrVO ordrVO, OrdrDtlVO ordrDtlVO) throws Exception {
 		int result = 0;
 
 		try {
-
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
+			if (ordrVO == null) ordrVO = ordrService.selectOrdrByNo(ordrDtlVO.getOrdrNo());
 
 			log.debug("STEP.1 : 주문상태 변경(구매확정) START");
 			ordrDtlDAO.updateOrdrStts(ordrDtlVO);
@@ -735,14 +773,12 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ordrCd", ordrCd);
 
-		log.debug("STEP.1 : 결제완료 처리 START");
-		ordrDtlDAO.updateOrdrSttsByOrdrCd(paramMap);
-		log.debug("STEP.1 : 결제완료 처리 END");
-
-
-
-		log.debug("STEP.2 : 전체 주문상태 호출");
+		log.debug("STEP.1 : 전체 주문상태 호출");//결제완료 처리전 상태를 가지고 온다
 		OrdrVO ordrVO = ordrService.selectOrdrByCd(ordrCd);
+
+		log.debug("STEP.2 : 결제완료 처리 START");
+		ordrDtlDAO.updateOrdrSttsByOrdrCd(paramMap);
+		log.debug("STEP.2 : 결제완료 처리 END");
 
 		log.debug("STEP.3 : 주문상태 변경 내역 기록 START");
 		for(OrdrDtlVO ordrDtlVO : ordrVO.getOrdrDtlList()) {
@@ -769,7 +805,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 * @param ordrDtlVO
 	 * @throws Exception
 	 */
-	public void insertOrdrSttsChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
+	public int insertOrdrSttsChgHist(OrdrDtlVO ordrDtlVO) throws Exception {
 		OrdrChgHistVO chgHistVO = new OrdrChgHistVO();
 		chgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
 		chgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
@@ -780,7 +816,7 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 		chgHistVO.setRegUniqueId(ordrDtlVO.getRegUniqueId());
 		chgHistVO.setRegId(ordrDtlVO.getRegId());
 		chgHistVO.setRgtr(ordrDtlVO.getRgtr());
-		ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
+		return ordrChgHistService.insertOrdrSttsChgHist(chgHistVO);
 	}
 
 
@@ -810,6 +846,13 @@ public class OrdrDtlService extends CommonAbstractServiceImpl {
 	 */
 	public List<OrdrDtlVO> selectOrdrSttsList(Map<String, Object> paramMap) throws Exception {
 		return ordrDtlDAO.selectOrdrSttsList(paramMap);
+	}
+
+	public List<OrdrDtlVO> selectOrdrSttsDaysList(Map<String, Object> paramMap) throws Exception {
+		return ordrDtlDAO.selectOrdrSttsDaysList(paramMap);
+	}
+	public List<OrdrDtlVO> selectOrdrSttsDaysDtlList(Map<String, Object> paramMap) throws Exception {
+		return ordrDtlDAO.selectOrdrSttsDaysDtlList(paramMap);
 	}
 
 	/**

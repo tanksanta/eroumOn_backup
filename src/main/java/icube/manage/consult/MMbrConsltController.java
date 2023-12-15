@@ -44,6 +44,8 @@ import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.ConsltAssignmentVO;
 import icube.manage.consult.biz.ConsltHistory;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
+import icube.manage.consult.biz.MbrConsltGdsService;
+import icube.manage.consult.biz.MbrConsltGdsVO;
 import icube.manage.consult.biz.MbrConsltMemoVO;
 import icube.manage.consult.biz.MbrConsltResultService;
 import icube.manage.consult.biz.MbrConsltResultVO;
@@ -77,6 +79,9 @@ public class MMbrConsltController extends CommonAbstractController{
 
 	@Resource(name = "mbrConsltResultService")
 	private MbrConsltResultService mbrConsltResultService;
+	
+	@Resource(name = "mbrConsltGdsService")
+	private MbrConsltGdsService mbrConsltGdsService;
 
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
@@ -302,6 +307,13 @@ public class MMbrConsltController extends CommonAbstractController{
 			model.addAttribute("consltBplcUniqueId", chgHistList.get(0).getConsltBplcUniqueId());
 		}
 
+		
+		//관심 복지용구 상담인 경우 복지용구 선택값 조회
+		if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
+			List<MbrConsltGdsVO> mbrConsltGdsList = mbrConsltGdsService.selectMbrConsltGdsByConsltNo(mbrConsltVO.getConsltNo());
+			model.addAttribute("mbrConsltGdsList", mbrConsltGdsList);
+		}
+		
 		
 		//상세조회 로그 수집
         mngrLogService.insertMngrDetailLog(request);
@@ -763,7 +775,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		try {
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {

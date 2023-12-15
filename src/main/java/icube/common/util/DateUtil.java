@@ -96,6 +96,11 @@ public class DateUtil {
 				"yyyy-MM-dd HH:mm", "yyyy/MM/dd HH:mm", "yyyyMMdd", "yyyy/MM/dd" } );
 		return DateFormatUtils.format( dt, pattern );
 	}
+	public static String formatDate( Date dt, String pattern ) throws ParseException {
+		if( dt == null ) return "";
+
+		return DateFormatUtils.format( dt, pattern );
+	}
 
 	public static String nowSimpleDateFormat(String pattern ) throws ParseException {
 		 SimpleDateFormat sdf = new SimpleDateFormat(pattern);

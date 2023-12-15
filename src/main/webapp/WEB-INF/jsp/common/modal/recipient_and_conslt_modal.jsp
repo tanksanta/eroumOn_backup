@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<!--모달: 수급자 정보 -->
-	<div class="modal modal-default fade" id="pop-client-edit" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="pop-client-edit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 			<div class="modal-header">
@@ -81,7 +81,7 @@
 									<sup class="text-danger text-base md:text-lg">*</sup>
 								</p>
                             </th>
-                            <td><input type="text" class="form-control w-full lg:w-8/12" id="info-tel" class="keycontrol phonenumber" placeholder="010-1234-5678"></td>
+                            <td><input type="text" class="form-control w-full lg:w-8/12 keycontrol phonenumber" id="info-tel" placeholder="010-1234-5678"></td>
                         </tr> 
 						<tr>
                             <th scope="row">
@@ -110,7 +110,7 @@
 									<sup class="text-danger text-base md:text-lg">*</sup>
 								</p>
 							</th>
-                            <td><input type="text" class="form-control  lg:w-8/12" id="info-brdt" placeholder="1950/01/01"></td>
+                            <td><input type="text" class="form-control lg:w-8/12 keycontrol birthdt10" id="info-brdt" placeholder="1950/01/01"></td>
                         </tr>
 						<tr>
                         	<th scope="row">
@@ -152,7 +152,7 @@
                 </ul>
 			</div>
 			<div class="modal-footer md:w-3/4 mx-auto mt-4">
-				<button type="button" class="btn btn-primary large w-3/5" onclick="requestAction();">등록하기</button>
+				<button type="button" id="actionBtn" class="btn btn-primary large w-3/5" onclick="requestAction();">등록하기</button>
 				<button type="button" class="btn btn-outline-primary large w-2/5" data-bs-dismiss="modal">취소하기</button>
 			</div>
 			</div>
@@ -160,7 +160,7 @@
 	</div>
 
 	<!--모달: 진행중인 상담 알림 모달 -->
-	<div class="modal modal-default fade" id="modal-my-consulting" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="modal-my-consulting" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -186,7 +186,7 @@
 	</div>
 
 	<!--모달: 상담신청완료-->
-    <div class="modal modal-default fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modal-consulting-complated" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
@@ -225,7 +225,7 @@
                 </script>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-success w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
+                <a href="#" id="goConsltHist" class="btn w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
             </div>
             </div>
         </div>
@@ -233,7 +233,7 @@
 
 
 	<!-- 수급자정보등록 확인팝업 -->
-	<div class="modal modal-default fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
 	    <div class="modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header">
@@ -284,15 +284,7 @@
 	    </div>
 	</div>
 
-	<script src="/html/core/script/JsCommon.js"></script>
     <script>
-
-		var jsCommon = null;
-		$(document).ready(function() {
-			jsCommon = new JsCommon();
-
-			jsCommon.fn_keycontrol();
-		});
 		
 	    var me = {};
 	    var myRecipientInfo = {};
@@ -307,12 +299,37 @@
 	    	infoModalType = modalType;
 	    	infoPrevPath = prevPath;
 	    	
+	    	//접속 uri에 따라 모달에 클래스 다르게 부여
+	    	if (location.pathname.startsWith('/main')) {
+	    		$('#pop-client-edit').addClass('modal-index');
+	    		$('#modal-my-consulting').addClass('modal-index');
+	    		$('#modal-consulting-complated').addClass('modal-index');
+	    		$('#regist-rcpt').addClass('modal-index');
+	    		
+	    		$('#actionBtn').removeClass('btn-primary');
+	    		$('#actionBtn').addClass('btn-primary3');
+	    		$('#goConsltHist').addClass(['btn-large', 'btn-primary3']);
+	    	} else {
+	    		$('#pop-client-edit').addClass('modal-default');
+	    		$('#modal-my-consulting').addClass('modal-default');
+	    		$('#modal-consulting-complated').addClass('modal-default');
+	    		$('#regist-rcpt').addClass('modal-default');
+	    		$('#goConsltHist').addClass('btn-success');
+	    	}
+	    
+	    	
 	    	if (modalType === 'addRecipient') {
 	    		initModal();
+	    		
+	    		$('#actionBtn').text('등록하기');
 	    	} else if (modalType === 'updateRecipient') {
-	  			getUpdateRecipientInfoData(recipientsNo);	
+	  			getUpdateRecipientInfoData(recipientsNo);
+	  			
+	  			$('#actionBtn').text('수정하기');
 	  		} else if (modalType === 'requestConslt') {
 	  			getRequestConsltInfoData(recipientsNo);
+	  			
+	  			$('#actionBtn').text('상담신청하기');
 	  		}
 	    }
 	  	
@@ -362,11 +379,16 @@
 							진행중인 인정등급 상담이 있습니다.<br>
 							상담 내역을 확인하시겠습니까?
     					`);
-    				} else {
+    				} else if (infoPrevPath === 'simpleSearch') {
     					$('#process-conslt-noti').html(`
 							진행중인 요양정보 상담이 있습니다.<br>
 							상담 내역을 확인하시겠습니까?
     					`);
+    				} else {
+    					$('#process-conslt-noti').html(`
+   							진행중인 관심 복지용구 상담이 있습니다.<br>
+   							상담 내역을 확인하시겠습니까?
+       					`);
     				}
         			$('#modal-my-consulting').modal('show');
         		} else {
@@ -392,6 +414,12 @@
 	    			me = data.mbrVO;
 	    			myRecipientInfo = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
 	    			mbrRecipients = data.mbrRecipients;
+	    			
+	    			//등록된 수급자가 아닌 경우 다음단계 진행하지 않음
+	    			if (!myRecipientInfo) {
+	    				alert('등록된 수급자가 아닙니다.');
+	    				return;
+	    			}
 	    			
 	    			//진행중인 상담 있는지 체크
 	    			if (data.recipientConslt) {
@@ -475,8 +503,10 @@
 	  			$('#tr-prev-path').css('display', 'table-row');	
 	  			if (infoPrevPath === 'test') {
 	  				$('#tr-prev-path td').text('인정등급상담');
-	  			} else {
+	  			} else if (infoPrevPath === 'simpleSearch') {
 	  				$('#tr-prev-path td').text('요양정보상담');
+	  			} else {
+	  				$('#tr-prev-path td').text('복지용구상담');
 	  			}
 	  			$('#div-remove-recipient').css('display', 'none');
 	  			$('#ul-conslt-info').css('display', 'block');
@@ -734,10 +764,7 @@
 	    	    	saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');	
 	    	    }
 		    	
-	    	    doubleClickCheck = true;
-	    	    
-	    	  	//상담신청 API 호출
-		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", {
+	    	    var consltRequestData = {
 		    		relationCd
 	    			, mbrNm: recipientsNm
 	    			, rcperRcognNo
@@ -750,7 +777,12 @@
 	    			, recipientsNo: myRecipientInfo.recipientsNo
 	    			, prevPath: infoPrevPath
 	    			, saveRecipientInfo
-		    	});
+		    	};
+
+	    	    doubleClickCheck = true;
+	    	    
+	    	  	//상담신청 API 호출
+		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", consltRequestData);
 	    	}
 	    }
 	    // 수급자 정보 수정 콜백
@@ -778,14 +810,78 @@
 	    		if(data.success) {
 	    			$('#pop-client-edit').modal('hide');
 	    			$('#modal-consulting-complated').modal('show').appendTo('body');
+	    			
+	    			//채널톡 이벤트 처리
+	    			if (infoPrevPath === 'test') {
+	    				eventChannelTalkForConslt('click_gradetest_matching');	
+	    			} else if (infoPrevPath === 'simpleSearch') {
+	    				eventChannelTalkForConslt('click_infocheck_matching');
+	    			}
 	    		}else{
 	    			alert(data.msg);
 	    		}
+	    		
+	    		doubleClickCheck = false;
 	    	} else {
 	    		alert('서버와 연결이 좋지 않습니다.');
 	    	}
 	    }
 
+	    //채널톡 event 처리 (1:1 상담하기 신청)
+	    function eventChannelTalkForConslt(eventName) {
+		     
+		    if (eventName === 'click_gradetest_matching') {
+		    	//예상결과 등급
+			    var grade = testResult.grade;
+			    var propertyObj = {
+			   		 grade
+			   	}
+			    
+			  	//상담 신청 일자
+				var now = new Date();
+				propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+			    
+			    ChannelIO('track', eventName, propertyObj);
+			     
+			     
+			    //GA 이벤트 처리
+			    var gaProp = {
+			        grade,
+			    };
+		    	gaProp.consltDate = propertyObj.consltDate;
+		    	
+		    	gtag('event', eventName, gaProp);
+		    } else {
+		    	
+		    	//인정 등급
+		    	var grade = $('#searchGrade').text();
+		    	//총 급여액
+		    	var limitAmt = $('#searchLimit').text().replaceAll('원', '').replaceAll(',', '');
+		    	//사용 금액
+		    	var useAmt = $('#searchUseAmt').text().replaceAll('원', '').replaceAll(',', '').replaceAll(' ', '');
+		    	//잔여 금액
+		    	var remainingAmt = comma(Number(limitAmt) - Number(useAmt)) + '원';
+		    	
+		    	var propertyObj = {
+	    			 grade,
+	    			 remainingAmt
+	    		}
+		    	
+		    	//상담 신청 일자
+				var now = new Date();
+				propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+				
+				ChannelIO('track', eventName, propertyObj);
+				 
+				 
+				//GA 이벤트 처리
+				var gaProp = {
+					grade,
+				};
+				
+				gtag('event', eventName, gaProp);
+		    }
+		}
 
 
 	    // 시/도 Select 박스 셋팅
@@ -889,31 +985,5 @@
 	    
 	    $(function() {
 	    	initSido();
-	    	
-	    	//생년월일 형식 / 자동작성
-	    	const brdtKeyInputRegex = /^(48|49|50|51|52|53|54|55|56|57|58|59|191)$/;
-	    	$("#info-brdt").keypress(function(e) {
-	    		//숫자와 /만 입력받도록 추가
-	    		if (!brdtKeyInputRegex.test(e.keyCode)) {
-	    			return false;
-	    		}
-	    	});
-	    	$("#info-brdt").on("keydown",function(e){
-	    		//백스페이스는 무시
-	    		if (e.keyCode !== 8) {
-	    			if($(this).val().length == 4){
-	    				$(this).val($(this).val() + "/");
-	    			}
-
-	    			if($(this).val().length == 7){
-	    				$(this).val($(this).val() + "/");
-	    			}
-	    		}
-	    	});
-	    	$("#info-brdt").on("keyup",function(){
-	    		if($(this).val().length > 10){
-	    			$(this).val($(this).val().substr(0,10));
-	    		}
-	    	});
 	    });
     </script>

@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.mail.MailForm2Service;
 import icube.common.mail.MailFormService;
 import icube.common.util.ArrayUtil;
 import icube.common.util.ExcelExporter;
@@ -47,6 +48,8 @@ import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistService;
 import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
@@ -72,6 +75,10 @@ import kr.co.bootpay.model.request.User;
 @RequestMapping(value="/_mng/ordr")
 public class MOrdrController extends CommonAbstractController {
 
+
+			
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
@@ -99,6 +106,10 @@ public class MOrdrController extends CommonAbstractController {
 
 	@Resource(name="mailFormService")
 	private MailFormService mailFormService;
+
+	@Resource(name="mailForm2Service")
+	private MailForm2Service mailForm2Service;
+	
 	
 	@Resource(name="mngrLogService")
 	private MngrLogService mngrLogService;
@@ -491,10 +502,8 @@ public class MOrdrController extends CommonAbstractController {
 			result = true;
 
 			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
-
-			String mailSj = "[이로움ON] 회원님의 주문이 취소 되었습니다.";
-			String mailHtml = "mail_ordr_rfnd.html";
-			mailFormService.makeMailForm(ordrVO, ordrDtlVO, mailHtml, mailSj);
+			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_REFUND", mbrVO, ordrVO, ordrDtlCd);
 		}
 
 		// result
@@ -635,10 +644,8 @@ public class MOrdrController extends CommonAbstractController {
 			result = true;
 
 			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
-
-			String mailHtml = "mail_ordr_confirm.html";
-			String mailSj = "[이로움ON] 회원님의 주문이 완료 되었습니다.";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_CONFIRM", mbrVO, ordrVO);
 		}
 
 		// result
@@ -755,11 +762,11 @@ public class MOrdrController extends CommonAbstractController {
 		if(resultCnt == 1){
 			result = true;
 
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			// OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
 
-			String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
-			String mailHtml = "mail_ordr_auto.html";
-			mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
+			// String mailSj = "[이로움ON] 자동 구매확정처리 예정 안내드립니다.";
+			// String mailHtml = "mail_ordr_auto.html";
+			// mailFormService.makeMailForm(ordrVO, null, mailHtml, mailSj);
 		}
 
 		// result
@@ -805,6 +812,13 @@ public class MOrdrController extends CommonAbstractController {
 		Integer resultCnt = ordrDtlService.updateOrdrOR09(ordrDtlVO);
 
 		if(resultCnt == 1){
+			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
+			ordrVO.setOrdrDtlList(ordrDtlList);
+			
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION", mbrVO, ordrVO);
+			
 			result = true;
 		}
 
@@ -1151,11 +1165,14 @@ public class MOrdrController extends CommonAbstractController {
 
 		boolean result = false;
 
+		OrdrVO ordrMailSendVO = ordrService.selectOrdrByNo(ordrNo);
+
 		ArrayList<String> tmpOrdrDtlNos = new ArrayList<String>();
 		List<OrdrDtlVO> ordrDtlList = ordrDtlService.selectOrdrDtlList(ordrDtlCd);
 		for (OrdrDtlVO ordrDtlVO : ordrDtlList) {
 			tmpOrdrDtlNos.add(EgovStringUtil.integer2string(ordrDtlVO.getOrdrDtlNo()));
 		}
+		ordrMailSendVO.setOrdrDtlList(ordrDtlList);
 
 		String[] ordrDtlNos = tmpOrdrDtlNos.toArray(new String[tmpOrdrDtlNos.size()]);
 
@@ -1176,11 +1193,8 @@ public class MOrdrController extends CommonAbstractController {
 		if(resultCnt == 1){
 			result = true;
 
-			OrdrVO ordrVO = ordrService.selectOrdrByNo(ordrNo);
-
-			String mailSj = "[이로움ON] 회원님의 상품 반품이 완료 되었습니다.";
-			String mailHtml = "mail_ordr_return.html";
-			mailFormService.makeMailForm(ordrVO, ordrDtlVO, mailHtml, mailSj);
+			MbrVO mbrVO =  mbrService.selectMbrByUniqueId(ordrMailSendVO.getUniqueId());
+			mailForm2Service.sendMailOrder("MAILSEND_ORDR_MNG_RETURN", mbrVO, ordrMailSendVO);
 		}
 
 		// result

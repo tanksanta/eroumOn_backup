@@ -42,6 +42,7 @@
 		 , o.use_point
 
 		 , o.stlm_device
+		 , o.stlm_knd
 		 , o.stlm_ty
 		 , o.stlm_amt
 		 , o.stlm_yn
@@ -147,6 +148,9 @@
 		</if>
 		<if test="srchOrdrTy !=null and srchOrdrTy != ''">
 			AND o1.ordr_ty = #{srchOrdrTy}
+		</if>
+		<if test="srchStlmKnd !=null and srchStlmKnd != ''">
+			AND o1.stlm_Knd = #{srchStlmKnd}
 		</if>
 		<if test="srchStlmTy !=null and srchStlmTy != ''">
 			AND o1.stlm_ty = #{srchStlmTy}
@@ -313,6 +317,20 @@
 			<include refid="searchConditions" />
 	</select>
 
+	<select id="selectOrdrScheduleStlmNList" parameterType="java.util.HashMap" resultMap="ordrVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM ORDR o
+		WHERE o.ordr_dt &gt;= #{srchBgngDt} AND o.ordr_dt &lt;= #{srchEndDt}
+			AND (o.stlm_Knd = #{srchStlmKnd} OR o.stlm_ty =  #{srchStlmTy} ) AND o.stlm_yn = #{srchStlmYn}
+			AND o.ordr_no in (
+				SELECT ordr_no
+				FROM ORDR_DTL od1
+				WHERE od1.stts_ty = 'OR04'
+			)
+	</select>
+	<!--o.ordr_no in ( 183, 157 )-->
+
 	<!-- 배송정보 변경 -->
 	<update id="updateDlvyInfo" parameterType="java.util.HashMap">
 		/* Query ID : ordr.updateDlvyInfo */
@@ -393,6 +411,7 @@
 		 	, use_point
 
 			, stlm_device
+			, stlm_knd
 			, stlm_ty
 			, stlm_amt
 			, stlm_yn
@@ -441,6 +460,7 @@
 		 	, #{usePoint}
 
 			, #{stlmDevice, jdbcType=VARCHAR}
+			, #{stlmKnd, jdbcType=VARCHAR}
 			, #{stlmTy, jdbcType=VARCHAR}
 			, #{stlmAmt}
 			, #{stlmYn, jdbcType=VARCHAR}

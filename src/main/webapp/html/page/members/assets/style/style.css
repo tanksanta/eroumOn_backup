@@ -12,6 +12,8 @@
 @import "../../../../core/style/offcanvas.css";
 @import "../../../../core/style/pagination.css";
 @import "../../../../core/style/icons.css";
+@import "../../../../core/style/color.css";
+@import "../../../../core/style/content.css";
 /* @import "../../../../core/style/table.css"; */
 
 @import "../../../market/assets/style/component/table.css";

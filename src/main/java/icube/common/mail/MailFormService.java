@@ -1,3 +1,4 @@
+
 package icube.common.mail;
 
 import java.text.DecimalFormat;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
+import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.ordr.dtl.biz.OrdrDtlVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
@@ -42,13 +44,15 @@ public class MailFormService extends CommonAbstractServiceImpl {
 	private String mailFormFilePath;
 
 	@Value("#{props['Mail.Username']}")
-	private String sendMail;
+	private String mailSender;
+
+		
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
 
-	@Value("#{props['Mail.Testuser']}")
-	private String testUser;
 
 	// 공통 선언
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -424,7 +428,7 @@ public class MailFormService extends CommonAbstractServiceImpl {
 		/* 
 		주문자의 메일로 보냄
 		*/
-		mailService.sendMail(sendMail, ordrVO.getOrdrrEml(), mailSj, mailForm);
+		mailService.sendMail(mailSender, ordrVO.getOrdrrEml(), mailSj, mailForm);
 	}
 
 	/**

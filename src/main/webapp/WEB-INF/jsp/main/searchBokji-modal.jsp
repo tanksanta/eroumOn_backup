@@ -2,14 +2,14 @@
 
 <!--모달: 어르신용품(복지용구) 구매비 지원-->
 <div class="modal modal-index fade " id="pop-welfare-1" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content">
         <div class="modal-header">
             <h4 class="text-header-title">어르신 복지 서비스</h4>
             <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
         </div>
         <hr class="divide-x-1 mt-5"/>
-        <div class="modal-body space-no-x">
+        <div class="modal-body">
             <div class="flex flex-col gap-8 items-start">
                 <h3 class="text-body-title">어르신용품(복지용구) <span class="text-indexKey1 text-normal">구매비 지원</span></h3>
                 <div class="">
@@ -38,7 +38,7 @@
                 <div class="welfare-contact">
                     <p>주관처 : 국민건강보험공단 (<strong>1577-1000</strong>, 발신자 부담)  </p>
                     <div>
-                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
                         <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="modal-footer flex-col md:flex-row gap-1 mt-6">
             <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-2/5"><strong>내 인정등급 확인하기</strong></a>
-            <a href="/main/recipter/sub" target="_blank"  class="btn btn-primary3 btn-arrow btn-center large w-full md:w-2/5"><strong>요양정보 간편조회하기</strong></a>
+            <a href="/main/welfare/equip/sub" target="_blank"  class="btn btn-primary3 btn-arrow btn-center large w-full md:w-2/5"><strong>관심 복지용구 상담하기</strong></a>
         </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
             <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
         </div>
         <hr class="divide-x-1 mt-5"/>
-        <div class="modal-body space-no-x">
+        <div class="modal-body">
             <div class="flex flex-col gap-8 items-start">
                 <h3 class="text-body-title">요양시설 입소(시설급여) <span class="text-indexKey1 text-normal">이용비 지원</span></h3>
                 <div class="">
@@ -89,14 +89,14 @@
                 <div class="welfare-contact">
                     <p>주관처 : 국민건강보험공단 (<strong>1577-1000</strong>, 발신자 부담)  </p>
                     <div>
-                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
                         <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer flex-col md:flex-row gap-1 mt-6">
-           <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-2/5"><strong>내 인정등급 확인하기</strong></a>
+        <div class="modal-footer gap-1 mt-6">
+           <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-1/2"><strong>내 인정등급 확인하기</strong></a>
         </div>
         </div>
     </div>
@@ -104,14 +104,14 @@
 
 <!--모달: 가정방문(재가급여) 이용비 지원-->
 <div class="modal modal-index fade" id="pop-welfare-3" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
         <div class="modal-header">
             <h4 class="text-header-title">어르신 복지 서비스</h4>
             <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
         </div>
         <hr class="divide-x-1 mt-5"/>
-        <div class="modal-body space-no-x">
+        <div class="modal-body">
             <div class="flex flex-col gap-8 items-start">
                 <h3 class="text-body-title">가정방문(재가급여) <span class="text-indexKey1 text-normal">이용비 지원</span></h3>
                 <div class="">
@@ -141,14 +141,14 @@
                 <div class="welfare-contact">
                     <p>주관처 : 국민건강보험공단 (<strong>1577-1000</strong>, 발신자 부담)  </p>
                     <div>
-                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+                        <a href="https://www.longtermcare.or.kr/npbs/e/g/550/openCyberCstMain.web?menuId=npe0000000460" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
                         <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer flex-col md:flex-row gap-1 mt-6">
-            <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-2/5"><strong>내 인정등급 확인하기</strong></a>
+        <div class="modal-footer gap-1 mt-6">
+            <a href="/main/cntnts/test" target="_blank"  class="btn btn-primary2 btn-arrow btn-center large w-full md:w-1/2"><strong>내 인정등급 확인하기</strong></a>
         </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">보청기 <span class="text-indexKey1 text-normal">구매비 지원</span></h3>
 	                <div class="">
@@ -194,7 +194,7 @@
 	                        <p>신청 문의 : 주민센터 또는 보건소 </p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/주민센터?c=15.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/주민센터?c=15.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -213,7 +213,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">임플란트 <span class="text-indexKey1 text-normal">비용 지원</span></h3>
 	                <div class="">
@@ -243,7 +243,7 @@
 	                        <p>신청 문의 : 주민센터 또는 보건소 </p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -262,7 +262,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">틀니 <span class="text-indexKey1 text-normal">비용 지원</span></h3>
 	                <div class="">
@@ -292,7 +292,7 @@
 	                        <p>문의처 : 치과 병.의원</p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -311,7 +311,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">인공관절 <span class="text-indexKey1 text-normal">수술비 지원</span></h3>
 	                <div class="">
@@ -343,7 +343,7 @@
 	                        <p>문의처 : 주민센터, 보건소</p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -362,7 +362,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">노인 개안 <span class="text-indexKey1 text-normal">수술비 지원</span></h3>
 	                <div class="">
@@ -394,7 +394,7 @@
 	                        <p>문의처 : 보건소, 안과 병.의원</p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -413,7 +413,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">치매 <span class="text-indexKey1 text-normal">검진비 지원</span></h3>
 	                <div class="">
@@ -444,7 +444,7 @@
 	                        <p>문의처 : 보건소</p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>
@@ -463,7 +463,7 @@
 	            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 	        </div>
 	        <hr class="divide-x-1 mt-5"/>
-	        <div class="modal-body space-no-x">
+	        <div class="modal-body">
 	            <div class="flex flex-col gap-8 items-start">
 	                <h3 class="text-body-title">치매 <span class="text-indexKey1 text-normal">치료비 지원</span></h3>
 	                <div>
@@ -493,7 +493,7 @@
 	                        <p>문의처 : 보건소</p>
 	                    </div>
 	                    <div>
-	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-arrow btn-small mr-auto"><strong>문의처 바로가기</strong></a>
+	                        <a href="https://map.naver.com/p/search/보건소?c=13.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
 	                        <a href="tel:1577-1000" class="md:hidden btn btn-primary3 btn-small"><i class="icon-tel"></i></a>
 	                    </div>
 	                </div>

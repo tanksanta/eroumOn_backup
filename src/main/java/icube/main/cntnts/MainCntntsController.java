@@ -56,7 +56,7 @@ public class MainCntntsController extends CommonAbstractController {
 			}
 		}
 
-		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		return "/main/cntnts/" + pageName;
 	}
 }

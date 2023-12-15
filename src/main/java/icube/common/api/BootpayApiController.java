@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.BootpayVO;
+import icube.common.mail.MailForm2Service;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.ordr.biz.OrdrService;
+import icube.manage.ordr.ordr.biz.OrdrVO;
 
 /**
  * 웹훅
@@ -35,6 +39,12 @@ public class BootpayApiController {
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
+
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+
+	@Resource(name = "mailForm2Service")
+	private MailForm2Service mailForm2Service;
 
 	@ResponseBody
 	@RequestMapping("callback.json")
@@ -121,6 +131,11 @@ public class BootpayApiController {
 				//System.out.println("paramMap: " + paramMap.toString());
 
 				ordrService.updateStlmYn(paramMap);
+
+				OrdrVO ordrVO = ordrService.selectOrdrByCd(bootpayVO.getOrderId());
+				MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
+
+				mailForm2Service.sendMailOrder("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME", mbrVO, ordrVO);
 			}
 
 		}else if("CARD".equals(bootpayVO.getMethodSymbol())) {

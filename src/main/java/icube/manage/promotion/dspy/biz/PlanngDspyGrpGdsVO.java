@@ -27,6 +27,8 @@ public class PlanngDspyGrpGdsVO {
 	private String ctgryNm;
 	private String upCtgryNm;
 	private int pc;
+	private int dscntRt;    //할인율
+	private int dscntPc;    //할인가
 	private String soldoutYn;
 	private int ctgryNo;
 
@@ -35,4 +37,7 @@ public class PlanngDspyGrpGdsVO {
 
 	//gds
 	private FileVO thumbnailFile; //대표(썸네일) 이미지
+	
+	//관심상품여부
+	private int wishYn = 0;
 }
