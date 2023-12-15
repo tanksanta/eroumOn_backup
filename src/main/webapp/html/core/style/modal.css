@@ -92,7 +92,7 @@
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
         }
         & .modal-bg-wrap {
-          @apply py-5 px-8 md:-mx-7 -mx-5;
+          @apply py-5 px-8;
           background: linear-gradient(180deg, #faf2d3 0%, #feebeb 100%);
           &.minus-margin {
             @apply -mx-7;

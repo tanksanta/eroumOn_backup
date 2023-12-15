@@ -310,8 +310,9 @@
     <div class="result-content5">
         다른 결과를 확인하고 싶으시다면? <a href="#" onclick="restartTest();">테스트 다시하기</a>
     </div>
-
-    <a id="go-consult" class="grade-floating">다른 혜택 확인하기</a>
+    <div class="grade-floating">
+        <button id="go-consult">다른 혜택 확인하기</button>
+    </div>
     
     
     <!-- 공유하기 모달 start-->

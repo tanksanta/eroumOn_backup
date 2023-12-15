@@ -45,7 +45,7 @@
 			</c:choose>
 
 			<li>
-				<a href="${_mainPath}/welfare/equip/sub" class="cost">남은 혜택보기​</a>
+				<a href="${_mainPath}/welfare/equip/sub" class="cost">혜택 상담하기​</a>
 			</li>
 		</ul>
 	</div>
