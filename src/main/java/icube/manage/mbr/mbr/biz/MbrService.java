@@ -464,6 +464,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 				try {
 					//고객프로필 데이터 셋팅
 					MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+					
+					//간편회원이면서 본인인증 안헀으면 채널톡처리를 하지 않음
+					if (!"E".equals(mbrVO.getJoinTy()) && mbrVO.getSnsRegistDt() == null) {
+						return;
+					}
+					
 					customProfileVO.setMemberId(mbrVO.getMbrId());
 					//회원 ID 해시하기
 					customProfileVO.setMemberHash(SHA256.HmacEncrypt(mbrVO.getMbrId(), talkSecretKey));
