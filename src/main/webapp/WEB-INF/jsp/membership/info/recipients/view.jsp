@@ -164,14 +164,9 @@
             <div class="flex justify-between items-center gap-2">
                 <h3 class="font-semibold text-xl">관심 복지용구</h3>
                 <div>
-                	<c:choose>
-                		<c:when test="${mbrRecipientsGdsList != null && fn:length(mbrRecipientsGdsList) > 0}">
-                			<a class="btn-success btn-small" onclick="requestConslt('equip_ctgry');">상담하기</a>
-                		</c:when>
-                		<c:otherwise>
-                			<a href="/main/welfare/equip/sub" class="btn-success btn-small">상담하기</a>
-                		</c:otherwise>
-                	</c:choose>
+                	<c:if test="${mbrRecipientsGdsList != null && fn:length(mbrRecipientsGdsList) > 0}">
+                		<a class="btn-success btn-small" onclick="requestConslt('equip_ctgry');">상담하기</a>
+                	</c:if>
                 </div>
             </div>
             
@@ -367,7 +362,7 @@
 				<div class="card-bg-gray mt-4">
 					<i class="icon-alert size-md opacity-60"></i>
 					<p class="text-gray6">인정등급 예상 테스트를 하면 확인할 수 있어요</p>
-					<a href="/main/cntnts/test" class="btn-outline-secondary mt-8">
+					<a href="/test/physical?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary mt-8">
 						인정등급 예상 테스트 바로가기
 						<i class="icon-next ml-3"></i>
 					</a>

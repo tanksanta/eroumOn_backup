@@ -34,6 +34,12 @@ public class MbrRecipientsGdsService extends CommonAbstractServiceImpl {
 		return selectMbrRecipientsGds(paramMap);
 	}
 	
+	public List<MbrRecipientsGdsVO> selectMbrRecipientsGdsByUniqueId(String uniqueId) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUniqueId", uniqueId);
+		return selectMbrRecipientsGds(paramMap);
+	}
+	
 	public Integer insertMbrRecipientsGds(MbrRecipientsGdsVO mbrRecipientsGdsVO) throws Exception {
 		return mbrRecipientsGdsDAO.insertMbrRecipientsGds(mbrRecipientsGdsVO);
 	}

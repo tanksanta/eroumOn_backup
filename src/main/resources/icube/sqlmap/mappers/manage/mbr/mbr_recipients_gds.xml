@@ -19,6 +19,9 @@
 		<if test="srchRecipientsNo != null  and srchRecipientsNo != '' ">
 			AND mrg.recipients_no = #{srchRecipientsNo}
 		</if>
+		<if test="srchUniqueId != null  and srchUniqueId != '' ">
+			AND mrg.mbr_unique_id = #{srchUniqueId}
+		</if>
 	</sql>
 
 	<select id="selectMbrRecipientsGds" parameterType="java.util.HashMap" resultType="mbrRecipientsGdsVO">
