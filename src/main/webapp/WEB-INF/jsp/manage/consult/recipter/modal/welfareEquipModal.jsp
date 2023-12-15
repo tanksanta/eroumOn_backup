@@ -439,14 +439,14 @@
 					appendSelectedWelfare(
 						myCareCtgryCdList10[i].careCtgryCd, 
 						myCareCtgryCdList10[i].contractCnt, 
-						myCareCtgryCdList10[i].ableCn
+						myCareCtgryCdList10[i].ableCnt
 					);
 				}
 				for (var i = 0; i < myCareCtgryCdList20.length; i++) {
 					appendSelectedWelfare(
 						myCareCtgryCdList20[i].careCtgryCd, 
 						myCareCtgryCdList20[i].contractCnt, 
-						myCareCtgryCdList20[i].ableCn
+						myCareCtgryCdList20[i].ableCnt
 					);
 				}
 				
