@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.recipients.gds">
+
+	<sql id="listColumn">
+		mrg.recipients_gds_no
+		, mrg.recipients_no
+		, mrg.conslt_gds_ty
+		, mrg.ctgry_nm
+		, mrg.care_ctgry_cd
+		, mrg.gds_no
+		, mrg.mbr_unique_id
+		, mrg.mbr_id
+		, mrg.mbr_nm
+		, mrg.reg_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchRecipientsNo != null  and srchRecipientsNo != '' ">
+			AND mrg.recipients_no = #{srchRecipientsNo}
+		</if>
+	</sql>
+
+	<select id="selectMbrRecipientsGds" parameterType="java.util.HashMap" resultType="mbrRecipientsGdsVO">
+		SELECT
+			<include refid="listColumn"/>
+		FROM MBR_RECIPIENTS_GDS mrg
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+
+	<insert id="insertMbrRecipientsGds" parameterType="mbrRecipientsGdsVO">
+		INSERT INTO MBR_RECIPIENTS_GDS (
+			recipients_no
+			, conslt_gds_ty
+			, ctgry_nm
+			, care_ctgry_cd
+			, gds_no
+		    , mbr_unique_id
+		    , mbr_id
+		    , mbr_nm
+		    , reg_dt
+		)VALUES(
+			#{recipientsNo}
+			, #{consltGdsTy}
+			, #{ctgryNm}
+			, #{careCtgryCd}
+			, #{gdsNo}
+		    , #{mbrUniqueId}
+		    , #{mbrId}
+		    , #{mbrNm}
+		    , SYSDATE()
+		)
+	</insert>
+
+	<delete id="deleteMbrRecipientsGds" parameterType="java.util.HashMap">
+		DELETE FROM MBR_RECIPIENTS_GDS
+		WHERE recipients_no = #{recipientsNo}
+		  AND conslt_gds_ty = #{consltGdsTy}
+	</delete>
+
+</mapper>

@@ -870,5 +870,29 @@
 	            $($(this).attr('href')).addClass('block').removeClass('hidden').siblings('div').addClass('hidden').removeClass('block');
 	            return false;
 	        });
+
+            //modal dimmed 되는 현상 수정
+            function modalOpen(id) {
+                $(id).on('show.bs.modal', function () {     
+                    var modal = $(this);
+                    modal.appendTo('body');
+                    modal.css('outline', 'none');
+                });
+            }
+
+            modalOpen('#welfare-kit1');
+            modalOpen('#welfare-kit2');
+            modalOpen('#welfare-kit3');
+            modalOpen('#welfare-kit4');
+            modalOpen('#welfare-kit5');
+            modalOpen('#welfare-kit6');
+            modalOpen('#welfare-kit7');
+            modalOpen('#welfare-kit8');
+            modalOpen('#welfare-kit9');
+            modalOpen('#welfare-kit10');
+            modalOpen('#welfare-kit11');
+            modalOpen('#welfare-kit12');
+            modalOpen('#welfare-kit13');
+            modalOpen('#welfare-kit14');
 	    });
     </script>

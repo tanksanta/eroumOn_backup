@@ -29,11 +29,11 @@ public class BiztalkConsultService extends BiztalkApiService {
 
 	// ON_0004 이로움ON회원_상담신청취소 biztalkApiService.sendTalkCancel("이동열", "010-2808-9178");
 	public boolean sendOnTalkCancel(MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO, int consltID) throws Exception {
-		String tmpltCode = "ON_0004";
+		String tmpltCode = "ON_0004_1";
 		
 		String sPhoneNo = this.changeDevPhoneNo(false, mbrVO.getMblTelno());
 				
-		JSONObject param = this.msgOn0004(tmpltCode, mbrVO, mbrRecipientsVO);
+		JSONObject param = this.msgOn0004_1(tmpltCode, mbrVO, mbrRecipientsVO);
 		
         boolean bResult = this.sendApiWithToken("/v2/kko/sendAlimTalk", sPhoneNo, param);
         
@@ -290,7 +290,7 @@ public class BiztalkConsultService extends BiztalkApiService {
 	}
 
 	// ON_0004 #{회원이름}님, 요청하신 1:1 상담이 취소되었습니다
-	private JSONObject msgOn0004(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
+	private JSONObject msgOn0004_1(String tmpltCode, MbrVO mbrVO, MbrRecipientsVO mbrRecipientsVO) throws Exception {
 		
 		String jsonStr;
 		
@@ -298,8 +298,8 @@ public class BiztalkConsultService extends BiztalkApiService {
 		JSONParser jsonParser = new JSONParser();
 		JSONArray list = new JSONArray();
 		
-		jsonStr = "{" + " \"name\":\"◼︎ 요양정보 간편조회\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
-		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/main/recipter/sub");
+		jsonStr = "{" + " \"name\":\"◼︎ 관심 복지용구 상담\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
+		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/main/welfare/equip/sub");
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		list.add(jsonObject);
 		

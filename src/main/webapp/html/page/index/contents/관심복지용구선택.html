@@ -1258,10 +1258,14 @@
         <div class="footer-center">
             <!-- 사이트 정보-->
             <dl class="footer-company">
-                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dt>
+                    <a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a>
+                </dt>
                 <dd id="footer-collapse" class="collapse">
                     <p>대표 : 신종호</p>
-                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>
+                        사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]
+                    </p>
                     <p>통신판매신고번호 : 2016-부산금정-0114</p>
                     <address>
                         <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
@@ -1271,25 +1275,33 @@
                 </dd>
             </dl>
             <!-- //사이트 정보-->
-
+    
             <!-- 고객센터 -->
             <dl class="footer-customer">
-                <dt>고객센터</dt>
+                <dt>고객센터 <a href="mailto:help@thkc.co.kr">help@thkc.co.kr</a></dt>
+                <!-- <dd>
+                    <p>
+                        <strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a>
+                    </p>
+                    <p>
+                        <strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a>
+                    </p>
+                </dd> -->
                 <dd>
-                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
-                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
-                </dd>
-                <dd>
-                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                    <p>
+                        <strong>운영시간 :</strong> 월~금 오전 8:30~오후 5:30 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)
+                    </p>
                 </dd>
             </dl>
             <!-- //고객센터 -->
         </div>
-
+    
         <hr>
-
+    
         <!-- 카피 라이트 -->
-        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <div class="footer-copyright">
+            Copyright ⓒ<strong>THKCompany Inc.</strong> All rights reserved
+        </div>
         <!-- //카피 라이트 -->
     </footer>
     <!-- //footer -->
@@ -1310,38 +1322,30 @@
                 return false;
             });
 
-            // let checkAllItems = "#check-all";
-            // let checkboxItem = $(".welfare-kit-box .form-check-input");
-
-            // $(checkAllItems).click(function() {
-            //     if (this.checked) {
-            //         $(checkboxItem).each(function(item) {
-            //             this.checked = true;
-            //             $('.welfare-kit-box').addClass('is-active');
-            //             console.log(item, checkboxItem[item].closest('.welfare-kit-box'))
-            //         });
-            //     } else {
-            //         $(checkboxItem).each(function() {
-            //             this.checked = false;
-            //             $('.welfare-kit-box').removeClass('is-active');
-            //         });
-            //     }
-            // });
             const checkAllItems = document.querySelector("#check-all");
-            const parents = document.querySelectorAll(".welfare-kit-box");
+            const welfareKitBoxes = document.querySelectorAll(".welfare-kit-box");
             const checks = document.querySelectorAll(".welfare-kit-box .form-check-input");
 
-            checks.forEach((chk) => {
-                chk.addEventListener("change", (e) => {
-                    const current = e.currentTarget;
-                    const parent = current.closest('.welfare-kit-box');
-                    if (current.checked) {
-                        parent.classList.add('is-active');
-                    } else {
-                        parent.classList.remove('is-active');
-                    }
+            welfareKitBoxes.forEach((box) => {
+                const checkbox = box.querySelector('.form-check-input');
+                box.addEventListener("click", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
+                });
+
+                checkbox.addEventListener("change", () => {
+                    checkbox.checked = !checkbox.checked;
+                    toggleActiveClass(box, checkbox.checked);
                 });
             });
+
+            function toggleActiveClass(element, isChecked) {
+                if (isChecked) {
+                    element.classList.add('is-active');
+                } else {
+                    element.classList.remove('is-active');
+                }
+            }
 
             checkAllItems.addEventListener('change', (e) => {
                 const current = e.currentTarget;
@@ -1355,11 +1359,6 @@
                     }
                 });
             });
-
-
-
-            
-            
         })
     </script>
 </body>
