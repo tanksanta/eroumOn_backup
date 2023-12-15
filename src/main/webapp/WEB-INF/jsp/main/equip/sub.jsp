@@ -14,8 +14,8 @@
 	<div class="grade-content1 welfare-equip">
         <h2 class="grade-title2">관심 복지용구 상담</h2>
         <p class="grade-text2 mt-10">
-            <strong class="text-hightlight-orange font-bold">필요한 복지용구</strong>를 선택한 후<br>
-            혜택을 확인하고 <strong class="text-hightlight-orange font-bold">구매 신청해보세요</strong>
+            <strong class="text-hightlight-orange font-bold">필요한 복지용구</strong>를 선택하고 상담하면<br>
+            <strong class="text-hightlight-orange font-bold">받을 수 있는 혜택</strong>을 알려드려요
         </p>
         <div class="grade-start mt-11 md:mt-15">
             <div class="picture">
@@ -24,7 +24,7 @@
                 <div class="msg1" aria-hidden="true">
                     <div class="box">
                         어머니 상태에 도움이 되는<br>
-                        <strong>복지용구</strong>를 신청하고 싶어요
+                        <strong class="text-blue">복지용구</strong>를 신청하고 싶어요
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="46" height="25" viewBox="0 0 46 25" fill="none">
                         <g filter="url(#filter0_d_518_4641)">
@@ -82,8 +82,7 @@
     <div class="grade-content2 welfare-equip">
         <h2 class="grade-title">
             <small>관심 복지용구 상담</small>
-            <span class="font-normal">필요한 복지용구</span> 
-            상담부터<br> 
+            <span class="font-normal">필요한 복지용구</span>상담부터<br> 
             <span class="font-normal">복지용구</span> 구매 신청까지 한번에
         </h2>
         <div class="grade-rolling mt-13 md:mt-23">
@@ -134,9 +133,9 @@
         <div class="content-box">
             <div class="text-center text-2xl">
                 <p class="tracking-normal">관심있는 <strong>복지용구</strong>를 바탕으로</p>
-                <p><span class="text-indexKey1">100%~85% 지원 혜택</span>을 받을 수 있는 지 알려드려요</p>
+                <p><strong class="text-indexKey1">85%~100% 지원 혜택</strong>을 받을 수 있는 지 알려드려요</p>
             </div>
-            <img src="/html/page/index/assets/images/img-welfare-content3.png" alt="관심있는 복지용구를 바탕으로 100%~85% 지원 혜택을 받을 수 있는 지 알려드려요">
+            <img src="/html/page/index/assets/images/img-welfare-content3.png" class="sm:w-100" alt="관심있는 복지용구를 바탕으로 85%~100%지원 혜택을 받을 수 있는 지 알려드려요">
         </div>
     </div>
 
@@ -151,7 +150,7 @@
                 <p class="tracking-normal">다양한 복지용구 상품 중</p>
                 <p><span class="text-indexKey1">어르신 상태</span>에 도움이 되는 <span class="text-indexKey1">상품을 추천해드려요</span></p>
             </div>
-            <img src="/html/page/index/assets/images/img-welfare-content4.png" alt="다양한 복지용구 상품 중 어르신 상태에 도움이 되는 상품을 추천해드려요">
+            <img src="/html/page/index/assets/images/img-welfare-content4.png" class="sm:w-100" alt="다양한 복지용구 상품 중 어르신 상태에 도움이 되는 상품을 추천해드려요">
         </div>
     </div>
 
@@ -166,18 +165,20 @@
                 <p class="tracking-normal">필요한 복지용구 상품을</p>
                 <p><span class="text-indexKey1">간편하게 구매</span>할 수 있도록 도와드려요</p>
             </div>
-            <img src="/html/page/index/assets/images/img-welfare-content5.png" alt="복지용구 상담 도와드려요">
+            <img src="/html/page/index/assets/images/img-welfare-content5.png" class="sm:w-100" alt="복지용구 상담 도와드려요">
         </div>
     </div>
 
     <div class="text-center text-xl md:text-4xl">
         <span class="text-hightlight-orange font-bold">필요한 복지용구</span>를 선택한 후<br>
-        혜택을 확인하고 <span class="text-hightlight-orange font-bold">구매 신청해보세요</span>
+        <span class="text-hightlight-orange font-bold">받을 수 있는 혜택</span>을 알려드려요
     </div>
 
-	<a href="/main/welfare/equip/list" id="search-recipients" class="grade-floating">
-        <strong>복지용구 선택하기</strong>
-    </a>
+	<div class="grade-floating">
+		<button id="search-recipients"  onclick="searchRecipients()">
+			<strong>복지용구 선택하기</strong>
+		</button>
+	</div>
 	
 
 	<!--로그인사용자 : 등록된 수급자 없는 경우-->

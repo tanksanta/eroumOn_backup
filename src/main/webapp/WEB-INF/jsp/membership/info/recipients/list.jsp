@@ -95,21 +95,33 @@
 						<a href="./view?recipientsNo=${recipientInfo.recipientsNo}" class="btn-success btn-small">상세보기</a>
 					</div>
 					
-					<c:if test="${mbrConsltMap[recipientInfo.recipientsNo] == null}">
-						<!-- 이미 상담중이라면 버튼 표시X -->
+					<c:if test="${!empty btnConsltPrevPathMap[recipientInfo.recipientsNo]}">
 						<div class="rounded-card-gray gap-2">
 							<div class="flex justify-between items-center">
-								<c:set var="consltPrevPath" value="${recipientInfo.recipientsYn == 'Y' ? 'simpleSearch' : 'test'}" />
 							
-								<strong>${recipientInfo.recipientsYn == "Y" ? "인정정보상담" : "요양등급상담"}</strong>
+								<strong>
+									<c:choose>
+										<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test'}">
+											요양등급상담
+										</c:when>
+										<c:otherwise>
+											복지용구상담
+										</c:otherwise>
+									</c:choose>
+								</strong>
 								
-								<c:if test="${consltPrevPath == 'simpleSearch' || consltPrevPath == 'test' && (mbrTestList.stream().filter(f -> f.recipientsNo == recipientInfo.recipientsNo).count() > 0)}">
-									<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${consltPrevPath}')">상담하기</button>
-								</c:if>
+								<button type="button" class="btn btn-primary btn-small" onclick="requestConslt('${recipientInfo.recipientsNo}', '${btnConsltPrevPathMap[recipientInfo.recipientsNo]}')">상담하기</button>
 							</div>
 							<div class="text-subtitle">
 								<i class="icon-alert size-sm"></i>
-								상담을 신청하면 복지용구 구매를 도와드려요
+								<c:choose>
+									<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test'}">
+										예상 테스트 결과로 장기요양 인정등급을 간편하게 신청해보세요
+									</c:when>
+									<c:otherwise>
+										장기요양보험 혜택받고 관심있는 복지용구를 구매해보세요
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</c:if>

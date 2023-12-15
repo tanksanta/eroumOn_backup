@@ -66,11 +66,13 @@ $(function() {
             $('body').removeClass('is-scroll');
         }
 
-        if($(window).scrollTop() > $('#header').outerHeight() * 5) {
-            $('.grade-floating').addClass('is-active');
+        let floatingEl = $('.grade-floating');
+        if ( ($(window).scrollTop() > $('#header').outerHeight() * 5) && $(window).scrollTop() + $(window).height() < $(document).height() ) {
+            floatingEl.addClass('is-active');
         } else {
-            $('.grade-floating').removeClass('is-active');
+            floatingEl.removeClass('is-active');
         }
+
     });
     
     $(window).on('load resize', function(e) {

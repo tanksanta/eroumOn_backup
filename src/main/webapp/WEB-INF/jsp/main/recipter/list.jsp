@@ -481,9 +481,11 @@
             복지 혜택 <span class="text-hightlight-blue font-bold">상담을 신청해보세요</span>
     	</div>
 
-        <a class="grade-floating consulting" onclick="clickStartConsltBtn();">
-            <strong>상담하기</strong>
-        </a>
+        <div class="grade-floating consulting">
+            <button onclick="clickStartConsltBtn();">
+                <strong>상담하기</strong>
+            </button>
+        </div>
         
          <!-- 상담 신청하기 지원 모달 -->
 		<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
