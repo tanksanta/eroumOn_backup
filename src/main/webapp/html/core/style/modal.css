@@ -55,7 +55,7 @@
           }
       }
       & .modal-content {
-        @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
+        @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto p-5 pb-6 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
         &.modal-content-inner {
           &.modal-body {
             @apply overflow-auto;
