@@ -230,6 +230,10 @@ public class CouponController extends CommonAbstractController{
 				if(couponVO.getUsePdTy().equals("ADAY")) {
 					couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
 				}
+				else if (couponVO.getUsePdTy().equals("FIX")) {
+					couponLstVO.setUseLstBgngYmd(couponVO.getUseBgngYmd());
+					couponLstVO.setUseLstEndYmd(couponVO.getUseEndYmd());
+				}
 				couponLstService.insertCouponLst(couponLstVO);
 
 				result = true;
