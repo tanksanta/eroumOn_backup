@@ -151,4 +151,20 @@
       }
     }
   }
+
+  .table-info {
+    @apply border border-[#EEEEEE] bg-[#FAF7F5] p-2.5 rounded-md;
+    & table {
+      @apply table leading-tight;
+    }
+    & th {
+      @apply text-left font-normal text-black2 min-w-30;
+    }
+    & td {
+      @apply font-medium;
+    }
+    & th, & td {
+      @apply border-b border-white p-2.5 break-all;
+    }
+  }
 }

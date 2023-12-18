@@ -444,6 +444,10 @@ img[alt] {
         @apply px-7.5 h-[3.125rem] text-sm
                md:px-9.5 md:h-15 md:text-base;
     }
+    .btn-xlarge {
+        @apply px-7.5 h-[5.125rem] text-sm
+               md:px-9.5  md:text-base;
+    }
 
     .btn-arrow {
         @apply min-w-[7em] justify-between transition-[transform,background-color,background-image,border,padding] duration-300 ease-in-out !bg-white

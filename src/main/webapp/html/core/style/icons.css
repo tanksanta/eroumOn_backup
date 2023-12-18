@@ -89,7 +89,6 @@
     }
 
     .icon-round-plus {
-        @apply flex items-center justify-center w-5 h-5 bg-[#FAF7F5] bg-no-repeat bg-[url(/html/page/index/assets/images/ico-plus-thin2-orange.svg)] rounded-full
-        hover:bg-indexKey1 hover:bg-[url(/html/page/index/assets/images/ico-plus-thin2.svg)]; 
+        @apply flex items-center justify-center w-5 h-5 bg-[#FAF7F5] bg-no-repeat bg-[url(/html/page/index/assets/images/ico-plus-orange.svg)] rounded-full ml-1;
     }
 }

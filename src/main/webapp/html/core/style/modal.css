@@ -82,7 +82,7 @@
       
       }
       & .modal-body {
-        @apply flex flex-col justify-start md:px-5 md:py-8 gap-2.5;
+        @apply flex flex-col justify-start px-2.5 py-4 md:px-5 md:py-8 gap-2.5;
         min-height: auto;
         & .text-subtitle {
           @apply flex flex-row items-start gap-2 text-sm tracking-tighter;
@@ -201,7 +201,7 @@
   .additional {
     @apply flex items-start gap-2 text-sm mt-1;
     & > .icon-alert {
-      @apply w-4 h-4 mt-1;
+      @apply w-4 h-4 mt-0.5;
     }
   }
 }
