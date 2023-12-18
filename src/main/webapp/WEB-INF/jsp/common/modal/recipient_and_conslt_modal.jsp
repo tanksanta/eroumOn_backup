@@ -168,17 +168,17 @@
 					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
 				</div>
 				<div class="modal-body">
-					<div class="modal-bg-wrap">
-					<div class="flex flex-col justify-center items-center">
+					<div class="bg-box-beige">
+					<%-- <div class="flex flex-col justify-center items-center"> --%>
 						<div class="text-center text-xl" id="process-conslt-noti">
 							진행중인 인정등급 상담이 있습니다.<br>
 							상담 내역을 확인하시겠습니까?
 						</div>
-					</div>
+					<%-- </div> --%>
 					</div>
 				</div>
 				<div class="modal-footer gap-2">
-					<button type="button" class="btn btn-primary large flex-initial w-55" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
+					<button type="button" class="btn-warning large w-full md:w-1/2" onclick="location.href='/membership/conslt/appl/list'">상담내역 확인하기</button>
 					<!-- <button type="button" class="btn btn-outline-primary large flex-initial w-45" onclick="openNewConslt();">새롭게 진행하기</button> -->
 				</div>
 			</div>
@@ -225,7 +225,7 @@
                 </script>
             </div>
             <div class="modal-footer">
-                <a href="#" id="goConsltHist" class="btn w-57 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청 내역 보러가기</a>
+                <a href="#" id="goConsltHist" class="btn-large btn-warning flex-1 md:w-70" onclick="location.href='/membership/conslt/appl/list'">신청내역 보러가기</a>
             </div>
             </div>
         </div>
@@ -302,13 +302,13 @@
 	    	//접속 uri에 따라 모달에 클래스 다르게 부여
 	    	if (location.pathname.startsWith('/main')) {
 	    		$('#pop-client-edit').addClass('modal-index');
-	    		$('#modal-my-consulting').addClass('modal-index');
-	    		$('#modal-consulting-complated').addClass('modal-index');
+	    		$('#modal-my-consulting').addClass('modal-default');
+	    		$('#modal-consulting-complated').addClass('modal-default');
 	    		$('#regist-rcpt').addClass('modal-index');
 	    		
 	    		$('#actionBtn').removeClass('btn-primary');
 	    		$('#actionBtn').addClass('btn-primary3');
-	    		$('#goConsltHist').addClass(['btn-large', 'btn-primary3']);
+	    		$('#goConsltHist').addClass(['btn-large', 'btn-warning']);
 	    	} else {
 	    		$('#pop-client-edit').addClass('modal-default');
 	    		$('#modal-my-consulting').addClass('modal-default');

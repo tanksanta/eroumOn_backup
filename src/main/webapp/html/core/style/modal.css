@@ -40,7 +40,7 @@
         @apply text-2xl font-bold text-left;
       }
     }
-    & .modal-body {
+    & .modal-body, & .modal-body-scrolled {
       @apply scrollbars py-5 px-3 md:p-5;
       overflow: overlay;
     }
@@ -56,6 +56,11 @@
       }
       & .modal-content {
         @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
+        &.modal-content-inner {
+          &.modal-body {
+            @apply overflow-auto;
+          }
+        }
       }
       & .modal-close {
         > button {
@@ -137,15 +142,16 @@
           }
         }
       }
+    
       & .modal-footer {
-        @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-2 mt-5;
+        @apply flex items-center justify-center p-0 rounded-b-md gap-2 mt-2.5 md:mt-5 space-x-3;
         &>:not([hidden])~:not([hidden]) {
             @apply m-0;
         }
       }
     }
 
-    &.modal-scrolled {
+    /* &.modal-scrolled {
       & .modal-header {
         @apply justify-between bg-transparent text-black p-0;
         & .btn-close {
@@ -160,7 +166,7 @@
       & .modal-content {
         @apply p-5 sm:pt-7 sm:px-7 sm:pb-11;
       }
-    }
+    } */
 
     &.modal-media {
       & .modal-header {
@@ -196,7 +202,7 @@
   }
   
   .bg-box-beige {
-    @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border-gray3;
+    @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border border-gray3;
   }
   .additional {
     @apply flex items-start gap-2 text-sm mt-1;

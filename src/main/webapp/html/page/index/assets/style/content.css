@@ -344,21 +344,21 @@
 }
 
 .provide-complate {
-    @apply relative mx-auto w-[155px] h-[155px] rounded-full bg-[#EAF1FF] origin-center -my-8 scale-[0.6]
+    @apply relative mx-auto w-[155px] h-[155px] rounded-full bg-[#FAF7F5] origin-center -my-8 scale-[0.6]
            md:-my-4 md:scale-[0.8]
            lg:my-0 lg:scale-100;
     & .wrapper {
-        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-indexKey2 -translate-y-1/2 -translate-x-1/2;
+        @apply absolute top-1/2 left-1/2 w-[66%] h-[66%] overflow-hidden rounded-full bg-indexKey1 -translate-y-1/2 -translate-x-1/2;
         & svg {
             @apply absolute top-1/2 left-1/2 -translate-y-1/2 translate-x-1/2 scale-100 opacity-0;
         }
     }
     & .object1 {
-        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
+        @apply absolute z-[5] top-[56%] left-[31%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey1;
         transform: rotate(45deg) translate(-50%,-50%);
     }
     & .object2 {
-        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey2;
+        @apply absolute z-[5] top-[67%] left-[42.5%] w-0 h-[10px] rounded-[0.125rem] bg-indexKey1;
         transform: rotate(-45deg);
     }
     & .object3 {
@@ -1913,11 +1913,9 @@
     @apply bg-[rgba(255,129,32,0.10)] text-indexKey1 py-1 px-4 rounded-3xl;
 }
 .regist-rcpts, .regist-lno {
-    display: none;
+    @apply hidden;
     &.active {
-        overflow:hidden;
-        display: block;       
-        @apply fadeIn;
+        @apply fadeIn overflow-hidden block;
     }
 }
 
@@ -1929,3 +1927,4 @@
         @apply hidden;
     }
 }
+

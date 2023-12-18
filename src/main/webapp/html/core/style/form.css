@@ -96,6 +96,10 @@
         &.border-light {
             @apply border-[#DADADD];
         }
+        &.is-info {
+            border-color: #198754;
+            padding-right: calc(1.5em + .75rem)
+        }
     }
 
     
@@ -358,6 +362,7 @@
             }
         }
     }
+    
 
 
     
@@ -426,7 +431,7 @@
 
     /*lno*/
     .rcpt-lno {
-        @apply relative w-36 sm:w-47;
+        @apply relative sm:w-47;
         &:before {
             @apply content-["L"] absolute inline-block font-medium left-2.5 top-[50%] leading-none  translate-y-[-40%] pr-1 text-base;
         }
@@ -434,8 +439,14 @@
             @apply !text-base;
         }
         > input { 
-            @apply indent-2 !text-base;
+            @apply indent-2 !text-base xs-max:w-[calc(100%-2rem)];
         }
+    }
+
+   
+
+    sup.required {
+        @apply text-danger text-base md:text-lg top-0 ml-1 font-semibold;
     }
 }
 

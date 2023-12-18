@@ -124,7 +124,6 @@
     }
   }
 
-  
   .table-box {
     @apply border border-gray3 rounded-md p-5 w-full; 
     & table {
@@ -167,4 +166,6 @@
       @apply border-b border-white p-2.5 break-all;
     }
   }
+
+
 }
