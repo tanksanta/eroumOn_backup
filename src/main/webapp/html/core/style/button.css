@@ -1,4 +1,4 @@
-/* button */
+ /* button */
 @layer components {
     .press-action {
         @apply transition-[transform,background-color,background-image,border] duration-300 cursor-pointer select-none
