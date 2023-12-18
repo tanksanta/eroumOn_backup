@@ -2,12 +2,14 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="entrps.dlvygrp">
 
-	<resultMap type="entrpsDlvyGrpVO" id="entrpsDlvyGrpVOMap" autoMapping="true" />
+	<resultMap type="entrpsDlvygrpVO" id="entrpsDlvygrpVOMap" autoMapping="true" />
 
 	<sql id="listColumn">
 		entrps_dlvygrp_no
 		, entrps_no
 		, entrps_dlvygrp_nm
+		, dlvy_adit_amt
+		, dlvy_calc_ty
 		, use_yn
 		, reg_unique_id
 		, reg_dt
@@ -33,25 +35,28 @@
 		<if test="srchEntrpsNo != null and srchEntrpsNo != '' ">
 			AND entrps_no = #{srchEntrpsNo}
 		</if>
+		<if test="srchEntrpsDlvygrpNo != null and srchEntrpsDlvygrpNo != '' ">
+			AND entrps_dlvygrp_no = #{srchEntrpsDlvygrpNo}
+		</if>
 	</sql>
 
-	<select id="selectEntrpsDlvyGrpListVO" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+	<select id="selectEntrpsDlvyGrpListVO" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOMap">
 		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpListVO */
 		SELECT
 			<include refid="listColumn"/>
 		FROM ENTRPS_DLVYGRP
-		WHERE 1=1
+		WHERE del_yn != 'Y'
 			<include refid="searchConditions" />
 	  	ORDER BY entrps_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
-	<select id="selectEntrpsDlvyGrpListAll" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+	<select id="selectEntrpsDlvyGrpListAll" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOMap">
 		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpListAll */
 		SELECT
 			<include refid="listColumn"/>
 		FROM ENTRPS_DLVYGRP
-		WHERE 1=1
+		WHERE del_yn != 'Y'
 		 	<include refid="searchConditions" />
 		ORDER BY entrps_no DESC
 	</select>
@@ -60,54 +65,75 @@
 		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpCount */
 		SELECT	COUNT(*)
 		FROM	ENTRPS_DLVYGRP
-		WHERE	1=1
+		WHERE	del_yn != 'Y'
 		<include refid="searchConditions"/>
 	</select>
 
-	<select id="selectEntrpsDlvyGrp" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
+	<select id="selectEntrpsDlvyGrpByNo" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOMap">
 		/* Query ID : entrps-dlvy-grp.xml > selectEntrps */
 		SELECT
 		<include refid="listColumn"/>
 		FROM	ENTRPS_DLVYGRP
-		WHERE  entrps_no = #{entrpsDlvyGrpNo}
+		WHERE  del_yn != 'Y'
+		 	<include refid="searchConditions" />
 	</select>
 
-	<select id="selectEntrpsDlvyGrpByGdsNo" parameterType="java.util.HashMap" resultMap="entrpsDlvyGrpVOMap">
-		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpByGdsNo */
-		SELECT E.entrps_no, E.entrps_nm
-		FROM   ENTRPS_DLVYGRP E
-		JOIN   GDS G  ON E.entrps_no = G.entrps_no
-		WHERE  G.gds_no = #{srchGdsNo}
-	</select>
-
-	<insert id="insertEntrpsDlvyGrp" parameterType="entrpsDlvyGrpVO">
+	<insert id="insertEntrpsDlvyGrp" parameterType="entrpsDlvygrpVO">
 	/* Query ID : entrps-dlvy-grp.xml > insertEntrps */
 	INSERT INTO ENTRPS_DLVYGRP (
-		entrps_nm
+		entrps_no
+		, entrps_dlvygrp_nm
+		, dlvy_adit_amt
+		, dlvy_calc_ty
+		, use_yn
+		
 		, reg_unique_id
 		, reg_dt
 		, reg_id
 		, rgtr
 		) VALUES (
-		#{entrpsNm, jdbcType=VARCHAR}
-		
+		#{entrpsNo}
+		, #{entrpsDlvygrpNm, jdbcType=VARCHAR}
+		, #{dlvyAditAmt}
+		, #{dlvyCalcTy}
+		, #{useYn, jdbcType=VARCHAR}
+
 		, #{regUniqueId, jdbcType=VARCHAR}
 		, SYSDATE()
 		, #{regId, jdbcType=VARCHAR}
 		, #{rgtr, jdbcType=VARCHAR}
 		)
+		<selectKey keyProperty="entrpsDlvygrpNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
-	<update id="updateEntrpsDlvyGrp" parameterType="entrpsDlvyGrpVO">
+	<update id="updateEntrpsDlvyGrp" parameterType="entrpsDlvygrpVO">
 		/* Query ID : entrps-dlvy-grp.xml > updateEntrpsDlvyGrp */
 		UPDATE ENTRPS_DLVYGRP SET
-			entrps_nm = #{entrpsNm, jdbcType=VARCHAR}
-			
+			entrps_dlvygrp_nm = #{entrpsDlvygrpNm, jdbcType=VARCHAR}
+			, dlvy_adit_amt = #{dlvyAditAmt}
+			, dlvy_calc_ty = #{dlvyCalcTy}
+			, use_yn = #{useYn}
+
 			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
 			, mdfcn_dt = SYSDATE()
 			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
 			, mdfr = #{mdfr, jdbcType=VARCHAR}
-			WHERE	entrps_no = #{entrpsNo}
+			WHERE entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
 	</update>
+	<delete id="deleteEntrpsDlvyGrp" parameterType="entrpsDlvygrpVO">
+		/* Query ID : entrps-dlvy-grp.xml > updateEntrpsDlvyGrp */
+		UPDATE ENTRPS_DLVYGRP SET
+			del_yn = 'Y'
+			, DEL_AT_GDS = (SELECT GROUP_CONCAT(gds_no)
+							from GDS
+							WHERE entrps_no = #{entrpsNo} AND use_yn = 'Y' AND dlvy_group_yn = 'Y' AND entrps_dlvygrp_no = #{entrpsDlvygrpNo})
+			, del_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, del_dt = SYSDATE()
+			, del_id = #{mdfcnId, jdbcType=VARCHAR}
+			WHERE entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
+	</delete>
+
 
 </mapper>

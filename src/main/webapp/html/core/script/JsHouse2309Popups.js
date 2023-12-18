@@ -189,6 +189,14 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
     }
 
     /*
+        각 하위 클래스마다 팝업을 보여주고 난 뒤 처리해야 하는 부분.
+        append할 당시에만 실행이 된다.
+    */
+    fn_loading_form_cls(){
+
+    }
+
+    /*
         화면, 데이터 둘다 불러왔으면 화면에 표시한다.
     */
     fn_loading_all_result_main(){
@@ -197,6 +205,8 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
         if (this._cls_info.formResult != null && (this._cls_info.modalPop == undefined || this._cls_info.modalPop.length == 0)){
             this._cls_info.modalCon.append(this._cls_info.formResult);
             this._cls_info.modalPop = $(this._cls_info.pageModalfix);
+
+            this.fn_loading_form_cls();
         }
 
         this.fn_init_click();
@@ -722,27 +732,3 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
 
 }
 
-class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
-    fn_page_init_click(){
-        var owner = this;
-
-        $(owner._cls_info.pageModalfix + ' #findAdres').removeAttr("onclick");
-        $(owner._cls_info.pageModalfix + ' #findAdres').off('click').on('click', function(){
-            popupZipSearch.fn_show_popup(owner, 'fn_zipsearch_cb', true, {defalut_result:true});
-        });
-        
-        // 삭제기능 없음
-        // $(owner._cls_info.pageModalfix + ' .delDlvyBtn').off('click').on('click', function(){
-        //     owner.fn_del_click();
-        // });
-    }
-
-    fn_loading_all_result_data(){
-        
-    }
-    
-    // 삭제기능 없음
-    fn_del_click(){
-        
-    }
-}

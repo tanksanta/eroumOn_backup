@@ -17,11 +17,14 @@
 				<tr>
 					<th scope="row"><label for="srchGdsNm">입점업체</label></th>
 					<td>
-						<select id="selectTarget" class="form-control w-160">
-							<c:forEach items="${entrpsList.listObject}" var="resultList" varStatus="status">
-								<option value="${resultList.entrpsNo}" >${resultList.entrpsNm}</option>
-							</c:forEach>
-						</select> 
+						<div class="form-group w-84">
+							<select id="selectTarget" class="form-control w-full">
+								<c:forEach items="${entrpsList.listObject}" var="resultList" varStatus="status">
+									<option value="${resultList.entrpsNo}" <c:if test="${resultList.entrpsNo eq param.srchTarget}">selected="true"</c:if>>${resultList.entrpsNm}</option>
+								</c:forEach>
+							</select> 
+						</div>
+						
 					</td>
 					
 				</tr>
@@ -51,17 +54,18 @@
 			</tbody>
 		</table>
 		<div class="btn-group mt-5">
-			<button type="submit" class="btn-primary large shadow w-52">검색</button>
+			<button type="submit" class="btn-primary large shadow w-52 btn search">검색</button>
 			<p class="modal show">모달 </p>
 		</div>
 		
 	</form>
 
 	<div class="mt-13 text-right mb-2">
-		<button type="button" class="btn-primary" id="btn-excel">엑셀 다운로드</button>
+		<button type="button" class="btn-primary btn add" >그룹 생성</button>
 	</div>
 
 	<c:set var="pageParam" value="curPage=${listVO.curPage}&srchText=${param.srchText}&srchYn=${param.srchYn}&srchTarget=${param.srchTarget}&cntPerPage=${param.cntPerPage}&sortBy=${param.sortBy}" />
+
 	<h2 class="text-title2 mt-13">묶음배송 목록</h2>
 	<table class="table-list">
 		<colgroup>
@@ -88,10 +92,10 @@
 			<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
-					<td><a href="./form?entrpsDlvyGrpNo=${resultList.entrpsDlvyGrpNo}&${pageParam}">${resultList.entrpsDlvyGrpNm}</a></td>
-					<td>${resultList.picNm}</td>
-					<td>${fn:substring(resultList.brno,0,3)}-${fn:substring(resultList.brno,3,5)}-${fn:substring(resultList.brno,5,10)}</td>
-					<td>${resultList.rprsvNm}</td>
+					<td><a href="./detail?entrpsDlvygrpNo=${resultList.entrpsDlvygrpNo}&${pageParam}">${resultList.entrpsDlvygrpNm}</a></td>
+					<td>${dlvyCalcTyList[resultList.dlvyCalcTy]}</td>
+					<td><fmt:formatNumber value="${resultList.dlvyAditAmt}" pattern="###,###" /></td>
+					<td>${useYn[resultList.useYn]}</td>
 					<td><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd" /></td>
 					<td><fmt:formatDate value="${resultList.mdfcnDt}" pattern="yyyy-MM-dd" /></td>
 				</tr>
@@ -119,25 +123,30 @@
 			총 <strong>${listVO.totalCount}</strong>건, <strong>${listVO.curPage}</strong>/${listVO.totalPage} 페이지
 		</div>
 	</div>
-	<div class="btn-group right mt-8">
+	<!--div class="btn-group right mt-8">
 		<a href="./form?${pageParam}" class="btn-primary large shadow">등록</a>
-	</div>
+	</div-->
 </div>
+
+<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpModal.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
 <script>
 $(function(){
 	$("#selectTarget").on("change",function(){
 		$("#srchTarget").val($(this).val());
+		$("#srchText").val('');
+
+		$(".btn.search").click();
 	});
 
-	$("#btn-excel").on("click",function(){
+	$(".btn.add").on("click",function(){
 		// $("#searchFrm").attr("action","./excel");
 		// $("#searchFrm").submit();
 		// $("#searchFrm").attr("action","./list");
 
-		var aaa = new JsPopupEntrpsDlvyGrpModal(this, ".modal2-con .dlvygrp_form", "dlvygrp_form", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/modal.json", {})
+		var aaa = new JsPopupEntrpsDlvyGrpModal(this, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/modal.json", {})
 	
-		aaa.fn_loading_form_data_call({}, true, {})
+		aaa.fn_loading_form_data_call({"entrpsNo":$("#srchTarget").val()}, false, {})
 	});
 
 	

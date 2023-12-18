@@ -794,4 +794,35 @@
 		ORDER BY FIELD(g.gds_ty, 'R', 'L', 'N') ASC
 	</select>
 
+
+	<update id="updateGdsDlvygrpReset" parameterType="java.util.HashMap">
+		UPDATE GDS g 
+		SET dlvy_group_yn = 'N'
+			, entrps_dlvygrp_no = 0
+		WHERE use_yn = 'Y' AND dlvy_group_yn = 'Y'
+			AND entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
+	</update>
+
+	<select id="selectGdsCountByDlvygrp" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gds.selectGds */
+		SELECT COUNT(*)
+		FROM GDS g
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE g.use_yn = 'Y' AND g.dlvy_group_yn = 'Y'
+			AND g.entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND g.entrps_no = #{entrpsNo}
+	</select>
+
+	<select id="selectGdsListByDlvygrp" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+		/* Query ID : gds.selectGds */
+		SELECT
+			<include refid="listColumn"/>
+		FROM GDS g
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE g.use_yn = 'Y' AND g.dlvy_group_yn = 'Y'
+			AND g.entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND g.entrps_no = #{entrpsNo}
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+	
 </mapper>

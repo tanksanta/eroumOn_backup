@@ -9,38 +9,43 @@ import org.springframework.stereotype.Repository;
 import icube.common.framework.abst.CommonAbstractMapper;
 import icube.common.vo.CommonListVO;
 
-@Repository("entrpsDlvyGrpDAO")
-public class EntrpsDlvyGrpDAO extends CommonAbstractMapper {
+@Repository("entrpsDlvygrpDAO")
+public class EntrpsDlvygrpDAO extends CommonAbstractMapper {
 
 	public CommonListVO entrpsDlvyGrpListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("entrps.dlvygrp.selectEntrpsDlvyGrpCount", "entrps.dlvygrp.selectEntrpsDlvyGrpListVO", listVO);
 	}
 
-	public EntrpsVO selectEntrpsDlvyGrp(int entrpsDlvyGrpNo) throws Exception {
-		return (EntrpsVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrp", entrpsDlvyGrpNo);
+	public EntrpsVO selectEntrpsDlvyGrp(int entrpsDlvygrpNo) throws Exception {
+		return (EntrpsVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrp", entrpsDlvygrpNo);
 	}
 
-	public List<EntrpsVO> selectEntrpsDlvyGrpListAll(Map<String, Object> paramMap) throws Exception {
-		return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",paramMap);
-	}
+	// public List<EntrpsVO> selectEntrpsDlvyGrpListAll(Map<String, Object> paramMap) throws Exception {
+	// 	return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",paramMap);
+	// }
 		
-	// public EntrpsVO selectEntrpsByGdsNo(int gdsNo) throws Exception {
-	// 	Map<String, Object> paramMap = new HashMap<String, Object>();
-	// 	paramMap.put("srchGdsNo", gdsNo);
-	// 	return (EntrpsVO)selectOne("entrps.selectEntrpsDlvyGrpByGdsNo", paramMap);
-	// }
+	public EntrpsDlvygrpVO selectEntrpsDlvyGrpByNo(int entrpsDlvygrpNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchEntrpsDlvygrpNo", entrpsDlvygrpNo);
+		return (EntrpsDlvygrpVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrpByNo", paramMap);
+	}
 
-	// public void insertEntrps(EntrpsVO entrpsVO) throws Exception {
-	// 	insert("entrps.insertEntrps", entrpsVO);
-	// }
+	public void insertEntrpsDlvyGrp(EntrpsDlvygrpVO entrpsDlvygrpVO) throws Exception {
+		insert("entrps.dlvygrp.insertEntrpsDlvyGrp", entrpsDlvygrpVO);
+	}
 
-	// public void updateEntrps(EntrpsVO entrpsVO) throws Exception {
-	// 	update("entrps.updateEntrps", entrpsVO);
-	// }
+	public void updateEntrpsDlvyGrp(EntrpsDlvygrpVO entrpsDlvygrpVO) throws Exception {
+		update("entrps.dlvygrp.updateEntrpsDlvyGrp", entrpsDlvygrpVO);
+	}
 
-	// public void deleteEntrps(int entrpsNo) throws Exception {
-	// 	delete("entrps.deleteEntrps", entrpsNo);
-	// }
+	public void deleteEntrpsDlvyGrp(int entrpsNo, int entrpsDlvygrpNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("entrpsNo", entrpsNo);
+		paramMap.put("entrpsDlvygrpNo", entrpsDlvygrpNo);
+
+		delete("entrps.dlvygrp.deleteEntrpsDlvyGrp", paramMap);
+	}
 
 	
 

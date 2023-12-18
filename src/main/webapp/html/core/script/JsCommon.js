@@ -1,34 +1,38 @@
 
 class JsCommon{
-    fn_keycontrol(){
+    fn_keycontrol(ctl){
         var owner = this;
 
-        /*숫자만 입력*/
-        $(".keycontrol.numberonly").off('keyup').on('keyup', function(){
+        if (ctl == undefined){
+            ctl = ".keycontrol";
+        }
+
+        /*숫자만 입력 .keycontrol.numberonly*/
+        $(ctl + ".numberonly").off('keyup').on('keyup', function(){
             this.value=this.value.replace(/[^-0-9]/g,'');
         });
 
         /*숫자,만 입력*/
-        $(".keycontrol.numbercomma").off('keyup').on('keyup', function(){
-            this.value=jsFuncs.numberWithCommas(this.value)
+        $(ctl + ".numbercomma").off('keyup').on('keyup', function(){
+            this.value=owner.fn_keycontrol_NumberComma(this.value)
         });
 
         /*핸드폰 번호 형식*/
-        $(".keycontrol.phonenumber").off("keyup").on("keyup", function(event){
+        $(ctl + ".phonenumber").off("keyup").on("keyup", function(event){
             owner.fn_keycontrol_PhoneNumber(event);
         });
 
         /*한글만 입력가능하게*/
         var patternHangeul = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
-        $(".keycontrol.keyname").off('keyup').on('keyup', function(){
+        $(ctl + ".keyname").off('keyup').on('keyup', function(){
             this.value=this.value.replace(patternHangeul,'')
         });
-        $(".keycontrol.hangeulonly").off('keyup').on('keyup', function(){
+        $(ctl + ".hangeulonly").off('keyup').on('keyup', function(){
             this.value=this.value.replace(patternHangeul,'')
         });
         
         /*생년월일 형식*/
-        $(".keycontrol.birthdt10").off("keyup").on("keyup", function(event){
+        $(ctl + ".birthdt10").off("keyup").on("keyup", function(event){
             this.value= owner.fn_keycontrol_BirthDt10(this.value);
         });
 

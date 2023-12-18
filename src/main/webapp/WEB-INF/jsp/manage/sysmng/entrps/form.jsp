@@ -115,7 +115,7 @@
 			</table>
 		</fieldset>
 
-		<fieldset class="mt-13">
+		<fieldset class="mt-13" style="display:none">
 			<legend class="text-title2">배송비 정보</legend>
 			<table class="table-detail">
 				<colgroup>
