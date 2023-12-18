@@ -22,13 +22,13 @@ import icube.main.biz.ItemMap;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
-import icube.manage.consult.biz.MbrConsltGdsService;
-import icube.manage.consult.biz.MbrConsltGdsVO;
 import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -50,11 +50,11 @@ public class MbrsRecipientsController extends CommonAbstractController {
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 	
-	@Resource(name = "mbrConsltGdsService")
-	private MbrConsltGdsService mbrConsltGdsService;
-	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Resource(name = "itrstService")
 	private ItrstService itrstService;
@@ -106,6 +106,50 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		model.addAttribute("mbrConsltMap", mbrConsltMap);
 		
 		
+		//회원 수급자들의 테스트 정보
+    	List<MbrTestVO> mbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
+		//회원 수급자들의 관심 복지용구 선택 정보
+    	List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByUniqueId(mbrSession.getUniqueId());
+    	
+		//수급자 리스트에서 상담하기 숏컷 버튼 노출 정보(각 수급자 별로 복지용구 또는 인정등급 상담 신청하기 버튼 노출 여부 저장)
+		//null인 경우 노출 안하며 prevPath에 따라 해당 상담하기 버튼 노출
+		Map<Integer, String> btnConsltPrevPathMap = new HashMap<>();
+		if (mbrRecipientsList != null && mbrRecipientsList.size() > 0) {
+			for(int i = 0; i < mbrRecipientsList.size(); i++) {
+				MbrRecipientsVO curRecipient = mbrRecipientsList.get(i);
+				MbrConsltVO mbrConslt = mbrConsltMap.get(curRecipient.getRecipientsNo());
+				boolean existTestResult = mbrTestList.stream().anyMatch(t -> t.getRecipientsNo() == curRecipient.getRecipientsNo()); //테스트 결과가 있는 지 확인
+				boolean existGdsResult = mbrRecipientsGdsList.stream().anyMatch(g -> g.getRecipientsNo() == curRecipient.getRecipientsNo()); //관심 복지용구가 있는 지 확인 
+				
+				//상담이 없는 경우
+				if (mbrConslt == null) {
+					if (existGdsResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+					} else if (existTestResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+					}
+				}
+				//먼저 조회한 상담이 test인 경우
+				else if ("test".equals(mbrConslt.getPrevPath())) {
+					MbrConsltVO mbrEquipConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "equip_ctgry");
+					//test 상담은 존재하므로 복지용구 상담만 없고 관심 복지용구가 있는 지 확인
+					if (mbrEquipConslt == null && existGdsResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+					}
+				}
+				//먼저 조회한 상담이 복지용구 상담인 경우
+				else if ("equip_ctgry".equals(mbrConslt.getPrevPath())) {
+					MbrConsltVO mbrTestConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "test");
+					//복지용구 상담은 존재하므로 test 상담만 없고 테스트 결과가 있는 지 확인
+					if (mbrTestConslt == null && existTestResult) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+					}
+				}
+			}
+		}
+		model.addAttribute("btnConsltPrevPathMap", btnConsltPrevPathMap);
+		
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 		paramMap.put("srchItrstTy", "B");
@@ -117,10 +161,6 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		List<BplcRcmdVO> bplcRcmdList = bplcRcmdService.selectBplcRcmdByUniqueId(mbrSession.getUniqueId());
 		model.addAttribute("bplcRcmdList", bplcRcmdList);
 		
-		//회원 수급자들의 테스트 정보
-    	List<MbrTestVO> srchMbrTestList = mbrTestService.selectMbrTestListByUniqueId(mbrSession.getUniqueId());
-    	model.addAttribute("mbrTestList", srchMbrTestList);
-    	
 		model.addAttribute("prevPath", CodeMap.PREV_PATH);
 		model.addAttribute("consltSttus", CodeMap.CONSLT_STTUS);
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
@@ -168,13 +208,9 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		}
 		
 		
-		//복지용구정보 가져오기 위해 복지용구상담 조회
-		MbrConsltVO welfareConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, "equip_ctgry");
-		if (welfareConslt != null) {
-			List<MbrConsltGdsVO> mbrConsltGdsList = mbrConsltGdsService.selectMbrConsltGdsByConsltNo(welfareConslt.getConsltNo());
-			model.addAttribute("welfareConsltNo", welfareConslt.getConsltNo());
-			model.addAttribute("mbrConsltGdsList", mbrConsltGdsList);
-		}
+		//수급자 관심 복지용구 선택값 조회
+		List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(srchRecipient.getRecipientsNo());
+		model.addAttribute("mbrRecipientsGdsList", mbrRecipientsGdsList);
 		
 		
 		//인정등급예상테스트 정보

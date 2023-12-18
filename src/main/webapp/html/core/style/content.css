@@ -10,7 +10,7 @@
         }
     
         & .welfare-kit-box {
-            @apply bg-white border border-gray3 flex flex-col justify-between items-center gap-3 rounded-md p-3;
+            @apply bg-white border border-gray3 flex flex-col justify-between items-center gap-3 rounded-md p-3 cursor-pointer;
             &.is-active {
                 @apply border-indexKey1 shadow-md;
             }

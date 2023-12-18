@@ -526,8 +526,9 @@
         </div>
     </div>
 
-	<a href="#" class="grade-floating" title="새창열림" onclick="startTest();">테스트 시작하기</a>
-	
+    <div class="grade-floating">
+	    <button onclick="startTest();">테스트 시작하기</button>
+	</div>
 
     <script>
     	var mbrNm = null;

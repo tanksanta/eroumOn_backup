@@ -189,7 +189,7 @@
 					<div class="modal-bg-wrap">
 						<div class="flex flex-col justify-center items-center">
 							<h3 class="text-xl">회원가입이 완료되었습니다</h3>
-							<div class="flex justify-center text-xl">
+							<div class="text-center text-xl">
 								<strong>수급자(어르신)정보를 등록</strong>하시겠어요?
 							</div>
 						</div>

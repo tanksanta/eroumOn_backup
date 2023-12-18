@@ -164,23 +164,18 @@
             <div class="flex justify-between items-center gap-2">
                 <h3 class="font-semibold text-xl">관심 복지용구</h3>
                 <div>
-                	<c:choose>
-                		<c:when test="${!empty welfareConsltNo}">
-                			<a class="btn-success btn-small" onclick="viewConsltInfoModal('${welfareConsltNo}')">상담하기</a>
-                		</c:when>
-                		<c:otherwise>
-                			<a href="/main/welfare/equip/sub" class="btn-success btn-small">상담하기</a>
-                		</c:otherwise>
-                	</c:choose>
+                	<c:if test="${mbrRecipientsGdsList != null && fn:length(mbrRecipientsGdsList) > 0}">
+                		<a class="btn-success btn-small" onclick="requestConslt('equip_ctgry');">상담하기</a>
+                	</c:if>
                 </div>
             </div>
             
             <c:choose>
-            	<c:when test="${mbrConsltGdsList != null}">
+            	<c:when test="${mbrRecipientsGdsList != null && fn:length(mbrRecipientsGdsList) > 0}">
             		<div class="welfare-kit-outer">
 		                <ul class="welfare-kit-wrap members">
-		                	<c:forEach var="mbrConsltGds" items="${mbrConsltGdsList}" varStatus="status">
-		                		<c:if test="${mbrConsltGds.ctgryNm eq '성인용보행기'}">
+		                	<c:forEach var="mbrRecipientsGds" items="${mbrRecipientsGdsList}" varStatus="status">
+		                		<c:if test="${mbrRecipientsGds.careCtgryCd eq '10a0'}">
 			                		<li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -190,7 +185,7 @@
 			                            </div>
 			                        </li>
 			                	</c:if>
-			                	<c:if test="${mbrConsltGds.ctgryNm eq '수동휠체어'}">
+			                	<c:if test="${mbrRecipientsGds.careCtgryCd eq '2080'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -200,7 +195,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '지팡이'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1050'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -210,7 +205,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '안전손잡이'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1090'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -220,7 +215,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '미끄럼방지매트'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1080'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -230,7 +225,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '미끄럼방지양말'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1070'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -240,7 +235,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '욕창예방매트리스'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1010'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -250,7 +245,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '욕창예방방석'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1040'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -260,7 +255,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '자세변환용구'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1030'}">
 				                    <li class="flex flex-col gap-1" id="collapse-welfare">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -270,7 +265,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '요실금팬티'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1020'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -280,7 +275,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '목욕의자'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '10b0'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -290,7 +285,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '이동변기'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '10c0'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -300,7 +295,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '간이변기'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '1060'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -310,7 +305,7 @@
 			                            </div>
 			                        </li>
 			                    </c:if>
-			                    <c:if test="${mbrConsltGds.ctgryNm eq '경사로'}">
+			                    <c:if test="${mbrRecipientsGds.careCtgryCd eq '10d0'}">
 				                    <li class="flex flex-col gap-1">
 			                            <div class="welfare-kit-box">
 			                                <div class="mx-auto">
@@ -330,8 +325,8 @@
             	</c:when>
             	<c:otherwise>
             		<div class="card-bg-gray">
-			            <img src="/html/page/members/assets/images/img-welfare-kit-nodata.svg" class="w-25" alt="관심복지용품 이미지"/>
-			            <p class="text-gray5">필요한 복지용구를 선택하고  <strong> 구매 신청해보세요</strong></p>
+			            <i class="icon-alert size-md opacity-60"></i>
+						<p class="text-gray5">관심 복지용구를 선택하고 <br>장기요양보험 혜택을 받아보세요</p>
 			            <a href="/main/welfare/equip/list?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary btn-arrow mt-8">
 			                선택하기
 			                <i class="icon-next ml-3"></i>
@@ -367,7 +362,7 @@
 				<div class="card-bg-gray mt-4">
 					<i class="icon-alert size-md opacity-60"></i>
 					<p class="text-gray6">인정등급 예상 테스트를 하면 확인할 수 있어요</p>
-					<a href="/main/cntnts/test" class="btn-outline-secondary mt-8">
+					<a href="/test/physical?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary mt-8">
 						인정등급 예상 테스트 바로가기
 						<i class="icon-next ml-3"></i>
 					</a>
@@ -384,8 +379,6 @@
 	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
 	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
 	
-	<!-- 상담정보확인팝업소스 -->
-    <jsp:include page="/WEB-INF/jsp/common/modal/conslt_info_modal.jsp" />
 
 	<!--모달: 인정등급 예상 테스트 결과보기 -->
 	<div class="modal modal-scrolled  fade" id="grade-test-result" tabindex="-1">

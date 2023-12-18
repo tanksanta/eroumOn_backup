@@ -184,7 +184,7 @@
 
     <!--팝업:지팡이-->
     <div class="modal modal-index fade" id="welfare-kit3" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -236,7 +236,7 @@
 
     <!--팝업:안전손잡이-->
     <div class="modal modal-index fade" id="welfare-kit4" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -870,5 +870,29 @@
 	            $($(this).attr('href')).addClass('block').removeClass('hidden').siblings('div').addClass('hidden').removeClass('block');
 	            return false;
 	        });
+
+            //modal dimmed 되는 현상 수정
+            function modalOpen(id) {
+                $(id).on('show.bs.modal', function () {     
+                    var modal = $(this);
+                    modal.appendTo('body');
+                    modal.css('outline', 'none');
+                });
+            }
+
+            modalOpen('#welfare-kit1');
+            modalOpen('#welfare-kit2');
+            modalOpen('#welfare-kit3');
+            modalOpen('#welfare-kit4');
+            modalOpen('#welfare-kit5');
+            modalOpen('#welfare-kit6');
+            modalOpen('#welfare-kit7');
+            modalOpen('#welfare-kit8');
+            modalOpen('#welfare-kit9');
+            modalOpen('#welfare-kit10');
+            modalOpen('#welfare-kit11');
+            modalOpen('#welfare-kit12');
+            modalOpen('#welfare-kit13');
+            modalOpen('#welfare-kit14');
 	    });
     </script>
