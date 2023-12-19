@@ -49,7 +49,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <div class="text-sm">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div>
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -60,17 +60,43 @@
                                             <span>수급자(어르신)</span>
                                             <strong class="text-indexKey1">이영수</strong>
                                             <span>님은</span>
-                                            <strong>이로움이</strong>
+                                            <!-- <strong>이로움이</strong>
                                             <span>님의</span>
                                             <strong>친척</strong>
-                                            <span>입니다</span>
+                                            <span>입니다</span> -->
                                         </div>
                                     </div>
+                                    <!--요양정보가 있을때-->
                                     <div class="flex items-start gap-2 text-lg md:whitespace-nowrap">
                                         <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="국민건강보험 심볼" class="w-5 mt-1"/>
                                         <div class="flex flex-wrap items-center gap-1">
                                             <div class="mr-1">요양인정번호는</div>
                                             <strong class="text-indexKey1">L1904014349</strong><span>입니다</span>
+                                        </div>
+                                    </div>
+                                    <!--요양정보가 없을때-->
+                                    <div class="flex flex-col sm:flex-row items-start gap-2 text-lg md:whitespace-nowrap">
+                                        <div class="flex items-center gap-1">
+                                            <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="국민건강보험 심볼" class="w-5 mt-1"/>
+                                            <div class="mr-1">요양인정번호는</div>
+                                        </div>
+                                        <div class="flex flex-col gap-2 sm-max:ml-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="lno-no" >
+                                                <label class="form-check-label" for="lno-no">없습니다.</label>
+                                            </div>
+                                            <div class="flex items-start gap-1">
+                                                <div class="form-check xs-max:w-10">
+                                                    <input class="form-check-input" type="radio" id="lno-yes" checked>
+                                                </div>
+                                                <div>
+                                                    <label for="rcpt-lno" class="rcpt-lno">
+                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control form-small is-invalid" aria-required="true" aria-describedby="rcpt-related-error" aria-invalid="true"/>
+                                                    </label>
+                                                    <span>입니다</span>
+                                                    <p id="rcpt-related-error" class="error text-danger">! 요양인정번호를 정확하게 입력해 주세요</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +170,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <div class="text-sm">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div>
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -287,7 +313,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div>
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -385,7 +411,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -536,7 +562,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -685,7 +711,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -806,7 +832,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -927,7 +953,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
@@ -1077,7 +1103,7 @@
                                     <h3 class="text-lg font-medium">수급자 (어르신) 정보</h3>
                                     <!-- <div class="text-sm text-right">
                                         <span>·상담유형</span>
-                                        <span class="text-indexKey1">요양정보상담</span>
+                                        <span class="text-indexKey1">인정등급상담</span>
                                     </div> -->
                                 </div>
                                 <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
