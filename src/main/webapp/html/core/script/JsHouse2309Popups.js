@@ -92,6 +92,11 @@ class JsHouse2309PopupBase{
     */
     fn_close_popup(){
         $(this._cls_info.pageModalfix).removeClass("fade").modal("hide");
+
+        if (this._cls_info.popup_param != undefined && this._cls_info.popup_param.isChanged > 0
+            && this._cls_info.container != undefined && this._cls_info.container['fn_popup_selected'] != undefined){
+            this._cls_info.container.fn_popup_selected('popup_data_changed', this._cls_info.popName, this._cls_info.popup_param, null, null);
+        }
     }
 
     /* 

@@ -20,15 +20,15 @@ import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
-import icube.manage.sysmng.entrps.biz.EntrpsDlvygrpService;
-import icube.manage.sysmng.entrps.biz.EntrpsDlvygrpVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpService;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mngr.biz.MngrSession;
 
 @Controller
 @RequestMapping(value="/_mng/sysmng/entrps/dlvygrp")
-public class MEntrpsDlvygrpController extends CommonAbstractController {
+public class MEntrpsDlvyGrpController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
@@ -36,8 +36,8 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
 
-	@Resource(name = "entrpsDlvygrpService")
-	private EntrpsDlvygrpService entrpsDlvygrpService;
+	@Resource(name = "entrpsDlvyGrpService")
+	private EntrpsDlvyGrpService entrpsDlvyGrpService;
 
 	@Autowired
 	private MngrSession mngrSession;
@@ -67,7 +67,7 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 			listVO.setParam("srchEntrpsNo", entrpsNo);
 		}
 
-		listVO = entrpsDlvygrpService.entrpsDlvyGrpListVO(listVO);
+		listVO = entrpsDlvyGrpService.entrpsDlvyGrpListVO(listVO);
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("entrpsList", entrpsListVO);
@@ -107,7 +107,7 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
 		
-		EntrpsDlvygrpVO entrpsDlvygrpVO = entrpsDlvygrpService.selectEntrpsDlvyGrpByNo(entrpsDlvygrpNo);
+		EntrpsDlvyGrpVO entrpsDlvygrpVO = entrpsDlvyGrpService.selectEntrpsDlvyGrpByNo(entrpsDlvygrpNo);
 			
 		resultMap.put("success", true);
 		resultMap.put("resultData", entrpsDlvygrpVO);
@@ -119,7 +119,7 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 	@ResponseBody
 	public Map<String, Object> dlvygrpModalAction(
 		HttpServletRequest request
-		, EntrpsDlvygrpVO entrpsDlvygrpVO
+		, EntrpsDlvyGrpVO entrpsDlvygrpVO
 		, @RequestParam Map<String,Object> reqMap
 		, Model model
 		) throws Exception {
@@ -135,10 +135,10 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 
 		if (entrpsDlvygrpVO.getEntrpsDlvygrpNo() > 0){
 			entrpsDlvygrpVO.setCrud(CRUD.UPDATE);
-			entrpsDlvygrpService.updateEntrpsDlvyGrp(entrpsDlvygrpVO);
+			entrpsDlvyGrpService.updateEntrpsDlvyGrp(entrpsDlvygrpVO);
 		}else{
 			entrpsDlvygrpVO.setCrud(CRUD.CREATE);
-			entrpsDlvygrpService.insertEntrpsDlvyGrp(entrpsDlvygrpVO);
+			entrpsDlvyGrpService.insertEntrpsDlvyGrp(entrpsDlvygrpVO);
 		}
 		
 
@@ -162,13 +162,13 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 	@ResponseBody
 	public Map<String, Object> dlvygrpModalDelete(
 		HttpServletRequest request
-		, EntrpsDlvygrpVO entrpsDlvygrpVO
+		, EntrpsDlvyGrpVO entrpsDlvygrpVO
 		, @RequestParam(value="entrpsDlvygrpNo", required=false) int entrpsDlvygrpNo
 		, @RequestParam(value="entrpsNo", required=false) int entrpsNo
 		, Model model
 		) throws Exception {
 
-		entrpsDlvygrpService.deleteEntrpsDlvyGrp(entrpsDlvygrpVO);
+		entrpsDlvyGrpService.deleteEntrpsDlvyGrp(entrpsDlvygrpVO);
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
@@ -217,7 +217,7 @@ public class MEntrpsDlvygrpController extends CommonAbstractController {
 		}
 		if (reqMap.get("entrpsDlvygrpNo") != null && !EgovStringUtil.equals(reqMap.get("entrpsDlvygrpNo").toString(), "")){
 			int entrpsDlvygrpNo = Integer.parseInt(reqMap.get("entrpsDlvygrpNo").toString());
-			EntrpsDlvygrpVO entrpsDlvygrpVO = entrpsDlvygrpService.selectEntrpsDlvyGrpByNo(entrpsDlvygrpNo);
+			EntrpsDlvyGrpVO entrpsDlvygrpVO = entrpsDlvyGrpService.selectEntrpsDlvyGrpByNo(entrpsDlvygrpNo);
 			if (entrpsDlvygrpVO.getEntrpsNo() != entrpsNo){
 				return "";
 			}

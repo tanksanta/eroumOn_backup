@@ -144,11 +144,15 @@ $(function(){
 		// $("#searchFrm").submit();
 		// $("#searchFrm").attr("action","./list");
 
-		var aaa = new JsPopupEntrpsDlvyGrpModal(this, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/modal.json", {})
+		var aaa = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/modal.json", {})
 	
 		aaa.fn_loading_form_data_call({"entrpsNo":$("#srchTarget").val()}, false, {})
 	});
 
 	
 });
+
+function fn_popup_selected(alert_val, popKind, popup_param, data, extra){
+	$(".btn.search").click();
+}
 </script>

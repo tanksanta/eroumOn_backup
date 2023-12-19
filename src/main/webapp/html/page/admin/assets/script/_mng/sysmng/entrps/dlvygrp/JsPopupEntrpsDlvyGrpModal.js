@@ -58,6 +58,9 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
         if (result != undefined && result.success){
             if (result.sucmsg != undefined && result.sucmsg.length > 0){
                 alert(result.sucmsg)
+
+                this._cls_info.popup_param.isChanged = 1;
+                
                 this.fn_close_popup();
             }
         }

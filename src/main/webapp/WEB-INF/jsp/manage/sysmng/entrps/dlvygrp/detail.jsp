@@ -181,7 +181,7 @@
 
 		$(".btn.dlvygrp.update").on("click",function(){
 			if (jsPopup == undefined){
-				jsPopup = new JsPopupEntrpsDlvyGrpModal(this, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
+				jsPopup = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
 			}
 
 			var data = {"entrpsNo":$("#srchTarget").val()
@@ -242,5 +242,9 @@
         }
 
 		location.reload();
+	}
+
+	function fn_popup_selected(alert_val, popKind, popup_param, data, extra){
+		$(".btn.search").click();
 	}
 </script>

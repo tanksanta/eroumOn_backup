@@ -8,8 +8,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Alias("entrpsDlvygrpVO")
-public class EntrpsDlvygrpVO extends CommonBaseVO {
+@Alias("entrpsDlvyGrpVO")
+public class EntrpsDlvyGrpVO extends CommonBaseVO {
 	private int entrpsDlvygrpNo;
 	private int entrpsNo;
 	private String entrpsDlvygrpNm;
