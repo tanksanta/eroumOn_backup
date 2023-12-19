@@ -210,8 +210,8 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		, HttpServletRequest request
 		, Model model) throws Exception{
 
-		int entrpsNo = Integer.parseInt(reqMap.get("srchTarget").toString());
-		if (reqMap.get("srchTarget") != null && !EgovStringUtil.equals(reqMap.get("srchTarget").toString(), "")){
+		int entrpsNo = Integer.parseInt(reqMap.get("entrpsNo").toString());
+		if (reqMap.get("entrpsNo") != null && !EgovStringUtil.equals(reqMap.get("entrpsNo").toString(), "")){
 			EntrpsVO entrpsVO = entrpsService.selectEntrps(entrpsNo);
 			model.addAttribute("entrpsVO", entrpsVO);
 		}

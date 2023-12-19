@@ -92,7 +92,7 @@
 			<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
-					<td><a href="./detail?entrpsDlvygrpNo=${resultList.entrpsDlvygrpNo}&${pageParam}">${resultList.entrpsDlvygrpNm}</a></td>
+					<td><a href="./detail?entrpsDlvygrpNo=${resultList.entrpsDlvygrpNo}&entrpsNo=${resultList.entrpsNo}&${pageParam}">${resultList.entrpsDlvygrpNm}</a></td>
 					<td>${dlvyCalcTyList[resultList.dlvyCalcTy]}</td>
 					<td><fmt:formatNumber value="${resultList.dlvyAditAmt}" pattern="###,###" /></td>
 					<td>${useYn[resultList.useYn]}</td>
