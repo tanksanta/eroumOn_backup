@@ -71,7 +71,7 @@ public class CouponController extends CommonAbstractController{
 			, Model model
 			)throws Exception {
 
-		CommonListVO listVO = new CommonListVO(request);
+		CommonListVO listVO = new CommonListVO(request, 1, 1000);
 
 		// 다운로드 쿠폰
 		listVO.setParam("srchIssuTy", "DWLD");
