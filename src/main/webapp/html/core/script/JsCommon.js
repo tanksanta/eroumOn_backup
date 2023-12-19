@@ -192,4 +192,24 @@ class JsCommon{
             return str.replace(regex, (matched) => chars[matched] || matched);
         }
     }
+
+    /*그리드에서 전체, 리스트 체크박스가 있는 경우 2개 컨트롤 하는 함수*/
+    fn_checkbox_ctl_all_list(cssSelectorAll, cssSelectorList){
+        const totalCnt = $(cssSelectorList).length;
+        
+        //전체 선택 체크박스 클릭시
+        $(cssSelectorAll).on("click", function(){
+            let isChecked = $(this).is(":checked");
+            $(cssSelectorList).prop("checked",isChecked);
+        });
+        //리스트 체크박스 클릭시
+        $(cssSelectorList).on("click", function(){
+            let checkedCnt = $(cssSelectorList + ":checked").length;
+            if( totalCnt==checkedCnt ){
+                $(cssSelectorAll).prop("checked",true);
+            }else{
+                $(cssSelectorAll).prop("checked",false);
+            }
+        });
+    }
 }
