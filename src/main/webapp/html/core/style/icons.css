@@ -1,4 +1,7 @@
 @layer components {
+    .ico-base {
+        @apply inline-block bg-no-repeat overflow-hidden -indent-96 text-left bg-[length:100%_100%];
+    }
     .icon-alert {
         @apply w-5 h-5 bg-no-repeat bg-center bg-[length:99.9%];
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
@@ -8,6 +11,13 @@
         &.size-md {
             @apply w-8 h-8 bg-[length:100%];
         }
+    }
+    .ico-alert {
+        @apply ico-base w-10 h-10 bg-[url(../images/ico-alert.svg)];
+        &.orange {
+            @apply bg-[url(../images/ico-alert-orange.svg)];
+        }
+        
     }
     .icon-arrow-right {
         @apply w-2 h-2  bg-no-repeat bg-center bg-[length:100%];
@@ -89,7 +99,6 @@
     }
 
     .icon-round-plus {
-        @apply flex items-center justify-center w-5 h-5 bg-[#FAF7F5] bg-no-repeat bg-[url(/html/page/index/assets/images/ico-plus-thin2-orange.svg)] rounded-full
-        hover:bg-indexKey1 hover:bg-[url(/html/page/index/assets/images/ico-plus-thin2.svg)]; 
+        @apply flex items-center justify-center w-5 h-5 bg-[#FAF7F5] bg-no-repeat bg-[url(/html/page/index/assets/images/ico-plus-orange.svg)] rounded-full ml-1;
     }
 }
