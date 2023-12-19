@@ -6,15 +6,20 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsDAO;
 import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.sysmng.mngr.biz.MngrSession;
 
 @Service("entrpsDlvygrpService")
 public class EntrpsDlvygrpService extends CommonAbstractServiceImpl {
+
+	@Autowired
+	private MngrSession mngrSession;
 
 	@Resource(name="gdsDAO")
 	private GdsDAO gdsDAO;
@@ -42,14 +47,20 @@ public class EntrpsDlvygrpService extends CommonAbstractServiceImpl {
 		entrpsDlvygrpDAO.updateEntrpsDlvyGrp(entrpsDlvygrpVO);
 	}
 
-	public void deleteEntrpsDlvyGrp(int entrpsNo, int entrpsDlvygrpNo) throws Exception {
-		entrpsDlvygrpDAO.deleteEntrpsDlvyGrp(entrpsNo, entrpsDlvygrpNo);
+	public void deleteEntrpsDlvyGrp(EntrpsDlvygrpVO entrpsDlvygrpVO) throws Exception {
+		
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("entrpsNo", entrpsNo);
-		paramMap.put("entrpsDlvygrpNo", entrpsDlvygrpNo);
+		entrpsDlvygrpDAO.deleteEntrpsDlvyGrp(entrpsDlvygrpVO);
 
-		gdsDAO.updateGdsDlvygrpReset(paramMap);
+		GdsVO gdsVO = new GdsVO();
+
+		gdsVO.setEntrpsNo(entrpsDlvygrpVO.getEntrpsNo());
+		gdsVO.setEntrpsDlvygrpNo(entrpsDlvygrpVO.getEntrpsDlvygrpNo());
+		gdsVO.setMdfcnUniqueId(entrpsDlvygrpVO.getMdfcnUniqueId());
+		gdsVO.setMdfcnId(entrpsDlvygrpVO.getMdfcnId());
+		gdsVO.setMdfr(entrpsDlvygrpVO.getMdfr());
+
+		gdsDAO.updateGdsByDlvygrpResetAll(gdsVO);
 	}
 
 }

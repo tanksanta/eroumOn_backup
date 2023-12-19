@@ -38,13 +38,8 @@ public class EntrpsDlvygrpDAO extends CommonAbstractMapper {
 		update("entrps.dlvygrp.updateEntrpsDlvyGrp", entrpsDlvygrpVO);
 	}
 
-	public void deleteEntrpsDlvyGrp(int entrpsNo, int entrpsDlvygrpNo) throws Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-
-		paramMap.put("entrpsNo", entrpsNo);
-		paramMap.put("entrpsDlvygrpNo", entrpsDlvygrpNo);
-
-		delete("entrps.dlvygrp.deleteEntrpsDlvyGrp", paramMap);
+	public void deleteEntrpsDlvyGrp(EntrpsDlvygrpVO entrpsDlvygrpVO) throws Exception {
+		delete("entrps.dlvygrp.deleteEntrpsDlvyGrp", entrpsDlvygrpVO);
 	}
 
 	

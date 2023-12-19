@@ -19,6 +19,7 @@ import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
+import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvygrpService;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvygrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
@@ -27,7 +28,7 @@ import icube.manage.sysmng.mngr.biz.MngrSession;
 
 @Controller
 @RequestMapping(value="/_mng/sysmng/entrps/dlvygrp")
-public class MEntrpsDlvyGrpController extends CommonAbstractController {
+public class MEntrpsDlvygrpController extends CommonAbstractController {
 
 	@Resource(name = "gdsService")
 	private GdsService gdsService;
@@ -161,12 +162,35 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 	@ResponseBody
 	public Map<String, Object> dlvygrpModalDelete(
 		HttpServletRequest request
+		, EntrpsDlvygrpVO entrpsDlvygrpVO
 		, @RequestParam(value="entrpsDlvygrpNo", required=false) int entrpsDlvygrpNo
 		, @RequestParam(value="entrpsNo", required=false) int entrpsNo
 		, Model model
 		) throws Exception {
 
-		entrpsDlvygrpService.deleteEntrpsDlvyGrp(entrpsNo, entrpsDlvygrpNo);
+		entrpsDlvygrpService.deleteEntrpsDlvyGrp(entrpsDlvygrpVO);
+
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("success", true);
+
+		resultMap.put("sucmsg", getMsg("action.complete.delete"));
+		
+		return resultMap;
+	}
+
+	@RequestMapping("dlvygrpgdsreset.json")
+	@ResponseBody
+	public Map<String, Object> dlvygrpGdsReset(
+		HttpServletRequest request
+		, GdsVO gdsVO
+		, @RequestParam(value="entrpsDlvygrpNo", required=true) int entrpsDlvygrpNo
+		, @RequestParam(value="entrpsNo", required=true) int entrpsNo
+		, @RequestParam(value="arrGdsNo[]", required=true) String[] arrGdsNo
+		, Model model
+		) throws Exception {
+
+		gdsService.updateGdsByDlvygrpResetSelected(gdsVO);
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
@@ -210,8 +234,12 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		}
 
 		model.addAttribute("param", reqMap);
-		model.addAttribute("useYn", CodeMap.USE_YN);
 		model.addAttribute("dlvyCalcTyList", CodeMap.DLVY_CALC_TY);
+
+		model.addAttribute("dspyYnCode", CodeMap.DSPY_YN);
+		model.addAttribute("useYnCode", CodeMap.USE_YN);
+		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
+		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 
 		return "/manage/sysmng/entrps/dlvygrp/detail";
 	}

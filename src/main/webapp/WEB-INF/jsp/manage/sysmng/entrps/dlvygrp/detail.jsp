@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="page-content">
-	<form:form name="frmEntrps" id="frmEntrps" modelAttribute="entrpsVO" method="post" action="./action">
+	<form:form name="frmEntrpsDlvygrp" id="frmEntrpsDlvygrp" modelAttribute="entrpsDlvygrpVO" method="post" action="./action">
 		<form:hidden path="entrpsNo" />
+		<form:hidden path="entrpsDlvygrpNo" />
 		<form:hidden path="crud" />
 
 		<input type="hidden" name="srchTarget" id="srchTarget" value="${param.srchTarget}" />
@@ -31,7 +32,7 @@
 						</td>
 						<th scope="row"><label for="srchGdsCd">사용여부</label></th>
 						<td>
-							${useYn[entrpsDlvygrpVO.useYn]}
+							${useYnCode[entrpsDlvygrpVO.useYn]}
 						</td>
 					</tr>
 					<tr>
@@ -49,9 +50,9 @@
 				</tbody>
 			</table>
 		</fieldset>
-		<div class="btn-group right save_btn_grp">
-			<button type="button" class="btn-success large shadow btn update">수정</button>
-			<button type="button" class="btn-primary large shadow btn delete">삭제</button>
+		<div class="btn-group right save_btn_grp mt-5">
+			<button type="button" class="btn-success large shadow btn dlvygrp update">수정</button>
+			<button type="button" class="btn-primary large shadow btn dlvygrp delete">삭제</button>
 		</div>
 
 		
@@ -59,16 +60,24 @@
 		<table class="table-list">
 			<colgroup>
 				<col class="w-25">
-				<col>
+				<col class="w-25">
 				<col class="w-30">
 				<col class="w-40">
-				<col class="w-30">
-				<col class="w-40">
+				<col >
+				<col class="w-60">
+				<col class="w-25">
+				<col class="w-25">
+				<col class="w-25">
+				<col class="w-25">
 				<col class="w-25">
 			</colgroup>
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
+					<th scope="col">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="check_all" name="check_all">
+						</div>
+					</th>
 					<th scope="col">상품구분</th>
 					<th scope="col">이미지</th>
 					<th scope="col">상품코드</th>
@@ -82,9 +91,50 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
+				<c:forEach items="${gdsList.listObject}" var="resultList" varStatus="status">
 					<tr>
-						<td>${listVO.startNo - status.index }</td>
+						<td>
+							<div class="form-check">
+								<input class="form-check-input"  type="checkbox" name="arrGdsNo" value="${resultList.gdsNo}">
+							</div>
+						</td>
+						<td>${gdsTyCode[resultList.gdsTy]}</td>
+						<td>
+							<c:choose>
+								<c:when test="${!empty resultList.thumbnailFile }">
+									<%--기본 썸네일--%>
+							<img src="/comm/getImage?srvcId=GDS&amp;upNo=${resultList.thumbnailFile.upNo }&amp;fileTy=${resultList.thumbnailFile.fileTy }&amp;fileNo=${resultList.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="" class="rounded-md">
+								</c:when>
+								<c:otherwise>
+									<%--default > 교체 필요 --%>
+							<img src="/html/page/admin/assets/images/noimg.jpg" alt="">
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<a href="/_mng/gds/gds/form?gdsNo=${resultList.gdsNo}" target="_blank">${resultList.gdsCd}</a>
+						</td>
+						<td class="text-left"><a href="/_mng/gds/gds/form?gdsNo=${resultList.gdsNo}" target="_blank">${resultList.gdsNm}</a></td>
+						<td>
+							<c:choose>
+								<c:when test="${empty resultList.itemCd}" >-</c:when>
+								<c:otherwise>${resultList.itemCd}</c:otherwise>
+							</c:choose>
+						</td>
+						<td><fmt:formatNumber value="${resultList.pc}" pattern="###,###" /></td>
+						<td><fmt:formatNumber value="${resultList.bnefPc}" pattern="###,###" /></td>
+						<td>${dspyYnCode[resultList.dspyYn]}</td>
+						<td>${useYnCode[resultList.tempYn]}</td>
+						<td>
+							<c:if test="${!empty resultList.gdsTagVal}">
+								<c:forEach var="tagList" items="${fn:split(fn:replace(resultList.gdsTagVal,' ',''),',')}">
+									${gdsTagCode[tagList]}
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty resultList.gdsTagVal}">
+								-
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty gdsList.listObject}">
@@ -95,10 +145,26 @@
 			</tbody>
 		</table>
 
+		<div class="pagination mt-7">
+			<mngr:mngrPaging listVO="${gdsList}"/>
+
+			<div class="sorting2">
+				<label for="countPerPage">출력</label>
+				<select name="countPerPage" id="countPerPage" class="form-control">
+					<option value="10" ${gdsList.cntPerPage eq '10' ? 'selected' : '' }>10개</option>
+					<option value="20" ${gdsList.cntPerPage eq '20' ? 'selected' : '' }>20개</option>
+					<option value="30" ${gdsList.cntPerPage eq '30' ? 'selected' : '' }>30개</option>
+				</select>
+			</div>
+
+			<div class="counter">총 <strong>${gdsList.totalCount}</strong>건, <strong>${gdsList.curPage}</strong>/${gdsList.totalPage} 페이지</div>
+		</div>
+
 
 		<c:set var="pageParam" value="curPage=${param.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}&srchText=${param.srchText}&srchYn=${param.srchYn}&srchTarget=${param.srchTarget }" />
 		<div class="btn-group mt-8 right">
-			<button type="submit" class="btn-primary large shadow">저장</button>
+			<button type="button" class="btn-primary large shadow float-left f_useYn btn gds selected reset ">선택삭제</button>
+			<!--button type="submit" class="btn-primary large shadow">저장</button-->
 			<a href="./list?${pageParam}" class="btn-secondary large shadow btn list">목록</a>
 		</div>
 	</form:form>
@@ -110,7 +176,10 @@
 <script>
 	var jsPopup;
 	$(document).ready(function() {
-		$(".btn.update").on("click",function(){
+
+		jsCommon.fn_checkbox_ctl_all_list("input[type='checkbox'][name='check_all']", "input[type='checkbox'][name='arrGdsNo']")
+
+		$(".btn.dlvygrp.update").on("click",function(){
 			if (jsPopup == undefined){
 				jsPopup = new JsPopupEntrpsDlvyGrpModal(this, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
 			}
@@ -122,7 +191,7 @@
 			jsPopup.fn_loading_form_data_call( data , true , data );
 		});
 
-		$(".btn.delete").on("click",function(){
+		$(".btn.dlvygrp.delete").on("click",function(){
 			
 			if (!confirm("삭제하시겠습니까?")){
 				return;
@@ -132,13 +201,31 @@
 						, "entrpsDlvygrpNo":$("#entrpsDlvygrpNo").val()
 						}
 
-			jsCallApi.call_api_post_json(window,  '/_mng/sysmng/entrps/dlvygrp/dlvygrpmodaldelete.json', 'fn_entrpsDlvygrpNo_deleted', data, null ); 
+			jsCallApi.call_api_post_json(window,  '/_mng/sysmng/entrps/dlvygrp/dlvygrpmodaldelete.json', 'fn_entrpsDlvygrpNo_msg_tomove_list', data, null ); 
 		
 		});
 	
+		$(".btn.gds.selected.reset").on("click",function(){
+			let arrGdsNo = $(":checkbox[name=arrGdsNo]:checked").map(function(){return $(this).val();}).get();
+			if (arrGdsNo.length < 1){
+				alert("체크박스를 선택하여 주십시오.")
+				return;
+			}
+		
+			if (!confirm("선택하신 상품을 묶음그룹에서 삭제하시겠습니까?\n삭제시 해당 상품의 묶음배송이 해지 됩니다.")){
+				return
+			}
+
+			var data = {"entrpsNo":$("#srchTarget").val()
+						, "entrpsDlvygrpNo":$("#entrpsDlvygrpNo").val()
+						, arrGdsNo
+						}
+
+			jsCallApi.call_api_post_json(window,  '/_mng/sysmng/entrps/dlvygrp/dlvygrpgdsreset.json', 'fn_entrpsDlvygrpNo_msg_reload', data, null ); 
+		});
 	});
 
-	function fn_entrpsDlvygrpNo_deleted(result, fail, data, param){
+	function fn_entrpsDlvygrpNo_msg_tomove_list(result, fail, data, param){
 		if (result != undefined && result.success){
             if (result.sucmsg != undefined && result.sucmsg.length > 0){
                 alert(result.sucmsg)
@@ -146,5 +233,14 @@
         }
 
 		window.location.href = $('.btn.list').attr('href');
+	}
+	function fn_entrpsDlvygrpNo_msg_reload(result, fail, data, param){
+		if (result != undefined && result.success){
+            if (result.sucmsg != undefined && result.sucmsg.length > 0){
+                alert(result.sucmsg)
+            }
+        }
+
+		location.reload();
 	}
 </script>

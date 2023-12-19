@@ -794,14 +794,36 @@
 		ORDER BY FIELD(g.gds_ty, 'R', 'L', 'N') ASC
 	</select>
 
-
-	<update id="updateGdsDlvygrpReset" parameterType="java.util.HashMap">
+	<!-- 배송 묶음그룹 삭제 -->
+	<update id="updateGdsByDlvygrpResetAll" parameterType="gdsVO">
 		UPDATE GDS g 
 		SET dlvy_group_yn = 'N'
 			, entrps_dlvygrp_no = 0
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
 		WHERE use_yn = 'Y' AND dlvy_group_yn = 'Y'
 			AND entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
 	</update>
+
+	<!-- 상품목록 중 선택한 상품만 배송 묶음그룹에서 삭제 -->
+	<update id="updateGdsByDlvygrpResetSelected" parameterType="gdsVO">
+		/* Query ID : gds.updateGdsListByDlvygrpReset */
+		UPDATE GDS
+		   SET  dlvy_group_yn = 'N'
+			, entrps_dlvygrp_no = 0
+		   	, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
+			AND gds_no IN
+				<foreach collection="arrGdsNo" item="gdsNo" open="(" separator="," close=")">
+					#{gdsNo}
+				</foreach>
+	</update>
+
 
 	<select id="selectGdsCountByDlvygrp" parameterType="java.util.HashMap" resultType="int">
 		/* Query ID : gds.selectGds */
