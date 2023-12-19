@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<style>
+	.disp-off{
+		display: none;
+	}
+</style>
 				<ul class="nav tab-list tab-full tab-sticky" id="scollspy">
                     <li><a href="#section1" role="button" class="nav-link active">기본정보</a></li>
                     <li><a href="#section2" role="button" class="nav-link">상품요약정보</a></li>
@@ -35,7 +39,7 @@
                 <input type="hidden" id="delThumbFileNo" name="delThumbFileNo" value="" />
 				<input type="hidden" id="delImageFileNo" name="delImageFileNo" value="" />
 
-                    <fieldset id="section1">
+                    <fieldset id="section1" class="con-basic">
                         <legend class="text-title2">기본정보</legend>
                         <table class="table-detail">
                             <colgroup>
@@ -672,7 +676,7 @@
                     </fieldset>
 
 
-                    <fieldset class="mt-13">
+                    <fieldset class="mt-13 con-delivery">
                         <legend class="text-title2">배송비</legend>
                         <table class="table-detail">
                             <colgroup>
@@ -686,26 +690,26 @@
                                         <div class="form-group">
                                             <form:select path="dlvyCtTy" class="form-control w-50">
 												<form:option value="" label="선택" />
-	                                        <c:forEach items="${dlvyCostTyCode}" var="iem" varStatus="status">
-	                                            <form:option value="${iem.key}" label="${iem.value}" />
-	                                        </c:forEach>
+												<c:forEach items="${dlvyCostTyCode}" var="iem" varStatus="status">
+													<form:option value="${iem.key}" label="${iem.value}" />
+												</c:forEach>
                                             </form:select>
                                             <p class="ml-2">배송비 유형을 선택하면 자동으로 항목이 변환됩니다.</p>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="dlvy-ct-ty-tr" style="display:none;">
+                                <tr class="dlvy-ct-ty-tr" >
                                     <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
                                     <td>
                                         <form:select path="dlvyCtStlm" class="form-control w-50">
                                             <form:option value="" label="선택" />
-                                        <c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
-                                            <form:option value="${iem.key}" label="${iem.value}" />
-                                        </c:forEach>
+											<c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
+												<form:option value="${iem.key}" label="${iem.value}" />
+											</c:forEach>
                                         </form:select>
                                     </td>
                                 </tr>
-                                <tr class="dlvy-ct-ty-tr" style="display:none;">
+                                <tr class="dlvy-ct-ty-tr dlvyBassAmt">
                                     <th scope="row"><label for="dlvyBassAmt">기본 배송료</label></th>
                                     <td>
                                         <div class="form-group">
@@ -714,7 +718,18 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+								<tr class="dlvy-ct-ty-tr dlvyCtCnd">
+                                    <th scope="row"><label for="dlvyCtCnd">배송비 유형에 해당하는 타이틀</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <form:input type="number" path="dlvyCtCnd" class="form-control w-50 numbercheck" min="0" />
+                                            <span>원</span>
+											<p class="ml-2 txt">&nbsp;배송비 유형에 해당하는 텍스트</p>
+											<p class="ml-2 ex"><br>ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="dlvy-ct-ty-tr dlvyAditAmt">
                                     <th scope="row"><label for="dlvyAditAmt">산간지역 추가 배송비</label></th>
                                     <td>
                                         <div class="form-group">
@@ -724,13 +739,20 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row"><label for="dlvyAditAmt">묶음배송</label></th>
+                                <tr class="dlvy-ct-ty-tr dlvyGroupYn">
+                                    <th scope="row"><label for="dlvyGroupYn">묶음배송</label></th>
                                     <td>
                                         <div class="form-group">
                                             <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
                                             <label class="form-check-label" for="dlvyGroupYn">사용</label>
+											<input type="text" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
                                         </div>
+
+										<button type="button" class="btn-primary btn dlvy grp select">묶음그룹 선택</button>
+
+										<div class="dlvy-group-disp">
+											묶음배송 선택시 확인 완료
+										</div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1053,7 +1075,16 @@
                  --%>
                 <c:import url="/_mng/gds/gds/modalGdsSearch" />
 
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/gds/gds/JsHouseMngGdsGdsFormDelivery.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpChoice.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
+				
                 <script>
+					var jsHouseMngGdsGdsFormDelivery;
+					$(document).ready(function() {
+						jsHouseMngGdsGdsFormDelivery = new JsHouseMngGdsGdsFormDelivery("fieldset.con-basic", "fieldset.con-delivery");
+					});
+					
+
                     let spyTarget = document.getElementById('container');
                     spyTarget.setAttribute('data-bs-spy', 'scroll');
                     spyTarget.setAttribute('data-bs-offset', '200');

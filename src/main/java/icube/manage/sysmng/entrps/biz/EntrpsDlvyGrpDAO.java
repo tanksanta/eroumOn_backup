@@ -1,6 +1,7 @@
 package icube.manage.sysmng.entrps.biz;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -19,9 +20,9 @@ public class EntrpsDlvyGrpDAO extends CommonAbstractMapper {
 		return (EntrpsVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrp", entrpsDlvygrpNo);
 	}
 
-	// public List<EntrpsVO> selectEntrpsDlvyGrpListAll(Map<String, Object> paramMap) throws Exception {
-	// 	return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",paramMap);
-	// }
+	public List<EntrpsDlvyGrpVO> selectEntrpsDlvyGrpListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",paramMap);
+	}
 		
 	public EntrpsDlvyGrpVO selectEntrpsDlvyGrpByNo(int entrpsDlvygrpNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

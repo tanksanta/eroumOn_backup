@@ -27,6 +27,13 @@ public class EntrpsDlvyGrpService extends CommonAbstractServiceImpl {
 		return entrpsDlvyGrpDAO.entrpsDlvyGrpListVO(listVO);
 	}
 
+	public List<EntrpsDlvyGrpVO> selectEntrpsDlvyGrpListAll(int entrpsNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchEntrpsNo", entrpsNo);
+
+		return entrpsDlvyGrpDAO.selectEntrpsDlvyGrpListAll(paramMap);
+	}
+
 	public EntrpsVO selectEntrpsDlvyGrp(int entrpsNo) throws Exception {
 		return entrpsDlvyGrpDAO.selectEntrpsDlvyGrp(entrpsNo);
 	}

@@ -1,6 +1,7 @@
 package icube.manage.sysmng.entrps;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,7 +96,28 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 
 		
 				
-		return "/manage/sysmng/entrps/include/dlvygrp_modal";
+		return "/manage/sysmng/entrps/include/dlvygrp_add_modal";
+	}
+	
+	@RequestMapping(value="{entrpsNo}/choicemodal")
+	public String popupChoiceModal(
+			HttpServletRequest request
+			, @PathVariable int entrpsNo // 카테고리 1
+			, Model model) throws Exception{
+
+		CommonListVO entrpsListVO = new CommonListVO(request);
+		entrpsListVO = entrpsService.entrpsListVO(entrpsListVO);
+
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpList = entrpsDlvyGrpService.selectEntrpsDlvyGrpListAll(entrpsNo);
+
+		model.addAttribute("entrpsList", entrpsListVO);
+		model.addAttribute("entrpsDlvyGrpList", entrpsDlvyGrpList);
+		model.addAttribute("useYnCode", CodeMap.USE_YN);
+		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
+
+		
+				
+		return "/manage/sysmng/entrps/include/dlvygrp_choice_modal";
 	}
 
 	@RequestMapping("dlvygrpno.json")

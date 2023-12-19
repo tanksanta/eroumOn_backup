@@ -169,13 +169,16 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
     /*
         화면을 서버에서 불러와서 보여준다
     */
+    fn_pop_url(){
+        return this._cls_info.popUrl;
+    }
     fn_loading_form_call(param){
         this._cls_info.popup_param = param;
 
         if (this._cls_info.modalPop == undefined || this._cls_info.modalPop.length == 0){
             this._cls_info.loadedFormYn = false;
             this._cls_info.loadeding = true;
-            jsCallApi.call_api_get(this, this._cls_info.popUrl, 'fn_loading_form_cb');
+            jsCallApi.call_api_get(this, this.fn_pop_url(), 'fn_loading_form_cb');
         }else{
             this.fn_loading_form_cb(null, null, null);
         }

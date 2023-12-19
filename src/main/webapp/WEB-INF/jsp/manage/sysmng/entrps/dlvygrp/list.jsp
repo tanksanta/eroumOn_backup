@@ -144,7 +144,7 @@ $(function(){
 		// $("#searchFrm").submit();
 		// $("#searchFrm").attr("action","./list");
 
-		var aaa = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/modal.json", {})
+		var aaa = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .divDlvyGrpAdd", "divDlvyGrpAdd", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
 	
 		aaa.fn_loading_form_data_call({"entrpsNo":$("#srchTarget").val()}, false, {})
 	});

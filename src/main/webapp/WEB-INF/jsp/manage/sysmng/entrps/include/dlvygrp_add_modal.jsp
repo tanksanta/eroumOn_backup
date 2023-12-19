@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<!-- 묶음배송 그룹 생성 -->
 	<form:form name="frmDlvyGrpAdd" id="frmDlvyGrpAdd" class="frmDlvyGrpAdd" method="post" enctype="multipart/form-data">
-		<div class="modal fade dlvygrp_add_modal" id="dlvygrp_add_modal" tabindex="-1">
+		<div class="modal fade divDlvyGrpAdd" id="divDlvyGrpAdd" tabindex="-1">
 			<div class="modal-dialog modal-lg modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
