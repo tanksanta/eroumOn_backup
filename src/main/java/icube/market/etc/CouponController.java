@@ -71,7 +71,7 @@ public class CouponController extends CommonAbstractController{
 			, Model model
 			)throws Exception {
 
-		CommonListVO listVO = new CommonListVO(request);
+		CommonListVO listVO = new CommonListVO(request, 1, 1000);
 
 		// 다운로드 쿠폰
 		listVO.setParam("srchIssuTy", "DWLD");
@@ -229,6 +229,10 @@ public class CouponController extends CommonAbstractController{
 				// 사용 가능 기간 구분
 				if(couponVO.getUsePdTy().equals("ADAY")) {
 					couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+				}
+				else if (couponVO.getUsePdTy().equals("FIX")) {
+					couponLstVO.setUseLstBgngYmd(couponVO.getUseBgngYmd());
+					couponLstVO.setUseLstEndYmd(couponVO.getUseEndYmd());
 				}
 				couponLstService.insertCouponLst(couponLstVO);
 
