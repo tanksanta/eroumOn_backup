@@ -16,7 +16,7 @@ class JsHouseMngGdsGdsFormDelivery{
     fn_popup_selected(alert_val, popName, popup_param, data, extra){
         console.log(alert_val, popName, popup_param, data)
         if (alert_val == 'confirm'){
-            if (popName == "divDlvyGrpChoice"){
+            if (popName == "divDlvyGrpChoice" || popName == "divDlvyGrpAdd"){
                 this.fn_popup_selected_divDlvyGrpChoice(popup_param, data, extra);
             }
         }else if (alert_val == 'popup_data_changed'){
@@ -49,7 +49,22 @@ class JsHouseMngGdsGdsFormDelivery{
                                                                                             , "divDlvyGrpChoice"
                                                                                             , 1
                                                                                             , "/_mng/sysmng/entrps/dlvygrp/{0}/choicemodal"
-                                                                                            , "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
+                                                                                            , "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json"
+                                                                                            , {}
+                                                                                        );
+
+        this._cls_info.popups.jsPopupEntrpsDlvyGrpModal = new JsPopupEntrpsDlvyGrpModal(this
+                                                                                            , ".modal2-con .divDlvyGrpAdd"
+                                                                                            , "divDlvyGrpAdd"
+                                                                                            , 1
+                                                                                            , "/_mng/sysmng/entrps/dlvygrp/modalform"
+                                                                                            , "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json"
+                                                                                            , {}
+                                                                                        );
+
+
+
+                                                                                
 
     }
 
@@ -69,6 +84,18 @@ class JsHouseMngGdsGdsFormDelivery{
 
         $( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").off('change').on('change',  function() {
             owner.fn_changed_dlvyGroupYn($(this).is(":checked"));
+        });
+
+        $( this._cls_info.pagePrefixDelivery + " .btn.dlvy.grp.add").off('click').on('click',  function() {
+            var entrpsNo = $( owner._cls_info.pagePrefixBasic + " select[name='entrpsNo']" ).val();
+
+            if (entrpsNo == undefined || entrpsNo.length < 1 || entrpsNo == "" || entrpsNo == "0"){
+                alert("입점업체를 먼저 선택하여 주십시오.")
+                return;
+            }
+
+            owner._cls_info.popups.jsPopupEntrpsDlvyGrpModal.fn_loading_form_data_call({"entrpsNo":entrpsNo, choice:true}, false, {"entrpsNo":entrpsNo})
+
         });
 
         $( this._cls_info.pagePrefixDelivery + " .btn.dlvy.grp.select").off('click').on('click',  function() {

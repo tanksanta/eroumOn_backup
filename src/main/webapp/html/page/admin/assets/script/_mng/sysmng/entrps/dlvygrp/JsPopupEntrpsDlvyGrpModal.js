@@ -62,6 +62,17 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
                 this._cls_info.popup_param.isChanged = 1;
                 
                 this.fn_close_popup();
+
+                if (this._cls_info.popup_param != null && this._cls_info.popup_param.choice){
+                    if (result.entrpsDlvygrpNo != undefined && result.entrpsDlvygrpNo != "" && result.entrpsDlvygrpNo != "0"){
+                        data.entrpsDlvygrpNo = result.entrpsDlvygrpNo;
+                    }
+    
+                    if (this._cls_info.container != undefined && this._cls_info.container['fn_popup_selected'] != undefined){
+                        this._cls_info.container['fn_popup_selected']('confirm', this._cls_info.popName, this._cls_info.popup_param, data, null);
+                    }
+                }
+                
             }
         }
     }

@@ -237,8 +237,11 @@ public class MGdsController extends CommonAbstractController {
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
 		model.addAttribute("entrpsList", entrpsList);
 
-		List<EntrpsDlvyGrpVO> entrpsDlvyGrpList = entrpsDlvyGrpService.selectEntrpsDlvyGrpListAll(0);
-		model.addAttribute("entrpsDlvyGrpList", entrpsDlvyGrpList);
+		if (gdsVO.getEntrpsDlvygrpNo() > 0){
+			EntrpsDlvyGrpVO entrpsDlvyGrpVO = entrpsDlvyGrpService.selectEntrpsDlvyGrpByNo(gdsVO.getEntrpsDlvygrpNo());
+			model.addAttribute("entrpsDlvyGrpVO", entrpsDlvyGrpVO);
+		}
+		
 
 		//제조사 호출
 		List<MkrVO> mkrList = mkrService.selectMkrListAll();
@@ -258,6 +261,8 @@ public class MGdsController extends CommonAbstractController {
 		model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
 		model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
 		model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
+
+		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
 
 		model.addAttribute("gdsVO", gdsVO);
 		model.addAttribute("param", reqMap);

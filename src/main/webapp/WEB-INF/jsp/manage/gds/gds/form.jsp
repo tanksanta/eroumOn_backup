@@ -734,7 +734,7 @@
                                     <td scope="row">&nbsp;</td>
                                     <td>
                                         <div class="form-group">
-											<p class="ml-2 ex"><br>ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
+											<p class="ml-2 ex">ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -751,10 +751,10 @@
                                 <tr class="dlvy-ct-ty-tr dlvyGroupYn">
                                     <th scope="row"><label for="dlvyGroupYn">묶음배송</label></th>
                                     <td>
-                                        <div class="form-group">
+                                        <div class="form-group mr-8">
                                             <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
                                             <label class="form-check-label" for="dlvyGroupYn1">사용</label>
-											<input type="text" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
+											<input type="hidden" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
                                         </div>
 
 										<button type="button" class="btn-primary btn dlvy grp add">묶음그룹 생성</button>
@@ -1087,6 +1087,7 @@
 
 				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/gds/gds/JsHouseMngGdsGdsFormDelivery.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpChoice.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpModal.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
 				
                 <script>
 					var jsHouseMngGdsGdsFormDelivery;

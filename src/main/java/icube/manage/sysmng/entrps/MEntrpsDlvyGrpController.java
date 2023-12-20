@@ -167,6 +167,8 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		if (entrpsDlvygrpVO.getEntrpsDlvygrpNo() > 0){
 			resultMap.put("success", true);
 
+			resultMap.put("entrpsDlvygrpNo", entrpsDlvygrpVO.getEntrpsDlvygrpNo());
+
 			if (entrpsDlvygrpVO.getCrud() == CRUD.CREATE){
 				resultMap.put("sucmsg", getMsg("action.complete.insert"));
 			}else{
