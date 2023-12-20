@@ -684,6 +684,17 @@
                                 <col>
                             </colgroup>
                             <tbody>
+								<tr class="dlvy-ct-ty-tr" >
+                                    <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
+                                    <td>
+                                        <form:select path="dlvyCtStlm" class="form-control w-50">
+                                            <form:option value="" label="선택" />
+											<c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
+												<form:option value="${iem.key}" label="${iem.value}" />
+											</c:forEach>
+                                        </form:select>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th scope="row"><label for="dlvyCtTy">배송비 유형</label></th>
                                     <td>
@@ -698,33 +709,31 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="dlvy-ct-ty-tr" >
-                                    <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
-                                    <td>
-                                        <form:select path="dlvyCtStlm" class="form-control w-50">
-                                            <form:option value="" label="선택" />
-											<c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
-												<form:option value="${iem.key}" label="${iem.value}" />
-											</c:forEach>
-                                        </form:select>
-                                    </td>
-                                </tr>
+                                
                                 <tr class="dlvy-ct-ty-tr dlvyBassAmt">
                                     <th scope="row"><label for="dlvyBassAmt">기본 배송료</label></th>
                                     <td>
                                         <div class="form-group">
                                             <form:input type="number" path="dlvyBassAmt" class="form-control w-50 numbercheck" min="0" />
                                             <span>원</span>
+											<p class="ml-2 txt">(주문 금액 상관없이 부과)</p>
                                         </div>
                                     </td>
                                 </tr>
 								<tr class="dlvy-ct-ty-tr dlvyCtCnd">
-                                    <th scope="row"><label for="dlvyCtCnd">배송비 유형에 해당하는 타이틀</label></th>
+                                    <th scope="row"><label for="dlvyCtCnd" class="tit">배송비 유형에 해당하는 타이틀</label></th>
                                     <td>
                                         <div class="form-group">
                                             <form:input type="number" path="dlvyCtCnd" class="form-control w-50 numbercheck" min="0" />
-                                            <span>원</span>
-											<p class="ml-2 txt">&nbsp;배송비 유형에 해당하는 텍스트</p>
+                                            
+											<p class="ml-2 txt">원 &nbsp;배송비 유형에 해당하는 텍스트</p>
+                                        </div>
+                                    </td>
+                                </tr>
+								<tr class="dlvy-ct-ty-tr dlvyCtCnd2">
+                                    <td scope="row">&nbsp;</td>
+                                    <td>
+                                        <div class="form-group">
 											<p class="ml-2 ex"><br>ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
                                         </div>
                                     </td>
@@ -744,10 +753,11 @@
                                     <td>
                                         <div class="form-group">
                                             <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
-                                            <label class="form-check-label" for="dlvyGroupYn">사용</label>
+                                            <label class="form-check-label" for="dlvyGroupYn1">사용</label>
 											<input type="text" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
                                         </div>
 
+										<button type="button" class="btn-primary btn dlvy grp add">묶음그룹 생성</button>
 										<button type="button" class="btn-primary btn dlvy grp select">묶음그룹 선택</button>
 
 										<div class="dlvy-group-disp">
@@ -1532,18 +1542,20 @@
                    		tinymce.init({selector:"#gdsDc, #aditGdsDc, #memo, #dlvyDc, #dcCmmn, #dcFreeSalary, #dcPchrgSalary, #dcPchrgSalaryGnrl, #dcPchrgGnrl"});
 
                    		//배송비 유형
-                   		$("#dlvyCtTy").on("change", function(){
-                   			$("#dlvyCtStlm").val('');
-                   			$("#dlvyBassAmt").val(0);
-                   			$("#dlvyAditAmt").val(0);
-                   			$(".dlvy-ct-ty-tr").hide();
-							if($(this).val() == "PAY"){
-								$(".dlvy-ct-ty-tr").show();
-							}
-                   		});//.trigger("change");
-                   		if($("#dlvyCtTy").val() == "PAY"){
-							$(".dlvy-ct-ty-tr").show();
-						}
+						<!-- JsHouseMngGdsGdsFormDelivery.fn_changed_dlvyCtTy 으로 이동
+                   		// $("#dlvyCtTy").on("change", function(){
+                   		// 	// $("#dlvyCtStlm").val('');
+                   		// 	// $("#dlvyBassAmt").val(0);
+                   		// 	// $("#dlvyAditAmt").val(0);
+                   		// 	// $(".dlvy-ct-ty-tr").hide();
+						// 	// if($(this).val() == "PAY"){
+						// 	// 	$(".dlvy-ct-ty-tr").show();
+						// 	// }
+                   		// });//.trigger("change");
+                   		// if($("#dlvyCtTy").val() == "PAY"){
+						// 	// $(".dlvy-ct-ty-tr").show();
+						// } 
+						-->
 
 
                    		//할인가 계산
@@ -1675,6 +1687,17 @@
                     	    	if($("#aditOptnTtl0").val() == ''){
                     	    		$("#aditOptnTtl").val('');
                     	    	}
+
+								if ($( ".dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").is(":checked")){
+									//묶음배송 체크가 되어 있을경우
+									var entrpsDlvygrpNo = $(" .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val();
+
+									if (entrpsDlvygrpNo == undefined || entrpsDlvygrpNo.length < 1 || entrpsDlvygrpNo == "0"){
+										alert("묶음그룹을 선택하여 주십시오.")
+										return false;
+									}
+								}
+
                     	    	if(tempFlag){
                     	    		if(confirm("임시 저장하시겠습니까?")){
                     	    			frm.submit();

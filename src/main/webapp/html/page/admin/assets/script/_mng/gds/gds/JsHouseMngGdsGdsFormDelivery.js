@@ -9,8 +9,30 @@ class JsHouseMngGdsGdsFormDelivery{
         this.fn_page_init();
 
         this.fn_changed_dlvyCtTy($( this._cls_info.pagePrefixDelivery + " select[name='dlvyCtTy']").val());
-        this.fn_changed_dlvyGroupYn($( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input.dlvyGroupYn").val());
+        this.fn_changed_dlvyGroupYn($( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").is(":checked"));
         
+    }
+
+    fn_popup_selected(alert_val, popName, popup_param, data, extra){
+        console.log(alert_val, popName, popup_param, data)
+        if (alert_val == 'confirm'){
+            if (popName == "divDlvyGrpChoice"){
+                this.fn_popup_selected_divDlvyGrpChoice(popup_param, data, extra);
+            }
+        }else if (alert_val == 'popup_data_changed'){
+            
+        }
+    }
+
+    fn_popup_selected_divDlvyGrpChoice(popup_param, data, extra){
+        var cssSelector = this._cls_info.pagePrefixDelivery;
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val(data.entrpsDlvygrpNo);
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").val(data.dlvyAditAmt);
+
+
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html(data.entrpsDlvygrpNm);
+
+
     }
 
     fn_page_init(){
@@ -45,8 +67,8 @@ class JsHouseMngGdsGdsFormDelivery{
             owner.fn_changed_dlvyCtTy($(this).val());
         });
 
-        $( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input.dlvyGroupYn").off('change').on('change',  function() {
-            owner.fn_changed_dlvyGroupYn($(this).val());
+        $( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").off('change').on('change',  function() {
+            owner.fn_changed_dlvyGroupYn($(this).is(":checked"));
         });
 
         $( this._cls_info.pagePrefixDelivery + " .btn.dlvy.grp.select").off('click').on('click',  function() {
@@ -71,21 +93,57 @@ class JsHouseMngGdsGdsFormDelivery{
 
         switch(dlvyCtTy){
             case "FREE":
-                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt" ).addClass("disp-off");
-                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd" ).addClass("disp-off");
-            break;
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt").addClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd").addClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd2").addClass("disp-off");
+                break;
+            case "PAY":
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt").removeClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt .txt").removeClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd").addClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd2").addClass("disp-off");
+                break;
+            case "OVERMONEY":
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt").removeClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt .txt").addClass("disp-off");
+
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd").removeClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd .tit").html('무료조건');
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd .txt").html('원 이상 구매시 배송비 무료');
+
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd2").addClass("disp-off");
+                break;
+            case "PERCOUNT":
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt").removeClass("disp-off");
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyBassAmt .txt").addClass("disp-off");
+
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd").removeClass("disp-off");
+
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd .tit").html('배송비 조건');
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd .txt").html(' 개 마다 배송비 반복 부과');
+
+                $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd2").removeClass("disp-off");
+                break;
         }
     }
 
-    fn_changed_dlvyGroupYn(dlvyGroupYn){
-        var cssSelector = this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn";
+    fn_changed_dlvyGroupYn(isChecked){
+        var cssSelector = this._cls_info.pagePrefixDelivery;
 
-        if (dlvyGroupYn == "Y"){
-            $(cssSelector + " .dlvy-group-disp").removeClass("disp-off");
+        if (isChecked){
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.add").removeClass("disp-off");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.select").removeClass("disp-off");
+
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").removeClass("disp-off");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").attr("readonly", "true");
         }else{
-            $(cssSelector + " input[name='entrpsDlvygrpNo']").val("0");
-            $(cssSelector + " .dlvy-group-disp").html("");
-            $(cssSelector + " .dlvy-group-disp").addClass("disp-off");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.add").addClass("disp-off");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.select").addClass("disp-off");
+
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val("0");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html("");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").addClass("disp-off");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").removeAttr("readonly");
         }
         
     }

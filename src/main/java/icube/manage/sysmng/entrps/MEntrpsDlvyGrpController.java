@@ -113,9 +113,7 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		model.addAttribute("entrpsList", entrpsListVO);
 		model.addAttribute("entrpsDlvyGrpList", entrpsDlvyGrpList);
 		model.addAttribute("useYnCode", CodeMap.USE_YN);
-		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
-
-		
+		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY_LIST);
 				
 		return "/manage/sysmng/entrps/include/dlvygrp_choice_modal";
 	}

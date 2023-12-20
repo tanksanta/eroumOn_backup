@@ -76,9 +76,11 @@
 		, g.dlvy_mumm_amt
 		, g.dlvy_ct_ty
 		, g.dlvy_ct_stlm
+		, g.dlvy_ct_cnd
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
 		, g.dlvy_group_yn
+		, g.entrps_dlvygrp_no
 		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
@@ -642,10 +644,14 @@
 			, dlvy_mumm_amt = #{dlvyMummAmt}
 			, dlvy_ct_ty = #{dlvyCtTy, jdbcType=VARCHAR}
 			, dlvy_ct_stlm = #{dlvyCtStlm, jdbcType=VARCHAR}
+			, dlvy_ct_cnd = #{dlvyCtCnd}
 			, dlvy_bass_amt = #{dlvyBassAmt}
 			, dlvy_adit_amt = #{dlvyAditAmt}
 			, dlvy_group_yn = #{dlvyGroupYn}
+
 			, dlvy_dc = #{dlvyDc}
+
+			, entrps_dlvygrp_no = #{entrpsDlvygrpNo}
 
 			, youtube_url = #{youtubeUrl}
 

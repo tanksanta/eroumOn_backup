@@ -53,11 +53,21 @@
 							<tr>
 								<td >${itemone.entrpsDlvygrpNm}</td>
 								<td >
-									
+									${dlvyCalcTyCode[itemone.dlvyCalcTy]}
 								</td>
-								<td >${itemone.regId} (${itemone.rgtr})</td>
+								<td >
+									<div class="form-check">
+										<input class="form-check-input" type="radio" 
+												name="entrpsDlvygrpNo" value="${itemone.entrpsDlvygrpNo}" 
+												entrpsDlvygrpNo="${itemone.entrpsDlvygrpNo}" entrpsNo="${itemone.entrpsNo}"
+												entrpsDlvygrpNm="${itemone.entrpsDlvygrpNm}" 
+												dlvyCalcTy="${itemone.dlvyCalcTy}" dlvyCalcTyNm="${dlvyCalcTyCode[itemone.dlvyCalcTy]}"
+												useYn="${itemone.useYn}" dlvyAditAmt="${itemone.dlvyAditAmt}" >
+									</div>
+								</td>
 							</tr>
 							</c:forEach>
+							
 							<c:if test="${entrpsDlvyGrpList.size() < 1 }">
 							<tr>
 								<td colspan="3">등록된 데이터가 없습니다.</td>

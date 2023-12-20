@@ -3,7 +3,7 @@ class JsPopupEntrpsDlvyGrpChoice extends JsPopupLoadingFormDataBase{
         var owner = this;
 
         $(owner._cls_info.pageModalfix + ' .btn.f_confm_save').off('click').on('click', function(){
-            owner.fn_save_click();
+            owner.fn_confirm_click();
         });
         
     }
@@ -32,40 +32,35 @@ class JsPopupEntrpsDlvyGrpChoice extends JsPopupLoadingFormDataBase{
         }
 
         if (this._cls_info.dataAllResult != undefined && this._cls_info.dataAllResult.resultData != undefined ){
-            $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val(this._cls_info.dataAllResult.resultData.entrpsDlvygrpNo);
-            $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val(this._cls_info.dataAllResult.resultData.entrpsDlvygrpNm);
-            $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val(this._cls_info.dataAllResult.resultData.dlvyAditAmt.format_money());
-
-            $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy'][value!='" + this._cls_info.dataAllResult.resultData.dlvyCalcTy + "']").removeAttr("checked");
-            $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy'][value ='" + this._cls_info.dataAllResult.resultData.dlvyCalcTy + "']").prop("checked", "checked");
-            
-
-            $(this._cls_info.pageModalfix + " input[name='useYn'][value!='" + this._cls_info.dataAllResult.resultData.useYn + "']").removeAttr("checked");
-            $(this._cls_info.pageModalfix + " input[name='useYn'][value ='" + this._cls_info.dataAllResult.resultData.useYn + "']").prop("checked", "checked");
-            
             
         }else{
-            
-            $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val("0");
-            $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val("");
-            $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val("0");
-
         }
 
         
     }
     
-    fn_save_click(){
-        this._cls_info.saveUrl = "/_mng/sysmng/entrps/dlvygrp/dlvygrpmodalaction.json";
+    fn_confirm_click(){
+        var objTarget = $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']:checked");
 
-        var data = {entrpsNo : $(this._cls_info.pageModalfix + " select[name=entrpsList]").val()
-                    , entrpsDlvygrpNo : $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val()
-                    , entrpsDlvygrpNm : $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val()
-                    , dlvyCalcTy : $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy']:checked").val()
-                    , dlvyAditAmt : $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val().replace(",", "")
-                    , useYn : $(this._cls_info.pageModalfix + " input[name='useYn']:checked").val()};
+        if (objTarget.length < 1){
+            alert("선택하여 주십시오.")
+            return;
+        }
 
-        jsCallApi.call_api_post_json(this, this._cls_info.saveUrl, 'fn_save_cb', data);
+        this.fn_close_popup();
+        
+        var data = {"entrpsNo":objTarget.attr("entrpsNo")
+                    , "entrpsDlvygrpNo":objTarget.attr("entrpsDlvygrpNo")
+                    , "entrpsDlvygrpNm":objTarget.attr("entrpsDlvygrpNm")
+                    , "dlvyCalcTy":objTarget.attr("dlvyCalcTy")
+                    , "dlvyCalcTyNm":objTarget.attr("dlvyCalcTyNm")
+                    , "useYn":objTarget.attr("useYn")
+                    , "dlvyAditAmt":objTarget.attr("dlvyAditAmt")
+                };
+
+        if (this._cls_info.container != undefined && this._cls_info.container['fn_popup_selected'] != undefined){
+            this._cls_info.container['fn_popup_selected']('confirm', this._cls_info.popName, this._cls_info.popup_param, data, null);
+        }
         
     }
     
