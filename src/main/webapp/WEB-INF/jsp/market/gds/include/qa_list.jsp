@@ -33,7 +33,7 @@
                                         <i></i>
                                     </span>
                                     </c:if>
-                                    <p class="subject">
+                                    <p class="subject break-all">
                                     	<c:choose>
                                     		<c:when test="${resultList.secretYn eq 'Y' && resultList.regUniqueId ne _mbrSession.uniqueId}">
                                     	비밀글입니다.
@@ -50,7 +50,7 @@
                                     <p class="datetime"><fmt:formatDate value="${resultList.regDt}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
                                 </div>
                                 <c:if test="${resultList.ansYn eq 'Y' && !empty resultList.ansCn}">
-                                <div class="answer"><%-- ${resultList.enterCnt} --%>
+                                <div class="answer break-all"><%-- ${resultList.enterCnt} --%>
 									<c:choose>
 										<c:when test="${resultList.enterCnt > 2}">
 									<div class="context">
