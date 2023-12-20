@@ -104,7 +104,7 @@
 								<strong>
 									<c:choose>
 										<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test' || btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'guide_test'}">
-											요양등급상담
+											인정등급상담
 										</c:when>
 										<c:otherwise>
 											복지용구상담

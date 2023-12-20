@@ -326,7 +326,7 @@
             	<c:otherwise>
             		<div class="card-bg-gray">
 			            <i class="icon-alert size-md opacity-60"></i>
-						<p class="text-gray5">관심 복지용구를 선택하고 <br>장기요양보험 혜택을 받아보세요</p>
+						<p class="text-gray5 text-center">관심 복지용구를 선택하고 <br>장기요양보험 혜택을 받아보세요</p>
 			            <a href="/main/welfare/equip/list?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary btn-arrow mt-8">
 			                선택하기
 			                <i class="icon-next ml-3"></i>
@@ -363,7 +363,7 @@
 					<i class="icon-alert size-md opacity-60"></i>
 					<p class="text-gray6">인정등급 예상 테스트를 하면 확인할 수 있어요</p>
 					<a href="/test/physical?recipientsNo=${recipientVO.recipientsNo}" class="btn-outline-secondary mt-8">
-						인정등급 예상 테스트 바로가기
+						바로가기
 						<i class="icon-next ml-3"></i>
 					</a>
 				</div>				
