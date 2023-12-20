@@ -101,7 +101,7 @@
 							
 								<strong>
 									<c:choose>
-										<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test'}">
+										<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test' || btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'guide_test'}">
 											요양등급상담
 										</c:when>
 										<c:otherwise>
@@ -115,7 +115,7 @@
 							<div class="text-subtitle">
 								<i class="icon-alert size-sm"></i>
 								<c:choose>
-									<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test'}">
+									<c:when test="${btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'test' || btnConsltPrevPathMap[recipientInfo.recipientsNo] eq 'guide_test'}">
 										예상 테스트 결과로 장기요양 인정등급을 간편하게 신청해보세요
 									</c:when>
 									<c:otherwise>
@@ -151,34 +151,17 @@
 	
 	// 상담하기 버튼 클릭
 	function requestConslt(recipientsNo, prevPath) {
-		openModal('requestConslt', Number(recipientsNo), prevPath);	
-		
-		// if (prevPath === 'test') {
-		// 	$.ajax({
-	    // 		type : "post",
-	    // 		url  : "/membership/info/recipients/test/result.json",
-	    // 		data : {
-	    // 			recipientsNo
-	    // 		},
-	    // 		dataType : 'json'
-	    // 	})
-	    // 	.done(function(data) {
-	    // 		if(data.success) {
-	    // 			if (data.isExistTest) {
-	    // 				openModal('requestConslt', Number(recipientsNo), prevPath);	
-	    // 			} else {
-	    // 				alert('테스트 진행 후 상담요청해주세요')
-	    // 			}
-	    // 		}else{
-	    // 			alert(data.msg);
-	    // 		}
-	    // 	})
-	    // 	.fail(function(data, status, err) {
-	    // 		alert('서버와 연결이 좋지 않습니다.');
-	    // 	});
-		// } else {
-		// 	openModal('requestConslt', Number(recipientsNo), prevPath);	
-		// }
+		if (prevPath === 'guide_test') {
+			if (confirm('간단한 테스트로 받을 수 있는 혜택을 확인하고 장기요양 인정등급을 간편하게 신청해보세요')) {
+			 	location.href = '/test/physical?recipientsNo=' + recipientsNo;
+			}
+		} else if (prevPath === 'guide_equip_ctgry') {
+			if (confirm('필요한 복지용구를 선택하고 상담하면 받을 수 있는 혜택을 알려드려요')) {
+			 	location.href = '/main/welfare/equip/list?recipientsNo=' + recipientsNo;
+			}
+		} else {
+			openModal('requestConslt', Number(recipientsNo), prevPath);	
+		}
   	}
 	
 
