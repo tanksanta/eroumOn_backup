@@ -713,6 +713,75 @@
                         </table>
                     </fieldset>
 
+                    <fieldset class="mt-13">
+                        <legend class="text-title2">구매 수량별 부과</legend>
+                        <table class="table-detail">
+                            <colgroup>
+                                <col class="w-43">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><label for="form-item9-9">배송비 유형</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="" id="form-item9-9" class="form-control w-30">
+                                                <option value="">구매수량별</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item9-13">기본 배송비 <sup class="badge-require"></sup></label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item9-13">
+                                            <span>원</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item9-13">배송비 조건 <sup class="badge-require"></sup></label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item9-13">
+                                            <span>개 마다 기본 배송비 반복 부과</span>
+                                        </div>
+                                        <p class="ml-6">ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-14">제주/도서산간 추가</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control w-50" id="form-item9-14" disabled>
+                                            <span>원</span>
+                                            <!-- <p class="ml-6">도서산간지역 배송 요청 시 배송비용 추가 금액</p> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="form-item2-14">묶음배송</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="form-check mr-4">
+                                                <input class="form-check-input" type="checkbox" name="chk1" id="form-item9-15" checked>
+                                                <label class="form-check-label" for="form-item9-15">사용</label>
+                                            </div>
+                                            <button type="button" class="btn-primary">묶음그룹 선택</button>
+                                            <button type="button" class="btn-primary">묶음그룹 생성</button>
+                                        </div>
+                                        <div class="flex flex-col border border-gray1 rounded-md m-h-50 p-4 mt-2">
+                                            <strong class="mb-4">그룹 : 복지유니온_효반 죽 <span>(사용중)</span></strong>
+                                            <p class="text-gray5">배송비 계산방식 : 묶음 그룹에서 가장 큰 배송비로 부과</p>
+                                            <p class="text-gray5">제주/도서산간 추가 배송비 : 5,000원</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+
                     <fieldset id="section3" class="mt-13">
                         <legend class="text-title2">이미지</legend>
                         <table class="table-detail">
