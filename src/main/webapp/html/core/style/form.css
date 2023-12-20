@@ -96,6 +96,10 @@
         &.border-light {
             @apply border-[#DADADD];
         }
+        &.is-info {
+            border-color: #198754;
+            padding-right: calc(1.5em + .75rem)
+        }
     }
 
     
@@ -295,6 +299,71 @@
         }
     }
 
+    /*수급자 */
+
+     .radio-check-group {
+        @apply flex flex-col gap-2 w-full select-none;
+        & .form-check {
+            & .form-check-input {
+                @apply sr-only ;
+                &:checked {
+                    & + .form-check-label {
+                        @apply font-medium bg-[#FAF7F5] m-2;
+                        box-shadow: inset 0px 0px 0px 2px #FF8120, 0px 0px 0px 8px #FAF7F5;
+                        &.check-btn {
+                            background-image: url('../images/ico-radio-checked.svg');
+                        }
+                    }
+                }
+
+                &:disabled {
+                    & + .form-check-label {
+                        @apply cursor-default;
+                        background-image: none;
+                      
+                    }
+                }
+            }
+            & .form-check-label {
+                @apply flex justify-between gap-3  w-full flex-1 text-center  rounded-md bg-white; 
+                box-shadow: inset 0px 0px 2px 0px #949494, 0px 0px 0px 8px #FAF7F5;
+                width: calc(100% - 1rem);
+                padding: 16px;
+
+                &.check-btn {
+                    background-image: url('../images/ico-radio-unchecked.svg');
+                    background-repeat: no-repeat;
+                    background-position: right 16px top 50%;
+                    padding-right: 42px;
+                }
+
+                & .add-lno-btn {
+                    display: inline-flex;
+                    align-items: center;
+                }
+                & .rcpt-inner {
+                    @apply  flex-1 flex flex-col md:flex-row flex-wrap md:items-center justify-between md:gap-1;
+                   & > div {
+                        @apply flex items-center gap-2;
+                    }
+                    & > span, & > button , & > a {
+                        @apply md-max:text-left md-max:ml-12;
+                    }
+                }
+            }
+
+            & .img-senior {
+                @apply w-10 h-10 bg-gray2 p-2 rounded-full;
+            }
+            &:not(.form-switch) {
+                & .form-check-label {
+                    @apply !m-2;
+                }
+            }
+        }
+    }
+    
+
 
     
     /******************** upload ********************/
@@ -362,7 +431,7 @@
 
     /*lno*/
     .rcpt-lno {
-        @apply relative w-36 sm:w-47;
+        @apply relative sm:w-47;
         &:before {
             @apply content-["L"] absolute inline-block font-medium left-2.5 top-[50%] leading-none  translate-y-[-40%] pr-1 text-base;
         }
@@ -370,8 +439,14 @@
             @apply !text-base;
         }
         > input { 
-            @apply indent-2 !text-base;
+            @apply indent-2 !text-base xs-max:w-[calc(100%-2rem)];
         }
+    }
+
+   
+
+    sup.required {
+        @apply text-danger text-base md:text-lg top-0 ml-1 font-semibold;
     }
 }
 

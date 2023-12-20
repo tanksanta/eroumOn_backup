@@ -39,6 +39,14 @@
     <!-- admin -->
     <link rel="stylesheet" href="/html/page/admin/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>"/>
     <script src="/html/page/admin/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script type="text/javascript">
+        var jsCommon = null;
+        $(document).ready(function() {
+            jsCommon = new JsCommon();
+    
+            jsCommon.fn_keycontrol();
+        });
+    </script>
     <c:if test="${fn:indexOf(_curPath, '/ordr/') > -1}">
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     </c:if>
@@ -68,13 +76,6 @@
     <!-- //main content -->
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>
-    <script type="text/javascript">
-        var jsCommon = null;
-        $(document).ready(function() {
-            jsCommon = new JsCommon();
     
-            jsCommon.fn_keycontrol();
-        });
-    </script>
 </body>
 </html>
