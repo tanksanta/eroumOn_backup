@@ -43,35 +43,13 @@ public class MainController extends CommonAbstractController  {
 	/*@Autowired
 	private MbrSession mbrSession;*/
 	
-	@RequestMapping(value = {"","index"})
+	@RequestMapping(value = {"", "index"})
 	public String list(
 		HttpServletRequest request
 		, Model model
 			) throws Exception {
-		
-		// 행정구역 목록
-		List<StdgCdVO> stdgCdList = stdgCdService.selectStdgCdListAll(1);
-		model.addAttribute("stdgCdList", stdgCdList);
-		
-		// 복지 제도 개수
-		String bokjisUrl = "/api/partner/v2/bokjis/count";
-		String prvdUrl = "/api/partner/v2/providers/count";
-
-		int bokjisCnt = 0;
-		int prvdCnt = 0;
-
-		try {// 첫화면 부터 에러나지 않도록..
-			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
-			//prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
-		}catch(Exception e) {
-			log.debug(e.getMessage());
-		}
-
-		int total = bokjisCnt + prvdCnt;
-
-		model.addAttribute("total", total);
-		
-		return "/main/main";
+		//home 컨트롤러로 redirect
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "searchBokji")
