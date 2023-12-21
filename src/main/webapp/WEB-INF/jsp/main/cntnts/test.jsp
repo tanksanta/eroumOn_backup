@@ -135,7 +135,7 @@
         <div class="grade-text1 mt-6 md:mt-9.5">
             <p>보건복지부에서 고시한 장기 요양 등급 판정 기준을 근거로 만들어진 테스트로, <strong>실제 등급 판정 결과와 상이할 수 있어요.</strong></p>
         </div>
-        <a href="/main/recipter/sub" class="text-link">
+        <a href="/main/welfare/equip/sub" class="text-link">
             이미 인정등급을 알고 계세요?
         </a>
     </div>
@@ -409,7 +409,7 @@
                     <div class="flex flex-col justify-center items-end gap-1">
                         <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-full">
                         	<option value="">관계 선택</option>
-							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+							<c:forEach var="relation" items="${relationCd}" varStatus="status">
 								<option value="${relation.key}">${relation.value}</option>	
 							</c:forEach>
                         </select>
@@ -526,8 +526,9 @@
         </div>
     </div>
 
-	<a href="#" class="grade-floating" title="새창열림" onclick="startTest();">테스트 시작하기</a>
-	
+    <div class="grade-floating">
+	    <button onclick="startTest();">테스트 시작하기</button>
+	</div>
 
     <script>
     	var mbrNm = null;
@@ -818,7 +819,7 @@
 	                <label for="rcpt-related" class="w-full">
 	                    <select name="login-rcpts-relation" id="login-rcpts-relation" class="form-control w-full is-invalid"  aria-required="true" aria-describedby="rcpt-related-error" aria-invalid="true" onchange="validateRequiredField();">
 	                    	<option value="">관계 선택</option>
-							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+							<c:forEach var="relation" items="${relationCd}" varStatus="status">
 								<option value="${relation.key}">${relation.value}</option>	
 							</c:forEach>
 	                    </select>

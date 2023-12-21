@@ -1386,8 +1386,7 @@
     & li {
         @apply relative flex items-start justify-start gap-2 mt-1 pl-2 text-sm;
         &:before {
-            content: "";
-            @apply absolute top-[0.6rem] left-0 inline-block border-[2px] border-black rounded-[50%] bg-gray-800;
+             @apply content-empty absolute top-[0.5rem] left-0 inline-block w-1 h-1 rounded-full bg-black2;
         }
     }
 }

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- page content -->
+
+		    <!-- plugin -->
+		    <link rel="stylesheet" href="/html/core/vendor/swiperjs/swiper-bundle.css">
+		    <script src="/html/core/vendor/swiperjs/swiper-bundle.min.js"></script>
+    
+			<!-- page content -->
             <div id="page-content">
                 <p class="mb-7">인정등급테스트 후 1:1상담 신청한 내역을 확인하는 페이지입니다.</p>
                 <form:form action="./action" method="post" id="frmView" name="frmView" modelAttribute="mbrConsltVO" onsubmit="return submitEvent();">
@@ -32,7 +37,17 @@
                                     <td>${genderCode[mbrConsltVO.gender]}</td>
                                     <th scope="row">상담유형 상세</th>
                                     <td>
-                                    	<button type="button" class="btn-primary" onclick="viewConsltDetailModal('${mbrConsltVO.prevPath}');">상세보기</button>
+                                    	<c:choose>
+                                    		<c:when test="${mbrConsltVO.prevPath eq 'test'}">
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('test');">테스트결과</button>
+                                    		</c:when>
+                                    		<c:when test="${mbrConsltVO.prevPath eq 'simpleSearch'}">
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('simpleSearch');">요양정보</button>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    			<button type="button" class="btn-primary" onclick="viewConsltDetailModal('equip_ctgry');">관심복지용구</button>
+                                    		</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                 </tr>
                                 <tr>
@@ -453,13 +468,23 @@
                 
                 
                 <!-- 등급테스트결과 모달 -->
-               	<%@include file="./testResultModal.jsp"%>
+                <c:if test="${mbrConsltVO.getPrevPath() eq 'test'}">
+                	<%@include file="./modal/testResultModal.jsp"%>
+                </c:if>
                	
                	<!-- 요양정보 간편조회 모달 -->
-               	<%@include file="./simpleSearchModal.jsp"%>
+               	<c:if test="${mbrConsltVO.getPrevPath() eq 'simpleSearch'}">
+               		<%@include file="./modal/simpleSearchModal.jsp"%>
+               	</c:if>
+
+				<!-- 관심 복지용구 정보 모달 -->
+				<c:if test="${mbrConsltVO.getPrevPath() eq 'equip_ctgry'}">
+					<%@include file="./modal/welfareEquipModal.jsp"%>
+				</c:if>
                	
                	<!-- 상담 정보 수정 모달 -->
-               	<%@include file="./updateConsltModal.jsp"%>
+               	<%@include file="./modal/updateConsltModal.jsp"%>
+
             </div>
             <!-- //page content -->
 
@@ -511,7 +536,6 @@ function f_modalBplcSearch_callback(bplcUniqueId, bplcId, bplcNm, telno, rcmdCnt
 	$(".bplcLi").prepend("<li>(배정중) 상담 사업소 : "+ bplcNm +" ("+ telno +" / <img src='/html/page/members/assets/images/ico-mypage-recommend.svg' style='display: inline; margin-top: -2px; margin-right: 3px; height: 13px;'>"+ rcmdCnt +")</li>");
 }
 
-
 //수급자 요양정보 조회
 function getRecipientInfo(recipientsNo) {
 	// 요양정보 조회 API 호출
@@ -552,12 +576,12 @@ function getRecipientInfoCallback(result, errorResult, data, param) {
 function viewConsltDetailModal(prevPath) {
 	if (prevPath === 'test') {
 		$('#grade-test-result').modal('show');
-	} else {
+	} else if (prevPath === 'simpleSearch') {
 		getRecipientInfo(Number('${mbrConsltVO.recipientsNo}'));
+	} else {
+		$('#popup-welfare-detail').modal('show');
 	}
 }
-
-
 
 $(function(){
 
@@ -677,6 +701,7 @@ $(function(){
 			});
 		}
 	});
+
 });
 
 

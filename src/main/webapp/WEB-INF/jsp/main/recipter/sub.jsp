@@ -316,9 +316,10 @@
         <span class="text-hightlight-blue font-bold">올해 남은 급여 금액</span>을 확인 후 <br>
         복지 혜택 <span class="text-hightlight-blue font-bold">상담을 신청해보세요</span>
     </div>
-
-    <button onclick="searchRecipients();" class="grade-floating consulting">요양정보 조회하기</button>
-
+    
+    <div class="grade-floating consulting">
+        <button onclick="searchRecipients();" >요양정보 조회하기</button>
+    </div>
 
 	<!--로그인사용자 : 등록된 수급자 없는 경우-->
 	<div class="modal modal-index fade" id="login-no-rcpt" tabindex="-1" aria-hidden="true">

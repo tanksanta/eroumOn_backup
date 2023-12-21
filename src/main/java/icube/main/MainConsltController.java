@@ -1,8 +1,5 @@
 package icube.main;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,29 +9,31 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
-import icube.common.util.FileUtil;
 import icube.common.values.CodeMap;
 import icube.main.biz.MainService;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
+import icube.manage.consult.biz.MbrConsltGdsService;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.market.mbr.biz.MbrSession;
-import icube.common.api.biz.BiztalkConsultService;
 
 @Controller
 @RequestMapping(value="#{props['Globals.Main.path']}/conslt")
@@ -55,12 +54,18 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
+	
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
 
 	@Resource(name = "biztalkConsultService")
 	private BiztalkConsultService biztalkConsultService;
 
+	@Resource(name = "mbrConsltGdsService")
+	private MbrConsltGdsService mbrConsltGdsService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -75,11 +80,6 @@ public class MainConsltController extends CommonAbstractController{
 
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
-
-	@Autowired
-	private Environment environment;
-	
-	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
 	/**
@@ -195,6 +195,17 @@ public class MainConsltController extends CommonAbstractController{
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
+			//복지용구상담인데 선택한 복지용구 품목이 없는 경우
+			if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
+				List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+				
+				if (recipientsGdsList == null || recipientsGdsList.size() == 0) {
+					resultMap.put("success", false);
+	                resultMap.put("msg", "관심 복지용구를 선택하세요");
+	                return resultMap;
+				}
+			}
+			
 			MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());			
 			//수굽저 정보 저장동의시 같은 수급자명이 다른 수급자명으로 등록하려는 경우
 			if (saveRecipientInfo) {
@@ -216,14 +227,14 @@ public class MainConsltController extends CommonAbstractController{
 					!"CS06".equals(recipientConslt.getConsltSttus())
 					)) {
 				resultMap.put("success", false);
-				resultMap.put("msg", "진행중인 인정등급 상담이 있습니다.");
+				resultMap.put("msg", "진행중인 " + CodeMap.PREV_PATH.get(mbrConsltVO.getPrevPath()) + "이 있습니다.");
 				return resultMap;
 			}
 			
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo());
+				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
@@ -279,6 +290,12 @@ public class MainConsltController extends CommonAbstractController{
 				mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
 				mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
 				mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
+				
+				
+				//복지용구상담인 경우 선택 복지용구 정보 추가 저장
+				if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
+					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getRecipientsNo(), srchMbrConslt.getConsltNo());
+				}
 				
 				
 				//1:1 상담신청시 관리자에게 알림 메일 발송

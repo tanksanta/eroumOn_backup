@@ -43,7 +43,8 @@ public class OrdrVO extends CommonBaseVO {
 	private int usePoint = 0; // 사용 포인트
 
     private String stlmDevice; // PC/MOBILE
-    private String stlmTy; // BASS_STLM_TY 코드 참고
+    private String stlmKnd; // BASS_STLM_TY 코드 참고 //method_symbol //card, bank, vbank만 존재
+    private String stlmTy; // BASS_STLM_TY 코드 참고 //method_origin_symbol//card, naverpay, kakaopay, bank, vbank등등 존재
     private int stlmAmt; // 총 결제 금액 ((상품가격(옵션)*수량)+배송비)
     private String stlmYn = "N"; // Y/N
     //private Date stlmDt; // 결제 일시

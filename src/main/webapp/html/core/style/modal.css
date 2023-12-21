@@ -3,6 +3,9 @@
     @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
     & .modal-dialog {
       @apply relative pointer-events-none;
+      &.modal-md {
+        @apply max-w-[600px];
+      }
       &.modal-lg {
         @apply max-w-[800px];
       }
@@ -27,7 +30,7 @@
     & .modal-header {
       @apply flex items-center justify-between px-4 py-3 rounded bg-black1 text-xl tracking-tighter leading-snug font-bold text-white;
       & .btn-close {
-        @apply ml-3 w-6 h-6 md:w-9 md:h-9 opacity-100 bg-no-repeat bg-center bg-[length:100%];
+        @apply  w-6 h-6 md:w-9 md:h-9 opacity-100 bg-no-repeat bg-center bg-[length:100%] mr-1;
         background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_7' data-name='Rectangle 6 Copy 7' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%23fff'/%3E%3C/svg%3E");
       }
       & [data-bs-dismiss="modal"] {
@@ -37,49 +40,54 @@
         @apply text-2xl font-bold text-left;
       }
     }
-    & .modal-body {
-      @apply scrollbars p-5;
+    & .modal-body, & .modal-body-scrolled {
+      @apply scrollbars py-5 px-3 md:p-5;
       overflow: overlay;
     }
 
     & .modal-footer {
       @apply flex items-center justify-center p-5 rounded-b-md space-x-1.5;
     }
-    &.modal-default {
-      /* @apply w-[calc(100%_-_2rem)] sm:w-auto  h-auto rounded-3xl shadow-xl; */
-      /* & .modal-dialog {
-        @apply relative m-0 max-w-full;
-        min-height: inherit;
-      } */
-
+    &.modal-default, &.modal-index{
       & .modal-dialog {
           &.modal-dialog-centered {
               @apply justify-center;
           }
       }
       & .modal-content {
-        @apply relative flex flex-col w-full sm:w-auto bg-white rounded-3xl pointer-events-auto p-5 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl;
+        @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto p-5 pb-6 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
+        &.modal-content-inner {
+          &.modal-body {
+            @apply overflow-auto;
+          }
+        }
       }
       & .modal-close {
-         > button {
+        > button {
           font-size:0;
           @apply absolute right-7 top-7  w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
       }
       & .modal-header {
-        @apply justify-between text-black bg-transparent p-0;
-       
+        @apply justify-between text-black bg-transparent p-0 h-auto;
+
+        & .modal-header-left {
+          @apply flex items-center gap-2;
+        }
+
+        & .text-header-title {
+          @apply text-xl font-normal text-left;
+        }
         & .btn-close {
           font-size:0;
-          @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent  bg-[length:2rem];
+          @apply -m-2 ml-3 w-9 h-9 opacity-100 bg-no-repeat bg-center text-transparent bg-[length:2rem];
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32.527' height='32.527' viewBox='0 0 32.527 32.527'%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M10,21.5V13H1.5a1.5,1.5,0,1,1,0-3H10V1.5a1.5,1.5,0,1,1,3,0V10h8.5a1.5,1.5,0,1,1,0,3H13v8.5a1.5,1.5,0,1,1-3,0Z' transform='translate(16.264) rotate(45)' fill='%23333'/%3E%3C/svg%3E%0A");
         }
       
       }
       & .modal-body {
-        @apply flex flex-col justify-start py-8 px-0 gap-2.5;
-        overflow: inherit;
+        @apply flex flex-col justify-start px-2.5 py-4 md:px-5 md:py-8 gap-2.5;
         min-height: auto;
         & .text-subtitle {
           @apply flex flex-row items-start gap-2 text-sm tracking-tighter;
@@ -89,12 +97,12 @@
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg id='Oval' fill='none' stroke='%23333' stroke-miterlimit='10' stroke-width='1'%3E%3Ccircle cx='8' cy='8' r='8' stroke='none'/%3E%3Ccircle cx='8' cy='8' r='7.5' fill='none'/%3E%3C/g%3E%3Cpath id='Rectangle_5' data-name='Rectangle 5' d='M.75,10V8h2v2Zm0-3L0,.75.75,0h2L3.5.75,2.75,7Z' transform='translate(6.25 3)' fill='%23333'/%3E%3C/svg%3E");
         }
         & .modal-bg-wrap {
-          @apply py-5 px-8 md:-mx-7 -mx-5;
+          @apply py-5 px-8;
           background: linear-gradient(180deg, #faf2d3 0%, #feebeb 100%);
           &.minus-margin {
             @apply -mx-7;
           }
-          & .modal-list-box {
+          /* & .modal-list-box {
             & li {
               @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
               &:first-child {
@@ -110,18 +118,40 @@
                 @apply text-black1 font-medium text-lg break-all w-3/5;
               }
             }
+          } */
+        }
+        & .text-body-title {
+          @apply text-4xl font-bold text-left leading-tight;
+        }
+
+        & .modal-list-box {
+          & li {
+            @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
+            &:first-child {
+              @apply pt-0;
+            }
+            &:last-child {
+              @apply border-0 pb-0;
+            }
+            & .modal-list-label {
+              @apply text-gray6 w-2/5;
+            }
+            & .modal-list-value {
+              @apply text-black1 font-medium text-lg break-all w-3/5;
+            }
           }
         }
       }
+    
       & .modal-footer {
-        @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-1;
-        /* &>:not([hidden])~:not([hidden]) {
-          @apply m-0;
-        } */
+        @apply flex items-center justify-center p-0 rounded-b-md gap-2 mt-2.5 md:mt-5 space-x-3;
+        &>:not([hidden])~:not([hidden]) {
+            @apply m-0;
+        }
       }
     }
 
-    &.modal-scrolled {
+    /* &.modal-scrolled {
       & .modal-header {
         @apply justify-between bg-transparent text-black p-0;
         & .btn-close {
@@ -136,6 +166,32 @@
       & .modal-content {
         @apply p-5 sm:pt-7 sm:px-7 sm:pb-11;
       }
+    } */
+
+    &.modal-media {
+      & .modal-header {
+          @apply bg-transparent justify-end p-0;
+          & .btn-close {
+              @apply w-12 h-12 border border-black text-black rounded-3xl -indent-28 overflow-hidden transition-[0.2s] m-[0_0_0.75rem_0]
+              bg-[url('../images/ico-close.svg')] bg-[length:80%_80%] bg-[center_center] bg-[#dedede]
+              md:hover:indent-0 md:hover:w-28 md:hover:pr-10 md:hover:bg-[right_-1.2rem_center];
+          }
+          & [data-bs-dismiss="modal"] {
+              filter: none;
+          }
+      }
+      & .modal-content {
+          @apply relative flex flex-col w-full h-auto  border-none p-0 bg-transparent pointer-events-auto mx-5 md:mx-auto;
+      }
+      & .modal-body {
+          @apply p-0 shadow-2xl rounded-lg;
+      }
+      & .embed-container {
+          @apply relative pb-[56.25%] h-0 overflow-hidden max-w-full sm:min-w-[560px] ;
+      }
+      & .embed-container iframe, .embed-container object, .embed-container embed {
+          @apply absolute top-0 left-0 w-full h-full;
+      }
     }
   }
   .modal-backdrop {
@@ -144,6 +200,17 @@
       @apply opacity-100;
     }
   }
-  /* .modal-backdrop{z-index: 1050 !important;}
-  .modal{z-index: 1060 !important;} */
+  
+  .bg-box-beige {
+    @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border border-gray3;
+  }
+  .additional {
+    @apply flex items-start gap-2 text-sm md:mt-1;
+    & > .icon-alert {
+      @apply w-4 h-4 mt-0.5;
+      &.size-base {
+        @apply mt-[0.3rem];
+      }
+    }
+  }
 }

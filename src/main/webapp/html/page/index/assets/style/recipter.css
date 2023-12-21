@@ -1,0 +1,398 @@
+.careinfo-status {
+    @apply mt-18 mb-20 md:mt-22 md:mb-25;
+
+    &.mypage {
+        @apply my-10;
+    }
+    & .status-title {
+        @apply mt-9 mb-2.5 text-base leading-snug font-bold md:mt-11 md:mb-3 md:text-lg;
+    }
+    & .status-swiper {
+        @apply relative;
+        & .swiper-wrapper {
+            @apply items-stretch;
+          }
+        & .swiper-slide {
+            @apply flex flex-col py-2 px-2.5 w-30 h-auto rounded-2xl bg-white border border-gray3 md:pt-3 md:px-4 md:pb-2.5 md:w-38;
+            & strong {
+                @apply block text-base leading-[1.2] mb-1.5 md:text-lg;
+            }
+            & i {
+                @apply mt-auto mb-2.5 block h-7.5 bg-center bg-no-repeat bg-[length:auto_100%] md:h-[2.625rem];
+            }
+            & dl {
+                @apply flex items-center justify-between mt-0.5 pl-2 pr-4 font-bold;
+                & dt {
+                    @apply text-tiny font-medium text-gray1 md:text-xs;
+                }
+                & dd {
+                    @apply text-xs md:text-sm;
+                }
+            }
+        }
+        & .swiper-item1 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint1.png)];
+            }
+        }
+        & .swiper-item2 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint2.png)];
+            }
+        }
+        & .swiper-item3 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint3.png)];
+            }
+        }
+        & .swiper-item4 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint4.png)];
+            }
+        }
+        & .swiper-item5 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint5.png)];
+            }
+        }
+        & .swiper-item6 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint6.png)];
+            }
+        }
+        & .swiper-item7 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint7.png)];
+            }
+        }
+        & .swiper-item8 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint8.png)];
+            }
+        }
+        & .swiper-item9 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint9.png)];
+            }
+        }
+        & .swiper-item10 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint10.png)];
+            }
+        }
+        & .swiper-item11 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint11.png)];
+            }
+        }
+        & .swiper-item12 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint12.png)];
+            }
+        }
+        & .swiper-item13 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint13.png)];
+            }
+        }
+        & .swiper-item14 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint14.png)];
+            }
+        }
+        & .swiper-item15 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint15.png)];
+            }
+        }
+        & .swiper-item16 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint16.png)];
+            }
+        }
+        & .swiper-item17 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint17.png)];
+            }
+        }
+        & .swiper-item18 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint18.png)];
+            }
+        }
+        & .swiper-item19 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint19.png)];
+            }
+        }
+        & .swiper-item20 {
+            & i {
+                @apply bg-[url(/html/page/index/assets/images/img-checkpoint20.png)];
+            }
+        }
+        & .swiper-button-prev, & .swiper-button-next {
+            @apply mt-0 top-1/2 w-8 h-8 rounded-full border border-gray2 bg-white shadow-md -translate-y-1/2 opacity-100 md:w-10 md:h-10;
+            &::after {
+                @apply text-[0.75rem] font-bold text-black2;
+            }
+            &.swiper-button-disabled {
+                &::after {
+                    @apply opacity-40;
+                }
+            }
+        }
+        & .swiper-button-prev {
+            @apply left-0 -translate-x-1/2;
+        }
+        & .swiper-button-next {
+            @apply right-0 translate-x-1/2;
+        }
+    }
+    & .status-table {
+        @apply table-fixed w-full text-xs leading-tight text-center md:text-sm;
+        & th, & td {
+            @apply py-[0.8em] md:py-[1em];
+        }
+        & th {
+            @apply bg-neutral-100 text-gray6 first:rounded-l-md last:rounded-r-md;
+        }
+        & td {
+            @apply border-b border-b-gray3 text-[0.8125rem] md:text-[0.9375rem];
+        }
+        & .subject {
+            @apply text-left font-bold;
+        }
+        & .label {
+            @apply px-1.5 rounded;
+        }
+    }
+    & .status-toggle {
+        @apply flex mx-auto min-w-35 w-[22.75%] mt-6 md:mt-8.5 before:content-empty before:mt-px before:mr-1.5 before:w-2 before:h-2 before:bg-cover before:bg-[url(/html/page/index/assets/images/ico-plus.svg)] before:transition-transform before:duration-200;
+        &.is-active {
+            @apply before:rotate-45;
+        }
+    }
+}
+
+.careinfo-content {
+    @apply grid mt-11 md:grid-cols-3 md:gap-2.5 md:mt-14;
+    & [class*="content-item"] {
+        @apply flex flex-col p-3 border border-neutral-100 rounded-lg bg-neutral-100 leading-tight text-[0.8125rem] transition-colors duration-300 text-gray6 md:text-[0.9375rem] hover:md:border-[#ccc] hover:md:bg-white;
+        & dl {
+            @apply mb-2 w-full text-left md:pt-5 md:mb-5 md:text-center;
+            & dt {
+                @apply mb-0.5 font-bold text-black2 text-lg md:mb-3.5 md:text-[1.375rem];
+            }
+            & br {
+                @apply md-max:hidden;
+            }
+        }
+        & div {
+            @apply relative mt-auto;
+        }
+        & img {
+            @apply mx-7 md:mx-auto;
+        }
+        & .btn {
+            @apply flex-none absolute top-1/2 right-0 -translate-y-1/2 w-45 h-9 font-medium text-[0.8125rem]
+                   md:relative md:top-auto md:translate-y-0 md:justify-center md:w-full md:h-[2.875rem];
+        }
+    }
+    & .content-item1 {
+        @apply md-max:rounded-b-none;
+        & img {
+            @apply w-[89px] md:mb-4 md:w-[127px];
+        }
+    }
+    & .content-item2 {
+        @apply md-max:rounded-none md-max:border-transparent md-max:bg-white;
+        & img {
+            @apply w-[141px] md:mb-3 md:w-[196px] md-max:mx-5;
+        }
+    }
+    & .content-item3 {
+        @apply md-max:rounded-t-none;
+        & img {
+            @apply w-[144px] -mb-1 md:-mb-1 md:w-[187px] md-max:mx-3;
+        }
+    }
+}
+
+.careinfo-layer {
+    @apply hidden absolute z-30 top-[10%] left-1/2 p-8 rounded-2xl bg-white shadow-[11px_11px_35px_0px_rgba(0,0,0,0.2)] text-center whitespace-nowrap -translate-x-1/2
+           md:top-[15%] md:py-10 md:px-15 md:rounded-[1.25rem];
+    & strong {
+        @apply block mb-[1.5em] text-lg leading-tight
+               md:text-xl;
+    }
+    & .btn {
+        @apply flex mx-auto w-fit !border-[#757575] !bg-[#757575] text-white;
+    }
+}
+
+.careinfo-mask {
+    @apply relative;
+    & .blurring, & .blurring2 {
+        @apply relative inline-block;
+        & .mask {
+            @apply hidden absolute -top-0 -bottom-0 -right-px min-w-[1.5em] w-[calc(100%+2px)] z-10 rounded-md overflow-hidden bg-gray2;
+            &::after {
+                @apply content-empty absolute -top-[250%] -left-full w-[500%] h-[500%] opacity-0 bg-[linear-gradient(115deg,_#eee_30%,_#fff_38%,_#eee_46%,_#fff_52%,_#eee_66%,_#eee_75%,_#eee_100%)];
+                animation: textblur 4s linear infinite;
+            }
+        }
+    }
+    & .blurring2 {
+        & .mask {
+            &::after {
+                animation-delay: 1s;
+            }
+        }
+    }
+    & .myinfo-box2 {
+        & [class*="used"] {
+            & .blurring, & .blurring2 {
+                @apply min-w-[5.75em];
+                & .mask {
+                    @apply -bottom-0.5;
+                }
+            }
+        }
+    }
+    &:not(.is-active) {
+        & * {
+            @apply pointer-events-none select-none;
+        }
+        & .swiper-button-prev, & .swiper-button-next {
+            @apply hidden;
+        }
+        & .blurring, & .blurring2 {
+            & .mask {
+                @apply block;
+            }
+        }
+        & .careinfo-layer {
+            @apply block;
+            & .btn {
+                @apply pointer-events-auto;
+            }
+        }
+    }
+}
+
+.careinfo-myinfo {
+    @apply mt-24 md:mt-30;
+    &.mypage {
+        @apply mt-0;
+    }
+    & .myinfo-wrapper {
+        @apply grid gap-3 grid-cols-2 md:gap-5 md:grid-cols-4;
+    }
+    & [class*="myinfo-box"] {
+        @apply px-5 py-4 border border-gray3 rounded-lg bg-no-repeat leading-tight md:rounded-2xl;
+        & .cost {
+            @apply text-base md:text-2xl;
+            & strong {
+                @apply text-[1.875rem] md:text-[2.625rem];
+            }
+        }
+        & .desc {
+            @apply text-tiny font-medium text-black2/50 md:text-xs;
+            & + .cost {
+                @apply mt-1;
+            }
+        }
+    }
+    & .myinfo-box1 {
+        @apply flex flex-wrap justify-between col-span-2 relative md:col-span-4;
+        &::before {
+            @apply content-empty absolute top-0 left-0 right-0 bottom-0 bg-no-repeat bg-[url(/html/page/index/assets/images/bg-careinfo-content2.png),url(/html/page/index/assets/images/bg-careinfo-content1.png)] bg-[length:153px,130px] bg-[position:center_bottom_-81px,right_-30px_top_-81px] md:bg-[position:calc(50%_-_66px)_calc(100%+120px),right_-50px_top_-140px] md:bg-[length:244px,208px];
+        }
+        & > * {
+            @apply relative z-5;
+        }
+        & .name {
+            @apply w-full mb-7.5 text-xl font-bold md:text-2xl;
+            & a {
+                @apply inline-block py-[0.25em] px-[1em] border border-[#ccc] rounded-full text-tiny font-medium text-gray1 align-middle md:text-xs;
+            }
+        }
+        & .numb, & .date {
+            @apply flex flex-col;
+            & dt {
+                @apply flex-none;
+            }
+            & dd {
+                @apply flex flex-col justify-end flex-1;
+            }
+        }
+        & .numb {
+            & dd {
+                @apply mt-1.5 text-xl font-bold md:text-2xl;
+            }
+        }
+        & .date {
+            & dd {
+                @apply mt-1.5 text-sm font-medium md:text-base;
+            }
+            & br {
+                @apply md:hidden;
+            }
+        }
+    }
+    & .myinfo-box2 {
+        @apply col-span-2 relative pb-5 md:pb-6 md:min-h-[170px];
+        &::before {
+            @apply content-empty absolute top-0 left-0 right-0 bottom-0 opacity-40 bg-no-repeat bg-[url(/html/page/index/assets/images/bg-careinfo-content2.png)] bg-[length:153px] bg-[center_top_-81px] md:bg-[right_-47px_bottom_80px] md:bg-[length:244px];
+        }
+        & > * {
+            @apply relative z-5;
+        }
+        & [class*="used"] {
+            @apply flex items-center leading-none;
+            & .desc {
+                @apply w-[3.65em];
+            }
+            & .percent {
+                @apply flex-1 flex items-center;
+            }
+            & .track {
+                @apply flex-1 h-2 rounded-full bg-gray2 md:h-3;
+            }
+            & .bar {
+                @apply rounded-full h-full transition-all duration-300;
+            }
+            & .won {
+                @apply -mt-px w-[6.875em] font-medium text-right text-xs md:text-sm;
+            }
+        }
+        & .used1 {
+            @apply mt-4 md:mt-5.5;
+            & .bar {
+                @apply bg-[linear-gradient(272deg,_#836AFF_0%,_#FF3030_100%)];
+            }
+        }
+        & .used2 {
+            @apply mt-1.5 md:mt-2.5;
+            & .bar {
+                @apply bg-[#519CE9];
+            }
+            & .won {
+                @apply text-black2/40;
+            }
+        }
+    }
+    & .myinfo-box3, & .myinfo-box4 {
+        @apply min-h-[150px] md:min-h-[170px];
+    }
+    & .myinfo-box3 {
+        @apply bg-[url(/html/page/index/assets/images/img-careinfo-content4.png)] bg-[left_1rem_bottom_0.875rem] bg-[length:1.75rem];
+    }
+    & .myinfo-box4 {
+        @apply bg-[url(/html/page/index/assets/images/img-careinfo-content5.png)] bg-[left_1.25rem_bottom_1rem] bg-[length:2.25rem];
+    }
+    & .careinfo-myinfo-inner {
+        @apply flex-none mb-2 md:flex md:justify-between;
+    }
+}
+

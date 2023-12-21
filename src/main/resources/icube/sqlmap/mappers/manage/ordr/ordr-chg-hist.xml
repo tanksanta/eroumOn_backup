@@ -85,6 +85,9 @@
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
 		)
+		<selectKey resultType="int" keyProperty="chgNo" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
 

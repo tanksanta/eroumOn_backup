@@ -5,9 +5,9 @@
 		<div class="notice-banner1">
 			<dl>
 				<dt><em>장기요양 인정등급</em>을 이미 받으셨나요?</dt>
-				<dd>올해 남은 복지 혜택을 <em>여기에서 확인</em>하세요</dd>
+				<dd>받을 수 있는 혜택을 알려드려요</dd>
 			</dl>
-			<a href="${_mainPath}/recipter/sub">남은 혜택보기​</a>
+			<a href="${_mainPath}/welfare/equip/sub">혜택 상담하기​</a>
 		</div>
 		<div class="notice-banner2">
 			<dl>

@@ -3,6 +3,9 @@
         @apply hidden fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto;
         & .modal-dialog {
             @apply relative pointer-events-none;
+            &.modal-md {
+                @apply max-w-[600px];
+            }
             &.modal-lg {
                 @apply max-w-[800px];
             }
@@ -49,11 +52,8 @@
                 &.modal-dialog-centered {
                     @apply justify-center px-5;
                     & .modal-body {
-                        @apply scrollbars py-5;
+                        @apply scrollbars py-8;
                         overflow: overlay;
-                        /* &.space-no-x {
-                            @apply px-0;
-                        } */
                         &.space-no-horizonal {
                             @apply px-0;
                         }
@@ -82,7 +82,7 @@
                 }
             }
             & .modal-body {
-                @apply flex flex-col justify-start py-8 px-0 gap-2.5;
+                @apply flex flex-col justify-start px-5 py-8 gap-2.5;
                 overflow: inherit;
                 min-height: auto;
                 & .text-subtitle {
@@ -123,12 +123,30 @@
                     @apply text-4xl font-bold text-left leading-tight;
                 }
 
+                & .modal-list-box {
+                    & li {
+                      @apply flex flex-row gap-1 items-center w-full border-white border-b py-2 text-black1;
+                      &:first-child {
+                        @apply pt-0;
+                      }
+                      &:last-child {
+                        @apply border-0 pb-0;
+                      }
+                      & .modal-list-label {
+                        @apply text-gray6 w-2/5;
+                      }
+                      & .modal-list-value {
+                        @apply text-black1 font-medium text-lg break-all w-3/5;
+                      }
+                    }
+                }
+
                 /* &.space-no-x {
                     @apply px-0
                 } */
             }
             & .modal-footer {
-                @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-1 mt-6;
+                @apply flex items-center justify-center p-0 rounded-b-md space-x-1.5 gap-2 mt-5;
                 &>:not([hidden])~:not([hidden]) {
                     @apply m-0;
                 }
@@ -170,4 +188,8 @@
             @apply opacity-100;
         }
     }
+    .bg-box-beige {
+        @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border-gray3;
+    }
+   
 }

@@ -179,6 +179,28 @@
 		ORDER BY od.ordr_dtl_no DESC
 	</select>
 
+	<!-- 해당하는 주문의 최종 상태가 있는지 조회 -->
+	<select id="selectOrdrSttsDaysList" parameterType="java.util.HashMap" resultMap="ordrDtlVOListMap">
+		/* Query ID : ordr.selectOrdrSttsDaysList */
+		SELECT DISTINCT od.ORDR_NO
+		FROM ORDR_CHG_HIST oc
+		INNER JOIN ORDR_DTL od ON oc.ORDR_NO = od.ORDR_NO AND oc.ORDR_DTL_NO = od.ORDR_DTL_NO AND od.STTS_TY = #{srchChgStts}
+		WHERE oc.chg_stts = #{srchChgStts}
+			AND oc.reg_dt BETWEEN DATE_FORMAT( DATE_ADD(NOW(), INTERVAL #{srchIntervalDay} DAY) , '%Y-%m-%d') 
+							AND DATE_FORMAT( DATE_ADD(NOW(), INTERVAL #{srchIntervalDay} DAY) , '%Y-%m-%d 23:59:59')
+	</select>
+		<!-- 해당하는 주문의 최종 상태가 있는지 조회 -->
+	<select id="selectOrdrSttsDaysDtlList" parameterType="java.util.HashMap" resultMap="ordrDtlVOListMap">
+		/* Query ID : ordr.selectOrdrSttsDaysList */
+		SELECT <include refid="listColumn"/>
+		FROM ORDR_DTL od
+		INNER JOIN ORDR_CHG_HIST oc ON oc.ORDR_NO = od.ORDR_NO AND oc.ORDR_DTL_NO = od.ORDR_DTL_NO AND od.STTS_TY = #{srchChgStts}
+		WHERE od.ordr_no = #{ordrNo}
+			AND oc.chg_stts = #{srchChgStts}
+			AND oc.reg_dt BETWEEN DATE_FORMAT( DATE_ADD(NOW(), INTERVAL #{srchIntervalDay} DAY) , '%Y-%m-%d') 
+							AND DATE_FORMAT( DATE_ADD(NOW(), INTERVAL #{srchIntervalDay} DAY) , '%Y-%m-%d 23:59:59')
+	</select>
+
 	<!-- 특정 단계 제외 카운트 -->
 	<select id="selectExSttsTyCnt" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)

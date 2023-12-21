@@ -1076,7 +1076,7 @@ public class CodeMap{
 			put("005", "자손");
 			put("006", "자부");
 			put("007", "본인");
-			put("100", "기타(친척등)");
+			//put("100", "기타(친척등)");   //공단 조치사항 때 제외
 		}
 	};
 	
@@ -1086,6 +1086,7 @@ public class CodeMap{
 		{
 			put("simpleSearch", "요양정보상담");
 			put("test", "인정등급상담");
+			put("equip_ctgry", "복지용구상담");
 		}
 	};
 
@@ -1094,6 +1095,28 @@ public class CodeMap{
 		private static final long serialVersionUID = -4615344482467031482L;
 		{
 			put("noreply@thkc.co.kr", "이로움ON");
+		}
+	};
+
+	public static final HashMap<String, String> MAIL_SEND_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031482L;
+		{
+			put("MAILSEND_ORDR_MARKET_PAYDONE_CARD", "주문접수 카드");//,
+			put("MAILSEND_ORDR_MARKET_PAYDONE_BANK","주문접수 실시간계좌이체");//
+			put("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", "주문접수 가상계좌");//,
+			put("MAILSEND_ORDR_MARKET_PAYDONE_FREE", "주문접수 무료");//,
+			put("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST","가상계좌 입금 요청");//
+			put("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
+			put("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
+
+			put("MAILSEND_ORDR_MNG_CONFIRM","배송준비중");//
+
+			put("MAILSEND_ORDR_MNG_REFUND","주문 취소");//환불 // 결제 완료 후 배송준비중 이전 단계
+			put("MAILSEND_ORDR_MNG_RETURN","반품");//
+
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","구매확정-예정");//
+			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION","구매확정-처리");//
+
 		}
 	};
 
@@ -1107,6 +1130,40 @@ public class CodeMap{
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
 			*/
+		}
+	};
+	
+	/* 이로움케어 판매품목 분류코드 */
+	public static final HashMap<String, String> CARE_10_CTGRY_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -2876097412598151458L;
+		{
+			put("욕창예방매트리스", "1010");
+			put("요실금팬티", "1020");
+			put("자세변환용구", "1030");
+			put("욕창예방방석", "1040");
+			put("지팡이", "1050");
+			put("간이변기", "1060");
+			put("미끄럼방지양말", "1070");
+			put("미끄럼방지매트", "1080");
+			put("안전손잡이", "1090");
+			put("성인용보행기", "10a0");
+			put("목욕의자", "10b0");
+			put("이동변기", "10c0");
+			put("경사로", "10d0");
+		}
+	};
+	/* 이로움케어 대여품목 분류코드 */
+	public static final HashMap<String, String> CARE_20_CTGRY_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 8150821442119869182L;
+		{
+			put("욕창예방매트리스", "2010");
+			put("경사로", "2020");    //경사로(실외용)
+			put("배회감지기", "2030");
+			put("목욕리프트", "2040");
+			put("이동욕조", "2050");
+			put("수동침대", "2060");
+			put("전동침대", "2070");
+			put("수동휠체어", "2080");
 		}
 	};
 }

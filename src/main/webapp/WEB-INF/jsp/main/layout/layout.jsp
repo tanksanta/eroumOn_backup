@@ -48,7 +48,8 @@
     <link rel="stylesheet" href="/html/page/index/assets/style/style.min.css">
     <script src="/html/core/script/hangjungdong.js"></script>
     <script src="/html/page/index/assets/script/index.js"></script>
-    <script src="/html/core/script/JsCallApi.js"></script>
+    <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     
     <!-- 네이버 연관채널 SEO -->
     <span itemscope="" itemtype="http://schema.org/Organization">
@@ -87,5 +88,14 @@
 	<!-- GA 이벤트 -->
 	<jsp:include page="/WEB-INF/jsp/common/ga4_event.jsp" />
 	
+    <script type="text/javascript">
+        var jsCommon = null;
+        $(document).ready(function() {
+            jsCommon = new JsCommon();
+    
+            jsCommon.fn_keycontrol();
+        });
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" media="screen and (min-width: 768px)">
+	<meta name="viewport" content="initial-scale=1, viewport-fit=cover" media="screen and (max-width: 767px)">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>관심 복지용구 상담-서브</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+    <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/style/style.min.css">
+    <script src="../assets/script/index.js"></script>
+</head>
+
+<body class="pb-19">
+    <!-- notice -->
+    <aside id="notice">
+        <div class="notice-banner1">
+            <dl>
+                <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
+                <dd>받을 수 있는 혜택을 알려드려요</dd>
+            </dl>
+            <a href="#">혜택 상담하기</a>
+        </div>
+        <div class="notice-banner2">
+            <dl>
+                <dt>부모님 맞춤 제품이 필요하세요?</dt>
+                <dd>편안한 일상생활 &amp; 미식을 책임지는 쇼핑몰</dd>
+            </dl>
+            <a href="#">지금 둘러보기</a>
+        </div>
+    </aside>
+    <!-- //notice -->
+
+    <!-- header -->
+    <header id="header">
+        <h1 id="logo" class="global-logo">
+            <a href="#"><em>이로움ON</em></a>
+        </h1>
+        <nav id="navigation">
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="#">이로움 서비스</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">요양정보 간편조회</a></li>
+                            <li class="nav-sub-item"><a href="#">인정등급 예상 테스트</a></li>
+                            <li class="nav-sub-item"><a href="#">복지정보 서비스</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#">시니어 길잡이</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="#">노인장기요양보험제도</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 알아보기</a></li>
+                            <li class="nav-sub-item"><a href="#">복지용구 선택하기</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="utility">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <!-- <li><a href="#">로그아웃</a></li> -->
+                <li><a href="#" class="join">회원가입</a></li>
+                <li><a href="#" class="cost">혜택 상담하기</a></li>
+            </ul>
+        </div>
+        <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴
+            열기/닫기</button>
+    </header>
+    <div id="allmenu" tabindex="-1" class="offcanvas offcanvas-end">
+        <div class="offcanvas-header">
+            <ul>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+            </ul>
+            <button class="closed" type="button" data-bs-toggle="offcanvas" data-bs-target="#allmenu-layer">레이어
+                닫기</button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="user-info">
+                <div class="thumb"></div>
+                <div class="name">
+                    김정래
+                    <small>님</small>
+                    <img src="/html/core/images/ico-kakao.png" alt="">
+                    <!-- 소셜 아이콘
+                    <img src="/html/core/images/ico-naver.png" alt="">
+                    -->
+                </div>
+                <a href="#" class="logout">로그아웃</a>
+            </div>
+            <dl class="menu-item1">
+                <dt><a href="#"><img src="../assets/images/ico-allmenu1.png" alt=""> 이로움 서비스</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">요양정보 간편조회</a></li>
+                        <li><a href="#">인정 등급 예상 테스트</a></li>
+                        <li><a href="#">복지정보 서비스</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item2">
+                <dt><a href="#"><img src="../assets/images/ico-allmenu1.png" alt=""> 시니어 길잡이</a></dt>
+                <dd>
+                    <ul>
+                        <li><a href="#">노인장기요양보험제도</a></li>
+                        <li><a href="#">복지용구 알아보기</a></li>
+                        <li><a href="#">복지용구 선택하기</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <!-- //header -->
+
+    <main id="container">
+        <header id="subject">
+            <nav class="breadcrumb">
+                <ul>
+                    <li class="home"><a href="#">홈</a></li>
+                    <li>이로움 서비스</li>
+                    <li>관심 복지용구 상담</li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="content">
+            <div class="grade-content1 welfare-equip">
+                <h2 class="grade-title2">관심 복지용구 상담</h2>
+                <p class="grade-text2 mt-10">
+                    <strong class="text-hightlight-orange font-bold">필요한 복지용구</strong>를 선택하고 상담하면<br>
+                    <strong class="text-hightlight-orange font-bold">받을 수 있는 혜택</strong>을 알려드려요
+                </p>
+                <div class="grade-start mt-11 md:mt-15">
+                    <div class="picture">
+                        <img src="../assets/images/img-welfare-start.png" class="hidden md:block" alt="관심 복지용구 상담 이미지">
+                        <img src="../assets/images/img-welfare-start-m.png" class="md:hidden" alt="관심 복지용구 상담 모바일 이미지">
+                        <div class="msg1" aria-hidden="true">
+                            <div class="box">
+                                어머니 상태에 도움이 되는<br>
+                                <strong class="text-blue">복지용구</strong>를 신청하고 싶어요
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="25" viewBox="0 0 46 25" fill="none">
+                                <g filter="url(#filter0_d_518_4641)">
+                                <path d="M37.6807 13.7944C24.8807 14.1944 18.4047 4.52527 14.9047 1.02527C6.57133 -0.808059 -7.31903 -1.20563 4.68097 8.79437C16.681 18.7944 30.514 16.961 37.6807 13.7944Z" fill="#333333"/>
+                                </g>
+                                <defs>
+                                <filter id="filter0_d_518_4641" x="0" y="0" width="45.6807" height="24.3057" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                <feOffset dx="4" dy="4"/>
+                                <feGaussianBlur stdDeviation="2"/>
+                                <feComposite in2="hardAlpha" operator="out"/>
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_518_4641"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_518_4641" result="shape"/>
+                                </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="msg2" aria-hidden="true">
+                            <div class="box">
+                                지팡이, 보행기가 필요한데<br>
+                                받을 수 있는 <strong>복지용구를 알고 싶어요</strong>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="25" viewBox="0 0 46 25" fill="none">
+                                <g filter="url(#filter0_d_518_4641)">
+                                <path d="M37.6807 13.7944C24.8807 14.1944 18.4047 4.52527 14.9047 1.02527C6.57133 -0.808059 -7.31903 -1.20563 4.68097 8.79437C16.681 18.7944 30.514 16.961 37.6807 13.7944Z" fill="#333333"/>
+                                </g>
+                                <defs>
+                                <filter id="filter0_d_518_4641" x="0" y="0" width="45.6807" height="24.3057" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                <feOffset dx="4" dy="4"/>
+                                <feGaussianBlur stdDeviation="2"/>
+                                <feComposite in2="hardAlpha" operator="out"/>
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_518_4641"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_518_4641" result="shape"/>
+                                </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <button onclick="searchRecipients();" class="btn-welfare btn btn-large2 btn-primary2 btn-arrow">
+                            <strong>복지용구 선택하기</strong>
+                        </button>
+                        <div class="flex justify-center mt-3">
+                            <div class="additional">
+                                <i class="icon-alert size-base"></i>
+                                <p class="text-base font-medium">요양인정번호가 있어야 상담 가능해요</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/main/cntnts/test" class="text-link">
+                    요양인정번호가 없으세요?
+                </a>
+            </div>
+
+            <div class="grade-content2 welfare-equip">
+                <h2 class="grade-title">
+                    <small>관심 복지용구 상담</small>
+                    <span class="font-normal">필요한 복지용구</span>상담부터<br> 
+                    <span class="font-normal">복지용구</span> 구매 신청까지 한번에
+                </h2>
+                <div class="grade-rolling mt-13 md:mt-23">
+                    <div class="container">
+                        <div class="rolling-item1 is-active">
+                            <div class="grade-rolling-inner">
+                                <div class="item-thumb">
+                                    <img src="../assets/images/img-grade-rolling1.svg" alt="여자얼굴 이미지">
+                                </div>
+                                <div class="item-content">
+                                    복지용구를 고르기 어려워서<br>
+                                    <strong>추천 받고 싶어요</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rolling-item2">
+                            <div class="grade-rolling-inner">
+                                <div class="item-thumb">
+                                    <img src="../assets/images/img-grade-rolling2.svg" alt="할머니얼굴 이미지">
+                                </div>
+                                <div class="item-content">
+                                    지팡이, 보행기가 필요한데<br>
+                                    <strong>받을 수 있는 복지용구를 알고 싶어요</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rolling-item3">
+                            <div class="grade-rolling-inner">
+                                <div class="item-thumb">
+                                    <img src="../assets/images/img-grade-rolling4.svg" alt="남자얼굴 이미지">
+                                </div>
+                                <div class="item-content">
+                                    어머니 상태에 도움이 되는<br>
+                                    <strong>복지용구를 신청하고 싶어요</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grade-content3 welfare-equip">
+                <h2 class="grade-title">
+                    <small>관심 복지용구 상담</small>
+                    받을 수 있는 혜택 확인
+                </h2>
+                
+                <div class="content-box">
+                    <div class="text-center text-2xl">
+                        <p class="tracking-normal">관심있는 <strong>복지용구</strong>를 바탕으로</p>
+                        <p><strong class="text-indexKey1">85%~100% 지원 혜택</strong>을 받을 수 있는 지 알려드려요</p>
+                    </div>
+                    <img src="../assets/images/img-welfare-content3.png" class="sm:w-100" alt="관심있는 복지용구를 바탕으로 100%~85% 지원 혜택을 받을 수 있는 지 알려드려요">
+                </div>
+            </div>
+
+            <div class="grade-content4 welfare-equip">
+                <h2 class="grade-title">
+                    <small>관심 복지용구 상담</small>
+                    필요한 복지용구 추천
+                </h2>
+                
+                <div class="content-box">
+                    <div class="text-center text-2xl">
+                        <p class="tracking-normal">다양한 복지용구 상품 중</p>
+                        <p><strong class="text-indexKey1">어르신 상태</strong>에 도움이 되는 <strong class="text-indexKey1">상품을 추천해드려요</strong></p>
+                    </div>
+                    <img src="../assets/images/img-welfare-content4.png" class="sm:w-100" alt="다양한 복지용구 상품 중 어르신 상태에 도움이 되는 상품을 추천해드려요">
+                </div>
+            </div>
+
+            <div class="grade-content3 welfare-equip">
+                <h2 class="grade-title">
+                    <small>관심 복지용구 상담</small>
+                    간편한 구매 신청
+                </h2>
+                
+                <div class="content-box">
+                    <div class="text-center text-2xl">
+                        <p class="tracking-normal">필요한 복지용구 상품을</p>
+                        <p><strong class="text-indexKey1">간편하게 구매</strong>할 수 있도록 도와드려요</p>
+                    </div>
+                    <img src="../assets/images/img-welfare-content5.png" class="sm:w-100" alt="간편한 구매 신청 할 수 있도록 도와드려요">
+                </div>
+            </div>
+
+            <div class="text-center text-xl md:text-4xl">
+                <span class="text-hightlight-orange font-bold">필요한 복지용구</span>를 선택한 후<br>
+                <span class="text-hightlight-orange font-bold">받을 수 있는 혜택</span>을 알려드려요
+            </div>
+
+            <script>
+                var rolling1 = null;
+                var rolling2 = null;
+
+                $('.grade-slider').each(function () {
+                    var slider = $(this);
+
+                    new Swiper(slider.find('.swiper').get(0), {
+                        loop: true,
+                        speed: 1000,
+                        autoplay: {
+                            speed: 5000,
+                            disableOnInteraction: false,
+                        },
+                        navigation: {
+                            prevEl: slider.find('.swiper-button-prev').get(0),
+                            nextEl: slider.find('.swiper-button-next').get(0)
+                        },
+                        pagination: {
+                            el: slider.find('.swiper-pagination').get(0),
+                        },
+                        on: {
+                            slideChange: function (swiper) {
+                                var el = $(swiper.slides[swiper.activeIndex]);
+                                el.closest('[class*="grade-content"]').find('.grade-taps a[href="#' + el.attr('id') + '"]').parent().addClass('is-active').siblings().removeClass('is-active');
+                            }
+                        }
+                    });
+                })
+
+                $('.grade-taps a').on('click', function () {
+                    var target = $($(this).attr('href'));
+                    var slider = $(target).closest('.swiper').get(0).swiper;
+// var slider = $(target).closest('.swiper').swiper;
+
+                    console.log(slider)
+
+                    $(this).parent().addClass('is-active').siblings().removeClass('is-active');
+
+                    slider.slideTo(target.index())
+                    
+                    $(window).scrollTop(target.closest('[class*="grade-content"]').find('.grade-taps').offset().top - ($('#header').outerHeight() + 20))
+
+                    return false;
+                });
+
+                rolling1 = setInterval(function () {
+                    var taps = $('.grade-content1 .taps-item');
+                    var active = $('.grade-content1 .taps-item.is-active');
+                    taps.each(function (index, element) {
+                        if (active.get(0) === element) {
+                            if (taps[index + 1] === undefined) {
+                                $('.grade-content1 .taps-item:eq(0)').addClass('is-active').siblings().removeClass('is-active')
+                            } else {
+                                $(taps[index + 1]).addClass('is-active').siblings().removeClass('is-active');
+                            }
+                            return false;
+                        }
+                    })
+                }, 5000);
+
+                rolling2 = setInterval(function () {
+                    const items = $('[class*="rolling-item"]');
+                    const active = items.filter('.is-active');
+                    const margin = -active.next().outerHeight(true);
+                    active.clone().removeClass('is-active').appendTo(items.closest('.container'));
+
+                    active.removeClass('is-active').css({ 'margin-top': margin }).next().addClass('is-active').one('transitionend animationend', function () {
+                        active.remove();
+                    });
+                }, 3000);  
+            </script>
+
+            <div class="grade-floating">
+                <a href="관심복지용구선택.html" id="search-recipients" >
+                    <strong>복지용구 선택하기</strong>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- footer -->
+    <footer id="footer" class="global-footer">
+        <div class="footer-link">
+            <!-- 회사 메뉴 -->
+            <nav class="footer-menu">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">전자금융거래약관</a></li>
+                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                </ul>
+            </nav>
+            <!-- //회사 메뉴 -->
+
+            <!-- 패밀리 사이트 -->
+            <div class="footer-family">
+                <dl>
+                    <dt class="sr-only">패밀리 사이트</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <!-- li>
+                                <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
+                                    <div class="bubble">
+                                        <strong>이로움ON 멤버스</strong>
+                                        <small>전국 1,600개 업체와 함께합니다</small>
+                                    </div>
+                                </a>
+                            </li> -->
+    
+                            <li><a href="//www.youtube.com/@eroumon" target="_blank" class="link-item4"><span class="sr-only">이로움ON</span></a></li>
+                            <li><a href="#" target="_blank" title="새창열림" class="link-item1">
+                                    <div class="bubble">
+                                        <small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
+                                    </div>
+                            </a></li>
+                            <li>
+                                <a href="#" class="link-item3" target="_blank" title="새창열림">
+                                    <div class="bubble">
+                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                                        <small>복지용구부터 시니어 생활용품까지 한번에!</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- //패밀리 사이트 -->
+        </div>
+
+        <hr>
+
+        <div class="footer-center">
+            <!-- 사이트 정보-->
+            <dl class="footer-company">
+                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dd id="footer-collapse" class="collapse">
+                    <p>대표 : 신종호</p>
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2016-부산금정-0114</p>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </dd>
+            </dl>
+            <!-- //사이트 정보-->
+
+            <!-- 고객센터 -->
+            <dl class="footer-customer">
+                <dt>고객센터</dt>
+                <dd>
+                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
+                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
+                </dd>
+                <dd>
+                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                </dd>
+            </dl>
+            <!-- //고객센터 -->
+        </div>
+
+        <hr>
+
+        <!-- 카피 라이트 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 라이트 -->
+    </footer>
+    <!-- //footer -->
+
+    <script src="../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../core/vendor/twelements/popper.min.js"></script>
+
+    <script>
+        function toggleText() {
+            const el = document.querySelector(".btn-toggle-box");
+            const icon = document.querySelector(".icon-collapse");
+            const text = document.querySelector(".btn-collapse > span")
+            
+            if (el.classList.contains("collapsed") ) {
+                icon.classList.remove("expand")
+                text.textContent = "펼치기";
+            } else {
+                icon.classList.add("expand")
+                text.textContent =  "접기";
+            }
+        }
+    </script>
+</body>
+
+</html>

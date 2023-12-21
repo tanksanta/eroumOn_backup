@@ -123,28 +123,28 @@
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 1}">
 						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[0].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
-							${mbrRelationCd[resultList.mbrRecipientsList[0].relationCd]}(${resultList.mbrRecipientsList[0].recipientsNm})
+							${resultList.mbrRecipientsList[0].relationCd eq '100' ? '기타(친척등)' : mbrRelationCd[resultList.mbrRecipientsList[0].relationCd]}(${resultList.mbrRecipientsList[0].recipientsNm})
 						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 2}">
 						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[1].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
-							${mbrRelationCd[resultList.mbrRecipientsList[1].relationCd]}(${resultList.mbrRecipientsList[1].recipientsNm})
+							${resultList.mbrRecipientsList[1].relationCd eq '100' ? '기타(친척등)' : mbrRelationCd[resultList.mbrRecipientsList[1].relationCd]}(${resultList.mbrRecipientsList[1].recipientsNm})
 						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 3}">
 						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[2].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
-							${mbrRelationCd[resultList.mbrRecipientsList[2].relationCd]}(${resultList.mbrRecipientsList[2].recipientsNm})
+							${resultList.mbrRecipientsList[2].relationCd eq '100' ? '기타(친척등)' : mbrRelationCd[resultList.mbrRecipientsList[2].relationCd]}(${resultList.mbrRecipientsList[2].recipientsNm})
 						</a>
 					</c:if>
 				</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 4}">
 						<a href="./${resultList.uniqueId}/recipient?recipientsNo=${resultList.mbrRecipientsList[3].recipientsNo}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">
-							${mbrRelationCd[resultList.mbrRecipientsList[3].relationCd]}(${resultList.mbrRecipientsList[3].recipientsNm})
+							${resultList.mbrRecipientsList[3].relationCd eq '100' ? '기타(친척등)' : mbrRelationCd[resultList.mbrRecipientsList[3].relationCd]}(${resultList.mbrRecipientsList[3].recipientsNm})
 						</a>
 					</c:if>
 				</td>

@@ -83,4 +83,7 @@ public class OrdrDAO extends CommonAbstractMapper {
 		return selectList("ordr.selectOrdrListAll",paramMap);
 	}
 
+	public List<OrdrVO> selectOrdrScheduleStlmNList(Map<String, Object> paramMap) throws Exception {
+		return selectList("ordr.selectOrdrScheduleStlmNList",paramMap);
+	}
 }

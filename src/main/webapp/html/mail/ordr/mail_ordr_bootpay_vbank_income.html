@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px; margin:0 auto; font-family:'Noto Sans KR', sans-serif; font-size:16px;">
+        <tbody>
+            <tr>
+                <td style="padding:20px 0;" bgcolor="white">
+                    <!-- top -->
+                    ((mail_header))
+                    <!-- //top -->
+
+                    <!-- content -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family:'Noto Sans KR', sans-serif; font-size:16px; line-height:1.5; letter-spacing:-1px; color:#333;">
+                        <tr>
+                            <td style="padding: 72px 0 72px">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="text-align: center; font-size: 36px; letter-spacing: -2px; line-height: 140%;">
+                                            <span>주문하신 상품의</span><br><strong>입금이 확인</strong><span>되었습니다</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mailcontbox" bgcolor="#EFFFFB" style="padding:24px 20px; border-radius:16px; background-color:#EFFFFB;">
+                            
+                                <p style="margin:0; padding:0; font-size:24px; line-height:1.45; text-align:center; word-break:keep-all;"><strong>((mbrNm))</strong> 회원님, <strong>안녕하세요</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.75;">&nbsp;</p>
+                                <p style="margin:0; padding:0;">
+                                    주문하신 주문에 대한 입금이 확인 되었습니다.<br>
+                                    빠른 기간 안에 배송 상품 준비하여<br>
+                                    배송해 드리겠습니다.                                    
+                                </p>
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr style="font-size:0; line-height:0;"><td bgcolor="#333" height="2" colspan="2" style="height:2px; background:#333;"></td></tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="right" width="64" style="padding:14px 6px; background-color:#fff; text-align:right;"><p style="margin:0; padding:0; font-size:13px;">주문자</p></td>
+                                        <td bgcolor="#fff" style="padding:14px; background-color:#fff;"><p style="margin:0; padding:0; font-size:16px;"><b>((mbrNm))</b></p></td>
+                                    </tr>
+                                    <tr style="font-size:0; line-height:0;"><td bgcolor="#999" height="1" colspan="2" style="height:1px; background:#999;"></td></tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="right" width="64" style="padding:14px 6px; background-color:#fff; text-align:right;"><p style="margin:0; padding:0; font-size:13px;">주문일</p></td>
+                                        <td bgcolor="#fff" style="padding:14px; background-color:#fff; font-family:'Roboto', sans-serif;"><p style="margin:0; padding:0; font-size:16px;"><b>((ordrDt))</b></p></td>
+                                    </tr>
+                                    <tr style="font-size:0; line-height:0;"><td bgcolor="#999" height="1" colspan="2" style="height:1px; background:#999;"></td></tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="right" width="64" style="padding:14px 6px; background-color:#fff; text-align:right;"><p style="margin:0; padding:0; font-size:13px;">주문번호</p></td>
+                                        <td bgcolor="#fff" style="padding:14px; background-color:#fff; font-family:'Roboto', sans-serif;"><p style="margin:0; padding:0; font-size:16px;"><b><u>((ordrCd))</u></b></p></td>
+                                    </tr>
+                                    <tr style="font-size:0; line-height:0;"><td bgcolor="#999" height="1" colspan="2" style="height:1px; background:#999;"></td></tr>
+                                </table>
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                <p style="margin:0; padding:0;"><strong>주문상품</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
+                                ((ordrPartGdsView))
+
+
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                <p style="margin:0; padding:0;"><strong>배송정보</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #999; border-radius:8px;">
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:12px 6px 3px 14px; border-top-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">받는사람</p></td>
+                                        <td bgcolor="#fff" style="padding:12px 14px 3px; border-top-right-radius:8px; background-color:#fff;"><p style="margin:0; padding:0; font-size:16px;"><b>((recptrNm))</b></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:3px 6px 3px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">연락처</p></td>
+                                        <td bgcolor="#fff" style="padding:3px 14px; background-color:#fff; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:16px;"><b>((recptrMblTelno))</b></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:3px 6px 12px 14px; border-bottom-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">주소</p></td>
+                                        <td bgcolor="#fff" style="padding:3px 14px 12px; border-bottom-right-radius:8px; background-color:#fff;">
+                                            <p style="margin:0; padding:0; font-size:16px;"><b>((recptrZip))<br>((recptrAddr))&nbsp;((recptrDaddr))</b></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                <p style="margin:0; padding:0;"><strong>결제정보</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #999; border-radius:8px;">
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="100" style="border-top-left-radius:8px; padding:12px 6px 3px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">총 주문금액</p></td>
+                                        <td bgcolor="#fff" align="right" style="padding:12px 14px 3px; border-top-right-radius:8px; background-color:#fff; text-align:right; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:18px;"><b class="totalOrdrPc">((SumGdsPc))</b> <b style="font-size:13px">원</b></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="100" style="padding:3px 6px 3px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">배송비</p></td>
+                                        <td bgcolor="#fff" align="right" style="padding:3px 14px; background-color:#fff; text-align:right; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:18px;"><b class="dlvyPc">((SumDlvyPc))</b> <b style="font-size:13px">원</b></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="100" style="padding:3px 6px 12px 14px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">할인금액</p></td>
+                                        <td bgcolor="#fff" align="right" style="padding:3px 14px 12px; background-color:#fff; text-align:right; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:18px;"><b class="couponAmt">((SumCouponAmts))</b> <b style="font-size:13px">원</b></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <tr style="font-size:0; line-height:0;">
+                                                    <td width="14"></td>
+                                                    <td height="1" bgcolor="#ddd" style="height:1px;background:#ddd;"></td>
+                                                    <td width="14"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="80" style="padding:12px 6px 12px 14px; border-bottom-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;"><b>총 결제금액</b></p></td>
+                                        <td bgcolor="#fff" align="right" style="padding:12px 14px 12px; border-bottom-right-radius:8px; background-color:#fff; text-align:right; font-family:'Roboto';"><p style="margin:0; padding:0; font-size:18px; color:#F81616;"><b class="stlmAmt">((stlmAmt))</b> <b style="font-size:13px">원</b></p></td>
+                                    </tr>
+                                </table>
+                                <p style="margin:0; padding:0;">&nbsp;</p>
+                                
+                                <p style="margin:0; padding:0;"><strong>가상계좌 입금내역</strong></p>
+                                <p style="margin:0; padding:0; line-height:0.5;">&nbsp;</p>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #999; border-radius:8px;">
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:12px 6px 3px 14px; border-top-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">가상계좌</p></td>
+                                        <td bgcolor="#fff" style="padding:12px 14px 3px; border-top-right-radius:8px; background-color:#fff;">
+                                            <p style="margin:0; padding:0; font-size:16px;">
+                                                <b>((dpstBankNm))
+                                                    <span style="font-family:'Roboto'">((vrActno))</span></b>
+                                            </p></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fff" align="left" width="64" style="padding:3px 6px 12px 14px; border-bottom-left-radius:8px; background-color:#fff; text-align:left;"><p style="margin:0; padding:0; font-size:13px;">입금확인일</p></td>
+                                        <td bgcolor="#fff" align="left" style="padding:3px 14px 12px; border-bottom-right-radius:8px; background-color:#fff; text-align:left;">
+                                            <p style="margin:0; padding:0; font-size:16px; color:#F81616;">
+                                                <b>
+                                                    <span style="font-family:'Roboto'">((stlmDtYear))-((stlmDtMonth))-((stlmDtDay)) ((stlmDtHour)):((stlmDtMinute))</span>
+                                                </b>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        <tr><td height="20" style="height:20px"></td></tr>
+                        <tr>
+                            <td align="center" style="text-align:center;">
+                                <a href="((domain))/market/mypage/ordr/list" style="display:inline-block; padding:17px; width:212px; border-radius:8px; background-color:#333; text-decoration:none; color:#fff; font-size:18px;"><strong>주문/배송 조회</strong></a>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- //content -->
+
+                    <!-- bottom -->
+                    ((mail_footer))
+                    <!-- //bottom -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

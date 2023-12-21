@@ -65,6 +65,7 @@ public class MLoginController extends CommonAbstractController {
 			, HttpSession session
 			, Model model) throws Exception {
 
+
 		if(mngrSession.isLoginCheck()){
 			return "redirect:/_mng/intro";
 		}
