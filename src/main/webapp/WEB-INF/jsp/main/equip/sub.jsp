@@ -72,7 +72,7 @@
 				</button>
 				<div class="flex justify-center mt-4">
 					<div class="additional">
-						<i class="icon-alert"></i>
+						<i class="icon-alert size-base"></i>
 						<p class="text-base font-medium">요양인정번호가 있어야 상담 가능해요</p>
 					</div>
 				</div>
