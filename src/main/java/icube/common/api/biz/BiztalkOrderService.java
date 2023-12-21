@@ -223,7 +223,9 @@ public class BiztalkOrderService extends BiztalkApiService {
         msg = msg.replace("#{입금 금액}", NumberFormat.getInstance().format(ordrVO.getStlmAmt()));
         msg = msg.replace("#{은행명 가상계좌번호}", ordrVO.getDpstBankNm() + " " + ordrVO.getVrActno());
 
-        msg = msg.replace("#{YYYY.MM.DD}", DateUtil.getDateTime(ordrVO.getOrdrDt(), "yyyy-MM-dd"));
+		if (ordrVO.getDpstTermDt() != null && ordrVO.getDpstTermDt().length() > 10){
+			msg = msg.replace("#{YYYY.MM.DD}", ordrVO.getDpstTermDt().substring(0, 10));
+		}
         
 		
 		JSONObject param = new JSONObject();
