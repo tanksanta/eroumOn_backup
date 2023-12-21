@@ -2,7 +2,7 @@
 
 	<!--팝업:성인용 보행기-->
     <div class="modal modal-index fade" id="welfare-kit1" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -142,7 +142,7 @@
 
     <!--팝업:수동휠체어-->
     <div class="modal modal-index fade" id="welfare-kit2" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -417,7 +417,7 @@
 
     <!--팝업:미끄럼방지 매트-->
     <div class="modal modal-index fade" id="welfare-kit5" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -462,7 +462,7 @@
 
     <!--팝업:미끄럼방지 양말-->
     <div class="modal modal-index fade" id="welfare-kit6" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -510,7 +510,7 @@
 
     <!--팝업:욕창예방 매트리스-->
     <div class="modal modal-index fade" id="welfare-kit7" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -552,7 +552,7 @@
 
     <!--팝업:욕창예방 방석-->
     <div class="modal modal-index fade" id="welfare-kit8" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -598,7 +598,7 @@
 
     <!--팝업:자세변환용구-->
     <div class="modal modal-index fade" id="welfare-kit9" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -639,7 +639,7 @@
 
     <!--팝업:요실금 팬티-->
     <div class="modal modal-index fade" id="welfare-kit10" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -684,7 +684,7 @@
 
     <!--팝업:목욕의자-->
     <div class="modal modal-index fade" id="welfare-kit11" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -732,7 +732,7 @@
 
     <!--팝업:이동변기-->
     <div class="modal modal-index fade" id="welfare-kit12" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -777,7 +777,7 @@
 
     <!--팝업:간이변기-->
     <div class="modal modal-index fade" id="welfare-kit13" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>
@@ -818,7 +818,7 @@
 
     <!--팝업:경사로-->
     <div class="modal modal-index fade" id="welfare-kit14" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="text-header-title">복지용구 선택방법</h2>

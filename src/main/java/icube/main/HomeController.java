@@ -26,9 +26,9 @@ public class HomeController extends CommonAbstractController {
 	@Resource(name="bokjiService")
 	private BokjiApiService bokjiService;
 	
-	// INDEX
-	@RequestMapping(value={"/", "index"})
-	public String index(
+	// Home 화면
+	@RequestMapping(value={"/"})
+	public String main(
 			HttpServletRequest request
 			, Model model) throws Exception {
 		
@@ -55,5 +55,11 @@ public class HomeController extends CommonAbstractController {
 		model.addAttribute("total", total);
 		
 		return "/main/main";
+	}
+	
+	// Index
+	@RequestMapping(value={"index"})
+	public String main() {
+		return "redirect:/";
 	}
 }

@@ -409,7 +409,7 @@
                     <div class="flex flex-col justify-center items-end gap-1">
                         <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-full">
                         	<option value="">관계 선택</option>
-							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+							<c:forEach var="relation" items="${relationCd}" varStatus="status">
 								<option value="${relation.key}">${relation.value}</option>	
 							</c:forEach>
                         </select>
@@ -819,7 +819,7 @@
 	                <label for="rcpt-related" class="w-full">
 	                    <select name="login-rcpts-relation" id="login-rcpts-relation" class="form-control w-full is-invalid"  aria-required="true" aria-describedby="rcpt-related-error" aria-invalid="true" onchange="validateRequiredField();">
 	                    	<option value="">관계 선택</option>
-							<c:forEach var="relation" items="${mbrRelationCode}" varStatus="status">
+							<c:forEach var="relation" items="${relationCd}" varStatus="status">
 								<option value="${relation.key}">${relation.value}</option>	
 							</c:forEach>
 	                    </select>
