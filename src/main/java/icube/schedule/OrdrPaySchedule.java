@@ -229,7 +229,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 	// 구매확정 예정
-	@Scheduled(cron="0 30 1 * * *")
+	@Scheduled(cron="0 40 9 * * *")
 	public void order09_notice() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
@@ -263,7 +263,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 
 	// 구매확정 처리
-	@Scheduled(cron="0 30 2 * * *")
+	@Scheduled(cron="0 50 9 * * *")
 	public void order09_action() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
@@ -318,8 +318,8 @@ public class OrdrPaySchedule extends CommonAbstractController {
 		log.info("########## 구매 확정 처리 END ##########");
 	}
 
-	// 가상계좌 입금요청 -> 매일 오전 7시 30분
-	@Scheduled(cron="0 30 7 * * *")
+	// 가상계좌 입금요청 -> 매일 오전 9시 30분
+	@Scheduled(cron="0 0 10 * * *")
 	public void vbankReqeust() throws Exception {
 		log.info("########## 가상계좌 입금요청 처리 START ##########");
 
@@ -341,7 +341,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
-	@Scheduled(cron="0 30 0 * * *")
+	@Scheduled(cron="0 30 9 * * *")
 	public void cancle02() throws Exception {
 
 		log.info("########## 가상계좌 취소 처리 START ##########");
