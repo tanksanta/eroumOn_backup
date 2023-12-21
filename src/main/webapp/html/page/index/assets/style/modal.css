@@ -191,10 +191,5 @@
     .bg-box-beige {
         @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border-gray3;
     }
-    .additional {
-        @apply flex items-center gap-2 text-sm mt-1;
-        & > .icon-alert {
-            @apply w-4 h-4;
-        }
-    }
+   
 }

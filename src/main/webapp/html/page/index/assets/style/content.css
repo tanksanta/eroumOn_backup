@@ -1896,7 +1896,7 @@
     }
     
     & .radio-tabs-content {
-        @apply bg-box-beige;
+        @apply bg-box-beige md:min-h-[14.25rem];
         & .tab-inner {
             @apply flex flex-col gap-2;
             & li {

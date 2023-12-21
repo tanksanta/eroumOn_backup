@@ -7,7 +7,7 @@
 				<dt><em>장기요양 인정등급</em>을 이미 받으셨나요?</dt>
 				<dd>받을 수 있는 혜택을 알려드려요</dd>
 			</dl>
-			<a href="${_mainPath}/welfare/equip/sub">남은 혜택보기​</a>
+			<a href="${_mainPath}/welfare/equip/sub">혜택 상담하기​</a>
 		</div>
 		<div class="notice-banner2">
 			<dl>
