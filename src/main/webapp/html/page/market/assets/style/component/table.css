@@ -157,7 +157,7 @@
       @apply table leading-tight;
     }
     & th {
-      @apply text-left font-normal text-black2 min-w-30;
+      @apply text-left font-normal text-black2 min-w-30 md:whitespace-nowrap;
     }
     & td {
       @apply font-medium;

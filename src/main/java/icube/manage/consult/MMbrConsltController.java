@@ -474,6 +474,11 @@ public class MMbrConsltController extends CommonAbstractController{
 		paramMap.put("canclResn", canclResn);
 		paramMap.put("consltNo", consltNo);
 
+		Map<String, Object> srchParamMap = new HashMap<>();
+		srchParamMap.put("srchConsltNo", consltNo);
+		MbrConsltResultVO lastConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchParamMap);
+		paramMap.put("bplcConsltNo", lastConsltResult.getBplcConsltNo());
+		
 		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
 
 		if(resultCnt > 0) {

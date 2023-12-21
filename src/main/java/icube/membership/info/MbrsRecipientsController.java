@@ -112,39 +112,40 @@ public class MbrsRecipientsController extends CommonAbstractController {
     	List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByUniqueId(mbrSession.getUniqueId());
     	
 		//수급자 리스트에서 상담하기 숏컷 버튼 노출 정보(각 수급자 별로 복지용구 또는 인정등급 상담 신청하기 버튼 노출 여부 저장)
-		//null인 경우 노출 안하며 prevPath에 따라 해당 상담하기 버튼 노출
+    	//정책 : https://www.figma.com/file/Ye3HL7fTs7pESLpcieUHex/EroumON_%ED%9A%8C%EC%9B%90%EC%A0%95%EC%B1%85_1.0.2?type=whiteboard&node-id=624-5325&t=t3WIjOPg8nhsqTAh-0#648398511
 		Map<Integer, String> btnConsltPrevPathMap = new HashMap<>();
 		if (mbrRecipientsList != null && mbrRecipientsList.size() > 0) {
 			for(int i = 0; i < mbrRecipientsList.size(); i++) {
 				MbrRecipientsVO curRecipient = mbrRecipientsList.get(i);
 				MbrConsltVO mbrConslt = mbrConsltMap.get(curRecipient.getRecipientsNo());
 				boolean existTestResult = mbrTestList.stream().anyMatch(t -> t.getRecipientsNo() == curRecipient.getRecipientsNo()); //테스트 결과가 있는 지 확인
-				boolean existGdsResult = mbrRecipientsGdsList.stream().anyMatch(g -> g.getRecipientsNo() == curRecipient.getRecipientsNo()); //관심 복지용구가 있는 지 확인 
+				boolean existGdsResult = mbrRecipientsGdsList.stream().anyMatch(g -> g.getRecipientsNo() == curRecipient.getRecipientsNo()); //관심 복지용구가 있는 지 확인
+				Map<String, Boolean> recipientExistResult = new HashMap<>();    //해당 수급자 테스트 및 복지용구 선택 여부 값 Map
+				recipientExistResult.put("test", existTestResult);
+				recipientExistResult.put("equip_ctgry", existGdsResult);
+				Map<String, MbrConsltVO> recipientConsltMap = new HashMap<>();  //해당 수급자 상담정보 담을 Map
 				
 				//상담이 없는 경우
 				if (mbrConslt == null) {
-					if (existGdsResult) {
-						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
-					} else if (existTestResult) {
-						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
-					}
 				}
 				//먼저 조회한 상담이 test인 경우
 				else if ("test".equals(mbrConslt.getPrevPath())) {
+					MbrConsltVO mbrTestConslt = mbrConslt;
 					MbrConsltVO mbrEquipConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "equip_ctgry");
-					//test 상담은 존재하므로 복지용구 상담만 없고 관심 복지용구가 있는 지 확인
-					if (mbrEquipConslt == null && existGdsResult) {
-						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
-					}
+					
+					recipientConsltMap.put("test", mbrTestConslt);
+					recipientConsltMap.put("equip_ctgry", mbrEquipConslt);
 				}
 				//먼저 조회한 상담이 복지용구 상담인 경우
 				else if ("equip_ctgry".equals(mbrConslt.getPrevPath())) {
 					MbrConsltVO mbrTestConslt = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipient.getRecipientsNo(), "test");
-					//복지용구 상담은 존재하므로 test 상담만 없고 테스트 결과가 있는 지 확인
-					if (mbrTestConslt == null && existTestResult) {
-						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
-					}
+					MbrConsltVO mbrEquipConslt = mbrConslt;
+					
+					recipientConsltMap.put("test", mbrTestConslt);
+					recipientConsltMap.put("equip_ctgry", mbrEquipConslt);
 				}
+				
+				putConsltRequestBtnForRecipient(btnConsltPrevPathMap, curRecipient, recipientConsltMap, recipientExistResult);
 			}
 		}
 		model.addAttribute("btnConsltPrevPathMap", btnConsltPrevPathMap);
@@ -315,5 +316,96 @@ public class MbrsRecipientsController extends CommonAbstractController {
 		}
 		
 		return resultMap;
+	}
+	
+	
+	/**
+	 * 마이페이지 > 수급자 관리 리스트에 수급자별 어떤 상담하기 버튼을 노출 시킬지 판별 함수
+	 * @see : https://www.figma.com/file/Ye3HL7fTs7pESLpcieUHex/EroumON_%ED%9A%8C%EC%9B%90%EC%A0%95%EC%B1%85_1.0.2?type=whiteboard&node-id=624-5325&t=t3WIjOPg8nhsqTAh-0#648398511
+	 */
+	private void putConsltRequestBtnForRecipient(
+		Map<Integer, String> btnConsltPrevPathMap,    //버튼 정보를 넣어줄 객체
+		MbrRecipientsVO curRecipient,                 //해당 수급자 정보
+		Map<String, MbrConsltVO> recipientConsltMap,  //해당 수급자의 각종 상담정보,
+		Map<String, Boolean> recipientExistResult     //해당 수급자의 테스트 결과, 복지용구 선택 등 진행 여부
+	) {
+		//인정등급 결과와 관심 복지용구가 모두 존재할 경우
+		if (recipientExistResult.get("test") && recipientExistResult.get("equip_ctgry")) {
+			MbrConsltVO testConsltVO = recipientConsltMap.get("test");
+			MbrConsltVO equipCtgryConsltVO = recipientConsltMap.get("equip_ctgry");
+			
+			//L번호가 없음(인정등급상담 노출)
+			if (!"Y".equals(curRecipient.getRecipientsYn())) {
+				//인정등급 상담을 완료한적이 있다면 복지용구상담이 노출
+				if (testConsltVO != null && "CS06".equals(testConsltVO.getConsltSttus())) {
+					//복지용구상담이 진행중이지 않다면 노출
+					if (isProcessingConslt(equipCtgryConsltVO) == false) {
+						btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+					}
+				}
+				//인정등급 상담한적이 없는 거나 취소를 하였다면 인증등급 상담 노출
+				else if (isProcessingConslt(testConsltVO) == false) {
+					btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+				}
+			}
+			//L번호가 있음(복지용구상담 노출)
+			else {
+				//복지용구 상담이 없거나 진행중이지 않다면 복지용구 상담 노출
+				if (isProcessingConslt(equipCtgryConsltVO) == false) {
+					btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+				}
+			}
+		}
+		//인정등급 결과만 존재
+		else if (recipientExistResult.get("test")) {
+			MbrConsltVO testConsltVO = recipientConsltMap.get("test");
+			
+			//L번호가 없음(인정등급상담 노출)
+			if (!"Y".equals(curRecipient.getRecipientsYn())) {
+				//인정등급 상담을 완료한적이 있다면 복지용구상담이 노출
+				if (testConsltVO != null && "CS06".equals(testConsltVO.getConsltSttus())) {
+					btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "guide_equip_ctgry");  //상담 신청폼이 아닌 신청 안내 버튼
+				}
+				//인정등급 상담한적이 없는 거나 취소를 하였다면 인증등급 상담 노출
+				else if (isProcessingConslt(testConsltVO) == false) {
+					btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "test");
+				}
+			}
+			//L번호가 있음(복지용구상담 노출)
+			else {
+				btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "guide_equip_ctgry");  //상담 신청폼이 아닌 신청 안내 버튼
+			}
+		}
+		//복지용구 선택 결과만 존재
+		else if (recipientExistResult.get("equip_ctgry")) {
+			MbrConsltVO equipCtgryConsltVO = recipientConsltMap.get("equip_ctgry");
+			
+			//L번호가 없음(인정등급상담 노출)
+			if (!"Y".equals(curRecipient.getRecipientsYn())) {
+				btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "guide_test");  //상담 신청폼이 아닌 신청 안내 버튼
+			}
+			//L번호가 있음(복지용구상담 노출)
+			else {
+				//복지용구 상담이 없거나 진행중이지 않다면 복지용구 상담 노출
+				if (isProcessingConslt(equipCtgryConsltVO) == false) {
+					btnConsltPrevPathMap.put(curRecipient.getRecipientsNo(), "equip_ctgry");
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 상담이 진행중인지 체크하는 함수 (없어도 false)
+	 */
+	private boolean isProcessingConslt(MbrConsltVO recipientConslt) {
+		if (recipientConslt != null && (
+				!"CS03".equals(recipientConslt.getConsltSttus()) &&
+				!"CS04".equals(recipientConslt.getConsltSttus()) &&
+				!"CS09".equals(recipientConslt.getConsltSttus()) &&
+				!"CS06".equals(recipientConslt.getConsltSttus())
+		)) {
+			return true;
+		}
+		return false;
 	}
 }

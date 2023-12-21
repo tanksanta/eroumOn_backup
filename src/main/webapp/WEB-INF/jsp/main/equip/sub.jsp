@@ -82,7 +82,7 @@
     <div class="grade-content2 welfare-equip">
         <h2 class="grade-title">
             <small>관심 복지용구 상담</small>
-            <span class="font-normal">필요한 복지용구</span>상담부터<br> 
+            <span class="font-normal">필요한 복지용구 </span>상담부터<br> 
             <span class="font-normal">복지용구</span> 구매 신청까지 한번에
         </h2>
         <div class="grade-rolling mt-13 md:mt-23">
@@ -148,7 +148,7 @@
         <div class="content-box">
             <div class="text-center text-2xl">
                 <p class="tracking-normal">다양한 복지용구 상품 중</p>
-                <p><span class="text-indexKey1">어르신 상태</span>에 도움이 되는 <span class="text-indexKey1">상품을 추천해드려요</span></p>
+                <p><span class="text-indexKey1">어르신 상황</span>에 적합한 <span class="text-indexKey1">상품을 추천해드려요</span></p>
             </div>
             <img src="/html/page/index/assets/images/img-welfare-content4.png" class="sm:w-100" alt="다양한 복지용구 상품 중 어르신 상태에 도움이 되는 상품을 추천해드려요">
         </div>
