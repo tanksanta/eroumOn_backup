@@ -78,10 +78,10 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 		
 		//수급자 관심 복지용구 선택값 저장
 		Map<String, Boolean> recipientsGdsCheckMap = new HashMap<>();
-		List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(recipientsNo);
-		for (MbrRecipientsGdsVO recipientsGds : recipientsGdsList) {
-			recipientsGdsCheckMap.put(recipientsGds.getCareCtgryCd(), true);
-		}
+//		List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(recipientsNo);
+//		for (MbrRecipientsGdsVO recipientsGds : recipientsGdsList) {
+//			recipientsGdsCheckMap.put(recipientsGds.getCareCtgryCd(), true);
+//		}
 		
 		model.addAttribute("recipientsNo", recipientsNo);
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
