@@ -101,4 +101,8 @@
     .icon-round-plus {
         @apply flex items-center justify-center w-5 h-5 bg-[#FAF7F5] bg-no-repeat bg-[url(/html/page/index/assets/images/ico-plus-orange.svg)] rounded-full ml-1;
     }
+
+    .icon-senior {
+        @apply w-5 mt-[0.35rem] md-range:mt-[0.6rem] md:mt-[0.7rem];
+    }
 }

@@ -205,9 +205,9 @@
     @apply bg-[#FAF7F5] rounded-md px-6 py-8 md:min-w-[29rem] border border-gray3;
   }
   .additional {
-    @apply flex items-start gap-2 text-sm mt-1;
+    @apply flex items-start gap-2 text-sm md:mt-1;
     & > .icon-alert {
-      @apply w-4 h-4 mt-0.5;
+      @apply w-4 h-4 mt-[0.2rem];
     }
   }
 }

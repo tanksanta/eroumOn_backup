@@ -117,6 +117,9 @@
             &[type="radio"] {
                 @apply bg-none shadow-[inset_0_0_0_0.25em_white];
             }
+            &.with-input {
+                @apply mt-[0.45em] md:mt-[0.55em] w-[1.3em];
+            }
         }
         & .form-check-label {
             @apply inline-block cursor-pointer;
@@ -300,7 +303,6 @@
     }
 
     /*수급자 */
-
      .radio-check-group {
         @apply flex flex-col gap-2 w-full select-none;
         & .form-check {
@@ -362,9 +364,6 @@
             }
         }
     }
-    
-
-
     
     /******************** upload ********************/
     .form-upload {
@@ -437,14 +436,19 @@
         }
         & .form-control {
             @apply !text-base;
+            &.input-lno {
+                @apply xs-max:w-full w-[calc(100%-3.125rem)];
+            }
+        }
+        &.type2 {
+            > input {
+                @apply xs-max:w-[calc(100%-2rem)];
+             }
         }
         > input { 
-            @apply indent-2 !text-base xs-max:w-[calc(100%-2rem)];
+            @apply indent-2 !text-base ;
         }
     }
-
-   
-
     sup.required {
         @apply text-danger text-base md:text-lg top-0 ml-1 font-semibold;
     }

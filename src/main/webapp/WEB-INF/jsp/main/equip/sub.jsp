@@ -70,6 +70,12 @@
                 <button onclick="searchRecipients();" class="btn-welfare btn btn-large2 btn-primary2 btn-arrow">
 					<strong>복지용구 선택하기</strong>
 				</button>
+				<div class="flex justify-center mt-4">
+					<div class="additional">
+						<i class="icon-alert"></i>
+						<p class="text-base font-medium">요양인정번호가 있어야 상담 가능해요</p>
+					</div>
+				</div>
             </div>
 
         </div>
@@ -148,7 +154,7 @@
         <div class="content-box">
             <div class="text-center text-2xl">
                 <p class="tracking-normal">다양한 복지용구 상품 중</p>
-                <p><span class="text-indexKey1">어르신 상황</span>에 적합한 <span class="text-indexKey1">상품을 추천해드려요</span></p>
+                <p><strong class="text-indexKey1">어르신 상황</strong>에 적합한 <strong class="text-indexKey1">상품을 추천해드려요</strong></p>
             </div>
             <img src="/html/page/index/assets/images/img-welfare-content4.png" class="sm:w-100" alt="다양한 복지용구 상품 중 어르신 상태에 도움이 되는 상품을 추천해드려요">
         </div>
@@ -163,7 +169,7 @@
         <div class="content-box">
             <div class="text-center text-2xl">
                 <p class="tracking-normal">필요한 복지용구 상품을</p>
-                <p><span class="text-indexKey1">간편하게 구매</span>할 수 있도록 도와드려요</p>
+                <p><strong class="text-indexKey1">간편하게 구매</strong>할 수 있도록 도와드려요</p>
             </div>
             <img src="/html/page/index/assets/images/img-welfare-content5.png" class="sm:w-100" alt="복지용구 상담 도와드려요">
         </div>
