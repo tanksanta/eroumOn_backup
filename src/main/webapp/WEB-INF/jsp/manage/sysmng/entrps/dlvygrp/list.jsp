@@ -19,6 +19,7 @@
 					<td>
 						<div class="form-group w-84">
 							<select id="selectTarget" class="form-control w-full">
+									<option value="">전체</option>
 								<c:forEach items="${entrpsList.listObject}" var="resultList" varStatus="status">
 									<option value="${resultList.entrpsNo}" <c:if test="${resultList.entrpsNo eq param.srchTarget}">selected="true"</c:if>>${resultList.entrpsNm}</option>
 								</c:forEach>
@@ -71,6 +72,7 @@
 		<colgroup>
 			<col class="w-25">
 			<col>
+			<col>
 			<col class="w-30">
 			<col class="w-40">
 			<col class="w-30">
@@ -80,6 +82,7 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
+				<th scope="col">입점업체명</th>
 				<th scope="col">그룹명</th>
 				<th scope="col">배송비 계산방식</th>
 				<th scope="col">제주/도서산간 추가비용</th>
@@ -92,6 +95,7 @@
 			<c:forEach items="${listVO.listObject}" var="resultList" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
+					<td>${resultList.entrpsInfo.entrpsNm}</td>
 					<td><a href="./detail?entrpsDlvygrpNo=${resultList.entrpsDlvygrpNo}&entrpsNo=${resultList.entrpsNo}&${pageParam}">${resultList.entrpsDlvygrpNm}</a></td>
 					<td>${dlvyCalcTyList[resultList.dlvyCalcTy]}</td>
 					<td><fmt:formatNumber value="${resultList.dlvyAditAmt}" pattern="###,###" /></td>
@@ -146,7 +150,10 @@ $(function(){
 
 		var aaa = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .divDlvyGrpAdd", "divDlvyGrpAdd", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
 	
-		aaa.fn_loading_form_data_call({"entrpsNo":$("#srchTarget").val()}, false, {})
+		var data = {"entrpsNo":$("#srchTarget").val()};
+		if (data.entrpsNo == undefined || data.entrpsNo.length < 1 || data.entrpsNo == "0") data.chgEntrpsNo = true;
+		console.log(data)
+		aaa.fn_loading_form_data_call(data, false, {})
 	});
 
 	

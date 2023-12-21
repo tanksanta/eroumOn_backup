@@ -13,9 +13,19 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
     }
 
     fn_loading_all_result_data(){
-        if (this._cls_info != undefined && this._cls_info.popup_param != undefined && this._cls_info.popup_param.entrpsNo != undefined){
-            $(this._cls_info.pageModalfix + " select[name=entrpsList]").val(this._cls_info.popup_param.entrpsNo);
+        if (this._cls_info != undefined && this._cls_info.popup_param != undefined){
+            if (this._cls_info.popup_param.entrpsNo != undefined && this._cls_info.popup_param.entrpsNo.length > 0){
+                $(this._cls_info.pageModalfix + " select[name=entrpsList]").val(this._cls_info.popup_param.entrpsNo);
+            }
+            
+            if (this._cls_info.popup_param.chgEntrpsNo != undefined && this._cls_info.popup_param.chgEntrpsNo){
+                $(this._cls_info.pageModalfix + " select[name=entrpsList]").removeAttr("disabled");
+            }else{
+                $(this._cls_info.pageModalfix + " select[name=entrpsList]").prop("disabled", "true");
+            }
+            
         }
+
 
         if (this._cls_info.dataAllResult != undefined && this._cls_info.dataAllResult.resultData != undefined ){
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val(this._cls_info.dataAllResult.resultData.entrpsDlvygrpNo);
@@ -34,7 +44,7 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
             
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val("0");
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val("");
-            $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val("0");
+            $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val("5000");
 
         }
 
@@ -51,6 +61,16 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
                     , dlvyCalcTy : objDlvyCalcTy.val()
                     , dlvyAditAmt : $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val().replace(",", "")
                     , useYn : $(this._cls_info.pageModalfix + " input[name='useYn']:checked").val()};
+
+        if (data.entrpsNo == undefined || data.entrpsNo.length < 1 || data.entrpsNo == "0"){
+            alert("입점업체를 선택하여 주십시오.")
+            return;
+        }
+
+        if (data.entrpsDlvygrpNm == undefined || data.entrpsDlvygrpNm.length < 2){
+            alert("묶음그룹명을 입력하여 주십시오.")
+            return;
+        }
 
         jsCallApi.call_api_post_json(this, this._cls_info.saveUrl, 'fn_save_cb', data);
         

@@ -20,6 +20,7 @@
 									<th scope="row">입점업체</th>
 									<td>
 										<select name="entrpsList" id="entrpsList" class="form-control form-small w-full" disabled="true">							
+												<option value="0">전체</option>
 											<c:forEach items="${entrpsList.listObject}" var="resultList" varStatus="status">
 												<option value="${resultList.entrpsNo}" >${resultList.entrpsNm}</option>
 											</c:forEach>

@@ -2,7 +2,9 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="entrps.dlvygrp">
 
-	<resultMap type="entrpsDlvygrpVO" id="entrpsDlvygrpVOMap" autoMapping="true" />
+	<resultMap type="entrpsDlvygrpVO" id="entrpsDlvygrpVOMap" autoMapping="true" >
+		<association property="entrpsInfo" 	column="{entrpsNo=entrps_no}" select="entrps.selectEntrps" />
+	</resultMap>
 
 	<sql id="listColumn">
 		entrps_dlvygrp_no
