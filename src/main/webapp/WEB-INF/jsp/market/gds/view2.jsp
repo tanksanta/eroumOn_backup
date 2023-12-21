@@ -818,17 +818,23 @@
 
 
 	</div>
+
+	<textarea class="gdsVOString" style="display: none;">
+		${gdsVOJson}
+	</textarea>
+
+	
 </main>
 
-<script>
-$('.product-option button').click(function() {
-	var prevDisplay = $(this).parent().children('.option-items').css('display');
-	$('.product-option .option-items').hide();
+<script type="text/javascript" src="/html/page/market/assets/script/JsMarketGdsView.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
-	if (prevDisplay === 'none') {
-		$(this).parent().children('.option-items').show();
-	}
-});
+<script>
+	var jsMarketGdsView = null;
+	$(document).ready(function() {
+		jsMarketGdsView = new JsMarketGdsView(${_mbrSession.loginCheck}, $("textarea.gdsVOString").val())
+	});
+
+
 
 var Goods = (function(){
 
@@ -1071,7 +1077,7 @@ var Goods = (function(){
 
 		$('.product-option').removeClass('is-active');
 
-		f_totalPrice();
+		jsMarketGdsView.f_totalPrice();
 	}
 
 	//추가옵션
@@ -1134,25 +1140,9 @@ var Goods = (function(){
 
 		$('.product-option').removeClass('is-active');
 
-		f_totalPrice();
+		jsMarketGdsView.f_totalPrice();
 	}
 
-
-	function f_totalPrice(){
-		var totalPrice = 0;
-		var gdsPc = 0;
-		var gdsOptnPc = 0;
-		var ordrQy = 1;
-		$(".product-quanitem").each(function(){
-			gdsPc = $(this).find("input[name='gdsPc']").val();
-			gdsOptnPc = $(this).find("input[name='ordrOptnPc']").val();
-			ordrQy = $(this).find("input[name='ordrQy']").val();
-
-			totalPrice = Number(totalPrice) + (Number(gdsPc) + Number(gdsOptnPc)) * Number(ordrQy);
-		});
-		//console.log("###### totalPrice", comma(totalPrice));
-		$("#totalPrice").text(comma(totalPrice));
-	}
 
 
 	//멤버스 모달
@@ -1313,50 +1303,7 @@ var Goods = (function(){
 		    $(".btn-delete").remove();
 		    </c:if>
 
-			f_totalPrice();
-		});
-
-		$(document).on("click", ".btn-plus", function(e){
-			var pObj = $(this).parents(".product-quanitem");
-			var qyObj = pObj.find("input[name='ordrQy']");
-			var stockQy = qyObj.data("stockQy");
-
-			// 주문수량
-			if(Number(qyObj.val()) < stockQy){
-				qyObj.val(Number(qyObj.val()) + 1);
-				if("${_mbrSession.recipterYn}" == "Y" && Number(qyObj.val()) > 15 && $("#ordrTy1").is(":checked")){
-					alert("급여 상품의 최대수량은 15개 입니다.");
-					qyObj.val(Number(qyObj.val()) - 1);
-				}
-				pObj.find(".quantity strong").text(qyObj.val());
-			} else {
-				alert("현재 상품의 재고수량은 총 ["+ stockQy +"] 입니다.");
-				alert("해당 제품은 총 "+ stockQy +" 개 까지 구매 가능합니다.");
-			}
-
-			f_totalPrice();
-
-		});
-
-		$(document).on("click", ".btn-minus", function(e){
-			var pObj = $(this).parents(".product-quanitem");
-			var qyObj = pObj.find("input[name='ordrQy']");
-			var stockQy = qyObj.data("stockQy");
-
-			// 주문수량
-			if(Number(qyObj.val()) > 1){
-				qyObj.val(Number(qyObj.val()) - 1);
-				pObj.find(".quantity strong").text(qyObj.val());
-			} else {
-				// nothing
-			}
-			f_totalPrice();
-		});
-
-		$(document).on("click", ".btn-delete", function(e){
-			var pObj = $(this).parents(".product-quanitem");
-			pObj.remove();
-			f_totalPrice();
+			jsMarketGdsView.f_totalPrice();
 		});
 
 	    <c:if test="${empty optnTtl[0]}">
