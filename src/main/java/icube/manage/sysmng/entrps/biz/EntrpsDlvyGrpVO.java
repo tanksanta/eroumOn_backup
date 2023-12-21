@@ -15,5 +15,5 @@ public class EntrpsDlvyGrpVO extends CommonBaseVO {
 	private String entrpsDlvygrpNm;
 	private int dlvyAditAmt;
 	private String dlvyCalcTy;
-	private String useYn;
+	
 }

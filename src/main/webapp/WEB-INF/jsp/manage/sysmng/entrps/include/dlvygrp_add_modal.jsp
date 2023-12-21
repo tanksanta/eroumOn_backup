@@ -36,7 +36,10 @@
 										<div class="flex flex-wrap items-end gap-4">
 											<c:forEach items="${dlvyCalcTyCode}" var="dlvyCalcTy" varStatus="status">
 												<div class="form-check">
-													<input class="form-check-input" type="radio" name="dlvyCalcTy" id="dlvyCalcTy${status.index}" value="${dlvyCalcTy.key}" <c:if test="${dlvyCalcTy.key eq 'MAX' }">checked="checked"</c:if>>
+													<input class="form-check-input" type="radio" name="dlvyCalcTy" id="dlvyCalcTy${status.index}" 
+														value="${dlvyCalcTy.key}" 
+														dlvyCalcTy="${dlvyCalcTy.key}" dlvyCalcTyNm="${dlvyCalcTyCode[dlvyCalcTy.key]}" dlvyCalcTyNm2="${dlvyCalcTy2Code[dlvyCalcTy.key]}"
+														<c:if test="${dlvyCalcTy.key eq 'MAX' }">checked="checked"</c:if>>
 													<label class="form-check-label" for="dlvyCalcTy${status.index}">${dlvyCalcTy.value}</label>
 												</div>
 											</c:forEach>
@@ -57,7 +60,7 @@
 										<div class="flex flex-wrap items-end gap-4">
 											<c:forEach items="${useYnCode}" var="useYn" varStatus="status">
 												<div class="form-check">
-													<input class="form-check-input" type="radio" name="useYn" id="useYn${status.index}" value="${useYn.key}" <c:if test="${useYn.key eq 'Y' }">checked="checked"</c:if>>
+													<input class="form-check-input" type="radio" name="useYn" id="useYn${status.index}" value="${useYn.key}" useYnNm="${useYn.value}" <c:if test="${useYn.key eq 'Y' }">checked="checked"</c:if>>
 													<label class="form-check-label" for="useYn${status.index}">${useYn.value}</label>
 												</div>
 											</c:forEach>

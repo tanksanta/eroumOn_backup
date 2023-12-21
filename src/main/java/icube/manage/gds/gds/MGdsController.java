@@ -284,6 +284,11 @@ public class MGdsController extends CommonAbstractController {
 
 		// doubleSubmit check
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+
+			/*묶음 배송이 아닌경우 묶음배송번호는 항상 0이다*/
+			if (!EgovStringUtil.equals("Y", gdsVO.getDlvyGroupYn())){
+				gdsVO.setEntrpsDlvygrpNo(0);
+			}
 			// 상품태그
 			gdsVO.setGdsTagVal( ArrayUtil.arrayToString(gdsVO.getGdsTag(), ",") );
 

@@ -248,7 +248,9 @@ class JsPopupLoadingFormDataBase extends JsPopupLoadingFormBase{
         this._cls_info.dataUrl = dataUrl;
         this._cls_info.loadedDataYn = true;
     }
-
+    fn_data_url(){
+        return this._cls_info.dataUrl;
+    }
     /*
         화면과 데이터 모두 호출해서 보여주는 메스드
     */
@@ -268,7 +270,7 @@ class JsPopupLoadingFormDataBase extends JsPopupLoadingFormBase{
             this._cls_info.loadedDataYn = false;
             this._cls_info.popup_data = data;
     
-            jsCallApi.call_api_post_json(this, this._cls_info.dataUrl, 'fn_loading_data_cb', data);    
+            jsCallApi.call_api_post_json(this, this.fn_data_url(), 'fn_loading_data_cb', data);    
         }else{
             this.fn_loading_data_cb(data, null, {});
         }

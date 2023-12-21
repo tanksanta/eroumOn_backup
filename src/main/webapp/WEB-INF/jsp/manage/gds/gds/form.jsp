@@ -734,7 +734,7 @@
                                     <td scope="row">&nbsp;</td>
                                     <td>
                                         <div class="form-group">
-											<p class="ml-2 ex">ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
+											<p class="ml-2 text-gray5 ex">ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -751,7 +751,7 @@
                                 <tr class="dlvy-ct-ty-tr dlvyGroupYn">
                                     <th scope="row"><label for="dlvyGroupYn">묶음배송</label></th>
                                     <td>
-                                        <div class="form-group mr-8">
+                                        <div class="form-group mr-4">
                                             <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
                                             <label class="form-check-label" for="dlvyGroupYn1">사용</label>
 											<input type="hidden" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
@@ -760,8 +760,9 @@
 										<button type="button" class="btn-primary btn dlvy grp add">묶음그룹 생성</button>
 										<button type="button" class="btn-primary btn dlvy grp select">묶음그룹 선택</button>
 
-										<div class="dlvy-group-disp">
-											묶음배송 선택시 확인 완료
+										<div class="flex flex-col border border-gray1 rounded-md m-h-50 p-4 mt-2 w-[40%] min-w-[540px] dlvy-group-disp">
+											<strong class="mb-4">그룹 : <span class="entrpsDlvygrpNm">복지유니온_효반 죽</span> (<span class="entrpsDlvygrpUseYn">사용중</span>)</strong>
+                                            <p class="text-gray5">배송비 계산방식 :<span class="dlvyCalcTyNm">묶음 그룹에서 가장 큰 배송비로 부과</span></p>
 										</div>
                                     </td>
                                 </tr>

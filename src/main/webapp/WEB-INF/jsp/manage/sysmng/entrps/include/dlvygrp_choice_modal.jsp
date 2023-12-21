@@ -12,30 +12,25 @@
 				<div class="modal-body">
 					<table class="table-detail">
 						<colgroup>
-							<col class="w-32">
+							<col class="w-26">
 							<col>
-							<col class="w-32">
-							<col>
-							<col class="w-32">
+							<col class="w-26">
 							<col>
 						</colgroup>
 						<tbody>
-
 							<tr>
-								<th scope="row">상품코드</th>
-								<td><span class="badge-outline-success">${ordrDtlVO.gdsCd}</span></td>
-								<th scope="row">상품/옵션정보</th>
-								<td class="leading-tight">
-									${ordrDtlVO.gdsNm}<br>
-									${ordrDtlVO.ordrOptn}
+								<th scope="row">입점업체</th>
+								<td>${entrpsVO.entrpsNm}</td>
+								<th scope="row">그룹명</th>
+								<td class="leading-tight flex">
+									<input type="text" id="schEntrpsDlvygrpNm" name="schEntrpsDlvygrpNm" class="form-control" >
+									<button type="button" class="btn-primary ml-1 btn f_search">검색</button>
 								</td>
-								<th scope="row">현재상태</th>
-								<td>${ordrSttsCode[ordrDtlVO.sttsTy]}</td>
 							</tr>
 
 						</tbody>
 					</table>
-					<table class="table-list mt-10 ordr-stts-list">
+					<table class="table-list mt-10 con-datatables">
 						<colgroup>
 							<col>
 							<col class="w-55">
@@ -48,33 +43,8 @@
 								<th scope="col">선택</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${entrpsDlvyGrpList}" var="itemone" varStatus="status">
-							<tr>
-								<td >${itemone.entrpsDlvygrpNm}</td>
-								<td >
-									${dlvyCalcTyCode[itemone.dlvyCalcTy]}
-								</td>
-								<td >
-									<div class="form-check">
-										<input class="form-check-input" type="radio" 
-												name="entrpsDlvygrpNo" value="${itemone.entrpsDlvygrpNo}" 
-												entrpsDlvygrpNo="${itemone.entrpsDlvygrpNo}" entrpsNo="${itemone.entrpsNo}"
-												entrpsDlvygrpNm="${itemone.entrpsDlvygrpNm}" 
-												dlvyCalcTy="${itemone.dlvyCalcTy}" dlvyCalcTyNm="${dlvyCalcTyCode[itemone.dlvyCalcTy]}"
-												useYn="${itemone.useYn}" dlvyAditAmt="${itemone.dlvyAditAmt}" >
-									</div>
-								</td>
-							</tr>
-							</c:forEach>
-							
-							<c:if test="${entrpsDlvyGrpList.size() < 1 }">
-							<tr>
-								<td colspan="3">등록된 데이터가 없습니다.</td>
-							</tr>
-							</c:if>
-						</tbody>
 					</table>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn-primary large shadow btn f_confm_save">확인</button>

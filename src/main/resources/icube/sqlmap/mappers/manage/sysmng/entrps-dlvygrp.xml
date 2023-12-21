@@ -23,21 +23,18 @@
 
 	<sql id="searchConditions">
 		<if test="srchText != null and srchText != '' ">
-			<choose>
-				<when test='srchTarget != null and srchTarget == "C" '>AND entrps_nm like CONCAT('%', #{srchText}, '%')</when>
-				<when test='srchTarget != null and srchTarget == "N" '>AND brno like CONCAT('%',#{srchText},'%')</when>
-				<when test='srchTarget != null and srchTarget == "M" '>AND pic_nm like CONCAT('%',#{srchText},'%')</when>
-			</choose>
+			AND entrps_dlvygrp_nm like CONCAT('%', #{srchText}, '%')
 		</if>
-		<if test="srchYn != null and srchYn != '' ">
-			AND use_yn = #{srchYn}
+		<if test="useYn != null and useYn != '' ">
+			AND use_yn = #{useYn}
 		</if>
-		<if test="srchEntrpsNo != null and srchEntrpsNo != '' ">
-			AND entrps_no = #{srchEntrpsNo}
+		<if test="entrpsNo != null and entrpsNo != '' ">
+			AND entrps_no = #{entrpsNo}
 		</if>
-		<if test="srchEntrpsDlvygrpNo != null and srchEntrpsDlvygrpNo != '' ">
-			AND entrps_dlvygrp_no = #{srchEntrpsDlvygrpNo}
+		<if test="entrpsDlvygrpNo != null and entrpsDlvygrpNo != '' ">
+			AND entrps_dlvygrp_no = #{entrpsDlvygrpNo}
 		</if>
+
 	</sql>
 
 	<select id="selectEntrpsDlvyGrpListVO" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOMap">
@@ -51,7 +48,7 @@
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>
 
-	<select id="selectEntrpsDlvyGrpListAll" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOMap">
+	<select id="selectEntrpsDlvyGrpListAll" parameterType="entrpsDlvygrpVO" resultMap="entrpsDlvygrpVOMap">
 		/* Query ID : entrps-dlvy-grp.xml > selectEntrpsDlvyGrpListAll */
 		SELECT
 			<include refid="listColumn"/>

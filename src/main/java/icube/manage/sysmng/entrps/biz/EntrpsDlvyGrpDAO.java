@@ -20,13 +20,13 @@ public class EntrpsDlvyGrpDAO extends CommonAbstractMapper {
 		return (EntrpsVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrp", entrpsDlvygrpNo);
 	}
 
-	public List<EntrpsDlvyGrpVO> selectEntrpsDlvyGrpListAll(Map<String, Object> paramMap) throws Exception {
-		return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",paramMap);
+	public List<EntrpsDlvyGrpVO> selectEntrpsDlvyGrpListAll(EntrpsDlvyGrpVO entrpsDlvyGrpVO) throws Exception {
+		return selectList("entrps.dlvygrp.selectEntrpsDlvyGrpListAll",entrpsDlvyGrpVO);
 	}
 		
 	public EntrpsDlvyGrpVO selectEntrpsDlvyGrpByNo(int entrpsDlvygrpNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchEntrpsDlvygrpNo", entrpsDlvygrpNo);
+		paramMap.put("entrpsDlvygrpNo", entrpsDlvygrpNo);
 		return (EntrpsDlvyGrpVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrpByNo", paramMap);
 	}
 

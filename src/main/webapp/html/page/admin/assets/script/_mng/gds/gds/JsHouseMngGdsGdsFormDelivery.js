@@ -30,8 +30,9 @@ class JsHouseMngGdsGdsFormDelivery{
         $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").val(data.dlvyAditAmt);
 
 
-        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html(data.entrpsDlvygrpNm);
-
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp .entrpsDlvygrpNm").html(data.entrpsDlvygrpNm);
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp .dlvyCalcTyNm").html(data.dlvyCalcTyNm);
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp .entrpsDlvygrpUseYn").html(data.useYnNm);
 
     }
 
@@ -49,7 +50,7 @@ class JsHouseMngGdsGdsFormDelivery{
                                                                                             , "divDlvyGrpChoice"
                                                                                             , 1
                                                                                             , "/_mng/sysmng/entrps/dlvygrp/{0}/choicemodal"
-                                                                                            , "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json"
+                                                                                            , "/_mng/sysmng/entrps/dlvygrp/{0}/dlvygrplist.json"
                                                                                             , {}
                                                                                         );
 
@@ -106,7 +107,7 @@ class JsHouseMngGdsGdsFormDelivery{
                 return;
             }
 
-            owner._cls_info.popups.jsPopupEntrpsDlvyGrpChoice.fn_loading_form_data_call({"entrpsNo":entrpsNo}, false, {"entrpsNo":entrpsNo})
+            owner._cls_info.popups.jsPopupEntrpsDlvyGrpChoice.fn_loading_form_data_call({"entrpsNo":entrpsNo}, true, {"entrpsNo":entrpsNo})
         });
         
     }
@@ -167,8 +168,8 @@ class JsHouseMngGdsGdsFormDelivery{
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.add").addClass("disp-off");
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.select").addClass("disp-off");
 
-            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val("0");
-            $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html("");
+            // $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val("0");
+            // $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html("");
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").addClass("disp-off");
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").removeAttr("readonly");
         }

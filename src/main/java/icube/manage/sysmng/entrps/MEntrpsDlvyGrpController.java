@@ -93,6 +93,7 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		model.addAttribute("entrpsList", entrpsListVO);
 		model.addAttribute("useYnCode", CodeMap.USE_YN);
 		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
+		model.addAttribute("dlvyCalcTy2Code", CodeMap.DLVY_CALC_TY_LIST);
 
 		
 				
@@ -105,17 +106,41 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 			, @PathVariable int entrpsNo // 카테고리 1
 			, Model model) throws Exception{
 
-		CommonListVO entrpsListVO = new CommonListVO(request);
-		entrpsListVO = entrpsService.entrpsListVO(entrpsListVO);
+		EntrpsVO entrpsVO = entrpsService.selectEntrps(entrpsNo);
 
-		List<EntrpsDlvyGrpVO> entrpsDlvyGrpList = entrpsDlvyGrpService.selectEntrpsDlvyGrpListAll(entrpsNo);
-
-		model.addAttribute("entrpsList", entrpsListVO);
-		model.addAttribute("entrpsDlvyGrpList", entrpsDlvyGrpList);
-		model.addAttribute("useYnCode", CodeMap.USE_YN);
-		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY_LIST);
+		model.addAttribute("entrpsVO", entrpsVO);
+		// model.addAttribute("useYnCode", CodeMap.USE_YN);
+		// model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
+		// model.addAttribute("dlvyCalcTy2Code", CodeMap.DLVY_CALC_TY_LIST);
 				
 		return "/manage/sysmng/entrps/include/dlvygrp_choice_modal";
+	}
+
+	@RequestMapping(value="{entrpsNo}/dlvygrplist.json")
+	@ResponseBody
+	public Map<String, Object> searchDlvyGrpList(
+			HttpServletRequest request
+			, @PathVariable int entrpsNo // 카테고리 1
+			, @RequestParam(value="srchText", required=false) String srchText
+			, Model model) throws Exception{
+
+		EntrpsDlvyGrpVO entrpsDlvyGrpVO = new EntrpsDlvyGrpVO();
+		entrpsDlvyGrpVO.setEntrpsNo(entrpsNo);
+		entrpsDlvyGrpVO.setSrchText(srchText);
+		entrpsDlvyGrpVO.setUseYn("Y");
+
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpList = entrpsDlvyGrpService.selectEntrpsDlvyGrpListAll(entrpsDlvyGrpVO);
+
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("success", true);
+		resultMap.put("resultData", entrpsDlvyGrpList);
+
+		resultMap.put("useYnCode", CodeMap.USE_YN);
+		resultMap.put("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
+		resultMap.put("dlvyCalcTy2Code", CodeMap.DLVY_CALC_TY_LIST);
+
+		return resultMap;
 	}
 
 	@RequestMapping("dlvygrpno.json")

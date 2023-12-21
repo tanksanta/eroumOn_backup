@@ -44,10 +44,11 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
     fn_save_click(){
         this._cls_info.saveUrl = "/_mng/sysmng/entrps/dlvygrp/dlvygrpmodalaction.json";
 
+        var objDlvyCalcTy = $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy']:checked");
         var data = {entrpsNo : $(this._cls_info.pageModalfix + " select[name=entrpsList]").val()
                     , entrpsDlvygrpNo : $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val()
                     , entrpsDlvygrpNm : $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val()
-                    , dlvyCalcTy : $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy']:checked").val()
+                    , dlvyCalcTy : objDlvyCalcTy.val()
                     , dlvyAditAmt : $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val().replace(",", "")
                     , useYn : $(this._cls_info.pageModalfix + " input[name='useYn']:checked").val()};
 
@@ -69,6 +70,12 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
                     }
     
                     if (this._cls_info.container != undefined && this._cls_info.container['fn_popup_selected'] != undefined){
+                        var objRadio = $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy']:checked");
+                        data.dlvyCalcTyNm  = objRadio.attr("dlvyCalcTyNm");
+                        data.dlvyCalcTyNm2 = objRadio.attr("dlvyCalcTyNm2");
+
+                        objRadio = $(this._cls_info.pageModalfix + " input[name='useYn']:checked");
+                        data.useYnNm = objRadio.attr("useYnNm");
                         this._cls_info.container['fn_popup_selected']('confirm', this._cls_info.popName, this._cls_info.popup_param, data, null);
                     }
                 }
