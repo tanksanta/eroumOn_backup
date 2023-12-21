@@ -30,7 +30,7 @@
 
 						</tbody>
 					</table>
-					<table class="table-list mt-10 con-datatables">
+					<table class="table-list display mt-10 con-datatables">
 						<colgroup>
 							<col>
 							<col class="w-55">

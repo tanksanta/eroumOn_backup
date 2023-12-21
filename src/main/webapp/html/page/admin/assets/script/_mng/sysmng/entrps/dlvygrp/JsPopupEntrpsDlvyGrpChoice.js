@@ -60,7 +60,8 @@ class JsPopupEntrpsDlvyGrpChoice extends JsPopupLoadingFormDataBaseWithDataTable
             { mDataProp: "dlvyCalcTyNm2"},
 
             { mRender: function (data, type, row) {
-                    var str = '<input type="radio" name="entrpsDlvygrpNo"';
+                    var str = '<div class="form-check">';
+                    str += ' <input type="radio" class="form-check-input" name="entrpsDlvygrpNo"';
 
                     str += ' value="' + row.entrpsDlvygrpNo+'"';
                     str += ' entrpsNo="' + row.entrpsNo+'"';
@@ -74,6 +75,7 @@ class JsPopupEntrpsDlvyGrpChoice extends JsPopupLoadingFormDataBaseWithDataTable
                     str += ' dlvyAditAmt="' + row.dlvyAditAmt+'"';
 
                     str += '>';
+                    str += '</div>';
                 
 
                     return str;
