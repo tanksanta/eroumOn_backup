@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ArrayUtil;
 import icube.common.util.HtmlUtil;
@@ -350,6 +352,10 @@ public class GdsController extends CommonAbstractController {
 				GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
 				model.addAttribute("curCtgryVO", currentCategory);
 
+				ObjectMapper mapper  = new ObjectMapper();
+				String gdsVOJson =  mapper.writeValueAsString(gdsVO);
+				model.addAttribute("gdsVOJson", gdsVOJson);
+				
 			} else {
 				model.addAttribute("alertMsg", getMsg("goods.sale.stop"));
 				return "/common/msg";
@@ -359,7 +365,7 @@ public class GdsController extends CommonAbstractController {
 			return "/common/msg";
 		}
 
-		return "/market/gds/view";
+		return "/market/gds/view2";
 	}
 
 
