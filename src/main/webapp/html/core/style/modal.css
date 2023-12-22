@@ -41,7 +41,7 @@
       }
     }
     & .modal-body, & .modal-body-scrolled {
-      @apply scrollbars py-5 px-3 md:p-5;
+      @apply scrollbars py-4 px-0 md:p-5;
       overflow: overlay;
     }
 
@@ -55,9 +55,9 @@
           }
       }
       & .modal-content {
-        @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto p-5 pb-6 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
+        @apply relative flex flex-col w-full sm:w-auto h-auto bg-white rounded-3xl pointer-events-auto pt-5 px-4 pb-6 sm:pt-7 sm:px-7 sm:pb-11 shadow-2xl border-none;
         &.modal-content-inner {
-          &.modal-body {
+          & .modal-body {
             @apply overflow-auto;
           }
         }
@@ -87,7 +87,7 @@
       
       }
       & .modal-body {
-        @apply flex flex-col justify-start px-2.5 py-4 md:px-5 md:py-8 gap-2.5;
+        @apply flex flex-col justify-start gap-2.5;
         min-height: auto;
         & .text-subtitle {
           @apply flex flex-row items-start gap-2 text-sm tracking-tighter;

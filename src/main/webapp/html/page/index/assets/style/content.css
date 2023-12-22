@@ -1920,6 +1920,10 @@
 }
 
 .rcpts-select-content, .regist-lno, .regist-rcpts{
+
+    & .modal-footer {
+        @apply mb-2;
+    }
      &.active {
         @apply fadeIn;
     }

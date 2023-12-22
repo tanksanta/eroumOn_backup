@@ -106,6 +106,13 @@
     /******************** checkbox ********************/
     .form-check {
         @apply inline-block overflow-hidden text-sm leading-normal align-middle cursor-pointer select-none;
+
+        &.with-form {
+            overflow: initial !important;
+            & .form-check-input {
+                @apply  mt-[0.5em];
+            }
+        }
         & .form-check-input {
             @apply float-left mt-[0.125em] h-[1.25em] border border-gray1 bg-no-repeat bg-contain bg-white appearance-none cursor-pointer;
             &:checked {
@@ -120,6 +127,7 @@
             &.with-input {
                 @apply mt-[0.45em] md:mt-[0.55em] w-[1.3em];
             }
+
         }
         & .form-check-label {
             @apply inline-block cursor-pointer;
@@ -352,6 +360,7 @@
                         @apply md-max:text-left md-max:ml-12;
                     }
                 }
+               
             }
 
             & .img-senior {
@@ -442,8 +451,8 @@
         }
         &.type2 {
             > input {
-                @apply xs-max:w-[calc(100%-2rem)];
-             }
+                @apply xs-max:w-full;
+            }
         }
         > input { 
             @apply indent-2 !text-base ;

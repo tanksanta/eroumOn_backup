@@ -155,7 +155,7 @@
                     @apply translate-y-0 opacity-100;
                 }
                 & .btn {
-                    @apply opacity-100;
+                    opacity: 100%;
                 }
             }
         }

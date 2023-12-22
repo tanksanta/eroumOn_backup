@@ -24,7 +24,8 @@
             <a href="#modal4"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal4">4.수급자등록알림-jsp적용</a>
             <a href="#modal5"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal5">5.수급자등록확인-jsp적용</a>
             <a href="#modal6"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal6">6.수급자등록</a>
-            <a href="#modalError"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalError">7.오류</a>
+            <a href="#modal7"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal7">7.등록된 수급자가 없을 때</a>
+            <a href="#modalError"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalError">0.오류</a>
 
         </div>
         <!--1.수급자 등록-->
@@ -92,7 +93,7 @@
                                             <div class="text-index1 mb-2">요양인정번호는</div>
                                             <div>
                                                 <label for="rcpt-lno" class="rcpt-lno">
-                                                    <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control w-48">
+                                                    <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
                                                 </label>
                                                 <span>입니다</span>
                                             </div>
@@ -103,7 +104,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-warning btn-large w-5/6 md:w-2/3 disabled" disabled onclick="startLoginNoRcpt();">등록하기</button>
+                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2 disabled" disabled onclick="startLoginNoRcpt();">등록하기</button>
                     </div>
                 </div>
             </div>
@@ -140,7 +141,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-warning btn-large w-5/6 md:w-2/3">확인</button>
+                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">확인</button>
                     </div>
                 </div>
             </div>
@@ -166,6 +167,9 @@
                             </div>
                         </div>
                         <div class="modal-body">
+                            <div class="flex justify-end">
+                                <a href="/membership/info/recipients/list" class="btn-black btn-small w-auto gap-1">수급자 관리 <i class="icon-arrow-right-white"></i></a>
+                            </div>
                             <div class="radio-check-group">
                                 <p class="text-base ml-2">요양정보 조회 가능</p><!--인정등급테스트에서는 삭제-->
                                 <div  class="form-check">
@@ -224,7 +228,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-warning btn-large w-2/3">요양정보 등록하기</button>
+                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">요양정보 조회하기</button>
                         </div>
                     </div>
                     <!--추가등록-->
@@ -293,7 +297,7 @@
                                                 <div class="text-index1 mb-2">요양인정번호는</div>
                                                 <div>
                                                     <label for="rcpt-lno" class="rcpt-lno">
-                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control w-48">
+                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
                                                     </label>
                                                     <span>입니다</span>
                                                 </div>
@@ -304,8 +308,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-outline-primary btn-large rcpts-back">이전으로</button>
-                            <button type="button" class="btn-warning btn-large w-2/3 md:w-1/2" onclick="startLoginNoRcpt();">등록하기</button>
+                            <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
+                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="startLoginNoRcpt();">등록하기</button>
                         </div>
                     </div>
                     <!--요양정보등록-->
@@ -334,7 +338,7 @@
                                                 <div class="text-index1 mb-2">요양인정번호는</div>
                                                 <div>
                                                     <label for="rcpt-lno" class="rcpt-lno">
-                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control w-48">
+                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
                                                     </label>
                                                     <span>입니다</span>
                                                 </div>
@@ -346,14 +350,14 @@
                             <div>
                                 <p class="text-center font-medium mt-8 mb-2">정보가 잘못되었나요?</p>
                                 <div class="text-center">
-                                    <span class="text-path-box">마이페이지 &lt; 수급자관리</span>
+                                    <a href="/membership/info/recipients/list" class="text-path-box">마이페이지 &gt; 수급자관리</a>
                                     <span>에서 수정할 수 있어요</span>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-outline-primary btn-large rcpts-back">이전으로</button>
-                            <button type="button" class="btn-warning btn-large w-2/3 md:w-1/2" onclick="startLoginNoRcpt();">인정번호 등록하기</button>
+                            <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
+                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="startLoginNoRcpt();">인정번호 등록하기</button>
                         </div>
                     </div>
 
@@ -378,7 +382,7 @@
                         </div>
                     </div>
                     <div class="modal-footer gap-1">
-                        <button type="button" class="btn-warning btn-large w-full md:w-1/2" data-bs-dismiss="modal" class="btn-close">상담내역 확인하기</button>
+                        <button type="button" class="btn-warning large2 w-full md:w-1/2" data-bs-dismiss="modal" class="btn-close">상담내역 확인하기</button>
                     </div>
                 </div>
             </div>
@@ -424,7 +428,7 @@
                     </script>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn-warning btn-large flex-1 md:flex-none md:w-2/3">신청내역 보러가기</a>
+                    <a href="#" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">신청내역 보러가기</a>
                 </div>
                 </div>
             </div>
@@ -463,8 +467,54 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-large btn-outline-primary">취소하기</button>
-                        <button type="button" class="btn-warning btn-large flex-1 md:flex-none md:w-1/3">상담신청하기</button>
+                        <button type="button" class="btn large2 btn-outline-black">취소하기</button>
+                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">상담신청하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7.등록된 수급자가 없을 때 -->
+        <div class="modal modal-default fade" id="modal7" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">요양인정번호 유무</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+                    <div class="additional-wrap">
+                        <div class="additional">
+                            <i class="icon-alert"></i>
+                            <p>요양인정등급을 받으신 경우 ‘있어요' 를 선택해 주세요</p>
+                        </div>
+                        <div class="additional">
+                            <i class="icon-alert"></i>
+                            <p>요양인정등급이 없어도 상담이 가능해요</p>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="radio-check-group">
+                            <div  class="form-check">
+                                <input class="form-check-input" type="radio" name="rcpts-yn" id="rcpts-yn1">
+                                <label class="form-check-label" for="rcpts-yn1">
+                                    <span class="text-center">있어요</span>
+                                </label>
+                            </div>
+                            <div  class="form-check">
+                                <input class="form-check-input" type="radio" name="rcpts-yn" id="rcpts-yn2">
+                                <label class="form-check-label text-center" for="rcpts-yn2">
+                                    <span class="text-center">없어요</span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rcpts-yn" id="rcpts-yn3">
+                                <label class="form-check-label text-center" for="rcpts-yn3">
+                                    <span class="text-center"></span>기억이 안나요
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -498,35 +548,9 @@
 
     <script src="../../../core/vendor/twelements/index.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    
-            function tabCheckEvent(name, css) {
-                const tabWrap = document.querySelector(`.radio-tabs-wrap[data-name="${name}"]`);
-                tabWrap.addEventListener('change', ({ target }) => {
-                    if (target.name !== name) return;
-    
-                    const tabToShow = tabWrap.querySelector(`.tab.${target.value}`);
-                    const tabs = tabWrap.querySelectorAll(`.tab.${css}`);
-                    tabs.forEach(tab => tab.classList.add('hidden'));
-                    tabToShow.classList.remove('hidden');
-    
-                    console.log(tabs, name, css, target.value)
-    
-                    const labels = tabWrap.querySelectorAll('label');
-                    labels.forEach(label => {
-                        if (label !== target.closest('label')) {
-                            label.classList.remove('is-active');
-                        } else {
-                            label.classList.add('is-active');
-                        }
-                    });
-                });
-            }
-            tabCheckEvent('userType', 'tab');
-            tabCheckEvent('userTypeB', 'tab');
-        });
 
         $(function () {
+            //수급자 등록, 요양정보 등록 팝업 div높이 구하기
             $('#rcpts-select').on('shown.bs.modal', function () {
                 var modalContentHeight = $('.modal-content-inner').outerHeight();
                 var modalHeaderHeight = $('.modal-content-inner .modal-header').outerHeight();
@@ -536,6 +560,7 @@
                 $('.modal-body').css('max-height', maxModalHeight + 'px');
             });
 
+            //수급자 등록, 요양정보 등록
             $('#add-rcpts').click(function () {
                 $('.regist-rcpts').removeClass('inactive').addClass('active');
                 $('.rcpts-select-content').removeClass('active').addClass('inactive');
@@ -551,6 +576,26 @@
                 $('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
                 $('.regist-lno').removeClass('inactive').addClass('active');
             });
+
+            //수급자 등록 라디오버튼 탭 컨텐츠
+            function tabCheckEvent(name, css) {
+                const tabWrap = $('.radio-tabs-wrap[data-name="'+ name+'"]');
+                tabWrap.on('change', ':radio', function() {
+                    if ($(this).attr('name') !== name) return;
+
+                    const tabToShow = tabWrap.find('.tab.'+ $(this).val());
+                    const tabs = tabWrap.find('.tab.'+css);
+                    tabs.addClass('hidden');
+                    tabToShow.removeClass('hidden');
+
+                    const labels = tabWrap.find('label');
+                    labels.removeClass('is-active');
+                    $(this).closest('label').addClass('is-active');
+                });
+            }
+
+            tabCheckEvent('userType', 'tab');
+            tabCheckEvent('userTypeB', 'tab');
         });
 
 

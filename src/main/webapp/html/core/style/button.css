@@ -4,19 +4,17 @@
         @apply transition-[transform,background-color,background-image,border] duration-300 cursor-pointer select-none
                active:scale-[0.98] active:translate-y-0.5;
     }
-    
-    .btn {
-        @apply press-action inline-flex flex-wrap justify-center items-center relative py-0.5 px-4.5 h-9 overflow-hidden border border-gray1 rounded-md bg-white text-center leading-none font-medium text-sm align-middle
-               hover:bg-gray2
-               focus:border-gray4 focus:bg-gray2 focus:ring-0.5 focus:ring-offset-0 focus:ring-gray4/20
-               active:border-gray1 active:bg-white active:shadow-none
-               disabled:!cursor-none disabled:!pointer-events-none disabled:!border-[#ccc] disabled:!bg-[#ccc] disabled:!text-white;
+
+    .btn-size {
         &.shadow {
             @apply shadow-[0px_0.154em_0.154em_#00000027]
                    active:!shadow-none;
         }
         &.large {
             @apply h-12 text-base px-6 font-bold;
+        }
+        &.large2 {
+            @apply h-14 text-base px-6 font-bold;
         }
         &.xlarge {
             @apply h-15 text-base px-7.5 font-bold;
@@ -31,8 +29,48 @@
             @apply mx-auto;
         }
         &.disabled {
-            @apply !cursor-none !pointer-events-none !border-[#ccc] !bg-[#ccc] !text-white;
+            @apply !cursor-none !pointer-events-none !border-gray2 !bg-gray2 !text-gray1;;
         }
+    }
+    
+    .btn {
+        @apply press-action btn-size inline-flex flex-wrap justify-center items-center relative py-0.5 px-4.5 h-9 overflow-hidden border border-gray1 rounded-md bg-white text-center leading-none font-medium text-sm align-middle
+               hover:bg-gray2
+               focus:border-gray4 focus:bg-gray2 focus:ring-0.5 focus:ring-offset-0 focus:ring-gray4/20
+               active:border-gray1 active:bg-white active:shadow-none
+               disabled:!cursor-none disabled:!pointer-events-none disabled:!border-[#ccc] disabled:!bg-[#ccc] disabled:!text-white;
+        /* &.shadow {
+            @apply shadow-[0px_0.154em_0.154em_#00000027]
+                   active:!shadow-none;
+        }
+        &.large {
+            @apply h-12 text-base px-6 font-bold;
+        }
+        &.large2 {
+            @apply h-14 text-base px-6 font-bold;
+        }
+        &.xlarge {
+            @apply h-15 text-base px-7.5 font-bold;
+        }
+        &.small {
+            @apply px-4 h-8 rounded;
+        }
+        &.tiny {
+            @apply py-0.5 px-2 h-7 rounded text-xs;
+        }
+        & img[src*="-loader"] {
+            @apply mx-auto;
+        }
+        &.disabled {
+            @apply !cursor-none !pointer-events-none !border-gray2 !bg-gray2 !text-gray1;;
+        } */
+    }
+
+    .btn2 {
+        @apply press-action btn-size inline-flex flex-wrap justify-center items-center relative py-0.5 px-4.5 h-9 overflow-hidden border rounded-md  text-center leading-none font-medium text-sm align-middle
+            focus:ring-0.5 focus:ring-offset-0 focus:ring-gray4/20
+            active:shadow-none
+            disabled:!cursor-none disabled:!pointer-events-none disabled:!border-[#ccc] disabled:!bg-[#ccc] disabled:!text-white;
     }
 
     .btn-primary, .btn-outline-primary {
@@ -143,6 +181,26 @@
                hover:bg-blue2
                focus:bg-blue2
                active:bg-white;
+    }
+
+    .btn-black, .btn-outline-black {
+        @apply btn2 border-black2 !border  
+               hover:border-black2 hover:ring-black2/10
+               focus:border-black2 focus:ring-black2/10
+               active:border-black2 active:ring-black2/10;
+    }
+
+    .btn-black {
+        @apply !bg-black2 text-white
+               hover:!bg-black2
+               focus:!bg-black2
+               active:!bg-black2;
+    }
+    .btn-outline-black {
+        @apply bg-white text-black2
+               hover:!bg-white
+               focus:!bg-white
+               active:!bg-white;
     }
     
     .btn-kakao, .btn-naver, .btn-eroum {
