@@ -90,7 +90,7 @@ class JsMarketGdsView{
                 qyObj.val(Number(qyObj.val()) - 1);
             }
             pObj.find(".quantity strong").text(qyObj.val());
-			pObj.find(".price strong").text(qyObj.val() * gdsPc);
+			pObj.find(".price strong").text((qyObj.val() * gdsPc).format_money());
         } else {
             alert("현재 상품의 재고수량은 총 ["+ stockQy +"] 입니다.");
             alert("해당 제품은 총 "+ stockQy +" 개 까지 구매 가능합니다.");
@@ -109,7 +109,7 @@ class JsMarketGdsView{
         if(Number(qyObj.val()) > 1){
             qyObj.val(Number(qyObj.val()) - 1);
             pObj.find(".quantity strong").text(qyObj.val());
-			pObj.find(".price strong").text(qyObj.val() * gdsPc);
+			pObj.find(".price strong").text((qyObj.val() * gdsPc).format_money());
         } else {
             // nothing
         }

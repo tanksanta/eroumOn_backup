@@ -1147,7 +1147,9 @@ var Goods = (function(){
 							alert("장바구니에 담겨있는 상품입니다.");
 						}else{
 							$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
-							alert("장바구니에 담았습니다.");
+							if (confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")){
+								window.location.href = "${_marketPath}/mypage/cart/list";
+							}
 						}
 					}else{
 						alert("장바구니 담기에 실패하였습니다.\n잠시후 다시 시도해 주시기 바랍니다.")
