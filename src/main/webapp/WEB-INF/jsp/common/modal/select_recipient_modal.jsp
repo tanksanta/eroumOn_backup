@@ -10,13 +10,13 @@
                     </div>
                     <div class="additional">
                         <i class="icon-alert"></i>
-                        <p>요양정보를 조회할 수급자(어르신)를 등록해 주세요</p>
+                        <p class="sr-guide-mention-1"></p>
                     </div>
                     <div class="modal-body">
                         <div class="radio-tabs-wrap" data-name="userType">
                             <div class="radio-tabs-button">
                                 <label for="tab1" class="form-check-radio is-active">
-                                    <input type="radio"  name="userType" value="tab1" id="tab1" class="form-check-input" checked/>
+                                    <input type="radio" name="userType" value="tab1" id="tab1" class="form-check-input" checked/>
                                     <span>가족</span>
                                 </label>
                                 <label for="tab2" class="form-check-radio">
@@ -44,7 +44,7 @@
                                                 <span>입니다</span>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li id="regist-rcpt-lno">
                                             <div class="text-index1">요양인정번호는</div>
                                             <div> 
                                                 <label for="rcpt-lno" class="rcpt-lno">
@@ -59,9 +59,10 @@
                                     <div class="flex flex-col gap-4">
                                         <div>
                                             <strong class="text-xl">홍길동</strong>
-                                            <span>님의</span>
+                                            <span class="regist-rcpt-lno-yes">님의</span>
+                                            <span class="regist-rcpt-lno-no">님</span>
                                         </div>
-                                        <div class="bg-white rounded-md p-5">
+                                        <div class="bg-white rounded-md p-5 regist-rcpt-lno-yes">
                                             <div class="text-index1 mb-2">요양인정번호는</div>
                                             <div>
                                                 <label for="rcpt-lno" class="rcpt-lno">
@@ -69,6 +70,9 @@
                                                 </label>
                                                 <span>입니다</span>
                                             </div>
+                                        </div>
+                                        <div class="bg-white rounded-md p-5 regist-rcpt-lno-no">
+                                            <div class="text-index1 mb-2">본인을 수급자(어르신)로 등록하시겠습니까?</div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +96,7 @@
                     </div>
                     <div class="additional">
                         <i class="icon-alert"></i>
-                        <p>수급자(어르신) 정보가 올바른지 확인 후 요양정보를 조회하세요</p>
+                        <p class="sr-guide-mention-1"></p>
                     </div>
                     <div class="modal-body">
                         <div class="bg-box-beige">
@@ -131,11 +135,11 @@
                         <div class="additional-wrap">
                             <div class="additional">
                                 <i class="icon-alert"></i>
-                                <p> 수급자(어르신) 선택 후 요양정보를 조회하세요</p>
+                                <p class="sr-guide-mention-1"></p>
                             </div>
                             <div class="additional">
                                 <i class="icon-alert"></i>
-                                <p> 요양정보를 조회하려면 요양인정번호가 필요해요</p>
+                                <p class="sr-guide-mention-2"></p>
                             </div>
                         </div>
                         <div class="modal-body">
@@ -214,7 +218,7 @@
                         </div>
                         <div class="additional">
                             <i class="icon-alert"></i>
-                            <p>요양정보를 조회할 수급자(어르신)를 등록해 주세요</p>
+                            <p class="sr-guide-mention-1"></p>
                         </div>
                         <div class="modal-body">
                             
@@ -295,7 +299,7 @@
                         </div>
                         <div class="additional">
                             <i class="icon-alert"></i>
-                            <p>수급자(어르신)의 요양인정번호를 등록해 주세요</p>
+                            <p class="sr-guide-mention-1"></p>
                         </div>
                         <div class="modal-body">
                             
@@ -447,7 +451,7 @@
         </div>
 
         <!-- 7.등록된 수급자가 없을 때 -->
-        <div class="modal modal-default fade" id="modal7" tabindex="-1" aria-hidden="true">
+        <div class="modal modal-default fade" id="sr-lno-check-modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -492,33 +496,9 @@
             </div>
         </div>
 
-
-        <!-- 예상치 못한 오류 팝업 -->
-        <div class="modal modal-default fade" id="modalError" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
-                    <div class="modal-body md:min-w-[26rem]">
-                        <!-- 예상치 못한 오류로 결과를 확인할 수 없는 상황에 호출되는 모달(팝업) -->
-                        <div class="flex flex-col items-center text-xl">
-                            <i class="ico-alert orange mb-8"></i>
-                            <p>죄송합니다</p>
-                            <p><strong>일시적 오류</strong>가 발생했습니다</p>
-                            <p>잠시후 다시 시도해 주세요</p>
-                        </div>
-                        <!--// 예상치 못한 오류로 결과를 확인할 수 없는 상황에 호출되는 모달(팝업) -->
-                    </div>
-                    <div class="modal-footer">
-                        <a href="/main/cntnts/test" class="btn btn-primary">테스트 시작하기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 		
         
-        <script src="../../../core/vendor/twelements/index.min.js"></script>
+        <script src="/html/core/vendor/twelements/index.min.js"></script>
 	    <script>
 	
 	        $(function () {
@@ -576,7 +556,9 @@
 	        var sr_mbrNm = null;
 	    	var sr_recipients = null;
 	    	var sr_prevPath = ''; 
+	    	var sr_lnoCheck = null;
         
+	    	//수급자 정보 조회 후 수급자 선택모달 띄우기 요청
         	function openSelectRecipientModal(prevPath) {
         		sr_prevPath = prevPath;
         		
@@ -600,6 +582,9 @@
             			if (sr_prevPath === 'test') {
             				location.href='/membership/login?returnUrl=/main/cntnts/test';	
             			}
+            			else if (sr_prevPath === 'equip_ctgry') {
+            				location.href='/membership/login?returnUrl=/main/welfare/equip/sub';	
+            			}
             		}
             	})
             	.fail(function(data, status, err) {
@@ -607,16 +592,63 @@
     			});
         	}
         	
+	    	//수급자 선택 모달을 띄울지 L번호 있어요 모달을 띄울지 결정
         	function modalSelectRecipient() {
         		//등록된 수급자가 없는 경우
         		if (!sr_recipients || sr_recipients.length === 0) {
-        			$('#regist-rcpt').modal('show');
+        			//인정등급상담은 L번호 있어요, 없어요 모달 스킵
+        			if (sr_prevPath === 'test') {
+        				//등록 모달폼 띄우기
+        				openAddRecipientSrModal('N');
+        			} else {
+        				$('#sr-lno-check-modal').modal('show');        				
+        			}
         		}
         		//회원에 등록된 수급자가 있는 경우
         		else {
         			
-        			
         			//추가 등록은 4명 미만인 경우 가능
         		}
         	}
+        	
+	    	//L번호 있어요 또는 없어요 선택 시 등록폼을 다르게 구성
+	    	function openAddRecipientSrModal(answer) {
+	    		sr_lnoCheck = answer;
+	    		
+	    		//있어요 인 경우 L번호가 포함된 모달폼
+	    		if (sr_lnoCheck === 'Y') {
+	    			$('#regist-rcpt-lno').css('display','flex');
+	    			
+	    			$('.regist-rcpt-lno-no').css('display','none');
+	    			$('span.regist-rcpt-lno-yes').css('display','inline');
+	    			$('div.regist-rcpt-lno-yes').css('display','block');
+	    		}
+	    		//없어요 또는 기억이 안나요 선택시 L번호 미포함 모달폼
+	    		else {
+	    			$('#regist-rcpt-lno').css('display','none');
+	    			
+	    			$('.regist-rcpt-lno-yes').css('display','none');
+	    			$('span.regist-rcpt-lno-no').css('display','inline');
+	    			$('div.regist-rcpt-lno-no').css('display','block');
+	    		}
+	    		
+	    		updateGuideMentionInSrModal(['테스트를 진행할 수급자(어르신)를 등록해 주세요']);
+	    		$('#regist-rcpt').modal('show');
+	    	}
+	    	
+	    	//모달에 안내문구 수정 함수
+        	function updateGuideMentionInSrModal(mentArray) {
+	    		if (mentArray && mentArray.length > 0) {
+	    			for (var i = 0; i < mentArray.length; i++) {
+	    				$('.sr-guide-mention-' + (i + 1)).text(mentArray[i]);	    				
+	    			}
+	    		}
+	    	}
+	    	
+	    	//수급자 등록하기(수급자 없을 때 모달에서)
+	    	function addRecipientInSrNoReciModal() {
+	    		$('input[name=userType]:checked').val();
+	    	}
+	    	
+	    	
         </script>
