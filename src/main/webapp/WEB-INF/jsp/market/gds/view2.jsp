@@ -746,7 +746,7 @@
 
 								<div class="payment-price">
 									<p class="text-price">
-										총 구매 금액 <strong id="totalPrice">0</strong> <span>원</span>
+										총갯수<strong id="totalQy">0</strong>개 총 구매 금액 <strong id="totalPrice">0</strong> <span>원</span>
 									</p>
 								</div>
 
@@ -973,20 +973,20 @@ var Goods = (function(){
 
 			if(ordrTy == "R" || ordrTy == "L"){
 				$(".recpBtn").removeClass("btn-primary").addClass("btn-danger")
-			<c:choose>
-				<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
-				gdsPc = ${gdsVO.bnefPc15};
-				</c:when>
-				<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
-				gdsPc = ${gdsVO.bnefPc9};
-				</c:when>
-				<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
-				gdsPc = ${gdsVO.bnefPc6};
-				</c:when>
-				<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
-				gdsPc = 0;
-				</c:when>
-			</c:choose>
+				<c:choose>
+					<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 15 }">
+					gdsPc = ${gdsVO.bnefPc15};
+					</c:when>
+					<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 9 }">
+					gdsPc = ${gdsVO.bnefPc9};
+					</c:when>
+					<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 6 }">
+					gdsPc = ${gdsVO.bnefPc6};
+					</c:when>
+					<c:when test="${_mbrSession.prtcrRecipterInfo.selfBndRt == 0 }">
+					gdsPc = 0;
+					</c:when>
+				</c:choose>
 				$(".payment-partners, .payment-guide").show();
 			//}else if(ordrTy == "L"){
 			//	gdsPc = ${gdsVO.lendPc};

@@ -79,6 +79,8 @@ class JsMarketGdsView{
         var pObj = jobjTarget.parents(".product-quanitem");
         var qyObj = pObj.find("input[name='ordrQy']");
         var stockQy = qyObj.data("stockQy");
+		var ordrOptnTy = pObj.find("input[name='ordrOptnTy']").val();
+		var gdsPc  = (ordrOptnTy=='BASE')?pObj.find("input[name='gdsPc']").val():pObj.find("input[name='ordrOptnPc']").val();
 
         // 주문수량
         if(Number(qyObj.val()) < stockQy){
@@ -88,6 +90,7 @@ class JsMarketGdsView{
                 qyObj.val(Number(qyObj.val()) - 1);
             }
             pObj.find(".quantity strong").text(qyObj.val());
+			pObj.find(".price strong").text(qyObj.val() * gdsPc);
         } else {
             alert("현재 상품의 재고수량은 총 ["+ stockQy +"] 입니다.");
             alert("해당 제품은 총 "+ stockQy +" 개 까지 구매 가능합니다.");
@@ -99,11 +102,14 @@ class JsMarketGdsView{
         var pObj = jobjTarget.parents(".product-quanitem");
         var qyObj = pObj.find("input[name='ordrQy']");
         var stockQy = qyObj.data("stockQy");
+		var ordrOptnTy = pObj.find("input[name='ordrOptnTy']").val();
+		var gdsPc  = (ordrOptnTy=='BASE')?pObj.find("input[name='gdsPc']").val():pObj.find("input[name='ordrOptnPc']").val();
 
         // 주문수량
         if(Number(qyObj.val()) > 1){
             qyObj.val(Number(qyObj.val()) - 1);
             pObj.find(".quantity strong").text(qyObj.val());
+			pObj.find(".price strong").text(qyObj.val() * gdsPc);
         } else {
             // nothing
         }
@@ -117,6 +123,7 @@ class JsMarketGdsView{
 		
     f_totalPrice(){
 		var totalPrice = 0;
+		var totalQy = 0;
 		var gdsPc = 0;
 		var gdsOptnPc = 0;
 		var ordrQy = 1;
@@ -125,9 +132,11 @@ class JsMarketGdsView{
 			gdsOptnPc = $(this).find("input[name='ordrOptnPc']").val();
 			ordrQy = $(this).find("input[name='ordrQy']").val();
 
+			totalQy += Number(ordrQy);
 			totalPrice = Number(totalPrice) + (Number(gdsPc) + Number(gdsOptnPc)) * Number(ordrQy);
 		});
 		//console.log("###### totalPrice", comma(totalPrice));
+		$("#totalQy").text(comma(totalQy));
 		$("#totalPrice").text(comma(totalPrice));
 	}
     
