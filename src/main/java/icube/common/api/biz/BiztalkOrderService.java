@@ -492,7 +492,7 @@ public class BiztalkOrderService extends BiztalkApiService {
 
 
 		jsonStr = "{" + " \"name\":\"구매확정하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
-		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/market");
+		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/market/mypage/ordr/list");
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		btns.add(jsonObject);
 
@@ -535,7 +535,7 @@ public class BiztalkOrderService extends BiztalkApiService {
 
 
 		jsonStr = "{" + " \"name\":\"다른 상품도 구경하기\"," + " \"type\":\"WL\"" + " , \"url_mobile\":\"#{url}\", \"url_pc\":\"#{url}\"}" ;
-		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/market");
+		jsonStr = jsonStr.replace("#{url}", this.eroumOnHost + "/market/mypage/ordr/list");
 		jsonObject= (JSONObject) jsonParser.parse(jsonStr);
 		btns.add(jsonObject);
 
