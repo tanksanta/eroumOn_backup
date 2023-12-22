@@ -1,34 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>Modal-수급자모달개선(index)</title>
-
-    <!-- plugin -->
-    <script src="../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
-
-    <link rel="stylesheet" href="../assets/style/style.min.css">
-    <script src="../assets/script/index.js"></script>
-
-</head>
-
-<body>
-    <main>
-        <div class="flex flex-wrap gap-4 p-10">
-            <a href="#regist-rcpt"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#regist-rcpt">1.수급자등록</a>
-            <a href="#rcpts-conform"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#rcpts-conform">2.수급자정보확인</a>
-            <a href="#rcpts-select"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#rcpts-select">3.수급자선택,추가,요양정보등록</a>
-            <a href="#modal4"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal4">4.수급자등록알림-jsp적용</a>
-            <a href="#modal5"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal5">5.수급자등록확인-jsp적용</a>
-            <a href="#modal6"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal6">6.수급자등록</a>
-            <a href="#modal7"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal7">7.등록된 수급자가 없을 때</a>
-            <a href="#modalError"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalError">0.오류</a>
-
-        </div>
-        <!--1.수급자 등록-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+		
+		<!--1.수급자 등록-->
         <div class="modal modal-default fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -544,62 +516,107 @@
             </div>
         </div>
 
-    </main>
-
-    <script src="../../../core/vendor/twelements/index.min.js"></script>
-    <script>
-
-        $(function () {
-            //수급자 등록, 요양정보 등록 팝업 div높이 구하기
-            $('#rcpts-select').on('shown.bs.modal', function () {
-                var modalContentHeight = $('.modal-content-inner').outerHeight();
-                var modalHeaderHeight = $('.modal-content-inner .modal-header').outerHeight();
-                var modalFooterHeight = $('.modal-content-inner .modal-footer').outerHeight();
-                var additionalHeight = $('.modal-content-inner .additional-wrap').outerHeight();
-                var maxModalHeight = $(window).height() - (modalHeaderHeight + modalFooterHeight + additionalHeight) - 80;
-                $('.modal-body').css('max-height', maxModalHeight + 'px');
-            });
-
-            //수급자 등록, 요양정보 등록
-            $('#add-rcpts').click(function () {
-                $('.regist-rcpts').removeClass('inactive').addClass('active');
-                $('.rcpts-select-content').removeClass('active').addClass('inactive');
-                $('.regist-lno').removeClass('active').addClass('inactive');
-            });
-
-            $('.rcpts-back').click(function () {
-                $('.regist-rcpts, .regist-lno').removeClass('active').addClass('inactive');
-                $('.rcpts-select-content').removeClass('inactive').addClass('active');
-            });
-
-            $('.add-lno').click(function () {
-                $('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
-                $('.regist-lno').removeClass('inactive').addClass('active');
-            });
-
-            //수급자 등록 라디오버튼 탭 컨텐츠
-            function tabCheckEvent(name, css) {
-                const tabWrap = $('.radio-tabs-wrap[data-name="'+ name+'"]');
-                tabWrap.on('change', ':radio', function() {
-                    if ($(this).attr('name') !== name) return;
-
-                    const tabToShow = tabWrap.find('.tab.'+ $(this).val());
-                    const tabs = tabWrap.find('.tab.'+css);
-                    tabs.addClass('hidden');
-                    tabToShow.removeClass('hidden');
-
-                    const labels = tabWrap.find('label');
-                    labels.removeClass('is-active');
-                    $(this).closest('label').addClass('is-active');
-                });
-            }
-
-            tabCheckEvent('userType', 'tab');
-            tabCheckEvent('userTypeB', 'tab');
-        });
-
-
-    </script>
-
-</body>
-</html>
+		
+        
+        <script src="../../../core/vendor/twelements/index.min.js"></script>
+	    <script>
+	
+	        $(function () {
+	            //수급자 등록, 요양정보 등록 팝업 div높이 구하기
+	            $('#rcpts-select').on('shown.bs.modal', function () {
+	                var modalContentHeight = $('.modal-content-inner').outerHeight();
+	                var modalHeaderHeight = $('.modal-content-inner .modal-header').outerHeight();
+	                var modalFooterHeight = $('.modal-content-inner .modal-footer').outerHeight();
+	                var additionalHeight = $('.modal-content-inner .additional-wrap').outerHeight();
+	                var maxModalHeight = $(window).height() - (modalHeaderHeight + modalFooterHeight + additionalHeight) - 80;
+	                $('.modal-body').css('max-height', maxModalHeight + 'px');
+	            });
+	
+	            //수급자 등록, 요양정보 등록
+	            $('#add-rcpts').click(function () {
+	                $('.regist-rcpts').removeClass('inactive').addClass('active');
+	                $('.rcpts-select-content').removeClass('active').addClass('inactive');
+	                $('.regist-lno').removeClass('active').addClass('inactive');
+	            });
+	
+	            $('.rcpts-back').click(function () {
+	                $('.regist-rcpts, .regist-lno').removeClass('active').addClass('inactive');
+	                $('.rcpts-select-content').removeClass('inactive').addClass('active');
+	            });
+	
+	            $('.add-lno').click(function () {
+	                $('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
+	                $('.regist-lno').removeClass('inactive').addClass('active');
+	            });
+	
+	            //수급자 등록 라디오버튼 탭 컨텐츠
+	            function tabCheckEvent(name, css) {
+	                const tabWrap = $('.radio-tabs-wrap[data-name="'+ name+'"]');
+	                tabWrap.on('change', ':radio', function() {
+	                    if ($(this).attr('name') !== name) return;
+	
+	                    const tabToShow = tabWrap.find('.tab.'+ $(this).val());
+	                    const tabs = tabWrap.find('.tab.'+css);
+	                    tabs.addClass('hidden');
+	                    tabToShow.removeClass('hidden');
+	
+	                    const labels = tabWrap.find('label');
+	                    labels.removeClass('is-active');
+	                    $(this).closest('label').addClass('is-active');
+	                });
+	            }
+	
+	            tabCheckEvent('userType', 'tab');
+	            tabCheckEvent('userTypeB', 'tab');
+	        });
+	    </script>
+        
+        
+        <script>
+	        var sr_mbrNm = null;
+	    	var sr_recipients = null;
+	    	var sr_prevPath = ''; 
+        
+        	function openSelectRecipientModal(prevPath) {
+        		sr_prevPath = prevPath;
+        		
+        		$.ajax({
+            		type : "post",
+    				url  : "/membership/info/myinfo/getMbrInfo.json",
+    				dataType : 'json'
+            	})
+            	.done(function(data) {
+            		//로그인 한 경우
+            		if (data.isLogin) {
+            			//ajax 받아온 데이터 저장
+            			sr_mbrNm = data.mbrVO.mbrNm;
+            			sr_recipients = data.mbrRecipients;
+            			
+            			modalSelectRecipient();
+            		}
+            		//로그인 안한 경우
+            		else {
+            			//테스트는 로그인 안할 때 띄우는 폼이 따로 있어 실제 실행은 안된다.
+            			if (sr_prevPath === 'test') {
+            				location.href='/membership/login?returnUrl=/main/cntnts/test';	
+            			}
+            		}
+            	})
+            	.fail(function(data, status, err) {
+            		alert('서버와 연결이 좋지 않습니다.');
+    			});
+        	}
+        	
+        	function modalSelectRecipient() {
+        		//등록된 수급자가 없는 경우
+        		if (!sr_recipients || sr_recipients.length === 0) {
+        			$('#regist-rcpt').modal('show');
+        		}
+        		//회원에 등록된 수급자가 있는 경우
+        		else {
+        			
+        			
+        			//추가 등록은 4명 미만인 경우 가능
+        		}
+        	}
+        </script>
