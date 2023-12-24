@@ -537,21 +537,36 @@ public class MbrsInfoController extends CommonAbstractController{
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
 		try {
 			//수급자 회원 등록 최대수 확인(최대 4명)
 			List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
 			if (srchMbrRecipientList.size() > 3) {
-				resultMap.put("success", false);
 				resultMap.put("msg", "더 이상 수급자(어르신)를 등록할 수 없습니다");
 				return resultMap;
 			}
 			
 			//동일한 수급자 이름 등록 체크
 			if (srchMbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm())).count() > 0) {
-				resultMap.put("success", false);
 				resultMap.put("msg", "이미 등록한 수급자입니다");
 				return resultMap;
+			}
+			
+			//본인과 배우자는 한명만 등록이 가능
+			if ("007".equals(relationCd)) {
+				boolean alreadyExistMe = srchMbrRecipientList.stream().anyMatch(mr -> "007".equals(mr.getRelationCd()));
+				if (alreadyExistMe) {
+					resultMap.put("msg", "본인은 한명만 등록이 가능합니다");
+					return resultMap;
+				}
+			}
+			if ("001".equals(relationCd)) {
+				boolean alreadyExistSpouse = srchMbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));
+				if (alreadyExistSpouse) {
+					resultMap.put("msg", "배우자는 한명만 등록이 가능합니다");
+					return resultMap;
+				}
 			}
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
@@ -560,7 +575,6 @@ public class MbrsInfoController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					resultMap.put("success", false);
 					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
 					return resultMap;
 				}

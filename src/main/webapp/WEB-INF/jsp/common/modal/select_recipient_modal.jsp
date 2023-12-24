@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		
 		<!--1.수급자 등록-->
+		<c:if test="${_mbrSession.loginCheck && fn:length(mbrVO.mbrRecipientsList) == 0}">
         <div class="modal modal-default fade" id="regist-rcpt" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -35,7 +36,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="text-index1"><span>${_mbrSession.loginCheck ? _mbrSession.mbrNm : ''} </span>님의</div>
+                                            <div class="text-index1"><span>${_mbrSession.mbrNm} </span>님의</div>
                                             <div> 
                                                 <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-48" required onchange="checkAddRecipientBtnDisable();">
                                                     <option value="" disabled selected hidden>관계선택</option>
@@ -63,7 +64,7 @@
                                 <div class="tab tab2 hidden">
                                     <div class="flex flex-col gap-4">
                                         <div>
-                                            <strong class="text-xl">${_mbrSession.loginCheck ? _mbrSession.mbrNm : ''}</strong>
+                                            <strong class="text-xl">${_mbrSession.mbrNm}</strong>
                                             <span class="regist-rcpt-lno-yes">님의</span>
                                             <span class="regist-rcpt-lno-no">님</span>
                                         </div>
@@ -90,9 +91,11 @@
                 </div>
             </div>
         </div>
+        </c:if>
 
         <!--2.수급자정보확인-->
-        <div class="modal modal-default fade" id="rcpts-confirm" tabindex="-1" aria-hidden="true">      
+        <c:if test="${_mbrSession.loginCheck}">
+        <div class="modal modal-default fade" id="rcpts-confirm" tabindex="-1" aria-hidden="true" style="z-index:10000;">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -127,8 +130,10 @@
                 </div>
             </div>
         </div>
+        </c:if>
 
         <!--3.수급자선택-->
+        <c:if test="${_mbrSession.loginCheck && fn:length(mbrVO.mbrRecipientsList) > 0}">
         <div class="modal modal-default fade" id="rcpts-select" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
@@ -142,74 +147,37 @@
                                 <i class="icon-alert"></i>
                                 <p class="sr-guide-mention-1"></p>
                             </div>
-                            <div class="additional">
-                                <i class="icon-alert"></i>
-                                <p class="sr-guide-mention-2"></p>
-                            </div>
                         </div>
                         <div class="modal-body">
                             <div class="flex justify-end">
                                 <a href="/membership/info/recipients/list" class="btn-black btn-small w-auto gap-1">수급자 관리 <i class="icon-arrow-right-white"></i></a>
                             </div>
                             <div class="radio-check-group">
-                                <p class="text-base ml-2">요양정보 조회 가능</p><!--인정등급테스트에서는 삭제-->
-                                <div  class="form-check">
-                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt01">
-                                    <label class="form-check-label check-btn" for="rcpt01">
-                                        <div class="rcpt-inner">
-                                            <div>
-                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
-                                                <strong class="text-xl text-left">김영자김영자김영자김</strong>
-                                            </div>
-                                            <span>L0987654321</span>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div  class="form-check">
-                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt02">
-                                    <label class="form-check-label check-btn" for="rcpt02">
-                                        <div class="rcpt-inner">
-                                            <div>
-                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
-                                                <strong class="text-xl text-left">김영자</strong>
-                                            </div>
-                                            <span>L0987654321</span><!--인정등급테스트에서는 삭제-->
-                                        </div>
-                                    </label>
-                                </div>
-                                <!--시작: 인정등급테스트에서는 삭제-->
-                                <p class="text-base ml-2">요양인정번호 등록 필요</p>
-                                <div class="form-check add-lno">
-                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt03">
-                                    <label class="form-check-label" for="rcpt03">
-                                        <div class="rcpt-inner">
-                                            <div>
-                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
-                                                <strong class="text-xl text-left">김영자김영자김영자김</strong>
-                                            </div>
-                                            <button  class="add-lno-btn">등록하기 <i class="icon-round-plus"></i></button>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="form-check  add-lno">
-                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt04">
-                                    <label class="form-check-label" for="rcpt04">
-                                        <div class="rcpt-inner">
-                                            <div>
-                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
-                                                <strong class="text-xl text-left">김영자</strong>
-                                            </div>
-                                            <button class="add-lno-btn">등록하기 <i class="icon-round-plus"></i></button>
-                                        </div>
-                                    </label>
-                                </div>
-                                <!--끝: 인정등급테스트에서는 삭제-->
-    
-                                <button id="add-rcpts" class="btn btn-dotted-warning btn-xlarge">추가등록 <i class="icon-round-plus"></i></button>
+                            	<%-- 선택할 수급자 리스트 표출 --%>
+                            	<c:forEach var="recipientInfo" items="${mbrVO.mbrRecipientsList}" varStatus="status">
+                            		<div class="form-check">
+	                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt${status.index}" value="${recipientInfo.recipientsNo}">
+	                                    <label class="form-check-label check-btn" for="rcpt${status.index}">
+	                                        <div class="rcpt-inner">
+	                                            <div>
+	                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
+	                                                <strong class="text-xl text-left">${recipientInfo.recipientsNm}</strong>
+	                                            </div>
+	                                            <c:if test="${recipientInfo.recipientsYn eq 'Y'}">
+	                                            	<span>L${recipientInfo.rcperRcognNo}</span>
+	                                            </c:if>
+	                                        </div>
+	                                    </label>
+	                                </div>
+                            	</c:forEach>
+                            	
+                            	<c:if test="${fn:length(mbrVO.mbrRecipientsList) < 4}">
+                            		<button id="add-rcpts" class="btn btn-dotted-warning btn-xlarge">추가등록 <i class="icon-round-plus"></i></button>
+                            	</c:if>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">요양정보 조회하기</button>
+                            <button id="go-next-btn" type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="goNextInRcptsSelectModal();">진행하기</button>
                         </div>
                     </div>
                     <!--추가등록-->
@@ -226,128 +194,89 @@
                             <p class="sr-guide-mention-1"></p>
                         </div>
                         <div class="modal-body">
-                            
-                            <div class="radio-tabs-wrap" data-name="userTypeB">
-                                <div class="radio-tabs-button">
-                                    <label for="tabB1" class="form-check-radio is-active">
-                                        <input type="radio" name="userTypeB" value="tabB1" id="tabB1" class="form-check-input" checked/>
-                                        <span>가족,친척</span>
-                                    </label>
-                                    <label for="tabB2" class="form-check-radio">
-                                        <input type="radio" name="userTypeB" value="tabB2" id="tabB2" class="form-check-input"/>
-                                        <span>본인</span>
-                                    </label>
-                                </div>
-                                <div class="radio-tabs-content">
-                                    <div class="tab tabB1">
-                                        <ul class="tab-inner">
-                                            <li>
-                                                <div class="text-index1">수급자(어르신)</div>
-                                                <div>
-                                                    <input type="text" name="no-rcpt-nm" id="no-rcpt-lno" placeholder="홍길동홍길동홍길동홍" class="form-control w-48">
-                                                    <span>님 은</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="text-index1"><span>홍길동</span>님의</div>
-                                                <div> 
-                                                    <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-48" required>
-                                                        <option value="" disabled selected hidden>관계선택</option>
-                                                        <option value="">부모</option>
-                                                    </select>
-                                                    <span>입니다</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="text-index1">요양인정번호는</div>
-                                                <div> 
-                                                    <label for="rcpt-lno" class="rcpt-lno">
-                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control  w-48">
-                                                    </label>
-                                                    <span>입니다</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab tabB2 hidden">
-                                        <div class="flex flex-col gap-4">
-                                            <div>
-                                                <strong class="text-xl">홍길동</strong><span>님의</span>
-                                            </div>
-                                            <div class="bg-white rounded-md p-5">
-                                                <div class="text-index1 mb-2">요양인정번호는</div>
-                                                <div>
-                                                    <label for="rcpt-lno" class="rcpt-lno">
-                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
-                                                    </label>
-                                                    <span>입니다</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
-                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="startLoginNoRcpt();">등록하기</button>
-                        </div>
-                    </div>
-                    <!--요양정보등록-->
-                    <div class="modal-content-inner regist-lno">
-                        <div class="modal-header">
-                            <div class="flex items-center gap-4">
-                                <button class="rcpts-back"><i class="icon-arrow-left size-md"></i></button>
-                                <h2 class="text-title">요양인정번호 등록</h2>
-                            </div>
-                            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
-                        </div>
-                        <div class="additional">
-                            <i class="icon-alert"></i>
-                            <p class="sr-guide-mention-1"></p>
-                        </div>
-                        <div class="modal-body">
-                            
                             <div class="radio-tabs-wrap" data-name="userType">
-                                <div class="radio-tabs-content">
-                                    <div class="">
-                                        <div class="flex flex-col gap-4">
-                                            <div>
-                                                <strong class="text-xl">홍길동</strong><span>님의</span>
-                                            </div>
-                                            <div class="bg-white rounded-md p-5">
-                                                <div class="text-index1 mb-2">요양인정번호는</div>
-                                                <div>
-                                                    <label for="rcpt-lno" class="rcpt-lno">
-                                                        <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
-                                                    </label>
-                                                    <span>입니다</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-center font-medium mt-8 mb-2">정보가 잘못되었나요?</p>
-                                <div class="text-center">
-                                    <a href="/membership/info/recipients/list" class="text-path-box">마이페이지 &gt; 수급자관리</a>
-                                    <span>에서 수정할 수 있어요</span>
-                                </div>
-                            </div>
+	                            <div class="radio-tabs-button">
+	                                <label for="tab1" class="form-check-radio is-active">
+	                                    <input type="radio" name="userType" value="tab1" id="tab1" class="form-check-input" checked/>
+	                                    <span>가족</span>
+	                                </label>
+	                                <label for="tab2" class="form-check-radio">
+	                                    <input type="radio" name="userType" value="tab2" id="tab2" class="form-check-input"/>
+	                                    <span>본인</span>
+	                                </label>
+	                            </div>
+	                            <div class="radio-tabs-content">
+	                                <div class="tab tab1">
+	                                    <ul class="tab-inner">
+	                                        <li>
+	                                            <div class="text-index1">수급자(어르신)</div>
+	                                            <div>
+	                                                <input type="text" name="no-rcpt-nm" id="no-rcpt-lno" placeholder="홍길동" class="form-control w-48" oninput="checkAddRecipientBtnDisable();">
+	                                                <span>님 은</span>
+	                                            </div>
+	                                        </li>
+	                                        <li>
+	                                            <div class="text-index1"><span>${_mbrSession.mbrNm} </span>님의</div>
+	                                            <div> 
+	                                                <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-48" required onchange="checkAddRecipientBtnDisable();">
+	                                                    <option value="" disabled selected hidden>관계선택</option>
+	                                                    <c:forEach var="relation" items="${relationCd}" varStatus="status">
+	                                                    	<%-- 본인은 제외 --%>
+	                                                    	<c:if test="${relation.key ne '007'}">
+	                                                    		<option value="${relation.key}">${relation.value}</option>
+	                                                    	</c:if>
+														</c:forEach>
+	                                                </select>
+	                                                <span>입니다</span>
+	                                            </div>
+	                                        </li>
+	                                        <li id="regist-rcpt-lno">
+	                                            <div class="text-index1">요양인정번호는</div>
+	                                            <div> 
+	                                                <label for="rcpt-lno" class="rcpt-lno">
+	                                                    <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control w-48">
+	                                                </label>
+	                                                <span>입니다</span>
+	                                            </div>
+	                                        </li>
+	                                    </ul>
+	                                </div>
+	                                <div class="tab tab2 hidden">
+	                                    <div class="flex flex-col gap-4">
+	                                        <div>
+	                                            <strong class="text-xl">${_mbrSession.mbrNm}</strong>
+	                                            <span class="regist-rcpt-lno-yes">님의</span>
+	                                            <span class="regist-rcpt-lno-no">님</span>
+	                                        </div>
+	                                        <div class="bg-white rounded-md p-5 regist-rcpt-lno-yes">
+	                                            <div class="text-index1 mb-2">요양인정번호는</div>
+	                                            <div>
+	                                                <label for="rcpt-lno" class="rcpt-lno">
+	                                                    <input type="text" name="no-rcpt-nm" id="rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno">
+	                                                </label>
+	                                                <span>입니다</span>
+	                                            </div>
+	                                        </div>
+	                                        <div class="bg-white rounded-md p-5 regist-rcpt-lno-no">
+	                                            <div class="text-index1 mb-2">본인을 수급자(어르신)로 등록하시겠습니까?</div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
-                            <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="startLoginNoRcpt();">인정번호 등록하기</button>
+                            <button id="regist-rcpt-add-btn" type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2 disabled" disabled onclick="addRecipientInSrNoReciModal();">등록하기</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+        </c:if>
 
         <!--4.수급자등록알림-->
-        <div class="modal modal-default fade" id="modal4" tabindex="-1" aria-hidden="true">
+        <div class="modal modal-default fade" id="notified-consulting" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -356,14 +285,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="bg-box-beige">
-                            <div class="text-center text-xl">
-                                진행중인 요양정보 상담이 있습니다. <br>
+                            <div id="notified-consulting-guide-div" class="text-center text-xl">
+                                진행중인 ((conslt_nm)) 상담이 있습니다. <br>
                                 상담 내역을 확인하시겠습니까?
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer gap-1">
-                        <button type="button" class="btn-warning large2 w-full md:w-1/2" data-bs-dismiss="modal" class="btn-close">상담내역 확인하기</button>
+                        <button type="button" class="btn-warning large2 w-full md:w-1/2" data-bs-dismiss="modal" class="btn-close" onclick="location.href='/membership/conslt/appl/list';">상담내역 확인하기</button>
                     </div>
                 </div>
             </div>
@@ -411,46 +340,6 @@
                 <div class="modal-footer">
                     <a href="#" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">신청내역 보러가기</a>
                 </div>
-                </div>
-            </div>
-        </div>
-        
-        <!--6.수급자등록알림-->
-        <div class="modal modal-default fade" id="modal6" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog  modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="text-title">수급자(어르신) 등록</h2>
-                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="bg-box-beige flex flex-col gap-6 md:gap-5">
-                            <div class="flex items-start gap-2 text-lg md:whitespace-nowrap">
-                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="w-5 mt-1.5"/>
-                                
-                                <div class="flex flex-wrap items-center gap-1">
-                                    <span>수급자(어르신)</span>
-                                    <strong class="text-indexKey1">이영수</strong>
-                                    <span>님은</span>
-                                    <strong>이로움이</strong>
-                                    <span>님의</span>
-                                    <strong>친척</strong>
-                                    <span>입니다</span>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-2 text-lg md:whitespace-nowrap">
-                                <img src="/html/page/members/assets/images/img-nhis.svg" alt="국민건강보험 심볼" class="w-5 mt-1"/>
-                                <div class="flex flex-wrap items-center gap-1">
-                                    <div class="mr-1">요양인정번호는</div>
-                                    <strong class="text-indexKey1">L1904014349</strong><span>입니다</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn large2 btn-outline-black">취소하기</button>
-                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">상담신청하기</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -554,13 +443,11 @@
 	            }
 	
 	            tabCheckEvent('userType', 'tab');
-	            tabCheckEvent('userTypeB', 'tab');
 	        });
 	    </script>
         
         
         <script>
-	        var sr_mbrNm = null;
 	    	var sr_recipients = null;
 	    	var sr_prevPath = ''; 
 	    	var sr_lnoCheck = null;
@@ -584,7 +471,6 @@
             		//로그인 한 경우
             		if (data.isLogin) {
             			//ajax 받아온 데이터 저장
-            			sr_mbrNm = data.mbrVO.mbrNm;
             			sr_recipients = data.mbrRecipients;
             			
             			modalSelectRecipient();
@@ -613,14 +499,32 @@
         			if (sr_prevPath === 'test') {
         				//등록 모달폼 띄우기
         				openAddRecipientSrModal('N');
-        			} else {
+        			}
+        			//다른 상담은 L번호 있어요 선택 모달 부터 시작
+        			else {
         				$('#sr-lno-check-modal').modal('show');        				
         			}
         		}
         		//회원에 등록된 수급자가 있는 경우
         		else {
+        			var consltNm = '';
         			
-        			//추가 등록은 4명 미만인 경우 가능
+        			if (sr_prevPath === 'test') {
+        				consltNm = '인정등급';
+        				updateGuideMentionInSrModal('rcpts-select', ['수급자(어르신) 선택 후 테스트를 진행하세요']);
+            			$('#rcpts-select #go-next-btn').text('테스트 진행하기');
+            			
+            			//등록 모달폼 띄우기(폼이 없으므로 추가등록쪽 셋팅만 된다.)
+            			openAddRecipientSrModal('N');
+        			}
+        			
+        			//진행중인 상담 모달에 상담명 매핑
+        			var guideDiv = $('#notified-consulting-guide-div').html();
+        			guideDiv = guideDiv.replace('((conslt_nm))', consltNm);
+        			$('#notified-consulting-guide-div').html(guideDiv);
+        			
+        			//수급자 선택창 띄우기
+        			$('#rcpts-select').modal('show');
         		}
         	}
         	
@@ -658,7 +562,7 @@
 	    		}
 	    	}
 	    	
-	    	//등록하기 버튼 활성화 체크 함수(수급자 없을 때 모달에서)
+	    	//등록하기 버튼 활성화 체크 함수(수급자 없을 때 모달, 수급자 있을 때 추가등록 모달)
 	    	function checkAddRecipientBtnDisable() {
 	    		var userType = $('input[name=userType]:checked').val();
 	    		//가족
@@ -694,7 +598,7 @@
 	    		}
 	    		//본인
 	    		else {
-	    			ajaxAddMbrRecipient('007', '');
+	    			ajaxAddMbrRecipient('007', 'me');
 	    		}
 	    	}
 	    	
@@ -730,13 +634,50 @@
 				}
 	    	}
 	    	
+	    	
+	    	//수급자 선택모달에서 다음 진행하기 버튼 클릭
+	    	function goNextInRcptsSelectModal() {
+	    		var recipientNo = $('input[name=rcpts]:checked').val();
+	    		if (!recipientNo) {
+	    			alert('수급자를 선택하세요');
+	    			return;
+	    		}
+	    		
+	    		//진행중인 상담 조회 api
+        		$.ajax({
+            		type : "post",
+    				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+    				data : {
+    					recipientsNo : recipientNo,
+    					prevPath : sr_prevPath
+    				},
+    				dataType : 'json'
+            	})
+            	.done(function(data) {
+            		//해당 수급자가 진행중인 상담이 있는 경우
+            		if (data.isExistRecipientConslt) {
+            			$('#notified-consulting').modal('show').appendTo('body');
+            		} else {
+            			goNextStepWithRecipientNo(recipientNo);
+            		}
+            	})
+            	.fail(function(data, status, err) {
+            		alert('서버와 연결이 좋지 않습니다.');
+    			});
+	    	}
+	    	
+	    	
 	    	//수급자 등록 ajax 요청
 	    	function ajaxAddMbrRecipient(relationCd, recipientsNm, lno) {
+	    		if (!relationCd || !recipientsNm) {
+	        		alert('모두 입력해주세요');
+	        		return;
+	        	}
+	    		
 	    		var data = {
 					relationCd
 					, recipientsNm
 				};
-	    		
 	    		if (lno) {
 	    			data.rcperRcognNo = lno;
 	    		};
@@ -751,7 +692,7 @@
 	        		if(data.success) {
 	        			alert('수급자 정보 등록에 동의했습니다.');
 	        			
-	        			location.href = '/test/physical?recipientsNo=' + data.createdRecipientsNo;
+	        			goNextStepWithRecipientNo(data.createdRecipientsNo);
 	        		}else{
 	        			alert(data.msg);
 	        		}
@@ -759,6 +700,15 @@
 	        	.fail(function(data, status, err) {
 	        		alert('서버와 연결이 좋지 않습니다.');
 				});
+	    	}
+	    	
+	    	//다음 단계로 이동 함수
+	    	function goNextStepWithRecipientNo(recipientNo) {
+	    		if (sr_prevPath === 'test') {
+	    			location.href = '/test/physical?recipientsNo=' + recipientNo;
+    			}
+    			else if (sr_prevPath === 'equip_ctgry') {
+    			}
 	    	}
 	    	
         </script>
