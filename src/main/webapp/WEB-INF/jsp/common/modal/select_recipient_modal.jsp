@@ -30,16 +30,21 @@
                                         <li>
                                             <div class="text-index1">수급자(어르신)</div>
                                             <div>
-                                                <input type="text" name="no-rcpt-nm" id="no-rcpt-lno" placeholder="홍길동" class="form-control w-48">
+                                                <input type="text" name="no-rcpt-nm" id="no-rcpt-lno" placeholder="홍길동" class="form-control w-48" oninput="checkAddRecipientBtnDisable();">
                                                 <span>님 은</span>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="text-index1"><span>홍길동 </span>님의</div>
+                                            <div class="text-index1"><span>${_mbrSession.loginCheck ? _mbrSession.mbrNm : ''} </span>님의</div>
                                             <div> 
-                                                <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-48" required>
+                                                <select name="no-rcpt-relation" id="no-rcpt-relation" class="form-control w-48" required onchange="checkAddRecipientBtnDisable();">
                                                     <option value="" disabled selected hidden>관계선택</option>
-                                                    <option value="">부모</option>
+                                                    <c:forEach var="relation" items="${relationCd}" varStatus="status">
+                                                    	<%-- 본인은 제외 --%>
+                                                    	<c:if test="${relation.key ne '007'}">
+                                                    		<option value="${relation.key}">${relation.value}</option>
+                                                    	</c:if>
+													</c:forEach>
                                                 </select>
                                                 <span>입니다</span>
                                             </div>
@@ -58,7 +63,7 @@
                                 <div class="tab tab2 hidden">
                                     <div class="flex flex-col gap-4">
                                         <div>
-                                            <strong class="text-xl">홍길동</strong>
+                                            <strong class="text-xl">${_mbrSession.loginCheck ? _mbrSession.mbrNm : ''}</strong>
                                             <span class="regist-rcpt-lno-yes">님의</span>
                                             <span class="regist-rcpt-lno-no">님</span>
                                         </div>
@@ -80,14 +85,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2 disabled" disabled onclick="startLoginNoRcpt();">등록하기</button>
+                        <button id="regist-rcpt-add-btn" type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2 disabled" disabled onclick="addRecipientInSrNoReciModal();">등록하기</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!--2.수급자정보확인-->
-        <div class="modal modal-default fade" id="rcpts-conform" tabindex="-1" aria-hidden="true">      
+        <div class="modal modal-default fade" id="rcpts-confirm" tabindex="-1" aria-hidden="true">      
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -103,21 +108,21 @@
                             <ul class="modal-list-box">
                                 <li>
                                     <span class="modal-list-label">가족 관계</span>
-                                    <span class="modal-list-value">본인</span>
+                                    <span id="rcpts-confirm-relation-text" class="modal-list-value">본인</span>
                                 </li>
                                 <li>
                                     <span class="modal-list-label">수급자(어르신) 성명</span>
-                                    <span class="modal-list-value">홍길동홍길동홍길동홍</span>
+                                    <span id="rcpts-confirm-recipient-nm" class="modal-list-value">홍길동홍길동홍길동홍</span>
                                 </li>
                                 <li>
                                     <span class="modal-list-label">요양인정번호</span>
-                                    <span class="modal-list-value">L0011436322</span>
+                                    <span id="rcpts-confirm-lno" class="modal-list-value">L0011436322</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2">확인</button>
+                        <button type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="checkInRcptsConfirmModal();">확인</button>
                     </div>
                 </div>
             </div>
@@ -543,6 +548,8 @@
 	                    const labels = tabWrap.find('label');
 	                    labels.removeClass('is-active');
 	                    $(this).closest('label').addClass('is-active');
+	                    
+	                    checkAddRecipientBtnDisable();
 	                });
 	            }
 	
@@ -557,6 +564,12 @@
 	    	var sr_recipients = null;
 	    	var sr_prevPath = ''; 
 	    	var sr_lnoCheck = null;
+	    	var sr_relationCdMap = {
+	    		<c:forEach var="relation" items="${relationCd}" varStatus="status">
+	    			'${relation.key}': '${relation.value}',
+	    		</c:forEach>
+	    	};
+	    	
         
 	    	//수급자 정보 조회 후 수급자 선택모달 띄우기 요청
         	function openSelectRecipientModal(prevPath) {
@@ -632,23 +645,120 @@
 	    			$('div.regist-rcpt-lno-no').css('display','block');
 	    		}
 	    		
-	    		updateGuideMentionInSrModal(['테스트를 진행할 수급자(어르신)를 등록해 주세요']);
+	    		updateGuideMentionInSrModal('regist-rcpt', ['테스트를 진행할 수급자(어르신)를 등록해 주세요']);
 	    		$('#regist-rcpt').modal('show');
 	    	}
 	    	
 	    	//모달에 안내문구 수정 함수
-        	function updateGuideMentionInSrModal(mentArray) {
+        	function updateGuideMentionInSrModal(modalId, mentArray) {
 	    		if (mentArray && mentArray.length > 0) {
 	    			for (var i = 0; i < mentArray.length; i++) {
-	    				$('.sr-guide-mention-' + (i + 1)).text(mentArray[i]);	    				
+	    				$('#' + modalId + ' .sr-guide-mention-' + (i + 1)).text(mentArray[i]);	    				
 	    			}
+	    		}
+	    	}
+	    	
+	    	//등록하기 버튼 활성화 체크 함수(수급자 없을 때 모달에서)
+	    	function checkAddRecipientBtnDisable() {
+	    		var userType = $('input[name=userType]:checked').val();
+	    		//가족
+	    		if (userType === 'tab1') {
+	    			var recipientNm = $('#no-rcpt-lno').val();
+	    			var relationCd = $('#no-rcpt-relation').val();
+	    			
+	    			if (recipientNm && relationCd) {
+	    				$('#regist-rcpt-add-btn').removeClass('disabled');
+		    			$('#regist-rcpt-add-btn').removeAttr('disabled');	    				
+	    			} else {
+	    				$('#regist-rcpt-add-btn').addClass('disabled');
+		    			$('#regist-rcpt-add-btn').attr('disabled', true);
+	    			}
+	    		}
+	    		//본인
+	    		else {
+	    			$('#regist-rcpt-add-btn').removeClass('disabled');
+	    			$('#regist-rcpt-add-btn').removeAttr('disabled');
 	    		}
 	    	}
 	    	
 	    	//수급자 등록하기(수급자 없을 때 모달에서)
 	    	function addRecipientInSrNoReciModal() {
-	    		$('input[name=userType]:checked').val();
+	    		var userType = $('input[name=userType]:checked').val();
+	    		
+	    		//가족
+	    		if (userType === 'tab1') {
+	    			var recipientNm = $('#no-rcpt-lno').val();
+	    			var relationCd = $('#no-rcpt-relation').val();
+	    			
+	    			openRcptsConfirmModal(relationCd, recipientNm);
+	    		}
+	    		//본인
+	    		else {
+	    			ajaxAddMbrRecipient('007', '');
+	    		}
 	    	}
 	    	
+	    	//수급자 입력정보 확인 모달
+	    	function openRcptsConfirmModal(relationCd, recipientNm, lno) {
+	    		$('#rcpts-confirm-relation-text').text(sr_relationCdMap[relationCd]);
+	    		$('#rcpts-confirm-recipient-nm').text(recipientNm);
+	    		
+	    		if (lno) {
+	    			$('#rcpts-confirm-lno').text(lno);
+	    			$('#rcpts-confirm-lno').parent().css('display', 'flex');
+	    		} else {
+	    			$('#rcpts-confirm-lno').parent().css('display', 'none');
+	    		}
+	    		
+	    		updateGuideMentionInSrModal('rcpts-confirm', ['수급자(어르신) 정보가 올바른지 확인 후 테스트를 진행하세요']);
+    			$('#rcpts-confirm').modal('show');
+	    	}
+	    	
+	    	//수급자 입력정보 확인 모달에서 확인버튼 클릭
+	    	function checkInRcptsConfirmModal() {
+	    		var relationText = $('#rcpts-confirm-relation-text').text().trim();
+	    		var relationCd = Object.keys(sr_relationCdMap).find(key => sr_relationCdMap[key] === relationText);
+	    		var recipientNm = $('#rcpts-confirm-recipient-nm').text().trim();
+	    		lnoDisplay = $('#rcpts-confirm-lno').parent().css('display');
+	    		
+				if (lnoDisplay === 'none') {
+					ajaxAddMbrRecipient(relationCd, recipientNm);
+				} else {
+					var lno = $('#rcpts-confirm-lno').text();
+					
+					ajaxAddMbrRecipient(relationCd, recipientNm, lno);
+				}
+	    	}
+	    	
+	    	//수급자 등록 ajax 요청
+	    	function ajaxAddMbrRecipient(relationCd, recipientsNm, lno) {
+	    		var data = {
+					relationCd
+					, recipientsNm
+				};
+	    		
+	    		if (lno) {
+	    			data.rcperRcognNo = lno;
+	    		};
+	    		
+	        	$.ajax({
+	        		type : "post",
+					url  : "/membership/info/myinfo/addMbrRecipient.json",
+					data,
+					dataType : 'json'
+	        	})
+	        	.done(function(data) {
+	        		if(data.success) {
+	        			alert('수급자 정보 등록에 동의했습니다.');
+	        			
+	        			location.href = '/test/physical?recipientsNo=' + data.createdRecipientsNo;
+	        		}else{
+	        			alert(data.msg);
+	        		}
+	        	})
+	        	.fail(function(data, status, err) {
+	        		alert('서버와 연결이 좋지 않습니다.');
+				});
+	    	}
 	    	
         </script>

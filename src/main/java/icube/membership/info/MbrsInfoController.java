@@ -567,12 +567,18 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			
-			
 			//회원의 수급자 정보 등록
 			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
 			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
 			mbrRecipient.setRelationCd(relationCd);
-			mbrRecipient.setRecipientsNm(recipientsNm);
+			//본인인 경우 회원명으로 고정
+			if ("007".equals(relationCd)) {
+				mbrRecipient.setRecipientsNm(mbrSession.getMbrNm());
+			}
+			else {
+				mbrRecipient.setRecipientsNm(recipientsNm);
+			}
+			
 			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
 				mbrRecipient.setRcperRcognNo(rcperRcognNo);
 				mbrRecipient.setRecipientsYn("Y");
