@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -37,6 +39,9 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Autowired
+	private MbrService mbrService;
+	
+	@Autowired
 	private MbrSession mbrSession;
 	
 	
@@ -50,7 +55,12 @@ public class MainWelfareEquipmentController extends CommonAbstractController{
 		, Model model
 			)throws Exception {
 		
-		model.addAttribute("mbrRelationCode", CodeMap.MBR_RELATION_CD);
+		if(mbrSession.isLoginCheck()) {
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			model.addAttribute("mbrVO", mbrVO);
+		}
+		
+		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		
 		return "/main/equip/sub";
 	}
