@@ -88,15 +88,20 @@
                             	<c:forEach var="recipientInfo" items="${mbrVO.mbrRecipientsList}" varStatus="status">
                             		<div class="form-check">
 	                                    <input class="form-check-input" type="radio" name="rcpts" id="rcpt${status.index}" value="${recipientInfo.recipientsNo}">
-	                                    <label class="form-check-label check-btn" for="rcpt${status.index}">
+	                                    <label class="form-check-label <c:if test="${recipientInfo.recipientsYn eq 'Y'}">check-btn</c:if>" for="rcpt${status.index}">
 	                                        <div class="rcpt-inner">
 	                                            <div>
 	                                                <img src="/html/page/members/assets/images/img-senoir-mono.svg" alt="시니어얼굴" class="img-senior"/>
 	                                                <strong class="text-xl text-left">${recipientInfo.recipientsNm}</strong>
 	                                            </div>
-	                                            <c:if test="${recipientInfo.recipientsYn eq 'Y'}">
-	                                            	<span>L${recipientInfo.rcperRcognNo}</span>
-	                                            </c:if>
+	                                            <c:choose>
+	                                            	<c:when test="${recipientInfo.recipientsYn eq 'Y'}">
+	                                            		<span>L${recipientInfo.rcperRcognNo}</span>
+	                                            	</c:when>
+	                                            	<c:otherwise>
+	                                            		<button class="add-lno-btn" onclick="moveRegistLnoForm(${recipientInfo.recipientsNo});">등록하기 <i class="icon-round-plus"></i></button>
+	                                            	</c:otherwise>
+	                                            </c:choose>
 	                                        </div>
 	                                    </label>
 	                                </div>
@@ -130,6 +135,57 @@
                         <div class="modal-footer">
                             <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
                             <button id="regist-rcpt-add-btn" type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2 disabled" disabled onclick="addRecipientInSrNoReciModal();">등록하기</button>
+                        </div>
+                    </div>
+					<!--요양정보등록-->
+                    <div class="modal-content-inner regist-lno">
+                        <div class="modal-header">
+                            <div class="flex items-center gap-4">
+                                <button class="rcpts-back"><i class="icon-arrow-left size-md"></i></button>
+                                <h2 class="text-title">요양인정번호 등록</h2>
+                            </div>
+                            <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                        </div>
+                        <div class="additional">
+                            <i class="icon-alert"></i>
+                            <p>수급자(어르신)의 요양인정번호를 등록해 주세요</p>
+                        </div>
+                        <div class="modal-body">
+                            <div class="radio-tabs-wrap" data-name="userType">
+                                <div class="radio-tabs-content">
+                                    <div class="w-full">
+                                        <div class="flex flex-col gap-4">
+                                        	<input id="sr-target-rcpt-no" type="hidden">
+                                            <div id="regist-lno-other-text">
+                                                수급자(어르신) <strong class="text-indexKey1 sr-recipient-nm">이영수</strong>님은 <strong>${mbrVO.mbrNm}</strong>님의 <strong class="sr-relation-text">형제</strong>입니다
+                                            </div>
+                                            <div id="regist-lno-me-text">
+                                        		<strong class="text-xl">${mbrVO.mbrNm}</strong><span>님의</span>
+                                        	</div>
+                                            <div class="bg-white rounded-md p-5">
+                                                <div class="text-index1 mb-2">요양인정번호는</div>
+                                                <div>
+                                                    <label for="rcpt-lno" class="rcpt-lno">
+                                                        <input type="text" id="sr-regist-rcpt-lno" placeholder="뒤의 숫자 10자리 입력" class="form-control input-lno keycontrol numberonly" maxlength="10" oninput="checkUpdateLnoBtnDisable();">
+                                                    </label>
+                                                    <span>입니다</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-center font-medium mt-8 mb-2">정보가 잘못되었나요?</p>
+                                <div class="text-center">
+                                    <a href="/membership/info/recipients/list" class="text-path-box">마이페이지 &gt; 수급자관리</a>
+                                    <span>에서 수정할 수 있어요</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-outline-black large2 rcpts-back">이전으로</button>
+                            <button id="update-recipient-lno-btn" type="button" class="btn-warning large2 flex-1 md:flex-none md:w-1/2" onclick="registLnoInRecipient();">인정번호 등록하기</button>
                         </div>
                     </div>
                 </div>
@@ -210,7 +266,13 @@
         
         <script src="/html/core/vendor/twelements/index.min.js"></script>
 	    <script>
-	
+	    	//수급자 추가 등록 첫 화면으로 이동
+			function moveFirstPageInAddRcpts() {
+				$('.regist-rcpts').removeClass('inactive').addClass('active');
+                $('.rcpts-select-content').removeClass('active').addClass('inactive');
+                $('.regist-lno').removeClass('active').addClass('inactive');
+	    	}
+	    	
 	        $(function () {
 	            //수급자 등록, 요양정보 등록 팝업 div높이 구하기
 	            $('#rcpts-select').on('shown.bs.modal', function () {
@@ -224,9 +286,12 @@
 	
 	            //수급자 등록, 요양정보 등록
 	            $('#add-rcpts').click(function () {
-	                $('.regist-rcpts').removeClass('inactive').addClass('active');
-	                $('.rcpts-select-content').removeClass('active').addClass('inactive');
-	                $('.regist-lno').removeClass('active').addClass('inactive');
+	            	if (sr_prevPath === 'test') {
+	            		moveFirstPageInAddRcpts();	
+	            	} else {
+	            		//L번호 있어요, 없어요 모달 띄우기
+	            		$('#sr-lno-check-modal').modal('show');
+	            	}
 	            });
 	
 	            $('.rcpts-back').click(function () {
@@ -234,10 +299,11 @@
 	                $('.rcpts-select-content').removeClass('inactive').addClass('active');
 	            });
 	
-	            $('.add-lno').click(function () {
-	                $('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
-	                $('.regist-lno').removeClass('inactive').addClass('active');
-	            });
+	            //요양인정번호 등록 로직은 아래 다른 곳에 구현
+	            //$('.add-lno').click(function () {
+	            //    $('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
+	            //    $('.regist-lno').removeClass('inactive').addClass('active');
+	            //});
 	
 	            //수급자 등록 라디오버튼 탭 컨텐츠
 	            function tabCheckEvent(name, css) {
@@ -274,7 +340,9 @@
 	        		}
 	        		//회원에 등록된 수급자가 있는 경우
 	        		else {
-	        			
+	        			//등록 모달폼 셋팅(폼은 안뜸)
+	        			openAddRecipientSrModal(answer);
+	        			moveFirstPageInAddRcpts();
 	        		}
 	            });
 	        });
@@ -336,7 +404,7 @@
         			}
         			//다른 상담은 L번호 있어요 선택 모달 부터 시작
         			else {
-        				$('#sr-lno-check-modal').modal('show');        				
+        				$('#sr-lno-check-modal').modal('show');
         			}
         		}
         		//회원에 등록된 수급자가 있는 경우
@@ -350,6 +418,10 @@
             			
             			//등록 모달폼 띄우기(폼이 없으므로 추가등록쪽 셋팅만 된다.)
             			openAddRecipientSrModal('N');
+        			} else if (sr_prevPath === 'equip_ctgry') {
+        				consltNm = '관심 복지용구';
+        				updateGuideMentionInSrModal('rcpts-select', ['수급자(어르신)를 선택해 주세요']);
+            			$('#rcpts-select #go-next-btn').text('상담하기');
         			}
         			
         			//진행중인 상담 모달에 상담명 매핑
@@ -485,7 +557,12 @@
 	    			$('#rcpts-confirm-lno').parent().css('display', 'none');
 	    		}
 	    		
-	    		updateGuideMentionInSrModal('rcpts-confirm', ['수급자(어르신) 정보가 올바른지 확인 후 테스트를 진행하세요']);
+	    		if (sr_prevPath === 'test') {
+	    			updateGuideMentionInSrModal('rcpts-confirm', ['수급자(어르신) 정보가 올바른지 확인 후 테스트를 진행하세요']);	
+	    		} else if (sr_prevPath === 'equip_ctgry') {
+	    			updateGuideMentionInSrModal('rcpts-confirm', ['수급자(어르신) 정보가 올바른지 확인해 주세요']);
+	    		}
+	    		
     			$('#rcpts-confirm').modal('show');
 	    	}
 	    	
@@ -586,4 +663,69 @@
     			}
 	    	}
 	    	
+	    	
+	    	//요양정보등록하기 모달로 이동
+	    	function moveRegistLnoForm(recipientNo) {
+	    		var recipientInfo = sr_recipients.find(f => f.recipientsNo === recipientNo);
+	    		
+	    		if (recipientInfo.relationCd === '007') {
+	    			$('#regist-lno-other-text').css('display', 'none');
+	    			$('#regist-lno-me-text').css('display', 'block');
+	    		} else {
+	    			$('#regist-lno-other-text').css('display', 'block');
+	    			$('#regist-lno-me-text').css('display', 'none');
+	    			
+	    			$('#regist-lno-other-text .sr-recipient-nm').text(recipientInfo.recipientsNm);
+	    			$('#regist-lno-other-text .sr-relation-text').text(sr_relationCdMap[recipientInfo.relationCd]);
+	    		}
+	    		
+	    		//L번호 입력창 초기화
+	    		$('#sr-regist-rcpt-lno').val('');
+	    		checkUpdateLnoBtnDisable();
+	    		
+	    		//요양정보 등록으로 이동
+	    		$('#sr-target-rcpt-no').val(recipientNo);
+	    		$('.regist-rcpts, .rcpts-select-content').removeClass('active').addClass('inactive');
+	            $('.regist-lno').removeClass('inactive').addClass('active');
+	    	}
+	    	
+	    	//인정번호 등록하기 버튼 활성화 처리
+	    	function checkUpdateLnoBtnDisable() {
+	    		var lno = $('#sr-regist-rcpt-lno').val();
+	    		if (lno && lno.length === 10) {
+	    			$('#update-recipient-lno-btn').removeClass('disabled');
+	    		} else {
+	    			$('#update-recipient-lno-btn').addClass('disabled');
+	    		}
+	    	}
+	    	
+	    	//요양정보수정 API
+	    	function registLnoInRecipient() {
+	    		var recipientNo = $('#sr-target-rcpt-no').val();
+	    		var lno = $('#sr-regist-rcpt-lno').val();
+	    		if (!recipientNo || !lno) {
+	    			alert('모두 입력하세요');
+	    			return;
+	    		}
+	    		
+	    		$.ajax({
+		    		type : "post",
+		    		url  : "/membership/info/myinfo/updateRecipientLno.json",
+		    		data : { 
+		    			recipientsNo : Number(recipientNo),
+		    			rcperRcognNo : lno, 
+		    		},
+		    		dataType : 'json'
+		    	})
+		    	.done(function(data) {
+		    		if(data.success) {
+		    			alert('요양인정번호가 등록되었습니다');
+		    		}else{
+		    			alert(data.msg);
+		    		}
+		    	})
+		    	.fail(function(data, status, err) {
+		    		alert('서버와 연결이 좋지 않습니다.');
+		    	});	
+	    	}
         </script>

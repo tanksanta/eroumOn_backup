@@ -643,6 +643,7 @@ public class MbrsInfoController extends CommonAbstractController{
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
 		try {
 			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
@@ -650,7 +651,6 @@ public class MbrsInfoController extends CommonAbstractController{
 			
 			//동일한 수급자 이름 등록 체크
 			if (mbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-				resultMap.put("success", false);
 				resultMap.put("msg", "이미 등록한 다른 수급자성명으로 변경할 수 없습니다");
 				return resultMap;
 			}
@@ -661,7 +661,6 @@ public class MbrsInfoController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					returnMap.put("success", false);
 					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
 					return resultMap;
 				}
@@ -691,6 +690,48 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 수정 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 수급자 요양번호 등록
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateRecipientLno.json")
+	public Map<String, Object> updateRecipientLno(
+		@RequestParam int recipientsNo,
+		@RequestParam String rcperRcognNo
+	) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return resultMap;
+			}
+			
+			//요양번호 유효성 검사
+			Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipient.getRecipientsNm(), rcperRcognNo, true);
+			Boolean result = (Boolean) returnMap.get("result");
+			if (result == false) {
+				resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+				return resultMap;
+			}
+			
+			
+			mbrRecipient.setRecipientsYn("Y");
+			mbrRecipient.setRcperRcognNo(rcperRcognNo);
+			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 요양정보 등록중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
