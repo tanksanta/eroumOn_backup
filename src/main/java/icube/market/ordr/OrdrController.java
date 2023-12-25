@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 
+import icube.common.api.biz.BiztalkOrderService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
@@ -101,6 +102,10 @@ public class OrdrController extends CommonAbstractController{
 
 	@Resource(name = "mailForm2Service")
 	private MailForm2Service mailForm2Service;
+
+	@Resource(name = "biztalkOrderService")
+	private BiztalkOrderService biztalkOrderService;
+	
 
 	@Resource(name = "updateBplcInfoApiService")
 	private UpdateBplcInfoApiService updateBplcInfoApiService;
@@ -539,10 +544,13 @@ public class OrdrController extends CommonAbstractController{
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
 			String ordrMailTy = "MAILSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
-
+			String ordrBiztalkTy = "BIZTALKSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
+			
 			List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
+
+			biztalkOrderService.sendOrdr(ordrBiztalkTy, mbrSession, ordrVO);
 			mailForm2Service.sendMailOrder(ordrMailTy, mbrSession, ordrVO);
 			// String mailHtml = "mail_ordr.html";
 			// String mailSj = "[이로움ON] 회원님의 주문이 접수 되었습니다.";

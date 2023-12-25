@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.common.api.biz.BiztalkOrderService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.BootpayVO;
 import icube.common.mail.MailForm2Service;
@@ -45,6 +46,9 @@ public class BootpayApiController {
 
 	@Resource(name = "mailForm2Service")
 	private MailForm2Service mailForm2Service;
+
+	@Resource(name = "biztalkOrderService")
+	private BiztalkOrderService biztalkOrderService;
 
 	@ResponseBody
 	@RequestMapping("callback.json")
@@ -135,6 +139,7 @@ public class BootpayApiController {
 				OrdrVO ordrVO = ordrService.selectOrdrByCd(bootpayVO.getOrderId());
 				MbrVO mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
+				biztalkOrderService.sendOrdr("BIZTALKSEND_ORDR_BOOTPAY_VBANK_INCOME", mbrVO, ordrVO);
 				mailForm2Service.sendMailOrder("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME", mbrVO, ordrVO);
 			}
 
