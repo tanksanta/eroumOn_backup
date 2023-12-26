@@ -216,7 +216,7 @@ public class MMngOrdrSendTestController {
 				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_VBANK_CANCEL")
 				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE")
 				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION")
-				|| EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION")
+				// || EgovStringUtil.equals(mailTy, "BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION")
 			){
 
 				success = biztalkOrderService.sendOrdr(mailTy, mbrVO, ordrVO);
