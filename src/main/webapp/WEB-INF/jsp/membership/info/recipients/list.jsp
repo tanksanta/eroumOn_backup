@@ -141,8 +141,10 @@
 		</div>
 	</div>
 	
+	
 	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
-	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
+    <jsp:include page="/WEB-INF/jsp/common/modal/add_recip_or_conslt_modal.jsp" />
+    
 </main>
 
 <script>
@@ -162,7 +164,7 @@
 			 	location.href = '/main/welfare/equip/list?recipientsNo=' + recipientsNo;
 			}
 		} else {
-			openModal('requestConslt', Number(recipientsNo), prevPath);	
+			openRecipientOrConsltModal('requestConslt', Number(recipientsNo), prevPath);	
 		}
   	}
 	

@@ -1,5 +1,6 @@
 package icube.main;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,7 @@ public class MainConsltController extends CommonAbstractController{
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 	
 	/**
 	 * 상담신청이 모달방식으로 변경됨에 따라 주석처리
@@ -193,25 +195,41 @@ public class MainConsltController extends CommonAbstractController{
 		)throws Exception {
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-
+		resultMap.put("success", false);
+		
 		try {
 			//복지용구상담인데 선택한 복지용구 품목이 없는 경우
 			if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
 				List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 				
 				if (recipientsGdsList == null || recipientsGdsList.size() == 0) {
-					resultMap.put("success", false);
 	                resultMap.put("msg", "관심 복지용구를 선택하세요");
 	                return resultMap;
 				}
 			}
 			
-			MbrRecipientsVO mbrRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());			
-			//수굽저 정보 저장동의시 같은 수급자명이 다른 수급자명으로 등록하려는 경우
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == mbrConsltVO.getRecipientsNo()).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자입니다.");
+                return resultMap;
+			}
+			//해당 수급자가 본인인 경우 회원의 정보로 상담정보 저장
+			if ("007".equals(mbrRecipient.getRelationCd())) {
+				mbrConsltVO.setRelationCd(mbrRecipient.getRelationCd());
+				mbrConsltVO.setMbrNm(mbrVO.getMbrNm());
+				mbrConsltVO.setMbrTelno(mbrVO.getMblTelno());
+				mbrConsltVO.setAddr(mbrVO.getAddr());
+				if (mbrVO.getBrdt() != null) {
+					mbrConsltVO.setBrdt(dateFormat.format(mbrVO.getBrdt()));
+				}
+				mbrConsltVO.setGender(mbrVO.getGender());
+			}
+			
+			//수급자 정보 저장동의시 수급자명을 다른 수급자와 똑같이 등록하려는 경우
 			if (saveRecipientInfo) {
-	            List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-	            if (srchMbrRecipientList.stream().filter(f -> mbrConsltVO.getMbrNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrConsltVO.getRecipientsNo()).count() > 0) {
-	                resultMap.put("success", false);
+	            if (mbrRecipientList.stream().filter(f -> mbrConsltVO.getMbrNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrConsltVO.getRecipientsNo()).count() > 0) {
 	                resultMap.put("msg", "이미 등록한 수급자입니다 (수급자명을 확인하세요)");
 	                return resultMap;
 	            }
@@ -226,7 +244,6 @@ public class MainConsltController extends CommonAbstractController{
 					!"CS09".equals(recipientConslt.getConsltSttus()) &&
 					!"CS06".equals(recipientConslt.getConsltSttus())
 					)) {
-				resultMap.put("success", false);
 				resultMap.put("msg", "진행중인 " + CodeMap.PREV_PATH.get(mbrConsltVO.getPrevPath()) + "이 있습니다.");
 				return resultMap;
 			}
@@ -238,12 +255,10 @@ public class MainConsltController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					resultMap.put("success", false);
 					resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
 					return resultMap;
 				}
 			}
-			
 			
 			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
@@ -302,7 +317,6 @@ public class MainConsltController extends CommonAbstractController{
 				mbrConsltService.sendConsltRequestEmail(mbrConsltVO);
 			}
 
-			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
 			biztalkConsultService.sendOnTalkCreated(mbrVO, mbrRecipient, insertCnt); 
 
 			resultMap.put("success", true);
