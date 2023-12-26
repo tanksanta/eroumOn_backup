@@ -87,7 +87,7 @@
 			<div class="mypage-client-detail-item">
 				<h4 class="mypage-client-detail-item-title">
 					<strong class="text-xl">상담 내역</strong>
-					<a href="/membership/conslt/appl/list" class="text-sm">지난 상담 내역 보기<i class="icon-arrow-right"></i></a>
+					<a href="/membership/conslt/appl/list?srchRecipientsNo=${recipientVO.recipientsNo}" class="text-sm">지난 상담 내역 보기<i class="icon-arrow-right"></i></a>
 				</h4>
 				<div class="mypage-client-detail-inner">
 					<table class="table-view bg-title">
