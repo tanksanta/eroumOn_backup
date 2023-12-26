@@ -340,6 +340,7 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 				model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
 				model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
+				model.addAttribute("dlvyPayTyCode2", CodeMap.DLVY_PAY_TY2); 
 				model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
 
 				model.addAttribute("ctgryNo", ctgryNo);
@@ -359,7 +360,7 @@ public class GdsController extends CommonAbstractController {
 			return "/common/msg";
 		}
 
-		return "/market/gds/view";
+		return "/market/gds/view2"; 
 	}
 
 
