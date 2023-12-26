@@ -535,6 +535,35 @@
 					</c:if>
 					 -->
 
+					 <dl class="border-top border-bottom">
+						<dt>배송비</dt>
+						<c:if test="${gdsVO.dlvyCtTy eq 'FREE'}">
+							<dd>무료</dd>
+						</c:if>
+						<c:if test="${gdsVO.dlvyCtTy ne 'FREE'}">
+							<dd class="flex flex-col gap-2">
+								<p>
+									<strong><fmt:formatNumber value="${gdsVO.dlvyBassAmt}" pattern="###,###" />원</strong>
+									<c:if test="${dlvyPayTyCode2[gdsVO.dlvyCtStlm] ne null}">
+										(${dlvyPayTyCode2[gdsVO.dlvyCtStlm]})
+									</c:if>
+								</p>
+
+								<c:choose>
+									<c:when test="${gdsVO.dlvyCtTy eq 'PERCOUNT'}"><p class="icon-child">상품 <fmt:formatNumber value="${gdsVO.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과</p></c:when>
+									<c:when test="${gdsVO.dlvyCtTy eq 'OVERMONEY'}"><p class="icon-child"><fmt:formatNumber value="${gdsVO.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료</p></c:when>
+								</c:choose>
+
+								<%-- 추가 배송비 -> 도서산간비용, 노출x--%>
+								<c:if test="${gdsVO.dlvyAditAmt > 0}">
+								<p class="icon-child">제주/도서산간지역 <fmt:formatNumber value="${gdsVO.dlvyAditAmt}" pattern="###,###" />원 추가</p>
+								</c:if>
+								
+							</dd>
+						</c:if>
+						
+					</dl>
+
 					<dl class="border-bottom">
 						<dt>배송 유형</dt>
 						<dd>
@@ -744,10 +773,14 @@
 
 								<!-- 구매 금액 -->
 
-								<div class="payment-price">
-									<p class="text-price">
-										총갯수<strong id="totalQy">0</strong>개 총 구매 금액 <strong id="totalPrice">0</strong> <span>원</span>
-									</p>
+								<div class="payment-price with-total">
+									<span class="font-bold">총 상품금액</span>
+									<div class="pay-amount text-price">
+                                        <p class="text-gray5">주문수량<span id="totalQy">7</span>개 |</p>
+                                        <strong  id="totalPrice">45,400</strong>
+                                        <span>원</span>
+                                    </div>
+
 								</div>
 
 								<!-- //구매 금액 -->

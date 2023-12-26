@@ -225,6 +225,13 @@ public class CodeMap{
 			put("COLLECT", "착불"); //COLLECT
 		}
 	};
+		public static final HashMap<String, String> DLVY_PAY_TY2 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 3248778213644085591L;
+		{
+			put("PREPAID", "주문 시 결제"); //PREPAID
+			put("COLLECT", "직접결제"); //COLLECT //dylee 착불 없어짐
+		}
+	};
 
 	// 전자상거래(상품) 고시 유형 - 추가 확인 필요
 	public static final HashMap<String, String> GDS_ANCMNT_TY = new LinkedHashMap<String, String>() {
