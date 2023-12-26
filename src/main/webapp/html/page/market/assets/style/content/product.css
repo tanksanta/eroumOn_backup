@@ -569,6 +569,11 @@
             & img {
                 @apply inline-block relative -top-px align-middle;
             }
+
+            & .icon-child {
+                @apply relative pl-3 text-gray1
+                    before:content-empty before:absolute before:top-[0.313rem] before:left-0 before:inline-block before:w-2 before:h-2 before:border-gray1 before:border-l before:border-b;
+            }
         }
         &.price1, &.price2 {
             & dt {
@@ -602,7 +607,8 @@
 }
 
 .product-payment {
-    @apply fixed z-60 left-0 bottom-0 w-full border-t-1 border-t-black2 bg-white
+    /* z-60 */
+    @apply fixed z-[109]  left-0 bottom-0 w-full border-t-1 border-t-black2 bg-white  transition-all duration-500 ease-in-out
            lg:static lg:pt-5 lg:border-t-0;
     & .option-title {
         @apply absolute left-0 top-0 mb-2 font-bold text-base
@@ -611,9 +617,13 @@
     }
     & .payment-toggle {
         /* @apply hidden absolute bg-no-repeat bg-center bg-black2 rounded-full -top-3 w-25 h-6 left-1/2 -translate-x-1/2 */
-        @apply absolute z-70 bg-no-repeat bg-center bg-black2 rounded-full -top-3.5 w-25 h-6 left-1/2 -translate-x-1/2
+        @apply absolute z-70 bg-no-repeat bg-center bg-black2 rounded-full -top-3.5 w-25 h-6 left-1/2 -translate-x-1/2 rotate-180
                lg:!hidden;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23.458' height='8' viewBox='0 0 23.458 8'%3E%3Cpath id='Rectangle_8' data-name='Rectangle 8' d='M22.172-7.885,11.729-1.855,1.286-7.885a.857.857,0,0,0-1.171.313A.857.857,0,0,0,.428-6.4L11.153-.209A.86.86,0,0,0,11.729,0a.861.861,0,0,0,.577-.209L23.029-6.4a.857.857,0,0,0,.314-1.171A.857.857,0,0,0,22.6-8,.852.852,0,0,0,22.172-7.885Z' transform='translate(0 8)' fill='%23fff'/%3E%3C/svg%3E%0A");
+        
+        &.is-active {
+            @apply rotate-0;
+        }
     }
     & .payment-scroller {
         @apply hidden scrollbars px-5 max-h-[calc(75vh_-_10.5rem)]
@@ -727,6 +737,17 @@
             @apply relative -top-0.5 pl-1.5 text-3xl
                    md:pl-3 md:text-[1.875rem];
         }
+        &.with-total {
+            @apply flex flex-col items-start sm:flex-row sm:items-center justify-between;
+            & .pay-amount {
+                @apply flex items-center gap-2 self-end;
+
+                > strong {
+                    @apply pl-0;
+                }
+            }
+        }
+
     }
     & .payment-button {
         @apply flex flex-wrap gap-2.5 py-3 px-5 bg-white
@@ -954,9 +975,12 @@
         @apply opacity-70;
     }
 }
-
+.product-quanitem-wrap {
+    @apply flex flex-col gap-5 mt-5;
+}
 .product-quanitem {
     @apply flex items-center;
+
     & .thumb {
         @apply hidden flex-none mr-4 w-20 h-20 rounded-md
                sm:block
