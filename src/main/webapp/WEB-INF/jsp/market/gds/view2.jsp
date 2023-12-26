@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- //상품 슬라이드 -->
+					<!-- //상품 슬라이드  -->
 				</c:if>
 
 				<c:if test="${!empty gdsVO.gdsRelList}">

@@ -333,7 +333,7 @@ public class GdsController extends CommonAbstractController {
 				Map<String, Object> pathMap = new HashMap<String, Object>();
 				pathMap.put("srchCtgryNo", ctgryNo);
 				String noPath = gdsCtgryService.selectGdsCtgryNoPath(pathMap);
-				model.addAttribute("noPath", noPath);
+				model.addAttribute("noPath", noPath); 
 
 
 				model.addAttribute("gdsVO", gdsVO);

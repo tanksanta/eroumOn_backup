@@ -11,7 +11,7 @@ class JsMarketGdsView{
         this._cls_info.pagePrefix = 'main#container .layout.page-content' ;
         this._cls_info.pagePopPrefix = 'main#container div.modal2-con';
         
-        this.fn_page_init();
+        this.fn_page_init(); 
     }
 
     fn_page_init(){
