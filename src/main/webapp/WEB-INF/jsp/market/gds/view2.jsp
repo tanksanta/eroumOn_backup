@@ -836,10 +836,17 @@
 
 <script>
 	var jsMarketGdsView = null;
+	var jsMarketGdsView_f_baseOptnChg_exec = false;
 	$(document).ready(function() {
 		var path = {_membershipPath:"${_membershipPath}", _marketPath:"${_marketPath}"};
 
 		jsMarketGdsView = new JsMarketGdsView(path, ${_mbrSession.loginCheck}, $("textarea.gdsVOString").val())
+
+		if (jsMarketGdsView_f_baseOptnChg_exec){
+			jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE");
+			jsMarketGdsView_f_baseOptnChg_exec = false;
+		}
+		
 	});
 
 
@@ -1013,7 +1020,7 @@ var Goods = (function(){
 		    // 옵션이 없는 경우 //|0|10
 		    if(${gdsVO.stockQy} > 0){
 		    	$(".product-quanitem").remove();
-			    jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+				jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
 		    }
 		    $(".btn-delete").remove();
 		    </c:if>
@@ -1024,7 +1031,12 @@ var Goods = (function(){
 	    <c:if test="${empty optnTtl[0]}">
 	    // 옵션이 없는 경우 //|0|10
 	    if(${gdsVO.stockQy} > 0){
-		    jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+			if (jsMarketGdsView == undefined){
+				jsMarketGdsView_f_baseOptnChg_exec = true;
+			}else{
+				jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+			}
+			
 	    }
 	    $(".btn-delete").remove();
 	    </c:if>
@@ -1178,17 +1190,20 @@ var Goods = (function(){
 		// 고시정보
 		let infoJson = eval('(${!empty gdsVO.ancmntInfo?gdsVO.ancmntInfo:'{}'})');
 		var html = '<tr class="top-border"><td></td><td></td></tr>';
-		$.each(item['${gdsVO.ancmntTy}'].article, function(key, value){
-	    	html += '<tr>';
-			html += '	<th scope="row"><p>'+ value[0] +'</p></th>';
-			html += '	<td>';
-			if(value[1] != ''){
-				html += '	<p class="py-1">'+ value[1] +'</p>';
-	        }
-			html += '	'+ (infoJson[key]==undefined?'상세설명페이지 참고':infoJson[key]);
-			html += '	</td>';
-			html += '</tr>';
-		});
+
+		<c:if test="${!empty gdsVO.ancmntTy}">
+			$.each(item['${gdsVO.ancmntTy}'].article, function(key, value){
+				html += '<tr>';
+				html += '	<th scope="row"><p>'+ value[0] +'</p></th>';
+				html += '	<td>';
+				if(value[1] != ''){
+					html += '	<p class="py-1">'+ value[1] +'</p>';
+				}
+				html += '	'+ (infoJson[key]==undefined?'상세설명페이지 참고':infoJson[key]);
+				html += '	</td>';
+				html += '</tr>';
+			});
+		</c:if>
 	    html += '<tr class="bot-border"><td></td><td></td></tr>';
 	    $("#ancmntTable tbody").append(html);
 

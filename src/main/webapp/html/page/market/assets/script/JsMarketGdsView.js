@@ -6,7 +6,11 @@ class JsMarketGdsView{
         this._cls_info.loginCheck = loginCheck;
         this._cls_info._membershipPath = path._membershipPath;
         this._cls_info._marketPath = path._marketPath;
-        this._cls_info.gdsVOJson = JSON.parse(gdsVOString);
+
+		console.log(gdsVOString)
+		if (gdsVOString.trim().length > 0){
+			this._cls_info.gdsVOJson = JSON.parse(gdsVOString);
+		}
         
         this._cls_info.pagePrefix = 'main#container .layout.page-content' ;
         this._cls_info.pagePopPrefix = 'main#container div.modal2-con';
