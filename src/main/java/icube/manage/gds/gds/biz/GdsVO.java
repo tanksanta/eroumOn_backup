@@ -80,6 +80,7 @@ public class GdsVO extends CommonBaseVO {
 	private int dlvyMummAmt;
 	private String dlvyCtTy = "FREE";
 	private String dlvyCtStlm;
+	private int dlvyCtCnd = 0;
 	private int dlvyBassAmt = 0;
 	private int dlvyAditAmt = 0;
 	private String dlvyGroupYn;

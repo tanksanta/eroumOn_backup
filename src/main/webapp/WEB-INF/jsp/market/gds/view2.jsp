@@ -564,33 +564,6 @@
 						
 					</dl>
 
-					<dl class="border-bottom">
-						<dt>배송 유형</dt>
-						<dd>
-							${dlvyCostTyCode[gdsVO.dlvyCtTy]}배송
-							<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-                               	&nbsp;(${dlvyPayTyCode[gdsVO.dlvyCtStlm]})
-                               	</c:if>
-						</dd>
-					</dl>
-					<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-					<dl class="border-bottom">
-						<dt>배송비</dt>
-						<dd>
-							<fmt:formatNumber value="${gdsVO.dlvyBassAmt}" pattern="###,###" />
-						</dd>
-					</dl>
-					</c:if>
-
-					<%-- 추가 배송비 -> 도서산간비용, 노출x
-					<c:if test="${gdsVO.dlvyAditAmt > 0}">
-					<dl>
-						<dt>추가 배송비</dt>
-						<dd>
-							<fmt:formatNumber value="${gdsVO.dlvyAditAmt}" pattern="###,###" />
-						</dd>
-					</dl>
-					</c:if> --%>
 					
 					<!--복지용구일때만 나오는 영역-->
 					<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
