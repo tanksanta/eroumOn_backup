@@ -54,7 +54,7 @@
                             <select name="srchRecipientsNo" id="srchRecipientsNo" class="form-control w-full" value="${param.srchRecipientsNo}">
                             	<option value="">전체</option>
                             	<c:forEach var="mbrRecipient" items="${mbrRecipientList}" varStatus="status">
-                                	<option value="${mbrRecipient.recipientsNo}">${mbrRecipient.recipientsNm}</option>
+                                	<option value="${mbrRecipient.recipientsNo}" <c:if test="${!empty param.srchRecipientsNo && mbrRecipient.recipientsNo == param.srchRecipientsNo}">selected</c:if>>${mbrRecipient.recipientsNm}</option>
                                 </c:forEach>
                             </select>
                         </dd>
