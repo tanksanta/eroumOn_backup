@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<!-- 묶음배송 그룹 생성 -->
-	
+
 	<div class="modal fade divDlvyGrpChoice" id="divDlvyGrpChoice" tabindex="-1">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
@@ -30,7 +30,7 @@
 
 						</tbody>
 					</table>
-					<table class="table-list mt-10 con-datatables">
+					<table class="table-list display mt-10 con-datatables">
 						<colgroup>
 							<col>
 							<col class="w-55">
