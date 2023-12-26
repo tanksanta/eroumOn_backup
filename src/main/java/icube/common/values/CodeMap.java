@@ -228,7 +228,7 @@ public class CodeMap{
 		public static final HashMap<String, String> DLVY_PAY_TY2 = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 3248778213644085591L;
 		{
-			put("PREPAID", "주문 시 결제"); //PREPAID
+			put("PREPAID", "주문 시 결제"); //PREPAID 
 			put("COLLECT", "직접결제"); //COLLECT //dylee 착불 없어짐
 		}
 	};
