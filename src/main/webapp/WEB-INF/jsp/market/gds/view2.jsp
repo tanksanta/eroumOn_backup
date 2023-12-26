@@ -776,8 +776,8 @@
 								<div class="payment-price with-total">
 									<span class="font-bold">총 상품금액</span>
 									<div class="pay-amount text-price">
-                                        <p class="text-gray5">주문수량<span id="totalQy">7</span>개 |</p>
-                                        <strong  id="totalPrice">45,400</strong>
+                                        <p class="text-gray5">주문수량<span id="totalQy">0</span>개 |</p>
+                                        <strong  id="totalPrice">0</strong>
                                         <span>원</span>
                                     </div>
 

@@ -80,7 +80,7 @@ class JsMarketGdsView{
         var qyObj = pObj.find("input[name='ordrQy']");
         var stockQy = qyObj.data("stockQy");
 		var ordrOptnTy = pObj.find("input[name='ordrOptnTy']").val();
-		var gdsPc  = (ordrOptnTy=='BASE')?pObj.find("input[name='gdsPc']").val():pObj.find("input[name='ordrOptnPc']").val();
+		var gdsPc  = Number(pObj.find("input[name='gdsPc']").val()) + Number(pObj.find("input[name='ordrOptnPc']").val());
 
         // 주문수량
         if(Number(qyObj.val()) < stockQy){
@@ -103,7 +103,7 @@ class JsMarketGdsView{
         var qyObj = pObj.find("input[name='ordrQy']");
         var stockQy = qyObj.data("stockQy");
 		var ordrOptnTy = pObj.find("input[name='ordrOptnTy']").val();
-		var gdsPc  = (ordrOptnTy=='BASE')?pObj.find("input[name='gdsPc']").val():pObj.find("input[name='ordrOptnPc']").val();
+		var gdsPc  = Number(pObj.find("input[name='gdsPc']").val()) + Number(pObj.find("input[name='ordrOptnPc']").val());
 
         // 주문수량
         if(Number(qyObj.val()) > 1){
