@@ -761,8 +761,8 @@
 										<button type="button" class="btn-primary btn dlvy grp select">묶음그룹 선택</button>
 
 										<div class="flex flex-col border border-gray1 rounded-md m-h-50 p-4 mt-2 w-[40%] min-w-[540px] dlvy-group-disp">
-											<strong class="mb-4">그룹 : <span class="entrpsDlvygrpNm">복지유니온_효반 죽</span> (<span class="entrpsDlvygrpUseYn">사용중</span>)</strong>
-                                            <p class="text-gray5">배송비 계산방식 :<span class="dlvyCalcTyNm">묶음 그룹에서 가장 큰 배송비로 부과</span></p>
+											<strong class="mb-4">그룹 : <span class="entrpsDlvygrpNm">${entrpsDlvyGrpVO.entrpsDlvygrpNm}</span> (<span class="entrpsDlvygrpUseYn">${useYnCode[entrpsDlvyGrpVO.useYn]}</span>)</strong>
+                                            <p class="text-gray5">배송비 계산방식 :<span class="dlvyCalcTyNm">${dlvyCalcTyCode[entrpsDlvyGrpVO.dlvyCalcTy]}</span></p>
 										</div>
                                     </td>
                                 </tr>
