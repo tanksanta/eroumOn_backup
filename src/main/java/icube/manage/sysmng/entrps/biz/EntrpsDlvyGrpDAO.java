@@ -14,7 +14,7 @@ public class EntrpsDlvyGrpDAO extends CommonAbstractMapper {
 
 	public CommonListVO entrpsDlvyGrpListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("entrps.dlvygrp.selectEntrpsDlvyGrpCount", "entrps.dlvygrp.selectEntrpsDlvyGrpListVO", listVO);
-	}
+	} 
 
 	public EntrpsVO selectEntrpsDlvyGrp(int entrpsDlvygrpNo) throws Exception {
 		return (EntrpsVO)selectOne("entrps.dlvygrp.selectEntrpsDlvyGrp", entrpsDlvygrpNo);

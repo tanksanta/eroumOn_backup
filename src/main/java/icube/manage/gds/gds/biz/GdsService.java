@@ -385,4 +385,8 @@ public class GdsService extends CommonAbstractServiceImpl {
 	public List<String> selectGdsTyGrp(Map<String, Object> paramMap) throws Exception {
 		return gdsDAO.selectGdsTyGrp(paramMap);
 	}
+
+	public int updateGdsByDlvygrpResetSelected(GdsVO gdsVO) throws Exception {
+		return gdsDAO.updateGdsByDlvygrpResetSelected(gdsVO);
+	}
 }
