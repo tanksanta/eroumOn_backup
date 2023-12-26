@@ -86,6 +86,11 @@ public class GdsDAO extends CommonAbstractMapper {
 	public List<String> selectGdsTyGrp(Map<String, Object> paramMap) throws Exception {
 		return selectList("gds.gds.selectGdsTyGrp", paramMap);
 	}
+
+	public CommonListVO selectGdsListByDlvygrp(CommonListVO listVO) throws Exception {
+		return selectListVO("gds.gds.selectGdsCountByDlvygrp", "gds.gds.selectGdsListByDlvygrp", listVO);
+	}
+	
 	public Integer updateGdsByDlvygrpResetAll(GdsVO paramMap) throws Exception {
 		return update("gds.gds.updateGdsByDlvygrpResetAll",paramMap);
 	}
