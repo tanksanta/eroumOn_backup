@@ -83,7 +83,7 @@
                             <div class="flex justify-end">
                                 <a href="/membership/info/recipients/list" class="btn-black btn-small w-auto gap-1">수급자 관리 <i class="icon-arrow-right-white"></i></a>
                             </div>
-                            <div class="radio-check-group">
+                            <div class="radio-check-group md:min-w-100">
                             	<%-- 선택할 수급자 리스트 표출 --%>
                             	<c:forEach var="recipientInfo" items="${mbrVO.mbrRecipientsList}" varStatus="status">
                             		<div class="form-check">
@@ -273,6 +273,12 @@
                 $('.regist-lno').removeClass('active').addClass('inactive');
 	    	}
 	    	
+	    	//모달내에서 뒤로가기 이동
+	    	function moveBackPageInSrModal() {
+	    		$('.regist-rcpts, .regist-lno').removeClass('active').addClass('inactive');
+                $('.rcpts-select-content').removeClass('inactive').addClass('active');
+	    	}
+	    	
 	        $(function () {
 	            //수급자 등록, 요양정보 등록 팝업 div높이 구하기
 	            $('#rcpts-select').on('shown.bs.modal', function () {
@@ -295,8 +301,7 @@
 	            });
 	
 	            $('.rcpts-back').click(function () {
-	                $('.regist-rcpts, .regist-lno').removeClass('active').addClass('inactive');
-	                $('.rcpts-select-content').removeClass('inactive').addClass('active');
+	            	moveBackPageInSrModal();
 	            });
 	
 	            //요양인정번호 등록 로직은 아래 다른 곳에 구현
@@ -720,6 +725,7 @@
 		    	.done(function(data) {
 		    		if(data.success) {
 		    			alert('요양인정번호가 등록되었습니다');
+		    			moveSelectRecipientModal(recipientNo, lno);
 		    		}else{
 		    			alert(data.msg);
 		    		}
@@ -727,5 +733,24 @@
 		    	.fail(function(data, status, err) {
 		    		alert('서버와 연결이 좋지 않습니다.');
 		    	});	
+	    	}
+	    	
+	    	//요양정보수정 후 수급자 선택창으로 이동
+	    	function moveSelectRecipientModal(recipientNo, lno) {
+	    		var targetInput = null;
+	    		var recipientInputs = $('input[name=rcpts]');
+	    		for (var i = 0; i < recipientInputs.length; i++) {
+	    			if (recipientInputs[i].value === recipientNo) {
+	    				targetInput = recipientInputs[i];
+	    			}
+	    		}
+	    		
+	    		//수급자 선택화면의 해당 수급자 버튼쪽 UI수정
+	    		$(targetInput).parent().find('.add-lno-btn').remove();
+	    		$(targetInput).parent().find('.form-check-label').addClass('check-btn');
+	    		$(targetInput).parent().find('.rcpt-inner').append('<span>L' + lno + '</span>');
+	    		
+	    		//이전으로 이동
+	    		moveBackPageInSrModal();
 	    	}
         </script>
