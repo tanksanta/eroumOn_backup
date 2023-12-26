@@ -1098,6 +1098,7 @@ public class CodeMap{
 		}
 	};
 
+	/* 주문에서 메일 발송되는 시점별*/
 	public static final HashMap<String, String> MAIL_SEND_TY = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -4615344482467031482L;
 		{
@@ -1105,6 +1106,7 @@ public class CodeMap{
 			put("MAILSEND_ORDR_MARKET_PAYDONE_BANK","주문접수 실시간계좌이체");//
 			put("MAILSEND_ORDR_MARKET_PAYDONE_VBANK", "주문접수 가상계좌");//,
 			put("MAILSEND_ORDR_MARKET_PAYDONE_FREE", "주문접수 무료");//,
+
 			put("MAILSEND_ORDR_SCHEDULE_VBANK_REQUEST","가상계좌 입금 요청");//
 			put("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
 			put("MAILSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
@@ -1117,6 +1119,26 @@ public class CodeMap{
 			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","구매확정-예정");//
 			put("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION","구매확정-처리");//
 
+		}
+	};
+
+	/* 주문에서 biztalk 발송되는 시점별*/
+	public static final HashMap<String, String> BIZTALK_SEND_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -4615344482467031482L;
+		{
+			put("BIZTALKSEND_ORDR_MARKET_PAYDONE_CARD", "주문접수 카드");//,
+			put("BIZTALKSEND_ORDR_MARKET_PAYDONE_BANK","주문접수 실시간계좌이체");//
+			put("BIZTALKSEND_ORDR_MARKET_PAYDONE_VBANK", "주문접수 가상계좌");//,
+			put("BIZTALKSEND_ORDR_MARKET_PAYDONE_FREE", "주문접수 무료");//,
+
+			put("BIZTALKSEND_ORDR_SCHEDULE_VBANK_REQUEST","가상계좌 입금 요청");//
+			put("BIZTALKSEND_ORDR_SCHEDULE_VBANK_CANCEL","가상계좌 취소");//
+			put("BIZTALKSEND_ORDR_BOOTPAY_VBANK_INCOME","가상계좌 입금완료");//
+
+			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE","자동 구매확정-예정");//
+			put("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION","자동 구매확정-처리");//
+
+			// put("BIZTALKSEND_ORDR_MYPAGE_CONFIRM_ACTION","사용자 구매확정-처리");// 사용자가 구매확정을 처리하는 경우에도 한건씩 처리해서 추후에 적용
 		}
 	};
 

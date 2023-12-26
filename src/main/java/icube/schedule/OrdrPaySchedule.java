@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import icube.common.api.biz.BiztalkOrderService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailForm2Service;
@@ -36,7 +37,7 @@ import icube.manage.ordr.rebill.biz.OrdrRebillService;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 
 @Service("ordrPaySchedule")
-@Profile(value = {"test", "real", "pc"}) /*개발, 운영서버에서만 실행*/
+@Profile(value = {"dev", "test", "real"}) /*개발, 운영서버에서만 실행*/
 @EnableScheduling
 public class OrdrPaySchedule extends CommonAbstractController {
 
@@ -60,6 +61,9 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 	@Resource(name = "mailForm2Service")
 	private MailForm2Service mailForm2Service;
+
+	@Resource(name = "biztalkOrderService")
+	private BiztalkOrderService biztalkOrderService;
 
 	@Value("#{props['Mail.Form.FilePath']}")
 	private String mailFormFilePath;
@@ -225,7 +229,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 	// 구매확정 예정
-	@Scheduled(cron="0 30 1 * * *")
+	@Scheduled(cron="0 40 9 * * *")
 	public void order09_notice() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
@@ -252,13 +256,14 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
+			biztalkOrderService.sendOrdr("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_NOTICE", mbrVO, ordrVO);
 			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_NOTICE", mbrVO, ordrVO, srchIntervalDay);
 		}
 	}
 
 
 	// 구매확정 처리
-	@Scheduled(cron="0 30 2 * * *")
+	@Scheduled(cron="0 50 9 * * *")
 	public void order09_action() throws Exception {
 		log.info("########## 구매 확정 처리 START ##########");
 
@@ -306,14 +311,15 @@ public class OrdrPaySchedule extends CommonAbstractController {
 			
 			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
+			biztalkOrderService.sendOrdr("BIZTALKSEND_ORDR_SCHEDULE_CONFIRM_ACTION", mbrVO, ordrVO);
 			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_CONFIRM_ACTION", mbrVO, ordrVO);
 		}
 
 		log.info("########## 구매 확정 처리 END ##########");
 	}
 
-	// 가상계좌 입금요청 -> 매일 오전 7시 30분
-	@Scheduled(cron="0 30 7 * * *")
+	// 가상계좌 입금요청 -> 매일 오전 9시 30분
+	@Scheduled(cron="0 0 10 * * *")
 	public void vbankReqeust() throws Exception {
 		log.info("########## 가상계좌 입금요청 처리 START ##########");
 
@@ -327,6 +333,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 
 			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
 
+			biztalkOrderService.sendOrdr("BIZTALKSEND_ORDR_SCHEDULE_VBANK_REQUEST", mbrVO, ordrVO);
 			mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
 		}
 
@@ -334,7 +341,7 @@ public class OrdrPaySchedule extends CommonAbstractController {
 	}
 
 	// 가상계좌 입금기간 만료시 -> 취소 (매일 자정)
-	@Scheduled(cron="0 30 0 * * *")
+	@Scheduled(cron="0 30 9 * * *")
 	public void cancle02() throws Exception {
 
 		log.info("########## 가상계좌 취소 처리 START ##########");
@@ -380,53 +387,11 @@ public class OrdrPaySchedule extends CommonAbstractController {
 			searchParamMap.put("srchUniqueId", ordrVO.getUniqueId());
 			MbrVO mbrVO = mbrService.selectMbr(searchParamMap);
 			
+			biztalkOrderService.sendOrdr("BIZTALKSEND_ORDR_SCHEDULE_VBANK_CANCEL", mbrVO, ordrVO);
 			mailForm2Service.sendMailOrder("MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL", mbrVO, ordrVO);
 		}
 
 		log.info("########## 가상계좌 취소 처리 END ##########");
 	}
-
-//	public void vbankCancle02() throws Exception {
-//		log.info("########## 가상계좌 취소 처리 START ##########");
-//
-//		String mailSendType = "MAILSEND_ORDR_SCHEDULE_VBANK_CANCEL";
-//		MbrVO mbrVO;
-//		OrdrVO ordrVO;
-//		OrdrDtlVO ordrDtlVO;
-//		OrdrChgHistVO ordrChgHistVO;
-//		List<OrdrVO> ordrList = ordrService.selectOrdrScheduleStlmNForCancelList();
-//		List<OrdrDtlVO> ordrDtlList;
-//		int jfor, jlen;
-//
-//		int ifor, ilen = ordrList.size();
-//		for(ifor=0 ; ifor<ilen; ifor++){
-//			ordrVO = ordrList.get(ifor);
-//
-//			ordrDtlList = ordrVO.getOrdrDtlList();
-//
-//			jlen = ordrDtlList.size();
-//			for(jfor=0 ; jfor<jlen; jfor++){
-//				ordrDtlVO = ordrDtlList.get(jfor);
-//
-//				ordrChgHistVO = new OrdrChgHistVO();
-//				ordrChgHistVO.setOrdrNo(ordrDtlVO.getOrdrNo());
-//				ordrChgHistVO.setOrdrDtlNo(ordrDtlVO.getOrdrDtlNo());
-//				ordrChgHistVO.setChgStts("CA02");
-//				ordrChgHistVO.setResnTy(ordrDtlVO.getResnTy());
-//				ordrChgHistVO.setResn("자동 전환");
-//				ordrChgHistVO.setRegUniqueId(null);
-//				ordrChgHistVO.setRegId("SYS");
-//				ordrChgHistVO.setRgtr("SYS");
-//
-//				ordrDtlService.updateOrdrDtlCancel(ordrVO.getUniqueId(), ordrDtlVO, ordrChgHistVO);
-//			}
-//
-//			mbrVO = mbrService.selectMbrByUniqueId(ordrVO.getUniqueId());
-//
-//			mailForm2Service.sendMailOrder(mailSendType, mbrVO, ordrVO);
-//		}
-//
-//		log.info("########## 가상계좌 취소 처리 END ##########");
-//	}
 
 }
