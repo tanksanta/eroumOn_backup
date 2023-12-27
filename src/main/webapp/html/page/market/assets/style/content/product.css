@@ -570,10 +570,7 @@
                 @apply inline-block relative -top-px align-middle;
             }
 
-            & .icon-child {
-                @apply relative pl-3 text-gray1
-                    before:content-empty before:absolute before:top-[0.313rem] before:left-0 before:inline-block before:w-2 before:h-2 before:border-gray1 before:border-l before:border-b;
-            }
+           
         }
         &.price1, &.price2 {
             & dt {
@@ -1132,5 +1129,15 @@
             @apply text-[0.8125rem] leading-tight
                    md:text-sm;
         }
+    }
+}
+
+/*배송비*/
+.icon-child {
+    @apply relative pl-3 text-gray1
+        before:content-empty before:absolute before:top-[0.313rem] before:left-0 before:inline-block before:w-2 before:h-2 before:border-gray1 before:border-l before:border-b;
+
+    &.type-pay {
+        @apply text-black2 font-medium;
     }
 }

@@ -205,6 +205,18 @@
         }
         & .container {
             @apply p-2.5 max-w-none rounded bg-white space-y-4;
+
+            & .result-price-item {
+              dd {
+                @apply flex items-center gap-1;
+                & span {
+                    @apply text-2xl -mt-0.5;
+                }
+                & strong {
+                    @apply top-0;
+                }
+              }
+            }
         }
         & .last {
             @apply block mt-2 text-red3;

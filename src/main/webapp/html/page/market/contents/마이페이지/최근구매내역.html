@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -18,6 +18,7 @@
     <script src="../../assets/script/order.js"></script>
 </head>
 <body>
+
     <!-- access -->
     <ul id="skip-navigation">
         <li><a href="#container">본문 바로가기</a></li>
@@ -337,7 +338,7 @@
     <!-- //header -->
 
     <!-- container -->
-    <main id="container">
+    <main id="container" class="is-mypage">
         <div id="page-header">
             <ul class="page-header-breadcrumb">
                 <li><a href="#">홈</a></li>
@@ -347,358 +348,271 @@
             </ul>
             <div class="page-header-title">
                 <a href="#" class="back">이전 페이지 가기</a>
-                <h2 class="subject"><a href="#">복지용구</a></h2>
+                <h2 class="subject">마이페이지</h2>
             </div>
-            <button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button>
         </div>
 
         <div id="page-container">
+            <nav id="page-sidenav">
+                <div class="page-sidenav-header">
+                    <ul class="header-link">
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+                    <button type="button" class="header-close">닫기</button>
+                </div>
+                <div class="page-sidenav-menu lg-max:pt-0">
+                    <div class="global-user flex-none">
+                        <div class="user-name">
+                            <strong>사용자 <small>님</small></strong>
+                            <span>수급자 회원</span>
+                        </div>
+                        <div class="user-info">
+                            <div class="grade">
+                                <strong>신규회원</strong>
+                                <a href="#">등급별혜택</a>
+                            </div>
+                            <div class="point">
+                                <dl>
+                                    <dt>쿠폰</dt>
+                                    <dd><a href="#"><strong>5</strong> 장</a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>포인트</dt>
+                                    <dd><a href="#"><strong>512</strong> <img src="/html/core/images/txt-point-white.svg" alt="포인트"></a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>마일리지</dt>
+                                    <dd><a href="#"><strong>5123</strong> <img src="/html/core/images/txt-mileage-white.svg" alt="마일리지"></a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑내역</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#" class="is-active">주문/배송 조회</a></li>
+                                <li><a href="#">취소/교환/반품 조회</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑혜택</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">쿠폰</a></li>
+                                <li><a href="#">포인트</a></li>
+                                <li><a href="#">마일리지</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">쇼핑활동</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li><a href="#">참여한 이벤트</a></li>
+                                <li><a href="#">내가 구매한 상품</a></li>
+                                <li><a href="#">상품후기</a></li>
+                                <li><a href="#">상품 Q&amp;A</a></li>
+                                <li><a href="#">1:1 문의</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <p class="title">회원정보</p>
+                        <div class="content">
+                            <ul class="menulist">
+                                <li class="is-active"><a href="#">회원정보 수정</a></li>
+                                <li class="is-require"><a href="#">가족회원 관리</a></li>
+                                <li><a href="#">배송지 관리</a></li>
+                                <li><a href="#">회원 탈퇴</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
             <div id="page-content">
-                <h3 class="text-title mb-3 md:mb-4">상품 정보</h3>
-                
-                <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5">
-                    <div class="order-product">
-                        <div class="order-body">
-                            <div class="order-buyer">
-                                <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
-                                <strong>이름</strong>
-                            </div>
-                            <div class="order-item">
-                                <div class="order-item-thumb">
-                                    <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
-                                </div>
-                                <div class="order-item-content">
-                                    <div class="order-item-base">
-                                        <p class="code">
-                                            <span class="label-primary">
-                                                <span>급여상품</span>
-                                                <i></i>
-                                            </span>
-                                            <u>24n29G38Y72a</u>
-                                        </p>
-                                        <div class="product">
-                                            <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                                            <dl class="option">
-                                                <dt>옵션</dt>
-                                                <dd>
-                                                    <span class="label-flat">블루</span>
-                                                </dd>
-                                            </dl>
-                                        </div>
-                                        <div class="count">
-                                            <p><strong>2</strong>개</p>
-                                        </div>
-                                        <p class="price">11,448,400원</p>
-                                    </div>
-                                    <div class="order-item-add">
-                                        <span class="label-outline-primary">
-                                            <span>추가</span>
-                                            <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
-                                        </span>
-                                        <div class="name">
-                                            <p><strong>모던 스타일 스툴</strong></p>
-                                            <p>수량 1개 (+80,000원)</p>
-                                        </div>
-                                    </div>
-                                    <div class="order-item-info">
-                                        <div class="payment">
+				<div class="global-user mb-9  lg:hidden">
+				<div class="user-name">
+				    <strong>이다겸<small>님</small></strong>
+					<span>일반 회원</span>
+                       <button type="button" class="user-toggle">메뉴 열기</button>
+				</div>
+				<div class="user-info">
+				    <div class="grade">
+				        <strong>신규회원</strong>
+						<a href="/market/etc/bnft/list">등급별혜택</a>
+					</div>
+					<div class="point">
+					    <dl>
+					        <dt>쿠폰</dt>
+					        <dd>
+					        	<a href="/market/mypage/coupon/list">
+                               		<strong>4</strong> 장
+						   		</a>
+						 	</dd>
+						</dl>
+						<dl>
+						    <dt>포인트</dt>
+						    <dd>
+						   		<a href="/market/mypage/point/list">
+                               		<strong>0</strong>
+									<img src="/html/core/images/txt-point-white.svg" alt="포인트">
+								</a>
+							</dd>
+	                    </dl>
+	                    <dl>
+	                        <dt>마일리지</dt>
+	                        <dd>
+	                        	<a href="/market/mypage/mlg/list">
+                               		<strong>0</strong>
+									<img src="/html/core/images/txt-mileage-white.svg" alt="마일리지">
+								</a>
+							</dd>
+	                    </dl>
+	                </div>
+	            </div>
+            </div><!-- //수급자 진행 주문 현황 -->
+
+                <div class="space-y-12 md:space-y-25">
+					<!-- 최근 구매 내역 -->
+	                <div class="mypage-myinfo-recent">
+	                    <div class="recent-title">
+	                        <h2>최근 구매 내역</h2>
+	                        <a href="./ordr/list" class="btn btn-more2">전체보기</a>
+	                    </div>
+
+	                    <div class="space-y-5.5 md:space-y-7.5">
+	                    	<div class="order-product">
+		                        <div class="order-header">
+                                    <div class="flex flex-col w-full gap-3">
+                                        <dl class="order-item-business">
+                                            <dt><span>사업소</span> <span>행복한 시니어</span></dt>
+                                        </dl>
+                                        <div class="flex items-center w-full">
                                             <dl>
-                                                <dt>사업소</dt>
-                                                <dd>행복한 시니어</dd>
+                                                <dt>주문번호</dt>
+                                                <dd><strong><a href="./ordr/view/O31218090306460?curPage=1">O31218090306460</a></strong></dd>
                                             </dl>
                                             <dl>
-                                                <dt>배송비</dt>
-                                                <dd>3000원</dd>
+                                                <dt>주문일시</dt><dd>2023.12.18 09:03:24</dd>
                                             </dl>
                                         </div>
                                     </div>
-                                </div>
+		                            <!-- <button type="button" class="f_all_rtrcn">전체취소</button> -->
+		                        </div>
+		                        <div class="order-body">
+		                        	<div class="order-buyer">
+		                            	<strong></strong>
+		                            </div>
+		                            <div class="order-item order-item-mypage">
+		                                <div class="order-item-thumb">
+		                                    <img src="/comm/getImage?srvcId=GDS&amp;upNo=232&amp;fileTy=THUMB&amp;fileNo=2&amp;thumbYn=Y" alt="">
+										</div>
+		                                <div class="order-item-content">
+                                            <div class="flex items-start w-full">
+                                                <div class="order-item-group">
+                                                    <div class="order-item-base">
+                                                        <p class="code">
+                                                            <span class="label-primary">
+                                                                <span>비급여상품</span>
+                                                                <i></i>
+                                                            </span>
+                                                            <u>GDS0000232</u>
+                                                        </p>
+                                                        <div class="product">
+                                                            <p class="name">더 부드러운 소고기 장조림</p>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="order-item-count">
+                                                    <p><strong>1</strong>개</p>
+                                                    </div>
+                                                <p class="order-item-price"><span class="text-primary">8,700원</span></p>
+                                            </div>
+                                            <div class="item-option mb-4">
+                                                <dl class="option">
+                                                    <dd>
+                                                        <span class="label-flat">분홍</span>
+                                                        <span class="label-flat">800g</span>
+                                                        <span >2개(+9,720원)</span>
+                                                        <!-- <button class="btn-delete2">삭제</button> -->
+                                                    </dd>
+                                                    <dd>
+                                                        <span class="label-flat">삼계죽</span>
+                                                        <span class="label-flat">300g</span>
+                                                        <span >2개</span>
+                                                        <!-- <button class="btn-delete2">삭제</button> -->
+                                                    </dd>
+                                                </dl>
+                                            </div>
+
+		                                    <div class="order-item-info">
+		                                        <!-- <div class="payment">
+		                                        	<dl>
+	                                                	<dt>배송비</dt>
+		                                               <dd> 3,000원 </dd>
+	                                            	</dl>
+                                                </div> -->
+		                                        <div class="status">
+		                                       	    <div class="box-gray">
+		                                                <p class="flex-1">구매확정</p>
+		                                            </div>
+		                                       	</div>
+		                                    </div>
+		                                </div>
+		                            </div>
+                                    <dl class="order-item-payment">
+                                        <dd>배송비</dd>
+                                        <dt class="delivery-charge">3000원</dt>
+                                    </dl>
+		                        </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">고객 정보</h3>
-                <div class="space-y-6 md:space-y-7.5">
-                    <div class="payment-customer customer-grade1 flex-1">
-                        <dl>
-                            <dt>이름</dt>
-                            <dd>이로미</dd>
-                        </dl>
-                        <dl>
-                            <dt>휴대폰번호</dt>
-                            <dd>010-2732-9721</dd>
-                        </dl>
-                        <dl>
-                            <dt>이메일주소</dt>
-                            <dd>eromi@naver.com</dd>
-                        </dl>
-                    </div>
-                    <div class="payment-customer customer-grade2 flex-1">
-                        <dl>
-                            <dt>이름</dt>
-                            <dd>이로미</dd>
-                        </dl>
-                        <dl>
-                            <dt>휴대폰번호</dt>
-                            <dd>010-2732-9721</dd>
-                        </dl>
-                        <dl>
-                            <dt>이메일주소</dt>
-                            <dd>eromi@naver.com</dd>
-                        </dl>
-                    </div>
-                    <div class="payment-customer customer-grade3 flex-1">
-                        <dl>
-                            <dt>이름</dt>
-                            <dd>이로미</dd>
-                        </dl>
-                        <dl>
-                            <dt>휴대폰번호</dt>
-                            <dd>010-2732-9721</dd>
-                        </dl>
-                        <dl>
-                            <dt>이메일주소</dt>
-                            <dd>eromi@naver.com</dd>
-                        </dl>
-                    </div>
-                    <div class="payment-customer customer-grade4 flex-1">
-                        <dl>
-                            <dt>이름</dt>
-                            <dd>이로미</dd>
-                        </dl>
-                        <dl>
-                            <dt>휴대폰번호</dt>
-                            <dd>010-2732-9721</dd>
-                        </dl>
-                        <dl>
-                            <dt>이메일주소</dt>
-                            <dd>eromi@naver.com</dd>
-                        </dl>
-                    </div>
-                    <!--
-                        <div class="payment-customer customer-grade5 flex-1">
-                            <dl>
-                                <dt>이름</dt>
-                                <dd>이로미</dd>
-                            </dl>
-                            <dl>
-                                <dt>휴대폰번호</dt>
-                                <dd>010-2732-9721</dd>
-                            </dl>
-                            <dl>
-                                <dt>이메일주소</dt>
-                                <dd>eromi@naver.com</dd>
-                            </dl>
-                        </div>
-                    -->
-                    <div class="flex-1 pt-2 space-y-2 md:space-y-3.5">
-                        <p class="text-alert">
-                            고객정보로 주문과 관련된 SMS와 이메일이 발송됩니다.<br>
-                            정확한 정보인지 확인해 주세요.
-                        </p>
-                        <p class="text-alert">회원정보 수정은 마이페이지에서 가능합니다.</p>
-                    </div>
-                </div>
+	                </div>
+	                <!-- //최근 구매 내역 -->
 
-                <div class="flex items-center mt-18 mb-3 md:mb-4 md:mt-23">
-                    <h3 class="text-title">배송지 정보</h3>
-                    <div class="form-check mt-0.5 ml-3 md:ml-4">
-                        <input class="form-check-input" type="checkbox" id="deli-check">
-                        <label class="form-check-label" for="deli-check">신규 배송지</label>
-                    </div>
-                </div>
-                <table class="table-detail">
-                    <colgroup>
-                        <col class="w-25 md:w-40">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr class="top-border">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item1">배송지 선택</label></p></th>
-                            <td>
-                                <div class="form-group w-76">
-                                    <input type="text" class="form-control" id="deli-item1">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deliModal">배송지 목록</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item2"></label>받는 사람</p></th>
-                            <td>
-                                <input type="text" class="form-control w-57" id="deli-item2">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item3"></label>배송지 명</p></th>
-                            <td>
-                                <input type="text" class="form-control w-57" id="deli-item3">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item4"></label>연락처</p></th>
-                            <td>
-                                <div class="form-group-tel w-76">
-                                    <input type="text" class="form-control" id="deli-item4">
-                                    <i>-</i>
-                                    <input type="text" class="form-control">
-                                    <i>-</i>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item5"></label>추가 연락처</p></th>
-                            <td>
-                                <div class="form-group-tel w-76">
-                                    <select name="" id="" class="form-control" id="deli-item5">
-                                        <option value="">선택</option>
-                                    </select>
-                                    <i>-</i>
-                                    <input type="text" class="form-control">
-                                    <i>-</i>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item6"></label>주소</p></th>
-                            <td>
-                                <div class="form-group w-76">
-                                    <input type="text" class="form-control">
-                                    <button type="button" class="btn btn-primary" id="deli-item6">우편번호 검색</button>
-                                </div>
-                                <input type="text" class="form-control mt-1.5 w-full lg:mt-2">
-                                <input type="text" class="form-control mt-1.5 w-full lg:mt-2">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="deli-item7"></label>배송 메시지</p></th>
-                            <td>
-                                <div class="flex flex-wrap">
-                                    <select name="" id="deli-item7" class="form-control w-full sm:w-57">
-                                        <option value="">배송 메시지</option>
-                                    </select>
-                                    <input type="text" class="form-control w-full sm:flex-1 mt-1.5 sm:mt-0 sm:ml-2 sm:w-auto">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="bot-border">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+	                <!--  나의 상품 후기 -->
+	                <!-- <div class="mypage-myinfo-recent">
+	                    <div class="recent-title">
+	                        <h2>나의 상품 후기</h2>
+	                        <a href="/market/mypage/review/list" class="btn btn-more">전체보기</a>
+	                        <p class="count">작성한 상품 후기 <strong>0</strong> 건</p>
+	                    </div>
+	                    <p class="box-result is-large">최근 작성한 상품 후기가 없습니다</p></div> -->
+	                <!-- //나의 상품 후기 -->
 
-                <div class="flex items-center justify-between mt-18 mb-3 md:mb-4 md:mt-23">
-                    <h3 class="text-title">할인혜택</h3>
-                    <button type="button" class="btn btn-refresh2 is-reverse">할인혜택 초기화</button>
-                </div>
-                <table class="table-detail">
-                    <colgroup>
-                        <col class="w-25 md:w-40">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr class="top-border">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="discount-item1">상품할인쿠폰</label></p></th>
-                            <td>
-                                <div class="form-group w-78">
-                                    <input type="text" class="form-control">
-                                    <span>원</span>
-                                    <button class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30" data-bs-toggle="modal" data-bs-target="#discModal1">쿠폰사용</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="discount-item2">포인트</label></p></th>
-                            <td>
-                                <div class="form-group w-78">
-                                    <input type="text" class="form-control">
-                                    <span>원</span>
-                                    <button class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30" data-bs-toggle="modal" data-bs-target="#discModal2">포인트사용</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><p><label for="discount-item3">마일리지</label></p></th>
-                            <td>
-                                <div class="form-group w-78">
-                                    <input type="text" class="form-control">
-                                    <span>원</span>
-                                    <button class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30" data-bs-toggle="modal" data-bs-target="#discModal3">마일리지사용</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="bot-border">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+	                <!-- 나의 상품 Q&A -->
+	                <div class="mypage-myinfo-recent">
+	                    <div class="recent-title">
+	                        <h2>나의 상품 Q&amp;A</h2>
+	                        <a href="/market/mypage/gdsQna/list" class="btn btn-more">전체보기</a>
+	                        <p class="count">답변 처리중인 질문 <strong>0</strong> 건</p>
+	                    </div>
 
-                <p class="text-alert is-danger mt-0.5 md:mt-1">포인트 및 마일리지 사용은 두가지 중 하나만 사용 가능합니다</p>
+						<p class="box-result is-large">최근 작성한 상품 Q&amp;A가 없습니다</p><script>
+	                        $('.product-qnaitem .answer .btn').on('click', function() {
+	                            $(this).closest('.product-qnaitem').toggleClass('is-active');
+	                        });
+	                    </script>
+	                </div>
+	                <!-- //나의 상품 Q&A -->
 
-                <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">최종 결제금액 확인</h3>
-                <div class="payment-result">
-                    <div class="result-price">
-                        <div class="container">
-                            <dl>
-                                <dt>총 주문상품금액</dt>
-                                <dd><strong>45,400</strong> 원</dd>
-                            </dl>
-                            <dl>
-                                <dt>쿠폰</dt>
-                                <dd><strong class="text-danger">-450</strong> 원</dd>
-                            </dl>
-                            <dl>
-                                <dt>마일리지/포인트</dt>
-                                <dd><strong class="text-danger">-450</strong> 원</dd>
-                            </dl>
-                            <dl>
-                                <dt>배송비</dt>
-                                <dd><strong>+ 45,400</strong> 원</dd>
-                            </dl>
-                        </div>
-                        <dl class="last">
-                            <dt>최종 결제금액</dt>
-                            <dd><strong>47,950</strong> 원</dd>
-                        </dl>
-                    </div>
-                    <div class="result-agree">
-                        <dl>
-                            <dt>구매자 동의</dt>
-                            <dd>
-                                주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의 하시겠습니까?<br>
-                                (전자상거래법 제 8조 2항)
-                            </dd>
-                        </dl>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="resultage-item1">
-                            <label class="form-check-label" for="resultage-item1">동의합니다.</label>
-                        </div>
-                        <button class="btn btn-payment btn-large">결제하기</button>
-                    </div>
-                </div>
-                <h3 class="text-title mt-10 md:mt-14 lg:mt-19">대여상품 주문 / 결제 안내</h3>
-                <ul class="mt-4 lg:mt-5 space-y-1 md:space-y-1.5">
-                    <li class="text-alert">대여상품은 매월 정기 자동결제가 이뤄지며, 카드 결제만 가능합니다.</li>
-                    <li class="text-alert">
-                        정기결제일은 최초 결제 일자이며 매월 동일한 일자에 결제가 진행됩니다. (결제일 변경 불가)<br>
-                        예) 1월 31일에 결제 진행 시 매 월 31일이 정기결제일입니다. (31일이 없는 월은 그 직전일에 정기결제)
-                    </li>
-                    <li class="text-alert">신용카드의 유효기간 만료, 한도초과 등으로 결제일 당일 결제 실패 시 익일 추가 결제가 진행됩니다.</li>
-                </ul>
+	                <!-- 이벤트 응모 현황 -->
+	                <div class="mypage-myinfo-recent">
+	                    <div class="recent-title">
+	                        <h2>이벤트 응모 현황</h2>
+	                        <a href="/market/mypage/event/list" class="btn btn-more">전체보기</a>
+	                    </div>
+
+						<p class="box-result is-large">최근 응모한 이벤트가 없습니다</p><div class="overflow-hidden space-y-5.5 md:space-y-7.5">
+	                    </div>
+	                </div>
+	                <!-- //이벤트 응모 현황 -->
+	        	</div>
             </div>
         </div>
+        
         
         <!-- 배송지 -->
         <div class="modal fade" id="deliModal" tabindex="-1" aria-hidden="true">
@@ -927,320 +841,8 @@
             </div>
         </div>
         <!-- //배송지 -->
-
-        <!-- 쿠폰사용 -->
-        <div class="modal fade" id="discModal1" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p class="text-title">쿠폰 사용</p>
-                    </div>
-                    <div class="modal-close">
-                        <button data-bs-dismiss="modal">모달 닫기</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="space-y-4 md:space-y-5">
-                            <div class="order-coupon">
-                                <div class="order-content">
-                                    <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
-                                    <div class="content">
-                                        <p class="code">24n29G38Y72a</p>
-                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                                        <p class="price">48,400원</p>
-                                    </div>
-                                    <p class="minus"><strong>454</strong> 원</p>
-                                </div>
-                                <button type="button" class="order-trigger">
-                                    <span>적용할 쿠폰을 선택하세요</span>
-                                </button>
-                            </div>
-                            <div class="order-coupon">
-                                <div class="order-content">
-                                    <div class="thumb"><img src="../../assets/images/dummy/img-dummy-product.png" alt=""></div>
-                                    <div class="content">
-                                        <p class="code">24n29G38Y72a</p>
-                                        <p class="name">플롭 아쿠아클린 패브릭 모듈 소파</p>
-                                        <p class="price">48,400원</p>
-                                    </div>
-                                    <p class="minus"><strong>454</strong> 원</p>
-                                </div>
-                                <button type="button" class="order-trigger">
-                                    <div class="coupon-item is-event md:coupon-item-large sm-max:coupon-item-small">
-                                        <div class="itembox">
-                                            <div class="info">
-                                                <img src="../../assets/images/img-coupon-birthday.svg" alt="">
-                                                20 <small>%</small>
-                                            </div>
-                                            <p class="desc">Happy Birthday!</p>
-                                        </div>
-                                    </div>
-                                    <div class="coupon-item-name">
-                                        생일축하 5% 쿠폰
-                                        <strong>~ 2022.12.30 까지</strong>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-gradient">
-                        <button type="button" class="btn btn-refresh2 is-reverse">쿠폰 선택 초기화</button>
-                        <button type="button" class="btn btn-coupon">선택 쿠폰 적용</button>
-                    </div>
-                    <div class="order-coupon-layer">
-                        <div class="container">
-                            <div class="text-title">
-                                사용 가능 쿠폰
-                                <button type="button">닫기</button>
-                            </div>
-                            <div class="scrollbars">
-                                <table class="table-list order-coupon-list">
-                                    <colgroup>
-                                        <col class="w-38 xs:w-[48.5%]">
-                                        <col>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"><p>쿠폰</p></th>
-                                            <th scope="col"><p>기간 / 혜택</p></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="coupon-item is-event md:coupon-item-large sm-max:coupon-item-small">
-                                                    <div class="itembox">
-                                                        <div class="info">
-                                                            <img src="../../assets/images/img-coupon-birthday.svg" alt="">
-                                                            20 <small>%</small>
-                                                        </div>
-                                                        <p class="desc">Happy Birthday!</p>
-                                                    </div>
-                                                </div>
-                                                <button type="button">이 쿠폰 사용하기</button>
-                                            </td>
-                                            <td>
-                                                <div class="coupon-item-name">
-                                                    생일축하 5% 쿠폰
-                                                    <strong>2022.07.11 ~ 2022.11.30</strong>
-                                                </div>
-                                                <div class="coupon-item-desc">
-                                                    50,000원 이상 구매시<br>
-                                                    최대 10,000원 할인
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="coupon-item is-discount md:coupon-item-large sm-max:coupon-item-small">
-                                                    <div class="itembox">
-                                                        <div class="info">
-                                                            <img src="../../assets/images/img-coupon-discount.svg" alt="">
-                                                            22 <small>%</small>
-                                                        </div>
-                                                        <p class="desc">Discount coupon</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="coupon-item-name">
-                                                    생일축하 5% 쿠폰
-                                                    <strong>2022.07.11 ~ 2022.11.30</strong>
-                                                </div>
-                                                <div class="coupon-item-desc">사용 조건 없음</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- //쿠폰사용 -->
-
-        <!-- 포인트사용 -->
-        <div class="modal fade" id="discModal2" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p class="text-title">포인트 사용</p>
-                    </div>
-                    <div class="modal-close">
-                        <button data-bs-dismiss="modal">모달 닫기</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="space-y-0.5 md:space-y-1">
-                            <p class="text-alert">포인트는 10원 단위로만 사용 가능합니다</p>
-                            <p class="text-alert">본인 포인트를 <strong>모두 소진</strong>후에 가족계정 다른 회원의 포인트를 사용할 수 있습니다</p>
-                            <p class="text-alert">사용금액 입력 후 반드시 <strong>적용</strong> 버튼을 눌러주세요  </p>
-                        </div>
-                        <div class="mt-4.5 md:mt-5.5 space-y-4.5 md:space-y-5.5">
-                            <div class="order-point is-active">
-                                <div class="order-user">
-                                    <div class="photo">
-                                        <img src="../../assets/images/dummy/img-dummy-partners.png" alt="">
-                                        <span class="label-primary">
-                                            <span>본인</span>
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <dl>
-                                        <dt>회원 아이디</dt>
-                                        <dd>eromi97</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>회원 명</dt>
-                                        <dd>이로미</dd>
-                                    </dl>
-                                    <dl class="point">
-                                        <dt>잔여 포인트</dt>
-                                        <dd>1,000</dd>
-                                    </dl>
-                                </div>
-                                <div class="order-form">
-                                    <dl>
-                                        <dt>사용 포인트</dt>
-                                        <dd><input type="text" class="form-control"> 원</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="order-point">
-                                <div class="order-user">
-                                    <div class="photo">
-                                        <img src="../../assets/images/dummy/img-dummy-partners.png" alt="">
-                                        <span class="label-outline-primary">
-                                            <span>가족</span>
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <dl>
-                                        <dt>회원 아이디</dt>
-                                        <dd>eromi97</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>회원 명</dt>
-                                        <dd>이로미</dd>
-                                    </dl>
-                                    <dl class="point">
-                                        <dt>잔여 포인트</dt>
-                                        <dd>1,000</dd>
-                                    </dl>
-                                </div>
-                                <div class="order-form">
-                                    <dl>
-                                        <dt>사용 포인트</dt>
-                                        <dd><input type="text" class="form-control"> 원</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-gradient">
-                        <button type="button" class="btn btn-refresh2 is-reverse">포인트 초기화</button>
-                        <button type="button" class="btn btn-point">포인트 적용</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- //포인트사용 -->
-
-        <!-- 마일리지사용 -->
-        <div class="modal fade" id="discModal3" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p class="text-title">마일리지 사용</p>
-                    </div>
-                    <div class="modal-close">
-                        <button data-bs-dismiss="modal">모달 닫기</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="space-y-0.5 md:space-y-1">
-                            <p class="text-alert">마일리지는 10원 단위로만 사용 가능합니다</p>
-                            <p class="text-alert">본인 마일리지를 <strong>모두 소진</strong>후에 가족계정 다른 회원의 마일리지를 사용할 수 있습니다</p>
-                            <p class="text-alert">사용금액 입력 후 반드시 <strong>적용</strong> 버튼을 눌러주세요  </p>
-                        </div>
-                        <div class="mt-4.5 md:mt-5.5 space-y-4.5 md:space-y-5.5">
-                            <div class="order-point is-active">
-                                <div class="order-user">
-                                    <div class="photo">
-                                        <img src="../../assets/images/dummy/img-dummy-partners.png" alt="">
-                                        <span class="label-primary">
-                                            <span>본인</span>
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <dl>
-                                        <dt>회원 아이디</dt>
-                                        <dd>eromi97</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>회원 명</dt>
-                                        <dd>이로미</dd>
-                                    </dl>
-                                    <dl class="mile">
-                                        <dt>잔여 마일리지</dt>
-                                        <dd>1,000</dd>
-                                    </dl>
-                                </div>
-                                <div class="order-form">
-                                    <dl>
-                                        <dt>사용 마일리지</dt>
-                                        <dd><input type="text" class="form-control"> 원</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="order-point">
-                                <div class="order-user">
-                                    <div class="photo">
-                                        <img src="../../assets/images/dummy/img-dummy-partners.png" alt="">
-                                        <span class="label-outline-primary">
-                                            <span>가족</span>
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <dl>
-                                        <dt>회원 아이디</dt>
-                                        <dd>eromi97</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>회원 명</dt>
-                                        <dd>이로미</dd>
-                                    </dl>
-                                    <dl class="mile">
-                                        <dt>잔여 마일리지</dt>
-                                        <dd>111,000</dd>
-                                    </dl>
-                                </div>
-                                <div class="order-form">
-                                    <dl>
-                                        <dt>사용 마일리지</dt>
-                                        <dd><input type="text" class="form-control"> 원</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-gradient">
-                        <button type="button" class="btn btn-refresh2 is-reverse">마일리지 초기화</button>
-                        <button type="button" class="btn btn-mileage">마일리지 적용</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- //마일리지사용 -->
-
-    
     </main>
     <!-- //container -->
-
-    <!-- quick -->
-    <div id="quick" class="global-quick">
-        <button type="button" class="moveTop">위로 이동</button>
-        <button type="button" class="channelTalk">위로 이동</button>
-    </div>
-    <!-- //quick -->
 
     <!-- footer -->
     <footer id="footer" class="global-footer">
@@ -1257,50 +859,29 @@
             <!-- //회사 메뉴 -->
 
             <!-- 패밀리 사이트 -->
-            <div class="footer-family">
-                <dl>
-                    <dt>슈퍼시니어</dt>
-                    <dd>
-                        <ul class="global-link">
-                            <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
-                        </ul>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>패밀리 사이트</dt>
-                    <dd>
-                        <ul class="global-link">
-                            <li>
-                                <a href="#" class="link-item1">
-                                    <div class="bubble">
-                                        <small>시니어 라이프 케어 플랫폼</small>
-                                        <strong>"이로움ON"</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="link-item2">
-                                    <div class="bubble">
-                                        <strong>이로움ON 멤버스</strong>
-                                        <small>전국 2,432개 업체와 함께합니다</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="link-item3">
-                                    <div class="bubble">
-                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
-                                        <small>
-                                            복지용구 사업소와 수급자 매칭부터<br>
-                                            주문, 계약 및 결제까지 한번에!
-                                        </small>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
-            </div>
+            <dl class="footer-family">
+                <dt>패밀리 사이트</dt>
+                <dd>
+                    <ul class="global-link">
+                        <li>
+                            <a href="#" class="link-item1">
+                                <div class="bubble">
+                                    <small>시니어 라이프 케어 플랫폼</small>
+                                    <strong>"이로움ON"</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="link-item2">
+                                <div class="bubble">
+                                    <strong>이로움ON 멤버스</strong>
+                                    <small>전국 2,432개 업체와 함께합니다</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
             <!-- //패밀리 사이트 -->
         </div>
         

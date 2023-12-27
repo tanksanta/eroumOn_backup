@@ -169,7 +169,7 @@
 												</div>
 											</div>
 										</c:if></td>
-									<td class="price"><c:if test="${cart.ordrOptnTy eq 'BASE'}">
+									<td class="price !text-right"><c:if test="${cart.ordrOptnTy eq 'BASE'}">
 											<strong class="ordrOptnPc"><fmt:formatNumber value="${cart.ordrPc}" pattern="###,###" /></strong> 원
                                        	</c:if> <c:if test="${cart.ordrOptnTy eq 'ADIT'}">
 											<strong><fmt:formatNumber value="${cart.ordrOptnPc}" pattern="###,###" /></strong> 원
@@ -182,10 +182,59 @@
 										</c:if>
 									</td>
 								</tr>
+
+								<%-- 2023-12-27:상품옵션정보테이블 퍼블리싱참조 --%>
+								<tr>
+									<td>
+										<div class="baseitem">
+											<div class="content">
+												<dl class="option">
+													<dd>
+														<span class="label-flat">분홍</span>
+														<span class="label-flat">800g</span>
+														<span>2개(+9,720원)</span>
+													</dd>
+												</dl>
+											</div>
+										</div>
+									</td>
+									<td class="price !text-right"><strong>1,420,000</strong> 원</td>
+									<td class="count">
+										<p><input type="text" class="form-control"></p>
+										<button type="button" class="btn btn-small btn-outline-primary">삭제</button>
+									</td>
+								</tr>
+								<%-- 2023-12-27:상품옵션정보테이블 퍼블리싱참조 --%>
+
+
 							</c:forEach>
 						</tbody>
 					</table>
+
+					<%-- 2023-12-27:총상품금액, 배송비 영역 --%>
+					<div class="pay-order-wrap">
+						<dl class="pay-order-price">
+							<dt class="title">총 상품금액</dt>
+							<dd class="price-box">
+								<span class="amount">주문수량<span>7</span>개 |</span>
+								<div class="total">
+									<strong>45,400</strong>
+									<strong>원</strong>
+								</div>
+								
+							</dd>
+						</dl>
+						<dl class="pay-order-price">
+							<dt class="font-bold">배송비</dt>
+							<dd>
+								<strong>3,000</strong>
+								<span>원</span>
+							</dd>
+						</dl>
 					</div>
+					<%-- 2023-12-27:총상품금액, 배송비 영역 --%>
+
+				</div>
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-submit f_cart_optn_chg">확인</button>

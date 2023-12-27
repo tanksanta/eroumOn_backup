@@ -24,22 +24,32 @@
 
                 	<c:forEach items="${listVO.listObject}" var="wish" varStatus="status">
                     <div class="order-product order-wishlist">
-                        <div class="form-check order-check">
+						<%-- 소스백업 --%>
+                        <%-- <div class="form-check order-check">
                             <input class="form-check-input" type="checkbox" name="wishlistNo" value="${wish.wishlistNo}">
-                        </div>
+                        </div> --%>
                         <button type="button" class="order-close f_deleteSel" data-wish-no="${wish.wishlistNo}">삭제</button>
-                        <div class="order-body">
+                        <div class="order-body favorite">
                             <div class="order-item">
-                                <div class="order-item-thumb">
-	                                <c:choose>
-										<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
-									<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
-										</c:when>
-										<c:otherwise>
-									<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-										</c:otherwise>
-									</c:choose>
-                                </div>
+							
+								<%-- 2023-12-27:체크박스이동 --%>
+							 	<div class="item-thumb">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="wishlistNo" value="${wish.wishlistNo}">
+                                    </div>
+									<div class="order-item-thumb">
+										<c:choose>
+											<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
+										<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
+											</c:when>
+											<c:otherwise>
+										<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								<%-- 2023-12-27:체크박스이동 --%>
+
                                 <div class="order-item-content">
                                     <div class="order-item-group">
                                         <div class="order-item-base">
@@ -66,10 +76,20 @@
 												    <dt>배송비</dt>
 												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원</dd>
 												</dl>
-												<dl>
+												<%-- <dl>
 												    <dt>판매가</dt>
 												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" /></strong>원</dd>
-												</dl>
+												</dl> --%>
+												<%-- 2023-12-27: 판매가 디자인변경 --%>
+												<div class="item-price">
+                                                    <div class="pay-info">
+                                                        <div class="pay-price">
+                                                            <span class="original-price">49,720원</span>
+                                                            <strong class="price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<%-- 2023-12-27: 판매가 디자인변경 --%>
                                             </div>
                                         </div>
 									</div>
