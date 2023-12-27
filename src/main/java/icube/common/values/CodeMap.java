@@ -1079,6 +1079,20 @@ public class CodeMap{
 			//put("100", "기타(친척등)");   //공단 조치사항 때 제외
 		}
 	};
+	//읽기 전용 관계 코드 맵
+	public static final HashMap<String, String> MBR_RELATION_CD_FOR_READ = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -5623502462808019347L;
+		{
+			put("001", "배우자");
+			put("002", "자녀");
+			put("003", "부모");
+			put("004", "형제");
+			put("005", "자손");
+			put("006", "자부");
+			put("007", "본인");
+			put("100", "기타(친척등)");
+		}
+	};
 	
 	// 상담 요청 경로
 	public static final HashMap<String, String> PREV_PATH = new LinkedHashMap<String, String>() {

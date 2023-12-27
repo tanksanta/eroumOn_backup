@@ -94,46 +94,54 @@
                                         </colgroup>
                                         <tbody>
                                             <tr>
-                                                <th scope="row"><label for="form-item1">상담받을 연락처<sup class="required">*</sup></label></th>
+                                                <th scope="row"><label for="roc-main-telno">상담받을 연락처<sup class="required">*</sup></label></th>
                                                 <td class="roc-main-td-rel-me">010-1234-5678</td>
-                                                <td class="roc-main-td-rel-family"><input type="text" class="form-control w-full lg:w-[60%]" id="form-item1"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><label for="form-item2">실거주지 주소<sup class="required">*</sup></label></th>
-                                                <td class="roc-main-td-rel-me">서울특별시 금천구 가산디지털로 104</td>
                                                 <td class="roc-main-td-rel-family">
-                                                    <fieldset class="flex flex-col w-full md:flex-row gap-1">
-                                                        <select name="" id="" class="form-control md:flex-1">
-                                                            <option value="">시/도</option>
-                                                        </select>
-                                                        <select name="" id="" class="form-control md:flex-1">
-                                                            <option value="">시/군/구</option>
-                                                        </select>
-                                                        <select name="" id="" class="form-control md:flex-1">
-                                                            <option value="">동/읍/면</option>
-                                                        </select>
-                                                    </fieldset>
+                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno">
+                                                	<p class="error text-danger">연락처 형식이 올바르지 않습니다. (예시: 010-1234-5678)</p>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row"><label for="form-item3">생년월일<sup class="required">*</sup></label></th>
-                                                <td class="roc-main-td-rel-me">1900/01/01</td>
-                                                <td class="roc-main-td-rel-family"><input type="text" class="form-control w-full lg:w-[60%]" id="form-item3" placeholder="1950/01/01"></td>
+                                                <th scope="row"><label for="roc-main-sido">실거주지 주소<sup class="required">*</sup></label></th>
+                                                <td class="roc-main-td-rel-me">서울특별시 금천구 가산디지털로 104</td>
+                                                <td class="roc-main-td-rel-family">
+                                                    <fieldset class="flex flex-col w-full md:flex-row gap-1">
+                                                        <select id="roc-main-sido" class="form-control md:flex-1 is-invalid" onchange="setSigugun();">
+                                                            <option value="">시/도</option>
+                                                        </select>
+                                                        <select id="roc-main-sigugun" class="form-control md:flex-1 is-invalid" onchange="setDong();">
+                                                            <option value="">시/군/구</option>
+                                                        </select>
+                                                        <select id="roc-main-dong" class="form-control md:flex-1">
+                                                            <option value="">동/읍/면</option>
+                                                        </select>
+                                                    </fieldset>
+                                                    <p class="error text-danger">수급자(어르신)분의 실거주지 주소를 입력해 주세요.</p>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row"><label for="form-item4">성별<sup class="required">*</sup></label></th>
+                                                <th scope="row"><label for="roc-main-brdt">생년월일<sup class="required">*</sup></label></th>
+                                                <td class="roc-main-td-rel-me">1900/01/01</td>
+                                                <td class="roc-main-td-rel-family">
+                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol birthdt10 is-invalid" id="roc-main-brdt" placeholder="1950/01/01">
+                                                	<p class="error text-danger">수급자(어르신)분의 생년월일을 입력해 주세요.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="roc-main-gender">성별<sup class="required">*</sup></label></th>
                                                 <td class="roc-main-td-rel-me">남성</td>
                                                 <td class="roc-main-td-rel-family">
-                                                    <div class="form-check-group">
+                                                    <div class="form-check-group" style="border-color:#dc3545;">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="gender" id="gender-m" checked>
+                                                            <input class="form-check-input" type="radio" name="roc-main-gender" id="gender-m" value="M">
                                                             <label class="form-check-label" for="gender-m">남성</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="gender" id="gender-w">
+                                                            <input class="form-check-input" type="radio" name="roc-main-gender" id="gender-w" value="W">
                                                             <label class="form-check-label" for="gender-w">여성</label>
                                                         </div>
                                                     </div>
+                                                    <p class="error text-danger">수급자(어르신)분의 성별을 입력해 주세요.</p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -205,8 +213,79 @@
             </div>
         </div>
         
+        <!-- 진행중인 상담 알림 모달 -->
+        <div class="modal modal-default fade" id="notified-consulting" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-title">알림</h2>
+                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="bg-box-beige">
+                            <div id="notified-consulting-guide-div" class="text-center text-xl">
+                                진행중인 ((conslt_nm)) 상담이 있습니다. <br>
+                                상담 내역을 확인하시겠습니까?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer gap-1">
+                        <button type="button" class="btn-warning large2 w-full md:w-1/2" data-bs-dismiss="modal" class="btn-close" onclick="location.href='/membership/conslt/appl/list';">상담내역 확인하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         
         <script src="/html/core/vendor/twelements/index.min.js"></script>
+        <script>
+	    	// 시/도 Select 박스 셋팅
+		    function initSido() {
+		    	var template = '<option value="">시/도</option>';
+		    	
+		    	for(var i = 0; i < hangjungdong.sido.length; i++) {
+		    		template += '<option value="' + hangjungdong.sido[i].sido + '">' + hangjungdong.sido[i].codeNm + '</option>';
+		    	}
+		    	
+		    	$('#roc-main-sido').html(template);
+		    }
+	    	// 시/구/군 Select 박스 셋팅
+	    	function setSigugun() {
+		    	var sidoCode = $('#roc-main-sido option:selected').val();
+		    	
+		    	if (sidoCode) {
+		    		var sigugunArray = hangjungdong.sigugun.filter(f => f.sido === sidoCode);
+		    		var template = '<option value="">시/군/구</option>';
+		    		
+		    		for(var i = 0; i < sigugunArray.length; i++) {
+		    			template += '<option value="' + sigugunArray[i].sigugun + '">' + sigugunArray[i].codeNm + '</option>';
+		    		}
+		    		
+		    		$('#roc-main-sigugun').html(template);
+		    	}
+		    }
+	    	// 동/읍/면 Select 박스 셋팅
+		    function setDong() {
+		    	var sidoCode = $('#roc-main-sido option:selected').val();
+		    	var sigugunCode = $('#roc-main-sigugun option:selected').val();
+		    	
+		    	if (sigugunCode) {
+		    		var dongArray = hangjungdong.dong.filter(f => f.sido === sidoCode && f.sigugun === sigugunCode);
+		    		var template = '<option value="">동/읍/면</option>';
+		    		
+		    		for(var i = 0; i < dongArray.length; i++) {
+		    			template += '<option value="' + dongArray[i].dong + '">' + dongArray[i].codeNm + '</option>';
+		    		}
+		    		
+		    		$('#roc-main-dong').html(template);
+		    	}
+		    }
+	    	
+	    	$(function() {
+	    		//시도 Select 박스 로딩
+	    		initSido();
+	    	});
+        </script>
         
         <script>
         	var roc_mbrNm = '';
@@ -224,22 +303,60 @@
    	    		</c:forEach>
    	    		'100': '기타(친척등)',
    	    	};
+        	var telchk = /^([0-9]{2,3})?-([0-9]{3,4})?-([0-9]{3,4})$/;      //전화번호 정규식
+    	    var datechk = /^([1-2][0-9]{3})\/([0-1][0-9])\/([0-3][0-9])$/;  //날짜 정규식
+    	    
         	
         	//수급자 등록, 수정, 상담신청 모달창 띄우기
         	function openRecipientOrConsltModal(modalType, recipientsNo, prevPath) {
         		roc_modalType = modalType;
         		roc_prevPath = prevPath;
+        		var consltNm = '';
         		
-        		if (roc_modalType === 'addRecipient') {
-        		} else if (roc_modalType === 'updateRecipient') {
-        		} else if (roc_modalType === 'requestConslt') {
-        			//수급자 정보 조회
-        			getMbrRecipientsDataSync(recipientsNo);
-        			//상담신청 폼 셋팅
-        			setMainFormInRocRequestModal()
-        		}
+        		if (roc_prevPath === 'test') {
+        			consltNm = '인정등급';
+        		} else if (roc_prevPath === 'equip_ctgry') {
+        			consltNm = '관심 복지용구';
+        		} 
         		
-        		$('#roc-main-modal').modal('show');
+        		//진행중인 상담 모달에 상담명 매핑
+        		var guideDiv = $('#notified-consulting-guide-div').html();
+       			guideDiv = guideDiv.replace('((conslt_nm))', consltNm);
+       			$('#notified-consulting-guide-div').html(guideDiv);
+        		
+        		
+        		//진행중인 상담 조회 API
+        		$.ajax({
+            		type : "post",
+    				url  : "/membership/info/myinfo/getRecipientConsltSttus.json",
+    				data : {
+    					recipientsNo : recipientsNo,
+    					prevPath : roc_prevPath
+    				},
+    				dataType : 'json'
+            	})
+            	.done(function(data) {
+            		//해당 수급자가 진행중인 상담이 있는 경우
+            		if (data.isExistRecipientConslt) {
+            			$('#notified-consulting').modal('show').appendTo('body');
+            		}
+            		//진행중인 상담이 없으면 모달 진행
+            		else {
+            			if (roc_modalType === 'addRecipient') {
+                		} else if (roc_modalType === 'updateRecipient') {
+                		} else if (roc_modalType === 'requestConslt') {
+                			//수급자 정보 조회
+                			getMbrRecipientsDataSync(recipientsNo);
+                			//상담신청 폼 셋팅
+                			setMainFormInRocRequestModal()
+                		}
+                		
+                		$('#roc-main-modal').modal('show');
+            		}
+            	})
+            	.fail(function(data, status, err) {
+            		alert('서버와 연결이 좋지 않습니다.');
+    			});
         	}
         	
         	//회원 수급자 정보 가져오기(동기식 처리)
@@ -273,7 +390,7 @@
     	    	});
         	}
         	
-        	//메인 폼 셋팅하기(상담신청)
+        	//메인 폼 셋팅하기 (상담신청)
         	function setMainFormInRocRequestModal() {
         		//수급자와의 관계가 본인이면 표시 처리
         		if (roc_selectedRecipient.relationCd === '007') {
@@ -305,8 +422,75 @@
         			$('#roc-main-div-rel-family .roc-mbr-nm').text(roc_mbrNm);
         			$('#roc-main-div-rel-family .roc-relation-text').text(roc_relationCdMap[roc_selectedRecipient.relationCd]);
         			
-        			$('.roc-main-td-rel-family').css('display', 'table-cell');
+        			var tdTags = $('.roc-main-td-rel-family');
+        			tdTags.css('display', 'table-cell');
         			$('.roc-main-td-rel-me').css('display', 'none');
+        			
+        			//아래 table에 유효성 초기화
+        			var telnoInput = $(tdTags[0]).find('#roc-main-telno');
+        			telnoInput.removeClass('is-invalid');
+        			$(tdTags[0]).find('.error').css('display', 'none');
+        			
+        			var sidoSelect = $(tdTags[1]).find('#roc-main-sido');
+        			sidoSelect.removeClass('is-invalid');
+        			var sigugunSelect = $(tdTags[1]).find('#roc-main-sigugun');
+        			sigugunSelect.removeClass('is-invalid');
+        			$(tdTags[1]).find('.error').css('display', 'none');
+        			
+        			var brdtInput = $(tdTags[2]).find('#roc-main-brdt');
+        			brdtInput.removeClass('is-invalid');
+        			$(tdTags[2]).find('.error').css('display', 'none');
+        			
+        			$(tdTags[3]).find('.form-check-group').css('border-color', '#999999');
+        			$(tdTags[3]).find('.error').css('display', 'none');
+        			
+        			//아래 table에 수급자 정보 매핑
+        			telnoInput.val(roc_selectedRecipient.tel);
+        			
+        			if (roc_selectedRecipient.sido) {
+        				var options = $('#roc-main-sido option');
+        				for(var i = 0; i < options.length; i++) {
+        	    			if (options[i].text === roc_selectedRecipient.sido) {
+        	    				options[i].selected = true;
+        	    			}
+        	    		}
+        				setSigugun();
+        			}
+        			if (roc_selectedRecipient.sigugun) {
+        				var options = $('#roc-main-sigugun option');
+        	    		for(var i = 0; i < options.length; i++) {
+        	    			if (options[i].text === roc_selectedRecipient.sigugun) {
+        	    				options[i].selected = true;
+        	    			}
+        	    		}
+        	    		setDong();
+        			}
+        			if (roc_selectedRecipient.dong) {
+        				var options = $('#roc-main-dong option');
+        	    		for(var i = 0; i < options.length; i++) {
+        	    			if (options[i].text === roc_selectedRecipient.dong) {
+        	    				options[i].selected = true;
+        	    			}
+        	    		}
+        			}
+        			
+        			if (roc_selectedRecipient.brdt) {
+        				brdtInput.val(roc_selectedRecipient.brdt.substring(0, 4) + '/'
+        						+ roc_selectedRecipient.brdt.substring(4, 6) + '/'
+        						+ roc_selectedRecipient.brdt.substring(6, 8));	
+        			} else {
+        				brdtInput.val('');
+        			}
+        			
+        			if (roc_selectedRecipient.gender === 'M') {
+        				$('input[name=roc-main-gender]#gender-m')[0].checked = true;
+        			} else if (roc_selectedRecipient.gender === 'W') {
+        				$('input[name=roc-main-gender]#gender-w')[0].checked = true;
+        			} else {
+        				var genderInputs = $('input[name=roc-main-gender]');
+        				genderInputs[0].checked = false;
+        				genderInputs[1].checked = false;
+        			}
         		}
         		
         		//해당 수급자의 L번호가 있으면 L번호 표시 처리
@@ -319,8 +503,21 @@
         		} else {
         			$('#roc-main-div-lno-yes').css('display', 'none');
         			$('#roc-main-div-lno-no').css('display', 'flex');
+        			
+        			//수급자 가족이면 기본 없음으로 체크 본인이면 있음으로 체크
+        			if (roc_selectedRecipient.relationCd === '007') {
+        				$('input[name=roc-check-lno]')[1].checked = true;
+        			} else {
+        				$('input[name=roc-check-lno]')[0].checked = true;
+        			}
+        			//L번호 입력 초기화
+        			var lnoInput = $('#roc-rcpt-lno');
+        			lnoInput.val('');
+        			lnoInput.removeClass('is-invalid');
+        			$('#rcpt-lno-related-error').css('display', 'none');
         		}
         		
+        		//상담유형 문구 표시 처리
         		if (roc_prevPath === 'test') {
     				$('#roc-main-conslt-nm .text-indexKey1').text('인정등급상담');
     			} else if (roc_prevPath === 'equip_ctgry') {
@@ -328,6 +525,7 @@
     			}
         		
         		//최초 상담하기 버튼 비활성화 처리
+        		$('#roc-main-agree-check')[0].checked = false;
         		$('#roc-main-action-btn').addClass('disabled');
         	}
         	
@@ -350,12 +548,8 @@
         		}
         		//상담 신청에서 유효성 검사
         		else if (roc_modalType === 'requestConslt') {
-        			//수급자 L번호가 있을 때
-        			if (roc_selectedRecipient.recipientsYn === 'Y') {
-        				
-        			}
         			//수급자 L번호가 없을 때
-        			else {
+        			if (roc_selectedRecipient.recipientsYn !== 'Y') {
             			var lnoInput = $('#roc-rcpt-lno');
             			//L번호 등록하려고 하는 지 검사
             			if ($('input[name=roc-check-lno]:checked').val() === 'Y') { 
@@ -370,6 +564,74 @@
             			//L번호 유효성 체크 제거
             			$(lnoInput).removeClass('is-invalid');
     					$('#rcpt-lno-related-error').css('display', 'none');	
+        			}
+        			
+        			//관계가 본인이 아닐 때 아래 테이블 입력값 검사
+        			if (roc_selectedRecipient.relationCd !== '007') {
+        				var tdTags = $('.roc-main-td-rel-family');
+        				var telnoInput = $(tdTags[0]).find('#roc-main-telno');
+        				var sidoSelect = $(tdTags[1]).find('#roc-main-sido');
+        				var sigugunSelect = $(tdTags[1]).find('#roc-main-sigugun');
+        				var brdtInput = $(tdTags[2]).find('#roc-main-brdt');
+        				
+        				var tel = telnoInput.val();
+        				var sido = $('#roc-main-sido option:selected').text();
+        				var sigugun = $('#roc-main-sigugun option:selected').text();
+        				var dong = $('#roc-main-dong option:selected').text();
+        				var brdt = brdtInput.val();
+        				var gender = $('input[name=roc-main-gender]:checked').val();
+        				
+        				//연락처 형식 검사
+        				if (!tel || telchk.test(tel) === false) {
+                			telnoInput.addClass('is-invalid');
+                			$(tdTags[0]).find('.error').css('display', 'block');
+                			return false;
+        				} else {
+        					telnoInput.removeClass('is-invalid');
+                			$(tdTags[0]).find('.error').css('display', 'none');
+        				}
+        				
+        				//시도 검사
+        				var addrCheck = true;
+        				if (sido === '시/도') {
+                			sidoSelect.addClass('is-invalid');
+                			addrCheck = false;
+        				} else {
+        					sidoSelect.removeClass('is-invalid');
+        				}
+        				//시군구 검사
+        				if (sigugun === '시/군/구') {
+        					sigugunSelect.addClass('is-invalid');
+        					addrCheck = false;
+        				} else {
+        					sigugunSelect.removeClass('is-invalid');
+        				}
+        				if (!addrCheck) {
+        					$(tdTags[1]).find('.error').css('display', 'block');
+        					return false;
+        				} else {
+        					$(tdTags[1]).find('.error').css('display', 'none');
+        				}
+        				
+        				//생년월일 형식 검사
+        				if (!brdt || datechk.test(brdt) === false) {
+                			brdtInput.addClass('is-invalid');
+                			$(tdTags[2]).find('.error').css('display', 'block');
+                			return false;
+        				} else {
+        					brdtInput.removeClass('is-invalid');
+                			$(tdTags[2]).find('.error').css('display', 'none');
+        				}
+        				
+        				//성별 검사
+						if (!gender) {
+							$(tdTags[3]).find('.form-check-group').css('border-color', '#dc3545');
+		        			$(tdTags[3]).find('.error').css('display', 'block');
+		        			return false;
+						} else {
+							$(tdTags[3]).find('.form-check-group').css('border-color', '#999999');
+		        			$(tdTags[3]).find('.error').css('display', 'none');
+						}        				
         			}
         		}
         		return true;
@@ -395,19 +657,52 @@
        					prevPath : roc_prevPath,
         			};
         			
+        			//수급자 L번호가 없었는데 등록하려고 하는 경우
+    				if (roc_selectedRecipient.recipientsYn !== 'Y' && $('input[name=roc-check-lno]:checked').val() === 'Y') {
+    					consltRequestData.saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
+    					consltRequestData.rcperRcognNo = $('#roc-rcpt-lno').val();
+    				}
+        			
         			//본인인 경우
         			if (roc_selectedRecipient.relationCd === '007') {
-        				//수급자 번호가 없었는데 등록하려고 하는 경우
-        				if (roc_selectedRecipient.recipientsYn !== 'Y' && $('input[name=roc-check-lno]:checked').val() === 'Y') {
-        					consltRequestData.saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
-        					consltRequestData.rcperRcognNo = $('#roc-rcpt-lno').val();
-        				} else {
+        				//아직 수급자정보 같이 저장 입력안받은 경우
+       				    if (consltRequestData.saveRecipientInfo === undefined) {
         					consltRequestData.saveRecipientInfo = true;
         				}
         			}
         			//가족인 경우
         			else {
+        				var tdTags = $('.roc-main-td-rel-family');
+        				var telnoInput = $(tdTags[0]).find('#roc-main-telno');
+        				var brdtInput = $(tdTags[2]).find('#roc-main-brdt');
         				
+        				var tel = telnoInput.val();
+        				var sido = $('#roc-main-sido option:selected').text();
+        				var sigugun = $('#roc-main-sigugun option:selected').text();
+        				var dong = $('#roc-main-dong option:selected').text();
+        				var brdt = brdtInput.val();
+        				var gender = $('input[name=roc-main-gender]:checked').val();
+        				
+        				//아직 수급자정보 같이 저장 입력안받고 수급자 정보가 변경된 경우
+       				    if (consltRequestData.saveRecipientInfo === undefined && (
+       				    		roc_selectedRecipient.tel !== (tel ? tel : null) ||
+       				    		roc_selectedRecipient.sido !== (sido ? sido : null) ||
+       				    		roc_selectedRecipient.sigugun !== (sigugun ? sigugun : null) ||
+       				    		roc_selectedRecipient.dong !== (dong ? dong : null) ||
+       				    		roc_selectedRecipient.brdt !== (brdt ? brdt.replaceAll('/', '') : null) ||
+       				    		roc_selectedRecipient.gender !== (gender ? gender : null))) {
+       				    	consltRequestData.saveRecipientInfo = confirm('입력하신 수급자 정보도 함께 저장하시겠습니까?');
+        				} else if (consltRequestData.saveRecipientInfo === undefined) {
+        					consltRequestData.saveRecipientInfo = false;
+        				}
+        				
+        				//요청 파라미터 매핑
+        				consltRequestData.mbrTelno = tel;
+        				consltRequestData.zip = sido;
+        				consltRequestData.addr = sigugun;
+        				consltRequestData.daddr = dong;
+        				consltRequestData.brdt = brdt;
+        				consltRequestData.gender = gender;
         			}
         			
         			//상담신청 API 호출

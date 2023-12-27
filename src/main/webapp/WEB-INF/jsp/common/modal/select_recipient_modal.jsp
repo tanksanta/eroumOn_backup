@@ -193,7 +193,7 @@
         </div>
         </c:if>
 
-        <!--4.수급자등록알림-->
+        <!-- 진행중인 상담 알림 모달 -->
         <div class="modal modal-default fade" id="notified-consulting" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered">
                 <div class="modal-content">

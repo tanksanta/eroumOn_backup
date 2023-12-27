@@ -226,6 +226,11 @@ public class MainConsltController extends CommonAbstractController{
 				}
 				mbrConsltVO.setGender(mbrVO.getGender());
 			}
+			//가족 인경우 수급자 정보로 상담정보 저장(입력 받는 것 제외)
+			else {
+				mbrConsltVO.setRelationCd(mbrRecipient.getRelationCd());
+				mbrConsltVO.setMbrNm(mbrRecipient.getRecipientsNm());
+			}
 			
 			//수급자 정보 저장동의시 수급자명을 다른 수급자와 똑같이 등록하려는 경우
 			if (saveRecipientInfo) {
@@ -248,7 +253,6 @@ public class MainConsltController extends CommonAbstractController{
 				return resultMap;
 			}
 			
-			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
 				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
@@ -260,6 +264,11 @@ public class MainConsltController extends CommonAbstractController{
 				}
 			}
 			
+			
+			//기존에 L번호가 있는 수급자였다면 L번호 포함 상담정보 저장
+			if ("Y".equals(mbrRecipient.getRecipientsYn())) {
+				mbrConsltVO.setRcperRcognNo(mbrRecipient.getRcperRcognNo());
+			}
 			
 			mbrConsltVO.setRegId(mbrSession.getMbrId());
 			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
