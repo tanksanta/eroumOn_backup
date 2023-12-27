@@ -14,6 +14,9 @@
 
 .order-product {
     @apply relative border border-gray1 rounded-2xl bg-white leading-tight;
+    &.order-product-mypage {
+        @apply overflow-hidden;
+    }
     & .order-header {
         @apply relative py-2 px-3.5 pr-8 flex items-center flex-wrap min-h-[3.625rem] border-b-1 border-solid border-t-gray2
                md:px-5 md:pr-10 md:min-h-19;
@@ -56,6 +59,10 @@
             @apply top-2.5
                    md:top-5;
         }
+
+        & .order-item-business {
+            @apply text-xl font-bold;
+        };
     }
     & .order-close {
         @apply btn-icon absolute z-20 top-2 right-1.5 h-8 bg-[url(/html/page/market/assets/images/ico-close2.svg)] bg-[length:1.125rem]
@@ -96,6 +103,17 @@
         @apply flex p-3 border-t-1 border-t-gray2
                md:p-4.5
                first:border-t-0;
+
+        &.order-item-mypage {
+            @apply border-t-0 py-8;
+            & .order-item-thumb {
+                @apply !mb-0;
+            }
+
+            & .order-item-group {
+                @apply min-h-0;
+            }
+        }
     }
     & .order-item-thumb {
         @apply flex-none mr-3 w-22 h-22 overflow-hidden rounded-md bg-gray2 bg-no-repeat bg-[url(/html/page/market/assets/images/bg-compare-thumb.svg)] bg-[length:45%] bg-center
@@ -319,6 +337,20 @@
             }
         }
     }
+
+    & .order-body {
+        &.favorite {
+            & .item-thumb {
+                @apply flex items-start gap-[0.875rem];
+            }
+            & .order-item-thumb {
+                @apply mr-6;
+            }
+            & .cost {
+                @apply justify-between;
+            }
+        }
+    }
 }
 
 .order-amount {
@@ -441,7 +473,7 @@
         @apply float-left mr-5 w-30 h-30 rounded-md bg-gray2
                md:mr-6 md:w-50 md:h-50;
         & img {
-            @apply w-full h-full object-cover;
+            @apply w-full h-full object-cover rounded-md;
         }
     }
     & .order-content {
@@ -458,8 +490,8 @@
             }
         }
         & .name {
-            @apply mt-1.5 max-h-[2.5em] text-[1.375rem] font-bold overflow-hidden text-ellipsis
-                   md:mt-2 md:text-2xl;
+            @apply mt-1.5 max-h-[2.5em] text-base font-bold overflow-hidden text-ellipsis
+                   md:mt-2;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
@@ -520,6 +552,12 @@
         & .baseitem {
             & .content {
                 @apply sm:py-1.5;
+
+                & .item-option {
+                   & .option {
+                        @apply flex flex-col items-start;
+                   }
+                }
             }
         }
         & .additem {
@@ -547,6 +585,9 @@
                 @apply my-0.5 px-0 w-15 align-middle;
             }
         }
+        &.order-wrap {
+            @apply border-b border-b-gray1;
+        } 
     }
 }
 
@@ -1605,5 +1646,173 @@
     }
     & .order-item-group {
         @apply pb-0 min-h-0;
+    }
+}
+
+ /*  상품정보 */
+& .order-item-box {
+    @apply flex flex-col gap-3;
+    & .order-product {
+        @apply overflow-hidden;
+    }
+
+    & .order-product-inner  {
+        
+        & + .order-product-inner {
+            @apply border-t border-t-gray2;
+        };
+    }
+    & .order-item-business {
+        @apply flex items-center gap-4.5 text-xl font-bold px-5 md:px-6 py-5  border-b-1 border-b-gray2 ;
+    }
+    & .order-item-list {
+        & .order-item-inner:first-child > .order-item {
+                @apply pt-6 pb-9 px-6;
+        }
+    }
+    & .order-item-inner {
+        @apply flex flex-col p-0;
+    }
+    & .order-item {
+        @apply px-6 py-9 border-none; 
+    }
+
+   
+
+    & .order-delivery-total {
+        @apply flex items-center gap-1 px-5 md:px-6 pt-4.5 pb-2 text-lg;
+        & .price2 {
+            @apply text-red3;
+        }
+    }
+    /* & .order-item-payment {
+        @apply flex justify-center items-center gap-1 py-4 bg-[#f5f5f5] border border-[#eee];
+
+        & dt {
+            @apply font-medium;
+        }
+    } */
+
+    & .order-option-price {
+        @apply w-full flex flex-col md:flex-row justify-between;
+    }
+
+
+    & .pay-amount {
+        @apply font-medium;
+    }
+    & .delivery-charge {
+        @apply font-bold text-lg leading-none;
+    }
+    & .order-product-item {
+        @apply relative grid md:grid-cols-3 md:grid-rows-2 p-5 md:p-6 gap-3;
+        grid-template-columns: 0.75fr auto auto;
+        grid-template-rows: auto auto auto;
+       
+        /* @media (max-width: 768px) {
+            grid-template-columns: 6rem auto auto;
+        } */
+
+        & .order-disabled {
+            @apply absolute flex items-center justify-center top-0 bottom-0 right-0 left-0 bg-black/60 z-35 text-white;
+        }
+
+
+        & .item-thumb {
+            @apply flex items-start gap-1 md:row-span-3;
+
+            & .order-item-thumb {
+                @apply mr-0;
+            };
+            & .form-check {
+                @apply z-50;
+                & .form-check-input {
+                    @apply w-7.5 h-7.5 mt-0 mr-3.5;
+                }
+            }
+            
+        }
+        & .item-name {
+            @apply col-span-2 md:col-span-1;
+        }
+        & .item-price {
+            @apply col-span-3 md:col-span-1 self-end md-max:order-5;
+            & .pay-info {
+                @apply flex flex-col items-end w-full;
+            }
+        }
+        & .item-option {
+            @apply col-span-3 row-span-1 md:col-span-1;
+            & .option dd {
+                @apply flex flex-wrap gap-1 my-1;
+
+                &.disabled > span {
+                    @apply opacity-45;
+                }
+                & .text-soldout {
+                    @apply relative indent-2 opacity-100 text-black2 ml-1 text-sm
+                    before:content-empty before:absolute before:left-0 before:top-1 before:inline-block before:w-px before:h-4 before:bg-gray3;
+                }
+            };
+           
+        }
+        & .item-add {
+            @apply md:flex md:items-center md:gap-3 col-span-3 row-span-1 md:col-span-1 mt-4;
+
+            & .name {
+                @apply md-max:mt-1;
+            }
+          
+        }
+        & .item-btn {
+            @apply self-end justify-self-end col-span-3 md:col-span-1;
+        }
+    }
+
+   
+}
+
+.item-option {
+    & .option dd  ~  dd {
+        @apply mt-0.5;
+    }
+}
+
+.pay-price {
+    & .original-price {
+        @apply line-through text-gray5;
+    }
+    & .price {
+        @apply text-xl font-bold text-red3;
+    }
+}
+
+.pay-order-wrap {
+    @apply flex flex-col gap-3 py-3;
+    & .pay-order-price {
+        @apply flex justify-between;
+    
+        & .title {
+            @apply font-bold ;
+        }
+        
+        & .price-box {
+             @apply flex items-center justify-end gap-1;
+            & .amount {
+                @apply text-gray5 text-sm;
+            }
+            & .total {
+                @apply text-red3 text-xl;
+            }
+        }
+       
+    }
+    
+}
+
+.order-item-payment {
+    @apply flex justify-center items-center gap-1 py-4 bg-[#f5f5f5] border border-[#eee];
+    & dt {
+        @apply font-medium;
     }
 }

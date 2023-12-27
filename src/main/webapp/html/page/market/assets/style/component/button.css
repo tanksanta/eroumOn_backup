@@ -386,6 +386,10 @@
             @apply bg-white border-white bg-[url(/html/page/market/assets/images/ico-close.svg)];
         }
     }
+     .btn-delete2 { 
+        @apply w-6 h-6 bg-white overflow-hidden bg-center bg-no-repeat -indent-96 bg-[length:0.5625rem];
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.9' height='8.9' viewBox='0 0 8.9 8.9'%3E%3Cpath id='Rectangle_6_Copy_6' data-name='Rectangle 6 Copy 6' d='M8.046,8.753l-3.6-3.6-3.6,3.6a.5.5,0,0,1-.707-.707l3.6-3.6L.147.853A.5.5,0,0,1,.853.147l3.6,3.6,3.6-3.6a.5.5,0,0,1,.707.707l-3.6,3.6,3.6,3.6a.5.5,0,0,1-.707.707Z' transform='translate(0 0)' fill='%231c1c1c'/%3E%3C/svg%3E%0A");
+    }
 
     .btn-more {
         @apply btn-icon btn-outline-primary h-5 rounded-full bg-[url(/html/page/market/assets/images/ico-angle-right.svg)] bg-[length:0.375rem]
