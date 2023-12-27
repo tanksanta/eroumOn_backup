@@ -7,7 +7,7 @@
 			<c:forEach var="resultList" items="${mainBannerList}" varStatus="status">
 				<div class="swiper-slide">
 					<c:if test="${resultList.linkTy ne 'N' }">
-						<a href="${resultList.linkUrl}?rdcntBanner=${resultList.bannerNo}" class="response" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
+						<a href=" <c:choose><c:when test="${fn:contains(resultList.linkUrl, '?')}">${resultList.linkUrl}&</c:when><c:otherwise>${resultList.linkUrl}?</c:otherwise></c:choose>rdcntBanner=${resultList.bannerNo}" class="response" <c:if test="${resultList.linkTy eq 'S'}">target="_blank"</c:if>>
 					</c:if>
 					
 					<%-- 
