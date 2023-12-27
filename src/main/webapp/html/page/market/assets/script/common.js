@@ -574,7 +574,7 @@ function f_findAdres(zip, addr, daddr, lat, lot) {
 
 
 				    // callback함수가 있는지 체크
-				    if(typeof f_findAdresCallback === 'function' && !f_findAdresCallback()) {
+				    if(typeof f_findAdresCallback === 'function') {
 				        console.log("추가 함수실행");
 				        f_findAdresCallback();
 				    }
