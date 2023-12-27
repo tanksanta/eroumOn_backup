@@ -510,7 +510,7 @@ class JsMarketGdsView{
 	f_buy_cb(result, fail, data, param){
 		if (result != undefined && result.resultMsg == "SUCCESS"){
 			var data = {cartTy : param.ordrTy, cartGrpNos : result.cartGrpNo};
-			jsCallApi.call_svr_post_move(this._cls_info._marketPath + "/ordr/cartPay", data, null);
+			jsCallApi.call_svr_post_move(this._cls_info._marketPath + "/ordr/ordrPay", data, null);
 		}else{
 			alert("주문으로 이동하는 중 오류가 발생하였습니다.\n새로고침 후 다시 시도해 주십시오.")
 		}

@@ -406,80 +406,80 @@ public class OrdrController extends CommonAbstractController{
 	/**
 	 * 비급여 주문
 	 */
-	@RequestMapping(value = "ordrPay")
-	public String ordrPayment(
-			OrdrVO ordrVO
-			, @RequestParam(value = "ordrTy", required = true) String ordrTy
-			, @RequestParam(value = "gdsNo", required = true) String gdsNo
-			, @RequestParam(value = "gdsCd", required = true) String gdsCd
-			, @RequestParam(value = "bnefCd", required = true) String bnefCd
-			, @RequestParam(value = "gdsNm", required = true) String gdsNm
-			, @RequestParam(value = "gdsPc", required = true) String gdsPc
+	// @RequestMapping(value = "ordrPay")
+	// public String ordrPayment(
+	// 		OrdrVO ordrVO
+	// 		, @RequestParam(value = "ordrTy", required = true) String ordrTy
+	// 		, @RequestParam(value = "gdsNo", required = true) String gdsNo
+	// 		, @RequestParam(value = "gdsCd", required = true) String gdsCd
+	// 		, @RequestParam(value = "bnefCd", required = true) String bnefCd
+	// 		, @RequestParam(value = "gdsNm", required = true) String gdsNm
+	// 		, @RequestParam(value = "gdsPc", required = true) String gdsPc
 
-			, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
-			, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
-			, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
-			, @RequestParam(value = "ordrQy", required = true) String ordrQy
+	// 		, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
+	// 		, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
+	// 		, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
+	// 		, @RequestParam(value = "ordrQy", required = true) String ordrQy
 
-			, @RequestParam(value = "recipterUniqueId", required = false) String recipterUniqueId
-			, @RequestParam(value = "bplcUniqueId", required = false) String bplcUniqueId
-			, @RequestParam Map<String, Object> reqMap
+	// 		, @RequestParam(value = "recipterUniqueId", required = false) String recipterUniqueId
+	// 		, @RequestParam(value = "bplcUniqueId", required = false) String bplcUniqueId
+	// 		, @RequestParam Map<String, Object> reqMap
 
-			, HttpServletRequest request
-			, RedirectAttributes redirectAttributes
-			, HttpServletResponse response
-			, HttpSession session
-			, Model model
-		) throws Exception {
+	// 		, HttpServletRequest request
+	// 		, RedirectAttributes redirectAttributes
+	// 		, HttpServletResponse response
+	// 		, HttpSession session
+	// 		, Model model
+	// 	) throws Exception {
 
-		// STEP.1 로그인 체크
-		if (!mbrSession.isLoginCheck()) {
-			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
-			return "redirect:/" + membershipPath + "/login";
-		}
+	// 	// STEP.1 로그인 체크
+	// 	if (!mbrSession.isLoginCheck()) {
+	// 		LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
+	// 		return "redirect:/" + membershipPath + "/login";
+	// 	}
 
-		//주문정보 계산을 위해 카트 객체로 변환
-		List<CartVO> cartList = new ArrayList<>();
-		String[] spGdsNo = gdsNo.split(",");
-		for (int i = 0; i < spGdsNo.length; i++) {
+	// 	//주문정보 계산을 위해 카트 객체로 변환
+	// 	List<CartVO> cartList = new ArrayList<>();
+	// 	String[] spGdsNo = gdsNo.split(",");
+	// 	for (int i = 0; i < spGdsNo.length; i++) {
 
-			CartVO cartVO = new CartVO();
-			cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
-			cartVO.setGdsCd(gdsCd.split(",")[i].trim());
-			if (bnefCd.split(",").length > 0) { // bnefCd null일수 있음
-				cartVO.setBnefCd(bnefCd.split(",")[i].trim());
-			} else {
-				cartVO.setBnefCd("");
-			}
-			cartVO.setGdsNm(gdsNm.split(",")[i].trim());
-			cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-			cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
-			cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
-			cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
-			cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
-			cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
-			cartVO.setBplcUniqueId(bplcUniqueId);
+	// 		CartVO cartVO = new CartVO();
+	// 		cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+	// 		cartVO.setGdsCd(gdsCd.split(",")[i].trim());
+	// 		if (bnefCd.split(",").length > 0) { // bnefCd null일수 있음
+	// 			cartVO.setBnefCd(bnefCd.split(",")[i].trim());
+	// 		} else {
+	// 			cartVO.setBnefCd("");
+	// 		}
+	// 		cartVO.setGdsNm(gdsNm.split(",")[i].trim());
+	// 		cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+	// 		cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
+	// 		cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+	// 		cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
+	// 		cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+	// 		cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
+	// 		cartVO.setBplcUniqueId(bplcUniqueId);
 
-			int ordrPc = (cartVO.getGdsPc() + cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
-			cartVO.setOrdrPc(ordrPc);
+	// 		int ordrPc = (cartVO.getGdsPc() + cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+	// 		cartVO.setOrdrPc(ordrPc);
 			
-			//상품 정보 조회
-			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
-			cartVO.setGdsInfo(gdsVO);
+	// 		//상품 정보 조회
+	// 		GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
+	// 		cartVO.setGdsInfo(gdsVO);
 			
-			cartList.add(cartVO);
-		}
+	// 		cartList.add(cartVO);
+	// 	}
 		
-		//주문정보 model에 담기
-		getOrderDetailListForPay(ordrTy, cartList, model);
+	// 	//주문정보 model에 담기
+	// 	getOrderDetailListForPay(ordrTy, cartList, model);
 		
-		return "/market/ordr/ordr_pay";
-	}
+	// 	return "/market/ordr/ordr_pay";
+	// }
 
 	/**
 	 * 비급여 주문 > 장바구니
 	 */
-	@RequestMapping(value = "cartPay")
+	@RequestMapping(value = {"cartPay", "ordrPay"})
 	public String cartPay(
 			@RequestParam(value = "cartGrpNos", required = true) String cartGrpNos
 			, @RequestParam(value = "cartTy", required = true) String cartTy
