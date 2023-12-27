@@ -593,6 +593,8 @@
 
 					<%--from start--%>
 					<form id="frmOrdr" name="frmOrdr" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="viewYn" value="">
+
 						<!-- 구매 조건 선택 -->
                        	<c:choose>
 							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
@@ -1136,49 +1138,13 @@ var Goods = (function(){
 
 		// 구매 버튼
 		$('.payment-button .f_buy').on('click', function() {
-			f_buyClick();
+			jsMarketGdsView.f_buyClick();
 		});
 
 
 		// 장바구니 버튼
 		$(".payment-button .f_cart").on("click", function(){
-
-	        if((ordrTy == "R" || ordrTy == "L") && $("#bplcUniqueId").val() == "" ){
-				alert("급여상품 구입은 멤버스(사업소)를 선택해야 합니다.");
-				return false;
-	        }else if($(".product-quanitem").length < 1){
-	        	alert("필수 옵션을 선택하세요");
-				$('.payment-type-content1 .payment-scroller').addClass('is-active');
-	        	return false;
-	        }else{
-	        	var formData = $("#frmOrdr").serialize();
-				$.ajax({
-					type : "post",
-					url  : "${_marketPath}/mypage/cart/putCart.json",
-					data : formData,
-					dataType : 'json'
-				})
-				.done(function(json) {
-					if(json.result){
-						//console.log("resultMsg: ", json.resultMsg);
-						if(json.resultMsg == "ALREADY"){
-							alert("장바구니에 담겨있는 상품입니다.");
-						}else{
-							$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
-							if (confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")){
-								window.location.href = "${_marketPath}/mypage/cart/list";
-							}
-						}
-					}else{
-						alert("장바구니 담기에 실패하였습니다.\n잠시후 다시 시도해 주시기 바랍니다.")
-					}
-				})
-				.fail(function(data, status, err) {
-					console.log('error forward : ' + data);
-				});
-
-	        }
-
+	        jsMarketGdsView.f_cart_click();
 		});
 
 		$('.f_loginCheck').on('click', function(){

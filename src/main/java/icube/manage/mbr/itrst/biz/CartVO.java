@@ -33,6 +33,8 @@ public class CartVO extends CommonBaseVO {
 	private int ordrOptnPc = 0;
 	private int ordrQy = 0;
 
+	private String viewYn;
+
 	private String recipterUniqueId;
 	private String bplcUniqueId;
 

@@ -26,6 +26,7 @@
 		, ordr_optn
 		, ordr_optn_pc
 		, ordr_qy
+		, view_yn
 		, recipter_unique_id
 		, bplc_unique_id
 		, reg_unique_id
@@ -81,6 +82,9 @@
 		</if>
 		<if test="srchCartGrpNo != null and srchCartGrpNo != '' ">
 			AND cart_grp_no = #{srchCartGrpNo}
+		</if>
+		<if test="srchViewYn != null and srchViewYn != '' ">
+			AND view_yn = #{srchViewYn}
 		</if>
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCartGrpNos)">
 			AND cart_grp_no IN
@@ -154,6 +158,8 @@
 			 , ordr_qy
 			 , gds_optn_no
 
+			, view_yn
+
 			 , recipter_unique_id
 			 , bplc_unique_id
 
@@ -180,6 +186,8 @@
 			 , #{ordrOptnPc}
 			 , #{ordrQy}
 			 , #{gdsOptnNo}
+
+			 , #{viewYn}
 
 			 , #{recipterUniqueId, jdbcType=VARCHAR}
 			 , #{bplcUniqueId, jdbcType=VARCHAR}
