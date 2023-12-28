@@ -1004,6 +1004,11 @@
     	    		if(data.success) {
     	    			$('#roc-main-modal').modal('hide');
     	    			$('#consulting-complated-modal').modal('show').appendTo('body');
+    	    			
+    	    			//채널톡 이벤트 처리
+    	    			if (roc_prevPath === 'test') {
+    	    				eventChannelTalkForConslt('click_gradetest_matching');	
+    	    			}
     	    		}else{
     	    			alert(data.msg);
     	    		}
@@ -1039,4 +1044,47 @@
 			    	});	
 		    	}
 		    }
+        	
+        	
+        	//채널톡 event 처리 (1:1 상담하기 신청)
+        	function eventChannelTalkForConslt(eventName) {
+        		if (eventName === 'click_gradetest_matching') {
+        			//수급자의 테스트 정보 가져오기
+        			$.ajax({
+        				type: "get",
+        				url: "/membership/info/myinfo/getRecipientTestInfo.json",
+        				data: {
+        					recipientsNo : roc_selectedRecipient.recipientsNo,
+        				},
+        				dataType : 'json'
+        			})
+        			.done(function(data) {
+        				if(data.success && data.mbrTestVO) {
+        					//예상결과 등급
+            			    var grade = data.mbrTestVO.grade;
+            			    var propertyObj = {
+            			   		 grade
+            			   	}
+            			    
+            			  	//상담 신청 일자
+            				var now = new Date();
+            				propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+            			    
+            			    ChannelIO('track', eventName, propertyObj);
+            			     
+            			    
+            			    //GA 이벤트 처리
+            			    var gaProp = {
+            			        grade,
+            			    };
+            		    	gaProp.consltDate = propertyObj.consltDate;
+            		    	
+            		    	gtag('event', eventName, gaProp);
+        				}
+        			})
+        			.fail(function(data, status, err) {
+        				alert('서버와 연결이 좋지 않습니다.');
+        			});
+        		}
+        	}
         </script>

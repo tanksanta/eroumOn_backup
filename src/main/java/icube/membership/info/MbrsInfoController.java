@@ -33,6 +33,8 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.main.test.biz.MbrTestService;
+import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
@@ -64,6 +66,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name="mbrTestService")
+    private MbrTestService mbrTestService;
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -813,6 +818,42 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 해당 수급자의 테스트 결과 가져오기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getRecipientTestInfo.json")
+	public Map<String, Object> getMbrInfo(
+			@RequestParam int recipientsNo
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("msg", "로그인이 필요합니다");
+			return resultMap;
+		}
+	
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return resultMap;
+			}
+			
+			MbrTestVO mbrTestVO = mbrTestService.selectMbrTestByRecipientsNo(recipientsNo);
+			resultMap.put("mbrTestVO", mbrTestVO);
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 테스트 정보 조회중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;

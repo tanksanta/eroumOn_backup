@@ -30,6 +30,12 @@ public class MbrTestService extends CommonAbstractServiceImpl {
         return mbrTestDAO.selectMbrTest(paramMap);
     }
     
+    public MbrTestVO selectMbrTestByRecipientsNo(int recipientsNo) {
+    	Map<String, Object> paramMap = new HashMap<>();
+    	paramMap.put("srchRecipientsNo", recipientsNo);
+    	return selectMbrTest(paramMap);
+    }
+    
     public Integer insertMbrTest(MbrTestVO mbrTestVO) {
         return mbrTestDAO.insertMbrTest(mbrTestVO);
     }
