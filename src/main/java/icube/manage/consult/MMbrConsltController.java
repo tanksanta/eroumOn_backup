@@ -299,6 +299,7 @@ public class MMbrConsltController extends CommonAbstractController{
 		Collections.reverse(bplcRejectChgList);
 		model.addAttribute("bplcRejectChgList", bplcRejectChgList);
 		model.addAttribute("MBR_RELATION_CD", CodeMap.MBR_RELATION_CD);
+		model.addAttribute("MBR_RELATION_CD_FOR_ADMIN", CodeMap.MBR_RELATION_CD_FOR_ADMIN);
 		model.addAttribute("PREV_PATH", CodeMap.PREV_PATH);
 		model.addAttribute("MBER_STTUS", CodeMap.MBER_STTUS);
 		

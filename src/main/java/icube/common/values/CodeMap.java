@@ -1065,31 +1065,51 @@ public class CodeMap{
 		}
 	};
 	
-	// 회원 - 수급자 관계 코드
+	// 회원 - 수급자 관계 코드 (2023-12-28 관계코드가 변경됨)
 	public static final HashMap<String, String> MBR_RELATION_CD = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -5623502462808019347L;
 		{
 			put("001", "배우자");
-			put("002", "자녀");
-			put("003", "부모");
+			put("002", "아버지");     //자녀 -> 아버지
+			put("008", "어머니");     //신규
+			put("005", "할아버지");   //자손 -> 할아버지
+			put("009", "할머니");     //신규
 			put("004", "형제");
-			put("005", "자손");
-			put("006", "자부");
+			put("006", "며느리");     //자부 -> 며느리
 			put("007", "본인");
+			put("003", "자녀");
 			//put("100", "기타(친척등)");   //공단 조치사항 때 제외
 		}
 	};
-	//읽기 전용 관계 코드 맵
+	// 읽기 전용 관계 코드 맵
 	public static final HashMap<String, String> MBR_RELATION_CD_FOR_READ = new LinkedHashMap<String, String>() {
-		private static final long serialVersionUID = -5623502462808019347L;
+		private static final long serialVersionUID = 2107965554258907332L;
 		{
 			put("001", "배우자");
-			put("002", "자녀");
-			put("003", "부모");
+			put("002", "아버지");     //자녀 -> 아버지
+			put("008", "어머니");     //신규
+			put("005", "할아버지");   //자손 -> 할아버지
+			put("009", "할머니");     //신규
 			put("004", "형제");
-			put("005", "자손");
-			put("006", "자부");
+			put("006", "며느리");     //자부 -> 며느리
 			put("007", "본인");
+			put("003", "자녀");
+			put("100", "기타(친척등)");
+		}
+	};
+	// 관리자 - 수급와의 관계 코드(관리자 표시용)
+	public static final HashMap<String, String> MBR_RELATION_CD_FOR_ADMIN = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 1644731734506728887L;
+		{
+			put("001", "수급자의 배우자");
+			put("002", "수급자의 자녀");
+			put("008", "수급자의 자녀");
+			put("005", "수급자의 자손");
+			put("009", "수급자의 자손");
+			put("004", "수급자의 형제");
+			put("006", "수급자의 자부");
+			put("007", "본인");
+			put("003", "수급자의 부모");
 			put("100", "기타(친척등)");
 		}
 	};
