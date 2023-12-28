@@ -661,6 +661,7 @@ public class OrdrController extends CommonAbstractController{
 			ordrDtlVO.setBnefCd(cartVO.getBnefCd());
 			ordrDtlVO.setGdsNm(cartVO.getGdsNm());
 			ordrDtlVO.setGdsPc(cartVO.getGdsPc());
+			ordrDtlVO.setGdsOptnNo(cartVO.getGdsOptnNo());
 			ordrDtlVO.setOrdrOptnTy(cartVO.getOrdrOptnTy());
 			ordrDtlVO.setOrdrOptn(cartVO.getOrdrOptn());
 			ordrDtlVO.setOrdrOptnPc(cartVO.getOrdrOptnPc());

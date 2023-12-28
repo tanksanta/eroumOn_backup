@@ -6,11 +6,13 @@ import java.util.List;
 import org.apache.ibatis.type.Alias;
 
 import icube.manage.gds.gds.biz.GdsVO;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.recipter.biz.RecipterInfoVO;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.ordr.chghist.biz.OrdrChgHistVO;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,6 +36,7 @@ public class OrdrDtlVO extends OrdrVO {
 	private Integer entrpsNo; // 입점업체 NO
 	private String entrpsNm;  // 입점업체명
 	private String gdsItemCd; // 상품 품목코드
+    private int gdsOptnNo; // 상품 옵션 번호
 	private String optnItemCd;// 옵션 품목코드
 	private int ordrPc = 0; // 주문가격 (상품가격 + 옵션가격)
 	private String ordrOptnTy;
@@ -103,4 +106,7 @@ public class OrdrDtlVO extends OrdrVO {
     private List<OrdrChgHistVO> ordrChgHist;
 
     private OrdrRebillVO rebillInfo;
+
+	private EntrpsVO entrpsVO;
+    private GdsOptnVO gdsOptnVO;
 }

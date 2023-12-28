@@ -125,6 +125,8 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		String gdsNm = (String) reqMap.get("gdsNm");
 		String gdsPc = (String) reqMap.get("gdsPc");
 
+		String gdsOptnNo = (String) reqMap.get("gdsOptnNo");
+
 		String ordrOptnTy = (String) reqMap.get("ordrOptnTy");
 		String ordrOptn = (String) reqMap.get("ordrOptn");
 		String ordrOptnPc = (String) reqMap.get("ordrOptnPc");
@@ -230,6 +232,10 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			}
 			if (entrpsVO != null) {
 				ordrDtlVO.setEntrpsNm(entrpsVO.getEntrpsNm());
+			}
+			
+			if (gdsOptnNo.split(",")[i].trim().length() > 0){
+				ordrDtlVO.setGdsOptnNo((EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim())));
 			}
 			ordrDtlVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));

@@ -312,7 +312,7 @@ class JsMarketGdsView{
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
 		$(".product-quanitem input[name='ordrOptn']").each(function(){
-			if($(this).val() == spOptnVal[0].trim()){
+			if($(this).val().trim() == spOptnVal[0].trim()){
 				alert("["+spOptnVal[0] + "]은(는) 이미 추가된 옵션상품입니다.");
 				skip = true;
 			}

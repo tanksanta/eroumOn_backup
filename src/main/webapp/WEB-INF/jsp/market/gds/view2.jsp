@@ -735,7 +735,7 @@
 	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
 		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
 	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
-											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT">${spAditOptnTtl[1]}</a></li>
+											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}</a></li>
 	                               		</c:if>
 	                               		</c:forEach>
 	                                    </ul>

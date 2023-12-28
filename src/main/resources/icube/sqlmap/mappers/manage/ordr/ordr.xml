@@ -13,6 +13,10 @@
 		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
 		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
 		<association property="rebillInfo" 	column="{srchOrdrNo=ordr_no}" select="ordr.rebill.selectOrdrRebill" />
+
+		<collection property="entrpsVO" 	column="{entrpsNo=entrps_no}" 	 select="entrps.selectEntrps" />
+		<collection property="gdsOptnVO" 	column="{gdsOptnNo=gds_optn_no}" 	 select="gds.optn.selectGdsOptnNo" />
+		
 	</resultMap>
 
 	<!-- Define OrdrVO Column List -->
@@ -204,6 +208,7 @@
 			 , od.ordr_dtl_cd
 			 , od.ordr_dtl_no
 			 , od.gds_no
+			 , od.gds_optn_no
 			 , od.gds_cd
 			 , od.bnef_cd
 			 , od.gds_nm

@@ -119,16 +119,19 @@ public class MyCartController extends CommonAbstractController  {
 		List<Integer> cartNos = new ArrayList<Integer>();
 
 		// STEP.1 선택된 보호자 장바구니 > 동일상품 + 동일옵션이 있는지 체크 (추가옵션 제외)
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchCartTy", ordrTy);
-		paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
-		paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
-		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+		
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		CartVO chkCartVO = null;
 
 		if (EgovStringUtil.equals(viewYn, "Y")){
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchCartTy", ordrTy);
+			paramMap.put("srchViewYn", viewYn);
+			paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
+			paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
+			paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+			
 			chkCartVO = cartService.selectCartByFilter(paramMap);
 		}
 		
@@ -154,7 +157,7 @@ public class MyCartController extends CommonAbstractController  {
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[0].trim()));
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
