@@ -295,6 +295,8 @@
 	            	if (sr_prevPath === 'test') {
 	            		moveFirstPageInAddRcpts();	
 	            	} else {
+	            		//수급자 선택창 숨기기
+	        			$('#rcpts-select').modal('hide');
 	            		//L번호 있어요, 없어요 모달 띄우기
 	            		$('#sr-lno-check-modal').modal('show');
 	            	}
@@ -345,6 +347,8 @@
 	        		}
 	        		//회원에 등록된 수급자가 있는 경우
 	        		else {
+	        			//수급자 선택창 띄우기
+	        			$('#rcpts-select').modal('show');
 	        			//등록 모달폼 셋팅(폼은 안뜸)
 	        			openAddRecipientSrModal(answer);
 	        			moveFirstPageInAddRcpts();
