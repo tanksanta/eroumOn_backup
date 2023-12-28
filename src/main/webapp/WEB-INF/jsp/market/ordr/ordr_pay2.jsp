@@ -21,7 +21,7 @@
 
 				</div>
 
-                <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5" style="display:none">
+                <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5">
 
             	<c:set var="totalDlvyBassAmt" value="0" />
                 <c:set var="totalCouponAmt" value="0" />
