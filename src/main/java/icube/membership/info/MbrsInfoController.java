@@ -2,6 +2,7 @@
 package icube.membership.info;
 
 import java.security.PrivateKey;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +97,7 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
 
 	/**
@@ -646,13 +648,43 @@ public class MbrsInfoController extends CommonAbstractController{
 		resultMap.put("success", false);
 		
 		try {
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
 			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자입니다.");
+                return resultMap;
+			}
+			//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
+			if ("007".equals(relationCd)) {
+				recipientsNm = mbrVO.getMbrNm();
+				tel = mbrVO.getMblTelno();
+				sido = null;
+				sigugun = mbrVO.getAddr();
+				dong = null;
+				if (mbrVO.getBrdt() != null) {
+					brdt = dateFormat.format(mbrVO.getBrdt());
+				}
+				gender = mbrVO.getGender();
+			}
 			
 			//동일한 수급자 이름 등록 체크
-			if (mbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-				resultMap.put("msg", "이미 등록한 다른 수급자성명으로 변경할 수 없습니다");
+			String srchName = recipientsNm;
+			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
 				return resultMap;
+			}
+			
+			//본인, 배우자로 등록하려고 할 때 다른 수급자가 이미 등록되어 있는지 확인
+			if ("007".equals(relationCd) || "001".equals(relationCd)) {
+				if (mbrRecipientList.stream().filter(f -> relationCd.equals(f.getRelationCd()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+					if ("007".equals(relationCd)) {
+						resultMap.put("msg", "이미 본인으로 등록한 수급자(어르신)가 존재합니다");
+					} else {
+						resultMap.put("msg", "이미 배우자로 등록한 수급자(어르신)가 존재합니다");
+					}
+					return resultMap;
+				}
 			}
 			
 			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
