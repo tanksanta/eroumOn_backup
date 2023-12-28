@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>메뉴구조도</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+<style>
+    .table-guide th, .table-guide td { border: 1px solid #ddd; padding: 0.5rem; letter-spacing: -0.2px; }
+    .table-guide thead th { background-color: #eee; }
+    .table-guide tbody th { background-color: #f5f5f5; }
+    .table-guide a { color: #2563eb; }
+    .table-guide td > p { line-height: 160%; padding-bottom: 0.5rem;  }
+    .table-guide td > p ~ p {border-top: 1px solid #eee; margin: 0 -0.5rem 0; padding: 0.5rem; }
+    .table-guide td > p ~ p:last-child { padding: 0.5rem 0.5rem 0; }
+    .table-guide a:active, .table-guide a:focus, .table-guide a:hover {
+        text-decoration: underline;
+        color: #2563eb;
+    }
+    .not-current a, .not-current { color: #dc2626;}
+</style>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-10 py-4 px-5">
+
+        <div class="flex flex-col gap-4 w-full">
+            <h2 class="flex justify-between items-center font-semibold text-lg">
+                CSS구조
+            </h2>
+            <table class="table-guide">
+                <colgroup>
+                    <col style="width: 120px">
+                    <col style="width: 120px">
+                    <col style="width: 120px">
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>1depth</th>
+                        <th>2depth</th>
+                        <th>3depth</th>
+                        <th>4depth</th>
+                    </tr>
+                </thead>
+                <!-- core -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left">eroumon > src > main > webapp > html > core</th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">core</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">core</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">core</th>
+                        <td  class="align-top">style</td>
+                        <td >style.css
+<pre>
+    <code class="language-css">
+        @import "tailwindcss/base";
+        @import "tailwindcss/components";
+        @import "tailwindcss/utilities";
+        
+        /* @import url("//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css");
+        @import url('//fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
+        @import url('//fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        @import url('//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css');
+        
+        /* global component */
+        @import "utility.css";
+        @import "alert.css";
+        @import "badge.css";
+        @import "breadcrumb.css";
+        @import "button.css";
+        @import "color.css";
+        @import "form.css";
+        @import "offcanvas.css";
+        @import "modal.css";
+        @import "pagination.css";
+        @import "table.css";
+        @import "tab.css";
+        @import "content.css";
+    </code>
+</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">core</th>
+                        <td  class="align-top">vendor</td>
+                        <td>라이브러리</td>
+                    </tr>
+                </tbody>
+                <!-- admin -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left">eroumon > src > main > webapp > html > page</th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">admin</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">admin</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">admin</th>
+                        <td  class="align-top">style</td>
+                        <td >style.css
+<pre>
+    <code class="language-css">
+    /* core include */
+    @import "../../../../core/style/style.css";
+    @import "../../../../core/style/modal.css";
+    @import "../../../../page/index/assets/style/recipter.css";
+
+    /* admin include */
+    @import "vendor.css";
+    @import "icon.css";
+    @import "layout.css";
+    @import "dashboard.css";
+    @import "login.css";
+    @import "page.css"; 
+    </code>
+</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">admin</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+                
+                <!-- index -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left"></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">index</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">index</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">index</th>
+                        <td  class="align-top">style</td>
+                        <td >style.css
+<pre>
+    <code class="language-css">
+        @import url('//fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900');
+        @import url('//cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css');
+        
+        @import "tailwindcss/base";
+        @import "tailwindcss/components";
+        @import "tailwindcss/utilities";
+        
+        /* component core */
+        @import "../../../../core/style/utility.css";
+        @import "../../../../core/style/button.css";
+        @import "../../../../core/style/form.css";
+        @import "../../../../core/style/pagination.css";
+        @import "../../../../core/style/icons.css";
+        @import "../../../../core/style/modal.css";
+        @import "../../../../core/style/content.css";
+        
+        
+        @import "common.css";
+        @import "layout.css";
+        @import "content.css"; 
+        @import "index.css"; 
+        @import "welfare.css"; 
+        @import "recipter.css"; 
+    </code>
+</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">index</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+
+                <!-- market -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left"></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">market</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">market</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">market</th>
+                        <td  class="align-top">style</td>
+                        <td >style.css
+<pre>
+    <code class="language-css">
+    /* core include */
+    @import "tailwindcss/base";
+    @import "tailwindcss/components";
+    @import "tailwindcss/utilities";
+
+    @import url('//fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900');
+
+    /* component core */
+    @import "../../../../core/style/utility.css";
+    @import "../../../../core/style/button.css";
+    @import "../../../../core/style/form.css";
+    @import "../../../../core/style/modal.css";
+    @import "../../../../core/style/offcanvas.css";
+    @import "../../../../core/style/pagination.css";
+
+    /* component */
+    @import "component/alert.css";
+    @import "component/box.css";
+    @import "component/button.css";
+    @import "component/form.css";
+    @import "component/modal.css";
+    @import "component/label.css";
+    @import "component/list.css";
+    @import "component/pagination.css";
+    @import "component/text.css";
+    @import "component/table.css";
+    @import "component/tabs.css";
+    @import "component/tooltip.css";
+    @import "component/popover.css";
+
+    /* layout */
+    @import "layout/header.css";
+    @import "layout/container.css";
+
+    /* content */
+    @import "content/common.css";
+    @import "content/product.css";
+    @import "content/coupon.css";
+    @import "content/order.css";
+    @import "content/payment.css";
+    @import "content/mypage.css";
+    @import "content/other.css";
+    @import "content/index.css";  
+    </code>
+</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">market</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+
+                <!-- members -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left"></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">members</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">members</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">members</th>
+                        <td  class="align-top">style</td>
+                        <td >style.css
+<pre>
+    <code class="language-css">
+        @import url('//fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900');
+
+        @import "tailwindcss/base";
+        @import "tailwindcss/components";
+        @import "tailwindcss/utilities";
+        
+        /* component core */
+        @import "../../../../core/style/utility.css";
+        @import "../../../../core/style/button.css";
+        @import "../../../../core/style/form.css";
+        @import "../../../../core/style/modal.css";
+        @import "../../../../core/style/offcanvas.css";
+        @import "../../../../core/style/pagination.css";
+        @import "../../../../core/style/icons.css";
+        @import "../../../../core/style/color.css";
+        @import "../../../../core/style/content.css";
+        
+        @import "../../../market/assets/style/component/table.css";
+        @import "../../../market/assets/style/component/form.css";
+        @import "../../../market/assets/style/component/label.css";
+        @import "../../../market/assets/style/component/list.css";
+        @import "../../../market/assets/style/component/button.css";
+        @import "../../../market/assets/style/component/box.css";
+        @import "../../../market/assets/style/component/text.css";
+        @import "../../../market/assets/style/component/pagination.css";
+        @import "../../../market/assets/style/component/tabs.css";
+        
+        @import "../../../index/assets/style/content.css";
+        
+        @import "layout.css";
+        @import "common.css";
+        @import "content.css"; 
+    </code>
+</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">members</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+
+                <!-- office -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left"></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">office</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">office</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">office</th>
+                        <td  class="align-top">style</td>
+                        <td>
+                            <ul>
+                                <li>admin.css</li>
+                                <li>home.css</li>
+                                <li>partner.css</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">office</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+
+                <!-- test -->
+                <tbody>
+                    <tr>
+                        <th colspan="4" class="text-left"></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">test</th>
+                        <td rowspan="4" class="align-top">assets</td>
+                        <td colspan="2">images</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">test</th>
+                        <td colspan="2">script</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">test</th>
+                        <td  class="align-top">style</td>
+                        <td>style.css</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right align-top">test</th>
+                        <td class="align-top">contents</td>
+                        <td colspan="2">HTML 페이지폴더</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function mergeTable(target, index) {
+            let loop = null;
+            let start_idx = 0; 
+            let add_num = 1;   
+            $(target).find('tr').each(function (idx) {
+                var target_text = $(this).find('th').eq(index).text();
+                if (!loop) { 
+                    loop = target_text;
+                    start_idx = idx;
+                } else if (target_text == loop) {  
+                    add_num++;
+                    if (idx == $(target).find('tr').length - 1) {
+                        $(target).find('tr').eq(start_idx).find('th').eq(index).attr("rowSpan", add_num)
+                        for (var i = start_idx + 1; i < start_idx + add_num; i++) {
+                            $(target).find('tr').eq(i).find('th').eq(index).hide(); 
+                        }
+                    }
+                } else {
+                    if (add_num != 1) { 
+                        $(target).find('tr').eq(start_idx).find('th').eq(index).attr("rowSpan", add_num)
+                        for (var i = start_idx + 1; i < start_idx + add_num; i++) {
+                            $(target).find('tr').eq(i).find('th').eq(index).hide(); 
+                        }
+                    }
+                    start_idx = idx;
+                    loop = target_text;
+                    add_num = 1;
+                }
+            });
+        }
+        $(function () {
+                mergeTable('.table-guide', 0);
+        })
+    </script>
+</body>
+</html>

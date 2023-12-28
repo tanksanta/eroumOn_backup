@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사용법</title>
+<link rel="stylesheet" href="../../core/style/style.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="text-sm">
+    <div class="flex flex-col gap-4 py-4 px-5">
+        <h2 class="font-semibold text-4xl">깃</h2>
+        <ul class="flex flex-col gap-4">
+            <li class="text-2xl font-bold">https://github.com/tanksanta/eroumOn</li>
+        </ul>
+        <hr class="divide-x-1 my-20"/>
+        <h2 class="font-semibold text-4xl">툴</h2>
+        <ul class="flex gap-4">
+            <li class="text-2xl font-bold">vscode</li>
+            <li class="text-2xl font-bold">eclipse</li>
+        </ul>
+        <hr class="divide-x-1 my-20"/>
+        <h2 class="font-semibold text-4xl">CSS 컴파일 하는 방법</h2>
+        <p class="underline underline-offset-1">package.json</p>
+        <pre>
+            <code class="language-json">
+                "scripts": {
+                    "build-core"    : "postcss ./html/core/style/style.css -o ./html/core/style/style.min.css --watch --poll",
+                    "build-admin"   : "postcss ./html/page/admin/assets/style/style.css -o ./html/page/admin/assets/style/style.min.css --watch --poll",
+                    "build-market"  : "postcss ./html/page/market/assets/style/style.css -o ./html/page/market/assets/style/style.min.css --watch --poll",
+                    "build-office1" : "postcss ./html/page/office/assets/style/home.css -o ./html/page/office/assets/style/home.min.css --watch --poll",
+                    "build-office2" : "postcss ./html/page/office/assets/style/partner.css -o ./html/page/office/assets/style/partner.min.css --watch --poll",
+                    "build-office3" : "postcss ./html/page/office/assets/style/admin.css -o ./html/page/office/assets/style/admin.min.css --watch --poll",
+                    "build-members" : "postcss ./html/page/members/assets/style/style.css -o ./html/page/members/assets/style/style.min.css --watch --poll",
+                    "build-index"   : "postcss ./html/page/index/assets/style/style.css -o ./html/page/index/assets/style/style.min.css --watch --poll",
+                    "build-test"    : "postcss ./html/page/test/assets/style/style.css -o ./html/page/test/assets/style/style.min.css --watch --poll",
+                    "build": "npm-run-all --parallel build-core build-admin build-market build-office1 build-office2 build-office3 build-members build-index"
+                },
+            </code>
+        </pre>
+        <pre>
+            <code class="language-json">
+                npm run build-core
+                npm run build-admin
+                npm run build-market
+                npm run build-members
+                npm run build-index
+                npm run build-office1
+                npm run build-office2
+                npm run build-office3
+                npm run build 
+            </code>
+        </pre>
+    </div>
+</body>
+</html>
