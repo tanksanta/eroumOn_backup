@@ -1120,3 +1120,8 @@
         @apply text-black2 font-medium;
     }
 }
+
+/*구매할수없음*/
+.inavailable {
+    @apply flex flex-col items-center gap-1 mt-7 mt-4.5 bg-gray2 py-4 rounded-md;
+}
