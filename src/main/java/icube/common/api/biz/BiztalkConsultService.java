@@ -224,7 +224,7 @@ public class BiztalkConsultService extends BiztalkApiService {
 		msg = msg.replace("#{YYYY-MM-DD}", timeInFormat);
 
 		msg = msg.replace("#{수급자 성명}", mbrRecipientsVO.getRecipientsNm());
-		msg = msg.replace("#{가족 관계}", CodeMap.MBR_RELATION_CD.get(mbrRecipientsVO.getRelationCd()));
+		msg = msg.replace("#{가족 관계}", CodeMap.MBR_RELATION_CD_FOR_READ.get(mbrRecipientsVO.getRelationCd()));
 		
 		JSONObject param = new JSONObject();
 		

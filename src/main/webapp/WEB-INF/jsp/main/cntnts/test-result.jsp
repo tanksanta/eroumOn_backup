@@ -382,7 +382,7 @@
     </div>
     
     <!-- 상담 신청하기 지원 모달 -->
-	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_recip_or_conslt_modal.jsp" />
     
     
     <script>
@@ -398,7 +398,7 @@
         	}
     		
     		var recipientsNo = testData.recipientsNo;
-   			openModal('requestConslt', Number(recipientsNo), 'test');
+            openRecipientOrConsltModal('requestConslt', Number(recipientsNo), 'test');
     	}
 
 

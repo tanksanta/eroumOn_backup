@@ -8,6 +8,14 @@
       }
       &.modal-lg {
         @apply max-w-[800px];
+
+        &.min-w-lg {
+          @media only screen and (min-width:800px) {
+            & .modal-content {
+                @apply min-w-[800px];
+            }
+          }
+        }
       }
       &.modal-xl {
         @apply max-w-screen-lg;
@@ -17,7 +25,7 @@
       }
     }
     & .modal-content {
-      @apply relative flex flex-col w-full  bg-white rounded-md shadow-none pointer-events-auto p-1.5;
+      @apply relative flex flex-col w-full bg-white rounded-md shadow-none pointer-events-auto p-1.5;
 
         & .modal-close {
           > button {
