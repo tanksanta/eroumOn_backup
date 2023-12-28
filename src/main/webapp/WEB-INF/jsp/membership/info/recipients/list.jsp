@@ -150,7 +150,7 @@
 <script>
 	// 수급자 추가하기 버튼 클릭
 	function clickAddRecipientBtn() {
-		openModal('addRecipient');
+		openRecipientOrConsltModal('addRecipient');
 	}
 	
 	// 상담하기 버튼 클릭

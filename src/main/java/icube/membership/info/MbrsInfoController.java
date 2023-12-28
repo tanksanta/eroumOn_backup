@@ -522,7 +522,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	
 	/**
-	 * 장기요양테스트, 간편조회 이전 수급자 추가 ajax
+	 * 장기요양테스트, 간편조회 이전 수급자 추가 + 수급자 등록 모달 ajax
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addMbrRecipient.json")
@@ -543,32 +543,45 @@ public class MbrsInfoController extends CommonAbstractController{
 		
 		try {
 			//수급자 회원 등록 최대수 확인(최대 4명)
-			List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			if (srchMbrRecipientList.size() > 3) {
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
+			if (mbrRecipientList.size() > 3) {
 				resultMap.put("msg", "더 이상 수급자(어르신)를 등록할 수 없습니다");
-				return resultMap;
-			}
-			
-			//동일한 수급자 이름 등록 체크
-			if (srchMbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm())).count() > 0) {
-				resultMap.put("msg", "이미 등록한 수급자입니다");
 				return resultMap;
 			}
 			
 			//본인과 배우자는 한명만 등록이 가능
 			if ("007".equals(relationCd)) {
-				boolean alreadyExistMe = srchMbrRecipientList.stream().anyMatch(mr -> "007".equals(mr.getRelationCd()));
+				boolean alreadyExistMe = mbrRecipientList.stream().anyMatch(mr -> "007".equals(mr.getRelationCd()));
 				if (alreadyExistMe) {
-					resultMap.put("msg", "본인은 한명만 등록이 가능합니다");
+					resultMap.put("msg", "이미 본인으로 등록한 수급자(어르신)가 존재합니다");
+					return resultMap;
+				}
+				
+				//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
+				recipientsNm = mbrVO.getMbrNm();
+				tel = mbrVO.getMblTelno();
+				sido = null;
+				sigugun = mbrVO.getAddr();
+				dong = null;
+				if (mbrVO.getBrdt() != null) {
+					brdt = dateFormat.format(mbrVO.getBrdt());
+				}
+				gender = mbrVO.getGender();
+			}
+			if ("001".equals(relationCd)) {
+				boolean alreadyExistSpouse = mbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));
+				if (alreadyExistSpouse) {
+					resultMap.put("msg", "이미 배우자로 등록한 수급자(어르신)가 존재합니다");
 					return resultMap;
 				}
 			}
-			if ("001".equals(relationCd)) {
-				boolean alreadyExistSpouse = srchMbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));
-				if (alreadyExistSpouse) {
-					resultMap.put("msg", "배우자는 한명만 등록이 가능합니다");
-					return resultMap;
-				}
+			
+			//동일한 수급자 이름 등록 체크
+			String srchName = recipientsNm;
+			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm())).count() > 0) {
+				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
+				return resultMap;
 			}
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
@@ -583,18 +596,11 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			
-			//회원의 수급자 정보 등록
+			//수급자 정보 등록
 			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
 			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
 			mbrRecipient.setRelationCd(relationCd);
-			//본인인 경우 회원명으로 고정
-			if ("007".equals(relationCd)) {
-				mbrRecipient.setRecipientsNm(mbrSession.getMbrNm());
-			}
-			else {
-				mbrRecipient.setRecipientsNm(recipientsNm);
-			}
-			
+			mbrRecipient.setRecipientsNm(recipientsNm);
 			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
 				mbrRecipient.setRcperRcognNo(rcperRcognNo);
 				mbrRecipient.setRecipientsYn("Y");
@@ -612,9 +618,9 @@ public class MbrsInfoController extends CommonAbstractController{
 			
 			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
 			
-			//등록된 수급전 번호 가져오기
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			int createdRecipientsNo = mbrRecipientList.get(0).getRecipientsNo();
+			//등록된 수급자 번호 가져오기
+			List<MbrRecipientsVO> newMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			int createdRecipientsNo = newMbrRecipientList.get(0).getRecipientsNo();
 			
 			resultMap.put("success", true);
 			resultMap.put("createdRecipientsNo", createdRecipientsNo);
@@ -668,13 +674,6 @@ public class MbrsInfoController extends CommonAbstractController{
 				gender = mbrVO.getGender();
 			}
 			
-			//동일한 수급자 이름 등록 체크
-			String srchName = recipientsNm;
-			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
-				return resultMap;
-			}
-			
 			//본인, 배우자로 등록하려고 할 때 다른 수급자가 이미 등록되어 있는지 확인
 			if ("007".equals(relationCd) || "001".equals(relationCd)) {
 				if (mbrRecipientList.stream().filter(f -> relationCd.equals(f.getRelationCd()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
@@ -685,6 +684,13 @@ public class MbrsInfoController extends CommonAbstractController{
 					}
 					return resultMap;
 				}
+			}
+			
+			//동일한 수급자 이름 수정 체크
+			String srchName = recipientsNm;
+			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
+				return resultMap;
 			}
 			
 			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크

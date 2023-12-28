@@ -101,8 +101,8 @@
                                                 <th scope="row"><label for="roc-main-telno">상담받을 연락처<sup class="required">*</sup></label></th>
                                                 <td class="roc-main-td-rel-me">010-1234-5678</td>
                                                 <td class="roc-main-td-rel-family">
-                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno">
-                                                	<p class="error text-danger">연락처 형식이 올바르지 않습니다. (예시: 010-1234-5678)</p>
+                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno" placeholder="010-1234-5678">
+                                                	<p class="error text-danger">! 연락처 형식이 올바르지 않습니다. (예시: 010-1234-5678)</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -120,7 +120,7 @@
                                                             <option value="">동/읍/면</option>
                                                         </select>
                                                     </fieldset>
-                                                    <p class="error text-danger">수급자(어르신)분의 실거주지 주소를 입력해 주세요.</p>
+                                                    <p class="error text-danger">! 주소를 모두 선택해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -128,7 +128,7 @@
                                                 <td class="roc-main-td-rel-me">1900/01/01</td>
                                                 <td class="roc-main-td-rel-family">
                                                 	<input type="text" class="form-control w-full lg:w-[60%] keycontrol birthdt10 is-invalid" id="roc-main-brdt" placeholder="1950/01/01">
-                                                	<p class="error text-danger">수급자(어르신)분의 생년월일을 입력해 주세요.</p>
+                                                	<p class="error text-danger">! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -145,14 +145,14 @@
                                                             <label class="form-check-label" for="gender-w">여성</label>
                                                         </div>
                                                     </div>
-                                                    <p class="error text-danger">수급자(어르신)분의 성별을 입력해 주세요.</p>
+                                                    <p class="error text-danger">! 성별을 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="flex justify-end" id="roc-main-delete-div">
-                                    <button type="button" class="btn btn-primary btn-small">삭제하기</button>
+                                    <button type="button" class="btn btn-primary btn-small" onclick="removeRecipientInRocModal();">삭제하기</button>
                                 </div>
                                 <ul class="list-style1" id="roc-main-conslt-guid-text">
                                     <li>상기 정보는 장기요양등급 신청 및 상담이 가능한 장기요양기관에 제공되며 원활한 상담 진행 목적으로 상담 기관이 변경될 수도 있습니다.</li>
@@ -363,6 +363,10 @@
     	    
     	    function showRocMainModal(recipientsNo) {
     	    	if (roc_modalType === 'addRecipient') {
+    	    		//회원 정보만 조회
+        			getMbrRecipientsDataSync();
+    	    		//수급자 등록 폼 셋팅
+    	    		setMainFormInRocRecipientAdd();
         		} else if (roc_modalType === 'updateRecipient') {
         			//수급자 정보 조회
         			getMbrRecipientsDataSync(recipientsNo);
@@ -396,7 +400,9 @@
     	    				roc_mbrBrdt = new Date(data.mbrVO.brdt);	
     	    			}
     	    			roc_mbrGender = data.mbrVO.gender;
-    	    			roc_selectedRecipient = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
+    	    			if (recipientsNo) {
+    	    				roc_selectedRecipient = data.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];	
+    	    			}
     	    			roc_recipients = data.mbrRecipients;
     	    		}
     	    		//로그인 안한 경우
@@ -449,52 +455,54 @@
         			$(tdTags[3]).find('.form-check-group').css('border-color', '#999999');
         			$(tdTags[3]).find('.error').css('display', 'none');
         			
-        			//아래 table에 수급자 정보 매핑
-        			telnoInput.val(roc_selectedRecipient.tel);
-        			
-        			if (roc_selectedRecipient.sido) {
-        				var options = $('#roc-main-sido option');
-        				for(var i = 0; i < options.length; i++) {
-        	    			if (options[i].text === roc_selectedRecipient.sido) {
-        	    				options[i].selected = true;
-        	    			}
-        	    		}
-        				setSigugun();
-        			}
-        			if (roc_selectedRecipient.sigugun) {
-        				var options = $('#roc-main-sigugun option');
-        	    		for(var i = 0; i < options.length; i++) {
-        	    			if (options[i].text === roc_selectedRecipient.sigugun) {
-        	    				options[i].selected = true;
-        	    			}
-        	    		}
-        	    		setDong();
-        			}
-        			if (roc_selectedRecipient.dong) {
-        				var options = $('#roc-main-dong option');
-        	    		for(var i = 0; i < options.length; i++) {
-        	    			if (options[i].text === roc_selectedRecipient.dong) {
-        	    				options[i].selected = true;
-        	    			}
-        	    		}
-        			}
-        			
-        			if (roc_selectedRecipient.brdt) {
-        				brdtInput.val(roc_selectedRecipient.brdt.substring(0, 4) + '/'
-        						+ roc_selectedRecipient.brdt.substring(4, 6) + '/'
-        						+ roc_selectedRecipient.brdt.substring(6, 8));	
-        			} else {
-        				brdtInput.val('');
-        			}
-        			
-        			if (roc_selectedRecipient.gender === 'M') {
-        				$('input[name=roc-main-gender]#gender-m')[0].checked = true;
-        			} else if (roc_selectedRecipient.gender === 'W') {
-        				$('input[name=roc-main-gender]#gender-w')[0].checked = true;
-        			} else {
-        				var genderInputs = $('input[name=roc-main-gender]');
-        				genderInputs[0].checked = false;
-        				genderInputs[1].checked = false;
+        			//아래 table에 수급자 정보 매핑(수급자 등록 모달창에서는 안함)
+        			if (roc_modalType !== 'addRecipient') {
+        				telnoInput.val(roc_selectedRecipient.tel);
+            			
+            			if (roc_selectedRecipient.sido) {
+            				var options = $('#roc-main-sido option');
+            				for(var i = 0; i < options.length; i++) {
+            	    			if (options[i].text === roc_selectedRecipient.sido) {
+            	    				options[i].selected = true;
+            	    			}
+            	    		}
+            				setSigugun();
+            			}
+            			if (roc_selectedRecipient.sigugun) {
+            				var options = $('#roc-main-sigugun option');
+            	    		for(var i = 0; i < options.length; i++) {
+            	    			if (options[i].text === roc_selectedRecipient.sigugun) {
+            	    				options[i].selected = true;
+            	    			}
+            	    		}
+            	    		setDong();
+            			}
+            			if (roc_selectedRecipient.dong) {
+            				var options = $('#roc-main-dong option');
+            	    		for(var i = 0; i < options.length; i++) {
+            	    			if (options[i].text === roc_selectedRecipient.dong) {
+            	    				options[i].selected = true;
+            	    			}
+            	    		}
+            			}
+            			
+            			if (roc_selectedRecipient.brdt) {
+            				brdtInput.val(roc_selectedRecipient.brdt.substring(0, 4) + '/'
+            						+ roc_selectedRecipient.brdt.substring(4, 6) + '/'
+            						+ roc_selectedRecipient.brdt.substring(6, 8));	
+            			} else {
+            				brdtInput.val('');
+            			}
+            			
+            			if (roc_selectedRecipient.gender === 'M') {
+            				$('input[name=roc-main-gender]#gender-m')[0].checked = true;
+            			} else if (roc_selectedRecipient.gender === 'W') {
+            				$('input[name=roc-main-gender]#gender-w')[0].checked = true;
+            			} else {
+            				var genderInputs = $('input[name=roc-main-gender]');
+            				genderInputs[0].checked = false;
+            				genderInputs[1].checked = false;
+            			}
         			}
         		}
         		
@@ -509,24 +517,28 @@
         			$('#roc-main-div-lno-yes').css('display', 'none');
         			$('#roc-main-div-lno-no').css('display', 'flex');
         			
-        			//수급자 가족이면 기본 없음으로 체크 본인이면 있음으로 체크
-        			if (roc_selectedRecipient.relationCd === '007') {
-        				$('input[name=roc-check-lno]')[1].checked = true;
-        			} else {
-        				$('input[name=roc-check-lno]')[0].checked = true;
-        			}
-        			//L번호 입력 초기화
         			var lnoInput = $('#roc-rcpt-lno');
-        			lnoInput.val('');
         			lnoInput.removeClass('is-invalid');
         			$('#rcpt-lno-related-error').css('display', 'none');
+        			
+        			//수급자 가족이면 기본 없음으로 체크 본인이면 있음으로 체크(수급자 등록 모달창에서는 안함)
+        			if (roc_modalType !== 'addRecipient') {
+        				if (roc_selectedRecipient.relationCd === '007') {
+            				$('input[name=roc-check-lno]')[1].checked = true;
+            			} else {
+            				$('input[name=roc-check-lno]')[0].checked = true;
+            			}
+        				
+            			//L번호 입력 초기화
+            			lnoInput.val('');
+        			}
         		}
         	}
         	
         	//수급자와의 관계 선택 템플릿
         	function getRelationCdSelectTemplate() {
         		return `
-        			<select name="relationSelect" id="roc-main-relation-cd" class="form-control form-small" onchange="relationCdChangeEvent();">
+        			<select name="relationSelect" id="roc-main-relation-cd" class="form-control form-small" onchange="relationCdChangeEvent();" style="font-weight:normal !important;">
 	        		<c:forEach var="relation" items="${relationCd}" varStatus="status">
 	        			<option value="${relation.key}">${relation.value}</option>
 		    		</c:forEach>
@@ -549,12 +561,56 @@
         			$('#roc-main-div-rel-family .roc-recipient-nm').text(roc_selectedRecipient.recipientsNm);
         		}
         		else {
-        			$('#roc-main-div-rel-family .roc-recipient-nm').html('<input type="text" class="form-control form-small w-40" id="roc-main-recipient-nm" placeholder="홍길동">');
-        			//이름정보 매핑
-        			$('#roc-main-recipient-nm').val(roc_selectedRecipient.recipientsNm)
+        			//이름 정보 Input이 없을 때만 생성 후 매핑
+        			if ($('#roc-main-recipient-nm').length === 0) {
+        				$('#roc-main-div-rel-family .roc-recipient-nm').html('<input type="text" class="form-control form-small w-40" id="roc-main-recipient-nm" placeholder="홍길동">');
+            			$('#roc-main-recipient-nm').val(roc_selectedRecipient.recipientsNm)
+        			}
         		}
         	}
         	
+        	
+        	//메인 폼 셋팅하기 (수급자 등록)
+        	function setMainFormInRocRecipientAdd() {
+        		//수급자 정보가 없으므로 선택 수급자 정보를 default 모두 없음으로 만듬
+        		roc_selectedRecipient = {
+       				recipientsYn : 'N',
+        		};
+        		setMainFormInCommon();
+        		
+        		//모달 타이틀 수정
+        		$('#roc-main-modal .text-title').text('수급자(어르신) 정보 등록');
+        		
+        		//안내문구 수정
+        		$('#roc-main-alert-msg').text('수급자(어르신) 정보를 등록해 주세요');
+        		
+        		
+        		//수급자 등록에서는 무조건 이름 및 관계 표시 가족 div를 사용 및 모두 Input으로 입력 받음
+        		$('#roc-main-div-rel-family').css('display', 'flex');
+    			$('#roc-main-div-rel-me').css('display', 'none');
+    			$('#roc-main-div-rel-family .roc-recipient-nm').html('<input type="text" class="form-control form-small w-40" id="roc-main-recipient-nm" placeholder="홍길동">');
+    			$('#roc-main-div-rel-family .roc-mbr-nm').text(roc_mbrNm);
+    			$('#roc-main-div-rel-family .roc-relation-text').html(getRelationCdSelectTemplate());
+    			$('#roc-main-relation-cd').val('');
+    			//관계 select에 placeholder 기능을하는 option 추가
+    			$('#roc-main-relation-cd').prepend('<option value="" disabled selected>관계선택</option>');
+    			
+    			
+        		//삭제하기 버튼 제거
+        		$('#roc-main-delete-div').css('display', 'none');
+        		
+        		//상담 관련 문구 제거
+        		$('#roc-main-conslt-nm').css('display', 'none');
+        		$('#roc-main-conslt-guid-text').css('display', 'none');
+        		
+        		//상담동의 체크박스 제거
+        		$('#roc-main-conslt-aggree-div').css('display', 'none');
+        		
+        		//등록하기 버튼 활성화
+        		var actionBtn = $('#roc-main-action-btn');
+        		actionBtn.text('등록하기')
+        		actionBtn.removeClass('disabled');
+        	}
         	
         	//메인 폼 셋팅하기 (수급자 수정)
         	function setMainFormInRocRecipientUpdate() {
@@ -567,7 +623,7 @@
         		$('#roc-main-alert-msg').text('정보를 확인하시고 수정사항이 있을 경우 수정해 주세요');
         		
         		
-        		//수급자 등록, 수정에서는 무조건 이름 및 관계 표시 가족 div를 사용
+        		//수급자 수정에서는 무조건 이름 및 관계 표시 가족 div를 사용
         		$('#roc-main-div-rel-family').css('display', 'flex');
     			$('#roc-main-div-rel-me').css('display', 'none');
         		//본인일 때 회원 이름을 텍스트 처리
@@ -586,7 +642,7 @@
         		$('#roc-main-div-rel-family .roc-mbr-nm').text(roc_mbrNm);
     			$('#roc-main-div-rel-family .roc-relation-text').html(getRelationCdSelectTemplate());
     			//관계정보 매핑
-    			$('#roc-main-relation-cd').val(roc_selectedRecipient.relationCd);	
+    			$('#roc-main-relation-cd').val(roc_selectedRecipient.relationCd);
     			
         		
         		//삭제하기 버튼 표시
@@ -634,7 +690,7 @@
         			$('#roc-main-div-rel-family .roc-relation-text').text(roc_relationCdMap[roc_selectedRecipient.relationCd]);
         		}
         		
-        		//삭제하기 버튼 표시
+        		//삭제하기 버튼 제거
         		$('#roc-main-delete-div').css('display', 'none');
         		
         		//상담유형 문구 표시 처리
@@ -669,6 +725,31 @@
         	
         	//유효성 검사를 통해 신청 Form에 유효성 알림 표시
         	function validationInRocModal() {
+        		var validData = true;
+        		
+        		//수급자 등록, 수정에서 추가 유효성 검사
+        		if (roc_modalType === 'addRecipient' || roc_modalType === 'updateRecipient') {
+        			var nameAndRelationCheck = true;
+        			
+        			//L번호를 등록안했으면서 본인이 아닌 경우는 이름도 검사
+        			if (roc_selectedRecipient.recipientsYn !== 'Y' && roc_selectedRecipient.relationCd !== '007') {
+        				var recipientNm = $('#roc-main-recipient-nm').val();
+        				if (!recipientNm) {
+        					nameAndRelationCheck = false;
+        				}
+        			}
+        			
+        			var relationCd = $('#roc-main-relation-cd').val();
+        			if (!relationCd) {
+        				nameAndRelationCheck = false;
+        			}
+        			
+        			if (!nameAndRelationCheck) {
+        				alert('수급자(어르신) 성함 및 관계를 입력하세요');
+        				validData = false;
+        			}
+        		}
+        		
         		//수급자 L번호가 없을 때
     			if (roc_selectedRecipient.recipientsYn !== 'Y') {
         			var lnoInput = $('#roc-rcpt-lno');
@@ -679,12 +760,13 @@
         				if (!lno || lno.length != 10) {
         					$(lnoInput).addClass('is-invalid');
         					$('#rcpt-lno-related-error').css('display', 'block');
-        					return false;	
-        				} 
+        					validData = false;
+        				}
+        			} else {
+        				//L번호 유효성 체크 제거
+            			$(lnoInput).removeClass('is-invalid');
+    					$('#rcpt-lno-related-error').css('display', 'none');	
         			}
-        			//L번호 유효성 체크 제거
-        			$(lnoInput).removeClass('is-invalid');
-					$('#rcpt-lno-related-error').css('display', 'none');	
     			}
     			
     			//관계가 본인이 아닐 때 아래 테이블 입력값 검사
@@ -706,7 +788,7 @@
     				if (!tel || telchk.test(tel) === false) {
             			telnoInput.addClass('is-invalid');
             			$(tdTags[0]).find('.error').css('display', 'block');
-            			return false;
+            			validData = false;
     				} else {
     					telnoInput.removeClass('is-invalid');
             			$(tdTags[0]).find('.error').css('display', 'none');
@@ -729,7 +811,7 @@
     				}
     				if (!addrCheck) {
     					$(tdTags[1]).find('.error').css('display', 'block');
-    					return false;
+    					validData = false;
     				} else {
     					$(tdTags[1]).find('.error').css('display', 'none');
     				}
@@ -738,7 +820,7 @@
     				if (!brdt || datechk.test(brdt) === false) {
             			brdtInput.addClass('is-invalid');
             			$(tdTags[2]).find('.error').css('display', 'block');
-            			return false;
+            			validData = false;
     				} else {
     					brdtInput.removeClass('is-invalid');
             			$(tdTags[2]).find('.error').css('display', 'none');
@@ -748,32 +830,14 @@
 					if (!gender) {
 						$(tdTags[3]).find('.form-check-group').css('border-color', '#dc3545');
 	        			$(tdTags[3]).find('.error').css('display', 'block');
-	        			return false;
+	        			validData = false;
 					} else {
 						$(tdTags[3]).find('.form-check-group').css('border-color', '#999999');
 	        			$(tdTags[3]).find('.error').css('display', 'none');
-					}        				
+					}
     			}
         		
-        		//수급자 등록, 수정에서 추가 유효성 검사
-        		if (roc_modalType === 'addRecipient' || roc_modalType === 'updateRecipient') {
-        			var relationCd = $('#roc-main-relation-cd').val();
-        			if (!relationCd) {
-        				alert('수급자(어르신) 관계를 입력하세요');
-        				return false;
-        			}
-        			
-        			//L번호를 등록안했으면서 본인이 아닌 경우는 이름도 검사
-        			if (roc_selectedRecipient.recipientsYn !== 'Y' && roc_selectedRecipient.relationCd !== '007') {
-        				var recipientNm = $('#roc-main-recipient-nm').val();
-        				if (!recipientNm) {
-        					alert('수급자(어르신) 성함을 입력하세요');
-        					return false;
-        				}
-        			}
-        		}
-        		
-        		return true;
+        		return validData;
         	}
         	
         	//수급자 등록, 수정, 상담신청하기
@@ -846,6 +910,8 @@
 				
         		//수급자 정보 등록
         		if (roc_modalType === 'addRecipient') {
+        			//수급자 등록 API 호출
+        	    	jsCallApi.call_api_post_json(window, "/membership/info/myinfo/addMbrRecipient.json", "addMbrRecipientCallback", jsonData);
         		}
         		//수급자 정보 수정
         		else if (roc_modalType === 'updateRecipient') {
@@ -900,6 +966,20 @@
     		    	jsCallApi.call_api_post_json(window, "/main/conslt/addMbrConslt.json", "addMbrConsltCallback", consltRequestData);
         		}
         	}
+        	// 수급자 등록 콜백
+    	    function addMbrRecipientCallback(result, errorResult, data, param) {
+    	    	if (errorResult == null) {
+    	    		var data = result;
+    	    		
+    	    		if(data.success) {
+    	    			location.reload();
+    	    		}else{
+    	    			alert(data.msg);
+    	    		}
+    	    	} else {
+    	    		alert('서버와 연결이 좋지 않습니다.');
+    	    	}
+    	    }
         	// 수급자 정보 수정 콜백
     	    function updateMbrRecipientCallback(result, errorResult, data, param) {
     	    	if (errorResult == null) {
@@ -932,5 +1012,31 @@
     	    	}
     	    }
         	
-        	
+        	//수급자 삭제하기
+        	function removeRecipientInRocModal() {
+		    	var recipientsNo = roc_selectedRecipient.recipientsNo;
+		    	if (!recipientsNo) {
+		    		alert('삭제할 수급자를 선택하세요');
+		    		return;
+		    	}
+	    		
+		    	if (confirm('수급자를 삭제한 후에는 복구가 불가합니다. 정말 삭제하시겠습니까?')) {
+		    		$.ajax({
+			    		type : "post",
+			    		url  : "/membership/info/myinfo/removeMbrRecipient.json",
+			    		data : { recipientsNo },
+			    		dataType : 'json'
+			    	})
+			    	.done(function(data) {
+			    		if(data.success) {
+			    			location.href = '/membership/info/recipients/list';
+			    		}else{
+			    			alert(data.msg);
+			    		}
+			    	})
+			    	.fail(function(data, status, err) {
+			    		alert('서버와 연결이 좋지 않습니다.');
+			    	});	
+		    	}
+		    }
         </script>
