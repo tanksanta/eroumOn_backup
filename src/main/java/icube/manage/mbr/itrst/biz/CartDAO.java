@@ -7,12 +7,22 @@ import org.springframework.stereotype.Repository;
 
 import icube.common.framework.abst.CommonAbstractMapper;
 import icube.common.vo.CommonListVO;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 
 @Repository("cartDAO")
 public class CartDAO extends CommonAbstractMapper {
 
 	public CommonListVO selectMbrCartListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("mbr.cart.selectMbrCartCount","mbr.cart.selectMbrCartListVO",listVO);
+	}
+
+	public List<EntrpsDlvyGrpVO> selectCartDlvygrpListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartDlvygrpListAll", paramMap);
+	}
+
+	public List<EntrpsVO> selectCartEntrpsListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartEntrpsListAll", paramMap);
 	}
 
 	public List<CartVO> selectCartListAll(Map<String, Object> paramMap) throws Exception {

@@ -49,6 +49,7 @@ import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -56,6 +57,8 @@ import icube.market.ordr.biz.DlvyCtAditRgnService;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
@@ -503,13 +506,29 @@ public class OrdrController extends CommonAbstractController{
 		paramMap.put("srchCartGrpNos", arrCartGrpNo);
 
 		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpVOList = cartService.selectCartDlvygrpListAll(paramMap);
+		List<EntrpsVO> entrpsVOList = cartService.selectCartEntrpsListAll(paramMap);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String cartListJson =  mapper.writeValueAsString(cartList);
+		model.addAttribute("cartListJson", cartListJson);
+		String entrpsDlvyGrpVOListJson =  mapper.writeValueAsString(entrpsDlvyGrpVOList);
+		model.addAttribute("entrpsDlvyGrpVOListJson", entrpsDlvyGrpVOListJson);
+		String entrpsVOListJson =  mapper.writeValueAsString(entrpsVOList);
+		model.addAttribute("entrpsVOListJson", entrpsVOListJson);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		String codeMapJson =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", codeMapJson);
+		
 
 		//주문정보 model에 담기
 		getOrderDetailListForPay(cartTy, cartList, model);
 		
 		model.addAttribute("cartGrpNos", cartGrpNos);
 
-		return "/market/ordr/ordr_pay";
+		return "/market/ordr/ordr_pay2";
 	}
 
 	// 상품주문 결제
