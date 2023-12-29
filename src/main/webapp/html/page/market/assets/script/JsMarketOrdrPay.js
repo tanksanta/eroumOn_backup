@@ -63,7 +63,7 @@ class JsMarketOrdrPay{
 
 	fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList){
 		var ifor, ilen, cartItemOne;
-		var ret = {ordrQy:0, ordrPc:0};
+		var ret = {ordrQy:0, ordrPc:0, originPc:0};
 		
 		ilen = arrCartGrpBaseList.length;
 		for(ifor=0 ; ifor<ilen ; ifor++){
@@ -71,6 +71,8 @@ class JsMarketOrdrPay{
 
 			ret.ordrQy += cartItemOne.ordrQy;
 			ret.ordrPc += cartItemOne.ordrPc;
+
+			ret.originPc += (cartItemOne.ordrQy * cartItemOne.gdsInfo.pc);
 		}
 
 		ilen = arrCartGrpAditList.length;
@@ -79,6 +81,8 @@ class JsMarketOrdrPay{
 
 			ret.ordrQy += cartItemOne.ordrQy;
 			ret.ordrPc += cartItemOne.ordrPc;
+
+			ret.originPc += cartItemOne.ordrPc;
 		}
 
 		return ret;
@@ -92,7 +96,7 @@ class JsMarketOrdrPay{
 		var owner = this;
 		
 		var dfor, dlen, kfor, klen, jfor, jlen, ifor, ilen = this._cls_info.entrpsVOList.length;
-		var arrEntrpsDlvyGrp, arrCartList, arrCartGrpBaseList, arrCartGrpAditList;
+		var arrEntrpsDlvyGrp, arrCartList, arrCartGrpBaseList, arrCartGrpAditList, arrCartGrpBaseAllList, arrCartGrpAditAllList;
 		var arrHtml = [];
 		var cartIdx;
 		var strHtml;
@@ -133,8 +137,10 @@ class JsMarketOrdrPay{
 
 				klen = arrCartList.length;
 
-				arrHtml.push(this.fn_draw_html_order_delivery_total(true, klen, arrEntrpsDlvyGrp[jfor]));
+				arrHtml.push(this.fn_draw_html_order_delivery_title(true, klen, arrEntrpsDlvyGrp[jfor]));
 
+				arrCartGrpBaseAllList = [];
+				arrCartGrpAditAllList = [];
 				arrHtml.push('<div class="order-product-inner">');
 				/*묶음 배송의 상품을 그린다*/
 				for(kfor=0 ; kfor<klen ; kfor++){
@@ -145,12 +151,14 @@ class JsMarketOrdrPay{
 					cartIdx = [];
 					arrCartGrpBaseList = arrCartList.filter(function(item, idex) {
 						if (item.ordrOptnTy == 'BASE' && item.cartGrpNo == arrCartList[kfor].cartGrpNo) {
+							arrCartGrpBaseAllList.push(item);
 							cartIdx.push(idex);
 							return true;
 						}
 					});
 					arrCartGrpAditList = arrCartList.filter(function(item, idex) {
 						if (item.ordrOptnTy == 'ADIT' && item.cartNo != item.cartGrpNo && item.cartGrpNo == arrCartList[kfor].cartGrpNo) {
+							arrCartGrpAditAllList.push(item);
 							cartIdx.push(idex);
 							return true;
 						}
@@ -170,24 +178,27 @@ class JsMarketOrdrPay{
 						klen = arrCartList.length;
 					}
 					
+					arrHtml.push(strHtml);
 				}
+
+				strHtml = this.fn_draw_html_order_delivery_summary_grp(items_money, arrEntrpsDlvyGrp[jfor], arrCartGrpBaseAllList, arrCartGrpAditAllList);
+				arrHtml.push(strHtml);
 
 				arrHtml.push('</div>');
 
-				arrHtml.push(this.fn_draw_html_order_item_payment());
+				
 			}
 			
-			/*개별 배송 그룹별 항목을 그린다*/
 			arrCartList = this._cls_info.cartList.filter(function(item, idex) {
 				if (item.gdsInfo != undefined && item.gdsInfo.entrpsNo == owner._cls_info.entrpsVOList[ifor].entrpsNo) {
 					return true;
 				}
 			});
 
-			
+			/*개별 배송 그룹별 항목을 그린다*/
 			jlen = arrCartList.length;
 			for(jfor=0 ; jfor<jlen ; jfor++){
-				arrHtml.push(this.fn_draw_html_order_delivery_total(false, 1, this._cls_info.entrpsVOList[ifor]));
+				arrHtml.push(this.fn_draw_html_order_delivery_title(false, 1, this._cls_info.entrpsVOList[ifor]));
 				cartIdx = [];
 				arrCartGrpBaseList = arrCartList.filter(function(item, idex) {
 					if (item.ordrOptnTy == 'BASE' && item.cartGrpNo == arrCartList[jfor].cartGrpNo) {
@@ -207,9 +218,11 @@ class JsMarketOrdrPay{
 				arrHtml.push('<div class="order-product-inner">');
 				strHtml = this.fn_draw_html_order_product_item(arrCartList[jfor], items_money, arrCartGrpBaseList, arrCartGrpAditList);
 				arrHtml.push(strHtml);
-				arrHtml.push('</div>');
 
-				arrHtml.push(this.fn_draw_html_order_item_payment());
+				strHtml = this.fn_draw_html_order_delivery_summary_each(items_money, arrCartGrpBaseList, arrCartGrpAditList);
+				arrHtml.push(strHtml);
+
+				arrHtml.push('</div>');
 
 				if (cartIdx.length > 0){
 					dlen = cartIdx.length - 1;
@@ -235,7 +248,7 @@ class JsMarketOrdrPay{
 	}
 
 	/*퍼블리싱에서 order-product => order-body => order-delivery-total 의 html*/
-	fn_draw_html_order_delivery_total(bDlvyGrp, cnt, json){
+	fn_draw_html_order_delivery_title(bDlvyGrp, cnt, json){
 		return '<div class="order-delivery-total">'+
 			'<strong>{0}</strong>'.format(((bDlvyGrp?"묶음배송":"개별배송") + " " + ((bDlvyGrp && this._cls_info.bDev)?json.entrpsDlvygrpNm:"")))+
 			'<strong class="price2">{0}개</strong>'.format(cnt)+
@@ -244,9 +257,14 @@ class JsMarketOrdrPay{
 
 	/*퍼블리싱에서 order-product => order-body => order-product-inner 의 html*/
 	fn_draw_html_order_product_item(json, items_money, arrCartGrpBaseList, arrCartGrpAditList){
-		var thumbnailFile = "/html/page/market/assets/images/noimg.jpg";
+		var thumbnailFile = "/html/page/market/assets/images/noimg.png";
 		if (json.gdsInfo.thumbnailFile != undefined){
 			thumbnailFile = "/comm/getImage?srvcId=GDS&amp;upNo=" + json.gdsInfo.thumbnailFile.upNo +"&amp;fileTy="+json.gdsInfo.thumbnailFile.fileTy +"&amp;fileNo="+json.gdsInfo.thumbnailFile.fileNo +"&amp;thumbYn=Y";
+		}
+
+		var original_price = '';
+		if (items_money.originPc != items_money.ordrPc){
+			original_price = '<span class="original-price">{0}원</span>'.format(items_money.originPc.format_money());
 		}
 
 		var cartItemOne;
@@ -275,7 +293,7 @@ class JsMarketOrdrPay{
 				'<div class="pay-info">'+
 					'<p class="pay-amount">주문수량 <span>{0}</span>개</p>'.format(items_money.ordrQy)+
 					'<div class="pay-price">'+
-						'<span class="original-price">49,720원</span>'+
+						original_price+
 						'<strong class="price">{0}원</strong>'.format(items_money.ordrPc.format_money())+
 					'</div>'+
 				'</div>'+
@@ -357,7 +375,7 @@ class JsMarketOrdrPay{
 				var cartItemAditOne = '<div class="item-add{0}">'.format(((aditOptnOne.soldOutYn == 'Y')?" disabled ":""))+
 					'<span class="label-outline-primary">'+
 						'<span>추가</span>'+
-						'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
+						'<i><img src="/html/page/market/assets/images/ico-plus-white.svg" alt=""></i>'+
 					'</span>'+
 					'<div class="name">'+
 						'<span class="font-semibold">{0}</span>'.format(aditOptnOne.optnNm.replace("* ", ""))+
@@ -403,10 +421,51 @@ class JsMarketOrdrPay{
 	}
 
 	/*퍼블리싱에서 order-product => order-body => order-item-payment 의 html*/
-	fn_draw_html_order_item_payment(){
+	/*
+		개별 배송
+		items_money ==> fn_calc_order_product_item_money함수에서 만들어진 값
+		arrCartGrpBaseList : 기본 상품 리스트
+		arrCartGrpAditList : 추가 상품 리스트
+	*/
+	fn_draw_html_order_delivery_summary_each(items_money, arrCartGrpBaseList, arrCartGrpAditList){
+		var gdsInfo = arrCartGrpBaseList[0].gdsInfo;
+
+		var temp = '';
+
+		if (gdsInfo.dlvyCtTy == 'FREE'){
+			temp = "무료";
+		} else if (gdsInfo.dlvyCtTy == 'OVERMONEY'){
+			if (items_money.ordrPc >= gdsInfo.dlvyCtCnd){
+				temp = "무료";
+			}else{
+				temp = gdsInfo.dlvyBassAmt.format_money() +  "원";
+			}
+		} else if (gdsInfo.dlvyCtTy == 'PERCOUNT' && !isNaN(gdsInfo.dlvyCtCnd) && gdsInfo.dlvyCtCnd != 0){
+			temp = (gdsInfo.dlvyBassAmt * Math.ceil(items_money.ordrQy / gdsInfo.dlvyCtCnd)).format_money() +  "원";
+		} else {//if (gdsInfo.dlvyCtTy == 'PAY')
+			temp = gdsInfo.dlvyBassAmt.format_money() +  "원";
+		}
+
+		var strHtml = '<dl class="order-item-payment">'+
+			'<dt>배송비</dt>'+
+			'<dd class="delivery-charge">{0}</dd>'.format(temp)+
+		'</dl>';
+		
+		return strHtml;
+	}
+
+	/*
+		묶음배송
+		items_money ==> fn_calc_order_product_item_money함수에서 만들어진 값
+		entrpsDlvyGrpInfo : 묶음배송 정보
+		arrCartGrpBaseAllList : 기본 상품 전체
+		arrCartGrpAditAllList : 추가 상품 전체
+	*/
+	fn_draw_html_order_delivery_summary_grp(items_money, entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList){
+		
 		return '<dl class="order-item-payment">'+
 			'<dt>배송비</dt>'+
-			'<dd class="delivery-charge">3000원</dd>'+
+			'<dd class="delivery-charge">{0}원</dd>'.format(arrCartGrpBaseAllList[0].gdsInfo.dlvyBassAmt.format_money())+
 		'</dl>';
 	}
 }
