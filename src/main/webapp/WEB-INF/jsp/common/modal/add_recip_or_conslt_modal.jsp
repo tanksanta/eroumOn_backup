@@ -375,6 +375,14 @@
         		} else if (roc_modalType === 'requestConslt') {
         			//수급자 정보 조회
         			getMbrRecipientsDataSync(recipientsNo);
+        			
+        			//해당 수급자가 기타(친척)인 경우 관계 변경을 위해 마이페이지 수급자 상세로 redirect
+        			if (roc_selectedRecipient.relationCd === '100') {
+        				alert('수급자 관계를 수정해 주세요');
+        				location.href = '/membership/info/recipients/view?recipientsNo=' + roc_selectedRecipient.recipientsNo;
+        				return;
+        			}
+        			
         			//상담신청 폼 셋팅
         			setMainFormInRocRequestModal();
         		}
