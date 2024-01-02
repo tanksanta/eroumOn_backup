@@ -801,7 +801,15 @@
     				//연락처 형식 검사
     				if (!tel || telchk.test(tel) === false) {
             			telnoInput.addClass('is-invalid');
-            			$(tdTags[0]).find('.error.text-danger').css('display', 'block');
+            			
+            			var errorTextTag = $(tdTags[0]).find('.error.text-danger'); 
+            			errorTextTag.css('display', 'block');
+            			if (!tel) {
+            				errorTextTag.text('! 상담 전화 받으실 분의 연락처를 입력해 주세요');
+            			} else if (telchk.test(tel) === false) {
+            				errorTextTag.text('! 연락처 형식이 올바르지 않습니다 (예시: 010-1234-5678)');
+            			}
+            			
             			validData = false;
     				} else {
     					telnoInput.removeClass('is-invalid');
@@ -833,7 +841,15 @@
     				//생년월일 형식 검사
     				if (!brdt || datechk.test(brdt) === false) {
             			brdtInput.addClass('is-invalid');
-            			$(tdTags[2]).find('.error.text-danger').css('display', 'block');
+            			
+            			var errorTextTag = $(tdTags[2]).find('.error.text-danger'); 
+            			errorTextTag.css('display', 'block');
+            			if (!brdt) {
+            				errorTextTag.text('! 수급자(어르신)분의 생년월일을 입력해 주세요');
+            			} else if (datechk.test(brdt) === false) {
+            				errorTextTag.text('! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)');
+            			}
+            			
             			validData = false;
     				} else {
     					brdtInput.removeClass('is-invalid');
