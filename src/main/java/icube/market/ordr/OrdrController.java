@@ -500,6 +500,9 @@ public class OrdrController extends CommonAbstractController{
 			return "redirect:/" + membershipPath + "/login";
 		}
 
+		// 주문코드 생성 (O 22 1014 1041 00 000)
+		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
+
 		// STEP.2 장바구니 호출
 		String[] arrCartGrpNo = cartGrpNos.split(",");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -519,12 +522,20 @@ public class OrdrController extends CommonAbstractController{
 
 		Map<String, Object> codeMap = new HashMap<String, Object>();
 		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		codeMap.put("ordrCd", ordrCd);
+		codeMap.put("recipterUniqueId", mbrSession.getUniqueId());
+		codeMap.put("_mileagePercent", request.getAttribute("_mileagePercent"));
+		codeMap.put("_bootpayScriptKey", request.getAttribute("_bootpayScriptKey"));
+		codeMap.put("_activeMode", request.getAttribute("_activeMode"));
+
+		
+
 		String codeMapJson =  mapper.writeValueAsString(codeMap);
 		model.addAttribute("codeMapJson", codeMapJson);
 		
 
 		//주문정보 model에 담기
-		getOrderDetailListForPay(cartTy, cartList, model);
+		getOrderDetailListForPay(cartTy, ordrCd, cartList, model);
 		
 		model.addAttribute("cartGrpNos", cartGrpNos);
 
@@ -638,9 +649,7 @@ public class OrdrController extends CommonAbstractController{
 	 * 결제 직전 화면에서 호출(model에 데이터를 담음)
 	 * 바로 구매하기, 장바구니 구매하기 시 상품 및 배송비 계산 로직 함수
 	 */
-	private void getOrderDetailListForPay(String cartTy, List<CartVO> cartList, Model model) throws Exception {
-		// 주문코드 생성 (O 22 1014 1041 00 000)
-		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
+	private void getOrderDetailListForPay(String cartTy, String ordrCd, List<CartVO> cartList, Model model) throws Exception {
 
 		OrdrVO ordrVO = new OrdrVO();
 		ordrVO.setOrdrCd(ordrCd);

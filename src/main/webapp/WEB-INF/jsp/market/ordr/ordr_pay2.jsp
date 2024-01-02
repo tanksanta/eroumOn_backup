@@ -478,12 +478,20 @@
 		$(document).ready(function() {
 			var path = {_membershipPath:"${_membershipPath}", _marketPath:"${_marketPath}"};
 	
-			jsMarketOrdrPay = new JsMarketOrdrPay(path
-												, ${_mbrSession.loginCheck}
+			jsMarketOrdrPay = new JsMarketOrdrPay($("form#frmOrdr input#ordrTy").val()
+												, path
+												, {
+													  "loginCheck":${_mbrSession.loginCheck}
+													, "mbrId":"${_mbrSession.mbrId}"
+													, "mbrNm":"${_mbrSession.mbrNm}"
+													, "mblTelno":"${_mbrSession.mblTelno}"
+													, "eml":"${_mbrSession.eml}"
+												}
 												, $("textarea.cartListJson").val()
 												, $("textarea.entrpsDlvyGrpVOListJson").val()
 												, $("textarea.entrpsVOListJson").val()
 												, $("textarea.codeMapJson").val()
+												
 											);
 	
 			
@@ -891,7 +899,7 @@
     	    	$("#useMlg").val(uncomma($("#useMlg").val()));
 				$("#accmlMlg").val(uncomma($("#accmlMlg").val()));
 
-    	    	f_pay(frm);
+    	    	jsMarketOrdrPay.f_pay(frm);
     	    	return false;
     	    }
     	});
