@@ -199,7 +199,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="text-title">알림</h2>
-                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                        <button data-bs-dismiss="modal" class="btn-close" onclick="$('#rcpts-select').modal('show');">모달 닫기</button>
                     </div>
                     <div class="modal-body">
                         <div class="bg-box-beige">
@@ -227,7 +227,7 @@
                     <div class="additional-wrap">
                         <div class="additional">
                             <i class="icon-alert"></i>
-                            <p>요양인정등급을 받으신 경우 ‘있어요' 를 선택해 주세요</p>
+                            <p>요양인정등급을 받으신 경우 ‘있어요’ 를 선택해 주세요</p>
                         </div>
                         <div class="additional">
                             <i class="icon-alert"></i>
@@ -617,6 +617,7 @@
             	.done(function(data) {
             		//해당 수급자가 진행중인 상담이 있는 경우
             		if (data.isExistRecipientConslt) {
+            			$('#rcpts-select').modal('hide');
             			$('#notified-consulting').modal('show').appendTo('body');
             		} else {
             			//해당 수급자가 기타(친척)인 경우 관계 변경을 위해 마이페이지 수급자 상세로 redirect
