@@ -716,7 +716,7 @@
         		if (roc_prevPath === 'test') {
     				$('#roc-main-conslt-nm .text-indexKey1').text('인정등급상담');
     			} else if (roc_prevPath === 'equip_ctgry') {
-    				$('#roc-main-conslt-nm .text-indexKey1').text('관심 복지용구상담');	
+    				$('#roc-main-conslt-nm .text-indexKey1').text('복지용구상담');	
     			}
         		
         		//상담 관련 문구 표시
