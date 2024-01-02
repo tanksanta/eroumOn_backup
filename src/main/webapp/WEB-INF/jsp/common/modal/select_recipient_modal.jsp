@@ -31,7 +31,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="text-title">수급자(어르신) 정보 확인</h2>
-                        <button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+                        <button data-bs-dismiss="modal" class="btn-close" onclick="$('#rcpts-select').modal('show');">모달 닫기</button>
                     </div>
                     <div class="additional">
                         <i class="icon-alert"></i>
@@ -545,6 +545,7 @@
 	    				lno = $('#no-rcpt-tab1-lno').val();
 	    			}
 	    			
+	    			$('#rcpts-select').modal('hide');
 	    			openRcptsConfirmModal(relationCd, recipientNm, lno);
 	    		}
 	    		//본인

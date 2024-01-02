@@ -77,7 +77,8 @@
                                                     <label for="roc-rcpt-lno" class="rcpt-lno type2">
                                                         <input type="text" id="roc-rcpt-lno" placeholder="뒤의 숫자 10자리 입력" 
                                                         class="form-control keycontrol numberonly" maxlength="10" 
-                                                        aria-required="true" aria-describedby="rcpt-lno-related-error" aria-invalid="true" />
+                                                        aria-required="true" aria-describedby="rcpt-lno-related-error" aria-invalid="true"
+                                                        oninput="inputEventLnoInRocModal();" />
                                                     </label>
                                                     <span>입니다</span>
                                                     <p id="rcpt-lno-related-error" class="error text-danger">! 요양인정번호를 정확하게 입력해 주세요</p>
@@ -718,14 +719,14 @@
         		//상담 관련 문구 표시
         		$('#roc-main-conslt-guid-text').css('display', 'block');
         		
-        		//상담동의 표시 및 미동의 defualt 처리
+        		//상담동의 표시 및 동의 defualt 처리
         		$('#roc-main-conslt-aggree-div').css('display', 'block');
-        		$('#roc-main-agree-check')[0].checked = false;
+        		$('#roc-main-agree-check')[0].checked = true;
         		
-        		//최초 상담하기 버튼 비활성화 처리
+        		//최초 상담하기 버튼 활성화 처리
         		var actionBtn = $('#roc-main-action-btn');
         		actionBtn.text('상담 신청하기')
-        		actionBtn.addClass('disabled');
+        		actionBtn.removeClass('disabled');
         	}
         	
         	//동의 여부를 확인하여 Action 버튼 활성화 처리
@@ -1181,6 +1182,16 @@
 				else if (inputTitle === 'brdt') {
 					$('#roc-main-brdt').css(noneEffect);
 					$(tdTags[2]).find('.error.text-valid').css('display', 'none');
+        		}
+        	}
+        	
+        	//L번호 입력 시 없습니다가 아닌 있는 것으로 체크 처리
+        	function inputEventLnoInRocModal() {
+        		var lno = $('#roc-rcpt-lno').val();
+        		if (lno && lno.length > 0) {
+        			$('input[name=roc-check-lno]')[1].checked = true;
+        		} else {
+        			$('input[name=roc-check-lno]')[0].checked = true;
         		}
         	}
         </script>
