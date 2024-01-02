@@ -101,8 +101,9 @@
                                                 <th scope="row"><label for="roc-main-telno">상담받을 연락처<sup class="required">*</sup></label></th>
                                                 <td class="roc-main-td-rel-me">010-1234-5678</td>
                                                 <td class="roc-main-td-rel-family">
-                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno" placeholder="010-1234-5678">
+                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno" placeholder="010-1234-5678" onfocus="onfocusInRocModal('telno');" onblur="onblurInRocModal('telno');">
                                                 	<p class="error text-danger">! 연락처 형식이 올바르지 않습니다. (예시: 010-1234-5678)</p>
+                                                	<p class="error text-valid">! 상담 전화 받으실 분의 연락처를 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -110,10 +111,10 @@
                                                 <td class="roc-main-td-rel-me">서울특별시 금천구 가산디지털로 104</td>
                                                 <td class="roc-main-td-rel-family">
                                                     <fieldset class="flex flex-col w-full md:flex-row gap-1">
-                                                        <select id="roc-main-sido" class="form-control md:flex-1 is-invalid" onchange="setSigugun();">
+                                                        <select id="roc-main-sido" class="form-control md:flex-1 is-invalid" onchange="setSigugun();" onfocus="onfocusInRocModal('sido');" onblur="onblurInRocModal('sido');">
                                                             <option value="">시/도</option>
                                                         </select>
-                                                        <select id="roc-main-sigugun" class="form-control md:flex-1 is-invalid" onchange="setDong();">
+                                                        <select id="roc-main-sigugun" class="form-control md:flex-1 is-invalid" onchange="setDong();" onfocus="onfocusInRocModal('sigugun');" onblur="onblurInRocModal('sigugun');">
                                                             <option value="">시/군/구</option>
                                                         </select>
                                                         <select id="roc-main-dong" class="form-control md:flex-1">
@@ -121,14 +122,16 @@
                                                         </select>
                                                     </fieldset>
                                                     <p class="error text-danger">! 주소를 모두 선택해 주세요</p>
+                                                    <p class="error text-valid">! 등록하신 주소와 가까운 사업소로 배정되니, 정확한 주소를 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><label for="roc-main-brdt">생년월일<sup class="required">*</sup></label></th>
                                                 <td class="roc-main-td-rel-me">1900/01/01</td>
                                                 <td class="roc-main-td-rel-family">
-                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol birthdt10 is-invalid" id="roc-main-brdt" placeholder="1950/01/01">
+                                                	<input type="text" class="form-control w-full lg:w-[60%] keycontrol birthdt10 is-invalid" id="roc-main-brdt" placeholder="1950/01/01" onfocus="onfocusInRocModal('brdt');" onblur="onblurInRocModal('brdt');">
                                                 	<p class="error text-danger">! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)</p>
+                                                	<p class="error text-valid">! 수급자(어르신)분의 생년월일을 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -603,6 +606,9 @@
     			//관계 select에 placeholder 기능을하는 option 추가
     			$('#roc-main-relation-cd').prepend('<option value="" disabled selected>관계선택</option>');
     			
+    			//기본 남성 체크
+    			$('input[name=roc-main-gender]#gender-m')[0].checked = true;
+    			
     			
         		//삭제하기 버튼 제거
         		$('#roc-main-delete-div').css('display', 'none');
@@ -795,11 +801,19 @@
     				//연락처 형식 검사
     				if (!tel || telchk.test(tel) === false) {
             			telnoInput.addClass('is-invalid');
-            			$(tdTags[0]).find('.error').css('display', 'block');
+            			
+            			var errorTextTag = $(tdTags[0]).find('.error.text-danger'); 
+            			errorTextTag.css('display', 'block');
+            			if (!tel) {
+            				errorTextTag.text('! 상담 전화 받으실 분의 연락처를 입력해 주세요');
+            			} else if (telchk.test(tel) === false) {
+            				errorTextTag.text('! 연락처 형식이 올바르지 않습니다 (예시: 010-1234-5678)');
+            			}
+            			
             			validData = false;
     				} else {
     					telnoInput.removeClass('is-invalid');
-            			$(tdTags[0]).find('.error').css('display', 'none');
+            			$(tdTags[0]).find('.error.text-danger').css('display', 'none');
     				}
     				
     				//시도 검사
@@ -818,30 +832,38 @@
     					sigugunSelect.removeClass('is-invalid');
     				}
     				if (!addrCheck) {
-    					$(tdTags[1]).find('.error').css('display', 'block');
+    					$(tdTags[1]).find('.error.text-danger').css('display', 'block');
     					validData = false;
     				} else {
-    					$(tdTags[1]).find('.error').css('display', 'none');
+    					$(tdTags[1]).find('.error.text-danger').css('display', 'none');
     				}
     				
     				//생년월일 형식 검사
     				if (!brdt || datechk.test(brdt) === false) {
             			brdtInput.addClass('is-invalid');
-            			$(tdTags[2]).find('.error').css('display', 'block');
+            			
+            			var errorTextTag = $(tdTags[2]).find('.error.text-danger'); 
+            			errorTextTag.css('display', 'block');
+            			if (!brdt) {
+            				errorTextTag.text('! 수급자(어르신)분의 생년월일을 입력해 주세요');
+            			} else if (datechk.test(brdt) === false) {
+            				errorTextTag.text('! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)');
+            			}
+            			
             			validData = false;
     				} else {
     					brdtInput.removeClass('is-invalid');
-            			$(tdTags[2]).find('.error').css('display', 'none');
+            			$(tdTags[2]).find('.error.text-danger').css('display', 'none');
     				}
     				
     				//성별 검사
 					if (!gender) {
 						$(tdTags[3]).find('.form-check-group').css('border-color', '#dc3545');
-	        			$(tdTags[3]).find('.error').css('display', 'block');
+	        			$(tdTags[3]).find('.error.text-danger').css('display', 'block');
 	        			validData = false;
 					} else {
 						$(tdTags[3]).find('.form-check-group').css('border-color', '#999999');
-	        			$(tdTags[3]).find('.error').css('display', 'none');
+	        			$(tdTags[3]).find('.error.text-danger').css('display', 'none');
 					}
     			}
         		
@@ -1093,6 +1115,72 @@
         			.fail(function(data, status, err) {
         				alert('서버와 연결이 좋지 않습니다.');
         			});
+        		}
+        	}
+        	
+        	
+        	//각 입력필드 포커스 이벤트
+        	function onfocusInRocModal(inputTitle) {
+        		var tdTags = $('.roc-main-td-rel-family');
+        		var borderEffect = {
+        			"border-color" : "#198754",
+        			"border-width" : "2px",
+        		};
+        		
+        		if (inputTitle === 'telno') {
+        			var telnoInput = $('#roc-main-telno');
+        			
+        			telnoInput.css(borderEffect);
+        			$(tdTags[0]).find('.error.text-valid').css('display', 'block');
+        			
+        			//유효성 error문구가 있으면 삭제
+        			telnoInput.removeClass('is-invalid');
+        			$(tdTags[0]).find('.error.text-danger').css('display', 'none');
+        		}
+        		else if (inputTitle === 'sido' || inputTitle === 'sigugun') {
+        			var sidoSelect = $('#roc-main-sido');
+        			var sigugunSelect = $('#roc-main-sigugun');
+        			
+        			sidoSelect.css(borderEffect);
+        			sigugunSelect.css(borderEffect);
+        			$(tdTags[1]).find('.error.text-valid').css('display', 'block');
+        			
+        			//유효성 error문구가 있으면 삭제
+        			sidoSelect.removeClass('is-invalid');
+        			sigugunSelect.removeClass('is-invalid');
+        			$(tdTags[1]).find('.error.text-danger').css('display', 'none');
+        		}
+        		else if (inputTitle === 'brdt') {
+        			var brdtInput = $('#roc-main-brdt');
+        			
+        			brdtInput.css(borderEffect);
+        			$(tdTags[2]).find('.error.text-valid').css('display', 'block');
+        			
+        			//유효성 error문구가 있으면 삭제
+        			brdtInput.removeClass('is-invalid');
+        			$(tdTags[2]).find('.error.text-danger').css('display', 'none');
+        		}
+        	}
+        	//각 입력필드 블러 이벤트
+        	function onblurInRocModal(inputTitle) {
+        		var tdTags = $('.roc-main-td-rel-family');
+				var noneEffect = {
+					"border-color" : "",
+        			"border-width" : "",
+        		};
+        		
+        		if (inputTitle === 'telno') {
+        			$('#roc-main-telno').css(noneEffect);
+        			$(tdTags[0]).find('.error.text-valid').css('display', 'none');
+        		}
+				else if (inputTitle === 'sido' || inputTitle === 'sigugun') {
+					$('#roc-main-sido').css(noneEffect);
+					$('#roc-main-sigugun').css(noneEffect);
+					$(tdTags[1]).find('.error.text-valid').css('display', 'none');
+        		}
+				else if (inputTitle === 'brdt') {
+					$('#roc-main-brdt').css(noneEffect);
+					$(tdTags[2]).find('.error.text-valid').css('display', 'none');
         		}
         	}
         </script>

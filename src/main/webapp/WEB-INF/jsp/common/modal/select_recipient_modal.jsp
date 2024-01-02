@@ -484,6 +484,9 @@
 	    	
 	    	//등록하기 버튼 활성화 체크 함수(수급자 없을 때 모달, 수급자 있을 때 추가등록 모달)
 	    	function checkAddRecipientBtnDisable() {
+	    		setTimeout(callbackCheckInSrModal, 300);
+	    	}
+	    	function callbackCheckInSrModal() {
 	    		var userType = $('input[name=userType]:checked').val();
 	    		//가족
 	    		if (userType === 'tab1') {
@@ -660,7 +663,7 @@
 		    		var data = result;
 		    		
 		    		if(data.success) {
-	        			alert('수급자 정보 등록에 동의했습니다.');
+	        			alert('수급자가 등록되었습니다.');
 	        			goNextStepWithRecipientNo(data.createdRecipientsNo);
 	        		}else{
 	        			alert(data.msg);
@@ -708,6 +711,9 @@
 	    	
 	    	//인정번호 등록하기 버튼 활성화 처리
 	    	function checkUpdateLnoBtnDisable() {
+	    		setTimeout(callbackLnoCheckInSrModal, 300);
+	    	}
+	    	function callbackLnoCheckInSrModal() {
 	    		var lno = $('#sr-regist-rcpt-lno').val();
 	    		if (lno && lno.length === 10) {
 	    			$('#update-recipient-lno-btn').removeClass('disabled');
