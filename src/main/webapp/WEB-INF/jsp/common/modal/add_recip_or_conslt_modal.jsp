@@ -903,6 +903,11 @@
 					brdt = brdtInput.val();
 					gender = $('input[name=roc-main-gender]:checked').val();
 					
+					//실 거주지의 동은 선택 안할 시 동/읍/면으로 들어가므로 빈값 대체
+					if (dong === '동/읍/면') {
+						dong = '';
+					}
+					
 					jsonData.tel = tel;
 					jsonData.sido = sido;
 					jsonData.sigugun = sigugun;
