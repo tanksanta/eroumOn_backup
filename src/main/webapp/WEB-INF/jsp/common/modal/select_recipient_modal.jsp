@@ -438,6 +438,13 @@
         			guideDiv = guideDiv.replace('((conslt_nm))', consltNm);
         			$('#notified-consulting-guide-div').html(guideDiv);
         			
+        			//수급자 선택창 최초 화면 및 입력값 초기화 처리
+        			moveBackPageInSrModal();
+        			$('#no-rcpt-nm').val('');
+        			$('#no-rcpt-relation').val('');
+        			$('#no-rcpt-tab1-lno').val('');
+        			$('#no-rcpt-tab2-lno').val('');
+        			
         			//수급자 선택창 띄우기
         			$('#rcpts-select').modal('show');
         		}

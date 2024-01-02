@@ -104,7 +104,7 @@
                                                 <td class="roc-main-td-rel-family">
                                                 	<input type="text" class="form-control w-full lg:w-[60%] keycontrol phonenumber is-invalid" id="roc-main-telno" placeholder="010-1234-5678" onfocus="onfocusInRocModal('telno');" onblur="onblurInRocModal('telno');">
                                                 	<p class="error text-danger">! 연락처 형식이 올바르지 않습니다. (예시: 010-1234-5678)</p>
-                                                	<p class="error text-valid">! 상담 전화 받으실 분의 연락처를 입력해 주세요</p>
+                                                	<p class="error text-valid mt-1 text-[0.875rem] md:text-sm" style="color: #198754;">! 상담 전화 받으실 분의 연락처를 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -123,7 +123,7 @@
                                                         </select>
                                                     </fieldset>
                                                     <p class="error text-danger">! 주소를 모두 선택해 주세요</p>
-                                                    <p class="error text-valid">! 등록하신 주소와 가까운 사업소로 배정되니, 정확한 주소를 입력해 주세요</p>
+                                                    <p class="error text-valid mt-1 text-[0.875rem] md:text-sm" style="color: #198754;">! 등록하신 주소와 가까운 사업소로 배정되니, 정확한 주소를 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -132,7 +132,7 @@
                                                 <td class="roc-main-td-rel-family">
                                                 	<input type="text" class="form-control w-full lg:w-[60%] keycontrol birthdt10 is-invalid" id="roc-main-brdt" placeholder="1950/01/01" onfocus="onfocusInRocModal('brdt');" onblur="onblurInRocModal('brdt');">
                                                 	<p class="error text-danger">! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)</p>
-                                                	<p class="error text-valid">! 수급자(어르신)분의 생년월일을 입력해 주세요</p>
+                                                	<p class="error text-valid mt-1 text-[0.875rem] md:text-sm" style="color: #198754;">! 수급자(어르신)분의 생년월일을 입력해 주세요</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -716,7 +716,7 @@
         		if (roc_prevPath === 'test') {
     				$('#roc-main-conslt-nm .text-indexKey1').text('인정등급상담');
     			} else if (roc_prevPath === 'equip_ctgry') {
-    				$('#roc-main-conslt-nm .text-indexKey1').text('관심 복지용구상담');	
+    				$('#roc-main-conslt-nm .text-indexKey1').text('복지용구상담');	
     			}
         		
         		//상담 관련 문구 표시
