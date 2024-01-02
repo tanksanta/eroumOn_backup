@@ -535,14 +535,17 @@
         			
         			//수급자 가족이면 기본 없음으로 체크 본인이면 있음으로 체크(수급자 등록 모달창에서는 안함)
         			if (roc_modalType !== 'addRecipient') {
-        				if (roc_selectedRecipient.relationCd === '007') {
-            				$('input[name=roc-check-lno]')[1].checked = true;
-            			} else {
-            				$('input[name=roc-check-lno]')[0].checked = true;
-            			}
+        			//	if (roc_selectedRecipient.relationCd === '007') {
+            		//		$('input[name=roc-check-lno]')[1].checked = true;
+            		//	} else {
+            		//		$('input[name=roc-check-lno]')[0].checked = true;
+            		//	}
         				
             			//L번호 입력 초기화
             			lnoInput.val('');
+            			
+            			//L번호 없는 것으로 체크
+            			$('input[name=roc-check-lno]')[0].checked = true;
         			}
         		}
         	}
