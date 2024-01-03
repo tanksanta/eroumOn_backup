@@ -46,16 +46,17 @@ public class MainCntntsController extends CommonAbstractController {
 			, Model model) throws Exception {
 		
 		if ("test-result".equals(pageName)) {
-			if(!mbrSession.isLoginCheck()) {
-//				String returnUrl = "/main/cntnts/test-result";
-//				session.setAttribute("returnUrl", returnUrl);
-//				return "redirect:" + "/"+ mainPath + "/login?returnUrl=" + returnUrl;
-			} else {
+			if(mbrSession.isLoginCheck()) {
 				MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
 				model.addAttribute("mbrEml", mbrVO.getEml());
 			}
+		} else if ("test".equals(pageName)) {
+			if(mbrSession.isLoginCheck()) {
+				MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+				model.addAttribute("mbrVO", mbrVO);
+			}
 		}
-
+		
 		model.addAttribute("relationCd", CodeMap.MBR_RELATION_CD);
 		return "/main/cntnts/" + pageName;
 	}

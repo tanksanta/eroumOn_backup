@@ -22,3 +22,8 @@
 @import "welfare.css"; 
 @import "recipter.css"; 
 /* @import "modal.css";  */
+
+@import "../../../market/assets/style/component/table.css";
+
+
+/* @import "../../../market/assets/style/component/button.css"; */

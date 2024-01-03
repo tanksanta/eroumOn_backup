@@ -247,9 +247,16 @@ public class MbrsConsltController extends CommonAbstractController {
 				mbrConsltInfo.put("rcperRcognNo", "L" + mbrConsltVO.getRcperRcognNo());
 			}
 			mbrConsltInfo.put("mbrTelno", mbrConsltVO.getMbrTelno());
-			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getZip()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getAddr()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getDaddr())) {
-				mbrConsltInfo.put("address", mbrConsltVO.getZip() + " " + mbrConsltVO.getAddr() + " " + mbrConsltVO.getDaddr());
+			
+			String address = "";
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getZip()) && EgovStringUtil.isNotEmpty(mbrConsltVO.getAddr())) {
+				address = mbrConsltVO.getZip() + " " + mbrConsltVO.getAddr();
 			}
+			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getDaddr())) {
+				address += " " + mbrConsltVO.getDaddr();
+			}
+			mbrConsltInfo.put("address", address);
+			
 			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
 				mbrConsltInfo.put("brdt", mbrConsltVO.getBrdt().substring(0, 4) + "/" + mbrConsltVO.getBrdt().substring(4, 6) + "/" + mbrConsltVO.getBrdt().substring(6, 8));
 			}

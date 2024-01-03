@@ -1896,7 +1896,7 @@
     }
     
     & .radio-tabs-content {
-        @apply bg-box-beige md:min-h-[14.25rem];
+        @apply flex items-center justify-start w-full bg-box-beige md:min-h-[14.25rem];
         & .tab-inner {
             @apply flex flex-col gap-2;
             & li {
@@ -1906,6 +1906,9 @@
                 }
             }
     
+        }
+        & .tab {
+            @apply w-full;
         }
     }
 }
@@ -1920,6 +1923,10 @@
 }
 
 .rcpts-select-content, .regist-lno, .regist-rcpts{
+
+    & .modal-footer {
+        @apply mb-2;
+    }
      &.active {
         @apply fadeIn;
     }
