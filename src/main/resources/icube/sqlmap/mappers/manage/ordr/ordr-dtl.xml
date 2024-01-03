@@ -262,6 +262,8 @@
 			 , dlvy_co_nm
 			 , dlvy_dt
 			 , dlvy_invc_no
+			 , dlvy_group_yn
+			 , entrps_dlvygrp_no
 
 			 , reg_unique_id
 			 , reg_dt
@@ -308,6 +310,8 @@
 			 , #{dlvyCoNm, jdbcType=VARCHAR}
 			 , #{dlvyDt}
 			 , #{dlvyInvcNo, jdbcType=VARCHAR}
+			 , #{dlvyGroupYn}
+			 , #{entrpsDlvygrpNo}
 
 			 , #{regUniqueId, jdbcType=VARCHAR}
 			 , SYSDATE()
