@@ -4,10 +4,13 @@ class JsMarketOrdrPay{
         this._cls_info = this._cls_info || {};
 		this._cls_info.bDev = true;
 
+		this._cls_info.jsMarketDlvyGrpCalc = new JsMarketDlvyGrpCalc();;
+
 		this._cls_info.ordrTy = ordrTy;
         this._cls_info.mbrSession = mbrSession;
         this._cls_info._membershipPath = path._membershipPath;
         this._cls_info._marketPath = path._marketPath;
+
 
 		console.log(cartList)
 		if (cartList.trim().length > 0){
@@ -46,12 +49,13 @@ class JsMarketOrdrPay{
 		this._cls_info.cartResultMoney = {"total-ordrpc":0 		/*총 주문상품금액*/
 										, "total-coupon" : 0 	/*쿠폰*/
 										, "total-mlg":0			/*마일리지/포인트*/
-										, "total-dlvy":0		/*배송비*/
+										, "total-dlvyBase":0	/*배송비*/
 										, "total-dlvyAdit":0	/*배송비-추가 지역 금액*/
 									};
-
+									
 		this.fn_draw_cart_list();
 
+		this.fn_calc_dlvyadit();
 		this.fn_draw_result_money();
 
         this.fn_page_init();
@@ -80,6 +84,31 @@ class JsMarketOrdrPay{
         var owner = this;
 
     }
+
+	/*추가 배송비 계산*/
+	fn_calc_dlvyadit(){
+		if (this._cls_info.dlvyCtAditRgnYn != 'Y'){/*도서산간 추가 배송지 지역이 아닌경우*/
+			this._cls_info.cartResultMoney["total-dlvyAdit"] = 0;
+			return;
+		}
+		var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+
+		var ifor, ilen = jobjCartList.length;
+		var money = 0;
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjDtl = $(jobjCartList[ifor]);
+			if (jobjDtl.find('input[name="ordrOptnTy"]').val() == "BASE"){
+				money += Number(jobjDtl.find('input[name="dlvyAditAmt"]').val())
+				
+			}
+		}
+
+		if (isNaN(money)){
+			alert("도서산간 배송비를 계산하는 중 오류가 발생하였습니다. 다시 시도해 주십시오.")
+			window.location.reload();
+		}
+		this._cls_info.cartResultMoney["total-dlvyAdit"] = money;
+	}
 
 	fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList){
 		var ifor, ilen, cartItemOne;
@@ -157,6 +186,8 @@ class JsMarketOrdrPay{
 					this._cls_info.drawCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
 				}
 
+				this._cls_info.jsMarketDlvyGrpCalc.fn_calc_dlvygrp(arrEntrpsDlvyGrp[jfor], arrCartList);
+
 				klen = arrCartList.length;
 
 				arrHtml.push(this.fn_draw_html_order_delivery_title(true, klen, arrEntrpsDlvyGrp[jfor]));
@@ -192,8 +223,12 @@ class JsMarketOrdrPay{
 					items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
 					this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
 
+					if (this._cls_info.dlvyCtAditRgnYn == 'Y' && kfor == 0){
+						this._cls_info.cartResultMoney["total-dlvyAdit"] += arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
+					}
+
 					ordrIdx += 1;
-					strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx, true, arrEntrpsDlvyGrp[jfor], arrCartList[kfor], items_money, arrCartGrpBaseList, arrCartGrpAditList);
+					strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx, true, arrEntrpsDlvyGrp[jfor], arrCartGrpBaseList[0], items_money, arrCartGrpBaseList, arrCartGrpAditList);
 					arrHtml.push(strHtml);
 					// console.log(strHtml)
 				}
@@ -241,10 +276,14 @@ class JsMarketOrdrPay{
 
 				items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
 				this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
+				if (this._cls_info.dlvyCtAditRgnYn == 'Y'){
+					this._cls_info.cartResultMoney["total-dlvyAdit"] += arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
+				}
+				this._cls_info.cartResultMoney["total-dlvyBase"] += arrCartGrpBaseList[0].gdsInfo.dlvyBassAmt;
 
 				arrHtml.push('<div class="order-product-inner">');
 				ordrIdx += 1;
-				strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx , false, null, arrCartList[jfor], items_money, arrCartGrpBaseList, arrCartGrpAditList);
+				strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx , false, null, arrCartGrpBaseList[0], items_money, arrCartGrpBaseList, arrCartGrpAditList);
 				arrHtml.push(strHtml);
 
 				strHtml = this.fn_draw_html_order_delivery_summary_each(items_money, arrCartGrpBaseList, arrCartGrpAditList);
@@ -299,6 +338,7 @@ class JsMarketOrdrPay{
 		var hiddenInfo = '';
 
 		var cartItemOne;
+		
 		
 		cartItemOne = '<div class="order-product-item" ordrCd="{0}" ordrIdx={1}>'.format(ordrCd, ordrIdx)+
 			hiddenInfo+
@@ -376,6 +416,9 @@ class JsMarketOrdrPay{
 
 			hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
 			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
+
+			hiddenInfo += '<input type="text" name="dlvyAditAmt" value="{0}">'.format(json.gdsInfo.dlvyAditAmt);
+			
 		}else if (ordrOptnTy == "ADIT"){
 			hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(0);
 			hiddenInfo += '<input type="hidden" name="gdsOptnNo" value="{0}"></input>'.format(aditOptn.gdsOptnNo);
@@ -399,6 +442,7 @@ class JsMarketOrdrPay{
 		return hiddenInfo;
 	}
 
+	/*기본 옵션*/
 	fn_draw_html_order_product_item_base(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpBaseList){
 		var cartItemBaseList = [];
 
@@ -420,26 +464,6 @@ class JsMarketOrdrPay{
 
 				aditOptnOne = aditOptnOne[0];
 
-				/*
-				<div class="O40102103639911_1">
-
-						<input type="hidden" name="gdsOptnNo" value="358">
-						<input type="hidden" name="gdsPc" value="27000">
-						<input type="hidden" name="ordrOptn" value="옵션1">
-						<input type="hidden" name="ordrOptnPc" value="0">
-						<input type="hidden" name="ordrQy" id="ordrQy_BASE_1" value="1">
-						<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_BASE_258_1" value="0"> 
-						<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_BASE_258_1" value="0">
-						<input type="hidden" name="dlvyAditAmt" value="0">
-						<input type="hidden" name="ordrPc" id="ordrPc_BASE_258_1" value="27000">
-						<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_BASE_258_1" value="27000">
-
-	                    <input type="hidden" name="accmlMlg" value="450">
-						
-	                    
-					</div>
-				*/
-
 				cartItemBaseOne = '<dd>'+
 					'<span class="label-flat">{0}</span>'.format(json.ordrOptn)+
 					'<span>{0}개(+{1}원)</span>'.format(json.ordrQy, json.ordrPc.format_money())+
@@ -449,21 +473,23 @@ class JsMarketOrdrPay{
 
 				cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
 				cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
-				
 				cartItemBaseOne += "</div>"
+
 				cartItemBaseList.push(cartItemBaseOne);
 			}
+		}else{//기본 옵션이 없는 경우
+			cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
+			cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
+			cartItemBaseOne += "</div>"
+
+			cartItemBaseList.push(cartItemBaseOne);
 		}
 
 		return cartItemBaseList.join('');
 
-		// '<dd>'+
-		// 		'<span class="label-flat">블루</span>'+
-		// 		'<span class="label-flat">800g</span>'+
-		// 		'<span>2개(+9,720원)</span>'+
-		// 	'</dd>';
 	}
 
+	/*추가 옵션*/
 	fn_draw_html_order_product_item_adit(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpAditList){
 		var cartItemAditList = [];
 
@@ -485,37 +511,6 @@ class JsMarketOrdrPay{
 
 				aditOptnOne = aditOptnOne[0];
 
-				/*<div class="O40102105237763_2">
-						<input type="hidden" name="ordrDtlCd" value="O40102105237763_2">
-						<input type="hidden" name="gdsNo" value="231">
-						<input type="hidden" name="gdsCd" id="gdsCd_ADIT_2" value="GDS0000231">
-						<input type="hidden" name="gdsNm" value="더 부드러운 함박스테이크">
-						<input type="hidden" name="gdsPc" value="0">
-						<input type="hidden" name="bnefCd" value="">
-
-						<input type="hidden" name="ordrOptnTy" value="ADIT">
-
-						<input type="hidden" name="gdsOptnNo" value="357">
-						<input type="hidden" name="entrpsNo" value="3">
-						<input type="hidden" name="dlvyGroupYn" value="Y">
-						
-						<input type="hidden" name="ordrOptn" value="소스 * 데미글라스 소스">
-						<input type="hidden" name="ordrOptnPc" value="4500">
-						<input type="hidden" name="ordrQy" id="ordrQy_ADIT_2" value="1">
-						<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_ADIT_231_2" value="0">
-						<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_ADIT_231_2" value="0">
-						<input type="hidden" name="dlvyAditAmt" value="0">
-						<input type="hidden" name="ordrPc" id="ordrPc_ADIT_231_2" value="4500">
-						<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_ADIT_231_2" value="4500">
-						<input type="hidden" name="couponNo" id="couponNo_ADIT_231_2" value="">
-						<input type="hidden" name="couponCd" id="couponCd_ADIT_231_2" value="">
-						<input type="hidden" name="couponAmt" id="couponAmt_ADIT_231_2" value="0">
-						<input type="hidden" name="recipterUniqueId" value="MBR_00000091">
-	                    <input type="hidden" name="bplcUniqueId" value="">
-
-	                    <input type="hidden" name="accmlMlg" value="102">
-					</div>*/
-
 				cartItemAditOne = '<div class="item-add{0}">'.format(((aditOptnOne.soldOutYn == 'Y')?" disabled ":""))+
 					'<span class="label-outline-primary">'+
 						'<span>추가</span>'+
@@ -533,8 +528,8 @@ class JsMarketOrdrPay{
 
 				cartItemAditOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
 				cartItemAditOne += this.fn_draw_html_order_product_item_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptnOne);
-				
 				cartItemAditOne += '</div>';
+
 				cartItemAditList.push(cartItemAditOne);
 			}
 
@@ -544,30 +539,6 @@ class JsMarketOrdrPay{
 		return cartItemAditList.join('');
 
 		
-		// '<div class="item-add">'+
-		// 	'<span class="label-outline-primary">'+
-		// 		'<span>추가</span>'+
-		// 		'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
-		// 	'</span>'+
-		// 	'<div class="name">'+
-		// 		'<strong>모던 스타일 스툴</strong>'+
-		// 		'<strong>1개</strong>'+
-		// 		'<span>(+80,000원)</span>'+
-		// 	'</div>'+
-		// '</div>';
-		
-		// '<div class="item-add disabled">'+
-		// 	'<span class="label-outline-primary">'+
-		// 		'<span>추가</span>'+
-		// 		'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
-		// 	'</span>'+
-		// 	'<div class="name">'+
-		// 		'<span class="font-semibold">모던 스타일 스툴</span>'+
-		// 		'<span class="font-semibold">1개</span>'+
-		// 		'<span>(+80,000원)</span>'+
-		// 		'<strong class="text-soldout">임시품절</strong>'+
-		// 	'</div>'+
-		// '</div>';
 	}
 
 	/*퍼블리싱에서 order-product => order-body => order-item-payment 의 html*/
@@ -619,6 +590,7 @@ class JsMarketOrdrPay{
 		'</dl>';
 	}
 
+	/*최종 결제금액 확인 표시하는 부분*/
 	fn_draw_result_money(){
 		var key;
 		
@@ -629,14 +601,14 @@ class JsMarketOrdrPay{
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
 
 		key = "total-coupon";
-		money += this._cls_info.cartResultMoney[key];
+		money -= this._cls_info.cartResultMoney[key];
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
 
 		key = "total-mlg";
-		money += this._cls_info.cartResultMoney[key];
+		money -= this._cls_info.cartResultMoney[key];
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
 
-		key = "total-dlvy";
+		key = "total-dlvyBase";
 		money += this._cls_info.cartResultMoney[key];
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
 
@@ -645,7 +617,7 @@ class JsMarketOrdrPay{
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
 
 		$("#stlmAmt").val(money);
-		
+		$(this._cls_info.pageResultRricefix + " .total-stlmAmt-txt").html(money.format_money());
 	}
 
 	
@@ -656,21 +628,6 @@ class JsMarketOrdrPay{
 			zip : zipcode
 		}, {});
 
-    	// $.ajax({
-		// 	type : "post",
-		// 	url  : "/comm/dlvyCt/chkRgn.json",
-		// 	data : {
-		// 		zip : zipcode
-		// 	},
-		// 	dataType : 'json'
-		// })
-		// .done(function(data) {
-		// 	data.result
-		// 	f_calStlmAmt();
-	    // })
-		// .fail(function(data, status, err) {
-		// 	console.log('error forward : 산간지역 체크 실패');
-		// });
 	}
 
 	fn_chkRgn_cb(result, fail, data, param){
@@ -680,7 +637,93 @@ class JsMarketOrdrPay{
 			this._cls_info.dlvyCtAditRgnYn = 'N';
 		}
 
-		window.f_calStlmAmt();
+		this.fn_calc_dlvyadit();
+		this.f_calStlmAmt();
+	}
+
+	f_use_coupon_click(){
+		if($("#use-coupon").html() == '' ){
+			var arrGdsCd = [], arrOrdrPc = [], arrOrdrQy = [];
+			var key, money = 0;
+
+			key = "total-ordrpc";
+			money += this._cls_info.cartResultMoney[key];
+			
+			key = "total-dlvyBase";
+			money += this._cls_info.cartResultMoney[key];
+			
+			
+
+			if($("#usePoint").val() > 0){
+				money += $("#usePoint").val();
+			}
+
+			if($("#useMlg").val() > 0){
+				money += $("#useMlg").val();
+			}
+
+			var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+
+			var ifor, ilen = jobjCartList.length;
+
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				jobjDtl = $(jobjCartList[ifor]);
+				if (jobjDtl.find('input[name="ordrOptnTy"]').val() == "BASE"){
+					arrGdsCd.push(jobjDtl.find('input[name="gdsCd"]').val());
+					arrOrdrQy.push(jobjDtl.find('input[name="ordrQy"]').val());
+					arrOrdrPc.push(jobjDtl.find('input[name="ordrPc"]').val());
+				}
+
+			}
+
+
+			$("#use-coupon").load("/comm/dscnt/coupon"
+					, {arrGdsCd : arrGdsCd
+						, baseTotalAmt : money
+						, arrOrdrQy : arrOrdrQy
+						, arrOrdrPc : arrOrdrPc}
+					, function(){
+						$("#coupon-modal").modal('show');
+						
+					});
+			}else{
+				$("#coupon-modal").modal('show');
+			}
+	}
+
+	f_calStlmAmt(){
+		// let stlmAmt = 0; $("input[name='ordrPc']").each(function(){ stlmAmt += Number($(this).val()) });
+    	// let dlvyBassAmt = 0; $("input[name='dlvyBassAmt']").each(function(){ dlvyBassAmt += Number($(this).val()) });
+    	// let dlvyAditAmt = 0; $("input[name='dlvyAditAmt']").each(function(){ dlvyAditAmt += Number($(this).val()) });
+    	let useMlg = uncomma($("#frmOrdr #useMlg").val());
+    	let usePoint = uncomma($("#frmOrdr #usePoint").val());
+    	let totalCouponAmt = uncomma($("#frmOrdr #totalCouponAmt").val());
+
+		if (!isNaN(totalCouponAmt)){
+			this._cls_info.cartResultMoney["total-coupon"] = Number(totalCouponAmt);
+		}
+		if (!isNaN(useMlg) && !isNaN(usePoint)){
+			this._cls_info.cartResultMoney["total-mlg"] = Number(usePoint) + Number(useMlg);
+		}
+
+		this.fn_draw_result_money();
+    	// let calStlmAmt = 0;
+
+    	// /*console.log("totalCouponAmt> ", totalCouponAmt, useMlg, usePoint, stlmAmt);
+    	// console.log("배송비 : " + dlvyBassAmt);
+    	// console.log("쿠폰비 : " + totalCouponAmt.toString().replace(",",""));*/
+
+    	// if(totalCouponAmt != null){
+    	// 	totalCouponAmt = totalCouponAmt.toString().replace(",","");
+    	// }
+
+    	// calStlmAmt = (Number(stlmAmt) + Number(dlvyBassAmt) + Number(dlvyAditAmt)) - Number(useMlg) - Number(usePoint) - Number(totalCouponAmt);
+
+    	// //console.log("calStlmAmt> ", calStlmAmt);
+
+
+    	// $("#frmOrdr #stlmAmt").val(calStlmAmt);
+    	// $("#frmOrdr .total-stlmAmt-txt").text(comma(calStlmAmt));
 	}
 
 	f_ordr_dtls(){
@@ -727,6 +770,9 @@ class JsMarketOrdrPay{
 		return arrDtls;
 	}
 
+	fn_remove_item_hidden(){
+		$(this._cls_info.pageCartListfix + " .cart.item.draw input[type='hidden']").remove();
+	}
 	async f_pay(frm){
 		let owner = this;
     	let stlmAmt = $("#stlmAmt").val();
@@ -811,7 +857,7 @@ class JsMarketOrdrPay{
 					            $("#dpstBankCd").val(dpstBankCd);
 					            $("#dpstBankNm").val(dpstBankNm);
 				            }
-
+							owner.fn_remove_item_hidden();
 			            	frm.submit();
 			            } else if(confirmedData.event === 'issued') {
 			            	const stlmDt = confirmedData.data.purchased_at;
@@ -840,6 +886,7 @@ class JsMarketOrdrPay{
 					            $("#pyrNm").val(pyrNm);
 					            $("#dpstTermDt").val(dpstTermDt);
 				            }
+							owner.fn_remove_item_hidden();
 				            frm.submit();
 
 			            } else if(confirmedData.event === 'error') {
@@ -873,7 +920,15 @@ class JsMarketOrdrPay{
     		$("#stlmYn").val("Y");
 			$("#stlmKnd").val("FREE");
     		$("#stlmTy").val("FREE");
+			owner.fn_remove_item_hidden();
     		frm.submit();
     	}
     }
+}
+
+class JsMarketDlvyGrpCalc{
+
+	fn_calc_dlvygrp(entrpsDlvyGrpInfo, arrCartGrpBaseList){
+		return 0;
+	}
 }

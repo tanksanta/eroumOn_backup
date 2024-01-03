@@ -221,20 +221,20 @@
                             </dl>
                             <dl class="total-coupon-dl">
                                 <dt>쿠폰</dt>
-                                <dd><strong class="text-danger total-coupon-txt">0</strong> 원</dd>
+                                <dd><span>-</span><strong class="text-danger total-coupon-txt">0</strong> 원</dd>
                             </dl>
                             <dl class="total-mlg-dl">
                                 <dt>마일리지/포인트</dt>
-                                <dd><strong class="text-danger total-mlg-txt">0</strong> 원</dd>
+                                <dd><span>-</span><strong class="text-danger total-mlg-txt">0</strong> 원</dd>
                             </dl>
                             
-                            <dl class="total-dlvy-dl">
+                            <dl class="total-dlvy-dl total-dlvyBase-dl">
                                 <dt>배송비</dt>
-                                <dd><strong class="total-dlvy-txt">0</strong> 원</dd>
+                                <dd><span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원</dd>
                             </dl>
-                            <dl id="total-dlvyAdit-dl" class="result-price-item">
+                            <dl id="total-dlvyAdit-dl" class="total-dlvyAdit-dl result-price-item">
                                 <dt>도서산간 추가 배송비</dt>
-                                <dd><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
+                                <dd><span>+</span><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
                             </dl>
                         </div>
                         <dl class="last">
@@ -356,42 +356,7 @@
     var ordrQy = [];
 
     function f_calStlmAmt(){
-    	let stlmAmt = 0; $("input[name='ordrPc']").each(function(){ stlmAmt += Number($(this).val()) });
-    	let dlvyBassAmt = 0; $("input[name='dlvyBassAmt']").each(function(){ dlvyBassAmt += Number($(this).val()) });
-    	let plusDlvyBassAmt = 0; $("input[name='plusDlvyBassAmt']").each(function(){ plusDlvyBassAmt += Number($(this).val()) });
-    	let dlvyAditAmt = 0; $("input[name='dlvyAditAmt']").each(function(){ dlvyAditAmt += Number($(this).val()) });
-    	let useMlg = uncomma($("#frmOrdr #useMlg").val());
-    	let usePoint = uncomma($("#frmOrdr #usePoint").val());
-    	let totalCouponAmt = $("#frmOrdr #totalCouponAmt").val();
-    	let calStlmAmt = 0;
-
-    	/*console.log("totalCouponAmt> ", totalCouponAmt, useMlg, usePoint, stlmAmt);
-    	console.log("배송비 : " + dlvyBassAmt);
-    	console.log("쿠폰비 : " + totalCouponAmt.toString().replace(",",""));*/
-
-    	if(totalCouponAmt != null){
-    		totalCouponAmt = totalCouponAmt.toString().replace(",","");
-    	}
-
-    	calStlmAmt = (Number(stlmAmt) + Number(plusDlvyBassAmt) + Number(dlvyAditAmt)) - Number(useMlg) - Number(usePoint) - Number(totalCouponAmt);
-
-    	//console.log("calStlmAmt> ", calStlmAmt);
-
-
-    	$("input[name='mbrMlg']").remove();
-    	mlgMap.forEach(function(value, key){
-    		let v = key +"|"+ value;
-    		$("#frmOrdr").append('<input type="hidden" name="mbrMlg" value="'+ v +'" >'); // 회원마일리지
-    	});
-
-    	$("input[name='mbrPoint']").remove();
-    	pointMap.forEach(function(value, key){
-    		let v = key +"|"+ value;
-    		$("#frmOrdr").append('<input type="hidden" name="mbrPoint" value="'+ v +'" >'); // 회원포인트
-    	});
-
-    	$("#frmOrdr #stlmAmt").val(calStlmAmt);
-    	$("#frmOrdr .total-stlmAmt-txt").text(comma(calStlmAmt));
+		jsMarketOrdrPay.f_calStlmAmt();
     }
 
     // 주소호출 콜백
@@ -403,12 +368,6 @@
     const mlgMap = new Map();
     const pointMap = new Map();
     $(function(){
-
-       	// 상품 가격 배열
-    	var arrOrdrPc = [];
-    	for(var i=0; i < $(".order-product").length; i++){
-    		arrOrdrPc.push($(".pcList"+(i+1)).text().replaceAll(',',''));
-    	}
 
     	// 신규배송지
     	$("#newDvly").on("click", function(){
@@ -432,7 +391,7 @@
     	// 마일리지 모달
     	$(".f_use_mlg").on("click", function(){
 
-    		f_calStlmAmt();
+    		jsMarketOrdrPay.f_calStlmAmt();
 
 	   		$("#use-mlg").load("/comm/dscnt/mlg"
 	   			, function(){
@@ -442,7 +401,7 @@
 
     	// 포인트 모달
     	$(".f_use_point").on("click", function(){
-    		f_calStlmAmt();
+    		jsMarketOrdrPay.f_calStlmAmt();
 
     		$("#use-point").load("/comm/dscnt/point"
     			, function(){
@@ -452,39 +411,7 @@
 
     	// 쿠폰 모달
     	$(".f_use_coupon").on("click",function(){
-    		if($("#use-coupon").html() == '' ){
-    			var gdsCd = [];
-    			var total = 0;
-    			total = "${totalOrdrPc + totalDlvyBassAmt}";
-
-    			if($("#usePoint").val() > 0){
-    				total += $("#usePoint").val();
-    			}
-
-    			if($("#useMlg").val() > 0){
-    				total += $("#useMlg").val();
-    			}
-
-        		for(var i=1; i<$("input[name='gdsCd']").length+1; i++){
-        			gdsCd.push($("#gdsCd_BASE_"+i).val());
-        		}
-
-        		for(var i=1; i<$("input[name='ordrQy']").length+1; i++){
-        			ordrQy.push($("#ordrQy_BASE_"+i).val());
-        		}
-
-        		$("#use-coupon").load("/comm/dscnt/coupon"
-        				, {arrGdsCd : gdsCd
-        					, baseTotalAmt : total
-        					, arrOrdrQy : ordrQy
-        					, arrOrdrPc : arrOrdrPc}
-    	    			, function(){
-    	    				$("#coupon-modal").modal('show');
-    	    				actFlag = false;
-    	    			});
-    			}else{
-    				$("#coupon-modal").modal('show');
-    			}
+			jsMarketOrdrPay.f_use_coupon_click();
     	});
 
 
@@ -510,7 +437,7 @@
       		$(".f_mlg_reset").click();
       		$("#frmMlg input[name='useMlg']").val(0);
       		$("#frmPoint input[name='usePoint']").val(0);
-      		f_calStlmAmt();
+      		jsMarketOrdrPay.f_calStlmAmt();
       	});
 
     	// 정규식

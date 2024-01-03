@@ -547,17 +547,6 @@ public class OrdrController extends CommonAbstractController{
 	// 상품주문 결제
 	@RequestMapping(value = "ordrPayAction")
 	public String ordrPayAction(OrdrVO ordrVO
-			, @RequestParam(value = "ordrDtlCd", required = true) String ordrDtlCd
-			, @RequestParam(value = "gdsNo", required = true) String gdsNo
-			, @RequestParam(value = "gdsCd", required = true) String gdsCd
-			, @RequestParam(value = "bnefCd", required = true) String bnefCd
-			, @RequestParam(value = "gdsNm", required = true) String gdsNm
-			, @RequestParam(value = "gdsPc", required = true) String gdsPc
-			, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
-			, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
-			, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
-			, @RequestParam(value = "ordrQy", required = true) String ordrQy
-			, @RequestParam(value = "ordrPc", required = true) String ordrPc
 			, @RequestParam(value = "stlmKnd", required = true) String stlmKnd
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
@@ -573,7 +562,7 @@ public class OrdrController extends CommonAbstractController{
 		}
 
 		// doubleSubmit check
-		if (true || EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
 			String ordrMailTy = "MAILSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
 			String ordrBiztalkTy = "BIZTALKSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;

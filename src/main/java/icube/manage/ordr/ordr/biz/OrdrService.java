@@ -402,8 +402,8 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		//String stlmYn = (String) reqMap.get("stlmYn");
 		String stlmTy = (String) reqMap.get("stlmTy");
 
-		String mbrMlg = (String) reqMap.get("mbrMlg");
-		String mbrPoint = (String) reqMap.get("mbrPoint");
+		String mbrMlg = (String) reqMap.get("useMlg");
+		String mbrPoint = (String) reqMap.get("usePoint");
 
 		ordrVO.setOrdrrEml(mbrSession.getEml());
 
@@ -537,13 +537,13 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			for (int i = 0; i < spMbrMlg.length; i++) {
 				String[] spVal = spMbrMlg[i].split("[|]");
 				MbrMlgVO mbrMlgVO = new MbrMlgVO();
-				mbrMlgVO.setUniqueId(spVal[0].trim());
+				mbrMlgVO.setUniqueId(mbrSession.getUniqueId());
 				mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
 				mbrMlgVO.setMlgSe("M");
 				mbrMlgVO.setMlgCn("11"); // 상품주문
 				mbrMlgVO.setGiveMthd("SYS");
 				mbrMlgVO.setRgtr("System");
-				mbrMlgVO.setMlg(EgovStringUtil.string2integer(spVal[1].trim()));
+				mbrMlgVO.setMlg(EgovStringUtil.string2integer(spVal[0].trim()));
 
 				// 내역 등록
 				mbrMlgService.insertMbrMlg(mbrMlgVO);
@@ -556,13 +556,13 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			for (int i = 0; i < spMbrPoint.length; i++) {
 				String[] spVal = spMbrPoint[i].split("[|]");
 				MbrPointVO mbrPointVO = new MbrPointVO();
-				mbrPointVO.setUniqueId(spVal[0].trim());
+				mbrPointVO.setUniqueId(mbrSession.getUniqueId());
 				mbrPointVO.setOrdrCd(ordrVO.getOrdrCd());
 				mbrPointVO.setPointSe("M");
 				mbrPointVO.setPointCn("11"); // 상품주문
 				mbrPointVO.setRgtr("System");
 				mbrPointVO.setGiveMthd("SYS");
-				mbrPointVO.setPoint(EgovStringUtil.string2integer(spVal[1].trim()));
+				mbrPointVO.setPoint(EgovStringUtil.string2integer(spVal[0].trim()));
 
 				// 내역 등록
 				mbrPointService.insertMbrPoint(mbrPointVO);
