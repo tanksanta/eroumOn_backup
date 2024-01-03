@@ -154,4 +154,16 @@
 		<put-attribute name="content" 	value="/WEB-INF/jsp/test/{1}.jsp" />
 	</definition>
 	
+	
+	<!-- 매칭앱 -->
+	<definition name=".app_matching_layout" template="/WEB-INF/jsp/app/matching/layout/layout.jsp">
+		<put-attribute name="content" 	value="" />
+	</definition>
+	<definition name="/app/matching/*" extends=".app_matching_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}.jsp" />
+	</definition>
+	<definition name="/app/matching/*/*" extends=".app_matching_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}.jsp" />
+	</definition>
+	
 </tiles-definitions>
