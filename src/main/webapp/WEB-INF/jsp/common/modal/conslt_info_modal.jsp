@@ -23,8 +23,6 @@
                                </colgroup> 
                             <tbody>
                                 <tr class="top-border">
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">가족관계</th>
