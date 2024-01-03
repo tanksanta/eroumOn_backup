@@ -846,7 +846,7 @@
     				}
     				
     				//생년월일 형식 검사
-    				if (!brdt || datechk.test(brdt) === false) {
+    				if (!brdt || datechk.test(brdt) === false || !Date.parse(brdt)) {
             			brdtInput.addClass('is-invalid');
             			
             			var errorTextTag = $(tdTags[2]).find('.error.text-danger'); 
@@ -855,6 +855,8 @@
             				errorTextTag.text('! 수급자(어르신)분의 생년월일을 입력해 주세요');
             			} else if (datechk.test(brdt) === false) {
             				errorTextTag.text('! 생년월일 8자리를 입력해 주세요 (예시: 1950/01/01)');
+            			} else if (!Date.parse(brdt)) {
+            				errorTextTag.text('! 생년월일 유효하지 않습니다');
             			}
             			
             			validData = false;

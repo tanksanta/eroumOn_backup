@@ -27,7 +27,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">가족</th>
+                                    <th scope="row">가족관계</th>
                                     <td id="relationText">본인</td>
                                 </tr>
                                 <tr>
