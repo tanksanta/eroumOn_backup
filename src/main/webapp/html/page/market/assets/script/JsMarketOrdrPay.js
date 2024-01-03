@@ -348,53 +348,53 @@ class JsMarketOrdrPay{
 	fn_draw_html_order_product_item_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptn){
 		console.log(json)
 		var hiddenInfo = '';
-		hiddenInfo += '<input type="text" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
-		hiddenInfo += '<input type="text" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
-		hiddenInfo += '<input type="text" name="gdsCd" id="gdsCd_{2}_{1}" value="{0}">'.format(json.gdsInfo.gdsCd, ordrIdx, ordrOptnTy);
-		hiddenInfo += '<input type="text" name="gdsNm" value="{0}">'.format(json.gdsInfo.gdsNm);
-		hiddenInfo += '<input type="text" name="gdsPc" value="{0}">'.format(json.gdsPc);
+		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
+		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
+		hiddenInfo += '<input type="hidden" name="gdsCd" id="gdsCd_{2}_{1}" value="{0}">'.format(json.gdsInfo.gdsCd, ordrIdx, ordrOptnTy);
+		hiddenInfo += '<input type="hidden" name="gdsNm" value="{0}">'.format(json.gdsInfo.gdsNm);
 		
-		hiddenInfo += '<input type="text" name="entrpsNo" value="{0}">'.format(json.gdsInfo.entrpsNo);
-		hiddenInfo += '<input type="text" name="entrpsNm" value="{0}">'.format(json.gdsInfo.entrpsNm == undefined?"":json.gdsInfo.entrpsNm);
-		hiddenInfo += '<input type="text" name="dlvyGroupYn" value="{0}">'.format(bDlvyGrp?"Y":"N");
-		hiddenInfo += '<input type="text" name="entrpsDlvygrpNo" value="{0}">'.format((!bDlvyGrp || entrpsDlvyGrpInfo == undefined)?"0":entrpsDlvyGrpInfo.entrpsDlvygrpNo);
-		hiddenInfo += '<input type="text" name="bnefCd" value=""></input>';
-		hiddenInfo += '<input type="text" name="recipterUniqueId" value="{0}"></input>'.format(this._cls_info.codeMapJson.recipterUniqueId);
-		hiddenInfo += '<input type="text" name="bplcUniqueId" value="">';
-		hiddenInfo += '<input type="text" name="couponNo" id="couponNo_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
-		hiddenInfo += '<input type="text" name="couponCd" id="couponCd_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
-		hiddenInfo += '<input type="text" name="couponAmt" id="couponAmt_{0}_{1}_{2}" value="0">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
+		hiddenInfo += '<input type="hidden" name="entrpsNo" value="{0}">'.format(json.gdsInfo.entrpsNo);
+		hiddenInfo += '<input type="hidden" name="entrpsNm" value="{0}">'.format(json.gdsInfo.entrpsNm == undefined?"":json.gdsInfo.entrpsNm);
+		hiddenInfo += '<input type="hidden" name="dlvyGroupYn" value="{0}">'.format(bDlvyGrp?"Y":"N");
+		hiddenInfo += '<input type="hidden" name="entrpsDlvygrpNo" value="{0}">'.format((!bDlvyGrp || entrpsDlvyGrpInfo == undefined)?"0":entrpsDlvyGrpInfo.entrpsDlvygrpNo);
+		hiddenInfo += '<input type="hidden" name="bnefCd" value=""></input>';
+		hiddenInfo += '<input type="hidden" name="recipterUniqueId" value="{0}"></input>'.format(this._cls_info.codeMapJson.recipterUniqueId);
+		hiddenInfo += '<input type="hidden" name="bplcUniqueId" value="">';
+		hiddenInfo += '<input type="hidden" name="couponNo" id="couponNo_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
+		hiddenInfo += '<input type="hidden" name="couponCd" id="couponCd_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
+		hiddenInfo += '<input type="hidden" name="couponAmt" id="couponAmt_{0}_{1}_{2}" value="0">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
 
-		hiddenInfo += '<input type="text" name="ordrOptnTy" value="{0}">'.format(ordrOptnTy);
+		hiddenInfo += '<input type="hidden" name="ordrOptnTy" value="{0}">'.format(ordrOptnTy);
+		hiddenInfo += '<input type="hidden" name="ordrQy" id ="ordrQy_{0}_{1}"  value="{2}">'.format(ordrOptnTy, ordrIdx, json.ordrQy);
 
 		if (ordrOptnTy == "BASE"){
-			hiddenInfo += '<input type="text" name="gdsOptnNo" value="{0}"></input>'.format(json.gdsOptnNo);
-			hiddenInfo += '<input type="text" name="ordrOptn" value="{0}">'.format(json.ordrOptn);
-			hiddenInfo += '<input type="text" name="ordrOptnPc" value="{0}">'.format(json.ordrOptnPc);
+			hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(json.gdsPc);
+			hiddenInfo += '<input type="hidden" name="gdsOptnNo" value="{0}"></input>'.format(json.gdsOptnNo);
+
+			hiddenInfo += '<input type="hidden" name="ordrOptn" value="{0}">'.format(json.ordrOptn);
+			hiddenInfo += '<input type="hidden" name="ordrOptnPc" value="{0}">'.format(json.ordrOptnPc);
+
+			hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
+			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
 		}else if (ordrOptnTy == "ADIT"){
-			hiddenInfo += '<input type="text" name="gdsOptnNo" value="{0}"></input>'.format(aditOptn.gdsOptnNo);
-			hiddenInfo += '<input type="text" name="ordrOptn" value="{0}">'.format(aditOptn.optnNm);
-			hiddenInfo += '<input type="text" name="ordrOptnPc" value="{0}">'.format(aditOptn.optnPc);
+			hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(0);
+			hiddenInfo += '<input type="hidden" name="gdsOptnNo" value="{0}"></input>'.format(aditOptn.gdsOptnNo);
+			hiddenInfo += '<input type="hidden" name="ordrOptn" value="{0}">'.format(aditOptn.optnNm);
+			hiddenInfo += '<input type="hidden" name="ordrOptnPc" value="{0}">'.format(aditOptn.optnPc);
+
+			hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, aditOptn.optnPc);// <%--건별 주문금액--%>
+			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, aditOptn.optnPc);// <%--건별 주문금액 초기화를 위한 여분--%>
 		}
 
-		
-
-		hiddenInfo += '<input type="text" name="ordrQy" id ="ordrQy_{0}_{1}"  value="{2}">'.format(ordrOptnTy, ordrIdx, json.ordrQy);
-		
-		hiddenInfo += '<input type="text" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
-		hiddenInfo += '<input type="text" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
-
-		hiddenInfo += '<input type="text" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
-		hiddenInfo += '<input type="text" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
+		hiddenInfo += '<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
+		hiddenInfo += '<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
 						
 		if (json.gdsInfo.mlgPvsnYn == 'Y' && this._cls_info.ordrTy == 'N' && !isNaN(this._cls_info.codeMapJson._mileagePercent) ){
-			hiddenInfo += '<input type="text" name="accmlMlg" value="{0}" />'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
+			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
 			// <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
 		}else{
-			hiddenInfo += '<input type="text" name="accmlMlg" value="0" />'
+			hiddenInfo += '<input type="hidden" name="accmlMlg" value="0" />'
 		}
-		
-
 
 		return hiddenInfo;
 	}
