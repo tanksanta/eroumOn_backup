@@ -43,10 +43,10 @@ class JsMarketGdsView{
     }
 
     fn_init_addevent(){
-        var owner = this;
-        $( window ).resize( function() {
-            owner.fn_page_resized();
-        });
+        // var owner = this;
+        // $( window ).resize( function() {
+        //     owner.fn_page_resized();
+        // });
     }
 
     fn_init_sub_addevent(){

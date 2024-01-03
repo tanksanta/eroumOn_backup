@@ -27,163 +27,7 @@
                 <c:set var="totalCouponAmt" value="0" />
                 <c:set var="totalAccmlMlg" value="0" />
                 <c:set var="totalOrdrPc" value="0" />
-				<c:set var="dtlIndex" value="0" />
-				<c:forEach items="${ordrDtlList}" var="ordrDtl" varStatus="status">
-					<c:set var="spOrdrOptn" value="${fn:split(ordrDtl.ordrOptn, '*')}" />
-
-					<c:if test="${ordrDtl.ordrOptnTy eq 'BASE'}">
-					<c:set var="dtlIndex" value="${dtlIndex+1}" />
-					<c:set var="sumOrdrPc" value="${ordrDtl.ordrPc }" />
-                    <div class="order-product">
-                        <div class="order-body">
-
-                            <div class="order-item">
-                                <div class="order-item-thumb">
-                                    <c:choose>
-										<c:when test="${!empty ordrDtl.gdsInfo.thumbnailFile }">
-									<img src="/comm/getImage?srvcId=GDS&amp;upNo=${ordrDtl.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${ordrDtl.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${ordrDtl.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
-										</c:when>
-										<c:otherwise>
-									<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-										</c:otherwise>
-									</c:choose>
-                                </div>
-                                <div class="order-item-content">
-                                	<div class="order-item-group">
-		                                <div class="order-item-base">
-		                                    <p class="code">
-		                                        <span class="label-primary">
-		                                            <span>${gdsTyCode[ordrDtl.gdsInfo.gdsTy]}</span>
-		                                            <i></i>
-		                                        </span>
-		                                        <u>${ordrDtl.gdsInfo.gdsCd }</u>
-		                                    </p>
-		                                    <div class="product">
-		                                        <p class="name">${ordrDtl.gdsInfo.gdsNm }</p>
-		                                        <c:if test="${!empty spOrdrOptn[0]}">
-		                                        <dl class="option">
-		                                            <dt>옵션</dt>
-		                                            <dd>
-		                                            	<c:forEach items="${spOrdrOptn}" var="ordrOptn">
-		                                                <span class="label-flat">${ordrOptn}</span>
-		                                                </c:forEach>
-		                                            </dd>
-		                                        </dl>
-		                                        </c:if>
-		                                    </div>
-		                                </div>
-					</c:if>
-
-					<c:if test="${ordrDtl.ordrOptnTy eq 'ADIT'}">
-						<c:set var="sumOrdrPc" value="${sumOrdrPc + ordrDtl.ordrPc}" />
-
-	                                    <div class="order-item-add">
-	                                        <span class="label-outline-primary">
-	                                            <span>${spOrdrOptn[0]}</span>
-	                                            <i><img src="/html/page/market/assets/images/ico-plus-white.svg" alt=""></i>
-	                                        </span>
-	                                        <div class="name">
-	                                            <p><strong>${spOrdrOptn[1]}</strong></p>
-	                                            <p>수량 ${ordrDtl.ordrQy}개 (+<fmt:formatNumber value="${ordrDtl.ordrPc}" pattern="###,###" />원)</p>
-	                                        </div>
-	                                    </div>
-
-					</c:if>
-
-
-					<c:if test="${ordrDtlList[status.index+1].ordrOptnTy eq 'BASE' || status.last}">
-									</div>
-
-									<div class="order-item-count">
-		                                <p><strong>${ordrDtl.ordrQy}</strong>개</p>
-		                            </div>
-		                            <p class="order-item-price pcList${dtlIndex}"><span class="text-primary"><fmt:formatNumber value="${sumOrdrPc}" pattern="###,###" />원</span></p>
-
-									<div class="order-item-info">
-                                        <div class="payment">
-                                            <dl>
-                                                <dt>배송비</dt>
-                                                <dd>
-                                                	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy eq 'FREE'}">
-                                                	무료배송
-                                                	</c:if>
-                                                	<c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
-                                                	<fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
-                                                	</c:if>
-                                                </dd>
-                                            </dl>
-                                            <%-- 추가 배송비 -> 도서산간비용, 노출x
-                                            <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
-                                            <dl>
-                                                <dt>추가 배송비</dt>
-                                                <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
-                                            </dl>
-                                            </c:if>
-                                            --%>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                	</c:if>
-
-					<%-- 주문정보 ALL START --%>
-					<div class="${ordrVO.ordrCd}_${dtlIndex}">
-						<%-- 배송비 + 추가배송비 --%>
-
-						<%-- <c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?(ordrDtl.gdsInfo.dlvyBassAmt + ordrDtl.gdsInfo.dlvyAditAmt):0)}" /> --%>
-						<c:set var="totalDlvyBassAmt" value="${totalDlvyBassAmt + (ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0)}" />
-						<c:set var="totalDlvyAditAmt" value="${totalDlvyAditAmt + (ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0)}" />
-
-
-						<%-- 적립예정마일리지 --%>
-	                    <c:set var="totalAccmlMlg" value="${totalAccmlMlg + ordrDtl.accmlMlg}" />
-	                    <%-- 주문금액 + 옵션금액 --%>
-	                    <c:set var="totalOrdrPc" value="${totalOrdrPc + ordrDtl.ordrPc}" />
-
-
-						<%-- 배열 --%>
-						<input type="hidden" name="ordrDtlCd" value="${ordrVO.ordrCd}_${dtlIndex}">
-						<input type="hidden" name="gdsNo" value="${ordrDtl.gdsNo }">
-						<input type="hidden" name="gdsCd" id="gdsCd_${ordrDtl.ordrOptnTy}_${dtlIndex}" value="${ordrDtl.gdsCd }">
-						<input type="hidden" name="gdsNm" value="${ordrDtl.gdsNm }">
-						<input type="hidden" name="gdsPc" value="${ordrDtl.gdsPc }">
-						<input type="hidden" name="bnefCd" value="${ordrDtl.bnefCd }">
-
-						<input type="hidden" name="gdsOptnNo" value="${ordrDtl.gdsOptnNo }">
-						<input type="hidden" name="ordrOptnTy" value="${ordrDtl.ordrOptnTy }">
-						<input type="hidden" name="ordrOptn" value="${ordrDtl.ordrOptn }">
-						<input type="hidden" name="ordrOptnPc" value="${ordrDtl.ordrOptnPc }">
-						<input type="hidden" name="ordrQy" id = "ordrQy_${ordrDtl.ordrOptnTy}_${dtlIndex}" value="${ordrDtl.ordrQy }">
-						<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0}"> <%--배송비 > 추가옵션일경우 제외 --%>
-						<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyBassAmt:0}"> <%--배송비 > 할인초기화를 위한 여분 --%>
-
-						<%--추가 배송비 > 추가옵션일경우 제외 --%>
-						<%-- <input type="hidden" name="dlvyAditAmt" value="${ordrDtl.ordrOptnTy eq 'BASE'?ordrDtl.gdsInfo.dlvyAditAmt:0}"> --%>
-						<input type="hidden" name="dlvyAditAmt" value="${ordrDtl.gdsInfo.dlvyAditAmt}"><%--기본 0원--%>
-
-						<input type="hidden" name="ordrPc" id="ordrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc}"> <%--건별 주문금액--%>
-						<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="${ordrDtl.ordrPc }"> <%--건별 주문금액 초기화를 위한 여분--%>
-
-						<input type="hidden" name="couponNo" id="couponNo_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value=""> <%--쿠폰번호 > 쿠폰선택 시점에서 채워줌 --%>
-	                    <input type="hidden" name="couponCd" id="couponCd_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value=""> <%--쿠폰코드 > 쿠폰선택 시점에서 채워줌 --%>
-	                    <input type="hidden" name="couponAmt" id="couponAmt_${ordrDtl.ordrOptnTy}_${ordrDtl.gdsNo}_${dtlIndex}" value="0"> <%--쿠폰적용 금액 > 쿠폰선택 시점에서 채워줌 --%>
-
-	                    <input type="hidden" name="recipterUniqueId" value="${ordrDtl.recipterUniqueId}">
-	                    <input type="hidden" name="bplcUniqueId" value="${ordrDtl.bplcUniqueId}">
-
-	                    <c:if test="${ordrDtl.gdsInfo.mlgPvsnYn eq 'Y' && ordrVO.ordrTy eq 'N'}">
-	                    <input type="hidden" name="accmlMlg" value="<fmt:formatNumber type="number" maxFractionDigits="0"  value="${(ordrDtl.gdsInfo.pc * ordrDtl.ordrQy) * (_mileagePercent / 100)}" />"> <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
-	                    </c:if>
-
-	                    <%--묶음체크--%>
-	                    <input type="hidden" name="dlvyGroupYn" value="${ordrDtl.gdsInfo.dlvyGroupYn}" />
-	                    <input type="hidden" name="entrpsNo" value="${ordrDtl.gdsInfo.entrpsNo}" />
-					</div>
-				</c:forEach>
+				
 				</div>
 
                 <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">고객 정보</h3>
@@ -371,32 +215,31 @@
                 <div class="payment-result">
                     <div class="result-price">
                         <div class="container">
-                            <dl>
+                            <dl class="totalOrdrPc-dl total-ordrpc-dl">
                                 <dt>총 주문상품금액</dt>
-                                <dd><strong><fmt:formatNumber value="${totalOrdrPc}" pattern="###,###" /></strong> 원</dd>
+                                <dd><strong class="total-ordrpc-txt"><fmt:formatNumber value="${totalOrdrPc}" pattern="###,###" /></strong> 원</dd>
                             </dl>
-                            <c:if test="${ordrVO.ordrTy eq 'N'}">
-                            <dl>
+                            <dl class="total-coupon-dl">
                                 <dt>쿠폰</dt>
                                 <dd><strong class="text-danger total-coupon-txt">0</strong> 원</dd>
                             </dl>
-                            <dl>
+                            <dl class="total-mlg-dl">
                                 <dt>마일리지/포인트</dt>
                                 <dd><strong class="text-danger total-mlg-txt">0</strong> 원</dd>
                             </dl>
-                            </c:if>
-                            <dl>
+                            
+                            <dl class="total-dlvy-dl">
                                 <dt>배송비</dt>
-                                <dd><strong class="total-dlvy-txt"><fmt:formatNumber value="${totalDlvyBassAmt}" pattern="###,###" /></strong> 원</dd>
+                                <dd><strong class="total-dlvy-txt">0</strong> 원</dd>
                             </dl>
-                            <dl id="total-dlvyAdit-dl" ${totalDlvyAditAmt>0?'':'style="display:none"'}>
+                            <dl id="total-dlvyAdit-dl" class="result-price-item">
                                 <dt>도서산간 추가 배송비</dt>
-                                <dd><strong class="total-dlvyAdit-txt"><fmt:formatNumber value="${totalDlvyAditAmt}" pattern="###,###" /></strong> 원</dd>
+                                <dd><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
                             </dl>
                         </div>
                         <dl class="last">
                             <dt>최종 결제금액</dt>
-                            <dd><strong class="total-stlmAmt-txt"><fmt:formatNumber value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" pattern="###,###" /></strong> 원</dd>
+                            <dd><strong class="total-stlmAmt-txt">0</strong> 원</dd>
                         </dl>
                     </div>
                     <div class="result-agree">
@@ -420,7 +263,7 @@
 
         <form:hidden path="delngNo" />
         <form:hidden path="stlmYn" value="N" />
-        <form:hidden path="stlmAmt" value="${totalOrdrPc + totalDlvyBassAmt + totalDlvyAditAmt}" /><%-- 도서산간지역 배송비 추가 --%>
+        <form:hidden path="stlmAmt" value="" /><%-- 전체 결제 금액 --%>
         <form:hidden path="stlmKnd" />
 		<form:hidden path="stlmTy" />
         <form:hidden path="stlmDt" />
@@ -435,7 +278,8 @@
        	<form:hidden path="pyrNm" />
        	<form:hidden path="dpstTermDt" />
        	<form:hidden path="cartGrpNos" value="${cartGrpNos}" />
-
+		<input type="hidden" name="ordrDtls" value="" >
+		
 		</form:form>
 
 
@@ -469,6 +313,7 @@
 		<textarea class="codeMapJson" style="display: none;">
 			${codeMapJson}
 		</textarea>
+		
     </main>
 
 	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdrPay.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
@@ -549,206 +394,9 @@
     	$("#frmOrdr .total-stlmAmt-txt").text(comma(calStlmAmt));
     }
 
-
-    async function f_pay(frm){
-    	let stlmAmt = $("#stlmAmt").val();
-    	//console.log('결제금액: ', stlmAmt);
-
-    	if(stlmAmt > 0){
-	    	//async
-	    	try {
-	   	    	//결제요청
-	   	    	const response = await Bootpay.requestPayment({
-	   	    		  "application_id": "${_bootpayScriptKey}",
-	   	    		  "price": stlmAmt,
-	   	    		<c:choose>
-	   	    			<c:when test="${ordrDtlList.size()>1}">
-	   	    			"order_name": "${ordrDtlList[0].gdsInfo.gdsNm} 외 ${ordrDtlList.size()-1}건",
-	   	    			</c:when>
-	   	    			<c:otherwise>
-	   	    			"order_name": "${ordrDtlList[0].gdsInfo.gdsNm}",
-	   	    			</c:otherwise>
-	   	    		</c:choose>
-	   	    		  "order_id": "${ordrVO.ordrCd}",
-	   	    		  "pg": "이니시스",
-	   	    		  "method": "",
-	   	    		  "tax_free": 0,
-	   	    		  "user": {
-	   	    		    "id": "${_mbrSession.mbrId}",
-	   	    		    "username": "${_mbrSession.mbrNm}",
-	   	    		    "phone": "${_mbrSession.mblTelno}",
-	   	    		    "email": "${_mbrSession.eml}"
-	   	    		  },
-	   	    		  /* "items": [
-						<c:forEach items="${ordrDtlList}" var="ordrDtl" varStatus="status">
-	   	    		    {
-	   	    		      "id": "${ordrDtl.gdsInfo.gdsCd}",
-	   	    		      "name": "${ordrDtl.gdsInfo.gdsNm}",
-	   	    		      "qty": ${ordrDtl.ordrQy},
-	   	    		      "price": ${ordrDtl.gdsPc + ordrDtl.ordrOptnPc}
-	   	    		    }
-	   	    		    <c:if test="${!status.last}">,</c:if>
-	   	    		    </c:forEach>
-	   	    		  ], */
-	   	    		  "extra": {
-	   	    		    "open_type": "iframe",
-	   	    		   // "card_quota": "0,2,3",
-	   	    		    "escrow": false,
-	   	    		 	"separately_confirmed":true,
-	   	    		 	"deposit_expiration":f_getDate(2)+" 23:59:00"
- 	   	    		 	<c:if test="${_activeMode ne 'REAL'}">
-	   	    		 	, "test_deposit":true
-	   	    		 	</c:if>
-	   	    		  }
-	   	    		});
-
-	   	    	//응답처리
-				switch (response.event) {
-			        case 'issued':
-			            break
-			        case 'done':
-			            console.log("done: ", response);
-			            // 결제 완료 처리
-			            break
-			        case 'confirm':
-			            const confirmedData = await Bootpay.confirm() //결제를 승인한다
-
-			            if(confirmedData.event === 'done') {
-							const stlmDt = confirmedData.data.purchased_at;
-							const delngNo = confirmedData.data.receipt_id; // : 거래번호 => DELNG_NO
-							const stlmKnd = confirmedData.data.method_symbol.toUpperCase(); // 결테타입 : CARD  => stlmKnd
-							const stlmTy = confirmedData.data.method_origin_symbol; // 결테타입 : CARD  => STLM_TY
-
-							$("#delngNo").val(delngNo);
-				            $("#stlmKnd").val(stlmKnd);
-							$("#stlmTy").val(stlmTy);
-				            $("#stlmDt").val(stlmDt);
-
-				            if(stlmKnd === "CARD"){ //CARD
-				            	const cardAprvno = confirmedData.data.card_data.card_approve_no; //카드 승인번호 => CARD_APRVNO
-					            const cardCoNm = confirmedData.data.card_data.card_company; //카드회사 => CARD_CO_NM
-					            const cardNo = confirmedData.data.card_data.card_no; //카드번호 => CARD_NO
-
-				            	$("#stlmYn").val("Y");
-					            $("#cardAprvno").val(cardAprvno);
-					            $("#cardCoNm").val(cardCoNm);
-					            $("#cardNo").val(cardNo);
-				            }else if(stlmTy.toUpperCase() === "BANK"){ //BANK
-					        	const dpstBankCd = confirmedData.data.bank_data.bank_code;
-					        	const dpstBankNm = confirmedData.data.bank_data.bank_name;
-
-				            	$("#stlmYn").val("Y");
-					            $("#dpstBankCd").val(dpstBankCd);
-					            $("#dpstBankNm").val(dpstBankNm);
-				            }
-
-			            	frm.submit();
-			            } else if(confirmedData.event === 'issued') {
-			            	const stlmDt = confirmedData.data.purchased_at;
-							const delngNo = confirmedData.data.receipt_id; // : 거래번호 => DELNG_NO
-							const stlmTy = confirmedData.data.method_origin_symbol; // 결테타입 : CARD  => STLM_TY
-							const stlmKnd = confirmedData.data.method_symbol.toUpperCase(); // 결테타입 : CARD  => stlmKnd
-
-							$("#delngNo").val(delngNo);
-							$("#stlmKnd").val(stlmKnd);
-				            $("#stlmTy").val(stlmTy);
-				            $("#stlmDt").val(stlmDt);
-
-				            if(stlmTy.toUpperCase() === "VBANK"){ //VBANK
-				            	const vrActno = confirmedData.data.vbank_data.bank_account;
-					        	const dpstBankCd = confirmedData.data.vbank_data.bank_code;
-					        	const dpstBankNm = confirmedData.data.vbank_data.bank_name;
-					        	const dpstr = confirmedData.data.vbank_data.bank_username;
-					        	const pyrNm = confirmedData.data.vbank_data.sender_name;
-					        	const dpstTermDt = confirmedData.data.vbank_data.expired_at;
-
-					            $("#stlmYn").val("N");
-					            $("#vrActno").val(vrActno);
-					            $("#dpstBankCd").val(dpstBankCd);
-					            $("#dpstBankNm").val(dpstBankNm);
-					            $("#dpstr").val(dpstr);
-					            $("#pyrNm").val(pyrNm);
-					            $("#dpstTermDt").val(dpstTermDt);
-				            }
-				            frm.submit();
-
-			            } else if(confirmedData.event === 'error') {
-			                //결제 승인 실패
-			                alert("결제에 실패하였습니다.");
-
-			            }
-			            break
-			        default:
-			            break
-			    }
-
-
-		    } catch (e) {
-
-		        switch (e.event) {
-		            case 'cancel':
-		                console.log(e.message);	// 사용자가 결제창을 닫을때 호출
-		                break
-		            case 'error':
-		                console.log(e.error_code); // 결제 승인 중 오류 발생시 호출
-		                if(e.error_code === 'RC_PRICE_LEAST_LT'){
-		                	alert("결제금액이 너무 작습니다.")
-		                }
-		                break
-		        }
-		    }
-
-    	} else {
-
-    		$("#stlmYn").val("Y");
-			$("#stlmKnd").val("FREE");
-    		$("#stlmTy").val("FREE");
-    		frm.submit();
-    	}
-    }
-
     // 주소호출 콜백
     function f_findAdresCallback(){
-    	let zipcode = $("#recptrZip").val();
-    	$.ajax({
-			type : "post",
-			url  : "/comm/dlvyCt/chkRgn.json",
-			data : {
-				zip : zipcode
-			},
-			dataType : 'json'
-		})
-		.done(function(data) {
-			if(data.result){
-				let entrpsMap = new Map();
-				$("input[name='entrpsNo']").each(function(i,o){
-
-					if($(this).val() > 0){
-						const dlvyGroupYn = $(this).siblings("input[name='dlvyGroupYn']").val();
-						if(!entrpsMap.get("chkEntrps"+$(this).val()) || dlvyGroupYn === "N"){//묶음x or 동일업체x
-							entrpsMap.set("chkEntrps"+$(this).val(), true);
-							$(this).siblings("input[name='dlvyAditAmt']").val(5000);
-						}
-					}else{ //0이면 업체지정x
-						$(this).siblings("input[name='dlvyAditAmt']").val(5000);
-					}
-				});
-				let dlvyAditAmt = 0;
-				$("input[name='dlvyAditAmt']").each(function(){
-					dlvyAditAmt += Number($(this).val());
-				});
-				$(".total-dlvyAdit-txt").text(comma(dlvyAditAmt));
-				$("#total-dlvyAdit-dl").css({"display":"flex"});
-			}else{
-				$("input[name='dlvyAditAmt']").val(0);
-				$(".total-dlvyAdit-txt").text(0);
-				$("#total-dlvyAdit-dl").css({"display":"none"});
-			}
-			f_calStlmAmt();
-	    })
-		.fail(function(data, status, err) {
-			console.log('error forward : 산간지역 체크 실패');
-		});
+    	jsMarketOrdrPay.f_findAdresCallback2();
     }
 
 

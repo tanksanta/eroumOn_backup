@@ -25,4 +25,6 @@ public class DlvyVO extends CommonBaseVO {
 	private String memo;
 	private String useYn = "Y";
 
+	private String dlvyCtAditRgnYn = "N";//배송비 추가 지역 여부
+
 }

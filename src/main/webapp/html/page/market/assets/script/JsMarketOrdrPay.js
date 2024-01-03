@@ -12,6 +12,7 @@ class JsMarketOrdrPay{
 		console.log(cartList)
 		if (cartList.trim().length > 0){
 			this._cls_info.cartList = JSON.parse(cartList);
+			this._cls_info.drawCartList = JSON.parse(cartList);
 		}
 
 		console.log(entrpsDlvyGrpVOList)
@@ -29,6 +30,7 @@ class JsMarketOrdrPay{
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 
 			this._cls_info.ordrCd = this._cls_info.codeMapJson.ordrCd;
+			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;
 		}
 		
         
@@ -36,14 +38,27 @@ class JsMarketOrdrPay{
         this._cls_info.pagePopPrefix = 'main#container div.modal2-con';
 
 		this._cls_info.pageCartListfix = 'main#container div#page-content div#cart-content' ;
+		this._cls_info.pageResultRricefix = 'main#container div#page-content div.payment-result div.result-price' ;
 		
+
+										
+		/*최종 결제금액 확인*/
+		this._cls_info.cartResultMoney = {"total-ordrpc":0 		/*총 주문상품금액*/
+										, "total-coupon" : 0 	/*쿠폰*/
+										, "total-mlg":0			/*마일리지/포인트*/
+										, "total-dlvy":0		/*배송비*/
+										, "total-dlvyAdit":0	/*배송비-추가 지역 금액*/
+									};
+
 		this.fn_draw_cart_list();
 
+		this.fn_draw_result_money();
 
         this.fn_page_init();
 
 
     }
+
 
     fn_page_init(){
         this.fn_init_addevent()
@@ -94,7 +109,7 @@ class JsMarketOrdrPay{
 	}
 
 	fn_draw_cart_list(){
-		if (this._cls_info.cartList == undefined) return;
+		if (this._cls_info.drawCartList == undefined) return;
 		if (this._cls_info.entrpsDlvyGrpVOList == undefined) return;
 		if (this._cls_info.entrpsVOList == undefined) return;
 
@@ -122,10 +137,11 @@ class JsMarketOrdrPay{
 
 			jlen = arrEntrpsDlvyGrp.length;
 			
-			for(jfor=0 ; jfor<jlen ; jfor++){/*묶음 배송 그룹별 항목을 그린다*/
+			/*****************************묶음 배송 그룹별 항목을 그린다. 시작*****************************/
+			for(jfor=0 ; jfor<jlen ; jfor++){
 				// console.log(arrEntrpsDlvyGrp[jfor]);
 				cartIdx = [];
-				arrCartList = this._cls_info.cartList.filter(function(item, idex) {
+				arrCartList = this._cls_info.drawCartList.filter(function(item, idex) {
 					if (item.gdsInfo != null && item.gdsInfo.entrpsNo == arrEntrpsDlvyGrp[jfor].entrpsNo 
 											&& item.gdsInfo.entrpsDlvygrpNo == arrEntrpsDlvyGrp[jfor].entrpsDlvygrpNo) {
 						cartIdx.push(idex);
@@ -138,7 +154,7 @@ class JsMarketOrdrPay{
 				// console.log(cartIdx);
 				dlen = cartIdx.length - 1;
 				for(dfor=dlen ; dfor>=0 ; dfor--){
-					this._cls_info.cartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
+					this._cls_info.drawCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
 				}
 
 				klen = arrCartList.length;
@@ -174,6 +190,7 @@ class JsMarketOrdrPay{
 
 					
 					items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
+					this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
 
 					ordrIdx += 1;
 					strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx, true, arrEntrpsDlvyGrp[jfor], arrCartList[kfor], items_money, arrCartGrpBaseList, arrCartGrpAditList);
@@ -187,9 +204,12 @@ class JsMarketOrdrPay{
 
 				arrHtml.push('</div>');
 			}
-			
+			/*****************************묶음 배송 그룹별 항목을 그린다. 끝*****************************/
+
+
+			/*****************************개별 배송 그룹별 항목을 그린다. cart_grp_no별로 그려야 한다. 시작*****************************/
 			cartIdx = [];
-			arrCartList = this._cls_info.cartList.filter(function(item, idex) {
+			arrCartList = this._cls_info.drawCartList.filter(function(item, idex) {
 				if (item.gdsInfo != undefined && item.gdsInfo.entrpsNo == owner._cls_info.entrpsVOList[ifor].entrpsNo) {
 					cartIdx.push(idex);
 					return true;
@@ -198,10 +218,10 @@ class JsMarketOrdrPay{
 			// console.log(cartIdx);
 			dlen = cartIdx.length - 1;
 			for(dfor=dlen ; dfor>=0 ; dfor--){
-				this._cls_info.cartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
+				this._cls_info.drawCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
 			}
 
-			/*개별 배송 그룹별 항목을 그린다*/
+			
 			jlen = arrCartList.length;
 			for(jfor=0 ; jfor<jlen ; jfor++){
 				arrHtml.push(this.fn_draw_html_order_delivery_title(false, 1, this._cls_info.entrpsVOList[ifor]));
@@ -220,6 +240,7 @@ class JsMarketOrdrPay{
 				});
 
 				items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
+				this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
 
 				arrHtml.push('<div class="order-product-inner">');
 				ordrIdx += 1;
@@ -239,6 +260,7 @@ class JsMarketOrdrPay{
 					jlen = arrCartList.length;
 				}
 			}
+			/*****************************개별 배송 그룹별 항목을 그린다. cart_grp_no별로 그려야 한다. 끝*****************************/
 
 			arrHtml.push('</div>');//order-body 끝
 			arrHtml.push('</div>');//order-product 끝
@@ -323,41 +345,53 @@ class JsMarketOrdrPay{
 	}
 
 	/*아이템별 정보들-공통사항*/
-	fn_draw_html_order_product_item_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json){
+	fn_draw_html_order_product_item_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptn){
 		console.log(json)
 		var hiddenInfo = '';
-		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
-		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
-		hiddenInfo += '<input type="hidden" name="gdsCd" id="gdsCd_{2}_{1}" value="{0}">'.format(json.gdsInfo.gdsCd, ordrIdx, ordrOptnTy);
-		hiddenInfo += '<input type="hidden" name="gdsNm" value="{0}">'.format(json.gdsInfo.gdsNm);
-		hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(json.gdsPc);
+		hiddenInfo += '<input type="text" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
+		hiddenInfo += '<input type="text" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
+		hiddenInfo += '<input type="text" name="gdsCd" id="gdsCd_{2}_{1}" value="{0}">'.format(json.gdsInfo.gdsCd, ordrIdx, ordrOptnTy);
+		hiddenInfo += '<input type="text" name="gdsNm" value="{0}">'.format(json.gdsInfo.gdsNm);
+		hiddenInfo += '<input type="text" name="gdsPc" value="{0}">'.format(json.gdsPc);
 		
-		hiddenInfo += '<input type="hidden" name="entrpsNo" value="{0}">'.format(json.gdsInfo.entrpsNo);
-		hiddenInfo += '<input type="hidden" name="dlvyGroupYn" value="{0}">'.format(bDlvyGrp?"Y":"N");
-		hiddenInfo += '<input type="hidden" name="entrpsDlvygrpNo" value="{0}">'.format((!bDlvyGrp || entrpsDlvyGrpInfo == undefined)?"0":entrpsDlvyGrpInfo.entrpsDlvygrpNo);
-		hiddenInfo += '<input type="hidden" name="bnefCd" value=""></input>';
-		hiddenInfo += '<input type="hidden" name="recipterUniqueId" value="{0}"></input>'.format(this._cls_info.codeMapJson.recipterUniqueId);
-		hiddenInfo += '<input type="hidden" name="bplcUniqueId" value="">';
-		hiddenInfo += '<input type="hidden" name="couponNo" id="couponNo_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
-		hiddenInfo += '<input type="hidden" name="couponCd" id="couponCd_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
-		hiddenInfo += '<input type="hidden" name="couponAmt" id="couponAmt_{0}_{1}_{2}" value="0">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
-		hiddenInfo += '<input type="hidden" name="gdsOptnNo" value="{0}"></input>'.format(json.gdsOptnNo);
-		
-		hiddenInfo += '<input type="hidden" name="ordrOptnTy" value="{0}">'.format(ordrOptnTy);
-		hiddenInfo += '<input type="hidden" name="ordrOptn" value="{0}">'.format(json.ordrOptn);
-		hiddenInfo += '<input type="hidden" name="ordrOptnPc" value="{0}">'.format(json.ordrOptnPc);
+		hiddenInfo += '<input type="text" name="entrpsNo" value="{0}">'.format(json.gdsInfo.entrpsNo);
+		hiddenInfo += '<input type="text" name="entrpsNm" value="{0}">'.format(json.gdsInfo.entrpsNm == undefined?"":json.gdsInfo.entrpsNm);
+		hiddenInfo += '<input type="text" name="dlvyGroupYn" value="{0}">'.format(bDlvyGrp?"Y":"N");
+		hiddenInfo += '<input type="text" name="entrpsDlvygrpNo" value="{0}">'.format((!bDlvyGrp || entrpsDlvyGrpInfo == undefined)?"0":entrpsDlvyGrpInfo.entrpsDlvygrpNo);
+		hiddenInfo += '<input type="text" name="bnefCd" value=""></input>';
+		hiddenInfo += '<input type="text" name="recipterUniqueId" value="{0}"></input>'.format(this._cls_info.codeMapJson.recipterUniqueId);
+		hiddenInfo += '<input type="text" name="bplcUniqueId" value="">';
+		hiddenInfo += '<input type="text" name="couponNo" id="couponNo_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
+		hiddenInfo += '<input type="text" name="couponCd" id="couponCd_{0}_{1}_{2}" value="">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
+		hiddenInfo += '<input type="text" name="couponAmt" id="couponAmt_{0}_{1}_{2}" value="0">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx);
 
-		hiddenInfo += '<input type="hidden" name="ordrQy" id ="ordrQy_{0}_{1}"  value="{2}">'.format(ordrOptnTy, ordrIdx, json.ordrQy);
-		
-		hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
-		hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
+		hiddenInfo += '<input type="text" name="ordrOptnTy" value="{0}">'.format(ordrOptnTy);
 
-		hiddenInfo += '<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
-		hiddenInfo += '<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
+		if (ordrOptnTy == "BASE"){
+			hiddenInfo += '<input type="text" name="gdsOptnNo" value="{0}"></input>'.format(json.gdsOptnNo);
+			hiddenInfo += '<input type="text" name="ordrOptn" value="{0}">'.format(json.ordrOptn);
+			hiddenInfo += '<input type="text" name="ordrOptnPc" value="{0}">'.format(json.ordrOptnPc);
+		}else if (ordrOptnTy == "ADIT"){
+			hiddenInfo += '<input type="text" name="gdsOptnNo" value="{0}"></input>'.format(aditOptn.gdsOptnNo);
+			hiddenInfo += '<input type="text" name="ordrOptn" value="{0}">'.format(aditOptn.optnNm);
+			hiddenInfo += '<input type="text" name="ordrOptnPc" value="{0}">'.format(aditOptn.optnPc);
+		}
+
+		
+
+		hiddenInfo += '<input type="text" name="ordrQy" id ="ordrQy_{0}_{1}"  value="{2}">'.format(ordrOptnTy, ordrIdx, json.ordrQy);
+		
+		hiddenInfo += '<input type="text" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
+		hiddenInfo += '<input type="text" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
+
+		hiddenInfo += '<input type="text" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
+		hiddenInfo += '<input type="text" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
 						
 		if (json.gdsInfo.mlgPvsnYn == 'Y' && this._cls_info.ordrTy == 'N' && !isNaN(this._cls_info.codeMapJson._mileagePercent) ){
-			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />">'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
+			hiddenInfo += '<input type="text" name="accmlMlg" value="{0}" />'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
 			// <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
+		}else{
+			hiddenInfo += '<input type="text" name="accmlMlg" value="0" />'
 		}
 		
 
@@ -413,8 +447,8 @@ class JsMarketOrdrPay{
 
 				cartItemBaseList.push(cartItemBaseOne);
 
-				cartItemBaseOne = '<div class="item hidden {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json);
+				cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
+				cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
 				
 				cartItemBaseOne += "</div>"
 				cartItemBaseList.push(cartItemBaseOne);
@@ -497,8 +531,8 @@ class JsMarketOrdrPay{
 
 				cartItemAditList.push(cartItemAditOne);
 
-				cartItemAditOne = '<div class="item hidden {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemAditOne += this.fn_draw_html_order_product_item_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json);
+				cartItemAditOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
+				cartItemAditOne += this.fn_draw_html_order_product_item_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptnOne);
 				
 				cartItemAditOne += '</div>';
 				cartItemAditList.push(cartItemAditOne);
@@ -585,13 +619,123 @@ class JsMarketOrdrPay{
 		'</dl>';
 	}
 
+	fn_draw_result_money(){
+		var key;
+		
+		var money = 0;
+
+		key = "total-ordrpc";
+		money += this._cls_info.cartResultMoney[key];
+		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+
+		key = "total-coupon";
+		money += this._cls_info.cartResultMoney[key];
+		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+
+		key = "total-mlg";
+		money += this._cls_info.cartResultMoney[key];
+		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+
+		key = "total-dlvy";
+		money += this._cls_info.cartResultMoney[key];
+		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+
+		key = "total-dlvyAdit";
+		money += this._cls_info.cartResultMoney[key];
+		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+
+		$("#stlmAmt").val(money);
+		
+	}
 
 	
-    async f_pay(frm){
+	f_findAdresCallback2(){
+		let zipcode = $("#recptrZip").val();
+
+		jsCallApi.call_api_post_json(this, "/comm/dlvyCt/chkRgn.json", 'fn_chkRgn_cb',  {
+			zip : zipcode
+		}, {});
+
+    	// $.ajax({
+		// 	type : "post",
+		// 	url  : "/comm/dlvyCt/chkRgn.json",
+		// 	data : {
+		// 		zip : zipcode
+		// 	},
+		// 	dataType : 'json'
+		// })
+		// .done(function(data) {
+		// 	data.result
+		// 	f_calStlmAmt();
+	    // })
+		// .fail(function(data, status, err) {
+		// 	console.log('error forward : 산간지역 체크 실패');
+		// });
+	}
+
+	fn_chkRgn_cb(result, fail, data, param){
+		if (result.result){
+			this._cls_info.dlvyCtAditRgnYn = 'Y';
+		}else{
+			this._cls_info.dlvyCtAditRgnYn = 'N';
+		}
+
+		window.f_calStlmAmt();
+	}
+
+	f_ordr_dtls(){
+		var jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+		var jobjDtl;
+		var itemone;
+		var arrDtls = [];
+		var ifor, ilen = jobjCartList.length;
+
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjDtl = $(jobjCartList[ifor]);
+
+			itemone = {};
+			arrDtls.push(itemone);
+
+			itemone.ordrDtlCd			= jobjDtl.find('input[name="ordrDtlCd"]').val();
+			itemone.gdsNo				= jobjDtl.find('input[name="gdsNo"]').val();
+			itemone.gdsCd				= jobjDtl.find('input[name="gdsCd"]').val();
+			itemone.gdsNm				= jobjDtl.find('input[name="gdsNm"]').val();
+			itemone.gdsPc				= jobjDtl.find('input[name="gdsPc"]').val();
+			itemone.entrpsNo			= jobjDtl.find('input[name="entrpsNo"]').val();
+			itemone.entrpsNm			= jobjDtl.find('input[name="entrpsNm"]').val();
+			itemone.dlvyGroupYn			= jobjDtl.find('input[name="dlvyGroupYn"]').val();
+			itemone.entrpsDlvygrpNo		= jobjDtl.find('input[name="entrpsDlvygrpNo"]').val();
+			itemone.bnefCd				= jobjDtl.find('input[name="bnefCd"]').val();
+			itemone.recipterUniqueId	= jobjDtl.find('input[name="recipterUniqueId"]').val();
+			itemone.bplcUniqueId		= jobjDtl.find('input[name="bplcUniqueId"]').val();
+			itemone.couponNo			= jobjDtl.find('input[name="couponNo"]').val();
+			itemone.couponCd			= jobjDtl.find('input[name="couponCd"]').val();
+			itemone.couponAmt			= jobjDtl.find('input[name="couponAmt"]').val();
+			itemone.gdsOptnNo			= jobjDtl.find('input[name="gdsOptnNo"]').val();
+			itemone.ordrOptnTy			= jobjDtl.find('input[name="ordrOptnTy"]').val();
+			itemone.ordrOptn			= jobjDtl.find('input[name="ordrOptn"]').val();
+			itemone.ordrOptnPc			= jobjDtl.find('input[name="ordrOptnPc"]').val();
+			itemone.ordrQy				= jobjDtl.find('input[name="ordrQy"]').val();
+			itemone.ordrPc				= jobjDtl.find('input[name="ordrPc"]').val();
+			itemone.plusOrdrPc			= jobjDtl.find('input[name="plusOrdrPc"]').val();
+			itemone.dlvyBassAmt			= jobjDtl.find('input[name="dlvyBassAmt"]').val();
+			itemone.plusDlvyBassAmt		= jobjDtl.find('input[name="plusDlvyBassAmt"]').val();
+			itemone.accmlMlg			= jobjDtl.find('input[name="accmlMlg"]').val();
+
+		}
+
+		return arrDtls;
+	}
+
+	async f_pay(frm){
 		let owner = this;
     	let stlmAmt = $("#stlmAmt").val();
 		let _bootpayScriptKey = this._cls_info.codeMapJson._bootpayScriptKey;
 		let test_deposit = (this._cls_info.codeMapJson._activeMode != "REAL")?true:false;
+
+		let orderDtls = this.f_ordr_dtls();
+		$("input[name='ordrDtls']").val(JSON.stringify(orderDtls));
+		
     	//console.log('결제금액: ', stlmAmt);
 
     	if(stlmAmt > 0){

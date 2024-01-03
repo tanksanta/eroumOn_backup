@@ -72,6 +72,8 @@ public class OrdrDtlVO extends OrdrVO {
     private String dlvyCoNm;
     private Date dlvyDt;
     private String dlvyInvcNo; // 송장번호
+    private String dlvyGroupYn;
+    private int entrpsDlvygrpNo = 0;
 
     // 환불정보
     private String rfndYn;
