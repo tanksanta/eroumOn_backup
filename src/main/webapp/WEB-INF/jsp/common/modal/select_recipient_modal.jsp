@@ -297,6 +297,13 @@
 	            	} else {
 	            		//수급자 선택창 숨기기
 	        			$('#rcpts-select').modal('hide');
+	            		
+	            		//있어요, 없어요 선택 초기화
+	        			var checkedLnoRadio = $('input[name=sr-lno-check-radio]:checked');
+	        			if (checkedLnoRadio.length > 0) {
+	        				checkedLnoRadio[0].checked = false;
+	        			}
+	            		
 	            		//L번호 있어요, 없어요 모달 띄우기
 	            		$('#sr-lno-check-modal').modal('show');
 	            	}
@@ -413,6 +420,12 @@
         			}
         			//다른 상담은 L번호 있어요 선택 모달 부터 시작
         			else {
+        				//있어요, 없어요 선택 초기화
+	        			var checkedLnoRadio = $('input[name=sr-lno-check-radio]:checked');
+	        			if (checkedLnoRadio.length > 0) {
+	        				checkedLnoRadio[0].checked = false;
+	        			}
+        				
         				$('#sr-lno-check-modal').modal('show');
         			}
         		}
@@ -444,6 +457,11 @@
         			$('#no-rcpt-relation').val('');
         			$('#no-rcpt-tab1-lno').val('');
         			$('#no-rcpt-tab2-lno').val('');
+        			
+        			var checkedRcptsRadio = $('input[name=rcpts]:checked');
+        			if (checkedRcptsRadio.length > 0) {
+        				checkedRcptsRadio[0].checked = false;
+        			}
         			
         			//수급자 선택창 띄우기
         			$('#rcpts-select').modal('show');
