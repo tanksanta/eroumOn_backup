@@ -516,6 +516,9 @@
             				genderInputs[1].checked = false;
             			}
         			}
+        			
+        			//만약 성별이 식별 가능한 관계인 경우에는 성별 고정처리
+        			settingGenderInRocModal();
         		}
         		
         		//해당 수급자의 L번호가 있으면 L번호 표시 처리
@@ -1202,4 +1205,37 @@
         			$('input[name=roc-check-lno]')[0].checked = true;
         		}
         	}
+        	
+        	//수급자 관계에 따라서 성별은 고정처리
+        	function settingGenderInRocModal() {
+        		var genderInputs = $('input[name=roc-main-gender]');
+        		var genderDiv = $(genderInputs[0]).parent().parent();
+        		var genderDisable = false;
+        	
+        		if (roc_selectedRecipient) {
+        			if (roc_selectedRecipient.relationCd === '002'       //아버지
+        				|| roc_selectedRecipient.relationCd === '005'    //할아버지
+       					|| roc_selectedRecipient.relationCd === '006') { //시아버지
+        				genderInputs[0].checked = true;
+        				genderDisable = true;	
+        			}
+        			else if (roc_selectedRecipient.relationCd === '008'  //어머니
+        				|| roc_selectedRecipient.relationCd === '009'    //할머니
+       					|| roc_selectedRecipient.relationCd === '010') { //시어머니
+        				genderInputs[1].checked = true;
+        				genderDisable = true;
+        			}
+        		}
+        		
+        		//성별 입력 필드 disable 처리
+        		if (genderDisable) {
+        			genderDiv.css('opacity', '0.6');	
+        			genderInputs.attr('disabled', true);
+        		}
+        		else {
+        			genderDiv.css('opacity', '');
+        			genderInputs.removeAttr('disabled');
+        		}
+        	}
+        	
         </script>
