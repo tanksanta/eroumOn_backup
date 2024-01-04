@@ -147,10 +147,16 @@
 								FROM cart c
 								INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
 								WHERE g.DLVY_GROUP_YN = 'Y'
-									AND cart_grp_no IN
-									<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
-										#{srchCartGrpNo}
-									</foreach>
+									AND recipter_unique_id = #{srchRecipterUniqueId}
+									<if test="srchViewYn != null and srchViewYn != '' ">
+										AND view_yn = #{srchViewYn}
+									</if>
+									<if test="srchCartGrpNos != null and srchCartGrpNos != '' ">
+										AND cart_grp_no IN
+										<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+											#{srchCartGrpNo}
+										</foreach>
+									</if>
 								)
 	</select>
 
@@ -190,10 +196,16 @@
 							SELECT DISTINCT IFNULL(g.ENTRPS_NO, 0) ENTRPS_NO
 							FROM cart c
 							INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
-							WHERE cart_grp_no IN
-								<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
-									#{srchCartGrpNo}
-								</foreach>
+							WHERE recipter_unique_id = #{srchRecipterUniqueId}
+									<if test="srchViewYn != null and srchViewYn != '' ">
+										AND view_yn = #{srchViewYn}
+									</if>
+									<if test="srchCartGrpNos != null and srchCartGrpNos != '' ">
+										AND cart_grp_no IN
+										<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+											#{srchCartGrpNo}
+										</foreach>
+									</if>
 						)
 	</select>
 

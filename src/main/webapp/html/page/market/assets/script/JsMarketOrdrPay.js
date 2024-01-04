@@ -12,23 +12,23 @@ class JsMarketOrdrPay{
         this._cls_info._marketPath = path._marketPath;
 
 
-		console.log(cartList)
+		// console.log(cartList)
 		if (cartList.trim().length > 0){
 			this._cls_info.cartList = JSON.parse(cartList);
 			this._cls_info.drawCartList = JSON.parse(cartList);
 		}
 
-		console.log(entrpsDlvyGrpVOList)
+		// console.log(entrpsDlvyGrpVOList)
 		if (entrpsDlvyGrpVOList.trim().length > 0){
 			this._cls_info.entrpsDlvyGrpVOList = JSON.parse(entrpsDlvyGrpVOList);
 		}
 
-		console.log(entrpsVOList)
+		// console.log(entrpsVOList)
 		if (entrpsVOList.trim().length > 0){
 			this._cls_info.entrpsVOList = JSON.parse(entrpsVOList);
 		}
 
-		console.log(codeMapJson)
+		// console.log(codeMapJson)
 		if (codeMapJson.trim().length > 0){
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 
@@ -53,35 +53,13 @@ class JsMarketOrdrPay{
 										, "total-dlvyAdit":0	/*배송비-추가 지역 금액*/
 									};
 									
-		this.fn_draw_cart_list();
+		this.fn_draw_pay_list();
 
 		this.fn_calc_dlvyadit();
 		this.fn_draw_result_money();
 
         this.fn_page_init();
 
-
-    }
-
-
-    fn_page_init(){
-        this.fn_init_addevent()
-
-        this.fn_page_sub();
-
-        this.fn_init_sub_addevent();
-    }
-
-    fn_page_sub(){
-
-    }
-
-    fn_init_addevent(){
-        
-    }
-
-    fn_init_sub_addevent(){
-        var owner = this;
 
     }
 
@@ -110,34 +88,8 @@ class JsMarketOrdrPay{
 		this._cls_info.cartResultMoney["total-dlvyAdit"] = money;
 	}
 
-	fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList){
-		var ifor, ilen, cartItemOne;
-		var ret = {ordrQy:0, ordrPc:0, originPc:0};
-		
-		ilen = arrCartGrpBaseList.length;
-		for(ifor=0 ; ifor<ilen ; ifor++){
-			cartItemOne = arrCartGrpBaseList[ifor];
 
-			ret.ordrQy += cartItemOne.ordrQy;
-			ret.ordrPc += cartItemOne.ordrPc;
-
-			ret.originPc += (cartItemOne.ordrQy * cartItemOne.gdsInfo.pc);
-		}
-
-		ilen = arrCartGrpAditList.length;
-		for(ifor=0 ; ifor<ilen ; ifor++){
-			cartItemOne = arrCartGrpAditList[ifor];
-
-			ret.ordrQy += cartItemOne.ordrQy;
-			ret.ordrPc += cartItemOne.ordrPc;
-
-			ret.originPc += cartItemOne.ordrPc;
-		}
-
-		return ret;
-	}
-
-	fn_draw_cart_list(){
+	fn_draw_pay_list(){
 		if (this._cls_info.drawCartList == undefined) return;
 		if (this._cls_info.entrpsDlvyGrpVOList == undefined) return;
 		if (this._cls_info.entrpsVOList == undefined) return;
@@ -220,7 +172,7 @@ class JsMarketOrdrPay{
 					// console.log("cartIdx", cartIdx);
 
 					
-					items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
+					items_money = this.fn_calc_cart_grp_sum_money(arrCartGrpBaseList, arrCartGrpAditList);
 					this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
 
 					if (this._cls_info.dlvyCtAditRgnYn == 'Y' && kfor == 0){
@@ -274,7 +226,7 @@ class JsMarketOrdrPay{
 					}
 				});
 
-				items_money = this.fn_calc_order_product_item_money(arrCartGrpBaseList, arrCartGrpAditList);
+				items_money = this.fn_calc_cart_grp_sum_money(arrCartGrpBaseList, arrCartGrpAditList);
 				this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
 				if (this._cls_info.dlvyCtAditRgnYn == 'Y'){
 					this._cls_info.cartResultMoney["total-dlvyAdit"] += arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
@@ -308,20 +260,6 @@ class JsMarketOrdrPay{
 		$(this._cls_info.pageCartListfix).html(arrHtml.join(''));
 	}
 
-	/*퍼블리싱에서 order-product => order-body => order-item-business 의 html*/
-	fn_draw_html_order_item_business(json){
-		return '<dl class="order-item-business">'+
-			'<dt><span>사업소</span> <span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsNm)+
-		'</dl>';
-	}
-
-	/*퍼블리싱에서 order-product => order-body => order-delivery-total 의 html*/
-	fn_draw_html_order_delivery_title(bDlvyGrp, cnt, json){
-		return '<div class="order-delivery-total">'+
-			'<strong>{0}</strong>'.format(((bDlvyGrp?"묶음배송":"개별배송") + " " + ((bDlvyGrp && this._cls_info.bDev)?json.entrpsDlvygrpNm:"")))+
-			'<strong class="price2">{0}개</strong>'.format(cnt)+
-		'</div>';
-	}
 
 	/*퍼블리싱에서 order-product => order-body => order-product-inner 의 html*/
 	fn_draw_html_order_product_item(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, items_money, arrCartGrpBaseList, arrCartGrpAditList){
@@ -544,7 +482,7 @@ class JsMarketOrdrPay{
 	/*퍼블리싱에서 order-product => order-body => order-item-payment 의 html*/
 	/*
 		개별 배송
-		items_money ==> fn_calc_order_product_item_money함수에서 만들어진 값
+		items_money ==> fn_calc_cart_grp_sum_money함수에서 만들어진 값
 		arrCartGrpBaseList : 기본 상품 리스트
 		arrCartGrpAditList : 추가 상품 리스트
 	*/
@@ -577,7 +515,7 @@ class JsMarketOrdrPay{
 
 	/*
 		묶음배송
-		items_money ==> fn_calc_order_product_item_money함수에서 만들어진 값
+		items_money ==> fn_calc_cart_grp_sum_money함수에서 만들어진 값
 		entrpsDlvyGrpInfo : 묶음배송 정보
 		arrCartGrpBaseAllList : 기본 상품 전체
 		arrCartGrpAditAllList : 추가 상품 전체

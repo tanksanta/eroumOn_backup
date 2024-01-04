@@ -4,6 +4,11 @@ INSERT INTO `eroumcare`.`MNG_MENU`
 (`UP_MENU_NO`, `MENU_NM`, `MENU_URL`, `MENU_TY`, `LEVEL_NO`, `SORT_NO`, `USE_YN`) 
 VALUES ('4', '묶음배송 그룹관리', '/_mng/sysmng/entrps/dlvygrp/list', '4', '1', '5', 'Y');
 
+/* 입점업체가 없는 경우 강제로 세팅
+update gds
+SET entrps_no = 1
+WHERE entrps_no IN (0, NULL)
+*/
 
 ALTER TABLE GDS ADD COLUMN IF NOT EXISTS `ENTRPS_DLVYGRP_NO` INT NULL DEFAULT NULL COMMENT '묶음배송번호'
 ;

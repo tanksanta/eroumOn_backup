@@ -28,6 +28,7 @@ import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvyBaseCtVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -84,7 +85,33 @@ public class MyCartController extends CommonAbstractController  {
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 
-		return "/market/mypage/cart/list";
+		
+		paramMap.clear();
+		paramMap.put("srchViewYn", "Y");
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpVOList = cartService.selectCartDlvygrpListAll(paramMap);
+		List<EntrpsVO> entrpsVOList = cartService.selectCartEntrpsListAll(paramMap);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String tempString;
+		tempString =  mapper.writeValueAsString(rResultList);
+		model.addAttribute("cartListWelfareJson", tempString);
+
+		tempString =  mapper.writeValueAsString(nResultList);
+		model.addAttribute("cartListOrdrJson", tempString);
+
+		tempString =  mapper.writeValueAsString(entrpsVOList);
+		model.addAttribute("entrpsVOListJson", tempString);
+
+		tempString =  mapper.writeValueAsString(entrpsDlvyGrpVOList);
+		model.addAttribute("entrpsDlvyGrpVOListJson", tempString);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		tempString =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", tempString);
+
+		return "/market/mypage/cart/list2";
 	}
 
 
