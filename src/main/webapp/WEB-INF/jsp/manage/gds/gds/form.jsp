@@ -1708,6 +1708,11 @@
                     	    			return false;
                     	    		}
                     	    	}else{
+									if ($("#entrpsNo").val() == undefined || $("#entrpsNo").val().length < 1 || $("#entrpsNo").val() == "0"){
+										alert("입점업체를 선택하여 주십시오.")
+										return false;
+									}
+
                     	    		if (confirm('<spring:message code="action.confirm.save"/>')) {
                     	            	$("input[name='tempYn']").val("N");
                        	            	frm.submit();
