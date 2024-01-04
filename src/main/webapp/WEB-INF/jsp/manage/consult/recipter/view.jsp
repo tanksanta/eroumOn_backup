@@ -410,7 +410,7 @@
                                             </th>
                                             <td>
                                             	<c:if test="${resultList.consltSttus eq 'CS06'}">
-                                            	(상담입력 : <fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
+                                            	(상담입력 : ${resultList.consltDt.substring(0,16)})<br>
                                                 ${resultList.consltDtls}
                                                 </c:if>
 
