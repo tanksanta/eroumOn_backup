@@ -8,6 +8,8 @@
     
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
     <script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    
+    <link rel="stylesheet" href="/html/page/index/assets/style/style.min.css">
 </head>
 <body>
 	

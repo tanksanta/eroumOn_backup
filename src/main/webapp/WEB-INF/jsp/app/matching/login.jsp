@@ -5,29 +5,38 @@
 		<br>
 		로그인 <br><br>
 		
-		<form action="/matching/loginAction" method="post" id="loginFrm">
-			<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
-			<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
-			<input type="hidden" id="encPw" name="encPw" value="">
-			
-			ID : <input type="text">
+		<form>
+			ID : <input type="text" class="form-control" id="mbrId">
 			<br>
-			PW : <input type="password">
+			PW : <input type="password" class="form-control" id="mbrPw">
 			<br>
-			<button type="button">로그인</button>
+			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인</button>
 		</form>
 	</main>
 	
 	
 	<script src="/html/core/vendor/rsa/RSA.min.js" /></script>
 	<script>
-		$(function() {
-			const f_rsa_enc = function(v, rpkm, rpke) {
-				let rsa = new RSAKey();
-				rsa.setPublic(rpkm,rpke);
-				return rsa.encrypt(v);
-			}
+		function clickLoginBtn() {
+			var rsaPublicKeyModulus = '${publicKeyModulus}';
+			var rsaPublicKeyExponent = '${publicKeyExponent}';
 			
+			var mbrId = $('#mbrId').val();
+			var mbrPw = $('#mbrPw').val();
+			var encPw = f_rsa_enc(mbrPw, rsaPublicKeyModulus, rsaPublicKeyExponent);
 			
-		});
+			callPostAjaxIfFailOnlyMsg(
+				'/matching/loginAction', 
+				{mbrId, encPw},
+				function (result) {
+					
+				}
+			);
+		}
+	
+		function f_rsa_enc(v, rpkm, rpke) {
+			let rsa = new RSAKey();
+			rsa.setPublic(rpkm,rpke);
+			return rsa.encrypt(v);
+		}
 	</script>

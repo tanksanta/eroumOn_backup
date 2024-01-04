@@ -24,4 +24,44 @@ public class MatMbrSession extends MbrVO {
 		HttpSession session = requestHolder.getSession();
 		session.setAttribute(MAT_MEMBER_SESSION_KEY, this);
 	}
+	
+	public void login(HttpSession session, MbrVO mbrVO) {
+		session.setAttribute(MAT_MEMBER_SESSION_KEY, this);
+		session.setMaxInactiveInterval(60 * 60 * 4); // 4h
+		
+		setLoginCheck(true);
+		setProperty(mbrVO);
+	}
+	
+	public void logout() {
+		setLoginCheck(false);
+		setProperty(new MbrVO());
+	}
+	
+	private void setProperty(MbrVO mbrVO) {
+		setUniqueId(mbrVO.getUniqueId());
+		setMbrId(mbrVO.getMbrId());
+		setMbrNm(mbrVO.getMbrNm());
+		setMblTelno(mbrVO.getMblTelno());
+		setTelno(mbrVO.getTelno());
+		setEml(mbrVO.getEml());
+		setZip(mbrVO.getZip());
+		setAddr(mbrVO.getAddr());
+		setDaddr(mbrVO.getDaddr());
+
+		setDiKey(mbrVO.getDiKey()); // di
+		setKakaoAppId(mbrVO.getKakaoAppId());
+		setNaverAppId(mbrVO.getNaverAppId());
+		
+		setGender(mbrVO.getGender());
+		setBrdt(mbrVO.getBrdt());
+		setProflImg(mbrVO.getProflImg());
+		setMberGrade(mbrVO.getMberGrade());
+		setItrstField(mbrVO.getItrstField());
+		setJoinTy(mbrVO.getJoinTy());
+		setSnsRegistDt(mbrVO.getSnsRegistDt());
+
+		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
+		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
+	}
 }
