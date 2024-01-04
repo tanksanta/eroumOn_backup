@@ -7,10 +7,12 @@
 		Hello World
 		<br><br>
 		<button class="btn btn-primary" onclick="clickLogoutBtn();">로그아웃</button>
+		<br><br>
+		<button class="btn btn-primary" onclick="location.reload();">새로고침</button>
 		<br><br><br>
 		카메라 테스트
 		<br></br>
-		<input type="file" id="camera" name="camera" capture="camera" accept="image/*" />
+		<input type="file" id="camera" name="camera" accept="image/*"/>
 		<br />
     	<img id="pic" style="width:100%;" />
 	</main>
