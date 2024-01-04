@@ -17,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -125,6 +129,8 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		String gdsNm = (String) reqMap.get("gdsNm");
 		String gdsPc = (String) reqMap.get("gdsPc");
 
+		String gdsOptnNo = (String) reqMap.get("gdsOptnNo");
+
 		String ordrOptnTy = (String) reqMap.get("ordrOptnTy");
 		String ordrOptn = (String) reqMap.get("ordrOptn");
 		String ordrOptnPc = (String) reqMap.get("ordrOptnPc");
@@ -230,6 +236,10 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			}
 			if (entrpsVO != null) {
 				ordrDtlVO.setEntrpsNm(entrpsVO.getEntrpsNm());
+			}
+			
+			if (gdsOptnNo.split(",")[i].trim().length() > 0){
+				ordrDtlVO.setGdsOptnNo((EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim())));
 			}
 			ordrDtlVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 			ordrDtlVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
@@ -378,6 +388,195 @@ public class OrdrService extends CommonAbstractServiceImpl {
 			paramMap.put("srchRecipterUniqueId", ordrDtlList.get(0).getRecipterUniqueId());
 			cartService.deleteCart(paramMap);
 		}
+
+		return ordrDtlList;
+	}
+
+	public List<OrdrDtlVO> insertOrdr2(
+			OrdrVO ordrVO
+			, @RequestParam Map<String, Object> reqMap
+			, HttpServletRequest request) throws Exception {
+
+		String cartGrpNos = (String) reqMap.get("cartGrpNos");
+
+		//String stlmYn = (String) reqMap.get("stlmYn");
+		String stlmTy = (String) reqMap.get("stlmTy");
+
+		String mbrMlg = (String) reqMap.get("useMlg");
+		String mbrPoint = (String) reqMap.get("usePoint");
+
+		ordrVO.setOrdrrEml(mbrSession.getEml());
+
+		if (EgovStringUtil.equals("FREE", stlmTy)) {
+			ordrVO.setStlmYn("Y");
+			ordrVO.setStlmDt(DateUtil.getCurrentDateTime("yyyy-MM-dd HH:mm:ss")); // 결제일
+		} else {
+			if(EgovStringUtil.isNotEmpty(ordrVO.getDelngNo())) {
+				// 결제 정보 검증
+				try {
+					HashMap<String, Object> res = bootpayApiService.confirm(ordrVO.getDelngNo());
+					if (res.get("error_code") == null) { // success
+						System.out.println("success: " + res);
+						ordrVO.setStlmYn("Y");
+					} else {
+						System.out.println("fail: " + res);
+						ordrVO.setStlmYn("N");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ordrVO.setStlmYn("N");
+				}
+
+				// DATE CONVERT
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				if (EgovStringUtil.isNotEmpty(ordrVO.getStlmDt())) {
+					Date parseStlmDt = format.parse(ordrVO.getStlmDt());
+					String convertStlmDt = output.format(parseStlmDt);
+					ordrVO.setStlmDt(convertStlmDt); // 결제일
+				}
+				if (EgovStringUtil.isNotEmpty(ordrVO.getDpstTermDt())) {
+					Date parseDpstTermDt = format.parse(ordrVO.getDpstTermDt());
+					String convertDpstTermDt = output.format(parseDpstTermDt);
+					ordrVO.setDpstTermDt(convertDpstTermDt);
+				}
+				ordrVO.setStlmTy(ordrVO.getStlmTy().toUpperCase());
+			}
+		}
+
+		// 주문정보
+		ordrVO.setUniqueId(mbrSession.getUniqueId());
+		ordrVO.setOrdrrId(mbrSession.getMbrId());
+		ordrVO.setOrdrrNm(mbrSession.getMbrNm());
+		ordrVO.setOrdrrTelno(mbrSession.getTelno());
+		ordrVO.setOrdrrZip(mbrSession.getZip());
+		ordrVO.setOrdrrAddr(mbrSession.getAddr());
+		ordrVO.setOrdrrDaddr(mbrSession.getDaddr());
+		ordrVO.setOrdrrMblTelno(mbrSession.getMblTelno());
+		ordrVO.setStlmDevice(WebUtil.getDevice(request));
+
+		ordrDAO.insertOrdr(ordrVO);
+
+		// 주문 상세 정보
+		List<OrdrDtlVO> ordrDtlList = new ArrayList<OrdrDtlVO>();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); 
+	    List<OrdrDtlVO> ordrDtlList2 = mapper.readValue(reqMap.get("ordrDtls").toString(), new TypeReference<List<OrdrDtlVO>>() {});
+	    
+		for (int i = 0; i < ordrDtlList2.size(); i++) {
+
+			OrdrDtlVO ordrDtlVO = ordrDtlList2.get(i);
+
+			ordrDtlVO.setOrdrNo(ordrVO.getOrdrNo());
+			ordrDtlVO.setOrdrCd(ordrVO.getOrdrCd());
+
+			// 상품 정보
+			GdsVO gdsVO = gdsService.selectGds(ordrDtlVO.getGdsNo());
+	
+			ordrDtlVO.setGdsSupPc(gdsVO.getSupPc());
+
+			ordrDtlVO.setRegUniqueId(mbrSession.getUniqueId());
+			ordrDtlVO.setRegId(mbrSession.getMbrId());
+			ordrDtlVO.setRgtr(mbrSession.getMbrNm());
+
+			if (EgovStringUtil.isNotEmpty(ordrDtlVO.getOrdrOptn())) {
+				
+				//옵션이면 옵션 품목코드 입력
+				GdsOptnVO optn = null;
+				if ("BASE".equals(ordrDtlVO.getOrdrOptnTy())) {
+					optn = gdsVO.getOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				} else {
+					optn = gdsVO.getAditOptnList().stream().filter(f -> f.getOptnNm().equals(ordrDtlVO.getOrdrOptn())).findAny().orElse(null);
+				}
+				
+				if (optn != null) {
+					ordrDtlVO.setOptnItemCd(optn.getOptnItemCd());
+				}
+			}
+			//옵션이 아니면 상품 품목코드 입력
+			else {
+				ordrDtlVO.setGdsItemCd(gdsVO.getItemCd());
+			}
+
+
+			if(ordrDtlVO.getCouponNo() > 0) {
+
+				// 쿠폰 사용처리
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("uniqueId", mbrSession.getUniqueId());
+				paramMap.put("couponNo", ordrDtlVO.getCouponNo());
+				paramMap.put("useYn", "Y");
+				couponLstService.updateCouponUseYn(paramMap);
+			}
+
+			if(EgovStringUtil.equals("N", ordrVO.getOrdrTy())) {
+				if (EgovStringUtil.equals("Y", ordrVO.getStlmYn())) {
+					ordrDtlVO.setSttsTy("OR05");
+				} else {
+					ordrDtlVO.setSttsTy("OR04");
+				}
+			}else {
+				ordrDtlVO.setSttsTy("OR01");
+			}
+
+			ordrDtlVO.setGdsInfo(gdsVO);
+			ordrDtlService.insertOrdrDtl(ordrDtlVO);
+
+			// 히스토리 기록
+			ordrDtlVO.setResn(CodeMap.ORDR_STTS.get(ordrDtlVO.getSttsTy()));
+			ordrDtlService.insertOrdrSttsChgHist(ordrDtlVO);
+
+			ordrDtlList.add(ordrDtlVO);
+
+		}
+
+		// 마일리지
+		if (EgovStringUtil.isNotEmpty(mbrMlg)) {
+			String[] spMbrMlg = mbrMlg.split(",");
+			for (int i = 0; i < spMbrMlg.length; i++) {
+				String[] spVal = spMbrMlg[i].split("[|]");
+				MbrMlgVO mbrMlgVO = new MbrMlgVO();
+				mbrMlgVO.setUniqueId(mbrSession.getUniqueId());
+				mbrMlgVO.setOrdrCd(ordrVO.getOrdrCd());
+				mbrMlgVO.setMlgSe("M");
+				mbrMlgVO.setMlgCn("11"); // 상품주문
+				mbrMlgVO.setGiveMthd("SYS");
+				mbrMlgVO.setRgtr("System");
+				mbrMlgVO.setMlg(EgovStringUtil.string2integer(spVal[0].trim()));
+
+				// 내역 등록
+				mbrMlgService.insertMbrMlg(mbrMlgVO);
+			}
+		}
+
+		// 포인트
+		if (EgovStringUtil.isNotEmpty(mbrPoint)) {
+			String[] spMbrPoint = mbrPoint.split(",");
+			for (int i = 0; i < spMbrPoint.length; i++) {
+				String[] spVal = spMbrPoint[i].split("[|]");
+				MbrPointVO mbrPointVO = new MbrPointVO();
+				mbrPointVO.setUniqueId(mbrSession.getUniqueId());
+				mbrPointVO.setOrdrCd(ordrVO.getOrdrCd());
+				mbrPointVO.setPointSe("M");
+				mbrPointVO.setPointCn("11"); // 상품주문
+				mbrPointVO.setRgtr("System");
+				mbrPointVO.setGiveMthd("SYS");
+				mbrPointVO.setPoint(EgovStringUtil.string2integer(spVal[0].trim()));
+
+				// 내역 등록
+				mbrPointService.insertMbrPoint(mbrPointVO);
+			}
+		}
+
+		// 장바구니 삭제 // 우선 삭제 제외
+		// if (EgovStringUtil.isNotEmpty(cartGrpNos)) {
+		// 	String[] arrCartGrpNo = cartGrpNos.split(",");
+		// 	Map<String, Object> paramMap = new HashMap<String, Object>();
+		// 	paramMap.put("srchCartGrpNos", arrCartGrpNo);
+		// 	paramMap.put("srchRecipterUniqueId", ordrDtlList.get(0).getRecipterUniqueId());
+		// 	cartService.deleteCart(paramMap);
+		// }
 
 		return ordrDtlList;
 	}

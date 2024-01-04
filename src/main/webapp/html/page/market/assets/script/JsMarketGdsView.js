@@ -6,7 +6,23 @@ class JsMarketGdsView{
         this._cls_info.loginCheck = loginCheck;
         this._cls_info._membershipPath = path._membershipPath;
         this._cls_info._marketPath = path._marketPath;
-        this._cls_info.gdsVOJson = JSON.parse(gdsVOString);
+
+		console.log(gdsVOString)
+		if (gdsVOString.trim().length > 0){
+			this._cls_info.gdsVOJson = JSON.parse(gdsVOString);
+
+			if (this._cls_info.gdsVOJson != undefined){
+				if (this._cls_info.gdsVOJson.optnTtl != undefined && this._cls_info.gdsVOJson.optnTtl.length > 0){
+					this._cls_info.arrOptnTtl = this._cls_info.gdsVOJson.optnTtl.split('|');
+				}
+				if (this._cls_info.gdsVOJson.optnVal != undefined && this._cls_info.gdsVOJson.optnVal.length > 0){
+					this._cls_info.arrOptnVal = this._cls_info.gdsVOJson.optnVal.split('|');
+				}
+			}
+			
+		}
+
+		
         
         this._cls_info.pagePrefix = 'main#container .layout.page-content' ;
         this._cls_info.pagePopPrefix = 'main#container div.modal2-con';
@@ -27,10 +43,10 @@ class JsMarketGdsView{
     }
 
     fn_init_addevent(){
-        var owner = this;
-        $( window ).resize( function() {
-            owner.fn_page_resized();
-        });
+        // var owner = this;
+        // $( window ).resize( function() {
+        //     owner.fn_page_resized();
+        // });
     }
 
     fn_init_sub_addevent(){
@@ -296,7 +312,7 @@ class JsMarketGdsView{
 		console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
 
 		$(".product-quanitem input[name='ordrOptn']").each(function(){
-			if($(this).val() == spOptnVal[0].trim()){
+			if($(this).val().trim() == spOptnVal[0].trim()){
 				alert("["+spOptnVal[0] + "]은(는) 이미 추가된 옵션상품입니다.");
 				skip = true;
 			}
@@ -426,4 +442,91 @@ class JsMarketGdsView{
 		this.f_totalPrice();
 	}
 
+	f_ordr_able_check(){
+		let skip = true;
+		if(this._cls_info.gdsVOJson.gdsTagVal != null && this._cls_info.gdsVOJson.gdsTagVal != ''){
+			var tagVal = this._cls_info.gdsVOJson.gdsTagVal;
+			tagVal = tagVal.replaceAll(' ','').split(',');
+			if(tagVal.indexOf("A") > -1){
+				alert("선택하신 옵션은 품절상태입니다.");
+				skip = false;
+			}else if(tagVal.indexOf("B") > -1){
+				//alert("선택하신 옵션은 일부옵션품절상태입니다.");
+				//console.log(skip);
+				//skip = false;
+			}else if(tagVal.indexOf("C") > -1){
+				alert("선택하신 옵션은 일시품절상태입니다.");
+				skip = false;
+			}
+		}
+
+		return skip;
+	}
+
+	f_buyClick(){
+		this.f_buy_cart_call(true);
+	}
+
+	f_cart_click(){
+		this.f_buy_cart_call(false);
+	}
+
+	f_buy_cart_call(bBuy){
+		
+		if (!this.f_ordr_able_check()){
+			return;
+		}
+
+		$("#frmOrdr input[name='viewYn']").val(bBuy ? "N":"Y");
+
+		var ordrTy = $("input[name='ordrTy']:checked").val() === undefined?"N":$("input[name='ordrTy']:checked").val(); //R / L / N
+
+		if((ordrTy == "R" || ordrTy == "L") && $("#bplcUniqueId").val() == "" ){
+			alert("급여상품 구입은 멤버스(사업소)를 선택해야 합니다.");
+			return false;
+		}else if($(".product-quanitem").length < 1){
+			alert("필수 옵션을 선택하세요");
+			$('.payment-type-content1 .payment-scroller').addClass('is-active');
+			return false;
+		}else{
+			if (bBuy){
+				if (this._cls_info.arrOptnTtl != undefined && this._cls_info.arrOptnTtl.length > 0){
+					if (this._cls_info.gdsVOJson.stockQy < 1){
+						alert("선택하신 상품은 품절입니다.");
+						return false;
+					}
+				}
+			}
+			var formData = $("#frmOrdr").serialize();
+			if (bBuy){
+				jsCallApi.call_api_post_json(this, this._cls_info._marketPath + "/mypage/cart/putCart.json", 'f_buy_cb', formData, {ordrTy});
+			}else{
+				jsCallApi.call_api_post_json(this, this._cls_info._marketPath + "/mypage/cart/putCart.json", 'f_cart_cb', formData);
+			}
+			
+		}
+	}
+
+	f_buy_cb(result, fail, data, param){
+		if (result != undefined && result.resultMsg == "SUCCESS"){
+			var data = {cartTy : param.ordrTy, cartGrpNos : result.cartGrpNo};
+			jsCallApi.call_svr_post_move(this._cls_info._marketPath + "/ordr/ordrPay", data, null);
+		}else{
+			alert("주문으로 이동하는 중 오류가 발생하였습니다.\n새로고침 후 다시 시도해 주십시오.")
+		}
+	}
+	f_cart_cb(result, fail, data, param){
+		if (result != undefined){
+			if(result.resultMsg == "ALREADY"){
+				alert("장바구니에 담겨있는 상품입니다.");
+			}else{
+				$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
+				if (confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")){
+					window.location.href = this._cls_info._marketPath + "/mypage/cart/list";
+				}
+			}
+		} else if (fail != undefined){
+			alert("장바구니 담기에 실패하였습니다.\n잠시후 다시 시도해 주시기 바랍니다.")
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package icube.market.mypage.cart;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,7 @@ public class MyCartController extends CommonAbstractController  {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartTy", "R"); // 급여주문 상품
+		paramMap.put("srchViewYn", "Y");
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 
 		List<CartVO> rResultList = cartService.selectCartListAll(paramMap);
@@ -61,6 +63,7 @@ public class MyCartController extends CommonAbstractController  {
 
 		paramMap.clear();
 		paramMap.put("srchCartTy", "N"); // 비급여주문 상품
+		paramMap.put("srchViewYn", "Y");
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);
@@ -104,6 +107,8 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
 			, @RequestParam(value="ordrQy", required=true) String ordrQy
 
+			, @RequestParam(value="viewYn", required=true) String viewYn
+
 			, @RequestParam(value="recipterUniqueId", required=false) String recipterUniqueId
 			, @RequestParam(value="bplcUniqueId", required=false) String bplcUniqueId
 			, @RequestParam Map<String,Object> reqMap) throws Exception {
@@ -111,23 +116,33 @@ public class MyCartController extends CommonAbstractController  {
 		boolean result = false;
 		String resultMsg = "SUCCESS";
 		int totalCnt = 0;
+		List<Integer> cartNos = new ArrayList<Integer>();
 
 		// STEP.1 선택된 보호자 장바구니 > 동일상품 + 동일옵션이 있는지 체크 (추가옵션 제외)
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchCartTy", ordrTy);
-		paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
-		paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
-		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+		
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
-		CartVO chkCartVO = cartService.selectCartByFilter(paramMap);
+		CartVO chkCartVO = null;
+
+		if (EgovStringUtil.equals(viewYn, "Y")){
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchCartTy", ordrTy);
+			paramMap.put("srchViewYn", viewYn);
+			paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
+			paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
+			paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+			
+			chkCartVO = cartService.selectCartByFilter(paramMap);
+		}
+		
+		int cartGrpNo = 0;
 		if(chkCartVO != null) {
 			result = true;
 			resultMsg = "ALREADY";
 
 		} else {
 			// STEP.2 저장
-			int cartGrpNo = 0;
+			
 			String[] spGdsNo = gdsNo.split(",");
 			for(int i=0;i < spGdsNo.length;i++) {
 				CartVO cartVO = new CartVO();
@@ -142,11 +157,13 @@ public class MyCartController extends CommonAbstractController  {
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
 				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[0].trim()));
+				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
 				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+
+				cartVO.setViewYn(viewYn);
 
 				cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
 				cartVO.setBplcUniqueId(EgovStringUtil.isEmpty(bplcUniqueId)?null:bplcUniqueId);
@@ -164,6 +181,7 @@ public class MyCartController extends CommonAbstractController  {
 				if("BASE".equals(cartVO.getOrdrOptnTy())) {
 					cartGrpNo = cartVO.getCartNo();
 				}
+				cartNos.add(cartVO.getCartNo());
 
 				totalCnt = totalCnt + resultCnt;
 
@@ -179,6 +197,8 @@ public class MyCartController extends CommonAbstractController  {
 		resultMap.put("result", result);
 		resultMap.put("resultMsg", resultMsg);
 		resultMap.put("totalCnt", totalCnt);
+		resultMap.put("cartNos", cartNos);
+		resultMap.put("cartGrpNo", cartGrpNo);
 		return resultMap;
 	}
 

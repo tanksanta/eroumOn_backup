@@ -12,6 +12,8 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
 
 @Service("cartService")
 public class CartService extends CommonAbstractServiceImpl {
@@ -24,6 +26,14 @@ public class CartService extends CommonAbstractServiceImpl {
 
 	public CommonListVO selectMbrCartListVO(CommonListVO listVO) throws Exception {
 		return cartDAO.selectMbrCartListVO(listVO);
+	}
+
+	public List<EntrpsDlvyGrpVO> selectCartDlvygrpListAll(Map<String, Object> paramMap) throws Exception {
+		return cartDAO.selectCartDlvygrpListAll(paramMap);
+	}
+
+	public List<EntrpsVO> selectCartEntrpsListAll(Map<String, Object> paramMap) throws Exception {
+		return cartDAO.selectCartEntrpsListAll(paramMap);
 	}
 
 	public List<CartVO> selectCartListAll(Map<String, Object> paramMap) throws Exception {

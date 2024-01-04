@@ -49,6 +49,7 @@ import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -56,6 +57,8 @@ import icube.market.ordr.biz.DlvyCtAditRgnService;
 import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping(value = "#{props['Globals.Market.path']}/ordr")
@@ -406,80 +409,80 @@ public class OrdrController extends CommonAbstractController{
 	/**
 	 * 비급여 주문
 	 */
-	@RequestMapping(value = "ordrPay")
-	public String ordrPayment(
-			OrdrVO ordrVO
-			, @RequestParam(value = "ordrTy", required = true) String ordrTy
-			, @RequestParam(value = "gdsNo", required = true) String gdsNo
-			, @RequestParam(value = "gdsCd", required = true) String gdsCd
-			, @RequestParam(value = "bnefCd", required = true) String bnefCd
-			, @RequestParam(value = "gdsNm", required = true) String gdsNm
-			, @RequestParam(value = "gdsPc", required = true) String gdsPc
+	// @RequestMapping(value = "ordrPay")
+	// public String ordrPayment(
+	// 		OrdrVO ordrVO
+	// 		, @RequestParam(value = "ordrTy", required = true) String ordrTy
+	// 		, @RequestParam(value = "gdsNo", required = true) String gdsNo
+	// 		, @RequestParam(value = "gdsCd", required = true) String gdsCd
+	// 		, @RequestParam(value = "bnefCd", required = true) String bnefCd
+	// 		, @RequestParam(value = "gdsNm", required = true) String gdsNm
+	// 		, @RequestParam(value = "gdsPc", required = true) String gdsPc
 
-			, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
-			, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
-			, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
-			, @RequestParam(value = "ordrQy", required = true) String ordrQy
+	// 		, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
+	// 		, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
+	// 		, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
+	// 		, @RequestParam(value = "ordrQy", required = true) String ordrQy
 
-			, @RequestParam(value = "recipterUniqueId", required = false) String recipterUniqueId
-			, @RequestParam(value = "bplcUniqueId", required = false) String bplcUniqueId
-			, @RequestParam Map<String, Object> reqMap
+	// 		, @RequestParam(value = "recipterUniqueId", required = false) String recipterUniqueId
+	// 		, @RequestParam(value = "bplcUniqueId", required = false) String bplcUniqueId
+	// 		, @RequestParam Map<String, Object> reqMap
 
-			, HttpServletRequest request
-			, RedirectAttributes redirectAttributes
-			, HttpServletResponse response
-			, HttpSession session
-			, Model model
-		) throws Exception {
+	// 		, HttpServletRequest request
+	// 		, RedirectAttributes redirectAttributes
+	// 		, HttpServletResponse response
+	// 		, HttpSession session
+	// 		, Model model
+	// 	) throws Exception {
 
-		// STEP.1 로그인 체크
-		if (!mbrSession.isLoginCheck()) {
-			LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
-			return "redirect:/" + membershipPath + "/login";
-		}
+	// 	// STEP.1 로그인 체크
+	// 	if (!mbrSession.isLoginCheck()) {
+	// 		LoginUtil.loginRedirectValue(redirectAttributes, request.getServletPath(), reqMap, true);
+	// 		return "redirect:/" + membershipPath + "/login";
+	// 	}
 
-		//주문정보 계산을 위해 카트 객체로 변환
-		List<CartVO> cartList = new ArrayList<>();
-		String[] spGdsNo = gdsNo.split(",");
-		for (int i = 0; i < spGdsNo.length; i++) {
+	// 	//주문정보 계산을 위해 카트 객체로 변환
+	// 	List<CartVO> cartList = new ArrayList<>();
+	// 	String[] spGdsNo = gdsNo.split(",");
+	// 	for (int i = 0; i < spGdsNo.length; i++) {
 
-			CartVO cartVO = new CartVO();
-			cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
-			cartVO.setGdsCd(gdsCd.split(",")[i].trim());
-			if (bnefCd.split(",").length > 0) { // bnefCd null일수 있음
-				cartVO.setBnefCd(bnefCd.split(",")[i].trim());
-			} else {
-				cartVO.setBnefCd("");
-			}
-			cartVO.setGdsNm(gdsNm.split(",")[i].trim());
-			cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-			cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
-			cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
-			cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
-			cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
-			cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
-			cartVO.setBplcUniqueId(bplcUniqueId);
+	// 		CartVO cartVO = new CartVO();
+	// 		cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
+	// 		cartVO.setGdsCd(gdsCd.split(",")[i].trim());
+	// 		if (bnefCd.split(",").length > 0) { // bnefCd null일수 있음
+	// 			cartVO.setBnefCd(bnefCd.split(",")[i].trim());
+	// 		} else {
+	// 			cartVO.setBnefCd("");
+	// 		}
+	// 		cartVO.setGdsNm(gdsNm.split(",")[i].trim());
+	// 		cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
+	// 		cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
+	// 		cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
+	// 		cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
+	// 		cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+	// 		cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
+	// 		cartVO.setBplcUniqueId(bplcUniqueId);
 
-			int ordrPc = (cartVO.getGdsPc() + cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
-			cartVO.setOrdrPc(ordrPc);
+	// 		int ordrPc = (cartVO.getGdsPc() + cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+	// 		cartVO.setOrdrPc(ordrPc);
 			
-			//상품 정보 조회
-			GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
-			cartVO.setGdsInfo(gdsVO);
+	// 		//상품 정보 조회
+	// 		GdsVO gdsVO = gdsService.selectGds(cartVO.getGdsNo());
+	// 		cartVO.setGdsInfo(gdsVO);
 			
-			cartList.add(cartVO);
-		}
+	// 		cartList.add(cartVO);
+	// 	}
 		
-		//주문정보 model에 담기
-		getOrderDetailListForPay(ordrTy, cartList, model);
+	// 	//주문정보 model에 담기
+	// 	getOrderDetailListForPay(ordrTy, cartList, model);
 		
-		return "/market/ordr/ordr_pay";
-	}
+	// 	return "/market/ordr/ordr_pay";
+	// }
 
 	/**
 	 * 비급여 주문 > 장바구니
 	 */
-	@RequestMapping(value = "cartPay")
+	@RequestMapping(value = {"cartPay", "ordrPay"})
 	public String cartPay(
 			@RequestParam(value = "cartGrpNos", required = true) String cartGrpNos
 			, @RequestParam(value = "cartTy", required = true) String cartTy
@@ -497,35 +500,53 @@ public class OrdrController extends CommonAbstractController{
 			return "redirect:/" + membershipPath + "/login";
 		}
 
+		// 주문코드 생성 (O 22 1014 1041 00 000)
+		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
+
 		// STEP.2 장바구니 호출
 		String[] arrCartGrpNo = cartGrpNos.split(",");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartGrpNos", arrCartGrpNo);
 
 		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpVOList = cartService.selectCartDlvygrpListAll(paramMap);
+		List<EntrpsVO> entrpsVOList = cartService.selectCartEntrpsListAll(paramMap);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String cartListJson =  mapper.writeValueAsString(cartList);
+		model.addAttribute("cartListJson", cartListJson);
+		String entrpsDlvyGrpVOListJson =  mapper.writeValueAsString(entrpsDlvyGrpVOList);
+		model.addAttribute("entrpsDlvyGrpVOListJson", entrpsDlvyGrpVOListJson);
+		String entrpsVOListJson =  mapper.writeValueAsString(entrpsVOList);
+		model.addAttribute("entrpsVOListJson", entrpsVOListJson);
 
 		//주문정보 model에 담기
-		getOrderDetailListForPay(cartTy, cartList, model);
+		getOrderDetailListForPay(cartTy, ordrCd, cartList, model);
+
+
+		DlvyVO bassDlvyVO = (DlvyVO)model.getAttribute("bassDlvyVO");
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		codeMap.put("ordrCd", ordrCd);
+		codeMap.put("recipterUniqueId", mbrSession.getUniqueId());
+		codeMap.put("_mileagePercent", request.getAttribute("_mileagePercent"));
+		codeMap.put("_bootpayScriptKey", request.getAttribute("_bootpayScriptKey"));
+		codeMap.put("_activeMode", request.getAttribute("_activeMode"));
+		codeMap.put("dlvyCtAditRgnYn", (bassDlvyVO == null)?"N":bassDlvyVO.getDlvyCtAditRgnYn());
+
+		String codeMapJson =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", codeMapJson);
 		
+
 		model.addAttribute("cartGrpNos", cartGrpNos);
 
-		return "/market/ordr/ordr_pay";
+		return "/market/ordr/ordr_pay2";
 	}
 
 	// 상품주문 결제
 	@RequestMapping(value = "ordrPayAction")
 	public String ordrPayAction(OrdrVO ordrVO
-			, @RequestParam(value = "ordrDtlCd", required = true) String ordrDtlCd
-			, @RequestParam(value = "gdsNo", required = true) String gdsNo
-			, @RequestParam(value = "gdsCd", required = true) String gdsCd
-			, @RequestParam(value = "bnefCd", required = true) String bnefCd
-			, @RequestParam(value = "gdsNm", required = true) String gdsNm
-			, @RequestParam(value = "gdsPc", required = true) String gdsPc
-			, @RequestParam(value = "ordrOptnTy", required = true) String ordrOptnTy
-			, @RequestParam(value = "ordrOptn", required = true) String ordrOptn
-			, @RequestParam(value = "ordrOptnPc", required = true) String ordrOptnPc
-			, @RequestParam(value = "ordrQy", required = true) String ordrQy
-			, @RequestParam(value = "ordrPc", required = true) String ordrPc
 			, @RequestParam(value = "stlmKnd", required = true) String stlmKnd
 			, @RequestParam Map<String, Object> reqMap
 			, HttpServletRequest request
@@ -546,7 +567,7 @@ public class OrdrController extends CommonAbstractController{
 			String ordrMailTy = "MAILSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
 			String ordrBiztalkTy = "BIZTALKSEND_ORDR_MARKET_PAYDONE_"+stlmKnd;
 			
-			List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr(ordrVO, reqMap, request);
+			List<OrdrDtlVO> ordrDtlList = ordrService.insertOrdr2(ordrVO, reqMap, request);
 
 			ordrVO = ordrService.selectOrdrByCd(ordrVO.getOrdrCd());
 
@@ -619,9 +640,7 @@ public class OrdrController extends CommonAbstractController{
 	 * 결제 직전 화면에서 호출(model에 데이터를 담음)
 	 * 바로 구매하기, 장바구니 구매하기 시 상품 및 배송비 계산 로직 함수
 	 */
-	private void getOrderDetailListForPay(String cartTy, List<CartVO> cartList, Model model) throws Exception {
-		// 주문코드 생성 (O 22 1014 1041 00 000)
-		String ordrCd = "O" + DateUtil.getCurrentDateTime("yyMMddHHmmssSS").substring(1);
+	private void getOrderDetailListForPay(String cartTy, String ordrCd, List<CartVO> cartList, Model model) throws Exception {
 
 		OrdrVO ordrVO = new OrdrVO();
 		ordrVO.setOrdrCd(ordrCd);
@@ -650,6 +669,7 @@ public class OrdrController extends CommonAbstractController{
 		// 도서산간지역 배송지역 체크
 		int aditCt = dlvyCtAditRgnService.selectDlvyCtAditRgnCnt(bassDlvyVO.getZip());
 		log.debug("@@ 도서산간지역 체크: " + aditCt);
+		bassDlvyVO.setDlvyCtAditRgnYn((aditCt > 0)?"Y":"N");
 		
 		
 		// STEP.3 주문 상세 정보
@@ -661,6 +681,7 @@ public class OrdrController extends CommonAbstractController{
 			ordrDtlVO.setBnefCd(cartVO.getBnefCd());
 			ordrDtlVO.setGdsNm(cartVO.getGdsNm());
 			ordrDtlVO.setGdsPc(cartVO.getGdsPc());
+			ordrDtlVO.setGdsOptnNo(cartVO.getGdsOptnNo());
 			ordrDtlVO.setOrdrOptnTy(cartVO.getOrdrOptnTy());
 			ordrDtlVO.setOrdrOptn(cartVO.getOrdrOptn());
 			ordrDtlVO.setOrdrOptnPc(cartVO.getOrdrOptnPc());
@@ -683,46 +704,46 @@ public class OrdrController extends CommonAbstractController{
 
 			
 			//상품에 입점업체 정보가 있는지 체크
-			boolean isCheckEntrps = true;
-			if (gdsVO.getEntrpsNo() == 0) {
-				isCheckEntrps = false;
-			}
+			// boolean isCheckEntrps = true;
+			// if (gdsVO.getEntrpsNo() == 0) {
+			// 	isCheckEntrps = false;
+			// }
 			
 			
-			//배송비 무료조건에 부합하는지 검사
-			EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
-			if (isCheckEntrps) {
-				//선택된 상품중 같은 입점업체 상품 가격 합
-				int checkedGdsPrice = cartList.stream().filter(c -> c.getGdsInfo().getEntrpsNo() == gdsVO.getEntrpsNo()).mapToInt(c -> c.getOrdrPc()).sum();
-				if (checkedGdsPrice >= entrpsVO.getDlvyCtCnd()) {
-					//배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-					isCheckEntrps = false;
-				}
-			}
+			// //배송비 무료조건에 부합하는지 검사
+			// EntrpsVO entrpsVO = entrpsList.stream().filter(e -> e.getEntrpsNo() == gdsVO.getEntrpsNo()).findAny().orElse(null);
+			// if (isCheckEntrps) {
+			// 	//선택된 상품중 같은 입점업체 상품 가격 합
+			// 	int checkedGdsPrice = cartList.stream().filter(c -> c.getGdsInfo().getEntrpsNo() == gdsVO.getEntrpsNo()).mapToInt(c -> c.getOrdrPc()).sum();
+			// 	if (checkedGdsPrice >= entrpsVO.getDlvyCtCnd()) {
+			// 		//배송비 무료처리
+            //     	gdsVO.setDlvyBassAmt(0);
+            //     	gdsVO.setDlvyAditAmt(0);
+			// 		isCheckEntrps = false;
+			// 	}
+			// }
 			
 			
-			// 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
-			//묶음 배송 처리
-			if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
-				int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
+			// // 20231016 : 장바구니에서 넘어온경우 묶음 배송처리 체크해야함
+			// //묶음 배송 처리
+			// if (isCheckEntrps && entrpsVO != null && "Y".equals(gdsVO.getDlvyGroupYn())) {
+			// 	int dlvyBaseCt = entrpsVO.getDlvyBaseCt(); //입점업체 기본 배송료
 
-                //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
-				//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
-				int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt();
-                if (checkDlvyCy != dlvyBaseCt) {
-                }
-                //묶음상품이여도 최초에 한번 배송비 부과
-                else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
-					entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
-				}
-                else {
-                	//묶음상품 배송비 무료처리
-                	gdsVO.setDlvyBassAmt(0);
-                	gdsVO.setDlvyAditAmt(0);
-                }
-			}
+            //     //입점업체에 기본 배송비가 아니면 부과(묶음상품 제외)
+			// 	//int checkDlvyCy = gdsVO.getDlvyBassAmt() + gdsVO.getDlvyAditAmt();
+			// 	int checkDlvyCy = gdsVO.getDlvyBassAmt(); //도서산간 > gdsVO.getDlvyAditAmt();
+            //     if (checkDlvyCy != dlvyBaseCt) {
+            //     }
+            //     //묶음상품이여도 최초에 한번 배송비 부과
+            //     else if (!entrpsFirstCheckMap.containsKey(gdsVO.getEntrpsNo())) {
+			// 		entrpsFirstCheckMap.put(gdsVO.getEntrpsNo(), true);
+			// 	}
+            //     else {
+            //     	//묶음상품 배송비 무료처리
+            //     	gdsVO.setDlvyBassAmt(0);
+            //     	gdsVO.setDlvyAditAmt(0);
+            //     }
+			// }
 
 
 			// 사업소 정보 > 바로 구매는 사업소가 없음

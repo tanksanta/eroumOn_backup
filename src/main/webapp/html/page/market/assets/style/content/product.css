@@ -1110,3 +1110,18 @@
         }
     }
 }
+
+/*배송비*/
+.icon-child {
+    @apply relative pl-3 text-gray1
+        before:content-empty before:absolute before:top-[0.313rem] before:left-0 before:inline-block before:w-2 before:h-2 before:border-gray1 before:border-l before:border-b;
+
+    &.type-pay {
+        @apply text-black2 font-medium;
+    }
+}
+
+/*구매할수없음*/
+.inavailable {
+    @apply flex flex-col items-center gap-1 mt-7 mt-4.5 bg-gray2 py-4 rounded-md;
+}

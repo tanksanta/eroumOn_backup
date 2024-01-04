@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<style>
+	.disp-off{
+		display: none;
+	}
+</style>
 				<ul class="nav tab-list tab-full tab-sticky" id="scollspy">
                     <li><a href="#section1" role="button" class="nav-link active">기본정보</a></li>
                     <li><a href="#section2" role="button" class="nav-link">상품요약정보</a></li>
@@ -35,7 +39,7 @@
                 <input type="hidden" id="delThumbFileNo" name="delThumbFileNo" value="" />
 				<input type="hidden" id="delImageFileNo" name="delImageFileNo" value="" />
 
-                    <fieldset id="section1">
+                    <fieldset id="section1" class="con-basic">
                         <legend class="text-title2">기본정보</legend>
                         <table class="table-detail">
                             <colgroup>
@@ -672,7 +676,7 @@
                     </fieldset>
 
 
-                    <fieldset class="mt-13">
+                    <fieldset class="mt-13 con-delivery">
                         <legend class="text-title2">배송비</legend>
                         <table class="table-detail">
                             <colgroup>
@@ -680,41 +684,61 @@
                                 <col>
                             </colgroup>
                             <tbody>
+								<tr class="dlvy-ct-ty-tr" >
+                                    <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
+                                    <td>
+                                        <form:select path="dlvyCtStlm" class="form-control w-50">
+                                            <form:option value="" label="선택" />
+											<c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
+												<form:option value="${iem.key}" label="${iem.value}" />
+											</c:forEach>
+                                        </form:select>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th scope="row"><label for="dlvyCtTy">배송비 유형</label></th>
                                     <td>
                                         <div class="form-group">
                                             <form:select path="dlvyCtTy" class="form-control w-50">
 												<form:option value="" label="선택" />
-	                                        <c:forEach items="${dlvyCostTyCode}" var="iem" varStatus="status">
-	                                            <form:option value="${iem.key}" label="${iem.value}" />
-	                                        </c:forEach>
+												<c:forEach items="${dlvyCostTyCode}" var="iem" varStatus="status">
+													<form:option value="${iem.key}" label="${iem.value}" />
+												</c:forEach>
                                             </form:select>
                                             <p class="ml-2">배송비 유형을 선택하면 자동으로 항목이 변환됩니다.</p>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="dlvy-ct-ty-tr" style="display:none;">
-                                    <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
-                                    <td>
-                                        <form:select path="dlvyCtStlm" class="form-control w-50">
-                                            <form:option value="" label="선택" />
-                                        <c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
-                                            <form:option value="${iem.key}" label="${iem.value}" />
-                                        </c:forEach>
-                                        </form:select>
-                                    </td>
-                                </tr>
-                                <tr class="dlvy-ct-ty-tr" style="display:none;">
+                                
+                                <tr class="dlvy-ct-ty-tr dlvyBassAmt">
                                     <th scope="row"><label for="dlvyBassAmt">기본 배송료</label></th>
                                     <td>
                                         <div class="form-group">
                                             <form:input type="number" path="dlvyBassAmt" class="form-control w-50 numbercheck" min="0" />
                                             <span>원</span>
+											<p class="ml-2 txt">(주문 금액 상관없이 부과)</p>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+								<tr class="dlvy-ct-ty-tr dlvyCtCnd">
+                                    <th scope="row"><label for="dlvyCtCnd" class="tit">배송비 유형에 해당하는 타이틀</label></th>
+                                    <td>
+                                        <div class="form-group">
+                                            <form:input type="number" path="dlvyCtCnd" class="form-control w-50 numbercheck" min="0" />
+                                            
+											<p class="ml-2 txt">원 &nbsp;배송비 유형에 해당하는 텍스트</p>
+                                        </div>
+                                    </td>
+                                </tr>
+								<tr class="dlvy-ct-ty-tr dlvyCtCnd2">
+                                    <td scope="row">&nbsp;</td>
+                                    <td>
+                                        <div class="form-group">
+											<p class="ml-2 text-gray5 ex">ex) 50개마다 배송비 4,000원 / 51개 구매 → 8,000원 부과</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="dlvy-ct-ty-tr dlvyAditAmt">
                                     <th scope="row"><label for="dlvyAditAmt">산간지역 추가 배송비</label></th>
                                     <td>
                                         <div class="form-group">
@@ -724,13 +748,22 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row"><label for="dlvyAditAmt">묶음배송</label></th>
+                                <tr class="dlvy-ct-ty-tr dlvyGroupYn">
+                                    <th scope="row"><label for="dlvyGroupYn">묶음배송</label></th>
                                     <td>
-                                        <div class="form-group">
+                                        <div class="form-group mr-4">
                                             <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
-                                            <label class="form-check-label" for="dlvyGroupYn">사용</label>
+                                            <label class="form-check-label" for="dlvyGroupYn1">사용</label>
+											<input type="hidden" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
                                         </div>
+
+										<button type="button" class="btn-primary btn dlvy grp add">묶음그룹 생성</button>
+										<button type="button" class="btn-primary btn dlvy grp select">묶음그룹 선택</button>
+
+										<div class="flex flex-col border border-gray1 rounded-md m-h-50 p-4 mt-2 w-[40%] min-w-[540px] dlvy-group-disp">
+											<strong class="mb-4">그룹 : <span class="entrpsDlvygrpNm">${entrpsDlvyGrpVO.entrpsDlvygrpNm}</span> (<span class="entrpsDlvygrpUseYn">${useYnCode[entrpsDlvyGrpVO.useYn]}</span>)</strong>
+                                            <p class="text-gray5">배송비 계산방식 :<span class="dlvyCalcTyNm">${dlvyCalcTyCode[entrpsDlvyGrpVO.dlvyCalcTy]}</span></p>
+										</div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1053,7 +1086,17 @@
                  --%>
                 <c:import url="/_mng/gds/gds/modalGdsSearch" />
 
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/gds/gds/JsHouseMngGdsGdsFormDelivery.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpChoice.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpModal.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
+				
                 <script>
+					var jsHouseMngGdsGdsFormDelivery;
+					$(document).ready(function() {
+						jsHouseMngGdsGdsFormDelivery = new JsHouseMngGdsGdsFormDelivery("fieldset.con-basic", "fieldset.con-delivery");
+					});
+					
+
                     let spyTarget = document.getElementById('container');
                     spyTarget.setAttribute('data-bs-spy', 'scroll');
                     spyTarget.setAttribute('data-bs-offset', '200');
@@ -1501,18 +1544,20 @@
                    		tinymce.init({selector:"#gdsDc, #aditGdsDc, #memo, #dlvyDc, #dcCmmn, #dcFreeSalary, #dcPchrgSalary, #dcPchrgSalaryGnrl, #dcPchrgGnrl"});
 
                    		//배송비 유형
-                   		$("#dlvyCtTy").on("change", function(){
-                   			$("#dlvyCtStlm").val('');
-                   			$("#dlvyBassAmt").val(0);
-                   			$("#dlvyAditAmt").val(0);
-                   			$(".dlvy-ct-ty-tr").hide();
-							if($(this).val() == "PAY"){
-								$(".dlvy-ct-ty-tr").show();
-							}
-                   		});//.trigger("change");
-                   		if($("#dlvyCtTy").val() == "PAY"){
-							$(".dlvy-ct-ty-tr").show();
-						}
+						<!-- JsHouseMngGdsGdsFormDelivery.fn_changed_dlvyCtTy 으로 이동
+                   		// $("#dlvyCtTy").on("change", function(){
+                   		// 	// $("#dlvyCtStlm").val('');
+                   		// 	// $("#dlvyBassAmt").val(0);
+                   		// 	// $("#dlvyAditAmt").val(0);
+                   		// 	// $(".dlvy-ct-ty-tr").hide();
+						// 	// if($(this).val() == "PAY"){
+						// 	// 	$(".dlvy-ct-ty-tr").show();
+						// 	// }
+                   		// });//.trigger("change");
+                   		// if($("#dlvyCtTy").val() == "PAY"){
+						// 	// $(".dlvy-ct-ty-tr").show();
+						// } 
+						-->
 
 
                    		//할인가 계산
@@ -1644,6 +1689,17 @@
                     	    	if($("#aditOptnTtl0").val() == ''){
                     	    		$("#aditOptnTtl").val('');
                     	    	}
+
+								if ($( ".dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").is(":checked")){
+									//묶음배송 체크가 되어 있을경우
+									var entrpsDlvygrpNo = $(" .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val();
+
+									if (entrpsDlvygrpNo == undefined || entrpsDlvygrpNo.length < 1 || entrpsDlvygrpNo == "0"){
+										alert("묶음그룹을 선택하여 주십시오.")
+										return false;
+									}
+								}
+
                     	    	if(tempFlag){
                     	    		if(confirm("임시 저장하시겠습니까?")){
                     	    			frm.submit();
@@ -1652,6 +1708,11 @@
                     	    			return false;
                     	    		}
                     	    	}else{
+									if ($("#entrpsNo").val() == undefined || $("#entrpsNo").val().length < 1 || $("#entrpsNo").val() == "0"){
+										alert("입점업체를 선택하여 주십시오.")
+										return false;
+									}
+
                     	    		if (confirm('<spring:message code="action.confirm.save"/>')) {
                     	            	$("input[name='tempYn']").val("N");
                        	            	frm.submit();

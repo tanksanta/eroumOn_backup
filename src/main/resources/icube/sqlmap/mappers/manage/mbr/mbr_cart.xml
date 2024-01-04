@@ -11,6 +11,11 @@
 
 	<resultMap type="cartVO" id="cartVOMap" autoMapping="true" />
 
+	<resultMap type="entrpsVO" id="entrpsVOListMap" autoMapping="true" />
+
+	<resultMap type="entrpsDlvygrpVO" id="entrpsDlvygrpVOListMap" autoMapping="true" >
+	</resultMap>
+
 	<sql id="listColumn">
 		cart_no
 		, cart_grp_no
@@ -26,6 +31,7 @@
 		, ordr_optn
 		, ordr_optn_pc
 		, ordr_qy
+		, view_yn
 		, recipter_unique_id
 		, bplc_unique_id
 		, reg_unique_id
@@ -82,6 +88,9 @@
 		<if test="srchCartGrpNo != null and srchCartGrpNo != '' ">
 			AND cart_grp_no = #{srchCartGrpNo}
 		</if>
+		<if test="srchViewYn != null and srchViewYn != '' ">
+			AND view_yn = #{srchViewYn}
+		</if>
 		<if test="@icube.common.util.StringUtil@isNotEmpty(srchCartGrpNos)">
 			AND cart_grp_no IN
 			<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
@@ -117,14 +126,76 @@
 		ORDER BY bplc_unique_id
 	</select>
 
-
-	<select id="selectCartCount" parameterType="java.util.HashMap" resultType="int">>
+	<select id="selectCartCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT COUNT(*)
 		FROM CART c
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
 
+	<select id="selectCartDlvygrpListAll" parameterType="java.util.HashMap" resultMap="entrpsDlvygrpVOListMap">
+		SELECT entrps_dlvygrp_no
+				, entrps_no
+				, entrps_dlvygrp_nm
+				, dlvy_adit_amt
+				, dlvy_calc_ty
+				, use_yn
+				
+		FROM entrps_dlvygrp
+		WHERE ENTRPS_DLVYGRP_NO in (
+								SELECT DISTINCT IFNULL(g.ENTRPS_DLVYGRP_NO, 0) ENTRPS_DLVYGRP_NO
+								FROM cart c
+								INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
+								WHERE g.DLVY_GROUP_YN = 'Y'
+									AND cart_grp_no IN
+									<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+										#{srchCartGrpNo}
+									</foreach>
+								)
+	</select>
+
+	<select id="selectCartEntrpsListAll" parameterType="java.util.HashMap" resultMap="entrpsVOListMap">
+		SELECT entrps_no
+				, entrps_nm
+				, brno
+				, rprsv_nm
+				, induty
+				, bizcnd
+				, zip
+				, addr
+				, daddr
+				, telno
+				, fxno
+				, eml
+				, tkcg_md
+				, use_yn
+				, dlvy_ct_cnd
+				, dlvy_base_ct
+				, clcln_cycle
+				, bank_nm
+				, actno
+				, dpstr
+				, ctrt_bgng_ymd
+				, ctrt_end_ymd
+				, ctrt_ymd
+				, fee
+				, pic_nm
+				, pic_telno
+				, pic_telno_hp
+				, pic_eml
+				, pic_job
+				
+		FROM ENTRPS
+		where ENTRPS_NO in (
+							SELECT DISTINCT IFNULL(g.ENTRPS_NO, 0) ENTRPS_NO
+							FROM cart c
+							INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
+							WHERE cart_grp_no IN
+								<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+									#{srchCartGrpNo}
+								</foreach>
+						)
+	</select>
 
 	<select id="selectCartByFilter" parameterType="java.util.HashMap" resultMap="cartVOMap">
 		SELECT
@@ -154,6 +225,8 @@
 			 , ordr_qy
 			 , gds_optn_no
 
+			, view_yn
+
 			 , recipter_unique_id
 			 , bplc_unique_id
 
@@ -180,6 +253,8 @@
 			 , #{ordrOptnPc}
 			 , #{ordrQy}
 			 , #{gdsOptnNo}
+
+			 , #{viewYn}
 
 			 , #{recipterUniqueId, jdbcType=VARCHAR}
 			 , #{bplcUniqueId, jdbcType=VARCHAR}

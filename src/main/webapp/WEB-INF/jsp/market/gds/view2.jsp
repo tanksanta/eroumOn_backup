@@ -564,33 +564,6 @@
 						
 					</dl>
 
-					<dl class="border-bottom">
-						<dt>배송 유형</dt>
-						<dd>
-							${dlvyCostTyCode[gdsVO.dlvyCtTy]}배송
-							<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-                               	&nbsp;(${dlvyPayTyCode[gdsVO.dlvyCtStlm]})
-                               	</c:if>
-						</dd>
-					</dl>
-					<c:if test="${gdsVO.dlvyCtTy eq 'PAY'}">
-					<dl class="border-bottom">
-						<dt>배송비</dt>
-						<dd>
-							<fmt:formatNumber value="${gdsVO.dlvyBassAmt}" pattern="###,###" />
-						</dd>
-					</dl>
-					</c:if>
-
-					<%-- 추가 배송비 -> 도서산간비용, 노출x
-					<c:if test="${gdsVO.dlvyAditAmt > 0}">
-					<dl>
-						<dt>추가 배송비</dt>
-						<dd>
-							<fmt:formatNumber value="${gdsVO.dlvyAditAmt}" pattern="###,###" />
-						</dd>
-					</dl>
-					</c:if> --%>
 					
 					<!--복지용구일때만 나오는 영역-->
 					<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
@@ -620,6 +593,8 @@
 
 					<%--from start--%>
 					<form id="frmOrdr" name="frmOrdr" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="viewYn" value="">
+
 						<!-- 구매 조건 선택 -->
                        	<c:choose>
 							<c:when test="${gdsVO.gdsTy eq 'R' && _mbrSession.prtcrRecipterYn eq 'Y' }"> <%-- 급여 & 수급자--%>
@@ -760,7 +735,7 @@
 	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
 		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
 	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
-											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT">${spAditOptnTtl[1]}</a></li>
+											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}</a></li>
 	                               		</c:if>
 	                               		</c:forEach>
 	                                    </ul>
@@ -863,10 +838,17 @@
 
 <script>
 	var jsMarketGdsView = null;
+	var jsMarketGdsView_f_baseOptnChg_exec = false;
 	$(document).ready(function() {
 		var path = {_membershipPath:"${_membershipPath}", _marketPath:"${_marketPath}"};
 
 		jsMarketGdsView = new JsMarketGdsView(path, ${_mbrSession.loginCheck}, $("textarea.gdsVOString").val())
+
+		if (jsMarketGdsView_f_baseOptnChg_exec){
+			jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE");
+			jsMarketGdsView_f_baseOptnChg_exec = false;
+		}
+		
 	});
 
 
@@ -1040,7 +1022,7 @@ var Goods = (function(){
 		    // 옵션이 없는 경우 //|0|10
 		    if(${gdsVO.stockQy} > 0){
 		    	$(".product-quanitem").remove();
-			    jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+				jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
 		    }
 		    $(".btn-delete").remove();
 		    </c:if>
@@ -1051,7 +1033,12 @@ var Goods = (function(){
 	    <c:if test="${empty optnTtl[0]}">
 	    // 옵션이 없는 경우 //|0|10
 	    if(${gdsVO.stockQy} > 0){
-		    jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+			if (jsMarketGdsView == undefined){
+				jsMarketGdsView_f_baseOptnChg_exec = true;
+			}else{
+				jsMarketGdsView.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+			}
+			
 	    }
 	    $(".btn-delete").remove();
 	    </c:if>
@@ -1151,49 +1138,13 @@ var Goods = (function(){
 
 		// 구매 버튼
 		$('.payment-button .f_buy').on('click', function() {
-			f_buyClick();
+			jsMarketGdsView.f_buyClick();
 		});
 
 
 		// 장바구니 버튼
 		$(".payment-button .f_cart").on("click", function(){
-
-	        if((ordrTy == "R" || ordrTy == "L") && $("#bplcUniqueId").val() == "" ){
-				alert("급여상품 구입은 멤버스(사업소)를 선택해야 합니다.");
-				return false;
-	        }else if($(".product-quanitem").length < 1){
-	        	alert("필수 옵션을 선택하세요");
-				$('.payment-type-content1 .payment-scroller').addClass('is-active');
-	        	return false;
-	        }else{
-	        	var formData = $("#frmOrdr").serialize();
-				$.ajax({
-					type : "post",
-					url  : "${_marketPath}/mypage/cart/putCart.json",
-					data : formData,
-					dataType : 'json'
-				})
-				.done(function(json) {
-					if(json.result){
-						//console.log("resultMsg: ", json.resultMsg);
-						if(json.resultMsg == "ALREADY"){
-							alert("장바구니에 담겨있는 상품입니다.");
-						}else{
-							$('.navigation-util .util-item3 i').text(Number($('.navigation-util .util-item3 i').text()) + 1);
-							if (confirm("장바구니에 상품을 담았습니다.\n장바구니로 이동하시겠습니까?")){
-								window.location.href = "${_marketPath}/mypage/cart/list";
-							}
-						}
-					}else{
-						alert("장바구니 담기에 실패하였습니다.\n잠시후 다시 시도해 주시기 바랍니다.")
-					}
-				})
-				.fail(function(data, status, err) {
-					console.log('error forward : ' + data);
-				});
-
-	        }
-
+	        jsMarketGdsView.f_cart_click();
 		});
 
 		$('.f_loginCheck').on('click', function(){
@@ -1205,17 +1156,20 @@ var Goods = (function(){
 		// 고시정보
 		let infoJson = eval('(${!empty gdsVO.ancmntInfo?gdsVO.ancmntInfo:'{}'})');
 		var html = '<tr class="top-border"><td></td><td></td></tr>';
-		$.each(item['${gdsVO.ancmntTy}'].article, function(key, value){
-	    	html += '<tr>';
-			html += '	<th scope="row"><p>'+ value[0] +'</p></th>';
-			html += '	<td>';
-			if(value[1] != ''){
-				html += '	<p class="py-1">'+ value[1] +'</p>';
-	        }
-			html += '	'+ (infoJson[key]==undefined?'상세설명페이지 참고':infoJson[key]);
-			html += '	</td>';
-			html += '</tr>';
-		});
+
+		<c:if test="${!empty gdsVO.ancmntTy}">
+			$.each(item['${gdsVO.ancmntTy}'].article, function(key, value){
+				html += '<tr>';
+				html += '	<th scope="row"><p>'+ value[0] +'</p></th>';
+				html += '	<td>';
+				if(value[1] != ''){
+					html += '	<p class="py-1">'+ value[1] +'</p>';
+				}
+				html += '	'+ (infoJson[key]==undefined?'상세설명페이지 참고':infoJson[key]);
+				html += '	</td>';
+				html += '</tr>';
+			});
+		</c:if>
 	    html += '<tr class="bot-border"><td></td><td></td></tr>';
 	    $("#ancmntTable tbody").append(html);
 

@@ -76,9 +76,11 @@
 		, g.dlvy_mumm_amt
 		, g.dlvy_ct_ty
 		, g.dlvy_ct_stlm
+		, g.dlvy_ct_cnd
 		, g.dlvy_bass_amt
 		, g.dlvy_adit_amt
 		, g.dlvy_group_yn
+		, g.entrps_dlvygrp_no
 		, g.dlvy_dc
 		, g.youtube_url
 		, g.adit_gds_dc
@@ -466,6 +468,7 @@
 			 , dlvy_bass_amt
 			 , dlvy_adit_amt
 			 , dlvy_group_yn
+			 , entrps_dlvygrp_no
 			 , dlvy_dc
 
 			 , youtube_url
@@ -552,6 +555,7 @@
 			, #{dlvyBassAmt}
 			, #{dlvyAditAmt}
 			, #{dlvyGroupYn, jdbcType=VARCHAR}
+			, #{entrpsDlvygrpNo}
 			, #{dlvyDc, jdbcType=VARCHAR}
 
 			, #{youtubeUrl}
@@ -645,6 +649,7 @@
 			, dlvy_bass_amt = #{dlvyBassAmt}
 			, dlvy_adit_amt = #{dlvyAditAmt}
 			, dlvy_group_yn = #{dlvyGroupYn}
+			, entrps_dlvygrp_no = #{entrpsDlvygrpNo}
 			, dlvy_dc = #{dlvyDc}
 
 			, youtube_url = #{youtubeUrl}
@@ -794,4 +799,57 @@
 		ORDER BY FIELD(g.gds_ty, 'R', 'L', 'N') ASC
 	</select>
 
+	<!-- 배송 묶음그룹 삭제 -->
+	<update id="updateGdsByDlvygrpResetAll" parameterType="gdsVO">
+		UPDATE GDS g 
+		SET dlvy_group_yn = 'N'
+			, entrps_dlvygrp_no = 0
+			, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE use_yn = 'Y' AND dlvy_group_yn = 'Y'
+			AND entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
+	</update>
+
+	<!-- 상품목록 중 선택한 상품만 배송 묶음그룹에서 삭제 -->
+	<update id="updateGdsByDlvygrpResetSelected" parameterType="gdsVO">
+		/* Query ID : gds.updateGdsListByDlvygrpReset */
+		UPDATE GDS
+		   SET  dlvy_group_yn = 'N'
+			, entrps_dlvygrp_no = 0
+		   	, mdfcn_unique_id = #{mdfcnUniqueId, jdbcType=VARCHAR}
+			, mdfcn_dt = SYSDATE()
+			, mdfcn_id = #{mdfcnId, jdbcType=VARCHAR}
+			, mdfr = #{mdfr, jdbcType=VARCHAR}
+		WHERE entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND entrps_no = #{entrpsNo}
+			AND gds_no IN
+				<foreach collection="arrGdsNo" item="gdsNo" open="(" separator="," close=")">
+					#{gdsNo}
+				</foreach>
+	</update>
+
+
+	<select id="selectGdsCountByDlvygrp" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : gds.selectGds */
+		SELECT COUNT(*)
+		FROM GDS g
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE g.use_yn = 'Y' AND g.dlvy_group_yn = 'Y'
+			AND g.entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND g.entrps_no = #{entrpsNo}
+	</select>
+
+	<select id="selectGdsListByDlvygrp" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
+		/* Query ID : gds.selectGds */
+		SELECT
+			<include refid="listColumn"/>
+		FROM GDS g
+		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
+		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
+		WHERE g.use_yn = 'Y' AND g.dlvy_group_yn = 'Y'
+			AND g.entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND g.entrps_no = #{entrpsNo}
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+	
 </mapper>
