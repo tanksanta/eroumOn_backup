@@ -417,7 +417,7 @@ class JsMarketOrdrPay{
 			hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
 			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
 
-			hiddenInfo += '<input type="text" name="dlvyAditAmt" value="{0}">'.format(json.gdsInfo.dlvyAditAmt);
+			hiddenInfo += '<input type="hidden" name="dlvyAditAmt" value="{0}">'.format(json.gdsInfo.dlvyAditAmt);
 			
 		}else if (ordrOptnTy == "ADIT"){
 			hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(0);
