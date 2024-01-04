@@ -52,10 +52,19 @@
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     
     <!-- 네이버 연관채널 SEO -->
-    <span itemscope="" itemtype="http://schema.org/Organization">
-	<link itemprop="url" href="https://eroum.co.kr">
-	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
-	</span>
+    <script type="application/ld+json">
+	{
+ 		"@context": "http://schema.org",
+ 		"@type": "Organization",
+ 		"name": "이로움ON",
+ 		"url": "https://eroum.co.kr",
+ 		"sameAs": [
+			"https://blog.naver.com/eroum_on",
+			"https://www.youtube.com/@eroumon",
+   			"https://play.google.com/store/apps/details?id=kr.co.eroum"
+ 		]
+	}
+	</script>
 </head>
 
 <body>
