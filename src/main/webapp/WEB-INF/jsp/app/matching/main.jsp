@@ -7,6 +7,12 @@
 		Hello World
 		<br><br>
 		<button class="btn btn-primary" onclick="clickLogoutBtn();">로그아웃</button>
+		<br><br><br>
+		카메라 테스트
+		<br></br>
+		<input type="file" id="camera" name="camera" capture="camera" accept="image/*" />
+		<br />
+    	<img id="pic" style="width:100%;" />
 	</main>
 
 
@@ -14,4 +20,14 @@
 		function clickLogoutBtn() {
 			callPostAjaxIfFailOnlyMsg('/matching/logoutAction', {}, function() { location.reload(); });
 		}
+		
+		$(function() {
+			if (!('url' in window) && ('webkitURL' in window)) {
+		        window.URL = window.webkitURL;
+		    }
+			
+			$('#camera').change(function(e){
+		        $('#pic').attr('src', URL.createObjectURL(e.target.files[0]));
+		    });
+		});
 	</script>
