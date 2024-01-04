@@ -146,4 +146,15 @@ public class MatLoginController extends CommonAbstractController {
 		
 		return resultMap;
 	}
+	
+	@ResponseBody
+	@RequestMapping("logoutAction")
+	public Map<String, Object> logoutAction() {
+		
+		matMbrSession.logout();
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", true);
+		return resultMap;
+	}
 }

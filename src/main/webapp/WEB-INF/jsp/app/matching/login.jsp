@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main>
+	<main style="padding:20px;">
 		<br>
 		<br>
 		로그인 <br><br>
@@ -28,8 +28,8 @@
 			callPostAjaxIfFailOnlyMsg(
 				'/matching/loginAction', 
 				{mbrId, encPw},
-				function (result) {
-					
+				function(result) {
+					location.href = '/matching';					
 				}
 			);
 		}
