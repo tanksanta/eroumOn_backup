@@ -116,6 +116,15 @@
         	<bean class="icube.common.interceptor.GlobalInterceptor" />
         </mvc:interceptor>
 
+
+		<!-- 매칭앱 -->
+		<mvc:interceptor>
+        	<mvc:mapping path="/#{props['Globals.Matching.path']}/**"/>
+    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/login"/>
+    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/loginAction"/>
+        	<bean class="icube.app.matching.common.interceptor.MatInterceptor" />
+        </mvc:interceptor>
+		
     </mvc:interceptors>
 
 
