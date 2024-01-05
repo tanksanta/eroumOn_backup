@@ -57,12 +57,61 @@ class JsMarketCartList extends JsMargetDrawItems{
 		if (this._cls_info.cartListOrdrJson == undefined || this._cls_info.cartListOrdrJson.length == 0){
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .cart-list-none").removeClass("hidden");
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .cart-list-box").addClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-del-box").addClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-buy-box").addClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-amount").addClass("hidden");
 		}else{
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .cart-list-none").addClass("hidden");
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .cart-list-box").removeClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-del-box").removeClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-buy-box").removeClass("hidden");
+			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-amount").removeClass("hidden");
 			this.fn_draw_cart_list(".cart-list-container.ordr", this._cls_info.cartListOrdrJson);
+			this.fn_init_cart_ordr_checkall();
+			this.fn_draw_checked_amount($(this._cls_info.pagePrefix + " .cart-list-container.ordr"));
 		}
         
+		this.fn_page_init();
+    }
+
+	fn_init_cart_ordr_checkall(){
+		var list = $(this._cls_info.pagePrefix + " .cart-list-container.ordr input[type='checkbox'].cartGrpNo");
+		
+		// jsCommon.fn_checkbox_ctl_list(true, list);
+	}
+
+	fn_init_sub_addevent(){
+        var owner = this;
+
+		/*각 상품별 체크박스 클릭*/
+		$( this._cls_info.pagePrefix + " input[type='checkbox'].cartGrpNo").off('click').on('click',  function() {
+			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
+        });
+
+		/*각 사업소별 체크박스 클릭*/
+		$( this._cls_info.pagePrefix + " input[type='checkbox'].entrpsAll").off('click').on('click',  function() {
+            owner.fn_checkbox_entrps_click($(this));
+			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
+        });
+
+		/*전체 체크박스 클릭*/
+		$( this._cls_info.pagePrefix + " .btn.select.all").off('click').on('click',  function() {
+            owner.fn_checkbox_all_click($(this));
+			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
+        });
+		$( this._cls_info.pagePrefix + " .btn.select.delete.whole").off('click').on('click',  function() {
+            owner.fn_checkbox_all_click($(this));
+			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
+			owner.fn_cartgrp_delete_part_click($(this));
+        });
+		$( this._cls_info.pagePrefix + " .btn.select.delete.part").off('click').on('click',  function() {
+            owner.fn_cartgrp_delete_part_click($(this));
+        });
+
+		$( this._cls_info.pagePrefix + " .btn-delete2.cart.gdsOptn").off('click').on('click',  function() {
+            owner.fn_del_cart_optn_click($(this));
+        });
+		
     }
 
 
@@ -96,7 +145,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 
 			this.fn_draw_delelte_items(cartListJson, arrEntrpsItemIdx);
 
-			arrHtml.push('<div class="order-product">');
+			arrHtml.push('<div class="order-product" recipterUniqueId="{0}" entrpsNo="{2}" cartTy="{1}">'.format(arrEachEntrpsAllItems[0].recipterUniqueId, arrEachEntrpsAllItems[0].cartTy, entrpsVO.entrpsNo));
 			arrHtml.push(	'<div class="order-body">');
 			strHtml = this.fn_draw_html_order_item_business(entrpsVO);
 			arrHtml.push(strHtml);
@@ -108,6 +157,13 @@ class JsMarketCartList extends JsMargetDrawItems{
 
 		$(cssSelector + " div.cart-list-box").html(arrHtml.join(''));
     }
+
+	fn_draw_html_order_item_business(json){
+		return '<dl class="order-item-business">'+
+			'<dd class="form-check"><input class="form-check-input entrpsAll" type="checkbox" name="entrpsAll" value="{0}"></dd>'.format(json == undefined ? '' : json.entrpsNo)+
+			'<dt><span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsNm)+
+		'</dl>';
+	}
 
 	fn_draw_cart_each_entrps_list(cssSelector, entrpsVO, arrEachEntrpsAllItems){
 		var jfor, jlen;
@@ -264,13 +320,14 @@ class JsMarketCartList extends JsMargetDrawItems{
 		if (cartGrpMoney.originPc != cartGrpMoney.ordrPc){
 			original_price = '<span class="original-price">{0}원</span>'.format(cartGrpMoney.originPc.format_money());
 		}
+		var ableBuy = json.gdsInfo.soldOutYn=='Y'?'N':'Y';
 
 		var strHtml = ''+
-			'<div class="order-product-inner cartGrpNo" ableBuy={0}>'.format(json.gdsInfo.soldOutYn=='Y'?'N':'')+
+			'<div class="order-product-inner cartGrp" ableBuy={0}>'.format(ableBuy)+
 				'<div class="order-product-item">'+
 					'<div class="item-thumb">'+
 						'<div class="form-check">'+
-							'<input class="form-check-input cart_ty_N" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
+							'<input class="form-check-input cartGrpNo" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
 						'</div>'+
 						'<div class="order-item-thumb">'+
 							'<img src="{0}" alt="">'.format(thumbnailFile)+
@@ -333,11 +390,10 @@ class JsMarketCartList extends JsMargetDrawItems{
 			}
 		});
 
-		if (baseOptnOne == undefined || baseOptnOne.length == 0){
-			return '';
+		var soldOutYn = 'N';
+		if (baseOptnOne != undefined && baseOptnOne.length > 0 && baseOptnOne.soldOutYn == 'Y') {
+			soldOutYn = baseOptnOne[0].soldOutYn;
 		}
-
-		baseOptnOne = baseOptnOne[0];
 
 		var list = json.ordrOptn.split(' * ');
 		var arrTemp = [];
@@ -348,15 +404,17 @@ class JsMarketCartList extends JsMargetDrawItems{
 			}
 		}
 
-		var soldOutTxt = ((baseOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
-		var soldOutCls = ((baseOptnOne.soldOutYn == 'Y')?' disabled ':'');
-		var ableBuy = (baseOptnOne.soldOutYn == 'Y')?' N ':'Y';
+		var soldOutTxt = ((soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
+		var soldOutCls = ((soldOutYn == 'Y')?' disabled ':'');
+		var ableBuy = ((soldOutYn=='Y')?'N':'Y');
+		var btnDelte = '<button class="btn-delete2 cart gdsOptn base" ordrOptnTy="BASE" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
 
 		var strHtml = '<dd class="{0}">'.format(soldOutCls)+
 					arrTemp.join('')+
 					'<span>{0}개(+{1}원)</span>'.format(json.ordrQy, json.ordrPc.format_money())+
-					'<button class="btn-delete2 cart option base" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy={3}>삭제</button>'.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
+					btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
 					soldOutTxt+
+					this.fn_draw_cart_input_hidden("BASE", json, baseOptnOne, ableBuy)+
 				'</dd>';
 
 		return strHtml;
@@ -393,7 +451,8 @@ class JsMarketCartList extends JsMargetDrawItems{
 		aditOptnOne = aditOptnOne[0];
 		var soldOutTxt = ((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
 		var soldOutCls = ((aditOptnOne.soldOutYn == 'Y')?' disabled ':'');
-		var ableBuy = (aditOptnOne.soldOutYn == 'Y')?' N ':'Y';
+		var ableBuy = aditOptnOne.soldOutYn=='Y'?'N':'Y';
+		var btnDelte = '<button class="btn-delete2 cart gdsOptn adit" ordrOptnTy="ADIT" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
 
 		var strHtml = ''+
 			'<div class="item-add">'+
@@ -407,9 +466,10 @@ class JsMarketCartList extends JsMargetDrawItems{
 						'<span class="font-semibold">{0}개</span>'.format(json.ordrQy)+
 						'<span>(+{0}원)</span>'.format((aditOptnOne.optnPc * json.ordrQy).format_money())+
 						soldOutTxt+
-						'<button class="btn-delete2 cart option adit" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy={3}>삭제</button>'.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
+						btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
 					'</div>'+
 				'</dd>'+
+				this.fn_draw_cart_input_hidden("ADIT", json, aditOptnOne, ableBuy)+
 			'</div>';	
 						
 		return strHtml;
@@ -453,5 +513,167 @@ class JsMarketCartList extends JsMargetDrawItems{
 		var strHtml = '<div class="order-disabled"><strong>일시품절 상품입니다</strong></div>';
 		
 		return strHtml;
+	}
+
+	fn_draw_cart_input_hidden(ordrOptnTy, json, aditOptnOne, ableBuy){
+		var hiddenInfo = '';
+		hiddenInfo += '<input type="hidden" name="cartNo" value="{0}">'.format(json.cartNo);
+		hiddenInfo += '<input type="hidden" name="cartGrpNo" value="{0}">'.format(json.cartGrpNo);
+		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
+
+		hiddenInfo += '<input type="hidden" name="ordrQy" value="{0}">'.format(json.ordrQy);
+		if (ordrOptnTy == 'BASE'){
+			hiddenInfo += '<input type="hidden" name="ordrPc" value="{0}">'.format(json.ordrPc);// <%--건별 주문금액--%>
+		}else if (ordrOptnTy == 'ADIT'){
+			hiddenInfo += '<input type="hidden" name="ordrPc" value="{0}">'.format(json.ordrQy * aditOptnOne.optnPc);// <%--건별 주문금액--%>
+		}
+			
+		return hiddenInfo;
+	}
+
+	fn_draw_checked_amount(jobjRoot){
+		var key;
+		
+		var money = 0;
+		var cssSelector = this._cls_info.pagePrefix + " .order-amount ";
+
+		var cartResultMoney = this.fn_calc_checked_amount(jobjRoot);
+
+		key = "total-ordrpc";
+		money += cartResultMoney[key];
+		$(cssSelector + "  ." + key + "-dl ." + key + "-txt").html(cartResultMoney[key].format_money());
+
+		key = "total-dlvyBase";
+		money += cartResultMoney[key];
+		$(cssSelector + "  ." + key + "-dl ." + key + "-txt").html(cartResultMoney[key].format_money());
+
+		$("#stlmAmt").val(money);
+		$(cssSelector + " .total-stlmAmt-txt").html(money.format_money());
+	}
+
+	fn_calc_checked_amount(jobjRoot){
+
+		var listTemp, listCheckbox = jobjRoot.find(".order-product .order-product-item input[type='checkbox'].cartGrpNo");
+		var jobjTarget, jobjCartGrp;
+		var money = 0;
+		
+		var ifor, ilen = listCheckbox.length;
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjTarget = $(listCheckbox[ifor]);
+			if (jobjTarget.is(":checked")){
+				jobjCartGrp = jobjTarget.closest('.order-product-item');
+
+				listTemp = jobjCartGrp.find('input[name="ordrPc"]');
+				$.each (listTemp, function (index, el) {
+					money += Number($(el).val().replace(",", ""));
+				});
+			}
+			
+		}
+
+		return {"total-ordrpc":money, "total-dlvyBase":0, "total-dlvyAdit":0}
+	}
+
+
+	fn_del_cart_optn_click(jobjTarget){
+		if (!confirm("선택한 옵션을 삭제하시겠습니까?")){return;}
+		var jObjTemp = jobjTarget.closest('.order-product');
+
+		var recipterUniqueId = jObjTemp.attr("recipterUniqueId");
+
+		var cartTy = jObjTemp.attr("cartTy");
+
+		var cartNo = jobjTarget.attr("cartNo");
+		var cartGrpNo = jobjTarget.attr("cartGrpNo");
+		var gdsOptnNo = jobjTarget.attr("gdsOptnNo");
+
+		var data = {cartNo
+					, cartGrpNo
+					, cartTy
+					, gdsOptnNo
+					, recipterUniqueId
+				};
+
+
+
+		jsCallApi.call_api_post_json(this
+									, this._cls_info._marketPath + '/mypage/cart/removeCartOptn.json'
+									, 'fn_del_cart_optn_cb'
+									, data);
+
+	}
+	
+    fn_del_cart_optn_cb(result, fail, data, param){
+		if (result != undefined && result.result){
+			alert("삭제되었습니다.")
+			window.location.reload();
+		}else{
+			alert("장바구니를 삭제하는 중 오류가 발생하였습니다.\n새로고침 후 다시 시도해 주십시오.")
+		}
+	}
+
+	fn_checkbox_entrps_click(jobjTarget){
+		var checked = jobjTarget.is(":checked");
+
+		var jobjRoot = jobjTarget.closest('.order-product');
+
+		var list = jobjRoot.find('input[type="checkbox"][name="cartGrpNo"].form-check-input');
+		
+		jsCommon.fn_checkbox_ctl_list(checked, list);
+		
+			
+	}
+
+	fn_checkbox_all_click(jobjTarget){
+		var jobjRoot = jobjTarget.closest('.cart-list-container');
+		var list = jobjRoot.find('input[type="checkbox"][name="cartGrpNo"].form-check-input');
+		
+		jsCommon.fn_checkbox_ctl_list(true, list);
+	}
+
+	fn_cartgrp_delete_part_click(jobjTarget){
+		var jobjRoot = jobjTarget.closest('.cart-list-container');
+
+		var jobjProduct = jobjRoot.find('.order-product');
+
+		if (jobjProduct == undefined || jobjProduct.length == 0){
+			alert("삭제할 상품이 존재하지 않습니다.")
+			return;
+		}
+		jobjProduct = $(jobjProduct[0]);
+		var recipterUniqueId = jobjProduct.attr("recipterUniqueId");
+
+		var cartTy = jobjProduct.attr("cartTy");
+
+		var list = jobjRoot.find('input[type="checkbox"][name="cartGrpNo"].form-check-input:checked');
+		if (list == undefined || list.length == 0){
+			alert("삭제할 상품을 선택하여 주십시오.")
+			return;
+		}
+		var cartGrpNos = [];
+		$.each (list, function (index, el) {
+			cartGrpNos.push($(el).val())
+		});
+		
+
+		if (!confirm("선택한 상품 "+cartGrpNos.length+"건을 삭제하시겠습니까?")) return;
+
+		var data = {cartGrpNos
+			, cartTy
+			, recipterUniqueId
+		};
+
+		jsCallApi.call_api_post_json(this
+							, this._cls_info._marketPath + '/mypage/cart/removeCart.json'
+							, 'fn_cartgrp_delete_part_cb'
+							, data);
+	}
+	fn_cartgrp_delete_part_cb(result, fail, data, param){
+		if (result != undefined && result.result){
+			alert("삭제되었습니다.")
+			window.location.reload();
+		}else{
+			alert("장바구니를 삭제하는 중 오류가 발생하였습니다.\n새로고침 후 다시 시도해 주십시오.")
+		}
 	}
 }

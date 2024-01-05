@@ -290,6 +290,46 @@ public class MyCartController extends CommonAbstractController  {
 		return resultMap;
 	}
 
+	/**
+	 * 장바구니 삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value="removeCartOptn.json")
+	public Map<String, Object> removeCartOptn(
+			@RequestParam(value="cartTy", required=true) String cartTy
+			, @RequestParam(value="cartGrpNo", required=true) String cartGrpNo
+			, @RequestParam(value="cartNo", required=true) String cartNo
+			, @RequestParam(value="gdsOptnNo", required=true) String gdsOptnNo
+			, @RequestParam(value="recipterUniqueId", required=true) String recipterUniqueId
+			, @RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request
+			, HttpServletResponse response
+			, HttpSession session
+			, Model model) throws Exception {
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCartNo", cartNo);
+		paramMap.put("srchCartGrpNo", cartGrpNo);
+		paramMap.put("srchCartTy", cartTy);
+		paramMap.put("gdsOptnNo", gdsOptnNo);
+		paramMap.put("srchRecipterUniqueId", recipterUniqueId);
+		
+		try {
+			// 장바구니 옵션 삭제
+			cartService.deleteCartOptn(paramMap);
+
+			result = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
 	// 장바구니 옵션변경 모달
 	@RequestMapping(value="cartOptnModal")
 	public String cartOptnModal(

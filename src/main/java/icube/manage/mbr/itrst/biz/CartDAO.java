@@ -55,6 +55,9 @@ public class CartDAO extends CommonAbstractMapper {
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		delete("mbr.cart.deleteCart", paramMap);
 	}
+	public void deleteCartOptn(Map<String, Object> paramMap) throws Exception {
+		delete("mbr.cart.deleteCartOptn", paramMap);
+	}
 
 	public Integer modifyOptnChg(CartVO cartVO) throws Exception {
 		return insert("mbr.cart.mergeOptnChg",cartVO);

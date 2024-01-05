@@ -298,6 +298,22 @@
 		<include refid="searchConditions" />
 	</delete>
 
+	<delete id="deleteCartOptn" parameterType="java.util.HashMap">
+		DELETE 
+		FROM CART
+		WHERE cart_no = #{srchCartNo} AND cart_grp_no = #{srchCartGrpNo} 
+			AND gds_optn_no = #{gdsOptnNo} AND recipter_unique_id = #{srchRecipterUniqueId}
+			<if test="srchCartTy != null and srchCartTy != '' ">
+				<choose>
+					<when test='srchCartTy == "R" '>AND cart_ty IN ('R', 'L')</when>
+					<otherwise>
+						AND cart_ty = #{srchCartTy}
+					</otherwise>
+				</choose>
+			</if>
+	</delete>
+
+
 	<!-- 옵션내용 변경 : mergeOptnChg -->
 	<insert id="mergeOptnChg" parameterType="cartVO">
 		/* mergeOptnChg */

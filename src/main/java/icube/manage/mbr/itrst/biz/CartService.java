@@ -54,6 +54,9 @@ public class CartService extends CommonAbstractServiceImpl {
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		cartDAO.deleteCart(paramMap);
 	}
+	public void deleteCartOptn(Map<String, Object> paramMap) throws Exception {
+		cartDAO.deleteCartOptn(paramMap);
+	}
 
 	public Integer modifyOptnChg(CartVO cartVO) throws Exception{
 		return cartDAO.modifyOptnChg(cartVO);
