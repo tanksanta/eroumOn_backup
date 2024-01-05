@@ -111,9 +111,17 @@
             	<small>아래 1:1 상담하기 버튼을 눌러주세요.</small>	
             </c:if>
         </h2>
-        <div class="images" >
-            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
-        </div>
+        
+        <c:if test="${_mbrSession.loginCheck}">
+        	<div class="images" onclick="clickStartConsltBtn();" style="cursor:pointer;">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
+        <c:if test="${!_mbrSession.loginCheck}">
+        	<div class="images">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
     </div>
     
     <div class="result-content3">
