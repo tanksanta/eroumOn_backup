@@ -266,11 +266,11 @@ class JsMarketCartList extends JsMargetDrawItems{
 		}
 
 		var strHtml = ''+
-			'<div class="order-product-inner">'+
+			'<div class="order-product-inner cartGrpNo" ableBuy={0}>'.format(json.gdsInfo.soldOutYn=='Y'?'N':'')+
 				'<div class="order-product-item">'+
 					'<div class="item-thumb">'+
 						'<div class="form-check">'+
-							'<input class="form-check-input cart_ty_N" type="checkbox" name="cartGrpNo" value="74">'+
+							'<input class="form-check-input cart_ty_N" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
 						'</div>'+
 						'<div class="order-item-thumb">'+
 							'<img src="{0}" alt="">'.format(thumbnailFile)+
@@ -306,6 +306,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 						strItemOptionAdit+
 					'</div>'+
 					'<div class="item-btn"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#countModal">주문 수정</button></div>'+
+					((json.gdsInfo.soldOutYn == 'Y') ? this.fn_draw_cart_itemgrp_sold_out():'') + 
 				'</div>'+
 			'</div>';
 
@@ -324,18 +325,38 @@ class JsMarketCartList extends JsMargetDrawItems{
 	}
 
 	fn_draw_cart_itemgrp_base_one(json){
+		
+		var baseOptnOne, aditOptnList = json.gdsInfo.optnList;
+		baseOptnOne = aditOptnList.filter(function(item, idex) {
+			if (json.gdsOptnNo == item.gdsOptnNo) {
+				return true;
+			}
+		});
+
+		if (baseOptnOne == undefined || baseOptnOne.length == 0){
+			return '';
+		}
+
+		baseOptnOne = baseOptnOne[0];
+
 		var list = json.ordrOptn.split(' * ');
 		var arrTemp = [];
 		var efor, elen = list.length;
 		for(efor = 0; efor<elen ; efor++){
-			arrTemp.push('<span class="label-flat">{0}</span>'.format(list[efor]));
+			if (list[efor] != undefined && list[efor].length > 0){
+				arrTemp.push('<span class="label-flat">{0}</span>'.format(list[efor]));
+			}
 		}
 
-		var strHtml = '<dd>'+
+		var soldOutTxt = ((baseOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
+		var soldOutCls = ((baseOptnOne.soldOutYn == 'Y')?' disabled ':'');
+		var ableBuy = (baseOptnOne.soldOutYn == 'Y')?' N ':'Y';
+
+		var strHtml = '<dd class="{0}">'.format(soldOutCls)+
 					arrTemp.join('')+
 					'<span>{0}개(+{1}원)</span>'.format(json.ordrQy, json.ordrPc.format_money())+
-					'<button class="btn-delete2">삭제</button>'+
-					'<strong class="text-soldout">임시품절</strong>'+
+					'<button class="btn-delete2 cart option base" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy={3}>삭제</button>'.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
+					soldOutTxt+
 				'</dd>';
 
 		return strHtml;
@@ -370,20 +391,25 @@ class JsMarketCartList extends JsMargetDrawItems{
 		}
 
 		aditOptnOne = aditOptnOne[0];
+		var soldOutTxt = ((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
+		var soldOutCls = ((aditOptnOne.soldOutYn == 'Y')?' disabled ':'');
+		var ableBuy = (aditOptnOne.soldOutYn == 'Y')?' N ':'Y';
 
 		var strHtml = ''+
 			'<div class="item-add">'+
-				'<span class="label-outline-primary">'+
-					'<span>추가</span>'+
-					'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
-				'</span>'+
-				'<div class="name">'+
-					'<span class="font-semibold">{0}</span>'.format(aditOptnOne.optnNm.replace("* ", ""))+
-					'<span class="font-semibold">{0}개</span>'.format(json.ordrQy)+
-					'<span>(+{0}원)</span>'.format((aditOptnOne.optnPc * json.ordrQy).format_money())+
-					((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'')+
-					'<button class="btn-delete2">삭제</button>'+
-				'</div>'+
+				'<dd class="{0}">'.format(soldOutCls)+
+					'<span class="label-outline-primary">'+
+						'<span>추가</span>'+
+						'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
+					'</span>'+
+					'<div class="name">'+
+						'<span class="font-semibold">{0}</span>'.format(aditOptnOne.optnNm.replace("* ", ""))+
+						'<span class="font-semibold">{0}개</span>'.format(json.ordrQy)+
+						'<span>(+{0}원)</span>'.format((aditOptnOne.optnPc * json.ordrQy).format_money())+
+						soldOutTxt+
+						'<button class="btn-delete2 cart option adit" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy={3}>삭제</button>'.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
+					'</div>'+
+				'</dd>'+
 			'</div>';	
 						
 		return strHtml;
@@ -423,4 +449,9 @@ class JsMarketCartList extends JsMargetDrawItems{
 		return strHtml;
 	}
 
+	fn_draw_cart_itemgrp_sold_out(){
+		var strHtml = '<div class="order-disabled"><strong>일시품절 상품입니다</strong></div>';
+		
+		return strHtml;
+	}
 }

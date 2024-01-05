@@ -16,6 +16,11 @@
 	& .order-item-box .order-delivery-total{
 		padding-left: 70px;
 	}
+
+	& .order-item-box .order-product-item .item-option .item-add dd.disabled strong, 
+	& .order-item-box .order-product-item .item-option .item-add dd.disabled span {
+		opacity: .45;
+	}
 	
 </style>
 <main id="container" class="is-mypage">
