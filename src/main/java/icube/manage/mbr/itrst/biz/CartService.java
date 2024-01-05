@@ -43,6 +43,9 @@ public class CartService extends CommonAbstractServiceImpl {
 	public CartVO selectCartByFilter(Map<String, Object> paramMap) throws Exception {
 		return cartDAO.selectCartByFilter(paramMap);
 	}
+	public List<CartVO> selectCartByFilter2(Map<String, Object> paramMap) throws Exception {
+		return cartDAO.selectCartByFilter2(paramMap);
+	}
 
 	public int insertCart(CartVO cartVO) throws Exception {
 		return cartDAO.insertCart(cartVO);
@@ -85,5 +88,7 @@ public class CartService extends CommonAbstractServiceImpl {
 	public void updateCart(CartVO cartVO) throws Exception {
 		cartDAO.updateCart(cartVO);
 	}
-
+	public void updateCartQy(CartVO cartVO) throws Exception {
+		cartDAO.updateCartQy(cartVO);
+	}
 }

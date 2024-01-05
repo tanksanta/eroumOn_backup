@@ -248,7 +248,7 @@
 			 , rgtr
 		) VALUES (
 			 <choose>
-				<when test="ordrOptnTy == 'BASE' ">FN_NEXT_AUTO_SEQ('CART')</when>
+				<when test="ordrOptnTy == 'BASE' and cartGrpNo == 0  ">FN_NEXT_AUTO_SEQ('CART')</when>
 				<otherwise>#{cartGrpNo}</otherwise>
 			 </choose>
 			 , #{cartTy}
@@ -280,6 +280,17 @@
 		SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	<update id="updateCartQy" parameterType="cartVO">
+		/* Query ID : cart.updateCartQy */
+		UPDATE CART
+		SET ordr_pc				= #{ordrPc}
+			, ordr_qy			= #{ordrQy}
+			, MDFCN_UNIQUE_ID 	= #{regUniqueId, jdbcType=VARCHAR}
+			, MDFCN_DT 			= SYSDATE()
+			, MDFCN_ID 			= #{regId, jdbcType=VARCHAR}
+			, MDFR 				= #{rgtr, jdbcType=VARCHAR}
+		WHERE cart_no = #{cartNo} AND reg_unique_id = #{regUniqueId}
+	</update>
 
 	<delete id="deleteCart" parameterType="java.util.HashMap">
 		DELETE FROM CART

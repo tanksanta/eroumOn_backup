@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.WebUtil;
+import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
@@ -149,30 +150,43 @@ public class MyCartController extends CommonAbstractController  {
 		
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
-		CartVO chkCartVO = null;
+		List<CartVO> chkCartVO = null;
 
 		if (EgovStringUtil.equals(viewYn, "Y")){
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("srchCartTy", ordrTy);
 			paramMap.put("srchViewYn", viewYn);
 			paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
-			paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
 			paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 			
-			chkCartVO = cartService.selectCartByFilter(paramMap);
+			chkCartVO = cartService.selectCartByFilter2(paramMap);
 		}
 		
 		int cartGrpNo = 0;
-		if(chkCartVO != null) {
-			result = true;
-			resultMsg = "ALREADY";
+		if (chkCartVO.size() > 0) cartGrpNo = chkCartVO.get(0).getCartGrpNo();
+		
+		// STEP.2 저장
+		String[] spGdsNo = gdsNo.split(",");
+		for(int i=0;i < spGdsNo.length;i++) {
+			CartVO cartVO;
+			int tempGdsOptnNo;
 
-		} else {
-			// STEP.2 저장
+			tempGdsOptnNo = EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim());
+
+			List<CartVO> cartSearchedList;
+			cartSearchedList = chkCartVO.stream()
+				.filter(t -> EgovStringUtil.equals(ordrTy, t.getCartTy()) 
+							&& tempGdsOptnNo == t.getGdsOptnNo()
+						)
+				.collect(Collectors.toList());
 			
-			String[] spGdsNo = gdsNo.split(",");
-			for(int i=0;i < spGdsNo.length;i++) {
-				CartVO cartVO = new CartVO();
+			if (cartSearchedList.size() > 0){
+				cartVO = cartSearchedList.get(0);
+				cartVO.setCrud(CRUD.UPDATE);
+			}else{
+				cartVO = new CartVO();
+				cartVO.setCrud(CRUD.CREATE);
+
 				cartVO.setCartGrpNo(cartGrpNo);
 				cartVO.setCartTy(ordrTy); //유형 (R/N)
 				cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
@@ -183,40 +197,51 @@ public class MyCartController extends CommonAbstractController  {
 					cartVO.setBnefCd("");
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
-				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
+				
+				cartVO.setGdsOptnNo(tempGdsOptnNo);
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
-				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
-				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
 
+					
 				cartVO.setViewYn(viewYn);
 
 				cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
+				
 				cartVO.setBplcUniqueId(EgovStringUtil.isEmpty(bplcUniqueId)?null:bplcUniqueId);
-
-				int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
-				cartVO.setOrdrPc(ordrPc);
-
-				cartVO.setRegUniqueId(mbrSession.getUniqueId());
-				cartVO.setRegId(mbrSession.getMbrId());
-				cartVO.setRgtr(mbrSession.getMbrNm());
-
-				//System.out.println("cartVO: " + cartVO.toString());
-
-				Integer resultCnt = cartService.insertCart(cartVO);
-				if("BASE".equals(cartVO.getOrdrOptnTy())) {
-					cartGrpNo = cartVO.getCartNo();
-				}
-				cartNos.add(cartVO.getCartNo());
-
-				totalCnt = totalCnt + resultCnt;
-
+				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			}
 
-			if(totalCnt == spGdsNo.length){
-				result = true;
+			
+			cartVO.setOrdrQy(cartVO.getOrdrQy() + EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+
+			int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+			cartVO.setOrdrPc(ordrPc);
+
+			cartVO.setRegUniqueId(mbrSession.getUniqueId());
+			cartVO.setRegId(mbrSession.getMbrId());
+			cartVO.setRgtr(mbrSession.getMbrNm());
+
+			//System.out.println("cartVO: " + cartVO.toString());
+			Integer resultCnt;
+			if (cartVO.getCrud() == CRUD.CREATE){
+				resultCnt = cartService.insertCart(cartVO);
+			}else{
+				resultCnt = 1;
+				cartService.updateCartQy(cartVO);
 			}
+			
+			if("BASE".equals(cartVO.getOrdrOptnTy()) && cartGrpNo == 0) {
+				cartGrpNo = cartVO.getCartNo();
+			}
+			cartNos.add(cartVO.getCartNo());
+
+			totalCnt = totalCnt + resultCnt;
+
+		}
+
+		if(totalCnt == spGdsNo.length){
+			result = true;
 		}
 
 		// result
