@@ -382,7 +382,15 @@
         			
         			//해당 수급자가 기타(친척)인 경우 관계 변경을 위해 마이페이지 수급자 상세로 redirect
         			if (roc_selectedRecipient.relationCd === '100') {
-        				alert('수급자 관계를 수정해 주세요');
+        				alert('가족 관계를 수정해 주세요');
+        				location.href = '/membership/info/recipients/view?recipientsNo=' + roc_selectedRecipient.recipientsNo;
+        				return;
+        			}
+        			var checkDate = roc_selectedRecipient.mdfcnDt ? new Date(roc_selectedRecipient.mdfcnDt) : new Date(roc_selectedRecipient.regDt); //수정일 기준 없으면 등록일
+        			var deployDate = new Date(2024, 0, 4); //2024-01-04
+        			//자녀이면서 관계코드 변경전인 경우도 수급자 상세로 이동
+        			if (roc_selectedRecipient.relationCd === '003' && checkDate.getTime() < deployDate.getTime()) {
+        				alert('가족 관계를 수정해 주세요');
         				location.href = '/membership/info/recipients/view?recipientsNo=' + roc_selectedRecipient.recipientsNo;
         				return;
         			}
