@@ -1,9 +1,9 @@
 class JsMarketCartList extends JsMargetDrawItems{
     constructor(path, mbrSession, cartListWelfareJson, cartListOrdrJson, entrpsDlvyGrpVOList, entrpsVOList, codeMapJson){
         super();
-		this._cls_info.bDev = true;
 
         this._cls_info.mbrSession = mbrSession;
+		this._cls_info.path = path;
         this._cls_info._membershipPath = path._membershipPath;
         this._cls_info._marketPath = path._marketPath;
 
@@ -74,6 +74,10 @@ class JsMarketCartList extends JsMargetDrawItems{
 		this.fn_page_init();
     }
 
+	fn_popup_set(popkind, popObj){
+        this._cls_info.popups[popkind] = popObj;
+    }
+
 	fn_init_cart_ordr_checkall(){
 		var list = $(this._cls_info.pagePrefix + " .cart-list-container.ordr input[type='checkbox'].cartGrpNo");
 		
@@ -96,11 +100,11 @@ class JsMarketCartList extends JsMargetDrawItems{
 
 		/*전체 체크박스 클릭*/
 		$( this._cls_info.pagePrefix + " .btn.select.all").off('click').on('click',  function() {
-            owner.fn_checkbox_all_click($(this));
+            owner.fn_checkbox_all_click($(this), $('input[type="checkbox"][name="cartGrpNo"].form-check-input').length != $('input[type="checkbox"][name="cartGrpNo"].form-check-input:checked').length);
 			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
         });
 		$( this._cls_info.pagePrefix + " .btn.select.delete.whole").off('click').on('click',  function() {
-            owner.fn_checkbox_all_click($(this));
+            owner.fn_checkbox_all_click($(this), true);
 			owner.fn_draw_checked_amount($(this).closest('.cart-list-container'));
 			owner.fn_cartgrp_delete_part_click($(this));
         });
@@ -111,7 +115,28 @@ class JsMarketCartList extends JsMargetDrawItems{
 		$( this._cls_info.pagePrefix + " .btn-delete2.cart.gdsOptn").off('click').on('click',  function() {
             owner.fn_del_cart_optn_click($(this));
         });
-		
+		$( this._cls_info.pagePrefix + " .btn.buy.part").off('click').on('click',  function() {
+            owner.fn_buy_part_click($(this));
+        });
+		$( this._cls_info.pagePrefix + " .btn.buy.all").off('click').on('click',  function() {
+            owner.fn_checkbox_all_click($(this), true);
+
+			owner.fn_buy_part_click($(this));
+        });
+
+		$( this._cls_info.pagePrefix + " .cart-list-container .f_optn_chg").off('click').on('click',  function() {
+			let cartGrpNo = $(this).attr("cartGrpNo");
+
+			$("#cart-optn-chg").load(owner._cls_info._marketPath + "/mypage/cart/cartOptnModal",
+					{
+				cartGrpNo : cartGrpNo
+				}, function(){
+					$("#cartOptnModal").modal('show');
+
+					owner._cls_info.popups.jsMarketCartModalOptnChg2.fn_loaded(owner._cls_info.path, $("#cart-optn-chg  textarea.cartListJson").val());
+				});
+		});
+
     }
 
 
@@ -320,10 +345,9 @@ class JsMarketCartList extends JsMargetDrawItems{
 		if (cartGrpMoney.originPc != cartGrpMoney.ordrPc){
 			original_price = '<span class="original-price">{0}원</span>'.format(cartGrpMoney.originPc.format_money());
 		}
-		var ableBuy = json.gdsInfo.soldOutYn=='Y'?'N':'Y';
-
+		
 		var strHtml = ''+
-			'<div class="order-product-inner cartGrp" ableBuy={0}>'.format(ableBuy)+
+			'<div class="order-product-inner cartGrp" cartGrpNo="{0}">'.format(json.cartGrpNo)+
 				'<div class="order-product-item">'+
 					'<div class="item-thumb">'+
 						'<div class="form-check">'+
@@ -362,7 +386,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 						'</dl>'+
 						strItemOptionAdit+
 					'</div>'+
-					'<div class="item-btn"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#countModal">주문 수정</button></div>'+
+					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
 					((json.gdsInfo.soldOutYn == 'Y') ? this.fn_draw_cart_itemgrp_sold_out():'') + 
 				'</div>'+
 			'</div>';
@@ -454,15 +478,16 @@ class JsMarketCartList extends JsMargetDrawItems{
 		var ableBuy = aditOptnOne.soldOutYn=='Y'?'N':'Y';
 		var btnDelte = '<button class="btn-delete2 cart gdsOptn adit" ordrOptnTy="ADIT" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
 
+		var optnNm = aditOptnOne.optnNm.split("*");
 		var strHtml = ''+
 			'<div class="item-add">'+
-				'<dd class="{0}">'.format(soldOutCls)+
+				'<dd class="item-add-one {0}">'.format(soldOutCls)+
 					'<span class="label-outline-primary">'+
-						'<span>추가</span>'+
-						'<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>'+
+						'<span>{0}</span>'.format(optnNm[0].trim())+
+						'<i><img src="/html/page/market/assets/images/ico-plus-white.svg" alt=""></i>'+
 					'</span>'+
 					'<div class="name">'+
-						'<span class="font-semibold">{0}</span>'.format(aditOptnOne.optnNm.replace("* ", ""))+
+						'<span class="font-semibold">{0}</span>'.format(optnNm[1].trim())+
 						'<span class="font-semibold">{0}개</span>'.format(json.ordrQy)+
 						'<span>(+{0}원)</span>'.format((aditOptnOne.optnPc * json.ordrQy).format_money())+
 						soldOutTxt+
@@ -515,11 +540,18 @@ class JsMarketCartList extends JsMargetDrawItems{
 		return strHtml;
 	}
 
+	/*
+		ordrOptnTy : BASE, ADIT 구분자
+		json : 구매한 상품(cart에 담겨있는 상품)
+		aditOptnOne : BASE 이면 기본 상품의 정보, ADIT 이면 추가상품의 정보
+		ableBuy : 구매가능 여부
+	*/
 	fn_draw_cart_input_hidden(ordrOptnTy, json, aditOptnOne, ableBuy){
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="cartNo" value="{0}">'.format(json.cartNo);
 		hiddenInfo += '<input type="hidden" name="cartGrpNo" value="{0}">'.format(json.cartGrpNo);
 		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
+		hiddenInfo += '<input type="hidden" name="ableBuy" value="{0}">'.format(ableBuy);
 
 		hiddenInfo += '<input type="hidden" name="ordrQy" value="{0}">'.format(json.ordrQy);
 		if (ordrOptnTy == 'BASE'){
@@ -624,11 +656,11 @@ class JsMarketCartList extends JsMargetDrawItems{
 			
 	}
 
-	fn_checkbox_all_click(jobjTarget){
+	fn_checkbox_all_click(jobjTarget, bChecked){
 		var jobjRoot = jobjTarget.closest('.cart-list-container');
 		var list = jobjRoot.find('input[type="checkbox"][name="cartGrpNo"].form-check-input');
 		
-		jsCommon.fn_checkbox_ctl_list(true, list);
+		jsCommon.fn_checkbox_ctl_list(bChecked, list);
 	}
 
 	fn_cartgrp_delete_part_click(jobjTarget){
@@ -675,5 +707,36 @@ class JsMarketCartList extends JsMargetDrawItems{
 		}else{
 			alert("장바구니를 삭제하는 중 오류가 발생하였습니다.\n새로고침 후 다시 시도해 주십시오.")
 		}
+	}
+
+	fn_buy_part_click(){
+		if ($('input[type="checkbox"][name="cartGrpNo"].form-check-input:checked').length < 1){
+			alert("주문 하실 상품을 선택해주세요.")
+			return;
+		}
+
+		var jobjList = $('input[type="checkbox"][name="cartGrpNo"].form-check-input:checked');
+		var ifor, ilen = jobjList.length;
+		var jobjCartGrp;
+		var jobjTemp;
+		var cartTy = 'N';
+		var cartGrpNos = [];
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjCartGrp = $(jobjList[ifor]).closest('.order-product-inner');
+			jobjTemp = jobjCartGrp.find("input[name='ableBuy']");
+
+			$.each(jobjTemp, function(i, item) {
+				if ($(item).val() != 'Y') {
+					alert("품절된 상품이 존재합니다.")
+					return;
+				}
+			});
+
+			cartGrpNos.push(jobjCartGrp.attr("cartGrpNo"));
+		}
+
+		let params = {cartTy, cartGrpNos : cartGrpNos.join(',')};
+
+		jsCallApi.call_svr_post_move(this._cls_info._marketPath + '/ordr/cartPay', params)
 	}
 }

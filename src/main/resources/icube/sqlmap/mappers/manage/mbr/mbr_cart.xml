@@ -4,7 +4,7 @@
 
 	<resultMap type="cartVO" id="cartVOListMap" autoMapping="true">
 		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
-		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplcJoin" />
 		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
 		<association property="mbrVO" column="{srchUniqueId=recipter_unique_id}" select="mbr.selectMbr" />
 	</resultMap>

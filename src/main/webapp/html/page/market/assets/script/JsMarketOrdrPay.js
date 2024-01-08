@@ -1,8 +1,7 @@
-class JsMarketOrdrPay{
+class JsMarketOrdrPay extends JsMargetDrawItems{
     constructor(ordrTy, path, mbrSession, cartList, entrpsDlvyGrpVOList, entrpsVOList, codeMapJson){
-        
-        this._cls_info = this._cls_info || {};
-		this._cls_info.bDev = true;
+        super();
+		
 
 		this._cls_info.jsMarketDlvyGrpCalc = new JsMarketDlvyGrpCalc();;
 

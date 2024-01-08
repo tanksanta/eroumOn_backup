@@ -23,6 +23,10 @@
 	& .order-item-box .order-product-item .item-option .item-add dd.disabled span {
 		opacity: .45;
 	}
+
+	& .order-item-box .order-product-item .item-add-box .item-add .item-add-one{
+		display: flex;
+	}
 	
 </style>
 <main id="container" class="is-mypage">
@@ -424,7 +428,7 @@
                     </div>
                 </div>
 				<div class="order-buy-box flex justify-end text-right mt-8.5 md:pr-6 lg:mt-11 space-x-1.5 md:space-x-2.5">
-                    <a href="#" class="btn btn-large btn-outline-secondary xs-max:px-3">쇼핑 계속하기</a>
+                    <a href="/market/gds/list" class="btn btn-large btn-outline-secondary xs-max:px-3">쇼핑 계속하기</a>
                     <a href="#" class="btn buy part btn-large btn-primary xs-max:px-3">선택상품 주문하기</a>
                     <a href="#" class="btn buy all btn-large btn-danger xs-max:px-3">전체상품 주문하기</a>
                 </div>
@@ -469,15 +473,19 @@
 <!-- 옵션변경 모달 -->
 <div id="cart-optn-chg"></div>
 
-
+<script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartModalOptnChg2.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMargetDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
 
 <script>
+	var jsMarketCartModalOptnChg2 = null;
 	var jsMarketCartList = null;
 		$(document).ready(function() {
 			var path = {_membershipPath:"${_membershipPath}", _marketPath:"${_marketPath}"};
+
+			jsMarketCartModalOptnChg2 = new JsMarketCartModalOptnChg2();
 	
 			jsMarketCartList = new JsMarketCartList(path
 													, {
@@ -487,14 +495,14 @@
 														, "mblTelno":"${_mbrSession.mblTelno}"
 														, "eml":"${_mbrSession.eml}"
 													}
-													, $("textarea.cartListWelfareJson").val()
-													, $("textarea.cartListOrdrJson").val()
-													, $("textarea.entrpsDlvyGrpVOListJson").val()
-													, $("textarea.entrpsVOListJson").val()
-													, $("textarea.codeMapJson").val()
+													, $("#container textarea.cartListWelfareJson").val()
+													, $("#container textarea.cartListOrdrJson").val()
+													, $("#container textarea.entrpsDlvyGrpVOListJson").val()
+													, $("#container textarea.entrpsVOListJson").val()
+													, $("#container textarea.codeMapJson").val()
 												
 											);
 	
-			
+			jsMarketCartList.fn_popup_set("jsMarketCartModalOptnChg2", jsMarketCartModalOptnChg2);
 		});
 </script>

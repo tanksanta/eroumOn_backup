@@ -344,7 +344,12 @@ public class MyCartController extends CommonAbstractController  {
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 
-		return "/market/mypage/cart/include/modal_optn_chg";
+		ObjectMapper mapper  = new ObjectMapper();
+		String tempString;
+		tempString =  mapper.writeValueAsString(cartList);
+		model.addAttribute("cartListJson", tempString);
+
+		return "/market/mypage/cart/include/modal_optn_chg2";
 	}
 
 	/**
