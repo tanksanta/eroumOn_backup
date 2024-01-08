@@ -509,6 +509,8 @@ public class OrdrController extends CommonAbstractController{
 		paramMap.put("srchCartGrpNos", arrCartGrpNo);
 
 		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
+		
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<EntrpsDlvyGrpVO> entrpsDlvyGrpVOList = cartService.selectCartDlvygrpListAll(paramMap);
 		List<EntrpsVO> entrpsVOList = cartService.selectCartEntrpsListAll(paramMap);
 

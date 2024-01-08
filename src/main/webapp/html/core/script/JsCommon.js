@@ -208,4 +208,21 @@ class JsCommon{
             }
         });
     }
+
+    fn_checkbox_ctl_list(checked, checkboxList){
+        if (checkboxList == undefined || checkboxList.length < 1)
+            return;
+        
+        var ifor, ilen = checkboxList.length;
+        if (checked){
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				$(checkboxList[ifor]).prop("checked", true);
+			}
+		}else{
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				$(checkboxList[ifor]).removeAttr('checked');
+				$(checkboxList[ifor]).prop("checked", false);
+			}
+		}
+    }
 }

@@ -4,7 +4,7 @@
 
 	<resultMap type="cartVO" id="cartVOListMap" autoMapping="true">
 		<association property="gdsInfo" 	column="{srchGdsCd=gds_cd}" select="gds.gds.selectGds" />
-		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
+		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplcJoin" />
 		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
 		<association property="mbrVO" column="{srchUniqueId=recipter_unique_id}" select="mbr.selectMbr" />
 	</resultMap>
@@ -147,10 +147,16 @@
 								FROM cart c
 								INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
 								WHERE g.DLVY_GROUP_YN = 'Y'
-									AND cart_grp_no IN
-									<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
-										#{srchCartGrpNo}
-									</foreach>
+									AND recipter_unique_id = #{srchRecipterUniqueId}
+									<if test="srchViewYn != null and srchViewYn != '' ">
+										AND view_yn = #{srchViewYn}
+									</if>
+									<if test="srchCartGrpNos != null and srchCartGrpNos != '' ">
+										AND cart_grp_no IN
+										<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+											#{srchCartGrpNo}
+										</foreach>
+									</if>
 								)
 	</select>
 
@@ -190,10 +196,16 @@
 							SELECT DISTINCT IFNULL(g.ENTRPS_NO, 0) ENTRPS_NO
 							FROM cart c
 							INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
-							WHERE cart_grp_no IN
-								<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
-									#{srchCartGrpNo}
-								</foreach>
+							WHERE recipter_unique_id = #{srchRecipterUniqueId}
+									<if test="srchViewYn != null and srchViewYn != '' ">
+										AND view_yn = #{srchViewYn}
+									</if>
+									<if test="srchCartGrpNos != null and srchCartGrpNos != '' ">
+										AND cart_grp_no IN
+										<foreach collection="srchCartGrpNos" item="srchCartGrpNo" open="(" separator="," close=")">
+											#{srchCartGrpNo}
+										</foreach>
+									</if>
 						)
 	</select>
 
@@ -236,7 +248,7 @@
 			 , rgtr
 		) VALUES (
 			 <choose>
-				<when test="ordrOptnTy == 'BASE' ">FN_NEXT_AUTO_SEQ('CART')</when>
+				<when test="ordrOptnTy == 'BASE' and cartGrpNo == 0  ">FN_NEXT_AUTO_SEQ('CART')</when>
 				<otherwise>#{cartGrpNo}</otherwise>
 			 </choose>
 			 , #{cartTy}
@@ -268,12 +280,39 @@
 		SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	<update id="updateCartQy" parameterType="cartVO">
+		/* Query ID : cart.updateCartQy */
+		UPDATE CART
+		SET ordr_pc				= #{ordrPc}
+			, ordr_qy			= #{ordrQy}
+			, MDFCN_UNIQUE_ID 	= #{regUniqueId, jdbcType=VARCHAR}
+			, MDFCN_DT 			= SYSDATE()
+			, MDFCN_ID 			= #{regId, jdbcType=VARCHAR}
+			, MDFR 				= #{rgtr, jdbcType=VARCHAR}
+		WHERE cart_no = #{cartNo} AND reg_unique_id = #{regUniqueId}
+	</update>
 
 	<delete id="deleteCart" parameterType="java.util.HashMap">
 		DELETE FROM CART
 		WHERE 1=1
 		<include refid="searchConditions" />
 	</delete>
+
+	<delete id="deleteCartOptn" parameterType="java.util.HashMap">
+		DELETE 
+		FROM CART
+		WHERE cart_no = #{srchCartNo} AND cart_grp_no = #{srchCartGrpNo} 
+			AND gds_optn_no = #{gdsOptnNo} AND recipter_unique_id = #{srchRecipterUniqueId}
+			<if test="srchCartTy != null and srchCartTy != '' ">
+				<choose>
+					<when test='srchCartTy == "R" '>AND cart_ty IN ('R', 'L')</when>
+					<otherwise>
+						AND cart_ty = #{srchCartTy}
+					</otherwise>
+				</choose>
+			</if>
+	</delete>
+
 
 	<!-- 옵션내용 변경 : mergeOptnChg -->
 	<insert id="mergeOptnChg" parameterType="cartVO">

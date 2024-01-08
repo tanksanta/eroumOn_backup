@@ -181,10 +181,17 @@
 
 		$(".btn.dlvygrp.update").on("click",function(){
 			if (jsPopup == undefined){
-				jsPopup = new JsPopupEntrpsDlvyGrpModal(window, ".modal2-con .dlvygrp_add_modal", "dlvygrp_add_modal", 1, "/_mng/sysmng/entrps/dlvygrp/modalform", "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json", {})
+				jsPopup = new JsPopupEntrpsDlvyGrpModal(window
+														, ".modal2-con .divDlvyGrpAdd"
+														, "divDlvyGrpAdd"
+														, 1
+														, "/_mng/sysmng/entrps/dlvygrp/modalform"
+														, "/_mng/sysmng/entrps/dlvygrp/dlvygrpno.json"
+														, {}
+														);
 			}
 
-			var data = {"entrpsNo":$("#srchTarget").val()
+			var data = {"entrpsNo":$("input[name='entrpsNo']").val()
 						, "entrpsDlvygrpNo":$("#entrpsDlvygrpNo").val()
 						}
 		
@@ -197,7 +204,7 @@
 				return;
 			}
 		
-			var data = {"entrpsNo":$("#srchTarget").val()
+			var data = {"entrpsNo":$("input[name='entrpsNo']").val()
 						, "entrpsDlvygrpNo":$("#entrpsDlvygrpNo").val()
 						}
 
@@ -216,7 +223,7 @@
 				return
 			}
 
-			var data = {"entrpsNo":$("#srchTarget").val()
+			var data = {"entrpsNo":$("input[name='entrpsNo']").val()
 						, "entrpsDlvygrpNo":$("#entrpsDlvygrpNo").val()
 						, arrGdsNo
 						}
@@ -245,6 +252,6 @@
 	}
 
 	function fn_popup_selected(alert_val, popKind, popup_param, data, extra){
-		$(".btn.search").click();
+		location.reload();
 	}
 </script>

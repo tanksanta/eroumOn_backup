@@ -190,6 +190,19 @@
 			<include refid="searchConditions" />
 	</select>
 
+	<select id="selectBplcJoin" parameterType="java.util.HashMap" resultMap="bplcVOMap">
+		/* Query ID : bplc.selectBplcJoin 
+			mbr_cart.xml 에서 association property="bplcInfo" 에서 사용 (bplc_unique_id == ''에서 되면 삭제해도 됨 ==> selectBplc)
+				
+		*/
+		SELECT
+			<include refid="listColumn"/>
+			, (SELECT COUNT(*)
+				FROM BPLC_RCMD br
+				WHERE br.bplc_unique_id = b.unique_id) AS rcmd_cnt
+		FROM BPLC b
+		WHERE unique_id = #{srchUniqueId}
+	</select>
 
 	<select id="selectBplcByUrl" parameterType="java.util.HashMap" resultMap="bplcVOMap">
 		/* Query ID : partners.bplc.selectBplcByUrl */

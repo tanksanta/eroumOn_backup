@@ -23,11 +23,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.WebUtil;
+import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvyBaseCtVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -84,7 +86,33 @@ public class MyCartController extends CommonAbstractController  {
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 		model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 
-		return "/market/mypage/cart/list";
+		
+		paramMap.clear();
+		paramMap.put("srchViewYn", "Y");
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+		List<EntrpsDlvyGrpVO> entrpsDlvyGrpVOList = cartService.selectCartDlvygrpListAll(paramMap);
+		List<EntrpsVO> entrpsVOList = cartService.selectCartEntrpsListAll(paramMap);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String tempString;
+		tempString =  mapper.writeValueAsString(rResultList);
+		model.addAttribute("cartListWelfareJson", tempString);
+
+		tempString =  mapper.writeValueAsString(nResultList);
+		model.addAttribute("cartListOrdrJson", tempString);
+
+		tempString =  mapper.writeValueAsString(entrpsVOList);
+		model.addAttribute("entrpsVOListJson", tempString);
+
+		tempString =  mapper.writeValueAsString(entrpsDlvyGrpVOList);
+		model.addAttribute("entrpsDlvyGrpVOListJson", tempString);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		tempString =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", tempString);
+
+		return "/market/mypage/cart/list2";
 	}
 
 
@@ -122,30 +150,43 @@ public class MyCartController extends CommonAbstractController  {
 		
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
-		CartVO chkCartVO = null;
+		List<CartVO> chkCartVO = null;
 
 		if (EgovStringUtil.equals(viewYn, "Y")){
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("srchCartTy", ordrTy);
 			paramMap.put("srchViewYn", viewYn);
 			paramMap.put("srchGdsNo", gdsNo.split(",")[0]);
-			paramMap.put("srchOrdrOptn", ordrOptn.split(",")[0]);
 			paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 			
-			chkCartVO = cartService.selectCartByFilter(paramMap);
+			chkCartVO = cartService.selectCartByFilter2(paramMap);
 		}
 		
 		int cartGrpNo = 0;
-		if(chkCartVO != null) {
-			result = true;
-			resultMsg = "ALREADY";
+		if (chkCartVO.size() > 0) cartGrpNo = chkCartVO.get(0).getCartGrpNo();
+		
+		// STEP.2 저장
+		String[] spGdsNo = gdsNo.split(",");
+		for(int i=0;i < spGdsNo.length;i++) {
+			CartVO cartVO;
+			int tempGdsOptnNo;
 
-		} else {
-			// STEP.2 저장
+			tempGdsOptnNo = EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim());
+
+			List<CartVO> cartSearchedList;
+			cartSearchedList = chkCartVO.stream()
+				.filter(t -> EgovStringUtil.equals(ordrTy, t.getCartTy()) 
+							&& tempGdsOptnNo == t.getGdsOptnNo()
+						)
+				.collect(Collectors.toList());
 			
-			String[] spGdsNo = gdsNo.split(",");
-			for(int i=0;i < spGdsNo.length;i++) {
-				CartVO cartVO = new CartVO();
+			if (cartSearchedList.size() > 0){
+				cartVO = cartSearchedList.get(0);
+				cartVO.setCrud(CRUD.UPDATE);
+			}else{
+				cartVO = new CartVO();
+				cartVO.setCrud(CRUD.CREATE);
+
 				cartVO.setCartGrpNo(cartGrpNo);
 				cartVO.setCartTy(ordrTy); //유형 (R/N)
 				cartVO.setGdsNo(EgovStringUtil.string2integer(gdsNo.split(",")[i].trim()));
@@ -156,40 +197,51 @@ public class MyCartController extends CommonAbstractController  {
 					cartVO.setBnefCd("");
 				}
 				cartVO.setGdsNm(gdsNm.split(",")[i].trim());
-				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
-				cartVO.setGdsOptnNo(EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim()));
+				
+				cartVO.setGdsOptnNo(tempGdsOptnNo);
 				cartVO.setOrdrOptnTy(ordrOptnTy.split(",")[i].trim());
 				cartVO.setOrdrOptn(ordrOptn.split(",")[i].trim());
-				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
-				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+				cartVO.setGdsPc(EgovStringUtil.string2integer(gdsPc.split(",")[i].trim()));
 
+					
 				cartVO.setViewYn(viewYn);
 
 				cartVO.setRecipterUniqueId(mbrSession.getUniqueId());
+				
 				cartVO.setBplcUniqueId(EgovStringUtil.isEmpty(bplcUniqueId)?null:bplcUniqueId);
-
-				int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
-				cartVO.setOrdrPc(ordrPc);
-
-				cartVO.setRegUniqueId(mbrSession.getUniqueId());
-				cartVO.setRegId(mbrSession.getMbrId());
-				cartVO.setRgtr(mbrSession.getMbrNm());
-
-				//System.out.println("cartVO: " + cartVO.toString());
-
-				Integer resultCnt = cartService.insertCart(cartVO);
-				if("BASE".equals(cartVO.getOrdrOptnTy())) {
-					cartGrpNo = cartVO.getCartNo();
-				}
-				cartNos.add(cartVO.getCartNo());
-
-				totalCnt = totalCnt + resultCnt;
-
+				cartVO.setOrdrOptnPc(EgovStringUtil.string2integer(ordrOptnPc.split(",")[i].trim()));
 			}
 
-			if(totalCnt == spGdsNo.length){
-				result = true;
+			
+			cartVO.setOrdrQy(cartVO.getOrdrQy() + EgovStringUtil.string2integer(ordrQy.split(",")[i].trim()));
+
+			int ordrPc = (cartVO.getGdsPc() +  cartVO.getOrdrOptnPc()) * cartVO.getOrdrQy();
+			cartVO.setOrdrPc(ordrPc);
+
+			cartVO.setRegUniqueId(mbrSession.getUniqueId());
+			cartVO.setRegId(mbrSession.getMbrId());
+			cartVO.setRgtr(mbrSession.getMbrNm());
+
+			//System.out.println("cartVO: " + cartVO.toString());
+			Integer resultCnt;
+			if (cartVO.getCrud() == CRUD.CREATE){
+				resultCnt = cartService.insertCart(cartVO);
+			}else{
+				resultCnt = 1;
+				cartService.updateCartQy(cartVO);
 			}
+			
+			if("BASE".equals(cartVO.getOrdrOptnTy()) && cartGrpNo == 0) {
+				cartGrpNo = cartVO.getCartNo();
+			}
+			cartNos.add(cartVO.getCartNo());
+
+			totalCnt = totalCnt + resultCnt;
+
+		}
+
+		if(totalCnt == spGdsNo.length){
+			result = true;
 		}
 
 		// result
@@ -238,6 +290,46 @@ public class MyCartController extends CommonAbstractController  {
 		return resultMap;
 	}
 
+	/**
+	 * 장바구니 삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value="removeCartOptn.json")
+	public Map<String, Object> removeCartOptn(
+			@RequestParam(value="cartTy", required=true) String cartTy
+			, @RequestParam(value="cartGrpNo", required=true) String cartGrpNo
+			, @RequestParam(value="cartNo", required=true) String cartNo
+			, @RequestParam(value="gdsOptnNo", required=true) String gdsOptnNo
+			, @RequestParam(value="recipterUniqueId", required=true) String recipterUniqueId
+			, @RequestParam Map<String,Object> reqMap
+			, HttpServletRequest request
+			, HttpServletResponse response
+			, HttpSession session
+			, Model model) throws Exception {
+		boolean result = false;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCartNo", cartNo);
+		paramMap.put("srchCartGrpNo", cartGrpNo);
+		paramMap.put("srchCartTy", cartTy);
+		paramMap.put("gdsOptnNo", gdsOptnNo);
+		paramMap.put("srchRecipterUniqueId", recipterUniqueId);
+		
+		try {
+			// 장바구니 옵션 삭제
+			cartService.deleteCartOptn(paramMap);
+
+			result = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		// result
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		return resultMap;
+	}
+
 	// 장바구니 옵션변경 모달
 	@RequestMapping(value="cartOptnModal")
 	public String cartOptnModal(
@@ -252,7 +344,12 @@ public class MyCartController extends CommonAbstractController  {
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
 
-		return "/market/mypage/cart/include/modal_optn_chg";
+		ObjectMapper mapper  = new ObjectMapper();
+		String tempString;
+		tempString =  mapper.writeValueAsString(cartList);
+		model.addAttribute("cartListJson", tempString);
+
+		return "/market/mypage/cart/include/modal_optn_chg2";
 	}
 
 	/**

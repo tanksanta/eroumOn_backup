@@ -36,6 +36,9 @@ public class CartDAO extends CommonAbstractMapper {
 	public CartVO selectCartByFilter(Map<String, Object> paramMap) throws Exception {
 		return selectOne("mbr.cart.selectCartByFilter", paramMap);
 	}
+	public List<CartVO> selectCartByFilter2(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartByFilter", paramMap);
+	}
 
 	public int insertCart(CartVO cartVO) throws Exception {
 		return insert("mbr.cart.insertCart", cartVO);
@@ -45,8 +48,15 @@ public class CartDAO extends CommonAbstractMapper {
 		update("mbr.cart.updateCart", cartVO);
 	}
 
+	public void updateCartQy(CartVO cartVO) throws Exception {
+		update("mbr.cart.updateCartQy", cartVO);
+	}
+
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		delete("mbr.cart.deleteCart", paramMap);
+	}
+	public void deleteCartOptn(Map<String, Object> paramMap) throws Exception {
+		delete("mbr.cart.deleteCartOptn", paramMap);
 	}
 
 	public Integer modifyOptnChg(CartVO cartVO) throws Exception {

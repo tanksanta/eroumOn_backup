@@ -1778,6 +1778,23 @@
             @apply relative pl-2 !opacity-100 text-black2 ml-1 text-sm 
             before:content-empty before:absolute before:left-0 before:top-1 before:inline-block before:w-px before:h-4 before:bg-gray3;
         }
+
+        &.cart-list-box{
+            grid-template-columns: 14.5rem auto auto;
+            @media (max-width: 768px) {
+                grid-template-columns: 8rem auto auto;
+            }
+
+            & .item-thumb .form-check {
+                overflow: visible;
+            }
+
+            & .item-thumb .form-check .form-check-input{
+                width: 25px;
+                    height: 25px;
+            }
+
+        }
     }
 
    
