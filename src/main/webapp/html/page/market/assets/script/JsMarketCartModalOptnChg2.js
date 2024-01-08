@@ -458,8 +458,8 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         }
         
         if (gdsPc == 0){
-            // alert("단가를 가지오 오지 못 하였습니다.")
-            // location.reload();
+            alert("단가를 가지오 오지 못 하였습니다.")
+            location.reload();
             return;
         }
 
