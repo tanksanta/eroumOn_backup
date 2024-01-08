@@ -1,5 +1,6 @@
 package icube.manage.mbr.mbr.biz;
 
+import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,15 +10,19 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.interceptor.biz.CustomProfileVO;
+import icube.common.util.RSA;
 import icube.common.util.SHA256;
+import icube.common.util.WebUtil;
 import icube.common.vo.CommonListVO;
 import icube.main.test.biz.MbrTestService;
 import icube.main.test.biz.MbrTestVO;
@@ -46,6 +51,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	@Resource(name = "mbrMlgDAO")
 	private MbrMlgDAO mbrMlgDAO;
 	
+	@Resource(name = "mbrMngInfoService")
+	private MbrMngInfoService mbrMngInfoService;
+	
 	@Resource(name = "mbrAgreementDAO")
 	private MbrAgreementDAO mbrAgreementDAO;
 	
@@ -63,6 +71,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Value("#{props['Talk.Secret.key']}")
 	private String talkSecretKey;
+	
+	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 	
 	SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
 	
@@ -590,5 +600,73 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		//채널톡 pluginKey 셋팅
 		request.setAttribute("talkPluginKey", talkPluginKey);
+	}
+	
+	
+	/**
+	 * 일반 회원가입 유효성 검사 
+	 */
+	public Map<String, Object> validateForEroumLogin(String mbrId, String encPw, HttpSession session) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("valid", false);
+		
+		PrivateKey rsaKey = (PrivateKey) session.getAttribute(RSA_MEMBERSHIP_KEY);
+		String decPw = RSA.decryptRsa(rsaKey, encPw);
+		if (EgovStringUtil.isEmpty(decPw)) {
+			resultMap.put("msg", "패스워드 복호화에 실패하였습니다.");
+			return resultMap;
+		}
+		
+		mbrId = WebUtil.clearSqlInjection(mbrId);
+		decPw = WebUtil.clearSqlInjection(decPw);
+		
+		MbrVO srchMbrVO = selectMbrIdByOne(mbrId.toLowerCase());
+		if (srchMbrVO == null) {
+			resultMap.put("msg", "존재하지 않는 회원입니다.");
+			return resultMap;
+		}
+		resultMap.put("srchMbrVO", srchMbrVO);
+		
+		int failCount = srchMbrVO.getLgnFailrCnt();
+		if (failCount > 4) {
+			resultMap.put("msg", "비밀번호를 5회 이상 틀렸습니다.");
+			resultMap.put("code", "EROUM_FAIL_PWD");
+			return resultMap;
+		}
+		
+		boolean passwordCheck = BCrypt.checkpw(decPw, srchMbrVO.getPswd());
+		if (!passwordCheck) {
+			getFailedLoginCountWithCountUp(srchMbrVO);
+			resultMap.put("msg", "비밀번호가 일치 하지 않습니다.");
+			return resultMap;
+		}
+		
+		if ("EXIT".equals(srchMbrVO.getMberSttus())) {
+			resultMap.put("msg", "탈퇴한 회원입니다.");
+			return resultMap;
+		}
+		
+		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
+			resultMap.put("msg", "휴면 회원입니다.");
+			resultMap.put("code", "EROUM_HUMAN");
+			return resultMap;
+		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUniqueId", srchMbrVO.getUniqueId());
+		MbrMngInfoVO mbrMngInfoVO = mbrMngInfoService.selectMbrMngInfo(paramMap);
+		if (mbrMngInfoVO != null && "BLACK".equals(mbrMngInfoVO.getMngTy()) && !"NONE".equals(mbrMngInfoVO.getMngSe())) {
+			if ("PAUSE".equals(mbrMngInfoVO.getMngSe())) {
+				resultMap.put("msg", "일시정지된 회원입니다.");
+				return resultMap;
+			}
+			else if ("UNLIMIT".equals(mbrMngInfoVO.getMngSe())) {
+				resultMap.put("msg", "영구정지된 회원입니다.");
+				return resultMap;
+			}
+		}
+		
+		resultMap.put("valid", true);
+		return resultMap;
 	}
 }
