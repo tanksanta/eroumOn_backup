@@ -64,9 +64,9 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 		if (reqMap.get("srchTarget") != null && !EgovStringUtil.equals(reqMap.get("srchTarget").toString(), "")){
 			entrpsNo = Integer.parseInt(reqMap.get("srchTarget").toString());
 			listVO.setParam("entrpsNo", entrpsNo);
-		}else  if ( entrpsListVO.getListObject().size() > 0){
-			entrpsNo = ((EntrpsVO) (entrpsListVO.getListObject().get(0))).getEntrpsNo();
-			listVO.setParam("entrpsNo", entrpsNo);
+//		}else  if ( entrpsListVO.getListObject().size() > 0){
+//			entrpsNo = ((EntrpsVO) (entrpsListVO.getListObject().get(0))).getEntrpsNo();
+//			listVO.setParam("entrpsNo", entrpsNo);
 		}
 
 		listVO = entrpsDlvyGrpService.entrpsDlvyGrpListVO(listVO);
