@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.framework.view.JavaScript;
 import icube.common.interceptor.biz.CustomProfileVO;
 import icube.common.util.RSA;
 import icube.common.util.SHA256;
@@ -65,6 +66,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	@Value("#{props['Globals.Main.path']}")
+	private String mainPath;
+	
+	@Value("#{props['Globals.Membership.path']}")
+	private String membershipPath;
+	
+	@Value("#{props['Globals.Matching.path']}")
+	private String matchingPath;
 	
 	@Value("#{props['Talk.Plugin.key']}")
 	private String talkPluginKey;
@@ -604,7 +614,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	
 	/**
-	 * 일반 회원가입 유효성 검사 
+	 * 일반 로그인 유효성 검사 
 	 */
 	public Map<String, Object> validateForEroumLogin(String mbrId, String encPw, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -668,5 +678,145 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		resultMap.put("valid", true);
 		return resultMap;
+	}
+	
+	/**
+	 * 간편 로그인 유효성 검사 및 redirect 또는 로그인 처리
+	 */
+	public Map<String, Object> validateForSnsLogin(HttpSession session, String joinTy, String mblTelno, String prevPath) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("valid", false);
+		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
+		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
+		
+		//번호로 회원 검색
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchMblTelno", mblTelno);
+		paramMap.put("srchMbrStts", "NORMAL");
+		List<MbrVO> mbrList = selectMbrListAll(paramMap);
+		
+		//가입정보가 2개 이상인 경우 오류 처리
+		if (mbrList.size() > 1) {
+			resultMap.put("srchMbrVO", new MbrVO());
+			resultMap.put("msg", "동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
+			resultMap.put("location", rootPath);
+			return resultMap;
+		}
+		//회원이 없으면 회원가입 처리하도록 셋팅
+		else if (mbrList == null || mbrList.size() < 1) {
+			return resultMap;
+		}
+		
+		
+		MbrVO srchMbrVO = mbrList.get(0);
+		resultMap.put("srchMbrVO", srchMbrVO);
+		
+		//탈퇴와 휴면회원은 나올수가 없다 (위에 NORMAL만 검색)
+//		if ("EXIT".equals(srchMbrVO.getMberSttus())) {
+//			resultMap.put("msg", "탈퇴한 회원입니다.");
+//			resultMap.put("location", rootPath);
+//			return resultMap;
+//		}
+//		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
+//			resultMap.put("msg", "휴면 회원입니다.");
+//			if ("membership".equals(prevPath)) {
+//				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
+//			} else if ("matching".equals(prevPath)) {
+//				resultMap.put("location", rootPath);
+//			}
+//			return resultMap;
+//		}
+		
+		Map<String, Object> infoParamMap = new HashMap<String, Object>();
+		infoParamMap.put("srchUniqueId", srchMbrVO.getUniqueId());
+		MbrMngInfoVO mbrMngInfoVO = mbrMngInfoService.selectMbrMngInfo(infoParamMap);
+		if (mbrMngInfoVO != null && "BLACK".equals(mbrMngInfoVO.getMngTy()) && !"NONE".equals(mbrMngInfoVO.getMngSe())) {
+			if ("PAUSE".equals(mbrMngInfoVO.getMngSe())) {
+				resultMap.put("msg", "일시정지된 회원입니다.");
+				resultMap.put("location", rootPath);
+				return resultMap;
+			}
+			else if ("UNLIMIT".equals(mbrMngInfoVO.getMngSe())) {
+				resultMap.put("msg", "영구정지된 회원입니다.");
+				resultMap.put("location", rootPath);
+				return resultMap;
+			}
+		}
+		
+		//해당 회원이 회원가입 시도한 유형과 다르다면
+		if (!joinTy.equals(srchMbrVO.getJoinTy())) {
+			String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/regist") : (rootPath + "/login");
+			
+			if ("K".equals(srchMbrVO.getJoinTy())) {
+				if (srchMbrVO.getSnsRegistDt() == null) {
+					resultMap.put("msg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
+					resultMap.put("location", registPath);
+				} else {
+					resultMap.put("msg", "카카오 계정으로 가입된 회원입니다.");
+					resultMap.put("location", rootPath + "/login");
+				}
+			} else if ("N".equals(srchMbrVO.getJoinTy())) {
+				if (srchMbrVO.getSnsRegistDt() == null) {
+					resultMap.put("msg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
+					resultMap.put("location", registPath);
+				} else {
+					resultMap.put("msg", "네이버 계정으로 가입된 회원입니다.");
+					resultMap.put("location", rootPath + "/login");
+				}
+			} else {
+				resultMap.put("msg", "이로움 계정으로 가입된 회원입니다.");
+				resultMap.put("location", membershipRootPath + "/login");
+			}
+			return resultMap;
+		}
+		
+		//최근 접속일 갱신
+		updateRecentDt(srchMbrVO.getUniqueId());
+		
+		//로그인 처리
+		mbrSession.setParms(srchMbrVO, true);
+		mbrSession.setMbrInfo(session, mbrSession);
+		
+		//해당 회원이 본인인증을 하지 않은 상태일 때 본인인증 창으로 이동
+		if (srchMbrVO.getSnsRegistDt() == null) {
+			String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + srchMbrVO.getUniqueId()) : (rootPath + "/login");
+			resultMap.put("location", registPath);
+			session.removeAttribute("returnUrl");
+			return resultMap;
+		}
+		
+		resultMap.put("valid", true);
+		return resultMap;
+	}
+	
+	/**
+	 * 간편 로그인 재인증 확인
+	 */
+	public JavaScript reAuthCheck(String joinTy, MbrVO userInfo, HttpSession session) throws Exception {
+		JavaScript javaScript = new JavaScript();
+		
+		// 재인증 확인		
+		String checkId = "K".equals(joinTy) ? userInfo.getKakaoAppId() : userInfo.getNaverAppId();
+		String mbrSnsId = "K".equals(joinTy) ? mbrSession.getKakaoAppId() : mbrSession.getNaverAppId();
+		log.debug("### 재인증 진행 ###" + mbrSnsId + "//" + checkId);
+
+		if(EgovStringUtil.equals(mbrSnsId, checkId)) {
+			session.setAttribute("infoStepChk", "EASYLOGIN");
+			
+			String requestView = (String)session.getAttribute("requestView");
+			if (EgovStringUtil.isNotEmpty(requestView) && "whdwl".equals(requestView)) {
+				String resnCn = (String)session.getAttribute("resnCn");
+				String whdwlEtc = (String)session.getAttribute("whdwlEtc");
+				
+				javaScript.setLocation("/" + membershipPath + "/info/whdwl/action?resnCn=" + resnCn + "&whdwlEtc=" + whdwlEtc);
+			} else {
+				javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
+			}
+		} else {
+			javaScript.setMessage("소셜 정보가 불일치 합니다. 인증에 실패하였습니다.");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
+		}
+		
+		return javaScript;
 	}
 }

@@ -5,12 +5,25 @@
 		<br>
 		로그인 <br><br>
 		
-		<form>
+		<div>
 			ID : <input type="text" class="form-control" id="mbrId">
 			<br>
 			PW : <input type="password" class="form-control" id="mbrPw">
 			<br>
 			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인</button>
+			<dl class="member-social">
+                <dt>간편 로그인</dt>
+                <dd>
+                    <a href="/${_matchingPath}/kakao/auth" class="btn btn-kakao w-full">
+                    	<span>카카오 로그인</span>
+                    </a>
+                    <a href="/${_matchingPath}/naver/get" class="btn btn-naver w-full">
+                    	<span>네이버 로그인</span>
+                    </a>
+                </dd>
+            </dl>
+			
+			
 			<br><br><br>
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({msg: '심심해서 보내봄'});">모바일에 데이터 전송</button>
 			<br><br>
@@ -19,7 +32,7 @@
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'saveLocal'});">로컬 저장</button>
 			<br><br>
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'loadLocal'});">로컬 불러오기</button>
-		</form>
+		</div>
 	</main>
 	
 	

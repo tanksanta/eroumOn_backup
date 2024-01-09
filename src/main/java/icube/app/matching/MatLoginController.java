@@ -21,6 +21,9 @@ import icube.common.util.RSA;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 
+/**
+ * 매칭앱 - 일반 로그인
+ */
 @Controller
 @RequestMapping(value="#{props['Globals.Matching.path']}")
 public class MatLoginController extends CommonAbstractController {
@@ -52,6 +55,7 @@ public class MatLoginController extends CommonAbstractController {
 		request.setAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
 		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
 		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
+		session.setAttribute("_matchingPath", matchingPath);
 		
 		return "/app/matching/login";
 	}
