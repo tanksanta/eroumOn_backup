@@ -274,7 +274,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 			strHtml = this.fn_draw_cart_itemgrp_one(cssSelector, arrCartGrpBaseAllList, arrCartGrpAditAllList);
 			arrEntRpsHtml.push(strHtml);
 
-			strHtml = this.fn_draw_html_order_delivery_summary_each();
+			strHtml = this.fn_draw_html_order_delivery_summary_each(arrCartGrpBaseAllList, arrCartGrpAditAllList);
 			arrEntRpsHtml.push(strHtml);
 		}
 
@@ -287,6 +287,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 
 	fn_draw_cart_each_dlvygrp_list(cssSelector, entrpsVO, entrpsDlvyGrpInfo, arrEachItems){
 		var cartIdx = [], arrItemGrp = [];
+		var cloneEachItems = arrEachItems.clone();
 
 		arrEachItems.forEach((item) => {
 			if (arrItemGrp.indexOf(item.cartGrpNo) === -1) {
@@ -322,7 +323,19 @@ class JsMarketCartList extends JsMargetDrawItems{
 			arrItems.push(strHtml);
 		}
 
-		strHtml = this.fn_draw_html_order_delivery_summary_each();
+		arrCartGrpBaseAllList = cloneEachItems.filter(function(item, idex) {
+			if (item.ordrOptnTy == 'BASE' ) {
+				cartIdx.push(idex);
+				return true;
+			}
+		});
+		arrCartGrpAditAllList = cloneEachItems.filter(function(item, idex) {
+			if (item.ordrOptnTy == 'ADIT' && item.cartNo != item.cartGrpNo ) {
+				cartIdx.push(idex);
+				return true;
+			}
+		});
+		strHtml = this.fn_draw_html_order_delivery_summary_grp(arrCartGrpBaseAllList, arrCartGrpAditAllList);
 		arrItems.push(strHtml);
 
 		return arrItems.join('');
@@ -523,12 +536,38 @@ class JsMarketCartList extends JsMargetDrawItems{
 		arrCartGrpBaseList : 기본 상품 리스트
 		arrCartGrpAditList : 추가 상품 리스트
 	*/
-	fn_draw_html_order_delivery_summary_each(items_money, arrCartGrpBaseList, arrCartGrpAditList){
-		
+	fn_draw_html_order_delivery_summary_each(arrCartGrpBaseList, arrCartGrpAditList){
+		var items_money = this.fn_calc_cart_grp_sum_money(arrCartGrpBaseList, arrCartGrpAditList);
+
+		var gdsInfo = arrCartGrpBaseList[0].gdsInfo;
+
+		var dlvyBaseAmtNm = '';
+		var dlvyBaseAmt = 0;
+
+		if (gdsInfo.dlvyCtTy == 'FREE'){
+			dlvyBaseAmt = 0;
+			dlvyBaseAmtNm = "무료";
+		} else if (gdsInfo.dlvyCtTy == 'OVERMONEY'){
+			if (items_money.ordrPc >= gdsInfo.dlvyCtCnd){
+				dlvyBaseAmt = 0;
+				dlvyBaseAmtNm = "무료";
+			}else{
+				dlvyBaseAmt = gdsInfo.dlvyBassAmt;
+				dlvyBaseAmtNm = dlvyBaseAmt.format_money() +  "원";
+				
+			}
+		} else if (gdsInfo.dlvyCtTy == 'PERCOUNT' && !isNaN(gdsInfo.dlvyCtCnd) && gdsInfo.dlvyCtCnd != 0){
+			dlvyBaseAmt = (gdsInfo.dlvyBassAmt * Math.ceil(items_money.ordrQy / gdsInfo.dlvyCtCnd));
+			dlvyBaseAmtNm = dlvyBaseAmt.format_money() +  "원";
+
+		} else {//if (gdsInfo.dlvyCtTy == 'PAY')
+			dlvyBaseAmt = gdsInfo.dlvyBassAmt;
+			dlvyBaseAmtNm = dlvyBaseAmt.format_money() +  "원";
+		}
 
 		var strHtml = '<dl class="order-item-payment">'+
-			'<dt>배송비</dt>'+
-			'<dd class="delivery-charge">{0}</dd>'+
+			'<dt>배송비<input type="hidden" name="dlvyBaseAmt" value="{0}"></dt>'.format(dlvyBaseAmt)+
+			'<dd class="delivery-charge">{0}</dd>'.format(dlvyBaseAmtNm)+
 		'</dl>';
 		
 		return strHtml;
