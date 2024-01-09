@@ -174,7 +174,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			
 		} catch (Exception ex) {
 			javaScript.setMessage(getMsg("fail.common.network"));
-			javaScript.setLocation("/" + mainPath + "/login");
+			javaScript.setLocation(rootPath + "/login");
 		}
 		
 		return new JavaScriptView(javaScript);
