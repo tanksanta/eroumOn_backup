@@ -465,6 +465,7 @@
 			 , dlvy_mumm_amt
 			 , dlvy_ct_ty
 			 , dlvy_ct_stlm
+			 , dlvy_ct_cnd
 			 , dlvy_bass_amt
 			 , dlvy_adit_amt
 			 , dlvy_group_yn
@@ -552,6 +553,7 @@
 			, #{dlvyMummAmt}
 			, #{dlvyCtTy, jdbcType=VARCHAR}
 			, #{dlvyCtStlm, jdbcType=VARCHAR}
+			, #{dlvyCtCnd}
 			, #{dlvyBassAmt}
 			, #{dlvyAditAmt}
 			, #{dlvyGroupYn, jdbcType=VARCHAR}
@@ -646,12 +648,12 @@
 			, dlvy_mumm_amt = #{dlvyMummAmt}
 			, dlvy_ct_ty = #{dlvyCtTy, jdbcType=VARCHAR}
 			, dlvy_ct_stlm = #{dlvyCtStlm, jdbcType=VARCHAR}
+			, dlvy_ct_cnd = #{dlvyCtCnd}
 			, dlvy_bass_amt = #{dlvyBassAmt}
 			, dlvy_adit_amt = #{dlvyAditAmt}
 			, dlvy_group_yn = #{dlvyGroupYn}
 			, entrps_dlvygrp_no = #{entrpsDlvygrpNo}
 			, dlvy_dc = #{dlvyDc}
-
 			, youtube_url = #{youtubeUrl}
 
 			, adit_gds_dc = #{aditGdsDc, jdbcType=VARCHAR}
