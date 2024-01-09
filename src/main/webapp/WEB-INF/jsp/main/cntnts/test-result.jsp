@@ -111,9 +111,17 @@
             	<small>아래 1:1 상담하기 버튼을 눌러주세요.</small>	
             </c:if>
         </h2>
-        <div class="images" >
-            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
-        </div>
+        
+        <c:if test="${_mbrSession.loginCheck}">
+        	<div class="images" onclick="clickStartConsltBtn();" style="cursor:pointer;">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
+        <c:if test="${!_mbrSession.loginCheck}">
+        	<div class="images">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
     </div>
     
     <div class="result-content3">
@@ -359,7 +367,7 @@
     <!-- 공유하기 모달 end-->
     
     <!-- 예상치 못한 오류 팝업 -->
-    <div class="modal modal-index fade" id="modalError" tabindex="-1" aria-hidden="true">
+    <div class="modal modal-default fade" id="modalError" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -367,7 +375,7 @@
                 <div class="modal-body md:min-w-[26rem]">
                     <!-- 예상치 못한 오류로 결과를 확인할 수 없는 상황에 호출되는 모달(팝업) -->
                     <div class="flex flex-col items-center text-xl">
-                        <i class="icon-alert orange mb-8"></i>
+                        <i class="ico-alert orange mb-8"></i>
                         <p>죄송합니다</p>
                         <p><strong>일시적 오류</strong>가 발생했습니다</p>
                         <p>잠시후 다시 시도해 주세요</p>
@@ -382,7 +390,7 @@
     </div>
     
     <!-- 상담 신청하기 지원 모달 -->
-	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_recip_or_conslt_modal.jsp" />
     
     
     <script>
@@ -398,7 +406,7 @@
         	}
     		
     		var recipientsNo = testData.recipientsNo;
-   			openModal('requestConslt', Number(recipientsNo), 'test');
+            openRecipientOrConsltModal('requestConslt', Number(recipientsNo), 'test');
     	}
 
 

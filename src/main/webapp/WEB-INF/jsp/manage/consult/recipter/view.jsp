@@ -24,7 +24,7 @@
                                     <th scope="row">수급자 성명</th>
                                     <td>${mbrConsltVO.mbrNm}</td>
                                     <th scope="row">수급자와의 관계</th>
-                                    <td>${MBR_RELATION_CD[mbrConsltVO.relationCd]}</td>
+                                    <td>${MBR_RELATION_CD_FOR_ADMIN[mbrConsltVO.relationCd]}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">회원아이디</th>
@@ -410,7 +410,7 @@
                                             </th>
                                             <td>
                                             	<c:if test="${resultList.consltSttus eq 'CS06'}">
-                                            	(상담입력 : <fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd HH:mm" />)<br>
+                                            	(상담입력 : ${resultList.consltDt.substring(0,16)})<br>
                                                 ${resultList.consltDtls}
                                                 </c:if>
 

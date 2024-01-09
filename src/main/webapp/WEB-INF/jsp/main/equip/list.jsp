@@ -207,7 +207,7 @@
 	<jsp:include page="./welfare-modal.jsp" />
 	
 	<!-- 상담 신청하기 지원 모달 -->
-	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_recip_or_conslt_modal.jsp" />
 
 
     <script>
@@ -236,7 +236,7 @@
 	    		if(data.success) {
 	    			//상담신청 모달 띄우기
 	    			var recipientsNo = '${recipientsNo}';
-			    	openModal('requestConslt', Number(recipientsNo), 'equip_ctgry');
+			    	openRecipientOrConsltModal('requestConslt', Number(recipientsNo), 'equip_ctgry');
 	    		}else{
 	    			alert(data.msg);
 	    		}

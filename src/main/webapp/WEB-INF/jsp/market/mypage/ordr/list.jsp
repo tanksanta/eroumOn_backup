@@ -41,13 +41,13 @@
                     </li>
                     <li class="seq5">
                         <p>
-                            배송<em>준비중</em>
+                            배송<br>
+                            <em>준비중</em>
                         </p>
                         <strong>${ordrSttsTyCntMap.or06}</strong>
                     </li>
                     <li class="seq6">
                         <p>
-                            상품<em>준비완료</em><br>
                             <em>배송중</em>
                         </p>
                         <strong>${ordrSttsTyCntMap.or07}</strong>
@@ -74,13 +74,13 @@
                     </li>
                     <li class="seq5">
                         <p>
-                            배송<em>준비중</em>
+                            배송<br>
+                            <em>준비중</em>
                         </p>
                         <strong>${ordrSttsTyCntMap.or06}</strong>
                     </li>
                     <li class="seq6">
                         <p>
-                            상품<em>준비완료</em><br>
                             <em>배송중</em>
                         </p>
                         <strong>${ordrSttsTyCntMap.or07}</strong>

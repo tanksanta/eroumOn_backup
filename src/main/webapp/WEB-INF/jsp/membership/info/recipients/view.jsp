@@ -37,7 +37,7 @@
 						<tbody>
 							<tr>
 								<th scope="row">수급자와의 관계</th>
-								<td>${relationCd[recipientVO.relationCd]}</td>
+								<td>${recipientVO.relationCd eq '100' ? '기타(친척등)' : relationCd[recipientVO.relationCd]}</td>
 							</tr>
 							<tr>
 								<th scope="row">수급자 성명</th>
@@ -377,7 +377,7 @@
 
 
 	<!-- 수급자 등록하기, 수정하기, 상담 신청하기 지원 모달 -->
-	<jsp:include page="/WEB-INF/jsp/common/modal/recipient_and_conslt_modal.jsp" />
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_recip_or_conslt_modal.jsp" />
 	
 
 	<!--모달: 인정등급 예상 테스트 결과보기 -->
@@ -407,13 +407,13 @@
   	//수급자 정보 수정 클릭
     function clickUpdateRecipientBtn() {
 		var recipientsNo = '${recipientsNo}'
-		openModal('updateRecipient', Number(recipientsNo));
+		openRecipientOrConsltModal('updateRecipient', Number(recipientsNo));
     }
   	
   	//상담하기 버튼 클릭
   	function requestConslt(prevPath) {
   		var recipientsNo = '${recipientsNo}'
-		openModal('requestConslt', Number(recipientsNo), prevPath);
+		openRecipientOrConsltModal('requestConslt', Number(recipientsNo), prevPath);
   	}
   	
   	

@@ -2,6 +2,7 @@
 package icube.membership.info;
 
 import java.security.PrivateKey;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
+import icube.main.test.biz.MbrTestService;
+import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
@@ -63,6 +66,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name="mbrTestService")
+    private MbrTestService mbrTestService;
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -96,6 +102,7 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
 
 	/**
@@ -520,7 +527,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	
 	/**
-	 * 장기요양테스트, 간편조회 이전 수급자 추가 ajax
+	 * 장기요양테스트, 간편조회 이전 수급자 추가 + 수급자 등록 모달 ajax
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addMbrRecipient.json")
@@ -537,20 +544,48 @@ public class MbrsInfoController extends CommonAbstractController{
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
 		try {
 			//수급자 회원 등록 최대수 확인(최대 4명)
-			List<MbrRecipientsVO> srchMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			if (srchMbrRecipientList.size() > 3) {
-				resultMap.put("success", false);
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
+			if (mbrRecipientList.size() > 3) {
 				resultMap.put("msg", "더 이상 수급자(어르신)를 등록할 수 없습니다");
 				return resultMap;
 			}
 			
+			//본인과 배우자는 한명만 등록이 가능
+			if ("007".equals(relationCd)) {
+				boolean alreadyExistMe = mbrRecipientList.stream().anyMatch(mr -> "007".equals(mr.getRelationCd()));
+				if (alreadyExistMe) {
+					resultMap.put("msg", "이미 본인으로 등록한 수급자(어르신)가 존재합니다");
+					return resultMap;
+				}
+				
+				//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
+				recipientsNm = mbrVO.getMbrNm();
+				tel = mbrVO.getMblTelno();
+				sido = null;
+				sigugun = mbrVO.getAddr();
+				dong = null;
+				if (mbrVO.getBrdt() != null) {
+					brdt = dateFormat.format(mbrVO.getBrdt());
+				}
+				gender = mbrVO.getGender();
+			}
+			if ("001".equals(relationCd)) {
+				boolean alreadyExistSpouse = mbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));
+				if (alreadyExistSpouse) {
+					resultMap.put("msg", "이미 배우자로 등록한 수급자(어르신)가 존재합니다");
+					return resultMap;
+				}
+			}
+			
 			//동일한 수급자 이름 등록 체크
-			if (srchMbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm())).count() > 0) {
-				resultMap.put("success", false);
-				resultMap.put("msg", "이미 등록한 수급자입니다");
+			String srchName = recipientsNm;
+			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm())).count() > 0) {
+				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
 				return resultMap;
 			}
 			
@@ -560,15 +595,13 @@ public class MbrsInfoController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					resultMap.put("success", false);
 					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
 					return resultMap;
 				}
 			}
 			
 			
-			
-			//회원의 수급자 정보 등록
+			//수급자 정보 등록
 			MbrRecipientsVO mbrRecipient = new MbrRecipientsVO();
 			mbrRecipient.setMbrUniqueId(mbrSession.getUniqueId());
 			mbrRecipient.setRelationCd(relationCd);
@@ -590,9 +623,9 @@ public class MbrsInfoController extends CommonAbstractController{
 			
 			mbrRecipientsService.insertMbrRecipients(mbrRecipient);
 			
-			//등록된 수급전 번호 가져오기
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			int createdRecipientsNo = mbrRecipientList.get(0).getRecipientsNo();
+			//등록된 수급자 번호 가져오기
+			List<MbrRecipientsVO> newMbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			int createdRecipientsNo = newMbrRecipientList.get(0).getRecipientsNo();
 			
 			resultMap.put("success", true);
 			resultMap.put("createdRecipientsNo", createdRecipientsNo);
@@ -623,15 +656,45 @@ public class MbrsInfoController extends CommonAbstractController{
 		HttpServletRequest request) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
 		try {
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
 			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자입니다.");
+                return resultMap;
+			}
+			//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
+			if ("007".equals(relationCd)) {
+				recipientsNm = mbrVO.getMbrNm();
+				tel = mbrVO.getMblTelno();
+				sido = null;
+				sigugun = mbrVO.getAddr();
+				dong = null;
+				if (mbrVO.getBrdt() != null) {
+					brdt = dateFormat.format(mbrVO.getBrdt());
+				}
+				gender = mbrVO.getGender();
+			}
 			
-			//동일한 수급자 이름 등록 체크
-			if (mbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-				resultMap.put("success", false);
-				resultMap.put("msg", "이미 등록한 다른 수급자성명으로 변경할 수 없습니다");
+			//본인, 배우자로 등록하려고 할 때 다른 수급자가 이미 등록되어 있는지 확인
+			if ("007".equals(relationCd) || "001".equals(relationCd)) {
+				if (mbrRecipientList.stream().filter(f -> relationCd.equals(f.getRelationCd()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+					if ("007".equals(relationCd)) {
+						resultMap.put("msg", "이미 본인으로 등록한 수급자(어르신)가 존재합니다");
+					} else {
+						resultMap.put("msg", "이미 배우자로 등록한 수급자(어르신)가 존재합니다");
+					}
+					return resultMap;
+				}
+			}
+			
+			//동일한 수급자 이름 수정 체크
+			String srchName = recipientsNm;
+			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
+				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
 				return resultMap;
 			}
 			
@@ -641,7 +704,6 @@ public class MbrsInfoController extends CommonAbstractController{
 				
 				Boolean result = (Boolean) returnMap.get("result");
 				if (result == false) {
-					returnMap.put("success", false);
 					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
 					return resultMap;
 				}
@@ -671,6 +733,48 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 수정 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 수급자 요양번호 등록
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateRecipientLno.json")
+	public Map<String, Object> updateRecipientLno(
+		@RequestParam int recipientsNo,
+		@RequestParam String rcperRcognNo
+	) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return resultMap;
+			}
+			
+			//요양번호 유효성 검사
+			Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipient.getRecipientsNm(), rcperRcognNo, true);
+			Boolean result = (Boolean) returnMap.get("result");
+			if (result == false) {
+				resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+				return resultMap;
+			}
+			
+			
+			mbrRecipient.setRecipientsYn("Y");
+			mbrRecipient.setRcperRcognNo(rcperRcognNo);
+			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 요양정보 등록중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
@@ -714,6 +818,42 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 해당 수급자의 테스트 결과 가져오기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getRecipientTestInfo.json")
+	public Map<String, Object> getMbrInfo(
+			@RequestParam int recipientsNo
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("msg", "로그인이 필요합니다");
+			return resultMap;
+		}
+	
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return resultMap;
+			}
+			
+			MbrTestVO mbrTestVO = mbrTestService.selectMbrTestByRecipientsNo(recipientsNo);
+			resultMap.put("mbrTestVO", mbrTestVO);
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 테스트 정보 조회중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
