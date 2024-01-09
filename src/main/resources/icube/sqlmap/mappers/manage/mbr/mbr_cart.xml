@@ -209,7 +209,7 @@
 						)
 	</select>
 
-	<select id="selectCartByFilter" parameterType="java.util.HashMap" resultMap="cartVOMap">
+	<select id="selectCartByFilter" parameterType="java.util.HashMap" resultMap="cartVOListMap">
 		SELECT
 			<include refid="listColumn" />
 		FROM CART c
@@ -285,6 +285,18 @@
 		UPDATE CART
 		SET ordr_pc				= #{ordrPc}
 			, ordr_qy			= #{ordrQy}
+			, MDFCN_UNIQUE_ID 	= #{regUniqueId, jdbcType=VARCHAR}
+			, MDFCN_DT 			= SYSDATE()
+			, MDFCN_ID 			= #{regId, jdbcType=VARCHAR}
+			, MDFR 				= #{rgtr, jdbcType=VARCHAR}
+		WHERE cart_no = #{cartNo} AND reg_unique_id = #{regUniqueId}
+	</update>
+	<update id="updateCartPc" parameterType="cartVO">
+		/* Query ID : cart.updateCartPc */
+		UPDATE CART
+		SET ordr_pc				= #{ordrPc}
+			, gds_pc			= #{gdsPc}
+			, ordr_optn_pc		= #{ordrOptnPc}
 			, MDFCN_UNIQUE_ID 	= #{regUniqueId, jdbcType=VARCHAR}
 			, MDFCN_DT 			= SYSDATE()
 			, MDFCN_ID 			= #{regId, jdbcType=VARCHAR}

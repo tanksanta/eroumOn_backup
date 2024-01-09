@@ -73,7 +73,7 @@ class JsMarketCartDlvyBaseCalc{
 			ret.ordrQy += cartItemOne.ordrQy;
 			ret.ordrPc += cartItemOne.ordrPc;
 
-			ret.originPc += (cartItemOne.ordrQy * cartItemOne.gdsInfo.pc);
+			ret.originPc += (cartItemOne.ordrQy * (cartItemOne.gdsInfo.pc + cartItemOne.ordrOptnPc));
 		}
 
 		ilen = arrCartGrpAditList.length;
