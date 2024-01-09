@@ -93,6 +93,9 @@ class JsMarketCartDlvyBaseCalc{
 		entrpsDlvyGrpInfo : 그룹배송
 	*/
     fn_calc_cartgrp_grp_dlvy_base(entrpsDlvyGrpInfo, arrCartGrpBaseList, arrCartGrpAditList){
+		if (arrCartGrpBaseList == undefined || arrCartGrpBaseList.length < 1){
+			return {"dlvyBaseAmt":0, "dlvyAditAmt":0, "count":0};
+		}
 		var arrCartGrpList = arrCartGrpBaseList.concat(arrCartGrpAditList);
 		var arrItemGrp = [];
 		arrCartGrpBaseList.forEach((item) => {
@@ -131,7 +134,7 @@ class JsMarketCartDlvyBaseCalc{
 			}
 		}
 
-		return {dlvyBaseAmt, count:ilen}
+		return {dlvyBaseAmt, "dlvyAditAmt":entrpsDlvyGrpInfo.dlvyAditAmt, count:ilen}
 	}
 
 	/*
