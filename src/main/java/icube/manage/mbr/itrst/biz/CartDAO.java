@@ -51,6 +51,9 @@ public class CartDAO extends CommonAbstractMapper {
 	public void updateCartQy(CartVO cartVO) throws Exception {
 		update("mbr.cart.updateCartQy", cartVO);
 	}
+	public void updateCartPc(CartVO cartVO) throws Exception {
+		update("mbr.cart.updateCartPc", cartVO);
+	}
 
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		delete("mbr.cart.deleteCart", paramMap);

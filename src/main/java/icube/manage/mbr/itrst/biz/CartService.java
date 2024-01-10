@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -37,7 +38,47 @@ public class CartService extends CommonAbstractServiceImpl {
 	}
 
 	public List<CartVO> selectCartListAll(Map<String, Object> paramMap) throws Exception {
-		return cartDAO.selectCartListAll(paramMap);
+		List<CartVO> list = cartDAO.selectCartListAll(paramMap);
+
+		if (paramMap.get("srchCartTy") != null && EgovStringUtil.equals("N", paramMap.get("srchCartTy").toString())
+			&& paramMap.get("srchViewYn") != null && EgovStringUtil.equals("Y", paramMap.get("srchViewYn").toString())
+			){
+
+			int ifor, ilen = list.size();
+			CartVO cartVO;
+			int ordrQy, gdsPc, ordrOptnPc;
+			for(ifor=0 ; ifor<ilen; ifor++){
+				cartVO = list.get(ifor);
+
+				if (cartVO.getGdsInfo() != null){
+					if (EgovStringUtil.equals("ADIT", cartVO.getOrdrOptnTy())){
+						gdsPc = 0;
+					}else{
+						if (cartVO.getGdsInfo().getDscntRt() > 0 && cartVO.getGdsInfo().getDscntPc() > 0 ){
+							gdsPc = cartVO.getGdsInfo().getDscntPc();
+						}else{
+							gdsPc = cartVO.getGdsInfo().getPc();
+						}
+					}
+
+					ordrOptnPc = cartVO.getOrdrOptnPc();
+					ordrQy = cartVO.getOrdrQy();
+					if ((gdsPc + ordrOptnPc) * ordrQy != cartVO.getOrdrPc()){
+						cartVO.setGdsPc(gdsPc);
+						cartVO.setOrdrOptnPc(ordrOptnPc);
+						cartVO.setOrdrPc((gdsPc + ordrOptnPc) * ordrQy);
+
+						cartDAO.updateCartPc(cartVO);
+					}
+				}
+			}
+
+			// if (bChanged){
+			// 	list = cartDAO.selectCartListAll(paramMap);
+			// }
+		}
+		
+		return list;
 	}
 
 	public CartVO selectCartByFilter(Map<String, Object> paramMap) throws Exception {
