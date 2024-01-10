@@ -156,9 +156,9 @@ class JsMarketCartDlvyBaseCalc{
 			dlvyBaseAmt = 0;
 		} else if (gdsInfo.dlvyCtTy == 'OVERMONEY'){
 			var ordrPc = items_money.ordrPc;
-			if (gdsInfo.dscntRt != undefined && gdsInfo.dscntRt > 0 && gdsInfo.dscntPc != undefined && gdsInfo.dscntPc > 0){
-				ordrPc = gdsInfo.dscntPc;
-			}
+			// if (gdsInfo.dscntRt != undefined && gdsInfo.dscntRt > 0 && gdsInfo.dscntPc != undefined && gdsInfo.dscntPc > 0){
+			// 	ordrPc = gdsInfo.dscntPc;
+			// }
 			if (ordrPc >= gdsInfo.dlvyCtCnd){
 				dlvyBaseAmt = 0;
 			}else{

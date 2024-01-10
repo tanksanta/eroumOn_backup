@@ -23,6 +23,10 @@
 	& .order-item-box .order-product-item .item-option .item-add dd.disabled span {
 		opacity: .45;
 	}
+	& .order-item-box .order-product-item .item-option .item-add dd.disabled span.label-outline-primary,
+	& .order-item-box .order-product-item .item-option .item-add dd.disabled span.label-outline-primary span{
+		opacity: 1;
+	}
 
 	& .order-item-box .order-product-item .item-add-box .item-add .item-add-one{
 		display: flex;

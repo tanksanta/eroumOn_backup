@@ -623,180 +623,203 @@
 						</c:choose>
 						<!-- //구매 조건 선택 -->
 
-						<div class="payment-type-content1 is-active"> <%--고정--%>
-
-	                        <div class="payment-scroller is-active">
-	                            <c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
-		                        <div class="space-y-1 payment-guide">
-		                        	<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
-		                            <p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
-		                        </div>
-	                            </c:if>
-
-								<%-- 급여상품일 경우만 선택 --%>
-								<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
-	                            <!-- 멤버스 선택 -->
-	                            <div class="payment-partners">
-	                            	<!-- <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
-	                                <p class="text-desc">이로움ON 멤버스(사업소) 선택 </p>
-
-									<div class="box-result noSelect" ${empty ordrDtlVO.bplcInfo ? '' : 'style="display:none;"'}>선택된 멤버스가 없습니다.</div>
-
-
-	                             	<div class="product-partners selectPart" ${empty ordrDtlVO.bplcInfo ? 'style="display:none;" ' : ''}>
-	                             		<c:if test="${ordrDtlVO.bplcInfo.proflImg ne null}">
-	                                    	<img src="/comm/PROFL/getFile?fileName=${ordrDtlVO.bplcInfo.proflImg}" alt="" id="pImg">
-	                                    </c:if>
-	                                    <c:if test="${ordrDtlVO.bplcInfo.proflImg eq null}">
-	                                    	<img src="/html/page/market/assets/images/partners_default.png" alt="" id="pImg">
-	                                    </c:if>
-	                                    <dl>
-	                                        <dt id="pName">${ordrDtlVO.bplcInfo.bplcNm}</dt>
-	                                        <dd class="info">
-	                                            <p class="addr pAddrs">${ordrDtlVO.bplcInfo.addr}&nbsp;${ordrDtlVO.bplcInfo.daddr}</p>
-	                                            <p class="call"><a href="tel:${ordrDtlVO.bplcInfo.telno}" class="pTel">${ordrDtlVO.bplcInfo.telno}</a></p>
-	                                        </dd>
-	                                    </dl>
-	                                </div>
-	                                <p class="text-alert mt-1.5">이 전에 구매하신 멤버스가 기본으로 선택됩니다.</p>
-
-	                                <button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button> -->
-	                                <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${bplcVO.uniqueId }">
-
-	                             	<div class="product-partners selectPart">
-	                             		<c:if test="${bplcVO.proflImg ne null}">
-	                                    	<img src="/comm/PROFL/getFile?fileName=${bplcVO.proflImg}" alt="" id="pImg">
-	                                    </c:if>
-	                                    <c:if test="${bplcVO.proflImg eq null}">
-	                                    	<img src="/html/page/market/assets/images/partners_default.png" alt="" id="pImg">
-	                                    </c:if>
-	                                    <dl>
-	                                        <dt id="pName">${bplcVO.bplcNm}</dt>
-	                                        <dd class="info">
-	                                            <p class="addr pAddrs">${bplcVO.addr}&nbsp;${bplcVO.daddr}</p>
-	                                            <p class="call"><a href="tel:${bplcVO.telno}" class="pTel">${bplcVO.telno}</a></p>
-	                                        </dd>
-	                                    </dl>
-	                                </div>
-
-	                            </div>
-	                            <!-- //멤버스 선택 -->
-	                            </c:if>
-
-	                            <!-- 상품 옵션 -->
-	                            <div class="payment-option">
-	                                <!-- <p class="option-title">필수옵션</p> -->
-
-									<c:set var="optnTtl" value="${fn:split(gdsVO.optnTtl, '|')}" />
-	                                <c:set var="optnVal" value="${fn:split(gdsVO.optnVal, '|')}" />
-
-									<c:if test="${!empty optnTtl[0]}">
-	                                <div class="product-option" id="optnVal1">
-	                                    <button type="button" class="option-toggle" disabled="true">
-	                                        <small>필수</small>
-	                                        <strong>${optnTtl[0]} 선택</strong>
-	                                    </button>
-	                                    <ul class="option-items">
-	                                    </ul>
-	                                </div>
-	                                </c:if>
-									<c:if test="${!empty optnTtl[1]}">
-	                                <div class="product-option" id="optnVal2">
-	                                    <button type="button" class="option-toggle" disabled="true">
-	                                        <small>필수</small>
-	                                        <strong>${optnTtl[1]} 선택</strong>
-	                                    </button>
-	                                    <ul class="option-items">
-	                                    </ul>
-	                                </div>
-	                                </c:if>
-	                                <c:if test="${!empty optnTtl[2]}">
-	                                <div class="product-option" id="optnVal3">
-	                                    <button type="button" class="option-toggle" disabled="true">
-	                                        <small>필수</small>
-	                                        <strong>${optnTtl[2]} 선택</strong>
-	                                    </button>
-	                                    <ul class="option-items">
-	                                    </ul>
-	                                </div>
-	                                </c:if>
-
-	                                <c:if test="${!empty gdsVO.aditOptnTtl}">
-									<c:set var="aditOptnTtl" value="${fn:split(gdsVO.aditOptnTtl, '|')}" />
-	                                <!-- <p class="option-title">추가옵션</p> -->
-									<c:forEach var="aditOptn" items="${aditOptnTtl}" varStatus="status">
-	                                <div class="product-option" id="aditOptnVal${status.index }">
-	                                    <button type="button" class="option-toggle">
-	                                        <small>추가</small>
-	                                        <strong>추가 ${aditOptn} 선택</strong>
-	                                    </button>
-	                                    <ul class="option-items">
-	                                    <c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
-	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
-		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
-	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
-											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}</a></li>
-	                               		</c:if>
-	                               		</c:forEach>
-	                                    </ul>
-	                                </div>
-	                                </c:forEach>
-	                                </c:if>
-
-								</div>
-								<!-- //상품 옵션 -->
-
-								<!-- 구매 금액 -->
-
-								<div class="payment-price with-total">
-									<span class="font-bold">총 상품금액</span>
-									<div class="pay-amount text-price">
-                                        <p class="text-gray5">주문수량<span id="totalQy">0</span>개 |</p>
-                                        <strong  id="totalPrice">0</strong>
-                                        <span>원</span>
-                                    </div>
-
-								</div>
-
-								<!-- //구매 금액 -->
-
+						<c:if test="${gdsVO.soldoutYn eq 'Y'}">
+							<!-- 2023-12-27:구매할수없음 -->
+							<div class="inavailable">
+								<strong>이 상품은 현재 구매할 수 없습니다.</strong>
+								<span>(재입고 시 구매가능)</span>
 							</div>
+							<!-- 2023-12-27:구매할수없음 -->
+						</c:if>
+						<c:if test="${gdsVO.soldoutYn ne 'Y'}">
+							<div class="payment-type-content1 is-active"> <%--고정--%>
 
-							<!-- 구매 버튼 -->
-							<div class="payment-button">
-								<c:if test="${_mbrSession.loginCheck}">
-									<%-- <c:if test="${_mbrSession.recipterYn eq 'Y' }">
-										<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
+								<div class="payment-scroller is-active">
+									<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+									<div class="space-y-1 payment-guide">
+										<p class="text-alert">급여제품은 멤버스 <strong>승인완료 후 결제</strong>가 진행됩니다.</p>
+										<p class="text-question underline"><a href="#modal-steps" data-bs-toggle="modal" data-bs-target="#modal-steps">급여제품 구매절차 안내</a></p>
+									</div>
 									</c:if>
-									<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
+	
+									<%-- 급여상품일 경우만 선택 --%>
+									<c:if test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L') && _mbrSession.prtcrRecipterYn eq 'Y' }">
+									<!-- 멤버스 선택 -->
+									<div class="payment-partners">
+										<!-- <input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${ordrDtlVO.bplcUniqueId }">
+										<p class="text-desc">이로움ON 멤버스(사업소) 선택 </p>
+	
+										<div class="box-result noSelect" ${empty ordrDtlVO.bplcInfo ? '' : 'style="display:none;"'}>선택된 멤버스가 없습니다.</div>
+	
+	
+										 <div class="product-partners selectPart" ${empty ordrDtlVO.bplcInfo ? 'style="display:none;" ' : ''}>
+											 <c:if test="${ordrDtlVO.bplcInfo.proflImg ne null}">
+												<img src="/comm/PROFL/getFile?fileName=${ordrDtlVO.bplcInfo.proflImg}" alt="" id="pImg">
+											</c:if>
+											<c:if test="${ordrDtlVO.bplcInfo.proflImg eq null}">
+												<img src="/html/page/market/assets/images/partners_default.png" alt="" id="pImg">
+											</c:if>
+											<dl>
+												<dt id="pName">${ordrDtlVO.bplcInfo.bplcNm}</dt>
+												<dd class="info">
+													<p class="addr pAddrs">${ordrDtlVO.bplcInfo.addr}&nbsp;${ordrDtlVO.bplcInfo.daddr}</p>
+													<p class="call"><a href="tel:${ordrDtlVO.bplcInfo.telno}" class="pTel">${ordrDtlVO.bplcInfo.telno}</a></p>
+												</dd>
+											</dl>
+										</div>
+										<p class="text-alert mt-1.5">이 전에 구매하신 멤버스가 기본으로 선택됩니다.</p>
+	
+										<button type="button"  class="btn btn-primary w-full mt-2" id="srchGdsBplc">멤버스 선택</button> -->
+										<input type="hidden" id="bplcUniqueId" name="bplcUniqueId" value="${bplcVO.uniqueId }">
+	
+										 <div class="product-partners selectPart">
+											 <c:if test="${bplcVO.proflImg ne null}">
+												<img src="/comm/PROFL/getFile?fileName=${bplcVO.proflImg}" alt="" id="pImg">
+											</c:if>
+											<c:if test="${bplcVO.proflImg eq null}">
+												<img src="/html/page/market/assets/images/partners_default.png" alt="" id="pImg">
+											</c:if>
+											<dl>
+												<dt id="pName">${bplcVO.bplcNm}</dt>
+												<dd class="info">
+													<p class="addr pAddrs">${bplcVO.addr}&nbsp;${bplcVO.daddr}</p>
+													<p class="call"><a href="tel:${bplcVO.telno}" class="pTel">${bplcVO.telno}</a></p>
+												</dd>
+											</dl>
+										</div>
+	
+									</div>
+									<!-- //멤버스 선택 -->
+									</c:if>
+	
+									<!-- 상품 옵션 -->
+									<div class="payment-option">
+										<!-- <p class="option-title">필수옵션</p> -->
+	
+										<c:set var="optnTtl" value="${fn:split(gdsVO.optnTtl, '|')}" />
+										<c:set var="optnVal" value="${fn:split(gdsVO.optnVal, '|')}" />
+	
+										<c:if test="${!empty optnTtl[0]}">
+										<div class="product-option" id="optnVal1">
+											<button type="button" class="option-toggle" disabled="true">
+												<small>필수</small>
+												<strong>${optnTtl[0]} 선택</strong>
+											</button>
+											<ul class="option-items">
+											</ul>
+										</div>
+										</c:if>
+										<c:if test="${!empty optnTtl[1]}">
+										<div class="product-option" id="optnVal2">
+											<button type="button" class="option-toggle" disabled="true">
+												<small>필수</small>
+												<strong>${optnTtl[1]} 선택</strong>
+											</button>
+											<ul class="option-items">
+											</ul>
+										</div>
+										</c:if>
+										<c:if test="${!empty optnTtl[2]}">
+										<div class="product-option" id="optnVal3">
+											<button type="button" class="option-toggle" disabled="true">
+												<small>필수</small>
+												<strong>${optnTtl[2]} 선택</strong>
+											</button>
+											<ul class="option-items">
+											</ul>
+										</div>
+										</c:if>
+	
+										<c:if test="${!empty gdsVO.aditOptnTtl}">
+										<c:set var="aditOptnTtl" value="${fn:split(gdsVO.aditOptnTtl, '|')}" />
+										<!-- <p class="option-title">추가옵션</p> -->
+										<c:forEach var="aditOptn" items="${aditOptnTtl}" varStatus="status">
+										<div class="product-option" id="aditOptnVal${status.index }">
+											<button type="button" class="option-toggle">
+												<small>추가</small>
+												<strong>추가 ${aditOptn} 선택</strong>
+											</button>
+											<ul class="option-items">
+												<c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
+													<input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
+													<c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
+													<c:if test="${aditOptnList.soldOutYn eq 'Y'}">
+														<c:set var="soldOutDisp" value=" [일시품절]" />
+													</c:if>
+													<c:if test="${aditOptnList.soldOutYn ne 'Y'}">
+														<c:set var="soldOutDisp" value="" />
+													</c:if>
+													
+													<c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
+														<li><a href="#" data-optn-ty="ADIT" 
+																data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}|${aditOptnList.soldOutYn}"
+															>${spAditOptnTtl[1]}${soldOutDisp}</a>
+															
+														</li>
+													</c:if>
+												</c:forEach>
+											</ul>
+										</div>
+										</c:forEach>
+										</c:if>
+	
+									</div>
+									<!-- //상품 옵션 -->
+	
+									<!-- 구매 금액 -->
+	
+									<div class="payment-price with-total">
+										<span class="font-bold">총 상품금액</span>
+										<div class="pay-amount text-price">
+											<p class="text-gray5">주문수량<span id="totalQy">0</span>개 |</p>
+											<strong  id="totalPrice">0</strong>
+											<span>원</span>
+										</div>
+	
+									</div>
+	
+									<!-- //구매 금액 -->
+	
+								</div>
+	
+								<!-- 구매 버튼 -->
+								<div class="payment-button">
+									<c:if test="${_mbrSession.loginCheck}">
+										<%-- <c:if test="${_mbrSession.recipterYn eq 'Y' }">
+											<button type="button" class="btn btn-danger btn-large btn-trigger recpBtn f_buy" >구매신청</button>
+										</c:if>
+										<c:if test="${_mbrSession.recipterYn eq 'N' }"> --%>
+											<c:choose>
+												<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
+													<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">정가구매하기</button>
+												</c:when>
+												<c:otherwise>
+													<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
+												</c:otherwise>
+											</c:choose>
+										<%-- </c:if> --%>
+										<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
+										<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
+									</c:if>
+									<c:if test="${!_mbrSession.loginCheck}">
 										<c:choose>
 											<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
-												<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">정가구매하기</button>
+												<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">정가구매하기</button>
 											</c:when>
 											<c:otherwise>
-												<button type="button" class="btn btn-primary btn-large btn-trigger f_buy">구매하기</button>
+												<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
 											</c:otherwise>
 										</c:choose>
-									<%-- </c:if> --%>
-									<button type="button" class="btn btn-outline-primary btn-large f_cart">장바구니</button>
-									<button type="button" class="btn btn-love btn-large f_wish ${gdsVO.wishYn>0?'is-active':'' }" data-gds-no="${gdsVO.gdsNo}" data-wish-yn="${gdsVO.wishYn>0?'Y':'N'}">상품찜하기</button>
-								</c:if>
-								<c:if test="${!_mbrSession.loginCheck}">
-									<c:choose>
-										<c:when test="${(gdsVO.gdsTy eq 'R' || gdsVO.gdsTy eq 'L')}">
-											<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">정가구매하기</button>
-										</c:when>
-										<c:otherwise>
-											<button type="button" class="btn btn-primary btn-large btn-trigger f_loginCheck">구매하기</button>
-										</c:otherwise>
-									</c:choose>
-									<button type="button" class="btn btn-outline-primary btn-large f_loginCheck">장바구니</button>
-									<button type="button" class="btn btn-love btn-large f_loginCheck">상품찜하기</button>
-								</c:if>
+										<button type="button" class="btn btn-outline-primary btn-large f_loginCheck">장바구니</button>
+										<button type="button" class="btn btn-love btn-large f_loginCheck">상품찜하기</button>
+									</c:if>
+								</div>
+								<!-- //구매 버튼 -->
+	
 							</div>
-							<!-- //구매 버튼 -->
 
-						</div>
+						</c:if>
+
 
 					</form>
 					<%--//from--%>
