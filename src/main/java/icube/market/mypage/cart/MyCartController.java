@@ -135,7 +135,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="ordrOptnPc", required=true) String ordrOptnPc
 			, @RequestParam(value="ordrQy", required=true) String ordrQy
 
-			, @RequestParam(value="viewYn", required=true) String viewYn
+			, @RequestParam(value="viewYn", required=false) String viewYn
 
 			, @RequestParam(value="recipterUniqueId", required=false) String recipterUniqueId
 			, @RequestParam(value="bplcUniqueId", required=false) String bplcUniqueId
@@ -151,6 +151,10 @@ public class MyCartController extends CommonAbstractController  {
 		//paramMap.put("srchUniqueId", mbrSession.getUniqueId());
 
 		List<CartVO> chkCartVO = null;
+
+		if (EgovStringUtil.isEmpty(viewYn)){
+			viewYn = "Y";
+		}
 
 		if (EgovStringUtil.equals(viewYn, "Y")){
 			Map<String, Object> paramMap = new HashMap<String, Object>();
