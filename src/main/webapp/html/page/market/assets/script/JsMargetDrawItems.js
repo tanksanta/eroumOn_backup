@@ -125,7 +125,12 @@ class JsMarketCartDlvyBaseCalc{
 			if (dlvyCalcTy == 'MAX'){
 				dlvyBaseAmt = Math.max(dlvyBaseAmt, cartBaseAmt);
 			}else if(dlvyCalcTy == 'MIN'){
-				dlvyBaseAmt = Math.min(dlvyBaseAmt, cartBaseAmt);
+				if (dlvyBaseAmt == 0){
+					dlvyBaseAmt = cartBaseAmt;
+				}else{
+					dlvyBaseAmt = Math.min(dlvyBaseAmt, cartBaseAmt);
+				}
+				
 				if (dlvyBaseAmt == 0){
 					ifor = ilen;/*배송비 0원 이면 더이상 계산할 필요없다*/
 				}

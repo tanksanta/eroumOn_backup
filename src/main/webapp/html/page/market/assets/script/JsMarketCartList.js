@@ -364,14 +364,19 @@ class JsMarketCartList extends JsMargetDrawItems{
 			original_price = '<span class="original-price">{0}원</span>'.format(cartGrpMoney.originPc.format_money());
 		}
 
-		var entrpsDlvygrpDisp = '', entrpsDlvygrpCls = '';
+		var entrpsDlvygrpAttr = '', entrpsDlvygrpCls = '';
 		if (entrpsDlvyGrpInfo != undefined && entrpsDlvyGrpInfo.entrpsDlvygrpNo != undefined){
-			entrpsDlvygrpDisp = ' entrpsDlvygrpNo="{0}"'.format(entrpsDlvyGrpInfo.entrpsDlvygrpNo);
+			entrpsDlvygrpAttr = ' entrpsDlvygrpNo="{0}"'.format(entrpsDlvyGrpInfo.entrpsDlvygrpNo);
 			entrpsDlvygrpCls = ' entrpsDlvygrpNo ';
 		}
 
+		var soldoutYn = json.gdsInfo.soldoutYn;
+		if (json.gdsInfo.stockQy == undefined || json.gdsInfo.stockQy < 1 ){
+			soldoutYn = 'Y';
+		}
+		
 		var strHtml = ''+
-			'<div class="order-product-inner cartGrp{2}" cartGrpNo="{0}" {1}>'.format(json.cartGrpNo, entrpsDlvygrpDisp, entrpsDlvygrpCls)+
+			'<div class="order-product-inner cartGrp{2}" cartGrpNo="{0}" {1}>'.format(json.cartGrpNo, entrpsDlvygrpAttr, entrpsDlvygrpCls)+
 				'<div class="order-product-item">'+
 					'<div class="item-thumb">'+
 						'<div class="form-check">'+
@@ -411,7 +416,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 						strItemOptionAdit+
 					'</div>'+
 					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
-					((json.gdsInfo.soldOutYn == 'Y') ? this.fn_draw_cart_itemgrp_sold_out():'') + 
+					((soldoutYn == 'Y') ? this.fn_draw_cart_itemgrp_sold_out():'') + 
 					'<input type="hidden" name="dlvyBaseAmt" value="{0}">'.format(dlvyBaseAmt)+
 				'</div>'+
 			'</div>';
@@ -440,7 +445,9 @@ class JsMarketCartList extends JsMargetDrawItems{
 		});
 
 		var soldOutYn = 'N';
-		if (baseOptnOne != undefined && baseOptnOne.length > 0 && baseOptnOne.soldOutYn == 'Y') {
+		if (json.gdsInfo.soldoutYn == 'Y'){
+			soldOutYn = json.gdsInfo.soldoutYn;
+		}else if (baseOptnOne != undefined && baseOptnOne.length > 0 && baseOptnOne[0].soldOutYn == 'Y') {
 			soldOutYn = baseOptnOne[0].soldOutYn;
 		}
 
@@ -783,6 +790,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 			return;
 		}
 
+		var ableBuy = 'Y';
 		var jobjList = $('input[type="checkbox"][name="cartGrpNo"].form-check-input:checked');
 		var ifor, ilen = jobjList.length;
 		var jobjCartGrp;
@@ -795,14 +803,21 @@ class JsMarketCartList extends JsMargetDrawItems{
 
 			$.each(jobjTemp, function(i, item) {
 				if ($(item).val() != 'Y') {
-					alert("품절된 상품이 존재합니다.")
-					return;
+					ableBuy = 'N'
 				}
 			});
 
 			cartGrpNos.push(jobjCartGrp.attr("cartGrpNo"));
 		}
 
+		if (ableBuy != 'Y'){
+			alert("품절된 상품이 존재합니다.")
+			return;
+		}
+
+		if (!confirm("주문하시겠습니까?")){
+			return;
+		}
 		let params = {cartTy, cartGrpNos : cartGrpNos.join(',')};
 
 		jsCallApi.call_svr_post_move(this._cls_info._marketPath + '/ordr/cartPay', params)
