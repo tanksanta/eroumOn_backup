@@ -53,11 +53,9 @@
 <!--     <c:if test="${fn:indexOf(_curPath, '/membership/regist') > -1 || fn:indexOf(_curPath, '/membership/srchPswd') > -1}"> -->
 <!--    </c:if>-->
 
-	<!-- 네이버 연관채널 SEO -->
-    <span itemscope="" itemtype="http://schema.org/Organization">
-	<link itemprop="url" href="https://eroum.co.kr">
-	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
-	</span>
+	<!-- 마켓팅팀 요청 head 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_head_tag.jsp" />
+    
 </head>
 <body>
 	<!-- Google Tag Manager (noscript) -->
@@ -73,6 +71,9 @@
 	
     <tiles:insertAttribute name="footer"/>
 
+	<!-- 마켓팅팀 요청 body 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_body_tag.jsp" />
+    
 </body>
 
     <script src="/html/core/vendor/twelements/index.min.js"></script>
