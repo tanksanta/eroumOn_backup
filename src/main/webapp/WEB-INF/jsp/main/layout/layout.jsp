@@ -51,20 +51,9 @@
     <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     
-    <!-- 네이버 연관채널 SEO -->
-    <script type="application/ld+json">
-	{
- 		"@context": "http://schema.org",
- 		"@type": "Organization",
- 		"name": "이로움ON",
- 		"url": "https://eroum.co.kr",
- 		"sameAs": [
-			"https://blog.naver.com/eroum_on",
-			"https://www.youtube.com/@eroumon",
-   			"https://play.google.com/store/apps/details?id=kr.co.eroum"
- 		]
-	}
-	</script>
+    <!-- 마켓팅팀 요청 head 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_head_tag.jsp" />
+    
 </head>
 
 <body>
@@ -106,5 +95,8 @@
         });
     </script>
 
+	<!-- 마켓팅팀 요청 body 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_body_tag.jsp" />
+    
 </body>
 </html>
