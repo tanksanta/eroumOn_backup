@@ -395,7 +395,10 @@ class JsMarketGdsView{
 			alert("선택하신 옵션은 품절상태입니다.");
 			skip = true;
 		}
-
+		if(spOptnVal.length > 5 && spOptnVal[5] === 'Y') {
+			alert("선택하신 옵션은 일시품절상태입니다.");
+			skip = true;
+		}
 		if(!skip){
 			var html = '';
 				html += '<div class="product-quanitem">';

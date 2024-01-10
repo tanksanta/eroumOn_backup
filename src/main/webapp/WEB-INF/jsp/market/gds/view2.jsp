@@ -731,13 +731,24 @@
 	                                        <strong>추가 ${aditOptn} 선택</strong>
 	                                    </button>
 	                                    <ul class="option-items">
-	                                    <c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
-	                                    <input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
-		                                <c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
-	                                    <c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
-											<li><a href="#" data-optn-ty="ADIT"' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}</a></li>
-	                               		</c:if>
-	                               		</c:forEach>
+											<c:forEach var="aditOptnList" items="${gdsVO.aditOptnList}" varStatus="status">
+												<input type="hidden" name="aditGdsOptnNo" value="${aditOptnList.gdsOptnNo}" />
+												<c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
+												<c:if test="${aditOptnList.soldOutYn eq 'Y'}">
+													<c:set var="soldOutDisp" value=" [일시품절]" />
+												</c:if>
+												<c:if test="${aditOptnList.soldOutYn ne 'Y'}">
+													<c:set var="soldOutDisp" value="" />
+												</c:if>
+												
+												<c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
+													<li><a href="#" data-optn-ty="ADIT" 
+															data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}|${aditOptnList.soldOutYn}"
+														>${spAditOptnTtl[1]}${soldOutDisp}</a>
+														
+													</li>
+												</c:if>
+											</c:forEach>
 	                                    </ul>
 	                                </div>
 	                                </c:forEach>
