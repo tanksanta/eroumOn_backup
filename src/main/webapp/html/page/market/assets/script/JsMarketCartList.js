@@ -460,7 +460,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 			}
 		}
 
-		var soldOutTxt = ((soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
+		var soldOutTxt = ((soldOutYn == 'Y')?'<strong class="text-soldout">일시품절</strong>':'');
 		var soldOutCls = ((soldOutYn == 'Y')?' disabled ':'');
 		var ableBuy = ((soldOutYn=='Y')?'N':'Y');
 		var btnDelte = '<button class="btn-delete2 cart gdsOptn base" ordrOptnTy="BASE" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
@@ -505,7 +505,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 		}
 
 		aditOptnOne = aditOptnOne[0];
-		var soldOutTxt = ((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'');
+		var soldOutTxt = ((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">일시품절</strong>':'');
 		var soldOutCls = ((aditOptnOne.soldOutYn == 'Y')?' disabled ':'');
 		var ableBuy = aditOptnOne.soldOutYn=='Y'?'N':'Y';
 		var btnDelte = '<button class="btn-delete2 cart gdsOptn adit" ordrOptnTy="ADIT" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
@@ -577,7 +577,7 @@ class JsMarketCartList extends JsMargetDrawItems{
 	}
 
 	fn_draw_cart_itemgrp_sold_out(){
-		var strHtml = '<div class="order-disabled"><strong>일시품절 상품입니다</strong></div>';
+		var strHtml = '<div class="order-disabled"><strong>품절 상품입니다</strong></div>';
 		
 		return strHtml;
 	}
