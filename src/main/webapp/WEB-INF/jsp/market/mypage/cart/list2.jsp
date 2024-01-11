@@ -413,7 +413,7 @@
                     <div class="container">
                         <div class="amount-section">
                             <dl class="total-ordrpc-dl">
-                                <dt>총 주문상품 금액</dt>
+                                <dt>총 상품 금액</dt>
                                 <dd><strong class="total-ordrpc-txt">12,123,000</strong> 원</dd>
                             </dl>
                             <i class="is-plus">+</i>
@@ -425,7 +425,7 @@
                         <div class="amount-section">
                             <i class="is-equal">=</i>
                             <dl class="text-danger">
-                                <dt>총 결제예정금액</dt>
+                                <dt>최종 결제금액</dt>
                                 <dd><strong class="total-stlmAmt-txt">12,123,000</strong> 원</dd>
                             </dl>
                         </div>
