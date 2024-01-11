@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<style>
+	.order-wishlist .order-item-base .cost dl dd span.info {
+		font-weight: normal;
+	}
+</style>
 	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="관심상품" name="pageTitle"/>
@@ -74,7 +78,23 @@
                                             <div class="cost">
 												<dl>
 												    <dt>배송비</dt>
-												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원</dd>
+												    <dd>
+														<c:choose>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'FREE'}">무료</c:when>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'PERCOUNT'}">
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+																<span class="info">(상품 <fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과)</span>
+															</c:when>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'OVERMONEY'}">
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+																<span class="info">(<fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료)</span>
+															</c:when>
+															<c:otherwise>
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+															</c:otherwise>
+														</c:choose>
+													
+													</dd>
 												</dl>
 												<%-- <dl>
 												    <dt>판매가</dt>
@@ -84,8 +104,16 @@
 												<div class="item-price">
                                                     <div class="pay-info">
                                                         <div class="pay-price">
-                                                            <span class="original-price">49,720원</span>
-                                                            <strong class="price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</strong>
+                                                            <c:choose>
+																<c:when test="${wish.gdsInfo.dscntRt != null and wish.gdsInfo.dscntPc != null and wish.gdsInfo.dscntRt > 0 and wish.gdsInfo.dscntPc > 0 }">
+																	<span class="original-price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</span>
+																	<strong class="price"><fmt:formatNumber value="${wish.gdsInfo.dscntPc}" pattern="###,###" />원</strong>
+																</c:when>
+																<c:otherwise>
+																	<strong class="price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</strong>
+																</c:otherwise>
+															</c:choose>
+															
                                                         </div>
                                                     </div>
                                                 </div>

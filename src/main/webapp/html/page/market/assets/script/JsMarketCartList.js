@@ -161,7 +161,7 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 	fn_draw_cart_entrpsdlvygrp_item_business(json){
 		return '<dl class="order-item-business">'+
 			'<dd class="form-check"><input class="form-check-input entrpsAll" type="checkbox" name="entrpsAll" value="{0}"></dd>'.format(json == undefined ? '' : json.entrpsNo)+
-			'<dt><span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsNm)+
+			'<dt><span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsStoreNm)+
 		'</dl>';
 	}
 

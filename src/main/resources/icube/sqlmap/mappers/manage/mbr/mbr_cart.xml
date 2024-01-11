@@ -163,6 +163,7 @@
 	<select id="selectCartEntrpsListAll" parameterType="java.util.HashMap" resultMap="entrpsVOListMap">
 		SELECT entrps_no
 				, entrps_nm
+				, entrps_store_nm
 				, brno
 				, rprsv_nm
 				, induty
