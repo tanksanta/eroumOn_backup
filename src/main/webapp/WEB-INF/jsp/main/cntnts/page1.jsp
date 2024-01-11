@@ -242,7 +242,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>188만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>206만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -260,7 +260,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4-2.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>169만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>186만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -278,7 +278,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4-3.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>141만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>145만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -296,7 +296,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4-4.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>130만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>134만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -314,7 +314,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4-5.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>112만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>115만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
@@ -332,7 +332,7 @@
                 <div class="content">
                     <img src="/html/page/index/assets/images/img-page1-content4-6.jpg" class="img">
                     <div class="box">
-                        <p>월 <strong>62만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
+                        <p>월 <strong>64만원</strong> 내에서 <strong>방문 요양보호사</strong> 또는 <strong>주야간센터</strong>를 이용할 수 있어요.</p>
                         <p>연 <strong>160만원</strong> 내에서 <strong>거동, 생활 보조 용품(복지용구)</strong>을 신청할 수 있어요.</p>
                         <ul>
                             <li><strong>6~15%</strong>의 본인부담금이 발생해요.</li>
