@@ -438,6 +438,9 @@ class JsMarketCartList extends JsMargetDrawItems{
 	fn_draw_cart_itemgrp_base_one(json){
 		
 		var baseOptnOne, aditOptnList = json.gdsInfo.optnList;
+
+		if (aditOptnList.length == 0) return; /*옵션 자체가 없으면 표시 안함*/
+
 		baseOptnOne = aditOptnList.filter(function(item, idex) {
 			if (json.gdsOptnNo == item.gdsOptnNo) {
 				return true;
@@ -465,11 +468,16 @@ class JsMarketCartList extends JsMargetDrawItems{
 		var ableBuy = ((soldOutYn=='Y')?'N':'Y');
 		var btnDelte = '<button class="btn-delete2 cart gdsOptn base" ordrOptnTy="BASE" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
 
+		var ordrOptnPcDisp = '';
+		if (json.ordrOptnPc > 0){
+			ordrOptnPcDisp = "(+{0}원)".format(json.ordrOptnPc.format_money());
+		}
+
 		var strHtml = '<dd class="{0}">'.format(soldOutCls)+
 					arrTemp.join('')+
-					'<span>{0}개(+{1}원)</span>'.format(json.ordrQy, json.ordrPc.format_money())+
-					btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
+					'<span>{0}개 {1}</span>'.format(json.ordrQy, ordrOptnPcDisp)+
 					soldOutTxt+
+					btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)+
 					this.fn_draw_cart_input_hidden("BASE", json, baseOptnOne, ableBuy)+
 				'</dd>';
 
