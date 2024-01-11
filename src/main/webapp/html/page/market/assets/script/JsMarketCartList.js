@@ -34,7 +34,8 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 		if (codeMapJson.trim().length > 0){
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 
-			this._cls_info.ordrCd = '';/*주문 번호 : 카드에서는 없다*/
+			this._cls_info.ordrCd = '';/*주문 번호 : 카트에서는 없다*/
+			this._cls_info.ordrIdx = 0;/*주문 번호 : 카트에서는 없다*/
 			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;
 		}
 		
@@ -51,7 +52,7 @@ class JsMarketCartList extends JsMargetCartDrawItems{
             $(this._cls_info.pagePrefix + " .cart-list-container.welfare").removeClass("hidden");
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr").addClass("mt-20");
 
-            this.fn_draw_cart_entrpsdlvygrp_list(".cart-list-container.welfare", this._cls_info.cartListWelfareJson);
+            this.fn_draw_cart_entrpsdlvygrp_list(".cart-list-container.welfare div.cart-list-box", this._cls_info.cartListWelfareJson);
         }
         
 		if (this._cls_info.cartListOrdrJson == undefined || this._cls_info.cartListOrdrJson.length == 0){
@@ -66,7 +67,7 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-del-box").removeClass("hidden");
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-buy-box").removeClass("hidden");
 			$(this._cls_info.pagePrefix + " .cart-list-container.ordr .order-amount").removeClass("hidden");
-			this.fn_draw_cart_entrpsdlvygrp_list(".cart-list-container.ordr", this._cls_info.cartListOrdrJson);
+			this.fn_draw_cart_entrpsdlvygrp_list(".cart-list-container.ordr div.cart-list-box", this._cls_info.cartListOrdrJson);
 			this.fn_init_cart_ordr_checkall();
 			this.fn_draw_checked_amount($(this._cls_info.pagePrefix + " .cart-list-container.ordr"));
 		}

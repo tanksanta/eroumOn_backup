@@ -56,6 +56,7 @@ class JsMargetCartDrawItems {
 		'</div>';
 	}
 
+	/*묶음배송(입점업체)이 존해자는 장바구니 전체 리스트*/
 	fn_draw_cart_entrpsdlvygrp_list(cssSelector, cartListJson){
         if (cartListJson == undefined) return;
 		if (this._cls_info.entrpsDlvyGrpVOList == undefined) return;
@@ -90,17 +91,17 @@ class JsMargetCartDrawItems {
 			arrHtml.push(	'<div class="order-body">');
 			strHtml = this.fn_draw_cart_entrpsdlvygrp_item_business(entrpsVO);
 			arrHtml.push(strHtml);
-			strHtml = this.fn_draw_cart_entrpsdlvygrp_each_entrps_list(cssSelector + " div.cart-list-box", entrpsVO, arrEachEntrpsAllItems);
+			strHtml = this.fn_draw_cart_entrpsdlvygrp_each_entrps_list(entrpsVO, arrEachEntrpsAllItems);
 			arrHtml.push(strHtml);
 			arrHtml.push(	'</div>');
 			arrHtml.push('</div>');
         }
 
-		$(cssSelector + " div.cart-list-box").html(arrHtml.join(''));
+		$(cssSelector).html(arrHtml.join(''));
     }
 
-
-	fn_draw_cart_entrpsdlvygrp_each_entrps_list(cssSelector, entrpsVO, arrEachEntrpsAllItems){
+	/*입점업체별로 장바구니*/
+	fn_draw_cart_entrpsdlvygrp_each_entrps_list(entrpsVO, arrEachEntrpsAllItems){
 		var jfor, jlen;
 		var entrpsDlvyGrpInfo;
 		var arrEachDlvyGrpItems;
@@ -136,7 +137,7 @@ class JsMargetCartDrawItems {
 
 			this.fn_draw_delelte_items(arrEachEntrpsAllItems, arrEntrpsItemAllIdx);
 			
-			strHtml = this.fn_draw_cart_entrpsdlvygrp_each_dlvygrp_list(cssSelector, entrpsVO, entrpsDlvyGrpInfo, arrEachDlvyGrpItems);
+			strHtml = this.fn_draw_cart_entrpsdlvygrp_each_dlvygrp_list(entrpsVO, entrpsDlvyGrpInfo, arrEachDlvyGrpItems);
 			arrEntRpsHtml.push(strHtml);
 			
 		}
@@ -195,7 +196,8 @@ class JsMargetCartDrawItems {
 	}
 
 
-	fn_draw_cart_entrpsdlvygrp_each_dlvygrp_list(cssSelector, entrpsVO, entrpsDlvyGrpInfo, arrEachItems){
+	/*입점업체별 묶음배송별 장바구니*/
+	fn_draw_cart_entrpsdlvygrp_each_dlvygrp_list(entrpsVO, entrpsDlvyGrpInfo, arrEachItems){
 		var cartIdx = [], arrItemGrp = [];
 		var cloneEachItems = arrEachItems.clone();
 
@@ -252,7 +254,7 @@ class JsMargetCartDrawItems {
 	}
 
 	
-	/*각 상품별 리스트*/
+	/*각 상품별 리스트 : 같은 옵션을 추가해도 cart_grp_no로 묶여서 들어간다*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_one(entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList){
 		var strItemOptionBase = this.fn_draw_cart_entrpsdlvygrp_itemgrp_base_list(arrCartGrpBaseAllList);
 		var strItemOptionAdit = this.fn_draw_cart_entrpsdlvygrp_itemgrp_adit_list(arrCartGrpAditAllList);
@@ -289,7 +291,7 @@ class JsMargetCartDrawItems {
 						'<div class="form-check">'+
 							'<input class="form-check-input cartGrpNo" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
 						'</div>'+
-						'<div class="order-item-thumb">'+
+						'<div class="order-item-thumb  move cursor">'+
 							'<img src="{0}" alt="">'.format(thumbnailFile)+
 						'</div>'+
 					'</div>'+
@@ -300,7 +302,7 @@ class JsMargetCartDrawItems {
 									'<span>{0}</span>'.format(this._cls_info.codeMapJson.gdsTyCode[json.gdsInfo.gdsTy])+
 									'<i></i>'+
 								'</span>'+
-								'<u class="gdsCd">{0}</u>'.format(json.gdsCd)+
+								'<u class="gdsCd move cursor">{0}</u>'.format(json.gdsCd)+
 							'</p>'+
 							'<div class="product">'+
 								'<p class="name">{0}</p>'.format(json.gdsNm)+
@@ -331,6 +333,7 @@ class JsMargetCartDrawItems {
 		return strHtml;
 	}
 
+	/*각 상품별 기본 옵션 리스트*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_base_list(arrCartGrpBaseAllList){
 		var efor, elen = arrCartGrpBaseAllList.length;
 
@@ -342,6 +345,7 @@ class JsMargetCartDrawItems {
 		return arrTemp.join('');
 	}
 
+	/*각 상품별 기본 옵션 항목*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_base_one(json){
 		
 		var baseOptnOne, aditOptnList = json.gdsInfo.optnList;
@@ -391,6 +395,7 @@ class JsMargetCartDrawItems {
 		return strHtml;
 	}
 
+	/*각 상품별 추가 옵션 리스트*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_adit_list(arrCartGrpAditAllList){
 		var efor, elen = arrCartGrpAditAllList.length;
 
@@ -407,6 +412,7 @@ class JsMargetCartDrawItems {
 		return arrTemp.join('');
 	}
 
+	/*각 상품별 추가 옵션 항목*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_adit_one(json){
 		var aditOptnOne, aditOptnList = json.gdsInfo.aditOptnList;
 		aditOptnOne = aditOptnList.filter(function(item, idex) {
@@ -491,11 +497,12 @@ class JsMargetCartDrawItems {
 		return strHtml;
 	}
 
-
+	/*일시품절 표시 텍스트*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out(){
 		return '';
 	}
 
+	/*옵션별 있어야 하는 값들*/
 	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, json, aditOptnOne, ableBuy){
 		return 'input hidden area'
 	}

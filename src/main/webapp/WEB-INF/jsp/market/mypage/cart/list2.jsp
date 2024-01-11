@@ -31,7 +31,9 @@
 	& .order-item-box .order-product-item .item-add-box .item-add .item-add-one{
 		display: flex;
 	}
-	
+	& .move.cursor{
+		cursor: pointer;
+	}
 </style>
 <main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
