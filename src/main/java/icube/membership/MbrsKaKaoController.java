@@ -67,7 +67,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String kakaoUrl = kakaoApiService.getKakaoUrl();
 
-		session.setAttribute("prevKakaoPath", "membership");
+		session.setAttribute("prevSnsPath", "membership");
 		
 		javaScript.setLocation(kakaoUrl);
 		return new JavaScriptView(javaScript);
@@ -83,7 +83,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 
 		JavaScript javaScript = new JavaScript();
 		String returnUrl = (String)session.getAttribute("returnUrl");
-		String prevPath = (String)session.getAttribute("prevKakaoPath");
+		String prevPath = (String)session.getAttribute("prevSnsPath");
 		if (EgovStringUtil.isEmpty(prevPath)) {
 			javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
 		}
@@ -113,41 +113,14 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		
 		//회원 정보 유효성 검사
 		try {
-			Map<String, Object> validationResult = mbrService.validateForSnsLogin(session, "K", kakaoUserInfo.getMblTelno(), prevPath);
+			Map<String, Object> validationResult = mbrService.validateForSnsLogin(session, kakaoUserInfo);
 			
 			//검색 회원이 없으면 회원가입 처리
 			if (!validationResult.containsKey("srchMbrVO")) {
-				//해당 kakao 가입된 계정이 있는지 확인
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("srchKakaoAppId", kakaoUserInfo.getKakaoAppId());
-				List<MbrVO> srchMbrList = mbrService.selectMbrListAll(paramMap);
-				if (srchMbrList.size() > 0) {
-					javaScript.setMessage("동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
-					javaScript.setLocation(rootPath);
-					return new JavaScriptView(javaScript);
-				}
-				
-				MbrVO mbrVO = kakaoUserInfo;
 				//kakao 주소 정보 get API 호출
 				DlvyVO dlvyVO = kakaoApiService.getUserDlvy(accessToken);
-				if (dlvyVO != null) {
-					mbrVO.setZip(dlvyVO.getZip());
-					mbrVO.setAddr(dlvyVO.getAddr());
-					mbrVO.setDaddr(dlvyVO.getDaddr());
-					
-					dlvyVO.setMblTelno(mbrVO.getMblTelno());
-				}
 				
-				mbrService.insertMbr(mbrVO);
-				//본인 인증 단계에서 주소정보 저장되므로 사용안함
-//				if (dlvyVO != null) {
-//					dlvyVO.setUniqueId(mbrVO.getUniqueId());
-//					dlvyService.insertBassDlvy(dlvyVO);
-//				}
-				
-				//로그인 처리
-				mbrSession.setParms(mbrVO, true);
-				mbrSession.setMbrInfo(session, mbrSession);
+				mbrService.registerSnsMbrAndLogin(session, kakaoUserInfo, dlvyVO);
 				
 				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + mbrSession.getUniqueId()) : (rootPath + "/login");
 				javaScript.setLocation(registPath);

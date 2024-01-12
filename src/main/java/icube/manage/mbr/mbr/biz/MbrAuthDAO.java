@@ -1,6 +1,5 @@
 package icube.manage.mbr.mbr.biz;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +14,7 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 		return selectList("mbr.auth.selectMbrAuth", paramMap);
 	}
 	
-	public MbrAuthVO selectMbrAuthByMbrUniqueId(String uniqueId) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("srchMbrUniqueId", uniqueId);
+	public MbrAuthVO selectMbrAuthOne(Map<String, Object> paramMap) throws Exception {
 		return selectOne("mbr.auth.selectMbrAuth", paramMap);
 	}
 	

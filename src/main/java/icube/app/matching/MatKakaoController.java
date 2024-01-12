@@ -39,7 +39,7 @@ public class MatKakaoController extends CommonAbstractController {
 		JavaScript javaScript = new JavaScript();
 		String kakaoUrl = kakaoApiService.getKakaoUrl();
 		
-		session.setAttribute("prevKakaoPath", "matching");
+		session.setAttribute("prevSnsPath", "matching");
 
 		javaScript.setLocation(kakaoUrl);
 		return new JavaScriptView(javaScript);

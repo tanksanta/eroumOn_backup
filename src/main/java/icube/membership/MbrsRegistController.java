@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -38,6 +37,8 @@ import icube.common.util.WebUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrAgreementVO;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -66,6 +67,9 @@ public class MbrsRegistController extends CommonAbstractController{
 
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 
 	@Resource(name = "fileService")
 	private FileService fileService;
@@ -351,8 +355,16 @@ public class MbrsRegistController extends CommonAbstractController{
 			//정보 등록
 			mbrService.insertMbr(mbrVO);
 			
-			// 모든 항목 동의처리 로그
+			//일반 로그인 인증정보 등록
 			String uniqueId = mbrVO.getUniqueId();
+			MbrAuthVO mbrAuthVO = new MbrAuthVO();
+			mbrAuthVO.setMbrUniqueId(uniqueId);
+			mbrAuthVO.setJoinTy("E");
+			mbrAuthVO.setMbrId(mbrVO.getMbrId());
+			mbrAuthVO.setPswd(mbrVO.getPswd());
+			mbrAuthService.insertMbrAuth(mbrAuthVO);
+			
+			// 모든 항목 동의처리 로그
 			mbrAgreementVO.setMbrUniqueId(uniqueId);
 			mbrService.insertMbrAgreement(mbrAgreementVO);
 
@@ -600,8 +612,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			, @RequestParam(value="receiptId", required=true) String receiptId
 			, @RequestParam(value="uniqueId", required=true) String uniqueId
 			, HttpSession session
-			, HttpServletRequest request
-			, Model model) throws Exception {
+			, HttpServletRequest request) throws Exception {
 		JavaScript javaScript = new JavaScript();
 		
 		// 더블 서브밋 방지
@@ -620,7 +631,39 @@ public class MbrsRegistController extends CommonAbstractController{
 				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
 	        }
-			
+	        
+	        // 가입된 회원인지 체크
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchMbrNm", mbrVO.getMbrNm());
+			paramMap.put("srchMblTelno", mbrVO.getMblTelno());
+			paramMap.put("srchMbrStts", "NORMAL");
+
+			MbrVO findMbrVO = mbrService.selectMbr(paramMap);
+			if(findMbrVO != null) {
+				if(findMbrVO.getJoinTy().equals("N")) {
+					if (findMbrVO.getSnsRegistDt() == null) {
+						javaScript.setMessage("현재 네이버 계정으로 간편 가입 진행 중입니다.");
+						javaScript.setLocation("/" + membershipPath + "/regist");
+					} else {
+						javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
+						javaScript.setLocation("/" + mainPath + "/login?returnUrl=/main");
+					}
+				}else if(findMbrVO.getJoinTy().equals("K")) {
+					if (findMbrVO.getSnsRegistDt() == null) {
+						javaScript.setMessage("현재 카카오 계정으로 간편 가입 진행 중입니다.");
+						javaScript.setLocation("/" + membershipPath + "/regist");
+					} else {
+						javaScript.setMessage("카카오 계정으로 가입된 회원입니다.");
+						javaScript.setLocation("/" + mainPath + "/login?returnUrl=/main");
+					}
+				}else {
+					javaScript.setMessage("가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
+					javaScript.setLocation("/" + mainPath + "/login?returnUrl=/main");
+				}
+				return new JavaScriptView(javaScript);
+			}
+
+
 			//정보 수정
 	        MbrVO srchMbr = mbrService.selectMbrByUniqueId(uniqueId);
 	        if (srchMbr == null) {
@@ -653,6 +696,14 @@ public class MbrsRegistController extends CommonAbstractController{
 	        srchMbr.setMbrId(newId);
 			mbrService.updateMbr(srchMbr);
 
+			//SNS 간편로그인 인증정보 등록
+			MbrAuthVO mbrAuthVO = new MbrAuthVO();
+			mbrAuthVO.setMbrUniqueId(srchMbr.getUniqueId());
+			mbrAuthVO.setJoinTy(srchMbr.getJoinTy());
+			mbrAuthVO.setNaverAppId(srchMbr.getNaverAppId());
+			mbrAuthVO.setKakaoAppId(srchMbr.getKakaoAppId());
+			mbrAuthService.insertMbrAuth(mbrAuthVO);
+			
 			// 모든 항목 동의처리 로그
 			mbrAgreementVO.setMbrUniqueId(srchMbr.getUniqueId());
 			mbrService.insertMbrAgreement(mbrAgreementVO);
@@ -674,7 +725,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			
 			// 회원가입 쿠폰
 			try {
-				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap = new HashMap<String, Object>();
 				paramMap.put("srchCouponTy", "JOIN");
 				paramMap.put("srchSttusTy", "USE");
 				int cnt = couponService.selectCouponCount(paramMap);

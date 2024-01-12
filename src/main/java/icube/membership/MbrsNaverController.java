@@ -1,7 +1,5 @@
 package icube.membership;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -57,7 +55,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String getUrl = naverApiService.getUrl();
 
-		session.setAttribute("prevNaverPath", "membership");
+		session.setAttribute("prevSnsPath", "membership");
 		
 		javaScript.setLocation(getUrl);
 		return new JavaScriptView(javaScript);
@@ -75,7 +73,7 @@ public class MbrsNaverController extends CommonAbstractController{
 
 		JavaScript javaScript = new JavaScript();
 		String returnUrl = (String)session.getAttribute("returnUrl");
-		String prevPath = (String)session.getAttribute("prevNaverPath");
+		String prevPath = (String)session.getAttribute("prevSnsPath");
 		if (EgovStringUtil.isEmpty(prevPath)) {
 			javaScript.setMessage("네이버 로그인 유입 경로를 설정하세요.");
 		}
@@ -115,26 +113,11 @@ public class MbrsNaverController extends CommonAbstractController{
 		
 		//회원 정보 유효성 검사
 		try {
-			Map<String, Object> validationResult = mbrService.validateForSnsLogin(session, "N", naverUserInfo.getMblTelno(), prevPath);
+			Map<String, Object> validationResult = mbrService.validateForSnsLogin(session, naverUserInfo);
 			
 			//검색 회원이 없으면 회원가입 처리
 			if (!validationResult.containsKey("srchMbrVO")) {
-				//해당 naver 가입된 계정이 있는지 확인
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("srchNaverAppId", naverUserInfo.getNaverAppId());
-				List<MbrVO> srchMbrList = mbrService.selectMbrListAll(paramMap);
-				if (srchMbrList.size() > 0) {
-					javaScript.setMessage("동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
-					javaScript.setLocation(rootPath);
-					return new JavaScriptView(javaScript);
-				}
-				
-				MbrVO mbrVO = naverUserInfo;
-				mbrService.insertMbr(mbrVO);
-				
-				//로그인 처리
-				mbrSession.setParms(mbrVO, true);
-				mbrSession.setMbrInfo(session, mbrSession);
+				mbrService.registerSnsMbrAndLogin(session, naverUserInfo, null);
 				
 				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + mbrSession.getUniqueId()) : (rootPath + "/login");
 				javaScript.setLocation(registPath);

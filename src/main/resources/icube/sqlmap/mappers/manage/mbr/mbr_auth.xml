@@ -19,6 +19,15 @@
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mau.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
+		<if test="srchMbrId != null and srchMbrId != '' ">
+			AND mau.mbr_id = #{srchMbrId}
+		</if>
+		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
+			AND mau.kakao_app_id = #{srchKakaoAppId}
+		</if>
+		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
+			AND mau.naver_app_id = #{srchNaverAppId}
+		</if>
 	</sql>
 	
 	
