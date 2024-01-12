@@ -291,6 +291,12 @@ public class MembersController extends CommonAbstractController {
 
 		if (bplcVO != null) {
 
+			//이로움케어에서 탈퇴여부 확인
+			if(EgovStringUtil.isNotEmpty(bplcVO.getLeaveConfirmDate())) {
+				javaScript.setMessage("탈퇴한 멤버스 회원입니다.");
+				javaScript.setMethod("window.history.back()");
+			}
+			
 			//승인진행중
 			if(EgovStringUtil.equals("W", bplcVO.getAprvTy()) ) { //대기
 				javaScript.setMessage(getMsg("partners.error.approval.ing"));
