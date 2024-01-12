@@ -573,7 +573,7 @@
             		}
             		case 2 : {
             			templete += `
-                            <p class="cost"><strong>월 169만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 186만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -585,7 +585,7 @@
             		}
             		case 3 : {
             			templete += `
-                            <p class="cost"><strong>월 141만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 145만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -597,7 +597,7 @@
             		}
             		case 4 : {
             			templete += `
-                            <p class="cost"><strong>월 130만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 134만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -609,7 +609,7 @@
             		}
             		case 5 : {
             			templete += `
-                            <p class="cost"><strong>월 112만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 115만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -635,7 +635,7 @@
             				grade = '인지지원';
             				
             				templete += `
-                                <p class="cost"><strong>월 62만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                                <p class="cost"><strong>월 64만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                                 <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                                 <ul class="alert">
                                     <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
