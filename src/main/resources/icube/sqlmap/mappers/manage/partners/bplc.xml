@@ -71,6 +71,13 @@
 		 , mdfcn_id
 		 , mdfr
 		 , mb_giup_matching
+		 
+		 , leave_confirm_date
+		 , leave_request_date
+		 , leave_reject_date
+		 , leave_resn
+		 , leave_reject_resn
+		 , leave_confirm_nm
 	</sql>
 
 	<sql id="searchConditions">

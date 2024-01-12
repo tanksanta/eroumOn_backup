@@ -1,11 +1,9 @@
 package icube.manage.members.bplc.biz;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
-import icube.common.file.biz.FileVO;
 import icube.common.vo.CommonBaseVO;
 import lombok.Getter;
 import lombok.Setter;
@@ -95,5 +93,13 @@ public class BplcVO extends CommonBaseVO {
     private int rcmdCnt = 0;// 사용자 추천수
 
     private String mbGiupMatching;//이로움온 매칭서비스 사용
+    
+    
+    private String leaveConfirmDate; //탈퇴일
+	private String leaveRequestDate; //탈퇴 신청일
+	private String leaveRejectDate;  //탈퇴 거부일
+	private String leaveResn;        //탈퇴 사유
+	private String leaveRejectResn;  //탈퇴 거부 사유
+	private String leaveConfirmNm;   //탈퇴 승인자
 
 }
