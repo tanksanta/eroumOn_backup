@@ -561,7 +561,7 @@
             	switch (grade) {
             		case 1 : {
             			templete += `
-                            <p class="cost"><strong>월 188만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 206만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
