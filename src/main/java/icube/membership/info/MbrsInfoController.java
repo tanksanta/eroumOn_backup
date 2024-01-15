@@ -3,7 +3,9 @@ package icube.membership.info;
 
 import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,7 @@ import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
+import icube.common.util.DateUtil;
 import icube.common.util.RSA;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
@@ -860,6 +863,74 @@ public class MbrsInfoController extends CommonAbstractController{
 			resultMap.put("msg", "수급자 테스트 정보 조회중 오류가 발생하였습니다");
 		}
 		
+		return resultMap;
+	}
+	
+	
+	/**
+	 * CI값이 없는 회원은 재인증 페이지로 이동
+	 */
+	@RequestMapping(value="reauth")
+	public String reauth(
+			HttpServletRequest request
+			, HttpSession session
+			, Model model
+			, @RequestParam(value = "returnUrl", required=false) String returnUrl
+		)throws Exception {
+		return "/membership/info/myinfo/reauth";
+	}
+	
+	/**
+	 * CI Key 업데이트 AJAX
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateMbrCi.json")
+	public Map<String, Object> updateMbrCi(
+			@RequestParam String receiptId
+			, HttpSession session
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("msg", "로그인이 필요합니다");
+			return resultMap;
+		}
+	
+		try {
+			//본인인증 체크
+			MbrVO noMbrVO = new MbrVO();
+			mbrService.certificateBootpay(receiptId, noMbrVO);
+			
+			Calendar calendar = new GregorianCalendar();
+	        calendar.setTime(noMbrVO.getBrdt());
+			
+			//만 14세 미만인지 검사
+	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+				resultMap.put("msg", "14세 이상만 등록 가능합니다.");
+				return resultMap;
+	        }
+	        
+	        //회원정보 수정
+			MbrVO srchMbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbrVO.setCiKey(noMbrVO.getCiKey());
+			srchMbrVO.setDiKey(noMbrVO.getDiKey());
+			srchMbrVO.setMbrNm(noMbrVO.getMbrNm());
+			srchMbrVO.setMblTelno(noMbrVO.getMblTelno());
+			srchMbrVO.setGender(noMbrVO.getGender());
+			srchMbrVO.setBrdt(noMbrVO.getBrdt());
+			
+			mbrService.updateMbr(srchMbrVO);
+			
+			mbrSession.setParms(srchMbrVO, true);
+			mbrSession.setMbrInfo(session, mbrSession);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "회원 인증 정보 수정중 오류가 발생하였습니다");
+		}
 		return resultMap;
 	}
 }

@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BiztalkConsultService;
-import icube.common.api.biz.BootpayApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
@@ -95,9 +94,6 @@ public class MbrsRegistController extends CommonAbstractController{
 	@Resource(name="mailService")
 	private MailService mailService;
 
-	@Resource(name= "bootpayApiService")
-	private BootpayApiService bootpayApiService;
-	
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 	
@@ -223,7 +219,8 @@ public class MbrsRegistController extends CommonAbstractController{
 			noMbrVO.setBrdt(sBrdt);
 
 		}else if(EgovStringUtil.isNotEmpty(receiptId)) {
-			certificateBootpay(receiptId, noMbrVO);
+			//본인인증 체크
+			mbrService.certificateBootpay(receiptId, noMbrVO);
 			
 			Calendar calendar = new GregorianCalendar();
 	        calendar.setTime(noMbrVO.getBrdt());
@@ -620,7 +617,7 @@ public class MbrsRegistController extends CommonAbstractController{
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
 			//본인인증 체크
-			certificateBootpay(receiptId, mbrVO);
+			mbrService.certificateBootpay(receiptId, mbrVO);
 
 			Calendar calendar = new GregorianCalendar();
 	        calendar.setTime(mbrVO.getBrdt());
@@ -842,45 +839,5 @@ public class MbrsRegistController extends CommonAbstractController{
 		mbrSession.setParms(new MbrVO(), false);
 		
 		return "redirect:/membership/login";
-	}
-	
-	
-	private void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		
-		// 본인인증정보 체크
-		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-		String authData =String.valueOf(res.get("authenticate_data"));
-		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-		HashMap<String, String> authMap = new HashMap<String, String>();
-		for(String auth : spAuthData) {
-			System.out.println("spAuthData: " + auth.trim());
-			String[] spTmp = auth.trim().split("=", 2);
-			authMap.put(spTmp[0], spTmp[1]); //key:value
-		}
-		/*
-		 !참고:부트페이 제공문서와 결과 값이 다름
-		      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
-
-		 */
-        
-		Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
-        
-        String mblTelno = authMap.get("phone");
-        String gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
-        if(EgovStringUtil.equals("1.0", gender)) {
-        	gender = "M";
-        }else {
-        	gender = "W";
-        }
-
-        noMbrVO.setCiKey(authMap.get("unique"));  //unique가 CI에 해당하는 값
-        noMbrVO.setDiKey(authMap.get("di"));
-        noMbrVO.setMbrNm(authMap.get("name"));
-        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
-        noMbrVO.setGender(gender);
-        noMbrVO.setBrdt(sBrdt);
 	}
 }

@@ -110,4 +110,9 @@ var requireResist = '${requireResist}';
 if (requireResist) {
 	location.href = "/membership/sns/regist?uid=${_mbrSession.uniqueId}";
 }
+//본인인증 진행
+var requireAuth = '${requireAuth}';
+if (requireAuth) {
+	location.href = "/membership/info/myinfo/reauth";
+}
 </script>

@@ -18,10 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.framework.view.JavaScript;
-import icube.common.framework.view.JavaScriptView;
 import icube.common.interceptor.biz.CustomProfileVO;
+import icube.common.util.DateUtil;
 import icube.common.util.RSA;
 import icube.common.util.SHA256;
 import icube.common.util.WebUtil;
@@ -68,6 +69,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
+	
+	@Resource(name= "bootpayApiService")
+	private BootpayApiService bootpayApiService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -889,5 +893,48 @@ public class MbrService extends CommonAbstractServiceImpl {
 		}
 		
 		return javaScript;
+	}
+	
+	
+	/**
+	 * 부트페이 인증 후 사용자 정보 반환
+	 */
+	public void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 본인인증정보 체크
+		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
+
+		String authData =String.valueOf(res.get("authenticate_data"));
+		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
+
+		HashMap<String, String> authMap = new HashMap<String, String>();
+		for(String auth : spAuthData) {
+			System.out.println("spAuthData: " + auth.trim());
+			String[] spTmp = auth.trim().split("=", 2);
+			authMap.put(spTmp[0], spTmp[1]); //key:value
+		}
+		/*
+		 !참고:부트페이 제공문서와 결과 값이 다름
+		      결과값에 json 문자열 처리가 정확하지 않아 타입변환이 안됨
+
+		 */
+        
+		Date sBrdt = formatter.parse(DateUtil.formatDate(authMap.get("birth"), "yyyy-MM-dd")); //생년월일
+        
+        String mblTelno = authMap.get("phone");
+        String gender = authMap.get("gender"); //1.0 > 부트페이 제공문서와 다름
+        if(EgovStringUtil.equals("1.0", gender)) {
+        	gender = "M";
+        }else {
+        	gender = "W";
+        }
+
+        noMbrVO.setCiKey(authMap.get("unique"));  //unique가 CI에 해당하는 값
+        noMbrVO.setDiKey(authMap.get("di"));
+        noMbrVO.setMbrNm(authMap.get("name"));
+        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
+        noMbrVO.setGender(gender);
+        noMbrVO.setBrdt(sBrdt);
 	}
 }
