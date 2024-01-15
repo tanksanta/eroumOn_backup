@@ -38,6 +38,7 @@
 		, m.tel_recptn_dt
 		, m.event_recptn_yn
 		, m.profl_img
+		, m.ci_key
 		, m.di_key
 		, m.naver_app_id
 		, m.kakao_app_id
@@ -96,6 +97,9 @@
 		</if>
 		<if test="srchMblTelno != null and srchMblTelno != ''">
 			AND mbl_telno = #{srchMblTelno}
+		</if>
+		<if test="srchCiKey != null and srchCiKey != ''">
+			AND ci_key = #{srchCiKey}
 		</if>
 		<if test="srchDiKey != null and srchDiKey != ''">
 			AND di_key = #{srchDiKey}
@@ -271,6 +275,7 @@
 			, zip
 			, addr
 			, daddr
+			, ci_key
 			, di_key
 			, naver_app_id
 			, kakao_app_id
@@ -314,6 +319,7 @@
 			, #{zip, jdbcType=VARCHAR}
 			, #{addr, jdbcType=VARCHAR}
 			, #{daddr, jdbcType=VARCHAR}
+			, #{ciKey, jdbcType=VARCHAR}
 			, #{diKey, jdbcType=VARCHAR}
 			, #{naverAppId, jdbcType=VARCHAR}
 			, #{kakaoAppId, jdbcType=VARCHAR}
@@ -364,6 +370,7 @@
 			, zip = #{zip, jdbcType=VARCHAR}
 			, addr = #{addr, jdbcType=VARCHAR}
 			, daddr = #{daddr, jdbcType=VARCHAR}
+			, ci_key = #{ciKey, jdbcType=VARCHAR}
 			, di_key = #{diKey, jdbcType=VARCHAR}
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, bass_stlm_ty = #{bassStlmTy, jdbcType=VARCHAR}
@@ -410,6 +417,7 @@
 			, daddr = #{daddr}
 			, rcmdtn_id = #{rcmdtnId}
 			, telno = #{telno}
+			, ci_key = #{ciKey}
 			, di_key = #{diKey}
 			, recipter_yn = #{recipterYn, jdbcType=VARCHAR}
 			, prvc_vld_pd = #{prvcVldPd}

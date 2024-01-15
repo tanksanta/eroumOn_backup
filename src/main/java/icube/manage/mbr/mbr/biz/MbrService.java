@@ -770,14 +770,21 @@ public class MbrService extends CommonAbstractServiceImpl {
 			}
 		}
 		
-		//해당 회원이 본인 인증을 안하고 회원가입 시도한 유형과 다르다면
-		if (srchMbrVO.getSnsRegistDt() == null && !joinTy.equals(srchMbrVO.getJoinTy())) {
-			if ("K".equals(srchMbrVO.getJoinTy())) {
-				resultMap.put("msg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
-				resultMap.put("location", registPath);
-			} else if ("N".equals(srchMbrVO.getJoinTy())) {
-				resultMap.put("msg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
-				resultMap.put("location", registPath);
+		//해당 회원이 본인 인증을 아직 안함 계정인 경우
+		if (srchMbrVO.getSnsRegistDt() == null) {
+			//회원가입 시도한 유형과 다르다면
+			if (!joinTy.equals(srchMbrVO.getJoinTy())) {
+				if ("K".equals(srchMbrVO.getJoinTy())) {
+					resultMap.put("msg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
+					resultMap.put("location", registPath);
+				} else if ("N".equals(srchMbrVO.getJoinTy())) {
+					resultMap.put("msg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
+					resultMap.put("location", registPath);
+				}
+			}
+			//본인 인증창으로 이동
+			else {
+				resultMap.put("location", membershipRootPath + "/sns/regist?uid=" + srchMbrVO.getUniqueId());
 			}
 			return resultMap;
 		}

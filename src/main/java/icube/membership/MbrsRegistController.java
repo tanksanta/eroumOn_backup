@@ -343,6 +343,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 
 			//인증정보 리턴
+			mbrVO.setCiKey(noMbrVO.getCiKey());
 			mbrVO.setDiKey(noMbrVO.getDiKey()); //di
 			mbrVO.setMbrNm(noMbrVO.getMbrNm());
 			mbrVO.setMblTelno(noMbrVO.getMblTelno());
@@ -639,7 +640,7 @@ public class MbrsRegistController extends CommonAbstractController{
 			paramMap.put("srchMbrStts", "NORMAL");
 
 			MbrVO findMbrVO = mbrService.selectMbr(paramMap);
-			if(findMbrVO != null) {
+			if(findMbrVO != null && !uniqueId.equals(findMbrVO.getUniqueId())) {
 				if(findMbrVO.getJoinTy().equals("N")) {
 					if (findMbrVO.getSnsRegistDt() == null) {
 						javaScript.setMessage("현재 네이버 계정으로 간편 가입 진행 중입니다.");
@@ -672,6 +673,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
 	        }
+	        srchMbr.setCiKey(mbrVO.getCiKey());
 	        srchMbr.setDiKey(mbrVO.getDiKey());
 	        srchMbr.setMbrNm(mbrVO.getMbrNm());
 	        srchMbr.setMblTelno(mbrVO.getMblTelno());
@@ -874,6 +876,7 @@ public class MbrsRegistController extends CommonAbstractController{
         	gender = "W";
         }
 
+        noMbrVO.setCiKey(authMap.get("unique"));  //unique가 CI에 해당하는 값
         noMbrVO.setDiKey(authMap.get("di"));
         noMbrVO.setMbrNm(authMap.get("name"));
         noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));

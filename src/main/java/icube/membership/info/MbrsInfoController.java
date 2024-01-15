@@ -248,6 +248,9 @@ public class MbrsInfoController extends CommonAbstractController{
 		try {
 			// 회원정보 수정
 			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbr.setCiKey(mbrVO.getCiKey());
+			srchMbr.setDiKey(mbrVO.getDiKey());
+			
 			srchMbr.setMblTelno(mbrVO.getMblTelno());
 			srchMbr.setEml(mbrVO.getEml());
 			srchMbr.setZip(mbrVO.getZip());
@@ -383,6 +386,7 @@ public class MbrsInfoController extends CommonAbstractController{
 
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("mblTelno", authMap.get("phone"));
+		resultMap.put("ciKey", authMap.get("unique"));
 		resultMap.put("diKey", authMap.get("di"));
 		return resultMap;
 	}

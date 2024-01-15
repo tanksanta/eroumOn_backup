@@ -20,6 +20,7 @@
 
 		<div class="member-modify mt-11 md:mt-15">
 			<form:form action="./infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
+				<form:hidden path="ciKey" />
 				<form:hidden path="diKey" />
 				<form:hidden path="joinTy" />
 
@@ -249,6 +250,7 @@ async function f_cert(){
       				var telno = data.mblTelno;
       				telno = telno.substring(0,3) + "-" + telno.substring(3,7) + "-" + telno.substring(7,11);
       				$("#mblTelno").val(telno);
+      				$("#ciKey").val(data.ciKey);
       				$("#diKey").val(data.diKey);
       				alert("인증되었습니다.");
       			})
