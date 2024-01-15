@@ -15,6 +15,7 @@ import lombok.Setter;
 public class EntrpsVO extends CommonBaseVO {
 	private int entrpsNo;
 	private String entrpsNm;
+	private String entrpsStoreNm;
 	private String brno;
 	private String rprsvNm;
 	private String induty;

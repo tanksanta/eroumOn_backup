@@ -1,4 +1,4 @@
-class JsMarketOrdrPay extends JsMargetDrawItems{
+class JsMarketOrdrPay extends JsMargetCartDrawItems{
     constructor(ordrTy, path, mbrSession, cartList, entrpsDlvyGrpVOList, entrpsVOList, codeMapJson){
         super();
 		
@@ -107,7 +107,7 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 			arrHtml.push('<div class="order-product">');
 			arrHtml.push('<div class="order-body">');
 			
-			arrHtml.push(this.fn_draw_html_order_item_business(this._cls_info.entrpsVOList[ifor]));
+			arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_item_business(this._cls_info.entrpsVOList[ifor]));
 
 			arrEntrpsDlvyGrp = this._cls_info.entrpsDlvyGrpVOList.filter(function(item, idex) {
 				if (item.entrpsNo == owner._cls_info.entrpsVOList[ifor].entrpsNo) {
@@ -141,7 +141,7 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 
 				klen = arrCartList.length;
 
-				arrHtml.push(this.fn_draw_html_order_delivery_title(true, klen, arrEntrpsDlvyGrp[jfor]));
+				arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_delivery_title(true, klen, arrEntrpsDlvyGrp[jfor]));
 
 				arrCartGrpBaseAllList = [];
 				arrCartGrpAditAllList = [];
@@ -210,7 +210,7 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 			
 			jlen = arrCartList.length;
 			for(jfor=0 ; jfor<jlen ; jfor++){
-				arrHtml.push(this.fn_draw_html_order_delivery_title(false, 1, this._cls_info.entrpsVOList[ifor]));
+				arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_delivery_title(false, 1, this._cls_info.entrpsVOList[ifor]));
 				cartIdx = [];
 				arrCartGrpBaseList = arrCartList.filter(function(item, idex) {
 					if (item.ordrOptnTy == 'BASE' && item.cartGrpNo == arrCartList[jfor].cartGrpNo) {
@@ -322,7 +322,7 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 	}
 
 	/*아이템별 정보들-공통사항*/
-	fn_draw_html_order_product_item_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptn){
+	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptn){
 		console.log(json)
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
@@ -409,14 +409,14 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 				cartItemBaseList.push(cartItemBaseOne);
 
 				cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
+				cartItemBaseOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
 				cartItemBaseOne += "</div>"
 
 				cartItemBaseList.push(cartItemBaseOne);
 			}
 		}else{//기본 옵션이 없는 경우
 			cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-			cartItemBaseOne += this.fn_draw_html_order_product_item_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
+			cartItemBaseOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
 			cartItemBaseOne += "</div>"
 
 			cartItemBaseList.push(cartItemBaseOne);
@@ -464,7 +464,7 @@ class JsMarketOrdrPay extends JsMargetDrawItems{
 				cartItemAditList.push(cartItemAditOne);
 
 				cartItemAditOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemAditOne += this.fn_draw_html_order_product_item_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptnOne);
+				cartItemAditOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptnOne);
 				cartItemAditOne += '</div>';
 
 				cartItemAditList.push(cartItemAditOne);

@@ -74,8 +74,11 @@ public class MyCartController extends CommonAbstractController  {
 		paramMap.clear();
 		List<Integer> entrpsNoList = nResultList.stream()
 				.map(g -> g.getGdsInfo().getEntrpsNo())
+				.distinct()
 				.collect(Collectors.toList());
+		paramMap.put("srchEntrpsNos", entrpsNoList);
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(paramMap);
+		
 		List<EntrpsDlvyBaseCtVO> entrpsDlvyList = entrpsList.stream()
 				.filter(e -> entrpsNoList.contains(e.getEntrpsNo()))
 				.map(e -> new EntrpsDlvyBaseCtVO(e.getEntrpsNo(), e.getDlvyCtCnd(), e.getDlvyBaseCt()))

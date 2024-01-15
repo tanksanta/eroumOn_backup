@@ -31,7 +31,9 @@
 	& .order-item-box .order-product-item .item-add-box .item-add .item-add-one{
 		display: flex;
 	}
-	
+	& .move.cursor{
+		cursor: pointer;
+	}
 </style>
 <main id="container" class="is-mypage">
 	<jsp:include page="../../layout/page_header.jsp">
@@ -479,7 +481,7 @@
 
 <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartModalOptnChg2.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-<script type="text/javascript" src="/html/page/market/assets/script/JsMargetDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script type="text/javascript" src="/html/page/market/assets/script/JsMargetCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
 
