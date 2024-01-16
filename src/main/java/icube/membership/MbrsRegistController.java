@@ -208,30 +208,25 @@ public class MbrsRegistController extends CommonAbstractController{
 		}
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-		MbrVO noMbrVO = new MbrVO();
+		MbrVO certMbrInfoVO = new MbrVO();
 		if(EgovStringUtil.isNotEmpty(mbrNm) && EgovStringUtil.isNotEmpty(mblTelno)) {
 
 	        Date sBrdt = formatter.parse(DateUtil.convertDate(brdt, "yyyy-MM-dd"));
 
-			noMbrVO.setMbrNm(mbrNm);
-			noMbrVO.setMblTelno(mblTelno);
-			noMbrVO.setGender(gender);
-			noMbrVO.setBrdt(sBrdt);
+	        certMbrInfoVO.setMbrNm(mbrNm);
+	        certMbrInfoVO.setMblTelno(mblTelno);
+	        certMbrInfoVO.setGender(gender);
+	        certMbrInfoVO.setBrdt(sBrdt);
 
 		}else if(EgovStringUtil.isNotEmpty(receiptId)) {
 			//본인인증 체크
-			mbrService.certificateBootpay(receiptId, noMbrVO);
-			
-			Calendar calendar = new GregorianCalendar();
-	        calendar.setTime(noMbrVO.getBrdt());
-			
-			//만 14세 미만인 경우 회원가입을 할 수 없다.
-	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
-	        	model.addAttribute("alertMsg", "14세 이상만 가입 가능합니다.");
+			Map<String, Object> resultMap = mbrService.certificateBootpay(receiptId);
+			if ((boolean)resultMap.get("valid") == false) {
+				model.addAttribute("alertMsg", (String)resultMap.get("msg"));
 				return "/common/msg";
-	        }
-
-	        System.out.println("noMbrVO: " + noMbrVO.toString());
+			}
+			
+			certMbrInfoVO = (MbrVO)resultMap.get("certMbrInfoVO");
 		}else {
 			model.addAttribute("alertMsg", "잘못된 방법으로 접근하였습니다.");
 			return "/common/msg";
@@ -239,8 +234,8 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 가입된 회원인지 체크
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMbrNm", noMbrVO.getMbrNm());
-		paramMap.put("srchMblTelno", noMbrVO.getMblTelno());
+		paramMap.put("srchMbrNm", certMbrInfoVO.getMbrNm());
+		paramMap.put("srchMblTelno", certMbrInfoVO.getMblTelno());
 		paramMap.put("srchMbrStts", "NORMAL");
 
 		MbrVO findMbrVO = mbrService.selectMbr(paramMap);
@@ -270,7 +265,7 @@ public class MbrsRegistController extends CommonAbstractController{
 
 		// 재가입 7일 이내 불가
 		paramMap.clear();
-		paramMap.put("srchDiKey", noMbrVO.getDiKey());
+		paramMap.put("srchDiKey", certMbrInfoVO.getDiKey());
 		paramMap.put("srchMbrStts", "EXIT");
 		paramMap.put("srchWhdwlDt", 7);
 		int resultCnt = mbrService.selectMbrCount(paramMap);
@@ -281,7 +276,7 @@ public class MbrsRegistController extends CommonAbstractController{
 		}
 
 
-		mbrSession.setParms(noMbrVO, false);
+		mbrSession.setParms(certMbrInfoVO, false);
 		
 		Date now = new Date();
 		mbrVO.setSmsRcptnDt(now);
@@ -291,7 +286,7 @@ public class MbrsRegistController extends CommonAbstractController{
         session.setAttribute(NONMEMBER_SESSION_KEY, mbrSession);
 		session.setMaxInactiveInterval(60*5);
 
-		model.addAttribute("noMbrVO", noMbrVO);
+		model.addAttribute("noMbrVO", certMbrInfoVO);
 
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
@@ -335,8 +330,6 @@ public class MbrsRegistController extends CommonAbstractController{
 			}
 
 			MbrVO noMbrVO = (MbrVO) session.getAttribute(NONMEMBER_SESSION_KEY);
-
-			System.out.println("action noMbrVO:" + noMbrVO.toString());
 
 
 			//인증정보 리턴
@@ -613,23 +606,23 @@ public class MbrsRegistController extends CommonAbstractController{
 			, HttpServletRequest request) throws Exception {
 		JavaScript javaScript = new JavaScript();
 		
+		MbrVO certMbrInfoVO = new MbrVO();
+		
 		// 더블 서브밋 방지
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
 
 			//본인인증 체크
-			mbrService.certificateBootpay(receiptId, mbrVO);
-
-			Calendar calendar = new GregorianCalendar();
-	        calendar.setTime(mbrVO.getBrdt());
-			
-			//만 14세 미만인 경우 회원가입을 할 수 없다.
-	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
-				javaScript.setMessage("14세 이상만 가입 가능합니다.");
+			Map<String, Object> resultMap = mbrService.certificateBootpay(receiptId);
+			if ((boolean)resultMap.get("valid") == false) {
+				javaScript.setMessage((String)resultMap.get("msg"));
 				javaScript.setLocation("/membership/login");
 				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
-	        }
-	        
+			}
+			
+			certMbrInfoVO = (MbrVO)resultMap.get("certMbrInfoVO");
+			
+			
 	        // 가입된 회원인지 체크
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("srchMbrNm", mbrVO.getMbrNm());
@@ -670,12 +663,12 @@ public class MbrsRegistController extends CommonAbstractController{
 				mbrSession.setParms(new MbrVO(), false);
 				return new JavaScriptView(javaScript);
 	        }
-	        srchMbr.setCiKey(mbrVO.getCiKey());
-	        srchMbr.setDiKey(mbrVO.getDiKey());
-	        srchMbr.setMbrNm(mbrVO.getMbrNm());
-	        srchMbr.setMblTelno(mbrVO.getMblTelno());
-	        srchMbr.setGender(mbrVO.getGender());
-	        srchMbr.setBrdt(mbrVO.getBrdt());
+	        srchMbr.setCiKey(certMbrInfoVO.getCiKey());
+	        srchMbr.setDiKey(certMbrInfoVO.getDiKey());
+	        srchMbr.setMbrNm(certMbrInfoVO.getMbrNm());
+	        srchMbr.setMblTelno(certMbrInfoVO.getMblTelno());
+	        srchMbr.setGender(certMbrInfoVO.getGender());
+	        srchMbr.setBrdt(certMbrInfoVO.getBrdt());
 	        
 	        srchMbr.setZip(mbrVO.getZip());
 	        srchMbr.setAddr(mbrVO.getAddr());

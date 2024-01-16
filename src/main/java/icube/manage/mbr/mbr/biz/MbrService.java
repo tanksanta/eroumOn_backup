@@ -2,7 +2,9 @@ package icube.manage.mbr.mbr.biz;
 
 import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -784,6 +786,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 				} else if ("N".equals(srchMbrVO.getJoinTy())) {
 					resultMap.put("msg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
 					resultMap.put("location", registPath);
+				} else {
+					resultMap.put("msg", "가입된 이로움 계정이 존재합니다.");
+					resultMap.put("location", registPath);
 				}
 			}
 			//본인 인증창으로 이동
@@ -899,7 +904,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 	/**
 	 * 부트페이 인증 후 사용자 정보 반환
 	 */
-	public void certificateBootpay(String receiptId, MbrVO noMbrVO) throws Exception {
+	public Map<String, Object> certificateBootpay(String receiptId) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("valid", false);
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		// 본인인증정보 체크
@@ -930,11 +938,26 @@ public class MbrService extends CommonAbstractServiceImpl {
         	gender = "W";
         }
 
-        noMbrVO.setCiKey(authMap.get("unique"));  //unique가 CI에 해당하는 값
-        noMbrVO.setDiKey(authMap.get("di"));
-        noMbrVO.setMbrNm(authMap.get("name"));
-        noMbrVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
-        noMbrVO.setGender(gender);
-        noMbrVO.setBrdt(sBrdt);
+        
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(sBrdt);
+        //만 14세 미만인지 체크
+        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
+        	resultMap.put("msg", "14세 이상만 가입 가능합니다.");
+    		return resultMap;
+        }
+        
+        
+        MbrVO certMbrInfoVO = new MbrVO();
+        certMbrInfoVO.setCiKey(authMap.get("unique"));  //unique가 CI에 해당하는 값
+        certMbrInfoVO.setDiKey(authMap.get("di"));
+        certMbrInfoVO.setMbrNm(authMap.get("name"));
+        certMbrInfoVO.setMblTelno(mblTelno.substring(0, 3) + "-" + mblTelno.substring(3, 7) +"-"+ mblTelno.substring(7, 11));
+        certMbrInfoVO.setGender(gender);
+        certMbrInfoVO.setBrdt(sBrdt);
+        
+        resultMap.put("certMbrInfoVO", certMbrInfoVO);
+        resultMap.put("valid", true);
+		return resultMap;
 	}
 }

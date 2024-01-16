@@ -128,7 +128,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 				request.setAttribute("requireResist", true);
 			}
 			//본인인증을 다시해야 하는 회원인 경우(CI값이 없는 회원)
-			if (!"/membership/info/myinfo/reauth".equals(checkPath) 
+			else if (!"/membership/info/myinfo/reauth".equals(checkPath) 
 					&& mbrSession.isLoginCheck() 
 					&& EgovStringUtil.isEmpty(mbrSession.getCiKey())) {
 				request.setAttribute("requireAuth", true);

@@ -373,24 +373,22 @@ public class MbrsInfoController extends CommonAbstractController{
 		, @RequestParam Map<String, Object> reqMap
 		, HttpServletRequest request
 		)throws Exception {
-
-		// 본인인증정보 체크
-		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-		String authData =String.valueOf(res.get("authenticate_data"));
-		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-		HashMap<String, String> authMap = new HashMap<String, String>();
-		for(String auth : spAuthData) {
-			System.out.println("spAuthData: " + auth.trim());
-			String[] spTmp = auth.trim().split("=", 2);
-			authMap.put(spTmp[0], spTmp[1]); //key:value
-		}
-
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("mblTelno", authMap.get("phone"));
-		resultMap.put("ciKey", authMap.get("unique"));
-		resultMap.put("diKey", authMap.get("di"));
+		resultMap.put("success", false);
+		
+		//본인인증 체크
+		Map<String, Object> certMap = mbrService.certificateBootpay(receiptId);
+		if ((boolean)certMap.get("valid") == false) {
+			resultMap.put("msg", (String)certMap.get("msg"));
+			return resultMap;
+		}
+		
+		MbrVO certMbrInfoVO = (MbrVO)certMap.get("certMbrInfoVO");
+		
+		resultMap.put("success", true);
+		resultMap.put("mblTelno", certMbrInfoVO.getMblTelno());
+		resultMap.put("ciKey", certMbrInfoVO.getCiKey());
+		resultMap.put("diKey", certMbrInfoVO.getDiKey());
 		return resultMap;
 	}
 	
@@ -900,26 +898,23 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 		try {
 			//본인인증 체크
-			MbrVO noMbrVO = new MbrVO();
-			mbrService.certificateBootpay(receiptId, noMbrVO);
+			Map<String, Object> certResultMap = mbrService.certificateBootpay(receiptId);
+			if ((boolean)certResultMap.get("valid") == false) {
+				certResultMap.put("msg", (String)certResultMap.get("msg"));
+				return certResultMap;
+			}
 			
-			Calendar calendar = new GregorianCalendar();
-	        calendar.setTime(noMbrVO.getBrdt());
+			MbrVO certMbrInfoVO = (MbrVO)certResultMap.get("certMbrInfoVO");
 			
-			//만 14세 미만인지 검사
-	        if (DateUtil.getRealAge(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)) < 14) {
-				resultMap.put("msg", "14세 이상만 등록 가능합니다.");
-				return resultMap;
-	        }
 	        
 	        //회원정보 수정
 			MbrVO srchMbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			srchMbrVO.setCiKey(noMbrVO.getCiKey());
-			srchMbrVO.setDiKey(noMbrVO.getDiKey());
-			srchMbrVO.setMbrNm(noMbrVO.getMbrNm());
-			srchMbrVO.setMblTelno(noMbrVO.getMblTelno());
-			srchMbrVO.setGender(noMbrVO.getGender());
-			srchMbrVO.setBrdt(noMbrVO.getBrdt());
+			srchMbrVO.setCiKey(certMbrInfoVO.getCiKey());
+			srchMbrVO.setDiKey(certMbrInfoVO.getDiKey());
+			srchMbrVO.setMbrNm(certMbrInfoVO.getMbrNm());
+			srchMbrVO.setMblTelno(certMbrInfoVO.getMblTelno());
+			srchMbrVO.setGender(certMbrInfoVO.getGender());
+			srchMbrVO.setBrdt(certMbrInfoVO.getBrdt());
 			
 			mbrService.updateMbr(srchMbrVO);
 			

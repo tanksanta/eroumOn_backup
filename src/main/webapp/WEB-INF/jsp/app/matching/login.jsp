@@ -67,7 +67,7 @@
 					JSON.stringify(data)
 				);
 			} else {
-				alert('모바일이 아닙니다');
+				location.href = "/";
 			}
 		}
 		
@@ -84,7 +84,7 @@
 				// ios
 				window.addEventListener("message", listener);
 			} else {
-				alert('모바일이 아닙니다');
+				location.href = "/";
 			}
 		}
 		
