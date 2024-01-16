@@ -148,6 +148,9 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 		$( this._cls_info.pagePrefix + " .cart-list-container .order-product-inner .order-item-base .gdsCd").off('click').on('click',  function() {
 			owner.fn_gds_view($(this));
 		});
+		$( this._cls_info.pagePrefix + " .cart-list-container .order-product-inner .order-item-base .gdsNm").off('click').on('click',  function() {
+			owner.fn_gds_view($(this));
+		});
     }
 
 	fn_gds_view(jobjTarget){
@@ -165,6 +168,110 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 		'</dl>';
 	}
 
+	fn_draw_cart_entrpsdlvygrp_itemgrp_one(entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList){
+		var strItemOptionBase = this.fn_draw_cart_entrpsdlvygrp_itemgrp_base_list(entrpsDlvyGrpInfo, arrCartGrpBaseAllList);
+		var strItemOptionAdit = this.fn_draw_cart_entrpsdlvygrp_itemgrp_adit_list(entrpsDlvyGrpInfo, arrCartGrpAditAllList);
+		var dlvyBaseAmt = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cartgrp_each_dlvy_base(arrCartGrpBaseAllList, arrCartGrpAditAllList);
+
+		var json = arrCartGrpBaseAllList[0];
+		var thumbnailFile = "/html/page/market/assets/images/noimg.png";
+		if (json.gdsInfo.thumbnailFile != undefined){
+			thumbnailFile = "/comm/getImage?srvcId=GDS&amp;upNo=" + json.gdsInfo.thumbnailFile.upNo +"&amp;fileTy="+json.gdsInfo.thumbnailFile.fileTy +"&amp;fileNo="+json.gdsInfo.thumbnailFile.fileNo +"&amp;thumbYn=Y";
+		}
+
+		var cartGrpMoney = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cart_grp_sum_money(arrCartGrpBaseAllList, arrCartGrpAditAllList);
+
+		var original_price = '';
+		if (cartGrpMoney.originPc != cartGrpMoney.ordrPc){
+			original_price = '<span class="original-price">{0}원</span>'.format(cartGrpMoney.originPc.format_money());
+		}
+
+		var entrpsDlvygrpAttr = '', entrpsDlvygrpCls = '';
+		if (entrpsDlvyGrpInfo != undefined && entrpsDlvyGrpInfo.entrpsDlvygrpNo != undefined){
+			entrpsDlvygrpAttr = ' entrpsDlvygrpNo="{0}"'.format(entrpsDlvyGrpInfo.entrpsDlvygrpNo);
+			entrpsDlvygrpCls = ' entrpsDlvygrpNo ';
+		}
+
+		var soldoutYn = json.gdsInfo.soldoutYn;
+		if (json.gdsInfo.stockQy == undefined || json.gdsInfo.stockQy < 1 ){
+			soldoutYn = 'Y';
+		}
+		var ableBuy = (soldoutYn=='Y'?'N':'Y');
+
+		var noOptnInputhidden;
+		if ((isNaN(json.gdsOptnNo) || json.gdsOptnNo == 0) && json.gdsInfo.optnList.length < 1){
+			this._cls_info.ordrIdx += 1;
+			noOptnInputhidden = this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", entrpsDlvyGrpInfo, json, null, ableBuy);
+		}else{
+			noOptnInputhidden = '';
+		}
+		
+		
+		var strHtml = ''+
+			'<div class="order-product-inner cartGrp{2}" cartGrpNo="{0}" {1} ctgryNo="{3}" gdsCd="{4}">'.format(json.cartGrpNo, entrpsDlvygrpAttr, entrpsDlvygrpCls, json.gdsInfo.ctgryNo, json.gdsInfo.gdsCd)+
+				'<div class="order-product-item">'+
+					'<div class="item-thumb">'+
+						'<div class="form-check">'+
+							'<input class="form-check-input cartGrpNo" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
+						'</div>'+
+						'<div class="order-item-thumb  move cursor">'+
+							'<img src="{0}" alt="">'.format(thumbnailFile)+
+						'</div>'+
+					'</div>'+
+					'<div class="item-name">'+
+						'<div class="order-item-base">'+
+							'<p class="code">'+
+								'<span class="label-primary">'+
+									'<span>{0}</span>'.format(this._cls_info.codeMapJson.gdsTyCode[json.gdsInfo.gdsTy])+
+									'<i></i>'+
+								'</span>'+
+								'<u class="gdsCd move cursor">{0}</u>'.format(json.gdsCd)+
+							'</p>'+
+							'<div class="product">'+
+								'<p class="name gdsNm move cursor">{0}</p>'.format(json.gdsNm)+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="item-price">'+
+						'<div class="pay-info">'+
+							'<p class="pay-amount">주문수량<span>{0}</span>개</p>'.format(cartGrpMoney.ordrQy.format_money())+
+							'<div class="pay-price">'+
+								original_price+
+								'<strong class="price">{0}원</strong>'.format(cartGrpMoney.ordrPc.format_money())+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="item-option">'+
+						'<dl class="option">'+
+						strItemOptionBase+
+						'</dl>'+
+						strItemOptionAdit+
+					'</div>'+
+					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
+					((soldoutYn == 'Y') ? this.fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out():'') + 
+					'<input type="hidden" name="dlvyBaseAmt" value="{0}">'.format(dlvyBaseAmt)+
+				'</div>'+
+				noOptnInputhidden+
+			'</div>';
+
+		return strHtml;
+	}
+
+	/*기본 옵션 삭제 여부*/
+	fn_draw_cart_entrpsdlvygrp_itemgrp_base_delete(json, ableBuy){
+		var btnDelte = '<button class="btn-delete2 cart gdsOptn base" ordrOptnTy="BASE" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
+		btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)
+
+		return btnDelte;
+	}
+
+	/*추가 옵션 삭제 여부*/
+	fn_draw_cart_entrpsdlvygrp_itemgrp_adit_delete(json, ableBuy){
+		var btnDelte = '<button class="btn-delete2 cart gdsOptn adit" ordrOptnTy="ADIT" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
+
+		btnDelte = btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy);
+		return btnDelte;
+	}
 
 
 	fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out(){
@@ -179,7 +286,7 @@ class JsMarketCartList extends JsMargetCartDrawItems{
 		aditOptnOne : BASE 이면 기본 상품의 정보, ADIT 이면 추가상품의 정보
 		ableBuy : 구매가능 여부
 	*/
-	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, json, aditOptnOne, ableBuy){
+	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, entrpsDlvyGrpInfo, json, aditOptnOne, ableBuy){
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="cartNo" value="{0}">'.format(json.cartNo);
 		hiddenInfo += '<input type="hidden" name="cartGrpNo" value="{0}">'.format(json.cartGrpNo);

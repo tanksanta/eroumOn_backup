@@ -66,6 +66,7 @@ public class MyCartController extends CommonAbstractController  {
 		paramMap.clear();
 		paramMap.put("srchCartTy", "N"); // 비급여주문 상품
 		paramMap.put("srchViewYn", "Y");
+		paramMap.put("reCalcPcYn", "Y");
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);

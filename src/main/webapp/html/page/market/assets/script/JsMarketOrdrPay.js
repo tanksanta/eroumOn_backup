@@ -32,6 +32,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 
 			this._cls_info.ordrCd = this._cls_info.codeMapJson.ordrCd;
+			this._cls_info.ordrIdx = 0;/*주문 상세 인덱스*/
 			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;
 		}
 		
@@ -52,7 +53,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 										, "total-dlvyAdit":0	/*배송비-추가 지역 금액*/
 									};
 									
-		this.fn_draw_pay_list();
+		this.fn_draw_cart_entrpsdlvygrp_list(this._cls_info.pageCartListfix , this._cls_info.drawCartList);
 
 		this.fn_calc_dlvyadit();
 		this.fn_draw_result_money();
@@ -68,16 +69,22 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 			this._cls_info.cartResultMoney["total-dlvyAdit"] = 0;
 			return;
 		}
-		var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+		var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .order-product-inner.cartGrp ");
 
+		var entrpsDlvygrpList = [];
+		var entrpsDlvygrpNo;
 		var ifor, ilen = jobjCartList.length;
 		var money = 0;
 		for(ifor=0 ; ifor<ilen ; ifor++){
 			jobjDtl = $(jobjCartList[ifor]);
-			if (jobjDtl.find('input[name="ordrOptnTy"]').val() == "BASE"){
-				money += Number(jobjDtl.find('input[name="dlvyAditAmt"]').val())
-				
+			entrpsDlvygrpNo = jobjDtl.attr("entrpsDlvygrpNo");
+			if (entrpsDlvygrpNo == undefined || entrpsDlvygrpList.indexOf(entrpsDlvygrpNo) < 0){
+				if (jobjDtl.find('input[name="ordrOptnTy"]').val() == "BASE"){
+					money += Number(jobjDtl.find('input[name="dlvyAditAmt"]').val());
+					if (entrpsDlvygrpNo != undefined) entrpsDlvygrpList.push(entrpsDlvygrpNo);
+				}
 			}
+			
 		}
 
 		if (isNaN(money)){
@@ -87,242 +94,103 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 		this._cls_info.cartResultMoney["total-dlvyAdit"] = money;
 	}
 
+	fn_draw_cart_entrpsdlvygrp_itemgrp_one(entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList){
+		var strItemOptionBase = this.fn_draw_cart_entrpsdlvygrp_itemgrp_base_list(entrpsDlvyGrpInfo, arrCartGrpBaseAllList);
+		var strItemOptionAdit = this.fn_draw_cart_entrpsdlvygrp_itemgrp_adit_list(entrpsDlvyGrpInfo, arrCartGrpAditAllList);
+		var dlvyBaseAmt = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cartgrp_each_dlvy_base(arrCartGrpBaseAllList, arrCartGrpAditAllList);
 
-	fn_draw_pay_list(){
-		if (this._cls_info.drawCartList == undefined) return;
-		if (this._cls_info.entrpsDlvyGrpVOList == undefined) return;
-		if (this._cls_info.entrpsVOList == undefined) return;
-
-		var owner = this;
-		
-		var dfor, dlen, kfor, klen, jfor, jlen, ifor, ilen = this._cls_info.entrpsVOList.length;
-		var arrEntrpsDlvyGrp, arrCartList, arrCartGrpBaseList, arrCartGrpAditList, arrCartGrpBaseAllList, arrCartGrpAditAllList;
-		var arrHtml = [];
-		var cartIdx;
-		var strHtml;
-		var items_money;
-		var ordrIdx = 0;
-
-		for(ifor=0 ; ifor<ilen ; ifor++){/*사업소별 항목을 그린다*/
-			arrHtml.push('<div class="order-product">');
-			arrHtml.push('<div class="order-body">');
-			
-			arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_item_business(this._cls_info.entrpsVOList[ifor]));
-
-			arrEntrpsDlvyGrp = this._cls_info.entrpsDlvyGrpVOList.filter(function(item, idex) {
-				if (item.entrpsNo == owner._cls_info.entrpsVOList[ifor].entrpsNo) {
-					return true;
-				}
-			});
-
-			jlen = arrEntrpsDlvyGrp.length;
-			
-			/*****************************묶음 배송 그룹별 항목을 그린다. 시작*****************************/
-			for(jfor=0 ; jfor<jlen ; jfor++){
-				// console.log(arrEntrpsDlvyGrp[jfor]);
-				cartIdx = [];
-				arrCartList = this._cls_info.drawCartList.filter(function(item, idex) {
-					if (item.gdsInfo != null && item.gdsInfo.entrpsNo == arrEntrpsDlvyGrp[jfor].entrpsNo 
-											&& item.gdsInfo.entrpsDlvygrpNo == arrEntrpsDlvyGrp[jfor].entrpsDlvygrpNo) {
-						cartIdx.push(idex);
-						return true;
-					}
-				});
-				
-				if (arrCartList.length <= 1) continue;/*1개짜리는 따로 그린다*/
-
-				// console.log(cartIdx);
-				dlen = cartIdx.length - 1;
-				for(dfor=dlen ; dfor>=0 ; dfor--){
-					this._cls_info.drawCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
-				}
-
-				this._cls_info.jsMarketDlvyGrpCalc.fn_calc_dlvygrp(arrEntrpsDlvyGrp[jfor], arrCartList);
-
-				klen = arrCartList.length;
-
-				arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_delivery_title(true, klen, arrEntrpsDlvyGrp[jfor]));
-
-				arrCartGrpBaseAllList = [];
-				arrCartGrpAditAllList = [];
-				arrHtml.push('<div class="order-product-inner">');
-				/*묶음 배송의 상품을 그린다*/
-				for(kfor=0 ; kfor<klen ; kfor++){
-
-					// console.log("arrCartList["+kfor+"]", arrCartList[kfor]);
-
-					cartIdx = [];
-					arrCartGrpBaseList = arrCartList.filter(function(item, idex) {
-						if (item.ordrOptnTy == 'BASE' && item.cartGrpNo == arrCartList[kfor].cartGrpNo) {
-							arrCartGrpBaseAllList.push(item);
-							cartIdx.push(idex);
-							return true;
-						}
-					});
-					arrCartGrpAditList = arrCartList.filter(function(item, idex) {
-						if (item.ordrOptnTy == 'ADIT' && item.cartNo != item.cartGrpNo && item.cartGrpNo == arrCartList[kfor].cartGrpNo) {
-							arrCartGrpAditAllList.push(item);
-							cartIdx.push(idex);
-							return true;
-						}
-					});
-					// console.log("arrCartGrpBaseList.length", arrCartGrpBaseList.length);
-					// console.log("arrCartGrpAditList.length", arrCartGrpAditList.length);
-					// console.log("cartIdx", cartIdx);
-
-					
-					items_money = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cart_grp_sum_money(arrCartGrpBaseList, arrCartGrpAditList);
-					this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
-
-					if (this._cls_info.dlvyCtAditRgnYn == 'Y' && kfor == 0){
-						this._cls_info.cartResultMoney["total-dlvyAdit"] += arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
-					}
-
-					ordrIdx += 1;
-					strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx, true, arrEntrpsDlvyGrp[jfor], arrCartGrpBaseList[0], items_money, arrCartGrpBaseList, arrCartGrpAditList);
-					arrHtml.push(strHtml);
-					// console.log(strHtml)
-				}
-
-				strHtml = this.fn_draw_html_order_delivery_summary_grp(arrEntrpsDlvyGrp[jfor], arrCartGrpBaseAllList, arrCartGrpAditAllList);
-				arrHtml.push(strHtml);
-				// console.log(strHtml)
-
-				arrHtml.push('</div>');
-			}
-			/*****************************묶음 배송 그룹별 항목을 그린다. 끝*****************************/
-
-
-			/*****************************개별 배송 그룹별 항목을 그린다. cart_grp_no별로 그려야 한다. 시작*****************************/
-			cartIdx = [];
-			arrCartList = this._cls_info.drawCartList.filter(function(item, idex) {
-				if (item.gdsInfo != undefined && item.gdsInfo.entrpsNo == owner._cls_info.entrpsVOList[ifor].entrpsNo) {
-					cartIdx.push(idex);
-					return true;
-				}
-			});
-			// console.log(cartIdx);
-			dlen = cartIdx.length - 1;
-			for(dfor=dlen ; dfor>=0 ; dfor--){
-				this._cls_info.drawCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
-			}
-
-			
-			jlen = arrCartList.length;
-			for(jfor=0 ; jfor<jlen ; jfor++){
-				arrHtml.push(this.fn_draw_cart_entrpsdlvygrp_delivery_title(false, 1, this._cls_info.entrpsVOList[ifor]));
-				cartIdx = [];
-				arrCartGrpBaseList = arrCartList.filter(function(item, idex) {
-					if (item.ordrOptnTy == 'BASE' && item.cartGrpNo == arrCartList[jfor].cartGrpNo) {
-						cartIdx.push(idex);
-						return true;
-					}
-				});
-				arrCartGrpAditList = arrCartList.filter(function(item, idex) {
-					if (item.ordrOptnTy == 'ADIT' && item.cartNo != item.cartGrpNo && item.cartGrpNo == arrCartList[jfor].cartGrpNo) {
-						cartIdx.push(idex);
-						return true;
-					}
-				});
-
-				items_money = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cart_grp_sum_money(arrCartGrpBaseList, arrCartGrpAditList);
-				this._cls_info.cartResultMoney["total-ordrpc"] += items_money.ordrPc;
-				if (this._cls_info.dlvyCtAditRgnYn == 'Y'){
-					this._cls_info.cartResultMoney["total-dlvyAdit"] += arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
-				}
-				this._cls_info.cartResultMoney["total-dlvyBase"] += arrCartGrpBaseList[0].gdsInfo.dlvyBassAmt;
-
-				arrHtml.push('<div class="order-product-inner">');
-				ordrIdx += 1;
-				strHtml = this.fn_draw_html_order_product_item(this._cls_info.ordrCd, ordrIdx , false, null, arrCartGrpBaseList[0], items_money, arrCartGrpBaseList, arrCartGrpAditList);
-				arrHtml.push(strHtml);
-
-				strHtml = this.fn_draw_html_order_delivery_summary_each(arrCartGrpBaseList, arrCartGrpAditList);
-				arrHtml.push(strHtml);
-
-				arrHtml.push('</div>');
-
-				if (cartIdx.length > 0){
-					dlen = cartIdx.length - 1;
-					for(dfor=dlen ; dfor>=0 ; dfor--){
-						arrCartList.splice(cartIdx[dfor], 1);/*이미 선택한 상품은 제외 한다.*/
-					}
-					jlen = arrCartList.length;
-				}
-			}
-			/*****************************개별 배송 그룹별 항목을 그린다. cart_grp_no별로 그려야 한다. 끝*****************************/
-
-			arrHtml.push('</div>');//order-body 끝
-			arrHtml.push('</div>');//order-product 끝
-		}
-
-		$(this._cls_info.pageCartListfix).html(arrHtml.join(''));
-	}
-
-
-	/*퍼블리싱에서 order-product => order-body => order-product-inner 의 html*/
-	fn_draw_html_order_product_item(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, items_money, arrCartGrpBaseList, arrCartGrpAditList){
+		var json = arrCartGrpBaseAllList[0];
 		var thumbnailFile = "/html/page/market/assets/images/noimg.png";
 		if (json.gdsInfo.thumbnailFile != undefined){
 			thumbnailFile = "/comm/getImage?srvcId=GDS&amp;upNo=" + json.gdsInfo.thumbnailFile.upNo +"&amp;fileTy="+json.gdsInfo.thumbnailFile.fileTy +"&amp;fileNo="+json.gdsInfo.thumbnailFile.fileNo +"&amp;thumbYn=Y";
 		}
 
+		var cartGrpMoney = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cart_grp_sum_money(arrCartGrpBaseAllList, arrCartGrpAditAllList);
+
 		var original_price = '';
-		if (items_money.originPc != items_money.ordrPc){
-			original_price = '<span class="original-price">{0}원</span>'.format(items_money.originPc.format_money());
+		if (cartGrpMoney.originPc != cartGrpMoney.ordrPc){
+			original_price = '<span class="original-price">{0}원</span>'.format(cartGrpMoney.originPc.format_money());
 		}
 
-		var hiddenInfo = '';
+		var entrpsDlvygrpAttr = '', entrpsDlvygrpCls = '';
+		if (entrpsDlvyGrpInfo != undefined && entrpsDlvyGrpInfo.entrpsDlvygrpNo != undefined){
+			entrpsDlvygrpAttr = ' entrpsDlvygrpNo="{0}"'.format(entrpsDlvyGrpInfo.entrpsDlvygrpNo);
+			entrpsDlvygrpCls = ' entrpsDlvygrpNo ';
+		}
 
-		var cartItemOne;
+		var soldoutYn = json.gdsInfo.soldoutYn;
+		if (json.gdsInfo.stockQy == undefined || json.gdsInfo.stockQy < 1 ){
+			soldoutYn = 'Y';
+		}
 		
 		
-		cartItemOne = '<div class="order-product-item" ordrCd="{0}" ordrIdx={1}>'.format(ordrCd, ordrIdx)+
-			hiddenInfo+
-			'<div class="item-thumb">'+
-				'<div class="order-item-thumb">'+
-					'<img src="{0}" alt="">'.format(thumbnailFile)+
-				'</div>'+
-			'</div>'+
-			'<div class="item-name">'+
-				'<div class="order-item-base">'+
-					'<p class="code">'+
-						'<span class="label-primary">'+
-							'<span>{0}</span>'.format(this._cls_info.codeMapJson.gdsTyCode[json.gdsInfo.gdsTy])+
-							'<i></i>'+
-						'</span>'+
-						'<u>{0}</u>'.format(json.gdsCd)+
-					'</p>'+
-					'<div class="product">'+
-						'<p class="name">{0}</p>'.format(json.gdsNm)+
+		var noOptnInputhidden;
+		if ((isNaN(json.gdsOptnNo) || json.gdsOptnNo == 0) && json.gdsInfo.optnList.length < 1){
+			this._cls_info.ordrIdx += 1;
+			noOptnInputhidden = this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", entrpsDlvyGrpInfo, json, null, 'Y');
+		}else{
+			noOptnInputhidden = '';
+		}
+		
+		var strHtml = ''+
+			'<div class="order-product-inner cartGrp{2}" cartGrpNo="{0}" {1} ctgryNo="{3}" gdsCd="{4}">'.format(json.cartGrpNo, entrpsDlvygrpAttr, entrpsDlvygrpCls, json.gdsInfo.ctgryNo, json.gdsInfo.gdsCd)+
+				'<div class="order-product-item">'+
+					'<div class="item-thumb">'+
+						'<div class="form-check">'+
+							'<input class="form-check-input cartGrpNo" type="checkbox" name="cartGrpNo" value="{0}" cartGrpNo="{0}">'.format(json.cartGrpNo)+
+						'</div>'+
+						'<div class="order-item-thumb  move cursor">'+
+							'<img src="{0}" alt="">'.format(thumbnailFile)+
+						'</div>'+
 					'</div>'+
-				'</div>'+
-			'</div>'+
-			'<div class="item-price">'+
-				'<div class="pay-info">'+
-					'<p class="pay-amount">주문수량 <span>{0}</span>개</p>'.format(items_money.ordrQy)+
-					'<div class="pay-price">'+
-						original_price+
-						'<strong class="price">{0}원</strong>'.format(items_money.ordrPc.format_money())+
+					'<div class="item-name">'+
+						'<div class="order-item-base">'+
+							'<p class="code">'+
+								'<span class="label-primary">'+
+									'<span>{0}</span>'.format(this._cls_info.codeMapJson.gdsTyCode[json.gdsInfo.gdsTy])+
+									'<i></i>'+
+								'</span>'+
+								'<u class="gdsCd move cursor">{0}</u>'.format(json.gdsCd)+
+							'</p>'+
+							'<div class="product">'+
+								'<p class="name gdsNm move cursor">{0}</p>'.format(json.gdsNm)+
+							'</div>'+
+						'</div>'+
 					'</div>'+
+					'<div class="item-price">'+
+						'<div class="pay-info">'+
+							'<p class="pay-amount">주문수량<span>{0}</span>개</p>'.format(cartGrpMoney.ordrQy.format_money())+
+							'<div class="pay-price">'+
+								original_price+
+								'<strong class="price">{0}원</strong>'.format(cartGrpMoney.ordrPc.format_money())+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="item-option">'+
+						'<dl class="option">'+
+						strItemOptionBase+
+						'</dl>'+
+						strItemOptionAdit+
+					'</div>'+
+					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
+					((soldoutYn == 'Y') ? this.fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out():'') + 
+					'<input type="hidden" name="dlvyBaseAmt" value="{0}">'.format(dlvyBaseAmt)+
+					noOptnInputhidden+
 				'</div>'+
-			'</div>'+
-			'<div class="item-option">'+
-				'<dl class="option">'+
-					this.fn_draw_html_order_product_item_base(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpBaseList)+
-				'</dl>'+
-				'<div class="item-add-box">'+
-					this.fn_draw_html_order_product_item_adit(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpAditList)+
-				'</div>'+
-			'</div>'+
-			'<!-- <div class="item-btn"></div> -->'+
-		'</div>';
+			'</div>';
 
-		return cartItemOne;
+		return strHtml;
 	}
 
+	
 	/*아이템별 정보들-공통사항*/
-	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptn){
+	fn_draw_cart_entrpsdlvygrp_input_hidden(ordrOptnTy, entrpsDlvyGrpInfo, json, aditOptn){
+		var bDlvyGrp = (entrpsDlvyGrpInfo == undefined)?false:true;
+		var ordrCd = this._cls_info.ordrCd;
+		var ordrIdx = this._cls_info.ordrIdx;
+
+		this._cls_info.cartResultMoney["total-ordrpc"] += json.ordrPc;/*총 상품 금액은 전체 상품 금액의 합*/
+
 		console.log(json)
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
@@ -377,160 +245,6 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 		}
 
 		return hiddenInfo;
-	}
-
-	/*기본 옵션*/
-	fn_draw_html_order_product_item_base(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpBaseList){
-		var cartItemBaseList = [];
-
-		if (arrCartGrpBaseList != undefined && arrCartGrpBaseList.length > 0
-			&& json.gdsInfo != undefined && json.gdsInfo.optnList != undefined && json.gdsInfo.optnList.length > 0){
-			var ifor, ilen = arrCartGrpBaseList.length;
-			var aditOptnOne, aditOptnList = json.gdsInfo.optnList;
-			var cartItemBaseOne;
-			for(ifor = 0; ifor<ilen ; ifor++){
-				aditOptnOne = aditOptnList.filter(function(item, idex) {
-					if (arrCartGrpBaseList[ifor].gdsOptnNo == item.gdsOptnNo) {
-						return true;
-					}
-				});
-
-				if (aditOptnOne == undefined || aditOptnOne.length == 0){
-					continue;
-				}
-
-				aditOptnOne = aditOptnOne[0];
-
-				cartItemBaseOne = '<dd>'+
-					'<span class="label-flat">{0}</span>'.format(json.ordrOptn)+
-					'<span>{0}개(+{1}원)</span>'.format(json.ordrQy, json.ordrPc.format_money())+
-				'</dd>';
-
-				cartItemBaseList.push(cartItemBaseOne);
-
-				cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemBaseOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
-				cartItemBaseOne += "</div>"
-
-				cartItemBaseList.push(cartItemBaseOne);
-			}
-		}else{//기본 옵션이 없는 경우
-			cartItemBaseOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-			cartItemBaseOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("BASE", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, null);
-			cartItemBaseOne += "</div>"
-
-			cartItemBaseList.push(cartItemBaseOne);
-		}
-
-		return cartItemBaseList.join('');
-
-	}
-
-	/*추가 옵션*/
-	fn_draw_html_order_product_item_adit(ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, arrCartGrpAditList){
-		var cartItemAditList = [];
-
-		if (arrCartGrpAditList != undefined && arrCartGrpAditList.length > 0
-			&& json.gdsInfo != undefined && json.gdsInfo.aditOptnList != undefined && json.gdsInfo.aditOptnList.length > 0){
-			var ifor, ilen = arrCartGrpAditList.length;
-			var aditOptnOne, aditOptnList = json.gdsInfo.aditOptnList;
-			var cartItemAditOne;
-			for(ifor = 0; ifor<ilen ; ifor++){
-				aditOptnOne = aditOptnList.filter(function(item, idex) {
-					if (arrCartGrpAditList[ifor].gdsOptnNo == item.gdsOptnNo) {
-						return true;
-					}
-				});
-
-				if (aditOptnOne == undefined || aditOptnOne.length == 0){
-					continue;
-				}
-
-				aditOptnOne = aditOptnOne[0];
-
-				cartItemAditOne = '<div class="item-add{0}">'.format(((aditOptnOne.soldOutYn == 'Y')?" disabled ":""))+
-					'<span class="label-outline-primary">'+
-						'<span>추가</span>'+
-						'<i><img src="/html/page/market/assets/images/ico-plus-white.svg" alt=""></i>'+
-					'</span>'+
-					'<div class="name">'+
-						'<span class="font-semibold">{0}</span>'.format(aditOptnOne.optnNm.replace("* ", ""))+
-						'<span class="font-semibold">{0}개</span>'.format(arrCartGrpAditList[ifor].ordrQy)+
-						'<span>(+{0}원)</span>'.format((aditOptnOne.optnPc * arrCartGrpAditList[ifor].ordrQy).format_money())+
-						((aditOptnOne.soldOutYn == 'Y')?'<strong class="text-soldout">임시품절</strong>':'')+
-					'</div>'+
-				'</div>';
-
-				cartItemAditList.push(cartItemAditOne);
-
-				cartItemAditOne = '<div class="cart item draw {0}_{1}">'.format(ordrCd, ordrIdx);
-				cartItemAditOne += this.fn_draw_cart_entrpsdlvygrp_input_hidden("ADIT", ordrCd, ordrIdx, bDlvyGrp, entrpsDlvyGrpInfo, json, aditOptnOne);
-				cartItemAditOne += '</div>';
-
-				cartItemAditList.push(cartItemAditOne);
-			}
-
-
-		}	
-
-		return cartItemAditList.join('');
-
-		
-	}
-
-	/*퍼블리싱에서 order-product => order-body => order-item-payment 의 html*/
-	/*
-		개별 배송
-		items_money ==> fn_calc_cart_grp_sum_money함수에서 만들어진 값
-		arrCartGrpBaseList : 기본 상품 리스트
-		arrCartGrpAditList : 추가 상품 리스트
-	*/
-	fn_draw_html_order_delivery_summary_each(arrCartGrpBaseList, arrCartGrpAditList){
-		if (arrCartGrpBaseList == undefined || arrCartGrpBaseList.length < 1){
-			throw new Error("JsMarketOrdrPay.fn_draw_html_order_delivery_summary_each list error")
-		}
-		
-		var dlvyBaseAmt, dlvyAditAmt = arrCartGrpBaseList[0].gdsInfo.dlvyAditAmt;
-
-		dlvyBaseAmt = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cartgrp_each_dlvy_base(arrCartGrpBaseList, arrCartGrpAditList);
-
-		var dlvyBaseAmtNm;
-		if (dlvyBaseAmt == 0){
-			dlvyBaseAmtNm = "무료";
-		}else{
-			dlvyBaseAmtNm = dlvyBaseAmt.format_money() +  "원";
-		}
-
-		var strHtml = '<dl class="order-item-payment">'+
-			'<dt>배송비<input type="hidden" name="dlvyBaseAmt" value="{0}"><input type="hidden" name="dlvyAditAmt" value="{1}"></dt>'.format(dlvyBaseAmt, dlvyAditAmt)+
-			'<dd class="delivery-charge">{0}</dd>'.format(dlvyBaseAmtNm)+
-		'</dl>';
-		
-		return strHtml;
-	}
-
-	/*
-		묶음배송
-		items_money ==> fn_calc_cart_grp_sum_money함수에서 만들어진 값
-		entrpsDlvyGrpInfo : 묶음배송 정보
-		arrCartGrpBaseAllList : 기본 상품 전체
-		arrCartGrpAditAllList : 추가 상품 전체
-	*/
-	fn_draw_html_order_delivery_summary_grp(entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList){
-		var objDlvyBase = this._cls_info.coms.jsMarketCartDlvyBaseCalc.fn_calc_cartgrp_grp_dlvy_base(entrpsDlvyGrpInfo, arrCartGrpBaseAllList, arrCartGrpAditAllList);
-		var dlvyBaseAmtNm;
-		if (objDlvyBase.dlvyBaseAmt == 0){
-			dlvyBaseAmtNm = "무료";
-		}else{
-			dlvyBaseAmtNm = objDlvyBase.dlvyBaseAmt.format_money() +  "원";
-		}
-
-		this._cls_info.cartResultMoney["total-dlvyBase"] += objDlvyBase.dlvyBaseAmt;
-
-		return '<dl class="order-item-payment entrpsDlvygrpNo" entrpsDlvygrpNo="{0}">'.format(entrpsDlvyGrpInfo.entrpsDlvygrpNo)+
-			'<dt>배송비</dt><input type="hidden" name="dlvyBaseAmt" value="{1}"><input type="hidden" name="dlvyAditAmt" value="{2}"></dt>'.format(objDlvyBase.count, objDlvyBase.dlvyBaseAmt, objDlvyBase.dlvyAditAmt)+
-			'<dd class="delivery-charge">{0}</dd>'.format(dlvyBaseAmtNm)+
-		'</dl>';
 	}
 
 	/*최종 결제금액 확인 표시하는 부분*/
@@ -605,7 +319,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 				money += $("#useMlg").val();
 			}
 
-			var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+			var jobjDtl, jobjCartList = $(this._cls_info.pageCartListfix + " .order-product-inner.cartGrp");
 
 			var ifor, ilen = jobjCartList.length;
 
@@ -651,7 +365,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 	}
 
 	f_ordr_dtls(){
-		var jobjCartList = $(this._cls_info.pageCartListfix + " .draw.cart.item");
+		var jobjCartList = $(this._cls_info.pageCartListfix + " .order-product-inner.cartGrp");
 		var jobjDtl;
 		var itemone;
 		var arrDtls = [];

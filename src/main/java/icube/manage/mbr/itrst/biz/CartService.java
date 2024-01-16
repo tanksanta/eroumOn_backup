@@ -13,6 +13,7 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnService;
+import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 
@@ -40,20 +41,26 @@ public class CartService extends CommonAbstractServiceImpl {
 	public List<CartVO> selectCartListAll(Map<String, Object> paramMap) throws Exception {
 		List<CartVO> list = cartDAO.selectCartListAll(paramMap);
 
-		if (paramMap.get("srchCartTy") != null && EgovStringUtil.equals("N", paramMap.get("srchCartTy").toString())
-			&& paramMap.get("srchViewYn") != null && EgovStringUtil.equals("Y", paramMap.get("srchViewYn").toString())
-			){
+		if (paramMap.get("reCalcPcYn") != null && EgovStringUtil.equals("Y", paramMap.get("reCalcPcYn").toString())){
 
 			int ifor, ilen = list.size();
 			CartVO cartVO;
-			int ordrQy, gdsPc, ordrOptnPc;
+			int ordrQy, gdsPc, ordrOptnPc, gdsOptnPc;
+			List<GdsOptnVO> optnList;
 			for(ifor=0 ; ifor<ilen; ifor++){
 				cartVO = list.get(ifor);
+				gdsOptnPc = 0;
 
+				optnList = null;
 				if (cartVO.getGdsInfo() != null){
+					final int gdsOptnNo = cartVO.getGdsOptnNo();
 					if (EgovStringUtil.equals("ADIT", cartVO.getOrdrOptnTy())){
 						gdsPc = 0;
+						optnList = cartVO.getGdsInfo().getAditOptnList();
+						
 					}else{
+						optnList = cartVO.getGdsInfo().getOptnList();
+						
 						if (cartVO.getGdsInfo().getDscntRt() > 0 && cartVO.getGdsInfo().getDscntPc() > 0 ){
 							gdsPc = cartVO.getGdsInfo().getDscntPc();
 						}else{
@@ -61,12 +68,19 @@ public class CartService extends CommonAbstractServiceImpl {
 						}
 					}
 
+					if (gdsOptnNo > 0 && optnList != null){
+						GdsOptnVO optn = optnList.stream().filter(f -> f.getGdsOptnNo() == gdsOptnNo).findAny().orElse(null);
+						if (optn != null) {
+							gdsOptnPc = optn.getOptnPc();
+						}
+					}
+					
 					ordrOptnPc = cartVO.getOrdrOptnPc();
 					ordrQy = cartVO.getOrdrQy();
-					if ((gdsPc + ordrOptnPc) * ordrQy != cartVO.getOrdrPc()){
+					if (((gdsPc + ordrOptnPc) * ordrQy != cartVO.getOrdrPc()) || (ordrOptnPc != gdsOptnPc)){
 						cartVO.setGdsPc(gdsPc);
-						cartVO.setOrdrOptnPc(ordrOptnPc);
-						cartVO.setOrdrPc((gdsPc + ordrOptnPc) * ordrQy);
+						cartVO.setOrdrOptnPc(gdsOptnPc);
+						cartVO.setOrdrPc((gdsPc + gdsOptnPc) * ordrQy);
 
 						cartDAO.updateCartPc(cartVO);
 					}
