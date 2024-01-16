@@ -306,6 +306,7 @@
 			, whdwl_yn
 			, whdwl_dt
 			, whdwl_resn
+			, sns_regist_dt
 		) VALUES (
 			CONCAT('MBR_', LPAD( FN_NEXT_SEQ('MBR'), 8, '0'))
 			, #{mbrId, jdbcType=VARCHAR}
@@ -350,6 +351,7 @@
 			, #{whdwlYn, jdbcType=VARCHAR}
 			, #{whdwlDt}
 			, #{whdwlResn, jdbcType=VARCHAR}
+			, #{snsRegistDt}
 		)
 		<selectKey resultType="String" keyProperty="uniqueId" order="AFTER">
       		SELECT unique_id FROM MBR WHERE mbr_id = #{mbrId}

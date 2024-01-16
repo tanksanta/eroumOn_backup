@@ -22,6 +22,9 @@ public class MbrAuthVO {
     private String pswd;
     private String naverAppId;
     private String kakaoAppId;
+    private String eml;
+    private String mblTelno;
+    private String ciKey;
     private Date regDt;
     private Date delDt;
     private String delYn = "N";

@@ -32,6 +32,18 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		return mbrAuthDAO.selectMbrAuthOne(paramMap);
 	}
 	
+	public MbrAuthVO selectMbrAuthByKakaoAppId(String kakaoAppId) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchKakaoAppId", kakaoAppId);
+		return mbrAuthDAO.selectMbrAuthOne(paramMap);
+	}
+	
+	public MbrAuthVO selectMbrAuthByNaverAppId(String naverAppId) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchNaverAppId", naverAppId);
+		return mbrAuthDAO.selectMbrAuthOne(paramMap);
+	}
+	
 	public void insertMbrAuth(MbrAuthVO mbrAuthVO) throws Exception {
 		mbrAuthDAO.insertMbrAuth(mbrAuthVO);
 	}

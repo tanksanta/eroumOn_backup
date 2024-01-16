@@ -117,9 +117,10 @@ public class MbrsNaverController extends CommonAbstractController{
 			
 			//검색 회원이 없으면 회원가입 처리
 			if (!validationResult.containsKey("srchMbrVO")) {
-				mbrService.registerSnsMbrAndLogin(session, naverUserInfo, null);
+				//임시 로그인 처리
+				mbrService.loginTempSnsMbr(session, naverUserInfo, null);
 				
-				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + mbrSession.getUniqueId()) : (rootPath + "/login");
+				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/login");
 				javaScript.setLocation(registPath);
 				return new JavaScriptView(javaScript);
 			}

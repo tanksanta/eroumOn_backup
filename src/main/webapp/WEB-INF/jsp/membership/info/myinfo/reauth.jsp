@@ -30,7 +30,7 @@
 				<div class="content-auth-phone mt-9">
 					<img src="/html/page/members/assets/images/img-join-auth.svg" alt="">
 					<dl>
-						<dd>안전한 이용을 위해 본인인증이 필요합니다<br>본인 명의의 휴대폰 번호로만 인증이 가능합니다.<br>14세 이상만 가입 가능합니다.</dd>
+						<dd>이로움ON 회원정책 변경에 따라 로그인 시,<br>본인인증(최초 1회)이 필요합니다.</dd>
 					</dl>
 				</div>
 	

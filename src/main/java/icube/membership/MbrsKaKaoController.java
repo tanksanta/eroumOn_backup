@@ -1,7 +1,5 @@
 package icube.membership;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -120,9 +118,10 @@ public class MbrsKaKaoController extends CommonAbstractController{
 				//kakao 주소 정보 get API 호출
 				DlvyVO dlvyVO = kakaoApiService.getUserDlvy(accessToken);
 				
-				mbrService.registerSnsMbrAndLogin(session, kakaoUserInfo, dlvyVO);
+				//임시 로그인 처리
+				mbrService.loginTempSnsMbr(session, kakaoUserInfo, dlvyVO);
 				
-				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + mbrSession.getUniqueId()) : (rootPath + "/login");
+				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/login");
 				javaScript.setLocation(registPath);
 				return new JavaScriptView(javaScript);
 			}

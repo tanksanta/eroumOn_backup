@@ -277,6 +277,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             String name = mbrInfo.getAsJsonObject().get("name").getAsString();
             String birthDay = mbrInfo.getAsJsonObject().get("birthday").getAsString();
             String birthYear = mbrInfo.getAsJsonObject().get("birthyear").getAsString();
+            String ci = mbrInfo.getAsJsonObject().get("ci").getAsString();
 
             //System.out.println(birthDay);
             //System.out.println(birthYear);
@@ -295,6 +296,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             proflVO.setJoinTy("N");
             proflVO.setNaverAppId(appId);
             proflVO.setMbrId(appId+"@N");
+            proflVO.setCiKey(ci);
 
             System.out.println(proflVO.toString());
 

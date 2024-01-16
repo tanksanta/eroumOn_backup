@@ -20,13 +20,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.framework.view.JavaScript;
 import icube.common.interceptor.biz.CustomProfileVO;
+import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
+import icube.common.util.FileUtil;
 import icube.common.util.RSA;
 import icube.common.util.SHA256;
+import icube.common.util.ValidatorUtil;
 import icube.common.util.WebUtil;
 import icube.common.vo.CommonListVO;
 import icube.main.test.biz.MbrTestService;
@@ -34,12 +38,17 @@ import icube.main.test.biz.MbrTestVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
+import icube.manage.promotion.coupon.biz.CouponLstService;
+import icube.manage.promotion.coupon.biz.CouponLstVO;
+import icube.manage.promotion.coupon.biz.CouponService;
+import icube.manage.promotion.coupon.biz.CouponVO;
 import icube.manage.promotion.mlg.biz.MbrMlgDAO;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointDAO;
 import icube.manage.promotion.point.biz.MbrPointVO;
 import icube.market.mbr.biz.MbrSession;
 import icube.membership.info.biz.DlvyDAO;
+import icube.membership.info.biz.DlvyService;
 import icube.membership.info.biz.DlvyVO;
 
 @Service("mbrService")
@@ -66,6 +75,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 	@Resource(name = "mbrAuthService")
 	private MbrAuthService mbrAuthService;
 	
+	@Resource(name = "dlvyService")
+	private DlvyService dlvyService;
+	
+	@Resource(name = "couponService")
+	private CouponService couponService;
+
+	@Resource(name = "couponLstService")
+	private CouponLstService couponLstService;
+	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 	
@@ -74,6 +92,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Resource(name= "bootpayApiService")
 	private BootpayApiService bootpayApiService;
+	
+	@Resource(name = "biztalkConsultService")
+	private BiztalkConsultService biztalkConsultService;
 	
 	@Autowired
 	private MbrSession mbrSession;
@@ -93,9 +114,26 @@ public class MbrService extends CommonAbstractServiceImpl {
 	@Value("#{props['Talk.Secret.key']}")
 	private String talkSecretKey;
 	
+	@Resource(name="mailService")
+	private MailService mailService;
+	
+	@Value("#{props['Mail.Form.FilePath']}")
+	private String mailFormFilePath;
+
+	@Value("#{props['Mail.Username']}")
+	private String sendMail;
+	
+	@Value("#{props['Profiles.Active']}")
+	private String activeMode;
+
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
+	
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 	
-	SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
+	private SimpleDateFormat dtFormat = new SimpleDateFormat("yy-MM-dd");
+
+	private SimpleDateFormat dtFormat2 = new SimpleDateFormat("yyyyMMdd HHmmss");
 	
 
 	public CommonListVO mbrListVO(CommonListVO listVO) throws Exception {
@@ -845,9 +883,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	}
 	
 	/**
-	 * 간편 로그인 회원가입 및 로그인 처리
+	 * 간편회원 임시 로그인 처리(본인인증 등록 전)
 	 */
-	public void registerSnsMbrAndLogin(HttpSession session, MbrVO mbrVO, DlvyVO dlvyVO) throws Exception {
+	public void loginTempSnsMbr(HttpSession session, MbrVO mbrVO, DlvyVO dlvyVO) throws Exception {
 		if (dlvyVO != null) {
 			mbrVO.setZip(dlvyVO.getZip());
 			mbrVO.setAddr(dlvyVO.getAddr());
@@ -856,12 +894,13 @@ public class MbrService extends CommonAbstractServiceImpl {
 			dlvyVO.setMblTelno(mbrVO.getMblTelno());
 		}
 		
-		insertMbr(mbrVO);
+//		insertMbr(mbrVO);
 		//본인 인증 단계에서 주소정보 저장되므로 사용안함
 //		if (dlvyVO != null) {
 //			dlvyVO.setUniqueId(mbrVO.getUniqueId());
 //			dlvyService.insertBassDlvy(dlvyVO);
 //		}
+		
 		
 		//로그인 처리
 		mbrSession.setParms(mbrVO, true);
@@ -959,5 +998,178 @@ public class MbrService extends CommonAbstractServiceImpl {
         resultMap.put("certMbrInfoVO", certMbrInfoVO);
         resultMap.put("valid", true);
 		return resultMap;
+	}
+	
+	
+	/**
+	 * 회원 생성 전 이미 존재하는 계정이 있는지 확인(회원 바인딩 고려)
+	 */
+	public Map<String, Object> checkDuplicateMbrForRegist(MbrAuthVO mbrAuthVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("valid", false);
+		
+		//같은 CI를 등록한 회원이 있는 지 확인
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCiKey", mbrAuthVO.getCiKey());
+		MbrVO srchMbr = selectMbr(paramMap);
+		if (srchMbr != null) {
+			resultMap.put("bindingMbr", srchMbr);
+			return resultMap;
+		}
+		
+		
+		//인증 정보를 이미 등록한 회원이 있는 지 확인
+		MbrAuthVO findMbrAuth = null;
+		String idInfoStr = "";
+		if ("K".equals(mbrAuthVO.getJoinTy())) {
+			findMbrAuth = mbrAuthService.selectMbrAuthByKakaoAppId(mbrAuthVO.getKakaoAppId());
+			if (findMbrAuth != null) {
+				idInfoStr = "\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
+			}
+		}
+		else if ("N".equals(mbrAuthVO.getJoinTy())) {
+			findMbrAuth = mbrAuthService.selectMbrAuthByNaverAppId(mbrAuthVO.getNaverAppId());
+			if (findMbrAuth != null) {
+				idInfoStr = "\n네이버 : " + findMbrAuth.getEml();
+			}
+		}
+		else {
+			findMbrAuth = mbrAuthService.selectMbrAuthByMbrId(mbrAuthVO.getMbrId());
+			if (findMbrAuth != null) {
+				idInfoStr = "\n아이디 : " + findMbrAuth.getMbrId();
+			}
+		}
+		
+		if (findMbrAuth != null) {
+			resultMap.put("msg", "이미 이로움ON에 가입된 계정이 있습니다." + idInfoStr);
+			return resultMap;
+		}
+		
+		resultMap.put("valid", true);
+		return resultMap;
+	}
+	
+	
+	/**
+	 * 회원가입 이후 처리 (회원 생성 이후 처리 공통 함수)
+	 */
+	public void workAfterMbrRegist(MbrVO mbrVO, MbrAgreementVO mbrAgreementVO) throws Exception {
+		//회원 인증정보 등록
+		MbrAuthVO mbrAuthVO = new MbrAuthVO();
+		mbrAuthVO.setMbrUniqueId(mbrVO.getUniqueId());
+		mbrAuthVO.setJoinTy(mbrVO.getJoinTy());
+		mbrAuthVO.setMbrId(mbrVO.getMbrId());
+		mbrAuthVO.setPswd(mbrVO.getPswd());
+		mbrAuthVO.setNaverAppId(mbrVO.getNaverAppId());
+		mbrAuthVO.setKakaoAppId(mbrVO.getKakaoAppId());
+		mbrAuthVO.setEml(mbrVO.getEml());
+		mbrAuthVO.setMblTelno(mbrVO.getMblTelno());
+		mbrAuthVO.setCiKey(mbrVO.getCiKey());
+		mbrAuthService.insertMbrAuth(mbrAuthVO);
+		
+		// 모든 항목 동의처리 로그
+		mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
+		insertMbrAgreement(mbrAgreementVO);
+
+		// 기본 배송지 등록
+		DlvyVO dlvyVO = new DlvyVO();
+		dlvyVO.setUniqueId(mbrVO.getUniqueId());
+		dlvyVO.setDlvyNm(mbrVO.getMbrNm());
+		dlvyVO.setNm(mbrVO.getMbrNm());
+		dlvyVO.setZip(mbrVO.getZip());
+		dlvyVO.setAddr(mbrVO.getAddr());
+		dlvyVO.setDaddr(mbrVO.getDaddr());
+		dlvyVO.setTelno(mbrVO.getTelno());
+		dlvyVO.setMblTelno(mbrVO.getMblTelno());
+		dlvyVO.setBassDlvyYn("Y");
+		dlvyVO.setUseYn("Y");
+
+		dlvyService.insertBassDlvy(dlvyVO);
+
+		
+		/** 2023-04-05 포인트 지급 삭제 **/
+
+		// 회원가입 쿠폰
+		try {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchCouponTy", "JOIN");
+			paramMap.put("srchSttusTy", "USE");
+			int cnt = couponService.selectCouponCount(paramMap);
+			if(cnt > 0) {
+				CouponVO couponVO = couponService.selectCoupon(paramMap);
+				CouponLstVO couponLstVO = new CouponLstVO();
+				couponLstVO.setCouponNo(couponVO.getCouponNo());
+				couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+
+				if(couponVO.getUsePdTy().equals("ADAY")) {
+					couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+				}
+
+				couponLstService.insertCouponLst(couponLstVO);
+			}else {
+				log.debug("회원 가입 쿠폰 개수 : " + cnt);
+			}
+			
+			
+			// 2023년 11/6 ~ 12/08 까지 5천원 추가 쿠폰 자동 지급
+			Date now = new Date();
+			String startDtStr = "20231106 000000";
+			Date startDt = dtFormat2.parse(startDtStr);
+			String endDtStr = "20231208 235959";
+			Date endDt = dtFormat2.parse(endDtStr);
+			
+			//쿠폰발급 기간조건 (크다(1), 같다(0), 작다(-1))
+			if (now.compareTo(startDt) >= 0 && now.compareTo(endDt) <= 0) {
+				paramMap = new HashMap<String, Object>();
+				paramMap.put("srchCouponTy", "JOIN_ADD");
+				paramMap.put("srchSttusTy", "USE");
+				CouponVO couponVO = couponService.selectCoupon(paramMap);
+				
+				//회원가입 추가발급 쿠폰이 있는 경우
+				if (couponVO != null) {
+					CouponLstVO couponLstVO = new CouponLstVO();
+					couponLstVO.setCouponNo(couponVO.getCouponNo());
+					couponLstVO.setUniqueId(dlvyVO.getUniqueId());
+					
+					if(couponVO.getUsePdTy().equals("ADAY")) {
+						couponLstVO.setUseDay(couponVO.getUsePsbltyDaycnt());
+					}
+
+					couponLstService.insertCouponLst(couponLstVO);
+				}
+			}
+			
+		}catch(Exception e) {
+			log.debug("회원 가입 쿠폰 발송 실패" + e.toString());
+		}
+		
+		// 가입 축하 메일 발송
+		try {
+			if(ValidatorUtil.isEmail(mbrVO.getEml())) {
+				String MAIL_FORM_PATH = mailFormFilePath;
+				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_join.html");
+
+				mailForm = mailForm.replace("{mbrNm}", mbrVO.getMbrNm()); // 회원 이름
+				mailForm = mailForm.replace("{mbrId}", mbrVO.getMbrId()); // 회원 아이디
+				mailForm = mailForm.replace("{mbrEml}", mbrVO.getEml()); // 회원 이메일
+				mailForm = mailForm.replace("{mblTelno}", mbrVO.getMblTelno()); // 회원 전화번호
+
+
+				// 메일 발송
+				String mailSj = "[이로움ON] 회원이 되신것을 환영합니다.";
+				if(EgovStringUtil.equals("real", activeMode)) {
+					mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+				} else {
+					mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+				}
+			} else {
+				log.debug("회원 가입 알림 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
+			}
+		} catch (Exception e) {
+			log.debug("회원 가입 알림 EMAIL 전송 실패 :: " + e.toString());
+		}
+		
+		//알림톡 발송
+		biztalkConsultService.sendOnJoinComleted(mbrVO);
 	}
 }

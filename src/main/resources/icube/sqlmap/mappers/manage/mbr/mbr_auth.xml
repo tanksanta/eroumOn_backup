@@ -10,6 +10,9 @@
 		, mau.pswd
 		, mau.naver_app_id
 		, mau.kakao_app_id
+		, mau.eml
+		, mau.mbl_telno
+		, mau.ci_key
 		, mau.reg_dt
 		, mau.del_dt
 		, mau.del_yn
@@ -48,6 +51,9 @@
 			, PSWD
 			, NAVER_APP_ID
 			, KAKAO_APP_ID
+			, EML
+			, MBL_TELNO
+			, CI_KEY
 			, REG_DT
 			, DEL_YN
 		)VALUES(
@@ -57,6 +63,9 @@
 			, #{pswd}
 			, #{naverAppId}
 			, #{kakaoAppId}
+			, #{eml}
+			, #{mblTelno}
+			, #{ciKey}
 			, SYSDATE()
 			, #{delYn}
 		)

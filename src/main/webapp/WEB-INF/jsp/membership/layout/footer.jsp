@@ -120,7 +120,7 @@ function f_searchBrnoInfo(brno) {
 //SNS 정보 미등록 시
 var requireResist = '${requireResist}';
 if (requireResist) {
-	location.href = "/membership/sns/regist?uid=${_mbrSession.uniqueId}";
+	location.href = "/membership/sns/regist";
 }
 //본인인증 진행
 var requireAuth = '${requireAuth}';
