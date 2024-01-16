@@ -102,8 +102,16 @@
 										<ul class="option-items">
 											<c:forEach var="aditOptnList" items="${cartList[0].gdsInfo.aditOptnList}" varStatus="status">
 												<c:set var="spAditOptnTtl" value="${fn:split(aditOptnList.optnNm, '*')}" />
+												
 												<c:if test="${fn:trim(aditOptn) eq fn:trim(spAditOptnTtl[0])}">
-													<li><a href="#" data-optn-ty="ADIT" ' data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}</a></li>
+													<c:set var="optnSoldoutYn" 	value="" />
+													<c:set var="optnSoldoutTxt" value="" />
+													<c:if test="${aditOptnList.soldOutYn eq 'Y' or aditOptnList.optnStockQy < 1}">
+														<c:set var="optnSoldoutTxt" value=" [품절]" />
+														<c:set var="optnSoldoutYn" 	value="Y" />
+													</c:if>
+
+													<li><a href="#" data-optn-ty="ADIT" optnSoldoutYn="${optnSoldoutYn}"  data-opt-val="${aditOptnList.optnNm}|${aditOptnList.optnPc}|${aditOptnList.optnStockQy}|ADIT|${aditOptnList.gdsOptnNo}">${spAditOptnTtl[1]}${optnSoldoutTxt}</a></li>
 												</c:if>
 											</c:forEach>
 										</ul>
@@ -225,10 +233,32 @@
 						</dl>
 						<dl class="pay-order-price">
 							<dt class="font-bold">배송비</dt>
-							<dd>
-								<strong>3,000</strong>
-								<span>원</span>
-							</dd>
+							<c:if test="${cartList[0].gdsInfo.dlvyCtTy eq 'FREE'}">
+								<dd>무료</dd>
+							</c:if>
+							<c:if test="${cartList[0].gdsInfo.dlvyCtTy ne 'FREE'}">
+								<dd class="flex flex-col gap-2">
+									<p>
+										<strong><fmt:formatNumber value="${cartList[0].gdsInfo.dlvyBassAmt}" pattern="###,###" />원</strong>
+										
+										<c:if test="${dlvyPayTyCode2[cartList[0].gdsInfo.dlvyCtStlm] ne null}">
+											<!--(${dlvyPayTyCode2[cartList[0].gdsInfo.dlvyCtStlm]}) -->
+										</c:if>
+									
+										<c:choose>
+											<c:when test="${cartList[0].gdsInfo.dlvyCtTy eq 'PERCOUNT'}"><span>(상품 <fmt:formatNumber value="${cartList[0].gdsInfo.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과)</span></c:when>
+											<c:when test="${cartList[0].gdsInfo.dlvyCtTy eq 'OVERMONEY'}"><span>(<fmt:formatNumber value="${cartList[0].gdsInfo.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료)</span></c:when>
+										</c:choose>
+									</p>
+	
+									<%-- 추가 배송비 -> 도서산간비용, 노출x--%>
+									<c:if test="${cartList[0].gdsInfo.dlvyAditAmt > 0}">
+									<!--p class="icon-child">제주/도서산간지역 <fmt:formatNumber value="${cartList[0].gdsInfo.dlvyAditAmt}" pattern="###,###" />원 추가</p-->
+									</c:if>
+									
+								</dd>
+							</c:if>
+							
 						</dl>
 					</div>
 					<%-- 2023-12-27:총상품금액, 배송비 영역 --%>
@@ -279,7 +309,7 @@ $(function(){
 	<c:if test="${empty optnTtl[0]}">
     // 옵션이 없는 경우 //|0|10
     //f_baseOptnChg("|0|${gdsVO.stockQy}");
-    jsMarketCartModalOptnChg2.f_baseOptnChg("|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
+    jsMarketCartModalOptnChg2.f_baseOptnChg(null, "|0|${gdsVO.stockQy}|BASE"); //R * 10 * DEF|1000|0|BASE
     $(".btn-delete").remove();
     </c:if>
 
@@ -292,7 +322,7 @@ $(function(){
 			const optnVal1 = $(this).data("optVal");
 			console.log(optnVal1);
 			if(optnVal1 != ""){
-				jsMarketCartModalOptnChg2.f_baseOptnChg(optnVal1);
+				jsMarketCartModalOptnChg2.f_baseOptnChg($(this), optnVal1);
 			}
 		});
 		</c:if>
@@ -320,7 +350,7 @@ $(function(){
 		console.log("optnVal2 :", optnVal2, optnTy);
 
 		if(optnVal2 != ""){
-			jsMarketCartModalOptnChg2.f_baseOptnChg(optnVal2);
+			jsMarketCartModalOptnChg2.f_baseOptnChg($(this), optnVal2);
 		}
 
 
@@ -348,7 +378,7 @@ $(function(){
 		const optnTy = $(this).data("optnTy");
 		console.log("optnVal3 :", optnVal3, optnTy);
 		if(optnVal3 != ""){
-			jsMarketCartModalOptnChg2.f_baseOptnChg(optnVal3);
+			jsMarketCartModalOptnChg2.f_baseOptnChg($(this), optnVal3);
 		}
 	});
 	</c:if>
@@ -360,7 +390,7 @@ $(function(){
 		const optnVal = $(this).data("optVal");
 		//기본상품이 있는지 먼저 체크해야함
 		if($(".cart-chg-list tbody input[name='ordrOptnTy'][value='BASE']").length > 0 && optnVal != ""){
-			jsMarketCartModalOptnChg2.f_aditOptnChg(optnVal);
+			jsMarketCartModalOptnChg2.f_aditOptnChg($(this), optnVal);
 		}else{
 			alert("기본 옵션을 먼저 선택해야 합니다.");
 			$('.product-option').removeClass('is-active');

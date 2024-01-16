@@ -351,7 +351,8 @@ public class MyCartController extends CommonAbstractController  {
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-
+		model.addAttribute("dlvyPayTyCode2", CodeMap.DLVY_PAY_TY2); 
+		
 		ObjectMapper mapper  = new ObjectMapper();
 		String tempString;
 		tempString =  mapper.writeValueAsString(cartList);
