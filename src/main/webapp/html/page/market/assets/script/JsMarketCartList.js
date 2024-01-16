@@ -8,29 +8,29 @@ class JsMarketCartList extends JsMargetCartDrawItems{
         this._cls_info._marketPath = path._marketPath;
 
 
-		console.log(cartListWelfareJson)
+		// console.log(cartListWelfareJson)
 		if (cartListWelfareJson.trim().length > 0){
 			this._cls_info.cartListWelfareJson = JSON.parse(cartListWelfareJson.trim());
 			// this._cls_info.drawCartList = JSON.parse(cartList);
 		}
 
-        console.log(cartListOrdrJson)
+        // console.log(cartListOrdrJson)
         if (cartListOrdrJson.trim().length > 0){
 			this._cls_info.cartListOrdrJson = JSON.parse(cartListOrdrJson.trim());
 			// this._cls_info.drawCartList = JSON.parse(cartList);
 		}
 
-		console.log(entrpsDlvyGrpVOList)
+		// console.log(entrpsDlvyGrpVOList)
 		if (entrpsDlvyGrpVOList.trim().length > 0){
 			this._cls_info.entrpsDlvyGrpVOList = JSON.parse(entrpsDlvyGrpVOList);
 		}
 
-		console.log(entrpsVOList)
+		// console.log(entrpsVOList)
 		if (entrpsVOList.trim().length > 0){
 			this._cls_info.entrpsVOList = JSON.parse(entrpsVOList);
 		}
         
-		console.log(codeMapJson)
+		// console.log(codeMapJson)
 		if (codeMapJson.trim().length > 0){
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 

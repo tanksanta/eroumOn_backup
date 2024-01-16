@@ -408,7 +408,7 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
 
 				// 급여코드
-				if(bnefCd.split(",").length > 0) { // bnefCd null일수 있음
+				if(EgovStringUtil.isNotEmpty(bnefCd) && bnefCd.split(",").length > 0) { // bnefCd null일수 있음
 					cartVO.setBnefCd(bnefCd.split(",")[i]);
 				}else {
 					cartVO.setBnefCd("");

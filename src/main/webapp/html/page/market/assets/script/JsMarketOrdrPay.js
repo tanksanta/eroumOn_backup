@@ -55,13 +55,55 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 									
 		this.fn_draw_cart_entrpsdlvygrp_list(this._cls_info.pageCartListfix , this._cls_info.drawCartList);
 
+		this.fn_calc_dlvybase();
 		this.fn_calc_dlvyadit();
 		this.fn_draw_result_money();
 
         this.fn_page_init();
 
-
     }
+
+	/*개별 배송을 계산.*/
+	fn_calc_dlvybase(){
+		var cartList = $(this._cls_info.pageCartListfix + " .order-product-inner");
+		
+		var jobjRoot = $(this._cls_info.pageCartListfix);
+		var jobjCartGrp, jobjTemp;
+		var dlvyBase = 0;
+		var arrEntrpsDlvygrpList = [];
+		var entrpsdlvygrpno;
+		var ifor, ilen = cartList.length;
+		/*배송비 계산*/
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjCartGrp = $(cartList[ifor]);
+
+			if(jobjCartGrp.hasClass("entrpsDlvygrpNo") && jobjCartGrp.attr("entrpsDlvygrpNo") != undefined){/*그룹배송이 있는 경우*/
+				entrpsdlvygrpno = jobjCartGrp.attr("entrpsDlvygrpNo");
+				if (arrEntrpsDlvygrpList.indexOf(entrpsdlvygrpno) >= 0){
+					/*묶음배송으로 이미 더해졌다*/
+					continue;
+				}
+
+				/*묶음 배송이더라도 1개이면 개별 배송으로 처리한다.*/
+				if (jobjRoot.find(".order-product .order-product-inner[entrpsdlvygrpno='{0}']".format(entrpsdlvygrpno)).length > 1){
+					arrEntrpsDlvygrpList.push(entrpsdlvygrpno);
+
+					jobjTemp = jobjRoot.find(".order-item-payment.entrpsDlvygrpNo[entrpsdlvygrpno='{0}'] input[name='dlvyGrpBaseAmt']".format(entrpsdlvygrpno));
+					if (jobjTemp.length > 0){
+						dlvyBase += Number($(jobjTemp[0]).val());
+						continue;
+					}
+				}
+			}
+
+			/*개별 배송을 더한다.*/
+			jobjTemp = jobjCartGrp.find('input[name="dlvyBaseAmt"]');
+			if (jobjTemp.length > 0){
+				dlvyBase += Number($(jobjTemp[0]).val());
+			}
+		}
+		this._cls_info.cartResultMoney["total-dlvyBase"] = dlvyBase;
+	}
 
 	/*추가 배송비 계산*/
 	fn_calc_dlvyadit(){
@@ -191,7 +233,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 
 		this._cls_info.cartResultMoney["total-ordrpc"] += json.ordrPc;/*총 상품 금액은 전체 상품 금액의 합*/
 
-		console.log(json)
+		// console.log(json)
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
 		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
