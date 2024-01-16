@@ -66,6 +66,7 @@ public class MyCartController extends CommonAbstractController  {
 		paramMap.clear();
 		paramMap.put("srchCartTy", "N"); // 비급여주문 상품
 		paramMap.put("srchViewYn", "Y");
+		paramMap.put("reCalcPcYn", "Y");
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
 		List<CartVO> nResultList = cartService.selectCartListAll(paramMap);
 		model.addAttribute("nResultList", nResultList);
@@ -350,7 +351,8 @@ public class MyCartController extends CommonAbstractController  {
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("gdsTyCode", CodeMap.GDS_TY);
-
+		model.addAttribute("dlvyPayTyCode2", CodeMap.DLVY_PAY_TY2); 
+		
 		ObjectMapper mapper  = new ObjectMapper();
 		String tempString;
 		tempString =  mapper.writeValueAsString(cartList);

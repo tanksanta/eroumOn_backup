@@ -507,7 +507,7 @@ public class OrdrController extends CommonAbstractController{
 		String[] arrCartGrpNo = cartGrpNos.split(",");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartGrpNos", arrCartGrpNo);
-
+		paramMap.put("reCalcPcYn", "Y");
 		List<CartVO> cartList = cartService.selectCartListAll(paramMap);
 		
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
@@ -647,11 +647,6 @@ public class OrdrController extends CommonAbstractController{
 		OrdrVO ordrVO = new OrdrVO();
 		ordrVO.setOrdrCd(ordrCd);
 		ordrVO.setOrdrTy(cartTy);
-		
-		
-		//입점업체 정보
-		Map<Integer, Boolean> entrpsFirstCheckMap = new HashMap<>();
-		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<>());
 		
 		
 		// 기본주소 call

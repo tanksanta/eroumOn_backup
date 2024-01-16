@@ -126,12 +126,17 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
                     if(oldOptnNm != optnNm[0]){
                         if(optnNm.length < 2){
                             var optnPc = "";
-                            var optnSoldout = "";
+                            var optnSoldoutTxt = "";
+                            var optnSoldoutYn = "";
+
                             if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
-                            if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-                            $("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldout +"</a></li>");
+                            if(data.soldOutYn == 'Y' || data.optnStockQy < 1){ 
+                                optnSoldoutTxt = " [품절]"; 
+                                optnSoldoutYn = "Y";
+                            }
+                            $("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' optnSoldoutYn='"+optnSoldoutYn+"' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[0] + optnPc + optnSoldoutTxt +"</a></li>");
                         }else{
-                            $("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
+                            $("#optnVal1 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' optnSoldoutYn='"+optnSoldoutYn+"' data-opt-val='"+ data.optnNm +"'>"+ optnNm[0] +"</li>");
                         }
                         oldOptnNm = optnNm[0];
                     }
@@ -171,12 +176,18 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
                         if(oldOptnNm != optnNm[1]){
                             if(optnNm.length < 3){
                                 var optnPc = "";
-                                var optnSoldout = "";
-                                if(data.optnPc > 0){ optnPc = " + " + comma(data.optnPc) +"원"; }
-                                if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-                                $("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldout +"</a></li>");
+                                var optnSoldoutTxt = "";
+                                var optnSoldoutYn = "";
+
+                                if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
+                                if(data.soldOutYn == 'Y' || data.optnStockQy < 1){ 
+                                    optnSoldoutTxt = " [품절]"; 
+                                    optnSoldoutYn = "Y";
+                                }
+                                
+                                $("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' optnSoldoutYn='"+optnSoldoutYn+"' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[1] + optnPc + optnSoldoutTxt +"</a></li>");
                             }else{
-                                $("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
+                                $("#optnVal2 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' optnSoldoutYn='"+optnSoldoutYn+"' data-opt-val='"+ data.optnNm +"'>"+ optnNm[1] +"</li>");
                             }
                             oldOptnNm = optnNm[1];
                         }
@@ -222,10 +233,16 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
                     $.each(json.optnList, function(index, data){
                         var optnNm = data.optnNm.split("*");
                         var optnPc = "";
-                        var optnSoldout = "";
+                        var optnSoldoutTxt = "";
+                        var optnSoldoutYn = "";
+
+                        if(data.soldOutYn == 'Y' || data.optnStockQy < 1){ 
+                            optnSoldoutTxt = " [품절]"; 
+                            optnSoldoutYn = "Y";
+                        }
                         if(data.optnPc > 0){ optnPc = " + " + data.optnPc +"원"; }
                         if(data.optnStockQy < 1){ optnSoldout = " [품절]"; }
-                        $("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldout +"</a></li>");
+                        $("#optnVal3 ul.option-items").append("<li><a href='#' data-optn-ty='BASE' optnSoldoutYn='"+optnSoldoutYn+"' data-opt-val='"+ data.optnNm +"|"+ data.optnPc +"|"+ data.optnStockQy +"|BASE|"+ data.gdsOptnNo +"'>"+ optnNm[2] + optnPc + optnSoldoutTxt +"</a></li>");
                     });
                     //$('.product-option .option-toggle')[1].click();
                     $('.product-option .option-toggle')[2].click();
@@ -242,10 +259,15 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         }
     }
 
-    f_baseOptnChg(optnVal){
+    f_baseOptnChg(jobjTarget, optnVal){
         var spOptnVal = optnVal.split("|");
         var spOptnTxt = spOptnVal[0].split("*");
         var skip = false;
+
+        if (jobjTarget != null && jobjTarget.attr("optnSoldoutYn") == "Y"){
+            alert("품절된 상품은 추가할 수 없습니다.");
+            return;
+        }
 
         console.log("optnVal", optnVal); // R * 10 * DEF|1000|0|BASE
         if(spOptnVal[0].trim() != ""){
@@ -318,7 +340,12 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
     }
 
     //추가옵션
-    f_aditOptnChg(optnVal){
+    f_aditOptnChg(jobjTarget, optnVal){
+        if (jobjTarget != null && jobjTarget.attr("optnSoldoutYn") == "Y"){
+            alert("품절된 상품은 추가할 수 없습니다.");
+            return;
+        }
+        
         var spAditOptnVal = optnVal.split("|");
         var spAditOptnTxt = spAditOptnVal[0].split("*"); // AA * BB
         var skip = false;
