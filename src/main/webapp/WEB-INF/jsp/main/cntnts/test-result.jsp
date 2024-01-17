@@ -989,7 +989,13 @@
           		if (testResult.grade !== 0) {
           			$('#go-consult').text('1:1 상담하기');
           		} else if (testResult.grade === 0) {
-          			$('.mainSend').css('display', 'none');
+          			//인지지원 등급은 상담하기 버튼으로 노출
+          			if(testResult.diseaseSelect1 && testResult.diseaseSelect1[0] 
+            				|| testResult.diseaseSelect2 && testResult.diseaseSelect2[0]) {
+          				$('#go-consult').text('1:1 상담하기');
+          			} else {
+          				$('.mainSend').css('display', 'none');
+          			}
           		}
           	}
           	
@@ -1046,8 +1052,13 @@
           	$('#go-consult').click(function() {
           		//0등급인 경우 다른 혜택 확인하기
           		if (testResult.grade === 0) {
-          			location.href="/main/searchBokji"
-          			return;
+          			//인지 지원등급이 아닌 경우만 복지서비스로 이동
+          			if(testResult.diseaseSelect1 && testResult.diseaseSelect1[0] 
+    					|| testResult.diseaseSelect2 && testResult.diseaseSelect2[0]) {
+		  			} else {
+		  				location.href="/main/searchBokji"
+	  					return;
+		  			}
           		}
           		
           		
