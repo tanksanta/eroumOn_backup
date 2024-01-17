@@ -183,7 +183,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="text-title">회원가입</h2>
-					<button data-bs-dismiss="modal" class="btn-close">모달 닫기</button>
+					<button data-bs-dismiss="modal" class="btn-close" onclick="location.href='/'">모달 닫기</button>
 				</div>
 				<div class="modal-body">
 					<div class="modal-bg-wrap">
