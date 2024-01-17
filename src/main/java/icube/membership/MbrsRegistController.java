@@ -470,7 +470,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				checkAuthVO.setNaverAppId(tempMbrVO.getNaverAppId());
 				checkAuthVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
 				checkAuthVO.setCiKey(tempMbrVO.getCiKey());
-				Map<String, Object> checkMap = mbrService.checkDuplicateMbrForRegist(checkAuthVO);
+				Map<String, Object> checkMap = mbrService.checkDuplicateMbrForRegist(checkAuthVO, certMbrInfoVO.getDiKey());
 				
 				if ((boolean)checkMap.get("valid") == false) {
 					//계정 연결 안내 페이지 이동

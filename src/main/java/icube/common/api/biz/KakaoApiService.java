@@ -191,6 +191,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		boolean birthDayFlag = info.getAsJsonObject().get("has_birthday").getAsBoolean();
 		boolean birthYearFlag = info.getAsJsonObject().get("has_birthyear").getAsBoolean();
 		boolean mblTelnoFlag = info.getAsJsonObject().get("has_phone_number").getAsBoolean();
+		boolean ciFlag = info.getAsJsonObject().get("has_ci").getAsBoolean();
 
 		if(genderFlag) {
 			String codeGender = "M";
@@ -229,6 +230,13 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		if(EgovStringUtil.isNotEmpty(name)) {
 			kakaoUserInfo.setMbrNm(name);
 		}
+		
+		if (ciFlag) {
+			String ci = info.getAsJsonObject().get("ci").getAsString();
+			kakaoUserInfo.setCiKey(ci);
+		}
+		
+		
 		return kakaoUserInfo;
 	}
 

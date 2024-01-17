@@ -737,7 +737,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public Map<String, Object> validateForSnsLogin(HttpSession session, MbrVO snsUserInfo) throws Exception {
 		//어떤 로그인으로 시도하는지 확인(카카오, 네이버)
 		String joinTy = snsUserInfo.getJoinTy();
- 		String mblTelno = snsUserInfo.getMblTelno();
+ 		String ciKey = snsUserInfo.getCiKey();
  		String prevPath = (String)session.getAttribute("prevSnsPath");
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -745,22 +745,28 @@ public class MbrService extends CommonAbstractServiceImpl {
 		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
 		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
 		String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/regist") : (rootPath + "/login");
+		String loginPath = "membership".equals(prevPath) ? (membershipRootPath + "/login") : (rootPath + "/login");
 		
-		//번호로 회원 검색
+		
+		//CI 값으로 회원 검색
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMblTelno", mblTelno);
+		paramMap.put("srchCiKey", ciKey);
 		paramMap.put("srchMbrStts", "NORMAL");
 		List<MbrVO> mbrList = selectMbrListAll(paramMap);
 		
 		//가입정보가 2개 이상인 경우 오류 처리
 		if (mbrList.size() > 1) {
 			resultMap.put("srchMbrVO", new MbrVO());
-			resultMap.put("msg", "동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
+			resultMap.put("msg", "동일한 가입 정보가 2건 이상 존재합니다. 관리자에게 문의바랍니다.");
 			resultMap.put("location", registPath);
 			return resultMap;
 		}
+		
+		
 		//회원이 없으면 회원가입 처리하도록 셋팅
-		else if (mbrList == null || mbrList.size() < 1) {
+		if (mbrList == null || mbrList.size() < 1) {
+			//이 시점에 바인딩 회원을 찾아야 하지만 현재는 CI값 밖에 모르고 이미 검색된 회원이 없기 때문에 할 필요가 없음
+			
 			//해당 kakao, naver 계정으로 가입된 회원이 있는지 확인
 			Map<String, Object> authParamMap = new HashMap<String, Object>();
 			if ("K".equals(joinTy)) {
@@ -782,7 +788,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		MbrVO srchMbrVO = mbrList.get(0);
 		resultMap.put("srchMbrVO", srchMbrVO);
 		
-		//탈퇴와 휴면회원은 나올수가 없다 (위에 NORMAL만 검색)
+		//탈퇴와 휴면회원은 나올수가 없다(위에 NORMAL만 검색)
 //		if ("EXIT".equals(srchMbrVO.getMberSttus())) {
 //			resultMap.put("msg", "탈퇴한 회원입니다.");
 //			resultMap.put("location", rootPath);
@@ -814,69 +820,36 @@ public class MbrService extends CommonAbstractServiceImpl {
 			}
 		}
 		
-		//해당 회원이 본인 인증을 아직 안함 계정인 경우
-		if (srchMbrVO.getSnsRegistDt() == null) {
-			//회원가입 시도한 유형과 다르다면
-			if (!joinTy.equals(srchMbrVO.getJoinTy())) {
-				if ("K".equals(srchMbrVO.getJoinTy())) {
-					resultMap.put("msg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
-					resultMap.put("location", registPath);
-				} else if ("N".equals(srchMbrVO.getJoinTy())) {
-					resultMap.put("msg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
-					resultMap.put("location", registPath);
-				} else {
-					resultMap.put("msg", "가입된 이로움 계정이 존재합니다.");
-					resultMap.put("location", registPath);
-				}
-			}
-			//본인 인증창으로 이동
-			else {
-				resultMap.put("location", membershipRootPath + "/sns/regist?uid=" + srchMbrVO.getUniqueId());
-			}
-			return resultMap;
-		}
-		
 		//해당 인증수단이 존재하는지 확인
 		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(srchMbrVO.getUniqueId());
 		MbrAuthVO mbrAuthVO = authList.stream().filter(auth -> joinTy.equals(auth.getJoinTy())).findFirst().orElse(null);
-		//인증수단이 없으면 안내메시지
+		//인증 수단이 등록안되어 있는 경우라면 계정 연결을 하도록 보내준다.
 		if (mbrAuthVO == null) {
-			if ("K".equals(joinTy)) {
-				resultMap.put("msg", "카카오 인증이 등록되지 않는 회원 입니다.");
-			} else if ("N".equals(joinTy)) {
-				resultMap.put("msg", "네이버 인증이 등록되지 않는 회원 입니다.");
-			}
-			resultMap.put("location", registPath);
+			snsUserInfo.setUniqueId(srchMbrVO.getUniqueId());
+			mbrSession.setParms(snsUserInfo, false);
+			//바인딩 페이지로 이동
+			resultMap.put("location", membershipRootPath + "/binding");
 			return resultMap;
 		}
-		else {
-			//인증수단이 등록되었지만 계정이 다르다면
-			if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
-				resultMap.put("msg", "등록하신 카카오 계정과 일치하지 않습니다.");
-				resultMap.put("location", registPath);
-				return resultMap;
-			} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
-				resultMap.put("msg", "등록하신 네이버 계정과 일치하지 않습니다.");
-				resultMap.put("location", registPath);
-				return resultMap;
-			}
+		
+		//인증수단이 등록되었지만 계정이 다르다면
+		if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
+			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (mbrAuthVO.getEml() != null ? mbrAuthVO.getEml() : mbrAuthVO.getMblTelno()));
+			resultMap.put("location", loginPath);
+			return resultMap;
+		} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
+			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + mbrAuthVO.getEml());
+			resultMap.put("location", loginPath);
+			return resultMap;
 		}
 		
-			
+		
 		//최근 접속일 갱신
 		updateRecentDt(srchMbrVO.getUniqueId());
 		
 		//로그인 처리
 		mbrSession.setParms(srchMbrVO, true);
 		mbrSession.setMbrInfo(session, mbrSession);
-		
-		//해당 회원이 본인인증을 하지 않은 상태일 때 본인인증 창으로 이동(session에 담겨있어야 하므로 여기에 위치)
-		if (srchMbrVO.getSnsRegistDt() == null) {
-			String snsRegistPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist?uid=" + srchMbrVO.getUniqueId()) : (rootPath + "/login");
-			resultMap.put("location", snsRegistPath);
-			session.removeAttribute("returnUrl");
-			return resultMap;
-		}
 		
 		resultMap.put("valid", true);
 		return resultMap;
@@ -1004,14 +977,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 	/**
 	 * 회원 생성 전 이미 존재하는 계정이 있는지 확인(회원 바인딩 고려)
 	 */
-	public Map<String, Object> checkDuplicateMbrForRegist(MbrAuthVO mbrAuthVO) throws Exception {
+	public Map<String, Object> checkDuplicateMbrForRegist(MbrAuthVO mbrAuthVO, String diKey) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		
 		//같은 CI를 등록한 회원이 있는 지 확인
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchCiKey", mbrAuthVO.getCiKey());
-		MbrVO srchMbr = selectMbr(paramMap);
+		MbrVO srchMbr = getBindingMbr(mbrAuthVO.getCiKey(), diKey);
 		if (srchMbr != null) {
 			resultMap.put("bindingMbr", srchMbr);
 			return resultMap;
@@ -1024,24 +995,24 @@ public class MbrService extends CommonAbstractServiceImpl {
 		if ("K".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByKakaoAppId(mbrAuthVO.getKakaoAppId());
 			if (findMbrAuth != null) {
-				idInfoStr = "\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
+				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
 			}
 		}
 		else if ("N".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByNaverAppId(mbrAuthVO.getNaverAppId());
 			if (findMbrAuth != null) {
-				idInfoStr = "\n네이버 : " + findMbrAuth.getEml();
+				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + findMbrAuth.getEml();
 			}
 		}
 		else {
 			findMbrAuth = mbrAuthService.selectMbrAuthByMbrId(mbrAuthVO.getMbrId());
 			if (findMbrAuth != null) {
-				idInfoStr = "\n아이디 : " + findMbrAuth.getMbrId();
+				idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + findMbrAuth.getMbrId();
 			}
 		}
 		
 		if (findMbrAuth != null) {
-			resultMap.put("msg", "이미 이로움ON에 가입된 계정이 있습니다." + idInfoStr);
+			resultMap.put("msg", "" + idInfoStr);
 			return resultMap;
 		}
 		
@@ -1171,5 +1142,86 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		//알림톡 발송
 		biztalkConsultService.sendOnJoinComleted(mbrVO);
+	}
+	
+	
+	/**
+	 * 바인딩 가능 회원 반환 (연결 가능한 계정이 있으면 반환)
+	 */
+	private MbrVO getBindingMbr(String ciKey, String diKey) throws Exception {
+		
+		//CI로 찾기
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCiKey", ciKey);
+		MbrVO srchMbr = selectMbr(paramMap);
+		if (srchMbr != null) {
+			return srchMbr;
+		}
+		
+		//DI로 찾기
+		if (EgovStringUtil.isNotEmpty(diKey)) {
+			paramMap = new HashMap<String, Object>();
+			paramMap.put("srchDiKey", diKey);
+			srchMbr = selectMbr(paramMap);
+			if (srchMbr != null) {
+				return srchMbr;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 회원 바인딩 처리(세션에 저장된 임시 회원을 바인딩 처리)
+	 */
+	public Map<String, Object> bindMbrWithTempMbr(HttpSession session) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		//비정상적인 요청 차단
+		if (mbrSession == null || EgovStringUtil.isEmpty(mbrSession.getUniqueId()) || mbrSession.isLoginCheck() == true) {
+			resultMap.put("msg", "잘못된 접근입니다.");
+			return resultMap;
+		}
+		
+		//회원 조회
+		try {
+			MbrVO srchMbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+			if (srchMbrVO == null) {
+				resultMap.put("msg", "연결할 계정이 존재하지 않습니다.");
+				return resultMap;
+			}
+			
+			//로그인할 때 외부에서 받은 회원 정보(임시 세션)
+			MbrVO tempMbrVO = mbrSession;
+			
+			//회원 인증정보 등록
+			MbrAuthVO mbrAuthVO = new MbrAuthVO();
+			mbrAuthVO.setMbrUniqueId(tempMbrVO.getUniqueId());
+			mbrAuthVO.setJoinTy(tempMbrVO.getJoinTy());
+			mbrAuthVO.setMbrId(tempMbrVO.getMbrId());
+			mbrAuthVO.setPswd(tempMbrVO.getPswd());
+			mbrAuthVO.setNaverAppId(tempMbrVO.getNaverAppId());
+			mbrAuthVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
+			mbrAuthVO.setEml(tempMbrVO.getEml());
+			mbrAuthVO.setMblTelno(tempMbrVO.getMblTelno());
+			mbrAuthVO.setCiKey(tempMbrVO.getCiKey());
+			mbrAuthService.insertMbrAuth(mbrAuthVO);
+			
+			//최근 접속일 갱신
+			updateRecentDt(srchMbrVO.getUniqueId());
+			
+			//로그인 처리
+			mbrSession.setParms(srchMbrVO, true);
+			mbrSession.setMbrInfo(session, mbrSession);
+			
+		} catch (Exception ex) {
+			log.error("------- 계정연결 오류 ---------", ex);
+			resultMap.put("msg", "계정 연결중 오류가 발생하였습니다.");
+			return resultMap;
+		}
+		
+		resultMap.put("success", true);
+		return resultMap;
 	}
 }

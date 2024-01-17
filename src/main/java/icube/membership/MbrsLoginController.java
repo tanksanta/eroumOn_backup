@@ -1,5 +1,6 @@
 package icube.membership;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import icube.common.framework.abst.CommonAbstractController;
@@ -23,6 +25,8 @@ import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.Base64Util;
 import icube.common.util.RSA;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
@@ -39,6 +43,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
 
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
+	
 	@Resource(name = "mbrMngInfoService")
 	private MbrMngInfoService mbrMngInfoService;
 
@@ -201,5 +208,42 @@ public class MbrsLoginController extends CommonAbstractController  {
 			return "redirect:/"+ mainPath;
 		}
 
+	}
+	
+	
+	/**
+	 * 회원 연결 페이지 이동(바인딩)
+	 */
+	@RequestMapping(value="binding")
+	public String binding(
+			HttpServletRequest request
+			, Model model) throws Exception {
+
+		if (mbrSession == null || EgovStringUtil.isEmpty(mbrSession.getUniqueId()) || mbrSession.isLoginCheck() == true) {
+			model.addAttribute("alertMsg", "잘못된 접근입니다.");
+			return "/common/msg";
+		}
+		
+		MbrVO mbrVO = mbrSession;
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+		
+		model.addAttribute("tempMbrVO", mbrVO);
+		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
+		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
+		model.addAttribute("naverAuthInfo", naverAuthInfo);
+		
+		return "/membership/mbr_binding";
+	}
+	
+	/**
+	 * 회원 연결 처리 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value="binding.json")
+	public Map<String, Object> bindingJson(HttpSession session) {
+		return mbrService.bindMbrWithTempMbr(session);
 	}
 }
