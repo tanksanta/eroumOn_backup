@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -15,6 +17,7 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 	
 	@Resource(name="mbrAuthDAO")
 	private MbrAuthDAO mbrAuthDAO;
+	
 	
 	public List<MbrAuthVO> selectMbrAuthListAll(Map<String, Object> paramMap) throws Exception {
 		return mbrAuthDAO.selectMbrAuthListAll(paramMap);
@@ -69,4 +72,58 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 	public void deleteMbrAuthByUniqueId(String mbrUniqueId) throws Exception {
 		mbrAuthDAO.deleteMbrAuthByUniqueId(mbrUniqueId);
 	}
+	
+	/**
+	 * 이로움 인증 수단 생성 함수
+	 */
+	public Map<String, Object> registEroumAuth(MbrVO mbrVO) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		String idChk = "^[a-zA-Z][A-Za-z0-9]{5,14}$";
+		String pswdChk = "^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+*=*]).*$";
+		
+		try {
+			mbrVO.setJoinTy("E");
+			
+			String id = mbrVO.getMbrId();
+			String pswd = mbrVO.getPswd();
+			
+			if (EgovStringUtil.isEmpty(id) || EgovStringUtil.isEmpty(pswd)) {
+				resultMap.put("msg", "아이디 또는 패스워드가 입력되지 않았습니다");
+				return resultMap;
+			}
+			
+			if (id.length() >= 6 && id.length() <= 15 && !id.matches(idChk)) {
+				resultMap.put("msg", "6~15자 영문,숫자를 조합해 주세요");
+				return resultMap;
+			}
+			if (pswd.length() >= 8 && pswd.length() <= 16 && !pswd.matches(pswdChk)) {
+				resultMap.put("msg", "8~16자 영문,숫자,특수문자를 조합해 주세요");
+				return resultMap;
+			}
+			
+			MbrAuthVO eroumAuth = selectMbrAuthByMbrId(id);
+			if (eroumAuth != null) {
+				resultMap.put("msg", "이미 사용 중인 아이디입니다");
+				resultMap.put("existId", true);
+				return resultMap;
+			}
+			
+			//패스워드 암호화
+			String encPswd = BCrypt.hashpw(mbrVO.getPswd(), BCrypt.gensalt());
+			mbrVO.setPswd(encPswd);
+			
+			//인증 수단 추가
+			insertMbrAuthWithMbrVO(mbrVO);
+			
+		} catch (Exception ex) {
+			resultMap.put("msg", "이로움 인증정보 등록중 오류가 발생하였습니다");
+			return resultMap;
+		}
+		
+		resultMap.put("success", true);
+		return resultMap;
+	}
+	
 }

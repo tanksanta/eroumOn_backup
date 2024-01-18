@@ -969,4 +969,20 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 		return resultMap;
 	}
+	
+	/**
+	 * 이로움 회원 인증수단 연결 등록
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addEroumAuth.json")
+	public Map<String, Object> addEroumAuth(
+			@RequestParam String mbrId
+			, @RequestParam String pswd
+		) throws Exception {
+		MbrVO mbrVO = new MbrVO();
+		mbrVO.setUniqueId(mbrSession.getUniqueId());
+		mbrVO.setMbrId(mbrId);
+		mbrVO.setPswd(pswd);
+		return mbrAuthService.registEroumAuth(mbrVO);
+	}
 }

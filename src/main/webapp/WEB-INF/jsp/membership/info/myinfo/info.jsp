@@ -54,7 +54,7 @@
 										<p class="text-base font-bold md:text-lg">${eroumAuthInfo.mbrId}</p>
 									</c:when>
 									<c:otherwise>
-										<span class="text-sm md:text-base" style="cursor:pointer;">이로움ON 아이디 만들기 &gt;</span>
+										<span class="text-sm md:text-base" style="cursor:pointer;" onclick="registEroumAuth();">이로움ON 아이디 만들기 &gt;</span>
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -266,7 +266,10 @@
 		</div>
 	</div>
 </main>
-
+	
+	<!-- 이로움온 회원 인증정보 저장 모달(아이디, 패스워드) -->
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_eroum_auth_modal.jsp" />
+			
 
 <script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script>
@@ -333,6 +336,11 @@ function removeAuth(authNo) {
 			}
 		);
 	}
+}
+
+//이로움 인증 수단 추가
+function registEroumAuth() {
+	openRegistEroumAuthModal();
 }
 
 
