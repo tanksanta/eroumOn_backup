@@ -39,6 +39,8 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.itrst.biz.CartService;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -54,6 +56,9 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	@Resource(name="mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 
 	@Resource(name="fileService")
 	private FileService fileService;
@@ -216,13 +221,21 @@ public class MbrsInfoController extends CommonAbstractController{
 
 		mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+		
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
+		
+		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
+		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
+		model.addAttribute("naverAuthInfo", naverAuthInfo);
 
 		return "/membership/info/myinfo/info";
 	}
@@ -922,6 +935,37 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "회원 인증 정보 수정중 오류가 발생하였습니다");
+		}
+		return resultMap;
+	}
+	
+	/*
+	 * 회원의 인증수단 연결 해제
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeMbrAuth.json")
+	public Map<String, Object> removeMbrAuth(
+			@RequestParam int authNo
+			, HttpSession session
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+	
+		try {
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+			MbrAuthVO authVO = authList.stream().filter(f -> f.getAuthNo() == authNo).findAny().orElse(null);
+			if (authVO == null) {
+				resultMap.put("msg", "회원의 해당 인증정보가 존재하지 않습니다");
+				return resultMap;
+			}
+			
+			mbrAuthService.deleteMbrAuthByNo(authVO.getAuthNo());
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "회원 인증 정보 삭제중 오류가 발생하였습니다");
 		}
 		return resultMap;
 	}

@@ -45,17 +45,17 @@
 
 	<insert id="insertMbrAuth" parameterType="mbrAuthVO">
 		INSERT INTO MBR_AUTH(
-			MBR_UNIQUE_ID
-			, JOIN_TY
-			, MBR_ID
-			, PSWD
-			, NAVER_APP_ID
-			, KAKAO_APP_ID
-			, EML
-			, MBL_TELNO
-			, CI_KEY
-			, REG_DT
-			, DEL_YN
+			mbr_unique_id
+			, join_ty
+			, mbr_id
+			, pswd
+			, naver_app_id
+			, kakao_app_id
+			, eml
+			, mbl_telno
+			, ci_key
+			, reg_dt
+			, del_yn
 		)VALUES(
 			#{mbrUniqueId}
 			, #{joinTy}
@@ -70,4 +70,19 @@
 			, #{delYn}
 		)
 	</insert>
+	
+	<update id="deleteMbrAuth" parameterType="mbrAuthVO">
+		UPDATE MBR_AUTH SET
+			del_yn = 'Y'
+			, del_dt = SYSDATE()
+		WHERE
+		<choose>
+			<when test="mbrUniqueId != null and mbrUniqueId != '' ">
+				mbr_unique_id = #{mbrUniqueId}
+			</when>
+			<otherwise>
+				auth_no = #{authNo}
+			</otherwise>
+		</choose>
+	</update>
 </mapper>

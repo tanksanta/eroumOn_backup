@@ -12,10 +12,9 @@
 		<ul class="tabs">
 			<li><a href="./form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
 
-			<c:if test="${mbrVO.joinTy eq 'E'}">
-			<li><a href="./pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			<c:if test="${ !empty eroumAuthInfo }">
+				<li><a href="./pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
 			</c:if>
-
 		</ul>
 
 		<div class="member-modify mt-11 md:mt-15">
@@ -48,16 +47,59 @@
                             <td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrNm}</p></td>
 						</tr>
 						<tr>
-							<th scope="row">
-								<c:set var="joinTy">
+							<th scope="row"><p>아이디</p></th>
+							<td>
 								<c:choose>
-									<c:when test="${_mbrSession.joinTy eq 'K'}">카카오</c:when>
-									<c:when test="${_mbrSession.joinTy eq 'N'}">네이버</c:when>
+									<c:when test="${ !empty eroumAuthInfo }">
+										<p class="text-base font-bold md:text-lg">${eroumAuthInfo.mbrId}</p>
+									</c:when>
+									<c:otherwise>
+										<span class="text-sm md:text-base" style="cursor:pointer;">이로움ON 아이디 만들기 &gt;</span>
+									</c:otherwise>
 								</c:choose>
-								</c:set>
-								<p>${joinTy} 아이디</p>
-							</th>
-							<td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrId}</p></td>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><p>소셜 로그인 설정</p></th>
+							<td>
+								<div class="flex w-full mt-4 mb-4">
+									&nbsp;
+									<img style="flex:1 1 0; border-radius:100%; width:30px; max-width:30px; height:30px;" src="/html/core/images/ico-kakao.png">&nbsp;&nbsp;&nbsp;
+									<div style="flex:5 5 0; line-height:30px;">
+										카카오 
+										<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span>
+										
+										 <c:choose>
+											<c:when test="${ !empty kakaoAuthInfo }">
+												${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo});">연결해제</a>
+											</c:when>
+											<c:otherwise>
+												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/kakao/auth' }">연결하기 &gt;</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								
+								<div class="flex w-full mb-4">
+									&nbsp;
+									<img style="flex:1 1 0; border-radius:100%; width:30px; max-width:30px; height:30px;" src="/html/core/images/ico-naver.png">&nbsp;&nbsp;&nbsp;
+									<div style="flex:5 5 0; line-height:30px;">
+										네이버 
+										<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> 
+										
+										<c:choose>
+											<c:when test="${ !empty naverAuthInfo }">
+												${naverAuthInfo.eml}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo});">연결해제</a>
+											</c:when>
+											<c:otherwise>
+												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/naver/get' }">연결하기 &gt;</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p>생년월일</p></th>
@@ -68,7 +110,7 @@
 							<td><p class="text-base font-bold md:text-lg">${genderCode[_mbrSession.gender]}</p></td>
 						</tr>
 						<tr>
-							<th scope="row"><p>휴대폰 번호</p></th>
+							<th scope="row"><p>휴대폰 번호<sup class="text-danger text-base md:text-lg">*</sup></p></th>
 							<td>
 								<div class="form-group w-full">
 									<form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" readonly="true" />
@@ -76,6 +118,7 @@
 								</div>
 							</td>
 						</tr>
+						<!-- 
 						<tr>
 							<th scope="row"></th>
 							<td>
@@ -84,6 +127,7 @@
 								</p>
 							</td>
 						</tr>
+						-->
 						<tr>
 							<th scope="row">
 								<p>
@@ -222,8 +266,10 @@
 		</div>
 	</div>
 </main>
-<script>
 
+
+<script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script>
 // 본인인증
 async function f_cert(){
 	try {
@@ -275,6 +321,20 @@ async function f_cert(){
 	    }
 	}
 }
+
+//인증 수단 삭제
+function removeAuth(authNo) {
+	if (confirm('소셜 로그인 연결을 해제하시겠어요?')) {
+		callPostAjaxIfFailOnlyMsg(
+			'/membership/info/myinfo/removeMbrAuth.json',
+			{ authNo },
+			function(result) {
+				location.reload();
+			}
+		);
+	}
+}
+
 
 $(function(){
 

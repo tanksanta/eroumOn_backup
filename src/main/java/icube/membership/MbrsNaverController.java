@@ -74,6 +74,7 @@ public class MbrsNaverController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String returnUrl = (String)session.getAttribute("returnUrl");
 		String prevPath = (String)session.getAttribute("prevSnsPath");
+		Object reAuth = session.getAttribute("reAuth");
 		if (EgovStringUtil.isEmpty(prevPath)) {
 			javaScript.setMessage("네이버 로그인 유입 경로를 설정하세요.");
 		}
@@ -106,7 +107,8 @@ public class MbrsNaverController extends CommonAbstractController{
 
 
 		//로그인 한 상태라면 재인증 처리
-		if(mbrSession.isLoginCheck()) {
+		if(mbrSession.isLoginCheck() && reAuth != null && (Boolean)reAuth == true) {
+			session.removeAttribute("reAuth");
 			return new JavaScriptView(mbrService.reAuthCheck("N", naverUserInfo, session));
 		}
 		
@@ -174,6 +176,8 @@ public class MbrsNaverController extends CommonAbstractController{
 		
 		String naverUrl = naverApiService.getNaverReAuth();
 
+		session.setAttribute("reAuth", true);
+		
 		javaScript.setLocation(naverUrl);
 		return new JavaScriptView(javaScript);
 	}

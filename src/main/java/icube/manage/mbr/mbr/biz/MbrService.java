@@ -2,6 +2,7 @@ package icube.manage.mbr.mbr.biz;
 
 import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -748,26 +749,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		String loginPath = "membership".equals(prevPath) ? (membershipRootPath + "/login") : (rootPath + "/login");
 		
 		
-		//CI 값으로 회원 검색
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchCiKey", ciKey);
-		paramMap.put("srchMbrStts", "NORMAL");
-		List<MbrVO> mbrList = selectMbrListAll(paramMap);
+		List<MbrVO> mbrList = new ArrayList<>();
 		
-		//가입정보가 2개 이상인 경우 오류 처리
-		if (mbrList.size() > 1) {
-			resultMap.put("srchMbrVO", new MbrVO());
-			resultMap.put("msg", "동일한 가입 정보가 2건 이상 존재합니다. 관리자에게 문의바랍니다.");
-			resultMap.put("location", registPath);
-			return resultMap;
-		}
-		
-		
-		//회원이 없으면 회원가입 처리하도록 셋팅
-		if (mbrList == null || mbrList.size() < 1) {
-			//이 시점에 바인딩 회원을 찾아야 하지만 현재는 CI값 밖에 모르고 이미 검색된 회원이 없기 때문에 할 필요가 없음
-			
-			//해당 kakao, naver 계정으로 가입된 회원이 있는지 확인
+		//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황으로 unique_id로 검색
+		if (mbrSession.isLoginCheck()) {
+			MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
+			mbrList.add(mbrVO);
+		} else {
+			//이미 kakao, naver 계정으로 인증된 회원이 있는지 검색
 			Map<String, Object> authParamMap = new HashMap<String, Object>();
 			if ("K".equals(joinTy)) {
 				authParamMap.put("srchKakaoAppId", snsUserInfo.getKakaoAppId());
@@ -777,10 +766,30 @@ public class MbrService extends CommonAbstractServiceImpl {
 			}
 			List<MbrAuthVO> srchMbrAuthList = mbrAuthService.selectMbrAuthListAll(authParamMap);
 			if (srchMbrAuthList.size() > 0) {
-				resultMap.put("srchMbrVO", new MbrVO());
-				resultMap.put("msg", "동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다");
-				resultMap.put("location", registPath);
+				MbrVO mbrVO = selectMbrByUniqueId(srchMbrAuthList.get(0).getMbrUniqueId());
+				mbrList.add(mbrVO);
 			}
+			
+			if (mbrList == null || mbrList.size() < 1) {
+				//CI 값으로 회원 검색
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("srchCiKey", ciKey);
+				paramMap.put("srchMbrStts", "NORMAL");
+				mbrList = selectMbrListAll(paramMap);
+			}
+		}
+		
+		
+		//가입정보가 2개 이상인 경우 오류 처리
+		if (mbrList.size() > 1) {
+			resultMap.put("srchMbrVO", new MbrVO());
+			resultMap.put("msg", "동일한 가입 정보가 2건 이상 존재합니다. 관리자에게 문의바랍니다.");
+			resultMap.put("location", registPath);
+			return resultMap;
+		}
+		
+		//회원이 없으면 회원가입(간편가입 본인인증)으로 이동
+		if (mbrList == null || mbrList.size() < 1) {
 			return resultMap;
 		}
 		
@@ -826,9 +835,20 @@ public class MbrService extends CommonAbstractServiceImpl {
 		//인증 수단이 등록안되어 있는 경우라면 계정 연결을 하도록 보내준다.
 		if (mbrAuthVO == null) {
 			snsUserInfo.setUniqueId(srchMbrVO.getUniqueId());
-			mbrSession.setParms(snsUserInfo, false);
-			//바인딩 페이지로 이동
-			resultMap.put("location", membershipRootPath + "/binding");
+			
+			//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황
+			if (mbrSession.isLoginCheck()) {
+				//회원 인증정보 등록
+				mbrAuthService.insertMbrAuthWithMbrVO(snsUserInfo);
+				
+				resultMap.put("location", membershipRootPath + "/info/myinfo/form?returnUrl=/membership/info/myinfo/form");
+			}
+			//로그인 시에 온 경우는 회원 연결페이지로 이동
+			else {
+				mbrSession.setParms(snsUserInfo, false);
+				//바인딩 페이지로 이동
+				resultMap.put("location", membershipRootPath + "/binding");
+			}
 			return resultMap;
 		}
 		
@@ -1026,17 +1046,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 */
 	public void workAfterMbrRegist(MbrVO mbrVO, MbrAgreementVO mbrAgreementVO) throws Exception {
 		//회원 인증정보 등록
-		MbrAuthVO mbrAuthVO = new MbrAuthVO();
-		mbrAuthVO.setMbrUniqueId(mbrVO.getUniqueId());
-		mbrAuthVO.setJoinTy(mbrVO.getJoinTy());
-		mbrAuthVO.setMbrId(mbrVO.getMbrId());
-		mbrAuthVO.setPswd(mbrVO.getPswd());
-		mbrAuthVO.setNaverAppId(mbrVO.getNaverAppId());
-		mbrAuthVO.setKakaoAppId(mbrVO.getKakaoAppId());
-		mbrAuthVO.setEml(mbrVO.getEml());
-		mbrAuthVO.setMblTelno(mbrVO.getMblTelno());
-		mbrAuthVO.setCiKey(mbrVO.getCiKey());
-		mbrAuthService.insertMbrAuth(mbrAuthVO);
+		mbrAuthService.insertMbrAuthWithMbrVO(mbrVO);
 		
 		// 모든 항목 동의처리 로그
 		mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
@@ -1196,17 +1206,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			MbrVO tempMbrVO = mbrSession;
 			
 			//회원 인증정보 등록
-			MbrAuthVO mbrAuthVO = new MbrAuthVO();
-			mbrAuthVO.setMbrUniqueId(tempMbrVO.getUniqueId());
-			mbrAuthVO.setJoinTy(tempMbrVO.getJoinTy());
-			mbrAuthVO.setMbrId(tempMbrVO.getMbrId());
-			mbrAuthVO.setPswd(tempMbrVO.getPswd());
-			mbrAuthVO.setNaverAppId(tempMbrVO.getNaverAppId());
-			mbrAuthVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
-			mbrAuthVO.setEml(tempMbrVO.getEml());
-			mbrAuthVO.setMblTelno(tempMbrVO.getMblTelno());
-			mbrAuthVO.setCiKey(tempMbrVO.getCiKey());
-			mbrAuthService.insertMbrAuth(mbrAuthVO);
+			mbrAuthService.insertMbrAuthWithMbrVO(tempMbrVO);
 			
 			//최근 접속일 갱신
 			updateRecentDt(srchMbrVO.getUniqueId());

@@ -82,6 +82,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String returnUrl = (String)session.getAttribute("returnUrl");
 		String prevPath = (String)session.getAttribute("prevSnsPath");
+		Object reAuth = session.getAttribute("reAuth");
 		if (EgovStringUtil.isEmpty(prevPath)) {
 			javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
 		}
@@ -104,7 +105,8 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		
 		
 		//로그인 한 상태라면 재인증 처리
-		if(mbrSession.isLoginCheck()) {
+		if(mbrSession.isLoginCheck() && reAuth != null && (Boolean)reAuth == true) {
+			session.removeAttribute("reAuth");
 			return new JavaScriptView(mbrService.reAuthCheck("K", kakaoUserInfo, session));
 		}
 		
@@ -177,6 +179,8 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		
 		String kakaoUrl = kakaoApiService.getKakaoReAuth();
 
+		session.setAttribute("reAuth", true);
+		
 		javaScript.setLocation(kakaoUrl);
 		return new JavaScriptView(javaScript);
 	}

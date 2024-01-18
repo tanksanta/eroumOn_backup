@@ -47,4 +47,26 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 	public void insertMbrAuth(MbrAuthVO mbrAuthVO) throws Exception {
 		mbrAuthDAO.insertMbrAuth(mbrAuthVO);
 	}
+	
+	public void insertMbrAuthWithMbrVO(MbrVO mbrVO) throws Exception {
+		//회원 인증정보 등록
+		MbrAuthVO mbrAuthVO = new MbrAuthVO();
+		mbrAuthVO.setMbrUniqueId(mbrVO.getUniqueId());
+		mbrAuthVO.setJoinTy(mbrVO.getJoinTy());
+		mbrAuthVO.setMbrId(mbrVO.getMbrId());
+		mbrAuthVO.setPswd(mbrVO.getPswd());
+		mbrAuthVO.setNaverAppId(mbrVO.getNaverAppId());
+		mbrAuthVO.setKakaoAppId(mbrVO.getKakaoAppId());
+		mbrAuthVO.setEml(mbrVO.getEml());
+		mbrAuthVO.setMblTelno(mbrVO.getMblTelno());
+		mbrAuthVO.setCiKey(mbrVO.getCiKey());
+		insertMbrAuth(mbrAuthVO);
+	}
+	
+	public void deleteMbrAuthByNo(int authNo) throws Exception {
+		mbrAuthDAO.deleteMbrAuthByNo(authNo);
+	}
+	public void deleteMbrAuthByUniqueId(String mbrUniqueId) throws Exception {
+		mbrAuthDAO.deleteMbrAuthByUniqueId(mbrUniqueId);
+	}
 }

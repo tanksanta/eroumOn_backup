@@ -21,4 +21,18 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 	public void insertMbrAuth(MbrAuthVO mbrAuthVO) throws Exception {
 		insert("mbr.auth.insertMbrAuth", mbrAuthVO);
 	}
+	
+	/**
+	 * 삭제 여부를 업데이트만 진행
+	 */
+	public void deleteMbrAuthByNo(int authNo) throws Exception {
+		MbrAuthVO paramAuthVO = new MbrAuthVO();
+		paramAuthVO.setAuthNo(authNo);
+		update("mbr.auth.deleteMbrAuth", paramAuthVO);
+	}
+	public void deleteMbrAuthByUniqueId(String mbrUniqueId) throws Exception {
+		MbrAuthVO paramAuthVO = new MbrAuthVO();
+		paramAuthVO.setMbrUniqueId(mbrUniqueId);
+		update("mbr.auth.deleteMbrAuth", paramAuthVO);
+	}
 }
