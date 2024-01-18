@@ -971,7 +971,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	}
 	
 	/**
-	 * 이로움 회원 인증수단 연결 등록
+	 * 이로움 회원 인증수단 연결 등록(로그인 되어 있어야 함)
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addEroumAuth.json")

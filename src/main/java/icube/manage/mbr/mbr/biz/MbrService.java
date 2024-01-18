@@ -1002,39 +1002,58 @@ public class MbrService extends CommonAbstractServiceImpl {
 		resultMap.put("valid", false);
 		
 		//같은 CI를 등록한 회원이 있는 지 확인
+		String idInfoStr = "";
 		MbrVO srchMbr = getBindingMbr(mbrAuthVO.getCiKey(), diKey);
 		if (srchMbr != null) {
-			resultMap.put("bindingMbr", srchMbr);
-			return resultMap;
+			//검색된 바인딩 계정에 이미 해당 인증수단이 있는 경우
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(srchMbr.getUniqueId());
+			MbrAuthVO authInfo = authList.stream().filter(f -> f.getJoinTy().equals(mbrAuthVO.getJoinTy())).findAny().orElse(null);
+			if (authInfo != null) {
+				if ("K".equals(mbrAuthVO.getJoinTy())) {
+					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (authInfo.getEml() != null ? authInfo.getEml() : authInfo.getMblTelno());
+				}
+				else if ("N".equals(mbrAuthVO.getJoinTy())) {
+					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + authInfo.getEml();
+				}
+				else {
+					idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + authInfo.getMbrId();
+				}
+				resultMap.put("location", "/membership/login");
+				resultMap.put("msg", idInfoStr);
+				return resultMap;
+			} else {
+				//바인딩으로 이동 처리
+				resultMap.put("bindingMbr", srchMbr);
+				return resultMap;
+			}
 		}
 		
 		
 		//인증 정보를 이미 등록한 회원이 있는 지 확인
 		MbrAuthVO findMbrAuth = null;
-		String idInfoStr = "";
 		if ("K".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByKakaoAppId(mbrAuthVO.getKakaoAppId());
 			if (findMbrAuth != null) {
 				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
+				resultMap.put("msg", idInfoStr);
+				return resultMap;
 			}
 		}
 		else if ("N".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByNaverAppId(mbrAuthVO.getNaverAppId());
 			if (findMbrAuth != null) {
 				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + findMbrAuth.getEml();
+				resultMap.put("msg", idInfoStr);
+				return resultMap;
 			}
 		}
-		else {
-			findMbrAuth = mbrAuthService.selectMbrAuthByMbrId(mbrAuthVO.getMbrId());
-			if (findMbrAuth != null) {
-				idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + findMbrAuth.getMbrId();
-			}
-		}
-		
-		if (findMbrAuth != null) {
-			resultMap.put("msg", "" + idInfoStr);
-			return resultMap;
-		}
+		//아이디 입력 전 시점이라 아이디 조회 불가능
+//		else { 
+//			findMbrAuth = mbrAuthService.selectMbrAuthByMbrId(mbrAuthVO.getMbrId());
+//			if (findMbrAuth != null) {
+//				idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + findMbrAuth.getMbrId();
+//			}
+//		}
 		
 		resultMap.put("valid", true);
 		return resultMap;
@@ -1182,7 +1201,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	}
 	
 	/**
-	 * 회원 바인딩 처리(세션에 저장된 임시 회원을 바인딩 처리)
+	 * sns 회원정보와 회원 바인딩 처리(세션에 저장된 임시 회원을 바인딩 처리)
 	 */
 	public Map<String, Object> bindMbrWithTempMbr(HttpSession session) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();

@@ -110,6 +110,13 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 				return resultMap;
 			}
 			
+			List<MbrAuthVO> authList = selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if (eroumAuthInfo != null) {
+				resultMap.put("msg", "이미 이로움 계정이 등록되었습니다");
+				return resultMap;
+			}
+			
 			//패스워드 암호화
 			String encPswd = BCrypt.hashpw(mbrVO.getPswd(), BCrypt.gensalt());
 			mbrVO.setPswd(encPswd);

@@ -174,48 +174,43 @@ public class MbrsRegistController extends CommonAbstractController{
 			return "/common/msg";
 		}
 
-		// 가입된 회원인지 체크
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMbrNm", certMbrInfoVO.getMbrNm());
-		paramMap.put("srchMblTelno", certMbrInfoVO.getMblTelno());
-		paramMap.put("srchMbrStts", "NORMAL");
-
-		MbrVO findMbrVO = mbrService.selectMbr(paramMap);
-		if(findMbrVO != null) {
-			if(findMbrVO.getJoinTy().equals("N")) {
-				if (findMbrVO.getSnsRegistDt() == null) {
-					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
-					model.addAttribute("alertMsg", "현재 네이버 계정으로 간편 가입 진행 중입니다.");
-				} else {
-					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
-					model.addAttribute("alertMsg", "네이버 계정으로 가입된 회원입니다.");
-				}
-			}else if(findMbrVO.getJoinTy().equals("K")) {
-				if (findMbrVO.getSnsRegistDt() == null) {
-					model.addAttribute("goUrl", "/" + membershipPath + "/regist");
-					model.addAttribute("alertMsg", "현재 카카오 계정으로 간편 가입 진행 중입니다.");
-				} else {
-					model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
-					model.addAttribute("alertMsg", "카카오 계정으로 가입된 회원입니다.");
-				}
-			}else {
-				model.addAttribute("goUrl", "/"+mainPath + "/login?returnUrl=/main");
-				model.addAttribute("alertMsg", "가입된 회원정보가 존재합니다.아이디 찾기 또는 비밀번호 찾기를 진행하시기 바랍니다.");
+		
+		//바인딩 회원 체크
+		MbrAuthVO checkAuthVO = new MbrAuthVO();
+		checkAuthVO.setJoinTy("E");
+		checkAuthVO.setCiKey(certMbrInfoVO.getCiKey());
+		Map<String, Object> checkMap = mbrService.checkDuplicateMbrForRegist(checkAuthVO, certMbrInfoVO.getDiKey());
+		
+		if ((boolean)checkMap.get("valid") == false) {
+			//계정 연결 안내 페이지 이동
+			if (checkMap.containsKey("bindingMbr")) {
+				MbrVO bindingMbr = (MbrVO) checkMap.get("bindingMbr");
+				certMbrInfoVO.setUniqueId(bindingMbr.getUniqueId());
+				certMbrInfoVO.setJoinTy("E");
+				mbrSession.setParms(certMbrInfoVO, false);
+				
+				return "redirect:/membership/binding";
+			}
+			
+			model.addAttribute("alertMsg", (String)checkMap.get("msg"));
+			if (checkMap.containsKey("location")) {
+				model.addAttribute("goUrl", (String)checkMap.get("location"));
 			}
 			return "/common/msg";
 		}
+		
 
 		// 재가입 7일 이내 불가
-		paramMap.clear();
-		paramMap.put("srchDiKey", certMbrInfoVO.getDiKey());
-		paramMap.put("srchMbrStts", "EXIT");
-		paramMap.put("srchWhdwlDt", 7);
-		int resultCnt = mbrService.selectMbrCount(paramMap);
-
-		if(resultCnt > 0) {
-			model.addAttribute("alertMsg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
-			return "/common/msg";
-		}
+//		paramMap.clear();
+//		paramMap.put("srchDiKey", certMbrInfoVO.getDiKey());
+//		paramMap.put("srchMbrStts", "EXIT");
+//		paramMap.put("srchWhdwlDt", 7);
+//		int resultCnt = mbrService.selectMbrCount(paramMap);
+//
+//		if(resultCnt > 0) {
+//			model.addAttribute("alertMsg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
+//			return "/common/msg";
+//		}
 
 
 		mbrSession.setParms(certMbrInfoVO, false);
@@ -469,7 +464,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				checkAuthVO.setJoinTy(tempMbrVO.getJoinTy());
 				checkAuthVO.setNaverAppId(tempMbrVO.getNaverAppId());
 				checkAuthVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
-				checkAuthVO.setCiKey(tempMbrVO.getCiKey());
+				checkAuthVO.setCiKey(certMbrInfoVO.getCiKey());
 				Map<String, Object> checkMap = mbrService.checkDuplicateMbrForRegist(checkAuthVO, certMbrInfoVO.getDiKey());
 				
 				if ((boolean)checkMap.get("valid") == false) {

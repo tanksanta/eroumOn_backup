@@ -31,10 +31,21 @@
 
 
     <script>
-    	
+    	var rea_requestUrl;
+    	var rea_isNotLogin;
+    
     	//이로움 인증 등록 모달 띄우기
-    	function openRegistEroumAuthModal() {
+    	function openRegistEroumAuthModal(isNotLogin) {
     		initReaModal(true);
+    		
+    		rea_isNotLogin = isNotLogin;
+    		//로그인 안한 상태일 때 요청 url (바인딩 페이지)
+    		if (rea_isNotLogin) {
+    			rea_requestUrl = "/membership/eroum/binding.json";
+    		}
+    		else {
+    			rea_requestUrl = "/membership/info/myinfo/addEroumAuth.json";
+    		}
     		
     		$('#regist-eroum-auth-modal').modal('show');
     	}
@@ -156,7 +167,7 @@
 	  		
 	    	$.ajax({
 	    		type : "post",
-	    		url  : "/membership/info/myinfo/addEroumAuth.json",
+	    		url  : rea_requestUrl,
 	    		data : {
 	    			mbrId,
 	    			pswd
@@ -165,7 +176,14 @@
 	    	})
 	    	.done(function(data) {
 	    		if(data.success) {
-	    			location.reload();
+	    			//바인딩 페이지
+	    			if (rea_isNotLogin) {
+	    				location.href = "/";
+	    			}
+	    			//회원수정
+	    			else {
+	    				location.reload();	
+	    			}
 	    		}else{
 	    			//아이디가 있는 경우는 alert으로 안내를 하지 않는다.
 	    			if (data.existId) {

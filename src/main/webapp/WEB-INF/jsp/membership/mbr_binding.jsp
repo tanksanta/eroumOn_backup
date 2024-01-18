@@ -91,17 +91,17 @@
 				<div class="content-button mt-9" style="flex-direction: column;">
 					<c:choose>
 						<c:when test="${tempMbrVO.joinTy eq 'E'}">
-							<a class="btn btn-eroum w-full">
+							<a class="btn btn-eroum w-full" onclick="bindMbrEroum();">
 				                <span style="width:200px">이로움ON 아이디 만들기</span>
 				            </a>
 						</c:when>
 						<c:when test="${tempMbrVO.joinTy eq 'K'}">
-							<a class="btn btn-kakao w-full" onclick="bindMbr();">
+							<a class="btn btn-kakao w-full" onclick="bindMbrSns();">
 		                    	<span style="width:200px">카카오 계정 연결하기</span>
 		                    </a>
 						</c:when>
 						<c:when test="${tempMbrVO.joinTy eq 'N'}">
-							<a class="btn btn-naver w-full" onclick="bindMbr();">
+							<a class="btn btn-naver w-full" onclick="bindMbrSns();">
 		                    	<span style="width:200px">네이버 계정 연결하기</span>
 		                    </a>
 						</c:when>
@@ -113,16 +113,23 @@
 
 </main>
 
+	<!-- 이로움온 회원 인증정보 저장 모달(아이디, 패스워드) -->
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_eroum_auth_modal.jsp" />
+
 
 <script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script>
-	function bindMbr() {
+	function bindMbrSns() {
 		callPostAjaxIfFailOnlyMsg(
-			'/membership/binding.json',
+			'/membership/sns/binding.json',
 			{},
 			function(result) {
 				location.href = '/';					
 			}
 		);
+	}
+	
+	function bindMbrEroum() {
+		openRegistEroumAuthModal(true);
 	}
 </script>

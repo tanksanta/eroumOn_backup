@@ -1,5 +1,6 @@
 package icube.membership;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -239,11 +240,47 @@ public class MbrsLoginController extends CommonAbstractController  {
 	}
 	
 	/**
-	 * 회원 연결 처리 ajax
+	 * sns 인증정보와 회원 연결 처리 ajax
 	 */
 	@ResponseBody
-	@RequestMapping(value="binding.json")
-	public Map<String, Object> bindingJson(HttpSession session) {
+	@RequestMapping(value="sns/binding.json")
+	public Map<String, Object> snsBindingJson(HttpSession session) {
 		return mbrService.bindMbrWithTempMbr(session);
+	}
+	
+	/**
+	 * 이로움 계정정보와 회원 연결 처리 ajax(로그인 여부와 상관없이 세션에 UNIQUE_ID 필요)
+	 */
+	@ResponseBody
+	@RequestMapping(value="eroum/binding.json")
+	public Map<String, Object> addEroumAuth(
+			@RequestParam String mbrId
+			, @RequestParam String pswd
+			, HttpSession session) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		//비정상적인 요청 차단
+		if (mbrSession == null || EgovStringUtil.isEmpty(mbrSession.getUniqueId()) || mbrSession.isLoginCheck() == true) {
+			resultMap.put("msg", "잘못된 접근입니다.");
+			return resultMap;
+		}
+		
+		MbrVO mbrVO = new MbrVO();
+		mbrVO.setUniqueId(mbrSession.getUniqueId());
+		mbrVO.setMbrId(mbrId);
+		mbrVO.setPswd(pswd);
+		mbrVO.setMblTelno(mbrSession.getMblTelno());
+		mbrVO.setCiKey(mbrSession.getCiKey());
+		
+		resultMap = mbrAuthService.registEroumAuth(mbrVO);
+		
+		if ((boolean)resultMap.get("success")) {
+			MbrVO srchMbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			
+			//로그인 처리
+			mbrSession.setParms(srchMbrVO, true);
+			mbrSession.setMbrInfo(session, mbrSession);
+		}
+		return resultMap;
 	}
 }
