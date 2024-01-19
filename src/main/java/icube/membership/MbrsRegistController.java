@@ -464,6 +464,7 @@ public class MbrsRegistController extends CommonAbstractController{
 						certMbrInfoVO.setJoinTy(tempMbrVO.getJoinTy());
 						certMbrInfoVO.setNaverAppId(tempMbrVO.getNaverAppId());
 						certMbrInfoVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
+						certMbrInfoVO.setEml(tempMbrVO.getEml());
 						mbrSession.setParms(certMbrInfoVO, false);
 						
 						javaScript.setLocation("/membership/binding");
