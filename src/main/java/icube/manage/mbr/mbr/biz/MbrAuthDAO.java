@@ -22,6 +22,13 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 		insert("mbr.auth.insertMbrAuth", mbrAuthVO);
 	}
 	
+	/*
+	 * 삭제된 인증까지 포함 조회용
+	 */
+	public List<MbrAuthVO> selectMbrAuthListAllWithDelete(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.auth.selectMbrAuthWithDelete", paramMap);
+	}
+	
 	/**
 	 * 삭제 여부를 업데이트만 진행
 	 */

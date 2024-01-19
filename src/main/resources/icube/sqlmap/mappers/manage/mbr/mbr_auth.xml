@@ -42,6 +42,16 @@
 			<include refid="searchConditions" />
 	</select>
 	
+	
+	<!-- 삭제된 것 포함 검색(탈퇴 회원 조회용) -->
+	<select id="selectMbrAuthWithDelete" parameterType="java.util.HashMap" resultType="mbrAuthVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_AUTH mau
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+	
 
 	<insert id="insertMbrAuth" parameterType="mbrAuthVO">
 		INSERT INTO MBR_AUTH(

@@ -200,19 +200,6 @@ public class MbrsRegistController extends CommonAbstractController{
 		}
 		
 
-		// 재가입 7일 이내 불가
-//		paramMap.clear();
-//		paramMap.put("srchDiKey", certMbrInfoVO.getDiKey());
-//		paramMap.put("srchMbrStts", "EXIT");
-//		paramMap.put("srchWhdwlDt", 7);
-//		int resultCnt = mbrService.selectMbrCount(paramMap);
-//
-//		if(resultCnt > 0) {
-//			model.addAttribute("alertMsg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
-//			return "/common/msg";
-//		}
-
-
 		mbrSession.setParms(certMbrInfoVO, false);
 		
 		Date now = new Date();

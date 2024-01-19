@@ -176,8 +176,13 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public MbrVO selectMbrById(String mbrId) throws Exception {
+		MbrAuthVO authVO = mbrAuthService.selectMbrAuthByMbrId(mbrId);
+		if (authVO == null) {
+			return null;
+		}
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMbrId", mbrId);
+		paramMap.put("srchUniqueId", authVO.getMbrUniqueId());
 		return this.selectMbr(paramMap);
 	}
 
@@ -199,9 +204,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 * @throws Exception
 	 */
 	public Integer selectMbrIdChk(String mbrId) throws Exception{
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("mbrId", mbrId);
-		return mbrDAO.selectMbrIdChk(paramMap);
+		MbrAuthVO authVO = mbrAuthService.selectMbrAuthByMbrId(mbrId);
+		if (authVO == null) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 	/**
@@ -359,6 +367,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 */
 	public void updateExitMbr(Map<String, Object> paramMap) throws Exception{
 		mbrDAO.updateExitMbr(paramMap);
+		
+		//탈퇴후 인증정보도 삭제처리
+		mbrAuthService.deleteMbrAuthByUniqueId((String)paramMap.get("srchUniqueId"));
 	}
 
 	/**
@@ -774,7 +785,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 				//CI 값으로 회원 검색
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("srchCiKey", ciKey);
-				paramMap.put("srchMbrStts", "NORMAL");
+				//paramMap.put("srchMbrStts", "NORMAL"); srchMbrStts가 null이면 EXIT를 제외한 회원 조회
 				mbrList = selectMbrListAll(paramMap);
 			}
 		}
@@ -797,21 +808,21 @@ public class MbrService extends CommonAbstractServiceImpl {
 		MbrVO srchMbrVO = mbrList.get(0);
 		resultMap.put("srchMbrVO", srchMbrVO);
 		
-		//탈퇴와 휴면회원은 나올수가 없다(위에 NORMAL만 검색)
+		//탈퇴는 나올수가 없다
 //		if ("EXIT".equals(srchMbrVO.getMberSttus())) {
 //			resultMap.put("msg", "탈퇴한 회원입니다.");
 //			resultMap.put("location", rootPath);
 //			return resultMap;
 //		}
-//		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
-//			resultMap.put("msg", "휴면 회원입니다.");
-//			if ("membership".equals(prevPath)) {
-//				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
-//			} else if ("matching".equals(prevPath)) {
-//				resultMap.put("location", rootPath);
-//			}
-//			return resultMap;
-//		}
+		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
+			resultMap.put("msg", "휴면 회원입니다.");
+			if ("membership".equals(prevPath)) {
+				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
+			} else if ("matching".equals(prevPath)) {
+				resultMap.put("location", rootPath);
+			}
+			return resultMap;
+		}
 		
 		Map<String, Object> infoParamMap = new HashMap<String, Object>();
 		infoParamMap.put("srchUniqueId", srchMbrVO.getUniqueId());
@@ -1055,6 +1066,21 @@ public class MbrService extends CommonAbstractServiceImpl {
 //			}
 //		}
 		
+		
+		//재가입 7일 이내 불가
+		MbrVO mbrExitUser = getBindingExitMbr(mbrAuthVO.getCiKey(), diKey);
+		if (mbrExitUser != null) {
+			//해당 명의로 탈퇴한 적이 있다면 탈퇴 후 7일이 지났는지와 이로움계정 인증수단을 포함하고 있는지 체크
+			Date aWeekAgo = DateUtil.getDateAdd(new Date(), "date", -7);
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthWithDelete(mbrExitUser.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if (eroumAuthInfo != null && aWeekAgo.compareTo(mbrExitUser.getWhdwlDt()) < 0) {
+				resultMap.put("msg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
+				return resultMap;
+			}
+		}
+		
+		
 		resultMap.put("valid", true);
 		return resultMap;
 	}
@@ -1182,6 +1208,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		//CI로 찾기
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCiKey", ciKey);
+		//paramMap.put("srchMbrStts", stts); //srchMbrStts가 null이면 EXIT를 제외한 회원 조회
 		MbrVO srchMbr = selectMbr(paramMap);
 		if (srchMbr != null) {
 			return srchMbr;
@@ -1191,6 +1218,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		if (EgovStringUtil.isNotEmpty(diKey)) {
 			paramMap = new HashMap<String, Object>();
 			paramMap.put("srchDiKey", diKey);
+			//paramMap.put("srchMbrStts", stts); //srchMbrStts가 null이면 EXIT를 제외한 회원 조회
 			srchMbr = selectMbr(paramMap);
 			if (srchMbr != null) {
 				return srchMbr;
@@ -1199,6 +1227,37 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		return null;
 	}
+	
+	/*
+	 * 탈퇴한 바인딩 가능 회원 반환 (탈퇴한지 7일 지났는지 체크용)
+	 */
+	private MbrVO getBindingExitMbr(String ciKey, String diKey) throws Exception {
+		
+		//CI로 찾기
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchCiKey", ciKey);
+		paramMap.put("srchMbrStts", "EXIT");
+		List<MbrVO> srchMbr = selectMbrListAll(paramMap);
+		if (srchMbr != null && srchMbr.size() > 0) {
+			//가장 최근에 탈퇴한 바인딩 회원 반환
+			return srchMbr.get(0);
+		}
+		
+		//DI로 찾기
+		if (EgovStringUtil.isNotEmpty(diKey)) {
+			paramMap = new HashMap<String, Object>();
+			paramMap.put("srchDiKey", diKey);
+			paramMap.put("srchMbrStts", "EXIT");
+			srchMbr = selectMbrListAll(paramMap);
+			if (srchMbr != null) {
+				//가장 최근에 탈퇴한 바인딩 회원 반환
+				return srchMbr.get(0);
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	/**
 	 * sns 회원정보와 회원 바인딩 처리(세션에 저장된 임시 회원을 바인딩 처리)

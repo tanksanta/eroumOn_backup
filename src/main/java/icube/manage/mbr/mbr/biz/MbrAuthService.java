@@ -66,6 +66,18 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		insertMbrAuth(mbrAuthVO);
 	}
 	
+	/*
+	 * 삭제된 인증까지 포함 조회용
+	 */
+	public List<MbrAuthVO> selectMbrAuthListAllWithDelete(Map<String, Object> paramMap) throws Exception {
+		return mbrAuthDAO.selectMbrAuthListAllWithDelete(paramMap);
+	}
+	public List<MbrAuthVO> selectMbrAuthWithDelete(String uniqueId) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchMbrUniqueId", uniqueId);
+		return selectMbrAuthListAllWithDelete(paramMap);
+	}
+	
 	public void deleteMbrAuthByNo(int authNo) throws Exception {
 		mbrAuthDAO.deleteMbrAuthByNo(authNo);
 	}
