@@ -510,7 +510,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				
 
 				// 최근 접속 일시 업데이트
-				mbrService.updateRecentDt(tempMbrVO.getUniqueId());
+				mbrService.updateRecentDtAndLgnTy(tempMbrVO.getUniqueId(), tempMbrVO, tempMbrVO.getJoinTy());
 				
 				//임시정보 추가(등록하러가기 기능 때문에 로그인 처리로 변경)
 				mbrSession.setParms(tempMbrVO, true);

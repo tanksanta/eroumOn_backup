@@ -156,7 +156,7 @@ public class MbrsLoginController extends CommonAbstractController  {
 		
 		
 		// 최근 접속 일시 업데이트
-		mbrService.updateRecentDt(srchMbrVO.getUniqueId());
+		mbrService.updateRecentDtAndLgnTy(srchMbrVO.getUniqueId(), srchMbrVO, "E");
 		
 		//로그인 처리
 		mbrSession.setParms(srchMbrVO, true);

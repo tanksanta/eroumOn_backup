@@ -386,8 +386,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 * @param uniqueId
 	 * @throws Exception
 	 */
-	public void updateRecentDt(String uniqueId) throws Exception {
-		mbrDAO.updateRecentDt(uniqueId);
+	public void updateRecentDtAndLgnTy(String uniqueId, MbrVO mbrVO, String lgnTy) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("uniqueId", uniqueId);
+		param.put("lgnTy", lgnTy);
+		mbrDAO.updateRecentDt(param);
+		
+		//세션에 현재 시점의 로그인 타입을 넣기 위함
+		mbrVO.setLgnTy(lgnTy);
 	}
 
 	/**
@@ -696,7 +702,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			resultMap.put("msg", "존재하지 않는 회원입니다.");
 			return resultMap;
 		}
-		MbrVO srchMbrVO = selectMbrIdByOne(mbrId.toLowerCase());
+		MbrVO srchMbrVO = selectMbrByUniqueId(srchMbrAuthVO.getMbrUniqueId());
 		resultMap.put("srchMbrVO", srchMbrVO);
 		
 		int failCount = srchMbrVO.getLgnFailrCnt();
@@ -876,7 +882,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		
 		//최근 접속일 갱신
-		updateRecentDt(srchMbrVO.getUniqueId());
+		updateRecentDtAndLgnTy(srchMbrVO.getUniqueId(), srchMbrVO, joinTy);
 		
 		//로그인 처리
 		mbrSession.setParms(srchMbrVO, true);
@@ -920,7 +926,16 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		// 재인증 확인		
 		String checkId = "K".equals(joinTy) ? userInfo.getKakaoAppId() : userInfo.getNaverAppId();
-		String mbrSnsId = "K".equals(joinTy) ? mbrSession.getKakaoAppId() : mbrSession.getNaverAppId();
+		
+		List<MbrAuthVO> mbrAuthVO = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId()); 
+		MbrAuthVO authInfo = mbrAuthVO.stream().filter(f -> joinTy.equals(f.getJoinTy())).findAny().orElse(null);
+		if (authInfo == null) {
+			javaScript.setMessage("등록된 소셜 정보가 존재하지 않습니다.");
+			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
+			return javaScript;
+		}
+		
+		String mbrSnsId = "K".equals(joinTy) ? authInfo.getKakaoAppId() : authInfo.getNaverAppId();
 		log.debug("### 재인증 진행 ###" + mbrSnsId + "//" + checkId);
 
 		if(EgovStringUtil.equals(mbrSnsId, checkId)) {
@@ -1287,7 +1302,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			mbrAuthService.insertMbrAuthWithMbrVO(tempMbrVO);
 			
 			//최근 접속일 갱신
-			updateRecentDt(srchMbrVO.getUniqueId());
+			updateRecentDtAndLgnTy(srchMbrVO.getUniqueId(), srchMbrVO, tempMbrVO.getJoinTy());
 			
 			//로그인 처리
 			mbrSession.setParms(srchMbrVO, true);

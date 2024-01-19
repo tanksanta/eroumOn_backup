@@ -81,6 +81,7 @@ public class MbrVO extends CommonBaseVO {
 	private String kakaoAccessToken;
 
 	private String joinTy = "E"; // 가입 구분
+	private String lgnTy;   // 로그인 시 인증타입
 
 	// 첨부파일 체크
 	private List<FileVO> fileList;

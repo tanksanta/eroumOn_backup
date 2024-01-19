@@ -115,8 +115,8 @@ public class MbrDAO extends CommonAbstractMapper {
 	}
 
 	// 최근 접속일시 업데이트
-	public void updateRecentDt(String uniqueId) throws Exception {
-		update("mbr.updateRecentDt",uniqueId);
+	public void updateRecentDt(Map<String, Object> paramMap) throws Exception {
+		update("mbr.updateRecentDt",paramMap);
 	}
 
 	public void updateMberSttus(Map<String, Object> paramMap) throws Exception {

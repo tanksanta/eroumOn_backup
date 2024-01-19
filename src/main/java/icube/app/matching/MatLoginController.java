@@ -83,7 +83,7 @@ public class MatLoginController extends CommonAbstractController {
 			MbrVO srchMbrVO = (MbrVO)validationResult.get("srchMbrVO");
 			
 			// 최근 접속 일시 업데이트
-			mbrService.updateRecentDt(srchMbrVO.getUniqueId());
+			mbrService.updateRecentDtAndLgnTy(srchMbrVO.getUniqueId(), srchMbrVO, "E");
 			
 			//로그인 성공 시 실패 횟를 초기화
 			mbrService.updateFailedLoginCountReset(srchMbrVO);

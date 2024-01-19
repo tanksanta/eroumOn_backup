@@ -47,6 +47,7 @@
 		, m.join_cours
 		, m.join_ty
 		, m.join_dt
+		, m.lgn_ty
 		, m.lgn_failr_cnt
 		, m.recent_cntn_dt
 		, m.tmpr_pswd_yn
@@ -553,10 +554,11 @@
 		 WHERE unique_id = #{uniqueId}
 	</update>
 
-	<!-- 최근 접속일시 업데이트 -->
+	<!-- 최근 접속일시, 로그인 시 타입 업데이트 -->
 	<update id="updateRecentDt" parameterType="java.util.HashMap">
 		UPDATE MBR SET
-			RECENT_CNTN_DT = SYSDATE()
+			recent_cntn_dt = SYSDATE()
+			, lgn_ty = #{lgnTy}
 		WHERE unique_id = #{uniqueId}
 	</update>
 
