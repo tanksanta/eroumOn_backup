@@ -383,7 +383,9 @@ public class MbrsRegistController extends CommonAbstractController{
 	            return "/common/msg";
 			}
             
+			//SNS 로그인에서 넘어온 정보
 			MbrVO tempMbrVO = mbrSession;
+			
 			Date now = new Date();
 			tempMbrVO.setSmsRcptnDt(now);
 			tempMbrVO.setEmlRcptnDt(now);
@@ -458,19 +460,25 @@ public class MbrsRegistController extends CommonAbstractController{
 					//계정 연결 안내 페이지 이동
 					if (checkMap.containsKey("bindingMbr")) {
 						MbrVO bindingMbr = (MbrVO) checkMap.get("bindingMbr");
-						mbrSession.setParms(bindingMbr, false);
+						certMbrInfoVO.setUniqueId(bindingMbr.getUniqueId());
+						certMbrInfoVO.setJoinTy(tempMbrVO.getJoinTy());
+						certMbrInfoVO.setNaverAppId(tempMbrVO.getNaverAppId());
+						certMbrInfoVO.setKakaoAppId(tempMbrVO.getKakaoAppId());
+						mbrSession.setParms(certMbrInfoVO, false);
 						
-						javaScript.setLocation("/membership/login");
+						javaScript.setLocation("/membership/binding");
 						return new JavaScriptView(javaScript);
 					}
 					
 					javaScript.setMessage((String)checkMap.get("msg"));
-					javaScript.setLocation("/membership/login");
+					if (checkMap.containsKey("location")) {
+						javaScript.setLocation((String)checkMap.get("location"));
+					}
 					return new JavaScriptView(javaScript);
 				}
 				
 
-				//정보 수정
+				//회원가입 처리
 				tempMbrVO.setCiKey(certMbrInfoVO.getCiKey());
 				tempMbrVO.setDiKey(certMbrInfoVO.getDiKey());
 				tempMbrVO.setMbrNm(certMbrInfoVO.getMbrNm());
