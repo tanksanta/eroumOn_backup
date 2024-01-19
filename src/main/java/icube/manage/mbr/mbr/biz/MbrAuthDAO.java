@@ -1,5 +1,6 @@
 package icube.manage.mbr.mbr.biz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,13 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 	
 	public void insertMbrAuth(MbrAuthVO mbrAuthVO) throws Exception {
 		insert("mbr.auth.insertMbrAuth", mbrAuthVO);
+	}
+	
+	public void updatePswd(int authNo, String pswd) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("authNo", authNo);
+		paramMap.put("pswd", pswd);
+		update("mbr.auth.updatePswd", paramMap);
 	}
 	
 	/*

@@ -160,7 +160,6 @@ public class MbrsInfoController extends CommonAbstractController{
 	 * @return
 	 */
 	@RequestMapping(value="action")
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public View action(
 			HttpServletRequest request
 			, HttpSession session
@@ -172,17 +171,15 @@ public class MbrsInfoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String loginPswd="";
 
-		Map paramMap = new HashMap();
-		paramMap.put("srchUniqueId",mbrSession.getUniqueId());
-
-		MbrVO mbrVO = mbrService.selectMbr(paramMap);
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
 
 		if(EgovStringUtil.isNotEmpty(encPw)) {
 			loginPswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.
 		}
 
-		if(mbrVO != null) {
-			if(BCrypt.checkpw(loginPswd, mbrVO.getPswd())) {
+		if(eroumAuthInfo != null) {
+			if(BCrypt.checkpw(loginPswd, eroumAuthInfo.getPswd())) {
 				session.setAttribute("infoStepChk", encPw);
 				session.setMaxInactiveInterval(60*60);
 
@@ -311,9 +308,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			, MbrVO mbrVO
 			)throws Exception {
 
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		
 		// 간편 회원 체크
-		if(!mbrSession.getJoinTy().equals("E")) {
-			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 변경을 이용하실 수 없습니다.");
+		if(eroumAuthInfo == null) {
+			model.addAttribute("alertMsg", "이로움 계정이 등록되지 않았습니다.");
 			return "/common/msg";
 		}
 
@@ -340,20 +340,25 @@ public class MbrsInfoController extends CommonAbstractController{
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		String pwd ="";
-
-		String pswd = mbrVO.getPswd();
 
 		try {
-			if(EgovStringUtil.isNotEmpty(pswd)) {
-				pwd = WebUtil.clearSqlInjection(pswd);
+			String pwd = "";
+			if(EgovStringUtil.isNotEmpty(mbrVO.getPswd())) {
+				pwd = WebUtil.clearSqlInjection(mbrVO.getPswd());
 			}
 
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if(eroumAuthInfo == null) {
+				javaScript.setMessage("이로움 계정을 생성해주세요.");
+				throw new Exception();
+			}
+			
 			//비밀번호 암호화
 			String encPswd = BCrypt.hashpw(pwd, BCrypt.gensalt());
-			mbrVO.setPswd(encPswd);
 
-			mbrService.updateMbrPswd(mbrVO);
+			//비밀번호 변경
+			mbrAuthService.updatePswd(eroumAuthInfo.getAuthNo(), encPswd);
 
 			javaScript.setMessage(getMsg("action.complete.newPswd"));
 

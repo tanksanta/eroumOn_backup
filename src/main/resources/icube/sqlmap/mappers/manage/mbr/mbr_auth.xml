@@ -81,6 +81,15 @@
 		)
 	</insert>
 	
+	
+	<!-- 패스워드 변경 업데이트 -->
+	<update id="updatePswd" parameterType="java.util.HashMap">
+		UPDATE MBR_AUTH SET
+			pswd = #{pswd}
+		WHERE auth_no = #{authNo}
+	</update>
+	
+	<!-- 인증 수단 삭제 업데이트 -->
 	<update id="deleteMbrAuth" parameterType="mbrAuthVO">
 		UPDATE MBR_AUTH SET
 			del_yn = 'Y'

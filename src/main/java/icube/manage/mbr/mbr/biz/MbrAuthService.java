@@ -66,6 +66,11 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		insertMbrAuth(mbrAuthVO);
 	}
 	
+	public void updatePswd(int authNo, String pswd) throws Exception {
+		mbrAuthDAO.updatePswd(authNo, pswd);
+	}
+	
+	
 	/*
 	 * 삭제된 인증까지 포함 조회용
 	 */
