@@ -280,7 +280,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 		hiddenInfo += '<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
 						
 		if (json.gdsInfo.mlgPvsnYn == 'Y' && this._cls_info.ordrTy == 'N' && !isNaN(this._cls_info.codeMapJson._mileagePercent) ){
-			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
+			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />'.format(Math.floor(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent / 100));
 			// <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
 		}else{
 			hiddenInfo += '<input type="hidden" name="accmlMlg" value="0" />'
