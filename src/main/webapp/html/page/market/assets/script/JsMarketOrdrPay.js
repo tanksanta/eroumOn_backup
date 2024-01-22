@@ -214,7 +214,7 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 						'</dl>'+
 						strItemOptionAdit+
 					'</div>'+
-					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
+					// '<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
 					((soldoutYn == 'Y') ? this.fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out():'') + 
 					'<input type="hidden" name="dlvyBaseAmt" value="{0}">'.format(dlvyBaseAmt)+
 					noOptnInputhidden+
@@ -264,7 +264,7 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 			hiddenInfo += '<input type="hidden" name="ordrPc" id="ordrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액--%>
 			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, json.ordrPc);// <%--건별 주문금액 초기화를 위한 여분--%>
 
-			hiddenInfo += '<input type="text" name="dlvyAditAmt" value="{0}">'.format(json.gdsInfo.dlvyAditAmt);
+			hiddenInfo += '<input type="hidden" name="dlvyAditAmt" value="{0}">'.format(json.gdsInfo.dlvyAditAmt);
 			
 		}else if (ordrOptnTy == "ADIT"){
 			hiddenInfo += '<input type="hidden" name="gdsPc" value="{0}">'.format(0);
@@ -276,7 +276,7 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 			hiddenInfo += '<input type="hidden" name="plusOrdrPc" id="plusOrdrPc_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, aditOptn.optnPc);// <%--건별 주문금액 초기화를 위한 여분--%>
 		}
 
-		hiddenInfo += '<input type="text" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
+		hiddenInfo += '<input type="hidden" name="dlvyBassAmt" id="dlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 추가옵션일경우 제외 --%>
 		hiddenInfo += '<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
 						
 		if (json.gdsInfo.mlgPvsnYn == 'Y' && this._cls_info.ordrTy == 'N' && !isNaN(this._cls_info.codeMapJson._mileagePercent) ){
