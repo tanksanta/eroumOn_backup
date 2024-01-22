@@ -481,7 +481,7 @@
 
 <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartModalOptnChg2.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-<script type="text/javascript" src="/html/page/market/assets/script/JsMargetCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
 

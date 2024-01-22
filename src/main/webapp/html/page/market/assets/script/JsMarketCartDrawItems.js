@@ -1,8 +1,8 @@
-class JsMargetCartDrawItems {
+class JsMarketCartDrawItems {
     constructor(){
         this._cls_info = this._cls_info || {};
 
-		this._cls_info.bDev = true;
+		this._cls_info.bDev = false;
 
 		this._cls_info.coms = {jsMarketCartDlvyBaseCalc : new JsMarketCartDlvyBaseCalc(), jsCommon : new JsCommon()};
 		

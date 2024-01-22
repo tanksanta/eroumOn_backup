@@ -1,4 +1,4 @@
-class JsMarketCartList extends JsMargetCartDrawItems{
+class JsMarketCartList extends JsMarketCartDrawItems{
     constructor(path, mbrSession, cartListWelfareJson, cartListOrdrJson, entrpsDlvyGrpVOList, entrpsVOList, codeMapJson){
         super();
 
