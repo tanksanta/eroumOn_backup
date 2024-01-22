@@ -31,6 +31,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.RSA;
+import icube.common.util.StringUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
 import icube.main.test.biz.MbrTestService;
@@ -39,6 +40,8 @@ import icube.manage.consult.biz.MbrConsltChgHistVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.itrst.biz.CartService;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -54,6 +57,9 @@ public class MbrsInfoController extends CommonAbstractController{
 
 	@Resource(name="mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 
 	@Resource(name="fileService")
 	private FileService fileService;
@@ -155,7 +161,6 @@ public class MbrsInfoController extends CommonAbstractController{
 	 * @return
 	 */
 	@RequestMapping(value="action")
-	@SuppressWarnings({"rawtypes","unchecked"})
 	public View action(
 			HttpServletRequest request
 			, HttpSession session
@@ -167,17 +172,15 @@ public class MbrsInfoController extends CommonAbstractController{
 		JavaScript javaScript = new JavaScript();
 		String loginPswd="";
 
-		Map paramMap = new HashMap();
-		paramMap.put("srchUniqueId",mbrSession.getUniqueId());
-
-		MbrVO mbrVO = mbrService.selectMbr(paramMap);
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
 
 		if(EgovStringUtil.isNotEmpty(encPw)) {
 			loginPswd = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute(RSA_MEMBERSHIP_KEY), encPw); //암호화된 비밀번호를 복호화한다.
 		}
 
-		if(mbrVO != null) {
-			if(BCrypt.checkpw(loginPswd, mbrVO.getPswd())) {
+		if(eroumAuthInfo != null) {
+			if(BCrypt.checkpw(loginPswd, eroumAuthInfo.getPswd())) {
 				session.setAttribute("infoStepChk", encPw);
 				session.setMaxInactiveInterval(60*60);
 
@@ -216,13 +219,31 @@ public class MbrsInfoController extends CommonAbstractController{
 
 		mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		//카카오 정보 마스킹
+		if (kakaoAuthInfo != null) {
+			kakaoAuthInfo.setEml(StringUtil.emlMasking(kakaoAuthInfo.getEml()));
+			kakaoAuthInfo.setMblTelno(StringUtil.phoneMasking(kakaoAuthInfo.getMblTelno()));
+		}
+		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+		//네이버 정보 마스킹
+		if (naverAuthInfo != null) {
+			naverAuthInfo.setEml(StringUtil.emlMasking(naverAuthInfo.getEml()));
+			naverAuthInfo.setMblTelno(StringUtil.phoneMasking(naverAuthInfo.getMblTelno()));
+		}
+		
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
 		model.addAttribute("recipterYnCode", CodeMap.RECIPTER_YN);
 		model.addAttribute("itrstCode", CodeMap.ITRST_FIELD);
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
+		
+		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
+		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
+		model.addAttribute("naverAuthInfo", naverAuthInfo);
 
 		return "/membership/info/myinfo/info";
 	}
@@ -248,6 +269,9 @@ public class MbrsInfoController extends CommonAbstractController{
 		try {
 			// 회원정보 수정
 			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbr.setCiKey(mbrVO.getCiKey());
+			srchMbr.setDiKey(mbrVO.getDiKey());
+			
 			srchMbr.setMblTelno(mbrVO.getMblTelno());
 			srchMbr.setEml(mbrVO.getEml());
 			srchMbr.setZip(mbrVO.getZip());
@@ -260,7 +284,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
 			srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
 			srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
-			srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
+			//srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
 			mbrService.updateMbrInfo(srchMbr);
 			
 			mbrSession.setParms(srchMbr, true);
@@ -295,9 +319,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			, MbrVO mbrVO
 			)throws Exception {
 
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		
 		// 간편 회원 체크
-		if(!mbrSession.getJoinTy().equals("E")) {
-			model.addAttribute("alertMsg", "간편가입 회원은 비밀번호 변경을 이용하실 수 없습니다.");
+		if(eroumAuthInfo == null) {
+			model.addAttribute("alertMsg", "이로움 계정이 등록되지 않았습니다.");
 			return "/common/msg";
 		}
 
@@ -324,20 +351,25 @@ public class MbrsInfoController extends CommonAbstractController{
 			) throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		String pwd ="";
-
-		String pswd = mbrVO.getPswd();
 
 		try {
-			if(EgovStringUtil.isNotEmpty(pswd)) {
-				pwd = WebUtil.clearSqlInjection(pswd);
+			String pwd = "";
+			if(EgovStringUtil.isNotEmpty(mbrVO.getPswd())) {
+				pwd = WebUtil.clearSqlInjection(mbrVO.getPswd());
 			}
 
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if(eroumAuthInfo == null) {
+				javaScript.setMessage("이로움 계정을 생성해주세요.");
+				throw new Exception();
+			}
+			
 			//비밀번호 암호화
 			String encPswd = BCrypt.hashpw(pwd, BCrypt.gensalt());
-			mbrVO.setPswd(encPswd);
 
-			mbrService.updateMbrPswd(mbrVO);
+			//비밀번호 변경
+			mbrAuthService.updatePswd(eroumAuthInfo.getAuthNo(), encPswd);
 
 			javaScript.setMessage(getMsg("action.complete.newPswd"));
 
@@ -367,23 +399,22 @@ public class MbrsInfoController extends CommonAbstractController{
 		, @RequestParam Map<String, Object> reqMap
 		, HttpServletRequest request
 		)throws Exception {
-
-		// 본인인증정보 체크
-		HashMap<String, Object> res = bootpayApiService.certificate(receiptId);
-
-		String authData =String.valueOf(res.get("authenticate_data"));
-		String[] spAuthData = authData.substring(1, authData.length()-1).split(",");
-
-		HashMap<String, String> authMap = new HashMap<String, String>();
-		for(String auth : spAuthData) {
-			System.out.println("spAuthData: " + auth.trim());
-			String[] spTmp = auth.trim().split("=", 2);
-			authMap.put(spTmp[0], spTmp[1]); //key:value
-		}
-
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("mblTelno", authMap.get("phone"));
-		resultMap.put("diKey", authMap.get("di"));
+		resultMap.put("success", false);
+		
+		//본인인증 체크
+		Map<String, Object> certMap = mbrService.certificateBootpay(receiptId);
+		if ((boolean)certMap.get("valid") == false) {
+			resultMap.put("msg", (String)certMap.get("msg"));
+			return resultMap;
+		}
+		
+		MbrVO certMbrInfoVO = (MbrVO)certMap.get("certMbrInfoVO");
+		
+		resultMap.put("success", true);
+		resultMap.put("mblTelno", certMbrInfoVO.getMblTelno());
+		resultMap.put("ciKey", certMbrInfoVO.getCiKey());
+		resultMap.put("diKey", certMbrInfoVO.getDiKey());
 		return resultMap;
 	}
 	
@@ -857,5 +888,117 @@ public class MbrsInfoController extends CommonAbstractController{
 		}
 		
 		return resultMap;
+	}
+	
+	
+	/**
+	 * CI값이 없는 회원은 재인증 페이지로 이동
+	 */
+	@RequestMapping(value="reauth")
+	public String reauth(
+			HttpServletRequest request
+			, HttpSession session
+			, Model model
+			, @RequestParam(value = "returnUrl", required=false) String returnUrl
+		)throws Exception {
+		return "/membership/info/myinfo/reauth";
+	}
+	
+	/**
+	 * CI Key 업데이트 AJAX
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateMbrCi.json")
+	public Map<String, Object> updateMbrCi(
+			@RequestParam String receiptId
+			, HttpSession session
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("msg", "로그인이 필요합니다");
+			return resultMap;
+		}
+	
+		try {
+			//본인인증 체크
+			Map<String, Object> certResultMap = mbrService.certificateBootpay(receiptId);
+			if ((boolean)certResultMap.get("valid") == false) {
+				certResultMap.put("msg", (String)certResultMap.get("msg"));
+				return certResultMap;
+			}
+			
+			MbrVO certMbrInfoVO = (MbrVO)certResultMap.get("certMbrInfoVO");
+			
+	        
+	        //회원정보 수정
+			MbrVO srchMbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
+			srchMbrVO.setCiKey(certMbrInfoVO.getCiKey());
+			srchMbrVO.setDiKey(certMbrInfoVO.getDiKey());
+			srchMbrVO.setMbrNm(certMbrInfoVO.getMbrNm());
+			srchMbrVO.setMblTelno(certMbrInfoVO.getMblTelno());
+			srchMbrVO.setGender(certMbrInfoVO.getGender());
+			srchMbrVO.setBrdt(certMbrInfoVO.getBrdt());
+			
+			mbrService.updateMbr(srchMbrVO);
+			
+			mbrSession.setParms(srchMbrVO, true);
+			mbrSession.setMbrInfo(session, mbrSession);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "회원 인증 정보 수정중 오류가 발생하였습니다");
+		}
+		return resultMap;
+	}
+	
+	/*
+	 * 회원의 인증수단 연결 해제
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeMbrAuth.json")
+	public Map<String, Object> removeMbrAuth(
+			@RequestParam int authNo
+			, HttpSession session
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+	
+		try {
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+			MbrAuthVO authVO = authList.stream().filter(f -> f.getAuthNo() == authNo).findAny().orElse(null);
+			if (authVO == null) {
+				resultMap.put("msg", "회원의 해당 인증정보가 존재하지 않습니다");
+				return resultMap;
+			}
+			
+			mbrAuthService.deleteMbrAuthByNo(authVO.getAuthNo());
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "회원 인증 정보 삭제중 오류가 발생하였습니다");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 이로움 회원 인증수단 연결 등록(로그인 되어 있어야 함)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addEroumAuth.json")
+	public Map<String, Object> addEroumAuth(
+			@RequestParam String mbrId
+			, @RequestParam String pswd
+		) throws Exception {
+		MbrVO mbrVO = new MbrVO();
+		mbrVO.setUniqueId(mbrSession.getUniqueId());
+		mbrVO.setMbrId(mbrId);
+		mbrVO.setPswd(pswd);
+		return mbrAuthService.registEroumAuth(mbrVO);
 	}
 }

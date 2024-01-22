@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -356,6 +354,42 @@ public class StringUtil {
 			return cardNo.replace(target, String.valueOf(c));
 		}
 		return cardNo;
+	}
+	
+	// 이메일 마스킹 골뱅이 앞에 문자열 뒤 3자리 마스킹 ex) test***@naver.com
+	public static String emlMasking(String eml) throws Exception {
+		if (EgovStringUtil.isEmpty(eml)) {
+			return eml;
+		}
+		
+		String[] split = eml.split("@");
+		if (split.length < 2) {
+			return eml;
+		}
+		
+		String frontStr = split[0];
+		if (frontStr.length() > 3) {
+			frontStr = frontStr.substring(0, frontStr.length() - 3);
+			frontStr += "***";
+		} else {
+			frontStr = "***";
+		}
+		return frontStr + "@" + split[1];
+	}
+	
+	// ID 문자열 뒤 3자리 마스킹 ex) test1***
+	public static String idMasking(String id) throws Exception {
+		if (EgovStringUtil.isEmpty(id)) {
+			return id;
+		}
+		
+		if (id.length() > 3) {
+			id = id.substring(0, id.length() - 3);
+			id += "***";
+		} else {
+			id = "***";
+		}
+		return id;
 	}
 }
 

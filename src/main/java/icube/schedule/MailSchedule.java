@@ -1,7 +1,6 @@
 package icube.schedule;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
-import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.ValidatorUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -128,58 +126,58 @@ public class MailSchedule extends CommonAbstractController  {
 		}
 	}
 
-	// 휴면계정 대상 안내 발송
-	@Scheduled(cron="0 30 9 * * *")
-	public void sendGuidDrmcMbrMail() throws Exception {
-		log.info("################## 휴면계정대상 MAIL START #####################");
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMbrSttus", "NORMAL");
-		paramMap.put("srchDrmcDate", 335); //휴면전환 30일 전 (1년 - 30일)
-		paramMap.put("srchNotHumanMail", "1");
-
-		Date now = new Date();
-		Date extinct = DateUtil.getDateAdd(now, "date", 30);
-		String extinctDate = format2.format(extinct);
-		String extinctDate2 = format3.format(extinct);
-		
-		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
-
-		for(MbrVO mbrVO : mbrList) {
-			try {
-				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
-					
-					//이메일 수신거부 확인
-//					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
-//						continue;
+	// 휴면계정 대상 안내 발송 (2024-01-22 회원 정책 변경으로 휴면계정은 사라짐)
+//	@Scheduled(cron="0 30 9 * * *")
+//	public void sendGuidDrmcMbrMail() throws Exception {
+//		log.info("################## 휴면계정대상 MAIL START #####################");
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("srchMbrSttus", "NORMAL");
+//		paramMap.put("srchDrmcDate", 335); //휴면전환 30일 전 (1년 - 30일)
+//		paramMap.put("srchNotHumanMail", "1");
+//
+//		Date now = new Date();
+//		Date extinct = DateUtil.getDateAdd(now, "date", 30);
+//		String extinctDate = format2.format(extinct);
+//		String extinctDate2 = format3.format(extinct);
+//		
+//		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+//
+//		for(MbrVO mbrVO : mbrList) {
+//			try {
+//				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
+//					
+//					//이메일 수신거부 확인
+////					if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+////						continue;
+////					}
+//					
+//					String MAIL_FORM_PATH = mailFormFilePath;
+//					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_drmc.html");
+//
+//					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
+//					mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
+//					mailForm = mailForm.replace("((recentCntnDt))", format.format(mbrVO.getRecentCntnDt()));
+//					mailForm = mailForm.replace("((extinctDate))", extinctDate);
+//					mailForm = mailForm.replace("((extinctDate2))", extinctDate2);
+//					
+//					// 메일 발송
+//					String mailSj = "[이로움ON] 휴면계정 대상 안내";
+//					if(EgovStringUtil.equals("real", activeMode)) {
+//						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+//					} else {
+//						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 //					}
-					
-					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_guide_drmc.html");
-
-					mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
-					mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
-					mailForm = mailForm.replace("((recentCntnDt))", format.format(mbrVO.getRecentCntnDt()));
-					mailForm = mailForm.replace("((extinctDate))", extinctDate);
-					mailForm = mailForm.replace("((extinctDate2))", extinctDate2);
-					
-					// 메일 발송
-					String mailSj = "[이로움ON] 휴면계정 대상 안내";
-					if(EgovStringUtil.equals("real", activeMode)) {
-						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
-					} else {
-						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
-					}
-				} else {
-					log.debug(mbrVO.getMbrNm()+" 휴면계정대상 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
-				}
-			} catch (Exception e) {
-				log.debug(mbrVO.getMbrNm()+"휴면계정대상 EMAIL 전송 실패 :: " + e.toString());
-			}
-		}
-		
-		//휴면계정 대상 안내 발송 처리 체크
-		mbrService.updateHumanMailYn(paramMap);
-	}
+//				} else {
+//					log.debug(mbrVO.getMbrNm()+" 휴면계정대상 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
+//				}
+//			} catch (Exception e) {
+//				log.debug(mbrVO.getMbrNm()+"휴면계정대상 EMAIL 전송 실패 :: " + e.toString());
+//			}
+//		}
+//		
+//		//휴면계정 대상 안내 발송 처리 체크
+//		mbrService.updateHumanMailYn(paramMap);
+//	}
 
 	// 개인정보 이용내역
 	@Scheduled(cron="0 0 23 31 12 *")

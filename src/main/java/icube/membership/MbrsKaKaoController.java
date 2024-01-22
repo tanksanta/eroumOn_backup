@@ -1,6 +1,5 @@
 package icube.membership;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -23,6 +22,8 @@ import icube.common.framework.view.JavaScriptView;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
+import icube.membership.info.biz.DlvyService;
+import icube.membership.info.biz.DlvyVO;
 
 /**
  * 카카오 간편 로그인
@@ -39,6 +40,9 @@ public class MbrsKaKaoController extends CommonAbstractController{
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
 
+	@Resource(name = "dlvyService")
+	private DlvyService dlvyService;
+	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -47,16 +51,22 @@ public class MbrsKaKaoController extends CommonAbstractController{
 
 	@Value("#{props['Globals.Membership.path']}")
 	private String membershipPath;
+	
+	@Value("#{props['Globals.Matching.path']}")
+	private String matchingPath;
 
 	@RequestMapping(value = "/auth")
 	public View auth(
 			HttpServletRequest request
+			, HttpSession session
 			, Model model
 			)throws Exception {
 
 		JavaScript javaScript = new JavaScript();
 		String kakaoUrl = kakaoApiService.getKakaoUrl();
 
+		session.setAttribute("prevSnsPath", "membership");
+		
 		javaScript.setLocation(kakaoUrl);
 		return new JavaScriptView(javaScript);
 	}
@@ -70,86 +80,77 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			)throws Exception {
 
 		JavaScript javaScript = new JavaScript();
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int resultCnt = 0;
-
 		String returnUrl = (String)session.getAttribute("returnUrl");
+		String prevPath = (String)session.getAttribute("prevSnsPath");
+		Object reAuth = session.getAttribute("reAuth");
+		if (EgovStringUtil.isEmpty(prevPath)) {
+			javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
+		}
+		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
+		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
+		
+		String accessToken = null;
+		MbrVO kakaoUserInfo = null;
 		try {
-			resultMap = kakaoApiService.mbrAction(code, session);
-			resultCnt = (Integer)resultMap.get("result");
+			accessToken = kakaoApiService.getToken(code);
+			kakaoUserInfo = kakaoApiService.getKakaoUserInfo(accessToken);
+			if (accessToken == null || kakaoUserInfo == null) {
+				throw new Exception();
+			}
 		} catch (Exception ex) {
 			javaScript.setMessage("카카오로부터 로그인정보를 받아오지 못하였습니다.");
-			javaScript.setLocation("/" + mainPath + "/login");
+			javaScript.setLocation(rootPath + "/login");
 			return new JavaScriptView(javaScript);
 		}
 		
-
-		if(resultCnt == 0) {// 오류
-			javaScript.setMessage(getMsg("fail.common.network"));
-			javaScript.setLocation("/" + mainPath + "/login");
-		}else if(resultCnt == 1){//성공
-			mbrService.updateRecentDt(mbrSession.getUniqueId());
-
-			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
-			session.removeAttribute("returnUrl");
-		}else if(resultCnt == 2) {// 카카오 로그인
-			// 최근 일시 업데이트
-			mbrService.updateRecentDt(mbrSession.getUniqueId());
-			
-			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			
-			if (EgovStringUtil.isNotEmpty(srchMbr.getDiKey())) {
-				if(EgovStringUtil.isNotEmpty(returnUrl)) {
-					javaScript.setLocation(returnUrl);
-				}else {
-					javaScript.setLocation("/" + mainPath);
-				}
-				session.removeAttribute("returnUrl");
-			} else {
-				javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
-			}
-		}else if(resultCnt == 3) {// 네이버
-			if (mbrSession.getSnsRegistDt() == null) {
-				javaScript.setMessage("현재 네이버 계정으로 간편 가입 진행 중입니다.");
-				javaScript.setLocation("/" + membershipPath + "/regist");
-			} else {
-				javaScript.setMessage("네이버 계정으로 가입된 회원입니다.");
-				javaScript.setLocation("/" + mainPath + "/login");
-			}
-		}else if(resultCnt == 4) {// 이로움
-			javaScript.setMessage("이로움 계정으로 가입된 회원입니다.");
-			javaScript.setLocation("/" + membershipPath + "/login");
-		}else if(resultCnt == 5) {// 2건
-			javaScript.setMessage("동일한 가입 정보가 1건 이상 존재합니다. 관리자에게 문의바랍니다.");
-			javaScript.setLocation("/" + mainPath);
-		}else if(resultCnt == 6 || resultCnt == 7) {// 등록 완료
-			javaScript.setLocation("/" + membershipPath + "/sns/regist?uid=" + mbrSession.getUniqueId());
-		}else if(resultCnt == 8) {
-			javaScript.setMessage("일시 정지된 회원입니다. 관리자에게 문의바랍니다.");
-			javaScript.setLocation("/" + mainPath);
-		}else if(resultCnt == 9) {
-			javaScript.setMessage("휴면 회원입니다. 휴면 해제 페이지로 이동합니다.");
-			javaScript.setLocation("/" + membershipPath + "/drmt/view?mbrId=" + mbrSession.getMbrId());
-		}else if(resultCnt == 11) {
-			session.setAttribute("infoStepChk", "EASYLOGIN");
-			
-			String requestView = (String)session.getAttribute("requestView");
-			if (EgovStringUtil.isNotEmpty(requestView) && "whdwl".equals(requestView)) {
-				String resnCn = (String)session.getAttribute("resnCn");
-				String whdwlEtc = (String)session.getAttribute("whdwlEtc");
-				
-				javaScript.setLocation("/" + membershipPath + "/info/whdwl/action?resnCn=" + resnCn + "&whdwlEtc=" + whdwlEtc);
-			} else {
-				javaScript.setLocation("/" + membershipPath + "/info/myinfo/form");
-			}
-		}else if(resultCnt == 12) {
-			javaScript.setMessage("소셜 정보가 불일치 합니다. 인증에 실패하였습니다.");
-			javaScript.setLocation("/" + membershipPath + "/info/myinfo/confirm");
-		}else {
-			javaScript.setMessage("탈퇴한 회원입니다. 탈퇴일로부터 7일 후 재가입 가능합니다.");
-			javaScript.setLocation("/" + mainPath);
+		
+		//로그인 한 상태라면 재인증 처리
+		if(mbrSession.isLoginCheck() && reAuth != null && (Boolean)reAuth == true) {
+			session.removeAttribute("reAuth");
+			return new JavaScriptView(mbrService.reAuthCheck("K", kakaoUserInfo, session));
 		}
-
+		
+		
+		//회원 정보 유효성 검사
+		try {
+			Map<String, Object> validationResult = mbrService.validateForSnsLogin(session, kakaoUserInfo);
+			
+			//검색 회원이 없으면 회원가입 처리
+			if (!validationResult.containsKey("srchMbrVO")) {
+				//kakao 주소 정보 get API 호출
+				DlvyVO dlvyVO = kakaoApiService.getUserDlvy(accessToken);
+				
+				//임시 로그인 처리
+				mbrService.loginTempSnsMbr(session, kakaoUserInfo, dlvyVO);
+				
+				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/login");
+				javaScript.setLocation(registPath);
+				return new JavaScriptView(javaScript);
+			}
+			
+			//검증 통과 여부 확인
+			boolean isValid = (boolean)validationResult.get("valid");
+			if (!isValid) {
+				if (validationResult.containsKey("msg")) {
+					javaScript.setMessage((String)validationResult.get("msg"));
+				}
+				javaScript.setLocation((String)validationResult.get("location"));
+				return new JavaScriptView(javaScript);
+			}
+			
+			//로그인 이후 redirect
+			if(EgovStringUtil.isNotEmpty(returnUrl)) {
+				javaScript.setLocation(returnUrl);
+			} else {
+				javaScript.setLocation(rootPath);
+			}
+			session.removeAttribute("returnUrl");
+			
+		} catch (Exception ex) {
+			javaScript.setMessage(getMsg("fail.common.network"));
+			javaScript.setLocation(rootPath + "/login");
+		}
+		
 		return new JavaScriptView(javaScript);
 	}
 
@@ -178,6 +179,8 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		
 		String kakaoUrl = kakaoApiService.getKakaoReAuth();
 
+		session.setAttribute("reAuth", true);
+		
 		javaScript.setLocation(kakaoUrl);
 		return new JavaScriptView(javaScript);
 	}

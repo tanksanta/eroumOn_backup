@@ -140,6 +140,8 @@
 								</div> <form:input class="form-control mt-1.5 w-full md:mt-2" path="addr" maxlength="200" /> <form:input class="form-control mt-1.5 w-full md:mt-2" path="daddr" maxlength="200" />
 							</td>
 						</tr>
+						<%-- 2024-01-22 회원정책 변경으로 개인정보 유효기간 삭제 --%>
+						<%--
 						<tr>
 							<th scope="row">
 								<p class="flex">
@@ -157,6 +159,7 @@
 								</div>
 							</td>
 						</tr>
+						--%>
 					</tbody>
 				</table>
 				</br>

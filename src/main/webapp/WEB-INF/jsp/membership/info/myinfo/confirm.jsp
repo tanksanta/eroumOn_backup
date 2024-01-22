@@ -17,7 +17,7 @@
 	<div id="page-content">
 
 		<c:choose>
-			<c:when test="${_mbrSession.joinTy eq 'K'}">
+			<c:when test="${_mbrSession.lgnTy eq 'K'}">
 				<div class="items-center justify-between md:flex">
 					<div class="space-y-1.5">
 						<p class="text-alert">고객님의 개인정보를 안전하게 취급하며, 회원님의 동의 없이는 회원정보를 공개 및 변경하지 않습니다.</p>
@@ -30,7 +30,7 @@
 					</a>
 				</div>
 			</c:when>
-			<c:when test="${_mbrSession.joinTy eq 'N'}">
+			<c:when test="${_mbrSession.lgnTy eq 'N'}">
 				<div class="items-center justify-between md:flex">
 					<div class="space-y-1.5">
 						<p class="text-alert">고객님의 개인정보를 안전하게 취급하며, 회원님의 동의 없이는 회원정보를 공개 및 변경하지 않습니다.</p>

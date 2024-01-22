@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.auth">
+
+	<sql id="listColumn">
+		mau.auth_no
+		, mau.mbr_unique_id
+		, mau.join_ty
+		, mau.mbr_id
+		, mau.pswd
+		, mau.naver_app_id
+		, mau.kakao_app_id
+		, mau.eml
+		, mau.mbl_telno
+		, mau.ci_key
+		, mau.reg_dt
+		, mau.del_dt
+		, mau.del_yn
+	</sql>
+	
+	<sql id="searchConditions">
+		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
+			AND mau.mbr_unique_id = #{srchMbrUniqueId}
+		</if>
+		<if test="srchMbrId != null and srchMbrId != '' ">
+			AND mau.mbr_id = #{srchMbrId}
+		</if>
+		<if test="srchKakaoAppId != null and srchKakaoAppId != '' ">
+			AND mau.kakao_app_id = #{srchKakaoAppId}
+		</if>
+		<if test="srchNaverAppId != null and srchNaverAppId != '' ">
+			AND mau.naver_app_id = #{srchNaverAppId}
+		</if>
+	</sql>
+	
+	
+	<select id="selectMbrAuth" parameterType="java.util.HashMap" resultType="mbrAuthVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_AUTH mau
+		WHERE mau.del_yn = 'N'
+			<include refid="searchConditions" />
+	</select>
+	
+	
+	<!-- 삭제된 것 포함 검색(탈퇴 회원 조회용) -->
+	<select id="selectMbrAuthWithDelete" parameterType="java.util.HashMap" resultType="mbrAuthVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_AUTH mau
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+	
+
+	<insert id="insertMbrAuth" parameterType="mbrAuthVO">
+		INSERT INTO MBR_AUTH(
+			mbr_unique_id
+			, join_ty
+			, mbr_id
+			, pswd
+			, naver_app_id
+			, kakao_app_id
+			, eml
+			, mbl_telno
+			, ci_key
+			, reg_dt
+			, del_yn
+		)VALUES(
+			#{mbrUniqueId}
+			, #{joinTy}
+			, #{mbrId}
+			, #{pswd}
+			, #{naverAppId}
+			, #{kakaoAppId}
+			, #{eml}
+			, #{mblTelno}
+			, #{ciKey}
+			, SYSDATE()
+			, #{delYn}
+		)
+	</insert>
+	
+	
+	<!-- 패스워드 변경 업데이트 -->
+	<update id="updatePswd" parameterType="java.util.HashMap">
+		UPDATE MBR_AUTH SET
+			pswd = #{pswd}
+		WHERE auth_no = #{authNo}
+	</update>
+	
+	<!-- 인증 수단 삭제 업데이트 -->
+	<update id="deleteMbrAuth" parameterType="mbrAuthVO">
+		UPDATE MBR_AUTH SET
+			del_yn = 'Y'
+			, del_dt = SYSDATE()
+		WHERE
+		<choose>
+			<when test="mbrUniqueId != null and mbrUniqueId != '' ">
+				mbr_unique_id = #{mbrUniqueId}
+			</when>
+			<otherwise>
+				auth_no = #{authNo}
+			</otherwise>
+		</choose>
+	</update>
+</mapper>

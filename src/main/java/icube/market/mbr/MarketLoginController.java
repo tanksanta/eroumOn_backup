@@ -132,7 +132,7 @@ public class MarketLoginController extends CommonAbstractController {
 
 		if (mbrVO != null) {
 			// 최근 접속 일시 업데이트
-			mbrService.updateRecentDt(mbrVO.getUniqueId());
+			mbrService.updateRecentDtAndLgnTy(mbrVO.getUniqueId(), mbrVO, "E");
 
 			// 블랙리스트 회원
 			Map<String, Object> paramMap = new HashMap<String, Object>();

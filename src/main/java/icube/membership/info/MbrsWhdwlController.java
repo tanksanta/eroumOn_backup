@@ -1,6 +1,7 @@
 package icube.membership.info;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.values.CodeMap;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
 import icube.manage.promotion.coupon.biz.CouponLstService;
@@ -40,6 +44,9 @@ public class MbrsWhdwlController extends CommonAbstractController{
 
 	@Resource(name="mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 
 	@Resource(name="ordrDtlService")
 	private OrdrDtlService ordrDtlService;
@@ -147,9 +154,24 @@ public class MbrsWhdwlController extends CommonAbstractController{
 			, Model model
 			, @RequestParam(value="resnCn", required=true) String resnCn
 			, @RequestParam(value="whdwlEtc", required=false) String whdwlEtc
+			, @RequestParam(value="pswd", required=false) String pswd
 			)throws Exception {
 
 		JavaScript javaScript = new JavaScript();
+		
+		//인증방식이 이로움 계정인 경우 패스워드 검사
+		if ("E".equals(mbrSession.getLgnTy())) {
+			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrSession.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			
+			//비밀번호가 틀린 경우
+			if (!BCrypt.checkpw(pswd, eroumAuthInfo.getPswd())) {
+				javaScript.setMessage("비밀번호가 일치하지 않습니다.");
+				javaScript.setMethod("window.history.back()");
+				return new JavaScriptView(javaScript);
+			}
+		}
+		
 
 		//탈퇴전에 1:1 상담중인지 검사
 		MbrConsltVO mbrConslt = mbrConsltService.selectConsltInProcess(mbrSession.getUniqueId());

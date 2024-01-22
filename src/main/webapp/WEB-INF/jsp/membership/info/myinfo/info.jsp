@@ -12,14 +12,14 @@
 		<ul class="tabs">
 			<li><a href="./form?returnUrl=${param.returnUrl}" class="tabs-link active"><strong>회원정보</strong> 수정</a></li>
 
-			<c:if test="${mbrVO.joinTy eq 'E'}">
-			<li><a href="./pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
+			<c:if test="${ !empty eroumAuthInfo }">
+				<li><a href="./pswd?returnUrl=${param.returnUrl}" class="tabs-link"><strong>비밀번호</strong> 변경</a></li>
 			</c:if>
-
 		</ul>
 
 		<div class="member-modify mt-11 md:mt-15">
 			<form:form action="./infoAction" id="frmReg" name="frmReg" method="post" modelAttribute="mbrVO" enctype="multipart/form-data" class="member-join-content">
+				<form:hidden path="ciKey" />
 				<form:hidden path="diKey" />
 				<form:hidden path="joinTy" />
 
@@ -47,16 +47,59 @@
                             <td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrNm}</p></td>
 						</tr>
 						<tr>
-							<th scope="row">
-								<c:set var="joinTy">
+							<th scope="row"><p>아이디</p></th>
+							<td>
 								<c:choose>
-									<c:when test="${_mbrSession.joinTy eq 'K'}">카카오</c:when>
-									<c:when test="${_mbrSession.joinTy eq 'N'}">네이버</c:when>
+									<c:when test="${ !empty eroumAuthInfo }">
+										<p class="text-base font-bold md:text-lg">${eroumAuthInfo.mbrId}</p>
+									</c:when>
+									<c:otherwise>
+										<span class="text-sm md:text-base" style="cursor:pointer;" onclick="registEroumAuth();">이로움ON 아이디 만들기 &gt;</span>
+									</c:otherwise>
 								</c:choose>
-								</c:set>
-								<p>${joinTy} 아이디</p>
-							</th>
-							<td><p class="text-base font-bold md:text-lg">${_mbrSession.mbrId}</p></td>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><p>소셜 로그인 설정</p></th>
+							<td>
+								<div class="flex w-full mt-4 mb-4">
+									&nbsp;
+									<img style="flex:1 1 0; border-radius:100%; width:30px; max-width:30px; height:30px;" src="/html/core/images/ico-kakao.png">&nbsp;&nbsp;&nbsp;
+									<div style="flex:5 5 0; line-height:30px;">
+										카카오 
+										<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span>
+										
+										 <c:choose>
+											<c:when test="${ !empty kakaoAuthInfo }">
+												${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo});">연결해제</a>
+											</c:when>
+											<c:otherwise>
+												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/kakao/auth' }">연결하기 &gt;</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								
+								<div class="flex w-full mb-4">
+									&nbsp;
+									<img style="flex:1 1 0; border-radius:100%; width:30px; max-width:30px; height:30px;" src="/html/core/images/ico-naver.png">&nbsp;&nbsp;&nbsp;
+									<div style="flex:5 5 0; line-height:30px;">
+										네이버 
+										<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> 
+										
+										<c:choose>
+											<c:when test="${ !empty naverAuthInfo }">
+												${naverAuthInfo.eml}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo});">연결해제</a>
+											</c:when>
+											<c:otherwise>
+												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/naver/get' }">연결하기 &gt;</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row"><p>생년월일</p></th>
@@ -67,7 +110,7 @@
 							<td><p class="text-base font-bold md:text-lg">${genderCode[_mbrSession.gender]}</p></td>
 						</tr>
 						<tr>
-							<th scope="row"><p>휴대폰 번호</p></th>
+							<th scope="row"><p>휴대폰 번호<sup class="text-danger text-base md:text-lg">*</sup></p></th>
 							<td>
 								<div class="form-group w-full">
 									<form:input class="form-control w-full max-w-73" path="mblTelno" maxlength="13" readonly="true" />
@@ -75,6 +118,7 @@
 								</div>
 							</td>
 						</tr>
+						<!-- 
 						<tr>
 							<th scope="row"></th>
 							<td>
@@ -83,6 +127,7 @@
 								</p>
 							</td>
 						</tr>
+						-->
 						<tr>
 							<th scope="row">
 								<p>
@@ -104,6 +149,8 @@
 								</div> <form:input class="form-control mt-1.5 w-full md:mt-2" path="addr" maxlength="200" /> <form:input class="form-control mt-1.5 w-full md:mt-2" path="daddr" maxlength="200" />
 							</td>
 						</tr>
+						<%-- 2024-01-22 회원정책 변경으로 개인정보 유효기간 삭제 --%>
+						<%--
 						<tr>
 							<th scope="row">
 								<p class="flex">
@@ -121,6 +168,7 @@
 								</div>
 							</td>
 						</tr>
+						--%>
 					</tbody>
 				</table>
 
@@ -176,7 +224,8 @@
 							
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
+										<input class="form-check-input" type="checkbox" id="allChk" <c:if test="${mbrVO.smsRcptnYn eq 'Y' && mbrVO.emlRcptnYn eq 'Y' && mbrVO.telRecptnYn eq 'Y'}">checked</c:if>>
+										<label class="form-check-label" for="allChk">전체 수신</label>
 									</div>
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">
@@ -221,8 +270,13 @@
 		</div>
 	</div>
 </main>
-<script>
+	
+	<!-- 이로움온 회원 인증정보 저장 모달(아이디, 패스워드) -->
+	<jsp:include page="/WEB-INF/jsp/common/modal/add_eroum_auth_modal.jsp" />
+			
 
+<script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script>
 // 본인인증
 async function f_cert(){
 	try {
@@ -246,11 +300,16 @@ async function f_cert(){
       				dataType : 'json'
       			})
       			.done(function(data) {
-      				var telno = data.mblTelno;
-      				telno = telno.substring(0,3) + "-" + telno.substring(3,7) + "-" + telno.substring(7,11);
-      				$("#mblTelno").val(telno);
-      				$("#diKey").val(data.diKey);
-      				alert("인증되었습니다.");
+      				if (data.success) {
+      					var telno = data.mblTelno;
+          				telno = telno.substring(0,3) + "-" + telno.substring(3,7) + "-" + telno.substring(7,11);
+          				$("#mblTelno").val(telno);
+          				$("#ciKey").val(data.ciKey);
+          				$("#diKey").val(data.diKey);
+          				alert("인증되었습니다.");
+      				} else {
+      					alert(data.msg);
+      				}
       			})
       			.fail(function(data, status, err) {
       				console.log('error forward : ' + data);
@@ -269,6 +328,25 @@ async function f_cert(){
 	    }
 	}
 }
+
+//인증 수단 삭제
+function removeAuth(authNo) {
+	if (confirm('소셜 로그인 연결을 해제하시겠어요?')) {
+		callPostAjaxIfFailOnlyMsg(
+			'/membership/info/myinfo/removeMbrAuth.json',
+			{ authNo },
+			function(result) {
+				location.reload();
+			}
+		);
+	}
+}
+
+//이로움 인증 수단 추가
+function registEroumAuth() {
+	openRegistEroumAuthModal();
+}
+
 
 $(function(){
 
