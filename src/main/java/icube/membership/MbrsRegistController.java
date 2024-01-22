@@ -491,6 +491,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				tempMbrVO.setAddr(mbrVO.getAddr());
 				tempMbrVO.setDaddr(mbrVO.getDaddr());
 		        
+				tempMbrVO.setEml(mbrVO.getEml());
 				tempMbrVO.setPrvcVldPd(mbrVO.getPrvcVldPd());
 				tempMbrVO.setSmsRcptnYn(mbrVO.getSmsRcptnYn());
 				tempMbrVO.setSmsRcptnDt(mbrVO.getSmsRcptnDt());

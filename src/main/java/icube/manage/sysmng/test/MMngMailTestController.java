@@ -109,7 +109,7 @@ public class MMngMailTestController {
 		boolean success = false;
 		
 		try {
-			mailSchedule.sendGuidDrmcMbrMail();
+			//mailSchedule.sendGuidDrmcMbrMail();
 			success = true;
 		} catch (Exception ex) {
 			resultMap.put("msg", "휴면계정 대상 안내 메일 발송 중 오류 발생");
@@ -126,7 +126,7 @@ public class MMngMailTestController {
 		boolean success = false;
 		
 		try {
-			mbrSchedule.sleepMbr();
+			//mbrSchedule.sleepMbr();
 			success = true;
 		} catch (Exception ex) {
 			resultMap.put("msg", "휴면계정 전환 안내 메일 발송 중 오류 발생");

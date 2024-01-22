@@ -149,6 +149,8 @@
 								</div> <form:input class="form-control mt-1.5 w-full md:mt-2" path="addr" maxlength="200" /> <form:input class="form-control mt-1.5 w-full md:mt-2" path="daddr" maxlength="200" />
 							</td>
 						</tr>
+						<%-- 2024-01-22 회원정책 변경으로 개인정보 유효기간 삭제 --%>
+						<%--
 						<tr>
 							<th scope="row">
 								<p class="flex">
@@ -166,6 +168,7 @@
 								</div>
 							</td>
 						</tr>
+						--%>
 					</tbody>
 				</table>
 
@@ -221,7 +224,8 @@
 							
 								<div class="py-1.5 md:py-2">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="allChk"> <label class="form-check-label" for="allChk">전체 수신</label>
+										<input class="form-check-input" type="checkbox" id="allChk" <c:if test="${mbrVO.smsRcptnYn eq 'Y' && mbrVO.emlRcptnYn eq 'Y' && mbrVO.telRecptnYn eq 'Y'}">checked</c:if>>
+										<label class="form-check-label" for="allChk">전체 수신</label>
 									</div>
 								</div>
 								<div class="mt-1.5 flex flex-wrap md:mt-2">

@@ -31,6 +31,7 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.common.framework.view.JavaScript;
 import icube.common.framework.view.JavaScriptView;
 import icube.common.util.RSA;
+import icube.common.util.StringUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CodeMap;
 import icube.main.test.biz.MbrTestService;
@@ -221,7 +222,17 @@ public class MbrsInfoController extends CommonAbstractController{
 		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
 		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
 		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		//카카오 정보 마스킹
+		if (kakaoAuthInfo != null) {
+			kakaoAuthInfo.setEml(StringUtil.emlMasking(kakaoAuthInfo.getEml()));
+			kakaoAuthInfo.setMblTelno(StringUtil.phoneMasking(kakaoAuthInfo.getMblTelno()));
+		}
 		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+		//네이버 정보 마스킹
+		if (naverAuthInfo != null) {
+			naverAuthInfo.setEml(StringUtil.emlMasking(naverAuthInfo.getEml()));
+			naverAuthInfo.setMblTelno(StringUtil.phoneMasking(naverAuthInfo.getMblTelno()));
+		}
 		
 		model.addAttribute("genderCode", CodeMap.GENDER);
 		model.addAttribute("expirationCode", CodeMap.EXPIRATION);
@@ -273,7 +284,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			srchMbr.setEmlRcptnDt(mbrVO.getEmlRcptnDt());
 			srchMbr.setTelRecptnYn(mbrVO.getTelRecptnYn());
 			srchMbr.setTelRecptnDt(mbrVO.getTelRecptnDt());
-			srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
+			//srchMbr.setPrvcVldPd(mbrVO.getPrvcVldPd());
 			mbrService.updateMbrInfo(srchMbr);
 			
 			mbrSession.setParms(srchMbr, true);

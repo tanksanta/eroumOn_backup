@@ -57,6 +57,16 @@
 						</tr>
 						<tr>
 							<th scope="row">
+								<p>
+									<label for="join-item1-4">이메일<sup class="text-danger text-base md:text-lg">*</sup></label>
+								</p>
+							</th>
+							<td><form:input class="form-control w-full" path="eml" maxlength="50"/></td>
+						</tr>
+						<%-- 2024-01-22 회원정책 변경으로 개인정보 유효기간 삭제 --%>
+						<%--
+						<tr>
+							<th scope="row">
 								<p class="flex">
 									<label for="join-item3-3">개인정보<br>유효기간</label><sup class="text-danger text-base md:text-lg">*</sup>
 								</p>
@@ -72,6 +82,7 @@
 								</div>
 							</td>
 						</tr>
+						--%>
 					</tbody>
 				</table>
 				</br>
@@ -267,7 +278,10 @@ $(function(){
 		} else if(!$('#zip').val() || !$('#addr').val() || !$('#daddr').val()) {
 			alert("주소를 모두 입력하세요.");
 			return false;
-		} else{
+		} else if (!$('#eml').val()){
+			alert("이메일 입력하세요.");
+			return false;
+		}else{
 			f_cert();
 		}
 	});

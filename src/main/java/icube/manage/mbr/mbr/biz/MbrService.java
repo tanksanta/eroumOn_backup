@@ -1264,7 +1264,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			paramMap.put("srchDiKey", diKey);
 			paramMap.put("srchMbrStts", "EXIT");
 			srchMbr = selectMbrListAll(paramMap);
-			if (srchMbr != null) {
+			if (srchMbr != null && srchMbr.size() > 0) {
 				//가장 최근에 탈퇴한 바인딩 회원 반환
 				return srchMbr.get(0);
 			}

@@ -1,14 +1,12 @@
 package icube.schedule;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
-import icube.common.util.FileUtil;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -67,61 +64,61 @@ public class MbrSchedule extends CommonAbstractController {
 	SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd");
 	
 
-	// 회원휴면으로 전환
-	@Scheduled(cron="0 0 2 * * *")
-	public void sleepMbr() throws Exception {
-		log.info("################## 회원 휴면 처리 START #####################");
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("srchMbrSttus", "NORMAL");
-		paramMap.put("srchDrmcDate", 365); //1년
-
-		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
-
-		Date now = new Date();
-		String today = format2.format(now);
-		
-		try{
-			for(MbrVO mbrVO : mbrList) {
-				paramMap.clear();
-				paramMap.put("mberSttus", "HUMAN");
-				paramMap.put("uniqueId", mbrVO.getUniqueId());
-				mbrService.updateMberSttus(paramMap);
-
-				//TODO 소멸 포인트, 마일리지에 대한 로그 (관리자 페이지 기획중)
-				// 포인트, 마일리지 reset
-				paramMap.clear();
-				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
-				paramMap.put("mberStts", "HUMAN");
-				mbrService.resetMemberShip(paramMap);
-
-				
-				//이메일 수신거부 확인
-//				if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
-//					continue;
+	// 회원휴면으로 전환 (2024-01-22 회원 정책 변경으로 휴면계정은 사라짐)
+//	@Scheduled(cron="0 0 2 * * *")
+//	public void sleepMbr() throws Exception {
+//		log.info("################## 회원 휴면 처리 START #####################");
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("srchMbrSttus", "NORMAL");
+//		paramMap.put("srchDrmcDate", 365); //1년
+//
+//		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+//
+//		Date now = new Date();
+//		String today = format2.format(now);
+//		
+//		try{
+//			for(MbrVO mbrVO : mbrList) {
+//				paramMap.clear();
+//				paramMap.put("mberSttus", "HUMAN");
+//				paramMap.put("uniqueId", mbrVO.getUniqueId());
+//				mbrService.updateMberSttus(paramMap);
+//
+//				//TODO 소멸 포인트, 마일리지에 대한 로그 (관리자 페이지 기획중)
+//				// 포인트, 마일리지 reset
+//				paramMap.clear();
+//				paramMap.put("srchUniqueId", mbrVO.getUniqueId());
+//				paramMap.put("mberStts", "HUMAN");
+//				mbrService.resetMemberShip(paramMap);
+//
+//				
+//				//이메일 수신거부 확인
+////				if (!"Y".equals(mbrVO.getEmlRcptnYn())) {
+////					continue;
+////				}
+//
+//				String MAIL_FORM_PATH = mailFormFilePath;
+//				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_drmc.html");
+//				mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
+//				mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
+//				mailForm = mailForm.replace("((recentCntnDt))", format.format(mbrVO.getRecentCntnDt()));
+//				mailForm = mailForm.replace("((extinctDate))", today);
+//				
+//				// 메일 발송
+//				String mailSj = "[이로움ON] 휴면계정 전환 안내";
+//				if(EgovStringUtil.equals("real", activeMode)) {
+//					mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+//				} else {
+//					mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
 //				}
-
-				String MAIL_FORM_PATH = mailFormFilePath;
-				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_drmc.html");
-				mailForm = mailForm.replace("((mbrNm))", mbrVO.getMbrNm());
-				mailForm = mailForm.replace("((mbrId))", mbrVO.getMbrId());
-				mailForm = mailForm.replace("((recentCntnDt))", format.format(mbrVO.getRecentCntnDt()));
-				mailForm = mailForm.replace("((extinctDate))", today);
-				
-				// 메일 발송
-				String mailSj = "[이로움ON] 휴면계정 전환 안내";
-				if(EgovStringUtil.equals("real", activeMode)) {
-					mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
-				} else {
-					mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.debug("회원 휴면 상태 변경 실패 : " + e.toString());
-		}
-
-		log.info("################## 회원 휴면 처리 END #####################");
-	}
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			log.debug("회원 휴면 상태 변경 실패 : " + e.toString());
+//		}
+//
+//		log.info("################## 회원 휴면 처리 END #####################");
+//	}
 
 
 	// 회원등급 조정
