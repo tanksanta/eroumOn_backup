@@ -1,4 +1,4 @@
-class JsMarketOrdrPay extends JsMargetCartDrawItems{
+class JsMarketOrdrPay extends JsMarketCartDrawItems{
     constructor(ordrTy, path, mbrSession, cartList, entrpsDlvyGrpVOList, entrpsVOList, codeMapJson){
         super();
 		
@@ -33,7 +33,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 
 			this._cls_info.ordrCd = this._cls_info.codeMapJson.ordrCd;
 			this._cls_info.ordrIdx = 0;/*주문 상세 인덱스*/
-			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;
+			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;/*배송비 추가 지역 여부*/
 		}
 		
         
@@ -55,13 +55,55 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 									
 		this.fn_draw_cart_entrpsdlvygrp_list(this._cls_info.pageCartListfix , this._cls_info.drawCartList);
 
+		this.fn_calc_dlvybase();
 		this.fn_calc_dlvyadit();
 		this.fn_draw_result_money();
 
         this.fn_page_init();
 
-
     }
+
+	/*개별 배송을 계산.*/
+	fn_calc_dlvybase(){
+		var cartList = $(this._cls_info.pageCartListfix + " .order-product-inner");
+		
+		var jobjRoot = $(this._cls_info.pageCartListfix);
+		var jobjCartGrp, jobjTemp;
+		var dlvyBase = 0;
+		var arrEntrpsDlvygrpList = [];
+		var entrpsdlvygrpno;
+		var ifor, ilen = cartList.length;
+		/*배송비 계산*/
+		for(ifor=0 ; ifor<ilen ; ifor++){
+			jobjCartGrp = $(cartList[ifor]);
+
+			if(jobjCartGrp.hasClass("entrpsDlvygrpNo") && jobjCartGrp.attr("entrpsDlvygrpNo") != undefined){/*그룹배송이 있는 경우*/
+				entrpsdlvygrpno = jobjCartGrp.attr("entrpsDlvygrpNo");
+				if (arrEntrpsDlvygrpList.indexOf(entrpsdlvygrpno) >= 0){
+					/*묶음배송으로 이미 더해졌다*/
+					continue;
+				}
+
+				/*묶음 배송이더라도 1개이면 개별 배송으로 처리한다.*/
+				if (jobjRoot.find(".order-product .order-product-inner[entrpsdlvygrpno='{0}']".format(entrpsdlvygrpno)).length > 1){
+					arrEntrpsDlvygrpList.push(entrpsdlvygrpno);
+
+					jobjTemp = jobjRoot.find(".order-item-payment.entrpsDlvygrpNo[entrpsdlvygrpno='{0}'] input[name='dlvyGrpBaseAmt']".format(entrpsdlvygrpno));
+					if (jobjTemp.length > 0){
+						dlvyBase += Number($(jobjTemp[0]).val());
+						continue;
+					}
+				}
+			}
+
+			/*개별 배송을 더한다.*/
+			jobjTemp = jobjCartGrp.find('input[name="dlvyBaseAmt"]');
+			if (jobjTemp.length > 0){
+				dlvyBase += Number($(jobjTemp[0]).val());
+			}
+		}
+		this._cls_info.cartResultMoney["total-dlvyBase"] = dlvyBase;
+	}
 
 	/*추가 배송비 계산*/
 	fn_calc_dlvyadit(){
@@ -172,7 +214,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 						'</dl>'+
 						strItemOptionAdit+
 					'</div>'+
-					'<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
+					// '<div class="item-btn"><button class="btn btn-primary f_optn_chg" data-bs-toggle="modal" data-bs-target="#countModal" cartGrpNo="{0}">주문 수정</button></div>'.format(json.cartGrpNo)+
 					((soldoutYn == 'Y') ? this.fn_draw_cart_entrpsdlvygrp_itemgrp_sold_out():'') + 
 					'<input type="hidden" name="dlvyBaseAmt" value="{0}">'.format(dlvyBaseAmt)+
 					noOptnInputhidden+
@@ -191,7 +233,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 
 		this._cls_info.cartResultMoney["total-ordrpc"] += json.ordrPc;/*총 상품 금액은 전체 상품 금액의 합*/
 
-		console.log(json)
+		// console.log(json)
 		var hiddenInfo = '';
 		hiddenInfo += '<input type="hidden" name="ordrDtlCd" value="{0}_{1}">'.format(ordrCd, ordrIdx);
 		hiddenInfo += '<input type="hidden" name="gdsNo" value="{0}">'.format(json.gdsInfo.gdsNo);
@@ -238,7 +280,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 		hiddenInfo += '<input type="hidden" name="plusDlvyBassAmt" id="plusDlvyBassAmt_{0}_{1}_{2}" value="{3}">'.format(ordrOptnTy, json.gdsInfo.gdsNo, ordrIdx, (ordrOptnTy =="BASE")?json.gdsInfo.dlvyBassAmt:"0");// <%--배송비 > 할인초기화를 위한 여분 --%>
 						
 		if (json.gdsInfo.mlgPvsnYn == 'Y' && this._cls_info.ordrTy == 'N' && !isNaN(this._cls_info.codeMapJson._mileagePercent) ){
-			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />'.format(Math.round(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent) / 100);
+			hiddenInfo += '<input type="hidden" name="accmlMlg" value="{0}" />'.format(Math.floor(json.gdsInfo.pc * json.ordrQy * this._cls_info.codeMapJson._mileagePercent / 100));
 			// <%--마일리지 > 비급여제품 + 마일리지 제공 제품--%>
 		}else{
 			hiddenInfo += '<input type="hidden" name="accmlMlg" value="0" />'
@@ -367,8 +409,12 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 	f_ordr_dtls(){
 		var jobjCartList = $(this._cls_info.pageCartListfix + " .order-product-inner.cartGrp");
 		var jobjDtl;
+		var jobjTemp;
 		var itemone;
 		var arrDtls = [];
+		var entrpsDlvygrpList = [];
+		var calcDlvyYn;
+		var ordrOptnTy, dlvyGroupYn, entrpsDlvygrpNo;
 		var ifor, ilen = jobjCartList.length;
 
 		for(ifor=0 ; ifor<ilen ; ifor++){
@@ -377,6 +423,52 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 			itemone = {};
 			arrDtls.push(itemone);
 
+			ordrOptnTy					= jobjDtl.find('input[name="ordrOptnTy"]').val();
+			itemone.ordrOptnTy			= ordrOptnTy;
+			
+			dlvyGroupYn 				= jobjDtl.find('input[name="dlvyGroupYn"]').val();
+			entrpsDlvygrpNo				= jobjDtl.find('input[name="entrpsDlvygrpNo"]').val();
+			if (dlvyGroupYn != 'Y' || entrpsDlvygrpNo == undefined || entrpsDlvygrpNo == '0'){
+				dlvyGroupYn = 'N';
+				entrpsDlvygrpNo = '0';
+			}
+
+			calcDlvyYn = 'Y';
+			itemone.dlvyGroupYn			= dlvyGroupYn;
+			itemone.entrpsDlvygrpNo		= entrpsDlvygrpNo;
+			if (ordrOptnTy =='ADIT'){/*추가상품이면 배송비에서 제외*/
+				calcDlvyYn = 'N';//배송비 계산에서 제외
+			}else if (dlvyGroupYn == 'Y' && entrpsDlvygrpNo != '0'){
+				/*묶음 배송이면 묶음배송금액을 가지고 온다.*/
+				if (entrpsDlvygrpList.indexOf(entrpsDlvygrpNo) >= 0){
+					calcDlvyYn = 'N';//배송비 계산에서 제외
+				}else{
+					entrpsDlvygrpList.push(entrpsDlvygrpNo);
+				}
+			}
+
+			if (calcDlvyYn == 'Y'){
+				if (dlvyGroupYn == 'Y'){
+					jobjTemp = $(this._cls_info.pageCartListfix + " .order-item-payment.entrpsDlvygrpNo[entrpsdlvygrpno='{0}']".format(entrpsDlvygrpNo));
+					itemone.dlvyBassAmt			= jobjTemp.find('input[name="dlvyGrpBaseAmt"]').val();
+					itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
+				}else{
+					itemone.dlvyBassAmt			= jobjDtl.find('input[name="dlvyBassAmt"]').val();
+					itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
+				}
+			} else {
+				itemone.dlvyBassAmt = itemone.plusDlvyBassAmt = "0";
+			}
+			
+
+			if (this._cls_info.dlvyCtAditRgnYn == 'Y' && calcDlvyYn == 'Y'){/*배송비 추가지역*/
+				itemone.dlvyAditAmt			= jobjDtl.find('input[name="dlvyAditAmt"]').val();
+				itemone.plusDlvyAditAmt		= itemone.dlvyAditAmt;
+			}else{
+				itemone.dlvyAditAmt			= "0";
+				itemone.plusDlvyAditAmt		= "0";
+			}
+
 			itemone.ordrDtlCd			= jobjDtl.find('input[name="ordrDtlCd"]').val();
 			itemone.gdsNo				= jobjDtl.find('input[name="gdsNo"]').val();
 			itemone.gdsCd				= jobjDtl.find('input[name="gdsCd"]').val();
@@ -384,8 +476,6 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 			itemone.gdsPc				= jobjDtl.find('input[name="gdsPc"]').val();
 			itemone.entrpsNo			= jobjDtl.find('input[name="entrpsNo"]').val();
 			itemone.entrpsNm			= jobjDtl.find('input[name="entrpsNm"]').val();
-			itemone.dlvyGroupYn			= jobjDtl.find('input[name="dlvyGroupYn"]').val();
-			itemone.entrpsDlvygrpNo		= jobjDtl.find('input[name="entrpsDlvygrpNo"]').val();
 			itemone.bnefCd				= jobjDtl.find('input[name="bnefCd"]').val();
 			itemone.recipterUniqueId	= jobjDtl.find('input[name="recipterUniqueId"]').val();
 			itemone.bplcUniqueId		= jobjDtl.find('input[name="bplcUniqueId"]').val();
@@ -393,16 +483,12 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 			itemone.couponCd			= jobjDtl.find('input[name="couponCd"]').val();
 			itemone.couponAmt			= jobjDtl.find('input[name="couponAmt"]').val();
 			itemone.gdsOptnNo			= jobjDtl.find('input[name="gdsOptnNo"]').val();
-			itemone.ordrOptnTy			= jobjDtl.find('input[name="ordrOptnTy"]').val();
 			itemone.ordrOptn			= jobjDtl.find('input[name="ordrOptn"]').val();
 			itemone.ordrOptnPc			= jobjDtl.find('input[name="ordrOptnPc"]').val();
 			itemone.ordrQy				= jobjDtl.find('input[name="ordrQy"]').val();
 			itemone.ordrPc				= jobjDtl.find('input[name="ordrPc"]').val();
 			itemone.plusOrdrPc			= jobjDtl.find('input[name="plusOrdrPc"]').val();
-			itemone.dlvyBassAmt			= jobjDtl.find('input[name="dlvyBassAmt"]').val();
-			itemone.plusDlvyBassAmt		= jobjDtl.find('input[name="plusDlvyBassAmt"]').val();
 			itemone.accmlMlg			= jobjDtl.find('input[name="accmlMlg"]').val();
-
 		}
 
 		return arrDtls;
@@ -418,6 +504,7 @@ class JsMarketOrdrPay extends JsMargetCartDrawItems{
 		let test_deposit = (this._cls_info.codeMapJson._activeMode != "REAL")?true:false;
 
 		let orderDtls = this.f_ordr_dtls();
+
 		$("input[name='ordrDtls']").val(JSON.stringify(orderDtls));
 		
     	//console.log('결제금액: ', stlmAmt);

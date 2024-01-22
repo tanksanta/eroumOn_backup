@@ -145,7 +145,7 @@
 										<div class="item-add">
 											<span class="label-outline-primary">
 												<span>추가</span>
-												<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+												<i><!--img src="../../assets/images/ico-plus-white.svg" alt=""--></i>
 											</span>
 											<div class="name">
 												<strong>모던 스타일 스툴</strong>
@@ -221,7 +221,7 @@
 										<div class="item-add">
 											<span class="label-outline-primary">
 												<span>추가</span>
-												<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+												<i><!--img src="../../assets/images/ico-plus-white.svg" alt=""--></i>
 											</span>
 											<div class="name">
 												<strong>모던 스타일 스툴</strong>
@@ -298,7 +298,7 @@
 										<div class="item-add">
 											<span class="label-outline-primary">
 												<span>추가</span>
-												<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+												<i><!--img src="../../assets/images/ico-plus-white.svg" alt=""--></i>
 											</span>
 											<div class="name">
 												<strong>모던 스타일 스툴</strong>
@@ -383,7 +383,7 @@
 										<div class="item-add">
 											<span class="label-outline-primary">
 												<span>추가</span>
-												<i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+												<i><!--img src="../../assets/images/ico-plus-white.svg" alt=""--></i>
 											</span>
 											<div class="name">
 												<strong>모던 스타일 스툴</strong>
@@ -481,7 +481,7 @@
 
 <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartModalOptnChg2.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-<script type="text/javascript" src="/html/page/market/assets/script/JsMargetCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
 

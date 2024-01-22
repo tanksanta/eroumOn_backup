@@ -171,7 +171,7 @@ public class MyCartController extends CommonAbstractController  {
 		}
 		
 		int cartGrpNo = 0;
-		if (chkCartVO.size() > 0) cartGrpNo = chkCartVO.get(0).getCartGrpNo();
+		if (chkCartVO != null && chkCartVO.size() > 0) cartGrpNo = chkCartVO.get(0).getCartGrpNo();
 		
 		// STEP.2 저장
 		String[] spGdsNo = gdsNo.split(",");
@@ -181,14 +181,17 @@ public class MyCartController extends CommonAbstractController  {
 
 			tempGdsOptnNo = EgovStringUtil.string2integer(gdsOptnNo.split(",")[i].trim());
 
-			List<CartVO> cartSearchedList;
-			cartSearchedList = chkCartVO.stream()
+			List<CartVO> cartSearchedList = null;
+			if (chkCartVO != null){
+				cartSearchedList = chkCartVO.stream()
 				.filter(t -> EgovStringUtil.equals(ordrTy, t.getCartTy()) 
 							&& tempGdsOptnNo == t.getGdsOptnNo()
 						)
 				.collect(Collectors.toList());
+			}
 			
-			if (cartSearchedList.size() > 0){
+			
+			if (cartSearchedList != null && cartSearchedList.size() > 0){
 				cartVO = cartSearchedList.get(0);
 				cartVO.setCrud(CRUD.UPDATE);
 			}else{
@@ -408,7 +411,7 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
 
 				// 급여코드
-				if(bnefCd.split(",").length > 0) { // bnefCd null일수 있음
+				if(EgovStringUtil.isNotEmpty(bnefCd) && bnefCd.split(",").length > 0) { // bnefCd null일수 있음
 					cartVO.setBnefCd(bnefCd.split(",")[i]);
 				}else {
 					cartVO.setBnefCd("");

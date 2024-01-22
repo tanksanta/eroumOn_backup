@@ -570,13 +570,13 @@ public class OrdrService extends CommonAbstractServiceImpl {
 		}
 
 		// 장바구니 삭제 // 우선 삭제 제외
-		// if (EgovStringUtil.isNotEmpty(cartGrpNos)) {
-		// 	String[] arrCartGrpNo = cartGrpNos.split(",");
-		// 	Map<String, Object> paramMap = new HashMap<String, Object>();
-		// 	paramMap.put("srchCartGrpNos", arrCartGrpNo);
-		// 	paramMap.put("srchRecipterUniqueId", ordrDtlList.get(0).getRecipterUniqueId());
-		// 	cartService.deleteCart(paramMap);
-		// }
+		if (EgovStringUtil.isNotEmpty(cartGrpNos)) {
+			String[] arrCartGrpNo = cartGrpNos.split(",");
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("srchCartGrpNos", arrCartGrpNo);
+			paramMap.put("srchRecipterUniqueId", ordrDtlList.get(0).getRecipterUniqueId());
+			cartService.deleteCart(paramMap);
+		}
 
 		return ordrDtlList;
 	}

@@ -316,7 +316,7 @@
 		
     </main>
 
-    <script type="text/javascript" src="/html/page/market/assets/script/JsMargetCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdrPay.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
     <script>
