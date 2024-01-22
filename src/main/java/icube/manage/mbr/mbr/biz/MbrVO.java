@@ -89,5 +89,6 @@ public class MbrVO extends CommonBaseVO {
 	private RecipterInfoVO recipterInfo; //RecipterInfoVO 이제 사용 안함
 	private DlvyVO dlvyInfo;
 	
+	private List<MbrAuthVO> mbrAuthList;
 	private List<MbrRecipientsVO> mbrRecipientsList;
 }

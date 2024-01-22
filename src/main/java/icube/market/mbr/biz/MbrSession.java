@@ -80,6 +80,8 @@ public class MbrSession extends MbrVO implements Serializable {
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
 
+		setMbrAuthList(mbrVO.getMbrAuthList());
+		
 		setLoginCheck(loginCheck);
 	}
 }

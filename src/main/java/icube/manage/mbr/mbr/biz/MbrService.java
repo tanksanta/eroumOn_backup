@@ -1218,7 +1218,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 	/**
 	 * 바인딩 가능 회원 반환 (연결 가능한 계정이 있으면 반환)
 	 */
-	private MbrVO getBindingMbr(String ciKey, String diKey) throws Exception {
+	public MbrVO getBindingMbr(String ciKey, String diKey) throws Exception {
 		
 		//CI로 찾기
 		Map<String, Object> paramMap = new HashMap<String, Object>();

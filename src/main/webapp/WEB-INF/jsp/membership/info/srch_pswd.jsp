@@ -10,30 +10,25 @@
 	<div id="page-content">
 		<form action="srchPswdAction" class="search-form" id="srchPswdFrm" name="srchPswdFrm" method="post">
 			<fieldset>
-				<legend>아이디로 찾기</legend>
+				<legend>본인인증으로 찾기</legend>
 				<div class="form-group">
-					<label class="form-label" for="mbrId">아이디</label>
-					<input class="form-control" type="text" id="mbrId" name="mbrId" maxlength="50">
+					<label class="form-label" for="mbrId">이로움ON 아이디</label>
+					<input class="form-control" type="text" id="mbrId" name="mbrId" maxlength="15" placeholder="이로움ON 아이디를 입력해 주세요">
 				</div>
-				<%--<div class="form-group">
-					<label class="form-label" for="search-item2">이름</label>
-					<input class="form-control" type="text" id="search-item2">
-				</div> --%>
-				<div class="form-auth">
-					<img src="/html/page/members/assets/images/img-join-auth.svg" alt="">
-					<dl>
-						<dt>휴대폰 본인 인증</dt>
-						<dd>
-							고객님의 개인정보보호를 위해 본인인증이 필요합니다<br> 본인 명의로 된 휴대폰 번호로 실명인증을 완료해 주세요
-						</dd>
-					</dl>
+				<div class="form-group">
+					<label class="form-label" for="mbrId">본인인증</label>
+					<button class="btn btn-primary" type="button" style="width:69%" onclick="f_cert();">휴대폰 본인인증</button>
+				</div>
+				<div class="form-group" style="margin-top:20px; text-align:center;">
+					<p>
+						간편가입 회원은 비밀번호 찾기가 제공되지 않습니다.<br>
+						각 소셜 서비스를 통해 확인 부탁드립니다.
+					</p>
 				</div>
 				<div class="form-button">
-					<button class="btn btn-primary wide f_submit" type="submit">본인 인증하기</button>
-                    <a href="/membership/login" class="btn btn-outline-primary">취소</a>
+                    <a href="/membership/login" class="btn btn-outline-primary" style="width:100%;">취소</a>
 				</div>
 			</fieldset>
-			<input type="hidden" id="receiptId" name="receiptId" value="">
 		</form>
 
         <dl class="member-social">
@@ -58,9 +53,23 @@
         </dl>
 	</div>
 </main>
-<script>
 
-	async function f_cert(frm){
+
+<script src="/html/core/script/matchingAjaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+<script>
+	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
+
+	async function f_cert() {
+		var mbrId = $('#mbrId').val();
+		if (!mbrId) {
+			alert('아이디를 입력해주세요.');
+			return;
+		}
+		if (idchk.test(mbrId) == false) {
+			alert('아이디 형식이 올바르지 않습니다.');
+			return;
+		}
+		
 		try {
 		    const response = await Bootpay.requestAuthentication({
 		        application_id: '${_bootpayScriptKey}',
@@ -71,9 +80,7 @@
 		    })
 		    switch (response.event) {
 		        case 'done':
-		            //console.log("response.data", response.data);
-		            $("#receiptId").val(response.data.receipt_id);
-		            frm.submit();
+		        	postAjaxSearchPswd(response.data.receipt_id, mbrId);
 		            break;
 		    }
 		} catch (e) {
@@ -87,60 +94,14 @@
 		    }
 		}
 	}
-
-
-    $(function(){
-
-    	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
-
-		// 간편 회원가입 체크
-    	$("#mbrId").on("focusout",function(){
-    		let mbrId = $("#mbrId").val();
-
-    		$.ajax({
-        		type : "post",
-        		url  : "checkEasyMbr.json",
-        		data : {mbrId:mbrId},
-        		dataType : 'json'
-        	})
-        	.done(function(data){
-				if(!data.result){
-					alert("간편가입 회원은 비밀번호 찾기를 이용하실 수 없습니다.");
-				}
-        	})
-        	.fail(function(xhr,status,errorThrown){
-        		console.log("아이디 체크 중 오류 발생 : " + error);
-        	})
-    	});
-
-    	//유효성
-    	$("form#srchPswdFrm").validate({
-    	    ignore: "input[type='text']:hidden",
-    	    rules : {
-	  	    	mbrId : {required : true, regex : idchk}
-    	    	//, mbrNm : {required : true}
-    	    },
-    	    messages : {
-    	    	mbrId : {required : "! 아이디는 필수 입력 항목입니다.", regex : "! 영문으로 띄어쓰기 없이 6~15자 영문,숫자를 조합하여 입력해 주세요."}
-    			//, mbrNm : {required : "! 이름은 필수 입력 항목입니다."}
-    	    },
-      	    onfocusout: function(el) { // 추가
-                if (!this.checkable(el)){
-                	this.element(el);
-                }
-            },
-    	    errorPlacement: function(error, element) {
-    		    var group = element.closest('.search-group');
-    		    if (group.length) {
-    		        group.after(error.addClass('text-danger'));
-    		    } else {
-    		        element.after(error.addClass('text-danger'));
-    		    }
-    		},
-    	    submitHandler: function (frm) {
-    	    	f_cert(frm);
-    	    	//frm.submit();
-    	    }
-    	});
-    });
-    </script>
+	
+	function postAjaxSearchPswd(receiptId, mbrId) {
+		callPostAjaxIfFailOnlyMsg(
+			'/membership/srchPswd.json',
+			{ receiptId, mbrId },
+			function(result) {
+				location.href = '/membership/srchPswdConfirm';					
+			}
+		);
+	}
+</script>
