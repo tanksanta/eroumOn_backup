@@ -284,7 +284,27 @@
 						</div>
 					</td>
 				</tr>
-
+				<tr>
+					<th scope="row">탈퇴 여부</th>
+					<td>
+						<c:choose>
+							<c:when test="${ !empty bplcVO.leaveRejectDate }">
+								-
+							</c:when>
+							<c:when test="${ !empty bplcVO.leaveConfirmDate }">
+								<span class="text-red1">탈퇴 승인 완료</span> (${ fn:substring(bplcVO.leaveConfirmDate, 0, 4) }-${ fn:substring(bplcVO.leaveConfirmDate, 4, 6) }-${ fn:substring(bplcVO.leaveConfirmDate, 6, 8) })
+							</c:when>
+							<c:when test="${ !empty bplcVO.leaveRequestDate }">
+								<span class="text-red1">탈퇴 승인 대기 중</span> (${ fn:substring(bplcVO.leaveRequestDate, 0, 4) }-${ fn:substring(bplcVO.leaveRequestDate, 4, 6) }-${ fn:substring(bplcVO.leaveRequestDate, 6, 8) })
+							</c:when>
+							<c:otherwise>
+								-
+							</c:otherwise>
+						</c:choose>
+						
+					</td>
+				</tr>
+				
 			</tbody>
 		</table>
 	</fieldset>

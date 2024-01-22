@@ -522,7 +522,7 @@ public class MainTestController extends CommonAbstractController {
 						+ "                                                    </li>\r\n"
 						+ "                                                    <li>\r\n"
 						+ "                                                        <span style=\"padding: 0px 2px; border-radius: 5px; background: #FFF5ED; font-size: 20px; font-weight: bold; color: #EF7D1A;\">\r\n"
-						+ "                                                            월 141만원\r\n"
+						+ "                                                            월 145만원\r\n"
 						+ "                                                        </span> 내에서 방문 요양보호사 또는 주야간센터를 이용할 수 있어요.\r\n"
 						+ "                                                    </li>\r\n"
 						+ "                                                    <br>\r\n"

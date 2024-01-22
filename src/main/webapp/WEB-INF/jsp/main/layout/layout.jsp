@@ -51,11 +51,9 @@
     <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     
-    <!-- 네이버 연관채널 SEO -->
-    <span itemscope="" itemtype="http://schema.org/Organization">
-	<link itemprop="url" href="https://eroum.co.kr">
-	<a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.eroum"></a>
-	</span>
+    <!-- 마켓팅팀 요청 head 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_head_tag.jsp" />
+    
 </head>
 
 <body>
@@ -97,5 +95,8 @@
         });
     </script>
 
+	<!-- 마켓팅팀 요청 body 태그안 삽입 코드 -->
+    <jsp:include page="/WEB-INF/jsp/common/common_marketing_body_tag.jsp" />
+    
 </body>
 </html>

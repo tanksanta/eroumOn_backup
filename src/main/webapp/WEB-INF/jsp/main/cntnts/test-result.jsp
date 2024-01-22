@@ -111,9 +111,17 @@
             	<small>아래 1:1 상담하기 버튼을 눌러주세요.</small>	
             </c:if>
         </h2>
-        <div class="images" >
-            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
-        </div>
+        
+        <c:if test="${_mbrSession.loginCheck}">
+        	<div class="images" onclick="clickStartConsltBtn();" style="cursor:pointer;">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
+        <c:if test="${!_mbrSession.loginCheck}">
+        	<div class="images">
+	            <img src="/html/page/index/assets/images/img-grade-result1.svg" alt="전문가 상담 이미지">
+	        </div>
+        </c:if>
     </div>
     
     <div class="result-content3">
@@ -553,7 +561,7 @@
             	switch (grade) {
             		case 1 : {
             			templete += `
-                            <p class="cost"><strong>월 188만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 206만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -565,7 +573,7 @@
             		}
             		case 2 : {
             			templete += `
-                            <p class="cost"><strong>월 169만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 186만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -577,7 +585,7 @@
             		}
             		case 3 : {
             			templete += `
-                            <p class="cost"><strong>월 141만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 145만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -589,7 +597,7 @@
             		}
             		case 4 : {
             			templete += `
-                            <p class="cost"><strong>월 130만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 134만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -601,7 +609,7 @@
             		}
             		case 5 : {
             			templete += `
-                            <p class="cost"><strong>월 112만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                            <p class="cost"><strong>월 115만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                             <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                             <ul class="alert">
                                 <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -627,7 +635,7 @@
             				grade = '인지지원';
             				
             				templete += `
-                                <p class="cost"><strong>월 62만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
+                                <p class="cost"><strong>월 64만원</strong>의 한도액 내에서 재가급여 또는 주야간센터를 이용할 수 있어요.</p>
                                 <p class="cost"><strong>연 160만원</strong>의 한도액 내에서 복지용구 대여 또는 구입할 수 있어요.</p>
                                 <ul class="alert">
                                     <li><strong>6~15%의 본인부담금이 발생(기초생활수급자는 전액 지원)</strong></li>
@@ -981,7 +989,13 @@
           		if (testResult.grade !== 0) {
           			$('#go-consult').text('1:1 상담하기');
           		} else if (testResult.grade === 0) {
-          			$('.mainSend').css('display', 'none');
+          			//인지지원 등급은 상담하기 버튼으로 노출
+          			if(testResult.diseaseSelect1 && testResult.diseaseSelect1[0] 
+            				|| testResult.diseaseSelect2 && testResult.diseaseSelect2[0]) {
+          				$('#go-consult').text('1:1 상담하기');
+          			} else {
+          				$('.mainSend').css('display', 'none');
+          			}
           		}
           	}
           	
@@ -1038,8 +1052,13 @@
           	$('#go-consult').click(function() {
           		//0등급인 경우 다른 혜택 확인하기
           		if (testResult.grade === 0) {
-          			location.href="/main/searchBokji"
-          			return;
+          			//인지 지원등급이 아닌 경우만 복지서비스로 이동
+          			if(testResult.diseaseSelect1 && testResult.diseaseSelect1[0] 
+    					|| testResult.diseaseSelect2 && testResult.diseaseSelect2[0]) {
+		  			} else {
+		  				location.href="/main/searchBokji"
+	  					return;
+		  			}
           		}
           		
           		

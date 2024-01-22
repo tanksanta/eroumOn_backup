@@ -72,7 +72,7 @@
                     <h4 class="font-medium">지원내용 및 자격요건</h4>
                     <ul class="check-lists">
                         <li><span class="font-semibold">장기요양인정등급 1, 2등급</span> 판정을 받으셔야 신청 가능</li>
-                        <li>시설 입소에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 2,256만원(월 188만원)</span></li>
+                        <li>시설 입소에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 2,438만원(월 206만원)</span></li>
                     </ul>
                 </div>
                 <div class="flex flex-col w-full">
@@ -124,7 +124,7 @@
                     <h4 class="font-medium">지원내용 및 자격요건</h4>
                     <ul class="check-lists">
                         <li><span class="font-semibold">장기요양인정등급 3, 4, 5등급 </span>판정을 받으셔야 신청 가능</li>
-                        <li>재가 이용에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 1,692만원(월 141만원)</span></li>
+                        <li>재가 이용에 따른 지원금 <span class="text-indexKey1 font-semibold">최대 연 1,746만원(월 145만원)</span></li>
                         <li><span class="font-semibold">방문</span>(방문요양, 방문간호, 방문목욕)과 <span class="font-semibold">주야간보호</span> 서비스 이용 가능 </li>
                     </ul>
                 </div>

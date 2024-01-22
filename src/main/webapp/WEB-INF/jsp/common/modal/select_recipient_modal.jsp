@@ -647,8 +647,16 @@
             		} else {
             			//해당 수급자가 기타(친척)인 경우 관계 변경을 위해 마이페이지 수급자 상세로 redirect
             			var srchRecipient = sr_recipients.filter(f => f.recipientsNo == recipientNo)[0];
+            			var checkDate = srchRecipient.mdfcnDt ? new Date(srchRecipient.mdfcnDt) : new Date(srchRecipient.regDt); //수정일 기준 없으면 등록일
+            			var deployDate = new Date(2024, 0, 4); //2024-01-04
             			if (srchRecipient.relationCd === '100') {
-            				alert('수급자 관계를 수정해 주세요');
+            				alert('가족 관계를 수정해 주세요');
+            				location.href = '/membership/info/recipients/view?recipientsNo=' + srchRecipient.recipientsNo;
+            				return;
+            			}
+            			//자녀이면서 관계코드 변경전인 경우도 수급자 상세로 이동 
+            			if (srchRecipient.relationCd === '003' && checkDate.getTime() < deployDate.getTime()) {
+            				alert('가족 관계를 수정해 주세요');
             				location.href = '/membership/info/recipients/view?recipientsNo=' + srchRecipient.recipientsNo;
             				return;
             			}
