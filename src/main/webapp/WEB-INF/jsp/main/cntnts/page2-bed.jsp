@@ -25,7 +25,7 @@
 	        <li><a href="${_mainPath}/cntnts/page2-outdoor">야외</a></li>
 	    </ul>
 		<div class="card is-large">
-	        <div class="card-item9">
+	        <!-- div class="card-item9">
 	            <img src="/html/page/index/assets/images/img-checkpoint4.png" alt="">
 	            <dl>
 	                <dt>안전손잡이(변기형)</dt>
@@ -33,7 +33,7 @@
 	            </dl>
 	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont4" class="check">구매전 체크사항을 꼭! 확인하세요</a>
 	            <a href="/market/gds/2/list#25" class="button"><span>제품 보기</span></a>
-	        </div>
+	        </div -->
 	        <div class="card-item1">
 	            <img src="/html/page/index/assets/images/img-checkpoint4.png" alt="">
 	            <dl>
@@ -63,12 +63,31 @@
 	        </div>
 	        <div class="card-item10">
 	            <img src="/html/page/index/assets/images/img-checkpoint7.png" alt="">
+	            <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="">
 	            <dl>
 	                <dt>욕창예방매트리스</dt>
 	                <dd>신체 기능 저하로 실내에서 많은 시간 누워 계시는 고객에게 추천합니다.</dd>
 	            </dl>
 	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont7" class="check">구매전 체크사항을 꼭! 확인하세요</a>
 	            <a href="/market/gds/2/list#22" class="button"><span>제품 보기</span></a>
+	        </div>
+	        <div class="card-item10">
+	            <img src="/html/page/index/assets/images/img-checkpoint13.png" alt="">
+	            <dl>
+	                <dt>이동변기</dt>
+	                <dd>화장실까지 이동이 불편하신 고객에게 추천합니다.</dd>
+	            </dl>
+	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont12" class="check">구매전 체크사항을 꼭! 확인하세요</a>
+	            <a href="/market/gds/2/123/124/list" class="button"><span>제품 보기</span></a>
+	        </div>
+	        <div class="card-item10">
+	            <img src="/html/page/index/assets/images/img-checkpoint12.png" alt="">
+	            <dl>
+	                <dt>간이변기</dt>
+	                <dd>실내 화장실 이용이 불편하신 고객에게 추천합니다.</dd>
+	            </dl>
+	            <a href="${_mainPath}/cntnts/page3-checkpoint#check-cont13" class="check">구매전 체크사항을 꼭! 확인하세요</a>
+	            <a href="/market/gds/2/123/138/list#22" class="button"><span>제품 보기</span></a>
 	        </div>
 		</div>
     </div>
