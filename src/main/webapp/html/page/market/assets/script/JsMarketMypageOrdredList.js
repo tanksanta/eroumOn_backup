@@ -1,3 +1,4 @@
+/*cssSelector : 그려줄 위치*/
 class JsMarketMypageOrdredList extends JsMarketOrdredDrawItems{
     constructor(cssSelector, ordredListJson, entrpsVOList, codeMapJson){
         super();

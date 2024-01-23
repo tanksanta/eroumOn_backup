@@ -1,6 +1,7 @@
 package icube.market.mypage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -39,6 +40,8 @@ import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.mlg.biz.MbrMlgVO;
 import icube.manage.promotion.point.biz.MbrPointService;
 import icube.manage.promotion.point.biz.MbrPointVO;
+import icube.manage.sysmng.dlvy.biz.DlvyCoMngService;
+import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
 import icube.market.mbr.biz.MbrSession;
 
 /**
@@ -78,6 +81,9 @@ public class MypageIndexController extends CommonAbstractController {
 
 	@Resource(name = "ordrService")
 	private OrdrService ordrService;
+
+	@Resource(name = "dlvyCoMngService")
+	private DlvyCoMngService dlvyCoMngService;
 
 	@Autowired
 	private MbrSession mbrSession;
@@ -196,15 +202,21 @@ public class MypageIndexController extends CommonAbstractController {
 		String ordredListJson =  mapper.writeValueAsString(ordrListVO.getListObject());
 		model.addAttribute("ordredListJson", ordredListJson);
 
+		// 택배사
+		paramMap = new HashMap<String, Object>();
+		paramMap.put("srchUseYn", "Y");
+		List<DlvyCoMngVO> dlvyCoList = dlvyCoMngService.selectDlvyCoListAll(paramMap);
+		model.addAttribute("dlvyCoList", dlvyCoList);
+
 		Map<String, Object> codeMap = new HashMap<String, Object>();
 		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
 		codeMap.put("bassStlmTyCode", CodeMap.BASS_STLM_TY);
 		codeMap.put("ordrSttsCode", CodeMap.ORDR_STTS);
 		codeMap.put("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+		codeMap.put("dlvyCoList", dlvyCoList);
 
 		String codeMapJson =  mapper.writeValueAsString(codeMap);
 		model.addAttribute("codeMapJson", codeMapJson);
-
 
 		return "/market/mypage/index";
 	}

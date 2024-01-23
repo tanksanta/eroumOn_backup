@@ -1,3 +1,13 @@
+/*
+    결제 완료 후 상품을 html로 그려주는 클래스
+    ordredListJson : 주문된 데이터
+    entrpsVOList : 입점업체 리스트
+    codeMapJson : 코드성 데이터
+                - CodeMap.ordrSttsCode
+                - CodeMap.gdsTyCode
+                - CodeMap.bassStlmTyCode
+                - dlvyCoList : 배송업체 리스트
+*/
 class JsMarketOrdredDrawItems{
     constructor(){
         this._cls_info = this._cls_info || {};
@@ -449,23 +459,24 @@ class JsMarketOrdredDrawItems{
             case "OR07":
                 strHtml += '<dl>'
                 strHtml += '    <dt>배송중</dt>'
-                strHtml += '    <dd>{0}</dd>'.format(ordredDtlJson.sndngDt.format("yyyy-MM-dd"))
+                strHtml += '    <dd>{0}</dd>'.format(new Date(ordredDtlJson.sndngDt).format("yyyy-MM-dd"))
                 strHtml += '</dl>'
 
-                // <c:set var="dlvyUrl" value="#" />
-                // <c:forEach items="${dlvyCoList}" var="dlvyCoInfo">
-                //     <c:if test="${dlvyCoInfo.coNo eq ordrDtl.dlvyCoNo}">
-                //     <c:set var="dlvyUrl" value="${dlvyCoInfo.dlvyUrl}" />
-                //     </c:if>
-                // </c:forEach>
+                var arrTemp = this._cls_info.codeMapJson.dlvyCoList.filter(function(item, idex) {
+                    if (item.coNo == ordredDtlJson.dlvyCoNo) {
+                        return true;
+                    }
+                });
 
-                // <a href="${dlvyUrl}${ordrDtl.dlvyInvcNo}" target="_blank" class="btn btn-delivery">
-                //     <span class="name">
-                //         <img src="/html/page/market/assets/images/ico-delivery.svg" alt="">
-                //         ${ordrDtl.dlvyCoNm}
-                //     </span>
-                //     <span class="underline">${ordrDtl.dlvyInvcNo}</span>
-                // </a>
+                if (arrTemp != undefined && arrTemp.length > 0){
+                    strHtml += '<a href="{0}{1}" target="_blank" class="btn btn-delivery">'.format(arrTemp[0].dlvyUrl, ordredDtlJson.dlvyInvcNo);
+                    strHtml += '    <span class="name">';
+                    strHtml += '        <img src="/html/page/market/assets/images/ico-delivery.svg" alt="">';
+                    strHtml += '        {0}'.format(arrTemp[0].dlvyCoNm);
+                    strHtml += '    </span>';
+                    strHtml += '    <span class="underline">{0}</span>'.format(ordredDtlJson.dlvyInvcNo);
+                    strHtml += '</a>';
+                }
                 break;
             case "OR08":
                 strHtml += '<div class="box-gray">';
