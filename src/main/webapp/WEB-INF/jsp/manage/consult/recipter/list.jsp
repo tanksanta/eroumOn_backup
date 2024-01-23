@@ -35,7 +35,7 @@
 								<select name="srchCd" id="srchCd" class="form-control w-40">
 									<!--option value="" ${empty param.srchCd?'selected':'' }>전체</option-->
 									<c:forEach items="${FindCdList}" var="item" varStatus="status">
-									<option value="${item.key}" ${item.key eq param.srchCd?'selected':''}>${item.value}</option>
+									<option value="${item.key}" ${item.key eq param.srchCd ? 'selected' : ''}>${item.value}</option>
 									</c:forEach>
 								</select>
 								<input type="text" class="form-control flex-1" name="srchText" id="srchText" value="${param.srchText}">
@@ -114,7 +114,7 @@
 				<th scope="col">실거주지주소</th>
 				<th scope="col">상담유형</th>
 				<th scope="col">상담신청일<br>(재상담 신청일)</th>
-				<th scope="col">회원이름<br>(아이디)</th>
+				<th scope="col">회원이름<br>(회원코드)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -167,7 +167,7 @@
 				</td>
 				<td>
 					<a href="/_mng/mbr/${resultList.regUniqueId }/view" target="_blank" class="btn shadow w-full" style="height:auto;">
-						${resultList.rgtr } <br> (${resultList.regId }) 
+						${resultList.rgtr} <br> (${resultList.regUniqueId}) 
 					</a>
 				</td>
 			</tr>

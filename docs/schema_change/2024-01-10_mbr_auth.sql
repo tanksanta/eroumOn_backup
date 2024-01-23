@@ -48,3 +48,6 @@ JOIN_DT,
 'N'
 FROM MBR
 WHERE WHDWL_YN != 'Y';
+
+-- 간편회원의 회원 ID 정보 초기화
+UPDATE MBR SET MBR_ID = '' WHERE JOIN_TY IN ('K', 'N');

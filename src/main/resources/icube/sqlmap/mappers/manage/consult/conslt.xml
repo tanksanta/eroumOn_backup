@@ -82,6 +82,9 @@
 				<when test="srchCd == 'REG_ID' ">
 					AND REG_ID like CONCAT ('%',#{srchText},'%')
 				</when>
+				<when test="srchCd == 'REG_UNIQUE_ID' ">
+					AND REG_UNIQUE_ID = #{srchText}
+				</when>
 			</choose>
 		</if>
 		<if test="srchConsltSttus != null and srchConsltSttus != '' ">

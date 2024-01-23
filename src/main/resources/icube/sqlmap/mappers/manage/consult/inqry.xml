@@ -56,6 +56,9 @@
 		<if test="srchName != null and srchName != ''">
 			AND rgtr = #{srchName}
 		</if>
+		<if test="srchRgtr != null and srchRgtr != '' ">
+			AND rgtr like CONCAT('%', #{srchRgtr}, '%')
+		</if>
 		<if test="srchId != null and srchId != ''">
 			AND reg_id = #{srchId}
 		</if>

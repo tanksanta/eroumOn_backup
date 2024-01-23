@@ -22,6 +22,12 @@
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mau.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
+		<if test="srchUniqueIdList != null and srchUniqueIdList.size != 0">
+			AND mau.mbr_unique_id IN
+			<foreach collection="srchUniqueIdList" item="uniqueId" index="index" separator="," open="(" close=")">
+				#{uniqueId}
+			</foreach>
+		</if>
 		<if test="srchMbrId != null and srchMbrId != '' ">
 			AND mau.mbr_id = #{srchMbrId}
 		</if>

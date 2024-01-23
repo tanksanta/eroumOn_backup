@@ -15,6 +15,9 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 @Service("mbrAuthService")
 public class MbrAuthService extends CommonAbstractServiceImpl {
 	
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
 	@Resource(name="mbrAuthDAO")
 	private MbrAuthDAO mbrAuthDAO;
 	
@@ -26,6 +29,12 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 	public List<MbrAuthVO> selectMbrAuthByMbrUniqueId(String uniqueId) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("srchMbrUniqueId", uniqueId);
+		return selectMbrAuthListAll(paramMap);
+	}
+	
+	public List<MbrAuthVO> selectMbrAuthByUniqueIdList(List<String> srchUniqueIdList) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueIdList", srchUniqueIdList);
 		return selectMbrAuthListAll(paramMap);
 	}
 	
@@ -141,12 +150,16 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 			//인증 수단 추가
 			insertMbrAuthWithMbrVO(mbrVO);
 			
+			//회원 ID 업데이트
+			MbrVO srchMbr = mbrService.selectMbrByUniqueId(mbrVO.getUniqueId());
+			srchMbr.setMbrId(mbrVO.getMbrId());
+			srchMbr.setPswd(mbrVO.getPswd());
+			mbrService.updateMbr(srchMbr);
+			
+			resultMap.put("success", true);
 		} catch (Exception ex) {
 			resultMap.put("msg", "이로움 인증정보 등록중 오류가 발생하였습니다");
-			return resultMap;
 		}
-		
-		resultMap.put("success", true);
 		return resultMap;
 	}
 	

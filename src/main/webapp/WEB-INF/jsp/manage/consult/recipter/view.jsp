@@ -27,8 +27,8 @@
                                     <td>${MBR_RELATION_CD_FOR_ADMIN[mbrConsltVO.relationCd]}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">회원아이디</th>
-                                    <td>${mbrConsltVO.regId}</td>
+                                    <th scope="row">회원코드</th>
+                                    <td>${mbrConsltVO.regUniqueId}</td>
                                     <th scope="row">상담유형</th>
                                     <td>${PREV_PATH[mbrConsltVO.prevPath]}</td>
                                 </tr>

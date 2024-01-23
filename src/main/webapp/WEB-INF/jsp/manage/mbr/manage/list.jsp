@@ -39,10 +39,11 @@
                             <div class="form-group w-84">
                                 <select name="srchTarget" id="srchTarget" class="form-control w-40">
                                     <option value="srchLastTelnoOfMbl" <c:if test="${param.srchTarget == 'srchLastTelnoOfMbl'}">selected</c:if>>휴대폰번호</option>
-                                    <option value="srchMbrId" <c:if test="${param.srchTarget == 'srchMbrId'}">selected</c:if>>회원아이디</option>
+                                    <option value="srchMbrId" <c:if test="${param.srchTarget == 'srchMbrId'}">selected</c:if>>이로움ID</option>
                                     <option value="srchMbrNm" <c:if test="${param.srchTarget == 'srchMbrNm'}">selected</c:if>>회원이름</option>
                                     <option value="srchRecipientsNm" <c:if test="${param.srchTarget == 'srchRecipientsNm'}">selected</c:if>>수급자성명</option>
                                     <option value="srchRcperRcognNo" <c:if test="${param.srchTarget == 'srchRcperRcognNo'}">selected</c:if>>요양인정번호</option>
+                                    <option value="srchUniqueId" <c:if test="${param.srchTarget == 'srchUniqueId'}">selected</c:if>>회원코드</option>
                                 </select>
                                 <input type="text" class="form-control flex-1" name="srchText" id="srchText" value="${param.srchText}">
                             </div>
@@ -96,7 +97,7 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
-				<th scope="col">회원아이디</th>
+				<th scope="col">회원코드</th>
 				<th scope="col">회원이름</th>
 				<th scope="col">휴대폰번호</th>
 				<th scope="col">등록수급자수</th>
@@ -116,7 +117,7 @@
 		<c:set var="pageParam" value="curPage=${param.curPage}&amp;cntPerPage=${param.cntPerPage }&amp;srchMbrId=${param.srchMbrId}&amp;srchNm=${param.srchNm}&amp;srchLastTelnoOfMbl=${param.srchLastTelnoOfMbl}&amp;srchBrdt=${param.srchBrdt}" />
 			<tr>
 				<td>${listVO.startNo - status.index }</td>
-				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrId}</a></td>
+				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.uniqueId}</a></td>
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm}</a></td>
 				<td>${resultList.mblTelno}</td>
 				<td>${resultList.mbrRecipientsList.size()}</td>
@@ -149,7 +150,7 @@
 					</c:if>
 				</td>
 				<td class="cateVal${status.index}"><span class="badge-primary ml-2 gradeVal">${grade[resultList.mberGrade]}</span></td>
-				<td>${mbrJoinTy3[resultList.joinTy]}</td>
+				<td>${resultList.joinTyList}</td>
 				<td><fmt:formatDate value="${resultList.joinDt}" pattern="yyyy-MM-dd" /></td>
 				<td>${(resultList.mbrRecipientsList.stream().filter(f -> f.relationCd == "007").count() > 0) ? "본인" : "-"}</td>
 				<td>${resultList.mbrRecipientsList.stream().filter(f -> f.recipientsYn == "Y").count()}</td>

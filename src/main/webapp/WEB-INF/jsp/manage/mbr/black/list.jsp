@@ -29,8 +29,8 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchId">회원아이디</label></th>
-						<td><input type="text" class="form-control w-84" id="srchId" name="srchId" value="${param.srchId}"></td>
+						<th scope="row"><label for="srchId">회원코드</label></th>
+						<td><input type="text" class="form-control w-84" id="srchUniqueId2" name="srchUniqueId2" value="${param.srchUniqueId2}"></td>
 						<th scope="row"><label for="srchName">회원이름</label></th>
 						<td><input type="text" class="form-control w-84" id="srchName" name="srchName" value="${param.srchName}"></td>
 					</tr>
@@ -84,7 +84,7 @@
 	<table class="table-list">
 		<colgroup>
 			<col class="w-20">
-			<col class="w-[10%]">
+			<col class="w-40">
 			<col class="w-30">
 			<col class="w-20">
 			<col class="w-[15%]">
@@ -97,7 +97,7 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
-				<th scope="col">회원아이디</th>
+				<th scope="col">회원코드</th>
 				<th scope="col">회원이름</th>
 				<th scope="col">성별</th>
 				<th scope="col">이메일</th>
@@ -113,7 +113,7 @@
 			<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
-					<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}</a></td>
+					<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.uniqueId}</a></td>
 					<td><a href="/_mng/mbr/${resultList.uniqueId}/view" class="btn shadow w-full">${resultList.mbrNm }</a></td>
 					<td>${genderCode[resultList.gender] }</td>
 					<td>${resultList.eml }</td>
