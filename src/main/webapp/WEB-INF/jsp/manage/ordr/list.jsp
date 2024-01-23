@@ -312,7 +312,7 @@
                                 <td class="${resultList.ordrCd}">
                                     <a href="/_mng/mbr/${resultList.uniqueId }/view" target="_blank" class="btn shadow w-full" style="height:auto;">
                                         ${resultList.ordrrNm}<br>
-                                        (${resultList.ordrrId})
+                                        (${resultList.uniqueId})
                                     </a>
                                 </td>
                                 <td class="${resultList.ordrCd}">${resultList.recptrNm}</td>

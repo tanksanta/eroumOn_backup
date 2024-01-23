@@ -24,6 +24,7 @@ import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
 import icube.common.util.FileUtil;
 import icube.common.util.HtmlUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
@@ -84,6 +85,9 @@ public class MGdsQaController extends CommonAbstractController {
 		List<GdsQaVO> qaList = listVO.getListObject();
 		for(GdsQaVO gdsQaVO : qaList) {
 			gdsQaVO.setAnsCn(HtmlUtil.clean(gdsQaVO.getAnsCn()));
+			
+			//마스킹
+			gdsQaVO.setRgtr(StringUtil.nameMasking(gdsQaVO.getRgtr()));
 		}
 
 		model.addAttribute("listVO", listVO);

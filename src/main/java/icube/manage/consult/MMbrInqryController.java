@@ -24,6 +24,7 @@ import icube.common.framework.view.JavaScriptView;
 import icube.common.mail.MailService;
 import icube.common.util.CommonUtil;
 import icube.common.util.FileUtil;
+import icube.common.util.StringUtil;
 import icube.common.util.ValidatorUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
@@ -71,6 +72,12 @@ public class MMbrInqryController extends CommonAbstractController {
 		CommonListVO listVO = new CommonListVO(request);
 		listVO.setParam("srchUseYn", "Y");
 		listVO = mbrInqryService.mbrInqryListVO(listVO);
+		
+		for(Object vo : listVO.getListObject()) {
+			MbrInqryVO mbrInqryVO = (MbrInqryVO)vo;
+			//마스킹
+			mbrInqryVO.setRgtr(StringUtil.nameMasking(mbrInqryVO.getRgtr()));
+		}
 
 		model.addAttribute("listVO", listVO);
 		model.addAttribute("ansYn", CodeMap.ANS_YN);

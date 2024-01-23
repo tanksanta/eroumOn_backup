@@ -28,12 +28,14 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchId">작성자 / ID</label></th>
-						<td><input type="text" class="form-control" id="srchId" name="srchId" value="${param.srchId}" maxlength="30">&nbsp;
-						/&nbsp; <input type="text" class="form-control" id="srchName" name="srchName" value="${param.srchName}" maxlength="30"></td>
-						<th scope="row"><label for="srchTel">휴대폰번호(뒷자리)</label>
+						<th scope="row"><label for="srchId">작성자</label></th>
 						<td>
-							<input type="text" class="form-control" id="srchTel" name="srchTel" value="${param.srchTel}" maxlength="4">
+							<input type="text" class="form-control" id="srchRgtr" name="srchRgtr" value="${param.srchRgtr}" maxlength="30">
+						</td>
+						
+						<th scope="row"><label for="search-item2">회원코드</label></th>
+						<td>
+							<input type="text" class="form-control" id="uniqueId" name="uniqueId" maxlength="20" value="${param.uniqueId}"/>
 						</td>
 					</tr>
 					<tr>
@@ -51,6 +53,11 @@
 									<option value="${inqry.key}"<c:if test="${inqry.key eq param.srchInqryTyNo2}">selected="selected"</c:if> class="selectVal${status.index}" style="display:"";">${inqry.value}</option>
 								</c:forEach>
 							</select>
+						</td>
+						
+						<th scope="row"><label for="srchTel">휴대폰번호(뒷자리)</label>
+						<td>
+							<input type="text" class="form-control" id="srchTel" name="srchTel" value="${param.srchTel}" maxlength="4">
 						</td>
 					</tr>
 					<tr>
@@ -111,7 +118,7 @@
 				<td>${inqryTyNo1[resultList.inqryTy]}</td>
 				<td>${inqryTyNo2[resultList.inqryDtlTy]}</td>
 				<td><a href="./form?${pageParam}"  class="changeFrm">${resultList.ttl}</a></td>
-				<td>${resultList.regId}</td>
+				<td>${resultList.rgtr}</td>
 				<td><fmt:formatDate value="${resultList.regDt }" pattern="yyyy-MM-dd" /></td>
 				<td>${ansYn[resultList.ansYn]}</td>
 			</tr>

@@ -29,13 +29,14 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="search-item2">작성자/ID</label></th>
-						<td colspan="3">
-							<div class="form-group w-84">
-								<input type="text" class="form-control flex-1" id="srchRgtr" name="srchRgtr" maxlength="20" value="${param.srchRgtr}"/>
-								<i>/</i>
-								<input type="text" class="form-control flex-1" id="srchRgtrId" name="srchRgtrId" maxlength="20" value="${param.srchRgtrId}"/>
-							</div>
+						<th scope="row"><label for="search-item2">작성자</label></th>
+						<td>
+							<input type="text" class="form-control" id="srchRgtr" name="srchRgtr" maxlength="20" value="${param.srchRgtr}"/>
+						</td>
+						
+						<th scope="row"><label for="search-item2">회원코드</label></th>
+						<td>
+							<input type="text" class="form-control" id="srchUniqueId" name="srchUniqueId" maxlength="20" value="${param.srchUniqueId}"/>
 						</td>
 					</tr>
 					<tr>
