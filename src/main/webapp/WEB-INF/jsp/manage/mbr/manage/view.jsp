@@ -720,10 +720,10 @@
 					},
 					dataType : 'json'
 				}).done(function(data) {
-					if(data.result){
+					if(data.success){
 						alert("발송되었습니다.");
 					}else{
-						alert("이메일 발송 중 오류가 발생하였습니다.");
+						alert(data.msg);
 					}
 				}).fail(function(data, status, err) {
 					alert("이메일발송 중 오류가 발생했습니다.");

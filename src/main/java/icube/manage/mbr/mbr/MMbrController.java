@@ -473,45 +473,52 @@ public class MMbrController extends CommonAbstractController {
     		, @PathVariable String uniqueId
     		) throws Exception {
     	Map<String, Object> resultMap = new HashMap();
-    	boolean result = false;
+    	resultMap.put("success", false);
 
-    	MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
-
-    	// 비밀번호 발송
-    	if(mbrVO != null){
-    		String rndPswd = RandomUtil.getRandomPassword(10);
-			String encPswd = BCrypt.hashpw(rndPswd, BCrypt.gensalt());
-
-			mbrVO.setPswd(encPswd);
-			mbrService.updateMbrPswd(mbrVO);
-
-	    	try {
-				if(ValidatorUtil.isEmail(mbrVO.getEml())) {
-					String MAIL_FORM_PATH = mailFormFilePath;
-					String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_temp_password.html");
-
-					mailForm = mailForm.replace("{rndPswd}", rndPswd);
-
-					// 메일 발송
-					String mailSj = "[이로움ON] 임시 비밀번호 안내";
-					if(!EgovStringUtil.equals("local", activeMode)) {
-						mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
-					} else {
-						mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
-					}
-					result = true;
-				} else {
-					log.debug("관리자 임시비밀번호 EMAIL 전송 실패 :: 이메일 체크 " + mbrVO.getEml());
-					resultMap.put("reason", mbrVO.getEml());
-				}
-			} catch (Exception e) {
-				log.debug("관리자 임시 비밀번호 알림 EMAIL 전송 실패 :: " + e.toString());
-				resultMap.put("reason", e.toString());
+    	try {
+    		MbrVO mbrVO = mbrService.selectMbrByUniqueId(uniqueId);
+        	if(mbrVO == null){
+        		resultMap.put("msg", "존재하지 않는 회원입니다.");
+        		return resultMap;
+        	}
+        	if (ValidatorUtil.isEmail(mbrVO.getEml()) == false) {
+        		resultMap.put("msg", "이메일이 미동록된 회원입니다.");
+        		return resultMap;
+        	}
+        	
+        	List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if(eroumAuthInfo == null) {
+				resultMap.put("msg", "이로움 아이디가 등록되지 않은 회원입니다.");
+				return resultMap;
 			}
+        	
+        	String rndPswd = RandomUtil.getRandomPassword(10);
+    		String encPswd = BCrypt.hashpw(rndPswd, BCrypt.gensalt());
+
+    		//비밀번호 변경
+    		mbrAuthService.updatePswd(eroumAuthInfo.getAuthNo(), encPswd);
+
+    		
+    		// 비밀번호 이메일 발송	
+			String MAIL_FORM_PATH = mailFormFilePath;
+			String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_temp_password.html");
+
+			mailForm = mailForm.replace("{rndPswd}", rndPswd);
+
+			// 메일 발송
+			String mailSj = "[이로움ON] 임시 비밀번호 안내";
+			if(!EgovStringUtil.equals("local", activeMode)) {
+				mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+			} else {
+				mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+			}
+			
+        	resultMap.put("success", true);
+    	} catch (Exception ex) {
+    		log.error("관리자 임시 비밀번호 알림 EMAIL 전송 실패 :: ", ex);
+    		resultMap.put("msg", "이메일 발송 중 오류가 발생하였습니다.");
     	}
-
-
-    	resultMap.put("result", result);
 
     	return resultMap;
     }
