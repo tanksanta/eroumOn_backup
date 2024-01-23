@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.DateUtil;
@@ -189,6 +191,19 @@ public class MypageIndexController extends CommonAbstractController {
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
 		model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String ordredListJson =  mapper.writeValueAsString(ordrListVO.getListObject());
+		model.addAttribute("ordredListJson", ordredListJson);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		codeMap.put("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		codeMap.put("ordrSttsCode", CodeMap.ORDR_STTS);
+		codeMap.put("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+
+		String codeMapJson =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", codeMapJson);
 
 
 		return "/market/mypage/index";

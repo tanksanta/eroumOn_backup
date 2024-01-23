@@ -1,4 +1,4 @@
-class JsMarketOrdredList extends JsMarketOrdredDrawItems{
+class JsMarketMypageOrdredList extends JsMarketOrdredDrawItems{
     constructor(cssSelector, ordredListJson, entrpsVOList, codeMapJson){
         super();
 
