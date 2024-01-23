@@ -75,6 +75,9 @@
 		<if test="srchUniqueId != null and srchUniqueId != '' ">
 			AND info.unique_id = #{srchUniqueId}
 		</if>
+		<if test="srchUniqueId2 != null and srchUniqueId2 != '' ">
+			AND a.unique_id = #{srchUniqueId2}
+		</if>
 		<if test="srchGender != null and srchGender != ''">
 			AND gender = #{srchGender}
 		</if>
@@ -114,8 +117,8 @@
 			FROM MBR_MNG_INFO info
 			GROUP BY info.unique_id)
 			ORDER BY info.unique_id) AS a
-			WHERE 1=1
-				<include refid="searchConditions" />
+		WHERE 1=1
+			<include refid="searchConditions" />
 	  	ORDER BY mng_info_no DESC
 	  	LIMIT #{startNum}, #{endNumMysql}
 	</select>

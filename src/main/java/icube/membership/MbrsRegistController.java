@@ -502,8 +502,9 @@ public class MbrsRegistController extends CommonAbstractController{
 				tempMbrVO.setSnsRegistDt(new Date());
 		        
 		        //간편로그인은 ID를 새로 생성해준다.
-		        String newId = mbrService.generateMbrId(tempMbrVO.getJoinTy());
-		        tempMbrVO.setMbrId(newId);
+//		        String newId = mbrService.generateMbrId(tempMbrVO.getJoinTy());
+//		        tempMbrVO.setMbrId(newId);
+				tempMbrVO.setMbrId("");
 				mbrService.insertMbr(tempMbrVO);
 				
 				
@@ -526,6 +527,9 @@ public class MbrsRegistController extends CommonAbstractController{
 				javaScript.setLocation("/");
 			}
 		} catch (Exception ex) {
+			mbrSession.setParms(new MbrVO(), false);
+			mbrSession.setMbrInfo(session, mbrSession);
+			
 			javaScript.setMessage("가입 중 오류가 발생하였습니다.");
 			javaScript.setLocation("/");
 		}

@@ -29,8 +29,8 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="srchId">회원아이디</label></th>
-						<td><input type="text" class="form-control w-84" id="srchMbrId" name=srchMbrId value="${param.srchMbrId }"></td>
+						<th scope="row"><label for="srchId">회원코드</label></th>
+						<td><input type="text" class="form-control w-84" id="srchUniqueId" name=srchUniqueId value="${param.srchUniqueId}"></td>
 						<th scope="row"><label for="srchName">회원이름</label></th>
 						<td><input type="text" class="form-control w-84" id="srchMbrNm" name="srchMbrNm" value="${param.srchMbrNm}"></td>
 					</tr>
@@ -90,7 +90,7 @@
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
-				<th scope="col">회원아이디</th>
+				<th scope="col">회원코드</th>
 				<th scope="col">회원이름</th>
 				<th scope="col">탈퇴일</th>
 				<th scope="col">탈퇴유형</th>
@@ -101,7 +101,7 @@
 			<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
 				<tr>
 					<td>${listVO.startNo - status.index }</td>
-					<td>${resultList.joinTy == "E" ? resultList.mbrId : mbrJoinTy[resultList.joinTy]}</td>
+					<td>${resultList.uniqueId}</td>
 					<td>${resultList.mbrNm }</td>
 					<td><fmt:formatDate value="${resultList.whdwlDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${exitTyCode[resultList.whdwlTy]}</td>

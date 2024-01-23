@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,8 @@ import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.mbr.itrst.biz.WishService;
 import icube.manage.mbr.itrst.biz.WishVO;
 import icube.manage.mbr.mbr.biz.MbrAgreementVO;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrMngInfoService;
 import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -77,6 +80,9 @@ public class MMbrController extends CommonAbstractController {
 
     @Resource(name = "mbrService")
     private MbrService mbrService;
+    
+    @Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 
     @Resource(name = "ordrService")
     private OrdrService ordrService;
@@ -193,18 +199,26 @@ public class MMbrController extends CommonAbstractController {
         	if ("srchRcperRcognNo".equals((String)reqMap.get("srchTarget"))) {
         		listVO.setParam("srchRcperRcognNo", value);
         	}
+        	if ("srchUniqueId".equals((String)reqMap.get("srchTarget"))) {
+        		listVO.setParam("srchUniqueId", value);
+        	}
         }
         listVO.setParam("srchWithoutNotSnsExist", "1");
         listVO = mbrService.mbrListVO(listVO);
         
         if (listVO.getListObject() != null && !listVO.getListObject().isEmpty()) {
-        	int ifor, ilen = listVO.getListObject().size();
-        	MbrVO vo;
-        	for(ifor=0 ; ifor<ilen ; ifor++) {
-        		vo = (MbrVO)listVO.getListObject().get(ifor);
+        	List<MbrVO> srchMbrList = (List<MbrVO>)listVO.getListObject();
+        	List<String> srchUniqueIdList = srchMbrList.stream().map(f -> f.getUniqueId()).collect(Collectors.toList());
+        	List<MbrAuthVO> mbrAuthList = mbrAuthService.selectMbrAuthByUniqueIdList(srchUniqueIdList);
+        	
+        	for(MbrVO vo : srchMbrList) {
+        		//가입유형
+        		String joinTyList = String.join(",", mbrAuthList.stream().filter(f -> vo.getUniqueId().equals(f.getMbrUniqueId())).map(m -> "E".equals(m.getJoinTy()) ? "O" : m.getJoinTy()).collect(Collectors.toList()));
+        		vo.setJoinTyList(joinTyList);
+        		
+        		//마스킹 처리
                 vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
                 vo.setMblTelno(StringUtil.phoneMasking(vo.getMblTelno()));
-                
                 vo.getMbrRecipientsList().forEach(recipientInfo -> {
                 	try {
                 		recipientInfo.setRecipientsNm(StringUtil.nameMasking(recipientInfo.getRecipientsNm()));
@@ -262,7 +276,8 @@ public class MMbrController extends CommonAbstractController {
     /**
      * 일반 회원 관리 > 처리
      */
-    @RequestMapping(value="action")
+    @SuppressWarnings("unused")
+	@RequestMapping(value="action")
     public View action(
             MbrVO mbrVO
             , @RequestParam Map<String,Object> reqMap
@@ -379,10 +394,19 @@ public class MMbrController extends CommonAbstractController {
         MbrMngInfoVO authInfoVO = mbrMngInfoService.selectMbrMngInfo(infoMap);
         mngMap.put("auth", authInfoVO);
         
+        //인증정보
+        List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+        
         //약관동의 정보 조회
         MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
 
         model.addAttribute("mbrVO", mbrVO);
+        model.addAttribute("eroumAuthInfo", eroumAuthInfo);
+		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
+		model.addAttribute("naverAuthInfo", naverAuthInfo);
         model.addAttribute("mbrAgreementVO", mbrAgreementVO);
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
@@ -954,7 +978,7 @@ public class MMbrController extends CommonAbstractController {
         // excel data
         Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
         mapping.put("번호", obj -> "rowNum");
-        mapping.put("회원아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원코드", obj -> ((MbrVO)obj).getUniqueId());
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
         mapping.put("휴대폰번호", obj -> ((MbrVO)obj).getMblTelno());
         mapping.put("등록수급자수", obj -> ((MbrVO)obj).getMbrRecipientsList().size());
