@@ -1191,7 +1191,13 @@ public class MbrService extends CommonAbstractServiceImpl {
 				String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_join.html");
 
 				mailForm = mailForm.replace("{mbrNm}", mbrVO.getMbrNm()); // 회원 이름
-				mailForm = mailForm.replace("{mbrId}", mbrVO.getMbrId()); // 회원 아이디
+				if ("K".equals(mbrVO.getJoinTy())) {
+					mailForm = mailForm.replace("{mbrId}", "간편가입(카카오)");
+				} else if ("N".equals(mbrVO.getJoinTy())) {
+					mailForm = mailForm.replace("{mbrId}", "간편가입(네이버)");
+				} else {
+					mailForm = mailForm.replace("{mbrId}", mbrVO.getMbrId());
+				}
 				mailForm = mailForm.replace("{mbrEml}", mbrVO.getEml()); // 회원 이메일
 				mailForm = mailForm.replace("{mblTelno}", mbrVO.getMblTelno()); // 회원 전화번호
 

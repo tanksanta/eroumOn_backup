@@ -1078,4 +1078,40 @@ public class MMbrController extends CommonAbstractController {
     		return "";
     	}
     }
+    
+    /**
+     * 휴면계정 정책 변경 안내 메일 발송(수동 url로 직접 실행)
+     */
+    @RequestMapping(value="send/drmcChangeGuideEmail")
+    public String sendDrmcChangeGuideEmail(
+    		Model model
+            ) throws Exception{
+
+    	try {
+    		Map<String, Object> paramMap = new HashMap<String, Object>();
+    		paramMap.put("srchMbrStts", "NORMAL");
+    		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
+
+    		String MAIL_FORM_PATH = mailFormFilePath;
+    		String mailForm = FileUtil.readFile(MAIL_FORM_PATH+"mail/mbr/mail_drmc_change_guide.html");
+    		
+    		// 메일 발송
+    		String mailSj = "[이로움ON] 휴면계정 정책 변경 안내";
+    		if(EgovStringUtil.equals("real", activeMode)) {
+    			for (MbrVO mbrVO : mbrList) {
+    				if (EgovStringUtil.isNotEmpty(mbrVO.getEml())) {
+    					mailService.sendMail(sendMail, mbrVO.getEml(), mailSj, mailForm);
+    				}
+    			}
+    		} else {
+    			mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm); //테스트
+    		}
+    		
+    		model.addAttribute("alertMsg", "전송이 완료되었습니다.");
+    	} catch (Exception ex) {
+    		log.error("--------휴면계정 정책 변경 안내 메일 발송 오류 : ", ex);
+    		model.addAttribute("alertMsg", "전송중 오류가 발생하였습니다.");
+    	}
+    	return "/common/msg";
+    }
 }
