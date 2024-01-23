@@ -495,10 +495,12 @@
 	                        <a href="./ordr/list" class="btn btn-more2">전체보기</a>
 	                    </div>
 
-	                    <div class="space-y-5.5 md:space-y-7.5">
+	                    <div class="order-container space-y-5.5 md:space-y-7.5">
 	                    	<c:if test="${empty ordrListVO.listObject }">
 	                        <p class="box-result is-large">최근 6개월간 주문 내역이 없습니다</p>
 	                        </c:if>
+
+							<div class=""></div>
 
 							<c:forEach items="${ordrListVO.listObject}" var="ordrDtl" varStatus="status">
 							<c:set var="pageParam" value="curPage=${ordrListVO.curPage}${!empty(ordrListVO.urlParam)? '&amp;' : ''}${ordrListVO.urlParam}" />
@@ -1011,6 +1013,15 @@
         <div id="ordr-exchng-msg"></div>
         <div id="ordr-return-msg"></div>
 
+        <textarea class="ordredListJson" style="display: none;">
+			${ordredListJson}
+		</textarea>
+        <textarea class="entrpsVOListJson" style="display: none;">
+			${entrpsVOListJson}
+		</textarea>
+        <textarea class="codeMapJson" style="display: none;">
+			${codeMapJson}
+		</textarea>
 
     </main>
 
@@ -1252,4 +1263,13 @@
 			return false;
 		});
     });
+    </script>
+
+	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketMypageIndex.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script>
+        var jsMarketMain = null;
+		$(document).ready(function() {
+            jsMarketMain = new JsMarketMypageIndex(' .order-container', $("textarea.ordredListJson").val(), $("textarea.entrpsVOListJson").val(), $("textarea.codeMapJson").val());
+        });
     </script>

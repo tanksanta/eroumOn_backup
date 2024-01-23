@@ -1,4 +1,4 @@
-class JsMarketOrdredList extends JsMarketOrdredDrawItems{
+class JsMarketMypageIndex extends JsMarketOrdredDrawItems{
     constructor(cssSelector, ordredListJson, entrpsVOList, codeMapJson){
         super();
 
@@ -17,6 +17,8 @@ class JsMarketOrdredList extends JsMarketOrdredDrawItems{
 		if (codeMapJson.trim().length > 0){
 			this._cls_info.codeMapJson = JSON.parse(codeMapJson);
 		}
+
+		this._cls_info.queryString = "selPeriod=3";
 
         this._cls_info.pagePrefix = 'main#container div#page-content' ;
         this._cls_info.pagePopPrefix = 'main#container div.modal2-con';

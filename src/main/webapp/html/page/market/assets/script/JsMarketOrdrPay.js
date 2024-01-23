@@ -406,89 +406,125 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
     	
 	}
 
-	f_ordr_dtls(){
+	f_ordr_dtls_one(jobjDtl, entrpsDlvygrpList, gdsNoList){
+		var ordrOptnTy, dlvyGroupYn, entrpsDlvygrpNo, calcDlvyYn;
+		var jobjTemp;
+		var itemone = {};
+		var gdsNo = jobjDtl.find('input[name="gdsNo"]').val();
+
+		ordrOptnTy					= jobjDtl.find('input[name="ordrOptnTy"]').val();
+
+		itemone.ordrOptnTy			= ordrOptnTy;
+
+		
+		dlvyGroupYn 				= jobjDtl.find('input[name="dlvyGroupYn"]').val();
+		entrpsDlvygrpNo				= jobjDtl.find('input[name="entrpsDlvygrpNo"]').val();
+		if (dlvyGroupYn != 'Y' || entrpsDlvygrpNo == undefined || entrpsDlvygrpNo == '0'){
+			dlvyGroupYn = 'N';
+			entrpsDlvygrpNo = '0';
+		}
+
+		calcDlvyYn = 'Y';
+		itemone.dlvyGroupYn			= dlvyGroupYn;
+		itemone.entrpsDlvygrpNo		= entrpsDlvygrpNo;
+		if (ordrOptnTy =='ADIT'){/*추가상품이면 배송비에서 제외*/
+			calcDlvyYn = 'N';//배송비 계산에서 제외
+		}else if (dlvyGroupYn == 'Y' && entrpsDlvygrpNo != '0'){
+			/*묶음 배송이면 묶음배송금액을 가지고 온다.*/
+			if (entrpsDlvygrpList.indexOf(entrpsDlvygrpNo) >= 0){
+				calcDlvyYn = 'N';//배송비 계산에서 제외
+			}else{
+				entrpsDlvygrpList.push(entrpsDlvygrpNo);
+			}
+		}else if (gdsNoList.indexOf(gdsNo) >= 0){
+			calcDlvyYn = 'N';//배송비 계산에서 제외
+		}else{/*한번 계산한 항목은 제외한다.*/
+			gdsNoList.push(gdsNo);
+		}
+		
+
+		if (calcDlvyYn == 'Y'){
+			if (dlvyGroupYn == 'Y'){
+				jobjTemp = $(this._cls_info.pageCartListfix + " .order-item-payment.entrpsDlvygrpNo[entrpsdlvygrpno='{0}']".format(entrpsDlvygrpNo));
+				itemone.dlvyBassAmt			= jobjTemp.find('input[name="dlvyGrpBaseAmt"]').val();
+				itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
+			}else{
+				itemone.dlvyBassAmt			= jobjDtl.find('input[name="dlvyBassAmt"]').val();
+				itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
+			}
+		} else {
+			itemone.dlvyBassAmt = itemone.plusDlvyBassAmt = "0";
+		}
+		
+
+		if (this._cls_info.dlvyCtAditRgnYn == 'Y' && calcDlvyYn == 'Y'){/*배송비 추가지역*/
+			itemone.dlvyAditAmt			= jobjDtl.find('input[name="dlvyAditAmt"]').val();
+			itemone.plusDlvyAditAmt		= itemone.dlvyAditAmt;
+		}else{
+			itemone.dlvyAditAmt			= "0";
+			itemone.plusDlvyAditAmt		= "0";
+		}
+
+		itemone.ordrDtlCd			= jobjDtl.find('input[name="ordrDtlCd"]').val();
+		itemone.gdsNo				= gdsNo;
+		itemone.gdsCd				= jobjDtl.find('input[name="gdsCd"]').val();
+		itemone.gdsNm				= jobjDtl.find('input[name="gdsNm"]').val();
+		itemone.gdsPc				= jobjDtl.find('input[name="gdsPc"]').val();
+		itemone.entrpsNo			= jobjDtl.find('input[name="entrpsNo"]').val();
+		itemone.entrpsNm			= jobjDtl.find('input[name="entrpsNm"]').val();
+		itemone.bnefCd				= jobjDtl.find('input[name="bnefCd"]').val();
+		itemone.recipterUniqueId	= jobjDtl.find('input[name="recipterUniqueId"]').val();
+		itemone.bplcUniqueId		= jobjDtl.find('input[name="bplcUniqueId"]').val();
+		itemone.couponNo			= jobjDtl.find('input[name="couponNo"]').val();
+		itemone.couponCd			= jobjDtl.find('input[name="couponCd"]').val();
+		itemone.couponAmt			= jobjDtl.find('input[name="couponAmt"]').val();
+		itemone.gdsOptnNo			= jobjDtl.find('input[name="gdsOptnNo"]').val();
+		itemone.ordrOptn			= jobjDtl.find('input[name="ordrOptn"]').val();
+		itemone.ordrOptnPc			= jobjDtl.find('input[name="ordrOptnPc"]').val();
+		itemone.ordrQy				= jobjDtl.find('input[name="ordrQy"]').val();
+		itemone.ordrPc				= jobjDtl.find('input[name="ordrPc"]').val();
+		itemone.plusOrdrPc			= jobjDtl.find('input[name="plusOrdrPc"]').val();
+		itemone.accmlMlg			= jobjDtl.find('input[name="accmlMlg"]').val();
+
+		return itemone;
+	}
+
+	f_ordr_dtls_all(){
 		var jobjCartList = $(this._cls_info.pageCartListfix + " .order-product-inner.cartGrp");
 		var jobjDtl;
-		var jobjTemp;
+		var jobjOptions;
+		
 		var itemone;
 		var arrDtls = [];
-		var entrpsDlvygrpList = [];
-		var calcDlvyYn;
-		var ordrOptnTy, dlvyGroupYn, entrpsDlvygrpNo;
+		var entrpsDlvygrpList = [], gdsNoList = [];
+		
+		var jfor, jlen;
 		var ifor, ilen = jobjCartList.length;
 
 		for(ifor=0 ; ifor<ilen ; ifor++){
 			jobjDtl = $(jobjCartList[ifor]);
 
-			itemone = {};
-			arrDtls.push(itemone);
+			jobjOptions = jobjDtl.find(" .item-option .option dd");//기본 옵션이 있는지 여부 체크
 
-			ordrOptnTy					= jobjDtl.find('input[name="ordrOptnTy"]').val();
-			itemone.ordrOptnTy			= ordrOptnTy;
-			
-			dlvyGroupYn 				= jobjDtl.find('input[name="dlvyGroupYn"]').val();
-			entrpsDlvygrpNo				= jobjDtl.find('input[name="entrpsDlvygrpNo"]').val();
-			if (dlvyGroupYn != 'Y' || entrpsDlvygrpNo == undefined || entrpsDlvygrpNo == '0'){
-				dlvyGroupYn = 'N';
-				entrpsDlvygrpNo = '0';
-			}
-
-			calcDlvyYn = 'Y';
-			itemone.dlvyGroupYn			= dlvyGroupYn;
-			itemone.entrpsDlvygrpNo		= entrpsDlvygrpNo;
-			if (ordrOptnTy =='ADIT'){/*추가상품이면 배송비에서 제외*/
-				calcDlvyYn = 'N';//배송비 계산에서 제외
-			}else if (dlvyGroupYn == 'Y' && entrpsDlvygrpNo != '0'){
-				/*묶음 배송이면 묶음배송금액을 가지고 온다.*/
-				if (entrpsDlvygrpList.indexOf(entrpsDlvygrpNo) >= 0){
-					calcDlvyYn = 'N';//배송비 계산에서 제외
-				}else{
-					entrpsDlvygrpList.push(entrpsDlvygrpNo);
+			if (jobjOptions.length > 0){
+				jlen = jobjOptions.length;
+				for(jfor=0 ; jfor<jlen ; jfor++){
+					itemone = this.f_ordr_dtls_one($(jobjOptions[jfor]), entrpsDlvygrpList, gdsNoList);
+					arrDtls.push(itemone);
 				}
-			}
-
-			if (calcDlvyYn == 'Y'){
-				if (dlvyGroupYn == 'Y'){
-					jobjTemp = $(this._cls_info.pageCartListfix + " .order-item-payment.entrpsDlvygrpNo[entrpsdlvygrpno='{0}']".format(entrpsDlvygrpNo));
-					itemone.dlvyBassAmt			= jobjTemp.find('input[name="dlvyGrpBaseAmt"]').val();
-					itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
-				}else{
-					itemone.dlvyBassAmt			= jobjDtl.find('input[name="dlvyBassAmt"]').val();
-					itemone.plusDlvyBassAmt		= itemone.dlvyBassAmt;
-				}
-			} else {
-				itemone.dlvyBassAmt = itemone.plusDlvyBassAmt = "0";
-			}
-			
-
-			if (this._cls_info.dlvyCtAditRgnYn == 'Y' && calcDlvyYn == 'Y'){/*배송비 추가지역*/
-				itemone.dlvyAditAmt			= jobjDtl.find('input[name="dlvyAditAmt"]').val();
-				itemone.plusDlvyAditAmt		= itemone.dlvyAditAmt;
 			}else{
-				itemone.dlvyAditAmt			= "0";
-				itemone.plusDlvyAditAmt		= "0";
+				itemone = this.f_ordr_dtls_one(jobjDtl, entrpsDlvygrpList, gdsNoList);
+				arrDtls.push(itemone);
 			}
-
-			itemone.ordrDtlCd			= jobjDtl.find('input[name="ordrDtlCd"]').val();
-			itemone.gdsNo				= jobjDtl.find('input[name="gdsNo"]').val();
-			itemone.gdsCd				= jobjDtl.find('input[name="gdsCd"]').val();
-			itemone.gdsNm				= jobjDtl.find('input[name="gdsNm"]').val();
-			itemone.gdsPc				= jobjDtl.find('input[name="gdsPc"]').val();
-			itemone.entrpsNo			= jobjDtl.find('input[name="entrpsNo"]').val();
-			itemone.entrpsNm			= jobjDtl.find('input[name="entrpsNm"]').val();
-			itemone.bnefCd				= jobjDtl.find('input[name="bnefCd"]').val();
-			itemone.recipterUniqueId	= jobjDtl.find('input[name="recipterUniqueId"]').val();
-			itemone.bplcUniqueId		= jobjDtl.find('input[name="bplcUniqueId"]').val();
-			itemone.couponNo			= jobjDtl.find('input[name="couponNo"]').val();
-			itemone.couponCd			= jobjDtl.find('input[name="couponCd"]').val();
-			itemone.couponAmt			= jobjDtl.find('input[name="couponAmt"]').val();
-			itemone.gdsOptnNo			= jobjDtl.find('input[name="gdsOptnNo"]').val();
-			itemone.ordrOptn			= jobjDtl.find('input[name="ordrOptn"]').val();
-			itemone.ordrOptnPc			= jobjDtl.find('input[name="ordrOptnPc"]').val();
-			itemone.ordrQy				= jobjDtl.find('input[name="ordrQy"]').val();
-			itemone.ordrPc				= jobjDtl.find('input[name="ordrPc"]').val();
-			itemone.plusOrdrPc			= jobjDtl.find('input[name="plusOrdrPc"]').val();
-			itemone.accmlMlg			= jobjDtl.find('input[name="accmlMlg"]').val();
+			
+			jobjOptions = jobjDtl.find(" .item-option .item-add-box .item-add");//추가 옵션이 있는지 여부 체크
+			if (jobjOptions.length > 0){
+				jlen = jobjOptions.length;
+				for(jfor=0 ; jfor<jlen ; jfor++){
+					itemone = this.f_ordr_dtls_one($(jobjOptions[jfor]), entrpsDlvygrpList, gdsNoList);
+					arrDtls.push(itemone);
+				}
+			}
 		}
 
 		return arrDtls;
@@ -503,7 +539,10 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 		let _bootpayScriptKey = this._cls_info.codeMapJson._bootpayScriptKey;
 		let test_deposit = (this._cls_info.codeMapJson._activeMode != "REAL")?true:false;
 
-		let orderDtls = this.f_ordr_dtls();
+		let orderDtls = this.f_ordr_dtls_all();
+
+		// console.log(orderDtls)
+		// return;
 
 		$("input[name='ordrDtls']").val(JSON.stringify(orderDtls));
 		

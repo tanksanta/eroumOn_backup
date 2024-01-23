@@ -240,6 +240,8 @@
 			 , od.dlvy_co_nm
 			 , od.dlvy_dt
 			 , od.dlvy_invc_no
+			 , od.dlvy_group_yn
+			 , od.entrps_dlvygrp_no
 
 		 	 , od.rfnd_yn
 			 , od.rfnd_bank
