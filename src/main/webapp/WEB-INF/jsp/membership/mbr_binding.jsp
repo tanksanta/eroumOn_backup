@@ -75,7 +75,7 @@
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-kakao.png">
 							<div style="flex:5 5 0; line-height:40px;">카카오 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno }</div>
-							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/login" class="btn btn-outline-primary">로그인</a>
+							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/kakao/auth" class="btn btn-outline-primary">로그인</a>
 						</div>
 					</c:if>
 					
@@ -83,7 +83,7 @@
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-naver.png">
 							<div style="flex:5 5 0; line-height:40px;">네이버 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${naverAuthInfo.eml}</div>
-							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/login" class="btn btn-outline-primary">로그인</a>
+							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/naver/get" class="btn btn-outline-primary">로그인</a>
 						</div>
 					</c:if>
 				</div>
