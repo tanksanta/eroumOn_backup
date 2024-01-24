@@ -203,7 +203,7 @@
                                        	</c:if>
 										<c:if test="${cart.ordrOptnTy eq 'ADIT'}">
 											<strong><fmt:formatNumber value="${cart.ordrOptnPc}" pattern="###,###" /></strong> 원
-											<c:set var="ttlPc" value="${ttlPc + (cart.ordrPc + cart.ordrOptnPc ) * cart.ordrQy}" />
+											<c:set var="ttlPc" value="${ttlPc + (cart.ordrOptnPc ) * cart.ordrQy}" />
                                        	</c:if></td>
 									<td class="count">
 										<p>

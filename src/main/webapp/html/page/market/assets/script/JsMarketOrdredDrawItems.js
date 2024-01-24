@@ -17,6 +17,23 @@ class JsMarketOrdredDrawItems{
 		this._cls_info.popups = {};
         this._cls_info.jsCommon = new JsCommon();
 
+        this._cls_info.dispOptions = {};
+        this._cls_info.dispOptions.body = {};
+        this._cls_info.dispOptions.body.status = {};
+
+        this._cls_info.dispOptions.body.status.f_rtrcn_msg = true;
+        this._cls_info.dispOptions.body.status.f_return_msg = true;
+        this._cls_info.dispOptions.body.status.f_exchng_msg = true;
+        this._cls_info.dispOptions.body.status.f_gds_exchng = true;
+        this._cls_info.dispOptions.body.status.f_ordr_done = true;
+        this._cls_info.dispOptions.body.status.f_partners_msg = true;
+        
+
+        this._cls_info.dispOptions.footer = {};
+        this._cls_info.dispOptions.footer.f_ordr_rtrcn = true;/*주문취소 버튼*/
+        this._cls_info.dispOptions.footer.f_ordr_return = true;/*반품신청 버튼*/
+        
+
         // this._cls_info.queryString
     }
 
@@ -158,12 +175,17 @@ class JsMarketOrdredDrawItems{
 
         strHtml += '<div class="order-footer">';
 
-        if (ordredDtlJson.cancelBtn != undefined && ordredDtlJson.cancelBtn > 0){
-            strHtml += '<button type="button" class="btn btn-outline-primary btn-small f_ordr_rtrcn" data-ordr-cd="{0}">주문취소</button>'.format(ordredDtlJson.ordrCd);
+        if (this._cls_info.dispOptions.footer.f_ordr_rtrcn){
+            if (ordredDtlJson.cancelBtn != undefined && ordredDtlJson.cancelBtn > 0){
+                strHtml += '<button type="button" class="btn btn-outline-primary btn-small f_ordr_rtrcn" data-ordr-cd="{0}">주문취소</button>'.format(ordredDtlJson.ordrCd);
+            }
         }
-        if (ordredDtlJson.returnBtn != undefined && ordredDtlJson.returnBtn > 0){
-            strHtml += '<button type="button" class="btn btn-outline-primary btn-small f_ordr_return" data-ordr-cd="{0}">반품신청</button>'.format(ordredDtlJson.ordrCd);
+        if (this._cls_info.dispOptions.footer.f_ordr_return){
+            if (ordredDtlJson.returnBtn != undefined && ordredDtlJson.returnBtn > 0){
+                strHtml += '<button type="button" class="btn btn-outline-primary btn-small f_ordr_return" data-ordr-cd="{0}">반품신청</button>'.format(ordredDtlJson.ordrCd);
+            }
         }
+        
 
         strHtml += '</div>';
         return strHtml;
@@ -430,7 +452,9 @@ class JsMarketOrdredDrawItems{
                 strHtml +=      '<div class="content">';
                 strHtml +=          '<p class="flex-1">멤버스<br> 승인반려</p>';
                 strHtml +=          '<div class="multibtn">';
-                strHtml +=              '<button type="button" class="btn btn-primary btn-small f_partners_msg" data-ordr-no="{0}" data-dtl-no="{1}">사유확인</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo);
+                if (this._cls_info.dispOptions.body.status.f_partners_msg){
+                    strHtml +=              '<button type="button" class="btn btn-primary btn-small f_partners_msg" data-ordr-no="{0}" data-dtl-no="{1}">사유확인</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo);
+                }
                 strHtml +=          '</div>';
                 strHtml +=      '</div>';
                 strHtml += '</div>';
@@ -482,8 +506,12 @@ class JsMarketOrdredDrawItems{
                 strHtml += '<div class="box-gray">';
                 strHtml += '    <p class="flex-1">배송완료</p>';
                 strHtml += '    <div class="multibtn">';
-                strHtml += '        <button type="button" class="btn btn-primary btn-small f_ordr_done" data-ordr-no="{0}" data-dtl-cd="{1}" data-stts-ty="OR09" data-resn-ty="", data-resn="상품 구매확정" data-msg="마일리지가 적립됩니다.구매확정 처리하시겠습니까?">구매확정</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrCd);
-                strHtml += '        <button type="button" class="btn btn-outline-primary btn-small f_gds_exchng" data-dtl-cd="{1}" data-ordr-no="{0}" >교환신청</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlCd);
+                if (this._cls_info.dispOptions.body.status.f_ordr_done){
+                    strHtml += '        <button type="button" class="btn btn-primary btn-small f_ordr_done" data-ordr-no="{0}" data-dtl-cd="{1}" data-stts-ty="OR09" data-resn-ty="", data-resn="상품 구매확정" data-msg="마일리지가 적립됩니다.구매확정 처리하시겠습니까?">구매확정</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrCd);
+                }
+                if (this._cls_info.dispOptions.body.status.f_gds_exchng){
+                    strHtml += '        <button type="button" class="btn btn-outline-primary btn-small f_gds_exchng" data-dtl-cd="{1}" data-ordr-no="{0}" >교환신청</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlCd);    
+                }
                 strHtml += '    </div>';
                 strHtml += '</div>';
                 break;
@@ -492,7 +520,10 @@ class JsMarketOrdredDrawItems{
                 strHtml += '<div class="box-gray">';
                 strHtml += '    <p class="flex-1">{0}</p>'.format(this._cls_info.codeMapJson.ordrSttsCode[ordredDtlJson.sttsTy]);
                 strHtml += '    <div class="multibtn">';
-                strHtml += '        <button type="button" class="btn btn-primary btn-small f_rtrcn_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">취소 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                if (this._cls_info.dispOptions.body.status.f_rtrcn_msg){
+                    strHtml += '        <button type="button" class="btn btn-primary btn-small f_rtrcn_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">취소 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                }
+                
                 strHtml += '    </div>';
                 strHtml += '</div>';
                 break;
@@ -502,7 +533,10 @@ class JsMarketOrdredDrawItems{
                 strHtml += '<div class="box-gray">';
                 strHtml += '    <p class="flex-1">{0}</p>'.format(this._cls_info.codeMapJson.ordrSttsCode[ordredDtlJson.sttsTy]);
                 strHtml += '    <div class="multibtn">';
-                strHtml += '        <button type="button" class="btn btn-primary btn-small f_exchng_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">교환 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                if (this._cls_info.dispOptions.body.status.f_exchng_msg){
+                    strHtml += '        <button type="button" class="btn btn-primary btn-small f_exchng_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">교환 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                }
+                
                 strHtml += '    </div>';
                 strHtml += '</div>';
                 break;
@@ -513,7 +547,9 @@ class JsMarketOrdredDrawItems{
                 strHtml += '<div class="box-gray">';
                 strHtml += '    <p class="flex-1">{0}</p>'.format(this._cls_info.codeMapJson.ordrSttsCode[ordredDtlJson.sttsTy]);
                 strHtml += '    <div class="multibtn">';
-                strHtml += '        <button type="button" class="btn btn-primary btn-small f_return_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">반품 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                if (this._cls_info.dispOptions.body.status.f_return_msg){
+                    strHtml += '        <button type="button" class="btn btn-primary btn-small f_return_msg" data-ordr-no="{0}" data-dtl-no="{1}" data-dtl-cd="{2}">반품 상세정보</button>'.format(ordredDtlJson.ordrNo, ordredDtlJson.ordrDtlNo, ordredDtlJson.ordrDtlCd);
+                }
                 strHtml += '    </div>';
                 strHtml += '</div>';
                 break;

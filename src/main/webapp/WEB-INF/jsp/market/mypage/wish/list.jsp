@@ -44,10 +44,24 @@
 									<div class="order-item-thumb">
 										<c:choose>
 											<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
-										<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
+												<c:set var="imgUrl" value="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" />
+										
 											</c:when>
 											<c:otherwise>
-										<img src="/html/page/market/assets/images/noimg.jpg" alt="">
+												<c:set var="imgUrl" value="/html/page/market/assets/images/noimg.jpg" />
+										
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
+												<c:if test="${wish.gdsInfo.useYn eq 'Y'}">
+													<a href="${_marketPath}/gds/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
+														<img src="${imgUrl}" alt="">
+													</a>
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												<img src="${imgUrl}" alt="">
 											</c:otherwise>
 										</c:choose>
 									</div>

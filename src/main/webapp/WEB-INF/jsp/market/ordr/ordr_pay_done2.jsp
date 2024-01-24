@@ -24,8 +24,9 @@
                 </div>
                 <h3 class="text-title mt-10 mb-3 md:mb-4 md:mt-13">상품 정보</h3>
 
-                <div class="mb-9 space-y-6 md:mb-12 md:space-y-7.5">
+                <div class="order-container mb-9 space-y-6 md:mb-12 md:space-y-7.5">
 
+                    <div class=""></div>
                 <c:set var="totalDlvyBassAmt" value="0" />
                 <c:set var="totalDlvyAditAmt" value="0" />
                 <c:set var="totalCouponAmt" value="0" />
@@ -353,7 +354,28 @@
             </div>
         </div>
 
+        
+        <textarea class="ordredListJson" style="display: none;">
+			${ordredListJson}
+		</textarea>
+        <textarea class="entrpsVOListJson" style="display: none;">
+			${entrpsVOListJson}
+		</textarea>
+        <textarea class="codeMapJson" style="display: none;">
+			${codeMapJson}
+		</textarea>
+
         <!-- 배송지 -->
         <%-- <jsp:include page="./include/modal_dlvy.jsp" /> --%>
         <!-- //배송지 -->
     </main>
+
+    <script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredDone.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+
+    <script>
+        var jsMarketMain = null;
+		$(document).ready(function() {
+            jsMarketMain = new JsMarketOrdredDone(' .order-container', $("textarea.ordredListJson").val(), $("textarea.entrpsVOListJson").val(), $("textarea.codeMapJson").val());
+        });
+    </script>
