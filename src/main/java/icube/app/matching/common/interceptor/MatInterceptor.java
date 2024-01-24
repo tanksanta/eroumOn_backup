@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,12 @@ public class MatInterceptor implements HandlerInterceptor {
 	
 	@Autowired
 	private MatMbrSession matMbrSession;
+	
+	@Value("#{props['Bootpay.Script.Key']}")
+	private String bootpayScriptKey;
+
+	@Value("#{props['Profiles.Active']}")
+	private String activeMode;
 	
 	
 	@Override
@@ -53,6 +60,11 @@ public class MatInterceptor implements HandlerInterceptor {
 			log.debug(" # MBER ID : " + matMbrSession.getMbrId());
 			log.debug(" # IS LOGIN : " + matMbrSession.isLoginCheck());
 			log.debug(" ################################################################## ");
+			
+			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
+			request.setAttribute("_activeMode", activeMode.toUpperCase());
+			
+			request.setAttribute("_matMbrSession", matMbrSession);
 			
 			if (matMbrSession.isLoginCheck() == false) {
 				response.sendRedirect("/matching/login");
