@@ -2,6 +2,7 @@ package icube.market.mbr.biz;
 
 import java.io.Serializable;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,9 @@ public class MbrSession extends MbrVO implements Serializable {
 	@Setter(AccessLevel.NONE)
 	@Value("#{props['Globals.Member.session.key']}")
 	private String MEMBER_SESSION_KEY;
+	
+	public static final String RECENT_LGN_TY_COOKIE = "_membersLgnTy_";
+	
 
 	public void setRequest(RequestHolder requestHolder) {
 		HttpSession session = requestHolder.getSession();
@@ -83,5 +87,14 @@ public class MbrSession extends MbrVO implements Serializable {
 		setMbrAuthList(mbrVO.getMbrAuthList());
 		
 		setLoginCheck(loginCheck);
+	}
+	
+	
+	public Cookie getRecentLgnTyCookie() {
+		Cookie cookie = new Cookie(RECENT_LGN_TY_COOKIE, this.getLgnTy());
+		cookie.setPath("/");
+		cookie.setMaxAge(60 * 60 * 24 * 7); //7일 저장
+		cookie.setSecure(true);
+		return cookie;
 	}
 }

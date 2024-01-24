@@ -94,6 +94,9 @@ public class MbrsLoginController extends CommonAbstractController  {
 				if (SAVE_ID_COOKIE_ID.equals(cookie.getName())) {
 					model.addAttribute("saveId", cookie.getValue());
 				}
+				if (MbrSession.RECENT_LGN_TY_COOKIE.equals(cookie.getName())) {
+					model.addAttribute("recentLgnTy", cookie.getValue());
+				}
 			}
 		}
 
@@ -168,6 +171,10 @@ public class MbrsLoginController extends CommonAbstractController  {
 		cookie.setMaxAge("Y".equals(saveId) ? (60 * 60 * 24 * 7) : 0);
 		cookie.setSecure(true);
 		response.addCookie(cookie);
+		
+		// 최근 로그인 쿠키
+		Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
+		response.addCookie(recentLgnTyCookie);
 
 		// 로그인에 성공하면 로그인 실패 횟수를 초기화
 		mbrService.updateFailedLoginCountReset(srchMbrVO);
