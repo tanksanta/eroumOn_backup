@@ -356,7 +356,7 @@ public class StringUtil {
 		return cardNo;
 	}
 	
-	// 이메일 마스킹 골뱅이 앞에 문자열 뒤 3자리 마스킹 ex) test***@naver.com
+	// 이메일 마스킹 골뱅이 앞에 문자열 뒤 3자리 마스킹 ex) tes***@naver.com
 	public static String emlMasking(String eml) throws Exception {
 		if (EgovStringUtil.isEmpty(eml)) {
 			return eml;
@@ -369,7 +369,7 @@ public class StringUtil {
 		
 		String frontStr = split[0];
 		if (frontStr.length() > 3) {
-			frontStr = frontStr.substring(0, frontStr.length() - 3);
+			frontStr = frontStr.substring(0, 3);  //앞에는 3자만 노출
 			frontStr += "***";
 		} else {
 			frontStr = "***";
@@ -377,14 +377,14 @@ public class StringUtil {
 		return frontStr + "@" + split[1];
 	}
 	
-	// ID 문자열 뒤 3자리 마스킹 ex) test1***
+	// ID 문자열 뒤 3자리 마스킹 ex) tes***
 	public static String idMasking(String id) throws Exception {
 		if (EgovStringUtil.isEmpty(id)) {
 			return id;
 		}
 		
 		if (id.length() > 3) {
-			id = id.substring(0, id.length() - 3);
+			id = id.substring(0, 3);
 			id += "***";
 		} else {
 			id = "***";
