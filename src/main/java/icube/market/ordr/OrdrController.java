@@ -33,6 +33,7 @@ import icube.common.util.DateUtil;
 import icube.common.util.LoginUtil;
 import icube.common.util.egov.EgovDoubleSubmitHelper;
 import icube.common.values.CodeMap;
+import icube.common.vo.CommonListVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.mbr.itrst.biz.CartService;
@@ -49,6 +50,7 @@ import icube.manage.ordr.ordr.biz.OrdrVO;
 import icube.manage.promotion.coupon.biz.CouponLstService;
 import icube.manage.promotion.mlg.biz.MbrMlgService;
 import icube.manage.promotion.point.biz.MbrPointService;
+import icube.manage.sysmng.dlvy.biz.DlvyCoMngVO;
 import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
@@ -634,7 +636,27 @@ public class OrdrController extends CommonAbstractController{
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
 		model.addAttribute("bassStlmTyCode", CodeMap.BASS_STLM_TY);
 
-		return "/market/ordr/ordr_pay_done";
+		CommonListVO ordrListVO = new CommonListVO(request, 1, 1);
+		ordrListVO.setParam("od1ordrCd", ordrCd);
+		ordrListVO.setParam("srchUniqueId", mbrSession.getUniqueId());
+		ordrListVO.setParam("ordrSttsTy", "ALL");
+		ordrListVO = ordrService.ordrListVO(ordrListVO);
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String ordredListJson =  mapper.writeValueAsString(ordrListVO.getListObject());
+		model.addAttribute("ordredListJson", ordredListJson);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		codeMap.put("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		codeMap.put("ordrSttsCode", CodeMap.ORDR_STTS);
+		codeMap.put("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+		
+		String codeMapJson =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", codeMapJson);
+
+
+		return "/market/ordr/ordr_pay_done2";
 	}
 
 	

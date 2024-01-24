@@ -130,6 +130,7 @@ public class MyDtlsController extends CommonAbstractController {
 		codeMap.put("bassStlmTyCode", CodeMap.BASS_STLM_TY);
 		codeMap.put("ordrSttsCode", CodeMap.ORDR_STTS);
 		codeMap.put("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+		codeMap.put("dlvyCoList", dlvyCoList);
 
 		String codeMapJson =  mapper.writeValueAsString(codeMap);
 		model.addAttribute("codeMapJson", codeMapJson);
