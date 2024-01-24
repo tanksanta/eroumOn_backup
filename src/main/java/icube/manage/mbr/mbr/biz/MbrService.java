@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import icube.app.matching.mbr.biz.MatMbrSession;
 import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -99,6 +100,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	
 	@Autowired
 	private MbrSession mbrSession;
+	
+	@Autowired
+	private MatMbrSession matMbrSession;
 	
 	@Value("#{props['Globals.Main.path']}")
 	private String mainPath;
@@ -760,9 +764,21 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
-		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
-		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
-		String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/regist") : (rootPath + "/login");
+		String rootPath = "";
+		String membershipRootPath = "";
+		String registPath = "";
+		// 웹브라우저로 로그인 한 경우
+		if ("membership".equals(prevPath)) {
+			rootPath = "/" + mainPath;
+			membershipRootPath = "/" + membershipPath;
+			registPath = membershipRootPath + "/regist";
+		}
+		// 매칭앱으로 로그인 한 경우
+		if ("matching".equals(prevPath)) {
+			rootPath = "/" + matchingPath;
+			membershipRootPath = rootPath;
+			registPath = rootPath + "/login";
+		}
 		
 		
 		List<MbrVO> mbrList = new ArrayList<>();
@@ -884,8 +900,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 		updateRecentDtAndLgnTy(srchMbrVO.getUniqueId(), srchMbrVO, joinTy);
 		
 		//로그인 처리
-		mbrSession.setParms(srchMbrVO, true);
-		mbrSession.setMbrInfo(session, mbrSession);
+		// 웹브라우저로 로그인 한 경우
+		if ("membership".equals(prevPath)) {
+			mbrSession.setParms(srchMbrVO, true);
+			mbrSession.setMbrInfo(session, mbrSession);
+		}
+		// 매칭앱으로 로그인 한 경우
+		if ("matching".equals(prevPath)) {
+			matMbrSession.login(session, srchMbrVO);
+		}
 		
 		//SNS 인증정보 갱신(이메일, 번호, CI값)
 		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey());
