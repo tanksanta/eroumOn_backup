@@ -99,8 +99,8 @@
                     	<p class="search-title">조회기간</p>
 						<div class="search-group1">
 	                        <div class="form-check">
-	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod1" value="1" <c:if test="${param.selPeriod eq '1' }">checked="checked"</c:if>>
-	                            <label class="form-check-label" for="selPeriod1">최대(5년)</label>
+	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod9" value="9" <c:if test="${param.selPeriod eq '9' }">checked="checked"</c:if>>
+	                            <label class="form-check-label" for="selPeriod9">최대(5년)</label>
 	                        </div>
 	                        <div class="form-check">
 	                            <input class="form-check-input" type="radio" name="selPeriod" id="selPeriod2" value="2" <c:if test="${param.selPeriod eq '2' }">checked="checked"</c:if>>
@@ -139,14 +139,14 @@
                 </form>
                 <!-- //검색 -->
 
-                <!-- 목록 order-container script JsMarketOrdredList에서 처리함 dylee 2024-01-22-->
-                <div class=" mt-12 space-y-6 md:mt-16 md:space-y-7.5">
+                <!-- 목록 order-container script JsMarketMypageOrdredList에서 처리함 dylee 2024-01-22-->
+                <div class="order-container mt-12 space-y-6 md:mt-16 md:space-y-7.5">
                		<c:if test="${empty listVO.listObject}">
                     <p class="box-result">
                     	<c:choose>
                     		<c:when test="${param.selPeriod eq '1'}">최근 1주일간</c:when>
                     		<c:when test="${param.selPeriod eq '2'}">최근 한 달간</c:when>
-                    		<c:when test="${param.selPeriod eq '3'}">최근 6개월간</c:when>
+                    		<c:when test="${param.selPeriod eq '3'}">최근 6개월간</c:when> 
                     		<c:when test="${param.selPeriod eq '4'}">최근 1년간</c:when>
                     		<c:otherwise>검색하신 기간에</c:otherwise>
                     	</c:choose>
@@ -154,6 +154,7 @@
                     </p>
                 	</c:if>
 
+                    <div class=""></div>
 
 					<c:forEach items="${listVO.listObject}" var="ordrDtl" varStatus="status">
 					<c:set var="pageParam" value="curPage=${listVO.curPage}${!empty(listVO.urlParam)? '&amp;' : ''}${listVO.urlParam}" />
@@ -169,9 +170,6 @@
 					<%-- 통합 주문 번호 --%>
 					<c:if test="${status.first}">
 
-                    <div class="order-container">
-                        
-                    </div>
                     <div class="order-product order-product-mypage">
                         <div class="order-header">
                             <div class="flex flex-col w-full gap-3">
@@ -799,15 +797,8 @@
 		</textarea>
     </main>
 
-    <script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
     <script>
-        var jsMarketMain = null;
-		$(document).ready(function() {
-            jsMarketMain = new JsMarketOrdredList(' .order-container', $("textarea.ordredListJson").val(), $("textarea.entrpsVOListJson").val(), $("textarea.codeMapJson").val());
-        });
-
     	$(function(){
 
     		$("input[name='selPeriod']").on("click, change", function(){
@@ -966,4 +957,13 @@
         	    }
         	});
     	});
+    </script>
+
+    <script type="text/javascript" src="/html/page/market/assets/script/JsMarketOrdredDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+	<script type="text/javascript" src="/html/page/market/assets/script/JsMarketMypageOrdredList.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script>
+        var jsMarketMain = null;
+		$(document).ready(function() {
+            jsMarketMain = new JsMarketMypageOrdredList(' .order-container', $("textarea.ordredListJson").val(), $("textarea.entrpsVOListJson").val(), $("textarea.codeMapJson").val());
+        });
     </script>
