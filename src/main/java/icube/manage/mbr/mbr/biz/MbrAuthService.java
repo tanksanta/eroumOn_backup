@@ -79,6 +79,10 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		mbrAuthDAO.updatePswd(authNo, pswd);
 	}
 	
+	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey) throws Exception {
+		mbrAuthDAO.updateSnsInfo(authNo, eml, mblTelno, ciKey);
+	}
+	
 	
 	/*
 	 * 삭제된 인증까지 포함 조회용

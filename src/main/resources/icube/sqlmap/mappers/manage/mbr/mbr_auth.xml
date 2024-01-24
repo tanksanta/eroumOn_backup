@@ -110,4 +110,13 @@
 			</otherwise>
 		</choose>
 	</update>
+	
+	<!-- SNS 인증정보 갱신 업데이트 -->
+	<update id="updateSnsInfo" parameterType="java.util.HashMap">
+		UPDATE MBR_AUTH SET
+			eml = #{eml}
+			, mbl_telno = #{mblTelno}
+			, ci_key = #{ciKey}
+		WHERE auth_no = #{authNo}
+	</update>
 </mapper>
