@@ -3,7 +3,9 @@ package icube.membership;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -74,6 +76,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 	@RequestMapping(value = "/getToken")
 	public View getKakaoUserInfo(
 			HttpServletRequest request
+			, HttpServletResponse response
 			, HttpSession session
 			, Model model
 			, @RequestParam(value="code", required=true) String code
@@ -137,6 +140,10 @@ public class MbrsKaKaoController extends CommonAbstractController{
 				javaScript.setLocation((String)validationResult.get("location"));
 				return new JavaScriptView(javaScript);
 			}
+			
+			// 최근 로그인 쿠키
+			Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
+			response.addCookie(recentLgnTyCookie);
 			
 			//로그인 이후 redirect
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {

@@ -1,5 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+	<style>
+		.login-tooltip {
+			position: absolute;
+			background-color: #fff;
+			color: #000;
+			width: 80px;
+			text-align: center;
+			padding: 3px;
+			border-radius: 5px;
+			font-size: 13px;
+		}
+		.login-tooltip::after {
+			content: '';
+			position: absolute;
+			background-color: #fff;
+			width: 7px;
+			height: 7px;
+			transform: rotate(45deg) translateX(-50%);
+			left: 0;
+			top: 13px;
+		}
+		
+		.eroum-login-tooltip {
+			left: 420px;
+    		top: 12px;
+		}
+		.sns-login-tooltip {
+			left: 290px;
+			top: 14px;
+		}
+		@media (max-width: 768px) {
+		  .sns-login-tooltip {
+		  	left: 290px;
+			top: 14px;
+		  }
+		}
+		@media (max-width: 576px) {
+		  .eroum-login-tooltip {
+			left: 300px;
+    		top: 200px;
+		  }
+		  .sns-login-tooltip {
+		  	left: 360px;
+			top: 14px;
+		  }
+		}
+		@media (max-width: 510px) {
+		  .sns-login-tooltip {
+		  	left: 320px;
+			top: 14px;
+		  }
+		}
+		@media (max-width: 460px) {
+		  .eroum-login-tooltip {
+			left: 250px;
+    		top: 200px;
+		  }
+		  .sns-login-tooltip {
+		  	left: 280px;
+			top: 14px;
+		  }
+		}
+		@media (max-width: 420px) {
+		  .sns-login-tooltip {
+		  	left: 260px;
+			top: 14px;
+		  }
+		}
+	</style>
+
 	<%-- 로그인 --%>
     <main id="container">
         <header id="page-title">
@@ -25,6 +95,9 @@
                         <input class="form-control" type="password" id="mbrPw" name="mbrPw">
 
                         <button class="btn btn-primary form-submit" type="submit">로그인</button>
+                        <c:if test="${ recentLgnTy eq 'E' }">
+                        	<span class="login-tooltip eroum-login-tooltip">최근로그인</span>
+                        </c:if>
                     </div>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="saveId" name="saveId" value="Y">
@@ -41,12 +114,23 @@
             <dl class="member-social">
                 <dt>간편 로그인</dt>
                 <dd>
-                    <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
-                    	<span>카카오 로그인</span>
-                    </a>
-                    <a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
-                    	<span>네이버 로그인</span>
-                    </a>
+                	<div style="position:relative;">
+	                    <a href="${_membershipPath}/kakao/auth" class="btn btn-kakao w-full">
+	                    	<span>카카오 로그인</span>
+	                    </a>
+	                    <c:if test="${ recentLgnTy eq 'K' }">
+	                    	<span class="login-tooltip sns-login-tooltip">최근로그인</span>
+	                    </c:if>
+					</div>
+                    
+                    <div style="position:relative; margin-top:10px;">
+                    	<a href="${_membershipPath}/naver/get" class="btn btn-naver w-full">
+	                    	<span>네이버 로그인</span>
+	                    </a>
+	                    <c:if test="${ recentLgnTy eq 'N' }">
+	                    	<span class="login-tooltip sns-login-tooltip">최근로그인</span>
+	                    </c:if>
+                    </div>
                 </dd>
             </dl>
             
@@ -136,8 +220,8 @@
 	        });
 
 		<c:if test="${!empty saveId}">
-		$("#mbrId").val("${saveId}");
-		$("#saveId").prop("checked", true);
+			$("#mbrId").val("${saveId}");
+			$("#saveId").prop("checked", true);
 		</c:if>
 
     });
