@@ -887,6 +887,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrSession.setParms(srchMbrVO, true);
 		mbrSession.setMbrInfo(session, mbrSession);
 		
+		//SNS 인증정보 갱신(이메일, 번호, CI값)
+		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey());
+		
 		resultMap.put("valid", true);
 		return resultMap;
 	}

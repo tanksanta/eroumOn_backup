@@ -30,6 +30,15 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 		update("mbr.auth.updatePswd", paramMap);
 	}
 	
+	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("authNo", authNo);
+		paramMap.put("eml", eml);
+		paramMap.put("mblTelno", mblTelno);
+		paramMap.put("ciKey", ciKey);
+		update("mbr.auth.updateSnsInfo", paramMap);
+	}
+	
 	/*
 	 * 삭제된 인증까지 포함 조회용
 	 */
