@@ -19,6 +19,9 @@
 						<label class="form-label" for="mbrId">본인인증</label>
 						<button class="btn btn-primary" type="button" style="width:69%" onclick="f_cert();">휴대폰 본인인증</button>
 					</div>
+					<div class="form-button">
+	                    <a href="/membership/login" class="btn btn-outline-primary" style="width:100%;">취소</a>
+					</div>
 				</fieldset>
 			</div>
 			<div class="tab-content" style="display:none;" id="tab-srchByInfo">

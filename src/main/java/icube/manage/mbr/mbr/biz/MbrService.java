@@ -763,7 +763,6 @@ public class MbrService extends CommonAbstractServiceImpl {
 		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
 		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
 		String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/regist") : (rootPath + "/login");
-		String loginPath = "membership".equals(prevPath) ? (membershipRootPath + "/login") : (rootPath + "/login");
 		
 		
 		List<MbrVO> mbrList = new ArrayList<>();
@@ -872,11 +871,11 @@ public class MbrService extends CommonAbstractServiceImpl {
 		//인증수단이 등록되었지만 계정이 다르다면
 		if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
 			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (mbrAuthVO.getEml() != null ? mbrAuthVO.getEml() : mbrAuthVO.getMblTelno()));
-			resultMap.put("location", loginPath);
+			resultMap.put("location", membershipRootPath + "/kakao/reAuth");
 			return resultMap;
 		} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
 			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + mbrAuthVO.getEml());
-			resultMap.put("location", loginPath);
+			resultMap.put("location", membershipRootPath + "/naver/reAuth");
 			return resultMap;
 		}
 		
