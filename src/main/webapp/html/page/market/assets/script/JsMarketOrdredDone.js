@@ -8,7 +8,8 @@ class JsMarketOrdredDone extends JsMarketOrdredDrawItems{
         this._cls_info.dispOptions.body.status.f_gds_exchng = false;
         this._cls_info.dispOptions.body.status.f_ordr_done = false;
         this._cls_info.dispOptions.body.status.f_partners_msg = false;
-        this._cls_info.dispOptions.footer.f_ordr_return = false;
+        this._cls_info.dispOptions.footer.f_ordr_rtrcn = false;/*주문취소 버튼*/
+        this._cls_info.dispOptions.footer.f_ordr_return = false;/*반품신청 버튼*/
 
         console.log(ordredListJson)
 		if (ordredListJson.trim().length > 0){
