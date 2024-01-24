@@ -213,8 +213,21 @@ public class MMbrController extends CommonAbstractController {
         	
         	for(MbrVO vo : srchMbrList) {
         		//가입유형
-        		String joinTyList = String.join(",", mbrAuthList.stream().filter(f -> vo.getUniqueId().equals(f.getMbrUniqueId())).map(m -> "E".equals(m.getJoinTy()) ? "O" : m.getJoinTy()).collect(Collectors.toList()));
-        		vo.setJoinTyList(joinTyList);
+        		List<String> joinTyList = mbrAuthList.stream().filter(f -> vo.getUniqueId().equals(f.getMbrUniqueId())).map(m -> m.getJoinTy()).collect(Collectors.toList());
+        		// O, K, N 순으로 재정렬하기 위해 필요
+        		List<String> sortedJoinTyList = new ArrayList();
+        		if (joinTyList.contains("E")) {
+        			sortedJoinTyList.add("O");
+        		} 
+        		if (joinTyList.contains("K")) {
+        			sortedJoinTyList.add("K");
+        		}
+        		if (joinTyList.contains("N")) {
+        			sortedJoinTyList.add("N");
+        		}
+        		
+        		String joinTyStr = String.join(",", sortedJoinTyList);
+        		vo.setJoinTyList(joinTyStr);
         		
         		//마스킹 처리
                 vo.setMbrNm(StringUtil.nameMasking(vo.getMbrNm()));
