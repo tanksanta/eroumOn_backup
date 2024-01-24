@@ -32,6 +32,8 @@
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'saveLocal'});">로컬 저장</button>
 			<br><br>
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'loadLocal'});">로컬 불러오기</button>
+			<br><br>
+			<button class="btn btn-primary" type="button" onclick="f_cert();">본인 인증</button>
 		</div>
 	</main>
 	
@@ -67,7 +69,7 @@
 					JSON.stringify(data)
 				);
 			} else {
-				location.href = "/";
+				//location.href = "/";
 			}
 		}
 		
@@ -84,9 +86,36 @@
 				// ios
 				window.addEventListener("message", listener);
 			} else {
-				location.href = "/";
+				//location.href = "/";
 			}
 		}
+		
+		async function f_cert(){
+			try {
+			    const response = await Bootpay.requestAuthentication({
+			        application_id: "${_bootpayScriptKey}",
+			        pg: '다날',
+			        order_name: '본인인증',
+			        authentication_id: 'CERT00000000001',
+			        extra: { show_close_button: true }
+			    })
+			    switch (response.event) {
+			        case 'done':
+			            console.log("response.data", response.data);
+			            var receiptId = response.data.receipt_id;
+			            break;
+			    }
+			} catch (e) {
+			    switch (e.event) {
+			        case 'cancel':
+			            console.log(e.message);	// 사용자가 결제창을 닫을때 호출
+			            break
+			        case 'error':
+			            console.log(e.error_code); // 결제 승인 중 오류 발생시 호출
+			            break
+			    }
+			}
+		} 
 		
 		$(function () {
 			receiveDataFromMobileApp();

@@ -37,6 +37,12 @@ public class MatLoginController extends CommonAbstractController {
 	@Value("#{props['Globals.Matching.path']}")
 	private String matchingPath;
 	
+	@Value("#{props['Bootpay.Script.Key']}")
+	private String bootpayScriptKey;
+
+	@Value("#{props['Profiles.Active']}")
+	private String activeMode;
+	
 	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
 	
 	
@@ -56,6 +62,9 @@ public class MatLoginController extends CommonAbstractController {
 		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
 		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
 		session.setAttribute("_matchingPath", matchingPath);
+		
+		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
+		request.setAttribute("_activeMode", activeMode.toUpperCase());
 		
 		return "/app/matching/login";
 	}
