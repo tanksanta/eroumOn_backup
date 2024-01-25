@@ -140,7 +140,7 @@ class JsMarketOrdredDrawItems{
         strHtml +=      '<div class="flex flex-col w-full gap-3">';
         strHtml +=      '    <!--2023-12-27:사업소명-->';
         strHtml +=      '    <dl class="order-item-business">';
-        strHtml +=      '        <dt><span>사업소</span> <span>{0}</span></dt>'.format(ordredDtlJson.entrpsVO.entrpsStoreNm);
+        strHtml +=      '        <dt><span></span> <span>{0}</span></dt>'.format((ordredDtlJson.entrpsVO == undefined)?"":ordredDtlJson.entrpsVO.entrpsStoreNm);
         strHtml +=      '    </dl>';
         strHtml +=      '    <!--//2023-12-27:사업소명-->';
 

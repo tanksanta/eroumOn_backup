@@ -314,6 +314,12 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 		key = "total-dlvyAdit";
 		money += this._cls_info.cartResultMoney[key];
 		$(this._cls_info.pageResultRricefix + " ." + key + "-dl ." + key + "-txt").html(this._cls_info.cartResultMoney[key].format_money());
+		if (this._cls_info.dlvyCtAditRgnYn == 'Y'){
+			$(this._cls_info.pageResultRricefix + " ." + key + "-dl").removeClass("hidden");
+		}else{
+			$(this._cls_info.pageResultRricefix + " ." + key + "-dl").addClass("hidden");
+		}
+		
 
 		$("#stlmAmt").val(money);
 		$(this._cls_info.pageResultRricefix + " .total-stlmAmt-txt").html(money.format_money());
