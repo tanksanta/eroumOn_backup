@@ -157,7 +157,7 @@ class JsMarketOrdredDrawItems{
         strHtml +=      '    <div class="flex items-center w-full">';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문번호</dt>';
-        strHtml +=      '            <dd><strong><a href="./view/{0}?${pageParam}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd);
+        strHtml +=      '            <dd><strong><a href="./view/{0}?{1}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd, location.search);
         strHtml +=      '        </dl>';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문일시</dt>';//<%--주문/취소 --%>
@@ -442,7 +442,7 @@ class JsMarketOrdredDrawItems{
                 strHtml += '    <div class="content">';
                 strHtml += '        <p class="flex-1">멤버스<br> 승인완료</p>';
                 strHtml += '        <div class="multibtn">';
-                strHtml += '            <a href="./view/{0}?${pageParam}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd);
+                strHtml += '            <a href="./view/{0}?{1}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd, location.search);
                 strHtml += '        </div>';
                 strHtml += '    </div>';
                 strHtml += '</div>';
@@ -464,7 +464,7 @@ class JsMarketOrdredDrawItems{
                 strHtml += '    <p class="flex-1">결제대기</p>';
                 if (ordredDtlJson.ordrTy == 'R'){
                     strHtml += '<div class="multibtn">';
-                    strHtml += '    <a href="./view/{0}?${pageParam}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd);
+                    strHtml += '    <a href="./view/{0}?{1}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd, location.search);
                     // strHtml += '    <%-- <button type="button" class="btn btn-outline-primary btn-small f_ordr_rtrcn" data-ordr-cd="${ordrDtl.ordrCd}">주문취소</button> --%>';
                     strHtml += '</div>';
                 }
