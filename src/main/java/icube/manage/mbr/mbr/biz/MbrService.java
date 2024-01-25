@@ -1067,14 +1067,17 @@ public class MbrService extends CommonAbstractServiceImpl {
 			if (authInfo != null) {
 				if ("K".equals(mbrAuthVO.getJoinTy())) {
 					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (authInfo.getEml() != null ? authInfo.getEml() : authInfo.getMblTelno());
+					resultMap.put("location", "/membership/kakao/reAuth");
 				}
 				else if ("N".equals(mbrAuthVO.getJoinTy())) {
 					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + authInfo.getEml();
+					resultMap.put("location", "/membership/naver/reAuth");
 				}
 				else {
 					idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + authInfo.getMbrId();
+					resultMap.put("location", "/membership/login");
 				}
-				resultMap.put("location", "/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
 				resultMap.put("msg", idInfoStr);
 				return resultMap;
 			} else {
@@ -1092,6 +1095,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			if (findMbrAuth != null) {
 				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
 				resultMap.put("msg", idInfoStr);
+				resultMap.put("location", "/membership/kakao/reAuth");
+				mbrSession.setParms(new MbrVO(), false);
 				return resultMap;
 			}
 		}
@@ -1100,6 +1105,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			if (findMbrAuth != null) {
 				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + findMbrAuth.getEml();
 				resultMap.put("msg", idInfoStr);
+				resultMap.put("location", "/membership/naver/reAuth");
+				mbrSession.setParms(new MbrVO(), false);
 				return resultMap;
 			}
 		}
