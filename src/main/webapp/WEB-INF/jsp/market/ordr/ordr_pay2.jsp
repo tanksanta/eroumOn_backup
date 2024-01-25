@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+	& .payment-result dl.result-price-item.hidden{
+		display: none;
+	}
+</style>
 
 	<main id="container">
 		<jsp:include page="../layout/page_header.jsp">
@@ -219,6 +224,14 @@
                                 <dt>총 주문상품금액</dt>
                                 <dd><strong class="total-ordrpc-txt"><fmt:formatNumber value="${totalOrdrPc}" pattern="###,###" /></strong> 원</dd>
                             </dl>
+                            <dl class="total-dlvy-dl total-dlvyBase-dl">
+                                <dt>배송비</dt>
+                                <dd><span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원</dd>
+                            </dl>
+                            <dl id="total-dlvyAdit-dl" class="total-dlvyAdit-dl result-price-item">
+                                <dt>도서산간 추가 배송비</dt>
+                                <dd><span>+</span><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
+                            </dl>
                             <dl class="total-coupon-dl">
                                 <dt>쿠폰</dt>
                                 <dd><span>-</span><strong class="text-danger total-coupon-txt">0</strong> 원</dd>
@@ -228,14 +241,7 @@
                                 <dd><span>-</span><strong class="text-danger total-mlg-txt">0</strong> 원</dd>
                             </dl>
                             
-                            <dl class="total-dlvy-dl total-dlvyBase-dl">
-                                <dt>배송비</dt>
-                                <dd><span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원</dd>
-                            </dl>
-                            <dl id="total-dlvyAdit-dl" class="total-dlvyAdit-dl result-price-item">
-                                <dt>도서산간 추가 배송비</dt>
-                                <dd><span>+</span><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
-                            </dl>
+                            
                         </div>
                         <dl class="last">
                             <dt>최종 결제금액</dt>
