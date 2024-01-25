@@ -38,15 +38,47 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope="row">회원아이디</th>
-						<td>${mbrVO.mbrId}</td>
+						<th scope="row">아이디</th>
+						<td>
+							<c:choose>
+								<c:when test="${!empty eroumAuthInfo}">
+									${eroumAuthInfo.mbrId}
+								</c:when>
+								<c:otherwise>
+									없음
+								</c:otherwise>
+							</c:choose>
+						</td>
 						
+						<th scope="row">이메일</th>
+						<td>${mbrVO.eml}</td>
+						
+						<%--
 						<th scope="row">가입유형</th>
 						<td>${mbrJoinTy3[mbrVO.joinTy]}</td>
+						--%>
 					</tr>
 					<tr>
-						<th scope="row">이름/생년월일/성별</th>
-						<td class="nameVal">${mbrVO.mbrNm }/ <fmt:formatDate value="${mbrVO.brdt}" pattern="yyyy-MM-dd" /> / ${gender[mbrVO.gender] }
+						<th scope="row">SNS 연결</th>
+						<td>
+							<c:choose>
+								<c:when test="${!empty kakaoAuthInfo}">
+									카카오 | <fmt:formatDate value="${kakaoAuthInfo.regDt}" pattern="yyyy-MM-dd HH:mm:ss" /> 연결
+								</c:when>
+								<c:otherwise>
+									카카오 | 연결안됨
+								</c:otherwise>
+							</c:choose>
+							<br>
+							<c:choose>
+								<c:when test="${!empty naverAuthInfo}">
+									네이버 | <fmt:formatDate value="${naverAuthInfo.regDt}" pattern="yyyy-MM-dd HH:mm:ss" /> 연결
+								</c:when>
+								<c:otherwise>
+									네이버 | 연결안됨
+								</c:otherwise>
+							</c:choose>
+						</td>
 
 						<th scope="row">휴대폰 번호</th>
 						<td>${mbrVO.mblTelno}</td>
@@ -54,18 +86,18 @@
 
 					</tr>
 					<tr>
-						<th scope="row">이메일</th>
-						<td>${mbrVO.eml}</td>
-
-						<th scope="row">가입매체 / 가입일</th>
-						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<th scope="row">이름/생년월일/성별</th>
+						<td class="nameVal">${mbrVO.mbrNm }/ <fmt:formatDate value="${mbrVO.brdt}" pattern="yyyy-MM-dd" /> / ${gender[mbrVO.gender]}</td>
+						
+						<th scope="row">등록수급자수</th>
+						<td class="joinVal">${mbrVO.mbrRecipientsList.size()}</td>
 					</tr>
 					<tr>
 						<th scope="row">주소</th>
 						<td>${mbrVO.zip }&nbsp;${mbrVO.addr }&nbsp; ${mbrVO.daddr }</td>
 
-						<th scope="row">등록수급자수</th>
-						<td class="joinVal">${mbrVO.mbrRecipientsList.size()}</td>
+						<th scope="row">가입매체 / 가입일</th>
+						<td class="joinVal">${joinCours[mbrVO.joinCours] }/ <fmt:formatDate value="${mbrVO.joinDt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 					<tr>
 						<th scope="row">최근접속일</th>
@@ -79,6 +111,9 @@
 						</td>
 					</tr>
 					<tr>
+						<th scope="row"></th>
+						<td></td>
+					
 						<th scope="row">
 							이용약관<br>
 							개인정보처리방침<br>
@@ -92,6 +127,8 @@
 							${mbrAgreementVO == null ? "비동의" : (mbrAgreementVO.thirdPartiesYn == "Y" ? "동의" : "비동의")}&nbsp;<fmt:formatDate value="${mbrAgreementVO == null ? '' : mbrAgreementVO.thirdPartiesDt}" pattern="yyMMdd HH:mm:ss"/><br>
 						</td>
 					</tr>
+					<%-- 2024-01-22 회원 정책 변경으로 개인정보 유효기간은 사라짐 --&>
+					<%--
 					<tr>
 						<th scope="row">개인정보 유효기간</th>
 						<td colspan="3">
@@ -105,6 +142,7 @@
 							</div>
 						</td>
 					</tr>
+					--%>
 				</tbody>
 			</table>
 		</fieldset>
@@ -682,10 +720,10 @@
 					},
 					dataType : 'json'
 				}).done(function(data) {
-					if(data.result){
+					if(data.success){
 						alert("발송되었습니다.");
 					}else{
-						alert("이메일 발송 중 오류가 발생하였습니다.");
+						alert(data.msg);
 					}
 				}).fail(function(data, status, err) {
 					alert("이메일발송 중 오류가 발생했습니다.");

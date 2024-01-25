@@ -16,6 +16,7 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.mail.MailService;
 import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
+import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
 
 @Service("mbrConsltService")
@@ -44,6 +45,9 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
+	
+	@Value("#{props['Mail.Testuser']}")
+	private String mailTestuser;
 	
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -176,16 +180,15 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		String mailSj = "[이로움 ON] 신규상담건 문의가 접수되었습니다.";
 		String putEml = "thkc_cx@thkc.co.kr";
 		
-		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
+		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegUniqueId());
 		mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
-		mailForm = mailForm.replace("((conslt_ty))", "test".equals(mbrConsltVO.getPrevPath()) ? "인정등급상담" : "요양정보상담");
+		mailForm = mailForm.replace("((conslt_ty))", CodeMap.PREV_PATH.get(mbrConsltVO.getPrevPath()));
 		mailForm = mailForm.replace("((conslt_date))", simpleDateFormat.format(new Date()));
 
 		if ("real".equals(activeMode)) {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		} else {
-			putEml = "dglee@thkc.co.kr";
-			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm);
 		}
 	}
 	
@@ -199,15 +202,14 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		String putEml = "thkc_cx@thkc.co.kr";
 		
 		mailForm = mailForm.replace("((mbr_nm))", mbrConsltVO.getRgtr());
-		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegId());
+		mailForm = mailForm.replace("((mbr_id))", mbrConsltVO.getRegUniqueId());
 		mailForm = mailForm.replace("((mbr_telno))", mbrConsltVO.getMbrTelno());
 		mailForm = mailForm.replace("((cancel_date))", simpleDateFormat.format(new Date()));
 
 		if ("real".equals(activeMode)) {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		} else {
-			putEml = "dglee@thkc.co.kr";
-			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm);
 		}
 	}
 }

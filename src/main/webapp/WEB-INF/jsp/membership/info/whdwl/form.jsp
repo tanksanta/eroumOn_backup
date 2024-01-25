@@ -129,14 +129,14 @@
 								<p class="text-alert">확인을 위해 비밀번호를 다시 입력해 주세요.</p>
 								
 								<c:choose>
-									<c:when test="${_mbrSession.joinTy eq 'K'}">
+									<c:when test="${_mbrSession.lgnTy eq 'K'}">
 										<div class="mt-8">
 											<a href="#" class="btn btn-kakao w-full" onclick="requestWhdwlSnsMbr('K');">
 												<span>카카오 인증하기</span>
 											</a>
 										</div>
 									</c:when>
-									<c:when test="${_mbrSession.joinTy eq 'N'}">
+									<c:when test="${_mbrSession.lgnTy eq 'N'}">
 										<div class="mt-8">
 											<a href="#" class="btn btn-naver w-full" onclick="requestWhdwlSnsMbr('N');">
 												<span>네이버 인증하기</span>

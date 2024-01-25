@@ -99,7 +99,7 @@ public class MMbrExitController extends CommonAbstractController{
 		// excel data
         Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
         mapping.put("번호", obj -> "rowNum");
-        mapping.put("아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원코드", obj -> ((MbrVO)obj).getUniqueId());
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
 
         mapping.put("탈퇴일", obj -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MbrVO)obj).getWhdwlDt()));

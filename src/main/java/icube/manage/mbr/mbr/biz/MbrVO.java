@@ -70,7 +70,8 @@ public class MbrVO extends CommonBaseVO {
 	private String whdwlEtc;
 	private Date snsRegistDt;
 
-	private String diKey; //ci값 => 휴대폰 본인인증(고유키 리턴)
+	private String ciKey; //ci값 => 휴대폰 본인인증(고유키 리턴)
+	private String diKey; //di값 => 휴대폰 본인인증(고유키 리턴)
 
 	private String reqTy;
 	private String delProflImg;
@@ -80,6 +81,8 @@ public class MbrVO extends CommonBaseVO {
 	private String kakaoAccessToken;
 
 	private String joinTy = "E"; // 가입 구분
+	private String lgnTy;        // 로그인 시 인증타입
+	private String joinTyList;   // 관리자 > 회원관리에서 다중 가입유형 표시용 속성
 
 	// 첨부파일 체크
 	private List<FileVO> fileList;
@@ -87,5 +90,6 @@ public class MbrVO extends CommonBaseVO {
 	private RecipterInfoVO recipterInfo; //RecipterInfoVO 이제 사용 안함
 	private DlvyVO dlvyInfo;
 	
+	private List<MbrAuthVO> mbrAuthList;
 	private List<MbrRecipientsVO> mbrRecipientsList;
 }

@@ -30,7 +30,7 @@
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${gdsQaVO.rgtr}/ ${gdsQaVO.regId}</td>
+					<td>${gdsQaVO.rgtr}/ ${gdsQaVO.regUniqueId}</td>
 				</tr>
 				<tr>
 					<th scope="row">등록일</th>

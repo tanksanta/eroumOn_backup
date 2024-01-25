@@ -31,8 +31,8 @@
                                         <td><fmt:formatDate value="${ordrVO.ordrDt}" pattern="yyyy-MM-dd HH:mm" /></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">주문자명/아이디</th>
-                                        <td>${ordrVO.ordrrNm} / ${ordrVO.ordrrId}</td>
+                                        <th scope="row">주문자명/회원코드</th>
+                                        <td>${ordrVO.ordrrNm} / ${ordrVO.uniqueId}</td>
                                         <th scope="row">휴대전화</th>
                                         <td>${ordrVO.ordrrMblTelno}</td>
                                     </tr>

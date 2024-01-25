@@ -17,12 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import icube.common.util.StringUtil;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ExcelExporter;
+import icube.common.util.StringUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
-import icube.manage.mbr.mbr.biz.MbrMngInfoVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 
@@ -85,7 +84,7 @@ public class MMbrHumanContoller extends CommonAbstractController{
 		// excel data
         Map<String, Function<Object, Object>> mapping = new LinkedHashMap<>();
         mapping.put("번호", obj -> "rowNum");
-        mapping.put("아이디", obj -> ((MbrVO)obj).getMbrId());
+        mapping.put("회원코드", obj -> ((MbrVO)obj).getUniqueId());
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
         mapping.put("성별", obj -> CodeMap.GENDER.get(((MbrVO)obj).getGender()));
 

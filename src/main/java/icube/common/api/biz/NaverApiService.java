@@ -10,14 +10,11 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +25,6 @@ import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.UnicodeUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.mbr.recipter.biz.RecipterInfoVO;
-import icube.market.mbr.biz.MbrSession;
 
 
 @Service("naverApiService")
@@ -52,9 +47,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 	@Value("#{props['Naver.Profl.Url']}")
 	private String NaverProflUrl;
-
-	@Autowired
-	private MbrSession mbrSession;
 
 	/**
 	 * 인가 발급 URL
@@ -92,167 +84,65 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 
 	/**
-	 * 로그인 및 회원가입 처리
-	 * @param paramMap
-	 * @return result
-	 * @throws Exception
-	 */
-	public Integer mbrAction(Map<String, Object> paramMap, HttpSession session) throws Exception {
-		int resultCnt = 0;
-
-		Map<String, Object> keyMap = this.getToken(paramMap);
-		MbrVO proflInfo = getMbrProfl(keyMap);
-
-		// 재인증 추가 20230922 START
-		String checkId = proflInfo.getMbrId();
-		if(mbrSession.isLoginCheck()) {
-			String mbrSnsId = mbrSession.getNaverAppId() + "@N";
-			log.debug("### 재인증 진행 ###" + mbrSnsId +"//" +checkId);
-
-			if(EgovStringUtil.equals(mbrSnsId, checkId)) {
-				return 11;
-			}else {
-				return 12;
-			}
-		}
-		//재인증 END
-
-		paramMap.clear();
-		paramMap.put("srchMblTelno", proflInfo.getMblTelno());
-		paramMap.put("srchMbrStts", "NORMAL");
-
-		List<MbrVO> mbrList = mbrService.selectMbrListAll(paramMap);
-
-		if(mbrList.size() < 1) {
-            //회원 생성전 같은 카카오계정 가입자 확인
-            paramMap = new HashMap<String, Object>();
-            paramMap.put("srchNaverAppId", proflInfo.getNaverAppId());
-            List<MbrVO> srchMbrList = mbrService.selectMbrListAll(paramMap);
-            if (srchMbrList.size() > 0) {
-                return 5;
-            }
-			
-			mbrService.insertMbr(proflInfo);
-
-			mbrSession.setParms(proflInfo, true);
-
-			if(EgovStringUtil.equals(proflInfo.getRecipterYn(), "Y")) {
-				mbrSession.setRecipterInfo(proflInfo.getRecipterInfo());
-			}else {
-				
-			}
-			mbrSession.setMbrInfo(session, mbrSession);
-
-			resultCnt = 1; // 회원가입
-		}else if(mbrList.size() > 1) {
-			resultCnt = 5; // 동일 정보 2건 이상
-		}else {
-			resultCnt = 3; // 로그인
-
-			if(mbrList.get(0).getJoinTy().equals("E")) {
-				resultCnt = 4; // 이로움 회원가입
-			}else if(mbrList.get(0).getJoinTy().equals("K")) {
-				//SNS 등록 여부에 따라 안내 메시지가 다름
-				mbrSession.setSnsRegistDt(mbrList.get(0).getSnsRegistDt());
-				resultCnt = 2; // 카카오 회원 가입
-			}else {
-				Map<String, Object> drmtMap = new HashMap<String, Object>();
-				drmtMap.put("srchNaverAppId", mbrList.get(0).getNaverAppId());
-				drmtMap.put("srchMbrStts", "EXIT");
-				drmtMap.put("srchWhdwlDt", 7);
-				int drmtCnt = mbrService.selectMbrCount(drmtMap);
-
-				if(mbrList.get(0).getMberSttus().equals("BLACK")) {
-					resultCnt = 8;
-				}else if(mbrList.get(0).getMberSttus().equals("HUMAN")) {
-					resultCnt = 9;
-					mbrSession.setMbrId(mbrList.get(0).getMbrId());
-				}else if(mbrList.get(0).getMberSttus().equals("EXIT") && drmtCnt > 0) {
-					resultCnt = 10;
-				}else {
-					// 로그인
-					mbrSession.setParms(mbrList.get(0), true);
-
-					if(EgovStringUtil.equals(mbrList.get(0).getRecipterYn(), "Y")) {
-						mbrSession.setRecipterInfo(mbrList.get(0).getRecipterInfo());
-					}else {
-					}
-					mbrSession.setMbrInfo(session, mbrSession);
-
-				}
-			}
-		}
-		return resultCnt;
-	}
-
-	/**
 	 * 토큰 발급
 	 * @param paramMap(code, state)
 	 * @return keyMap(accessToken, refreshToken, tokenType)
 	 * @throws Exception
 	 */
-	public Map<String, Object> getToken(Map<String, Object> paramMap) throws Exception {
+	public Map<String, Object> getToken(String code, String state) throws Exception {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String accessToken = "";
+		String refreshToken = "";
 
-		try {
-			String accessToken = "";
-			String refreshToken = "";
+		HttpURLConnection conn = getHeader(NaverTokenUrl, null);
 
-			HttpURLConnection conn = this.getHeader(NaverTokenUrl, null);
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+		String parameterStr = setRequestParam("getToken", code, state, null);
 
-			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-			paramMap.put("type", "getToken");
-			StringBuffer sb = this.setStr(paramMap);
+		bufferedWriter.write(parameterStr);
+		bufferedWriter.flush();
 
-			bufferedWriter.write(sb.toString());
-			bufferedWriter.flush();
+		Map<String, Object> eleMap = getResponse(conn);
+		JsonElement element = (JsonElement)eleMap.get("element");
 
-			Map<String, Object> eleMap = this.getResponse(conn, paramMap);
-			JsonElement element = (JsonElement)eleMap.get("element");
+		accessToken = element.getAsJsonObject().get("access_token").getAsString();
+		refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
-			accessToken = element.getAsJsonObject().get("access_token").getAsString();
-			refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+		bufferedWriter.close();
 
-			bufferedWriter.close();
-
-
-			resultMap.put("accessToken", accessToken);
-			resultMap.put("refreshToken", refreshToken);
-			resultMap.put("tokenType", "N");
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.debug("네이버 토큰 발급 실패 : " + e.getMessage());
-		}
+		resultMap.put("accessToken", accessToken);
+		resultMap.put("refreshToken", refreshToken);
+		resultMap.put("tokenType", "N");
 
 		return resultMap;
 	}
 
 	/**
-	 * 토큰 유효성 검사
+	 * 토큰 유효성 검사 (사용하는 곳이 없음)
 	 * @param keyMap(accessToken, refreshToken)
 	 * @return resultMap
 	 * @throws Exception
 	 */
-	public Map<String, Object> tokenCheck(Map<String, Object> keyMap) throws Exception {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		boolean result = false;
-
-		String accessToken = (String)keyMap.get("accessToken");
-		String header = "Bearer " + accessToken;
-
-		try {
-			HttpURLConnection con = this.getHeader(NaverTokenUrl, header);
-			this.getResponse(con, keyMap);
-			result = true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			log.debug("실패");
-		}
-
-		resultMap.put("result", result);
-		return resultMap;
-	}
+//	public Map<String, Object> tokenCheck(Map<String, Object> keyMap) throws Exception {
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		boolean result = false;
+//
+//		String accessToken = (String)keyMap.get("accessToken");
+//		String header = "Bearer " + accessToken;
+//
+//		try {
+//			HttpURLConnection con = this.getHeader(NaverTokenUrl, header);
+//			this.getResponse(con, keyMap);
+//			result = true;
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			log.debug("실패");
+//		}
+//
+//		resultMap.put("result", result);
+//		return resultMap;
+//	}
 
 	/**
 	 * 헤더 세팅
@@ -276,42 +166,34 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 	/**
 	 * 파라미터 세팅
-	 * @param paramMap(type, code, state)
-	 * @return StringBuffer setStr
-	 * @throws Exception
 	 */
-	private StringBuffer setStr (Map<String, Object> paramMap) throws Exception {
-		String type = (String) paramMap.get("type");
-		String code = (String) paramMap.get("code");
-		String state = (String) paramMap.get("state");
+	private String setRequestParam(String type, String code, String state, String refreshToken) throws Exception {
 		if(EgovStringUtil.isEmpty(state)) {
 			state = null;
 		}
-		String refreshToken = (String) paramMap.get("refreshToken");
-
 		StringBuffer sb = new StringBuffer();
 
 		switch(type) {
-		case"getToken":
-			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=" + NaverClientId);
-			sb.append("&client_secret=" + URLEncoder.encode(NaverClientSecret, "UTF-8"));
-			sb.append("&redirect_uri=" + URLEncoder.encode(NaverRedirectUrl, "UTF-8"));
-			sb.append("&code=" + code);
-			sb.append("&state=" + state);
-
-			break;
-		case"check":
-			sb.append(NaverTokenUrl + "grant_type=refresh_token");
-			sb.append("&client_id=" +  NaverClientId);
-			sb.append("&client_secret=" + NaverClientSecret);
-			sb.append("&refresh_token=" + refreshToken);
-			break;
-		default:
-			break;
+			case"getToken":
+				sb.append("grant_type=authorization_code");
+				sb.append("&client_id=" + NaverClientId);
+				sb.append("&client_secret=" + URLEncoder.encode(NaverClientSecret, "UTF-8"));
+				sb.append("&redirect_uri=" + URLEncoder.encode(NaverRedirectUrl, "UTF-8"));
+				sb.append("&code=" + code);
+				sb.append("&state=" + state);
+	
+				break;
+			case"check":
+				sb.append(NaverTokenUrl + "grant_type=refresh_token");
+				sb.append("&client_id=" +  NaverClientId);
+				sb.append("&client_secret=" + NaverClientSecret);
+				sb.append("&refresh_token=" + refreshToken);
+				break;
+			default:
+				break;
 		}
 
-		return sb;
+		return sb.toString();
 	}
 
 	/**
@@ -320,7 +202,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	 * @return JsonElement
 	 * @throws Exception
 	 */
-	private Map<String, Object> getResponse(HttpURLConnection con, Map<String, Object> keyMap) throws Exception{
+	private Map<String, Object> getResponse(HttpURLConnection con) throws Exception{
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 		StringBuilder result = new StringBuilder();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -337,19 +219,18 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 			//System.out.println("response body : " + result);
 
 		}else {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("type", "check");
-			paramMap.put("refreshToken", (String)keyMap.get("refreshToken"));
-			StringBuffer sb = this.setStr(paramMap);
-
-			String header = "Bearer " + (String) keyMap.get("accessToken");
-			con = this.getHeader(sb.toString(), header);
-			Map<String, Object> eleMap = this.getResponse(con, keyMap);
-			JsonElement element = (JsonElement) eleMap.get("element");
-
-			String accessToken = element.getAsJsonObject().get("access_token").getAsString();
-			resultMap.put("accessToken", accessToken);
+//			paramMap.put("refreshToken", (String)keyMap.get("refreshToken"));
+//			String parameterStr = this.setRequestParam("check");
+//
+//			String header = "Bearer " + (String) keyMap.get("accessToken");
+//			con = this.getHeader(sb.toString(), header);
+//			Map<String, Object> eleMap = this.getResponse(con, keyMap);
+//			JsonElement element = (JsonElement) eleMap.get("element");
+//
+//			String accessToken = element.getAsJsonObject().get("access_token").getAsString();
+//			resultMap.put("accessToken", accessToken);
 		}
+		
 		JsonElement element = JsonParser.parseString(result.toString());
 
 		bufferedReader.close();
@@ -364,22 +245,13 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	 * @see 성별, 이메일, 휴대폰번호, 이름(유니코드), 생일(년, 월일)
 	 * @throws Exception
 	 */
-	public MbrVO getMbrProfl(Map<String, Object> keyMap) throws Exception {
-		MbrVO proflVO = new MbrVO();
-
-		String accessToken = (String) keyMap.get("accessToken");
-		String refreshToken = (String) keyMap.get("refreshToken");
+	public MbrVO getNaverUserInfo(String accessToken, String refreshToken) throws Exception {
 		String header = "Bearer " + accessToken; // Bearer 다음 공백 주의
 
 		HttpURLConnection con = this.getHeader(NaverProflUrl, header);
+		Map<String, Object> eleMap = this.getResponse(con);
 
-		keyMap.put("getProfl", true);
-		Map<String, Object> eleMap = this.getResponse(con, keyMap);
-		eleMap.put("refreshToken", refreshToken);
-
-		proflVO = this.setProflVO(eleMap);
-
-		return proflVO;
+		return setProflVO(eleMap);
 	}
 
 	/**
@@ -405,6 +277,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             String name = mbrInfo.getAsJsonObject().get("name").getAsString();
             String birthDay = mbrInfo.getAsJsonObject().get("birthday").getAsString();
             String birthYear = mbrInfo.getAsJsonObject().get("birthyear").getAsString();
+            String ci = mbrInfo.getAsJsonObject().get("ci").getAsString();
 
             //System.out.println(birthDay);
             //System.out.println(birthYear);
@@ -423,6 +296,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
             proflVO.setJoinTy("N");
             proflVO.setNaverAppId(appId);
             proflVO.setMbrId(appId+"@N");
+            proflVO.setCiKey(ci);
 
             System.out.println(proflVO.toString());
 

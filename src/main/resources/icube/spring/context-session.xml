@@ -38,5 +38,13 @@
 		<aop:scoped-proxy proxy-target-class="true"/>
 		<property name="request" ref="PartnersRequestHolder" />
 	</bean>
-
+	
+	<!-- 매칭앱 세션 -->
+	<bean id="MatchingRequestHolder" class="icube.common.framework.request.RequestHolder" scope="request">
+		<aop:scoped-proxy proxy-target-class="true" />
+	</bean>
+	<bean id="matMbrSession" class="icube.app.matching.mbr.biz.MatMbrSession" scope="session">
+		<aop:scoped-proxy proxy-target-class="true"/>
+		<property name="request" ref="MatchingRequestHolder" />
+	</bean>
 </beans>

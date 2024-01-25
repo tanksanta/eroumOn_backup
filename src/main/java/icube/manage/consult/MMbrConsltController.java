@@ -132,7 +132,8 @@ public class MMbrConsltController extends CommonAbstractController{
 		map.put("MBR_NM", "수급자 성명");
 		map.put("MBR_TELNO", "상담받을 연락처");
 		map.put("RGTR", "회원이름");
-		map.put("REG_ID", "회원아이디");
+		map.put("REG_ID", "이로움ID");
+		map.put("REG_UNIQUE_ID", "회원코드");
 		
 		model.addAttribute("FindCdList", map);
 
@@ -186,9 +187,15 @@ public class MMbrConsltController extends CommonAbstractController{
 			ConsltHistory.setName(EgovStringUtil.isNotEmpty(chgHistVO.getMbrNm()) ? chgHistVO.getMbrNm()
 					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrNm()) ? chgHistVO.getMngrNm()
 					: chgHistVO.getBplcNm());
-			ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
-					: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
-					: chgHistVO.getBplcId());
+			
+			if (EgovStringUtil.isNotEmpty(chgHistVO.getMbrUniqueId())) {
+				ConsltHistory.setMbrUniqueId(chgHistVO.getMbrUniqueId());
+			} else {
+				ConsltHistory.setId(EgovStringUtil.isNotEmpty(chgHistVO.getMbrId()) ? chgHistVO.getMbrId()
+						: EgovStringUtil.isNotEmpty(chgHistVO.getMngrId()) ? chgHistVO.getMngrId()
+						: chgHistVO.getBplcId());
+			}
+			
 			ConsltHistory.setContent("상태변경: [" + CodeMap.CONSLT_STTUS.get(chgHistVO.getConsltSttusChg()) + "상태로 변경되었습니다.]");
 			historyList.add(ConsltHistory);
 			
@@ -736,7 +743,7 @@ public class MMbrConsltController extends CommonAbstractController{
         	}
         	return rtnStr;
         });
-        mapping.put("회원이름(아이디)", obj -> ((MbrConsltVO)obj).getRgtr() + "(" + ((MbrConsltVO)obj).getRegId() + ")");
+        mapping.put("회원이름(회원코드)", obj -> ((MbrConsltVO)obj).getRgtr() + "(" + ((MbrConsltVO)obj).getRegUniqueId() + ")");
 
 
         List<LinkedHashMap<String, Object>> dataList = new ArrayList<>();

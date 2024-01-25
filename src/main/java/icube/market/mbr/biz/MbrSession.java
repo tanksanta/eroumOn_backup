@@ -2,6 +2,7 @@ package icube.market.mbr.biz;
 
 import java.io.Serializable;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,9 @@ public class MbrSession extends MbrVO implements Serializable {
 	@Setter(AccessLevel.NONE)
 	@Value("#{props['Globals.Member.session.key']}")
 	private String MEMBER_SESSION_KEY;
+	
+	public static final String RECENT_LGN_TY_COOKIE = "_membersLgnTy_";
+	
 
 	public void setRequest(RequestHolder requestHolder) {
 		HttpSession session = requestHolder.getSession();
@@ -63,6 +67,7 @@ public class MbrSession extends MbrVO implements Serializable {
 		setAddr(mbrVO.getAddr());
 		setDaddr(mbrVO.getDaddr());
 
+		setCiKey(mbrVO.getCiKey()); // ci
 		setDiKey(mbrVO.getDiKey()); // di
 		setKakaoAppId(mbrVO.getKakaoAppId());
 		setNaverAppId(mbrVO.getNaverAppId());
@@ -73,11 +78,23 @@ public class MbrSession extends MbrVO implements Serializable {
 		setMberGrade(mbrVO.getMberGrade());
 		setItrstField(mbrVO.getItrstField());
 		setJoinTy(mbrVO.getJoinTy());
+		setLgnTy(mbrVO.getLgnTy());
 		setSnsRegistDt(mbrVO.getSnsRegistDt());
 
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
 
+		setMbrAuthList(mbrVO.getMbrAuthList());
+		
 		setLoginCheck(loginCheck);
+	}
+	
+	
+	public Cookie getRecentLgnTyCookie() {
+		Cookie cookie = new Cookie(RECENT_LGN_TY_COOKIE, this.getLgnTy());
+		cookie.setPath("/");
+		cookie.setMaxAge(60 * 60 * 24 * 7); //7일 저장
+		cookie.setSecure(true);
+		return cookie;
 	}
 }

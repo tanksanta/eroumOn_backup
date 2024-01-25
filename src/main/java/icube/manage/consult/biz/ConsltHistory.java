@@ -2,6 +2,8 @@ package icube.manage.consult.biz;
 
 import java.util.Date;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
+
 import com.ibm.icu.text.SimpleDateFormat;
 
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.Setter;
 public class ConsltHistory implements Comparable<ConsltHistory>{ 
 	private Date regDt;
 	private String name;
+	private String mbrUniqueId;
 	private String id;
 	private String content;
 	
@@ -24,6 +27,6 @@ public class ConsltHistory implements Comparable<ConsltHistory>{
 	
 	@Override
     public String toString() {
-        return simpleDateFormat.format(regDt) + " " + name + "(" + id + ")" + " / " + content;
+        return simpleDateFormat.format(regDt) + " " + name + "(" + (EgovStringUtil.isNotEmpty(mbrUniqueId) ? mbrUniqueId : id) + ")" + " / " + content;
     }
 }

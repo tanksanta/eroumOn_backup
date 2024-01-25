@@ -14,13 +14,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.egovframe.rte.fdl.string.EgovDateUtil;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -168,11 +166,11 @@ public class MOrdrController extends CommonAbstractController {
 		//간편로그인 ID 너무 길어서 간단하게 표시작업
 		listVO.getListObject().stream().forEach(ordr -> {
 			OrdrDtlVO ordrDtlltVO = (OrdrDtlVO)ordr;
-			if (ordrDtlltVO.getOrdrrId().endsWith("@K")) {
-				ordrDtlltVO.setOrdrrId("카카오 계정");
-			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
-				ordrDtlltVO.setOrdrrId("네이버 계정");
-			}
+//			if (ordrDtlltVO.getOrdrrId().endsWith("@K")) {
+//				ordrDtlltVO.setOrdrrId("카카오 계정");
+//			} else if (ordrDtlltVO.getOrdrrId().endsWith("@N")) {
+//				ordrDtlltVO.setOrdrrId("네이버 계정");
+//			}
 			
 			//개인정보 마스킹
 			try {
@@ -1606,7 +1604,7 @@ public class MOrdrController extends CommonAbstractController {
 			cellPos = 0;
 
 			dataRow.createCell(cellPos++).setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ordrDtlVO.getOrdrDt()) + "\n" + ordrDtlVO.getOrdrCd());
-        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrNm() + "\n(" + ordrDtlVO.getOrdrrId() + ")");
+        	dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrNm() + "\n(" + ordrDtlVO.getUniqueId() + ")");
 			if (cellAdd231206){
 				if (dataAdd231206Map.containsKey(ordrDtlVO.getSttsTy()) && dataAdd231206Map.get(ordrDtlVO.getSttsTy())){
 					dataRow.createCell(cellPos++).setCellValue(ordrDtlVO.getOrdrrMblTelno());//주문자 휴대폰번호
