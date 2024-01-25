@@ -929,6 +929,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 			
 			dlvyVO.setMblTelno(mbrVO.getMblTelno());
 		}
+		//CI가 없으면 회원가입창에서 벗어나지 못하도록 임시 ci값 입력
+		if (EgovStringUtil.isEmpty(mbrVO.getCiKey())) {
+			mbrVO.setCiKey("regist_ci_value");
+		}
 		
 //		insertMbr(mbrVO);
 		//본인 인증 단계에서 주소정보 저장되므로 사용안함
