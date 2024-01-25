@@ -1,6 +1,7 @@
 package icube.market.mypage.cart;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.util.DateUtil;
 import icube.common.util.WebUtil;
 import icube.common.values.CRUD;
 import icube.common.values.CodeMap;
@@ -55,7 +57,26 @@ public class MyCartController extends CommonAbstractController  {
 			HttpServletRequest request
 			, Model model) throws Exception {
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap;
+		
+		paramMap = new HashMap<String, Object>();
+		paramMap.put("srchViewYn", "N");
+		paramMap.put("srchEndDt", DateUtil.formatDate(DateUtil.getDateAdd(new Date(), "date", -5), "yyyy-MM-dd")); 
+		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+		List<CartVO> list = cartService.selectCartListAll(paramMap);
+		if (list.size() > 0){
+			String[] arrCartGrpNo = new String[list.size()];
+			int ifor, ilen = list.size();
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				arrCartGrpNo[ifor] = String.valueOf(list.get(ifor).getCartGrpNo());
+			}
+			paramMap = new HashMap<String, Object>();
+			paramMap.put("srchCartGrpNos", arrCartGrpNo);/*사용자 한테 안 보이는 항목 삭제*/
+			paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
+			cartService.deleteCart(paramMap);
+		}
+
+		paramMap = new HashMap<String, Object>();
 		paramMap.put("srchCartTy", "R"); // 급여주문 상품
 		paramMap.put("srchViewYn", "Y");
 		paramMap.put("srchRecipterUniqueId", mbrSession.getUniqueId());
