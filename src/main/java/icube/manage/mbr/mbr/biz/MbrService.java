@@ -802,7 +802,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 				mbrList.add(mbrVO);
 			}
 			
-			if (mbrList == null || mbrList.size() < 1) {
+			//네이버의 경우 CI값이 없는 경우도 있으므로 체크 추가
+			if ((mbrList == null || mbrList.size() < 1) && EgovStringUtil.isNotEmpty(ciKey)) {
 				//CI 값으로 회원 검색
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("srchCiKey", ciKey);
