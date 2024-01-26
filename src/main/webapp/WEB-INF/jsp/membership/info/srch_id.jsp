@@ -19,6 +19,13 @@
 						<label class="form-label" for="mbrId">본인인증</label>
 						<button class="btn btn-primary" type="button" style="width:69%" onclick="f_cert();">휴대폰 본인인증</button>
 					</div>
+					<div class="form-group" style="margin-top:20px; text-align:center;">
+						<label class="form-label"></label>
+						<p style="font-size:15px;">
+							간편가입 회원은 아이디 찾기가 제공되지 않습니다.<br>
+							각 소셜 서비스를 통해 확인 부탁드립니다.
+						</p>
+					</div>
 					<div class="form-button">
 	                    <a href="/membership/login" class="btn btn-outline-primary" style="width:100%;">취소</a>
 					</div>

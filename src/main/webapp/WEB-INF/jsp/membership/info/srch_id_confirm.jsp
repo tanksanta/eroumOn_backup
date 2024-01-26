@@ -20,6 +20,7 @@
 					</div>
 				</c:if>
 			
+				<%--
 				<c:if test="${ !empty kakaoAuthInfo }">
 					<div class="flex w-full mb-4">
 						<img style="margin-right:15px; border-radius:100%; width:30px; max-width:30px; height:30px;" src="/html/core/images/ico-kakao.png">
@@ -33,17 +34,15 @@
 						<div style="line-height:30px;">네이버 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${ naverAuthInfo.eml }</div>
 					</div>
 				</c:if>
-			</div>
-			<div style="font-size:12px; margin-top:20px; text-align:center;">
-				<p>- 간편가입 회원은 SNS 아이디가 아닌 가입 시 등록한 이메일을 알려드립니다.</p>
+				--%>
 			</div>
 			<div class="form-button complate">
-				<c:if test="${ !empty eroumAuthInfo }">
-					<a href="/membership/srchPswd" class="btn btn-outline-primary">비밀번호 찾기</a>
-				</c:if>
+				<a href="/membership/srchPswd" class="btn btn-outline-primary">비밀번호 찾기</a>
 				<a href="/membership/login" class="btn btn-primary">로그인하기</a>
 			</div>
+			<!--
 			<p class="text-alert mt-5.5">간편가입 회원은 비밀번호 재설정이 제공되지 않습니다. 각 소셜 서비스를 통해 확인 부탁드립니다.</p>
+			-->
 		</div>
 	</div>
 </main>
