@@ -72,7 +72,7 @@
 										 <c:choose>
 											<c:when test="${ !empty kakaoAuthInfo }">
 												${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo});">연결해제</a>
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo}, 'K');">연결해제</a>
 											</c:when>
 											<c:otherwise>
 												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/kakao/auth' }">연결하기 &gt;</span>
@@ -91,7 +91,7 @@
 										<c:choose>
 											<c:when test="${ !empty naverAuthInfo }">
 												${naverAuthInfo.eml}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo});">연결해제</a>
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo}, 'N');">연결해제</a>
 											</c:when>
 											<c:otherwise>
 												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/naver/get' }">연결하기 &gt;</span>
@@ -330,13 +330,24 @@ async function f_cert(){
 }
 
 //인증 수단 삭제
-function removeAuth(authNo) {
-	if (confirm('소셜 로그인 연결을 해제하시겠어요?')) {
+function removeAuth(authNo, joinTy) {
+	var confirmMsg = '소셜 로그인 연결을 해제하시겠어요?';
+	var afterLogout = false;
+	if (joinTy && joinTy === '${_mbrSession.lgnTy}') {
+		confirmMsg += '\n연결 해제 시 이로움ON에서 로그아웃됩니다';
+		afterLogout = true;
+	}
+	
+	if (confirm(confirmMsg)) {
 		callPostAjaxIfFailOnlyMsg(
 			'/membership/info/myinfo/removeMbrAuth.json',
 			{ authNo },
 			function(result) {
-				location.reload();
+				if (afterLogout) {
+					location.href = '/membership/logout';
+				} else {
+					location.reload();
+				}
 			}
 		);
 	}
