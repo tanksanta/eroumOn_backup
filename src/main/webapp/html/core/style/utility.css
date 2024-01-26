@@ -175,6 +175,10 @@ strong {
             @apply bg-[url(/html/core/images/ico-brand-link4.png)]
                    hover:bg-[url(/html/core/images/ico-brand-link4-on.png)];
         }
+        & .link-item5 {
+            @apply bg-[url(/html/core/images/ico-brand-link5.png)]
+                   hover:bg-[url(/html/core/images/ico-brand-link5-on.png)];
+        }
         &.is-bottom {
             & [class*="link-item"] {
                 & .bubble {
