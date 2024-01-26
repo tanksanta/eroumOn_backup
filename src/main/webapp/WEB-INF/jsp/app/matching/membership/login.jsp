@@ -23,7 +23,7 @@
                 </dd>
             </dl>
 			<br>
-			<button class="btn btn-primary" type="button" onclick="">회원가입</button>
+			<button class="btn btn-primary" type="button" onclick="location.href = '/${_matchingPath}/membership/regist'">회원가입</button>
 			
 			<br><br><br>
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({msg: '심심해서 보내봄'});">모바일에 데이터 전송</button>
@@ -33,8 +33,6 @@
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'saveLocal'});">로컬 저장</button>
 			<br><br>
 			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'loadLocal'});">로컬 불러오기</button>
-			<br><br>
-			<button class="btn btn-primary" type="button" onclick="f_cert();">본인 인증</button>
 		</div>
 	</main>
 	

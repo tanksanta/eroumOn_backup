@@ -1,13 +1,13 @@
 // 매칭앱 전용 본인인증 함수
 
-async function f_cert(callback){
+async function f_cert(bootpayKey, callback){
 	//alert 기능 잠시 사용못하도록 처리(웹뷰 본인인증창에서 무분별하게 alert됨)
 	var tempAlert = window.alert;
 	window.alert = function() {};
 	
 	try {
 	    var requestAuthentication = Bootpay.requestAuthentication({
-	        application_id: "${_bootpayScriptKey}",
+	        application_id: bootpayKey,
 	        pg: '다날',
 	        order_name: '본인인증',
 	        authentication_id: 'CERT00000000001',

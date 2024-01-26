@@ -122,6 +122,7 @@
         	<mvc:mapping path="/#{props['Globals.Matching.path']}/**"/>
     		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/login"/>
     		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/loginAction"/>
+    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/regist"/>
     		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/kakao/**"/>
     		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/naver/**"/>
         	<bean class="icube.app.matching.common.interceptor.MatInterceptor" />

@@ -16,34 +16,36 @@ import icube.manage.mbr.mbr.biz.MbrService;
 /**
  * 매칭앱 - 일반 회원가입
  */
-//@Controller
-//@RequestMapping(value="#{props['Globals.Matching.path']}/membership")
-//public class MatRegistController extends CommonAbstractController {
-//	
-//	@Resource(name = "mbrService")
-//	private MbrService mbrService;
-//	
-//	@Autowired
-//	private MatMbrSession matMbrSession;
-//	
-//	@Value("#{props['Globals.Matching.path']}")
-//	private String matchingPath;
-//	
-//	@Value("#{props['Bootpay.Script.Key']}")
-//	private String bootpayScriptKey;
-//
-//	@Value("#{props['Profiles.Active']}")
-//	private String activeMode;
-//	
-//	private static final String RSA_MEMBERSHIP_KEY = "__rsaMembersKey__";
-//	
-//	
-//	@RequestMapping(value="login")
-//	public String login(
-//			HttpServletRequest request
-//			, HttpSession session) {
-//		
-//		
-//		return "/app/matching/membership/login";
-//	}
-//}
+@Controller
+@RequestMapping(value="#{props['Globals.Matching.path']}/membership")
+public class MatRegistController extends CommonAbstractController {
+	
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
+	@Autowired
+	private MatMbrSession matMbrSession;
+	
+	@Value("#{props['Globals.Matching.path']}")
+	private String matchingPath;
+	
+	@Value("#{props['Bootpay.Script.Key']}")
+	private String bootpayScriptKey;
+
+	@Value("#{props['Profiles.Active']}")
+	private String activeMode;
+	
+	
+	@RequestMapping(value="regist")
+	public String login(
+			HttpServletRequest request
+			, HttpSession session) {
+		
+		session.setAttribute("_matchingPath", matchingPath);
+		
+		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
+		request.setAttribute("_activeMode", activeMode.toUpperCase());
+		
+		return "/app/matching/membership/regist";
+	}
+}
