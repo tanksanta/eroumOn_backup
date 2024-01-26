@@ -90,7 +90,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
 		}
 		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
-		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
+		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath + ("/membership");
 		
 		String accessToken = null;
 		MbrVO kakaoUserInfo = null;

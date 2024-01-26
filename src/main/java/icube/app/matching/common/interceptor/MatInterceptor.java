@@ -13,7 +13,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import icube.app.matching.mbr.biz.MatMbrSession;
+import icube.app.matching.membership.mbr.biz.MatMbrSession;
 
 public class MatInterceptor implements HandlerInterceptor {
 	protected Log log = LogFactory.getLog(this.getClass());
@@ -67,7 +67,7 @@ public class MatInterceptor implements HandlerInterceptor {
 			request.setAttribute("_matMbrSession", matMbrSession);
 			
 			if (matMbrSession.isLoginCheck() == false) {
-				response.sendRedirect("/matching/login");
+				response.sendRedirect("/matching/membership/login");
 				return false;
 			}
 		} catch (Exception ex) {
