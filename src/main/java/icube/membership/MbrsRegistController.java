@@ -527,6 +527,7 @@ public class MbrsRegistController extends CommonAbstractController{
 				javaScript.setLocation("/");
 			}
 		} catch (Exception ex) {
+			log.error("-------sns 가입 도중 에러", ex);
 			mbrSession.setParms(new MbrVO(), false);
 			mbrSession.setMbrInfo(session, mbrSession);
 			
