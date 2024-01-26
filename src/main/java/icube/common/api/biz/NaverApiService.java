@@ -178,10 +178,10 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
 		 
 		StringBuffer sb = new StringBuffer();
-		sb.append("grant_type=refresh_token");
+		sb.append("grant_type=delete");
 		sb.append("&client_id=" +  NaverClientId);
 		sb.append("&client_secret=" + NaverClientSecret);
-		sb.append("&refresh_token=" + refreshToken);
+		sb.append("&access_token=" + newAccessToken);
 		String parameterStr = sb.toString();
 		
 		bufferedWriter.write(parameterStr);
@@ -191,7 +191,7 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		JsonElement element = (JsonElement)eleMap.get("element");
 
 		newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
-		newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+		String newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
 		bufferedWriter.close();
 
