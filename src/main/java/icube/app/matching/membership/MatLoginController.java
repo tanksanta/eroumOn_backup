@@ -1,4 +1,4 @@
-package icube.app.matching;
+package icube.app.matching.membership;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import icube.app.matching.mbr.biz.MatMbrSession;
+import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -25,7 +25,7 @@ import icube.manage.mbr.mbr.biz.MbrVO;
  * 매칭앱 - 일반 로그인
  */
 @Controller
-@RequestMapping(value="#{props['Globals.Matching.path']}")
+@RequestMapping(value="#{props['Globals.Matching.path']}/membership")
 public class MatLoginController extends CommonAbstractController {
 	
 	@Resource(name = "mbrService")
@@ -66,7 +66,7 @@ public class MatLoginController extends CommonAbstractController {
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 		
-		return "/app/matching/login";
+		return "/app/matching/membership/login";
 	}
 	
 	@ResponseBody

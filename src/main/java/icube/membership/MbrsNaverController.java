@@ -82,7 +82,7 @@ public class MbrsNaverController extends CommonAbstractController{
 			javaScript.setMessage("네이버 로그인 유입 경로를 설정하세요.");
 		}
 		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
-		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath;
+		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath + ("/membership");
 		
 		//로그인 실패오류 또는 동의하지 않은 경우
 		if ("access_denied".equals(error)) {

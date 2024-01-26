@@ -43,7 +43,7 @@
 	<bean id="MatchingRequestHolder" class="icube.common.framework.request.RequestHolder" scope="request">
 		<aop:scoped-proxy proxy-target-class="true" />
 	</bean>
-	<bean id="matMbrSession" class="icube.app.matching.mbr.biz.MatMbrSession" scope="session">
+	<bean id="matMbrSession" class="icube.app.matching.membership.mbr.biz.MatMbrSession" scope="session">
 		<aop:scoped-proxy proxy-target-class="true"/>
 		<property name="request" ref="MatchingRequestHolder" />
 	</bean>

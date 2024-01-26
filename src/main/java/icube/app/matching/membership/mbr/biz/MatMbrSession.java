@@ -1,4 +1,4 @@
-package icube.app.matching.mbr.biz;
+package icube.app.matching.membership.mbr.biz;
 
 import javax.servlet.http.HttpSession;
 
