@@ -28,6 +28,8 @@ public class MbrAuthVO {
     private Date regDt;
     private Date delDt;
     private String delYn = "N";
+    private String accessToken;
+    private String refreshToken;
     
     private MbrVO mbrVO;
 }

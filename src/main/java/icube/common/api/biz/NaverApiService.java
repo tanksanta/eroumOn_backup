@@ -251,7 +251,10 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		HttpURLConnection con = this.getHeader(NaverProflUrl, header);
 		Map<String, Object> eleMap = this.getResponse(con);
 
-		return setProflVO(eleMap);
+		MbrVO naverUserInfo = setProflVO(eleMap);
+		naverUserInfo.setAccessToken(accessToken);
+		naverUserInfo.setRefreshToken(refreshToken);
+		return naverUserInfo;
 	}
 
 	/**

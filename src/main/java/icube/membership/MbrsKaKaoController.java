@@ -92,11 +92,12 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
 		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath + ("/membership");
 		
-		String accessToken = null;
 		MbrVO kakaoUserInfo = null;
 		try {
-			accessToken = kakaoApiService.getToken(code);
-			kakaoUserInfo = kakaoApiService.getKakaoUserInfo(accessToken);
+			Map<String, Object> tokenMap = kakaoApiService.getToken(code);
+			String accessToken = (String)tokenMap.get("accessToken");
+			String refreshToken = (String)tokenMap.get("refreshToken");
+			kakaoUserInfo = kakaoApiService.getKakaoUserInfo(accessToken, refreshToken);
 			if (accessToken == null || kakaoUserInfo == null) {
 				throw new Exception();
 			}
@@ -121,7 +122,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			//검색 회원이 없으면 회원가입 처리
 			if (!validationResult.containsKey("srchMbrVO")) {
 				//kakao 주소 정보 get API 호출
-				DlvyVO dlvyVO = kakaoApiService.getUserDlvy(accessToken);
+				DlvyVO dlvyVO = kakaoApiService.getUserDlvy(kakaoUserInfo.getAccessToken());
 				
 				//임시 로그인 처리
 				mbrService.loginTempSnsMbr(session, kakaoUserInfo, dlvyVO);

@@ -81,6 +81,9 @@ public class MbrSession extends MbrVO implements Serializable {
 		setLgnTy(mbrVO.getLgnTy());
 		setSnsRegistDt(mbrVO.getSnsRegistDt());
 
+		setAccessToken(mbrVO.getAccessToken());
+		setRefreshToken(mbrVO.getRefreshToken());
+		
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
 

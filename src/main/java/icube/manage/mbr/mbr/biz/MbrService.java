@@ -911,8 +911,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			matMbrSession.login(session, srchMbrVO);
 		}
 		
-		//SNS 인증정보 갱신(이메일, 번호, CI값)
-		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey());
+		//SNS 인증정보 갱신(이메일, 번호, CI값, 엑세스 토큰, 리프레시 토큰)
+		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey(), snsUserInfo.getAccessToken(), snsUserInfo.getRefreshToken());
 		
 		resultMap.put("valid", true);
 		return resultMap;

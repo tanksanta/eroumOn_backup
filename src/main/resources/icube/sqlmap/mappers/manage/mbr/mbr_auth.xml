@@ -72,6 +72,8 @@
 			, ci_key
 			, reg_dt
 			, del_yn
+			, access_token
+			, refresh_token
 		)VALUES(
 			#{mbrUniqueId}
 			, #{joinTy}
@@ -84,6 +86,8 @@
 			, #{ciKey}
 			, SYSDATE()
 			, #{delYn}
+			, #{accessToken}
+			, #{refreshToken}
 		)
 	</insert>
 	
@@ -117,6 +121,8 @@
 			eml = #{eml}
 			, mbl_telno = #{mblTelno}
 			, ci_key = #{ciKey}
+			, access_token = #{accessToken}
+			, refresh_token = #{refreshToken}
 		WHERE auth_no = #{authNo}
 	</update>
 </mapper>

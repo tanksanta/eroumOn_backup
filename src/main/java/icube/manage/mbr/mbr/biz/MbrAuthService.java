@@ -72,6 +72,8 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		mbrAuthVO.setEml(mbrVO.getEml());
 		mbrAuthVO.setMblTelno(mbrVO.getMblTelno());
 		mbrAuthVO.setCiKey(mbrVO.getCiKey());
+		mbrAuthVO.setAccessToken(mbrVO.getAccessToken());
+		mbrAuthVO.setRefreshToken(mbrVO.getRefreshToken());
 		insertMbrAuth(mbrAuthVO);
 	}
 	
@@ -79,8 +81,8 @@ public class MbrAuthService extends CommonAbstractServiceImpl {
 		mbrAuthDAO.updatePswd(authNo, pswd);
 	}
 	
-	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey) throws Exception {
-		mbrAuthDAO.updateSnsInfo(authNo, eml, mblTelno, ciKey);
+	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey, String accessToken, String refreshToken) throws Exception {
+		mbrAuthDAO.updateSnsInfo(authNo, eml, mblTelno, ciKey, accessToken, refreshToken);
 	}
 	
 	

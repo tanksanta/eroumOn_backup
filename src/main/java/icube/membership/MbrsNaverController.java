@@ -90,13 +90,11 @@ public class MbrsNaverController extends CommonAbstractController{
 			return new JavaScriptView(javaScript);
 		}
 		
-		String accessToken = null;
-		String refreshToken = null;
 		MbrVO naverUserInfo = null;
 		try {
 			Map<String, Object> resultMap = naverApiService.getToken(code, state);
-			accessToken = (String)resultMap.get("accessToken");
-			refreshToken = (String)resultMap.get("refreshToken");
+			String accessToken = (String)resultMap.get("accessToken");
+			String refreshToken = (String)resultMap.get("refreshToken");
 			
 			naverUserInfo = naverApiService.getNaverUserInfo(accessToken, refreshToken);
 			if (naverUserInfo == null) {

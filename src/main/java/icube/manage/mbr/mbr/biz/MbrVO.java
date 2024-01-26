@@ -84,6 +84,10 @@ public class MbrVO extends CommonBaseVO {
 	private String lgnTy;        // 로그인 시 인증타입
 	private String joinTyList;   // 관리자 > 회원관리에서 다중 가입유형 표시용 속성
 
+	//sns 로그인 시 임시 저장 속성
+	private String accessToken;  
+	private String refreshToken;
+	
 	// 첨부파일 체크
 	private List<FileVO> fileList;
 

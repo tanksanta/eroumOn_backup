@@ -102,7 +102,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public String getToken(String code) throws Exception {
+	public Map<String, Object> getToken(String code) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		String accessToken = "";
@@ -147,7 +147,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 			resultMap.put("refreshToken", refreshToken);
 		}
 
-		return accessToken;
+		return resultMap;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @return result
 	 * @throws Exception
 	 */
-	public MbrVO getKakaoUserInfo(String accessToken) throws Exception {
+	public MbrVO getKakaoUserInfo(String accessToken, String refreshToken) throws Exception {
 		URL url = new URL(userUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
@@ -178,6 +178,8 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         element = JsonParser.parseString(jsonObj.toString());
 
         MbrVO kakaoUserInfo = new MbrVO();
+        kakaoUserInfo.setAccessToken(accessToken);
+        kakaoUserInfo.setRefreshToken(refreshToken);
         kakaoUserInfo.setJoinTy("K");
         
         //사용자 정보 추출
