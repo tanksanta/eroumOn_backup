@@ -275,6 +275,11 @@ $(function(){
 			inputMbrInfo.removeClass('keycontrol');
 			inputMbrInfo.removeClass('phonenumber');
 			inputMbrInfo.attr('placeholder', '가입 시 등록한 이메일을 입력해 주세요');
+			
+			var target = document.querySelector('#mbrInfo');
+			var clone = target.cloneNode(true);
+			inputMbrInfo.remove();
+			document.querySelector('#mbrInfo-error').insertAdjacentElement('beforebegin', clone);
 		} else if (srchTy === 'tel') {
 			inputMbrInfo.addClass('keycontrol');
 			inputMbrInfo.addClass('phonenumber');
