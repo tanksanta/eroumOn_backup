@@ -11,12 +11,12 @@
 	                    <div class="modal-body" style="padding:0; margin:20px 0px;">
 	                    	<div class="flex flex-col justify-center items-start" style="width:300px;">
 	                    		<label>아이디</label>
-	                        	<input type="text" id="rea-id" class="form-control w-full" oninput="oninputInReaModal('id');" maxlength="15" onfocus="onfocusInReaModal('id');" onblur="onblurInReaModal('id');">
+	                        	<input type="text" id="rea-id" class="form-control w-full" oninput="oninputInReaModal('id');" maxlength="15" onfocus="onfocusInReaModal('id');" onblur="onblurInReaModal('id');" onfocusout="onchangeInReaModal('id')">
 	                        	<p id="rea-id-error" class="error text-danger">! 아이디를 입력해 주세요</p>
 	                        	<p id="rea-id-valid" class="error text-valid">! 6~15자 영문,숫자를 조합해주세요</p>
 	                        	
 	                        	<label style="margin-top:10px;">비밀번호</label>
-	                        	<input type="password" id="rea-pw" class="form-control w-full" oninput="oninputInReaModal('pw');" maxlength="16" onfocus="onfocusInReaModal('pw')" onblur="onblurInReaModal('pw');">
+	                        	<input type="password" id="rea-pw" class="form-control w-full" oninput="oninputInReaModal('pw');" maxlength="16" onfocus="onfocusInReaModal('pw')" onblur="onblurInReaModal('pw');" onfocusout="onchangeInReaModal('pw')">
 	                        	<p id="rea-pw-error" class="error text-danger">! 비밀번호를 입력해 주세요</p>
 	                        	<p id="rea-pw-valid" class="error text-valid">! 8~15자 영문,숫자,특수문자를 조합해주세요</p>
 	                        </div>
@@ -123,7 +123,7 @@
     		}
     	}
     	
-    	//각 입력필드 change 이벤트(ID, PW가 유효성이 검증된 경우 계정만들기 버튼 활성화)
+    	//각 입력필드 input 이벤트(ID, PW가 유효성이 검증된 경우 계정만들기 버튼 활성화)
     	const idchk = /^[a-zA-Z][A-Za-z0-9]{5,14}$/;
 		const pswdChk = /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+*=*]).*$/;
     	function oninputInReaModal(inputTitle) {
@@ -132,18 +132,18 @@
     		var mbrId = idInput.val();
     		var pswd = pwInput.val();
     		var isValidId = false;
-    		var isVlaidPw = false;
+    		var isValidPw = false;
     		
     		//검증
     		if (mbrId.length >= 6 && mbrId.length <= 15 && idchk.test(mbrId)) {
     			isValidId = true;
     		}
     		if (pswd.length >= 8 && pswd.length <= 16 && pswdChk.test(pswd)) {
-    			isVlaidPw = true;    			
+    			isValidPw = true;    			
     		}
     		
     		//검증 통과시 버튼 활성화
-    		if (isValidId && isVlaidPw) {
+    		if (isValidId && isValidPw) {
     			initReaModal(false);
     			$('#rea-action').removeClass('disabled');
     		} else {
@@ -153,6 +153,45 @@
     			}
     			else {
     				onfocusInReaModal('pw');
+    			}
+    		}
+    	}
+    	
+    	//각 입력필드 change 이벤트
+    	function onchangeInReaModal(inputTitle) {
+    		
+    		//모든 효과 초기화
+    		initReaModal(false);
+    		
+    		var idInput = $('#rea-id');
+			var pwInput = $('#rea-pw');
+			var mbrId = idInput.val();
+    		var pswd = pwInput.val();
+    		
+    		if (inputTitle == 'id') {
+    			var errorTag = $('#rea-id-error');
+    			
+        		if (mbrId.length >= 6 && mbrId.length <= 15 && idchk.test(mbrId)) {
+        			errorTag.css('display', 'none')
+    				idInput.removeClass('is-invalid');
+        		}
+        		else {
+        			errorTag.text('! ' + '6~15자 영문,숫자를 조합해 주세요');
+    				errorTag.css('display', 'block')
+    				idInput.addClass('is-invalid');
+        		}
+    		}
+    		else if (inputTitle == 'pw') {
+    			var errorTag = $('#rea-pw-error');
+    			
+    			if (pswd.length >= 8 && pswd.length <= 16 && pswdChk.test(pswd)) {
+    				errorTag.css('display', 'none')
+    				pwInput.removeClass('is-invalid');
+        		}
+    			else {
+    				errorTag.text('! ' + '8~16자 영문,숫자,특수문자를 조합해 주세요');
+    				errorTag.css('display', 'block')
+    				pwInput.addClass('is-invalid');
     			}
     		}
     	}
