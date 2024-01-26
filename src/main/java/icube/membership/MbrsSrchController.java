@@ -148,6 +148,12 @@ public class MbrsSrchController extends CommonAbstractController{
 				resultMap.put("msg", "해당 회원 인증이 존재하지 않습니다.");
 				return resultMap;
 			}
+			
+			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+			if (eroumAuthInfo == null) {
+				resultMap.put("msg", "해당 회원이 존재하지 않습니다.");
+				return resultMap;
+			}
 
 			//본인인증을 통한 찾기가 아닌 경우에 ID, 이메일, 전화번호 마스킹 처리 
 			if (!isUserAuth) {
