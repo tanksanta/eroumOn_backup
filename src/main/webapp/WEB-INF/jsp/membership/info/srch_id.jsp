@@ -278,6 +278,7 @@ $(function(){
 			
 			var target = document.querySelector('#mbrInfo');
 			var clone = target.cloneNode(true);
+			clone.removeAttribute("maxlength");
 			inputMbrInfo.remove();
 			document.querySelector('#mbrInfo-error').insertAdjacentElement('beforebegin', clone);
 		} else if (srchTy === 'tel') {
