@@ -36,8 +36,8 @@
                             </a>
                         </li> -->
 
-						<li><a href="//www.youtube.com/@eroumon" target="_blank" class="link-item4"><span class="sr-only">이로움ON</span></a></li>
 						<li><a href="https://blog.naver.com/eroum_on" target="_blank" class="link-item5"><span class="sr-only">이로움ON</span></a></li>
+						<li><a href="//www.youtube.com/@eroumon" target="_blank" class="link-item4"><span class="sr-only">이로움ON</span></a></li>
                         <li>
                             <a href="${_marketPath}" class="link-item3" target="_blank" title="새창열림">
                                 <div class="bubble">
