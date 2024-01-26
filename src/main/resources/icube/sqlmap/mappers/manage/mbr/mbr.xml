@@ -355,7 +355,7 @@
 			, #{snsRegistDt}
 		)
 		<selectKey resultType="String" keyProperty="uniqueId" order="AFTER">
-      		SELECT unique_id FROM MBR WHERE mbr_id = #{mbrId}
+      		SELECT unique_id FROM MBR WHERE ci_key = #{ciKey}
     	</selectKey>
 	</insert>
 
