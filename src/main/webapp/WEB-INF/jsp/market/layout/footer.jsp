@@ -27,6 +27,7 @@
 				<dt class="sr-only">패밀리 사이트</dt>
 				<dd>
 					<ul class="global-link">
+						<li><a href="https://blog.naver.com/eroum_on" target="_blank" class="link-item5"><span class="sr-only">이로움ON</span></a></li>
 						<li><a href="//www.youtube.com/@eroumon" target="_blank" class="link-item4"><span class="sr-only">이로움ON</span></a></li>
 						<li><a href="${_mainPath}" target="_blank" title="새창열림" class="link-item1">
 								<div class="bubble">
