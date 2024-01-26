@@ -51,7 +51,7 @@
     	}
     	
     	//초기 상태로 만들기
-    	function initReaModal(isValueInit) {
+    	function initReaModal(isValueInit, excludeBtn) {
     		//아이디 필드 초기화
     		var idInput = $('#rea-id');
     		if (isValueInit) {
@@ -72,7 +72,9 @@
     		$('#rea-pw-error').css('display', 'none');
     		$('#rea-pw-valid').css('display', 'none');
     		
-    		$('#rea-action').addClass('disabled');
+    		if (!excludeBtn) {
+    			$('#rea-action').addClass('disabled');    			
+    		}
     	}
     	
     	//각 입력필드 포커스 이벤트
@@ -160,8 +162,8 @@
     	//각 입력필드 change 이벤트
     	function onchangeInReaModal(inputTitle) {
     		
-    		//모든 효과 초기화
-    		initReaModal(false);
+    		//모든 효과 초기화(버튼 제외)
+    		initReaModal(false, true);
     		
     		var idInput = $('#rea-id');
 			var pwInput = $('#rea-pw');
