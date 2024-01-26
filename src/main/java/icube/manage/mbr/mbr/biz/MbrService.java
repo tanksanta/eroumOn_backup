@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import icube.app.matching.mbr.biz.MatMbrSession;
+import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
@@ -777,7 +777,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		if ("matching".equals(prevPath)) {
 			rootPath = "/" + matchingPath;
 			membershipRootPath = rootPath;
-			registPath = rootPath + "/login";
+			registPath = rootPath + "/membership/login";
 		}
 		
 		

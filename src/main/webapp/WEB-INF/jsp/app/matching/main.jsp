@@ -20,7 +20,7 @@
 
 	<script>
 		function clickLogoutBtn() {
-			callPostAjaxIfFailOnlyMsg('/matching/logoutAction', {}, function() { location.reload(); });
+			callPostAjaxIfFailOnlyMsg('/matching/membership/logoutAction', {}, function() { location.reload(); });
 		}
 		
 		$(function() {
