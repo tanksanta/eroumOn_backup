@@ -16,6 +16,8 @@
 		, mau.reg_dt
 		, mau.del_dt
 		, mau.del_yn
+		, mau.access_token
+		, mau.refresh_token
 	</sql>
 	
 	<sql id="searchConditions">

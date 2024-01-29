@@ -25,6 +25,7 @@ import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
+import icube.common.api.biz.NaverApiService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
@@ -61,6 +62,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Resource(name = "mbrAuthService")
 	private MbrAuthService mbrAuthService;
 
+	@Resource(name = "naverApiService")
+	private NaverApiService naverApiService;
+	
 	@Resource(name="fileService")
 	private FileService fileService;
 
@@ -981,6 +985,11 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			mbrAuthService.deleteMbrAuthByNo(authVO.getAuthNo());
+			
+			//SNS 쪽 연동해제 api
+			if ("N".equals(authVO.getJoinTy())) {
+				naverApiService.deleteNaverConnection(authVO.getRefreshToken());
+			}
 			
 			resultMap.put("success", true);
 		} catch (Exception ex) {
