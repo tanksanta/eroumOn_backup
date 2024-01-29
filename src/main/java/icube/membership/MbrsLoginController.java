@@ -238,10 +238,24 @@ public class MbrsLoginController extends CommonAbstractController  {
 		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
 		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
 		
+		//이미 가입한 카카오 가입 수단에 이메일 정보 및 전화번호 정보가 없는 경우
+		boolean isContainNoEmlKakao = false;
+		if (kakaoAuthInfo != null && EgovStringUtil.isEmpty(kakaoAuthInfo.getEml()) && EgovStringUtil.isEmpty(kakaoAuthInfo.getMblTelno())) {
+			isContainNoEmlKakao = true;
+		}
+		
+		//이미 가입한 네이버 가입 수단에 이메일 정보가 없는 경우
+		boolean isContainNoEmlNaver = false;
+		if (naverAuthInfo != null && EgovStringUtil.isEmpty(naverAuthInfo.getEml())) {
+			isContainNoEmlNaver = true;
+		}
+		
 		model.addAttribute("tempMbrVO", mbrVO);
 		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
 		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
 		model.addAttribute("naverAuthInfo", naverAuthInfo);
+		model.addAttribute("isContainNoEmlKakao", isContainNoEmlKakao);
+		model.addAttribute("isContainNoEmlNaver", isContainNoEmlNaver);
 		
 		return "/membership/mbr_binding";
 	}

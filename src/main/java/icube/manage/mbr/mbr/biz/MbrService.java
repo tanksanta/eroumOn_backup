@@ -887,11 +887,11 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		//인증수단이 등록되었지만 계정이 다르다면
 		if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
-			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (mbrAuthVO.getEml() != null ? mbrAuthVO.getEml() : mbrAuthVO.getMblTelno()));
+			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
 			resultMap.put("location", membershipRootPath + "/kakao/reAuth");
 			return resultMap;
 		} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
-			resultMap.put("msg", "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + mbrAuthVO.getEml());
+			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
 			resultMap.put("location", membershipRootPath + "/naver/reAuth");
 			return resultMap;
 		}
@@ -911,8 +911,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			matMbrSession.login(session, srchMbrVO);
 		}
 		
-		//SNS 인증정보 갱신(이메일, 번호, CI값)
-		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey());
+		//SNS 인증정보 갱신(이메일, 번호, CI값, 엑세스 토큰, 리프레시 토큰)
+		mbrAuthService.updateSnsInfo(mbrAuthVO.getAuthNo(), snsUserInfo.getEml(), snsUserInfo.getMblTelno(), snsUserInfo.getCiKey(), snsUserInfo.getAccessToken(), snsUserInfo.getRefreshToken());
 		
 		resultMap.put("valid", true);
 		return resultMap;
@@ -1058,27 +1058,24 @@ public class MbrService extends CommonAbstractServiceImpl {
 		resultMap.put("valid", false);
 		
 		//같은 CI를 등록한 회원이 있는 지 확인
-		String idInfoStr = "";
 		MbrVO srchMbr = getBindingMbr(mbrAuthVO.getCiKey(), diKey);
 		if (srchMbr != null) {
 			//검색된 바인딩 계정에 이미 해당 인증수단이 있는 경우
 			List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(srchMbr.getUniqueId());
 			MbrAuthVO authInfo = authList.stream().filter(f -> f.getJoinTy().equals(mbrAuthVO.getJoinTy())).findAny().orElse(null);
 			if (authInfo != null) {
+				resultMap.put("msg", getAlreadyMbrMsg(authInfo));
+				
 				if ("K".equals(mbrAuthVO.getJoinTy())) {
-					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (authInfo.getEml() != null ? authInfo.getEml() : authInfo.getMblTelno());
 					resultMap.put("location", "/membership/kakao/reAuth");
 				}
 				else if ("N".equals(mbrAuthVO.getJoinTy())) {
-					idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + authInfo.getEml();
 					resultMap.put("location", "/membership/naver/reAuth");
 				}
 				else {
-					idInfoStr = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + authInfo.getMbrId();
 					resultMap.put("location", "/membership/login");
 				}
 				mbrSession.setParms(new MbrVO(), false);
-				resultMap.put("msg", idInfoStr);
 				return resultMap;
 			} else {
 				//바인딩으로 이동 처리
@@ -1093,8 +1090,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		if ("K".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByKakaoAppId(mbrAuthVO.getKakaoAppId());
 			if (findMbrAuth != null) {
-				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n카카오 : " + (findMbrAuth.getEml() != null ? findMbrAuth.getEml() : findMbrAuth.getMblTelno());
-				resultMap.put("msg", idInfoStr);
+				resultMap.put("msg", getAlreadyMbrMsg(findMbrAuth));
 				resultMap.put("location", "/membership/kakao/reAuth");
 				mbrSession.setParms(new MbrVO(), false);
 				return resultMap;
@@ -1103,8 +1099,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		else if ("N".equals(mbrAuthVO.getJoinTy())) {
 			findMbrAuth = mbrAuthService.selectMbrAuthByNaverAppId(mbrAuthVO.getNaverAppId());
 			if (findMbrAuth != null) {
-				idInfoStr = "이미 가입된 소셜 계정이 있습니다.\\n네이버 : " + findMbrAuth.getEml();
-				resultMap.put("msg", idInfoStr);
+				resultMap.put("msg", getAlreadyMbrMsg(findMbrAuth));
 				resultMap.put("location", "/membership/naver/reAuth");
 				mbrSession.setParms(new MbrVO(), false);
 				return resultMap;
@@ -1359,5 +1354,30 @@ public class MbrService extends CommonAbstractServiceImpl {
 		
 		resultMap.put("success", true);
 		return resultMap;
+	}
+	
+	/**
+	 * 이미 존재하는 소셜 계정 안내 메세지 반환
+	 */
+	private String getAlreadyMbrMsg(MbrAuthVO mbrAuthInfo) {
+		String msg = "이미 가입된 소셜 계정이 있습니다.";
+		if ("K".equals(mbrAuthInfo.getJoinTy())) {
+			String snsInfo = mbrAuthInfo.getEml() != null ? mbrAuthInfo.getEml() : mbrAuthInfo.getMblTelno();
+			if (EgovStringUtil.isNotEmpty(snsInfo)) {
+				msg += "\\n카카오 : " + snsInfo;
+			} else {
+				msg = "이미 가입된 카카오 계정이 있습니다.";
+			}
+		} else if ("N".equals(mbrAuthInfo.getJoinTy())) {
+			String snsEml = mbrAuthInfo.getEml();
+			if (EgovStringUtil.isNotEmpty(snsEml)) {
+				msg += "\\n네이버 : " + snsEml;
+			} else {
+				msg = "이미 가입된 네이버 계정이 있습니다.";
+			}
+		} else {
+			msg = "이미 이로움ON에 가입된 계정이 있습니다.\\n아이디 : " + mbrAuthInfo.getMbrId();
+		}
+		return msg;
 	}
 }

@@ -71,8 +71,8 @@
 										
 										 <c:choose>
 											<c:when test="${ !empty kakaoAuthInfo }">
-												${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo}, 'K');">연결해제</a>
+												연결됨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${kakaoAuthInfo.authNo}, 'K');">해제하기</a>
 											</c:when>
 											<c:otherwise>
 												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/kakao/auth' }">연결하기 &gt;</span>
@@ -90,8 +90,8 @@
 										
 										<c:choose>
 											<c:when test="${ !empty naverAuthInfo }">
-												${naverAuthInfo.eml}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo}, 'N');">연결해제</a>
+												연결됨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a style="color:gray; opacity:0.6; border-bottom:1px solid gray; cursor:pointer;" onclick="removeAuth(${naverAuthInfo.authNo}, 'N');">해제하기</a>
 											</c:when>
 											<c:otherwise>
 												<span style="cursor:pointer;" onclick="if(confirm('소셜 계정을 연결하시겠어요?\n이후 연결된 계정으로 간편하게 로그인이 가능합니다')) { location.href='/membership/naver/get' }">연결하기 &gt;</span>

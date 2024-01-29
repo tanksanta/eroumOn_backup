@@ -30,12 +30,14 @@ public class MbrAuthDAO extends CommonAbstractMapper {
 		update("mbr.auth.updatePswd", paramMap);
 	}
 	
-	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey) throws Exception {
+	public void updateSnsInfo(int authNo, String eml, String mblTelno, String ciKey, String accessToken, String refreshToken) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("authNo", authNo);
 		paramMap.put("eml", eml);
 		paramMap.put("mblTelno", mblTelno);
 		paramMap.put("ciKey", ciKey);
+		paramMap.put("accessToken", accessToken);
+		paramMap.put("refreshToken", refreshToken);
 		update("mbr.auth.updateSnsInfo", paramMap);
 	}
 	

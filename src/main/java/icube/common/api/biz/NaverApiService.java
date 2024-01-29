@@ -98,8 +98,16 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		HttpURLConnection conn = getHeader(NaverTokenUrl, null);
 
 		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-		String parameterStr = setRequestParam("getToken", code, state, null);
-
+		 
+		StringBuffer sb = new StringBuffer();
+		sb.append("grant_type=authorization_code");
+		sb.append("&client_id=" + NaverClientId);
+		sb.append("&client_secret=" + URLEncoder.encode(NaverClientSecret, "UTF-8"));
+		sb.append("&redirect_uri=" + URLEncoder.encode(NaverRedirectUrl, "UTF-8"));
+		sb.append("&code=" + code);
+		sb.append("&state=" + state);
+		String parameterStr = sb.toString();
+		
 		bufferedWriter.write(parameterStr);
 		bufferedWriter.flush();
 
@@ -117,6 +125,83 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 
 		return resultMap;
 	}
+	
+	/**
+	 * 토큰 갱신
+	 */
+	private Map<String, Object> getToken(String refreshToken) throws Exception {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String newAccessToken = "";
+		String newRefreshToken = "";
+
+		HttpURLConnection conn = getHeader(NaverTokenUrl, null);
+
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+		 
+		StringBuffer sb = new StringBuffer();
+		sb.append("grant_type=refresh_token");
+		sb.append("&client_id=" +  NaverClientId);
+		sb.append("&client_secret=" + NaverClientSecret);
+		sb.append("&refresh_token=" + refreshToken);
+		String parameterStr = sb.toString();
+		
+		bufferedWriter.write(parameterStr);
+		bufferedWriter.flush();
+
+		Map<String, Object> eleMap = getResponse(conn);
+		JsonElement element = (JsonElement)eleMap.get("element");
+
+		newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
+		newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+
+		bufferedWriter.close();
+
+		resultMap.put("accessToken", newAccessToken);
+		resultMap.put("refreshToken", newRefreshToken);
+		resultMap.put("tokenType", "N");
+
+		return resultMap;
+	}
+	
+	/**
+	 * 연동 해제
+	 */
+	public Map<String, Object> deleteNaverConnection(String refreshToken) throws Exception {
+		//토큰 갱신
+		Map<String, Object> tokenMap = getToken(refreshToken);
+		String newAccessToken = (String)tokenMap.get("accessToken");
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpURLConnection conn = getHeader(NaverTokenUrl, null);
+
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+		 
+		StringBuffer sb = new StringBuffer();
+		sb.append("grant_type=delete");
+		sb.append("&client_id=" +  NaverClientId);
+		sb.append("&client_secret=" + NaverClientSecret);
+		sb.append("&access_token=" + newAccessToken);
+		String parameterStr = sb.toString();
+		
+		bufferedWriter.write(parameterStr);
+		bufferedWriter.flush();
+
+		Map<String, Object> eleMap = getResponse(conn);
+		JsonElement element = (JsonElement)eleMap.get("element");
+
+		newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
+		String newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+
+		bufferedWriter.close();
+
+		resultMap.put("accessToken", newAccessToken);
+		resultMap.put("refreshToken", newRefreshToken);
+		resultMap.put("tokenType", "N");
+
+		return resultMap;
+	}
+	
 
 	/**
 	 * 토큰 유효성 검사 (사용하는 곳이 없음)
@@ -165,38 +250,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	}
 
 	/**
-	 * 파라미터 세팅
-	 */
-	private String setRequestParam(String type, String code, String state, String refreshToken) throws Exception {
-		if(EgovStringUtil.isEmpty(state)) {
-			state = null;
-		}
-		StringBuffer sb = new StringBuffer();
-
-		switch(type) {
-			case"getToken":
-				sb.append("grant_type=authorization_code");
-				sb.append("&client_id=" + NaverClientId);
-				sb.append("&client_secret=" + URLEncoder.encode(NaverClientSecret, "UTF-8"));
-				sb.append("&redirect_uri=" + URLEncoder.encode(NaverRedirectUrl, "UTF-8"));
-				sb.append("&code=" + code);
-				sb.append("&state=" + state);
-	
-				break;
-			case"check":
-				sb.append(NaverTokenUrl + "grant_type=refresh_token");
-				sb.append("&client_id=" +  NaverClientId);
-				sb.append("&client_secret=" + NaverClientSecret);
-				sb.append("&refresh_token=" + refreshToken);
-				break;
-			default:
-				break;
-		}
-
-		return sb.toString();
-	}
-
-	/**
 	 * 응답 값
 	 * @param con
 	 * @return JsonElement
@@ -217,18 +270,6 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 				result.append(line);
 			}
 			//System.out.println("response body : " + result);
-
-		}else {
-//			paramMap.put("refreshToken", (String)keyMap.get("refreshToken"));
-//			String parameterStr = this.setRequestParam("check");
-//
-//			String header = "Bearer " + (String) keyMap.get("accessToken");
-//			con = this.getHeader(sb.toString(), header);
-//			Map<String, Object> eleMap = this.getResponse(con, keyMap);
-//			JsonElement element = (JsonElement) eleMap.get("element");
-//
-//			String accessToken = element.getAsJsonObject().get("access_token").getAsString();
-//			resultMap.put("accessToken", accessToken);
 		}
 		
 		JsonElement element = JsonParser.parseString(result.toString());
@@ -251,7 +292,10 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 		HttpURLConnection con = this.getHeader(NaverProflUrl, header);
 		Map<String, Object> eleMap = this.getResponse(con);
 
-		return setProflVO(eleMap);
+		MbrVO naverUserInfo = setProflVO(eleMap);
+		naverUserInfo.setAccessToken(accessToken);
+		naverUserInfo.setRefreshToken(refreshToken);
+		return naverUserInfo;
 	}
 
 	/**
