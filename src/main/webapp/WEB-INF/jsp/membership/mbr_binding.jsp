@@ -23,6 +23,12 @@
 				<div style="margin-bottom:40px; text-align:center;">
 					<div style="margin-bottom:10px; font-size: 1.5rem; font-weight:bold;">
 						<c:choose>
+							<c:when test="${isContainNoEmlKakao}">
+								이미 가입된 카카오 계정이 있어요
+							</c:when>
+							<c:when test="${isContainNoEmlNaver}">
+								이미 가입된 네이버 계정이 있어요
+							</c:when>
 							<c:when test="${tempMbrVO.joinTy eq 'E'}">
 								이미 가입된 소셜 계정이 있어요
 							</c:when>
@@ -46,21 +52,23 @@
 					</div>
 				</div>
 			
-				<dl class="content-auth">
-					<dt>계정 정보</dt>
-				</dl>
-				<table class="table-detail">
-					<colgroup>
-						<col class="w-29 xs:w-32">
-						<col>
-					</colgroup>
-					<tbody>
-						<tr class="top-border">
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+				<c:if test="${isContainNoEmlKakao == false && isContainNoEmlNaver == false}">
+					<dl class="content-auth">
+						<dt>계정 정보</dt>
+					</dl>
+					<table class="table-detail">
+						<colgroup>
+							<col class="w-29 xs:w-32">
+							<col>
+						</colgroup>
+						<tbody>
+							<tr class="top-border">
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</c:if>
 	
 				<div class="content-auth-phone mt-4" style="display:block;">
 					<c:if test="${ !empty eroumAuthInfo }">
@@ -71,7 +79,7 @@
 						</div>
 					</c:if>
 
-					<c:if test="${ !empty kakaoAuthInfo }">
+					<c:if test="${ !empty kakaoAuthInfo && isContainNoEmlKakao == false }">
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-kakao.png">
 							<div style="flex:5 5 0; line-height:40px;">카카오 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno }</div>
@@ -79,7 +87,7 @@
 						</div>
 					</c:if>
 					
-					<c:if test="${ !empty naverAuthInfo }">
+					<c:if test="${ !empty naverAuthInfo && isContainNoEmlNaver == false }">
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-naver.png">
 							<div style="flex:5 5 0; line-height:40px;">네이버 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${naverAuthInfo.eml}</div>
