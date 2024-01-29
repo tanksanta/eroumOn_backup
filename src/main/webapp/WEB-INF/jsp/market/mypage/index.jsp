@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<link rel="stylesheet" href="/html/page/market/assets/style/content/ordred-list.css?v=<spring:eval expression="@version['assets.version']"/>">
+
 	<main id="container" class="is-mypage">
 		<jsp:include page="../layout/page_header.jsp">
 			<jsp:param value="마이페이지" name="pageTitle"/>

@@ -343,13 +343,16 @@ class JsMarketOrdredDrawItems{
         var list = ordrOptn.split(" * ");
         var txtOptn = '';
 
-        txtOptn += '<dl class="option">';
-        list.forEach((element) => {
-            txtOptn += '    <dd>';
-            txtOptn += '        <span class="label-flat">{0}</span>'.format(element);
-            txtOptn += '    </dd>';
-        });
-        txtOptn += '</dl>';
+        if (ordrOptn.length > 0){
+            txtOptn += '<dl class="option">';
+            list.forEach((element) => {
+                txtOptn += '    <dd>';
+                txtOptn += '        <span class="label-flat">{0}</span>'.format(element);
+                txtOptn += '    </dd>';
+            });
+            txtOptn += '</dl>';
+        }
+        
 
         return txtOptn;
     }
@@ -381,9 +384,12 @@ class JsMarketOrdredDrawItems{
         }
         
 
-        strHtml += '<div class="item-add-box">';
-        strHtml += arrList.join('');
-        strHtml += '</div>';
+        if (arrList != undefined && arrList.length > 0){
+            strHtml += '<div class="item-add-box">';
+            strHtml += arrList.join('');
+            strHtml += '</div>';
+        }
+        
 
         return strHtml;
     }
@@ -401,7 +407,7 @@ class JsMarketOrdredDrawItems{
 
         var strHtml = '';
         strHtml += '<div class="order-item-content">';
-        strHtml +=      '<div class="flex items-start w-full">';
+        strHtml +=      '<div class="flex items-start w-full order-item-content-body">';
         strHtml +=          '<div class="order-item-group">';
         strHtml +=              '<div class="order-item-base">';
         strHtml +=                  '<p class="code">';
