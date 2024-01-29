@@ -249,6 +249,7 @@ public class MbrsInfoController extends CommonAbstractController{
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
 		
+		model.addAttribute("authCtn", authList.size());
 		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
 		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
 		model.addAttribute("naverAuthInfo", naverAuthInfo);
