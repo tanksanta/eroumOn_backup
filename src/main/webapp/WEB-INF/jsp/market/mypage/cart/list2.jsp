@@ -3,10 +3,22 @@
 	& .order-item-box.hidden{
 		display: none;
 	}
-	& .order-item-box .order-product-item{
-		grid-template-columns: 14.5rem auto auto;
+	@media (min-width: 769px){
+		& .order-item-box .order-product-item{
+			grid-template-columns: 14.5rem auto auto;
+		}
+	}
+	
+	@media (max-width: 768px){
+		& .order-item-box .order-product-item {
+			grid-template-columns: 8rem auto auto;
+		}
 	}
 
+	& .order-item-box .order-product-item .item-btn{
+		order: 6;
+	}
+	
 	& .order-item-box .order-product-item .item-thumb .form-check {
 		overflow: visible;
 	}
