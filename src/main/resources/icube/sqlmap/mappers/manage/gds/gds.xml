@@ -686,6 +686,12 @@
 		AND use_yn = #{srchUseYn}
 	</update>
 
+	<update id="updateGdsDlvyAditAmtFromDlvygrpNo" parameterType="java.util.HashMap">
+		UPDATE GDS SET
+			dlvy_adit_amt = #{dlvyAditAmt}
+		WHERE entrps_no = #{entrpsNo} AND entrps_dlvygrp_no = #{entrpsDlvygrpNo}
+	</update>
+
 	<!-- TODO : 통합 -->
 	<update id="updateGdsTag" parameterType="java.util.HashMap">
 		UPDATE GDS SET

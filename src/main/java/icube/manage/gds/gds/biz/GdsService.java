@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.HtmlUtil;
-import icube.common.values.StaticValues;
 import icube.common.vo.CommonListVO;
 import icube.manage.gds.ctgry.biz.GdsCtgryService;
 import icube.manage.gds.gds.ReverseCodeMap;
@@ -166,6 +165,16 @@ public class GdsService extends CommonAbstractServiceImpl {
 	 */
 	public Integer updateGdsUseYn(Map<String, Object> paramMap) throws Exception {
 		return gdsDAO.updateGdsUseYn(paramMap);
+	}
+
+	/**
+	 * 묶음배송에 해당하는 상품들의 도서산간 추가비용을 업데이트 해 주는 함수
+	 * @param paramMap {entrpsNo} : 입점업체 관리번호
+	 * @param paramMap {entrpsDlvygrpNo} : 묶음배송 관리번호
+	 * @param paramMap {dlvyAditAmt} : 도서산간 추가비용
+	 */
+	public Integer updateGdsDlvyAditAmtFromDlvygrpNo(Map<String, Object> paramMap) throws Exception {
+		return gdsDAO.updateGdsDlvyAditAmtFromDlvygrpNo(paramMap);
 	}
 
 	/**

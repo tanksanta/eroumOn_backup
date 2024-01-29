@@ -752,7 +752,7 @@
                                     <th scope="row"><label for="dlvyGroupYn">묶음배송</label></th>
                                     <td>
                                         <div class="form-group mr-4">
-                                            <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y"/>
+                                            <form:checkbox cssClass="form-check-input" path="dlvyGroupYn" value="Y" dlvy_adit_amt="${entrpsDlvyGrpVO.dlvyAditAmt}" />
                                             <label class="form-check-label" for="dlvyGroupYn1">사용</label>
 											<input type="hidden" name="entrpsDlvygrpNo" value="${gdsVO.entrpsDlvygrpNo}">
                                         </div>
