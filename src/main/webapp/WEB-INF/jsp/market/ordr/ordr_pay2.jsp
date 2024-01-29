@@ -1,8 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
-	& .payment-result dl.result-price-item.hidden{
+	& .payment-result .result-price dl.result-price-item.hidden{
 		display: none;
 	}
+    & .payment-result .result-price .container dl.total-ordrpc-dl {
+        & dt{
+            font-size: 18px;
+        }
+    }
+    & .payment-result .result-price .container dl:not(.total-ordrpc-dl) {
+        padding-left: 20px;
+        
+    }
+    & .payment-result .result-price .container dl dt {
+        padding-left: 0px;
+    }
+
+    .ico.connent{
+        background: url("/html/core/images/ico-connect.svg") no-repeat top 3px left;
+        padding-left: 10px;
+    }
 </style>
 
 	<main id="container">
@@ -221,24 +238,24 @@
                     <div class="result-price">
                         <div class="container">
                             <dl class="totalOrdrPc-dl total-ordrpc-dl">
-                                <dt>총 주문상품금액</dt>
+                                <dt>총 상품금액</dt>
                                 <dd><strong class="total-ordrpc-txt"><fmt:formatNumber value="${totalOrdrPc}" pattern="###,###" /></strong> 원</dd>
                             </dl>
-                            <dl class="total-dlvy-dl total-dlvyBase-dl">
+                            <dl class="total-dlvy-dl total-dlvyBase-dl result-price-item">
                                 <dt>배송비</dt>
                                 <dd><span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원</dd>
                             </dl>
                             <dl id="total-dlvyAdit-dl" class="total-dlvyAdit-dl result-price-item">
-                                <dt>도서산간 추가 배송비</dt>
+                                <dt><i class="ico connent"></i>&nbsp;제주/도서산간지역 추가</dt>
                                 <dd><span>+</span><strong class="total-dlvyAdit-txt">0</strong> 원</dd>
                             </dl>
-                            <dl class="total-coupon-dl">
-                                <dt>쿠폰</dt>
-                                <dd><span>-</span><strong class="text-danger total-coupon-txt">0</strong> 원</dd>
+                            <dl class="total-coupon-dl result-price-item">
+                                <dt>쿠폰 할인</dt>
+                                <dd><span>-</span><strong class="total-coupon-txt">0</strong> 원</dd>
                             </dl>
-                            <dl class="total-mlg-dl">
+                            <dl class="total-mlg-dl result-price-item">
                                 <dt>마일리지/포인트</dt>
-                                <dd><span>-</span><strong class="text-danger total-mlg-txt">0</strong> 원</dd>
+                                <dd><span>-</span><strong class="total-mlg-txt">0</strong> 원</dd>
                             </dl>
                             
                             

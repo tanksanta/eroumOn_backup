@@ -157,7 +157,7 @@ class JsMarketOrdredDrawItems{
         strHtml +=      '    <div class="flex items-center w-full">';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문번호</dt>';
-        strHtml +=      '            <dd><strong><a href="./view/{0}?${pageParam}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd);
+        strHtml +=      '            <dd><strong><a href="./view/{0}?{1}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd, location.search);
         strHtml +=      '        </dl>';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문일시</dt>';//<%--주문/취소 --%>
@@ -343,13 +343,16 @@ class JsMarketOrdredDrawItems{
         var list = ordrOptn.split(" * ");
         var txtOptn = '';
 
-        txtOptn += '<dl class="option">';
-        list.forEach((element) => {
-            txtOptn += '    <dd>';
-            txtOptn += '        <span class="label-flat">{0}</span>'.format(element);
-            txtOptn += '    </dd>';
-        });
-        txtOptn += '</dl>';
+        if (ordrOptn.length > 0){
+            txtOptn += '<dl class="option">';
+            list.forEach((element) => {
+                txtOptn += '    <dd>';
+                txtOptn += '        <span class="label-flat">{0}</span>'.format(element);
+                txtOptn += '    </dd>';
+            });
+            txtOptn += '</dl>';
+        }
+        
 
         return txtOptn;
     }
@@ -381,9 +384,12 @@ class JsMarketOrdredDrawItems{
         }
         
 
-        strHtml += '<div class="item-add-box">';
-        strHtml += arrList.join('');
-        strHtml += '</div>';
+        if (arrList != undefined && arrList.length > 0){
+            strHtml += '<div class="item-add-box">';
+            strHtml += arrList.join('');
+            strHtml += '</div>';
+        }
+        
 
         return strHtml;
     }
@@ -401,7 +407,7 @@ class JsMarketOrdredDrawItems{
 
         var strHtml = '';
         strHtml += '<div class="order-item-content">';
-        strHtml +=      '<div class="flex items-start w-full">';
+        strHtml +=      '<div class="flex items-start w-full order-item-content-body">';
         strHtml +=          '<div class="order-item-group">';
         strHtml +=              '<div class="order-item-base">';
         strHtml +=                  '<p class="code">';
@@ -442,7 +448,7 @@ class JsMarketOrdredDrawItems{
                 strHtml += '    <div class="content">';
                 strHtml += '        <p class="flex-1">멤버스<br> 승인완료</p>';
                 strHtml += '        <div class="multibtn">';
-                strHtml += '            <a href="./view/{0}?${pageParam}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd);
+                strHtml += '            <a href="./view/{0}?{1}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd, location.search);
                 strHtml += '        </div>';
                 strHtml += '    </div>';
                 strHtml += '</div>';
@@ -464,7 +470,7 @@ class JsMarketOrdredDrawItems{
                 strHtml += '    <p class="flex-1">결제대기</p>';
                 if (ordredDtlJson.ordrTy == 'R'){
                     strHtml += '<div class="multibtn">';
-                    strHtml += '    <a href="./view/{0}?${pageParam}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd);
+                    strHtml += '    <a href="./view/{0}?{1}" class="btn btn-primary btn-small">결제진행</a>'.format(ordredDtlJson.ordrCd, location.search);
                     // strHtml += '    <%-- <button type="button" class="btn btn-outline-primary btn-small f_ordr_rtrcn" data-ordr-cd="${ordrDtl.ordrCd}">주문취소</button> --%>';
                     strHtml += '</div>';
                 }
