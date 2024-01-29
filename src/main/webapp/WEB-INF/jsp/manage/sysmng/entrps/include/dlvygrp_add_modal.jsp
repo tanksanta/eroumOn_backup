@@ -29,7 +29,7 @@
 								</tr>
 								<tr>
 									<th scope="row">묶음 그룹명</th>
-									<td><input type="text" id="entrpsDlvygrpNm" name="entrpsDlvygrpNm" class="form-control w-full" maxlength="50"></td>
+									<td><input type="text" id="entrpsDlvygrpNm" name="entrpsDlvygrpNm" class="form-control w-full" maxlength="20"></td>
 								</tr>
 								<tr>
 									<th scope="row">배송비 계산방식</th>

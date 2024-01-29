@@ -142,7 +142,7 @@
 				, use_yn
 				
 		FROM entrps_dlvygrp
-		WHERE ENTRPS_DLVYGRP_NO in (
+		WHERE use_yn ='Y' AND ENTRPS_DLVYGRP_NO in (
 								SELECT DISTINCT IFNULL(g.ENTRPS_DLVYGRP_NO, 0) ENTRPS_DLVYGRP_NO
 								FROM cart c
 								INNER JOIN gds g ON c.GDS_NO = g.GDS_NO
