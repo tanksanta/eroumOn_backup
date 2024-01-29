@@ -975,6 +975,10 @@ public class MbrsInfoController extends CommonAbstractController{
 				resultMap.put("msg", "회원의 해당 인증정보가 존재하지 않습니다");
 				return resultMap;
 			}
+			if (authList.size() == 1) {
+				resultMap.put("msg", "소셜 로그인 연결을 해제할 수 없습니다\n최소 하나의 소셜 계정이 연동되어야 합니다");
+				return resultMap;
+			}
 			
 			mbrAuthService.deleteMbrAuthByNo(authVO.getAuthNo());
 			
