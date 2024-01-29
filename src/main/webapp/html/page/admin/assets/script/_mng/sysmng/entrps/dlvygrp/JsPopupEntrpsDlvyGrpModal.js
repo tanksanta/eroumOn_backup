@@ -27,7 +27,10 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
         }
 
 
+        if (this._cls_info.orginData == undefined) this._cls_info.orginData = {};
         if (this._cls_info.dataAllResult != undefined && this._cls_info.dataAllResult.resultData != undefined ){
+            this._cls_info.orginData.dlvyAditAmt = this._cls_info.dataAllResult.resultData.dlvyAditAmt
+
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val(this._cls_info.dataAllResult.resultData.entrpsDlvygrpNo);
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val(this._cls_info.dataAllResult.resultData.entrpsDlvygrpNm);
             $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val(this._cls_info.dataAllResult.resultData.dlvyAditAmt.format_money());
@@ -41,7 +44,7 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
             
             
         }else{
-            
+            this._cls_info.orginData.dlvyAditAmt = 0;
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNo']").val("0");
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val("");
             $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val("5000");
@@ -60,6 +63,7 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
                     , entrpsDlvygrpNm : $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val()
                     , dlvyCalcTy : objDlvyCalcTy.val()
                     , dlvyAditAmt : $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val().replace(",", "")
+                    , originDlvyAditAmt : this._cls_info.orginData.dlvyAditAmt
                     , useYn : $(this._cls_info.pageModalfix + " input[name='useYn']:checked").val()};
 
         if (data.entrpsNo == undefined || data.entrpsNo.length < 1 || data.entrpsNo == "0"){

@@ -200,7 +200,7 @@ public class MEntrpsDlvyGrpController extends CommonAbstractController {
 				resultMap.put("sucmsg", getMsg("action.complete.update"));
 			}
 			
-			
+			gdsService.updateGdsDlvyAditAmtFromDlvygrpNo(reqMap);
 		}
 		
 		return resultMap;

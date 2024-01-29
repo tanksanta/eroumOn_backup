@@ -9,7 +9,7 @@ class JsHouseMngGdsGdsFormDelivery{
         this.fn_page_init();
         
         this.fn_changed_dlvyCtTy($( this._cls_info.pagePrefixDelivery + " select[name='dlvyCtTy']").val());
-        this.fn_changed_dlvyGroupYn($( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").is(":checked"));
+        this.fn_changed_dlvyGroupYn($( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']"));
         
     }
 
@@ -84,7 +84,7 @@ class JsHouseMngGdsGdsFormDelivery{
         });
 
         $( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']").off('change').on('change',  function() {
-            owner.fn_changed_dlvyGroupYn($(this).is(":checked"));
+            owner.fn_changed_dlvyGroupYn($(this));
         });
 
         $( this._cls_info.pagePrefixDelivery + " .btn.dlvy.grp.add").off('click').on('click',  function() {
@@ -155,7 +155,9 @@ class JsHouseMngGdsGdsFormDelivery{
         }
     }
 
-    fn_changed_dlvyGroupYn(isChecked){
+    fn_changed_dlvyGroupYn(jobjTarget ){
+        var isChecked = jobjTarget.is(":checked");
+
         var cssSelector = this._cls_info.pagePrefixDelivery;
 
         if (isChecked){
@@ -164,6 +166,7 @@ class JsHouseMngGdsGdsFormDelivery{
 
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").removeClass("disp-off");
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").attr("readonly", "true");
+            $(cssSelector + " .dlvy-ct-ty-tr.dlvyAditAmt input[name='dlvyAditAmt']").val(jobjTarget.attr("dlvy_adit_amt"));
         }else{
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.add").addClass("disp-off");
             $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .btn.dlvy.grp.select").addClass("disp-off");
