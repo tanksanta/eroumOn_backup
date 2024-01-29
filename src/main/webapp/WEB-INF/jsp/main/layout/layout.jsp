@@ -16,6 +16,9 @@
     <title>이로움ON : 시니어 정보 플랫폼</title>
     <meta name="description" content="장기요양인정 등급 테스트부터 우리 동네 복지혜택, 복지용구 구매까지. 소중한 부모님과 나를 위한 서비스를 이로움온이 제공합니다.">
 
+    <!-- [마케팅] 네이버 서치어드바이저 사이트 소유 확인 -->
+	<meta name="naver-site-verification" content="d94504c5096258a47ea55b99f98a207e54188968" />
+
     <!-- Google tag (gtag.js) -->
     <c:set var="googleAnalyticsId"><spring:eval expression="@props['Google.Analytics.Id']"/></c:set>
     <c:set var="googleAnalyticsGTM"><spring:eval expression="@props['Google.Analytics.GTM']"/></c:set>
