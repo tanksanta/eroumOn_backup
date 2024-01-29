@@ -25,6 +25,8 @@ import org.springframework.web.servlet.View;
 
 import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.BootpayApiService;
+import icube.common.api.biz.KakaoApiService;
+import icube.common.api.biz.NaverApiService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.file.biz.FileService;
 import icube.common.framework.abst.CommonAbstractController;
@@ -61,6 +63,12 @@ public class MbrsInfoController extends CommonAbstractController{
 	@Resource(name = "mbrAuthService")
 	private MbrAuthService mbrAuthService;
 
+	@Resource(name = "kakaoApiService")
+	private KakaoApiService kakaoApiService;
+	
+	@Resource(name = "naverApiService")
+	private NaverApiService naverApiService;
+	
 	@Resource(name="fileService")
 	private FileService fileService;
 
@@ -241,6 +249,7 @@ public class MbrsInfoController extends CommonAbstractController{
 		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("mbrRecipientList", mbrRecipientList);
 		
+		model.addAttribute("authCtn", authList.size());
 		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
 		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
 		model.addAttribute("naverAuthInfo", naverAuthInfo);
@@ -981,6 +990,14 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			mbrAuthService.deleteMbrAuthByNo(authVO.getAuthNo());
+			
+			//SNS 쪽 연동해제 api
+			if ("K".equals(authVO.getJoinTy())) {
+				kakaoApiService.deleteKakaoConnection(authVO.getRefreshToken());
+			}
+			else if ("N".equals(authVO.getJoinTy())) {
+				naverApiService.deleteNaverConnection(authVO.getRefreshToken());
+			}
 			
 			resultMap.put("success", true);
 		} catch (Exception ex) {

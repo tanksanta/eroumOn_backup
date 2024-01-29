@@ -167,39 +167,56 @@ public class NaverApiService extends CommonAbstractServiceImpl{
 	/**
 	 * 연동 해제
 	 */
-	public Map<String, Object> deleteNaverConnection(String refreshToken) throws Exception {
-		//토큰 갱신
-		Map<String, Object> tokenMap = getToken(refreshToken);
-		String newAccessToken = (String)tokenMap.get("accessToken");
+	public boolean deleteNaverConnection(String refreshToken) throws Exception {
+		boolean result = false;
 		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		HttpURLConnection conn = getHeader(NaverTokenUrl, null);
+		try {
+			//토큰 갱신
+			Map<String, Object> tokenMap = getToken(refreshToken);
+			String newAccessToken = (String)tokenMap.get("accessToken");
+			if (EgovStringUtil.isEmpty(newAccessToken)) {
+				return result;
+			}
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			HttpURLConnection conn = getHeader(NaverTokenUrl, null);
 
-		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-		 
-		StringBuffer sb = new StringBuffer();
-		sb.append("grant_type=delete");
-		sb.append("&client_id=" +  NaverClientId);
-		sb.append("&client_secret=" + NaverClientSecret);
-		sb.append("&access_token=" + newAccessToken);
-		String parameterStr = sb.toString();
-		
-		bufferedWriter.write(parameterStr);
-		bufferedWriter.flush();
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+			 
+			StringBuffer sb = new StringBuffer();
+			sb.append("grant_type=delete");
+			sb.append("&client_id=" +  NaverClientId);
+			sb.append("&client_secret=" + NaverClientSecret);
+			sb.append("&access_token=" + newAccessToken);
+			sb.append("&service_provider=" + "NAVER");
+			String parameterStr = sb.toString();
+			
+			bufferedWriter.write(parameterStr);
+			bufferedWriter.flush();
 
-		Map<String, Object> eleMap = getResponse(conn);
-		JsonElement element = (JsonElement)eleMap.get("element");
+			Map<String, Object> eleMap = getResponse(conn);
+			JsonElement element = (JsonElement)eleMap.get("element");
 
-		newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
-		String newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
+			JsonElement error = element.getAsJsonObject().get("error");
+			if (error != null && EgovStringUtil.isNotEmpty(error.getAsString())) {
+				return result;
+			}
+			
+//			newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
+//			String newRefreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
-		bufferedWriter.close();
+			bufferedWriter.close();
 
-		resultMap.put("accessToken", newAccessToken);
-		resultMap.put("refreshToken", newRefreshToken);
-		resultMap.put("tokenType", "N");
+//			resultMap.put("accessToken", newAccessToken);
+//			resultMap.put("refreshToken", newRefreshToken);
+//			resultMap.put("tokenType", "N");
+			
+			result = true;
+		} catch (Exception ex) {
+			log.error("=========네이버 연동 해제 에러=======", ex);
+		}
 
-		return resultMap;
+		return result;
 	}
 	
 

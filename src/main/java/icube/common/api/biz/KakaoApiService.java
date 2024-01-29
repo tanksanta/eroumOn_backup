@@ -149,6 +149,51 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 		return resultMap;
 	}
+	
+	/**
+	 * 토큰 갱신
+	 */
+	private String getAccessTokenForRefresh(String refreshToken) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		URL url = new URL(authUrl);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		conn.setRequestMethod("POST");
+		conn.setDoOutput(true);
+
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+		StringBuffer sb = new StringBuffer();
+		sb.append("grant_type=refresh_token");
+		sb.append("&client_id=" + kakaoApiKey);
+		sb.append("&refresh_token=" + refreshToken);
+		bufferedWriter.write(sb.toString());
+		bufferedWriter.flush();
+
+		int responseCode = conn.getResponseCode();
+
+		if(responseCode == HttpURLConnection.HTTP_OK) {
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+			String line = "";
+			StringBuilder result = new StringBuilder();
+
+			while ((line = bufferedReader.readLine()) != null) {
+				result.append(line);
+			}
+
+			JsonElement element = JsonParser.parseString(result.toString());
+
+			String newAccessToken = element.getAsJsonObject().get("access_token").getAsString();
+
+			bufferedReader.close();
+			bufferedWriter.close();
+
+			return newAccessToken;
+		}
+
+		return null;
+	}
+	
 
 	/**
 	 * 사용자 정보 조회
@@ -300,5 +345,53 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
         	}
         }
         return dlvyVO;
+	}
+	
+	/**
+	 * 연동 해제
+	 */
+	public boolean deleteKakaoConnection(String refreshToken) throws Exception {
+		boolean result = false;
+		
+		try {
+			//토큰 갱신
+			String newAccessToken = getAccessTokenForRefresh(refreshToken);
+			if (EgovStringUtil.isEmpty(newAccessToken)) {
+				return result;
+			}
+			
+			URL url = new URL("https://kapi.kakao.com/v1/user/unlink");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Authorization", "Bearer " + newAccessToken);
+
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+			bufferedWriter.flush();
+
+			int responseCode = conn.getResponseCode();
+
+			if(responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				String line = "";
+				StringBuilder reponseBody = new StringBuilder();
+
+				while ((line = bufferedReader.readLine()) != null) {
+					reponseBody.append(line);
+				}
+
+				JsonElement element = JsonParser.parseString(reponseBody.toString());
+
+				bufferedReader.close();
+				bufferedWriter.close();
+			}
+			
+			result = true;
+		} catch (Exception ex) {
+			log.error("=========카카오 연동 해제 에러=======", ex);
+		}
+		
+		return result;
 	}
 }

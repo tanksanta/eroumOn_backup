@@ -331,6 +331,12 @@ async function f_cert(){
 
 //인증 수단 삭제
 function removeAuth(authNo, joinTy) {
+	var authCtn = ${authCtn}; 
+	if (authCtn <= 1) {
+		alert('소셜 로그인 연결을 해제할 수 없습니다\n최소 하나의 소셜 계정이 연동되어야 합니다');
+		return;
+	}
+	
 	var confirmMsg = '소셜 로그인 연결을 해제하시겠어요?';
 	var afterLogout = false;
 	if (joinTy && joinTy === '${_mbrSession.lgnTy}') {
