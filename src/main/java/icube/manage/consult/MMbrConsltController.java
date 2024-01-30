@@ -485,7 +485,9 @@ public class MMbrConsltController extends CommonAbstractController{
 		Map<String, Object> srchParamMap = new HashMap<>();
 		srchParamMap.put("srchConsltNo", consltNo);
 		MbrConsltResultVO lastConsltResult = mbrConsltResultService.selectMbrConsltBplc(srchParamMap);
-		paramMap.put("bplcConsltNo", lastConsltResult.getBplcConsltNo());
+		if (lastConsltResult != null) {
+			paramMap.put("bplcConsltNo", lastConsltResult.getBplcConsltNo());
+		}
 		
 		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
 
@@ -518,7 +520,9 @@ public class MMbrConsltController extends CommonAbstractController{
 			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
 
 			//관리자 상담취소 ==> 일반사용자에게 메세지
-			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, mbrConsltVO.getConsltNo());
+			if (mbrVO != null) {
+				biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, mbrConsltVO.getConsltNo());
+			}
 			
 			//관리자 상담취소 ==> 사업소가 있는 경우 사업소 담당자에게 메세지
 			if (mbrConsltResultVO != null && EgovStringUtil.isNotEmpty(mbrConsltResultVO.getBplcUniqueId())){
