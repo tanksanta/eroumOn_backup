@@ -451,15 +451,15 @@ class JsMarketGdsView{
 			var tagVal = this._cls_info.gdsVOJson.gdsTagVal;
 			tagVal = tagVal.replaceAll(' ','').split(',');
 			if(tagVal.indexOf("A") > -1){
-				alert("선택하신 옵션은 품절상태입니다.");
-				skip = false;
+				// alert("선택하신 옵션은 품절상태입니다.");
+				// skip = false;
 			}else if(tagVal.indexOf("B") > -1){
 				//alert("선택하신 옵션은 일부옵션품절상태입니다.");
 				//console.log(skip);
 				//skip = false;
 			}else if(tagVal.indexOf("C") > -1){
-				alert("선택하신 옵션은 일시품절상태입니다.");
-				skip = false;
+				// alert("선택하신 옵션은 일시품절상태입니다.");
+				// skip = false;
 			}
 		}
 
