@@ -275,9 +275,11 @@
 	<textarea class="cartListJson" style="display: none;">
 		${cartListJson}
 	</textarea>
+
+	<input type="hidden" id="delCartNos" name="delCartNos" value="" />
+	<input type="text" id="bnefCds" name="bnefCds" value="" />
 </div>
 
-<input type="hidden" id="delCartNos" name="delCartNos" value="" />
 </form>
 
 <script>
