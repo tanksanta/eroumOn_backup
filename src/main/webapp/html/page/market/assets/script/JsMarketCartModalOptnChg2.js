@@ -422,6 +422,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         var recipterUniqueIds = [];
         var bplcUniqueIds = [];
         var gdsOptnNo = [];
+        var bnefCds = [];
         
         $(this._cls_info.pageModalfix + " input[name='cartNo']").each(function(){	cartNos.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='ordrOptnTy']").each(function(){ordrOptnTys.push($(this).val());});
@@ -431,7 +432,10 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         $(this._cls_info.pageModalfix + " input[name='recipterUniqueId']").each(function(){recipterUniqueIds.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='bplcUniqueId']").each(function(){bplcUniqueIds.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='gdsOptnNo']").each(function(){gdsOptnNo.push($(this).val());});
+        $(this._cls_info.pageModalfix + " input[name='bnefCd']").each(function(){bnefCds.push($(this).val());});
 
+        $(this._cls_info.pageModalfix + " input[name='bnefCds']").val(bnefCds.join("!@#()"))
+        
         var formData = $("#frmOrdrChg").serialize();
 
         jsCallApi.call_api_post_json(this
@@ -441,7 +445,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
 
     }
     f_cart_optn_chg_cb(result, fail, data, param){
-        if(result.result){
+        if(result!=undefined && result.result){
             $("#cartOptnModal .btn-cancel").click();
             console.log("success");
             location.reload();

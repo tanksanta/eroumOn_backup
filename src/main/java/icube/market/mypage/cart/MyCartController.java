@@ -396,7 +396,7 @@ public class MyCartController extends CommonAbstractController  {
 			, @RequestParam(value="cartTy", required=true) String cartTy
 			, @RequestParam(value="gdsNo", required=true) String gdsNo
 			, @RequestParam(value="gdsCd", required=true) String gdsCd
-			, @RequestParam(value="bnefCd", required=true) String bnefCd
+			, @RequestParam(value="bnefCd", required=false) String bnefCd//==>bnefCds으로 변경(공백인 경우 오류가 생겨서)
 			, @RequestParam(value="gdsNm", required=true) String gdsNm
 			, @RequestParam(value="gdsPc", required=true) String gdsPc
 
@@ -414,7 +414,14 @@ public class MyCartController extends CommonAbstractController  {
 
 		boolean result = false;
 		Integer resultCnt = 0;
-
+		
+		String[] saBnefCds ;
+		if (reqMap.get("bnefCds") != null){
+			saBnefCds = reqMap.get("bnefCds").toString().split("!@#()");
+		}else{
+			saBnefCds = new String []{};
+		}
+		
 		try {
 			for(int i=0;i < cartNo.split(",").length;i++) {
 				CartVO cartVO = new CartVO();
@@ -432,8 +439,8 @@ public class MyCartController extends CommonAbstractController  {
 				cartVO.setOrdrQy(EgovStringUtil.string2integer(ordrQy.split(",")[i]));
 
 				// 급여코드
-				if(EgovStringUtil.isNotEmpty(bnefCd) && bnefCd.split(",").length > 0) { // bnefCd null일수 있음
-					cartVO.setBnefCd(bnefCd.split(",")[i]);
+				if(saBnefCds.length > 0) { // bnefCd null일수 있음
+					cartVO.setBnefCd(saBnefCds[i]);
 				}else {
 					cartVO.setBnefCd("");
 				}
