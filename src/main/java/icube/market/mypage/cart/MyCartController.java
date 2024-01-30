@@ -417,7 +417,7 @@ public class MyCartController extends CommonAbstractController  {
 		
 		String[] saBnefCds ;
 		if (reqMap.get("bnefCds") != null){
-			saBnefCds = reqMap.get("bnefCds").toString().split("!@#()");
+			saBnefCds = reqMap.get("bnefCds").toString().split("!@#", -1);//마지막 공백도 포함
 		}else{
 			saBnefCds = new String []{};
 		}

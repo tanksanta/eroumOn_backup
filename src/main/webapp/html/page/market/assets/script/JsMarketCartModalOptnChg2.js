@@ -43,6 +43,12 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         this.fn_init_event();
     }
 
+    fn_init_event_del(){
+        var owner = this;
+        $(owner._cls_info.pageModalfix + " .btn.cart.del").on("click", function(){
+            owner.f_cart_del($(this));
+        });
+    }
     fn_init_event(){
         var owner = this;
         
@@ -51,12 +57,6 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             $(this).closest('.product-option').toggleClass('is-active');
             $('.product-option').not($(this).closest('.product-option')).removeClass('is-active');
         });
-
-        $(owner._cls_info.pageModalfix + " .btn.cart.del").on("click", function(){
-            owner.f_cart_del($(this));
-        });
-
-        
             
         $(".f_cart_optn_chg").off("click").on("click", function(){
             owner.f_cart_optn_chg_click();
@@ -70,6 +70,8 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         $(owner._cls_info.pageModalfix + " input[name='ordrQy']").off("change").on("change",function(){
             owner.f_orderQy_change_call($(this))
         })
+
+        this.fn_init_event_del();
     }
 
 
@@ -396,7 +398,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             gdsHtml += '		<p>';
             gdsHtml += '		<input type="number" name="ordrQy" class="form-control numbercheck" value="1" min="1" max="9999">';
             gdsHtml += '		</p>';
-            gdsHtml += '		<button type="button" class="btn btn-small btn-outline-primary" data-cart-no="0" data-optn-ty="ADIT">삭제</button>';
+            gdsHtml += '		<button type="button" class="btn cart del btn-small btn-outline-primary" data-cart-no="0" data-optn-ty="ADIT">삭제</button>';
             gdsHtml += '	</td>';
             gdsHtml += '</tr>';
 
@@ -434,7 +436,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         $(this._cls_info.pageModalfix + " input[name='gdsOptnNo']").each(function(){gdsOptnNo.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='bnefCd']").each(function(){bnefCds.push($(this).val());});
 
-        $(this._cls_info.pageModalfix + " input[name='bnefCds']").val(bnefCds.join("!@#()"))
+        $(this._cls_info.pageModalfix + " input[name='bnefCds']").val(bnefCds.join("!@#"))
         
         var formData = $("#frmOrdrChg").serialize();
 
