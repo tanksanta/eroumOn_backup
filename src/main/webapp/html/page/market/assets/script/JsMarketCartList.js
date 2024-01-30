@@ -260,7 +260,7 @@ class JsMarketCartList extends JsMarketCartDrawItems{
 	/*기본 옵션 삭제 여부*/
 	fn_draw_cart_entrpsdlvygrp_itemgrp_base_delete(json, ableBuy){
 		var btnDelte = '<button class="btn-delete2 cart gdsOptn base" ordrOptnTy="BASE" cartNo="{0}" cartGrpNo="{1}" gdsOptnNo="{2}" ableBuy="{3}">삭제</button>';
-		btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)
+		btnDelte = btnDelte.format(json.cartNo, json.cartGrpNo, json.gdsOptnNo, ableBuy)
 
 		return btnDelte;
 	}
