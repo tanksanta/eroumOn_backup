@@ -356,6 +356,8 @@
 		)
 		<selectKey resultType="String" keyProperty="uniqueId" order="AFTER">
       		SELECT unique_id FROM MBR WHERE ci_key = #{ciKey}
+      		ORDER BY unique_id DESC
+        	LIMIT 1;
     	</selectKey>
 	</insert>
 
