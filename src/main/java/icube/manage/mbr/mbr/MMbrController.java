@@ -379,11 +379,16 @@ public class MMbrController extends CommonAbstractController {
         MbrMngInfoVO authInfoVO = mbrMngInfoService.selectMbrMngInfo(infoMap);
         mngMap.put("auth", authInfoVO);
         
-        //약관동의 정보 조회
-        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
-
+        try {
+        	//약관동의 정보 조회
+	        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
+	        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+        }
+        catch (Exception ex) {
+        	
+        }
+        
         model.addAttribute("mbrVO", mbrVO);
-        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);

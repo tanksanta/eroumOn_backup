@@ -30,6 +30,8 @@
 		FROM MBR_AGREEMENT ma
 		WHERE 1=1
 			<include refid="searchConditions" />
+		ORDER BY ma.reg_dt DESC
+		LIMIT 1;
 	</select>
 	
 
