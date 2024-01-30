@@ -412,15 +412,21 @@ public class MMbrController extends CommonAbstractController {
 		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
 		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
 		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
-        
-        //약관동의 정보 조회
-        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
 
         model.addAttribute("mbrVO", mbrVO);
         model.addAttribute("eroumAuthInfo", eroumAuthInfo);
 		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
 		model.addAttribute("naverAuthInfo", naverAuthInfo);
-        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+        
+        try {
+        	//약관동의 정보 조회
+	        MbrAgreementVO mbrAgreementVO = mbrService.selectMbrAgreementByMbrUniqueId(uniqueId);
+	        model.addAttribute("mbrAgreementVO", mbrAgreementVO);
+        }
+        catch (Exception ex) {
+        	
+        }
+        
         model.addAttribute("mngMap", mngMap);
         model.addAttribute("param", reqMap);
         model.addAttribute("gender", CodeMap.GENDER);
