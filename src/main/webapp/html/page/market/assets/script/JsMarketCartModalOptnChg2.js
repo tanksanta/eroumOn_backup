@@ -373,6 +373,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             gdsHtml += '<tr class="tr_0 optn_ADIT">';
             gdsHtml += '	<td>';
             gdsHtml += '		<input type="hidden" name="cartNo" value="0">';
+            gdsHtml += '        <input type="hidden" name="bnefCd" value="">'
             gdsHtml += '		<input type="hidden" name="ordrOptnTy" value="ADIT">';
             gdsHtml += '		<input type="hidden" name="ordrOptn" value="'+spAditOptnVal[0]+'">';
             gdsHtml += '		<input type="hidden" name="ordrOptnPc" value="'+spAditOptnVal[1]+'">';
