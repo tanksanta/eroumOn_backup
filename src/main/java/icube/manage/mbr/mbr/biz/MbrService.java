@@ -1123,6 +1123,8 @@ public class MbrService extends CommonAbstractServiceImpl {
 			MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
 			if (eroumAuthInfo != null && aWeekAgo.compareTo(mbrExitUser.getWhdwlDt()) < 0) {
 				resultMap.put("msg", "탈퇴 후 7일 이내의 재가입은 불가능합니다.");
+				resultMap.put("location", "/membership/login");
+				mbrSession.setParms(new MbrVO(), false);
 				return resultMap;
 			}
 		}
