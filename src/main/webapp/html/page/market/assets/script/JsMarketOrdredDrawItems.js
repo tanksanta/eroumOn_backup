@@ -157,7 +157,7 @@ class JsMarketOrdredDrawItems{
         strHtml +=      '    <div class="flex items-center w-full">';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문번호</dt>';
-        strHtml +=      '            <dd><strong><a href="./view/{0}?{1}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd, location.search);
+        strHtml +=      '            <dd><strong><a href="/market/mypage/ordr/view/{0}?{1}">{0}</a></strong></dd>'.format(ordredDtlJson.ordrCd, (location.search==undefined || location.search.length < 1)?"":"?"+location.search);
         strHtml +=      '        </dl>';
         strHtml +=      '        <dl>';
         strHtml +=      '            <dt>주문일시</dt>';//<%--주문/취소 --%>

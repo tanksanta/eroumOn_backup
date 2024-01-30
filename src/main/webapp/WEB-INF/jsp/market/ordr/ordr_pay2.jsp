@@ -20,6 +20,9 @@
         background: url("/html/core/images/ico-connect.svg") no-repeat top 3px left;
         padding-left: 10px;
     }
+    .original-price{
+		padding-right: 8px;
+	}
 </style>
 
 	<main id="container">

@@ -34,7 +34,7 @@ class JsMarketOrdrPay extends JsMarketCartDrawItems{
 			this._cls_info.ordrCd = this._cls_info.codeMapJson.ordrCd;
 			this._cls_info.ordrIdx = 0;/*주문 상세 인덱스*/
 			this._cls_info.dlvyCtAditRgnYn = this._cls_info.codeMapJson.dlvyCtAditRgnYn;/*배송비 추가 지역 여부*/
-			this._cls_info.dlvyCtAditRgnYn = 'Y'
+			// this._cls_info.dlvyCtAditRgnYn = 'Y'
 		}
 		
         
