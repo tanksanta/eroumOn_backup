@@ -35,6 +35,17 @@
     padding-top: 12px;
 }
 
+.order-product .order-item-content .order-item-base .item-add-box .item-add .name{
+    font-size: 1rem;
+}
+@media (min-width: 769px){
+    .order-product .order-item-content .order-item-base .item-add-box .item-add .item-add-one {
+        display: flex;
+    }
+    .order-product .order-item-content .order-item-base .item-add-box .item-add .item-add-one .label-outline-primary{
+        padding-right: 8px;
+    }
+}
 @media (max-width: 768px){
     .order-product .order-header .flex.items-center{
         display: block;
@@ -72,6 +83,8 @@
     }
 
     .order-product .order-item-content .order-item-base .item-add-box .item-add .name{
-        font-size: .9375rem;
+        /* font-size: .9375rem; */
+        padding-top: 4px;
     }
+    
 }

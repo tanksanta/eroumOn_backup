@@ -2,6 +2,7 @@
 <style>
 	.order-wishlist .order-item-base .cost dl dd span.info {
 		font-weight: normal;
+		font-size: 0.875rem;
 	}
 </style>
 	<main id="container" class="is-mypage">
@@ -97,11 +98,11 @@
 															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'FREE'}">무료</c:when>
 															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'PERCOUNT'}">
 																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
-																<span class="info">(상품 <fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과)</span>
+																<span class="info" style="display: none;">(상품 <fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과)</span>
 															</c:when>
 															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'OVERMONEY'}">
 																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
-																<span class="info">(<fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료)</span>
+																<span class="info" style="display: none;">(<fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료)</span>
 															</c:when>
 															<c:otherwise>
 																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원

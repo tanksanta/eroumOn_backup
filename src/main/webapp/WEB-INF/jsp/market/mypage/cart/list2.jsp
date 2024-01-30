@@ -3,6 +3,13 @@
 	& .order-item-box.hidden{
 		display: none;
 	}
+
+	.label-outline-primary{
+		padding-right: 4px;
+	}
+	.original-price{
+		padding-right: 8px;
+	}
 	@media (min-width: 769px){
 		& .order-item-box .order-product-item{
 			grid-template-columns: 14.5rem auto auto;
