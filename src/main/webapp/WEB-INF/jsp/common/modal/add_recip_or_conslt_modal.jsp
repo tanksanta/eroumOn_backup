@@ -1059,7 +1059,9 @@
     	    			
     	    			//채널톡 이벤트 처리
     	    			if (roc_prevPath === 'test') {
-    	    				eventChannelTalkForConslt('click_gradetest_matching');	
+    	    				eventChannelTalkForConslt('click_gradetest_matching');
+    	    			} else if (roc_prevPath === 'equip_ctgry') {
+    	    				eventChannelTalkForConslt('click_welfare_equip_matching');
     	    			}
     	    		}else{
     	    			alert(data.msg);
@@ -1100,6 +1102,7 @@
         	
         	//채널톡 event 처리 (1:1 상담하기 신청)
         	function eventChannelTalkForConslt(eventName) {
+        		//인정등급 상담 신청
         		if (eventName === 'click_gradetest_matching') {
         			//수급자의 테스트 정보 가져오기
         			$.ajax({
@@ -1129,6 +1132,45 @@
             			    var gaProp = {
             			        grade,
             			    };
+            		    	gaProp.consltDate = propertyObj.consltDate;
+            		    	
+            		    	gtag('event', eventName, gaProp);
+        				}
+        			})
+        			.fail(function(data, status, err) {
+        				alert('서버와 연결이 좋지 않습니다.');
+        			});
+        		}
+        		//복지용구 상담 신청
+        		else if (eventName === 'click_welfare_equip_matching') {
+        			//수급자의 복지용구 선택 정보 가져오기
+        			$.ajax({
+        				type: "get",
+        				url: "/membership/info/myinfo/getRecipientGdsInfo.json",
+        				data: {
+        					recipientsNo : roc_selectedRecipient.recipientsNo,
+        				},
+        				dataType : 'json'
+        			})
+        			.done(function(data) {
+        				if(data.success && data.mbrRecipientsGdsList) {
+        					//복지용구 선택 정보
+            			    var ctgryNmList = data.mbrRecipientsGdsList.map(m => m.ctgryNm);
+        					
+            			    var propertyObj = {
+           			    		selectCtgList: ctgryNmList.join(',')
+            			   	}
+            			    
+            			  	//상담 신청 일자
+            				var now = new Date();
+            				propertyObj.consltDate = now.getFullYear() + '년 ' + String(now.getMonth() + 1).padStart(2, "0") + '월 ' + String(now.getDate()).padStart(2, "0") + '일';
+            			    
+            			    ChannelIO('track', eventName, propertyObj);
+            			    
+            			    
+            			    //GA 이벤트 처리
+            			    var gaProp = {};
+            			    gaProp.selectCtgList = propertyObj.selectCtgList;
             		    	gaProp.consltDate = propertyObj.consltDate;
             		    	
             		    	gtag('event', eventName, gaProp);
