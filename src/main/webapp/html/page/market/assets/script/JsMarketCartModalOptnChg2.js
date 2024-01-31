@@ -35,7 +35,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             }else{
                 this._cls_info.gdsPc = this._cls_info.cartListJson[0].gdsInfo.pc;
             }
-            
+            this._cls_info.bnefCd = this._cls_info.cartListJson[0].gdsInfo.bnefCd;
             
 		}
 
@@ -303,7 +303,6 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             gdsHtml += '<tr class="tr_0 optn_BASE">'
             gdsHtml +=      '<td>'
             gdsHtml +=           '<input type="hidden" name="cartNo" value="0">'
-            gdsHtml +=           '<input type="hidden" name="bnefCd" value="">'
             gdsHtml +=           '<input type="hidden" name="gdsOptnNo" value="{0}">'.format(spOptnVal[4])
             gdsHtml +=           '<input type="hidden" name="ordrOptnTy" value="BASE">'
             gdsHtml +=           '<input type="hidden" name="ordrOptn" value="{0}">'.format(spOptnVal[0])
@@ -373,7 +372,6 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
             gdsHtml += '<tr class="tr_0 optn_ADIT">';
             gdsHtml += '	<td>';
             gdsHtml += '		<input type="hidden" name="cartNo" value="0">';
-            gdsHtml += '        <input type="hidden" name="bnefCd" value="">'
             gdsHtml += '		<input type="hidden" name="ordrOptnTy" value="ADIT">';
             gdsHtml += '		<input type="hidden" name="ordrOptn" value="'+spAditOptnVal[0]+'">';
             gdsHtml += '		<input type="hidden" name="ordrOptnPc" value="'+spAditOptnVal[1]+'">';
@@ -416,7 +414,7 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
 
     
     f_cart_optn_chg_click(){
-
+        var owner = this;
         var cartNos = [];
         var ordrOptnTys = [];
         var ordrOptns = [];
@@ -425,7 +423,6 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         var recipterUniqueIds = [];
         var bplcUniqueIds = [];
         var gdsOptnNo = [];
-        var bnefCds = [];
         
         $(this._cls_info.pageModalfix + " input[name='cartNo']").each(function(){	cartNos.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='ordrOptnTy']").each(function(){ordrOptnTys.push($(this).val());});
@@ -435,9 +432,8 @@ class JsMarketCartModalOptnChg2 extends JsHouse2309PopupBase{
         $(this._cls_info.pageModalfix + " input[name='recipterUniqueId']").each(function(){recipterUniqueIds.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='bplcUniqueId']").each(function(){bplcUniqueIds.push($(this).val());});
         $(this._cls_info.pageModalfix + " input[name='gdsOptnNo']").each(function(){gdsOptnNo.push($(this).val());});
-        $(this._cls_info.pageModalfix + " input[name='bnefCd']").each(function(){bnefCds.push($(this).val());});
 
-        $(this._cls_info.pageModalfix + " input[name='bnefCds']").val(bnefCds.join("!@#"))
+        $(this._cls_info.pageModalfix + " input[name='bnefCd']").val(owner._cls_info.bnefCd);/*bnefCd는 제품 공통이다*/
         
         var formData = $("#frmOrdrChg").serialize();
 
