@@ -772,46 +772,46 @@
             	
                 let templete = '';
                 if(walfareEquipments['성인용보행기']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont1" target="_blank"><img src="/html/page/index/assets/images/img-page2-category1.png" alt="성인용보행기"></a></div>';
                 }
                 if(walfareEquipments['수동휠체어']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont2" target="_blank"><img src="/html/page/index/assets/images/img-page2-category2.png" alt="수동휠체어"></a></div>';
                 }
                 if(walfareEquipments['지팡이']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont3" target="_blank"><img src="/html/page/index/assets/images/img-page2-category3.png" alt="지팡이"></a></div>';
                 }
                 if(walfareEquipments['안전손잡이']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont4" target="_blank"><img src="/html/page/index/assets/images/img-page2-category4.png" alt="안전손잡이"></a></div>';
                 }
                 if(walfareEquipments['미끄럼방지 매트']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont5" target="_blank"><img src="/html/page/index/assets/images/img-page2-category5.png" alt="미끄럼방지 매트"></a></div>';
                 }
                 if(walfareEquipments['미끄럼방지 양말']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont6" target="_blank"><img src="/html/page/index/assets/images/img-page2-category6.png" alt="미끄럼방지 양말"></a></div>';
                 }
                 if(walfareEquipments['욕창예방 매트리스']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont7" target="_blank"><img src="/html/page/index/assets/images/img-page2-category7.png" alt="욕창예방 매트리스"></a></div>';
                 }
                 if(walfareEquipments['욕창예방 방석']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont8" target="_blank"><img src="/html/page/index/assets/images/img-page2-category8.png" alt="욕창예방 방석"></a></div>';
                 }
                 if(walfareEquipments['자세변환용구']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont9" target="_blank"><img src="/html/page/index/assets/images/img-page2-category9.png" alt="자세변환용구"></a></div>';
                 }
                 if(walfareEquipments['요실금 팬티']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont10" target="_blank"><img src="/html/page/index/assets/images/img-page2-category10.png" alt="요실금 팬티"></a></div>';
                 }
                 if(walfareEquipments['목욕의자']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont11" target="_blank"><img src="/html/page/index/assets/images/img-page2-category11.png" alt="목욕의자"></a></div>';
                 }
                 if(walfareEquipments['이동변기']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont12" target="_blank"><img src="/html/page/index/assets/images/img-page2-category12.png" alt="이동변기"></a></div>';
                 }
                 if(walfareEquipments['간이변기']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont13" target="_blank"><img src="/html/page/index/assets/images/img-page2-category13.png" alt="간이변기"></a></div>';
                 }
                 if(walfareEquipments['경사로']) {
-                	templete += '<div class="swiper-slide"><a><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></a></div>';
+                	templete += '<div class="swiper-slide"><a href="/main/cntnts/page3-checkpoint#check-cont14" target="_blank"><img src="/html/page/index/assets/images/img-page2-category14.png" alt="경사로"></a></div>';
                 }
                 
                 $('.swiper-wrapper').html(templete);
