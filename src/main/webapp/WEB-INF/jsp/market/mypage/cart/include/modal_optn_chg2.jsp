@@ -157,7 +157,6 @@
 								<tr class="tr_${cart.cartNo} optn_${cart.ordrOptnTy}">
 									<td>
 										<input type="hidden" name="cartNo" value="${cart.cartNo}">
-										<input type="hidden" name="bnefCd" value="${cart.bnefCd}">
 										<input type="hidden" name="gdsOptnNo" value="${cart.gdsOptnNo}" />
 										<input type="hidden" name="ordrOptnTy" value="${cart.ordrOptnTy}">
 										<input type="hidden" name="ordrOptn" value="${cart.ordrOptn}">
@@ -277,7 +276,7 @@
 	</textarea>
 
 	<input type="hidden" id="delCartNos" name="delCartNos" value="" />
-	<input type="text" id="bnefCds" name="bnefCds" value="" />
+	<input type="text" id="bnefCd" name="bnefCd" value="" />
 </div>
 
 </form>
