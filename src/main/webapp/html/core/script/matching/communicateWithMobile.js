@@ -19,7 +19,7 @@ function receiveDataFromMobileApp() {
 		if (jsonData.actionName && jsonData.actionName === 'redirect') {
 			location.href = jsonData.url;
 		} else {
-			alert();
+			alert(jsonStr);
 		}
 	}
 	
