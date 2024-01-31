@@ -61,35 +61,4 @@
 			rsa.setPublic(rpkm,rpke);
 			return rsa.encrypt(v);
 		}
-		
-		function sendDataToMobileApp(data) {
-			if (window.ReactNativeWebView) {
-				window.ReactNativeWebView.postMessage(
-					JSON.stringify(data)
-				);
-			} else {
-				//location.href = "/";
-			}
-		}
-		
-		function receiveDataFromMobileApp() {
-			const listener = event => {
-				//이벤트 받고 데이터 alert
-				alert(event.data);
-			}
-			
-			if (window.ReactNativeWebView) {
-				// android
-				document.addEventListener("message", listener);
-				
-				// ios
-				window.addEventListener("message", listener);
-			} else {
-				//location.href = "/";
-			}
-		}
-		
-		$(function () {
-			receiveDataFromMobileApp();
-		});
 	</script>

@@ -46,6 +46,8 @@ import icube.manage.mbr.mbr.biz.MbrAuthService;
 import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -83,6 +85,9 @@ public class MbrsInfoController extends CommonAbstractController{
 	
 	@Resource(name="mbrTestService")
     private MbrTestService mbrTestService;
+	
+	@Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -894,6 +899,42 @@ public class MbrsInfoController extends CommonAbstractController{
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "수급자 테스트 정보 조회중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	/**
+	 * 해당 수급자의 테스트 결과 가져오기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getRecipientGdsInfo.json")
+	public Map<String, Object> getRecipientGdsInfo(
+			@RequestParam int recipientsNo
+		) throws Exception {
+		
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		if(!mbrSession.isLoginCheck()) {
+			resultMap.put("msg", "로그인이 필요합니다");
+			return resultMap;
+		}
+	
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (mbrRecipient == null) {
+				resultMap.put("msg", "등록되지 않은 수급자 입니다.");
+				return resultMap;
+			}
+			
+			List<MbrRecipientsGdsVO> mbrRecipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(mbrRecipient.getRecipientsNo());
+			resultMap.put("mbrRecipientsGdsList", mbrRecipientsGdsList);
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 관심복주용구 정보 조회중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
