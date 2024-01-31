@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -97,8 +98,13 @@ public class MatLoginController extends CommonAbstractController {
 			//로그인 성공 시 실패 횟를 초기화
 			mbrService.updateFailedLoginCountReset(srchMbrVO);
 			
+			//매칭앱 토큰 발급
+			String appToken = mbrService.updateMbrAppTokenInfo(srchMbrVO.getUniqueId());
+			resultMap.put("appMatToken", appToken);
+			
 			//로그인 처리
 			matMbrSession.login(session, srchMbrVO);
+			
 			resultMap.put("success", true);
 		} catch (Exception ex) {
 			resultMap.put("msg", "로그인 중 오류가 발생하였습니다.");

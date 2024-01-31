@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -428,6 +429,24 @@ public class MbrService extends CommonAbstractServiceImpl {
 	}
 
 	/**
+	 * 회원의 APP Token 상태 저장
+	 */
+	public String updateMbrAppTokenInfo(String uniqueId) throws Exception {
+		String newToken = generateMbrAppToken(uniqueId);
+		Date now = new Date();
+		Date after14Days = DateUtil.getDateAdd(now, "date", 14); //유효기간 2주
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueId", uniqueId);
+		paramMap.put("appMatToken", newToken);
+		paramMap.put("appMatExpiredDt", after14Days);
+		
+		mbrDAO.updateMbrAppTokenInfo(paramMap);
+		return newToken;
+	}
+	
+	
+	/**
 	 * 회원 전환시 포인트, 마일리지 소멸
 	 * @param uniqueId
 	 * @param mberStts
@@ -540,6 +559,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		}
 		
 		return id;
+	}
+	
+	/*
+	 * 매칭앱 전용 토큰 생성 함수
+	 */
+	public String generateMbrAppToken(String uniqueId) throws Exception {
+		String uuid = UUID.randomUUID().toString();
+		return uniqueId + "_" + uuid;
 	}
 	
 	

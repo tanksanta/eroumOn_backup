@@ -1,5 +1,4 @@
-// 매칭앱 모바일쪽 통신 함수
-
+//모바일로 데이터 전송
 function sendDataToMobileApp(data) {
 	if (window.ReactNativeWebView) {
 		window.ReactNativeWebView.postMessage(
@@ -10,6 +9,7 @@ function sendDataToMobileApp(data) {
 	}
 }
 
+//모바일에서 데이터 받기
 function receiveDataFromMobileApp() {
 	const listener = event => {
 		var jsonStr = event.data;

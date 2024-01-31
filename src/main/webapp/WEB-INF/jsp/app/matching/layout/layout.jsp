@@ -17,5 +17,6 @@
 	
 	<tiles:insertAttribute name="content"/>
 	
+	<jsp:include page="/WEB-INF/jsp/app/matching/common/appCommon.jsp" />
 </body>
 </html>
