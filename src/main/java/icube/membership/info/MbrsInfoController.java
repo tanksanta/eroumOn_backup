@@ -635,15 +635,15 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
-			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo, true);
-				
-				Boolean result = (Boolean) returnMap.get("result");
-				if (result == false) {
-					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
-					return resultMap;
-				}
-			}
+//			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+//				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo, true);
+//				
+//				Boolean result = (Boolean) returnMap.get("result");
+//				if (result == false) {
+//					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+//					return resultMap;
+//				}
+//			}
 			
 			
 			//수급자 정보 등록
@@ -744,15 +744,15 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
-			if ("N".equals(mbrRecipient.getRecipientsYn()) && EgovStringUtil.isNotEmpty(rcperRcognNo)) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo, true);
-				
-				Boolean result = (Boolean) returnMap.get("result");
-				if (result == false) {
-					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
-					return resultMap;
-				}
-			}
+//			if ("N".equals(mbrRecipient.getRecipientsYn()) && EgovStringUtil.isNotEmpty(rcperRcognNo)) {
+//				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo, true);
+//				
+//				Boolean result = (Boolean) returnMap.get("result");
+//				if (result == false) {
+//					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+//					return resultMap;
+//				}
+//			}
 			
 			//회원의 수급자 정보 수정
 			mbrRecipient.setRelationCd(relationCd);
