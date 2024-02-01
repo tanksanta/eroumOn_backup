@@ -15,10 +15,16 @@ function receiveDataFromMobileApp() {
 		var jsonStr = event.data;
 		var jsonData = JSON.parse(jsonStr);
 	
-		//이벤트 받고 데이터 alert
+		//리다이렉트 처리
 		if (jsonData.actionName && jsonData.actionName === 'redirect') {
 			location.href = jsonData.url;
-		} else {
+		}
+		//App Location 정보 Cookie에 저장
+		if (jsonData.actionName && jsonData.actionName === 'location') {
+			setCookie('location', jsonData.location.lat + 'AND' + jsonData.location.lot, 1);
+		}
+		//이벤트 받고 데이터 alert		
+		else {
 			alert(jsonStr);
 		}
 	}

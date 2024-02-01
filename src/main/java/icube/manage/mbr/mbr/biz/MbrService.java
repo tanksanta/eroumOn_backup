@@ -445,6 +445,18 @@ public class MbrService extends CommonAbstractServiceImpl {
 		return newToken;
 	}
 	
+	/**
+	 * 회원의 위치 정보 저장
+	 */
+	public void updateMbrLocation(String uniqueId, String lat, String lot) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueId", uniqueId);
+		paramMap.put("lat", lat);
+		paramMap.put("lot", lot);
+		
+		mbrDAO.updateMbrLocation(paramMap);
+	}
+	
 	
 	/**
 	 * 회원 전환시 포인트, 마일리지 소멸

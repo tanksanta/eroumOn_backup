@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
+import icube.common.util.WebUtil;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 
@@ -101,6 +102,15 @@ public class MatLoginController extends CommonAbstractController {
 			//매칭앱 토큰 발급
 			String appToken = mbrService.updateMbrAppTokenInfo(srchMbrVO.getUniqueId());
 			resultMap.put("appMatToken", appToken);
+			
+			//위치정보 가져오기
+			String locationValueStr = WebUtil.getCookieValue(request, "location");
+			if (EgovStringUtil.isNotEmpty(locationValueStr)) {
+				String[] location = locationValueStr.split("AND");
+				if (location.length > 1) {
+					mbrService.updateMbrLocation(srchMbrVO.getUniqueId(), location[0], location[1]);
+				}
+			}
 			
 			//로그인 처리
 			matMbrSession.login(session, srchMbrVO);

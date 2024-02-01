@@ -147,6 +147,10 @@ public class MbrDAO extends CommonAbstractMapper {
 		update("mbr.updateMbrAppTokenInfo", paramMap);
 	}
 	
+	public void updateMbrLocation(Map<String, Object> paramMap) throws Exception {
+		update("mbr.updateMbrLocation", paramMap);
+	}
+	
 	// 간편 회원이면서 미등록자 조회
 	public List<MbrVO> selectNotSnsRegistMbr(Map<String, Object> paramMap) throws Exception {
 		return selectList("mbr.selectNotSnsRegistMbr", paramMap);

@@ -661,4 +661,12 @@
 			, app_mat_expired_dt = #{appMatExpiredDt}
 		WHERE unique_id = #{srchUniqueId}
 	</update>
+	
+	<!-- 회원 위치 정보 업데이트 -->
+	<update id="updateMbrLocation" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			lat = #{lat}
+			, lot = #{lot}
+		WHERE unique_id = #{srchUniqueId}
+	</update>
 </mapper>
