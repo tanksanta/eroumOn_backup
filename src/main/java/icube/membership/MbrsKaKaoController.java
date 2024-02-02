@@ -87,10 +87,22 @@ public class MbrsKaKaoController extends CommonAbstractController{
 		String prevPath = (String)session.getAttribute("prevSnsPath");
 		Object reAuth = session.getAttribute("reAuth");
 		if (EgovStringUtil.isEmpty(prevPath)) {
-			javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
+			//javaScript.setMessage("카카오 로그인 유입 경로를 설정하세요.");
+			prevPath = "membership";
 		}
-		String rootPath = "membership".equals(prevPath) ? ("/" + mainPath) : ("/" + matchingPath);
-		String membershipRootPath = "membership".equals(prevPath) ? ("/" + membershipPath) : rootPath + ("/membership");
+		
+		String rootPath = "";
+		String membershipRootPath = "";
+		// 웹브라우저로 로그인 한 경우
+		if ("membership".equals(prevPath)) {
+			rootPath = "/" + mainPath;
+			membershipRootPath = "/" + membershipPath;
+		}
+		// 매칭앱으로 로그인 한 경우
+		if ("matching".equals(prevPath)) {
+			rootPath = "/" + matchingPath;
+			membershipRootPath = rootPath + "/membership";
+		}
 		
 		MbrVO kakaoUserInfo = null;
 		try {
