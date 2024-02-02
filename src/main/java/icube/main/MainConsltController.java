@@ -253,15 +253,15 @@ public class MainConsltController extends CommonAbstractController{
 			}
 			
 			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
-			if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
+			// if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
+			// 	Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
 				
-				Boolean result = (Boolean) returnMap.get("result");
-				if (result == false) {
-					resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
-					return resultMap;
-				}
-			}
+			// 	Boolean result = (Boolean) returnMap.get("result");
+			// 	if (result == false) {
+			// 		resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
+			// 		return resultMap;
+			// 	}
+			// }
 			
 			
 			//기존에 L번호가 있는 수급자였다면 L번호 포함 상담정보 저장
