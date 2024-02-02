@@ -804,12 +804,12 @@ public class MbrsInfoController extends CommonAbstractController{
 			}
 			
 			//요양번호 유효성 검사
-			Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipient.getRecipientsNm(), rcperRcognNo, true);
-			Boolean result = (Boolean) returnMap.get("result");
-			if (result == false) {
-				resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
-				return resultMap;
-			}
+			// Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrRecipient.getRecipientsNm(), rcperRcognNo, true);
+			// Boolean result = (Boolean) returnMap.get("result");
+			// if (result == false) {
+			// 	resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
+			// 	return resultMap;
+			// }
 			
 			
 			mbrRecipient.setRecipientsYn("Y");
