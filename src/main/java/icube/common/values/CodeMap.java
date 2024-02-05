@@ -222,7 +222,7 @@ public class CodeMap{
 		private static final long serialVersionUID = 3248778213644085591L;
 		{
 			put("PREPAID", "선불"); //PREPAID
-			put("COLLECT", "착불"); //COLLECT
+			// put("COLLECT", "착불"); //COLLECT //dylee 착불 없어짐
 		}
 	};
 
@@ -230,7 +230,7 @@ public class CodeMap{
 		private static final long serialVersionUID = 3248778213644085591L;
 		{
 			put("PREPAID", "주문 시 결제"); //PREPAID 
-			put("COLLECT", "직접결제"); //COLLECT //dylee 착불 없어짐
+			// put("COLLECT", "직접결제"); //COLLECT //dylee 착불 없어짐
 		}
 	};
 
