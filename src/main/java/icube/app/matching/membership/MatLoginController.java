@@ -60,11 +60,22 @@ public class MatLoginController extends CommonAbstractController {
 
 		//암호화
 		RSA rsa = RSA.getEncKey();
-		request.setAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
-		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
-		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
-		session.setAttribute("_matchingPath", matchingPath);
+		Object privateKey = session.getAttribute(RSA_MEMBERSHIP_KEY);
+		if (privateKey == null) {
+			String publicKeyModulus = rsa.getPublicKeyModulus();
+			String publicKeyExponent = rsa.getPublicKeyExponent();
+			
+			request.setAttribute("publicKeyModulus", publicKeyModulus);
+			request.setAttribute("publicKeyExponent", publicKeyExponent);
+			session.setAttribute("publicKeyModulus", publicKeyModulus);
+			session.setAttribute("publicKeyExponent", publicKeyExponent);
+			session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
+		} else {
+			request.setAttribute("publicKeyModulus", (String)session.getAttribute("publicKeyModulus"));
+			request.setAttribute("publicKeyExponent", (String)session.getAttribute("publicKeyExponent"));
+		}
 		
+		session.setAttribute("_matchingPath", matchingPath);
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 		

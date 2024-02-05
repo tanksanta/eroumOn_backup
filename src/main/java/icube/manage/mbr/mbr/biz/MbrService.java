@@ -730,8 +730,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		
-		PrivateKey rsaKey = (PrivateKey) session.getAttribute(RSA_MEMBERSHIP_KEY);
-		String decPw = RSA.decryptRsa(rsaKey, encPw);
+		String decPw = null;
+		try {
+			PrivateKey rsaKey = (PrivateKey) session.getAttribute(RSA_MEMBERSHIP_KEY);
+			decPw = RSA.decryptRsa(rsaKey, encPw);
+		} catch (Exception ex) {
+			log.error("=============password 복호화 오류", ex);
+		}
+		
 		if (EgovStringUtil.isEmpty(decPw)) {
 			resultMap.put("msg", "패스워드 복호화에 실패하였습니다.");
 			return resultMap;

@@ -11,6 +11,8 @@
 			PW : <input type="password" class="form-control" id="mbrPw">
 			<br>
 			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인</button>
+			<br>
+			<button class="btn btn-primary" onclick="location.reload();">새로고침</button>
 			<dl class="member-social">
                 <dt>간편 로그인</dt>
                 <dd>
