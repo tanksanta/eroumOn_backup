@@ -49,6 +49,9 @@ class JsPopupEntrpsDlvyGrpModal extends JsPopupLoadingFormDataBase{
             $(this._cls_info.pageModalfix + " input[name='entrpsDlvygrpNm']").val("");
             $(this._cls_info.pageModalfix + " input[name='dlvyAditAmt']").val("5000");
 
+            $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy'][value!='MIN']").removeAttr("checked");/*기본이 최소값으로 설정*/
+            $(this._cls_info.pageModalfix + " input[name='dlvyCalcTy'][value ='MIN']").prop("checked", "checked");
+
         }
 
         
