@@ -73,7 +73,12 @@
 		WHERE 1=1
 			<include refid="searchConditions" />
 	</select>
-
+	<select id="selectGdsOptnNo" parameterType="java.util.HashMap" resultType="gdsOptnVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM GDS_OPTN
+		WHERE gds_optn_no = #{gdsOptnNo}
+	</select>
 
 	<insert id="insertGdsOptn" parameterType="gdsOptnVO">
 		INSERT INTO GDS_OPTN (

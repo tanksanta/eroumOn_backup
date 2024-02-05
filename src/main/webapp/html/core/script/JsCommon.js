@@ -1,5 +1,22 @@
 
 class JsCommon{
+    fn_queryString_toMap(queryString){
+        if (queryString == undefined) queryString = location.search;
+
+        var splited = queryString.replace("?", "").split("&");
+        var ret = {};
+        var sTemp, saTemp;
+        var ifor, ilen = splited.length;
+
+        for(ifor=0 ; ifor<ilen ; ifor++){
+            sTemp = splited[ifor];
+            saTemp = sTemp.split("=")
+            ret[saTemp[0]] = (saTemp.length > 1)?saTemp[1] : '';
+        }
+
+        return ret;
+    }
+    
     fn_keycontrol(){
         var owner = this;
 
@@ -207,5 +224,22 @@ class JsCommon{
                 $(cssSelectorAll).prop("checked",false);
             }
         });
+    }
+
+    fn_checkbox_ctl_list(checked, checkboxList){
+        if (checkboxList == undefined || checkboxList.length < 1)
+            return;
+        
+        var ifor, ilen = checkboxList.length;
+        if (checked){
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				$(checkboxList[ifor]).prop("checked", true);
+			}
+		}else{
+			for(ifor=0 ; ifor<ilen ; ifor++){
+				$(checkboxList[ifor]).removeAttr('checked');
+				$(checkboxList[ifor]).prop("checked", false);
+			}
+		}
     }
 }

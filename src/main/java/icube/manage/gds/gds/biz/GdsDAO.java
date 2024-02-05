@@ -71,6 +71,10 @@ public class GdsDAO extends CommonAbstractMapper {
 		update("gds.gds.updateEroumGds",paramMap);
 	}
 
+	public int updateGdsDlvyAditAmtFromDlvygrpNo(Map<String, Object> paramMap) throws Exception {
+		return update("gds.gds.updateGdsDlvyAditAmtFromDlvygrpNo",paramMap);
+	}
+
 	public void updateGdsTag(Map<String, Object> paramMap) throws Exception {
 		update("gds.gds.updateGdsTag",paramMap);
 	}
@@ -87,4 +91,14 @@ public class GdsDAO extends CommonAbstractMapper {
 		return selectList("gds.gds.selectGdsTyGrp", paramMap);
 	}
 
+	public CommonListVO selectGdsListByDlvygrp(CommonListVO listVO) throws Exception {
+		return selectListVO("gds.gds.selectGdsCountByDlvygrp", "gds.gds.selectGdsListByDlvygrp", listVO);
+	}
+	
+	public Integer updateGdsByDlvygrpResetAll(GdsVO paramMap) throws Exception {
+		return update("gds.gds.updateGdsByDlvygrpResetAll",paramMap);
+	}
+	public Integer updateGdsByDlvygrpResetSelected(GdsVO paramMap) throws Exception {
+		return update("gds.gds.updateGdsByDlvygrpResetSelected",paramMap);
+	}
 }

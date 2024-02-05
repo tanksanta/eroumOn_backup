@@ -36,8 +36,6 @@
 							<c:set var="sumOrdrPc" value="${cart.ordrPc }" />
 							<c:set var="ordrQy" value="${cart.ordrQy }" />
 
-
-
 							<c:if test="${status.first}">
 								<div class="order-product order-partners">
 									<div class="order-header">

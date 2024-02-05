@@ -51,6 +51,7 @@
     <!-- market -->
     <link rel="stylesheet" href="/html/page/market/assets/style/style.min.css?v=<spring:eval expression="@version['assets.version']"/>">
     <script src="/html/page/market/assets/script/common.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/formatter.js?v=<spring:eval expression="@version['assets.version']"/>"></script> 
     <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/page/market/assets/script/product.js"></script>

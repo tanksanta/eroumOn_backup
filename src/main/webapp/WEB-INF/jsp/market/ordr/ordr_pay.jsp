@@ -148,6 +148,7 @@
 						<input type="hidden" name="gdsPc" value="${ordrDtl.gdsPc }">
 						<input type="hidden" name="bnefCd" value="${ordrDtl.bnefCd }">
 
+						<input type="hidden" name="gdsOptnNo" value="${ordrDtl.gdsOptnNo }">
 						<input type="hidden" name="ordrOptnTy" value="${ordrDtl.ordrOptnTy }">
 						<input type="hidden" name="ordrOptn" value="${ordrDtl.ordrOptn }">
 						<input type="hidden" name="ordrOptnPc" value="${ordrDtl.ordrOptnPc }">

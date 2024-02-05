@@ -169,25 +169,35 @@
 					<%-- 통합 주문 번호 --%>
 					<c:if test="${status.first}">
 
-                    <div class="order-product">
+                    <div class="order-product order-product-mypage">
                         <div class="order-header">
-									<c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
-										<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
-										<c:if test="${!empty ordrDtl.bplcInfo}">
-											<dl class="large">
-												<dt>멤버스</dt>
-												<dd>${ordrDtl.bplcInfo.bplcNm}</dd>
-											</dl>
-										</c:if>
-									</c:if>
-									<dl>
-                                <dt>주문번호</dt>
-                                <dd><strong><a href="./view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
-                            </dl>
-                            <dl>
-                                <dt>주문일시</dt><%--주문/취소 --%>
-                                <dd><fmt:formatDate value="${ordrDtl.ordrDt}" pattern="yyyy.MM.dd HH:mm:ss" /></dd>
-                            </dl>
+                            <div class="flex flex-col w-full gap-3">
+                                <!--2023-12-27:사업소명-->
+                                <dl class="order-item-business">
+                                    <dt><span>사업소</span> <span>행복한 시니어</span></dt>
+                                </dl>
+                                <!--//2023-12-27:사업소명-->
+
+                                <c:if test="${ordrDtl.ordrTy eq 'R' || ordrDtl.ordrTy eq 'L'}">
+                                    <%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
+                                    <c:if test="${!empty ordrDtl.bplcInfo}">
+                                        <dl class="large">
+                                            <dt>멤버스</dt>
+                                            <dd>${ordrDtl.bplcInfo.bplcNm}</dd>
+                                        </dl>
+                                    </c:if>
+                                </c:if>
+                                <div class="flex items-center w-full">
+                                    <dl>
+                                        <dt>주문번호</dt>
+                                        <dd><strong><a href="./view/${ordrDtl.ordrCd}?${pageParam}">${ordrDtl.ordrCd}</a></strong></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>주문일시</dt><%--주문/취소 --%>
+                                        <dd><fmt:formatDate value="${ordrDtl.ordrDt}" pattern="yyyy.MM.dd HH:mm:ss" /></dd>
+                                    </dl>
+                                </div>
+                            </div>
                             <!-- <button type="button" class="f_all_rtrcn">전체취소</button> -->
                         </div>
                         <div class="order-body">
@@ -206,7 +216,7 @@
 					<%-- 통합 주문 번호 --%>
 
 
-                            <div class="order-item">
+                            <div class="order-item order-item-mypage">
                                 <div class="order-item-thumb">
                                     <c:choose>
 										<c:when test="${!empty ordrDtl.gdsInfo.thumbnailFile }">
@@ -218,7 +228,8 @@
 									</c:choose>
                                 </div>
                                 <div class="order-item-content">
-                                    <div class="order-item-group" style="min-height:160px;">
+                                    <div class="flex items-start w-full">
+                                        <div class="order-item-group">
                                         <div class="order-item-base">
                                             <p class="code">
                                                 <span class="label-primary">
@@ -231,7 +242,7 @@
                                                 <p class="name">${ordrDtl.gdsInfo.gdsNm }</p>
                                                 <c:if test="${!empty spOrdrOptn[0]}">
                                                 <dl class="option">
-                                                    <dt>옵션</dt>
+                                                    <%-- <dt>옵션</dt> --%>
                                                     <dd>
                                                         <c:forEach items="${spOrdrOptn}" var="ordrOptn">
 		                                                <span class="label-flat">${ordrOptn}</span>
@@ -241,7 +252,8 @@
                                                 </c:if>
                                             </div>
                                         </div>
-					</c:if>
+                                    
+                    </c:if>
 					<c:if test="${ordrDtl.ordrOptnTy eq 'ADIT'}">
 
 					<c:set var="sumOrdrPc" value="${sumOrdrPc + ordrDtl.ordrPc}" />
@@ -259,7 +271,6 @@
 					</c:if>
 
 					<c:if test="${listVO.listObject[status.index+1].ordrOptnTy eq 'BASE' || status.last}">
-
                                     </div>
                                     <div class="order-item-count">
                                         <p><strong>${ordrQy}</strong>개</p>
@@ -271,8 +282,10 @@
                                          --%>
                                     </div>
                                     <p class="order-item-price"><span class="text-primary"><fmt:formatNumber value="${totalGdsPc}" pattern="###,###" />원</span></p>
+                                </div>    
                                     <div class="order-item-info">
-                                        <div class="payment">
+                                        <%-- 이전배송비 백업 --%>
+                                        <%-- <div class="payment">
                                             <dl>
                                                 <dt>배송비</dt>
                                                 <dd>
@@ -284,15 +297,13 @@
                                                 	</c:if>
                                                 </dd>
                                             </dl>
-
-                                            <%-- <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
+                                            <!-- <c:if test="${ordrDtl.gdsInfo.dlvyAditAmt > 0}">
                                             <dl>
                                                 <dt>추가 배송비</dt>
                                                 <dd><fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyAditAmt}" pattern="###,###" />원</dd>
                                             </dl>
-                                            </c:if> --%>
-
-                                        </div>
+                                            </c:if> -->
+                                        </div> --%>
                                         <div class="status">
                                        	<%-- TO-DO : 주문상태에 따라 다름 --%>
                                        	<c:choose>
@@ -399,7 +410,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
+
+                            <!--20231227:배송비 이동 : 기획안 확인해야 함 -->
+                            <div class="payment">
+                                <dl class="order-item-payment">
+                                    <dd>배송비</dd>
+                                    <dt class="delivery-charge">
+                                        <c:if test="${ordrDtl.gdsInfo.dlvyCtTy eq 'FREE'}">
+                                        무료배송
+                                        </c:if>
+                                        <c:if test="${ordrDtl.gdsInfo.dlvyCtTy ne 'FREE'}">
+                                        <fmt:formatNumber value="${ordrDtl.gdsInfo.dlvyBassAmt}" pattern="###,###" />원
+                                        </c:if>
+                                    </dt>
+                                </dl>
+                            </div>
+
 
                     <%-- 통합 주문 번호 --%>
 					<c:if test="${status.last || (ordrDtl.ordrCd ne listVO.listObject[status.index+1].ordrCd )}">
@@ -424,8 +452,13 @@
                     </c:if>
                     <c:if test="${!status.last && ordrDtl.ordrCd ne listVO.listObject[status.index+1].ordrCd}">
 
-                    <div class="order-product">
+                    <div class="order-product order-product-mypage">
                         <div class="order-header">
+                            <div class="flex flex-col w-full gap-3">
+                                <!--2023-12-27:사업소명-->
+                                <dl class="order-item-business">
+                                    <dt><span>사업소</span> <span>행복한 시니어</span></dt>
+                                </dl>
 								<c:if test="${listVO.listObject[status.index+1].ordrTy eq 'R' || listVO.listObject[status.index+1].ordrTy eq 'L'}">
 									<%-- 급여구매일 경우만 경우만 멤버스(사업소) 있음 --%>
 									<c:if test="${!empty listVO.listObject[status.index+1].bplcInfo}">
@@ -435,14 +468,17 @@
 										</dl>
 									</c:if>
 								</c:if>
+                            <div class="flex items-center w-full">
 								<dl>
-                                <dt>주문번호</dt>
-                                <dd><strong><a href="./view/${listVO.listObject[status.index+1].ordrCd}?${pageParam}">${listVO.listObject[status.index+1].ordrCd}</a></strong></dd>
-                            </dl>
-                            <dl>
-                                <dt>주문일시</dt><%--주문/취소 --%>
-                                <dd><fmt:formatDate value="${listVO.listObject[status.index+1].ordrDt}" pattern="yyyy.MM.dd HH:mm:ss" /><br></dd>
-                            </dl>
+                                    <dt>주문번호</dt>
+                                    <dd><strong><a href="./view/${listVO.listObject[status.index+1].ordrCd}?${pageParam}">${listVO.listObject[status.index+1].ordrCd}</a></strong></dd>
+                                </dl>
+                                <dl>
+                                    <dt>주문일시</dt><%--주문/취소 --%>
+                                    <dd><fmt:formatDate value="${listVO.listObject[status.index+1].ordrDt}" pattern="yyyy.MM.dd HH:mm:ss" /><br></dd>
+                                </dl>
+                            </div>
+                        </div>
                             <!-- <button type="button" class="f_all_rtrcn">전체취소</button> -->
                         </div>
                         <div class="order-body">

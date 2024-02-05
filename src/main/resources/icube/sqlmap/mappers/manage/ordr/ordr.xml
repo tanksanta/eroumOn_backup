@@ -13,6 +13,10 @@
 		<association property="bplcInfo" 	column="{srchUniqueId=bplc_unique_id}" select="partners.bplc.selectBplc" />
 		<association property="recipterInfo" column="{srchUniqueId=recipter_unique_id}" select="recipter.selectRecipter" />
 		<association property="rebillInfo" 	column="{srchOrdrNo=ordr_no}" select="ordr.rebill.selectOrdrRebill" />
+
+		<collection property="entrpsVO" 	column="{entrpsNo=entrps_no}" 	 select="entrps.selectEntrps" />
+		<collection property="gdsOptnVO" 	column="{gdsOptnNo=gds_optn_no}" 	 select="gds.optn.selectGdsOptnNo" />
+		
 	</resultMap>
 
 	<!-- Define OrdrVO Column List -->
@@ -172,6 +176,9 @@
 		<if test="ordrCd !=null and ordrCd != ''">
 			AND o.ordr_cd = #{ordrCd}
 		</if>
+		<if test="od1ordrCd !=null and od1ordrCd != ''">
+			AND od1.ordr_cd = #{od1ordrCd}
+		</if>
 		<if test="ordrNo !=null and ordrNo != ''">
 			AND o.ordr_no = #{ordrNo}
 		</if>
@@ -204,6 +211,7 @@
 			 , od.ordr_dtl_cd
 			 , od.ordr_dtl_no
 			 , od.gds_no
+			 , od.gds_optn_no
 			 , od.gds_cd
 			 , od.bnef_cd
 			 , od.gds_nm
@@ -235,6 +243,8 @@
 			 , od.dlvy_co_nm
 			 , od.dlvy_dt
 			 , od.dlvy_invc_no
+			 , od.dlvy_group_yn
+			 , od.entrps_dlvygrp_no
 
 		 	 , od.rfnd_yn
 			 , od.rfnd_bank
@@ -249,7 +259,8 @@
 			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR01', 'OR02', 'OR04', 'OR05') ) AS cancel_btn
 			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty IN ('OR08') ) AS return_btn
 			, (SELECT COUNT(*) FROM ORDR_DTL od2 WHERE od2.ordr_cd = od.ordr_cd AND ordr_optn_ty = 'BASE' AND od2.stts_ty NOT IN ('OR02', 'OR04', 'CA02') ) AS buy_btn
-		FROM ORDR o LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
+		FROM ORDR o 
+		LEFT JOIN ORDR_DTL od ON o.ordr_no = od.ordr_no
 		WHERE o.ORDR_NO IN (
 			SELECT * FROM (
 				SELECT DISTINCT(od1.ordr_no)

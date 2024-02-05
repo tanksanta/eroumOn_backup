@@ -390,7 +390,7 @@ var Goods_${now} = (function(){
 			gdsHtml += '		<input type="hidden" name="bnefCd" value="${gdsVO.bnefCd}">';
 			gdsHtml += '		<input type="hidden" name="gdsNm" value="${gdsVO.gdsNm}">';
 			gdsHtml += '		<input type="hidden" name="gdsPc" value="0">';
-			if(typeof spOptnVal[4] != "undefined"){
+			if(typeof spAditOptnVal[4] != "undefined"){
 				gdsHtml += '		<input type="hidden" name="gdsOptnNo" value="'+spAditOptnVal[4]+'">';
 			}else{
 				gdsHtml += '		<input type="hidden" name="gdsOptnNo" value="0">';

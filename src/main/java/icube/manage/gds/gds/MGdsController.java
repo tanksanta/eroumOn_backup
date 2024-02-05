@@ -60,6 +60,8 @@ import icube.manage.gds.optn.biz.GdsOptnVO;
 import icube.manage.mbr.itrst.biz.CartService;
 import icube.manage.sysmng.brand.biz.BrandService;
 import icube.manage.sysmng.brand.biz.BrandVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpService;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 import icube.manage.sysmng.entrps.biz.EntrpsService;
 import icube.manage.sysmng.entrps.biz.EntrpsVO;
 import icube.manage.sysmng.mkr.biz.MkrService;
@@ -88,6 +90,9 @@ public class MGdsController extends CommonAbstractController {
 
 	@Resource(name = "entrpsService")
 	private EntrpsService entrpsService;
+
+	@Resource(name = "entrpsDlvyGrpService")
+	private EntrpsDlvyGrpService entrpsDlvyGrpService;
 
 	@Resource(name = "mkrService")
 	private MkrService mkrService;
@@ -232,6 +237,12 @@ public class MGdsController extends CommonAbstractController {
 		List<EntrpsVO> entrpsList = entrpsService.selectEntrpsListAll(new HashMap<String, Object>());
 		model.addAttribute("entrpsList", entrpsList);
 
+		if (gdsVO.getEntrpsDlvygrpNo() > 0){
+			EntrpsDlvyGrpVO entrpsDlvyGrpVO = entrpsDlvyGrpService.selectEntrpsDlvyGrpByNo(gdsVO.getEntrpsDlvygrpNo());
+			model.addAttribute("entrpsDlvyGrpVO", entrpsDlvyGrpVO);
+		}
+		
+
 		//제조사 호출
 		List<MkrVO> mkrList = mkrService.selectMkrListAll();
 		model.addAttribute("mkrList", mkrList);
@@ -250,6 +261,8 @@ public class MGdsController extends CommonAbstractController {
 		model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
 		model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
 		model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
+
+		model.addAttribute("dlvyCalcTyCode", CodeMap.DLVY_CALC_TY);
 
 		model.addAttribute("gdsVO", gdsVO);
 		model.addAttribute("param", reqMap);
@@ -271,6 +284,11 @@ public class MGdsController extends CommonAbstractController {
 
 		// doubleSubmit check
 		if (EgovDoubleSubmitHelper.checkAndSaveToken("preventTokenKey", request)) {
+
+			/*묶음 배송이 아닌경우 묶음배송번호는 항상 0이다*/
+			if (!EgovStringUtil.equals("Y", gdsVO.getDlvyGroupYn())){
+				gdsVO.setEntrpsDlvygrpNo(0);
+			}
 			// 상품태그
 			gdsVO.setGdsTagVal( ArrayUtil.arrayToString(gdsVO.getGdsTag(), ",") );
 

@@ -186,6 +186,34 @@ public class CodeMap{
 		{
 			put("FREE", "무료");
 			put("PAY", "유료");
+			put("OVERMONEY", "조건부 무료");
+			put("PERCOUNT", "구매수량별");
+		}
+	};
+
+	// 배송비 청구 기준
+	public static final HashMap<String, String> DLVY_PRICE_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 3248778213644085591L;
+		{
+			put("PC", "정상 판매가"); //
+			put("DSCNT", "할인 판매가"); //
+		}
+	};
+
+	// 배송비 계산 방식 기준
+	public static final HashMap<String, String> DLVY_CALC_TY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 3248778213644085591L;
+		{
+			put("MAX", "묶음그룹에서 가장 큰 배송비로 부과"); //
+			put("MIN", "묶음그룹에서 가장 작은 배송비로 부과"); //
+		}
+	};
+	// 배송비 계산 방식 기준
+	public static final HashMap<String, String> DLVY_CALC_TY_LIST = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 3248778213644085591L;
+		{
+			put("MAX", "최대 부과"); //
+			put("MIN", "최소 부과"); //
 		}
 	};
 
@@ -195,6 +223,14 @@ public class CodeMap{
 		{
 			put("PREPAID", "선불"); //PREPAID
 			put("COLLECT", "착불"); //COLLECT
+		}
+	};
+
+		public static final HashMap<String, String> DLVY_PAY_TY2 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 3248778213644085591L;
+		{
+			put("PREPAID", "주문 시 결제"); //PREPAID 
+			put("COLLECT", "직접결제"); //COLLECT //dylee 착불 없어짐
 		}
 	};
 

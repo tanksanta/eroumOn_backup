@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>market</title>
+
+    <!-- plugin -->
+    <link rel="stylesheet" href="../../../../core/vendor/swiperjs/swiper-bundle.css">
+    <script src="../../../../core/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../../../../core/vendor/swiperjs/swiper-bundle.min.js"></script>
+
+    <!-- market -->
+    <link rel="stylesheet" href="../../assets/style/style.min.css">
+    <script src="../../assets/script/common.js"></script>
+    <script src="../../assets/script/order.js"></script>
+</head>
+<body>              
+    <!-- access -->
+    <ul id="skip-navigation">
+        <li><a href="#container">본문 바로가기</a></li>
+    </ul>
+    <!-- //access -->
+
+    <!-- header -->
+    <header id="header">
+        <!-- banner -->
+        <aside id="banner">
+            <div class="container">
+                <img src="/html/page/market/assets/images/dummy/img-dummy-notice.jpg" alt="">
+                <button type="button">
+                    <span class="sr-only">닫기</span>
+                </button>
+            </div>
+        </aside>
+        <script>
+            $('#banner button').on('click', function() {
+                $('body').removeClass('is-banner');
+            })
+        </script>
+        <!-- //banner -->
+
+        <!-- header logo -->
+        <div id="utility">
+            <h1 class="global-logo"><a href="#"><em>이로움 ON</em></a></h1>
+            <ul class="utility-menu">
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </div>
+        <!-- //header logo -->
+    
+        <!-- navigation -->
+        <nav id="navigation">
+            <div class="container">
+                <div class="navigation-allmenu">
+                    <button type="button" class="allmenu-toggle">
+                        <i></i>
+                        <span>전체 카테고리</span>
+                    </button>
+                    <div class="allmenu-list">
+                        <div class="allmenu-group">
+                            <ul>
+                                <li class="allmenu-item is-depth">
+                                    <a href="#">
+                                        <i><img src="/html/page/market/assets/images/ico-navigation-menu1.png" alt=""></i>
+                                        복지용구
+                                    </a>
+                                    <div class="allmenu-group2">
+                                        <ul>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식2</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식3</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식4</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="allmenu-item is-depth">
+                                    <a href="#">
+                                        <i><img src="/html/page/market/assets/images/ico-navigation-menu2.png" alt=""></i>
+                                        식품관
+                                    </a>
+                                    <div class="allmenu-group2">
+                                        <ul>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식2</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식3</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식4</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="allmenu-item is-depth">
+                                    <a href="#">
+                                        <i><img src="/html/page/market/assets/images/ico-navigation-menu3.png" alt=""></i>
+                                        시니어관
+                                    </a>
+                                    <div class="allmenu-group2">
+                                        <ul>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                        <li class="allmenu-item3"><a href="#">유동식</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식2</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식3</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2 is-depth">
+                                                <a href="#">고령친화우수식품</a>
+                                                <div class="allmenu-group3">
+                                                    <ul>
+                                                        <li class="allmenu-item3"><a href="#">유동식4</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                            <li class="allmenu-item2">
+                                                <a href="#">고령친화우수식품</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="allmenu-item">
+                                    <a href="#">
+                                        <i><img src="/html/page/market/assets/images/ico-navigation-menu1.png" alt=""></i>
+                                        복지용구
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="allmenu-user">
+                            <a href="#">로그인</a>
+                            <a href="#">회원가입</a>
+                            <a href="#">고객센터</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-submenu">
+                    <ul>
+                        <li><a href="#">기획전</a></li>
+                        <li><a href="#">이벤트</a></li>
+                        <li><a href="#">고령친화 우수식품</a></li>
+                        <li><a href="#">스토리</a></li>
+                    </ul>
+                </div>
+                <div class="navigation-search">
+                    <button class="search-toggle">검색 펼치기 접기</button>
+                    <form action="" class="search-form">
+                        <div class="form-field">
+                            <legend>통합검색</legend>
+                            <input type="text" placeholder="검색어를 입력하세요">
+                            <button type="submit">검색</button>
+                        </div>
+                        <div class="form-current">
+                            <p class="current-title">
+                                <strong>최근 검색어</strong>
+                                <button type="button">전체 삭제</button>
+                            </p>
+                            <div class="current-items">
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                                <div class="current-item">
+                                    <a href="#">실버카</a>
+                                    <button type="button">삭제</button>
+                                </div>
+                            </div>
+                            <div class="current-option">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="search-save">
+                                    <label class="form-check-label" for="search-save">검색어 저장 끄기</label>
+                                </div>
+                                <button type="button" class="option-close">닫기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navigation-util">
+                    <li>
+                        <a href="#" class="util-item1">
+                            <span class="sr-only">마이페이지</span>
+                            <i>2</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="util-item2">
+                            <span class="sr-only">찜한상품</span>
+                            <i>2</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="util-item3">
+                            <span class="sr-only">장바구니</span>
+                            <i>2</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //navigation -->
+    </header>
+    <!-- //header -->
+
+    <!-- container -->
+    <main id="container">
+        <div id="page-header">
+            <ul class="page-header-breadcrumb">
+                <li><a href="#">홈</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+                <li><a href="#">복지용구</a></li>
+            </ul>
+            <!-- <div class="page-header-title">
+                <a href="#" class="back">이전 페이지 가기</a>
+                <h2 class="subject"><a href="#">복지용구</a></h2>
+            </div>
+            <button type="button" id="page-sidenav-toggle">사이드메뉴 레이어 열기/닫기</button> -->
+        </div>
+
+        <div id="page-container">
+            <div id="page-content">
+                <h3 class="text-title mb-3 md:mb-4">상품 정보</h3>
+
+                <!--마켓결재UI변경-->
+                <div class="order-item-box">
+                    <div class="order-product">
+                        <div class="order-body">
+                            <dl class="order-item-business">
+                                <dt><span>사업소</span> <span>행복한 시니어</span></dt>
+                            </dl>
+                            <div class="order-delivery-total">
+                                <strong>개별배송</strong>
+                                <strong class="price2">3개</strong>
+                            </div>
+                            <div class="order-product-inner">
+                                <div class="order-product-item">
+                                    <div class="item-thumb">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/noimg.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-name">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>비급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">효반 10팩 무료배송 골라담기</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-price">
+                                        <div class="pay-info">
+                                            <p class="pay-amount">주문수량<span>7</span>개</p>
+                                            <div class="pay-price">
+                                                <span class="original-price">49,720원</span>
+                                                <strong class="price">11,448,400원</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-option">
+                                        <dl class="option">
+                                            <dd>
+                                                <span class="label-flat">블루</span>
+                                                <span class="label-flat">800g</span>
+                                                <span >2개(+9,720원)</span>
+                                            </dd>
+                                        </dl>
+                                        <div class="item-add-box">
+                                            <div class="item-add">
+                                                <span class="label-outline-primary">
+                                                    <span>추가</span>
+                                                    <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                </span>
+                                                <div class="name">
+                                                    <span class="font-semibold">모던 스타일 스툴</span>
+                                                    <span class="font-semibold">1개</span>
+                                                    <span>(+80,000원)</span>
+                                                </div>
+                                            </div>
+                                            <div class="item-add disabled">
+                                                <span class="label-outline-primary">
+                                                    <span>추가</span>
+                                                    <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                                </span>
+                                                <div class="name">
+                                                    <span class="font-semibold">모던 스타일 스툴</span>
+                                                    <span class="font-semibold">1개</span>
+                                                    <span>(+80,000원)</span>
+                                                    <strong class="text-soldout">임시품절</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="item-btn"></div> -->
+                                </div>
+                            </div>
+                            <dl class="order-item-payment">
+                                <dt>배송비</dt>
+                                <dd class="delivery-charge">3000원</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="order-product">
+                        <div class="order-body">
+                            <dl class="order-item-business">
+                                <dt><span>사업소</span> <span>행복한 시니어</span></dt>
+                            </dl>
+                            <div class="order-delivery-total">
+                                <strong>묶음배송</strong>
+                                <strong class="price2">3개</strong>
+                            </div>
+                            <div class="order-product-inner">
+                                <div class="order-product-item">
+                                    <div class="item-thumb">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-name">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>비급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">효반 10팩 무료배송 골라담기</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-price">
+                                        <div class="pay-info">
+                                            <p class="pay-amount">주문수량<span>7</span>개</p>
+                                            <div class="pay-price">
+                                                <span class="original-price">49,720원</span>
+                                                <strong class="price">11,448,400원</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-option">
+                                        <dl class="option">
+                                            <dd>
+                                                <span class="label-flat">블루</span>
+                                                <span class="label-flat">800g</span>
+                                                <span >2개(+9,720원)</span>
+                                            </dd>
+                                        </dl>
+                                        <div class="item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <strong>모던 스타일 스툴</strong>
+                                                <strong>1개</strong>
+                                                <span>(+80,000원)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="item-btn"></div> -->
+                                </div>
+                            </div>
+                            <div class="order-product-inner">
+                                <div class="order-product-item">
+                                    <div class="item-thumb">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-name">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>비급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">효반 10팩 무료배송 골라담기</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-price">
+                                        <div class="pay-info">
+                                            <p class="pay-amount">주문수량<span>7</span>개</p>
+                                            <div class="pay-price">
+                                                <span class="original-price">49,720원</span>
+                                                <strong class="price">11,448,400원</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-option">
+                                        <dl class="option">
+                                            <dd class="disabled">
+                                                <span class="label-flat">블루</span>
+                                                <span class="label-flat">800g</span>
+                                                <span >2개(+9,720원)</span>
+                                                <strong class="text-soldout">임시품절</strong>
+                                            </dd>
+                                        </dl>
+                                        <div class="item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <strong>모던 스타일 스툴</strong>
+                                                <strong>1개</strong>
+                                                <span>(+80,000원)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="item-btn"></div> -->
+                                </div>
+                            </div>
+                            <dl class="order-item-payment">
+                                <dt>배송비</dt>
+                                <dd class="delivery-charge">3000원</dd>
+                            </dl>
+                            <div class="order-delivery-total">
+                                <strong>개별배송</strong>
+                                <strong class="price2">1개</strong>
+                            </div>
+                            <div class="order-product-inner">
+                                <div class="order-product-item">
+                                    <div class="item-thumb">
+                                        <div class="order-item-thumb">
+                                            <img src="../../assets/images/dummy/img-dummy-product.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="item-name">
+                                        <div class="order-item-base">
+                                            <p class="code">
+                                                <span class="label-primary">
+                                                    <span>비급여상품</span>
+                                                    <i></i>
+                                                </span>
+                                                <u>24n29G38Y72a</u>
+                                            </p>
+                                            <div class="product">
+                                                <p class="name">효반 10팩 무료배송 골라담기</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-price md-max:hidden">
+                                        <div class="pay-info">
+                                            <p class="pay-amount">주문수량<span>7</span>개</p>
+                                            <div class="pay-price">
+                                                <span class="original-price">49,720원</span>
+                                                <strong class="price">11,448,400원</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-option">
+                                        <dl class="option">
+                                            <dd>
+                                                <span class="label-flat">블루</span>
+                                                <span class="label-flat">800g</span>
+                                                <span >2개(+9,720원)</span>
+                                            </dd>
+                                        </dl>
+                                        <div class="item-add">
+                                            <span class="label-outline-primary">
+                                                <span>추가</span>
+                                                <i><img src="../../assets/images/ico-plus-white.svg" alt=""></i>
+                                            </span>
+                                            <div class="name">
+                                                <strong>모던 스타일 스툴</strong>
+                                                <strong>1개</strong>
+                                                <span>(+80,000원)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="item-price md:hidden">
+                                        <div class="pay-info">
+                                            <p class="pay-amount">주문수량 <span>7</span>개</p>
+                                            <div class="pay-price">
+                                                <span class="original-price">49,720원</span>
+                                                <strong class="price">11,448,400원</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="item-btn"></div> -->
+                                </div>
+                            </div>
+                            <dl class="order-item-payment">
+                                <dt>배송비</dt>
+                                <dd class="delivery-charge">3000원</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">고객 정보</h3>
+                <div class="md:flex md:space-x-6 lg:space-x-7.5">
+                    <div class="payment-customer customer-grade1 flex-1">
+                        <dl>
+                            <dt>이름</dt>
+                            <dd>이로미</dd>
+                        </dl>
+                        <dl>
+                            <dt>휴대폰번호</dt>
+                            <dd>010-2732-9721</dd>
+                        </dl>
+                        <dl>
+                            <dt>이메일주소</dt>
+                            <dd>eromi@naver.com</dd>
+                        </dl>
+                    </div>
+                    <div class="flex-1 pt-2 space-y-2 md:space-y-3.5">
+                        <p class="text-alert">
+                            고객정보로 주문과 관련된 SMS와 이메일이 발송됩니다.<br>
+                            정확한 정보인지 확인해 주세요.
+                        </p>
+                        <p class="text-alert">회원정보 수정은 마이페이지에서 가능합니다.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center mt-18 mb-3 md:mb-4 md:mt-23">
+                    <h3 class="text-title">배송지 정보</h3>
+                    <div class="form-check mt-0.5 ml-3 md:ml-4">
+                        <input class="form-check-input" type="checkbox" id="deli-check">
+                        <label class="form-check-label" for="deli-check">신규 배송지</label>
+                    </div>
+                </div>
+                <table class="table-detail">
+                    <colgroup>
+                        <col class="w-24 md:w-40">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr class="top-border">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item1">배송지 선택</label></p></th>
+                            <td>
+                                <div class="form-group w-76">
+                                    <input type="text" class="form-control" id="deli-item1">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deliModal">배송지 목록</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item2"></label>받는 사람</p></th>
+                            <td>
+                                <input type="text" class="form-control w-57" id="deli-item2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item3"></label>배송지 명</p></th>
+                            <td>
+                                <input type="text" class="form-control w-57" id="deli-item3">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item4"></label>연락처</p></th>
+                            <td>
+                                <div class="form-group-tel w-76">
+                                    <input type="text" class="form-control" id="deli-item4">
+                                    <i>-</i>
+                                    <input type="text" class="form-control">
+                                    <i>-</i>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item5"></label>추가 연락처</p></th>
+                            <td>
+                                <div class="form-group-tel w-76">
+                                    <select name="" id="" class="form-control" id="deli-item5">
+                                        <option value="선택"></option>
+                                    </select>
+                                    <i>-</i>
+                                    <input type="text" class="form-control">
+                                    <i>-</i>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item6"></label>주소</p></th>
+                            <td>
+                                <div class="form-group w-76">
+                                    <input type="text" class="form-control">
+                                    <button type="button" class="btn btn-primary" id="deli-item6">우편번호 검색</button>
+                                </div>
+                                <input type="text" class="form-control mt-1.5 w-full lg:mt-2">
+                                <input type="text" class="form-control mt-1.5 w-full lg:mt-2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="deli-item7"></label>배송 메시지</p></th>
+                            <td>
+                                <div class="flex flex-wrap">
+                                    <select name="" id="deli-item7" class="form-control w-full sm:w-57">
+                                        <option value="">배송 메시지</option>
+                                    </select>
+                                    <input type="text" class="form-control w-full sm:flex-1 mt-1.5 sm:mt-0 sm:ml-2 sm:w-auto">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bot-border">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- <div class="flex justify-center space-x-1.5 mt-18 md:space-x-2.5 md:mt-23">
+                    <a href="#" class="btn btn-large btn-primary w-40 md:w-51 lg:w-62">주문하기</a>
+                </div> -->
+
+                <div class="flex items-center justify-between mt-18 mb-3 md:mb-4 md:mt-23">
+                    <h3 class="text-title">할인혜택</h3>
+                    <button type="button" class="btn btn-refresh2 is-reverse f_reset">할인혜택 초기화</button>
+                </div>
+                <table class="table-detail">
+                    <colgroup>
+                        <col class="w-25 md:w-40">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr class="top-border">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="discount-item1">상품할인쿠폰</label></p></th>
+                            <td>
+                                <div class="form-group w-78">
+                                    <input type="text" class="form-control" id="totalCouponAmt" name="totalCouponAmt" value="0" readonly="true">
+                                    <span>원</span>
+                                    <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_coupon">쿠폰사용</button>
+                                </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 쿠폰 : 2 장</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="discount-item2">포인트</label></p></th>
+                            <td>
+                                <div class="form-group w-78">
+                                    <input id="usePoint" name="usePoint" class="form-control" readonly="readonly" type="text" value="0"><span>원</span>
+                                    <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_point">포인트사용</button>
+                                </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 포인트 : 0 원</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><p><label for="discount-item3">마일리지</label></p></th>
+                            <td>
+                                <div class="form-group w-78">
+                                    <input id="useMlg" name="useMlg" class="form-control" readonly="readonly" type="text" value="0"><span>원</span>
+                                    <button type="button" class="btn btn-primary ml-1 w-25 md:ml-4 md:w-30 f_use_mlg">마일리지사용</button>
+                                </div>
+                                &nbsp;&nbsp;
+                                <span>잔여 마일리지 : 0 원</span>
+                            </td>
+                        </tr>
+                        <tr class="bot-border">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!--마켓결재UI변경-->
+                <h3 class="text-title mt-18 mb-3 md:mb-4 md:mt-23">최종 결제금액 확인</h3>
+                <div class="payment-result">
+                    <div class="result-price">
+                        <div class="container">
+                            <dl>
+                                <dt>총 주문상품금액</dt>
+                                <dd><strong>38,070</strong> 원</dd>
+                            </dl>
+                            <dl class="result-price-item">
+                                <dt>쿠폰</dt>
+                                <dd><span>-</span><strong class="total-coupon-txt">0</strong> 원</dd>
+                            </dl>
+                            <dl class="result-price-item">
+                                <dt>마일리지/포인트</dt>
+                                <dd><span>-</span><strong class="total-mlg-txt">0</strong> 원</dd>
+                            </dl>
+                            <dl class="result-price-item">
+                                <dt>배송비</dt>
+                                <dd><span>+</span><strong class="total-dlvy-txt">3000</strong> 원</dd>
+                                
+                            </dl>
+                            <dl  id="total-dlvyAdit-dl" class="result-price-item">
+                                <dt class="icon-child type-pay">제주/도서산간지역 5,000원 추가</dt>
+                                <dd><span>+</span><strong class="total-dlvyAdit-txt">3000</strong> 원</dd>
+                            </dl>
+                            <!-- <dl id="total-dlvyAdit-dl"  class="result-price-item">
+                                <dt>도서산간 추가 배송비</dt>
+                                <dd><span>+</span><strong class="total-dlvyAdit-txt">5000</strong> 원</dd>
+                            </dl> -->
+                        </div>
+                        <dl class="last">
+                            <dt>최종 결제금액</dt>
+                            <dd><strong class="total-stlmAmt-txt">40,070</strong> 원</dd>
+                        </dl>
+                    </div>
+                    <div class="result-agree">
+                        <dl>
+                            <dt>구매자 동의</dt>
+                            <dd>
+                                주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의 하시겠습니까?<br>
+                                (전자상거래법 제 8조 2항)
+                            </dd>
+                        </dl>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="buyAgree" name="buyAgree" value="Y">
+                            <label class="form-check-label" for="buyAgree">동의 합니다.</label>
+                        </div>
+        
+                        <button type="submit" class="btn btn-payment btn-large">결제하기</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+    <!-- //container -->
+
+    <!-- quick -->
+    <div id="quick" class="global-quick">
+        <button type="button" class="moveTop">위로 이동</button>
+        <button type="button" class="channelTalk">위로 이동</button>
+    </div>
+    <!-- //quick -->
+
+    <!-- footer -->
+    <footer id="footer" class="global-footer">
+        <div class="footer-link">
+            <!-- 회사 메뉴 -->
+            <nav class="footer-menu">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">전자금융거래약관</a></li>
+                    <li><a href="#"><strong>개인정보보호방침</strong></a></li>
+                </ul>
+            </nav>
+            <!-- //회사 메뉴 -->
+
+            <!-- 패밀리 사이트 -->
+            <div class="footer-family">
+                <dl>
+                    <dt>슈퍼시니어</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li><a href="#" class="link-item4"><span class="sr-only">슈퍼시니어</span></a></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>패밀리 사이트</dt>
+                    <dd>
+                        <ul class="global-link">
+                            <li>
+                                <a href="#" class="link-item1">
+                                    <div class="bubble">
+                                        <small>시니어 라이프 케어 플랫폼</small>
+                                        <strong>"이로움ON"</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item2">
+                                    <div class="bubble">
+                                        <strong>이로움ON 멤버스</strong>
+                                        <small>전국 2,432개 업체와 함께합니다</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-item3">
+                                    <div class="bubble">
+                                        <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
+                                        <small>
+                                            복지용구 사업소와 수급자 매칭부터<br>
+                                            주문, 계약 및 결제까지 한번에!
+                                        </small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- //패밀리 사이트 -->
+        </div>
+        
+        <hr>
+
+        <div class="footer-center">
+            <!-- 사이트 정보-->
+            <dl class="footer-company">
+                <dt><a href="#footer-collapse" data-bs-toggle="collapse" aria-expanded="false">(주)티에이치케이컴퍼니</a></dt>
+                <dd id="footer-collapse" class="collapse">
+                    <p>대표 : 신종호</p>
+                    <p>사업자등록번호 : 617-86-14330 [<a href="#">사업자정보확인</a>]</p>
+                    <p>통신판매신고번호 : 2016-부산금정-0114</p>
+                    <address>
+                        <p>주소 : 부산광역시 금정구 중앙대로 1815, 5층(구서동, 가루라빌딩)</p>
+                        <p>사무소 : 서울시 금천구 서부샛길 606 대성디폴리스 B동 1401호</p>
+                        <p>물류센터 : 인천광역시 서구 이든1로 21</p>
+                    </address>
+                </dd>
+            </dl>
+            <!-- //사이트 정보-->
+
+            <!-- 고객센터 -->
+            <dl class="footer-customer">
+                <dt>고객센터</dt>
+                <dd>
+                    <p><strong>주문안내 :</strong> <a href="tel:1588-1312">1588-1312</a></p>
+                    <p><strong>시스템안내 :</strong> <a href="tel:02-830-1312">02-830-1312</a></p>
+                </dd>
+                <dd>
+                    <p><strong>운영시간 :</strong> 월~금 오전 9:00~오후 6:00 점심시간 오후 12시 ~ 1시 (주말 및 공휴일 휴무)</p>
+                </dd>
+            </dl>
+            <!-- //고객센터 -->
+        </div>
+
+        <hr>
+
+        <!-- 카피 라이트 -->
+        <div class="footer-copyright">Copyright ⓒ<strong>EROUMMARKET</strong> All righs reserved</div>
+        <!-- //카피 라이트 -->
+    </footer>
+    <!-- //footer -->
+
+    <script src="../../../../core/vendor/twelements/index.min.js"></script>
+    <script src="../../../../core/vendor/twelements/popper.min.js"></script>
+</body>
+</html>

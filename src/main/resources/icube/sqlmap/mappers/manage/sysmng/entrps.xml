@@ -7,6 +7,7 @@
 	<sql id="listColumn">
 		entrps_no
 		, entrps_nm
+		, entrps_store_nm
 		, brno
 		, rprsv_nm
 		, induty
@@ -54,6 +55,13 @@
 		</if>
 		<if test="srchYn != null and srchYn != '' ">
 			AND use_yn = #{srchYn}
+		</if>
+		<if test="@icube.common.util.StringUtil@isNotEmpty(srchEntrpsNos) ">
+			AND entrps_no in 
+			<foreach collection="srchEntrpsNos" item="one" open="(" separator="," close=")">
+				#{one}
+			</foreach>
+			
 		</if>
 	</sql>
 
@@ -106,6 +114,7 @@
 	/* Query ID : entrps.xml > insertEntrps */
 	INSERT INTO ENTRPS (
 		entrps_nm
+		, entrps_store_nm
 		, brno
 		, rprsv_nm
 		, induty
@@ -139,6 +148,7 @@
 		, rgtr
 		) VALUES (
 		#{entrpsNm, jdbcType=VARCHAR}
+		, #{entrpsStoreNm, jdbcType=VARCHAR}
 		, #{brno, jdbcType=VARCHAR}
 		, #{rprsvNm, jdbcType=VARCHAR}
 		, #{induty, jdbcType=VARCHAR}
@@ -177,6 +187,7 @@
 		/* Query ID : entrps.xml > updateEntrps */
 		UPDATE ENTRPS SET
 			entrps_nm = #{entrpsNm, jdbcType=VARCHAR}
+			, entrps_store_nm = #{entrpsStoreNm, jdbcType=VARCHAR}
 			, brno = #{brno, jdbcType=VARCHAR}
 			, rprsv_nm = #{rprsvNm, jdbcType=VARCHAR}
 			, induty = #{induty, jdbcType=VARCHAR}
