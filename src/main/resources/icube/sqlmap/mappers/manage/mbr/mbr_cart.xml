@@ -144,8 +144,8 @@
 		FROM ENTRPS_DLVYGRP
 		WHERE use_yn ='Y' AND ENTRPS_DLVYGRP_NO in (
 								SELECT DISTINCT IFNULL(g.ENTRPS_DLVYGRP_NO, 0) ENTRPS_DLVYGRP_NO
-								FROM CART c
-								INNER JOIN GDS g ON c.GDS_NO = g.GDS_NO
+								FROM CART c 
+								INNER JOIN GDS g ON c.GDS_NO = g.GDS_NO 
 								WHERE g.DLVY_GROUP_YN = 'Y'
 									AND recipter_unique_id = #{srchRecipterUniqueId}
 									<if test="srchViewYn != null and srchViewYn != '' ">
