@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.api.biz.BootpayApiService;
 import icube.common.api.biz.UpdateBplcInfoApiService;
 import icube.common.framework.abst.CommonAbstractController;
@@ -118,7 +120,22 @@ public class MyDtlsController extends CommonAbstractController {
 		model.addAttribute("ordrSttsCode", CodeMap.ORDR_STTS);
 		model.addAttribute("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
 
-		return "/market/mypage/ordr/list";
+
+		ObjectMapper mapper  = new ObjectMapper();
+		String ordredListJson =  mapper.writeValueAsString(listVO.getListObject());
+		model.addAttribute("ordredListJson", ordredListJson);
+
+		Map<String, Object> codeMap = new HashMap<String, Object>();
+		codeMap.put("gdsTyCode", CodeMap.GDS_TY);
+		codeMap.put("bassStlmTyCode", CodeMap.BASS_STLM_TY);
+		codeMap.put("ordrSttsCode", CodeMap.ORDR_STTS);
+		codeMap.put("ordrCancelTyCode", CodeMap.ORDR_CANCEL_TY);
+		codeMap.put("dlvyCoList", dlvyCoList);
+
+		String codeMapJson =  mapper.writeValueAsString(codeMap);
+		model.addAttribute("codeMapJson", codeMapJson);
+
+		return "/market/mypage/ordr/list2";
 	}
 
 

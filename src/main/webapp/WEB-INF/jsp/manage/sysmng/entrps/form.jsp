@@ -40,6 +40,14 @@
 						</td>
 					</tr>
 					<tr>
+						<th scope="row"><label for="form-item1" class="require">스토어명</label></th>
+						<td>
+							<div class="form-group w-90">
+								<form:input class="form-control flex-1" path="entrpsStoreNm" maxlength="40" />
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<th scope="row"><label for="brno" class="require">사업자번호</label></th>
 						<td><form:input class="form-control w-90" path="brno" value="${entrpsVO.brno}" maxlength="10" placeholder="- 없이 입력해주세요."/></td>
 					</tr>
@@ -110,34 +118,6 @@
 									</div>
 								</div>
 							</td>
-					</tr>
-				</tbody>
-			</table>
-		</fieldset>
-
-		<fieldset class="mt-13">
-			<legend class="text-title2">배송비 정보</legend>
-			<table class="table-detail">
-				<colgroup>
-					<col class="w-43">
-					<col>
-				</colgroup>
-				<tbody>
-					<tr>
-						<th scope="row"><label for="form-item2" class="require">배송비 무료조건</label></th>
-						<td>
-							<div class="form-group">
-								<span class="mr-2">주문금액</span> <form:input type="number" class="form-control w-42" path="dlvyCtCnd" min="0"/> <span>원 이상</span>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="form-item3" class="require">기본 배송비</label></th>
-						<td>
-							<div class="form-group">
-								<form:input type="number" class="form-control w-42" path="dlvyBaseCt" min="0"/>
-							</div>
-						</td>
 					</tr>
 				</tbody>
 			</table>

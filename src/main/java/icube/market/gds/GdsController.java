@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.ArrayUtil;
 import icube.common.util.HtmlUtil;
@@ -32,7 +34,6 @@ import icube.manage.gds.ctgry.biz.GdsCtgryVO;
 import icube.manage.gds.gds.biz.GdsService;
 import icube.manage.gds.gds.biz.GdsVO;
 import icube.manage.gds.optn.biz.GdsOptnVO;
-import icube.manage.mbr.itrst.biz.CartVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.manage.ordr.dtl.biz.OrdrDtlService;
@@ -331,7 +332,7 @@ public class GdsController extends CommonAbstractController {
 				Map<String, Object> pathMap = new HashMap<String, Object>();
 				pathMap.put("srchCtgryNo", ctgryNo);
 				String noPath = gdsCtgryService.selectGdsCtgryNoPath(pathMap);
-				model.addAttribute("noPath", noPath);
+				model.addAttribute("noPath", noPath); 
 
 
 				model.addAttribute("gdsVO", gdsVO);
@@ -340,6 +341,7 @@ public class GdsController extends CommonAbstractController {
 				model.addAttribute("gdsTagCode", CodeMap.GDS_TAG);
 				model.addAttribute("dlvyCostTyCode", CodeMap.DLVY_COST_TY);
 				model.addAttribute("dlvyPayTyCode", CodeMap.DLVY_PAY_TY);
+				model.addAttribute("dlvyPayTyCode2", CodeMap.DLVY_PAY_TY2); 
 				model.addAttribute("gdsAncmntTyCode", CodeMap.GDS_ANCMNT_TY);
 
 				model.addAttribute("ctgryNo", ctgryNo);
@@ -350,6 +352,11 @@ public class GdsController extends CommonAbstractController {
 				GdsCtgryVO currentCategory = gdsCtgryService.findChildCategory(gdsCtgryList, ctgryNo);
 				model.addAttribute("curCtgryVO", currentCategory);
 
+				ObjectMapper mapper  = new ObjectMapper();
+				String gdsVOJson =  mapper.writeValueAsString(gdsVO);
+				model.addAttribute("gdsVOJson", gdsVOJson);
+				
+
 			} else {
 				model.addAttribute("alertMsg", getMsg("goods.sale.stop"));
 				return "/common/msg";
@@ -359,7 +366,7 @@ public class GdsController extends CommonAbstractController {
 			return "/common/msg";
 		}
 
-		return "/market/gds/view";
+		return "/market/gds/view2"; 
 	}
 
 

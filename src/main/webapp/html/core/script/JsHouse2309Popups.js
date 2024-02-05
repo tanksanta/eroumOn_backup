@@ -92,6 +92,11 @@ class JsHouse2309PopupBase{
     */
     fn_close_popup(){
         $(this._cls_info.pageModalfix).removeClass("fade").modal("hide");
+
+        if (this._cls_info.popup_param != undefined && this._cls_info.popup_param.isChanged > 0
+            && this._cls_info.container != undefined && this._cls_info.container['fn_popup_selected'] != undefined){
+            this._cls_info.container.fn_popup_selected('popup_data_changed', this._cls_info.popName, this._cls_info.popup_param, null, null);
+        }
     }
 
     /* 
@@ -164,13 +169,16 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
     /*
         화면을 서버에서 불러와서 보여준다
     */
+    fn_pop_url(){
+        return this._cls_info.popUrl;
+    }
     fn_loading_form_call(param){
         this._cls_info.popup_param = param;
 
         if (this._cls_info.modalPop == undefined || this._cls_info.modalPop.length == 0){
             this._cls_info.loadedFormYn = false;
             this._cls_info.loadeding = true;
-            jsCallApi.call_api_get(this, this._cls_info.popUrl, 'fn_loading_form_cb');
+            jsCallApi.call_api_get(this, this.fn_pop_url(), 'fn_loading_form_cb');
         }else{
             this.fn_loading_form_cb(null, null, null);
         }
@@ -189,6 +197,14 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
     }
 
     /*
+        각 하위 클래스마다 팝업을 보여주고 난 뒤 처리해야 하는 부분.
+        append할 당시에만 실행이 된다.
+    */
+    fn_loading_form_cls(){
+
+    }
+
+    /*
         화면, 데이터 둘다 불러왔으면 화면에 표시한다.
     */
     fn_loading_all_result_main(){
@@ -197,6 +213,8 @@ class JsPopupLoadingFormBase extends JsHouse2309PopupBase{
         if (this._cls_info.formResult != null && (this._cls_info.modalPop == undefined || this._cls_info.modalPop.length == 0)){
             this._cls_info.modalCon.append(this._cls_info.formResult);
             this._cls_info.modalPop = $(this._cls_info.pageModalfix);
+
+            this.fn_loading_form_cls();
         }
 
         this.fn_init_click();
@@ -230,7 +248,9 @@ class JsPopupLoadingFormDataBase extends JsPopupLoadingFormBase{
         this._cls_info.dataUrl = dataUrl;
         this._cls_info.loadedDataYn = true;
     }
-
+    fn_data_url(){
+        return this._cls_info.dataUrl;
+    }
     /*
         화면과 데이터 모두 호출해서 보여주는 메스드
     */
@@ -250,7 +270,7 @@ class JsPopupLoadingFormDataBase extends JsPopupLoadingFormBase{
             this._cls_info.loadedDataYn = false;
             this._cls_info.popup_data = data;
     
-            jsCallApi.call_api_post_json(this, this._cls_info.dataUrl, 'fn_loading_data_cb', data);    
+            jsCallApi.call_api_post_json(this, this.fn_data_url(), 'fn_loading_data_cb', data);    
         }else{
             this.fn_loading_data_cb(data, null, {});
         }
@@ -721,3 +741,4 @@ class JsPopupExcelPwd extends JsPopupLoadingFormBase{
 
 
 }
+

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<style>
+	.order-wishlist .order-item-base .cost dl dd span.info {
+		font-weight: normal;
+		font-size: 0.875rem;
+	}
+</style>
 	<main id="container" class="is-mypage">
 		<jsp:include page="../../layout/page_header.jsp">
 			<jsp:param value="관심상품" name="pageTitle"/>
@@ -24,22 +29,46 @@
 
                 	<c:forEach items="${listVO.listObject}" var="wish" varStatus="status">
                     <div class="order-product order-wishlist">
-                        <div class="form-check order-check">
+						<%-- 소스백업 --%>
+                        <%-- <div class="form-check order-check">
                             <input class="form-check-input" type="checkbox" name="wishlistNo" value="${wish.wishlistNo}">
-                        </div>
+                        </div> --%>
                         <button type="button" class="order-close f_deleteSel" data-wish-no="${wish.wishlistNo}">삭제</button>
-                        <div class="order-body">
+                        <div class="order-body favorite">
                             <div class="order-item">
-                                <div class="order-item-thumb">
-	                                <c:choose>
-										<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
-									<img src="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" alt="">
-										</c:when>
-										<c:otherwise>
-									<img src="/html/page/market/assets/images/noimg.jpg" alt="">
-										</c:otherwise>
-									</c:choose>
-                                </div>
+							
+								<%-- 2023-12-27:체크박스이동 --%>
+							 	<div class="item-thumb">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="wishlistNo" value="${wish.wishlistNo}">
+                                    </div>
+									<div class="order-item-thumb">
+										<c:choose>
+											<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
+												<c:set var="imgUrl" value="/comm/getImage?srvcId=GDS&amp;upNo=${wish.gdsInfo.thumbnailFile.upNo }&amp;fileTy=${wish.gdsInfo.thumbnailFile.fileTy }&amp;fileNo=${wish.gdsInfo.thumbnailFile.fileNo }&amp;thumbYn=Y" />
+										
+											</c:when>
+											<c:otherwise>
+												<c:set var="imgUrl" value="/html/page/market/assets/images/noimg.jpg" />
+										
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${!empty wish.gdsInfo.thumbnailFile }">
+												<c:if test="${wish.gdsInfo.useYn eq 'Y'}">
+													<a href="${_marketPath}/gds/${wish.gdsInfo.ctgryNo}/${wish.gdsInfo.gdsCd}">
+														<img src="${imgUrl}" alt="">
+													</a>
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												<img src="${imgUrl}" alt="">
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								<%-- 2023-12-27:체크박스이동 --%>
+
                                 <div class="order-item-content">
                                     <div class="order-item-group">
                                         <div class="order-item-base">
@@ -64,12 +93,46 @@
                                             <div class="cost">
 												<dl>
 												    <dt>배송비</dt>
-												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원</dd>
+												    <dd>
+														<c:choose>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'FREE'}">무료</c:when>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'PERCOUNT'}">
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+																<span class="info" style="display: none;">(상품 <fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />개마다 배송비 부과)</span>
+															</c:when>
+															<c:when test="${wish.gdsInfo.dlvyCtTy eq 'OVERMONEY'}">
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+																<span class="info" style="display: none;">(<fmt:formatNumber value="${wish.gdsInfo.dlvyCtCnd}" pattern="###,###" />원 이상 구매 시 무료)</span>
+															</c:when>
+															<c:otherwise>
+																<strong><fmt:formatNumber value="${wish.gdsInfo.dlvyBassAmt}" pattern="###,###" /></strong>원
+															</c:otherwise>
+														</c:choose>
+													
+													</dd>
 												</dl>
-												<dl>
+												<%-- <dl>
 												    <dt>판매가</dt>
 												    <dd><strong><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" /></strong>원</dd>
-												</dl>
+												</dl> --%>
+												<%-- 2023-12-27: 판매가 디자인변경 --%>
+												<div class="item-price">
+                                                    <div class="pay-info">
+                                                        <div class="pay-price">
+                                                            <c:choose>
+																<c:when test="${wish.gdsInfo.dscntRt != null and wish.gdsInfo.dscntPc != null and wish.gdsInfo.dscntRt > 0 and wish.gdsInfo.dscntPc > 0 }">
+																	<span class="original-price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</span>
+																	<strong class="price"><fmt:formatNumber value="${wish.gdsInfo.dscntPc}" pattern="###,###" />원</strong>
+																</c:when>
+																<c:otherwise>
+																	<strong class="price"><fmt:formatNumber value="${wish.gdsInfo.pc}" pattern="###,###" />원</strong>
+																</c:otherwise>
+															</c:choose>
+															
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<%-- 2023-12-27: 판매가 디자인변경 --%>
                                             </div>
                                         </div>
 									</div>

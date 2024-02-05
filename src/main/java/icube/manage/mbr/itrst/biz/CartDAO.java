@@ -7,12 +7,22 @@ import org.springframework.stereotype.Repository;
 
 import icube.common.framework.abst.CommonAbstractMapper;
 import icube.common.vo.CommonListVO;
+import icube.manage.sysmng.entrps.biz.EntrpsVO;
+import icube.manage.sysmng.entrps.biz.EntrpsDlvyGrpVO;
 
 @Repository("cartDAO")
 public class CartDAO extends CommonAbstractMapper {
 
 	public CommonListVO selectMbrCartListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("mbr.cart.selectMbrCartCount","mbr.cart.selectMbrCartListVO",listVO);
+	}
+
+	public List<EntrpsDlvyGrpVO> selectCartDlvygrpListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartDlvygrpListAll", paramMap);
+	}
+
+	public List<EntrpsVO> selectCartEntrpsListAll(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartEntrpsListAll", paramMap);
 	}
 
 	public List<CartVO> selectCartListAll(Map<String, Object> paramMap) throws Exception {
@@ -26,6 +36,9 @@ public class CartDAO extends CommonAbstractMapper {
 	public CartVO selectCartByFilter(Map<String, Object> paramMap) throws Exception {
 		return selectOne("mbr.cart.selectCartByFilter", paramMap);
 	}
+	public List<CartVO> selectCartByFilter2(Map<String, Object> paramMap) throws Exception {
+		return selectList("mbr.cart.selectCartByFilter", paramMap);
+	}
 
 	public int insertCart(CartVO cartVO) throws Exception {
 		return insert("mbr.cart.insertCart", cartVO);
@@ -35,8 +48,18 @@ public class CartDAO extends CommonAbstractMapper {
 		update("mbr.cart.updateCart", cartVO);
 	}
 
+	public void updateCartQy(CartVO cartVO) throws Exception {
+		update("mbr.cart.updateCartQy", cartVO);
+	}
+	public void updateCartPc(CartVO cartVO) throws Exception {
+		update("mbr.cart.updateCartPc", cartVO);
+	}
+
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		delete("mbr.cart.deleteCart", paramMap);
+	}
+	public void deleteCartOptn(Map<String, Object> paramMap) throws Exception {
+		delete("mbr.cart.deleteCartOptn", paramMap);
 	}
 
 	public Integer modifyOptnChg(CartVO cartVO) throws Exception {

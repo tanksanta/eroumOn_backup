@@ -1,0 +1,90 @@
+/*
+    현재 사용하는 페이지    
+    src\main\webapp\WEB-INF\jsp\market\mypage\ordr\list2.jsp
+    src\main\webapp\WEB-INF\jsp\market\mypage\index.jsp
+    에서만 사용
+
+    주문 완료(JsMarketOrdredDrawItems.js와 관련있음)
+*/
+
+.order-product .order-header .order-item-business > dt > span{
+    font-size: 20px;
+}
+
+.order-product .order-item-content .order-item-content-body .order-item-count ,
+.order-product .order-item-content .order-item-content-body .order-item-price{
+    padding-top: 48px;
+}
+
+.order-product .order-item-content .order-item-base .product .option{
+    margin-top: .75rem;
+    
+}
+.order-product .order-item-content .order-item-base .product .option dd + dd {
+    margin-left: 4px;
+}
+
+.order-product .order-item-content .order-item-base .item-add-box{
+    margin-top: 12px;
+}
+.order-product .order-item-content .order-item-base .item-add-box .item-add {
+    padding-top: 8px;
+}
+
+.order-product .order-item-content .order-item-info{
+    padding-top: 12px;
+}
+
+.order-product .order-item-content .order-item-base .item-add-box .item-add .name{
+    font-size: 1rem;
+}
+@media (min-width: 769px){
+    .order-product .order-item-content .order-item-base .item-add-box .item-add .item-add-one {
+        display: flex;
+    }
+    .order-product .order-item-content .order-item-base .item-add-box .item-add .item-add-one .label-outline-primary{
+        padding-right: 8px;
+    }
+}
+@media (max-width: 768px){
+    .order-product .order-header .flex.items-center{
+        display: block;
+    }
+
+    .order-product .order-header .flex.items-center dl{
+        display: flex;
+        margin-left: 0;
+    }
+
+    & .order-item-box .order-product-item {
+        grid-template-columns: 8rem auto auto;
+    }
+
+    .order-product .order-item-content .order-item-content-body{
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+    }
+
+    .order-product .order-item-content .order-item-content-body .order-item-group{
+        display: grid;
+        grid-column: 1/span 2;
+    }
+
+    .order-product .order-item-content .order-item-content-body .order-item-count{
+        text-align: left;
+    }
+
+    .order-product .order-item-content .order-item-info{
+        border-top-width : 0;
+    }
+    .order-product .order-item-content .order-item-info .status{
+        border-top-width : 0;
+    }
+
+    .order-product .order-item-content .order-item-base .item-add-box .item-add .name{
+        /* font-size: .9375rem; */
+        padding-top: 4px;
+    }
+    
+}

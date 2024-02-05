@@ -87,6 +87,10 @@ public class MngAuthInterceptor implements HandlerInterceptor {
 				matchPath = "/_mng/mbr/sms/";
 			}else if(matchPath.startsWith("/_mng/mbr/")) {
 				matchPath = "/_mng/mbr/";
+			}else if(matchPath.startsWith("/_mng/sysmng/entrps/dlvygrp")) {
+				matchPath = "/_mng/sysmng/entrps/dlvygrp/list";
+			}else if(matchPath.startsWith("/_mng/sysmng/entrps")) {
+				matchPath = "/_mng/sysmng/entrps/list";
 			}
 
 			List<String> mngMenuPathList = new ArrayList<String>();

@@ -600,7 +600,7 @@
 			, IFNULL((SELECT mlg_acmtl FROM MBR_MLG mm WHERE unique_id = #{srchUniqueId} ORDER BY mlg_no DESC LIMIT 1), 0) AS total_mlg
 			, IFNULL((SELECT point_acmtl FROM MBR_POINT mp WHERE unique_id = #{srchUniqueId} ORDER BY point_no DESC LIMIT 1), 0) AS total_point
 			, IFNULL((SELECT COUNT(*) FROM COUPON_LST lst WHERE unique_id = #{srchUniqueId} AND use_yn = 'N' AND use_lst_end_ymd &gt; (SELECT DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s'))), 0) AS total_coupon
-			, IFNULL((SELECT COUNT(*) FROM CART WHERE recipter_unique_id = #{srchUniqueId} AND ordr_optn_ty = 'BASE'), 0) AS total_cart
+			, IFNULL((SELECT COUNT(*) FROM CART WHERE view_yn='Y' AND recipter_unique_id = #{srchUniqueId} AND ordr_optn_ty = 'BASE'), 0) AS total_cart
 			, IFNULL((SELECT COUNT(*) FROM WISHLIST WHERE unique_id = #{srchUniqueId}), 0) AS total_wish
 	</select>
 

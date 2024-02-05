@@ -235,6 +235,7 @@
 			 , entrps_no
 			 , entrps_nm
 			 , gds_item_cd
+			 , gds_optn_no
 			 , optn_item_cd
 			 , ordr_pc
 			 , ordr_optn_ty
@@ -261,6 +262,8 @@
 			 , dlvy_co_nm
 			 , dlvy_dt
 			 , dlvy_invc_no
+			 , dlvy_group_yn
+			 , entrps_dlvygrp_no
 
 			 , reg_unique_id
 			 , reg_dt
@@ -279,6 +282,7 @@
 			 , #{entrpsNo}
 			 , #{entrpsNm, jdbcType=VARCHAR}
 			 , #{gdsItemCd, jdbcType=VARCHAR}
+			 , #{gdsOptnNo}
 			 , #{optnItemCd, jdbcType=VARCHAR}
 			 , #{ordrPc}
 			 , #{ordrOptnTy, jdbcType=VARCHAR}
@@ -306,6 +310,8 @@
 			 , #{dlvyCoNm, jdbcType=VARCHAR}
 			 , #{dlvyDt}
 			 , #{dlvyInvcNo, jdbcType=VARCHAR}
+			 , #{dlvyGroupYn}
+			 , #{entrpsDlvygrpNo}
 
 			 , #{regUniqueId, jdbcType=VARCHAR}
 			 , SYSDATE()
