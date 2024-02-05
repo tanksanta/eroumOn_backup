@@ -276,7 +276,7 @@
 	</textarea>
 
 	<input type="hidden" id="delCartNos" name="delCartNos" value="" />
-	<input type="text" id="bnefCd" name="bnefCd" value="" />
+	<input type="hidden" id="bnefCd" name="bnefCd" value="" />
 </div>
 
 </form>

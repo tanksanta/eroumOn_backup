@@ -64,6 +64,12 @@ public class DateUtil {
         return new SimpleDateFormat(format).format(new Date());
     }
 
+	/**
+     * format에 맞는 현재 날짜 및 시간을 리턴
+	 * @param date 날짜
+     * @param format "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss.S","yyyy-MM-dd HH:mm", "yyyy/MM/dd HH:mm", "yyyyMMdd", "yyyy/MM/dd""yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+     * @return String
+     */
 	public static String getDateTime(Date date, String format){
         return new SimpleDateFormat(format).format(date);
     }
