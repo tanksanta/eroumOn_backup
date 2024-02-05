@@ -141,7 +141,7 @@
 				, dlvy_calc_ty
 				, use_yn
 				
-		FROM entrps_dlvygrp
+		FROM ENTRPS_DLVYGRP
 		WHERE use_yn ='Y' AND ENTRPS_DLVYGRP_NO in (
 								SELECT DISTINCT IFNULL(g.ENTRPS_DLVYGRP_NO, 0) ENTRPS_DLVYGRP_NO
 								FROM cart c
