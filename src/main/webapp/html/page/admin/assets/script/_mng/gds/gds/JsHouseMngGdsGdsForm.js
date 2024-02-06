@@ -1,8 +1,9 @@
-class JsHouseMngGdsGdsFormDelivery{
-    constructor(pagePrefixBasic, pagePrefixDelivery){
+class JsHouseMngGdsGdsForm{
+    constructor(pagePrefix){
         this._cls_info = { 
-                            pagePrefixBasic: pagePrefixBasic 
-                            , pagePrefixDelivery : pagePrefixDelivery
+                            pagePrefix: pagePrefix 
+                            , pagePrefixBasic : pagePrefix + " fieldset.con-basic"
+                            , pagePrefixDelivery : pagePrefix + " fieldset.con-delivery"
                             , popups : {}
                         };
 
@@ -75,10 +76,23 @@ class JsHouseMngGdsGdsFormDelivery{
 
     fn_init_addevent(){
         var owner = this;
-        $( this._cls_info.pagePrefixBasic + " select[name='entrpsNo']" ).off('change').on('change',  function() {
+        $( this._cls_info.pagePrefixBasic + " select[name='entrpsNo']" ).off('focus').on('focus',  function() {
+            $(this).attr("focused-data", $(this).val());
+        });
+        $( this._cls_info.pagePrefixBasic + " select[name='entrpsNo']" ).off('change').on('change',  function(e) {
+            if (!confirm("입점업체 변경 시 선택된 묶음배송 그룹이 해제됩니다.\n정말 입점업체를 변경하시겠습니까?")){
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).val($(this).attr("focused-data"));
+                return false;
+            }else{
+                $(this).attr("focused-data", $(this).val());
+                owner.fn_changed_entrpsNo($(this).val());
+            }
             
         });
 
+        
         $( this._cls_info.pagePrefixDelivery + " select[name='dlvyCtTy']").off('change').on('change',  function() {
             owner.fn_changed_dlvyCtTy($(this).val());
         });
@@ -153,6 +167,20 @@ class JsHouseMngGdsGdsFormDelivery{
                 $(this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyCtCnd2").removeClass("disp-off");
                 break;
         }
+    }
+    
+    fn_changed_entrpsNo(val){
+        
+    
+        var objTarget = $( this._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']");
+
+        objTarget.removeAttr("checked");
+        var cssSelector = this._cls_info.pagePrefixDelivery;
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn input[name='entrpsDlvygrpNo']").val("0");
+        $(cssSelector + " .dlvy-ct-ty-tr.dlvyGroupYn .dlvy-group-disp").html("");
+
+        this.fn_changed_dlvyGroupYn(objTarget);
+        
     }
 
     fn_changed_dlvyGroupYn(jobjTarget ){
