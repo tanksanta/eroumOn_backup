@@ -1086,14 +1086,14 @@
                  --%>
                 <c:import url="/_mng/gds/gds/modalGdsSearch" />
 
-				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/gds/gds/JsHouseMngGdsGdsFormDelivery.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/gds/gds/JsHouseMngGdsGdsForm.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpChoice.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
 				<script type="text/javascript" src="/html/page/admin/assets/script/_mng/sysmng/entrps/dlvygrp/JsPopupEntrpsDlvyGrpModal.js?v=<spring:eval expression="@version[\"assets.version\"]"/>"></script>
 				
                 <script>
-					var jsHouseMngGdsGdsFormDelivery;
+					var jsHouseMngGdsGdsForm;
 					$(document).ready(function() {
-						jsHouseMngGdsGdsFormDelivery = new JsHouseMngGdsGdsFormDelivery("fieldset.con-basic", "fieldset.con-delivery");
+						jsHouseMngGdsGdsForm = new JsHouseMngGdsGdsForm(".layout.page-content");
 					});
 					
 

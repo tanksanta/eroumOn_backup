@@ -15,6 +15,9 @@
     & .payment-result .result-price .container dl dt {
         padding-left: 0px;
     }
+    .payment-result .result-price .container .result-price-item dd.hidden{
+        display: none;
+    }
 
     .ico.connent{
         background: url("/html/core/images/ico-connect.svg") no-repeat top 3px left;
@@ -246,7 +249,12 @@
                             </dl>
                             <dl class="total-dlvy-dl total-dlvyBase-dl result-price-item">
                                 <dt>배송비</dt>
-                                <dd><span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원</dd>
+                                <dd class="pay">
+                                    <span>+</span><strong class="total-dlvy-txt total-dlvyBase-txt">0</strong> 원
+                                </dd>
+                                <dd class="free">
+                                    무료
+                                </dd>
                             </dl>
                             <dl id="total-dlvyAdit-dl" class="total-dlvyAdit-dl result-price-item">
                                 <dt><i class="ico connent"></i>&nbsp;제주/도서산간지역 추가</dt>

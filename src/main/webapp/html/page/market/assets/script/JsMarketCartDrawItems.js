@@ -44,7 +44,7 @@ class JsMarketCartDrawItems {
 	/*퍼블리싱에서 order-product => order-body => order-item-business 의 html*/
 	fn_draw_cart_entrpsdlvygrp_item_business(json){
 		return '<dl class="order-item-business">'+
-			'<dt><span>사업소</span> <span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsStoreNm)+
+			'<dt> <span>{0}</span></dt>'.format(json == undefined ? '' : json.entrpsStoreNm)+
 		'</dl>';
 	}
 
