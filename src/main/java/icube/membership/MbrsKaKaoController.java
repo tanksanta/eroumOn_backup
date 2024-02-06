@@ -174,6 +174,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 			session.removeAttribute("returnUrl");
 			
 		} catch (Exception ex) {
+			log.error("=====kakao 로그인 에러", ex);
 			javaScript.setMessage(getMsg("fail.common.network"));
 			javaScript.setLocation(rootPath + "/login");
 		}
