@@ -821,8 +821,15 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 매칭앱으로 로그인 한 경우
 		if ("matching".equals(prevPath)) {
 			rootPath = "/" + matchingPath;
-			membershipRootPath = rootPath;
-			registPath = rootPath + "/membership/login";
+			membershipRootPath = rootPath + "/" + membershipPath;
+			
+			if ("K".equals(joinTy)) {
+				registPath = rootPath + "/kakao/login";
+			} else if ("N".equals(joinTy)) {
+				registPath = rootPath + "/naver/login";
+			} else {
+				registPath = rootPath + "/membership/login";
+			}
 		}
 		
 		
@@ -881,15 +888,16 @@ public class MbrService extends CommonAbstractServiceImpl {
 //			resultMap.put("location", rootPath);
 //			return resultMap;
 //		}
-		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
-			resultMap.put("msg", "휴면 회원입니다.");
-			if ("membership".equals(prevPath)) {
-				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
-			} else if ("matching".equals(prevPath)) {
-				resultMap.put("location", rootPath);
-			}
-			return resultMap;
-		}
+		//휴면 회원 정책 사라짐
+//		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
+//			resultMap.put("msg", "휴면 회원입니다.");
+//			if ("membership".equals(prevPath)) {
+//				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
+//			} else if ("matching".equals(prevPath)) {
+//				resultMap.put("location", rootPath);
+//			}
+//			return resultMap;
+//		}
 		
 		Map<String, Object> infoParamMap = new HashMap<String, Object>();
 		infoParamMap.put("srchUniqueId", srchMbrVO.getUniqueId());
@@ -923,7 +931,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 			}
 			//로그인 시에 온 경우는 회원 연결페이지로 이동
 			else {
-				mbrSession.setParms(snsUserInfo, false);
+				if ("membership".equals(prevPath)) {
+					mbrSession.setParms(snsUserInfo, false);
+				}
+				if ("matching".equals(prevPath)) {
+					matMbrSession.setProperty(srchMbrVO);
+					matMbrSession.setLoginCheck(false);
+				}
+				
 				//바인딩 페이지로 이동
 				resultMap.put("location", membershipRootPath + "/binding");
 			}
@@ -933,11 +948,19 @@ public class MbrService extends CommonAbstractServiceImpl {
 		//인증수단이 등록되었지만 계정이 다르다면
 		if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
 			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
-			resultMap.put("location", membershipRootPath + "/kakao/reAuth");
+			if ("membership".equals(prevPath)) {
+				resultMap.put("location", membershipRootPath + "/kakao/reAuth");
+			} else {
+				resultMap.put("location", registPath);
+			}
 			return resultMap;
 		} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
 			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
-			resultMap.put("location", membershipRootPath + "/naver/reAuth");
+			if ("membership".equals(prevPath)) {
+				resultMap.put("location", membershipRootPath + "/naver/reAuth");
+			} else {
+				resultMap.put("location", registPath);
+			}
 			return resultMap;
 		}
 		
