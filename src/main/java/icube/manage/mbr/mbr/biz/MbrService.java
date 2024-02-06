@@ -935,7 +935,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 					mbrSession.setParms(snsUserInfo, false);
 				}
 				if ("matching".equals(prevPath)) {
-					matMbrSession.setProperty(srchMbrVO);
+					matMbrSession.setProperty(snsUserInfo);
 					matMbrSession.setLoginCheck(false);
 				}
 				

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
@@ -36,6 +37,9 @@ public class MatLoginController extends CommonAbstractController {
 	
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "matMbrService")
+	private MatMbrService matMbrService;
 	
 	@Resource(name = "mbrAuthService")
 	private MbrAuthService mbrAuthService;
@@ -178,5 +182,14 @@ public class MatLoginController extends CommonAbstractController {
 		model.addAttribute("naverAuthInfo", naverAuthInfo);
 		
 		return "/app/matching/membership/mbr_binding";
+	}
+	
+	/**
+	 * sns 인증정보와 회원 연결 처리 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value="sns/binding.json")
+	public Map<String, Object> snsBindingJson(HttpSession session) {
+		return matMbrService.bindMbrWithTempMbr(session);
 	}
 }
