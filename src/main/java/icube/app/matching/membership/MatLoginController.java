@@ -59,9 +59,9 @@ public class MatLoginController extends CommonAbstractController {
 		}
 
 		//암호화
-		RSA rsa = RSA.getEncKey();
 		Object privateKey = session.getAttribute(RSA_MEMBERSHIP_KEY);
 		if (privateKey == null) {
+			RSA rsa = RSA.getEncKey();
 			String publicKeyModulus = rsa.getPublicKeyModulus();
 			String publicKeyExponent = rsa.getPublicKeyExponent();
 			

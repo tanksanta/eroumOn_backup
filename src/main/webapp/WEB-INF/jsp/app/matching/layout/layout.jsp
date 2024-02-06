@@ -13,6 +13,7 @@
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     
     <link rel="stylesheet" href="/html/page/index/assets/style/style.min.css">
+    <link rel="stylesheet" href="/html/page/app/matching/assets/style/layout.css">
 </head>
 <body>
 	
