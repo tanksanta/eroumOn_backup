@@ -326,7 +326,7 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 
 	        for(JsonElement address : addresses) {
 
-	        	if (dlvyVO != null) {
+	        	if (dlvyVO == null) {
 	        		boolean defaultYn = address.getAsJsonObject().get("default").getAsBoolean();
 
 	            	String zip = address.getAsJsonObject().get("zone_number").getAsString();

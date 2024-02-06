@@ -7,6 +7,9 @@ class JsPopupLoadingFormDataBaseWithDataTables extends JsPopupLoadingFormDataBas
             bSort : false,
             bAutoWidth: false,
             bLengthChange: false,
+            "oLanguage": {
+                "sEmptyTable": "생성된 묶음그룹이 없습니다."
+              },
 
 			bServerSide: false,
 
