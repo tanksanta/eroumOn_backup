@@ -294,57 +294,64 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 	 * @throws Exception
 	 */
 	public DlvyVO getUserDlvy(String accessToken) throws Exception {
-		//1. 엑세스 토큰을 이용한 발급
-		//2. 주소 정보 SET
-		//3. 배송지 정보 SET
-		//4. 생일, 전화번호로 회원 판별
-		
-		URL url = new URL(dlvyUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+		try {
+			//1. 엑세스 토큰을 이용한 발급
+			//2. 주소 정보 SET
+			//3. 배송지 정보 SET
+			//4. 생일, 전화번호로 회원 판별
+			
+			URL url = new URL(dlvyUrl);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("GET");
+	        conn.setDoOutput(true);
+	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        String line = "";
-        StringBuilder result = new StringBuilder();
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+	        String line = "";
+	        StringBuilder result = new StringBuilder();
 
-        while ((line = br.readLine()) != null) {
-            result.append(line);
-        }
-        JsonElement element = JsonParser.parseString(result.toString());
+	        while ((line = br.readLine()) != null) {
+	            result.append(line);
+	        }
+	        JsonElement element = JsonParser.parseString(result.toString());
 
-        JsonElement dlvyInfo = element.getAsJsonObject().get("shipping_addresses");
+	        JsonElement dlvyInfo = element.getAsJsonObject().get("shipping_addresses");
 
-        if(dlvyInfo == null) {
-        	return null;
-        } 
-        
-        DlvyVO dlvyVO = null;
-    	JsonArray addresses = dlvyInfo.getAsJsonArray();
+	        if(dlvyInfo == null) {
+	        	return null;
+	        } 
+	        
+	        DlvyVO dlvyVO = null;
+	    	JsonArray addresses = dlvyInfo.getAsJsonArray();
 
-        for(JsonElement address : addresses) {
+	        for(JsonElement address : addresses) {
 
-        	boolean defaultYn = address.getAsJsonObject().get("default").getAsBoolean();
+	        	if (dlvyVO != null) {
+	        		boolean defaultYn = address.getAsJsonObject().get("default").getAsBoolean();
 
-        	String zip = address.getAsJsonObject().get("zone_number").getAsString();
-        	String addr = address.getAsJsonObject().get("base_address").getAsString();
-        	String daddr = address.getAsJsonObject().get("detail_address").getAsString();
+	            	String zip = address.getAsJsonObject().get("zone_number").getAsString();
+	            	String addr = address.getAsJsonObject().get("base_address").getAsString();
+	            	String daddr = address.getAsJsonObject().get("detail_address").getAsString();
 
-        	String dlvyNm = address.getAsJsonObject().get("name").getAsString();
-        	String nm = address.getAsJsonObject().get("receiver_name").getAsString();
+	            	String dlvyNm = address.getAsJsonObject().get("name").getAsString();
+	            	String nm = address.getAsJsonObject().get("receiver_name").getAsString();
 
-        	if(defaultYn) {
-        		dlvyVO = new DlvyVO();
-        		dlvyVO.setZip(zip);
-	        	dlvyVO.setAddr(addr);
-	        	dlvyVO.setDaddr(daddr);
-        		dlvyVO.setBassDlvyYn("Y");
-        		dlvyVO.setDlvyNm(dlvyNm);
-	        	dlvyVO.setNm(nm);
-        	}
-        }
-        return dlvyVO;
+	            	if(defaultYn) {
+	            		dlvyVO = new DlvyVO();
+	            		dlvyVO.setZip(zip);
+	    	        	dlvyVO.setAddr(addr);
+	    	        	dlvyVO.setDaddr(daddr);
+	            		dlvyVO.setBassDlvyYn("Y");
+	            		dlvyVO.setDlvyNm(dlvyNm);
+	    	        	dlvyVO.setNm(nm);
+	            	}
+	        	}
+	        }
+	        return dlvyVO;
+		} catch (Exception ex) {
+			log.error("========= kakao 주소 정보 조회 오류 : ", ex);
+			return null;
+		}
 	}
 	
 	/**
