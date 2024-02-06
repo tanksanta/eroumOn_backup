@@ -27,6 +27,17 @@ public class MatNaverController extends CommonAbstractController {
 	private String matchingPath;
 	
 	
+	/**
+	 * 네이버 로그인 버튼이 있는 화면
+	 */
+	@RequestMapping(value = "/login")
+	public String loginView() {
+		return "/app/matching/membership/naverLogin";
+	}
+	
+	/**
+	 * 네이버측 로그인화면 이동
+	 */
 	@RequestMapping(value = "/get")
 	public View auth(
 			HttpSession session

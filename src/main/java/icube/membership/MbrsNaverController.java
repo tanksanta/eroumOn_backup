@@ -143,10 +143,17 @@ public class MbrsNaverController extends CommonAbstractController{
 			//검증 통과 여부 확인
 			boolean isValid = (boolean)validationResult.get("valid");
 			if (!isValid) {
-				if (validationResult.containsKey("msg")) {
-					javaScript.setMessage((String)validationResult.get("msg"));
+				if ("matching".equals(prevPath)) {
+					session.setAttribute("appMsg", validationResult.get("msg"));
+					session.setAttribute("appLocation", validationResult.get("location"));
+					javaScript.setLocation("/matching/common/msg");
 				}
-				javaScript.setLocation((String)validationResult.get("location"));
+				else {
+					if (validationResult.containsKey("msg")) {
+						javaScript.setMessage((String)validationResult.get("msg"));
+					}
+					javaScript.setLocation((String)validationResult.get("location"));
+				}
 				return new JavaScriptView(javaScript);
 			}
 			

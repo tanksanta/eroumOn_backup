@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
 import kr.co.bootpay.Bootpay;
+import kr.co.bootpay.model.request.Authentication;
 import kr.co.bootpay.model.request.Cancel;
 import kr.co.bootpay.model.request.SubscribePayload;
 import kr.co.bootpay.model.request.User;
@@ -189,6 +190,38 @@ public class BootpayApiService {
 
 	    return returnMap;
 	}
+	
+	
+	/**
+	 * API 방식으로 본인인증(다날) 요청
+	 */
+	public void requestAuthentication() {
+		Bootpay bootpay = new Bootpay(bootpayRestKey, bootpayPrivateKey);
+		
+		Authentication authentication = new Authentication();
+		authentication.pg = "다날";
+		authentication.method = "본인인증";
+		authentication.username = "박강림";
+		authentication.identityNo = "9312091";  //생년월일 + 주민번호 뒷 1자리
+		authentication.carrier = "LGT_MVNO";  //SKT, KT, LGT, SKT_MVNO, KT_MVNO, LGT_MVNO
+		authentication.phone = "01029682073";
+		authentication.siteUrl = "https://eroum.co.kr";
+		authentication.authenticationId = "CERT00000000001";
+		authentication.orderName = "본인인증";
+		authentication.authenticateType = "sms";
+		
+		try {
+			bootpay.getAccessToken();
+			
+			HashMap<String, Object> res = bootpay.requestAuthentication(authentication);
+			if (res.get("error_code") == null) {
+				
+			}
+		} catch (Exception ex) {
+			log.debug("====== API 다날 인증 오류", ex);
+		}
+	}
+	
 
 	public int insertLog(BootpayVO vo) throws Exception {
 		return this.logsDAO.insertLogOne(vo);

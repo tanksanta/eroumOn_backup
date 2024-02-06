@@ -27,6 +27,17 @@ public class MatKakaoController extends CommonAbstractController {
 	private String matchingPath;
 	
 	
+	/**
+	 * 카카오 로그인 버튼이 있는 화면
+	 */
+	@RequestMapping(value = "/login")
+	public String loginView() {
+		return "/app/matching/membership/kakaoLogin";
+	}
+	
+	/**
+	 * 카카오측 로그인화면 이동
+	 */
 	@RequestMapping(value = "/auth")
 	public View auth(
 			HttpSession session

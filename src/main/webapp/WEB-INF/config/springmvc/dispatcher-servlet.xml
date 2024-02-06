@@ -22,18 +22,6 @@
 
     <aop:aspectj-autoproxy/>
 
-    <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정-->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="error/error"/>
-        <property name="exceptionMappings">
-            <props>
-                <prop key="org.egovframe.rte.fdl.cmmn.exception.EgovBizException">error/error</prop>
-                <prop key="icube.common.framework.exception.CommonErrorException">error/errorMessage</prop>
-                <prop key="icube.common.framework.exception.PageNotFoundException">error/pageNotFound</prop>
-            </props>
-        </property>
-    </bean>
-
 	<context:property-placeholder properties-ref="props" />
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -119,12 +107,7 @@
 
 		<!-- 매칭앱 -->
 		<mvc:interceptor>
-        	<mvc:mapping path="/#{props['Globals.Matching.path']}/**"/>
-    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/login"/>
-    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/loginAction"/>
-    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/membership/regist"/>
-    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/kakao/**"/>
-    		<mvc:exclude-mapping path="/#{props['Globals.Matching.path']}/naver/**"/>
+        	<mvc:mapping path="/#{props['Globals.Matching.path']}"/>
         	<bean class="icube.app.matching.common.interceptor.MatInterceptor" />
         </mvc:interceptor>
 		

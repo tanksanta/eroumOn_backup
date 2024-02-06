@@ -66,8 +66,9 @@ public class MatInterceptor implements HandlerInterceptor {
 			
 			request.setAttribute("_matMbrSession", matMbrSession);
 			
+			//로그인 되어 있지 않으면 로그인창으로 이동
 			if (matMbrSession.isLoginCheck() == false) {
-				response.sendRedirect("/matching/membership/login");
+				response.sendRedirect("/matching/kakao/login");
 				return false;
 			}
 		} catch (Exception ex) {

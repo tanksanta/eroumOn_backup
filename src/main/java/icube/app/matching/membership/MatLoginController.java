@@ -1,6 +1,7 @@
 package icube.app.matching.membership;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
+import icube.common.util.WebUtil;
+import icube.manage.mbr.mbr.biz.MbrAuthService;
+import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
 
@@ -30,6 +36,9 @@ public class MatLoginController extends CommonAbstractController {
 	
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
+	
+	@Resource(name = "mbrAuthService")
+	private MbrAuthService mbrAuthService;
 	
 	@Autowired
 	private MatMbrSession matMbrSession;
@@ -57,12 +66,23 @@ public class MatLoginController extends CommonAbstractController {
 		}
 
 		//암호화
-		RSA rsa = RSA.getEncKey();
-		request.setAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
-		request.setAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
-		session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
-		session.setAttribute("_matchingPath", matchingPath);
+		Object privateKey = session.getAttribute(RSA_MEMBERSHIP_KEY);
+		if (privateKey == null) {
+			RSA rsa = RSA.getEncKey();
+			String publicKeyModulus = rsa.getPublicKeyModulus();
+			String publicKeyExponent = rsa.getPublicKeyExponent();
+			
+			request.setAttribute("publicKeyModulus", publicKeyModulus);
+			request.setAttribute("publicKeyExponent", publicKeyExponent);
+			session.setAttribute("publicKeyModulus", publicKeyModulus);
+			session.setAttribute("publicKeyExponent", publicKeyExponent);
+			session.setAttribute(RSA_MEMBERSHIP_KEY, rsa.getPrivateKey());
+		} else {
+			request.setAttribute("publicKeyModulus", (String)session.getAttribute("publicKeyModulus"));
+			request.setAttribute("publicKeyExponent", (String)session.getAttribute("publicKeyExponent"));
+		}
 		
+		session.setAttribute("_matchingPath", matchingPath);
 		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 		request.setAttribute("_activeMode", activeMode.toUpperCase());
 		
@@ -97,8 +117,22 @@ public class MatLoginController extends CommonAbstractController {
 			//로그인 성공 시 실패 횟를 초기화
 			mbrService.updateFailedLoginCountReset(srchMbrVO);
 			
+			//매칭앱 토큰 발급
+			String appToken = mbrService.updateMbrAppTokenInfo(srchMbrVO.getUniqueId());
+			resultMap.put("appMatToken", appToken);
+			
+			//위치정보 가져오기
+			String locationValueStr = WebUtil.getCookieValue(request, "location");
+			if (EgovStringUtil.isNotEmpty(locationValueStr)) {
+				String[] location = locationValueStr.split("AND");
+				if (location.length > 1) {
+					mbrService.updateMbrLocation(srchMbrVO.getUniqueId(), location[0], location[1]);
+				}
+			}
+			
 			//로그인 처리
 			matMbrSession.login(session, srchMbrVO);
+			
 			resultMap.put("success", true);
 		} catch (Exception ex) {
 			resultMap.put("msg", "로그인 중 오류가 발생하였습니다.");
@@ -116,5 +150,33 @@ public class MatLoginController extends CommonAbstractController {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", true);
 		return resultMap;
+	}
+	
+	
+	/**
+	 * 회원 연결 페이지 이동(바인딩)
+	 */
+	@RequestMapping(value="binding")
+	public String binding(
+		HttpServletRequest request
+		, Model model) throws Exception {
+		
+		if (matMbrSession == null || EgovStringUtil.isEmpty(matMbrSession.getUniqueId()) || matMbrSession.isLoginCheck() == true) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+		MbrVO mbrVO = matMbrSession;
+		List<MbrAuthVO> authList = mbrAuthService.selectMbrAuthByMbrUniqueId(mbrVO.getUniqueId());
+		MbrAuthVO eroumAuthInfo = authList.stream().filter(f -> "E".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO kakaoAuthInfo = authList.stream().filter(f -> "K".equals(f.getJoinTy())).findAny().orElse(null);
+		MbrAuthVO naverAuthInfo = authList.stream().filter(f -> "N".equals(f.getJoinTy())).findAny().orElse(null);
+		
+		model.addAttribute("tempMbrVO", mbrVO);
+		model.addAttribute("eroumAuthInfo", eroumAuthInfo);
+		model.addAttribute("kakaoAuthInfo", kakaoAuthInfo);
+		model.addAttribute("naverAuthInfo", naverAuthInfo);
+		
+		return "/app/matching/membership/mbr_binding";
 	}
 }

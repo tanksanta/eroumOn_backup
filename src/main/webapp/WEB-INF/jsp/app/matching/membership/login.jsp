@@ -1,38 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main style="padding:20px;">
-		<br>
-		<br>
-		로그인 <br><br>
+	<main class="mainContainer">
+		<!-- 상단 뒤로가기 버튼 추가 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
+		
+		<h2>이로움ON 로그인</h2>
 		
 		<div>
-			ID : <input type="text" class="form-control" id="mbrId">
+			아이디<br>
+			<input type="text" class="form-control" id="mbrId">
 			<br>
-			PW : <input type="password" class="form-control" id="mbrPw">
+			비밀번호<br>
+			<input type="password" class="form-control" id="mbrPw">
 			<br>
-			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인</button>
-			<dl class="member-social">
-                <dt>간편 로그인</dt>
-                <dd>
-                    <a href="/${_matchingPath}/kakao/auth" class="btn btn-kakao w-full">
-                    	<span>카카오 로그인</span>
-                    </a>
-                    <a href="/${_matchingPath}/naver/get" class="btn btn-naver w-full">
-                    	<span>네이버 로그인</span>
-                    </a>
-                </dd>
-            </dl>
-			<br>
-			<button class="btn btn-primary" type="button" onclick="location.href = '/${_matchingPath}/membership/regist'">회원가입</button>
+			<a href="#">아이디 찾기</a>
+			<a href="#">비밀번호 찾기</a>
 			
-			<br><br><br>
-			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({msg: '심심해서 보내봄'});">모바일에 데이터 전송</button>
-			<br><br>
-			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'sendToWebView'});">모바일에서 데이터 받기</button>
-			<br><br>
-			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'saveLocal'});">로컬 저장</button>
-			<br><br>
-			<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({actionName: 'loadLocal'});">로컬 불러오기</button>
+			
+			<br>
+			<br>
+			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인하기</button>
 		</div>
 	</main>
 	
@@ -51,7 +38,10 @@
 				'/matching/membership/loginAction', 
 				{mbrId, encPw},
 				function(result) {
-					location.href = '/matching';					
+					var appMatToken = result.appMatToken;
+					sendDataToMobileApp({actionName: 'saveToken', token: appMatToken});
+					
+					location.href = '/matching';
 				}
 			);
 		}

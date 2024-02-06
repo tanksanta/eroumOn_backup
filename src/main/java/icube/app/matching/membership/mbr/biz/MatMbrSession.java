@@ -38,7 +38,7 @@ public class MatMbrSession extends MbrVO {
 		setProperty(new MbrVO());
 	}
 	
-	private void setProperty(MbrVO mbrVO) {
+	public void setProperty(MbrVO mbrVO) {
 		setUniqueId(mbrVO.getUniqueId());
 		setMbrId(mbrVO.getMbrId());
 		setMbrNm(mbrVO.getMbrNm());
