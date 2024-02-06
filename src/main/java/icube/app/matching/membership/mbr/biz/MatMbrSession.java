@@ -49,6 +49,7 @@ public class MatMbrSession extends MbrVO {
 		setAddr(mbrVO.getAddr());
 		setDaddr(mbrVO.getDaddr());
 
+		setCiKey(mbrVO.getCiKey()); // ci
 		setDiKey(mbrVO.getDiKey()); // di
 		setKakaoAppId(mbrVO.getKakaoAppId());
 		setNaverAppId(mbrVO.getNaverAppId());
@@ -59,9 +60,15 @@ public class MatMbrSession extends MbrVO {
 		setMberGrade(mbrVO.getMberGrade());
 		setItrstField(mbrVO.getItrstField());
 		setJoinTy(mbrVO.getJoinTy());
+		setLgnTy(mbrVO.getLgnTy());
 		setSnsRegistDt(mbrVO.getSnsRegistDt());
 
+		setAccessToken(mbrVO.getAccessToken());
+		setRefreshToken(mbrVO.getRefreshToken());
+		
 		setRecipterYn(mbrVO.getRecipterYn()); // 수급자 여부
 		setRecipterInfo(mbrVO.getRecipterInfo()); // 수급자 정보
+		
+		setMbrAuthList(mbrVO.getMbrAuthList());
 	}
 }

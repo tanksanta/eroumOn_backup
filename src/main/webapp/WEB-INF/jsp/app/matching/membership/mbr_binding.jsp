@@ -15,9 +15,19 @@
 		
 		현재 연결된 계정<br><br>
 		
+		<button class="btn btn-primary" type="button" onclick="bindMbrSns();">연결하기</button>
+		
 	</main>
 	
 	
 	<script>
-		
+		function bindMbrSns() {
+			callPostAjaxIfFailOnlyMsg(
+				'/matching/membership/sns/binding.json',
+				{},
+				function(result) {
+					location.href = '/matching';					
+				}
+			);
+		}
 	</script>
