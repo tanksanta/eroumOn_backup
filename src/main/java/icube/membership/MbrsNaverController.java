@@ -170,6 +170,7 @@ public class MbrsNaverController extends CommonAbstractController{
 			session.removeAttribute("returnUrl");
 			
 		} catch (Exception ex) {
+			log.error("=====네이버 로그인 에러", ex);
 			javaScript.setMessage(getMsg("fail.common.network"));
 			javaScript.setLocation(rootPath + "/login");
 		}

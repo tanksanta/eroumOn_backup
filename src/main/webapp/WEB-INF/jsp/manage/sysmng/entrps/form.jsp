@@ -368,6 +368,7 @@ $(function(){
 			rules: {
 				entrpsNm : {required : true},
 				brno : {required : true , regex : numchk},
+				entrpsStoreNm: {required : true },
 				rprsvNm : {required : true},
 				bizcnd : {required : true},
 				induty : {required : true},
@@ -393,6 +394,7 @@ $(function(){
 				entrpsNm : {required : "업체명은 필수 입력 사항입니다."},
 				brno : {required : "사업자번호는 필수 입력 사항입니다."},
 				rprsvNm : {required : "대표자명은 필수 입력 사항입니다."},
+				entrpsStoreNm : {required : "스토어명은 필수 입력 사항입니다."},
 				bizcnd : {required : "업태는 필수 입력 사항입니다."},
 				induty : {required : "업종은 필수 입력 사항입니다."},
 				zip : {required : "우편번호는 필수 입력 사항입니다."},

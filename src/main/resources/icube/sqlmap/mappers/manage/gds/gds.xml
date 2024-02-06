@@ -839,7 +839,7 @@
 
 
 	<select id="selectGdsCountByDlvygrp" parameterType="java.util.HashMap" resultType="int">
-		/* Query ID : gds.selectGds */
+		/* Query ID : gds.selectGdsCountByDlvygrp */
 		SELECT COUNT(*)
 		FROM GDS g
 		LEFT JOIN GDS_CTGRY gc1 ON g.ctgry_no = gc1.ctgry_no
@@ -849,7 +849,7 @@
 	</select>
 
 	<select id="selectGdsListByDlvygrp" parameterType="java.util.HashMap" resultMap="gdsVOListMap">
-		/* Query ID : gds.selectGds */
+		/* Query ID : gds.selectGdsListByDlvygrp */
 		SELECT
 			<include refid="listColumn"/>
 		FROM GDS g
@@ -857,7 +857,6 @@
 		LEFT JOIN GDS_CTGRY gc2 ON gc2.ctgry_no = gc1.up_ctgry_no
 		WHERE g.use_yn = 'Y' AND g.dlvy_group_yn = 'Y'
 			AND g.entrps_dlvygrp_no = #{entrpsDlvygrpNo} AND g.entrps_no = #{entrpsNo}
-		LIMIT #{startNum}, #{endNumMysql}
 	</select>
 	
 </mapper>

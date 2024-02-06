@@ -688,7 +688,7 @@
                                     <th scope="row"><label for="dlvyCtStlm">배송비 결제</label></th>
                                     <td>
                                         <form:select path="dlvyCtStlm" class="form-control w-50">
-                                            <form:option value="" label="선택" />
+                                            <!--form:option value="" label="선택" /-->
 											<c:forEach items="${dlvyPayTyCode}" var="iem" varStatus="status">
 												<form:option value="${iem.key}" label="${iem.value}" />
 											</c:forEach>
