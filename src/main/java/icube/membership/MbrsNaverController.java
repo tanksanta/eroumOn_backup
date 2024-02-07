@@ -157,9 +157,20 @@ public class MbrsNaverController extends CommonAbstractController{
 				return new JavaScriptView(javaScript);
 			}
 			
-			// 최근 로그인 쿠키
-			Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
-			response.addCookie(recentLgnTyCookie);
+			
+			// 웹브라우저에서 처리
+			if ("membership".equals(prevPath)) {
+				// 최근 로그인 쿠키
+				Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
+				response.addCookie(recentLgnTyCookie);
+			}
+			// 매칭앱에서 처리
+			if ("matching".equals(prevPath)) {
+				//로그인 후처리로 redirect
+				javaScript.setLocation("/matching/membership/loginAfterAction");
+				return new JavaScriptView(javaScript);
+			}
+			
 			
 			//로그인 이후 redirect
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {

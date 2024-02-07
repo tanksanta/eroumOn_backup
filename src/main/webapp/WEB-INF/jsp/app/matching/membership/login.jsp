@@ -38,10 +38,7 @@
 				'/matching/membership/loginAction', 
 				{mbrId, encPw},
 				function(result) {
-					var appMatToken = result.appMatToken;
-					sendDataToMobileApp({actionName: 'saveToken', token: appMatToken});
-					
-					location.href = '/matching';
+					location.href = '/matching/membership/loginAfterAction';
 				}
 			);
 		}
