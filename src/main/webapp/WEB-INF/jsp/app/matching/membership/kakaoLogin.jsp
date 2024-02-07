@@ -25,6 +25,9 @@
                     <a href="/matching/naver/login" class="btn w-full">
                     	<span>다른 방법으로 계속하기</span>
                     </a>
+                    <a href="/matching/membership/regist" class="btn w-full">
+                    	<span>회원가입</span>
+                    </a>
                 </dd>
             </dl>
 		</div>
