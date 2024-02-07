@@ -22,20 +22,7 @@
 			<form class="member-join-content mb-13" style="border:none;">
 				<div style="margin-bottom:40px; text-align:center;">
 					<div style="margin-bottom:10px; font-size: 1.5rem; font-weight:bold;">
-						<c:choose>
-							<c:when test="${isContainNoEmlKakao}">
-								이미 가입된 계정이 있어요
-							</c:when>
-							<c:when test="${isContainNoEmlNaver}">
-								이미 가입된 계정이 있어요
-							</c:when>
-							<c:when test="${tempMbrVO.joinTy eq 'E'}">
-								이미 가입된 소셜 계정이 있어요
-							</c:when>
-							<c:otherwise>
-								이미 가입된 계정이 있어요
-							</c:otherwise>
-						</c:choose>
+						이미 가입된 계정이 있어요
 					</div>
 					<div style="font-size: 1.2rem;">
 						<c:choose>
