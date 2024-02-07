@@ -80,15 +80,18 @@ class JsHouseMngGdsGdsForm{
             $(this).attr("focused-data", $(this).val());
         });
         $( this._cls_info.pagePrefixBasic + " select[name='entrpsNo']" ).off('change').on('change',  function(e) {
-            if (!confirm("입점업체 변경 시 선택된 묶음배송 그룹이 해제됩니다.\n정말 입점업체를 변경하시겠습니까?")){
-                e.preventDefault();
-                e.stopPropagation();
-                $(this).val($(this).attr("focused-data"));
-                return false;
-            }else{
-                $(this).attr("focused-data", $(this).val());
-                owner.fn_changed_entrpsNo($(this).val());
+            if ($( owner._cls_info.pagePrefixDelivery + " .dlvy-ct-ty-tr.dlvyGroupYn .form-group input[name='dlvyGroupYn']:checked").length > 0){
+                if (!confirm("입점업체 변경 시 선택된 묶음배송 그룹이 해제됩니다.\n정말 입점업체를 변경하시겠습니까?")){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).val($(this).attr("focused-data"));
+                    return false;
+                }else{
+                    $(this).attr("focused-data", $(this).val());
+                    owner.fn_changed_entrpsNo($(this).val());
+                }
             }
+            
             
         });
 
