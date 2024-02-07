@@ -295,8 +295,14 @@ class JsMarketCartDrawItems {
 		var soldOutYn = 'N';
 		if (json.gdsInfo.soldoutYn == 'Y'){
 			soldOutYn = json.gdsInfo.soldoutYn;
-		}else if (baseOptnOne != undefined && baseOptnOne.length > 0 && baseOptnOne[0].soldOutYn == 'Y') {
-			soldOutYn = baseOptnOne[0].soldOutYn;
+		}else if(json.gdsInfo.stockQy == undefined || json.gdsInfo.stockQy < 1){
+			soldOutYn = 'Y';
+		}else if (baseOptnOne != undefined && baseOptnOne.length > 0 ){
+			if (baseOptnOne[0].soldOutYn == 'Y'){
+				soldOutYn = baseOptnOne[0].soldOutYn;
+			}else if (baseOptnOne[0].optnStockQy == null || baseOptnOne[0].optnStockQy < 1){
+				soldOutYn = 'Y';
+			}
 		}
 
 		var list = json.ordrOptn.split(' * ');
