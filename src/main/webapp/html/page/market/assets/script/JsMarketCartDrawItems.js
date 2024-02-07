@@ -292,16 +292,18 @@ class JsMarketCartDrawItems {
 			}
 		});
 
-		var soldOutYn = 'N';
+		var soldOutMainYn = 'N', soldOutOneYn = 'N';
 		if (json.gdsInfo.soldoutYn == 'Y'){
-			soldOutYn = json.gdsInfo.soldoutYn;
+			soldOutMainYn = json.gdsInfo.soldoutYn;
 		}else if(json.gdsInfo.stockQy == undefined || json.gdsInfo.stockQy < 1){
-			soldOutYn = 'Y';
-		}else if (baseOptnOne != undefined && baseOptnOne.length > 0 ){
+			soldOutMainYn = 'Y';
+		}
+		
+		if (baseOptnOne != undefined && baseOptnOne.length > 0 ){
 			if (baseOptnOne[0].soldOutYn == 'Y'){
-				soldOutYn = baseOptnOne[0].soldOutYn;
+				soldOutOneYn = baseOptnOne[0].soldOutYn;
 			}else if (baseOptnOne[0].optnStockQy == null || baseOptnOne[0].optnStockQy < 1){
-				soldOutYn = 'Y';
+				soldOutOneYn = 'Y';
 			}
 		}
 
@@ -314,9 +316,9 @@ class JsMarketCartDrawItems {
 			}
 		}
 
-		var soldOutTxt = ((soldOutYn == 'Y')?'<strong class="text-soldout">일시품절</strong>':'');
-		var soldOutCls = ((soldOutYn == 'Y')?' disabled ':'');
-		var ableBuy = ((soldOutYn=='Y')?'N':'Y');
+		var soldOutTxt = ((soldOutMainYn != 'Y' && soldOutOneYn == 'Y')?'<strong class="text-soldout">일시품절</strong>':'');
+		var soldOutCls = ((soldOutMainYn != 'Y' && soldOutOneYn == 'Y')?' disabled ':'');
+		var ableBuy = ((soldOutMainYn=='Y' || soldOutOneYn == 'Y')?'N':'Y');
 		var btnDelte = this.fn_draw_cart_entrpsdlvygrp_itemgrp_base_delete(json, ableBuy);
 
 		var ordrOptnPcDisp = '';

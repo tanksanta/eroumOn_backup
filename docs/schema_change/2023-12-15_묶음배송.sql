@@ -7,7 +7,7 @@ VALUES ('4', '묶음배송 그룹관리', '/_mng/sysmng/entrps/dlvygrp/list', '4
 /* 입점업체가 없는 경우 강제로 세팅
 update gds
 SET entrps_no = 1
-WHERE entrps_no IN (0, NULL)
+WHERE entrps_no IN (0, NULL) or entrps_no is NULL
 */
 
 ALTER TABLE GDS ADD COLUMN IF NOT EXISTS `ENTRPS_DLVYGRP_NO` INT NULL DEFAULT NULL COMMENT '묶음배송번호'
