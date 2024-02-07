@@ -24,10 +24,10 @@
 					<div style="margin-bottom:10px; font-size: 1.5rem; font-weight:bold;">
 						<c:choose>
 							<c:when test="${isContainNoEmlKakao}">
-								이미 가입된 카카오 계정이 있어요
+								이미 가입된 계정이 있어요
 							</c:when>
 							<c:when test="${isContainNoEmlNaver}">
-								이미 가입된 네이버 계정이 있어요
+								이미 가입된 계정이 있어요
 							</c:when>
 							<c:when test="${tempMbrVO.joinTy eq 'E'}">
 								이미 가입된 소셜 계정이 있어요
@@ -39,6 +39,12 @@
 					</div>
 					<div style="font-size: 1.2rem;">
 						<c:choose>
+							<c:when test="${isContainNoEmlKakao}">
+								로그인하여 본인인증(최초 1회)을 진행해 주세요
+							</c:when>
+							<c:when test="${isContainNoEmlNaver}">
+								로그인하여 본인인증(최초 1회)을 진행해 주세요
+							</c:when>
 							<c:when test="${tempMbrVO.joinTy eq 'E'}">
 								이로움ON 아이디를 만들어 연결할 수 있어요
 							</c:when>
@@ -52,23 +58,21 @@
 					</div>
 				</div>
 			
-				<c:if test="${isContainNoEmlKakao == false && isContainNoEmlNaver == false}">
-					<dl class="content-auth">
-						<dt>계정 정보</dt>
-					</dl>
-					<table class="table-detail">
-						<colgroup>
-							<col class="w-29 xs:w-32">
-							<col>
-						</colgroup>
-						<tbody>
-							<tr class="top-border">
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</c:if>
+				<dl class="content-auth">
+					<dt>계정 정보</dt>
+				</dl>
+				<table class="table-detail">
+					<colgroup>
+						<col class="w-29 xs:w-32">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr class="top-border">
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 	
 				<div class="content-auth-phone mt-4" style="display:block;">
 					<c:if test="${ !empty eroumAuthInfo }">
@@ -79,18 +83,26 @@
 						</div>
 					</c:if>
 
-					<c:if test="${ !empty kakaoAuthInfo && isContainNoEmlKakao == false }">
+					<c:if test="${ !empty kakaoAuthInfo }">
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-kakao.png">
-							<div style="flex:5 5 0; line-height:40px;">카카오 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno }</div>
+							<div style="flex:5 5 0; line-height:40px;">
+								카카오 
+								<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> 
+								${isContainNoEmlKakao ? '본인인증 필요' : (!empty kakaoAuthInfo.eml ? kakaoAuthInfo.eml : kakaoAuthInfo.mblTelno) }
+							</div>
 							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/kakao/auth" class="btn btn-outline-primary">로그인</a>
 						</div>
 					</c:if>
 					
-					<c:if test="${ !empty naverAuthInfo && isContainNoEmlNaver == false }">
+					<c:if test="${ !empty naverAuthInfo }">
 						<div class="flex w-full mb-4">
 							<img style="flex:1 1 0; border-radius:100%; width:40px; max-width:40px; height:40px;" src="/html/core/images/ico-naver.png">
-							<div style="flex:5 5 0; line-height:40px;">네이버 <span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> ${naverAuthInfo.eml}</div>
+							<div style="flex:5 5 0; line-height:40px;">
+								네이버 
+								<span style="color:gray; opacity:0.6;">&nbsp;|&nbsp;</span> 
+								${isContainNoEmlNaver ? '본인인증 필요' : naverAuthInfo.eml}
+							</div>
 							<a style="flex:1 1 0; width:100px; max-width:100px; height:40px;" href="/membership/naver/get" class="btn btn-outline-primary">로그인</a>
 						</div>
 					</c:if>
@@ -98,6 +110,16 @@
 	
 				<div class="content-button mt-9" style="flex-direction: column;">
 					<c:choose>
+						<c:when test="${isContainNoEmlKakao}">
+							<div style="border: 1px solid #EEEEEE;border-radius: 10px;background: #EEEEEE;text-align: center;font-size: 14px;padding: 15px 0px;font-weight: 500;">
+								이로움ON 회원정책 변경으로 인해 기존에 가입한 계정의 본인인증이 필요합니다.
+							</div>
+						</c:when>
+						<c:when test="${isContainNoEmlNaver}">
+							<div style="border: 1px solid #EEEEEE;border-radius: 10px;background: #EEEEEE;text-align: center;font-size: 14px;padding: 15px 0px;font-weight: 500;">
+								이로움ON 회원정책 변경으로 인해 기존에 가입한 계정의 본인인증이 필요합니다.
+							</div>
+						</c:when>
 						<c:when test="${tempMbrVO.joinTy eq 'E'}">
 							<a class="btn btn-eroum w-full" onclick="bindMbrEroum();">
 				                <span style="width:200px">이로움ON 아이디 만들기</span>
