@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.manage.mbr.mbr.biz.MbrAppSettingDAO;
+import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrAuthService;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
@@ -24,9 +26,32 @@ public class MatMbrService extends CommonAbstractServiceImpl {
 	@Resource(name = "mbrAuthService")
 	private MbrAuthService mbrAuthService;
 	
+	@Resource(name = "mbrAppSettingDAO")
+	private MbrAppSettingDAO mbrAppSettingDAO;
+	
 	@Autowired
 	private MatMbrSession matMbrSession;
 	
+	/**
+	 * 매칭앱 설정값 가져오기
+	 */
+	public MbrAppSettingVO selectMbrAppSettingByMbrUniqueId(String uniqueId) throws Exception {
+		return mbrAppSettingDAO.selectMbrAppSettingByMbrUniqueId(uniqueId);
+	}
+	
+	/**
+	 * 매칭앱 설정 등록
+	 */
+	public void insertMbrAppSetting(MbrAppSettingVO mbrAppSettingVO) throws Exception {
+		mbrAppSettingDAO.insertMbrAppSetting(mbrAppSettingVO);
+	}
+	
+	/**
+	 * 매칭앱 설정 수정
+	 */
+	public void updateMbrAppSetting(MbrAppSettingVO mbrAppSettingVO) throws Exception {
+		mbrAppSettingDAO.updateMbrAppSetting(mbrAppSettingVO);
+	}
 	
 	/**
 	 * sns 회원정보와 회원 바인딩 처리(세션에 저장된 임시 회원을 바인딩 처리)

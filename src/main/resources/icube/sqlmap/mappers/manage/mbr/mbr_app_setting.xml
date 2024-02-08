@@ -5,6 +5,7 @@
 	<sql id="listColumn">
 		mas.app_setting_no
 		, mas.mbr_unique_id
+		, mas.push_token
 		, mas.allow_push_yn
 		, mas.allow_push_dt
 		, mas.allow_location_yn
@@ -17,7 +18,7 @@
 	
 	<sql id="searchConditions">
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
-			AND ma.mbr_unique_id = #{srchMbrUniqueId}
+			AND mas.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
 	</sql>
 	
@@ -36,6 +37,7 @@
 	<insert id="insertMbrAppSetting" parameterType="mbrAppSettingVO">
 		INSERT INTO MBR_APP_SETTING(
 			mbr_unique_id
+			, push_token
 			, allow_push_yn
 			, allow_push_dt
 			, allow_location_yn
@@ -45,6 +47,7 @@
 			, reg_dt
 		)VALUES(
 			#{mbrUniqueId}
+			, #{pushToken}
 			, #{allowPushYn}
 			, #{allowPushDt}
 			, #{allowLocationYn}
@@ -57,13 +60,14 @@
 	
 	<update id="updateMbrAppSetting" parameterType="mbrAppSettingVO">
 		UPDATE MBR_APP_SETTING SET
-			allow_push_yn = #{allowPushYn}
+			push_token = #{pushToken}
+			, allow_push_yn = #{allowPushYn}
 			, allow_push_dt = #{allowPushDt}
 			, allow_location_yn = #{allowLocationYn}
 			, allow_location_dt = #{allowLocationDt}
 			, allow_tel_yn = #{allowTelYn}
 			, allow_tel_dt = #{allowTelDt}
 			, mdfcn_dt = SYSDATE()
-		WHERE mbr_unique_id = {mbrUniqueId} 
+		WHERE mbr_unique_id = #{mbrUniqueId} 
 	</update>
 </mapper>

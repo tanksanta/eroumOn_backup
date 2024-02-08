@@ -1,19 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main style="padding:20px;">
+	<main class="mainContainer">
 		<br>
 		<br>
-		회원가입 <br><br>
+		<div id="residentNumDiv" style="display: none;">
+			주민등록번호<br>
+			<input class="form-control" type="text" />
+		</div>
+		<div id="nameDiv">
+			이름<br>
+			<input id="nameInput" class="form-control" type="text" onblur="nameInputBlurEvent();" onkeypress="return nameInputKeypressEvent(event);" />
+		</div>
 		
-		<input type="checkbox"><label>약관동의 1</label>
-		<input type="checkbox"><label>약관동의 2</label>
-		
-		<br><br>
-		<button class="btn btn-primary" type="button" onclick="f_cert('${_bootpayScriptKey}');">본인 인증</button>
 	</main>
 	
 	
-	<script src="/html/core/script/matching/identityVerification.js"></script>
 	<script>
+		function nameInputKeypressEvent(e) {
+			if (e.keyCode == 13) {
+				$('#residentNumDiv').css('display', 'block');
+				return false;
+			} else {
+				return true;
+			}
+		}
 	
+		function nameInputBlurEvent() {
+			$('#residentNumDiv').css('display', 'block');
+		}
 	</script>

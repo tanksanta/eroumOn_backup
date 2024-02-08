@@ -22,7 +22,6 @@ import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
-import icube.common.util.WebUtil;
 import icube.manage.mbr.mbr.biz.MbrAuthService;
 import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -121,19 +120,6 @@ public class MatLoginController extends CommonAbstractController {
 			//로그인 성공 시 실패 횟를 초기화
 			mbrService.updateFailedLoginCountReset(srchMbrVO);
 			
-			//매칭앱 토큰 발급
-			String appToken = mbrService.updateMbrAppTokenInfo(srchMbrVO.getUniqueId());
-			resultMap.put("appMatToken", appToken);
-			
-			//위치정보 가져오기
-			String locationValueStr = WebUtil.getCookieValue(request, "location");
-			if (EgovStringUtil.isNotEmpty(locationValueStr)) {
-				String[] location = locationValueStr.split("AND");
-				if (location.length > 1) {
-					mbrService.updateMbrLocation(srchMbrVO.getUniqueId(), location[0], location[1]);
-				}
-			}
-			
 			//로그인 처리
 			matMbrSession.login(session, srchMbrVO);
 			
@@ -143,6 +129,40 @@ public class MatLoginController extends CommonAbstractController {
 		}
 		
 		return resultMap;
+	}
+	
+	/**
+	 * 로그인 이후 위치 정보 및 앱토큰 정보 처리 jsp로 이동
+	 */
+	@RequestMapping(value="loginAfterAction")
+	public String loginAfterAction(
+			HttpServletRequest request
+			, HttpSession session
+			, Model model) throws Exception {
+		if (matMbrSession.isLoginCheck() == false) {
+			return "redirect:/matching/kakao/login";
+		}
+		
+		//매칭앱 토큰 발급
+		String appToken = mbrService.updateMbrAppTokenInfo(matMbrSession.getUniqueId());
+		model.addAttribute("appMatToken", appToken);
+		
+		//위치정보 가져오기
+//		String locationValueStr = WebUtil.getCookieValue(request, "location");
+//		if (EgovStringUtil.isNotEmpty(locationValueStr)) {
+//			String[] location = locationValueStr.split("AND");
+//			if (location.length > 1) {
+//				mbrService.updateMbrLocation(matMbrSession.getUniqueId(), location[0], location[1]);
+//			}
+//		}
+		
+		String returnUrl = (String) session.getAttribute("returnUrl");
+		if (EgovStringUtil.isNotEmpty(returnUrl)) {
+			model.addAttribute("returnUrl", returnUrl);
+			session.removeAttribute("returnUrl");
+		}
+
+		return "/app/matching/membership/loginAfter";
 	}
 	
 	@ResponseBody
