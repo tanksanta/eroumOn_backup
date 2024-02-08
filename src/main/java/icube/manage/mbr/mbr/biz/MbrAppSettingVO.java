@@ -16,6 +16,7 @@ public class MbrAppSettingVO {
 	private String mbrUniqueId;
 	
 	//알림 권한
+	private String pushToken;
 	private String allowPushYn;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date allowPushDt;

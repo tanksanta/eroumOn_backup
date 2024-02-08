@@ -22,7 +22,6 @@ import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
-import icube.common.util.WebUtil;
 import icube.manage.mbr.mbr.biz.MbrAuthService;
 import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -149,13 +148,13 @@ public class MatLoginController extends CommonAbstractController {
 		model.addAttribute("appMatToken", appToken);
 		
 		//위치정보 가져오기
-		String locationValueStr = WebUtil.getCookieValue(request, "location");
-		if (EgovStringUtil.isNotEmpty(locationValueStr)) {
-			String[] location = locationValueStr.split("AND");
-			if (location.length > 1) {
-				mbrService.updateMbrLocation(matMbrSession.getUniqueId(), location[0], location[1]);
-			}
-		}
+//		String locationValueStr = WebUtil.getCookieValue(request, "location");
+//		if (EgovStringUtil.isNotEmpty(locationValueStr)) {
+//			String[] location = locationValueStr.split("AND");
+//			if (location.length > 1) {
+//				mbrService.updateMbrLocation(matMbrSession.getUniqueId(), location[0], location[1]);
+//			}
+//		}
 		
 		String returnUrl = (String) session.getAttribute("returnUrl");
 		if (EgovStringUtil.isNotEmpty(returnUrl)) {

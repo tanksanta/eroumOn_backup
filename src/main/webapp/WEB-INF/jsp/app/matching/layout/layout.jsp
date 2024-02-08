@@ -8,7 +8,6 @@
     
     <script src="/html/core/vendor/jquery/jquery-3.6.0.min.js"></script>
     <script src="/html/core/script/matching/ajaxCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
-    <script src="/html/core/script/matching/communicateWithMobile.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/matching/cookie.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="https://js.bootpay.co.kr/bootpay-4.2.5.min.js" type="application/javascript"></script>
     
@@ -20,5 +19,6 @@
 	<tiles:insertAttribute name="content"/>
 	
 	<jsp:include page="/WEB-INF/jsp/app/matching/common/appCommon.jsp" />
+	<jsp:include page="/WEB-INF/jsp/app/matching/common/communicateWithMobile.jsp" />
 </body>
 </html>
