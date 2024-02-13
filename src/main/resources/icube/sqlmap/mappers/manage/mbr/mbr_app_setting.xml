@@ -12,6 +12,8 @@
 		, mas.allow_location_dt
 		, mas.allow_tel_yn
 		, mas.allow_tel_dt
+		, mas.auto_lgn_yn
+		, mas.auto_lgn_dt
 		, mas.reg_dt
 		, mas.mdfcn_dt
 	</sql>
@@ -44,6 +46,8 @@
 			, allow_location_dt
 			, allow_tel_yn
 			, allow_tel_dt
+			, auto_lgn_yn
+			, auto_lgn_dt
 			, reg_dt
 		)VALUES(
 			#{mbrUniqueId}
@@ -54,6 +58,8 @@
 			, #{allowLocationDt}
 			, #{allowTelYn}
 			, #{allowTelDt}
+			, #{autoLgnYn}
+			, #{autoLgnDt}
 			, SYSDATE()
 		)
 	</insert>
@@ -67,6 +73,8 @@
 			, allow_location_dt = #{allowLocationDt}
 			, allow_tel_yn = #{allowTelYn}
 			, allow_tel_dt = #{allowTelDt}
+			, auto_lgn_yn = #{autoLgnYn}
+			, auto_lgn_dt = #{autoLgnDt}
 			, mdfcn_dt = SYSDATE()
 		WHERE mbr_unique_id = #{mbrUniqueId} 
 	</update>

@@ -62,6 +62,10 @@
 		, m.whdwl_ty
 		, m.whdwl_etc
 		, m.sns_regist_dt
+		, m.app_mat_token
+		, m.app_mat_expired_dt
+		, m.lat
+		, m.lot
 		, 'F' as req_ty
 	</sql>
 
@@ -206,6 +210,9 @@
 		</if>
 		<if test="srchWithoutNotSnsExist != null and srchWithoutNotSnsExist != '' ">
 			AND (join_ty = 'E' OR sns_regist_dt IS NOT NULL)
+		</if>
+		<if test="srchAppMatToken != null and srchAppMatToken != '' ">
+			AND app_mat_token = #{srchAppMatToken}
 		</if>
 	</sql>
 

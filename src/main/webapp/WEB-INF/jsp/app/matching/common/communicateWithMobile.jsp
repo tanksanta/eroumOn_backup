@@ -41,6 +41,11 @@
 					}
 				);
 			}
+			//App 로그인 토큰 정보 Cookie에 저장
+			else if (jsonData.actionName && jsonData.actionName === 'saveAppMatToken') {
+				setCookie('appMatToken', jsonData.appMatToken, 365);
+				location.reload();
+			}
 			//이벤트 받고 데이터 alert		
 			else {
 				alert(jsonStr);

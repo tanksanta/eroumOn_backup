@@ -99,6 +99,8 @@ public class MatMbrInfoController extends CommonAbstractController{
 			
 			//앱 설정 회원에 반영하기
 			if (isInsert) {
+				appSetting.setAutoLgnYn("Y");
+				appSetting.setAutoLgnDt(new Date());
 				matMbrService.insertMbrAppSetting(appSetting);
 			} else {
 				matMbrService.updateMbrAppSetting(appSetting);

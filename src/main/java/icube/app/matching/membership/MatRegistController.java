@@ -40,12 +40,6 @@ public class MatRegistController extends CommonAbstractController {
 	public String login(
 			HttpServletRequest request
 			, HttpSession session) {
-		
-		session.setAttribute("_matchingPath", matchingPath);
-		
-		request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
-		request.setAttribute("_activeMode", activeMode.toUpperCase());
-		
 		return "/app/matching/membership/regist";
 	}
 }

@@ -19,7 +19,9 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
 		if(result.success) {
 			successCallback(result);
 		}else{
-			alert(result.msg);
+			if (result.msg) {
+				alert(result.msg);
+			}
 		}
 		
 		doubleClickCheck = false;

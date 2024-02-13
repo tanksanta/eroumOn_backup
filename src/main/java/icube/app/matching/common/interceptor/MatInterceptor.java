@@ -1,7 +1,10 @@
 package icube.app.matching.common.interceptor;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,19 +16,36 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 
 public class MatInterceptor implements HandlerInterceptor {
 	protected Log log = LogFactory.getLog(this.getClass());
 	
+	@Resource(name = "matMbrService")
+	private MatMbrService matMbrService;
+	
 	@Autowired
 	private MatMbrSession matMbrSession;
+	
+	@Value("#{props['Globals.Matching.path']}")
+	private String matchingPath;
 	
 	@Value("#{props['Bootpay.Script.Key']}")
 	private String bootpayScriptKey;
 
 	@Value("#{props['Profiles.Active']}")
 	private String activeMode;
+	
+	/**
+	 * 인증이 필요한 페이지 정의
+	 */
+	private List<String> checkUri = new ArrayList<String>(){
+		private static final long serialVersionUID = 968028594716471048L;
+		{
+			add("/matching");
+		}
+	};
 	
 	
 	@Override
@@ -63,8 +83,21 @@ public class MatInterceptor implements HandlerInterceptor {
 			
 			request.setAttribute("_bootpayScriptKey", bootpayScriptKey);
 			request.setAttribute("_activeMode", activeMode.toUpperCase());
+			request.setAttribute("_matchingPath", matchingPath);
 			
+			
+			//자동로그인 검사
+			boolean isAutoLogin = matMbrService.checkAutoLogin(request);
 			request.setAttribute("_matMbrSession", matMbrSession);
+			if (isAutoLogin) {
+				response.sendRedirect("/matching");
+				return false;
+			}
+			
+			//인증이 필요없으면 바로 페이지 반환
+			if (!checkUri.contains(request.getServletPath())) {
+				return true;
+			}
 			
 			//로그인 되어 있지 않으면 로그인창으로 이동
 			if (matMbrSession.isLoginCheck() == false) {

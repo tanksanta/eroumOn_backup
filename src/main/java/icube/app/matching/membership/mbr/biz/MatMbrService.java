@@ -1,9 +1,11 @@
 package icube.app.matching.membership.mbr.biz;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
+import icube.common.util.WebUtil;
 import icube.manage.mbr.mbr.biz.MbrAppSettingDAO;
 import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrAuthService;
@@ -31,6 +34,15 @@ public class MatMbrService extends CommonAbstractServiceImpl {
 	
 	@Autowired
 	private MatMbrSession matMbrSession;
+	
+	/**
+	 * 토큰으로 회원정보 가져오기
+	 */
+	public MbrVO selectMbrByAppMatToken(String appMatToken) throws Exception {
+		Map<String, Object> param = new HashMap<>();
+		param.put("srchAppMatToken", appMatToken);
+		return mbrService.selectMbr(param);
+	}
 	
 	/**
 	 * 매칭앱 설정값 가져오기
@@ -94,5 +106,46 @@ public class MatMbrService extends CommonAbstractServiceImpl {
 		
 		resultMap.put("success", true);
 		return resultMap;
+	}
+	
+	/**
+	 * app에서 자동로그인 지원
+	 */
+	public boolean checkAutoLogin(HttpServletRequest request) {
+		if (matMbrSession.isAutoLoginCheck()) {
+			return false;
+		}
+		
+		try {
+		 	String appMatToken = WebUtil.getCookieValue(request, "appMatToken");
+		 	if (EgovStringUtil.isEmpty(appMatToken)) {
+		 		log.debug("------- 앱 토큰 없음 ---------");
+		 		return false;
+		 	}
+		 	
+		 	MbrVO srchMbr = selectMbrByAppMatToken(appMatToken);
+		 	if (srchMbr == null) {
+		 		throw new Exception();
+		 	}
+		 	
+		 	MbrAppSettingVO appSetting = selectMbrAppSettingByMbrUniqueId(srchMbr.getUniqueId());
+		 	if (appSetting == null) {
+		 		throw new Exception();
+		 	}
+		 	if (!"Y".equals(appSetting.getAutoLgnYn())) {
+		 		throw new Exception();
+		 	}
+		 	Date now = new Date();
+		 	if (now.compareTo(srchMbr.getAppMatExpiredDt()) > 0) {
+		 		throw new Exception();
+		 	}
+		 	
+		 	//로그인 처리
+		 	matMbrSession.login(request.getSession(), srchMbr);
+			return true;
+		} catch (Exception ex) {
+			log.error("------- 앱 토큰 자동로그인 오류 ---------", ex);
+		}
+		return false;
 	}
 }

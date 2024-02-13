@@ -19,6 +19,7 @@ public class MatMbrSession extends MbrVO {
 	private String MAT_MEMBER_SESSION_KEY;
 	
 	private boolean loginCheck = false; // 로그인 여부
+	private boolean autoLoginCheck = false; // 자동로그인 최초 확인 여부
 	
 	public void setRequest(RequestHolder requestHolder) {
 		HttpSession session = requestHolder.getSession();
@@ -27,14 +28,16 @@ public class MatMbrSession extends MbrVO {
 	
 	public void login(HttpSession session, MbrVO mbrVO) {
 		session.setAttribute(MAT_MEMBER_SESSION_KEY, this);
-		session.setMaxInactiveInterval(60 * 60 * 4); // 4h
+		session.setMaxInactiveInterval(60 * 60 * 24 * 365 * 10); // 10년
 		
 		setLoginCheck(true);
+		setAutoLoginCheck(true);
 		setProperty(mbrVO);
 	}
 	
 	public void logout() {
 		setLoginCheck(false);
+		setAutoLoginCheck(false);
 		setProperty(new MbrVO());
 	}
 	

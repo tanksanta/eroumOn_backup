@@ -31,6 +31,11 @@ public class MbrAppSettingVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date allowTelDt;
 	
+	//자동로그인
+	private String autoLgnYn;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date autoLgnDt;
+	
 	private Date regDt;
 	private Date mdfcnDt;
 }

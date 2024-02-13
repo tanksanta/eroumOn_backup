@@ -19,8 +19,13 @@
 
 
 	<script>
+		//로그아웃
 		function clickLogoutBtn() {
-			callPostAjaxIfFailOnlyMsg('/matching/membership/logoutAction', {}, function() { location.reload(); });
+			callPostAjaxIfFailOnlyMsg('/matching/membership/logoutAction', {}, function() {
+				sendDataToMobileApp({actionName: 'removeToken'});
+				deleteCookie('appMatToken');
+				location.reload();
+			});
 		}
 		
 		$(function() {
