@@ -16,6 +16,9 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
 		dataType : 'json'
 	})
 	.done(function(result) {
+		doubleClickCheck = false;
+		hiddenProgressLoadingBar();
+	
 		if(result.success) {
 			successCallback(result);
 		}else{
@@ -23,9 +26,6 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
 				alert(result.msg);
 			}
 		}
-		
-		doubleClickCheck = false;
-		hiddenProgressLoadingBar();
 	})
 	.fail(function(data, status, err) {
 		alert('서버와 연결이 좋지 않습니다.');

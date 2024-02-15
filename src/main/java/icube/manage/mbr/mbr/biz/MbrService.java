@@ -1211,8 +1211,11 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrAuthService.insertMbrAuthWithMbrVO(mbrVO);
 		
 		// 모든 항목 동의처리 로그
-		mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
-		insertMbrAgreement(mbrAgreementVO);
+		if (mbrAgreementVO != null) {
+			mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
+			insertMbrAgreement(mbrAgreementVO);
+		}
+		
 
 		// 기본 배송지 등록
 		DlvyVO dlvyVO = new DlvyVO();

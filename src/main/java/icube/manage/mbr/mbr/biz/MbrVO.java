@@ -82,7 +82,6 @@ public class MbrVO extends CommonBaseVO {
 
 	private String naverAppId;
 	private String kakaoAppId;
-	private String kakaoAccessToken;
 
 	private String joinTy = "E"; // 가입 구분
 	private String lgnTy;        // 로그인 시 인증타입

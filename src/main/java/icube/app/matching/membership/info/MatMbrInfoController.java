@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,9 +21,11 @@ import com.google.gson.JsonParser;
 
 import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
+import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 
 /**
  * 회원정보 수정
@@ -35,9 +40,93 @@ public class MatMbrInfoController extends CommonAbstractController{
 	@Resource(name = "matMbrService")
 	private MatMbrService matMbrService;
 	
+	@Resource(name = "bootpayApiService")
+	private BootpayApiService bootpayApiService;
+	
 	@Autowired
 	private MatMbrSession matMbrSession;
 	
+	
+	/**
+	 * 회원 본인인증 페이지 이동
+	 */
+	@RequestMapping(value = "identityVerification")
+	public String identityVerification(
+			@RequestParam String type //본인인증 후 해야할 작업타입
+			, Model model) {
+		model.addAttribute("type", type);
+		return "/app/matching/membership/info/identityVerification";
+	}
+	
+	/**
+	 * 본인인증 요청
+	 */
+	@ResponseBody
+	@RequestMapping("requestVerification")
+	public Map<String, Object> requestVerification(
+			@RequestParam String name, 
+			@RequestParam String identityNo, 
+			@RequestParam String carrier,
+			@RequestParam String phone) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String receiptId = "aaa";
+		//String receiptId = bootpayApiService.requestAuthentication("홍길동", "9901091", "LGT_MVNO", "01011112222");
+		if (EgovStringUtil.isNotEmpty(receiptId)) {
+			resultMap.put("success", true);
+			resultMap.put("receiptId", receiptId);
+		}
+		else {
+			resultMap.put("success", false);
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 본인인증 OTP 재전송
+	 */
+	@ResponseBody
+	@RequestMapping("realarmVerification")
+	public Map<String, Object> realarmVerification(
+			@RequestParam String receiptId) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		boolean success = true;
+		//boolean success = bootpayApiService.realarmAuthentication(receiptId);
+		resultMap.put("success", success);
+		return resultMap;
+	}
+	
+	/**
+	 * 본인인증 확인
+	 */
+	@ResponseBody
+	@RequestMapping("confirmVerification")
+	public Map<String, Object> confirmVerification(
+		@RequestParam String receiptId,
+		@RequestParam String otpNum,
+		HttpSession session) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		MbrVO certMbrInfoVO = new MbrVO();
+		certMbrInfoVO.setCiKey("a");
+		certMbrInfoVO.setDiKey("b");
+		certMbrInfoVO.setMbrNm("홍길동");
+		certMbrInfoVO.setBrdt(new Date(2001, 1, 2));
+		certMbrInfoVO.setGender("W");
+		certMbrInfoVO.setMblTelno("010-1234-2134");
+		
+		//MbrVO certMbrInfoVO = bootpayApiService.confirmAuthentication(receiptId, otpNum);
+		if (certMbrInfoVO != null) {
+			session.setAttribute("certMbrInfoVO", certMbrInfoVO);
+			resultMap.put("success", true);
+		}
+		else {
+			resultMap.put("success", false);
+		}
+		
+		return resultMap;
+	}
 	
 	/**
 	 * 앱에서 받은 지도 및 푸시 알림 정보 저장
@@ -47,7 +136,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 	public Map<String, Object> updatePermissionInfo(
 		@RequestParam String permissionInfoJson
 	) {
-		Map <String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", true);
 		
 		try {
