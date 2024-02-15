@@ -1,0 +1,16 @@
+
+//footer
+.page-footer{position: fixed;z-index: 101;left:0;bottom:0;width:100%;background-color: #fff;color: $--Color-text-primary;padding: 20px;
+
+
+    & > .d-flex{
+        display: flex;gap:16px 8px;
+    
+        &.f-column{flex-direction: column;}
+    
+        & > * {flex: 1 1 30%; }
+    }
+
+}
+
+

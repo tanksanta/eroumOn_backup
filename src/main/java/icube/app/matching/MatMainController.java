@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.common.framework.abst.CommonAbstractController;
 
@@ -41,7 +42,11 @@ public class MatMainController extends CommonAbstractController {
 	 * app 접근 권한 설정 페이지
 	 */
 	@RequestMapping(value = "/appAccessSetting")
-	public String appAccessSetting(HttpSession session, Model model) {
+	public String appAccessSetting(
+			@RequestParam String redirectUrl,
+			HttpSession session, 
+			Model model) {
+		model.addAttribute("redirectUrl", redirectUrl);
 		return "/app/matching/appAccessSetting";
 	}
 }

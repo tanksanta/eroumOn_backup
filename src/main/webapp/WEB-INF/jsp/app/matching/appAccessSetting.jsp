@@ -10,6 +10,9 @@
 		<br>
 		<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({ actionName: 'requestPermissions', type: 'push' });">알림</button>
 		<button class="btn btn-primary" type="button" onclick="sendDataToMobileApp({ actionName: 'requestPermissions', type: 'location' });">위치</button>
+		<br>
+		<br>
+		<button class="btn btn-primary" type="button" onclick="location.href = '${redirectUrl}';">확인</button>
 	</main>
 
 

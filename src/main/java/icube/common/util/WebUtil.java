@@ -371,7 +371,7 @@ public class WebUtil  {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				System.out.println(cookie.getName());
+				//System.out.println(cookie.getName());
 				if (name.equals(cookie.getName())) {
 					return cookie.getValue();
 				}

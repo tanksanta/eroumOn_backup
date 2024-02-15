@@ -165,5 +165,7 @@
 	<definition name="/app/matching/*/*" extends=".app_matching_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}.jsp" />
 	</definition>
-	
+	<definition name="/app/matching/*/*/*" extends=".app_matching_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}/{3}.jsp" />
+	</definition>
 </tiles-definitions>

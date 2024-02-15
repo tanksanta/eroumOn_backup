@@ -1,0 +1,55 @@
+
+
+
+
+nav a{color: $--Color-text-primary;}
+
+nav.top{
+    position: fixed;
+    z-index: 100;
+    left:0;
+    top:0;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    background: #fff;
+    box-shadow: none;
+
+    .title{
+        font-size: 18px;
+        font-weight: 700;
+        color: $--Color-text-primary;
+        padding-left: 20px;
+    }
+
+
+    .btn_back{
+
+        display: flex;
+        align-items: center;
+
+        .txt{
+            font-size: 18px;
+            font-weight: 700;
+            color: $--Color-text-primary;
+            
+        }
+
+
+        .icon{
+            display: inline-block;
+            background: url('../images/04icon/chevron-left_thin.svg') no-repeat center center;
+            text-indent: 40px;
+            width: 48px;
+            height: $header_elem;
+        }
+
+
+    }
+
+    .top_txt{display: flex;align-items: center;font-size: 16px;font-weight: 400;color:$--Color-text-Primitive-secondary;padding: 0 16px;height: $header_elem;}
+
+    
+}

@@ -1,0 +1,115 @@
+
+.wrapper{width:100%;min-height: 100vh;}
+
+
+
+main{flex:1 0 auto}
+
+section{
+
+    margin: 40px 0 120px;
+    padding: 0 20px;
+
+    &.intro{
+    
+        margin-top: $header + 40px;
+
+    }
+
+    h2.title{ 
+    
+        color: $--Color-text-primary;
+        @include Suit_Heading_XL;
+        letter-spacing: -0.64px;
+        margin: 0;
+        
+        & + .txt{
+            margin-top: 24px;
+            @include Suit_Body_MD_Regular;
+        }
+    }
+
+    h3.title{
+    
+        color: $--Color-text-primary;
+        @include Suit_Heading_MD;
+        margin: 0;
+        
+    }
+
+
+}
+
+//툴팁
+.tool_tip{z-index: 10; right:10px;bottom:45px; position: absolute;display: inline-block;background-color: #fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
+            padding: 12px;border-radius: 8px;
+            @include Suit_Body_SM_SemiBold;
+
+        animation-name: tool_ip_ani;
+        animation-duration:0.8s; 
+        animation-iteration-count:infinite;
+        animation-direction:alternate;
+
+}
+
+/* 키프레임 이름 = 애니메이션 이름 */
+@-webkit-keyframes tool_ip_ani {
+    0% {
+      bottom:45px;
+    }
+    100% {
+      bottom:40px;
+    }
+  }
+
+.tool_tip:after{position: absolute;bottom:-15px;left:calc(50% - 6px);width:0;height: 0; display: inline-block;content: '';
+    border-top: 8px solid #ffffff;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 6px solid transparent;
+
+}
+
+.close_x{display: block;width:32px;height: 32px;background: url(../images/04icon/close.svg) no-repeat center center;}
+
+//modal
+.modal{background: #fff;border-radius: 16px;}
+.modal .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 24px 20px 12px;}
+
+.modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
+.modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
+.modal .modal-content{position: relative; padding: 0 20px 32px;overflow-y: auto;height:calc(100% - 24px)}
+
+.modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_LG_Bold
+}
+
+
+@media only screen and (max-width: 992px) {
+    .modal {
+        width:90%;
+    }
+}
+
+.modal .modal-footer{height: auto;text-align: center;background-color:#fff;
+
+    & .d-flex{
+        gap:16px 8px;
+    }
+}
+
+//통신사 선택
+.broad_area li{padding: 12px 8px;color:$--Color-text-Primitive-secondary;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    display: block;
+}
+.broad_area li.active{
+    border-radius: 8px;
+    background: $--Color-bg-Primitive-selected url('../images/04icon/check_primary.svg') no-repeat calc(100% - 8px) center;
+
+    
+}
+
+

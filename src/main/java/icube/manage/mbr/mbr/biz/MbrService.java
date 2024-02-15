@@ -434,12 +434,12 @@ public class MbrService extends CommonAbstractServiceImpl {
 	public String updateMbrAppTokenInfo(String uniqueId) throws Exception {
 		String newToken = generateMbrAppToken(uniqueId);
 		Date now = new Date();
-		Date after14Days = DateUtil.getDateAdd(now, "date", 14); //유효기간 2주
+		Date expiredDate = DateUtil.getDateAdd(now, "date", 3650); //유효기간 10년
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("srchUniqueId", uniqueId);
 		paramMap.put("appMatToken", newToken);
-		paramMap.put("appMatExpiredDt", after14Days);
+		paramMap.put("appMatExpiredDt", expiredDate);
 		
 		mbrDAO.updateMbrAppTokenInfo(paramMap);
 		return newToken;
@@ -1211,8 +1211,11 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrAuthService.insertMbrAuthWithMbrVO(mbrVO);
 		
 		// 모든 항목 동의처리 로그
-		mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
-		insertMbrAgreement(mbrAgreementVO);
+		if (mbrAgreementVO != null) {
+			mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
+			insertMbrAgreement(mbrAgreementVO);
+		}
+		
 
 		// 기본 배송지 등록
 		DlvyVO dlvyVO = new DlvyVO();

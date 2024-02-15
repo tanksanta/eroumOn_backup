@@ -139,7 +139,7 @@ public class MbrsKaKaoController extends CommonAbstractController{
 				//임시 로그인 처리
 				mbrService.loginTempSnsMbr(session, kakaoUserInfo, dlvyVO);
 				
-				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/login");
+				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/membership/info/identityVerification?type=regist");
 				javaScript.setLocation(registPath);
 				return new JavaScriptView(javaScript);
 			}
