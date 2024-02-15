@@ -240,7 +240,7 @@
 	                <div class="welfare-contact">
 	                    <div>
 	                        <p>주관처 : 건강보험심사평가원 (<strong>1644-2000</strong>),보건복지부 (<strong>129</strong>) </p>
-	                        <p>신청 문의 : 주민센터 또는 보건소 </p>
+	                        <p>문의처: 치과 병.의원</p>
 	                    </div>
 	                    <div>
 	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
