@@ -28,6 +28,29 @@
                     <a href="/matching/membership/regist" class="btn w-full">
                     	<span>회원가입</span>
                     </a>
+                    <br>
+                    <br>
+                    <a class="btn w-full" onclick="sendDataToMobileApp({ actionName: 'test' });">
+                    	<span>앱에 요청</span>
+                    </a>
+                    <a href="Intent://home?type=test
+#Intent;
+	scheme=myapp;
+	action=android.intent.action.VIEW;
+	category=android.intent.category.BROWSABLE;
+	package=kr.co.eroum;
+end;" class="btn w-full">
+                    	<span>딥링크 테스트</span>
+                    </a>
+                    <a href="Intent://home?type=test2
+#Intent;
+	scheme=myapp;
+	action=android.intent.action.VIEW;
+	category=android.intent.category.BROWSABLE;
+	package=kr.co.eroum;
+end;" class="btn w-full">
+                    	<span>딥링크 테스트2</span>
+                    </a>
                 </dd>
             </dl>
 		</div>
