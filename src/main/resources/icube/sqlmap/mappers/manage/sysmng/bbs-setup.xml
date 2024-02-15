@@ -10,6 +10,8 @@
 
 	<sql id="listColumn">
 		  bbs_no
+		, srvc_cd
+		, bbs_cd
 		, bbs_nm
 		, bbs_ty
 		, use_yn
@@ -27,6 +29,13 @@
 			<if test="srchUseYn != null and srchUseYn != '' ">
 				AND use_yn = #{srchUseYn}
 			</if>
+
+			<if test="bbsNo != null and bbsNo != '' ">
+				AND bbs_no = #{bbsNo}
+			</if>
+			<if test="srvcCd !=null and srvcCd != '' and bbsCd != null and bbsCd != '' ">
+				AND srvc_cd = #{srvcCd} AND bbs_cd = #{bbsCd}
+			</if>
 		</where>
 	</sql>
 
@@ -41,6 +50,8 @@
 	<select id="selectBbsSetupListVO" parameterType="java.util.HashMap" resultMap="bbsListMap">
 		/* Query ID : sysmng.bbs.setup.selectBbsSetupListVO */
 		SELECT bbs_no
+			 , srvc_cd
+			 , bbs_cd
 			 , bbs_nm
 			 , bbs_ty
 			 , use_yn
@@ -59,6 +70,8 @@
 		/* Query ID : sysmng.bbs.setup.selectBbsSetup */
 		SELECT
 			  bbs_no
+			, srvc_cd
+			, bbs_cd
 			, bbs_nm
 			, bbs_ty
 			, secret_use_yn
@@ -77,7 +90,7 @@
 			, pic_eml
 			, use_yn
 		FROM BBS_SETUP bbs
-		WHERE bbs_no = #{bbsNo}
+		<include refid="listWhere"/>
 	</select>
 
 
@@ -85,6 +98,8 @@
 		/* Query ID : sysmng.bbs.setup.insertBbsSetup */
 		INSERT INTO BBS_SETUP (
 			  bbs_nm
+			, srvc_cd
+			, bbs_cd
 			, bbs_ty
 			, secret_use_yn
 			, editr_use_yn
@@ -107,6 +122,8 @@
 			, reg_dt
 		) VALUES (
 			#{bbsNm, jdbcType=VARCHAR}
+			, #{srvcCd, jdbcType=VARCHAR}
+			, #{bbsCd, jdbcType=VARCHAR}
 			, #{bbsTy, jdbcType=VARCHAR}
 			, #{secretUseYn, jdbcType=VARCHAR}
 			, #{editrUseYn, jdbcType=VARCHAR}
@@ -138,6 +155,8 @@
 		/* Query ID : sysmng.bbs.setup.updateBbsSetup */
 		UPDATE BBS_SETUP SET
 			bbs_nm = #{bbsNm, jdbcType=VARCHAR}
+			, srvc_cd = #{srvcCd, jdbcType=VARCHAR}
+			, bbs_cd = #{bbsCd, jdbcType=VARCHAR}
 			, bbs_ty = #{bbsTy, jdbcType=VARCHAR}
 			, secret_use_yn = #{secretUseYn, jdbcType=VARCHAR}
 			, editr_use_yn = #{editrUseYn, jdbcType=VARCHAR}
