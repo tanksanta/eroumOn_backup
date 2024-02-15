@@ -28,7 +28,13 @@
                                 <tr>
                                     <th scope="row"><label for="bbsNm" class="require">게시판명</label></th>
                                     <td>
-                                        <form:input path="bbsNm" class="form-control w-90" placeholder="게시판명" maxlength="100" />
+                                        <form:input path="bbsNm" class="form-control w-90" title="게시판명" placeholder="게시판명" maxlength="100" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="bbsCd" class="require">게시판코드</label></th>
+                                    <td>
+                                        <form:input path="bbsCd" class="form-control w-90" title="게시판코드" placeholder="게시판코드" maxlength="50" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -419,9 +425,11 @@
 	            	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
 	            	    rules : {
 	            	    	bbsNm	: { required : true }
+                            , bbsCd	: { required : true }
 	            	    },
 	            	    messages : {
 	            	    	bbsNm : { required : "<spring:message arguments='" + $("#bbsNm").prop("title") + "' code='errors.required'/>"}
+                            , bbsCd : { required : "<spring:message arguments='" + $("#bbsCd").prop("title") + "' code='errors.required'/>"}
 	            	    },
 	            	    submitHandler: function (frm) {
 	            	    	if(confirm('<spring:message code="action.confirm.save"/>')){

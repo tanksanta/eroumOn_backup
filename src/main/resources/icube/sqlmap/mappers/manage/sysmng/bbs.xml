@@ -71,6 +71,9 @@
 		<if test="srchBbsNo !=null and srchBbsNo != ''">
 			AND tb.bbs_no = #{srchBbsNo}
 		</if>
+		<if test="srchBbsCd !=null and srchBbsCd != ''">
+			AND tb.bbs_no in (SELECT bbs_no FROM BBS_SETUP WHERE bbs_cd = #{srchBbsCd})
+		</if>
 
 		<if test="srchCtgry != null and srchCtgry != '' ">
 			AND tb.ctgry_no = #{srchCtgry}
