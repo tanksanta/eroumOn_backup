@@ -272,7 +272,7 @@
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">치과에서 진료 </span>를 통해 지원 대상자 판정 <span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">치과에서 진료</span>를 통해 지원 대상자 판정 <span class="font-semibold">(만 65세 이상)</span></li>
 	                        <li><span class="font-semibold">완전틀니, 부분틀니 </span> <span class="text-indexKey1 font-semibold">7년에 1회 지원</span></li>
 	                    </ul>
 	                </div>
