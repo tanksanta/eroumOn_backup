@@ -1,0 +1,282 @@
+
+
+///// 공통
+
+
+
+//정렬
+.relative{position: relative;}
+
+.d-flex{
+    display: flex;
+
+    &.f-column{flex-direction: column;}
+
+}
+
+.justify-content-center{justify-content: center;}
+.align-items-center{align-items: center;}
+.align_center{display: flex;justify-content: center;align-items: center;}
+.gap08{gap: 8px;}
+
+.center{text-align: center;}
+.l_left{text-align: left;}
+.l_right{text-align: right;}
+
+
+
+//사이즈
+.w100p{width:100%;}
+
+//간격
+.h16{height: 16px;}
+.h20{height: 20px;}
+.h32{height: 32px;}
+
+
+.lh18{line-height: 18px !important;}
+
+//버튼
+.btn, .btn-large{max-height: 50px;border-radius: 8px;}
+
+.btn-large{height: 52px;font-weight: 600;font-size: 16px;}
+.btn_primary{background: $--Color-bg-Primitive-primary;}
+.btn_cancel{background: $--Color-bg-Primitive-secondary;
+    color: $--Color-text-Primitive-secondary;
+    
+    
+}
+
+.btn_kakao{background-color: #FEE500;color: $--Color-text-primary;}
+.btn_naver{background-color: #03C75A;}
+.btn_disable{background-color: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary; font-weight: 600;}
+
+
+.btn-large img.icon_img{width:24px;height:24px;margin-right: 8px;}
+
+//체크박스
+[type="checkbox"].filled-in:checked + span:not(.lever):after{
+    background-color: $--Color-bg-Primitive-primary;
+    border: 1px solid  $--Color-bg-Primitive-primary;
+    border-radius: 4px;
+}
+
+[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after{
+
+    border: 1px solid $--Color-border-Primitive-secondary;
+    border-radius: 4px;
+
+}
+
+[type="checkbox"] + span:not(.lever){height:auto;padding-left: 28px;color:#000;}
+
+
+//체크박스_박스형식
+.label_chk_area{
+    display: flex;align-items: center;height: 48px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 12px;
+
+
+    &.line_pre{
+        border: 2px solid $--Color-border-Primitive-secondary;
+    }
+}
+
+
+//폰트
+//_reset.scss 참조
+
+//Color/text
+.color_t_p{color: $--Color-text-primary;}
+.color_t_s{color: $--Color-text-secondary;}
+.color_t_t{color: $--Color-text-teritiary;}
+.color_t_bs{color: $--Color-text-brand-sub;}
+.color_t_i{color: $--Color-text-info;}
+.color_t_ib{color: $--Color-text-info-bold;}
+.color_t_success{color: $--Color-text-success;}
+
+//Color/text/Primitive
+.color_tp_p{color: $--Color-text-Primitive-primary;}
+.color_tp_pp{color: $--Color-text-Primitive-primary-press;}
+.color_tp_s{color: $--Color-text-Primitive-secondary;}
+.color_tp_ss{color: $--Color-text-Primitive-secondary-press;}
+.color_tp_selected{color: $--Color-text-Primitive-selected;}
+.color_tp_v{color: $--Color-text-Primitive-visited;}
+.color_tp_i{color: $--Color-text-Primitive-inverse;}
+
+//Color/bg
+.color_b_p{color: $--Color-bg-primary;}
+.color_b_s{color: $--Color-bg-secondary;}
+.color_b_t{color: $--Color-bg-teritiary;}
+.color_b_point{color: $--Color-bg-point;}
+.color_b_bsb{color: $--Color-bg-brand-sub-bold;}
+.color_b_bss{color: $--Color-bg-brand-sub-subtle;}
+.color_b_ib{color: $--Color-bg-info-bold;}
+.color_b_isb{color: $--Color-bg-info-success-bold;}
+.color_b_iss{color: $--Color-bg-info-success-subtle;}
+.color_b_idb{color: $--Color-bg-info-danger-bold;}
+.color_b_ids{color: $--Color-bg-info-danger-subtle;}
+.color_b_iib{color: $--Color-bg-info-inverse-bold;}
+.color_b_iibolder{color: $--Color-bg-info-inverse-bolder;}
+.color_b_iid{color: $--Color-bg-info-disabled;}
+
+//Color/bg/Primitive 
+.color_b_pp{color: $--Color-bg-Primitive-primary;}
+.color_b_ppp{color: $--Color-bg-Primitive-primary-press;}
+.color_b_ps{color: $--Color-bg-Primitive-secondary;}
+.color_b_psp{color: $--Color-bg-Primitive-secondary-press;}
+.color_b_pselected{color: $--Color-bg-Primitive-selected;}
+.color_b_pselected_s{color: $--Color-bg-Primitive-selected-press;}
+
+//Color/border
+.color_bd_p{color: $--Color-border-primary;}
+.color_bd_s{color: $--Color-border-secondary;}
+.color_bd_t{color: $--Color-border-teritiary;}
+.color_bd_i{color: $--Color-border-info;}
+.color_bd_is{color: $--Color-border-info-subtle;}
+.color_bd_success{color: $--Color-border-success;}
+.color_bd_success_s{color: $--Color-border-success-subtle;}
+.color_bd_danger{color: $--Color-border-danger;}
+.color_bd_danger_s{color: $--Color-border-danger-subtle;}
+.color_bd_d{color: $--Color-border-disabled;}
+
+//Color/border/Primitive
+.color_bd_pp{color: $--Color-border-Primitive-primary;}
+.color_bd_ppp{color: $--Color-border-Primitive-primary-press;}
+.color_bd_ps{color: $--Color-border-Primitive-secondary;}
+.color_bd_psp{color: $--Color-border-Primitive-secondary-press;}
+.color_bd_pi{color: $--Color-border-Primitive-inverse;}
+
+//Color/icon
+.color_i_p{color: $--Color-icon-primary;}
+.color_i_s{color: $--Color-icon-secondary;}
+.color_i_t{color: $--Color-icon-teritiary;}
+.color_i_bs{color: $--Color-icon-brand-sub;}
+.color_i_point{color: $--Color-icon-Point;}
+.color_i_i{color: $--Color-icon-info;}
+.color_i_ib{color: $--Color-icon-info-bold;}
+.color_i_isuccess{color: $--Color-icon-success;}
+
+//Color/icon/Primitive
+.color_i_pp{color: $--Color-icon-Primitive-primary;}
+.color_i_ppp{color: $--Color-icon-Primitive-primary-press;}
+.color_i_ps{color: $--Color-icon-Primitive-secondary;}
+.color_i_psp{color: $--Color-icon-Primitive-secondary-press;}
+.color_i_pt{color: $--Color-icon-Primitive-teritiary;}
+.color_i_ptp{color: $--Color-icon-Primitive-teritiary-press;}
+.color_i_pselected{color: $--Color-icon-Primitive-selected;}
+.color_i_pv{color: $--Color-icon-Primitive-visited;}
+.color_i_pi{color: $--Color-icon-Primitive-inverse;}
+
+
+.font_shx{
+    @include Suit_Heading_XL;
+}
+
+.font_shl{
+    @include Suit_Heading_LG
+}
+
+.font_shm{
+    @include Suit_Heading_MD
+}
+
+.font_shs{
+    @include Suit_Heading_SM
+}
+
+
+.font_sblb{
+    @include Suit_Body_LG_Bold
+}
+.font_sbls{
+    @include Suit_Body_LG_SemiBold
+}
+.font_sblr{
+    @include Suit_Body_LG_Regular
+}
+
+
+
+.font_sbmb{
+    @include Suit_Body_MD_Bold
+}
+.font_sbms{
+    @include Suit_Body_MD_SemiBold
+}
+.font_sbmr{
+    @include Suit_Body_MD_Regular
+}
+.font_sbmu{
+    @include Suit_Body_MD_Underline
+}
+.font_sbmst{
+    @include Suit_Body_MD_Strike-through
+}
+
+
+
+.font_sbsb{
+    @include Suit_Body_SM_Bold
+}
+.font_sbsr{
+    @include Suit_Body_SM_Regular
+}
+
+
+
+.font_scx{
+    @include Suit_Caption_XS
+}
+.font_scxst{
+    @include Suit_Caption_XS_Strike-through
+}
+
+
+
+
+
+//font-size 12~42
+@for $i from 12 to 43{
+    .fs#{$i}{font-size: #{$i} + 'px' !important;}
+}
+
+//font-weight 100~900
+@for $i from 1 to 10{
+    .fw#{$i}00{font-weight: #{$i} + '00' !important;}
+}
+
+//입력 폼
+.input_basic{
+    display: flex;
+    align-items: center;
+    border: 1px solid #E0E0E0 !important;
+    border-radius: 8px !important;
+    height: 56px !important;
+    width:100%;
+    padding: 16px 12px !important;
+
+    &.fake_select{
+        background: url('../images/04icon/chevron-down.svg') no-repeat calc(100% - 12px) center;
+    }
+
+    @include Suit_Body_MD_Regular
+
+
+}
+
+
+.input_label{
+    color: --Color-text-secondary;
+    @include Suit_Body_SM_Regular;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+::placeholder{
+    font-weight: 400;
+}
+

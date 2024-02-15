@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+  <title>F_SGN_002_회원가입05.html</title>
+
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+  <!-- materialize -->
+  <script type="text/javascript" src="../js/materialize.js"></script>
+
+  <!-- guide.js -->
+  <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+  <!-- materialize CSS -->
+  <link rel="stylesheet" href="../css/materialize.min.css" />
+
+  <!-- style.css -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+
+  <script>
+
+      $(function(){
+
+      });
+  
+    </script>
+  
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+
+    <header>
+
+    </header>
+
+
+    <main>
+      <section>
+
+        <h3 class="title">
+            휴대폰 번호를<br />입력해주세요
+        </h3>
+
+        <div class="h32"></div>
+        <form action="">
+
+            <label class="input_label">휴대폰 번호</label>
+            <input placeholder="아이디를 입력해주세요."type="tel" class="input_basic" value="010-4443-5678" >
+
+            <div class="h20"></div>
+
+            <label class="input_label">통신사</label>
+
+            <a class="input_basic fake_select modal-trigger" href="#modal_broad">SKT</a>
+
+            <div class="h20"></div>
+
+            <label class="input_label">주민등록번호</label>
+            <div class="d-flex gap08">
+              <input type="number" class="input_basic" value="890101">
+              <div class="align_center">-</div>
+              <input type="password" class="input_basic" value="1******">
+            </div>
+
+            <div class="h20"></div>
+
+            <label class="input_label">이름</label>
+            <input type="tel" class="input_basic" value="홍길동" >
+
+        </form>
+
+
+      </section>
+    </main>
+
+    <footer class="page-footer">
+
+      <div class="btn_area d-flex f-column">
+
+        <div class="relative">
+          <a class="waves-effect btn-large btn_primary w100p modal-trigger" href="#modal_memConsent">본인인증하기</a>
+        </div>
+      </div>
+
+
+    </footer>
+
+
+
+  <!-- Modal modal_broad -->
+  <div id="modal_broad" class="modal bottom-sheet">
+
+    <div class="modal_header">
+      <h4 class="modal_title">통신사를 선택해주세요</h4>
+      <div class="close_x modal-close waves-effect"></div>
+    </div>
+
+    <div class="modal-content">
+
+
+      <ul class="broad_area">
+        <li class="active">SKT</li>
+        <li>KT</li>
+        <li>LG U+</li>
+        <li>SKT 알뜰폰</li>
+        <li>KT 알뜰폰</li>
+        <li>LG U+ 알뜰폰</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- Modal modal_broad -->
+  <div id="modal_memConsent" class="modal bottom-sheet">
+
+    <div class="modal_header">
+      <h4 class="modal_title">인증을 위해 동의가 필요해요</h4>
+      <div class="close_x modal-close waves-effect"></div>
+    </div>
+
+    <div class="modal-content">
+
+      <label class="label_chk_area line_pre waves-effect">
+        <input id="chk01" type="checkbox" class="filled-in"/>
+        <span class="font_sbms lh18">전체 동의하기</span>
+      </label>
+
+    </div> 
+
+  </div>
+
+
+
+
+  </div>
+  <!-- wrapper -->
+
+
+</body>
+
+</html>
