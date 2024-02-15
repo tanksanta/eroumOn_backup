@@ -16,7 +16,6 @@ import lombok.ToString;
 public class BbsSetupVO extends CommonBaseVO {
 
 	private int bbsNo;
-	private String bbsCd;
 	private String bbsNm;
 	private String bbsTy = "1";
 	private String secretUseYn = "N";
