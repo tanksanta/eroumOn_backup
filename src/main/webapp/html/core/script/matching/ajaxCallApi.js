@@ -23,7 +23,7 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
 			successCallback(result);
 		}else{
 			if (result.msg) {
-				alert(result.msg);
+				showAlertPopup(result.msg);
 			}
 		}
 	})
@@ -66,6 +66,6 @@ function hiddenProgressLoadingBar() {
 
 
 $(function() {
-	createProgressLoadingBar();
-	hiddenProgressLoadingBar();
+	//createProgressLoadingBar();
+	//hiddenProgressLoadingBar();
 });
