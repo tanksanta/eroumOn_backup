@@ -27,10 +27,6 @@
 			else if (jsonData.actionName && jsonData.actionName === 'location') {
 				setCookie('location', jsonData.location.lat + 'AND' + jsonData.location.lot, 1);
 			}
-			//앱 접근 권한 허용페이지로 이동 
-			else if (jsonData.actionName === 'requestPermissions') {
-				location.href = '/matching/appAccessSetting';
-			}
 			//앱 접근 권한 정보 가져와서 저장
 			else if (jsonData.actionName === 'getPermissionsInfo') {
 				callPostAjaxIfFailOnlyMsg(
@@ -44,7 +40,6 @@
 			//App 로그인 토큰 정보 Cookie에 저장
 			else if (jsonData.actionName && jsonData.actionName === 'saveAppMatToken') {
 				setCookie('appMatToken', jsonData.appMatToken, 365);
-				location.reload();
 			}
 			//이벤트 받고 데이터 alert		
 			else {
