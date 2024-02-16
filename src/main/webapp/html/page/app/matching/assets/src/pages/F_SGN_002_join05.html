@@ -28,12 +28,13 @@
 
   <script>
 
-      $(function(){
+    //주석 풀면 modal창 열린상태로 로드
+    $(function () {
+      $('.modal').modal('open');
+    });
 
-      });
-  
-    </script>
-  
+  </script>
+
 
 
 </head>
@@ -51,34 +52,39 @@
       <section>
 
         <h3 class="title">
-            휴대폰 번호를<br />입력해주세요
+          휴대폰 번호를<br />입력해주세요
         </h3>
 
         <div class="h32"></div>
         <form action="">
 
-            <label class="input_label">휴대폰 번호</label>
-            <input placeholder="아이디를 입력해주세요."type="tel" class="input_basic" value="010-4443-5678" >
+          <label class="input_label">이름</label>
+          <input type="tel" class="input_basic" value="홍길동">
 
-            <div class="h20"></div>
+          <div class="h20"></div>
 
-            <label class="input_label">통신사</label>
 
-            <a class="input_basic fake_select modal-trigger" href="#modal_broad">SKT</a>
+          <label class="input_label">주민등록번호</label>
+          <div class="d-flex gap08">
+            <input type="number" class="input_basic" value="890101">
+            <div class="align_center">-</div>
+            <input type="password" class="input_basic" value="1******">
+          </div>
 
-            <div class="h20"></div>
+          <div class="h20"></div>
 
-            <label class="input_label">주민등록번호</label>
-            <div class="d-flex gap08">
-              <input type="number" class="input_basic" value="890101">
-              <div class="align_center">-</div>
-              <input type="password" class="input_basic" value="1******">
-            </div>
+          <label class="input_label">통신사</label>
+          <a class="input_basic fake_select modal-trigger broad_evt" href="#modal_broad">SKT</a>
 
-            <div class="h20"></div>
+          <div class="h20"></div>
 
-            <label class="input_label">이름</label>
-            <input type="tel" class="input_basic" value="홍길동" >
+          <label class="input_label">휴대폰 번호</label>
+          <input placeholder="아이디를 입력해주세요." type="tel" class="input_basic" value="010-4443-5678">
+
+
+
+
+
 
         </form>
 
@@ -100,51 +106,158 @@
 
 
 
-  <!-- Modal modal_broad -->
-  <div id="modal_broad" class="modal bottom-sheet">
+    <!-- Modal modal_broad -->
+    <div id="modal_broad" class="modal bottom-sheet">
 
-    <div class="modal_header">
-      <h4 class="modal_title">통신사를 선택해주세요</h4>
-      <div class="close_x modal-close waves-effect"></div>
+      <div class="modal_header">
+        <h4 class="modal_title">통신사를 선택해주세요</h4>
+        <div class="close_x modal-close waves-effect"></div>
+      </div>
+
+      <div class="modal-content">
+
+
+        <ul class="broad_area">
+          <li class="modal-close active">SKT</li>
+          <li class="modal-close">KT</li>
+          <li class="modal-close">LG U+</li>
+          <li class="modal-close">SKT 알뜰폰</li>
+          <li class="modal-close">KT 알뜰폰</li>
+          <li class="modal-close">LG U+ 알뜰폰</li>
+        </ul>
+
+      </div>
+
     </div>
 
-    <div class="modal-content">
 
 
-      <ul class="broad_area">
-        <li class="active">SKT</li>
-        <li>KT</li>
-        <li>LG U+</li>
-        <li>SKT 알뜰폰</li>
-        <li>KT 알뜰폰</li>
-        <li>LG U+ 알뜰폰</li>
-      </ul>
+    <!-- Modal modal_broad -->
+    <div id="modal_memConsent" class="modal bottom-sheet">
+
+      <div class="modal_header">
+        <h4 class="modal_title">인증을 위해 동의가 필요해요</h4>
+        <div class="close_x modal-close waves-effect"></div>
+      </div>
+
+      <div class="modal-content">
+
+        <input type="checkbox" name="" id="chk_join_t" class="chk02 large border_gray total_evt">
+        <label for="chk_join_t" class="fw600">전체 동의하기</label>
+
+        <div class="h12"></div>
+
+        <div class="scrollBox">
+
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect fullPop_evt"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j01" class="chk01_2 large total_evt_sub">
+              <label for="chk_j01">[필수] 개인정보이용동의</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j02" class="chk01_2 large total_evt_sub">
+              <label for="chk_j02">[필수] 고유식별정보처리동의</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j03" class="chk01_2 large total_evt_sub">
+              <label for="chk_j03">[필수] 서비스이용약관동의</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j04" class="chk01_2 large total_evt_sub">
+              <label for="chk_j04">[필수] 통신사이용약관동의</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j05" class="chk01_2 large total_evt_sub">
+              <label for="chk_j05">[필수] 이로움ON 이용약관</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j06" class="chk01_2 large total_evt_sub">
+              <label for="chk_j06">[필수] 이로움ON 개인정보처리방침</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j07" class="chk01_2 large total_evt_sub">
+              <label for="chk_j07">[필수] 만 14세 이상입니다</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j08" class="chk01_2 large total_evt_sub">
+              <label for="chk_j08">[선택] 이벤트 및 마케팅 정보 수신 동의</label>
+            </div>
+          </div>
+          <div class="group_chk_area">
+            <span class="icon_btn i_right waves-effect"></span>
+            <div>
+              <input type="checkbox" name="" id="chk_j09" class="chk01_2 large total_evt_sub">
+              <label for="chk_j09">[선택] 야간 혜택 수신 동의</label>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- scrollBox -->
+
+
+
+
+
+      </div>
+      <!-- modal-content -->
+      <div class="modal-footer">
+        <div class="btn_area d-flex">
+          <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+        </div>
+      </div>
 
     </div>
-
-  </div>
-
+    <!-- modal_broad -->
 
 
-  <!-- Modal modal_broad -->
-  <div id="modal_memConsent" class="modal bottom-sheet">
 
-    <div class="modal_header">
-      <h4 class="modal_title">인증을 위해 동의가 필요해요</h4>
-      <div class="close_x modal-close waves-effect"></div>
+
+    <!-- Modal fullsreen -->
+    <div id="modal_fullsreen" class="modal">
+
+      <div class="modal_header">
+        <h4 class="modal_title">통신사를 선택해주세요</h4>
+        <div class="close_x modal-close waves-effect"></div>
+      </div>
+
+      <div class="modal-content">
+
+
+        <ul class="broad_area">
+          <li class="modal-close active">SKT</li>
+          <li class="modal-close">KT</li>
+          <li class="modal-close">LG U+</li>
+          <li class="modal-close">SKT 알뜰폰</li>
+          <li class="modal-close">KT 알뜰폰</li>
+          <li class="modal-close">LG U+ 알뜰폰</li>
+        </ul>
+
+      </div>
+
     </div>
-
-    <div class="modal-content">
-
-      <label class="label_chk_area line_pre waves-effect">
-        <input id="chk01" type="checkbox" class="filled-in"/>
-        <span class="font_sbms lh18">전체 동의하기</span>
-      </label>
-
-    </div> 
-
-  </div>
-
 
 
 

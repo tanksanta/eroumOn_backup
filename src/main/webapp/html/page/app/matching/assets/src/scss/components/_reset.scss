@@ -11,6 +11,10 @@ $--Color-text-brand-sub: #10185C;
 $--Color-text-info: #1477F8;
 $--Color-text-info-bold: #1477F8;
 $--Color-text-success: #43A047;
+$--Color-text-success-bold: #166534;
+$--Color-text-danger: #E53935;
+$--Color-text-danger-bold: #C62828;
+$--Color-text-disabled: #BDBDBD;
 
 
 
@@ -184,7 +188,7 @@ $--Color-icon-Primitive-inverse: #fff;
 @mixin Suit_Body_MD_Regular{
     font-size: 16px;
     font-weight: 400;
-    line-height: 21px;
+    line-height: 24px;
     letter-spacing: -0.21px;
 }
 
@@ -314,8 +318,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat{margin: 0;}
+
+
 .row{margin: 0;}
 .row .col{padding: 0;}
 
 
 a{color: inherit;}
+
+label{color: inherit;}
