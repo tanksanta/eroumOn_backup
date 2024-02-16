@@ -1,60 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main class="mainContainer">
+	<div class="wrapper">
+	
 		<!-- 상단 뒤로가기 버튼 추가 -->
 		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
 			<jsp:param value="둘러보기" name="addButton" />
 		</jsp:include>
-		
 	
-		<h2>
-			소중한 부모님과
-			나를 위한 공간
-		</h2>
-		
-		<h2>
-			시니어 정보 플랫폼 <strong>‘이로움ON’</strong>
-		</h2>
-		
-		<div>
-			<dl class="member-social">
-                <dd>
-                    <a href="/matching/kakao/auth" class="btn btn-kakao w-full">
-                    	<span>카카오로 계속하기</span>
-                    </a>
-                    <a href="/matching/naver/login" class="btn w-full">
-                    	<span>다른 방법으로 계속하기</span>
-                    </a>
-                    <a href="/matching/membership/regist" class="btn w-full">
-                    	<span>회원가입</span>
-                    </a>
-                    <br>
-                    <br>
-                    <a class="btn w-full" onclick="sendDataToMobileApp({ actionName: 'test' });">
-                    	<span>앱에 요청</span>
-                    </a>
-                    <a href="Intent://home?type=test
-#Intent;
-	scheme=myapp;
-	action=android.intent.action.VIEW;
-	category=android.intent.category.BROWSABLE;
-	package=kr.co.eroum;
-end;" class="btn w-full">
-                    	<span>딥링크 테스트</span>
-                    </a>
-                    <a href="Intent://home?type=test2
-#Intent;
-	scheme=myapp;
-	action=android.intent.action.VIEW;
-	category=android.intent.category.BROWSABLE;
-	package=kr.co.eroum;
-end;" class="btn w-full">
-                    	<span>딥링크 테스트2</span>
-                    </a>
-                </dd>
-            </dl>
-		</div>
-	</main>
+		<main>
+	      <section class="intro">
+	
+	        <h2 class="title">
+	          소중한 부모님과<br />
+	          나를 위한 공간
+	        </h2>
+	
+	        <div class="txt">
+	          <span>시니어 정보 플랫폼</span>
+	          <span class="fw600">'이로움ON'</span>
+	        </div>
+	
+	
+	
+	      </section>
+	    </main>
+	    
+	    <footer class="page-footer">
+
+	      <div class="btn_area d-flex f-column">
+	        <div class="relative">
+	          <!-- <span class="tool_tip">최근로그인</span> -->
+	          <a href="/matching/kakao/auth" class="waves-effect btn-large btn_kakao w100p d-flex" style="align-items: center;justify-content: center;">
+	            <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/icon_kakao.svg">
+	            <span><span class="fw700">카카오</span><span class="fw400">로 계속하기</span></span>
+	          </a>
+	        </div>
+	
+	
+	        <div class="relative">
+	          <a href="/matching/naver/login" class="waves-effect btn-large btn_disable w100p">다른 방법으로 계속하기</a>
+	        </div>
+	      </div>
+	
+	
+	    </footer>
+	    
+	</div>
+	<!-- wrapper -->
 	
 	
 	<script>
