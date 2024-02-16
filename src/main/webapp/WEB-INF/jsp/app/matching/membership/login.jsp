@@ -1,27 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<main class="mainContainer">
+	<div class="wrapper">
+	
 		<!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
-		
-		<h2>이로움ON 로그인</h2>
-		
-		<div>
-			아이디<br>
-			<input type="text" class="form-control" id="mbrId">
-			<br>
-			비밀번호<br>
-			<input type="password" class="form-control" id="mbrPw">
-			<br>
-			<a href="#">아이디 찾기</a>
-			<a href="#">비밀번호 찾기</a>
-			
-			
-			<br>
-			<br>
-			<button class="btn btn-primary" type="button" onclick="clickLoginBtn();">로그인하기</button>
-		</div>
-	</main>
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
+			<jsp:param value="둘러보기" name="addButton" />
+		</jsp:include>
+	
+		<main>
+	      <section class="intro">
+
+	        <h3 class="title">
+	            이로움ON 로그인
+	        </h3>
+	
+	        <div class="h32"></div>
+	        <form action="">
+	
+	            <label for="mbrId" class="input_label">아이디</label>
+	            <input id="mbrId" type="text" placeholder="아이디를 입력해주세요." class="input_basic" >
+	
+	            <div class="h20"></div>
+	
+	            <label for="mbrPw" class="input_label">비밀번호</label>
+	            <input id="mbrPw" type="password" placeholder="비밀번호를 입력해주세요." class="input_basic" >
+	
+	            <div class="h20"></div>
+	
+	            <label>
+	                <input id="chk01" type="checkbox" class="filled-in" />
+	                <span class="font_sbsr">자동 로그인</span>
+	            </label>
+	
+	            
+	
+	        </form>
+	
+	
+	
+	      </section>
+	    </main>
+	    
+	    <footer class="page-footer">
+
+	      <div class="btn_area d-flex f-column">
+
+	        <div class="relative">
+	          <a class="waves-effect btn-large btn_primary w100p" onclick="clickLoginBtn();">로그인하기</a>
+	        </div>
+	      </div>
+	
+	
+	    </footer>
+	    
+	</div>
+	<!-- wrapper -->
 	
 	
 	<script src="/html/core/vendor/rsa/RSA.min.js" /></script>
