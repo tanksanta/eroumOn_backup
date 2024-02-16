@@ -43,3 +43,10 @@ $(function(){
 
 
 });
+
+//maxlength 넘버제한 처리
+function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }

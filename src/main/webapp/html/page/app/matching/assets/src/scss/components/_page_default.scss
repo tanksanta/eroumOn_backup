@@ -78,7 +78,12 @@ section{
 
 .modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
 .modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
-.modal .modal-content{position: relative; padding: 0 20px;overflow-y: auto;height:calc(100% - 24px)}
+.modal .modal-content{position: relative;
+    padding: 0 20px 32px;
+    overflow: hidden;
+    height: 100%;}
+.modal.bottom-sheet .modal-content{padding: 0 20px;}
+
 
 .modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
     @include Suit_Body_LG_Bold
@@ -89,19 +94,58 @@ section{
     .modal {
         width:90%;
     }
+    .modal.fullscreen {
+        width:100%;
+    }
+
 }
 
 .modal .modal-footer{height: auto;text-align: center;padding: 0 20px 20px;background:#fff;position: relative;
 
     &::before{z-index:1000;content: '';display: block;position: absolute;top:-20px;left:0; width:100%;width:100%;height:20px;
         background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 60%);
-    
     }
 
     & .d-flex{
         gap:16px 8px;
     }
 }
+
+//modal 풀스크린
+.modal.fullscreen{
+
+    top:0 !important;
+    border-radius: 0;
+    height: 100%;
+    max-height: 100%;
+
+
+    .modal_header{
+        height: 56px;
+        padding: 0 0 0 20px;
+
+        .close_x{
+            width:48px;height:48px;
+        }
+
+    }
+    
+    .modal-content{
+        height:calc(100% - 56px - 72px); //modal_header, modal_footer 높이값 제외
+        overflow-y: auto;
+    }
+
+    .modal-footer{
+        //del
+    }
+
+}
+
+
+
+//스크롤박스처리
+.scrollBox{height: 200px;overflow-y: auto;}
+
 
 //통신사 선택
 .broad_area li{padding: 12px 8px;color:$--Color-text-Primitive-secondary;
@@ -159,4 +203,23 @@ section{
 
     }
 
+}
+
+
+//인증번호 시간
+.cert_time{
+    color: $--Color-text-danger;
+    @include Suit_Body_SM_Regular;
+
+}
+
+
+//패스워드 입력창
+.input_password input{
+    width:20px !important;text-align: center;
+    }
+
+.input_password .img_password{
+    width:60px;height:42px;
+    background: url('../images/18icon/icon_dot.svg') repeat-x left center;background-size: 10px;
 }

@@ -31,7 +31,11 @@
 //사이즈
 .w100p{width:100%;}
 
+.w20{width:20px !important;}
+
+
 //간격
+.h08{height: 8px;}
 .h12{height: 12px;}
 .h16{height: 16px;}
 .h20{height: 20px;}
@@ -41,9 +45,9 @@
 .lh18{line-height: 18px !important;}
 
 //버튼
-.btn, .btn-large{max-height: 50px;border-radius: 8px;}
+.btn{max-height: 34px;border-radius: 8px;font-weight: 600; font-size: 14px;}
 
-.btn-large{height: 52px;font-weight: 600;font-size: 16px;}
+.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;border-radius: 8px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;
     color: $--Color-text-Primitive-secondary;
@@ -52,7 +56,7 @@
 }
 
 .btn_kakao{background-color: #FEE500;color: $--Color-text-primary;}
-.btn_naver{background-color: #03C75A;}
+.btn_naver{background-color: #03C75A;} 
 .btn_disable{background-color: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary; font-weight: 600;}
 
 
@@ -188,6 +192,8 @@
 .label_chk_area [type="checkbox"] + span:not(.lever){
     background: deepskyblue;display: block;width:100%;
 }
+
+
 
 
 
@@ -332,6 +338,9 @@
 .font_sbsb{
     @include Suit_Body_SM_Bold
 }
+.font_sbss{
+    @include Suit_Body_SM_SemiBold
+}
 .font_sbsr{
     @include Suit_Body_SM_Regular
 }
@@ -386,6 +395,23 @@
     margin-bottom: 8px;
 }
 
+//인증번호 입력폼 스타일
+.bder_primary{
+    border-radius: 6px !important;
+    border: 2px solid $--Color-border-Primitive-primary !important;
+}
+input.bder_primary:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
+
+.bder_danger{
+    border-radius: 6px !important;
+    border: 2px solid $--Color-border-danger !important;
+    color: $--Color-text-danger;
+
+
+}
+input.bder_danger:focus{border: 2px solid $--Color-border-danger !important;}
+
+
 
 ::placeholder{
     font-weight: 400;
@@ -403,6 +429,3 @@
 }
 .i_right{background-image: url(../images/18icon/chevron-right_thin.svg);}
 
-
-//스크롤박스처리
-.scrollBox{height: 200px;overflow-y: auto;}

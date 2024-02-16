@@ -292,7 +292,6 @@ button, input, optgroup, select, textarea{font-family: 'SUIT-Regular'}
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
 
-    border:none;
     transition: none;
     box-sizing: border-box;
     margin: 0;
@@ -313,9 +312,26 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border: 1px solid #E0E0E0;
-  box-shadow: none;
+    border: 1px solid #E0E0E0;
+    box-shadow: none;
+    transition: 0.3s all;
 }
+
+//input 포커싱
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=time]:focus,
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=tel]:focus,
+input[type=number]:focus,
+input[type=search]:focus{border: 1px solid #999999 !important; }
+
+
+//입력폼 no처리
+input.input_noClass, input.input_noClass:focus{border:none !important;}
 
 
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat{margin: 0;}
