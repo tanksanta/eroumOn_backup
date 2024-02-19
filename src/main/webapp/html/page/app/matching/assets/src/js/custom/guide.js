@@ -2,10 +2,9 @@
 $(function(){
 
     //modal
-    $('.modal').modal({
+    $('.modal:not(.static.alert):not(.static.confirm)').modal({
         endingTop:'20%'
     });
-
 
     //
     $('.broad_area li').click(function(){

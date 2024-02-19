@@ -223,3 +223,22 @@ section{
     width:60px;height:42px;
     background: url('../images/18icon/icon_dot.svg') repeat-x left center;background-size: 10px;
 }
+
+
+/////온보딩
+//swiper 스와이프
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+    margin: 0 2px !important;
+}
+.swiper-pagination-bullet{width:6px !important;height:6px !important; background: rgba(#999 ,0.3) !important;opacity: 1 !important;}
+.swiper-pagination-bullet-active{background: #999 !important;}
+
+
+.swiper_onboard{
+    width:100%;
+
+    .swiper-slide{
+        padding: 0 20px;
+    }
+    
+}
