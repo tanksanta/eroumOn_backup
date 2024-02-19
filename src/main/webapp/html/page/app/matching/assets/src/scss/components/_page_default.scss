@@ -242,3 +242,25 @@ section{
     }
     
 }
+
+
+
+/////앱 접근권한
+
+//아이콘
+.img_list{
+    border-radius: 8px;
+    background-color: $--Color-bg-teritiary;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 24px;
+
+}
+.i04_alaram_fill{background-image: url('../images/04icon/alaram_fill.svg')}
+
+
+

@@ -245,13 +245,19 @@
 
 
 
-
+      <script>
+        //토스트
+        M.toast({
+          html: '본인 인증이 완료되었어요',
+          //outDuration: 375
+        })
+      </script>
 
       </div>
       <!-- modal-content -->
       <div class="modal-footer">
         <div class="btn_area d-flex">
-          <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+          <a class="modal-close waves-effect btn btn-large w100p btn_primary" onclick="M.toast({html: '본인 인증이 완료되었어요'})">확인</a>
         </div>
       </div>
 
