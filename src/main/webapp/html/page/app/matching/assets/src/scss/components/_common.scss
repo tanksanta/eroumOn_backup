@@ -55,14 +55,27 @@
 .btn_cancel{background: $--Color-bg-Primitive-secondary;
     color: $--Color-text-Primitive-secondary;
     
-    
 }
 
 .btn_kakao{background-color: #FEE500;color: $--Color-text-primary;}
 .btn_naver{background-color: #03C75A;} 
 .btn_disable{background-color: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary; font-weight: 600;}
 
+.btn_primary_light{background: $--Color-bg-Primitive-selected;
+    color: $--Color-text-primary;
+    @include Suit_Body_MD_SemiBold;
 
+}
+
+.btn_white{
+    background: #fff;
+    color: $--Color-text-primary;
+    @include Suit_Body_MD_SemiBold;
+
+}
+
+
+// 버튼안에 아이콘 카카오,네이버 등
 .btn-large img.icon_img{width:24px;height:24px;margin-right: 8px;}
 
 //체크박스
