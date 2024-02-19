@@ -6,7 +6,7 @@ $(function(){
         endingTop:'20%'
     });
 
-    //
+    //통신사 선택시 텍스트변경 및 리스트 선택
     $('.broad_area li').click(function(){
 
         var thisTxt = $(this).text();
