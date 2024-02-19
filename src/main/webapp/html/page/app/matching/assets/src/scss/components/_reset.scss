@@ -298,6 +298,7 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 
 }
 
+.btn, .btn-large, .btn-small, .btn-flat{text-transform: none;}
 
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -367,6 +368,7 @@ label{color: inherit;}
     font-weight: 400;
     color: #fff;
     justify-content: center;
+    opacity: 0.8;
 
 }
 

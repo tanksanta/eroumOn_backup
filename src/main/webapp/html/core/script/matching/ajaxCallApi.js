@@ -33,6 +33,38 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
 }
 
 
+function callPostMove(uri, data, searched_data){
+	let f = document.createElement('form');
+    
+	let obj;
+
+	if (data != undefined){
+		for (var key in data){
+			obj = document.createElement('input');
+			obj.setAttribute('type', 'hidden');
+			obj.setAttribute('name', key);
+			obj.setAttribute('value', data[key]);
+			
+			f.appendChild(obj);
+		} 
+	}
+	if (searched_data != undefined){
+		obj = document.createElement('input');
+		obj.setAttribute('type', 'hidden');
+		obj.setAttribute('name', "searched_data");
+		obj.setAttribute('value', JSON.stringify(searched_data));
+
+		f.appendChild(obj);
+	}
+
+	f.setAttribute('method', 'post');
+	f.setAttribute('action', uri);
+	
+	document.body.appendChild(f);
+
+	f.submit();
+}
+
 // 로딩바 만들기
 var bodyTagInMatching;
 var LoadingDivInMatching
@@ -54,14 +86,14 @@ function createProgressLoadingBar() {
 
 // 로딩바 보이기
 function viewProgressLoadingBar() {
-	LoadingDivInMatching.removeClass('off');
-	bodyTagInMatching.addClass('overlay-wait1');
+	// LoadingDivInMatching.removeClass('off');
+	// bodyTagInMatching.addClass('overlay-wait1');
 }
 
 // 로딩바 숨기기
 function hiddenProgressLoadingBar() {
-	LoadingDivInMatching.addClass('off');
-	bodyTagInMatching.removeClass('overlay-wait1');
+	// LoadingDivInMatching.addClass('off');
+	// bodyTagInMatching.removeClass('overlay-wait1');
 }
 
 
