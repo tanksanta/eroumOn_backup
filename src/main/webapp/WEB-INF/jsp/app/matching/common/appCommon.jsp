@@ -6,7 +6,7 @@
 	function showAlertPopup(msg) {
 		if (popAlert == undefined) popAlert = new JsMvpPopupAlerts(window, '.modal.static.alert');
 
-		popAlert.fn_show_popup({message_txt: msg});
+		return popAlert.fn_show_popup({message_txt: msg});
 	}
 
 	/*

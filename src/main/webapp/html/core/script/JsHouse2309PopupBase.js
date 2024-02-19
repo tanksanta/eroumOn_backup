@@ -186,16 +186,26 @@ class JsHouse2309PopupAlert extends JsHouse2309PopupBase{
         $(this._cls_info.pageModalfix + ' .modal-content').html((txt == undefined)?"":txt);
     }
 
-    fn_show_popup(param){
+    async fn_show_popup(param){
         this.fn_txt_title(param.title_txt);
         this.fn_txt_message(param.message_txt);
 
         this.fn_txt_btn_primary(param.confirm_txt);
-        
 
         this._cls_info.ctlModal.open();
-    }
 
+        return this.fn_async();
+    }
+    async fn_async(){
+        var owner = this;
+        return new Promise((resolve) => {
+            $(owner._cls_info.pageModalfix + ' .btn.btn_primary').off('click').on('click', function(){
+                owner.fn_close_popup();
+                resolve('confirm');
+            });
+            
+          })
+    }
 }
 
 /*
