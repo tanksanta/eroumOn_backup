@@ -28,4 +28,10 @@ public class MbrAgreementVO {
 	private Date thirdPartiesDt;
 	private Date regDt;
 	private Date mdfcnDt;
+	private String marketingReceptionYn;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date marketingReceptionDt;
+	private String nightReceptionYn;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date nightReceptionDt;
 }

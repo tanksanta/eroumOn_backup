@@ -2,19 +2,27 @@
 
 // 성공 콜백만 인자로 받고 실패시 메세지만 alert 해주는 함수
 var doubleClickCheck = false;
-function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
+function callPostAjaxIfFailOnlyMsg(url, param, successCallback, ajaxOption) {
 	viewProgressLoadingBar();
 	if (doubleClickCheck) {
 		return;
 	}
 	doubleClickCheck = true;
 
-	$.ajax({
+	var option = {
 		type : "post",
 		url  : url,
 		data : param,
-		dataType : 'json'
-	})
+		dataType : 'json',
+	};
+	if (ajaxOption) {
+		option = {
+			...option,
+			...ajaxOption
+		}
+	}
+
+	$.ajax(option)
 	.done(function(result) {
 		doubleClickCheck = false;
 		hiddenProgressLoadingBar();

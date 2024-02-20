@@ -878,8 +878,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 			return resultMap;
 		}
 		
-		
 		MbrVO srchMbrVO = mbrList.get(0);
+		if (srchMbrVO == null) {
+			return resultMap;
+		}
 		resultMap.put("srchMbrVO", srchMbrVO);
 		
 		//탈퇴는 나올수가 없다
