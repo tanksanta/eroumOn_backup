@@ -4,9 +4,13 @@
      <nav class="top">
        <a class="btn_back waves-effect" href="javascript:history.back();">
          <span class="icon"></span>
+         <c:if test="${param != null && !empty param.addTitle}">
+          <span class="txt">${param.addTitle}</span>
+         </c:if>
+         
        </a>
-       <c:if test="${!empty param.addButton}">
-         <a class="waves-effect top_txt" href="#">둘러보기</a>
+       <c:if test="${param != null && !empty param.addButton}">
+         <a class="waves-effect top_txt" href="#">${param.addButton}</a>
        </c:if>
      </nav>
    </header>

@@ -2,6 +2,7 @@ package icube.app.matching.membership.info;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -26,6 +27,8 @@ import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
+import icube.manage.sysmng.terms.TermsService;
+import icube.manage.sysmng.terms.TermsVO;
 
 /**
  * 회원정보 수정
@@ -43,6 +46,9 @@ public class MatMbrInfoController extends CommonAbstractController{
 	@Resource(name = "bootpayApiService")
 	private BootpayApiService bootpayApiService;
 	
+	@Resource(name = "termsService")
+	private TermsService termsService;
+	
 	@Autowired
 	private MatMbrSession matMbrSession;
 	
@@ -53,8 +59,17 @@ public class MatMbrInfoController extends CommonAbstractController{
 	@RequestMapping(value = "identityVerification")
 	public String identityVerification(
 			@RequestParam String type //본인인증 후 해야할 작업타입
-			, Model model) {
+			, Model model) throws Exception {
+		//이용약관 history List
+		List<TermsVO> termsHisList = termsService.selectListMemberVO("TERMS");
+		
+		//개인정보 history List
+		List<TermsVO> privacyHisList = termsService.selectListMemberVO("PRIVACY");
+		
 		model.addAttribute("type", type);
+		model.addAttribute("termsHisList", termsHisList);
+		model.addAttribute("privacyHisList", privacyHisList);
+		
 		return "/app/matching/membership/info/identityVerification";
 	}
 	

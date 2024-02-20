@@ -11,11 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.manage.mbr.mbr.biz.MbrAgreementVO;
 import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
@@ -50,7 +52,8 @@ public class MatRegistController extends CommonAbstractController {
 	@ResponseBody
 	@RequestMapping(value="regist.json")
 	public Map<String, Object> regist(
-			HttpServletRequest request
+			@RequestBody MbrAgreementVO mbrAgreementVO
+			, HttpServletRequest request
 			, HttpSession session) throws Exception {
 		
 		Map <String, Object> resultMap = new HashMap<String, Object>();
@@ -114,7 +117,12 @@ public class MatRegistController extends CommonAbstractController {
 		
 		
 		//회원가입 후 부가정보 등록
-		mbrService.workAfterMbrRegist(tempMbrVO, null);
+		Date now = new Date();
+		mbrAgreementVO.setTermsDt(now);
+		mbrAgreementVO.setPrivacyDt(now);
+		mbrAgreementVO.setMarketingReceptionDt(now);
+		mbrAgreementVO.setNightReceptionDt(now);
+		mbrService.workAfterMbrRegist(tempMbrVO, mbrAgreementVO);
 		
 
 		// 최근 접속 일시 업데이트

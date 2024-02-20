@@ -24,34 +24,58 @@
 .l_right{text-align: right;}
 
 
+.disNone{display: none !important;}
+
+
 
 //사이즈
 .w100p{width:100%;}
 
+.w20{width:20px !important;}
+
+
 //간격
+.h08{height: 8px;}
+.h12{height: 12px;}
 .h16{height: 16px;}
 .h20{height: 20px;}
 .h32{height: 32px;}
+.h40{height: 40px;}
 
+.noPad{padding: 0 !important;}
+.pad020{padding: 0 20px !important;}
 
 .lh18{line-height: 18px !important;}
 
 //버튼
-.btn, .btn-large{max-height: 50px;border-radius: 8px;}
+.btn{max-height: 34px;border-radius: 8px;font-weight: 600; font-size: 14px;}
 
-.btn-large{height: 52px;font-weight: 600;font-size: 16px;}
+.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;border-radius: 8px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;
     color: $--Color-text-Primitive-secondary;
     
-    
 }
 
 .btn_kakao{background-color: #FEE500;color: $--Color-text-primary;}
-.btn_naver{background-color: #03C75A;}
+.btn_naver{background-color: #03C75A;} 
 .btn_disable{background-color: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary; font-weight: 600;}
 
+.btn_primary_light{background: $--Color-bg-Primitive-selected;
+    color: $--Color-text-primary;
+    @include Suit_Body_MD_SemiBold;
 
+}
+
+.btn_white{
+    background: #fff;
+    color: $--Color-text-primary;
+    @include Suit_Body_MD_SemiBold;
+
+}
+
+
+// 버튼안에 아이콘 카카오,네이버 등
 .btn-large img.icon_img{width:24px;height:24px;margin-right: 8px;}
 
 //체크박스
@@ -71,18 +95,122 @@
 [type="checkbox"] + span:not(.lever){height:auto;padding-left: 28px;color:#000;}
 
 
+// 체크박스 커스텀
+.chk01_1+label{
+    @include Suit_Body_SM_Regular;
+
+    display: block; padding-left: 32px;
+    
+    background-image: url(../images/18icon/chk01_default.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 24px;
+    transition: 0.3s all;
+
+
+}
+.chk01_1:checked+label{background-image: url(../images/18icon/chk01_active01.svg);}
+
+
+.chk01_2+label{
+    @include Suit_Body_SM_Regular;
+
+    display: block; padding-left: 32px;
+    
+    background-image: url(../images/18icon/chk01_default.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 24px;
+    transition: 0.3s all;
+
+
+}
+.chk01_2:checked+label{background-image: url(../images/18icon/chk01_active02.svg);}
+
+
+
+
+.chk02+label{
+    @include Suit_Body_SM_Regular;
+
+    display: block; padding-left: 28px;
+    
+    background-image: url(../images/18icon/chk02_default.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 20px;
+    transition: 0.3s all;
+
+
+}
+.chk02:checked+label{background-image: url(../images/18icon/chk02_active.svg);}
+.chk02:disabled+label{background-image: url(../images/18icon/chk02_disa_empty.svg);}
+.chk02:checked:disabled+label{background-image: url(../images/18icon/chk02_disa.svg);}
+
+
+
+.chk03+label{
+    @include Suit_Body_SM_Regular;
+
+    display: block; padding-left: 28px;
+    
+    background-image: url(../images/18icon/chk03_default.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 20px;
+    transition: 0.3s all;
+
+}
+.chk03:checked+label{background-image: url(../images/18icon/chk03_active.svg);}
+.chk03:disabled+label{background-image: url(../images/18icon/chk03_disa_empty.svg);}
+.chk03:checked:disabled+label{background-image: url(../images/18icon/chk03_disa.svg);}
+
+//체크/라디오박스 박스형
+[class^='chk'].large+label{
+    @include Suit_Body_MD_Regular;
+
+    min-height: 48px;
+    padding: 12px 8px 12px 40px;
+    background-color: #FFF;
+    border:2px solid #fff;
+    background-position: 12px center;
+    
+    border-radius: 8px;
+    
+}
+[class^='chk'].large:checked+label{border:2px solid $--Color-bg-Primitive-selected;background-color: $--Color-bg-Primitive-selected;}
+
+[class^='chk'].large.border+label{border: 2px solid $--Color-border-Primitive-primary-press;}
+
+//border_gray
+[class^='chk'].large.border_gray+label{border: 2px solid $--Color-border-Primitive-secondary;}
+[class^='chk'].large.border_gray:checked+label{border: 2px solid $--Color-border-Primitive-primary-press;}
+
+
+//비활성
+[class^='chk'].large:disabled+label{
+    border: 2px solid #e0e0e0;
+    background-color: $--Color-bg-info-disabled;
+}
+
+
 //체크박스_박스형식
 .label_chk_area{
-    display: flex;align-items: center;height: 48px;
-    border: 2px solid #fff;
-    border-radius: 8px;
-    padding: 12px;
+    // display: flex;align-items: center;height: 48px;
+    // border: 2px solid #fff;
+    // border-radius: 8px;
+    // padding: 12px;
 
 
-    &.line_pre{
-        border: 2px solid $--Color-border-Primitive-secondary;
-    }
+
 }
+
+.label_chk_area [type="checkbox"] + span:not(.lever){
+    background: deepskyblue;display: block;width:100%;
+}
+
+
+
 
 
 //폰트
@@ -96,6 +224,11 @@
 .color_t_i{color: $--Color-text-info;}
 .color_t_ib{color: $--Color-text-info-bold;}
 .color_t_success{color: $--Color-text-success;}
+.color_t_success_b{color: $--Color-text-success-bold;}
+.color_t_danger{color: $--Color-text-danger;}
+.color_t_danger_b{color: $--Color-text-danger-bold;}
+.color_t_d{color: $--Color-text-disabled;}
+
 
 //Color/text/Primitive
 .color_tp_p{color: $--Color-text-Primitive-primary;}
@@ -221,6 +354,9 @@
 .font_sbsb{
     @include Suit_Body_SM_Bold
 }
+.font_sbss{
+    @include Suit_Body_SM_SemiBold
+}
 .font_sbsr{
     @include Suit_Body_SM_Regular
 }
@@ -275,8 +411,37 @@
     margin-bottom: 8px;
 }
 
+//인증번호 입력폼 스타일
+.bder_primary{
+    border-radius: 6px !important;
+    border: 2px solid $--Color-border-Primitive-primary !important;
+}
+input.bder_primary:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
+
+.bder_danger{
+    border-radius: 6px !important;
+    border: 2px solid $--Color-border-danger !important;
+    color: $--Color-text-danger;
+
+
+}
+input.bder_danger:focus{border: 2px solid $--Color-border-danger !important;}
+
+
 
 ::placeholder{
     font-weight: 400;
 }
+
+
+//아이콘이미지
+.icon_btn{
+    display: inline-block;
+    width:24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    
+}
+.i_right{background-image: url(../images/18icon/chevron-right_thin.svg);}
 

@@ -3,11 +3,11 @@
 <jsp:include page="/WEB-INF/jsp/app/matching/common/appCommon.jsp" />
 
 <script>
-$(function() {
+$(async function() {
 	var appMsg = '${appMsg}';
 	var appLocation = '${appLocation}';
 	if (appMsg) {
-		showAlertPopup(appMsg);
+		await showAlertPopup(appMsg);
 		
 		if (!appLocation) {
 			history.back();

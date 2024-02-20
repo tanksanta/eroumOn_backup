@@ -11,6 +11,10 @@ $--Color-text-brand-sub: #10185C;
 $--Color-text-info: #1477F8;
 $--Color-text-info-bold: #1477F8;
 $--Color-text-success: #43A047;
+$--Color-text-success-bold: #166534;
+$--Color-text-danger: #E53935;
+$--Color-text-danger-bold: #C62828;
+$--Color-text-disabled: #BDBDBD;
 
 
 
@@ -184,7 +188,7 @@ $--Color-icon-Primitive-inverse: #fff;
 @mixin Suit_Body_MD_Regular{
     font-size: 16px;
     font-weight: 400;
-    line-height: 21px;
+    line-height: 24px;
     letter-spacing: -0.21px;
 }
 
@@ -288,13 +292,13 @@ button, input, optgroup, select, textarea{font-family: 'SUIT-Regular'}
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
 
-    border:none;
     transition: none;
     box-sizing: border-box;
     margin: 0;
 
 }
 
+.btn, .btn-large, .btn-small, .btn-flat{text-transform: none;}
 
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -309,9 +313,29 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border: 1px solid #E0E0E0;
-  box-shadow: none;
+    border: 1px solid #E0E0E0;
+    box-shadow: none;
+    transition: 0.3s all;
 }
+
+//input 포커싱
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=time]:focus,
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=tel]:focus,
+input[type=number]:focus,
+input[type=search]:focus{border: 1px solid #999999 !important; }
+
+
+//입력폼 no처리
+input.input_noClass, input.input_noClass:focus{border:none !important;}
+
+
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat{margin: 0;}
 
 
 .row{margin: 0;}
@@ -319,3 +343,32 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 
 a{color: inherit;}
+
+label{color: inherit;}
+
+
+//토스트
+#toast-container{bottom:10px;}
+
+.toast {
+    border-radius: 8px;
+    top: 35px;
+    left: 10%;
+
+    width: auto;
+    margin-top: 10px;
+    position: relative;
+    max-width: 80%;
+    height: auto;
+    min-height: 48px;
+    line-height: 24px;
+    background-color: #323232;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    justify-content: center;
+    opacity: 0.8;
+
+}
+

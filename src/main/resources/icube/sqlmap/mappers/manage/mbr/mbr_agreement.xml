@@ -37,16 +37,20 @@
 
 	<insert id="insertMbrAgreement" parameterType="mbrAgreementVO">
 		INSERT INTO MBR_AGREEMENT(
-			MBR_UNIQUE_ID
-			, TERMS_YN
-			, TERMS_DT
-			, PRIVACY_YN
-			, PRIVACY_DT
-			, PROVISION_YN
-			, PROVISION_DT
-			, THIRD_PARTIES_YN
-			, THIRD_PARTIES_DT
-			, REG_DT
+			mbr_unique_id
+			, terms_yn
+			, terms_dt
+			, privacy_yn
+			, privacy_dt
+			, provision_yn
+			, provision_dt
+			, third_parties_yn
+			, third_parties_dt
+			, reg_dt
+			, marketing_reception_yn
+			, marketing_reception_dt
+			, night_reception_yn
+			, night_reception_dt
 		)VALUES(
 			#{mbrUniqueId}
 			, #{termsYn}
@@ -58,6 +62,10 @@
 			, #{thirdPartiesYn}
 			, #{thirdPartiesDt}
 			, SYSDATE()
+			, #{marketingReceptionYn}
+			, #{marketingReceptionDt}
+			, #{nightReceptionYn}
+			, #{nightReceptionDt}
 		)
 	</insert>
 </mapper>
