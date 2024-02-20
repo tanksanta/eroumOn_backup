@@ -23,10 +23,18 @@
 			if (jsonData.actionName && jsonData.actionName === 'redirect') {
 				location.href = jsonData.url;
 			}
-			//App Location 정보 Cookie에 저장
-			else if (jsonData.actionName && jsonData.actionName === 'location') {
-				setCookie('location', jsonData.location.lat + 'AND' + jsonData.location.lot, 1);
+			//뒤로가기 버튼 이벤트 호출
+			else if (jsonData.actionName && jsonData.actionName === 'backBtnEvent') {
+				if (backBtnEvent) {
+					backBtnEvent();
+				} else {
+					history.back();
+				}
 			}
+			//App Location 정보 Cookie에 저장 (위치 기능 임시 사용 중단)
+			//else if (jsonData.actionName && jsonData.actionName === 'location') {
+			//	setCookie('location', jsonData.location.lat + 'AND' + jsonData.location.lot, 1);
+			//}
 			//앱 접근 권한 정보 가져와서 저장
 			else if (jsonData.actionName === 'getPermissionsInfo') {
 				callPostAjaxIfFailOnlyMsg(

@@ -84,8 +84,14 @@
 				function(result) {
 					showToastMsg('계정이 연결되었어요', function() {
 						location.replace('/matching');
-					});					
+					});
 				}
 			);
 		}
+		
+		$(function() {
+			backBtnEvent = function() {
+				location.href = "/matching/kakao/login";
+			}
+		});
 	</script>
