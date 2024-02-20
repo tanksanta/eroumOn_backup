@@ -1,58 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<div class="wrapper">
+	    <!-- 상단 뒤로가기 버튼 추가 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
+			<jsp:param value="" name="addButton" />
+		</jsp:include>
 
-
-    <title>F_SNR_002_eld_regi02.html</title>
-
-
-    <!-- jquery -->
-    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
-
-    <!-- materialize -->
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
-
-    <!-- guide.js -->
-    <script type="text/javascript" src="../js/custom/guide.js"></script>
-
-    <!-- materialize CSS -->
-    <link rel="stylesheet" href="../css/materialize.min.css" />
-
-    <!-- style.css -->
-    <link rel="stylesheet" href="../css/style.css" />
-
-    <script>
-
-        $(function () {
-
-
-        });
-
-    </script>
-
-
-
-</head>
-
-<body>
-    <div class="wrapper">
-
-
-        <header>
-            <nav class="top">
-                <a class="btn_back waves-effect" href="#">
-                    <span class="icon"></span>
-                    <!-- <span class="txt">상담 신청 완료</span> -->
-                </a>
-
-
-            </nav>
-        </header>
-
+		<!--http://local-on.eroum.co.kr/html/page/app/matching/assets/src/pages/F_SNR_002_eld_regi02.html-->
 
         <main>
             <section class="intro">
@@ -129,21 +83,24 @@
         <footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p btnEvt_me">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p btnEvt_me" onclick="fn_next_click()">다음</a>
             </div>
 
         </footer>
 
+	</div>
+	<!-- wrapper -->
+	
+	
+	<script>
+		function fn_next_click(){
+            var jobj = $(".item.active");
+            if (jobj == undefined || jobj.length < 1){
+                showAlertPopup("관계를 선택하여 주십시오");
+                return;
+            }
+			var url = './name';
 
-
-
-
-
-    </div>
-    <!-- wrapper -->
-
-
-
-</body>
-
-</html>
+			location.href = url;
+		}
+	</script>
