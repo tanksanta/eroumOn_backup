@@ -16,6 +16,11 @@ section{
 
     }
 
+    &.bottom_0{
+        margin-bottom: 0;
+        
+    }
+
     h2.title{ 
     
         color: $--Color-text-primary;
@@ -283,9 +288,165 @@ section{
 
 }
 
-
-
+// 현재 안씀
 .i04_alaram_fill{background-image: url('../images/04icon/alaram_fill.svg')}
 
 
+
+/////어르신 등록
+.eld_reg_woman{max-height: 60vh;}
+
+
+//트리
+.family_tree_area{
+    display: flex;
+    flex-direction: column;
+
+    .tree{
+        display: flex;
+        margin-top: 14px;
+    }
+    .tree:first-child{margin: 0;}
+
+    .txt{
+        display: block;
+        color: $--Color-text-secondary;
+        @include Suit_Caption_XS;
+    }
+
+
+        //가족
+        [class^='dept'] {
+            position: relative;
+            display: grid;
+            width:100%;
+            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+
+            &::after{display: block;content: '';position: absolute; width:50%;height:1px;background: #EEE;z-index: -1;top:30px};
+
+            & > .item{
+                display: flex;justify-content: center; align-items: end; width:100%;height:82px;background-position: center top;background-repeat: no-repeat;background-size: 60px;
+                transition: 0.3s all;
+            }
+
+
+        }
+
+        //형제자매, 자녀 트리
+        .dept2{
+
+            & > .item {background-size: 100px;}
+
+            &::after{background: transparent;}
+            
+        
+        }
+
+
+}
+
+.item.grandpa{background-image: url('../images/05family_tree/type_grandpa_off.svg');}
+.item.grandpa.active{background-image: url('../images/05family_tree/type_grandpa_on.svg');}
+
+.item.grandma{background-image: url('../images/05family_tree/type_grandma_off.svg');}
+.item.grandma.active{background-image: url('../images/05family_tree/type_grandma_on.svg');}
+
+.item.father{background-image: url('../images/05family_tree/type_fatehr_off.svg');}
+.item.father.active{background-image: url('../images/05family_tree/type_fatehr_on.svg');}
+
+.item.mother{background-image: url('../images/05family_tree/type_mother_off.svg');}
+.item.mother.active{background-image: url('../images/05family_tree/type_mother_on.svg');}
+
+.item.p_father{background-image: url('../images/05family_tree/type_partner_father_off.svg');}
+.item.p_father.active{background-image: url('../images/05family_tree/type_partner_father_on.svg');}
+
+.item.p_mother{background-image: url('../images/05family_tree/type_partner_mother_off.svg');}
+.item.p_mother.active{background-image: url('../images/05family_tree/type_partner_mother_on.svg');}
+
+.item.me{background-image: url('../images/05family_tree/type_me_off.svg');}
+.item.me.active{background-image: url('../images/05family_tree/type_me_on.svg');}
+
+.item.partner{background-image: url('../images/05family_tree/type_partner_off.svg');}
+.item.partner.active{background-image: url('../images/05family_tree/type_partner_on.svg');}
+
+.item.brother{background-image: url('../images/05family_tree/type_brother_off.svg');}
+.item.brother.active{background-image: url('../images/05family_tree/type_brother_on.svg');}
+
+.item.child{background-image: url('../images/05family_tree/type_child_off.svg');}
+.item.child.active{background-image: url('../images/05family_tree/type_child_on.svg');}
+
+
+
+
+.family_sel{
+    display: flex;
+    align-items: center;
+    gap:16px;
+
+    .item{display: flex;justify-content: center; align-items: end; width:60px;height:82px;background-position: center top;background-repeat: no-repeat;background-size: 60px;
+        transition: 0.3s all;}
+
+    .txt{
+        display: block;
+        color: $--Color-text-secondary;
+        @include Suit_Caption_XS;
+    }
+
+
+}
+
+
+//Breadcrumbs
+.breadCb{
+
+    > span{
+        color: $--Color-text-disabled;
+        @include Suit_Body_MD_SemiBold;
+
+        position: relative;
+        padding: 14px 16px;
+
+        &.active{
+
+            color: $--Color-text-Primitive-primary;
+
+        }
+
+        &.selected{
+
+            color: $--Color-text-Primitive-secondary;
+
+        }
+
+
+        + span:nth-child(n+1){
+
+            padding: 14px 16px 14px 32px;
+
+            background: url('../images/04icon/chevron-right_thin_disable.svg') no-repeat left center;
+            background-size: 16px;
+
+        }
+    
+    }
+
+}
+
+//지역선택 chip
+.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;}
+.chip_area > * {
+    width:100%;height: 48px;padding: 12px 20px;border-radius: 8px;
+    border:1px solid $--Color-border-Primitive-secondary;
+    background-color: #fff;
+    text-align: center;
+
+    &.active{
+        border: 1px solid $--Color-border-Primitive-primary-press;
+        background-color: $--Color-bg-Primitive-selected;
+        color: $--Color-text-Primitive-selected;
+    }
+
+}
 

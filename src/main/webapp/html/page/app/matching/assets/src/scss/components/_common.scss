@@ -12,6 +12,8 @@
 
     &.f-column{flex-direction: column;}
 
+    & .fg1{flex-grow: 1;}
+
 }
 
 .justify-content-center{justify-content: center;}
@@ -29,7 +31,8 @@
 
 
 //사이즈
-.w100p{width:100%;}
+.w100p{width:100% !important;}
+.w50p{width:50% !important;}
 
 .w20{width:20px !important;}
 
@@ -39,27 +42,30 @@
 .h12{height: 12px;}
 .h16{height: 16px;}
 .h20{height: 20px;}
+.h24{height: 24px;}
 .h32{height: 32px;}
 .h40{height: 40px;}
 
 .noPad{padding: 0 !important;}
 .pad020{padding: 0 20px !important;}
 
+.padR20{padding-right: 20px !important;}
+
 .lh18{line-height: 18px !important;}
 
 //버튼
 .btn{max-height: 34px;border-radius: 8px;font-weight: 600; font-size: 14px;}
 
-.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;border-radius: 8px;}
+.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;border-radius: 8px;padding: 0 16px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
-.btn_cancel{background: $--Color-bg-Primitive-secondary;
-    color: $--Color-text-Primitive-secondary;
-    
-}
+.btn_cancel{background: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary;}
+
+.btn_disable{background-color: $--Color-bg-disabled;color: $--Color-text-disabled; font-weight: 600;pointer-events:none;}
+
+
 
 .btn_kakao{background-color: #FEE500;color: $--Color-text-primary;}
 .btn_naver{background-color: #03C75A;} 
-.btn_disable{background-color: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary; font-weight: 600;}
 
 .btn_primary_light{background: $--Color-bg-Primitive-selected;
     color: $--Color-text-primary;
@@ -77,6 +83,42 @@
 
 // 버튼안에 아이콘 카카오,네이버 등
 .btn-large img.icon_img{width:24px;height:24px;margin-right: 8px;}
+
+
+//링크텍스트
+.link_text{display: inline-block; 
+    padding-right: 20px;
+    background-image: url('../images/04icon/chevron-right_thin.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_MD_SemiBold;
+
+    //메인컬러
+    &.color_primary, &.color_tp_p{
+        background-image: url('../images/04icon/chevron-right_thin_primary.svg');
+    }
+
+    //비활성
+    &.color_disable, &.color_t_d{
+        background-image: url('../images/04icon/chevron-right_thin_primary.svg');
+    }
+
+    //작은사이즈
+    &.small{
+        padding-right: 16px;
+        background-size: 16px;
+        @include Suit_Body_SM_SemiBold;
+    
+    }
+
+
+}
+
+
+
+
 
 //체크박스
 [type="checkbox"].filled-in:checked + span:not(.lever):after{
@@ -167,20 +209,20 @@
 
 //체크/라디오박스 박스형
 [class^='chk'].large+label{
-    @include Suit_Body_MD_Regular;
+    @include Suit_Body_SM_Regular;
 
     min-height: 48px;
     padding: 12px 8px 12px 40px;
     background-color: #FFF;
     border:2px solid #fff;
-    background-position: 12px center;
+    background-position: 12px 11px;
     
-    border-radius: 8px;
+    border-radius: 8px; 
     
 }
 [class^='chk'].large:checked+label{border:2px solid $--Color-bg-Primitive-selected;background-color: $--Color-bg-Primitive-selected;}
 
-[class^='chk'].large.border+label{border: 2px solid $--Color-border-Primitive-primary-press;}
+[class^='chk'].large.border+label{border: 2px solid $--Color-border-Primitive-primary-press; }
 
 //border_gray
 [class^='chk'].large.border_gray+label{border: 2px solid $--Color-border-Primitive-secondary;}
@@ -190,24 +232,9 @@
 //비활성
 [class^='chk'].large:disabled+label{
     border: 2px solid #e0e0e0;
-    background-color: $--Color-bg-info-disabled;
+    background-color: $--Color-bg-disabled,;
 }
 
-
-//체크박스_박스형식
-.label_chk_area{
-    // display: flex;align-items: center;height: 48px;
-    // border: 2px solid #fff;
-    // border-radius: 8px;
-    // padding: 12px;
-
-
-
-}
-
-.label_chk_area [type="checkbox"] + span:not(.lever){
-    background: deepskyblue;display: block;width:100%;
-}
 
 
 
@@ -215,6 +242,9 @@
 
 //폰트
 //_reset.scss 참조
+.color_primary{color: $--Color-text-Primitive-primary;} // = color_tp_p
+.color_disable{color: $--Color-text-disabled;} // = color_t_d
+.c_757575{color: #757575 !important;}
 
 //Color/text
 .color_t_p{color: $--Color-text-primary;}
@@ -245,15 +275,20 @@
 .color_b_t{color: $--Color-bg-teritiary;}
 .color_b_point{color: $--Color-bg-point;}
 .color_b_bsb{color: $--Color-bg-brand-sub-bold;}
+
 .color_b_bss{color: $--Color-bg-brand-sub-subtle;}
 .color_b_ib{color: $--Color-bg-info-bold;}
-.color_b_isb{color: $--Color-bg-info-success-bold;}
-.color_b_iss{color: $--Color-bg-info-success-subtle;}
-.color_b_idb{color: $--Color-bg-info-danger-bold;}
-.color_b_ids{color: $--Color-bg-info-danger-subtle;}
-.color_b_iib{color: $--Color-bg-info-inverse-bold;}
-.color_b_iibolder{color: $--Color-bg-info-inverse-bolder;}
-.color_b_iid{color: $--Color-bg-info-disabled;}
+.color_b_iss{color: $--Color-bg-info-subtle;}
+.color_b_sb{color: $--Color-bg-success-bold;}
+.color_b_db{color: $--Color-bg-danger-bold;}
+
+.color_b_ds{color: $--Color-bg-danger-subtle;}
+.color_b_ib{color: $--Color-bg-inverse-bold;}
+.color_b_ibolder{color: $--Color-bg-inverse-bolder;}
+.color_b_d{color: $--Color-bg-disabled;}
+
+
+
 
 //Color/bg/Primitive 
 .color_b_pp{color: $--Color-bg-Primitive-primary;}
@@ -405,7 +440,7 @@
 
 
 .input_label{
-    color: --Color-text-secondary;
+    color: $--Color-text-secondary;
     @include Suit_Body_SM_Regular;
     display: block;
     margin-bottom: 8px;
@@ -433,6 +468,30 @@ input.bder_danger:focus{border: 2px solid $--Color-border-danger !important;}
     font-weight: 400;
 }
 
+
+//mark 마크
+mark.mk01{position: relative;display: inline-block;}
+mark.mk01::after{z-index: -1;position: absolute;bottom:0; content: '';display: block;background-color: $--Color-bg-point;width:100%;height:10px;}
+
+
+//table 테이블
+.table_basic tr{border: none;}
+.table_basic td,.table_basic th {
+    padding: 12px 0;
+}
+.table_basic th{
+
+    color: $--Color-text-primary;
+    @include Suit_Body_SM_Regular;
+    vertical-align: top;
+
+}
+.table_basic td{
+
+    color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_MD_SemiBold;
+
+}
 
 //아이콘이미지
 .icon_btn{

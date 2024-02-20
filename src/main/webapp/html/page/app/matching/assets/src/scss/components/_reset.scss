@@ -37,13 +37,14 @@ $--Color-bg-point:#FFECB3;
 $--Color-bg-brand-sub-bold:#10185C;
 $--Color-bg-brand-sub-subtle:#EFF1FD ;
 $--Color-bg-info-bold:#1D4ED8;
-$--Color-bg-info-success-bold:#15803D;
-$--Color-bg-info-success-subtle:#E8F5E9;
-$--Color-bg-info-danger-bold:#D32F2F;
-$--Color-bg-info-danger-subtle:#FFEBEE;
-$--Color-bg-info-inverse-bold:#333333;
-$--Color-bg-info-inverse-bolder:#1A1A1A;
-$--Color-bg-info-disabled:#EEEEEE;
+$--Color-bg-info-subtle:#EFF6FF;
+$--Color-bg-success-bold:#15803D;
+$--Color-bg-success-subtle:#E8F5E9;
+$--Color-bg-danger-bold:#D32F2F;
+$--Color-bg-danger-subtle:#FFEBEE;
+$--Color-bg-inverse-bold:#333333;
+$--Color-bg-inverse-bolder:#1A1A1A;
+$--Color-bg-disabled:#EEEEEE;
 
 
 
@@ -112,21 +113,21 @@ $--Color-icon-Primitive-inverse: #fff;
 
 //Suit/Heading
 @mixin Suit_Heading_XL{
-    font-weight: bold;
+    font-weight: 700;
     font-size: 32px;
     line-height: 42px;
     letter-spacing: -0.64px;
 }
 
 @mixin Suit_Heading_LG{
-    font-weight: bold;
+    font-weight: 700;
     font-size: 28px;
     line-height: 38px;
     letter-spacing: -0.56px;
 }
 
 @mixin Suit_Heading_MD{
-    font-weight: bold;
+    font-weight: 700;
     font-size: 24px;
     line-height: 34px;
     letter-spacing: -0.48px;
@@ -134,7 +135,7 @@ $--Color-icon-Primitive-inverse: #fff;
 }
 
 @mixin Suit_Heading_SM{
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
     line-height: 30px;
     letter-spacing: -0.4px;
@@ -147,7 +148,7 @@ $--Color-icon-Primitive-inverse: #fff;
 //Suit/Body
 //LG
 @mixin Suit_Body_LG_Bold{
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
     line-height: 27px;
     letter-spacing: -0.27px;
@@ -372,3 +373,5 @@ label{color: inherit;}
 
 }
 
+//mark 마크
+mark{background:none;color: inherit;}
