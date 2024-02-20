@@ -9,7 +9,6 @@
 	      </div>
 	
 	      <div class="modal-content">
-			<ifame>
 			
 	      </div>
 	      <!-- modal-content -->
