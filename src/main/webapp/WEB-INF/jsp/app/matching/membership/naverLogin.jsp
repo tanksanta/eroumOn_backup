@@ -4,7 +4,6 @@
 	
 		<!-- 상단 뒤로가기 버튼 추가 -->
 		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-			<jsp:param value="둘러보기" name="addButton" />
 		</jsp:include>
 	
 		<main>

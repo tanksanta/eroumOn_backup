@@ -2,9 +2,9 @@
 
 	<div class="wrapper">
 		
-	    <header>
-	
-	    </header>
+	    <!-- 상단 뒤로가기 버튼 추가 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
+		</jsp:include>
 	
 		<main>
 	      <section id="mbrInfoSection">
