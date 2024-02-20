@@ -3,8 +3,7 @@
 	<div class="wrapper">
 	
 		<!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-		</jsp:include>
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 	
 		<main>
 	      <section class="intro">

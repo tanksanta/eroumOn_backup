@@ -3,11 +3,10 @@
 	<div class="wrapper">
 		
 	    <!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-		</jsp:include>
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 	
 		<main>
-	      <section id="mbrInfoSection">
+	      <section id="mbrInfoSection" class="intro">
 	
 	        <h3 id="verificationTitle" class="title">
 	            휴대폰 번호를<br>입력해주세요
@@ -59,7 +58,7 @@
 	
 	      </section>
 	      
-	      <section id="smsCheckSection">
+	      <section id="smsCheckSection" class="intro">
 	      	  <h3 class="title">
 		      	문자로 받은<br>인증번호 6자리를 입력해주세요
 		      </h3>

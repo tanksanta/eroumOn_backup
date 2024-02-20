@@ -3,8 +3,7 @@
 	<div class="wrapper">
 	
 		<!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-		</jsp:include>
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 	
 		<main>
 	      <section class="intro">
@@ -35,7 +34,7 @@
 	          </a>
 	        </div>
 	        <div class="relative">
-	          <a href="/matching/membership/login" class="waves-effect btn-large btn_disable w100p">이로움ON회원으로 계속하기</a>
+	          <a href="/matching/membership/login" class="waves-effect btn-large btn_cancel w100p">이로움ON회원으로 계속하기</a>
 	        </div>
 	      </div>
 	

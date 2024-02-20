@@ -806,7 +806,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		String joinTy = snsUserInfo.getJoinTy();
  		String ciKey = snsUserInfo.getCiKey();
  		String prevPath = (String)session.getAttribute("prevSnsPath");
-		
+ 		if (EgovStringUtil.isEmpty(prevPath)) {
+			prevPath = "membership";
+		}
+ 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		String rootPath = "";
@@ -836,7 +839,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 		List<MbrVO> mbrList = new ArrayList<>();
 		
 		//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황으로 unique_id로 검색
-		if (mbrSession.isLoginCheck()) {
+		if ("membership".equals(prevPath) && mbrSession.isLoginCheck()) {
 			MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
 			mbrList.add(mbrVO);
 		} else {
@@ -925,7 +928,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			snsUserInfo.setUniqueId(srchMbrVO.getUniqueId());
 			
 			//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황
-			if (mbrSession.isLoginCheck()) {
+			if ("membership".equals(prevPath) && mbrSession.isLoginCheck()) {
 				//회원 인증정보 등록
 				mbrAuthService.insertMbrAuthWithMbrVO(snsUserInfo);
 				

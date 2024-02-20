@@ -33,7 +33,7 @@
 	
 	
 	        <div class="relative">
-	          <a href="/matching/naver/login" class="waves-effect btn-large btn_disable w100p">다른 방법으로 계속하기</a>
+	          <a href="/matching/naver/login" class="waves-effect btn-large btn_cancel w100p">다른 방법으로 계속하기</a>
 	        </div>
 	      </div>
 	

@@ -25,8 +25,8 @@
 	}
 	
 	function showToastMsg(msg, callback) {
-		//토스트 시간은 기본 4초(4000)로 설정
-		var toastOption = { html: msg, displayLength: 4000 };
+		//토스트 시간은 기본 3초(3000)로 설정
+		var toastOption = { html: msg, displayLength: 3000 };
 		if (callback) {
 			toastOption.completeCallback = callback;
 		}

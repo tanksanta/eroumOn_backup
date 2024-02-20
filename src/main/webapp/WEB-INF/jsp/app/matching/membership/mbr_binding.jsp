@@ -2,16 +2,8 @@
 
     <div class="wrapper">
 
-        <header>
-            <nav class="top">
-                <a class="btn_back waves-effect" href="#">
-                    <span class="icon"></span>
-                    <!-- <span class="txt">상담 신청 완료</span> -->
-                </a>
-
-
-            </nav>
-        </header>
+        <!-- 상단 뒤로가기 버튼 추가 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 
         <main>
             <section class="intro">
@@ -29,7 +21,7 @@
 
                 <div class="h08"></div>
 
-                <div class="btn-large btn_primary_light w100p d-flex align-items-center">
+                <div class="waves-effect btn-large btn_primary_light w100p d-flex align-items-center">
                 	<c:choose>
                 		<c:when test="${tempMbrVO.joinTy eq 'K'}">
                 			<img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/social_kakao_40.svg">
@@ -49,22 +41,22 @@
                 <div class="h08"></div>
 				
 				<c:if test="${ !empty kakaoAuthInfo }">
-	                <div class="btn-large btn_white w100p d-flex align-items-center">
+	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
 	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/social_kakao_40.svg">
 	                    <span>${kakaoAuthInfo.eml}</span>
 	                </div>
                 </c:if>
                 
                 <c:if test="${ !empty naverAuthInfo }">
-	                <div class="btn-large btn_white w100p d-flex align-items-center">
+	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
 	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/icon_naver02.svg">
 	                    <span>${naverAuthInfo.eml}</span>
 	                </div>
                 </c:if>
                 
                 <c:if test="${ !empty eroumAuthInfo }">
-	                <div class="btn-large btn_white w100p d-flex align-items-center">
-	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/icon_naver02.svg">
+	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
+	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/login_on_40.svg">
 	                    <span>${eroumAuthInfo.mbrId}</span>
 	                </div>
                 </c:if>
