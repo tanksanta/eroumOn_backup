@@ -292,7 +292,7 @@
                 <dl>
                     <dt class="sr-only">패밀리 사이트</dt>
                     <dd>
-                        <ul class="global-link">
+                        <ul class="global-link align_items_center">
                             <!-- li>
                                 <a href="${_membersPath}" class="link-item2" target="_blank" title="새창열림">
                                     <div class="bubble">
@@ -308,14 +308,85 @@
                                         <small>시니어 라이프 케어 플랫폼</small> <strong>"이로움ON"</strong>
                                     </div>
                             </a></li>
-                            <li>
+                            <!-- <li>
                                 <a href="#" class="link-item3" target="_blank" title="새창열림">
                                     <div class="bubble">
                                         <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
                                         <small>복지용구부터 시니어 생활용품까지 한번에!</small>
                                     </div>
                                 </a>
+                            </li> -->
+
+                            <!-- 20240220 leemw -->
+                            <li>
+                                <div class="relative">
+                                    <div class="btn_menu_dropdown">
+                                        <div class="title">패밀리 사이트 바로가기</div>
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                            <path d="M0.220355 0.229122C0.361712 0.0823892 0.553132 -4.12936e-07 0.752686 -4.04213e-07C0.95224 -3.9549e-07 1.14366 0.0823892 1.28502 0.229122L5.00783 4.10732L8.73064 0.229122C8.87322 0.0893285 9.06246 0.0128741 9.25824 0.0159656C9.45402 0.0190571 9.64095 0.101452 9.7794 0.245683C9.91785 0.389915 9.99695 0.584645 9.99991 0.788596C10.0029 0.992547 9.92949 1.18968 9.7953 1.33822L5.53966 5.77045C5.39843 5.91743 5.20696 6 5.00733 6C4.80769 6 4.61622 5.91743 4.47499 5.77045L0.220355 1.33822C0.079257 1.1911 -4.33459e-08 0.991639 -3.42554e-08 0.783672C-2.51649e-08 0.575704 0.079257 0.376244 0.220355 0.229122Z" fill="#333333"/>
+                                        </svg>
+                                    </div>
+                                    <div class="menu_dropdown">
+                                        <ul>
+                                            <li><a href="#">이로움ON</a></li>
+                                            <li><a href="#">이로움ON 마켓</a></li>
+                                            <li><a href="#">이로움CARE</a></li>
+                                            <li><a href="#">시니어톡톡</a></li>
+                                            <li><a href="#">시니어톡톡PRO</a></li>
+                                            <li><a href="#">티에이치케이컴퍼니 </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </li>
+
+                            <style>
+
+                                /* css추가 수정 - leemw */
+                                /* nav */
+                                #navigation.is-hover:before{height: 16.25rem;}
+                                #navigation.is-hover .nav-sub-items{height: 14.25rem;}
+
+                                /* nav-mobile */
+                                .menu-item3 dd{background-color: #F5F5F5;}
+
+                                /* drop-down-menu */
+                                .relative{position: relative;}
+                                .btn_menu_dropdown{margin-left: 24px; display: flex;align-items: center;gap:20px;  background-color: #EEEEEE;padding: 12px 24px;cursor: pointer;border-radius: 8px;}
+                                .btn_menu_dropdown .title{font-size: 15px;color: #333333;}
+
+                                .menu_dropdown{visibility: hidden; transform: scaleY(0.1);opacity: 0; transform-origin: bottom;
+                                    z-index: 100; position: absolute;width:100%;bottom:0px;transition: 0.3s all;
+                                    background-color: #EEEEEE;border-radius: 8px;
+                                    padding: 12px 24px;
+                                }
+
+                                .menu_dropdown.active{visibility: visible; transform: scaleY(1);opacity: 1;bottom:50px;display: block;}
+                                .menu_dropdown li a{ display: block;font-size: 15px; line-height: 30px;}
+
+                                /* common */
+                                .align_items_center{align-items: center;}
+
+                            </style>
+                            <script>
+                                
+                                ////// 추가 leemw
+                                //하단 드롭다운메뉴 토글
+                                $('.btn_menu_dropdown').on('click', function () {
+
+                                    if ($(this).hasClass('active') == true) {
+                                        $(this).removeClass('active');
+                                        $('.menu_dropdown').removeClass('active');
+                                    } else {
+                                        $(this).addClass('active');
+                                        $('.menu_dropdown').addClass('active');
+                                    }
+
+                                });
+
+                            </script>
+
+                            
                         </ul>
                     </dd>
                 </dl>

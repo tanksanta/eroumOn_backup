@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* nav */
+#navigation.is-hover:before{height: 16.25rem;}
+#navigation.is-hover .nav-sub-items{height: 14.25rem;}
+
+/* nav-mobile */
+.menu-item3 dd{background-color: #F5F5F5;}
+
+
+/* 이로움ON마켓 */
+#utility ul li a.onmarket {
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+    background-color: #EE6969;
+    background-image: url(/html/page/index/assets/images/ico-notice-menu2.svg);
+    background-position: left .75rem center;
+    background-repeat: no-repeat;
+    background-size: auto 1.25rem;
+    color: rgb(255 255 255/var(--tw-text-opacity));
+    padding-left: 2.5rem;
+    padding-right: .875rem
+}
+
+
+
+/* drop-down-menu */
+.relative{position: relative;}
+
+
+
+
+.btn_menu_dropdown{margin-left: 24px; display: flex;align-items: center;gap:20px;  background-color: #EEEEEE;padding: 12px 24px;cursor: pointer;border-radius: 8px;}
+.btn_menu_dropdown .title{font-size: 0.8125rem;color: #333333;}
+
+.menu_dropdown{visibility: hidden; transform: scaleY(0.1);opacity: 0; transform-origin: bottom;
+    z-index: 100; position: absolute;width:100%;bottom:0px;transition: 0.3s all;
+    background-color: #EEEEEE;border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.menu_dropdown.active{visibility: visible; transform: scaleY(1);opacity: 1;bottom:50px;display: block;}
+.menu_dropdown li a{ display: block;font-size: .8125rem; line-height: 30px;}
+
+@media (min-width: 768px) {
+    .btn_menu_dropdown .title{font-size: .9375rem;}
+    .menu_dropdown li a{font-size: .9375rem;}
+}
+
+
+/* common */
+.align_items_center{align-items: center;}

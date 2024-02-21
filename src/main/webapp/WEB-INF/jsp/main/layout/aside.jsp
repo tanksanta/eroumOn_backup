@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- notice -->
-<aside id="notice">
+<!-- <aside id="notice">
 	<div class="container">
 		<div class="notice-banner1">
 			<dl>
@@ -18,5 +18,5 @@
 		</div>
 		<button type="button" class="notice-close">닫기</button>
 	</div>
-</aside>
+</aside> -->
 <!-- //notice -->
