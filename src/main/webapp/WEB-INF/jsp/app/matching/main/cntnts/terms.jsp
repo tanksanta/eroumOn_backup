@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/html/page/index/assets/style/style.min.css">
 </head>
 <body>
-	${termsVO.contentHeader}
 	${termsVO.contentBody}
 </body>
 </html>

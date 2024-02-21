@@ -60,6 +60,6 @@
 			sendDataToMobileApp({ actionName: 'getRecentLgnTy' });
 			
 			//현재 페이지 history 저장 
-			pushHistoryStack(location.pathname);
+			saveCurrentPageHistory();
 		})
 	</script>

@@ -28,7 +28,7 @@
 	  	}
 	  	
 	  	$(function() {
-	  		pushHistoryStack(location.pathname);
+	  		saveCurrentPageHistory();
 	  	});
    </script>
    

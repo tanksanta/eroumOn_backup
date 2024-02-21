@@ -43,6 +43,11 @@
 			sendDataToMobileApp({actionName: 'saveToken', token: appMatToken});
 		}
 	}
+	
+	//현재 페이지 저장하는 공통 함수
+	function saveCurrentPageHistory() {
+  		pushHistoryStack(location.pathname + location.search);
+  	}
 </script>
 
 <div class="modal2-con">
