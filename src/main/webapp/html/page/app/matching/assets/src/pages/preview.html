@@ -2,57 +2,57 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
 
-  <title>Sitemap</title>
+    <title>Sitemap</title>
 
 
-  <!-- jquery -->
-  <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
 
-  <!-- materialize -->
-  <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
 
-  <!-- guide.js -->
-  <script type="text/javascript" src="../js/custom/guide.js"></script>
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
 
-  <!-- materialize CSS -->
-  <link rel="stylesheet" href="../css/materialize.css" />
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.css" />
 
-  <!-- font -->
-  <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <!-- font -->
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 
-  <!-- style.css -->
-  <link rel="stylesheet" href="../css/style.css" />
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
 
-  <script>
+    <script>
 
-    $(function () {
+        $(function () {
 
 
-        $('.addr').each(function(){
+            $('.addr').each(function () {
 
-            $(this).prop({
-				'href' : $(this).text(),
-				'target':'_blank',
-                'class' : 'color_tp_p'
-				});
+                $(this).prop({
+                    'href': $(this).text(),
+                    'target': '_blank',
+                    'class': 'color_tp_p'
+                });
+
+            });
 
         });
-      
-    });
 
-  </script>
+    </script>
 
 
 
 </head>
 
 <body>
-  <div class="wrapper">
+    <div class="wrapper">
 
         <h2>Sitemap</h2>
         <table>
@@ -70,31 +70,33 @@
             </thead>
             <tbody>
 
-            <tr>
-                <td>컴포넌트</td>
-                <td></td>
-                <td><a class="addr" href="">components.html</a></td>
-            </tr>
-            
-            <tr>
-                <td>온보딩</td>
-                <td>swiper 슬라이드 사용</td>
-                <td><a class="addr" href="">F_ONB_001_onboard01.html</a></td>
-            </tr>
-            <tr>
-                <td>앱 접근권한</td>
-                <td></td>
-                <td><a class="addr" href="">F_ACS_001_appAccess.html</a></td>
-            </tr>
+                <tr>
+                    <td>컴포넌트</td>
+                    <td></td>
+                    <td><a class="addr" href="">components.html</a></td>
+                </tr>
 
-            <tr>
-                <td rowspan="7">로그인화면</td>
-                <td>네이버 카카오 로그인</td>
-                <td><a class="addr" href="">F_SGN_001_login01.html</a></td>
-            </tr>
+                <!-- 온보딩 -->
+                <tr>
+                    <td>온보딩</td>
+                    <td>swiper 슬라이드 사용</td>
+                    <td><a class="addr" href="">F_ONB_001_onboard01.html</a></td>
+                </tr>
+                <tr>
+                    <td>앱 접근권한</td>
+                    <td></td>
+                    <td><a class="addr" href="">F_ACS_001_appAccess.html</a></td>
+                </tr>
+
+                <!-- 로그인화면 -->
+                <tr>
+                    <td rowspan="7">로그인화면</td>
+                    <td>네이버 카카오 로그인</td>
+                    <td><a class="addr" href="">F_SGN_001_login01.html</a></td>
+                </tr>
                 <tr>
                     <td></td>
-                    <td><a class="addr" href=""><s>F_SGN_001_login02.html</s></a></td>
+                    <td><a class="addr" href=""><s>F _SGN_001_login02.html</s></a></td>
                 </tr>
                 <tr>
                     <td>로그인</td>
@@ -119,49 +121,60 @@
                     <td><a class="addr" href="">F_SGN_006_noConnect.html</a></td>
                 </tr>
 
-            <tr>
-                <td rowspan="5">어르신 등록</td>
-                <td>어르신 첫단계 - 여자 일러스트</td>
-                <td><a class="addr" href="">F_SNR_002_eld_regi01.html</a></td>
-            </tr>
-            <tr>
-                <td>가족 트리</td>
-                <td><a class="addr" href="">F_SNR_002_eld_regi02.html</a></td>
-            </tr>
-            <tr>
-                <td>어르신이름</td>
-                <td><a class="addr" href="">F_SNR_002_eld_regi03.html</a></td>
-            </tr>
-            <tr>
-                <td>어르신생년월일</td>
-                <td><a class="addr" href="">F_SNR_002_eld_regi04.html</a></td>
-            </tr>
-            <tr>
-                <td>어르신등록완료</td>
-                <td><a class="addr" href="">F_SNR_002_eld_regi05_ok.html</a></td>
-            </tr>
-            
-            <tr>
-                <td rowspan="6">상담신청</td>
-                <td>상담 정보 입력</td>
-                <td><a class="addr" href="">F_CSR_001_consInfo.html</a></td>
-            </tr>
-            <tr>
-                <td>상담 지역 정보</td>
-                <td><a class="addr" href="">F_CSR_006_consRegion.html</a></td>
-            </tr>
-            
+                <!-- 어르신 등록 -->
+                <tr>
+                    <td rowspan="5">어르신 등록</td>
+                    <td>어르신 첫단계 - 여자 일러스트</td>
+                    <td><a class="addr" href="">F_SNR_002_eld_regi01.html</a></td>
+                </tr>
+                <tr>
+                    <td>가족 트리</td>
+                    <td><a class="addr" href="">F_SNR_002_eld_regi02.html</a></td>
+                </tr>
+                <tr>
+                    <td>어르신이름</td>
+                    <td><a class="addr" href="">F_SNR_002_eld_regi03.html</a></td>
+                </tr>
+                <tr>
+                    <td>어르신생년월일</td>
+                    <td><a class="addr" href="">F_SNR_002_eld_regi04.html</a></td>
+                </tr>
+                <tr>
+                    <td>어르신등록완료</td>
+                    <td><a class="addr" href="">F_SNR_002_eld_regi05_ok.html</a></td>
+                </tr>
+
+                <!-- 상담신청 -->
+                <tr>
+                    <td rowspan="2">상담신청</td>
+                    <td>상담 정보 입력</td>
+                    <td><a class="addr" href="">F_CSR_001_consInfo.html</a></td>
+                </tr>
+                <tr>
+                    <td>상담 지역 정보</td>
+                    <td><a class="addr" href="">F_CSR_006_consRegion.html</a></td>
+                </tr>
+
+                <!-- 오류 및 예외처리 화면 -->
+                <tr>
+                    <td rowspan="5">오류 및 예외처리 화면</td>
+                    <td>네트워크 오류</td>
+                    <td><a class="addr" href="">ETC_network_error.html</a></td>
+                </tr>
+
+
+                
             </tbody>
         </table>
 
-<br />
-<br />
-<br />
-<br />
-<br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
-  </div>
-  <!-- wrapper -->
+    </div>
+    <!-- wrapper -->
 
 
 

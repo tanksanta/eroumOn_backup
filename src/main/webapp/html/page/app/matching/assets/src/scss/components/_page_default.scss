@@ -450,3 +450,14 @@ section{
 
 }
 
+
+//시스템 점검
+//close_x가 modal-header안에 있어 상단올림처리
+.img_system_ins{
+    text-align: center; position: relative;top:-34px;
+
+    img{width:240px;}
+
+}
+
+.img_system_ins + .modal-content{top:-34px;}

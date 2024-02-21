@@ -35,6 +35,9 @@
 .w50p{width:50% !important;}
 
 .w20{width:20px !important;}
+.w120{width:120px !important;}
+.w150{width:150px !important;}
+
 
 
 //간격
@@ -56,7 +59,16 @@
 //버튼
 .btn{max-height: 34px;border-radius: 8px;font-weight: 600; font-size: 14px;}
 
-.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;border-radius: 8px;padding: 0 16px;}
+.btn-middle{
+    
+    height: 42px;
+    max-height: 42px;
+    padding: 0 12px;
+    @include Suit_Body_SM_SemiBold;
+    line-height: 42px;
+
+}
+.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;padding: 0 16px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary;}
 
