@@ -18,7 +18,17 @@
    
    <script>
 	  	function backBtnEvent() {
-	  		history.back();
+	  		//history.back();
+	  		
+	  		//이전 페이지로 이동
+	  		var history = popHistoryStack(-1);
+	  		if (history) {
+	  			location.href = history;
+	  		}
 	  	}
+	  	
+	  	$(function() {
+	  		pushHistoryStack(location.pathname);
+	  	});
    </script>
    

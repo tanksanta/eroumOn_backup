@@ -58,5 +58,8 @@
 		$(function() {
 			//최근로그인 가져오기 요청
 			sendDataToMobileApp({ actionName: 'getRecentLgnTy' });
+			
+			//현재 페이지 history 저장 
+			pushHistoryStack(location.pathname);
 		})
 	</script>
