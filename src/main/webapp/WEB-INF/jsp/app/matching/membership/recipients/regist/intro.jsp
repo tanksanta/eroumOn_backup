@@ -44,6 +44,12 @@
 		function fn_next_click(){
 			var url = './relation';
 
-			location.href = url;
+			var jsCommon = new JsCommon();
+
+			var redirectUrl;
+
+			redirectUrl = jsCommon.fn_redirect_url();
+			
+			location.href = url + '?redirectUrl='+ encodeURIComponent(redirectUrl);
 		}
 	</script>

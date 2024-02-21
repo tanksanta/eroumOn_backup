@@ -78,6 +78,9 @@ public class MatMbrRecipientsController extends CommonAbstractController {
         @RequestParam String relationCd
 		, @RequestParam String recipientsNm
 		, Model model) throws Exception {
+
+		model.addAttribute("relationNm", CodeMap.MBR_RELATION_CD.get(relationCd));
+		model.addAttribute("recipientsNm", recipientsNm);
 		
 		return "/app/matching/membership/recipients/regist/birth";
 	}
@@ -103,14 +106,18 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 			mbrRecipientVO.setRecipientsYn("Y");
 		}
 
+		int recipientsNo = 0;
         try {
             mbrRecipientsService.insertMbrRecipients(mbrRecipientVO);
         } catch (Exception e) {
             log.debug("매칭앱 수급자 등록 실패" + e.toString());
         }
 
-		resultMap.put("success", true);
+		recipientsNo = mbrRecipientVO.getRecipientsNo();
 
+		resultMap.put("success", true);
+		resultMap.put("recipientsNo", recipientsNo);
+		
 		return resultMap;
 	}
 }

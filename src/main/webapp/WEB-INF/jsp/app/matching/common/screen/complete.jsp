@@ -24,7 +24,7 @@
   		$('.color_t_p').html(decoded);
   		
   		setTimeout(function() {
-  			location.replace('${redirectUrl}');
+  			location.replace(decodeURI('${redirectUrl}').replaceAll("&amp;", "&"));
   		}, 3000);
   	})
   </script>

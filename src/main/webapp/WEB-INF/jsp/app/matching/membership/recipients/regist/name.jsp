@@ -67,6 +67,6 @@
             
             qsMap['recipientsNm'] = jobjInput.val();
 
-			location.href = url + '?' + jsCommon.fn_queryString_fromMap(qsMap);;
+			location.href = url + '?' + jsCommon.fn_queryString_fromMap(qsMap);
 		}
 	</script>

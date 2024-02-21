@@ -72,6 +72,9 @@
 			, #{relationCd}
 			, SYSDATE()
 		)
+		<selectKey keyProperty="recipientsNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<update id="updateMbrRecipients" parameterType="MbrRecipientsVO">

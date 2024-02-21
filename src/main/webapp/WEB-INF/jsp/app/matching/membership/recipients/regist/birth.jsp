@@ -13,10 +13,10 @@
 
                 <div class="family_sel">
                     <div class="item partner active">
-                        <span class="txt">배우자</span>
+                        <span class="txt">${relationNm}</span>
                     </div>
                     <div>
-                        <span class="color_tp_p font_shs">꽃분이</span><span class="color_t_p font_sblr">님,</span>
+                        <span class="color_tp_p font_shs">${recipientsNm}</span><span class="color_t_p font_sblr">님,</span>
                     </div>
                 </div>
 
@@ -100,7 +100,30 @@
 
         });
 
-		var m_completeUrl;
+		var m_redirectUrl;
+
+        function fn_convert_redirectUrl(){
+            var jsCommon = new JsCommon();
+            var redirectUrlAct = '', redirectUrlOrigin = jsCommon.fn_redirect_url();
+
+            while(true){
+                try{
+                    redirectUrlAct = decodeURIComponent(redirectUrlOrigin);
+                    if (redirectUrlOrigin == redirectUrlAct){
+                        break;
+                    }else{
+                        redirectUrlOrigin = redirectUrlAct;
+                    }
+                }catch{
+                    redirectUrlAct = redirectUrlOrigin;
+                    break;
+                }
+            }
+
+            redirectUrlAct = redirectUrlAct.replaceAll("&amp;", "&")
+            return redirectUrlAct;
+        }
+
 		function fn_next_click(){
 			var jobj = $("input.birth");
 			var url = "./regist.json";
@@ -108,21 +131,36 @@
 			var jsCommon = new JsCommon();
             var qsMap = jsCommon.fn_queryString_toMap();
 
-            if (qsMap["completeUrl"] == undefined || qsMap["completeUrl"].length < 1){
-                m_completeUrl = "";
-            }else{
-                m_completeUrl = qsMap["completeUrl"];
-            }
-
+            m_redirectUrl = fn_convert_redirectUrl();
             
             qsMap['brdt'] = jobj.val().replaceAll('-', '').replaceAll('/', '');
-
 			qsMap['recipientsNm'] = decodeURI(qsMap['recipientsNm']);
+
+            delete qsMap['redirectUrl'];
 
 			callPostAjaxIfFailOnlyMsg(url, qsMap, fn_next_cb)
 		}
 
 		function fn_next_cb(result){
-            location.href = "/matching/common/complete?msg=" + encodeURI("어르신이<br>등록되었어요")+"&redirectUrl="+encodeURI(m_completeUrl);
+            if (result && result.recipientsNo){
+                var jsCommon = new JsCommon();
+
+                var param;
+                var qsMap;
+                if (m_redirectUrl.indexOf("?") >= 0){
+                    param = m_redirectUrl.substring(m_redirectUrl.indexOf("?") + 1);
+
+                    m_redirectUrl = m_redirectUrl.substr(0, m_redirectUrl.indexOf("?"));
+                    qsMap = jsCommon.fn_queryString_toMap(param);
+                }else{
+                    qsMap = {};
+                }
+                
+                qsMap["recipientsNo"] = result.recipientsNo;
+                
+                m_redirectUrl += "?" + jsCommon.fn_queryString_fromMap(qsMap);
+                
+            }
+            location.href = "/matching/common/complete?msg=" + encodeURIComponent("어르신이<br>등록되었어요")+"&redirectUrl="+encodeURIComponent(m_redirectUrl);
 		}
 	</script>
