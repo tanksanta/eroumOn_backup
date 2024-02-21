@@ -66,9 +66,17 @@ public class MatMbrInfoController extends CommonAbstractController{
 		//개인정보 history List
 		List<TermsVO> privacyHisList = termsService.selectListMemberVO("PRIVACY");
 		
+		//마켓팅 정보 history List
+		List<TermsVO> marketingHisList = termsService.selectListMemberVO("MARKETING");
+		
+		//야간 혜택 정보 history List
+		List<TermsVO> nightHisList = termsService.selectListMemberVO("NIGHT");
+		
 		model.addAttribute("type", type);
 		model.addAttribute("termsHisList", termsHisList);
 		model.addAttribute("privacyHisList", privacyHisList);
+		model.addAttribute("marketingHisList", marketingHisList);
+		model.addAttribute("nightHisList", nightHisList);
 		
 		return "/app/matching/membership/info/identityVerification";
 	}

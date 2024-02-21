@@ -1225,6 +1225,8 @@ public class CodeMap{
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
 			*/
+			put("MARKETING", "마켓팅정보 수신동의");
+			put("NIGHT", "야간 혜택 수신동의");
 		}
 	};
 	

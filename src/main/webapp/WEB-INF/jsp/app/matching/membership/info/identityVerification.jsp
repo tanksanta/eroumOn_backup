@@ -197,14 +197,14 @@
 	            </div>
 	          </div>
 	          <div class="group_chk_area">
-	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
+	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('marketing')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree09" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree09">[선택] 이벤트 및 마케팅 정보 수신 동의</label>
 	            </div>
 	          </div>
 	          <div class="group_chk_area">
-	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
+	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('night')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree10" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree10">[선택] 야간 혜택 수신 동의</label>
@@ -250,6 +250,22 @@
 	   		{
 	   			'termsNo': '${privacyInfo.termsNo}',
 	   			'termsDt': '${privacyInfo.termsDt}',
+	   		},
+	   		</c:forEach>
+		];
+		var marketingHisList = [   //마켓팅 정보 버전 리스트
+			<c:forEach var="marketingInfo" items="${marketingHisList}" varStatus="status">
+	   		{
+	   			'termsNo': '${marketingInfo.termsNo}',
+	   			'termsDt': '${marketingInfo.termsDt}',
+	   		},
+	   		</c:forEach>
+		];
+		var nightHisList = [   //야간 혜택 정보 버전 리스트
+			<c:forEach var="nightInfo" items="${nightHisList}" varStatus="status">
+	   		{
+	   			'termsNo': '${nightInfo.termsNo}',
+	   			'termsDt': '${nightInfo.termsDt}',
 	   		},
 	   		</c:forEach>
 		];
@@ -585,6 +601,10 @@
 				setAgreementModalForIframe('TERMS', Number(termsHisList[0].termsNo));
 			} else if (type === 'privacy') {
 				setAgreementModalForIframe('PRIVACY', Number(privacyHisList[0].termsNo));
+			} else if (type === 'marketing') {
+				setAgreementModalForIframe('MARKETING', Number(marketingHisList[0].termsNo));
+			} else if (type === 'night') {
+				setAgreementModalForIframe('NIGHT', Number(nightHisList[0].termsNo));
 			} else {
 				setAgreementModal(type);	
 			}

@@ -78,6 +78,12 @@
 	    			case 'PRIVACY':
 	    				title = '이로움ON 개인정보이용약관';
 	    				break;
+	    			case 'MARKETING':
+	    				title = '이벤트 및 마케팅 정보 수신 동의';
+	    				break;
+	    			case 'NIGHT':
+	    				title = '야간 혜택 수신 동의';
+	    				break;
 	    		}
 	    		
 	    		$('#modal_agree_fullsreen .modal_title').text(title);
