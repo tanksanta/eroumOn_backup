@@ -1077,7 +1077,6 @@ input.bder_primary:focus {
 .bder_danger {
   border-radius: 6px !important;
   border: 2px solid #E53935 !important;
-  color: #E53935;
 }
 
 input.bder_danger:focus {
