@@ -1201,7 +1201,7 @@ nav.top .top_txt {
   padding: 0 20px 20px;
 }
 .page-footer::before {
-  z-index: 1000;
+  z-index: 102;
   content: "";
   display: block;
   position: absolute;
@@ -1268,7 +1268,7 @@ section h3.title {
 }
 
 .tool_tip {
-  z-index: 10;
+  z-index: 1000;
   right: 10px;
   bottom: 45px;
   position: absolute;

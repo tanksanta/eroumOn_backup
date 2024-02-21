@@ -46,7 +46,7 @@ section{
 }
 
 //툴팁
-.tool_tip{z-index: 10; right:10px;bottom:45px; position: absolute;display: inline-block;background-color: #fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
+.tool_tip{z-index: 1000; right:10px;bottom:45px; position: absolute;display: inline-block;background-color: #fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
             padding: 12px;border-radius: 8px;
             @include Suit_Body_SM_SemiBold;
 
