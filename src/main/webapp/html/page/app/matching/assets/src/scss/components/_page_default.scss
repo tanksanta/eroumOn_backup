@@ -435,9 +435,9 @@ section{
 }
 
 //지역선택 chip
-.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;}
+.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;padding-bottom: 20px;}
 .chip_area > * {
-    width:100%;height: 48px;padding: 12px 20px;border-radius: 8px;
+    width:100%;height: 48px;padding: 12px 8px;border-radius: 8px;
     border:1px solid $--Color-border-Primitive-secondary;
     background-color: #fff;
     text-align: center;

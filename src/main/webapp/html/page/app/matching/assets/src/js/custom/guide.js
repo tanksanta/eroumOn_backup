@@ -3,7 +3,8 @@ $(function(){
 
     //modal
     $('.modal:not(.static.alert):not(.static.confirm)').modal({
-        endingTop:'20%'
+        endingTop:'20%',
+        opacity: 0.6
     });
 
     //통신사 선택시 텍스트변경 및 리스트 선택
@@ -59,17 +60,6 @@ $(function(){
     
     });
     
-
-    //시도 지역선택 chip
-    $('.chip_area li').click(function(){
-
-        $('.chip_area li').removeClass('active');
-        $(this).addClass('active');
-
-    });
-
-
-
 
 
 });
