@@ -29,8 +29,8 @@
 
                 <div class="h32"></div>
 
-                <input type="date" class="input_basic" placeholder="1950/01/01" value="1954-06-30">
-
+                <input type="date" class="input_basic birth" placeholder="1950/01/01" value="1954-06-30">
+				<div class="vaild_txt disNone error name">다시 확인해 주세요.</div>
 
             </section>
         </main>
@@ -102,6 +102,18 @@
 
 		
 		function fn_next_click(){
-			alert("완료")
+			var jobj = $("input.birth");
+			var url = "./regist.json";
+
+			var jsCommon = new JsCommon();
+            var qsMap = jsCommon.fn_queryString_toMap();
+            
+            qsMap['brdt'] = jobj.val();
+			qsMap['recipientsNm'] = decodeURI(qsMap['recipientsNm']);
+
+			callPostAjaxIfFailOnlyMsg(url, qsMap, fn_next_cb)
+		}
+
+		function fn_next_cb(result){
 		}
 	</script>

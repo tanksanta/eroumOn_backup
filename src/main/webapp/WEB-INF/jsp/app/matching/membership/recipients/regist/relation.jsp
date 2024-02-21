@@ -83,7 +83,7 @@
         <footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p btnEvt_me" onclick="fn_next_click()">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p btnEvt_me btn_disable" onclick="fn_next_click($(this))">다음</a>
             </div>
 
         </footer>
@@ -93,14 +93,26 @@
 	
 	
 	<script>
-		function fn_next_click(){
+		function fn_next_click(jobjTarget){
+            if (jobjTarget.hasClass('btn_disable')){
+                return;
+            }
+
             var jobj = $(".item.active");
             if (jobj == undefined || jobj.length < 1){
                 showAlertPopup("관계를 선택하여 주십시오");
                 return;
             }
-			var url = './name';
+
+            var jsCommon = new JsCommon();
+            var qsMap = jsCommon.fn_queryString_toMap();
+            
+            qsMap['relationCd'] = jobj.attr('code');
+
+			var url = './name?' + jsCommon.fn_queryString_fromMap(qsMap);
 
 			location.href = url;
 		}
+
+
 	</script>

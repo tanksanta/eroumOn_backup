@@ -11,10 +11,16 @@ class JsCommon{
         for(ifor=0 ; ifor<ilen ; ifor++){
             sTemp = splited[ifor];
             saTemp = sTemp.split("=")
-            ret[saTemp[0]] = (saTemp.length > 1)?saTemp[1] : '';
+            if (saTemp[0] !=""){
+                ret[saTemp[0]] = (saTemp.length > 1)?saTemp[1] : '';
+            }
+            
         }
 
         return ret;
+    }
+    fn_queryString_fromMap(json){
+        return new URLSearchParams(json).toString();
     }
     
     fn_keycontrol(){

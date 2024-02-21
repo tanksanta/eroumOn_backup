@@ -13,7 +13,7 @@
 
                 <div class="family_sel">
                     <div class="item partner active">
-                        <span class="txt">배우자</span>
+                        <span class="txt">${relationNm}</span>
                     </div>
                     <div>
                         <!-- <span class="color_tp_p font_shs">꽃분이</span><span class="color_t_p font_sblr">님,</span> -->
@@ -29,10 +29,10 @@
 
                 <div class="h32"></div>
 
-                <input type="text" class="input_basic" value="꽃분이">
+                <input type="text" class="input_basic name" value="">
+                <div class="vaild_txt disNone error name">이름을 입력해 주세요.</div>
 
-
-            </section>
+            </section> 
         </main>
 
 		<footer class="page-footer">
@@ -50,7 +50,23 @@
 	<script>
 		function fn_next_click(){
 			var url = './birth';
+            var jobjInput = $('input[type="text"].name');
+            var jobjVali = $('div.vaild_txt.name');
 
-			location.href = url;
+            if (jobjInput.val().length < 2){
+                jobjInput.addClass("bder_danger");
+                jobjVali.removeClass("disNone");
+                return;
+            }
+
+            jobjInput.removeClass("bder_danger");
+            jobjVali.addClass("disNone");
+
+            var jsCommon = new JsCommon();
+            var qsMap = jsCommon.fn_queryString_toMap();
+            
+            qsMap['recipientsNm'] = jobjInput.val();
+
+			location.href = url + '?' + jsCommon.fn_queryString_fromMap(qsMap);;
 		}
 	</script>

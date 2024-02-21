@@ -43,6 +43,8 @@ $(function(){
     //어르신등록 - 가족관계
     $('.family_tree_area .item').click(function(){
 
+        $('.btnEvt_me').removeClass("btn_disable");
+        
         $('.family_tree_area .item').removeClass('active');
         $(this).addClass('active');
 
