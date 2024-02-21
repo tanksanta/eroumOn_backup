@@ -96,12 +96,20 @@ public class MatMbrRecipientsController extends CommonAbstractController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         mbrRecipientVO.setMbrUniqueId(matMbrSession.getUniqueId());
+        
+        if (EgovStringUtil.isEmpty(mbrRecipientVO.getRcperRcognNo())){
+			mbrRecipientVO.setRecipientsYn("N");
+		}else{
+			mbrRecipientVO.setRecipientsYn("Y");
+		}
 
         try {
             mbrRecipientsService.insertMbrRecipients(mbrRecipientVO);
         } catch (Exception e) {
             log.debug("매칭앱 수급자 등록 실패" + e.toString());
         }
+
+		resultMap.put("success", true);
 
 		return resultMap;
 	}

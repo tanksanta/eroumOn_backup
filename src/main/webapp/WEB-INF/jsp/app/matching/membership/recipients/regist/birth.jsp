@@ -100,20 +100,29 @@
 
         });
 
-		
+		var m_completeUrl;
 		function fn_next_click(){
 			var jobj = $("input.birth");
 			var url = "./regist.json";
 
 			var jsCommon = new JsCommon();
             var qsMap = jsCommon.fn_queryString_toMap();
+
+            if (qsMap["completeUrl"] == undefined || qsMap["completeUrl"].length < 1){
+                m_completeUrl = "";
+            }else{
+                m_completeUrl = qsMap["completeUrl"];
+            }
+
             
-            qsMap['brdt'] = jobj.val();
+            qsMap['brdt'] = jobj.val().replaceAll('-', '').replaceAll('/', '');
+
 			qsMap['recipientsNm'] = decodeURI(qsMap['recipientsNm']);
 
 			callPostAjaxIfFailOnlyMsg(url, qsMap, fn_next_cb)
 		}
 
 		function fn_next_cb(result){
+            location.href = "/matching/common/complete?msg=" + encodeURI("어르신이<br>등록되었어요")+"&redirectUrl="+encodeURI(m_completeUrl);
 		}
 	</script>
