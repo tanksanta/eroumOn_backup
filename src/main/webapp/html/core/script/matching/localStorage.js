@@ -1,6 +1,6 @@
 //localStorage 모듈
 function saveInLocalStorage(key, str) {
-	localStorage.setItem(key, str);
+	sessionStorage.setItem(key, str);
 }
 
 function saveInLocalStorageForObj(key, obj) {
@@ -8,7 +8,7 @@ function saveInLocalStorageForObj(key, obj) {
 }
 
 function getInLocalStorage(key) {
-	return localStorage.getItem(key);
+	return sessionStorage.getItem(key);
 }
 
 function getInLocalStorageForObj(key) {
@@ -21,6 +21,7 @@ function getInLocalStorageForObj(key) {
 }
 
 var historyKey = 'historyStack';
+var historyStackSize = 100;
 function getHistoryStack() {
 	var historyStack = getInLocalStorageForObj(historyKey);
 	if (historyStack) {
@@ -59,5 +60,12 @@ function pushHistoryStack(history) {
 		historyStack = [];
 	}
 	historyStack.push(history);
+	if(historyStack.length > historyStackSize) {
+		historyStack.shift();
+	}
 	setHistoryStack(historyStack);
+}
+
+function clearHistoryStack() {
+	setHistoryStack([]);
 }
