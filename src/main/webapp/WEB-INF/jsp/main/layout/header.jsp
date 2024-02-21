@@ -59,7 +59,8 @@
 			</c:choose>
 
 			<li>
-				<a href="${_mainPath}/welfare/equip/sub" class="cost">혜택 상담하기​</a>
+				<!-- <a href="${_mainPath}/welfare/equip/sub" class="cost">혜택 상담하기​</a> -->
+				<a href="https://www.eroum.co.kr/market/index" class="onmarket">이로움ON마켓</a>
 			</li>
 		</ul>
 	</div>
