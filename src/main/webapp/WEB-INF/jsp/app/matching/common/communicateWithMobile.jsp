@@ -49,6 +49,20 @@
 			else if (jsonData.actionName && jsonData.actionName === 'saveAppMatToken') {
 				setCookie('appMatToken', jsonData.appMatToken, 365);
 			}
+			//최근로그인 표시 보여주기
+			else if (jsonData.actionName && jsonData.actionName === 'getRecentLgnTy') {
+				if (!jsonData.recentLgnTy) {
+					return;
+				}
+				
+				if (jsonData.recentLgnTy === 'K' && showKakaoRecentLogin) {
+					showKakaoRecentLogin();
+				} else if (jsonData.recentLgnTy === 'N' && showNaverRecentLogin) {
+					showNaverRecentLogin();
+				} else if (jsonData.recentLgnTy === 'E' && showEroumRecentLogin) {
+					showEroumRecentLogin();
+				}
+			}
 			//이벤트 받고 데이터 alert		
 			else {
 				alert(jsonStr);

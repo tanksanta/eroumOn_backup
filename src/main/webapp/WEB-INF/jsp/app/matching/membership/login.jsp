@@ -27,8 +27,9 @@
 	
 	            <div class="h32"></div>
 
+				<!-- 
             	<a class="align_center waves-effect color_t_s font_sbsr" onclick="$('#modal_srch_fullsreen').modal('open');">아이디와 비밀번호를 잊으셨나요?</a>
-	
+				-->
 	
 	        </form>
 	
