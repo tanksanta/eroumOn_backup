@@ -49,4 +49,17 @@ public class MatMainController extends CommonAbstractController {
 		model.addAttribute("redirectUrl", redirectUrl);
 		return "/app/matching/appAccessSetting";
 	}
+	
+	/**
+	 * 등록완료 페이지 호출
+	 */
+	@RequestMapping(value = "/common/complete")
+	public String complete(
+			@RequestParam String redirectUrl,
+			@RequestParam String msg,
+			Model model) {
+		model.addAttribute("redirectUrl", redirectUrl);
+		model.addAttribute("msg", msg);
+		return "/app/matching/common/screen/complete";
+	}
 }
