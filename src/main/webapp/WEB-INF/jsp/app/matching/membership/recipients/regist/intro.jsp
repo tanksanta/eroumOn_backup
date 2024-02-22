@@ -26,7 +26,7 @@
                 <div class="h32"></div>
 
                 <div class="center">
-                    <img class="eld_reg_woman"  src="https://dev.eroum.co.kr/html/page/app/matching/assets/src/images/09people/pp_05.svg" alt="">
+                    <img class="eld_reg_woman"  src="/html/page/app/matching/assets/src/images/09people/pp_05.svg" alt="">
                 </div>
 
 

@@ -3,6 +3,7 @@ package icube.app.matching.simpletest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 
 @Controller
 @RequestMapping(value={"#{props['Globals.Matching.path']}/simpletest"})
 public class SimpleTestController  extends CommonAbstractController {
     @Autowired
 	private MatMbrSession matMbrSession;
+
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 
 	@Value("#{props['Globals.Matching.path']}")
 	private String matchingPath;
@@ -35,10 +40,8 @@ public class SimpleTestController  extends CommonAbstractController {
 		, HttpServletResponse response
 		, Model model) throws Exception {
 
-		//로그인이 안 되어 있으면 loginn으로 redirect
-		// if (!matMbrSession.isLoginCheck()) {
-		// 	return "redirect:/" + matchingPath + "/login";
-		// }
+		
+		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
 
         return "/app/matching/simpletest/simple_intro";
     }
@@ -138,6 +141,7 @@ public class SimpleTestController  extends CommonAbstractController {
 		, HttpServletResponse response
 		, Model model) throws Exception {
 
+		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
 
         return "/app/matching/simpletest/care_intro";
     }

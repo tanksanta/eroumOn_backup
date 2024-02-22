@@ -165,16 +165,16 @@ class JsHouse2309PopupAlert extends JsHouse2309PopupBase{
     
     fn_txt_btn_primary(txt){
         if (txt != undefined && txt.length > 0){
-            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').val(txt);
+            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').html(txt);
         }else{
-            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').val('확인');
+            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').html('확인');
         }
     }
     fn_txt_btn_cancel(txt){
         if (txt != undefined && txt.length > 0){
-            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').val(txt);
+            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').html(txt);
         }else{
-            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').val('취소');
+            $(this._cls_info.pageModalfix + ' .modal-footer .btn.btn_primary').html('취소');
         }
     }
 
