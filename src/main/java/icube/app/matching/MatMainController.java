@@ -62,4 +62,13 @@ public class MatMainController extends CommonAbstractController {
 		model.addAttribute("msg", msg);
 		return "/app/matching/common/screen/complete";
 	}
+	
+	/**
+	 * 시스템 점검 페이지 호출
+	 */
+	@RequestMapping(value = "/common/systemCheck")
+	public String systemCheck(
+			Model model) {
+		return "/app/matching/common/screen/systemCheck";
+	}
 }

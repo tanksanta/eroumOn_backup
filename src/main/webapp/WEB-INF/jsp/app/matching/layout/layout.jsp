@@ -29,12 +29,7 @@
 	<tiles:insertAttribute name="content"/>
 	
 	<!-- 네트워크 오류 모달 -->
-	<div id="modal_net_error" class="modal no_network">
-
-		<!-- <div class="modal_header">
-			<h4 class="modal_title">title제목</h4>
-		</div> -->
-	
+	<div id="modal_net_error" class="modal no_network">	
 		<div class="h24"></div>
 	
 		<div class="modal-content">
