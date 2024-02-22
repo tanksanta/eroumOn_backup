@@ -138,69 +138,69 @@
 	
 	        <div class="scrollBox">
 	
-	          <div class="group_chk_area">
+	          <div id="div_danal1" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal1')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree01" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree01">[필수] 개인정보이용동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal2" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal2')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree02" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree02">[필수] 고유식별정보처리동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal3" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal3')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree03" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree03">[필수] 서비스이용약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal4" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal4')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree04" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree04">[필수] 통신사이용약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal5" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal5')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree05" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree05">[필수] 제3자정보제공약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_terms" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('terms')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree06" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree06">[필수] 이로움ON 이용약관</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_privacy" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree07" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree07">[필수] 이로움ON 개인정보처리방침</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_age" class="group_chk_area">
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree08" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree08">[필수] 만 14세 이상입니다</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_marketing" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('marketing')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree09" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree09">[선택] 이벤트 및 마케팅 정보 수신 동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_night" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('night')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree10" class="chk01_2 large total_evt_sub">
@@ -267,7 +267,8 @@
 	   		</c:forEach>
 		];
 		
-		var car
+		//약관 필수체크 대상 정의용
+		var checkAgreeArr = []; 
 		
 		var receiptId = '';
 		var phase = '';  //현재 어디 입력중인지 체크용
@@ -601,21 +602,47 @@
 				return;
 			}
 			
+			
+			var carrierCode = $('.broad_area .modal-close.active').attr('code');
+			checkAgreeArr = [
+				'checkAgree01',
+				'checkAgree02',
+				'checkAgree03',
+				'checkAgree04',
+				'checkAgree06',
+				'checkAgree07',
+				'checkAgree08',
+			];
+			//알뜰폰이면 다날 제3자정보제공약관동의 추가
+			if (carrierCode === 'SKT_MVNO'
+				|| carrierCode === 'KT_MVNO'
+				|| carrierCode === 'LGT_MVNO') {
+				$('#div_danal5').removeClass('disNone');
+				checkAgreeArr.push('checkAgree05');
+			} else {
+				$('#div_danal5').addClass('disNone');
+			}
+			
 			$('#modal_memConsent').modal('open');
 		}
 		
 		//약관동의 상세보기 모달보기
 		function showAgreementDetailModal(type) {
 			if (type === 'terms') {
-				setAgreementModalForIframe('TERMS', Number(termsHisList[0].termsNo));
+				setAgreementModalForEroum('TERMS', Number(termsHisList[0].termsNo));
 			} else if (type === 'privacy') {
-				setAgreementModalForIframe('PRIVACY', Number(privacyHisList[0].termsNo));
+				setAgreementModalForEroum('PRIVACY', Number(privacyHisList[0].termsNo));
 			} else if (type === 'marketing') {
-				setAgreementModalForIframe('MARKETING', Number(marketingHisList[0].termsNo));
+				setAgreementModalForEroum('MARKETING', Number(marketingHisList[0].termsNo));
 			} else if (type === 'night') {
-				setAgreementModalForIframe('NIGHT', Number(nightHisList[0].termsNo));
-			} else {
-				setAgreementModal(type);	
+				setAgreementModalForEroum('NIGHT', Number(nightHisList[0].termsNo));
+			} else if (type === 'danal1'
+				|| type === 'danal2'
+				|| type === 'danal3'
+				|| type === 'danal4'
+				|| type === 'danal5') {
+				var carrierCode = $('.broad_area .modal-close.active').attr('code');
+				setAgreementModalForDanal(type, carrierCode);
 			}
 		}
 		
@@ -628,15 +655,10 @@
 			}
 			
 			//필수 체크
-			if (checkedIds.findIndex(f => f === 'checkAgree01') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree02') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree03') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree04') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree05') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree06') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree07') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree08') === -1) {
-				return;
+			for (var i = 0; i < checkAgreeArr.length; i++) {
+				if (checkedIds.findIndex(f => f === checkAgreeArr[i]) === -1) {
+					return;
+				}
 			}
 			
 			//사용자 입력값 저장
