@@ -28,6 +28,30 @@
 	
 	<tiles:insertAttribute name="content"/>
 	
+	<!-- 네트워크 오류 모달 -->
+	<div id="modal_net_error" class="modal no_network">
+
+		<!-- <div class="modal_header">
+			<h4 class="modal_title">title제목</h4>
+		</div> -->
+	
+		<div class="h24"></div>
+	
+		<div class="modal-content">
+	
+			<p class="color_tp_s font_sbmr">
+				네트워크가 연결되지 않았어요<br />
+				Wi-Fi 또는 데이터를 확인해주세요
+			</p>
+	
+		</div>
+		<div class="modal-footer">
+			<div class="btn_area d-flex">
+				<a class="modal-close waves-effect btn btn-large w100p btn_primary">다시 시도</a>
+			</div>
+		</div>
+	</div>
+	
 	<jsp:include page="/WEB-INF/jsp/app/matching/common/appCommon.jsp" />
 	<jsp:include page="/WEB-INF/jsp/app/matching/common/communicateWithMobile.jsp" />
 </body>
