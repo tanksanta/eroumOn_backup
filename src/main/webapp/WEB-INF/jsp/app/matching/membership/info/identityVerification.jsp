@@ -69,8 +69,8 @@
 	          	<div class="relative">
 	            
 	            	<div class="input_basic bder_primary">
-	              	<input id="inputOtp" type="text" class="input_noClass keycontrol numberonly" maxlength="6" onkeypress="return inputKeypressSms(event);">
-	              	<span id="timeTextSpan" class="cert_time">02:59</span>
+		              	<input id="inputOtp" type="text" class="input_noClass keycontrol numberonly" maxlength="6" onkeypress="return inputKeypressSms(event);">
+		              	<span id="timeTextSpan" class="cert_time">02:59</span>
 	            	</div>
 	          	</div>
 	
@@ -111,12 +111,9 @@
 	
 	
 	        <ul class="broad_area">
-	          <li class="modal-close active">SKT</li>
-	          <li class="modal-close">KT</li>
-	          <li class="modal-close">LG U+</li>
-	          <li class="modal-close">SKT 알뜰폰</li>
-	          <li class="modal-close">KT 알뜰폰</li>
-	          <li class="modal-close">LG U+ 알뜰폰</li>
+	        	<c:forEach var="carrierMap" items="${carrierCd}" varStatus="status">
+	        		<li class="modal-close <c:if test="${ status.index == 0 }">active</c:if>" code="${ carrierMap.value }">${ carrierMap.key }</li>
+		   		</c:forEach>
 	        </ul>
 	
 	      </div>
@@ -270,6 +267,8 @@
 	   		</c:forEach>
 		];
 		
+		var car
+		
 		var receiptId = '';
 		var phase = '';  //현재 어디 입력중인지 체크용
 		var verificationInfo = {};
@@ -341,8 +340,7 @@
 				verificationInfo,
 				function(result) {
 					receiptId = result.receiptId;
-					$('#mbrInfo').css('display', 'none');
-					$('#smsAction').css('display', 'block');
+					showSmsCheckUi(false);
 				}
 			);
 		}
@@ -380,6 +378,14 @@
 				'/matching/membership/info/confirmVerification',
 				{receiptId, otpNum},
 				function(result) {
+					if (!result.confirm) {
+						$('#smsErrorMsg').removeClass('disNone');
+						$('#smsErrorMsg').text('인증번호를 확인해주세요');
+						$('#inputOtp').parent().addClass('bder_danger');
+						return;
+					}
+					
+					//인증후 후처리
 					if (afterWorkType === 'regist') {
 						registMbr();
 					}
@@ -424,7 +430,10 @@
 			}
 			//휴대폰 번호 인풋창 엔터
 			if (inputPhase === 'mobile') {
-				validateMobile();
+				var mobileVaild = validateMobile();
+				if (mobileVaild) {
+					clickVerifyBtn();
+				}
 			}
 		}
 		
@@ -637,10 +646,11 @@
 			var atagCarrier = $('#atagCarrier');
 			var inputMobile = $('#inputMobile');
 			
+			var carrierCode = $('.broad_area .modal-close.active').attr('code');
 			verificationInfo = {
 				name : inputName.val(),
 				identityNo : (inputResidentNumFront.val() + inputResidentNumBack.val()),
-				carrier : atagCarrier.text(),
+				carrier : carrierCode,
 				phone : inputMobile.val(),
 			};
 			mbrAgreementInfo = {
@@ -650,8 +660,7 @@
 				nightReceptionYn : (checkedIds.findIndex(f => f === 'checkAgree10') === -1) ? 'N' : 'Y',
 			}
 			
-			$('#modal_memConsent').modal('close');
-			showSmsCheckUi(false);
+			requestVerification();
 		}
 		
 		
@@ -659,12 +668,14 @@
 		function showSmsCheckUi(retry) {
 			//최초 발송
 			if (!retry) {
+				//동의창 닫기
+				$('#modal_memConsent').modal('close');
+				
+				//문자 인증창 띄우기
 				$('#mbrInfoSection').addClass("disNone");
 				$('.page-footer').addClass("disNone");
 				$('#smsCheckSection').removeClass("disNone");
 				$('#smsErrorMsg').addClass("disNone");
-				
-				requestVerification();
 			}
 			//재발송
 			else {

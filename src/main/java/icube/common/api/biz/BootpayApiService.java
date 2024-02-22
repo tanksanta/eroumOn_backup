@@ -12,6 +12,8 @@ import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import icube.common.util.DateUtil;
 import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.ordr.rebill.biz.OrdrRebillVO;
@@ -203,19 +205,18 @@ public class BootpayApiService {
 	public String requestAuthentication(String name, String identityNo, String carrier, String phone) {
 		Bootpay bootpay = new Bootpay(bootpayRestKey, bootpayPrivateKey);
 		
-		Authentication authentication = new Authentication();
-		authentication.pg = "다날";
-		authentication.method = "본인인증";
-		authentication.username = name;
-		authentication.identityNo = identityNo;  //생년월일 + 주민번호 뒷 1자리
-		authentication.carrier = carrier;  //SKT, KT, LGT, SKT_MVNO, KT_MVNO, LGT_MVNO
-		authentication.phone = phone;
-		authentication.siteUrl = "https://eroum.co.kr";
-		authentication.authenticationId = "CERT00000000001";
-		authentication.orderName = "본인인증";
-		authentication.authenticateType = "sms";
-		
 		try {
+			Authentication authentication = new Authentication();
+			authentication.pg = "다날";
+			authentication.method = "본인인증";
+			authentication.username = name;
+			authentication.identityNo = identityNo;  //생년월일 + 주민번호 뒷 1자리
+			authentication.carrier = carrier;  //SKT, KT, LGT, SKT_MVNO, KT_MVNO, LGT_MVNO
+			authentication.phone = phone;
+			authentication.siteUrl = "https://eroum.co.kr";
+			authentication.authenticationId = "CERT00000000001";
+			authentication.orderName = "본인인증";
+			
 			bootpay.getAccessToken();
 			
 			HashMap<String, Object> res = bootpay.requestAuthentication(authentication);
@@ -261,7 +262,7 @@ public class BootpayApiService {
 			if(res.get("error_code") == null) {
 				MbrVO certMbrInfoVO = new MbrVO();
 				
-				HashMap<String, Object> authInfo = (HashMap<String, Object>) res.get("authenticate_data");
+				LinkedTreeMap<String, Object> authInfo = (LinkedTreeMap<String, Object>) res.get("authenticate_data");
 				
 	            String ciKey = (String) authInfo.get("unique");
 	            certMbrInfoVO.setCiKey(ciKey);
@@ -277,13 +278,14 @@ public class BootpayApiService {
 	            Date brdt = formatter.parse(DateUtil.formatDate(birth, "yyyy-MM-dd")); //생년월일
 	            certMbrInfoVO.setBrdt(brdt);
 	            
-	            String gender = (String) authInfo.get("gender");
-	            if(EgovStringUtil.equals("1.0", gender)) {
-	            	gender = "M";
+	            Double gender = (Double) authInfo.get("gender");
+	            String genderText;
+	            if(gender == 1.0) {
+	            	genderText = "M";
 	            }else {
-	            	gender = "W";
+	            	genderText = "W";
 	            }
-	            certMbrInfoVO.setGender(gender);
+	            certMbrInfoVO.setGender(genderText);
 	            
 	            String phone = (String) authInfo.get("phone");
 	            String mblTelno = phone.substring(0, 3) + "-" + phone.substring(3, 7) + "-" + phone.substring(7, 11);

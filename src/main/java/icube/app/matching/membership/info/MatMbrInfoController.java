@@ -24,6 +24,7 @@ import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrService;
 import icube.manage.mbr.mbr.biz.MbrVO;
@@ -73,6 +74,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 		List<TermsVO> nightHisList = termsService.selectListMemberVO("NIGHT");
 		
 		model.addAttribute("type", type);
+		model.addAttribute("carrierCd", CodeMap.CARRIER_CD);
 		model.addAttribute("termsHisList", termsHisList);
 		model.addAttribute("privacyHisList", privacyHisList);
 		model.addAttribute("marketingHisList", marketingHisList);
@@ -92,16 +94,24 @@ public class MatMbrInfoController extends CommonAbstractController{
 			@RequestParam String carrier,
 			@RequestParam String phone) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
-		String receiptId = "aaa";
-		//String receiptId = bootpayApiService.requestAuthentication("홍길동", "9901091", "LGT_MVNO", "01011112222");
-		if (EgovStringUtil.isNotEmpty(receiptId)) {
-			resultMap.put("success", true);
-			resultMap.put("receiptId", receiptId);
+		try {
+			String validPhone = phone.replaceAll("-", "");
+			String receiptId = bootpayApiService.requestAuthentication(name, identityNo, carrier, validPhone);
+			
+			if (EgovStringUtil.isNotEmpty(receiptId)) {
+				resultMap.put("receiptId", receiptId);
+				resultMap.put("success", true);
+			}
+			else {
+				resultMap.put("msg", "인증정보가 올바르지 않습니다");
+			}
+		} catch (Exception ex) {
+			log.error("=========본인인증 요청 오류 :", ex);
+			resultMap.put("msg", "인증요청 중 오류가 발생했습니다");
 		}
-		else {
-			resultMap.put("success", false);
-		}
+		
 		return resultMap;
 	}
 	
@@ -113,10 +123,19 @@ public class MatMbrInfoController extends CommonAbstractController{
 	public Map<String, Object> realarmVerification(
 			@RequestParam String receiptId) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
-		boolean success = true;
-		//boolean success = bootpayApiService.realarmAuthentication(receiptId);
-		resultMap.put("success", success);
+		try {
+			boolean success = bootpayApiService.realarmAuthentication(receiptId);
+			resultMap.put("success", success);
+			if (!success) {
+				resultMap.put("msg", "인증번호 재전송에 실패하였습니다");
+			}
+		} catch (Exception ex) {
+			log.error("=========본인인증 재요청 오류 :", ex);
+			resultMap.put("msg", "인증번호 재전송 중 오류가 발생했습니다");
+		}
+		
 		return resultMap;
 	}
 	
@@ -130,22 +149,18 @@ public class MatMbrInfoController extends CommonAbstractController{
 		@RequestParam String otpNum,
 		HttpSession session) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		
-		MbrVO certMbrInfoVO = new MbrVO();
-		certMbrInfoVO.setCiKey("a");
-		certMbrInfoVO.setDiKey("b");
-		certMbrInfoVO.setMbrNm("홍길동");
-		certMbrInfoVO.setBrdt(new Date(2001, 1, 2));
-		certMbrInfoVO.setGender("W");
-		certMbrInfoVO.setMblTelno("010-1234-2134");
-		
-		//MbrVO certMbrInfoVO = bootpayApiService.confirmAuthentication(receiptId, otpNum);
-		if (certMbrInfoVO != null) {
-			session.setAttribute("certMbrInfoVO", certMbrInfoVO);
+		try {
+			MbrVO certMbrInfoVO = bootpayApiService.confirmAuthentication(receiptId, otpNum);
 			resultMap.put("success", true);
-		}
-		else {
-			resultMap.put("success", false);
+			if (certMbrInfoVO != null) {
+				session.setAttribute("certMbrInfoVO", certMbrInfoVO);
+				resultMap.put("confirm", true);
+			}
+		} catch (Exception ex) {
+			log.error("=========본인인증 확인 오류 :", ex);
+			resultMap.put("msg", "인증정보가 올바르지 않습니다.");
 		}
 		
 		return resultMap;

@@ -103,21 +103,32 @@ public class MatRegistController extends CommonAbstractController {
 		
 		
 		//회원가입 처리
+		Date now = new Date();
 		tempMbrVO.setCiKey(certMbrInfoVO.getCiKey());
 		tempMbrVO.setDiKey(certMbrInfoVO.getDiKey());
 		tempMbrVO.setMbrNm(certMbrInfoVO.getMbrNm());
 		tempMbrVO.setMblTelno(certMbrInfoVO.getMblTelno());
 		tempMbrVO.setGender(certMbrInfoVO.getGender());
 		tempMbrVO.setBrdt(certMbrInfoVO.getBrdt());
-		
 		tempMbrVO.setSnsRegistDt(new Date());
+		
+		//마켓팅 약관 수신동의 일시 sms, 이메일, 전화, 푸시 수신허용
+		if ("Y".equals(mbrAgreementVO.getMarketingReceptionYn())) {
+			tempMbrVO.setSmsRcptnYn("Y");
+			tempMbrVO.setSmsRcptnDt(now);
+			tempMbrVO.setEmlRcptnYn("Y");
+			tempMbrVO.setEmlRcptnDt(now);
+			tempMbrVO.setTelRecptnYn("Y");
+			tempMbrVO.setTelRecptnDt(now);
+			tempMbrVO.setPushRecptnYn("Y");
+			tempMbrVO.setPushRecptnDt(now);
+		}
 		
 		tempMbrVO.setMbrId("");
 		mbrService.insertMbr(tempMbrVO);
 		
 		
 		//회원가입 후 부가정보 등록
-		Date now = new Date();
 		mbrAgreementVO.setTermsDt(now);
 		mbrAgreementVO.setPrivacyDt(now);
 		mbrAgreementVO.setMarketingReceptionDt(now);
@@ -133,6 +144,7 @@ public class MatRegistController extends CommonAbstractController {
 		
 		
 		resultMap.put("success", true);
+		session.setAttribute("returnUrl", "/matching/common/complete?msg=회원가입이<br>완료되었어요&redirectUrl=/matching");
 		resultMap.put("location", "/matching/membership/loginAfterAction");
 		return resultMap;
 	}

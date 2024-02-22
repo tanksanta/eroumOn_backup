@@ -1263,4 +1263,17 @@ public class CodeMap{
 			put("수동휠체어", "2080");
 		}
 	};
+	
+	/* 통신사 정보 */
+	public static final HashMap<String, String> CARRIER_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 6079996218394314021L;
+		{
+			put("SKT", "SKT");
+			put("KT", "KT");
+			put("LG U+", "LGT");
+			put("SKT 알뜰폰", "SKT_MVNO");
+			put("KT 알뜰폰", "KT_MVNO");
+			put("LG U+ 알뜰폰", "LGT_MVNO");
+		}
+	};
 }
