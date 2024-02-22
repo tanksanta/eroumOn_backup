@@ -59,6 +59,11 @@ function pushHistoryStack(history) {
 	if (!historyStack) {
 		historyStack = [];
 	}
+
+	if (historyStack.length > 0 && historyStack[historyStack.length - 1] == history){
+		return;
+	}
+
 	historyStack.push(history);
 	if(historyStack.length > historyStackSize) {
 		historyStack.shift();

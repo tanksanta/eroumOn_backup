@@ -101,7 +101,7 @@
         });
 
 		var m_redirectUrl;
-
+        var m_startStep;
         function fn_convert_redirectUrl(){
             var jsCommon = new JsCommon();
             var redirectUrlAct = '', redirectUrlOrigin = jsCommon.fn_redirect_url();
@@ -124,6 +124,14 @@
             return redirectUrlAct;
         }
 
+        function fn_HistoryStack_recipients_reset(startStep){
+            if (startStep == 'intro'){
+                popHistoryStack(-3);
+            }else if (startStep == 'relation'){
+                popHistoryStack(-2);
+            }
+        }
+
 		function fn_next_click(){
 			var jobj = $("input.birth");
 			var url = "./regist.json";
@@ -138,29 +146,33 @@
 
             delete qsMap['redirectUrl'];
 
-			callPostAjaxIfFailOnlyMsg(url, qsMap, fn_next_cb)
+            m_startStep = qsMap["startStep"];
+
+			callPostAjaxIfFailOnlyMsg(url, qsMap, fn_next_cb);
 		}
 
 		function fn_next_cb(result){
-            if (result && result.recipientsNo){
-                var jsCommon = new JsCommon();
+            var jsCommon = new JsCommon();
+            var param;
+            var qsMap;
 
-                var param;
-                var qsMap;
-                if (m_redirectUrl.indexOf("?") >= 0){
-                    param = m_redirectUrl.substring(m_redirectUrl.indexOf("?") + 1);
+            if (m_redirectUrl.indexOf("?") >= 0){
+                param = m_redirectUrl.substring(m_redirectUrl.indexOf("?") + 1);
 
-                    m_redirectUrl = m_redirectUrl.substr(0, m_redirectUrl.indexOf("?"));
-                    qsMap = jsCommon.fn_queryString_toMap(param);
-                }else{
-                    qsMap = {};
-                }
-                
-                qsMap["recipientsNo"] = result.recipientsNo;
-                
-                m_redirectUrl += "?" + jsCommon.fn_queryString_fromMap(qsMap);
-                
+                m_redirectUrl = m_redirectUrl.substr(0, m_redirectUrl.indexOf("?"));
+                qsMap = jsCommon.fn_queryString_toMap(param);
+            }else{
+                qsMap = {};
             }
+
+            if (result && result.recipientsNo){
+                qsMap["recipientsNo"] = result.recipientsNo;
+            }
+
+            m_redirectUrl += "?" + jsCommon.fn_queryString_fromMap(qsMap);
+
+            fn_HistoryStack_recipients_reset(m_startStep);
+
             location.href = "/matching/common/complete?msg=" + encodeURIComponent("어르신이<br>등록되었어요")+"&redirectUrl="+encodeURIComponent(m_redirectUrl);
 		}
 	</script>

@@ -50,6 +50,6 @@
 
 			redirectUrl = jsCommon.fn_redirect_url();
 			
-			location.href = url + '?redirectUrl='+ encodeURIComponent(redirectUrl);
+			location.href = url + '?startStep=intro&redirectUrl='+ encodeURIComponent(redirectUrl);
 		}
 	</script>
