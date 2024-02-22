@@ -29,6 +29,12 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 	public List<MbrRecipientsVO> selectMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 	}
+
+	public int selectCountMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
+		List<MbrRecipientsVO> recipientsList = this.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
+
+		return recipientsList.size();
+	}
 	
 	public void insertMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {
 		mbrRecipientsDAO.insertMbrRecipients(mbrRecipientsVO);
