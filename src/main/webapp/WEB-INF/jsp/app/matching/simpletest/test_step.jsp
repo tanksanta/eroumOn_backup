@@ -1,15 +1,3 @@
-test_step
-
-${step}
-${testTy}
-${selValue}
-
-${title}
-${img}
-${listValues}
-${listTexts}
-${selectedValue}
-${nextStep}
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -22,6 +10,20 @@ ${nextStep}
     </jsp:include>
 
     <main>
+        test_step
+
+
+${testTy}
+${selValue}
+
+${title}
+${img}
+${listValues}
+${listTexts}
+
+${nextStep}
+
+
         <section class="intro">
             ${testTy} ${step}
             
@@ -34,9 +36,11 @@ ${nextStep}
 </div>
 <script>
     function fn_move_test(){
-        var selectedValue = {};
+        var jsCommon = new JsCommon();
+        var qsMap = jsCommon.fn_queryString_toMap();
+        
+        qsMap["step${step}"] = "1";
 
-        var data = {"testTy":"${testTy}",  "selValue": JSON.stringify(selectedValue), "recipientsNo":0};
-        callPostMove('${nextStepUrl}', data)
+        location.href = '${nextStepUrl}' + '?' + jsCommon.fn_queryString_fromMap(qsMap);
     }
 </script>

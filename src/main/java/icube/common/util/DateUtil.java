@@ -636,4 +636,15 @@ public class DateUtil {
 	         // 두 수를 비교 했을 때 생일이 더 클 경우 생일이 지나지 않은 것이다.
 	         return age;
 	 }
+
+	 public static int getRealAge(String yyyyMMdd){
+
+		if (yyyyMMdd.length() != 8) return 0;
+
+		int birthYear = Integer.parseInt(yyyyMMdd.substring(0, 4));
+		int birthMonth = Integer.parseInt(yyyyMMdd.substring(4, 6));
+		int birthDay = Integer.parseInt(yyyyMMdd.substring(6, 8));
+		
+		return getRealAge(birthYear, birthMonth, birthDay);
+	 }
 }
