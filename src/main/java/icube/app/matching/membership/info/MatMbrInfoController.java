@@ -20,9 +20,9 @@ import org.springframework.web.util.HtmlUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import icube.app.matching.common.api.BootpaySocketService;
 import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
-import icube.common.api.biz.BootpayApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
 import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
@@ -44,8 +44,8 @@ public class MatMbrInfoController extends CommonAbstractController{
 	@Resource(name = "matMbrService")
 	private MatMbrService matMbrService;
 	
-	@Resource(name = "bootpayApiService")
-	private BootpayApiService bootpayApiService;
+	@Resource(name = "bootpaySocketService")
+	private BootpaySocketService bootpaySocketService;
 	
 	@Resource(name = "termsService")
 	private TermsService termsService;
@@ -98,7 +98,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 		
 		try {
 			String validPhone = phone.replaceAll("-", "");
-			String receiptId = bootpayApiService.requestAuthentication(name, identityNo, carrier, validPhone);
+			String receiptId = bootpaySocketService.requestAuthentication(name, identityNo, carrier, validPhone);
 			
 			if (EgovStringUtil.isNotEmpty(receiptId)) {
 				resultMap.put("receiptId", receiptId);
@@ -126,7 +126,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 		resultMap.put("success", false);
 		
 		try {
-			boolean success = bootpayApiService.realarmAuthentication(receiptId);
+			boolean success = bootpaySocketService.realarmAuthentication(receiptId);
 			resultMap.put("success", success);
 			if (!success) {
 				resultMap.put("msg", "인증번호 재전송에 실패하였습니다");
@@ -152,7 +152,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 		resultMap.put("success", false);
 		
 		try {
-			MbrVO certMbrInfoVO = bootpayApiService.confirmAuthentication(receiptId, otpNum);
+			MbrVO certMbrInfoVO = bootpaySocketService.confirmAuthentication(receiptId, otpNum);
 			resultMap.put("success", true);
 			if (certMbrInfoVO != null) {
 				session.setAttribute("certMbrInfoVO", certMbrInfoVO);
