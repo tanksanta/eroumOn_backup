@@ -36,7 +36,8 @@ function callPostAjaxIfFailOnlyMsg(url, param, successCallback, ajaxOption) {
 		}
 	})
 	.fail(function(data, status, err) {
-		alert('서버와 연결이 좋지 않습니다.');
+		doubleClickCheck = false;
+		$('#modal_net_error').modal('open');
 	});
 }
 

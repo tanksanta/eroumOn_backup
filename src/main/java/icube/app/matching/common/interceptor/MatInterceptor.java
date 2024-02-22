@@ -85,6 +85,12 @@ public class MatInterceptor implements HandlerInterceptor {
 			request.setAttribute("_activeMode", activeMode.toUpperCase());
 			request.setAttribute("_matchingPath", matchingPath);
 			
+			//시스템 점검으로 redirect (임시 구현)
+//			if (true && !"/matching/common/systemCheck".equals(request.getServletPath())) {
+//				response.sendRedirect("/matching/common/systemCheck");
+//				return false;
+//			}
+			
 			
 			//자동로그인 검사
 			boolean isAutoLogin = matMbrService.checkAutoLogin(request);
