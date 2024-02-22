@@ -7,6 +7,13 @@
 		</jsp:include>
 
 		<!--http://local-on.eroum.co.kr/html/page/app/matching/assets/src/pages/F_SNR_002_eld_regi01.html-->
+		<!--
+		function fn_next_click(){
+			var url = '/matching/membership/recipients/regist/intro?redirectUrl=' + encodeURIComponent(location.pathname + location.search);
+			
+			location.href = url ;
+		}
+		-->
 
 		<main>
 			<section class="intro bottom_0">
