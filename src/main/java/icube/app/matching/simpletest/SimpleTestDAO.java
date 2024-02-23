@@ -10,17 +10,20 @@ import icube.common.framework.abst.CommonAbstractMapper;
 @Repository("simpleTestDAO")
 public class SimpleTestDAO extends CommonAbstractMapper {
     
-	public List<SimpleTestVO> selectMbrTestList(Map paramMap) {
-        return selectList("mbr.test.selectMbrTest", paramMap);
+	public List<SimpleTestVO> selectSimpleTestList(Map<String,Object> paramMap) {
+        return selectList("mbr.simpletest.selectSimpleTest", paramMap);
     }
-	    public SimpleTestVO selectMbrTest(Map paramMap) {
-        return selectOne("mbr.test.selectMbrTest", paramMap);
+
+	public SimpleTestVO selectSimpleTestOne(Map<String,Object> paramMap) {
+        return selectOne("mbr.simpletest.selectSimpleTestOne", paramMap);
     }
-        public Integer insertMbrTest(SimpleTestVO mbrTestVO) {
-        insert("mbr.test.insertMbrTest", mbrTestVO);
-        return mbrTestVO.getMbrTestNo();
+
+    public Integer insertSimpleTest(SimpleTestVO mbrTestVO) {
+        insert("mbr.simpletest.insertSimpleTest", mbrTestVO);
+        return mbrTestVO.getMbrSimpletestNo();
     }
-        public void updateMbrTest(SimpleTestVO mbrTestVO) {
-    	update("mbr.test.updateMbrTest", mbrTestVO);
-    }
+
+    // public void updateSimpleTest(SimpleTestVO mbrTestVO) {
+    // 	update("mbr.simpletest.updateSimpleTest", mbrTestVO);
+    // }
 }

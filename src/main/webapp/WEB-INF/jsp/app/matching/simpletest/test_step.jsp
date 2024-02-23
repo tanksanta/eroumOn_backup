@@ -12,16 +12,15 @@
     <main>
         test_step
 
+        ${testTy}
+        ${selValue}
 
-${testTy}
-${selValue}
+        ${title}
+        ${img}
+        ${listValues}
+        ${listTexts}
 
-${title}
-${img}
-${listValues}
-${listTexts}
-
-${nextStep}
+        ${nextStep}
 
 
         <section class="intro">
@@ -36,11 +35,36 @@ ${nextStep}
 </div>
 <script>
     function fn_move_test(){
+        if ("${step}" == "600"){
+            fn_save_result_call();
+        }else{
+            fn_move_url();
+        }
+    }
+    function fn_move_url(){
         var jsCommon = new JsCommon();
         var qsMap = jsCommon.fn_queryString_toMap();
         
         qsMap["step${step}"] = "1";
 
         location.href = '${nextStepUrl}' + '?' + jsCommon.fn_queryString_fromMap(qsMap);
+    }
+    function fn_save_result_call(){
+        var url = "save.json";
+
+        var jsCommon = new JsCommon();
+        var qsMap = jsCommon.fn_queryString_toMap();
+        
+        qsMap["step${step}"] = "1";
+
+        callPostAjaxIfFailOnlyMsg(url, qsMap, fn_save_result_cb);
+    }
+    function fn_save_result_cb(result){
+        var jsCommon = new JsCommon();
+        var qsMap = jsCommon.fn_queryString_toMap();
+
+        var param = {recipientsNo:qsMap["recipientsNo"], mbrSimpletestNo : result["mbrSimpletestNo"]}
+        
+        location.href = '${nextStepUrl}' + '?' + jsCommon.fn_queryString_fromMap(param);
     }
 </script>

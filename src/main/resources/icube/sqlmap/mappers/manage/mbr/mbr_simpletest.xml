@@ -3,6 +3,7 @@
 <mapper namespace="mbr.simpletest">
 
 	<sql id="listColumn">
+		mbr_simpletest_no,
 		unique_id,
 		recipients_no,
 		test_ty,
@@ -10,6 +11,7 @@
 
 		grade,
 		score,
+		care_time,
 
 		selected_value,
 		
@@ -24,40 +26,51 @@
 		<if test="srchRecipientsNo > 0">
 			AND recipients_no = #{srchRecipientsNo}
 		</if>
+		<if test="srchTestTy != null and srchTestTy != '' ">
+			AND test_ty = #{srchTestTy}
+		</if>
 	</sql>
 
-
-	<select id="selectSimpleTest" parameterType="java.util.HashMap" resultType="SimpleTestVO">
+	<select id="selectSimpleTestOne" parameterType="java.util.HashMap" resultType="SimpleTestVO">
 		SELECT
 			<include refid="listColumn" />
-		FROM MBR_TEST
-		WHERE 1=1
-			<include refid="searchConditions" />
-		ORDER BY REG_DT DESC
+		FROM MBR_SIMPLETEST
+		WHERE mbr_simpletest_no in (
+			SELECT max(mbr_simpletest_no)
+			FROM MBR_SIMPLETEST
+			WHERE unique_id = #{uniqueId}
+				AND recipients_no = #{recipientsNo}
+				AND test_ty = #{testTy}
+		)
 	</select>
 
-	<insert id="insertSimpleTest" parameterType="SimpleTestVO" useGeneratedKeys="true" keyProperty="SimpleTestNo" keyColumn="MBR_SIMPLETEST_NO">
-		INSERT INTO MBR_TEST(
+	<insert id="insertSimpleTest" parameterType="SimpleTestVO" useGeneratedKeys="true" keyProperty="mbrSimpletestNo" keyColumn="MBR_SIMPLETEST_NO">
+		INSERT INTO MBR_SIMPLETEST(
 			unique_id
 			, recipients_no
 			, test_ty
+			, age
 			, grade
 			, score
-			, reg_dt
+			, care_time
+			, selected_value
 		)VALUES(
 			#{uniqueId}
 			, #{recipientsNo}
 			, #{testTy}
+			, #{age}
 			, #{grade}
 			, #{score}
-			, SYSDATE()
+			, #{careTime}
+			, #{selectedValue}
 		)
 	</insert>
 
 	<update id="updateSimpleTest" parameterType="SimpleTestVO">
-		UPDATE MBR_TEST SET
+		UPDATE MBR_SIMPLETEST SET
 			grade = #{grade}
 			, score = #{score}
+			, selected_value = #{selectedValue}
 			, mdfcn_dt = SYSDATE()
 		WHERE unique_id = #{uniqueId} AND recipients_no = #{recipientsNo}
 	</update>
