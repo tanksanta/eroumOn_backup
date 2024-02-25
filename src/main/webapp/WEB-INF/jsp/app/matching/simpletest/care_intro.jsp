@@ -36,7 +36,7 @@
             }
         }else{
             var url = 'start';
-            location.href = url;
+            location.href = url + location.search;
         }
     }
 </script>

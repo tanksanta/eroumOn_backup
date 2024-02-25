@@ -21,9 +21,8 @@
 </div>
 <script>
     function fn_move_test(){
-        var selectedValue = {};
-
-        var data = {"testTy":"care",  "selValue": JSON.stringify(selectedValue), "recipientsNo":0};
-        callPostMove('/matching/simpletest/test/100', data)
+        
+        location.href = '${nextStepUrl}' + '/matching/simpletest/test/100?testTy=care&recipientsNo=0';
+        
     }
 </script>

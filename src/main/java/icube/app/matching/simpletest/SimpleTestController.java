@@ -1,7 +1,9 @@
 package icube.app.matching.simpletest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
@@ -29,54 +32,45 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+	
+	@Resource(name= "simpleTestService")
+	private SimpleTestService simpleTestService;
 
 	@Value("#{props['Globals.Matching.path']}")
 	private String matchingPath;
 
 	@RequestMapping(value={"/simple/intro"})
 	public String simpleIntro(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
-		, Model model) throws Exception {
-
+		Model model) throws Exception {
 		
 		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
 
         return "/app/matching/simpletest/simple_intro";
     }
+
 	@RequestMapping(value={"/simple/start"})
 	public String simpleStart(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
-		, Model model) throws Exception {
-
+		Model model) throws Exception {
 
         return "/app/matching/simpletest/simple_start";
     }
 
 	@RequestMapping(value={"/simple/result"})
 	public String simpleResult(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
+		@RequestParam Map<String,Object> reqMap
 		, Model model) throws Exception {
-
 
         return "/app/matching/simpletest/simple_result";
     }
-	
 	
 	@RequestMapping(value={"/test/{step}"})
 	public String test(
 		@PathVariable String step
 		, @RequestParam(required = true) String testTy /*simple, care 구분*/
-		, @RequestParam(required = true) String selValue/*이전 화면에서 선택된 값*/
 		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+
+		, @RequestParam Map<String,Object> reqMap
 		
-		, HttpSession session
-		, HttpServletRequest request
 		, HttpServletResponse response
 		, Model model) throws Exception {
 
@@ -93,13 +87,11 @@ public class SimpleTestController  extends CommonAbstractController {
 
 		model.addAttribute("step", step);
 		model.addAttribute("testTy", testTy);
-		model.addAttribute("selValue", selValue);
 
 		model.addAttribute("title", "title");
 		model.addAttribute("img", "image");
 		model.addAttribute("listValues", listValues);
 		model.addAttribute("listTexts", listTexts);
-		model.addAttribute("selectedValue", "selectedValue");
 		model.addAttribute("nextStepUrl", this.nextStepUrl(testTy, step));
 
         return "/app/matching/simpletest/test_step";
@@ -127,19 +119,35 @@ public class SimpleTestController  extends CommonAbstractController {
 			}else{
 				throw new Exception();
 			}
-
-			
 		}
 
 		return url;
 	}
+	
+    /**
+	 * 간편테스트 결과 저장
+	 */
+    @ResponseBody
+	@RequestMapping(value = "test/save.json")
+	public Map<String, Object> testSave(
+		@RequestParam Map<String,Object> reqMap
+		, @RequestParam(required = true) String testTy /*simple, care 구분*/
+		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+		, Model model) throws Exception {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		int mbrSimpletestNo = simpleTestService.insertSimpleTest(recipientsNo, reqMap);
+
+		resultMap.put("success", true);
+		resultMap.put("mbrSimpletestNo", mbrSimpletestNo);
+		
+		return resultMap;
+	}
 
 	@RequestMapping(value={"/care/intro"})
 	public String careIntro(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
-		, Model model) throws Exception {
+		Model model) throws Exception {
 
 		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
 
@@ -148,22 +156,15 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	@RequestMapping(value={"/care/start"})
 	public String careStart(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
-		, Model model) throws Exception {
-
+		Model model) throws Exception {
 
         return "/app/matching/simpletest/care_start";
     }
 
 	@RequestMapping(value={"/care/result"})
 	public String careResult(
-		HttpSession session
-		, HttpServletRequest request
-		, HttpServletResponse response
+		@RequestParam Map<String,Object> reqMap
 		, Model model) throws Exception {
-
 
         return "/app/matching/simpletest/care_result";
     }
