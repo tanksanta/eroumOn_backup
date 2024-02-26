@@ -17,6 +17,7 @@
 }
 
 .justify-content-center{justify-content: center;}
+.justify-content-between{justify-content: space-between;}
 .align-items-center{align-items: center;}
 .align_center{display: flex;justify-content: center;align-items: center;}
 .gap08{gap: 8px;}
@@ -35,6 +36,8 @@
 .w50p{width:50% !important;}
 
 .w20{width:20px !important;}
+.w48{width:48px !important;}
+.w80{width:80px !important;}
 .w120{width:120px !important;}
 .w150{width:150px !important;}
 
@@ -48,11 +51,22 @@
 .h24{height: 24px;}
 .h32{height: 32px;}
 .h40{height: 40px;}
+.h64{height: 64px;}
 
 .noPad{padding: 0 !important;}
 .pad020{padding: 0 20px !important;}
 
 .padR20{padding-right: 20px !important;}
+
+.marR4{margin-right: 4px;}
+.marL4{margin-left: 4px;}
+.marH40{margin: 40px 0;}
+
+.marW-20{margin: 0 -20px;}
+
+.marT-20W-20{margin: -20px -20px 0;}
+
+
 
 .lh18{line-height: 18px !important;}
 
@@ -64,11 +78,12 @@
     height: 42px;
     max-height: 42px;
     padding: 0 12px;
+    border-radius: 8px;
     @include Suit_Body_SM_SemiBold;
     line-height: 42px;
 
 }
-.btn-large{height: 52px;max-height: 52px;font-weight: 600;font-size: 16px;padding: 0 16px;}
+.btn-large{height: 52px;max-height: 52px;border-radius: 8px;font-weight: 600;font-size: 16px;padding: 0 16px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary;}
 
@@ -114,7 +129,8 @@
 
     //비활성
     &.color_disable, &.color_t_d{
-        background-image: url('../images/04icon/chevron-right_thin_primary.svg');
+        background-image: url('../images/04icon/chevron-right_thin_disable.svg');
+        pointer-events: none;
     }
 
     //작은사이즈
@@ -132,7 +148,7 @@
 
 
 
-//체크박스
+//체크박스 예전작업 - 확인하고 없으면 추후 삭제
 [type="checkbox"].filled-in:checked + span:not(.lever):after{
     background-color: $--Color-bg-Primitive-primary;
     border: 1px solid  $--Color-bg-Primitive-primary;
@@ -149,6 +165,10 @@
 [type="checkbox"] + span:not(.lever){height:auto;padding-left: 28px;color:#000;}
 
 
+
+
+
+
 // 체크박스 커스텀
 .chk01_1+label{
     @include Suit_Body_SM_Regular;
@@ -159,7 +179,6 @@
     background-repeat: no-repeat;
     background-position: left top;
     background-size: 24px;
-    transition: 0.3s all;
 
 
 }
@@ -175,13 +194,10 @@
     background-repeat: no-repeat;
     background-position: left top;
     background-size: 24px;
-    transition: 0.3s all;
 
 
 }
 .chk01_2:checked+label{background-image: url(../images/18icon/chk01_active02.svg);}
-
-
 
 
 .chk02+label{
@@ -230,6 +246,7 @@
     background-position: 12px 11px;
     
     border-radius: 8px; 
+    transition: 0.3s all;
     
 }
 [class^='chk'].large:checked+label{border:2px solid $--Color-bg-Primitive-selected;background-color: $--Color-bg-Primitive-selected;}
@@ -248,14 +265,37 @@
 }
 
 
+//체크박스 박스형 추가
+//간편테스트
+.chk01_3.large+label{
+    @include Suit_Body_MD_Regular;
+
+    display: block; text-align: center;
+    padding: 16px 20px;
+    background-image: url(../images/18icon/chk01_default.svg);
+    background-repeat: no-repeat;
+    background-position: 12px center;
+
+
+}
+.chk01_3.large:checked+label{background-image: url(../images/18icon/chk01_active02.svg);color: $--Color-text-Primitive-selected;}
+
+.chk01_3.large + label + .chk01_3.large + label{margin-top: 16px;}
+
+
+
+
+
+
+
 
 
 
 
 //폰트
 //_reset.scss 참조
-.color_primary{color: $--Color-text-Primitive-primary;} // = color_tp_p
-.color_disable{color: $--Color-text-disabled;} // = color_t_d
+.color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p
+.color_disable{color: $--Color-text-disabled !important;} // = color_t_d
 .c_757575{color: #757575 !important;}
 
 //Color/text
@@ -327,6 +367,11 @@
 .color_bd_ppp{color: $--Color-border-Primitive-primary-press;}
 .color_bd_ps{color: $--Color-border-Primitive-secondary;}
 .color_bd_psp{color: $--Color-border-Primitive-secondary-press;}
+
+.color_bd_pt{color: $--Color-border-Primitive-teritiary;}
+.color_bd_ptp{color: $--Color-border-Primitive-teritiary-press;}
+.color_bd_pselected{color: $--Color-border-Primitive-selected;}
+.color_bd_pv{color: $--Color-border-Primitive-visited;}
 .color_bd_pi{color: $--Color-border-Primitive-inverse;}
 
 //Color/icon
@@ -351,6 +396,7 @@
 .color_i_pi{color: $--Color-icon-Primitive-inverse;}
 
 
+//폰트스타일
 .font_shx{
     @include Suit_Heading_XL;
 }
@@ -417,6 +463,31 @@
     @include Suit_Caption_XS_Strike-through
 }
 
+//★★위에 폰트구성과 같음.
+//이름 복잡해서 따로 제작
+.font_h1{@include Suit_Heading_XL;margin: 0;}
+.font_h2{@include Suit_Heading_LG;margin: 0;}
+.font_h3{@include Suit_Heading_MD;margin: 0;}
+.font_h4{@include Suit_Heading_SM;margin: 0;}
+
+.font_18_1{@include Suit_Body_LG_Bold;}
+.font_18_2{@include Suit_Body_LG_SemiBold;}
+.font_18_3{@include Suit_Body_LG_Regular;}
+
+.font_16_1{@include Suit_Body_MD_Bold;}
+.font_16_2{@include Suit_Body_MD_SemiBold;}
+.font_16_3{@include Suit_Body_MD_Regular;}
+.font_16_4{@include Suit_Body_MD_Underline;}
+.font_16_5{@include Suit_Body_MD_Strike-through;}
+
+.font_14_1{@include Suit_Body_SM_Bold;}
+.font_14_2{@include Suit_Body_SM_SemiBold;}
+.font_14_3{@include Suit_Body_SM_Regular;}
+
+.font_12_1{@include Suit_Caption_XS;}
+.font_12_2{@include Suit_Caption_XS_Strike-through;}
+ 
+
 
 
 
@@ -482,7 +553,7 @@ input.bder_danger:focus{border: 2px solid $--Color-border-danger !important;}
 
 //mark 마크
 mark.mk01{position: relative;display: inline-block;}
-mark.mk01::after{z-index: -1;position: absolute;bottom:0; content: '';display: block;background-color: $--Color-bg-point;width:100%;height:10px;}
+mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display: block;background-color: $--Color-bg-point;width:100%;height:10px;}
 
 
 //table 테이블
@@ -505,6 +576,9 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:0; content: '';display: b
 }
 
 //아이콘이미지
+.icon_area{position: relative;}
+
+
 .icon_btn{
     display: inline-block;
     width:24px;
@@ -513,5 +587,18 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:0; content: '';display: b
     background-position: center center;
     
 }
+.i_alarm{background-image: url(../images/04icon/alaram.svg);}
+.i_share{background-image: url(../images/04icon/share.svg);}
 .i_right{background-image: url(../images/18icon/chevron-right_thin.svg);}
+
+
+//리스트
+ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
+.list_dept1{
+    @include Suit_Body_MD_Regular;
+
+    list-style-type:disc;
+    margin-left: 20px;
+
+}
 

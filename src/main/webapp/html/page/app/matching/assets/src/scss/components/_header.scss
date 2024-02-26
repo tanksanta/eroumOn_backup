@@ -31,10 +31,12 @@ nav.top{
         align-items: center;
 
         .txt{
-            font-size: 18px;
-            font-weight: 700;
-            color: $--Color-text-primary;
-            
+            height: 48px;
+            color: $--Color-text-Primitive-secondary;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            @include Suit_Body_LG_Bold;
         }
 
 
@@ -43,13 +45,16 @@ nav.top{
             background: url('../images/04icon/chevron-left_thin.svg') no-repeat center center;
             text-indent: 40px;
             width: 48px;
-            height: $header_elem;
+            height: 48px;
+
+            & + .txt{
+                padding: 0 20px 0 0;
+            }
         }
 
-
-    }
+     }
 
     .top_txt{display: flex;align-items: center;font-size: 16px;font-weight: 400;color:$--Color-text-Primitive-secondary;padding: 0 16px;height: $header_elem;}
 
-    
+    .icon_area{display: inline-block;width: 48px;height: 48px;display: flex;justify-content: center;align-items: center;}
 }
