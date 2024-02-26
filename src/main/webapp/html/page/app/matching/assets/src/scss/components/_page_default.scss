@@ -112,7 +112,7 @@ section{
     overflow: hidden;
     height: 100%;}
 .modal.bottom-sheet .modal-content{padding: 0 20px;}
-
+.modal.bottom-sheet .modal-footer{padding: 0 20px 32px;}
 
 .modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
     @include Suit_Body_LG_Bold
