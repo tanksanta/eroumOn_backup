@@ -14,11 +14,12 @@
     <script src="../../../core/vendor/masonry/masonry.pkgd.min.js"></script>
 
     <link rel="stylesheet" href="../assets/style/style.min.css">
+    <link rel="stylesheet" href="../assets/style/style_add.css">
     <script src="../assets/script/index.js"></script>
 </head>
 <body>
     <!-- notice -->
-    <aside id="notice">
+    <!-- <aside id="notice">
         <div class="notice-banner1">
             <dl>
                 <dt><em>장기요양인정등급</em>을 이미 받으셨나요?</dt>
@@ -33,7 +34,7 @@
             </dl>
             <a href="#">지금 둘러보기</a>
         </div>
-    </aside>
+    </aside> -->
     <!-- //notice -->
 
     <!-- header -->
@@ -63,6 +64,19 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a href="http://cms.eroum.co.kr">이로움 정보</a>
+                    <div class="nav-sub-items">
+                        <ul>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6246">오늘의 복지</a></li>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6374">오늘의 건강</a></li>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6378">오늘의 제품</a></li>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6382">오늘의 휴식</a></li>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6388">브랜드 이로움</a></li>
+                            <li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6406">이로움 뉴스</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div id="utility">
@@ -70,7 +84,9 @@
                 <li><a href="#">로그인</a></li>
                 <!-- <li><a href="#">로그아웃</a></li> -->
                 <li><a href="#" class="join">회원가입</a></li>
-                <li><a href="#" class="cost">남은 금액보기</a></li>
+                <!-- <li><a href="#" class="cost">혜택 상담하기</a></li> -->
+                <li><a href="https://www.eroum.co.kr/market/index" class="onmarket">이로움ON마켓</a></li>
+
             </ul>
         </div>
         <button type="button" id="allmenu-toggle" data-bs-toggle="offcanvas" data-bs-target="#allmenu">전체 메뉴 열기/닫기</button>
@@ -113,6 +129,21 @@
                         <li><a href="#">노인장기요양보험제도</a></li>
                         <li><a href="#">복지용구 알아보기</a></li>
                         <li><a href="#">복지용구 선택하기</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="menu-item3">
+                <dt><a href="http://cms.eroum.co.kr"><img src="https://test.eroum.co.kr/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 정보</a></dt>
+                <dd>
+                    <ul>
+
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6246">오늘의 복지</a></li>
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6374">오늘의 건강</a></li>
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6378">오늘의 제품</a></li>
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6382">오늘의 휴식</a></li>
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6388">브랜드 이로움</a></li>
+                        <li><a href="http://cms.eroum.co.kr/?page_id=6406">이로움 뉴스</a></li>
+
                     </ul>
                 </dd>
             </dl>
@@ -211,7 +242,7 @@
                 <dl>
                     <dt>패밀리 사이트</dt>
                     <dd>
-                        <ul class="global-link">
+                        <ul class="global-link align_items_center">
                             <li>
                                 <a href="#" class="link-item1">
                                     <div class="bubble">
@@ -228,7 +259,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#" class="link-item3">
                                     <div class="bubble">
                                         <strong><img src="/html/core/images/txt-brand-link3.png" alt="이로움ON 마켓"></strong>
@@ -238,7 +269,34 @@
                                         </small>
                                     </div>
                                 </a>
+                            </li> -->
+
+
+
+                            <!-- 20240220 leemw -->
+                            <li>
+                                <div class="relative">
+                                    <div class="btn_menu_dropdown">
+                                        <div class="title">패밀리 사이트 바로가기</div>
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                            <path d="M0.220355 0.229122C0.361712 0.0823892 0.553132 -4.12936e-07 0.752686 -4.04213e-07C0.95224 -3.9549e-07 1.14366 0.0823892 1.28502 0.229122L5.00783 4.10732L8.73064 0.229122C8.87322 0.0893285 9.06246 0.0128741 9.25824 0.0159656C9.45402 0.0190571 9.64095 0.101452 9.7794 0.245683C9.91785 0.389915 9.99695 0.584645 9.99991 0.788596C10.0029 0.992547 9.92949 1.18968 9.7953 1.33822L5.53966 5.77045C5.39843 5.91743 5.20696 6 5.00733 6C4.80769 6 4.61622 5.91743 4.47499 5.77045L0.220355 1.33822C0.079257 1.1911 -4.33459e-08 0.991639 -3.42554e-08 0.783672C-2.51649e-08 0.575704 0.079257 0.376244 0.220355 0.229122Z" fill="#333333"/>
+                                        </svg>
+                                    </div>
+                                    <div class="menu_dropdown">
+                                        <ul>
+                                            <li><a href="https://www.eroum.co.kr/">이로움ON</a></li>
+                                            <li><a href="https://eroum.co.kr/market/">이로움ON 마켓</a></li>
+                                            <li><a href="https://eroumcare.com/">이로움CARE</a></li>
+                                            <li><a href="https://www.seniortalktalk.com/">시니어톡톡</a></li>
+                                            <li><a href="https://pro.seniortalktalk.com/">시니어톡톡PRO</a></li>
+                                            <li><a href="http://www.thkc.co.kr/default/">티에이치케이컴퍼니 </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </li>
+
+
                         </ul>
                     </dd>
                 </dl>

@@ -240,7 +240,7 @@
 	                <div class="welfare-contact">
 	                    <div>
 	                        <p>주관처 : 건강보험심사평가원 (<strong>1644-2000</strong>),보건복지부 (<strong>129</strong>) </p>
-	                        <p>신청 문의 : 주민센터 또는 보건소 </p>
+	                        <p>문의처: 치과 병.의원</p>
 	                    </div>
 	                    <div>
 	                        <a href="https://map.naver.com/p/search/치과?c=14.00,0,0,0,dh" target="_blank" class="btn btn-outline-primary2 btn-small mr-auto"><strong>문의처 바로가기</strong></a>
@@ -272,7 +272,7 @@
 	                <div class="beige-card-wrap">
 	                    <h4 class="font-medium">지원내용 및 자격요건</h4>
 	                    <ul class="check-lists">
-	                        <li><span class="font-semibold">치과에서 진료 </span>를 통해 지원 대상자 판정 <span class="font-semibold">(만 65세 이상)</span></li>
+	                        <li><span class="font-semibold">치과에서 진료</span>를 통해 지원 대상자 판정 <span class="font-semibold">(만 65세 이상)</span></li>
 	                        <li><span class="font-semibold">완전틀니, 부분틀니 </span> <span class="text-indexKey1 font-semibold">7년에 1회 지원</span></li>
 	                    </ul>
 	                </div>

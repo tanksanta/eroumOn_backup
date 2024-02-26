@@ -1,4 +1,7 @@
 class JsPopupLoadingFormDataBaseWithDataTables extends JsPopupLoadingFormDataBase{
+    fn_msg_empty_datatable(){
+        return '데이터가 존재하지 않습니다.';
+    }
     fn_loading_form_cls(){
         var owner = this;
         this._cls_info.coms.gridList = $(this._cls_info.pageModalfix + " .con-datatables").DataTable({
@@ -8,7 +11,7 @@ class JsPopupLoadingFormDataBaseWithDataTables extends JsPopupLoadingFormDataBas
             bAutoWidth: false,
             bLengthChange: false,
             "oLanguage": {
-                "sEmptyTable": "생성된 묶음그룹이 없습니다."
+                "sEmptyTable": owner.fn_msg_empty_datatable()
               },
 
 			bServerSide: false,
@@ -43,6 +46,9 @@ class JsPopupLoadingFormDataBaseWithDataTables extends JsPopupLoadingFormDataBas
 }
 
 class JsPopupEntrpsDlvyGrpChoice extends JsPopupLoadingFormDataBaseWithDataTables{
+    fn_msg_empty_datatable(){
+        return '생성된 묶음그룹이 없습니다.';
+    }
     fn_pop_url(){
         return this._cls_info.popUrl.format(this._cls_info.popUrlEntrpsNo);
     }
