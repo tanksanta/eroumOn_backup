@@ -52,4 +52,35 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 	public void updateMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {
 		mbrRecipientsDAO.updateMbrRecipients(mbrRecipientsVO);
 	}
+	
+	
+	//대표 수급자 변경
+	public Map<String, Object> updateMainRecipient(String uniqueId, Integer recipientsNo) {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = selectMbrRecipientsByMbrUniqueId(uniqueId);
+			MbrRecipientsVO srchRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (srchRecipient == null) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "회원에 등록되지 않은 수급자입니다");
+				return resultMap;
+			}
+			
+			for (MbrRecipientsVO mbrRecipient : mbrRecipientList) {
+				if (mbrRecipient.getRecipientsNo() == recipientsNo) {
+					mbrRecipient.setMainYn("Y");
+				} else {
+					mbrRecipient.setMainYn("N");
+				}
+				updateMbrRecipients(mbrRecipient);
+			}
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "메인 수급자 변경 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
 }

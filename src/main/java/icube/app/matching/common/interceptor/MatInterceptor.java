@@ -43,7 +43,7 @@ public class MatInterceptor implements HandlerInterceptor {
 	private List<String> checkUri = new ArrayList<String>(){
 		private static final long serialVersionUID = 968028594716471048L;
 		{
-			add("/matching");
+			//add("/matching");
 		}
 	};
 	

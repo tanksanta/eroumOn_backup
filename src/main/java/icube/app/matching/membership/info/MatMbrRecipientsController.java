@@ -120,4 +120,15 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		
 		return resultMap;
 	}
+    
+    /**
+	 * 대표 수급자 처리 API
+	 */
+	@ResponseBody
+	@RequestMapping(value = "update/main.json")
+	public Map<String, Object> updateMainRecipient(
+		@RequestParam Integer recipientsNo,
+		HttpServletRequest request) throws Exception {
+		return mbrRecipientsService.updateMainRecipient(matMbrSession.getUniqueId(), recipientsNo);
+	}
 }
