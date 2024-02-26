@@ -48,6 +48,6 @@
     });
 
     function fn_move_test(){
-        location.href = "/matching/simpletest/test/100?testTy=simple&recipientsNo=0";
+        location.href = "/matching/simpletest/test/100?testTy=simple&recipientsNo=${recipientsNo}";
     }
 </script>

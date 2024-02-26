@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
 @Controller
 @RequestMapping(value={"#{props['Globals.Matching.path']}/simpletest"})
@@ -52,6 +51,13 @@ public class SimpleTestController  extends CommonAbstractController {
 	@RequestMapping(value={"/simple/start"})
 	public String simpleStart(
 		Model model) throws Exception {
+
+		MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+
+		if (recipient != null){
+			model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+		}
+		
 
         return "/app/matching/simpletest/simple_start";
     }
@@ -201,6 +207,12 @@ public class SimpleTestController  extends CommonAbstractController {
 	@RequestMapping(value={"/care/start"})
 	public String careStart(
 		Model model) throws Exception {
+
+		MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+
+		if (recipient != null){
+			model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+		}
 
         return "/app/matching/simpletest/care_start";
     }
