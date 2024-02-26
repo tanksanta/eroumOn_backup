@@ -9,7 +9,13 @@
     }
 
     .swiper-slide {
-      width: calc(100% - 40px);
+      width: 280px;
+      margin-left: 20px;
+      /* width: calc(100% - 40px); */
+    }
+    
+    .swiper-slide:last-child{
+      margin-right: 20px;
     }
   </style>
 
@@ -57,7 +63,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
 
-              <div class="card">
+              <div class="card waves-effect w100p">
 
                 <div class="service_img_area om_01">
 
@@ -86,7 +92,7 @@
 
             <div class="swiper-slide">
 
-              <div class="card">
+              <div class="card waves-effect w100p">
 
                 <div class="service_img_area om_02">
 
@@ -115,7 +121,7 @@
 
             <div class="swiper-slide">
 
-              <div class="card">
+              <div class="card waves-effect w100p">
 
                 <div class="service_img_area om_03">
 
@@ -309,8 +315,8 @@
 			var swiper = new Swiper(".service_Swiper", {
 		      autoHeight: true,
 		      slidesPerView: "auto",
-		      spaceBetween: 12,
-		      centeredSlides: true,
+		      //centeredSlides: true,
+		      spaceBetween: 0,
 		      pagination: {
 		        clickable: true,
 		      },
