@@ -7,8 +7,7 @@
     </header>
 
     <div class="center">
-        <div style="background-color: #FF8120;width:80px;height:80px;border-radius: 50%; display: inline-block;"></div>
-        <div class="h16"></div>
+        <dotlottie-player src="https://lottie.host/fff4dbed-b0e4-4097-9854-02246a1e40f8/HMaoyCXoc7.json" background="transparent" speed="1" style="width: 100%; height: 90px;" autoplay></dotlottie-player>
         <p class="color_t_p font_shm"></p>
     </div>
 
@@ -25,6 +24,6 @@
   		
   		setTimeout(function() {
   			location.replace(decodeURI('${redirectUrl}').replaceAll("&amp;", "&"));
-  		}, 3000);
+  		}, 2500);
   	})
   </script>

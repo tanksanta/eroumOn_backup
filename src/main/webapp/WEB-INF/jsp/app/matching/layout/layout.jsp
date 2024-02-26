@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="/html/page/app/matching/assets/src/css/materialize.min.css" />
     <!-- style.css -->
     <link rel="stylesheet" href="/html/page/app/matching/assets/src/css/style.css">
+    
+    <!-- lottie -->
+  	<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 
  	<script type="text/javascript" src="/html/core/script/JsHouse2309PopupBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 </head>
