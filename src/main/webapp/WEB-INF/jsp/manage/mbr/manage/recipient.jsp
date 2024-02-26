@@ -240,8 +240,8 @@
 				$('#rcgtEdaDt').text(recipientInfo.rcgtEdaDt);
 				$('#penPayRate').text(recipientInfo.penPayRate);
 				$('#bgngApdt').text(recipientInfo.bgngApdt);
-				$('#remindAmt').text(comma(Number(recipientInfo.remindAmt)) + '원');
-				$('#useAmt').text(comma(Number(recipientInfo.useAmt)) + '원');
+				//$('#remindAmt').text(comma(Number(recipientInfo.remindAmt)) + '원');
+				//$('#useAmt').text(comma(Number(recipientInfo.useAmt)) + '원');
 				$('#searchDt').text(recipientInfo.searchDt);
 				
 				//수급자 상담정보
