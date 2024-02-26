@@ -235,6 +235,10 @@ mark {
   height: 40px;
 }
 
+.h42 {
+  height: 42px;
+}
+
 .h64 {
   height: 64px;
 }
@@ -316,6 +320,14 @@ mark {
   background: #fff;
   border: 1px solid #E0E0E0;
   color: #333333;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: -0.21px;
 }
 
 .btn_disable {
@@ -1342,10 +1354,6 @@ mark.mk01::after {
 }
 
 .table_basic th {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: -0.21px;
   vertical-align: top;
 }
 

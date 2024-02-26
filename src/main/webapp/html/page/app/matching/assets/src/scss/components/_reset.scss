@@ -261,6 +261,13 @@ $--Color-icon-Primitive-inverse: #fff;
 
 }
 
+//flex_center
+@mixin flex_center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 @font-face {

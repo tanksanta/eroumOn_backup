@@ -66,6 +66,27 @@
             });
 
 
+            $(function () {
+
+                //동의시 버튼 활성화
+                $('.evt_chk').on('click', function () {
+
+                    if ($(this).is(':checked') == true) {
+                        $('.evt_btn').removeClass('btn_disable');
+                        $('.evt_btn').addClass('btn_primary');
+                    }
+
+                    else {
+                        $('.evt_btn').removeClass('btn_primary');
+                        $('.evt_btn').addClass('btn_disable');
+                    }
+
+                });
+
+            });
+
+
+
         });
 
     </script>
@@ -121,7 +142,7 @@
         <footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p modal-trigger" href="#modal_eld_apply">다음</a>
             </div>
 
         </footer>
@@ -276,6 +297,41 @@
 
             </div>
 
+        </div>
+
+
+
+
+        <!-- modal_eld_apply -->
+        <div id="modal_eld_apply" class="modal bottom-sheet">
+
+            <div class="modal_header">
+                <h4 class="modal_title">상담을 위해 동의가 필요해요</h4>
+                <div class="close_x modal-close waves-effect"></div>
+            </div>
+    
+            <div class="modal-content">
+    
+    
+    
+                <div class="group_chk_area">
+                    <div>
+                        <input type="checkbox" name="" id="chk_j01" class="chk01_2 large evt_chk" checked>
+                        <label for="chk_j01">[필수] 상담 정보는 상담, 서비스 이용을 위해 장기요양기관에 제공되며 1년간 보관 후 폐기합니다.</label>
+                    </div>
+                </div>
+    
+                <div class="h32"></div>
+    
+    
+            </div>
+            <!-- modal-content -->
+            <div class="modal-footer">
+                <div class="btn_area d-flex">
+                    <a class="modal-close waves-effect btn btn-large w100p btn_primary evt_btn">동의하고 등록하기</a>
+                </div>
+            </div>
+    
         </div>
 
 

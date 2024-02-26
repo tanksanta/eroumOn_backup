@@ -51,6 +51,7 @@
 .h24{height: 24px;}
 .h32{height: 32px;}
 .h40{height: 40px;}
+.h42{height: 42px;}
 .h64{height: 64px;}
 
 .noPad{padding: 0 !important;}
@@ -82,11 +83,14 @@
     @include Suit_Body_SM_SemiBold;
     line-height: 42px;
 
-}
+} 
 .btn-large{height: 52px;max-height: 52px;border-radius: 8px;font-weight: 600;font-size: 16px;padding: 0 16px;}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary;}
 .btn_default{background: #fff; border: 1px solid $--Color-border-Primitive-secondary; color: $--Color-text-Primitive-secondary;
+    height: 42px;
+    @include flex_center;
+    @include Suit_Body_SM_SemiBold ;
 
 }
 
@@ -568,11 +572,11 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display:
 .table_basic tr{border: none;}
 .table_basic td,.table_basic th {
     padding: 12px 0;
+    
 }
 .table_basic th{
 
 
-    @include Suit_Body_SM_Regular;
     vertical-align: top;
 
 }
