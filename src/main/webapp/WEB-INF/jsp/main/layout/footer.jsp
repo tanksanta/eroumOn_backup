@@ -62,12 +62,12 @@
 								</div>
 								<div class="menu_dropdown">
 									<ul>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6246">오늘의 복지</a></li>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6374">오늘의 건강</a></li>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6378">오늘의 제품</a></li>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6382">오늘의 휴식</a></li>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6388">브랜드 이로움</a></li>
-										<li><a href="http://cms.eroum.co.kr/?page_id=6406">이로움 뉴스</a></li>
+										<li><a href="https://www.eroum.co.kr/">이로움ON</a></li>
+										<li><a href="https://www.eroum.co.kr/market">이로움ON 마켓</a></li>
+										<li><a href="https://eroumcare.com">이로움CARE</a></li>
+										<li><a href="https://www.seniortalktalk.com">시니어톡톡</a></li>
+										<li><a href="https://pro.seniortalktalk.com">시니어톡톡PRO</a></li>
+										<li><a href="http://thkc.co.kr/default">티에이치케이컴퍼니</a></li>
 									</ul>
 								</div>
 							</div>
