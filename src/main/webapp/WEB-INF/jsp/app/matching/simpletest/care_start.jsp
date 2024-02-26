@@ -22,7 +22,7 @@
 <script>
     function fn_move_test(){
         
-        location.href = '${nextStepUrl}' + '/matching/simpletest/test/100?testTy=care&recipientsNo=0';
+        location.href = '${nextStepUrl}' + '/matching/simpletest/test/100?testTy=care&recipientsNo=${recipientsNo}';
         
     }
 </script>

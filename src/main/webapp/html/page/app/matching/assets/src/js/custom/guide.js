@@ -62,6 +62,23 @@ $(function(){
     
 
 
+    //오버레이 화면
+    $('.overlay_evt').click(function(){
+
+        $('.overlay_screen').fadeIn();
+        $('body').css('overflow','hidden');
+
+    });
+
+    $('.overlay_screen').click(function(){
+
+        $(this).fadeOut();
+        $('body').css('overflow','initial');
+
+
+    });
+
+
 
     //상단 토글버튼 현재 안씀
     // $('.top_dropdown_btn').on('click', function() {

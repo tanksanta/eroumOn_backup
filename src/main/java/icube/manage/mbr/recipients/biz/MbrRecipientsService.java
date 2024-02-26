@@ -25,6 +25,17 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		paramMap.put("srchRecipientsNo", recipientsNo);
 		return mbrRecipientsDAO.selectMbrRecipients(paramMap);
 	}
+
+	public MbrRecipientsVO selectMainMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
+
+		MbrRecipientsVO recipient = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		if (recipient == null){
+			recipient = mbrRecipientList.get(0);
+		}
+
+		return recipient;
+	}
 	
 	public List<MbrRecipientsVO> selectMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
