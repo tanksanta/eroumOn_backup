@@ -3,6 +3,7 @@
 $header: 56px;
 $header_elem: 48px;
 
+
 //Color/text
 $--Color-text-primary: #1A1A1A;
 $--Color-text-secondary: #616161;
@@ -76,6 +77,11 @@ $--Color-border-Primitive-primary: #FF8120;
 $--Color-border-Primitive-primary-press: #EE6002;
 $--Color-border-Primitive-secondary: #E0E0E0;
 $--Color-border-Primitive-secondary-press: #999999;
+
+$--Color-border-Primitive-teritiary: #EEEEEE;
+$--Color-border-Primitive-teritiary-press: #E0E0E0;
+$--Color-border-Primitive-selected: #EE6002;
+$--Color-border-Primitive-visited: #323DA3;
 $--Color-border-Primitive-inverse: #fff;
 
 
@@ -142,9 +148,6 @@ $--Color-icon-Primitive-inverse: #fff;
 }
 
 
-
-
-
 //Suit/Body
 //LG
 @mixin Suit_Body_LG_Bold{
@@ -167,8 +170,6 @@ $--Color-icon-Primitive-inverse: #fff;
     line-height: 27px;
     letter-spacing: -0.27px;
 }
-
-
 
 
 //MD
@@ -212,8 +213,6 @@ $--Color-icon-Primitive-inverse: #fff;
 
 
 
-
-
 //SM
 @mixin Suit_Body_SM_Bold{
     font-size: 14px;
@@ -237,8 +236,6 @@ $--Color-icon-Primitive-inverse: #fff;
 }
 
 
-
-
 //Caption
 @mixin Suit_Caption_XS{
     font-size: 12px;
@@ -253,6 +250,15 @@ $--Color-icon-Primitive-inverse: #fff;
     line-height: 18px;
     letter-spacing: -0.18px;
     text-decoration-line: line-through;
+}
+
+
+
+////box shadow
+@mixin box_shadow{
+
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.20), 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
+
 }
 
 
@@ -339,6 +345,8 @@ input.input_noClass, input.input_noClass:focus{border:none !important;}
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat{margin: 0;}
 
 
+
+
 .row{margin: 0;}
 .row .col{padding: 0;}
 
@@ -372,6 +380,7 @@ label{color: inherit;}
     opacity: 0.8;
 
 }
+ 
 
 //mark 마크
 mark{background:none;color: inherit;}
