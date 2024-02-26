@@ -171,7 +171,9 @@
         </div>
     </div>
 
+	<!-- 복지24 긴급 제거 -->
     <div class="main-welfare-search">
+    	<%--
         <div class="container">
             <p class="desc">어르신 맞춤 <strong>복지서비스,</strong><br> <strong>한 곳에서 편하게!</strong></p>
             <p class="count"><strong class="totalCount"><fmt:formatNumber value="${total}" pattern="###,###" /></strong>건 </p>
@@ -205,10 +207,11 @@
                     <c:if test="${_mbrSession.loginCheck}"><option value="">${_mbrAddr2}</option></c:if>-->
                 </select>
                 <button type="submit" class="btn">바로 확인</button>
-                <%-- <a class="btn" href="${_mainPath}/searchBokji?sido=${addr}&amp;gugun=${}">바로 확인</a> --%>
             </form>
         </div>
+        --%>
     </div>
+	
 
     <div class="main-banner">
         <div class="market-banner">
