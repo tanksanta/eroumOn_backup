@@ -2,6 +2,7 @@ package icube.app.matching.simpletest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,48 @@ public class SimpleTestController  extends CommonAbstractController {
 
         return "/app/matching/simpletest/simple_result";
     }
-	
+
+	protected List<String> SIMPLE_TEST_STEP(){
+		return new ArrayList<String>() {{
+            add("100");
+            add("200");
+            add("300");
+            add("400");
+			add("500");
+			add("600");
+        }};
+	}
+
+	protected List<String> testStepChoiceListValues(String step){
+		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)
+			|| EgovStringUtil.equals("300", step) || EgovStringUtil.equals("600", step)){
+			return new ArrayList<String>() {{
+				add("1");
+				add("0");
+			}};
+		}else{
+			return new ArrayList<String>() {{
+				add("0");
+				add("1");
+			}};
+		}
+	}
+
+	protected List<String> testStepChoiceListTexts(String step){
+		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)){
+			return new ArrayList<String>() {{
+				add("도움필요");
+				add("도움 없이가능");
+			}};
+		}else{
+			return new ArrayList<String>() {{
+				add("네");
+				add("아니오");
+			}};
+		}
+		
+	}
+
 	@RequestMapping(value={"/test/{step}"})
 	public String test(
 		@PathVariable String step
@@ -74,6 +116,11 @@ public class SimpleTestController  extends CommonAbstractController {
 		, HttpServletResponse response
 		, Model model) throws Exception {
 
+		List<String> list = this.SIMPLE_TEST_STEP();
+		if (list.indexOf(step) < 0){//404오류 해당하는 스텝이 없다
+			return "";
+		}
+
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
@@ -82,16 +129,20 @@ public class SimpleTestController  extends CommonAbstractController {
 		List<String> listValues = new ArrayList<>();
 		List<String> listTexts = new ArrayList<>();
 		listValues.add("1"); listTexts.add("도움필요");
-		listValues.add("2"); listTexts.add("도움 없이가능");
+		listValues.add("0"); listTexts.add("도움 없이가능");
 
 
+		model.addAttribute("stepIdx", (list.indexOf(step)+1));
 		model.addAttribute("step", step);
 		model.addAttribute("testTy", testTy);
 
-		model.addAttribute("title", "title");
-		model.addAttribute("img", "image");
-		model.addAttribute("listValues", listValues);
-		model.addAttribute("listTexts", listTexts);
+		Map<String, String> stepValues = SIMPLE_TEST_STEP_VALUES.get(step);
+
+		model.addAttribute("subjectMk", stepValues.get("subjectMk"));
+		model.addAttribute("subjectNormal", stepValues.get("subjectNormal"));
+		model.addAttribute("imgFileNm", stepValues.get("imgFileNm"));
+		model.addAttribute("listValues", this.testStepChoiceListValues(step));
+		model.addAttribute("listTexts", this.testStepChoiceListTexts(step));
 		model.addAttribute("nextStepUrl", this.nextStepUrl(testTy, step));
 
         return "/app/matching/simpletest/test_step";
@@ -99,14 +150,7 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	protected String nextStepUrl(String testTy, String step)throws Exception{
 
-		List<String> list = new ArrayList<String>() {{
-            add("100");
-            add("200");
-            add("300");
-            add("400");
-			add("500");
-			add("600");
-        }};
+		List<String> list = this.SIMPLE_TEST_STEP();
 
 		String url;
 		if (EgovStringUtil.equals(step, "600")){
@@ -169,4 +213,59 @@ public class SimpleTestController  extends CommonAbstractController {
         return "/app/matching/simpletest/care_result";
     }
 
+	
+	protected static final HashMap<String, HashMap<String, String>> SIMPLE_TEST_STEP_VALUES= new LinkedHashMap<String, HashMap<String, String>>() {
+		private static final long serialVersionUID = 3678269337053606770L;
+		{
+			put("100",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606771L;
+				{
+					put("subjectMk","혼자서 식사를");
+					put("subjectNormal","하실 수 있나요?");
+					put("imgFileNm","easy_03.svg");
+				}		
+			});
+			put("200",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606772L;
+				{
+					put("subjectMk","혼자서 양치나 세수가");
+					put("subjectNormal","가능하신가요?");
+					put("imgFileNm","easy_04.svg");
+				}		
+			});
+			put("300",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606773L;
+				{
+					put("subjectMk","팔 또는 다리를");
+					put("subjectNormal","움직이기 힘드세요?");
+					put("imgFileNm","easy_05.svg");
+				}		
+			});
+			put("400",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606774L;
+				{
+					put("subjectMk","혼자서 앉거나 방 밖");
+					put("subjectNormal","으로 나가실 수 있나요?");
+					put("imgFileNm","easy_06.svg");
+				}		
+			});
+			put("500",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606775L;
+				{
+					put("subjectMk","스스로 대소변 조절이");
+					put("subjectNormal","가능한가요?");
+					put("imgFileNm","easy_07.svg");
+				}		
+			});
+			put("600",new LinkedHashMap<String, String>(){
+				private static final long serialVersionUID = 3678269337053606776L;
+				{
+					put("subjectMk","치매 판정을");
+					put("subjectNormal","받으셨나요?");
+					put("imgFileNm","easy_08.svg");
+				}		
+			});
+		}
+	};
+	
 }
