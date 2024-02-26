@@ -1,4 +1,4 @@
-package icube.app.matching;
+package icube.app.matching.main;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +18,7 @@ public class MatMainController extends CommonAbstractController {
 	
 	@RequestMapping(value = "")
 	public String main() {
-		return "/app/matching/main";
+		return "redirect:/matching/main/service";
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class MatMainController extends CommonAbstractController {
 			HttpSession session, 
 			Model model) {
 		model.addAttribute("redirectUrl", redirectUrl);
-		return "/app/matching/appAccessSetting";
+		return "/app/matching/main/appAccessSetting";
 	}
 	
 	/**

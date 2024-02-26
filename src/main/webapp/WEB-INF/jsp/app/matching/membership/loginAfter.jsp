@@ -23,7 +23,7 @@
 			if (redirectUrl) {
 				location.href = redirectUrl;
 			} else {
-				location.href = '/matching';
+				location.href = '/matching/main/service';
 			}
 		})
 	</script>
