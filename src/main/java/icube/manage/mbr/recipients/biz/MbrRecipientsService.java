@@ -30,7 +30,7 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 
 		MbrRecipientsVO recipient = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
-		if (recipient == null){
+		if (recipient == null && mbrRecipientList.size() > 0){
 			recipient = mbrRecipientList.get(0);
 		}
 
