@@ -137,6 +137,7 @@
 	
 	<jsp:include page="searchBokji-modal.jsp" flush="true"/>
 	
+	<%--
 	<nav class="welfare-service-category">
 		<div class="careinfo-title-wrap">
 			<h3 class="careinfo-title">통합복지 <span class="font-normal">목록</span></h3>
@@ -229,6 +230,7 @@
 			</fieldset>
 		</form>
 	</nav>
+	--%>
 
 	<!-- 서비스 본문(복지제도) -->
 	<div class="welfare-service-list">
@@ -760,13 +762,13 @@
 	
 	
 	$(function () {
-		searchBokjiService(1);
+		//searchBokjiService(1);
 		
-		var selectSido = '${selectSido}';
-		var selectGugun = '${selectGugun}';
-		if (!selectSido && !selectGugun) {
-			setSigugun();			
-		}
+		//var selectSido = '${selectSido}';
+		//var selectGugun = '${selectGugun}';
+		//if (!selectSido && !selectGugun) {
+		//	setSigugun();			
+		//}
 		
 		
 		//공유하기 기능
