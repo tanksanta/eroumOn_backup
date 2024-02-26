@@ -326,7 +326,7 @@
             </div>
             <div id="grade-cont6" class="tab-pane fade">
                 <div class="grade">
-                    <h4><span><small>노인장기요양인정</small> 인지등급</span></h4>
+                    <h4><span><small>노인장기요양인정</small> 인지지원등급</span></h4>
                     <p>신체 건강은 양호하지만,<br> <strong>경미한 치매 증세</strong>가 있어요.</p>
                 </div>
                 <div class="content">
