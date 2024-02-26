@@ -69,6 +69,7 @@
                             <th scope="col">번호</th>
                             <th scope="col">유형</th>
                             <th scope="col">게시판명</th>
+                            <th scope="col">구분</th>
                             <th scope="col">사용중인 메뉴</th>
                             <th scope="col">등록 데이터</th>
                             <th scope="col">관리</th>
@@ -82,6 +83,7 @@
                             <td>${listVO.startNo - status.index }</td>
                             <td>${boardTyCode[resultList.bbsTy]}</td>
                             <td><a href="../bbs/list?srchBbsNo=${resultList.bbsNo}">${resultList.bbsNm}</a></td>
+                            <td>${resultList.srvcCd}_${resultList.bbsCd}</td>
                             <td>-</td>
                             <td>${resultList.nttCnt}</td>
                             <td>
@@ -92,7 +94,7 @@
                         </c:forEach>
                         <c:if test="${empty listVO.listObject}">
                         <tr>
-                            <td class="noresult" colspan="7">검색조건을 만족하는 결과가 없습니다.</td>
+                            <td class="noresult" colspan="8">검색조건을 만족하는 결과가 없습니다.</td>
                         </tr>
                         </c:if>
                     </tbody>

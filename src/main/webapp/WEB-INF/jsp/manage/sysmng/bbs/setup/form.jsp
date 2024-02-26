@@ -33,9 +33,9 @@
                                 </tr>
                                 
                                 <tr>
-                                    <th scope="row"><label for="srvcCd" class="require">도메인</label></th>
+                                    <th scope="row"><label for="srvcCd" class="require">서비스</label></th>
                                     <td>
-                                        <form:input path="srvcCd" class="form-control w-90" title="도메인" placeholder="도메인" maxlength="50" />
+                                        <form:input path="srvcCd" class="form-control w-90" title="서비스" placeholder="서비스" maxlength="50" />
                                     </td>
                                 </tr>
                                 <tr>
