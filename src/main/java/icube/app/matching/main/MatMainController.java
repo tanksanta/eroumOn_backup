@@ -1,4 +1,4 @@
-package icube.app.matching;
+package icube.app.matching.main;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +18,7 @@ public class MatMainController extends CommonAbstractController {
 	
 	@RequestMapping(value = "")
 	public String main() {
-		return "/app/matching/main";
+		return "redirect:/matching/main/service";
 	}
 	
 	/**
@@ -47,6 +47,28 @@ public class MatMainController extends CommonAbstractController {
 			HttpSession session, 
 			Model model) {
 		model.addAttribute("redirectUrl", redirectUrl);
-		return "/app/matching/appAccessSetting";
+		return "/app/matching/main/appAccessSetting";
+	}
+	
+	/**
+	 * 등록완료 페이지 호출
+	 */
+	@RequestMapping(value = "/common/complete")
+	public String complete(
+			@RequestParam String redirectUrl,
+			@RequestParam String msg,
+			Model model) {
+		model.addAttribute("redirectUrl", redirectUrl);
+		model.addAttribute("msg", msg);
+		return "/app/matching/common/screen/complete";
+	}
+	
+	/**
+	 * 시스템 점검 페이지 호출
+	 */
+	@RequestMapping(value = "/common/systemCheck")
+	public String systemCheck(
+			Model model) {
+		return "/app/matching/common/screen/systemCheck";
 	}
 }

@@ -24,16 +24,16 @@
 
 	      <div class="btn_area d-flex f-column">
 	        <div class="relative">
-	          <!-- <span class="tool_tip">최근로그인</span> -->
-	          <a href="/matching/kakao/auth" class="waves-effect btn-large btn_kakao w100p d-flex" style="align-items: center;justify-content: center;">
+	          <span id="spanKakaoRecentLogin" class="tool_tip disNone">최근로그인</span>
+	          <a href="/matching/kakao/auth" class="waves-effect btn-large btn_kakao w100p align_center">
 	            <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/icon_kakao.svg">
 	            <span><span class="fw700">카카오</span><span class="fw400">로 계속하기</span></span>
 	          </a>
 	        </div>
 	
-	
 	        <div class="relative">
-	          <a href="/matching/naver/login" class="waves-effect btn-large btn_disable w100p">다른 방법으로 계속하기</a>
+	          <span id="spanOtherRecentLogin" class="tool_tip disNone">최근로그인</span>
+	          <a href="/matching/naver/login" class="waves-effect btn-large btn_cancel w100p">다른 방법으로 계속하기</a>
 	        </div>
 	      </div>
 	
@@ -45,5 +45,21 @@
 	
 	
 	<script>
+		function showKakaoRecentLogin() {
+			$('#spanKakaoRecentLogin').removeClass('disNone');
+		}
+		function showNaverRecentLogin() {
+			$('#spanOtherRecentLogin').removeClass('disNone');
+		}
+		function showEroumRecentLogin() {
+			$('#spanOtherRecentLogin').removeClass('disNone');
+		}
 		
+		$(function() {
+			//최근로그인 가져오기 요청
+			sendDataToMobileApp({ actionName: 'getRecentLgnTy' });
+			
+			//현재 페이지 history 저장 
+			saveCurrentPageHistory();
+		})
 	</script>

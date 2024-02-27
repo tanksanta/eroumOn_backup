@@ -1225,6 +1225,8 @@ public class CodeMap{
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
 			*/
+			put("MARKETING", "마켓팅정보 수신동의");
+			put("NIGHT", "야간 혜택 수신동의");
 		}
 	};
 	
@@ -1259,6 +1261,19 @@ public class CodeMap{
 			put("수동침대", "2060");
 			put("전동침대", "2070");
 			put("수동휠체어", "2080");
+		}
+	};
+	
+	/* 통신사 정보 */
+	public static final HashMap<String, String> CARRIER_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 6079996218394314021L;
+		{
+			put("SKT", "SKT");
+			put("KT", "KT");
+			put("LG U+", "LGT");
+			put("SKT 알뜰폰", "SKT_MVNO");
+			put("KT 알뜰폰", "KT_MVNO");
+			put("LG U+ 알뜰폰", "LGT_MVNO");
 		}
 	};
 }

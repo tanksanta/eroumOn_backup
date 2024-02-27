@@ -11,10 +11,34 @@ class JsCommon{
         for(ifor=0 ; ifor<ilen ; ifor++){
             sTemp = splited[ifor];
             saTemp = sTemp.split("=")
-            ret[saTemp[0]] = (saTemp.length > 1)?saTemp[1] : '';
+            if (saTemp[0] !=""){
+                ret[saTemp[0]] = (saTemp.length > 1)?saTemp[1] : '';
+            }
+            
         }
 
         return ret;
+    }
+    fn_queryString_fromMap(json){
+        return new URLSearchParams(json).toString();
+    }
+
+    fn_redirect_url(){
+        if (location.search.length > 1 && location.search.toLocaleLowerCase().indexOf('redirecturl=')>=0){
+            var arr = location.search.substring(1).split('&');
+            var find3 = arr.find((e) => e.toLocaleLowerCase().startsWith("redirecturl="));
+            return find3.split('=')[1];
+        }else{
+            if (document.referrer.length < 1){
+                return location.pathname + location.search;
+            }else{
+                var oUrl = new URL(location.href);
+    
+                return oUrl.pathname + oUrl.search;
+            }
+        }
+
+        
     }
     
     fn_keycontrol(){

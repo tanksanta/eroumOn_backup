@@ -28,16 +28,16 @@
 
   <script>
 
-      $(function(){
-        //주석 풀면 modal창 열린상태로 로드
-        // $(function(){
-        //     $('.modal').modal('open');
-        // });
+    $(function () {
+      //주석 풀면 modal창 열린상태로 로드
+      // $(function(){
+      //     $('.modal').modal('open');
+      // });
 
-      });
-  
-    </script>
-  
+    });
+
+  </script>
+
 
 
 </head>
@@ -54,113 +54,322 @@
     <main>
       <section>
 
+        <div class="btn btn-middle btn_primary">타이틀 - Title</div>
+
+        <div class="card-panel grey lighten-5">
+          <h2 class="title">32px h2.title - 가나다라ABcd 1234 </h2>
+          <h3 class="title">24px h3.title - 가나다라ABcd 1234 </h3>
+          <h4 class="title">20px h4.title - 가나다라ABcd 1234 </h4>
+          <h5 class="title">18px h5.title - 가나다라ABcd 1234 </h4>
+
+            <div class="h12"></div>
+
+            <div class="font_h1">font_h1 - 가나다ABcd = h2.title</div>
+            <div class="font_h2">font_h2 - 가나다ABcd = h3.title</div>
+            <div class="font_h3">font_h3 - 가나다ABcd = h4.title</div>
+            <div class="font_h4">font_h4 - 가나다ABcd = h5.title</div>
+        </div>
+
+        <div class="card-panel grey lighten-5">
+          <div class="font_18_1">18px 가나다라ABcd 1234 32px</div>
+          <div class="font_18_2">18px 가나다라ABcd 1234 32px</div>
+          <div class="font_18_3">18px 가나다라ABcd 1234 32px</div>
+        </div>
+
+        <div class="card-panel grey lighten-5">
+          <div class="font_16_1">16px 가나다라ABcd 1234 32px</div>
+          <div class="font_16_2">16px 가나다라ABcd 1234 32px</div>
+          <div class="font_16_3">16px 가나다라ABcd 1234 32px</div>
+          <div class="font_16_4">16px 가나다라ABcd 1234 32px</div>
+          <div class="font_16_5">16px 가나다라ABcd 1234 32px</div>
+        </div>
+
+        <div class="card-panel grey lighten-5">
+          <div class="font_14_1">14px 가나다라ABcd 1234 32px</div>
+          <div class="font_14_2">14px 가나다라ABcd 1234 32px</div>
+          <div class="font_14_3">14px 가나다라ABcd 1234 32px</div>
+        </div>
+
+        <div class="card-panel grey lighten-5">
+          <div class="font_12_1">12px 가나다라ABcd 1234 32px</div>
+          <div class="font_12_2">12px 가나다라ABcd 1234 32px</div>
+        </div>
+
+        <br><br>
+
+        <div class="btn btn-middle btn_primary">리스트 - List</div>
+
+        <div class="card-panel grey lighten-5">
+
+          <ul>
+            <li class="list_dept1">복지용구 구매</li>
+            <li class="list_dept1">복지용구 구매</li>
+            <li class="list_dept1">복지용구 구매용구 구매용구 구매용구 구매용구 구매용구 구매용구 구매용구 구매용구 구매</li>
+          </ul>
+          
+        </div>
 
 
-        <label>
-            <input id="chk01" type="checkbox" class="filled-in" />
-            <span class="font_sbsr">자동 로그인</span>
-        </label>
+        <br><br>
+
+
+
+        <div class="btn btn-middle btn_primary">폼 - input</div>
+
+        <div class="h08"></div>
+
+        <input type="text" class="input_basic" value="홍길동">
+        <div class="h08"></div>
+        <input type="text" class="input_basic bder_danger" value="홍길동">
+        <div class="vaild_txt error">이름을 입력해주세요</div>
+
+
         <br /><br /><br />
 
-        <h6>체크박스 chk1_1</h6>
-        <input type="checkbox" name="" id="chk_a1" class="chk01_1">
-        <label for="chk_a1">로그인 화면11</label>
+        <div class="btn btn-middle btn_primary">체크 라디오 박스 - check radio</div>
 
-        <input type="checkbox" name="" id="chk_a12" class="chk01_1" checked>
-        <label for="chk_a12">로그인 화면2</label>
+        <br><br>
 
-        <br />
-        <br />
-        <br />
+        <div class="color_tp_p fw600">체크박스 chk1_1</div>
+        <div class="card-panel grey lighten-5">
 
-        <h6>체크박스 chk1_2</h6>
-        <input type="checkbox" name="" id="chk_b1" class="chk01_2">
-        <label for="chk_b1">로그인 화면11</label>
-
-        <input type="checkbox" name="" id="chk_b12" class="chk01_2" checked>
-        <label for="chk_b12">로그인 화면2</label>
-
-        <br />
-        <br />
-        <br />
-
-
-        <h6>체크박스 chk02</h6>
-        <input type="checkbox" name="" id="chk_a19" class="chk02">
-        <label for="chk_a19">로그인 화면</label>
-
-        <input type="checkbox" name="" id="chk_a20" class="chk02" checked>
-        <label for="chk_a20">로그인 화면2</label>
-
-        <input type="checkbox" name="" id="chk_a21" class="chk02" disabled>
-        <label for="chk_a21">로그인 화면3</label>
-
-        <input type="checkbox" name="" id="chk_aa22" class="chk02" checked disabled>
-        <label for="chk_aa22">로그인 화면4</label>
-        <br />
-        <br />
-
-
-
-
-        <h6>라디오 chk03</h6>
-        <input type="radio" name="aa1" id="chk_a30" class="chk03">
-        <label for="chk_a30">로그인 화면333</label>
-
-        <input type="radio" name="aa1" id="chk_a31" class="chk03" checked>
-        <label for="chk_a31">로그인 화면2</label>
-
-        <input type="radio" name="aa2" id="chk_a32" class="chk03" disabled>
-        <label for="chk_a32">로그인 화면3</label>
-
-        <input type="radio" name="aa2" id="chk_aa33" class="chk03" checked disabled>
-        <label for="chk_aa33">로그인 화면4</label>
-        <br />
-        <br />
-        <br />
-
-
-
-        <h6>박스형 chk02 large</h6>
-        <input type="checkbox" name="" id="chk_c00" class="chk01_2 large">
-        <label for="chk_c00">로그인 화면11</label>
-
-
-
-        <input type="checkbox" name="" id="chk_c01" class="chk02 large ">
-        <label for="chk_c01">로그인 화면77</label>
-        <input type="checkbox" name="" id="chk_c02" class="chk02 large border">
-        <label for="chk_c02">로그인 화면888 로그인 화면888 로그인 화면888</label>
-
-        <input type="checkbox" name="" id="chk_c02" class="chk02 large border_gray">
-        <label for="chk_c02" class="fw600">전체 동의하기</label>
+          <input type="checkbox" name="" id="chk_a1" class="chk01_1">
+          <label for="chk_a1">로그인 화면11</label>
   
+          <input type="checkbox" name="" id="chk_a12" class="chk01_1" checked>
+          <label for="chk_a12">로그인 화면2</label>
+
+        </div>
+
+        <div class="color_tp_p fw600">체크박스 chk1_2</div>
+
+        <div class="card-panel grey lighten-5">
+
+          <input type="checkbox" name="" id="chk_b1" class="chk01_2">
+          <label for="chk_b1">로그인 화면11</label>
+  
+          <input type="checkbox" name="" id="chk_b12" class="chk01_2" checked>
+          <label for="chk_b12">로그인 화면2</label>
+
+        </div>
+
+        <div class="color_tp_p fw600">체크박스 chk02</div>
+
+        <div class="card-panel grey lighten-5">
+
+          <input type="checkbox" name="" id="chk_a19" class="chk02">
+          <label for="chk_a19">로그인 화면</label>
+  
+          <input type="checkbox" name="" id="chk_a20" class="chk02" checked>
+          <label for="chk_a20">로그인 화면2</label>
+  
+          <input type="checkbox" name="" id="chk_a21" class="chk02" disabled>
+          <label for="chk_a21">로그인 화면3</label>
+  
+          <input type="checkbox" name="" id="chk_aa22" class="chk02" checked disabled>
+          <label for="chk_aa22">로그인 화면4</label>
+  
+        </div>
+
+        <div class="color_tp_p fw600">라디오 chk03</div>
+
+        <div class="card-panel grey lighten-5">
+
+          <input type="radio" name="aa1" id="chk_a30" class="chk03">
+          <label for="chk_a30">로그인 화면333</label>
+  
+          <input type="radio" name="aa1" id="chk_a31" class="chk03" checked>
+          <label for="chk_a31">로그인 화면2</label>
+  
+          <input type="radio" name="aa2" id="chk_a32" class="chk03" disabled>
+          <label for="chk_a32">로그인 화면3</label>
+  
+          <input type="radio" name="aa2" id="chk_aa33" class="chk03" checked disabled>
+          <label for="chk_aa33">로그인 화면4</label>
+
+        </div>
+
+        <div class="color_tp_p fw600">박스형 large</div>
+        
+        <div class="card-panel grey lighten-5">
+        
+          <input type="checkbox" name="" id="chk_c00" class="chk01_2 large">
+          <label for="chk_c00">로그인 화면11</label>
+        
+          <div class="h08"></div>
+        
+          <input type="checkbox" name="" id="chk_c01" class="chk02 large ">
+          <label for="chk_c01">로그인 화면77</label>
+
+          <div class="h08"></div>
+
+          <input type="checkbox" name="" id="chk_c02" class="chk02 large border">
+          <label for="chk_c02">로그인 화면888 로그인 화면888 로그인 화면888</label>
+        
+          <div class="h08"></div>
+
+          <input type="checkbox" name="" id="chk_c0222" class="chk02 large border_gray">
+          <label for="chk_c0222" class="fw600">전체 동의하기</label>
+        
+          <div class="h08"></div>
+
+          <input type="checkbox" name="" id="chk_c034" class="chk01_2 large border_gray">
+          <label for="chk_c034" class="fw600">전체 동의하기</label>
+        
+        
+        </div>
+
+        <div class="card-panel grey lighten-5">
+
+          <input type="radio" name="t01" id="rd_01" class="chk01_3 large border_gray">
+          <label for="rd_01">도움필요</label>
+          <input type="radio" name="t01" id="rd_02" class="chk01_3 large border_gray">
+          <label for="rd_02">도움필요없슴</label>
+  
+        </div>
+
+        <div class="card-panel grey lighten-5">
+
+          <input type="radio" name="aa1" id="chk_c03" class="chk03 large" checked>
+          <label for="chk_c03">로그인 화면22333</label>
+
+          <div class="h08"></div>
+  
+          <input type="radio" name="aa1" id="chk_c04" class="chk03 large border">
+          <label for="chk_c04">로그인 화면11333</label>
+
+        </div>
+
+        <div class="color_tp_p fw600">박스형 large 비활성</div>
+        <div class="card-panel grey lighten-5">
+
+          <input type="checkbox" name="" id="chk_d01" class="chk01_2 large" disabled>
+          <label for="chk_d01">로그인 화면11</label>
+          <input type="checkbox" name="" id="chk_d02" class="chk02 large border" disabled>
+          <label for="chk_d02">로그인 화면</label>
+          <input type="radio" name="aa1" id="chk_d03" class="chk03 large border" disabled>
+          <label for="chk_d03">로그인 화면333</label>
+  
+        </div>
+
+
+
+
+        <br /><br />
+
+
+        <div class="btn btn-middle btn_primary">버튼 Button</div>
+
+        <br><br>
+
+
+        <div class="color_tp_p fw600">링크 텍스트</div>
+        <div class="card-panel grey lighten-5">
+
+          <span class="waves-effect link_text">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text"><u>링크 텍스트</u></span>
+          <br />
+          <span class="waves-effect link_text color_primary">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text color_primary"><u>링크 텍스트</u></span>
+          <br />
+          <span class="waves-effect link_text color_disable">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text color_disable"><u>링크 텍스트</u></span>
+          <br />
+          <br />
+          <span class="waves-effect link_text small">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text small"><u>링크 텍스트</u></span>
+          <br />
+          <span class="waves-effect link_text small color_primary">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text small color_primary"><u>링크 텍스트</u></span>
+          <br />
+          <span class="waves-effect link_text small color_disable">링크 텍스트</span>
+          <br />
+          <span class="waves-effect link_text small color_disable"><u>링크 텍스트</u></span>
+
+        </div>
+
+        <div class="color_tp_p fw600">버튼</div>
+
+        <div class="card-panel grey lighten-5">
+        
+          <div class="relative">
+            <span class="tool_tip">최근로그인</span>
+            <a class="waves-effect btn-large btn_naver w100p align_center">
+              <img class="icon_img" src="../images/08etc/icon_naver.svg">
+              <span><span class="fw700">네이버</span><span class="fw400">로 계속하기</span></span>
+            </a>
+          </div>
+  
+          <div class="h08"></div>
+  
+          <div class="relative">
+            <a class="waves-effect btn-large btn_kakao w100p align_center">
+              <img class="icon_img" src="../images/08etc/icon_kakao.svg">
+              <span><span class="fw700">카카오</span><span class="fw400">로 계속하기</span></span>
+            </a>
+          </div>
+  
+          <div class="h08"></div>
+  
+          <a class="waves-effect btn-large btn_primary w100p">확인</a>
+  
+          <div class="h08"></div>
+  
+          <a class="waves-effect btn-large btn_cancel w100p">취소</a>
+  
+          <div class="h08"></div>
+  
+          <a class="waves-effect btn-large btn_disable w100p">비활성 버튼</a>
+
+          <div class="h08"></div>
+  
+          <a class="waves-effect btn-large btn_default w100p">신청 상세보기</a>
+
+
+        </div>
+
+        
+
+        <div class="h08"></div>
+
+        <a class="modal-close waves-effect btn btn-middle btn_primary w120">중간버튼120px</a>
+        <a class="modal-close waves-effect btn btn-middle btn_cancel">중간버튼2</a>
+
+
+        <div class="h20"></div>
+        <h5>테이블</h5>
+        <table class="table_basic">
+          <colgroup>
+            <col style="width:140px;">
+            <col>
+          </colgroup>
+          <tbody>
+            <tr>
+              <th>타이틀1</th>
+              <td class="l_right padR20">꽃분이</td>
+            </tr>
+            <tr>
+              <th>타이틀2</th>
+              <td class="l_right">
+                <span class="waves-effect link_text">링크텍스트1 참조</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <br />
-
-
-
-        <input type="radio" name="aa1" id="chk_c03" class="chk03 large">
-        <label for="chk_c03">로그인 화면22333</label>
-
-        <input type="radio" name="aa1" id="chk_c04" class="chk03 large border">
-        <label for="chk_c04">로그인 화면11333</label>
-
-        <h6>박스형 chk02 large 비활성</h6>
-        <input type="checkbox" name="" id="chk_d01" class="chk01_2 large" disabled>
-        <label for="chk_d01">로그인 화면11</label>
-        <input type="checkbox" name="" id="chk_d02" class="chk02 large border" disabled>
-        <label for="chk_d02">로그인 화면</label>
-        <input type="radio" name="aa1" id="chk_d03" class="chk03 large border" disabled>
-        <label for="chk_d03">로그인 화면333</label>
-
-        <br />
         <br />
 
+        <!-- 버튼 -->
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn btn_primary  modal-trigger" href="#modal1">Modal1</a>
+        <a class="waves-effect waves-light btn btn_cancel  modal-trigger" href="#modal2">Modal2</a>
 
-            <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn btn_primary  modal-trigger" href="#modal1">Modal1</a>
-            <a class="waves-effect waves-light btn btn_cancel  modal-trigger" href="#modal2">Modal2</a>
 
 
       </section>
@@ -168,48 +377,53 @@
 
 
 
-  <!-- Modal1 -->
-  <div id="modal1" class="modal">
+    <!-- Modal1 -->
+    <div id="modal1" class="modal">
 
-    <div class="modal_header">
+      <div class="modal_header">
         <h4 class="modal_title">title제목</h4>
-    </div>
-    <div class="modal-content">
-      
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-      </p>
-      <p class="fs16">내용넣는곳</p>
+      </div>
+      <div class="modal-content">
 
-    </div>
-    <div class="modal-footer">
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        </p>
+        <p class="fs16">내용넣는곳</p>
+
+      </div>
+      <div class="modal-footer">
         <div class="btn_area d-flex">
-            <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+          <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
         </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Modal2 -->
-  <div id="modal2" class="modal">
+    <!-- Modal2 -->
+    <div id="modal2" class="modal">
 
-    <div class="modal_header">
+      <div class="modal_header">
         <h4 class="modal_title">title제목</h4>
-    </div>
-    <div class="modal-content">
-      
-      <p>내용넣는곳</p>
-      <p class="fs16">내용넣는곳</p>
+      </div>
+      <div class="modal-content">
 
-    </div>
-    <div class="modal-footer">
+        <p>내용넣는곳</p>
+        <p class="fs16">내용넣는곳</p>
+
+      </div>
+      <div class="modal-footer">
         <div class="btn_area d-flex">
-            <a class="modal-close waves-effect btn btn-large w100p btn_cancel">취소</a>
-            <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+          <a class="modal-close waves-effect btn btn-large w100p btn_cancel">취소</a>
+          <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
         </div>
+      </div>
     </div>
-  </div>
+
+
+
+
+
 
 
 

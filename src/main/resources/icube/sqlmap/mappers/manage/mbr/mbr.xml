@@ -36,6 +36,8 @@
 		, m.eml_rcptn_dt
 		, m.tel_recptn_yn
 		, m.tel_recptn_dt
+		, m.push_recptn_yn
+		, m.push_recptn_dt
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.ci_key
@@ -302,6 +304,8 @@
 			, eml_rcptn_dt
 			, tel_recptn_yn
 			, tel_recptn_dt
+			, push_recptn_yn
+			, push_recptn_dt
 			, profl_img
 			, trms_agre_dt
 			, itrst_field
@@ -347,6 +351,8 @@
 			, #{emlRcptnDt}
 			, #{telRecptnYn, jdbcType=VARCHAR}
 			, #{telRecptnDt}
+			, #{pushRecptnYn, jdbcType=VARCHAR}
+			, #{pushRecptnDt}
 			, #{proflImg, jdbcType=VARCHAR}
 			, SYSDATE()
 			, #{itrstField, jdbcType=VARCHAR}

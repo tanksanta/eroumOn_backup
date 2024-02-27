@@ -1,26 +1,53 @@
 
+.back_gray{background-color: #f7f7f7;}
+
 .wrapper{width:100%;min-height: 100vh;}
 
+//$header = 56px
 
-
-main{flex:1 0 auto}
+main{flex:1 0 auto;}
 
 section{
 
-    margin: 40px 0 120px;
+
+    margin: 40px 0 120px; //header X
     padding: 0 20px;
 
-    &.intro{
-    
+    &.intro{ //header O
+     
         margin-top: $header + 40px;
 
     }
 
+    &.default{ //header O 일반
+
+        margin: $header 0 80px;
+        padding: 20px;
+
+    }
+
+    &.bottom_0{
+        margin-bottom: 0;
+        
+    }
+
+    //간략 서비스 소개
+    &.back_service_info{ 
+
+        margin: 0 0 80px;
+        background-image: linear-gradient(146deg, #FF8120 21.95%, #E54304 82.84%);
+        background-repeat: no-repeat;
+        background-size: 100% 290px;
+
+
+    }
+
+    
+
+
     h2.title{ 
     
-        color: $--Color-text-primary;
         @include Suit_Heading_XL;
-        letter-spacing: -0.64px;
         margin: 0;
         
         & + .txt{
@@ -31,17 +58,30 @@ section{
 
     h3.title{
     
-        color: $--Color-text-primary;
         @include Suit_Heading_MD;
         margin: 0;
         
+    }
+
+    h4.title{
+
+        @include Suit_Heading_SM;
+        margin: 0;
+
+    }
+
+    h5.title{
+
+        @include Suit_Body_LG_Bold;
+        margin: 0;
+
     }
 
 
 }
 
 //툴팁
-.tool_tip{z-index: 10; right:10px;bottom:45px; position: absolute;display: inline-block;background-color: #fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
+.tool_tip{z-index: 1000; right:10px;bottom:45px; position: absolute;display: inline-block;background-color: #fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
             padding: 12px;border-radius: 8px;
             @include Suit_Body_SM_SemiBold;
 
@@ -76,17 +116,26 @@ section{
 .modal{background: #fff;border-radius: 16px;}
 .modal .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 24px 20px 12px;}
 
-.modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
-.modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
 .modal .modal-content{position: relative;
     padding: 0 20px 32px;
     overflow: hidden;
     height: 100%;}
-.modal.bottom-sheet .modal-content{padding: 0 20px;}
 
+.modal .modal-content p{
+    color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_MD_Regular;
+}
+    
+
+
+.modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
+.modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
+
+.modal.bottom-sheet .modal-content{padding: 0 20px;}
+.modal.bottom-sheet .modal-footer{padding: 0 20px 32px;}
 
 .modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
-    @include Suit_Body_LG_Bold
+    @include Suit_Heading_SM;
 }
 
 
@@ -152,7 +201,8 @@ section{
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    display: block;
+    display: flex;
+    align-items: center;
 
 }
 .broad_area li.active{
@@ -161,6 +211,8 @@ section{
 
     
 }
+
+
 
 // 동의체크
 .group_chk_area{
@@ -283,9 +335,392 @@ section{
 
 }
 
-
-
+// 현재 안씀
 .i04_alaram_fill{background-image: url('../images/04icon/alaram_fill.svg')}
 
 
 
+/////어르신 등록
+.eld_reg_woman{max-height: 60vh;}
+
+
+//트리
+.family_tree_area{
+    display: flex;
+    flex-direction: column;
+
+    .tree{
+        display: flex;
+        margin-top: 14px;
+    }
+    .tree:first-child{margin: 0;}
+
+    .txt{
+        display: block;
+        color: $--Color-text-secondary;
+        @include Suit_Caption_XS;
+    }
+
+
+        //가족
+        [class^='dept'] {
+            position: relative;
+            display: grid;
+            width:100%;
+            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+
+            &::after{display: block;content: '';position: absolute; width:50%;height:1px;background: #EEE;z-index: -1;top:30px};
+
+            & > .item{
+                display: flex;justify-content: center; align-items: end; width:100%;height:82px;background-position: center top;background-repeat: no-repeat;background-size: 60px;
+                transition: 0.3s all;
+            }
+
+
+        }
+
+        //형제자매, 자녀 트리
+        .dept2{
+
+            & > .item {background-size: 100px;}
+
+            &::after{background: transparent;}
+            
+        
+        }
+
+
+}
+
+.item.grandpa{background-image: url('../images/05family_tree/type_grandpa_off.svg');}
+.item.grandpa.active{background-image: url('../images/05family_tree/type_grandpa_on.svg');}
+
+.item.grandma{background-image: url('../images/05family_tree/type_grandma_off.svg');}
+.item.grandma.active{background-image: url('../images/05family_tree/type_grandma_on.svg');}
+
+.item.father{background-image: url('../images/05family_tree/type_fatehr_off.svg');}
+.item.father.active{background-image: url('../images/05family_tree/type_fatehr_on.svg');}
+
+.item.mother{background-image: url('../images/05family_tree/type_mother_off.svg');}
+.item.mother.active{background-image: url('../images/05family_tree/type_mother_on.svg');}
+
+.item.p_father{background-image: url('../images/05family_tree/type_partner_father_off.svg');}
+.item.p_father.active{background-image: url('../images/05family_tree/type_partner_father_on.svg');}
+
+.item.p_mother{background-image: url('../images/05family_tree/type_partner_mother_off.svg');}
+.item.p_mother.active{background-image: url('../images/05family_tree/type_partner_mother_on.svg');}
+
+.item.me{background-image: url('../images/05family_tree/type_me_off.svg');}
+.item.me.active{background-image: url('../images/05family_tree/type_me_on.svg');}
+
+.item.partner{background-image: url('../images/05family_tree/type_partner_off.svg');}
+.item.partner.active{background-image: url('../images/05family_tree/type_partner_on.svg');}
+
+.item.brother{background-image: url('../images/05family_tree/type_brother_off.svg');}
+.item.brother.active{background-image: url('../images/05family_tree/type_brother_on.svg');}
+
+.item.child{background-image: url('../images/05family_tree/type_child_off.svg');}
+.item.child.active{background-image: url('../images/05family_tree/type_child_on.svg');}
+
+
+
+
+.family_sel{
+    display: flex;
+    align-items: center;
+    gap:16px;
+
+    .item{display: flex;justify-content: center; align-items: end; width:60px;height:82px;background-position: center top;background-repeat: no-repeat;background-size: 60px;
+        transition: 0.3s all;}
+
+    .txt{
+        display: block;
+        color: $--Color-text-secondary;
+        @include Suit_Caption_XS;
+    }
+
+
+}
+
+
+//Breadcrumbs
+.breadCb{
+
+    > span{
+        color: $--Color-text-disabled;
+        @include Suit_Body_MD_SemiBold;
+
+        position: relative;
+        padding: 14px 16px;
+
+        &.active{
+
+            color: $--Color-text-Primitive-primary;
+
+        }
+
+        &.selected{
+
+            color: $--Color-text-Primitive-secondary;
+
+        }
+
+
+        + span:nth-child(n+1){
+
+            padding: 14px 16px 14px 32px;
+
+            background: url('../images/04icon/chevron-right_thin_disable.svg') no-repeat left center;
+            background-size: 16px;
+
+        }
+    
+    }
+
+}
+
+//지역선택 chip
+.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;padding-bottom: 20px;align-content: start;}
+.chip_area > * {
+    width:100%;height: 48px;padding: 12px 8px;border-radius: 8px;
+    border:1px solid $--Color-border-Primitive-secondary;
+    background-color: #fff;
+    text-align: center;
+
+    &.active{
+        border: 1px solid $--Color-border-Primitive-primary-press;
+        background-color: $--Color-bg-Primitive-selected;
+        color: $--Color-text-Primitive-selected;
+    }
+
+}
+
+
+//시스템 점검
+//close_x가 modal-header안에 있어 상단올림처리
+.img_system_ins{
+    text-align: center; position: relative;top:-34px;
+
+    img{width:240px;}
+
+}
+
+.img_system_ins + .modal-content{top:-34px;}
+
+
+
+//서비스
+//카드
+.card{margin: 0;border-radius: 16px;overflow: hidden;
+    @include box_shadow;
+}
+
+.card.active{
+    background: $--Color-bg-Primitive-selected;
+    border: 1px solid $--Color-border-Primitive-primary-press;
+}
+
+.card .card-content{padding: 24px 20px;}
+
+//공지사항
+.card.notice .card-content{padding: 16px 12px;}
+.notice_dl{display: flex;align-items: center;}
+.notice_dl dt{
+    color: $--Color-text-primary;
+    @include Suit_Body_SM_Bold;
+}
+.notice_dl dd{
+    color: $--Color-text-primary;
+    @include Suit_Body_SM_Regular;
+    margin-left: 8px;
+}
+
+//드롭다운메뉴
+.top_dropdown_area{display: flex;align-items: center;position: relative;}
+.top_dropdown_btn{display: inline-block;width:24px;height:24px;
+    margin-left: 2px;
+    background: url('../images/04icon/circle_down.svg') no-repeat center center;background-size: 100%;transition: 0.3s all;
+}
+.top_dropdown_btn.active{transform:rotate(180deg);}
+
+    //현재 안씀
+    .top_dropdown_menu{position: absolute;top:30px;display: none;}
+    .top_dropdown_menu li a{color:$--Color-text-primary;display: block;width: 100px; background-color: aqua;}
+
+//어르신 슬라이드
+.service_img_area{
+    height: 180px;
+    background-color: #ddd;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+
+
+    &.om_01{
+        background-color: $--Color-bg-info-subtle;
+        background-image: url('../images/10om/om_01.svg');
+    }
+    &.om_02{
+        background-color: $--Color-bg-Primitive-selected;
+        background-image: url('../images/10om/om_02.svg');
+    }
+    &.om_03{
+        background-color: $--Color-bg-danger-subtle;
+        background-image: url('../images/10om/om_03.svg');
+    }
+
+    .title{
+        position: absolute;top:16px;left:16px;
+        display: inline-block;padding: 2px 8px;
+        background: rgba(51, 51, 51, 0.70);border-radius: 50px;
+        color: #fff;
+        @include Suit_Caption_XS;
+    }
+
+    &.card-content{padding: 20px;}
+
+}
+
+
+
+
+//어르신 선택 아이콘 꽃
+//상단 broad_area 참조
+.broad_area.om_select li{padding: 8px;}
+
+.img_flower{
+    border-radius: 50%;
+    border: 0.667px solid #e0e0e0;
+    background: $--Color-bg-Primitive-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:48px;
+    height: 48px;; 
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 32px;
+
+    &.fl_01{
+        background-image: url('../images/07flower/fl_01.svg');
+    }
+    &.fl_02{
+        background-image: url('../images/07flower/fl_02.svg');
+    }
+    &.fl_03{
+        background-image: url('../images/07flower/fl_03.svg');
+    }
+    &.fl_04{
+        background-image: url('../images/07flower/fl_04.svg');
+    }
+
+    & + span{
+        margin-left: 8px;
+    }
+
+
+}
+ 
+//추가 등록하기
+.om_add{padding: 8px;color:$--Color-text-Primitive-secondary;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    
+    
+}
+
+//태그
+.tag_area{
+    margin-top: 4px;
+
+    .tag{display: inline-block;
+        color: $--Color-text-secondary;
+        @include Suit_Body_SM_Regular; 
+
+        &::before{
+
+            content: '#';
+
+        }
+    }
+
+    .tag:nth-child(2n){margin-left: 4px;}
+
+}
+
+//간편 테스트
+//
+.box{background-color: #fff;padding:32px 20px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    align-items: start;
+    gap: 16px;
+
+    + .box{margin-top: 16px;}
+
+
+    .img_area{
+        width:48px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: $--Color-bg-Primitive-selected;
+
+        + .ctn_area{
+
+            p{margin-top: 8px;}
+
+        }
+    }
+
+}
+
+
+//progress step
+.progress01{
+    appearance: none;width:100%;
+
+    &::-webkit-progress-bar{
+        overflow: hidden;
+        height: 16px;
+        border-radius: 20px;
+        background-color: $--Color-bg-teritiary;
+    }
+    &::-webkit-progress-value{
+        border-radius: 20px;
+        height: 16px;
+        width: 48px;
+        background: linear-gradient(146deg, #FF8120 21.95%, #E54304 82.84%);
+    }
+
+}
+
+.progress_num{
+    text-align: right;color:$--Color-text-secondary; @include Suit_Body_SM_Regular;
+
+    .step{
+        color: $--Color-text-primary; @include Suit_Body_SM_SemiBold;
+    }
+}
+
+
+//연락처 수정
+//그레이 박스
+.card-panel.default{
+    padding: 12px 8px;
+    border-radius: 8px;
+    background: $--Color-bg-teritiary;
+
+    color: $--Color-text-secondary;
+    @include flex_center;
+    @include Suit_Body_SM_Regular;
+
+}

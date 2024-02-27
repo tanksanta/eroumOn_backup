@@ -35,24 +35,14 @@ public class TermsController  extends CommonAbstractController {
     @Resource(name = "termsService")
 	private TermsService termsService;
 
-    @RequestMapping(value = "privacy/list")
+    @RequestMapping(value = "{termsKind}/list")
 	public String listPrivacy(
 			HttpServletRequest request
+			, @PathVariable String termsKind
             , @RequestParam Map<String,Object> reqMap
 			, Model model) throws Exception {
-        
-                String termsKind = "PRIVACY";
-        return this.listTerms(request, reqMap, termsKind, model);
-	}
-
-    @RequestMapping(value = "terms/list")
-	public String listTerms(
-			HttpServletRequest request
-            , @RequestParam Map<String,Object> reqMap
-            
-			, Model model) throws Exception {
-        String termsKind = "TERMS";
-        return this.listTerms(request, reqMap, termsKind, model);
+        String upperTermsKind = termsKind.toUpperCase();
+        return this.listTerms(request, reqMap, upperTermsKind, model);
 	}
 
     protected String listTerms(HttpServletRequest request
@@ -75,30 +65,16 @@ public class TermsController  extends CommonAbstractController {
 		return "/manage/sysmng/terms/list";
     }
 
-    @RequestMapping(value = "privacy/form")
+    @RequestMapping(value = "{termsKind}/form")
 	public String formPrivacy(
 			HttpServletRequest request
+			, @PathVariable String termsKind
             , @RequestParam Map<String,Object> reqMap
             , @RequestParam(value="termsNo", required=true) int termsNo
             , TermsVO termsVO
 			, Model model) throws Exception {
-
-        String termsKind = "PRIVACY";
-            
-        return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
-    }
-
-    @RequestMapping(value = "terms/form")
-	public String formTerms(
-			HttpServletRequest request
-            , @RequestParam Map<String,Object> reqMap
-            , @RequestParam(value="termsNo", required=true) int termsNo
-            , TermsVO termsVO
-			, Model model) throws Exception {
-
-        String termsKind = "TERMS";
-            
-        return this.formTerms(request, reqMap, termsNo, termsKind, termsVO, model);
+    	String upperTermsKind = termsKind.toUpperCase();
+        return this.formTerms(request, reqMap, termsNo, upperTermsKind, termsVO, model);
     }
 
     public String formTerms(
@@ -117,8 +93,10 @@ public class TermsController  extends CommonAbstractController {
             termsVO.setUseYn("Y");
             termsVO.setPublicYn("Y");
             
-            termsVO.setContentHeader(tempVO.getContentHeader());
-            termsVO.setContentBody(tempVO.getContentBody());
+            if (tempVO != null) {
+            	termsVO.setContentHeader(tempVO.getContentHeader());
+                termsVO.setContentBody(tempVO.getContentBody());
+            }
         }else{
             termsVO = termsService.selectTermsOne(termsNo);
             termsVO.setCrud(CRUD.UPDATE);

@@ -3,9 +3,7 @@
 	<div class="wrapper">
 	
 		<!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-			<jsp:param value="둘러보기" name="addButton" />
-		</jsp:include>
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 	
 		<main>
 	      <section class="intro">
@@ -29,8 +27,9 @@
 	
 	            <div class="h32"></div>
 
+				<!-- 
             	<a class="align_center waves-effect color_t_s font_sbsr" onclick="$('#modal_srch_fullsreen').modal('open');">아이디와 비밀번호를 잊으셨나요?</a>
-	
+				-->
 	
 	        </form>
 	

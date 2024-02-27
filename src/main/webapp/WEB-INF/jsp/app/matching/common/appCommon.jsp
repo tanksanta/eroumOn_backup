@@ -3,7 +3,7 @@
 <%-- 전역적으로 APP 관련 처리 스크립트 --%>
 <script>
 	var popAlert, popConfirm;
-	function showAlertPopup(msg) {
+	async function showAlertPopup(msg) {
 		if (popAlert == undefined) popAlert = new JsMvpPopupAlerts(window, '.modal.static.alert');
 
 		return popAlert.fn_show_popup({message_txt: msg});
@@ -23,6 +23,17 @@
 		
 		return popConfirm.fn_show_popup({title_txt: title, message_txt: msg, confirm_txt: btn});
 	}
+	
+	function showToastMsg(msg, callback) {
+		//토스트 시간은 기본 3초(3000)로 설정
+		var toastOption = { html: msg, displayLength: 3000 };
+		if (callback) {
+			toastOption.completeCallback = callback;
+		}
+		
+		M.toast(toastOption);
+	}
+	
 
 	//App 토큰 처리
 	function checkAppToken() {
@@ -32,6 +43,11 @@
 			sendDataToMobileApp({actionName: 'saveToken', token: appMatToken});
 		}
 	}
+	
+	//현재 페이지 저장하는 공통 함수
+	function saveCurrentPageHistory() {
+  		pushHistoryStack(location.pathname + location.search);
+  	}
 </script>
 
 <div class="modal2-con">

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+    <title>테스트 슬라이드</title>
+
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+
+    <script>
+
+        $(function () {
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+      <header>
+        <nav class="top">
+          <div class="btn_back">
+            <span class="txt">어르신
+  
+              <!-- top_dropdown_area -->
+              <div class="top_dropdown_area">
+                <div class="top_dropdown_btn"></div>
+                <ul class="top_dropdown_menu">
+                  <li><a href="">테스트1</a></li>
+                  <li><a href="">테스트2</a></li>
+                </ul>
+              </div>
+              <!-- top_dropdown_area end-->
+  
+              <span class="color_tp_s font_sbls marL4">님을 위한 서비스</span>
+  
+            </span>
+          </div>
+          <div class="icon_area waves-effect">
+            <div class="icon_btn i_alarm"></div>
+          </div>
+  
+  
+  
+        </nav>
+      </header>
+
+
+        <main>
+            <section class="noPad">
+
+                <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                      </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                  </div>
+                  <div thumbsSlider="" class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                      </div>
+                    </div>
+                  </div>
+
+            </section>
+        </main>
+
+        <footer class="page-footer">
+
+            <div class="btn_area d-flex f-column">
+
+                <a class="waves-effect btn-large btn_primary w100p">메인으로 가기</a>
+
+            </div>
+
+
+        </footer>
+
+
+
+
+
+
+
+
+    </div>
+    <!-- wrapper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          spaceBetween: 10,
+          slidesPerView: 4,
+          freeMode: true,
+          watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+          spaceBetween: 10,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          thumbs: {
+            swiper: swiper,
+          },
+        });
+      </script>
+
+
+</body>
+
+</html>

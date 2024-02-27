@@ -28,22 +28,6 @@
 	    	<div id="danal1">
 	    		다날 개인정보이용동의 내용
 	    	</div>
-	    	
-	    	<div id="danal2">
-	    		다날 고유식별정보처리동의 내용
-	    	</div>
-	    	
-	    	<div id="danal3">
-	    		다날 서비스이용약관동의 내용
-	    	</div>
-	    	
-	    	<div id="danal4">
-	    		다날 통신사이용약관동의
-	    	</div>
-	    	
-	    	<div id="danal5">
-	    		다날 통신사이용약관동의
-	    	</div>
 	    </div>
 	    
 	    
@@ -54,29 +38,31 @@
 	    		switch(type) {
 	    			case 'danal1':
 	    				title = '개인정보이용동의';
-	    				content = $('#danal1').html(); 
+	    				//content = $('#danal1').html(); 
 	    				break;
 	    			case 'danal2': 
 	    				title = '고유식별정보처리동의';
-	    				content = $('#danal2').html(); 
 	    				break;
 	    			case 'danal3': 
-	    				title = '서비스이용약관동의';
-	    				content = $('#danal3').html(); 
+	    				title = '서비스이용약관동의'; 
 	    				break;
 	    			case 'danal4': 
-	    				title = '통신사이용약관동의';
-	    				content = $('#danal4').html(); 
+	    				title = '통신사이용약관동의'; 
 	    				break;
 	    			case 'danal5': 
-	    				title = '제3자정보제공약관동의';
-	    				content = $('#danal4').html(); 
+	    				title = '제3자정보제공약관동의'; 
 	    				break;
 	    			case 'TERMS':
 	    				title = '이로움ON 이용약관';
 	    				break;
 	    			case 'PRIVACY':
 	    				title = '이로움ON 개인정보이용약관';
+	    				break;
+	    			case 'MARKETING':
+	    				title = '이벤트 및 마케팅 정보 수신 동의';
+	    				break;
+	    			case 'NIGHT':
+	    				title = '야간 혜택 수신 동의';
 	    				break;
 	    		}
 	    		
@@ -85,9 +71,66 @@
 	    		$('#modal_agree_fullsreen').modal('open');
 	    	}
 	    	
-	    	//Iframe 약관내용 컨텐츠 설정
-	    	function setAgreementModalForIframe(type, termsNo) {
+	    	//이로움 약관내용 컨텐츠 설정
+	    	function setAgreementModalForEroum(type, termsNo) {
 	    		var content = '<iframe src="/matching/terms/' + termsNo + '" width="100%" height="98%"></iframe>';
+	    		setAgreementModal(type, content);
+	    	}
+	    	
+	    	//다날 약관내용 컨텐츠 설정
+	    	var danalAgreementUrl = {
+	    		SKT: {
+	    			//개인정보이용동의
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_SKT.html',
+	    			//고유식별정보처리동의
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_SKT.html',
+	    			//서비스이용약관동의
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_SKT.html',
+	    			//통신사이용약관동의
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_SKT.html',
+	    		},
+	    		KT: {
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_KTF.html',
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_KTF.html',
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_KTF.html',
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_KTF.html',
+	    		},
+	    		LGT: {
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_LGT.html',
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_LGT.html',
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_LGT.html',
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_LGT.html',
+	    		},
+	    		SKT_MVNO: {
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_SKT.html',
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_SKT.html',
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_SKT.html',
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_SKT.html',
+	    			//제3자정보제공약관동의 (알뜰폰만 해당)
+	    			danal5: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement05_SKT.html',
+	    		},
+	    		KT_MVNO: {
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_KTF.html',
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_KTF.html',
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_KTF.html',
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_KTF.html',
+	    			danal5: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement05_KTF.html',
+	    		},
+	    		LGT_MVNO: {
+	    			danal1: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement01_LGT.html',
+	    			danal2: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement02_LGT.html',
+	    			danal3: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement03_LGT.html',
+	    			danal4: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement04_LGT.html',
+	    			danal5: 'https://wauth.teledit.com/Danal/WebAuth/Notice/Agreement/agreement05_LGT.html',
+	    		},
+	    	};
+	    	function setAgreementModalForDanal(type, carrierCode) {
+	    		var src = danalAgreementUrl[carrierCode][type];
+				if (!src) {
+					return;
+				}
+	    		
+	    		var content = '<iframe src="' + src + '" width="100%" height="98%"></iframe>';
 	    		setAgreementModal(type, content);
 	    	}
 	    </script>

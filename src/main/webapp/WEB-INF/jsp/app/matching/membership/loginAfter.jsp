@@ -16,12 +16,14 @@
 			//앱에서 접근 권한 정보 가져오기 
 			sendDataToMobileApp({actionName: 'getPermissionsInfo'});
 			
+			//최근 로그인값 앱에 저장
+			sendDataToMobileApp({actionName: 'saveRecentLgnTy', lgnTy: '${_matMbrSession.lgnTy}'});
 			
 			var redirectUrl = '${returnUrl}';
 			if (redirectUrl) {
 				location.href = redirectUrl;
 			} else {
-				location.href = '/matching';
+				location.href = '/matching/main/service';
 			}
 		})
 	</script>

@@ -25,9 +25,26 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		paramMap.put("srchRecipientsNo", recipientsNo);
 		return mbrRecipientsDAO.selectMbrRecipients(paramMap);
 	}
+
+	public MbrRecipientsVO selectMainMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
+
+		MbrRecipientsVO recipient = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		if (recipient == null && mbrRecipientList.size() > 0){
+			recipient = mbrRecipientList.get(0);
+		}
+
+		return recipient;
+	}
 	
 	public List<MbrRecipientsVO> selectMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
+	}
+
+	public int selectCountMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
+		List<MbrRecipientsVO> recipientsList = this.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
+
+		return recipientsList.size();
 	}
 	
 	public void insertMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {
@@ -45,5 +62,36 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 	
 	public void updateMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {
 		mbrRecipientsDAO.updateMbrRecipients(mbrRecipientsVO);
+	}
+	
+	
+	//대표 수급자 변경
+	public Map<String, Object> updateMainRecipient(String uniqueId, Integer recipientsNo) {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			List<MbrRecipientsVO> mbrRecipientList = selectMbrRecipientsByMbrUniqueId(uniqueId);
+			MbrRecipientsVO srchRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			if (srchRecipient == null) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "회원에 등록되지 않은 수급자입니다");
+				return resultMap;
+			}
+			
+			for (MbrRecipientsVO mbrRecipient : mbrRecipientList) {
+				if (mbrRecipient.getRecipientsNo() == recipientsNo) {
+					mbrRecipient.setMainYn("Y");
+				} else {
+					mbrRecipient.setMainYn("N");
+				}
+				updateMbrRecipients(mbrRecipient);
+			}
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "메인 수급자 변경 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
 	}
 }

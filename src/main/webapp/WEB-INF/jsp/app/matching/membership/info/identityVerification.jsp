@@ -2,12 +2,11 @@
 
 	<div class="wrapper">
 		
-	    <header>
-	
-	    </header>
+	    <!-- 상단 뒤로가기 버튼 추가 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp" />
 	
 		<main>
-	      <section id="mbrInfoSection">
+	      <section id="mbrInfoSection" class="intro">
 	
 	        <h3 id="verificationTitle" class="title">
 	            휴대폰 번호를<br>입력해주세요
@@ -59,7 +58,7 @@
 	
 	      </section>
 	      
-	      <section id="smsCheckSection">
+	      <section id="smsCheckSection" class="intro">
 	      	  <h3 class="title">
 		      	문자로 받은<br>인증번호 6자리를 입력해주세요
 		      </h3>
@@ -70,8 +69,8 @@
 	          	<div class="relative">
 	            
 	            	<div class="input_basic bder_primary">
-	              	<input id="inputOtp" type="text" class="input_noClass keycontrol numberonly" maxlength="6" onkeypress="return inputKeypressSms(event);">
-	              	<span id="timeTextSpan" class="cert_time">02:59</span>
+		              	<input id="inputOtp" type="text" class="input_noClass keycontrol numberonly" maxlength="6" onkeypress="return inputKeypressSms(event);">
+		              	<span id="timeTextSpan" class="cert_time">02:59</span>
 	            	</div>
 	          	</div>
 	
@@ -112,12 +111,9 @@
 	
 	
 	        <ul class="broad_area">
-	          <li class="modal-close active">SKT</li>
-	          <li class="modal-close">KT</li>
-	          <li class="modal-close">LG U+</li>
-	          <li class="modal-close">SKT 알뜰폰</li>
-	          <li class="modal-close">KT 알뜰폰</li>
-	          <li class="modal-close">LG U+ 알뜰폰</li>
+	        	<c:forEach var="carrierMap" items="${carrierCd}" varStatus="status">
+	        		<li class="modal-close <c:if test="${ status.index == 0 }">active</c:if>" code="${ carrierMap.value }">${ carrierMap.key }</li>
+		   		</c:forEach>
 	        </ul>
 	
 	      </div>
@@ -142,70 +138,70 @@
 	
 	        <div class="scrollBox">
 	
-	          <div class="group_chk_area">
+	          <div id="div_danal1" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal1')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree01" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree01">[필수] 개인정보이용동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal2" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal2')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree02" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree02">[필수] 고유식별정보처리동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal3" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal3')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree03" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree03">[필수] 서비스이용약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal4" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal4')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree04" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree04">[필수] 통신사이용약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_danal5" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('danal5')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree05" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree05">[필수] 제3자정보제공약관동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_terms" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('terms')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree06" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree06">[필수] 이로움ON 이용약관</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_privacy" class="group_chk_area">
 	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree07" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree07">[필수] 이로움ON 개인정보처리방침</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
+	          <div id="div_age" class="group_chk_area">
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree08" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree08">[필수] 만 14세 이상입니다</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
-	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
+	          <div id="div_marketing" class="group_chk_area">
+	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('marketing')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree09" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree09">[선택] 이벤트 및 마케팅 정보 수신 동의</label>
 	            </div>
 	          </div>
-	          <div class="group_chk_area">
-	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('privacy')"></span>
+	          <div id="div_night" class="group_chk_area">
+	            <span class="icon_btn i_right waves-effect modal-trigger" onclick="showAgreementDetailModal('night')"></span>
 	            <div>
 	              <input type="checkbox" name="check-agree" id="checkAgree10" class="chk01_2 large total_evt_sub">
 	              <label for="checkAgree10">[선택] 야간 혜택 수신 동의</label>
@@ -254,6 +250,25 @@
 	   		},
 	   		</c:forEach>
 		];
+		var marketingHisList = [   //마켓팅 정보 버전 리스트
+			<c:forEach var="marketingInfo" items="${marketingHisList}" varStatus="status">
+	   		{
+	   			'termsNo': '${marketingInfo.termsNo}',
+	   			'termsDt': '${marketingInfo.termsDt}',
+	   		},
+	   		</c:forEach>
+		];
+		var nightHisList = [   //야간 혜택 정보 버전 리스트
+			<c:forEach var="nightInfo" items="${nightHisList}" varStatus="status">
+	   		{
+	   			'termsNo': '${nightInfo.termsNo}',
+	   			'termsDt': '${nightInfo.termsDt}',
+	   		},
+	   		</c:forEach>
+		];
+		
+		//약관 필수체크 대상 정의용
+		var checkAgreeArr = []; 
 		
 		var receiptId = '';
 		var phase = '';  //현재 어디 입력중인지 체크용
@@ -326,8 +341,7 @@
 				verificationInfo,
 				function(result) {
 					receiptId = result.receiptId;
-					$('#mbrInfo').css('display', 'none');
-					$('#smsAction').css('display', 'block');
+					showSmsCheckUi(false);
 				}
 			);
 		}
@@ -365,6 +379,14 @@
 				'/matching/membership/info/confirmVerification',
 				{receiptId, otpNum},
 				function(result) {
+					if (!result.confirm) {
+						$('#smsErrorMsg').removeClass('disNone');
+						$('#smsErrorMsg').text('인증번호를 확인해주세요');
+						$('#inputOtp').parent().addClass('bder_danger');
+						return;
+					}
+					
+					//인증후 후처리
 					if (afterWorkType === 'regist') {
 						registMbr();
 					}
@@ -409,7 +431,10 @@
 			}
 			//휴대폰 번호 인풋창 엔터
 			if (inputPhase === 'mobile') {
-				validateMobile();
+				var mobileVaild = validateMobile();
+				if (mobileVaild) {
+					clickVerifyBtn();
+				}
 			}
 		}
 		
@@ -577,17 +602,47 @@
 				return;
 			}
 			
+			
+			var carrierCode = $('.broad_area .modal-close.active').attr('code');
+			checkAgreeArr = [
+				'checkAgree01',
+				'checkAgree02',
+				'checkAgree03',
+				'checkAgree04',
+				'checkAgree06',
+				'checkAgree07',
+				'checkAgree08',
+			];
+			//알뜰폰이면 다날 제3자정보제공약관동의 추가
+			if (carrierCode === 'SKT_MVNO'
+				|| carrierCode === 'KT_MVNO'
+				|| carrierCode === 'LGT_MVNO') {
+				$('#div_danal5').removeClass('disNone');
+				checkAgreeArr.push('checkAgree05');
+			} else {
+				$('#div_danal5').addClass('disNone');
+			}
+			
 			$('#modal_memConsent').modal('open');
 		}
 		
 		//약관동의 상세보기 모달보기
 		function showAgreementDetailModal(type) {
 			if (type === 'terms') {
-				setAgreementModalForIframe('TERMS', Number(termsHisList[0].termsNo));
+				setAgreementModalForEroum('TERMS', Number(termsHisList[0].termsNo));
 			} else if (type === 'privacy') {
-				setAgreementModalForIframe('PRIVACY', Number(privacyHisList[0].termsNo));
-			} else {
-				setAgreementModal(type);	
+				setAgreementModalForEroum('PRIVACY', Number(privacyHisList[0].termsNo));
+			} else if (type === 'marketing') {
+				setAgreementModalForEroum('MARKETING', Number(marketingHisList[0].termsNo));
+			} else if (type === 'night') {
+				setAgreementModalForEroum('NIGHT', Number(nightHisList[0].termsNo));
+			} else if (type === 'danal1'
+				|| type === 'danal2'
+				|| type === 'danal3'
+				|| type === 'danal4'
+				|| type === 'danal5') {
+				var carrierCode = $('.broad_area .modal-close.active').attr('code');
+				setAgreementModalForDanal(type, carrierCode);
 			}
 		}
 		
@@ -600,15 +655,10 @@
 			}
 			
 			//필수 체크
-			if (checkedIds.findIndex(f => f === 'checkAgree01') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree02') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree03') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree04') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree05') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree06') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree07') === -1
-				|| checkedIds.findIndex(f => f === 'checkAgree08') === -1) {
-				return;
+			for (var i = 0; i < checkAgreeArr.length; i++) {
+				if (checkedIds.findIndex(f => f === checkAgreeArr[i]) === -1) {
+					return;
+				}
 			}
 			
 			//사용자 입력값 저장
@@ -618,10 +668,11 @@
 			var atagCarrier = $('#atagCarrier');
 			var inputMobile = $('#inputMobile');
 			
+			var carrierCode = $('.broad_area .modal-close.active').attr('code');
 			verificationInfo = {
 				name : inputName.val(),
 				identityNo : (inputResidentNumFront.val() + inputResidentNumBack.val()),
-				carrier : atagCarrier.text(),
+				carrier : carrierCode,
 				phone : inputMobile.val(),
 			};
 			mbrAgreementInfo = {
@@ -631,8 +682,7 @@
 				nightReceptionYn : (checkedIds.findIndex(f => f === 'checkAgree10') === -1) ? 'N' : 'Y',
 			}
 			
-			$('#modal_memConsent').modal('close');
-			showSmsCheckUi(false);
+			requestVerification();
 		}
 		
 		
@@ -640,12 +690,14 @@
 		function showSmsCheckUi(retry) {
 			//최초 발송
 			if (!retry) {
+				//동의창 닫기
+				$('#modal_memConsent').modal('close');
+				
+				//문자 인증창 띄우기
 				$('#mbrInfoSection').addClass("disNone");
 				$('.page-footer').addClass("disNone");
 				$('#smsCheckSection').removeClass("disNone");
 				$('#smsErrorMsg').addClass("disNone");
-				
-				requestVerification();
 			}
 			//재발송
 			else {

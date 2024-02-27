@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+    <title>F_SNR_002_eld_regi04.html</title>
+
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <script>
+
+        $(function () {
+
+            //동의시 버튼 활성화
+            $('.evt_chk').on('click', function () {
+
+                if ($(this).is(':checked') == true) {
+                    $('.evt_btn').removeClass('btn_disable');
+                    $('.evt_btn').addClass('btn_primary');
+                }
+
+                else {
+                    $('.evt_btn').removeClass('btn_primary');
+                    $('.evt_btn').addClass('btn_disable');
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <!-- <span class="txt">상담 신청 완료</span> -->
+                </a>
+
+
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="intro">
+
+                <div class="family_sel">
+                    <div class="item partner active">
+                        <span class="txt">배우자</span>
+                    </div>
+                    <div>
+                        <span class="color_tp_p font_shs">꽃분이</span><span class="color_t_p font_sblr">님,</span>
+                    </div>
+                </div>
+
+                <div class="h24"></div>
+
+                <h3 class="title">
+                    어르신의 생년월일을<br />
+                    입력해주세요
+                </h3>
+
+                <div class="h32"></div>
+
+                <input type="date" class="input_basic" placeholder="1950/01/01" value="1954-06-30">
+
+
+            </section>
+        </main>
+
+
+        <footer class="page-footer">
+
+            <a class="waves-effect btn-large btn_primary w100p btnEvt_me modal-trigger" href="#modal_eld_apply">다음</a>
+
+        </footer>
+
+
+    </div>
+    <!-- wrapper -->
+
+
+
+    <div id="modal_eld_apply" class="modal bottom-sheet">
+
+        <div class="modal_header">
+            <h4 class="modal_title">어르신 등록을 위해 동의해주세요</h4>
+            <div class="close_x modal-close waves-effect"></div>
+        </div>
+
+        <div class="modal-content">
+
+
+
+            <div class="group_chk_area">
+                <div>
+                    <input type="checkbox" name="" id="chk_j01" class="chk01_2 large evt_chk">
+                    <label for="chk_j01">[필수] 회원은 어르신의 가족이며 어르신 등록 및 관리에 동의합니다.</label>
+                </div>
+            </div>
+
+            <div class="h32"></div>
+
+
+        </div>
+        <!-- modal-content -->
+        <div class="modal-footer">
+            <div class="btn_area d-flex">
+                <a class="modal-close waves-effect btn btn-large w100p btn_disable evt_btn">동의하고 등록하기</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

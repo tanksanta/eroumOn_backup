@@ -53,6 +53,9 @@ public class MbrVO extends CommonBaseVO {
 	private String telRecptnYn ="N";
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date telRecptnDt;
+	private String pushRecptnYn ="N";
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date pushRecptnDt;
 	private String eventRecptnYn;
 	private String proflImg; // 프로필이미지
 	private Date trmsAgreDt;

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+    <title>F_CSR_006_consRegion.html</title>
+
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <script>
+
+        $(function () {
+
+            $('.modal:not(.static.alert):not(.static.confirm)').modal();
+
+            //시도 지역선택 chip
+            $('.chip_area li').click(function () {
+
+                //셀렉트박스 텍스트 변경
+                var thisRegion = $(this).parent('.chip_area').attr('title');
+                var thisTxt = $(this).text();
+
+                $('.' + thisRegion + '_btn_evt').text(thisTxt);
+
+                //버튼 활성화 클래스변경
+                $(this).parent('.chip_area').find('li').removeClass('active');
+                $(this).addClass('active');
+
+            });
+
+            //관련 클래스 및 modal오픈 설정
+            $('[title^="region01"] li').each(function () {
+
+                $(this).prop({
+                    'href': '#modal_region02',
+                    'class': 'waves-effect modal-close modal-trigger'
+                });
+
+            });
+
+            //관련 클래스
+            $('[title^="region02"] li').each(function () {
+
+                $(this).prop({
+                    'class': 'waves-effect modal-close'
+                });
+
+            });
+
+
+            $(function () {
+
+                //동의시 버튼 활성화
+                $('.evt_chk').on('click', function () {
+
+                    if ($(this).is(':checked') == true) {
+                        $('.evt_btn').removeClass('btn_disable');
+                        $('.evt_btn').addClass('btn_primary');
+                    }
+
+                    else {
+                        $('.evt_btn').removeClass('btn_primary');
+                        $('.evt_btn').addClass('btn_disable');
+                    }
+
+                });
+
+            });
+
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <!-- <span class="txt">상담 신청 완료</span> -->
+                </a>
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="intro">
+
+                <h3 class="title">
+                    어르신이 서비스 받을 지역을<br />확인해주세요
+                </h3>
+
+                <div class="h32"></div>
+
+                <div class="d-flex gap08">
+                    <div class="fg1">
+
+                        <label class="input_label c_757575">통신사</label>
+                        <a class="input_basic fake_select modal-trigger region01_btn_evt" href="#modal_region01">지역</a>
+
+                    </div>
+                    <div class="fg1">
+
+                        <label class="input_label c_757575">시/군/구</label>
+                        <a class="input_basic fake_select modal-trigger region02_btn_evt" href="#modal_region02">지역</a>
+
+                    </div>
+                </div>
+
+
+
+
+            </section>
+        </main>
+
+        <footer class="page-footer">
+
+            <div class="relative">
+                <a class="waves-effect btn-large btn_primary w100p modal-trigger" href="#modal_eld_apply">다음</a>
+            </div>
+
+        </footer>
+
+
+
+
+
+        <!-- Modal modal_region01 -->
+        <div id="modal_region01" class="modal bottom-sheet">
+
+            <div class="modal_header">
+                <h4 class="modal_title">
+
+                    <div class="breadCb">
+                        <span class="dept01 active">시/도</span>
+                        <span class="dept02">시/군/구</span>
+                    </div>
+
+                </h4>
+                <div class="close_x modal-close waves-effect"></div>
+            </div>
+
+            <div class="modal-content">
+
+                <div class="h16"></div>
+
+                <ul title="region01" class="chip_area scrollBox" style="height: 75vh;">
+
+                    <li>서울</li>
+                    <li>부산</li>
+                    <li>대구</li>
+                    <li>인천</li>
+                    <li>광주</li>
+
+                    <li>대전</li>
+                    <li>울산</li>
+                    <li>서울</li>
+                    <li>부산</li>
+                    <li>대구</li>
+
+                    <li>인천</li>
+                    <li>광주</li>
+                    <li>대전</li>
+                    <li>울산</li>
+                    <li>서울</li>
+
+
+                </ul>
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Modal modal_region02 -->
+        <div id="modal_region02" class="modal bottom-sheet">
+
+            <div class="modal_header">
+                <h4 class="modal_title">
+
+                    <div class="breadCb">
+                        <span class="dept01 selected">서울</span>
+                        <span class="dept02 active">시/군/구</span>
+                    </div>
+
+                </h4>
+                <div class="close_x modal-close waves-effect"></div>
+            </div>
+
+            <div class="modal-content">
+
+                <div class="h16"></div>
+
+                <ul title="region02" class="chip_area scrollBox" style="height: 75vh;">
+
+                    <li>강남구</li>
+                    <li>강동구</li>
+                    <li>강북구</li>
+                    <li>강서구</li>
+                    <li>관악구</li>
+
+                    <li>광진구</li>
+                    <li>구로구</li>
+                    <li>금천구</li>
+                    <li>노원구</li>
+                    <li>다섯글자구</li>
+
+                    <li>여섯글자구구</li>
+                    <li>두구</li>
+                    <li>구로구</li>
+                    <li>금천구</li>
+                    <li>노원구</li>
+
+                    <li>강남구</li>
+                    <li>강동구</li>
+                    <li>강북구</li>
+                    <li>강서구</li>
+                    <li>관악구</li>
+
+                    <li>광진구</li>
+                    <li>구로구</li>
+                    <li>금천구</li>
+                    <li>노원구</li>
+                    <li>도봉구</li>
+
+                    <li>동대문구</li>
+                    <li>광진구</li>
+                    <li>구로구</li>
+
+
+
+                </ul>
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- modal_eld_apply -->
+        <div id="modal_eld_apply" class="modal bottom-sheet">
+
+            <div class="modal_header">
+                <h4 class="modal_title">상담을 위해 동의가 필요해요</h4>
+                <div class="close_x modal-close waves-effect"></div>
+            </div>
+    
+            <div class="modal-content">
+    
+    
+    
+                <div class="group_chk_area">
+                    <div>
+                        <input type="checkbox" name="" id="chk_j01" class="chk01_2 large evt_chk" checked>
+                        <label for="chk_j01">[필수] 상담 정보는 상담, 서비스 이용을 위해 장기요양기관에 제공되며 1년간 보관 후 폐기합니다.</label>
+                    </div>
+                </div>
+    
+                <div class="h32"></div>
+    
+    
+            </div>
+            <!-- modal-content -->
+            <div class="modal-footer">
+                <div class="btn_area d-flex">
+                    <a class="modal-close waves-effect btn btn-large w100p btn_primary evt_btn">동의하고 등록하기</a>
+                </div>
+            </div>
+    
+        </div>
+
+
+
+
+    </div>
+    <!-- wrapper -->
+
+
+
+</body>
+
+</html>

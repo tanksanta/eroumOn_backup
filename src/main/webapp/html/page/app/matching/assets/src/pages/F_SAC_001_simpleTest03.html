@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>F_SAC_001_simpleTest03.html</title>
+
+
+    <!-- jquery -->
+    <script src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script>
+
+        $(function () {
+
+        });
+
+    </script>
+    <!-- lottie -->
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <span class="txt">간편테스트</span>
+                </a>
+
+
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="default">
+                
+                <progress class="progress01" value="1" min="0" max="6"></progress>
+                <div class="progress_num"><span class="step">1</span>/6</div>
+
+                <div class="scene01">
+                    <h2 class="font_h2">
+                        <mark class="mk01">혼자서 식사를</mark><br>
+                        하실 수 있나요?
+                    </h2>
+
+
+                    <div class="center marH40">
+                        <img src="../images/11easy/easy_03.svg" alt="인정등급 간편테스트">
+                    </div>
+
+                    <input type="radio" name="t01" id="rd_01" class="chk01_3 large border_gray overlay_evt" checked>
+                    <label for="rd_01">도움 필요</label>
+
+                    <input type="radio" name="t01" id="rd_02" class="chk01_3 large border_gray overlay_evt">
+                    <label for="rd_02">도움 없이 가능</label>
+                </div>
+        
+
+            </section>
+        </main>
+
+
+    </div>
+    <!-- wrapper -->
+
+<!-- overlay 투명화면 -->
+<div class="overlay_screen"></div>
+
+
+
+</body>
+
+</html>
