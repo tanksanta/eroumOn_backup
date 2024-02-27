@@ -271,7 +271,6 @@
 			, add_value_chk01
 			, add_value_chk02
 			, add_value_chk03
-			, rgtr
 		) values (
 			
 			#{nttNo}
