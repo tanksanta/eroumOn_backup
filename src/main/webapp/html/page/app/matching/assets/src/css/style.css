@@ -207,6 +207,10 @@ mark {
   width: 150px !important;
 }
 
+.heightAuto {
+  height: auto !important;
+}
+
 .h08 {
   height: 8px;
 }
@@ -273,6 +277,10 @@ mark {
 
 .marT-20W-20 {
   margin: -20px -20px 0;
+}
+
+.bder_r8 {
+  border-radius: 8px;
 }
 
 .lh18 {
@@ -978,6 +986,10 @@ mark {
   text-decoration-line: line-through;
 }
 
+.color_white {
+  color: #fff !important;
+}
+
 .color_primary {
   color: #FF8120 !important;
 }
@@ -1605,6 +1617,12 @@ section.default {
 section.bottom_0 {
   margin-bottom: 0;
 }
+section.back_service_info {
+  margin: 0 0 80px;
+  background-image: linear-gradient(146deg, #FF8120 21.95%, #E54304 82.84%);
+  background-repeat: no-repeat;
+  background-size: 100% 290px;
+}
 section h2.title {
   font-weight: 700;
   font-size: 32px;
@@ -1704,6 +1722,21 @@ section h5.title {
   padding: 24px 20px 12px;
 }
 
+.modal .modal-content {
+  position: relative;
+  padding: 0 20px 32px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.modal .modal-content p {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+}
+
 .modal.bottom-sheet {
   border-radius: 32px 32px 0 0;
   max-height: 95vh;
@@ -1715,13 +1748,6 @@ section h5.title {
   justify-content: space-between;
   align-items: center;
   padding: 32px 20px 12px;
-}
-
-.modal .modal-content {
-  position: relative;
-  padding: 0 20px 32px;
-  overflow: hidden;
-  height: 100%;
 }
 
 .modal.bottom-sheet .modal-content {
@@ -1736,9 +1762,9 @@ section h5.title {
   margin: 0;
   color: #333333;
   font-weight: 700;
-  font-size: 18px;
-  line-height: 27px;
-  letter-spacing: -0.27px;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.4px;
 }
 
 @media only screen and (max-width: 992px) {
@@ -2114,6 +2140,7 @@ section h5.title {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding-bottom: 20px;
+  align-content: start;
 }
 
 .chip_area > * {
@@ -2149,6 +2176,11 @@ section h5.title {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.2), 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
+}
+
+.card.active {
+  background: #FFF5E6;
+  border: 1px solid #EE6002;
 }
 
 .card .card-content {
@@ -2283,6 +2315,16 @@ section h5.title {
   margin-left: 8px;
 }
 
+.om_add {
+  padding: 8px;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
 .tag_area {
   margin-top: 4px;
 }
@@ -2354,6 +2396,20 @@ section h5.title {
   color: #1A1A1A;
   font-size: 14px;
   font-weight: 600;
+  line-height: 21px;
+  letter-spacing: -0.21px;
+}
+
+.card-panel.default {
+  padding: 12px 8px;
+  border-radius: 8px;
+  background: #F5F5F5;
+  color: #616161;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 21px;
   letter-spacing: -0.21px;
 }/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+  <title>F_CSR_001_telMdfy.html</title>
+
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+  <!-- materialize -->
+  <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+  <!-- guide.js -->
+  <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+  <!-- materialize CSS -->
+  <link rel="stylesheet" href="../css/materialize.min.css" />
+
+  <!-- style.css -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <script>
+
+    $(function () {
+
+      
+    });
+
+  </script>
+
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+
+    <header>
+      <nav class="top">
+        <a class="btn_back waves-effect" href="#">
+          <span class="icon"></span>
+          <!-- <span class="txt">상담 신청 완료</span> -->
+        </a>
+        
+      </nav>
+    </header>
+
+
+    <main>
+      <section class="intro">
+
+        <h3 class="title">
+            상담받을 연락처를<br>
+            수정해주세요
+        </h3>
+
+        <div class="h32"></div>
+        <form action="">
+
+            <label for="e_tel" class="input_label">상담받을 연락처</label>
+            <input placeholder="010-1234-5678" id="e_tel" type="tel" class="input_basic" value="" >
+            <div class="vaild_txt error disNone">번호를 확인해주세요</div>
+
+            <div class="h24"></div>
+
+            <div class="card-panel default">
+                이번에 신청하는 상담의 연락처만 수정돼요
+            </div>
+ 
+            
+
+        </form>
+
+
+
+      </section>
+    </main>
+
+    <footer class="page-footer">
+
+      <div class="btn_area d-flex f-column">
+
+          <a class="waves-effect btn-large btn_primary w100p modal-trigger" href="#modal_mdfy">변경하기</a>
+
+      </div>
+
+    </footer>
+
+
+  </div>
+  <!-- wrapper -->
+
+
+
+    <!-- Modal2 -->
+    <div id="modal_mdfy" class="modal">
+
+        <div class="modal_header">
+          <h4 class="modal_title">정말 수정하시겠어요?</h4>
+        </div>
+        <div class="modal-content">
+  
+          <p>정확한 정보를 입력하셔야 필요한 정보를 받을 수 있어요</p>
+  
+        </div>
+        <div class="modal-footer">
+          <div class="btn_area d-flex">
+            <a class="modal-close waves-effect btn btn-large w100p btn_cancel">취소</a>
+            <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+          </div>
+        </div>
+      </div>
+  
+
+
+
+</body>
+
+</html>

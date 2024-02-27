@@ -31,6 +31,17 @@ section{
         
     }
 
+    //간략 서비스 소개
+    &.back_service_info{ 
+
+        margin: 0 0 80px;
+        background-image: linear-gradient(146deg, #FF8120 21.95%, #E54304 82.84%);
+        background-repeat: no-repeat;
+        background-size: 100% 290px;
+
+
+    }
+
     
 
 
@@ -105,17 +116,26 @@ section{
 .modal{background: #fff;border-radius: 16px;}
 .modal .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 24px 20px 12px;}
 
-.modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
-.modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
 .modal .modal-content{position: relative;
     padding: 0 20px 32px;
     overflow: hidden;
     height: 100%;}
+
+.modal .modal-content p{
+    color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_MD_Regular;
+}
+    
+
+
+.modal.bottom-sheet{border-radius: 32px 32px 0 0;max-height: 95vh;}
+.modal.bottom-sheet .modal_header{width:100%; display: flex;justify-content:space-between;align-items: center;padding: 32px 20px 12px;}
+
 .modal.bottom-sheet .modal-content{padding: 0 20px;}
 .modal.bottom-sheet .modal-footer{padding: 0 20px 32px;}
 
 .modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
-    @include Suit_Body_LG_Bold
+    @include Suit_Heading_SM;
 }
 
 
@@ -462,7 +482,7 @@ section{
 }
 
 //지역선택 chip
-.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;padding-bottom: 20px;}
+.chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;padding-bottom: 20px;align-content: start;}
 .chip_area > * {
     width:100%;height: 48px;padding: 12px 8px;border-radius: 8px;
     border:1px solid $--Color-border-Primitive-secondary;
@@ -496,6 +516,12 @@ section{
 .card{margin: 0;border-radius: 16px;overflow: hidden;
     @include box_shadow;
 }
+
+.card.active{
+    background: $--Color-bg-Primitive-selected;
+    border: 1px solid $--Color-border-Primitive-primary-press;
+}
+
 .card .card-content{padding: 24px 20px;}
 
 //공지사항
@@ -593,9 +619,21 @@ section{
     & + span{
         margin-left: 8px;
     }
+
+
 }
  
+//추가 등록하기
+.om_add{padding: 8px;color:$--Color-text-Primitive-secondary;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
 
+    
+    
+}
 
 //태그
 .tag_area{
@@ -671,4 +709,18 @@ section{
     .step{
         color: $--Color-text-primary; @include Suit_Body_SM_SemiBold;
     }
+}
+
+
+//연락처 수정
+//그레이 박스
+.card-panel.default{
+    padding: 12px 8px;
+    border-radius: 8px;
+    background: $--Color-bg-teritiary;
+
+    color: $--Color-text-secondary;
+    @include flex_center;
+    @include Suit_Body_SM_Regular;
+
 }
