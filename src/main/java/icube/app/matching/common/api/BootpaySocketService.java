@@ -94,7 +94,7 @@ public class BootpaySocketService {
 			if(res.get("error_code") == null) {
 				MbrVO certMbrInfoVO = new MbrVO();
 				
-				LinkedTreeMap<String, Object> authInfo = (LinkedTreeMap<String, Object>) res.get("authenticate_data");
+				HashMap<String, Object> authInfo = (HashMap<String, Object>) res.get("authenticate_data");
 				
 	            String ciKey = (String) authInfo.get("unique");
 	            certMbrInfoVO.setCiKey(ciKey);
@@ -110,9 +110,9 @@ public class BootpaySocketService {
 	            Date brdt = formatter.parse(DateUtil.formatDate(birth, "yyyy-MM-dd")); //생년월일
 	            certMbrInfoVO.setBrdt(brdt);
 	            
-	            Double gender = (Double) authInfo.get("gender");
+	            Integer gender = (Integer) authInfo.get("gender");
 	            String genderText;
-	            if(gender == 1.0) {
+	            if(gender == 1) {
 	            	genderText = "M";
 	            }else {
 	            	genderText = "W";
