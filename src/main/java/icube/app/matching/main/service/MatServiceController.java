@@ -14,7 +14,7 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
 /**
- * 메인 서비스 페이지
+ * 서비스 페이지
  */
 @Controller
 @RequestMapping(value="#{props['Globals.Matching.path']}/main/service")
@@ -27,6 +27,9 @@ public class MatServiceController {
 	private MatMbrSession matMbrSession;
 	
 	
+	/*
+	 * 메인 서비스 페이지
+	 */
 	@RequestMapping(value = "")
 	public String service(Model model) throws Exception {
 		
@@ -40,5 +43,13 @@ public class MatServiceController {
 		}
 		
 		return "/app/matching/main/service";
+	}
+	
+	/**
+	 * 간편 서비스 페이지
+	 */
+	@RequestMapping(value = "simple")
+	public String simpleService() throws Exception {
+		return "/app/matching/main/simpleService";
 	}
 }
